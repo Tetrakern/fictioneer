@@ -1,1384 +1,1384 @@
 {
   "60sSetting": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "60s Setting"
   },
   "70sSetting": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "70s Setting"
   },
   "80sSetting": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "80s Setting"
   },
   "90sSetting": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "90s Setting"
   },
   "abduction": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Abduction"
   },
   "absentParents": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Absent Parents"
   },
   "absolutism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Absolutism"
   },
   "abuse": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Abuse"
   },
   "academy": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Academy"
   },
   "addiction": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Addiction"
   },
   "adolescence": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Adolescence"
   },
   "adventurers": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Adventurers"
   },
   "aerialWarfare": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Aerial Warfare"
   },
   "ageProgression": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Age Progression"
   },
   "ageRegression": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Age Regression"
   },
   "airships": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Airships"
   },
   "alchemy": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Alchemy"
   },
   "alienCreatures": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Alien Creatures"
   },
   "aliens": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Aliens"
   },
   "allBoysSchool": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "All-Boys School"
   },
   "allGirlsSchool": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "All-Girls School"
   },
   "alternateWorld": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Alternate World"
   },
   "amnesia": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Amnesia"
   },
   "anachronisms": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Anachronisms"
   },
   "anarchy": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Anarchy"
   },
   "ancientTimes": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Ancient Times"
   },
   "androgynousProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Androgynous Protagonist"
   },
   "androgyny": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Androgyny"
   },
   "androids": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Androids"
   },
   "angels": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Angels"
   },
   "angst": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Angst"
   },
   "animalEars": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Animal Ears"
   },
   "animals": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Animals"
   },
   "animalTraits": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Animal Traits"
   },
   "animeManga": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Anime & Manga"
   },
   "antiHero": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Anti-Hero"
   },
   "antiVillain": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Anti-Villain"
   },
   "aristocracy": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Aristocracy"
   },
   "artifacts": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Artifacts"
   },
   "artificialIntelligence": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Artificial Intelligence"
   },
   "assassins": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Assassins"
   },
   "augmentations": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Augmentations"
   },
   "augmentedReality": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Augmented Reality"
   },
   "autism": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Autism"
   },
   "battleRoyal": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Battle Royal"
   },
   "beastkin": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Beastkin"
   },
   "bisexuality": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Bisexuality",
     "parent": "LGTB+"
   },
   "bisexualProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Bisexual Protagonist",
     "parent": "Bisexuality"
   },
   "bloodSports": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Blood Sports"
   },
   "boardingSchool": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Boarding School"
   },
   "boysLove": {
     "aliasOf": "Gay",
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Boys Love"
   },
   "boysLoveSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Boys Love Subplot",
     "parent": "Gay"
   },
   "brainwashing": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Brainwashing"
   },
   "brokenEngagement": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Broken Engagement"
   },
   "brutality": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Brutality"
   },
   "bullying": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Bullying"
   },
   "businessManagement": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Business Management"
   },
   "cartoon": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Cartoon"
   },
   "catgirls": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Catgirls"
   },
   "characterDeath": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Character Death"
   },
   "characterGrowth": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Character Growth"
   },
   "charismaticProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Charismatic Protagonist"
   },
   "cheats": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Cheats"
   },
   "childAbuse": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Child Abuse"
   },
   "childcare": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Childcare"
   },
   "childhoodLove": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Childhood Love"
   },
   "childProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Child Protagonist"
   },
   "coldProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Cold Protagonist"
   },
   "collectiveUnconscious": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Collective Unconscious"
   },
   "collegeUniversity": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "College / University"
   },
   "comics": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Comics"
   },
   "comingOfAge": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Coming of Age"
   },
   "communism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Communism"
   },
   "conspiracies": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Conspiracies"
   },
   "contracts": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Contracts"
   },
   "cooking": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Cooking"
   },
   "corporations": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Corporations"
   },
   "corporatocracy": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Corporatocracy"
   },
   "corruption": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Corruption"
   },
   "cosmetics": {
-    "category": "Fashion",
+    "category": ["Fashion"],
     "name": "Cosmetics"
   },
   "crafting": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Crafting"
   },
   "criminalOrganizations": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Criminal Organizations"
   },
   "criminalProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Criminal Protagonist"
   },
   "cruelty": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Cruelty"
   },
   "cyborgs": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Cyborgs"
   },
   "darkAges": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Dark Ages"
   },
   "deathGames": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Death Games"
   },
   "delinquents": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Delinquents"
   },
   "demigodProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Demigod Protagonist"
   },
   "demigods": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Demigods"
   },
   "demiHumanProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Demi-Human Protagonist"
   },
   "demiHumans": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Demi-Humans"
   },
   "democracy": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Democracy"
   },
   "demonLord": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "description": "Typically demons (or other supernatural races) with overwhelming power or potential, sometimes literally just the sovereign of their people. They usually stand at least nominally in direct opposition to the heroes and their mere existence has often a negative effect on the world.",
     "name": "Demon Lord"
   },
   "demons": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Demons"
   },
   "desert": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Desert"
   },
   "devils": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Devils"
   },
   "dictatorship": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Dictatorship"
   },
   "dinosaurs": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Dinosaurs"
   },
   "disabilities": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Disabilities"
   },
   "disabledProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Disabled Protagonist"
   },
   "discrimination": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Discrimination"
   },
   "doomedProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Doomed Protagonist"
   },
   "dotingParents": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Doting Parents"
   },
   "dragons": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Dragons"
   },
   "dreams": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Dreams"
   },
   "drugs": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Drugs"
   },
   "dungeonBuilding": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Dungeon Building"
   },
   "dungeonCrawling": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Dungeon Crawling"
   },
   "dungeonMaster": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Dungeon Master"
   },
   "dwarves": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Dwarves"
   },
   "dystopian": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Dystopian"
   },
   "easyGoingLife": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Easy Going Life"
   },
   "elves": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Elves"
   },
   "empires": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Empires"
   },
   "encyclopaedicKnowledge": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Encyclopaedic Knowledge"
   },
   "encyclopediaAccess": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Encyclopedia Access"
   },
   "engineering": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Engineering"
   },
   "europeanSetting": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "European Setting"
   },
   "evilOrganizations": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Evil Organizations"
   },
   "evolution": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Evolution"
   },
   "exploration": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Exploration"
   },
   "extraterritoriality": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Extraterritoriality"
   },
   "fairies": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Fairies"
   },
   "fairytale": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Fairytale"
   },
   "fakeRelationship": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Fake Relationship"
   },
   "familiars": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Familiars"
   },
   "family": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Family"
   },
   "famousParents": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Famous Parents"
   },
   "fantasticFallout": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Fantastic Fallout"
   },
   "fantasyCreatures": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Fantasy Creatures"
   },
   "fantasyRaces": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Fantasy Races"
   },
   "fashion": {
-    "category": "Fashion",
+    "category": ["Fashion"],
     "name": "Fashion"
   },
   "femaleProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Female Protagonist"
   },
   "feudalism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Feudalism"
   },
   "foobar": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Wasteland"
   },
   "forbiddenLove": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Forbidden Love"
   },
   "friendship": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Friendship"
   },
   "furry": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Furry"
   },
   "futureTimes": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Future Times"
   },
   "gambling": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Gambling"
   },
   "gameElements": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Game Elements"
   },
   "gameInterface": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Game Interface"
   },
   "gameWorld": {
-    "category": "Settings",
+    "category": ["Settings"],
     "name": "Game World"
   },
   "gay": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Gay",
     "parent": "Homosexuality"
   },
   "gayLoveSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Gay Love Subplot",
     "parent": "Gay"
   },
   "gayProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Gay Protagonist",
     "parent": "Gay"
   },
   "genderBender": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Gender Bender"
   },
   "genderlessProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Genderless Protagonist"
   },
   "geniusProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Genius Protagonist"
   },
   "genocide": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Genocide"
   },
   "ghosts": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Ghosts"
   },
   "giantProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Giant Protagonist"
   },
   "giants": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Giants"
   },
   "girlsLove": {
     "aliasOf": "Lesbian",
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Girls Love"
   },
   "girlsLoveSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Girls Love Subplot",
     "parent": "Lesbian"
   },
   "glassCannon": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Glass Cannon"
   },
   "goblins": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Goblins"
   },
   "godProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "God Protagonist"
   },
   "gods": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Gods"
   },
   "goldenTwenties": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Golden Twenties"
   },
   "gore": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Gore"
   },
   "hackers": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Hackers"
   },
   "halfElves": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Half-Elves"
   },
   "halfHumanProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Half-Human Protagonist"
   },
   "halflings": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Halflings"
   },
   "halfOrcs": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Half-Orcs"
   },
   "harem": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Harem"
   },
   "healing": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Healing"
   },
   "heirs": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Heirs"
   },
   "heists": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Heists"
   },
   "hereticalTechnology": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Heretical Technology"
   },
   "heroicParents": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Heroic Parents"
   },
   "hobgoblins": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Hobgoblins"
   },
   "homosexuality": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Homosexuality",
     "parent": "LGTB+"
   },
   "humanized": {
-    "category": "Races",
+    "category": ["Races"],
     "description": "Someone or something has literally become human, either as part of the story or just the general setting, such as animals turned into people. Not to be confused with anthropomorphism.",
     "name": "Humanized"
   },
   "humanExperimentation": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Human Experimentation"
   },
   "humor": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Humor"
   },
   "immortality": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Immortality"
   },
   "imperialism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Imperialism"
   },
   "incubi": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Incubi"
   },
   "insects": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Insects"
   },
   "insectTraits": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Insect Traits"
   },
   "interdimensionalTravel": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Interdimensional Travel"
   },
   "internet": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Internet"
   },
   "interplanetaryTravel": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Interplanetary Travel"
   },
   "kingdomBuilding": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Kingdom Building"
   },
   "kingdoms": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Kingdoms"
   },
   "knights": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Knights"
   },
   "lawEnforcement": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Law Enforcement"
   },
   "lesbian": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Lesbian",
     "parent": "Homosexuality"
   },
   "lesbianLoveSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Lesbian Love Subplot",
     "parent": "Lesbian"
   },
   "lesbianProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Lesbian Protagonist",
     "parent": "Lesbian"
   },
   "levelSystem": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Level System"
   },
   "lgbt": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "LGTB+"
   },
   "lostTechnology": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Lost Technology"
   },
   "loveRivals": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Love Rivals"
   },
   "loveTriangle": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Love Triangle"
   },
   "magic": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Magic"
   },
   "magicalGirls": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Magical Girls"
   },
   "magicalTechnology": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Magical Technology"
   },
   "magicians": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Magicians"
   },
   "maleProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Male Protagonist"
   },
   "marriage": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Marriage"
   },
   "martialArts": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Martial Arts"
   },
   "mentalIllness": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Mental Illness"
   },
   "mercenaries": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Mercenaries"
   },
   "military": {
-    "category": "General",
+    "category": ["General"],
     "name": "Military"
   },
   "mindControl": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Mind Control"
   },
   "monsterBoys": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Monster Boys"
   },
   "monsterGirls": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Monster Girls"
   },
   "monsterProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Monster Protagonist"
   },
   "monsters": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Monsters"
   },
   "mortality": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Mortality"
   },
   "multiplePersonalities": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Multiple Personalities"
   },
   "multipleProtagonists": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Multiple Protagonists"
   },
   "murder": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Murder"
   },
   "mythologicalCreatures": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Mythological Creatures"
   },
   "navalWarfare": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Naval Warfare"
   },
   "necromancy": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Necromancy"
   },
   "nobility": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Nobility"
   },
   "nonHumanProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Non-Human Protagonist"
   },
   "nuclearOption": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Nuclear Option"
   },
   "nudity": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Nudity"
   },
   "obsessiveLove": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Obsessive Love"
   },
   "olderThanTheyLook": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Older Than They Look"
   },
   "orcs": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Orcs"
   },
   "otomeGame": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Otome Game"
   },
   "overpoweredProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Overpowered Protagonist"
   },
   "parasites": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Parasites"
   },
   "patchworkFamily": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Patchwork Family"
   },
   "pegasi": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Pegasi"
   },
   "piercings": {
-    "category": "Fashion",
+    "category": ["Fashion"],
     "name": "Piercings"
   },
   "platonicLove": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Platonic Love"
   },
   "polyamory": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Polyamory"
   },
   "polycule": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "parent": "Polyamory",
     "name": "Polycule"
   },
   "polygamy": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "parent": "Polyamory",
     "name": "Polygamy"
   },
   "pragmaticProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Pragmatic Protagonist"
   },
   "pregnancy": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Pregnancy"
   },
   "princes": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Princes"
   },
   "princesses": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Princesses"
   },
   "programming": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Programming"
   },
   "prostitution": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Prostitution"
   },
   "psionics": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Psionics"
   },
   "pyromancy": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Pyromancy"
   },
   "racism": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Racism"
   },
   "rebellion": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Rebellion"
   },
   "redemption": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Redemption"
   },
   "reincarnatedAsMonster": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Reincarnated as Monster"
   },
   "reincarnatedAsObject": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Reincarnated as Object"
   },
   "reincarnatedAsVillainess": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Reincarnated as Villainess"
   },
   "reincarnation": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Reincarnation"
   },
   "religion": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Religion"
   },
   "religiousOrganizations": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Religious Organizations"
   },
   "resurrection": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Resurrection"
   },
   "retelling": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Retelling"
   },
   "revenge": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Revenge"
   },
   "revolution": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Revolution"
   },
   "richParents": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Rich Parents"
   },
   "richProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Rich Protagonist"
   },
   "righteousProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Righteous Protagonist"
   },
   "rivalry": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Rivalry"
   },
   "roadTrip": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Road Trip"
   },
   "robots": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Robots"
   },
   "romanceSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Romance Subplot"
   },
   "ruthlessProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Ruthless Protagonist"
   },
   "sarcasticProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Sarcastic Protagonist"
   },
   "scientists": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Scientists"
   },
   "secondChance": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Second Chance"
   },
   "secretIdentity": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Secret Identity"
   },
   "secretOrganizations": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Secret Organizations"
   },
   "secretWorld": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Secret World"
   },
   "sex": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "description": "Discussions or depictions of sexual intercourse and adjacent topics in decent detail, but not arousing enough to qualify as Erotica and not explicit enough for Smut.",
     "name": "Sex"
   },
   "shapeshifters": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Shapeshifters"
   },
   "sharingABody": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Sharing a Body"
   },
   "siblingRivalry": {
     "associations": ["Siblings", "Family", "Brother", "Sister", "Twin", "Heirs"],
-    "category": "Family",
+    "category": ["Family"],
     "name": "Sibling Rivalry",
     "parent": "Rivalry",
     "description": "Competition or animosity among siblings, regardless of blood-relation. Reasons may include preferential treatment, the order of succession or inheritance, literal enforced competition, or just petty jealousy."
   },
   "siblings": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Siblings"
   },
   "skills": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Skills"
   },
   "slavery": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Slavery"
   },
   "slowRomance": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Slow Romance"
   },
   "smut": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Smut"
   },
   "socialism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Socialism"
   },
   "spaceBattles": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Space Battles"
   },
   "spaceships": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Spaceships"
   },
   "specialAbilities": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Special Abilities"
   },
   "specialForces": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Special Forces"
   },
   "specialSenses": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Special Senses"
   },
   "spirits": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Spirits"
   },
   "stateBuilding": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "State Building"
   },
   "streetGangs": {
-    "category": "Society",
+    "category": ["Society"],
     "name": "Street Gangs"
   },
   "submarines": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Submarines"
   },
   "succubi": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Succubi"
   },
   "summonedHero": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Summoned Hero"
   },
   "tabletopRpg": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Tabletop RPG"
   },
   "tattoos": {
-    "category": "Fashion",
+    "category": ["Fashion"],
     "name": "Tattoos"
   },
   "technologicalAdvancement": {
-    "category": "Industriousness",
+    "category": ["Industriousness"],
     "name": "Technological Advancement"
   },
   "tentacles": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Tentacles"
   },
   "terrorism": {
-    "category": "Politics",
+    "category": ["Politics"],
     "name": "Terrorism"
   },
   "timeLoop": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Time Loop"
   },
   "timeSkip": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Time Skip"
   },
   "timeTravel": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Time Travel"
   },
   "torture": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Torture"
   },
   "tournaments": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Tournaments"
   },
   "training": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Training"
   },
   "transgender": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Transgender",
     "parent": "LGTB+"
   },
   "transgenderLoveSubplot": {
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Transgender Love Subplot",
     "parent": "Transgender"
   },
   "transgenderProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Transgender Protagonist",
     "parent": "Transgender"
   },
   "transitionToFemale": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Transition to Female",
     "parent": "Transgender"
   },
   "transitionToMale": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Transition to Male",
     "parent": "Transgender"
   },
   "transmigration": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Transmigration"
   },
   "travel": {
-    "category": "Features",
+    "category": ["Features"],
     "name": "Travel"
   },
   "twins": {
-    "category": "Family",
+    "category": ["Family"],
     "name": "Twins"
   },
   "undead": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Undead"
   },
   "unicorns": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Unicorns"
   },
   "utopian": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Utopian"
   },
   "vampires": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Vampires"
   },
   "victorianEra": {
-    "category": "Likenesses",
+    "category": ["Likenesses"],
     "name": "Victorian Era"
   },
   "villainProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Villain Protagonist"
   },
   "violence": {
-    "category": "Triggers",
+    "category": ["Triggers"],
     "name": "Violence"
   },
   "virtualReality": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Virtual Reality"
   },
   "war": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "War"
   },
   "warfare": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "Warfare",
     "parent": "War"
   },
   "warships": {
-    "category": "Technology",
+    "category": ["Technology"],
     "name": "Warships"
   },
   "weakProtagonist": {
-    "category": "Protagonist",
+    "category": ["Protagonist"],
     "name": "Weak Protagonist"
   },
   "weakToStrong": {
-    "category": "Characters",
+    "category": ["Characters"],
     "name": "Weak to Strong"
   },
   "weirdScience": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Weird Science"
   },
   "werebeasts": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Werebeasts"
   },
   "werewolves": {
-    "category": "Races",
+    "category": ["Races"],
     "name": "Werewolves"
   },
   "wholesome": {
-    "category": "Themes",
+    "category": ["Themes"],
     "name": "Wholesome"
   },
   "witches": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Witches"
   },
   "wizards": {
-    "category": "Professions",
+    "category": ["Professions"],
     "name": "Wizards"
   },
   "workingLife": {
-    "category": "Fashion",
+    "category": ["Fashion"],
     "name": "Working Life"
   },
   "worldWar": {
-    "category": "Conflicts",
+    "category": ["Conflicts"],
     "name": "World War",
     "parent": "War"
   },
   "xenomorphs": {
-    "category": "Creatures",
+    "category": ["Creatures"],
     "name": "Xenomorphs"
   },
   "yaoi": {
     "aliasOf": "Gay",
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Yaoi"
   },
   "youngerThanTheyLook": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Younger Than They Look"
   },
   "yuri": {
     "aliasOf": "Lesbian",
-    "category": "Relationships",
+    "category": ["Relationships"],
     "name": "Yuri"
   },
   "zeroToHero": {
-    "category": "Tropes",
+    "category": ["Tropes"],
     "name": "Zero to Hero"
   }
 }
