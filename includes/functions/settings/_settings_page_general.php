@@ -36,10 +36,9 @@ $action = $_GET['action'] ?? null;
 
                   <p class="description row"><?php
                     printf(
-                      __( 'Fictioneer %1$s is available. Please <a href="%2$s" target="_blank">download</a> the latest release at your next convenience and upload it to your site, either per FTP or under <a href="%3$s">Themes</a> (Upload Theme).', 'fictioneer' ),
+                      __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
                       get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
-                      'https://github.com/Tetrakern/fictioneer/releases',
-                      get_admin_url( null, 'theme-install.php' )
+                      'https://github.com/Tetrakern/fictioneer/releases'
                     );
                   ?></p>
 

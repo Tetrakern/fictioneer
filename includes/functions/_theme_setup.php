@@ -961,13 +961,12 @@ function fictioneer_admin_update_notice() {
 
   // Render notice
   $message = sprintf(
-    __( 'Fictioneer %1$s is available. Please <a href="%2$s" target="_blank">download</a> the latest release at your next convenience and upload it to your site, either per FTP or under <a href="%3$s">Themes</a> (Upload Theme).', 'fictioneer' ),
+    __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
     get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
-    'https://github.com/Tetrakern/fictioneer/releases',
-    get_admin_url( null, 'theme-install.php' )
+    'https://github.com/Tetrakern/fictioneer/releases'
   );
 
-  echo '<div class="notice notice-warning is-dismissible"><p>' . $message . '</p></div>';
+  echo "<div class='notice notice-warning is-dismissible'><p>$message</p></div>";
 
   // Remember notice
   update_option( 'fictioneer_update_notice_timestamp', time() );
