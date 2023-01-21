@@ -137,6 +137,7 @@ body[class*=fictioneer] {
 
     &-links {
       color: var(--text-600);
+      font-variant-numeric: tabular-nums;
 
       a {
         color: var(--text-400);
