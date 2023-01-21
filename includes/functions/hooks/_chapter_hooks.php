@@ -1,0 +1,623 @@
+<?php
+
+// =============================================================================
+// LIST OF ALL CHAPTERS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapters_list' ) ) {
+  /**
+   * Outputs the paginated card list for all chapters
+   *
+   * @since 5.0
+   * @see chapters.php
+   *
+   * @param int      $args['current_page'] Current page number of pagination or 1.
+   * @param int      $args['post_id']      The post ID.
+   * @param WP_Query $args['chapters']     Paginated query of all published chapters.
+   * @param string   $args['queried_type'] The queried post type ('fcn_chapter').
+   */
+
+  function fictioneer_chapters_list( $args ) {
+    // Start HTML ---> ?>
+    <section class="chapters__list spacing-top">
+      <ul class="card-list" id="list-of-chapters">
+
+        <?php if ( $args['chapters']->have_posts() ) : ?>
+
+          <?php
+            // Card arguments
+            $card_args = ['cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active()];
+
+            // Filter card arguments
+            $card_args = apply_filters( 'fictioneer_filter_chapters_card_args', $card_args, $args );
+
+            while ( $args['chapters']->have_posts() ) {
+              $args['chapters']->the_post();
+              get_template_part( 'partials/_card-chapter', null, $card_args );
+            }
+
+            // Actions at end of results
+            do_action( 'fictioneer_chapters_end_of_results', $args );
+          ?>
+
+        <?php else: ?>
+
+          <?php do_action( 'fictioneer_chapters_no_results', $args ); ?>
+
+          <li class="no-results">
+            <span><?php _e( 'No chapters found.', 'fictioneer' ) ?></span>
+          </li>
+
+        <?php endif; wp_reset_postdata(); ?>
+
+        <?php
+          $pag_args = array(
+            'current' => max( 1, get_query_var( 'paged' ) ),
+            'total' => $args['chapters']->max_num_pages,
+            'prev_text' => fcntr( 'previous' ),
+            'next_text' => fcntr( 'next' ),
+            'add_fragment' => '#list-of-chapters'
+          );
+        ?>
+
+        <?php if ( $args['chapters']->max_num_pages > 1 ) : ?>
+          <li class="pagination"><?php echo paginate_links( $pag_args ); ?></li>
+        <?php endif; ?>
+
+      </ul>
+    </section>
+    <?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 );
+
+// =============================================================================
+// CHAPTER FOREWORD
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_foreword' ) ) {
+  /**
+   * Outputs the HTML for the chapter foreword section
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param int $args['chapter_id'] The chapter ID.
+   */
+
+  function fictioneer_chapter_foreword( $args ) {
+    // Setup
+    $foreword = fictioneer_get_content_field( 'fictioneer_chapter_foreword', $args['chapter_id'] );
+
+    // Abort conditions
+    if ( empty( $foreword ) || post_password_required() ) return '';
+
+		// Start HTML ---> ?>
+    <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix"><?php echo $foreword; ?></section>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 10 );
+
+// =============================================================================
+// CHAPTER WARNINGS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_warnings' ) ) {
+  /**
+   * Outputs the HTML for the chapter warnings section
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param int $args['chapter_id'] The chapter ID.
+   */
+
+  function fictioneer_chapter_warnings( $args ) {
+    // Setup
+    $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $args['chapter_id'] );
+    $warning_notes = fictioneer_get_field( 'fictioneer_chapter_warning_notes', $args['chapter_id'] );
+    $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color', $args['chapter_id'] );
+
+    // Abort conditions
+    if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) return '';
+
+		// Start HTML ---> ?>
+    <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix" style="<?php if ( $warning_color ) echo "color: {$warning_color};"; ?>">
+      <?php if ( $warning ) : ?>
+        <p><?php
+          printf(
+            _x( 'Warning: %1$s! — You can hide <em>marked</em> sensitive content %2$s or with the %3$s toggle in the %4$s formatting menu. If provided, <em>alternative</em> content will be displayed instead.', 'Chapter warning (1) with sensitive content toggle (2) and icons (3-4).', 'fictioneer' ),
+            $warning,
+            '<label id="inline-sensitive-content-toggle" for="reader-settings-sensitive-content-toggle"><i class="fa-solid off fa-toggle-on"></i><i class="fa-solid on fa-toggle-off"></i> <span>' . _x( 'by clicking here', ' As in hide sensitive content by clicking here.', 'fictioneer' ) . '</span></label>',
+            '<i class="fa-solid fa-exclamation-circle"></i>',
+            fictioneer_get_icon( 'font-settings' )
+          );
+        ?></p>
+      <?php endif; ?>
+      <?php if ( $warning_notes ) : ?>
+        <details>
+          <summary><strong><?php echo fcntr( 'warning_notes' ); ?></strong></summary>
+          <p><?php echo $warning_notes; ?></p>
+        </details>
+      <?php endif; ?>
+    </section>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_warnings', 20 );
+
+// =============================================================================
+// CHAPTER RESIZE BUTTONS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_resize_buttons' ) ) {
+  /**
+   * Outputs the HTML for the chapter resize buttons
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_resize_buttons() {
+		// Start HTML ---> ?>
+    <button type="button" id="decrease-font" data-tooltip="<?php esc_attr_e( 'Decrease Font Size', 'fictioneer' ); ?>" data-modifier="-5" class="button _secondary tooltipped _align-left">
+      <?php fictioneer_icon( 'fa-minus' ); ?>
+    </button>
+    <button type="reset" id="reset-font" data-tooltip="<?php esc_attr_e( 'Reset Font Size', 'fictioneer' ); ?>" class="button _secondary tooltipped">
+      <?php fictioneer_icon( 'fa-square' ); ?>
+    </button>
+    <button type="button" id="increase-font" data-tooltip="<?php esc_attr_e( 'Increase Font Size', 'fictioneer' ); ?>" data-modifier="5" class="button _secondary tooltipped">
+      <?php fictioneer_icon( 'fa-plus' ); ?>
+    </button>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_buttons', 10 );
+
+// =============================================================================
+// CHAPTER NAV BUTTONS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
+  /**
+   * Outputs the HTML for the chapter navigation buttons
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param array       $args['chapter_ids'] IDs of visible chapters in the same story or empty array.
+   * @param int|boolean $args['prev_index']  Index of previous chapter or false if outside bounds.
+   * @param int|boolean $args['next_index']  Index of next chapter or false if outside bounds.
+   * @param string      $location            Either 'top' or 'bottom'.
+   */
+
+  function fictioneer_chapter_nav_buttons( $args, $location ) {
+		// Start HTML ---> ?>
+    <?php if ( $args['prev_index'] !== false ) : ?>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
+    <?php endif; ?>
+    <?php if ( $location === 'top' ) : ?>
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Bottom', 'fictioneer' ); ?>">
+        <a href="#bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
+      </div>
+    <?php else : ?>
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Top', 'fictioneer' ); ?>">
+        <a href="#" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
+      </div>
+    <?php endif; ?>
+    <?php if ( $args['next_index'] ) : ?>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
+    <?php endif; ?>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_top_right', 'fictioneer_chapter_nav_buttons', 10, 2 );
+add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_buttons', 10, 2 );
+
+// =============================================================================
+// CHAPTER FORMATTING BUTTON
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_formatting_button' ) ) {
+  /**
+   * Outputs the HTML for the chapter formatting button
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_formatting_button() {
+		// Start HTML ---> ?>
+    <label class="button _secondary open" for="modal-formatting-toggle">
+      <?php fictioneer_icon( 'font-settings' ); ?>
+      <span class="hide-below-tablet"><?php echo fcntr( 'formatting' ); ?></span>
+    </label>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatting_button', 10 );
+
+// =============================================================================
+// CHAPTER SUBSCRIBE BUTTON
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_subscribe_button' ) ) {
+  /**
+   * Outputs the HTML for the chapter subscribe button with popup menu
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_subscribe_button() {
+    $subscribe_buttons = fictioneer_get_subscribe_options();
+
+		if ( ! empty( $subscribe_buttons ) ) {
+      // Start HTML ---> ?>
+      <div class="toggle-last-clicked button _secondary popup-menu-toggle">
+        <i class="fa-solid fa-bell"></i> <span class="hide-below-tablet"><?php echo fcntr( 'subscribe' ); ?></span>
+        <div class="popup-menu _top _center"><?php echo $subscribe_buttons; ?></div>
+      </div>
+      <?php // <--- End HTML
+    }
+  }
+}
+add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_subscribe_button', 10 );
+
+// =============================================================================
+// CHAPTER FULLSCREEN BUTTONS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_fullscreen_button' ) ) {
+  /**
+   * Outputs the HTML for the chapter fullscreen button
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_fullscreen_buttons() {
+		// Start HTML ---> ?>
+    <button type="button" data-tooltip="<?php esc_attr_e( 'Open Fullscreen', 'fictioneer' ) ?>" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped">
+      <?php fictioneer_icon( 'expand' ); ?>
+    </button>
+    <button type="button" data-tooltip="<?php esc_attr_e( 'Exit Fullscreen', 'fictioneer' ) ?>" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped">
+      <?php fictioneer_icon( 'collapse' ); ?>
+    </button>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscreen_buttons', 20 );
+
+// =============================================================================
+// CHAPTER BACK TO STORY BUTTON
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_story_back_button' ) ) {
+  /**
+   * Outputs the HTML for the chapter back to story button
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_Post|null $args['story_post'] The story the chapter belongs to or null.
+   */
+
+  function fictioneer_chapter_story_back_button( $args ) {
+    // Abort if...
+    if ( ! $args['story_post'] ) return;
+
+		// Start HTML ---> ?>
+    <a href="<?php echo get_permalink( $args['story_post'] ) ?>" data-tooltip="<?php esc_attr_e( 'Back to story', 'fictioneer' ) ?>" class="button _secondary tooltipped"><i class="fa-solid fa-book"></i></a>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_story_back_button', 20 );
+
+// =============================================================================
+// CHAPTER BOOKMARK JUMP BUTTON
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_bookmark_jump_button' ) ) {
+  /**
+   * Outputs the HTML for the chapter bookmark jump button
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_bookmark_jump_button() {
+    // Check if available
+    if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) return;
+
+		// Start HTML ---> ?>
+    <button type="button" data-tooltip="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="button _secondary button--bookmark hidden tooltipped">
+      <i class="fa-solid fa-bookmark"></i>
+      <span class="hide-below-tablet"><?php echo fcntr( 'bookmark' ); ?></span>
+    </button>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_bookmark_jump_button', 30 );
+add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_bookmark_jump_button', 30 );
+
+// =============================================================================
+// CHAPTER MEDIA BUTTONS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_media_buttons' ) ) {
+  /**
+   * Outputs the HTML for the chapter media buttons
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_media_buttons() {
+		get_template_part( 'partials/_share-buttons' );
+  }
+}
+add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_buttons', 10 );
+
+// =============================================================================
+// CHAPTER AFTERWORD
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_afterword' ) ) {
+  /**
+   * Outputs the HTML for the chapter afterword
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param int $args['chapter_id'] The chapter ID.
+   */
+
+  function fictioneer_chapter_afterword( $args ) {
+    // Setup
+    $afterword = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] ); // ACF formatted output
+
+    // Abort conditions
+    if ( empty( $afterword ) || post_password_required() ) return '';
+
+		// Start HTML ---> ?>
+    <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix"><?php echo $afterword; ?></section>
+		<?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 10 );
+
+// =============================================================================
+// CHAPTER SUPPORT BOX
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
+  /**
+   * Outputs the HTML for the chapter support links
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_User      $args['author']       Author of the post.
+   * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
+   * @param int          $args['chapter_id']   The chapter ID.
+   */
+
+  function fictioneer_chapter_support_links( $args ) {
+    // Abort conditions
+    if ( post_password_required() || fictioneer_get_field( 'fictioneer_chapter_hide_support_links', $args['chapter_id'] ) ) return;
+
+    // Setup
+    $author_id = $args['author']->ID;
+    $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $args['chapter_id'] );
+    $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $args['chapter_id'] );
+    $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $args['chapter_id'] );
+    $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $args['chapter_id'] );
+    $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $args['chapter_id'] );
+    $topwebfiction_link = null;
+    $support_links = [];
+
+    // Story level support links
+    if ( ! empty( $args['story_post'] ) ) {
+      $story_id = $args['story_post']->ID;
+      $topwebfiction_link = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $story_id );
+
+      if ( ! $patreon_link ) $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $story_id );
+      if ( ! $kofi_link ) $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $story_id );
+      if ( ! $subscribestar_link ) $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $story_id );
+      if ( ! $paypal_link ) $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $story_id );
+      if ( ! $donation_link ) $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $story_id );
+    }
+
+    // Author level support links
+    if ( ! $patreon_link ) $patreon_link = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
+    if ( ! $kofi_link ) $kofi_link = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
+    if ( ! $subscribestar_link ) $subscribestar_link = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
+    if ( ! $paypal_link ) $paypal_link = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
+    if ( ! $donation_link ) $donation_link = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
+
+    // Topwebfiction?
+    if ( $topwebfiction_link ) {
+      $support_links['topwebfiction'] = array(
+        'label' => __( 'Top Web Fiction', 'fictioneer' ),
+        'icon' => '<i class="fa-solid fa-circle-up"></i>',
+        'link' => $topwebfiction_link
+      );
+    }
+
+    // Patreon?
+    if ( $patreon_link ) {
+      $support_links['patreon'] = array(
+        'label' => __( 'Patreon', 'fictioneer' ),
+        'icon' => '<i class="fa-brands fa-patreon"></i>',
+        'link' => $patreon_link
+      );
+    }
+
+    // Ko-Fi?
+    if ( $kofi_link ) {
+      $support_links['kofi'] = array(
+        'label' => __( 'Ko-Fi', 'fictioneer' ),
+        'icon' => fictioneer_get_icon( 'kofi' ),
+        'link' => $kofi_link
+      );
+    }
+
+    // SubscribeStar?
+    if ( $subscribestar_link ) {
+      $support_links['subscribestar'] = array(
+        'label' => __( 'SubscribeStar', 'fictioneer' ),
+        'icon' => '<i class="fa-solid fa-s"></i>',
+        'link' => $subscribestar_link
+      );
+    }
+
+    // PayPal?
+    if ( $paypal_link ) {
+      $support_links['paypal'] = array(
+        'label' => __( 'PayPal', 'fictioneer' ),
+        'icon' => '<i class="fa-brands fa-paypal"></i>',
+        'link' => $paypal_link
+      );
+    }
+
+    // Donation?
+    if ( $paypal_link ) {
+      $support_links['donation'] = array(
+        'label' => __( 'Donation', 'fictioneer' ),
+        'icon' => '<i class="fa-solid fa-hand-holding-heart"></i>',
+        'link' => $donation_link
+      );
+    }
+
+    // Apply filter
+    $support_links = apply_filters( 'fictioneer_filter_chapter_support_links', $support_links, $args );
+
+    // Abort if no support links
+    if ( count( $support_links ) < 1 ) return;
+
+    // Support message
+    $support_message = get_the_author_meta( 'fictioneer_support_message', $author_id ) ? get_the_author_meta( 'fictioneer_support_message', $author_id ) : __( 'You can support the author on', 'fictioneer' );
+
+    // Start HTML ---> ?>
+    <section class="chapter__support clearfix">
+      <div class="chapter__support-message"><?php echo $support_message; ?></div>
+        <div class="chapter__support-links">
+        <?php foreach ( $support_links as $link ) : ?>
+          <a href="<?php echo $link['link']; ?>" rel="noopener" target="_blank">
+            <?php echo $link['icon']; ?>
+            <span><?php echo $link['label']; ?></span>
+          </a>
+        <?php endforeach; ?>
+      </div>
+    </section>
+    <?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_links', 20 );
+
+// =============================================================================
+// CHAPTER MICRO MENU
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_micro_menu' ) ) {
+  /**
+   * Outputs the HTML for the chapter micro menu
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
+   * @param int          $args['chapter_id']   The chapter ID.
+   * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
+   * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
+   * @param int|boolean  $args['next_index']   Index of next chapter or false if outside bounds.
+   */
+
+  function fictioneer_chapter_micro_menu( $args ) {
+    echo fictioneer_get_chapter_micro_menu( $args );
+  }
+}
+add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10 );
+
+// =============================================================================
+// CHAPTER PARAGRAPH TOOLS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_paragraph_tools' ) ) {
+  /**
+   * Outputs the HTML for the chapter paragraph tools
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_paragraph_tools() {
+    // Setup
+    $can_comment = ! fictioneer_get_field( 'fictioneer_disable_commenting' ) && comments_open();
+
+    // Start HTML ---> ?>
+    <div id="paragraph-tools" class="paragraph-tools">
+      <div class="paragraph-tools__actions">
+        <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
+          <button id="button-set-bookmark" type="button" class="button">
+            <i class="fa-solid fa-bookmark"></i>
+            <span><?php _ex( 'Bookmark', 'Paragraph tools bookmark button', 'fictioneer' ) ?></span>
+            <div class="paragraph-tools__bookmark-colors">
+              <div data-color="default" class="paragraph-tools__bookmark-colors-field"></div>
+              <div data-color="beta" class="paragraph-tools__bookmark-colors-field"></div>
+              <div data-color="gamma" class="paragraph-tools__bookmark-colors-field"></div>
+              <div data-color="delta" class="paragraph-tools__bookmark-colors-field"></div>
+            </div>
+          </button>
+        <?php endif; ?>
+        <?php if ( $can_comment ) : ?>
+          <button id="button-comment-stack" type="button" class="button">
+            <i class="fa-solid fa-quote-right"></i>
+            <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ) ?></span>
+          </button>
+        <?php endif; ?>
+        <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
+          <button id="button-tools-add-suggestion" type="button" class="button">
+            <i class="fa-solid fa-highlighter"></i>
+            <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ) ?></span>
+          </button>
+        <?php endif; ?>
+        <?php if ( get_option( 'fictioneer_enable_tts' ) ) : ?>
+          <button id="button-tts-set" type="button" class="button">
+            <i class="fa-solid fa-volume-up"></i>
+            <span class="hide-below-480"><?php _ex( 'TTS', 'Paragraph tools text-to-speech button', 'fictioneer' ) ?></span>
+          </button>
+        <?php endif; ?>
+        <button id="button-get-link" type="button" class="button">
+          <i class="fa-solid fa-link"></i>
+          <span class="hide-below-480"><?php _ex( 'Link', 'Paragraph tools copy link button', 'fictioneer' ) ?></span>
+        </button>
+        <button id="button-close-paragraph-tools" type="button" class="button">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <?php // <--- End HTML
+  }
+}
+add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_paragraph_tools', 10 );
+
+// =============================================================================
+// CHAPTER SUGGESTION TOOLS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_chapter_suggestion_tools' ) ) {
+  /**
+   * Outputs the HTML for the chapter suggestion tools
+   *
+   * @since Fictioneer 5.0
+   */
+
+  function fictioneer_chapter_suggestion_tools() {
+    // Abort if...
+    if ( fictioneer_get_field( 'fictioneer_disable_commenting' ) || ! comments_open() ) return;
+
+    // Start HTML ---> ?>
+    <div id="selection-tools" class="invisible suggestion-tools">
+      <button id="button-add-suggestion" type="button" class="button button--suggestion">
+        <i class="fa-solid fa-highlighter"></i>
+        <span><?php _e( 'Add Suggestion', 'fictioneer' ) ?></span>
+      </button>
+    </div>
+    <?php // <--- End HTML
+  }
+}
+
+if ( get_option( 'fictioneer_enable_suggestions' ) ) {
+  add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_suggestion_tools', 10 );
+}
+
+?>

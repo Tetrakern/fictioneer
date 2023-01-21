@@ -1,0 +1,23 @@
+/*******************************************************************************
+* Unlike the other CSS files that are built for purpose and loaded only on pages
+* when needed, this one contain _all_ CSS regardless of location. This is useful
+* when HTTP/2 (or better) is not supported and therefore files cannot be loaded
+* parallel. Loading many small files in sequence is slower than one large file.
+***************************************************************************** */
+
+@import 'properties';
+@import 'application';
+@import 'comments';
+@import 'fonts';
+@import 'collections';
+
+@import '_reader-settings';
+@import '_suggestions';
+@import '_progress_bar';
+@import '_tts';
+@import '_micro-menu';
+@import '_chapter';
+@import '_paragraph-tools';
+@import '_recommendation';
+@import '_story';
+@import '_tax-cloud';

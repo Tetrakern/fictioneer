@@ -1,0 +1,35 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-content: center;
+  background: rgb(0 0 0 / 85%);
+  color: #ccc;
+  padding: 3rem 1rem 1rem;
+  transition: opacity var(--transition-duration);
+
+  &:not(.show) {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #ccc;
+    font-size: 1.5rem;
+    line-height: 1;
+    padding: .5rem 1rem 1rem 1.5rem;
+  }
+
+  img {
+    cursor: default;
+    display: block;
+    max-height: calc(100vh - 4rem);
+    max-width: calc(100vw - 2rem);
+    width: fit-content;
+    object-fit: contain;
+  }
+}

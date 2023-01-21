@@ -1,0 +1,5 @@
+# IGNORE
+.DS_Store
+*.codekit3
+.vscode
+wp-cli.phar

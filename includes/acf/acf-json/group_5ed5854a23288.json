@@ -1,0 +1,65 @@
+{
+    "key": "group_5ed5854a23288",
+    "title": "Configurations",
+    "fields": [
+        {
+            "key": "field_5ed5856ed2c3e",
+            "label": "Short Name",
+            "name": "fictioneer_short_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Required for the tab view in stories, such as Glossary or Characters. If not set, the tab will not be shown.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_60040fa3bc4f1",
+            "label": "Filter & Search ID",
+            "name": "fictioneer_filter_and_search_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "ID for a filter and\/or search plugin.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668198490
+}

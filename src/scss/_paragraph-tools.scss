@@ -1,0 +1,101 @@
+.paragraph-tools {
+  user-select: none;
+  position: absolute;
+  inset: -0.5rem 0;
+  display: none;
+  content-visibility: hidden;
+
+  &__actions {
+    position: absolute;
+    right: 0;
+    top: .5rem;
+    display: flex;
+    gap: 3px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    transform: translateY(-100%);
+    max-width: 100vw;
+    filter: var(--paragraph-tools-filter);
+
+    .button {
+      position: relative;
+      border-radius: 0;
+    }
+
+    > :first-child {
+      border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
+    }
+
+    > :last-child {
+      border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
+    }
+  }
+
+  &__bookmark-colors {
+    pointer-events: none;
+    user-select: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    padding: 4px 0;
+    min-height: 32px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity var(--transition-duration);
+
+    &-field[data-color=default] {
+      background: var(--bookmark-line);
+    }
+
+    &-field[data-color=beta] {
+      background: var(--bookmark-color-beta);
+    }
+
+    &-field[data-color=gamma] {
+      background: var(--bookmark-color-gamma);
+    }
+
+    &-field[data-color=delta] {
+      background: var(--bookmark-color-delta);
+    }
+
+    > div {
+      flex: 1 1 auto;
+      border-radius: var(--layout-border-radius-small);
+      height: 20px;
+      max-width: 20px;
+      filter: var(--container-drop-shadow);
+      transition: filter var(--transition-duration);
+
+      &:hover {
+        filter: var(--container-drop-shadow) brightness(1.1);
+      }
+    }
+  }
+}
+
+#button-set-bookmark {
+  &:hover {
+    .paragraph-tools__bookmark-colors {
+      pointer-events: auto;
+      opacity: 1;
+    }
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .current-bookmark {
+    #button-set-bookmark {
+      .paragraph-tools__bookmark-colors {
+        pointer-events: auto;
+        opacity: 1;
+      }
+    }
+  }
+}

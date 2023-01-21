@@ -1,0 +1,40 @@
+.site-settings {
+  &__row {
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+
+      &:not(:first-child) {
+        margin-top: 8px;
+      }
+
+      &.grouped-inputs {
+        gap: 3px;
+      }
+
+      > :is(i, .icon) {
+        flex-shrink: 0;
+        color: var(--modal-icon);
+        font-size: 15px;
+        text-align: center;
+        margin: 0 3px 0 -4px;
+        min-width: 26px;
+      }
+    }
+  }
+
+  input[type=range] {
+    flex-grow: 1;
+    border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
+  }
+
+  :is([type=text], [type=number]) {
+    flex-shrink: 0;
+    text-align: center;
+    border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
+    padding: 0;
+    width: 55px;
+  }
+}

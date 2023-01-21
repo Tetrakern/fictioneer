@@ -1,0 +1,43 @@
+.tax-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .75rem;
+  line-height: 1;
+  margin-bottom: 3rem;
+
+  &__header {
+    flex: 1 0 100%;
+    padding-bottom: .75rem;
+    margin-bottom: .25rem;
+    border-bottom: 2px dashed var(--layout-color-lineart);
+  }
+
+  &__current {
+    font-size: var(--fs-ml);
+    text-transform: uppercase;
+
+    em {
+      font-style: normal;
+      color: var(--tax-cloud-current);
+    }
+  }
+
+  &__tax-description {
+    color: var(--fg-800);
+    font-size: var(--fs-xxs);
+    font-style: italic;
+    line-height: 1.5;
+    padding-top: .5rem;
+  }
+
+  > a {
+    display: inline-flex;
+    align-items: flex-end;
+    letter-spacing: get_relative_clamp(-0.02, 0, 320, 480);
+    height: 20px;
+
+    span {
+      margin-left: .25rem;
+    }
+  }
+}

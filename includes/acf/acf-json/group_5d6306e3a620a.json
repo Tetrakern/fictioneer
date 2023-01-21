@@ -1,0 +1,298 @@
+{
+    "key": "group_5d6306e3a620a",
+    "title": "Story Meta",
+    "fields": [
+        {
+            "key": "field_5d63070259808",
+            "label": "Status",
+            "name": "fictioneer_story_status",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Ongoing": "Ongoing",
+                "Completed": "Completed",
+                "Oneshot": "Oneshot",
+                "Hiatus": "Hiatus",
+                "Canceled": "Canceled"
+            },
+            "default_value": "Ongoing",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_5fa6fd8b27703",
+            "label": "Age Rating",
+            "name": "fictioneer_story_rating",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Everyone": "Everyone",
+                "Teen": "Teen",
+                "Mature": "Mature",
+                "Adult": "Adult"
+            },
+            "default_value": "Everyone",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_60ec0f9f8769f",
+            "label": "Co-Authors",
+            "name": "fictioneer_story_co_authors",
+            "aria-label": "",
+            "type": "user",
+            "instructions": "Add co-authors. Do not add yourself.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "role": "",
+            "return_format": "id",
+            "multiple": 1,
+            "allow_null": 0
+        },
+        {
+            "key": "field_630a1ba640611",
+            "label": "Copyright Notice",
+            "name": "fictioneer_story_copyright_notice",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Add a copyright notice if you need one or leave empty to show nothing.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_62b499da863c2",
+            "label": "Top Web Fiction Link",
+            "name": "fictioneer_story_topwebfiction_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_619a91f85da9d",
+            "label": "",
+            "name": "fictioneer_story_sticky",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Sticky in all lists",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_60ecb1ba18b2b",
+            "label": "",
+            "name": "fictioneer_story_no_epub",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Disable ePUB download",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_623c42a6f9364",
+            "label": "",
+            "name": "fictioneer_story_no_thumbnail",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide thumbnail on story page",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_623c4364a57d2",
+            "label": "",
+            "name": "fictioneer_story_no_tags",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide tags on story page",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_6334753d19382",
+            "label": "",
+            "name": "fictioneer_story_hide_chapter_icons",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide chapter icons",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_634745e57040c",
+            "label": "",
+            "name": "fictioneer_story_disable_collapse",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Disable collapsing of chapters",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_63564ed3d1736",
+            "label": "",
+            "name": "fictioneer_story_disable_groups",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Disable chapter groups",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_636d81d34cab1",
+            "label": "Custom Story CSS",
+            "name": "fictioneer_story_css",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Inserts a custom style tag in the &lt;head&gt; on the story and all associated chapter pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": ".header { ... }",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_story"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668209425
+}

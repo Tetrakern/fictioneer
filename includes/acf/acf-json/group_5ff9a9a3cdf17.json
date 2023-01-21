@@ -1,0 +1,125 @@
+{
+    "key": "group_5ff9a9a3cdf17",
+    "title": "Recommendation Data",
+    "fields": [
+        {
+            "key": "field_61b72722589c1",
+            "label": "One Sentence",
+            "name": "fictioneer_recommendation_one_sentence",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Ideally 150 characters are less; truncated depending on viewport. Don't go into details. For example, \"Rebellious corporate heiress and her genius friend commit high-tech heists in a doomed city on the edge of the future.\"",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 256,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_61b72705589c0",
+            "label": "Author",
+            "name": "fictioneer_recommendation_author",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The name of the author. Separate multiple authors with commas.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_61b726e4589bf",
+            "label": "Primary URL",
+            "name": "fictioneer_recommendation_primary_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Primary link to the recommendation or author's website.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_61b726ab589be",
+            "label": "URLs",
+            "name": "fictioneer_recommendation_urls",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Links to the story, one link per line and mind the whitespaces. Format: \"Link Name | https:\/\/www.address.abc\" (without quotes).",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "Google | https:\/\/www.google.com",
+            "new_lines": ""
+        },
+        {
+            "key": "field_61b72692589bd",
+            "label": "Support",
+            "name": "fictioneer_recommendation_support",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Link to the author's Patreon, SubscribeStar, Ko-Fi, etc. One link per line and mind the whitespaces. Format: \"Link Name | https:\/\/www.address.abc\" (without quotes).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": 3,
+            "placeholder": "Google | https:\/\/www.google.com",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_recommendation"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1673804521
+}

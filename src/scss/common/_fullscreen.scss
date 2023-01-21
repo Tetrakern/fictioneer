@@ -1,0 +1,48 @@
+:is(:fullscreen, :-webkit-full-screen) {
+  --layout-main-inset-top: 0;
+
+  #nav-observer {
+    top: 4px;
+  }
+
+  .background-texture {
+    background: {
+      image: none !important;
+    }
+  }
+
+  .site {
+    background: var(--e-fullscreen) !important;
+  }
+
+  .site {
+    padding-top: 0;
+  }
+
+  .progress {
+    max-width: unset;
+  }
+
+  .hide-on-fullscreen {
+    display: none;
+    content-visibility: hidden;
+  }
+
+  .show-on-fullscreen {
+    display: block !important;
+    content-visibility: visible;
+  }
+
+  .main {
+    filter: none;
+
+    &__background {
+      background: var(--e-fullscreen) !important;
+      box-shadow: none;
+    }
+  }
+
+  .polygon {
+    clip-path: none;
+  }
+}

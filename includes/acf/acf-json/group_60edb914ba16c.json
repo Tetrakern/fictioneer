@@ -1,0 +1,105 @@
+{
+    "key": "group_60edb914ba16c",
+    "title": "Story ePUB",
+    "fields": [
+        {
+            "key": "field_62eb89244fb11",
+            "label": "Upload Ebook",
+            "name": "fictioneer_story_ebook_upload_one",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "If the ePUB converter is not working for you or you want other formats, you can upload your own ebook file here. This will replace the automatically generated ePUB and always show up on the story page. Allowed formats include <b>epub<\/b>, <b>mobi<\/b>, <b>ibooks<\/b>, <b>azw<\/b>, <b>azw3<\/b>, <b>kf8<\/b>, <b>kfx<\/b>, <b>pdf<\/b>, <b>iba<\/b>, and <b>txt<\/b>.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "uploadedTo",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "epub, mobi, ibooks, azw, azw3, kf8, kfx, pdf, iba, txt, rtf"
+        },
+        {
+            "key": "field_60edb934ad5f7",
+            "label": "ePUB Preface",
+            "name": "fictioneer_story_epub_preface",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Required for the download link to show up. This will be displayed on a separate page in the ePUB between cover and table of contents. Disclaimers, copyright notes, fandoms, tags, and other front matters go here. For example: <em>\"This is a work of fiction. Any resemblance to actual persons...\"<\/em> and so forth.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 1
+        },
+        {
+            "key": "field_60edb96aad5f8",
+            "label": "ePUB Afterword",
+            "name": "fictioneer_story_epub_afterword",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "This will be shown after the last chapter. Thanks and personal thoughts on the story go here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 1
+        },
+        {
+            "key": "field_60edba4ff33f8",
+            "label": "ePUB Custom CSS",
+            "name": "fictioneer_story_epub_custom_css",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Inject CSS code into the ePUB to customize the style for your story. For advanced users.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": "table {  border-collapse: collapse; }",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_story"
+            }
+        ]
+    ],
+    "menu_order": 5,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1671820148
+}

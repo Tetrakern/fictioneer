@@ -1,0 +1,357 @@
+@import '../common/functions';
+@import '../common/mixins';
+@import '../common/variables';
+
+// =============================================================================
+// GENERAL ADMIN STYLES
+// =============================================================================
+
+.is-subscriber {
+  #wpcontent {
+    margin-left: 0 !important;
+  }
+
+  :is(#adminmenuwrap, #adminmenuback, #wpfooter, #wp-admin-bar-menu-toggle) {
+    display: none !important;
+  }
+
+  #wpbody-content {
+    padding-bottom: 0;
+  }
+}
+
+details {
+  summary {
+    cursor: pointer;
+  }
+}
+
+.column-fictioneer_reports {
+  text-align: center !important;
+  width: 72px;
+}
+
+td.comment {
+  blockquote {
+    border-left: 2px solid currentColor;
+    padding-left: 1em;
+    margin-left: 0;
+  }
+}
+
+// =============================================================================
+// CUSTOMIZER
+// =============================================================================
+
+#customize-control-use_custom_layout,
+#customize-control-use_custom_dark_mode,
+#customize-control-use_custom_light_mode {
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 2px solid #dcdcde;
+}
+
+// =============================================================================
+// CHANGE NOTICES STYLE ON FICTIONEER SETTING PAGES
+// =============================================================================
+
+body[class*=fictioneer] {
+  #wpbody-content {
+    position: relative;
+  }
+
+  .notice {
+    position: absolute !important;
+    top: 10px;
+    left: 0;
+    right: 20px;
+    margin: 0;
+    box-shadow: 0 3px 4px 1px rgb(0 0 0 / 35%);
+
+    + .notice {
+      top: 60px;
+
+      + .notice {
+        top: 110px;
+
+        + .notice {
+          top: 160px;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// LOAD CUSTOM FICTIONEER UI STYLES
+// =============================================================================
+
+.fictioneer-ui {
+  color: var(--text-700);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+
+  @import '_properties';
+  @import '_wordpress-reset';
+  @import '_base';
+  @import '_layout';
+  @import '_elements';
+  @import '_modifiers';
+}
+
+// =============================================================================
+// FICTIONEER SETTING PAGES
+// =============================================================================
+
+.fictioneer-settings {
+  margin-left: -10px;
+
+  @include bp(783px) {
+    margin-left: -20px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg-900);
+    padding: var(--20bp) 4px;
+    height: 256px;
+
+    @include bp(375px) {
+      padding: var(--20bp) var(--10bp);
+    }
+
+    @include bp(480px) {
+      padding: var(--20bp) var(--14bp);
+    }
+
+    @include bp(768px) {
+      padding: var(--20bp);
+    }
+
+    h1 {
+      color: var(--text-200);
+      font-size: 64px;
+    }
+
+    &-links {
+      color: var(--text-600);
+
+      a {
+        color: var(--text-400);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--text-200);
+        }
+      }
+
+      .dashicons-external {
+        font-size: inherit;
+      }
+    }
+  }
+
+  &__content {
+    padding: var(--20bp) 4px;
+
+    @include bp(375px) {
+      padding: var(--20bp) var(--10bp);
+    }
+
+    @include bp(480px) {
+      padding: var(--20bp) var(--14bp);
+    }
+
+    @include bp(768px) {
+      padding: var(--20bp);
+    }
+  }
+}
+
+// =============================================================================
+// FICTIONEER METABOXES
+// =============================================================================
+
+.fictioneer-metabox {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  &__row {
+    &:not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+
+  .hidden {
+    display: none !important;
+    content-visibility: hidden;
+  }
+
+  :is(input, textarea) {
+    display: block;
+    border-radius: 2px;
+    width: 100%;
+    resize: vertical;
+  }
+
+  label {
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  code {
+    display: inline-block;
+    background: rgb(0 0 0 / 7%);
+    font-family: Consolas, Monaco, monospace;
+    font-size: .75em;
+    line-height: inherit;
+    word-wrap: break-word;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding: .125em 3px;
+    border-radius: 2px;
+    transform: translateY(-1px);
+  }
+}
+
+// =============================================================================
+// FICTIONEER SEO METABOX
+// =============================================================================
+
+#fictioneer-search-engine-appearance {
+  .inside {
+    padding: 0 16px 16px;
+  }
+
+  .fictioneer-metabox {
+    display: flex;
+    justify-content: center;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+
+    &__left {
+      flex: 1 0 280px;
+    }
+
+    &__right {
+      position: relative;
+      flex: 0 1 auto;
+      background: #1d2327;
+      padding: 8px;
+      border-radius: 2px;
+
+      img {
+        display: block;
+        border-radius: 2px;
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+      }
+
+      a {
+        color: #fff;
+        line-height: 1;
+        text-decoration: none;
+
+        &:focus {
+          outline: 0;
+          box-shadow: none;
+        }
+
+        &:hover {
+          filter: brightness(1.2);
+        }
+      }
+    }
+
+    :is(.og-remove, .og-source) {
+      position: absolute;
+      z-index: 100;
+      display: block;
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    .og-remove {
+      top: 8px;
+      right: 8px;
+      background: #cc1818cc;
+      border-radius: 0 2px 0 2px;
+      padding: 4px 6px;
+    }
+
+    .og-source {
+      pointer-events: none;
+      top: 6px;
+      left: 8px;
+      background: linear-gradient(160deg, #1d2327 20%, rgba(44, 51, 56, 0.6) 100%);
+      color: #eee;
+      border-radius: 2px 0 2px;
+
+      > div {
+        display: none;
+      }
+
+      &.parent-thumbnail > .parent-thumbnail,
+      &.thumbnail > .thumbnail,
+      &.default > .default {
+        display: block;
+        padding: 0 6px 4px 0;
+      }
+    }
+
+    .og-upload-label {
+      user-select: none;
+      font-size: 11px;
+      text-align: center;
+      padding: 6px 0 0;
+    }
+
+    .counter {
+        color: #999;
+        font-weight: 400;
+      }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+// =============================================================================
+// FIXES FOR PLUGINS KNOWN TO THE THEME
+// =============================================================================
+
+// Advanced Custom Fields adjustments to better match WordPress default
+@import 'acf';
+
+// Cloudinary plugin that messes with unit selectors (2022/07/13)
+.components-input-control__container .components-base-control__field select,
+:is(.postbox:not([id*="cld-"]), .block-editor-block-inspector) .components-unit-control__select {
+  margin: 0 1px !important;
+}
+
+// =============================================================================
+// ADMIN PANEL PROFILE
+// =============================================================================
+
+:is(.oauth-connection, .data-node) {
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  :is(i, .icon) {
+    padding-right: 3px;
+    min-width: 15px;
+
+    &:not(:first-child) {
+      padding-left: 4px;
+    }
+  }
+}

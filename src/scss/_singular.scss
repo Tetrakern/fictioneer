@@ -1,0 +1,55 @@
+.singular {
+  &__header {
+    margin-bottom: 2rem;
+  }
+}
+
+.glossary {
+  &:not(:first-child) {
+    margin-top: 3rem;
+  }
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  &__columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.5rem 4rem;
+  }
+
+  &__entry {
+    font-size: var(--fs-dxs);
+    line-height: 1.3;
+
+    &-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-heading);
+      margin-bottom: 0.25rem;
+    }
+
+    &-name {
+      font-weight: var(--font-weight-heading);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &-count {
+      flex-shrink: 0;
+      color: var(--fg-700);
+      font-weight: var(--font-weight-medium);
+    }
+
+    &-body {
+      font-family: var(--font-note);
+    }
+
+    &-description {
+      color: var(--fg-700);
+    }
+  }
+}

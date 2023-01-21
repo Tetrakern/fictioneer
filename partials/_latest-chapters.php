@@ -1,0 +1,160 @@
+<?php
+/**
+ * Partial: Latest Chapters
+ *
+ * Renders the (buffered) HTML for the [fictioneer_latest_chapters] shortcode.
+ *
+ * @package WordPress
+ * @subpackage Fictioneer
+ * @since 4.0
+ *
+ * @internal $args['count']    The number of posts provided by the shortcode.
+ * @internal $args['author']   The author provided by the shortcode.
+ * @internal $args['order']    Order of posts. Default 'desc'.
+ * @internal $args['orderby']  Sorting of posts. Default 'date'.
+ * @internal $args['spoiler']  Whether to obscure or show chapter excerpt.
+ * @internal $args['source']   Whether to show author and story.
+ * @internal $args['post_ids'] Comma-separated list of chapter IDs. Overrides count.
+ * @internal $args['simple']   Whether to show the simple variant.
+ */
+?>
+
+<?php
+
+// Prepare query
+$query_args = array(
+  'post_type' => 'fcn_chapter',
+  'post_status' => array( 'publish' ),
+  'post__in' => $args['post_ids'],
+  'orderby' => $args['orderby'] ?? 'date',
+  'order' => $args['order'] ?? 'desc',
+  'posts_per_page' => $args['count'],
+  'meta_key' => 'fictioneer_chapter_hidden',
+  'meta_value' => 0,
+  'no_found_rows' => true,
+  'update_post_term_cache' => false
+);
+
+// Parameter for author?
+if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+
+// Query chapters
+$entries = new WP_Query( $query_args );
+
+?>
+
+<section class="small-card-block latest-chapters">
+  <?php if ( $entries->have_posts() ) : ?>
+
+    <ul class="two-columns _collapse-on-mobile">
+      <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
+
+        <?php
+          // Setup
+          $title = fictioneer_get_safe_title( get_the_ID() );
+          $chapter_rating = fictioneer_get_field( 'fictioneer_chapter_rating' );
+          $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+          $story = $story_id ? fictioneer_get_story_data( $story_id ) : false;
+          $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
+
+          // Chapter images
+          $thumbnail_full = get_the_post_thumbnail_url( $post, 'full' );
+          $thumbnail_snippet = get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] );
+
+          // Story images
+          if ( ! $thumbnail_full && $story ) {
+            $thumbnail_full = get_the_post_thumbnail_url( $story_id, 'full' );
+            $thumbnail_snippet = get_the_post_thumbnail( $story_id, 'snippet', ['class' => 'no-auto-lightbox']);
+          }
+        ?>
+
+        <li class="card _small">
+          <div class="card__body polygon">
+
+            <div class="card__main _grid _small">
+
+              <?php if ( $thumbnail_full ) : ?>
+                <a href="<?php echo $thumbnail_full; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail_snippet ?></a>
+              <?php elseif ( ! empty( $text_icon ) ) : ?>
+                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ) ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
+              <?php endif; ?>
+
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php
+                $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
+                echo $list_title ? wp_strip_all_tags( $list_title ) : $title;
+              ?></a></h3>
+
+              <div class="card__content _small cell-desc">
+                <div class="truncate truncate--3-3 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>">
+                  <?php
+                    if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) {
+                      printf(
+                        __( '<span class="author-by">by</span> %s ', 'fictioneer' ),
+                        fictioneer_get_author_node()
+                      );
+                    }
+
+                    if ( $story && $args['source'] ) {
+                      printf(
+                        __( '<span>in</span> <a href="%1$s" class="bold-link">%2$s</a>', 'fictioneer' ),
+                        get_permalink( $story_id ),
+                        mb_strimwidth( fictioneer_get_safe_title( $story_id ), 0, 24, '…' )
+                      );
+                    }
+
+                    $excerpt = fictioneer_get_forced_excerpt( $post );
+                    $spoiler_note = str_repeat( _x( '&bull; ', 'Chapter preview obfuscation characters. Repeated 0.65 times the excerpt length in characters.', 'fictioneer' ), intval( strlen( $excerpt ) * 0.65 ) );
+                  ?>
+                  <?php if ( ! $args['spoiler'] ) : ?>
+                    <span onclick="this.parentElement.classList.toggle('_obfuscated');">
+                      <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
+                      <span class="clean"><span>—</span> <?php echo $excerpt; ?></span>
+                    </span>
+                  <?php else : ?>
+                    <span><span class="clean"><span>—</span> <?php echo $excerpt; ?></span></span>
+                  <?php endif; ?>
+                </div>
+              </div>
+
+            </div>
+
+            <?php if ( ! $args['simple'] ) : ?>
+              <div class="card__footer _small">
+
+                <div class="card__left text-overflow-ellipsis">
+                  <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
+                  <span title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"><?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?></span>
+
+                  <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
+                  <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', 'M j, y' ) ); ?></span>
+
+                  <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
+                  <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo get_comments_number(); ?></span>
+
+                  <?php if ( $story ) : ?>
+                    <i class="<?php echo $story['icon']; ?>"></i>
+                    <span><?php echo fcntr( $story['status'] ); ?></span>
+                  <?php endif; ?>
+                </div>
+
+                <?php if ( ! empty( $chapter_rating ) ) : ?>
+                  <div class="card__right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
+                    <span><?php echo fcntr( $chapter_rating[0] ); ?></span>
+                  </div>
+                <?php endif; ?>
+
+              </div>
+            <?php endif; ?>
+
+          </div>
+        </li>
+
+      <?php endwhile; ?>
+    </ul>
+
+  <?php else: ?>
+
+    <div class="no-results"><?php _e( 'No chapters have been published yet.', 'fictioneer' ); ?></div>
+
+  <?php endif; wp_reset_postdata(); ?>
+</section>

@@ -1,0 +1,52 @@
+#editor {
+  .edit-post-layout__metaboxes {
+    border-top: 1px solid #ddd;
+  }
+
+  div.postbox {
+    color: #1e1e1e;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .postbox-header {
+      border-top: 0;
+
+      .hndle {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    h2.hndle {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 0 24px 0 16px;
+    }
+
+    .acf-field {
+      &:first-child {
+        margin-top: 5px;
+      }
+
+      > .acf-label {
+        margin-bottom: 8px;
+      }
+
+      .description {
+        font-size: 12px;
+      }
+    }
+
+    .code-box {
+      textarea {
+        color: #1e1e1e;
+        font-family: 'Roboto Mono', Courier, 'Courier New', 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+        font-size: 12px;
+        line-height: 1.5;
+        word-break: break-all;
+      }
+    }
+  }
+}

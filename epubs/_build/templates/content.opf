@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dc:identifier id="BookId" opf:scheme="URI">xxx</dc:identifier>
+    <dc:rights>xxx</dc:rights>
+    <dc:title>xxx</dc:title>
+    <dc:language>en</dc:language>
+    <dc:description>xxx</dc:description>
+    <dc:publisher>xxx</dc:publisher>
+    <dc:source>xxx</dc:source>
+    <dc:creator opf:file-as="xxx" opf:role="aut">xxx</dc:creator>
+    <dc:contributor opf:file-as="Tetrakern" opf:role="mrk">Tetrakern</dc:contributor>
+    <dc:date opf:event="publication">xxx</dc:date>
+  </metadata>
+
+  <manifest>
+    <item href="Styles/style.css" id="css" media-type="text/css" />
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml" />
+    <item href="Text/frontmatter.html" id="frontmatter" media-type="application/xhtml+xml" />
+    <item href="Text/toc.html" id="toc" media-type="application/xhtml+xml" />
+  </manifest>
+
+  <spine toc="ncx">
+  </spine>
+
+  <guide>
+    <reference href="Text/toc.html" title="Table of Contents" type="toc" />
+    <reference href="Text/frontmatter.html" type="copyright-page" />
+  </guide>
+</package>

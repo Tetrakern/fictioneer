@@ -1,0 +1,8 @@
+// Targets only iOS devices
+@supports (-webkit-touch-callout: none) {
+  // Fullscreen API not supported on iOS (March 2022)
+  .hide-on-iOS {
+    display: none !important;
+    content-visibility: hidden;
+  }
+}

@@ -1,0 +1,97 @@
+{
+    "key": "group_619fc7566ad8b",
+    "title": "Collections Data",
+    "fields": [
+        {
+            "key": "field_63002a582b885",
+            "label": "Card\/List Title",
+            "name": "fictioneer_collection_list_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This alternative title is used in cards and list, which are truncated.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_619fc7732b611",
+            "label": "Collection Items",
+            "name": "fictioneer_collection_items",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Select the items you want to be featured in the collection. If you add a story, you do not need to add its chapters individually.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "fcn_story",
+                "fcn_chapter",
+                "fcn_recommendation",
+                "fcn_collection",
+                "post"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "object",
+            "min": 1,
+            "max": "",
+            "elements": ""
+        },
+        {
+            "key": "field_619fd6ccd6a76",
+            "label": "Short Description",
+            "name": "fictioneer_collection_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "The short description is used in the search and taxonomy results.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 1,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_collection"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668195896
+}

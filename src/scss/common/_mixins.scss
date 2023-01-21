@@ -1,0 +1,28 @@
+$breakpoints: (
+  'mobile-s': (min-width: 320px),
+  'mobile-m': (min-width: 375px),
+  'mobile-l': (min-width: 425px),
+  'phablet': (min-width: 480px),
+  'landscape': (min-width: 550px),
+  'tablet': (min-width: 768px),
+  'desktop': (min-width: 1024px)
+);
+
+@mixin bp($name_or_pixel) {
+  @if map-has-key($breakpoints, $name_or_pixel) {
+    @media only screen and #{inspect(map-get($breakpoints, $name_or_pixel))} {
+      @content;
+    }
+  }
+  @else {
+    @media only screen and (min-width: $name_or_pixel) {
+      @content;
+    }
+  }
+}
+
+@mixin no-mobile-hover() {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

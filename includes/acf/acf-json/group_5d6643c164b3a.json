@@ -1,0 +1,148 @@
+{
+    "key": "group_5d6643c164b3a",
+    "title": "Chapter Data",
+    "fields": [
+        {
+            "key": "field_5d6643e84c85b",
+            "label": "Story",
+            "name": "fictioneer_chapter_story",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "The story this chapter belongs to (if any); you still need to add it to the list on the story.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "fcn_story"
+            ],
+            "taxonomy": "",
+            "return_format": "object",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_625c8d1e86bab",
+            "label": "Card\/List Title",
+            "name": "fictioneer_chapter_list_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This alternative title is used in cards and list, which are truncated. Useful if number suffixes are used and you want to prefix them in lists.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_63447047e59f8",
+            "label": "Group",
+            "name": "fictioneer_chapter_group",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Organize chapters into groups; make sure they are in order and mind the spelling. Groups are only displayed if there are at least two. Unassigned chapters will be grouped under \"Unassigned\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_5d6644934c85c",
+            "label": "Foreword",
+            "name": "fictioneer_chapter_foreword",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Shown in a box before the chapter.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 1
+        },
+        {
+            "key": "field_5d6644ed4c85d",
+            "label": "Afterword",
+            "name": "fictioneer_chapter_afterword",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Shown in a box after the chapter.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 1
+        },
+        {
+            "key": "field_607b4ffe4fa60",
+            "label": "Password Note",
+            "name": "fictioneer_chapter_password_note",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Custom message only shown for password protected content. Make clear why there is a password and maybe how to get it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_chapter"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668176273
+}

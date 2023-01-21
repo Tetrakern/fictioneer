@@ -1,0 +1,99 @@
+{
+    "key": "group_5d6303c8575d8",
+    "title": "Story Data",
+    "fields": [
+        {
+            "key": "field_5d63046c48ec3",
+            "label": "Short Description",
+            "name": "fictioneer_story_short_description",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "The short description is used in the story list cards. Keep it nice and short to look good on the story card. Mind that only the first paragraph will be rendered.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_5d6304e4330fd",
+            "label": "Chapters",
+            "name": "fictioneer_story_chapters",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Select and order all chapters that belong to this story (set in the chapter).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "fcn_chapter"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search"
+            ],
+            "return_format": "object",
+            "min": "",
+            "max": -1,
+            "elements": ""
+        },
+        {
+            "key": "field_5d6e33e253add",
+            "label": "Custom Pages",
+            "name": "fictioneer_story_custom_pages",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Add up to six pages to be shows as tabs alongside [Chapters] and [Blog]. All pages must have a short name or will not be shown.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": "",
+            "filters": [
+                "search",
+                "post_type",
+                "taxonomy"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": 6,
+            "elements": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_story"
+            }
+        ]
+    ],
+    "menu_order": 4,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668210179
+}

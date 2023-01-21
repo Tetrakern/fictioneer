@@ -1,0 +1,379 @@
+:root:not(.no-background-textures, .minimal) body .chapter__background {
+  background: {
+    image: var(--layout-background-texture-chapter);
+  }
+}
+
+.chapter-font-color {
+  color: var(--text-chapter);
+}
+
+.chapter {
+  &__article {
+    padding-top: var(--layout-spacing-vertical);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-left {
+      flex-basis: 19%;
+    }
+
+    &-center {
+      flex-basis: 56%;
+    }
+
+    &-right {
+      flex-basis: 25%;
+    }
+
+    > div {
+      display: flex;
+      gap: 3px;
+    }
+
+    &-center:is(div) {
+      justify-content: center;
+      column-gap: 6px;
+    }
+
+    &-right {
+      justify-content: flex-end;
+
+      :is(i, .icon) {
+        font-size: 16px;
+        text-align: center;
+        min-width: 6px;
+      }
+    }
+
+    > :not(.chapter__actions-center) > * {
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: var(--layout-border-radius-small);
+        border-bottom-left-radius: var(--layout-border-radius-small);
+      }
+
+      &:last-child {
+        border-top-right-radius: var(--layout-border-radius-small);
+        border-bottom-right-radius: var(--layout-border-radius-small);
+      }
+
+      &:not(:first-child) .button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &:not(:last-child) .button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    .button {
+      &:is(.open-fullscreen, .close-fullscreen) {
+        padding: 0;
+      }
+
+      &._navigation {
+        // Do not show Previous/Next labels below tablet
+        @media only screen and (max-width: 767px) {
+          .on {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  &__headline {
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+
+    > a {
+      color: var(--fg-600);
+      font-size: var(--fs-s);
+      font-weight: var(--font-weight-medium);
+      line-height: 1;
+
+      &:hover {
+        color: var(--fg-400);
+      }
+    }
+
+    h1 {
+      font-size: get_relative_clamp(1.25, 1.75, 320, $full-width, 'vw', 'em');
+      line-height: 1.3;
+      margin-top: .25rem;
+    }
+  }
+
+  &__author {
+    display: block;
+    color: var(--fg-600);
+    font-size: var(--fs-xs);
+    margin-top: .5rem;
+  }
+
+  &__password-note {
+    margin-bottom: 2rem;
+
+    p {
+      text-indent: 0 !important;
+    }
+  }
+
+  &__content {
+    @include bp(768px) {
+      min-height: 400px;
+    }
+
+    p {
+      &:not(:last-of-type, [class*=wp-block-]) {
+        margin-bottom: 1.5em;
+      }
+
+      &:not(:first-of-type, .has-text-align-center, [class*=wp-block-]) {
+        text-indent: 1.5rem;
+      }
+    }
+
+    .chapter-formatting {
+      --paragraph-spacing: 1.5em;
+      --text-chapter: var(--fg-tinted);
+      letter-spacing: .01em;
+
+      p:not(:last-child, [class*=wp-block-]) {
+        margin-bottom: var(--paragraph-spacing);
+      }
+
+      &.no-indent p {
+        text-indent: 0 !important;
+      }
+
+      &.justify {
+        p {
+          &:not(.has-text-align-center, .has-text-align-left, .has-text-align-right) {
+            text-align: justify;
+          }
+        }
+      }
+
+      &:not(.hide-sensitive) .sensitive-alternative,
+      &.hide-sensitive .sensitive-content {
+        display: none;
+        content-visibility: hidden; // Improve performance
+      }
+
+      &[style*=Garamond] {
+        strong {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    &:not(:empty) {
+      margin-top: 3rem;
+    }
+  }
+
+  &__support {
+    color: var(--fg-500);
+    font-size: var(--fs-xs);
+    font-weight: var(--font-weight-strong);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+
+    &-message {
+      text-transform: uppercase;
+      opacity: .45;
+    }
+
+    &-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px -8px 0;
+
+      :is(i, .icon) {
+        color: var(--fg-600);
+        margin-right: 2px;
+      }
+
+      .icon--kofi {
+        height: 1.3em;
+        transform: translateY(-1px);
+      }
+    }
+
+    a {
+      color: var(--fg-500);
+      font-size: var(--fs-xs);
+      line-height: 32px;
+      padding: 0 8px;
+      border-radius: var(--layout-border-radius-small);
+      height: 32px;
+      opacity: .45;
+
+      &:hover {
+        background: var(--button-secondary-background-hover);
+        opacity: 1;
+
+        i {
+          color: inherit;
+        }
+      }
+    }
+
+    .icon {
+      display: inline-block;
+    }
+  }
+
+  .infobox {
+    font-size: var(--fs-xs);
+
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
+  }
+
+  &__warning.infobox {
+    color: var(--warning);
+    font-weight: var(--font-weight-medium);
+
+    p {
+      &:not(:last-child) {
+        margin-bottom: .5em;
+      }
+    }
+
+    summary {
+      strong {
+        margin-left: .25em;
+      }
+    }
+
+    label {
+      span {
+        text-decoration: underline;
+      }
+
+      &:hover {
+        filter: brightness(1.25);
+      }
+
+      .off {
+        display: none;
+        content-visibility: hidden;
+      }
+
+      &.hide-sensitive {
+        .on {
+          display: none;
+          content-visibility: hidden;
+        }
+
+        .off {
+          display: initial;
+          content-visibility: visible;
+        }
+      }
+    }
+  }
+}
+
+.current-bookmark {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -0.45rem;
+    display: block;
+    background: var(--bookmark-line);
+    height: 3px;
+    width: var(--site-width);
+    max-width: 100vw;
+    transform: translate(-50%);
+  }
+
+  &[data-bookmark-color=beta] {
+    &::before,
+    #button-set-bookmark {
+      color: var(--bookmark-button-text-active-beta);
+      background: var(--bookmark-color-beta);
+    }
+  }
+
+  &[data-bookmark-color=gamma] {
+    &::before,
+    #button-set-bookmark {
+      color: var(--bookmark-button-text-active-gamma);
+      background: var(--bookmark-color-gamma);
+    }
+  }
+
+  &[data-bookmark-color=delta] {
+    &::before,
+    #button-set-bookmark {
+      color: var(--bookmark-button-text-active-delta);
+      background: var(--bookmark-color-delta);
+    }
+  }
+
+  #button-set-bookmark {
+    background: var(--button-bookmark-background-active);
+    color: var(--bookmark-button-text-active-alpha);
+  }
+}
+
+.current-reading,
+.selected-paragraph {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    bottom: -0.5rem;
+    left: 50%;
+    z-index: -1;
+    display: block;
+    width: 200%;
+    max-width: min(100vw, var(--site-width));
+    transform: translate(-50%);
+  }
+}
+
+.current-reading {
+  &::after {
+    background: var(--tts-current-reading-background);
+  }
+}
+
+.selected-paragraph {
+  &::after {
+    background: var(--paragraph-selection-background);
+  }
+
+  > span {
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+
+  .paragraph-tools {
+    display: block;
+    content-visibility: visible;
+  }
+}

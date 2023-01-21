@@ -1,0 +1,122 @@
+.suggestions {
+  &__wrapper {
+    width: calc(100vw - 30px);
+    min-width: 300px;
+
+    @include bp(630px) {
+      width: 600px;
+    }
+  }
+
+  :is(.modal__row, textarea) {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  &__display > div,
+  &__edit {
+    position: relative;
+
+    &::after,
+    &::before {
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      display: block;
+      border-radius: 2px;
+    }
+  }
+
+  &__display {
+    > div {
+      user-select: none;
+      background: var(--disabled-pattern);
+      border-radius: 2px;
+      overflow: hidden;
+
+      &::before {
+        z-index: 1;
+        border: 1px dashed var(--fg-700);
+      }
+    }
+  }
+
+  &__diff {
+    > div {
+      color: var(--fg-600);
+    }
+  }
+
+  &__input {
+    padding: 0 12px;
+  }
+
+  &__edit {
+    border-radius: 2px;
+    overflow: hidden;
+
+    ::-webkit-scrollbar-track {
+      border: 1px solid var(--input-border-color-hover);
+      border-width: 1px 1px 1px 0;
+    }
+
+    &::after {
+      background: var(--input-background);
+      border: 1px solid var(--input-border-color-hover);
+    }
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    height: 33px;
+    padding: 8px;
+    background: none;
+    border: none;
+    resize: none;
+  }
+
+  &__text {
+    color: var(--fg-700);
+    border-radius: 2px;
+    padding: 8px;
+    white-space: pre-wrap;
+    max-height: 112px;
+    overflow: auto;
+
+    br {
+      content: '';
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__actions {
+    justify-content: space-between;
+  }
+}
+
+.suggestion-tools {
+  user-select: none;
+  position: absolute;
+  z-index: 1;
+  transition: opacity var(--transition-duration);
+
+  button {
+    background: var(--button-suggestion-background);
+    color: var(--button-suggestion-text);
+
+    &:not(.current, [disabled]):hover {
+      background: var(--button-suggestion-background-hover);
+      color: var(--button-suggestion-text-hover);
+    }
+  }
+}
+
+.comment-suggestion-heading {
+  display: block;
+  margin: 0 0 .5rem;
+}

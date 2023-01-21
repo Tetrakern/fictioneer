@@ -1,0 +1,57 @@
+.scrolling-up.is-inside-main {
+  .notifications {
+    top: 80px;
+  }
+}
+
+.scrolling-down.is-inside-main {
+  .notifications {
+    top: 40px;
+  }
+}
+
+.notifications {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: .75rem;
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  line-height: 1.5;
+  text-shadow: none;
+  overflow-wrap: break-word;
+  max-width: var(--site-width);
+  width: 100%;
+  transform: translate(-50%);
+  transition: top var(--transition-duration);
+
+  &__message {
+    background: var(--tooltip-background);
+    color: var(--tooltip-text);
+    padding: .75rem 1rem;
+    border-radius: var(--layout-border-radius-small);
+    transition: opacity var(--transition-duration);
+    max-width: min(375px, calc(100vw - 32px));
+    filter: var(--container-drop-shadow);
+
+    a {
+      &:hover {
+        color: currentColor;
+      }
+    }
+
+    &._warning {
+      background: var(--warning);
+      color: var(--warning-caption);
+    }
+
+    &._success {
+      background: var(--success);
+      color: var(--success-caption);
+    }
+  }
+}

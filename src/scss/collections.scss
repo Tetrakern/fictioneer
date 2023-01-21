@@ -1,0 +1,17 @@
+@import 'common/functions';
+@import 'common/mixins';
+@import 'common/variables';
+
+.collection {
+  &__taxonomies {
+    margin-bottom: 1.5rem;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__tags-and-warnings {
+    margin-top: 2rem;
+  }
+}

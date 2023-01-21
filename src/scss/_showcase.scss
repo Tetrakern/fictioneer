@@ -1,0 +1,75 @@
+.showcase {
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    background: var(--placeholder-background);
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    width: 100%;
+    transition: transform var(--transition-duration);
+
+    &._no-cover {
+      background: var(--placeholder-no-cover);
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(#{get_clamp(160, 175, 375, 480)}, 1fr));
+    gap: 1rem;
+  }
+
+  li {
+    position: relative;
+    border-radius: var(--layout-border-radius-small);
+    box-shadow: 0 0 1px transparent; // iOS Safari fix or it won't show drop-shadow
+    filter: var(--container-drop-shadow);
+    overflow: hidden;
+    max-width: max(420px, 100%);
+    height: max(64px, #{get_clamp(64, 96, 375, 768)});
+    contain: layout paint style; // Improve performance
+
+    @include bp(mobile-l) {
+      &:first-child:last-child {
+        width: unquote('max(360px, 50%)');
+        margin: 0 auto;
+      }
+    }
+
+    a {
+      display: block;
+      height: 100%;
+
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+  figcaption {
+    position: absolute;
+    inset: 0;
+    top: unset;
+    display: block;
+    background: var(--caption-overlay-shadow);
+    color: var(--layout-collection-text);
+    font: 500 var(--fs-dxs)/1.2 var(--font-heading);
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    padding: .6rem .5rem .3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

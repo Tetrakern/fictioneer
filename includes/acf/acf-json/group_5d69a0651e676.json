@@ -1,0 +1,290 @@
+{
+    "key": "group_5d69a0651e676",
+    "title": "Chapter Meta",
+    "fields": [
+        {
+            "key": "field_5d69a08900c4d",
+            "label": "Chapter Icon",
+            "name": "fictioneer_chapter_icon",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Add the classes of a <em>free<\/em> <a href=\"https:\/\/fontawesome.com\/search\" target=\"_blank\">Font Awesome<\/a> icon, e.g. \"fa-solid fa-book\".",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "fa-solid fa-book",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6234925d600b4",
+            "label": "Chapter Text Icon",
+            "name": "fictioneer_chapter_text_icon",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Override the icon with a text string. Mind the limited space.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 3,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6234f46e4ea98",
+            "label": "Chapter Short Title",
+            "name": "fictioneer_chapter_short_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shorter title (e.g. \"Arc 15, Ch. 17\") used by some child themes; you will know.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 32,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_5d69a17bcad91",
+            "label": "Chapter Prefix",
+            "name": "fictioneer_chapter_prefix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Prepends a prefix to the chapter link (e.g. \"Prologue\" or \"Act I ~ 01\"). Does not appear in the chapter or ePUB.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_62c896f9f5b69",
+            "label": "Co-Authors",
+            "name": "fictioneer_chapter_co_authors",
+            "aria-label": "",
+            "type": "user",
+            "instructions": "Add co-authors. Do not add yourself.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "role": "",
+            "return_format": "id",
+            "multiple": 1,
+            "allow_null": 0
+        },
+        {
+            "key": "field_600afa4cd6d3b",
+            "label": "Unlisted?",
+            "name": "fictioneer_chapter_hidden",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "The chapter is not listed but can be reached with the link.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Chapter is unlisted",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5d6cc6a91f5db",
+            "label": "Not a Chapter?",
+            "name": "fictioneer_chapter_no_chapter",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Check if you do not want the chapter to count towards the total. Useful for mere info pages like glossaries.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Not a chapter",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5d6d4d339d9f6",
+            "label": "Hide Title?",
+            "name": "fictioneer_chapter_hide_title",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Check if you want to hide the chapter's title. Useful if you want to style it as content block or image.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Do not show title",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_631914e47dd01",
+            "label": "Hide Support Links?",
+            "name": "fictioneer_chapter_hide_support_links",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Check if you do not want the support links at the bottom of the chapter to show up.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide support links",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_628748bec7407",
+            "label": "Chapter Age Rating",
+            "name": "fictioneer_chapter_rating",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Optional age rating for the chapter that can differ from the story.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Everyone": "Everyone",
+                "Teen": "Teen",
+                "Mature": "Mature",
+                "Adult": "Adult"
+            },
+            "default_value": false,
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 1,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_600a9f267f6df",
+            "label": "Chapter Warning",
+            "name": "fictioneer_chapter_warning",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Warning for potentially upsetting content not common for the story, such as graphic violence.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_625beeb87f2e8",
+            "label": "Warning Notes",
+            "name": "fictioneer_chapter_warning_notes",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Shown below the chapter warning in a disclosure widget that can be toggled.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_600ab0ce2a3eb",
+            "label": "Warning Color",
+            "name": "fictioneer_chapter_warning_color",
+            "aria-label": "",
+            "type": "color_picker",
+            "instructions": "Custom color for the warning.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "enable_opacity": 0,
+            "return_format": "string"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_chapter"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1672965542
+}

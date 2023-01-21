@@ -1,0 +1,54 @@
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+
+    &::before,
+    &::after {
+      content: none !important;
+    }
+  }
+
+  a {
+    color: currentColor !important;
+  }
+
+  article {
+    padding: 0 !important;
+  }
+
+  .chapter__headline,
+  .main__wrapper {
+    padding-top: 0 !important;
+  }
+
+  .main__background {
+    border: none !important;
+  }
+
+  .header,
+  .footer,
+  .main-navigation,
+  .navigation,
+  .header-background,
+  .chapter__actions,
+  .chapter__suggestion,
+  .chapter__foreword,
+  .chapter__afterword,
+  .chapter__warning,
+  .chapter__comments,
+  .wp-block-embed,
+  .wp-block-video,
+  .wp-block-audio,
+  .wp-block-file-wrapper,
+  .micro-menu,
+  .paragraph-tools,
+  .chapter__support,
+  .lightbox {
+    display: none !important;
+    content-visibility: hidden;
+  }
+}

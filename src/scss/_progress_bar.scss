@@ -1,0 +1,55 @@
+body:not(.hasProgressBar) {
+  .progress {
+    opacity: 0;
+  }
+}
+
+.no-chapter-progress-bar {
+  .progress {
+    display: none;
+    content-visibility: hidden;
+  }
+}
+
+.admin-bar {
+  .progress {
+    top: 0;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .admin-bar:not(.mobile-menu-open) {
+    .progress {
+      top: 45px;
+    }
+  }
+}
+
+@media screen and (min-width: 783px) {
+  .admin-bar:not(.mobile-menu-open) {
+    .progress {
+      top: 31px;
+    }
+  }
+}
+
+.progress {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 10000;
+  background-color: var(--progress-bar-background);
+  padding: 1px 0;
+  height: 4px;
+  width: 100%;
+  max-width: var(--site-width);
+  transition: opacity var(--transition-duration), top var(--transition-duration);
+  transform: translate3d(-50%, 0, 0);
+
+  &__bar {
+    height: 2px;
+    width: 0;
+    background-color: var(--progress-bar-color);
+  }
+}

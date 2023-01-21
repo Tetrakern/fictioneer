@@ -1,0 +1,141 @@
+:root.minimal {
+  body {
+    --text-shadow: none;
+    --mobile-menu-text-shadow: none;
+    --floating-shadow: none;
+    --container-drop-shadow: none;
+    --figure-drop-shadow: none;
+    --card-image-drop-shadow: none;
+    --paragraph-tools-filter: none;
+    --layout-main-filter: none;
+    --infobox-gradient: hsl(var(--infobox-background-free) / 40%);
+    --layout-main-mobile-box-shadow: none;
+    --embed-box-shadow: var(--minimal-container-box-shadow);
+  }
+
+  &[data-mode=light] body {
+    --infobox-gradient: hsl(var(--infobox-background-free) / 3%);
+  }
+
+  :is(.card, .showcase__list-item, .story__thumbnail img, .modal__wrapper, .cookies__list, .litrpg-frame) {
+    box-shadow: var(--minimal-container-box-shadow);
+  }
+
+  &:not(:fullscreen, :-webkit-full-screen) .main__background {
+    box-shadow: var(--minimal-main-box-shadow);
+  }
+
+  @include bp(640px) {
+    .story__article-bottom {
+      margin-left: 1px;
+      margin-right: 1px;
+    }
+  }
+
+  div.site {
+    background: {
+      image: none;
+    }
+  }
+
+  .header-background {
+    left: 0;
+    box-shadow: none;
+    filter: none;
+    max-width: unset;
+    transform: none;
+  }
+
+  :is(.progress, .header-background__wrapper) {
+    display: none;
+    content-visibility: hidden;
+  }
+
+  :is(.polygon, .litrpg-frame) {
+    clip-path: none !important;
+  }
+
+  .litrpg-box {
+    filter: none;
+  }
+
+  .litrpg-frame {
+    border-radius: var(--layout-border-radius-large);
+  }
+
+  .story .checkmark {
+    text-shadow: none;
+  }
+
+  .padding-left {
+    padding-left: 10px;
+
+    @include bp(375px) {
+      padding-left: 20px;
+    }
+
+    @include bp(phablet) {
+      padding-left: 32px;
+    }
+
+    @include bp(tablet) {
+      padding-left: 48px;
+    }
+
+    @include bp(desktop) {
+      padding-left: 80px;
+    }
+  }
+
+  .padding-right {
+    padding-right: 10px;
+
+    @include bp(375px) {
+      padding-right: 20px;
+    }
+
+    @include bp(phablet) {
+      padding-right: 32px;
+    }
+
+    @include bp(tablet) {
+      padding-right: 48px;
+    }
+
+    @include bp(desktop) {
+      padding-right: 80px;
+    }
+  }
+
+  .padding-top {
+    padding-top: 10px;
+
+    @include bp(375px) {
+      padding-top: 20px;
+    }
+
+    @include bp(tablet) {
+      padding-top: 32px;
+    }
+
+    @include bp(desktop) {
+      padding-top: 48px;
+    }
+  }
+
+  .padding-bottom {
+    padding-bottom: 10px;
+
+    @include bp(375px) {
+      padding-bottom: 20px;
+    }
+
+    @include bp(tablet) {
+      padding-bottom: 32px;
+    }
+
+    @include bp(desktop) {
+      padding-bottom: 48px;
+    }
+  }
+}

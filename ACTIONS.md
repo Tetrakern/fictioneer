@@ -1,0 +1,829 @@
+# Actions
+The following [action hooks](https://developer.wordpress.org/reference/functions/do_action/) can be used to customize templates without the need to duplicate the template files, greatly reducing the risk of them becoming outdated due to updates in the future. Actions can be easily added or overwritten in child themes or plugins. See `includes/functions/hooks/`.
+
+### Example: Add Discord invite link to chapter top actions
+This is an example of how to add a Discord invite link to the chapter top actions via the the `fictioneer_chapter_actions_top_center` hook. The link will feature a [Font Awesome Discord icon](https://fontawesome.com/icons/discord?f=brands) and be located between the formatting modal toggle (priority: 10) and fullscreen buttons (priority: 20). Note that no arguments of the hook are used because we do not need any of them here.
+
+```php
+// Add this to your child theme's functions.php
+function child_theme_discord_invite_link() {
+  // Start HTML ---> ?>
+  <a href="http://www.your-discord-invite-link.com" target="_blank" rel="noopener" class="button _secondary">
+    <i class="fa-brands fa-discord"></i>
+  </a>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_chapter_actions_top_center', 'child_theme_discord_invite_link', 15 );
+```
+
+---
+
+### `do_action( 'fictioneer_account_content', $args )`
+Fires within `<article>` content section in the `user-profile.php` template. Normal page content is not rendered in the template, only what is hooked into this action. This is the frontend user profile, after all.
+
+**$args:**
+* $user (WP_User) – The current user object.
+* $is_admin (boolean) – True if the user is an administrator.
+* $is_author (boolean) – True if the user is an author (by capabilities).
+* $is_moderator (boolean) – True if the user is a moderator (by capabilities).
+* $is_editor (boolean) – True if the user is an editor.
+
+**Hooked actions:**
+* `fictioneer_account_moderation_message( $args )` – Moderation message section. Priority 5.
+* `fictioneer_account_profile( $args )` – Account profile section. Priority 10.
+* `fictioneer_account_oauth( $args )` – OAuth 2.0 account bindings section. Priority 20.
+* `fictioneer_account_data( $args )` – Account data section. Priority 30.
+* `fictioneer_account_discussions( $args )` – Account discussions section. Priority 40.
+* `fictioneer_account_danger_zone( $args )` – Account termination section. Priority 100.
+
+---
+
+### `do_action( 'fictioneer_account_data_nodes', $user, $args )`
+Fires after the last list card in the `partials/account/_data.php` partial, added via the `'fictioneer_account_content'` action. Normally contains data nodes for comments, comment subscriptions, Follows, Reminders, Checkmarks, and bookmarks.
+
+**Parameters:**
+* $user (WP_User) – The profile user object.
+
+**$args:**
+* $is_admin (boolean) – True if the profile user is an administrator.
+* $is_author (boolean) – True if the profile user is an author (by capabilities).
+* $is_moderator (boolean) – True if the profile user is a moderator (by capabilities).
+* $is_editor (boolean) – True if the profile user is an editor.
+* $follows (array) – Collection of current follows from `fictioneer_load_follows( $user )`.
+* $reminders (array) – Collection of current follows from `fictioneer_load_reminders( $user )`.
+* $checkmarks (array) – Collection of current follows from `fictioneer_load_checkmarks( $user )`.
+* $comments_count (int) – Total count of the profile user’s comments.
+* $timezone (string) – Server’s timezone string.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_connections' )`
+Fires after the last card in the `_settings_page_connections.php` partial. You can use this hook to add additional options to the Connections tab in the Fictioneer settings menu, belonging to the `fictioneer-settings-connections-group` group.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_epubs', $args )`
+Fires after the ePUBs table in the `_settings_page_epubs.php` partial. You can use this hook to add additional options to the ePUBs tab in the Fictioneer settings menu. There is no default settings form group here.
+
+**$args:**
+* $page (int) – Current page number.
+* $epubs_per_page (int) – Number of ePUBs displayed per page.
+* $epub_dir (string) – Path to the ePUBs directory.
+* $epubs (array) – List of all ePUBs in the directory.
+* $current_epubs (array) – List of all currently displayed ePUBs in the table.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_general' )`
+Fires before the last card (Deactivation) in the `_settings_page_general.php` partial. You can use this hook to add additional options to the General tab in the Fictioneer settings menu, belonging to the `fictioneer-settings-general-group` group.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_logs' )`
+Fires after the last card in the `_settings_page_logs.php` partial. You can use this hook to add additional options to the Logs tab in the Fictioneer settings menu. There is no default settings form group here.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_phrases' )`
+Fires after the last card in the `_settings_page_phrases.php` partial. You can use this hook to add additional options to the Phrases tab in the Fictioneer settings menu, belonging to the `fictioneer-settings-phrases-group` group.
+
+---
+
+### `do_action( 'fictioneer_admin_settings_tools' )`
+Fires after the last card in the `_settings_page_tools.php` partial. You can use this hook to add additional tools to the Tools tab in the Fictioneer settings menu. There is no default settings form group here.
+
+---
+
+### `do_action( 'fictioneer_admin_user_sections', $profile_user )`
+Fires within the Fictioneer user profile section in the WordPress `wp-admin/profile.php` template, which is added to both the `'show_user_profile'` (Priority 20) and `'edit_user_profile'` (Priority 20) actions. The default hooked actions are restricted to administrators, moderators, and the profile user.
+
+**Parameters:**
+* $profile_user (WP_User) – The owner of the currently edited profile.
+
+**Hooked actions:**
+* `fictioneer_admin_user_fields( $profile_user )` – User profile fields. Priority 5.
+* `fictioneer_admin_profile_moderation( $profile_user )` – Moderation flags and message. Priority 10.
+* `fictioneer_admin_profile_author( $profile_user )` – Author page select, support message, and support links. Priority 20.
+* `fictioneer_admin_profile_oauth( $profile_user )` – OAuth 2.0 account binding IDs. Priority 30.
+* `fictioneer_admin_profile_badge( $profile_user )` – Override badge. Priority 40.
+* `fictioneer_admin_profile_external_avatar( $profile_user )` – External avatar URL. Priority 50.
+
+---
+
+### `do_action( 'fictioneer_after_main', $args )`
+Fires between the site’s `<main>` and `<footer>` blocks. This is the empty space before the breadcrumbs, footer menu, and copyright notice. Still within the `#site` container scope. To escape that, hook into `'wp_footer'` instead.
+
+**$args:**
+* $post_type (string|null) – Current post type. Unsafe.
+* $post_id (int|null) – Current post ID. Unsafe.
+* $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
+
+---
+
+### `do_action( 'fictioneer_before_comments' )`
+Fires right before the comment section outside the `<article>` but still within the `<main>` block. Note that the wrapping block does not provide padding, which means you may use the full container width. If needed, add the `padding-left` and/or `padding-right` utility CSS classes for responsive horizontal padding.
+
+---
+
+### `do_action( 'fictioneer_body', $args )`
+Fires after `wp_body_open()` in the `<body>` right before the inline storage element (for scripts) and notifications, outside the layout. Normally includes the modals and mobile menu.
+
+**$args:**
+* $post_id (int|null) – Current post ID . Unsafe.
+* $story_id (int|null) – Current story ID (if chapter). Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+**Hooked actions:**
+* `fictioneer_output_modals()` – HTML for the modals. Priority 10.
+* `fictioneer_output_mobile_menu()` – HTML for the mobile menu. Priority 20.
+
+---
+
+### `do_action( 'fictioneer_cache_purge_all' )`
+Fires after all caches from known plugins have been purged in the `fictioneer_purge_all_caches()` function, normally triggered by a site-wide update. You can use this hook to purge additional caches.
+
+---
+
+### `do_action( 'fictioneer_cache_purge_post', $post_id )`
+Fires after a post cache from known plugins has been purged in the `fictioneer_purge_post_cache( $post_id )` function, normally triggered by a specific post or page update. You can use this hook to purge additional caches.
+
+**Parameter:**
+* $post_id (int) – The ID of the post/page to purge the cache for.
+
+---
+
+### `do_action( 'fictioneer_contact_form_validation', $strings )`
+Fires after the shortcode [contact form](DOCUMENTATION.md#contact-form) has been submitted, validated, and sanitized. Use this hook to apply additional validations and sanitation, perhaps with a plugin. Terminate the script if something bad is found.
+
+**Parameter:**
+* $strings (array) – Fields submitted in the form.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_top_center', $args, $location )`
+Fires in the second column of top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the formatting modal toggle, open/close fullscreen and bookmark jump buttons.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'top'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_formatting_button()` – Toggle to open the chapter formatting modal. Priority 10.
+* `fictioneer_chapter_fullscreen_buttons()` – Buttons to open/close the fullscreen view. Priority 20.
+* `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_top_left', $args, $location )`
+Fires in the first column of the top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the font resize buttons.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'top'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_resize_buttons()` – Buttons to decrease, reset, and increase the chapter font size. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_top_right', $args, $location )`
+Fires in the third column of the top action section in the `single-fcn_chapter.php` template, the first child in the chapter `<article>` container. Normally includes the chapter navigation links and bottom anchor button.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'top'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_nav_buttons( $args, 'top' )` – Links to the previous/next chapter, anchor to end of chapter. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_bottom_center', $args, $location )`
+Fires in the second column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the subscribe, story link, and bookmark jump buttons.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'bottom'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_subscribe_button()` – Subscription popup menu. Priority 10.
+* `fictioneer_chapter_story_back_button()` – Link to return to the story. Priority 20.
+* `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_bottom_left', $args, $location )`
+Fires in the first column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the social media sharing and feed buttons.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'bottom'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_media_buttons()` – Buttons for social media sharing and feeds. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_chapter_actions_bottom_right', $args, $location )`
+Fires in the third column of the bottom action section in the `single-fcn_chapter.php` template, the last child in the chapter `<article>` container. Normally includes the chapter navigation links and top anchor button.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Parameters:**
+* $location (string) – Location on the chapter page, here `'bottom'`.
+
+**Hooked actions:**
+* `fictioneer_chapter_nav_buttons( $args, 'bottom' )` – Links to the previous/next chapter, anchor to start of chapter. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_chapter_after_header', $args )`
+Fires right after the article header (with story, title, and authors) in the `single-fcn_chapter.php` template, inside the `<article>` container and just before the content section (or password form if the post is protected). The chapter header is unaffected by most chapter formatting options.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+---
+
+### `do_action( 'fictioneer_chapter_after_content', $args )`
+Fires right after the content section in the `single-fcn_chapter.php` template, inside the `<article>` container and just before the bottom action section. Normally includes the afterword and support links.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Hooked actions:**
+* `fictioneer_chapter_afterword( $args )` – Chapter afterword. Priority 10.
+* `fictioneer_chapter_support_links( $args )` – Support links set for the chapter/story/author. Priority 20.
+
+---
+
+### `do_action( 'fictioneer_chapter_after_main', $args )`
+Fires right after the `<main>` container is closed in the `single-fcn_chapter.php` template. Normally includes the micro menu, paragraph tools, and suggestion tools. Not executed if the post is locked behind a password.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Hooked actions:**
+* `fictioneer_chapter_micro_menu( $args )` – Add the HTML for the chapter micro menu. Priority 10.
+* `fictioneer_chapter_paragraph_tools()` – Add the HTML for the chapter paragraph tools. Priority 10.
+* `fictioneer_chapter_suggestion_tools()` – Add the HTML for the chapter suggestion tools. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_chapter_before_header', $args )`
+Fires between the top actions sections and chapter header (title and authors) in the `single-fcn_chapter.php` template. Normally includes the foreword and chapter warnings.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+**Hooked actions:**
+* `fictioneer_chapter_foreword( $args )` – Chapter foreword if provided. Priority 10.
+* `fictioneer_chapter_warnings( $args )` – Chapter warnings if provided. Priority 20.
+
+---
+
+### `do_action( 'fictioneer_chapter_before_comments', $args )`
+Fires just before the comments section in the `single-fcn_chapter.php` template and before the `fictioneer_before_comments` hook. The only difference is the provided argument array with chapter data.
+
+**$args:**
+* $author (WP_User) – Author of the post.
+* $story_post (WP_Post|null) – Post object of the story. Unsafe.
+* $story_data (array|null) – Collection of story data. Unsafe.
+* $chapter_id (int) – The chapter ID.
+* $chapter_title (string) – Safe chapter title.
+* $chapter_password (string) – Chapter password or empty string.
+* $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
+* $current_index (int) – Current index in the chapters_id array.
+* $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
+* $next_index (int|boolean) – Index of next chapter or false if outside bounds.
+
+---
+
+### `do_action( 'fictioneer_chapters_after_content', $args )`
+List page template hook. Fires right after the content section in the `chapters.php` template. Includes the paginated card list of all visible chapters on the site.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $chapters (WP_Query) – Paginated query of all published chapters.
+* $queried_type (string) – `fcn_chapter`
+
+**Hooked actions:**
+* `fictioneer_chapters_list( $args )` – Paginated card list of all visible chapters. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_chapters_end_of_results', $args )`
+List page template hook. Fires right after the last list item in the `'fictioneer_chapters_list'` action.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $chapters (WP_Query) – Paginated query of all published chapters.
+* $queried_type (string) – `fcn_chapter`
+
+---
+
+### `do_action( 'fictioneer_chapters_no_results', $args )`
+List page template hook. Fires right at the top of an empty result list in the `'fictioneer_chapters_list'` action, before the no-result message is rendered.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $chapters (WP_Query) – Paginated query of all published chapters.
+* $queried_type (string) – `fcn_chapter`
+
+---
+
+### `do_action( 'fictioneer_collection_after_content', $args )`
+Fires right after the collection content section in the `single-fcn_collection.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, statistics, and items featured in the collection.
+
+**$args:**
+* $collection (WP_Post) – Post object of the collection.
+* $collection_id (int) – Post ID of the collection.
+* $title (string) – Safe title of the collection.
+* $current_page (int) – Number of the current page or 1.
+* $max_pages (int) – Total number of pages or 1.
+* $featured_list (array) – IDs of featured items in the collection.
+* $featured_query (WP_Query) – Paginated query of featured items.
+
+**Hooked actions:**
+* `fictioneer_collection_tags_and_warnings( $args )` – Tags and content warnings. Priority 10.
+* `fictioneer_collection_statistics( $args )` – Collection statistics. Priority 20.
+* `fictioneer_collection_featured_list( $args )` – Paginated items featured in the collection. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_collection_after_header', $args )`
+Fires right after the article header (title, fandom, genres, and characters) in the `single-fcn_collection.php` template, inside the `<article>` container and just before the content section (or password form if the post is protected).
+
+**$args:**
+* $collection (WP_Post) – Post object of the collection.
+* $collection_id (int) – Post ID of the collection.
+* $title (string) – Safe title of the collection.
+* $current_page (int) – Number of the current page or 1.
+* $max_pages (int) – Total number of pages or 1.
+* $featured_list (array) – IDs of featured items in the collection.
+* $featured_query (WP_Query) – Paginated query of featured items.
+
+---
+
+### `do_action( 'fictioneer_collections_after_content', $args )`
+List page template hook. Fires right after the content section in the `collections.php` template. Includes the paginated card list of all visible collections on the site.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $collections (WP_Query) – Paginated query of all published collections.
+* $queried_type (string) – `fcn_collection`
+
+**Hooked actions:**
+* `fictioneer_collections_list( $args )` – Paginated card list of all visible collections. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_collections_end_of_results', $args )`
+List page template hook. Fires right after the last list item in the `'fictioneer_collections_list'` action.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $collections (WP_Query) – Paginated query of all published collections.
+* $queried_type (string) – `fcn_collection`
+
+---
+
+### `do_action( 'fictioneer_collection_footer', $args )`
+Fires right after opening the article’s `<footer>` container in the `single-fcn_collection.php` template.
+
+**$args:**
+* $collection (WP_Post) – Post object of the collection.
+* $collection_id (int) – Post ID of the collection.
+* $title (string) – Safe title of the collection.
+* $current_page (int) – Number of the current page or 1.
+* $max_pages (int) – Total number of pages or 1.
+* $featured_list (array) – IDs of featured items in the collection.
+* $featured_query (WP_Query) – Paginated query of featured items.
+
+---
+
+### `do_action( 'fictioneer_collections_no_results', $args )`
+List page template hook. Fires right at the top of an empty result list in the `'fictioneer_collections_list'` action, before the no-result message is rendered.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $collections (WP_Query) – Paginated query of all published collections.
+* $queried_type (string) – `fcn_collection`
+
+---
+
+### `do_action( 'fictioneer_header', $args )`
+Fires right after opening the site’s `<header>` container. Normally includes the header background image.
+
+**$args:**
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID. Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+**Hooked actions:**
+* `fictioneer_header_background( $args )` – Header background image. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_main' )`
+Fires after opening the site’s `<main>` container, right after the `.main-observer` element.
+
+---
+
+### `do_action( 'fictioneer_main_wrapper' )`
+Fires right after opening the site’s `.main__wrapper` container, outside the loop.
+
+---
+
+### `do_action( 'fictioneer_mobile_menu_bottom' )`
+Fires right after opening the `.mobile-menu__bottom` container in the `partials/_mobile-menu.php` partial, the last element in the mobile menu. Normally reserved for the quick buttons.
+
+**Hooked actions:**
+* `fictioneer_mobile_quick_buttons()` – Quick buttons for the mobile menu. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_mobile_menu_center' )`
+Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` partial, which holds most of the panels. Primarily used to output additional frames that are triggered from within the main frame via control radio inputs. Make sure to always include a preceding `<input type="radio" name="mobile-frame-control" id="mobile-menu-frame-*" checked hidden>` with * being your custom ID, toggled via label inside the main frame.
+
+**Hooked actions:**
+* `fictioneer_mobile_follows_frame()` – Frame for mobile updates (Follows). Priority 10.
+* `fictioneer_mobile_bookmarks_frame()` – Frame for mobile bookmarks. Priority 20.
+* `fictioneer_mobile_chapters_frame()` – Frame for the mobile chapter list. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_mobile_menu_main_frame_panels' )`
+Fires right after opening the main mobile menu frame in the `partials/_mobile-menu.php` partial, the second element after the associated control radio input `#mobile-menu-frame-main`. Most panels of the mobile menu are enqueued here.
+
+**Hooked actions:**
+* `fictioneer_mobile_navigation_panel()` – Navigation menu folded out. Priority 10.
+* `fictioneer_mobile_lists_panel()` – Frame toggles for the mobile bookmarks and updates (Follows). Priority 20.
+* `fictioneer_mobile_user_menu()` – Mobile variant of the user menu. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_mobile_menu_top' )`
+Fires right after opening the `.mobile-menu__top` container in the `partials/_mobile-menu.php` partial. Normally reserved for the mobile version of the icon menu, called with the `'in-mobile-menu'` `$location` parameter.
+
+**Hooked actions:**
+* `fictioneer_mobile_user_icon_menu()` – Mobile variant of the icon menu. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_modals', $args )`
+Fires right after the default modals have been included in the `fictioneer_output_modals` action.
+
+**$args:**
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID. Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+---
+
+### `do_action( 'fictioneer_post_after_content', $post_id )`
+Fires between the article content and featured list (if any) in the `single-post.php` template.
+
+**Parameters:**
+* $post_id (int) – Current post ID.
+
+**Hooked actions:**
+* `fictioneer_post_tags( $post_id )` – Tags of the post. Priority 10.
+* `fictioneer_post_featured_list( $post_id )` – Items featured in the post. Priority 20.
+
+---
+
+### `do_action( 'fictioneer_post_footer_left', $post_id )`
+Fires inside the `.post__footer-left` container within the article footer in the `single-post.php` template. Normally includes the sharing modal toggle and feed links.
+
+**Parameters:**
+* $post_id (int) – Current post ID.
+
+**Hooked actions:**
+* `fictioneer_post_media_buttons()` – Buttons for sharing and webfeeds. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_post_footer_right', $post_id )`
+Fires inside the `.post__footer-right` container within the article footer in the `single-post.php` template. Normally includes the subscribe button with popup menu.
+
+**Parameters:**
+* $post_id (int) – Current post ID.
+
+**Hooked actions:**
+* `fictioneer_post_subscribe_button()` – Subscription popup menu. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_recommendation_after_header', $args )`
+Fires right after the article header (title, fandom, genres, and characters) in the `single-fcn_recommendation.php` template, inside the `<article>` container and just before the content section.
+
+**$args:**
+* $recommendation (WP_Post) – Post object of the recommendation.
+* $recommendation_id (int) – Post ID of the recommendation.
+* $title (string) – Safe title of the recommendation.
+
+---
+
+### `do_action( 'fictioneer_recommendation_after_content', $args )`
+Fires right after the content section in the `single-fcn_recommendation.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, external sources to read the recommendation, and support links for the recommendation author.
+
+**$args:**
+* $recommendation (WP_Post) – Post object of the recommendation.
+* $recommendation_id (int) – Post ID of the recommendation.
+* $title (string) – Safe title of the recommendation.
+
+**Hooked actions:**
+* `fictioneer_recommendation_tags( $args )` – Tags of the recommendation. Priority 10.
+* `fictioneer_recommendation_links( $args )` – External links to read the recommendation. Priority 20.
+* `fictioneer_recommendation_support_links( $args )` – Support links for the recommendation author. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_recommendation_footer', $args )`
+Fires right after opening the article’s `<footer>` container in the `single-fcn_recommendation.php` template.
+
+**$args:**
+* $recommendation (WP_Post) – Post object of the recommendation.
+* $recommendation_id (int) – Post ID of the recommendation.
+* $title (string) – Safe title of the recommendation.
+
+---
+
+### `do_action( 'fictioneer_recommendations_after_content', $args )`
+List page template hook. Fires right after the content section in the `recommendations.php` template. Includes the paginated card list of all visible recommendations on the site.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $recommendations (WP_Query) – Paginated query of all published recommendations.
+* $queried_type (string) – `fcn_recommendation`
+
+**Hooked actions:**
+* `fictioneer_recommendations_list( $args )` – Paginated card list of all visible recommendations. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_recommendations_end_of_results', $args )`
+List page template hook. Fires right after the last list item in the `'fictioneer_recommendations_list'` action.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $recommendations (WP_Query) – Paginated query of all published recommendations.
+* $queried_type (string) – `fcn_recommendation`
+
+---
+
+### `do_action( 'fictioneer_recommendations_no_results', $args )`
+List page template hook. Fires right at the top of an empty result list in the `'fictioneer_recommendations_list'` action, before the no-result message is rendered.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $recommendations (WP_Query) – Paginated query of all published recommendations.
+* $queried_type (string) – `fcn_recommendation`
+
+---
+
+### `do_action( 'fictioneer_singular_footer' )`
+Fires right after opening the article’s `<footer>` container in `singular-*.php` templates.
+
+---
+
+### `do_action( 'fictioneer_search_footer' )`
+Fires right after opening the article’s `<footer>` container in the `search.php` template.
+
+---
+
+### `do_action( 'fictioneer_search_form_after' )`
+Fires right after the search form has been rendered.
+
+---
+
+### `do_action( 'fictioneer_search_no_results' )`
+Fires right after opening the article’s no-results `<section>` container in the `search.php` template.
+
+---
+
+### `do_action( 'fictioneer_site', $args )`
+Fires right after opening the `#site` container in the `header.php` template. Includes the header background, navigation bar, and  site header with logo, title, etc.
+
+**$args:**
+* $post_id (int|null) – Current post ID . Unsafe.
+* $post_id (story_id|null) – Current story ID (if chapter). Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+**Hooked actions:**
+* `fictioneer_header_background( $args )` – HTML for the header background. Priority 10.
+* `fictioneer_navigation_bar( $args )` – HTML for the navigation bar. Priority 20.
+* `fictioneer_site_header( $args )` – HTML for the site header. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_site_footer', $args )`
+Fires first inside the site’s `<footer>` container. Normally includes the breadcrumb navigation (if any), the footer menu, and the theme copyright notice.
+
+**$args:**
+* $post_type (string|null) – Optional. Current post type.
+* $post_id (int|null) – Optional. Current post ID.
+* $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
+
+**Hooked actions:**
+* `fictioneer_breadcrumbs( $args )` – Breadcrumbs. Priority 10.
+* `fictioneer_footer_menu_row( $args )` – Footer menu and theme copyright notice. Priority 20.
+
+---
+
+### `do_action( 'fictioneer_stories_after_content', $args )`
+List page template hook. Fires right after the content section in the `stories.php` template. Includes the statistics and paginated card list of all visible stories on the site.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $stories (WP_Query) – Paginated query of all published stories.
+* $queried_type (string) – `fcn_story`
+
+**Hooked actions:**
+* `fictioneer_stories_statistics( $args )` – Compiled statistics of all stories. Priority 10.
+* `fictioneer_stories_list( $args )` – Paginated card list of all visible stories. Priority 30.
+
+---
+
+### `do_action( 'fictioneer_stories_end_of_results', $args )`
+List page template hook. Fires right after the last list item in the `'fictioneer_stories_list'` action.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $stories (WP_Query) – Paginated query of all published stories.
+* $queried_type (string) – `fcn_story`
+
+---
+
+### `do_action( 'fictioneer_stories_no_results', $args )`
+List page template hook. Fires right at the top of an empty result list in the `'fictioneer_stories_list'` action, before the no-result message is rendered.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $post_id (int) – Current post ID.
+* $stories (WP_Query) – Paginated query of all published stories.
+* $queried_type (string) – `fcn_story`
+
+---
+
+### `do_action( 'fictioneer_story_after_article', $args )`
+Fires right after the `<article>` container in the `single-fcn_story.php` template, after the content and story footer has been rendered. Normally includes the story comment list.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.
+
+**Hooked actions:**
+* `fictioneer_story_comment( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
+
+---
+
+### `do_action( 'fictioneer_story_after_content', $args )`
+Fires right after the content section in the `single-fcn_story.php` template, inside the `<article>` container and just before the footer is rendered. Normally includes the tags, content warnings, row with social media and action buttons, and finally a tabbed section with the chapters, related blog posts (by category), and custom pages.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.
+
+**Hooked actions:**
+* `fictioneer_story_copyright_notice( $args )` – Copyright notice. Priority 10.
+* `fictioneer_story_tags_and_warnings( $args )` – Tags and content warnings. Priority 20.
+* `fictioneer_story_actions( $args )` – Row with story actions. Priority 30.
+* `fictioneer_story_content( $args )` – Chapters, blog, and custom pages. Priority 40.
+
+---
+
+### `do_action( 'fictioneer_story_after_header', $args )`
+Fires right after the article header in the `single-fcn_story.php` template.
+
+Fires right after the article header (cover, title, fandom, genres, and characters) in the `single-fcn_story.php` template, inside the `<article>` container and just before the content section.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.
+
+---
+
+### `do_action( 'fictioneer_story_before_comments_list', $args )`
+Fires right between the comments list and heading in the `_story-comments.php` partial.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.

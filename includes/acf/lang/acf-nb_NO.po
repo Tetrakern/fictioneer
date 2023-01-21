@@ -1,0 +1,4253 @@
+# Advanced Custom Fields Translations are a combination of translate.wordpress.org contributions,
+# combined with user contributed strings for the PRO version.
+# Translations from translate.wordpress.org take priority over translations in this file.
+# translate.wordpress.org contributions are synced at the time of each release.
+#
+# If you would like to contribute translations, please visit
+# https://translate.wordpress.org/projects/wp-plugins/advanced-custom-fields/stable/
+#
+# For additional ACF PRO strings, please submit a pull request over on the ACF GitHub repo at
+# http://github.com/advancedcustomfields/acf using the .pot (and any existing .po) files in /lang/pro/
+#
+# This file is distributed under the same license as Advanced Custom Fields.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-01-18T14:07:28+00:00\n"
+"Report-Msgid-Bugs-To: http://support.advancedcustomfields.com\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: gettext\n"
+"Project-Id-Version: Advanced Custom Fields\n"
+
+#: includes/admin/admin-field-group.php:326
+msgid "Field Settings Tabs"
+msgstr ""
+
+#. Author URI of the plugin
+msgid ""
+"https://wpengine.com/?utm_source=wordpress."
+"org&utm_medium=referral&utm_campaign=plugin_directory&utm_content=advanced_custom_fields"
+msgstr ""
+
+#: includes/api/api-template.php:867
+msgid "[ACF shortcode value disabled for preview]"
+msgstr ""
+
+#: includes/admin/admin-field-group.php:673
+msgid "Close Modal"
+msgstr ""
+
+#: includes/admin/admin-field-group.php:162
+#: assets/build/js/acf-field-group.js:1304
+#: assets/build/js/acf-field-group.js:1468
+msgid "Field moved to other group"
+msgstr ""
+
+#: includes/admin/admin-field-group.php:161 assets/build/js/acf.js:1397
+#: assets/build/js/acf.js:1463
+msgid "Close modal"
+msgstr ""
+
+#: includes/fields/class-acf-field-tab.php:122
+msgid "Start a new group of tabs at this tab."
+msgstr "Begynn en ny grupe faner ved denne fanen."
+
+#: includes/fields/class-acf-field-tab.php:121
+msgid "New Tab Group"
+msgstr "Ny fanegruppe"
+
+#: includes/fields/class-acf-field-select.php:450
+#: includes/fields/class-acf-field-true_false.php:197
+msgid "Use a stylized checkbox using select2"
+msgstr ""
+
+#: includes/fields/class-acf-field-radio.php:257
+msgid "Save Other Choice"
+msgstr "Lagre annet valg"
+
+#: includes/fields/class-acf-field-radio.php:246
+msgid "Allow Other Choice"
+msgstr "Tillat andre valg"
+
+#: includes/fields/class-acf-field-checkbox.php:446
+msgid "Add Toggle All"
+msgstr "Legg til veksle alle"
+
+#: includes/fields/class-acf-field-checkbox.php:405
+msgid "Save Custom Values"
+msgstr "Lagee tilpassede verdier"
+
+#: includes/fields/class-acf-field-checkbox.php:394
+msgid "Allow Custom Values"
+msgstr "Tilllat tilpassede verdier"
+
+#: includes/fields/class-acf-field-checkbox.php:144
+msgid "Checkbox custom values cannot be empty. Uncheck any empty values."
+msgstr ""
+
+#: includes/admin/views/html-admin-navigation.php:111
+msgid "Updates"
+msgstr "Oppdateringer"
+
+#: includes/admin/views/html-admin-navigation.php:79
+msgid "Advanced Custom Fields logo"
+msgstr ""
+
+#: includes/admin/views/html-admin-form-top.php:22
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: includes/admin/views/html-admin-form-top.php:16
+msgid "Field Group Title"
+msgstr "Tittel for feltgruppe"
+
+#: includes/admin/views/html-admin-form-top.php:3
+msgid "Add title"
+msgstr "Legg til tittel"
+
+#. translators: %s url to getting started guide
+#: includes/admin/views/field-groups-empty.php:20
+msgid ""
+"New to ACF? Take a look at our <a href=\"%s\" target=\"_blank\">getting "
+"started guide</a>."
+msgstr ""
+
+#: includes/admin/views/field-groups-empty.php:15
+msgid "Add Field Group"
+msgstr "Legg til feltgruppe"
+
+#. translators: %s url to creating a field group page
+#: includes/admin/views/field-groups-empty.php:10
+msgid ""
+"ACF uses <a href=\"%s\" target=\"_blank\">field groups</a> to group custom "
+"fields together, and then attach those fields to edit screens."
+msgstr ""
+
+#: includes/admin/views/field-groups-empty.php:5
+msgid "Add Your First Field Group"
+msgstr "Legg til din første feltgruppe"
+
+#: includes/admin/views/field-group-pro-features.php:16
+msgid "Upgrade Now"
+msgstr "Oppgrader nå"
+
+#: includes/admin/views/field-group-pro-features.php:11
+msgid "Options Pages"
+msgstr "Sider for innstillinger"
+
+#: includes/admin/views/field-group-pro-features.php:10
+msgid "ACF Blocks"
+msgstr "ACF-blokker"
+
+#: includes/admin/views/field-group-pro-features.php:8
+msgid "Gallery Field"
+msgstr "Gallerifelt"
+
+#: includes/admin/views/field-group-pro-features.php:7
+msgid "Flexible Content Field"
+msgstr "Felksibelt innholdsfelt"
+
+#: includes/admin/views/field-group-pro-features.php:6
+msgid "Repeater Field"
+msgstr "Gjentakende felt"
+
+#: includes/admin/views/field-group-pro-features.php:4
+#: includes/admin/views/html-admin-navigation.php:97
+msgid "Unlock Extra Features with ACF PRO"
+msgstr ""
+
+#: includes/admin/views/field-group-options.php:242
+msgid "Delete Field Group"
+msgstr "Slett feltgruppe"
+
+#. translators: 1: Post creation date 2: Post creation time
+#: includes/admin/views/field-group-options.php:236
+msgid "Created on %1$s at %2$s"
+msgstr "Opprettet %1$s kl %2$s"
+
+#: includes/admin/views/field-group-options.php:179
+msgid "Group Settings"
+msgstr "Gruppeinnstillinger"
+
+#: includes/admin/views/field-group-options.php:28
+msgid "Location Rules"
+msgstr ""
+
+#. translators: %s url to field types list
+#: includes/admin/views/field-group-fields.php:61
+msgid ""
+"Choose from over 30 field types. <a href=\"%s\" target=\"_blank\">Learn "
+"more</a>."
+msgstr ""
+
+#: includes/admin/views/field-group-fields.php:54
+msgid ""
+"Get started creating new custom fields for your posts, pages, custom post "
+"types and other WordPress content."
+msgstr ""
+
+#: includes/admin/views/field-group-fields.php:53
+msgid "Add Your First Field"
+msgstr "Legg til ditt første felt"
+
+#. translators: A symbol (or text, if not available in your locale) meaning
+#. "Order Number", in terms of positional placement.
+#: includes/admin/views/field-group-fields.php:32
+msgid "#"
+msgstr "#"
+
+#: includes/admin/views/field-group-fields.php:22
+#: includes/admin/views/field-group-fields.php:56
+#: includes/admin/views/field-group-fields.php:92
+#: includes/admin/views/html-admin-form-top.php:21
+msgid "Add Field"
+msgstr "Legg til felt"
+
+#: includes/admin/views/field-group-field.php:191
+#: includes/admin/views/field-group-options.php:40
+msgid "Presentation"
+msgstr "Presentasjon"
+
+#: includes/admin/views/field-group-field.php:159
+msgid "Validation"
+msgstr "Validering"
+
+#: includes/admin/views/field-group-field.php:93
+msgid "General"
+msgstr "Generelt"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:70
+msgid "Import JSON"
+msgstr "Importer JSON"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:361
+msgid "Export Field Groups - Generate PHP"
+msgstr "Eksporter feltgrupper - Generer PHP"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:336
+msgid "Export As JSON"
+msgstr "Eksporter som JSON"
+
+#: includes/admin/admin-field-groups.php:638
+msgid "Field group deactivated."
+msgid_plural "%s field groups deactivated."
+msgstr[0] "Feltgruppe deaktivert."
+msgstr[1] "%s feltgrupper deaktivert."
+
+#: includes/admin/admin-field-groups.php:585
+msgid "Field group activated."
+msgid_plural "%s field groups activated."
+msgstr[0] "Feltgruppe aktivert"
+msgstr[1] "%s feltgrupper aktivert."
+
+#: includes/admin/admin-field-groups.php:537
+#: includes/admin/admin-field-groups.php:558
+msgid "Deactivate"
+msgstr "Deaktiver"
+
+#: includes/admin/admin-field-groups.php:537
+msgid "Deactivate this item"
+msgstr "Deaktiver dette elementet"
+
+#: includes/admin/admin-field-groups.php:533
+#: includes/admin/admin-field-groups.php:557
+msgid "Activate"
+msgstr "Aktiver"
+
+#: includes/admin/admin-field-groups.php:533
+msgid "Activate this item"
+msgstr "Aktiver dette elementet"
+
+#: includes/admin/admin-field-group.php:158
+#: assets/build/js/acf-field-group.js:2366
+#: assets/build/js/acf-field-group.js:2635
+msgid "Move field group to trash?"
+msgstr "Flytte feltgruppe til papirkurven?"
+
+#: acf.php:448 includes/admin/admin-field-group.php:354
+#: includes/admin/admin-field-groups.php:232
+msgctxt "post status"
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#. Author of the plugin
+msgid "WP Engine"
+msgstr "WP Engine"
+
+#: acf.php:506
+msgid ""
+"Advanced Custom Fields and Advanced Custom Fields should not be active at "
+"the same time. We've automatically deactivated Advanced Custom Fields PRO."
+msgstr ""
+"Advanced Custom Fields og Advanced Custom Fields PRO bør ikke være aktiverte "
+"samtidig. Vi har automatisk deaktivert Advanced Custom Fields PRO."
+
+#: acf.php:504
+msgid ""
+"Advanced Custom Fields and Advanced Custom Fields should not be active at "
+"the same time. We've automatically deactivated Advanced Custom Fields."
+msgstr ""
+"Advanced Custom Fields og Advanced Custom Fields PRO bør ikke være aktiverte "
+"samtidig. Vi har automatisk deaktivert Advanced Custom Fields."
+
+#: includes/acf-value-functions.php:374
+msgid ""
+"<strong>%1$s</strong> - We've detected one or more calls to retrieve ACF "
+"field values before ACF has been initialized. This is not supported and can "
+"result in malformed or missing data. <a href=\"%2$s\" target=\"_blank"
+"\">Learn how to fix this</a>."
+msgstr ""
+
+#: includes/fields/class-acf-field-user.php:537
+msgid "%1$s must have a user with the %2$s role."
+msgid_plural "%1$s must have a user with one of the following roles: %2$s"
+msgstr[0] "%1$s må ha en bruker med rollen %2$s."
+msgstr[1] "%1$s må ha en bruker med en av følgende roller: %2$s"
+
+#: includes/fields/class-acf-field-user.php:528
+msgid "%1$s must have a valid user ID."
+msgstr "%1$s må ha en gyldig bruker-ID."
+
+#: includes/fields/class-acf-field-user.php:366
+msgid "Invalid request."
+msgstr "Ugyldig forespørsel."
+
+#: includes/fields/class-acf-field-select.php:683
+msgid "%1$s is not one of %2$s"
+msgstr "%1$s er ikke en av %2$s"
+
+#: includes/fields/class-acf-field-post_object.php:669
+msgid "%1$s must have term %2$s."
+msgid_plural "%1$s must have one of the following terms: %2$s"
+msgstr[0] "%1$s må ha termen %2$s."
+msgstr[1] "%1$s må ha én av følgende termer: %2$s"
+
+#: includes/fields/class-acf-field-post_object.php:653
+msgid "%1$s must be of post type %2$s."
+msgid_plural "%1$s must be of one of the following post types: %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/fields/class-acf-field-post_object.php:644
+msgid "%1$s must have a valid post ID."
+msgstr "%1$s må ha en gyldig innlegg-ID."
+
+#: includes/fields/class-acf-field-file.php:472
+msgid "%s requires a valid attachment ID."
+msgstr "%s må ha en gyldig vedlegg-ID."
+
+#: includes/admin/views/field-group-options.php:205
+msgid "Show in REST API"
+msgstr ""
+
+#: includes/fields/class-acf-field-color_picker.php:167
+msgid "Enable Transparency"
+msgstr "Aktiver gjennomsiktighet"
+
+#: includes/fields/class-acf-field-color_picker.php:186
+msgid "RGBA Array"
+msgstr ""
+
+#: includes/fields/class-acf-field-color_picker.php:96
+msgid "RGBA String"
+msgstr ""
+
+#: includes/fields/class-acf-field-color_picker.php:95
+#: includes/fields/class-acf-field-color_picker.php:185
+msgid "Hex String"
+msgstr ""
+
+#: includes/admin/admin-field-group.php:187
+#: assets/build/js/acf-field-group.js:837
+#: assets/build/js/acf-field-group.js:933
+msgid "Gallery (Pro only)"
+msgstr "Galleri (kun Pro)"
+
+#: includes/admin/admin-field-group.php:186
+#: assets/build/js/acf-field-group.js:833
+#: assets/build/js/acf-field-group.js:923
+msgid "Clone (Pro only)"
+msgstr "Klone (kun Pro)"
+
+#: includes/admin/admin-field-group.php:185
+#: assets/build/js/acf-field-group.js:833
+#: assets/build/js/acf-field-group.js:920
+msgid "Flexible Content (Pro only)"
+msgstr "Fleksibelt innhold (kun Pro)"
+
+#: includes/admin/admin-field-group.php:184
+#: assets/build/js/acf-field-group.js:833
+#: assets/build/js/acf-field-group.js:917
+msgid "Repeater (Pro only)"
+msgstr "Gjentaker (kun Pro)"
+
+#: includes/admin/admin-field-group.php:354
+msgctxt "post status"
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/fields/class-acf-field-email.php:178
+msgid "'%s' is not a valid email address"
+msgstr "'‌‌%s' er ikke en gyldig e-postadresse."
+
+#: includes/fields/class-acf-field-color_picker.php:74
+msgid "Color value"
+msgstr "Fargeverdi"
+
+#: includes/fields/class-acf-field-color_picker.php:72
+msgid "Select default color"
+msgstr "Velg standardfarge"
+
+#: includes/fields/class-acf-field-color_picker.php:70
+msgid "Clear color"
+msgstr "Fjern farge"
+
+#: includes/acf-wp-functions.php:87
+msgid "Blocks"
+msgstr "Blokker"
+
+#: includes/acf-wp-functions.php:83
+msgid "Options"
+msgstr "Alternativer"
+
+#: includes/acf-wp-functions.php:79
+msgid "Users"
+msgstr "Brukere"
+
+#: includes/acf-wp-functions.php:75
+msgid "Menu items"
+msgstr "Menyelementer"
+
+#: includes/acf-wp-functions.php:67
+msgid "Widgets"
+msgstr "Widgeter"
+
+#: includes/acf-wp-functions.php:59
+msgid "Attachments"
+msgstr "Vedlegg"
+
+#: includes/acf-wp-functions.php:54
+msgid "Taxonomies"
+msgstr "Taksonomier"
+
+#: includes/acf-wp-functions.php:41
+msgid "Posts"
+msgstr "Innlegg"
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:68
+msgid "JSON field group (newer)"
+msgstr "JSON-feltgrupper (nyere)"
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:64
+msgid "Original field group"
+msgstr "Originale feltgrupper"
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:59
+msgid "Last updated: %s"
+msgstr "Sist oppdatert: %s"
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:53
+msgid "Sorry, this field group is unavailable for diff comparison."
+msgstr ""
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:43
+msgid "Invalid field group ID."
+msgstr "Ugyldig ID for feltgruppe."
+
+#: includes/ajax/class-acf-ajax-local-json-diff.php:36
+msgid "Invalid field group parameter(s)."
+msgstr "Ugyldige parametere for feltgruppe."
+
+#: includes/admin/admin-field-groups.php:506
+msgid "Awaiting save"
+msgstr "Venter på lagring"
+
+#: includes/admin/admin-field-groups.php:503
+msgid "Saved"
+msgstr "Lagret"
+
+#: includes/admin/admin-field-groups.php:499
+msgid "Import"
+msgstr "Importer"
+
+#: includes/admin/admin-field-groups.php:495
+msgid "Review changes"
+msgstr "Gjennomgå endringer"
+
+#: includes/admin/admin-field-groups.php:471
+msgid "Located in: %s"
+msgstr "Plassert i: %s"
+
+#: includes/admin/admin-field-groups.php:467
+msgid "Located in plugin: %s"
+msgstr "Plassert i utvidelse: %s"
+
+#: includes/admin/admin-field-groups.php:463
+msgid "Located in theme: %s"
+msgstr "Plassert i tema: %s"
+
+#: includes/admin/admin-field-groups.php:441
+msgid "Various"
+msgstr "Forskjellig"
+
+#: includes/admin/admin-field-groups.php:200
+#: includes/admin/admin-field-groups.php:565
+msgid "Sync changes"
+msgstr "Synkroniseringsendringer"
+
+#: includes/admin/admin-field-groups.php:199
+msgid "Loading diff"
+msgstr "Laster diff"
+
+#: includes/admin/admin-field-groups.php:198
+msgid "Review local JSON changes"
+msgstr "Se over lokale endinger for JSON"
+
+#: includes/admin/admin.php:172
+msgid "Visit website"
+msgstr "Besøk nettsted"
+
+#: includes/admin/admin.php:171
+msgid "View details"
+msgstr "Vis detaljer"
+
+#: includes/admin/admin.php:170
+msgid "Version %s"
+msgstr "Versjon %s"
+
+#: includes/admin/admin.php:169
+msgid "Information"
+msgstr "Informasjon"
+
+#: includes/admin/admin.php:160
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Help Desk</a>. The support professionals on "
+"our Help Desk will assist with your more in depth, technical challenges."
+msgstr ""
+
+#: includes/admin/admin.php:156
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Discussions</a>. We have an active and "
+"friendly community on our Community Forums who may be able to help you "
+"figure out the ‘how-tos’ of the ACF world."
+msgstr ""
+
+#: includes/admin/admin.php:152
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Documentation</a>. Our extensive "
+"documentation contains references and guides for most situations you may "
+"encounter."
+msgstr ""
+
+#: includes/admin/admin.php:149
+msgid ""
+"We are fanatical about support, and want you to get the best out of your "
+"website with ACF. If you run into any difficulties, there are several places "
+"you can find help:"
+msgstr ""
+
+#: includes/admin/admin.php:146 includes/admin/admin.php:148
+msgid "Help & Support"
+msgstr "Hjelp og brukerstøtte"
+
+#: includes/admin/admin.php:137
+msgid ""
+"Please use the Help & Support tab to get in touch should you find yourself "
+"requiring assistance."
+msgstr ""
+
+#: includes/admin/admin.php:134
+msgid ""
+"Before creating your first Field Group, we recommend first reading our <a "
+"href=\"%s\" target=\"_blank\">Getting started</a> guide to familiarize "
+"yourself with the plugin's philosophy and best practises."
+msgstr ""
+
+#: includes/admin/admin.php:132
+msgid ""
+"The Advanced Custom Fields plugin provides a visual form builder to "
+"customize WordPress edit screens with extra fields, and an intuitive API to "
+"display custom field values in any theme template file."
+msgstr ""
+
+#: includes/admin/admin.php:129 includes/admin/admin.php:131
+msgid "Overview"
+msgstr "Oversikt"
+
+#: includes/locations.php:36
+msgid "Location type \"%s\" is already registered."
+msgstr "Lokasjonstypen \"%s\" er allerede registrert."
+
+#: includes/locations.php:25
+msgid "Class \"%s\" does not exist."
+msgstr "Klassen \"%s\" finnes ikke."
+
+#: includes/ajax/class-acf-ajax.php:157
+msgid "Invalid nonce."
+msgstr "Ugyldig engangskode."
+
+#: includes/fields/class-acf-field-user.php:361
+msgid "Error loading field."
+msgstr "Feil ved lasting av felt."
+
+#: assets/build/js/acf-input.js:2742 assets/build/js/acf-input.js:2811
+#: assets/build/js/acf-input.js:2913 assets/build/js/acf-input.js:2987
+msgid "Location not found: %s"
+msgstr "Posisjon ikke funnet: %s"
+
+#: includes/forms/form-user.php:353
+msgid "<strong>Error</strong>: %s"
+msgstr "<strong>Feil</strong>: %s"
+
+#: includes/locations/class-acf-location-widget.php:22
+msgid "Widget"
+msgstr "Widget"
+
+#: includes/locations/class-acf-location-user-role.php:24
+msgid "User Role"
+msgstr "Brukerrolle"
+
+#: includes/locations/class-acf-location-comment.php:22
+msgid "Comment"
+msgstr "Kommentar"
+
+#: includes/locations/class-acf-location-post-format.php:22
+msgid "Post Format"
+msgstr "Innleggsformat"
+
+#: includes/locations/class-acf-location-nav-menu-item.php:22
+msgid "Menu Item"
+msgstr "Menypunkt"
+
+#: includes/locations/class-acf-location-post-status.php:22
+msgid "Post Status"
+msgstr "Innleggsstatus"
+
+#: includes/acf-wp-functions.php:71
+#: includes/locations/class-acf-location-nav-menu.php:89
+msgid "Menus"
+msgstr "Menyer"
+
+#: includes/locations/class-acf-location-nav-menu.php:80
+msgid "Menu Locations"
+msgstr "Menylokasjoner"
+
+#: includes/locations/class-acf-location-nav-menu.php:22
+msgid "Menu"
+msgstr "Meny"
+
+#: includes/locations/class-acf-location-post-taxonomy.php:22
+msgid "Post Taxonomy"
+msgstr "Innleggs Taksanomi"
+
+#: includes/locations/class-acf-location-page-type.php:114
+msgid "Child Page (has parent)"
+msgstr "Underside (har forelder)"
+
+#: includes/locations/class-acf-location-page-type.php:113
+msgid "Parent Page (has children)"
+msgstr "Forelderside (har undersider)"
+
+#: includes/locations/class-acf-location-page-type.php:112
+msgid "Top Level Page (no parent)"
+msgstr "Toppnivåside (ingen forelder)"
+
+#: includes/locations/class-acf-location-page-type.php:111
+msgid "Posts Page"
+msgstr "Innleggsside"
+
+#: includes/locations/class-acf-location-page-type.php:110
+msgid "Front Page"
+msgstr "Forside"
+
+#: includes/locations/class-acf-location-page-type.php:22
+msgid "Page Type"
+msgstr "Sidetype"
+
+#: includes/locations/class-acf-location-current-user.php:73
+msgid "Viewing back end"
+msgstr "Viser baksiden"
+
+#: includes/locations/class-acf-location-current-user.php:72
+msgid "Viewing front end"
+msgstr "Viser fremsiden"
+
+#: includes/locations/class-acf-location-current-user.php:71
+msgid "Logged in"
+msgstr "Innlogget"
+
+#: includes/locations/class-acf-location-current-user.php:22
+msgid "Current User"
+msgstr "Nåværende Bruker"
+
+#: includes/locations/class-acf-location-page-template.php:22
+msgid "Page Template"
+msgstr "Sidemal"
+
+#: includes/locations/class-acf-location-user-form.php:74
+msgid "Register"
+msgstr "Registrer"
+
+#: includes/locations/class-acf-location-user-form.php:73
+msgid "Add / Edit"
+msgstr "Legg til / Endre"
+
+#: includes/locations/class-acf-location-user-form.php:22
+msgid "User Form"
+msgstr "Brukerskjema"
+
+#: includes/locations/class-acf-location-page-parent.php:22
+msgid "Page Parent"
+msgstr "Sideforelder"
+
+#: includes/locations/class-acf-location-current-user-role.php:77
+msgid "Super Admin"
+msgstr "Superadmin"
+
+#: includes/locations/class-acf-location-current-user-role.php:22
+msgid "Current User Role"
+msgstr "Nåværende Brukerrolle"
+
+#: includes/locations/class-acf-location-page-template.php:73
+#: includes/locations/class-acf-location-post-template.php:85
+msgid "Default Template"
+msgstr "Standardmal"
+
+#: includes/locations/class-acf-location-post-template.php:22
+msgid "Post Template"
+msgstr "Innleggsmal"
+
+#: includes/locations/class-acf-location-post-category.php:22
+msgid "Post Category"
+msgstr "Innleggskategori"
+
+#: includes/locations/class-acf-location-attachment.php:84
+msgid "All %s formats"
+msgstr "Alle %s-formater"
+
+#: includes/locations/class-acf-location-attachment.php:22
+msgid "Attachment"
+msgstr "Vedlegg"
+
+#: includes/validation.php:365
+msgid "%s value is required"
+msgstr "%s verdi er påkrevd"
+
+#: includes/admin/views/field-group-field-conditional-logic.php:59
+msgid "Show this field if"
+msgstr "Vis dette feltet hvis"
+
+#: includes/admin/views/field-group-field-conditional-logic.php:26
+#: includes/admin/views/field-group-field.php:279
+msgid "Conditional Logic"
+msgstr "Betinget logikk"
+
+#: includes/admin/admin.php:207
+#: includes/admin/views/field-group-field-conditional-logic.php:156
+#: includes/admin/views/html-location-rule.php:92
+msgid "and"
+msgstr "og"
+
+#: includes/admin/admin-field-groups.php:290
+msgid "Local JSON"
+msgstr "Lokal JSON"
+
+#: includes/admin/views/field-group-pro-features.php:9
+msgid "Clone Field"
+msgstr "Klonefelt"
+
+#: includes/admin/views/html-notice-upgrade.php:30
+msgid ""
+"Please also check all premium add-ons (%s) are updated to the latest version."
+msgstr ""
+"Vennligst sjekk at alle premium-tillegg (%s) er oppdatert til siste versjon."
+
+#: includes/admin/views/html-notice-upgrade.php:28
+msgid ""
+"This version contains improvements to your database and requires an upgrade."
+msgstr ""
+"Denne versjonen inneholder forbedringer til din database, og krever en "
+"oppgradering."
+
+#: includes/admin/views/html-notice-upgrade.php:28
+msgid "Thank you for updating to %1$s v%2$s!"
+msgstr "Takk for at du oppgraderer til %1$s v%2$s!"
+
+#: includes/admin/views/html-notice-upgrade.php:27
+msgid "Database Upgrade Required"
+msgstr "Oppdatering av database er påkrevd"
+
+#: includes/admin/views/html-notice-upgrade.php:18
+msgid "Options Page"
+msgstr "Side for alternativer"
+
+#: includes/admin/views/html-notice-upgrade.php:15
+msgid "Gallery"
+msgstr "Galleri"
+
+#: includes/admin/views/html-notice-upgrade.php:12
+msgid "Flexible Content"
+msgstr "Fleksibelt Innhold"
+
+#: includes/admin/views/html-notice-upgrade.php:9
+msgid "Repeater"
+msgstr "Gjentaker"
+
+#: includes/admin/views/html-admin-tools.php:24
+msgid "Back to all tools"
+msgstr "Tilbake til alle verktøy"
+
+#: includes/admin/views/field-group-options.php:160
+msgid ""
+"If multiple field groups appear on an edit screen, the first field group's "
+"options will be used (the one with the lowest order number)"
+msgstr ""
+"Om flere feltgrupper kommer på samme redigeringsskjerm, vil den første "
+"gruppens innstillinger bli brukt (den med laveste rekkefølgenummer)"
+
+#: includes/admin/views/field-group-options.php:160
+msgid "<b>Select</b> items to <b>hide</b> them from the edit screen."
+msgstr "<b>Velg</b> elementer for å <b>skjule</b> dem på redigeringsskjermen."
+
+#: includes/admin/views/field-group-options.php:159
+msgid "Hide on screen"
+msgstr "Skjul på skjerm"
+
+#: includes/admin/views/field-group-options.php:151
+msgid "Send Trackbacks"
+msgstr "Send tilbakesporinger"
+
+#: includes/admin/views/field-group-options.php:150
+msgid "Tags"
+msgstr "Stikkord"
+
+#: includes/admin/views/field-group-options.php:149
+msgid "Categories"
+msgstr "Kategorier"
+
+#: includes/admin/views/field-group-options.php:147
+msgid "Page Attributes"
+msgstr "Sideattributter"
+
+#: includes/admin/views/field-group-options.php:146
+msgid "Format"
+msgstr "Format"
+
+#: includes/admin/views/field-group-options.php:145
+msgid "Author"
+msgstr "Forfatter"
+
+#: includes/admin/views/field-group-options.php:144
+msgid "Slug"
+msgstr "Identifikator"
+
+#: includes/admin/views/field-group-options.php:143
+msgid "Revisions"
+msgstr "Revisjoner"
+
+#: includes/acf-wp-functions.php:63
+#: includes/admin/views/field-group-options.php:142
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: includes/admin/views/field-group-options.php:141
+msgid "Discussion"
+msgstr "Diskusjon"
+
+#: includes/admin/views/field-group-options.php:139
+msgid "Excerpt"
+msgstr "Utdrag"
+
+#: includes/admin/views/field-group-options.php:138
+msgid "Content Editor"
+msgstr "Redigeringverktøy for innhold"
+
+#: includes/admin/views/field-group-options.php:137
+msgid "Permalink"
+msgstr "Permalenke"
+
+#: includes/admin/views/field-group-options.php:222
+msgid "Shown in field group list"
+msgstr "Vist i feltgruppeliste"
+
+#: includes/admin/views/field-group-options.php:122
+msgid "Field groups with a lower order will appear first"
+msgstr "Feltgrupper med en lavere rekkefølge vil vises først"
+
+#: includes/admin/views/field-group-options.php:121
+msgid "Order No."
+msgstr "Ordre Nr."
+
+#: includes/admin/views/field-group-options.php:112
+msgid "Below fields"
+msgstr "Under felter"
+
+#: includes/admin/views/field-group-options.php:111
+msgid "Below labels"
+msgstr "Under etiketter"
+
+#: includes/admin/views/field-group-options.php:104
+msgid "Instruction placement"
+msgstr "Instruksjonsplassering"
+
+#: includes/admin/views/field-group-options.php:87
+msgid "Label placement"
+msgstr "Etikettplassering"
+
+#: includes/admin/views/field-group-options.php:77
+msgid "Side"
+msgstr "Sideordnet"
+
+#: includes/admin/views/field-group-options.php:76
+msgid "Normal (after content)"
+msgstr "Normal (etter innhold)"
+
+#: includes/admin/views/field-group-options.php:75
+msgid "High (after title)"
+msgstr "Høy (etter tittel)"
+
+#: includes/admin/views/field-group-options.php:68
+msgid "Position"
+msgstr "Posisjon"
+
+#: includes/admin/views/field-group-options.php:59
+msgid "Seamless (no metabox)"
+msgstr "Sømløs (ingen metaboks)"
+
+#: includes/admin/views/field-group-options.php:58
+msgid "Standard (WP metabox)"
+msgstr "Standard (WP metaboks)"
+
+#: includes/admin/views/field-group-options.php:51
+msgid "Style"
+msgstr "Stil"
+
+#: includes/admin/views/field-group-fields.php:44
+msgid "Type"
+msgstr "Type"
+
+#: includes/admin/admin-field-groups.php:285
+#: includes/admin/views/field-group-fields.php:43
+msgid "Key"
+msgstr "Nøkkel"
+
+#. translators: Hidden accessibility text for the positional order number of
+#. the field.
+#: includes/admin/views/field-group-fields.php:37
+msgid "Order"
+msgstr "Rekkefølge"
+
+#: includes/admin/views/field-group-field.php:294
+msgid "Close Field"
+msgstr "Stengt felt"
+
+#: includes/admin/views/field-group-field.php:235
+msgid "id"
+msgstr "id"
+
+#: includes/admin/views/field-group-field.php:219
+msgid "class"
+msgstr "klasse"
+
+#: includes/admin/views/field-group-field.php:256
+msgid "width"
+msgstr "bredde"
+
+#: includes/admin/views/field-group-field.php:250
+msgid "Wrapper Attributes"
+msgstr "Attributter for innpakning"
+
+#: includes/admin/views/field-group-field.php:171
+msgid "Required"
+msgstr "Obligatorisk"
+
+#: includes/admin/views/field-group-field.php:203
+msgid "Instructions for authors. Shown when submitting data"
+msgstr "Instruksjoner for forfattere. Vist ved innsending av data"
+
+#: includes/admin/views/field-group-field.php:202
+msgid "Instructions"
+msgstr "Instruksjoner"
+
+#: includes/admin/views/field-group-field.php:106
+msgid "Field Type"
+msgstr "Felttype"
+
+#: includes/admin/views/field-group-field.php:134
+msgid "Single word, no spaces. Underscores and dashes allowed"
+msgstr "Enkelt ord, ingen mellomrom. Understrekning og bindestreker tillatt"
+
+#: includes/admin/views/field-group-field.php:133
+msgid "Field Name"
+msgstr "Feltnavn"
+
+#: includes/admin/views/field-group-field.php:121
+msgid "This is the name which will appear on the EDIT page"
+msgstr "Dette er navnet som vil vises på redigeringssiden"
+
+#: includes/admin/views/field-group-field.php:120
+msgid "Field Label"
+msgstr "Feltetikett"
+
+#: includes/admin/views/field-group-field.php:70
+msgid "Delete"
+msgstr "Slett"
+
+#: includes/admin/views/field-group-field.php:70
+msgid "Delete field"
+msgstr "Slett felt"
+
+#: includes/admin/views/field-group-field.php:68
+msgid "Move"
+msgstr "Flytt"
+
+#: includes/admin/views/field-group-field.php:68
+msgid "Move field to another group"
+msgstr "Flytt felt til annen gruppe"
+
+#: includes/admin/views/field-group-field.php:66
+msgid "Duplicate field"
+msgstr "Dupliser felt"
+
+#: includes/admin/views/field-group-field.php:62
+#: includes/admin/views/field-group-field.php:65
+msgid "Edit field"
+msgstr "Rediger felt"
+
+#: includes/admin/views/field-group-field.php:58
+msgid "Drag to reorder"
+msgstr "Dra for å endre rekkefølge"
+
+#: includes/admin/admin-field-group.php:168
+#: includes/admin/views/html-location-group.php:3
+#: assets/build/js/acf-field-group.js:1935
+#: assets/build/js/acf-field-group.js:2166
+msgid "Show this field group if"
+msgstr "Vis denne feltgruppen hvis"
+
+#: includes/admin/views/html-admin-page-upgrade.php:94
+#: includes/ajax/class-acf-ajax-upgrade.php:34
+msgid "No updates available."
+msgstr "Ingen oppdateringer tilgjengelig."
+
+#: includes/admin/views/html-admin-page-upgrade.php:33
+msgid "Database upgrade complete. <a href=\"%s\">See what's new</a>"
+msgstr ""
+"Oppgradering av database fullført. <a href=\"%s\">Se hva som er nytt</a>"
+
+#: includes/admin/views/html-admin-page-upgrade.php:30
+msgid "Reading upgrade tasks..."
+msgstr "Leser oppgraderingsoppgaver..."
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:165
+#: includes/admin/views/html-admin-page-upgrade.php:65
+msgid "Upgrade failed."
+msgstr "Oppgradering milsyktes."
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:162
+msgid "Upgrade complete."
+msgstr "Oppgradering fullført."
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:148
+#: includes/admin/views/html-admin-page-upgrade.php:31
+msgid "Upgrading data to version %s"
+msgstr "Oppgraderer data til versjon %s"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:121
+#: includes/admin/views/html-notice-upgrade.php:44
+msgid ""
+"It is strongly recommended that you backup your database before proceeding. "
+"Are you sure you wish to run the updater now?"
+msgstr ""
+"Det er sterkt anbefalt at du sikkerhetskopierer databasen før du fortsetter. "
+"Er du sikker på at du vil kjøre oppdateringen nå?"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:117
+msgid "Please select at least one site to upgrade."
+msgstr "Vennligst velg minst ett nettsted å oppgradere."
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:97
+msgid ""
+"Database Upgrade complete. <a href=\"%s\">Return to network dashboard</a>"
+msgstr ""
+"Databaseoppgradering fullført. <a href=\"%s\">Tilbake til kontrollpanelet "
+"for nettverket</a>"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:80
+msgid "Site is up to date"
+msgstr "Nettstedet er oppdatert"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:78
+msgid "Site requires database upgrade from %1$s to %2$s"
+msgstr "Nettstedet krever databaseoppgradering fra %1$s til %2$s"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:36
+#: includes/admin/views/html-admin-page-upgrade-network.php:47
+msgid "Site"
+msgstr "Nettsted"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:26
+#: includes/admin/views/html-admin-page-upgrade-network.php:27
+#: includes/admin/views/html-admin-page-upgrade-network.php:96
+msgid "Upgrade Sites"
+msgstr "Oppgrader nettsteder"
+
+#: includes/admin/views/html-admin-page-upgrade-network.php:26
+msgid ""
+"The following sites require a DB upgrade. Check the ones you want to update "
+"and then click %s."
+msgstr ""
+"Følgende nettsteder krever en DB-oppgradering. Kryss av for de du ønsker å "
+"oppgradere og klikk så %s."
+
+#: includes/admin/views/field-group-field-conditional-logic.php:171
+#: includes/admin/views/field-group-locations.php:38
+msgid "Add rule group"
+msgstr "Legg til regelgruppe"
+
+#: includes/admin/views/field-group-locations.php:10
+msgid ""
+"Create a set of rules to determine which edit screens will use these "
+"advanced custom fields"
+msgstr ""
+"Lag et sett regler for å bestemme hvilke skjermer som skal bruke disse "
+"avanserte egendefinerte feltene"
+
+#: includes/admin/views/field-group-locations.php:9
+msgid "Rules"
+msgstr "Regler"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:478
+msgid "Copied"
+msgstr "Kopiert"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:441
+msgid "Copy to clipboard"
+msgstr "Kopier til utklippstavle"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:362
+msgid ""
+"The following code can be used to register a local version of the selected "
+"field group(s). A local field group can provide many benefits such as faster "
+"load times, version control & dynamic fields/settings. Simply copy and paste "
+"the following code to your theme's functions.php file or include it within "
+"an external file."
+msgstr ""
+"Den følgende koden kan brukes for å registrere lokale versjoner av valgte "
+"feltgruppe(r). En lokal feltgruppe kan gi mange fordeler slik som raskere "
+"innlastingstid, versjonskontroll og dynamiske felt/innstillinger. Enkelt "
+"kopier og lim inn følgende kode i ditt temas functions.php-fil eller "
+"inkluder den i en ekstern fil."
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:329
+msgid ""
+"Select the field groups you would like to export and then select your export "
+"method. Export As JSON to export to a .json file which you can then import "
+"to another ACF installation. Generate PHP to export to PHP code which you "
+"can place in your theme."
+msgstr ""
+"Velg de feltgruppene du ønsker å eksportere og velgs så din eksportmetode. "
+"Eksporter som JSON til en json-fil som du senere kan importere til en annen "
+"ACF-installasjon. Bruk Generer PHP-knappen til å eksportere til PHP-kode som "
+"du kan sette inn i ditt tema."
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:233
+#: includes/admin/tools/class-acf-admin-tool-export.php:262
+msgid "Select Field Groups"
+msgstr "Velg feltgrupper"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:167
+msgid "Exported 1 field group."
+msgid_plural "Exported %s field groups."
+msgstr[0] "Eksporterte 1 feltgruppe."
+msgstr[1] "Eksportert %s feltgrupper."
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:96
+#: includes/admin/tools/class-acf-admin-tool-export.php:131
+msgid "No field groups selected"
+msgstr "Ingen feltgrupper valgt"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:39
+#: includes/admin/tools/class-acf-admin-tool-export.php:337
+#: includes/admin/tools/class-acf-admin-tool-export.php:371
+msgid "Generate PHP"
+msgstr "Generer PHP"
+
+#: includes/admin/tools/class-acf-admin-tool-export.php:35
+msgid "Export Field Groups"
+msgstr "Eksporter feltgrupper"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:146
+msgid "Imported 1 field group"
+msgid_plural "Imported %s field groups"
+msgstr[0] "Importerte 1 feltgruppe"
+msgstr[1] "Importerte %s feltgrupper"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:115
+msgid "Import file empty"
+msgstr "Importfil tom"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:106
+msgid "Incorrect file type"
+msgstr "Feil filtype"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:101
+msgid "Error uploading file. Please try again"
+msgstr "Filopplastingsfeil. Vennligst forsøk på nytt"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:51
+msgid ""
+"Select the Advanced Custom Fields JSON file you would like to import. When "
+"you click the import button below, ACF will import the field groups"
+msgstr ""
+"Velg den ACF JSON-fil du ønsker å importere. Når du klikker på import-"
+"knappen nedenfor vil ACF importere feltgruppene"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:28
+#: includes/admin/tools/class-acf-admin-tool-import.php:50
+msgid "Import Field Groups"
+msgstr "Importer feltgrupper"
+
+#: includes/admin/admin-field-groups.php:494
+msgid "Sync"
+msgstr "Synk"
+
+#: includes/admin/admin-field-groups.php:942
+msgid "Select %s"
+msgstr "Velg %s"
+
+#: includes/admin/admin-field-groups.php:527
+#: includes/admin/admin-field-groups.php:556
+#: includes/admin/views/field-group-field.php:66
+msgid "Duplicate"
+msgstr "Dupliser"
+
+#: includes/admin/admin-field-groups.php:527
+msgid "Duplicate this item"
+msgstr "Dupliser dette elementet"
+
+#: includes/admin/admin-field-groups.php:284
+#: includes/admin/views/field-group-options.php:221
+#: includes/admin/views/html-admin-page-upgrade-network.php:38
+#: includes/admin/views/html-admin-page-upgrade-network.php:49
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: includes/admin/admin-field-groups.php:491
+#: includes/admin/admin-field-groups.php:829
+msgid "Sync available"
+msgstr "Synk tilgjengelig"
+
+#: includes/admin/admin-field-groups.php:754
+msgid "Field group synchronised."
+msgid_plural "%s field groups synchronised."
+msgstr[0] "Feltgruppe synkronisert."
+msgstr[1] "%s feltgrupper synkronisert."
+
+#: includes/admin/admin-field-groups.php:696
+msgid "Field group duplicated."
+msgid_plural "%s field groups duplicated."
+msgstr[0] "Feltgruppe duplisert"
+msgstr[1] "%s feltgrupper duplisert."
+
+#: includes/admin/admin-field-groups.php:118
+msgid "Active <span class=\"count\">(%s)</span>"
+msgid_plural "Active <span class=\"count\">(%s)</span>"
+msgstr[0] "Aktiv <span class=\"count\">(%s)</span>"
+msgstr[1] "Aktive<span class=\"count\">(%s)</span>"
+
+#: includes/admin/admin-upgrade.php:237
+msgid "Review sites & upgrade"
+msgstr "Gjennomgå nettsteder og oppgrader"
+
+#: includes/admin/admin-upgrade.php:59 includes/admin/admin-upgrade.php:93
+#: includes/admin/admin-upgrade.php:94 includes/admin/admin-upgrade.php:213
+#: includes/admin/views/html-admin-page-upgrade-network.php:24
+#: includes/admin/views/html-admin-page-upgrade.php:26
+msgid "Upgrade Database"
+msgstr "Oppgrader database"
+
+#: includes/admin/admin.php:49 includes/admin/views/field-group-options.php:140
+msgid "Custom Fields"
+msgstr "Egendefinerte felt"
+
+#: includes/admin/admin-field-group.php:719
+msgid "Move Field"
+msgstr "Flytt felt"
+
+#: includes/admin/admin-field-group.php:708
+#: includes/admin/admin-field-group.php:712
+msgid "Please select the destination for this field"
+msgstr "Vennligst velg destinasjon for dette feltet"
+
+#. translators: Confirmation message once a field has been moved to a different
+#. field group.
+#: includes/admin/admin-field-group.php:669
+msgid "The %1$s field can now be found in the %2$s field group"
+msgstr "%1$s feltet kan nå bli funnet i feltgruppen %2$s"
+
+#: includes/admin/admin-field-group.php:666
+msgid "Move Complete."
+msgstr "Flytting fullført."
+
+#: includes/admin/views/field-group-field.php:273
+#: includes/admin/views/field-group-options.php:189
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/admin/admin-field-group.php:323
+msgid "Field Keys"
+msgstr "Feltnøkler"
+
+#: includes/admin/admin-field-group.php:224
+#: includes/admin/tools/class-acf-admin-tool-export.php:286
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: includes/admin/admin-field-groups.php:286
+msgid "Location"
+msgstr "Plassering"
+
+#: includes/admin/admin-field-group.php:169 assets/build/js/acf-input.js:983
+#: assets/build/js/acf-input.js:1075
+msgid "Null"
+msgstr "Null"
+
+#: includes/acf-field-group-functions.php:846
+#: includes/admin/admin-field-group.php:166
+#: assets/build/js/acf-field-group.js:1158
+#: assets/build/js/acf-field-group.js:1310
+msgid "copy"
+msgstr "kopi"
+
+#: includes/admin/admin-field-group.php:165
+#: assets/build/js/acf-field-group.js:344
+#: assets/build/js/acf-field-group.js:389
+msgid "(this field)"
+msgstr "(dette feltet)"
+
+#: includes/admin/admin-field-group.php:163 assets/build/js/acf-input.js:918
+#: assets/build/js/acf-input.js:943 assets/build/js/acf-input.js:1002
+#: assets/build/js/acf-input.js:1030
+msgid "Checked"
+msgstr "Avkrysset"
+
+#: includes/admin/admin-field-group.php:160
+#: assets/build/js/acf-field-group.js:1249
+#: assets/build/js/acf-field-group.js:1408
+msgid "Move Custom Field"
+msgstr "Flytt egendefinert felt"
+
+#: includes/admin/admin-field-group.php:159
+#: assets/build/js/acf-field-group.js:370
+#: assets/build/js/acf-field-group.js:415
+msgid "No toggle fields available"
+msgstr "Ingen vekslefelt er tilgjengelige"
+
+#: includes/admin/admin-field-group.php:157
+msgid "Field group title is required"
+msgstr "Feltgruppetittel er obligatorisk"
+
+#: includes/admin/admin-field-group.php:156
+#: assets/build/js/acf-field-group.js:1238
+#: assets/build/js/acf-field-group.js:1394
+msgid "This field cannot be moved until its changes have been saved"
+msgstr "Dette feltet kan ikke flyttes før endringene har blitt lagret"
+
+#: includes/admin/admin-field-group.php:155
+#: assets/build/js/acf-field-group.js:1049
+#: assets/build/js/acf-field-group.js:1192
+msgid "The string \"field_\" may not be used at the start of a field name"
+msgstr "Strengen \"field_\" kan ikke brukes i starten på et feltnavn"
+
+#: includes/admin/admin-field-group.php:82
+msgid "Field group draft updated."
+msgstr "Kladd for feltgruppe oppdatert."
+
+#: includes/admin/admin-field-group.php:81
+msgid "Field group scheduled for."
+msgstr "Feltgruppe planlagt til."
+
+#: includes/admin/admin-field-group.php:80
+msgid "Field group submitted."
+msgstr "Feltgruppe innsendt."
+
+#: includes/admin/admin-field-group.php:79
+msgid "Field group saved."
+msgstr "Feltgruppe lagret"
+
+#: includes/admin/admin-field-group.php:78
+msgid "Field group published."
+msgstr "Feltgruppe publisert."
+
+#: includes/admin/admin-field-group.php:75
+msgid "Field group deleted."
+msgstr "Feltgruppe slettet."
+
+#: includes/admin/admin-field-group.php:73
+#: includes/admin/admin-field-group.php:74
+#: includes/admin/admin-field-group.php:76
+msgid "Field group updated."
+msgstr "Feltgruppe oppdatert."
+
+#: includes/admin/admin-tools.php:119
+#: includes/admin/views/html-admin-navigation.php:109
+#: includes/admin/views/html-admin-tools.php:21
+msgid "Tools"
+msgstr "Verktøy"
+
+#: includes/locations/abstract-acf-location.php:106
+msgid "is not equal to"
+msgstr "er ikke lik til"
+
+#: includes/locations/abstract-acf-location.php:105
+msgid "is equal to"
+msgstr "er lik"
+
+#: includes/locations.php:102
+msgid "Forms"
+msgstr "Skjema"
+
+#: includes/locations.php:100 includes/locations/class-acf-location-page.php:22
+msgid "Page"
+msgstr "Side"
+
+#: includes/locations.php:99 includes/locations/class-acf-location-post.php:22
+msgid "Post"
+msgstr "Innlegg"
+
+#: includes/fields.php:358
+msgid "jQuery"
+msgstr "jQuery"
+
+#: includes/fields.php:357
+msgid "Relational"
+msgstr "Relasjonell"
+
+#: includes/fields.php:356
+msgid "Choice"
+msgstr "Valg"
+
+#: includes/fields.php:354
+msgid "Basic"
+msgstr "Grunnleggende"
+
+#: includes/fields.php:313
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: includes/fields.php:313
+msgid "Field type does not exist"
+msgstr "Felttype eksisterer ikke"
+
+#: includes/forms/form-front.php:236
+msgid "Spam Detected"
+msgstr "Spam oppdaget"
+
+#: includes/forms/form-front.php:107
+msgid "Post updated"
+msgstr "Innlegg oppdatert"
+
+#: includes/forms/form-front.php:106
+msgid "Update"
+msgstr "Oppdater"
+
+#: includes/forms/form-front.php:57
+msgid "Validate Email"
+msgstr "Valider e-post"
+
+#: includes/fields.php:355 includes/forms/form-front.php:49
+msgid "Content"
+msgstr "Innhold"
+
+#: includes/forms/form-front.php:40
+msgid "Title"
+msgstr "Tittel"
+
+#: includes/assets.php:371 includes/forms/form-comment.php:160
+#: assets/build/js/acf-input.js:7337 assets/build/js/acf-input.js:7915
+msgid "Edit field group"
+msgstr "Rediger feltgruppe"
+
+#: includes/admin/admin-field-group.php:181 assets/build/js/acf-input.js:1125
+#: assets/build/js/acf-input.js:1230
+msgid "Selection is less than"
+msgstr "Valget er mindre enn"
+
+#: includes/admin/admin-field-group.php:180 assets/build/js/acf-input.js:1106
+#: assets/build/js/acf-input.js:1202
+msgid "Selection is greater than"
+msgstr "Valget er større enn"
+
+#: includes/admin/admin-field-group.php:179 assets/build/js/acf-input.js:1075
+#: assets/build/js/acf-input.js:1170
+msgid "Value is less than"
+msgstr "Verdi er mindre enn"
+
+#: includes/admin/admin-field-group.php:178 assets/build/js/acf-input.js:1045
+#: assets/build/js/acf-input.js:1139
+msgid "Value is greater than"
+msgstr "Verdi er større enn"
+
+#: includes/admin/admin-field-group.php:177 assets/build/js/acf-input.js:888
+#: assets/build/js/acf-input.js:960
+msgid "Value contains"
+msgstr "Verdi inneholder"
+
+#: includes/admin/admin-field-group.php:176 assets/build/js/acf-input.js:862
+#: assets/build/js/acf-input.js:926
+msgid "Value matches pattern"
+msgstr "Verdi passer til mønster"
+
+#: includes/admin/admin-field-group.php:175 assets/build/js/acf-input.js:840
+#: assets/build/js/acf-input.js:1023 assets/build/js/acf-input.js:903
+#: assets/build/js/acf-input.js:1116
+msgid "Value is not equal to"
+msgstr "Verdi er ikke lik "
+
+#: includes/admin/admin-field-group.php:174 assets/build/js/acf-input.js:810
+#: assets/build/js/acf-input.js:964 assets/build/js/acf-input.js:864
+#: assets/build/js/acf-input.js:1053
+msgid "Value is equal to"
+msgstr "Verdi er lik"
+
+#: includes/admin/admin-field-group.php:173 assets/build/js/acf-input.js:788
+#: assets/build/js/acf-input.js:841
+msgid "Has no value"
+msgstr "Har ingen verdi"
+
+#: includes/admin/admin-field-group.php:172 assets/build/js/acf-input.js:758
+#: assets/build/js/acf-input.js:783
+msgid "Has any value"
+msgstr "Har en verdi"
+
+#: includes/assets.php:352 assets/build/js/acf.js:1524
+#: assets/build/js/acf.js:1604
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: includes/assets.php:348 assets/build/js/acf.js:1698
+#: assets/build/js/acf.js:1801
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: includes/assets.php:368 assets/build/js/acf-input.js:9370
+#: assets/build/js/acf-input.js:10211
+msgid "%d fields require attention"
+msgstr "%d felt krever oppmerksomhet"
+
+#: includes/assets.php:367 assets/build/js/acf-input.js:9368
+#: assets/build/js/acf-input.js:10207
+msgid "1 field requires attention"
+msgstr "1 felt krever oppmerksomhet"
+
+#: includes/assets.php:366 includes/validation.php:287
+#: includes/validation.php:297 assets/build/js/acf-input.js:9363
+#: assets/build/js/acf-input.js:10202
+msgid "Validation failed"
+msgstr "Validering feilet"
+
+#: includes/assets.php:365 assets/build/js/acf-input.js:9526
+#: assets/build/js/acf-input.js:10385
+msgid "Validation successful"
+msgstr "Validering vellykket"
+
+#: includes/media.php:54 assets/build/js/acf-input.js:7165
+#: assets/build/js/acf-input.js:7719
+msgid "Restricted"
+msgstr "Begrenset"
+
+#: includes/media.php:53 assets/build/js/acf-input.js:6980
+#: assets/build/js/acf-input.js:7483
+msgid "Collapse Details"
+msgstr "Trekk sammen detaljer"
+
+#: includes/media.php:52 assets/build/js/acf-input.js:6980
+#: assets/build/js/acf-input.js:7480
+msgid "Expand Details"
+msgstr "Utvid detaljer"
+
+#: includes/media.php:51 assets/build/js/acf-input.js:6847
+#: assets/build/js/acf-input.js:7328
+msgid "Uploaded to this post"
+msgstr "Lastet opp til dette innlegget"
+
+#: includes/media.php:50 assets/build/js/acf-input.js:6886
+#: assets/build/js/acf-input.js:7367
+msgctxt "verb"
+msgid "Update"
+msgstr "Oppdater"
+
+#: includes/media.php:49
+msgctxt "verb"
+msgid "Edit"
+msgstr "Rediger"
+
+#: includes/assets.php:362 assets/build/js/acf-input.js:9140
+#: assets/build/js/acf-input.js:9973
+msgid "The changes you made will be lost if you navigate away from this page"
+msgstr ""
+"Endringene du har gjort vil gå tapt om du navigerer bort fra denne siden."
+
+#: includes/api/api-helpers.php:3395
+msgid "File type must be %s."
+msgstr "Filtype må være %s."
+
+#: includes/admin/admin-field-group.php:167
+#: includes/admin/views/field-group-field-conditional-logic.php:59
+#: includes/admin/views/field-group-field-conditional-logic.php:169
+#: includes/admin/views/field-group-locations.php:36
+#: includes/admin/views/html-location-group.php:3
+#: includes/api/api-helpers.php:3391 assets/build/js/acf-field-group.js:492
+#: assets/build/js/acf-field-group.js:1973
+#: assets/build/js/acf-field-group.js:544
+#: assets/build/js/acf-field-group.js:2210
+msgid "or"
+msgstr "eller"
+
+#: includes/api/api-helpers.php:3364
+msgid "File size must not exceed %s."
+msgstr "Filstørrelsen må ikke overstige %s."
+
+#: includes/api/api-helpers.php:3359
+msgid "File size must be at least %s."
+msgstr "Filstørrelse må minst være %s."
+
+#: includes/api/api-helpers.php:3344
+msgid "Image height must not exceed %dpx."
+msgstr "Bildehøyde må ikke overstige %dpx."
+
+#: includes/api/api-helpers.php:3339
+msgid "Image height must be at least %dpx."
+msgstr "Bildehøyde må være minst %dpx."
+
+#: includes/api/api-helpers.php:3325
+msgid "Image width must not exceed %dpx."
+msgstr "Bildebredde må ikke overstige %dpx."
+
+#: includes/api/api-helpers.php:3320
+msgid "Image width must be at least %dpx."
+msgstr "Bildebredde må være minst %dpx."
+
+#: includes/api/api-helpers.php:1566 includes/api/api-term.php:147
+msgid "(no title)"
+msgstr "(ingen tittel)"
+
+#: includes/api/api-helpers.php:861
+msgid "Full Size"
+msgstr "Full størrelse"
+
+#: includes/api/api-helpers.php:820
+msgid "Large"
+msgstr "Stor"
+
+#: includes/api/api-helpers.php:819
+msgid "Medium"
+msgstr "Middels"
+
+#: includes/api/api-helpers.php:818
+msgid "Thumbnail"
+msgstr "Miniatyrbilde"
+
+#: includes/acf-field-functions.php:846
+#: includes/admin/admin-field-group.php:164
+#: assets/build/js/acf-field-group.js:789
+#: assets/build/js/acf-field-group.js:859
+msgid "(no label)"
+msgstr "(ingen etikett)"
+
+#: includes/fields/class-acf-field-textarea.php:142
+msgid "Sets the textarea height"
+msgstr "Setter høyde på tekstområde"
+
+#: includes/fields/class-acf-field-textarea.php:141
+msgid "Rows"
+msgstr "Rader"
+
+#: includes/fields/class-acf-field-textarea.php:25
+msgid "Text Area"
+msgstr "Tekstområde"
+
+#: includes/fields/class-acf-field-checkbox.php:447
+msgid "Prepend an extra checkbox to toggle all choices"
+msgstr "Legg en ekstra avkryssningsboks foran for å veksle alle valg "
+
+#: includes/fields/class-acf-field-checkbox.php:409
+msgid "Save 'custom' values to the field's choices"
+msgstr "Lagre \"egendefinerte\" verdier til feltvalg"
+
+#: includes/fields/class-acf-field-checkbox.php:398
+msgid "Allow 'custom' values to be added"
+msgstr "Tillat 'egendefinerte' verdier til å bli lagt til"
+
+#: includes/fields/class-acf-field-checkbox.php:233
+msgid "Add new choice"
+msgstr "Legg til nytt valg"
+
+#: includes/fields/class-acf-field-checkbox.php:170
+msgid "Toggle All"
+msgstr "Veksle alle"
+
+#: includes/fields/class-acf-field-page_link.php:477
+msgid "Allow Archives URLs"
+msgstr "Tillat arkiv-URLer"
+
+#: includes/fields/class-acf-field-page_link.php:165
+msgid "Archives"
+msgstr "Arkiv"
+
+#: includes/fields/class-acf-field-page_link.php:25
+msgid "Page Link"
+msgstr "Sidelenke"
+
+#: includes/fields/class-acf-field-taxonomy.php:945
+#: includes/locations/class-acf-location-user-form.php:72
+msgid "Add"
+msgstr "Legg til "
+
+#: includes/admin/views/field-group-fields.php:42
+#: includes/fields/class-acf-field-taxonomy.php:910
+msgid "Name"
+msgstr "Navn"
+
+#: includes/fields/class-acf-field-taxonomy.php:894
+msgid "%s added"
+msgstr "%s lagt til"
+
+#: includes/fields/class-acf-field-taxonomy.php:858
+msgid "%s already exists"
+msgstr "%s finnes allerede"
+
+#: includes/fields/class-acf-field-taxonomy.php:846
+msgid "User unable to add new %s"
+msgstr "Bruker kan ikke legge til ny %s"
+
+#: includes/fields/class-acf-field-taxonomy.php:756
+msgid "Term ID"
+msgstr "Term-ID"
+
+#: includes/fields/class-acf-field-taxonomy.php:755
+msgid "Term Object"
+msgstr "Term-objekt"
+
+#: includes/fields/class-acf-field-taxonomy.php:740
+msgid "Load value from posts terms"
+msgstr "Last verdi fra innleggstermer"
+
+#: includes/fields/class-acf-field-taxonomy.php:739
+msgid "Load Terms"
+msgstr "Last termer"
+
+#: includes/fields/class-acf-field-taxonomy.php:729
+msgid "Connect selected terms to the post"
+msgstr "Koble valgte termer til innlegget"
+
+#: includes/fields/class-acf-field-taxonomy.php:728
+msgid "Save Terms"
+msgstr "Lagre termer"
+
+#: includes/fields/class-acf-field-taxonomy.php:718
+msgid "Allow new terms to be created whilst editing"
+msgstr "Tillat at nye termer legges til ved redigering"
+
+#: includes/fields/class-acf-field-taxonomy.php:717
+msgid "Create Terms"
+msgstr "Lag termer"
+
+#: includes/fields/class-acf-field-taxonomy.php:776
+msgid "Radio Buttons"
+msgstr "Radioknapper"
+
+#: includes/fields/class-acf-field-taxonomy.php:775
+msgid "Single Value"
+msgstr "Enkeltverdi"
+
+#: includes/fields/class-acf-field-taxonomy.php:773
+msgid "Multi Select"
+msgstr "Flervalg"
+
+#: includes/fields/class-acf-field-checkbox.php:25
+#: includes/fields/class-acf-field-taxonomy.php:772
+msgid "Checkbox"
+msgstr "Avkrysningsboks"
+
+#: includes/fields/class-acf-field-taxonomy.php:771
+msgid "Multiple Values"
+msgstr "Flere verdier"
+
+#: includes/fields/class-acf-field-taxonomy.php:766
+msgid "Select the appearance of this field"
+msgstr "Velg visning av dette feltet"
+
+#: includes/fields/class-acf-field-taxonomy.php:765
+msgid "Appearance"
+msgstr "Utseende"
+
+#: includes/fields/class-acf-field-taxonomy.php:707
+msgid "Select the taxonomy to be displayed"
+msgstr "Velg taksonomi som skal vises"
+
+#: includes/fields/class-acf-field-taxonomy.php:668
+msgctxt "No Terms"
+msgid "No %s"
+msgstr "Ingen %s"
+
+#: includes/fields/class-acf-field-number.php:263
+msgid "Value must be equal to or lower than %d"
+msgstr "Verdi må være lik eller lavere enn %d"
+
+#: includes/fields/class-acf-field-number.php:256
+msgid "Value must be equal to or higher than %d"
+msgstr "Verdi må være lik eller høyere enn %d"
+
+#: includes/fields/class-acf-field-number.php:241
+msgid "Value must be a number"
+msgstr "Verdi må være et tall"
+
+#: includes/fields/class-acf-field-number.php:25
+msgid "Number"
+msgstr "Tall"
+
+#: includes/fields/class-acf-field-radio.php:261
+msgid "Save 'other' values to the field's choices"
+msgstr "Lagre \"andre\" verdier til feltets valg"
+
+#: includes/fields/class-acf-field-radio.php:250
+msgid "Add 'other' choice to allow for custom values"
+msgstr "Legg \"andre\"-valget for å tillate egendefinerte verdier"
+
+#: includes/fields/class-acf-field-radio.php:25
+msgid "Radio Button"
+msgstr "Radioknapp"
+
+#: includes/fields/class-acf-field-accordion.php:104
+msgid ""
+"Define an endpoint for the previous accordion to stop. This accordion will "
+"not be visible."
+msgstr ""
+"Definer et endepunkt å stanse for det forrige trekkspillet. Dette "
+"trekkspillet vil ikke være synlig."
+
+#: includes/fields/class-acf-field-accordion.php:93
+msgid "Allow this accordion to open without closing others."
+msgstr "Tillat dette trekkspillet å åpne uten å lukke andre."
+
+#: includes/fields/class-acf-field-accordion.php:92
+msgid "Multi-expand"
+msgstr "Fler-utvid"
+
+#: includes/fields/class-acf-field-accordion.php:82
+msgid "Display this accordion as open on page load."
+msgstr "Vis dette trekkspillet som åpent ved sidelastingen."
+
+#: includes/fields/class-acf-field-accordion.php:81
+msgid "Open"
+msgstr "Åpne"
+
+#: includes/fields/class-acf-field-accordion.php:25
+msgid "Accordion"
+msgstr "Trekkspill"
+
+#: includes/fields/class-acf-field-file.php:264
+#: includes/fields/class-acf-field-file.php:276
+msgid "Restrict which files can be uploaded"
+msgstr "Begrens hvilke filer som kan lastes opp"
+
+#: includes/fields/class-acf-field-file.php:217
+msgid "File ID"
+msgstr "Fil-ID"
+
+#: includes/fields/class-acf-field-file.php:216
+msgid "File URL"
+msgstr "URL til fil"
+
+#: includes/fields/class-acf-field-file.php:215
+msgid "File Array"
+msgstr "Filrekke"
+
+#: includes/fields/class-acf-field-file.php:183
+msgid "Add File"
+msgstr "Legg til fil"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:94
+#: includes/fields/class-acf-field-file.php:183
+msgid "No file selected"
+msgstr "Ingen fil valgt"
+
+#: includes/fields/class-acf-field-file.php:147
+msgid "File name"
+msgstr "Filnavn"
+
+#: includes/fields/class-acf-field-file.php:60
+#: assets/build/js/acf-input.js:2466 assets/build/js/acf-input.js:2612
+msgid "Update File"
+msgstr "Oppdater fil"
+
+#: includes/fields/class-acf-field-file.php:59
+#: assets/build/js/acf-input.js:2465 assets/build/js/acf-input.js:2611
+msgid "Edit File"
+msgstr "Rediger fil"
+
+#: includes/admin/tools/class-acf-admin-tool-import.php:59
+#: includes/fields/class-acf-field-file.php:58
+#: assets/build/js/acf-input.js:2439 assets/build/js/acf-input.js:2584
+msgid "Select File"
+msgstr "Velg fil"
+
+#: includes/fields/class-acf-field-file.php:25
+msgid "File"
+msgstr "Fil"
+
+#: includes/fields/class-acf-field-password.php:25
+msgid "Password"
+msgstr "Passord"
+
+#: includes/fields/class-acf-field-select.php:391
+msgid "Specify the value returned"
+msgstr "Angi returnert verdi"
+
+#: includes/fields/class-acf-field-select.php:460
+msgid "Use AJAX to lazy load choices?"
+msgstr "Bruk ajax for lat lastingsvalg?"
+
+#: includes/fields/class-acf-field-checkbox.php:358
+#: includes/fields/class-acf-field-select.php:380
+msgid "Enter each default value on a new line"
+msgstr "Angi hver standardverdi på en ny linje"
+
+#: includes/fields/class-acf-field-select.php:255 includes/media.php:48
+#: assets/build/js/acf-input.js:6745 assets/build/js/acf-input.js:7213
+msgctxt "verb"
+msgid "Select"
+msgstr "Velg"
+
+#: includes/fields/class-acf-field-select.php:118
+msgctxt "Select2 JS load_fail"
+msgid "Loading failed"
+msgstr "Innlasting feilet"
+
+#: includes/fields/class-acf-field-select.php:117
+msgctxt "Select2 JS searching"
+msgid "Searching&hellip;"
+msgstr "Søker&hellip;"
+
+#: includes/fields/class-acf-field-select.php:116
+msgctxt "Select2 JS load_more"
+msgid "Loading more results&hellip;"
+msgstr "Laster flere resultat&hellip;"
+
+#: includes/fields/class-acf-field-select.php:115
+msgctxt "Select2 JS selection_too_long_n"
+msgid "You can only select %d items"
+msgstr "Du kan kun velge %d elementer"
+
+#: includes/fields/class-acf-field-select.php:114
+msgctxt "Select2 JS selection_too_long_1"
+msgid "You can only select 1 item"
+msgstr "Du kan kun velge 1 element"
+
+#: includes/fields/class-acf-field-select.php:113
+msgctxt "Select2 JS input_too_long_n"
+msgid "Please delete %d characters"
+msgstr "Vennligst slett %d tegn"
+
+#: includes/fields/class-acf-field-select.php:112
+msgctxt "Select2 JS input_too_long_1"
+msgid "Please delete 1 character"
+msgstr "Vennligst slett 1 tegn"
+
+#: includes/fields/class-acf-field-select.php:111
+msgctxt "Select2 JS input_too_short_n"
+msgid "Please enter %d or more characters"
+msgstr "Vennligst angi %d eller flere tegn"
+
+#: includes/fields/class-acf-field-select.php:110
+msgctxt "Select2 JS input_too_short_1"
+msgid "Please enter 1 or more characters"
+msgstr "Vennligst angi 1 eller flere tegn"
+
+#: includes/fields/class-acf-field-select.php:109
+msgctxt "Select2 JS matches_0"
+msgid "No matches found"
+msgstr "Ingen treff funnet"
+
+#: includes/fields/class-acf-field-select.php:108
+msgctxt "Select2 JS matches_n"
+msgid "%d results are available, use up and down arrow keys to navigate."
+msgstr ""
+"%d resultater er tilgjengelige, bruk opp- og nedpiltaster for å navigere."
+
+#: includes/fields/class-acf-field-select.php:107
+msgctxt "Select2 JS matches_1"
+msgid "One result is available, press enter to select it."
+msgstr "Ett resultat er tilgjengelig, trykk enter for å velge det."
+
+#: includes/fields/class-acf-field-select.php:25
+#: includes/fields/class-acf-field-taxonomy.php:777
+msgctxt "noun"
+msgid "Select"
+msgstr "Velg"
+
+#: includes/fields/class-acf-field-user.php:74
+msgid "User ID"
+msgstr "Bruker-ID"
+
+#: includes/fields/class-acf-field-user.php:73
+msgid "User Object"
+msgstr "Bruker-objekt"
+
+#: includes/fields/class-acf-field-user.php:72
+msgid "User Array"
+msgstr "Bruker-rekke"
+
+#: includes/fields/class-acf-field-user.php:60
+msgid "All user roles"
+msgstr "Alle brukerroller"
+
+#: includes/fields/class-acf-field-user.php:52
+msgid "Filter by role"
+msgstr "Filtrer etter rolle"
+
+#: includes/fields/class-acf-field-user.php:20 includes/locations.php:101
+msgid "User"
+msgstr "Bruker"
+
+#: includes/fields/class-acf-field-separator.php:25
+msgid "Separator"
+msgstr "Skille"
+
+#: includes/fields/class-acf-field-color_picker.php:73
+msgid "Select Color"
+msgstr "Velg farge"
+
+#: includes/fields/class-acf-field-color_picker.php:71
+msgid "Default"
+msgstr "Standard"
+
+#: includes/fields/class-acf-field-color_picker.php:69
+msgid "Clear"
+msgstr "Fjern"
+
+#: includes/fields/class-acf-field-color_picker.php:25
+msgid "Color Picker"
+msgstr "Fargevelger"
+
+#: includes/fields/class-acf-field-date_time_picker.php:85
+msgctxt "Date Time Picker JS pmTextShort"
+msgid "P"
+msgstr "P"
+
+#: includes/fields/class-acf-field-date_time_picker.php:84
+msgctxt "Date Time Picker JS pmText"
+msgid "PM"
+msgstr "PM"
+
+#: includes/fields/class-acf-field-date_time_picker.php:81
+msgctxt "Date Time Picker JS amTextShort"
+msgid "A"
+msgstr "A"
+
+#: includes/fields/class-acf-field-date_time_picker.php:80
+msgctxt "Date Time Picker JS amText"
+msgid "AM"
+msgstr "AM"
+
+#: includes/fields/class-acf-field-date_time_picker.php:78
+msgctxt "Date Time Picker JS selectText"
+msgid "Select"
+msgstr "Velg"
+
+#: includes/fields/class-acf-field-date_time_picker.php:77
+msgctxt "Date Time Picker JS closeText"
+msgid "Done"
+msgstr "Utført"
+
+#: includes/fields/class-acf-field-date_time_picker.php:76
+msgctxt "Date Time Picker JS currentText"
+msgid "Now"
+msgstr "Nå"
+
+#: includes/fields/class-acf-field-date_time_picker.php:75
+msgctxt "Date Time Picker JS timezoneText"
+msgid "Time Zone"
+msgstr "Tidssone"
+
+#: includes/fields/class-acf-field-date_time_picker.php:74
+msgctxt "Date Time Picker JS microsecText"
+msgid "Microsecond"
+msgstr "Mikrosekund"
+
+#: includes/fields/class-acf-field-date_time_picker.php:73
+msgctxt "Date Time Picker JS millisecText"
+msgid "Millisecond"
+msgstr "Millisekund"
+
+#: includes/fields/class-acf-field-date_time_picker.php:72
+msgctxt "Date Time Picker JS secondText"
+msgid "Second"
+msgstr "Sekund"
+
+#: includes/fields/class-acf-field-date_time_picker.php:71
+msgctxt "Date Time Picker JS minuteText"
+msgid "Minute"
+msgstr "Minutt"
+
+#: includes/fields/class-acf-field-date_time_picker.php:70
+msgctxt "Date Time Picker JS hourText"
+msgid "Hour"
+msgstr "Time"
+
+#: includes/fields/class-acf-field-date_time_picker.php:69
+msgctxt "Date Time Picker JS timeText"
+msgid "Time"
+msgstr "Tid"
+
+#: includes/fields/class-acf-field-date_time_picker.php:68
+msgctxt "Date Time Picker JS timeOnlyTitle"
+msgid "Choose Time"
+msgstr "Velg tid"
+
+#: includes/fields/class-acf-field-date_time_picker.php:25
+msgid "Date Time Picker"
+msgstr "Datovelger"
+
+#: includes/fields/class-acf-field-accordion.php:103
+msgid "Endpoint"
+msgstr "Endepunkt"
+
+#: includes/admin/views/field-group-options.php:95
+#: includes/fields/class-acf-field-tab.php:112
+msgid "Left aligned"
+msgstr "Venstrejustert"
+
+#: includes/admin/views/field-group-options.php:94
+#: includes/fields/class-acf-field-tab.php:111
+msgid "Top aligned"
+msgstr "Toppjustert"
+
+#: includes/fields/class-acf-field-tab.php:107
+msgid "Placement"
+msgstr "Plassering"
+
+#: includes/fields/class-acf-field-tab.php:26
+msgid "Tab"
+msgstr "Fane"
+
+#: includes/fields/class-acf-field-url.php:159
+msgid "Value must be a valid URL"
+msgstr "Verdien må være en gyldig URL"
+
+#: includes/fields/class-acf-field-url.php:25
+msgid "Url"
+msgstr "Url"
+
+#: includes/fields/class-acf-field-link.php:174
+msgid "Link URL"
+msgstr "Lenke-URL"
+
+#: includes/fields/class-acf-field-link.php:173
+msgid "Link Array"
+msgstr "Lenkerekke"
+
+#: includes/fields/class-acf-field-link.php:142
+msgid "Opens in a new window/tab"
+msgstr "Åpnes i en ny fane"
+
+#: includes/fields/class-acf-field-link.php:137
+msgid "Select Link"
+msgstr "Velg lenke"
+
+#: includes/fields/class-acf-field-link.php:25
+msgid "Link"
+msgstr "Lenke"
+
+#: includes/fields/class-acf-field-email.php:25
+msgid "Email"
+msgstr "E-post"
+
+#: includes/fields/class-acf-field-number.php:185
+#: includes/fields/class-acf-field-range.php:214
+msgid "Step Size"
+msgstr "Trinnstørrelse"
+
+#: includes/fields/class-acf-field-number.php:155
+#: includes/fields/class-acf-field-range.php:192
+msgid "Maximum Value"
+msgstr "Maksimumsverdi"
+
+#: includes/fields/class-acf-field-number.php:145
+#: includes/fields/class-acf-field-range.php:181
+msgid "Minimum Value"
+msgstr "Minimumsverdi"
+
+#: includes/fields/class-acf-field-range.php:25
+msgid "Range"
+msgstr "Område"
+
+#: includes/fields/class-acf-field-button-group.php:172
+#: includes/fields/class-acf-field-checkbox.php:375
+#: includes/fields/class-acf-field-radio.php:217
+#: includes/fields/class-acf-field-select.php:398
+msgid "Both (Array)"
+msgstr "Begge (rekke)"
+
+#: includes/admin/views/field-group-fields.php:41
+#: includes/fields/class-acf-field-button-group.php:171
+#: includes/fields/class-acf-field-checkbox.php:374
+#: includes/fields/class-acf-field-radio.php:216
+#: includes/fields/class-acf-field-select.php:397
+msgid "Label"
+msgstr "Etikett"
+
+#: includes/fields/class-acf-field-button-group.php:170
+#: includes/fields/class-acf-field-checkbox.php:373
+#: includes/fields/class-acf-field-radio.php:215
+#: includes/fields/class-acf-field-select.php:396
+msgid "Value"
+msgstr "Verdi"
+
+#: includes/fields/class-acf-field-button-group.php:219
+#: includes/fields/class-acf-field-checkbox.php:437
+#: includes/fields/class-acf-field-radio.php:289
+msgid "Vertical"
+msgstr "Vertikal"
+
+#: includes/fields/class-acf-field-button-group.php:218
+#: includes/fields/class-acf-field-checkbox.php:438
+#: includes/fields/class-acf-field-radio.php:290
+msgid "Horizontal"
+msgstr "Horisontal"
+
+#: includes/fields/class-acf-field-button-group.php:145
+#: includes/fields/class-acf-field-checkbox.php:348
+#: includes/fields/class-acf-field-radio.php:190
+#: includes/fields/class-acf-field-select.php:369
+msgid "red : Red"
+msgstr "rød : Rød"
+
+#: includes/fields/class-acf-field-button-group.php:145
+#: includes/fields/class-acf-field-checkbox.php:348
+#: includes/fields/class-acf-field-radio.php:190
+#: includes/fields/class-acf-field-select.php:369
+msgid "For more control, you may specify both a value and label like this:"
+msgstr ""
+"For mer kontroll, kan du spesifisere både en verdi og en etikett som dette:"
+
+#: includes/fields/class-acf-field-button-group.php:145
+#: includes/fields/class-acf-field-checkbox.php:348
+#: includes/fields/class-acf-field-radio.php:190
+#: includes/fields/class-acf-field-select.php:369
+msgid "Enter each choice on a new line."
+msgstr "Tast inn hvert valg på en ny linje."
+
+#: includes/fields/class-acf-field-button-group.php:144
+#: includes/fields/class-acf-field-checkbox.php:347
+#: includes/fields/class-acf-field-radio.php:189
+#: includes/fields/class-acf-field-select.php:368
+msgid "Choices"
+msgstr "Valg"
+
+#: includes/fields/class-acf-field-button-group.php:24
+msgid "Button Group"
+msgstr "Knappegruppe"
+
+#: includes/fields/class-acf-field-page_link.php:488
+#: includes/fields/class-acf-field-post_object.php:404
+#: includes/fields/class-acf-field-select.php:406
+#: includes/fields/class-acf-field-user.php:83
+msgid "Select multiple values?"
+msgstr "Velge flere verdier?"
+
+#: includes/fields/class-acf-field-button-group.php:191
+#: includes/fields/class-acf-field-page_link.php:509
+#: includes/fields/class-acf-field-post_object.php:426
+#: includes/fields/class-acf-field-radio.php:235
+#: includes/fields/class-acf-field-select.php:428
+#: includes/fields/class-acf-field-taxonomy.php:786
+#: includes/fields/class-acf-field-user.php:104
+msgid "Allow Null?"
+msgstr "Tillat null?"
+
+#: includes/fields/class-acf-field-page_link.php:249
+#: includes/fields/class-acf-field-post_object.php:250
+#: includes/fields/class-acf-field-taxonomy.php:932
+msgid "Parent"
+msgstr "Forelder"
+
+#: includes/fields/class-acf-field-wysiwyg.php:394
+msgid "TinyMCE will not be initialized until field is clicked"
+msgstr "TinyMCE vil ikke bli initialisert før dette feltet er klikket"
+
+#: includes/fields/class-acf-field-wysiwyg.php:393
+msgid "Delay initialization?"
+msgstr "Forsinke initialisering?"
+
+#: includes/fields/class-acf-field-wysiwyg.php:382
+msgid "Show Media Upload Buttons?"
+msgstr "Vis opplastingsknapper for mediefiler?"
+
+#: includes/fields/class-acf-field-wysiwyg.php:366
+msgid "Toolbar"
+msgstr "Verktøylinje"
+
+#: includes/fields/class-acf-field-wysiwyg.php:358
+msgid "Text Only"
+msgstr "Kun tekst"
+
+#: includes/fields/class-acf-field-wysiwyg.php:357
+msgid "Visual Only"
+msgstr "Kun visuell"
+
+#: includes/fields/class-acf-field-wysiwyg.php:356
+msgid "Visual & Text"
+msgstr "Visuell og tekst"
+
+#: includes/fields/class-acf-field-wysiwyg.php:351
+msgid "Tabs"
+msgstr "Faner"
+
+#: includes/fields/class-acf-field-wysiwyg.php:289
+msgid "Click to initialize TinyMCE"
+msgstr "Klikk for å initialisere TinyMCE"
+
+#: includes/fields/class-acf-field-wysiwyg.php:283
+msgctxt "Name for the Text editor tab (formerly HTML)"
+msgid "Text"
+msgstr "Tekst"
+
+#: includes/fields/class-acf-field-wysiwyg.php:282
+msgid "Visual"
+msgstr "Visuell"
+
+#: includes/fields/class-acf-field-wysiwyg.php:25
+msgid "Wysiwyg Editor"
+msgstr "Wysiwyg redigeringsverktøy"
+
+#: includes/fields/class-acf-field-text.php:180
+#: includes/fields/class-acf-field-textarea.php:233
+msgid "Value must not exceed %d characters"
+msgstr "Verdi må ikke overstige %d tegn"
+
+#: includes/fields/class-acf-field-text.php:115
+#: includes/fields/class-acf-field-textarea.php:121
+msgid "Leave blank for no limit"
+msgstr "La være tom for ingen begrensning"
+
+#: includes/fields/class-acf-field-text.php:114
+#: includes/fields/class-acf-field-textarea.php:120
+msgid "Character Limit"
+msgstr "Tegnbegrensing"
+
+#: includes/fields/class-acf-field-email.php:155
+#: includes/fields/class-acf-field-number.php:206
+#: includes/fields/class-acf-field-password.php:102
+#: includes/fields/class-acf-field-range.php:236
+#: includes/fields/class-acf-field-text.php:155
+msgid "Appears after the input"
+msgstr "Vises etter input"
+
+#: includes/fields/class-acf-field-email.php:154
+#: includes/fields/class-acf-field-number.php:205
+#: includes/fields/class-acf-field-password.php:101
+#: includes/fields/class-acf-field-range.php:235
+#: includes/fields/class-acf-field-text.php:154
+msgid "Append"
+msgstr "Tilføy"
+
+#: includes/fields/class-acf-field-email.php:145
+#: includes/fields/class-acf-field-number.php:196
+#: includes/fields/class-acf-field-password.php:92
+#: includes/fields/class-acf-field-range.php:226
+#: includes/fields/class-acf-field-text.php:145
+msgid "Appears before the input"
+msgstr "Vises før input"
+
+#: includes/fields/class-acf-field-email.php:144
+#: includes/fields/class-acf-field-number.php:195
+#: includes/fields/class-acf-field-password.php:91
+#: includes/fields/class-acf-field-range.php:225
+#: includes/fields/class-acf-field-text.php:144
+msgid "Prepend"
+msgstr "Legg til foran"
+
+#: includes/fields/class-acf-field-email.php:135
+#: includes/fields/class-acf-field-number.php:176
+#: includes/fields/class-acf-field-password.php:82
+#: includes/fields/class-acf-field-text.php:135
+#: includes/fields/class-acf-field-textarea.php:153
+#: includes/fields/class-acf-field-url.php:119
+msgid "Appears within the input"
+msgstr "Vises innenfor input"
+
+#: includes/fields/class-acf-field-email.php:134
+#: includes/fields/class-acf-field-number.php:175
+#: includes/fields/class-acf-field-password.php:81
+#: includes/fields/class-acf-field-text.php:134
+#: includes/fields/class-acf-field-textarea.php:152
+#: includes/fields/class-acf-field-url.php:118
+msgid "Placeholder Text"
+msgstr "Plassholder-tekst"
+
+#: includes/fields/class-acf-field-button-group.php:155
+#: includes/fields/class-acf-field-email.php:115
+#: includes/fields/class-acf-field-number.php:126
+#: includes/fields/class-acf-field-radio.php:200
+#: includes/fields/class-acf-field-range.php:162
+#: includes/fields/class-acf-field-text.php:95
+#: includes/fields/class-acf-field-textarea.php:101
+#: includes/fields/class-acf-field-url.php:99
+#: includes/fields/class-acf-field-wysiwyg.php:316
+msgid "Appears when creating a new post"
+msgstr "Vises når nytt innlegg lages"
+
+#: includes/fields/class-acf-field-text.php:25
+msgid "Text"
+msgstr "Tekst"
+
+#: includes/fields/class-acf-field-relationship.php:760
+msgid "%1$s requires at least %2$s selection"
+msgid_plural "%1$s requires at least %2$s selections"
+msgstr[0] "%1$s krever minst %2$s valgt"
+msgstr[1] "%1$s krever minst %2$s valgte"
+
+#: includes/fields/class-acf-field-post_object.php:395
+#: includes/fields/class-acf-field-relationship.php:622
+msgid "Post ID"
+msgstr "Innleggs-ID"
+
+#: includes/fields/class-acf-field-post_object.php:25
+#: includes/fields/class-acf-field-post_object.php:394
+#: includes/fields/class-acf-field-relationship.php:621
+msgid "Post Object"
+msgstr "Innleggsobjekt"
+
+#: includes/fields/class-acf-field-relationship.php:654
+msgid "Maximum posts"
+msgstr "Maksimum antall innlegg"
+
+#: includes/fields/class-acf-field-relationship.php:644
+msgid "Minimum posts"
+msgstr "Minimum antall innlegg"
+
+#: includes/admin/views/field-group-options.php:148
+#: includes/fields/class-acf-field-relationship.php:679
+msgid "Featured Image"
+msgstr "Fremhevet bilde"
+
+#: includes/fields/class-acf-field-relationship.php:675
+msgid "Selected elements will be displayed in each result"
+msgstr "Valgte elementer vil bli vist for hvert resultat"
+
+#: includes/fields/class-acf-field-relationship.php:674
+msgid "Elements"
+msgstr "Elementer"
+
+#: includes/fields/class-acf-field-relationship.php:608
+#: includes/fields/class-acf-field-taxonomy.php:28
+#: includes/fields/class-acf-field-taxonomy.php:706
+#: includes/locations/class-acf-location-taxonomy.php:22
+msgid "Taxonomy"
+msgstr "Taksonomi"
+
+#: includes/fields/class-acf-field-relationship.php:607
+#: includes/locations/class-acf-location-post-type.php:22
+msgid "Post Type"
+msgstr "Innholdstype"
+
+#: includes/fields/class-acf-field-relationship.php:601
+msgid "Filters"
+msgstr "Filtre"
+
+#: includes/fields/class-acf-field-page_link.php:470
+#: includes/fields/class-acf-field-post_object.php:382
+#: includes/fields/class-acf-field-relationship.php:594
+msgid "All taxonomies"
+msgstr "Alle taksonomier"
+
+#: includes/fields/class-acf-field-page_link.php:462
+#: includes/fields/class-acf-field-post_object.php:374
+#: includes/fields/class-acf-field-relationship.php:586
+msgid "Filter by Taxonomy"
+msgstr "Filtrer etter taksonomi"
+
+#: includes/fields/class-acf-field-page_link.php:455
+#: includes/fields/class-acf-field-post_object.php:367
+#: includes/fields/class-acf-field-relationship.php:579
+msgid "All post types"
+msgstr "Alle innholdstyper"
+
+#: includes/fields/class-acf-field-page_link.php:447
+#: includes/fields/class-acf-field-post_object.php:359
+#: includes/fields/class-acf-field-relationship.php:571
+msgid "Filter by Post Type"
+msgstr "Filtrer etter innholdstype"
+
+#: includes/fields/class-acf-field-relationship.php:469
+msgid "Search..."
+msgstr "Søk..."
+
+#: includes/fields/class-acf-field-relationship.php:399
+msgid "Select taxonomy"
+msgstr "Velg taksonomi"
+
+#: includes/fields/class-acf-field-relationship.php:390
+msgid "Select post type"
+msgstr "Velg innholdstype"
+
+#: includes/fields/class-acf-field-relationship.php:65
+#: assets/build/js/acf-input.js:3917 assets/build/js/acf-input.js:4195
+msgid "No matches found"
+msgstr "Ingen treff funnet"
+
+#: includes/fields/class-acf-field-relationship.php:64
+#: assets/build/js/acf-input.js:3900 assets/build/js/acf-input.js:4174
+msgid "Loading"
+msgstr "Laster"
+
+#: includes/fields/class-acf-field-relationship.php:63
+#: assets/build/js/acf-input.js:3809 assets/build/js/acf-input.js:4070
+msgid "Maximum values reached ( {max} values )"
+msgstr "Maksimal verdi nådd ( {max} verdier )"
+
+#: includes/fields/class-acf-field-relationship.php:25
+msgid "Relationship"
+msgstr "Forhold"
+
+#: includes/fields/class-acf-field-file.php:288
+#: includes/fields/class-acf-field-image.php:314
+msgid "Comma separated list. Leave blank for all types"
+msgstr "Kommaseparert liste. La være tom for alle typer"
+
+#: includes/fields/class-acf-field-file.php:287
+#: includes/fields/class-acf-field-image.php:313
+msgid "Allowed file types"
+msgstr "Tillatte filtyper"
+
+#: includes/fields/class-acf-field-file.php:275
+#: includes/fields/class-acf-field-image.php:277
+msgid "Maximum"
+msgstr "Maksimum"
+
+#: includes/fields/class-acf-field-file.php:151
+#: includes/fields/class-acf-field-file.php:267
+#: includes/fields/class-acf-field-file.php:279
+#: includes/fields/class-acf-field-image.php:268
+#: includes/fields/class-acf-field-image.php:304
+msgid "File size"
+msgstr "Filstørrelse"
+
+#: includes/fields/class-acf-field-image.php:242
+#: includes/fields/class-acf-field-image.php:278
+msgid "Restrict which images can be uploaded"
+msgstr "Begrens hvilke bilder som kan lastes opp"
+
+#: includes/fields/class-acf-field-file.php:263
+#: includes/fields/class-acf-field-image.php:241
+msgid "Minimum"
+msgstr "Minimum"
+
+#: includes/fields/class-acf-field-file.php:232
+#: includes/fields/class-acf-field-image.php:207
+msgid "Uploaded to post"
+msgstr "Lastet opp til innlegget"
+
+#: includes/fields/class-acf-field-file.php:231
+#: includes/fields/class-acf-field-image.php:206
+#: includes/locations/class-acf-location-attachment.php:73
+#: includes/locations/class-acf-location-comment.php:61
+#: includes/locations/class-acf-location-nav-menu.php:74
+#: includes/locations/class-acf-location-taxonomy.php:63
+#: includes/locations/class-acf-location-user-form.php:71
+#: includes/locations/class-acf-location-user-role.php:78
+#: includes/locations/class-acf-location-widget.php:65
+msgid "All"
+msgstr "Alle"
+
+#: includes/fields/class-acf-field-file.php:226
+#: includes/fields/class-acf-field-image.php:201
+msgid "Limit the media library choice"
+msgstr "Begrens mediabibilotekutvalget"
+
+#: includes/fields/class-acf-field-file.php:225
+#: includes/fields/class-acf-field-image.php:200
+msgid "Library"
+msgstr "Bibliotek"
+
+#: includes/fields/class-acf-field-image.php:333
+msgid "Preview Size"
+msgstr "Forhåndsvis størrelse"
+
+#: includes/fields/class-acf-field-image.php:192
+msgid "Image ID"
+msgstr "Bilde-ID"
+
+#: includes/fields/class-acf-field-image.php:191
+msgid "Image URL"
+msgstr "Bilde-URL"
+
+#: includes/fields/class-acf-field-image.php:190
+msgid "Image Array"
+msgstr "Bilderekke"
+
+#: includes/fields/class-acf-field-button-group.php:165
+#: includes/fields/class-acf-field-checkbox.php:368
+#: includes/fields/class-acf-field-file.php:210
+#: includes/fields/class-acf-field-link.php:168
+#: includes/fields/class-acf-field-radio.php:210
+msgid "Specify the returned value on front end"
+msgstr "Angi den returnerte verdien på fremsiden"
+
+#: includes/fields/class-acf-field-button-group.php:164
+#: includes/fields/class-acf-field-checkbox.php:367
+#: includes/fields/class-acf-field-file.php:209
+#: includes/fields/class-acf-field-link.php:167
+#: includes/fields/class-acf-field-radio.php:209
+#: includes/fields/class-acf-field-taxonomy.php:750
+msgid "Return Value"
+msgstr "Returverdi"
+
+#: includes/fields/class-acf-field-image.php:159
+msgid "Add Image"
+msgstr "Legg til bilde"
+
+#: includes/fields/class-acf-field-image.php:159
+msgid "No image selected"
+msgstr "Intet bilde valgt"
+
+#: includes/assets.php:351 includes/fields/class-acf-field-file.php:159
+#: includes/fields/class-acf-field-image.php:139
+#: includes/fields/class-acf-field-link.php:142 assets/build/js/acf.js:1523
+#: assets/build/js/acf.js:1603
+msgid "Remove"
+msgstr "Fjern"
+
+#: includes/admin/views/field-group-field.php:65
+#: includes/fields/class-acf-field-file.php:157
+#: includes/fields/class-acf-field-image.php:137
+#: includes/fields/class-acf-field-link.php:142
+msgid "Edit"
+msgstr "Rediger"
+
+#: includes/fields/class-acf-field-image.php:67 includes/media.php:55
+#: assets/build/js/acf-input.js:6792 assets/build/js/acf-input.js:7267
+msgid "All images"
+msgstr "Alle bilder"
+
+#: includes/fields/class-acf-field-image.php:66
+#: assets/build/js/acf-input.js:3173 assets/build/js/acf-input.js:3386
+msgid "Update Image"
+msgstr "Oppdater bilde"
+
+#: includes/fields/class-acf-field-image.php:65
+#: assets/build/js/acf-input.js:3172 assets/build/js/acf-input.js:3385
+msgid "Edit Image"
+msgstr "Rediger bilde"
+
+#: includes/fields/class-acf-field-image.php:64
+#: assets/build/js/acf-input.js:3148 assets/build/js/acf-input.js:3360
+msgid "Select Image"
+msgstr "Velg bilde"
+
+#: includes/fields/class-acf-field-image.php:25
+msgid "Image"
+msgstr "Bilde"
+
+#: includes/fields/class-acf-field-message.php:123
+msgid "Allow HTML markup to display as visible text instead of rendering"
+msgstr "Tillat HTML-markering vises som synlig tekst i stedet for gjengivelse"
+
+#: includes/fields/class-acf-field-message.php:122
+msgid "Escape HTML"
+msgstr "Unnslipp HTML"
+
+#: includes/fields/class-acf-field-message.php:114
+#: includes/fields/class-acf-field-textarea.php:169
+msgid "No Formatting"
+msgstr "Ingen formatering"
+
+#: includes/fields/class-acf-field-message.php:113
+#: includes/fields/class-acf-field-textarea.php:168
+msgid "Automatically add &lt;br&gt;"
+msgstr "Legg automatisk til &lt;br&gt;"
+
+#: includes/fields/class-acf-field-message.php:112
+#: includes/fields/class-acf-field-textarea.php:167
+msgid "Automatically add paragraphs"
+msgstr "Legg til avsnitt automatisk"
+
+#: includes/fields/class-acf-field-message.php:108
+#: includes/fields/class-acf-field-textarea.php:163
+msgid "Controls how new lines are rendered"
+msgstr "Kontrollerer hvordan nye linjer er gjengitt"
+
+#: includes/fields/class-acf-field-message.php:107
+#: includes/fields/class-acf-field-textarea.php:162
+msgid "New Lines"
+msgstr "Nye linjer"
+
+#: includes/fields/class-acf-field-date_picker.php:229
+#: includes/fields/class-acf-field-date_time_picker.php:217
+msgid "Week Starts On"
+msgstr "Uken starter på"
+
+#: includes/fields/class-acf-field-date_picker.php:198
+msgid "The format used when saving a value"
+msgstr "Formatet som er brukt ved lagring av verdi"
+
+#: includes/fields/class-acf-field-date_picker.php:197
+msgid "Save Format"
+msgstr "Lagringsformat"
+
+#: includes/fields/class-acf-field-date_picker.php:64
+msgctxt "Date Picker JS weekHeader"
+msgid "Wk"
+msgstr "Uke"
+
+#: includes/fields/class-acf-field-date_picker.php:63
+msgctxt "Date Picker JS prevText"
+msgid "Prev"
+msgstr "Forrige"
+
+#: includes/fields/class-acf-field-date_picker.php:62
+msgctxt "Date Picker JS nextText"
+msgid "Next"
+msgstr "Neste"
+
+#: includes/fields/class-acf-field-date_picker.php:61
+msgctxt "Date Picker JS currentText"
+msgid "Today"
+msgstr "I dag"
+
+#: includes/fields/class-acf-field-date_picker.php:60
+msgctxt "Date Picker JS closeText"
+msgid "Done"
+msgstr "Ferdig"
+
+#: includes/fields/class-acf-field-date_picker.php:25
+msgid "Date Picker"
+msgstr "Datovelger"
+
+#: includes/fields/class-acf-field-image.php:245
+#: includes/fields/class-acf-field-image.php:281
+#: includes/fields/class-acf-field-oembed.php:265
+msgid "Width"
+msgstr "Bredde"
+
+#: includes/fields/class-acf-field-oembed.php:262
+#: includes/fields/class-acf-field-oembed.php:274
+msgid "Embed Size"
+msgstr "Innbyggingsstørrelse"
+
+#: includes/fields/class-acf-field-oembed.php:219
+msgid "Enter URL"
+msgstr "Angi URL"
+
+#: includes/fields/class-acf-field-oembed.php:25
+msgid "oEmbed"
+msgstr "oEmbed"
+
+#: includes/fields/class-acf-field-true_false.php:181
+msgid "Text shown when inactive"
+msgstr "Tekst vist når inaktiv"
+
+#: includes/fields/class-acf-field-true_false.php:180
+msgid "Off Text"
+msgstr "Tekst for av"
+
+#: includes/fields/class-acf-field-true_false.php:165
+msgid "Text shown when active"
+msgstr "Tekst vist når aktiv"
+
+#: includes/fields/class-acf-field-true_false.php:164
+msgid "On Text"
+msgstr "Tekst for på"
+
+#: includes/fields/class-acf-field-select.php:449
+#: includes/fields/class-acf-field-true_false.php:196
+msgid "Stylized UI"
+msgstr "Stilisert UI"
+
+#: includes/fields/class-acf-field-button-group.php:154
+#: includes/fields/class-acf-field-checkbox.php:357
+#: includes/fields/class-acf-field-color_picker.php:155
+#: includes/fields/class-acf-field-email.php:114
+#: includes/fields/class-acf-field-number.php:125
+#: includes/fields/class-acf-field-radio.php:199
+#: includes/fields/class-acf-field-range.php:161
+#: includes/fields/class-acf-field-select.php:379
+#: includes/fields/class-acf-field-text.php:94
+#: includes/fields/class-acf-field-textarea.php:100
+#: includes/fields/class-acf-field-true_false.php:144
+#: includes/fields/class-acf-field-url.php:98
+#: includes/fields/class-acf-field-wysiwyg.php:315
+msgid "Default Value"
+msgstr "Standardverdi"
+
+#: includes/fields/class-acf-field-true_false.php:135
+msgid "Displays text alongside the checkbox"
+msgstr "Viser tekst ved siden av avkrysingsboksen"
+
+#: includes/fields/class-acf-field-message.php:26
+#: includes/fields/class-acf-field-message.php:97
+#: includes/fields/class-acf-field-true_false.php:134
+msgid "Message"
+msgstr "Melding"
+
+#: includes/assets.php:350 includes/fields/class-acf-field-true_false.php:83
+#: includes/fields/class-acf-field-true_false.php:184
+#: assets/build/js/acf.js:1700 assets/build/js/acf.js:1803
+msgid "No"
+msgstr "Nei"
+
+#: includes/assets.php:349 includes/fields/class-acf-field-true_false.php:80
+#: includes/fields/class-acf-field-true_false.php:168
+#: assets/build/js/acf.js:1699 assets/build/js/acf.js:1802
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/fields/class-acf-field-true_false.php:25
+msgid "True / False"
+msgstr "Sann / usann"
+
+#: includes/fields/class-acf-field-group.php:471
+msgid "Row"
+msgstr "Rad"
+
+#: includes/fields/class-acf-field-group.php:470
+msgid "Table"
+msgstr "Tabell"
+
+#: includes/fields/class-acf-field-group.php:469
+msgid "Block"
+msgstr "Blokk"
+
+#: includes/fields/class-acf-field-group.php:464
+msgid "Specify the style used to render the selected fields"
+msgstr "Spesifiser stil brukt til å gjengi valgte felt"
+
+#: includes/fields.php:359 includes/fields/class-acf-field-button-group.php:212
+#: includes/fields/class-acf-field-checkbox.php:431
+#: includes/fields/class-acf-field-group.php:463
+#: includes/fields/class-acf-field-radio.php:283
+msgid "Layout"
+msgstr "Oppsett"
+
+#: includes/fields/class-acf-field-group.php:447
+msgid "Sub Fields"
+msgstr "Underfelt"
+
+#: includes/fields/class-acf-field-group.php:25
+msgid "Group"
+msgstr "Gruppe"
+
+#: includes/fields/class-acf-field-google-map.php:232
+msgid "Customize the map height"
+msgstr "Egendefinerte karthøyde"
+
+#: includes/fields/class-acf-field-google-map.php:231
+#: includes/fields/class-acf-field-image.php:256
+#: includes/fields/class-acf-field-image.php:292
+#: includes/fields/class-acf-field-oembed.php:277
+msgid "Height"
+msgstr "Høyde"
+
+#: includes/fields/class-acf-field-google-map.php:220
+msgid "Set the initial zoom level"
+msgstr "Velg første zoomnivå"
+
+#: includes/fields/class-acf-field-google-map.php:219
+msgid "Zoom"
+msgstr "Forstørr"
+
+#: includes/fields/class-acf-field-google-map.php:193
+#: includes/fields/class-acf-field-google-map.php:206
+msgid "Center the initial map"
+msgstr "Sentrer det opprinnelige kartet"
+
+#: includes/fields/class-acf-field-google-map.php:192
+#: includes/fields/class-acf-field-google-map.php:205
+msgid "Center"
+msgstr "Midtstill"
+
+#: includes/fields/class-acf-field-google-map.php:160
+msgid "Search for address..."
+msgstr "Søk etter adresse..."
+
+#: includes/fields/class-acf-field-google-map.php:157
+msgid "Find current location"
+msgstr "Finn gjeldende plassering"
+
+#: includes/fields/class-acf-field-google-map.php:156
+msgid "Clear location"
+msgstr "Fjern plassering"
+
+#: includes/fields/class-acf-field-google-map.php:155
+#: includes/fields/class-acf-field-relationship.php:606
+msgid "Search"
+msgstr "Søk"
+
+#: includes/fields/class-acf-field-google-map.php:60
+#: assets/build/js/acf-input.js:2832 assets/build/js/acf-input.js:3013
+msgid "Sorry, this browser does not support geolocation"
+msgstr "Beklager, denne nettleseren støtter ikke geolokalisering"
+
+#: includes/fields/class-acf-field-google-map.php:25
+msgid "Google Map"
+msgstr "Google Maps"
+
+#: includes/fields/class-acf-field-date_picker.php:209
+#: includes/fields/class-acf-field-date_time_picker.php:198
+#: includes/fields/class-acf-field-time_picker.php:129
+msgid "The format returned via template functions"
+msgstr "Formatet returnert via malfunksjoner"
+
+#: includes/fields/class-acf-field-color_picker.php:179
+#: includes/fields/class-acf-field-date_picker.php:208
+#: includes/fields/class-acf-field-date_time_picker.php:197
+#: includes/fields/class-acf-field-image.php:184
+#: includes/fields/class-acf-field-post_object.php:389
+#: includes/fields/class-acf-field-relationship.php:616
+#: includes/fields/class-acf-field-select.php:390
+#: includes/fields/class-acf-field-time_picker.php:128
+#: includes/fields/class-acf-field-user.php:67
+msgid "Return Format"
+msgstr "Returformat"
+
+#: includes/fields/class-acf-field-date_picker.php:187
+#: includes/fields/class-acf-field-date_picker.php:218
+#: includes/fields/class-acf-field-date_time_picker.php:189
+#: includes/fields/class-acf-field-date_time_picker.php:207
+#: includes/fields/class-acf-field-time_picker.php:120
+#: includes/fields/class-acf-field-time_picker.php:136
+msgid "Custom:"
+msgstr "Egendefinert:"
+
+#: includes/fields/class-acf-field-date_picker.php:179
+#: includes/fields/class-acf-field-date_time_picker.php:180
+#: includes/fields/class-acf-field-time_picker.php:113
+msgid "The format displayed when editing a post"
+msgstr "Format som vises når innlegg redigeres"
+
+#: includes/fields/class-acf-field-date_picker.php:178
+#: includes/fields/class-acf-field-date_time_picker.php:179
+#: includes/fields/class-acf-field-time_picker.php:112
+msgid "Display Format"
+msgstr "Vist format"
+
+#: includes/fields/class-acf-field-time_picker.php:25
+msgid "Time Picker"
+msgstr "Tidsvelger"
+
+#. translators: counts for inactive field groups
+#: acf.php:454
+msgid "Inactive <span class=\"count\">(%s)</span>"
+msgid_plural "Inactive <span class=\"count\">(%s)</span>"
+msgstr[0] "Inaktiv <span class=\"count\">(%s)</span>"
+msgstr[1] "Inaktive <span class=\"count\">(%s)</span>"
+
+#: acf.php:413
+msgid "No Fields found in Trash"
+msgstr "Ingen felt funnet i papirkurven"
+
+#: acf.php:412
+msgid "No Fields found"
+msgstr "Ingen felter funnet"
+
+#: acf.php:411
+msgid "Search Fields"
+msgstr "Søk felt"
+
+#: acf.php:410
+msgid "View Field"
+msgstr "Vis felt"
+
+#: acf.php:409 includes/admin/views/field-group-fields.php:104
+msgid "New Field"
+msgstr "Nytt felt"
+
+#: acf.php:408
+msgid "Edit Field"
+msgstr "Rediger felt"
+
+#: acf.php:407
+msgid "Add New Field"
+msgstr "Legg til nytt felt"
+
+#: acf.php:405
+msgid "Field"
+msgstr "Felt"
+
+#: acf.php:404 includes/admin/admin-field-group.php:220
+#: includes/admin/admin-field-groups.php:287
+#: includes/admin/views/field-group-fields.php:21
+msgid "Fields"
+msgstr "Felter"
+
+#: acf.php:379
+msgid "No Field Groups found in Trash"
+msgstr "Ingen feltgrupper funnet i papirkurven"
+
+#: acf.php:378
+msgid "No Field Groups found"
+msgstr "Ingen feltgrupper funnet"
+
+#: acf.php:377
+msgid "Search Field Groups"
+msgstr "Søk feltgrupper"
+
+#: acf.php:376
+msgid "View Field Group"
+msgstr "Vis feltgruppe"
+
+#: acf.php:375
+msgid "New Field Group"
+msgstr "Ny feltgruppe"
+
+#: acf.php:374
+msgid "Edit Field Group"
+msgstr "Rediger feltgruppe"
+
+#: acf.php:373
+msgid "Add New Field Group"
+msgstr "Legg til ny feltgruppe"
+
+#: acf.php:372 acf.php:406 includes/admin/admin.php:51
+msgid "Add New"
+msgstr "Legg til ny"
+
+#: acf.php:371
+msgid "Field Group"
+msgstr "Feltgruppe"
+
+#: acf.php:370 includes/admin/admin.php:50
+msgid "Field Groups"
+msgstr "Feltgrupper"
+
+#. Description of the plugin
+msgid "Customize WordPress with powerful, professional and intuitive fields."
+msgstr "Tilpass WordPress med kraftfulle, profesjonelle og intuitive felt"
+
+#. Plugin URI of the plugin
+msgid "https://www.advancedcustomfields.com"
+msgstr "https://www.advancedcustomfields.com"
+
+#. Plugin Name of the plugin
+#: acf.php:91
+msgid "Advanced Custom Fields"
+msgstr "Avanserte egendefinerte felt"
+
+#: pro/acf-pro.php:27
+msgid "Advanced Custom Fields PRO"
+msgstr "Advanced Custom Fields Pro"
+
+#: pro/blocks.php:166
+msgid "Block type name is required."
+msgstr ""
+
+#: pro/blocks.php:173
+msgid "Block type \"%s\" is already registered."
+msgstr ""
+
+#: pro/blocks.php:731
+msgid "Switch to Edit"
+msgstr ""
+
+#: pro/blocks.php:732
+msgid "Switch to Preview"
+msgstr ""
+
+#: pro/blocks.php:733
+msgid "Change content alignment"
+msgstr ""
+
+#. translators: %s: Block type title
+#: pro/blocks.php:736
+msgid "%s settings"
+msgstr ""
+
+#: pro/blocks.php:949
+msgid "This block contains no editable fields."
+msgstr ""
+
+#. translators: %s: an admin URL to the field group edit screen
+#: pro/blocks.php:955
+msgid ""
+"Assign a <a href=\"%s\" target=\"_blank\">field group</a> to add fields to "
+"this block."
+msgstr ""
+
+#: pro/options-page.php:78
+msgid "Options Updated"
+msgstr "Alternativer er oppdatert"
+
+#: pro/updates.php:99
+msgid ""
+"To enable updates, please enter your license key on the <a href=\"%1$s"
+"\">Updates</a> page. If you don't have a licence key, please see <a href="
+"\"%2$s\" target=\"_blank\">details & pricing</a>."
+msgstr ""
+
+#: pro/updates.php:159
+msgid ""
+"<b>ACF Activation Error</b>. Your defined license key has changed, but an "
+"error occurred when deactivating your old licence"
+msgstr ""
+
+#: pro/updates.php:154
+msgid ""
+"<b>ACF Activation Error</b>. Your defined license key has changed, but an "
+"error occurred when connecting to activation server"
+msgstr ""
+
+#: pro/updates.php:192
+msgid "<b>ACF Activation Error</b>"
+msgstr ""
+
+#: pro/updates.php:187
+msgid ""
+"<b>ACF Activation Error</b>. An error occurred when connecting to activation "
+"server"
+msgstr ""
+
+#: pro/updates.php:279, pro/admin/views/html-settings-updates.php:117
+msgid "Check Again"
+msgstr "Sjekk igjen"
+
+#: pro/updates.php:561
+msgid "<b>ACF Activation Error</b>. Could not connect to activation server"
+msgstr ""
+
+#: pro/admin/admin-options-page.php:195
+msgid "Publish"
+msgstr "Publiser"
+
+#: pro/admin/admin-options-page.php:199
+msgid ""
+"No Custom Field Groups found for this options page. <a href=\"%s\">Create a "
+"Custom Field Group</a>"
+msgstr ""
+"Ingen egendefinerte feltgrupper funnet for denne valg-siden. <a href=\"%s"
+"\">Opprette en egendefinert feltgruppe</a>"
+
+#: pro/admin/admin-updates.php:52
+msgid "<b>Error</b>. Could not connect to update server"
+msgstr "<b>Feil</b>. Kan ikke koble til oppdateringsserveren"
+
+#: pro/admin/admin-updates.php:209
+msgid ""
+"<b>Error</b>. Could not authenticate update package. Please check again or "
+"deactivate and reactivate your ACF PRO license."
+msgstr ""
+
+#: pro/admin/admin-updates.php:196
+msgid ""
+"<b>Error</b>. Your license for this site has expired or been deactivated. "
+"Please reactivate your ACF PRO license."
+msgstr ""
+
+#: pro/fields/class-acf-field-clone.php:25
+msgctxt "noun"
+msgid "Clone"
+msgstr "Klone"
+
+#: pro/fields/class-acf-field-clone.php:815
+msgid "Select one or more fields you wish to clone"
+msgstr "Velg ett eller flere felt du ønsker å klone"
+
+#: pro/fields/class-acf-field-clone.php:834
+msgid "Display"
+msgstr "Vis"
+
+#: pro/fields/class-acf-field-clone.php:835
+msgid "Specify the style used to render the clone field"
+msgstr "Angi stil som brukes til å gjengi klone-feltet"
+
+#: pro/fields/class-acf-field-clone.php:840
+msgid "Group (displays selected fields in a group within this field)"
+msgstr "Gruppe (viser valgt felt i en gruppe innenfor dette feltet)"
+
+#: pro/fields/class-acf-field-clone.php:841
+msgid "Seamless (replaces this field with selected fields)"
+msgstr "Sømløs (erstatter dette feltet med utvalgte felter)"
+
+#: pro/fields/class-acf-field-clone.php:864
+msgid "Labels will be displayed as %s"
+msgstr "Etiketter vises som %s"
+
+#: pro/fields/class-acf-field-clone.php:869
+msgid "Prefix Field Labels"
+msgstr "Prefiks feltetiketter"
+
+#: pro/fields/class-acf-field-clone.php:880
+msgid "Values will be saved as %s"
+msgstr "Verdier vil bli lagret som %s"
+
+#: pro/fields/class-acf-field-clone.php:885
+msgid "Prefix Field Names"
+msgstr "Prefiks feltnavn"
+
+#: pro/fields/class-acf-field-clone.php:1001
+msgid "Unknown field"
+msgstr "Ukjent felt"
+
+#: pro/fields/class-acf-field-clone.php:1038
+msgid "Unknown field group"
+msgstr "Ukjent feltgruppe"
+
+#: pro/fields/class-acf-field-clone.php:1042
+msgid "All fields from %s field group"
+msgstr "Alle felt fra %s feltgruppe"
+
+#: pro/fields/class-acf-field-flexible-content.php:31,
+#: pro/fields/class-acf-field-repeater.php:79,
+#: pro/fields/class-acf-field-repeater.php:263
+msgid "Add Row"
+msgstr "Legg til rad"
+
+#: pro/fields/class-acf-field-flexible-content.php:71,
+#: pro/fields/class-acf-field-flexible-content.php:917,
+#: pro/fields/class-acf-field-flexible-content.php:996
+#, fuzzy
+#| msgid "layout"
+msgid "layout"
+msgid_plural "layouts"
+msgstr[0] "oppsett"
+msgstr[1] "oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:72
+msgid "layouts"
+msgstr "oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:75,
+#: pro/fields/class-acf-field-flexible-content.php:916,
+#: pro/fields/class-acf-field-flexible-content.php:995
+msgid "This field requires at least {min} {label} {identifier}"
+msgstr "Dette feltet krever minst {min} {label} {identifier}"
+
+#: pro/fields/class-acf-field-flexible-content.php:76
+msgid "This field has a limit of {max} {label} {identifier}"
+msgstr ""
+
+#: pro/fields/class-acf-field-flexible-content.php:79
+msgid "{available} {label} {identifier} available (max {max})"
+msgstr "{available} {label} {identifier} tilgjengelig (maks {max})"
+
+#: pro/fields/class-acf-field-flexible-content.php:80
+msgid "{required} {label} {identifier} required (min {min})"
+msgstr "{required} {label} {identifier} kreves (min {min})"
+
+#: pro/fields/class-acf-field-flexible-content.php:83
+msgid "Flexible Content requires at least 1 layout"
+msgstr "Fleksibelt innholdsfelt krever minst en layout"
+
+#: pro/fields/class-acf-field-flexible-content.php:276
+msgid "Click the \"%s\" button below to start creating your layout"
+msgstr "Klikk \"%s\"-knappen nedenfor for å begynne å lage oppsettet"
+
+#: pro/fields/class-acf-field-flexible-content.php:413
+msgid "Add layout"
+msgstr "Legg til oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:414
+msgid "Duplicate layout"
+msgstr ""
+
+#: pro/fields/class-acf-field-flexible-content.php:415
+msgid "Remove layout"
+msgstr "Fjern oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:416,
+#: pro/fields/class-acf-repeater-table.php:369
+msgid "Click to toggle"
+msgstr "Klikk for å veksle"
+
+#: pro/fields/class-acf-field-flexible-content.php:551
+msgid "Reorder Layout"
+msgstr "Endre rekkefølge på oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:551
+msgid "Reorder"
+msgstr "Endre rekkefølge"
+
+#: pro/fields/class-acf-field-flexible-content.php:552
+msgid "Delete Layout"
+msgstr "Slett oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:553
+msgid "Duplicate Layout"
+msgstr "Dupliser oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:554
+msgid "Add New Layout"
+msgstr "Legg til nytt oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:635
+msgid "Min"
+msgstr "Minimum"
+
+#: pro/fields/class-acf-field-flexible-content.php:650
+msgid "Max"
+msgstr "Maksimum"
+
+#: pro/fields/class-acf-field-flexible-content.php:679,
+#: pro/fields/class-acf-field-repeater.php:259
+msgid "Button Label"
+msgstr "Knappetikett"
+
+#: pro/fields/class-acf-field-flexible-content.php:690
+msgid "Minimum Layouts"
+msgstr "Minimum oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:701
+msgid "Maximum Layouts"
+msgstr "Maksimum oppsett"
+
+#: pro/fields/class-acf-field-flexible-content.php:1704,
+#: pro/fields/class-acf-field-repeater.php:861
+msgid "%s must be of type array or null."
+msgstr ""
+
+#: pro/fields/class-acf-field-flexible-content.php:1715
+msgid "%1$s must contain at least %2$s %3$s layout."
+msgid_plural "%1$s must contain at least %2$s %3$s layouts."
+msgstr[0] ""
+msgstr[1] ""
+
+#: pro/fields/class-acf-field-flexible-content.php:1731
+msgid "%1$s must contain at most %2$s %3$s layout."
+msgid_plural "%1$s must contain at most %2$s %3$s layouts."
+msgstr[0] ""
+msgstr[1] ""
+
+#: pro/fields/class-acf-field-gallery.php:73
+msgid "Add Image to Gallery"
+msgstr "Legg bildet til galleri"
+
+#: pro/fields/class-acf-field-gallery.php:74
+msgid "Maximum selection reached"
+msgstr "Maksimalt utvalg nådd"
+
+#: pro/fields/class-acf-field-gallery.php:320
+msgid "Length"
+msgstr "Lengde"
+
+#: pro/fields/class-acf-field-gallery.php:364
+msgid "Caption"
+msgstr "Bildetekst"
+
+#: pro/fields/class-acf-field-gallery.php:376
+msgid "Alt Text"
+msgstr "Alternativ tekst"
+
+#: pro/fields/class-acf-field-gallery.php:500
+msgid "Add to gallery"
+msgstr "Legg til galleri"
+
+#: pro/fields/class-acf-field-gallery.php:504
+msgid "Bulk actions"
+msgstr "Massehandlinger"
+
+#: pro/fields/class-acf-field-gallery.php:505
+msgid "Sort by date uploaded"
+msgstr "Sorter etter dato lastet opp"
+
+#: pro/fields/class-acf-field-gallery.php:506
+msgid "Sort by date modified"
+msgstr "Sorter etter dato endret"
+
+#: pro/fields/class-acf-field-gallery.php:507
+msgid "Sort by title"
+msgstr "Sorter etter tittel"
+
+#: pro/fields/class-acf-field-gallery.php:508
+msgid "Reverse current order"
+msgstr "Snu gjeldende rekkefølge"
+
+#: pro/fields/class-acf-field-gallery.php:520
+msgid "Close"
+msgstr "Lukk"
+
+#: pro/fields/class-acf-field-gallery.php:602
+msgid "Insert"
+msgstr "Sett inn"
+
+#: pro/fields/class-acf-field-gallery.php:603
+msgid "Specify where new attachments are added"
+msgstr "Angi hvor nye vedlegg er lagt"
+
+#: pro/fields/class-acf-field-gallery.php:607
+msgid "Append to the end"
+msgstr "Tilføy til slutten"
+
+#: pro/fields/class-acf-field-gallery.php:608
+msgid "Prepend to the beginning"
+msgstr "Sett inn foran"
+
+#: pro/fields/class-acf-field-gallery.php:633
+msgid "Minimum Selection"
+msgstr "Minimum antall valg"
+
+#: pro/fields/class-acf-field-gallery.php:644
+msgid "Maximum Selection"
+msgstr "Maksimum antall valg"
+
+#: pro/fields/class-acf-field-repeater.php:53,
+#: pro/fields/class-acf-field-repeater.php:423
+msgid "Minimum rows reached ({min} rows)"
+msgstr "Minimum antall rader nådd ({min} rader)"
+
+#: pro/fields/class-acf-field-repeater.php:54
+msgid "Maximum rows reached ({max} rows)"
+msgstr "Maksimum antall rader nådd ({max} rader)"
+
+#: pro/fields/class-acf-field-repeater.php:55
+msgid "Error loading page"
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:174
+msgid "Collapsed"
+msgstr "Sammenfoldet"
+
+#: pro/fields/class-acf-field-repeater.php:175
+msgid "Select a sub field to show when row is collapsed"
+msgstr "Velg et underfelt å vise når raden er skjult"
+
+#: pro/fields/class-acf-field-repeater.php:187
+msgid "Minimum Rows"
+msgstr "Minimum antall rader"
+
+#: pro/fields/class-acf-field-repeater.php:199
+msgid "Maximum Rows"
+msgstr "Maksimum antall rader"
+
+#: pro/fields/class-acf-field-repeater.php:228
+msgid "Pagination"
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:229
+msgid "Useful for fields with a large number of rows."
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:240
+msgid "Rows Per Page"
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:241
+msgid "Set the number of rows to be displayed on a page."
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:959
+msgid "Invalid field key."
+msgstr ""
+
+#: pro/fields/class-acf-field-repeater.php:968
+msgid "There was an error retrieving the field."
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:389
+msgid "Add row"
+msgstr "Legg til rad"
+
+#: pro/fields/class-acf-repeater-table.php:390
+msgid "Duplicate row"
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:391
+msgid "Remove row"
+msgstr "Fjern rad"
+
+#: pro/fields/class-acf-repeater-table.php:435,
+#: pro/fields/class-acf-repeater-table.php:452
+msgid "Current Page"
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:444
+msgid "First page"
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:448
+msgid "Previous page"
+msgstr ""
+
+#. translators: 1: Current page, 2: Total pages.
+#: pro/fields/class-acf-repeater-table.php:457
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:465
+msgid "Next page"
+msgstr ""
+
+#: pro/fields/class-acf-repeater-table.php:469
+msgid "Last page"
+msgstr ""
+
+#: pro/locations/class-acf-location-block.php:71
+msgid "No block types exist"
+msgstr ""
+
+#: pro/locations/class-acf-location-options-page.php:70
+msgid "No options pages exist"
+msgstr "Ingen side for alternativer eksisterer"
+
+#: pro/admin/views/html-settings-updates.php:6
+msgid "Deactivate License"
+msgstr "Deaktiver lisens"
+
+#: pro/admin/views/html-settings-updates.php:6
+msgid "Activate License"
+msgstr "Aktiver lisens"
+
+#: pro/admin/views/html-settings-updates.php:16
+msgid "License Information"
+msgstr "Lisensinformasjon"
+
+#: pro/admin/views/html-settings-updates.php:34
+msgid ""
+"To unlock updates, please enter your license key below. If you don't have a "
+"licence key, please see <a href=\"%s\" target=\"_blank\">details & pricing</"
+"a>."
+msgstr ""
+"For å låse opp oppdateringer må lisensnøkkelen skrives inn under. Se <a href="
+"\"%s\" target=\"_blank\">detaljer og priser</a> dersom du ikke har "
+"lisensnøkkel."
+
+#: pro/admin/views/html-settings-updates.php:41
+msgid "License Key"
+msgstr "Lisensnøkkel"
+
+#: pro/admin/views/html-settings-updates.php:22
+msgid "Your license key is defined in wp-config.php."
+msgstr ""
+
+#: pro/admin/views/html-settings-updates.php:29
+msgid "Retry Activation"
+msgstr ""
+
+#: pro/admin/views/html-settings-updates.php:76
+msgid "Update Information"
+msgstr "Oppdateringsinformasjon"
+
+#: pro/admin/views/html-settings-updates.php:83
+msgid "Current Version"
+msgstr "Gjeldende versjon"
+
+#: pro/admin/views/html-settings-updates.php:91
+msgid "Latest Version"
+msgstr "Siste versjon"
+
+#: pro/admin/views/html-settings-updates.php:99
+msgid "Update Available"
+msgstr "Oppdatering tilgjengelig"
+
+#: pro/admin/views/html-settings-updates.php:111
+msgid "Please enter your license key above to unlock updates"
+msgstr "Oppgi lisensnøkkelen ovenfor for låse opp oppdateringer"
+
+#: pro/admin/views/html-settings-updates.php:109
+msgid "Update Plugin"
+msgstr "Oppdater plugin"
+
+#: pro/admin/views/html-settings-updates.php:107
+msgid "Please reactivate your license to unlock updates"
+msgstr ""
+
+#: pro/admin/views/html-settings-updates.php:124
+msgid "Changelog"
+msgstr "Endringslogg"
+
+#: pro/admin/views/html-settings-updates.php:134
+msgid "Upgrade Notice"
+msgstr "Oppgraderingsvarsel"
+
+#~ msgid "Inactive"
+#~ msgstr "Inaktiv"
+
+#~ msgid "Move to trash. Are you sure?"
+#~ msgstr "Flytt til papirkurven. Er du sikker?"
+
+#~ msgid "checked"
+#~ msgstr "avkrysset"
+
+#~ msgid "Parent fields"
+#~ msgstr "Foreldrefelter"
+
+#~ msgid "Sibling fields"
+#~ msgstr "Søskenfelter"
+
+#, php-format
+#~ msgid "The %s field can now be found in the %s field group"
+#~ msgstr "%s feltet finnes nå i %s feltgruppen"
+
+#~ msgid "Close Window"
+#~ msgstr "Lukk vinduet"
+
+#, php-format
+#~ msgid "Field group duplicated. %s"
+#~ msgstr "Feltgruppe duplisert. %s"
+
+#, php-format
+#~ msgid "%s field group duplicated."
+#~ msgid_plural "%s field groups duplicated."
+#~ msgstr[0] "%s feltgruppe duplisert."
+#~ msgstr[1] "%s feltgrupper duplisert."
+
+#, php-format
+#~ msgid "Field group synchronised. %s"
+#~ msgstr "Feltgruppe synkronisert. %s"
+
+#, php-format
+#~ msgid "%s field group synchronised."
+#~ msgid_plural "%s field groups synchronised."
+#~ msgstr[0] "%s feltgruppe synkronisert."
+#~ msgstr[1] "%s feltgrupper synkronisert."
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid ""
+#~ "Customise WordPress with powerful, professional and intuitive fields."
+#~ msgstr "Tilpass WordPress med kraftige, profesjonelle og intuitive felt."
+
+#, php-format
+#~ msgid "See what's new in <a href=\"%s\">version %s</a>."
+#~ msgstr "Se hva som er nytt i <a href=\"%s\">%s-utgaven</a>."
+
+#~ msgid "Resources"
+#~ msgstr "Ressurser"
+
+#~ msgid "Documentation"
+#~ msgstr "Dokumentasjon"
+
+#~ msgid "Support"
+#~ msgstr "Support"
+
+#, fuzzy
+#~ msgid "Pro"
+#~ msgstr "Farvel Tillegg. Hei PRO"
+
+#, php-format
+#~ msgid "Thank you for creating with <a href=\"%s\">ACF</a>."
+#~ msgstr "Takk for at du bygger med <a href=\"%s\">ACF</a>."
+
+#~ msgid "Synchronise field group"
+#~ msgstr "Synkroniser feltgruppe"
+
+#, fuzzy
+#~ msgid "Bulk Actions"
+#~ msgstr "Massehandlinger"
+
+#~ msgid "Error validating request"
+#~ msgstr "Kunne ikke validere forespørselen"
+
+#~ msgid "Add-ons"
+#~ msgstr "Tillegg"
+
+#~ msgid "<b>Error</b>. Could not load add-ons list"
+#~ msgstr "<b>Feil</b>. Kunne ikke laste liste over tillegg"
+
+#~ msgid "Info"
+#~ msgstr "Informasjon"
+
+#~ msgid "What's New"
+#~ msgstr "Hva er nytt"
+
+#~ msgid "Required?"
+#~ msgstr "Påkrevd?"
+
+#~ msgid ""
+#~ "No fields. Click the <strong>+ Add Field</strong> button to create your "
+#~ "first field."
+#~ msgstr ""
+#~ "Ingen felt. Klikk på <strong>+  Legg til felt</strong> knappen for å lage "
+#~ "ditt første felt."
+
+#~ msgid "+ Add Field"
+#~ msgstr "+ Legg til felt"
+
+#~ msgid "Advanced Custom Fields Database Upgrade"
+#~ msgstr "Databaseoppgradering for Advanced Custom Fields"
+
+#, php-format
+#~ msgid "Site requires database upgrade from %s to %s"
+#~ msgstr "Siden krever databaseoppgradering fra%s til%s"
+
+#~ msgid "Upgrade complete"
+#~ msgstr "Oppgradering komplett"
+
+#, php-format
+#~ msgid "Thank you for updating to %s v%s!"
+#~ msgstr "Takk for at du oppgraderte til %s v%s!"
+
+#~ msgid ""
+#~ "Before you start using the new awesome features, please update your "
+#~ "database to the newest version."
+#~ msgstr ""
+#~ "Før du begynner å bruke de nye funksjonene, må du oppdatere din database "
+#~ "til den nyeste versjonen."
+
+#, php-format
+#~ msgid "Database Upgrade complete. <a href=\"%s\">See what's new</a>"
+#~ msgstr ""
+#~ "Databaseoppgradering er fullført. <a href=\"%s\">Se hva som er nytt</a>"
+
+#~ msgid "Download & Install"
+#~ msgstr "Last ned og installer"
+
+#~ msgid "Installed"
+#~ msgstr "Installert"
+
+#~ msgid "Welcome to Advanced Custom Fields"
+#~ msgstr "Velkommen til Advanced Custom Fields"
+
+#, php-format
+#~ msgid ""
+#~ "Thank you for updating! ACF %s is bigger and better than ever before. We "
+#~ "hope you like it."
+#~ msgstr ""
+#~ "Takk for at du oppdaterte! ACF %s er større og bedre enn noen gang før. "
+#~ "Vi håper du liker det."
+
+#~ msgid "A smoother custom field experience"
+#~ msgstr "En velfungerende opplevelse av egendefinerte felter"
+
+#~ msgid "Improved Usability"
+#~ msgstr "Forbedret brukervennlighet"
+
+#~ msgid ""
+#~ "Including the popular Select2 library has improved both usability and "
+#~ "speed across a number of field types including post object, page link, "
+#~ "taxonomy and select."
+#~ msgstr ""
+#~ "Å inkludere det populære Select2-biblioteket har økt både "
+#~ "brukervennlighet og lastetid for flere felttyper, inkludert "
+#~ "innleggsobjekter, sidelinker, taksonomi og nedtrekksmenyer."
+
+#~ msgid "Improved Design"
+#~ msgstr "Forbedret design"
+
+#~ msgid ""
+#~ "Many fields have undergone a visual refresh to make ACF look better than "
+#~ "ever! Noticeable changes are seen on the gallery, relationship and oEmbed "
+#~ "(new) fields!"
+#~ msgstr ""
+#~ "Mange felter har fått en visuell oppfriskning så ACF ser bedre ut enn på "
+#~ "lenge! Nevneverdige endringer sees på galleri-, relasjons- og "
+#~ "oEmbedfelter!"
+
+#~ msgid "Improved Data"
+#~ msgstr "Forbedret data"
+
+#~ msgid ""
+#~ "Redesigning the data architecture has allowed sub fields to live "
+#~ "independently from their parents. This allows you to drag and drop fields "
+#~ "in and out of parent fields!"
+#~ msgstr ""
+#~ "Omskriving av dataarkitekturen tillater underfelter å leve uavhengig av "
+#~ "foreldrene sine. Det betyr at du kan dra og slippe felter til og fra "
+#~ "foreldrefeltene sine!"
+
+#~ msgid "Goodbye Add-ons. Hello PRO"
+#~ msgstr "Farvel Tillegg. Hei PRO"
+
+#~ msgid "Introducing ACF PRO"
+#~ msgstr "Vi presenterer ACF PRO"
+
+#~ msgid ""
+#~ "We're changing the way premium functionality is delivered in an exciting "
+#~ "way!"
+#~ msgstr ""
+#~ "Vi endrer måten premium-funksjonalitet leveres på en spennende måte!"
+
+#, php-format
+#~ msgid ""
+#~ "All 4 premium add-ons have been combined into a new <a href=\"%s\">Pro "
+#~ "version of ACF</a>. With both personal and developer licenses available, "
+#~ "premium functionality is more affordable and accessible than ever before!"
+#~ msgstr ""
+#~ "Alle fire premium-tilleggene har blitt kombinert i en ny <a href=\"%s"
+#~ "\">Pro-versjon av ACF</a>. Med både personlig- og utviklerlisenser "
+#~ "tilgjengelig er premiumfunksjonalitet billigere og mer tilgjengelig enn "
+#~ "noensinne!"
+
+#~ msgid "Powerful Features"
+#~ msgstr "Kraftige funksjoner"
+
+#~ msgid ""
+#~ "ACF PRO contains powerful features such as repeatable data, flexible "
+#~ "content layouts, a beautiful gallery field and the ability to create "
+#~ "extra admin options pages!"
+#~ msgstr ""
+#~ "ACF PRO inneholder kraftige funksjoner som repeterende data, fleksible "
+#~ "innholdsstrukturer, et vakkert gallerifelt og muligheten til å lage "
+#~ "ekstra administrasjonsegenskapssider!"
+
+#, php-format
+#~ msgid "Read more about <a href=\"%s\">ACF PRO features</a>."
+#~ msgstr "Les mer om <a href=\"%s\">ACF PRO-funksjonaliteten</a>."
+
+#~ msgid "Easy Upgrading"
+#~ msgstr "Enkel oppgradering"
+
+#, php-format
+#~ msgid ""
+#~ "To help make upgrading easy, <a href=\"%s\">login to your store account</"
+#~ "a> and claim a free copy of ACF PRO!"
+#~ msgstr ""
+#~ "For å gjøre oppgradering enklere, <a href=\"%s\">Logg inn på din konto</"
+#~ "a> og hent en gratis kopi av ACF PRO!"
+
+#, php-format
+#~ msgid ""
+#~ "We also wrote an <a href=\"%s\">upgrade guide</a> to answer any "
+#~ "questions, but if you do have one, please contact our support team via "
+#~ "the <a href=\"%s\">help desk</a>"
+#~ msgstr ""
+#~ "Vi har også skrevet en <a href=\"%s\">oppgraderingsveiledning</a> for å "
+#~ "besvare de fleste spørsmål, men skulle du fortsatt ha et spørsmål, ta "
+#~ "kontakt med via <a href=\"%s\">helpdesken</a>"
+
+#~ msgid "Under the Hood"
+#~ msgstr "Under panseret"
+
+#~ msgid "Smarter field settings"
+#~ msgstr "Smartere feltinnstillinger"
+
+#~ msgid "ACF now saves its field settings as individual post objects"
+#~ msgstr "ACF lagrer nå feltegenskapene som individuelle innleggsobjekter"
+
+#~ msgid "More AJAX"
+#~ msgstr "Mer AJAX"
+
+#~ msgid "More fields use AJAX powered search to speed up page loading"
+#~ msgstr ""
+#~ "Flere felter bruker AJAX-drevet søk for å kutte ned innlastingstiden"
+
+#~ msgid "New auto export to JSON feature improves speed"
+#~ msgstr "Ny automatisk eksport til JSON sparer tid"
+
+#~ msgid "Better version control"
+#~ msgstr "Bedre versjonskontroll"
+
+#~ msgid ""
+#~ "New auto export to JSON feature allows field settings to be version "
+#~ "controlled"
+#~ msgstr ""
+#~ "Ny autoeksport til JSON lar feltinnstillinger bli versjonskontrollert"
+
+#~ msgid "Swapped XML for JSON"
+#~ msgstr "Byttet XML mot  JSON"
+
+#~ msgid "Import / Export now uses JSON in favour of XML"
+#~ msgstr "Import / eksport bruker nå JSON istedenfor XML"
+
+#~ msgid "New Forms"
+#~ msgstr "Nye skjemaer"
+
+#~ msgid "Fields can now be mapped to comments, widgets and all user forms!"
+#~ msgstr ""
+#~ "Feltene kan nå tilordnes til kommentarer, widgets og alle brukerskjemaer!"
+
+#~ msgid "A new field for embedding content has been added"
+#~ msgstr "Et nytt felt for å bygge inn innhold er lagt til"
+
+#~ msgid "New Gallery"
+#~ msgstr "Nytt galleri"
+
+#~ msgid "The gallery field has undergone a much needed facelift"
+#~ msgstr "Gallerietfeltet har gjennomgått en sårt tiltrengt ansiktsløftning"
+
+#~ msgid "New Settings"
+#~ msgstr "Nye innstillinger"
+
+#~ msgid ""
+#~ "Field group settings have been added for label placement and instruction "
+#~ "placement"
+#~ msgstr ""
+#~ "Feltgruppeinnstillinger er lagt til for etikettplassering og "
+#~ "instruksjonsplassering"
+
+#~ msgid "Better Front End Forms"
+#~ msgstr "Bedre frontend-skjemaer"
+
+#~ msgid "acf_form() can now create a new post on submission"
+#~ msgstr "acf_form() kan nå lage et nytt innlegg ved innsending"
+
+#~ msgid "Better Validation"
+#~ msgstr "Bedre validering"
+
+#~ msgid "Form validation is now done via PHP + AJAX in favour of only JS"
+#~ msgstr "Skjemavalidering skjer nå via PHP + AJAX framfor kun JavaScript"
+
+#~ msgid "Relationship Field"
+#~ msgstr "Relasjonsfelt"
+
+#~ msgid ""
+#~ "New Relationship field setting for 'Filters' (Search, Post Type, Taxonomy)"
+#~ msgstr ""
+#~ "Nye relasjonsfeltinnstillinger for 'Filtre' (søk, innleggstype, taksonomi)"
+
+#~ msgid "Moving Fields"
+#~ msgstr "Flytte felt"
+
+#~ msgid ""
+#~ "New field group functionality allows you to move a field between groups & "
+#~ "parents"
+#~ msgstr ""
+#~ "Ny feltgruppe-funksonalitet gir deg mulighet til å flytte felt mellom "
+#~ "grupper og foreldre"
+
+#~ msgid "New archives group in page_link field selection"
+#~ msgstr "Ny arkiver gruppe i page_link feltvalg"
+
+#~ msgid "Better Options Pages"
+#~ msgstr "Bedre sider for innstillinger"
+
+#~ msgid ""
+#~ "New functions for options page allow creation of both parent and child "
+#~ "menu pages"
+#~ msgstr ""
+#~ "Nye funksjoner på Valg-siden tillater oppretting av menysider for både "
+#~ "foreldre og barn"
+
+#, php-format
+#~ msgid "We think you'll love the changes in %s."
+#~ msgstr "Vi tror du vil elske endringene i %s."
+
+#~ msgid "Export Field Groups to PHP"
+#~ msgstr "Eksporter feltgrupper til PHP"
+
+#~ msgid ""
+#~ "Select the field groups you would like to export and then select your "
+#~ "export method. Use the download button to export to a .json file which "
+#~ "you can then import to another ACF installation. Use the generate button "
+#~ "to export to PHP code which you can place in your theme."
+#~ msgstr ""
+#~ "Velg feltgruppene du vil eksportere og velg eksporteringsmetode. Bruk "
+#~ "nedlastingsknappen for å eksportere til en .json-fil du kan importere i "
+#~ "en annen installasjon av ACF. Bruk genererknappen for å eksportere PHP-"
+#~ "kode du kan legge inn i ditt tema."
+
+#~ msgid "Download export file"
+#~ msgstr "Last ned eksportfil"
+
+#~ msgid "Generate export code"
+#~ msgstr "Generer eksportkode"
+
+#~ msgid ""
+#~ "Select the Advanced Custom Fields JSON file you would like to import. "
+#~ "When you click the import button below, ACF will import the field groups."
+#~ msgstr ""
+#~ "Velg ACF JSON-filen du vil importere. Når du klikker importerknappen "
+#~ "under, vil ACF importere feltgruppene."
+
+#, php-format
+#~ msgid "File size must must not exceed %s."
+#~ msgstr "Filstørrelsen må ikke overstige %s."
+
+#~ msgid "Allow Custom"
+#~ msgstr "Tillat egendefinert"
+
+#~ msgid "Save Custom"
+#~ msgstr "Lagre egendefinert"
+
+#~ msgid "Toggle"
+#~ msgstr "Veksle"
+
+#~ msgid "Current Color"
+#~ msgstr "Nåværende farge"
+
+#~ msgid "Locating"
+#~ msgstr "Lokaliserer"
+
+#~ msgid "Customise the map height"
+#~ msgstr "Tilpasse karthøyde"
+
+#~ msgid "Shown when entering data"
+#~ msgstr "Vises når du skriver inn data"
+
+#~ msgid "Error."
+#~ msgstr "Feil."
+
+#~ msgid "No embed found for the given URL."
+#~ msgstr "Fant ingen innbygging for den gitte URL-en."
+
+#~ msgid "Other"
+#~ msgstr "Andre"
+
+#~ msgid "Save Other"
+#~ msgstr "Lagre annen"
+
+#~ msgid "Minimum values reached ( {min} values )"
+#~ msgstr "Minimumsverdier nådd ({min} verdier)"
+
+#, php-format
+#~ msgid "%s requires at least %s selection"
+#~ msgid_plural "%s requires at least %s selections"
+#~ msgstr[0] "%s krever minst %s valgt"
+#~ msgstr[1] "%s krever minst %s valgte"
+
+#~ msgid "Stylised UI"
+#~ msgstr "Stilisert brukergrensesnitt"
+
+#~ msgid ""
+#~ "The tab field will display incorrectly when added to a Table style "
+#~ "repeater field or flexible content field layout"
+#~ msgstr ""
+#~ "Fane-feltet vises ikke korrekt når det plasseres i et repeterende felt "
+#~ "med tabell-visning eller i et fleksibelt innholdsfelt"
+
+#~ msgid ""
+#~ "Use \"Tab Fields\" to better organize your edit screen by grouping fields "
+#~ "together."
+#~ msgstr "Bruk \"Fane-felt\" til å gruppere felter"
+
+#~ msgid ""
+#~ "All fields following this \"tab field\" (or until another \"tab field\" "
+#~ "is defined) will be grouped together using this field's label as the tab "
+#~ "heading."
+#~ msgstr ""
+#~ "Alle felter som kommer etter dette \"fane-feltet\" (eller til et annet "
+#~ "\"fane-felt\" defineres) blir gruppert under overskriften til dette fane-"
+#~ "feltet."
+
+#~ msgid "End-point"
+#~ msgstr "Avslutning"
+
+#~ msgid "Use this field as an end-point and start a new group of tabs"
+#~ msgstr "Bruk dette feltet som en avslutning eller start en ny fane-gruppe"
+
+#~ msgid "None"
+#~ msgstr "Ingen"
+
+#~ msgid "TinyMCE will not be initalized until field is clicked"
+#~ msgstr "TinyMCE blir ikke initialisert før feltet klikkes"
+
+#~ msgid "Taxonomy Term"
+#~ msgstr "Taksonomi-term"
+
+#~ msgid "remove {layout}?"
+#~ msgstr "fjern {oppsett}?"
+
+#~ msgid "This field requires at least {min} {identifier}"
+#~ msgstr "Dette feltet krever minst {min} {identifier}"
+
+#~ msgid "This field has a limit of {max} {identifier}"
+#~ msgstr "Dette feltet har en grense på {max} {identifier}"
+
+#~ msgid "Maximum {label} limit reached ({max} {identifier})"
+#~ msgstr "Maksimalt {label} nådd ({max} {identifier})"
+
+#, php-format
+#~ msgid ""
+#~ "To enable updates, please enter your license key on the <a href=\"%s"
+#~ "\">Updates</a> page. If you don't have a licence key, please see <a href="
+#~ "\"%s\">details & pricing</a>."
+#~ msgstr ""
+#~ "For å låse opp oppdateringer må lisensnøkkelen skrives inn på <a href=\"%s"
+#~ "\">oppdateringer</a>-siden. Se <a href=\"%s\" target=\"_blank\">detaljer "
+#~ "og priser</a> dersom du ikke har lisensnøkkel."
+
+#~ msgid "https://www.advancedcustomfields.com/"
+#~ msgstr "https://www.advancedcustomfields.com/"
+
+#~ msgid "Elliot Condon"
+#~ msgstr "Elliot Condon"
+
+#~ msgid "http://www.elliotcondon.com/"
+#~ msgstr "http://www.elliotcondon.com/"
+
+#~ msgid "Getting Started"
+#~ msgstr "Kom i gang"
+
+#~ msgid "Field Types"
+#~ msgstr "Felttyper"
+
+#~ msgid "Functions"
+#~ msgstr "Funksjoner"
+
+#~ msgid "Actions"
+#~ msgstr "Handlinger"
+
+#~ msgid "Features"
+#~ msgstr "Funksjoner"
+
+#~ msgid "How to"
+#~ msgstr "Veiledning"
+
+#~ msgid "Tutorials"
+#~ msgstr "Veiledninger"
+
+#~ msgid "FAQ"
+#~ msgstr "OSS"
+
+#~ msgid "Term meta upgrade not possible (termmeta table does not exist)"
+#~ msgstr "Termmeta-oppgradering ikke mulig (termmeta-tabell finnes ikke)"
+
+#~ msgid "Error"
+#~ msgstr "Feil"
+
+#~ msgid "1 field requires attention."
+#~ msgid_plural "%d fields require attention."
+#~ msgstr[0] "1 felt må ses på"
+#~ msgstr[1] "%d felter må ses på"
+
+#~ msgid ""
+#~ "Error validating ACF PRO license URL (website does not match). Please re-"
+#~ "activate your license"
+#~ msgstr ""
+#~ "Feil under validering av ACF PRO-lisens URL (nettsted samsvarer ikke). "
+#~ "Vennligst reaktiver lisensen"
+
+#~ msgid "Disabled"
+#~ msgstr "Deaktivert"
+
+#~ msgid "Disabled <span class=\"count\">(%s)</span>"
+#~ msgid_plural "Disabled <span class=\"count\">(%s)</span>"
+#~ msgstr[0] "Deaktivert <span class=\"count\">(%s)</span>"
+#~ msgstr[1] "Deaktiverte <span class=\"count\">(%s)</span>"
+
+#~ msgid "'How to' guides"
+#~ msgstr "\"Hvordan\" -guider"
+
+#~ msgid "Created by"
+#~ msgstr "Laget av"
+
+#~ msgid "No updates available"
+#~ msgstr "Ingen oppdateringer tilgjengelige"
+
+#~ msgid "Error loading update"
+#~ msgstr "Feil ved lasting av oppdatering"
+
+#~ msgid "Database Upgrade complete"
+#~ msgstr "Databaseoppgradering fullført"
+
+#~ msgid "Return to network dashboard"
+#~ msgstr "Tilbake til nettverkskontrollpanel"
+
+#~ msgid "See what's new"
+#~ msgstr "Se hva som er nytt"
+
+#~ msgid "No embed found for the given URL"
+#~ msgstr "Ingen embed funnet for den gitte URL-en"
+
+#~ msgid "eg. Show extra content"
+#~ msgstr "f. eks. Vis ekstra innhold"
+
+#~ msgid "No Custom Field Groups found for this options page"
+#~ msgstr "Ingen egendefinerte feltgrupper funnet for dette valget"
+
+#~ msgid "Create a Custom Field Group"
+#~ msgstr "Opprett en egendefinert feltgruppe"
+
+#~ msgid ""
+#~ "Error validating license URL (website does not match). Please re-activate "
+#~ "your license"
+#~ msgstr ""
+#~ "Feil ved validering av lisens-URL (nettsted samsvarer ikke). Vennligst "
+#~ "reaktiver din lisens"
+
+#~ msgid "<b>Success</b>. Import tool added %s field groups: %s"
+#~ msgstr "<b>Suksess.</b> Importverktøyet la til %s feltgrupper: %s"
+
+#~ msgid ""
+#~ "<b>Warning</b>. Import tool detected %s field groups already exist and "
+#~ "have been ignored: %s"
+#~ msgstr ""
+#~ "<b>Advarsel.</b> Importverktøyet oppdaget %s feltgrupper allerede "
+#~ "eksisterer og har blitt ignorert: %s"
+
+#~ msgid "Upgrade ACF"
+#~ msgstr "Oppgrader ACF"
+
+#~ msgid "Upgrade"
+#~ msgstr "Oppgrader"
+
+#~ msgid ""
+#~ "The following sites require a DB upgrade. Check the ones you want to "
+#~ "update and then click “Upgrade Database”."
+#~ msgstr ""
+#~ "Følgende områder krever en database-oppgradering. Sjekk de du vil "
+#~ "oppdatere, og klikk deretter på \"Upgrade Database\"."
+
+#~ msgid "Select"
+#~ msgstr "Select"
+
+#~ msgid "Done"
+#~ msgstr "Fullført"
+
+#~ msgid "Today"
+#~ msgstr "Idag"
+
+#~ msgid "Show a different month"
+#~ msgstr "Vise en annen måned"
+
+#~ msgid "<b>Connection Error</b>. Sorry, please try again"
+#~ msgstr "<b>Tilkoblingsfeil</b>. Beklager, prøv på nytt"
+
+#~ msgid "See what's new in"
+#~ msgstr "Se hva som er nytt i"
+
+#~ msgid "version"
+#~ msgstr "versjon"
+
+#~ msgid "Drag and drop to reorder"
+#~ msgstr "Dra og slipp for å endre rekkefølgen"
+
+#~ msgid "Upgrading data to"
+#~ msgstr "Oppgradere data til"
+
+#~ msgid "Return format"
+#~ msgstr "Format som skal returneres"
+
+#~ msgid "uploaded to this post"
+#~ msgstr "lastet opp til dette innlegget"
+
+#~ msgid "File Name"
+#~ msgstr "Filnavn"
+
+#~ msgid "File Size"
+#~ msgstr "Filstørrelse"
+
+#~ msgid "No File selected"
+#~ msgstr "Ingen fil valgt"
+
+#~ msgid "Add new %s "
+#~ msgstr "Legg til ny %s"
+
+#~ msgid "Save Options"
+#~ msgstr "Lagringsvalg"
+
+#~ msgid "License"
+#~ msgstr "Lisens"
+
+#~ msgid ""
+#~ "To unlock updates, please enter your license key below. If you don't have "
+#~ "a licence key, please see"
+#~ msgstr ""
+#~ "Oppgi lisensnøkkelen nedenfor for å låse opp oppdateringer. Hvis du ikke "
+#~ "har en lisensnøkkel, se"
+
+#~ msgid "details & pricing"
+#~ msgstr "detaljer og priser"
+
+#~ msgid ""
+#~ "To enable updates, please enter your license key on the <a href=\"%s"
+#~ "\">Updates</a> page. If you don't have a licence key, please see <a href="
+#~ "\"%s\">details & pricing</a>"
+#~ msgstr ""
+#~ "For å aktivere oppdateringer, angi din lisensnøkkel på <a href=\"%s"
+#~ "\">oppdateringer</a> -siden. Hvis du ikke har en lisensnøkkel, se <a href="
+#~ "\"%s\">detaljer og priser</a>"
+
+#~ msgid "Advanced Custom Fields Pro"
+#~ msgstr "Advanced Custom Fields Pro"
+
+#~ msgid "http://www.advancedcustomfields.com/"
+#~ msgstr "http://www.advancedcustomfields.com/"
+
+#~ msgid "elliot condon"
+#~ msgstr "elliot condon"

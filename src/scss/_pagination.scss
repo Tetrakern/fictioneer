@@ -1,0 +1,55 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+
+  > * {
+    @extend %button;
+    background: var(--pagination-background);
+    color: var(--pagination-text);
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
+
+    &:not(.current, [disabled]):hover {
+      background: var(--pagination-background-hover);
+      color: var(--pagination-text-hover);
+    }
+  }
+
+  span.current {
+    cursor: default;
+    background: var(--pagination-current-background);
+    color: var(--pagination-current-text);
+    text-shadow: none;
+  }
+
+  &._padding-top {
+    &:not(:empty) {
+      padding-top: 2rem;
+    }
+  }
+
+  :is(.prev, .next) {
+    .on {
+      display: none;
+    }
+
+    @include bp(420px) {
+      .off {
+        display: none;
+      }
+
+      .on {
+        display: initial;
+      }
+    }
+  }
+}

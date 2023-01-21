@@ -1,0 +1,265 @@
+& {
+  .overflow-horizontal {
+    position: relative;
+    z-index: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &.overflow-table {
+      background: {
+        image: radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 12%), transparent),
+               radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 12%), transparent);
+        position: -1px 0, calc(100% + 1px) 0;
+        size: 8px 100%;
+        repeat: no-repeat;
+      }
+
+      table {
+        position: relative;
+
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          z-index: -1;
+          display: block;
+          width: 24px;
+        }
+
+        &::before {
+          left: 0;
+          background: linear-gradient(to right, var(--card-background), var(--card-background) 50%, transparent);
+        }
+
+        &::after {
+          right: 0;
+          background: linear-gradient(to left, var(--card-background), var(--card-background) 50%, transparent);
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+      height: 0;
+      width: 0;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .strong {
+    font-weight: 700;
+  }
+
+  .subtext {
+    color: var(--text-500);
+  }
+
+  .code {
+    font-family: Consolas, Monaco, monospace;
+    font-size: var(--fs-xxs);
+    line-height: 1.7;
+  }
+
+  .checkbox-inset {
+    margin-left: calc(16px + var(--8bp));
+  }
+
+  .text-blob {
+    min-width: 280px;
+
+    @include bp(375px) {
+      min-width: 335px;
+    }
+
+    @include bp(420px) {
+      min-width: 380px;
+    }
+
+    @include bp(768px) {
+      min-width: 480px;
+    }
+  }
+
+  .alternate-rows {
+    > *:nth-child(even) {
+      background-color: rgb(0 0 0 / 2%);
+    }
+  }
+
+  .image-contain {
+    &.img,
+    img {
+      object-fit: contain;
+    }
+  }
+
+  .image-cover {
+    &.img,
+    img {
+      object-fit: cover;
+    }
+  }
+
+  .inline {
+    display: inline;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .flex {
+    display: flex;
+
+    &.column {
+      flex-direction: column;
+    }
+
+    &.end {
+      justify-content: flex-end;
+    }
+
+    &.wrap {
+      flex-wrap: wrap;
+    }
+
+    &.space-between {
+      justify-content: space-between;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+
+    &.align-top {
+      align-items: flex-start;
+    }
+
+    &.align-center {
+      align-items: center;
+    }
+
+    &.align-bottom {
+      align-items: flex-end;
+    }
+
+    > .grow {
+      flex-grow: 1;
+    }
+
+    > .no-shrink {
+      flex-shrink: 0;
+    }
+
+    > .full {
+      flex-basis: 100%;
+      width: 100%;
+    }
+
+    > .half {
+      flex-basis: calc(50% - var(--gap-offset));
+    }
+
+    > .third {
+      flex-basis: calc(33% - var(--gap-offset) / 1.5);
+    }
+  }
+
+  // Margin-top 2 to 16
+  @for $i from 2 through 16 {
+    $n: 2 * $i;
+    .gap-#{$n} {
+      --gap-offset: var(--#{$n}bp);
+      gap: var(--#{$n}bp);
+    }
+  }
+
+  // Margin-top 2 to 16
+  @for $i from 1 through 16 {
+    $n: 2 * $i;
+    .mt-#{$n} {
+      margin-top: var(--#{$n}bp);
+    }
+  }
+
+  // Margin-bottom 2 to 16
+  @for $i from 1 through 16 {
+    $n: 2 * $i;
+    .mb-#{$n} {
+      margin-bottom: var(--#{$n}bp);
+    }
+  }
+
+  // Margin-right 2 to 16
+  @for $i from 1 through 16 {
+    $n: 2 * $i;
+    .mr-#{$n} {
+      margin-right: var(--#{$n}bp);
+    }
+  }
+
+  // Margin-left 2 to 16
+  @for $i from 1 through 16 {
+    $n: 2 * $i;
+    .ml-#{$n} {
+      margin-left: var(--#{$n}bp);
+    }
+  }
+
+  .fs-xxs {
+    font-size: var(--fs-xxs);
+  }
+
+  .fs-xs {
+    font-size: var(--fs-xs);
+  }
+
+  .fs-s {
+    font-size: var(--fs-s);
+  }
+
+  .fs-m {
+    font-size: var(--fs-m);
+  }
+
+  .hidden {
+    display: none;
+    content-visibility: none;
+  }
+
+  .truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    overflow: hidden;
+
+    &.lines-2-2 {
+      -webkit-line-clamp: 2;
+      word-break: normal;
+    }
+
+    &.lines-3-3 {
+      -webkit-line-clamp: 3;
+      word-break: normal;
+    }
+
+    &.lines-4-4 {
+      -webkit-line-clamp: 3;
+      word-break: normal;
+    }
+  }
+}

@@ -1,0 +1,123 @@
+.icon-menu {
+  display: flex;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    color: var(--navigation-actions-text);
+    font-size: inherit;
+    padding: 0 10px;
+    height: var(--navigation-height);
+
+    &:hover {
+      color: var(--fg-200);
+    }
+  }
+
+  &__menu {
+    position: relative;
+
+    &:not(:hover) {
+      .sub-menu {
+        pointer-events: none;
+        opacity: 0;
+        content-visibility: hidden;
+      }
+    }
+
+    &:hover {
+      .follow-menu-item {
+        &:not(._loaded) {
+          .fa-spinner {
+            display: block;
+            content-visibility: visible;
+          }
+
+          .icon._fa-bell {
+            display: none;
+            content-visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+
+  .user-profile-image {
+    border-radius: 50%;
+    height: 1.2em;
+    width: 1.2em;
+    box-shadow: 0 0 1px black;
+  }
+
+  .follow-menu-item {
+    padding: 0 8px;
+    min-width: 34px;
+
+    > :is(i, .icon) {
+      margin: 0 auto;
+    }
+
+    .fa-spinner {
+      display: none;
+      content-visibility: hidden;
+    }
+  }
+}
+
+.main-navigation {
+  &.is-sticky {
+    :is(.icon-menu__item, .icon-menu__item.follow-menu-item) {
+      border-radius: 0;
+    }
+  }
+
+  .icon-menu {
+    display: none;
+    content-visibility: hidden;
+
+    @include bp(desktop) {
+      display: flex;
+      content-visibility: visible;
+    }
+
+    &__item {
+      cursor: pointer;
+      text-shadow: inherit;
+      border-radius: 2px;
+      transition: background-color .1s;
+
+      &._with-submenu {
+        border-radius: 2px 2px 0 0;
+      }
+
+      &:hover {
+        color: var(--navigation-actions-text-hover);
+        background: var(--navigation-item-active-background);
+      }
+    }
+
+    &__menu {
+      &:hover {
+        > :first-child {
+          background: var(--navigation-item-active-submenu-background);
+        }
+      }
+
+      &:not(:hover) {
+        .sub-menu {
+          pointer-events: none;
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.mobile-menu {
+  .icon-menu {
+    .sub-menu {
+      display: none;
+      content-visibility: hidden;
+    }
+  }
+}

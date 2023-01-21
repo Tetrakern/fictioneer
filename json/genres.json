@@ -1,0 +1,273 @@
+{
+	"action": {
+		"name": "Action"
+	},
+	"adventure": {
+		"name": "Adventure"
+	},
+	"alternateUniverse": {
+		"name": "Alternate Universe"
+	},
+	"anthology": {
+		"name": "Anthology"
+	},
+	"apocalyptic": {
+		"name": "Apocalyptic"
+	},
+	"atompunk": {
+		"name": "Atompunk",
+		"parent": "Science Fiction"
+	},
+	"biography": {
+		"name": "Biography"
+	},
+	"biopunk": {
+		"name": "Biopunk",
+		"parent": "Science Fiction"
+	},
+	"bisexual": {
+		"name": "Bisexual",
+		"parent": "LGBT+"
+	},
+	"bodyHorror": {
+		"name": "Body Horror",
+		"parent": "Horror"
+	},
+	"boysLove": {
+		"name": "Boys Love",
+		"parent": "LGBT+",
+		"aliasOf": "Gay"
+	},
+	"cassetteFuturism": {
+		"name": "Cassette Futurism",
+		"parent": "Science Fiction"
+	},
+	"children": {
+		"name": "Children’s"
+	},
+	"comedy": {
+		"name": "Comedy"
+	},
+	"contemporary": {
+		"name": "Contemporary"
+	},
+	"cosmicHorror": {
+		"name": "Cosmic Horror",
+		"parent": "Horror"
+	},
+	"crime": {
+		"name": "Crime"
+	},
+	"crossover": {
+		"name": "Crossover"
+	},
+	"cyberpunk": {
+		"name": "Cyberpunk",
+		"parent": "Science Fiction"
+	},
+	"detective": {
+		"name": "Detective"
+	},
+	"dieselpunk": {
+		"name": "Dieselpunk",
+		"parent": "Science Fiction"
+	},
+	"drama": {
+		"name": "Drama"
+	},
+	"dungeon": {
+		"name": "Dungeon"
+	},
+	"erotica": {
+		"name": "Erotica"
+	},
+	"espionage": {
+		"name": "Espionage"
+	},
+	"fantasy": {
+		"name": "Fantasy"
+	},
+	"gameLit": {
+		"name": "GameLit"
+	},
+	"gay": {
+		"name": "Gay",
+		"parent": "LGBT+"
+	},
+	"girlslove": {
+		"name": "Girls Love",
+		"parent": "LGBT+",
+		"aliasOf": "Lesbian"
+	},
+	"gothic": {
+		"name": "Gothic"
+	},
+	"grimdark": {
+		"name": "Grimdark"
+	},
+	"harem": {
+		"name": "Harem"
+	},
+	"highFantasy": {
+		"name": "High Fantasy",
+		"parent": "Fantasy"
+	},
+	"historical": {
+		"name": "Historical"
+	},
+	"horror": {
+		"name": "Horror"
+	},
+	"isekai": {
+		"name": "Isekai"
+	},
+	"lesbian": {
+		"name": "Lesbian",
+		"parent": "LGBT+"
+	},
+	"lgbt": {
+		"name": "LGBT+"
+	},
+	"litRpg": {
+		"name": "LitRPG"
+	},
+	"lowFantasy": {
+		"name": "Low Fantasy",
+		"parent": "Fantasy"
+	},
+	"lunarpunk": {
+		"name": "Lunarpunk",
+		"parent": "Science Fiction"
+	},
+	"magicalRealism": {
+		"name": "Magical Realism"
+	},
+	"mecha": {
+		"name": "Mecha"
+	},
+	"military": {
+		"name": "Military"
+	},
+	"music": {
+		"name": "Music"
+	},
+	"mystery": {
+		"name": "Mystery"
+	},
+	"nanopunk": {
+		"name": "Nanopunk",
+		"parent": "Science Fiction"
+	},
+	"noir": {
+		"name": "Noir",
+		"parent": "Crime"
+	},
+	"nonHuman": {
+		"name": "Non-Human"
+	},
+	"nonfiction": {
+		"name": "Nonfiction"
+	},
+	"philosophy": {
+		"name": "Philosophy"
+	},
+	"poetry": {
+		"name": "Poetry"
+	},
+	"postApocalyptic": {
+		"name": "Post Apocalyptic",
+		"parent": "Apocalyptic"
+	},
+	"psychological": {
+		"name": "Psychological"
+	},
+	"raypunk": {
+		"name": "Raypunk",
+		"parent": "Science Fiction"
+	},
+	"romance": {
+		"name": "Romance"
+	},
+	"satire": {
+		"name": "Satire"
+	},
+	"schoolLife": {
+		"name": "School Life"
+	},
+	"scienceFiction": {
+		"name": "Science Fiction"
+	},
+	"sex": {
+		"name": "Sex",
+		"description": "Discussions or depictions of sexual intercourse and adjacent topics in decent detail, not exciting enough to qualify as Erotica and certainly not explicit enough for Smut."
+	},
+	"shortStory": {
+		"name": "Short Story"
+	},
+	"sliceOfLife": {
+		"name": "Slice of Life"
+	},
+	"smut": {
+		"name": "Smut"
+	},
+	"space": {
+		"name": "Space"
+	},
+	"spaceOpera": {
+		"name": "Space Opera",
+		"parent": "Space"
+	},
+	"sports": {
+		"name": "Sports"
+	},
+	"steampunk": {
+		"name": "Steampunk",
+		"parent": "Science Fiction"
+	},
+	"suicideSelfHarm": {
+		"name": "Suicide / Self Harm"
+	},
+	"superheroes": {
+		"name": "Superheroes"
+	},
+	"supernatural": {
+		"name": "Supernatural"
+	},
+	"survival": {
+		"name": "Survival"
+	},
+	"thriller": {
+		"name": "Thriller"
+	},
+	"tragedy": {
+		"name": "Tragedy"
+	},
+	"transgender": {
+		"name": "Transgender",
+		"parent": "LGBT+"
+	},
+	"trueCrime": {
+		"name": "True Crime",
+		"parent": "Crime"
+	},
+	"urbanFantasy": {
+		"name": "Urban Fantasy",
+		"parent": "Fantasy"
+	},
+	"western": {
+		"name": "Western"
+	},
+	"whalepunk": {
+		"name": "Whalepunk",
+		"parent": "Science Fiction"
+	},
+	"wuxia": {
+		"name": "Wuxia"
+	},
+	"xianxia": {
+		"name": "Xianxia"
+	},
+	"zombie": {
+		"name": "Zombie"
+	}
+}

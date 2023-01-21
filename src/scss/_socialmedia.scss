@@ -1,0 +1,40 @@
+.media-buttons {
+  display: flex;
+  gap: 16px get_clamp(12, 16, 320, 480);
+
+  > * {
+    cursor: pointer;
+    display: block;
+    color: var(--media-button-color);
+    font-size: get_clamp(22, 24, 320, 480);
+    line-height: 1;
+    opacity: .3;
+    transition: opacity var(--transition-duration), color var(--transition-duration);
+    height: get_clamp(22, 24, 320, 480);
+
+    &:hover {
+      color: var(--media-button-color-hover);
+      opacity: 1;
+    }
+
+    :is(.icon, .icon-wrapper) {
+      vertical-align: baseline;
+    }
+  }
+
+  &._modal {
+    justify-content: center;
+    gap: 16px;
+    padding-top: get_clamp(16, 22, 320, 480);
+
+    &:empty {
+      display: none;
+    }
+
+    > * {
+      &:not(:hover) {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+.reader-settings {
+  --modal-overlay: transparent;
+
+  :is([type=text], [type=number]) {
+    flex-shrink: 0;
+    text-align: center;
+    border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
+    padding: 0;
+    width: 55px;
+  }
+
+  input[type=range] {
+    flex-grow: 1;
+    border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
+    width: 146px;
+  }
+
+  .reset-button {
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    color: var(--modal-icon);
+    font-size: 24px;
+    margin-left: 4px;
+    transition: opacity var(--transition-duration),
+                color var(--transition-duration);
+
+    &:disabled {
+      cursor: default;
+      opacity: .2;
+    }
+
+    &:not(:disabled):hover {
+      color: var(--modal-icon-hover);
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+
+    input {
+      border-radius: 0;
+    }
+  }
+
+  .select-wrapper {
+    &:not(:last-child) select {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  button.button {
+    font-size: 16px;
+    padding: 0;
+    border-radius: 0;
+    height: 26px;
+    width: 26px;
+    min-width: auto;
+
+    &--left {
+      padding-left: 2px;
+    }
+
+    &--right {
+      border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
+      padding-right: 2px;
+    }
+  }
+
+  &__toggles {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px;
+  }
+
+  .toggle {
+    input {
+      &:checked + span {
+        background: var(--toggle-background-checked);
+        color: var(--toggle-text-checked);
+        border-color: var(--toggle-border-checked);
+
+        &:hover {
+          background: var(--toggle-background-hover);
+          color: var(--toggle-text-checked-hover);
+          border-color: var(--toggle-border-hover);
+        }
+      }
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--toggle-background);
+      color: var(--toggle-text);
+      font-size: 12px;
+      line-height: 1;
+      text-shadow: none;
+      border: 1.5px solid var(--toggle-border);
+      border-radius: 50%;
+      height: 26px;
+      min-width: 26px;
+      transition: border-color var(--transition-duration),
+                  background-color var(--transition-duration),
+                  color var(--transition-duration);
+
+      &:hover {
+        color: var(--toggle-text-hover);
+        border-color: var(--toggle-border-hover);
+      }
+    }
+  }
+}

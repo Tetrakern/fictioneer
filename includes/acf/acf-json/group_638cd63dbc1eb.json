@@ -1,0 +1,66 @@
+{
+    "key": "group_638cd63dbc1eb",
+    "title": "Comments",
+    "fields": [
+        {
+            "key": "field_638cd63e24782",
+            "label": "Disable commenting?",
+            "name": "fictioneer_disable_commenting",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Unlike the \"allow comments\" option, this will only disable the comment form but still show the current comments.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Disable commenting",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_story"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "fcn_chapter"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1673146165
+}

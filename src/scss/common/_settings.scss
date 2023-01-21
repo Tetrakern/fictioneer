@@ -1,0 +1,36 @@
+:root.no-background-textures body {
+  .background-texture {
+    background: {
+      image: none !important;
+      blend-mode: normal !important;
+    }
+  }
+}
+
+:root.no-nav-sticky .site .main-navigation {
+  position: relative;
+  top: 0;
+}
+
+:root.no-polygons .site .polygon {
+  clip-path: none;
+}
+
+:root.no-text-shadows {
+  --text-shadow: none;
+}
+
+:root.no-covers .site {
+  :is(.card__image, .card__text-icon) {
+    display: none;
+    content-visibility: hidden;
+  }
+
+  .large-card {
+    .ribbon {
+      left: unset;
+      right: 18px;
+      transform: translate(50%,-50%) rotate(45deg);
+    }
+  }
+}

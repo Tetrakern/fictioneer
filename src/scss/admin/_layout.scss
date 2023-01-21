@@ -1,0 +1,98 @@
+& {
+  .columns-layout {
+    --max-width-offset: var(--32bp);
+    column-gap: var(--32bp);
+
+    @include bp(768px) {
+      columns: 3 380px;
+
+    }
+
+    @include bp(1980px) {
+      columns: 4 380px;
+    }
+
+    > * {
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      display: inline-block;
+      margin: 0 0 var(--32bp) 0;
+      width: 100%;
+    }
+
+    &.two-columns {
+      @include bp(768px) {
+        columns: 2 380px;
+      }
+    }
+  }
+
+  .card {
+    position: relative;
+    background: var(--card-background);
+    border-radius: var(--large-border-radius);
+    box-shadow: var(--card-shadow);
+
+    &-header {
+      padding: var(--16bp) var(--16bp) 0;
+    }
+
+    &-header,
+    &-header :is(h1, h2, h3, h4, h5, h6) {
+      font-size: var(--fs-m);
+      font-weight: 600;
+    }
+
+    &-content {
+      font-size: var(--fs-xs);
+      padding: var(--16bp) 0;
+    }
+
+    &-footer {
+      padding: var(--16bp);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 1000;
+    background: var(--modal-background);
+    border-radius: var(--large-border-radius);
+    box-shadow: var(--modal-shadow);
+
+    &.hidden {
+      pointer-events: none;
+      z-index: -1000;
+    }
+
+    &:not(.hidden) {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &__header {
+      font-size: var(--fs-m);
+      font-weight: 600;
+      padding: var(--16bp) var(--16bp) 0;
+    }
+
+    &__content {
+      font-size: var(--fs-xs);
+      padding: var(--16bp) 0;
+    }
+
+    &__footer {
+      padding: var(--16bp);
+    }
+  }
+
+  .row {
+    padding: 0 var(--16bp);
+
+    &:not(:last-child) {
+      margin-bottom: var(--16bp);
+    }
+  }
+}

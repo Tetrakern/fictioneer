@@ -1,0 +1,16 @@
+.login {
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+
+    > a {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 14px;
+      height: 40px;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.statistics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: get_clamp(6, 8, 375, 480);
+
+  &__inline-stat {
+    flex: 1 1 auto;
+    background: var(--infobox-background);
+    color: var(--fg-600);
+    font-family: var(--font-note);
+    font-size: var(--fs-xs);
+    text-shadow: none;
+    white-space: nowrap;
+    border-radius: var(--layout-border-radius-small);
+    padding: 3px 6px;
+
+    > * {
+      display: block;
+      text-align: center;
+    }
+  }
+}

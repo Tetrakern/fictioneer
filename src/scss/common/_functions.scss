@@ -1,0 +1,52 @@
+@function get_clamp($min, $max, $wmin, $wmax, $unit: 'vw') {
+  $vw: ($min - $max) / (($wmin / 100) - ($wmax / 100));
+  $offset: $min - $vw * ($wmin / 100);
+  $operator: '';
+
+  @if $offset > 0 {
+    $operator: '+';
+  } @else {
+    $operator: '-';
+    $offset: $offset * -1;
+  }
+
+  @return clamp(#{$min}px, #{$vw + $unit} #{$operator} #{$offset}px, #{$max}px);
+}
+
+@function get_relative_clamp($min, $max, $wmin, $wmax, $unit: 'vw', $rel: 'rem') {
+  $tmin: $min * 16;
+  $tmax: $max * 16;
+  $operator: '';
+
+  $vw: ($tmin - $tmax) / (($wmin / 100) - ($wmax / 100));
+  $offset: $tmin - $vw * ($wmin / 100);
+
+  @if $offset > 0 {
+    $operator: '+';
+  } @else {
+    $operator: '-';
+    $offset: $offset * -1;
+  }
+
+  @return clamp(#{$min + $rel}, #{$vw + $unit} #{$operator} #{$offset}px, #{$max + $rel});
+}
+
+@function hsl_code($deg, $s, $l, $a: false) {
+  @if $a != false {
+    @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%) / #{$a})";
+  }
+
+  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%))";
+}
+
+@function hsl_code_free($deg, $s, $l) {
+  @return "calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%)";
+}
+
+@function hsl_font_code($deg, $s, $l) {
+  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * (var(--font-saturation) + var(--saturation) - 1)) #{$l}%)";
+}
+
+@function unicode($str) {
+  @return unquote("\"")+unquote(str-insert($str, "\\", 1))+unquote("\"")
+}

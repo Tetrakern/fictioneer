@@ -1,0 +1,70 @@
+.text-icon,
+.icon {
+  display: inline-block;
+  color: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+.text-icon {
+  font-family: var(--icon-text-font);
+}
+
+.icon {
+  vertical-align: middle;
+
+  &._line-height {
+    height: 1.4em;
+    width: 1.33em;
+  }
+
+  &._collapse,
+  &._expand {
+    height: 1.5em;
+    width: 1.5em;
+  }
+
+  &._note-filled,
+  &._note {
+    height: 1.4em;
+    width: 1.4em;
+  }
+
+  &._drop-half-stroke {
+    height: 1.1em;
+    width: 1.1em;
+  }
+
+  &._grid-2x2 {
+    vertical-align: baseline;
+  }
+
+  &._kofi {
+    height: 1.15em;
+    width: 1.3em;
+    margin: -1px 0;
+  }
+
+  &._fa-bars {
+    width: .9em;
+  }
+
+  &._fa-rss {
+    width: .875em;
+  }
+
+  &._fa-xmark {
+    width: .625em;
+  }
+
+  &._user {
+    transform: translate(-1px, -12%) scale(1.2);
+  }
+}
+
+p .icon {
+  &._font-settings {
+    height: 0.8em;
+    vertical-align: baseline;
+  }
+}
