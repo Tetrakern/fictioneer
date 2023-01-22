@@ -14,7 +14,8 @@ fcn_theBody.addEventListener(
   e => {
     // Search for eligible source...
     let target = e.target.closest('[data-lightbox]'),
-        valid = false;
+        valid = false,
+        img = null;
 
     // If found...
     if (target) {
@@ -26,17 +27,21 @@ fcn_theBody.addEventListener(
 
       // Image or link?
       if (target.tagName == 'IMG') {
-        fcn_lightboxTarget.appendChild(target.cloneNode());
+        img = target.cloneNode();
         valid = true;
       } else if (target.href) {
         let img = document.createElement('img');
         img.src = target.href;
-        fcn_lightboxTarget.appendChild(img);
         valid = true;
       }
 
       // Stop scrolling and show lightbox
-      if (valid) {
+      if (valid && img) {
+        img.removeAttribute('class');
+        img.removeAttribute('style');
+        img.removeAttribute('height');
+        img.removeAttribute('width');
+        fcn_lightboxTarget.appendChild(img);
         fcn_theBody.classList.add('no-scroll');
         fcn_lightbox.classList.add('show');
       }
