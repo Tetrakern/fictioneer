@@ -909,7 +909,7 @@ function fictioneer_check_for_updates() {
   $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
 
   // Only call API every 30 minutes, otherwise check database
-  if ( ! empty( $latest_version ) && $last_check + 1800 < time() ) {
+  if ( ! empty( $latest_version ) && time() < $last_check + 1800 ) {
     return version_compare( $latest_version, FICTIONEER_RELEASE_TAG, '>' );
   }
 
