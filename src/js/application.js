@@ -1154,6 +1154,10 @@ _$$('[for*=group-toggle]').forEach(element => {
     e => {
       list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
       list.style.height = '';
+
+      list.querySelectorAll('a').forEach(element => {
+        element.tabIndex = element.tabIndex == '-1' ? '0' : '-1';
+      });
     }
   );
 });
