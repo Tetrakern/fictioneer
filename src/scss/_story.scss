@@ -262,7 +262,7 @@ $header_breakpoint: 640px;
     .chapter-group__list-item._collapse {
       display: block;
       content-visibility: visible;
-      padding: 0;
+      padding: 0 !important;
 
       label {
         display: flex;
