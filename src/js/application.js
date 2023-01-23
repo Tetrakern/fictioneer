@@ -1279,6 +1279,30 @@ _$$('.contact-form').forEach(element => {
 });
 
 // =============================================================================
+// KEYBOARD INPUT
+// =============================================================================
+
+/*
+ * Make elements with tabIndex 0 accessible with keyboard.
+ */
+
+fcn_theBody.querySelectorAll('[tabindex="0"]:not(a, input, button, select)').forEach(element => {
+  element.addEventListener(
+    'keydown',
+    e => {
+      // Only for actions on focused element
+      if (e.currentTarget != document.activeElement) return;
+
+      // When pressing space or enter
+      if (e.keyCode == 32 || e.keyCode == 13) {
+        e.preventDefault();
+        e.currentTarget.click();
+      }
+    }
+  );
+});
+
+// =============================================================================
 // KEYWORD INPUTS
 // =============================================================================
 
