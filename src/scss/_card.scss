@@ -186,6 +186,7 @@
   }
 
   &__image {
+    --focus-offset: 2px;
     position: relative;
     background: var(--placeholder-background);
     border-radius: var(--layout-border-radius-small);
@@ -273,6 +274,10 @@
       padding: 2px 4px 2px 0;
       border-radius: var(--layout-border-radius-small);
       min-width: 0; // Fix whitespace nowrap issue
+
+      a:focus-visible {
+        outline: none;
+      }
     }
 
     .card__left {

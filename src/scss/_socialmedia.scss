@@ -3,6 +3,7 @@
   gap: 16px get_clamp(12, 16, 320, 480);
 
   > * {
+    --focus-offset: 1px;
     cursor: pointer;
     display: block;
     color: var(--media-button-color);
@@ -12,7 +13,8 @@
     transition: opacity var(--transition-duration), color var(--transition-duration);
     height: get_clamp(22, 24, 320, 480);
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: var(--media-button-color-hover);
       opacity: 1;
     }

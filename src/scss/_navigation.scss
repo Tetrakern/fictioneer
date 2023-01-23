@@ -86,6 +86,8 @@
 }
 
 .main-navigation {
+  --focus-border-radius: 0;
+  --focus-offset: -2px;
   position: sticky;
   top: -1px;
   z-index: 1000;
@@ -184,7 +186,7 @@
     height: fit-content;
     transition: background-color .1s;
 
-    &:not(:hover) {
+    &:not(:hover, :focus-within) {
       .sub-menu {
         pointer-events: none;
         opacity: 0;

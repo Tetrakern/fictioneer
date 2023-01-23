@@ -10,13 +10,10 @@
   font-family: var(--font-base);
   font-weight: var(--font-weight-normal);
   border-style: solid;
-
-  &:focus {
-    outline: 0;
-  }
 }
 
 select {
+  --focus-offset: -2px;
   cursor: pointer;
   font-family: var(--font-base);
 
@@ -104,6 +101,7 @@ select {
 }
 
 input[type=range] {
+  --focus-offset: -2px;
   cursor: pointer;
   padding: 5px;
   margin: 0;
@@ -154,6 +152,7 @@ input[type=number] {
 
 input[type=checkbox],
 input[type=radio] {
+  --focus-offset: 2px;
   cursor: pointer;
   position: relative;
   background: var(--input-background);
@@ -184,6 +183,7 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
+  --focus-border-radius: 50%;
   border-radius: 50%;
 
   &:checked {

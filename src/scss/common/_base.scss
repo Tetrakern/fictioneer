@@ -172,9 +172,11 @@ button[type=submit] {
 }
 
 .button {
+  --focus-offset: 2px;
   @extend %button;
 
   &._secondary {
+    --focus-offset: -2px;
     background: var(--button-secondary-background);
     color: var(--button-secondary-text);
     border: var(--button-secondary-border);
@@ -272,6 +274,7 @@ button[type=submit] {
   cursor: pointer;
 
   &:not(._inline) {
+    --focus-offset: -2px;
     display: block;
     background: var(--tag-background);
     color: var(--tag-text);
@@ -425,6 +428,7 @@ button[type=submit] {
 .popup-menu {
   --translateX: translateX(0);
   --translateY: translateY(0);
+  --focus-offset: -2px;
   position: absolute;
   background: var(--popup-menu-background);
   color: var(--tooltip-text);

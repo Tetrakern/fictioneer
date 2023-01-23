@@ -5,6 +5,7 @@
   gap: 3px;
 
   > * {
+    --focus-offset: -2px;
     @extend %button;
     background: var(--pagination-background);
     color: var(--pagination-text);

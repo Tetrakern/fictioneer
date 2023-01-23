@@ -538,6 +538,7 @@ figure {
 // =============================================================================
 
 .wp-block-file {
+  --focus-offset: 2px;
   display: flex;
   gap: 0 1px;
   flex-direction: row-reverse;
@@ -547,6 +548,12 @@ figure {
   border-radius: var(--layout-border-radius-small);
   overflow: hidden;
   width: fit-content;
+
+  &:focus-within {
+    a:focus-visible {
+      outline: none;
+    }
+  }
 
   &-wrapper {
     margin: 0;
