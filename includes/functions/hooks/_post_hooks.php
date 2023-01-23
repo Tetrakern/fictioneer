@@ -134,10 +134,10 @@ if ( ! function_exists( 'fictioneer_post_subscribe_button' ) ) {
 
 		if ( ! empty( $subscribe_buttons ) ) {
       // Start HTML ---> ?>
-      <button type="button" class="toggle-last-clicked button _secondary popup-menu-toggle">
+      <div class="toggle-last-clicked button _secondary popup-menu-toggle" tabindex="0" aria-role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
         <i class="fa-solid fa-bell"></i> <span><?php echo fcntr( 'subscribe' ); ?></span>
         <div class="popup-menu _top _align-right"><?php echo $subscribe_buttons; ?></div>
-      </button>
+      </div>
       <?php // <--- End HTML
     }
   }

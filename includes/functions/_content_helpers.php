@@ -642,7 +642,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     if ( ! empty( $subscribe_buttons ) ) {
       ob_start();
       // Start HTML ---> ?>
-      <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last">
+      <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" aria-role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
         <div><i class="fa-solid fa-bell"></i> <span><?php echo fcntr( 'subscribe' ); ?></span></div>
         <div class="popup-menu _bottom _center"><?php echo $subscribe_buttons; ?></div>
       </div>
@@ -653,7 +653,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     if ( $show_epub_download && ! $ebook_upload ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo esc_url( home_url( 'download-epub/' . $args['story_id'] ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" download>
+      <a href="<?php echo esc_url( home_url( 'download-epub/' . $args['story_id'] ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download ePUB', 'fictioneer' ) ?>" download>
         <i class="fa-solid fa-cloud-download-alt"></i>
         <span class="span-epub hide-below-640"><?php _e( 'ePUB', 'fictioneer' ) ?></span>
       </a>
@@ -662,9 +662,9 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     } elseif ( wp_get_attachment_url( $ebook_upload ) ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo esc_url( wp_get_attachment_url( $ebook_upload ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" download>
+      <a href="<?php echo esc_url( wp_get_attachment_url( $ebook_upload ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download eBook', 'fictioneer' ) ?>" download>
         <i class="fa-solid fa-cloud-download-alt"></i>
-        <span class="span-epub hide-below-640"><?php _e( 'Ebook', 'fictioneer' ) ?></span>
+        <span class="span-epub hide-below-640"><?php _e( 'eBook', 'fictioneer' ) ?></span>
       </a>
       <?php // <--- End HTML
       $output['ebook'] = ob_get_clean();
@@ -677,7 +677,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
         <i class="fa-solid fa-clock"></i>
         <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
       </button>
-      <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
+      <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
         <i class="fa-solid fa-clock"></i>
         <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
       </label>
@@ -692,7 +692,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
         <i class="fa-solid fa-star"></i>
         <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
       </button>
-      <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
+      <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
         <i class="fa-regular fa-star off"></i>
         <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
       </label>
@@ -1308,7 +1308,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       <?php if ( count( $icons ) > 0 ) foreach ( $icons as $icon ) echo $icon; ?>
 
       <?php if ( count( $menu ) > 0 ) : ?>
-        <div class="card__popup-menu-toggle"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+        <div class="card__popup-menu-toggle" tabindex="0"><i class="fa-solid fa-ellipsis-vertical"></i></div>
         <div class="popup-menu"><?php foreach ( $menu as $item ) echo $item; ?></div>
       <?php endif; ?>
 

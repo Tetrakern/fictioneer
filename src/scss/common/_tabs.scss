@@ -8,6 +8,7 @@
   }
 
   &__item {
+    --focus-offset: -2px;
     background: var(--tab-background-inactive);
     color: var(--tab-text-inactive);
     font-size: var(--fs-dxs);

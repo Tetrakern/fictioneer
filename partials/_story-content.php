@@ -90,7 +90,7 @@ $blog_posts = new WP_Query(
 <section id="tabs" class="story__tabs tabs-wrapper padding-left padding-right">
 
   <div class="tabs">
-    <label id="chapter-tab" for="toggle-chapter" class="tabs__item">
+    <label id="chapter-tab" for="toggle-chapter" class="tabs__item" tabindex="0">
       <?php
         if ( $story['status'] === 'Oneshot' ) {
           _e( 'Oneshot', 'fictioneer' );
@@ -105,7 +105,7 @@ $blog_posts = new WP_Query(
     </label>
 
     <?php if ( $blog_posts->have_posts() ) : ?>
-      <label id="blog-tab" for="toggle-blog" class="tabs__item"><?php echo fcntr( 'story_blog' ); ?></label>
+      <label id="blog-tab" for="toggle-blog" class="tabs__item" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></label>
     <?php endif; ?>
 
     <?php
@@ -114,7 +114,7 @@ $blog_posts = new WP_Query(
 
         foreach ( $tab_pages as $page ) {
           if ( empty( $page[1] ) ) continue;
-          echo '<label id="custom-tab-' . $index . '" for="toggle-custom-' . $index . '" class="tabs__item">' . $page[1] . '</label>';
+          echo '<label tabindex="0" id="custom-tab-' . $index . '" for="toggle-custom-' . $index . '" class="tabs__item">' . $page[1] . '</label>';
           $index++;
           if ( $index > 3) break; // Only show 4 custom tabs
         }
@@ -123,11 +123,11 @@ $blog_posts = new WP_Query(
   </div>
 
   <div class="story__chapter-list-toggles">
-    <label class="list-button story__toggle _view" for="toggle-view">
+    <label class="list-button story__toggle _view" for="toggle-view" tabindex="0">
       <?php fictioneer_icon( 'grid-2x2', 'on' ); ?>
       <i class="fa-solid fa-list off"></i>
     </label>
-    <label class="list-button story__toggle _order" for="toggle-order">
+    <label class="list-button story__toggle _order" for="toggle-order" tabindex="0">
       <i class="fa-solid fa-arrow-down-1-9 off"></i>
       <i class="fa-solid fa-arrow-down-9-1 on"></i>
     </label>
@@ -251,7 +251,7 @@ $blog_posts = new WP_Query(
 
                 <?php if ( $is_collapsed && $index == $above_collapse + 1 ) : ?>
                   <input id="chapters-toggle-<?php echo $group_index; ?>" type="checkbox" autocomplete="off" hidden>
-                  <li class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>">
+                  <li class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>"  tabindex="0">
                     <label for="chapters-toggle-<?php echo $group_index; ?>">
                       <span><?php printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ) ?></span>
                     </label>
