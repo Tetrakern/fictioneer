@@ -628,12 +628,10 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     <?php if ( $heading ) : ?>
       <?php $discriminator = md5( $heading . microtime() ); ?>
       <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-      <h5 class="chapter-group__heading truncate truncate--1-1">
-        <label for="group-toggle-<?php echo $discriminator; ?>">
-          <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
-          <span><?php echo $heading; ?></span>
-        </label>
-      </h5>
+      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" aria-role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+        <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
+        <span><?php echo $heading; ?></span>
+      </label>
     <?php endif; ?>
     <ol class="chapter-group__list">
       <?php

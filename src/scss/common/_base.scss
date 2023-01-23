@@ -518,7 +518,7 @@ html:not(.logged-in) body:not(.logged-in) {
       padding-left: 2px;
     }
 
-    .chapter-group__heading label {
+    .chapter-group__label {
       padding-left: 2px;
     }
   }
@@ -531,31 +531,31 @@ html:not(.logged-in) body:not(.logged-in) {
     }
   }
 
-  &__heading {
+  &__label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
     background: none;
     color: var(--fg-800);
     font-size: var(--fs-dxs);
     font-weight: var(--font-weight-semi-strong);
     letter-spacing: calc(0.02em + var(--font-letter-spacing-base));
-    margin: 0 !important;
-
-    label {
-      display: block;
-      padding: 0 0 12px 6px;
-    }
+    padding: 0 6px;
+    margin-bottom: 12px;
+    width: fit-content;
 
     :is(i, .icon) {
-      margin-right: 6px;
       transition-duration: var(--transition-duration);
       transition-property: opacity, transform;
+      transform: translateY(4px);
     }
   }
 
   &__toggle {
     &:checked {
-      + h5 {
+      + label {
         :is(i, .icon) {
-          transform: rotate(-180deg);
+          transform: translateY(4px) rotate(-180deg);
         }
       }
 
