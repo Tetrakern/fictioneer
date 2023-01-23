@@ -260,6 +260,8 @@ body:not(.is-editor):not(.is-admin) {
     text-shadow: none;
     padding: 6px 8px;
     border-radius: var(--layout-border-radius-small);
+    width: max-content;
+    max-width: 150px;
     opacity: 0;
     transform: translate(-50%, -100%);
     transition: opacity .1s;
@@ -269,17 +271,6 @@ body:not(.is-editor):not(.is-admin) {
     &::before {
       left: 0;
       transform: translate(0, -100%);
-    }
-  }
-
-  &--left {
-    &::before {
-      top: unset;
-      bottom: -50%;
-    }
-
-    &::before {
-      transform: translate(-100%, -50%);
     }
   }
 
