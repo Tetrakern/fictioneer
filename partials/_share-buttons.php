@@ -32,7 +32,8 @@ $feed = fictioneer_get_rss_link();
         class="rss-link tooltipped"
         target="_blank"
         rel="noopener"
-        data-tooltip="<?php echo esc_attr_x( 'Story&nbsp;RSS&nbsp;Feed', 'Story RSS Feed tooltip; use nbsp to achieve desired look.', 'fictioneer' ); ?>"
+        data-tooltip="<?php esc_attr_e( 'Story RSS Feed', 'fictioneer' ); ?>"
+        aria-label="<?php esc_attr_e( 'Story RSS Feed', 'fictioneer' ); ?>"
       ><?php fictioneer_icon( 'fa-rss' ); ?></a>
     <?php endif; ?>
 
@@ -41,7 +42,8 @@ $feed = fictioneer_get_rss_link();
       class="feedly tooltipped hide-below-640"
       target="_blank"
       rel="noopener"
-      data-tooltip="<?php echo esc_attr_x( 'Follow&nbsp;on&nbsp;Feedly', 'Follow on Feedly tooltip; use nbsp to achieve desired look.', 'fictioneer' ); ?>"
+      data-tooltip="<?php esc_attr_e( 'Follow on Feedly', 'fictioneer' ); ?>"
+      aria-label="<?php esc_attr_e( 'Follow on Feedly', 'fictioneer' ); ?>"
     ><?php fictioneer_icon( 'feedly' ); ?></a>
 
     <a
@@ -49,7 +51,8 @@ $feed = fictioneer_get_rss_link();
       class="inoreader tooltipped hide-below-640"
       target="_blank"
       rel="noopener"
-      data-tooltip="<?php echo esc_attr_x( 'Follow&nbsp;on&nbsp;Inoreader', 'Follow on Inoreader tooltip; use nbsp to achieve desired look.', 'fictioneer' ); ?>"
+      data-tooltip="<?php esc_attr_e( 'Follow on Inoreader', 'fictioneer' ); ?>"
+      aria-label="<?php esc_attr_e( 'Follow on Inoreader', 'fictioneer' ); ?>"
     ><?php fictioneer_icon( 'inoreader' ); ?></a>
 
   <?php endif; ?>

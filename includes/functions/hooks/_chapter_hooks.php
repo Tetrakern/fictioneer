@@ -157,14 +157,18 @@ if ( ! function_exists( 'fictioneer_chapter_resize_buttons' ) ) {
    */
 
   function fictioneer_chapter_resize_buttons() {
+    $decrease_label = esc_attr__( 'Decrease font size', 'fictioneer' );
+    $reset_label = esc_attr__( 'Reset font size', 'fictioneer' );
+    $increase_label = esc_attr__( 'Increase font size', 'fictioneer' );
+
 		// Start HTML ---> ?>
-    <button type="button" id="decrease-font" data-tooltip="<?php esc_attr_e( 'Decrease Font Size', 'fictioneer' ); ?>" data-modifier="-5" class="button _secondary tooltipped _align-left">
+    <button type="button" id="decrease-font" data-tooltip="<?php echo $decrease_label; ?>" data-modifier="-5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
       <?php fictioneer_icon( 'fa-minus' ); ?>
     </button>
-    <button type="reset" id="reset-font" data-tooltip="<?php esc_attr_e( 'Reset Font Size', 'fictioneer' ); ?>" class="button _secondary tooltipped">
+    <button type="reset" id="reset-font" data-tooltip="<?php echo $reset_label; ?>" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
       <?php fictioneer_icon( 'fa-square' ); ?>
     </button>
-    <button type="button" id="increase-font" data-tooltip="<?php esc_attr_e( 'Increase Font Size', 'fictioneer' ); ?>" data-modifier="5" class="button _secondary tooltipped">
+    <button type="button" id="increase-font" data-tooltip="<?php echo $increase_label; ?>" data-modifier="5" class="button _secondary tooltipped" aria-label="<?php echo $decrease_label; ?>">
       <?php fictioneer_icon( 'fa-plus' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -191,19 +195,19 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
   function fictioneer_chapter_nav_buttons( $args, $location ) {
 		// Start HTML ---> ?>
     <?php if ( $args['prev_index'] !== false ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo esc_attr( fictioneer_get_safe_title( $args['chapter_ids'][ $args['prev_index'] ] ) ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
     <?php endif; ?>
     <?php if ( $location === 'top' ) : ?>
-      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Bottom', 'fictioneer' ); ?>">
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to bottom', 'fictioneer' ); ?>">
         <a href="#bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
       </div>
     <?php else : ?>
-      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Top', 'fictioneer' ); ?>">
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to top', 'fictioneer' ); ?>">
         <a href="#" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
       </div>
     <?php endif; ?>
     <?php if ( $args['next_index'] ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo esc_attr( fictioneer_get_safe_title( $args['chapter_ids'][ $args['next_index'] ] ) ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
     <?php endif; ?>
 		<?php // <--- End HTML
   }
@@ -249,10 +253,10 @@ if ( ! function_exists( 'fictioneer_chapter_subscribe_button' ) ) {
 
 		if ( ! empty( $subscribe_buttons ) ) {
       // Start HTML ---> ?>
-      <div class="toggle-last-clicked button _secondary popup-menu-toggle">
+      <button type="button" class="toggle-last-clicked button _secondary popup-menu-toggle">
         <i class="fa-solid fa-bell"></i> <span class="hide-below-tablet"><?php echo fcntr( 'subscribe' ); ?></span>
         <div class="popup-menu _top _center"><?php echo $subscribe_buttons; ?></div>
-      </div>
+      </button>
       <?php // <--- End HTML
     }
   }
@@ -271,11 +275,15 @@ if ( ! function_exists( 'fictioneer_chapter_fullscreen_button' ) ) {
    */
 
   function fictioneer_chapter_fullscreen_buttons() {
+    // Setup
+    $open = esc_attr__( 'Open fullscreen', 'fictioneer' );
+    $close = esc_attr__( 'Exit fullscreen', 'fictioneer' );
+
 		// Start HTML ---> ?>
-    <button type="button" data-tooltip="<?php esc_attr_e( 'Open Fullscreen', 'fictioneer' ) ?>" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped">
+    <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
-    <button type="button" data-tooltip="<?php esc_attr_e( 'Exit Fullscreen', 'fictioneer' ) ?>" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped">
+    <button type="button" class="close-fullscreen button _secondary button--fullscreen show-on-fullscreen hide-on-iOS hidden tooltipped" data-tooltip="<?php echo $close; ?>" aria-label="<?php echo $close; ?>">
       <?php fictioneer_icon( 'collapse' ); ?>
     </button>
 		<?php // <--- End HTML

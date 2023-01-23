@@ -348,7 +348,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
     // Buffer and return
     ob_start();
     // Start HTML ---> ?>
-    <div class="fictioneer-mod-menu-toggle toggle-last-clicked hide-if-logged-out only-moderators"><i class="fa-solid fa-gear"></i></div>
+    <button type="button" class="fictioneer-mod-menu-toggle toggle-last-clicked hide-if-logged-out only-moderators"><i class="fa-solid fa-gear"></i></button>
     <div class="popup-menu hide-if-logged-out only-moderators">
       <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
         <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>

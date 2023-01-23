@@ -586,7 +586,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
     if ( $feed ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="https://feedly.com/i/subscription/feed/<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left">
+      <a href="https://feedly.com/i/subscription/feed/<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left" aria-label="<?php esc_attr_e( 'Follow on Feedly', 'fictioneer' ); ?>">
         <?php fictioneer_icon( 'feedly' ); ?> <span><?php _e( 'Follow on Feedly', 'fictioneer' ); ?></span>
       </a>
       <?php // <--- End HTML
@@ -594,7 +594,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 
       ob_start();
       // Start HTML ---> ?>
-      <a href="https://www.inoreader.com/?add_feed=<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left" >
+      <a href="https://www.inoreader.com/?add_feed=<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left" aria-label="<?php esc_attr_e( 'Follow on Inoreader', 'fictioneer' ); ?>">
         <?php fictioneer_icon( 'inoreader' ); ?> <span><?php _e( 'Follow on Inoreader', 'fictioneer' ); ?></span>
       </a>
       <?php // <--- End HTML

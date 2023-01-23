@@ -847,7 +847,8 @@ if ( ! function_exists( 'fictioneer_embed_consent_wrappers' ) ) {
 
       $iframe->removeAttribute('src');
 
-      $consent_element = $dom->createElement( 'div' );
+      $consent_element = $dom->createElement( 'button' );
+      $consent_element->setAttribute( 'type', 'button' );
       $consent_element->setAttribute( 'class', 'iframe-consent' );
       $consent_element->setAttribute( 'data-src', $src );
       $consent_element->nodeValue = sprintf(
