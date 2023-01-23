@@ -260,16 +260,23 @@ $header_breakpoint: 640px;
     }
 
     .chapter-group__list-item._collapse {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--fg-900);
-      line-height: 1.125;
-      padding: 1.125rem 0;
-      transition: color var(--transition-duration);
+      display: block;
+      content-visibility: visible;
+      padding: 0;
 
-      &:hover {
-        color: var(--fg-700);
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        content-visibility: visible;
+        color: var(--fg-900);
+        line-height: 1.125;
+        padding: 1.125rem 0;
+        transition: color var(--transition-duration);
+
+        &:hover {
+          color: var(--fg-700);
+        }
       }
     }
   }
@@ -565,7 +572,7 @@ $header_breakpoint: 640px;
   }
 
   &:checked {
-    + label {
+    + li._collapse {
       display: none !important;
       content-visibility: hidden;
     }

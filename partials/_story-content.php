@@ -252,10 +252,12 @@ $blog_posts = new WP_Query(
                 <?php $index++; ?>
 
                 <?php if ( $is_collapsed && $index == $above_collapse + 1 ) : ?>
-                  <input id="chapters-toggle-<?php echo $group_index; ?>" type="checkbox" hidden>
-                  <label for="chapters-toggle-<?php echo $group_index; ?>" class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>">
-                    <span><?php printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ) ?></span>
-                  </label>
+                  <input id="chapters-toggle-<?php echo $group_index; ?>" type="checkbox" autocomplete="off" hidden>
+                  <li class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>">
+                    <label for="chapters-toggle-<?php echo $group_index; ?>">
+                      <span><?php printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ) ?></span>
+                    </label>
+                  </li>
                   <?php $index++; ?>
                 <?php endif; ?>
 
