@@ -787,7 +787,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Enter Fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen">
+    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Open fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
 		<?php // <--- End HTML

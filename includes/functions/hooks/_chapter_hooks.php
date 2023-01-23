@@ -277,7 +277,7 @@ if ( ! function_exists( 'fictioneer_chapter_fullscreen_button' ) ) {
   function fictioneer_chapter_fullscreen_buttons() {
     // Setup
     $open = esc_attr__( 'Open fullscreen', 'fictioneer' );
-    $close = esc_attr__( 'Exit fullscreen', 'fictioneer' );
+    $close = esc_attr__( 'Close fullscreen', 'fictioneer' );
 
 		// Start HTML ---> ?>
     <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>">
