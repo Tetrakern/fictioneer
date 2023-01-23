@@ -204,8 +204,8 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
         $load_n = $remaining > $comments_per_page ? $comments_per_page : $remaining;
 
         // Start HTML ---> ?>
-        <button onclick="fcn_loadStoryComments()" class="load-more-comments-button">
-          <?php
+        <li class="load-more-list-item">
+          <button onclick="fcn_loadStoryComments()" class="load-more-comments-button"><?php
             printf(
               _n(
                 'Load next comment (may contain spoilers)',
@@ -215,8 +215,8 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
               ),
               $load_n
             );
-          ?>
-        </button>
+          ?></button>
+        </li>
         <div class="comments-loading-placeholder hidden"><i class="fas fa-spinner spinner"></i></div>
         <?php // <--- End HTML
       }

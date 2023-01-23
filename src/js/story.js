@@ -19,7 +19,7 @@ function fcn_loadStoryComments() {
   let errorNote;
 
   // Prepare view
-  _$('.load-more-comments-button').remove();
+  _$('.load-more-list-item').remove();
   _$('.comments-loading-placeholder').classList.remove('hidden');
 
   // Payload

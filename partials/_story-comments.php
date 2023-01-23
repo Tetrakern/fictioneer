@@ -50,19 +50,21 @@ $hook_args = array(
 
     <div class="fictioneer-comments__list">
       <ul>
-        <button onclick="fcn_loadStoryComments()" class="load-more-comments-button"><?php
-          $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ? $story['comment_count'] : get_option( 'comments_per_page' );
+        <li class="load-more-list-item">
+          <button onclick="fcn_loadStoryComments()" class="load-more-comments-button"><?php
+            $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ? $story['comment_count'] : get_option( 'comments_per_page' );
 
-          printf(
-            _n(
-              'Load latest comment (may contain spoilers)',
-              'Load latest %s comments (may contain spoilers)',
-              $load_n,
-              'fictioneer'
-            ),
-            $load_n
-          );
-        ?></button>
+            printf(
+              _n(
+                'Load latest comment (may contain spoilers)',
+                'Load latest %s comments (may contain spoilers)',
+                $load_n,
+                'fictioneer'
+              ),
+              $load_n
+            );
+          ?></button>
+        </li>
         <div class="comments-loading-placeholder hidden"><i class="fa-solid fa-spinner spinner"></i></div>
       </ul>
     </div>
