@@ -758,10 +758,10 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__chapter-list show-below-desktop">
+    <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__chapter-list show-below-desktop" tabindex="-1">
       <i class="fa-solid fa-list"></i>
     </label>
-    <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>#tabs" class="hide-below-desktop">
+    <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>#tabs" class="hide-below-desktop" tabindex="-1">
       <i class="fa-solid fa-list"></i>
     </a>
 		<?php // <--- End HTML
@@ -770,7 +770,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     if ( $args['story_post'] ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>">
+      <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>" tabindex="-1">
         <i class="fa-solid fa-book"></i>
       </a>
       <?php // <--- End HTML
@@ -779,7 +779,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <label for="modal-formatting-toggle" class="micro-menu__modal-formatting">
+    <label for="modal-formatting-toggle" class="micro-menu__modal-formatting" tabindex="-1">
       <?php fictioneer_icon( 'font-settings' ); ?>
     </label>
 		<?php // <--- End HTML
@@ -787,7 +787,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Open fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen">
+    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Open fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -795,7 +795,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" onclick="fcn_closeFullscreen()" title="<?php esc_attr_e( 'Exit Fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen hide-on-iOS show-on-fullscreen hidden">
+    <button type="button" onclick="fcn_closeFullscreen()" title="<?php esc_attr_e( 'Close fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
       <?php fictioneer_icon( 'collapse' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -803,7 +803,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" title="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="micro-menu__bookmark button--bookmark hidden">
+    <button type="button" title="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="micro-menu__bookmark button--bookmark hidden" tabindex="-1">
       <i class="fa-solid fa-bookmark"></i>
     </button>
 		<?php // <--- End HTML
@@ -812,7 +812,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     if ( $args['prev_index'] !== false ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="micro-menu__previous previous">
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="micro-menu__previous previous" tabindex="-1">
         <i class="fa-solid fa-caret-left"></i>
       </a>
       <?php // <--- End HTML
@@ -821,14 +821,14 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <a href="#" class="micro-menu__up up"><i class="fa-solid fa-caret-up"></i></a>
+    <a href="#" class="micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
 		<?php // <--- End HTML
 		$micro_menu['top'] = ob_get_clean();
 
     if ( $args['next_index'] ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="micro-menu__next next">
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="micro-menu__next next" tabindex="-1">
         <i class="fa-solid fa-caret-right"></i>
       </a>
       <?php // <--- End HTML
