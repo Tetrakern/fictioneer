@@ -17,6 +17,7 @@
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
 $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
+$label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 
 // Password?
 if ( post_password_required() ) {
@@ -27,7 +28,7 @@ if (
   ! get_option( 'fictioneer_show_full_post_content' ) &&
   ! strpos( $post->post_content, '<!--more-->' )
 ) {
-  $content = '<p>' . fictioneer_get_excerpt() . '</p><a class="more-link" href="' . get_permalink() . '" aria-label="' . esc_attr( sprintf( _x( 'Read more about: %s', 'Read more link aria label', 'fictioneer' ), $title ) ) . '">' . fcntr( 'read_more' ) . '</a>';
+  $content = '<p>' . fictioneer_get_excerpt() . '</p><a class="more-link" href="' . get_permalink() . '" title="' . $label . '" aria-label="' . $label . '">' . fcntr( 'read_more' ) . '</a>';
 }
 
 ?>
