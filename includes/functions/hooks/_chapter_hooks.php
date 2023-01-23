@@ -195,7 +195,7 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
   function fictioneer_chapter_nav_buttons( $args, $location ) {
 		// Start HTML ---> ?>
     <?php if ( $args['prev_index'] !== false ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo esc_attr( fictioneer_get_safe_title( $args['chapter_ids'][ $args['prev_index'] ] ) ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
     <?php endif; ?>
     <?php if ( $location === 'top' ) : ?>
       <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to bottom', 'fictioneer' ); ?>">
@@ -207,7 +207,7 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
       </div>
     <?php endif; ?>
     <?php if ( $args['next_index'] ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo esc_attr( fictioneer_get_safe_title( $args['chapter_ids'][ $args['next_index'] ] ) ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
     <?php endif; ?>
 		<?php // <--- End HTML
   }
