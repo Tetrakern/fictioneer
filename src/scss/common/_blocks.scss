@@ -337,10 +337,10 @@ figure {
 
     > iframe {
       border-radius: var(--layout-border-radius-small) !important;
+      transition-delay: .3s;
 
       &:not([src]) {
         background: var(--disabled-embed-background);
-        border: 1px dashed var(--input-border-color);
         box-shadow: var(--embed-box-shadow);
       }
 
