@@ -141,7 +141,7 @@
         text-indent: 1.5rem;
       }
 
-      * {
+      :is(kbd, code, table, ul, ol, form, del, ins, mark, input, select, button, embed, iframe, sub, sup) {
         text-indent: 0;
       }
     }
