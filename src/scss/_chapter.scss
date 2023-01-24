@@ -140,6 +140,10 @@
       &:not(:first-of-type, .has-text-align-center, [class*=wp-block-]) {
         text-indent: 1.5rem;
       }
+
+      * {
+        text-indent: 0;
+      }
     }
 
     .chapter-formatting {
