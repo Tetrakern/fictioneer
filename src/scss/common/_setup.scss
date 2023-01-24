@@ -13,8 +13,9 @@ html:is(:root) {
   outline: none;
 }
 
-*:not(input, textarea, .wp-block-file a, .button-unset-oauth):focus-visible,
+*:not(input, textarea, select, .wp-block-file a, .button-unset-oauth):focus-visible,
 input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
+.user-is-tabbing select:focus-visible,
 .button:focus-visible,
 .oauth-login-link button:focus-visible,
 .story__thumbnail a:focus-visible img,

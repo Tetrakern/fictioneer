@@ -1667,3 +1667,39 @@ _$$('.search-form').forEach(form => {
     );
   });
 });
+
+// =============================================================================
+// DETECT KEYBOARD USER (UNNECESSARILY COMPLICATED EDITION)
+// =============================================================================
+
+/**
+ * Listen for tab key to add 'user-is-tabbing' class.
+ *
+ * @since 5.0.4
+ * @param {Event} e - The event.
+ */
+
+function fcn_handleTabInput(e) {
+  if (e.keyCode == 9) {
+    document.body.classList.add('user-is-tabbing');
+
+    window.removeEventListener('keydown', fcn_handleTabInput);
+    window.addEventListener('mousedown', fcn_handleMouseInput);
+  }
+}
+
+/**
+ * Listen for mouse click to remove 'user-is-tabbing' class.
+ *
+ * @since 5.0.4
+ */
+
+function fcn_handleMouseInput() {
+  document.body.classList.remove('user-is-tabbing');
+
+  window.removeEventListener('mousedown', fcn_handleMouseInput);
+  window.addEventListener('keydown', fcn_handleTabInput);
+}
+
+// Initialize
+window.addEventListener('keydown', fcn_handleTabInput);
