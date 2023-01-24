@@ -1308,21 +1308,21 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
  * Make elements with tabIndex 0 accessible with keyboard.
  */
 
-fcn_theBody.querySelectorAll('[tabindex="0"]:not(a, input, button, select)').forEach(element => {
-  element.addEventListener(
-    'keydown',
-    e => {
-      // Only for actions on focused element
-      if (e.currentTarget != document.activeElement) return;
+fcn_theBody.addEventListener(
+  'keydown',
+  e => {
+    let validFocus = document.activeElement.closest('[tabindex="0"]:not(a, input, button, select)');
 
-      // When pressing space or enter
-      if (e.keyCode == 32 || e.keyCode == 13) {
-        e.preventDefault();
-        e.currentTarget.click();
-      }
+    // Only for actions on valid focused element
+    if (!validFocus) return;
+
+    // When pressing space or enter
+    if (e.keyCode == 32 || e.keyCode == 13) {
+      e.preventDefault();
+      validFocus.click();
     }
-  );
-});
+  }
+);
 
 // =============================================================================
 // KEYWORD INPUTS
