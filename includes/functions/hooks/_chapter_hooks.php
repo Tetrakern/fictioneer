@@ -127,7 +127,7 @@ if ( ! function_exists( 'fictioneer_chapter_warnings' ) ) {
           printf(
             _x( 'Warning: %1$s! — You can hide <em>marked</em> sensitive content %2$s or with the %3$s toggle in the %4$s formatting menu. If provided, <em>alternative</em> content will be displayed instead.', 'Chapter warning (1) with sensitive content toggle (2) and icons (3-4).', 'fictioneer' ),
             $warning,
-            '<label id="inline-sensitive-content-toggle" for="reader-settings-sensitive-content-toggle" tabindex="0" aria-role="checkbox" aria-label="' . esc_attr__( 'Toggle sensitive content', 'fictioneer' ) . '"><i class="fa-solid off fa-toggle-on"></i><i class="fa-solid on fa-toggle-off"></i> <span>' . _x( 'by clicking here', ' As in hide sensitive content by clicking here.', 'fictioneer' ) . '</span></label>',
+            '<label id="inline-sensitive-content-toggle" for="reader-settings-sensitive-content-toggle" tabindex="0" role="checkbox" aria-label="' . esc_attr__( 'Toggle sensitive content', 'fictioneer' ) . '"><i class="fa-solid off fa-toggle-on"></i><i class="fa-solid on fa-toggle-off"></i> <span>' . _x( 'by clicking here', ' As in hide sensitive content by clicking here.', 'fictioneer' ) . '</span></label>',
             '<i class="fa-solid fa-exclamation-circle"></i>',
             fictioneer_get_icon( 'font-settings' )
           );
@@ -228,7 +228,7 @@ if ( ! function_exists( 'fictioneer_chapter_formatting_button' ) ) {
 
   function fictioneer_chapter_formatting_button() {
 		// Start HTML ---> ?>
-    <label class="button _secondary open" for="modal-formatting-toggle" tabindex="0" aria-role="button" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
+    <label class="button _secondary open" for="modal-formatting-toggle" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'font-settings' ); ?>
       <span class="hide-below-tablet"><?php echo fcntr( 'formatting' ); ?></span>
     </label>
@@ -253,7 +253,7 @@ if ( ! function_exists( 'fictioneer_chapter_subscribe_button' ) ) {
 
 		if ( ! empty( $subscribe_buttons ) ) {
       // Start HTML ---> ?>
-      <div class="toggle-last-clicked button _secondary popup-menu-toggle" tabindex="0" aria-role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
+      <div class="toggle-last-clicked button _secondary popup-menu-toggle" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
         <i class="fa-solid fa-bell"></i> <span class="hide-below-tablet"><?php echo fcntr( 'subscribe' ); ?></span>
         <div class="popup-menu _top _center"><?php echo $subscribe_buttons; ?></div>
       </div>

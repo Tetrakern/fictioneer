@@ -642,7 +642,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     if ( ! empty( $subscribe_buttons ) ) {
       ob_start();
       // Start HTML ---> ?>
-      <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" aria-role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
+      <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
         <div><i class="fa-solid fa-bell"></i> <span><?php echo fcntr( 'subscribe' ); ?></span></div>
         <div class="popup-menu _bottom _center"><?php echo $subscribe_buttons; ?></div>
       </div>

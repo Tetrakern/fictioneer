@@ -239,7 +239,7 @@ $blog_posts = new WP_Query(
 
             <?php if ( $has_groups ) : ?>
               <input id="group-toggle-<?php echo $group_index; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-              <label class="chapter-group__label" for="group-toggle-<?php echo $group_index; ?>" tabindex="0" aria-role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+              <label class="chapter-group__label" for="group-toggle-<?php echo $group_index; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
                 <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
                 <span><?php echo $group['group']; ?></span>
               </label>
@@ -310,7 +310,7 @@ $blog_posts = new WP_Query(
 
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
                     <div class="chapter-group__list-item-right">
-                      <button class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $story_id; ?>" data-id="<?php echo $chapter['id']; ?>"><i class="fa-solid fa-check"></i></button>
+                      <button class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $story_id; ?>" data-id="<?php echo $chapter['id']; ?>" role="checkbox" aria-checked="false"><i class="fa-solid fa-check"></i></button>
                     </div>
                   <?php endif; ?>
 

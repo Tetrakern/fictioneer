@@ -628,7 +628,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     <?php if ( $heading ) : ?>
       <?php $discriminator = md5( $heading . microtime() ); ?>
       <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" aria-role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
       </label>
@@ -703,7 +703,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
               <div class="chapter-group__list-item-right">
-                <button class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $chapter_story_id; ?>" data-id="<?php echo $post_id; ?>"><i class="fa-solid fa-check"></i></button>
+                <button class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $chapter_story_id; ?>" data-id="<?php echo $post_id; ?>" role="checkbox" aria-checked="false"><i class="fa-solid fa-check"></i></button>
               </div>
             <?php endif; ?>
           </li>
