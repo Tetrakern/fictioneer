@@ -230,6 +230,9 @@ function fcn_toggleFollow(storyId) {
  */
 
 function fcn_setupFollowsHTML() {
+  // Abort if already loaded
+  if (fcn_followsMenuItem.classList.contains('_loaded')) return;
+
   // Payload
   let payload = {
     'action': 'fictioneer_ajax_get_follows_notifications'
@@ -304,6 +307,11 @@ function fcn_markFollowsRead() {
 
 // Listen for hover over the Follows navigation item to load Follows
 fcn_followsMenuItem?.addEventListener('mouseover', () => {
+  fcn_setupFollowsHTML();
+}, { once: true });
+
+// Listen to focus on the Follows navigation item to load Follows
+fcn_followsMenuItem?.addEventListener('focus', () => {
   fcn_setupFollowsHTML();
 }, { once: true });
 
