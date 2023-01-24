@@ -253,7 +253,7 @@ $blog_posts = new WP_Query(
                   <input id="chapters-toggle-<?php echo $group_index; ?>" type="checkbox" autocomplete="off" hidden>
                   <li class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>">
                     <label for="chapters-toggle-<?php echo $group_index; ?>" tabindex="0">
-                      <span><?php echo printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ); ?></span>
+                      <span><?php printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ); ?></span>
                     </label>
                   </li>
                   <?php $index++; ?>
