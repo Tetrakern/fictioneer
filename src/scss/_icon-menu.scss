@@ -17,7 +17,8 @@
   &__menu {
     position: relative;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       .follow-menu-item {
         &:not(._loaded) {
           .fa-spinner {
