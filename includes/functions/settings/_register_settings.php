@@ -710,8 +710,8 @@ define( 'FICTIONEER_OPTIONS', array(
 			'group' => 'fictioneer-settings-phrases-group',
 			'sanitize_callback' => 'fictioneer_validate_phrase_cookie_consent_banner',
       'label' => __( 'Cookie Consent Banner', 'fictioneer' ),
-      'default' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank">Privacy Policy</a>.', 'fictioneer' ),
-			'placeholder' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank">Privacy Policy</a>.', 'fictioneer' )
+      'default' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' ),
+			'placeholder' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' )
     ),
     'fictioneer_phrase_comment_reply_notification' => array(
       'name' => 'fictioneer_phrase_comment_reply_notification',
@@ -993,11 +993,24 @@ function fictioneer_validate_email_address( $input ) {
  */
 
 function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
-	$default = _x( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank">Privacy Policy</a>.', 'Cookie consent banner content default.', 'fictioneer' );
+  // Setup
+  global $allowedtags;
+	$default = __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' );
 
+  // Return default if input is empty
 	if ( ! is_string( $input ) ) return $default;
 
-	return strlen( $input ) < 32 ? $default : wp_kses_post( $input );
+  // Temporarily allow tabindex attribute
+  $allowedtags['a']['tabindex'] = [];
+
+  // Apply KSES
+  $output = wp_kses( stripslashes_deep( $input ), $allowedtags );
+
+  // Disallow tabindex attribute
+  unset( $allowedtags['a']['tabindex'] );
+
+	// Return
+  return strlen( $input ) < 32 ? $default : $output;
 }
 
 ?>

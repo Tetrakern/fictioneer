@@ -76,7 +76,7 @@ $pagenum = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
     						<div class="overflow-horizontal">
                   <div class="textarea row">
                     <?php
-                      $default = esc_html( __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank">Privacy Policy</a>.', 'fictioneer' ) );
+                      $default = esc_html( __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' ) );
                     ?>
                     <textarea name="fictioneer_phrase_cookie_consent_banner" id="fictioneer_phrase_cookie_consent_banner" rows="4" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_cookie_consent_banner' ) ); ?></textarea>
                     <p class="sub-label"><?php _e( 'HTML allowed. <code>[[privacy_policy_url]]</code>', 'fictioneer' ) ?></p>
