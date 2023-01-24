@@ -156,6 +156,7 @@ class FCN_Suggestion {
     instance.clearSelection();
     instance.hideTools();
     instance.resizeInput();
+    instance.input.focus();
   }
 
   editSuggestion(instance) {
