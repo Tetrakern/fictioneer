@@ -64,13 +64,13 @@ _$$$('mobile-menu-toggle')?.addEventListener('change', (e) => {
 });
 
 // Listen for click on the site to close mobile menu
-fcn_theSite.onclick = (e) => {
+fcn_theSite.addEventListener('click', e => {
   if (fcn_theBody.classList.contains('mobile-menu-open')) {
     e.preventDefault();
     fcn_mobileMenuToggle.checked = false;
     fcn_toggleMobileMenu(false);
   }
-}
+});
 
 // Listen for click on mobile menu toggle to append the chapters, once
 _$('[for=mobile-menu-toggle]')?.addEventListener('click', (e) => {
