@@ -1305,6 +1305,8 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
         let modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
         modalElement?.focus();
         modalElement?.blur();
+      } else {
+        fcn_theSite.querySelector(`label[for="${e.currentTarget.id}"]`)?.focus();
       }
     }
   );
@@ -1334,7 +1336,10 @@ fcn_theBody.addEventListener(
     // Escape
     if (e.keyCode == 27) {
       // Uncheck all modal control checkboxes
-      fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
+      fcn_theBody.querySelectorAll('.modal-toggle:checked').forEach(element => {
+        let modalLabel = fcn_theSite.querySelector(`label[for="${element.id}"]`);
+        modalLabel?.focus();
+        modalLabel?.blur();
         element.checked = false;
       });
     }
