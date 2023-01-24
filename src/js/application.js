@@ -1311,15 +1311,22 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
 fcn_theBody.addEventListener(
   'keydown',
   e => {
-    let validFocus = document.activeElement.closest('[tabindex="0"]:not(a, input, button, select)');
+    let tabFocus = document.activeElement.closest('[tabindex="0"]:not(a, input, button, select)');
 
-    // Only for actions on valid focused element
-    if (!validFocus) return;
+    // When pressing space or enter on a focused element
+    if (tabFocus) {
+      if (e.keyCode == 32 || e.keyCode == 13) {
+        e.preventDefault();
+        tabFocus.click();
+      }
+    }
 
-    // When pressing space or enter
-    if (e.keyCode == 32 || e.keyCode == 13) {
-      e.preventDefault();
-      validFocus.click();
+    // Escape
+    if (e.keyCode == 27) {
+      // Uncheck all modal control checkboxes
+      fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
+        element.checked = false;
+      });
     }
   }
 );

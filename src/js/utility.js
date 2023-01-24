@@ -420,7 +420,7 @@ _$$('.toggle-last-clicked').forEach(element => {
 // Listen for click on the <body>
 _$('body').addEventListener(
   'click',
-  (e) => {
+  e => {
     if (
       e.currentTarget.classList.contains('escape-last-click') ||
       e.target.closest('.escape-last-click') !== null
@@ -429,6 +429,18 @@ _$('body').addEventListener(
     if (fcn_lastClicked && e.currentTarget != fcn_lastClicked) {
       fcn_lastClicked.classList.remove('last-clicked');
       fcn_lastClicked = null;
+    }
+  }
+);
+
+// Listen for escape key
+_$('body').addEventListener(
+  'keydown',
+  e => {
+    if (e.keyCode == 27 && fcn_lastClicked) {
+      fcn_lastClicked.classList.remove('last-clicked');
+      fcn_lastClicked = null;
+      document.activeElement?.blur();
     }
   }
 );
