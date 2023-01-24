@@ -96,6 +96,7 @@
     margin: 2rem 0;
 
     .oauth-login-link {
+      --focus-offset: -2px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -116,7 +117,7 @@
       transition-duration: var(--transition-duration);
 
       @include bp(desktop) {
-        &:not(:hover) {
+        &:not(:hover, :focus-within) {
           label {
             opacity: 0;
           }

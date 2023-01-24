@@ -11,7 +11,9 @@
 <div id="login-modal" class="login modal">
   <label for="modal-login-toggle" class="background-close"></label>
   <div class="modal__wrapper">
-    <label class="close" for="modal-login-toggle"><?php fictioneer_icon( 'fa-xmark' ); ?></label>
+    <label class="close" for="modal-login-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
+      <?php fictioneer_icon( 'fa-xmark' ); ?>
+    </label>
     <h4 class="modal__header drag-anchor"><?php echo fcntr( 'login_modal' ); ?></h4>
 
     <?php

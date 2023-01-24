@@ -75,7 +75,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comments will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
             <h3 class="card__title _small"><?php _e( 'Comments', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
@@ -90,6 +89,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               ?>
             </div>
           </div>
+          <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comments will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -98,7 +98,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comment subscriptions will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
             <h3 class="card__title _small"><?php _e( 'Comment Subscriptions', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
@@ -112,6 +111,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               ?>
             </div>
           </div>
+          <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comment subscriptions will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -121,9 +121,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <?php if ( $follows_count > 0 ) : ?>
-              <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Follows will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
-            <?php endif; ?>
             <h3 class="card__title _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'follows', $bookshelf_link ) . '#tabs'; ?>"><?php echo fcntr( 'follows' ); ?></a><?php
@@ -144,6 +141,9 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               ?>
             </div>
           </div>
+          <?php if ( $follows_count > 0 ) : ?>
+            <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Follows will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <?php endif; ?>
         </div>
       </li>
     <?php endif; ?>
@@ -153,9 +153,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <?php if ( $reminders_count > 0 ) : ?>
-              <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
-            <?php endif; ?>
             <h3 class="card__title _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'reminders', $bookshelf_link ) . '#tabs'; ?>"><?php echo fcntr( 'reminders' ); ?></a><?php
@@ -176,6 +173,9 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               ?>
             </div>
           </div>
+          <?php if ( $reminders_count > 0 ) : ?>
+            <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <?php endif; ?>
         </div>
       </li>
     <?php endif; ?>
@@ -188,9 +188,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <?php if ( $stories_count > 0 || $chapters_count > 0 ) : ?>
-              <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Checkmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
-            <?php endif; ?>
             <h3 class="card__title _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'finished', $bookshelf_link ) . '#tabs'; ?>"><?php _e( 'Checkmarks', 'fictioneer' ); ?></a><?php
@@ -213,6 +210,9 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               ?>
             </div>
           </div>
+          <?php if ( $stories_count > 0 || $chapters_count > 0 ) : ?>
+            <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Checkmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <?php endif; ?>
         </div>
       </li>
     <?php endif; ?>
@@ -221,7 +221,6 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <button class="card__delete button-clear-bookmarks" data-warning="<?php esc_attr_e( 'Are you sure? Bookmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
             <h3 class="card__title _small"><?php
               if ( $bookmarks_link ) {
                 ?><a href="<?php echo $bookmarks_link; ?>"><?php echo fcntr( 'bookmarks' ); ?></a><?php
@@ -235,6 +234,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
               <?php _e( 'You have currently <b>%s bookmark(s)</b> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
             </div>
           </div>
+          <button class="card__delete button-clear-bookmarks" data-warning="<?php esc_attr_e( 'Are you sure? Bookmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>

@@ -11,7 +11,7 @@
 <div id="sharing-modal" class="sharing modal">
   <label for="modal-sharing-toggle" class="background-close"></label>
   <div class="modal__wrapper">
-    <label class="close" for="modal-sharing-toggle">
+    <label class="close" for="modal-sharing-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
     <h4 class="modal__header drag-anchor"><?php _ex( 'Share', 'Share modal heading.', 'fictioneer' ); ?></h4>

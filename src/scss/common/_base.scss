@@ -172,14 +172,21 @@ button[type=submit] {
 }
 
 .button {
-  --focus-offset: 2px;
+  --focus-offset: -2px;
   @extend %button;
 
+  &:focus-visible {
+    box-shadow: var(--focus-box-shadow);
+  }
+
   &._secondary {
-    --focus-offset: -2px;
     background: var(--button-secondary-background);
     color: var(--button-secondary-text);
     border: var(--button-secondary-border);
+
+    &:focus-visible {
+      box-shadow: var(--focus-box-shadow-small);
+    }
 
     &:not(.current, [disabled]):hover {
       color: var(--button-secondary-text-hover);
@@ -285,6 +292,10 @@ button[type=submit] {
     text-shadow: none;
     width: fit-content;
     contain: layout paint style; // Improve performance
+
+    &:focus-visible {
+      box-shadow: var(--focus-box-shadow);
+    }
   }
 
   &:not(._inline):hover {
@@ -598,6 +609,7 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       &-link {
+        --focus-offset: 1px;
         grid-area: 1 / 2 / 2 / 3;
         font-size: get_clamp(13, 14, 320, 768);
         line-height: 1.3;

@@ -88,6 +88,10 @@
   --litrpg-ins: #16c79a;
   --litrpg-del: #be123c;
 
+  // === FOCUS =================================================================
+  --focus-box-shadow: inset 0 0 0px 3px rgb(255 255 255 / 75%);
+  --focus-box-shadow-small: inset 0 0 0px 2px rgb(255 255 255 / 75%);
+
   // === ELEVATIONS ============================================================
   --e-body: var(--bg-300);
   --e-fullscreen: var(--e-1);

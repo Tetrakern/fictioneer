@@ -14,7 +14,7 @@
 
   <div class="modal__wrapper suggestions__wrapper">
 
-    <label class="close" for="modal-suggestions-toggle">
+    <label class="close" for="modal-suggestions-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
 

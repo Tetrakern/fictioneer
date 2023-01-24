@@ -257,11 +257,11 @@ if (fcn_paragraphTools) {
 }
 
 // =============================================================================
-// OPEN FULLSCREEN
+// ENTER FULLSCREEN
 // =============================================================================
 
 /**
- * Open fullscreen mode.
+ * Enter fullscreen mode.
  *
  * @since 4.2
  */
@@ -275,7 +275,7 @@ function fcn_openFullscreen() {
   }
 }
 
-// Listen for click to open fullscreen
+// Listen for click to enter fullscreen mode
 _$$('.open-fullscreen').forEach(element => {
   element.addEventListener(
     'click',

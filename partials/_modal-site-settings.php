@@ -11,7 +11,7 @@
 <div id="site-settings-modal" class="site-settings modal">
   <label for="modal-site-settings-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">
-    <label class="close" for="modal-site-settings-toggle">
+    <label class="close" for="modal-site-settings-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
     <h4 class="modal__header drag-anchor"><?php echo fcntr( 'site_settings' ) ?></h4>

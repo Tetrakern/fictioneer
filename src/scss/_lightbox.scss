@@ -15,13 +15,15 @@
   }
 
   &__close {
+    --focus-offset: -12px;
+    --focus-border-radius: 16px;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -0.5rem;
+    right: -0.5rem;
     color: #ccc;
     font-size: 1.5rem;
     line-height: 1;
-    padding: .5rem 1rem 1rem 1.5rem;
+    padding: 1rem 1.5rem 1.25rem;
   }
 
   img {

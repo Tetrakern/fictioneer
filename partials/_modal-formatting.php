@@ -11,7 +11,7 @@
 <div id="reader-settings" class="reader-settings modal">
   <label for="modal-formatting-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">
-    <label class="close" for="modal-formatting-toggle">
+    <label class="close" for="modal-formatting-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
     <h4 class="modal__header drag-anchor"><?php echo fcntr( 'formatting_modal' ); ?></h4>
@@ -116,31 +116,31 @@
     <div class="modal__row reader-settings__row">
       <i class="fa-solid fa-check" title="<?php esc_attr_e( 'Toggles', 'fictioneer' ); ?>"></i>
       <div class="reader-settings__toggles">
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Indent', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-indent-toggle" hidden checked>
           <span><i class="fa-solid fa-indent"></i></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Justify', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-justify-toggle" hidden>
           <span><i class="fa-solid fa-align-justify"></i></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Light Mode', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-lightmode-toggle" class="toggle-light-mode" hidden>
           <span><i class="fa-solid fa-sun"></i></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Paragraph Tools', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-paragraph-tools-toggle" hidden checked>
           <span><i class="fa-solid fa-marker"></i></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Chapter Notes', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-chapter-notes-toggle" hidden checked>
           <span><?php fictioneer_icon( 'note-filled' ); ?></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Comments', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-comments-toggle" hidden checked>
           <span><i class="fa-solid fa-comments"></i></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle Sensitive Content', 'fictioneer' ); ?>">
+        <label class="toggle" title="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>" tabindex="0" aria-role="checkbox" aria-label="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-sensitive-content-toggle" hidden checked>
           <span><i class="fa-solid fa-exclamation"></i></span>
         </label>

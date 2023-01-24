@@ -80,6 +80,9 @@
   }
 
   .toggle {
+    --focus-offset: 2px;
+    --focus-border-radius: 50%;
+
     input {
       &:checked + span {
         background: var(--toggle-background-checked);

@@ -1279,7 +1279,29 @@ _$$('.contact-form').forEach(element => {
 });
 
 // =============================================================================
-// KEYBOARD INPUT
+// MODALS
+// =============================================================================
+
+/*
+ * Set focus onto modal when opened.
+ */
+
+fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
+  element.addEventListener(
+    'change',
+    e => {
+      // Set current tabIndex into modal container
+      if (e.currentTarget.checked) {
+        let modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
+        modalElement?.focus();
+        modalElement?.blur();
+      }
+    }
+  );
+});
+
+// =============================================================================
+// KEYBOARD INPUTS
 // =============================================================================
 
 /*
@@ -1487,8 +1509,8 @@ class FCN_KeywordInput {
       e => {
         // Enter/Tab
         if (e.keyCode == 9 || e.keyCode == 13) {
-          e.preventDefault(); // Prevent tab navigation and submit
           if (this.tabSuggestion.innerText != '') {
+            e.preventDefault(); // Prevent tab navigation and submit
             this.input.value = this.tabSuggestion.innerText;
             this.addNode();
           }

@@ -86,6 +86,8 @@
   }
 
   &__delete {
+    --focus-offset: -8px;
+    --focus-border-radius: 8px;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -99,7 +101,8 @@
     opacity: .3;
     transition: opacity var(--transition-duration);
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       opacity: 1;
     }
 
@@ -417,6 +420,8 @@
   }
 
   &__info-toggle {
+    --focus-offset: -8px;
+    --focus-border-radius: 8px;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -430,7 +435,8 @@
     opacity: .3;
     transition: opacity var(--transition-duration);
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       opacity: 1;
     }
 
@@ -438,7 +444,7 @@
       display: none;
 
       + .card__main {
-        opacity: 0;
+        visibility: hidden;
       }
 
       ~ .card__overlay-infobox {

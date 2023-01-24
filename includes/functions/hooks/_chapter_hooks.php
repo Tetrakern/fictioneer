@@ -228,7 +228,7 @@ if ( ! function_exists( 'fictioneer_chapter_formatting_button' ) ) {
 
   function fictioneer_chapter_formatting_button() {
 		// Start HTML ---> ?>
-    <label class="button _secondary open" for="modal-formatting-toggle">
+    <label class="button _secondary open" for="modal-formatting-toggle" tabindex="0" aria-role="button" aria-label="<?php esc_attr_e( 'Open chapter formatting modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'font-settings' ); ?>
       <span class="hide-below-tablet"><?php echo fcntr( 'formatting' ); ?></span>
     </label>
@@ -276,8 +276,8 @@ if ( ! function_exists( 'fictioneer_chapter_fullscreen_button' ) ) {
 
   function fictioneer_chapter_fullscreen_buttons() {
     // Setup
-    $open = esc_attr__( 'Open fullscreen', 'fictioneer' );
-    $close = esc_attr__( 'Close fullscreen', 'fictioneer' );
+    $open = esc_attr__( 'Enter fullscreen', 'fictioneer' );
+    $close = esc_attr__( 'Exit fullscreen', 'fictioneer' );
 
 		// Start HTML ---> ?>
     <button type="button" class="open-fullscreen button _secondary button--fullscreen hide-on-fullscreen hide-on-iOS tooltipped" data-tooltip="<?php echo $open; ?>" aria-label="<?php echo $open; ?>">

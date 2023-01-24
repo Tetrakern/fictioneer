@@ -26,6 +26,10 @@
       color: var(--tab-text-hover);
     }
 
+    &:focus-visible {
+      box-shadow: var(--focus-box-shadow);
+    }
+
     &._current {
       background: var(--tab-background-active);
       color: var(--tab-text-active);

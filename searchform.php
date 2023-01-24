@@ -85,13 +85,29 @@ if ( ! $skip_author_keywords ) {
 	<?php endif; ?>
 
 	<div class="search-form__bar">
-		<input type="search" class="search-form__string" placeholder="<?php echo esc_attr( $placeholder ); ?>" value="<?php echo trim( get_search_query() ); ?>" name="s" spellcheck="false" autocomplete="off" autocorrect="off">
+
+		<input
+			type="search"
+			class="search-form__string"
+			placeholder="<?php echo esc_attr( $placeholder ); ?>"
+			value="<?php echo trim( get_search_query() ); ?>"
+			name="s"
+			spellcheck="false"
+			autocomplete="off"
+			autocorrect="off"
+		>
+
 		<div class="search-form__bar-actions">
 			<?php if ( $show_advanced ) : ?>
-				<label for="<?php echo $toggle_id; ?>" class="search-form__advanced-toggle"><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></label>
+				<label
+					for="<?php echo $toggle_id; ?>"
+					class="search-form__advanced-toggle"
+					tabindex="0"
+				><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></label>
 			<?php endif; ?>
 			<button type="submit" class="search-form__submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
+
 	</div>
 
 	<?php if ( $show_advanced ) : ?>
@@ -99,7 +115,11 @@ if ( ! $skip_author_keywords ) {
 		<div class="search-form__current">
 			<?php if ( $is_advanced_search && ! $cache_mode ) : ?>
 
-				<button type="button" class="reset" data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ) ?>"><?php _ex( 'Reset', 'Advanced search reset button.', 'fictioneer' ); ?></button>
+				<button
+					type="button"
+					class="reset"
+					data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ) ?>"
+				><?php _ex( 'Reset', 'Advanced search reset button.', 'fictioneer' ); ?></button>
 
 				<span class="search-form__current-type"><?php
 					$translations = array(

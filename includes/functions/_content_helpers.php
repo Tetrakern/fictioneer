@@ -787,7 +787,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Open fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
+    <button type="button" onclick="fcn_openFullscreen()" title="<?php esc_attr_e( 'Enter fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -795,7 +795,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" onclick="fcn_closeFullscreen()" title="<?php esc_attr_e( 'Close fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
+    <button type="button" onclick="fcn_closeFullscreen()" title="<?php esc_attr_e( 'Exit fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
       <?php fictioneer_icon( 'collapse' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -1074,7 +1074,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     ob_start();
     // Start HTML ---> ?>
     <li class="menu-item">
-      <label for="modal-site-settings-toggle"><?php echo fcntr( 'site_settings' ); ?></label>
+      <label for="modal-site-settings-toggle" tabindex="0"><?php echo fcntr( 'site_settings' ); ?></label>
     </li>
     <?php // <--- End HTML
     $output['site_settings'] = ob_get_clean();

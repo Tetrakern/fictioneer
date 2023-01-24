@@ -84,8 +84,8 @@ Filters the intermediate output array of the chapter micro menu in the `fictione
 * $chapter_list (string) – Chapter panel in the mobile menu (if any).
 * $story_link (string) – Link to the chapter’s story (if any).
 * $formatting (string) – Chapter formatting modal.
-* $open_fullscreen (string) – Open fullscreen view (not on iOS).
-* $close_fullscreen (string) – Close fullscreen view (not on iOS).
+* $open_fullscreen (string) – Enter fullscreen view (not on iOS).
+* $close_fullscreen (string) – Exit fullscreen view (not on iOS).
 * $bookmark_jump (string) – Scroll to the bookmark.
 * $previous (string) – Link to the previous chapter (if any).
 * $top (string) – Anchor to the top of the page.

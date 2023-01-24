@@ -20,7 +20,12 @@ $feed = fictioneer_get_rss_link();
 ?>
 
 <div class="media-buttons">
-  <label for="modal-sharing-toggle" class="tooltipped" data-tooltip="<?php esc_attr_e( 'Share', 'fictioneer' ); ?>"><i class="fa-solid fa-share-nodes"></i></label>
+  <label
+    for="modal-sharing-toggle"
+    class="tooltipped"
+    data-tooltip="<?php esc_attr_e( 'Share', 'fictioneer' ); ?>"
+    tabindex="0"
+  ><i class="fa-solid fa-share-nodes"></i></label>
 
   <?php if ( $feed ) : ?>
 

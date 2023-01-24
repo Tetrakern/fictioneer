@@ -54,7 +54,7 @@ $entries = new WP_Query( $query_args );
           <div class="card__body polygon">
 
             <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
-              <button class="card__info-toggle toggle-last-clicked" tabindex="-1"><i class="fa-solid fa-chevron-down"></i></button>
+              <button class="card__info-toggle toggle-last-clicked"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
             <div class="card__main _grid _small">

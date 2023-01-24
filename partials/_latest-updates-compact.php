@@ -80,7 +80,7 @@ $entries = new WP_Query( $query_args );
         <li class="card _small">
           <div class="card__body polygon">
 
-            <button class="card__info-toggle toggle-last-clicked" tabindex="-1"><i class="fa-solid fa-chevron-down"></i></button>
+            <button class="card__info-toggle toggle-last-clicked"><i class="fa-solid fa-chevron-down"></i></button>
 
             <div class="card__main _grid _small">
 

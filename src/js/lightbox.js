@@ -6,48 +6,81 @@ const fcn_lightbox = _$$$('fictioneer-lightbox'),
       fcn_lightboxTarget = fcn_lightbox.querySelector('.target');
 
 // =============================================================================
+// SHOW LIGHTBOX
+// =============================================================================
+
+/**
+ * Show image in lightbox.
+ *
+ * @since 5.0.3
+ * @param {HTMLElement} target - The lightbox source image.
+ */
+
+function fcn_showLightbox(target) {
+  let valid = false,
+      img = null;
+
+  // Cleanup previous content (if any)
+  fcn_lightboxTarget.innerHTML = '';
+
+  // Image or link?
+  if (target.tagName == 'IMG') {
+    img = target.cloneNode();
+    valid = true;
+  } else if (target.href) {
+    img = document.createElement('img');
+    img.src = target.href;
+    valid = true;
+  }
+
+  // Stop scrolling and show lightbox
+  if (valid && img) {
+    img.removeAttribute('class');
+    img.removeAttribute('style');
+    img.removeAttribute('height');
+    img.removeAttribute('width');
+    fcn_lightboxTarget.appendChild(img);
+    fcn_theBody.classList.add('no-scroll');
+    fcn_lightbox.classList.add('show');
+
+    let close = fcn_lightbox.querySelector('.lightbox__close');
+    close?.focus();
+    close?.blur();
+  }
+}
+
+// =============================================================================
 // EVENTS
 // =============================================================================
 
-fcn_theBody.addEventListener(
-  'click',
-  e => {
-    // Search for eligible source...
-    let target = e.target.closest('[data-lightbox]'),
-        valid = false,
-        img = null;
-
-    // If found...
-    if (target) {
+fcn_theBody.querySelectorAll('[data-lightbox]').forEach(element => {
+  // Click on images
+  element.addEventListener(
+    'click',
+    e => {
       // Prevent links from working
       e.preventDefault();
 
-      // Cleanup previous content (if any)
-      fcn_lightboxTarget.innerHTML = '';
+      // Call lightbox
+      fcn_showLightbox(e.currentTarget);
+    }
+  );
 
-      // Image or link?
-      if (target.tagName == 'IMG') {
-        img = target.cloneNode();
-        valid = true;
-      } else if (target.href) {
-        let img = document.createElement('img');
-        img.src = target.href;
-        valid = true;
-      }
+  // When pressing space or enter
+  element.addEventListener(
+    'keydown',
+    e => {
+      // Check pressed key
+      if (e.keyCode == 32 || e.keyCode == 13) {
+        // Prevent links from working
+        e.preventDefault();
 
-      // Stop scrolling and show lightbox
-      if (valid && img) {
-        img.removeAttribute('class');
-        img.removeAttribute('style');
-        img.removeAttribute('height');
-        img.removeAttribute('width');
-        fcn_lightboxTarget.appendChild(img);
-        fcn_theBody.classList.add('no-scroll');
-        fcn_lightbox.classList.add('show');
+        // Call lightbox
+        fcn_showLightbox(e.currentTarget);
       }
     }
-  }
-);
+  );
+});
 
 document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
   element.addEventListener(

@@ -17,14 +17,6 @@
   &__menu {
     position: relative;
 
-    &:not(:hover) {
-      .sub-menu {
-        pointer-events: none;
-        opacity: 0;
-        content-visibility: hidden;
-      }
-    }
-
     &:hover {
       .follow-menu-item {
         &:not(._loaded) {
@@ -103,10 +95,11 @@
         }
       }
 
-      &:not(:hover) {
+      &:not(:hover, :focus-within) {
         .sub-menu {
           pointer-events: none;
           opacity: 0;
+          content-visibility: hidden;
         }
       }
     }

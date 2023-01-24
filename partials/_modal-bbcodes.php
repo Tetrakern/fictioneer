@@ -11,7 +11,9 @@
 <div id="bbcodes-modal" class="bbcodes modal">
   <label for="modal-bbcodes-toggle" class="background-close"></label>
   <div class="modal__wrapper">
-    <label class="close" for="modal-bbcodes-toggle"><?php fictioneer_icon( 'fa-xmark' ); ?></label>
+    <label class="close" for="modal-bbcodes-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
+      <?php fictioneer_icon( 'fa-xmark' ); ?>
+    </label>
     <h4 class="modal__header drag-anchor"><?php echo fcntr( 'bbcodes_modal' ); ?></h4>
 
     <?php

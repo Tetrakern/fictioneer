@@ -136,6 +136,7 @@ $header_breakpoint: 640px;
   }
 
   &__thumbnail {
+    --focus-offset: 2px;
     grid-area: 1 / 1 / 4 / 2;
     position: relative;
     height: var(--img-height);

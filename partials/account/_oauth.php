@@ -82,9 +82,13 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
             <div id="oauth-<?php echo $provider[0]; ?>" data-unset="<?php printf( $unset_notification, $provider[1] ); ?>" class="oauth-login-link _<?php echo $provider[0]; ?> _connected">
               <i class="fa-brands fa-<?php echo $provider[0]; ?>"></i>
               <span><?php echo $provider[1]; ?></span>
-              <label class="profile__oauth-item-unset button-unset-oauth" data-nonce="<?php echo wp_create_nonce( 'fictioneer_unset_oauth' ); ?>" data-id="<?php echo $current_user->ID; ?>" data-channel="<?php echo $provider[0]; ?>">
-                <?php fictioneer_icon( 'fa-xmark' ); ?>
-              </label>
+              <label
+                class="profile__oauth-item-unset button-unset-oauth"
+                data-nonce="<?php echo wp_create_nonce( 'fictioneer_unset_oauth' ); ?>"
+                data-id="<?php echo $current_user->ID; ?>"
+                data-channel="<?php echo $provider[0]; ?>"
+                tabindex="0"
+              ><?php fictioneer_icon( 'fa-xmark' ); ?></label>
             </div>
           <?php
         }
