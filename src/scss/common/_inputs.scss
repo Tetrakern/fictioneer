@@ -221,6 +221,7 @@ input[type=radio] {
   flex: 1 0 100%;
 
   &__operator {
+    --focus-offset: -2px;
     position: absolute;
     top: 0;
     right: 0;
