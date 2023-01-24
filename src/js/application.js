@@ -1073,8 +1073,18 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
 // PAGE NUMBER JUMP
 // =============================================================================
 
+/**
+ * Bind page number jump to dots.
+ *
+ * @since 5.0
+ */
+
 function fcn_bindPageNumberJumps() {
   _$$('.page-numbers.dots').forEach(element => {
+    // Add tabIndex to dots (yes, does not belong here, bla bla)
+    element.tabIndex = 0;
+
+    // Prompt for desired page number
     element.addEventListener(
       'click',
       e => {
