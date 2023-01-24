@@ -1154,7 +1154,7 @@ _$$('[for*=group-toggle]').forEach(element => {
   element.addEventListener(
     'click',
     e => {
-      list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
+      let list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
       list.style.height = `${list.scrollHeight}px`;
     }
   );
@@ -1162,11 +1162,13 @@ _$$('[for*=group-toggle]').forEach(element => {
   element.closest('.chapter-group').querySelector('.chapter-group__list').addEventListener(
     'transitionend',
     e => {
-      list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
+      let group = e.currentTarget.closest('.chapter-group'),
+          list = group.querySelector('.chapter-group__list');
+
       list.style.height = '';
 
       list.querySelectorAll('a, button').forEach(element => {
-        element.tabIndex = element.tabIndex == '-1' ? '0' : '-1';
+        element.tabIndex = group.querySelector('.chapter-group__toggle').checked;
       });
     }
   );
