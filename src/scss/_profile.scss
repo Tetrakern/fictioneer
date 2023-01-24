@@ -118,7 +118,7 @@
 
       @include bp(desktop) {
         &:not(:hover, :focus-within) {
-          label {
+          button {
             opacity: 0;
           }
         }
@@ -145,10 +145,11 @@
         filter: blur(1px);
       }
 
-      label {
+      button {
         position: absolute;
         top: 0;
         right: 0;
+        color: inherit;
         font-size: 1rem;
         line-height: 1;
         padding: 4px 8px 12px 16px;

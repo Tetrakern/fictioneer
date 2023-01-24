@@ -16,9 +16,8 @@ html:is(:root) {
 *:not(input, textarea, .wp-block-file a, .button-unset-oauth):focus-visible,
 input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 .button:focus-visible,
-.card__link-list li:focus-within,
-.oauth-login-link:focus-within,
-.story__thumbnail:focus-within,
+.oauth-login-link button:focus-visible,
+.story__thumbnail a:focus-visible img,
 .comment-respond-option-toggle:focus-visible {
   border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
   outline: var(--focus-outline);
@@ -26,10 +25,19 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 }
 
 // Split off for browsers without support
-.wp-block-file:has(a:focus-visible) {
-  border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
-  outline: var(--focus-outline);
-  outline-offset: var(--focus-offset, 0);
+@supports selector(:has(:focus-visible)) {
+  .wp-block-file:has(a:focus-visible),
+  .card__link-list li:has(a:focus-visible),
+  .oauth-login-link:has(:focus-visible) {
+    border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset, 0);
+  }
+
+  // Prevent double outline
+  .oauth-login-link button:focus-visible {
+    outline: none;
+  }
 }
 
 body {
