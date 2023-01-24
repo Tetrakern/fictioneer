@@ -52,9 +52,16 @@ $story = $args['story_data'];
       <?php echo $story['rating']; ?>
     </span>
     <?php if ( $story['chapter_count'] > 0 ): ?>
-      <button class="checkmark story__meta-checkmark" data-type="story" data-story-id="<?php echo $story_id; ?>" data-id="<?php echo $story_id; ?>" data-status="<?php echo esc_attr( $story['status'] ); ?>" role="checkbox" aria-checked="false">
-        <i class="fa-solid fa-check"></i>
-      </button>
+      <button
+      class="checkmark story__meta-checkmark"
+      data-type="story"
+      data-story-id="<?php echo $story_id; ?>"
+      data-id="<?php echo $story_id; ?>"
+      data-status="<?php echo esc_attr( $story['status'] ); ?>"
+      role="checkbox"
+      aria-checked="false"
+      aria-label="<?php printf( esc_attr__( 'Story checkmark for %s.', 'fictioneer' ), $story['title'] ); ?>"
+    ><i class="fa-solid fa-check"></i></button>
     <?php endif; ?>
   </div>
 </footer>
