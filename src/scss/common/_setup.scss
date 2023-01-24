@@ -18,7 +18,8 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 .button:focus-visible,
 .card__link-list li:focus-within,
 .oauth-login-link:focus-within,
-.story__thumbnail:focus-within {
+.story__thumbnail:focus-within,
+.comment-respond-option-toggle:focus-visible {
   border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
   outline: var(--focus-outline);
   outline-offset: var(--focus-offset, 0);

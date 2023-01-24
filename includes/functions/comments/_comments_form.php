@@ -163,7 +163,8 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
     $private_toggle = '';
 
     if ( get_option( 'fictioneer_enable_private_commenting' ) ) {
-      $private_toggle = '<div class="fictioneer-private-comment-toggle fictioneer-respond__form-toggle"><label><input name="fictioneer-private-comment-toggle" id="fictioneer-private-comment-toggle" type="checkbox" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . _x( 'Toggle to mark as private. Hides the comment from uninvolved viewers.', 'Comment form private toggle.', 'fictioneer' ) . '"><i class="fa-solid fa-eye off"></i><i class="fa-solid fa-eye-slash on"></i></span></label></div>';
+      $hint = esc_attr_x( 'Toggle to mark as private. Hides the comment from uninvolved viewers.', 'Comment form private toggle.', 'fictioneer' );
+      $private_toggle = '<div class="fictioneer-private-comment-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" aria-role="checkbox" aria-label="' . $hint . '"><input name="fictioneer-private-comment-toggle" id="fictioneer-private-comment-toggle" type="checkbox" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-eye off"></i><i class="fa-solid fa-eye-slash on"></i></span></label></div>';
     }
 
     // Email subscriptions toggle
@@ -173,7 +174,8 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
     $notification_checked = $notification_checked && ( ! get_option( 'fictioneer_enable_public_cache_compatibility' ) || $is_ajax );
 
     if ( get_option( 'fictioneer_enable_comment_notifications' ) && ! $notifications_blocked ) {
-      $notification_toggle = '<div class="fictioneer-comment-notification-toggle fictioneer-respond__form-toggle"><label><input name="fictioneer-comment-notification-toggle" id="fictioneer-comment-notification-toggle" type="checkbox" ' . checked( 1, $notification_checked, false ) . ' hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . _x( 'Toggle to get email notifications about direct replies.', 'Comment form email notification toggle.', 'fictioneer' ) . '"><i class="fa-solid fa-bell on"></i><i class="fa-solid fa-bell-slash off"></i></span></label></div>';
+      $hint = esc_attr_x( 'Toggle to get email notifications about direct replies.', 'Comment form email notification toggle.', 'fictioneer' );
+      $notification_toggle = '<div class="fictioneer-comment-notification-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" aria-role="checkbox" aria-label="' . $hint . '"><input name="fictioneer-comment-notification-toggle" id="fictioneer-comment-notification-toggle" type="checkbox" ' . checked( 1, $notification_checked, false ) . ' tabindex="-1" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-bell on"></i><i class="fa-solid fa-bell-slash off"></i></span></label></div>';
     }
 
     // Private comment notice for guests
