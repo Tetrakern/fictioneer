@@ -1336,12 +1336,15 @@ fcn_theBody.addEventListener(
     // Escape
     if (e.keyCode == 27) {
       // Uncheck all modal control checkboxes
-      fcn_theBody.querySelectorAll('.modal-toggle:checked').forEach(element => {
+      _$$('.modal-toggle:checked').forEach(element => {
         let modalLabel = fcn_theSite.querySelector(`label[for="${element.id}"]`);
         modalLabel?.focus();
         modalLabel?.blur();
         element.checked = false;
       });
+
+      // Close lightbox
+      _$('.lightbox.show')?.querySelector('.lightbox__close').click();
     }
   }
 );
