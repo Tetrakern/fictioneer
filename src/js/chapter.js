@@ -926,7 +926,12 @@ function fcn_updateIndent(value, save = true) {
   boolean = fcn_evaluateAsBoolean(value, true);
 
   // Update associated checkbox
-  _$$$('reader-settings-indent-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-indent-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Toggle classes on chapter content
   fcn_chapterFormatting.classList.toggle('no-indent', !boolean);
@@ -963,7 +968,12 @@ function fcn_updateJustify(value, save = true) {
   boolean = fcn_evaluateAsBoolean(value, true);
 
   // Update associated checkbox
-  _$$$('reader-settings-justify-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-justify-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Toggle classes on chapter content
   fcn_chapterFormatting.classList.toggle('justify', boolean);
@@ -1000,7 +1010,12 @@ function fcn_updateParagraphTools(value, save = true) {
   boolean = fcn_evaluateAsBoolean(value, true);
 
   // Update associated checkbox
-  _$$$('reader-settings-paragraph-tools-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-paragraph-tools-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Update local storage
   fcn_formatting['show-paragraph-tools'] = boolean;
@@ -1031,14 +1046,21 @@ fcn_updateParagraphTools(fcn_formatting['show-paragraph-tools'], false);
 
 function fcn_updateSensitiveContent(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  let boolean = fcn_evaluateAsBoolean(value, true),
+      sensitiveToggle = _$$$('inline-sensitive-content-toggle');
 
   // Update associated checkbox
-  _$$$('reader-settings-sensitive-content-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-sensitive-content-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Update inline toggle
-  if (_$$$('inline-sensitive-content-toggle')) {
-    _$$$('inline-sensitive-content-toggle').classList.toggle('hide-sensitive', !boolean);
+  if (sensitiveToggle) {
+    sensitiveToggle.classList.toggle('hide-sensitive', !boolean);
+    sensitiveToggle.ariaChecked = !boolean;
   }
 
   // Toggle classes on chapter content
@@ -1076,7 +1098,12 @@ function fcn_updateChapterNotes(value, save = true) {
   boolean = fcn_evaluateAsBoolean(value, true);
 
   // Update associated checkbox
-  _$$$('reader-settings-chapter-notes-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-chapter-notes-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Toggle classes on elements
   _$$('#chapter-foreword, #chapter-afterword, #chapter-warning').forEach(element => {
@@ -1105,7 +1132,12 @@ function fcn_updateCommentSection(value, save = true) {
   boolean = fcn_evaluateAsBoolean(value, true);
 
   // Update associated checkbox
-  _$$$('reader-settings-comments-toggle').checked = boolean;
+  let cb = _$$$('reader-settings-comments-toggle');
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
 
   // Toggle classes on elements
   _$$('.chapter__comments').forEach(element => {

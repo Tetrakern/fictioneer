@@ -584,7 +584,16 @@ function fcn_setLightMode(boolean, silent = false) {
 
   // Update formatting modal (if present)
   let cb = _$$$('reader-settings-lightmode-toggle');
-  if (cb) cb.checked = boolean;
+
+  if (cb) {
+    cb.checked = boolean;
+    cb.closest('label').ariaChecked = boolean;
+  }
+
+  _$$('.toggle-light-mode').forEach(element => {
+    console.log(element);
+    element.ariaChecked = boolean;
+  });
 
   // Update theme color meta tag
   if (!silent) fcn_updateThemeColor();

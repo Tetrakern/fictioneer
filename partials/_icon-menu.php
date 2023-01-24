@@ -109,6 +109,8 @@ if ( $profile_page && $profile_page > 0 ) {
   <button
     class="icon-menu__item toggle-light-mode"
     title="<?php esc_attr_e( 'Toggle Dark/Light Mode', 'fictioneer' ) ?>"
+    role="checkbox"
+    aria-checked="false"
     aria-label="<?php esc_attr_e( 'Toggle between dark mode and light mode', 'fictioneer' ) ?>"
   ><?php fictioneer_icon( 'fa-sun', 'only-darkmode' ); fictioneer_icon( 'fa-moon', 'only-lightmode' ); ?></button>
 

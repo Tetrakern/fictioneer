@@ -693,3 +693,20 @@ function fcn_resizeInput(input, size = null) {
   size = size ? size : input.value.length;
   input.style.width = size * 0.88 + 2 + 'ch'; // Good enough
 }
+
+// =============================================================================
+// ARIA CHECKED
+// =============================================================================
+
+/*
+ * Update ariaChecked when the state changes.
+ */
+
+function fcn_ariaCheckedUpdate(source) {
+  let target = source.closest('[role="checkbox"][aria-checked]');
+
+  if (target) {
+    let checked = fcn_evaluateAsBoolean(source);
+    target.ariaChecked = checked;
+  }
+}
