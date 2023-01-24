@@ -76,6 +76,7 @@
     }
 
     a {
+      --focus-offset: 1px;
       color: var(--story-link);
       width: fit-content;
 
@@ -134,7 +135,7 @@
     color: var(--fg-700);
     line-height: 1;
     text-align: right;
-    padding-right: .75rem;
+    padding-right: .625rem;
     margin-right: -0.75rem;
     min-width: 32px;
 
@@ -145,7 +146,7 @@
       }
     }
 
-    > :not(.popup-menu) {
+    > :not(.popup-menu, :focus-visible) {
       opacity: .375;
     }
 
@@ -185,7 +186,7 @@
 
   &__popup-menu-toggle {
     font-size: 87.5%;
-    padding-left: 2px;
+    padding: 0 2px;
   }
 
   &__image {
