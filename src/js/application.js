@@ -1167,8 +1167,8 @@ _$$('[for*=group-toggle]').forEach(element => {
 
       list.style.height = '';
 
-      list.querySelectorAll('a, button').forEach(element => {
-        element.tabIndex = group.querySelector('.chapter-group__toggle').checked;
+      list.querySelectorAll('a, button, label').forEach(element => {
+        element.tabIndex = group.querySelector('.chapter-group__toggle').checked ? '-1' : '0';
       });
     }
   );
