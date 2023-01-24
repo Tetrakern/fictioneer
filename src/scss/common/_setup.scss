@@ -28,7 +28,8 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 @supports selector(:has(:focus-visible)) {
   .wp-block-file:has(a:focus-visible),
   .card__link-list li:has(a:focus-visible),
-  .oauth-login-link:has(:focus-visible) {
+  .oauth-login-link:has(:focus-visible),
+  .follow-item:has(:focus-visible)  {
     border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
     outline: var(--focus-outline);
     outline-offset: var(--focus-offset, 0);

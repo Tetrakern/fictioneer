@@ -59,6 +59,12 @@
 .follow-title a {
   grid-area: 1 / 1 / 2 / 2;
   font-weight: var(--font-weight-medium);
+
+  @supports selector(:has(:focus-visible)) {
+    &:focus-visible {
+      outline: none;
+    }
+  }
 }
 
 .follow-meta {
@@ -97,6 +103,9 @@
   }
 
   .follow-item {
+    --focus-offset: -6px;
+    --focus-border-radius: 6px;
+
     &:not(:last-child) {
       border-bottom: 1px solid var(--navigation-item-active-submenu-secant);
     }
