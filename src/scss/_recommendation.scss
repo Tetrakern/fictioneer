@@ -8,16 +8,18 @@
   }
 
   &__thumbnail {
+    --focus-offset: 2px;
     float: right;
     max-width: get_clamp(100, 200, 375, 768);
     margin: 0 0 get_clamp(10, 48, 375, $full-width) get_clamp(24, 48, 375, $full-width);
 
-    a {
+    :is(a, img) {
+      display: block;
       cursor: zoom-in;
+      border-radius: var(--layout-border-radius-small);
     }
 
     img {
-      border-radius: var(--layout-border-radius-small);
       width: inherit;
       filter: var(--figure-drop-shadow);
 
