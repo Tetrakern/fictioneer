@@ -23,6 +23,9 @@ function fcn_showLightbox(target) {
   // Cleanup previous content (if any)
   fcn_lightboxTarget.innerHTML = '';
 
+  // Bookmark source element for later use
+  target.classList.add('lightbox-last-trigger');
+
   // Image or link?
   if (target.tagName == 'IMG') {
     img = target.cloneNode();
@@ -87,8 +90,15 @@ document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
     'click',
     e => {
       if (e.target.tagName != 'IMG') {
+        // Restore default view
         fcn_theBody.classList.remove('no-scroll');
         fcn_lightbox.classList.remove('show');
+
+        // Restore last tab focus
+        let lastTrigger = _$('.lightbox-last-trigger');
+        lastTrigger?.focus();
+        lastTrigger?.blur();
+        lastTrigger?.classList.remove('lightbox-last-trigger');
       }
     }
   );
