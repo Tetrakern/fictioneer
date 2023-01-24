@@ -113,6 +113,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
   Source: https://stackoverflow.com/a/28549014/17140970
 
+* **Removing that ugly :focus ring (and keeping it too)**<br>
+  Copyright: David Gilbertson<br>
+  License: No license information provided (assumed public domain)<br>
+  Source: https://medium.com/hackernoon/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
+
 ## PHP
 
 * **Color Converter (Hex2RGB, RGB2HSL)**<br>

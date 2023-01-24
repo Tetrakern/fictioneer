@@ -1676,6 +1676,7 @@ _$$('.search-form').forEach(form => {
  * Listen for tab key to add 'user-is-tabbing' class.
  *
  * @since 5.0.4
+ * @link https://medium.com/hackernoon/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
  * @param {Event} e - The event.
  */
 
@@ -1692,6 +1693,7 @@ function fcn_handleTabInput(e) {
  * Listen for mouse click to remove 'user-is-tabbing' class.
  *
  * @since 5.0.4
+ * @link https://medium.com/hackernoon/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
  */
 
 function fcn_handleMouseInput() {
