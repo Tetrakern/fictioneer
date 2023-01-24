@@ -43,7 +43,7 @@ function fcn_showLightbox(target) {
     img.removeAttribute('height');
     img.removeAttribute('width');
     fcn_lightboxTarget.appendChild(img);
-    fcn_theBody.classList.add('no-scroll');
+    // fcn_theBody.classList.add('no-scroll');
     fcn_lightbox.classList.add('show');
 
     let close = fcn_lightbox.querySelector('.lightbox__close');
@@ -91,7 +91,7 @@ document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
     e => {
       if (e.target.tagName != 'IMG') {
         // Restore default view
-        fcn_theBody.classList.remove('no-scroll');
+        // fcn_theBody.classList.remove('no-scroll');
         fcn_lightbox.classList.remove('show');
 
         // Restore last tab focus
