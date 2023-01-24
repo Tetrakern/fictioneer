@@ -591,7 +591,6 @@ function fcn_setLightMode(boolean, silent = false) {
   }
 
   _$$('.toggle-light-mode').forEach(element => {
-    console.log(element);
     element.ariaChecked = boolean;
   });
 
