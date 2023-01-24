@@ -119,17 +119,28 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
       fcn_removeItemOnce(fcn_checkmarks.data[story], chapter);
 
       // Update chapter checkmark from HTML
-      if (source) source.classList.remove('marked');
+      if (source) {
+        source.classList.remove('marked');
+        source.ariaChecked = false;
+      }
 
       // Not complete anymore
       fcn_removeItemOnce(fcn_checkmarks.data[story], story);
-      _$('button[data-type=story]')?.classList.remove('marked');
+      let completeCheckmark = _$('button[data-type=story]');
+
+      if (completeCheckmark) {
+        completeCheckmark.classList.remove('marked');
+        completeCheckmark.ariaChecked = false;
+      }
     } else {
       // Add chapter checkmark to JSON
       fcn_checkmarks.data[story].push(chapter);
 
       // Update chapter checkmark in HTML
-      if (source) source.classList.add('marked');
+      if (source) {
+        source.classList.add('marked');
+        source.ariaChecked = true;
+      }
     }
   }
 
@@ -245,7 +256,9 @@ function fcn_updateCheckmarksView() {
   _$$('button.checkmark')?.forEach(item => {
     let checkStoryId = parseInt(item.dataset.storyId);
     if (!fcn_checkmarks.data.hasOwnProperty(checkStoryId)) return;
-    item.classList.toggle('marked', fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id)));
+    let checked = fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
+    item.classList.toggle('marked', checked);
+    item.ariaChecked = checked;
   });
 
   // Update checkmarks on cards
