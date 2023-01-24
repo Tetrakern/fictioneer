@@ -638,8 +638,11 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       .checkmark {
+        --focus-offset: 2px;
         color: var(--fg-600);
         font-size: 18px;
+        padding: 0 4px;
+        margin-right: -4px;
 
         &:not(.marked) {
           color: var(--checkmark-not-checked);

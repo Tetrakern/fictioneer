@@ -283,8 +283,8 @@ $header_breakpoint: 640px;
   }
 
   &__footer {
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding-top: .75rem;
+    padding-bottom: 1.75rem;
   }
 
   &__meta {
@@ -295,7 +295,7 @@ $header_breakpoint: 640px;
     font-family: var(--font-note);
     font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile)
     line-height: 1.75rem;
-    padding-right: 8px;
+    padding: .25rem 8px .25rem 0;
     white-space: nowrap;
 
     > *:not(:first-child) {
@@ -303,7 +303,7 @@ $header_breakpoint: 640px;
         margin-left: 1.5rem;
       }
 
-      &:not(label)::before {
+      &:not(.checkmark)::before {
         content: unicode("2022");
         color: var(--fg-800);
         font-family: var(--font-base);
@@ -315,8 +315,8 @@ $header_breakpoint: 640px;
       }
     }
 
-    label {
-      margin-left: 1.5rem;
+    .checkmark {
+      margin-left: 1.25rem;
     }
 
     > span {
@@ -333,8 +333,11 @@ $header_breakpoint: 640px;
   }
 
   .checkmark {
+    --focus-offset: 2px;
     color: var(--fg-600);
     font-size: 18px;
+    padding: 0 4px;
+    margin-right: -4px;
 
     &:not(.marked) {
       color: var(--checkmark-not-checked);

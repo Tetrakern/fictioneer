@@ -52,9 +52,9 @@ $story = $args['story_data'];
       <?php echo $story['rating']; ?>
     </span>
     <?php if ( $story['chapter_count'] > 0 ): ?>
-      <label class="checkmark story__meta-checkmark" data-type="story" data-story-id="<?php echo $story_id; ?>" data-id="<?php echo $story_id; ?>" data-status="<?php echo esc_attr( $story['status'] ); ?>">
+      <button class="checkmark story__meta-checkmark" data-type="story" data-story-id="<?php echo $story_id; ?>" data-id="<?php echo $story_id; ?>" data-status="<?php echo esc_attr( $story['status'] ); ?>">
         <i class="fa-solid fa-check"></i>
-      </label>
+      </button>
     <?php endif; ?>
   </div>
 </footer>

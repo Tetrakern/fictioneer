@@ -1165,7 +1165,7 @@ _$$('[for*=group-toggle]').forEach(element => {
       list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
       list.style.height = '';
 
-      list.querySelectorAll('a').forEach(element => {
+      list.querySelectorAll('a, button').forEach(element => {
         element.tabIndex = element.tabIndex == '-1' ? '0' : '-1';
       });
     }

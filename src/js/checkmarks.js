@@ -23,7 +23,7 @@ function fcn_initializeCheckmarks() {
   fcn_fetchCheckmarksFromDatabase();
 
   // Listen for clicks on checkmarks
-  _$$('label.checkmark').forEach(element => {
+  _$$('button.checkmark').forEach(element => {
     element.addEventListener(
       'click',
       (e) => {
@@ -123,7 +123,7 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
 
       // Not complete anymore
       fcn_removeItemOnce(fcn_checkmarks.data[story], story);
-      _$('label[data-type=story]')?.classList.remove('marked');
+      _$('button[data-type=story]')?.classList.remove('marked');
     } else {
       // Add chapter checkmark to JSON
       fcn_checkmarks.data[story].push(chapter);
@@ -142,8 +142,8 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
     fcn_checkmarks.data[story] = [];
 
     if (!unsetAll) {
-      // (Re-)add checkmarks to JSON based on labels
-      _$$('label.checkmark').forEach(item => {
+      // (Re-)add checkmarks to JSON based on buttons
+      _$$('button.checkmark').forEach(item => {
         fcn_checkmarks.data[story].push(parseInt(item.dataset.id));
       });
 
@@ -232,17 +232,17 @@ function fcn_updateCheckmarksView() {
   // Completed story?
   if (completed) {
     // Add all checkmarks (if missing)
-    _$$('label.checkmark').forEach(item => {
+    _$$('button.checkmark').forEach(item => {
       let checkId = parseInt(item.dataset.id);
       if (!fcn_checkmarks.data[storyId].includes(checkId)) fcn_checkmarks.data[storyId].push(checkId);
     });
-
-    // Add ribbon to thumbnail (if any)
-    _$$$('ribbon-read')?.classList.toggle('hidden', !completed);
   }
 
+  // Add ribbon to thumbnail if complete and present
+  _$$$('ribbon-read')?.classList.toggle('hidden', !completed);
+
   // Update checkmarks on story pages
-  _$$('label.checkmark')?.forEach(item => {
+  _$$('button.checkmark')?.forEach(item => {
     let checkStoryId = parseInt(item.dataset.storyId);
     if (!fcn_checkmarks.data.hasOwnProperty(checkStoryId)) return;
     item.classList.toggle('marked', fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id)));

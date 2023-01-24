@@ -703,7 +703,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
               <div class="chapter-group__list-item-right">
-                <label class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $chapter_story_id; ?>" data-id="<?php echo $post_id; ?>"><i class="fa-solid fa-check"></i></label>
+                <button class="checkmark chapter-group__list-item-checkmark" data-type="chapter" data-story-id="<?php echo $chapter_story_id; ?>" data-id="<?php echo $post_id; ?>"><i class="fa-solid fa-check"></i></button>
               </div>
             <?php endif; ?>
           </li>
