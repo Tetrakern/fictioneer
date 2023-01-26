@@ -215,7 +215,8 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
 
     // Setup
     $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
-    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
+    $path_extension = isset( $path_parts['extension'] ) ? $path_parts['extension'] : 'jpg';
+    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_extension );
 
     // Copy image
     copy(
@@ -388,7 +389,8 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
           // Prepare path (remove unwanted extensions, e.g. '.jpg?_i=AA')
           $path_parts = pathinfo( $url );
-          $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
+          $path_extension = isset( $path_parts['extension'] ) ? $path_parts['extension'] : 'jpg';
+          $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_extension );
 
           // Copy image to ePUb directory
           copy( $url, $epub_dir . '/OEBPS/Images/' . $path_parts['filename'] . $extension );
@@ -509,7 +511,8 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
     // Cover node (if any)
     if( has_post_thumbnail( $story_id ) ) {
       $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
-      $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
+      $path_extension = isset( $path_parts['extension'] ) ? $path_parts['extension'] : 'jpg';
+      $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_extension );
 
       $cover_meta = $opf->createElement( 'meta' );
       $cover_meta->setAttribute( 'name', 'cover' );
