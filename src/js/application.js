@@ -1354,10 +1354,36 @@ fcn_theBody.addEventListener(
       });
 
       // Close lightbox
-      _$('.lightbox.show')?.querySelector('.lightbox__close').click();
+      let lightbox = _$('.lightbox.show');
+
+      if (lightbox) {
+        lightbox.querySelector('.lightbox__close').click();
+        return;
+      }
 
       // Close paragraph tools
-      _$$$('button-close-paragraph-tools')?.click();
+      let paragraphToolsClose = _$('.selected-paragraph #button-close-paragraph-tools');
+
+      if (paragraphToolsClose) {
+        paragraphToolsClose.click();
+        return;
+      }
+
+      // Pause/Close TTS
+      let tts = _$('#tts-interface:not(.hidden)');
+
+      if (tts) {
+        if (tts.classList.contains('playing')) {
+          let pause = _$$$('button-tts-pause');
+          pause?.click();
+          pause?.focus();
+          pause?.blur();
+        } else {
+          _$$$('button-tts-stop').click();
+        }
+
+        return;
+      }
     }
   }
 );

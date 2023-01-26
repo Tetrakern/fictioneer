@@ -16,6 +16,7 @@ html:is(:root) {
 *:not(input, textarea, select, .wp-block-file a, .button-unset-oauth):focus-visible,
 input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 .user-is-tabbing select:focus-visible,
+.user-is-tabbing .tts-interface__voice-selection:focus-within,
 .button:focus-visible,
 .oauth-login-link button:focus-visible,
 .story__thumbnail a:focus-visible img,

@@ -28,7 +28,7 @@
         <i class="fa-solid fa-forward"></i>
         <span><?php _e( 'Skip', 'fictioneer' ) ?></span>
       </button>
-      <label for="tts-settings-toggle" class="button settings">
+      <label for="tts-settings-toggle" class="button settings" role="button" tabindex="0">
         <i class="fa-solid fa-cog"></i>
         <span><?php _e( 'Settings', 'fictioneer' ) ?></span>
       </label>

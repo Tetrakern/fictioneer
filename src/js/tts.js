@@ -274,7 +274,8 @@ if (typeof speechSynthesis !== 'undefined') {
 
     // Hide sensitive content?
     let hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
-        sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative';
+        sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
+        playButton = _$$$('button-tts-play');
 
     // Cancel ongoing reading if any
     if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -321,6 +322,8 @@ if (typeof speechSynthesis !== 'undefined') {
     fcn_theBody.classList.add('tts-open');
     fcn_ttsInterface.classList.remove('hidden', 'ended', 'paused');
     fcn_ttsInterface.classList.add('playing');
+    playButton.focus();
+    playButton.blur();
   });
 
   // Stop button
