@@ -264,7 +264,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     $index = 0;
 
     // Abort if...
-    if ( empty( $chapters ) ) return;
+    if ( empty( $chapters ) ) fictioneer_epub_return_and_exit();
 
     // Process chapters
     foreach ( $chapters as $post_id ) {
