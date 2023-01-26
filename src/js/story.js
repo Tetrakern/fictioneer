@@ -2,7 +2,7 @@
 // SETUP
 // =============================================================================
 
-var /** @const {Number} */ fcn_storyCommentPage = 1;
+var /** @type {Number} */ fcn_storyCommentPage = 1;
 
 // =============================================================================
 // LOAD STORY COMMENTS
