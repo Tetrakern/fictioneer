@@ -272,9 +272,9 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
    * @since Fictioneer 4.7
    * @link https://github.com/WordPress/WordPress/blob/master/wp-admin/comment.php
    *
-   * @param int    $comment_id  The ID of the comment.
-   * @param string $action      Optional. The action to perform. Default 'edit'.
-   * @param string $redirect_to Optional. Return URL after action.
+   * @param int            $comment_id  The ID of the comment.
+   * @param string         $action      Optional. The action to perform. Default 'edit'.
+   * @param string|boolean $redirect_to Optional. Return URL after action. Default false.
    *
    * @return string|boolean $output The link or false if an invalid call.
    */
