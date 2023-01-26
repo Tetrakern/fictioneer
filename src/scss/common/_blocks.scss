@@ -490,6 +490,10 @@ figure {
     vertical-align: bottom;
   }
 
+  :is(th, td) {
+    padding: .5rem .75rem;
+  }
+
   tfoot {
     td {
       font-size: 87.5%;
@@ -501,10 +505,6 @@ figure {
   &.is-style-regular {
     table {
       border-color: var(--table-border-color);
-    }
-
-    :is(th, td) {
-      padding: .5rem .75rem;
     }
   }
 
