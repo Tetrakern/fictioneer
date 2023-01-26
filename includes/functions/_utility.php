@@ -575,7 +575,7 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
    * @return int|boolean $safe_id The validated ID or false if invalid.
    */
 
-  function fictioneer_validate_id( $id, $for_type = false ) {
+  function fictioneer_validate_id( $id, $for_type = [] ) {
     $safe_id = intval( $id );
     $types = is_array( $for_type ) ? $for_type : [$for_type];
 
