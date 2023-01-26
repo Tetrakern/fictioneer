@@ -422,7 +422,7 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
   function fictioneer_shorten_number( $number, $precision = 1 ) {
     // The letters are prefixed by a HAIR SPACE (&hairsp;)
     if ( $number < 1000 ) {
-      return $number;
+      return strval( $number );
     } else if ( $number < 1000000 ) {
       return number_format( $number / 1000, $precision ) . ' K';
     } else if ( $number < 1000000000 ) {
