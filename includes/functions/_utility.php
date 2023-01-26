@@ -1094,9 +1094,9 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_non
  *
  * @since Fictioneer 5.0
  *
- * @param string $key    Key for requested translation.
- * @param string $escape Optional. Escape the string for safe use in
- *                       attributes. Default false.
+ * @param string  $key    Key for requested translation.
+ * @param boolean $escape Optional. Escape the string for safe use in
+ *                        attributes. Default false.
  *
  * @return string The translation or an empty string if not found.
  */
