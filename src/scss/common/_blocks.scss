@@ -470,12 +470,16 @@ figure {
   }
 
   table {
-    font-size: 87.5%; // Scales with custom formatting
+    font-size: 80%; // Scales with custom formatting
     border-collapse: collapse;
     border-spacing: 0;
     border: 1px solid transparent;
     width: auto;
     margin: 0 auto;
+
+    @include bp(480px) {
+      font-size: 87.5%; // Scales with custom formatting
+    }
   }
 
   :is(thead, tbody, tfoot, tr, td, th) {
@@ -491,12 +495,16 @@ figure {
   }
 
   :is(th, td) {
-    padding: .5rem .75rem;
+    padding: .5em .75em;
+
+    @include bp(480px) {
+      padding: .5rem .75rem;
+    }
   }
 
   tfoot {
     td {
-      font-size: 87.5%;
+      font-size: 87.5%; // Scales with custom formatting
       font-weight: var(--font-weight-strong);
       vertical-align: top;
     }
@@ -510,7 +518,11 @@ figure {
 
   &.is-style-stripes {
     :is(th, td) {
+      padding: .675em 1em;
+
+      @include bp(480px) {
       padding: .675rem 1rem;
+    }
     }
 
     tbody {
