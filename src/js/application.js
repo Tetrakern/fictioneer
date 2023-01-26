@@ -1327,7 +1327,7 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
 // =============================================================================
 
 /*
- * Make elements with tabIndex 0 accessible with keyboard.
+ * Make elements accessible with keyboard.
  */
 
 fcn_theBody.addEventListener(
@@ -1355,6 +1355,9 @@ fcn_theBody.addEventListener(
 
       // Close lightbox
       _$('.lightbox.show')?.querySelector('.lightbox__close').click();
+
+      // Close paragraph tools
+      _$$$('button-close-paragraph-tools')?.click();
     }
   }
 );
