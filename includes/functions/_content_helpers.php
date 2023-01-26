@@ -809,7 +809,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 		<?php // <--- End HTML
 		$micro_menu['bookmark_jump'] = ob_get_clean();
 
-    if ( $args['prev_index'] ) {
+    if ( $args['prev_index'] !== false ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="micro-menu__previous previous" tabindex="-1">
