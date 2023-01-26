@@ -166,7 +166,7 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
    *
    * @since Fictioneer 4.6
    *
-   * @param  int|string User ID or email address.
+   * @param int|string $id_or_email User ID or email address.
    *
    * @return WP_User|boolean Returns the user or false if not found.
    */
