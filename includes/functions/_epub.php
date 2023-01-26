@@ -388,7 +388,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
           // Prepare path (remove unwanted extensions, e.g. '.jpg?_i=AA')
           $path_parts = pathinfo( $url );
-          $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] );
+          $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
 
           // Copy image to ePUb directory
           copy( $url, $epub_dir . '/OEBPS/Images/' . $path_parts['filename'] . $extension );
