@@ -29,6 +29,7 @@
   }
 
   li {
+    --focus-offset: 2px;
     position: relative;
     border-radius: var(--layout-border-radius-small);
     box-shadow: 0 0 1px transparent; // iOS Safari fix or it won't show drop-shadow
@@ -48,6 +49,10 @@
     a {
       display: block;
       height: 100%;
+
+      &:focus-visible {
+        outline: none;
+      }
 
       &:hover {
         img {

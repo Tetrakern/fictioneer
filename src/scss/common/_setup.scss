@@ -20,6 +20,7 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 .button:focus-visible,
 .oauth-login-link button:focus-visible,
 .story__thumbnail a:focus-visible img,
+.user-is-tabbing .showcase li:focus-within,
 .comment-respond-option-toggle:focus-visible {
   outline: var(--focus-outline);
   outline-offset: var(--focus-offset, 0);
