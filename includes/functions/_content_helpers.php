@@ -1299,7 +1299,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     $menu = apply_filters( 'fictioneer_filter_card_control_menu', $menu, $story_id, $chapter_id );
 
     // Abort if...
-    if ( count( $icons ) < 1 || count( $menu ) < 1 ) return;
+    if ( count( $icons ) < 1 || count( $menu ) < 1 ) return '';
 
     ob_start();
     // Start HTML ---> ?>
