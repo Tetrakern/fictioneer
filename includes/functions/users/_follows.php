@@ -248,9 +248,9 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
    *
    * @since Fictioneer 4.3
    *
-   * @param array  $story_ids  IDs of the followed stories.
-   * @param string $after_date Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
-   * @param int    $count      Optional. Maximum number of chapters to be returned. Default 16.
+   * @param array        $story_ids  IDs of the followed stories.
+   * @param string|false $after_date Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
+   * @param int          $count      Optional. Maximum number of chapters to be returned. Default 16.
    *
    * @return array Collection of chapters.
    */
