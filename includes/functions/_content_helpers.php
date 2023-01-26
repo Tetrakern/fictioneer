@@ -744,11 +744,11 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
-   * @param int          $args['chapter_id']   The chapter ID.
-   * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
-   * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
-   * @param int|boolean  $args['next_index']   Index of next chapter or false if outside bounds.
+   * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
+   * @param int          $args['chapter_id']  The chapter ID.
+   * @param array        $args['chapter_ids'] IDs of visible chapters in the same story or empty array.
+   * @param int|boolean  $args['prev_index']  Index of previous chapter or false if outside bounds.
+   * @param int|boolean  $args['next_index']  Index of next chapter or false if outside bounds.
    *
    * @return string The chapter micro menu HTML.
    */
@@ -756,18 +756,18 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
   function fictioneer_get_chapter_micro_menu( $args ) {
     $micro_menu = [];
 
-    ob_start();
-		// Start HTML ---> ?>
-    <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__chapter-list show-below-desktop" tabindex="-1">
-      <i class="fa-solid fa-list"></i>
-    </label>
-    <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>#tabs" class="hide-below-desktop" tabindex="-1">
-      <i class="fa-solid fa-list"></i>
-    </a>
-		<?php // <--- End HTML
-		$micro_menu['chapter_list'] = ob_get_clean();
+    if ( ! empty( $args['story_post'] ) ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__chapter-list show-below-desktop" tabindex="-1">
+        <i class="fa-solid fa-list"></i>
+      </label>
+      <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>#tabs" class="hide-below-desktop" tabindex="-1">
+        <i class="fa-solid fa-list"></i>
+      </a>
+      <?php // <--- End HTML
+      $micro_menu['chapter_list'] = ob_get_clean();
 
-    if ( $args['story_post'] ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>" tabindex="-1">
@@ -809,7 +809,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 		<?php // <--- End HTML
 		$micro_menu['bookmark_jump'] = ob_get_clean();
 
-    if ( $args['prev_index'] !== false ) {
+    if ( $args['prev_index'] ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="micro-menu__previous previous" tabindex="-1">
