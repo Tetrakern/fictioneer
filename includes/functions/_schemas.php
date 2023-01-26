@@ -263,7 +263,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
    * @param string $description Description of the list.
    * @param string $part_of     The node ID the list belongs to. Defaults to '#webpage'.
    *
-   * @return array List schema node.
+   * @return array|null List schema node.
    */
 
   function fictioneer_get_schema_node_list( $list, $name, $description, $part_of = '#webpage' ) {
