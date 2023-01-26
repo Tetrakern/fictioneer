@@ -16,7 +16,7 @@
             value.each(function() {
                 var value = $(this).prev().attr('value');
 				var suffix = ($(this).prev().attr('suffix')) ? $(this).prev().attr('suffix') : '';
-                $(this).html(value + suffix);
+                $(this).text(value + suffix).html();
             });
 
             range.on('input', function() {
