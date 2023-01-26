@@ -890,54 +890,59 @@ if ( ! function_exists( 'fictioneer_output_head_critical_scripts' ) ) {
 // CHECK FOR UPDATES
 // =============================================================================
 
-/**
- * Check Github repository for a new release
- *
- * Makes a cURL request to the Github API to check the latest release and,
- * if a newer version tag than what is installed is found, updates the
- * 'fictioneer_latest_version' option. The request can only be made once
- * every 30 minutes, otherwise the stored data is checked.
- *
- * @since Fictioneer 5.0
- *
- * @return boolean True if there is a newer version, false if not.
- */
+if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
+  /**
+   * Check Github repository for a new release
+   *
+   * Makes a cURL request to the Github API to check the latest release and,
+   * if a newer version tag than what is installed is found, updates the
+   * 'fictioneer_latest_version' option. The request can only be made once
+   * every 30 minutes, otherwise the stored data is checked.
+   *
+   * @since Fictioneer 5.0
+   *
+   * @return boolean True if there is a newer version, false if not.
+   */
 
-function fictioneer_check_for_updates() {
-  // Setup
-  $last_check = (int) get_option( 'fictioneer_update_check_timestamp', 0 );
-  $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
+  function fictioneer_check_for_updates() {
+    global $pagenow;
 
-  // Only call API every 30 minutes, otherwise check database
-  if ( ! empty( $latest_version ) && time() < $last_check + 1800 ) {
-    return version_compare( $latest_version, FICTIONEER_RELEASE_TAG, '>' );
+    // Setup
+    $last_check = (int) get_option( 'fictioneer_update_check_timestamp', 0 );
+    $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
+    $is_updates_page = $pagenow == 'update-core.php';
+
+    // Only call API every 30 minutes, otherwise check database
+    if ( ! empty( $latest_version ) && time() < $last_check + 1800 && ! $is_updates_page ) {
+      return version_compare( $latest_version, FICTIONEER_RELEASE_TAG, '>' );
+    }
+
+    // Remember this check
+    update_option( 'fictioneer_update_check_timestamp', time() );
+
+    // API request to repo
+    $ch = curl_init( 'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest' );
+    curl_setopt( $ch, CURLOPT_HEADER, 0 );
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+    curl_setopt( $ch, CURLOPT_USERAGENT, 'FICTIONEER' );
+    $response = curl_exec( $ch );
+    curl_close( $ch );
+
+    // Abort if request failed
+    if ( empty( $response ) ) return false;
+
+    // Decode JSON to array
+    $release = json_decode( $response, true );
+
+    // Abort if request did not return expected data
+    if ( ! isset( $release['tag_name'] ) ) return false;
+
+    // Remember latest version
+    update_option( 'fictioneer_latest_version', $release['tag_name'] );
+
+    // Compare with currently installed version
+    return version_compare( $release['tag_name'], FICTIONEER_RELEASE_TAG, '>' );
   }
-
-  // Remember this check
-  update_option( 'fictioneer_update_check_timestamp', time() );
-
-  // API request to repo
-  $ch = curl_init( 'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest' );
-  curl_setopt( $ch, CURLOPT_HEADER, 0 );
-  curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-  curl_setopt( $ch, CURLOPT_USERAGENT, 'FICTIONEER' );
-  $response = curl_exec( $ch );
-  curl_close( $ch );
-
-  // Abort if request failed
-  if ( empty( $response ) ) return false;
-
-  // Decode JSON to array
-  $release = json_decode( $response, true );
-
-  // Abort if request did not return expected data
-  if ( ! isset( $release['tag_name'] ) ) return false;
-
-  // Remember latest version
-  update_option( 'fictioneer_latest_version', $release['tag_name'] );
-
-  // Compare with currently installed version
-  return version_compare( $release['tag_name'], FICTIONEER_RELEASE_TAG, '>' );
 }
 
 /**
@@ -947,14 +952,17 @@ function fictioneer_check_for_updates() {
  */
 
 function fictioneer_admin_update_notice() {
+  global $pagenow;
+
   // Setup
   $last_notice = (int) get_option( 'fictioneer_update_notice_timestamp', 0 );
+  $is_updates_page = $pagenow == 'update-core.php';
 
   // Abort if...
   if ( ! current_user_can( 'manage_options' ) ) return;
 
   // Show only once every 30 minutes
-  if ( $last_notice + 1800 > time() ) return;
+  if ( $last_notice + 1800 > time() && ! $is_updates_page ) return;
 
   // Update?
   if ( ! fictioneer_check_for_updates() ) return;
