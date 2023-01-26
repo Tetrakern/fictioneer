@@ -391,8 +391,6 @@ if ( ! function_exists( 'fictioneer_ajax_moderate_comment' ) ) {
    * @since Fictioneer 4.7
    * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
    * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   *
-   * @return object JSON response.
    */
 
   function fictioneer_ajax_moderate_comment() {
@@ -487,8 +485,6 @@ if ( ! function_exists( 'fictioneer_ajax_report_comment' ) ) {
    * @since Fictioneer 4.7
    * @link  https://developer.wordpress.org/reference/functions/wp_send_json_success/
    * @link  https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   *
-   * @return object JSON response.
    */
 
   function fictioneer_ajax_report_comment() {
