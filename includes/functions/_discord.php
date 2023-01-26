@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
    * @since 4.0
    *
    * @param string $webhook The webhook for the Discord channel.
-   * @param object $message The message to be sent.
+   * @param array  $message The message to be sent.
    */
 
   function fictioneer_discord_send_message( $webhook, $message ) {
