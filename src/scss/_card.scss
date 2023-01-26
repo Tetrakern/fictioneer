@@ -92,7 +92,6 @@
 
   &__delete {
     --focus-offset: -8px;
-    --focus-border-radius: 8px;
     cursor: pointer;
     position: absolute;
     top: 0;
@@ -427,7 +426,6 @@
 
   &__info-toggle {
     --focus-offset: -8px;
-    --focus-border-radius: 8px;
     cursor: pointer;
     position: absolute;
     top: 0;

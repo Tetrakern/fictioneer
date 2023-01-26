@@ -183,7 +183,6 @@ input[type=checkbox] {
 }
 
 input[type=radio] {
-  --focus-border-radius: 50%;
   border-radius: 50%;
 
   &:checked {

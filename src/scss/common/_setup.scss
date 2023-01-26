@@ -21,7 +21,6 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
 .oauth-login-link button:focus-visible,
 .story__thumbnail a:focus-visible img,
 .comment-respond-option-toggle:focus-visible {
-  border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
   outline: var(--focus-outline);
   outline-offset: var(--focus-offset, 0);
 }
@@ -32,7 +31,6 @@ input:is([type=checkbox], [type=radio], [type=range]):focus-visible,
   .card__link-list li:has(a:focus-visible),
   .oauth-login-link:has(:focus-visible),
   .follow-item:has(:focus-visible)  {
-    border-radius: var(--focus-border-radius, var(--layout-border-radius-small));
     outline: var(--focus-outline);
     outline-offset: var(--focus-offset, 0);
   }
@@ -64,6 +62,7 @@ body {
 
 main {
   img {
+    --focus-offset: 2px;
     max-width: 100%;
     max-height: 100%;
   }

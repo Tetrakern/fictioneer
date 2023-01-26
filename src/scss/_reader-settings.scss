@@ -81,7 +81,7 @@
 
   .toggle {
     --focus-offset: 2px;
-    --focus-border-radius: 50%;
+    border-radius: 50%;
 
     input {
       &:checked + span {

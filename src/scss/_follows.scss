@@ -104,7 +104,6 @@
 
   .follow-item {
     --focus-offset: -6px;
-    --focus-border-radius: 6px;
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--navigation-item-active-submenu-secant);
