@@ -138,7 +138,7 @@ p a,
     display: inline;
   }
 
-  &:is(blockquote) {
+  &:is(blockquote, p) {
     display: block;
   }
 

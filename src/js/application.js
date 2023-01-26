@@ -1198,10 +1198,7 @@ function fct_spoiler(target) {
 }
 
 fcn_theBody.addEventListener('click', e => {
-  if (
-    e.target.parentNode?.classList.contains('spoiler') &&
-    !e.target.parentNode?.classList.contains('selected-paragraph')
-  ) {
+  if (e.target.parentNode?.classList.contains('spoiler')) {
     fct_spoiler(e.target.parentNode);
     return;
   }

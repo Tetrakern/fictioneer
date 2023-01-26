@@ -109,6 +109,9 @@ function fcn_touchParagraph(e) {
   // Do not call paragraph tools when mobile menu is open
   if (fcn_theSite.classList.contains('transformed-site')) return;
 
+  // Do not call paragraphs tolls on spoilers
+  if (e.target.classList.contains('spoiler')) return;
+
   // Ignore nested paragraphs
   if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) return;
 
