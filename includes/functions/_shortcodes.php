@@ -92,7 +92,7 @@ add_action( 'save_post', 'fictioneer_update_shortcode_relationships', 10, 2 );
 
 function fictioneer_shortcode_showcase( $attr ) {
   // Abort if...
-  if ( empty( $attr['for'] ) ) return;
+  if ( empty( $attr['for'] ) ) return '';
 
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 8 ) );
@@ -134,7 +134,7 @@ function fictioneer_shortcode_showcase( $attr ) {
   }
 
   // Abort if...
-  if ( ! isset( $args['type'] ) ) return;
+  if ( ! isset( $args['type'] ) ) return '';
 
   // Buffer
   ob_start();
