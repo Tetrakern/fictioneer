@@ -958,10 +958,10 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
  *
  * @since 4.0
  *
- * @param int $value   The integer to be sanitized.
- * @param int $default Default value if an invalid integer. Default 0.
- * @param int $minimum Optional. Minimum value of the integer.
- * @param int $maximum Optional. Maximum value of the integer.
+ * @param int         $value   The integer to be sanitized.
+ * @param int         $default Default value if an invalid integer. Default 0.
+ * @param int|boolean $minimum Optional. Minimum value of the integer. Default false.
+ * @param int|boolean $maximum Optional. Maximum value of the integer. Default false.
  *
  * @return int The sanitized integer.
  */
@@ -969,8 +969,8 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
 function fictioneer_sanitize_integer( $value, $default = 0, $minimum = false, $maximum = false ) {
   $value = (int) $value;
   if ( ! is_int( $value ) ) $value = $default;
-  if ( $minimum ) $value = max( $value, $minimum );
-  if ( $maximum ) $value = min( $value, $maximum );
+  if ( $minimum !== false ) $value = max( $value, $minimum );
+  if ( $maximum !== false ) $value = min( $value, $maximum );
   return $value;
 }
 
