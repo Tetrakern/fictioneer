@@ -202,7 +202,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    *
    * @param int $story_id ID of the story.
    *
-   * @return array $result Data of the story.
+   * @return array|boolean $result Data of the story or false if invalid.
    */
 
   function fictioneer_get_story_data( $story_id ) {
