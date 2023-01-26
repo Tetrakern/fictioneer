@@ -179,11 +179,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array  $comments               Collection of comments to display.
-   * @param int    $page                   Current page number of the comments.
-   * @param string $args['commentcode']    Current commentcode.
-   * @param int    $args['post_author_id'] ID of the post author.
-   * @param int    $args['post_id']        Current post ID.
+   * @param array $comments Collection of comments to display.
+   * @param int   $page     Current page number of the comments.
+   * @param array $args     With 'commentcode', 'post_author_id', and 'post_id'.
    */
 
   function fictioneer_ajax_list_comments( $comments, $page, $args = [] ) {
