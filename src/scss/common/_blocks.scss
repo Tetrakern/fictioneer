@@ -765,6 +765,7 @@ figure {
 // =============================================================================
 
 .wp-block-buttons {
+  --focus-offset: -2px;
   flex-direction: row;
   flex-wrap: wrap;
 
@@ -837,6 +838,10 @@ figure {
   .wp-element-button {
     @extend %button;
     width: 100%;
+
+    &:focus-visible {
+      box-shadow: var(--focus-box-shadow);
+    }
   }
 
   &.is-style-outline {
