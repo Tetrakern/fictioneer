@@ -711,6 +711,7 @@ if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
 
       $img->setAttribute( 'data-src', $src );
       $img->setAttribute( 'data-lightbox', '' );
+      $img->setAttribute( 'tabindex', '0' );
     };
 
     $content = $doc->saveHTML();

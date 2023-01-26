@@ -248,6 +248,7 @@ figure {
 // =============================================================================
 
 .wp-block-image {
+  --focus-offset: 2px;
   flex-wrap: wrap;
 
   figcaption {
