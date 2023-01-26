@@ -107,7 +107,7 @@ if ( ! function_exists( 'fictioneer_nav_point' ) ) {
   function fictioneer_nav_point( $doc, $index, $src, $text ) {
     $nav_point = $doc->createElement( 'navPoint' );
     $nav_point->setAttribute( 'id', 'navpoint' . $index );
-    $nav_point->setAttribute( 'playOrder', $index );
+    $nav_point->setAttribute( 'playOrder', strval( $index ) );
 
     $nav_content = $doc->createElement( 'content' );
     $nav_content->setAttribute( 'src', $src );
@@ -215,7 +215,7 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
 
     // Setup
     $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
-    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] );
+    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
 
     // Copy image
     copy(
