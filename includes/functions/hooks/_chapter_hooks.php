@@ -199,11 +199,11 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
     <?php endif; ?>
     <?php if ( $location === 'top' ) : ?>
       <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to bottom', 'fictioneer' ); ?>">
-        <a href="#bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
+        <a href="#bottom" name="top" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
       </div>
     <?php else : ?>
       <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to top', 'fictioneer' ); ?>">
-        <a href="#" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
+        <a href="#top" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
       </div>
     <?php endif; ?>
     <?php if ( $args['next_index'] ) : ?>
