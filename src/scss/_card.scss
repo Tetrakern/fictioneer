@@ -75,6 +75,10 @@
       font-size: 15px;
     }
 
+    &._with-delete {
+      margin-right: 1.5rem;
+    }
+
     a {
       --focus-offset: 1px;
       color: var(--story-link);
@@ -105,11 +109,6 @@
     &:hover,
     &:focus-visible {
       opacity: 1;
-    }
-
-    + .card__main .card__title,
-    + .card__title {
-      margin-right: 1.5rem;
     }
   }
 
@@ -708,6 +707,10 @@
 
   &[data-color=delta] .bookmark-card__progress {
     background: var(--bookmark-color-delta);
+  }
+
+  &__title {
+
   }
 
   &__meta {

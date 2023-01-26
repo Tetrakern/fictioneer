@@ -75,7 +75,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php _e( 'Comments', 'fictioneer' ); ?></h3>
+            <h3 class="card__title _with-delete _small"><?php _e( 'Comments', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
             <div class="card__content _small">
@@ -98,7 +98,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php _e( 'Comment Subscriptions', 'fictioneer' ); ?></h3>
+            <h3 class="card__title _with-delete _small"><?php _e( 'Comment Subscriptions', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
             <div class="card__content _small">
@@ -121,7 +121,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php
+            <h3 class="card__title _with-delete _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'follows', $bookshelf_link ) . '#tabs'; ?>"><?php echo fcntr( 'follows' ); ?></a><?php
               } else {
@@ -153,7 +153,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php
+            <h3 class="card__title _with-delete _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'reminders', $bookshelf_link ) . '#tabs'; ?>"><?php echo fcntr( 'reminders' ); ?></a><?php
               } else {
@@ -188,7 +188,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php
+            <h3 class="card__title _with-delete _small"><?php
               if ( $bookshelf_link ) {
                 ?><a href="<?php echo add_query_arg( 'tab', 'finished', $bookshelf_link ) . '#tabs'; ?>"><?php _e( 'Checkmarks', 'fictioneer' ); ?></a><?php
               } else {
@@ -221,7 +221,7 @@ $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
       <li class="card _small">
         <div class="card__body polygon">
           <div class="card__header _small">
-            <h3 class="card__title _small"><?php
+            <h3 class="card__title _with-delete _small"><?php
               if ( $bookmarks_link ) {
                 ?><a href="<?php echo $bookmarks_link; ?>"><?php echo fcntr( 'bookmarks' ); ?></a><?php
               } else {
