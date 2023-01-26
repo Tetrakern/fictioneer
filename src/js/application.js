@@ -1708,7 +1708,7 @@ _$$('.search-form').forEach(form => {
 
 function fcn_handleTabInput(e) {
   if (e.keyCode == 9) {
-    document.body.classList.add('user-is-tabbing');
+    fcn_theBody.classList.add('user-is-tabbing');
 
     window.removeEventListener('keydown', fcn_handleTabInput);
     window.addEventListener('mousedown', fcn_handleMouseInput);
@@ -1723,7 +1723,7 @@ function fcn_handleTabInput(e) {
  */
 
 function fcn_handleMouseInput() {
-  document.body.classList.remove('user-is-tabbing');
+  fcn_theBody.classList.remove('user-is-tabbing');
 
   window.removeEventListener('mousedown', fcn_handleMouseInput);
   window.addEventListener('keydown', fcn_handleTabInput);
