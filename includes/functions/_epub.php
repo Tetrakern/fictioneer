@@ -509,7 +509,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
     // Cover node (if any)
     if( has_post_thumbnail( $story_id ) ) {
       $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
-      $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] );
+      $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_parts['extension'] ?? 'jpg' );
 
       $cover_meta = $opf->createElement( 'meta' );
       $cover_meta->setAttribute( 'name', 'cover' );
