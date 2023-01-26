@@ -1300,7 +1300,7 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
     $mod_keys = trim( get_option( 'disallowed_keys' ) );
 
     if ( '' === $mod_keys ) {
-      return false; // If moderation keys are empty.
+      return [false, []]; // If moderation keys are empty.
     }
 
     // Ensure HTML tags are not being used to bypass the list of disallowed characters and words.
