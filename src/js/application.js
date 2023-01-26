@@ -1312,7 +1312,7 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
         let modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
         modalElement?.focus();
         modalElement?.blur();
-      } else {
+      } else if (fcn_theBody.classList.contains('user-is-tabbing')) {
         fcn_theSite.querySelector(`label[for="${e.currentTarget.id}"]`)?.focus();
       }
     }
