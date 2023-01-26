@@ -374,13 +374,13 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
       ! is_array( $args['breadcrumbs'] ) ||
       count( $args['breadcrumbs'] ) < 1 ||
       is_front_page()
-    ) return;
+    ) return '';
 
     // Setup
     $count = count( $args['breadcrumbs'] );
 
     // Abort if array does not have two or more items
-    if ( $count < 2 ) return;
+    if ( $count < 2 ) return '';
 
     // Filter breadcrumbs array
     $args['breadcrumbs'] = apply_filters( 'fictioneer_filter_breadcrumbs_array', $args['breadcrumbs'], $args );
