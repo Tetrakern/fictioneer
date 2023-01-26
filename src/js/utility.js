@@ -673,8 +673,29 @@ function fcn_buildErrorNotice(message, id = false) {
   }
 
   // Build and return
-  notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${text}</div>`;
+  notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${fcn_sanitizeHTML(text)}</div>`;
   return notice;
+}
+
+// =============================================================================
+// SANITIZE HTML
+// =============================================================================
+
+/**
+ * Returns a sanitized HTML string.
+ *
+ * @description Converts special characters such as brackets to HTML entities,
+ * rendering any cross-site scripting attempts ineffective.
+ *
+ * @since 5.0.5
+ * @param {String|HTMLElement} html - The HTML (element) to sanitize.
+ * @return {String} Sanitized HTML string.
+ */
+
+function fcn_sanitizeHTML(html) {
+  let temp = document.createElement('div');
+  temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
+  return temp.innerHTML;
 }
 
 // =============================================================================
