@@ -677,7 +677,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_client_credentials' ) ) {
    * @param string $type    Optional. The type of credential to retrieve,
    *                        'id' or 'secret'. Default 'id'.
    *
-   * @return string|boolean The client ID or secret, or false if not found.
+   * @return string|null The client ID or secret, or null if not found.
    */
 
   function fictioneer_get_oauth_client_credentials( $channel, $type = 'id' ) {
