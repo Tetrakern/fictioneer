@@ -984,7 +984,7 @@ function fictioneer_sanitize_integer( $value, $default = 0, $minimum = false, $m
  * @since 4.7
  * @link  https://www.php.net/manual/en/function.filter-var.php
  *
- * @param string $value The checkbox value to be sanitized.
+ * @param string|boolean $value The checkbox value to be sanitized.
  *
  * @return boolean True or false.
  */
