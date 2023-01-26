@@ -564,10 +564,10 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
    *
    * @param int $user_id User ID to soft delete the comments for.
    *
-   * @return array Detailed results about the database update. Accounts
-   *               for completeness, partial success, and errors. Includes
-   *               'complete' (boolean), 'failure' (boolean), 'success' (boolean),
-   *               'comment_count' (int), and 'updated_count' (int).
+   * @return array|false Detailed results about the database update. Accounts
+   *                     for completeness, partial success, and errors. Includes
+   *                     'complete' (boolean), 'failure' (boolean), 'success' (boolean),
+   *                     'comment_count' (int), and 'updated_count' (int). Or false.
   */
 
   function fictioneer_soft_delete_user_comments( $user_id ) {
