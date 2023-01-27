@@ -209,6 +209,9 @@ if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
       fclose( $css_file );
     }
 
+    // Copy fallback image
+    copy( $dir . '_build/templates/image_fallback.jpg', $epub_dir . '/OEBPS/Images/image_fallback.jpg' );
+
     // Copy container XML
     copy(
       $dir . '_build/templates/container.xml',
@@ -577,6 +580,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
       $m_item->setAttribute( 'href', 'Images/cover' . $extension );
       $m_item->setAttribute( 'id', 'cover' . $extension );
       $m_item->setAttribute( 'media-type', 'image/' . substr( $extension, 1 ) );
+      $m_item->setAttribute( 'fallback', 'fictioneer_image_fallbackjpg' );
       $manifest->appendChild( $m_item );
 
       $m_item = $opf->createElement( 'item' );
@@ -602,6 +606,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
       $m_item->setAttribute( 'href', 'Images/' . $img[0] );
       $m_item->setAttribute( 'id', $img[0] );
       $m_item->setAttribute( 'media-type', 'image/' . $img[1] );
+      $m_item->setAttribute( 'fallback', 'fictioneer_image_fallbackjpg' );
       $manifest->appendChild( $m_item );
     }
 

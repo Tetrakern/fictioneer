@@ -18,6 +18,7 @@
     <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml" />
     <item href="Text/frontmatter.html" id="frontmatter" media-type="application/xhtml+xml" />
     <item href="Text/toc.html" id="toc" media-type="application/xhtml+xml" />
+    <item href="Images/image_fallback.jpg" id="fictioneer_image_fallbackjpg" media-type="image/jpg"/>
   </manifest>
 
   <spine toc="ncx">
