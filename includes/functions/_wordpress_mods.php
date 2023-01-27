@@ -706,7 +706,7 @@ if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
 
       if (
         $parent->hasAttribute( 'href' ) &&
-        ! preg_match( '/(\.png|\.jpg|\.jpeg|\.gif|\.webp|\.avif|\.svg|\.apng|\.ico|\.tiff)$/i', $parent_href )
+        ! preg_match( '/(\.png|\.jpg|\.jpeg|\.gif|\.webp|\.avif|\.svg|\.apng|\.ico|\.tiff).*?/i', $parent_href )
       ) continue;
 
       $src = $img->getAttribute( 'src' );
