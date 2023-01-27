@@ -17,6 +17,7 @@
  * @internal $args['orderby']  Order argument. Default 'date'.
  * @internal $args['author']   Limit query to specific author. Default none.
  * @internal $args['post_ids'] Limit items to specific post IDs. Default empty array.
+ * @internal $args['class']    Additional classes.
  */
 ?>
 
@@ -42,7 +43,7 @@ $query = new WP_Query( $query_args );
 ?>
 
 <?php if ( $query->have_posts() ) : ?>
-  <section class="showcase">
+  <section class="showcase <?php echo implode( ' ', $args['classes'] ); ?>">
     <ul class="showcase__list">
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <li class="showcase__list-item">

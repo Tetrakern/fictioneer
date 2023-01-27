@@ -16,6 +16,7 @@
  * @internal $args['source']   Whether to show author and story.
  * @internal $args['post_ids'] Comma-separated list of chapter IDs. Overrides count.
  * @internal $args['simple']   Whether to show the simple variant.
+ * @internal $args['class']    Additional classes.
  */
 ?>
 
@@ -43,7 +44,7 @@ $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-chapters">
+<section class="small-card-block latest-chapters <?php echo implode( ' ', $args['classes'] ); ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">

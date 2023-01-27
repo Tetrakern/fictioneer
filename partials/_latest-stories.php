@@ -13,6 +13,7 @@
  * @internal $args['order']    Order of posts. Default 'desc'.
  * @internal $args['orderby']  Sorting of posts. Default 'date'.
  * @internal $args['post_ids'] Comma-separated list of story IDs. Overrides count.
+ * @internal $args['class']    Additional classes.
  */
 ?>
 
@@ -38,7 +39,7 @@ $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-stories">
+<section class="small-card-block latest-stories <?php echo implode( ' ', $args['classes'] ); ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">

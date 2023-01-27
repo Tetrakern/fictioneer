@@ -11,6 +11,7 @@
  * @internal $args['author']   The author provided by the shortcode.
  * @internal $args['count']    The number of posts provided by the shortcode.
  * @internal $args['post_ids'] Comma-separated list of post IDs. Overrides count.
+ * @internal $args['class']    Additional classes.
  */
 ?>
 
@@ -38,7 +39,7 @@ $latest_entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="latest-posts">
+<section class="latest-posts <?php echo implode( ' ', $args['classes'] ); ?>">
   <?php if ( $latest_entries->have_posts() ) : ?>
 
     <?php while ( $latest_entries->have_posts() ) : $latest_entries->the_post(); ?>

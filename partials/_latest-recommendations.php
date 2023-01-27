@@ -13,6 +13,7 @@
  * @internal $args['order']    Order of posts. Default 'desc'.
  * @internal $args['orderby']  Sorting of posts. Default 'date'.
  * @internal $args['post_ids'] Comma-separated list of recommendation IDs. Overrides count.
+ * @internal $args['class']    Additional classes.
  */
 ?>
 
@@ -40,7 +41,7 @@ $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-recommendations">
+<section class="small-card-block latest-recommendations <?php echo implode( ' ', $args['classes'] ); ?>">
 
   <?php if ( $entries->have_posts() ) : ?>
 

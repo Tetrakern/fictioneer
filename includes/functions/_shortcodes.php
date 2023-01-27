@@ -86,6 +86,7 @@ add_action( 'save_post', 'fictioneer_update_shortcode_relationships', 10, 2 );
  * @param string|null $attr['order']    Optional. Order direction. Default 'DESC'.
  * @param string|null $attr['orderby']  Optional. Order argument. Default 'date'.
  * @param array|null  $attr['post_ids'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -101,12 +102,16 @@ function fictioneer_shortcode_showcase( $attr ) {
   $orderby = $attr['orderby'] ?? 'date';
   $no_cap = $attr['no_cap'] ?? false;
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['posts'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['posts'] );
     $post_ids = explode( ',', $post_ids );
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Prepare arguments
   $args = array(
@@ -115,7 +120,8 @@ function fictioneer_shortcode_showcase( $attr ) {
     'orderby' => $orderby,
     'order' => $order,
     'post_ids' => $post_ids,
-    'no_cap' => $no_cap == 'true' || $no_cap == '1'
+    'no_cap' => $no_cap == 'true' || $no_cap == '1',
+    'classes' => $classes
   );
 
   switch ( $attr['for'] ) {
@@ -161,6 +167,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['spoiler']  Optional. Whether to show spoiler content.
  * @param string|null $attr['source']   Optional. Whether to show author and story.
  * @param array|null  $attr['chapters'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -175,6 +182,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $spoiler = $attr['spoiler'] ?? false;
   $source = $attr['source'] ?? 'true';
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['chapters'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['chapters'] );
@@ -182,6 +190,9 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Buffer
   ob_start();
@@ -198,7 +209,8 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
           'orderby' => $orderby,
           'spoiler' => $spoiler == 'true',
           'source' => $source == 'true',
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
       break;
@@ -214,7 +226,8 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
           'orderby' => $orderby,
           'spoiler' => $spoiler == 'true',
           'source' => $source == 'true',
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
   }
@@ -240,6 +253,7 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['type']    Optional. Choose between 'default' and 'compact'.
  * @param string|null $attr['orderby'] Optional. Order argument. Default 'date'.
  * @param array|null  $attr['stories'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']   Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -252,6 +266,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $order = $attr['order'] ?? 'desc';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['stories'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['stories'] );
@@ -259,6 +274,9 @@ function fictioneer_shortcode_latest_stories( $attr ) {
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Buffer
   ob_start();
@@ -273,7 +291,8 @@ function fictioneer_shortcode_latest_stories( $attr ) {
           'author' => $author,
           'order' => $order,
           'orderby' => $orderby,
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
       break;
@@ -286,7 +305,8 @@ function fictioneer_shortcode_latest_stories( $attr ) {
           'author' => $author,
           'order' => $order,
           'orderby' => $orderby,
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
   }
@@ -311,6 +331,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['author']  Optional. Limit items to a specific author.
  * @param string|null $attr['type']    Optional. Choose between 'default', 'simple', and 'compact'.
  * @param array|null  $attr['stories'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']   Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -322,6 +343,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'desc';
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['stories'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['stories'] );
@@ -329,6 +351,9 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Buffer
   ob_start();
@@ -342,7 +367,8 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
           'count' => $count,
           'author' => $author,
           'order' => $order,
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
       break;
@@ -355,7 +381,8 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
           'author' => $author,
           'order' => $order,
           'simple' => $type == 'simple',
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
   }
@@ -380,6 +407,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['author']          Optional. Limit items to a specific author.
  * @param string|null $attr['type']            Optional. Choose between 'default' and 'compact'.
  * @param array|null  $attr['recommendations'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -392,6 +420,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $order = $attr['order'] ?? 'desc';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['recommendations'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['recommendations'] );
@@ -399,6 +428,9 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Buffer
   ob_start();
@@ -413,7 +445,8 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
           'author' => $author,
           'order' => $order,
           'orderby' => $orderby,
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
       break;
@@ -426,7 +459,8 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
           'author' => $author,
           'order' => $order,
           'orderby' => $orderby,
-          'post_ids' => $post_ids
+          'post_ids' => $post_ids,
+          'classes' => $classes
         )
       );
   }
@@ -450,6 +484,7 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  * @param int|null    $attr['count']  Optional. Maximum number of items. Default 1.
  * @param string|null $attr['author'] Optional. Limit items to a specific author.
  * @param array|null  $attr['posts']  Optional. Limit items to specific post IDs.
+ * @param string|null $attr['class']  Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -459,6 +494,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
   $post_ids = [];
+  $classes = [];
 
   if ( ! empty( $attr['posts'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['posts'] );
@@ -466,6 +502,9 @@ function fictioneer_shortcode_latest_posts( $attr ) {
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
   }
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // Buffer
   ob_start();
@@ -476,7 +515,8 @@ function fictioneer_shortcode_latest_posts( $attr ) {
     array(
       'count' => $count,
       'author' => $author,
-      'post_ids' => $post_ids
+      'post_ids' => $post_ids,
+      'classes' => $classes
     )
   );
 
@@ -557,6 +597,7 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * @param int|null    $attr['offset']   Optional. Skip a number of posts.
  * @param string|null $attr['group']    Optional. Only show chapters of the group.
  * @param string|null $attr['heading']  Optional. Show <h5> heading above list.
+ * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -592,6 +633,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
   $chapter_ids = [];
   $chapters = [];
+  $classes = [];
 
   // Extract chapter IDs (if any)
   if ( ! empty( $attr['chapters'] ) ) {
@@ -611,6 +653,10 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     $chapters = $chapter_ids;
   }
 
+  // Extra classes
+  if ( get_option( 'fictioneer_hide_chapter_icons' ) ) $classes[] = '_no-icons';
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
   // Apply offset
   if ( ! $group ) $chapters = array_slice( $chapters, $offset );
 
@@ -624,7 +670,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="chapter-group <?php echo $hide_icons ? ' _no-icons' : ''; ?>">
+  <div class="chapter-group <?php echo implode( ' ', $classes ); ?>">
     <?php if ( $heading ) : ?>
       <?php $discriminator = md5( $heading . microtime() ); ?>
       <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
@@ -747,6 +793,7 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
  * @param string|null  $attr['name']           Optional. Name field.
  * @param string|null  $attr["text_{$i}"]      Optional. Up to 6 extra text field(s).
  * @param string|null  $attr["check_{$i}"]     Optional. Up to 6 extra checkbox field(s).
+ * @param string|null  $attr['class']          Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -760,6 +807,10 @@ function fictioneer_shortcode_contact_form( $attr ) {
   $email = $attr['email'] ?? '';
   $name = $attr['name'] ?? '';
   $fields = [];
+  $classes = [];
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
   // HTML snippets
   if ( ! empty( $email ) ) {
@@ -810,7 +861,7 @@ function fictioneer_shortcode_contact_form( $attr ) {
    */
 
   // Start HTML ---> ?>
-  <form class="contact-form">
+  <form class="contact-form <?php echo implode( ' ', $classes ); ?>">
     <div class="contact-form__message">
       <textarea class="contact-form__textarea adaptive-textarea" style="opacity: 0;" name="message" maxlength="65525" placeholder="<?php _e( 'Please enter your message.', 'fictioneer' ); ?>" required></textarea>
     </div>

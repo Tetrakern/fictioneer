@@ -396,7 +396,7 @@ Renders a two-column grid of small bookmark cards, ordered by date of creation. 
 
 ### Chapter List
 
-Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story** or **chapters** parameter. Optional parameters are **count**, **offset**, **group**, and **heading**.
+Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story** or **chapters** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, **class**, and **class**.
 
 * **story:** ID of a single story. You need either this or **chapters**.
 * **chapters:** Comma-separated list of chapter IDs. You need either this or **story**.
@@ -404,6 +404,7 @@ Renders a list of chapters identical to those on story pages, ordered by sequenc
 * **offset:** Skip a number of chapters, which can make sense if you query all.
 * **heading:** Show a heading with collapse toggle above the list.
 * **group:** Only show chapters with a specific group name, which can transcend stories.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_chapter_list story="69"]
@@ -421,7 +422,7 @@ Renders a list of chapters identical to those on story pages, ordered by sequenc
 
 ### Contact Form
 
-Renders a contact form with various (optional) fields. Submissions are validated, sanitized, have basic spam protection, and are checked against the WordPress disallow list under **Settings > Discussions**. If all steps are passed, the submission is sent to the email addresses listed under **Fictioneer > General > Contact Form Receivers**, which are never revealed to the public. If empty, the admin email address is used instead. Optional parameters are **title**, **submit**, **privacy_policy**, **required**, **email**, **name**, **text_[1-6]**, and **check_[1-6]**.
+Renders a contact form with various (optional) fields. Submissions are validated, sanitized, have basic spam protection, and are checked against the WordPress disallow list under **Settings > Discussions**. If all steps are passed, the submission is sent to the email addresses listed under **Fictioneer > General > Contact Form Receivers**, which are never revealed to the public. If empty, the admin email address is used instead. Optional parameters are **title**, **submit**, **privacy_policy**, **required**, **email**, **name**, **text_[1-6]**, **check_[1-6]**, and **class**.
 
 * **title:** Title of the form shown in emails. Defaults to "Nameless Form".
 * **submit:** Label of the submit button. Defaults to "Submit".
@@ -431,6 +432,7 @@ Renders a contact form with various (optional) fields. Submissions are validated
 * **name:** Sender name for personal replies.
 * **text_[1-6]:** Custom text fields 1 to 6, e.g. **text_1** to **text_6**.
 * **check_[1-6]:** Custom checkboxes 1 to 6, e.g. **check_1** to **check_6**.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_contact_form]
@@ -458,7 +460,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, and **chapters**.
+Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **chapters**, and **class**.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -468,6 +470,7 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Set `false` to hide the author and story nodes. Default `true`.
 * **chapters:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_chapters]
@@ -481,11 +484,12 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 ### Latest Posts
 
-Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, and **posts**.
+Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **posts**, and **class**.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **posts:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_posts]
@@ -499,7 +503,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, and **recommendations**.
+Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **recommendations**, and **class**.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -507,6 +511,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **recommendations:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_recommendations]
@@ -520,7 +525,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 ### Latest Stories
 
-Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, and **stories**.
+Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **stories**, and **class**.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -528,6 +533,7 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_stories]
@@ -541,13 +547,14 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, and **stories**.
+Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **stories**, and **class**.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
 * **author:** Only show updates of a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_updates]
@@ -578,7 +585,7 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ### Showcase
 
-Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Required **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **posts**, and **no_cap**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
+Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Required **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **posts**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `8`.
@@ -587,6 +594,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **posts:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **no_cap:** Set `true` if you want to hide the caption.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_showcase for="collections"]

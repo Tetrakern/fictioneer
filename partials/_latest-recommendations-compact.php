@@ -40,7 +40,7 @@ $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-recommendations latest-recommendations--compact">
+<section class="small-card-block latest-recommendations _compact <?php echo implode( ' ', $args['classes'] ); ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">

@@ -38,7 +38,7 @@ $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-stories latest-stories--compact">
+<section class="small-card-block latest-stories _compact">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">
