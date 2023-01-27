@@ -683,8 +683,9 @@ if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
    */
 
   function fictioneer_add_lightbox_to_post_images( $content ) {
-    if ( ! $content ) return $content;
+    if ( empty( $content ) ) return $content;
 
+    // Setup
     libxml_use_internal_errors( true );
     $doc = new DOMDocument();
     $doc->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
@@ -693,12 +694,19 @@ if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
     // Iterate over each img tag
     foreach ( $images as $img ) {
       $classes = $img->getAttribute( 'class' );
+      $parent = $img->parentNode;
+      $parent_classes = $parent->getAttribute( 'class' );
+      $parent_href = strtolower( $parent->getAttribute( 'href' ) );
 
       // Abort if...
       if (
-        empty( $classes ) ||
-        str_contains( $classes, 'no-auto-lightbox' ) ||
-        ! str_contains( $classes, 'wp-image' )
+        str_contains( $classes . $parent_classes, 'no-auto-lightbox' ) ||
+        $parent->hasAttribute( 'target' )
+      ) continue;
+
+      if (
+        $parent->hasAttribute( 'href' ) &&
+        ! preg_match( '/(\.png|\.jpg|\.jpeg|\.gif|\.webp|\.avif|\.svg|\.apng|\.ico|\.tiff)$/i', $parent_href )
       ) continue;
 
       $src = $img->getAttribute( 'src' );
