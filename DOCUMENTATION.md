@@ -396,7 +396,7 @@ Renders a two-column grid of small bookmark cards, ordered by date of creation. 
 
 ### Chapter List
 
-Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story** or **chapters** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, **class**, and **class**.
+Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story** or **chapters** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, and **class**.
 
 * **story:** ID of a single story. You need either this or **chapters**.
 * **chapters:** Comma-separated list of chapter IDs. You need either this or **story**.
