@@ -415,6 +415,10 @@ ol {
     vertical-align: bottom;
   }
 
+  th, td {
+      padding: 6px 9px;
+    }
+
   tfoot {
     td {
       font-size: 87.5%;
@@ -427,10 +431,6 @@ ol {
     table {
       border-color: currentColor;
     }
-
-    th, td {
-      padding: 8px 12px;
-    }
   }
 
   &.is-style-stripes {
@@ -441,7 +441,7 @@ ol {
     th, td {
       position: relative;
       z-index: 1;
-      padding: 10px 16px;
+      padding: 8px 12px;
     }
 
     tbody {

@@ -338,6 +338,9 @@ ol ol {
   font-weight: 700;
   vertical-align: bottom;
 }
+.wp-block-table th, .wp-block-table td {
+  padding: 6px 9px;
+}
 .wp-block-table tfoot td {
   font-size: 87.5%;
   font-weight: 700;
@@ -346,16 +349,13 @@ ol ol {
 .wp-block-table.is-style-regular table {
   border-color: currentColor;
 }
-.wp-block-table.is-style-regular th, .wp-block-table.is-style-regular td {
-  padding: 8px 12px;
-}
 .wp-block-table.is-style-stripes table {
   border: none;
 }
 .wp-block-table.is-style-stripes th, .wp-block-table.is-style-stripes td {
   position: relative;
   z-index: 1;
-  padding: 10px 16px;
+  padding: 8px 12px;
 }
 .wp-block-table.is-style-stripes tbody tr:nth-child(odd) th::before,
 .wp-block-table.is-style-stripes tbody tr:nth-child(odd) td::before {
