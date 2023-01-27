@@ -406,6 +406,13 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
           $node->parentNode->removeChild( $node );
         }
 
+        // Add tr-footer class to <tr> children of tfoot
+        foreach ( $doc->getElementsByTagName( 'tfoot' ) as $node ) {
+          foreach ( $node->childNodes as $child_node ) {
+            $child_node->setAttribute( 'class', 'tr-footer' );
+          }
+        }
+
         // Copy images displayed in chapter to ePUB directory and remember them for later
         foreach ( $finder->query( "//*[contains(@class, 'wp-block-image')]" ) as $node ) {
           // Extract image from wrapper(s)
@@ -487,6 +494,8 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       $file_content = str_replace( '</u>', '</span>', $file_content );
       $file_content = str_replace( '<s>', '<span class="strike">', $file_content );
       $file_content = str_replace( '</s>', '</span>', $file_content );
+      $file_content = str_replace( '<tfoot>', '<tbody>', $file_content );
+      $file_content = str_replace( '</tfoot>', '</tbody>', $file_content );
 
       // Fix invalid entities (because of course)
       $file_content = fictioneer_fix_html_entities( $file_content );

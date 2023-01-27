@@ -328,7 +328,7 @@ ol ol {
   width: auto;
   margin: 0 auto;
 }
-.wp-block-table thead, .wp-block-table tbody, .wp-block-table tfoot, .wp-block-table tr, .wp-block-table td, .wp-block-table th {
+.wp-block-table thead, .wp-block-table tbody, .wp-block-table tr, .wp-block-table td, .wp-block-table th {
   border-width: inherit;
   border-style: solid;
   border-color: inherit;
@@ -341,7 +341,7 @@ ol ol {
 .wp-block-table th, .wp-block-table td {
   padding: 6px 9px;
 }
-.wp-block-table tfoot td {
+.wp-block-table .tr-footer td {
   font-size: 87.5%;
   font-weight: 700;
   vertical-align: top;
@@ -357,8 +357,8 @@ ol ol {
   z-index: 1;
   padding: 8px 12px;
 }
-.wp-block-table.is-style-stripes tbody tr:nth-child(odd) th::before,
-.wp-block-table.is-style-stripes tbody tr:nth-child(odd) td::before {
+.wp-block-table.is-style-stripes tbody tr:not(.tr-footer):nth-child(odd) th::before,
+.wp-block-table.is-style-stripes tbody tr:not(.tr-footer):nth-child(odd) td::before {
   content: "";
   pointer-events: none;
   position: absolute;
@@ -371,8 +371,8 @@ ol ol {
   background: currentColor;
   opacity: 0.04;
 }
-.wp-block-table.is-style-stripes tfoot td {
-  padding: 6px 16px;
+.wp-block-table.is-style-stripes .tr-footer td {
+  padding: 6px 12px;
 }
 
 .wp-block-separator {

@@ -403,7 +403,7 @@ ol {
     margin: 0 auto;
   }
 
-  thead, tbody, tfoot, tr, td, th {
+  thead, tbody, tr, td, th {
     border-width: inherit;
     border-style: solid;
     border-color: inherit;
@@ -419,7 +419,7 @@ ol {
       padding: 6px 9px;
     }
 
-  tfoot {
+  .tr-footer {
     td {
       font-size: 87.5%;
       font-weight: 700;
@@ -445,7 +445,7 @@ ol {
     }
 
     tbody {
-      tr {
+      tr:not(.tr-footer) {
         &:nth-child(odd) {
           th::before,
           td::before {
@@ -465,9 +465,9 @@ ol {
       }
     }
 
-    tfoot {
+    .tr-footer {
       td {
-        padding: 6px 16px;
+        padding: 6px 12px;
       }
     }
   }
