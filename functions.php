@@ -79,6 +79,11 @@ if ( ! defined( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT' ) ) {
   define( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT', 100 );
 }
 
+// Integer: Update check timeout
+if ( ! defined( 'FICTIONEER_UPDATE_CHECK_TIMEOUT' ) ) {
+  define( 'FICTIONEER_UPDATE_CHECK_TIMEOUT', 3600 );
+}
+
 /*
  * Booleans
  */

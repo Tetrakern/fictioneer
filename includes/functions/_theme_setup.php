@@ -912,8 +912,8 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
     $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
     $is_updates_page = $pagenow == 'update-core.php';
 
-    // Only call API every 30 minutes, otherwise check database
-    if ( ! empty( $latest_version ) && time() < $last_check + 1800 && ! $is_updates_page ) {
+    // Only call API every n seconds, otherwise check database
+    if ( ! empty( $latest_version ) && time() < $last_check + FICTIONEER_UPDATE_CHECK_TIMEOUT && ! $is_updates_page ) {
       return version_compare( $latest_version, FICTIONEER_RELEASE_TAG, '>' );
     }
 
@@ -961,8 +961,8 @@ function fictioneer_admin_update_notice() {
   // Abort if...
   if ( ! current_user_can( 'manage_options' ) ) return;
 
-  // Show only once every 30 minutes
-  if ( $last_notice + 1800 > time() && ! $is_updates_page ) return;
+  // Show only once every n seconds
+  if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) return;
 
   // Update?
   if ( ! fictioneer_check_for_updates() ) return;
