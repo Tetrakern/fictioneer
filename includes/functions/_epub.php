@@ -249,7 +249,7 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
     // Setup
     $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
     $path_extension = isset( $path_parts['extension'] ) ? $path_parts['extension'] : 'jpg';
-    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_extension );
+    $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng|tiff).+/', '', '.' . $path_extension );
 
     // Copy image
     copy(
