@@ -1022,7 +1022,7 @@ if ( ! function_exists( 'fictioneer_generate_epub' ) ) {
       'all_authors' => $all_authors,
       'fictioneer_story_short_description' => $short_description,
       'story_last_modified' => $last_modified,
-      'epub_last_updated' => $last_updated,
+      'epub_last_updated' => wp_date( 'c', strtotime( $last_updated ) ),
       'dir' => $dir,
       'uploads_dir' => $uploads_dir,
       'epub_dir' => $epub_dir,
