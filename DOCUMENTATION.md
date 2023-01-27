@@ -304,6 +304,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `min-640` | Forces blocks to be at least 640px wide regardless of space. Works well with tables.
 | `min-768` | Forces blocks to be at least 768px wide regardless of space. Works well with tables.
 | `overflow-x` | Adds horizontal scrolling if a block is too wide. Not necessary on tables.
+| `no-auto-lightbox` | Prevents the lightbox script from being applied if added to an `<img>` element.
 
 ### HTML Block
 
