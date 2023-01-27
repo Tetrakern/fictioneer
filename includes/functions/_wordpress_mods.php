@@ -694,8 +694,12 @@ if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
     foreach ( $images as $img ) {
       $classes = $img->getAttribute( 'class' );
 
-      // Abort if escape class found
-      if ( $classes && str_contains( $classes, 'no-auto-lightbox' ) ) continue;
+      // Abort if...
+      if (
+        empty( $classes ) ||
+        str_contains( $classes, 'no-auto-lightbox' ) ||
+        ! str_contains( $classes, 'wp-image' )
+      ) continue;
 
       $src = $img->getAttribute( 'src' );
       $id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
