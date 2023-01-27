@@ -447,7 +447,7 @@ ol ol {
   font-size: 75%;
 }
 .litrpg-box strong, .litrpg-box b {
-  font-size: 700;
+  font-weight: 700;
 }
 .litrpg-box table {
   margin: 0 auto -5px;
