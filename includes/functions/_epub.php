@@ -356,6 +356,11 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
           $node->parentNode->removeChild( $node );
         }
 
+        // Remove aria-hidden attributes from spacers
+        foreach ( $finder->query( "//*[contains(@class, 'wp-block-spacer')]" ) as $node ) {
+          $node->removeAttribute( 'aria-hidden' );
+        }
+
         // Remove data-paragraph-id attributes from paragraphs in chapter file
         foreach ( $doc->getElementsByTagName( 'p' ) as $node ) {
           $node->removeAttribute( 'data-paragraph-id' );
@@ -448,6 +453,10 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       $file_content = str_replace( '</cite>', '</div>', $file_content );
       $file_content = str_replace( '<figcaption', '<div', $file_content );
       $file_content = str_replace( '</figcaption>', '</div>', $file_content );
+      $file_content = str_replace( '<u>', '<span class="underline">', $file_content );
+      $file_content = str_replace( '</u>', '</span>', $file_content );
+      $file_content = str_replace( '<s>', '<span class="strike">', $file_content );
+      $file_content = str_replace( '</s>', '</span>', $file_content );
 
       // Save chapter file in ePUB directory
       $file_path = $epub_dir . "/OEBPS/Text/chapter-$index.html";

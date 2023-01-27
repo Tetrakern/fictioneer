@@ -131,6 +131,14 @@ code {
   white-space: nowrap;
 }
 
+span.strike {
+  text-decoration: line-through;
+}
+
+span.underline {
+  text-decoration: underline;
+}
+
 .cover {
   text-align: center;
 }

@@ -139,6 +139,14 @@ code {
   white-space: nowrap;
 }
 
+span.strike {
+  text-decoration: line-through;
+}
+
+span.underline {
+  text-decoration: underline;
+}
+
 // =============================================================================
 // COVER
 // =============================================================================
