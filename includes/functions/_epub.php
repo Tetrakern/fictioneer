@@ -124,6 +124,36 @@ if ( ! function_exists( 'fictioneer_nav_point' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_fix_html_entities' ) ) {
+  /**
+   * Replace invalid HTML entities with XML entities
+   *
+   * @since Fictioneer 5.0.6
+   *
+   * @param string $text The string with invalid HTML entities.
+   *
+   * @return string The string with XML entities.
+   */
+
+  function fictioneer_fix_html_entities( $text ) {
+    $text = str_replace( '&ndash;', '&#8211;&#8203;', $text ); // Add zero-width space for line break control
+    $text = str_replace( '&mdash;', '&#8212;&#8203;', $text ); // Add zero-width space for line break control
+    $text = str_replace( '&nbsp;', '&#160;', $text );
+    $text = str_replace( '&ldquo;', '&#8220;', $text );
+    $text = str_replace( '&rdquo;', '&#8221;', $text );
+    $text = str_replace( '&lsquo;', '&#8216;', $text );
+    $text = str_replace( '&rsquo;', '&#8217;', $text );
+    $text = str_replace( '&deg;', '&#176;', $text );
+    $text = str_replace( '&reg;', '&#174;', $text );
+    $text = str_replace( '&copy;', '&#169;', $text );
+    $text = str_replace( '&times;', '&#215;', $text );
+    $text = str_replace( '&tilde;', '&#732;', $text );
+    $text = str_replace( '&circ;', '&#710;', $text );
+
+    return $text;
+  }
+}
+
 // =============================================================================
 // PREPARE BUILD DIRECTORY AND BASE FILES
 // =============================================================================
@@ -458,6 +488,9 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       $file_content = str_replace( '<s>', '<span class="strike">', $file_content );
       $file_content = str_replace( '</s>', '</span>', $file_content );
 
+      // Fix invalid entities (because of course)
+      $file_content = fictioneer_fix_html_entities( $file_content );
+
       // Save chapter file in ePUB directory
       $file_path = $epub_dir . "/OEBPS/Text/chapter-$index.html";
       $file = fopen( $file_path, 'w' );
@@ -493,6 +526,9 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
    */
 
   function fictioneer_generate_epub_opf( $story_id, $args ) {
+    // Description
+    $description = wp_strip_all_tags( $args['fictioneer_story_short_description'], true );
+
     // Create temporary file from build template
     $opf = new DOMDocument();
     $opf->load( $args['dir'] . '_build/templates/content.opf' );
@@ -506,7 +542,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
       implode( ', ', $args['all_authors'] )
     );
     $opf->getElementsByTagName( 'title' )->item( 0 )->nodeValue = $args['title'];
-    $opf->getElementsByTagName( 'description' )->item( 0 )->nodeValue = wp_strip_all_tags( $args['fictioneer_story_short_description'], true );
+    $opf->getElementsByTagName( 'description' )->item( 0 )->nodeValue = $description;
     $opf->getElementsByTagName( 'publisher' )->item( 0 )->nodeValue = $args['home_link'];
     $opf->getElementsByTagName( 'source' )->item( 0 )->nodeValue = $args['permalink'];
     $opf->getElementsByTagName( 'creator' )->item( 0 )->nodeValue = $args['author'];
@@ -741,7 +777,9 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
   function fictioneer_generate_epub_front_matter( $story_id, $args ) {
     // Setup
     $preface = fictioneer_get_content_field( 'fictioneer_story_epub_preface', $story_id );
+    $preface = fictioneer_fix_html_entities( $preface );
     $short_description = fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id );
+    $short_description = fictioneer_fix_html_entities( $short_description );
 
     // Create work document from build template
     $ftm = new DOMDocument();
@@ -834,6 +872,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
   function fictioneer_generate_epub_afterword( $story_id, $args ) {
     // Setup
     $afterword = fictioneer_get_content_field( 'fictioneer_story_epub_afterword', $story_id );
+    $afterword = fictioneer_fix_html_entities( $afterword );
 
     if ( ! empty( $afterword ) ) {
       // Create work document from build template
@@ -920,6 +959,7 @@ if ( ! function_exists( 'fictioneer_generate_epub' ) ) {
     $all_authors = [];
     $home_link = get_bloginfo();
     $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
+    $short_description = fictioneer_fix_html_entities( $short_description );
     $last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id ); // Story
     $last_updated = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true ); // ePUB
     $toc_list = [];
@@ -975,7 +1015,7 @@ if ( ! function_exists( 'fictioneer_generate_epub' ) ) {
     $epub_args = array(
       'home_link' => $home_link,
       'story_id' => $story_id,
-      'title' => $story_title,
+      'title' => fictioneer_fix_html_entities( $story_title ),
       'permalink' => get_permalink( $story_id ),
       'author' => $author,
       'co_authors' => $co_authors,
