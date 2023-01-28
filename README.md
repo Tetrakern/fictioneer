@@ -33,7 +33,11 @@ Fictioneer (up to 5.0) has been developed by one author, barring [credited](CRED
 
 ## Screenshots
 
-<p align="center">Base Theme Screenshots</p>
+<p align="center">Base Theme (Light/Dark)</p>
+
+![Screenshot Collage](repo/assets/fictioneer_preview.jpg?raw=true)
+
+<p align="center">Base Theme Parts</p>
 
 ![Screenshot Collage](repo/assets/screenshots.jpg?raw=true)
 
