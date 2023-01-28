@@ -707,8 +707,8 @@ define( 'CONSTANT_NAME', value );
 
 | Constant | Type | Explanation
 | :--- | :---: | :---
-| CHILD_VERSION | string|boolean | Version number of the child theme. Default `0`.
-| CHILD_NAME | string|boolean | Name of the child theme. Default `0`.
+| CHILD_VERSION | string\|boolean | Version number of the child theme. Default `0`.
+| CHILD_NAME | string\|boolean | Name of the child theme. Default `0`.
 | FICTIONEER_OAUTH_ENDPOINT | string | URI slug to call the OAuth script. Default `'oauth2'`.
 | FICTIONEER_EPUB_ENDPOINT | string | URI slug to call the ePUB script. Default `'download-epub'`.
 | FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
