@@ -465,7 +465,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['formatting'] = ob_get_clean();
     }
 
-    if ( $post_type === 'fcn_chapter' && comments_open() ) {
+    if ( $post_type === 'fcn_chapter' && comments_open() && ! fictioneer_is_commenting_disabled() && ! post_password_required() ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow">
