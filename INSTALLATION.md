@@ -705,7 +705,7 @@ Some options are not available in the settings because tempering with them can b
 define( 'CONSTANT_NAME', value );
 ```
 
-| Constant | Type |
+| Constant | Type | Explanation
 | :--- | :---: | :---
 | CHILD_VERSION | string|boolean | Version number of the child theme. Default `0`.
 | CHILD_NAME | string|boolean | Name of the child theme. Default `0`.
