@@ -1355,7 +1355,7 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
 
   function fictioneer_bbcodes( $content ) {
     // Setup
-    $img_search = 'https:[^\"\'|;<>\[\]]+?\.(?:png|jpg|jpeg|gif|webp|svg|avif|tiff)'; // Does not work with query params
+    $img_search = 'https:[^\"\'|;<>\[\]]+?\.(?:png|jpg|jpeg|gif|webp|svg|avif|tiff).*?';
     $url_search = '(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?';
 
     // Deal with some multi-line spoiler issues
