@@ -123,6 +123,12 @@ if ( ! defined( 'FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS' ) ) {
   define( 'FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS', true );
 }
 
+// Boolean: Only allow assigned chapters in stories
+// Warning: The chapter navigation always refers to the parent story!
+if ( ! defined( 'FICTIONEER_FILTER_STORY_CHAPTERS' ) ) {
+  define( 'FICTIONEER_FILTER_STORY_CHAPTERS', true );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================

@@ -89,7 +89,10 @@ function fictioneer_acf_filter_chapters( $args, $field, $post_id ) {
   );
   return $args;
 }
-add_filter( 'acf/fields/relationship/query/name=fictioneer_story_chapters', 'fictioneer_acf_filter_chapters', 10, 3 );
+
+if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
+  add_filter( 'acf/fields/relationship/query/name=fictioneer_story_chapters', 'fictioneer_acf_filter_chapters', 10, 3 );
+}
 
 // =============================================================================
 // UPDATE POST FEATURED LIST RELATIONSHIP REGISTRY
