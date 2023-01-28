@@ -292,9 +292,6 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
     if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
 
-    // Setup
-    $registry = fictioneer_get_relationship_registry();
-
     // Purge all?
     if ( get_option( 'fictioneer_purge_all_caches' ) ) {
       fictioneer_purge_all_caches();
@@ -335,6 +332,8 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge relationships
     if ( FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING ) {
+      $registry = fictioneer_get_relationship_registry();
+
       // Always purge...
       foreach ( $registry['always'] as $key => $entry ) {
         fictioneer_purge_post_cache( $key );
