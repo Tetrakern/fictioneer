@@ -96,11 +96,40 @@
         }
       }
 
-      &:not(:hover, :focus-within) {
+      &:not(:hover) {
         .sub-menu {
           pointer-events: none;
           opacity: 0;
           content-visibility: hidden;
+        }
+      }
+    }
+  }
+}
+
+.user-is-tabbing {
+  .main-navigation {
+    .icon-menu {
+      &__item {
+        &:focus-visible {
+          color: var(--navigation-actions-text-hover);
+          background: var(--navigation-item-active-background);
+        }
+      }
+
+      &__menu {
+        &:focus-within {
+          > :first-child {
+            background: var(--navigation-item-active-submenu-background);
+          }
+        }
+
+        &:focus-within {
+          > .sub-menu {
+            pointer-events: initial;
+            opacity: 1;
+            content-visibility: visible;
+          }
         }
       }
     }
