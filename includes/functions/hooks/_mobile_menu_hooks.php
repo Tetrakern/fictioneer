@@ -476,7 +476,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['comment_jump'] = ob_get_clean();
     }
 
-    if ( $post_type === 'fcn_chapter' && get_option( 'fictioneer_enable_bookmarks' ) ) {
+    if ( $post_type === 'fcn_chapter' && get_option( 'fictioneer_enable_bookmarks' ) && ! post_password_required() ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden>
