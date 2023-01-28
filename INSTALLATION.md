@@ -27,6 +27,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
+  * [Constants](#constants)
 
 ## Choosing a Host
 
@@ -687,11 +688,41 @@ The minimum and maximum values found in the Customizer are used to calculate [cl
 
 ### Menus
 
-![Customizer HSL Sliders](repo/assets/menu_screen_options.jpg?raw=true)
+![Menu Screen](repo/assets/menu_screen_options.jpg?raw=true)
 
 Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, which are precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
 
 On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** only shows the top level menu items in a scrollable track, but the mobile menu is an unfolded list of all items if not specifically excluded with optional CSS classes.
 
 * `not-in-mobile-menu`: As you can guess, this will hide the menu item in the mobile menu. However, submenu items will still be shown, so you can use this to hide superfluous dropdown parents.
-* `static-menu-item`: For menu items without link. Changes the cursor on hover from pointer to default.
+* `static-menu-item`: For menu items without link. Changes the cursor and cannot be selected by keyboard (subitems can).
+
+### Constants
+
+Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those are defined via constants in the **function.php**. If you want to change them, you need a child [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
+
+```
+define( 'CONSTANT_NAME', value );
+```
+
+* **CHILD_VERSION** (string|boolean): Version number of the child theme. Default `0`.
+* **CHILD_NAME** (string|boolean): Name of the child theme. Default `0`.
+* **FICTIONEER_OAUTH_ENDPOINT** (string): URI slug to call the OAuth script. Default `'oauth2'`.
+* **FICTIONEER_EPUB_ENDPOINT** (string): URI slug to call the ePUB script. Default `'download-epub'`.
+* **FICTIONEER_LOGOUT_ENDPOINT** (string): URI slug to call the logout script. Default `'fictioneer-logout'`.
+* **FICTIONEER_PRIMARY_FONT** (string): CSS name of the primary font. Default `'Open Sans'`.
+* **FICTIONEER_PRIMARY_FONT_NAME** (string): Display name of the primary font. Default `'Open Sans'`.
+* **FICTIONEER_COMMENTCODE_DURATION** (int): How long guests can see their private/unapproved comments in _seconds_. Default `600`.
+* **FICTIONEER_AJAX_TTL** (int): How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
+* **FICTIONEER_AJAX_LOGIN_TTL** (int): How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
+* **FICTIONEER_AJAX_POST_DEBOUNCE_RATE** (int): How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
+* **FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT** (int): Maximum number of authors in the advanced search suggestions. Default `100`.
+* **FICTIONEER_UPDATE_CHECK_TIMEOUT** (int): Timeout between checks for theme updates in _seconds_. Default `3600`.
+* **FICTIONEER_THEME_CACHE_PURGING** (boolean): Whether to call the cache purge assist function on post updates. Default `true`.
+* **FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING** (boolean): Whether to purge related post caches. Default `true`.
+* **FICTIONEER_SEARCH_MENU_ITEMS** (boolean): Whether to show search page links in menus. Default `true`.
+* **FICTIONEER_THEME_SWITCH** (boolean): Whether to the theme switch in child themes (back to base). Default `true`.
+* **FICTIONEER_ATTACHMENT_PAGES** (boolean): Whether to enable pages for attachments (no theme templates). Default `false`.
+* **FICTIONEER_SHOW_OAUTH_HASHES** (boolean): Whether to show OAuth ID hashes in user profiles (admin only). Default `false`.
+* **FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS** (boolean): Whether to show feedback for rejected comment content. Default `true`.
+* **FICTIONEER_FILTER_STORY_CHAPTERS** (boolean): Whether to filter selectable chapters by assigned story. Default `true`.
