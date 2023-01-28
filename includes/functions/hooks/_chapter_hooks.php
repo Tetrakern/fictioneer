@@ -334,7 +334,7 @@ if ( ! function_exists( 'fictioneer_chapter_bookmark_jump_button' ) ) {
     if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) return;
 
 		// Start HTML ---> ?>
-    <button type="button" data-tooltip="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="button _secondary button--bookmark hidden tooltipped">
+    <button type="button" class="button _secondary button--bookmark hidden">
       <i class="fa-solid fa-bookmark"></i>
       <span class="hide-below-tablet"><?php echo fcntr( 'bookmark' ); ?></span>
     </button>
