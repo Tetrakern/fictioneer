@@ -709,22 +709,22 @@ define( 'CONSTANT_NAME', value );
 | :--- | :---: | :---
 | CHILD_VERSION | string\|boolean | Version number of the child theme. Default `false`.
 | CHILD_NAME | string\|boolean | Name of the child theme. Default `false`.
-| FICTIONEER_​OAUTH_ENDPOINT | string | URI slug to call the OAuth script. Default `'oauth2'`.
-| FICTIONEER_​EPUB_ENDPOINT | string | URI slug to call the ePUB script. Default `'download-epub'`.
-| FICTIONEER_​LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
-| FICTIONEER_​PRIMARY_FONT | string | CSS name of the primary font. Default `'Open Sans'`.
-| FICTIONEER_​PRIMARY_FONT_NAME | string | Display name of the primary font. Default `'Open Sans'`.
-| FICTIONEER_​COMMENTCODE_DURATION | int | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
-| FICTIONEER_​AJAX_TTL | int | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
-| FICTIONEER_​AJAX_LOGIN_TTL | int | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
-| FICTIONEER_​AJAX_POST_DEBOUNCE_RATE | int | How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
-| FICTIONEER_​AUTHOR_KEYWORD_SEARCH_LIMIT | int | Maximum number of authors in the advanced search suggestions. Default `100`.
-| FICTIONEER_​UPDATE_CHECK_TIMEOUT | int | Timeout between checks for theme updates in _seconds_. Default `3600`.
-| FICTIONEER_​THEME_CACHE_PURGING | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
-| FICTIONEER_​THEME_RELATIONSHIP_CACHE_PURGING | boolean | Whether to purge related post caches. Default `true`.
-| FICTIONEER_​SEARCH_MENU_ITEMS | boolean | Whether to show search page links in menus. Default `true`.
-| FICTIONEER_​THEME_SWITCH | boolean | Whether to the theme switch in child themes (back to base). Default `true`.
-| FICTIONEER_​ATTACHMENT_PAGES | boolean | Whether to enable pages for attachments (no theme templates). Default `false`.
-| FICTIONEER_​SHOW_OAUTH_HASHES | boolean | Whether to show OAuth ID hashes in user profiles (admin only). Default `false`.
-| FICTIONEER_​SHOW_AJAX_COMMENT_DISALLOWED_KEYS | boolean | Whether to show feedback for rejected comment content. Default `true`.
-| FICTIONEER_​FILTER_STORY_CHAPTERS | boolean | Whether to filter selectable chapters by assigned story. Default `true`.
+| FICTIONEER_OAUTH_ENDPOINT | string | URI slug to call the OAuth script. Default `'oauth2'`.
+| FICTIONEER_EPUB_ENDPOINT | string | URI slug to call the ePUB script. Default `'download-epub'`.
+| FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
+| FICTIONEER_PRIMARY_FONT | string | CSS name of the primary font. Default `'Open Sans'`.
+| FICTIONEER_PRIMARY_FONT_NAME | string | Display name of the primary font. Default `'Open Sans'`.
+| FICTIONEER_COMMENTCODE_DURATION | int | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
+| FICTIONEER_AJAX_TTL | int | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
+| FICTIONEER_AJAX_LOGIN_TTL | int | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
+| FICTIONEER_AJAX_POST_DEBOUNCE_RATE | int | How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
+| FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | int | Maximum number of authors in the advanced search suggestions. Default `100`.
+| FICTIONEER_UPDATE_CHECK_TIMEOUT | int | Timeout between checks for theme updates in _seconds_. Default `3600`.
+| FICTIONEER_THEME_CACHE_PURGING | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
+| FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING | boolean | Whether to purge related post caches. Default `true`.
+| FICTIONEER_SEARCH_MENU_ITEMS | boolean | Whether to show search page links in menus. Default `true`.
+| FICTIONEER_THEME_SWITCH | boolean | Whether to the theme switch in child themes (back to base). Default `true`.
+| FICTIONEER_ATTACHMENT_PAGES | boolean | Whether to enable pages for attachments (no theme templates). Default `false`.
+| FICTIONEER_SHOW_OAUTH_HASHES | boolean | Whether to show OAuth ID hashes in user profiles (admin only). Default `false`.
+| FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS | boolean | Whether to show feedback for rejected comment content. Default `true`.
+| FICTIONEER_FILTER_STORY_CHAPTERS | boolean | Whether to filter selectable chapters by assigned story. Default `true`.
