@@ -178,7 +178,7 @@ AddType image/svg+xml .svg
 
 ## Legal Considerations
 
-There is not much to consider aside from the [data privacy](https://wordpress.com/go/website-building/how-to-write-and-add-a-privacy-policy-to-your-wordpress-site/) issue, which depends on your country of residence and where your host server is located. However, to preempt any legal trouble, you want to assume the strictest laws apply — the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) and [CCPA](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act). Fictioneer is compliant with both unless you add things, but you also need to add a [Privacy Policy](PRIVACY.md). And forget about Google Analytics.
+There is not much to consider aside from the [data privacy](https://wordpress.com/go/website-building/how-to-write-and-add-a-privacy-policy-to-your-wordpress-site/) issue, which depends on your country of residence and where your host server is located. However, to preempt any legal trouble, you want to assume the strictest laws apply — the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) and [CCPA](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act). Fictioneer is compliant with both unless you change things, but you also need to add a [Privacy Policy](PRIVACY.md). And forget about Google Analytics.
 
 ## How to Install/Update the Fictioneer Theme
 
