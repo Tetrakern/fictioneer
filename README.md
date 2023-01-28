@@ -37,6 +37,6 @@ Fictioneer (up to 5.0) has been developed by one author, barring [credited](CRED
 
 ![Screenshot Collage](repo/assets/screenshots.jpg?raw=true)
 
-<p align="center">Fictioneer Liminal Child Theme (Light/Dark)</p>
+<p align="center"><a href="https://github.com/Tetrakern/fictioneer-liminal" target="_blank">Fictioneer Liminal Child Theme (Light/Dark)</a></p>
 
 ![Liminal Child Theme](repo/assets/liminal_child_theme_preview.jpg?raw=true)
