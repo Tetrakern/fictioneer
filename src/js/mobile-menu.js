@@ -105,8 +105,11 @@ _$$$('mobile-menu-comment-jump')?.addEventListener(
     fcn_toggleMobileMenu(false);
 
     setTimeout(function() {
-      let target = _$$$('comments'),
-          position = target.getBoundingClientRect().top,
+      let target = _$$$('comments');
+
+      if (!target) return;
+
+      let position = target.getBoundingClientRect().top,
           offset = position + window.pageYOffset - 64;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
@@ -121,8 +124,11 @@ _$$$('mobile-menu-bookmark-jump')?.addEventListener(
     fcn_toggleMobileMenu(false);
 
     setTimeout(function() {
-      let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
-          position = target.getBoundingClientRect().top,
+      let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
+
+      if (!target) return;
+
+      let position = target.getBoundingClientRect().top,
           offset = position + window.pageYOffset - 64;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
