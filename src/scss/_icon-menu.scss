@@ -122,9 +122,7 @@
           > :first-child {
             background: var(--navigation-item-active-submenu-background);
           }
-        }
 
-        &:focus-within {
           > .sub-menu {
             pointer-events: initial;
             opacity: 1;
