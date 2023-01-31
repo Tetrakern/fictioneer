@@ -41,7 +41,8 @@
                 "fcn_chapter",
                 "fcn_recommendation",
                 "fcn_collection",
-                "post"
+                "post",
+                "page"
             ],
             "taxonomy": "",
             "filters": [
@@ -49,7 +50,7 @@
                 "post_type",
                 "taxonomy"
             ],
-            "return_format": "object",
+            "return_format": "id",
             "min": 1,
             "max": "",
             "elements": ""
@@ -93,5 +94,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1668195896
+    "modified": 1675148270
 }

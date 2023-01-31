@@ -183,7 +183,7 @@ Collections are added under **Collections > Add New**. Required fields are the s
 | Field | Type | Explanation
 | :-- | :-: | :--
 | Card/List Title | String | Alternative title meant to be suitable for cards and lists with little space.
-| Collection Items * | List | Add and sort posts, stories, chapters, recommendations, and collections.
+| Collection Items * | List | Add and sort posts, pages, stories, chapters, recommendations, and collections.
 | Short Description * | Content | The short description is used in the collection list cards.
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories (include story name).
 | Collection Cover Image | Image | Cropped to an aspect ration of 2:3 from the center.
