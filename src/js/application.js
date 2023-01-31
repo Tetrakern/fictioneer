@@ -455,7 +455,7 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
       node = document.createElement('div');
 
   // Build notification and set up transition to transparent
-  node.innerHTML = fcn_sanitizeHTML(message);
+  node.innerHTML = message;
   node.classList.add('notifications__message', `_${type}`);
   node.style.opacity = 1;
   node.style.transitionDelay = `${duration}s`;
