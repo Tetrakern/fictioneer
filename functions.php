@@ -5,9 +5,9 @@
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.0.8' );
+define( 'FICTIONEER_VERSION', '5.0.9' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.0.8' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.0.9' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', false );
