@@ -174,7 +174,7 @@ Must be enabled in the settings and is started from the paragraph tools. Makes u
 
 ## Collections
 
-Collections are added under **Collections > Add New**. Required fields are the short description and items featured in the collection, which may include posts, stories, chapters, recommendations, and even other collections. The purpose is to group different items with a common context, such as sequels or stories set in a shared universe.
+Collections are added under **Collections > Add New**. Required fields are the short description and items featured in the collection, which may include posts, pages, stories, chapters, recommendations, and even other collections. The purpose is to group different items with a common context, such as sequels or stories set in a shared universe.
 
 ![Collection Screen](repo/assets/collection_explanation.jpg?raw=true)
 
