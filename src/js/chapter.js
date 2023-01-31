@@ -864,6 +864,9 @@ const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings
 /**
  * Update site width formatting on chapters.
  *
+ * @description Only affects the width of the main container since 5.0.10
+ * to avoid potential layout issues.
+ *
  * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
@@ -881,7 +884,7 @@ function fcn_updateSiteWidth(value, save = true) {
   fcn_siteWidthReset.classList.toggle('_modified', value != fcn_siteWidthDefault);
 
   // Update site-width property
-  fcn_theRoot.style.setProperty('--site-width', `${value}px`);
+  _$('main').style.setProperty('--site-width', `${value}px`);
 
   // Update local storage
   fcn_formatting['site-width'] = value;
