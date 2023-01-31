@@ -981,4 +981,10 @@ function fictioneer_admin_update_notice() {
 }
 add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
 
+// =============================================================================
+// ADD EXCERPTS TO PAGES
+// =============================================================================
+
+add_post_type_support( 'page', 'excerpt' );
+
 ?>
