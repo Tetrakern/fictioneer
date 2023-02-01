@@ -834,11 +834,7 @@
 .comment-list-item {
   display: list-item;
   list-style: disc;
-  margin-left: 16px;
-
-  &:not(:last-child) {
-    margin-bottom: .25rem;
-  }
+  margin: .25rem 0 .25rem 16px;
 
   // Deal with erroneous added paragraphs
   + p:empty {
