@@ -1,21 +1,11 @@
 .nav-observer {
   position: absolute;
-  top: 28px;
+  top: -1px;
   left: 0;
   z-index: -1000;
   height: 1px;
   width: 1px;
   transform: translateZ(0); // Improve performance
-
-  &._sticky {
-    top: 14px;
-  }
-}
-
-.admin-bar {
-  .main-navigation {
-    top: -1px;
-  }
 }
 
 @media screen and (min-width: 600px) {
@@ -24,12 +14,8 @@
       top: 46px;
     }
 
-    #nav-observer-float {
-      top: -20px;
-    }
-
-    #nav-observer-sticky {
-      top: -36px;
+    .nav-observer {
+      top: -47px;
     }
   }
 }
@@ -40,12 +26,8 @@
       top: 32px;
     }
 
-    #nav-observer-float {
-      top: -4px;
-    }
-
-    #nav-observer-sticky {
-      top: -20px;
+    .nav-observer {
+      top: -33px;
     }
   }
 }
@@ -88,7 +70,7 @@
 .main-navigation {
   --focus-offset: -2px;
   position: sticky;
-  top: -1px;
+  top: 0;
   z-index: 1000;
   color: var(--navigation-text);
   font-size: get_clamp(14, 16, 375, 768);

@@ -15,9 +15,8 @@
  */
 ?>
 
-<div id="nav-observer-sticky" class="nav-observer _sticky"></div>
-
 <nav id="full-navigation" class="main-navigation" aria-label="Main Navigation">
+  <div id="nav-observer-sticky" class="nav-observer"></div>
   <div class="main-navigation__background"></div>
   <div class="main-navigation__wrapper">
     <div class="main-navigation__left">
