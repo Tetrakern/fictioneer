@@ -129,6 +129,7 @@ input[type=range] {
   &::-moz-range-thumb {
     cursor: pointer;
     background: var(--input-range-thumb);
+    border: none;
     border-radius: 2px;
     width: 14px;
     height: 14px;
