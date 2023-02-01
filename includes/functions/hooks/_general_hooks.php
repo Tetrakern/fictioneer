@@ -112,6 +112,51 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
 add_action( 'fictioneer_body', 'fictioneer_output_modals', 10 );
 
 // =============================================================================
+// OUTPUT NAVIGATION BAR
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_navigation_bar' ) ) {
+  /**
+   * Outputs the HTML for the navigation bar
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param int|null       $args['post_id']          Current post ID or null.
+   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
+   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
+   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   */
+
+  function fictioneer_navigation_bar( $args ) {
+    get_template_part( 'partials/_navigation', null, $args );
+  }
+}
+add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
+
+// =============================================================================
+// OUTPUT SITE HEADER
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_site_header' ) ) {
+  /**
+   * Outputs the HTML for the site header
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param int|null       $args['post_id']          Current post ID or null.
+   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
+   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
+   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   */
+
+  function fictioneer_site_header( $args ) {
+    get_template_part( 'partials/_site-header', null, $args );
+  }
+}
+add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
+
+
+// =============================================================================
 // OUTPUT HEADER BACKGROUND
 // =============================================================================
 
@@ -140,50 +185,6 @@ if ( ! function_exists( 'fictioneer_header_background' ) ) {
     <?php // <--- End HTML
   }
 }
-add_action( 'fictioneer_site', 'fictioneer_header_background', 10 );
-
-// =============================================================================
-// OUTPUT NAVIGATION BAR
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_navigation_bar' ) ) {
-  /**
-   * Outputs the HTML for the navigation bar
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
-   */
-
-  function fictioneer_navigation_bar( $args ) {
-    get_template_part( 'partials/_navigation', null, $args );
-  }
-}
-add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 20 );
-
-// =============================================================================
-// OUTPUT SITE HEADER
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_site_header' ) ) {
-  /**
-   * Outputs the HTML for the site header
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
-   */
-
-  function fictioneer_site_header( $args ) {
-    get_template_part( 'partials/_site-header', null, $args );
-  }
-}
-add_action( 'fictioneer_site', 'fictioneer_site_header', 30 );
+add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
 
 ?>

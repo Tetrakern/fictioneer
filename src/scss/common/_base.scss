@@ -17,63 +17,6 @@
   }
 }
 
-:root.inset-header-image .header-background {
-  --this-border-radius: none;
-  border-radius: var(--this-border-radius);
-  width: 100%;
-
-  @include bp(desktop) {
-    --this-border-radius: var(--layout-border-radius-large);
-  }
-
-  @include bp(desktop) {
-    width: calc(var(--site-width) * 1.5);
-    max-width: min(calc(100% - 2rem), 1980px);
-  }
-
-  &__wrapper {
-    border-radius: var(--this-border-radius);
-  }
-}
-
-.header-background {
-  position: absolute;
-  top: var(--navigation-height);
-  left: 50%;
-  height: var(--layout-header-background-height);
-  width: 100%;
-  filter: var(--layout-header-background-filter);
-  transform: translate3d(-50%, 0, 0);
-  backface-visibility: hidden;
-  content-visibility: auto;
-  contain: style layout paint;
-
-  @include bp(640px) {
-    box-shadow: var(--layout-header-background-box-shadow);
-  }
-
-  @include bp(desktop) {
-    top: calc(28px + var(--navigation-height));
-  }
-
-  &__wrapper {
-    height: 100%;
-    background: var(--e-body);
-    overflow: hidden;
-    transform: translateZ(0); // Safari fix
-  }
-
-  &__image {
-    pointer-events: none;
-    display: block;
-    margin: 0 auto;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    contain: layout paint; // Improves performance
-  }
-}
-
 .header,
 .footer {
   flex: 0 0 auto;

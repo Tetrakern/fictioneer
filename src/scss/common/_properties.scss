@@ -127,6 +127,8 @@
   --layout-background-texture-chapter: none;
   --layout-background-texture-container: none;
   --layout-background-texture-cards: none;
+  --layout-header-background-filter: none;
+  --layout-header-background-box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
 
   // === MINIMAL ===============================================================
   --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
@@ -436,12 +438,6 @@
   --badge-override-background: var(--bg-300);
 
   // === SCOPES ================================================================
-
-  .header-background {
-    --layout-header-background-filter: none;
-    --layout-header-background-box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-  }
-
   .follow-notifications {
     --follow-title-color: var(--fg-300);
     --follow-meta-color: var(--fg-600);
