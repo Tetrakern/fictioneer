@@ -39,7 +39,7 @@
 }
 
 .scrolling-down.is-inside-main {
-  .main-navigation:not(:hover) {
+  .main-navigation:not(:hover, :focus-within) {
     transform: translate3d(0, -115%, 0); // Accounts for shadow
   }
 }
@@ -111,7 +111,7 @@
 
   &__left {
     flex-grow: 1;
-    height: var(--navigation-height);
+    min-height: var(--navigation-height);
     max-width: calc(100% - 48px);
     overflow: hidden;
 
@@ -134,6 +134,7 @@
     scrollbar-width: none; // FF
 
     @include bp(desktop) {
+      flex-wrap: wrap;
       overflow: visible;
     }
 
