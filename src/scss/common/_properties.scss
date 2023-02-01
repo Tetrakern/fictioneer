@@ -234,7 +234,8 @@
   --mobile-menu-overlay: rgb(0 0 0 / 20%);
   --mobile-menu-text-shadow: var(--text-shadow);
   --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);
-  --mobile-menu-current-chapter-text: var(--primary-500);
+  --mobile-menu-current-chapter-text: var(--fg-400);
+  --mobile-menu-current-chapter-background: var(--bg-800);
 
   // === CONTENT ===============================================================
   --blockquote-background: rgb(0 0 0 / 15%);

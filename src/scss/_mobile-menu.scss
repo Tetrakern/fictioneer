@@ -321,7 +321,26 @@ body:not(.mobile-menu-open) {
   }
 
   .current-chapter {
+    position: relative;
     color: var(--mobile-menu-current-chapter-text);
+    border-radius: var(--layout-border-radius-small);
+    width: calc(100% + 4px);
+
+    > a > span {
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        display: block;
+        background: var(--mobile-menu-current-chapter-background);
+        border-radius: var(--layout-border-radius-small);
+      }
+
+      &:not(:first-child)::before {
+        left: 24px; // Leave space for icon if any
+      }
+    }
   }
 
   .toggle-label {
