@@ -717,7 +717,7 @@ Fires right after opening the article’s no-results `<section>` container in th
 ---
 
 ### `do_action( 'fictioneer_site', $args )`
-Fires right after opening the `#site` container in the `header.php` template. Includes the navigation bar and  site header with background, logo, title, etc.
+Fires right after opening the `#site` container in the `header.php` template. Includes the navigation bar and site header with background, logo, title, etc.
 
 **$args:**
 * $post_id (int|null) – Current post ID . Unsafe.
