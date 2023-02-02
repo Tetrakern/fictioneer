@@ -562,7 +562,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
       &-subrow {
         grid-area: 2 / 2 / 3 / 3;
-        color: var(--fg-800);
+        color: var(--fg-700);
         font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--font-note);
 
         &.dot-separator ::before {
