@@ -875,6 +875,9 @@ const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings
  */
 
 function fcn_updateSiteWidth(value, save = true) {
+  // Target
+  let main = _$('main');
+
   // Evaluate
   value = fcn_clamp(640, 1920, value ?? 960);
 
@@ -884,7 +887,13 @@ function fcn_updateSiteWidth(value, save = true) {
   fcn_siteWidthReset.classList.toggle('_modified', value != fcn_siteWidthDefault);
 
   // Update site-width property
-  _$('main').style.setProperty('--site-width', `${value}px`);
+  main.style.setProperty('--site-width', `${value}px`);
+
+  // Toggle utility classes
+  main.classList.toggle('_default-width', value == fcn_theRoot.dataset.siteWidthDefault);
+  main.classList.toggle('_below-1024', value < 1024 && value >= 768);
+  main.classList.toggle('_below-768', value < 768 && value > 640);
+  main.classList.toggle('_640-and-below', value <= 640);
 
   // Update local storage
   fcn_formatting['site-width'] = value;
