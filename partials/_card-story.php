@@ -20,6 +20,12 @@ $story = fictioneer_get_story_data( $post->ID );
 $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags() : false;
 $latest = isset( $args['show_latest'] ) && $args['show_latest'];
 $chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
+$classes = ['card'];
+
+// Sticky?
+if ( fictioneer_get_field( 'fictioneer_story_sticky' ) ) {
+  $classes[] = '_sticky';
+}
 
 // Flags
 $hide_author = isset( $args['hide_author'] ) && $args['hide_author'];
@@ -28,7 +34,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
 ?>
 
-<li id="story-card-<?php the_ID(); ?>" class="card <?php if ( fictioneer_get_field( 'fictioneer_story_sticky' ) ) echo 'sticky'; ?>">
+<li id="story-card-<?php the_ID(); ?>" class="<?php echo implode( ' ', $classes ); ?>">
   <div class="card__body polygon">
 
     <div class="card__header _large">
@@ -38,6 +44,10 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php endif; ?>
 
       <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $story['title']; ?></a></h3>
+
+      <?php if ( fictioneer_get_field( 'fictioneer_story_sticky' ) && ! is_search() && ! is_archive() ) : ?>
+        <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
+      <?php endif; ?>
 
       <?php echo fictioneer_get_card_controls( get_the_ID() ); ?>
 

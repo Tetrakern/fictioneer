@@ -122,6 +122,17 @@
     border-radius: var(--layout-border-radius-small);
   }
 
+  &__sticky-icon {
+    color: var(--fg-700);
+    font-size: 75%;
+    opacity: .375;
+    transform: translateY(1px);
+
+    &:not(:last-child) {
+      margin-right: 4px;
+    }
+  }
+
   &__controls {
     cursor: pointer;
     position: relative;
