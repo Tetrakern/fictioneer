@@ -113,7 +113,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <?php endif; ?>
         <span><?php
           $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
-          echo $excerpt != '' ? $excerpt : __( 'No excerpt provided yet.' );
+          echo empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
         ?></span>
       </div>
 

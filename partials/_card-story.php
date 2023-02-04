@@ -65,7 +65,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <?php endif; ?>
         <span><?php
           $excerpt = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
-          echo $excerpt != '' ? $excerpt : __( 'No description provided yet.', 'fictioneer' );
+          echo empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
         ?></span>
       </div>
 
