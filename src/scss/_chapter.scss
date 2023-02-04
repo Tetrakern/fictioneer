@@ -4,6 +4,27 @@
   }
 }
 
+.main {
+  &:is(._below-768, ._640-and-below) {
+    .chapter {
+      &__actions {
+        .button {
+          &._navigation {
+            .on {
+              // Do not show Previous/Next labels below 768px width
+              display: none;
+            }
+          }
+        }
+
+        &-right {
+          flex-basis: 19%;
+        }
+      }
+    }
+  }
+}
+
 .chapter-font-color {
   color: var(--text-chapter);
 }
@@ -27,7 +48,11 @@
     }
 
     &-right {
-      flex-basis: 25%;
+      flex-basis: 19%;
+
+      @include bp(768px) {
+        flex-basis: 25%;
+      }
     }
 
     > div {
