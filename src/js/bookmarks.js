@@ -556,13 +556,15 @@ function fcn_removeBookmark(id) {
 // BOOKMARKS EVENT LISTENERS
 // =============================================================================
 
-_$('.button--bookmark')?.addEventListener(
-  'click',
-  e => {
-    let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
-        position = target.getBoundingClientRect().top,
-        offset = position + window.pageYOffset - 64;
+fcn_jumpToBookmarkButtons.forEach(button => {
+  button.addEventListener(
+    'click',
+    e => {
+      let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
+          position = target.getBoundingClientRect().top,
+          offset = position + window.pageYOffset - 64;
 
-    window.scrollTo({ top: offset, behavior: 'smooth' });
-  }
-);
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+  );
+});
