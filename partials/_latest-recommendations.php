@@ -114,7 +114,7 @@ $entries = new WP_Query( $query_args );
 
               <?php if ( $show_taxonomies ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div class="dot-separator scroll-horizontal">
+                  <div class="dot-separator">
                     <?php
                       if ( $fandoms || $characters || $genres || $tags ) {
                         if ( $fandoms ) {

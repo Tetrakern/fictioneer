@@ -81,7 +81,7 @@ $entries = new WP_Query( $query_args );
 
               <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div class="dot-separator scroll-horizontal">
+                  <div class="dot-separator">
                     <?php
                       if ( $story['has_taxonomies'] || $tags ) {
                         if ( $story['fandoms'] ) {
