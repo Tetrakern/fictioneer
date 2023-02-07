@@ -24,8 +24,7 @@
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
-  box-shadow: 0 0 1px transparent; // iOS Safari fix or it won't show drop-shadow
-  filter: var(--container-drop-shadow);
+  box-shadow: var(--container-box-shadow); // Drop-shadow filter can cause scroll lag in Chromium
   clear: both;
   contain: style layout; // Improve performance
 

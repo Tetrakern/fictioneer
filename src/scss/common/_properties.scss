@@ -226,6 +226,7 @@
   // === SHADOWS ===============================================================
   --floating-shadow: 0 0 16px 4px rgb(0 0 0 / 30%), 1px 1px 0 0 rgb(255 255 255 / 1%) inset;
   --container-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+  --container-box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
   --figure-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
   --card-image-drop-shadow: none;
   --caption-overlay-shadow: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
