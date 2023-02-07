@@ -4,7 +4,7 @@
   <a href="https://github.com/Tetrakern/fictioneer"><img alt="Theme: 5.0" src="https://img.shields.io/badge/theme-5.0-blue?style=flat" /></a>
   <a href="LICENSE.md"><img alt="License: GPL v3" src="https://img.shields.io/badge/license-GPL%20v3-blue?style=flat" /></a>
   <a href="https://wordpress.org/download/"><img alt="WordPress 6.0+" src="https://img.shields.io/badge/WordPress-%3E%3D6.0-blue?style=flat" /></a>
-  <a href="https://www.php.net/"><img alt="PHP: 8.0+" src="https://img.shields.io/badge/php-%3E%3D8.0-blue?logoColor=white&style=flat" /></a>
+  <a href="https://www.php.net/"><img alt="PHP: 7.4+" src="https://img.shields.io/badge/php-%3E%3D8.0-blue?logoColor=white&style=flat" /></a>
   <a href="https://ko-fi.com/tetrakern"><img alt="Support me on Ko-fi" src="https://img.shields.io/badge/-Ko--fi-FF5E5B?logo=kofi&logoColor=white&style=flat&labelColor=434B57" /></a>
 </p>
 
