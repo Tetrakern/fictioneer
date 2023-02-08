@@ -98,6 +98,11 @@ if ( ! defined( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING' ) ) {
   define( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING', true );
 }
 
+// Boolean: Cache chapter lists on story pages as Transients
+if ( ! defined( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE' ) ) {
+  define( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE', true );
+}
+
 // Boolean: Search menu items
 if ( ! defined( 'FICTIONEER_SEARCH_MENU_ITEMS' ) ) {
   define( 'FICTIONEER_SEARCH_MENU_ITEMS', true );
@@ -113,7 +118,7 @@ if ( ! defined( 'FICTIONEER_ATTACHMENT_PAGES' ) ) {
   define( 'FICTIONEER_ATTACHMENT_PAGES', false );
 }
 
-// Boolean: Show OAuth ID Hashes
+// Boolean: Show OAuth ID Hashes (admin only)
 if ( ! defined( 'FICTIONEER_SHOW_OAUTH_HASHES' ) ) {
   define( 'FICTIONEER_SHOW_OAUTH_HASHES', false );
 }
