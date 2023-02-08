@@ -114,18 +114,31 @@ function fictioneer_update_post_relationships( $post_id ) {
   $registry = fictioneer_get_relationship_registry();
   $featured = fictioneer_get_field( 'fictioneer_post_featured', $post_id );
 
-  // Abort if...
-  if ( empty( $featured ) ) return;
-
   // Update relationships
   $registry[ $post_id ] = [];
 
-  foreach ( $featured as $featured_id ) {
-    $registry[ $post_id ][ $featured_id ] = 'is_featured';
+  if ( ! empty( $featured ) ) {
+    foreach ( $featured as $featured_id ) {
+      $registry[ $post_id ][ $featured_id ] = 'is_featured';
 
-    if ( ! isset( $registry[ $featured_id ] ) ) $registry[ $featured_id ] = [];
+      if ( ! isset( $registry[ $featured_id ] ) ) $registry[ $featured_id ] = [];
 
-    $registry[ $featured_id ][ $post_id ] = 'featured_by';
+      $registry[ $featured_id ][ $post_id ] = 'featured_by';
+    }
+  } else {
+    $featured = [];
+  }
+
+  // Check for and remove outdated direct references
+  foreach ( $registry as $key => $entry ) {
+    // Skip if...
+    if ( absint( $key ) < 1 || ! is_array( $entry ) || in_array( $key, $featured ) ) continue;
+
+    // Unset if in array
+    unset( $registry[ $key ][ $post_id ] );
+
+    // Remove node if empty
+    if ( empty( $registry[ $key ] ) ) unset( $registry[ $key ] );
   }
 
   // Update database
