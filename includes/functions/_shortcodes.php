@@ -69,7 +69,7 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   fictioneer_save_relationship_registry( $registry );
 }
 
-if ( FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING ) {
+if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
   add_action( 'save_post', 'fictioneer_update_shortcode_relationships', 10, 2 );
 }
 

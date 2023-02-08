@@ -265,7 +265,7 @@ if ( ! function_exists( 'fictioneer_ajax_submit_comment' ) ) {
     }
 
     // Preemptively check for disallowed keys (Settings > Discussion)
-    if ( FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS ) {
+    if ( FICTIONEER_DISALLOWED_KEY_NOTICE ) {
       $offenders = fictioneer_check_comment_disallowed_list(
         $comment_data['author'] ?? '',
         $comment_data['email'] ?? '',

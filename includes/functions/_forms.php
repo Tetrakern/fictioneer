@@ -180,7 +180,7 @@ if ( ! function_exists( 'fictioneer_ajax_submit_contact_form' ) ) {
 
     // Only show error for keys in content, trash anything else as usual later.
     // No need to tell someone his name or email address is blocked, etc.
-    if ( FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS && $offenders[0] && $offenders[1] ) {
+    if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
       wp_send_json_error( ['error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' )] );
     } elseif ( $offenders[0] ) {
       wp_send_json_error( ['error' => __( 'Disallowed keys found.', 'fictioneer' )] );

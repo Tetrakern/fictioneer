@@ -401,7 +401,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['account'] = ob_get_clean();
     }
 
-    if ( FICTIONEER_SEARCH_MENU_ITEMS ) {
+    if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( home_url( '/?s=' ) ); ?>">

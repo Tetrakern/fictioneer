@@ -331,7 +331,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge relationships
-    if ( FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING ) {
+    if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
       $registry = fictioneer_get_relationship_registry();
 
       // Always purge...
@@ -395,7 +395,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
   }
 }
 
-if ( FICTIONEER_THEME_CACHE_PURGING && fictioneer_caching_active() ) {
+if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
   add_action( 'save_post', 'fictioneer_refresh_post_caches' );
   add_action( 'untrash_post', 'fictioneer_refresh_post_caches' );
   add_action( 'trashed_post', 'fictioneer_refresh_post_caches' );

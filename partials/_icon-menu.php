@@ -96,7 +96,7 @@ if ( $profile_page && $profile_page > 0 ) {
     </div>
   <?php endif; ?>
 
-  <?php if ( FICTIONEER_SEARCH_MENU_ITEMS ) : ?>
+  <?php if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) : ?>
     <a
       href="<?php echo esc_url( home_url( '/?s=' ) ); ?>"
       title="<?php esc_attr_e( 'Search Page', 'fictioneer' ) ?>"

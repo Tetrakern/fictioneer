@@ -499,8 +499,8 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $commentcode && is_array( $visibility_code ) ) {
       $commentcode = $visibility_code['code'] == $commentcode;
 
-      if ( FICTIONEER_COMMENTCODE_DURATION > 0 ) {
-        $commentcode = $commentcode && $visibility_code['timestamp'] + FICTIONEER_COMMENTCODE_DURATION >= time();
+      if ( FICTIONEER_COMMENTCODE_TTL > 0 ) {
+        $commentcode = $commentcode && $visibility_code['timestamp'] + FICTIONEER_COMMENTCODE_TTL >= time();
       }
     }
 
