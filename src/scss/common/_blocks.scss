@@ -69,6 +69,8 @@ figure {
 // =============================================================================
 
 :is(.wp-block-embed, .wp-block-audio, .wp-block-video, .wp-block-table, .wp-block-quote, .wp-block-pullquote, .wp-block-gallery, .wp-block-code, .wp-block-preformatted) {
+  clear: both;
+
   &:not(:first-child) {
     margin-top: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)");
   }
