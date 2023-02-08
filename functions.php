@@ -319,6 +319,12 @@ require_once __DIR__ . '/includes/functions/_forms.php';
 
 require_once __DIR__ . '/includes/functions/_search.php';
 
+/**
+ * Add API.
+ */
+
+require_once __DIR__ . '/includes/functions/_api.php';
+
 // =============================================================================
 // ADMIN ONLY
 // =============================================================================
