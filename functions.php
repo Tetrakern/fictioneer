@@ -98,9 +98,9 @@ if ( ! defined( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING' ) ) {
   define( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING', true );
 }
 
-// Boolean: Cache parts of story pages as Transients
-if ( ! defined( 'FICTIONEER_STORY_PAGE_CACHE' ) ) {
-  define( 'FICTIONEER_STORY_PAGE_CACHE', true );
+// Boolean: Cache chapter lists on story pages as Transients
+if ( ! defined( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE' ) ) {
+  define( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE', true );
 }
 
 // Boolean: Search menu items
