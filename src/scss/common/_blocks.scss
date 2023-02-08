@@ -328,7 +328,13 @@ figure {
 // =============================================================================
 
 .wp-block-embed {
+  clear: both;
   position: relative;
+
+  &:is(.alignright, .alignleft) {
+    float: none;
+    margin: 0;
+  }
 
   &__wrapper {
     position: relative;
