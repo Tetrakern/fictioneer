@@ -52,6 +52,7 @@
   &__header {
     display: flex;
     align-items: center;
+    gap: .5rem;
     font-size: 15px;
     margin-bottom: 0.75rem;
 
@@ -124,8 +125,11 @@
     color: var(--fg-700);
     font-size: 75%;
     line-height: 1;
-    margin-left: 8px;
     opacity: .375;
+
+    &:not(:last-child) {
+      margin-right: .25rem;
+    }
   }
 
   &__controls {
@@ -139,7 +143,7 @@
     color: var(--fg-700);
     line-height: 1;
     text-align: right;
-    padding: 0 .625rem 0 .75rem;
+    padding-right: .625rem;
     margin-right: -0.75rem;
 
     &:not(.last-clicked) {
