@@ -113,7 +113,7 @@ if ( ! defined( 'FICTIONEER_ATTACHMENT_PAGES' ) ) {
   define( 'FICTIONEER_ATTACHMENT_PAGES', false );
 }
 
-// Boolean: Show OAuth ID Hashes
+// Boolean: Show OAuth ID Hashes (admin only)
 if ( ! defined( 'FICTIONEER_SHOW_OAUTH_HASHES' ) ) {
   define( 'FICTIONEER_SHOW_OAUTH_HASHES', false );
 }
