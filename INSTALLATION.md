@@ -722,6 +722,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_UPDATE_CHECK_TIMEOUT | int | Timeout between checks for theme updates in _seconds_. Default `3600`.
 | FICTIONEER_THEME_CACHE_PURGING | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING | boolean | Whether to purge related post caches. Default `true`.
+| FICTIONEER_STORY_CHAPTER_LIST_CACHE | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
 | FICTIONEER_SEARCH_MENU_ITEMS | boolean | Whether to show search page links in menus. Default `true`.
 | FICTIONEER_THEME_SWITCH | boolean | Whether to the theme switch in child themes (back to base). Default `true`.
 | FICTIONEER_ATTACHMENT_PAGES | boolean | Whether to enable pages for attachments (no theme templates). Default `false`.
