@@ -479,7 +479,10 @@ function fictioneer_delete_relationship( $post_id ) {
   // Update database
   fictioneer_save_relationship_registry( $registry );
 }
-add_action( 'delete_post', 'fictioneer_delete_relationship', 100 );
+
+if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
+  add_action( 'delete_post', 'fictioneer_delete_relationship', 100 );
+}
 
 // =============================================================================
 // TRACK CHAPTER & STORY UPDATES
