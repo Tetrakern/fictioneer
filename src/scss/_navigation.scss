@@ -8,7 +8,7 @@
   transform: translateZ(0); // Improve performance
 }
 
-@media screen and (min-width: 600px) {
+@include bp(601px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
       top: 46px;
@@ -20,7 +20,7 @@
   }
 }
 
-@media screen and (min-width: 783px) {
+@include bp(783px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
       top: 32px;
