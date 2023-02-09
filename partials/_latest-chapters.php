@@ -104,7 +104,7 @@ $entries = new WP_Query( $query_args );
                     }
 
                     $excerpt = fictioneer_get_forced_excerpt( $post );
-                    $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation characters. Repeated 0.65 times the excerpt length in characters.', 'fictioneer' ), intval( strlen( $excerpt ) * 0.65 ) );
+                    $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation character.', 'fictioneer' ), intval( strlen( $excerpt ) ) );
                   ?>
                   <?php if ( ! $args['spoiler'] ) : ?>
                     <span onclick="this.parentElement.classList.toggle('_obfuscated');" tabindex="0">
