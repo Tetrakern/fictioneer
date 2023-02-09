@@ -55,6 +55,7 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
     $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
     $graph['storyCount'] = count( $stories );
     $graph['chapterCount'] = 0;
+    $graph['language'] = get_bloginfo( 'language' );
     $graph['cached'] = false;
 
     // Add stories
@@ -65,12 +66,14 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       $author_id = get_post_field( 'post_author', $story->ID );
       $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story->ID ) ?? [];
       $data = fictioneer_get_story_data( $story->ID );
+      $language = fictioneer_get_field( 'fictioneer_story_language', $story->ID );
       $content = [];
 
       // Identity
       $content['id'] = $story->ID;
       $content['guid'] = get_the_guid( $story->ID );
       $content['url'] = get_permalink( $story->ID );
+      $content['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
       $content['title'] = $data['title'];
       $content['author'] = get_the_author_meta( 'display_name', $author_id );
 
