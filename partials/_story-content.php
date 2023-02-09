@@ -267,7 +267,7 @@ $blog_posts = new WP_Query(
                     <i class="<?php echo empty( $chapter['icon'] ) ? 'fa-solid fa-book' : $chapter['icon']; ?> chapter-group__list-item-icon"></i>
                   <?php endif; ?>
 
-                  <a href="<?php echo $chapter['link']; ?>" class="chapter-group__list-item-link truncate truncate--1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>">
+                  <a href="<?php echo $chapter['link']; ?>" class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>">
                     <?php if ( ! empty( $chapter['prefix'] ) ): ?>
                       <span class="chapter-group__list-item-prefix list-view"><?php echo $chapter['prefix']; ?></span>
                     <?php endif; ?>
@@ -286,7 +286,7 @@ $blog_posts = new WP_Query(
                     <i class="fa-solid fa-lock icon-password grid-view"></i>
                   <?php endif; ?>
 
-                  <div class="chapter-group__list-item-subrow truncate truncate--1-1 dot-separator">
+                  <div class="chapter-group__list-item-subrow truncate _1-1 dot-separator">
                     <?php if ( ! empty( $chapter['warning'] ) ) : ?>
                       <span class="chapter-group__list-item-warning list-view" style="<?php echo $chapter['warning_color']; ?>">
                         <?php printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $chapter['warning'] ); ?>

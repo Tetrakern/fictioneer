@@ -87,7 +87,7 @@ if ( $profile_page && $profile_page > 0 ) {
         <div id="follow-menu-scroll" class="follow-notifications__scroll">
           <div class="follow-item">
             <div class="follow-wrapper">
-              <div class="follow-placeholder truncate truncate--1-1"><?php _e( 'Looking for updates...', 'fictioneer' ) ?></div>
+              <div class="follow-placeholder truncate _1-1"><?php _e( 'Looking for updates...', 'fictioneer' ) ?></div>
             </div>
           </div>
         </div>

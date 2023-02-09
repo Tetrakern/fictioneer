@@ -98,7 +98,7 @@ $comment_count = get_comments( $comment_args );
       <?php if ( $show_type ) : ?>
         <div class="card__label"><?php _ex( 'Collection', 'Collection card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $title; ?></a></h3>
+      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
     </div>
 
     <div class="card__main _grid _large">
@@ -107,7 +107,7 @@ $comment_count = get_comments( $comment_args );
         <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php printf( __( '%s Thumbnail', 'fictioneer' ), $title ) ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php the_post_thumbnail( 'cover' ); ?></a>
       <?php endif; ?>
 
-      <div class="card__content cell-desc truncate <?php echo count( $items ) > 2 ? 'truncate--3-4' : 'truncate--4-4'; ?>"><span><?php echo $description; ?></span></div>
+      <div class="card__content cell-desc truncate <?php echo count( $items ) > 2 ? '_3-4' : '_4-4'; ?>"><span><?php echo $description; ?></span></div>
 
       <?php if ( ! empty( $items ) ): ?>
         <ol class="card__link-list cell-list">

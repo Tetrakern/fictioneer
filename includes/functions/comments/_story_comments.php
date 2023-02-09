@@ -36,8 +36,8 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
     <div class="fictioneer-comment__header">
       <?php echo get_avatar( $comment->user_id , 32 ) ?? ''; ?>
       <div class="fictioneer-comment__meta">
-        <div class="fictioneer-comment__author truncate truncate--1-1"><span><?php echo $name; ?></span> <?php echo $badge; ?></div>
-        <div class="fictioneer-comment__info truncate truncate--1-1">
+        <div class="fictioneer-comment__author truncate _1-1"><span><?php echo $name; ?></span> <?php echo $badge; ?></div>
+        <div class="fictioneer-comment__info truncate _1-1">
           <?php
             printf(
               _x( '%1$s <span>&bull;</span> %2$s', 'Comment meta: [Date] in [Chapter]', 'fictioneer' ),

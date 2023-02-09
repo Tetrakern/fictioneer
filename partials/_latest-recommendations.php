@@ -89,7 +89,7 @@ $entries = new WP_Query( $query_args );
                 </a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $title; ?></a></h3>
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
               <div class="card__content _small cell-meta text-overflow-ellipsis">
                 <?php
@@ -102,7 +102,7 @@ $entries = new WP_Query( $query_args );
                 ?>
               </div>
 
-              <div class="card__content _small cell-desc truncate truncate--3-3">
+              <div class="card__content _small cell-desc truncate _3-3">
                 <?php
                   if ( ! empty( $one_sentence ) ) {
                     echo wp_strip_all_tags( $one_sentence, true );

@@ -28,7 +28,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php if ( $show_type ) : ?>
         <div class="card__label"><?php _ex( 'Blog', 'Blog card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $title; ?></a></h3>
+      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
     </div>
 
     <div class="card__main _grid _large">
@@ -42,7 +42,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         ><?php the_post_thumbnail( 'cover' ); ?></a>
       <?php endif; ?>
 
-      <div class="card__content cell-desc truncate truncate--4-4"><span><?php echo get_the_excerpt(); ?></span></div>
+      <div class="card__content cell-desc truncate _4-4"><span><?php echo get_the_excerpt(); ?></span></div>
 
       <?php if ( $categories || $tags ) : ?>
         <div class="card__tag-list dot-separator cell-tax">

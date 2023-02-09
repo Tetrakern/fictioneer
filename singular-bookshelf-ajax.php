@@ -145,7 +145,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
                   <div class="card__header _large"><h3 class="card__title"></h3></div>
                   <div class="card__main _grid _large">
                     <div class="card__image cell-img"></div>
-                    <div class="card__content cell-desc truncate truncate--3-4"></div>
+                    <div class="card__content cell-desc truncate _3-4"></div>
                     <div class="card__tag-list cell-tax"><span></span><span></span><span></span></div>
                   </div>
                   <div class="card__footer"><div class="card__left text-overflow-ellipsis"></div></div>

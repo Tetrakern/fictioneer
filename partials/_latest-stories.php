@@ -62,9 +62,9 @@ $entries = new WP_Query( $query_args );
                 </a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $story['title']; ?></a></h3>
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
 
-              <div class="card__content _small cell-desc truncate truncate--3-3">
+              <div class="card__content _small cell-desc truncate _3-3">
                 <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                   <span><?php
                     printf(

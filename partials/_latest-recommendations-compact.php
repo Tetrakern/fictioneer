@@ -71,9 +71,9 @@ $entries = new WP_Query( $query_args );
                 </a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $title; ?></a></h3>
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
-              <div class="card__content _small cell-desc truncate truncate--3-3">
+              <div class="card__content _small cell-desc truncate _3-3">
                 <?php
                   printf(
                     __( '<span class="author-by">by</span> <span class="author">%s</span> <span>—</span> ', 'fictioneer' ),
@@ -93,7 +93,7 @@ $entries = new WP_Query( $query_args );
 
             <?php if ( $show_taxonomies ) : ?>
               <div class="card__overlay-infobox escape-last-click">
-                <div class="card__tag-list _small truncate truncate--3-3 dot-separator">
+                <div class="card__tag-list _small truncate _3-3 dot-separator">
                   <?php
                     if ( $fandoms || $characters || $genres || $tags ) {
                       if ( $fandoms ) {

@@ -43,7 +43,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <div class="card__label"><?php _ex( 'Story', 'Story card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
 
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $story['title']; ?></a></h3>
+      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
 
       <?php if ( fictioneer_get_field( 'fictioneer_story_sticky' ) && ! is_search() && ! is_archive() ) : ?>
         <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
@@ -64,7 +64,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         ><?php the_post_thumbnail( 'cover' ); ?></a>
       <?php endif; ?>
 
-      <div class="card__content cell-desc truncate <?php echo count( $chapter_ids ) > 2 ? 'truncate--3-4' : 'truncate--4-4'; ?>">
+      <div class="card__content cell-desc truncate <?php echo count( $chapter_ids ) > 2 ? '_3-4' : '_4-4'; ?>">
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <span class="show-below-desktop"><?php
             printf(
