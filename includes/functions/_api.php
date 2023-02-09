@@ -61,7 +61,9 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
     $graph['stories'] = [];
 
     foreach ( $stories as $story ) {
-      // Get pre-made data collection
+      // Setup
+      $author_id = get_post_field( 'post_author', $story->ID );
+      $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story->ID ) ?? [];
       $data = fictioneer_get_story_data( $story->ID );
       $content = [];
 
@@ -70,10 +72,25 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       $content['guid'] = get_the_guid( $story->ID );
       $content['url'] = get_permalink( $story->ID );
       $content['title'] = $data['title'];
+      $content['author'] = get_the_author_meta( 'display_name', $author_id );
+
+      if ( ! empty( $co_author_ids ) ) {
+        $content['coAuthors'] = [];
+
+        foreach ( $co_author_ids as $co_author_id ) {
+          if ( $co_author_id != $author_id ) {
+            $content['coAuthors'][] = get_the_author_meta( 'display_name', $co_author_id );
+          }
+        }
+      }
+
+      // Meta
       $content['words'] = $data['word_count'];
       $content['ageRating'] = $data['rating'];
       $content['status'] = $data['status'];
       $content['image'] = get_the_post_thumbnail_url( $story->ID, 'full' );
+      $content['published'] = get_post_time( 'U', true, $story->ID );
+      $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
 
       // Terms
 
