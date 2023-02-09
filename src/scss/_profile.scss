@@ -204,10 +204,10 @@
     &__badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       background: var(--badge-generic-background);
       color: var(--badge-generic-text);
-      font: var(--font-weight-badge) 10px/1 var(--font-system);
+      font: var(--font-weight-badge) 10px/1 var(--font-base);
+      letter-spacing: -0.03em;
       text-shadow: none;
       border-radius: 2px;
       padding: 0 4px;
