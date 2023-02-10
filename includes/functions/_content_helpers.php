@@ -1362,4 +1362,88 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
   }
 }
 
+// =============================================================================
+// GET SUPPORT LINKS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
+  /**
+   * Returns support links for the post or author
+   *
+   * @since 5.0.19
+   *
+   * @param int|null $post_id   The post ID. Defaults to global post.
+   * @param int|null $parent_id The parent ID. Default null.
+   * @param int|null $author_id The author ID. Defaults to post author ID.
+   *
+   * @return array Array of support links.
+   */
+
+  function fictioneer_get_support_links( $post_id = null, $parent_id = null, $author_id = null ) {
+    global $post;
+
+    // Setup
+    $post_id = $post_id ?? $post->ID;
+    $author_id = $author_id ?? get_post_field( 'post_author', $post_id );
+    $links = [];
+
+    // Get story ID if chapter and parent ID not given
+    if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
+      $parent_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+    }
+
+    // Post level (e.g. chapter)
+    $links['topwebfiction'] = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $post_id );
+    $links['patreon'] = fictioneer_get_field( 'fictioneer_patreon_link', $post_id );
+    $links['kofi'] = fictioneer_get_field( 'fictioneer_kofi_link', $post_id );
+    $links['subscribestar'] = fictioneer_get_field( 'fictioneer_subscribestar_link', $post_id );
+    $links['paypal'] = fictioneer_get_field( 'fictioneer_paypal_link', $post_id );
+    $links['donation'] = fictioneer_get_field( 'fictioneer_donation_link', $post_id );
+
+    // Parent level (e.g. story)
+    if ( ! empty( $parent_id ) ) {
+      if ( empty( $links['topwebfiction'] ) ) {
+        $links['topwebfiction'] = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $parent_id );
+      }
+      if ( empty( $links['patreon'] ) ) {
+        $links['patreon'] = fictioneer_get_field( 'fictioneer_patreon_link', $parent_id );
+      }
+      if ( empty( $links['kofi'] ) ) {
+        $links['kofi'] = fictioneer_get_field( 'fictioneer_kofi_link', $parent_id );
+      }
+      if ( empty( $links['subscribestar'] ) ) {
+        $links['subscribestar'] = fictioneer_get_field( 'fictioneer_subscribestar_link', $parent_id );
+      }
+      if ( empty( $links['paypal'] ) ) {
+        $links['paypal'] = fictioneer_get_field( 'fictioneer_paypal_link', $parent_id );
+      }
+      if ( empty( $links['donation'] ) ) {
+        $links['donation'] = fictioneer_get_field( 'fictioneer_donation_link', $parent_id );
+      }
+    }
+
+    // Author level
+    if ( $author_id ) {
+      if ( empty( $links['patreon'] ) ) {
+        $links['patreon'] = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
+      }
+      if ( empty( $links['kofi'] ) ) {
+        $links['kofi'] = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
+      }
+      if ( empty( $links['subscribestar'] ) ) {
+        $links['subscribestar'] = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
+      }
+      if ( empty( $links['paypal'] ) ) {
+        $links['paypal'] = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
+      }
+      if ( empty( $links['donation'] ) ) {
+        $links['donation'] = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
+      }
+    }
+
+    // Remove empty strings and return
+    return array_filter( $links, 'strlen' );
+  }
+}
+
 ?>
