@@ -94,6 +94,7 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       $content['image'] = get_the_post_thumbnail_url( $story->ID, 'full' );
       $content['published'] = get_post_time( 'U', true, $story->ID );
       $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
+      $content['protected'] = post_password_required( $story->ID );
 
       // Terms
 
