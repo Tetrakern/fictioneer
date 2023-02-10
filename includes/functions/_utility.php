@@ -1450,7 +1450,7 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
     );
 
     // Get story ID if chapter and parent ID not given
-    if ( empty( $parent_id ) && $post_type == 'fcn_chapter' ) {
+    if ( $parent_id === null && $post_type == 'fcn_chapter' ) {
       $parent_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
     }
 
