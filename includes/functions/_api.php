@@ -96,6 +96,14 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
       $content['protected'] = post_password_required( $story->ID );
 
+      // Support
+      $topwebfiction_link = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $story->ID );
+      $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $story->ID );
+      $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $story->ID );
+      $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $story->ID );
+      $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $story->ID );
+      $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $story->ID );
+
       // Terms
 
       // Count chapters
