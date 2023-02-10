@@ -1374,7 +1374,7 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
    *
    * @param int|null $post_id   The post ID. Defaults to global post.
    * @param int|null $parent_id The parent ID. Default null.
-   * @param int|null $author_id The post ID. Defaults to post author ID.
+   * @param int|null $author_id The author ID. Defaults to post author ID.
    *
    * @return array Array of support links.
    */
