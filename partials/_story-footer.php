@@ -33,7 +33,7 @@ $story = $args['story_data'];
 ?>
 
 <footer class="story__footer padding-left padding-right">
-  <div class="story__meta truncate truncate--1-1">
+  <div class="story__meta truncate _1-1">
     <span class="story__status">
       <i class="<?php echo $story['icon']; ?>"></i>
       <span><?php echo $story['status']; ?></span>

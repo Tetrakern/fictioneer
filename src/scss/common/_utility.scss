@@ -77,16 +77,16 @@ body:not(.is-editor):not(.is-admin) {
   overflow: hidden;
 
   // Desktop-Mobile
-  &--1-1 {
+  &._1-1 {
     -webkit-line-clamp: 1;
     word-break: break-all;
   }
 
-  &--2-2 {
+  &._2-2 {
     -webkit-line-clamp: 2;
   }
 
-  &--2-3 {
+  &._2-3 {
     -webkit-line-clamp: 3;
 
     @include bp(640px) {
@@ -94,11 +94,11 @@ body:not(.is-editor):not(.is-admin) {
     }
   }
 
-  &--3-3 {
+  &._3-3 {
     -webkit-line-clamp: 3;
   }
 
-  &--3-4 {
+  &._3-4 {
     -webkit-line-clamp: 4;
 
     @include bp(640px) {
@@ -106,7 +106,7 @@ body:not(.is-editor):not(.is-admin) {
     }
   }
 
-  &--4-4 {
+  &._4-4 {
     -webkit-line-clamp: 4;
   }
 }

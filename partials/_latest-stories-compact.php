@@ -65,9 +65,9 @@ $entries = new WP_Query( $query_args );
                 </a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php echo $story['title']; ?></a></h3>
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
 
-              <div class="card__content _small cell-desc truncate truncate--3-3">
+              <div class="card__content _small cell-desc truncate _3-3">
                 <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                   <span><?php
                     printf(
@@ -87,7 +87,7 @@ $entries = new WP_Query( $query_args );
             <div class="card__overlay-infobox escape-last-click">
 
               <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
-                <div class="card__tag-list _small truncate truncate--2-2 dot-separator">
+                <div class="card__tag-list _small truncate _2-2 dot-separator">
                   <?php
                     if ( $story['has_taxonomies'] || $tags ) {
                       if ( $story['fandoms'] ) {

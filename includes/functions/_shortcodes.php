@@ -68,7 +68,10 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   // Update database
   fictioneer_save_relationship_registry( $registry );
 }
-add_action( 'save_post', 'fictioneer_update_shortcode_relationships', 10, 2 );
+
+if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
+  add_action( 'save_post', 'fictioneer_update_shortcode_relationships', 10, 2 );
+}
 
 // =============================================================================
 // SHOWCASE SHORTCODE
@@ -609,7 +612,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <h5 class="chapter-group__heading truncate truncate--1-1"><?php echo $attr['heading']; ?></h5>
+      <h5 class="chapter-group__heading truncate _1-1"><?php echo $attr['heading']; ?></h5>
     <?php endif; ?>
     <ol class="chapter-group__list">
       <li class="chapter-group__list-item _empty">
@@ -720,14 +723,14 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               <i class="<?php echo empty( $icon ) ? 'fa-solid fa-book' : $icon; ?> chapter-group__list-item-icon"></i>
             <?php endif; ?>
 
-            <a href="<?php the_permalink( $post_id ); ?>" class="chapter-group__list-item-link truncate truncate--1-1">
+            <a href="<?php the_permalink( $post_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
               <?php if ( ! empty( $prefix ) ): ?>
                 <span class="chapter-group__list-item-prefix"><?php echo $prefix; ?></span>
               <?php endif; ?>
               <span class="chapter-group__list-item-title"><?php echo $title; ?></span>
             </a>
 
-            <div class="chapter-group__list-item-subrow truncate truncate--1-1 dot-separator">
+            <div class="chapter-group__list-item-subrow truncate _1-1 dot-separator">
               <?php if ( ! empty( $warning ) ) : ?>
                 <span class="chapter-group__list-item-warning" style="<?php echo $warning_color; ?>"><?php
                   printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $warning );

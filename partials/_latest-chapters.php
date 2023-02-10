@@ -80,13 +80,13 @@ $entries = new WP_Query( $query_args );
                 <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ) ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
                 $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
                 echo $list_title ? wp_strip_all_tags( $list_title ) : $title;
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate truncate--3-3 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>">
+                <div class="truncate _3-3 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>">
                   <?php
                     if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) {
                       printf(
@@ -104,7 +104,7 @@ $entries = new WP_Query( $query_args );
                     }
 
                     $excerpt = fictioneer_get_forced_excerpt( $post );
-                    $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation characters. Repeated 0.65 times the excerpt length in characters.', 'fictioneer' ), intval( strlen( $excerpt ) * 0.65 ) );
+                    $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation character.', 'fictioneer' ), intval( strlen( $excerpt ) ) );
                   ?>
                   <?php if ( ! $args['spoiler'] ) : ?>
                     <span onclick="this.parentElement.classList.toggle('_obfuscated');" tabindex="0">

@@ -5,9 +5,9 @@
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.0.16' );
+define( 'FICTIONEER_VERSION', '5.0.19' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.0.16' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.0.19' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', false );
@@ -41,8 +41,8 @@ if ( ! defined( 'FICTIONEER_LOGOUT_ENDPOINT' ) ) {
  */
 
 // String: CSS name of the primary font
-if ( ! defined( 'FICTIONEER_PRIMARY_FONT' ) ) {
-  define( 'FICTIONEER_PRIMARY_FONT', 'Open Sans' );
+if ( ! defined( 'FICTIONEER_PRIMARY_FONT_CSS' ) ) {
+  define( 'FICTIONEER_PRIMARY_FONT_CSS', 'Open Sans' );
 }
 
 // String: Display name of the primary font
@@ -55,8 +55,8 @@ if ( ! defined( 'FICTIONEER_PRIMARY_FONT_NAME' ) ) {
  */
 
 // Integer: Commentcode expiration timer in seconds (-1 for infinite)
-if ( ! defined( 'FICTIONEER_COMMENTCODE_DURATION' ) ) {
-  define( 'FICTIONEER_COMMENTCODE_DURATION', 600 );
+if ( ! defined( 'FICTIONEER_COMMENTCODE_TTL' ) ) {
+  define( 'FICTIONEER_COMMENTCODE_TTL', 600 );
 }
 
 // Integer: AJAX cache TTL in milliseconds
@@ -89,26 +89,26 @@ if ( ! defined( 'FICTIONEER_UPDATE_CHECK_TIMEOUT' ) ) {
  */
 
 // Boolean: Theme cache purging on post update
-if ( ! defined( 'FICTIONEER_THEME_CACHE_PURGING' ) ) {
-  define( 'FICTIONEER_THEME_CACHE_PURGING', true );
+if ( ! defined( 'FICTIONEER_CACHE_PURGE_ASSIST' ) ) {
+  define( 'FICTIONEER_CACHE_PURGE_ASSIST', true );
 }
 
 // Boolean: Theme relationship cache purging on post update
-if ( ! defined( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING' ) ) {
-  define( 'FICTIONEER_THEME_RELATIONSHIP_CACHE_PURGING', true );
+if ( ! defined( 'FICTIONEER_RELATIONSHIP_PURGE_ASSIST' ) ) {
+  define( 'FICTIONEER_RELATIONSHIP_PURGE_ASSIST', true );
 }
 
 // Boolean: Cache chapter lists on story pages as Transients
-if ( ! defined( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE' ) ) {
-  define( 'FICTIONEER_STORY_CHAPTER_LIST_CACHE', true );
+if ( ! defined( 'FICTIONEER_CACHE_CHAPTER_LISTS' ) ) {
+  define( 'FICTIONEER_CACHE_CHAPTER_LISTS', true );
 }
 
-// Boolean: Search menu items
-if ( ! defined( 'FICTIONEER_SEARCH_MENU_ITEMS' ) ) {
-  define( 'FICTIONEER_SEARCH_MENU_ITEMS', true );
+// Boolean: Menu items for search
+if ( ! defined( 'FICTIONEER_SHOW_SEARCH_IN_MENUS' ) ) {
+  define( 'FICTIONEER_SHOW_SEARCH_IN_MENUS', true );
 }
 
-// Boolean: Base theme switch
+// Boolean: Base theme switch in site settings
 if ( ! defined( 'FICTIONEER_THEME_SWITCH' ) ) {
   define( 'FICTIONEER_THEME_SWITCH', true );
 }
@@ -124,8 +124,8 @@ if ( ! defined( 'FICTIONEER_SHOW_OAUTH_HASHES' ) ) {
 }
 
 // Boolean: Show AJAX comment submission disallowed content keys
-if ( ! defined( 'FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS' ) ) {
-  define( 'FICTIONEER_SHOW_AJAX_COMMENT_DISALLOWED_KEYS', true );
+if ( ! defined( 'FICTIONEER_DISALLOWED_KEY_NOTICE' ) ) {
+  define( 'FICTIONEER_DISALLOWED_KEY_NOTICE', true );
 }
 
 // Boolean: Only allow assigned chapters in stories

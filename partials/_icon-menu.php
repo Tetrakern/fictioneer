@@ -87,7 +87,7 @@ if ( $profile_page && $profile_page > 0 ) {
         <div id="follow-menu-scroll" class="follow-notifications__scroll">
           <div class="follow-item">
             <div class="follow-wrapper">
-              <div class="follow-placeholder truncate truncate--1-1"><?php _e( 'Looking for updates...', 'fictioneer' ) ?></div>
+              <div class="follow-placeholder truncate _1-1"><?php _e( 'Looking for updates...', 'fictioneer' ) ?></div>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@ if ( $profile_page && $profile_page > 0 ) {
     </div>
   <?php endif; ?>
 
-  <?php if ( FICTIONEER_SEARCH_MENU_ITEMS ) : ?>
+  <?php if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) : ?>
     <a
       href="<?php echo esc_url( home_url( '/?s=' ) ); ?>"
       title="<?php esc_attr_e( 'Search Page', 'fictioneer' ) ?>"

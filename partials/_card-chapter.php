@@ -45,7 +45,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php endif; ?>
 
       <h3 class="card__title">
-        <a href="<?php the_permalink(); ?>" class="truncate truncate--1-1"><?php
+        <a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
           // Make sure there are no whitespaces in-between!
           if ( fictioneer_get_field( 'fictioneer_chapter_list_title' ) ) {
             echo '<span class="show-below-480">' . wp_strip_all_tags( fictioneer_get_field( 'fictioneer_chapter_list_title' ) ) . '</span>';
@@ -102,7 +102,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         }
       ?>
 
-      <div class="card__content cell-desc truncate truncate--4-4">
+      <div class="card__content cell-desc truncate _4-4">
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <span class="show-below-desktop"><?php
             printf(

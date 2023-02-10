@@ -398,9 +398,9 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User      $args['author']       Author of the post.
+   * @param WP_User      $args['author']     Author of the post.
    * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
-   * @param int          $args['chapter_id']   The chapter ID.
+   * @param int          $args['chapter_id'] The chapter ID.
    */
 
   function fictioneer_chapter_support_links( $args ) {
@@ -409,84 +409,60 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
 
     // Setup
     $author_id = $args['author']->ID;
-    $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $args['chapter_id'] );
-    $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $args['chapter_id'] );
-    $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $args['chapter_id'] );
-    $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $args['chapter_id'] );
-    $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $args['chapter_id'] );
-    $topwebfiction_link = null;
+    $support_urls = fictioneer_get_support_links( $args['chapter_id'], $args['story_post']->ID, $author_id );
     $support_links = [];
 
-    // Story level support links
-    if ( ! empty( $args['story_post'] ) ) {
-      $story_id = $args['story_post']->ID;
-      $topwebfiction_link = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $story_id );
-
-      if ( ! $patreon_link ) $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $story_id );
-      if ( ! $kofi_link ) $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $story_id );
-      if ( ! $subscribestar_link ) $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $story_id );
-      if ( ! $paypal_link ) $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $story_id );
-      if ( ! $donation_link ) $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $story_id );
-    }
-
-    // Author level support links
-    if ( ! $patreon_link ) $patreon_link = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
-    if ( ! $kofi_link ) $kofi_link = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
-    if ( ! $subscribestar_link ) $subscribestar_link = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
-    if ( ! $paypal_link ) $paypal_link = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
-    if ( ! $donation_link ) $donation_link = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
-
     // Topwebfiction?
-    if ( $topwebfiction_link ) {
+    if ( $support_urls['topwebfiction'] ) {
       $support_links['topwebfiction'] = array(
         'label' => __( 'Top Web Fiction', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-circle-up"></i>',
-        'link' => $topwebfiction_link
+        'link' => $support_urls['topwebfiction']
       );
     }
 
     // Patreon?
-    if ( $patreon_link ) {
+    if ( $support_urls['patreon'] ) {
       $support_links['patreon'] = array(
         'label' => __( 'Patreon', 'fictioneer' ),
         'icon' => '<i class="fa-brands fa-patreon"></i>',
-        'link' => $patreon_link
+        'link' => $support_urls['patreon']
       );
     }
 
     // Ko-Fi?
-    if ( $kofi_link ) {
+    if ( $support_urls['kofi'] ) {
       $support_links['kofi'] = array(
         'label' => __( 'Ko-Fi', 'fictioneer' ),
         'icon' => fictioneer_get_icon( 'kofi' ),
-        'link' => $kofi_link
+        'link' => $support_urls['kofi']
       );
     }
 
     // SubscribeStar?
-    if ( $subscribestar_link ) {
+    if ( $support_urls['subscribestar'] ) {
       $support_links['subscribestar'] = array(
         'label' => __( 'SubscribeStar', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-s"></i>',
-        'link' => $subscribestar_link
+        'link' => $support_urls['subscribestar']
       );
     }
 
     // PayPal?
-    if ( $paypal_link ) {
+    if ( $support_urls['paypal'] ) {
       $support_links['paypal'] = array(
         'label' => __( 'PayPal', 'fictioneer' ),
         'icon' => '<i class="fa-brands fa-paypal"></i>',
-        'link' => $paypal_link
+        'link' => $support_urls['paypal']
       );
     }
 
     // Donation?
-    if ( $paypal_link ) {
+    if ( $support_urls['donation'] ) {
       $support_links['donation'] = array(
         'label' => __( 'Donation', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-hand-holding-heart"></i>',
-        'link' => $donation_link
+        'link' => $support_urls['donation']
       );
     }
 

@@ -499,8 +499,8 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $commentcode && is_array( $visibility_code ) ) {
       $commentcode = $visibility_code['code'] == $commentcode;
 
-      if ( FICTIONEER_COMMENTCODE_DURATION > 0 ) {
-        $commentcode = $commentcode && $visibility_code['timestamp'] + FICTIONEER_COMMENTCODE_DURATION >= time();
+      if ( FICTIONEER_COMMENTCODE_TTL > 0 ) {
+        $commentcode = $commentcode && $visibility_code['timestamp'] + FICTIONEER_COMMENTCODE_TTL >= time();
       }
     }
 
@@ -592,7 +592,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
       <div class="fictioneer-comment__header">
         <?php echo ( $avatar = get_avatar( $comment->user_id , $args['avatar_size'] ) ) && $args['avatar_size'] != 0 ? $avatar : ''; ?>
         <div class="fictioneer-comment__meta">
-          <div class="fictioneer-comment__author truncate truncate--1-1"><?php
+          <div class="fictioneer-comment__author truncate _1-1"><?php
             if ( fictioneer_is_author( $comment->user_id ) ) {
               ?><a href="<?php echo get_author_posts_url( $comment->user_id ) ?>"><?php echo $comment->comment_author; ?></a><?php
             } else {
@@ -601,7 +601,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
             echo $badge;
           ?></div>
-          <div class="fictioneer-comment__info truncate truncate--1-1">
+          <div class="fictioneer-comment__info truncate _1-1">
             <?php if ( $parent_comment ) : ?>
               <span class="fictioneer-comment__reply-to"><?php
                 printf(

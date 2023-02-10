@@ -133,6 +133,10 @@ body {
     transform: translateY(-1px);
   }
 
+  :is(.wp-block-embed, .wp-block-audio, .wp-block-video, .wp-block-table, .wp-block-quote, .wp-block-pullquote, .wp-block-gallery, .wp-block-code, .wp-block-preformatted) {
+    clear: both;
+  }
+
   // =============================================================================
   // UTILITY
   // =============================================================================
@@ -470,7 +474,7 @@ body {
   }
 
   // =============================================================================
-  // GALLERY
+  // IMAGE BLOCK
   // =============================================================================
 
   .wp-block-image {

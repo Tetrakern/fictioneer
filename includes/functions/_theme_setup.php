@@ -193,7 +193,7 @@ function fictioneer_root_attributes() {
   $output['data-theme'] = 'default';
   $output['data-mode'] = '';
   $output['data-font-weight'] = 'default';
-  $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT;
+  $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT_CSS;
   if ( $ajax_submit ) $output['data-ajax-submit'] = 'true';
   if ( ! FICTIONEER_THEME_SWITCH ) $output['data-force-child-theme'] = '1';
   if ( get_option( 'fictioneer_enable_ajax_nonce', false ) ) $output['data-ajax-nonce'] = '1';
