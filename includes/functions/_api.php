@@ -91,15 +91,18 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       $content['words'] = $data['word_count'];
       $content['ageRating'] = $data['rating'];
       $content['status'] = $data['status'];
-      $content['image'] = get_the_post_thumbnail_url( $story->ID, 'full' );
       $content['published'] = get_post_time( 'U', true, $story->ID );
       $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
       $content['protected'] = post_password_required( $story->ID );
 
+      // Image
+      if ( true ) {
+        $content['image'] = get_the_post_thumbnail_url( $story->ID, 'full' );
+      }
+
       // Support
       $support_urls = fictioneer_get_support_links( $story->ID, false, $author_id );
 
-      if ( $support_urls['topwebfiction'] ) $content['topwebfiction'] = $support_urls['topwebfiction'];
 
       // Terms
 
