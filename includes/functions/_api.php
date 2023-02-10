@@ -103,6 +103,13 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       // Support
       $support_urls = fictioneer_get_support_links( $story->ID, false, $author_id );
 
+      if ( ! empty( $support_urls ) ) {
+        $content['support'] = [];
+
+        foreach ( $support_urls as $key => $url ) {
+          $content['support'][ $key ] = $url;
+        }
+      }
 
       // Terms
 
