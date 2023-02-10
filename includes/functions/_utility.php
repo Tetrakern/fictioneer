@@ -1439,18 +1439,10 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
     // Setup
     $post_id = $post_id ?? $post->ID;
     $author_id = $author_id ?? get_post_field( 'post_author', $post_id );
-    $post_type = get_post_type( $post_id );
-    $links = array(
-      'topwebfiction' => null,
-      'patreon' => null,
-      'kofi' => null,
-      'subscribestar' => null,
-      'paypal' => null,
-      'donation' => null
-    );
+    $links = [];
 
     // Get story ID if chapter and parent ID not given
-    if ( $parent_id === null && $post_type == 'fcn_chapter' ) {
+    if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
       $parent_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
     }
 

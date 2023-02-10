@@ -413,7 +413,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     $support_links = [];
 
     // Topwebfiction?
-    if ( $support_urls['topwebfiction'] ) {
+    if ( array_key_exists( 'topwebfiction', $support_urls ) ) {
       $support_links['topwebfiction'] = array(
         'label' => __( 'Top Web Fiction', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-circle-up"></i>',
@@ -422,7 +422,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     }
 
     // Patreon?
-    if ( $support_urls['patreon'] ) {
+    if ( array_key_exists( 'patreon', $support_urls ) ) {
       $support_links['patreon'] = array(
         'label' => __( 'Patreon', 'fictioneer' ),
         'icon' => '<i class="fa-brands fa-patreon"></i>',
@@ -431,7 +431,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     }
 
     // Ko-Fi?
-    if ( $support_urls['kofi'] ) {
+    if ( array_key_exists( 'kofi', $support_urls ) ) {
       $support_links['kofi'] = array(
         'label' => __( 'Ko-Fi', 'fictioneer' ),
         'icon' => fictioneer_get_icon( 'kofi' ),
@@ -440,7 +440,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     }
 
     // SubscribeStar?
-    if ( $support_urls['subscribestar'] ) {
+    if ( array_key_exists( 'subscribestar', $support_urls ) ) {
       $support_links['subscribestar'] = array(
         'label' => __( 'SubscribeStar', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-s"></i>',
@@ -449,7 +449,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     }
 
     // PayPal?
-    if ( $support_urls['paypal'] ) {
+    if ( array_key_exists( 'paypal', $support_urls ) ) {
       $support_links['paypal'] = array(
         'label' => __( 'PayPal', 'fictioneer' ),
         'icon' => '<i class="fa-brands fa-paypal"></i>',
@@ -458,7 +458,7 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
     }
 
     // Donation?
-    if ( $support_urls['donation'] ) {
+    if ( array_key_exists( 'donation', $support_urls ) ) {
       $support_links['donation'] = array(
         'label' => __( 'Donation', 'fictioneer' ),
         'icon' => '<i class="fa-solid fa-hand-holding-heart"></i>',
