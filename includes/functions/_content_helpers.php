@@ -1393,42 +1393,56 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
     }
 
     // Post level (e.g. chapter)
-    $topwebfiction_link = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $post_id );
-    $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $post_id );
-    $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $post_id );
-    $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $post_id );
-    $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $post_id );
-    $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $post_id );
+    $links['topwebfiction'] = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $post_id );
+    $links['patreon'] = fictioneer_get_field( 'fictioneer_patreon_link', $post_id );
+    $links['kofi'] = fictioneer_get_field( 'fictioneer_kofi_link', $post_id );
+    $links['subscribestar'] = fictioneer_get_field( 'fictioneer_subscribestar_link', $post_id );
+    $links['paypal'] = fictioneer_get_field( 'fictioneer_paypal_link', $post_id );
+    $links['donation'] = fictioneer_get_field( 'fictioneer_donation_link', $post_id );
 
     // Parent level (e.g. story)
     if ( ! empty( $parent_id ) ) {
-      if ( empty( $topwebfiction_link ) ) $topwebfiction_link = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $parent_id );
-      if ( empty( $patreon_link ) ) $patreon_link = fictioneer_get_field( 'fictioneer_patreon_link', $parent_id );
-      if ( empty( $kofi_link ) ) $kofi_link = fictioneer_get_field( 'fictioneer_kofi_link', $parent_id );
-      if ( empty( $subscribestar_link ) ) $subscribestar_link = fictioneer_get_field( 'fictioneer_subscribestar_link', $parent_id );
-      if ( empty( $paypal_link ) ) $paypal_link = fictioneer_get_field( 'fictioneer_paypal_link', $parent_id );
-      if ( empty( $donation_link ) ) $donation_link = fictioneer_get_field( 'fictioneer_donation_link', $parent_id );
+      if ( empty( $links['topwebfiction'] ) ) {
+        $links['topwebfiction'] = fictioneer_get_field( 'fictioneer_story_topwebfiction_link', $parent_id );
+      }
+      if ( empty( $links['patreon'] ) ) {
+        $links['patreon'] = fictioneer_get_field( 'fictioneer_patreon_link', $parent_id );
+      }
+      if ( empty( $links['kofi'] ) ) {
+        $links['kofi'] = fictioneer_get_field( 'fictioneer_kofi_link', $parent_id );
+      }
+      if ( empty( $links['subscribestar'] ) ) {
+        $links['subscribestar'] = fictioneer_get_field( 'fictioneer_subscribestar_link', $parent_id );
+      }
+      if ( empty( $links['paypal'] ) ) {
+        $links['paypal'] = fictioneer_get_field( 'fictioneer_paypal_link', $parent_id );
+      }
+      if ( empty( $links['donation'] ) ) {
+        $links['donation'] = fictioneer_get_field( 'fictioneer_donation_link', $parent_id );
+      }
     }
 
     // Author level
     if ( $author_id ) {
-      if ( empty( $patreon_link ) ) $patreon_link = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
-      if ( empty( $kofi_link ) ) $kofi_link = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
-      if ( empty( $subscribestar_link ) ) $subscribestar_link = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
-      if ( empty( $paypal_link ) ) $paypal_link = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
-      if ( empty( $donation_link ) ) $donation_link = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
+      if ( empty( $links['patreon'] ) ) {
+        $links['patreon'] = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
+      }
+      if ( empty( $links['kofi'] ) ) {
+        $links['kofi'] = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
+      }
+      if ( empty( $links['subscribestar'] ) ) {
+        $links['subscribestar'] = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
+      }
+      if ( empty( $links['paypal'] ) ) {
+        $links['paypal'] = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
+      }
+      if ( empty( $links['donation'] ) ) {
+        $links['donation'] = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
+      }
     }
 
-    // Add links if found
-    if ( ! empty( $topwebfiction_link ) ) $links['topwebfiction'] = $topwebfiction_link;
-    if ( ! empty( $patreon_link ) ) $links['patreon'] = $patreon_link;
-    if ( ! empty( $kofi_link ) ) $links['kofi'] = $kofi_link;
-    if ( ! empty( $subscribestar_link ) ) $links['subscribestar'] = $subscribestar_link;
-    if ( ! empty( $paypal_link ) ) $links['paypal'] = $paypal_link;
-    if ( ! empty( $donation_link ) ) $links['donation'] = $donation_link;
-
-    // Return
-    return $links;
+    // Remove empty strings and return
+    return array_filter( $links, 'strlen' );
   }
 }
 
