@@ -97,7 +97,22 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
 
       // Image
       if ( true ) {
-        $content['image'] = get_the_post_thumbnail_url( $story->ID, 'full' );
+        $content['images'] = [];
+        $cover = get_the_post_thumbnail_url( $story->ID, 'full' );
+        $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story->ID );
+        $header = wp_get_attachment_image_url( $header, 'full' );
+
+        if ( ! empty( $header ) ) {
+          $content['images']['header'] = $header;
+        }
+
+        if ( ! empty( $cover ) ) {
+          $content['images']['cover'] = $cover;
+        }
+
+        if ( empty( $content['images'] ) ) {
+          unset( $content['images'] );
+        }
       }
 
       // Support
