@@ -60,6 +60,26 @@
             "placeholder": ""
         },
         {
+            "key": "field_63e9473839bbc",
+            "label": "",
+            "name": "fictioneer_story_nsfw",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "NSFW",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_60ec0f9f8769f",
             "label": "Co-Authors",
             "name": "fictioneer_story_co_authors",
@@ -294,5 +314,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1668209425
+    "modified": 1676232573
 }
