@@ -57,7 +57,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Image
     if ( true ) {
-      $node['images'] = ['hotlinkAllowed' => false]; // TODO
+      $node['images'] = ['hotlinkAllowed' => FICTIONEER_API_STORYGRAPH_HOTLINK];
       $cover = get_the_post_thumbnail_url( $story_id, 'full' );
       $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story_id );
       $header = wp_get_attachment_image_url( $header, 'full' );
@@ -160,7 +160,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
     $graph['cached'] = false;
 
     // Cache request
-    set_transient( 'fictioneer_api_story_' . $story_id, $graph, 3600 );
+    set_transient( 'fictioneer_api_story_' . $story_id, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
 
     // Response
     return rest_ensure_response( $graph );

@@ -84,6 +84,11 @@ if ( ! defined( 'FICTIONEER_UPDATE_CHECK_TIMEOUT' ) ) {
   define( 'FICTIONEER_UPDATE_CHECK_TIMEOUT', 3600 );
 }
 
+// Integer: Storygraph API cache TTL
+if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CACHE_TTL' ) ) {
+  define( 'FICTIONEER_API_STORYGRAPH_CACHE_TTL', 3600 );
+}
+
 /*
  * Booleans
  */
@@ -132,6 +137,11 @@ if ( ! defined( 'FICTIONEER_DISALLOWED_KEY_NOTICE' ) ) {
 // Warning: The chapter navigation always refers to the parent story!
 if ( ! defined( 'FICTIONEER_FILTER_STORY_CHAPTERS' ) ) {
   define( 'FICTIONEER_FILTER_STORY_CHAPTERS', true );
+}
+
+// Integer: Storygraph API hotlink permission
+if ( ! defined( 'FICTIONEER_API_STORYGRAPH_HOTLINK' ) ) {
+  define( 'FICTIONEER_API_STORYGRAPH_HOTLINK', false );
 }
 
 // =============================================================================
