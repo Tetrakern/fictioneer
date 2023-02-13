@@ -522,6 +522,9 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
       // Delete cached stories total word count
       delete_transient( 'fictioneer_stories_total_word_count' );
+
+      // Delete cached API response
+      delete_transient( 'fictioneer_api_story_' . $story_id );
     }
   }
 }

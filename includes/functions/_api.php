@@ -1,14 +1,181 @@
 <?php
 
 // =============================================================================
-// FICTION API - GET STORY NODE
+// FICTION API - SINGLE STORY
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
+  /**
+   * Returns array with story data
+   *
+   * @since Fictioneer 5.1
+   *
+   * @param int $story_id ID of the story.
+   *
+   * @return array|boolean Either array with story data or false if not valid.
+   */
 
+  function fictioneer_api_get_story_node( $story_id ) {
+    // Validation
+    $data = fictioneer_get_story_data( $story_id );
+
+    // Abort if...
+    if ( empty( $data ) ) return false;
+
+    // Setup
+    $author_id = get_post_field( 'post_author', $story_id );
+    $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id );
+    $language = fictioneer_get_field( 'fictioneer_story_language', $story_id );
+    $node = [];
+
+    // Identity
+    $node['id'] = $story_id;
+    $node['guid'] = get_the_guid( $story_id );
+    $node['url'] = get_permalink( $story_id );
+    $node['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
+    $node['title'] = $data['title'];
+    $node['author'] = get_the_author_meta( 'display_name', $author_id );
+
+    if ( ! empty( $co_author_ids ) ) {
+      $node['coAuthors'] = [];
+
+      foreach ( $co_author_ids as $co_id ) {
+        if ( $co_id != $author_id ) {
+          $node['coAuthors'][] = get_the_author_meta( 'display_name', $co_id );
+        }
+      }
+    }
+
+    // Meta
+    $node['words'] = $data['word_count'];
+    $node['ageRating'] = $data['rating'];
+    $node['status'] = $data['status'];
+    $node['chapterCount'] = $data['chapter_count'];
+    $node['published'] = get_post_time( 'U', true, $story_id );
+    $node['modified'] = get_post_modified_time( 'U', true, $story_id );
+    $node['protected'] = post_password_required( $story_id );
+
+    // Image
+    if ( true ) {
+      $node['images'] = ['hotlinkAllowed' => false]; // TODO
+      $cover = get_the_post_thumbnail_url( $story_id, 'full' );
+      $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story_id );
+      $header = wp_get_attachment_image_url( $header, 'full' );
+
+      if ( ! empty( $header ) ) {
+        $node['images']['header'] = $header;
+      }
+
+      if ( ! empty( $cover ) ) {
+        $node['images']['cover'] = $cover;
+      }
+
+      if ( empty( $node['images'] ) ) {
+        unset( $node['images'] );
+      }
+    }
+
+    // Support
+    $support_urls = fictioneer_get_support_links( $story_id, false, $author_id );
+
+    if ( ! empty( $support_urls ) ) {
+      $node['support'] = [];
+
+      foreach ( $support_urls as $key => $url ) {
+        $node['support'][ $key ] = $url;
+      }
+    }
+
+    // Terms
+
+    // Chapters
+
+    // Return
+    return $node;
+  }
+}
+
+/**
+ * Add GET route for single story by ID
+ *
+ * @since Fictioneer 5.1
+ */
+
+if ( TRUE ) {
+  add_action(
+    'rest_api_init',
+    function () {
+      register_rest_route(
+        'storygraph/v1',
+        '/story/(?P<id>\d+)',
+        array(
+          'methods' => 'GET',
+          'callback' => 'fictioneer_api_request_story',
+          'permission_callback' => '__return_true'
+        )
+      );
+    }
+  );
+}
+
+if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
+  /**
+   * Returns JSON for a single story
+   *
+   * @since Fictioneer 5.1
+   * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
+   *
+   * @param WP_REST_Request $WP_REST_Request Request object.
+   *
+   * @return WP_REST_Response|WP_Error Response or error.
+   */
+
+  function fictioneer_api_request_story( WP_REST_Request $data ) {
+    // Setup
+    $story_id = absint( $data['id'] );
+    $cache = get_transient( 'fictioneer_api_story_' . $story_id );
+
+    // Return cache if still valid
+    if ( ! empty( $cache ) ) {
+      $cache['cached'] = true;
+      return rest_ensure_response( $cache );
+    }
+
+    // Graph from story node
+    $graph = fictioneer_api_get_story_node( $story_id );
+
+    // Return error if...
+    if ( empty( $graph ) ) {
+      return rest_ensure_response(
+        new WP_Error(
+          'invalid_story_id',
+          'No valid story was found matching the ID.',
+          ['status' => '400']
+        )
+      );
+    }
+
+    // Request meta
+    $graph['timestamp'] = current_time( 'U', true );
+    $graph['cached'] = false;
+
+    // Cache request
+    set_transient( 'fictioneer_api_story_' . $story_id, $graph, 3600 );
+
+    // Response
+    return rest_ensure_response( $graph );
+  }
+}
 
 // =============================================================================
-// FICTION API - GET ALL STORIES
+// FICTION API - ALL STORIES
 // =============================================================================
+
+/**
+ * Add GET route for all stories
+ *
+ * @since Fictioneer 5.1
+ */
 
 if ( TRUE ) {
   add_action(
@@ -19,7 +186,7 @@ if ( TRUE ) {
         '/stories',
         array(
           'methods' => 'GET',
-          'callback' => 'fictioneer_api_get_stories',
+          'callback' => 'fictioneer_api_request_stories',
           'permission_callback' => '__return_true'
         )
       );
@@ -27,7 +194,7 @@ if ( TRUE ) {
   );
 }
 
-if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
+if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
   /**
    * Returns JSON with all stories plus meta data
    *
@@ -37,7 +204,7 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
    * @param WP_REST_Request $WP_REST_Request Request object.
    */
 
-  function fictioneer_api_get_stories( WP_REST_Request $data ) {
+  function fictioneer_api_request_stories( WP_REST_Request $data ) {
     // Setup
     $graph = [];
 
@@ -54,93 +221,33 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
     $query = new WP_Query( $query_args );
     $stories = $query->posts;
 
-    // Add meta to graph
+    // Site meta
     $graph['url'] = get_home_url( null, '', 'rest' );
-    $graph['timestamp'] = current_time( 'U', true );
-    $graph['lastPublished'] = get_post_time( 'U', true, $stories[0] );
-    $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
+    $graph['language'] = get_bloginfo( 'language' );
     $graph['storyCount'] = count( $stories );
     $graph['chapterCount'] = 0;
-    $graph['language'] = get_bloginfo( 'language' );
-    $graph['cached'] = false;
 
-    // Add stories
-    $graph['stories'] = [];
+    // Stories
+    if ( ! empty( $stories ) ) {
+      $graph['lastPublished'] = get_post_time( 'U', true, $stories[0] );
+      $graph['lastModified'] = strtotime( get_lastpostmodified( 'gmt', 'fcn_story' ) );
+      $graph['stories'] = [];
 
-    foreach ( $stories as $story ) {
-      // Setup
-      $author_id = get_post_field( 'post_author', $story->ID );
-      $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story->ID ) ?? [];
-      $data = fictioneer_get_story_data( $story->ID );
-      $language = fictioneer_get_field( 'fictioneer_story_language', $story->ID );
-      $content = [];
+      foreach ( $stories as $story ) {
+        // Get node
+        $node = fictioneer_api_get_story_node( $story->ID );
 
-      // Identity
-      $content['id'] = $story->ID;
-      $content['guid'] = get_the_guid( $story->ID );
-      $content['url'] = get_permalink( $story->ID );
-      $content['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
-      $content['title'] = $data['title'];
-      $content['author'] = get_the_author_meta( 'display_name', $author_id );
+        // Count chapters
+        $graph['chapterCount'] = $graph['chapterCount'] + $node['chapterCount'];
 
-      if ( ! empty( $co_author_ids ) ) {
-        $content['coAuthors'] = [];
-
-        foreach ( $co_author_ids as $co_author_id ) {
-          if ( $co_author_id != $author_id ) {
-            $content['coAuthors'][] = get_the_author_meta( 'display_name', $co_author_id );
-          }
-        }
+        // Add to graph
+        $graph['stories'][ $story->ID ] = $node;
       }
-
-      // Meta
-      $content['words'] = $data['word_count'];
-      $content['ageRating'] = $data['rating'];
-      $content['status'] = $data['status'];
-      $content['published'] = get_post_time( 'U', true, $story->ID );
-      $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
-      $content['protected'] = post_password_required( $story->ID );
-
-      // Image
-      if ( true ) {
-        $content['images'] = [];
-        $cover = get_the_post_thumbnail_url( $story->ID, 'full' );
-        $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story->ID );
-        $header = wp_get_attachment_image_url( $header, 'full' );
-
-        if ( ! empty( $header ) ) {
-          $content['images']['header'] = $header;
-        }
-
-        if ( ! empty( $cover ) ) {
-          $content['images']['cover'] = $cover;
-        }
-
-        if ( empty( $content['images'] ) ) {
-          unset( $content['images'] );
-        }
-      }
-
-      // Support
-      $support_urls = fictioneer_get_support_links( $story->ID, false, $author_id );
-
-      if ( ! empty( $support_urls ) ) {
-        $content['support'] = [];
-
-        foreach ( $support_urls as $key => $url ) {
-          $content['support'][ $key ] = $url;
-        }
-      }
-
-      // Terms
-
-      // Count chapters
-      $graph['chapterCount'] = $graph['chapterCount'] + $data['chapter_count'];
-
-      // Add to graph
-      $graph['stories'][ $story->ID ] = $content;
     }
 
+    // Request meta
+    $graph['timestamp'] = current_time( 'U', true );
+    $graph['cached'] = false;
 
     return rest_ensure_response( $graph );
   }
