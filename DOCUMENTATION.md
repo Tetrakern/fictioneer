@@ -80,7 +80,6 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | Cover Image | Image | Cropped to an aspect ration of 2:3 from the center.
 | Status * | Select | Choose between ongoing, completed, oneshot, hiatus, and cancelled.
 | Age Rating * | Select | Choose between everyone, teen, mature, and adult.
-| NSFW | Check | Mark story as NSFW. Usually redundant if the age rating is set to Adult.
 | Co-Authors | List | List of co-authors. They must be registered users, but dummies will do.
 | Copyright Notice | String | Line below the content to declare copyrights if necessary.
 | Top Web Fiction Link | URL | Link to your story on [Top Web Fiction](https://topwebfiction.com/).
@@ -159,7 +158,6 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Hide Title? | Check | Hide the title and author on chapter pages.
 | Hide Support Links? | Check | Hide support links at the end of the chapter.
 | Chapter Age Rating | Select | Choose between everyone, teen, mature, and adult.
-| NSFW | Check | Mark chapter as NSFW. Usually redundant if the age rating is set to Adult.
 | Chapter Warning | String | _Short_ warning displayed in chapter lists and above the chapter title.
 | Warning Notes | Text | Additional warning notes rendered above the chapter title.
 | Warning Color | Color | Change the color of the warning, but consider the legibility in light/dark mode.

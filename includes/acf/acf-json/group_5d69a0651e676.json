@@ -210,26 +210,6 @@
             "placeholder": ""
         },
         {
-            "key": "field_63e947e4c4a2d",
-            "label": "",
-            "name": "fictioneer_chapter_nsfw",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "NSFW",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_600a9f267f6df",
             "label": "Chapter Warning",
             "name": "fictioneer_chapter_warning",
@@ -306,5 +286,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1676232703
+    "modified": 1676250530
 }
