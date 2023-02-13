@@ -96,7 +96,6 @@ if ( ! function_exists( 'fictioneer_api_get_stories' ) ) {
       // Meta
       $content['words'] = $data['word_count'];
       $content['ageRating'] = $data['rating'];
-      $content['nsfw'] = filter_var( fictioneer_get_field( 'fictioneer_story_nsfw', $story->ID ), FILTER_VALIDATE_BOOLEAN );
       $content['status'] = $data['status'];
       $content['published'] = get_post_time( 'U', true, $story->ID );
       $content['modified'] = get_post_modified_time( 'U', true, $story->ID );
