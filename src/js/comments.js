@@ -929,14 +929,15 @@ function fcn_getCommentForm() {
       let temp = document.createElement('div');
       temp.innerHTML = response.data.html;
 
-      // Fix comment form
-      if (temp.querySelector('#comment_post_ID')) {
-        temp.querySelector('#comment_post_ID').value = response.data.postId;
-        temp.querySelector('#cancel-comment-reply-link').href = "#respond";
+      // Get form elements
+      let commentPostId = temp.querySelector('#comment_post_ID'),
+          cancelReplyLink = temp.querySelector('#cancel-comment-reply-link'),
+          logoutLink = temp.querySelector('.logout-link');
 
-        let logoutLink = temp.querySelector('.logout-link');
-        if (logoutLink) logoutLink.href = _$$$('comments').dataset.logoutUrl;
-      }
+      // Fix form elements
+      if (commentPostId) commentPostId.value = response.data.postId;
+      if (cancelReplyLink) cancelReplyLink.href = "#respond";
+      if (logoutLink) logoutLink.href = _$$$('comments').dataset.logoutUrl;
 
       // Output HTML
       fcn_ajaxCommentForm.innerHTML = temp.innerHTML;

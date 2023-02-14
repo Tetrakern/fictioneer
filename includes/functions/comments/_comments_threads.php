@@ -525,7 +525,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $is_sticky ) $open .= fictioneer_get_icon( 'sticky-pin' );
 
     // Hidden private comments
-    if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $ajax_in_progress ) {
+    if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $ajax_in_progress && ! $is_child_of_private ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
         <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as private.', 'fictioneer' ) ?></div>
@@ -538,7 +538,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $is_child_of_private && $is_hidden ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
-        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Reply to a private comment.', 'fictioneer' ) ?></div>
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Reply has been marked as private.', 'fictioneer' ) ?></div>
       </div>
       <?php // <--- End HTML
       return;

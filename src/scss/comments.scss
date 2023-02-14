@@ -650,7 +650,7 @@
       gap: 8px;
       margin-right: -2px;
 
-      > * {
+      > :not(.popup-menu) {
         padding-left: 2px;
         padding-right: 2px;
       }
