@@ -494,6 +494,8 @@ $action = $_GET['action'] ?? null;
     					<div class="card-content">
     						<div class="overflow-horizontal">
 
+                  <p class="description row"><?php _e( 'Some of these options will only work properly with the theme comment system enabled.', 'fictioneer' ) ?></p>
+
                   <label for="fictioneer_disable_commenting" class="label-wrapped-checkbox row">
                     <input name="fictioneer_disable_commenting" type="checkbox" id="fictioneer_disable_commenting" <?php echo checked( 1, get_option( 'fictioneer_disable_commenting' ), false ); ?> value="1">
                     <div>
@@ -630,7 +632,7 @@ $action = $_GET['action'] ?? null;
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 256px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 198px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
