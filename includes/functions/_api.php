@@ -75,6 +75,47 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       }
     }
 
+    // Terms
+
+    // Chapters
+    if ( ! empty( $data['chapter_ids'] ) ) {
+      $node['chapters'] = [];
+
+      foreach ( $data['chapter_ids'] as $chapter_id ) {
+        // Chapter data
+        $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
+        $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter_id );
+        $language = fictioneer_get_field( 'fictioneer_chapter_language', $chapter_id );
+        $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix', $chapter_id );
+        $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id );
+        $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter_id );
+
+        // Chapter node
+        $chapter = [];
+        $chapter['id'] = $chapter_id;
+        $chapter['guid'] = get_the_guid( $chapter_id );
+        $chapter['url'] = get_permalink( $chapter_id );
+        $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
+
+        if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
+
+        $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
+
+        if ( ! empty( $group ) ) $chapter['group'] = $group;
+        if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
+        if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
+
+        $chapter['published'] = get_post_time( 'U', true, $chapter_id );
+        $chapter['modified'] = get_post_modified_time( 'U', true, $chapter_id );
+        $chapter['protected'] = post_password_required( $chapter_id );
+        $chapter['words'] = get_post_meta( $chapter_id, '_word_count', true );
+        $chapter['nonChapter'] = ! empty( $no_chapter );
+
+        // Add to story node
+        $node['chapters'][] = $chapter;
+      }
+    }
+
     // Support
     $support_urls = fictioneer_get_support_links( $story_id, false, $author_id );
 
@@ -85,10 +126,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         $node['support'][ $key ] = $url;
       }
     }
-
-    // Terms
-
-    // Chapters
 
     // Return
     return $node;
@@ -136,10 +173,10 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
     $cache = get_transient( 'fictioneer_api_story_' . $story_id );
 
     // Return cache if still valid
-    if ( ! empty( $cache ) ) {
-      $cache['cached'] = true;
-      return rest_ensure_response( $cache );
-    }
+    // if ( ! empty( $cache ) ) {
+    //   $cache['cached'] = true;
+    //   return rest_ensure_response( $cache );
+    // }
 
     // Graph from story node
     $graph = fictioneer_api_get_story_node( $story_id );
