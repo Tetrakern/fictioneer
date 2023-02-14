@@ -125,8 +125,6 @@ if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fict
 // COMMENT FORM SUBMIT
 // =============================================================================
 
-add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
-
 if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
   /**
    * Change the submit field and add the Cancel Reply link
@@ -207,6 +205,7 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
+  add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
   add_filter( 'comment_form_submit_field', 'fictioneer_change_submit_field', 10, 2 );
 }
 
