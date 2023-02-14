@@ -73,7 +73,7 @@ function fictioneer_comment_meta_box ( $comment ) {
     <?php if ( ! empty( $notification_checksum ) && ! empty( $email ) && $notification_checksum == $notification_validator ) : ?>
       <div style="margin-bottom: 12px;">
         <input type="checkbox" disabled checked>
-        <?php _e( 'Commenter is receiving email notifications about direct replies.', 'fictioneer' ); ?>
+        <?php _ex( 'Notification emails', 'Comment moderation reply notification check.', 'fictioneer' ); ?>
       </div>
     <?php endif; ?>
     <?php if ( $last_auto_moderation ) : ?>
