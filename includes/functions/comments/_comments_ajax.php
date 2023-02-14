@@ -368,7 +368,7 @@ if ( ! function_exists( 'fictioneer_ajax_submit_comment' ) ) {
   }
 }
 
-if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) && ! get_option( 'fictioneer_disable_comment_form' ) ) {
+if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_submit_comment', 'fictioneer_ajax_submit_comment' );
   add_action( 'wp_ajax_nopriv_fictioneer_ajax_submit_comment', 'fictioneer_ajax_submit_comment' );
 }
