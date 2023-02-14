@@ -75,7 +75,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       }
     }
 
-    // Terms
+    // Taxonomies
 
     // Chapters
     if ( ! empty( $data['chapter_ids'] ) ) {
@@ -90,26 +90,27 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id );
         $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter_id );
 
-        // Chapter node
+        // Chapter identity
         $chapter = [];
         $chapter['id'] = $chapter_id;
         $chapter['guid'] = get_the_guid( $chapter_id );
         $chapter['url'] = get_permalink( $chapter_id );
         $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
-
+        // author + co-authors
         if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
-
         $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
-
         if ( ! empty( $group ) ) $chapter['group'] = $group;
-        if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
-        if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
 
+        // Chapter meta
         $chapter['published'] = get_post_time( 'U', true, $chapter_id );
         $chapter['modified'] = get_post_modified_time( 'U', true, $chapter_id );
         $chapter['protected'] = post_password_required( $chapter_id );
         $chapter['words'] = get_post_meta( $chapter_id, '_word_count', true );
         $chapter['nonChapter'] = ! empty( $no_chapter );
+        if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
+        if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
+
+        // Chapter taxonomies
 
         // Add to story node
         $node['chapters'][] = $chapter;
