@@ -235,7 +235,7 @@ if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
       }
     }
 
-    // Mark comment as private (if enabled)
+    // Mark comment as private
     if (
       get_option( 'fictioneer_enable_private_commenting' ) &&
       (
@@ -243,6 +243,11 @@ if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
         filter_var( $_POST['fictioneer-private-comment-toggle'], FILTER_VALIDATE_BOOLEAN )
       )
     ) {
+      $commentdata['comment_type'] = 'private';
+    }
+
+    // Mark private if parent is private
+    if ( get_comment_type( $parent_id ) == 'private' ) {
       $commentdata['comment_type'] = 'private';
     }
 
