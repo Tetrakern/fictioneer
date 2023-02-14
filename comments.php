@@ -36,8 +36,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
         $query_args['type'] = ['comment', 'private'];
         $query_args['order'] = get_option( 'comment_order' );
       } else {
-        // Still hide private comments but do not limit the types preemptively
-        $query_args = ['type__not_in' => 'private'];
+        $query_args['type'] = ['comment'];
       }
 
       // Filter query arguments
