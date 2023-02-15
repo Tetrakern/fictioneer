@@ -1424,7 +1424,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
   /**
    * Get all taxonomies of a post
    *
-   * @since 5.1
+   * @since 5.0.20
    *
    * @param int     $post_id ID of the post to get the taxonomies of.
    * @param boolean $flatten Whether to flatten the result. Default false.
@@ -1442,13 +1442,13 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
     $t['genres'] = get_the_terms( $post_id, 'fcn_genre' );
 
     // Validate
-    foreach ( ['tags', 'fandoms', 'characters', 'warnings', 'genres'] as $tax ) {
-      $t[ $tax ] = is_array( $t[ $tax ] ) ? $t[ $tax ] : [];
+    foreach ( $t as $key => $tax ) {
+      $t[ $key ] = is_array( $t[ $key ] ) ? $t[ $key ] : [];
     }
 
     // Extract
-    foreach ( ['tags', 'fandoms', 'characters', 'warnings', 'genres'] as $tax ) {
-      $t[ $tax ] = array_map( function( $a ) { return $a->name; }, $t[ $tax ] );
+    foreach ( $t as $key => $tax ) {
+      $t[ $key ] = array_map( function( $a ) { return $a->name; }, $t[ $key ] );
     }
 
     // Return flattened
