@@ -1424,7 +1424,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
   /**
    * Get all taxonomies of a post
    *
-   * @since 5.1
+   * @since 5.0.20
    *
    * @param int     $post_id ID of the post to get the taxonomies of.
    * @param boolean $flatten Whether to flatten the result. Default false.
