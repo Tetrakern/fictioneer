@@ -76,6 +76,8 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     }
 
     // Taxonomies
+    $taxonomies = fictioneer_get_taxonomy_names( $story_id );
+    if ( ! empty( $taxonomies ) ) $node['taxonomies'] = $taxonomies;
 
     // Chapters
     if ( ! empty( $data['chapter_ids'] ) ) {
@@ -111,6 +113,8 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
 
         // Chapter taxonomies
+        $taxonomies = fictioneer_get_taxonomy_names( $chapter_id );
+        if ( ! empty( $taxonomies ) ) $chapter['taxonomies'] = $taxonomies;
 
         // Add to story node
         $node['chapters'][] = $chapter;
