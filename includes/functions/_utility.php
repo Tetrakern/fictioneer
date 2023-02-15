@@ -1416,4 +1416,49 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
   }
 }
 
+// =============================================================================
+// GET TAXONOMY NAMES
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
+  /**
+   * Get all taxonomies of a post
+   *
+   * @since 5.1
+   *
+   * @param int     $post_id ID of the post to get the taxonomies of.
+   * @param boolean $flatten Whether to flatten the result. Default false.
+   *
+   * @return array Array with all taxonomies.
+   */
+
+  function fictioneer_get_taxonomy_names( $post_id, $flatten = false ) {
+    // Setup
+    $t = [];
+    $t['tags'] = get_the_tags( $post_id );
+    $t['fandoms'] = get_the_terms( $post_id, 'fcn_fandom' );
+    $t['characters'] = get_the_terms( $post_id, 'fcn_character' );
+    $t['warnings'] = get_the_terms( $post_id, 'fcn_content_warning' );
+    $t['genres'] = get_the_terms( $post_id, 'fcn_genre' );
+
+    // Validate
+    foreach ( ['tags', 'fandoms', 'characters', 'warnings', 'genres'] as $tax ) {
+      $t[ $tax ] = is_array( $t[ $tax ] ) ? $t[ $tax ] : [];
+    }
+
+    // Extract
+    foreach ( ['tags', 'fandoms', 'characters', 'warnings', 'genres'] as $tax ) {
+      $t[ $tax ] = array_map( function( $a ) { return $a->name; }, $t[ $tax ] );
+    }
+
+    // Return flattened
+    if ( $flatten ) {
+      return array_merge( $t['tags'], $t['fandoms'], $t['characters'], $t['warnings'], $t['genres'] );
+    }
+
+    // Return without empty arrays
+    return array_filter( $t, 'count' );
+  }
+}
+
 ?>
