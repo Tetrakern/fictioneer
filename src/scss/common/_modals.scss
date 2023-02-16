@@ -170,7 +170,8 @@
         background: var(--blockquote-background);
         border-left: 2px solid var(--fg-600);
         border-radius: var(--layout-border-radius-small);
-        padding: 0 .5em;
+        padding: .34rem .5em;
+        margin-bottom: .5rem;
       }
 
       code {
@@ -183,6 +184,11 @@
         &:last-of-type {
           margin-left: 2px;
         }
+      }
+
+      li {
+        margin-top: 0;
+        margin-bottom: 0;
       }
     }
   }
