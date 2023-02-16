@@ -134,6 +134,11 @@ if ( ! defined( 'FICTIONEER_FILTER_STORY_CHAPTERS' ) ) {
   define( 'FICTIONEER_FILTER_STORY_CHAPTERS', true );
 }
 
+// Boolean: Only show the full comment form after clicking into it
+if ( ! defined( 'FICTIONEER_COLLAPSE_COMMENT_FORM' ) ) {
+  define( 'FICTIONEER_COLLAPSE_COMMENT_FORM', true );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================

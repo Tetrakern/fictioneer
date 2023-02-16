@@ -729,3 +729,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_SHOW_OAUTH_HASHES | boolean | Whether to show OAuth ID hashes in user profiles (admin only). Default `false`.
 | FICTIONEER_DISALLOWED_KEY_NOTICE | boolean | Whether to show feedback for rejected comment content. Default `true`.
 | FICTIONEER_FILTER_STORY_CHAPTERS | boolean | Whether to filter selectable chapters by assigned story. Default `true`.
+| FICTIONEER_COLLAPSE_COMMENT_FORM | boolean | Whether hide comment form inputs until the textarea is clicked. Default `true`.
