@@ -163,7 +163,6 @@ if ( ! function_exists( 'fictioneer_comments_ajax_form_skeleton' ) ) {
     <div id="ajax-comment-form-target" class="comments-skeleton">
       <div class="comments-skeleton__login"><div class="shape"></div></div>
       <div class="shape comments-skeleton__response"></div>
-      <div class="comments-skeleton__actions"><div class="shape"></div></div>
     </div>
     <?php // <--- End HTML
   }

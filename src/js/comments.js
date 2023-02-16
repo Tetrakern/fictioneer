@@ -260,6 +260,19 @@ function fcn_flagComment(source) {
 // =============================================================================
 
 /**
+ * Reveal comment form inputs.
+ *
+ * @since 5.0.21
+ */
+
+function fcn_revealCommentFormInputs(area) {
+  area.closest('form').querySelectorAll('.fictioneer-respond__form-actions, .fictioneer-respond__form-bottom').forEach(element => {
+    element.classList.remove('hidden');
+  });
+  area.removeAttribute('onclick');
+}
+
+/**
  * Adjust textarea height to fit the value without vertical scroll bar.
  *
  * @since 4.7

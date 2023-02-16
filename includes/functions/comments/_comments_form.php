@@ -64,6 +64,7 @@ if ( ! function_exists( 'fictioneer_change_comment_fields' ) ) {
     $name_placeholder = $required ? __( 'Name *', 'fictioneer' ) : __( 'Name', 'fictioneer' );
     $email_placeholder = $required ? __( 'Email (Gravatar) *', 'fictioneer' ) : __( 'Email (optional, Gravatar)', 'fictioneer' );
     $privacy_policy_link = get_option( 'wp_page_for_privacy_policy' ) ? esc_url( get_privacy_policy_url() ) : false;
+    $hidden = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'hidden' : '';
 
     // Rebuild author field
     $fields['author'] = '<div class="comment-form-author"><input type="text" id="author" name="author" data-lpignore="true" value="' . esc_attr( $commenter['comment_author'] ) . '"' . $required_attribute . ' maxlength="245" placeholder="' . $name_placeholder . '"></div>';
@@ -101,7 +102,7 @@ if ( ! function_exists( 'fictioneer_change_comment_fields' ) ) {
      * around the author and email fields.
      */
 
-    $fields['author'] = '<div class="fictioneer-respond__form-bottom"><div class="fictioneer-respond__form-identity">' . $fields['author'];
+    $fields['author'] = '<div class="fictioneer-respond__form-bottom ' . $hidden . '"><div class="fictioneer-respond__form-identity">' . $fields['author'];
     $fields['email'] = $fields['email'] . '</div>';
 
     return $fields;
@@ -142,6 +143,7 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
     // Setup
     $close_bottom_container = is_user_logged_in() ? '' : '</div>';
     $is_ajax = get_option( 'fictioneer_enable_ajax_comment_form' ) || get_option( 'fictioneer_enable_ajax_comments' );
+    $hidden = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'hidden' : '';
 
     /**
      * Build the submit button with the comment_form arguments. Markup:
@@ -195,7 +197,7 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
      */
 
     return sprintf(
-  		$close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions"><div>' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
+  		$close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div>' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
   		$submit_button,
   		get_comment_id_fields( get_the_ID() ),
       preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
@@ -233,6 +235,7 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
   $oauth_links = fictioneer_get_oauth_links( false, '', 'comments', $post_id );
   $profile_link = get_edit_profile_url();
   $profile_page = intval( get_option( 'fictioneer_user_profile_page', -1 ) );
+  $onclick = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'onclick="fcn_revealCommentFormInputs(this)"' : '';
 
   if ( $profile_page && $profile_page > 0 ) {
     $profile_link = get_permalink( $profile_page );
@@ -252,7 +255,7 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
       fictioneer_get_logout_url( get_permalink( $post_id ) )
     )
   );
-  $comment_field = '<div class="comment-form-comment fictioneer-respond__form-comment"><textarea id="comment" class="adaptive-textarea" name="comment" maxlength="65525" required></textarea>'. $toolbar . '</div>';
+  $comment_field = '<div class="comment-form-comment fictioneer-respond__form-comment"><textarea id="comment" class="adaptive-textarea" name="comment" maxlength="65525" ' . $onclick . ' required></textarea>'. $toolbar . '</div>';
 
   // Prepare arguments
   $args = array(

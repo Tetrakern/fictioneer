@@ -5,9 +5,9 @@
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.0.20' );
+define( 'FICTIONEER_VERSION', '5.0.21' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.0.20' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.0.21' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', false );
@@ -142,6 +142,11 @@ if ( ! defined( 'FICTIONEER_DISALLOWED_KEY_NOTICE' ) ) {
 // Warning: The chapter navigation always refers to the parent story!
 if ( ! defined( 'FICTIONEER_FILTER_STORY_CHAPTERS' ) ) {
   define( 'FICTIONEER_FILTER_STORY_CHAPTERS', true );
+}
+
+// Boolean: Only show the full comment form after clicking into it
+if ( ! defined( 'FICTIONEER_COLLAPSE_COMMENT_FORM' ) ) {
+  define( 'FICTIONEER_COLLAPSE_COMMENT_FORM', true );
 }
 
 // Integer: Storygraph API hotlink permission
