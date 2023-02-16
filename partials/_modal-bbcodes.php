@@ -32,7 +32,7 @@
       <div><?php printf( fcntr( 'bbcode_img' ), $preview_image ); ?></div>
       <div><?php echo fcntr( 'bbcode_link' ); ?></div>
       <div><?php echo fcntr( 'bbcode_link_name' ); ?></div>
-      <div><?php echo fcntr( 'bbcode_quote' ); ?></div>
+      <?php echo fcntr( 'bbcode_quote' ); ?>
       <div><?php echo fcntr( 'bbcode_spoiler' ); ?></div>
       <div><?php echo fcntr( 'bbcode_ins' ); ?></div>
       <div><?php echo fcntr( 'bbcode_del' ); ?></div>
