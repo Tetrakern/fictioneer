@@ -365,16 +365,6 @@ function fcn_commentMakeStrike() {
 }
 
 /**
- * Wrap text selection into [u] shortcode.
- *
- * @since 4.7
- */
-
-function fcn_commentMakeUnderline() {
-  fcn_wrapInTag(_$$$('comment'), 'u', {'shortcode': true});
-}
-
-/**
  * Wrap text selection into [link] shortcode.
  *
  * @since 4.7
