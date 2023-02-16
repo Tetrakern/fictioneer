@@ -26,7 +26,6 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
       <span class="fictioneer-comment-toolbar-bold" onclick="fcn_commentMakeBold()"><i class="fa-solid fa-bold"></i></span>
       <span class="fictioneer-comment-toolbar-italic" onclick="fcn_commentMakeItalic()"><i class="fa-solid fa-italic"></i></span>
       <span class="fictioneer-comment-toolbar-strike" onclick="fcn_commentMakeStrike()"><i class="fa-solid fa-strikethrough"></i></span>
-      <span class="fictioneer-comment-toolbar-underline" onclick="fcn_commentMakeUnderline()"><i class="fa-solid fa-underline" style="transform: translateY(1px);"></i></span>
       <span class="fictioneer-comment-toolbar-image" onclick="fcn_commentMakeImage()"><i class="fa-solid fa-image"></i></span>
       <span class="fictioneer-comment-toolbar-link" onclick="fcn_commentMakeLink()"><i class="fa-solid fa-link"></i></span>
       <span class="fictioneer-comment-toolbar-quote" onclick="fcn_commentMakeQuote()"><i class="fa-solid fa-quote-left"></i></span>

@@ -27,7 +27,6 @@
     <div class="modal__row modal__description _bbcodes">
       <div><?php echo fcntr( 'bbcode_b' ); ?></div>
       <div><?php echo fcntr( 'bbcode_i' ); ?></div>
-      <div><?php echo fcntr( 'bbcode_u' ); ?></div>
       <div><?php echo fcntr( 'bbcode_s' ); ?></div>
       <div><?php echo fcntr( 'bbcode_li' ); ?></div>
       <div><?php printf( fcntr( 'bbcode_img' ), $preview_image ); ?></div>
