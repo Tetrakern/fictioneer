@@ -24,6 +24,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Setup
     $author_id = get_post_field( 'post_author', $story_id );
+    $author_url = get_the_author_meta( 'user_url', $author_id );
     $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id );
     $language = fictioneer_get_field( 'fictioneer_story_language', $story_id );
     $node = [];
@@ -34,14 +35,25 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['url'] = get_permalink( $story_id );
     $node['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
     $node['title'] = $data['title'];
-    $node['author'] = get_the_author_meta( 'display_name', $author_id );
 
+    // Author
+    $node['author'] = [];
+    $node['author']['name'] = get_the_author_meta( 'display_name', $author_id );
+    if ( ! empty( $author_url ) ) $node['author']['url'] = $author_url;
+
+    // Co-authors
     if ( ! empty( $co_author_ids ) ) {
       $node['coAuthors'] = [];
 
       foreach ( $co_author_ids as $co_id ) {
         if ( $co_id != $author_id ) {
-          $node['coAuthors'][] = get_the_author_meta( 'display_name', $co_id );
+          $co_author_url = get_the_author_meta( 'user_url', $co_id );
+          $co_author_node = [];
+
+          $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
+          if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+
+          $node['coAuthors'][] = $co_author_node;
         }
       }
     }
@@ -85,6 +97,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
       foreach ( $data['chapter_ids'] as $chapter_id ) {
         // Chapter data
+        $author_id = get_post_field( 'post_author', $chapter_id );
+        $author_url = get_the_author_meta( 'user_url', $author_id );
+        $co_author_ids = fictioneer_get_field( 'fictioneer_chapter_co_authors', $chapter_id );
         $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
         $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter_id );
         $language = fictioneer_get_field( 'fictioneer_chapter_language', $chapter_id );
@@ -98,10 +113,31 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         $chapter['guid'] = get_the_guid( $chapter_id );
         $chapter['url'] = get_permalink( $chapter_id );
         $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
-        // author + co-authors
         if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
         $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
         if ( ! empty( $group ) ) $chapter['group'] = $group;
+
+        // Chapter author
+        $chapter['author'] = [];
+        $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
+        if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
+
+        // Chapter co-authors
+        if ( ! empty( $co_author_ids ) ) {
+          $chapter['coAuthors'] = [];
+
+          foreach ( $co_author_ids as $co_id ) {
+            if ( $co_id != $author_id ) {
+              $co_author_url = get_the_author_meta( 'user_url', $co_id );
+              $co_author_node = [];
+
+              $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
+              if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+
+              $chapter['coAuthors'][] = $co_author_node;
+            }
+          }
+        }
 
         // Chapter meta
         $chapter['published'] = get_post_time( 'U', true, $chapter_id );
@@ -225,7 +261,7 @@ if ( TRUE ) {
     function () {
       register_rest_route(
         'storygraph/v1',
-        '/stories',
+        '/stories(?:/(?P<page>\d+))?',
         array(
           'methods' => 'GET',
           'callback' => 'fictioneer_api_request_stories',
@@ -248,6 +284,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
   function fictioneer_api_request_stories( WP_REST_Request $data ) {
     // Setup
+    $page = max($data['page'] ?? 1, 1);
     $graph = [];
 
     // Prepare query
@@ -256,12 +293,24 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       'post_status' => 'publish',
       'orderby' => 'date',
       'order' => 'DESC',
-      'posts_per_page' => -1
+      'posts_per_page' => FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE,
+      'paged' => $page
     );
 
     // Query stories
     $query = new WP_Query( $query_args );
     $stories = $query->posts;
+
+    // Return error if...
+    if ( $page > $query->max_num_pages ) {
+      return rest_ensure_response(
+        new WP_Error(
+          'invalid_story_id',
+          'Requested page number exceeds maximum pages.',
+          ['status' => '400']
+        )
+      );
+    }
 
     // Site meta
     $graph['url'] = get_home_url( null, '', 'rest' );
@@ -288,6 +337,9 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     }
 
     // Request meta
+    $graph['page'] = $page;
+    $graph['perPage'] = FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE;
+    $graph['maxPages'] = $query->max_num_pages;
     $graph['timestamp'] = current_time( 'U', true );
     $graph['cached'] = false;
 

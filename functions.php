@@ -89,6 +89,11 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CACHE_TTL' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_CACHE_TTL', 3600 );
 }
 
+// Integer: Storygraph API number of stories per page
+if ( ! defined( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE' ) ) {
+  define( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE', 10 );
+}
+
 /*
  * Booleans
  */
