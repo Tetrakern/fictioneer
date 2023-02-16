@@ -47,3 +47,7 @@ There are not. Emails are highly problematic, even simple transactional emails a
 #### Q: Does the Patreon plugin work with the theme?
 
 This has not been tested but most likely not.
+
+#### Q: Does the Jetpack plugin work with the theme?
+
+Partially, depending on what features you want. Anything affecting the layout (aside from Gutenberg blocks) may cause issues and will probably fit poorly into the style without custom adjustments. The comment form is working but disables several theme features. The post subscription feature will not work for stories, chapters, and any other custom post types — only posts, which is by design. Analytics and dashboard features should be fine, though.
