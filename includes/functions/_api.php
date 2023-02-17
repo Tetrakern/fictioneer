@@ -58,6 +58,11 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       }
     }
 
+    // Content
+    $content = get_the_content( null, false, $story_id );
+    $node['description'] = fictioneer_get_field( 'fictioneer_story_short_description', $story_id );
+    $node['rendered'] = apply_filters( 'the_content', $content );
+
     // Meta
     $node['words'] = $data['word_count'];
     $node['ageRating'] = $data['rating'];
