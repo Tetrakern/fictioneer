@@ -60,10 +60,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Content
     $content = get_the_content( null, false, $story_id );
-    $content = preg_replace( '/<!--(.|s)*?-->/', '', $content );
-    $content = preg_replace( '/[\n\r]/', '', $content );
+    $description = fictioneer_get_field( 'fictioneer_story_short_description', $story_id );
     $node['content'] = $content;
-    $node['description'] = fictioneer_get_field( 'fictioneer_story_short_description', $story_id );
+    $node['description'] = strip_shortcodes( $description );
 
     // Meta
     $node['words'] = $data['word_count'];
