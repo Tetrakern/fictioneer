@@ -600,6 +600,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme contact forms', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_enable_storygraph_api' => array(
+      'name' => 'fictioneer_enable_storygraph_api',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Enable Storygraph API', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

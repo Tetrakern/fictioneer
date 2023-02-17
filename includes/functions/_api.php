@@ -209,7 +209,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
  * @since Fictioneer 5.1
  */
 
-if ( TRUE ) {
+if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
   add_action(
     'rest_api_init',
     function () {
@@ -285,7 +285,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
  * @since Fictioneer 5.1
  */
 
-if ( TRUE ) {
+if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
   add_action(
     'rest_api_init',
     function () {

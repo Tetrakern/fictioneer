@@ -387,6 +387,14 @@ $action = $_GET['action'] ?? null;
     					<div class="card-content">
     						<div class="overflow-horizontal">
 
+                  <label for="fictioneer_enable_storygraph_api" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_enable_storygraph_api" type="checkbox" id="fictioneer_enable_storygraph_api" <?php echo checked( 1, get_option( 'fictioneer_enable_storygraph_api' ), false ); ?> value="1">
+                    <div>
+                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_storygraph_api']['label']; ?></span>
+                      <p class="sub-label"><?php _e( 'Reach a larger audience by allowing external services to index and search your stories (meta data only).', 'fictioneer' ) ?></p>
+                    </div>
+                  </label>
+
                   <label for="fictioneer_enable_oauth" class="label-wrapped-checkbox row">
                     <input name="fictioneer_enable_oauth" type="checkbox" id="fictioneer_enable_oauth" <?php echo checked( 1, get_option( 'fictioneer_enable_oauth' ), false ); ?> value="1">
                     <div>
@@ -632,7 +640,7 @@ $action = $_GET['action'] ?? null;
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 198px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 121px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
