@@ -612,7 +612,12 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <h5 class="chapter-group__heading truncate _1-1"><?php echo $attr['heading']; ?></h5>
+      <?php $discriminator = md5( $attr['heading'] . microtime() ); ?>
+      <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
+      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+        <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
+        <span><?php echo $attr['heading']; ?></span>
+      </label>
     <?php endif; ?>
     <ol class="chapter-group__list">
       <li class="chapter-group__list-item _empty">
@@ -666,8 +671,25 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Apply count
   if ( ! $group ) $chapters = $count > 0 ? array_slice( $chapters, 0, $count ) : $chapters;
 
-  // Last content check
+  // Check array for items
   if ( empty( $chapters ) ) return $empty;
+
+  // Query chapters
+  $chapter_query = new WP_Query(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'post__in' => $chapters,
+      'ignore_sticky_posts' => true,
+      'orderby' => 'post__in', // Preserve order from meta box
+      'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+      'no_found_rows' => false, // Improve performance
+      'update_post_term_cache' => false // Improve performance
+    )
+  );
+
+  // Check query for items
+  if ( ! $chapter_query->have_posts() ) return $empty;
 
   // Buffer
   ob_start();
@@ -686,44 +708,46 @@ function fictioneer_shortcode_chapter_list( $attr ) {
       <?php
         $render_count = 0;
 
-        foreach ( $chapters as $post_id ) {
-          // Prepare
-          $post = get_post( $post_id );
-          if ( ! $post ) continue;
-          setup_postdata( $post );
-          $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+        while( $chapter_query->have_posts() ) {
+          // Setup
+          $chapter_query->the_post();
+          $chapter_id = get_the_ID();
+          $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+
+          // Skip not visible chapters
+          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
 
           // Check group (if any)
-          if ( $group && $group != trim( fictioneer_get_field( 'fictioneer_chapter_group', $post_id ) ) ) continue;
+          if ( $group && $group != trim( fictioneer_get_field( 'fictioneer_chapter_group' ) ) ) continue;
 
           // Count renderings
           $render_count++;
 
-          // Apply offset if limited to group
+          // Apply offset if limited to group (not working in query for 'posts_per_page' => -1)
           if ( $group && $offset > 0 && $render_count <= $offset ) continue;
 
           // Apply count if limited to group
           if ( $group && $count > 0 && $render_count > $count ) break;
 
           // Data
-          $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $post_id );
-          $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color', $post_id );
+          $warning = fictioneer_get_field( 'fictioneer_chapter_warning' );
+          $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color' );
           $warning_color = $warning_color ? 'color: ' . $warning_color . ';' : '';
-          $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $post_id );
-          $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $post_id );
-          $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix', $post_id );
-          $words = get_post_meta( $post_id, '_word_count', true );
-          $title = fictioneer_get_safe_title( $post_id );
+          $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon' );
+          $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
+          $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix' );
+          $words = get_post_meta( $chapter_id, '_word_count', true );
+          $title = fictioneer_get_safe_title( $chapter_id );
 
-          ?>
-          <li class="chapter-group__list-item" data-post-id="<?php echo $post_id; ?>">
+          // Start HTML ---> ?>
+          <li class="chapter-group__list-item" data-post-id="<?php echo $chapter_id; ?>">
             <?php if ( ! empty( $text_icon ) && ! $hide_icons ) : ?>
               <span class="chapter-group__list-item-icon _text text-icon"><?php echo $text_icon; ?></span>
             <?php elseif ( ! $hide_icons ) : ?>
               <i class="<?php echo empty( $icon ) ? 'fa-solid fa-book' : $icon; ?> chapter-group__list-item-icon"></i>
             <?php endif; ?>
 
-            <a href="<?php the_permalink( $post_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
+            <a href="<?php the_permalink( $chapter_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
               <?php if ( ! empty( $prefix ) ): ?>
                 <span class="chapter-group__list-item-prefix"><?php echo $prefix; ?></span>
               <?php endif; ?>
@@ -737,12 +761,12 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                 ?></span>
               <?php endif; ?>
 
-              <?php if ( $post->post_password ) : ?>
+              <?php if ( post_password_required() ) : ?>
                 <span class="chapter-group__list-item-password"><?php echo fcntr( 'password' ) ?></span>
               <?php endif; ?>
 
               <time datetime="<?php the_time( 'c' ); ?>" class="chapter-group__list-item-date"><?php echo
-                get_the_date( '', $post );
+                get_the_date( '' );
               ?></time>
 
               <span class="chapter-group__list-item-words"><?php
@@ -756,7 +780,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                   class="checkmark chapter-group__list-item-checkmark"
                   data-type="chapter"
                   data-story-id="<?php echo $chapter_story_id; ?>"
-                  data-id="<?php echo $post_id; ?>"
+                  data-id="<?php echo $chapter_id; ?>"
                   role="checkbox"
                   aria-checked="false"
                   aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $title ); ?>"
@@ -764,7 +788,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               </div>
             <?php endif; ?>
           </li>
-          <?php
+          <?php // <--- End HTML
         }
 
         // Restore postdata
