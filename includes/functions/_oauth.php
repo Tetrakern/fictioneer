@@ -1,6 +1,44 @@
 <?php
 
 // =============================================================================
+// CONSTANTS
+// =============================================================================
+
+define(
+  'FICIONEER_OAUTH_API_ENDPOINTS',
+  array(
+    'discord' => array(
+      'login' => 'https://discord.com/api/oauth2/authorize',
+      'token' => 'https://discord.com/api/oauth2/token',
+      'user' => 'https://discord.com/api/users/@me',
+      'revoke' => 'https://discord.com/api/oauth2/token/revoke',
+      'scope' => 'identify email'
+    ),
+    'twitch' => array(
+      'login' => 'https://id.twitch.tv/oauth2/authorize',
+      'token' => 'https://id.twitch.tv/oauth2/token',
+      'user' => 'https://api.twitch.tv/helix/users',
+      'revoke' => 'https://id.twitch.tv/oauth2/revoke',
+      'scope' => 'user:read:email'
+    ),
+    'google' => array(
+      'login' => 'https://accounts.google.com/o/oauth2/auth',
+      'token' => 'https://oauth2.googleapis.com/token',
+      'user' => 'https://www.googleapis.com/oauth2/v1/userinfo',
+      'revoke' => 'https://oauth2.googleapis.com/revoke',
+      'scope' => 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+    ),
+    'patreon' => array(
+      'login' => 'https://www.patreon.com/oauth2/authorize',
+      'token' => 'https://www.patreon.com/api/oauth2/token',
+      'user' => 'https://www.patreon.com/api/oauth2/v2/identity',
+      'revoke' => '',
+      'scope' => urlencode('identity identity[email]')
+    )
+  )
+);
+
+// =============================================================================
 // SETUP
 // =============================================================================
 
@@ -203,14 +241,14 @@ if ( ! function_exists( 'fictioneer_handle_oauth' ) ) {
     // Get token and delegate to login/register
     if ( ! empty( CODE ) ) {
       $token = fictioneer_get_oauth_token(
-        ENDPOINTS[CHANNEL]['token'],
+        FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['token'],
         array(
           'grant_type' => 'authorization_code',
           'client_id' => OAUTH2_CLIENT_ID,
           'client_secret' => OAUTH2_CLIENT_SECRET,
           'redirect_uri' => REDIRECT_URL,
           'code' => CODE,
-          'scope' => ENDPOINTS[CHANNEL]['scope']
+          'scope' => FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['scope']
         )
       );
 
@@ -221,16 +259,16 @@ if ( ! function_exists( 'fictioneer_handle_oauth' ) ) {
       // Delegate to respective channel function
       switch ( CHANNEL ) {
         case 'discord':
-          $note = fictioneer_process_oauth_discord( ENDPOINTS[CHANNEL]['user'], $access_token );
+          $note = fictioneer_process_oauth_discord( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
           break;
         case 'twitch':
-          $note = fictioneer_process_oauth_twitch( ENDPOINTS[CHANNEL]['user'], $access_token );
+          $note = fictioneer_process_oauth_twitch( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
           break;
         case 'google':
-          $note = fictioneer_process_oauth_google( ENDPOINTS[CHANNEL]['user'], $access_token );
+          $note = fictioneer_process_oauth_google( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
           break;
         case 'patreon':
-          $note = fictioneer_process_oauth_patreon( ENDPOINTS[CHANNEL]['user'], $access_token );
+          $note = fictioneer_process_oauth_patreon( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
           break;
       }
 
@@ -312,7 +350,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      ENDPOINTS['discord']['revoke'],
+      FICIONEER_OAUTH_API_ENDPOINTS['discord']['revoke'],
       array(
         'token' => $access_token,
         'token_type_hint' => 'access_token',
@@ -373,7 +411,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      ENDPOINTS['twitch']['revoke'],
+      FICIONEER_OAUTH_API_ENDPOINTS['twitch']['revoke'],
       array(
         'token' => $access_token,
         'token_type_hint' => 'access_token',
@@ -433,7 +471,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      ENDPOINTS['google']['revoke'],
+      FICIONEER_OAUTH_API_ENDPOINTS['google']['revoke'],
       array(
         'token' => $access_token
       )
@@ -647,6 +685,59 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
 // HELPERS
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
+  /**
+   * Set up all constants
+   *
+   * @since Fictioneer 4.0
+   */
+
+  function fictioneer_set_oauth_constants() {
+    // Setup
+    $redirect_url = get_site_url( null, FICTIONEER_OAUTH_ENDPOINT );
+    $action = array_key_exists( 'action', $_GET ) ? sanitize_text_field( $_GET['action'] ) : NULL;
+    $code = array_key_exists( 'code', $_GET ) ? sanitize_text_field( $_GET['code'] ) : NULL;
+    $state = array_key_exists( 'state', $_GET ) ? sanitize_text_field( $_GET['state'] ) : NULL;
+    $return_url = array_key_exists( 'return_url', $_GET ) ? esc_url_raw( $_GET['return_url'] ) : home_url();
+    $anchor = array_key_exists( 'anchor', $_GET ) ? sanitize_text_field( $_GET['anchor'] ) : NULL;
+    $channel = array_key_exists( 'channel', $_GET ) ? sanitize_text_field( $_GET['channel'] ) : NULL;
+    $error = array_key_exists( 'error_description', $_GET ) ? sanitize_text_field( $_GET['error_description'] ) : NULL;
+    $merge = array_key_exists( 'merge', $_GET ) ? sanitize_text_field( $_GET['merge'] ) : NULL;
+
+    // Session variables
+    if ( ! session_id() ) session_start();
+
+    if ( isset( $_SESSION['channel'] ) ) {
+      $channel = $channel ? $channel : $_SESSION['channel'];
+    }
+
+    if ( isset( $_SESSION['return_url'] ) && $_SESSION['return_url'] != NULL ) {
+      $return_url = urldecode( $_SESSION['return_url'] );
+    }
+
+    if ( isset( $_SESSION['anchor'] ) && $_SESSION['anchor'] != NULL ) {
+      $return_url = $return_url . '#' . $_SESSION['anchor'];
+    }
+
+    if ( isset( $_SESSION['current_user_id'] ) && $_SESSION['current_user_id'] != NULL ) {
+      define( 'MERGE_ID', $_SESSION['current_user_id'] );
+    }
+
+    // Define constants
+    define( 'OAUTH2_CLIENT_ID', fictioneer_get_oauth_client_credentials( $channel ) );
+    define( 'OAUTH2_CLIENT_SECRET', fictioneer_get_oauth_client_credentials( $channel, 'secret' ) );
+    define( 'REDIRECT_URL', $redirect_url );
+    define( 'ACTION', $action );
+    define( 'CODE', $code );
+    define( 'STATE', $state );
+    define( 'RETURN_URL', $return_url );
+    define( 'ANCHOR', $anchor );
+    define( 'CHANNEL', $channel );
+    define( 'ERROR', $error );
+    define( 'MERGE', $merge );
+  }
+}
+
 if ( ! function_exists( 'fictioneer_oauth2_exit_and_return' ) ) {
   /**
    * Terminate the script and redirect back
@@ -748,93 +839,6 @@ if ( ! function_exists( 'fictioneer_revoke_oauth_token' ) ) {
   }
 }
 
-if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
-  /**
-   * Set up all constants
-   *
-   * @since Fictioneer 4.0
-   */
-
-  function fictioneer_set_oauth_constants() {
-    // Setup
-    $redirect_url = get_site_url( null, FICTIONEER_OAUTH_ENDPOINT );
-    $action = array_key_exists( 'action', $_GET ) ? sanitize_text_field( $_GET['action'] ) : NULL;
-    $code = array_key_exists( 'code', $_GET ) ? sanitize_text_field( $_GET['code'] ) : NULL;
-    $state = array_key_exists( 'state', $_GET ) ? sanitize_text_field( $_GET['state'] ) : NULL;
-    $return_url = array_key_exists( 'return_url', $_GET ) ? esc_url_raw( $_GET['return_url'] ) : home_url();
-    $anchor = array_key_exists( 'anchor', $_GET ) ? sanitize_text_field( $_GET['anchor'] ) : NULL;
-    $channel = array_key_exists( 'channel', $_GET ) ? sanitize_text_field( $_GET['channel'] ) : NULL;
-    $error = array_key_exists( 'error_description', $_GET ) ? sanitize_text_field( $_GET['error_description'] ) : NULL;
-    $merge = array_key_exists( 'merge', $_GET ) ? sanitize_text_field( $_GET['merge'] ) : NULL;
-
-    // Session variables
-    if ( ! session_id() ) session_start();
-
-    if ( isset( $_SESSION['channel'] ) ) {
-      $channel = $channel ? $channel : $_SESSION['channel'];
-    }
-
-    if ( isset( $_SESSION['return_url'] ) && $_SESSION['return_url'] != NULL ) {
-      $return_url = urldecode( $_SESSION['return_url'] );
-    }
-
-    if ( isset( $_SESSION['anchor'] ) && $_SESSION['anchor'] != NULL ) {
-      $return_url = $return_url . '#' . $_SESSION['anchor'];
-    }
-
-    if ( isset( $_SESSION['current_user_id'] ) && $_SESSION['current_user_id'] != NULL ) {
-      define( 'MERGE_ID', $_SESSION['current_user_id'] );
-    }
-
-    // Define constants
-    define(
-      'ENDPOINTS',
-      array(
-        'discord' => array(
-          'login' => 'https://discord.com/api/oauth2/authorize',
-          'token' => 'https://discord.com/api/oauth2/token',
-          'user' => 'https://discord.com/api/users/@me',
-          'revoke' => 'https://discord.com/api/oauth2/token/revoke',
-          'scope' => 'identify email'
-        ),
-        'twitch' => array(
-          'login' => 'https://id.twitch.tv/oauth2/authorize',
-          'token' => 'https://id.twitch.tv/oauth2/token',
-          'user' => 'https://api.twitch.tv/helix/users',
-          'revoke' => 'https://id.twitch.tv/oauth2/revoke',
-          'scope' => 'user:read:email'
-        ),
-        'google' => array(
-          'login' => 'https://accounts.google.com/o/oauth2/auth',
-          'token' => 'https://oauth2.googleapis.com/token',
-          'user' => 'https://www.googleapis.com/oauth2/v1/userinfo',
-          'revoke' => 'https://oauth2.googleapis.com/revoke',
-          'scope' => 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
-        ),
-        'patreon' => array(
-          'login' => 'https://www.patreon.com/oauth2/authorize',
-          'token' => 'https://www.patreon.com/api/oauth2/token',
-          'user' => 'https://www.patreon.com/api/oauth2/v2/identity',
-          'revoke' => '',
-          'scope' => urlencode('identity identity[email]')
-        )
-      )
-    );
-
-    define( 'OAUTH2_CLIENT_ID', fictioneer_get_oauth_client_credentials( $channel ) );
-    define( 'OAUTH2_CLIENT_SECRET', fictioneer_get_oauth_client_credentials( $channel, 'secret' ) );
-    define( 'REDIRECT_URL', $redirect_url );
-    define( 'ACTION', $action );
-    define( 'CODE', $code );
-    define( 'STATE', $state );
-    define( 'RETURN_URL', $return_url );
-    define( 'ANCHOR', $anchor );
-    define( 'CHANNEL', $channel );
-    define( 'ERROR', $error );
-    define( 'MERGE', $merge );
-  }
-}
-
 if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
   /**
    * Redirect to OAuth provider to retrieve permissions and the CODE
@@ -857,11 +861,11 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
     }
 
     // Redirect to provider
-    header( 'Location:' . ENDPOINTS[CHANNEL]['login']
+    header( 'Location:' . FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['login']
       . '?response_type=code'
       . '&client_id=' . OAUTH2_CLIENT_ID
       . '&redirect_uri=' . REDIRECT_URL
-      . '&scope=' . ENDPOINTS[CHANNEL]['scope']
+      . '&scope=' . FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['scope']
       . '&state=' . $_SESSION['state']
       . '&force_verify=true'
       . '&prompt=consent'
