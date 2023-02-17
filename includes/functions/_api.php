@@ -97,6 +97,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       $chapter_query = new WP_Query(
         array(
           'post_type' => 'fcn_chapter',
+          'post_status' => 'publish',
           'post__in' => $data['chapter_ids'],
           'ignore_sticky_posts' => true,
           'orderby' => 'post__in',
@@ -112,6 +113,11 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           // Setup
           $chapter_query->the_post();
           $chapter_id = get_the_ID();
+
+          // Skip not visible chapters
+          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
+
+          // Data
           $author_id = get_the_author_meta( 'id' );
           $author_url = get_the_author_meta( 'user_url' );
           $co_author_ids = fictioneer_get_field( 'fictioneer_chapter_co_authors', $chapter_id );
