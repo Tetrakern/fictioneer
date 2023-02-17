@@ -100,7 +100,8 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           'post__in' => $data['chapter_ids'],
           'ignore_sticky_posts' => true,
           'orderby' => 'post__in',
-          'posts_per_page' => -1
+          'posts_per_page' => -1,
+          'no_found_rows' => false
         )
       );
 
