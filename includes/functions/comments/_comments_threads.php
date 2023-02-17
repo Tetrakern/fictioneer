@@ -132,9 +132,10 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
       <?php if ( fictioneer_is_commenting_disabled() ) : ?>
         <div class="fictioneer-comments__disabled"><?php _e( 'Comments are disabled.', 'fictioneer' ); ?></div>
       <?php else : ?>
-        <div class="comments-skeleton__login"><div class="shape"></div></div>
+        <?php if ( get_option( 'fictioneer_enable_oauth' ) || is_user_logged_in() ) : ?>
+          <div class="comments-skeleton__login"><div class="shape"></div></div>
+        <?php endif; ?>
         <div class="shape comments-skeleton__response"></div>
-        <div class="comments-skeleton__actions"><div class="shape"></div></div>
       <?php endif; ?>
       <div class="comments-skeleton__list">
         <?php for ( $i = 1; $i <= $comments_count; $i++ ) : ?>
@@ -161,7 +162,9 @@ if ( ! function_exists( 'fictioneer_comments_ajax_form_skeleton' ) ) {
   function fictioneer_comments_ajax_form_skeleton() {
     // Start HTML ---> ?>
     <div id="ajax-comment-form-target" class="comments-skeleton">
-      <div class="comments-skeleton__login"><div class="shape"></div></div>
+      <?php if ( get_option( 'fictioneer_enable_oauth' ) || is_user_logged_in() ) : ?>
+        <div class="comments-skeleton__login"><div class="shape"></div></div>
+      <?php endif; ?>
       <div class="shape comments-skeleton__response"></div>
     </div>
     <?php // <--- End HTML
