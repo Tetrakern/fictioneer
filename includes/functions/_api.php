@@ -93,68 +93,85 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Chapters
     if ( ! empty( $data['chapter_ids'] ) ) {
-      $node['chapters'] = [];
+      // Query chapters
+      $chapter_query = new WP_Query(
+        array(
+          'post_type' => 'fcn_chapter',
+          'post__in' => $data['chapter_ids'],
+          'ignore_sticky_posts' => true,
+          'orderby' => 'post__in',
+          'posts_per_page' => -1
+        )
+      );
 
-      foreach ( $data['chapter_ids'] as $chapter_id ) {
-        // Chapter data
-        $author_id = get_post_field( 'post_author', $chapter_id );
-        $author_url = get_the_author_meta( 'user_url', $author_id );
-        $co_author_ids = fictioneer_get_field( 'fictioneer_chapter_co_authors', $chapter_id );
-        $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
-        $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter_id );
-        $language = fictioneer_get_field( 'fictioneer_chapter_language', $chapter_id );
-        $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix', $chapter_id );
-        $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id );
-        $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter_id );
+      if ( $chapter_query->have_posts() ) {
+        $node['chapters'] = [];
 
-        // Chapter identity
-        $chapter = [];
-        $chapter['id'] = $chapter_id;
-        $chapter['guid'] = get_the_guid( $chapter_id );
-        $chapter['url'] = get_permalink( $chapter_id );
-        $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
-        if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
-        $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
-        if ( ! empty( $group ) ) $chapter['group'] = $group;
+        while( $chapter_query->have_posts() ) {
+          // Setup
+          $chapter_query->the_post();
+          $chapter_id = get_the_ID();
+          $author_id = get_the_author_meta( 'id' );
+          $author_url = get_the_author_meta( 'user_url' );
+          $co_author_ids = fictioneer_get_field( 'fictioneer_chapter_co_authors', $chapter_id );
+          $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
+          $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter_id );
+          $language = fictioneer_get_field( 'fictioneer_chapter_language', $chapter_id );
+          $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix', $chapter_id );
+          $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id );
+          $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter_id );
 
-        // Chapter author
-        $chapter['author'] = [];
-        $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-        if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
+          // Chapter identity
+          $chapter = [];
+          $chapter['id'] = $chapter_id;
+          $chapter['guid'] = get_the_guid( $chapter_id );
+          $chapter['url'] = get_permalink();
+          $chapter['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
+          if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
+          $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
+          if ( ! empty( $group ) ) $chapter['group'] = $group;
 
-        // Chapter co-authors
-        if ( ! empty( $co_author_ids ) ) {
-          $chapter['coAuthors'] = [];
+          // Chapter author
+          $chapter['author'] = [];
+          $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
+          if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
 
-          foreach ( $co_author_ids as $co_id ) {
-            if ( $co_id != $author_id ) {
-              $co_author_url = get_the_author_meta( 'user_url', $co_id );
-              $co_author_node = [];
+          // Chapter co-authors
+          if ( ! empty( $co_author_ids ) ) {
+            $chapter['coAuthors'] = [];
 
-              $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
-              if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+            foreach ( $co_author_ids as $co_id ) {
+              if ( $co_id != $author_id ) {
+                $co_author_url = get_the_author_meta( 'user_url', $co_id );
+                $co_author_node = [];
 
-              $chapter['coAuthors'][] = $co_author_node;
+                $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
+                if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+
+                $chapter['coAuthors'][] = $co_author_node;
+              }
             }
           }
+
+          // Chapter meta
+          $chapter['published'] = get_post_time( 'U', true );
+          $chapter['modified'] = get_post_modified_time( 'U', true );
+          $chapter['protected'] = post_password_required();
+          $chapter['words'] = get_post_meta( $chapter_id, '_word_count', true );
+          $chapter['nonChapter'] = ! empty( $no_chapter );
+          if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
+          if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
+
+          // Chapter taxonomies
+          $taxonomies = fictioneer_get_taxonomy_names( $chapter_id );
+          if ( ! empty( $taxonomies ) ) $chapter['taxonomies'] = $taxonomies;
+
+          // Add to story node
+          $node['chapters'][] = $chapter;
         }
-
-        // Chapter meta
-        $chapter['published'] = get_post_time( 'U', true, $chapter_id );
-        $chapter['modified'] = get_post_modified_time( 'U', true, $chapter_id );
-        $chapter['protected'] = post_password_required( $chapter_id );
-        $chapter['words'] = get_post_meta( $chapter_id, '_word_count', true );
-        $chapter['nonChapter'] = ! empty( $no_chapter );
-        if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
-        if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
-
-        // Chapter taxonomies
-        $taxonomies = fictioneer_get_taxonomy_names( $chapter_id );
-        if ( ! empty( $taxonomies ) ) $chapter['taxonomies'] = $taxonomies;
-
-        // Add to story node
-        $node['chapters'][] = $chapter;
       }
+
+      wp_reset_postdata();
     }
 
     // Support
