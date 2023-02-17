@@ -8,7 +8,7 @@
             "name": "fictioneer_story_short_description",
             "aria-label": "",
             "type": "wysiwyg",
-            "instructions": "The short description is used in the story list cards. Keep it nice and short to look good on the story card. Mind that only the first paragraph will be rendered.",
+            "instructions": "The <em>first paragraph<\/em> is used for story cards, so keep it nice and concise. The full short description is passed to the storygraph API. Do not use shortcodes or embeds, keep the content easy to parse.",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
@@ -95,5 +95,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1668210179
+    "modified": 1676677452
 }
