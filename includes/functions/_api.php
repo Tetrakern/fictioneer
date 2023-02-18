@@ -80,7 +80,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     if ( FICTIONEER_API_STORYGRAPH_IMAGES ) {
       $node['images'] = array(
         'hotlinkAllowed' => FICTIONEER_API_STORYGRAPH_HOTLINK,
-        'disabled' => false
       );
       $cover = get_the_post_thumbnail_url( $story_id, 'full' );
       $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story_id );
@@ -97,11 +96,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       if ( empty( $node['images'] ) ) {
         unset( $node['images'] );
       }
-    } else {
-      $node['images'] = array(
-        'hotlinkAllowed' => false,
-        'disabled' => true
-      );
     }
 
     // Taxonomies
