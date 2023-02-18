@@ -8,6 +8,22 @@
 GET /wp-json/storygraph/v1/story/<id>
 ```
 
+| Argument | Description |
+| :-- | :-- |
+| id | ID of the story.
+
+### Schema
+
+The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. All values are escaped.
+
+| Field | Description |
+| :-- | :-- |
+| id `integer` | ID of the story (on the site).
+| guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
+| url `string` | Current URL of the story.
+| language `string` | Language code of the story, not necessarily chapters.
+| title `string` | Title of the story.
+
 ## Endpoint: Stories
 
 Query this endpoint to retrieve a collection of stories and associated meta data. The response is paginated and cached for performance reasons, use the `page` argument to browse through the pages.
