@@ -4,6 +4,8 @@
 
 ## Endpoint: Story
 
+Query this endpoint to retrieve a story and collection of associated chapters. The response is cached for performance reasons.
+
 ```
 GET /wp-json/storygraph/v1/story/<id>
 ```
@@ -38,8 +40,21 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ hotlinkAllowed `boolean` | Whether hotlinking images is allowed. Copy and host them yourself otherwise.
 | &emsp;➞ header `string\|null` | URL of header image.
 | &emsp;➞ cover `string\|null` | URL of cover image.
-| taxonomies `object\|null` | Taxonomy collections node.
+| taxonomies `object\|null` | Taxonomy collection node.
 | &emsp;➞ tags `[string]\|null` | Array of tags.
+| &emsp;➞ fandoms `[string]\|null` | Array of fandoms.
+| &emsp;➞ characters `[string]\|null` | Array of characters.
+| &emsp;➞ warnings `[string]\|null` | Array of warnings.
+| &emsp;➞ genres `[string]\|null` | Array of genres.
+| chapters `object\|null` | Chapter collection node. See **Chapter Fields**.
+| support `object\|null` | Support collection node.
+| &emsp;➞ topwebfiction `string\|null` | URL to story’s TopWebFiction entry.
+| &emsp;➞ patreon `string\|null` | URL to the story’s or author’s Patreon page.
+| &emsp;➞ kofi `string\|null` | URL to the story’s or author’s Ko-fi page.
+| &emsp;➞ subscribestar `string\|null` | URL to the story’s or author’s SubscribeStar page.
+| &emsp;➞ paypal `string\|null` | URL to the story’s or author’s PayPal address.
+| &emsp;➞ donation `string\|null` | URL to the story’s or author’s donation page.
+| timestamp `integer` | Unix timestamp of when the response was compiled (GMT). May be cached.
 
 ## Endpoint: Stories
 
