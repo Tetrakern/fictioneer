@@ -23,9 +23,9 @@ The following schema defines all fields that can exist within the response, excl
 | url `string` | Current URL of the story.
 | language `string` | Language code of the story, not necessarily chapters.
 | title `string` | Title of the story.
-| author `object` | Author node.
-| &emsp;author.name `string` | Author name.
-| &emsp;author.url `string\|null` | Author website.
+| author `object\|null` | Author node.
+| &emsp;➞ name `string` | Author name.
+| &emsp;➞ url `string\|null` | Author website.
 
 ## Endpoint: Stories
 
