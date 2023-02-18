@@ -382,6 +382,11 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
         // Add to graph
         $graph['stories'][ $story->ID ] = $node;
+
+        // Last modified story?
+        if ( $node['modified'] == $graph['lastModified'] ) {
+          $graph['lastModifiedStory'] = $story->ID;
+        }
       }
     }
 
