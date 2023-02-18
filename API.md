@@ -28,6 +28,7 @@ The following schema defines all fields that can exist within the response, excl
 | author `object\|null` | Author node.
 | &emsp;➞ name `string` | Author name.
 | &emsp;➞ url `string\|null` | Author website.
+| coAuthors `[object]\|null` | Array of co-author nodes. Same as the author node.
 | content `string` | Return value of `get_the_content()` without filters applied. Needs processing.
 | description `string` | HTML string from TinyMCE. Needs processing.
 | words `integer` | Total number of words of all chapters.
@@ -62,17 +63,26 @@ The following schema defines all fields that can exist within the response, excl
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
 | url `string` | Current URL of the chapter.
 | language `string` | Language code of the chapter.
+| prefix `string\|null` | Title prefix, such as "Act 1".
 | title `string` | Title of the chapter.
 | group `string\|null` | Group of the chapter.
 | author `object\|null` | Author node.
 | &emsp;➞ name `string` | Author name.
 | &emsp;➞ url `string\|null` | Author website.
+| coAuthors `[object]\|null` | Array of co-author nodes. Same as the author node.
 | published `integer` | Unix timestamp of when the chapter was published (GMT).
 | modified `integer` | Unix timestamp of when the chapter was last updated (GMT).
 | protected `boolean` | Whether the chapter is protected by a password.
 | words `integer` | Number of words.
 | nonChapter `boolean` | Whether the chapter is marked as non-chapter.
-| ageRating `string` | Either Everyone, Teen, Mature, or Adult.
+| ageRating `string\|null` | Either Everyone, Teen, Mature, or Adult (if different from story).
+| warning `string\|null` | Simple content warning notice.
+| taxonomies `object\|null` | Taxonomy collection node.
+| &emsp;➞ tags `[string]\|null` | Array of tags.
+| &emsp;➞ fandoms `[string]\|null` | Array of fandoms.
+| &emsp;➞ characters `[string]\|null` | Array of characters.
+| &emsp;➞ warnings `[string]\|null` | Array of warnings.
+| &emsp;➞ genres `[string]\|null` | Array of genres.
 
 ## Endpoint: Stories
 
