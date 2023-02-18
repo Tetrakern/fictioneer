@@ -989,4 +989,6 @@ The following schema defines all fields that can exist within the response, excl
     "timestamp": 1676724903
   }
   ```
+
+  Prettified by [beautifier.io](https://beautifier.io/).
 </details>
