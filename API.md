@@ -26,6 +26,8 @@ The following schema defines all fields that can exist within the response, excl
 | author `object\|null` | Author node.
 | &emsp;➞ name `string` | Author name.
 | &emsp;➞ url `string\|null` | Author website.
+| content `string` | Return value of `get_the_content()` without filters applied. Needs processing.
+| description `string` | HTML string from TinyMCE. Needs processing.
 
 ## Endpoint: Stories
 
