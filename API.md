@@ -1,15 +1,8 @@
 # Storygraph API
 
-## Configuration
+Perhaps "API" is promising a bit much
 
-| Constant | Description
-| :--- | :---
-| FICTIONEER_API_STORYGRAPH_CACHE_TTL `integer` | How long Storygraph responses are cached in _seconds_. Default `3600`.
-| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE `integer` | How many items the Storygraph `/stories` endpoint returns. Default 10.
-| FICTIONEER_API_STORYGRAPH_IMAGES `boolean` | Whether to add image links to the Storygraph. Default `true`.
-| FICTIONEER_API_STORYGRAPH_HOTLINK `boolean` | Whether hotlinking images from the Storygraph is allowed. Default `false`.
-| FICTIONEER_API_STORYGRAPH_CHAPTERS `boolean` | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
-| FICTIONEER_API_STORYGRAPH_TRANSIENTS `boolean` | Whether to cache Storygraph responses as Transients. Default `true`.
+## Configuration
 
 ## Endpoint: Story
 
@@ -65,6 +58,8 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ paypal `string\|null` | URL to the story’s or author’s PayPal address.
 | &emsp;➞ donation `string\|null` | URL to the story’s or author’s donation page.
 | timestamp `integer` | Unix timestamp of when the response was compiled (GMT). May be cached.
+
+<br>
 
 | Chapter Field | Description |
 | :-- | :-- |
