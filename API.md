@@ -2,6 +2,15 @@
 
 ## Configuration
 
+| Constant | Description
+| :--- | :---
+| FICTIONEER_API_STORYGRAPH_CACHE_TTL `integer` | How long Storygraph responses are cached in _seconds_. Default `3600`.
+| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE `integer` | How many items the Storygraph `/stories` endpoint returns. Default 10.
+| FICTIONEER_API_STORYGRAPH_IMAGES `boolean` | Whether to add image links to the Storygraph. Default `true`.
+| FICTIONEER_API_STORYGRAPH_HOTLINK `boolean` | Whether hotlinking images from the Storygraph is allowed. Default `false`.
+| FICTIONEER_API_STORYGRAPH_CHAPTERS `boolean` | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
+| FICTIONEER_API_STORYGRAPH_TRANSIENTS `boolean` | Whether to cache Storygraph responses as Transients. Default `true`.
+
 ## Endpoint: Story
 
 Query this endpoint to retrieve a story and collection of associated chapters. The response is cached for performance reasons.
