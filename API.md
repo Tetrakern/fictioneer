@@ -2,7 +2,15 @@
 
 ## Configuration
 
+## Endpoint: Story
+
+```
+GET /wp-json/storygraph/v1/story/<id>
+```
+
 ## Endpoint: Stories
+
+Query this endpoint to retrieve a collection of stories and associated meta data. The response is paginated and cached for performance reasons, use the `page` argument to browse through the pages.
 
 ```
 GET /wp-json/storygraph/v1/stories
@@ -14,7 +22,7 @@ GET /wp-json/storygraph/v1/stories
 
 ### Schema
 
-The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. Mind that the response is paginated and cached for performance reasons. All values are escaped.
+The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. All values are escaped.
 
 | Field | Description |
 | :-- | :-- |
