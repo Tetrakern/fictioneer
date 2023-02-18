@@ -149,7 +149,12 @@ if ( ! defined( 'FICTIONEER_COLLAPSE_COMMENT_FORM' ) ) {
   define( 'FICTIONEER_COLLAPSE_COMMENT_FORM', true );
 }
 
-// Integer: Storygraph API hotlink permission
+// Boolean: Add images to Storygraph API
+if ( ! defined( 'FICTIONEER_API_STORYGRAPH_IMAGES' ) ) {
+  define( 'FICTIONEER_API_STORYGRAPH_IMAGES', true );
+}
+
+// Boolean: Storygraph API hotlink permission
 if ( ! defined( 'FICTIONEER_API_STORYGRAPH_HOTLINK' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_HOTLINK', false );
 }
