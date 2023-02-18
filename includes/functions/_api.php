@@ -260,7 +260,6 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
       $cache = get_transient( 'fictioneer_storygraph_story_' . $story_id );
 
       if ( ! empty( $cache ) ) {
-        $cache['cached'] = true;
         return rest_ensure_response( $cache );
       }
     }
@@ -281,7 +280,6 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
 
     // Request meta
     $graph['timestamp'] = current_time( 'U', true );
-    $graph['cached'] = false;
 
     // Cache request
     if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
@@ -340,7 +338,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       $cache = get_transient( 'fictioneer_storygraph_stories_' . $page );
 
       if ( ! empty( $cache ) ) {
-        $cache['cached'] = true;
         return rest_ensure_response( $cache );
       }
     }
@@ -405,7 +402,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $graph['perPage'] = FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE;
     $graph['maxPages'] = $query->max_num_pages;
     $graph['timestamp'] = current_time( 'U', true );
-    $graph['cached'] = false;
 
     // Cache request
     if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
