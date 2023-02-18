@@ -34,10 +34,10 @@ The following schema defines all fields that can exist within the response, excl
 | published `integer` | Unix timestamp of when the story was published (GMT).
 | modified `integer` | Unix timestamp of when the story was last updated (GMT).
 | protected `boolean` | Whether the story is protected by a password.
-| images `object\|null` | Images associated with the story.
+| images `object\|null` | Images node.
 | &emsp;➞ hotlinkAllowed `boolean` | Whether hotlinking images is allowed. Copy and host them yourself otherwise.
-| &emsp;➞ header `string|null` | URL of header image.
-| &emsp;➞ cover `string|null` | URL of cover image.
+| &emsp;➞ header `string\|null` | URL of header image.
+| &emsp;➞ cover `string\|null` | URL of cover image.
 
 ## Endpoint: Stories
 
