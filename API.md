@@ -29,7 +29,7 @@ The following schema defines all fields that can exist within the response, excl
 | page `integer` | Current page of the story collection.
 | perPage `integer` | Stories per collection page.
 | maxPages `integer` | Total number of collection pages.
-| timestamp `integer` | Unix timestamp when the response was compiled (GMT). May be cached.
+| timestamp `integer` | Unix timestamp of when the response was compiled (GMT). May be cached.
 
 <details>
   <summary><strong>Example Response:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/stories</summary><br>
