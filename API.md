@@ -46,7 +46,7 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ characters `[string]\|null` | Array of characters.
 | &emsp;➞ warnings `[string]\|null` | Array of warnings.
 | &emsp;➞ genres `[string]\|null` | Array of genres.
-| chapters `object\|null` | Chapter collection node. See **Chapter Fields**.
+| chapters `[object]\|null` | Chapter collection node. See **Chapter Fields**.
 | support `object\|null` | Support collection node.
 | &emsp;➞ topwebfiction `string\|null` | URL to story’s TopWebFiction entry.
 | &emsp;➞ patreon `string\|null` | URL to the story’s or author’s Patreon page.
@@ -56,7 +56,7 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ donation `string\|null` | URL to the story’s or author’s donation page.
 | timestamp `integer` | Unix timestamp of when the response was compiled (GMT). May be cached.
 
-| Story Field | Description |
+| Chapter Field | Description |
 | :-- | :-- |
 | id `integer` | ID of the chapter (on the site).
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
