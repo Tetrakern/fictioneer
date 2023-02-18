@@ -14,7 +14,7 @@ GET /wp-json/storygraph/v1/stories
 
 ### Schema
 
-The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. Note that the response is paginated for performance reasons and all values are escaped.
+The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. Mind that the response is paginated and cached for performance reasons. All values are escaped.
 
 | Field | Description |
 | :-- | :-- |
