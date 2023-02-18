@@ -166,7 +166,7 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CHAPTERS' ) ) {
 
 // Boolean: Storygraph API Transients caching
 if ( ! defined( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS', false );
+  define( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS', true );
 }
 
 // =============================================================================
