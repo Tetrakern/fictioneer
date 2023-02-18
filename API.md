@@ -25,6 +25,7 @@ The following schema defines all fields that can exist within the response, excl
 | lastPublished `integer\|null` | Unix timestamp of the last published story (GMT).
 | lastModified `integer\|null` | Unix timestamp of the last modified story (GMT).
 | stories `object\|null` | Paginated collection of story nodes, ordered by publishing date. See **Story** endpoint.
+| lastModifiedStory `integer\|null` | Foreign ID (key) of the last modified story.
 | separateChapters `boolean` | Whether chapters are included or must be requested via the **Story** endpoint.
 | page `integer` | Current page of the story collection.
 | perPage `integer` | Stories per collection page.
@@ -980,11 +981,12 @@ The following schema defines all fields that can exist within the response, excl
         }
       }
     },
+    "lastModifiedStory": 106,
     "separateChapters": false,
     "page": 1,
     "perPage": 10,
     "maxPages": 1,
-    "timestamp": 1676720423
+    "timestamp": 1676724903
   }
   ```
 </details>
