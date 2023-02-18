@@ -24,7 +24,7 @@ The following schema defines all fields that can exist within the response, excl
 | chapterCount `integer` | Total number of published and visible chapters.
 | lastPublished `integer\|null` | Unix timestamp of the last published story (GMT).
 | lastModified `integer\|null` | Unix timestamp of the last modified story (GMT).
-| stories `object\|null` | Paginated collection of story nodes, ordered by publishing date (ID as key). See **Story** endpoint.
+| stories `object\|null` | Paginated collection of story nodes, ordered by publishing date (foreign ID as key). See **Story** endpoint.
 
 <details>
   <summary><strong>Example Response:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/stories</summary><br>
