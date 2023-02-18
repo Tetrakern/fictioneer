@@ -176,7 +176,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           }
 
           // Chapter meta
-          $chapter['separate'] = false;
           $chapter['published'] = get_post_time( 'U', true );
           $chapter['modified'] = get_post_modified_time( 'U', true );
           $chapter['protected'] = post_password_required();
@@ -195,10 +194,6 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       }
 
       wp_reset_postdata();
-    }
-
-    if ( ! $with_chapters ) {
-      $node['chapters']['separate'] = true;
     }
 
     // Support
@@ -393,6 +388,12 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
         // Add to graph
         $graph['stories'][ $story->ID ] = $node;
       }
+    }
+
+    if ( FICTIONEER_API_STORYGRAPH_CHAPTERS ) {
+      $graph['separateChapters'] = false;
+    } else {
+      $graph['separateChapters'] = true;
     }
 
     // Request meta
