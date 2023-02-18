@@ -38,9 +38,11 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['title'] = $data['title'];
 
     // Author
-    $node['author'] = [];
-    $node['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-    if ( ! empty( $author_url ) ) $node['author']['url'] = $author_url;
+    if ( ! empty( $author_id ) ) {
+      $node['author'] = [];
+      $node['author']['name'] = get_the_author_meta( 'display_name', $author_id );
+      if ( ! empty( $author_url ) ) $node['author']['url'] = $author_url;
+    }
 
     // Co-authors
     if ( ! empty( $co_author_ids ) ) {
@@ -154,9 +156,11 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           if ( ! empty( $group ) ) $chapter['group'] = $group;
 
           // Chapter author
-          $chapter['author'] = [];
-          $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-          if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
+          if ( ! empty( $author_id ) ) {
+            $chapter['author'] = [];
+            $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
+            if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
+          }
 
           // Chapter co-authors
           if ( ! empty( $co_author_ids ) ) {
