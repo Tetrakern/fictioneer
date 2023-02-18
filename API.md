@@ -63,7 +63,6 @@ The following schema defines all fields that can exist within the response, excl
         "protected": false,
         "images": {
           "hotlinkAllowed": false,
-          "disabled": false,
           "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/f_auto,q_auto\/v1674220298\/fictioneer-demo\/sapphire_shadow_cover\/sapphire_shadow_cover.jpeg?_i=AA"
         },
         "taxonomies": {
@@ -198,7 +197,6 @@ The following schema defines all fields that can exist within the response, excl
         "protected": false,
         "images": {
           "hotlinkAllowed": false,
-          "disabled": false,
           "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/f_auto,q_auto\/v1674220302\/fictioneer-demo\/necroepilogos_cover\/necroepilogos_cover.jpeg?_i=AA"
         },
         "taxonomies": {
@@ -454,7 +452,6 @@ The following schema defines all fields that can exist within the response, excl
         "protected": false,
         "images": {
           "hotlinkAllowed": false,
-          "disabled": false,
           "header": "https:\/\/fictioneer-theme.com\/wp-content\/uploads\/2023\/01\/the_last_resort_header.jpg",
           "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/w_1733,h_2560\/f_auto,q_auto\/v1674220314\/fictioneer-demo\/the_last_resort_cover\/the_last_resort_cover.jpg?_i=AA"
         },
@@ -511,7 +508,6 @@ The following schema defines all fields that can exist within the response, excl
         "protected": false,
         "images": {
           "hotlinkAllowed": false,
-          "disabled": false,
           "header": "https:\/\/fictioneer-theme.com\/wp-content\/uploads\/2023\/01\/crimson_lips_header-scaled.jpg",
           "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/f_auto,q_auto\/v1674220336\/fictioneer-demo\/crimson_lips_cover\/crimson_lips_cover.jpeg?_i=AA"
         },
@@ -610,7 +606,6 @@ The following schema defines all fields that can exist within the response, excl
         "protected": false,
         "images": {
           "hotlinkAllowed": false,
-          "disabled": false,
           "header": "https:\/\/fictioneer-theme.com\/wp-content\/uploads\/2023\/01\/katalepsis_header.jpg",
           "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/f_auto,q_auto\/v1674220342\/fictioneer-demo\/katalepsis_cover\/katalepsis_cover.jpg?_i=AA"
         },
