@@ -724,9 +724,13 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
 | FICTIONEER_SHOW_SEARCH_IN_MENUS | boolean | Whether to show search page links in menus. Default `true`.
-| FICTIONEER_THEME_SWITCH | boolean | Whether to the theme switch in child themes (back to base). Default `true`.
+| FICTIONEER_THEME_SWITCH | boolean | Whether to show the theme switch in child themes (back to base). Default `true`.
 | FICTIONEER_ATTACHMENT_PAGES | boolean | Whether to enable pages for attachments (no theme templates). Default `false`.
 | FICTIONEER_SHOW_OAUTH_HASHES | boolean | Whether to show OAuth ID hashes in user profiles (admin only). Default `false`.
 | FICTIONEER_DISALLOWED_KEY_NOTICE | boolean | Whether to show feedback for rejected comment content. Default `true`.
 | FICTIONEER_FILTER_STORY_CHAPTERS | boolean | Whether to filter selectable chapters by assigned story. Default `true`.
 | FICTIONEER_COLLAPSE_COMMENT_FORM | boolean | Whether hide comment form inputs until the textarea is clicked. Default `true`.
+| FICTIONEER_API_STORYGRAPH_IMAGES | boolean | Whether to add image links to the Storygraph. Default `true`.
+| FICTIONEER_API_STORYGRAPH_HOTLINK | boolean | Whether hotlinking images from the Storygraph is allowed. Default `false`.
+| FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
+| FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.

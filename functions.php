@@ -149,7 +149,7 @@ if ( ! defined( 'FICTIONEER_COLLAPSE_COMMENT_FORM' ) ) {
   define( 'FICTIONEER_COLLAPSE_COMMENT_FORM', true );
 }
 
-// Boolean: Add images to Storygraph API
+// Boolean: Storygraph API image nodes
 if ( ! defined( 'FICTIONEER_API_STORYGRAPH_IMAGES' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_IMAGES', true );
 }
