@@ -255,13 +255,16 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
   function fictioneer_api_request_story( WP_REST_Request $data ) {
     // Setup
     $story_id = absint( $data['id'] );
-    $cache = get_transient( 'fictioneer_api_story_' . $story_id );
 
     // Return cache if still valid
-    // if ( ! empty( $cache ) ) {
-    //   $cache['cached'] = true;
-    //   return rest_ensure_response( $cache );
-    // }
+    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
+      $cache = get_transient( 'fictioneer_storygraph_story_' . $story_id );
+
+      if ( ! empty( $cache ) ) {
+        $cache['cached'] = true;
+        return rest_ensure_response( $cache );
+      }
+    }
 
     // Graph from story node
     $graph = fictioneer_api_get_story_node( $story_id );
@@ -282,7 +285,9 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
     $graph['cached'] = false;
 
     // Cache request
-    set_transient( 'fictioneer_api_story_' . $story_id, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
+    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
+      set_transient( 'fictioneer_storygraph_story_' . $story_id, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
+    }
 
     // Response
     return rest_ensure_response( $graph );
@@ -330,6 +335,16 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     // Setup
     $page = max( $data['page'] ?? 1, 1 );
     $graph = [];
+
+    // Return cache if still valid
+    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
+      $cache = get_transient( 'fictioneer_storygraph_stories_' . $page );
+
+      if ( ! empty( $cache ) ) {
+        $cache['cached'] = true;
+        return rest_ensure_response( $cache );
+      }
+    }
 
     // Prepare query
     $query_args = array (
@@ -386,6 +401,11 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $graph['maxPages'] = $query->max_num_pages;
     $graph['timestamp'] = current_time( 'U', true );
     $graph['cached'] = false;
+
+    // Cache request
+    if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
+      set_transient( 'fictioneer_storygraph_stories_' . $page, $graph, FICTIONEER_API_STORYGRAPH_CACHE_TTL );
+    }
 
     return rest_ensure_response( $graph );
   }
