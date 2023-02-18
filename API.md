@@ -8,8 +8,6 @@
 GET /wp-json/storygraph/v1/stories
 ```
 
-### Arguments
-
 | Argument | Description |
 | :-- | :-- |
 | page | Page to return. Default `1`.
@@ -20,8 +18,8 @@ The following schema defines all fields that can exist within the response, excl
 
 | Field | Description |
 | :-- | :-- |
-| url<br>`string` | Root URL of the targeted site. In case you forgot or want to make sure.
-| language<br>`string` | Language code of the _site_, not necessarily stories or chapters.
+| url `string` | Root URL of the targeted site. In case you forgot or want to make sure.
+| language `string` | Language code of the _site_, not necessarily stories or chapters.
 | storyCount<br>`integer` | Total number of published and visible stories.
 | chapterCount<br>`integer` | Total number of published and visible chapters.
 
