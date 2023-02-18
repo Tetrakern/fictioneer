@@ -159,6 +159,11 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_HOTLINK' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_HOTLINK', false );
 }
 
+// Boolean: Storygraph API with chapters in /stories
+if ( ! defined( 'FICTIONEER_API_STORYGRAPH_CHAPTERS' ) ) {
+  define( 'FICTIONEER_API_STORYGRAPH_CHAPTERS', true );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================

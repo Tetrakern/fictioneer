@@ -10,12 +10,13 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
    *
    * @since Fictioneer 5.1
    *
-   * @param int $story_id ID of the story.
+   * @param int     $story_id      ID of the story.
+   * @param boolean $with_chapters Whether to include chapters. Default true.
    *
    * @return array|boolean Either array with story data or false if not valid.
    */
 
-  function fictioneer_api_get_story_node( $story_id ) {
+  function fictioneer_api_get_story_node( $story_id, $with_chapters = true ) {
     // Validation
     $data = fictioneer_get_story_data( $story_id );
 
@@ -106,7 +107,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     if ( ! empty( $taxonomies ) ) $node['taxonomies'] = $taxonomies;
 
     // Chapters
-    if ( ! empty( $data['chapter_ids'] ) ) {
+    if ( $with_chapters && ! empty( $data['chapter_ids'] ) ) {
       // Query chapters
       $chapter_query = new WP_Query(
         array(
@@ -175,6 +176,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           }
 
           // Chapter meta
+          $chapter['separate'] = false;
           $chapter['published'] = get_post_time( 'U', true );
           $chapter['modified'] = get_post_modified_time( 'U', true );
           $chapter['protected'] = post_password_required();
@@ -193,6 +195,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       }
 
       wp_reset_postdata();
+    }
+
+    if ( ! $with_chapters ) {
+      $node['chapters']['separate'] = true;
     }
 
     // Support
@@ -322,7 +328,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
   function fictioneer_api_request_stories( WP_REST_Request $data ) {
     // Setup
-    $page = max($data['page'] ?? 1, 1);
+    $page = max( $data['page'] ?? 1, 1 );
     $graph = [];
 
     // Prepare query
@@ -364,7 +370,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
       foreach ( $stories as $story ) {
         // Get node
-        $node = fictioneer_api_get_story_node( $story->ID );
+        $node = fictioneer_api_get_story_node( $story->ID, FICTIONEER_API_STORYGRAPH_CHAPTERS );
 
         // Count chapters
         $graph['chapterCount'] = $graph['chapterCount'] + $node['chapterCount'];
