@@ -10,7 +10,7 @@ GET /wp-json/storygraph/v1/stories
 
 ### Arguments
 
-|     |     |
+| Argument | Description |
 | :-- | :-- |
 | page | Page to return. Default `1`.
 
@@ -18,12 +18,12 @@ GET /wp-json/storygraph/v1/stories
 
 The following schema defines all fields that can exist within the response, excluding fields that are empty unless stated otherwise. So if there are no chapters, the chapter node will be missing. Note that the response is paginated for performance reasons and all values are escaped.
 
-|     |     |
+| Field | Description |
 | :-- | :-- |
-| url<br><br>`string` | Root URL of the targeted site. In case you forgot or want to make sure.
-| language<br><br>`string` | Language code of the _site_, not necessarily stories or chapters.
-| storyCount<br><br>`integer` | Total number of published and visible stories.
-| chapterCount<br><br>`integer` | Total number of published and visible chapters.
+| url<br>`string` | Root URL of the targeted site. In case you forgot or want to make sure.
+| language<br>`string` | Language code of the _site_, not necessarily stories or chapters.
+| storyCount<br>`integer` | Total number of published and visible stories.
+| chapterCount<br>`integer` | Total number of published and visible chapters.
 
 <details>
   <summary><strong>Example:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/stories</summary><br>
