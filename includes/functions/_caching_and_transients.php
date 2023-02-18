@@ -524,7 +524,16 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
       delete_transient( 'fictioneer_stories_total_word_count' );
 
       // Delete cached API response
-      delete_transient( 'fictioneer_api_story_' . $story_id );
+      if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
+        $count_stories = wp_count_posts( 'fcn_story' );
+        $pages = $count_stories->publish / FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE + 1;
+
+        delete_transient( 'fictioneer_api_story_' . $story_id );
+
+        for ( $i = 1; $i <= $pages; $i++ ) {
+          delete_transient( 'fictioneer_storygraph_stories_' . $i );
+        }
+      }
     }
   }
 }
