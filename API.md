@@ -24,7 +24,7 @@ The following schema defines all fields that can exist within the response, excl
 | chapterCount `integer` | Total number of published and visible chapters.
 | lastPublished `integer\|null` | Unix timestamp of the last published story (GMT).
 | lastModified `integer\|null` | Unix timestamp of the last modified story (GMT).
-| stories `object\|null` | Paginated collection of stories, ordered by publishing date. See **Story** endpoint.
+| stories `object\|null` | Paginated collection of story nodes, ordered by publishing date. See **Story** endpoint.
 | separateChapters `boolean` | Whether chapters are included or must be requested via the **Story** endpoint.
 | page `integer` | Current page of the story collection.
 | perPage `integer` | Stories per collection page.
