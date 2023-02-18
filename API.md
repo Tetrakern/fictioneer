@@ -38,6 +38,8 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ hotlinkAllowed `boolean` | Whether hotlinking images is allowed. Copy and host them yourself otherwise.
 | &emsp;➞ header `string\|null` | URL of header image.
 | &emsp;➞ cover `string\|null` | URL of cover image.
+| taxonomies `object\|null` | Taxonomy collections node.
+| &emsp;➞ tags `[string]\|null` | Array of tags.
 
 ## Endpoint: Stories
 
