@@ -720,6 +720,8 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_AJAX_POST_DEBOUNCE_RATE | int | How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
 | FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | int | Maximum number of authors in the advanced search suggestions. Default `100`.
 | FICTIONEER_UPDATE_CHECK_TIMEOUT | int | Timeout between checks for theme updates in _seconds_. Default `3600`.
+| FICTIONEER_API_STORYGRAPH_CACHE_TTL | int | How long Storygraph responses are cached in _seconds_. Default `3600`.
+| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | int | How many items the Storygraph `/stories` endpoint returns. Default 10.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
