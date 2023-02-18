@@ -18,7 +18,7 @@ GET /wp-json/storygraph/v1/story/<id>
 
 The following schema defines all fields that can exist within the response, excluding fields that are empty or `null` unless stated otherwise. So if there are no chapters, the chapter node will be missing. All values are escaped.
 
-| Field | Description |
+| Story Field | Description |
 | :-- | :-- |
 | id `integer` | ID of the story (on the site).
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
@@ -55,6 +55,12 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ paypal `string\|null` | URL to the story’s or author’s PayPal address.
 | &emsp;➞ donation `string\|null` | URL to the story’s or author’s donation page.
 | timestamp `integer` | Unix timestamp of when the response was compiled (GMT). May be cached.
+
+| Story Field | Description |
+| :-- | :-- |
+| id `integer` | ID of the chapter (on the site).
+| guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
+| url `string` | Current URL of the chapter.
 
 ## Endpoint: Stories
 
