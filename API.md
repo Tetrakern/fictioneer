@@ -10,7 +10,7 @@ GET /wp-json/storygraph/v1/story/<id>
 
 | Argument | Description |
 | :-- | :-- |
-| id | ID of the story.
+| id | ID of the story. Required.
 
 ### Schema
 
@@ -23,6 +23,9 @@ The following schema defines all fields that can exist within the response, excl
 | url `string` | Current URL of the story.
 | language `string` | Language code of the story, not necessarily chapters.
 | title `string` | Title of the story.
+| author `object` | Author node.
+| author.name `string` | Author name.
+| author.url `string\|null` | Author website.
 
 ## Endpoint: Stories
 
