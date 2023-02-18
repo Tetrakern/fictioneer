@@ -31,7 +31,7 @@ if ( $custom_pages ) {
 }
 
 // Check for cached chapters output
-$chapters_html = FICTIONEER_CACHE_CHAPTER_LISTS ? get_transient( 'fictioneer_story_chapter_list_' . $story_id ) : null;
+$chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ? get_transient( 'fictioneer_story_chapter_list_' . $story_id ) : null;
 
 // Flags
 $hide_icons = fictioneer_get_field( 'fictioneer_story_hide_chapter_icons' ) || get_option( 'fictioneer_hide_chapter_icons' );
@@ -367,7 +367,7 @@ $blog_posts = new WP_Query(
   ob_end_flush();
 
   // Cache for next time (24 hours)
-  if ( FICTIONEER_CACHE_CHAPTER_LISTS ) {
+  if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS ) {
     set_transient( 'fictioneer_story_chapter_list_' . $story_id, $chapters_html, 86400 );
   }
 
