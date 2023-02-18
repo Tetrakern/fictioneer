@@ -28,6 +28,16 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ url `string\|null` | Author website.
 | content `string` | Return value of `get_the_content()` without filters applied. Needs processing.
 | description `string` | HTML string from TinyMCE. Needs processing.
+| words `integer` | Total number of words of all chapters.
+| ageRating `string` | Either Everyone, Teen, Mature, or Adult.
+| chapterCount `integer` | Total number of chapters, excluding those marked as non-chapters.
+| published `integer` | Unix timestamp of when the story was published (GMT).
+| modified `integer` | Unix timestamp of when the story was last updated (GMT).
+| protected `boolean` | Whether the story is protected by a password.
+| images `object\|null` | Images associated with the story.
+| &emsp;➞ hotlinkAllowed `boolean` | Whether hotlinking images is allowed. Copy and host them yourself otherwise.
+| &emsp;➞ header `string|null` | URL of header image.
+| &emsp;➞ cover `string|null` | URL of cover image.
 
 ## Endpoint: Stories
 
