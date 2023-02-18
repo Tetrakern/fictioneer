@@ -46,7 +46,7 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ characters `[string]\|null` | Array of characters.
 | &emsp;➞ warnings `[string]\|null` | Array of warnings.
 | &emsp;➞ genres `[string]\|null` | Array of genres.
-| chapters `[object]\|null` | Chapter collection node. See **Chapter Fields**.
+| chapters `[object]\|null` | Array of chapter nodes. See **Chapter Fields**.
 | support `object\|null` | Support collection node.
 | &emsp;➞ topwebfiction `string\|null` | URL to story’s TopWebFiction entry.
 | &emsp;➞ patreon `string\|null` | URL to the story’s or author’s Patreon page.
@@ -61,6 +61,18 @@ The following schema defines all fields that can exist within the response, excl
 | id `integer` | ID of the chapter (on the site).
 | guid `string` | Sufficiently unique global ID based on the original URL, type, and ID. Unreliable as link.
 | url `string` | Current URL of the chapter.
+| language `string` | Language code of the chapter.
+| title `string` | Title of the chapter.
+| group `string\|null` | Group of the chapter.
+| author `object\|null` | Author node.
+| &emsp;➞ name `string` | Author name.
+| &emsp;➞ url `string\|null` | Author website.
+| published `integer` | Unix timestamp of when the chapter was published (GMT).
+| modified `integer` | Unix timestamp of when the chapter was last updated (GMT).
+| protected `boolean` | Whether the chapter is protected by a password.
+| words `integer` | Number of words.
+| nonChapter `boolean` | Whether the chapter is marked as non-chapter.
+| ageRating `string` | Either Everyone, Teen, Mature, or Adult.
 
 ## Endpoint: Stories
 
