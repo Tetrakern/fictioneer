@@ -25,6 +25,11 @@ The following schema defines all fields that can exist within the response, excl
 | lastPublished `integer\|null` | Unix timestamp of the last published story (GMT).
 | lastModified `integer\|null` | Unix timestamp of the last modified story (GMT).
 | stories `object\|null` | Paginated collection of stories, ordered by publishing date (foreign ID as key). See **Story** endpoint.
+| separateChapters `boolean` | Whether chapters are included or must be requested via the **Story** endpoint.
+| page `integer` | Current page.
+| perPage `integer` | Stories per page.
+| maxPages `integer` | Total number of pages.
+| timestamp `integer` | Unix timestamp when the response was compiled (GMT). May be cached.
 
 <details>
   <summary><strong>Example Response:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/stories</summary><br>
