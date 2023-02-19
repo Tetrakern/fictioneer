@@ -71,7 +71,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['words'] = intval( $data['word_count'] );
     $node['ageRating'] = $data['rating'];
     $node['status'] = $data['status'];
-    $node['chapterCount'] = $data['chapter_count'];
+    $node['chapterCount'] = intval( $data['chapter_count'] );
     $node['published'] = get_post_time( 'U', true, $story_id );
     $node['modified'] = get_post_modified_time( 'U', true, $story_id );
     $node['protected'] = post_password_required( $story_id );
@@ -365,7 +365,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     $graph['url'] = get_home_url( null, '', 'rest' );
     $graph['language'] = get_bloginfo( 'language' );
     $graph['storyCount'] = intval( wp_count_posts( 'fcn_story' )->publish );
-    $graph['chapterCount'] = 0;
+    $graph['chapterCount'] = intval( wp_count_posts( 'fcn_chapter' )->publish );
 
     // Stories
     if ( ! empty( $stories ) ) {
@@ -376,9 +376,6 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
       foreach ( $stories as $story ) {
         // Get node
         $node = fictioneer_api_get_story_node( $story->ID, FICTIONEER_API_STORYGRAPH_CHAPTERS );
-
-        // Count chapters
-        $graph['chapterCount'] = $graph['chapterCount'] + $node['chapterCount'];
 
         // Add to graph
         $graph['stories'][ $story->ID ] = $node;

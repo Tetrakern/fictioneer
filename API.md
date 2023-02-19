@@ -2263,7 +2263,7 @@ The following schema defines all fields that can exist within the response, excl
 | url `string` | Root URL of the targeted site. In case you forgot or want to make sure.
 | language `string` | Language code of the _site_, not necessarily stories or chapters.
 | storyCount `integer` | Total number of published and visible stories.
-| chapterCount `integer` | Total number of published and visible chapters.
+| chapterCount `integer` | Total number of published chapters, including those marked as non-chapter.
 | lastPublished `integer\|null` | Unix timestamp of the last published story (GMT).
 | lastModified `integer\|null` | Unix timestamp of the last modified story (GMT).
 | stories `object\|null` | Paginated collection of story nodes, ordered by publishing date. See **Story** endpoint.
