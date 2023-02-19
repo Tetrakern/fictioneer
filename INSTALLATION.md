@@ -590,7 +590,7 @@ Lists all generated ePUBs with statistics, download links, and options to delete
 
 ### SEO Tab
 
-Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you have the options to purge the cached meta data or schemas if that should become necessary.
+Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you can purge the cached meta data or schemas if that should become necessary.
 
 ### Tools Tab
 
@@ -691,7 +691,7 @@ The minimum and maximum values found in the Customizer are used to calculate [cl
 
 ![Menu Screen](repo/assets/menu_screen_options.jpg?raw=true)
 
-Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, which are precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
+Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, located precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
 
 On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** only shows the top level menu items in a scrollable track, but the mobile menu is an unfolded list of all items if not specifically excluded with optional CSS classes.
 
@@ -700,7 +700,7 @@ On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** onl
 
 ### Constants
 
-Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options defined via constants in the **function.php**. If you want to change them, you need a child [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
+Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a child [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
 
 ```php
 define( 'CONSTANT_NAME', value );
