@@ -10,7 +10,7 @@
 
 <p align="center"><strong>WordPress theme and standalone solution for publishing and reading <a href="https://en.wikipedia.org/wiki/Web_fiction">web fictions</a>.</strong></p>
 
-<p align="center"><a href="https://fictioneer-theme.com/" target="_blank">Demo</a> &bull; <a href="https://github.com/Tetrakern/fictioneer/releases">Download</a> &bull; <a href="DOCUMENTATION.md">Documentation</a> &bull; <a href="INSTALLATION.md">Installation</a> &bull; <a href="DEVELOPMENT.md">Development</a> &bull; <a href="FAQ.md">FAQ</a> &bull; <a href="CREDITS.md">Credits</a> &bull; <a href="https://discord.gg/tVfDB7EbaP" target="_blank">Discord</a></p>
+<p align="center"><a href="https://fictioneer-theme.com/" target="_blank">Demo</a> &bull; <a href="https://github.com/Tetrakern/fictioneer/releases">Download</a> &bull; <a href="DOCUMENTATION.md">Documentation</a> &bull; <a href="INSTALLATION.md">Installation</a> &bull; <a href="API.md">API</a> &bull; <a href="DEVELOPMENT.md">Development</a> &bull; <a href="FAQ.md">FAQ</a> &bull; <a href="CREDITS.md">Credits</a> &bull; <a href="https://discord.gg/tVfDB7EbaP" target="_blank">Discord</a></p>
 <br>
 
 ## About
