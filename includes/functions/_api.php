@@ -364,7 +364,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     // Site meta
     $graph['url'] = get_home_url( null, '', 'rest' );
     $graph['language'] = get_bloginfo( 'language' );
-    $graph['storyCount'] = count( $stories );
+    $graph['storyCount'] = wp_count_posts( 'fcn_story' )->publish;
     $graph['chapterCount'] = 0;
 
     // Stories
