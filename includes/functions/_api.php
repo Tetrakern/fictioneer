@@ -68,7 +68,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['description'] = strip_shortcodes( $description );
 
     // Meta
-    $node['words'] = $data['word_count'];
+    $node['words'] = intval( $data['word_count'] );
     $node['ageRating'] = $data['rating'];
     $node['status'] = $data['status'];
     $node['chapterCount'] = $data['chapter_count'];
@@ -177,7 +177,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['published'] = get_post_time( 'U', true );
           $chapter['modified'] = get_post_modified_time( 'U', true );
           $chapter['protected'] = post_password_required();
-          $chapter['words'] = get_post_meta( $chapter_id, '_word_count', true );
+          $chapter['words'] = intval( get_post_meta( $chapter_id, '_word_count', true ) );
           $chapter['nonChapter'] = ! empty( $no_chapter );
           if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
           if ( ! empty( $warning ) ) $chapter['warning'] = $warning;

@@ -79,7 +79,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673842132,
         "modified": 1674004959,
         "protected": false,
-        "words": "8040",
+        "words": 8040,
         "nonChapter": false,
         "ageRating": "Teen",
         "taxonomies": {
@@ -113,7 +113,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673224433,
         "modified": 1673978225,
         "protected": false,
-        "words": "5949",
+        "words": 5949,
         "nonChapter": false,
         "ageRating": "Teen",
         "taxonomies": {
@@ -147,7 +147,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673224752,
         "modified": 1673978225,
         "protected": true,
-        "words": "5242",
+        "words": 5242,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -180,7 +180,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673224920,
         "modified": 1673978225,
         "protected": false,
-        "words": "4509",
+        "words": 4509,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -213,7 +213,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225068,
         "modified": 1673978225,
         "protected": false,
-        "words": "8272",
+        "words": 8272,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -246,7 +246,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225167,
         "modified": 1673978225,
         "protected": false,
-        "words": "4249",
+        "words": 4249,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -279,7 +279,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225345,
         "modified": 1673978225,
         "protected": false,
-        "words": "5836",
+        "words": 5836,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -312,7 +312,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225481,
         "modified": 1673978208,
         "protected": false,
-        "words": "5173",
+        "words": 5173,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -345,7 +345,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225609,
         "modified": 1673978207,
         "protected": false,
-        "words": "3892",
+        "words": 3892,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -378,7 +378,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225665,
         "modified": 1673978207,
         "protected": false,
-        "words": "5761",
+        "words": 5761,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -411,7 +411,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225757,
         "modified": 1673978207,
         "protected": false,
-        "words": "5043",
+        "words": 5043,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -444,7 +444,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225843,
         "modified": 1673978207,
         "protected": false,
-        "words": "5640",
+        "words": 5640,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -477,7 +477,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225916,
         "modified": 1673978207,
         "protected": false,
-        "words": "4919",
+        "words": 4919,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -510,7 +510,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673225981,
         "modified": 1673978207,
         "protected": false,
-        "words": "6068",
+        "words": 6068,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -543,7 +543,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673226040,
         "modified": 1673978207,
         "protected": false,
-        "words": "7155",
+        "words": 7155,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -573,7 +573,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673226099,
         "modified": 1673978207,
         "protected": false,
-        "words": "5109",
+        "words": 5109,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -606,7 +606,7 @@ GET /wp-json/storygraph/v1/story/<id>
         "published": 1673226161,
         "modified": 1673978207,
         "protected": false,
-        "words": "4701",
+        "words": 4701,
         "nonChapter": false,
         "taxonomies": {
           "tags": [
@@ -792,7 +792,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673842132,
             "modified": 1674004959,
             "protected": false,
-            "words": "8040",
+            "words": 8040,
             "nonChapter": false,
             "ageRating": "Teen",
             "taxonomies": {
@@ -826,7 +826,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673224433,
             "modified": 1673978225,
             "protected": false,
-            "words": "5949",
+            "words": 5949,
             "nonChapter": false,
             "ageRating": "Teen",
             "taxonomies": {
@@ -860,7 +860,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673224752,
             "modified": 1673978225,
             "protected": true,
-            "words": "5242",
+            "words": 5242,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -893,7 +893,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673224920,
             "modified": 1673978225,
             "protected": false,
-            "words": "4509",
+            "words": 4509,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -926,7 +926,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225068,
             "modified": 1673978225,
             "protected": false,
-            "words": "8272",
+            "words": 8272,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -959,7 +959,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225167,
             "modified": 1673978225,
             "protected": false,
-            "words": "4249",
+            "words": 4249,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -992,7 +992,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225345,
             "modified": 1673978225,
             "protected": false,
-            "words": "5836",
+            "words": 5836,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1025,7 +1025,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225481,
             "modified": 1673978208,
             "protected": false,
-            "words": "5173",
+            "words": 5173,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1058,7 +1058,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225609,
             "modified": 1673978207,
             "protected": false,
-            "words": "3892",
+            "words": 3892,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1091,7 +1091,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225665,
             "modified": 1673978207,
             "protected": false,
-            "words": "5761",
+            "words": 5761,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1124,7 +1124,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225757,
             "modified": 1673978207,
             "protected": false,
-            "words": "5043",
+            "words": 5043,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1157,7 +1157,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225843,
             "modified": 1673978207,
             "protected": false,
-            "words": "5640",
+            "words": 5640,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1190,7 +1190,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225916,
             "modified": 1673978207,
             "protected": false,
-            "words": "4919",
+            "words": 4919,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1223,7 +1223,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673225981,
             "modified": 1673978207,
             "protected": false,
-            "words": "6068",
+            "words": 6068,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1256,7 +1256,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673226040,
             "modified": 1673978207,
             "protected": false,
-            "words": "7155",
+            "words": 7155,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1286,7 +1286,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673226099,
             "modified": 1673978207,
             "protected": false,
-            "words": "5109",
+            "words": 5109,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1319,7 +1319,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673226161,
             "modified": 1673978207,
             "protected": false,
-            "words": "4701",
+            "words": 4701,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1396,7 +1396,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1675338224,
             "modified": 1675341283,
             "protected": false,
-            "words": "1216",
+            "words": 1216,
             "nonChapter": false,
             "ageRating": "Mature",
             "taxonomies": {
@@ -1428,7 +1428,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1672573852,
             "modified": 1675341398,
             "protected": false,
-            "words": "2551",
+            "words": 2551,
             "nonChapter": false,
             "ageRating": "Mature",
             "taxonomies": {
@@ -1460,7 +1460,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1672576421,
             "modified": 1675341423,
             "protected": false,
-            "words": "2467",
+            "words": 2467,
             "nonChapter": false,
             "ageRating": "Mature",
             "taxonomies": {
@@ -1536,7 +1536,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673842121,
             "modified": 1674005207,
             "protected": false,
-            "words": "4865",
+            "words": 4865,
             "nonChapter": false,
             "warning": "Spooky Ghosts! Wooooo",
             "taxonomies": {
@@ -1620,7 +1620,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673842114,
             "modified": 1674005406,
             "protected": false,
-            "words": "2388",
+            "words": 2388,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1660,7 +1660,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673653897,
             "modified": 1673978181,
             "protected": false,
-            "words": "4067",
+            "words": 4067,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1700,7 +1700,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673654683,
             "modified": 1673978181,
             "protected": false,
-            "words": "4011",
+            "words": 4011,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1740,7 +1740,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673654793,
             "modified": 1673978181,
             "protected": false,
-            "words": "4475",
+            "words": 4475,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1780,7 +1780,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673654907,
             "modified": 1673978181,
             "protected": false,
-            "words": "3933",
+            "words": 3933,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1820,7 +1820,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673655197,
             "modified": 1673978181,
             "protected": false,
-            "words": "4469",
+            "words": 4469,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1860,7 +1860,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673655282,
             "modified": 1673978181,
             "protected": false,
-            "words": "5236",
+            "words": 5236,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1900,7 +1900,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673655338,
             "modified": 1673978181,
             "protected": false,
-            "words": "4545",
+            "words": 4545,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1940,7 +1940,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673655606,
             "modified": 1673978180,
             "protected": false,
-            "words": "3220",
+            "words": 3220,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -1980,7 +1980,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673655821,
             "modified": 1673978180,
             "protected": false,
-            "words": "3376",
+            "words": 3376,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -2068,7 +2068,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673842110,
             "modified": 1674005323,
             "protected": false,
-            "words": "3143",
+            "words": 3143,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -2104,7 +2104,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673748373,
             "modified": 1673978180,
             "protected": false,
-            "words": "3514",
+            "words": 3514,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -2140,7 +2140,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673748432,
             "modified": 1673978180,
             "protected": false,
-            "words": "3832",
+            "words": 3832,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -2176,7 +2176,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673748696,
             "modified": 1673978180,
             "protected": false,
-            "words": "3531",
+            "words": 3531,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
@@ -2211,7 +2211,7 @@ GET /wp-json/storygraph/v1/stories
             "published": 1673748746,
             "modified": 1673978180,
             "protected": false,
-            "words": "7554",
+            "words": 7554,
             "nonChapter": false,
             "taxonomies": {
               "tags": [
