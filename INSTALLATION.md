@@ -563,7 +563,8 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
-* **Enable OAuth 2.0 authentication:** Allows visitors to register, but be aware of the privacy implications!
+* **Enable Storygraph API:** Allow external services to index and search your site to reach a larger audience. Recommended.
+* **Enable OAuth 2.0 authentication:** Allow visitors to register with social media accounts, but be aware of the implications!
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
 * **Disable theme comment \*:** If you want to use different comments. Disables most of the other comment options as well.
