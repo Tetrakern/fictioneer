@@ -14,6 +14,627 @@ Query this endpoint to retrieve a story and collection of associated chapters. T
 GET /wp-json/storygraph/v1/story/<id>
 ```
 
+<details>
+  <summary><strong>Example Response:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/story/13</summary><br>
+
+  ```json
+  {
+    "id": 13,
+    "guid": "https://fictioneer-theme.com/?post_type=fcn_story&#038;p=13",
+    "url": "https://fictioneer-theme.com/story/katalepsis/",
+    "language": "en-US",
+    "title": "Katalepsis",
+    "author": {
+      "name": "Hungry",
+      "url": "https://katalepsis.net/"
+    },
+    "content": "<!-- wp:paragraph -->\n<p>Nightmares and hallucinations have plagued Heather Morell all her life, relics of schizophrenia and childhood bereavement.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Until she meets Raine and Evelyn, that is — self-proclaimed bodyguard and bad-tempered magician — and learns she’s not insane at all. The spirits and monsters she sees are all too real, the god-thing in her nightmares is teaching her how to surpass human limits, and her twin sister who supposedly never existed could still be alive, somewhere Outside, beyond the walls of reality.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Heather plunges into a world of eldritch magic and fanatic cultists, trying to stay alive, stay sane, and deal with her own blossoming attraction to dangerous women. But being ‘In The Know’ isn’t all terror and danger. Sometimes the monsters wear nice dresses and stick around for afternoon tea. Sometimes you find you have more in common with them than you think. Perhaps this is Heather’s chance to be something more than the defeated husk she’d grown up as, to find real friendship and meaning among things like herself – and perhaps, out there on the rim of the possible, to bring her twin sister back from the dead.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>This is an excerpt for demo purposes. You can read the full story on <a rel=\"noreferrer noopener\" href=\"https://katalepsis.net/\" data-type=\"URL\" data-id=\"https://katalepsis.net/\" target=\"_blank\">www.katalepsis.net</a>.</strong></p>\n<!-- /wp:paragraph -->",
+    "description": "Nightmares and hallucinations have plagued Heather Morell all her life, relics of schizophrenia and childhood bereavement. Until she meets Raine and Evelyn, that is — self-proclaimed bodyguard and bad-tempered magician — and learns she’s not insane at all. The spirits and monsters she sees are all too real, the god-thing in her nightmares is teaching her how to surpass human limits, and her twin sister who supposedly never existed could still be alive, somewhere Outside, beyond the walls of reality.",
+    "words": 95558,
+    "ageRating": "Teen",
+    "status": "Ongoing",
+    "chapterCount": 17,
+    "published": 1673218246,
+    "modified": 1674004959,
+    "protected": false,
+    "images": {
+      "hotlinkAllowed": false,
+      "header": "https://fictioneer-theme.com/wp-content/uploads/2023/01/katalepsis_header.jpg",
+      "cover": "https://res.cloudinary.com/dmhr3ab5n/images/f_auto,q_auto/v1674220342/fictioneer-demo/katalepsis_cover/katalepsis_cover.jpg?_i=AA"
+    },
+    "taxonomies": {
+      "tags": [
+        "Drugs",
+        "Magic",
+        "Mental Illness",
+        "Polyamory"
+      ],
+      "fandoms": [
+        "Original"
+      ],
+      "warnings": [
+        "Gore",
+        "Violence"
+      ],
+      "genres": [
+        "Body Horror",
+        "Cosmic Horror",
+        "Girls Love",
+        "Romance",
+        "Urban Fantasy"
+      ]
+    },
+    "chapters": [
+      {
+        "id": 29,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=29",
+        "url": "https://fictioneer-theme.com/chapter/mind-correlating-1-1/",
+        "language": "en-US",
+        "title": "mind; correlating – 1.1",
+        "group": "mind; correlating",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673842132,
+        "modified": 1674004959,
+        "protected": false,
+        "words": "8040",
+        "nonChapter": false,
+        "ageRating": "Teen",
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 35,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=35",
+        "url": "https://fictioneer-theme.com/chapter/mind-correlating-1-2/",
+        "language": "en-US",
+        "title": "mind; correlating – 1.2",
+        "group": "mind; correlating",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673224433,
+        "modified": 1673978225,
+        "protected": false,
+        "words": "5949",
+        "nonChapter": false,
+        "ageRating": "Teen",
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 40,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=40",
+        "url": "https://fictioneer-theme.com/chapter/mind-correlating-1-3/",
+        "language": "en-US",
+        "title": "mind; correlating – 1.3",
+        "group": "mind; correlating",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673224752,
+        "modified": 1673978225,
+        "protected": true,
+        "words": "5242",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 45,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=45",
+        "url": "https://fictioneer-theme.com/chapter/mind-correlating-1-4/",
+        "language": "en-US",
+        "title": "mind; correlating – 1.4",
+        "group": "mind; correlating",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673224920,
+        "modified": 1673978225,
+        "protected": false,
+        "words": "4509",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 49,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=49",
+        "url": "https://fictioneer-theme.com/chapter/mind-correlating-1-5/",
+        "language": "en-US",
+        "title": "mind; correlating – 1.5",
+        "group": "mind; correlating",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225068,
+        "modified": 1673978225,
+        "protected": false,
+        "words": "8272",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 52,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=52",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-1/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.1",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225167,
+        "modified": 1673978225,
+        "protected": false,
+        "words": "4249",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 57,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=57",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-2/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.2",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225345,
+        "modified": 1673978225,
+        "protected": false,
+        "words": "5836",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 63,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=63",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-3/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.3",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225481,
+        "modified": 1673978208,
+        "protected": false,
+        "words": "5173",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 66,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=66",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-4/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.4",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225609,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "3892",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 69,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=69",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-5/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.5",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225665,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "5761",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 74,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=74",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-6/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.6",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225757,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "5043",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 77,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=77",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-7/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.7",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225843,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "5640",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 80,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=80",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-8/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.8",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225916,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "4919",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 83,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=83",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-9/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.9",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673225981,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "6068",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 86,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=86",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-10/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.10",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673226040,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "7155",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 89,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=89",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-11/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.11",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673226099,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "5109",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      },
+      {
+        "id": 92,
+        "guid": "https://fictioneer-theme.com/?post_type=fcn_chapter&#038;p=92",
+        "url": "https://fictioneer-theme.com/chapter/providence-or-atoms-2-12/",
+        "language": "en-US",
+        "title": "providence or atoms – 2.12",
+        "group": "providence or atoms",
+        "author": {
+          "name": "Hungry",
+          "url": "https://katalepsis.net/"
+        },
+        "published": 1673226161,
+        "modified": 1673978207,
+        "protected": false,
+        "words": "4701",
+        "nonChapter": false,
+        "taxonomies": {
+          "tags": [
+            "Magic",
+            "Mental Illness"
+          ],
+          "fandoms": [
+            "Original"
+          ],
+          "genres": [
+            "Body Horror",
+            "Cosmic Horror",
+            "Lesbian",
+            "Romance",
+            "Urban Fantasy"
+          ]
+        }
+      }
+    ],
+    "support": {
+      "topwebfiction": "http://topwebfiction.com/listings/katalepsis",
+      "patreon": "https://www.patreon.com/hazelyoung/posts"
+    },
+    "timestamp": 1676759569
+  }
+  ```
+</details>
+
 | Argument | Description |
 | :-- | :-- |
 | id | ID of the story. Required.
@@ -89,410 +710,6 @@ The following schema defines all fields that can exist within the response, excl
 | &emsp;➞ characters `[string]\|null` | Array of characters.
 | &emsp;➞ warnings `[string]\|null` | Array of warnings.
 | &emsp;➞ genres `[string]\|null` | Array of genres.
-
-<details>
-  <summary><strong>Example Response:</strong> https://fictioneer-theme.com/wp-json/storygraph/v1/story/13</summary><br>
-
-  ```json
-  {
-    "id": 13,
-    "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_story&#038;p=13",
-    "url": "https:\/\/fictioneer-theme.com\/story\/katalepsis\/",
-    "language": "en-US",
-    "title": "Katalepsis",
-    "author": {
-      "name": "Hungry",
-      "url": "https:\/\/katalepsis.net\/"
-    },
-    "content": "<!-- wp:paragraph -->\n<p>Nightmares and hallucinations have plagued Heather Morell all her life, relics of schizophrenia and childhood bereavement.<\/p>\n<!-- \/wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Until she meets Raine and Evelyn, that is \u2014 self-proclaimed bodyguard and bad-tempered magician \u2014 and learns she\u2019s not insane at all. The spirits and monsters she sees are all too real, the god-thing in her nightmares is teaching her how to surpass human limits, and her twin sister who supposedly never existed could still be alive, somewhere Outside, beyond the walls of reality.<\/p>\n<!-- \/wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Heather plunges into a world of eldritch magic and fanatic cultists, trying to stay alive, stay sane, and deal with her own blossoming attraction to dangerous women. But being \u2018In The Know\u2019 isn\u2019t all terror and danger. Sometimes the monsters wear nice dresses and stick around for afternoon tea. Sometimes you find you have more in common with them than you think. Perhaps this is Heather\u2019s chance to be something more than the defeated husk she\u2019d grown up as, to find real friendship and meaning among things like herself \u2013 and perhaps, out there on the rim of the possible, to bring her twin sister back from the dead.<\/p>\n<!-- \/wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>This is an excerpt for demo purposes. You can read the full story on <a rel=\"noreferrer noopener\" href=\"https:\/\/katalepsis.net\/\" data-type=\"URL\" data-id=\"https:\/\/katalepsis.net\/\" target=\"_blank\">www.katalepsis.net<\/a>.<\/strong><\/p>\n<!-- \/wp:paragraph -->",
-    "description": "Nightmares and hallucinations have plagued Heather Morell all her life, relics of schizophrenia and childhood bereavement. Until she meets Raine and Evelyn, that is \u2014 self-proclaimed bodyguard and bad-tempered magician \u2014 and learns she\u2019s not insane at all. The spirits and monsters she sees are all too real, the god-thing in her nightmares is teaching her how to surpass human limits, and her twin sister who supposedly never existed could still be alive, somewhere Outside, beyond the walls of reality.",
-    "words": 95558,
-    "ageRating": "Teen",
-    "status": "Ongoing",
-    "chapterCount": 17,
-    "published": 1673218246,
-    "modified": 1674004959,
-    "protected": false,
-    "images": {
-      "hotlinkAllowed": false,
-      "header": "https:\/\/fictioneer-theme.com\/wp-content\/uploads\/2023\/01\/katalepsis_header.jpg",
-      "cover": "https:\/\/res.cloudinary.com\/dmhr3ab5n\/images\/f_auto,q_auto\/v1674220342\/fictioneer-demo\/katalepsis_cover\/katalepsis_cover.jpg?_i=AA"
-    },
-    "taxonomies": {
-      "tags": ["Drugs", "Magic", "Mental Illness", "Polyamory"],
-      "fandoms": ["Original"],
-      "warnings": ["Gore", "Violence"],
-      "genres": ["Body Horror", "Cosmic Horror", "Girls Love", "Romance", "Urban Fantasy"]
-    },
-    "chapters": [{
-      "id": 29,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=29",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/mind-correlating-1-1\/",
-      "language": "en-US",
-      "title": "mind; correlating \u2013 1.1",
-      "group": "mind; correlating",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673842132,
-      "modified": 1674004959,
-      "protected": false,
-      "words": "8040",
-      "nonChapter": false,
-      "ageRating": "Teen",
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 35,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=35",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/mind-correlating-1-2\/",
-      "language": "en-US",
-      "title": "mind; correlating \u2013\u00a01.2",
-      "group": "mind; correlating",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673224433,
-      "modified": 1673978225,
-      "protected": false,
-      "words": "5949",
-      "nonChapter": false,
-      "ageRating": "Teen",
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 40,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=40",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/mind-correlating-1-3\/",
-      "language": "en-US",
-      "title": "mind; correlating \u2013\u00a01.3",
-      "group": "mind; correlating",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673224752,
-      "modified": 1673978225,
-      "protected": true,
-      "words": "5242",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 45,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=45",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/mind-correlating-1-4\/",
-      "language": "en-US",
-      "title": "mind; correlating \u2013\u00a01.4",
-      "group": "mind; correlating",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673224920,
-      "modified": 1673978225,
-      "protected": false,
-      "words": "4509",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 49,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=49",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/mind-correlating-1-5\/",
-      "language": "en-US",
-      "title": "mind; correlating \u2013\u00a01.5",
-      "group": "mind; correlating",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225068,
-      "modified": 1673978225,
-      "protected": false,
-      "words": "8272",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 52,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=52",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-1\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.1",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225167,
-      "modified": 1673978225,
-      "protected": false,
-      "words": "4249",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 57,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=57",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-2\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.2",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225345,
-      "modified": 1673978225,
-      "protected": false,
-      "words": "5836",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 63,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=63",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-3\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.3",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225481,
-      "modified": 1673978208,
-      "protected": false,
-      "words": "5173",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 66,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=66",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-4\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.4",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225609,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "3892",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 69,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=69",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-5\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.5",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225665,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "5761",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 74,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=74",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-6\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.6",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225757,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "5043",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 77,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=77",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-7\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.7",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225843,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "5640",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 80,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=80",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-8\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.8",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225916,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "4919",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 83,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=83",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-9\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.9",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673225981,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "6068",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 86,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=86",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-10\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.10",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673226040,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "7155",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 89,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=89",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-11\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.11",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673226099,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "5109",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }, {
-      "id": 92,
-      "guid": "https:\/\/fictioneer-theme.com\/?post_type=fcn_chapter&#038;p=92",
-      "url": "https:\/\/fictioneer-theme.com\/chapter\/providence-or-atoms-2-12\/",
-      "language": "en-US",
-      "title": "providence or atoms \u2013\u00a02.12",
-      "group": "providence or atoms",
-      "author": {
-        "name": "Hungry",
-        "url": "https:\/\/katalepsis.net\/"
-      },
-      "published": 1673226161,
-      "modified": 1673978207,
-      "protected": false,
-      "words": "4701",
-      "nonChapter": false,
-      "taxonomies": {
-        "tags": ["Magic", "Mental Illness"],
-        "fandoms": ["Original"],
-        "genres": ["Body Horror", "Cosmic Horror", "Lesbian", "Romance", "Urban Fantasy"]
-      }
-    }],
-    "support": {
-      "topwebfiction": "http:\/\/topwebfiction.com\/listings\/katalepsis",
-      "patreon": "https:\/\/www.patreon.com\/hazelyoung\/posts"
-    },
-    "timestamp": 1676730691
-  }
-  ```
-
-  Prettified by [beautifier.io](https://beautifier.io/).
-</details>
 
 ## Endpoint: Stories
 
