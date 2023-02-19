@@ -4,7 +4,7 @@ Perhaps "API" is promising a bit much
 
 ## Configuration
 
-You can enable the Storygraph API under **Fictioneer > General > Features**. There is not much reason not to, but the choice is left to you. Additional configurations can be made using a child theme and the `FICTIONEER_API_STORYGRAPH_*` constants listed in the [installation guide](INSTALLATION.md#constants).
+You can enable the Storygraph API under **Fictioneer > General > Features**. There is not much reason not to, but the choice is left to you. Additional configurations can be made using a child theme and the `FICTIONEER_API_STORYGRAPH_*` [constants](INSTALLATION.md#constants).
 
 ## Endpoint: Story
 
