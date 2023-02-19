@@ -1,6 +1,6 @@
 # Storygraph API
 
-Perhaps "API" is promising a bit much
+Perhaps "API" is promising a bit much, considering there are only two endpoints right now. But both are powerful. The Storygraph API allows to query all stories and chapters on a site in order to index them. This makes it possible to search and filter stories from multiple Fictioneer sites. Because the biggest disadvantage of hosting your own site is the lack of audience that archives offer. This is a possible solution, although someone still needs to utilize it.
 
 ## Configuration
 
