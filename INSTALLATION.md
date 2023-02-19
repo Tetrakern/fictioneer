@@ -563,7 +563,8 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
-* **Enable OAuth 2.0 authentication:** Allows visitors to register, but be aware of the privacy implications!
+* **Enable Storygraph API:** Allow external services to index and search your site to reach a larger audience. Recommended.
+* **Enable OAuth 2.0 authentication:** Allow visitors to register with social media accounts, but be aware of the implications!
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
 * **Disable theme comment \*:** If you want to use different comments. Disables most of the other comment options as well.
@@ -589,7 +590,7 @@ Lists all generated ePUBs with statistics, download links, and options to delete
 
 ### SEO Tab
 
-Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you have the options to purge the cached meta data or schemas if that should become necessary.
+Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you can purge the cached meta data or schemas if that should become necessary.
 
 ### Tools Tab
 
@@ -690,7 +691,7 @@ The minimum and maximum values found in the Customizer are used to calculate [cl
 
 ![Menu Screen](repo/assets/menu_screen_options.jpg?raw=true)
 
-Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, which are precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
+Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, located precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
 
 On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** only shows the top level menu items in a scrollable track, but the mobile menu is an unfolded list of all items if not specifically excluded with optional CSS classes.
 
@@ -699,7 +700,7 @@ On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** onl
 
 ### Constants
 
-Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options defined via constants in the **function.php**. If you want to change them, you need a child [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
+Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a child [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
 
 ```php
 define( 'CONSTANT_NAME', value );
@@ -714,14 +715,14 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
 | FICTIONEER_PRIMARY_FONT_CSS | string | CSS name of the primary font. Default `'Open Sans'`.
 | FICTIONEER_PRIMARY_FONT_NAME | string | Display name of the primary font. Default `'Open Sans'`.
-| FICTIONEER_COMMENTCODE_TTL | int | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
-| FICTIONEER_AJAX_TTL | int | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
-| FICTIONEER_AJAX_LOGIN_TTL | int | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
-| FICTIONEER_AJAX_POST_DEBOUNCE_RATE | int | How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
-| FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | int | Maximum number of authors in the advanced search suggestions. Default `100`.
-| FICTIONEER_UPDATE_CHECK_TIMEOUT | int | Timeout between checks for theme updates in _seconds_. Default `3600`.
-| FICTIONEER_API_STORYGRAPH_CACHE_TTL | int | How long Storygraph responses are cached in _seconds_. Default `3600`.
-| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | int | How many items the Storygraph `/stories` endpoint returns. Default 10.
+| FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
+| FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
+| FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
+| FICTIONEER_AJAX_POST_DEBOUNCE_RATE | integer | How long to debounce AJAX requests of the same type _milliseconds_. Default `700`.
+| FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | integer | Maximum number of authors in the advanced search suggestions. Default `100`.
+| FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `3600`.
+| FICTIONEER_API_STORYGRAPH_CACHE_TTL | integer | How long Storygraph responses are cached in _seconds_. Default `3600`.
+| FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | integer | How many items the Storygraph `/stories` endpoint returns. Default 10.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
