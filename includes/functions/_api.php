@@ -324,7 +324,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
   function fictioneer_api_request_stories( WP_REST_Request $data ) {
     // Setup
-    $page = max( $data['page'] ?? 1, 1 );
+    $page = max( absint( $data['page'] ) ?? 1, 1 );
     $graph = [];
 
     // Return cache if still valid
