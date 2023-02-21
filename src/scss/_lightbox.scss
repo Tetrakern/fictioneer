@@ -32,4 +32,14 @@
     max-width: calc(100vw - 2rem);
     object-fit: contain;
   }
+
+  .loader {
+    display: block;
+    width: fit-content;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
