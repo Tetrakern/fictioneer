@@ -81,7 +81,7 @@ if ( ! defined( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT' ) ) {
 
 // Integer: Update check timeout
 if ( ! defined( 'FICTIONEER_UPDATE_CHECK_TIMEOUT' ) ) {
-  define( 'FICTIONEER_UPDATE_CHECK_TIMEOUT', 3600 );
+  define( 'FICTIONEER_UPDATE_CHECK_TIMEOUT', 43200 ); // 12 hours
 }
 
 // Integer: Storygraph API cache TTL
