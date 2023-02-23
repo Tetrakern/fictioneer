@@ -69,12 +69,11 @@
       <div class="select-wrapper">
         <select id="reader-settings-font-select" name="fonts">
           <?php
-            $fonts = [FICTIONEER_PRIMARY_FONT_CSS, 'System Font', 'Lato', 'Helvetica Neue', 'Georgia', 'Roboto Mono', 'Roboto Serif', 'Cormorant Garamond', 'Crimson Text', 'Open Dyslexic'];
-            $font_names = [FICTIONEER_PRIMARY_FONT_NAME, __( 'System Font', 'fictioneer' ), __( 'Lato', 'fictioneer' ), __( 'Helvetica Neue', 'fictioneer' ), __( 'Georgia', 'fictioneer' ), __( 'Roboto Mono', 'fictioneer' ), __( 'Roboto Serif', 'fictioneer' ), __( 'Cormorant Garamond', 'fictioneer' ), __( 'Crimson Text', 'fictioneer' ), __( 'Open Dyslexic', 'fictioneer' )];
+            $fonts = fictioneer_get_fonts();
             $length = count( $fonts );
 
             for ( $i = 0; $i < $length; $i++ ) {
-              echo '<option value="' . $i . '">' . $font_names[ $i ] . '</option>';
+              echo '<option value="' . $i . '">' . $fonts[ $i ]['name'] . '</option>';
             }
           ?>
         </select>

@@ -35,19 +35,6 @@ const /** @const {String[]} */ fcn_fontAlternatives = { 'Helvetica Neue': 'Arial
         'Black'
       ];
 
-var /** @type {String[]} */ fcn_fontList = [
-      fcn_theRoot.dataset.primaryFont,
-      'System Font',
-      'Lato',
-      'Helvetica Neue',
-      'Georgia',
-      'Roboto Mono',
-      'Roboto Serif',
-      'Cormorant Garamond',
-      'Crimson Text',
-      'OpenDyslexic'
-    ];
-
 // Initialize
 var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
 
@@ -365,7 +352,7 @@ function fcn_defaultFormatting() {
     'font-saturation': 0,
     'font-color': fcn_colorList[0],
     'font-color-name': fcn_colorNames[0],
-    'font-name': fcn_fontList[0],
+    'font-name': fictioneer_fonts[0].css,
     'font-size': 100,
     'letter-spacing': fcn_letterSpacingDefault,
     'line-height': fcn_lineHeightDefault,
@@ -553,34 +540,37 @@ const /** @const {HTMLElement} */ fcn_fontFamilyReset = _$$$('reader-settings-fo
  *
  * @since 4.0
  * @see fcn_setFormatting();
- * @param {String} font - Name of the font to set.
+ * @param {String} index - Index of the font.
  * @param {Boolean} [save=true] - Optional. Whether to save the change.
  */
 
-function fcn_updateFontFamily(font, save = true) {
+function fcn_updateFontFamily(index, save = true) {
+  // Stay within bounds
+  index = fcn_clamp(0, fictioneer_fonts.length - 1, index);
+
   // Prepare font family
-  let fontFamily = font === 'System Font' ? '' : `"${font}", `;
-      fontAlt = fcn_fontAlternatives[font],
-      fontFamily = fontAlt ? `${fontFamily}"${fontAlt}", var(--font-system)` : `${fontFamily}var(--font-system)`,
-      fontIndex = fcn_fontList.indexOf(font);
+  let fontFamily = `"${fictioneer_fonts[index].css}"`;
+
+  // Add alternative fonts if any
+  if (fictioneer_fonts[index].alt) fontFamily = `${fontFamily}, "${fictioneer_fonts[index].alt}"`;
 
   // Catch non-indexed values
-  if (fontIndex < 0) {
-    fcn_updateFontFamily(fcn_fontList[0]);
+  if (index < 0) {
+    fcn_updateFontFamily(0);
     return;
   }
 
   // Update associated elements
-  fcn_fontFamilyReset.classList.toggle('_modified', font != fcn_fontList[0]);
-  fcn_fontFamilySelect.value = fcn_fontList.indexOf(font);
+  fcn_fontFamilyReset.classList.toggle('_modified', index > 0);
+  fcn_fontFamilySelect.value = index;
 
   // Update inline style
   _$$('.chapter-font-family').forEach(element => {
-    element.style.fontFamily = fontFamily;
+    element.style.fontFamily = fontFamily + ', var(--font-system)';
   });
 
   // Update local storage
-  fcn_formatting['font-name'] = font;
+  fcn_formatting['font-name'] = fictioneer_fonts[index].css;
   if (save) fcn_setFormatting(fcn_formatting);
 }
 
@@ -592,16 +582,16 @@ function fcn_updateFontFamily(font, save = true) {
  */
 
 function fcn_setFontFamily(step = 1) {
-  let index = (fcn_fontFamilySelect.selectedIndex + parseInt(step)) % fcn_fontList.length;
-  index = index < 0 ? fcn_fontList.length - 1 : index;
-  fcn_updateFontFamily(fcn_fontList[index]);
+  let index = (fcn_fontFamilySelect.selectedIndex + parseInt(step)) % fictioneer_fonts.length;
+  index = index < 0 ? fictioneer_fonts.length - 1 : index;
+  fcn_updateFontFamily(index);
 }
 
 // Listen for click on font reset button
-fcn_fontFamilyReset.onclick = () => { fcn_updateFontFamily(fcn_fontList[0]) }
+fcn_fontFamilyReset.onclick = () => { fcn_updateFontFamily(0) }
 
 // Listen for font select input
-fcn_fontFamilySelect.onchange = (e) => { fcn_updateFontFamily(fcn_fontList[e.target.value]) }
+fcn_fontFamilySelect.onchange = (e) => { fcn_updateFontFamily(e.target.value) }
 
 // Listen for font step buttons (including mobile menu quick buttons)
 _$$('.font-stepper').forEach(element => {
@@ -610,8 +600,8 @@ _$$('.font-stepper').forEach(element => {
   });
 });
 
-// Initialize
-fcn_updateFontFamily(fcn_formatting['font-name'], false);
+// Initialize (using the CSS name makes it independent from the array position)
+fcn_updateFontFamily(fictioneer_fonts.findIndex((item) => { return item.css == fcn_formatting['font-name'] }), false);
 
 // =============================================================================
 // CHAPTER FORMATTING: FONT SATURATION

@@ -1458,4 +1458,37 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
   }
 }
 
+// =============================================================================
+// GET FONTS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
+  /**
+   * Returns array of font items
+   *
+   * @since 5.1.1
+   *
+   * @return array Font items (css, name, and alt).
+   */
+
+  function fictioneer_get_fonts() {
+    // Setup default fonts
+    $fonts = array(
+      ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME],
+      ['css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' )],
+      ['css' => 'Lato', 'name' => _x( 'Lato', 'Font name.', 'fictioneer' )],
+      ['css' => 'Helvetica Neue', 'name' => _x( 'Helvetica Neue', 'Font name.', 'fictioneer' ), 'alt' => 'Arial'],
+      ['css' => 'Georgia', 'name' => _x( 'Georgia', 'Font name.', 'fictioneer' )],
+      ['css' => 'Roboto Mono', 'name' => _x( 'Roboto Mono', 'Font name.', 'fictioneer' )],
+      ['css' => 'Roboto Serif', 'name' => _x( 'Roboto Serif', 'Font name.', 'fictioneer' )],
+      ['css' => 'Cormorant Garamond', 'name' => _x( 'Cormorant Garamond', 'Font name.', 'fictioneer' ), 'alt' => 'Garamond'],
+      ['css' => 'Crimson Text', 'name' => _x( 'Crimson Text', 'Font name.', 'fictioneer' )],
+      ['css' => 'OpenDyslexic', 'name' => _x( 'Open Dyslexic', 'Font name.', 'fictioneer' )]
+    );
+
+    // Apply filters and return
+    return apply_filters( 'fictioneer_filter_fonts', $fonts );
+  }
+}
+
 ?>

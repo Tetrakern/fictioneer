@@ -270,6 +270,14 @@ Filters the form fields of the `fictioneer_contact_form` shortcode.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_fonts', $fonts )`
+Filters the return array of the `fictioneer_get_fonts()` function, used to set up the chapter font options.
+
+**Parameters:**
+* $fonts (array) – Numeric array of fonts items with CSS name (`css`), display name (`name`), and fallbacks (`alt`).
+
+---
+
 ### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id )`
 Filters the URL of the header image in the `header.php` template.
 
