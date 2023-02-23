@@ -228,16 +228,16 @@ The following list credits all third-party resources used in the Fictioneer them
   Source: https://fonts.google.com/specimen/Cormorant+Garamond
 
 * **Lato**<br>
-  Copyright (c) 2010-2011: Lato-Hairline.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-HairlineItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-Light.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-LightItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-Regular.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-Italic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-Bold.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-BoldItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-Black.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
-  Copyright (c) 2010-2011: Lato-BlackItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Hairline.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-HairlineItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Light.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-LightItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Regular.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Italic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Bold.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-BoldItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-Black.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
+  Copyright 2010-2011: Lato-BlackItalic.ttf by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato".<br>
   License: [SIL OFL 1.1](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)<br>
   Source: https://fonts.google.com/specimen/Lato
 
@@ -252,6 +252,16 @@ The following list credits all third-party resources used in the Fictioneer them
   Copyright 2020: RobotoSerif-Italic\[GRAD,opsz,wdth,wght].ttf by [The Roboto Serif Project Authors](https://github.com/googlefonts/RobotoSerif)<br>
   License: [SIL OFL 1.1](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)<br>
   Source: https://fonts.google.com/specimen/Roboto+Serif
+
+* **Crimson Text**<br>
+  Copyright 2010: CrimsonText-Regular.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  Copyright 2010: CrimsonText-Italic.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  Copyright 2010: CrimsonText-SemiBold.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  Copyright 2010: CrimsonText-SemiBoldItalic.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  Copyright 2010: CrimsonText-Bold.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  Copyright 2010: CrimsonText-BoldItalic.ttf by [The Crimson Text Project Authors](https://github.com/googlefonts/Crimson)<br>
+  License: [SIL OFL 1.1](http://scripts.sil.org/OFL)<br>
+  Source: https://fonts.google.com/specimen/Crimson+Text
 
 ## Other
 

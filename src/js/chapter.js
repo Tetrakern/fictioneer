@@ -44,6 +44,7 @@ var /** @type {String[]} */ fcn_fontList = [
       'Roboto Mono',
       'Roboto Serif',
       'Cormorant Garamond',
+      'Crimson Text',
       'OpenDyslexic'
     ];
 

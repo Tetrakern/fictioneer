@@ -3,7 +3,7 @@
  * that might come up with the Google Fonts API.
  *
  * @note This file must be ignored by Autoptimize!
- * @link https://google-webfonts-helper.herokuapp.com/fonts
+ * @link https://gwfh.mranftl.com/fonts
  */
 
 // =============================================================================
@@ -558,4 +558,62 @@
   size-adjust: 115%;
   src: url('../fonts/cormorant-garamond-v14-latin-ext_latin/cormorant-garamond-v14-latin-ext_latin-700italic.woff2') format('woff2'),
        url('../fonts/cormorant-garamond-v14-latin-ext_latin/cormorant-garamond-v14-latin-ext_latin-700italic.woff') format('woff');
+}
+
+// =============================================================================
+// CRIMSON TEXT
+// =============================================================================
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-regular.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-regular.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-italic.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-italic.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-600.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-600.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 600;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-600italic.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-600italic.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-700.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-700.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-700italic.woff2') format('woff2'),
+       url('../fonts/crimson-text-v19-latin_latin-ext/crimson-text-v19-latin_latin-ext-700italic.woff') format('woff');
 }
