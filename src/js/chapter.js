@@ -541,7 +541,7 @@ function fcn_updateFontFamily(index, save = true) {
 
   // Update inline style
   _$$('.chapter-font-family').forEach(element => {
-    element.style.fontFamily = fontFamily + ', var(--font-system)';
+    element.style.fontFamily = fontFamily === '""' ? 'var(--font-system)' : fontFamily + ', var(--font-system)';
   });
 
   // Update local storage
