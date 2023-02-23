@@ -297,10 +297,10 @@ function fcn_getFormatting() {
   let f = localStorage.getItem('fcnChapterFormatting');
 
   // ... parse if found, set defaults otherwise
-  f = (typeof f === 'object' && fcn_isValidJSONString(f)) ? JSON.parse(f) : fcn_defaultFormatting();
+  f = (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : fcn_defaultFormatting();
 
   // Simple validation
-  if (Object.keys(f).length < 15) f = fcn_defaultFormatting();
+  if (!f || typeof f !== 'object' || Object.keys(f).length < 15) f = fcn_defaultFormatting();
 
   // Timestamp allows to force resets after script updates (may annoy users)
   if (!f.hasOwnProperty('timestamp') || f['timestamp'] < 1651164557584) {
