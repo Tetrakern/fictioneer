@@ -297,10 +297,10 @@ function fcn_getFormatting() {
   let f = localStorage.getItem('fcnChapterFormatting');
 
   // ... parse if found, set defaults otherwise
-  f = (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : fcn_defaultFormatting();
+  f = (typeof f === 'object' && fcn_isValidJSONString(f)) ? JSON.parse(f) : fcn_defaultFormatting();
 
   // Simple validation
-  if (Object.keys(f).length < 16) f = fcn_defaultFormatting();
+  if (Object.keys(f).length < 15) f = fcn_defaultFormatting();
 
   // Timestamp allows to force resets after script updates (may annoy users)
   if (!f.hasOwnProperty('timestamp') || f['timestamp'] < 1651164557584) {
@@ -324,7 +324,6 @@ function fcn_defaultFormatting() {
   return {
     'font-saturation': 0,
     'font-color': fictioneer_font_colors[0].css,
-    'font-color-name': fictioneer_font_colors[0].name,
     'font-name': fictioneer_fonts[0].css,
     'font-size': 100,
     'letter-spacing': fcn_letterSpacingDefault,
@@ -470,7 +469,6 @@ function fcn_updateFontColor(index, save = true) {
 
   // Update local storage
   fcn_formatting['font-color'] = fictioneer_font_colors[index].css;
-  fcn_formatting['font-color-name'] = fictioneer_font_colors[index].name;
   if (save) fcn_setFormatting(fcn_formatting);
 }
 
