@@ -453,22 +453,24 @@ const /** @const {HTMLElement} */ fcn_fontColorReset = _$$$('reader-settings-fon
  *
  * @since 4.0
  * @see fcn_setFormatting();
- * @param {String} color - The CSS color value to set.
- * @param {String} name - Display name of the color to set.
+ * @param {String} index - Index of the CSS color value to set.
  * @param {Boolean} [save=true] - Optional. Whether to save the change.
  */
 
-function fcn_updateFontColor(color, name, save = true) {
+function fcn_updateFontColor(index, save = true) {
+  // Stay within bounds
+  index = fcn_clamp(0, fictioneer_font_colors.length - 1, index);
+
   // Update associated elements
-  fcn_fontColorReset.classList.toggle('_modified', color > 0);
-  fcn_fontColorSelect.value = color;
+  fcn_fontColorReset.classList.toggle('_modified', index > 0);
+  fcn_fontColorSelect.value = index;
 
   // Update inline style
-  fcn_chapterFormatting.style.setProperty('--text-chapter', fictioneer_font_colors[color].css);
+  fcn_chapterFormatting.style.setProperty('--text-chapter', fictioneer_font_colors[index].css);
 
   // Update local storage
-  fcn_formatting['font-color'] = fictioneer_font_colors[color].css;
-  fcn_formatting['font-color-name'] = fictioneer_font_colors[color].name;
+  fcn_formatting['font-color'] = fictioneer_font_colors[index].css;
+  fcn_formatting['font-color-name'] = fictioneer_font_colors[index].name;
   if (save) fcn_setFormatting(fcn_formatting);
 }
 
