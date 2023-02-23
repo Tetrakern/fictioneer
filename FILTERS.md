@@ -278,6 +278,14 @@ Filters the return array of the `fictioneer_get_fonts()` function, used to set u
 
 ---
 
+### `apply_filters( 'fictioneer_filter_font_colors', $colors )`
+Filters the return array of the `fictioneer_get_font_colors()` function, used to set up the chapter font color options.
+
+**Parameters:**
+* $fonts (array) – Numeric array of color items with CSS name (`css`) and display name (`name`).
+
+---
+
 ### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id )`
 Filters the URL of the header image in the `header.php` template.
 

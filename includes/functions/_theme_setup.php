@@ -567,14 +567,15 @@ function fictioneer_add_custom_scripts() {
   // Enqueue application
   wp_enqueue_script( 'fictioneer-application-scripts' );
 
+  // Localize application
   wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_ajax', array(
     'ajax_url' => admin_url( 'admin-ajax.php' ),
     'ttl' => FICTIONEER_AJAX_TTL,
     'login_ttl' => FICTIONEER_AJAX_LOGIN_TTL,
     'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE
   ));
-
   wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_fonts', fictioneer_get_fonts() );
+  wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_font_colors', fictioneer_get_font_colors() );
 
   // Enqueue mobile menu
   wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );

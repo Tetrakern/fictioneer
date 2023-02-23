@@ -2,38 +2,11 @@
 // SETUP
 // =============================================================================
 
-const /** @const {String[]} */ fcn_fontAlternatives = { 'Helvetica Neue': 'Arial', 'Cormorant Garamond': 'Garamond' },
-      /** @const {Number} */ fcn_letterSpacingDefault = 0.0,
+const /** @const {Number} */ fcn_letterSpacingDefault = 0.0,
       /** @const {Number} */ fcn_paragraphSpacingDefault = 1.5,
       /** @const {Number} */ fcn_lineHeightDefault = 1.7,
       /** @const {Number} */ fcn_siteWidthDefault = fcn_theRoot.dataset.siteWidthDefault ?? '960',
-      /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting'),
-      /** @const {String[]} */ fcn_colorList = [
-        'var(--fg-tinted)',
-        'var(--fg-500)',
-        'var(--fg-600)',
-        'var(--fg-700)',
-        'var(--fg-800)',
-        'var(--fg-400)',
-        'var(--fg-300)',
-        'var(--fg-200)',
-        '#fff',
-        '#999',
-        '#000'
-      ],
-      /** @const {String[]} */ fcn_colorNames = [
-        'Tinted',
-        'Baseline',
-        'Low',
-        'Lower',
-        'Lowest',
-        'High',
-        'Higher',
-        'Highest',
-        'White',
-        'Gray',
-        'Black'
-      ];
+      /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
 
 // Initialize
 var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
@@ -350,8 +323,8 @@ function fcn_getFormatting() {
 function fcn_defaultFormatting() {
   return {
     'font-saturation': 0,
-    'font-color': fcn_colorList[0],
-    'font-color-name': fcn_colorNames[0],
+    'font-color': fictioneer_font_colors[0].css,
+    'font-color-name': fictioneer_font_colors[0].name,
     'font-name': fictioneer_fonts[0].css,
     'font-size': 100,
     'letter-spacing': fcn_letterSpacingDefault,
@@ -487,15 +460,15 @@ const /** @const {HTMLElement} */ fcn_fontColorReset = _$$$('reader-settings-fon
 
 function fcn_updateFontColor(color, name, save = true) {
   // Update associated elements
-  fcn_fontColorReset.classList.toggle('_modified', name != fcn_colorNames[0]);
-  fcn_fontColorSelect.value = fcn_colorList.indexOf(color);
+  fcn_fontColorReset.classList.toggle('_modified', color > 0);
+  fcn_fontColorSelect.value = color;
 
   // Update inline style
-  fcn_chapterFormatting.style.setProperty('--text-chapter', color);
+  fcn_chapterFormatting.style.setProperty('--text-chapter', fictioneer_font_colors[color].css);
 
   // Update local storage
-  fcn_formatting['font-color'] = color;
-  fcn_formatting['font-color-name'] = name;
+  fcn_formatting['font-color'] = fictioneer_font_colors[color].css;
+  fcn_formatting['font-color-name'] = fictioneer_font_colors[color].name;
   if (save) fcn_setFormatting(fcn_formatting);
 }
 
@@ -507,16 +480,16 @@ function fcn_updateFontColor(color, name, save = true) {
  */
 
 function fcn_setFontColor(step = 1) {
-  let index = (fcn_fontColorSelect.selectedIndex + parseInt(step)) % fcn_colorNames.length;
-  index = index < 0 ? fcn_colorNames.length - 1 : index;
-  fcn_updateFontColor(fcn_colorList[index], fcn_colorNames[index]);
+  let index = (fcn_fontColorSelect.selectedIndex + parseInt(step)) % fictioneer_font_colors.length;
+  index = index < 0 ? fictioneer_font_colors.length - 1 : index;
+  fcn_updateFontColor(index);
 }
 
 // Listen for click on font color reset button
-fcn_fontColorReset.onclick = () => { fcn_updateFontColor(fcn_colorList[0], fcn_colorNames[0]) }
+fcn_fontColorReset.onclick = () => { fcn_updateFontColor(0) }
 
 // Listen for font color select input
-fcn_fontColorSelect.onchange = (e) => { fcn_updateFontColor(fcn_colorList[e.target.value], fcn_colorNames[e.target.value]); }
+fcn_fontColorSelect.onchange = (e) => { fcn_updateFontColor(e.target.value); }
 
 // Listen for font color step buttons
 _$$('.font-color-stepper').forEach(element => {
@@ -525,8 +498,8 @@ _$$('.font-color-stepper').forEach(element => {
   });
 });
 
-// Initialize
-fcn_updateFontColor(fcn_formatting['font-color'], fcn_formatting['font-color-name'], false);
+// Initialize (using the CSS name makes it independent from the array position)
+fcn_updateFontColor(fictioneer_font_colors.findIndex((item) => { return item.css == fcn_formatting['font-color'] }), false);
 
 // =============================================================================
 // CHAPTER FORMATTING: FONT FAMILY

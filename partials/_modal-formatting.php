@@ -87,12 +87,11 @@
       <div class="select-wrapper">
         <select id="reader-settings-font-color-select" name="colors">
           <?php
-            $colors = ['Tinted', 'Baseline', 'Low', 'Lower', 'Lowest', 'High', 'Higher', 'Highest', 'White', 'Gray', 'Black'];
-            $color_names = [__( 'Tinted', 'fictioneer' ), __( 'Baseline', 'fictioneer' ), __( 'Low', 'fictioneer' ), __( 'Lower', 'fictioneer' ), __( 'Lowest', 'fictioneer' ), __( 'High', 'fictioneer' ), __( 'Higher', 'fictioneer' ), __( 'Highest', 'fictioneer' ), __( 'White', 'fictioneer' ), __( 'Gray', 'fictioneer' ), __( 'Black', 'fictioneer' )];
+            $colors = fictioneer_get_font_colors();
             $length = count( $colors );
 
             for ( $i = 0; $i < $length; $i++ ) {
-              echo '<option value="' . $i . '">' . $color_names[ $i ] . '</option>';
+              echo '<option value="' . $i . '">' . $colors[ $i ]['name'] . '</option>';
             }
           ?>
         </select>
