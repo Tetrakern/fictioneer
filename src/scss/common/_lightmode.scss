@@ -307,6 +307,7 @@
   --badge-override-text: var(--fg-1000);
   --badge-override-background: var(--bg-400);
 
+  // === SCOPES ================================================================
   .consent-banner {
     --consent-banner-text: var(--fg-1000);
     --consent-banner-background: var(--e-overlay);
@@ -423,4 +424,12 @@
     --site-title-tagline-color: var(--fg-500);
     --site-title-text-shadow: none;
   }
+}
+
+// =============================================================================
+// FONT WEIGHTS
+// =============================================================================
+
+:root[data-font-weight=normal][data-mode=light]:is(html) {
+  --font-weight-heading: 700;
 }
