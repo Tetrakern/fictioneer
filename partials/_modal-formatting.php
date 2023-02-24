@@ -28,7 +28,7 @@
       <input type="number" value="0" min="-100" max="100" class="setting-saturation-text">
     </div>
 
-    <div class="modal__row reader-settings__row _vertical-shrink-spacing">
+    <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640">
       <i class="fa-solid fa-arrows-alt-h reset" title="<?php esc_attr_e( 'Content Width', 'fictioneer' ); ?>" id="reader-settings-site-width-reset"></i>
       <input type="range" value="960" min="640" max="1920" step="1" class="slider" id="reader-settings-site-width-range">
       <input type="number" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-text">
