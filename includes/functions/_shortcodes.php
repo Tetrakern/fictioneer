@@ -757,6 +757,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
             <?php
               // Chapter subrow
               $chapter_data = [];
+              $chapter_data['id'] = $chapter_id;
               $chapter_data['warning'] = $warning;
               $chapter_data['warning_color'] = $warning_color;
               $chapter_data['password'] = post_password_required();
@@ -764,7 +765,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               $chapter_data['list_date'] = get_the_date( '' );
               $chapter_data['words'] = $words;
 
-              echo fictioneer_get_chapter_list_subrow( $chapter_data );
+              echo fictioneer_get_chapter_list_meta( $chapter_data );
             ?>
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>

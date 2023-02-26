@@ -302,7 +302,7 @@ $blog_posts = new WP_Query(
                     <i class="fa-solid fa-lock icon-password grid-view"></i>
                   <?php endif; ?>
 
-                  <?php echo fictioneer_get_chapter_list_subrow( $chapter, ['grid' => true] ); ?>
+                  <?php echo fictioneer_get_chapter_list_meta( $chapter, ['grid' => true] ); ?>
 
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
                     <div class="chapter-group__list-item-right">

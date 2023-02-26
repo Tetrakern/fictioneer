@@ -1450,19 +1450,19 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
 // GET CHAPTER LIST SUBROW
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_chapter_list_subrow' ) ) {
+if ( ! function_exists( 'fictioneer_get_chapter_list_meta' ) ) {
   /**
-   * Returns HTML for chapter list subrow
+   * Returns HTML for chapter list meta row
    *
    * @since Fictioneer 5.1.2
    *
-   * @param array $data Chapter data for the subrow.
+   * @param array $data Chapter data for the meta row.
    * @param array $args Optional arguments.
    *
-   * @return string HTML of the chapter list subrow.
+   * @return string HTML of the chapter list meta row.
    */
 
-  function fictioneer_get_chapter_list_subrow( $data, $args = [] ) {
+  function fictioneer_get_chapter_list_meta( $data, $args = [] ) {
     // Setup
     $output = [];
     $has_grid_view = ! empty( $args['grid'] );
@@ -1529,7 +1529,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_subrow' ) ) {
     $output['words'] = ob_get_clean();
 
     // Apply filters
-    $output = apply_filters( 'fictioneer_filter_chapter_list_subrow_items', $output, $data, $args );
+    $output = apply_filters( 'fictioneer_filter_chapter_list_meta_items', $output, $data, $args );
 
     // Implode and return
     return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( '', $output ) . '</div>';
