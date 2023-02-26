@@ -1472,7 +1472,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_subrow' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <span class="chapter-group__list-item-warning list-view" style="<?php echo $data['warning_color']; ?>"><?php
-        printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $data['warning'] );
+        printf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] );
       ?></span>
       <?php // <--- End HTML
       $output['warning'] = ob_get_clean();
@@ -1515,14 +1515,14 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_subrow' ) ) {
     if ( $has_grid_view ) {
       // Start HTML ---> ?>
       <span class="chapter-group__list-item-words">
-        <span class="list-view"><?php printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) ); ?></span>
-        <span class="grid-view"><?php printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), fictioneer_shorten_number( $data['words'] ) ); ?></span>
+        <span class="list-view"><?php printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) ); ?></span>
+        <span class="grid-view"><?php printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), fictioneer_shorten_number( $data['words'] ) ); ?></span>
       </span>
       <?php // <--- End HTML
     } else {
       // Start HTML ---> ?>
       <span class="chapter-group__list-item-words"><?php
-        printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
+        printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
       ?></span>
       <?php // <--- End HTML
     }
