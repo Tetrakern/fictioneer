@@ -1446,4 +1446,94 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
   }
 }
 
+// =============================================================================
+// GET CHAPTER LIST SUBROW
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_chapter_list_subrow' ) ) {
+  /**
+   * Returns HTML for chapter list subrow
+   *
+   * @since Fictioneer 5.1.2
+   *
+   * @param array $data Chapter data for the subrow.
+   * @param array $args Optional arguments.
+   *
+   * @return string HTML of the chapter list subrow.
+   */
+
+  function fictioneer_get_chapter_list_subrow( $data, $args = [] ) {
+    // Setup
+    $output = [];
+    $has_grid_view = ! empty( $args['grid'] );
+
+    // Warning
+    if ( ! empty( $data['warning'] ) ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <span class="chapter-group__list-item-warning list-view" style="<?php echo $data['warning_color']; ?>"><?php
+        printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $data['warning'] );
+      ?></span>
+      <?php // <--- End HTML
+      $output['warning'] = ob_get_clean();
+      $output['bullet-after-warning'] = '<span class="bullet list-view">&bull;</span>';
+    }
+
+    // Password
+    if ( ! empty( $data['password'] ) ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <span class="chapter-group__list-item-password list-view"><?php
+        echo fcntr( 'password' );
+      ?></span>
+      <?php // <--- End HTML
+      $output['password'] = ob_get_clean();
+      $output['bullet-after-password'] = '<span class="bullet list-view">&bull;</span>';
+    }
+
+    // Date
+    ob_start();
+    if ( $has_grid_view ) {
+      // Start HTML ---> ?>
+      <time datetime="<?php echo $data['timestamp']; ?>" class="chapter-group__list-item-date">
+        <span class="list-view"><span><?php echo $data['list_date']; ?></span></span>
+        <span class="grid-view"><?php echo $data['grid_date']; ?></span>
+      </time>
+      <?php // <--- End HTML
+    } else {
+      // Start HTML ---> ?>
+      <time datetime="<?php echo $data['timestamp']; ?>" class="chapter-group__list-item-date"><?php
+        echo $data['list_date'];
+      ?></time>
+      <?php // <--- End HTML
+    }
+    $output['date'] = ob_get_clean();
+    $output['bullet-after-date'] = '<span class="bullet">&bull;</span>';
+
+    // Words
+    ob_start();
+    if ( $has_grid_view ) {
+      // Start HTML ---> ?>
+      <span class="chapter-group__list-item-words">
+        <span class="list-view"><?php printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) ); ?></span>
+        <span class="grid-view"><?php printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), fictioneer_shorten_number( $data['words'] ) ); ?></span>
+      </span>
+      <?php // <--- End HTML
+    } else {
+      // Start HTML ---> ?>
+      <span class="chapter-group__list-item-words"><?php
+        printf( _x( '%s <span>Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
+      ?></span>
+      <?php // <--- End HTML
+    }
+    $output['words'] = ob_get_clean();
+
+    // Apply filters
+    $output = apply_filters( 'fictioneer_filter_chapter_list_subrow_items', $output, $data, $args );
+
+    // Implode and return
+    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( '', $output ) . '</div>';
+  }
+}
+
 ?>

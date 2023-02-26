@@ -77,6 +77,32 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_list_subrow_items', $output, $data, $args )`
+Filters the intermediate output array in the `fictioneer_get_chapter_list_subrow( $data, $args )` function before it is imploded and returned in the `_story-content.php` or `fictioneer_chapter_list` shortcode.
+
+**output:**
+* $warning (string|null) – Optional. Warning node.
+* $bullet-after-warning (string|null) – Optional. `&bull;` node with `list-view` class.
+* $password (string|null) – Optional. Password node.
+* $bullet-after-password (string|null) – Optional. `&bull;` node with `list-view` class.
+* $date (string) – Time node.
+* $bullet-after-date (string) – `&bull;` node.
+* $words (string) – Words node.
+
+**data:**
+* $warning (string) – Warning note or empty string.
+* $warning_color (string) – CSS color declaration or empty string.
+* $password (boolean) – Whether the chapter requires a password.
+* $timestamp (string) – Timestamp as ISO 8601 format.
+* $list_date (string) – Displayed chapter date for the list view.
+* $grid_date (string|null) – Optional. Displayed chapter date for the grid view.
+* $words (int) – Chapter word count.
+
+**args:**
+* $grid (boolean|null) – Optional. `true` if the row needs to account for grid view.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args )`
 Filters the intermediate output array of the chapter micro menu in the `fictioneer_get_chapter_micro_menu( $args )` function before it is imploded and rendered.
 

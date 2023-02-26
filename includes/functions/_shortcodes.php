@@ -754,25 +754,18 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               <span class="chapter-group__list-item-title"><?php echo $title; ?></span>
             </a>
 
-            <div class="chapter-group__list-item-subrow truncate _1-1 dot-separator">
-              <?php if ( ! empty( $warning ) ) : ?>
-                <span class="chapter-group__list-item-warning" style="<?php echo $warning_color; ?>"><?php
-                  printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $warning );
-                ?></span>
-              <?php endif; ?>
+            <?php
+              // Chapter subrow
+              $chapter_data = [];
+              $chapter_data['warning'] = $warning;
+              $chapter_data['warning_color'] = $warning_color;
+              $chapter_data['password'] = post_password_required();
+              $chapter_data['timestamp'] = get_the_time( 'c' );
+              $chapter_data['list_date'] = get_the_date( '' );
+              $chapter_data['words'] = $words;
 
-              <?php if ( post_password_required() ) : ?>
-                <span class="chapter-group__list-item-password"><?php echo fcntr( 'password' ) ?></span>
-              <?php endif; ?>
-
-              <time datetime="<?php the_time( 'c' ); ?>" class="chapter-group__list-item-date"><?php echo
-                get_the_date( '' );
-              ?></time>
-
-              <span class="chapter-group__list-item-words"><?php
-                printf( _x( '%s<span> Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $words ) );
-              ?></span>
-            </div>
+              echo fictioneer_get_chapter_list_subrow( $chapter_data );
+            ?>
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
               <div class="chapter-group__list-item-right">

@@ -302,27 +302,7 @@ $blog_posts = new WP_Query(
                     <i class="fa-solid fa-lock icon-password grid-view"></i>
                   <?php endif; ?>
 
-                  <div class="chapter-group__list-item-subrow truncate _1-1 dot-separator">
-                    <?php if ( ! empty( $chapter['warning'] ) ) : ?>
-                      <span class="chapter-group__list-item-warning list-view" style="<?php echo $chapter['warning_color']; ?>">
-                        <?php printf( __( '<b>Warning:</b> <span>%s</span>', 'fictioneer' ), $chapter['warning'] ); ?>
-                      </span>
-                    <?php endif; ?>
-
-                    <?php if ( $chapter['password'] ) : ?>
-                      <span class="chapter-group__list-item-password list-view"><?php echo fcntr( 'password' ); ?></span>
-                    <?php endif; ?>
-
-                    <time datetime="<?php echo $chapter['timestamp']; ?>" class="chapter-group__list-item-date">
-                      <span class="list-view"><span><?php echo $chapter['list_date']; ?></span></span>
-                      <span class="grid-view"><?php echo $chapter['grid_date']; ?></span>
-                    </time>
-
-                    <span class="chapter-group__list-item-words">
-                      <span class="list-view"><?php printf( _x( '%s<span> Words</span>', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $chapter['words'] ) ); ?></span>
-                      <span class="grid-view"><?php printf( _x( '%s<span> Words</span>', 'Words in chapter list', 'fictioneer' ), fictioneer_shorten_number( $chapter['words'] ) ); ?></span>
-                    </span>
-                  </div>
+                  <?php echo fictioneer_get_chapter_list_subrow( $chapter, ['grid' => true] ); ?>
 
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
                     <div class="chapter-group__list-item-right">
