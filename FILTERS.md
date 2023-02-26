@@ -77,8 +77,8 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
-### `apply_filters( 'fictioneer_filter_chapter_list_meta_items', $output, $data, $args )`
-Filters the intermediate output array in the `fictioneer_get_chapter_list_meta( $data, $args )` function before it is imploded and returned in the `_story-content.php` or `fictioneer_chapter_list` shortcode.
+### `apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args )`
+Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` or `fictioneer_chapter_list` shortcode.
 
 **output:**
 * $warning (string|null) – Optional. Warning node.

@@ -765,7 +765,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               $chapter_data['list_date'] = get_the_date( '' );
               $chapter_data['words'] = $words;
 
-              echo fictioneer_get_chapter_list_meta( $chapter_data );
+              echo fictioneer_get_list_chapter_meta_row( $chapter_data );
             ?>
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
