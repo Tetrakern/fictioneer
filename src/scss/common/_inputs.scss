@@ -7,7 +7,7 @@
 :is(input, textarea, button, select) {
   -webkit-appearance: none;
   background-color: transparent;
-  font-family: var(--font-base);
+  font-family: var(--ff-base);
   font-weight: var(--font-weight-normal);
   border-style: solid;
 }
@@ -15,7 +15,7 @@
 select {
   --focus-offset: -2px;
   cursor: pointer;
-  font-family: var(--font-base);
+  font-family: var(--ff-base);
 
   option {
     color: black;
@@ -94,7 +94,7 @@ select {
 
   &::placeholder {
     color: var(--input-placeholder);
-    font-family: var(--font-base);
+    font-family: var(--ff-base);
     font-weight: var(--font-weight-normal);
     text-shadow: none;
   }
@@ -229,7 +229,7 @@ input[type=radio] {
     place-content: center;
     background: var(--input-background);
     color: var(--fg-900);
-    font-family: var(--font-base);
+    font-family: var(--ff-base);
     font-size: 11px;
     font-weight: 400;
     line-height: 1;

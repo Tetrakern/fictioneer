@@ -225,7 +225,7 @@ body:not(.is-editor):not(.is-admin) {
     &::before {
       content: unicode("2022");
       color: var(--fg-800);
-      font-family: var(--font-base);
+      font-family: var(--ff-base);
       padding: 0 .375em;
     }
   }
@@ -235,7 +235,7 @@ body:not(.is-editor):not(.is-admin) {
       &::after {
         content: unicode("2022");
         color: var(--fg-800);
-        font-family: var(--font-base);
+        font-family: var(--ff-base);
         padding: 0 .375em;
       }
     }
@@ -255,7 +255,7 @@ body:not(.is-editor):not(.is-admin) {
     display: block;
     background: var(--tooltip-background);
     color: var(--tooltip-text);
-    font: 400 var(--fs-xxs)/1.2 var(--font-note);
+    font: 400 var(--fs-xxs)/1.2 var(--ff-note);
     text-align: center;
     text-shadow: none;
     padding: 6px 8px;

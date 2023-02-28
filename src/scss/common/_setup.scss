@@ -47,7 +47,7 @@ body {
     color: var(--e-body);
   }
   color: var(--fg-500);
-  font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--font-base);
+  font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--ff-base);
   letter-spacing: var(--font-letter-spacing-base);
   -webkit-font-smoothing: var(--font-smoothing-webkit);
   -moz-osx-font-smoothing: var(--font-smoothing-moz);
@@ -183,7 +183,7 @@ abbr {
 kbd {
   display: inline-block;
   background: var(--infobox-background);
-  font-family: var(--font-mono);
+  font-family: var(--ff-mono);
   font-size: .75em;
   font-weight: 700;
   letter-spacing: 0;
@@ -201,7 +201,7 @@ th {
 code {
   display: inline-block;
   background: var(--code-background-inline);
-  font-family: var(--font-mono);
+  font-family: var(--ff-mono);
   font-size: .75em;
   letter-spacing: 0;
   word-wrap: break-word;

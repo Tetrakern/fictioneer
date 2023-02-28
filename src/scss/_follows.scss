@@ -69,11 +69,11 @@
 
 .follow-meta {
   grid-area: 2 / 1 / 3 / 3;
-  font-family: var(--font-note);
+  font-family: var(--ff-note);
 }
 
 .follow-placeholder {
-  font-family: var(--font-note);
+  font-family: var(--ff-note);
 }
 
 .follow-marker {
@@ -129,7 +129,7 @@
 
   :is(.follow-placeholder, .follow-meta) {
     color: var(--follow-meta-color);
-    font-family: var(--font-note);
+    font-family: var(--ff-note);
   }
 
   .follow-title a {

@@ -37,7 +37,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--e-2);
-    font-family: var(--font-note);
+    font-family: var(--ff-note);
     padding: 0.75rem;
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
@@ -68,7 +68,7 @@
   &__title {
     flex: 1 1 auto;
     font-size: inherit;
-    font-family: var(--font-heading); // Redundant for safety
+    font-family: var(--ff-heading); // Redundant for safety
 
     &._small {
       font-size: 15px;
@@ -114,7 +114,7 @@
     cursor: default;
     background: var(--card-label-type-background);
     color: var(--card-label-type-text);
-    font: var(--card-type-font-weight) 62.5%/1 var(--font-base);
+    font: var(--card-type-font-weight) 62.5%/1 var(--ff-base);
     text-shadow: none;
     text-transform: uppercase;
     padding: .25rem .375rem;
@@ -247,7 +247,7 @@
   }
 
   &__content {
-    font-family: var(--font-note);
+    font-family: var(--ff-note);
     font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile)
     line-height: 1.5;
 
@@ -329,7 +329,7 @@
 
   &__no-taxonomies {
     color: var(--fg-600);
-    font-family: var(--font-base);
+    font-family: var(--ff-base);
   }
 
   &__tag-list {
@@ -405,7 +405,7 @@
       display: grid;
       place-items: center;
       color: var(--fg-700);
-      font-family: var(--font-heading);
+      font-family: var(--ff-heading);
       font-weight: 600;
       padding: 0 .5rem;
       min-width: 30px;

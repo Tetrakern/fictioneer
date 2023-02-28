@@ -27,7 +27,7 @@
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      font-family: var(--font-heading);
+      font-family: var(--ff-heading);
       margin-bottom: 0.25rem;
     }
 
@@ -45,7 +45,7 @@
     }
 
     &-body {
-      font-family: var(--font-note);
+      font-family: var(--ff-note);
     }
 
     &-description {

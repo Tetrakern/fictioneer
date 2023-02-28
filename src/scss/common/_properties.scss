@@ -28,11 +28,11 @@
   }
 
   // === FONT FAMILIES =========================================================
-  --font-system: '-apple-system', 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-base: 'Open Sans', var(--font-system);
-  --font-heading: 'Open Sans', var(--font-base);
-  --font-note: 'Lato', var(--font-base);
-  --font-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
+  --ff-system: '-apple-system', 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --ff-base: 'Open Sans', var(--ff-system);
+  --ff-heading: 'Open Sans', var(--ff-base);
+  --ff-note: 'Lato', var(--ff-base);
+  --ff-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
 }
 
 .header-background {
@@ -49,7 +49,7 @@
 }
 
 .header__title {
-  --site-title-font: var(--font-heading);
+  --site-title-font: var(--ff-heading);
   --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)}; // Overridden by theme customizer
   --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)}; // Overridden by theme customizer
   --site-title-heading-color: var(--fg-100); // Overridden by theme customizer

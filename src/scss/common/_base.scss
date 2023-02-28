@@ -81,7 +81,7 @@
   justify-content: center;
   background: var(--button-primary-background);
   color: var(--button-primary-text);
-  font: var(--button-font-weight) 12px/1 var(--font-base);
+  font: var(--button-font-weight) 12px/1 var(--ff-base);
   letter-spacing: get_relative_clamp(0.02, 0.04, 375, 480, 'vw', 'em');
   white-space: nowrap;
   text-shadow: none;
@@ -269,7 +269,7 @@ button[type=submit] {
 
   &._inline {
     display: inline-block;
-    font: var(--font-weight-medium) var(--fs-dxs)/1.5 var(--font-base);
+    font: var(--font-weight-medium) var(--fs-dxs)/1.5 var(--ff-base);
 
     &:not(:hover) {
       color: var(--fg-600);
@@ -487,7 +487,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
   .bullet {
     color: var(--fg-800);
-    font-family: var(--font-base);
+    font-family: var(--ff-base);
   }
 
   &__label {
@@ -568,7 +568,7 @@ html:not(.logged-in) body:not(.logged-in) {
       &-subrow {
         grid-area: 2 / 2 / 3 / 3;
         color: var(--fg-700);
-        font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--font-note);
+        font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--ff-note);
       }
 
       &-warning {
