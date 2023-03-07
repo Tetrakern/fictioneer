@@ -54,6 +54,8 @@ body {
   text-rendering: optimizeLegibility;
   min-height: 100vh;
   min-width: 320px;
+  max-width: 100%;
+  overflow-x: hidden; // Prevents overflow issues on WordPress.com
   padding:
     env(safe-area-inset-top, 20px)
     env(safe-area-inset-right, 20px)
