@@ -621,8 +621,6 @@ Fictioneer offers the option to enable user authentication via the OAuth 2.0 pro
 
 This automatically creates and connects a subscriber account, which makes commenting convenient and allows subscribers to track their progress with Checkmarks, Follows, and Reminders. You also most likely do not need any of that or the potential headache that comes with user management. Unless you host dozens to hundreds of stories, perhaps from several authors, you are better off without. Even then, be aware that a community site requires more server resources, which translates to either bad performance or higher cost.
 
-If you are on [WordPress.com](https://wordpress.com/log-in) or similar hosts, you can skip this entirely and stick to the existing community system that is wrapped around your site anyway. Although you still need a more expensive plan to upload a custom theme like Fictioneer.
-
 **Note:** Make sure you have a proper [Privacy Policy](PRIVACY.md) set up before you allow registrations. Fictioneer does not collect undue data and this is an informed, deliberate action. However, privacy is always an issue. This is why subscribers should have the option to self-delete their data and accounts at any time, sparing you a lot of potential trouble (i.e. "the right of erasure").
 
 ## Checkmarks, Follows & Reminders
