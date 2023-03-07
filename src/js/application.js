@@ -1286,8 +1286,8 @@ function fcn_contactFormSubmit(button) {
   });
 }
 
-_$$('.contact-form').forEach(element => {
-  element.querySelector('.contact-form__submit').addEventListener(
+_$$('.fcn-contact-form').forEach(element => {
+  element.querySelector('.fcn-contact-form__submit').addEventListener(
     'click',
     e => {
       fcn_contactFormSubmit(e.currentTarget);

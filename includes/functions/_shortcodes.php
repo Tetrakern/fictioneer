@@ -882,22 +882,22 @@ function fictioneer_shortcode_contact_form( $attr ) {
    */
 
   // Start HTML ---> ?>
-  <form class="contact-form <?php echo implode( ' ', $classes ); ?>">
-    <div class="contact-form__message">
-      <textarea class="contact-form__textarea adaptive-textarea" style="opacity: 0;" name="message" maxlength="65525" placeholder="<?php _e( 'Please enter your message.', 'fictioneer' ); ?>" required></textarea>
+  <form class="fcn-contact-form <?php echo implode( ' ', $classes ); ?>">
+    <div class="fcn-contact-form__message">
+      <textarea class="fcn-contact-form__textarea adaptive-textarea" style="opacity: 0;" name="message" maxlength="65525" placeholder="<?php _e( 'Please enter your message.', 'fictioneer' ); ?>" required></textarea>
     </div>
     <?php if ( ! empty( $fields ) ) : ?>
-      <div class="contact-form__fields">
+      <div class="fcn-contact-form__fields">
         <?php foreach( $fields as $field ) : ?>
-          <div class="contact-form__field"><?php echo $field; ?></div>
+          <div class="fcn-contact-form__field"><?php echo $field; ?></div>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
     <input type="checkbox" name="terms" value="1" autocomplete="off" tabindex="-1">
     <input type="tel" name="phone" autocomplete="off" tabindex="-1">
     <input type="hidden" name="title" value="<?php echo $title; ?>">
-    <div class="contact-form__actions">
-      <button class="contact-form__submit button" type="button" data-enabled="<?php echo esc_attr( $submit ); ?>" data-disabled="<?php esc_attr_e( 'Sending…', 'fictioneer' ); ?>" data-done="<?php esc_attr_e( 'Message sent!', 'fictioneer' ); ?>"><?php echo $submit; ?></button>
+    <div class="fcn-contact-form__actions">
+      <button class="fcn-contact-form__submit button" type="button" data-enabled="<?php echo esc_attr( $submit ); ?>" data-disabled="<?php esc_attr_e( 'Sending…', 'fictioneer' ); ?>" data-done="<?php esc_attr_e( 'Message sent!', 'fictioneer' ); ?>"><?php echo $submit; ?></button>
     </div>
   </form>
   <?php // <--- End HTML
