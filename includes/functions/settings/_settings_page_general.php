@@ -399,7 +399,12 @@ $action = $_GET['action'] ?? null;
                     <input name="fictioneer_enable_oauth" type="checkbox" id="fictioneer_enable_oauth" <?php echo checked( 1, get_option( 'fictioneer_enable_oauth' ), false ); ?> value="1">
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_oauth']['label']; ?></span>
-                      <p class="sub-label"><?php _e( 'Register and log in with social media accounts.', 'fictioneer' ) ?></p>
+                      <p class="sub-label"><?php
+                        printf(
+                          __( 'Register/Login with social media accounts. This requires you to <a href="%s" target="_blank">set up an applications</a> for each service provider.', 'fictioneer' ),
+                          'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#users--oauth'
+                        );
+                      ?></p>
                     </div>
                   </label>
 
@@ -415,7 +420,7 @@ $action = $_GET['action'] ?? null;
                     <input name="fictioneer_enable_bookmarks" type="checkbox" id="fictioneer_enable_bookmarks" <?php echo checked( 1, get_option( 'fictioneer_enable_bookmarks' ), false ); ?> value="1">
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_bookmarks']['label']; ?></span>
-                      <p class="sub-label"><?php _e( 'Bookmark paragraphs in chapters.', 'fictioneer' ) ?></p>
+                      <p class="sub-label"><?php _e( 'Bookmark paragraphs in chapters. No account needed.', 'fictioneer' ) ?></p>
                     </div>
                   </label>
 
@@ -423,7 +428,7 @@ $action = $_GET['action'] ?? null;
                     <input name="fictioneer_enable_follows" type="checkbox" id="fictioneer_enable_follows" <?php echo checked( 1, get_option( 'fictioneer_enable_follows' ), false ); ?> value="1">
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_follows']['label']; ?></span>
-                      <p class="sub-label"><?php _e( 'Follow stories and get on-site notices for updates.', 'fictioneer' ) ?></p>
+                      <p class="sub-label"><?php _e( 'Follow stories and get on-site alerts for updates.', 'fictioneer' ) ?></p>
                     </div>
                   </label>
 
@@ -640,7 +645,7 @@ $action = $_GET['action'] ?? null;
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 121px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 104px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 

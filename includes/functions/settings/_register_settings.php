@@ -129,21 +129,21 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_enable_follows',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable Follows', 'fictioneer' ),
+      'label' => __( 'Enable Follows (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_checkmarks' => array(
       'name' => 'fictioneer_enable_checkmarks',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable Checkmarks', 'fictioneer' ),
+      'label' => __( 'Enable Checkmarks (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_reminders' => array(
       'name' => 'fictioneer_enable_reminders',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable Reminders', 'fictioneer' ),
+      'label' => __( 'Enable Reminders (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_suggestions' => array(
