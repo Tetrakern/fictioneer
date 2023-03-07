@@ -1525,4 +1525,27 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
   }
 }
 
+// =============================================================================
+// ARRAY FROM COMMA SEPARATED STRING
+// =============================================================================
+
+/**
+ * Explodes string into an array
+ *
+ * @since 5.1.3
+ *
+ * @param string $string The string to explode.
+ *
+ * @return array The string content as array.
+ */
+
+function fictioneer_explode_list( $string ) {
+  $array = explode( ',', $string );
+  $array = array_map( 'trim', $array ); // Remove extra whitespaces
+  $array = array_filter( $array, 'strlen' ); // Remove empty elements
+  $array = is_array( $array ) ? $array : [];
+
+  return $array;
+}
+
 ?>
