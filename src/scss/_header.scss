@@ -2,9 +2,13 @@
   position: relative;
   height: var(--layout-site-header-height);
   width: 100%;
-  max-width: var(--site-width);
-  transition: opacity .2s, filter .2s;
   contain: style layout size; // Improves performance
+
+  &__content {
+    height: 100%;
+    margin: 0 auto;
+    max-width: var(--site-width);
+  }
 
   &__logo {
     position: absolute;
@@ -55,18 +59,18 @@
 .header-background {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 0;
+  right: 0;
   height: var(--layout-header-background-height);
   width: 100%;
   filter: var(--layout-header-background-filter);
-  transform: translate3d(-50%, 0, 0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   content-visibility: auto;
   contain: style layout paint;
 
   @include bp(640px) {
     box-shadow: var(--layout-header-background-box-shadow);
-    width: 100vw;
   }
 
   &__wrapper {
@@ -88,7 +92,10 @@
 }
 
 :root.inset-header-image .header-background {
+  left: 50%;
+  right: unset;
   width: 100%;
+  transform: translate3d(-50%, 0, 0);
 
   @include bp(desktop) {
     border-radius: var(--layout-border-radius-large);

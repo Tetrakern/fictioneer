@@ -19,19 +19,21 @@
 
   <?php do_action( 'fictioneer_header', $args ); ?>
 
-  <?php if ( has_custom_logo() ) : ?>
+  <div class="header__content">
+    <?php if ( has_custom_logo() ) : ?>
 
-    <div class="header__logo"><?php the_custom_logo(); ?></div>
+      <div class="header__logo"><?php the_custom_logo(); ?></div>
 
-  <?php elseif ( display_header_text() ) : ?>
+    <?php elseif ( display_header_text() ) : ?>
 
-    <div class="header__title">
-      <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
-      <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
-        <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>
-      <?php endif; ?>
-    </div>
+      <div class="header__title">
+        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
+        <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
+          <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>
+        <?php endif; ?>
+      </div>
 
-  <?php endif; ?>
+    <?php endif; ?>
+  </div>
 
 </header>
