@@ -74,6 +74,53 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 }
 
 // =============================================================================
+// GET SHORTCODE TAXONOMIES
+// =============================================================================
+
+/**
+ * Extract taxonomies from shortcode attributes
+ *
+ * @since Fictioneer 5.2.0
+ *
+ * @param array $attr Attributes of shortcode.
+ *
+ * @return array Array of found taxonomies.
+ */
+
+function fictioneer_get_shortcode_taxonomies( $attr ) {
+  // Setup
+  $taxonomies = [];
+
+  // Tags
+  if ( ! empty( $attr['tags'] ) ) {
+    $taxonomies['tags'] = fictioneer_explode_list( $attr['tags'] );
+  }
+
+  // Categories
+  if ( ! empty( $attr['categories'] ) ) {
+    $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
+  }
+
+  // Fandoms
+  if ( ! empty( $attr['fandoms'] ) ) {
+    $taxonomies['fandoms'] = fictioneer_explode_list( $attr['fandoms'] );
+  }
+
+  // Characters
+  if ( ! empty( $attr['characters'] ) ) {
+    $taxonomies['characters'] = fictioneer_explode_list( $attr['characters'] );
+  }
+
+  // Genres
+  if ( ! empty( $attr['genres'] ) ) {
+    $taxonomies['genres'] = fictioneer_explode_list( $attr['genres'] );
+  }
+
+  // Return
+  return $taxonomies;
+}
+
+// =============================================================================
 // SHOWCASE SHORTCODE
 // =============================================================================
 
@@ -84,11 +131,11 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
  *
  * @param string      $attr['for']      What the showcase is for. Allowed are chapters,
  *                                      collections, recommendations, and stories.
- * @param int|null    $attr['count']    Optional. Maximum number of items. Default 9.
+ * @param string|null $attr['count']    Optional. Maximum number of items. Default 9.
  * @param string|null $attr['author']   Optional. Limit items to a specific author.
  * @param string|null $attr['order']    Optional. Order direction. Default 'DESC'.
  * @param string|null $attr['orderby']  Optional. Order argument. Default 'date'.
- * @param array|null  $attr['post_ids'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids'] Optional. Limit items to specific post IDs.
  * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
@@ -163,14 +210,20 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  *
  * @since 3.0
  *
- * @param int|null    $attr['count']    Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']   Optional. Limit items to a specific author.
- * @param string|null $attr['orderby']  Optional. Order argument. Default 'date'.
- * @param string|null $attr['type']     Optional. Choose between 'default', 'simple', and 'compact'.
- * @param string|null $attr['spoiler']  Optional. Whether to show spoiler content.
- * @param string|null $attr['source']   Optional. Whether to show author and story.
- * @param array|null  $attr['chapters'] Optional. Limit items to specific post IDs.
- * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']     Optional. Limit items to a specific author.
+ * @param string|null $attr['orderby']    Optional. Order argument. Default 'date'.
+ * @param string|null $attr['type']       Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['spoiler']    Optional. Whether to show spoiler content.
+ * @param string|null $attr['source']     Optional. Whether to show author and story.
+ * @param string|null $attr['chapters']   Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories'] Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']    Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']     Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters'] Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -185,54 +238,48 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $spoiler = $attr['spoiler'] ?? false;
   $source = $attr['source'] ?? 'true';
   $post_ids = [];
+  $rel = 'AND';
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['chapters'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['chapters'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['chapters'] );
     $count = count( $post_ids );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
+  // Args
+  $args = array(
+    'simple' => false,
+    'count' => $count,
+    'author' => $author,
+    'order' => $order,
+    'orderby' => $orderby,
+    'spoiler' => $spoiler == 'true',
+    'source' => $source == 'true',
+    'post_ids' => $post_ids,
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => $rel,
+    'classes' => $classes
+  );
 
   // Buffer
   ob_start();
 
   switch ( $type ) {
     case 'compact':
-      get_template_part(
-        'partials/_latest-chapters-compact',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'spoiler' => $spoiler == 'true',
-          'source' => $source == 'true',
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-chapters-compact', null, $args );
       break;
     default:
-      get_template_part(
-        'partials/_latest-chapters',
-        null,
-        array(
-          'simple' => $type == 'simple',
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'spoiler' => $spoiler == 'true',
-          'source' => $source == 'true',
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      $args['simple'] = $type == 'simple';
+      get_template_part( 'partials/_latest-chapters', null, $args );
   }
 
   // Return buffer
@@ -251,12 +298,18 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  *
  * @since 3.0
  *
- * @param int|null    $attr['count']   Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']  Optional. Limit items to a specific author.
- * @param string|null $attr['type']    Optional. Choose between 'default' and 'compact'.
- * @param string|null $attr['orderby'] Optional. Order argument. Default 'date'.
- * @param array|null  $attr['stories'] Optional. Limit items to specific post IDs.
- * @param string|null $attr['class']   Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']     Optional. Limit items to a specific author.
+ * @param string|null $attr['type']       Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['orderby']    Optional. Order argument. Default 'date'.
+ * @param string|null $attr['stories']    Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories'] Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']    Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']     Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters'] Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -269,7 +322,6 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $order = $attr['order'] ?? 'desc';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
-  $taxonomies = [];
   $rel = 'AND';
   $classes = [];
 
@@ -277,31 +329,6 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   if ( ! empty( $attr['stories'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['stories'] );
     $count = count( $post_ids );
-  }
-
-  // Tags
-  if ( ! empty( $attr['tags'] ) ) {
-    $taxonomies['tags'] = fictioneer_explode_list( $attr['tags'] );
-  }
-
-  // Categories
-  if ( ! empty( $attr['categories'] ) ) {
-    $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
-  }
-
-  // Fandoms
-  if ( ! empty( $attr['fandoms'] ) ) {
-    $taxonomies['fandoms'] = fictioneer_explode_list( $attr['fandoms'] );
-  }
-
-  // Characters
-  if ( ! empty( $attr['characters'] ) ) {
-    $taxonomies['characters'] = fictioneer_explode_list( $attr['characters'] );
-  }
-
-  // Genres
-  if ( ! empty( $attr['genres'] ) ) {
-    $taxonomies['genres'] = fictioneer_explode_list( $attr['genres'] );
   }
 
   // Relation
@@ -319,7 +346,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
     'order' => $order,
     'orderby' => $orderby,
     'post_ids' => $post_ids,
-    'taxonomies' => $taxonomies,
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
     'relation' => $rel,
     'classes' => $classes
   );
@@ -351,11 +378,17 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  *
  * @since 4.3
  *
- * @param int|null    $attr['count']   Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']  Optional. Limit items to a specific author.
- * @param string|null $attr['type']    Optional. Choose between 'default', 'simple', and 'compact'.
- * @param array|null  $attr['stories'] Optional. Limit items to specific post IDs.
- * @param string|null $attr['class']   Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']     Optional. Limit items to a specific author.
+ * @param string|null $attr['type']       Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['stories']    Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories'] Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']    Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']     Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters'] Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -367,48 +400,44 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'desc';
   $post_ids = [];
+  $rel = 'AND';
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['stories'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['stories'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['stories'] );
     $count = count( $post_ids );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
+  // Args
+  $args = array(
+    'count' => $count,
+    'author' => $author,
+    'order' => $order,
+    'post_ids' => $post_ids,
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => $rel,
+    'classes' => $classes
+  );
 
   // Buffer
   ob_start();
 
   switch ( $type ) {
     case 'compact':
-      get_template_part(
-        'partials/_latest-updates-compact',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-updates-compact', null, $args );
       break;
     default:
-      get_template_part(
-        'partials/_latest-updates',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'simple' => $type == 'simple',
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      $args['simple'] = $type == 'simple';
+      get_template_part( 'partials/_latest-updates', null, $args );
   }
 
   // Return buffer
@@ -427,10 +456,16 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  *
  * @since 4.0
  *
- * @param int|null    $attr['count']           Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['count']           Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']          Optional. Limit items to a specific author.
  * @param string|null $attr['type']            Optional. Choose between 'default' and 'compact'.
- * @param array|null  $attr['recommendations'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['recommendations'] Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories']      Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']            Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']         Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']          Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters']      Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']             Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
@@ -444,49 +479,44 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $order = $attr['order'] ?? 'desc';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
+  $rel = 'AND';
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['recommendations'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['recommendations'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['recommendations'] );
     $count = count( $post_ids );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
+  // Args
+  $args = array(
+    'count' => $count,
+    'author' => $author,
+    'order' => $order,
+    'orderby' => $orderby,
+    'post_ids' => $post_ids,
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => $rel,
+    'classes' => $classes
+  );
 
   // Buffer
   ob_start();
 
   switch ( $type ) {
     case 'compact':
-      get_template_part(
-        'partials/_latest-recommendations-compact',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-recommendations-compact', null, $args );
       break;
     default:
-      get_template_part(
-        'partials/_latest-recommendations',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-recommendations', null, $args );
   }
 
   // Return buffer
@@ -505,10 +535,13 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  *
  * @since 4.0
  *
- * @param int|null    $attr['count']  Optional. Maximum number of items. Default 1.
- * @param string|null $attr['author'] Optional. Limit items to a specific author.
- * @param array|null  $attr['posts']  Optional. Limit items to specific post IDs.
- * @param string|null $attr['class']  Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default 1.
+ * @param string|null $attr['author']     Optional. Limit items to a specific author.
+ * @param string|null $attr['posts']      Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories'] Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
+ * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -518,26 +551,13 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
   $post_ids = [];
-  $taxonomies = [];
   $rel = 'AND';
   $classes = [];
 
   // Post IDs
   if ( ! empty( $attr['posts'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['posts'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['posts'] );
     $count = count( $post_ids );
-  }
-
-  // Tags
-  if ( ! empty( $attr['tags'] ) ) {
-    $taxonomies['tags'] = fictioneer_explode_list( $attr['tags'] );
-  }
-
-  // Categories
-  if ( ! empty( $attr['categories'] ) ) {
-    $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
   }
 
   // Relation
@@ -558,7 +578,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
       'count' => $count,
       'author' => $author,
       'post_ids' => $post_ids,
-      'taxonomies' => $taxonomies,
+      'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
       'relation' => $rel,
       'classes' => $classes
     )
@@ -579,8 +599,8 @@ add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); 
  *
  * @since 4.0
  *
- * @param int|null     $attr['count']      Optional. Maximum number of items. Default -1 (all).
- * @param boolean|null $attr['show_empty'] Optional. Whether to show the "no bookmarks" message. Default false.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default -1 (all).
+ * @param string|null $attr['show_empty'] Optional. Whether to show the "no bookmarks" message. Default false.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -635,10 +655,10 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * @see fictioneer_validate_id()
  * @see fictioneer_get_story_data()
  *
- * @param int         $attr['story']    Either/Or. The ID of the story the chapters belong to.
- * @param array|null  $attr['chapters'] Either/Or. IDs of chapters to display.
- * @param int|null    $attr['count']    Optional. Maximum number of items. Default -1 (all).
- * @param int|null    $attr['offset']   Optional. Skip a number of posts.
+ * @param string      $attr['story']    Either/Or. The ID of the story the chapters belong to.
+ * @param string|null $attr['chapters'] Either/Or. IDs of chapters to display.
+ * @param string|null $attr['count']    Optional. Maximum number of items. Default -1 (all).
+ * @param string|null $attr['offset']   Optional. Skip a number of posts.
  * @param string|null $attr['group']    Optional. Only show chapters of the group.
  * @param string|null $attr['heading']  Optional. Show <h5> heading above list.
  * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
@@ -850,7 +870,7 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
  * @param string|null  $attr['title']          Optional. Title of the form.
  * @param string|null  $attr['submit']         Optional. Submit button caption.
  * @param string|null  $attr['privacy_policy'] Optional. Must accept privacy policy.
- * @param boolean|null $attr['required']       Optional. Make all fields required
+ * @param string|null $attr['required']        Optional. Make all fields required
  * @param string|null  $attr['email']          Optional. Email field.
  * @param string|null  $attr['name']           Optional. Name field.
  * @param string|null  $attr["text_{$i}"]      Optional. Up to 6 extra text field(s).
@@ -957,8 +977,8 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
  *
  * @since 5.0
  *
- * @param boolean|null $attr['simple']      Optional. Hide the advanced options.
- * @param string|null  $attr['placeholder'] Optional. Placeholder text.
+ * @param string|null $attr['simple']      Optional. Hide the advanced options.
+ * @param string|null $attr['placeholder'] Optional. Placeholder text.
  *
  * @return string The rendered shortcode HTML.
  */
