@@ -497,13 +497,26 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
   $post_ids = [];
+  $tags = [];
+  $categories = [];
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['posts'] ) ) {
     $post_ids = str_replace( ' ', '', $attr['posts'] );
     $post_ids = explode( ',', $post_ids );
     $post_ids = is_array( $post_ids ) ? $post_ids : [];
     $count = count( $post_ids );
+  }
+
+  // Tags
+  if ( ! empty( $attr['tags'] ) ) {
+    $tags = fictioneer_explode_list( $attr['tags'] );
+  }
+
+  // Categories
+  if ( ! empty( $attr['categories'] ) ) {
+    $categories = fictioneer_explode_list( $attr['categories'] );
   }
 
   // Extra classes
@@ -519,6 +532,8 @@ function fictioneer_shortcode_latest_posts( $attr ) {
       'count' => $count,
       'author' => $author,
       'post_ids' => $post_ids,
+      'tags' => $tags,
+      'categories' => $categories,
       'classes' => $classes
     )
   );

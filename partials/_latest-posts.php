@@ -8,19 +8,21 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['author']   The author provided by the shortcode.
- * @internal $args['count']    The number of posts provided by the shortcode.
- * @internal $args['post_ids'] Comma-separated list of post IDs. Overrides count.
- * @internal $args['class']    Additional classes.
+ * @internal $args['author']     The author provided by the shortcode. Default false.
+ * @internal $args['count']      The number of posts provided by the shortcode. Default 1.
+ * @internal $args['post_ids']   Array of post IDs. Default empty.
+ * @internal $args['tags']       Array tag names. Default empty.
+ * @internal $args['categories'] Array of category names. Default empty.
+ * @internal $args['class']      Additional classes. Default empty.
  */
 ?>
 
 <?php
 
 // Prepare query
-$query_args = array (
+$query_args = array(
   'post_type' => 'post',
-  'post_status' => array( 'publish' ),
+  'post_status' => 'publish',
   'post__in' => $args['post_ids'],
   'has_password' => false,
   'orderby' => 'date',
@@ -31,8 +33,39 @@ $query_args = array (
   'no_found_rows' => true
 );
 
+// Taxonomies?
+if ( ! empty( $args['tags'] ) || ! empty( $args['categories'] ) ) {
+  $query_args['tax_query'] = [];
+
+  // Relationship?
+  if ( ! empty( $args['tags'] ) && ! empty( $args['categories'] ) ) {
+    $query_args['tax_query']['relation'] = 'OR';
+  }
+}
+
+// Tags?
+if ( ! empty( $args['tags'] ) ) {
+  $query_args['tax_query'][] = array(
+    'taxonomy' => 'post_tag',
+    'field' => 'name',
+    'terms' => $args['tags'],
+  );
+}
+
+// Categories?
+if ( ! empty( $args['categories'] ) ) {
+  $query_args['tax_query'][] = array(
+    'taxonomy' => 'category',
+    'field' => 'name',
+    'terms' => $args['categories'],
+  );
+}
+
 // Parameter for author?
 if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+
+// Apply filters
+$query_args = apply_filters( 'fictioneer_filter_latest_posts_query_args', $query_args, $args );
 
 // Query post
 $latest_entries = new WP_Query( $query_args );

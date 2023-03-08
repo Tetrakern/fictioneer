@@ -369,6 +369,31 @@ Filters the boolean return value of the `fictioneer_is_editor( $user_id )` funct
 
 ---
 
+### `apply_filters( 'fictioneer_filter_latest_posts_query_args', $query_args, $args )`
+Filters the arguments to query the posts in the `fictioneer_latest_posts` shortcode.
+
+**$query_args:**
+* $post_type (string) – `'post'`
+* $post_status (string) – `'publish'`
+* $post__in (array) – `$args['post_ids']`
+* $has_password (boolean) – `false`
+* $orderby (string) – `'date'`
+* $order (string) – `'desc'`
+* $numberposts (int) – `$args['count']`
+* $posts_per_page (int) – `$args['count']`
+* $ignore_sticky_posts (boolean) – `true`
+* $no_found_rows (boolean) – `true`
+
+**args:**
+* $author (boolean|string) – The author provided by the shortcode. Default `false`.
+* $count (int) – The number of posts provided by the shortcode. Default `1`.
+* $post_ids (\[string]) – Optional. Array of post IDs.
+* $tags (\[string]) – Optional. Array of tag names.
+* $categories (\[string]) – Optional. Array of category names.
+* $class (string) – Optional. Additional CSS classes.
+
+--
+
 ### `apply_filters( 'fictioneer_filter_mobile_quick_buttons', $buttons )`
 Filters the intermediate output array of the `fictioneer_mobile_quick_buttons()` function before it is imploded and rendered via the `fictioneer_mobile_menu_bottom` hook. By default and depending on the page, the output can contain buttons to darken and brighten the site, toggle chapter options, open the formatting modal, or change site settings.
 
