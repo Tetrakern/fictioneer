@@ -96,6 +96,8 @@ p a,
 }
 
 .content-section {
+  overflow-wrap: break-word;
+
   :is(h1, h2, h3, h4, h5, h6) {
     &:not(:first-child, .cell-title, .card__title, .post__title) {
       margin-top: 2rem;
