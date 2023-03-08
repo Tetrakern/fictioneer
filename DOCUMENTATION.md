@@ -461,7 +461,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **chapters**, and **class**.
+Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **chapters**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -471,10 +471,20 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Set `false` to hide the author and story nodes. Default `true`.
 * **chapters:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_chapters]
+```
+
+```
+[fictioneer_latest_chapters genres="adventure, historical" characters="indiana jones"]
 ```
 
 ```
@@ -511,7 +521,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **recommendations**, and **class**.
+Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **recommendations**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -519,10 +529,20 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **recommendations:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_recommendations]
+```
+
+```
+[fictioneer_latest_recommendations genres="isekai" fandoms="original, fanfiction"]
 ```
 
 ```
@@ -533,7 +553,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 ### Latest Stories
 
-Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **stories**, and **class**.
+Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **stories**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -565,17 +585,27 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **stories**, and **class**.
+Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **stories**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
 * **author:** Only show updates of a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_updates]
+```
+
+```
+[fictioneer_latest_updates genres="romance, drama" fandoms="original"]
 ```
 
 ```
