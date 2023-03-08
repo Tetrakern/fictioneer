@@ -6,7 +6,9 @@ section.blog {
   &:last-child {
     padding-bottom: var(--layout-spacing-vertical);
   }
+}
 
+:is(section.blog, .latest-posts) {
   .post {
     padding-bottom: 1rem;
 
@@ -26,11 +28,6 @@ section.blog {
       transform: translateY(-2px);
     }
   }
-}
-
-.latest-posts {
-  display: grid;
-  gap: 3rem;
 }
 
 .post {

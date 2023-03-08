@@ -97,11 +97,11 @@ p a,
 
 .content-section {
   :is(h1, h2, h3, h4, h5, h6) {
-    &:not(:first-child, .cell-title, .card__title) {
+    &:not(:first-child, .cell-title, .card__title, .post__title) {
       margin-top: 2rem;
     }
 
-    &:not(:last-child, .cell-title, .card__title) {
+    &:not(:last-child, .cell-title, .card__title, .post__title) {
       margin-bottom: unquote('max(1.25rem, var(--paragraph-spacing) - 0.25rem)');
     }
   }
