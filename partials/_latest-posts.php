@@ -11,9 +11,8 @@
  * @internal $args['author']     The author provided by the shortcode. Default false.
  * @internal $args['count']      The number of posts provided by the shortcode. Default 1.
  * @internal $args['post_ids']   Array of post IDs. Default empty.
- * @internal $args['tags']       Array tag names. Default empty.
- * @internal $args['categories'] Array of category names. Default empty.
- * @internal $args['class']      Additional classes. Default empty.
+ * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
+ * @internal $args['classes']    Array of additional CSS classes. Default empty.
  */
 ?>
 
@@ -33,36 +32,36 @@ $query_args = array(
   'no_found_rows' => true
 );
 
+// Parameter for author?
+if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+
 // Taxonomies?
-if ( ! empty( $args['tags'] ) || ! empty( $args['categories'] ) ) {
+if ( ! empty( $args['taxonomies'] ) ) {
   $query_args['tax_query'] = [];
 
   // Relationship?
-  if ( ! empty( $args['tags'] ) && ! empty( $args['categories'] ) ) {
-    $query_args['tax_query']['relation'] = 'OR';
+  if ( count( $args['taxonomies'] ) > 1 ) {
+    $query_args['tax_query']['relation'] = $args['relation'];
+  }
+
+  // Tags?
+  if ( ! empty( $args['taxonomies']['tags'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'post_tag',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['tags']
+    );
+  }
+
+  // Categories?
+  if ( ! empty( $args['taxonomies']['categories'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'category',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['categories']
+    );
   }
 }
-
-// Tags?
-if ( ! empty( $args['tags'] ) ) {
-  $query_args['tax_query'][] = array(
-    'taxonomy' => 'post_tag',
-    'field' => 'name',
-    'terms' => $args['tags'],
-  );
-}
-
-// Categories?
-if ( ! empty( $args['categories'] ) ) {
-  $query_args['tax_query'][] = array(
-    'taxonomy' => 'category',
-    'field' => 'name',
-    'terms' => $args['categories'],
-  );
-}
-
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
 
 // Apply filters
 $query_args = apply_filters( 'fictioneer_filter_latest_posts_query_args', $query_args, $args );

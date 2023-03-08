@@ -269,49 +269,48 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $order = $attr['order'] ?? 'desc';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
+  $taxonomies = [];
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['stories'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['stories'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['stories'] );
     $count = count( $post_ids );
+  }
+
+  // Tags
+  if ( ! empty( $attr['tags'] ) ) {
+    $taxonomies['tags'] = fictioneer_explode_list( $attr['tags'] );
+  }
+
+  // Categories
+  if ( ! empty( $attr['categories'] ) ) {
+    $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
   }
 
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
+  // Args
+  $args = array(
+    'count' => $count,
+    'author' => $author,
+    'order' => $order,
+    'orderby' => $orderby,
+    'post_ids' => $post_ids,
+    'taxonomies' => $taxonomies,
+    'classes' => $classes
+  );
 
   // Buffer
   ob_start();
 
   switch ( $type ) {
     case 'compact':
-      get_template_part(
-        'partials/_latest-stories-compact',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-stories-compact', null, $args );
       break;
     default:
-      get_template_part(
-        'partials/_latest-stories',
-        null,
-        array(
-          'count' => $count,
-          'author' => $author,
-          'order' => $order,
-          'orderby' => $orderby,
-          'post_ids' => $post_ids,
-          'classes' => $classes
-        )
-      );
+      get_template_part( 'partials/_latest-stories', null, $args );
   }
 
   // Return buffer
@@ -497,8 +496,8 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
   $post_ids = [];
-  $tags = [];
-  $categories = [];
+  $taxonomies = [];
+  $rel = 'AND';
   $classes = [];
 
   // Post IDs
@@ -511,12 +510,17 @@ function fictioneer_shortcode_latest_posts( $attr ) {
 
   // Tags
   if ( ! empty( $attr['tags'] ) ) {
-    $tags = fictioneer_explode_list( $attr['tags'] );
+    $taxonomies['tags'] = fictioneer_explode_list( $attr['tags'] );
   }
 
   // Categories
   if ( ! empty( $attr['categories'] ) ) {
-    $categories = fictioneer_explode_list( $attr['categories'] );
+    $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Extra classes
@@ -532,8 +536,8 @@ function fictioneer_shortcode_latest_posts( $attr ) {
       'count' => $count,
       'author' => $author,
       'post_ids' => $post_ids,
-      'tags' => $tags,
-      'categories' => $categories,
+      'taxonomies' => $taxonomies,
+      'relation' => $rel,
       'classes' => $classes
     )
   );

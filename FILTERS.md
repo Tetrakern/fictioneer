@@ -370,7 +370,7 @@ Filters the boolean return value of the `fictioneer_is_editor( $user_id )` funct
 ---
 
 ### `apply_filters( 'fictioneer_filter_latest_posts_query_args', $query_args, $args )`
-Filters the arguments to query the posts in the `fictioneer_latest_posts` shortcode.
+Filters the query arguments in the `fictioneer_latest_posts` shortcode. The optional taxonomy arrays can include categories and tags.
 
 **$query_args:**
 * $post_type (string) – `'post'`
@@ -383,14 +383,16 @@ Filters the arguments to query the posts in the `fictioneer_latest_posts` shortc
 * $posts_per_page (int) – `$args['count']`
 * $ignore_sticky_posts (boolean) – `true`
 * $no_found_rows (boolean) – `true`
+* $author_name (string|null) – `$args['author']`
 
 **$args:**
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $post_ids (\[string]) – Optional. Array of post IDs.
-* $tags (\[string]) – Optional. Array of tag names.
-* $categories (\[string]) – Optional. Array of category names.
-* $class (string) – Optional. Additional CSS classes.
+* $post_ids (\[string]) – Array of post IDs. Default empty.
+* $taxonomies (array) – Array of taxonomy arrays (names). Default empty.
+* $rel (string) – Relationship between taxonomies. Default `'AND'`.
+* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (\[string]) – Array of additional CSS classes. Default empty.
 
 ---
 
