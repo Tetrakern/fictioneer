@@ -485,15 +485,21 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 ### Latest Posts
 
-Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **posts**, and **class**.
+Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **posts**, **categories**, **tags**, and **class**.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **posts:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_posts]
+```
+
+```
+[fictioneer_latest_posts count="16" tags="world building, characters"]
 ```
 
 ```
