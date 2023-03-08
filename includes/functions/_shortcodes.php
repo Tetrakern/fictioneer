@@ -270,6 +270,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
   $taxonomies = [];
+  $rel = 'AND';
   $classes = [];
 
   // Post IDs
@@ -288,6 +289,26 @@ function fictioneer_shortcode_latest_stories( $attr ) {
     $taxonomies['categories'] = fictioneer_explode_list( $attr['categories'] );
   }
 
+  // Fandoms
+  if ( ! empty( $attr['fandoms'] ) ) {
+    $taxonomies['fandoms'] = fictioneer_explode_list( $attr['fandoms'] );
+  }
+
+  // Characters
+  if ( ! empty( $attr['characters'] ) ) {
+    $taxonomies['characters'] = fictioneer_explode_list( $attr['characters'] );
+  }
+
+  // Genres
+  if ( ! empty( $attr['genres'] ) ) {
+    $taxonomies['genres'] = fictioneer_explode_list( $attr['genres'] );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
+  }
+
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
 
@@ -299,6 +320,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
     'orderby' => $orderby,
     'post_ids' => $post_ids,
     'taxonomies' => $taxonomies,
+    'relation' => $rel,
     'classes' => $classes
   );
 

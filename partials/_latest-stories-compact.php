@@ -8,11 +8,13 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['count']    The number of posts provided by the shortcode.
- * @internal $args['author']   The author provided by the shortcode.
- * @internal $args['order']    Order of posts. Default 'desc'.
- * @internal $args['orderby']  Sorting of posts. Default 'date'.
- * @internal $args['post_ids'] Comma-separated list of story IDs. Overrides count.
+ * @internal $args['count']      The number of posts provided by the shortcode.
+ * @internal $args['author']     The author provided by the shortcode.
+ * @internal $args['order']      Order of posts. Default 'desc'.
+ * @internal $args['orderby']    Sorting of posts. Default 'date'.
+ * @internal $args['post_ids']   Array of post IDs. Default empty.
+ * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
+ * @internal $args['classes']    Array of additional CSS classes. Default empty.
  */
 ?>
 
@@ -20,8 +22,8 @@
 
 // Prepare query
 $query_args = array(
-  'post_type' => array( 'fcn_story' ),
-  'post_status' => array( 'publish' ),
+  'post_type' => 'fcn_story',
+  'post_status' => 'publish',
   'post__in' => $args['post_ids'],
   'meta_key' => 'fictioneer_story_sticky',
   'orderby' => 'meta_value ' . $args['orderby'],
@@ -33,12 +35,70 @@ $query_args = array(
 // Parameter for author?
 if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
 
+// Taxonomies?
+if ( ! empty( $args['taxonomies'] ) ) {
+  $query_args['tax_query'] = [];
+
+  // Relationship?
+  if ( count( $args['taxonomies'] ) > 1 ) {
+    $query_args['tax_query']['relation'] = $args['relation'];
+  }
+
+  // Tags?
+  if ( ! empty( $args['taxonomies']['tags'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'post_tag',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['tags']
+    );
+  }
+
+  // Categories?
+  if ( ! empty( $args['taxonomies']['categories'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'category',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['categories']
+    );
+  }
+
+  // Fandoms?
+  if ( ! empty( $args['taxonomies']['fandoms'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'fcn_fandom',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['fandoms']
+    );
+  }
+
+  // Characters?
+  if ( ! empty( $args['taxonomies']['characters'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'fcn_character',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['characters']
+    );
+  }
+
+  // Genres?
+  if ( ! empty( $args['taxonomies']['genres'] ) ) {
+    $query_args['tax_query'][] = array(
+      'taxonomy' => 'fcn_genre',
+      'field' => 'name',
+      'terms' => $args['taxonomies']['genres']
+    );
+  }
+}
+
+// Apply filters
+$query_args = apply_filters( 'fictioneer_filter_latest_stories_query_args', $query_args, $args );
+
 // Query stories
 $entries = new WP_Query( $query_args );
 
 ?>
 
-<section class="small-card-block latest-stories _compact">
+<section class="small-card-block latest-stories _compact <?php echo implode( ' ', $args['classes'] ); ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">

@@ -541,10 +541,20 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
 [fictioneer_latest_stories]
+```
+
+```
+[fictioneer_latest_stories genres="adventure, cyberpunk" characters="Rebecca" rel="or"]
 ```
 
 ```
