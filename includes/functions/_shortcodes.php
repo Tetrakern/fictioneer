@@ -82,7 +82,7 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
  *
  * @since Fictioneer 5.2.0
  *
- * @param array $attr Attributes of shortcode.
+ * @param array $attr Attributes of the shortcode.
  *
  * @return array Array of found taxonomies.
  */
@@ -118,6 +118,81 @@ function fictioneer_get_shortcode_taxonomies( $attr ) {
 
   // Return
   return $taxonomies;
+}
+
+// =============================================================================
+// GET SHORTCODE TAX QUERY
+// =============================================================================
+
+/**
+ * Get shortcode Tax Query
+ *
+ * @since Fictioneer 5.2.0
+ *
+ * @param array $args Arguments of the shortcode partial.
+ *
+ * @return array Tax Query.
+ */
+
+function fictioneer_get_shortcode_tax_query( $args ) {
+  // Setup
+  $tax_query = [];
+
+  // Are there taxonomies?
+  if ( ! empty( $args['taxonomies'] ) ) {
+    // Relationship?
+    if ( count( $args['taxonomies'] ) > 1 ) {
+      $tax_query['relation'] = $args['relation'];
+    }
+
+    // Tags?
+    if ( ! empty( $args['taxonomies']['tags'] ) ) {
+      $tax_query[] = array(
+        'taxonomy' => 'post_tag',
+        'field' => 'name',
+        'terms' => $args['taxonomies']['tags']
+      );
+    }
+
+    // Categories?
+    if ( ! empty( $args['taxonomies']['categories'] ) ) {
+      $tax_query[] = array(
+        'taxonomy' => 'category',
+        'field' => 'name',
+        'terms' => $args['taxonomies']['categories']
+      );
+    }
+
+    // Fandoms?
+    if ( ! empty( $args['taxonomies']['fandoms'] ) ) {
+      $tax_query[] = array(
+        'taxonomy' => 'fcn_fandom',
+        'field' => 'name',
+        'terms' => $args['taxonomies']['fandoms']
+      );
+    }
+
+    // Characters?
+    if ( ! empty( $args['taxonomies']['characters'] ) ) {
+      $tax_query[] = array(
+        'taxonomy' => 'fcn_character',
+        'field' => 'name',
+        'terms' => $args['taxonomies']['characters']
+      );
+    }
+
+    // Genres?
+    if ( ! empty( $args['taxonomies']['genres'] ) ) {
+      $tax_query[] = array(
+        'taxonomy' => 'fcn_genre',
+        'field' => 'name',
+        'terms' => $args['taxonomies']['genres']
+      );
+    }
+  }
+
+  // Return
+  return $tax_query;
 }
 
 // =============================================================================

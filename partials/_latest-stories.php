@@ -8,12 +8,13 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['count']      The number of posts provided by the shortcode.
- * @internal $args['author']     The author provided by the shortcode.
+ * @internal $args['count']      Number of posts provided by the shortcode.
+ * @internal $args['author']     Author provided by the shortcode.
  * @internal $args['order']      Order of posts. Default 'desc'.
  * @internal $args['orderby']    Sorting of posts. Default 'date'.
  * @internal $args['post_ids']   Array of post IDs. Default empty.
  * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']   Relationship between taxonomies.
  * @internal $args['classes']    Array of additional CSS classes. Default empty.
  */
 ?>
@@ -37,57 +38,7 @@ if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = 
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
-  $query_args['tax_query'] = [];
-
-  // Relationship?
-  if ( count( $args['taxonomies'] ) > 1 ) {
-    $query_args['tax_query']['relation'] = $args['relation'];
-  }
-
-  // Tags?
-  if ( ! empty( $args['taxonomies']['tags'] ) ) {
-    $query_args['tax_query'][] = array(
-      'taxonomy' => 'post_tag',
-      'field' => 'name',
-      'terms' => $args['taxonomies']['tags']
-    );
-  }
-
-  // Categories?
-  if ( ! empty( $args['taxonomies']['categories'] ) ) {
-    $query_args['tax_query'][] = array(
-      'taxonomy' => 'category',
-      'field' => 'name',
-      'terms' => $args['taxonomies']['categories']
-    );
-  }
-
-  // Fandoms?
-  if ( ! empty( $args['taxonomies']['fandoms'] ) ) {
-    $query_args['tax_query'][] = array(
-      'taxonomy' => 'fcn_fandom',
-      'field' => 'name',
-      'terms' => $args['taxonomies']['fandoms']
-    );
-  }
-
-  // Characters?
-  if ( ! empty( $args['taxonomies']['characters'] ) ) {
-    $query_args['tax_query'][] = array(
-      'taxonomy' => 'fcn_character',
-      'field' => 'name',
-      'terms' => $args['taxonomies']['characters']
-    );
-  }
-
-  // Genres?
-  if ( ! empty( $args['taxonomies']['genres'] ) ) {
-    $query_args['tax_query'][] = array(
-      'taxonomy' => 'fcn_genre',
-      'field' => 'name',
-      'terms' => $args['taxonomies']['genres']
-    );
-  }
+  $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
 }
 
 // Apply filters

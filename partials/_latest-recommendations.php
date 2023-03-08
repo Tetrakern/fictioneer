@@ -8,12 +8,14 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['count']    The number of posts provided by the shortcode.
- * @internal $args['author']   The author provided by the shortcode.
- * @internal $args['order']    Order of posts. Default 'desc'.
- * @internal $args['orderby']  Sorting of posts. Default 'date'.
- * @internal $args['post_ids'] Comma-separated list of recommendation IDs. Overrides count.
- * @internal $args['class']    Additional classes.
+ * @internal $args['count']      Number of posts provided by the shortcode.
+ * @internal $args['author']     Author provided by the shortcode.
+ * @internal $args['order']      Order of posts. Default 'desc'.
+ * @internal $args['orderby']    Sorting of posts. Default 'date'.
+ * @internal $args['post_ids']   Array of post IDs. Default empty.
+ * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']   Relationship between taxonomies.
+ * @internal $args['class']      Additional classes.
  */
 ?>
 
@@ -35,6 +37,11 @@ $query_args = array (
 
 // Parameter for author?
 if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+
+// Taxonomies?
+if ( ! empty( $args['taxonomies'] ) ) {
+  $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
+}
 
 // Query recommendations
 $entries = new WP_Query( $query_args );
