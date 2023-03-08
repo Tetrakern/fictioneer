@@ -178,7 +178,7 @@ if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
     $is_ajax = get_option( 'fictioneer_enable_ajax_comment_submit' );
 
     // Check privacy consent for guests
-    if ( ! is_user_logged_in() && ! $is_ajax ) {
+    if ( ! is_user_logged_in() && ! $is_ajax && get_option( 'wp_page_for_privacy_policy' ) ) {
       // You cannot post a comment without accepting the privacy policy (Tested earlier on AJAX submit!)
       if (
         ! isset( $_POST['fictioneer-privacy-policy-consent'] ) ||

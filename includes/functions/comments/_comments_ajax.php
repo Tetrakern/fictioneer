@@ -225,7 +225,7 @@ if ( ! function_exists( 'fictioneer_ajax_submit_comment' ) ) {
     $commentcode = false;
 
     // Check privacy consent early (not checked later for AJAX posts)
-    if ( ! is_user_logged_in() && ! $privacy_consent ) {
+    if ( ! is_user_logged_in() && ! $privacy_consent && get_option( 'wp_page_for_privacy_policy' ) ) {
       wp_send_json_error( ['error' => __( 'You did not accept the privacy policy.', 'fictioneer' )] );
     }
 
