@@ -425,6 +425,31 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 
 ---
 
+### `apply_filters( 'fictioneer_filter_latest_recommendations_query_args', $query_args, $args )`
+Filters the query arguments in the `fictioneer_latest_recommendations` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+
+**$query_args:**
+* $post_type (string) – `'fcn_recommendation'`
+* $post_status (string) – `'publish'`
+* $author_name (string|null) – `$args['author']`
+* $post__in (array) – `$args['post_ids']`
+* $orderby (string) – `$args['orderby']`
+* $order (string) – `$args['order']`
+* $posts_per_page (int) – `$args['count']`
+* $no_found_rows (boolean) – `true`
+
+**$args:**
+* $author (boolean|string) – The author provided by the shortcode. Default `false`.
+* $count (int) – The number of posts provided by the shortcode. Default `1`.
+* $orderby (string) – Optional. Default `'date'`.
+* $order (string) – Optional. Default `'desc'`.
+* $post_ids (\[string]) – Array of post IDs. Default empty.
+* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $relation (string) – Relationship between taxonomies. Default `'AND'`.
+* $classes (\[string]) – Array of additional CSS classes. Default empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_latest_stories_query_args', $query_args, $args )`
 Filters the query arguments in the `fictioneer_latest_stories` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
