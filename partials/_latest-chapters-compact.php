@@ -26,7 +26,7 @@
 // Prepare query
 $query_args = array(
   'post_type' => 'fcn_chapter',
-  'post_status' => array( 'publish' ),
+  'post_status' => 'publish',
   'post__in' => $args['post_ids'],
   'order' => $args['order'] ?? 'desc',
   'orderby' => $args['orderby'] ?? 'date',

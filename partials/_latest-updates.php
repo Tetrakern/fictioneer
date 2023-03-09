@@ -31,8 +31,8 @@ $card_counter = 0;
 
 // Prepare query
 $query_args = array(
-  'post_type' => array( 'fcn_story' ),
-  'post_status' => array( 'publish' ),
+  'post_type' => 'fcn_story',
+  'post_status' => 'publish',
   'post__in' => $args['post_ids'],
   'meta_key' => 'fictioneer_chapters_added',
   'orderby' => 'meta_value',
