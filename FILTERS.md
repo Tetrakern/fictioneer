@@ -394,7 +394,7 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
 * $source (boolean) – Optional. Show chapter source story. Default `true`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
-* $taxonomies (array) – Array of taxonomy arrays (names). Default empty.
+* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $rel (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.
 
@@ -419,7 +419,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
-* $taxonomies (array) – Array of taxonomy arrays (names). Default empty.
+* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $rel (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.
 
@@ -445,7 +445,7 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 * $orderby (string) – Optional. Default `'date'`.
 * $order (string) – Optional. Default `'desc'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
-* $taxonomies (array) – Array of taxonomy arrays (names). Default empty.
+* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $rel (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.
 
