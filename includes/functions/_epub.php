@@ -949,8 +949,12 @@ if ( ! function_exists( 'fictioneer_generate_epub' ) ) {
     // Abort if this is not an /download-epub/ URL...
     if ( is_null( $story_id ) ) return;
 
-    // Abort if no story ID provided or ePUB downloads globally disabled...
-    if ( empty( $story_id ) || ! get_option( 'fictioneer_enable_epubs' ) ) {
+    // Abort if no story ID provided or ePUB download is disabled...
+    if (
+      empty( $story_id ) ||
+      ! get_option( 'fictioneer_enable_epubs' ) ||
+      fictioneer_get_field( 'fictioneer_story_no_epub', $story_id )
+    ) {
       fictioneer_epub_return_and_exit();
     }
 
