@@ -48,6 +48,9 @@ if ( ! empty( $args['taxonomies'] ) ) {
   $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
 }
 
+// Apply filters
+$query_args = apply_filters( 'fictioneer_filter_latest_updates_query_args', $query_args, $args );
+
 // Query stories
 $entries = new WP_Query( $query_args );
 
