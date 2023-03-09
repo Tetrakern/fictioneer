@@ -821,7 +821,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <a href="#top" class="micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
+    <a href="#top" onclick="return fcn_scrollToAnchor(this)" class="micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
 		<?php // <--- End HTML
 		$micro_menu['top'] = ob_get_clean();
 
