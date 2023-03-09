@@ -638,6 +638,34 @@ Filters the HTML for the search title before it is rendered in the `search.php` 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_showcase_query_args', $query_args, $args )`
+Filters the query arguments in the `fictioneer_showcase` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+
+**$query_args:**
+* $post_type (string) – `$args['type']`
+* $post_status (string) – `'publish'`
+* $author_name (string|null) – `$args['author']`
+* $post__in (array) – `$args['post_ids']`
+* $orderby (string) – `$args['orderby']`
+* $order (string) – `$args['order']`
+* $posts_per_page (int) – `$args['count']`
+* $update_post_term_cache (boolean) – `false`
+* $no_found_rows (boolean) – `true`
+
+**$args:**
+* $type (string) – Either `'fcn_collection'`, `'fcn_story'`, `'fcn_chapter'`, or `'fcn_recommendation'`.
+* $author (boolean|string) – The author provided by the shortcode. Default `false`.
+* $count (int) – The number of posts provided by the shortcode. Default `1`.
+* $orderby (string) – Optional. Default `'date'`.
+* $order (string) – Optional. Default `'desc'`.
+* $post_ids (\[string]) – Array of post IDs. Default empty.
+* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $relation (string) – Relationship between taxonomies. Default `'AND'`.
+* $no_cap (boolean) – Whether to hide captions. Default `false`.
+* $classes (\[string]) – Array of additional CSS classes. Default empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_stories_card_args', $card_args, $args )`
 Filters the arguments passed to the `partials/_card-story` template part in the `fictioneer_stories_list( $args )` function, normally added via the `fictioneer_stories_after_content` hook.
 

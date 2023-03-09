@@ -227,12 +227,17 @@ function fictioneer_shortcode_showcase( $attr ) {
   $orderby = $attr['orderby'] ?? 'date';
   $no_cap = $attr['no_cap'] ?? false;
   $post_ids = [];
+  $rel = 'AND';
   $classes = [];
 
+  // Post IDs
   if ( ! empty( $attr['posts'] ) ) {
-    $post_ids = str_replace( ' ', '', $attr['posts'] );
-    $post_ids = explode( ',', $post_ids );
-    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = fictioneer_explode_list( $attr['posts'] );
+  }
+
+  // Relation
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Extra classes
@@ -245,6 +250,8 @@ function fictioneer_shortcode_showcase( $attr ) {
     'orderby' => $orderby,
     'order' => $order,
     'post_ids' => $post_ids,
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => $rel,
     'no_cap' => $no_cap == 'true' || $no_cap == '1',
     'classes' => $classes
   );

@@ -11,13 +11,15 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['type']     Post type if the showcase.
- * @internal $args['count']    Maximum number of items. Default 8.
- * @internal $args['order']    Order direction. Default 'DESC'.
- * @internal $args['orderby']  Order argument. Default 'date'.
- * @internal $args['author']   Limit query to specific author. Default none.
- * @internal $args['post_ids'] Limit items to specific post IDs. Default empty array.
- * @internal $args['class']    Additional classes.
+ * @internal $args['type']       Post type if the showcase.
+ * @internal $args['count']      Maximum number of items. Default 8.
+ * @internal $args['order']      Order direction. Default 'DESC'.
+ * @internal $args['orderby']    Order argument. Default 'date'.
+ * @internal $args['author']     Author provided by the shortcode.
+ * @internal $args['post_ids']   Array of post IDs. Default empty.
+ * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']   Relationship between taxonomies.
+ * @internal $args['classes']    Additional classes.
  */
 ?>
 
@@ -31,11 +33,20 @@ $query_args = array (
   'order' => $args['order'] ?? 'DESC',
   'orderby' => $args['orderby'] ?? 'date',
   'posts_per_page' => $args['count'] ?? 8,
-  'update_post_term_cache' => false
+  'update_post_term_cache' => false,
+  'no_found_rows' => true
 );
 
 // Filter for author?
 if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+
+// Taxonomies?
+if ( ! empty( $args['taxonomies'] ) ) {
+  $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
+}
+
+// Apply filters
+$query_args = apply_filters( 'fictioneer_filter_showcase_query_args', $query_args, $args );
 
 // Query collections
 $query = new WP_Query( $query_args );
