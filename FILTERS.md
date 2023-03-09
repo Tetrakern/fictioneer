@@ -369,6 +369,37 @@ Filters the boolean return value of the `fictioneer_is_editor( $user_id )` funct
 
 ---
 
+### `apply_filters( 'fictioneer_filter_latest_chapters_query_args', $query_args, $args )`
+Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+
+**$query_args:**
+* $post_type (string) – `'fcn_chapter'`
+* $post_status (string) – `'publish'`
+* $author_name (string|null) – `$args['author']`
+* $post__in (array) – `$args['post_ids']`
+* $meta_key (string) – `'fictioneer_chapter_hidden'`
+* $meta_value (int) – `0`
+* $orderby (string) – `$args['orderby']`
+* $order (string) – `$args['order']`
+* $posts_per_page (int) – `$args['count']`
+* $no_found_rows (boolean) – `true`
+* $update_post_term_cache (boolean) – `false`
+
+**$args:**
+* $simple (boolean) – Whether to render the simple variants. Default `false`.
+* $author (boolean|string) – The author provided by the shortcode. Default `false`.
+* $count (int) – The number of posts provided by the shortcode. Default `1`.
+* $orderby (string) – Optional. Default `'date'`.
+* $order (string) – Optional. Default `'desc'`.
+* $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
+* $source (boolean) – Optional. Show chapter source story. Default `true`.
+* $post_ids (\[string]) – Array of post IDs. Default empty.
+* $taxonomies (array) – Array of taxonomy arrays (names). Default empty.
+* $rel (string) – Relationship between taxonomies. Default `'AND'`.
+* $classes (\[string]) – Array of additional CSS classes. Default empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_latest_posts_query_args', $query_args, $args )`
 Filters the query arguments in the `fictioneer_latest_posts` shortcode. The optional taxonomy arrays can include categories and tags.
 
@@ -376,6 +407,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $post_type (string) – `'post'`
 * $post_status (string) – `'publish'`
 * $post__in (array) – `$args['post_ids']`
+* $author_name (string|null) – `$args['author']`
 * $has_password (boolean) – `false`
 * $orderby (string) – `'date'`
 * $order (string) – `'desc'`
@@ -383,7 +415,6 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $posts_per_page (int) – `$args['count']`
 * $ignore_sticky_posts (boolean) – `true`
 * $no_found_rows (boolean) – `true`
-* $author_name (string|null) – `$args['author']`
 
 **$args:**
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
@@ -401,13 +432,13 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 **$query_args:**
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
+* $author_name (string|null) – `$args['author']`
 * $post__in (array) – `$args['post_ids']`
 * $meta_key (string) – `'fictioneer_story_sticky'`
 * $orderby (string) – `'meta_value ' . $args['orderby']`
 * $order (string) – `$args['order']`
 * $posts_per_page (int) – `$args['count']`
 * $no_found_rows (boolean) – `true`
-* $author_name (string|null) – `$args['author']`
 
 **$args:**
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
