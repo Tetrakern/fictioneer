@@ -401,7 +401,7 @@ $action = $_GET['action'] ?? null;
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_oauth']['label']; ?></span>
                       <p class="sub-label"><?php
                         printf(
-                          __( 'Register/Login with social media accounts. This requires you to <a href="%s" target="_blank">set up an applications</a> for each service provider.', 'fictioneer' ),
+                          __( 'Register/Login with social media accounts. This requires you to <a href="%s" target="_blank">set up an application</a> for each service provider.', 'fictioneer' ),
                           'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#users--oauth'
                         );
                       ?></p>
