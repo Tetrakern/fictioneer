@@ -27,7 +27,6 @@ $query_args = array(
   'has_password' => false,
   'orderby' => 'date',
   'order' => 'DESC',
-  'numberposts' => $args['count'],
   'posts_per_page' => $args['count'],
   'ignore_sticky_posts' => 1,
   'no_found_rows' => true

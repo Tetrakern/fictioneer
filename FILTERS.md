@@ -411,7 +411,6 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $has_password (boolean) – `false`
 * $orderby (string) – `'date'`
 * $order (string) – `'desc'`
-* $numberposts (int) – `$args['count']`
 * $posts_per_page (int) – `$args['count']`
 * $ignore_sticky_posts (boolean) – `true`
 * $no_found_rows (boolean) – `true`
