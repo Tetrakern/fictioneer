@@ -615,13 +615,15 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
 * **author:** Only show updates of a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.

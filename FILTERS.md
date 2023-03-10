@@ -653,6 +653,8 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $post_status (string) – `'publish'`
 * $author_name (string|null) – `$args['author']`
 * $post__in (array) – `$args['post_ids']`
+* $category__not_in (array|null) – `$args['excluded_cats']`
+* $tag__not_in (array|null) – `$args['excluded_tags']`
 * $meta_key (string) – `'fictioneer_chapters_added'`
 * $orderby (string) – `'meta_value'`
 * $order (string) – `$args['order']`
@@ -665,6 +667,8 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $order (string) – Optional. Default `'desc'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
+* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.
