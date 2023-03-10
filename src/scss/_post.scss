@@ -14,6 +14,10 @@ section.blog:not(._nested) {
 
     &:not(:last-child) {
       padding-bottom: var(--layout-spacing-vertical);
+
+      + nav {
+        margin-top: -1rem;
+      }
     }
 
     &:not(:first-child) {

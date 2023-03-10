@@ -1191,23 +1191,24 @@ function fictioneer_shortcode_blog( $attr ) {
 
   if ( $blog_query->have_posts() ) {
     // Start HTML ---> ?>
-    <section class="blog _nested <?php echo $classes; ?>" id="blog"><?php
-      while ( $blog_query->have_posts() ) {
-        $blog_query->the_post();
-        get_template_part( 'partials/_post', null, ['nested' => true] );
+    <section class="blog _nested <?php echo $classes; ?>" id="blog">
+      <?php
+        while ( $blog_query->have_posts() ) {
+          $blog_query->the_post();
+          get_template_part( 'partials/_post', null, ['nested' => true] );
 
-        $pag_args = array(
-          'current' => max( 1, $page ),
-          'total' => $blog_query->max_num_pages,
-          'prev_text' => fcntr( 'previous' ),
-          'next_text' => fcntr( 'next' ),
-          'add_fragment' => '#blog'
-        );
-      }
-      wp_reset_postdata();
-    ?></section>
-
-    <nav class="pagination _padding-top"><?php echo paginate_links( $pag_args ); ?></nav>
+          $pag_args = array(
+            'current' => max( 1, $page ),
+            'total' => $blog_query->max_num_pages,
+            'prev_text' => fcntr( 'previous' ),
+            'next_text' => fcntr( 'next' ),
+            'add_fragment' => '#blog'
+          );
+        }
+        wp_reset_postdata();
+      ?>
+      <nav class="pagination"><?php echo paginate_links( $pag_args ); ?></nav>
+    </section>
     <?php // <--- End HTML
   } else {
     // Start HTML ---> ?>
