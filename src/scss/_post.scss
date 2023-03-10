@@ -1,4 +1,4 @@
-section.blog {
+section.blog:not(._nested) {
   &:first-child {
     padding-top: var(--layout-spacing-vertical);
   }

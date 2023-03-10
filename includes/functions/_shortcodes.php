@@ -1114,7 +1114,6 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
 
 function fictioneer_shortcode_blog( $attr ) {
   // Setup
-  $page = intval( get_query_var( 'page', 1 ) );
   $author = $attr['author'] ?? false;
   $taxonomies = fictioneer_get_shortcode_taxonomies( $attr );
   $exclude_tag_ids = fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' );
@@ -1122,11 +1121,16 @@ function fictioneer_shortcode_blog( $attr ) {
   $rel = 'AND';
   $classes = '';
 
+  // Page
+  $page = get_query_var( 'page' );
+  $page = empty( $page ) ? get_query_var( 'paged' ) : $page;
+  $page = empty( $page ) ? 1 : $page;
+
   // Arguments
   $query_args = array(
     'post_type' => 'post',
     'post_status' => 'publish',
-    'paged' => $page,
+    'paged' => max( 1, $page ),
     'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' )
   );
 
@@ -1165,7 +1169,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   if ( $blog_query->have_posts() ) {
     // Start HTML ---> ?>
-    <section class="blog <?php echo $classes; ?>" id="blog"><?php
+    <section class="blog _nested <?php echo $classes; ?>" id="blog"><?php
       while ( $blog_query->have_posts() ) {
         $blog_query->the_post();
         get_template_part( 'partials/_post', null, ['nested' => true] );
