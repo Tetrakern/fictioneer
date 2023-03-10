@@ -1540,6 +1540,8 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
  */
 
 function fictioneer_explode_list( $string ) {
+  if ( empty( $string ) ) return [];
+
   $array = explode( ',', $string );
   $array = array_map( 'trim', $array ); // Remove extra whitespaces
   $array = array_filter( $array, 'strlen' ); // Remove empty elements
