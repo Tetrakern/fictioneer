@@ -46,7 +46,7 @@ if ( ! empty( $args['taxonomies'] ) ) {
 }
 
 // Apply filters
-$query_args = apply_filters( 'fictioneer_filter_showcase_query_args', $query_args, $args );
+$query_args = apply_filters( 'fictioneer_filter_shortcode_showcase_query_args', $query_args, $args );
 
 // Query collections
 $query = new WP_Query( $query_args );
