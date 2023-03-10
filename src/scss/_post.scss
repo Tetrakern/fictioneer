@@ -31,13 +31,12 @@ section.blog {
 }
 
 .post {
-  &--empty {
+  &._empty {
     text-align: center;
+    color: var(--fg-900);
 
     > * {
       display: block;
-      background: var(--infobox-background);
-      padding: 1rem;
     }
   }
 

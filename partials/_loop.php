@@ -31,8 +31,8 @@
 
 <?php else: ?>
 
-  <article class="post post--empty padding-top padding-bottom padding-left padding-right">
-    <span><?php _e( 'No posts published yet.', 'fictioneer' ) ?></span>
+  <article class="post _empty padding-top padding-bottom padding-left padding-right">
+    <span><?php _e( 'No (more) posts found.', 'fictioneer' ) ?></span>
   </article>
 
 <?php endif; ?>
