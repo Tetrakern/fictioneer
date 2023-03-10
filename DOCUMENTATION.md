@@ -549,7 +549,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -557,6 +557,8 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
