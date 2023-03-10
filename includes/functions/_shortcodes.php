@@ -204,14 +204,20 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  *
  * @since 5.0
  *
- * @param string      $attr['for']      What the showcase is for. Allowed are chapters,
- *                                      collections, recommendations, and stories.
- * @param string|null $attr['count']    Optional. Maximum number of items. Default 9.
- * @param string|null $attr['author']   Optional. Limit items to a specific author.
- * @param string|null $attr['order']    Optional. Order direction. Default 'DESC'.
- * @param string|null $attr['orderby']  Optional. Order argument. Default 'date'.
- * @param string|null $attr['post_ids'] Optional. Limit items to specific post IDs.
- * @param string|null $attr['class']    Optional. Additional CSS classes, separated by whitespace.
+ * @param string      $attr['for']        What the showcase is for. Allowed are chapters,
+ *                                        collections, recommendations, and stories.
+ * @param string|null $attr['count']      Optional. Maximum number of items. Default 9.
+ * @param string|null $attr['author']     Optional. Limit items to a specific author.
+ * @param string|null $attr['order']      Optional. Order direction. Default 'DESC'.
+ * @param string|null $attr['orderby']    Optional. Order argument. Default 'date'.
+ * @param string|null $attr['post_ids']   Optional. Limit items to specific post IDs.
+ * @param string|null $attr['categories'] Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']    Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']     Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters'] Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
