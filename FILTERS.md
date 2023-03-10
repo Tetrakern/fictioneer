@@ -511,12 +511,12 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 **$query_args:**
 * $post_type (string) – `post`
 * $post_status (string) – `'publish'`
-* $author_name (string|null) – Limit posts to a specific author.
-* $tag__not_in (\[string]|null) – Array of tag IDs to exclude.
-* $category__not_in (\[string]|null) – Array of category IDs to exclude.
-* $paged (int) – Current page.
-* $posts_per_page (int) – Posts per page, defaults to theme option.
-* $tax_query (array|null) – Query for taxonomies.
+* $author_name (string|null) – `$args['author']`
+* $tag__not_in (\[string]|null) – Array extracted from `$args['exclude_tag_ids']`.
+* $category__not_in (\[string]|null) – Array extracted from `$args['exclude_cat_ids']`.
+* $paged (int) – Current main query page.
+* $posts_per_page (int) – `$args['per_page']` or theme default.
+* $tax_query (array|null) – Query arguments for taxonomies.
 
 **$args:**
 * $per_page (string|null) – Optional. The number of posts per page.
@@ -525,9 +525,6 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 * $exclude_cat_ids (string|null) – Optional. Comma-separated list of category IDs.
 * $categories (string|null) – Optional. Comma-separated list of category names.
 * $tags (string|null) – Optional. Comma-separated list of tag names.
-* $fandoms (string|null) – Optional. Comma-separated list of fandom names.
-* $genres (string|null) – Optional. Comma-separated list of genre names.
-* $characters (string|null) – Optional. Comma-separated list of character names.
 * $rel (string|null) – Optional. Relationship between taxonomies (`AND` or `OR`).
 * $class (string|null) – Optional. Additional CSS classes.
 

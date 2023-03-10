@@ -23,6 +23,7 @@ This documentation is about the Fictioneer theme. If you need help with WordPres
   * [Additional CSS Classes](#additional-css-classes)
   * [HTML Block / litRPG Box](#html-block)
 * [Shortcodes](#shortcodes)
+  * [Blog](#blog)
   * [Bookmarks](#bookmarks)
   * [Contact Form](#contact-form)
   * [Cookie Buttons](#cookie-buttons)
@@ -377,6 +378,31 @@ The custom HTML block is the best way to add special elements to the content, su
 ## Shortcodes
 
 [Shortcodes](https://wordpress.org/support/article/shortcode-block/) are bracket-enclosed keywords placed within the content that WordPress automatically interprets into code, adding features or objects without the need for programming. This should be done inside a _shortcode_ block. Since most elements created by shortcodes have no margins, the _spacer_ block can be a good addition before and/or after.
+
+### Blog
+
+Renders paginated blog posts akin to the default blog page, but with options. Makes use of the main query pagination variable, so only use this once per page. Optional parameters are **per_page**, **author**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **rel**, and **class**.
+
+* **per_page:** Number of posts per page. Defaults to theme settings.
+* **author:** Only show chapters of a specific author. Make sure to write the name right.
+* **exclude_cat_ids:** Comma-separated list of category IDs, if you want to exclude some.
+* **exclude_tag_ids:** Comma-separated list of tag IDs, if you want to exclude some.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **class:** Additional CSS classes, separated by whitespace.
+
+```
+[fictioneer_blog]
+```
+
+```
+[fictioneer_blog class="foo bar baz" per_page="5" exclude_cat_ids="1,23,24" categories="news"]
+```
+
+```
+[fictioneer_blog categories="uncategorized"]
+```
 
 ### Bookmarks
 

@@ -9,6 +9,8 @@
  * @subpackage Fictioneer
  * @since 2.0
  * @see partials/_loop.php
+ *
+ * @internal $args['nested'] Whether the post is nested inside another query. Default null.
  */
 ?>
 
@@ -18,6 +20,7 @@
 $title = fictioneer_get_safe_title( get_the_ID() );
 $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
+$nested = $args['nested'] ?? false;
 
 // Password?
 if ( post_password_required() ) {
@@ -33,7 +36,7 @@ if (
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" class="post padding-left padding-right">
+<article id="post-<?php the_ID(); ?>" class="post <?php if ( ! $nested ) echo 'padding-left padding-right'; ?>">
 
   <header class="post__header">
     <h2 class="post__title"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>

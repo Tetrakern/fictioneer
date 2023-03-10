@@ -1091,4 +1091,109 @@ function fictioneer_shortcode_search( $attr ) {
 }
 add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
 
+// =============================================================================
+// BLOG SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show blog with pagination
+ *
+ * @since 5.2.0
+ *
+ * @param string|null $attr['per_page']        Optional. Number of posts per page.
+ * @param string|null $attr['author']          Optional. Limit items to a specific author.
+ * @param string|null $attr['exclude_tag_ids'] Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids'] Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']      Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']            Optional. Limit items to specific tag names.
+ * @param string|null $attr['rel']             Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
+ *
+ * @return string The rendered shortcode HTML.
+ */
+
+function fictioneer_shortcode_blog( $attr ) {
+  // Setup
+  $page = intval( get_query_var( 'page', 1 ) );
+  $author = $attr['author'] ?? false;
+  $taxonomies = fictioneer_get_shortcode_taxonomies( $attr );
+  $exclude_tag_ids = fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' );
+  $exclude_cat_ids = fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' );
+  $rel = 'AND';
+  $classes = '';
+
+  // Arguments
+  $query_args = array(
+    'post_type' => 'post',
+    'post_status' => 'publish',
+    'paged' => $page,
+    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' )
+  );
+
+  // Author?
+  if ( ! empty( $author ) ) $query_args['author_name'] = $author;
+
+  // Relation?
+  if ( ! empty( $attr['rel'] ) ) {
+    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
+  }
+
+  // Taxonomies?
+  if ( ! empty( $taxonomies ) ) {
+    $taxonomies['relation'] = $rel;
+    $taxonomies['taxonomies'] = $taxonomies;
+    $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $taxonomies );
+  }
+
+  // Excluded tags?
+  if ( ! empty( $exclude_tag_ids ) ) $query_args['tag__not_in'] = $exclude_tag_ids;
+
+  // Excluded categories?
+  if ( ! empty( $exclude_cat_ids ) ) $query_args['category__not_in'] = $exclude_cat_ids;
+
+  // Extra classes
+  if ( ! empty( $attr['class'] ) ) $classes = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+
+  // Apply filters
+  $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $attr );
+
+  // Query
+  $blog_query = new WP_Query( $query_args );
+
+  // Buffer
+  ob_start();
+
+  if ( $blog_query->have_posts() ) {
+    // Start HTML ---> ?>
+    <section class="blog <?php echo $classes; ?>" id="blog"><?php
+      while ( $blog_query->have_posts() ) {
+        $blog_query->the_post();
+        get_template_part( 'partials/_post', null, ['nested' => true] );
+
+        $pag_args = array(
+          'current' => max( 1, $page ),
+          'total' => $blog_query->max_num_pages,
+          'prev_text' => fcntr( 'previous' ),
+          'next_text' => fcntr( 'next' ),
+          'add_fragment' => '#blog'
+        );
+      }
+      wp_reset_postdata();
+    ?></section>
+
+    <nav class="pagination _padding-top"><?php echo paginate_links( $pag_args ); ?></nav>
+    <?php // <--- End HTML
+  } else {
+    // Start HTML ---> ?>
+    <article class="post _empty">
+      <span><?php _e( 'No (more) posts found.', 'fictioneer' ) ?></span>
+    </article>
+    <?php // <--- End HTML
+  }
+
+  // Return buffer
+  return ob_get_clean();
+}
+add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
+
 ?>
