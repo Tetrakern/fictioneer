@@ -423,10 +423,10 @@ Renders a two-column grid of small bookmark cards, ordered by date of creation. 
 
 ### Chapter List
 
-Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story** or **chapters** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, and **class**.
+Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, and **class**.
 
-* **story:** ID of a single story. You need either this or **chapters**.
-* **chapters:** Comma-separated list of chapter IDs. You need either this or **story**.
+* **story_id:** ID of a single story. You need either this or **chapters**.
+* **chapter_ids:** Comma-separated list of chapter IDs. You need either this or **story**.
 * **count:** Limit chapters to any positive number. Default `-1` (all).
 * **offset:** Skip a number of chapters, which can make sense if you query all.
 * **heading:** Show a heading with collapse toggle above the list.
@@ -487,7 +487,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **chapters**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -496,7 +496,7 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Set `false` to hide the author and story nodes. Default `true`.
-* **chapters:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
@@ -521,11 +521,11 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 ### Latest Posts
 
-Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **posts**, **categories**, **tags**, **rel**, and **class**.
+Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **post_ids**, **categories**, **tags**, **rel**, and **class**.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
-* **posts:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
@@ -547,14 +547,14 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **recommendations**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
 * **author:** Only show recommendations by a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
-* **recommendations:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
@@ -579,14 +579,14 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 ### Latest Stories
 
-Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **stories**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
 * **author:** Only show stories of a specific author. Make sure to spell the _username_ right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
-* **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -613,13 +613,13 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **stories**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
 * **author:** Only show updates of a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
-* **stories:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
@@ -661,14 +661,14 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ### Showcase
 
-Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Requires **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **posts**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
+Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Requires **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **post_ids**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `8`.
 * **author:** Only show posts for a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
-* **posts:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **no_cap:** Set `true` if you want to hide the caption.
 * **class:** Additional CSS classes, separated by whitespace.
 
