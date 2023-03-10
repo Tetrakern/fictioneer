@@ -669,7 +669,7 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ### Showcase
 
-Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Requires **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **post_ids**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
+Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Requires **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `8`.
@@ -677,6 +677,8 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **no_cap:** Set `true` if you want to hide the caption.
 * **class:** Additional CSS classes, separated by whitespace.
 
