@@ -538,10 +538,10 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $post_status (string) – `'publish'`
 * $author_name (string|null) – `$args['author']`
 * $post__in (array) – `$args['post_ids']`
-* $meta_key (string) – `'fictioneer_chapter_hidden'`
-* $meta_value (int) – `0`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
+* $meta_key (string) – `'fictioneer_chapter_hidden'`
+* $meta_value (int) – `0`
 * $orderby (string) – `$args['orderby']`
 * $order (string) – `$args['order']`
 * $posts_per_page (int) – `$args['count']`
@@ -572,6 +572,8 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $post_type (string) – `'post'`
 * $post_status (string) – `'publish'`
 * $post__in (array) – `$args['post_ids']`
+* $category__not_in (array|null) – `$args['excluded_cats']`
+* $tag__not_in (array|null) – `$args['excluded_tags']`
 * $author_name (string|null) – `$args['author']`
 * $has_password (boolean) – `false`
 * $orderby (string) – `'date'`
@@ -584,6 +586,8 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
+* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.

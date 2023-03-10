@@ -523,11 +523,13 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 ### Latest Posts
 
-Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **post_ids**, **categories**, **tags**, **rel**, and **class**.
+Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **rel**, and **class**.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
