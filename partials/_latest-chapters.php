@@ -8,17 +8,19 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['count']      Number of posts provided by the shortcode.
- * @internal $args['author']     Author provided by the shortcode.
- * @internal $args['order']      Order of posts. Default 'desc'.
- * @internal $args['orderby']    Sorting of posts. Default 'date'.
- * @internal $args['spoiler']    Whether to obscure or show chapter excerpt.
- * @internal $args['source']     Whether to show author and story.
- * @internal $args['post_ids']   Array of post IDs. Default empty.
- * @internal $args['taxonomies'] Array of taxonomy arrays. Default empty.
- * @internal $args['relation']   Relationship between taxonomies.
- * @internal $args['simple']     Whether to show the simple variant.
- * @internal $args['class']      Additional classes.
+ * @internal $args['count']         Number of posts provided by the shortcode.
+ * @internal $args['author']        Author provided by the shortcode.
+ * @internal $args['order']         Order of posts. Default 'desc'.
+ * @internal $args['orderby']       Sorting of posts. Default 'date'.
+ * @internal $args['spoiler']       Whether to obscure or show chapter excerpt.
+ * @internal $args['source']        Whether to show author and story.
+ * @internal $args['post_ids']      Array of post IDs. Default empty.
+ * @internal $args['excluded_cats'] Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags'] Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']    Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']      Relationship between taxonomies.
+ * @internal $args['simple']        Whether to show the simple variant.
+ * @internal $args['class']         Additional classes.
  */
 ?>
 
@@ -44,6 +46,16 @@ if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
   $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
+}
+
+// Excluded tags?
+if ( ! empty( $args['excluded_tags'] ) ) {
+  $query_args['tag__not_in'] = $args['excluded_tags'];
+}
+
+// Excluded categories?
+if ( ! empty( $args['excluded_cats'] ) ) {
+  $query_args['category__not_in'] = $args['excluded_cats'];
 }
 
 // Apply filters

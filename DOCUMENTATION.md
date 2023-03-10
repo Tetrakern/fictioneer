@@ -385,8 +385,8 @@ Renders paginated blog posts akin to the default blog page, but with options. Ma
 
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **author:** Only show chapters of a specific author. Make sure to write the name right.
-* **exclude_cat_ids:** Comma-separated list of category IDs, if you want to exclude some.
-* **exclude_tag_ids:** Comma-separated list of tag IDs, if you want to exclude some.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
@@ -487,7 +487,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **post_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **post_ids**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -497,6 +497,8 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
 * **source:** Set `false` to hide the author and story nodes. Default `true`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
 * **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
 * **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.

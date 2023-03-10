@@ -540,6 +540,8 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $post__in (array) – `$args['post_ids']`
 * $meta_key (string) – `'fictioneer_chapter_hidden'`
 * $meta_value (int) – `0`
+* $category__not_in (array|null) – `$args['excluded_cats']`
+* $tag__not_in (array|null) – `$args['excluded_tags']`
 * $orderby (string) – `$args['orderby']`
 * $order (string) – `$args['order']`
 * $posts_per_page (int) – `$args['count']`
@@ -555,6 +557,8 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
 * $source (boolean) – Optional. Show chapter source story. Default `true`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
+* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.

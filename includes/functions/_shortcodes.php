@@ -298,20 +298,22 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  *
  * @since 3.0
  *
- * @param string|null $attr['count']      Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']     Optional. Limit items to a specific author.
- * @param string|null $attr['orderby']    Optional. Order argument. Default 'date'.
- * @param string|null $attr['type']       Optional. Choose between 'default', 'simple', and 'compact'.
- * @param string|null $attr['spoiler']    Optional. Whether to show spoiler content.
- * @param string|null $attr['source']     Optional. Whether to show author and story.
- * @param string|null $attr['post_ids']   Optional. Limit items to specific post IDs.
- * @param string|null $attr['categories'] Optional. Limit items to specific category names.
- * @param string|null $attr['tags']       Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']    Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']     Optional. Limit items to specific genre names.
- * @param string|null $attr['characters'] Optional. Limit items to specific character names.
- * @param string|null $attr['rel']        Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']           Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']          Optional. Limit items to a specific author.
+ * @param string|null $attr['orderby']         Optional. Order argument. Default 'date'.
+ * @param string|null $attr['type']            Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['spoiler']         Optional. Whether to show spoiler content.
+ * @param string|null $attr['source']          Optional. Whether to show author and story.
+ * @param string|null $attr['post_ids']        Optional. Limit items to specific post IDs.
+ * @param string|null $attr['exclude_tag_ids'] Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids'] Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']      Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']            Optional. Limit items to specific tag names.
+ * @param string|null $attr['fandoms']         Optional. Limit items to specific fandom names.
+ * @param string|null $attr['genres']          Optional. Limit items to specific genre names.
+ * @param string|null $attr['characters']      Optional. Limit items to specific character names.
+ * @param string|null $attr['rel']             Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -353,6 +355,8 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
     'spoiler' => $spoiler == 'true',
     'source' => $source == 'true',
     'post_ids' => $post_ids,
+    'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
+    'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
     'relation' => $rel,
     'classes' => $classes
