@@ -124,7 +124,7 @@
     justify-content: space-between;
     gap: 8px;
     font-size: 15px; // Fix like the inputs
-    margin-bottom: .675rem;
+    margin-bottom: .675rem !important; // Override content-section styles
 
     &:not(:first-child) {
       margin-top: 1rem;
