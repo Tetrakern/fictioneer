@@ -258,6 +258,7 @@ input[type=radio] {
   }
 
   &__track {
+    position: relative;
     cursor: text;
     display: flex;
     align-items: flex-start;
@@ -267,6 +268,23 @@ input[type=radio] {
     border-radius: var(--layout-border-radius-small);
     padding: 6px 8px;
     width: 100%;
+
+    &:not(:has(.node)) {
+      &::before {
+        content: attr(data-hint);
+        position: absolute;
+        color: var(--fg-900);
+        font-size: 12px;
+        line-height: 1;
+        padding: 4px 0 4px 0;
+      }
+    }
+  }
+
+  &:has(.keyword-input__hints[hidden]) {
+    .keyword-input__track::before {
+      display: none; // Hide empty hint on typing
+    }
   }
 
   .node {

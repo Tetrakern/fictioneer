@@ -35,7 +35,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
         </label>
       <?php endif; ?>
       <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
-      <label class="keyword-input__track">
+      <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
         <?php
           if ( ! empty( $query_list ) ) {
             $nodes = explode( ',', $query_list );
@@ -111,7 +111,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
     // Start HTML ---> ?>
     <div class="keyword-input">
       <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
-      <label class="keyword-input__track">
+      <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
         <?php
           if ( ! empty( $query_list ) ) {
             $nodes = explode( ',', $query_list );
