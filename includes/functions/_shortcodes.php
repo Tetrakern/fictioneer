@@ -807,7 +807,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Setup
   $count = max( -1, intval( $attr['count'] ?? -1 ) );
   $offset = max( 0, intval( $attr['offset'] ?? 0 ) );
-  $group = empty( $attr['group'] ) ? false : trim( $attr['group'] );
+  $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
@@ -889,7 +889,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
 
           // Check group (if any)
-          if ( $group && $group != trim( fictioneer_get_field( 'fictioneer_chapter_group' ) ) ) continue;
+          if ( $group && $group != strtolower( trim( fictioneer_get_field( 'fictioneer_chapter_group' ) ) ) ) continue;
 
           // Count renderings
           $render_count++;
