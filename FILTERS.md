@@ -78,7 +78,7 @@ Filters the intermediate output array of the card control popup menu inside the 
 ---
 
 ### `apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args )`
-Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` or `fictioneer_chapter_list` shortcode.
+Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode.
 
 **output:**
 * $warning (string|null) – Optional. Warning node.
@@ -164,7 +164,7 @@ Filters the arguments passed to the `partials/_card-chapter` template part in th
 * $cache (boolean) – Return of `fictioneer_caching_active()`.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or `1`.
+* $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $chapters (WP_Query) – Paginated query of all visible chapters.
 * $queried_type (string) – `'fcn_chapter'`
@@ -194,7 +194,7 @@ Filters the arguments passed to the `partials/_card-collection` template part in
 * $cache (boolean) – Return of `fictioneer_caching_active()`
 
 **$args:**
-* $current_page (int) – Current page number of pagination or `1`.
+* $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $collections (WP_Query) – Paginated query of all visible collections.
 * $queried_type (string) – `'fcn_collection'`
@@ -301,7 +301,7 @@ Filters the form fields of the `fictioneer_contact_form` shortcode.
 Filters the return array of the `fictioneer_get_fonts()` function, used to set up the chapter font options.
 
 **Parameters:**
-* $fonts (array) – Numeric array of fonts items with CSS name (`css`), display name (`name`), and fallbacks (`alt`).
+* $fonts (array) – Numeric array of font items with CSS name (`css`), display name (`name`), and fallbacks (`alt`).
 
 ---
 
@@ -429,7 +429,7 @@ Filters the arguments passed to the `partials/_card-recommendation` template par
 * $cache (boolean) – Return of `fictioneer_caching_active()`
 
 **$args:**
-* $current_page (int) – Current page number of pagination or `1`.
+* $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $recommendations (WP_Query) – Paginated query of all visible recommendations.
 * $queried_type (string) – `'fcn_recommendation'`
@@ -453,20 +453,20 @@ Filters the arguments to query the recommendations in the `recommendations.php` 
 Filters the intermediate output array of the `fictioneer_root_attributes()` function in the `header.php` template before it is looped and rendered. Note that the array keys are used as attribute names and include hyphens.
 
 **$attributes:**
-* 'class' (string) – CSS classes. Depends on options, can be empty.
-* 'data-mode-default' (string) – Mode of the site, light or dark. Default 'dark'.
-* 'data-site-width-default' (string) – Site width in pixels (without unit). Default '960'.
-* 'data-theme' (string) – Active theme or child theme. Default 'default'.
-* 'data-mode' (string) – Active theme mode. Default empty (dark).
-* 'data-font-weight' (string) – Current font weight set (default, thinner, or normal). Default 'default'.
-* 'data-primary-font' (string) – CSS name of primary font. Default 'Open Sans'.
-* 'data-ajax-submit' (string|null) – Optional. Toggle to use AJAX comment submit.
-* 'data-ajax-nonce' (string|null) – Optional. Toggle to load nonce via AJAX.
-* 'data-ajax-auth' (string|null) – Optional. Toggle to load user login state via AJAX.
-* 'data-force-child-theme' (string|null) – Optional. Toggle to disable parent theme switch.
-* 'data-public-caching' (string|null) – Optional. Indicates that public caches are served to all users.
-* 'data-ajax-auth' (string|null) – Optional. Indicates that the logged-in status of users is set via AJAX.
-* 'data-edit-time' (string|null) – Optional. Time in minutes that logged-in users can edit their comments.
+* $class (string) – CSS classes. Depends on options, can be empty.
+* $data-mode-default (string) – Mode of the site, light or dark. Default 'dark'.
+* $data-site-width-default (string) – Site width in pixels (without unit). Default '960'.
+* $data-theme (string) – Active theme or child theme. Default 'default'.
+* $data-mode (string) – Active theme mode. Default empty (dark).
+* $data-font-weight (string) – Current font weight set (default, thinner, or normal). Default 'default'.
+* $data-primary-font (string) – CSS name of primary font. Default 'Open Sans'.
+* $data-ajax-submit (string|null) – Optional. Toggle to use AJAX comment submit.
+* $data-ajax-nonce (string|null) – Optional. Toggle to load nonce via AJAX.
+* $data-ajax-auth (string|null) – Optional. Toggle to load user login state via AJAX.
+* $data-force-child-theme (string|null) – Optional. Toggle to disable parent theme switch.
+* $data-public-caching (string|null) – Optional. Indicates that public caches are served to all users.
+* $data-ajax-auth (string|null) – Optional. Indicates that the logged-in status of users is set via AJAX.
+* $data-edit-time (string|null) – Optional. Time in minutes that logged-in users can edit their comments.
 
 ---
 
@@ -722,7 +722,7 @@ Filters the arguments passed to the `partials/_card-story` template part in the 
 * $cache (boolean) – `fictioneer_caching_active()`
 
 **$args:**
-* $current_page (int) – Current page number of pagination or `1`.
+* $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $stories (WP_Query) – Paginated query of all published stories.
 * $queried_type (string) – `'fcn_story'`
@@ -756,7 +756,7 @@ Filters the statistics for all stories rendered by the `fictioneer_stories_stati
 * $reading (string) – Total reading time approximated from word count.
 
 **$args:**
-* $current_page (int) – Current page number of pagination or `1`.
+* $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $stories (WP_Query) – Paginated query of all published stories.
 
