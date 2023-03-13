@@ -21,7 +21,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
   function fcn_keyword_search_taxonomies_input( $taxonomies, $query_var, $and_var, $singular, $plural, $args = [] ) {
     // Setup
     $and = $_GET[ $and_var ] ?? 0;
-    $query_list = $_GET[ $query_var ] ?? '';
+    $query_list = wp_strip_all_tags( $_GET[ $query_var ] ?? '', true );
     $examples = array_rand( $taxonomies, min( 5, count( $taxonomies ) ) );
     $examples = is_array( $examples ) ? $examples : [$examples];
 
@@ -104,7 +104,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
 
   function fcn_keyword_search_authors_input( $authors, $query_var, $singular, $plural, $args = [] ) {
     // Setup
-    $query_list = $_GET[ $query_var ] ?? '';
+    $query_list = wp_strip_all_tags( $_GET[ $query_var ] ?? '', true );
     $examples = array_rand( $authors, min( 5, count( $authors ) ) );
     $examples = is_array( $examples ) ? $examples : [$examples];
 
