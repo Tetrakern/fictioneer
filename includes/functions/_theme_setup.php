@@ -398,6 +398,7 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
   function fictioneer_allowed_block_types() {
     return array(
+      // WP Core
       'core/image',
       'core/paragraph',
       'core/heading',
@@ -424,7 +425,34 @@ if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
       'core-embed/youtube',
       'core-embed/soundcloud',
       'core-embed/spotify',
-      'core-embed/vimeo'
+      'core-embed/vimeo',
+      // Known plugins
+      'cloudinary/gallery',
+      'jetpack/business-hours',
+      'jetpack/button',
+      'jetpack/calendly',
+      'jetpack/contact-info',
+      'jetpack/address',
+      'jetpack/email',
+      'jetpack/phone',
+      'jetpack/eventbrite',
+      'jetpack/gif',
+      'jetpack/google-calendar',
+      'jetpack/image-compare',
+      'jetpack/map',
+      'jetpack/markdown',
+      'jetpack/opentable',
+      'jetpack/pinterest',
+      'jetpack/podcast-player',
+      'jetpack/rating-star',
+      'jetpack/repeat-visitor',
+      'jetpack/revue',
+      'jetpack/send-a-message',
+      'jetpack/whatsapp-button',
+      'jetpack/slideshow',
+      'jetpack/story',
+      'jetpack/tiled-gallery',
+      'jetpack/payments-intro',
     );
   }
 }
