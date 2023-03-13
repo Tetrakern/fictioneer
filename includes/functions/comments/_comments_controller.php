@@ -247,7 +247,7 @@ if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
     }
 
     // Mark private if parent is private
-    if ( get_comment_type( $parent_id ) == 'private' ) {
+    if ( $parent_id && get_comment_type( $parent_id ) == 'private' ) {
       $commentdata['comment_type'] = 'private';
     }
 
