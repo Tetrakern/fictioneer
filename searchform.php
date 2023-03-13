@@ -133,7 +133,7 @@ if ( ! $skip_author_keywords ) {
 
 					printf(
 						_x( '<b>Type:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
-						$translations[ $post_type ]
+						$translations[ $post_type ] ?? __( 'Invalid Value', 'fictioneer' )
 					);
 				?></span>
 
@@ -145,7 +145,7 @@ if ( ! $skip_author_keywords ) {
 
 					printf(
 						_x( '<b>Match:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
-						$translations[ $sentence ]
+						$translations[ $sentence ] ?? __( 'Invalid Value', 'fictioneer' )
 					);
 				?></span>
 
@@ -159,7 +159,7 @@ if ( ! $skip_author_keywords ) {
 
 					printf(
 						_x( '<b>Sort:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
-						$translations[ $orderby ]
+						$translations[ $orderby ] ?? __( 'Invalid Value', 'fictioneer' )
 					);
 				?></span>
 
@@ -171,7 +171,7 @@ if ( ! $skip_author_keywords ) {
 
 					printf(
 						_x( '<b>Order:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
-						$translations[ $order ]
+						$translations[ $order ] ?? __( 'Invalid Value', 'fictioneer' )
 					);
 				?></span>
 
