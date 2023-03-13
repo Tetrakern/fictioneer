@@ -754,7 +754,7 @@ Common problems and how to avoid/fix them.
 
 ### Missing Blocks
 
-This is not an error but intentional, the theme only allows blocks that are properly integrated. But you can enable the rest under **Fictioneer > General > Compatibility > Enable all default Gutenberg blocks**. There is no guarantee they will work or look good.
+This is not an error but intentional, the theme only allows blocks that are properly integrated. But you can enable the rest under **Fictioneer > General > Compatibility > Enable all Gutenberg blocks**. There is no guarantee they will work or look good.
 
 ### Reserved URL Slugs
 

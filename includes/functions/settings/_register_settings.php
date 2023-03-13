@@ -500,14 +500,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_enable_all_blocks',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable all default Gutenberg blocks', 'fictioneer' ),
+      'label' => __( 'Enable all Gutenberg blocks', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_all_block_styles' => array(
       'name' => 'fictioneer_enable_all_block_styles',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable all default Gutenberg block styles', 'fictioneer' ),
+      'label' => __( 'Enable all Gutenberg block styles', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_ajax_nonce' => array(
