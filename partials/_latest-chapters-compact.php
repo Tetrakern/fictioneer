@@ -140,7 +140,7 @@ $entries = new WP_Query( $query_args );
             </div>
 
             <div class="card__overlay-infobox _excerpt escape-last-click">
-              <div class="truncate _3-3"><?php echo fictioneer_get_forced_excerpt( $post ); ?></div>
+              <div class="truncate <?php echo $args['source'] ? '_3-3' : '_2-2'; ?>"><?php echo fictioneer_get_forced_excerpt( $post ); ?></div>
             </div>
 
           </div>
