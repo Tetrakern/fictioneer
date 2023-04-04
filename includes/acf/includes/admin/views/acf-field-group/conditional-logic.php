@@ -169,6 +169,5 @@ if ( empty( $field['conditional_logic'] ) ) {
 		<h4><?php _e( 'or', 'acf' ); ?></h4>
 
 		<a href="#" class="button add-conditional-group"><?php _e( 'Add rule group', 'acf' ); ?></a>
-
-	</div>
+	</div>							
 </div>

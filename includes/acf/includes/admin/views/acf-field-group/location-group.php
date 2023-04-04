@@ -16,7 +16,7 @@
 
 				// view
 				acf_get_view(
-					'html-location-rule',
+					'acf-field-group/location-rule',
 					array(
 						'rule' => $rule,
 					)

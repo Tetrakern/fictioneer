@@ -72,7 +72,7 @@ if ( $is_subfield ) {
 			foreach ( $fields as $i => $field ) :
 
 				acf_get_view(
-					'field-group-field',
+					'acf-field-group/field',
 					array(
 						'field'            => $field,
 						'i'                => $i,
@@ -111,7 +111,7 @@ if ( ! $parent ) :
 	<script type="text/html" id="tmpl-acf-field">
 	<?php
 	acf_get_view(
-		'field-group-field',
+		'acf-field-group/field',
 		array(
 			'field'            => $clone,
 			'i'                => 0,
@@ -119,6 +119,9 @@ if ( ! $parent ) :
 		)
 	);
 	?>
+	</script>
+	<script type="text/html" id="tmpl-acf-browse-fields-modal">
+		<?php acf_get_view( 'browse-fields-modal' ); ?>
 	</script>
 <?php endif; ?>
 

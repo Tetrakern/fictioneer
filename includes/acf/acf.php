@@ -9,7 +9,7 @@
  * Plugin Name:   Advanced Custom Fields
  * Plugin URI:    https://www.advancedcustomfields.com
  * Description:   Customize WordPress with powerful, professional and intuitive fields.
- * Version:       6.0.7
+ * Version:       6.1.2
  * Author:        WP Engine
  * Author URI:    https://wpengine.com/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=plugin_directory&utm_content=advanced_custom_fields
  * Text Domain:   acf
@@ -25,6 +25,7 @@ if ( ! class_exists( 'ACF' ) ) {
 	/**
 	 * The main ACF class
 	 */
+	#[AllowDynamicProperties]
 	class ACF {
 
 		/**
@@ -32,7 +33,7 @@ if ( ! class_exists( 'ACF' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '6.0.7';
+		public $version = '6.1.2';
 
 		/**
 		 * The plugin settings array.
@@ -97,6 +98,7 @@ if ( ! class_exists( 'ACF' ) ) {
 				'url'                    => plugin_dir_url( __FILE__ ),
 				'show_admin'             => true,
 				'show_updates'           => true,
+				'enable_post_types'      => true,
 				'stripslashes'           => false,
 				'local'                  => true,
 				'json'                   => true,
@@ -135,6 +137,7 @@ if ( ! class_exists( 'ACF' ) ) {
 
 			// Include classes.
 			acf_include( 'includes/class-acf-data.php' );
+			acf_include( 'includes/class-acf-internal-post-type.php' );
 			acf_include( 'includes/fields/class-acf-field.php' );
 			acf_include( 'includes/locations/abstract-acf-legacy-location.php' );
 			acf_include( 'includes/locations/abstract-acf-location.php' );
@@ -143,6 +146,9 @@ if ( ! class_exists( 'ACF' ) ) {
 			acf_include( 'includes/acf-helper-functions.php' );
 			acf_include( 'includes/acf-hook-functions.php' );
 			acf_include( 'includes/acf-field-functions.php' );
+			acf_include( 'includes/acf-internal-post-type-functions.php' );
+			acf_include( 'includes/acf-post-type-functions.php' );
+			acf_include( 'includes/acf-taxonomy-functions.php' );
 			acf_include( 'includes/acf-field-group-functions.php' );
 			acf_include( 'includes/acf-form-functions.php' );
 			acf_include( 'includes/acf-meta-functions.php' );
@@ -170,6 +176,9 @@ if ( ! class_exists( 'ACF' ) ) {
 			acf_include( 'includes/validation.php' );
 			acf_include( 'includes/rest-api.php' );
 
+			// Include field group class.
+			acf_include( 'includes/post-types/class-acf-field-group.php' );
+
 			// Include ajax.
 			acf_include( 'includes/ajax/class-acf-ajax.php' );
 			acf_include( 'includes/ajax/class-acf-ajax-check-screen.php' );
@@ -194,11 +203,17 @@ if ( ! class_exists( 'ACF' ) ) {
 			// Include admin.
 			if ( is_admin() ) {
 				acf_include( 'includes/admin/admin.php' );
-				acf_include( 'includes/admin/admin-field-group.php' );
-				acf_include( 'includes/admin/admin-field-groups.php' );
+				acf_include( 'includes/admin/admin-internal-post-type-list.php' );
+				acf_include( 'includes/admin/admin-internal-post-type.php' );
 				acf_include( 'includes/admin/admin-notices.php' );
 				acf_include( 'includes/admin/admin-tools.php' );
 				acf_include( 'includes/admin/admin-upgrade.php' );
+			}
+
+			// Include polyfill for < PHP7 unserialize.
+			if ( PHP_VERSION_ID < 70000 ) {
+				acf_include( 'vendor/polyfill-unserialize/src/Unserialize.php' );
+				acf_include( 'vendor/polyfill-unserialize/src/DisallowedClassesSubstitutor.php' );
 			}
 
 			// Include legacy.
@@ -208,9 +223,9 @@ if ( ! class_exists( 'ACF' ) ) {
 			acf_include( 'pro/acf-pro.php' );
 
 			// Add actions.
+			add_action( 'init', array( $this, 'register_post_status' ), 4 );
 			add_action( 'init', array( $this, 'init' ), 5 );
 			add_action( 'init', array( $this, 'register_post_types' ), 5 );
-			add_action( 'init', array( $this, 'register_post_status' ), 5 );
 			add_action( 'activated_plugin', array( $this, 'deactivate_other_instances' ) );
 			add_action( 'pre_current_active_plugins', array( $this, 'plugin_deactivated_notice' ) );
 
@@ -250,6 +265,12 @@ if ( ! class_exists( 'ACF' ) ) {
 			// Include wpml support.
 			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
 				acf_include( 'includes/wpml.php' );
+			}
+
+			// Add post types and taxonomies.
+			if ( acf_get_setting( 'enable_post_types' ) ) {
+				acf_include( 'includes/post-types/class-acf-post-type.php' );
+				acf_include( 'includes/post-types/class-acf-taxonomy.php' );
 			}
 
 			// Include fields.
@@ -339,6 +360,24 @@ if ( ! class_exists( 'ACF' ) ) {
 			do_action( 'acf/include_fields', ACF_FIELD_API_VERSION );
 
 			/**
+			 * Fires during initialization. Used to add local post types.
+			 *
+			 * @since 6.1
+			 *
+			 * @param int ACF_MAJOR_VERSION The major version of ACF.
+			 */
+			do_action( 'acf/include_post_types', ACF_MAJOR_VERSION );
+
+			/**
+			 * Fires during initialization. Used to add local taxonomies.
+			 *
+			 * @since 6.1
+			 *
+			 * @param int ACF_MAJOR_VERSION The major version of ACF.
+			 */
+			do_action( 'acf/include_taxonomies', ACF_MAJOR_VERSION );
+
+			/**
 			 * Fires after ACF is completely "initialized".
 			 *
 			 * @date    28/09/13
@@ -358,8 +397,6 @@ if ( ! class_exists( 'ACF' ) ) {
 		 * @return  void
 		 */
 		public function register_post_types() {
-
-			// Vars.
 			$cap = acf_get_setting( 'capability' );
 
 			// Register the Field Group post type.
@@ -501,9 +538,9 @@ if ( ! class_exists( 'ACF' ) ) {
 				return;
 			}
 
-			$message = __( "Advanced Custom Fields and Advanced Custom Fields should not be active at the same time. We've automatically deactivated Advanced Custom Fields.", 'acf' );
+			$message = __( "Advanced Custom Fields and Advanced Custom Fields PRO should not be active at the same time. We've automatically deactivated Advanced Custom Fields.", 'acf' );
 			if ( 2 === $deactivated_notice_id ) {
-				$message = __( "Advanced Custom Fields and Advanced Custom Fields should not be active at the same time. We've automatically deactivated Advanced Custom Fields PRO.", 'acf' );
+				$message = __( "Advanced Custom Fields and Advanced Custom Fields PRO should not be active at the same time. We've automatically deactivated Advanced Custom Fields PRO.", 'acf' );
 			}
 
 			?>
@@ -521,16 +558,18 @@ if ( ! class_exists( 'ACF' ) ) {
 		 * @date    31/8/19
 		 * @since   5.8.1
 		 *
-		 * @param   string   $where The WHERE clause.
-		 * @param   WP_Query $wp_query The query object.
-		 * @return  WP_Query $wp_query The query object.
+		 * @param  string   $where    The WHERE clause.
+		 * @param  WP_Query $wp_query The query object.
+		 * @return string
 		 */
 		public function posts_where( $where, $wp_query ) {
 			global $wpdb;
 
-			$field_key  = $wp_query->get( 'acf_field_key' );
-			$field_name = $wp_query->get( 'acf_field_name' );
-			$group_key  = $wp_query->get( 'acf_group_key' );
+			$field_key     = $wp_query->get( 'acf_field_key' );
+			$field_name    = $wp_query->get( 'acf_field_name' );
+			$group_key     = $wp_query->get( 'acf_group_key' );
+			$post_type_key = $wp_query->get( 'acf_post_type_key' );
+			$taxonomy_key  = $wp_query->get( 'acf_taxonomy_key' );
 
 			// Add custom "acf_field_key" arg.
 			if ( $field_key ) {
@@ -547,7 +586,16 @@ if ( ! class_exists( 'ACF' ) ) {
 				$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_name = %s", $group_key );
 			}
 
-			// Return.
+			// Add custom "acf_post_type_key" arg.
+			if ( $post_type_key ) {
+				$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_name = %s", $post_type_key );
+			}
+
+			// Add custom "acf_taxonomy_key" arg.
+			if ( $taxonomy_key ) {
+				$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_name = %s", $taxonomy_key );
+			}
+
 			return $where;
 		}
 

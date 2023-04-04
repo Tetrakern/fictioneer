@@ -23,7 +23,7 @@ global $field_group;
 
 				// view
 				acf_get_view(
-					'html-location-group',
+					'acf-field-group/location-group',
 					array(
 						'group'    => $group,
 						'group_id' => "group_{$i}",
