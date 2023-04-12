@@ -702,6 +702,9 @@ if ( ! function_exists( 'fictioneer_output_head_seo' ) ) {
     <?php endif; ?>
 
     <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<?php echo $og_title; ?>">
+    <meta name="twitter:image" content="<?php echo $og_image['url']; ?>">
+    <meta name="twitter:description" content="<?php echo $og_description; ?>">
 
     <?php if ( $show_author && $article_twitter ) : ?>
       <meta name="twitter:creator" content="<?php echo '@' . $article_twitter; ?>">
