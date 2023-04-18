@@ -919,6 +919,18 @@ if ( get_option( 'fictioneer_consent_wrappers' ) ) {
 // REDUCE SUBSCRIBER ADMIN PROFILE
 // =============================================================================
 
+/**
+ * Allow Twitter contact info
+ *
+ * @since 5.2.4
+ */
+
+function fictioneer_user_contact_methods( $methods ) {
+	$methods['twitter'] = __( 'Twitter Username' );
+	return $methods;
+}
+add_filter( 'user_contactmethods', 'fictioneer_user_contact_methods' );
+
 if ( ! function_exists( 'fictioneer_reduce_subscriber_profile' ) ) {
   /**
    * Reduce subscriber profile in admin panel
@@ -936,7 +948,7 @@ if ( ! function_exists( 'fictioneer_reduce_subscriber_profile' ) ) {
     // Reduce profile...
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
     add_filter( 'wp_is_application_passwords_available', '__return_false' );
-    add_filter( 'user_contactmethods', '__return_empty_array' );
+    add_filter( 'user_contactmethods', '__return_empty_array', 20 );
   }
 }
 
