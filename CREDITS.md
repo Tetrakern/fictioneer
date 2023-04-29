@@ -52,8 +52,7 @@ The following list credits all third-party resources used in the Fictioneer them
 
 * **CoreUI icons**<br>
   Copyright: CoreUI<br>
-  Licenses: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)<br>
-            Icon License<br>
+  Licenses: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), Icon License<br>
   Source: https://github.com/coreui/coreui-icons
 
 * **Inoreader logo**<br>
