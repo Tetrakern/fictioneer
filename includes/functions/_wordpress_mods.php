@@ -869,7 +869,11 @@ if ( ! function_exists( 'fictioneer_embed_consent_wrappers' ) ) {
         $title
       );
 
+      $embed_logo = $dom->createElement( 'div' );
+      $embed_logo->setAttribute( 'class', 'embed-logo' );
+
       $iframe->parentNode->insertBefore( $consent_element );
+      $iframe->parentNode->insertBefore( $embed_logo );
     }
 
     // Process Twitter timelines

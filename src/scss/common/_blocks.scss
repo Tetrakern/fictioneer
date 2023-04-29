@@ -364,8 +364,7 @@ figure {
     }
   }
 
-  &::after {
-    content: '';
+  .embed-logo {
     position: absolute;
     left: 50%;
     z-index: -1;
@@ -376,51 +375,43 @@ figure {
     }
     width: 400px;
     max-width: 90%;
-    opacity: .2;
+    opacity: .15;
     transform: translate(-50%, -50%);
   }
 
   &-soundcloud {
-    &::after {
+    .embed-logo {
       filter: brightness(0);
       top: 200px;
-      background: {
-        image: url('../img/soundcloud_logo.svg');
-      }
+      background-image: url('../img/soundcloud_logo.svg');
       height: 300px;
     }
   }
 
   &-youtube {
-    &::after {
+    .embed-logo {
       filter: brightness(15%);
       top: 140px;
-      background: {
-        image: url('../img/youtube_logo_monochrome.webp');
-      }
+      background-image: url('../img/youtube_logo_monochrome.webp');
       height: 150px;
     }
   }
 
   &-spotify {
-    &::after {
+    .embed-logo {
       filter: brightness(15%);
       top: 190px;
-      background: {
-        image: url('../img/spotify_logo_dark.webp');
-      }
+      background-image: url('../img/spotify_logo_dark.webp');
       height: 200px;
       width: 200px;
     }
   }
 
   &-amazon {
-    &::after {
+    .embed-logo {
       filter: grayscale(100%) brightness(0%);
       top: 270px;
-      background: {
-        image: url('../img/amazon_kindle_logo.svg');
-      }
+      background-image: url('../img/amazon_kindle_logo.svg');
       height: 100px;
     }
   }
