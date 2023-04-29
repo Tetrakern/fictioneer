@@ -1,7 +1,7 @@
 # Credits
 The following list credits all third-party resources used in the Fictioneer theme in addition to the WordPress core. Even though the list was compiled with great care, it’s always possible something is wrong or missing. If that happens to be the case, please get in contact or make a pull request to update the credits.
 
-## Repo Example Stories
+## Repo Example Stories (w/ Permission)
 
 * **[Katalepsis](https://katalepsis.net/)**
 * **[Necroepilogos](https://necroepilogos.net/)**
