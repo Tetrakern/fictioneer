@@ -1042,7 +1042,7 @@ add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 // =============================================================================
 
 /**
- * Disable default REST API endpoints
+ * Restrict default REST API endpoints
  *
  * @since 5.2.4
  * @link https://developer.wordpress.org/reference/hooks/rest_authentication_errors/
@@ -1054,21 +1054,25 @@ add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
  * @return WP_Error|null|true $errors The filters errors.
  */
 
-function fictioneer_disable_rest_api( $errors ) {
-  // Only allow Storygraph API (if enabled)
-  if ( ! preg_match( '/^\/wp-json\/storygraph\//', $_SERVER['REQUEST_URI'] ) ) {
+function fictioneer_restrict_rest_api( $errors ) {
+  if ( $errors === true || is_wp_error( $errors ) ) {
+    return $errors;
+  }
+
+  // Restrict default API endpoints to users with 'edit_posts' permission (required for Gutenberg to work)
+  if ( preg_match( '/^\/wp-json\/wp\/v2\//', $_SERVER['REQUEST_URI'] ) && ! current_user_can( 'edit_posts' ) ) {
     return new WP_Error(
-        'default_rest_api_endpoints_disabled',
-        __( 'Default REST API endpoints have been disabled.' ),
-        array( 'status' => 401 )
+      'rest_insufficient_permission',
+      __( 'You are not authorized to use the API.' ),
+      array( 'status' => 401 )
     );
   }
 
   return $errors;
 }
 
-if ( get_option( 'fictioneer_disable_rest_api' ) ) {
-  add_filter( 'rest_authentication_errors', 'fictioneer_disable_rest_api' );
+if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
+  add_filter( 'rest_authentication_errors', 'fictioneer_restrict_rest_api' );
 }
 
 ?>

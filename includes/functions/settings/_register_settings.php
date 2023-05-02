@@ -607,6 +607,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Storygraph API', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_restrict_rest_api' => array(
+      'name' => 'fictioneer_restrict_rest_api',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Restrict Default REST API', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

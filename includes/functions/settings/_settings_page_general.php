@@ -134,7 +134,7 @@ $action = $_GET['action'] ?? null;
   							</div>
 
                 <div class="textarea row">
-                  <textarea name="fictioneer_contact_email_addresses" id="fictioneer_contact_email_addresses" rows="4" style="height: 145px;"><?php echo get_option( 'fictioneer_contact_email_addresses' ); ?></textarea>
+                  <textarea name="fictioneer_contact_email_addresses" id="fictioneer_contact_email_addresses" rows="4" style="height: 205px;"><?php echo get_option( 'fictioneer_contact_email_addresses' ); ?></textarea>
                   <p class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_contact_email_addresses']['label']; ?></p>
                 </div>
 
@@ -645,7 +645,7 @@ $action = $_GET['action'] ?? null;
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 104px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 162px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
@@ -715,6 +715,14 @@ $action = $_GET['action'] ?? null;
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_do_not_save_comment_ip']['label']; ?></span>
                     <p class="sub-label"><?php _e( 'IP addresses are personal data.', 'fictioneer' ) ?></p>
+                  </div>
+                </label>
+
+                <label for="fictioneer_restrict_rest_api" class="label-wrapped-checkbox row">
+                  <input name="fictioneer_restrict_rest_api" type="checkbox" id="fictioneer_restrict_rest_api" <?php echo checked( 1, get_option( 'fictioneer_restrict_rest_api' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_restrict_rest_api']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Disables API for guests and low-permission users.', 'fictioneer' ) ?></p>
                   </div>
                 </label>
 
