@@ -1037,4 +1037,38 @@ function fictioneer_extend_allowed_protocols( $protocols ){
 }
 add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 
+// =============================================================================
+// DISABLE REST API
+// =============================================================================
+
+/**
+ * Disable default REST API endpoints
+ *
+ * @since 5.2.4
+ * @link https://developer.wordpress.org/reference/hooks/rest_authentication_errors/
+ *
+ * @param WP_Error|null|true $errors WP_Error if authentication error, null
+ *                                   if authentication method wasn't used,
+ *                                   true if authentication succeeded.
+ *
+ * @return WP_Error|null|true $errors The filters errors.
+ */
+
+function fictioneer_disable_rest_api( $errors ) {
+  // Only allow Storygraph API (if enabled)
+  if ( ! preg_match( '/^\/wp-json\/storygraph\//', $_SERVER['REQUEST_URI'] ) ) {
+    return new WP_Error(
+        'default_rest_api_endpoints_disabled',
+        __( 'Default REST API endpoints have been disabled.' ),
+        array( 'status' => 401 )
+    );
+  }
+
+  return $errors;
+}
+
+if ( get_option( 'fictioneer_disable_rest_api' ) ) {
+  add_filter( 'rest_authentication_errors', 'fictioneer_disable_rest_api' );
+}
+
 ?>
