@@ -7,6 +7,8 @@
 if ( ! function_exists( 'fictioneer_maintenance_mode' ) ) {
   /**
    * Toggle maintenance mode from settings with message
+   *
+   * @since 5.0
    */
 
   function fictioneer_maintenance_mode() {
@@ -246,6 +248,8 @@ add_action( 'save_post', 'fictioneer_save_word_count' );
 
 /**
  * Reduce admin bar based on setting
+ *
+ * @since 5.0
  */
 
 function fictioneer_remove_admin_bar_links() {
@@ -1016,6 +1020,8 @@ if ( ! FICTIONEER_ATTACHMENT_PAGES ) {
 
 /**
  * Extend list of allowed protocols
+ *
+ * @since 4.0
  *
  * @param array $protocols Array of allowed protocols.
  *
