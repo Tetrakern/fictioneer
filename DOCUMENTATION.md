@@ -209,17 +209,17 @@ Recommendations are added under **Recommendations > Add New**. Required fields a
 
 Think of the sentence as elevator pitch, something you can tell within a few seconds to get the point across. Skip the details, hint at the plot, describe the concept — the story has all the time to tell itself later. Because more often than not, readers will only glimpse at a story while browsing. Recommendations are not prominently featured on _your_ site, after all.
 
-> Rebellious corporate heiress and her genius friend commit high-tech heists in a doomed city on the edge of the future.
+> Rebellious heiress and her genius friend commit high-tech heists in a doomed city on the edge of tomorrow.
 
 > Schoolgirl gets reincarnated into a fantasy world, though not as heroine but as tentacle monster!
 
 > Haunted student discovers her nightmares of gods and horrors from beyond reality are no hallucinations after all.
 
-> Girl from the slums discovers her talent for necromancy and learns to love the existential terror she becomes.
+> Girl from the slums discovers her talent for necromancy and learns to embrace being an existential terror.
 
-> Two women forge an unlikely bond and explore the answer to a simple question: is selling your body the same as selling yourself?
+> Two women forge an unlikely bond and explore a simple question: is selling your body the same as selling yourself?
 
-> Reanimated girls from different epochs roam the ruins of civilizations on the scarred corpse of Earth.
+> Reanimated girls from different epochs roam the ruins of civilization on the scarred corpse of Earth.
 
 ## Pages
 
