@@ -730,7 +730,7 @@ $action = $_GET['action'] ?? null;
                   <input name="fictioneer_block_subscribers_from_admin" type="checkbox" id="fictioneer_block_subscribers_from_admin" <?php echo checked( 1, get_option( 'fictioneer_block_subscribers_from_admin' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_block_subscribers_from_admin']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'If you have a frontend account page set up.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'For when you have a frontend account page set up.', 'fictioneer' ) ?></p>
                   </div>
                 </label>
 
