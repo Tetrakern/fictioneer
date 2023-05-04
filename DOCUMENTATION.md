@@ -221,6 +221,8 @@ Think of the sentence as elevator pitch, something you can tell within a few sec
 
 > Reanimated girls from different epochs roam the ruins of civilization on the scarred corpse of Earth.
 
+> Dying magical girl eats the hearts of living nightmares to cheat death.
+
 ## Pages
 
 Pages work the same as always in WordPress, just with some additional fields and template options. [Change the template](https://wordpress.org/support/article/pages/#page-templates) in the settings sidebar, new options being **Chapters**, **Collections**, **Recommendations**, **Bookmarks**, **Bookshelf**, **Bookshelf AJAX**, **Taxonomies**, **No Title Page**, **Stories**, and **User Profile**. You can assign these template pages to certain tasks under **Fictioneer > General > Page Assignments**.
