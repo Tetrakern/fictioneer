@@ -62,10 +62,10 @@ function fictioneer_frequency_node( $content ) {
  */
 
 function fictioneer_url_node( $loc, $lastmod = null, $freq = null ) {
-  $node = '\t' . '<url>' . '\n\t\t' . fictioneer_loc_node( $loc ) . '\n';
-  $node = $lastmod ? $node . '\t\t' . fictioneer_lastmod_node( $lastmod ) . '\n' : $node;
-  $node = $freq ? $node . '\t\t' . fictioneer_frequency_node( $freq ) . '\n' : $node;
-  $node .= '\t' . '</url>' . '\n';
+  $node = "\t" . '<url>' . "\n\t\t" . fictioneer_loc_node( $loc ) . "\n";
+  $node = $lastmod ? $node . "\t\t" . fictioneer_lastmod_node( $lastmod ) . "\n" : $node;
+  $node = $freq ? $node . "\t\t" . fictioneer_frequency_node( $freq ) . "\n" : $node;
+  $node .= "\t" . '</url>' . "\n";
 
   return $node;
 }
@@ -80,8 +80,8 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
 
     if ( in_array( $last_saved_type, $allowed_types ) ) {
       // Open
-      $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . '\n';
-      $sitemap .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . '\n';
+      $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+      $sitemap .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
       // Blog and front page
       $sitemap .= fictioneer_url_node( esc_url( home_url( '/' ) ), current_time( 'c' ), 'daily' );
@@ -159,16 +159,16 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
             'orderby' => 'date',
             'order' => 'DESC',
             'numberposts' => '2000',
-            array(
+            'meta_query' => array(
               'relation' => 'OR',
+              array(
+                'key' => 'fictioneer_story_hidden',
+                'value' => '0'
+              ),
               array(
                 'key' => 'fictioneer_story_hidden',
                 'compare' => 'NOT EXISTS'
               ),
-              array(
-                'key' => 'fictioneer_story_hidden',
-                'value' => '0'
-              )
             )
           )
         );
@@ -223,7 +223,7 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
       }
 
       // End
-      $sitemap .= '\n' . '</urlset>';
+      $sitemap .= "\n" . '</urlset>';
 
       // Save
       $file_path = fopen( ABSPATH . '/sitemap.xml', 'w' );
