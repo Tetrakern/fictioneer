@@ -27,7 +27,18 @@
     'orderby' => 'meta_value modified',
     'order' => 'DESC',
     'paged' => $page,
-    'posts_per_page' => get_option( 'posts_per_page', 8 )
+    'posts_per_page' => get_option( 'posts_per_page', 8 ),
+    'meta_query' => array(
+      'relation' => 'OR',
+      array(
+        'key' => 'fictioneer_story_hidden',
+        'value' => '0'
+      ),
+      array(
+        'key' => 'fictioneer_story_hidden',
+        'compare' => 'NOT EXISTS'
+      ),
+    )
   );
 
   // Filter query arguments

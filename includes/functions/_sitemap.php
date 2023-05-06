@@ -105,7 +105,6 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
       foreach( $pages as $post ) {
         $template = get_page_template_slug( $post->ID );
         if ( in_array( $template, ['user-profile.php', 'single-bookmarks.php'] ) ) continue;
-        $type = get_post_type( $post );
         $frequency = 'yearly';
         $lastmod = get_the_modified_date( 'c', $post->ID );
         $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'yearly' );
@@ -153,13 +152,26 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
       $stories = $last_saved_type == 'fcn_story' ? false : get_transient( 'fictioneer_sitemap_stories' );
 
       if ( ! $stories ) {
-        $stories = get_posts( array(
-          'post_type' => 'fcn_story',
-          'post_status' => array( 'publish' ),
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '2000'
-        ));
+        $stories = get_posts(
+          array(
+            'post_type' => 'fcn_story',
+            'post_status' => array( 'publish' ),
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'numberposts' => '2000',
+            array(
+              'relation' => 'OR',
+              array(
+                'key' => 'fictioneer_story_hidden',
+                'compare' => 'NOT EXISTS'
+              ),
+              array(
+                'key' => 'fictioneer_story_hidden',
+                'value' => '0'
+              )
+            )
+          )
+        );
         set_transient( 'fictioneer_sitemap_stories', $stories );
       }
 

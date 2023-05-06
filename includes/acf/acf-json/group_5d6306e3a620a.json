@@ -129,16 +129,16 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Sticky in all lists",
+            "message": "Sticky in lists",
             "default_value": 0,
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
         },
         {
-            "key": "field_60ecb1ba18b2b",
+            "key": "field_6456dc4618338",
             "label": "",
-            "name": "fictioneer_story_no_epub",
+            "name": "fictioneer_story_hidden",
             "aria-label": "",
             "type": "true_false",
             "instructions": "",
@@ -149,7 +149,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Disable ePUB download",
+            "message": "Hide story in lists",
             "default_value": 0,
             "ui": 0,
             "ui_on_text": "",
@@ -256,6 +256,26 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_60ecb1ba18b2b",
+            "label": "",
+            "name": "fictioneer_story_no_epub",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Disable ePUB download",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_636d81d34cab1",
             "label": "Custom Story CSS",
             "name": "fictioneer_story_css",
@@ -294,5 +314,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1676250543
+    "modified": 1683414548
 }

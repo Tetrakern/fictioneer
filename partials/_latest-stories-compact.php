@@ -32,6 +32,17 @@ $query_args = array(
   'orderby' => 'meta_value ' . $args['orderby'],
   'order' => $args['order'] ?? 'desc',
   'posts_per_page' => $args['count'],
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    ),
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'compare' => 'NOT EXISTS'
+    ),
+  ),
   'no_found_rows' => true
 );
 
