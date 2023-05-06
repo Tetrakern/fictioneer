@@ -23,7 +23,7 @@ if ( ! function_exists( 'fictioneer_add_seo_metabox' ) ) {
     if ( in_array( $post_type, $for_these_types ) && ! in_array( get_page_template_slug( $post ), $not_these_slugs ) ) {
       add_meta_box(
         'fictioneer-search-engine-appearance',
-        __( 'Search Engine Appearance', 'fictioneer' ),
+        __( 'SEO & Meta Tags', 'fictioneer' ),
         'fictioneer_seo_fields',
         null,
         'normal',

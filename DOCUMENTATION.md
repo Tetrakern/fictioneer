@@ -16,7 +16,7 @@ This documentation is about the Fictioneer theme. If you need help with WordPres
   * [Meta Fields](#meta-fields-3)
   * [Example Sentences](#example-sentences)
 * [Shared Options](#shared-options)
-  * [Search Engine Appearance](#search-engine-appearance)
+  * [SEO & Meta Tags](#seo--meta-tags)
   * [Landscape Image](#landscape-image)
   * [Page Layout](#page-layout)
   * [Comments](#comments)
@@ -249,7 +249,7 @@ Pages work the same as always in WordPress, just with some additional fields and
 
 These fields and options are available in most post types, which does not mean they make sense everywhere.
 
-### Search Engine Appearance
+### SEO & Meta Tags
 
 Metadata for search engine results, schema graphs, and social media embeds. If left blank, defaults will be derived from the post content. You can use `{{title}}`, `{{site}}`, and `{{excerpt}}` as placeholders. Titles should not exceed 70 characters but this is not enforced. The Open Graph image is either set manually (click on the box) or defaults to the post thumbnail, parent thumbnail, or site default in that order. Whether these services actually display the offered data is entirely up to them. After all, you could write anything in there.
 
