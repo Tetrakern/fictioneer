@@ -106,7 +106,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
                   if ( strtotime( '-1 days' ) < strtotime( get_the_date( '', $id ) ) ) {
                     _e( 'New', 'fictioneer' );
                   } else {
-                    echo get_the_time( get_option( 'fictioneer_subitem_date_format', 'M j, y' ), $id );
+                    echo get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", $id );
                   }
                 ?></span>
               </div>
@@ -157,7 +157,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <span title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>"><?php echo $story['word_count_short']; ?></span>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', 'M j, y' ) ); ?></span>
+        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>

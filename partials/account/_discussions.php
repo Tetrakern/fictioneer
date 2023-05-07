@@ -110,7 +110,7 @@ $badge = empty( $badge ) ? fictioneer_get_override_badge( $current_user, 'Badge'
           date_create(),
           sprintf(
             _x( '%1$s \a\t %2$s', 'Comment time format string.', 'fictioneer' ),
-            get_option( 'fictioneer_subitem_date_format', 'M j, y' ),
+            get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y",
             get_option( 'time_format' )
           )
         );

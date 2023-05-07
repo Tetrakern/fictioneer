@@ -127,7 +127,7 @@ $comment_count = get_comments( $comment_args );
               </div>
               <div class="card__right _flex dot-separator">
                 <span><?php echo get_post_type_object( get_post_type( $post_id ) )->labels->singular_name; ?></span>
-                <span class="hide-below-480"><?php echo get_post_time( get_option( 'fictioneer_subitem_date_format', 'M j, y' ), false, $post_id ); ?></span>
+                <span class="hide-below-480"><?php echo get_post_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", false, $post_id ); ?></span>
               </div>
             </li>
           <?php endforeach; ?>
@@ -179,7 +179,7 @@ $comment_count = get_comments( $comment_args );
         <span><?php echo fictioneer_shorten_number( $word_count ); ?></span>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', 'M j, y' ) ); ?></span>
+        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
         <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo $comment_count; ?></span>

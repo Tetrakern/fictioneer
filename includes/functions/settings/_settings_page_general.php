@@ -101,15 +101,15 @@ $action = $_GET['action'] ?? null;
 
                 <div class="text-input-inline row"><?php
                   printf(
-                    __( '<span>Use</span> %s <span>for long date formats (<code>M j, y</code>).</span>', 'fictioneer' ),
-                    '<input name="fictioneer_subitem_date_format" type="text" id="fictioneer_subitem_date_format" value="' . esc_attr( get_option( 'fictioneer_subitem_date_format', 'M j, y' ) ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="8" placeholder="M j, y">'
+                    __( '<span>Use</span> %s <span>for long date formats (<code>M j, \'y</code>).</span>', 'fictioneer' ),
+                    '<input name="fictioneer_subitem_date_format" type="text" id="fictioneer_subitem_date_format" value="' . esc_attr( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="8" placeholder="M j, \'y">'
                   )
                 ?></div>
 
                 <div class="text-input-inline row"><?php
                   printf(
                     __( '<span>Use</span> %s <span>for short date formats (<code>M j</code>).</span>', 'fictioneer' ),
-                    '<input name="fictioneer_subitem_short_date_format" type="text" id="fictioneer_subitem_short_date_format" value="' . esc_attr( get_option( 'fictioneer_subitem_short_date_format', 'M j' ) ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="8" placeholder="M j, y">'
+                    '<input name="fictioneer_subitem_short_date_format" type="text" id="fictioneer_subitem_short_date_format" value="' . esc_attr( get_option( 'fictioneer_subitem_short_date_format', 'M j' ) ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="8" placeholder="M j">'
                   )
                 ?></div>
 

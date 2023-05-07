@@ -45,7 +45,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
                 date_create( $comment->comment_date ),
                 sprintf(
                   _x( '%1$s \a\t %2$s', 'Comment time format string.', 'fictioneer' ),
-                  get_option( 'fictioneer_subitem_date_format', 'M j, y' ),
+                  get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y",
                   get_option( 'time_format' )
                 )
               ) . '</span>',

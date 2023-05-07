@@ -131,7 +131,7 @@ $entries = new WP_Query( $query_args );
                     printf(
                       __( '<span>%1$s</span> <span>Words on</span> <span>%2$s</span>', 'fictioneer' ),
                       fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ),
-                      get_the_time( get_option( 'fictioneer_subitem_date_format', 'M j, y' ) )
+                      get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" )
                     );
                   ?>
                 </div>
