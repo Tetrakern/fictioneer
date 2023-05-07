@@ -164,7 +164,18 @@ figure {
   }
 
   &:is(.spoiler) {
+    position: relative;
     border-left: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 3px;
+      background-color: currentColor;
+      width: 2px;
+    }
   }
 }
 
