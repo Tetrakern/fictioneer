@@ -84,12 +84,13 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | Co-Authors | List | List of co-authors. They must be registered users, but dummies will do.
 | Copyright Notice | String | Line below the content to declare copyrights if necessary.
 | Top Web Fiction Link | URL | Link to your story on [Top Web Fiction](https://topwebfiction.com/).
-| Sticky in all lists | Check | Stick the story to the top of the first page in lists.
-| Disable ePUB download | Check | Disable ePUB downloads for the story everywhere.
+| Sticky in lists | Check | Stick the story to the top of the first page in lists.
+| Hide in lists | Check | Hide the story in lists; it can still be accessed with the link.
 | Hide thumbnail on story page | Check | Hide the cover image on the page but not in lists.
 | Hide tags on story page | Check | Hide *all* taxonomies except warnings on the page but not in lists.
 | Hide chapter icons | Check | Hide chapter icons.
 | Disable collapsing of chapters | Check | Disable collapsing of long chapter lists (13+ as 5\|n\|5 per group).
+| Disable ePUB download | Check | Disable ePUB downloads for the story everywhere.
 | Hide chapter icons | Check | Hide chapter icons.
 | Disable chapter groups | Check | Ignore chapter groups.
 | Custom Story CSS | Text | Inject custom styles for the story and chapters. For advanced users.
