@@ -29,10 +29,6 @@
   max-width: var(--site-width);
   width: 100%;
 
-  @include bp(768px) {
-    min-height: 800px;
-  }
-
   @include bp($full-width + 'px') {
     filter: var(--layout-main-filter);
   }
@@ -60,6 +56,10 @@
 
     &._no-padding {
       padding-top: 0;
+    }
+
+    @include bp(768px) {
+      min-height: 800px;
     }
   }
 }
