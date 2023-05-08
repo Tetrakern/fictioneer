@@ -278,7 +278,7 @@ function fcn_toggleBookmark(id, color = 'none') {
       'date': new Date(),
       'color': color,
       'chapter': fcn_chapterBookmarkData.dataset.title.trim(),
-      'link': fcn_chapterBookmarkData.dataset.link,
+      'link': `/?p=${chapter.id.replace('ch-', '')}`,
       'thumb': fcn_chapterBookmarkData.dataset.thumb,
       'image': fcn_chapterBookmarkData.dataset.image,
       'story': fcn_chapterBookmarkData.dataset.storyTitle.trim(),
