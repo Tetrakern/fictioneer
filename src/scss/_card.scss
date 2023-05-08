@@ -250,6 +250,7 @@
     font-family: var(--ff-note);
     font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile)
     line-height: 1.5;
+    overflow-wrap: break-word;
 
     &._small {
       font-size: 13px; // Minimum desktop and mobile
