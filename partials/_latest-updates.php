@@ -218,7 +218,7 @@ $entries = new WP_Query( $query_args );
                   <span title="<?php esc_attr_e( 'Total Words', 'fictioneer' ); ?>"><?php echo $story['word_count_short']; ?></span>
 
                   <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"></i>
-                  <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"><?php echo get_the_modified_date( 'M j, y', $post ); ?></span>
+                  <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"><?php echo get_the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", $post ); ?></span>
 
                   <i class="<?php echo $story['icon']; ?>"></i>
                   <span><?php echo fcntr( $story['status'] ); ?></span>
