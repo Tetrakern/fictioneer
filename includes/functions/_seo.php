@@ -53,7 +53,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
   function fictioneer_seo_fields( $post ) {
     // Title
     $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true ) ?? '{{title}} – {{site}}';
-    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID ) . ' – ' . ( FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ) );
+    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID ) . ' – ' . FICTIONEER_SITE_NAME;
 
     // Description (truncated if necessary)
     $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true ) ?? '{{excerpt}}';
@@ -215,7 +215,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     $post_id = $post_id ? $post_id : get_queried_object_id();
     $page = get_query_var( 'paged', 0 ); // Only default pagination is considered
     $page_note = $page > 1 ? sprintf( __( ' – Page %s', 'fictioneer' ), $page ) : '';
-    $site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
+    $site_name = FICTIONEER_SITE_NAME;
     $skip_cache = isset( $args['skip_cache'] ) && $args['skip_cache'];
     $default = isset( $args['default'] ) && ! empty( $args['default'] ) ? $args['default'] : false;
 
@@ -376,7 +376,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
   function fictioneer_get_seo_description( $post_id = null, $args = [] ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
-    $site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
+    $site_name = FICTIONEER_SITE_NAME;
     $skip_cache = isset( $args['skip_cache'] ) && $args['skip_cache'];
     $default = isset( $args['default'] ) && ! empty( $args['default'] ) ? $args['default'] : false;
 
@@ -497,7 +497,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Catch empty
     if ( empty( $seo_description ) ) {
-      $seo_description = $default ? $default : ( FICTIONEER_SITE_DESCRIPTION ?: get_bloginfo( 'description' ) );
+      $seo_description = $default ? $default : FICTIONEER_SITE_DESCRIPTION;
     }
 
     // Finalize
@@ -649,7 +649,7 @@ if ( ! function_exists( 'fictioneer_output_head_seo' ) ) {
     <meta property="og:title" content="<?php echo $og_title; ?>">
     <meta property="og:description" content="<?php echo $og_description; ?>">
     <meta property="og:url" content="<?php echo $canonical_url; ?>">
-    <meta property="og:site_name" content="<?php echo FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ); ?>">
+    <meta property="og:site_name" content="<?php echo FICTIONEER_SITE_NAME; ?>">
 
     <?php if ( ! $is_aggregated && $is_article ) : ?>
 

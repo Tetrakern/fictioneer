@@ -90,10 +90,10 @@ if ( ! function_exists( 'fictioneer_get_schema_node_website' ) ) {
     return array(
       '@type' => 'WebSite',
       '@id' => "#website",
-      'name' => FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ),
-      'description' => empty( $description ) ? ( FICTIONEER_SITE_DESCRIPTION ?: get_bloginfo( 'description' ) ) : $description,
+      'name' => FICTIONEER_SITE_NAME,
+      'description' => empty( $description ) ? FICTIONEER_SITE_DESCRIPTION : $description,
       'url' => get_site_url( null, '', 'https' ),
-      'inLanguage' => FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' )
+      'inLanguage' => FICTIONEER_SITE_LANGUAGE
     );
   }
 }
@@ -121,7 +121,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_image' ) ) {
     return array(
       '@type' => 'ImageObject',
       '@id' => "#primaryimage",
-      'inLanguage' => FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' ),
+      'inLanguage' => FICTIONEER_SITE_LANGUAGE,
       'url' => $image_data[0],
       'contentUrl' => $image_data[0],
       'height' => $image_data[2],
@@ -161,7 +161,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_webpage' ) ) {
       'description' => $description,
       'url' => get_the_permalink( $post_id ),
       'isPartOf' => array( '@id' => "#website" ),
-      'inLanguage' => FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' ),
+      'inLanguage' => FICTIONEER_SITE_LANGUAGE,
       'datePublished' => get_the_date( 'c', $post_id ),
       'dateModified' => get_the_modified_date( 'c', $post_id )
     );
@@ -226,7 +226,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
       ),
       'isPartOf' => array( '@id' => "#webpage" ),
       'mainEntityOfPage' => array( '@id' => "#webpage" ),
-      'inLanguage' => FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' ),
+      'inLanguage' => FICTIONEER_SITE_LANGUAGE,
       'datePublished' => get_the_date( 'c', $post->ID ),
       'dateModified' => get_the_modified_date( 'c', $post->ID )
     );

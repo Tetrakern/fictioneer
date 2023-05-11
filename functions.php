@@ -52,22 +52,22 @@ if ( ! defined( 'FICTIONEER_PRIMARY_FONT_NAME' ) ) {
 
 // String: Meta charset attribute (skip database call if truthy for better performance)
 if ( ! defined( 'FICTIONEER_SITE_CHARSET' ) ) {
-  define( 'FICTIONEER_SITE_CHARSET', false );
+  define( 'FICTIONEER_SITE_CHARSET', get_bloginfo( 'charset' ) );
 }
 
 // String: Lang attribute (skip database call if truthy for better performance)
 if ( ! defined( 'FICTIONEER_SITE_LANGUAGE' ) ) {
-  define( 'FICTIONEER_SITE_LANGUAGE', false );
+  define( 'FICTIONEER_SITE_LANGUAGE', get_bloginfo( 'language' ) );
 }
 
 // String: Site name (skip database call if truthy for better performance)
 if ( ! defined( 'FICTIONEER_SITE_NAME' ) ) {
-  define( 'FICTIONEER_SITE_NAME', false );
+  define( 'FICTIONEER_SITE_NAME', get_bloginfo( 'name' ) );
 }
 
 // String: Site description (skip database call if truthy for better performance)
 if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
-  define( 'FICTIONEER_SITE_DESCRIPTION', false );
+  define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
 }
 
 /*

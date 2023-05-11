@@ -881,7 +881,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     $font_link = get_template_directory_uri() . '/css/fonts.css?ver=' . FICTIONEER_VERSION;
 
     // Start HTML ---> ?>
-    <meta charset="<?php echo FICTIONEER_SITE_CHARSET ?: get_bloginfo( 'charset' ); ?>">
+    <meta charset="<?php echo FICTIONEER_SITE_CHARSET; ?>">
     <meta http-equiv="content-type" content="text/html">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">

@@ -79,7 +79,6 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
     );
 
     // Setup
-    $site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
     $list = get_posts( $query_args );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
@@ -87,7 +86,7 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         __( 'Collections on %s.', 'fictioneer' ),
-        $site_name
+        FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
@@ -95,7 +94,7 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
     $page_title = fictioneer_get_seo_title( $post_id, array(
       'default' => sprintf(
         __( 'Collections – %s.', 'fictioneer' ),
-        $site_name
+        FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
@@ -124,7 +123,7 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
       __( 'Collections', 'fictioneer' ),
       sprintf(
         __( 'List of collections on %s.', 'fictioneer' ),
-        $site_name
+        FICTIONEER_SITE_NAME
       ),
       '#article'
     );

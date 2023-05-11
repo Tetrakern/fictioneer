@@ -34,7 +34,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['id'] = $story_id;
     $node['guid'] = get_the_guid( $story_id );
     $node['url'] = get_permalink( $story_id );
-    $node['language'] = empty( $language ) ? ( FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' ) ) : $language;
+    $node['language'] = empty( $language ) ? FICTIONEER_SITE_LANGUAGE : $language;
     $node['title'] = $data['title'];
 
     // Author
@@ -144,7 +144,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['id'] = $chapter_id;
           $chapter['guid'] = get_the_guid( $chapter_id );
           $chapter['url'] = get_permalink();
-          $chapter['language'] = empty( $language ) ? ( FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' ) ) : $language;
+          $chapter['language'] = empty( $language ) ? FICTIONEER_SITE_LANGUAGE : $language;
           if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
           $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
           if ( ! empty( $group ) ) $chapter['group'] = $group;
@@ -363,7 +363,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
     // Site meta
     $graph['url'] = get_home_url( null, '', 'rest' );
-    $graph['language'] = FICTIONEER_SITE_LANGUAGE ?: get_bloginfo( 'language' );
+    $graph['language'] = FICTIONEER_SITE_LANGUAGE;
     $graph['storyCount'] = $query->found_posts;
     $graph['chapterCount'] = intval( wp_count_posts( 'fcn_chapter' )->publish );
 

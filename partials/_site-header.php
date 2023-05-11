@@ -15,13 +15,6 @@
  */
 ?>
 
-<?php
-
-$site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
-$site_description = FICTIONEER_SITE_DESCRIPTION ?: get_bloginfo( 'description' );
-
-?>
-
 <header class="header hide-on-fullscreen">
 
   <?php do_action( 'fictioneer_header', $args ); ?>
@@ -34,9 +27,9 @@ $site_description = FICTIONEER_SITE_DESCRIPTION ?: get_bloginfo( 'description' )
     <?php elseif ( display_header_text() ) : ?>
 
       <div class="header__title">
-        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo $site_name; ?></a></h1>
-        <?php if ( ! empty( $site_description ) ) : ?>
-          <div class="header__title-tagline"><?php echo $site_description; ?></div>
+        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo FICTIONEER_SITE_NAME; ?></a></h1>
+        <?php if ( ! empty( FICTIONEER_SITE_DESCRIPTION ) ) : ?>
+          <div class="header__title-tagline"><?php echo FICTIONEER_SITE_DESCRIPTION; ?></div>
         <?php endif; ?>
       </div>
 

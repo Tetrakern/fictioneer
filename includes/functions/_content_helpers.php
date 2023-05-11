@@ -317,7 +317,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
     ob_start();
 		// Start HTML ---> ?>
 		<span>© <?php echo date( 'Y' ); ?></span>
-    <span><?php echo FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ); ?></span>
+    <span><?php echo FICTIONEER_SITE_NAME; ?></span>
     <span>|</span>
     <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer"><?php echo fictioneer_get_version(); ?></a>
 		<?php // <--- End HTML
