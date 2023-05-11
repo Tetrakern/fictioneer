@@ -387,6 +387,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
     }
 
     // Setup
+    $site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
     $comment_text = apply_filters( 'get_comment_text', $commentdata['comment_content'] );
     $comment_text = apply_filters( 'comment_text', $comment_text );
     $comment_author = empty( $parent->comment_author ) ? fcntr( 'anonymous_guest' ) : $parent->comment_author;
@@ -412,7 +413,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
         ),
         '[[reply_excerpt]]' => get_comment_excerpt( $comment_id ),
         '[[reply_content]]' => $comment_text,
-        '[[site_title]]' => get_bloginfo( 'name' ),
+        '[[site_title]]' => $site_name,
         '[[site_url]]' => site_url(),
         '[[unsubscribe_url]]' => add_query_arg(
           'code',
@@ -424,7 +425,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
     );
     $from_address = get_option( 'fictioneer_system_email_address' );
     $from_name = get_option( 'fictioneer_system_email_name' );
-    $from_name = empty ( $from_name ) ? get_bloginfo( 'name' ) : $from_name;
+    $from_name = empty ( $from_name ) ? $site_name : $from_name;
     $headers = [];
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
 
@@ -437,7 +438,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
       'to' => $parent->comment_author_email,
       'subject' => sprintf(
         _x( 'New reply to your comment on %s', 'Reply notification email subject.', 'fictioneer' ),
-        get_bloginfo( 'name' )
+        $site_name
       ),
       'message' => $template,
       'headers' => $headers,

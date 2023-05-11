@@ -56,7 +56,7 @@ if ( ! function_exists( 'fictioneer_build_post_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id );
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => fictioneer_get_safe_title( $post_id ) . ' &ndash; ' . get_bloginfo( 'name' ),
+      'default' => fictioneer_get_safe_title( $post_id ) . ' &ndash; ' . ( FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ) ),
       'skip_cache' => true
     ));
 

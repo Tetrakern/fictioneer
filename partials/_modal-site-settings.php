@@ -64,7 +64,7 @@
           <i class="fa-solid fa-masks-theater reset" id="site-setting-theme-reset"></i>
           <div class="select-wrapper">
             <select name="site-theme" class="site-setting-site-theme">
-              <option value="default" selected="selected"><?php _ex( 'Theme:', 'Site settings modal theme selection: Current Theme.', 'fictioneer' ) ?> <?php echo get_bloginfo( 'name' ); ?></option>
+              <option value="default" selected="selected"><?php _ex( 'Theme:', 'Site settings modal theme selection: Current Theme.', 'fictioneer' ) ?> <?php echo FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' ); ?></option>
               <option value="base"><?php _ex( 'Theme: Fictioneer Base', 'Site settings modal theme selection: Base Theme.', 'fictioneer' ) ?></option>
             </select>
           </div>

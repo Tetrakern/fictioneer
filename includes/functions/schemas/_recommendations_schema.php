@@ -79,6 +79,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
     );
 
     // Setup
+    $site_name = FICTIONEER_SITE_NAME ?: get_bloginfo( 'name' );
     $list = get_posts( $query_args );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
@@ -86,7 +87,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         __( 'Recommendations on %s.', 'fictioneer' ),
-        get_bloginfo( 'name' )
+        $site_name
       ),
       'skip_cache' => true
     ));
@@ -94,7 +95,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
     $page_title = fictioneer_get_seo_title( $post_id, array(
       'default' => sprintf(
         __( 'Recommendations – %s.', 'fictioneer' ),
-        get_bloginfo( 'name' )
+        $site_name
       ),
       'skip_cache' => true
     ));
@@ -123,7 +124,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
       __( 'Recommendations', 'fictioneer' ),
       sprintf(
         __( 'List of recommendations on %s.', 'fictioneer' ),
-        get_bloginfo( 'name' )
+        $site_name
       ),
       '#article'
     );
