@@ -156,11 +156,6 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
   Source: https://wordpress.stackexchange.com/a/28147/223620
 
-* **Line breaks to paragraphs**<br>
-  Copyright: lflier<br>
-  License: [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html) (WordPress default)<br>
-  Source: https://wpdiscuz.com/community/general-forum/all-comment-body-inside-one-paragraph/#post-2031
-
 * **Relocate cancel reply link**<br>
   Copyright: zeroeffect78<br>
   License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)<br>

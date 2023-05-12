@@ -346,10 +346,10 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
 
 if ( ! function_exists( 'fictioneer_replace_comment_line_breaks' ) ) {
   /**
-   * Properly wrap lines into paragraphs
+   * Properly wrap empty lines into paragraphs
    *
    * @since Fictioneer 4.0
-   * @link  https://wpdiscuz.com/community/general-forum/all-comment-body-inside-one-paragraph/#post-2031
+   * @since Fictioneer 5.2.6 Updated and changed to not mess up some languages.
    *
    * @param string $comment_content The comment content.
    *
@@ -357,9 +357,16 @@ if ( ! function_exists( 'fictioneer_replace_comment_line_breaks' ) ) {
    */
 
   function fictioneer_replace_comment_line_breaks( $comment_content ) {
-    $comment_content = preg_replace( '/[^ -~]{4}/', '<p></p>', $comment_content );
-    $comment_content = preg_replace( '/\x0a/', '<p></p>', $comment_content );
-    return $comment_content;
+    $lines = preg_split( '/\R/', $comment_content );
+
+    $wrapped = array_map( function( $line ) {
+      if ( trim( $line ) === '' ) {
+        return '<p></p>';
+      }
+      return $line;
+    }, $lines );
+
+    return implode( PHP_EOL, $wrapped );
   }
 }
 
