@@ -6,7 +6,7 @@
 
 if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
   /**
-   * Returns excerpt with custom ellipsis
+   * Returns the excerpt with theme adjustments
    *
    * @since Fictioneer 5.0
    *
@@ -14,15 +14,26 @@ if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
    */
 
   function fictioneer_get_excerpt() {
-    // Replace [...] with …
     $excerpt = get_the_excerpt();
-    $excerpt = preg_replace( ' (\[.*?\])', '…', $excerpt );
     $excerpt = trim( preg_replace( '/\s+/', ' ', $excerpt ) );
 
     // Return result
     return $excerpt;
   }
 }
+
+/**
+ * Replace excerpt ellipsis
+ *
+ * @since Fictioneer 5.2.5
+ *
+ * @return string The ellipsis (…).
+ */
+
+function fictioneer_excerpt_ellipsis() {
+  return '…';
+}
+add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
 
 // =============================================================================
 // GET EXCERPT WITH MAXIMUM LENGTH (CHARACTERS)
