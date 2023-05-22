@@ -449,6 +449,16 @@ Filters the arguments to query the recommendations in the `recommendations.php` 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_removable_query_args', $query_args )`
+Filters the array of query args to be removed after being parsed on page load.
+
+**$query_args:**
+* 0 – `'success'`
+* 1 – `'failure'`
+* 3 – `'fictioneer_nonce'`
+
+---
+
 ### `apply_filters( 'fictioneer_filter_root_attributes', $attributes )`
 Filters the intermediate output array of the `fictioneer_root_attributes()` function in the `header.php` template before it is looped and rendered. Note that the array keys are used as attribute names and include hyphens.
 

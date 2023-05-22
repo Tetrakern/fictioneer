@@ -812,31 +812,7 @@ if ( ! function_exists( 'fictioneer_clean_actions_from_url' ) ) {
    */
 
   function fictioneer_clean_actions_from_url() {
-    echo "<script>history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&](action=)[^&]+/, '').replace(/[\?&](fictioneer_nonce=)[^&]+/, '').replace(/^&/, '?') + location.hash);</script>";
-  }
-}
-
-if ( ! function_exists( 'fictioneer_clean_failures_from_url' ) ) {
-  /**
-   * Output script to remove error parameters from URL
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_clean_failures_from_url() {
-    echo "<script>history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&]failure=[^&]+/, '').replace(/^&/, '?') + location.hash);</script>";
-  }
-}
-
-if ( ! function_exists( 'fictioneer_clean_successes_from_url' ) ) {
-  /**
-   * Output script to remove success parameters from URL
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_clean_successes_from_url() {
-    echo "<script>history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&]success=[^&]+/, '').replace(/^&/, '?') + location.hash);</script>";
+    echo "<script>history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&](action=)[^&]+/, '').replace(/^&/, '?') + location.hash);</script>";
   }
 }
 

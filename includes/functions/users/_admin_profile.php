@@ -152,8 +152,6 @@ function fictioneer_custom_profile_fields( $profile_user ) {
 
   // Remove action query args
   fictioneer_clean_actions_from_url();
-  fictioneer_clean_failures_from_url();
-  fictioneer_clean_successes_from_url();
 }
 add_action( 'show_user_profile', 'fictioneer_custom_profile_fields', 20 );
 add_action( 'edit_user_profile', 'fictioneer_custom_profile_fields', 20 );

@@ -34,9 +34,8 @@ if (!fcn_isLoggedIn && !fcn_isAjaxAuth) {
 // Terminate ongoing text-to-speech when page is reloaded
 if (typeof speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
 
-// Remove success and failure params from URL (after they have been extracted)
-history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&]failure=[^&]+/, '').replace(/^&/, '?') + location.hash);
-history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&]success=[^&]+/, '').replace(/^&/, '?') + location.hash);
+// Remove query args (defined in _theme_setup.php)
+fcn_removeQueryArgs();
 
 // =============================================================================
 // LOCAL STORAGE CLEANUP
