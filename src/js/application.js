@@ -477,6 +477,13 @@ if (fcn_urlParams['failure'] === 'oauth_email_taken') {
   );
 }
 
+// Show OAuth 2.0 link error notice (if any)
+if (fcn_urlParams['failure'] === 'oauth_already_linked') {
+  fcn_showNotification(
+    __('Account already linked to another profile.', 'fictioneer'), 5
+  );
+}
+
 // Show new subscriber notice (if any)
 if (fcn_urlParams['success'] === 'oauth_new_subscriber') {
   fcn_showNotification(
