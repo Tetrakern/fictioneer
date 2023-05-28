@@ -39,7 +39,7 @@
 
       &::before {
         z-index: 1;
-        border: 1px dashed var(--fg-700);
+        border: 1px dashed var(--fg-900);
       }
     }
   }
@@ -58,9 +58,9 @@
     border-radius: 2px;
     overflow: hidden;
 
-    ::-webkit-scrollbar-track {
-      border: 1px solid var(--input-border-color-hover);
-      border-width: 1px 1px 1px 0;
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-thumb {
+      border-width: 1px 1px 1px 0 !important;
     }
 
     &::after {
