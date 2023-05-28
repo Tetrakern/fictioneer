@@ -68,14 +68,17 @@
     ::-webkit-scrollbar-track {
       -webkit-box-shadow: var(--scrollbar-box-shadow);
       background: var(--scrollbar-background);
+      border-radius: 1px;
     }
 
     ::-webkit-scrollbar {
       width: 6px;
+      border-radius: 1px;
     }
 
     ::-webkit-scrollbar-thumb {
       background-color: var(--scrollbar-thumb);
+      border-radius: 1px;
     }
   }
 
