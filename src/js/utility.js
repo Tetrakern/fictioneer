@@ -412,6 +412,7 @@ _$$('.toggle-last-clicked').forEach(element => {
     'click',
     e => {
       fcn_toggleLastClicked(e.currentTarget);
+      fcn_popupPosition();
       e.stopPropagation();
     }
   );
