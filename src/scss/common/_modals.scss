@@ -59,7 +59,7 @@
     z-index: 1;
     background: var(--modal-background);
     border-radius: var(--layout-border-radius-large);
-    max-height: 100%;
+    max-height: calc(100% - 20px);
     width: 300px;
     box-shadow: var(--floating-shadow);
     overflow: auto;
