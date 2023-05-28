@@ -749,3 +749,30 @@ function fcn_scrollToAnchor(source) {
   _$(`[name="${source.getAttribute('href').replace('#', '')}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
   return false; // Prevent default link behavior
 }
+
+// =============================================================================
+// SCREEN COLLISION DETECTION
+// =============================================================================
+
+/**
+ * Detects if an element is about to leave the visible screen and returns the collision directions.
+ *
+ * @since 5.2.5
+ * @param {HTMLElement} element - The element to check for collision.
+ * @returns {Array} - Array of collision directions ('top', 'bottom', 'left', 'right').
+ */
+
+function fcn_detectScreenCollision(element) {
+  let rect = element.getBoundingClientRect(),
+      viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
+      viewportWidth = window.innerWidth ?? document.documentElement.clientWidth,
+      threshold = 50,
+      result = [];
+
+  if (rect.top <= threshold) result.push('top');
+  if (rect.bottom >= viewportHeight - threshold) result.push('bottom');
+  if (rect.left <= threshold) result.push('left');
+  if (rect.right >= viewportWidth - threshold) result.push('right');
+
+  return result;
+}

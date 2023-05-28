@@ -1737,3 +1737,39 @@ function fcn_handleMouseInput() {
 
 // Initialize
 window.addEventListener('keydown', fcn_handleTabInput);
+
+// =============================================================================
+// POPUP MENUS
+// =============================================================================
+
+/**
+ * Positions the popup menus based on screen collision detection.
+ *
+ * @since 5.2.5
+ */
+
+function fcn_popupPosition() {
+  // Look for technically open popup menus...
+  _$$('.popup-menu-toggle.last-clicked .popup-menu').forEach(element => {
+    // Visible?
+    if (window.getComputedStyle(element).display === 'none') return;
+
+    // Collision with screen borders?
+    let collision = fcn_detectScreenCollision(element);
+
+    // No collisions
+    if (collision && collision.length === 0) return;
+
+    // Top/Bottom?
+    if (collision.includes('top')) {
+      element.classList.remove('_top');
+      element.classList.add('_bottom');
+    } else if(collision.includes('bottom')) {
+      element.classList.remove('_bottom');
+      element.classList.add('_top');
+    }
+  });
+}
+
+// Initialize
+window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 200));
