@@ -56,7 +56,7 @@ const _$$$ = document.getElementById.bind(document);
  *                   or rejects with the response object on failure.
  */
 
-async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
+async function fcn_ajaxPost(data = {}, url = null, headers = {}, convert = true) {
   // Get URL if not provided
   if (!url) url = fictioneer_ajax.ajax_url;
 
@@ -78,7 +78,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
     credentials: 'same-origin',
     headers: final_headers,
     mode: 'same-origin',
-    body: new URLSearchParams(data)
+    body: convert ? new URLSearchParams(data) : data
   });
 
   // Return response
