@@ -77,7 +77,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
     credentials: 'same-origin',
     headers: final_headers,
     mode: 'same-origin',
-    body: data
+    body: new URLSearchParams(data)
   });
 
   // Return response
