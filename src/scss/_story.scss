@@ -554,6 +554,11 @@ $header_breakpoint: 640px;
   text-shadow: var(--tab-text-shadow-active);
 }
 
+#toggle-chapter:not(:checked) ~ .story__tabs .story__chapter-list-toggles * {
+  pointer-events: none;
+  opacity: 0;
+}
+
 #toggle {
   &-chapter:not(:checked) ~ .story__chapters,
   &-blog:not(:checked) ~ .story__blog,
