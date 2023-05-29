@@ -52,7 +52,8 @@ const _$$$ = document.getElementById.bind(document);
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} url - Optional. The AJAX URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
- * @return {JSON} The parsed JSON response if successful.
+ * @return {Promise} A Promise that resolves to the parsed JSON response if successful,
+ *                   or rejects with the response object on failure.
  */
 
 async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
