@@ -52,11 +52,10 @@ const _$$$ = document.getElementById.bind(document);
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} url - Optional. The AJAX URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
- * @param {Boolean} convert - Optional. Whether to convert the data to a URL-encoded form. Default is true.
  * @returns {Promise} A Promise that resolves to the parsed JSON response if successful.
  */
 
-async function fcn_ajaxPost(data = {}, url = null, headers = {}, convert = true) {
+async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   // Get URL if not provided
   if (!url) url = fictioneer_ajax.ajax_url;
 
@@ -78,7 +77,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}, convert = true)
     credentials: 'same-origin',
     headers: final_headers,
     mode: 'same-origin',
-    body: convert ? new URLSearchParams(data) : data
+    body: data
   });
 
   // Return response
