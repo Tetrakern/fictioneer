@@ -216,10 +216,12 @@ add_action( 'pre_get_posts' ,'fictioneer_remove_unlisted_from_search', 10 );
 
 function fictioneer_extend_search_query( $query ) {
   // Only for search queries on the frontend...
-  if ( is_admin() || ! $query->is_main_query() || ! $query->is_search ) return;
+  if ( is_admin() || ! $query->is_main_query() || ! $query->is_search ) {
+    return;
+  }
 
   // Fix broken search if no term was entered
-  if ( empty( get_search_query() ) ) {
+  if ( empty( $query->get( 's' ) ) ) {
     $query->set( 's', ' ' ); // Most posts should have at least one whitespace
   }
 
@@ -227,7 +229,7 @@ function fictioneer_extend_search_query( $query ) {
   $tax_array = [];
   $authors = [];
 
-  $is_any_post = isset( $_GET['post_type'] ) && $_GET['post_type'] == 'any' ? 1 : 0;
+  $is_any_post = isset( $_GET['post_type'] ) && ( $_GET['post_type'] === 'any' ) ? 1 : 0;
   $authors_in = empty( $_GET['authors'] ) ? [] : array_map( 'absint', explode( ',', $_GET['authors'] ) );
   $authors_out = empty( $_GET['ex_authors'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_authors'] ) );
 
@@ -250,42 +252,53 @@ function fictioneer_extend_search_query( $query ) {
 
   // Included terms
   $included_terms = array(
-    [$genres, 'fcn_genre', 'genres_and'],
-    [$fandoms, 'fcn_fandom', 'fandoms_and'],
-    [$characters, 'fcn_character', 'characters_and'],
-    [$warnings, 'fcn_content_warning', 'warning_and'],
-    [$tags, 'post_tag', 'tags_and']
+    [ $genres, 'fcn_genre', 'genres_and' ],
+    [ $fandoms, 'fcn_fandom', 'fandoms_and' ],
+    [ $characters, 'fcn_character', 'characters_and' ],
+    [ $warnings, 'fcn_content_warning', 'warning_and' ],
+    [ $tags, 'post_tag', 'tags_and' ]
   );
 
   foreach ( $included_terms as $triple ) {
     if ( ! empty( $triple[0] ) ) {
-      $all_terms = get_tags( ['taxonomy' => $triple[1]] );
-      $all_term_ids = array_map( function( $item ) { return $item->term_id; }, $all_terms );
+      $all_terms = get_tags( array( 'taxonomy' => $triple[1] ) );
+      $all_term_ids = array_map(
+        function( $item ) {
+          return $item->term_id;
+        },
+        $all_terms
+      );
       $valid_terms = [];
       $query_part = [];
       $and = $_GET[ $triple[2] ] ?? 0;
 
       // Filter out terms that do not exist
       foreach ( $triple[0] as $term_id ) {
-        if ( in_array( $term_id, $all_term_ids ) ) $valid_terms[] = $term_id;
+        if ( in_array( $term_id, $all_term_ids ) ) {
+          $valid_terms[] = $term_id;
+        }
       }
 
       // Skip if no terms are valid
-      if ( empty( $valid_terms ) ) continue;
+      if ( empty( $valid_terms ) ) {
+        continue;
+      }
 
-      if ( $and == '1' && count( $valid_terms ) > 1 ) {
+      if ( $and === '1' && count( $valid_terms ) > 1 ) {
         $query_part['relation'] = 'AND';
 
         // Must be split up or child terms will not be included
         foreach ( $valid_terms as $term ) {
           // Skip if empty
-          if ( empty( $term ) ) continue;
+          if ( empty( $term ) ) {
+            continue;
+          }
 
           // Add to query
           $query_part[] = array(
             'taxonomy' => $triple[1],
             'field' => 'term_id',
-            'terms' => [$term],
+            'terms' => [ $term ],
             'operator' => 'IN'
           );
         }
@@ -305,28 +318,37 @@ function fictioneer_extend_search_query( $query ) {
 
   // Excluded terms
   $excluded_terms = array(
-    [$ex_genres, 'fcn_genre', 'ex_genres_and'],
-    [$ex_fandoms, 'fcn_fandom', 'ex_fandoms_and'],
-    [$ex_characters, 'fcn_character', 'ex_characters_and'],
-    [$ex_warnings, 'fcn_content_warning', 'ex_warning_and'],
-    [$ex_tags, 'post_tag', 'ex_tags_and']
+    [ $ex_genres, 'fcn_genre', 'ex_genres_and' ],
+    [ $ex_fandoms, 'fcn_fandom', 'ex_fandoms_and' ],
+    [ $ex_characters, 'fcn_character', 'ex_characters_and' ],
+    [ $ex_warnings, 'fcn_content_warning', 'ex_warning_and' ],
+    [ $ex_tags, 'post_tag', 'ex_tags_and' ]
   );
 
   foreach ( $excluded_terms as $triple ) {
     if ( ! empty( $triple[0] ) ) {
-      $all_terms = get_tags( ['taxonomy' => $triple[1]] );
-      $all_term_ids = array_map( function( $item ) { return $item->term_id; }, $all_terms );
+      $all_terms = get_tags( array( 'taxonomy' => $triple[1] ) );
+      $all_term_ids = array_map(
+        function( $item ) {
+          return $item->term_id;
+        },
+        $all_terms
+      );
       $valid_terms = [];
       $query_part = [];
       $and = $_GET[ $triple[2] ] ?? 0;
 
       // Filter out terms that do not exist
       foreach ( $triple[0] as $term_id ) {
-        if ( in_array( $term_id, $all_term_ids ) ) $valid_terms[] = $term_id;
+        if ( in_array( $term_id, $all_term_ids ) ) {
+          $valid_terms[] = $term_id;
+        }
       }
 
       // Skip if no terms are valid
-      if ( empty( $valid_terms ) ) continue;
+      if ( empty( $valid_terms ) ) {
+        continue;
+      }
 
       if ( $and == '1' && count( $valid_terms ) > 1 ) {
         $query_part['relation'] = 'OR';
@@ -334,13 +356,15 @@ function fictioneer_extend_search_query( $query ) {
         // Must be split up or child terms will not be included
         foreach ( $valid_terms as $term ) {
           // Skip if empty
-          if ( empty( $term ) ) continue;
+          if ( empty( $term ) ) {
+            continue;
+          }
 
           // Add to query
           $query_part[] = array(
             'taxonomy' => $triple[1],
             'field' => 'term_id',
-            'terms' => [$term],
+            'terms' => [ $term ],
             'operator' => 'NOT IN'
           );
         }
@@ -359,22 +383,29 @@ function fictioneer_extend_search_query( $query ) {
   }
 
   // Add relation parameter if more than one tax_array
-  if ( count( $tax_array ) > 1 ) $tax_array['relation'] = 'AND';
+  if ( count( $tax_array ) > 1 ) {
+    $tax_array['relation'] = 'AND';
+  }
 
   // Extend with tax_query
-  if ( count( $tax_array ) > 0 ) {
+  if ( ! empty( $tax_array ) ) {
     $query->set( 'tax_query', $tax_array );
   }
 
   // Prepare author array (negate IDs)
-  if ( count( $authors_out ) > 0 ) {
-    $authors_out = array_map( function ( $item ) { return "-$item"; }, $authors_out );
+  if ( ! empty( $authors_out ) ) {
+    $authors_out = array_map(
+      function ( $item ) {
+        return "-$item";
+      },
+      $authors_out
+    );
   }
 
   $authors = array_merge( $authors_in, $authors_out );
 
   // Extend with authors (if any)
-  if ( count( $authors ) > 0 ) {
+  if ( ! empty( $authors ) ) {
     $query->set( 'author', implode( ',', $authors ) );
   }
 }
