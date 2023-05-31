@@ -48,7 +48,7 @@ if (
   )
 ) {
   fictioneer_update_frontend_user_profile();
-  wp_safe_redirect( get_permalink() . '#profile-settings' );
+  wp_safe_redirect( get_permalink() . '#profile' );
   exit();
 }
 
@@ -102,7 +102,7 @@ if (
               printf(
                 __( 'Update to <b>%1$s</b> pending. Please check your previous email address to confirm. <a href="%2$s">Cancel.</a>', 'fictioneer' ),
                 $new_email['newemail'],
-                esc_url( get_the_permalink() . '?dismiss=' . $current_user->ID . '_new_email#profile-settings' )
+                esc_url( get_the_permalink() . '?dismiss=' . $current_user->ID . '_new_email#profile' )
               )
             ?>
           </p>
