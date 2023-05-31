@@ -25,6 +25,8 @@
     }
 
     &-wrapper {
+      position: relative;
+
       &._checkbox {
         display: flex;
         align-items: flex-start;
@@ -34,6 +36,19 @@
 
         input[type=checkbox] {
           transform: translateY(1px);
+        }
+      }
+
+      .checkmark {
+        pointer-events: none;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 1;
+        color: var(--fg-700);
+
+        + input:not([type="checkbox"], [type="radio"]) {
+          padding-right: 32px;
         }
       }
     }
