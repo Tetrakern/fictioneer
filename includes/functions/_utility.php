@@ -1526,4 +1526,41 @@ function fictioneer_explode_list( $string ) {
   return $array;
 }
 
+// =============================================================================
+// BUILD NOTICE
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_notice' ) ) {
+  /**
+   * Render or return a notice element
+   *
+   * @since 5.2.5
+   *
+   * @param string $message  The notice to show.
+   * @param string $type     Optional. The notice type. Default 'warning'.
+   * @param bool   $display  Optional. Whether to render or return. Default true.
+   *
+   * @return void|string The build HTML or nothing if rendered.
+   */
+
+  function fictioneer_notice( $message, $type = 'warning', $display = true ) {
+    ob_start();
+    // Start HTML ---> ?>
+    <div class="notice _<?php echo esc_attr( $type ); ?>">
+      <?php if ( $type === 'warning' ) : ?>
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      <?php endif; ?>
+      <div><?php echo $message; ?></div>
+    </div>
+    <?php // <--- End HTML
+    $output =  ob_get_clean();
+
+    if ( $display ) {
+      echo $output;
+    } else {
+      return $output;
+    }
+  }
+}
+
 ?>
