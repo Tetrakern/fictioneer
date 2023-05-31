@@ -366,8 +366,8 @@ function fictioneer_update_frontend_user_profile() {
   }
 
   // Timezone
-  $zimezone = sanitize_text_field( $_POST['fictioneer_user_timezone_string'] );
-  update_user_meta( $updated_user_id, 'fictioneer_user_timezone_string', $zimezone );
+  $timezone = sanitize_text_field( $_POST['fictioneer_user_timezone_string'] );
+  update_user_meta( $updated_user_id, 'fictioneer_user_timezone_string', $timezone );
 
   // Hide custom badge
   $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_hide_badge'] );
