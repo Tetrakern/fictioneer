@@ -384,18 +384,18 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 // LIMIT DEFAULT BLOCKS
 // =============================================================================
 
-/**
- * Limit the available default blocks
- *
- * Fictioneer is has a particular and delicate content section, built around and
- * for the main purpose of displaying prose. Other features, such as the ePUB
- * converter heavily depend on _expected_ input or may break. There are certainly
- * more possible but the initial selection has been chosen carefully.
- *
- * @since 4.0
- */
-
 if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
+  /**
+   * Limit the available default blocks
+   *
+   * Fictioneer is has a particular and delicate content section, built around and
+   * for the main purpose of displaying prose. Other features, such as the ePUB
+   * converter heavily depend on _expected_ input or may break. There are certainly
+   * more possible but the initial selection has been chosen carefully.
+   *
+   * @since 4.0
+   */
+
   function fictioneer_allowed_block_types() {
     return array(
       // WP Core
