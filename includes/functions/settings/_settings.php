@@ -195,8 +195,7 @@ if ( ! function_exists( 'fictioneer_move_story_tags_to_genres' ) ) {
 
   function fictioneer_move_story_tags_to_genres() {
     fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true, true );
-    $update = __( 'Story tags converted to genres.', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Story tags converted to genres.', 'fictioneer' ) );
   }
 }
 
@@ -213,8 +212,7 @@ if ( ! function_exists( 'fictioneer_duplicate_story_tags_to_genres' ) ) {
 
   function fictioneer_duplicate_story_tags_to_genres() {
     fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true );
-    $update = __( 'Story tags duplicated as genres.', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Story tags duplicated as genres.', 'fictioneer' ) );
   }
 }
 
@@ -231,8 +229,7 @@ if ( ! function_exists( 'fictioneer_move_chapter_tags_to_genres' ) ) {
 
   function fictioneer_move_chapter_tags_to_genres() {
     fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true, true );
-    $update = __( 'Chapter tags converted to genres.', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Chapter tags converted to genres.', 'fictioneer' ) );
   }
 }
 
@@ -249,8 +246,7 @@ if ( ! function_exists( 'fictioneer_duplicate_chapter_tags_to_genres' ) ) {
 
   function fictioneer_duplicate_chapter_tags_to_genres() {
     fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true );
-    $update = __( 'Chapter tags duplicated as genres.', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Chapter tags duplicated as genres.', 'fictioneer' ) );
   }
 }
 
@@ -283,8 +279,7 @@ if ( ! function_exists( 'fictioneer_append_default_genres' ) ) {
     }
 
     // Log
-    $update = __( 'Added default genres', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Added default genres.', 'fictioneer' ) );
   }
 }
 
@@ -315,8 +310,7 @@ if ( ! function_exists( 'fictioneer_append_default_tags' ) ) {
     }
 
     // Log
-    $update = __( 'Added default tags', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Added default tags.', 'fictioneer' ) );
   }
 }
 
@@ -345,8 +339,7 @@ if ( ! function_exists( 'fictioneer_remove_unused_tags' ) ) {
     }
 
     // Log
-    $update = __( 'Removed unused tags', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Removed unused tags.', 'fictioneer' ) );
   }
 }
 
@@ -380,8 +373,7 @@ if ( ! function_exists( 'fictioneer_purge_story_data_caches' ) ) {
     }
 
     // Log
-    $update = __( 'Purged story data caches', 'fictioneer' );
-    fictioneer_update_log( $update );
+    fictioneer_log( __( 'Purged story data caches.', 'fictioneer' ) );
   }
 }
 

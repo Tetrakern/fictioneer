@@ -44,18 +44,22 @@ foreach ( $files as $file ) {
 }
 
 // Action: Purge all ePUBs
-if ( $action == 'purge_all_epubs' && $nonce && wp_verify_nonce( $nonce, 'purge_all_epubs' ) ) {
+if ( $action === 'purge_all_epubs' && $nonce && wp_verify_nonce( $nonce, 'purge_all_epubs' ) ) {
+  // Directory
   $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
 
+  // Loop over all files
   foreach ( $epubs as $epub ) {
-    $info = pathinfo( $epub );
-    $name = $info['filename'];
+    $name = pathinfo( $epub )['filename'];
     wp_delete_file( $epub_dir . $name . '.epub' );
   }
 
-  $update = __( 'Purged all generated ePUBs from server', 'fictioneer' );
-  fictioneer_update_log( $update );
+  // Log
+  fictioneer_log(
+    __( 'Purged all generated ePUBs from the server.', 'fictioneer' )
+  );
 
+  // Set list empty
   $epubs = [];
 }
 

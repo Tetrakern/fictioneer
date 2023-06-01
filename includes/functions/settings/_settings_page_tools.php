@@ -44,36 +44,36 @@ if ( $action && $nonce && wp_verify_nonce( $nonce, 'tool_action' ) ) {
       break;
     case 'add_moderator_role':
       if ( fictioneer_add_moderator_role() ) {
-        fictioneer_update_log( __( 'Moderator role added', 'fictioneer' ) );
+        fictioneer_log( __( 'Moderator role added.', 'fictioneer' ) );
       }
       break;
     case 'remove_moderator_role':
       remove_role( 'fcn_moderator' );
-      fictioneer_update_log( __( 'Moderator role removed', 'fictioneer' ) );
+      fictioneer_log( __( 'Moderator role removed.', 'fictioneer' ) );
       break;
     case 'upgrade_author_role':
       fictioneer_upgrade_author_role();
-      fictioneer_update_log( __( 'Author role upgraded', 'fictioneer' ) );
+      fictioneer_log( __( 'Author role upgraded.', 'fictioneer' ) );
       break;
     case 'reset_author_role':
       fictioneer_reset_author_role();
-      fictioneer_update_log( __( 'Author role reset', 'fictioneer' ) );
+      fictioneer_log( __( 'Author role reset.', 'fictioneer' ) );
       break;
     case 'upgrade_contributor_role':
       fictioneer_upgrade_contributor_role();
-      fictioneer_update_log( __( 'Contributor role upgraded', 'fictioneer' ) );
+      fictioneer_log( __( 'Contributor role upgraded.', 'fictioneer' ) );
       break;
     case 'reset_contributor_role':
       fictioneer_reset_contributor_role();
-      fictioneer_update_log( __( 'Contributor role reset', 'fictioneer' ) );
+      fictioneer_log( __( 'Contributor role reset.', 'fictioneer' ) );
       break;
     case 'limit_editor_role':
       fictioneer_limit_editor_role();
-      fictioneer_update_log( __( 'Editor role limited', 'fictioneer' ) );
+      fictioneer_log( __( 'Editor role limited.', 'fictioneer' ) );
       break;
     case 'reset_editor_role':
       fictioneer_reset_editor_role();
-      fictioneer_update_log( __( 'Editor role reset', 'fictioneer' ) );
+      fictioneer_log( __( 'Editor role reset.', 'fictioneer' ) );
       break;
     case 'fix_users':
       fictioneer_fix_users();
@@ -98,7 +98,7 @@ if ( $action && $nonce && wp_verify_nonce( $nonce, 'tool_action' ) ) {
       break;
     case 'reset_post_relationship_registry':
       fictioneer_save_relationship_registry( [] );
-      fictioneer_update_log( __( 'Post relationship registry reset.', 'fictioneer' ) );
+      fictioneer_log( __( 'Post relationship registry reset.', 'fictioneer' ) );
       break;
   }
 }

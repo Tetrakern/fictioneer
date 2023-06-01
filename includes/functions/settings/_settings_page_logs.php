@@ -26,11 +26,7 @@ $action = $_GET['action'] ?? null;
         <div class="card-wrapper">
           <h3 class="card-header"><?php _e( 'Fictioneer Log', 'fictioneer' ) ?></h3>
           <div class="card-content">
-            <div class="overflow-horizontal">
-              <div class="textarea row">
-                <textarea name="fictioneer_log" id="fictioneer_log" rows="24" class="code" readonly><?php echo esc_attr( get_option( 'fictioneer_log' ) ); ?></textarea>
-              </div>
-            </div>
+            <?php echo fictioneer_get_log(); ?>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@
 
 function fictioneer_validate_settings_ajax() {
 	return is_admin() &&
+         wp_doing_ajax() &&
          current_user_can( 'administrator' ) &&
          ! empty( $_POST['nonce'] ) &&
          check_admin_referer( 'fictioneer_settings_actions', 'nonce' );
@@ -34,35 +35,56 @@ function fictioneer_validate_settings_ajax() {
 
 function fictioneer_ajax_delete_epub() {
   if ( fictioneer_validate_settings_ajax() ) {
-    // Setup
-    $name = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : null;
-    $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
-
     // Abort if...
-    if ( ! $name ) wp_send_json_error();
+    if ( empty( $_POST['name'] ?? '' ) ) {
+      wp_send_json_error( array( 'notice' => __( 'Name missing', 'fictioneer' ) ) );
+    }
+
+    // Setup
+    $file_name = sanitize_text_field( $_POST['name']) . '.epub';
+    $path = wp_upload_dir()['basedir'] . '/epubs/' . $file_name;
 
     // Delete file from directory
-		wp_delete_file( $epub_dir . $name . '.epub' );
+		wp_delete_file( $path );
 
     // Check if deletion was successful
-    if ( ! file_exists( $epub_dir . $name . '.epub' ) ) {
-      // Update log
-      $update = sprintf(
-        __( 'Deleted file from server: %s', 'fictioneer' ),
-        $name . '.epub'
+    if ( ! file_exists( $path ) ) {
+      // Log
+      fictioneer_log(
+        sprintf(
+          _x(
+            'Deleted file from server: %s',
+            'Pattern for deleted files in logs: "Deleted file from server: {Filename}".',
+            'fictioneer'
+          ),
+          $file_name
+        )
       );
-      fictioneer_update_log( $update );
 
-      // Success response
-      wp_send_json_success();
+      // Success
+      wp_send_json_success(
+        array(
+          'notice' => sprintf(
+            __( '%s deleted.', 'fictioneer' ),
+            $file_name
+          )
+        )
+      );
     } else {
-      // Error response
-      wp_send_json_error();
+      // Error
+      wp_send_json_error(
+        array(
+          'notice' => sprintf(
+            __( 'Error. %s could not be deleted.', 'fictioneer' ),
+            $file_name
+          )
+        )
+      );
     }
   }
 
   // Invalid
-  wp_send_json_error();
+  wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
 }
 add_action( 'wp_ajax_fictioneer_ajax_delete_epub', 'fictioneer_ajax_delete_epub' );
 
@@ -79,33 +101,54 @@ add_action( 'wp_ajax_fictioneer_ajax_delete_epub', 'fictioneer_ajax_delete_epub'
 function fictioneer_ajax_purge_schema() {
 	if ( fictioneer_validate_settings_ajax() ) {
     // Abort if...
-		if ( ! isset( $_POST['id'] ) ) wp_send_json_error();
+    if ( empty( $_POST['id'] ?? '' ) ) {
+      wp_send_json_error( array( 'notice' => __( 'ID missing', 'fictioneer' ) ) );
+    }
 
     // Setup
 		$id = fictioneer_validate_id( $_POST['id'] );
 
     // Delete schema stored in post meta
 		if ( $id && delete_post_meta( $id, 'fictioneer_schema' ) ) {
-      // Update log
-      $update = sprintf(
-        __( 'Purged schema graph of #%s', 'fictioneer' ),
-        $id
+      // Log
+      fictioneer_log(
+        sprintf(
+          _x(
+            'Purged schema graph of #%s',
+            'Pattern for purged schema graphs in logs: "Purged schema graph of #{%s}".',
+            'fictioneer'
+          ),
+          $id
+        )
       );
-      fictioneer_update_log( $update );
 
       // Purge caches
       fictioneer_refresh_post_caches( $id );
 
-      // Success response
-			wp_send_json_success();
+      // Success
+      wp_send_json_success(
+        array(
+          'notice' => sprintf(
+            __( 'Schema of post #%s purged.', 'fictioneer' ),
+            $id
+          )
+        )
+      );
 		} else {
-      // Error response
-			wp_send_json_error();
+      // Error
+      wp_send_json_error(
+        array(
+          'notice' => sprintf(
+            __( 'Error. Schema of post #%s could not be purged.', 'fictioneer' ),
+            $id
+          )
+        )
+      );
 		}
 	}
 
   // Invalid
-  wp_send_json_error();
+  wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
 }
 add_action( 'wp_ajax_fictioneer_ajax_purge_schema', 'fictioneer_ajax_purge_schema' );
 

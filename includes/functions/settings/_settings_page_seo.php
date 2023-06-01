@@ -41,7 +41,8 @@ $purge_meta_url = add_query_arg(
 );
 
 // Action: Purge all schemas
-if ( $action == 'purge_all_schemas' && $nonce && wp_verify_nonce( $nonce, 'purge_all_schemas' ) ) {
+if ( $action === 'purge_all_schemas' && $nonce && wp_verify_nonce( $nonce, 'purge_all_schemas' ) ) {
+  // IDs of all posts that can have schemas
   $all_ids = get_posts(
     array(
 	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
@@ -52,20 +53,26 @@ if ( $action == 'purge_all_schemas' && $nonce && wp_verify_nonce( $nonce, 'purge
 	  )
   );
 
-  if ( $all_ids ) {
+  // If IDs were found...
+  if ( ! empty( $all_ids ) ) {
+    // Loop all IDs to delete schemas
     foreach ( $all_ids as $id ) {
       delete_post_meta( $id, 'fictioneer_schema' );
     }
 
-    $update = __( 'Purged all schema graphs', 'fictioneer' );
-    fictioneer_update_log( $update );
+    // Log
+    fictioneer_log(
+      __( 'Purged all schema graphs.', 'fictioneer' )
+    );
 
+    // Purge caches
     fictioneer_purge_all_caches();
   }
 }
 
 // Action: Purge all meta caches
-if ( $action == 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, 'purge_seo_meta_caches' ) ) {
+if ( $action === 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, 'purge_seo_meta_caches' ) ) {
+  // IDs of all posts that can have SEO meta
   $all_ids = get_posts(
     array(
 	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
@@ -76,16 +83,21 @@ if ( $action == 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, 'p
 	  )
   );
 
+  // If IDs were found...
   if ( $all_ids ) {
+    // Loop all IDs to delete SEO meta caches
     foreach ( $all_ids as $id ) {
       delete_post_meta( $id, 'fictioneer_seo_title_cache' );
       delete_post_meta( $id, 'fictioneer_seo_description_cache' );
       delete_post_meta( $id, 'fictioneer_seo_og_image_cache' );
     }
 
-    $update = __( 'Purged all SEO meta caches', 'fictioneer' );
-    fictioneer_update_log( $update );
+    // Log
+    fictioneer_log(
+      __( 'Purged all SEO meta caches.', 'fictioneer' )
+    );
 
+    // Purge caches
     fictioneer_purge_all_caches();
   }
 }

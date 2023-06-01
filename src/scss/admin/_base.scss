@@ -157,4 +157,22 @@
   :is(th, td) {
     text-align: left;
   }
+
+  ul.fictioneer-log {
+    background: #1d2327;
+    color: #d0d0d0;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 11px;
+    padding: 10px 12px 12px;
+    margin: 0 var(--16bp);
+    border-radius: 2px;
+    min-height: 600px;
+    max-height: 1200px;
+    overflow: scroll;
+  }
+
+  ul.fictioneer-log li {
+    white-space: nowrap;
+    margin: 0;
+  }
 }
