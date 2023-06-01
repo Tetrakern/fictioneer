@@ -847,14 +847,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'default' => '',
 			'placeholder' => ''
     ),
-		'fictioneer_log' => array(
-      'name' => 'fictioneer_log',
-			'group' => '',
-			'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Fictioneer Log', 'fictioneer' ),
-      'default' => '',
-			'placeholder' => ''
-    ),
 		'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
 			'group' => 'fictioneer-settings-general-group',
