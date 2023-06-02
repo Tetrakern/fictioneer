@@ -7,7 +7,7 @@
 /**
  * Add custom moderator role
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_add_moderator_role() {
@@ -30,7 +30,7 @@ function fictioneer_add_moderator_role() {
 /**
  * Upgrade author role with additional capabilities
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_upgrade_author_role() {
@@ -45,7 +45,7 @@ function fictioneer_upgrade_author_role() {
 /**
  * Reset author role to WordPress defaults
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_reset_author_role() {
@@ -60,7 +60,7 @@ function fictioneer_reset_author_role() {
 /**
  * Upgrade contributor role with additional capabilities
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_upgrade_contributor_role() {
@@ -73,7 +73,7 @@ function fictioneer_upgrade_contributor_role() {
 /**
  * Reset contributor role to WordPress defaults
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_reset_contributor_role() {
@@ -86,7 +86,7 @@ function fictioneer_reset_contributor_role() {
 /**
  * Limit editor role to less capabilities
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_limit_editor_role() {
@@ -106,7 +106,7 @@ function fictioneer_limit_editor_role() {
 /**
  * Reset editor role to WordPress defaults
  *
- * @since 5.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_reset_editor_role() {
@@ -135,7 +135,7 @@ if ( ! function_exists( 'fictioneer_block_subscribers_from_admin' ) ) {
    * access the admin panel at all. Only higher roles are granted access, although
    * admin-specific actions such as AJAX requests are still permitted.
    *
-   * @since 4.0
+   * @since Fictioneer 4.0
    */
 
   function fictioneer_block_subscribers_from_admin() {
@@ -160,7 +160,7 @@ if ( ! function_exists( 'fictioneer_reduce_subscriber_dashboard_widgets' ) ) {
   /**
    * Remove admin dashboard widgets for subscribers
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
    */
 
@@ -180,7 +180,7 @@ if ( ! function_exists( 'fictioneer_reduce_subscriber_admin_panel' ) ) {
   /**
    * Remove admin menu pages for subscribers
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_reduce_subscriber_admin_panel() {
@@ -204,7 +204,7 @@ if ( ! function_exists( 'fictioneer_reduce_moderator_admin_panel' ) ) {
   /**
    * Remove admin menu pages for moderators
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_reduce_moderator_admin_panel() {
@@ -220,7 +220,7 @@ if ( ! function_exists( 'fictioneer_reduce_moderator_dashboard_widgets' ) ) {
   /**
    * Remove admin dashboard widgets for moderators
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
    */
 
@@ -246,7 +246,7 @@ if ( ! function_exists( 'fictioneer_reduce_moderator_admin_bar' ) ) {
   /**
    * Remove items from admin bar for moderators
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_reduce_moderator_admin_bar() {
@@ -261,7 +261,7 @@ if ( ! function_exists( 'fictioneer_restrict_moderator_menu_access' ) ) {
   /**
    * Restrict access to admin pages/actions for moderators
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_restrict_moderator_menu_access() {
@@ -288,7 +288,7 @@ if ( ! function_exists( 'fictioneer_disable_moderator_comment_edit' ) ) {
    * Prevent moderators from editing the comment content, which is rarely a good action.
    * Doing this via JS is a terrible solution but better than nothing.
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    * @todo Do this server-side to prevent savvy moderators from circumventing it.
    */
 
@@ -324,7 +324,7 @@ if ( ! function_exists( 'fictioneer_restrict_editor_menu_access' ) ) {
   /**
    * Restrict access to admin pages/actions for editors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_restrict_editor_menu_access() {
@@ -347,7 +347,7 @@ if ( ! function_exists( 'fictioneer_reduce_editor_admin_bar' ) ) {
   /**
    * Remove items from admin bar for editors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_reduce_editor_admin_bar() {
@@ -365,7 +365,7 @@ if ( ! function_exists( 'fictioneer_reduce_editor_dashboard_widgets' ) ) {
   /**
    * Remove admin dashboard widgets for editors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
    */
 
@@ -393,7 +393,7 @@ if ( ! function_exists( 'fictioneer_hide_editor_comments_utilities' ) ) {
   /**
    * Hide comments utilities in admin dashboard for editors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_hide_editor_comments_utilities() {
@@ -427,7 +427,7 @@ if ( ! function_exists( 'fictioneer_reduce_contributor_dashboard_widgets' ) ) {
   /**
    * Remove admin dashboard widgets for contributors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
    */
 
@@ -455,7 +455,7 @@ if ( ! function_exists( 'fictioneer_reduce_contributor_admin_bar' ) ) {
   /**
    * Remove items from admin bar for contributors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_reduce_contributor_admin_bar() {
@@ -473,7 +473,7 @@ if ( ! function_exists( 'fictioneer_hide_contributor_comments_utilities' ) ) {
   /**
    * Hide comments utilities in admin dashboard for contributors
    *
-   * @since 5.0
+   * @since Fictioneer 5.0
    */
 
   function fictioneer_hide_contributor_comments_utilities() {

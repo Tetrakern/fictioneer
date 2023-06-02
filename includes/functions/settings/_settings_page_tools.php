@@ -8,108 +8,6 @@
  */
 ?>
 
-<?php
-
-// Setup
-$action = $_GET['action'] ?? null;
-$nonce = $_GET['fictioneer_nonce'] ?? null;
-$pagenum = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
-
-// Perform actions...
-if ( $action && $nonce && wp_verify_nonce( $nonce, 'tool_action' ) ) {
-  switch ( $action ) {
-    case 'move_story_tags_to_genres':
-      fictioneer_move_story_tags_to_genres();
-      break;
-    case 'duplicate_story_tags_to_genres':
-      fictioneer_duplicate_story_tags_to_genres();
-      break;
-    case 'move_chapter_tags_to_genres':
-      fictioneer_move_chapter_tags_to_genres();
-      break;
-    case 'duplicate_chapter_tags_to_genres':
-      fictioneer_duplicate_chapter_tags_to_genres();
-      break;
-    case 'append_default_genres':
-      fictioneer_append_default_genres();
-      break;
-    case 'append_default_tags':
-      fictioneer_append_default_tags();
-      break;
-    case 'remove_unused_tags':
-      fictioneer_remove_unused_tags();
-      break;
-    case 'purge_story_data_caches':
-      fictioneer_purge_story_data_caches();
-      break;
-    case 'add_moderator_role':
-      if ( fictioneer_add_moderator_role() ) {
-        fictioneer_log( __( 'Moderator role added.', 'fictioneer' ) );
-      }
-      break;
-    case 'remove_moderator_role':
-      remove_role( 'fcn_moderator' );
-      fictioneer_log( __( 'Moderator role removed.', 'fictioneer' ) );
-      break;
-    case 'upgrade_author_role':
-      fictioneer_upgrade_author_role();
-      fictioneer_log( __( 'Author role upgraded.', 'fictioneer' ) );
-      break;
-    case 'reset_author_role':
-      fictioneer_reset_author_role();
-      fictioneer_log( __( 'Author role reset.', 'fictioneer' ) );
-      break;
-    case 'upgrade_contributor_role':
-      fictioneer_upgrade_contributor_role();
-      fictioneer_log( __( 'Contributor role upgraded.', 'fictioneer' ) );
-      break;
-    case 'reset_contributor_role':
-      fictioneer_reset_contributor_role();
-      fictioneer_log( __( 'Contributor role reset.', 'fictioneer' ) );
-      break;
-    case 'limit_editor_role':
-      fictioneer_limit_editor_role();
-      fictioneer_log( __( 'Editor role limited.', 'fictioneer' ) );
-      break;
-    case 'reset_editor_role':
-      fictioneer_reset_editor_role();
-      fictioneer_log( __( 'Editor role reset.', 'fictioneer' ) );
-      break;
-    case 'fix_users':
-      fictioneer_fix_users();
-      break;
-    case 'fix_chapters':
-      fictioneer_fix_chapters();
-      break;
-    case 'fix_stories':
-      fictioneer_fix_stories();
-      break;
-    case 'fix_collections':
-      fictioneer_fix_collections();
-      break;
-    case 'fix_pages':
-      fictioneer_fix_pages();
-      break;
-    case 'fix_posts':
-      fictioneer_fix_posts();
-      break;
-    case 'fix_recommendations':
-      fictioneer_fix_recommendations();
-      break;
-    case 'reset_post_relationship_registry':
-      fictioneer_save_relationship_registry( [] );
-      fictioneer_log( __( 'Post relationship registry reset.', 'fictioneer' ) );
-      break;
-  }
-}
-
-// Helper function
-function fictioneer_tool_action( $action ) {
-  return add_query_arg( array( 'page' => 'fictioneer_tools', 'action' => $action ), wp_nonce_url( get_admin_url( null, 'admin.php' ), 'tool_action', 'fictioneer_nonce' ) );
-}
-
-?>
-
 <div class="fictioneer-ui fictioneer-settings">
 
 	<?php fictioneer_settings_header( 'tools' ); ?>
@@ -271,7 +169,7 @@ function fictioneer_tool_action( $action ) {
               </div>
               <?php if ( fictioneer_caching_active() ) : ?>
                 <hr>
-                <p class="description row"><?php _e( '<strong>Reset post relationship registry.</strong> Warning, this should only ever be done if the registry either causes errors or has become corrupted. Without the registry, the cache purge system cannot find referenced posts. For example, if you have a featured list of chapters in a blog post and update a chapter, the blog post cache will not be purged. The registry is repopulated whenever you save a post, with that post.', 'fictioneer' ) ?></p>
+                <p class="description row"><?php _e( '<strong>Reset post relationship registry.</strong> Warning, this should only ever be done if the registry either causes errors or has become corrupted. Without the registry, the cache purge system cannot find referenced posts.', 'fictioneer' ) ?></p>
                 <details class="row subtext">
                   <summary><?php _e( 'Show registry array', 'fictioneer' ); ?></summary>
                   <code class="fs-xxs mt-4" style="height: 256px;">

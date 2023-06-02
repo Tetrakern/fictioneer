@@ -214,7 +214,7 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | `admin_head-profile.php` | `fictioneer_hide_subscriber_profile_blocks`
 | `admin_init` | `fictioneer_reduce_subscriber_profile`, `fictioneer_register_settings`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_reduce_moderator_admin_panel`, `fictioneer_reduce_subscriber_admin_panel`, `fictioneer_remove_menu_pages`
-| `admin_notices` | `fictioneer_admin_profile_notices`, `fictioneer_admin_success_notices`, `fictioneer_admin_update_notice`
+| `admin_notices` | `fictioneer_admin_profile_notices`, `fictioneer_admin_settings_notices`, `fictioneer_admin_update_notice`
 | `after_setup_theme` | `fictioneer_theme_setup`
 | `comment_post` | `fictioneer_comment_post`, `fictioneer_post_comment_to_discord`
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`

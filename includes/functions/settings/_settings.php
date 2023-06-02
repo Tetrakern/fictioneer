@@ -148,403 +148,6 @@ if ( ! function_exists( 'fictioneer_admin_pagination' ) ) {
 }
 
 // =============================================================================
-// GET DEFAULT GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_default_genres' ) ) {
-  /**
-   * Return array of default genre from decoded JSON
-   *
-   * @since Fictioneer 4.7
-   *
-	 * @param array Decoded JSON with default genres and meta data.
-   */
-
-	function fictioneer_get_default_genres() {
-		return json_decode( file_get_contents( get_template_directory_uri() . '/json/genres.json' ) );
-	}
-}
-
-// =============================================================================
-// GET DEFAULT TAGS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
-  /**
-   * Return array of default tags from decoded JSON
-   *
-   * @since Fictioneer 4.7
-   *
-	 * @param array Decoded JSON with default tags and meta data.
-   */
-
-	function fictioneer_get_default_tags() {
-		return json_decode( file_get_contents( get_template_directory_uri() . '/json/tags.json' ) );
-	}
-}
-
-// =============================================================================
-// SETTINGS ACTION: CONVERT STORY TAGS TO GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_move_story_tags_to_genres' ) ) {
-  /**
-   * Convert story tags to genres
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_move_story_tags_to_genres() {
-    fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true, true );
-    fictioneer_log( __( 'Story tags converted to genres.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: DUPLICATE STORY TAGS TO GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_duplicate_story_tags_to_genres' ) ) {
-  /**
-   * Duplicate story tags to genres
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_duplicate_story_tags_to_genres() {
-    fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true );
-    fictioneer_log( __( 'Story tags duplicated as genres.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: CONVERT CHAPTER TAGS TO GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_move_chapter_tags_to_genres' ) ) {
-  /**
-   * Convert chapter tags to genres
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_move_chapter_tags_to_genres() {
-    fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true, true );
-    fictioneer_log( __( 'Chapter tags converted to genres.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: DUPLICATE CHAPTER TAGS TO GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_duplicate_chapter_tags_to_genres' ) ) {
-  /**
-   * Duplicate chapter tags to genres
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_duplicate_chapter_tags_to_genres() {
-    fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true );
-    fictioneer_log( __( 'Chapter tags duplicated as genres.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: APPEND DEFAULT GENRES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_append_default_genres' ) ) {
-  /**
-   * Append default genres
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_append_default_genres() {
-    // Setup
-    $genres = fictioneer_get_default_genres();
-
-    // Loop over genres
-    foreach ( $genres as $genre ) {
-      fictioneer_add_or_update_term(
-        $genre->name,
-        'fcn_genre',
-        array(
-          'parent' => isset( $genre->parent ) ? $genre->parent : 0,
-          'alias_of' => isset( $genre->aliasOf ) ? $genre->aliasOf : '',
-          'description' => isset( $genre->description ) ? $genre->description : ''
-        )
-      );
-    }
-
-    // Log
-    fictioneer_log( __( 'Added default genres.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: APPEND DEFAULT TAGS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_append_default_tags' ) ) {
-  /**
-   * Append default tags
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_append_default_tags() {
-    // Setup
-    $tags = fictioneer_get_default_tags();
-
-    // Loop over tags
-    foreach ( $tags as $tag ) {
-      fictioneer_add_or_update_term(
-        $tag->name,
-        'post_tag',
-        array(
-          'description' => isset( $tag->description ) ? $tag->description : ''
-        )
-      );
-    }
-
-    // Log
-    fictioneer_log( __( 'Added default tags.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: REMOVE UNUSED TAGS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_remove_unused_tags' ) ) {
-  /**
-   * Remove unused tags
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_remove_unused_tags() {
-    // Setup
-    $all_tags = get_tags( array( 'hide_empty' => false ) );
-
-    // Loop over tags
-    if ( $all_tags ) {
-      foreach ( $all_tags as $tag ) {
-        if ( $tag->count < 1 ) {
-          wp_delete_term( $tag->term_id, 'post_tag' );
-        }
-      }
-    }
-
-    // Log
-    fictioneer_log( __( 'Removed unused tags.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: PURGE STORY DATA CACHES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_purge_story_data_caches' ) ) {
-  /**
-   * Purge story data caches
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_purge_story_data_caches() {
-    // Prepare query
-    $query_args = array(
-      'post_type' => 'fcn_story',
-      'posts_per_page' => -1,
-      'fields' => 'ids',
-      'update_term_meta_cache' => false
-    );
-
-    // Get all story IDs
-    $stories_ids = get_posts( $query_args );
-
-    // Loop over stories
-    foreach ( $stories_ids as $story_id ) {
-      update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
-      delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
-    }
-
-    // Log
-    fictioneer_log( __( 'Purged story data caches.', 'fictioneer' ) );
-  }
-}
-
-// =============================================================================
-// SETTINGS ACTION: FIX DATABASE
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_fix_users' ) ) {
-  /**
-   * Fix users in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_users() {
-    // Setup
-    // $users = get_users( array( 'fields' => 'ID' ) );
-
-    // foreach( $users as $user_id ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_chapters' ) ) {
-  /**
-   * Fix chapters in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_chapters() {
-    // Setup
-    // $chapters = get_posts( array( 'post_type' => 'fcn_chapter', 'numberposts' => -1 ) );
-
-    // foreach( $chapters as $post ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_collections' ) ) {
-  /**
-   * Fix collections in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_collections() {
-    // Setup
-    // $collections = get_posts( array( 'post_type' => 'fcn_collection', 'numberposts' => -1 ) );
-
-    // foreach ( $collections as $post ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_pages' ) ) {
-  /**
-   * Fix pages in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_pages() {
-    // Setup
-    // $pages = get_posts( array( 'post_type' => 'page', 'numberposts' => -1 ) );
-
-    // foreach ( $pages as $post ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_posts' ) ) {
-  /**
-   * Fix posts in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_posts() {
-    // Setup
-    // $posts = get_posts( array( 'post_type' => 'post', 'numberposts' => -1 ) );
-
-    // foreach ( $posts as $post ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_recommendations' ) ) {
-  /**
-   * Fix collections in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_recommendations() {
-    // Setup
-    // $recommendations = get_posts( array( 'post_type' => 'fcn_recommendation', 'numberposts' => -1 ) );
-
-    // foreach ( $recommendations as $post ) {
-    // }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_fix_stories' ) ) {
-  /**
-   * Fix collections in database as far as possible
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_fix_stories() {
-    // Setup
-    // $stories = get_posts( array( 'post_type' => 'fcn_story', 'numberposts' => -1 ) );
-
-    // foreach ( $stories as $post ) {
-    // }
-  }
-}
-
-// =============================================================================
-// RENDER SETTINGS SUCCESS NOTICE
-// =============================================================================
-
-// Success notices
-if ( ! defined( 'FICTIONEER_ADMIN_SUCCESS_NOTICES' ) ) {
-  define(
-		'FICTIONEER_ADMIN_SUCCESS_NOTICES',
-		array(
-			'move_story_tags_to_genres' => __( 'All story tags have been converted to genres.', 'fictioneer' ),
-			'duplicate_story_tags_to_genres' => __( 'All story tags have been duplicated to genres.', 'fictioneer' ),
-			'move_chapter_tags_to_genres' => __( 'All chapter tags have been converted to genres.', 'fictioneer' ),
-			'duplicate_chapter_tags_to_genres' => __( 'All chapter tags have been duplicated to genres.', 'fictioneer' ),
-			'append_default_genres' => __( 'Default genres have been added to the list.', 'fictioneer' ),
-			'append_default_tags' => __( 'Default tags have been added to the list.', 'fictioneer' ),
-			'remove_unused_tags' => __( 'All unused tags have been removed.', 'fictioneer' ),
-			'purge_all_epubs' => __( 'All ePUB files have been purged.', 'fictioneer' ),
-      'purge_all_schemas' => __( 'All SEO schemas have been purged.', 'fictioneer' ),
-      'purge_seo_meta_caches' => __( 'All SEO meta caches have been purged.', 'fictioneer' ),
-			'purge_story_data_caches' => __( 'Story data caches have been purged.', 'fictioneer' ),
-			'add_moderator_role' => __( 'Moderator role has been added.', 'fictioneer' ),
-			'remove_moderator_role' => __( 'Moderator role has been removed.', 'fictioneer' ),
-			'upgrade_author_role' => __( 'Author role has been upgraded.', 'fictioneer' ),
-			'reset_author_role' => __( 'Author role has been reset.', 'fictioneer' ),
-			'limit_editor_role' => __( 'Editor role has been limited.', 'fictioneer' ),
-			'reset_editor_role' => __( 'Editor role has been reset.', 'fictioneer' ),
-			'upgrade_contributor_role' => __( 'Contributor role has been upgraded.', 'fictioneer' ),
-			'reset_contributor_role' => __( 'Contributor role has been reset.', 'fictioneer' ),
-      'reset_post_relationship_registry' => __( 'Post relationship registry reset.', 'fictioneer' )
-		)
-	);
-}
-
-/**
- * Output admin success notices
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_admin_success_notices() {
-  // Get performed action
-  $action = $_GET['action'] ?? null;
-
-  // Has action a notice?
-  if ( $action && isset( FICTIONEER_ADMIN_SUCCESS_NOTICES[ $action ] ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . FICTIONEER_ADMIN_SUCCESS_NOTICES[ $action ] . '</p></div>';
-  }
-}
-add_action( 'admin_notices', 'fictioneer_admin_success_notices' );
-
-// =============================================================================
 // SETTINGS PAGE HEADER
 // =============================================================================
 
@@ -622,7 +225,6 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 
 function fictioneer_settings_connections() {
 	get_template_part( 'includes/functions/settings/_settings_page_connections' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -633,7 +235,6 @@ function fictioneer_settings_connections() {
 
 function fictioneer_settings_general() {
 	get_template_part( 'includes/functions/settings/_settings_page_general' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -644,7 +245,6 @@ function fictioneer_settings_general() {
 
 function fictioneer_settings_epubs() {
 	get_template_part( 'includes/functions/settings/_settings_page_epubs' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -655,7 +255,6 @@ function fictioneer_settings_epubs() {
 
 function fictioneer_settings_seo() {
 	get_template_part( 'includes/functions/settings/_settings_page_seo' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -666,7 +265,6 @@ function fictioneer_settings_seo() {
 
 function fictioneer_settings_phrases() {
 	get_template_part( 'includes/functions/settings/_settings_page_phrases' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -677,7 +275,6 @@ function fictioneer_settings_phrases() {
 
 function fictioneer_settings_tools() {
 	get_template_part( 'includes/functions/settings/_settings_page_tools' );
-	fictioneer_clean_actions_from_url();
 }
 
 /**
@@ -688,5 +285,4 @@ function fictioneer_settings_tools() {
 
 function fictioneer_settings_logs() {
 	get_template_part( 'includes/functions/settings/_settings_page_logs' );
-	fictioneer_clean_actions_from_url();
 }
