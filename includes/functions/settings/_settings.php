@@ -7,6 +7,7 @@
 require_once( '_register_settings.php' );
 require_once( '_settings_loggers.php' );
 require_once( '_settings_ajax.php' );
+require_once( '_settings_actions.php' );
 
 // =============================================================================
 // ADD ADMIN MENU
