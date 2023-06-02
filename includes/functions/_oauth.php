@@ -69,15 +69,15 @@ if ( ! function_exists( 'fictioneer_get_oauth_login_link' ) ) {
    * The login link will be escaped and returned with nonce, which is only relevant
    * for the first call. Subsequent calls follow the OAuth protocol for security.
    * If the OAuth for the channel is not properly set up or the feature disabled,
-   * and empty string will be returned instead.
+   * an empty string will be returned instead.
    *
    * @since Fictioneer 4.7
    *
-   * @param string       $channel The channel (discord, google, twitch, or patreon).
-   * @param string       $content Content of the link.
-   * @param string|false $anchor  Optional. An anchor for the return page. Default false.
-   * @param boolean      $merge   Optional. Whether to link the account to another.
-   * @param string       $classes Optional. Additional CSS classes.
+   * @param string       $channel  The channel (discord, google, twitch, or patreon).
+   * @param string       $content  Content of the link.
+   * @param string|false $anchor   Optional. An anchor for the return page. Default false.
+   * @param boolean      $merge    Optional. Whether to link the account to another.
+   * @param string       $classes  Optional. Additional CSS classes.
    *
    * @return string OAuth login link or empty string if disabled.
    */

@@ -1,128 +1,201 @@
 <?php
 
 // =============================================================================
-// OUTPUT ADMIN PROFILE NOTICES
+// UTILITY
 // =============================================================================
 
 /**
- * Output admin profile notices
+ * Verify an admin profile action request
  *
- * @since Fictioneer 5.0
+ * @since Fictioneer 5.2.5
+ *
+ * @param string $action Name of the admin profile action.
+ */
+
+function fictioneer_verify_admin_profile_action( $action ) {
+  // Verify request
+  if ( ! check_admin_referer( $action, 'fictioneer_nonce' ) ) {
+    wp_die( __( 'Nonce verification failed. Please try again.', 'fcnes' ) );
+  }
+}
+
+/**
+ * Finish an admin profile action and perform a redirect
+ *
+ * @since Fictioneer 5.2.5
+ *
+ * @param string $notice Optional. The notice message to include in the redirect URL.
+ * @param string $type   Optional. The type of notice. Default 'success'.
+ */
+
+function fictioneer_finish_admin_profile_action( $notice = '', $type = 'success' ) {
+  // Setup
+  $notice = empty( $notice ) ? [] : array( $type => $notice );
+
+  // Redirect
+  wp_safe_redirect( add_query_arg( $notice, wp_get_referer() ) );
+
+  // Terminate
+  exit();
+}
+
+// =============================================================================
+// ADMIN PROFILE ACTIONS
+// =============================================================================
+
+/**
+ * Unset OAuth
+ *
+ * @since Fictioneer 5.2.5
+ */
+
+function fictioneer_admin_profile_unset_oauth() {
+  // Setup
+  $channel = sanitize_text_field( $_GET['channel'] ?? '' );
+
+  // Verify request
+  fictioneer_verify_admin_profile_action( "admin_oauth_unset_{$channel}" );
+
+  // Continue setup
+  $current_user_id = get_current_user_id();
+  $profile_user_id = absint( $_GET['profile_user_id'] ?? 0 );
+  $target_is_admin = fictioneer_is_admin( $profile_user_id );
+
+  // Guard admins
+  if ( $target_is_admin && $current_user_id !== $profile_user_id ) {
+    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+  }
+
+  // Guard users
+  if ( $current_user_id !== $profile_user_id ) {
+    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+  }
+
+  // Unset connection
+  delete_user_meta( $profile_user_id, "fictioneer_{$channel}_id_hash" );
+
+  // Finish
+  fictioneer_finish_admin_profile_action( "admin-profile-unset-oauth-{$channel}" );
+}
+// Not conditional since removing your connection should always be allowed
+add_action( 'admin_post_admin_profile_unset_oauth', 'fictioneer_admin_profile_unset_oauth' );
+
+/**
+ * Cleat data node
+ *
+ * @since Fictioneer 5.2.5
+ */
+
+function fictioneer_admin_profile_clear_data_node() {
+  // Setup
+  $node = sanitize_text_field( $_GET['node'] ?? '' );
+
+  // Verify request
+  fictioneer_verify_admin_profile_action( "admin_clear_data_node_{$node}" );
+
+  // Continue setup
+  $current_user_id = get_current_user_id();
+  $profile_user_id = absint( $_GET['profile_user_id'] ?? 0 );
+  $target_is_admin = fictioneer_is_admin( $profile_user_id );
+  $result = false;
+
+  // Guard admins
+  if ( $target_is_admin && ( $current_user_id !== $profile_user_id ) ) {
+    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+  }
+
+  // Guard users
+  if ( $current_user_id !== $profile_user_id ) {
+    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+  }
+
+  // Clear data
+  switch ( $node ) {
+    case 'comments':
+      $result = fictioneer_soft_delete_user_comments( $profile_user_id );
+      $result = is_array( $result ) ? $result['complete'] : $result;
+      break;
+    case 'comment-subscriptions':
+      $result = update_user_meta( $profile_user_id, 'fictioneer_comment_reply_validator', time() );
+      break;
+    case 'follows':
+      $result = update_user_meta( $profile_user_id, 'fictioneer_user_follows', [] );
+      update_user_meta( $profile_user_id, 'fictioneer_user_follows_cache', false );
+      break;
+    case 'reminders':
+      $result = update_user_meta( $profile_user_id, 'fictioneer_user_reminders', [] );
+      break;
+    case 'checkmarks':
+      $result = update_user_meta( $profile_user_id, 'fictioneer_user_checkmarks', [] );
+      break;
+    case 'bookmarks':
+      // Bookmarks are only parsed client-side and stored as JSON string
+      $result = update_user_meta( $profile_user_id, 'fictioneer_bookmarks', '{}' );
+      break;
+  }
+
+  // Finish
+  if ( ! empty( $result ) ) {
+    fictioneer_finish_admin_profile_action( "admin-profile-cleared-data-node-{$node}" );
+  } {
+    fictioneer_finish_admin_profile_action( "admin-profile-not-cleared-data-node-{$node}", 'failure' );
+  }
+}
+// Not conditional since clearing your data nodes should always be allowed
+add_action( 'admin_post_admin_profile_clear_data_node', 'fictioneer_admin_profile_clear_data_node' );
+
+// =============================================================================
+// OUTPUT ADMIN PROFILE NOTICES
+// =============================================================================
+
+if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
+  define(
+		'FICTIONEER_ADMIN_PROFILE_NOTICES',
+		array(
+			'admin-profile-unset-oauth-patreon' => __( 'Patreon connection successfully removed.', 'fictioneer' ),
+      'admin-profile-unset-oauth-google' => __( 'Google connection successfully removed.', 'fictioneer' ),
+      'admin-profile-unset-oauth-twitch' => __( 'Twitch connection successfully removed.', 'fictioneer' ),
+      'admin-profile-unset-oauth-discord' => __( 'Discord connection successfully removed.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-comments' => __( 'Comments could not be cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-comment-subscriptions' => __( 'Comment subscriptions could not be cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-follows' => __( 'Follows could not be cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-reminders' => __( 'Reminders could not be cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-checkmarks' => __( 'Checkmarks could not be cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-bookmarks' => __( 'Bookmarks could not be cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-comments' => __( 'Comments successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-comment-subscriptions' => __( 'Comment subscriptions successfully cleared.', 'fictioneer' ),
+      'admin-profile-not-cleared-data-node-follows' => __( 'Follows successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-reminders' => __( 'Reminders successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-checkmarks' => __( 'Checkmarks successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-bookmarks' => __( 'Bookmarks successfully cleared.', 'fictioneer' ),
+      'oauth_already_linked' => __( 'Account already linked to another profile.', 'fictioneer' ),
+      'oauth_merged_discord' => __( 'Discord account successfully linked', 'fictioneer' ),
+      'oauth_merged_google' => __( 'Google account successfully linked.', 'fictioneer' ),
+      'oauth_merged_twitch' => __( 'Twitch account successfully linked.', 'fictioneer' ),
+      'oauth_merged_patreon' => __( 'Patreon account successfully linked.', 'fictioneer' ),
+		)
+	);
+}
+
+/**
+ * Output admin settings notices
+ *
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_admin_profile_notices() {
-  // Setup
-  $action = $_GET['action'] ?? null;
-  $nonce = $_GET['fictioneer_nonce'] ?? null;
-  $failure = $_GET['failure'] ?? null;
+  // Get performed action
   $success = $_GET['success'] ?? null;
+  $failure = $_GET['failure'] ?? null;
 
-  // Abort if...
-  if ( ! $failure && ! $success && ( ! $action || ! $nonce ) ) return;
-
-  // OAuth already linked
-  if ( $failure == 'oauth_already_linked' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Account already linked to another profile.', 'fictioneer' ) . '</p></div>';
+  // Has success notice?
+  if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] ) ) {
+    echo '<div class="notice notice-success is-dismissible"><p>' . FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] . '</p></div>';
   }
 
-  // Discord OAuth merged
-  if ( $success == 'oauth_merged_discord' ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Discord account successfully linked', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Google OAuth merged
-  if ( $success == 'oauth_merged_google' ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Google account successfully linked.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Twitch OAuth merged
-  if ( $success == 'oauth_merged_twitch' ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Twitch account successfully linked.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Patreon OAuth merged
-  if ( $success == 'oauth_merged_patreon' ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Patreon account successfully linked.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Discord OAuth removed
-  if ( $action == 'oauth_unset_discord' && $nonce && wp_verify_nonce( $nonce, 'unset_oauth' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Discord account successfully removed.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Google OAuth removed
-  if ( $action == 'oauth_unset_google' && $nonce && wp_verify_nonce( $nonce, 'unset_oauth' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Google account successfully removed.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Twitch OAuth removed
-  if ( $action == 'oauth_unset_twitch' && $nonce && wp_verify_nonce( $nonce, 'unset_oauth' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Twitch account successfully removed.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Patreon OAuth removed
-  if ( $action == 'oauth_unset_patreon' && $nonce && wp_verify_nonce( $nonce, 'unset_oauth' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Patreon account successfully removed.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Comments cleared
-  if ( $action == 'clear_comments' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Comments successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Comments NOT cleared
-  if ( $failure == 'clear_comments' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Comments could not be (completely) cleared. Please try again later or contact an administrator.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Comment subscriptions cleared
-  if ( $action == 'clear_comment_subscriptions' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Comment subscriptions successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Comment subscriptions NOT cleared
-  if ( $failure == 'clear_comment_subscriptions' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Comment subscriptions could not be cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Checkmarks cleared
-  if ( $action == 'clear_checkmarks' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Checkmarks successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Checkmarks NOT cleared
-  if ( $failure == 'clear_checkmarks' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Checkmarks could not be cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Follows cleared
-  if ( $action == 'clear_follows' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Follows successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Follows NOT cleared
-  if ( $failure == 'clear_follows' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Follows could not be cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Reminders cleared
-  if ( $action == 'clear_reminders' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Reminders successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Reminders NOT cleared
-  if ( $failure == 'clear_reminders' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Reminders could not be cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Bookmarks cleared
-  if ( $action == 'clear_bookmarks' && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Bookmarks successfully cleared.', 'fictioneer' ) . '</p></div>';
-  }
-
-  // Bookmarks NOT cleared
-  if ( $failure == 'clear_bookmarks' ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . __( 'Bookmarks could not be cleared.', 'fictioneer' ) . '</p></div>';
+  // Has failure notice?
+  if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ] ) ) {
+    echo '<div class="notice notice-error is-dismissible"><p>' . FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ] . '</p></div>';
   }
 }
 add_action( 'admin_notices', 'fictioneer_admin_profile_notices' );
@@ -141,11 +214,24 @@ add_action( 'admin_notices', 'fictioneer_admin_profile_notices' );
  */
 
 function fictioneer_custom_profile_fields( $profile_user ) {
+  // Setup
+  $moderation_message = get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID );
+
   // Start HTML ---> ?>
   <h2 class="fictioneer-data-heading"><?php _e( 'Fictioneer', 'fictioneer' ) ?></h2>
   <table class="form-table">
     <tbody>
-      <?php do_action( 'fictioneer_admin_user_sections', $profile_user ); ?>
+      <?php
+
+      // Display moderation message (if any)
+      if ( ! empty( $moderation_message ) ) {
+        echo '<p>' . $moderation_message . '</p>';
+      }
+
+      // Hook to show fields
+      do_action( 'fictioneer_admin_user_sections', $profile_user );
+
+      ?>
     </tbody>
   </table>
   <?php // <--- End HTML
@@ -157,412 +243,397 @@ add_action( 'show_user_profile', 'fictioneer_custom_profile_fields', 20 );
 add_action( 'edit_user_profile', 'fictioneer_custom_profile_fields', 20 );
 
 // =============================================================================
-// SHOW THEME USER PROFILE FIELDS
+// SHOW FINGERPRINT
 // =============================================================================
 
 /**
- * Adds HTML for the badge section to the wp-admin user profile
+ * Render fingerprint in admin profile
  *
- * @since Fictioneer 5.0
+ * @since Fictioneer 5.2.5
  *
  * @param WP_User $profile_user The profile user object. Not necessarily the one
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_user_fields' ) ) {
-  function fictioneer_admin_user_fields( $profile_user ) {
-    // Setup...
-    $action = $_GET['action'] ?? null;
-    $nonce = $_GET['fictioneer_nonce'] ?? null;
-    $is_owner = $profile_user->ID === get_current_user_id();
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
-    $confirm_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
+function fictioneer_admin_profile_fields_fingerprint( $profile_user ) {
+  // Setup
+  $sender_is_admin = fictioneer_is_admin( get_current_user_id() );
+  $sender_is_owner = $profile_user->ID === get_current_user_id();
 
-    // ... abort conditions...
-    if ( ! $editing_user_is_admin && ! $is_owner ) return;
+  // Guard
+  if ( ! $sender_is_admin && ! $sender_is_owner ) return;
 
-    // ... continue setup
-    $moderation_message = get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID );
+  // --- Start HTML ---> ?>
+  <tr class="user-fictioneer-fingerprint-wrap">
+    <th><label for="fictioneer_support_message"><?php _e( 'Fingerprint', 'fictioneer' ) ?></label></th>
+    <td>
+      <input type="text" value="<?php echo esc_attr( fictioneer_get_user_fingerprint( $profile_user->ID ) ); ?>" class="regular-text" disabled>
+      <p class="description"><?php _e( 'Your unique hash. Used to distinguish commenters.', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_fingerprint', 5 );
 
-    // Display moderation message (if any)
-    if ( ! empty( $moderation_message ) ) {
-      echo '<p>' . $moderation_message . '</p>';
-    }
+// =============================================================================
+// SHOW FLAGS
+// =============================================================================
 
-    // Display fingerprint --- Start HTML ---> ?>
-    <tr class="user-fictioneer-fingerprint-wrap">
-      <th><label for="fictioneer_support_message"><?php _e( 'Fingerprint', 'fictioneer' ) ?></label></th>
-      <td>
-        <input type="text" value="<?php echo esc_attr( fictioneer_get_user_fingerprint( $profile_user->ID ) ); ?>" class="regular-text" disabled>
-        <p class="description"><?php _e( 'Your unique hash. Used to distinguish commenters.', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <?php // <--- End HTML
+/**
+ * Render profile flags in admin profile
+ *
+ * @since Fictioneer 5.2.5
+ *
+ * @param WP_User $profile_user The profile user object. Not necessarily the one
+ *                              currently editing the profile!
+ */
 
-    // Display profile flags --- Start HTML ---> ?>
-    <tr class="user-fictioneer-profile-flags-wrap">
-      <th><?php _e( 'Profile Flags', 'fictioneer' ) ?></th>
-      <td>
-        <fieldset>
-          <div>
-            <label for="fictioneer_enforce_gravatar" class="checkbox-group">
-              <input name="fictioneer_enforce_gravatar" type="checkbox" id="fictioneer_enforce_gravatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_enforce_gravatar', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Always use gravatar', 'fictioneer' ) ?></span>
+function fictioneer_admin_profile_fields_flags( $profile_user ) {
+  // Setup
+  $sender_is_admin = fictioneer_is_admin( get_current_user_id() );
+  $sender_is_owner = $profile_user->ID === get_current_user_id();
+
+  // Guard
+  if ( ! $sender_is_admin && ! $sender_is_owner ) return;
+
+  // Continue setup
+  $always_gravatar = get_the_author_meta( 'fictioneer_enforce_gravatar', $profile_user->ID ) ?: false;
+  $disable_avatar = get_the_author_meta( 'fictioneer_disable_avatar', $profile_user->ID ) ?: false;
+  $hide_badge = get_the_author_meta( 'fictioneer_hide_badge', $profile_user->ID ) ?: false;
+  $disable_override_badge = get_the_author_meta( 'fictioneer_disable_badge_override', $profile_user->ID ) ?: false;
+  $reply_notifications = get_the_author_meta( 'fictioneer_comment_reply_notifications', $profile_user->ID ) ?: false;
+
+  // --- Start HTML ---> ?>
+  <tr class="user-fictioneer-profile-flags-wrap">
+    <th><?php _e( 'Profile Flags', 'fictioneer' ) ?></th>
+    <td>
+      <fieldset>
+        <div>
+          <label for="fictioneer_enforce_gravatar" class="checkbox-group">
+            <input
+              name="fictioneer_enforce_gravatar"
+              type="checkbox"
+              id="fictioneer_enforce_gravatar"
+              value="1"
+              <?php echo checked( 1, $always_gravatar, false ); ?>
+            >
+            <span><?php _e( 'Always use gravatar', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_disable_avatar" class="checkbox-group">
+            <input
+              name="fictioneer_disable_avatar"
+              type="checkbox"
+              id="fictioneer_disable_avatar"
+              value="1"
+              <?php echo checked( 1, $disable_avatar, false ); ?>
+            >
+            <span><?php _e( 'Disable avatar', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
+          <div class="profile__input-wrapper profile__input-wrapper--checkbox">
+            <label for="fictioneer_hide_badge" class="checkbox-group">
+              <input
+                name="fictioneer_hide_badge"
+                type="checkbox"
+                id="fictioneer_hide_badge"
+                value="1"
+                <?php echo checked( 1, $hide_badge, false ); ?>
+              >
+              <span><?php _e( 'Hide badge', 'fictioneer' ) ?></span>
             </label>
           </div>
-          <div>
-            <label for="fictioneer_disable_avatar" class="checkbox-group">
-              <input name="fictioneer_disable_avatar" type="checkbox" id="fictioneer_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_disable_avatar', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable avatar', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
+          <?php if ( ! empty( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ) ) : ?>
             <div class="profile__input-wrapper profile__input-wrapper--checkbox">
-              <label for="fictioneer_hide_badge" class="checkbox-group">
-                <input name="fictioneer_hide_badge" type="checkbox" id="fictioneer_hide_badge" <?php echo checked( 1, get_the_author_meta( 'fictioneer_hide_badge', $profile_user->ID ), false ); ?> value="1">
-                <span><?php _e( 'Hide badge', 'fictioneer' ) ?></span>
+              <label for="fictioneer_disable_badge_override" class="checkbox-group">
+                <input
+                  name="fictioneer_disable_badge_override"
+                  type="checkbox"
+                  id="fictioneer_disable_badge_override"
+                  value="1"
+                  <?php echo checked( 1, $disable_override_badge, false ); ?>
+                >
+                <span><?php _e( 'Override assigned badge', 'fictioneer' ) ?></span>
               </label>
             </div>
-            <?php if ( ! empty( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ) ) : ?>
-              <div class="profile__input-wrapper profile__input-wrapper--checkbox">
-                <label for="fictioneer_disable_badge_override" class="checkbox-group">
-                  <input name="fictioneer_disable_badge_override" type="checkbox" id="fictioneer_disable_badge_override" <?php echo checked( 1, get_the_author_meta( 'fictioneer_disable_badge_override', $profile_user->ID ), false ); ?> value="1">
-                  <span><?php _e( 'Override assigned badge', 'fictioneer' ) ?></span>
-                </label>
-              </div>
+          <?php endif; ?>
+        <?php endif; ?>
+        <?php if ( get_option( 'fictioneer_enable_comment_notifications' ) ) : ?>
+          <div class="profile__input-wrapper profile__input-wrapper--checkbox">
+            <label for="fictioneer_comment_reply_notifications" class="checkbox-group">
+              <input
+                name="fictioneer_comment_reply_notifications"
+                type="checkbox"
+                id="fictioneer_comment_reply_notifications"
+                value="1"
+                <?php echo checked( 1, $reply_notifications, false ); ?>
+              >
+              <span><?php _e( 'Always subscribe to comment reply notifications', 'fictioneer' ) ?></span>
+            </label>
+          </div>
+        <?php endif; ?>
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_flags', 6 );
+
+// =============================================================================
+// SHOW OAUTH
+// =============================================================================
+
+/**
+ * Render OAuth connections in admin profile
+ *
+ * @since Fictioneer 5.2.5
+ *
+ * @param WP_User $profile_user The profile user object. Not necessarily the one
+ *                              currently editing the profile!
+ */
+
+function fictioneer_admin_profile_fields_oauth( $profile_user ) {
+  // Setup
+  $oauth_providers = array(
+    ['discord', 'Discord'],
+    ['twitch', 'Twitch'],
+    ['google', 'Google'],
+    ['patreon', 'Patreon']
+  );
+  $sender_is_owner = $profile_user->ID === get_current_user_id();
+  $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
+
+  // Guard (only profile owner)
+  if ( ! $sender_is_owner ) return;
+
+  // Start HTML ---> ?>
+  <tr class="user-fictioneer-oauth-wrap">
+    <th><?php _e( 'OAuth 2.0 Connections', 'fictioneer' ) ?></th>
+    <td>
+      <p style="margin: 0.35em 0 1em !important;">
+        <?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?>
+      </p>
+      <fieldset>
+        <?php foreach ( $oauth_providers as $provider ) : ?>
+
+          <?php if (
+            get_option( "fictioneer_{$provider[0]}_client_id" ) &&
+            get_option( "fictioneer_{$provider[0]}_client_secret" ) ) :
+          ?>
+
+            <?php if ( ! get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $profile_user->ID ) ) : ?>
             <?php endif; ?>
+
           <?php endif; ?>
-          <?php if ( get_option( 'fictioneer_enable_comment_notifications' ) ) : ?>
-            <div class="profile__input-wrapper profile__input-wrapper--checkbox">
-              <label for="fictioneer_comment_reply_notifications" class="checkbox-group">
-                <input name="fictioneer_comment_reply_notifications" type="checkbox" id="fictioneer_comment_reply_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_comment_reply_notifications', $profile_user->ID ), false ); ?> value="1">
-                <span><?php _e( 'Always subscribe to comment reply notifications', 'fictioneer' ) ?></span>
-              </label>
-            </div>
-          <?php endif; ?>
-        </fieldset>
-      </td>
-    </tr>
-    <?php // <--- End HTML
 
-    // =============================================================================
-    // OAUTH 2.0 (ONLY PROFILE OWNER)
-    // =============================================================================
+        <?php endforeach; ?>
 
-    if ( get_option( 'fictioneer_enable_oauth' ) && $is_owner ) {
-      // Inner setup
-      $oauth_providers = [
-        ['discord', 'Discord'],
-        ['twitch', 'Twitch'],
-        ['google', 'Google'],
-        ['patreon', 'Patreon']
-      ];
+        <?php
+        foreach ( $oauth_providers as $provider ) {
+          $client_id = get_option( "fictioneer_{$provider[0]}_client_id" ) ?: null;
+          $client_secret = get_option( "fictioneer_{$provider[0]}_client_secret" ) ?: null;
+          $id_hash = get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $profile_user->ID ) ?: null;
+          $confirmation_message = sprintf(
+            __( 'Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'fictioneer' ),
+            strtoupper( $confirmation_string )
+          );
 
-      // Resolve unset action (if any)
-      if ( $is_owner && $action && $nonce && wp_verify_nonce( $nonce, 'unset_oauth' ) ) {
-        switch ( $action ) {
-          case 'oauth_unset_discord':
-            delete_user_meta( $profile_user->ID, 'fictioneer_discord_id_hash' );
-            break;
-          case 'oauth_unset_google':
-            delete_user_meta( $profile_user->ID, 'fictioneer_google_id_hash' );
-            break;
-          case 'oauth_unset_twitch':
-            delete_user_meta( $profile_user->ID, 'fictioneer_twitch_id_hash' );
-            break;
-          case 'oauth_unset_patreon':
-            delete_user_meta( $profile_user->ID, 'fictioneer_patreon_id_hash' );
-            break;
-        }
-      }
-
-      // Start HTML ---> ?>
-      <tr class="user-fictioneer-oauth-wrap">
-        <th><?php _e( 'OAuth 2.0 Connections', 'fictioneer' ) ?></th>
-        <td>
-          <p style="margin: .35em 0 1em !important;"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?></p>
-          <fieldset><?php
-            foreach ( $oauth_providers as $provider ) {
-              if (
-                get_option( "fictioneer_{$provider[0]}_client_id" ) &&
-                get_option( "fictioneer_{$provider[0]}_client_secret" )
-              ) {
-                if ( ! get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $profile_user->ID ) ) {
-                  echo '<div class="oauth-connection">' . fictioneer_get_oauth_login_link(
+          if ( $client_id && $client_secret ) {
+            if ( empty( $id_hash ) ) {
+              // Start HTML ---> ?>
+              <div class="oauth-connection">
+                <?php
+                  echo fictioneer_get_oauth_login_link(
                     $provider[0],
-                    '<i class="fa-brands fa-' . $provider[0] . '"></i> <span>' . $provider[1] . '</span>',
+                    "<i class='fa-brands fa-{$provider[0]}'></i> <span>{$provider[1]}</span>",
                     false,
                     true,
                     '_disconnected button',
                     0,
                     get_edit_profile_url( $profile_user->ID )
-                  ) . '</div>';
-                } else {
-                   $confirm_message = sprintf(
-                    __( 'Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'fictioneer' ),
-                    strtoupper( $confirm_string )
-                  );
-
-                  $unset_url = add_query_arg(
-                    array(
-                      'action' => 'oauth_unset_' . $provider[0]
-                    ),
-                    wp_nonce_url(
-                      get_edit_profile_url( $profile_user->ID ),
-                      'unset_oauth',
-                      'fictioneer_nonce'
-                    )
-                  );
-                  ?>
-                    <div id="oauth-<?php echo $provider[0]; ?>" class="oauth-connection _<?php echo $provider[0]; ?> _connected">
-                      <a href="<?php echo $unset_url; ?>" id="oauth-disconnect-<?php echo $provider[0]; ?>" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                        <span><?php _e( 'Disconnect', 'fictioneer' ); ?></span>
-                        <i class="fa-brands fa-<?php echo $provider[0]; ?>"></i>
-                        <span><?php echo $provider[1]; ?></span>
-                      </a>
-                    </div>
-                  <?php
-                }
-              }
+                  )
+                ?>
+              </div>
+              <?php // <--- End HTML
+            } else {
+              $unset_url = add_query_arg(
+                array(
+                  'profile_user_id' => $profile_user->ID,
+                  'channel' => $provider[0]
+                ),
+                wp_nonce_url(
+                  admin_url( 'admin-post.php?action=admin_profile_unset_oauth' ),
+                  "admin_oauth_unset_{$provider[0]}",
+                  'fictioneer_nonce'
+                )
+              );
+              // Start HTML ---> ?>
+                <div id="oauth-<?php echo $provider[0]; ?>" class="oauth-connection _<?php echo $provider[0]; ?> _connected">
+                  <a
+                    href="<?php echo $unset_url; ?>"
+                    id="oauth-disconnect-<?php echo $provider[0]; ?>"
+                    class="button confirm-dialog"
+                    data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
+                    data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
+                  >
+                    <span><?php _e( 'Disconnect', 'fictioneer' ); ?></span>
+                    <i class="fa-brands fa-<?php echo $provider[0]; ?>"></i>
+                    <span><?php echo $provider[1]; ?></span>
+                  </a>
+                </div>
+              <?php // <--- End HTML
             }
-          ?></fieldset>
-        </td>
-      </tr>
-      <?php // <--- End HTML
-    }
-
-    // =============================================================================
-    // DATA NODES
-    // =============================================================================
-
-    // Resolve clear action (if any)
-    if ( $is_owner && $action && $nonce && wp_verify_nonce( $nonce, 'clear_data' ) ) {
-      switch ( $action ) {
-        case 'clear_comments':
-          $result = fictioneer_soft_delete_user_comments( $profile_user->ID );
-          $result = is_array( $result ) ? $result['complete'] : $result;
-          break;
-        case 'clear_comment_subscriptions':
-          $result = update_user_meta( $profile_user->ID, 'fictioneer_comment_reply_validator', time() );
-          break;
-        case 'clear_follows':
-          $result = update_user_meta( $profile_user->ID, 'fictioneer_user_follows', [] );
-          update_user_meta( $profile_user->ID, 'fictioneer_user_follows_cache', false );
-          break;
-        case 'clear_reminders':
-          $result = update_user_meta( $profile_user->ID, 'fictioneer_user_reminders', [] );
-          break;
-        case 'clear_checkmarks':
-          $result = update_user_meta( $profile_user->ID, 'fictioneer_user_checkmarks', [] );
-          break;
-        case 'clear_bookmarks':
-          // Bookmarks are only parsed client-side and stored as JSON string
-          $result = update_user_meta( $profile_user->ID, 'fictioneer_bookmarks', '{}' );
-          if ( $result ) echo "<script>localStorage.removeItem('fcnChapterBookmarks');</script>";
-          break;
-      }
-
-      // Reload with error message on failure
-      if ( ! $result ) {
-        wp_safe_redirect( admin_url( sprintf( 'profile.php?%s', http_build_query( ['failure' => $action] ) ) ) );
-      }
-    }
-
-    $comments_count = get_comments( ['user_id' => $profile_user->ID, 'count' => true] );
-    $checkmarks = fictioneer_load_checkmarks( $profile_user );
-    $checkmarks_count = count( $checkmarks['data'] );
-    $checkmarks_chapters_count = fictioneer_count_chapter_checkmarks( $checkmarks );
-    $follows = fictioneer_load_follows( $profile_user );
-    $follows_count = count( $follows['data'] );
-    $reminders = fictioneer_load_reminders( $profile_user );
-    $reminders_count = count( $reminders['data'] );
-    $bookmarks = get_user_meta( $profile_user->ID, 'fictioneer_bookmarks', true );
-    $notification_validator = get_user_meta( $profile_user->ID, 'fictioneer_comment_reply_validator', true );
-    $comment_subscriptions_count = 0;
-
-    if ( ! empty( $notification_validator ) ) {
-      $comment_subscriptions_count = get_comments(
-        array(
-          'user_id' => $profile_user->ID,
-          'meta_key' => 'fictioneer_send_notifications',
-          'meta_value' => $notification_validator,
-          'count' => true
-        )
-      );
-    }
-
-    // Start HTML ---> ?>
-    <tr class="user-fictioneer-data-wrap">
-      <th><?php _e( 'Data', 'fictioneer' ) ?></th>
-      <td>
-        <p style="margin: .35em 0 1em !important;"><?php _e( 'The following items represent data nodes stored in your account. Anything submitted by yourself, such as comments. You can clear these nodes here, but be aware that this is irreversible.', 'fictioneer' ); ?></p>
-        <fieldset>
-
-          <?php if ( $comments_count > 0 ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Comments will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_comments'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-comments" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-message"></i>
-                <span><?php printf( __( 'Clear Comments (%s)', 'fictioneer' ), $comments_count ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-          <?php if ( $comment_subscriptions_count > 0 ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Comment subscriptions will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_comment_subscriptions'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-comments" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-envelope"></i>
-                <span><?php printf( __( 'Clear Comment Subscriptions (%s)', 'fictioneer' ), $comment_subscriptions_count ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-          <?php if ( get_option( 'fictioneer_enable_follows' ) && $follows_count > 0 ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Follows will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_follows'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-follows" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-star"></i>
-                <span><?php printf( __( 'Clear Follows (%s)', 'fictioneer' ), $follows_count ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-          <?php if ( get_option( 'fictioneer_enable_reminders' ) && $reminders_count > 0 ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_reminders'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-reminders" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-clock"></i>
-                <span><?php printf( __( 'Clear Reminders (%s)', 'fictioneer' ), $reminders_count ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-          <?php if ( get_option( 'fictioneer_enable_checkmarks' ) && $checkmarks_count > 0 ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Checkmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_checkmarks'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-checkmarks" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-circle-check"></i>
-                <span><?php printf( __( 'Clear Checkmarks (%1$s | %2$s)', 'fictioneer' ), $checkmarks_count, $checkmarks_chapters_count ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-          <?php if ( get_option( 'fictioneer_enable_bookmarks' ) && ! empty( $bookmarks ) && $bookmarks != '{}' ) : ?>
-            <?php
-              $confirm_message = sprintf(
-                __( 'Are you sure? Bookmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
-                strtoupper( $confirm_string )
-              );
-
-              $clear_url = add_query_arg(
-                array(
-                  'action' => 'clear_bookmarks'
-                ),
-                wp_nonce_url(
-                  get_edit_profile_url( $profile_user->ID ),
-                  'clear_data',
-                  'fictioneer_nonce'
-                )
-              );
-
-              // Bookmarks are never evaluated server-side, so there is no count
-            ?>
-            <div class="data-node">
-              <a href="<?php echo $clear_url; ?>" id="data-node-clear-bookmarks" class="button confirm-dialog" data-dialog-message="<?php echo esc_attr( $confirm_message ); ?>" data-dialog-confirm="<?php echo esc_attr( $confirm_string ); ?>">
-                <i class="fa-solid fa-bookmark"></i>
-                <span><?php _e( 'Clear Bookmarks', 'fictioneer' ); ?></span>
-              </a>
-            </div>
-          <?php endif; ?>
-
-        </fieldset>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+          }
+        }
+      ?></fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
-add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_user_fields', 5 );
+
+if ( get_option( 'fictioneer_enable_oauth' ) ) {
+  add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_oauth', 7 );
+}
+
+// =============================================================================
+// SHOW DATA NODES
+// =============================================================================
+
+/**
+ * Render data nodes in admin profile
+ *
+ * @since Fictioneer 5.2.5
+ *
+ * @param WP_User $profile_user The profile user object. Not necessarily the one
+ *                              currently editing the profile!
+ */
+
+function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
+  // Setup
+  $success = $_GET['success'] ?? null;
+  $comments_count = get_comments( array( 'user_id' => $profile_user->ID, 'count' => true ) );
+  $checkmarks = fictioneer_load_checkmarks( $profile_user );
+  $checkmarks_count = count( $checkmarks['data'] );
+  $checkmarks_chapters_count = fictioneer_count_chapter_checkmarks( $checkmarks );
+  $follows = fictioneer_load_follows( $profile_user );
+  $follows_count = count( $follows['data'] );
+  $reminders = fictioneer_load_reminders( $profile_user );
+  $reminders_count = count( $reminders['data'] );
+  $bookmarks = get_user_meta( $profile_user->ID, 'fictioneer_bookmarks', true ) ?: null;
+  $sender_is_owner = $profile_user->ID === get_current_user_id();
+  $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
+  $notification_validator = get_user_meta( $profile_user->ID, 'fictioneer_comment_reply_validator', true ) ?: null;
+  $comment_subscriptions_count = 0;
+  $nodes = array(
+    ['comments', '<i class="fa-solid fa-message"></i>', $comments_count]
+  );
+
+  if ( ! empty( $notification_validator ) ) {
+    $comment_subscriptions_count = get_comments(
+      array(
+        'user_id' => $profile_user->ID,
+        'meta_key' => 'fictioneer_send_notifications',
+        'meta_value' => $notification_validator,
+        'count' => true
+      )
+    );
+  }
+
+  // Clear local bookmarks
+  if ( $success && $success === 'admin-profile-cleared-data-node-bookmarks' ) {
+    echo "<script>localStorage.removeItem('fcnChapterBookmarks');</script>";
+  }
+
+  // Comment subscriptions?
+  if ( get_option( 'fictioneer_enable_comment_notifications' ) && $comment_subscriptions_count > 0 ) {
+    $nodes[] = ['comment-subscriptions','<i class="fa-solid fa-envelope"></i>', $comment_subscriptions_count];
+  }
+
+  // Follows?
+  if ( get_option( 'fictioneer_enable_follows' ) && $follows_count > 0 ) {
+    $nodes[] = ['follows', '<i class="fa-solid fa-star"></i>', $follows_count];
+  }
+
+  // Reminders?
+  if ( get_option( 'fictioneer_enable_reminders' ) && $reminders_count > 0 ) {
+    $nodes[] = ['reminders', '<i class="fa-solid fa-clock"></i>', $reminders_count];
+  }
+
+  // Checkmarks?
+  if ( get_option( 'fictioneer_enable_checkmarks' ) && $checkmarks_count > 0 ) {
+    $nodes[] = ['checkmarks', '<i class="fa-solid fa-circle-check"></i>', "{$checkmarks_count}|{$checkmarks_chapters_count}"];
+  }
+
+  // Bookmarks?
+  if ( get_option( 'fictioneer_enable_bookmarks' ) && ! empty( $bookmarks ) && $bookmarks != '{}' ) {
+    $nodes[] = ['bookmarks', '<i class="fa-solid fa-bookmark"></i>', 0];
+  }
+
+  // Guard (only profile owner)
+  if ( ! $sender_is_owner ) return;
+
+  // --- Start HTML ---> ?>
+  <tr class="user-fictioneer-data-wrap">
+    <th><?php _e( 'Data', 'fictioneer' ) ?></th>
+    <td>
+      <p style="margin: 0.35em 0 1em !important;">
+        <?php _e( 'The following items represent data nodes stored in your account. Anything submitted by yourself, such as comments. You can clear these nodes here, but be aware that this is irreversible.', 'fictioneer' ); ?>
+      </p>
+      <fieldset>
+        <?php foreach ( $nodes as $node ) : ?>
+          <?php
+            $clear_url = add_query_arg(
+              array(
+                'profile_user_id' => $profile_user->ID,
+                'node' => $node[0]
+              ),
+              wp_nonce_url(
+                admin_url( 'admin-post.php?action=admin_profile_clear_data_node' ),
+                "admin_clear_data_node_{$node[0]}",
+                'fictioneer_nonce'
+              )
+            );
+
+            $confirmation_message = sprintf(
+              __( 'Are you sure you want to clear your %s? This action is irreversible. Enter %s to confirm.', 'fictioneer' ),
+              str_replace( '-', ' ', $node[0] ),
+              strtoupper( $confirmation_string )
+            );
+          ?>
+          <div class="data-node">
+            <a
+              href="<?php echo esc_url( $clear_url ); ?>"
+              id="data-node-clear-<?php echo $node[0]; ?>"
+              class="button confirm-dialog"
+              data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
+              data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
+            >
+              <?php echo $node[1]; ?>
+              <span><?php
+                if ( empty( $node[2] ) ) {
+                  printf(
+                    __( 'Clear %s', 'fictioneer' ),
+                    ucwords( str_replace( '-', ' ', $node[0] ) )
+                  );
+                } else {
+                  printf(
+                    __( 'Clear %s (%s)', 'fictioneer' ),
+                    ucwords( str_replace( '-', ' ', $node[0] ) ),
+                    $node[2]
+                  );
+                }
+              ?></span>
+            </a>
+          </div>
+        <?php endforeach; ?>
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_data_nodes', 8 );
 
 // =============================================================================
 // SHOW MODERATION SECTION
