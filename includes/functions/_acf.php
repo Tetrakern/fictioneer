@@ -75,18 +75,25 @@ if ( ! class_exists('acf') && is_admin() ) {
  *
  * @since Fictioneer 4.0
  *
- * @param array  $args    The query arguments.
- * @param string $paths   The queried field.
- * @param int    $post_id The post ID.
+ * @param array  $args     The query arguments.
+ * @param string $paths    The queried field.
+ * @param int    $post_id  The post ID.
  */
 
 function fictioneer_acf_filter_chapters( $args, $field, $post_id ) {
-  $args[ 'meta_query' ] = array(
+  // Limit to chapters set to this story
+  $args['meta_query'] = array(
     array(
       'key' => 'fictioneer_chapter_story',
       'value' => $post_id
     )
   );
+
+  // Order by date, descending, to see the newest on top
+  $args['orderby'] = 'date';
+  $args['order'] = 'desc';
+
+  // Return
   return $args;
 }
 
