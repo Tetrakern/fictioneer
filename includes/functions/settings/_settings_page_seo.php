@@ -224,7 +224,7 @@ if ( $action === 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, '
                                   <span class="no-schema-note subtext <?php if ( $schema ) echo 'hidden'; ?>"><?php _e( '[No Schema]', 'fictioneer' ) ?></span>
                                   <?php echo fictioneer_get_seo_description( $post_id ); ?>
                                 </summary>
-                                <div class="textarea"><textarea class="fs-xxs" name="fictioneer_phrase_maintenance" id="fictioneer_phrase_maintenance" rows="8" readonly><?php echo $schema_text; ?></textarea></div>
+                                <div class="textarea"><textarea class="fs-xxs" rows="8" readonly><?php echo $schema_text; ?></textarea></div>
                               </details>
                             <?php else : ?>
                               <span class="no-schema-note subtext"><?php _e( '[No Schema]', 'fictioneer' ) ?></span>

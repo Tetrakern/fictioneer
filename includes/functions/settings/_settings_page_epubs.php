@@ -39,7 +39,6 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
 
 <div class="fictioneer-ui fictioneer-settings">
 
-
   <?php fictioneer_settings_header( 'epubs' ); ?>
 
   <div class="fictioneer-settings__content">
