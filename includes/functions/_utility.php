@@ -801,22 +801,6 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 }
 
 // =============================================================================
-// REMOVE URL PARAMETERS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_clean_actions_from_url' ) ) {
-  /**
-   * Output script to remove action parameters from URL
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_clean_actions_from_url() {
-    echo "<script>history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[\?&](action=)[^&]+/, '').replace(/^&/, '?') + location.hash);</script>";
-  }
-}
-
-// =============================================================================
 // GET META FIELDS
 // =============================================================================
 
