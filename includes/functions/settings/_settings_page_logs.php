@@ -8,13 +8,6 @@
  */
 ?>
 
-<?php
-
-// Setup
-$action = $_GET['action'] ?? null;
-
-?>
-
 <div class="fictioneer-ui fictioneer-settings">
 
 	<?php fictioneer_settings_header( 'logs' ); ?>

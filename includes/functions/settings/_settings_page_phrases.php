@@ -8,14 +8,6 @@
  */
 ?>
 
-<?php
-
-// Setup
-$action = $_GET['action'] ?? null;
-$pagenum = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
-
-?>
-
 <div class="fictioneer-ui fictioneer-settings">
 
 	<?php fictioneer_settings_header( 'phrases' ); ?>
