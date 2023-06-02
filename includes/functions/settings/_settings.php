@@ -195,11 +195,13 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 			<div>
 				<h1><?php _e( 'Fictioneer', 'fictioneer' ); ?></h1>
 				<div class="fictioneer-settings__header-links">
+					<a href="https://github.com/Tetrakern/fictioneer/releases" target="_blank"><?php echo FICTIONEER_VERSION; ?></a>
+					&bull;
 					<a href="https://github.com/Tetrakern/fictioneer#readme" target="_blank"><?php
-            echo FICTIONEER_VERSION;
-            echo ' &bull; ';
             _e( 'Documentation on Github', 'fictioneer' );
-          ?> <span class="dashicons dashicons-external"></span></a>
+          ?></a>
+					&bull;
+					<a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support on Ko-fi', 'fictioneer' ); ?></a>
 				</div>
         <?php if ( CHILD_VERSION && CHILD_NAME ) : ?>
           <div class="fictioneer-settings__header-links">
