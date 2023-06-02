@@ -11,7 +11,7 @@
 <?php
 
 // Setup
-$pagenum = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
+$page_number = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
 $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
 $files = list_files( $epub_dir, 1 );
 $epubs = [];
@@ -32,7 +32,7 @@ foreach ( $files as $file ) {
 // Prepare
 $count = count( $epubs );
 $epubs_per_page = 50;
-$offset = $epubs_per_page * ( $pagenum - 1 );
+$offset = $epubs_per_page * ( $page_number - 1 );
 $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
 
 ?>
@@ -199,7 +199,7 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
         do_action(
           'fictioneer_admin_settings_epubs',
           array(
-            'page' => $pagenum,
+            'page' => $page_number,
             'epubs_per_page' => $epubs_per_page,
             'epub_dir' => $epub_dir,
             'epubs' => $epubs,

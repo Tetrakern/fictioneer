@@ -13,100 +13,13 @@
 // Setup
 $action = $_GET['action'] ?? null;
 $nonce = $_GET['fictioneer_nonce'] ?? null;
-$pagenum = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
-
-// Build action links
-$purge_all_url = add_query_arg(
-  array(
-    'page' => 'fictioneer_seo',
-    'action' => 'purge_all_schemas'
-  ),
-  wp_nonce_url(
-    get_admin_url( null, 'admin.php' ),
-    'purge_all_schemas',
-    'fictioneer_nonce'
-  )
-);
-
-$purge_meta_url = add_query_arg(
-  array(
-    'page' => 'fictioneer_seo',
-    'action' => 'purge_seo_meta_caches'
-  ),
-  wp_nonce_url(
-    get_admin_url( null, 'admin.php' ),
-    'purge_seo_meta_caches',
-    'fictioneer_nonce'
-  )
-);
-
-// Action: Purge all schemas
-if ( $action === 'purge_all_schemas' && $nonce && wp_verify_nonce( $nonce, 'purge_all_schemas' ) ) {
-  // IDs of all posts that can have schemas
-  $all_ids = get_posts(
-    array(
-	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-	    'numberposts' => -1,
-	    'fields' => 'ids',
-	    'update_post_meta_cache' => false,
-	    'update_post_term_cache' => false
-	  )
-  );
-
-  // If IDs were found...
-  if ( ! empty( $all_ids ) ) {
-    // Loop all IDs to delete schemas
-    foreach ( $all_ids as $id ) {
-      delete_post_meta( $id, 'fictioneer_schema' );
-    }
-
-    // Log
-    fictioneer_log(
-      __( 'Purged all schema graphs.', 'fictioneer' )
-    );
-
-    // Purge caches
-    fictioneer_purge_all_caches();
-  }
-}
-
-// Action: Purge all meta caches
-if ( $action === 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, 'purge_seo_meta_caches' ) ) {
-  // IDs of all posts that can have SEO meta
-  $all_ids = get_posts(
-    array(
-	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-	    'numberposts' => -1,
-	    'fields' => 'ids',
-	    'update_post_meta_cache' => false,
-	    'update_post_term_cache' => false
-	  )
-  );
-
-  // If IDs were found...
-  if ( $all_ids ) {
-    // Loop all IDs to delete SEO meta caches
-    foreach ( $all_ids as $id ) {
-      delete_post_meta( $id, 'fictioneer_seo_title_cache' );
-      delete_post_meta( $id, 'fictioneer_seo_description_cache' );
-      delete_post_meta( $id, 'fictioneer_seo_og_image_cache' );
-    }
-
-    // Log
-    fictioneer_log(
-      __( 'Purged all SEO meta caches.', 'fictioneer' )
-    );
-
-    // Purge caches
-    fictioneer_purge_all_caches();
-  }
-}
+$page_number = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
+$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_all_seo_schemas' ), 'purge_all_seo_schemas', 'fictioneer_nonce' );
+$purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_seo_meta_caches' ), 'purge_seo_meta_caches', 'fictioneer_nonce' );
 
 ?>
 
 <div class="fictioneer-ui fictioneer-settings">
-
-  <?php wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' ); ?>
 
   <?php fictioneer_settings_header( 'seo' ); ?>
 
@@ -123,7 +36,7 @@ if ( $action === 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, '
 
           <div class="card-content">
 
-            <?php if ( $pagenum < 2 ) : ?>
+            <?php if ( $page_number < 2 ) : ?>
               <p class="description row"><?php
                 printf(
                   __( 'The following table lists the generated Open Graph metadata used for rich snippets in search engine results and social media embeds. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write anything in there. Schemas are generated when a post is first visited and cached until modified or purged. Note that not all post types get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">customizer</a>.', 'fictioneer' ),
@@ -166,7 +79,7 @@ if ( $action === 'purge_seo_meta_caches' && $nonce && wp_verify_nonce( $nonce, '
                           'post_status' => array( 'publish' ),
                           'orderby' => 'modified',
                           'order' => 'DESC',
-                          'paged' => $pagenum,
+                          'paged' => $page_number,
                           'posts_per_page' => $per_page,
                           'fields' => 'ids',
                           'update_post_meta_cache' => false,
