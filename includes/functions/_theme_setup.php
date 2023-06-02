@@ -624,7 +624,7 @@ function fictioneer_add_custom_scripts() {
   wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_font_colors', fictioneer_get_font_colors() );
 
   // Append JS snippets
-  $removable_query_args = ['success', 'failure', 'fictioneer_nonce'];
+  $removable_query_args = ['success', 'failure', 'fictioneer_nonce', 'fictioneer-notice'];
   $removable_query_args = apply_filters( 'fictioneer_filter_removable_query_args', $removable_query_args );
 
   $extra_scripts = "
@@ -1068,6 +1068,7 @@ function fictioneer_removable_args( $args ) {
   $args[] = 'success';
   $args[] = 'failure';
   $args[] = 'fictioneer_nonce';
+  $args[] = 'fictioneer-notice';
   return $args;
 }
 add_filter( 'removable_query_args', 'fictioneer_removable_args' );
