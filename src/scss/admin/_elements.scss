@@ -290,6 +290,7 @@
     min-height: 32px;
 
     &.disabled {
+      pointer-events: none;
       background: var(--bg-200) !important; // WP
       color: var(--text-400) !important; // WP
       border: none !important; // WP
