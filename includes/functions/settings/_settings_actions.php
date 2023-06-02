@@ -801,7 +801,7 @@ function fictioneer_tools_fix_pages() {
 add_action( 'admin_post_fix_pages', 'fictioneer_tools_fix_pages' );
 
 /**
- * Fix post
+ * Fix posts
  *
  * @since Fictioneer 5.2.5
  */
@@ -819,7 +819,7 @@ function fictioneer_tools_fix_posts() {
 add_action( 'admin_post_fix_posts', 'fictioneer_tools_fix_posts' );
 
 /**
- * Fix post
+ * Fix recommendations
  *
  * @since Fictioneer 5.2.5
  */
