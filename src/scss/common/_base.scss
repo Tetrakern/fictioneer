@@ -469,8 +469,9 @@ button[type=submit]:where(:not(._inline)) {
       color: var(--popup-menu-text-hover);
     }
 
-    :is(i, .icon) {
+    :is(i, .icon, .text-icon) {
       display: inline-block;
+      color: currentColor;
       text-align: center;
       min-width: 20px;
     }
