@@ -44,10 +44,9 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
         <span>
           <?php
             printf(
-              __( '<b>Patreon:</b> %1$s', 'fictioneer' ),
-              $tier['tier'],
-              $tier['timestamp']
-            )
+              _x( '<b>Patreon:</b> %1$s', 'Pattern form "Patreon: {Tier}"', 'fictioneer' ),
+              $tier['tier']
+            );
           ?>
         </span>
       </li>
@@ -58,21 +57,26 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
 <div class="profile__oauth profile__segment">
   <?php
     foreach ( $oauth_providers as $provider ) {
-      if (
-        get_option( "fictioneer_{$provider[0]}_client_id" ) &&
-        get_option( "fictioneer_{$provider[0]}_client_secret" )
-      ) {
-        if ( ! get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $current_user->ID ) ) {
+      $client_id = get_option( "fictioneer_{$provider[0]}_client_id" ) ?: null;
+      $client_secret = get_option( "fictioneer_{$provider[0]}_client_secret" ) ?: null;
+      $id_hash = get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $current_user->ID ) ?: null;
+
+      if ( $client_id && $client_secret ) {
+        if ( empty( $id_hash )) {
           echo fictioneer_get_oauth_login_link(
             $provider[0],
-            '<i class="fa-brands fa-' . $provider[0] . '"></i><span>' . $provider[1] . '</span>',
+            "<i class='fa-brands fa-{$provider[0]}'></i> <span>{$provider[1]}</span>",
             false,
             true,
             '_disconnected'
           );
         } else {
           ?>
-            <div id="oauth-<?php echo $provider[0]; ?>" data-unset="<?php printf( $unset_notification, $provider[1] ); ?>" class="oauth-login-link _<?php echo $provider[0]; ?> _connected">
+            <div
+              id="oauth-<?php echo $provider[0]; ?>"
+              data-unset="<?php printf( $unset_notification, $provider[1] ); ?>"
+              class="oauth-login-link _<?php echo $provider[0]; ?> _connected"
+            >
               <i class="fa-brands fa-<?php echo $provider[0]; ?>"></i>
               <span><?php echo $provider[1]; ?></span>
               <button
