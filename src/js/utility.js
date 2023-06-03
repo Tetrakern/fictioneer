@@ -756,24 +756,26 @@ function fcn_scrollToAnchor(source) {
 // =============================================================================
 
 /**
- * Detects if an element is about to leave the visible screen and returns the collision directions.
+ * Detects if an element is about to leave the visible screen (vertical)
+ * and returns the collision directions.
  *
  * @since 5.2.5
  * @param {HTMLElement} element - The element to check for collision.
- * @returns {Array} - Array of collision directions ('top', 'bottom', 'left', 'right').
+ * @returns {Array} - Array of collision directions ('top', 'bottom').
  */
 
 function fcn_detectScreenCollision(element) {
   let rect = element.getBoundingClientRect(),
+      elementHeight = element.clientHeight,
       viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
-      viewportWidth = window.innerWidth ?? document.documentElement.clientWidth,
       threshold = 50,
+      offset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16,
+      bottomSpacing = viewportHeight - rect.bottom - elementHeight,
+      topSpacing = rect.top - elementHeight,
       result = [];
 
-  if (rect.top <= threshold) result.push('top');
-  if (rect.bottom >= viewportHeight - threshold) result.push('bottom');
-  if (rect.left <= threshold) result.push('left');
-  if (rect.right >= viewportWidth - threshold) result.push('right');
+  if (rect.top <= threshold && bottomSpacing > threshold + offset) result.push('top');
+  if (rect.bottom >= viewportHeight - threshold && topSpacing > threshold + offset) result.push('bottom');
 
   return result;
 }
