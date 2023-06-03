@@ -334,7 +334,10 @@
   }
 
   &__tag-list {
+    color: var(--fg-800); // Separators, tags have own color
+    font-family: var(--ff-base);
     font-size: var(--fs-dxs); // 13px (desktop) to 12px (mobile)
+    line-height: 1.5;
     padding: 0 1px; // Visually more "embedded"
 
     &._small,

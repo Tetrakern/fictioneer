@@ -1167,7 +1167,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
       // Start HTML ---> ?>
       <time datetime="<?php the_time( 'c' ); ?>" class="post__date">
         <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>"><?php echo get_the_date(); ?></span>
+        <?php echo get_the_date(); ?>
       </time>
       <?php // <--- End HTML
       $output['date'] = ob_get_clean();

@@ -115,32 +115,37 @@ $entries = new WP_Query( $query_args );
 
             <?php if ( $show_taxonomies ) : ?>
               <div class="card__overlay-infobox escape-last-click">
-                <div class="card__tag-list _small truncate _3-3 dot-separator">
+                <div class="card__tag-list _small truncate _3-3">
                   <?php
                     if ( $fandoms || $characters || $genres || $tags ) {
+                      $output = [];
+
                       if ( $fandoms ) {
                         foreach ( $fandoms as $fandom ) {
-                          echo '<span><a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a></span>';
+                          $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
                         }
                       }
 
                       if ( $genres ) {
                         foreach ( $genres as $genre ) {
-                          echo '<span><a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a></span>';
+                          $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
                         }
                       }
 
                       if ( $tags ) {
                         foreach ( $tags as $tag ) {
-                          echo '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
+                          $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
                         }
                       }
 
                       if ( $characters ) {
                         foreach ( $characters as $character ) {
-                          echo '<span><a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a></span>';
+                          $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
                         }
                       }
+
+                      // Implode with three-per-em spaces around a bullet
+                        echo implode( '&emsp13;&bull;&emsp13;', $output );
                     } else {
                       ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                     }

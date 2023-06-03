@@ -45,19 +45,24 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <div class="card__content cell-desc truncate _4-4"><span><?php echo get_the_excerpt(); ?></span></div>
 
       <?php if ( $categories || $tags ) : ?>
-        <div class="card__tag-list dot-separator cell-tax">
+        <div class="card__tag-list cell-tax">
           <?php
+            $output = [];
+
             if ( $categories ) {
               foreach ( $categories as $cat ) {
-                echo '<span><a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a></span>';
+                $output[] = '<span><a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a></span>';
               }
             }
 
             if ( $tags ) {
               foreach ( $tags as $tag ) {
-                echo '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
+                $output[] = '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
               }
             }
+
+            // Implode with three-per-em spaces around a bullet
+            echo implode( '&emsp13;&bull;&emsp13;', $output );
           ?>
         </div>
       <?php endif; ?>

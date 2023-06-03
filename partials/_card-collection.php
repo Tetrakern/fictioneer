@@ -135,31 +135,36 @@ $comment_count = get_comments( $comment_args );
       <?php endif; ?>
 
       <?php if ( $show_taxonomies ) : ?>
-        <div class="card__tag-list dot-separator cell-tax">
+        <div class="card__tag-list cell-tax">
           <?php
+            $output = [];
+
             if ( $fandoms ) {
               foreach ( $fandoms as $fandom ) {
-                echo '<span><a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a></span>';
+                $output[] = '<span><a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a></span>';
               }
             }
 
             if ( $genres ) {
               foreach ( $genres as $genre ) {
-                echo '<span><a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a></span>';
+                $output[] = '<span><a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a></span>';
               }
             }
 
             if ( $tags ) {
               foreach ( $tags as $tag ) {
-                echo '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
+                $output[] = '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
               }
             }
 
             if ( $characters ) {
               foreach ( $characters as $character ) {
-                echo '<span><a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a></span>';
+                $output[] = '<span><a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a></span>';
               }
             }
+
+            // Implode with three-per-em spaces around a bullet
+            echo implode( '&emsp13;&bull;&emsp13;', $output );
           ?>
         </div>
       <?php endif; ?>
