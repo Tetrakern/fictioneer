@@ -37,13 +37,6 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
 <p class="profile__description"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ) ?></p>
 
 <ul class="profile__admin-notes">
-  <?php if ( isset( $_GET['failure'] ) && $_GET['failure'] == 'oauth_already_linked' ) : ?>
-    <li class="warning">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <span><?php _e( 'The account is already linked to another profile.', 'fictioneer' ) ?></span>
-    </li>
-  <?php endif; ?>
-
   <?php if ( ! empty( $patreon_tiers ) ) : ?>
     <?php foreach ( $patreon_tiers as $tier ) : ?>
       <li>
