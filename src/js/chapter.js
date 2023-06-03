@@ -1220,3 +1220,13 @@ function fcn_readingProgress() {
     fcn_toggleCheckmark(chapterList.dataset.storyId, 'progress', parseInt(chapterId), null, 'set');
   }
 }
+
+// =============================================================================
+// SETUP INDEX POPUP MENU
+// =============================================================================
+
+window.addEventListener('load', () => {
+  _$('[data-target="popup-chapter-list"]')?.appendChild(
+    document.getElementById('story-chapter-list')?.firstElementChild.cloneNode(true)
+  );
+}, { once: true })

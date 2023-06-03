@@ -384,16 +384,19 @@ button[type=submit]:where(:not(._inline)) {
   --translateY: translateY(0);
   --focus-offset: -2px;
   position: absolute;
+  z-index: 10;
   background: var(--popup-menu-background);
   color: var(--tooltip-text);
   font-size: 14px;
-  line-height: 1;
+  line-height: 22px;
   text-shadow: none;
   white-space: nowrap;
   text-align: center;
   padding: 4px 0;
   border-radius: var(--layout-border-radius-small);
+  max-height: min(250px, 80vh);
   min-width: 64px;
+  max-width: min(280px, 80vw);
   overflow: hidden;
   filter: var(--container-drop-shadow);
   transform: var(--translateX) var(--translateY);
@@ -413,11 +416,31 @@ button[type=submit]:where(:not(._inline)) {
     --translateX: translateX(-50%);
   }
 
-  &._align-right {
+  &._justify-right {
     right: 0;
   }
 
-  > * {
+  &._align-items-right :is(a, label, button, .popup-item) {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  &._v-scrolling {
+    overflow: hidden scroll;
+    scrollbar-width: none; // FF
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
+
+  hr {
+    margin: 0;
+    border-bottom: 1px solid currentColor;
+    opacity: 0.25;
+  }
+
+  :is(a, label, button, .popup-item) {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -426,10 +449,15 @@ button[type=submit]:where(:not(._inline)) {
     color: var(--popup-menu-text);
     font-size: inherit;
     font-weight: 400;
-    line-height: 1;
+    line-height: 22px;
     text-align: center;
-    padding: 8px 12px;
+    padding: 5px 12px;
     width: 100%;
+
+    > :not(i, .icon) {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
 
     &._align-left {
       justify-content: flex-start;
@@ -446,6 +474,10 @@ button[type=submit]:where(:not(._inline)) {
       text-align: center;
       min-width: 20px;
     }
+  }
+
+  .current-chapter :is(a, label, button, .popup-item):not(:hover) {
+    background: var(--popup-menu-background-selected);
   }
 }
 

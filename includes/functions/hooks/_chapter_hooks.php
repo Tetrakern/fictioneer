@@ -308,11 +308,18 @@ if ( ! function_exists( 'fictioneer_chapter_story_back_button' ) ) {
     // Abort if...
     if ( ! $args['story_post'] ) return;
 
-    // Setup
-    $label = esc_attr__( 'Back to story', 'fictioneer' );
-
 		// Start HTML ---> ?>
-    <a href="<?php echo get_permalink( $args['story_post'] ) ?>" class="button _secondary tooltipped" data-tooltip="<?php echo $label; ?>" aria-label="<?php echo $label; ?>"><i class="fa-solid fa-book"></i></a>
+    <div class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
+      <i class="fa-solid fa-list"></i>
+      <div class="popup-menu _top _center _align-items-right _v-scrolling">
+        <a href="<?php echo get_permalink( $args['story_post'] ) ?>" class="">
+          <i class="fa-solid fa-caret-left"></i>
+          <span><?php _e( 'Back to Story', 'fictioneer' ); ?></span>
+        </a>
+        <hr>
+        <div class="popup-menu__section" data-target="popup-chapter-list"></div>
+      </div>
+    </div>
 		<?php // <--- End HTML
   }
 }
