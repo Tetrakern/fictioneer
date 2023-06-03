@@ -397,8 +397,8 @@ button[type=submit]:where(:not(._inline)) {
   max-height: min(250px, 80vh);
   min-width: 64px;
   max-width: min(280px, 80vw);
+  box-shadow: var(--container-box-shadow);
   overflow: hidden;
-  filter: var(--container-drop-shadow);
   transform: var(--translateX) var(--translateY);
 
   &._top {
