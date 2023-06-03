@@ -413,20 +413,6 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
         <?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?>
       </p>
       <fieldset>
-        <?php foreach ( $oauth_providers as $provider ) : ?>
-
-          <?php if (
-            get_option( "fictioneer_{$provider[0]}_client_id" ) &&
-            get_option( "fictioneer_{$provider[0]}_client_secret" ) ) :
-          ?>
-
-            <?php if ( ! get_the_author_meta( "fictioneer_{$provider[0]}_id_hash", $profile_user->ID ) ) : ?>
-            <?php endif; ?>
-
-          <?php endif; ?>
-
-        <?php endforeach; ?>
-
         <?php
         foreach ( $oauth_providers as $provider ) {
           $client_id = get_option( "fictioneer_{$provider[0]}_client_id" ) ?: null;
