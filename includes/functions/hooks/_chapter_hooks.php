@@ -409,7 +409,8 @@ if ( ! function_exists( 'fictioneer_chapter_support_links' ) ) {
 
     // Setup
     $author_id = $args['author']->ID;
-    $support_urls = fictioneer_get_support_links( $args['chapter_id'], $args['story_post']->ID, $author_id );
+    $story_id = $args['story_post']->ID ?? null;
+    $support_urls = fictioneer_get_support_links( $args['chapter_id'], $story_id, $author_id );
     $support_links = [];
 
     // Topwebfiction?
