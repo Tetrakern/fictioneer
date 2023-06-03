@@ -773,15 +773,12 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
       <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__chapter-list show-below-desktop" tabindex="-1">
         <i class="fa-solid fa-list"></i>
       </label>
-      <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>#tabs" class="hide-below-desktop" tabindex="-1">
-        <i class="fa-solid fa-list"></i>
-      </a>
       <?php // <--- End HTML
       $micro_menu['chapter_list'] = ob_get_clean();
 
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo get_the_permalink( $args['story_post']->ID ); ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>" tabindex="-1">
+      <a href="<?php echo get_the_permalink( $args['story_post']->ID ) . '#' . $args['story_post']->ID; ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>" tabindex="-1">
         <i class="fa-solid fa-book"></i>
       </a>
       <?php // <--- End HTML
