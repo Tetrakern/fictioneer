@@ -473,14 +473,18 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
 // Show OAuth 2.0 registration error notice (if any)
 if (fcn_urlParams['failure'] === 'oauth_email_taken') {
   fcn_showNotification(
-    __('The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer'), 5
+    __('The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer'),
+    5,
+    'warning'
   );
 }
 
 // Show OAuth 2.0 link error notice (if any)
 if (fcn_urlParams['failure'] === 'oauth_already_linked') {
   fcn_showNotification(
-    __('Account already linked to another profile.', 'fictioneer'), 5
+    __('Account already linked to another profile.', 'fictioneer'),
+    5,
+    'warning'
   );
 }
 
@@ -494,7 +498,19 @@ if (fcn_urlParams['success'] === 'oauth_new_subscriber') {
 
 // Show OAuth 2.0 account merge notice (if any)
 if (fcn_urlParams['success']?.includes('oauth_merged_')) {
-  fcn_showNotification(__('Account has been successfully linked.', 'fictioneer'));
+  fcn_showNotification(__('Account has been successfully linked.', 'fictioneer'), 3, 'success');
+}
+
+// Generic messages
+if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !== '') {
+  let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
+  type = fcn_urlParams['success'] === '1' ? 'success' : type;
+
+  fcn_showNotification(
+    __(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 'fictioneer'),
+    3,
+    type
+  );
 }
 
 // =============================================================================
