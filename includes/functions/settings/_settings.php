@@ -201,7 +201,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
             _e( 'Documentation on Github', 'fictioneer' );
           ?></a>
 					&bull;
-					<a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support on Ko-fi', 'fictioneer' ); ?></a>
+					<a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support me on Ko-fi', 'fictioneer' ); ?></a>
 				</div>
         <?php if ( CHILD_VERSION && CHILD_NAME ) : ?>
           <div class="fictioneer-settings__header-links">
