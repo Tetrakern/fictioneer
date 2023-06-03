@@ -331,64 +331,109 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_my_user_profile' );
 // =============================================================================
 
 /**
- * Update frontend user profile
+ * Update profile from frontend
  *
- * @since Fictioneer 4.3
+ * @since Fictioneer 5.2.5
  */
 
-function fictioneer_update_frontend_user_profile() {
+function fictioneer_update_frontend_profile() {
+  // Verify request
+  if ( ! check_admin_referer( 'update_frontend_profile', 'fictioneer_nonce' ) ) {
+    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+  }
+
   // Setup
-  $updated_user_id = isset( $_POST['user_id'] ) ? fictioneer_validate_id( $_POST['user_id'] ) : false;
-  $sender = wp_get_current_user();
+  $user = wp_get_current_user();
+  $user_id = absint( $_POST['user_id'] );
+  $email = sanitize_email( $_POST['email'] ?? '' );
+  $nickname = sanitize_user( $_POST['nickname'] ?? '' );
 
-  // -- Validations ------------------------------------------------------------
-  if (
-    ! isset( $_POST['fictioneer_frontend_user_profile_nonce'] ) ||
-    ! wp_verify_nonce(
-      $_POST['fictioneer_frontend_user_profile_nonce'],
-      'fictioneer_update_frontend_user_profile'
-    ) ||
-    ! is_user_logged_in() ||
-    ! $updated_user_id ||
-    $updated_user_id !== $sender->ID
-  ) return;
-  // ---------------------------------------------------------------------------
+  // Guard
+  if ( $user->ID !== $user_id ) {
+    wp_die( __( 'Access denied.', 'fictioneer' ) );
+  }
 
-  // Email changed
-  if ( ! empty( $_POST['email'] ) ) {
+  // Email?
+  if ( ! empty( $email ) ) {
     send_confirmation_on_profile_email();
   }
 
-  // Nickname changed
-  if ( ! empty( $_POST['nickname'] ) && ! $sender->fictioneer_admin_disable_renaming ) {
-    $nickname = sanitize_user( $_POST['nickname'] );
-    wp_update_user( ['ID' => $updated_user_id, 'nickname' => $nickname, 'display_name' => $nickname] );
+  // Nickname?
+  if ( ! empty( $nickname  ) && ! $user->fictioneer_admin_disable_renaming ) {
+    wp_update_user(
+      array(
+        'ID' => $user_id ,
+        'nickname' => $nickname,
+        'display_name' => $nickname
+      )
+    );
   }
 
-  // Timezone
-  $timezone = sanitize_text_field( $_POST['fictioneer_user_timezone_string'] );
-  update_user_meta( $updated_user_id, 'fictioneer_user_timezone_string', $timezone );
+  // Hide custom badge?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_hide_badge'] ?? false );
+  update_user_meta( $user_id, 'fictioneer_hide_badge', $checkbox_value );
 
-  // Hide custom badge
-  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_hide_badge'] );
-  update_user_meta( $updated_user_id, 'fictioneer_hide_badge', $checkbox_value );
+  // Always use gravatar?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_enforce_gravatar'] ?? false );
+  update_user_meta( $user_id, 'fictioneer_enforce_gravatar', $checkbox_value );
 
-  // Always use gravatar
-  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_enforce_gravatar'] );
-  update_user_meta( $updated_user_id, 'fictioneer_enforce_gravatar', $checkbox_value );
+  // Disable avatar?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_avatar'] ?? false );
+  update_user_meta( $user_id, 'fictioneer_disable_avatar', $checkbox_value );
 
-  // Disable avatar
-  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_avatar'] );
-  update_user_meta( $updated_user_id, 'fictioneer_disable_avatar', $checkbox_value );
+  // Override assigned badge?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_badge_override'] ?? false );
+  update_user_meta( $user_id, 'fictioneer_disable_badge_override', $checkbox_value );
 
-  // Override assigned badge
-  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_badge_override'] );
-  update_user_meta( $updated_user_id, 'fictioneer_disable_badge_override', $checkbox_value );
+  // Always subscribe to comments?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_comment_reply_notifications'] ?? false );
+  update_user_meta( $user_id, 'fictioneer_comment_reply_notifications', $checkbox_value );
 
-  // Always subscribe to reply email notifications
-  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_comment_reply_notifications'] );
-  update_user_meta( $updated_user_id, 'fictioneer_comment_reply_notifications', $checkbox_value );
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'fictioneer-notice' => __( 'Profile updated.', 'fictioneer' ),
+        'success' => 1
+      ),
+      wp_get_referer() . '#profile'
+    )
+  );
+
+  // Terminate
+  exit();
 }
+add_action( 'admin_post_update_frontend_profile', 'fictioneer_update_frontend_profile' );
+
+/**
+ * Cancel email change from frontend
+ *
+ * @since Fictioneer 5.2.5
+ */
+
+function fictioneer_cancel_frontend_email_change() {
+  // Verify request
+  if ( ! check_admin_referer( 'cancel_frontend_email_change', 'fictioneer_nonce' ) ) {
+    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
+  }
+
+  // Cancel change
+  delete_user_meta( get_current_user_id(), '_new_email' );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'fictioneer-notice' => __( 'Email change cancelled.', 'fictioneer' )
+      ),
+      wp_get_referer() . '#profile'
+    )
+  );
+
+  // Terminate
+  exit();
+}
+add_action( 'admin_post_cancel_frontend_email_change', 'fictioneer_cancel_frontend_email_change' );
 
 // =============================================================================
 // GET CUSTOM BADGE
