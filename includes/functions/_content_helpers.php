@@ -897,7 +897,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
       // Start HTML ---> ?>
       <li class="<?php echo implode( ' ', $classes ); ?>">
-        <a href="<?php the_permalink( $chapter_id ); ?>">
+        <a href="<?php echo "/?p={$chapter_id}"; ?>">
           <?php if ( empty( $text_icon ) && ! $hide_icons ) : ?>
             <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ) ?>"></i>
           <?php elseif ( ! $hide_icons ) : ?>

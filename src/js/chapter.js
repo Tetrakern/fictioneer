@@ -1227,6 +1227,6 @@ function fcn_readingProgress() {
 
 window.addEventListener('load', () => {
   _$('[data-target="popup-chapter-list"]')?.appendChild(
-    document.getElementById('story-chapter-list')?.firstElementChild.cloneNode(true)
+    _$$$('story-chapter-list')?.firstElementChild.cloneNode(true)
   );
 }, { once: true })
