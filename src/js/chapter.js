@@ -59,6 +59,13 @@ function fcn_toggleParagraphTools(id = false, target = null) {
   }
 }
 
+// Close on click outside selected paragraph (if not another paragraph)
+document.addEventListener('click', event => {
+  if (!fcn_paragraphTools?.closest('p').contains(event.target)) {
+    fcn_toggleParagraphTools(false);
+  }
+});
+
 /**
  * Analyzes clicks and tabs on paragraphs.
  *
