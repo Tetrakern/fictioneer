@@ -50,7 +50,7 @@ function fcn_unsetOauth(nonce, channel, id) {
       // Successfully unset
       connection.classList.remove('_connected');
       connection.classList.add('_disconnected');
-      connection.querySelector('label').remove();
+      connection.querySelector('button').remove();
       fcn_showNotification(connection.dataset.unset);
     } else {
       // Failed to unset
