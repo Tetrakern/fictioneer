@@ -295,21 +295,21 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
 // CHAPTER BACK TO STORY BUTTON
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_chapter_story_back_button' ) ) {
+if ( ! function_exists( 'fictioneer_chapter_index_popup_menu' ) ) {
   /**
-   * Outputs the HTML for the chapter back to story button
+   * Outputs the HTML for the index popup menu
    *
    * @since Fictioneer 5.0
    *
    * @param WP_Post|null $args['story_post'] The story the chapter belongs to or null.
    */
 
-  function fictioneer_chapter_story_back_button( $args ) {
+  function fictioneer_chapter_index_popup_menu( $args ) {
     // Abort if...
     if ( ! $args['story_post'] ) return;
 
 		// Start HTML ---> ?>
-    <div class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
+    <div id="chapter-list-popup-toggle" class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
       <i class="fa-solid fa-list"></i>
       <div class="popup-menu _top _center _align-items-right _v-scrolling">
         <a href="<?php echo get_permalink( $args['story_post'] ) ?>" class="">
@@ -323,7 +323,7 @@ if ( ! function_exists( 'fictioneer_chapter_story_back_button' ) ) {
 		<?php // <--- End HTML
   }
 }
-add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_story_back_button', 20 );
+add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_index_popup_menu', 20 );
 
 // =============================================================================
 // CHAPTER BOOKMARK JUMP BUTTON

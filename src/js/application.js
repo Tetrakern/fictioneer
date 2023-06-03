@@ -17,10 +17,16 @@ const /** @const {HTMLElement} */ fcn_theSite = _$$$('site'),
 var /** @type {Object} */ fcn_cssVars = getComputedStyle(document.documentElement),
     /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in'),
     /** @type {Number} */ fcn_viewportWidth,
-    /** @type {Boolean} */ fcn_mediaMinTablet;
+    /** @type {Boolean} */ fcn_mediaMinTablet,
+    /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul')?.cloneNode(true);
 
 // Translation functions
 const { __, _x, _n, sprintf } = wp.i18n;
+
+// Remove chapter list from DOM to improve performance (add when needed)
+if (fcn_chapterList) {
+  _$('#story-chapter-list > ul').remove();
+}
 
 // =============================================================================
 // STARTUP CLEANUP

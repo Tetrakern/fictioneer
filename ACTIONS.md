@@ -255,7 +255,7 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 
 **Hooked actions:**
 * `fictioneer_chapter_subscribe_button()` – Subscription popup menu. Priority 10.
-* `fictioneer_chapter_story_back_button()` – Link to return to the story. Priority 20.
+* `fictioneer_chapter_index_popup_menu()` – Index popup menu with story and chapter links. Priority 20.
 * `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
 
 ---

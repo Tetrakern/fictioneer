@@ -7,8 +7,6 @@ const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggl
       /** @const {HTMLElement} */ fcn_radioChapters = _$$$('mobile-menu-frame-chapters'),
       /** @const {HTMLElement} */ fcn_mobileBookmarksDeleteToggle = _$$$('toggle-mobile-menu-bookmarks-delete');
 
-var /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul')?.cloneNode(true);
-
 /**
  * Open or close the mobile menu.
  *
@@ -46,15 +44,16 @@ function fcn_toggleMobileMenu(isOpened) {
 }
 
 /**
- * Appends the pre-cloned chapter list to the mobile menu.
+ * Appends a cloned chapter list to the mobile menu.
  *
  * @since 4.0
  */
 
 function fcn_appendChapterList() {
-  if (fcn_chapterList) {
-    _$$$('mobile-menu-chapters-list').appendChild(fcn_chapterList);
-    fcn_chapterList = false;
+  let target = _$$$('mobile-menu-chapters-list');
+
+  if (fcn_chapterList && !target.hasChildNodes()) {
+    target.appendChild(fcn_chapterList.cloneNode(true));
   }
 }
 

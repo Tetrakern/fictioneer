@@ -1225,8 +1225,7 @@ function fcn_readingProgress() {
 // SETUP INDEX POPUP MENU
 // =============================================================================
 
-window.addEventListener('load', () => {
-  _$('[data-target="popup-chapter-list"]')?.appendChild(
-    _$$$('story-chapter-list')?.firstElementChild.cloneNode(true)
-  );
-}, { once: true })
+// Append cloned chapter list once when the popup menu is opened
+_$$$('chapter-list-popup-toggle')?.addEventListener('click', () => {
+  _$('[data-target="popup-chapter-list"]')?.appendChild(fcn_chapterList.cloneNode(true));
+}, { once: true });
