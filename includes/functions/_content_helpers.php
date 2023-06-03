@@ -881,6 +881,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       $title = trim( get_the_title( $chapter_id ) );
       $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter_id );
       $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $chapter_id );
+      $parsed_url = wp_parse_url( home_url() );
+      $relative_path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
 
       // Check for empty title
       if ( empty( $title ) && empty( $list_title ) ) {
@@ -897,7 +899,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
       // Start HTML ---> ?>
       <li class="<?php echo implode( ' ', $classes ); ?>">
-        <a href="<?php echo "/?p={$chapter_id}"; ?>">
+        <a href="<?php echo "{$relative_path}?p={$chapter_id}"; ?>">
           <?php if ( empty( $text_icon ) && ! $hide_icons ) : ?>
             <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ) ?>"></i>
           <?php elseif ( ! $hide_icons ) : ?>
