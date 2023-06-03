@@ -41,7 +41,9 @@ if (!fcn_isLoggedIn && !fcn_isAjaxAuth) {
 if (typeof speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
 
 // Remove query args (defined in _theme_setup.php)
-fcn_removeQueryArgs();
+if (typeof fcn_removeQueryArgs === 'function') {
+  fcn_removeQueryArgs();
+}
 
 // =============================================================================
 // LOCAL STORAGE CLEANUP
