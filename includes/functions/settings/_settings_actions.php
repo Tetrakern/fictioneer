@@ -15,12 +15,12 @@
 function fictioneer_verify_tool_action( $action ) {
   // Verify request
   if ( ! check_admin_referer( $action, 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fcnes' ) );
+    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
   }
 
   // Guard
   if ( ! current_user_can( 'administrator' ) || ! is_admin() ) {
-    wp_die( __( 'You do not have permission to access this page.', 'fcnes' ) );
+    wp_die( __( 'You do not have permission to access this page.', 'fictioneer' ) );
   }
 }
 

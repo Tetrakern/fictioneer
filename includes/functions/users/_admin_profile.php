@@ -15,7 +15,7 @@
 function fictioneer_verify_admin_profile_action( $action ) {
   // Verify request
   if ( ! check_admin_referer( $action, 'fictioneer_nonce' ) ) {
-    wp_die( __( 'Nonce verification failed. Please try again.', 'fcnes' ) );
+    wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
   }
 }
 
@@ -63,12 +63,12 @@ function fictioneer_admin_profile_unset_oauth() {
 
   // Guard admins
   if ( $target_is_admin && $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
   }
 
   // Guard users
   if ( $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
   }
 
   // Unset connection
@@ -101,12 +101,12 @@ function fictioneer_admin_profile_clear_data_node() {
 
   // Guard admins
   if ( $target_is_admin && ( $current_user_id !== $profile_user_id ) ) {
-    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
   }
 
   // Guard users
   if ( $current_user_id !== $profile_user_id ) {
-    wp_die( __( 'Insufficient permissions.', 'fcnes' ) );
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
   }
 
   // Clear data
