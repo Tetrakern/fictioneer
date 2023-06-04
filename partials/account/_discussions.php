@@ -100,9 +100,7 @@ $badge = empty( $badge ) ? fictioneer_get_override_badge( $current_user, 'Badge'
       <div class="comment__author">
         <span><?php echo $current_user->display_name; ?></span>
         <?php if ( $badge ) : ?>
-          <div class="comment__badge">
-            <span><?php echo $badge; ?></span>
-          </div>
+          <div class="comment__badge"><?php echo $badge; ?></div>
         <?php endif; ?>
       </div>
       <div class="comment__date-and-link"><?php

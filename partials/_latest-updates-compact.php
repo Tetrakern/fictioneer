@@ -157,14 +157,15 @@ $entries = new WP_Query( $query_args );
                       <a href="<?php the_permalink( $chapter_id ); ?>"><?php echo $chapter_title; ?></a>
                     </div>
                     <div class="card__right _flex dot-separator-inverse">
-                      <span><?php echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) ); ?></span>
-                      <span><?php
+                      <?php echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) ); ?>
+                      <span class="separator-dot">&#8196;&bull;&#8196;</span>
+                      <?php
                         if ( strtotime( '-1 days' ) < strtotime( get_the_date( 'c', $chapter_id ) ) ) {
                           _e( 'New', 'fictioneer' );
                         } else {
                           echo get_the_date( get_option( 'fictioneer_subitem_short_date_format', 'M j' ), $chapter_id );
                         }
-                      ?></span>
+                      ?>
                     </div>
                   </li>
                 <?php endforeach; ?>

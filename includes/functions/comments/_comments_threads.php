@@ -296,7 +296,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
     $is_post_author = $comment->user_id == $post_author_id;
     $is_moderator = fictioneer_is_moderator( $comment->user_id );
     $is_admin = fictioneer_is_admin( $comment->user_id );
-    $badge_body = '<div class="fictioneer-comment__badge %1$s"><span>%2$s</span></div>';
+    $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
     $badge_class = '';
     $badge = '';
 

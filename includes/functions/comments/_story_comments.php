@@ -40,7 +40,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
         <div class="fictioneer-comment__info truncate _1-1">
           <?php
             printf(
-              _x( '%1$s <span>&bull;</span> %2$s', 'Comment meta: [Date] in [Chapter]', 'fictioneer' ),
+              _x( '%1$s &bull; %2$s', 'Comment meta: [Date] &bull; [Chapter]', 'fictioneer' ),
               '<span class="fictioneer-comment__date">' . date_format(
                 date_create( $comment->comment_date ),
                 sprintf(
@@ -60,21 +60,11 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
         <?php $parent_name = empty( $parent->comment_author ) ? fcntr( 'anonymous_guest' ) : $parent->comment_author;  ?>
         <div class="fictioneer-comment__replied-to">
           <?php if ( $depth > 3 ) : ?>
-            <i class="fas fa-reply"></i>&nbsp;<?php
-              printf(
-                __( '<span>In reply to</span> <span>%s</span>', 'fictioneer' ),
-                $parent_name
-              );
-            ?>
+            <i class="fas fa-reply"></i>&nbsp;<?php printf( __( 'In reply to %s', 'fictioneer' ), $parent_name ); ?>
           <?php else : ?>
             <details>
               <summary>
-                <i class="fas fa-reply"></i>&nbsp;<?php
-                  printf(
-                    __( '<span>In reply to</span> <span>%s</span>', 'fictioneer' ),
-                    $parent_name
-                  );
-                ?>
+                <i class="fas fa-reply"></i>&nbsp;<?php printf( __( 'In reply to %s', 'fictioneer' ), $parent_name ); ?>
               </summary>
               <div class="fictioneer-comment__parent-comment"><?php
                 fictioneer_build_story_comment( $parent, $chapter_data, $depth + 1 );
