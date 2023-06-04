@@ -919,10 +919,12 @@ function fictioneer_shortcode_chapter_list( $attr ) {
             <?php endif; ?>
 
             <a href="<?php the_permalink( $chapter_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
-              <?php if ( ! empty( $prefix ) ): ?>
-                <span class="chapter-group__list-item-prefix"><?php echo $prefix; ?></span>
-              <?php endif; ?>
-              <span class="chapter-group__list-item-title"><?php echo $title; ?></span>
+              <?php
+                if ( ! empty( $prefix ) ) {
+                  echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix );
+                }
+              ?>
+              <?php echo $title; ?>
             </a>
 
             <?php

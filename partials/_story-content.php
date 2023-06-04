@@ -284,14 +284,16 @@ $blog_posts = new WP_Query(
                   <?php endif; ?>
 
                   <a href="<?php echo $chapter['link']; ?>" class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>">
-                    <?php if ( ! empty( $chapter['prefix'] ) ): ?>
-                      <span class="chapter-group__list-item-prefix"><?php echo $chapter['prefix']; ?></span>
-                    <?php endif; ?>
+                    <?php
+                      if ( ! empty( $chapter['prefix'] ) ) {
+                        echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] );
+                      }
+                    ?>
                     <?php if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) : ?>
                       <span class="chapter-group__list-item-title list-view"><?php echo $chapter['title']; ?></span>
                       <span class="grid-view"><?php echo wp_strip_all_tags( $chapter['list_title'] ); ?></span>
                     <?php else : ?>
-                      <span class="chapter-group__list-item-title"><?php echo $chapter['title']; ?></span>
+                      <?php echo $chapter['title']; ?>
                     <?php endif; ?>
                   </a>
 

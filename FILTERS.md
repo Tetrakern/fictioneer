@@ -77,6 +77,14 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix )`
+Filters the prefix string (if any) in front of a chapter title before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode. Useful if you want to add a wrapper for styling purposes.
+
+**Parameters:**
+* $prefix (string) – Chapter prefix.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args )`
 Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode.
 
