@@ -304,6 +304,7 @@
 .fictioneer-comment {
   margin-top: 16px;
   transition: height 1s, margin 1s, opacity 1s;
+  contain: layout style; // Improve performance
 
   &.parent .children {
     button:is([data-action=sticky], [data-action=unsticky]) {

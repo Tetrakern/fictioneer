@@ -68,7 +68,7 @@
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   content-visibility: auto;
-  contain: style layout paint;
+  contain: strict; // Improve performance
 
   @include bp(640px) {
     box-shadow: var(--layout-header-background-box-shadow);
