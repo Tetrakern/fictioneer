@@ -57,12 +57,12 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php endif; ?>
 
       <div class="card__content cell-desc truncate _4-4">
-        <?php
+        <span class="card__by-author"><?php
           printf(
-            __( '<span class="author-by">by</span> <span class="author">%s</span> <span>—</span> ', 'fictioneer' ),
+            _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
             fictioneer_get_field( 'fictioneer_recommendation_author' )
           );
-        ?>
+        ?></span>
         <span><?php
           $excerpt = get_the_excerpt();
           $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' ) ?? '';

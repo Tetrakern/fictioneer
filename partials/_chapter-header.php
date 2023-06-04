@@ -10,7 +10,7 @@
  * @since 5.0
  * @see single-fcn_chapter.php
  *
- * @internal $args['story_post']     Optional. Post object of the story.
+ * @internal $args['story_post']       Optional. Post object of the story.
  * @internal $args['story_data']       Optional. Story data from fictioneer_get_story_data().
  * @internal $args['chapter_id']       The chapter ID.
  * @internal $args['chapter_title']    Safe chapter title.
@@ -24,6 +24,11 @@
   <?php endif; ?>
   <?php if ( ! fictioneer_get_field( 'fictioneer_chapter_hide_title' ) ) : ?>
     <h1 class="chapter__title<?php if ( ! empty( $args['chapter_password'] ) ) echo ' password'; ?>"><?php echo $args['chapter_title']; ?></h1>
-    <em class="chapter__author"><?php echo fictioneer_get_chapter_author_nodes( $args['chapter_id'] ); ?></em>
+    <em class="chapter__author"><?php
+      printf(
+        _x( 'by %s', 'Chapter page: by {Author(s)}', 'fictioneer' ),
+        fictioneer_get_chapter_author_nodes( $args['chapter_id'] )
+      );
+    ?></em>
   <?php endif; ?>
 </header>

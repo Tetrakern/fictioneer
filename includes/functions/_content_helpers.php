@@ -445,10 +445,7 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
 		}
 
 		// Build and return HTML
-		return sprintf(
-			__( '<span class="author-by">by</span> %s', 'fictioneer' ),
-			implode( ', ', array_unique( $author_nodes ) )
-		);
+		return implode( ', ', array_unique( $author_nodes ) );
   }
 }
 

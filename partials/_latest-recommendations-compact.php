@@ -96,12 +96,12 @@ $entries = new WP_Query( $query_args );
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
               <div class="card__content _small cell-desc truncate _3-3">
-                <?php
+                <span class="card__by-author"><?php
                   printf(
-                    __( '<span class="author-by">by</span> <span class="author">%s</span> <span>—</span> ', 'fictioneer' ),
-                    fictioneer_get_field( 'fictioneer_recommendation_author' )
+                    _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
+                    '<span class="author">' . fictioneer_get_field( 'fictioneer_recommendation_author' ) . '</span>'
                   );
-                ?>
+                ?></span>
                 <span><?php
                   if ( ! empty( $one_sentence ) ) {
                     echo wp_strip_all_tags( $one_sentence, true );

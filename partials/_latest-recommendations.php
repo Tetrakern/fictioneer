@@ -114,14 +114,15 @@ $entries = new WP_Query( $query_args );
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
               <div class="card__content _small cell-meta text-overflow-ellipsis">
-                <?php
+                <span class="card__by-author"><?php
                   printf(
-                    __( '<span class="author-by">by</span> <span class="author">%s</span> <span>on</span> ', 'fictioneer' ),
-                    fictioneer_get_field( 'fictioneer_recommendation_author' )
+                    _x( 'by %s on', 'Small card: by {Author} on.', 'fictioneer' ),
+                    '<span class="author">' . fictioneer_get_field( 'fictioneer_recommendation_author' ) . '</span>'
                   );
-
-                  echo '<a href="' . esc_url( $tuple[1] ) . '" rel="noopener" target="_blank" class="bold-link">' . $tuple[0] . '</a>';
-                ?>
+                ?></span>
+                <a href="<?php echo esc_url( $tuple[1] ); ?>" rel="noopener" target="_blank" class="bold-link"><?php
+                  echo $tuple[0];
+                ?></a>
               </div>
 
               <div class="card__content _small cell-desc truncate _3-3">

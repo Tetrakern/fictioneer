@@ -66,11 +66,8 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
       <div class="card__content cell-desc truncate <?php echo count( $chapter_ids ) > 2 ? '_3-4' : '_4-4'; ?>">
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
-          <span class="show-below-desktop"><?php
-            printf(
-              __( '<span class="author-by">by</span> %s <span>—</span> ', 'fictioneer' ),
-              fictioneer_get_author_node()
-            );
+          <span class="card__by-author show-below-desktop"><?php
+            printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
           ?></span>
         <?php endif; ?>
         <span><?php

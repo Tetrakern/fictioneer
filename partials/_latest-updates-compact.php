@@ -125,14 +125,11 @@ $entries = new WP_Query( $query_args );
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
 
               <div class="card__content _small cell-desc truncate _1-1">
-                <?php
-                  if ( get_option( 'fictioneer_show_authors' ) ) {
-                    printf(
-                      __( '<span class="author-by">by</span> %s <span>—</span> ', 'fictioneer' ),
-                      fictioneer_get_author_node()
-                    );
-                  }
-                ?>
+                <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
+                  <span class="card__by-author"><?php
+                    printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
+                  ?></span>
+                <?php endif; ?>
                 <span><?php
                   $short_description = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
                   echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;

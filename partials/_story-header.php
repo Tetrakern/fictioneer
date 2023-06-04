@@ -46,7 +46,12 @@ if ( ! $thumbnail_shown ) {
 
   <div class="story__identity">
     <h1 class="story__identity-title"><?php echo $story['title']; ?></h1>
-    <div class="story__identity-meta"><?php echo fictioneer_get_story_author_nodes( $story_id ); ?></div>
+    <div class="story__identity-meta"><?php
+      printf(
+        _x( 'by %s', 'Story page: by {Author(s)}', 'fictioneer' ),
+        fictioneer_get_story_author_nodes( $story_id )
+      );
+    ?></div>
   </div>
 
 </header>

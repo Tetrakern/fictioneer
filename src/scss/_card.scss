@@ -256,16 +256,16 @@
       font-size: 13px; // Minimum desktop and mobile
       line-height: 1.3;
     }
+  }
 
-    :is(.author, .author-by) {
-      color: var(--fg-600);
-      font-style: italic;
-      letter-spacing: .03em;
+  &__by-author {
+    color: var(--fg-600);
+    font-style: italic;
+    letter-spacing: 0.03em;
 
-      &:is(a) {
-        &:hover {
-          color: var(--layout-link-hover);
-        }
+    a {
+      &:hover {
+        color: var(--layout-link-hover);
       }
     }
   }

@@ -109,17 +109,15 @@ $entries = new WP_Query( $query_args );
 
               <div class="card__content _small cell-desc">
                 <div class="text-overflow-ellipsis _bottom-spacer-xs">
+                  <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) : ?>
+                    <span class="card__by-author"><?php
+                      printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
+                    ?></span>
+                  <?php endif; ?>
                   <?php
-                    if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) {
-                      printf(
-                        __( '<span class="author-by">by</span> %s ', 'fictioneer' ),
-                        fictioneer_get_author_node()
-                      );
-                    }
-
                     if ( $story && $args['source'] ) {
                       printf(
-                        __( '<span>in</span> <a href="%1$s" class="bold-link">%2$s</a>', 'fictioneer' ),
+                        _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
                         get_permalink( $story_id ),
                         mb_strimwidth( fictioneer_get_safe_title( $story_id ), 0, 24, '…' )
                       );
@@ -129,7 +127,7 @@ $entries = new WP_Query( $query_args );
                 <div class="text-overflow-ellipsis">
                   <?php
                     printf(
-                      __( '<span>%1$s</span> <span>Words on</span> <span>%2$s</span>', 'fictioneer' ),
+                      _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
                       fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ),
                       get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" )
                     );

@@ -103,11 +103,8 @@ $entries = new WP_Query( $query_args );
 
               <div class="card__content _small cell-desc truncate _3-3">
                 <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
-                  <span><?php
-                    printf(
-                      __( '<span class="author-by">by</span> %s <span>—</span> ', 'fictioneer' ),
-                      fictioneer_get_author_node()
-                    );
+                  <span class="card__by-author"><?php
+                    printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
                   ?></span>
                 <?php endif; ?>
                 <span><?php
