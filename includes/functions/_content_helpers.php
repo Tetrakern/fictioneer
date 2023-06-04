@@ -131,8 +131,8 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int    $author_id The author's user ID. Defaults to current post author.
-   * @param string $classes   Optional. String of CSS classes.
+   * @param int    $author_id  The author's user ID. Defaults to current post author.
+   * @param string $classes    Optional. String of CSS classes.
    *
    * @return string HTML with author's display name as public profile link.
    */
@@ -140,8 +140,9 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
   function fictioneer_get_author_node( $author_id = null, $classes = '' ) {
     $author_id = $author_id ? $author_id : get_the_author_meta( 'ID' );
     $author_name = get_the_author_meta( 'display_name', $author_id );
+    $author_url = get_author_posts_url( $author_id );
 
-    return '<a href="' . get_author_posts_url( $author_id ) . '" class="author ' . $classes . '">' . $author_name . '</a>';
+    return "<a href='{$author_url}' class='author {$classes}'>{$author_name}</a>";
   }
 }
 
