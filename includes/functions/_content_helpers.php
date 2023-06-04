@@ -827,7 +827,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <a href="#top" onclick="return fcn_scrollToAnchor(this)" class="micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
+    <a href="#top" onclick="return fcn_scrollToAnchor(this)" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" class="micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
 		<?php // <--- End HTML
 		$micro_menu['top'] = ob_get_clean();
 
