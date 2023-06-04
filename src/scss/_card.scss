@@ -407,7 +407,7 @@
       cursor: help;
       flex: 0 0 auto;
       display: grid;
-      place-items: center;
+      place-content: center;
       color: var(--fg-700);
       font-family: var(--ff-heading);
       font-weight: 600;
