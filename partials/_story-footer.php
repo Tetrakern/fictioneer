@@ -36,7 +36,7 @@ $story = $args['story_data'];
   <div class="story__meta truncate _1-1">
     <span class="story__status">
       <i class="<?php echo $story['icon']; ?>"></i>
-      <span><?php echo $story['status']; ?></span>
+      <?php echo $story['status']; ?>
     </span>
     <span class="story__date _published" title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>">
       <i class="fa-solid fa-clock"></i>
@@ -45,7 +45,7 @@ $story = $args['story_data'];
     </span>
     <span class="story__words" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>">
       <i class="fa-solid fa-font"></i>
-      <span><?php echo $story['word_count_short']; ?></span>
+      <?php echo $story['word_count_short']; ?>
     </span>
     <span class="story__rating" title="<?php esc_attr_e( 'Rating', 'fictioneer' ) ?>">
       <i class="fa-solid fa-exclamation-circle"></i>

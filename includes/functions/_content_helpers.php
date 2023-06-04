@@ -654,7 +654,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
-        <div><i class="fa-solid fa-bell"></i> <span><?php echo fcntr( 'subscribe' ); ?></span></div>
+        <div><i class="fa-solid fa-bell"></i> <?php echo fcntr( 'subscribe' ); ?></div>
         <div class="popup-menu _bottom _center"><?php echo $subscribe_buttons; ?></div>
       </div>
       <?php // <--- End HTML
@@ -1506,7 +1506,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
     if ( $has_grid_view ) {
       // Start HTML ---> ?>
       <time datetime="<?php echo $data['timestamp']; ?>" class="chapter-group__list-item-date">
-        <span class="list-view"><span><?php echo $data['list_date']; ?></span></span>
+        <span class="list-view"><?php echo $data['list_date']; ?></span>
         <span class="grid-view"><?php echo $data['grid_date']; ?></span>
       </time>
       <?php // <--- End HTML
