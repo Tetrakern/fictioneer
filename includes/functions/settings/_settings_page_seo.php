@@ -21,6 +21,8 @@ $purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_seo_meta
 
   <?php fictioneer_settings_header( 'seo' ); ?>
 
+  <?php wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' ); ?>
+
   <div class="fictioneer-settings__content">
 
     <div class="tab-content">

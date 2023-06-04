@@ -41,6 +41,8 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
 
   <?php fictioneer_settings_header( 'epubs' ); ?>
 
+  <?php wp_nonce_field( 'fictioneer_settings_actions', 'fictioneer_admin_nonce' ); ?>
+
   <div class="fictioneer-settings__content">
 
     <div class="tab-content">
