@@ -201,7 +201,7 @@ $entries = new WP_Query( $query_args );
                         }
 
                         // Implode with three-per-em spaces around a bullet
-                        echo implode( '&emsp13;&bull;&emsp13;', $output );
+                        echo implode( '&#8196;&bull;&#8196;', $output );
                       } else {
                         ?><span class="card__no-taxonomies"><?php _e( 'No taxonomies specified yet.', 'fictioneer' ); ?></span><?php
                       }

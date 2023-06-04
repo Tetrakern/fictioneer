@@ -164,7 +164,7 @@ $comment_count = get_comments( $comment_args );
             }
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&emsp13;&bull;&emsp13;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $output );
           ?>
         </div>
       <?php endif; ?>

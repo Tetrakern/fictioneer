@@ -167,7 +167,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
             }
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&emsp13;&bull;&emsp13;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $output );
           ?>
         </div>
       <?php endif; ?>
