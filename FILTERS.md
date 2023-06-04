@@ -82,11 +82,8 @@ Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_r
 
 **output:**
 * $warning (string|null) – Optional. Warning node.
-* $bullet-after-warning (string|null) – Optional. `&bull;` node with `list-view` class.
 * $password (string|null) – Optional. Password node.
-* $bullet-after-password (string|null) – Optional. `&bull;` node with `list-view` class.
 * $date (string) – Time node.
-* $bullet-after-date (string) – `&bull;` node.
 * $words (string) – Words node.
 
 **data:**

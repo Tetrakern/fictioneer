@@ -285,17 +285,14 @@ $blog_posts = new WP_Query(
 
                   <a href="<?php echo $chapter['link']; ?>" class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>">
                     <?php if ( ! empty( $chapter['prefix'] ) ): ?>
-                      <span class="chapter-group__list-item-prefix list-view"><?php echo $chapter['prefix']; ?></span>
+                      <span class="chapter-group__list-item-prefix"><?php echo $chapter['prefix']; ?></span>
                     <?php endif; ?>
-                    <span class="chapter-group__list-item-title list-view"><?php echo $chapter['title']; ?></span>
-                    <span class="grid-view"><?php
-                      if ( ! empty( $chapter['list_title'] ) ) {
-                        echo wp_strip_all_tags( $chapter['list_title'] );
-                      } else {
-                        if ( $chapter['prefix'] ) echo '<span>' . $chapter['prefix'] . '</span> ';
-                        echo '<span>' . $chapter['title']. '</span>';
-                      }
-                    ?></span>
+                    <?php if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) : ?>
+                      <span class="chapter-group__list-item-title list-view"><?php echo $chapter['title']; ?></span>
+                      <span class="grid-view"><?php echo wp_strip_all_tags( $chapter['list_title'] ); ?></span>
+                    <?php else : ?>
+                      <span class="chapter-group__list-item-title"><?php echo $chapter['title']; ?></span>
+                    <?php endif; ?>
                   </a>
 
                   <?php if ( $chapter['password'] ) : ?>

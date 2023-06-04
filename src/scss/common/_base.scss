@@ -519,11 +519,6 @@ html:not(.logged-in) body:not(.logged-in) {
     }
   }
 
-  .bullet {
-    color: var(--fg-800);
-    font-family: var(--ff-base);
-  }
-
   &__label {
     display: flex;
     align-items: flex-start;
@@ -603,6 +598,12 @@ html:not(.logged-in) body:not(.logged-in) {
         grid-area: 2 / 2 / 3 / 3;
         color: var(--fg-700);
         font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--ff-note);
+
+        > *:not(:last-child)::after {
+          content: " •";
+          color: var(--fg-800);
+          font-family: var(--ff-base);
+        }
       }
 
       &-warning {

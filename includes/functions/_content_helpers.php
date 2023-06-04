@@ -1484,7 +1484,6 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       ?></span>
       <?php // <--- End HTML
       $output['warning'] = ob_get_clean();
-      $output['bullet-after-warning'] = '<span class="bullet list-view">&bull;</span>';
     }
 
     // Password
@@ -1496,7 +1495,6 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       ?></span>
       <?php // <--- End HTML
       $output['password'] = ob_get_clean();
-      $output['bullet-after-password'] = '<span class="bullet list-view">&bull;</span>';
     }
 
     // Date
@@ -1516,16 +1514,16 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       <?php // <--- End HTML
     }
     $output['date'] = ob_get_clean();
-    $output['bullet-after-date'] = '<span class="bullet">&bull;</span>';
 
     // Words
     ob_start();
     if ( $has_grid_view ) {
+      $short_words = fictioneer_shorten_number( $data['words'] );
+
       // Start HTML ---> ?>
-      <span class="chapter-group__list-item-words">
-        <span class="list-view"><?php printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) ); ?></span>
-        <span class="grid-view"><?php printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), fictioneer_shorten_number( $data['words'] ) ); ?></span>
-      </span>
+      <span class="chapter-group__list-item-words" data-number-switch="<?php echo esc_attr( $short_words ); ?>"><?php
+        printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
+      ?></span>
       <?php // <--- End HTML
     } else {
       // Start HTML ---> ?>
