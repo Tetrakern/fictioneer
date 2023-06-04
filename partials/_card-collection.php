@@ -175,19 +175,19 @@ $comment_count = get_comments( $comment_args );
       <div class="card__left text-overflow-ellipsis">
 
         <i class="fa-solid fa-book" title="<?php esc_attr_e( 'Stories', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Stories', 'fictioneer' ) ?>"><?php echo $story_count; ?></span>
+        <?php echo $story_count; ?>
 
         <i class="fa-solid fa-list" title="<?php esc_attr_e( 'Chapters', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Chapters', 'fictioneer' ) ?>"><?php echo $chapter_count; ?></span>
+        <?php echo $chapter_count; ?>
 
         <i class="fa-solid fa-font"></i>
-        <span><?php echo fictioneer_shorten_number( $word_count ); ?></span>
+        <?php echo fictioneer_shorten_number( $word_count ); ?>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+        <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo $comment_count; ?></span>
+        <?php echo $comment_count; ?>
 
       </div>
     </div>

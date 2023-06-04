@@ -52,10 +52,10 @@ $comments_number = get_comments_number();
           <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
         <?php endif; ?>
         <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>"><?php the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+        <?php the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
         <?php if ( $comments_number > 0 ) : ?>
           <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-          <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo $comments_number; ?></span>
+          <?php echo $comments_number; ?>
         <?php endif; ?>
       </div>
     </div>

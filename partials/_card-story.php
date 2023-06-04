@@ -152,14 +152,15 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
     <div class="card__footer">
 
       <div class="card__left text-overflow-ellipsis">
+
         <i class="fa-solid fa-list" title="<?php esc_attr_e( 'Chapters', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Chapters', 'fictioneer' ) ?>"><?php echo $story['chapter_count']; ?></span>
+        <?php echo $story['chapter_count']; ?>
 
         <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>"><?php echo $story['word_count_short']; ?></span>
+        <?php echo $story['word_count_short']; ?>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+        <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>
@@ -170,7 +171,8 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <span class="hide-below-480" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo $story['comment_count']; ?></span>
 
         <i class="<?php echo $story['icon']; ?>"></i>
-        <span><?php echo fcntr( $story['status'] ); ?></span>
+        <?php echo fcntr( $story['status'] ); ?>
+
       </div>
 
       <div class="card__right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">

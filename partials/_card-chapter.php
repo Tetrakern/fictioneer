@@ -174,11 +174,12 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
     <div class="card__footer">
 
       <div class="card__left text-overflow-ellipsis">
+
         <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"><?php echo fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) ); ?></span>
+        <?php echo fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) ); ?>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+        <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>
@@ -186,7 +187,8 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <?php endif; ?>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-        <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo get_comments_number( $post ); ?></span>
+        <?php echo get_comments_number( $post ); ?>
+
       </div>
 
       <?php if ( ! empty( $chapter_rating ) ) : ?>

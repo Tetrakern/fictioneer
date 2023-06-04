@@ -143,24 +143,26 @@ $entries = new WP_Query( $query_args );
               <div class="card__footer _small">
 
                 <div class="card__left text-overflow-ellipsis">
+
                   <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
-                  <span title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"><?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?></span>
+                  <?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?>
 
                   <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-                  <span title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"><?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+                  <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
 
                   <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-                  <span title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"><?php echo get_comments_number(); ?></span>
+                  <?php echo get_comments_number(); ?>
 
                   <?php if ( $story ) : ?>
                     <i class="<?php echo $story['icon']; ?>"></i>
-                    <span><?php echo fcntr( $story['status'] ); ?></span>
+                    <?php echo fcntr( $story['status'] ); ?>
                   <?php endif; ?>
+
                 </div>
 
                 <?php if ( ! empty( $chapter_rating ) ) : ?>
                   <div class="card__right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
-                    <span><?php echo fcntr( $chapter_rating[0] ); ?></span>
+                    <?php echo fcntr( $chapter_rating[0] ); ?>
                   </div>
                 <?php endif; ?>
 
