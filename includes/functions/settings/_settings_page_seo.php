@@ -12,8 +12,8 @@
 
 // Setup
 $page_number = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
-$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_all_seo_schemas' ), 'purge_all_seo_schemas', 'fictioneer_nonce' );
-$purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_seo_meta_caches' ), 'purge_seo_meta_caches', 'fictioneer_nonce' );
+$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_all_seo_schemas' ), 'fictioneer_purge_all_seo_schemas', 'fictioneer_nonce' );
+$purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_seo_meta_caches' ), 'fictioneer_purge_seo_meta_caches', 'fictioneer_nonce' );
 
 ?>
 

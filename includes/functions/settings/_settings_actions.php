@@ -147,7 +147,7 @@ add_action( 'admin_notices', 'fictioneer_admin_settings_notices' );
 
 function fictioneer_purge_all_epubs() {
   // Verify request
-  fictioneer_verify_tool_action( 'purge_all_epubs' );
+  fictioneer_verify_tool_action( 'fictioneer_purge_all_epubs' );
 
   // Setup
   $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
@@ -170,7 +170,7 @@ function fictioneer_purge_all_epubs() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-purged-epubs' );
 }
-add_action( 'admin_post_purge_all_epubs', 'fictioneer_purge_all_epubs' );
+add_action( 'admin_post_fictioneer_purge_all_epubs', 'fictioneer_purge_all_epubs' );
 
 // =============================================================================
 // SEO ACTIONS
@@ -187,7 +187,7 @@ add_action( 'admin_post_purge_all_epubs', 'fictioneer_purge_all_epubs' );
 
 function fictioneer_purge_all_seo_schemas() {
   // Verify request
-  fictioneer_verify_tool_action( 'purge_all_seo_schemas' );
+  fictioneer_verify_tool_action( 'fictioneer_purge_all_seo_schemas' );
 
   // Setup
   $all_ids = get_posts(
@@ -219,7 +219,7 @@ function fictioneer_purge_all_seo_schemas() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-purged-seo-schemas' );
 }
-add_action( 'admin_post_purge_all_seo_schemas', 'fictioneer_purge_all_seo_schemas' );
+add_action( 'admin_post_fictioneer_purge_all_seo_schemas', 'fictioneer_purge_all_seo_schemas' );
 
 /**
  * Purge all SEO meta caches
@@ -232,7 +232,7 @@ add_action( 'admin_post_purge_all_seo_schemas', 'fictioneer_purge_all_seo_schema
 
 function fictioneer_purge_seo_meta_caches() {
   // Verify request
-  fictioneer_verify_tool_action( 'purge_seo_meta_caches' );
+  fictioneer_verify_tool_action( 'fictioneer_purge_seo_meta_caches' );
 
   // Setup
   $all_ids = get_posts(
@@ -266,7 +266,7 @@ function fictioneer_purge_seo_meta_caches() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-purged-seo-meta-caches' );
 }
-add_action( 'admin_post_purge_seo_meta_caches', 'fictioneer_purge_seo_meta_caches' );
+add_action( 'admin_post_fictioneer_purge_seo_meta_caches', 'fictioneer_purge_seo_meta_caches' );
 
 // =============================================================================
 // ROLE TOOLS ACTIONS
@@ -294,7 +294,7 @@ function fictioneer_tool_action( $action ) {
 
 function fictioneer_tools_add_moderator_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'add_moderator_role' );
+  fictioneer_verify_tool_action( 'fictioneer_add_moderator_role' );
 
   // Relay
   if ( fictioneer_add_moderator_role() ) {
@@ -309,7 +309,7 @@ function fictioneer_tools_add_moderator_role() {
   // Finish
   fictioneer_finish_tool_action( $notice[0], $notice[1] );
 }
-add_action( 'admin_post_add_moderator_role', 'fictioneer_tools_add_moderator_role' );
+add_action( 'admin_post_fictioneer_add_moderator_role', 'fictioneer_tools_add_moderator_role' );
 
 /**
  * Remove a moderator role
@@ -319,7 +319,7 @@ add_action( 'admin_post_add_moderator_role', 'fictioneer_tools_add_moderator_rol
 
 function fictioneer_tools_remove_moderator_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'remove_moderator_role' );
+  fictioneer_verify_tool_action( 'fictioneer_remove_moderator_role' );
 
   // Remove role
   remove_role( 'fcn_moderator' );
@@ -330,7 +330,7 @@ function fictioneer_tools_remove_moderator_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-removed-moderator-role' );
 }
-add_action( 'admin_post_remove_moderator_role', 'fictioneer_tools_remove_moderator_role' );
+add_action( 'admin_post_fictioneer_remove_moderator_role', 'fictioneer_tools_remove_moderator_role' );
 
 /**
  * Upgrade author role
@@ -340,7 +340,7 @@ add_action( 'admin_post_remove_moderator_role', 'fictioneer_tools_remove_moderat
 
 function fictioneer_tools_upgrade_author_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'upgrade_author_role' );
+  fictioneer_verify_tool_action( 'fictioneer_upgrade_author_role' );
 
   // Upgrade role
   fictioneer_upgrade_author_role();
@@ -351,7 +351,7 @@ function fictioneer_tools_upgrade_author_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-upgraded-author-role' );
 }
-add_action( 'admin_post_upgrade_author_role', 'fictioneer_tools_upgrade_author_role' );
+add_action( 'admin_post_fictioneer_upgrade_author_role', 'fictioneer_tools_upgrade_author_role' );
 
 /**
  * Reset author role
@@ -361,7 +361,7 @@ add_action( 'admin_post_upgrade_author_role', 'fictioneer_tools_upgrade_author_r
 
 function fictioneer_tools_reset_author_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'reset_author_role' );
+  fictioneer_verify_tool_action( 'fictioneer_reset_author_role' );
 
   // Reset role
   fictioneer_reset_author_role();
@@ -372,7 +372,7 @@ function fictioneer_tools_reset_author_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-reset-author-role' );
 }
-add_action( 'admin_post_reset_author_role', 'fictioneer_tools_reset_author_role' );
+add_action( 'admin_post_fictioneer_reset_author_role', 'fictioneer_tools_reset_author_role' );
 
 /**
  * Upgrade contributor role
@@ -382,7 +382,7 @@ add_action( 'admin_post_reset_author_role', 'fictioneer_tools_reset_author_role'
 
 function fictioneer_tools_upgrade_contributor_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'upgrade_contributor_role' );
+  fictioneer_verify_tool_action( 'fictioneer_upgrade_contributor_role' );
 
   // Upgrade role
   fictioneer_upgrade_contributor_role();
@@ -393,7 +393,7 @@ function fictioneer_tools_upgrade_contributor_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-upgraded-contributor-role' );
 }
-add_action( 'admin_post_upgrade_contributor_role', 'fictioneer_tools_upgrade_contributor_role' );
+add_action( 'admin_post_fictioneer_upgrade_contributor_role', 'fictioneer_tools_upgrade_contributor_role' );
 
 /**
  * Reset contributor role
@@ -403,7 +403,7 @@ add_action( 'admin_post_upgrade_contributor_role', 'fictioneer_tools_upgrade_con
 
 function fictioneer_tools_reset_contributor_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'reset_contributor_role' );
+  fictioneer_verify_tool_action( 'fictioneer_reset_contributor_role' );
 
   // Reset role
   fictioneer_reset_contributor_role();
@@ -414,7 +414,7 @@ function fictioneer_tools_reset_contributor_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-reset-contributor-role' );
 }
-add_action( 'admin_post_reset_contributor_role', 'fictioneer_tools_reset_contributor_role' );
+add_action( 'admin_post_fictioneer_reset_contributor_role', 'fictioneer_tools_reset_contributor_role' );
 
 /**
  * Limit editor role
@@ -424,7 +424,7 @@ add_action( 'admin_post_reset_contributor_role', 'fictioneer_tools_reset_contrib
 
 function fictioneer_tools_limit_editor_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'limit_editor_role' );
+  fictioneer_verify_tool_action( 'fictioneer_limit_editor_role' );
 
   // Limit role
   fictioneer_limit_editor_role();
@@ -435,7 +435,7 @@ function fictioneer_tools_limit_editor_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-limit-editor-role' );
 }
-add_action( 'admin_post_limit_editor_role', 'fictioneer_tools_limit_editor_role' );
+add_action( 'admin_post_fictioneer_limit_editor_role', 'fictioneer_tools_limit_editor_role' );
 
 /**
  * Reset editor role
@@ -445,7 +445,7 @@ add_action( 'admin_post_limit_editor_role', 'fictioneer_tools_limit_editor_role'
 
 function fictioneer_tools_reset_editor_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'reset_editor_role' );
+  fictioneer_verify_tool_action( 'fictioneer_reset_editor_role' );
 
   // Reset role
   fictioneer_reset_editor_role();
@@ -456,7 +456,7 @@ function fictioneer_tools_reset_editor_role() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-reset-editor-role' );
 }
-add_action( 'admin_post_reset_editor_role', 'fictioneer_tools_reset_editor_role' );
+add_action( 'admin_post_fictioneer_reset_editor_role', 'fictioneer_tools_reset_editor_role' );
 
 /**
  * Convert story tags to genres
@@ -466,7 +466,7 @@ add_action( 'admin_post_reset_editor_role', 'fictioneer_tools_reset_editor_role'
 
 function fictioneer_tools_move_story_tags_to_genres() {
   // Verify request
-  fictioneer_verify_tool_action( 'move_story_tags_to_genres' );
+  fictioneer_verify_tool_action( 'fictioneer_move_story_tags_to_genres' );
 
   // Relay
   fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true, true );
@@ -477,7 +477,7 @@ function fictioneer_tools_move_story_tags_to_genres() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-story-tags-to-genres' );
 }
-add_action( 'admin_post_move_story_tags_to_genres', 'fictioneer_tools_move_story_tags_to_genres' );
+add_action( 'admin_post_fictioneer_move_story_tags_to_genres', 'fictioneer_tools_move_story_tags_to_genres' );
 
 // =============================================================================
 // STORY TOOLS ACTIONS
@@ -491,7 +491,7 @@ add_action( 'admin_post_move_story_tags_to_genres', 'fictioneer_tools_move_story
 
 function fictioneer_tools_duplicate_story_tags_to_genres() {
   // Verify request
-  fictioneer_verify_tool_action( 'duplicate_story_tags_to_genres' );
+  fictioneer_verify_tool_action( 'fictioneer_duplicate_story_tags_to_genres' );
 
   // Relay
   fictioneer_convert_taxonomies( 'fcn_story', 'fcn_genre', 'post_tag', true );
@@ -502,7 +502,7 @@ function fictioneer_tools_duplicate_story_tags_to_genres() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-duplicate-tags-to-genres' );
 }
-add_action( 'admin_post_duplicate_story_tags_to_genres', 'fictioneer_tools_duplicate_story_tags_to_genres' );
+add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_tools_duplicate_story_tags_to_genres' );
 
 /**
  * Purge story data caches
@@ -512,7 +512,7 @@ add_action( 'admin_post_duplicate_story_tags_to_genres', 'fictioneer_tools_dupli
 
 function fictioneer_tools_purge_story_data_caches() {
   // Verify request
-  fictioneer_verify_tool_action( 'purge_story_data_caches' );
+  fictioneer_verify_tool_action( 'fictioneer_purge_story_data_caches' );
 
   // Setup
   $query_args = array(
@@ -537,7 +537,7 @@ function fictioneer_tools_purge_story_data_caches() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-purge-story-data-caches' );
 }
-add_action( 'admin_post_purge_story_data_caches', 'fictioneer_tools_purge_story_data_caches' );
+add_action( 'admin_post_fictioneer_purge_story_data_caches', 'fictioneer_tools_purge_story_data_caches' );
 
 // =============================================================================
 // CHAPTER TOOLS ACTIONS
@@ -551,7 +551,7 @@ add_action( 'admin_post_purge_story_data_caches', 'fictioneer_tools_purge_story_
 
 function fictioneer_tools_move_chapter_tags_to_genres() {
   // Verify request
-  fictioneer_verify_tool_action( 'move_chapter_tags_to_genres' );
+  fictioneer_verify_tool_action( 'fictioneer_move_chapter_tags_to_genres' );
 
   // Relay
   fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true, true );
@@ -562,7 +562,7 @@ function fictioneer_tools_move_chapter_tags_to_genres() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-chapter-tags-to-genres' );
 }
-add_action( 'admin_post_move_chapter_tags_to_genres', 'fictioneer_tools_move_chapter_tags_to_genres' );
+add_action( 'admin_post_fictioneer_move_chapter_tags_to_genres', 'fictioneer_tools_move_chapter_tags_to_genres' );
 
 /**
  * Duplicate chapter tags to genres
@@ -572,7 +572,7 @@ add_action( 'admin_post_move_chapter_tags_to_genres', 'fictioneer_tools_move_cha
 
 function fictioneer_tools_duplicate_chapter_tags_to_genres() {
   // Verify request
-  fictioneer_verify_tool_action( 'duplicate_chapter_tags_to_genres' );
+  fictioneer_verify_tool_action( 'fictioneer_duplicate_chapter_tags_to_genres' );
 
   // Relay
   fictioneer_convert_taxonomies( 'fcn_chapter', 'fcn_genre', 'post_tag', true );
@@ -583,7 +583,7 @@ function fictioneer_tools_duplicate_chapter_tags_to_genres() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-duplicate-tags-to-genres' );
 }
-add_action( 'admin_post_duplicate_chapter_tags_to_genres', 'fictioneer_tools_duplicate_chapter_tags_to_genres' );
+add_action( 'admin_post_fictioneer_duplicate_chapter_tags_to_genres', 'fictioneer_tools_duplicate_chapter_tags_to_genres' );
 
 /**
  * Append default genres
@@ -593,7 +593,7 @@ add_action( 'admin_post_duplicate_chapter_tags_to_genres', 'fictioneer_tools_dup
 
 function fictioneer_tools_append_default_genres() {
   // Verify request
-  fictioneer_verify_tool_action( 'append_default_genres' );
+  fictioneer_verify_tool_action( 'fictioneer_append_default_genres' );
 
   // Setup
   $genres = fictioneer_get_default_genres();
@@ -617,7 +617,7 @@ function fictioneer_tools_append_default_genres() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-append-default-genres' );
 }
-add_action( 'admin_post_append_default_genres', 'fictioneer_tools_append_default_genres' );
+add_action( 'admin_post_fictioneer_append_default_genres', 'fictioneer_tools_append_default_genres' );
 
 // =============================================================================
 // TAG TOOLS ACTIONS
@@ -631,7 +631,7 @@ add_action( 'admin_post_append_default_genres', 'fictioneer_tools_append_default
 
 function fictioneer_tools_append_default_tags() {
   // Verify request
-  fictioneer_verify_tool_action( 'append_default_tags' );
+  fictioneer_verify_tool_action( 'fictioneer_append_default_tags' );
 
   // Setup
   $tags = fictioneer_get_default_tags();
@@ -653,7 +653,7 @@ function fictioneer_tools_append_default_tags() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-append-default-tags' );
 }
-add_action( 'admin_post_append_default_tags', 'fictioneer_tools_append_default_tags' );
+add_action( 'admin_post_fictioneer_append_default_tags', 'fictioneer_tools_append_default_tags' );
 
 /**
  * Remove unused tags
@@ -663,7 +663,7 @@ add_action( 'admin_post_append_default_tags', 'fictioneer_tools_append_default_t
 
 function fictioneer_tools_remove_unused_tags() {
   // Verify request
-  fictioneer_verify_tool_action( 'remove_unused_tags' );
+  fictioneer_verify_tool_action( 'fictioneer_remove_unused_tags' );
 
   // Setup
   $all_tags = get_tags( array( 'hide_empty' => false ) );
@@ -683,7 +683,7 @@ function fictioneer_tools_remove_unused_tags() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-remove-unused-tags' );
 }
-add_action( 'admin_post_remove_unused_tags', 'fictioneer_tools_remove_unused_tags' );
+add_action( 'admin_post_fictioneer_remove_unused_tags', 'fictioneer_tools_remove_unused_tags' );
 
 // =============================================================================
 // REPAIR TOOLS ACTIONS
@@ -697,7 +697,7 @@ add_action( 'admin_post_remove_unused_tags', 'fictioneer_tools_remove_unused_tag
 
 function fictioneer_tools_reset_post_relationship_registry() {
   // Verify request
-  fictioneer_verify_tool_action( 'reset_post_relationship_registry' );
+  fictioneer_verify_tool_action( 'fictioneer_reset_post_relationship_registry' );
 
   // Relay
   fictioneer_save_relationship_registry( [] );
@@ -708,7 +708,7 @@ function fictioneer_tools_reset_post_relationship_registry() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-reset-post-relationship-registry' );
 }
-add_action( 'admin_post_reset_post_relationship_registry', 'fictioneer_tools_reset_post_relationship_registry' );
+add_action( 'admin_post_fictioneer_reset_post_relationship_registry', 'fictioneer_tools_reset_post_relationship_registry' );
 
 /**
  * Fix users
@@ -718,7 +718,7 @@ add_action( 'admin_post_reset_post_relationship_registry', 'fictioneer_tools_res
 
 function fictioneer_tools_fix_users() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_users' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_users' );
 
   // Pending implementation
   // $users = get_users( array( 'fields' => 'ID' ) );
@@ -726,7 +726,7 @@ function fictioneer_tools_fix_users() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-users' );
 }
-add_action( 'admin_post_fix_users', 'fictioneer_tools_fix_users' );
+add_action( 'admin_post_fictioneer_fix_users', 'fictioneer_tools_fix_users' );
 
 /**
  * Fix stories
@@ -736,7 +736,7 @@ add_action( 'admin_post_fix_users', 'fictioneer_tools_fix_users' );
 
 function fictioneer_tools_fix_stories() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_stories' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_stories' );
 
   // Pending implementation
   // $stories = get_posts( array( 'post_type' => 'fcn_story', 'numberposts' => -1 ) );
@@ -744,7 +744,7 @@ function fictioneer_tools_fix_stories() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-stories' );
 }
-add_action( 'admin_post_fix_stories', 'fictioneer_tools_fix_stories' );
+add_action( 'admin_post_fictioneer_fix_stories', 'fictioneer_tools_fix_stories' );
 
 /**
  * Fix chapters
@@ -754,7 +754,7 @@ add_action( 'admin_post_fix_stories', 'fictioneer_tools_fix_stories' );
 
 function fictioneer_tools_fix_chapters() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_chapters' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_chapters' );
 
   // Pending implementation
   // $chapters = get_posts( array( 'post_type' => 'fcn_chapter', 'numberposts' => -1 ) );
@@ -762,7 +762,7 @@ function fictioneer_tools_fix_chapters() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-chapters' );
 }
-add_action( 'admin_post_fix_chapters', 'fictioneer_tools_fix_chapters' );
+add_action( 'admin_post_fictioneer_fix_chapters', 'fictioneer_tools_fix_chapters' );
 
 /**
  * Fix collections
@@ -772,7 +772,7 @@ add_action( 'admin_post_fix_chapters', 'fictioneer_tools_fix_chapters' );
 
 function fictioneer_tools_fix_collections() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_collections' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_collections' );
 
   // Pending implementation
   // $collections = get_posts( array( 'post_type' => 'fcn_collection', 'numberposts' => -1 ) );
@@ -780,7 +780,7 @@ function fictioneer_tools_fix_collections() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-collections' );
 }
-add_action( 'admin_post_fix_collections', 'fictioneer_tools_fix_collections' );
+add_action( 'admin_post_fictioneer_fix_collections', 'fictioneer_tools_fix_collections' );
 
 /**
  * Fix pages
@@ -790,7 +790,7 @@ add_action( 'admin_post_fix_collections', 'fictioneer_tools_fix_collections' );
 
 function fictioneer_tools_fix_pages() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_pages' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_pages' );
 
   // Pending implementation
   // $pages = get_posts( array( 'post_type' => 'page', 'numberposts' => -1 ) );
@@ -798,7 +798,7 @@ function fictioneer_tools_fix_pages() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-pages' );
 }
-add_action( 'admin_post_fix_pages', 'fictioneer_tools_fix_pages' );
+add_action( 'admin_post_fictioneer_fix_pages', 'fictioneer_tools_fix_pages' );
 
 /**
  * Fix posts
@@ -808,7 +808,7 @@ add_action( 'admin_post_fix_pages', 'fictioneer_tools_fix_pages' );
 
 function fictioneer_tools_fix_posts() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_posts' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_posts' );
 
   // Pending implementation
   // $posts = get_posts( array( 'post_type' => 'post', 'numberposts' => -1 ) );
@@ -816,7 +816,7 @@ function fictioneer_tools_fix_posts() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-posts' );
 }
-add_action( 'admin_post_fix_posts', 'fictioneer_tools_fix_posts' );
+add_action( 'admin_post_fictioneer_fix_posts', 'fictioneer_tools_fix_posts' );
 
 /**
  * Fix recommendations
@@ -826,7 +826,7 @@ add_action( 'admin_post_fix_posts', 'fictioneer_tools_fix_posts' );
 
 function fictioneer_tools_fix_recommendations() {
   // Verify request
-  fictioneer_verify_tool_action( 'fix_recommendations' );
+  fictioneer_verify_tool_action( 'fictioneer_fix_recommendations' );
 
   // Pending implementation
   // $recommendations = get_posts( array( 'post_type' => 'fcn_recommendation', 'numberposts' => -1 ) );
@@ -834,6 +834,6 @@ function fictioneer_tools_fix_recommendations() {
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-fix-recommendations' );
 }
-add_action( 'admin_post_fix_recommendations', 'fictioneer_tools_fix_recommendations' );
+add_action( 'admin_post_fictioneer_fix_recommendations', 'fictioneer_tools_fix_recommendations' );
 
 ?>

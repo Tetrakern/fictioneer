@@ -338,7 +338,7 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_my_user_profile' );
 
 function fictioneer_update_frontend_profile() {
   // Verify request
-  if ( ! check_admin_referer( 'update_frontend_profile', 'fictioneer_nonce' ) ) {
+  if ( ! check_admin_referer( 'fictioneer_update_frontend_profile', 'fictioneer_nonce' ) ) {
     wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
   }
 
@@ -403,7 +403,7 @@ function fictioneer_update_frontend_profile() {
   // Terminate
   exit();
 }
-add_action( 'admin_post_update_frontend_profile', 'fictioneer_update_frontend_profile' );
+add_action( 'admin_post_fictioneer_update_frontend_profile', 'fictioneer_update_frontend_profile' );
 
 /**
  * Cancel email change from frontend
@@ -413,7 +413,7 @@ add_action( 'admin_post_update_frontend_profile', 'fictioneer_update_frontend_pr
 
 function fictioneer_cancel_frontend_email_change() {
   // Verify request
-  if ( ! check_admin_referer( 'cancel_frontend_email_change', 'fictioneer_nonce' ) ) {
+  if ( ! check_admin_referer( 'fictioneer_cancel_frontend_email_change', 'fictioneer_nonce' ) ) {
     wp_die( __( 'Nonce verification failed. Please try again.', 'fictioneer' ) );
   }
 
@@ -433,7 +433,7 @@ function fictioneer_cancel_frontend_email_change() {
   // Terminate
   exit();
 }
-add_action( 'admin_post_cancel_frontend_email_change', 'fictioneer_cancel_frontend_email_change' );
+add_action( 'admin_post_fictioneer_cancel_frontend_email_change', 'fictioneer_cancel_frontend_email_change' );
 
 // =============================================================================
 // GET CUSTOM BADGE

@@ -54,7 +54,7 @@ function fictioneer_admin_profile_unset_oauth() {
   $channel = sanitize_text_field( $_GET['channel'] ?? '' );
 
   // Verify request
-  fictioneer_verify_admin_profile_action( "admin_oauth_unset_{$channel}" );
+  fictioneer_verify_admin_profile_action( "fictioneer_admin_oauth_unset_{$channel}" );
 
   // Continue setup
   $current_user_id = get_current_user_id();
@@ -78,7 +78,7 @@ function fictioneer_admin_profile_unset_oauth() {
   fictioneer_finish_admin_profile_action( "admin-profile-unset-oauth-{$channel}" );
 }
 // Not conditional since removing your connection should always be allowed
-add_action( 'admin_post_admin_profile_unset_oauth', 'fictioneer_admin_profile_unset_oauth' );
+add_action( 'admin_post_fictioneer_admin_profile_unset_oauth', 'fictioneer_admin_profile_unset_oauth' );
 
 /**
  * Cleat data node
@@ -91,7 +91,7 @@ function fictioneer_admin_profile_clear_data_node() {
   $node = sanitize_text_field( $_GET['node'] ?? '' );
 
   // Verify request
-  fictioneer_verify_admin_profile_action( "admin_clear_data_node_{$node}" );
+  fictioneer_verify_admin_profile_action( "fictioneer_admin_clear_data_node_{$node}" );
 
   // Continue setup
   $current_user_id = get_current_user_id();
@@ -142,7 +142,7 @@ function fictioneer_admin_profile_clear_data_node() {
   }
 }
 // Not conditional since clearing your data nodes should always be allowed
-add_action( 'admin_post_admin_profile_clear_data_node', 'fictioneer_admin_profile_clear_data_node' );
+add_action( 'admin_post_fictioneer_admin_profile_clear_data_node', 'fictioneer_admin_profile_clear_data_node' );
 
 // =============================================================================
 // OUTPUT ADMIN PROFILE NOTICES
@@ -447,8 +447,8 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
                   'channel' => $provider[0]
                 ),
                 wp_nonce_url(
-                  admin_url( 'admin-post.php?action=admin_profile_unset_oauth' ),
-                  "admin_oauth_unset_{$provider[0]}",
+                  admin_url( 'admin-post.php?action=fictioneer_admin_profile_unset_oauth' ),
+                  "fictioneer_admin_oauth_unset_{$provider[0]}",
                   'fictioneer_nonce'
                 )
               );
@@ -573,8 +573,8 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
                 'node' => $node[0]
               ),
               wp_nonce_url(
-                admin_url( 'admin-post.php?action=admin_profile_clear_data_node' ),
-                "admin_clear_data_node_{$node[0]}",
+                admin_url( 'admin-post.php?action=fictioneer_admin_profile_clear_data_node' ),
+                "fictioneer_admin_clear_data_node_{$node[0]}",
                 'fictioneer_nonce'
               )
             );

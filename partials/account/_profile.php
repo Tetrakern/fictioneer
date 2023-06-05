@@ -20,10 +20,10 @@
 $current_user = $args['user'];
 $fingerprint = fictioneer_get_user_fingerprint( $current_user->ID );
 $new_email = get_user_meta( $current_user->ID, '_new_email', true );
-$submit_url = admin_url( 'admin-post.php?action=update_frontend_profile' );
+$submit_url = admin_url( 'admin-post.php?action=fictioneer_update_frontend_profile' );
 $email_change_cancel_url = wp_nonce_url(
-  admin_url( 'admin-post.php?action=cancel_frontend_email_change' ),
-  'cancel_frontend_email_change',
+  admin_url( 'admin-post.php?action=fictioneer_cancel_frontend_email_change' ),
+  'fictioneer_cancel_frontend_email_change',
   'fictioneer_nonce'
 );
 
@@ -181,7 +181,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
 
   </div>
 
-  <?php wp_nonce_field( 'update_frontend_profile', 'fictioneer_nonce' ); ?>
+  <?php wp_nonce_field( 'fictioneer_update_frontend_profile', 'fictioneer_nonce' ); ?>
 
   <input name="user_id" type="hidden" value="<?php echo $current_user->ID; ?>">
 

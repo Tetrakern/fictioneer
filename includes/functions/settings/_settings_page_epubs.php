@@ -15,7 +15,7 @@ $page_number = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
 $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
 $files = list_files( $epub_dir, 1 );
 $epubs = [];
-$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=purge_all_epubs' ), 'purge_all_epubs', 'fictioneer_nonce' );
+$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_all_epubs' ), 'fictioneer_purge_all_epubs', 'fictioneer_nonce' );
 
 // Get list of compiled ePUBs if any
 foreach ( $files as $file ) {
