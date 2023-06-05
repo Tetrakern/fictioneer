@@ -304,17 +304,15 @@ $blog_posts = new WP_Query(
                   <?php echo fictioneer_get_list_chapter_meta_row( $chapter, ['grid' => true] ); ?>
 
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
-                    <div class="chapter-group__list-item-right">
-                      <button
-                        class="checkmark chapter-group__list-item-checkmark"
-                        data-type="chapter"
-                        data-story-id="<?php echo $story_id; ?>"
-                        data-id="<?php echo $chapter['id']; ?>"
-                        role="checkbox"
-                        aria-checked="false"
-                        aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $chapter['title'] ); ?>"
-                      ><i class="fa-solid fa-check"></i></button>
-                    </div>
+                    <button
+                      class="checkmark chapter-group__list-item-checkmark"
+                      data-type="chapter"
+                      data-story-id="<?php echo $story_id; ?>"
+                      data-id="<?php echo $chapter['id']; ?>"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $chapter['title'] ); ?>"
+                    ><i class="fa-solid fa-check"></i></button>
                   <?php endif; ?>
 
                 </li>

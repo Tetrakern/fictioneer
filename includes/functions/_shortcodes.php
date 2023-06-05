@@ -811,7 +811,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
-  $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
+  $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' ) && ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) );
   $chapter_ids = [];
   $chapters = [];
   $classes = [];
@@ -942,17 +942,15 @@ function fictioneer_shortcode_chapter_list( $attr ) {
             ?>
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
-              <div class="chapter-group__list-item-right">
-                <button
-                  class="checkmark chapter-group__list-item-checkmark"
-                  data-type="chapter"
-                  data-story-id="<?php echo $chapter_story_id; ?>"
-                  data-id="<?php echo $chapter_id; ?>"
-                  role="checkbox"
-                  aria-checked="false"
-                  aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $title ); ?>"
-                ><i class="fa-solid fa-check"></i></button>
-              </div>
+              <button
+                class="checkmark chapter-group__list-item-checkmark"
+                data-type="chapter"
+                data-story-id="<?php echo $chapter_story_id; ?>"
+                data-id="<?php echo $chapter_id; ?>"
+                role="checkbox"
+                aria-checked="false"
+                aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $title ); ?>"
+              ><i class="fa-solid fa-check"></i></button>
             <?php endif; ?>
           </li>
           <?php // <--- End HTML

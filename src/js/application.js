@@ -32,9 +32,15 @@ if (fcn_chapterList) {
 // STARTUP CLEANUP
 // =============================================================================
 
-// Make sure local storage is clean if user is not logged in
+// Remove superfluous data and nodes if not logged in
 if (!fcn_isLoggedIn && !fcn_isAjaxAuth) {
   fcn_cleanupLocalStorage(true);
+
+  // Since chapter lists on story pages are globally cached, the checkmarks are
+  // always delivered if enabled regardless of log-in status
+  _$$('.chapter-group__list-item-checkmark').forEach(element => {
+    element.remove();
+  });
 }
 
 // Terminate ongoing text-to-speech when page is reloaded
@@ -82,7 +88,9 @@ function fcn_cleanupLocalStorage(keepGuestData = false) {
 function fcn_cleanupGuestView() {
   fcn_isLoggedIn = false;
   fcn_theBody.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
-  _$$('.only-moderators, .only-admins, .only-authors, .only-editors').forEach(element => { element.remove() });
+  _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .chapter-group__list-item-checkmark').forEach(element => {
+    element.remove()
+  });
 }
 
 // =============================================================================
