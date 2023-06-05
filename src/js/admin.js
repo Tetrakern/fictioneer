@@ -386,3 +386,22 @@ _$$('.confirm-dialog').forEach(element => {
     }
   );
 });
+
+// =============================================================================
+// LOGOUT
+// =============================================================================
+
+// Admin bar logout link
+_$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
+  localStorage.removeItem('fcnProfileAvatar');
+  localStorage.removeItem('fcnStoryFollows')
+  localStorage.removeItem('fcnStoryReminders');
+  localStorage.removeItem('fcnCheckmarks');
+  localStorage.removeItem('fcnLoginState');
+  localStorage.removeItem('fcnNonce');
+  localStorage.removeItem('fcnFingerprint');
+  localStorage.removeItem('fcnBookshelfContent');
+  localStorage.removeItem('fcnChapterBookmarks');
+});
+
+console.log('foo');

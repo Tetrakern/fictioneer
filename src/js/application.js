@@ -75,6 +75,11 @@ function fcn_cleanupLocalStorage(keepGuestData = false) {
   if (!keepGuestData) localStorage.removeItem('fcnChapterBookmarks');
 }
 
+// Admin bar logout link
+_$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
+  fcn_cleanupLocalStorage();
+});
+
 // =============================================================================
 // VIEW CLEANUP
 // =============================================================================
