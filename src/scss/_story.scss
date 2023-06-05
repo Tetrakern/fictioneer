@@ -527,16 +527,13 @@ $header_breakpoint: 640px;
               padding-right: 16px;
             }
 
-            &-right {
+            .checkmark {
               align-items: flex-end;
+              font-size: 14px;
+              line-height: 1;
+              padding: 4px 8px 8px 8px;
+              transform: translate(4px, 14px);
               height: 100%;
-
-              .checkmark {
-                font-size: 14px;
-                line-height: 1;
-                padding: 4px 8px 8px 8px;
-                transform: translate(4px, 10px);
-              }
             }
           }
         }
