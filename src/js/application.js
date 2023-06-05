@@ -168,7 +168,7 @@ function fcn_addNonceAndAuth(nonceHtml) {
 // =============================================================================
 
 // Only if public caching compatibility mode is active and the nonce is not deferred
-if (!fcn_isLoggedIn && fcn_isAjaxAuth && !fcn_theRoot.dataset.ajaxNonce) {
+if (!fcn_isLoggedIn && (typeof fcn_isAjaxAuth !== 'undefined') && !fcn_theRoot.dataset.ajaxNonce) {
   fcn_fetchLoginState();
 }
 
