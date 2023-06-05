@@ -119,25 +119,25 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
             if ( $story['fandoms'] ) {
               foreach ( $story['fandoms'] as $fandom ) {
-                $output[] = '<span><a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a></span>';
+                $output[] = "<a href='" . get_tag_link( $fandom ) . "' class='tag-pill _inline _fandom'>{$fandom->name}</a>";
               }
             }
 
             if ( $story['genres'] ) {
               foreach ( $story['genres'] as $genre ) {
-                $output[] = '<span><a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a></span>';
+                $output[] = "<a href='" . get_tag_link( $genre ) . "' class='tag-pill _inline _genre'>{$genre->name}</a>";
               }
             }
 
             if ( $tags ) {
               foreach ( $tags as $tag ) {
-                $output[] = '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
+                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
               }
             }
 
             if ( $story['characters'] ) {
               foreach ( $story['characters'] as $character ) {
-                $output[] = '<span><a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a></span>';
+                $output[] = "<a href='" . get_tag_link( $character ) . "' class='tag-pill _inline _character'>{$character->name}</a>";
               }
             }
 

@@ -51,13 +51,13 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
             if ( $categories ) {
               foreach ( $categories as $cat ) {
-                $output[] = '<span><a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a></span>';
+                $output[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
               }
             }
 
             if ( $tags ) {
               foreach ( $tags as $tag ) {
-                $output[] = '<span><a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a></span>';
+                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
               }
             }
 
