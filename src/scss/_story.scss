@@ -41,6 +41,12 @@ $header_breakpoint: 640px;
       box-shadow: var(--minimal-container-box-shadow);
     }
   }
+
+  .story__blog-list-item {
+    background: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--layout-color-separator);
+  }
 }
 
 .story {
@@ -354,9 +360,6 @@ $header_breakpoint: 640px;
   }
 
   &__custom-page {
-    padding-top: 0;
-    padding-bottom: 0;
-
     &-wrapper {
       padding: 8px 2px;
     }

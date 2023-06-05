@@ -149,7 +149,7 @@ $blog_posts = new WP_Query(
       if ( empty( $page[1] ) ) continue;
 
       ?>
-      <section id="tab-page-<?php echo $index; ?>" class="story__custom-page padding-left padding-right padding-top padding-bottom content-section background-texture">
+      <section id="tab-page-<?php echo $index; ?>" class="story__custom-page padding-left padding-right content-section background-texture">
         <div class="story__custom-page-wrapper"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
       </section>
       <?php
