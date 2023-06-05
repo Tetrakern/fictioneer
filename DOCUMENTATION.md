@@ -713,7 +713,7 @@ This automatically creates and connects a subscriber account, which makes commen
 
 ## Checkmarks, Follows & Reminders
 
-Checkmarks, Follows, and Reminders are progress tracking features for logged-in subscribers that need to be enabled in the settings. But unless you host dozens or hundreds of stories, they are mostly a gimmick. Single serials do not need them and readers are quite capable of keep track with browser features alone. Please refer to [Users & OAuth](#users--oauth) for more considerations regarding user registration. If you decide to enable these features, you should also assign a Bookshelf page in the theme settings.
+Checkmarks, Follows, and Reminders are progress tracking features for logged-in subscribers that need to be enabled in the settings. But unless you host dozens or hundreds of stories, they are mostly a gimmick. Single serials do not need them and readers are quite capable of keeping track with browser features alone. Please refer to [Users & OAuth](#users--oauth) for more considerations regarding user registration. If you decide to enable these features, you should also assign a Bookshelf page in the theme settings.
 
 **Checkmarks:** You can mark chapters and stories as being read, the latter being displayed in your Finished list. This is also reflected in card lists with a check icon in the top-right corner.
 
