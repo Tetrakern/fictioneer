@@ -70,6 +70,11 @@ if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
   define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
 }
 
+// String: Latest Updates shortcode date format
+if ( ! defined( 'FICTIONEER_SHORTCODE_DATE_LATEST_UPDATES' ) ) {
+  define( 'FICTIONEER_SHORTCODE_DATE_LATEST_UPDATES', get_option( 'fictioneer_subitem_short_date_format', 'M j' ) );
+}
+
 /*
  * Integers
  */
