@@ -102,8 +102,10 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
     get_template_part( 'partials/_modal-site-settings' );
 
     // BBCodes tutorial
-    ?><input id="modal-bbcodes-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
-    get_template_part( 'partials/_modal-bbcodes' );
+    if ( ! post_password_required() && comments_open() && ! fictioneer_is_commenting_disabled() ) {
+      ?><input id="modal-bbcodes-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+      get_template_part( 'partials/_modal-bbcodes' );
+    }
 
     // Action to add modals
     do_action( 'fictioneer_modals' );
