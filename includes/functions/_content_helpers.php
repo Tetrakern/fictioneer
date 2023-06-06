@@ -1238,9 +1238,10 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
   function fictioneer_get_card_controls( $story_id, $chapter_id = null ) {
     // Setup
-    $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
-    $can_follows = get_option( 'fictioneer_enable_follows' );
-    $can_reminders = get_option( 'fictioneer_enable_reminders' );
+    $can_login = is_user_logged_in() || get_option( 'fictioneer_enable_oauth' );
+    $can_checkmarks = $can_login && get_option( 'fictioneer_enable_checkmarks' );
+    $can_follows = $can_login && get_option( 'fictioneer_enable_follows' );
+    $can_reminders = $can_login && get_option( 'fictioneer_enable_reminders' );
     $type = $chapter_id ? 'chapter' : 'story';
     $icons = [];
     $menu = [];
