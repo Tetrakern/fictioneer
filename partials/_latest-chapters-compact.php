@@ -129,7 +129,7 @@ $entries = new WP_Query( $query_args );
                     printf(
                       _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
                       fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ),
-                      get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" )
+                      get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
                     );
                   ?>
                 </div>

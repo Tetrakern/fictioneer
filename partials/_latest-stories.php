@@ -163,9 +163,7 @@ $entries = new WP_Query( $query_args );
                 <?php echo $story['word_count_short']; ?>
 
                 <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"></i>
-                <?php
-                  echo get_the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", $post );
-                ?>
+                <?php echo get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ); ?>
 
                 <i class="<?php echo $story['icon']; ?>"></i>
                 <?php echo fcntr( $story['status'] ); ?>

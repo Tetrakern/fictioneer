@@ -156,7 +156,7 @@ $entries = new WP_Query( $query_args );
                       <?php
                         echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) );
                         echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
-                        echo get_the_date( FICTIONEER_SHORTCODE_DATE_LATEST_UPDATES, $chapter_id )
+                        echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter_id )
                       ?>
                     </div>
                   </li>
@@ -218,9 +218,7 @@ $entries = new WP_Query( $query_args );
                   <?php echo $story['word_count_short']; ?>
 
                   <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"></i>
-                  <?php
-                    echo get_the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", $post );
-                  ?>
+                  <?php echo get_the_modified_date( FICTIONEER_LATEST_UPDATES_FOOTER_DATE, $post ); ?>
 
                   <i class="<?php echo $story['icon']; ?>"></i>
                   <?php echo fcntr( $story['status'] ); ?>

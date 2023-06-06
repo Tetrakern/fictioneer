@@ -70,9 +70,24 @@ if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
   define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
 }
 
-// String: Latest Updates shortcode date format
-if ( ! defined( 'FICTIONEER_SHORTCODE_DATE_LATEST_UPDATES' ) ) {
-  define( 'FICTIONEER_SHORTCODE_DATE_LATEST_UPDATES', get_option( 'fictioneer_subitem_short_date_format', 'M j' ) );
+// String: Latest Updates shortcode list item date format
+if ( ! defined( 'FICTIONEER_LATEST_UPDATES_LI_DATE' ) ) {
+  define( 'FICTIONEER_LATEST_UPDATES_LI_DATE', get_option( 'fictioneer_subitem_short_date_format', 'M j' ) ?: 'M j' );
+}
+
+// String: Latest Updates shortcode footer date format
+if ( ! defined( 'FICTIONEER_LATEST_UPDATES_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_LATEST_UPDATES_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
+}
+
+// String: Latest Chapters shortcode footer date format
+if ( ! defined( 'FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
+}
+
+// String: Latest Stories shortcode footer date format
+if ( ! defined( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
 }
 
 /*
