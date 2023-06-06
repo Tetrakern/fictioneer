@@ -125,9 +125,13 @@ $comment_count = get_comments( $comment_args );
                   }
                 ?></a>
               </div>
-              <div class="card__right _flex dot-separator">
-                <span><?php echo get_post_type_object( get_post_type( $post_id ) )->labels->singular_name; ?></span>
-                <span class="hide-below-480"><?php echo get_post_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", false, $post_id ); ?></span>
+              <div class="card__right">
+                <?php
+                  echo get_post_type_object( get_post_type( $post_id ) )->labels->singular_name;
+                  echo '<span class="separator-dot hide-below-480">&#8196;&bull;&#8196;</span><span class="hide-below-480">';
+                  echo get_post_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", false, $post_id );
+                  echo '</span>';
+                ?>
               </div>
             </li>
           <?php endforeach; ?>

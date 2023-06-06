@@ -121,14 +121,14 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
               <i class="fa-solid fa-caret-right"></i>
               <a href="<?php echo get_the_permalink( $story_id ); ?>"><?php echo $story_data['title']; ?></a>
             </div>
-            <div class="card__right _flex dot-separator-inverse">
-              <span><?php
-                printf(
-                  __( '<span>%s</span><span class="hide-below-480"> Words</span>', 'fictioneer' ),
-                  $story_data['word_count_short']
-                );
-              ?></span>
-              <span><?php echo $story_data['status']; ?></span>
+            <div class="card__right">
+              <?php
+                echo $story_data['word_count_short'];
+                echo '<span class="hide-below-480">';
+                echo __( 'Words', 'fictioneer' );
+                echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
+                echo $story_data['status'];
+              ?>
             </div>
           </li>
         </ul>

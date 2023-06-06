@@ -92,20 +92,19 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
                   }
                 ?></a>
               </div>
-              <div class="card__right _flex dot-separator-inverse">
-                <span><?php
-                  printf(
-                    __( '<span>%s</span><span class="hide-below-480"> Words</span>', 'fictioneer' ),
-                    fictioneer_shorten_number( get_post_meta( $id, '_word_count', true ) )
-                  );
-                ?></span>
-                <span><?php
+              <div class="card__right">
+                <?php
+                  echo fictioneer_shorten_number( get_post_meta( $id, '_word_count', true ) );
+                  echo '<span class="hide-below-480"> ';
+                  echo __( 'Words', 'fictioneer' );
+                  echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
+
                   if ( strtotime( '-1 days' ) < strtotime( get_the_date( '', $id ) ) ) {
                     _e( 'New', 'fictioneer' );
                   } else {
                     echo get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", $id );
                   }
-                ?></span>
+                ?>
               </div>
             </li>
           <?php endforeach; ?>
