@@ -152,10 +152,12 @@ $entries = new WP_Query( $query_args );
                         }
                       ?></a>
                     </div>
-                    <div class="card__right _flex">
-                      <?php echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) ); ?>
-                      <span class="separator-dot">&#8196;&bull;&#8196;</span>
-                      <?php echo get_the_date( get_option( 'fictioneer_subitem_short_date_format', 'M j' ), $chapter_id ); ?>
+                    <div class="card__right">
+                      <?php
+                        echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) );
+                        echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
+                        echo get_the_date( get_option( 'fictioneer_subitem_short_date_format', 'M j' ), $chapter_id )
+                      ?>
                     </div>
                   </li>
                 <?php endforeach; ?>
