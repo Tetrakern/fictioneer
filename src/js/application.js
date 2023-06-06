@@ -1066,8 +1066,11 @@ fcn_updateThemeColor();
 function fcn_inlineToggleReminder(storyId) {
   // Logged-in?
   if (!fcn_isLoggedIn) {
+    let toggle = _$$$('modal-login-toggle');
+
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    _$$$('modal-login-toggle').checked = true;
+    if (toggle) toggle.checked = true;
+
     return;
   }
 
@@ -1086,8 +1089,11 @@ function fcn_inlineToggleReminder(storyId) {
 function fcn_inlineToggleFollow(storyId) {
   // Logged-in?
   if (!fcn_isLoggedIn) {
+    let toggle = _$$$('modal-login-toggle');
+
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    _$$$('modal-login-toggle').checked = true;
+    if (toggle) toggle.checked = true;
+
     return;
   }
 
@@ -1110,8 +1116,11 @@ function fcn_inlineToggleFollow(storyId) {
 function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode = 'toggle') {
   // Logged-in?
   if (!fcn_isLoggedIn) {
+    let toggle = _$$$('modal-login-toggle');
+
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    _$$$('modal-login-toggle').checked = true;
+    if (toggle) toggle.checked = true;
+
     return;
   }
 
