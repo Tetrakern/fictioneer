@@ -74,7 +74,7 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
   function fictioneer_output_modals( $args ) {
     // Formatting and suggestions
     if ( get_post_type() == 'fcn_chapter' ) {
-      ?><input id="modal-formatting-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+      ?><input id="modal-formatting-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-formatting' );
 
       if (
@@ -82,28 +82,28 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
         ! fictioneer_get_field( 'fictioneer_disable_commenting' ) &&
         comments_open()
       ) {
-        ?><input id="modal-suggestions-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+        ?><input id="modal-suggestions-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
         get_template_part( 'partials/_modal-suggestions' );
       }
     }
 
     // OAuth2 login
     if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
-      ?><input id="modal-login-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+      ?><input id="modal-login-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-login' );
     }
 
     // Social sharing
-    ?><input id="modal-sharing-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+    ?><input id="modal-sharing-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-sharing' );
 
     // Site settings
-    ?><input id="modal-site-settings-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+    ?><input id="modal-site-settings-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-site-settings' );
 
     // BBCodes tutorial
     if ( ! post_password_required() && comments_open() && ! fictioneer_is_commenting_disabled() ) {
-      ?><input id="modal-bbcodes-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
+      ?><input id="modal-bbcodes-toggle" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-bbcodes' );
     }
 
