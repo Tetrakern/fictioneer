@@ -124,7 +124,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
             <div class="card__right">
               <?php
                 echo $story_data['word_count_short'];
-                echo '<span class="hide-below-480">';
+                echo ' <span class="hide-below-480">';
                 echo __( 'Words', 'fictioneer' );
                 echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
                 echo $story_data['status'];
@@ -178,8 +178,8 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
         <?php echo fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) ); ?>
 
-        <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
+        <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+        <?php echo get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE ); ?>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>

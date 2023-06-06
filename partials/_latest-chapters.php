@@ -147,8 +147,8 @@ $entries = new WP_Query( $query_args );
                   <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
                   <?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?>
 
-                  <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-                  <?php echo get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE ); ?>
+                  <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+                  <?php echo get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE ); ?>
 
                   <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
                   <?php echo get_comments_number(); ?>

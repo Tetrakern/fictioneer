@@ -70,24 +70,71 @@ if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
   define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
 }
 
+/*
+ * Date Strings
+ */
+
+$short_date = get_option( 'fictioneer_subitem_short_date_format', 'M j' ) ?: 'M j';
+$long_date = get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y";
+
 // String: Latest Updates shortcode list item date format
 if ( ! defined( 'FICTIONEER_LATEST_UPDATES_LI_DATE' ) ) {
-  define( 'FICTIONEER_LATEST_UPDATES_LI_DATE', get_option( 'fictioneer_subitem_short_date_format', 'M j' ) ?: 'M j' );
+  define( 'FICTIONEER_LATEST_UPDATES_LI_DATE', $short_date );
 }
 
 // String: Latest Updates shortcode footer date format
 if ( ! defined( 'FICTIONEER_LATEST_UPDATES_FOOTER_DATE' ) ) {
-  define( 'FICTIONEER_LATEST_UPDATES_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
+  define( 'FICTIONEER_LATEST_UPDATES_FOOTER_DATE', $long_date );
 }
 
 // String: Latest Chapters shortcode footer date format
 if ( ! defined( 'FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE' ) ) {
-  define( 'FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
+  define( 'FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE', $long_date );
 }
 
 // String: Latest Stories shortcode footer date format
 if ( ! defined( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE' ) ) {
-  define( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE', get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" );
+  define( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE', $long_date );
+}
+
+// String: Story card footer date format
+if ( ! defined( 'FICTIONEER_CARD_STORY_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_STORY_FOOTER_DATE', $long_date );
+}
+
+// String: Story card list item date format
+if ( ! defined( 'FICTIONEER_CARD_STORY_LI_DATE' ) ) {
+  define( 'FICTIONEER_CARD_STORY_LI_DATE', $long_date );
+}
+
+// String: Chapter card footer date format
+if ( ! defined( 'FICTIONEER_CARD_CHAPTER_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_CHAPTER_FOOTER_DATE', $long_date );
+}
+
+// String: Collection card footer date format
+if ( ! defined( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE', $long_date );
+}
+
+// String: Collection card list item date format
+if ( ! defined( 'FICTIONEER_CARD_COLLECTION_LI_DATE' ) ) {
+  define( 'FICTIONEER_CARD_COLLECTION_LI_DATE', $long_date );
+}
+
+// String: Post card footer date format
+if ( ! defined( 'FICTIONEER_CARD_POST_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_POST_FOOTER_DATE', $long_date );
+}
+
+// String: Page card footer date format
+if ( ! defined( 'FICTIONEER_CARD_PAGE_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_PAGE_FOOTER_DATE', $long_date );
+}
+
+// String: Story page footer date format below 480px
+if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
+  define( 'FICTIONEER_STORY_FOOTER_B480_DATE', $long_date );
 }
 
 /*

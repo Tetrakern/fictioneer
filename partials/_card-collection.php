@@ -129,7 +129,7 @@ $comment_count = get_comments( $comment_args );
                 <?php
                   echo get_post_type_object( get_post_type( $post_id ) )->labels->singular_name;
                   echo '<span class="separator-dot hide-below-480">&#8196;&bull;&#8196;</span><span class="hide-below-480">';
-                  echo get_post_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y", false, $post_id );
+                  echo get_the_modified_date( FICTIONEER_CARD_COLLECTION_LI_DATE, $post_id );
                   echo '</span>';
                 ?>
               </div>
@@ -188,7 +188,7 @@ $comment_count = get_comments( $comment_args );
         <?php echo fictioneer_shorten_number( $word_count ); ?>
 
         <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <?php the_modified_date( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?>
+        <?php the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE ); ?>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
         <?php echo $comment_count; ?>

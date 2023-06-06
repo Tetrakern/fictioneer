@@ -38,10 +38,10 @@ $story = $args['story_data'];
       <i class="<?php echo $story['icon']; ?>"></i>
       <?php echo $story['status']; ?>
     </span>
-    <span class="story__date _published" title="<?php esc_attr_e( 'Publishing Date', 'fictioneer' ) ?>">
+    <span class="story__date _published" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>">
       <i class="fa-solid fa-clock"></i>
       <span class="hide-below-480"><?php the_time( get_option( 'date_format' ) ); ?></span>
-      <span class="show-below-480"><?php the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ); ?></span>
+      <span class="show-below-480"><?php the_time( FICTIONEER_STORY_FOOTER_B480_DATE ); ?></span>
     </span>
     <span class="story__words" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>">
       <i class="fa-solid fa-font"></i>
