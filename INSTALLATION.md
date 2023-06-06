@@ -715,6 +715,22 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
 | FICTIONEER_PRIMARY_FONT_CSS | string | CSS name of the primary font. Default `'Open Sans'`.
 | FICTIONEER_PRIMARY_FONT_NAME | string | Display name of the primary font. Default `'Open Sans'`.
+| FICTIONEER_SITE_CHARSET | string | Charset of the site (e.g. 'UTF-8'). Default `get_bloginfo( 'charset' )`.
+| FICTIONEER_SITE_LANGUAGE | string | Language of the site (e.g. 'en-US'). Default `get_bloginfo( 'language' )`.
+| FICTIONEER_SITE_NAME | string | Name of the site. Default `get_bloginfo( 'name' )`.
+| FICTIONEER_SITE_DESCRIPTION | string | Description of the site. Default `get_bloginfo( 'description' )`.
+| FICTIONEER_LATEST_UPDATES_LI_DATE | string | Latest Updates shortcode list item date format. Default `'M j'`.
+| FICTIONEER_LATEST_UPDATES_FOOTER_DATE | string | Latest Updates shortcode footer date format. Default `"M j, 'y"`.
+| FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE | string | Latest Chapters shortcode footer date format. Default `"M j, 'y"`.
+| FICTIONEER_LATEST_STORIES_FOOTER_DATE | string | Latest Stories shortcode footer date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_STORY_LI_DATE | string | Story card list item date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_STORY_FOOTER_DATE | string | Story card footer date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_CHAPTER_FOOTER_DATE | string | Chapter card footer date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_COLLECTION_LI_DATE | string | Collection card list item date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_COLLECTION_FOOTER_DATE | string | Collection card footer date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_POST_FOOTER_DATE | string | Post card footer date format. Default `"M j, 'y"`
+| FICTIONEER_CARD_PAGE_FOOTER_DATE | string | Page card footer date format. Default `"M j, 'y"`.
+| FICTIONEER_STORY_FOOTER_B480_DATE | string | Story page footer date format (<= 480px). Default `"M j, 'y"`.
 | FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
 | FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
 | FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.

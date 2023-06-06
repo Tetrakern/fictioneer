@@ -97,14 +97,14 @@ if ( ! defined( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE' ) ) {
   define( 'FICTIONEER_LATEST_STORIES_FOOTER_DATE', $long_date );
 }
 
-// String: Story card footer date format
-if ( ! defined( 'FICTIONEER_CARD_STORY_FOOTER_DATE' ) ) {
-  define( 'FICTIONEER_CARD_STORY_FOOTER_DATE', $long_date );
-}
-
 // String: Story card list item date format
 if ( ! defined( 'FICTIONEER_CARD_STORY_LI_DATE' ) ) {
   define( 'FICTIONEER_CARD_STORY_LI_DATE', $long_date );
+}
+
+// String: Story card footer date format
+if ( ! defined( 'FICTIONEER_CARD_STORY_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_STORY_FOOTER_DATE', $long_date );
 }
 
 // String: Chapter card footer date format
@@ -112,14 +112,14 @@ if ( ! defined( 'FICTIONEER_CARD_CHAPTER_FOOTER_DATE' ) ) {
   define( 'FICTIONEER_CARD_CHAPTER_FOOTER_DATE', $long_date );
 }
 
-// String: Collection card footer date format
-if ( ! defined( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE' ) ) {
-  define( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE', $long_date );
-}
-
 // String: Collection card list item date format
 if ( ! defined( 'FICTIONEER_CARD_COLLECTION_LI_DATE' ) ) {
   define( 'FICTIONEER_CARD_COLLECTION_LI_DATE', $long_date );
+}
+
+// String: Collection card footer date format
+if ( ! defined( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_COLLECTION_FOOTER_DATE', $long_date );
 }
 
 // String: Post card footer date format
