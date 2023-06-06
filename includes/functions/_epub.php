@@ -975,7 +975,7 @@ if ( ! function_exists( 'fictioneer_generate_epub' ) ) {
     $author = get_the_author_meta( 'display_name', $story->post_author );
     $co_authors = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id ) ?? [];
     $all_authors = [];
-    $home_link = get_bloginfo();
+    $home_link = home_url();
     $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
     $short_description = fictioneer_fix_html_entities( $short_description );
     $last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id ); // Story
