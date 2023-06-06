@@ -5,8 +5,12 @@
 const /** @type {String} */ fcn_hasConsent = fcn_getCookie('fcn_cookie_consent') ?? '',
       /** @const {HTMLElement} */ fcn_consentBanner = _$$$('consent-banner');
 
-// Show consent banner if no consent has been set
-if (fcn_consentBanner && fcn_hasConsent === '') fcn_loadConsentBanner();
+// Show consent banner if no consent has been set, remove otherwise
+if (fcn_consentBanner && fcn_hasConsent === '') {
+  fcn_loadConsentBanner();
+} else {
+  fcn_consentBanner.remove();
+}
 
 /**
  * Load consent banner if required.
