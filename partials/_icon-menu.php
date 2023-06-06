@@ -28,7 +28,7 @@ if ( $profile_page && $profile_page > 0 ) {
 ?>
 
 <div class="icon-menu">
-  <?php if ( get_option( 'fictioneer_enable_oauth' ) ) : ?>
+  <?php if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) : ?>
     <label
       for="modal-login-toggle"
       title="<?php esc_attr_e( 'Login', 'fictioneer' ) ?>"

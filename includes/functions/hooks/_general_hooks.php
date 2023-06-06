@@ -88,7 +88,7 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
     }
 
     // OAuth2 login
-    if ( get_option( 'fictioneer_enable_oauth' ) ) {
+    if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
       ?><input id="modal-login-toggle" type="checkbox" tabindex="-1" class="modal-toggle" hidden><?php
       get_template_part( 'partials/_modal-login' );
     }

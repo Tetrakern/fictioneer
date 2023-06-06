@@ -403,5 +403,3 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnBookshelfContent');
   localStorage.removeItem('fcnChapterBookmarks');
 });
-
-console.log('foo');

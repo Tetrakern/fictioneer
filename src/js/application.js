@@ -272,6 +272,8 @@ function fcn_setLoggedInState(state, initialize = true) {
     _$$('.only-editors').forEach(element => { element.remove() });
   }
 
+  _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(element => { element.remove() });
+
   // Setup local user data, but only if the login state has not been added
   // synchronous from local storage (avoid double initialize).
   if (initialize) {

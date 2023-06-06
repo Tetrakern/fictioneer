@@ -646,6 +646,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     $show_epub_download = $story_data['chapter_count'] > 0 && fictioneer_get_field( 'fictioneer_story_epub_preface', $story_id ) && get_option( 'fictioneer_enable_epubs' ) && ! fictioneer_get_field( 'fictioneer_story_no_epub', $story_id );
     $can_follows = get_option( 'fictioneer_enable_follows' );
     $can_reminders = get_option( 'fictioneer_enable_reminders' );
+    $show_login = get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in();
 
     // Build
     if ( ! empty( $subscribe_buttons ) ) {
@@ -686,10 +687,12 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
         <i class="fa-solid fa-clock"></i>
         <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
       </button>
-      <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
-        <i class="fa-solid fa-clock"></i>
-        <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
-      </label>
+      <?php if ( $show_login ) : ?>
+        <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
+          <i class="fa-solid fa-clock"></i>
+          <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
+        </label>
+      <?php endif; ?>
       <?php // <--- End HTML
       $output['reminder'] = ob_get_clean();
     }
@@ -701,10 +704,12 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
         <i class="fa-solid fa-star"></i>
         <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
       </button>
-      <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
-        <i class="fa-regular fa-star off"></i>
-        <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
-      </label>
+      <?php if ( $show_login ) : ?>
+        <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
+          <i class="fa-regular fa-star off"></i>
+          <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
+        </label>
+      <?php endif; ?>
       <?php // <--- End HTML
       $output['follow'] = ob_get_clean();
     }

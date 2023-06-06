@@ -498,7 +498,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['logout'] = ob_get_clean();
     }
 
-    if ( get_option( 'fictioneer_enable_oauth' ) ) {
+    if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
       ob_start();
       // Start HTML ---> ?>
       <label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">
