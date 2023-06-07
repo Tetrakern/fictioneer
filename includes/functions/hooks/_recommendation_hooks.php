@@ -11,10 +11,13 @@ if ( ! function_exists( 'fictioneer_recommendations_list' ) ) {
    * @since 5.0
    * @see recommendations.php
    *
-   * @param int      $args['current_page']    Current page number of pagination or 1.
-   * @param int      $args['post_id']         The post ID.
-   * @param WP_Query $args['recommendations'] Paginated query of all published recommendations.
-   * @param string   $args['queried_type']    The queried post type ('fcn_recommendation').
+   * @param int      $args['current_page']     Current page number of pagination or 1.
+   * @param int      $args['post_id']          The post ID.
+   * @param WP_Query $args['recommendations']  Paginated query of all published recommendations.
+   * @param string   $args['queried_type']     The queried post type ('fcn_recommendation').
+   * @param array    $args['query_args']       The query arguments used.
+   * @param string   $args['order']            Current order. Default 'desc'.
+   * @param string   $args['orderby']          Current orderby. Default 'modified'.
    */
 
   function fictioneer_recommendations_list( $args ) {

@@ -11,10 +11,13 @@ if ( ! function_exists( 'fictioneer_collections_list' ) ) {
    * @since 5.0
    * @see collections.php
    *
-   * @param int      $args['current_page'] Current page number of pagination or 1.
-   * @param int      $args['post_id']      The post ID.
-   * @param WP_Query $args['collections']  Paginated query of all published collections.
-   * @param string   $args['queried_type'] The queried post type ('fcn_collection').
+   * @param int      $args['current_page']  Current page number of pagination or 1.
+   * @param int      $args['post_id']       The post ID.
+   * @param WP_Query $args['collections']   Paginated query of all published collections.
+   * @param string   $args['queried_type']  The queried post type ('fcn_collection').
+   * @param array    $args['query_args']    The query arguments used.
+   * @param string   $args['order']         Current order. Default 'desc'.
+   * @param string   $args['orderby']       Current orderby. Default 'modified'.
    */
 
   function fictioneer_collections_list( $args ) {

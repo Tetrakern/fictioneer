@@ -11,10 +11,13 @@ if ( ! function_exists( 'fictioneer_chapters_list' ) ) {
    * @since 5.0
    * @see chapters.php
    *
-   * @param int      $args['current_page'] Current page number of pagination or 1.
-   * @param int      $args['post_id']      The post ID.
-   * @param WP_Query $args['chapters']     Paginated query of all published chapters.
-   * @param string   $args['queried_type'] The queried post type ('fcn_chapter').
+   * @param int      $args['current_page']  Current page number of pagination or 1.
+   * @param int      $args['post_id']       The post ID.
+   * @param WP_Query $args['chapters']      Paginated query of all published chapters.
+   * @param string   $args['queried_type']  The queried post type ('fcn_chapter').
+   * @param array    $args['query_args']    The query arguments used.
+   * @param string   $args['order']         Current order. Default 'desc'.
+   * @param string   $args['orderby']       Current orderby. Default 'modified'.
    */
 
   function fictioneer_chapters_list( $args ) {
