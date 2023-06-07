@@ -29,7 +29,11 @@ if ( ! function_exists( 'fictioneer_chapters_list' ) ) {
 
           <?php
             // Card arguments
-            $card_args = ['cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active()];
+            $card_args = array(
+              'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
+              'order' => $args['order'] ?? 'desc',
+              'orderby' => $args['orderby'] ?? 'modified'
+            );
 
             // Filter card arguments
             $card_args = apply_filters( 'fictioneer_filter_chapters_card_args', $card_args, $args );
