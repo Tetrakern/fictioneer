@@ -189,8 +189,13 @@ $comment_count = get_comments( $comment_args );
         <i class="fa-solid fa-font"></i>
         <?php echo fictioneer_shorten_number( $word_count ); ?>
 
-        <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <?php the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE ); ?>
+        <?php if ( ( $args['orderby'] ?? 0 ) === 'date' ) : ?>
+          <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+          <?php the_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE ); ?>
+        <?php else : ?>
+          <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
+          <?php the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE ); ?>
+        <?php endif; ?>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
         <?php echo $comment_count; ?>

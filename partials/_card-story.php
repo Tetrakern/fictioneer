@@ -160,8 +160,13 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>"></i>
         <?php echo $story['word_count_short']; ?>
 
-        <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
-        <?php the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
+        <?php if ( ( $args['orderby'] ?? 0 ) === 'date' ) : ?>
+          <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+          <?php the_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
+        <?php else : ?>
+          <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
+          <?php the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
+        <?php endif; ?>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
           <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>
