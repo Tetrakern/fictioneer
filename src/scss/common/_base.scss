@@ -580,6 +580,7 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--fg-600);
         font-size: var(--fs-s);
         text-align: center;
+        content-visibility: auto;
 
         &._text {
           height: auto;
@@ -678,6 +679,12 @@ html:not(.logged-in) body:not(.logged-in) {
   z-index: 100 !important;
   contain: layout size;
   transform: translateZ(0); // Improve performance
+}
+
+.icon,
+.fa-solid,
+.fa-regular {
+  contain: style paint; // Improve performance
 }
 
 .list-button {
