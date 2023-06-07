@@ -6,8 +6,10 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['show_type']   Whether to show the post type label.
- * @internal $args['cache']       Whether to account for active caching.
+ * @internal $args['show_type']  Whether to show the post type label. Unsafe.
+ * @internal $args['cache']      Whether to account for active caching. Unsafe.
+ * @internal $args['order']      Current order. Default 'desc'. Unsafe.
+ * @internal $args['orderby']    Current orderby. Default 'modified'. Unsafe.
  */
 ?>
 
