@@ -16,24 +16,30 @@
 ?>
 
 <?php
-  // Get current page
-  $page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 
-  // Prepare query
-  $query_args = array (
-    'post_type' => 'fcn_collection',
-    'post_status' => 'publish',
-    'orderby' => 'modified',
-    'order' => 'DESC',
-    'paged' => $page,
-    'posts_per_page' => get_option( 'posts_per_page' ) ?? 8
-  );
+// Setup
+$page = get_query_var( 'paged', 1 ); // Main query
+$order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+$orderby = reset( $orderby ) ?: 'modified';
 
-  // Filter query arguments
-  $query_args = apply_filters( 'fictioneer_filter_collections_query_args', $query_args, get_the_ID() );
+// Prepare query
+$query_args = array (
+  'post_type' => 'fcn_collection',
+  'post_status' => 'publish',
+  'orderby' => $orderby,
+  'order' => $order,
+  'paged' => $page,
+  'posts_per_page' => get_option( 'posts_per_page' ) ?? 8
+);
 
-  // Query collections
-  $list_of_collections = new WP_Query( $query_args );
+// Filter query arguments
+$query_args = apply_filters( 'fictioneer_filter_collections_query_args', $query_args, get_the_ID() );
+
+// Query collections
+$list_of_collections = new WP_Query( $query_args );
+
 ?>
 
 <?php get_header(); ?>
@@ -58,7 +64,10 @@
           'current_page' => $page,
           'post_id' => get_the_ID(),
           'collections' => $list_of_collections,
-          'queried_type' => 'fcn_collection'
+          'queried_type' => 'fcn_collection',
+          'query_args' => $query_args,
+          'order' => $order,
+          'orderby' => $orderby
         );
       ?>
 

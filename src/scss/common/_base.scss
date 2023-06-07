@@ -403,12 +403,12 @@ button[type=submit]:where(:not(._inline)) {
   contain: content; // Improve performance
 
   &._top {
-    top: -8px;
+    top: var(--vertical-offset, -8px);
     --translateY: translateY(-100%);
   }
 
   &._bottom {
-    bottom: -8px;
+    bottom: var(--vertical-offset, -8px);
     --translateY: translateY(100%);
   }
 
@@ -688,6 +688,7 @@ html:not(.logged-in) body:not(.logged-in) {
 }
 
 .list-button {
+  cursor: pointer;
   color: var(--fg-900);
   font-size: var(--fs-s);
   padding: 5px 6px 4px;
@@ -708,4 +709,24 @@ html:not(.logged-in) body:not(.logged-in) {
       display: none;
     }
   }
+
+  &._text {
+    font-size: var(--fs-dxs);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: .02em;
+    padding: 4px 0;
+
+    .popup-menu {
+      --vertical-offset: -4px;
+    }
+  }
+}
+
+.sort-order-filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 2rem 0 -0.5rem;
 }

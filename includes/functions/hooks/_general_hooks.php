@@ -189,4 +189,77 @@ if ( ! function_exists( 'fictioneer_header_background' ) ) {
 }
 add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
 
+// =============================================================================
+// SORT, ORDER & FILTER QUERIES
+// =============================================================================
+
+/**
+ * Renders interface to sort, order, and filter queries
+ *
+ * @since Fictioneer 5.4.0
+ *
+ * @param array $args {
+ *   Array of arguments.
+ *
+ *   @type int    $current_page  Current page if paginated or `1`.
+ *   @type int    $post_id       Current post ID.
+ *   @type string $queried_type  Queried post type.
+ *   @type array  $query_args    Query arguments used.
+ *   @type string $order         Current order or `desc`.
+ *   @type string $orderby       Current orderby or `'modified'`.
+ * }
+ */
+
+function fictioneer_sort_order_filter_interface( $args ) {
+  // Setup
+  $current_url = add_query_arg( array( 'order' => $args['order'] ), get_permalink() );
+  $orderby_menu = array(
+    'modified' => array(
+      'label' => __( 'Updated', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'modified' ), $current_url ) . '#sof'
+    ),
+    'date' => array(
+      'label' => __( 'Published', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'date' ), $current_url ) . '#sof'
+    ),
+    'title' => array(
+      'label' => __( 'Title', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
+    )
+  );
+  $order_link = esc_url(
+    add_query_arg(
+      array( 'order' => $args['order'] === 'desc' ? 'asc' : 'desc', 'orderby' => $args['orderby'] ),
+      $current_url
+    ) . '#sof'
+  );
+
+  // Apply filters
+  $orderby_menu = apply_filters( 'fictioneer_filter_orderby_popup_menu', $orderby_menu, $args );
+
+  // Start HTML ---> ?>
+  <div id="sof" class="sort-order-filter">
+    <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+      echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
+      echo '<div class="popup-menu _bottom _center">';
+
+      foreach( $orderby_menu as $tuple ) {
+        $url = esc_url( $tuple['url'] );
+        echo "<a href='{$url}'>{$tuple['label']}</a>";
+      }
+
+      echo '</div>';
+    ?></div>
+    <a class="list-button _order  <?php echo $args['order'] === 'desc' ? '_on' : '_off'; ?>" href="<?php echo $order_link; ?>">
+      <i class="fa-solid fa-arrow-up-short-wide _off"></i>
+      <i class="fa-solid fa-arrow-down-wide-short _on"></i>
+    </a>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_stories_after_content', 'fictioneer_sort_order_filter_interface', 20 );
+add_action( 'fictioneer_chapters_after_content', 'fictioneer_sort_order_filter_interface', 20 );
+add_action( 'fictioneer_collections_after_content', 'fictioneer_sort_order_filter_interface', 20 );
+add_action( 'fictioneer_recommendations_after_content', 'fictioneer_sort_order_filter_interface', 20 );
+
 ?>

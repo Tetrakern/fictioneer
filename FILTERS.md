@@ -410,6 +410,24 @@ Filters the intermediate output array of the `fictioneer_mobile_user_menu()` fun
 
 ---
 
+### `apply_filters( 'fictioneer_filter_orderby_popup_menu', $menu, $args )`
+Filters the array of URLs and labels of the orderby popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered.
+
+**$menu:**
+* $modified (array) – Tuple of $label (Updated) and unescaped $url (`...?orderby=modified&order={$order}#sof`).
+* $date (array) – Tuple of $label (Published) and unescaped $url (`...?orderby=date&order={$order}#sof`).
+* $title (array) – Tuple of $label (Title) and unescaped $url (`...?orderby=title&order={$order}#sof`).
+
+**$args:**
+* $current_page (int) – Current page if paginated or `1`.
+* $post_id (int) – Current post ID.
+* $queried_type (string) – Queried post type.
+* $query_args (array) – Query arguments used.
+* $order (string) – Current order or `'desc'`.
+* $orderby (string) – Current orderby or `'modified'`.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_meta_items', $output, $args )`
 Filters the intermediate output array of the `fictioneer_get_post_meta_items()` function before it is imploded and returned.
 
@@ -751,8 +769,8 @@ Filters the arguments to query the stories in the `stories.php` template.
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
 * $meta_key (string) – `'fictioneer_story_sticky'`
-* $orderby (string) – `'meta_value modified'`
-* $order (string) – `'DESC'`
+* $orderby (string) – Current orderby or `'meta_value modified'`.
+* $order (string) – Current order or `desc`.
 * $paged (int) – Current page if paginated or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
 

@@ -16,24 +16,30 @@
 ?>
 
 <?php
-  // Get current page (of main query, but can be used since open-ended)
-  $page = get_query_var( 'paged', 1 );
 
-  // Prepare query
-  $query_args = array (
-    'post_type' => 'fcn_recommendation',
-    'post_status' => 'publish',
-    'orderby' => 'publish_date',
-    'order' => 'DESC',
-    'paged' => $page,
-    'posts_per_page' => get_option( 'posts_per_page', 8 )
-  );
+// Setup
+$page = get_query_var( 'paged', 1 ); // Main query
+$order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+$orderby = reset( $orderby ) ?: 'modified';
 
-  // Filter query arguments
-  $query_args = apply_filters( 'fictioneer_filter_recommendations_query_args', $query_args, get_the_ID() );
+// Prepare query
+$query_args = array (
+  'post_type' => 'fcn_recommendation',
+  'post_status' => 'publish',
+  'orderby' => $orderby,
+  'order' => $order,
+  'paged' => $page,
+  'posts_per_page' => get_option( 'posts_per_page', 8 )
+);
 
-  // Query recommendations
-  $list_of_recommendations = new WP_Query( $query_args );
+// Filter query arguments
+$query_args = apply_filters( 'fictioneer_filter_recommendations_query_args', $query_args, get_the_ID() );
+
+// Query recommendations
+$list_of_recommendations = new WP_Query( $query_args );
+
 ?>
 
 <?php get_header(); ?>
@@ -58,7 +64,10 @@
           'current_page' => $page,
           'post_id' => get_the_ID(),
           'recommendations' => $list_of_recommendations,
-          'queried_type' => 'fcn_recommendation'
+          'queried_type' => 'fcn_recommendation',
+          'query_args' => $query_args,
+          'order' => $order,
+          'orderby' => $orderby
         );
       ?>
 

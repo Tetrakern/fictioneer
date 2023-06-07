@@ -414,6 +414,7 @@ List page template hook. Fires right after the content section in the `chapters.
 * $queried_type (string) – `fcn_chapter`
 
 **Hooked actions:**
+* `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_chapters_list( $args )` – Paginated card list of all visible chapters. Priority 30.
 
 ---
@@ -483,6 +484,7 @@ List page template hook. Fires right after the content section in the `collectio
 * $queried_type (string) – `fcn_collection`
 
 **Hooked actions:**
+* `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_collections_list( $args )` – Paginated card list of all visible collections. Priority 30.
 
 ---
@@ -673,6 +675,7 @@ List page template hook. Fires right after the content section in the `recommend
 * $queried_type (string) – `fcn_recommendation`
 
 **Hooked actions:**
+* `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_recommendations_list( $args )` – Paginated card list of all visible recommendations. Priority 30.
 
 ---
@@ -759,6 +762,7 @@ List page template hook. Fires right after the content section in the `stories.p
 
 **Hooked actions:**
 * `fictioneer_stories_statistics( $args )` – Compiled statistics of all stories. Priority 10.
+* `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_stories_list( $args )` – Paginated card list of all visible stories. Priority 30.
 
 ---

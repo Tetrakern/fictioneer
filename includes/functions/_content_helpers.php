@@ -1323,7 +1323,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
       <?php if ( count( $menu ) > 0 ) : ?>
         <div class="card__popup-menu-toggle" tabindex="0"><i class="fa-solid fa-ellipsis-vertical"></i></div>
-        <div class="popup-menu"><?php foreach ( $menu as $item ) echo $item; ?></div>
+        <div class="popup-menu _bottom"><?php foreach ( $menu as $item ) echo $item; ?></div>
       <?php endif; ?>
 
     </div>

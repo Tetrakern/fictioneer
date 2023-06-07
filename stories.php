@@ -16,36 +16,42 @@
 ?>
 
 <?php
-  // Get current page (of main query, but can be used since open-ended)
-  $page = get_query_var( 'paged', 1 );
 
-  // Prepare query
-  $query_args = array (
-    'post_type' => 'fcn_story',
-    'post_status' => 'publish',
-    'meta_key' => 'fictioneer_story_sticky',
-    'orderby' => 'meta_value modified',
-    'order' => 'DESC',
-    'paged' => $page,
-    'posts_per_page' => get_option( 'posts_per_page', 8 ),
-    'meta_query' => array(
-      'relation' => 'OR',
-      array(
-        'key' => 'fictioneer_story_hidden',
-        'value' => '0'
-      ),
-      array(
-        'key' => 'fictioneer_story_hidden',
-        'compare' => 'NOT EXISTS'
-      ),
-    )
-  );
+// Setup
+$page = get_query_var( 'paged', 1 ); // Main query
+$order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+$orderby = reset( $orderby ) ?: 'modified';
 
-  // Filter query arguments
-  $query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, get_the_ID() );
+// Prepare query
+$query_args = array (
+  'post_type' => 'fcn_story',
+  'post_status' => 'publish',
+  'meta_key' => 'fictioneer_story_sticky',
+  'orderby' => "meta_value {$orderby}",
+  'order' => $order,
+  'paged' => $page,
+  'posts_per_page' => get_option( 'posts_per_page', 8 ),
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    ),
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'compare' => 'NOT EXISTS'
+    ),
+  )
+);
 
-  // Query stories
-  $list_of_stories = new WP_Query( $query_args );
+// Filter query arguments
+$query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, get_the_ID() );
+
+// Query stories
+$list_of_stories = new WP_Query( $query_args );
+
 ?>
 
 <?php get_header(); ?>
@@ -70,7 +76,10 @@
           'current_page' => $page,
           'post_id' => get_the_ID(),
           'stories' => $list_of_stories,
-          'queried_type' => 'fcn_story'
+          'queried_type' => 'fcn_story',
+          'query_args' => $query_args,
+          'order' => $order,
+          'orderby' => $orderby
         );
       ?>
 
