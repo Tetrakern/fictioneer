@@ -691,6 +691,7 @@ html:not(.logged-in) body:not(.logged-in) {
   cursor: pointer;
   color: var(--fg-900);
   font-size: var(--fs-s);
+  line-height: 1;
   padding: 5px 6px 4px;
   transition: color var(--transition-duration), opacity var(--transition-duration);
 
