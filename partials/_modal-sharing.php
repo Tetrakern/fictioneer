@@ -61,7 +61,7 @@
     </div>
 
     <div class="modal__row">
-      <input type="text" value="<?php the_permalink(); ?>" onClick="this.select(); fcn_copyToClipboard('<?php the_permalink(); ?>', '<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>')" readonly>
+      <input type="text" value="<?php the_permalink(); ?>" name="permalink" onClick="this.select(); fcn_copyToClipboard('<?php the_permalink(); ?>', '<?php _e( 'Link copied to clipboard!', 'fictioneer' ); ?>')" readonly>
     </div>
   </div>
 </div>
