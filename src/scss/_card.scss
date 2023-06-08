@@ -277,10 +277,6 @@
       border-radius: var(--layout-border-radius-small);
       min-width: 0; // Fix whitespace nowrap issue
 
-      a:focus-visible {
-        // outline: none;
-      }
-
       @supports selector(:has(:focus-visible)) {
         a:focus-visible {
           outline: none;
