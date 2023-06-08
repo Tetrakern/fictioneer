@@ -58,13 +58,14 @@
   }
 
   &._user {
-    transform: translate(-1px, -12%) scale(1.2);
+    height: .7em;
+    transform: translate(-1px,-12%) scale(1.725);
   }
 }
 
 p .icon {
   &._font-settings {
-    height: 0.8em;
+    height: .8em;
     vertical-align: baseline;
   }
 }
