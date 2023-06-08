@@ -1320,7 +1320,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 
     ob_start();
     // Start HTML ---> ?>
-    <div class="card__controls <?php echo count( $menu ) > 0 ? 'toggle-last-clicked' : ''; ?>">
+    <div class="card__controls popup-menu-toggle <?php echo count( $menu ) > 0 ? 'toggle-last-clicked' : ''; ?>">
 
       <?php if ( count( $icons ) > 0 ) foreach ( $icons as $icon ) echo $icon; ?>
 

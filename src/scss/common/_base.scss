@@ -365,6 +365,7 @@ button[type=submit]:where(:not(._inline)) {
   &:not(.last-clicked) {
     .popup-menu {
       display: none;
+      content-visibility: hidden;
     }
   }
 
