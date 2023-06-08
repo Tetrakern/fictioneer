@@ -1820,4 +1820,4 @@ function fcn_popupPosition() {
 }
 
 // Initialize
-window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 200));
+window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
