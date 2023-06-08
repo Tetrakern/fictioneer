@@ -684,7 +684,7 @@ html:not(.logged-in) body:not(.logged-in) {
 .icon,
 .fa-solid,
 .fa-regular {
-  contain: style paint; // Improve performance
+  contain: style; // Improve performance
 }
 
 .list-button {
