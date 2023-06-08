@@ -167,6 +167,9 @@ Filters the arguments passed to the `partials/_card-chapter` template part in th
 
 **$card_args:**
 * $cache (boolean) – Return of `fictioneer_caching_active()`.
+* $order (string) – Current query order argument. Default 'desc'.
+* $orderby (string) – Current query orderby argument. Default 'modified'.
+* $ago (int|string) – Current date query argument part. Default 0.
 
 **$args:**
 * $current_page (int) – Current page if paginated or `1`.
@@ -196,7 +199,10 @@ Filters the arguments to query the chapters in the `chapters.php` template.
 Filters the arguments passed to the `partials/_card-collection` template part in the `fictioneer_collections_list( $args )` function, normally added via the `fictioneer_collections_after_content` hook.
 
 **$card_args:**
-* $cache (boolean) – Return of `fictioneer_caching_active()`
+* $cache (boolean) – Return of `fictioneer_caching_active()`.
+* $order (string) – Current query order argument. Default 'desc'.
+* $orderby (string) – Current query orderby argument. Default 'modified'.
+* $ago (int|string) – Current date query argument part. Default 0.
 
 **$args:**
 * $current_page (int) – Current page if paginated or `1`.
@@ -449,7 +455,10 @@ Filters the intermediate output array of the `fictioneer_get_post_meta_items()` 
 Filters the arguments passed to the `partials/_card-recommendation` template part in the `fictioneer_recommendations_list( $args )` function, normally added via the `fictioneer_recommendations_after_content` hook.
 
 **$card_args:**
-* $cache (boolean) – Return of `fictioneer_caching_active()`
+* $cache (boolean) – Return of `fictioneer_caching_active()`.
+* $order (string) – Current query order argument. Default 'desc'.
+* $orderby (string) – Current query orderby argument. Default 'modified'.
+* $ago (int|string) – Current date query argument part. Default 0.
 
 **$args:**
 * $current_page (int) – Current page if paginated or `1`.
@@ -752,7 +761,10 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 Filters the arguments passed to the `partials/_card-story` template part in the `fictioneer_stories_list( $args )` function, normally added via the `fictioneer_stories_after_content` hook.
 
 **$card_args:**
-* $cache (boolean) – `fictioneer_caching_active()`
+* $cache (boolean) – Return of `fictioneer_caching_active()`.
+* $order (string) – Current query order argument. Default 'desc'.
+* $orderby (string) – Current query orderby argument. Default 'modified'.
+* $ago (int|string) – Current date query argument part. Default 0.
 
 **$args:**
 * $current_page (int) – Current page if paginated or `1`.

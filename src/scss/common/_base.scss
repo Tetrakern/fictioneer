@@ -387,7 +387,7 @@ button[type=submit]:where(:not(._inline)) {
   position: absolute;
   z-index: 10;
   background: var(--popup-menu-background);
-  color: var(--tooltip-text);
+  color: var(--popup-menu-text);
   font-size: 14px;
   line-height: 22px;
   text-shadow: none;
@@ -482,6 +482,16 @@ button[type=submit]:where(:not(._inline)) {
   .current-chapter :is(a, label, button, .popup-item):not(:hover) {
     background: var(--popup-menu-background-selected);
   }
+}
+
+.popup-heading {
+  cursor: default;
+  position: relative;
+  font-family: var(--ff-note);
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 4px 12px;
+  opacity: 0.5;
 }
 
 .no-results {
@@ -717,7 +727,7 @@ html:not(.logged-in) body:not(.logged-in) {
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: .02em;
-    padding: 4px 0;
+    padding: 4px 6px;
 
     .popup-menu {
       --vertical-offset: -4px;
@@ -729,6 +739,6 @@ html:not(.logged-in) body:not(.logged-in) {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: .5rem;
   margin: 2rem 0 -0.5rem;
 }

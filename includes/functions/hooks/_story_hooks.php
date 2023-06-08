@@ -79,13 +79,14 @@ if ( ! function_exists( 'fictioneer_stories_list' ) ) {
    * @since 5.0
    * @see stories.php
    *
-   * @param int      $args['current_page']  Current page number of pagination or 1.
-   * @param int      $args['post_id']       The post ID.
-   * @param WP_Query $args['stories']       Paginated query of all published stories.
-   * @param string   $args['queried_type']  The queried post type ('fcn_story').
-   * @param array    $args['query_args']    The query arguments used.
-   * @param string   $args['order']         Current order. Default 'desc'.
-   * @param string   $args['orderby']       Current orderby. Default 'modified'.
+   * @param int        $args['current_page']  Current page number of pagination or 1.
+   * @param int        $args['post_id']       The post ID.
+   * @param WP_Query   $args['stories']       Paginated query of all published stories.
+   * @param string     $args['queried_type']  The queried post type ('fcn_story').
+   * @param array      $args['query_args']    The query arguments used.
+   * @param string     $args['order']         Current order. Default 'desc'.
+   * @param string     $args['orderby']       Current orderby. Default 'modified'.
+   * @param int|string $args['ago']           Current date query argument part. Default 0.
    */
 
   function fictioneer_stories_list( $args ) {
@@ -100,7 +101,8 @@ if ( ! function_exists( 'fictioneer_stories_list' ) ) {
             $card_args = array(
               'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
               'order' => $args['order'] ?? 'desc',
-              'orderby' => $args['orderby'] ?? 'modified'
+              'orderby' => $args['orderby'] ?? 'modified',
+              'ago' => $args['ago'] ?? 0
             );
 
             // Filter card arguments

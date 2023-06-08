@@ -201,18 +201,45 @@ add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
  * @param array $args {
  *   Array of arguments.
  *
- *   @type int    $current_page  Current page if paginated or `1`.
- *   @type int    $post_id       Current post ID.
- *   @type string $queried_type  Queried post type.
- *   @type array  $query_args    Query arguments used.
- *   @type string $order         Current order or `desc`.
- *   @type string $orderby       Current orderby or `'modified'`.
+ *   @type int        $current_page  Current page if paginated or `1`.
+ *   @type int        $post_id       Current post ID.
+ *   @type string     $queried_type  Queried post type.
+ *   @type array      $query_args    Query arguments used.
+ *   @type string     $order         Current order or `desc`.
+ *   @type string     $orderby       Current orderby or `'modified'`.
+ *   @type int|string $ago           Current date query argument part or `0`.
  * }
  */
 
 function fictioneer_sort_order_filter_interface( $args ) {
   // Setup
-  $current_url = add_query_arg( array( 'order' => $args['order'] ), get_permalink() );
+  $current_url = get_permalink();
+
+  // Order?
+  if ( ! empty( $args['order'] ) ) {
+    $current_url = add_query_arg(
+      array( 'order' => $args['order'] ),
+      $current_url
+    );
+  }
+
+  // Orderby?
+  if ( ! empty( $args['orderby'] ) ) {
+    $current_url = add_query_arg(
+      array( 'orderby' => $args['orderby'] ),
+      $current_url
+    );
+  }
+
+  // Ago?
+  if ( ! empty( $args['ago'] ) ) {
+    $current_url = add_query_arg(
+      array( 'ago' => $args['ago'] ),
+      $current_url
+    );
+  }
+
+  // Order menu options
   $orderby_menu = array(
     'modified' => array(
       'label' => __( 'Updated', 'fictioneer' ),
@@ -227,9 +254,39 @@ function fictioneer_sort_order_filter_interface( $args ) {
       'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
     )
   );
+
+  // Date menu options
+  $date_menu = array(
+    '0' => array(
+      'label' => __( 'Any Date', 'fictioneer' ),
+      'url' => remove_query_arg( 'ago', $current_url ) . '#sof'
+    ),
+    '1' => array(
+      'label' => __( 'Last Day', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => 1 ), $current_url ) . '#sof'
+    ),
+    '3' => array(
+      'label' => __( 'Last 3 Days', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => 3 ), $current_url ) . '#sof'
+    ),
+    'week' => array(
+      'label' => __( 'Last Week', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => 'week' ), $current_url ) . '#sof'
+    ),
+    'month' => array(
+      'label' => __( 'Last Month', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => 'month' ), $current_url ) . '#sof'
+    ),
+    'year' => array(
+      'label' => __( 'Last Year', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => 'year' ), $current_url ) . '#sof'
+    )
+  );
+
+  // Order toggle link
   $order_link = esc_url(
     add_query_arg(
-      array( 'order' => $args['order'] === 'desc' ? 'asc' : 'desc', 'orderby' => $args['orderby'] ),
+      array( 'order' => $args['order'] === 'desc' ? 'asc' : 'desc' ),
       $current_url
     ) . '#sof'
   );
@@ -239,9 +296,11 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
   // Start HTML ---> ?>
   <div id="sof" class="sort-order-filter">
+
     <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
       echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
       echo '<div class="popup-menu _bottom _center">';
+      echo '<div class="popup-heading">' . __( 'Order By', 'fictioneer' ) . '</div>';
 
       foreach( $orderby_menu as $tuple ) {
         $url = esc_url( $tuple['url'] );
@@ -250,10 +309,24 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
       echo '</div>';
     ?></div>
+
+    <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+      echo $date_menu[ $args['ago'] ]['label'] ?? __( 'Custom', 'fictioneer' );
+      echo '<div class="popup-menu _bottom _center">';
+      echo '<div class="popup-heading">' . __( 'Time Range', 'fictioneer' ) . '</div>';
+
+      foreach( $date_menu as $tuple ) {
+        $url = esc_url( $tuple['url'] );
+        echo "<a href='{$url}'>{$tuple['label']}</a>";
+      }
+
+      echo '</div>';
+    ?></div>
+
     <a class="list-button _order  <?php echo $args['order'] === 'desc' ? '_on' : '_off'; ?>" href="<?php echo $order_link; ?>">
-      <i class="fa-solid fa-arrow-up-short-wide _off"></i>
-      <i class="fa-solid fa-arrow-down-wide-short _on"></i>
+      <i class="fa-solid fa-arrow-up-short-wide _off"></i><i class="fa-solid fa-arrow-down-wide-short _on"></i>
     </a>
+
   </div>
   <?php // <--- End HTML
 }

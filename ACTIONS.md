@@ -411,6 +411,10 @@ List page template hook. Fires right after the content section in the `chapters.
 * $post_id (int) – Current post ID.
 * $chapters (WP_Query) – Paginated query of all published chapters.
 * $queried_type (string) – `fcn_chapter`
+* $query_args (array) – The final query arguments used.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'modified'.
+* $ago (int|string) – Current value for the date query. Default 0.
 
 **Hooked actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
@@ -481,6 +485,10 @@ List page template hook. Fires right after the content section in the `collectio
 * $post_id (int) – Current post ID.
 * $collections (WP_Query) – Paginated query of all published collections.
 * $queried_type (string) – `fcn_collection`
+* $query_args (array) – The final query arguments used.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'modified'.
+* $ago (int|string) – Current value for the date query. Default 0.
 
 **Hooked actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
@@ -672,6 +680,10 @@ List page template hook. Fires right after the content section in the `recommend
 * $post_id (int) – Current post ID.
 * $recommendations (WP_Query) – Paginated query of all published recommendations.
 * $queried_type (string) – `fcn_recommendation`
+* $query_args (array) – The final query arguments used.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'modified'.
+* $ago (int|string) – Current value for the date query. Default 0.
 
 **Hooked actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
@@ -758,6 +770,10 @@ List page template hook. Fires right after the content section in the `stories.p
 * $post_id (int) – Current post ID.
 * $stories (WP_Query) – Paginated query of all published stories.
 * $queried_type (string) – `fcn_story`
+* $query_args (array) – The final query arguments used.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'modified'.
+* $ago (int|string) – Current value for the date query. Default 0.
 
 **Hooked actions:**
 * `fictioneer_stories_statistics( $args )` – Compiled statistics of all stories. Priority 10.

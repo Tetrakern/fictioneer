@@ -23,6 +23,8 @@ $order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] )
 $order = reset( $order ) ?: 'desc';
 $orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
 $orderby = reset( $orderby ) ?: 'modified';
+$ago = $_GET['ago'] ?? 0;
+$ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
 
 // Prepare query
 $query_args = array (
@@ -45,6 +47,34 @@ $query_args = array (
     ),
   )
 );
+
+// Date query?
+if ( is_numeric( $ago ) && $ago > 0 ) {
+  $query_args['date_query'] = array(
+    array(
+      'after'=> "{$ago} days ago",
+      'inclusive' => true,
+    )
+  );
+} elseif ( ! empty( $ago ) ) {
+  $ago = array_intersect( [strtolower( $ago )], ['week', 'month', 'year'] );
+  $ago = reset( $ago ) ?: 0;
+
+  if ( ! empty( $ago ) ) {
+    $query_args['date_query'] = array(
+      'relation' => 'OR',
+      array(
+        'after'=> "1 {$ago} ago",
+        'inclusive' => true,
+      ),
+      array(
+        'column' => 'post_modified',
+        'after'=> "1 {$ago} ago",
+        'inclusive' => true,
+      )
+    );
+  }
+}
 
 // Filter query arguments
 $query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, get_the_ID() );
@@ -79,7 +109,8 @@ $list_of_stories = new WP_Query( $query_args );
           'queried_type' => 'fcn_story',
           'query_args' => $query_args,
           'order' => $order,
-          'orderby' => $orderby
+          'orderby' => $orderby,
+          'ago' => $ago
         );
       ?>
 
