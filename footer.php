@@ -52,7 +52,7 @@
         echo '<div id="fictioneer-lightbox" class="lightbox"><button type="button" class="lightbox__close" aria-label="' . esc_attr__( 'Close lightbox', 'fictioneer' ) . '">' . fictioneer_get_icon( 'fa-xmark' ) . '</button><i class="fa-solid fa-spinner fa-spin loader" style="--fa-animation-duration: .8s;"></i><div class="lightbox__content target"></div></div>';
       }
 
-      // WordPress footer hook
+      // WordPress footer hook (includes modals)
       wp_footer();
     ?>
 

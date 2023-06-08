@@ -111,7 +111,7 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
     do_action( 'fictioneer_modals' );
   }
 }
-add_action( 'fictioneer_body', 'fictioneer_output_modals', 10 );
+add_action( 'wp_footer', 'fictioneer_output_modals' );
 
 // =============================================================================
 // OUTPUT NAVIGATION BAR

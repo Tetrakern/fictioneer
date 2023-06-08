@@ -109,7 +109,7 @@
         'header_args' => $args
       );
 
-      // Includes mobile menu and modals
+      // Includes mobile menu
       do_action( 'fictioneer_body', $action_args );
 
       // Inline storage tuples

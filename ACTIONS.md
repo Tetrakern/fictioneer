@@ -138,7 +138,6 @@ Fires after `wp_body_open()` in the `<body>` right before the inline storage ele
 * $header_args (array) – Arguments passed to the header.php partial.
 
 **Hooked actions:**
-* `fictioneer_output_modals()` – HTML for the modals. Priority 10.
 * `fictioneer_output_mobile_menu()` – HTML for the mobile menu. Priority 20.
 
 ---
