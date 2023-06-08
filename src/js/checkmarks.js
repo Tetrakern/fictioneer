@@ -269,7 +269,7 @@ function fcn_updateCheckmarksView() {
                   fcn_checkmarks.data[cardStoryId].includes(parseInt(item.dataset.checkId)) ||
                   fcn_checkmarks.data[cardStoryId].includes(cardStoryId)
                 );
-    item.toggleAttribute('hidden', !force);
+    item.classList.toggle('hidden', !force);
   });
 
   // Update local storage

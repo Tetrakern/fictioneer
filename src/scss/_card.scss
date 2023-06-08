@@ -165,8 +165,8 @@
   &__reminder-icon {
     font-size: 75%;
 
-    &[hidden] ~ .popup-menu .popup-action-forget,
-    &:not([hidden]) ~ .popup-menu .popup-action-reminder {
+    &.hidden ~ .popup-menu .popup-action-forget,
+    &:not(.hidden) ~ .popup-menu .popup-action-reminder {
       display: none;
     }
   }
@@ -174,8 +174,8 @@
   &__read-icon {
     font-size: 87.5%;
 
-    &[hidden] ~ .popup-menu .popup-action-mark-unread,
-    &:not([hidden]) ~ .popup-menu .popup-action-mark-read {
+    &.hidden ~ .popup-menu .popup-action-mark-unread,
+    &:not(.hidden) ~ .popup-menu .popup-action-mark-read {
       display: none;
     }
   }
@@ -183,8 +183,8 @@
   &__followed-icon {
     font-size: 75%;
 
-    &[hidden] ~ .popup-menu .popup-action-unfollow,
-    &:not([hidden]) ~ .popup-menu .popup-action-follow {
+    &.hidden ~ .popup-menu .popup-action-unfollow,
+    &:not(.hidden) ~ .popup-menu .popup-action-follow {
       display: none;
     }
   }

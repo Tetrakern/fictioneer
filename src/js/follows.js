@@ -128,11 +128,10 @@ function fcn_updateFollowsView() {
 
   // Update icon on cards
   _$$('.card-follow-icon').forEach(item => {
-    if (fcn_follows?.data.hasOwnProperty(item.dataset.followId)) {
-      item.removeAttribute('hidden');
-    } else {
-      item.setAttribute('hidden', true);
-    }
+    item.classList.toggle(
+      'hidden',
+      fcn_follows?.data.hasOwnProperty(item.dataset.followId)
+    );
   });
 
   // Update local storage

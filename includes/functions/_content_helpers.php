@@ -1250,9 +1250,11 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_reminders ) {
       ob_start();
       // Start HTML ---> ?>
-      <div class="card__reminder-icon card-reminder-icon" title="<?php echo fcntr( 'is_read_later' ); ?>" data-story-id="<?php echo $story_id; ?>" hidden>
-        <i class="fa-solid fa-clock"></i>
-      </div>
+      <i
+        class="fa-solid fa-clock card__reminder-icon card-reminder-icon hidden"
+        title="<?php echo fcntr( 'is_read_later' ); ?>"
+        data-story-id="<?php echo $story_id; ?>"
+      ></i>
       <?php // <--- End HTML
       $icons['reminder'] = ob_get_clean();
     }
@@ -1260,9 +1262,11 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_follows ) {
       ob_start();
       // Start HTML ---> ?>
-      <div class="card__followed-icon card-follow-icon" title="<?php echo fcntr( 'is_followed' ); ?>" data-follow-id="<?php echo $story_id; ?>" hidden>
-        <i class="fa-solid fa-star"></i>
-      </div>
+      <i
+        class="fa-solid fa-star card__followed-icon card-follow-icon hidden"
+        title="<?php echo fcntr( 'is_followed' ); ?>"
+        data-follow-id="<?php echo $story_id; ?>"
+      ></i>
       <?php // <--- End HTML
       $icons['follow'] = ob_get_clean();
     }
@@ -1270,13 +1274,12 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_checkmarks ) {
       ob_start();
       // Start HTML ---> ?>
-      <div class="card__read-icon card-checkmark-icon" title="<?php echo fcntr( 'is_read' ); ?>" data-story-id="<?php echo $story_id; ?>" data-check-id="<?php echo $chapter_id ? $chapter_id : $story_id; ?>" hidden>
-        <?php if ( $chapter_id ) : ?>
-          <i class="fa-solid fa-check"></i>
-        <?php else : ?>
-          <i class="fa-solid fa-check-double"></i>
-        <?php endif; ?>
-      </div>
+      <i
+        class="fa-solid fa-<?php echo empty( $chapter_id ) ? 'check-double' : 'check'; ?> card__read-icon card-checkmark-icon hidden"
+        title="<?php echo fcntr( 'is_read' ); ?>"
+        data-story-id="<?php echo $story_id; ?>"
+        data-check-id="<?php echo empty( $chapter_id ) ? $story_id : $chapter_id; ?>"
+      ></i>
       <?php // <--- End HTML
       $icons['checkmark'] = ob_get_clean();
     }
@@ -1322,7 +1325,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       <?php if ( count( $icons ) > 0 ) foreach ( $icons as $icon ) echo $icon; ?>
 
       <?php if ( count( $menu ) > 0 ) : ?>
-        <div class="card__popup-menu-toggle" tabindex="0"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+        <i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>
         <div class="popup-menu _bottom"><?php foreach ( $menu as $item ) echo $item; ?></div>
       <?php endif; ?>
 

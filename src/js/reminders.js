@@ -196,11 +196,10 @@ function fcn_updateRemindersView() {
 
   // Update icon on cards
   _$$('.card-reminder-icon').forEach(item => {
-    if (fcn_reminders.data.hasOwnProperty(item.dataset.storyId)) {
-      item.removeAttribute('hidden');
-    } else {
-      item.setAttribute('hidden', true);
-    }
+    item.classList.toggle(
+      'hidden',
+      fcn_reminders?.data.hasOwnProperty(item.dataset.storyId)
+    );
   });
 
   // Update local storage
