@@ -1212,19 +1212,24 @@ if (fcn_cardLists.length) {
 // COLLAPSE/EXPAND CHAPTER GROUPS
 // =============================================================================
 
-_$$('[for*=group-toggle]').forEach(element => {
-  element.addEventListener(
-    'click',
-    e => {
-      let list = e.currentTarget.closest('.chapter-group').querySelector('.chapter-group__list');
-      list.style.height = `${list.scrollHeight}px`;
-    }
-  );
+_$$('.chapter-group__toggle').forEach(element => {
+  element.addEventListener('change', event => {
+    var group = event.currentTarget.closest('.chapter-group'),
+        list = group.querySelector('.chapter-group__list'),
+        state = event.currentTarget.checked;
+
+    // Base for transition
+    list.style.height = `${list.scrollHeight}px`;
+
+    setTimeout(() => {
+      group.classList.toggle('_closed', state);
+    }, 10); // Delay to allow transition to work
+  });
 
   element.closest('.chapter-group').querySelector('.chapter-group__list').addEventListener(
     'transitionend',
-    e => {
-      let group = e.currentTarget.closest('.chapter-group'),
+    event => {
+      let group = event.currentTarget.closest('.chapter-group'),
           list = group.querySelector('.chapter-group__list');
 
       list.style.height = '';
@@ -1831,3 +1836,6 @@ _$$('.modal-toggle').forEach(element => {
     event.currentTarget.nextElementSibling.classList.toggle('_open', event.currentTarget.checked);
   });
 });
+
+
+

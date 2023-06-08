@@ -523,6 +523,18 @@ html:not(.logged-in) body:not(.logged-in) {
     }
   }
 
+  &._closed {
+    .chapter-group__label {
+      :is(i, .icon) {
+        transform: translateY(4px) rotate(-180deg);
+      }
+    }
+
+    .chapter-group__list {
+      height: 3px !important; // Override element style set by JS
+    }
+  }
+
   a {
     color: var(--story-link);
 
@@ -548,20 +560,6 @@ html:not(.logged-in) body:not(.logged-in) {
       transition-duration: var(--transition-duration);
       transition-property: opacity, transform;
       transform: translateY(4px);
-    }
-  }
-
-  &__toggle {
-    &:checked {
-      + label {
-        :is(i, .icon) {
-          transform: translateY(4px) rotate(-180deg);
-        }
-      }
-
-      ~ ol {
-        height: 3px !important; // Override element style set by JS
-      }
     }
   }
 
