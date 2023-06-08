@@ -1821,3 +1821,13 @@ function fcn_popupPosition() {
 
 // Initialize
 window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
+
+// =============================================================================
+// MODALS
+// =============================================================================
+
+_$$('.modal-toggle').forEach(element => {
+  element.addEventListener('change', (event) => {
+    event.currentTarget.nextElementSibling.classList.toggle('_open', event.currentTarget.checked);
+  });
+});
