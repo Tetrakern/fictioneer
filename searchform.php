@@ -77,7 +77,13 @@ if ( ! $skip_author_keywords ) {
 
 ?>
 
-<form role="search" method="get" class="search-form <?php if ( ! $show_advanced ) echo '_simple'; ?>" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+<form
+	role="search"
+	method="get"
+	class="search-form <?php if ( ! $show_advanced ) echo '_simple'; ?>"
+	action="<?php echo esc_url( home_url( '/' ) ); ?>"
+	data-advanced="false"
+>
 
 	<?php if ( $show_advanced ) : ?>
 		<div class="allow-list" hidden><?php echo json_encode( $allow_list ); ?></div>
