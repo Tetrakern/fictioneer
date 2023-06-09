@@ -32,6 +32,18 @@
     filter: blur(1px);
   }
 
+  &.has-last-clicked {
+    :is(.card__info-toggle, .card__main) {
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .card__overlay-infobox {
+      display: flex;
+      content-visibility: visible;
+    }
+  }
+
   &._info .card__title {
     padding-right: 24px;
   }
@@ -445,19 +457,6 @@
     &:hover,
     &:focus-visible {
       opacity: 1;
-    }
-
-    &.last-clicked {
-      display: none;
-
-      + .card__main {
-        visibility: hidden;
-      }
-
-      ~ .card__overlay-infobox {
-        display: flex;
-        content-visibility: visible;
-      }
     }
   }
 

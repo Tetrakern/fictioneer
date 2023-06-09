@@ -89,7 +89,7 @@ $entries = new WP_Query( $query_args );
           }
         ?>
 
-        <li class="card _small _info">
+        <li class="card watch-last-clicked _small _info">
           <div class="card__body polygon">
 
           <button class="card__info-toggle toggle-last-clicked"><i class="fa-solid fa-chevron-down"></i></button>
