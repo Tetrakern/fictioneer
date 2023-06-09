@@ -114,33 +114,33 @@
     <div class="modal__row reader-settings__row">
       <i class="fa-solid fa-check" title="<?php esc_attr_e( 'Toggles', 'fictioneer' ); ?>"></i>
       <div class="reader-settings__toggles">
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle text indent', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-indent-toggle" hidden checked>
-          <span><i class="fa-solid fa-indent"></i></span>
+          <i class="fa-solid fa-indent reader-settings__toggle-icon"></i>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle text justify', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-justify-toggle" hidden>
-          <span><i class="fa-solid fa-align-justify"></i></span>
+          <i class="fa-solid fa-align-justify reader-settings__toggle-icon"></i>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-lightmode-toggle" class="toggle-light-mode" hidden>
-          <span><i class="fa-solid fa-sun"></i></span>
+          <i class="fa-solid fa-sun reader-settings__toggle-icon"></i>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle paragraph tools', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-paragraph-tools-toggle" hidden checked>
-          <span><i class="fa-solid fa-marker"></i></span>
+          <i class="fa-solid fa-marker reader-settings__toggle-icon"></i>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle chapter notes', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-chapter-notes-toggle" hidden checked>
-          <span><?php fictioneer_icon( 'note-filled' ); ?></span>
+          <span class="reader-settings__toggle-icon"><?php fictioneer_icon( 'note-filled' ); ?></span>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle comment section', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-comments-toggle" hidden checked>
-          <span><i class="fa-solid fa-comments"></i></span>
+          <i class="fa-solid fa-comments reader-settings__toggle-icon"></i>
         </label>
-        <label class="toggle" title="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="true" aria-label="<?php esc_attr_e( 'Toggle sensitive content', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-sensitive-content-toggle" hidden checked>
-          <span><i class="fa-solid fa-exclamation"></i></span>
+          <i class="fa-solid fa-exclamation reader-settings__toggle-icon"></i>
         </label>
       </div>
     </div>

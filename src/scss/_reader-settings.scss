@@ -79,12 +79,12 @@
     padding: 0 2px;
   }
 
-  .toggle {
+  &__toggle {
     --focus-offset: 2px;
     border-radius: 50%;
 
-    input {
-      &:checked + span {
+    &[aria-checked="true"] {
+      .reader-settings__toggle-icon {
         background: var(--toggle-background-checked);
         color: var(--toggle-text-checked);
         border-color: var(--toggle-border-checked);
@@ -96,28 +96,28 @@
         }
       }
     }
+  }
 
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--toggle-background);
-      color: var(--toggle-text);
-      font-size: 12px;
-      line-height: 1;
-      text-shadow: none;
-      border: 1.5px solid var(--toggle-border);
-      border-radius: 50%;
-      height: 26px;
-      min-width: 26px;
-      transition: border-color var(--transition-duration),
-                  background-color var(--transition-duration),
-                  color var(--transition-duration);
+  // Needs higher specificity to override icon font
+  &__toggle-icon[class] {
+    display: grid;
+    place-content: center;
+    background: var(--toggle-background);
+    color: var(--toggle-text);
+    font-size: 12px;
+    line-height: 1;
+    text-shadow: none;
+    border: 1.5px solid var(--toggle-border);
+    border-radius: 50%;
+    height: 26px;
+    min-width: 26px;
+    transition: border-color var(--transition-duration),
+                background-color var(--transition-duration),
+                color var(--transition-duration);
 
-      &:hover {
-        color: var(--toggle-text-hover);
-        border-color: var(--toggle-border-hover);
-      }
+    &:hover {
+      color: var(--toggle-text-hover);
+      border-color: var(--toggle-border-hover);
     }
   }
 }
