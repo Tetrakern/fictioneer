@@ -1405,12 +1405,10 @@ fcn_theBody.addEventListener(
 
     // Escape
     if (e.keyCode == 27) {
-      // Uncheck all modal control checkboxes
+      // Uncheck all modal control checkboxes (should only be one)
       _$$('.modal-toggle:checked').forEach(element => {
-        let modalLabel = fcn_theSite.querySelector(`label[for="${element.id}"]`);
-        modalLabel?.focus();
-        modalLabel?.blur();
         element.checked = false;
+        element.dispatchEvent(new Event('change'));
       });
 
       // Close lightbox
@@ -1839,5 +1837,10 @@ window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
 _$$('.modal-toggle').forEach(element => {
   element.addEventListener('change', (event) => {
     event.currentTarget.nextElementSibling.classList.toggle('_open', event.currentTarget.checked);
+
+    // Set focus inside modal
+    let close = event.currentTarget.nextElementSibling.querySelector('.close');
+    close?.focus();
+    close?.blur();
   });
 });
