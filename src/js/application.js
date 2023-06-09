@@ -1391,6 +1391,10 @@ fcn_theBody.addEventListener(
   e => {
     let tabFocus = document.activeElement.closest('[tabindex="0"]:not(a, input, button, select)');
 
+    if (['BUTTON', 'A', 'INPUT', 'SELECT'].includes(document.activeElement.tagName)) {
+      tabFocus = null;
+    }
+
     // When pressing space or enter on a focused element
     if (tabFocus) {
       if (e.keyCode == 32 || e.keyCode == 13) {
