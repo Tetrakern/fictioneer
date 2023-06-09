@@ -243,18 +243,14 @@ input[type=radio] {
       display: none;
     }
 
-    input:checked {
-      ~ .on {
+    &[aria-checked="true"] {
+      .on {
         display: block;
       }
 
-      ~ .off {
+      .off {
         display: none;
       }
-    }
-
-    ~ .keyword-input__track {
-      border-top-right-radius: 0;
     }
   }
 
@@ -269,6 +265,10 @@ input[type=radio] {
     border-radius: var(--layout-border-radius-small);
     padding: 6px 8px;
     width: 100%;
+
+    &._operator {
+      border-top-right-radius: 0;
+    }
 
     &:not(:has(.node)) {
       &::before {

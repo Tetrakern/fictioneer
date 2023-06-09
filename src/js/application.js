@@ -1458,6 +1458,7 @@ fcn_theBody.addEventListener(
 class FCN_KeywordInput {
   constructor(input) {
     this.input = input;
+    this.operator = input.closest('.keyword-input').querySelector('.keyword-input__operator input');
     this.inputWrapper = input.closest('.keyword-input__input-wrapper');
     this.block = input.closest('.keyword-input');
     this.form = this.block.closest('.search-form');
@@ -1608,6 +1609,16 @@ class FCN_KeywordInput {
   }
 
   bindEvents() {
+    if (this.operator) {
+      this.operator.addEventListener(
+        'change',
+        e => {
+          console.log(e.currentTarget.checked);
+          e.currentTarget.closest('label').ariaChecked = e.currentTarget.checked;
+        }
+      );
+    }
+
     // Adjust width on input
     this.input.addEventListener(
       'input',

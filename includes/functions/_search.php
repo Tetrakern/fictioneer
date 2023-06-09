@@ -28,14 +28,23 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
     // Start HTML ---> ?>
     <div class="keyword-input">
       <?php if ( ! ( $args['no_operator'] ?? 0 ) ) : ?>
-        <label class="keyword-input__operator" title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ) ?>" tabindex="0">
+        <label
+          class="keyword-input__operator"
+          role="checkbox"
+          aria-checked="<?php if ( $and == 1 ) echo 'true'; ?>"
+          title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ) ?>"
+          tabindex="0"
+        >
           <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and == 1 ) echo 'checked'; ?>>
           <span class="on"><?php _ex( 'AND', 'Advanced search operator.', 'fictioneer' ); ?></span>
           <span class="off"><?php _ex( 'OR', 'Advanced search operator.', 'fictioneer' ); ?></span>
         </label>
       <?php endif; ?>
       <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
-      <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
+      <label
+        class="keyword-input__track <?php if ( ! ( $args['no_operator'] ?? 0 ) ) echo '_operator'; ?>"
+        data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>"
+      >
         <?php
           if ( ! empty( $query_list ) ) {
             $nodes = explode( ',', $query_list );
