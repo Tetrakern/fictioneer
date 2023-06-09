@@ -27,7 +27,7 @@
     ?>
   </section>
 
-  <nav class="pagination _padding-top padding-bottom"><?php echo paginate_links( $pag_args ); ?></nav>
+  <nav class="pagination _padding-top padding-bottom"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
 
 <?php else: ?>
 

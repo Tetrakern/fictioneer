@@ -1167,9 +1167,6 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
 
 function fcn_bindPageNumberJumps() {
   _$$('.page-numbers.dots').forEach(element => {
-    // Add tabIndex to dots (yes, does not belong here, bla bla)
-    // element.tabIndex = 0;
-
     // Prompt for desired page number
     element.addEventListener(
       'click',

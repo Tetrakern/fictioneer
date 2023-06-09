@@ -1207,7 +1207,7 @@ function fictioneer_shortcode_blog( $attr ) {
         }
         wp_reset_postdata();
       ?>
-      <nav class="pagination"><?php echo paginate_links( $pag_args ); ?></nav>
+      <nav class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
     </section>
     <?php // <--- End HTML
   } else {

@@ -50,7 +50,7 @@
         );
 
         if ( $GLOBALS['wp_query']->found_posts > get_option( 'posts_per_page' ) ) {
-          ?><li class="pagination"><?php echo paginate_links( $pag_args ); ?></li><?php
+          ?><li class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></li><?php
         }
       ?>
     </ul>

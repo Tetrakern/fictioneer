@@ -72,7 +72,7 @@ if ( ! function_exists( 'fictioneer_collections_list' ) ) {
         ?>
 
         <?php if ( $args['collections']->max_num_pages > 1 ) : ?>
-          <li class="pagination"><?php echo paginate_links( $pag_args ); ?></li>
+          <li class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></li>
         <?php endif; ?>
 
       </ul>
@@ -214,7 +214,7 @@ if ( ! function_exists( 'fictioneer_collection_featured_list' ) ) {
 
             // Render pagination if necessary
             if ( $args['max_pages'] > 1 ) {
-              ?><li class="pagination"><?php echo paginate_links( $pag_args ); ?></li><?php
+              ?><li class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></li><?php
             }
           }
         ?>

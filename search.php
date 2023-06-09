@@ -126,7 +126,7 @@ $hook_args = array(
               );
             ?>
           </ul>
-          <nav class="pagination _padding-top"><?php echo paginate_links( $pag_args ); ?></nav>
+          <nav class="pagination _padding-top"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
         </section>
       <?php else : ?>
         <section class="search-results__no-results"><?php do_action( 'fictioneer_search_no_results' ); ?></section>

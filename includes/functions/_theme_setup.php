@@ -1073,4 +1073,29 @@ function fictioneer_removable_args( $args ) {
 }
 add_filter( 'removable_query_args', 'fictioneer_removable_args' );
 
+// =============================================================================
+// PAGINATION
+// =============================================================================
+
+/**
+ * Modifies the pagination links output for the theme
+ *
+ * @since Fictioneer 5.4.0
+ * @link https://developer.wordpress.org/reference/functions/paginate_links/
+ *
+ * @param array $args Optional. Array of arguments for generating the pagination links.
+ *
+ * @return string Modified pagination links HTML.
+ */
+
+function fictioneer_paginate_links( $args = [] ) {
+  $pagination = paginate_links( $args );
+
+  return str_replace(
+    'class="page-numbers dots"',
+    'class="page-numbers dots" tabindex="0"',
+    $pagination
+  );
+}
+
 ?>

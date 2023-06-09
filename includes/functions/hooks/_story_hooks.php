@@ -138,7 +138,7 @@ if ( ! function_exists( 'fictioneer_stories_list' ) ) {
         ?>
 
         <?php if ( $args['stories']->max_num_pages > 1 ) : ?>
-          <li class="pagination"><?php echo paginate_links( $pag_args ); ?></li>
+          <li class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></li>
         <?php endif; ?>
 
       </ul>
