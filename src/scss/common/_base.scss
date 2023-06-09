@@ -698,6 +698,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
 .list-button {
   cursor: pointer;
+  user-select: none;
   color: var(--fg-900);
   font-size: var(--fs-s);
   line-height: 1;
