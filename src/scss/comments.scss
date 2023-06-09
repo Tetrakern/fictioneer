@@ -665,7 +665,6 @@
   &__edit-toggle,
   &__delete,
   &__fingerprint {
-    color: var(--comment-button-color);
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible) {
@@ -700,7 +699,6 @@
   }
 
   .fictioneer-report-comment-button {
-    color: var(--comment-button-color);
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible, .on) {
@@ -714,7 +712,6 @@
 
   .fictioneer-mod-menu-toggle {
     cursor: pointer;
-    color: var(--comment-button-color);
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible, .last-clicked) {
