@@ -97,7 +97,7 @@ if ( ! function_exists( 'fictioneer_mobile_quick_buttons' ) ) {
     <?php // <--- End HTML
     $output['minimalist'] = ob_get_clean();
 
-    if ( $post_type === 'fcn_chapter' ) {
+    if ( $post_type === 'fcn_chapter' && ! is_search() ) {
       ob_start();
       // Start HTML ---> ?>
       <button class="button _quick button-change-lightness" value="-0.2"><?php _e( 'Darken', 'fictioneer' ) ;?></button>
@@ -271,7 +271,7 @@ if ( ! function_exists( 'fictioneer_mobile_chapters_frame' ) ) {
 
   function fictioneer_mobile_chapters_frame() {
     // Abort conditions
-    if ( get_post_type() != 'fcn_chapter' || is_archive() ) return;
+    if ( get_post_type() != 'fcn_chapter' || is_archive() || is_search() ) return;
 
     // Start HTML ---> ?>
     <input type="radio" name="mobile-frame-control" id="mobile-menu-frame-chapters" tabindex="-1" hidden>
@@ -336,7 +336,7 @@ if ( ! function_exists( 'fictioneer_mobile_lists_panel' ) ) {
 
     // Start HTML ---> ?>
     <div class="mobile-menu__panel">
-      <?php if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) ) : ?>
+      <?php if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) && ! is_search() ) : ?>
         <label for="mobile-menu-frame-chapters">
           <i class="fa-solid fa-caret-right"></i>
           <span><?php _e( 'Chapters', 'fictioneer' ); ?></span>
@@ -454,7 +454,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['bookmarks'] = ob_get_clean();
     }
 
-    if ( $post_type === 'fcn_chapter' ) {
+    if ( $post_type === 'fcn_chapter' && ! is_search() ) {
       ob_start();
       // Start HTML ---> ?>
       <label for="modal-formatting-toggle">
@@ -465,7 +465,12 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['formatting'] = ob_get_clean();
     }
 
-    if ( $post_type === 'fcn_chapter' && comments_open() && ! fictioneer_is_commenting_disabled() && ! post_password_required() ) {
+    if (
+      $post_type === 'fcn_chapter' &&
+      ! is_search() && comments_open() &&
+      ! fictioneer_is_commenting_disabled() &&
+      ! post_password_required()
+    ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow">
@@ -476,7 +481,12 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       $output['comment_jump'] = ob_get_clean();
     }
 
-    if ( $post_type === 'fcn_chapter' && get_option( 'fictioneer_enable_bookmarks' ) && ! post_password_required() ) {
+    if (
+      $post_type === 'fcn_chapter' &&
+      ! is_search() &&
+      get_option( 'fictioneer_enable_bookmarks' ) &&
+      ! post_password_required()
+    ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden>
