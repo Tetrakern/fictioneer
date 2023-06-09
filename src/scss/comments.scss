@@ -819,15 +819,6 @@
   display: list-item;
   list-style: disc;
   margin: .25rem 0 .25rem 16px;
-
-  // Deal with erroneous added paragraphs
-  + p:empty {
-    display: none;
-
-    + :is(p, img) {
-      margin-top: .5rem;
-    }
-  }
 }
 
 .comment-image-consent-wrapper {
