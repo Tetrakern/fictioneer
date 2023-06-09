@@ -568,13 +568,13 @@
       @include bp(640px) {
         width: 96px;
       }
+    }
 
-      + .cell-desc {
-        min-height: 58px;
+    .cell-desc {
+      min-height: 58px;
 
-        @include bp(640px) {
-          min-height: 0;
-        }
+      @include bp(640px) {
+        min-height: 0;
       }
     }
 
@@ -704,6 +704,10 @@
       }
     }
   }
+}
+
+:root.no-covers .card ._grid._large .cell-desc {
+  min-height: 0;
 }
 
 .bookmark-card {
