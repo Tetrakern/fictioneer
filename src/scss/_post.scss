@@ -1,4 +1,4 @@
-section.blog:not(._nested) {
+.blog:not(._nested) {
   &:first-child {
     padding-top: var(--layout-spacing-vertical);
   }
@@ -8,16 +8,18 @@ section.blog:not(._nested) {
   }
 }
 
-:is(section.blog, .latest-posts) {
+.blog._nested {
+  .pagination {
+    margin-top: -1rem;
+  }
+}
+
+:is(.blog, .latest-posts) {
   .post {
     padding-bottom: 1rem;
 
     &:not(:last-child) {
       padding-bottom: var(--layout-spacing-vertical);
-
-      + nav {
-        margin-top: -1rem;
-      }
     }
 
     &:not(:first-child) {
