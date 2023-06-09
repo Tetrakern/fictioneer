@@ -4,9 +4,10 @@
   text-shadow: none;
 }
 
-:is(input, textarea, button, select) {
+:where(input, textarea, button, select) {
   -webkit-appearance: none;
   background-color: transparent;
+  color: inherit;
   font-family: var(--ff-base);
   font-weight: var(--font-weight-normal);
   border-style: solid;
