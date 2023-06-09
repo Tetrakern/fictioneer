@@ -406,19 +406,12 @@ function fcn_toggleLastClicked(element) {
   fcn_lastClicked = element;
 }
 
-// Listen for clicks on elements with the 'toggle-last-clicked' class
-_$$('.toggle-last-clicked').forEach(element => {
-  element.addEventListener(
-    'click',
-    e => {
-      fcn_toggleLastClicked(e.currentTarget);
-      fcn_popupPosition();
-      e.stopPropagation();
-    }
-  );
-});
+/**
+ * Clicks on elements with the 'toggle-last-clicked' class are handles by the
+ * global click handler in application.js to avoid rebinding cases.
+ */
 
-// Listen for click on the <body>
+// Listen for click outside
 _$('body').addEventListener(
   'click',
   e => {

@@ -135,25 +135,6 @@ function fcn_moderateComment(id, operation) {
 }
 
 /**
- * Listen to clicks on moderation menu toggle.
- *
- * @since 5.0
- * @param {HTMLElement=} node - The node to query through. Defaults to document.
- */
-
-function fcn_addModerationMenuEvents(node = document) {
-  node.querySelectorAll('.toggle-last-clicked').forEach(element => {
-    element.addEventListener(
-      'click',
-      e => {
-        fcn_toggleLastClicked(e.currentTarget);
-        e.stopPropagation();
-      }
-    );
-  });
-}
-
-/**
  * Listen to clicks on moderation action.
  *
  * @since 4.7
@@ -575,7 +556,6 @@ function fcn_bindAJAXCommentSubmit() {
         }
 
         // Bind events
-        fcn_addModerationMenuEvents(commentNode);
         fcn_addModerationEvents();
         fcn_addCommentMouseleaveEvents();
 

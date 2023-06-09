@@ -316,6 +316,30 @@ fcn_updateViewportVariables();
 window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 1000 / 8));
 
 // =============================================================================
+// HANDLE GLOBAL CLICKS
+// =============================================================================
+
+fcn_theBody.addEventListener('click', e => {
+  // Handle spoilers
+  let spoilerTarget = e.target.closest('.spoiler');
+
+  if (spoilerTarget) {
+    if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
+    return;
+  }
+
+  // Handle last click
+  let lastClickTarget = e.target.closest('.toggle-last-clicked');
+
+  if (lastClickTarget) {
+    if (typeof fcn_toggleLastClicked === 'function') fcn_toggleLastClicked(lastClickTarget);
+    if (typeof fcn_popupPosition === 'function') fcn_popupPosition();
+    e.stopPropagation();
+    return;
+  }
+});
+
+// =============================================================================
 // LOAD IFRAMES AFTER CONSENT CLICK
 // =============================================================================
 
@@ -1144,7 +1168,7 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
 function fcn_bindPageNumberJumps() {
   _$$('.page-numbers.dots').forEach(element => {
     // Add tabIndex to dots (yes, does not belong here, bla bla)
-    element.tabIndex = 0;
+    // element.tabIndex = 0;
 
     // Prompt for desired page number
     element.addEventListener(
@@ -1186,17 +1210,6 @@ var /** @type {MutationObserver} */ fcn_cardListMutationObserver = new MutationO
     if (typeof fcn_updateFollowsView === 'function') fcn_updateFollowsView();
     if (typeof fcn_updateCheckmarksView === 'function') fcn_updateCheckmarksView();
     if (typeof fcn_updateRemindersView === 'function') fcn_updateRemindersView();
-
-    // Rebind events for popup menu
-    _$$('.toggle-last-clicked').forEach(element => {
-      element.addEventListener(
-        'click',
-        e => {
-          fcn_toggleLastClicked(e.currentTarget);
-          e.stopPropagation();
-        }
-      );
-    });
 
     // Rebind events for page number jump
     if (!fcn_theRoot.dataset.disablePageJump) fcn_bindPageNumberJumps();
@@ -1255,15 +1268,6 @@ _$$('.chapter-group__toggle').forEach(element => {
 function fct_spoiler(target) {
   target.classList.toggle('_open');
 }
-
-fcn_theBody.addEventListener('click', e => {
-  if (e.target.parentNode?.classList.contains('spoiler')) {
-    fct_spoiler(e.target.parentNode);
-    return;
-  }
-
-  if (e.target.classList.contains('spoiler')) fct_spoiler(e.target);
-});
 
 // =============================================================================
 // REVEAL IMAGE ON CLICK ON CONSENT BUTTON

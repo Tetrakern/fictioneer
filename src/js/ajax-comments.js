@@ -94,7 +94,6 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       if (comment) fcn_textareaAdjust(comment);
 
       // Bind events
-      fcn_addModerationMenuEvents(fcn_ajaxCommentsSection);
       fcn_addModerationEvents();
       fcn_addCommentMouseleaveEvents();
       fcn_addTextareaEvents();
