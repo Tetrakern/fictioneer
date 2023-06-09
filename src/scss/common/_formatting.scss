@@ -267,10 +267,6 @@ p a,
   &:hover {
     color: var(--fg-400);
   }
-
-  &.hidden + .embed-logo {
-    display: none;
-  }
 }
 
 .iframe-consent {

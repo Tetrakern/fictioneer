@@ -360,6 +360,7 @@ fcn_theBody.addEventListener('click', e => {
 
 function fcn_loadEmbed(e) {
   e.target.parentNode.querySelectorAll('iframe, script')[0].src = e.target.dataset.src;
+  e.target.parentElement.querySelector('.embed-logo')?.remove();
   e.target.remove();
 }
 
