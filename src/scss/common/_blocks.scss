@@ -362,16 +362,6 @@ figure {
         background: var(--disabled-embed-background);
         box-shadow: var(--embed-box-shadow);
       }
-
-      ~ .twitter-consent {
-        display: none;
-        content-visibility: hidden;
-      }
-    }
-
-    > div.twitter-tweet ~ .twitter-consent {
-      display: none;
-      content-visibility: hidden;
     }
   }
 

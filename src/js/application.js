@@ -359,15 +359,15 @@ fcn_theBody.addEventListener('click', e => {
  */
 
 function fcn_loadEmbed(e) {
-  let t = e.target;
-  t.classList.add('hidden');
-  t.parentNode.querySelectorAll('iframe, script')[0].src = t.dataset.src;
-  t.onclick = null;
+  e.target.parentNode.querySelectorAll('iframe, script')[0].src = e.target.dataset.src;
+  e.target.remove();
 }
 
 // Listen for clicks on embeds
 _$$('.iframe-consent, .twitter-consent').forEach(element => {
-  element.onclick = (e) => { fcn_loadEmbed(e) }
+  element.onclick = (e) => {
+    fcn_loadEmbed(e);
+  }
 });
 
 // =============================================================================
