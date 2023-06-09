@@ -39,6 +39,10 @@
         }
       }
 
+      &._checkmark input:not([type="checkbox"], [type="radio"]) {
+        padding-right: 32px;
+      }
+
       .checkmark {
         pointer-events: none;
         position: absolute;
@@ -46,10 +50,6 @@
         right: 8px;
         z-index: 1;
         color: var(--fg-700);
-
-        + input:not([type="checkbox"], [type="radio"]) {
-          padding-right: 32px;
-        }
       }
     }
 
