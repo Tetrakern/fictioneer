@@ -337,6 +337,14 @@ fcn_theBody.addEventListener('click', e => {
     e.stopPropagation();
     return;
   }
+
+  // Handle page jump
+  let pageDots = e.target.closest('.page-numbers.dots');
+
+  if (pageDots) {
+    fcn_jumpPage(pageDots);
+    return;
+  }
 });
 
 // =============================================================================
@@ -1160,40 +1168,34 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
 // =============================================================================
 
 /**
- * Bind page number jump to dots.
+ * Prompt for and jump to page number
  *
- * @since 5.0
+ * @since 5.4.0
+ *
+ * @param {Number} source - Page jump element.
  */
 
-function fcn_bindPageNumberJumps() {
-  _$$('.page-numbers.dots').forEach(element => {
-    // Prompt for desired page number
-    element.addEventListener(
-      'click',
-      e => {
-        let input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
-        if (input > 0) {
-          let url = e.currentTarget.nextElementSibling.href; // Guaranteed to always have the query parameter
+function fcn_jumpPage(source) {
+  if (fcn_theRoot.dataset.disablePageJump) return;
 
-          if (!url) return;
+  let input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
-          if (url.includes('page=')) {
-            window.location.href = url.replace(/page=\d+/, 'page=' + input);
-          } else if ( url.includes('paged=') ) {
-            window.location.href = url.replace(/paged=\d+/, 'paged=' + input);
-          } else if (url.includes('comment-page-')) {
-            window.location.href = url.replace(/comment-page-\d+/, `comment-page-${input}`);
-          } else {
-            window.location.href = url.replace(/page\/\d+/, 'page/' + input);
-          }
-        }
-      }
-    );
-  });
+  if (input > 0) {
+    let url = source.nextElementSibling.href; // Guaranteed to always have the query parameter
+
+    if (!url) return;
+
+    if (url.includes('page=')) {
+      window.location.href = url.replace(/page=\d+/, 'page=' + input);
+    } else if ( url.includes('paged=') ) {
+      window.location.href = url.replace(/paged=\d+/, 'paged=' + input);
+    } else if (url.includes('comment-page-')) {
+      window.location.href = url.replace(/comment-page-\d+/, `comment-page-${input}`);
+    } else {
+      window.location.href = url.replace(/page\/\d+/, 'page/' + input);
+    }
+  }
 }
-
-// Initialize
-if (!fcn_theRoot.dataset.disablePageJump) fcn_bindPageNumberJumps();
 
 // =============================================================================
 // WATCH DOM MUTATION TO UPDATE VIEW AND REBIND EVENTS
@@ -1207,9 +1209,6 @@ var /** @type {MutationObserver} */ fcn_cardListMutationObserver = new MutationO
     if (typeof fcn_updateFollowsView === 'function') fcn_updateFollowsView();
     if (typeof fcn_updateCheckmarksView === 'function') fcn_updateCheckmarksView();
     if (typeof fcn_updateRemindersView === 'function') fcn_updateRemindersView();
-
-    // Rebind events for page number jump
-    if (!fcn_theRoot.dataset.disablePageJump) fcn_bindPageNumberJumps();
   }
 });
 
