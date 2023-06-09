@@ -320,14 +320,6 @@ window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 
 // =============================================================================
 
 fcn_theBody.addEventListener('click', e => {
-  // Handle spoilers
-  let spoilerTarget = e.target.closest('.spoiler');
-
-  if (spoilerTarget) {
-    if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
-    return;
-  }
-
   // Handle last click
   let lastClickTarget = e.target.closest('.toggle-last-clicked');
 
@@ -343,6 +335,14 @@ fcn_theBody.addEventListener('click', e => {
 
   if (pageDots) {
     fcn_jumpPage(pageDots);
+    return;
+  }
+
+  // Handle spoilers
+  let spoilerTarget = e.target.closest('.spoiler');
+
+  if (spoilerTarget) {
+    if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
     return;
   }
 });
