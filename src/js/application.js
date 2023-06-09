@@ -1803,7 +1803,7 @@ window.addEventListener('keydown', fcn_handleTabInput);
 
 function fcn_popupPosition() {
   // Look for technically open popup menus...
-  _$$('.popup-menu-toggle.last-clicked .popup-menu').forEach(element => {
+  _$$('.popup-menu-toggle.last-clicked .popup-menu:not(._fixed-position)').forEach(element => {
     // Visible?
     if (window.getComputedStyle(element).display === 'none') return;
 

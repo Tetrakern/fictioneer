@@ -684,9 +684,6 @@
   }
 
   .popup-menu {
-    top: -4px;
-    right: 0;
-    transform: translate(0, -100%);
     min-width: 104px;
   }
 
@@ -710,17 +707,12 @@
     }
   }
 
-  .fictioneer-mod-menu-toggle {
+  .popup-menu-toggle {
     cursor: pointer;
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible, .last-clicked) {
       opacity: .2;
-    }
-
-    &:not(.last-clicked) + .popup-menu {
-      display: none;
-      content-visibility: hidden;
     }
   }
 

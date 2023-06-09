@@ -51,7 +51,7 @@ fcn_addJSTrap();
 function fcn_moderateComment(id, operation) {
   // Setup
   let comment = _$$$(`comment-${id}`),
-      menuToggle = comment.querySelector('.fictioneer-mod-menu-toggle');
+      menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) return;
@@ -98,7 +98,6 @@ function fcn_moderateComment(id, operation) {
           case 'trash':
           case 'spam':
             // Let comment collapse and fade to nothing
-            menuToggle.onclick = '';
             comment.style.overflow = 'hidden';
             comment.style.height = '0';
             comment.style.margin = '0';
@@ -107,10 +106,9 @@ function fcn_moderateComment(id, operation) {
         }
       } else {
         // Server action failed, mark comment with alert
-        menuToggle.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
-        menuToggle.style.color = 'var(--warning)';
-        menuToggle.style.opacity = '1';
-        menuToggle.onclick = '';
+        menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
+        menuToggleIcon.style.color = 'var(--warning)';
+        comment.querySelector('.popup-menu-toggle').style.opacity = '1';
 
         if (response.data.error) {
           fcn_showNotification(response.data.error, 5, 'warning');
@@ -119,18 +117,23 @@ function fcn_moderateComment(id, operation) {
   })
   .catch((error) => {
     // Server action failed, mark comment with alert
-    menuToggle.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
-    menuToggle.style.color = 'var(--warning)';
-    menuToggle.style.opacity = '1';
-    menuToggle.onclick = '';
+    menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
+    menuToggleIcon.style.color = 'var(--warning)';
+    comment.querySelector('.popup-menu-toggle').style.opacity = '1';
 
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+    } else if (error) {
+      fcn_showNotification(error, 5, 'warning');
     }
   })
   .then(() => {
     // Remove progress state
     comment.classList.remove('ajax-in-progress');
+
+    // Close menu
+    if ( fcn_lastClicked ) fcn_lastClicked.classList.remove('last-clicked');
+    fcn_lastClicked = null;
   });
 }
 
