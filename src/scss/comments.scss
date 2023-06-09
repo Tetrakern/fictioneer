@@ -10,6 +10,37 @@
   }
 }
 
+.comment-respond-option-toggle {
+  --focus-offset: -2px;
+  display: block;
+
+  span {
+    display: grid;
+    place-content: center;
+    height: 32px;
+    width: 32px;
+    transition: opacity var(--transition-duration);
+  }
+
+  &[aria-checked="false"] {
+    span {
+      &:not(:hover) {
+        opacity: .3;
+      }
+    }
+
+    .on {
+        display: none;
+      }
+  }
+
+  &[aria-checked="true"] {
+    .off {
+      display: none;
+    }
+  }
+}
+
 // Theme comments
 .fictioneer-respond {
   margin: 16px 0 24px;
@@ -139,43 +170,6 @@
         .button {
           &:not(:first-child) {
             margin-left: 8px;
-          }
-        }
-      }
-    }
-
-    &-toggle {
-      label {
-        --focus-offset: -2px;
-        display: block;
-      }
-
-      span {
-        display: grid;
-        place-content: center;
-        height: 32px;
-        width: 32px;
-        transition: opacity var(--transition-duration);
-      }
-
-      input[type=checkbox] {
-        &:not(:checked) {
-          + span {
-            &:not(:hover) {
-              opacity: .3;
-            }
-
-            .on {
-              display: none;
-            }
-          }
-        }
-
-        &:checked {
-          + span {
-            .off {
-              display: none;
-            }
           }
         }
       }
