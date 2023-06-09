@@ -23,6 +23,9 @@
 
 <?php
 
+// Setup
+$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' );
+
 // Prepare query
 $query_args = array(
   'post_type' => 'fcn_story',
@@ -84,10 +87,10 @@ $entries = new WP_Query( $query_args );
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
         ?>
 
-        <li class="card _small">
+        <li class="card _small <?php echo $show_taxonomies ? '_info' : ''; ?>">
           <div class="card__body polygon">
 
-            <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
+            <?php if ( $show_taxonomies ) : ?>
               <button class="card__info-toggle toggle-last-clicked"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
@@ -117,7 +120,7 @@ $entries = new WP_Query( $query_args );
 
             <div class="card__overlay-infobox escape-last-click">
 
-              <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) ) : ?>
+              <?php if ( $show_taxonomies ) : ?>
                 <div class="card__tag-list _small truncate _2-2">
                   <?php
                     if ( $story['has_taxonomies'] || $tags ) {

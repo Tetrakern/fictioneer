@@ -32,6 +32,10 @@
     filter: blur(1px);
   }
 
+  &._info .card__title {
+    padding-right: 24px;
+  }
+
   &__body {
     display: flex;
     flex-direction: column;
@@ -454,10 +458,6 @@
         display: flex;
         content-visibility: visible;
       }
-    }
-
-    + .card__main .card__title {
-      padding-right: 24px;
     }
   }
 
