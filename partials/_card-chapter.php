@@ -37,7 +37,12 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
 ?>
 
-<li id="chapter-card-<?php the_ID(); ?>" class="card">
+<li
+  id="chapter-card-<?php the_ID(); ?>"
+  class="card"
+  data-story-id="<?php echo $story_id; ?>"
+  data-check-id="<?php the_ID(); ?>"
+>
   <div class="card__body polygon">
 
     <div class="card__header _large">

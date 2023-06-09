@@ -194,11 +194,11 @@ function fcn_updateRemindersView() {
     );
   });
 
-  // Update icon on cards
-  _$$('.card-reminder-icon').forEach(item => {
-    item.classList.toggle(
-      'hidden',
-      fcn_reminders?.data.hasOwnProperty(item.dataset.storyId)
+  // Update icon and buttons on cards
+  _$$('.card').forEach(element => {
+    element.classList.toggle(
+      'has-reminder',
+      fcn_reminders?.data.hasOwnProperty(element.dataset.storyId)
     );
   });
 

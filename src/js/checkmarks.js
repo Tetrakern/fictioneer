@@ -261,15 +261,15 @@ function fcn_updateCheckmarksView() {
     item.ariaChecked = checked;
   });
 
-  // Update checkmarks on cards
-  _$$('.card-checkmark-icon')?.forEach(item => {
+  // Update icon and buttons on cards
+  _$$('.card')?.forEach(item => {
     let cardStoryId = parseInt(item.dataset.storyId),
         force = fcn_checkmarks.data.hasOwnProperty(cardStoryId) &&
                 (
                   fcn_checkmarks.data[cardStoryId].includes(parseInt(item.dataset.checkId)) ||
                   fcn_checkmarks.data[cardStoryId].includes(cardStoryId)
                 );
-    item.classList.toggle('hidden', !force);
+    item.classList.toggle('has-checkmark', force);
   });
 
   // Update local storage

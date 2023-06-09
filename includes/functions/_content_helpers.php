@@ -1251,7 +1251,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <i
-        class="fa-solid fa-clock card__reminder-icon card-reminder-icon hidden"
+        class="fa-solid fa-clock card__reminder-icon"
         title="<?php echo fcntr( 'is_read_later' ); ?>"
         data-story-id="<?php echo $story_id; ?>"
       ></i>
@@ -1263,7 +1263,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <i
-        class="fa-solid fa-star card__followed-icon card-follow-icon hidden"
+        class="fa-solid fa-star card__followed-icon"
         title="<?php echo fcntr( 'is_followed' ); ?>"
         data-follow-id="<?php echo $story_id; ?>"
       ></i>
@@ -1275,7 +1275,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <i
-        class="fa-solid fa-<?php echo empty( $chapter_id ) ? 'check-double' : 'check'; ?> card__read-icon card-checkmark-icon hidden"
+        class="fa-solid fa-<?php echo empty( $chapter_id ) ? 'check-double' : 'check'; ?> card__checkmark-icon"
         title="<?php echo fcntr( 'is_read' ); ?>"
         data-story-id="<?php echo $story_id; ?>"
         data-check-id="<?php echo empty( $chapter_id ) ? $story_id : $chapter_id; ?>"

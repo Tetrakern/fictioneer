@@ -126,11 +126,11 @@ function fcn_updateFollowsView() {
     );
   });
 
-  // Update icon on cards
-  _$$('.card-follow-icon').forEach(item => {
-    item.classList.toggle(
-      'hidden',
-      fcn_follows?.data.hasOwnProperty(item.dataset.followId)
+  // Update icon and buttons on cards
+  _$$('.card').forEach(element => {
+    element.classList.toggle(
+      'has-follow',
+      fcn_follows?.data.hasOwnProperty(element.dataset.storyId)
     );
   });
 

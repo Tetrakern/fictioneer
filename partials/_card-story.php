@@ -36,7 +36,12 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
 ?>
 
-<li id="story-card-<?php the_ID(); ?>" class="<?php echo implode( ' ', $classes ); ?>">
+<li
+  id="story-card-<?php the_ID(); ?>"
+  class="<?php echo implode( ' ', $classes ); ?>"
+  data-story-id="<?php echo $post->ID; ?>"
+  data-check-id="<?php echo $post->ID; ?>"
+>
   <div class="card__body polygon">
 
     <div class="card__header _large">
