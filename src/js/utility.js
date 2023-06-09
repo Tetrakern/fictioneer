@@ -397,7 +397,10 @@ var /** @const {HTMLElement} */ fcn_lastClicked;
  */
 
 function fcn_toggleLastClicked(element) {
-  element.classList.toggle('last-clicked', !element.classList.contains('last-clicked'));
+  let set = !element.classList.contains('last-clicked');
+
+  element.classList.toggle('last-clicked', set);
+  element.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
 
   if (fcn_lastClicked && fcn_lastClicked != element) {
     fcn_lastClicked.classList.remove('last-clicked');
@@ -421,6 +424,7 @@ _$('body').addEventListener(
     ) return;
 
     if (fcn_lastClicked && e.currentTarget != fcn_lastClicked) {
+      fcn_lastClicked.closest('.watch-last-clicked').classList.remove('has-last-clicked');
       fcn_lastClicked.classList.remove('last-clicked');
       fcn_lastClicked = null;
     }
@@ -432,6 +436,7 @@ _$('body').addEventListener(
   'keydown',
   e => {
     if (e.keyCode == 27 && fcn_lastClicked) {
+      fcn_lastClicked.closest('.watch-last-clicked').classList.remove('has-last-clicked');
       fcn_lastClicked.classList.remove('last-clicked');
       fcn_lastClicked = null;
       document.activeElement?.blur();
