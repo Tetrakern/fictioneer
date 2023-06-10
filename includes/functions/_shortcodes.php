@@ -288,8 +288,8 @@ function fictioneer_shortcode_showcase( $attr ) {
   ob_start();
   get_template_part( 'partials/_showcase', null, $args );
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
 
@@ -378,8 +378,8 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
       get_template_part( 'partials/_latest-chapters', null, $args );
   }
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_latest_chapters', 'fictioneer_shortcode_latest_chapters' );
 add_shortcode( 'fictioneer_latest_chapter', 'fictioneer_shortcode_latest_chapters' ); // Alias
@@ -462,8 +462,8 @@ function fictioneer_shortcode_latest_stories( $attr ) {
       get_template_part( 'partials/_latest-stories', null, $args );
   }
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_latest_stories', 'fictioneer_shortcode_latest_stories' );
 add_shortcode( 'fictioneer_latest_story', 'fictioneer_shortcode_latest_stories' ); // Alias
@@ -544,8 +544,8 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
       get_template_part( 'partials/_latest-updates', null, $args );
   }
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_latest_updates', 'fictioneer_shortcode_latest_story_updates' );
 add_shortcode( 'fictioneer_latest_update', 'fictioneer_shortcode_latest_story_updates' ); // Alias
@@ -627,8 +627,8 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
       get_template_part( 'partials/_latest-recommendations', null, $args );
   }
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_latest_recommendations', 'fictioneer_shortcode_latest_recommendations' );
 add_shortcode( 'fictioneer_latest_recommendation', 'fictioneer_shortcode_latest_recommendations' ); // Alias
@@ -696,8 +696,8 @@ function fictioneer_shortcode_latest_posts( $attr ) {
     )
   );
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_latest_posts', 'fictioneer_shortcode_latest_posts' );
 add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); // Alias
@@ -730,8 +730,8 @@ function fictioneer_shortcode_bookmarks( $attr ) {
     'show_empty' => $show_empty
   ));
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
 
@@ -752,7 +752,7 @@ add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
 function fictioneer_shortcode_cookie_buttons( $attr ) {
   ob_start();
   get_template_part( 'partials/_cookie-buttons' );
-  return ob_get_clean();
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons' );
 
@@ -795,7 +795,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     </ol>
   </div>
   <?php // <--- End HTML
-  $empty = ob_get_clean();
+  $empty = fictioneer_minify_html( ob_get_clean() );
 
   // Abort if...
   if ( empty( $attr['story_id'] ) && empty( $attr['chapter_ids'] ) ) return $empty;
@@ -1070,8 +1070,8 @@ function fictioneer_shortcode_contact_form( $attr ) {
   </form>
   <?php // <--- End HTML
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
 
@@ -1105,8 +1105,8 @@ function fictioneer_shortcode_search( $attr ) {
 
   get_search_form( $args );
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
 
@@ -1215,8 +1215,8 @@ function fictioneer_shortcode_blog( $attr ) {
     <?php // <--- End HTML
   }
 
-  // Return buffer
-  return ob_get_clean();
+  // Return minified buffer
+  return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
 
