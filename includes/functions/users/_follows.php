@@ -293,7 +293,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
 
 if ( ! function_exists( 'fictioneer_ajax_get_follows_notifications' ) ) {
   /**
-   * Outputs the HTML for Follows notifications via AJAX
+   * Sends the HTML for Follows notifications via AJAX
    *
    * @since Fictioneer 4.3
    * @see fictioneer_get_validated_ajax_user()
@@ -365,7 +365,7 @@ if ( ! function_exists( 'fictioneer_ajax_get_follows_notifications' ) ) {
       <?php // <--- End HTML
     }
 
-    $html = ob_get_clean();
+    $html = fictioneer_minify_html( ob_get_clean() );
 
     // Cache for next time
     if ( ! empty( $last_update ) ) {
@@ -380,7 +380,7 @@ if ( ! function_exists( 'fictioneer_ajax_get_follows_notifications' ) ) {
     }
 
     // Return HTML
-    wp_send_json_success( ['html' => $html] );
+    wp_send_json_success( array( 'html' => $html ) );
   }
 }
 
@@ -393,6 +393,12 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_ajax_get_follows_list' ) ) {
+  /**
+   * Sends the HTML for Follows list via AJAX
+   *
+   * @since Fictioneer 4.3
+   */
+
   function fictioneer_ajax_get_follows_list() {
     // Validations
     $user = wp_get_current_user();
@@ -463,7 +469,7 @@ if ( ! function_exists( 'fictioneer_ajax_get_follows_list' ) ) {
     // Send result
     wp_send_json_success(
       array(
-        'html' => $list_items['html'] . $navigation,
+        'html' => fictioneer_minify_html( $list_items['html'] ) . $navigation,
         'count' => count( $post_ids ),
         'maxPages' => $max_pages
       )
