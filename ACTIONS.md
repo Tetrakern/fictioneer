@@ -565,7 +565,7 @@ Fires right after opening the `.mobile-menu__bottom` container in the `partials/
 ---
 
 ### `do_action( 'fictioneer_mobile_menu_center' )`
-Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` partial, which holds most of the panels. Primarily used to output additional frames that are triggered from within the main frame via control radio inputs. Make sure to always include a preceding `<input type="radio" name="mobile-frame-control" id="mobile-menu-frame-*" checked hidden>` with * being your custom ID, toggled via label inside the main frame.
+Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` partial, which holds most of the panels. Primarily used to output additional frames.
 
 **Hooked actions:**
 * `fictioneer_mobile_follows_frame()` – Frame for mobile updates (Follows). Priority 10.
@@ -575,11 +575,11 @@ Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` 
 ---
 
 ### `do_action( 'fictioneer_mobile_menu_main_frame_panels' )`
-Fires right after opening the main mobile menu frame in the `partials/_mobile-menu.php` partial, the second element after the associated control radio input `#mobile-menu-frame-main`. Most panels of the mobile menu are enqueued here.
+Fires right after opening the main mobile menu frame in the `partials/_mobile-menu.php` partial. Most panels of the mobile menu are enqueued here.
 
 **Hooked actions:**
 * `fictioneer_mobile_navigation_panel()` – Navigation menu folded out. Priority 10.
-* `fictioneer_mobile_lists_panel()` – Frame toggles for the mobile bookmarks and updates (Follows). Priority 20.
+* `fictioneer_mobile_lists_panel()` – Frame buttons for bookmarks, chapters, and Follows. Priority 20.
 * `fictioneer_mobile_user_menu()` – Mobile variant of the user menu. Priority 30.
 
 ---

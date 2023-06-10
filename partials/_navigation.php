@@ -32,7 +32,7 @@
       ?>
     </div>
     <div class="main-navigation__right">
-      <?php get_template_part( 'partials/_icon-menu', null, ['location' => 'in-navigation'] ); ?>
+      <?php get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-navigation' ) ); ?>
       <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number">
         <?php fictioneer_icon( 'fa-bars', 'off' ); ?>
         <?php fictioneer_icon( 'fa-xmark', 'on' ); ?>

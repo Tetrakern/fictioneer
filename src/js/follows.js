@@ -140,7 +140,7 @@ function fcn_updateFollowsView() {
   // Set "new" marker if there are new items
   let isNew = parseInt(fcn_follows['new']) > 0;
 
-  _$$('.mark-follows-read, label[for=mobile-menu-frame-follows], .mobile-menu-button').forEach(element => {
+  _$$('.mark-follows-read, .follows-alert-number, .mobile-menu-button').forEach(element => {
     element.classList.toggle('_new', isNew);
     if (isNew > 0) element.dataset.newCount = fcn_follows['new'];
   });
@@ -280,7 +280,7 @@ function fcn_markFollowsRead() {
   ) return;
 
   // Remove the 'new' markers
-  _$$('.mark-follows-read, [for=mobile-menu-frame-follows], .follow-item, .mobile-menu-button').forEach(element => {
+  _$$('.mark-follows-read, .follows-alert-number, .follow-item, .mobile-menu-button').forEach(element => {
     element.classList.remove('_new');
   });
 
@@ -314,8 +314,8 @@ fcn_followsMenuItem?.addEventListener('focus', () => {
   fcn_setupFollowsHTML();
 }, { once: true });
 
-// Listen for click on the Follows mobile menu item to load Follows
-_$('label[for=mobile-menu-frame-follows]')?.addEventListener('click', () => {
+// Append Follows when Follows mobile menu frame is opened, once
+_$('.mobile-menu__frame-button[data-frame-target="follows"]')?.addEventListener('click', () => {
   fcn_setupFollowsHTML();
 }, { once: true });
 

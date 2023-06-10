@@ -90,6 +90,7 @@ body:not(.mobile-menu-open) {
   flex-direction: column;
   justify-content: space-between;
   font-size: 15px;
+  line-height: 1.66; // ~ 25px @ 15px
   text-shadow: var(--mobile-menu-text-shadow);
   padding: 16px 16px 144px;
   width: 100%;
@@ -127,13 +128,6 @@ body:not(.mobile-menu-open) {
     overflow: hidden;
   }
 
-  input[name=mobile-frame-control]:not(:checked) {
-    + div {
-      display: none;
-      content-visibility: hidden;
-    }
-  }
-
   &__center {
     padding: 0 0 16px;
   }
@@ -151,6 +145,36 @@ body:not(.mobile-menu-open) {
   &__frame {
     position: relative;
     display: grid;
+
+    &:not(._active) {
+      display: none;
+      content-visibility: hidden;
+    }
+  }
+
+  &__panel-action-button {
+    font-size: 13px;
+    text-align: right;
+    min-width: 32px;
+
+    .fa-check {
+      font-size: 16px;
+    }
+  }
+
+  &__item-icon {
+    display: inline-block;
+    color: var(--fg-600);
+    font-size: 13px;
+    text-align: center;
+    margin: 0 6px 0 -2px;
+    min-width: 18px;
+
+    &[class*=fa-caret] {
+      font-size: 15px;
+      text-align: left;
+      padding-left: 3px;
+    }
   }
 
   &__panel {
@@ -170,28 +194,6 @@ body:not(.mobile-menu-open) {
       justify-content: space-between;
       padding-bottom: 8px;
       border-bottom: 1px dashed var(--layout-color-lineart);
-
-      button {
-        font-size: inherit;
-        text-align: right;
-        height: 100%;
-        min-width: 32px;
-      }
-    }
-
-    :is(label, a) > :is(i, .icon) {
-      display: inline-block;
-      color: var(--fg-600);
-      font-size: 13px;
-      text-align: center;
-      margin: 0 6px 0 -2px;
-      min-width: 18px;
-
-      &[class*=fa-caret] {
-        font-size: 15px;
-        text-align: left;
-        padding-left: 3px;
-      }
     }
 
     .icon._font-settings {
@@ -218,29 +220,27 @@ body:not(.mobile-menu-open) {
 
     &._chapters {
       :is(i, .icon, .text-icon) {
+        display: inline-block;
+        color: var(--fg-600);
+        font-size: 13px;
         text-align: center;
+        margin: 0 6px 0 -2px;
+        min-width: 22px;
       }
 
       .text-icon {
         height: auto;
-        min-width: 22px;
-      }
-
-      span:not(.text-icon) {
-        padding-left: 2px;
       }
     }
   }
 
-  label[for=mobile-menu-frame-follows] {
+  .follows-alert-number {
     &._new {
       &::after {
         position: relative;
         top: -6px;
         right: -2px;
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
       }
     }
   }
@@ -282,13 +282,9 @@ body:not(.mobile-menu-open) {
       transform: translateY(3px);
     }
 
-    button {
-      text-align: left;
-    }
-
     :is(i, button) {
-      min-width: 20px;
-      color: currentColor;
+      text-align: center;
+      width: 20px;
     }
   }
 
@@ -313,10 +309,10 @@ body:not(.mobile-menu-open) {
     > a {
       display: none !important;
       content-visibility: hidden;
+    }
 
-      + ul.sub-menu {
-        margin-top: 0;
-      }
+    > ul.sub-menu {
+      margin-top: 0;
     }
   }
 
@@ -343,15 +339,6 @@ body:not(.mobile-menu-open) {
     }
   }
 
-  .toggle-label {
-    text-align: right;
-    min-width: 32px;
-
-    .on {
-      display: none;
-    }
-  }
-
   .mark-follows-read {
     color: currentColor;
 
@@ -373,34 +360,20 @@ body:not(.mobile-menu-open) {
   }
 }
 
-#toggle-mobile-menu-bookmarks-delete {
-  &:checked {
-    + .mobile-menu__panel-header {
-      .off {
-        display: none;
-      }
-
-      .on {
-        display: initial;
-      }
+.mobile-menu__bookmarks-panel {
+  &[data-editing="true"] {
+    :is(.off, .fa-bookmark) {
+      display: none;
     }
 
-    ~ .mobile-menu__bookmark-list {
-      .fa-bookmark {
-        display: none;
-      }
-
-      a {
-        pointer-events: none;
-      }
+    a {
+      pointer-events: none;
     }
   }
 
-  &:not(:checked) {
-    ~ .mobile-menu__bookmark-list {
-      button {
-        display: none;
-      }
+  &:not([data-editing="true"]) {
+    :is(.mobile-menu-bookmark-delete-button, .on) {
+      display: none;
     }
   }
 }

@@ -10,9 +10,7 @@ if ( ! function_exists( 'fictioneer_output_mobile_menu' ) ) {
    *
    * Outputs the HTML for the mobile menu. The mobile menu is structured into
    * sections (top|center|bottom) > frames > panels. Only one frame per section
-   * can be displayed at a time, segmenting the menu. This is achieved without
-   * JavaScript via control radio inputs and the sibling selector, allowing the
-   * menu to work even if the footer scripts have not yet been loaded.
+   * should be displayed at a time, segmenting the menu.
    *
    * @since Fictioneer 5.0
    *
@@ -24,33 +22,16 @@ if ( ! function_exists( 'fictioneer_output_mobile_menu' ) ) {
 
   function fictioneer_output_mobile_menu( $args ) {
     // Start HTML ---> ?>
-    <input id="mobile-menu-toggle" type="checkbox" tabindex="-1" hidden>
-
+    <input id="mobile-menu-toggle" type="checkbox" autocomplete="off" tabindex="-1" hidden>
     <div class="mobile-menu">
-
       <div class="mobile-menu__top"><?php do_action( 'fictioneer_mobile_menu_top' ); ?></div>
-
       <div class="mobile-menu__center">
-
-        <?php
-          /*
-          * All frames require a preceding radio input with the "mobile-frame-control"
-          * name. They are used to show and hide the currently active frame. Without,
-          * the mobile menu will not work. The main frame is active by default when
-          * the site is loaded.
-          */
-        ?>
-
-        <input type="radio" name="mobile-frame-control" id="mobile-menu-frame-main" tabindex="-1" checked hidden>
-
-        <div class="mobile-menu__frame"><?php do_action( 'fictioneer_mobile_menu_main_frame_panels' ); ?></div>
-
+        <div class="mobile-menu__frame _active" data-frame="main"><?php
+          do_action( 'fictioneer_mobile_menu_main_frame_panels' );
+        ?></div>
         <?php do_action( 'fictioneer_mobile_menu_center' ); ?>
-
       </div>
-
       <div class="mobile-menu__bottom"><?php do_action( 'fictioneer_mobile_menu_bottom' ); ?></div>
-
     </div>
     <?php // <--- End HTML
   }
@@ -181,14 +162,13 @@ if ( ! function_exists( 'fictioneer_mobile_follows_frame' ) ) {
 
   function fictioneer_mobile_follows_frame() {
     // Start HTML ---> ?>
-    <input type="radio" name="mobile-frame-control" id="mobile-menu-frame-follows" tabindex="-1" hidden>
-    <div class="mobile-menu__frame">
-      <div class="mobile-menu__panel">
+    <div class="mobile-menu__frame"  data-frame="follows">
+      <div class="mobile-menu__panel mobile-menu__follows-panel">
         <div class="mobile-menu__panel-header">
-          <label for="mobile-menu-frame-main">
-            <i class="fa-solid fa-caret-left"></i><span><?php _e( 'Back', 'fictioneer' ); ?></span>
-          </label>
-          <button id="button-mobile-mark-follows-read" class="mark-follows-read">
+          <button class="mobile-menu__back-button">
+            <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
+          </button>
+          <button class="mark-follows-read mobile-menu__panel-action-button">
             <i class="fa-solid fa-check"></i>
           </button>
         </div>
@@ -222,30 +202,21 @@ if ( ! function_exists( 'fictioneer_mobile_bookmarks_frame' ) ) {
     // Start HTML ---> ?>
     <template id="mobile-bookmark-template" hidden>
       <li class="mobile-menu__bookmark">
-        <button class="mobile-menu-bookmark-delete-button" data-bookmark-id>
-          <i class="fa-solid fa-trash-alt"></i>
-        </button>
+        <button class="mobile-menu-bookmark-delete-button" data-bookmark-id><i class="fa-solid fa-trash-alt"></i></button>
         <i class="fa-solid fa-bookmark"></i>
         <a href="#"><span></span></a>
-        <div class="mobile-menu__bookmark-progress">
-          <div>
-            <div class="mobile-menu__bookmark-bg" style></div>
-          </div>
-        </div>
+        <div class="mobile-menu__bookmark-progress"><div><div class="mobile-menu__bookmark-bg" style></div></div></div>
       </li>
     </template>
-    <input type="radio" name="mobile-frame-control" id="mobile-menu-frame-bookmarks" tabindex="-1" hidden>
-    <div class="mobile-menu__frame mobile-menu__frame--small-list mobile-menu__frame--bookmark-list">
-      <div class="mobile-menu__panel mobile-menu__panel--bookmark-list">
-        <input type="checkbox" id="toggle-mobile-menu-bookmarks-delete" name="toggle-mobile-menu-bookmarks-delete" tabindex="-1" class="hidden">
+    <div class="mobile-menu__frame" data-frame="bookmarks">
+      <div class="mobile-menu__panel mobile-menu__bookmarks-panel" data-editing="false">
         <div class="mobile-menu__panel-header">
-          <label for="mobile-menu-frame-main">
-            <i class="fa-solid fa-caret-left"></i><span><?php _e( 'Back', 'fictioneer' ); ?></span>
-          </label>
-          <label for="toggle-mobile-menu-bookmarks-delete" class="toggle-label">
-            <i class="fa-solid fa-pen off"></i>
-            <i class="fa-solid fa-check on" style="font-size: 15px;"></i>
-          </label>
+          <button class="mobile-menu__back-button">
+            <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
+          </button>
+          <button id="button-mobile-menu-toggle-bookmarks-edit" class="mobile-menu__panel-action-button">
+            <i class="fa-solid fa-pen off"></i><i class="fa-solid fa-check on"></i>
+          </button>
         </div>
         <ul class="mobile-menu__list mobile-menu__bookmark-list" data-empty="<?php echo fcntr( 'no_bookmarks', true ); ?>"></ul>
       </div>
@@ -274,13 +245,12 @@ if ( ! function_exists( 'fictioneer_mobile_chapters_frame' ) ) {
     if ( get_post_type() != 'fcn_chapter' || is_archive() || is_search() ) return;
 
     // Start HTML ---> ?>
-    <input type="radio" name="mobile-frame-control" id="mobile-menu-frame-chapters" tabindex="-1" hidden>
-    <div class="mobile-menu__frame">
-      <div class="mobile-menu__panel">
+    <div class="mobile-menu__frame" data-frame="chapters">
+      <div class="mobile-menu__panel mobile-menu__chapters-panel">
         <div class="mobile-menu__panel-header">
-          <label for="mobile-menu-frame-main">
-            <i class="fa-solid fa-caret-left"></i><span><?php _e( 'Back', 'fictioneer' ); ?></span>
-          </label>
+          <button class="mobile-menu__back-button">
+            <i class="fa-solid fa-caret-left mobile-menu__item-icon"></i> <?php _e( 'Back', 'fictioneer' ); ?>
+          </button>
         </div>
         <div id="mobile-menu-chapters-list" class="mobile-menu__list _chapters"></div>
       </div>
@@ -303,17 +273,15 @@ if ( ! function_exists( 'fictioneer_mobile_navigation_panel' ) ) {
 
   function fictioneer_mobile_navigation_panel() {
     // Start HTML ---> ?>
-    <nav id="mobile-navigation" class="mobile-navigation mobile-menu__panel">
-      <?php
-        wp_nav_menu(
-          array(
-            'theme_location' => 'nav_menu',
-            'menu_class' => 'mobile-navigation__list',
-            'container' => ''
-          )
-        );
-      ?>
-    </nav>
+    <nav id="mobile-navigation" class="mobile-navigation mobile-menu__panel"><?php
+      wp_nav_menu(
+        array(
+          'theme_location' => 'nav_menu',
+          'menu_class' => 'mobile-navigation__list',
+          'container' => ''
+        )
+      );
+    ?></nav>
     <?php // <--- End HTML
   }
 }
@@ -335,24 +303,21 @@ if ( ! function_exists( 'fictioneer_mobile_lists_panel' ) ) {
     $post_type = is_archive() ? 'archive' : get_post_type();
 
     // Start HTML ---> ?>
-    <div class="mobile-menu__panel">
+    <div class="mobile-menu__panel mobile-menu__lists-panel">
       <?php if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) && ! is_search() ) : ?>
-        <label for="mobile-menu-frame-chapters">
-          <i class="fa-solid fa-caret-right"></i>
-          <span><?php _e( 'Chapters', 'fictioneer' ); ?></span>
-        </label>
+        <button class="mobile-menu__frame-button" data-frame-target="chapters">
+          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php _e( 'Chapters', 'fictioneer' ); ?>
+        </button>
       <?php endif; ?>
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
-        <label for="mobile-menu-frame-bookmarks">
-          <i class="fa-solid fa-caret-right"></i>
-          <span><?php echo fcntr( 'bookmarks' ); ?></span>
-        </label>
+        <button class="mobile-menu__frame-button" data-frame-target="bookmarks">
+          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'bookmarks' ); ?>
+        </button>
       <?php endif; ?>
       <?php if ( get_option( 'fictioneer_enable_follows' ) ) : ?>
-        <label for="mobile-menu-frame-follows" class="hide-if-logged-out follows-alert-number">
-          <i class="fa-solid fa-caret-right"></i>
-          <span><?php echo fcntr( 'follows' ); ?></span>
-        </label>
+        <button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows">
+          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'follows' ); ?>
+        </button>
       <?php endif; ?>
     </div>
     <?php // <--- End HTML
@@ -394,8 +359,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $profile_link ); ?>" class="hide-if-logged-out">
-        <?php fictioneer_icon( 'user', '', '', 'style="transform: translate(0px,-14%) scale(1.725);"' ); ?>
-        <span><?php echo fcntr( 'account' ); ?></span>
+        <?php fictioneer_icon( 'user', 'mobile-menu__item-icon', '', 'style="transform: translate(0px,-14%) scale(1.725);"' ); ?>
+        <?php echo fcntr( 'account' ); ?>
       </a>
       <?php // <--- End HTML
       $output['account'] = ob_get_clean();
@@ -405,8 +370,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( home_url( '/?s=' ) ); ?>">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <span><?php _e( 'Search', 'fictioneer' ); ?></span>
+        <i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i>
+        <?php _e( 'Search', 'fictioneer' ); ?>
       </a>
       <?php // <--- End HTML
       $output['search'] = ob_get_clean();
@@ -415,8 +380,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
     ob_start();
     // Start HTML ---> ?>
     <label for="modal-site-settings-toggle">
-      <i class="fa-solid fa-tools"></i>
-      <span><?php echo fcntr( 'site_settings' ); ?></span>
+      <i class="fa-solid fa-tools mobile-menu__item-icon"></i>
+      <?php echo fcntr( 'site_settings' ); ?>
     </label>
     <?php // <--- End HTML
     $output['site_settings'] = ob_get_clean();
@@ -425,7 +390,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $discord_link ); ?>" rel="noopener noreferrer nofollow">
-        <i class="fa-brands fa-discord"></i>
+        <i class="fa-brands fa-discord mobile-menu__item-icon"></i>
         <?php _e( 'Discord', 'fictioneer' ) ?>
       </a>
       <?php // <--- End HTML
@@ -436,7 +401,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
-        <i class="fa-solid fa-list"></i>
+        <i class="fa-solid fa-list mobile-menu__item-icon"></i>
         <?php echo empty( $bookshelf_title ) ? __( 'Bookshelf', 'fictioneer' ) : $bookshelf_title; ?>
       </a>
       <?php // <--- End HTML
@@ -447,7 +412,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $bookmarks_link ); ?>" rel="noopener noreferrer nofollow">
-        <i class="fa-solid fa-bookmark"></i>
+        <i class="fa-solid fa-bookmark mobile-menu__item-icon"></i>
         <?php echo fcntr( 'bookmarks' ); ?>
       </a>
       <?php // <--- End HTML
@@ -458,8 +423,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <label for="modal-formatting-toggle">
-        <?php fictioneer_icon( 'font-settings' ); ?>
-        <span><?php echo fcntr( 'formatting' ); ?></span>
+        <?php fictioneer_icon( 'font-settings', 'mobile-menu__item-icon' ); ?>
+        <?php echo fcntr( 'formatting' ); ?>
       </label>
       <?php // <--- End HTML
       $output['formatting'] = ob_get_clean();
@@ -474,8 +439,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow">
-        <i class="fa-solid fa-comments"></i>
-        <span><?php echo fcntr( 'jump_to_comments' ); ?></span>
+        <i class="fa-solid fa-comments mobile-menu__item-icon"></i>
+        <?php echo fcntr( 'jump_to_comments' ); ?>
       </a>
       <?php // <--- End HTML
       $output['comment_jump'] = ob_get_clean();
@@ -490,8 +455,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden>
-        <i class="fa-solid fa-bookmark"></i>
-        <span><?php echo fcntr( 'jump_to_bookmark' ); ?></span>
+        <i class="fa-solid fa-bookmark mobile-menu__item-icon"></i>
+        <?php echo fcntr( 'jump_to_bookmark' ); ?>
       </a>
       <?php // <--- End HTML
       $output['bookmark_jump'] = ob_get_clean();
@@ -501,7 +466,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo fictioneer_get_logout_url(); ?>" onclick="fcn_cleanupLocalStorage()" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
-        <?php fictioneer_icon( 'fa-logout' ); ?>
+        <?php fictioneer_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ); ?>
         <?php echo fcntr( 'logout' ); ?>
       </a>
       <?php // <--- End HTML
@@ -512,7 +477,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">
-        <?php fictioneer_icon( 'fa-login' ); ?>
+        <?php fictioneer_icon( 'fa-login', 'mobile-menu__item-icon' ); ?>
         <?php echo fcntr( 'login' ); ?>
       </label>
       <?php // <--- End HTML
