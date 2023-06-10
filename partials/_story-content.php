@@ -221,8 +221,8 @@ $blog_posts = new WP_Query(
           $index = 0;
           $group_chapter_count = count( $group['data'] );
           $reverse_order = 99999;
-          $is_folded = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
-          $is_folded = $is_folded && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
+          $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
+          $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
           $group_index++;
 
           // Start HTML ---> ?>
@@ -245,11 +245,11 @@ $blog_posts = new WP_Query(
 
                 <?php
                   // Must account for extra toggle row and start at 1
-                  $is_folded = $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
+                  $is_folded = $chapter_folding && $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
                     $index < ( $group_chapter_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
                 ?>
 
-                <?php if ( $is_folded && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
+                <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
                   <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>">
                     <button class="chapter-group__folding-toggle" tabindex="0">
                       <?php
