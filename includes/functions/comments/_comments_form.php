@@ -251,7 +251,6 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
     sprintf(
       fcntr( 'logged_in_as' ),
       $profile_link,
-      esc_attr( sprintf( _x( 'Edit your profile', 'Tooltip in comment form.', 'fictioneer' ), $user_name ) ),
       $user_name,
       fictioneer_get_logout_url( get_permalink( $post_id ) )
     )
