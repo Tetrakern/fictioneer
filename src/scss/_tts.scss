@@ -121,8 +121,3 @@
     }
   }
 }
-
-#voice-selection-toggle:not(:checked) + .tts-interface-voice-modal {
-  display: none;
-  content-visibility: hidden;
-}
