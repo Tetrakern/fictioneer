@@ -8,6 +8,20 @@
   background: var(--tts-background);
   padding: 16px;
 
+  &[data-show-settings="false"] {
+    .tts-interface__settings {
+      display: none;
+      content-visibility: hidden;
+    }
+  }
+
+  &[data-show-settings="true"] {
+    .button.settings {
+      background: var(--tts-button-active-background);
+      color: var(--tts-button-active-text);
+    }
+  }
+
   &__controls {
     display: flex;
     gap: 3px;
@@ -26,15 +40,6 @@
 
     > :last-child {
       border-radius: 0 2px 2px 0;
-    }
-  }
-
-  #tts-settings-toggle:not(:checked) {
-    + div {
-      .tts-interface__settings {
-        display: none;
-        content-visibility: hidden;
-      }
     }
   }
 
@@ -78,8 +83,7 @@
   }
 
   &:not(.ended).paused button.pause,
-  &:not(.ended).playing button.play,
-  #tts-settings-toggle:checked + div .button.settings {
+  &:not(.ended).playing button.play {
     background: var(--tts-button-active-background);
     color: var(--tts-button-active-text);
   }

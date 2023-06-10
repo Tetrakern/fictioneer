@@ -414,4 +414,8 @@ if (typeof speechSynthesis !== 'undefined') {
   _$$$('tts-rate-text')?.addEventListener('input', (e) => {
     fcn_updateRate(e.target.value);
   });
+
+  _$$$('tts-settings-toggle')?.addEventListener('change', event => {
+    event.currentTarget.closest('#tts-interface').dataset.showSettings = event.currentTarget.checked;
+  });
 }

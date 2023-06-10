@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="tts-interface" class="tts-interface hidden">
+<div id="tts-interface" class="tts-interface hidden" data-show-settings="false">
   <input id="tts-settings-toggle" type="checkbox" class="hidden">
   <div class="tts-interface__wrapper">
     <div class="tts-interface__controls">
