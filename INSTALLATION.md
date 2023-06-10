@@ -739,6 +739,8 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `3600`.
 | FICTIONEER_API_STORYGRAPH_CACHE_TTL | integer | How long Storygraph responses are cached in _seconds_. Default `3600`.
 | FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | integer | How many items the Storygraph `/stories` endpoint returns. Default 10.
+| FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY | integer | Maximum number of story custom pages. Default `4`.
+| FICTIONEER_CHAPTER_FOLDING_THRESHOLD | integer | Threshold before and after folding in chapter lists. Default `5`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
