@@ -36,7 +36,7 @@ $header_breakpoint: 640px;
 }
 
 :root.minimal {
-  #toggle-view:checked ~ .story__chapters {
+  .story__chapters[data-view="grid"] {
     .chapter-group__list-item{
       box-shadow: var(--minimal-container-box-shadow);
     }
@@ -158,14 +158,10 @@ $header_breakpoint: 640px;
       overflow: hidden;
     }
 
-    a {
+    &-image {
       cursor: zoom-in;
-    }
-
-    img {
-      position: absolute;
-      inset: 0;
       display: block;
+      background: var(--placeholder-no-cover);
       border-radius: var(--layout-border-radius-small);
       height: 100%;
       max-height: var(--img-height);
@@ -247,12 +243,32 @@ $header_breakpoint: 640px;
 
   &__tabs {
     margin: 3rem 0 1.5rem;
+
+    &:not([data-current="chapters"]) .story__toggle {
+      pointer-events: none;
+      opacity: 0;
+    }
   }
 
   &__chapters {
     display: flex;
     flex-direction: column-reverse;
     margin-top: -24px; // Compensate groups
+
+    &[data-order="asc"] {
+      flex-direction: column;
+
+      .chapter-group__list-item {
+        order: initial !important;
+      }
+    }
+
+    &[data-view="list"] {
+      .grid-view {
+        display: none;
+        content-visibility: hidden;
+      }
+    }
   }
 
   .chapter-group {
@@ -265,24 +281,24 @@ $header_breakpoint: 640px;
       margin-right: var(--layout-spacing-horizontal);
     }
 
-    .chapter-group__list-item._collapse {
+    .chapter-group__list-item._folding-toggle {
       display: block;
       content-visibility: visible;
       padding: 0 !important;
+    }
 
-      label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        content-visibility: visible;
-        color: var(--fg-900);
-        line-height: 1.125;
-        padding: 1.125rem 0;
-        transition: color var(--transition-duration);
+    &__folding-toggle {
+      display: block;
+      content-visibility: visible;
+      color: var(--fg-900);
+      line-height: 1.125;
+      text-align: center;
+      padding: 1.125rem 0;
+      transition: color var(--transition-duration);
+      width: 100%;
 
-        &:hover {
-          color: var(--fg-700);
-        }
+      &:hover {
+        color: var(--fg-700);
       }
     }
   }
@@ -338,19 +354,6 @@ $header_breakpoint: 640px;
     }
   }
 
-  .checkmark {
-    --focus-offset: 2px;
-    color: var(--fg-600);
-    font-size: 18px;
-    padding: 0 4px;
-    margin-right: -4px;
-
-    &:not(.marked) {
-      color: var(--checkmark-not-checked);
-      text-shadow: none;
-    }
-  }
-
   .icon-password {
     &.grid-view {
       grid-area: 1/3/2/4;
@@ -359,10 +362,13 @@ $header_breakpoint: 640px;
     }
   }
 
+  &__tab-page:not(._current) {
+    display: none;
+    content-visibility: hidden;
+  }
+
   &__custom-page {
-    &-wrapper {
-      padding: 8px 2px;
-    }
+    padding: 8px 2px;
   }
 
   &__blog {
@@ -403,188 +409,102 @@ $header_breakpoint: 640px;
   }
 
   &__toggle {
-    &:is(label) {
-      display: flex;
-      align-items: center;
-
-      .on {
-        display: none;
-        content-visibility: hidden;
-      }
-    }
-  }
-}
-
-#toggle-order {
-  &:checked {
-    ~ .story__tabs {
-      label._order {
-        .on {
-          display: block;
-          content-visibility: visible;
-        }
-
-        .off {
-          display: none;
-          content-visibility: hidden;
-        }
-      }
-    }
-  }
-
-  &:not(:checked) {
-    ~ .story__chapters {
-      flex-direction: column;
-
-      .chapter-group__list-item{
-        order: initial !important;
-      }
-    }
-  }
-}
-
-#toggle-view {
-  &:not(:checked) {
-    ~ .story__chapters {
-      .grid-view {
-        display: none;
-        content-visibility: hidden;
-      }
-    }
-  }
-
-  &:checked {
-    ~ .story__tabs {
-      label._view {
-        .on {
-          display: block;
-          content-visibility: visible;
-        }
-
-        .off {
-          display: none;
-          content-visibility: hidden;
-        }
-      }
-    }
-
-    ~ .story__chapters {
-      margin-top: -24px; // Compensate groups
-
-      .list-view {
-        display: none;
-        content-visibility: hidden;
-      }
-
-      .chapter-group {
-        &__list {
-          display: grid;
-          gap: get_clamp(12, 16, 320, 480);
-          grid-template-columns: repeat(auto-fill, minmax(min(100%, 136px), 1fr));
-
-          @include bp(phablet) {
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
-          }
-
-          &-item {
-            background: var(--e-2);
-            padding: .5rem;
-            border: none !important; // Accounts for minimalist mode
-            border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
-            filter: var(--container-drop-shadow);
-
-            &-icon {
-              display: none;
-              content-visibility: hidden;
-            }
-
-            &-link {
-              grid-area: 1/1/2/4;
-              font-size: var(--fs-dxs);
-
-              &._password {
-                grid-area: 1/1/2/3;
-              }
-            }
-
-            &-date {
-              &::before {
-                content: none;
-              }
-            }
-
-            &-words {
-              @media only screen and (max-width: 340px) {
-                span span {
-                  display: none;
-                  content-visibility: hidden;
-                }
-              }
-            }
-
-            &-subrow {
-              grid-area: 2/1/3/4;
-              padding-right: 16px;
-            }
-
-            .checkmark {
-              align-items: flex-end;
-              font-size: 14px;
-              line-height: 1;
-              padding: 4px 8px 8px 8px;
-              transform: translate(4px, 14px);
-              height: 100%;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// Custom tabs are handled in single-story.php!
-#toggle-chapter:checked ~ .story__tabs .tabs #chapter-tab,
-#toggle-blog:checked ~ .story__tabs .tabs #blog-tab,
-#toggle-custom-0:checked ~ .story__tabs .tabs #custom-tab-0,
-#toggle-custom-1:checked ~ .story__tabs .tabs #custom-tab-1,
-#toggle-custom-2:checked ~ .story__tabs .tabs #custom-tab-2,
-#toggle-custom-3:checked ~ .story__tabs .tabs #custom-tab-3,
-#toggle-custom-4:checked ~ .story__tabs .tabs #custom-tab-4 {
-  background: var(--tab-background-active);
-  color: var(--tab-text-active);
-  text-shadow: var(--tab-text-shadow-active);
-}
-
-#toggle-chapter:not(:checked) ~ .story__tabs .story__chapter-list-toggles * {
-  pointer-events: none;
-  opacity: 0;
-}
-
-#toggle {
-  &-chapter:not(:checked) ~ .story__chapters,
-  &-blog:not(:checked) ~ .story__blog,
-  &-custom-0:not(:checked) ~ #tab-page-0,
-  &-custom-1:not(:checked) ~ #tab-page-1,
-  &-custom-2:not(:checked) ~ #tab-page-2,
-  &-custom-3:not(:checked) ~ #tab-page-3,
-  &-custom-4:not(:checked) ~ #tab-page-4 {
-    display: none;
-    content-visibility: hidden;
-  }
-}
-
-[id*=chapters-toggle] {
-  &:not(:checked) {
-    ~ li:not(:nth-last-of-type(-n+5)) {
+    .on {
       display: none;
       content-visibility: hidden;
     }
-  }
 
-  &:checked {
-    + li._collapse {
-      display: none !important;
-      content-visibility: hidden;
+    .off {
+      display: block;
+      content-visibility: visible;
+    }
+
+    &:is([data-view="grid"], [data-order="desc"]) {
+      .on {
+        display: block;
+        content-visibility: visible;
+      }
+
+      .off {
+        display: none;
+        content-visibility: hidden;
+      }
     }
   }
+}
+
+.story__chapters[data-view="grid"] {
+  margin-top: -24px; // Compensate groups
+
+  .list-view {
+    display: none;
+    content-visibility: hidden;
+  }
+
+  .chapter-group {
+    &__list {
+      display: grid;
+      gap: get_clamp(12, 16, 320, 480);
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 136px), 1fr));
+
+      @include bp(phablet) {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+      }
+
+      &-item {
+        background: var(--e-2);
+        padding: .5rem;
+        border: none !important; // Accounts for minimalist mode
+        border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
+        filter: var(--container-drop-shadow);
+
+        &-icon {
+          display: none;
+          content-visibility: hidden;
+        }
+
+        &-link {
+          grid-area: 1/1/2/4;
+          font-size: var(--fs-dxs);
+
+          &._password {
+            grid-area: 1/1/2/3;
+          }
+        }
+
+        &-date {
+          &::before {
+            content: none;
+          }
+        }
+
+        &-words {
+          @media only screen and (max-width: 340px) {
+            span span {
+              display: none;
+              content-visibility: hidden;
+            }
+          }
+        }
+
+        &-subrow {
+          grid-area: 2/1/3/4;
+          padding-right: 16px;
+        }
+
+        .checkmark {
+          font-size: 14px;
+          padding: 4px 8px 8px 8px;
+          transform: translate(4px, 14px);
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.chapter-group[data-folded="true"] .chapter-group__list-item._foldable,
+.chapter-group[data-folded="false"] .chapter-group__list-item._folding-toggle {
+  display: none;
+  content-visibility: hidden;
 }

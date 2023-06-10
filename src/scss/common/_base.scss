@@ -543,7 +543,7 @@ html:not(.logged-in) body:not(.logged-in) {
     }
   }
 
-  &__label {
+  &__name {
     display: flex;
     align-items: flex-start;
     gap: 12px;
@@ -623,10 +623,12 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       .checkmark {
-        grid-area: 1 / 3 / 3 / 4;
         --focus-offset: 2px;
+        grid-area: 1 / 3 / 3 / 4;
+        display: block;
         color: var(--fg-600);
         font-size: 18px;
+        line-height: 1;
         padding: 0 4px;
         margin-right: -4px;
 

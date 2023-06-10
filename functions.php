@@ -181,6 +181,16 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE', 10 );
 }
 
+// Integer: Maximum number of displayed custom pages
+if ( ! defined( 'FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY' ) ) {
+  define( 'FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY', 4 );
+}
+
+// Integer: The number of chapter before and after folding in chapter lists
+if ( ! defined( 'FICTIONEER_CHAPTER_FOLDING_THRESHOLD' ) ) {
+  define( 'FICTIONEER_CHAPTER_FOLDING_THRESHOLD', 5 );
+}
+
 /*
  * Booleans
  */

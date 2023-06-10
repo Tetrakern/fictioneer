@@ -785,17 +785,13 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <?php $discriminator = md5( $attr['heading'] . microtime() ); ?>
-      <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+      <button class="chapter-group__name" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $attr['heading']; ?></span>
-      </label>
+      </button>
     <?php endif; ?>
     <ol class="chapter-group__list">
-      <li class="chapter-group__list-item _empty">
-        <span><?php _e( 'No chapters published yet.', 'fictioneer' ) ?></span>
-      </li>
+      <li class="chapter-group__list-item _empty"><?php _e( 'No chapters published yet.', 'fictioneer' ) ?></li>
     </ol>
   </div>
   <?php // <--- End HTML
@@ -868,12 +864,10 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group <?php echo implode( ' ', $classes ); ?>">
     <?php if ( $heading ) : ?>
-      <?php $discriminator = md5( $heading . microtime() ); ?>
-      <input id="group-toggle-<?php echo $discriminator; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-      <label class="chapter-group__label" for="group-toggle-<?php echo $discriminator; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+      <button class="chapter-group__name" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
-      </label>
+      </button>
     <?php endif; ?>
     <ol class="chapter-group__list">
       <?php
@@ -923,8 +917,8 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                 if ( ! empty( $prefix ) ) {
                   echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix );
                 }
+                echo $title;
               ?>
-              <?php echo $title; ?>
             </a>
 
             <?php
@@ -963,8 +957,11 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   </div>
   <?php // <--- End HTML
 
+  // Store output
+  $output = ob_get_clean();
+
   // Return buffer
-  return ob_get_clean();
+  return fictioneer_minify_html( $output );
 }
 add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
 

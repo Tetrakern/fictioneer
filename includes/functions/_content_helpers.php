@@ -491,8 +491,6 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    */
 
   function fictioneer_get_story_page_cover( $story ) {
-		global $post;
-
 		ob_start();
 		// Start HTML ---> ?>
 		<figure class="story__thumbnail">
@@ -502,7 +500,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
 						array( 200, 300 ),
 						array(
 							'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
-							'class' => 'webfeedsFeaturedVisual'
+							'class' => 'webfeedsFeaturedVisual story__thumbnail-image'
 						)
 					);
 				?>

@@ -1222,11 +1222,11 @@ if (fcn_cardLists.length) {
 // COLLAPSE/EXPAND CHAPTER GROUPS
 // =============================================================================
 
-_$$('.chapter-group__toggle').forEach(element => {
-  element.addEventListener('change', event => {
+_$$('.chapter-group__name').forEach(element => {
+  element.addEventListener('click', event => {
     var group = event.currentTarget.closest('.chapter-group'),
         list = group.querySelector('.chapter-group__list'),
-        state = event.currentTarget.checked;
+        state = !group.classList.contains('_closed');
 
     // Base for transition
     list.style.height = `${list.scrollHeight}px`;
@@ -1242,10 +1242,12 @@ _$$('.chapter-group__toggle').forEach(element => {
       let group = event.currentTarget.closest('.chapter-group'),
           list = group.querySelector('.chapter-group__list');
 
+      // Remove inline height once done
       list.style.height = '';
 
-      list.querySelectorAll('a, button, label').forEach(element => {
-        element.tabIndex = group.querySelector('.chapter-group__toggle').checked ? '-1' : '0';
+      // Disable tab navigation into the hidden elements
+      list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
+        element.tabIndex = group.classList.contains('_closed') ? '-1' : '0';
       });
     }
   );

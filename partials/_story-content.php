@@ -22,7 +22,6 @@ $story_id = $args['story_id'];
 $story = $args['story_data'];
 $custom_pages = fictioneer_get_field( 'fictioneer_story_custom_pages' );
 $tab_pages = [];
-$above_collapse = 5;
 
 if ( $custom_pages ) {
   foreach ( $custom_pages as $page_id ) {
@@ -36,7 +35,7 @@ $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ? get_transient( 'fictioneer
 // Flags
 $hide_icons = fictioneer_get_field( 'fictioneer_story_hide_chapter_icons' ) || get_option( 'fictioneer_hide_chapter_icons' );
 $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) && ! fictioneer_get_field( 'fictioneer_story_disable_groups' );
-$disable_collapse = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
+$disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
 
 // Query blog posts (if any)
 $category = implode( ', ', wp_get_post_categories( $args['story_id'] ) );
@@ -56,81 +55,55 @@ $blog_posts = new WP_Query(
 
 <?php
   // ======================================================================================
-  // CONTROL INPUTS
-  // ======================================================================================
-?>
-
-<input type="radio" id="toggle-chapter" name="story_tab" hidden checked>
-
-<?php
-  if ( $blog_posts->have_posts() ) {
-    echo '<input type="radio" id="toggle-blog" name="story_tab" hidden>';
-  }
-
-  if ( $custom_pages ) {
-    $index = 0;
-
-    foreach ( $tab_pages as $page ) {
-      if ( empty( $page[1] ) ) continue;
-      echo '<input type="radio" id="toggle-custom-' . $index . '" name="story_tab" hidden>';
-      $index++;
-    }
-  }
-?>
-
-<input id="toggle-order" type="checkbox" hidden>
-<input id="toggle-view" type="checkbox" hidden>
-
-<?php
-  // ======================================================================================
   // TAB SECTION
   // ======================================================================================
 ?>
 
-<section id="tabs" class="story__tabs tabs-wrapper padding-left padding-right">
+<section id="tabs" class="story__tabs tabs-wrapper padding-left padding-right" data-current="chapters" data-order="asc" data-view="list">
 
   <div class="tabs">
-    <label id="chapter-tab" for="toggle-chapter" class="tabs__item" tabindex="0">
-      <?php
-        if ( $story['status'] === 'Oneshot' ) {
-          _e( 'Oneshot', 'fictioneer' );
-        } else {
-          echo sprintf(
-            __( '%1$s %2$s', 'fictioneer' ),
-            $story['chapter_count'],
-            _n( 'Chapter', 'Chapters', $story['chapter_count'], 'fictioneer' )
-          );
-        }
-      ?>
-    </label>
+    <button class="tabs__item _current" data-target="chapters" tabindex="0"><?php
+      if ( $story['status'] === 'Oneshot' ) {
+        _e( 'Oneshot', 'fictioneer' );
+      } else {
+        printf(
+          __( '%1$s %2$s', 'fictioneer' ),
+          $story['chapter_count'],
+          _n( 'Chapter', 'Chapters', $story['chapter_count'], 'fictioneer' )
+        );
+      }
+    ?></button>
 
     <?php if ( $blog_posts->have_posts() ) : ?>
-      <label id="blog-tab" for="toggle-blog" class="tabs__item" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></label>
+      <button class="tabs__item" data-target="blog" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></button>
     <?php endif; ?>
 
     <?php
       if ( $custom_pages ) {
-        $index = 0;
+        $index = 1;
 
         foreach ( $tab_pages as $page ) {
           if ( empty( $page[1] ) ) continue;
-          echo '<label tabindex="0" id="custom-tab-' . $index . '" for="toggle-custom-' . $index . '" class="tabs__item">' . $page[1] . '</label>';
+
+          echo "<button class='tabs__item' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
+
           $index++;
-          if ( $index > 3) break; // Only show 4 custom tabs
+
+          if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY) break; // Only show 4 custom tabs
         }
       }
     ?>
   </div>
 
   <div class="story__chapter-list-toggles">
-    <label class="list-button story__toggle _view" for="toggle-view" tabindex="0">
+    <button id="button-toggle-chapter-view" class="list-button story__toggle _view" data-view="list" tabindex="0">
       <?php fictioneer_icon( 'grid-2x2', 'on' ); ?>
       <i class="fa-solid fa-list off"></i>
-    </label>
-    <label class="list-button story__toggle _order" for="toggle-order" tabindex="0">
+    </button>
+    <button id="button-toggle-chapter-order" class="list-button story__toggle _order" data-order="asc" tabindex="0">
       <i class="fa-solid fa-arrow-down-1-9 off"></i>
       <i class="fa-solid fa-arrow-down-9-1 on"></i>
-    </label>
+    </button>
   </div>
 
 </section>
@@ -143,19 +116,20 @@ $blog_posts = new WP_Query(
 
 <?php
   if ( $custom_pages ) {
-    $index = 0;
+    $index = 1;
 
     foreach ( $tab_pages as $page ) {
       if ( empty( $page[1] ) ) continue;
 
       ?>
-      <section id="tab-page-<?php echo $index; ?>" class="story__custom-page padding-left padding-right content-section background-texture">
-        <div class="story__custom-page-wrapper"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
+      <section id="tab-page-<?php echo $index; ?>" class="story__tab-page padding-left padding-right content-section background-texture">
+        <div class="story__custom-page"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
       </section>
       <?php
 
       $index++;
-      if ( $index > 3) break; // Only show 4 custom tabs
+
+      if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY) break; // Only show 4 custom tabs
     }
   }
 ?>
@@ -170,7 +144,7 @@ $blog_posts = new WP_Query(
 
 <?php else : ob_start(); ?>
 
-  <section id="chapters" class="story__chapters">
+  <section id="chapters" class="story__tab-page _current story__chapters" data-order="asc" data-view="list">
     <?php
       $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
       $chapter_groups = [];
@@ -245,37 +219,54 @@ $blog_posts = new WP_Query(
 
         foreach ( $chapter_groups as $group ) {
           $index = 0;
-          $reverse_order = 999999;
-          $is_collapsed = ! $disable_collapse && ! get_option( 'fictioneer_disable_chapter_collapsing' );
-          $is_collapsed = $is_collapsed && count( $group['data'] ) >= $above_collapse * 2 + 3;
+          $group_chapter_count = count( $group['data'] );
+          $reverse_order = 99999;
+          $is_folded = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
+          $is_folded = $is_folded && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
           $group_index++;
 
           // Start HTML ---> ?>
-          <div class="chapter-group<?php echo $hide_icons ? ' _no-icons' : ''; ?>">
+          <div class="chapter-group<?php echo $hide_icons ? ' _no-icons' : ''; ?>" data-folded="true">
 
             <?php if ( $has_groups ) : ?>
-              <input id="group-toggle-<?php echo $group_index; ?>" class="chapter-group__toggle" type="checkbox" hidden>
-              <label class="chapter-group__label" for="group-toggle-<?php echo $group_index; ?>" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>">
+              <button
+                class="chapter-group__name"
+                aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>"
+                tabindex="0"
+              >
                 <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
                 <span><?php echo $group['group']; ?></span>
-              </label>
+              </button>
             <?php endif; ?>
 
             <ol class="chapter-group__list">
               <?php foreach ( $group['data'] as $chapter ) : ?>
                 <?php $index++; ?>
 
-                <?php if ( $is_collapsed && $index == $above_collapse + 1 ) : ?>
-                  <input id="chapters-toggle-<?php echo $group_index; ?>" type="checkbox" autocomplete="off" hidden>
-                  <li class="chapter-group__list-item _collapse" style="order: <?php echo $reverse_order - $index; ?>">
-                    <label for="chapters-toggle-<?php echo $group_index; ?>" tabindex="0">
-                      <span><?php printf( __( 'Show %s more', 'fictioneer' ), count( $group['data'] ) - $above_collapse * 2 ); ?></span>
-                    </label>
+                <?php
+                  // Must account for extra toggle row and start at 1
+                  $is_folded = $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
+                    $index < ( $group_chapter_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
+                ?>
+
+                <?php if ( $is_folded && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
+                  <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>">
+                    <button class="chapter-group__folding-toggle" tabindex="0">
+                      <?php
+                        printf(
+                          __( 'Show %s more', 'fictioneer' ),
+                          $group_chapter_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
+                        );
+                      ?>
+                    </button>
                   </li>
                   <?php $index++; ?>
                 <?php endif; ?>
 
-                <li class="chapter-group__list-item" style="order: <?php echo $reverse_order - $index; ?>">
+                <li
+                  class="chapter-group__list-item <?php echo $is_folded ? '_foldable' : ''; ?>"
+                  style="order: <?php echo $reverse_order - $index; ?>"
+                >
 
                   <?php if ( ! empty( $chapter['text_icon'] ) && ! $hide_icons ) : ?>
                     <span class="chapter-group__list-item-icon _text text-icon"><?php echo $chapter['text_icon']; ?></span>
@@ -283,7 +274,10 @@ $blog_posts = new WP_Query(
                     <i class="<?php echo empty( $chapter['icon'] ) ? 'fa-solid fa-book' : $chapter['icon']; ?> chapter-group__list-item-icon"></i>
                   <?php endif; ?>
 
-                  <a href="<?php echo $chapter['link']; ?>" class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>">
+                  <a
+                    href="<?php echo $chapter['link']; ?>"
+                    class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
+                  >
                     <?php
                       if ( ! empty( $chapter['prefix'] ) ) {
                         echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] );
@@ -301,7 +295,7 @@ $blog_posts = new WP_Query(
                     <i class="fa-solid fa-lock icon-password grid-view"></i>
                   <?php endif; ?>
 
-                  <?php echo fictioneer_get_list_chapter_meta_row( $chapter, ['grid' => true] ); ?>
+                  <?php echo fictioneer_get_list_chapter_meta_row( $chapter, array( 'grid' => true ) ); ?>
 
                   <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
                     <button
@@ -338,10 +332,13 @@ $blog_posts = new WP_Query(
 
 <?php
   // Store output
-  $chapters_html = ob_get_contents();
+  $chapters_html = ob_get_clean();
+
+  // Compress output
+  $chapters_html = fictioneer_minify_html( $chapters_html );
 
   // Flush buffered output
-  ob_end_flush();
+  echo $chapters_html;
 
   // Cache for next time (24 hours)
   if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS ) {
@@ -357,7 +354,7 @@ $blog_posts = new WP_Query(
   // ======================================================================================
 ?>
 
-<section class="story__blog">
+<section id="blog" class="story__blog story__tab-page">
   <ol class="story__blog-list">
     <?php
       if ( $blog_posts->have_posts() ) {

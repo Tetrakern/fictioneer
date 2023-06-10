@@ -1547,4 +1547,26 @@ if ( ! function_exists( 'fictioneer_notice' ) ) {
   }
 }
 
+// =============================================================================
+// MINIFY HTML
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_minify_html' ) ) {
+  /**
+   * Minifies a HTML string
+   *
+   * This is not safe for `<pre>` or `<code>` tags!
+   *
+   * @since 5.4.0
+   *
+   * @param string $html The HTML string to be minified.
+   *
+   * @return string The minified HTML string.
+   */
+
+  function fictioneer_minify_html( $html ) {
+    return preg_replace( '/\s+/', ' ', trim( $html ) );
+  }
+}
+
 ?>

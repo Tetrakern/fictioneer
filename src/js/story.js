@@ -83,32 +83,93 @@ function fcn_applyStorySettings() {
   if (typeof fcn_storySettings !== 'object') return;
 
   // List view
-  _$$$('toggle-view').checked = fcn_storySettings.view == 'grid';
+  _$$('[data-view]').forEach(element => {
+    element.dataset.view = fcn_storySettings.view == 'grid' ? 'grid' : 'list';
+  });
 
   // List order
-  _$$$('toggle-order').checked = fcn_storySettings.order == 'desc';
+  _$$('[data-order]').forEach(element => {
+    element.dataset.order = fcn_storySettings.order == 'desc' ? 'desc' : 'asc';
+  });
 }
 
 // Initialize
 fcn_applyStorySettings();
 
-// Event listener for to toggle list order
-_$$$('toggle-order')?.addEventListener(
-  'change',
+// =============================================================================
+// ORDER & VIEW
+// =============================================================================
+
+// Event listener for to toggle chapter order
+_$$$('button-toggle-chapter-order')?.addEventListener(
+  'click',
   e => {
-    fcn_storySettings['order'] = e.currentTarget.checked ? 'desc' : 'asc';
+    fcn_storySettings['order'] = e.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
     fcn_setStorySettings(fcn_storySettings);
+    fcn_applyStorySettings();
   }
 );
 
-// Event listener for to toggle list order
-_$$$('toggle-view')?.addEventListener(
-  'change',
+// Event listener for to toggle chapter view
+_$$$('button-toggle-chapter-view')?.addEventListener(
+  'click',
   e => {
-    fcn_storySettings['view'] = e.currentTarget.checked ? 'grid' : 'list';
+    fcn_storySettings['view'] = e.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
     fcn_setStorySettings(fcn_storySettings);
+    fcn_applyStorySettings();
   }
 );
+
+// =============================================================================
+// CHAPTER FOLDING
+// =============================================================================
+
+_$$('.chapter-group__folding-toggle').forEach(element => {
+  element.addEventListener(
+    'click',
+    e => {
+      let group = e.currentTarget.closest('.chapter-group[data-folded]');
+
+      if (group) {
+        group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';
+      }
+    }
+  );
+});
+
+// =============================================================================
+// STORY TABS
+// =============================================================================
+
+/**
+ * Toggles the active story tab
+ *
+ * @since 5.4.0
+ *
+ * @param {HTMLElement} target - The clicked tab element.
+ */
+
+function fcn_toggleStoryTab(target) {
+  // Clear previous tab
+  _$$('.story__article  ._current').forEach(item => {
+    item.classList.remove('_current');
+  });
+
+  // Set new tab
+  _$$$(target.dataset.target).classList.add('_current');
+  _$$$('tabs').dataset.current = target.dataset.target;
+  target.classList.add('_current');
+}
+
+// Listen for clicks on tabs...
+_$$('.tabs__item').forEach(element => {
+  element.addEventListener(
+    'click',
+    event => {
+      fcn_toggleStoryTab(event.currentTarget);
+    }
+  );
+});
 
 // =============================================================================
 // LOAD STORY COMMENTS
