@@ -43,9 +43,6 @@ if (!fcn_isLoggedIn && !fcn_isAjaxAuth) {
   });
 }
 
-// Terminate ongoing text-to-speech when page is reloaded
-if (typeof speechSynthesis !== 'undefined') window.speechSynthesis.cancel();
-
 // Remove query args (defined in _theme_setup.php)
 if (typeof fcn_removeQueryArgs === 'function') {
   fcn_removeQueryArgs();
