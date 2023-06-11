@@ -1569,4 +1569,81 @@ if ( ! function_exists( 'fictioneer_minify_html' ) ) {
   }
 }
 
+// =============================================================================
+// APPEND DATE QUERY
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
+  /**
+   * Append date query to query arguments
+   *
+   * @since 5.4.0
+   *
+   * @param array      $query_args  The query arguments to modify.
+   * @param string|int $ago         The time range. Default null.
+   * @param string     $order       The current order. Default null.
+   * @param string     $orderby     The current orderby. Default null.
+   *
+   * @return array The modified query arguments.
+   */
+
+  function fictioneer_append_date_query( $query_args, $ago = null, $order = null, $orderby = null ) {
+    // Ago?
+    if ( empty( $ago ) ) {
+      $ago = $_GET['ago'] ?? 0;
+      $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
+    }
+
+    // Order?
+    if ( empty( $order ) ) {
+      $order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+      $order = reset( $order ) ?: 'desc';
+    }
+
+    // Orderby?
+    if ( empty( $orderby ) ) {
+      $orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+      $orderby = reset( $orderby ) ?: 'modified';
+    }
+
+    // Date queried?
+    if ( is_numeric( $ago ) && $ago > 0 ) {
+      $query_args['date_query'] = array(
+        array(
+          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'after'=> "{$ago} days ago",
+          'inclusive' => true,
+        )
+      );
+    } elseif ( ! empty( $ago ) ) {
+      $ago = array_intersect( [strtolower( $ago )], ['week', 'month', 'year'] );
+      $ago = reset( $ago ) ?: 0;
+
+      if ( ! empty( $ago ) ) {
+        $query_args['date_query'] = array(
+          array(
+            'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+            'after'=> "1 {$ago} ago",
+            'inclusive' => true,
+          )
+        );
+      }
+    }
+
+    // Non-date related order?
+    if ( isset( $query_args['date_query'] ) && in_array( $orderby, ['title', 'rand'] ) ) {
+      $modified_arg = $query_args['date_query'][0];
+      $modified_arg['column'] = 'post_modified';
+
+      $query_args['date_query'] = array(
+        'relation' => 'OR',
+        $query_args['date_query'][0],
+        $modified_arg
+      );
+    }
+
+    return $query_args;
+  }
+}
+
 ?>

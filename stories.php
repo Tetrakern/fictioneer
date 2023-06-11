@@ -48,39 +48,8 @@ $query_args = array (
   )
 );
 
-// Date query?
-if ( is_numeric( $ago ) && $ago > 0 ) {
-  $query_args['date_query'] = array(
-    'relation' => 'OR',
-    array(
-      'after'=> "{$ago} days ago",
-      'inclusive' => true,
-    ),
-    array(
-      'column' => 'post_modified',
-      'after'=> "{$ago} days ago",
-      'inclusive' => true,
-    )
-  );
-} elseif ( ! empty( $ago ) ) {
-  $ago = array_intersect( [strtolower( $ago )], ['week', 'month', 'year'] );
-  $ago = reset( $ago ) ?: 0;
-
-  if ( ! empty( $ago ) ) {
-    $query_args['date_query'] = array(
-      'relation' => 'OR',
-      array(
-        'after'=> "1 {$ago} ago",
-        'inclusive' => true,
-      ),
-      array(
-        'column' => 'post_modified',
-        'after'=> "1 {$ago} ago",
-        'inclusive' => true,
-      )
-    );
-  }
-}
+// Append date query (if any)
+$query_args = fictioneer_append_date_query( $query_args, $ago, $order, $orderby );
 
 // Filter query arguments
 $query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, get_the_ID() );
