@@ -37,7 +37,7 @@ $query_args = array (
 );
 
 // Append date query (if any)
-$query_args = fictioneer_append_date_query( $query_args, $ago, $order, $orderby );
+$query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 
 // Filter query arguments
 $query_args = apply_filters( 'fictioneer_filter_recommendations_query_args', $query_args, get_the_ID() );
