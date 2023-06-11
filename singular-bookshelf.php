@@ -22,10 +22,10 @@ if ( ! is_user_logged_in() || get_option( 'fictioneer_enable_public_cache_compat
 
 // Setup
 $user = wp_get_current_user();
-$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
-$order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
-$order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
-$current_page = get_query_var( 'pg', 1 );
+$current_tab = $_GET['tab'] ?? null;
+$order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$current_page = get_query_var( 'pg', 1 ) ?: 1;
 $max_pages = 1;
 $tabs = [];
 
@@ -102,14 +102,10 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         $order_link = add_query_arg(
           array(
             'tab' => $current_tab,
-            'order' => ['desc' => 'asc', 'asc' => 'desc'][ $order ]
+            'order' => $order === 'desc' ? 'asc' : 'desc'
           ),
           $current_url
         ) . '#main';
-
-        // Pagination
-        $current_page = get_query_var( 'pg', 1 );
-        $max_pages = 1;
       ?>
 
       <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
@@ -130,19 +126,16 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           <section id="tabs" class="bookshelf__tabs tabs-wrapper spacing-top">
             <div class="tabs">
               <?php foreach ( $tabs as $key => $value ) : ?>
-                <a href="<?php echo
-                  esc_url(
-                    add_query_arg(
-                      array(
-                        'tab' => $key,
-                        'order' => $order
-                      ),
-                      $current_url
-                    ) . '#main');
-                ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>">
-                  <span><?php echo $value['name']; ?></span>
-                  <span>(<?php echo number_format_i18n( count( $value['post_ids'] ) ); ?>)</span>
-                </a>
+                <a
+                  href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>"
+                  class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"
+                ><?php
+                  printf(
+                    _x( '%s (%s)', 'Bookshelf tab name pattern: {Tab} ({Count})', 'fictioneer' ),
+                    $value['name'],
+                    number_format_i18n( count( $value['post_ids'] ) )
+                  );
+                ?></a>
               <?php endforeach; ?>
             </div>
             <div class="bookshelf__sorting">
@@ -162,7 +155,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
             'current' => max( 1, $current_page ),
             'prev_text' => fcntr( 'previous' ),
             'next_text' => fcntr( 'next' ),
-            'add_args' => $current_tab ? ['tab' => $current_tab] : null,
+            'add_args' => $current_tab ? array( 'tab' => $current_tab ) : null,
             'add_fragment' => '#tabs',
             'total' => 0
           );
@@ -179,7 +172,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
                   'order' => $order
                 ),
                 $tabs[ $current_tab ]['empty'],
-                ['show_latest' => true]
+                array( 'show_latest' => true )
               );
 
               // Output list
