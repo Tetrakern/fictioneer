@@ -80,4 +80,86 @@ function fictioneer_get_card_list( $type, $query_args = [], $empty = '', $card_a
   return ['query' => $posts, 'html' => $html, 'page' => $page, 'empty' => $is_empty];
 }
 
+// =============================================================================
+// APPEND DATE QUERY
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
+  /**
+   * Append date query to query arguments
+   *
+   * @since 5.4.0
+   *
+   * @param array      $query_args  The query arguments to modify.
+   * @param string|int $ago         The time range in days or valid date string. Default 0.
+   * @param string     $order       The current order. Default 'desc'.
+   * @param string     $orderby     The current orderby. Default 'modified'.
+   *
+   * @return array The modified query arguments.
+   */
+
+  function fictioneer_append_date_query( $query_args, $ago = 0, $order = 'desc', $orderby = 'modified' ) {
+    // Ago?
+    if ( empty( $ago ) ) {
+      $ago = $_GET['ago'] ?? 0;
+      $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
+    }
+
+    // Order?
+    if ( empty( $order ) ) {
+      $order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+      $order = reset( $order ) ?: 'desc';
+    }
+
+    // Orderby?
+    if ( empty( $orderby ) ) {
+      $orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+      $orderby = reset( $orderby ) ?: 'modified';
+    }
+
+    // Validate ago argument
+    if ( ! is_numeric( $ago ) && strtotime( $ago ) === false ) {
+      $ago = 0;
+    }
+
+    // Build date query...
+    if ( is_numeric( $ago ) && $ago > 0 ) {
+      // ... for number as days
+      $query_args['date_query'] = array(
+        array(
+          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'after' => absint( $ago ) . ' days ago',
+          'inclusive' => true,
+        )
+      );
+    } elseif ( ! empty( $ago ) ) {
+      // ... for valid strtotime() string
+      $query_args['date_query'] = array(
+        array(
+          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'after' => sanitize_text_field( $ago ),
+          'inclusive' => true,
+        )
+      );
+    }
+
+    // Non-date related order?
+    if ( isset( $query_args['date_query'] ) && in_array( $orderby, ['title', 'rand'] ) ) {
+      // Second condition for modified date
+      $modified_arg = $query_args['date_query'][0];
+      $modified_arg['column'] = 'post_modified';
+
+      // Include both publish and modified dates
+      $query_args['date_query'] = array(
+        'relation' => 'OR',
+        $query_args['date_query'][0],
+        $modified_arg
+      );
+    }
+
+    // Return (maybe) modified query arguments
+    return $query_args;
+  }
+}
+
 ?>
