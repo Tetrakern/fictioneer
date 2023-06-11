@@ -395,7 +395,6 @@ button[type=submit]:where(:not(._inline)) {
   text-align: center;
   padding: 4px 0;
   border-radius: var(--layout-border-radius-small);
-  max-height: min(250px, 80vh);
   min-width: 64px;
   max-width: min(280px, 80vw);
   box-shadow: var(--container-box-shadow);
@@ -428,6 +427,7 @@ button[type=submit]:where(:not(._inline)) {
   }
 
   &._v-scrolling {
+    max-height: min(250px, 80vh);
     overflow: hidden scroll;
     scrollbar-width: none; // FF
 
