@@ -92,7 +92,7 @@ $entries = new WP_Query( $query_args );
         <li class="card watch-last-clicked _small _info">
           <div class="card__body polygon">
 
-          <button class="card__info-toggle toggle-last-clicked"><i class="fa-solid fa-chevron-down"></i></button>
+          <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
 
             <div class="card__main _grid _small">
 
