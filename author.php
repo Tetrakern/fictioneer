@@ -16,8 +16,8 @@ $author = get_userdata( $author_id );
 
 // Return home if not a valid author
 if (
-  count_user_posts( $author_id, ['fcn_story', 'fcn_chapter'] ) < 1 ||
-  ! fictioneer_is_author( $author_id )
+  ! fictioneer_is_author( $author_id ) ||
+  count_user_posts( $author_id, ['fcn_story', 'fcn_chapter'] ) < 1
 ) {
   wp_redirect( home_url() );
   exit();
@@ -25,17 +25,17 @@ if (
 
 // Setup
 $current_url = get_author_posts_url( $author_id );
-$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
-$order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
-$order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
-$tabs = [];
-$current_page = get_query_var( 'pg', 1 );
-$max_pages = 1;
-$author_statistics = fictioneer_get_author_statistics( $author_id );
+$current_tab = $_GET['tab'] ?? null;
+$current_page = get_query_var( 'pg', 1 ) ?: 1;
+$order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
 $author_page = get_the_author_meta( 'fictioneer_author_page', $author_id );
 $author_page = $author_page > 0 ? $author_page : false;
+$author_statistics = fictioneer_get_author_statistics( $author_id );
+$max_pages = 1;
+$tabs = [];
 
-// Prepare tabs
+// Stories tab
 $tabs['stories'] = array(
   'name' => __( 'Stories', 'fictioneer' ),
   'query_args' => array(
@@ -44,12 +44,24 @@ $tabs['stories'] = array(
     'meta_key' => 'fictioneer_story_sticky',
     'orderby' => 'meta_value modified',
     'paged' => $current_page,
-    'order' => $order
+    'order' => $order,
+    'meta_query' => array(
+      'relation' => 'OR',
+      array(
+        'key' => 'fictioneer_story_hidden',
+        'value' => '0'
+      ),
+      array(
+        'key' => 'fictioneer_story_hidden',
+        'compare' => 'NOT EXISTS'
+      ),
+    )
   ),
   'classes' => [],
   'empty' => __( 'No stories published yet.', 'fictioneer' )
 );
 
+// Chapters tab
 $tabs['chapters'] = array(
   'name' => __( 'Chapters', 'fictioneer' ),
   'query_args' => array(
@@ -73,6 +85,7 @@ $tabs['chapters'] = array(
   'empty' => __( 'No chapters published yet.', 'fictioneer' )
 );
 
+// Recommendations tab
 $tabs['recommendations'] = array(
   'name' => __( 'Recommendations', 'fictioneer' ),
   'query_args' => array(
@@ -110,7 +123,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         $order_link = add_query_arg(
           array(
             'tab' => $current_tab,
-            'order' => ['desc' => 'asc', 'asc' => 'desc'][ $order ]
+            'order' => $order === 'desc' ? 'asc' : 'desc'
           ),
           $current_url
         ) . '#main';
@@ -159,16 +172,10 @@ $tabs[ $current_tab ]['classes'][] = '_current';
       <section id="tabs" class="author-page__tabs tabs-wrapper spacing-top">
         <div class="tabs">
           <?php foreach ( $tabs as $key => $value ) : ?>
-            <a href="<?php echo
-              esc_url(
-                add_query_arg(
-                  array(
-                    'tab' => $key,
-                    'order' => $order
-                  ),
-                  $current_url
-                ) . '#main');
-            ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"><?php echo $value['name']; ?></a>
+            <a
+              href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>"
+              class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"
+            ><?php echo $value['name']; ?></a>
           <?php endforeach; ?>
         </div>
         <div class="author-page__sorting">
@@ -187,7 +194,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           'current' => max( 1, $current_page ),
           'prev_text' => fcntr( 'previous' ),
           'next_text' => fcntr( 'next' ),
-          'add_args' => $current_tab ? ['tab' => $current_tab] : null,
+          'add_args' => $current_tab ? array( 'tab' => $current_tab ) : null,
           'add_fragment' => '#tabs',
           'total' => 0
         );
@@ -200,7 +207,9 @@ $tabs[ $current_tab ]['classes'][] = '_current';
               $tabs[ $current_tab ]['query_args']['post_type'],
               $tabs[ $current_tab ]['query_args'],
               $tabs[ $current_tab ]['empty'],
-              ['show_latest' => true]
+              array(
+                'show_latest' => true
+              )
             );
 
             // Output list
@@ -228,9 +237,9 @@ $tabs[ $current_tab ]['classes'][] = '_current';
     'post_id' => null,
     'template' => 'author.php',
     'breadcrumbs' => array(
-      [fcntr( 'frontpage' ), get_home_url()],
-      [__( 'Author', 'fictioneer' ), null],
-      [$author->display_name, null]
+      [ fcntr( 'frontpage' ), get_home_url() ],
+      [ __( 'Author', 'fictioneer' ), null ],
+      [ $author->display_name, null ]
     )
   );
 
