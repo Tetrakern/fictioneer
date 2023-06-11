@@ -201,10 +201,10 @@ add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
  * @param array $args {
  *   Array of arguments.
  *
- *   @type int        $current_page  Current page if paginated or `1`.
- *   @type int        $post_id       Current post ID.
- *   @type string     $queried_type  Queried post type.
- *   @type array      $query_args    Query arguments used.
+ *   @type int        $current_page  Optional. Current page if paginated or `1`.
+ *   @type int        $post_id       Optional. Current post ID.
+ *   @type string     $queried_type  Optional. Queried post type.
+ *   @type array      $query_args    Optional. Query arguments used.
  *   @type string     $order         Current order or `desc`.
  *   @type string     $orderby       Current orderby or `'modified'`.
  *   @type int|string $ago           Current date query argument part or `0`.
@@ -213,7 +213,10 @@ add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
 
 function fictioneer_sort_order_filter_interface( $args ) {
   // Setup
-  $current_url = get_permalink();
+  $base_uri = strtok( $_SERVER['REQUEST_URI'], '?' );
+  $current_url = home_url( $base_uri );
+  $current_url = preg_replace( '/\/page\/\d+\/$/', '', $current_url );
+  $current_url = preg_replace( '/\/page\/\d+$/', '', $current_url );
 
   // Order?
   if ( ! empty( $args['order'] ) ) {
