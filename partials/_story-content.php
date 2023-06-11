@@ -96,11 +96,11 @@ $blog_posts = new WP_Query(
   </div>
 
   <div class="story__chapter-list-toggles">
-    <button id="button-toggle-chapter-view" class="list-button story__toggle _view" data-view="list" tabindex="0">
+    <button id="button-toggle-chapter-view" class="list-button story__toggle _view" data-view="list" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between list and grid view', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'grid-2x2', 'on' ); ?>
       <i class="fa-solid fa-list off"></i>
     </button>
-    <button id="button-toggle-chapter-order" class="list-button story__toggle _order" data-order="asc" tabindex="0">
+    <button id="button-toggle-chapter-order" class="list-button story__toggle _order" data-order="asc" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
       <i class="fa-solid fa-arrow-down-1-9 off"></i>
       <i class="fa-solid fa-arrow-down-9-1 on"></i>
     </button>
