@@ -18,7 +18,7 @@
 <?php
 
 // Setup
-$page = get_query_var( 'paged', 1 ); // Main query
+$page = get_query_var( 'paged', 1 ) ?: 1; // Main query
 $order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
 $order = reset( $order ) ?: 'desc';
 $orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
