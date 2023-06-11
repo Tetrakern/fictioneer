@@ -1075,4 +1075,43 @@ if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
   add_filter( 'rest_authentication_errors', 'fictioneer_restrict_rest_api' );
 }
 
+// =============================================================================
+// ADD SORT, ORDER & FILTER TO TAXONOMY QUERIES
+// =============================================================================
+
+/**
+ * Modifies the query on archive pages
+ *
+ * @since 5.4.0
+ *
+ * @param WP_Query $query The current WP_Query object.
+ */
+
+function fictioneer_add_sof_to_taxonomy_query( $query ) {
+  // Abort if...
+  if ( is_admin() || ! is_archive() || ! $query->is_main_query() ) return;
+
+  // Use empty array to get date query
+  $date_query = fictioneer_append_date_query( [] );
+
+  // If date query set...
+  if ( ! empty( $date_query['date_query'] ) ) {
+    $query->set( 'date_query', $date_query['date_query'] );
+  }
+
+  // Post type?
+  $post_type = strtolower( sanitize_text_field( $_GET['post_type'] ?? '' ) );
+  $post_type = array_intersect(
+    [ $post_type ],
+    ['any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
+  );
+  $post_type = reset( $post_type ) ?: null;
+
+  // If post type queried...
+  if ( ! empty( $post_type ) && $post_type !== 'any' ) {
+    $query->set( 'post_type', $post_type );
+  }
+}
+add_action( 'pre_get_posts', 'fictioneer_add_sof_to_taxonomy_query' );
+
 ?>

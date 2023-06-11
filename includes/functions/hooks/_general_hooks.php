@@ -217,6 +217,25 @@ function fictioneer_sort_order_filter_interface( $args ) {
   $current_url = home_url( $base_uri );
   $current_url = preg_replace( '/\/page\/\d+\/$/', '', $current_url );
   $current_url = preg_replace( '/\/page\/\d+$/', '', $current_url );
+  $post_type = null;
+
+  // Archive?
+  if ( is_archive() ) {
+    $post_type = strtolower( sanitize_text_field( $_GET['post_type'] ?? '' ) );
+    $post_type = array_intersect(
+      [ $post_type ],
+      ['any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
+    );
+    $post_type = reset( $post_type ) ?: null;
+  }
+
+  // Post type?
+  if ( ! empty( $post_type ) ) {
+    $current_url = add_query_arg(
+      array( 'post_type' => $post_type ),
+      $current_url
+    );
+  }
 
   // Order?
   if ( ! empty( $args['order'] ) ) {
@@ -250,6 +269,34 @@ function fictioneer_sort_order_filter_interface( $args ) {
     }
   }
 
+  // Post type menu options
+  $post_type_menu = array(
+    'any' => array(
+      'label' => __( 'All Posts', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'any' ), $current_url ) . '#sof'
+    ),
+    'post' => array(
+      'label' => __( 'Blog Posts', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'post' ), $current_url ) . '#sof'
+    ),
+    'fcn_story' => array(
+      'label' => __( 'Stories', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'fcn_story' ), $current_url ) . '#sof'
+    ),
+    'fcn_chapter' => array(
+      'label' => __( 'Chapters', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'fcn_chapter' ), $current_url ) . '#sof'
+    ),
+    'fcn_collection' => array(
+      'label' => __( 'Collections', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'fcn_collection' ), $current_url ) . '#sof'
+    ),
+    'fcn_recommendation' => array(
+      'label' => __( 'Recommendations', 'fictioneer' ),
+      'url' => add_query_arg( array( 'post_type' => 'fcn_recommendation' ), $current_url ) . '#sof'
+    )
+  );
+
   // Order menu options
   $orderby_menu = array(
     'modified' => array(
@@ -261,7 +308,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
       'url' => add_query_arg( array( 'orderby' => 'date' ), $current_url ) . '#sof'
     ),
     'title' => array(
-      'label' => __( 'Title', 'fictioneer' ),
+      'label' => __( 'By Title', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
     )
   );
@@ -316,6 +363,21 @@ function fictioneer_sort_order_filter_interface( $args ) {
   // Start HTML ---> ?>
   <div id="sof" class="sort-order-filter">
 
+    <?php if ( is_archive() ) : ?>
+      <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
+        echo $post_type_menu[ $post_type ?? 'any' ]['label'] ?? __( 'Unknown', 'fictioneer' );
+        echo '<div class="popup-menu _bottom _center">';
+        echo '<div class="popup-heading">' . __( 'Post Type', 'fictioneer' ) . '</div>';
+
+        foreach( $post_type_menu as $tuple ) {
+          $url = esc_url( $tuple['url'] );
+          echo "<a href='{$url}'>{$tuple['label']}</a>";
+        }
+
+        echo '</div>';
+      ?></div>
+    <?php endif; ?>
+
     <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
       echo $orderby_menu[ $args['orderby'] ]['label'] ?? __( 'Custom', 'fictioneer' );
       echo '<div class="popup-menu _bottom _center">';
@@ -358,5 +420,6 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_sort_order_filter_in
 add_action( 'fictioneer_chapters_after_content', 'fictioneer_sort_order_filter_interface', 20 );
 add_action( 'fictioneer_collections_after_content', 'fictioneer_sort_order_filter_interface', 20 );
 add_action( 'fictioneer_recommendations_after_content', 'fictioneer_sort_order_filter_interface', 20 );
+add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_interface', 10 );
 
 ?>

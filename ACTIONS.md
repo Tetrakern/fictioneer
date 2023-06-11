@@ -123,6 +123,31 @@ Fires between the site’s `<main>` and `<footer>` blocks. This is the empty spa
 
 ---
 
+### `do_action( 'fictioneer_archive_loop_after', $args )`
+Archive template hook. Fires right after the result loop section in any archive template.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'date'.
+* $ago (int|string) – Current value for the date query. Default 0.
+
+---
+
+### `do_action( 'fictioneer_archive_loop_before', $args )`
+Archive template hook. Fires right before the result loop section in any archive template.
+
+**$args:**
+* $current_page (int) – Current page number of pagination or 1.
+* $order (string) – Current order query argument. Default 'desc'.
+* $orderby (string) – Current orderby query argument. Default 'date'.
+* $ago (int|string) – Current value for the date query. Default 0.
+
+**Hooked actions:**
+* `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_before_comments' )`
 Fires right before the comment section outside the `<article>` but still within the `<main>` block. Note that the wrapping block does not provide padding, which means you may use the full container width. If needed, add the `padding-left` and/or `padding-right` utility CSS classes for responsive horizontal padding.
 

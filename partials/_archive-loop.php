@@ -16,7 +16,31 @@
  */
 ?>
 
+<?php
+
+// Setup
+$page = get_query_var( 'paged', 1 ) ?: 1; // Main query
+$order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+$orderby = reset( $orderby ) ?: 'date';
+$ago = $_GET['ago'] ?? 0;
+$ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
+
+// Prepare sort-order-filter arguments
+$hook_args = array(
+  'page' => $page,
+  'order' => $order,
+  'orderby' => $orderby,
+  'ago' => $ago
+);
+
+?>
+
+<?php do_action( 'fictioneer_archive_loop_before', $hook_args ); ?>
+
 <?php if ( have_posts() ) : ?>
+
   <section class="archive__posts">
     <ul class="card-list _no-mutation-observer" id="archive-list">
       <?php
@@ -25,7 +49,13 @@
 
           // Setup
           $type = get_post_type();
-          $card_args = ['show_type' => true];
+          $card_args = array(
+            'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
+            'show_type' => true,
+            'order' => $order,
+            'orderby' => $orderby,
+            'ago' => $ago
+          );
 
           // Cached?
           if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) $card_args['cache'] = true;
@@ -55,4 +85,17 @@
       ?>
     </ul>
   </section>
+
+<?php else : ?>
+
+  <section class="archive__posts">
+    <ul class="card-list _no-mutation-observer" id="archive-list">
+      <li class="no-results">
+        <span><?php _e( 'No matching posts found.', 'fictioneer' ) ?></span>
+      </li>
+    </ul>
+  </section>
+
 <?php endif; ?>
+
+<?php do_action( 'fictioneer_archive_loop_after', $hook_args ); ?>
