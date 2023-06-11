@@ -726,6 +726,7 @@ html:not(.logged-in) body:not(.logged-in) {
   &._text {
     font-size: var(--fs-dxs);
     font-weight: 600;
+    text-transform: capitalize;
     line-height: 1.2;
     letter-spacing: .02em;
     padding: 4px 6px;

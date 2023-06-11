@@ -233,10 +233,18 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
   // Ago?
   if ( ! empty( $args['ago'] ) ) {
-    $current_url = add_query_arg(
-      array( 'ago' => $args['ago'] ),
-      $current_url
-    );
+    // Validate
+    if ( ! is_numeric( $args['ago'] ) && strtotime( $args['ago'] ) === false ) {
+      $args['ago'] = '0';
+    }
+
+    // Add if valid
+    if ( $args['ago'] != '0' ) {
+      $current_url = add_query_arg(
+        array( 'ago' => $args['ago'] ),
+        $current_url
+      );
+    }
   }
 
   // Order menu options
@@ -262,24 +270,32 @@ function fictioneer_sort_order_filter_interface( $args ) {
       'url' => remove_query_arg( 'ago', $current_url ) . '#sof'
     ),
     '1' => array(
-      'label' => __( 'Last Day', 'fictioneer' ),
+      'label' => __( 'Past 24 Hours', 'fictioneer' ),
       'url' => add_query_arg( array( 'ago' => 1 ), $current_url ) . '#sof'
     ),
     '3' => array(
-      'label' => __( 'Last 3 Days', 'fictioneer' ),
+      'label' => __( 'Past 3 Days', 'fictioneer' ),
       'url' => add_query_arg( array( 'ago' => 3 ), $current_url ) . '#sof'
     ),
-    'week' => array(
-      'label' => __( 'Last Week', 'fictioneer' ),
-      'url' => add_query_arg( array( 'ago' => 'week' ), $current_url ) . '#sof'
+    '1 week ago' => array(
+      'label' => __( 'Past Week', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => urlencode( '1 week ago' ) ), $current_url ) . '#sof'
     ),
-    'month' => array(
-      'label' => __( 'Last Month', 'fictioneer' ),
-      'url' => add_query_arg( array( 'ago' => 'month' ), $current_url ) . '#sof'
+    '1 month ago' => array(
+      'label' => __( 'Past Month', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => urlencode( '1 month ago' ) ), $current_url ) . '#sof'
     ),
-    'year' => array(
-      'label' => __( 'Last Year', 'fictioneer' ),
-      'url' => add_query_arg( array( 'ago' => 'year' ), $current_url ) . '#sof'
+    '3 months ago' => array(
+      'label' => __( 'Past 3 Months', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => urlencode( '3 months ago' ) ), $current_url ) . '#sof'
+    ),
+    '6 months ago' => array(
+      'label' => __( 'Past 6 Months', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => urlencode( '6 months ago' ) ), $current_url ) . '#sof'
+    ),
+    '1 year ago' => array(
+      'label' => __( 'Past Year', 'fictioneer' ),
+      'url' => add_query_arg( array( 'ago' => urlencode( '1 year ago' ) ), $current_url ) . '#sof'
     )
   );
 
@@ -311,7 +327,12 @@ function fictioneer_sort_order_filter_interface( $args ) {
     ?></div>
 
     <div class="list-button _text popup-menu-toggle toggle-last-clicked" tabindex="0" role="button"><?php
-      echo $date_menu[ $args['ago'] ]['label'] ?? __( 'Custom', 'fictioneer' );
+      if ( empty( $date_menu[ $args['ago'] ]['label'] ) ) {
+        echo is_numeric( $args['ago'] ) ? "Past {$args['ago']} Days" : urldecode( $args['ago'] );
+      } else {
+        echo $date_menu[ $args['ago'] ]['label'];
+      }
+
       echo '<div class="popup-menu _bottom _center">';
       echo '<div class="popup-heading">' . __( 'Time Range', 'fictioneer' ) . '</div>';
 

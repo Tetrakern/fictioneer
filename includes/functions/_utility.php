@@ -1606,24 +1606,26 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
       $orderby = reset( $orderby ) ?: 'modified';
     }
 
+    // Validate ago argument
+    if ( ! is_numeric( $ago ) && strtotime( $ago ) === false ) {
+      $ago = 0;
+    }
+
     // Date queried?
     if ( is_numeric( $ago ) && $ago > 0 ) {
       $query_args['date_query'] = array(
         array(
           'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
-          'after'=> "{$ago} days ago",
+          'after' => "{$ago} days ago",
           'inclusive' => true,
         )
       );
     } elseif ( ! empty( $ago ) ) {
-      $ago = array_intersect( [strtolower( $ago )], ['week', 'month', 'year'] );
-      $ago = reset( $ago ) ?: 0;
-
       if ( ! empty( $ago ) ) {
         $query_args['date_query'] = array(
           array(
             'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
-            'after'=> "1 {$ago} ago",
+            'after' => $ago,
             'inclusive' => true,
           )
         );
