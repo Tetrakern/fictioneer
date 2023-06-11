@@ -301,26 +301,45 @@ if ( ! function_exists( 'fictioneer_mobile_lists_panel' ) ) {
   function fictioneer_mobile_lists_panel() {
     // Setup
     $post_type = is_archive() ? 'archive' : get_post_type();
+    $output = [];
 
-    // Start HTML ---> ?>
-    <div class="mobile-menu__panel mobile-menu__lists-panel">
-      <?php if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) && ! is_search() ) : ?>
-        <button class="mobile-menu__frame-button" data-frame-target="chapters">
-          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php _e( 'Chapters', 'fictioneer' ); ?>
-        </button>
-      <?php endif; ?>
-      <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
-        <button class="mobile-menu__frame-button" data-frame-target="bookmarks">
-          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'bookmarks' ); ?>
-        </button>
-      <?php endif; ?>
-      <?php if ( get_option( 'fictioneer_enable_follows' ) ) : ?>
-        <button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows">
-          <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'follows' ); ?>
-        </button>
-      <?php endif; ?>
-    </div>
-    <?php // <--- End HTML
+    // Chapters?
+    if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) && ! is_search() ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <button class="mobile-menu__frame-button" data-frame-target="chapters">
+        <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php _e( 'Chapters', 'fictioneer' ); ?>
+      </button>
+      <?php // <--- End HTML
+      $output['chapters'] = ob_get_clean();
+    }
+
+    // Bookmarks?
+    if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <button class="mobile-menu__frame-button" data-frame-target="bookmarks">
+        <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'bookmarks' ); ?>
+      </button>
+      <?php // <--- End HTML
+      $output['bookmarks'] = ob_get_clean();
+    }
+
+    // Follows?
+    if ( get_option( 'fictioneer_enable_follows' ) ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows">
+        <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'follows' ); ?>
+      </button>
+      <?php // <--- End HTML
+      $output['follows'] = ob_get_clean();
+    }
+
+    // Render (if content)
+    if ( ! empty( $output ) ) {
+      echo '<div class="mobile-menu__panel mobile-menu__lists-panel">' . implode( '', $output ) . '</div>';
+    }
   }
 }
 add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_lists_panel', 20 );
