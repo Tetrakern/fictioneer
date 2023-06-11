@@ -220,27 +220,27 @@ body:not(.is-editor):not(.is-admin) {
   }
 }
 
-.dot-separator {
-  > :not(:first-child) {
-    &::before {
-      content: unicode("2022");
-      color: var(--fg-800);
-      font-family: var(--ff-base);
-      padding: 0 .375em;
-    }
-  }
+// .dot-separator {
+//   > :not(:first-child) {
+//     &::before {
+//       content: unicode("2022");
+//       color: var(--fg-800);
+//       font-family: var(--ff-base);
+//       padding: 0 .375em;
+//     }
+//   }
 
-  &-inverse {
-    > :not(:last-child) {
-      &::after {
-        content: unicode("2022");
-        color: var(--fg-800);
-        font-family: var(--ff-base);
-        padding: 0 .375em;
-      }
-    }
-  }
-}
+//   &-inverse {
+//     > :not(:last-child) {
+//       &::after {
+//         content: unicode("2022");
+//         color: var(--fg-800);
+//         font-family: var(--ff-base);
+//         padding: 0 .375em;
+//       }
+//     }
+//   }
+// }
 
 .separator-dot {
   color: var(--fg-800);

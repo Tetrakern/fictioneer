@@ -33,8 +33,9 @@
 
   &__menu {
     &-list {
-      display: flex;
-      justify-content: center;
+      &-item {
+        display: inline-block;
+      }
     }
   }
 

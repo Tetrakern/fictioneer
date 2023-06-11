@@ -40,13 +40,17 @@ if ( ! function_exists( 'fictioneer_footer_menu_row' ) ) {
     // Start HTML ---> ?>
     <div class="footer__split-row">
       <div class="footer__menu"><?php
-        wp_nav_menu(
+        $menu = wp_nav_menu(
           array(
             'theme_location' => 'footer_menu',
-            'menu_class' => 'footer__menu-list dot-separator',
-            'container' => ''
+            'menu_class' => 'footer__menu-list',
+            'container' => '',
+            'echo' => false
           )
         );
+
+        $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
+        echo preg_replace( '/<\/li>\s*<li/', '</li>&#8196;&bull;&#8196;<li', $menu );
       ?></div>
       <div class="footer__copyright"><?php echo fictioneer_get_footer_copyright_note( $args ); ?></div>
     </div>
