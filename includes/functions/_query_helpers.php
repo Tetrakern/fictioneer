@@ -90,15 +90,15 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
    *
    * @since 5.4.0
    *
-   * @param array      $query_args  The query arguments to modify.
-   * @param string|int $ago         The time range in days or valid date string. Default 0.
-   * @param string     $order       The current order. Default 'desc'.
-   * @param string     $orderby     The current orderby. Default 'modified'.
+   * @param array      $query_args  Query arguments to modify.
+   * @param string|int $ago         Optional. Time range in days or valid date string. Default null.
+   * @param string     $order       Optional. Current order. Default null.
+   * @param string     $orderby     Optional. Current orderby. Default null.
    *
-   * @return array The modified query arguments.
+   * @return array Modified query arguments.
    */
 
-  function fictioneer_append_date_query( $query_args, $ago = 0, $order = 'desc', $orderby = 'modified' ) {
+  function fictioneer_append_date_query( $query_args, $ago = null, $order = null, $orderby = null ) {
     // Ago?
     if ( empty( $ago ) ) {
       $ago = $_GET['ago'] ?? 0;
