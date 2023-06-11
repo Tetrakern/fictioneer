@@ -742,5 +742,11 @@ html:not(.logged-in) body:not(.logged-in) {
   align-items: center;
   justify-content: flex-end;
   gap: .5rem;
-  margin: 2rem 0 -0.5rem;
+  margin: 2rem 0 1.5rem;
+}
+
+:is(.stories, .chapters, .recommendations, .collections) {
+  .sort-order-filter {
+    margin-bottom: -0.5rem;
+  }
 }
