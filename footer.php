@@ -8,7 +8,6 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 3.0
- * @see wp_nav_menu()
  * @see fictioneer_get_breadcrumbs()
  * @see fictioneer_get_footer_copyright_note()
  * @see partials/_tts-interface.php

@@ -50,7 +50,9 @@ if ( ! function_exists( 'fictioneer_footer_menu_row' ) ) {
         );
 
         $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
-        echo preg_replace( '/<\/li>\s*<li/', '</li>&#8196;&bull;&#8196;<li', $menu );
+        $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
+
+        echo $menu;
       ?></div>
       <div class="footer__copyright"><?php echo fictioneer_get_footer_copyright_note( $args ); ?></div>
     </div>

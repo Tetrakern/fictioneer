@@ -35,6 +35,12 @@
     &-list {
       &-item {
         display: inline-block;
+
+        &:not(:last-child) {
+          &::after {
+            content: "\2004\2022\2004";
+          }
+        }
       }
     }
   }
