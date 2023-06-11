@@ -167,7 +167,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
         <?php if ( ( $args['orderby'] ?? 0 ) === 'date' ) : ?>
           <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
-          <?php the_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
+          <?php echo get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE ); ?>
         <?php else : ?>
           <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ) ?>"></i>
           <?php the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
