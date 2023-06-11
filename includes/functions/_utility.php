@@ -1580,14 +1580,14 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
    * @since 5.4.0
    *
    * @param array      $query_args  The query arguments to modify.
-   * @param string|int $ago         The time range. Default null.
-   * @param string     $order       The current order. Default null.
-   * @param string     $orderby     The current orderby. Default null.
+   * @param string|int $ago         The time range in days or valid date string. Default 0.
+   * @param string     $order       The current order. Default 'desc'.
+   * @param string     $orderby     The current orderby. Default 'modified'.
    *
    * @return array The modified query arguments.
    */
 
-  function fictioneer_append_date_query( $query_args, $ago = null, $order = null, $orderby = null ) {
+  function fictioneer_append_date_query( $query_args, $ago = 0, $order = 'desc', $orderby = 'modified' ) {
     // Ago?
     if ( empty( $ago ) ) {
       $ago = $_GET['ago'] ?? 0;
@@ -1611,32 +1611,34 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
       $ago = 0;
     }
 
-    // Date queried?
+    // Build date query...
     if ( is_numeric( $ago ) && $ago > 0 ) {
+      // ... for number as days
       $query_args['date_query'] = array(
         array(
           'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
-          'after' => "{$ago} days ago",
+          'after' => absint( $ago ) . ' days ago',
           'inclusive' => true,
         )
       );
     } elseif ( ! empty( $ago ) ) {
-      if ( ! empty( $ago ) ) {
-        $query_args['date_query'] = array(
-          array(
-            'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
-            'after' => $ago,
-            'inclusive' => true,
-          )
-        );
-      }
+      // ... for valid strtotime() string
+      $query_args['date_query'] = array(
+        array(
+          'column' => $orderby === 'modified' ? 'post_modified' : 'post_date',
+          'after' => sanitize_text_field( $ago ),
+          'inclusive' => true,
+        )
+      );
     }
 
     // Non-date related order?
     if ( isset( $query_args['date_query'] ) && in_array( $orderby, ['title', 'rand'] ) ) {
+      // Second condition for modified date
       $modified_arg = $query_args['date_query'][0];
       $modified_arg['column'] = 'post_modified';
 
+      // Include both publish and modified dates
       $query_args['date_query'] = array(
         'relation' => 'OR',
         $query_args['date_query'][0],
@@ -1644,6 +1646,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
       );
     }
 
+    // Return (maybe) modified query arguments
     return $query_args;
   }
 }
