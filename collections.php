@@ -39,7 +39,13 @@ $query_args = array (
 // Date query?
 if ( is_numeric( $ago ) && $ago > 0 ) {
   $query_args['date_query'] = array(
+    'relation' => 'OR',
     array(
+      'after'=> "{$ago} days ago",
+      'inclusive' => true,
+    ),
+    array(
+      'column' => 'post_modified',
       'after'=> "{$ago} days ago",
       'inclusive' => true,
     )
