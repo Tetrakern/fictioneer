@@ -213,10 +213,7 @@ add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
 
 function fictioneer_sort_order_filter_interface( $args ) {
   // Setup
-  $base_uri = strtok( $_SERVER['REQUEST_URI'], '?' );
-  $current_url = home_url( $base_uri );
-  $current_url = preg_replace( '/\/page\/\d+\/$/', '', $current_url );
-  $current_url = preg_replace( '/\/page\/\d+$/', '', $current_url );
+  $current_url = fictioneer_get_clean_url();
   $post_type = null;
 
   // Archive?
