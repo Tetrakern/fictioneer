@@ -43,7 +43,7 @@ function fcn_saveBookmarksForUser(value) {
   localStorage.setItem('fcnChapterBookmarks', JSON.stringify(fcn_bookmarks));
 
   // Payload
-  let payload = {
+  const payload = {
     'action': 'fictioneer_ajax_save_bookmarks',
     'bookmarks': value
   }
@@ -154,7 +154,8 @@ function fcn_getBookmarks() {
   if (!fcn_isLoggedIn) fcn_updateBookmarkCards();
 
   // Insert bookmarks count on user profile page
-  let stats = _$('.profile-bookmarks-stats');
+  const stats = _$('.profile-bookmarks-stats');
+
   if (stats) stats.innerHTML = stats.innerHTML.replace('%s', Object.keys(b.data).length);
 
   if (Object.keys(b.data).length > 0) {
@@ -230,14 +231,14 @@ function fcn_toggleBookmark(id, color = 'none') {
   fcn_bookmarks = fcn_getBookmarks();
 
   // Get article node with chapter data
-  let chapter = _$('.chapter__article'),
-      currentBookmark = _$('.current-bookmark');
+  const chapter = _$('.chapter__article'),
+        currentBookmark = _$('.current-bookmark');
 
   // Check whether an article has been found or abort
   if (!chapter) return;
 
   // Look for existing bookmark...
-  let b = fcn_bookmarks.data[chapter.id];
+  const b = fcn_bookmarks.data[chapter.id];
 
   // Add, update, or remove bookmark...
   if (b && b['paragraph-id'] == id && currentBookmark) {
@@ -259,16 +260,13 @@ function fcn_toggleBookmark(id, color = 'none') {
     }
 
     // Setup
-    let p = _$(`[data-paragraph-id="${id}"]`),
-        offset = fcn_offset(p),
-        parentOffset = fcn_offset(p.parentElement),
-        progress = (offset.top - parentOffset.top) * 100 / p.parentElement.clientHeight,
-        fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
+    const p = _$(`[data-paragraph-id="${id}"]`),
+          fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
 
     // Add data node (chapter-id: {}) to bookmarks JSON
     fcn_bookmarks.data[chapter.id] = {
       'paragraph-id': id,
-      'progress': progress,
+      'progress': (fcn_offset(p).top - fcn_offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
       'date': new Date(),
       'color': color,
       'chapter': fcn_chapterBookmarkData.title.trim(),
@@ -320,15 +318,15 @@ function fcn_showChapterBookmark() {
   _$('.current-bookmark')?.classList.remove('current-bookmark');
 
   // Get current chapter node
-  let chapter = _$('.chapter__article');
+  const chapter = _$('.chapter__article');
 
   // Abort if not a chapter or no bookmark set for chapter
   if (!chapter || !fcn_bookmarks.data[chapter.id]) return;
 
   // Collect necessary data to show bookmark in chapter
-  let id = fcn_bookmarks.data[chapter.id]['paragraph-id'],
-      p = _$(`[data-paragraph-id="${id}"]`),
-      color = fcn_bookmarks.data[chapter.id]['color'] ?? 'none';
+  const id = fcn_bookmarks.data[chapter.id]['paragraph-id'],
+        p = _$(`[data-paragraph-id="${id}"]`),
+        color = fcn_bookmarks.data[chapter.id]['color'] ?? 'none';
 
   // If bookmarked paragraph has been found...
   if (id && p) {
@@ -370,7 +368,7 @@ function fcn_setMobileMenuBookmarks() {
     // Bookmarks found! Loop all!
     Object.entries(fcn_bookmarks.data).forEach((b) => {
       // Clone template node
-      let clone = fcn_mobileBookmarkTemplate.content.cloneNode(true);
+      const clone = fcn_mobileBookmarkTemplate.content.cloneNode(true);
 
       // Fill cloned node with data
       clone.querySelector('.mobile-menu__bookmark').classList.add(`bookmark-${b[0]}`);
@@ -388,7 +386,7 @@ function fcn_setMobileMenuBookmarks() {
     fcn_bookmarkDeleteHandler(_$$('.mobile-menu-bookmark-delete-button'));
   } else {
     // No bookmarks found!
-    let node = document.createElement('li');
+    const node = document.createElement('li');
 
     // Create text node with notice
     node.classList.add('no-bookmarks');
@@ -441,8 +439,8 @@ function fcn_updateBookmarkCards() {
     if (count > -1 && count-- < 1) return;
 
     // Clone template and get data from JSON
-    let clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true),
-        date = new Date(b[1].date);
+    const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true),
+          date = new Date(b[1].date);
 
     // Only render an image tag if an src URL has been provided
     if (b[1].image !== '') {
@@ -489,11 +487,8 @@ function fcn_bookmarkDeleteHandler(targets) {
   (typeof targets === 'object' ? targets : [targets]).forEach((item) => {
     // Listen for click on delete button per item
     item.addEventListener('click', (e) => {
-      // Setup
-      let id = e.currentTarget.dataset.bookmarkId;
-
       // Remove bookmark
-      fcn_removeBookmark(id);
+      fcn_removeBookmark(e.currentTarget.dataset.bookmarkId);
 
       // Update bookmarks
       fcn_setBookmarks(fcn_bookmarks);
@@ -518,8 +513,8 @@ function fcn_bookmarkDeleteHandler(targets) {
 
 function fcn_removeBookmark(id) {
   // Setup
-  let chapter = _$('.chapter__article'),
-      currentBookmark = _$('.current-bookmark');
+  const chapter = _$('.chapter__article'),
+        currentBookmark = _$('.current-bookmark');
 
   // Remove bookmark from JSON
   delete fcn_bookmarks.data[id];
@@ -553,10 +548,9 @@ function fcn_removeBookmark(id) {
 fcn_jumpToBookmarkButtons.forEach(button => {
   button.addEventListener(
     'click',
-    e => {
-      let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
-          position = target.getBoundingClientRect().top,
-          offset = position + window.pageYOffset - 64;
+    () => {
+      const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
+            offset = target.getBoundingClientRect().top + window.pageYOffset - 64;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
     }
