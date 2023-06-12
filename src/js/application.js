@@ -175,7 +175,7 @@ function fcn_fetchNonce() {
 
 function fcn_addNonceAndAuth(nonceHtml) {
   // Append hidden input with nonce to DOM
-  let node = document.createElement('div');
+  const node = document.createElement('div');
   node.innerHTML += nonceHtml;
   fcn_theBody.appendChild(node.firstChild);
 
@@ -331,7 +331,7 @@ window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 
 
 fcn_theBody.addEventListener('click', e => {
   // Handle last click
-  let lastClickTarget = e.target.closest('.toggle-last-clicked');
+  const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
   if (lastClickTarget && !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName)) {
     if (typeof fcn_toggleLastClicked === 'function') fcn_toggleLastClicked(lastClickTarget);
@@ -341,7 +341,7 @@ fcn_theBody.addEventListener('click', e => {
   }
 
   // Handle page jump
-  let pageDots = e.target.closest('.page-numbers.dots:not(button)');
+  const pageDots = e.target.closest('.page-numbers.dots:not(button)');
 
   if (pageDots) {
     fcn_jumpPage(pageDots);
@@ -349,7 +349,7 @@ fcn_theBody.addEventListener('click', e => {
   }
 
   // Handle spoilers
-  let spoilerTarget = e.target.closest('.spoiler');
+  const spoilerTarget = e.target.closest('.spoiler');
 
   if (spoilerTarget) {
     if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
@@ -403,7 +403,7 @@ function fcn_scrollDirection() {
   if (fcn_theSite.classList.contains('transformed-scroll')) return;
 
   // Get current scroll offset
-  let newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
+  const newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
 
   // Check whether the difference between old and new offset exceeds the threshold
   if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 5) {
@@ -464,9 +464,9 @@ setTimeout(() => {
  */
 
 function fcn_dragElement(element) {
+  const target = element.querySelector('.drag-anchor') ?? element;
   let lastX,
-      lastY,
-      target = element.querySelector('.drag-anchor') ?? element;
+      lastY;
 
   target.onmousedown = startDrag;
 
@@ -516,8 +516,8 @@ _$$('.modal__header.drag-anchor').forEach(element => {
 
 function fcn_showNotification(message, duration = 3, type = 'base') {
   // Setup
-  let container = _$('#notifications'),
-      node = document.createElement('div');
+  const container = _$('#notifications'),
+        node = document.createElement('div');
 
   // Build notification and set up transition to transparent
   node.innerHTML = message;
@@ -649,7 +649,7 @@ fcn_settingEvents.forEach(setting => {
  */
 
 function fcn_toggleLightMode() {
-  let current =
+  const current =
     localStorage.getItem('fcnLightmode') ?
     localStorage.getItem('fcnLightmode') == 'true' :
     fcn_theRoot.dataset.modeDefault == 'light';
@@ -671,7 +671,7 @@ function fcn_setLightMode(boolean, silent = false) {
   fcn_theRoot.dataset.mode = boolean ? 'light' : '';
 
   // Update formatting modal (if present)
-  let cb = _$$$('reader-settings-lightmode-toggle');
+  const cb = _$$$('reader-settings-lightmode-toggle');
 
   if (cb) {
     cb.checked = boolean;
@@ -709,7 +709,7 @@ _$$('.toggle-light-mode').forEach(element => {
 
 function fcn_updateFontWeight() {
   // Modified?
-  let modified = fcn_siteSettings['font-weight'] != 'default';
+  const modified = fcn_siteSettings['font-weight'] != 'default';
 
   // Find and update all font-weight selects
   _$$('.site-setting-font-weight').forEach(setting => {
@@ -818,8 +818,10 @@ function fcn_updateDarken(value = null) {
   fcn_settingDarkenRanges.forEach(element => { element.value = value; });
   fcn_settingDarkenTexts.forEach(element => { element.value = parseInt(value * 100); });
 
-  // Calculate and update property
-  let d = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+  // Calculate property
+  const d = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+
+  // Update property in DOM
   fcn_theRoot.style.setProperty('--darken', `(${d} + var(--lightness-offset))`);
 
   // Update local storage
@@ -848,8 +850,7 @@ function fcn_setDarkenFromRange() {
 
 function fcn_setDarkenFromText() {
   if (this.value == '-' || this.value == '') return;
-  let value = parseInt(this.value) ?? 0;
-  fcn_updateDarken(value / 100);
+  fcn_updateDarken((parseInt(this.value) ?? 0) / 100);
 }
 
 // Listen for clicks darken reset buttons
@@ -886,8 +887,10 @@ function fcn_updateSaturation(value = null) {
   fcn_settingSaturationRanges.forEach(element => { element.value = value; });
   fcn_settingSaturationTexts.forEach(element => { element.value = parseInt(value * 100); });
 
-  // Calculate and update property
-  let s = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+  // Calculate property
+  const s = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+
+  // Update property in DOM
   fcn_theRoot.style.setProperty('--saturation', `(${s} + var(--saturation-offset))`);
 
   // Update local storage
@@ -916,8 +919,7 @@ function fcn_setSaturationFromRange() {
 
 function fcn_setSaturationFromText() {
   if (this.value == '-' || this.value == '') return;
-  let value = parseInt(this.value) ?? 0;
-  fcn_updateSaturation(value / 100);
+  fcn_updateSaturation((parseInt(this.value) ?? 0) / 100);
 }
 
 // Listen for clicks saturation reset buttons
@@ -1021,7 +1023,8 @@ function fcn_applySiteSettings(value) {
   // Loop all settings...
   Object.entries(value).forEach((setting) => {
     // Update checkboxes
-    let control = _$$$(`site-setting-${setting[0]}`);
+    const control = _$$$(`site-setting-${setting[0]}`);
+
     if (control) control.checked = setting[1];
 
     // Update styles and classes
@@ -1109,7 +1112,7 @@ fcn_updateThemeColor();
 function fcn_inlineToggleReminder(storyId) {
   // Logged-in?
   if (!fcn_isLoggedIn) {
-    let toggle = _$$$('modal-login-toggle');
+    const toggle = _$$$('modal-login-toggle');
 
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
     if (toggle) toggle.checked = true;
@@ -1132,7 +1135,7 @@ function fcn_inlineToggleReminder(storyId) {
 function fcn_inlineToggleFollow(storyId) {
   // Logged-in?
   if (!fcn_isLoggedIn) {
-    let toggle = _$$$('modal-login-toggle');
+    const toggle = _$$$('modal-login-toggle');
 
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
     if (toggle) toggle.checked = true;
@@ -1159,7 +1162,7 @@ function fcn_inlineToggleFollow(storyId) {
 function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode = 'toggle') {
   // Logged-in?
   if (!fcn_isLoggedIn) {
-    let toggle = _$$$('modal-login-toggle');
+    const toggle = _$$$('modal-login-toggle');
 
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
     if (toggle) toggle.checked = true;
@@ -1189,10 +1192,10 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
 function fcn_jumpPage(source) {
   if (fcn_theRoot.dataset.disablePageJump) return;
 
-  let input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
+  const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
   if (input > 0) {
-    let url = source.nextElementSibling.href; // Guaranteed to always have the query parameter
+    const url = source.nextElementSibling.href; // Guaranteed to always have the query parameter
 
     if (!url) return;
 
@@ -1249,8 +1252,8 @@ _$$('.chapter-group__name').forEach(element => {
   element.closest('.chapter-group').querySelector('.chapter-group__list').addEventListener(
     'transitionend',
     event => {
-      let group = event.currentTarget.closest('.chapter-group'),
-          list = group.querySelector('.chapter-group__list');
+      const group = event.currentTarget.closest('.chapter-group'),
+            list = group.querySelector('.chapter-group__list');
 
       // Remove inline height once done
       list.style.height = '';
@@ -1290,7 +1293,7 @@ function fct_spoiler(target) {
  */
 
 function fcn_revealCommentImage(button) {
-  let img = button.parentElement.querySelector('img');
+  const img = button.parentElement.querySelector('img');
   img.src = img.dataset.src;
   button.remove();
 }
@@ -1308,9 +1311,9 @@ function fcn_revealCommentImage(button) {
 
 function fcn_contactFormSubmit(button) {
   // Setup
-  let form = button.closest('form'),
-      formData = new FormData(form),
-      payload = {'action': 'fictioneer_ajax_submit_contact_form'};
+  const form = button.closest('form'),
+        formData = new FormData(form),
+        payload = {'action': 'fictioneer_ajax_submit_contact_form'};
 
   // Form valid?
   if (!form.reportValidity()) return;
@@ -1381,7 +1384,7 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
     e => {
       // Set current tabIndex into modal container
       if (e.currentTarget.checked) {
-        let modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
+        const modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
         modalElement?.focus();
         modalElement?.blur();
       } else if (fcn_theBody.classList.contains('user-is-tabbing')) {
@@ -1425,7 +1428,7 @@ fcn_theBody.addEventListener(
       });
 
       // Close lightbox
-      let lightbox = _$('.lightbox.show');
+      const lightbox = _$('.lightbox.show');
 
       if (lightbox) {
         lightbox.querySelector('.lightbox__close').click();
@@ -1433,7 +1436,7 @@ fcn_theBody.addEventListener(
       }
 
       // Close paragraph tools
-      let paragraphToolsClose = _$('.selected-paragraph #button-close-paragraph-tools');
+      const paragraphToolsClose = _$('.selected-paragraph #button-close-paragraph-tools');
 
       if (paragraphToolsClose) {
         paragraphToolsClose.click();
@@ -1441,11 +1444,11 @@ fcn_theBody.addEventListener(
       }
 
       // Pause/Close TTS
-      let tts = _$('#tts-interface:not(.hidden)');
+      const tts = _$('#tts-interface:not(.hidden)');
 
       if (tts) {
         if (tts.classList.contains('playing')) {
-          let pause = _$$$('button-tts-pause');
+          const pause = _$$$('button-tts-pause');
           pause?.click();
           pause?.focus();
           pause?.blur();
@@ -1488,8 +1491,10 @@ class FCN_KeywordInput {
   }
 
   resize() {
-    let s = this.tabSuggestion.innerText.length > 0 ? this.tabSuggestion.innerText.length : this.input.value.length;
-    fcn_resizeInput(this.input, s);
+    fcn_resizeInput(
+      this.input,
+      this.tabSuggestion.innerText.length > 0 ? this.tabSuggestion.innerText.length : this.input.value.length
+    );
   }
 
   reset() {
@@ -1520,8 +1525,8 @@ class FCN_KeywordInput {
   }
 
   filterSuggestions() {
-    let value = this.input.value.toLowerCase(),
-        count = 0,
+    const value = this.input.value.toLowerCase();
+    let count = 0,
         match = '';
 
     // Show suggestions if input is not empty...
@@ -1530,7 +1535,7 @@ class FCN_KeywordInput {
     } else {
       this.suggestionList.querySelectorAll('.keyword-button').forEach(element => {
         // Get suggestion name
-        let suggestion = element.innerText.toLowerCase();
+        const suggestion = element.innerText.toLowerCase();
 
         // Does suggestion contain input value?
         if (suggestion.includes(value) && this.keywords.indexOf(suggestion) < 0) {
@@ -1564,8 +1569,8 @@ class FCN_KeywordInput {
 
   addNode(text = null) {
     // Get and prepare value
-    let name = text ?? this.input.value.replace(',', ''),
-        value = this.allowList[this.encode(name)];
+    const name = text ?? this.input.value.replace(',', ''),
+          value = this.allowList[this.encode(name)];
 
     // Only allowed value and no duplicates
     if (!value || this.keywords.indexOf(value) > -1) return;
@@ -1574,7 +1579,8 @@ class FCN_KeywordInput {
     this.keywords.push(value);
 
     // Create node
-    let node = document.createElement('div');
+    const node = document.createElement('div');
+
     node.innerHTML = `<span class="node-name">${name}</span><span class="node-delete"><i class="fa-solid fa-xmark"></i></span>`;
     node.classList.add('node');
     node.dataset.value = value;
@@ -1635,11 +1641,8 @@ class FCN_KeywordInput {
     this.input.addEventListener(
       'input',
       e => {
-        // Get value
-        let value = e.currentTarget.value;
-
         // Check for comma, which indicates end of input
-        if (value.includes(',')) this.addNode();
+        if (e.currentTarget.value.includes(',')) this.addNode();
 
         // Filter suggestions
         this.filterSuggestions();
@@ -1683,7 +1686,7 @@ class FCN_KeywordInput {
       'blur',
       e => {
         // Get and prepare value
-        let value = this.allowList[this.encode(this.input.value)];
+        const value = this.allowList[this.encode(this.input.value)];
 
         if (value) {
           // Stoppable to account for blur through button click
@@ -1729,7 +1732,7 @@ class FCN_KeywordInput {
 
 // Initialize
 _$$('.search-form').forEach(form => {
-  let keywordInputs = []
+  const keywordInputs = [];
 
   // Skip if simple form
   if (form.classList.contains('_simple')) return;
@@ -1841,7 +1844,7 @@ function fcn_popupPosition() {
     if (window.getComputedStyle(element).display === 'none') return;
 
     // Collision with screen borders?
-    let collision = fcn_detectScreenCollision(element);
+    const collision = fcn_detectScreenCollision(element);
 
     // No collisions
     if (collision && collision.length === 0) return;
@@ -1870,7 +1873,7 @@ _$$('.modal-toggle').forEach(element => {
     event.currentTarget.nextElementSibling.classList.toggle('_open', event.currentTarget.checked);
 
     // Set focus inside modal
-    let close = event.currentTarget.nextElementSibling.querySelector('.close');
+    const close = event.currentTarget.nextElementSibling.querySelector('.close');
     close?.focus();
     close?.blur();
   });
