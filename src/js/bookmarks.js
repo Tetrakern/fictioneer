@@ -119,13 +119,7 @@ function fcn_getBookmarksForUser() {
         fcn_showChapterBookmark();
       }
     }
-  })
-  .catch(() => {
-    // We do not care since bookmarks are client-side and will work regardless,
-    // this just means they will no longer by synchronized. Nothing we can do
-    // about that anyway if the server returns an error.
-  })
-  .then(() => {
+
     // Regardless of success
     fcn_updateBookmarkCards();
   });
