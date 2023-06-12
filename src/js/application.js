@@ -341,7 +341,7 @@ fcn_theBody.addEventListener('click', e => {
   }
 
   // Handle page jump
-  let pageDots = e.target.closest('.page-numbers.dots');
+  let pageDots = e.target.closest('.page-numbers.dots:not(button)');
 
   if (pageDots) {
     fcn_jumpPage(pageDots);
