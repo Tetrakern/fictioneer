@@ -128,7 +128,7 @@ _$$('.chapter-group__folding-toggle').forEach(element => {
   element.addEventListener(
     'click',
     e => {
-      let group = e.currentTarget.closest('.chapter-group[data-folded]');
+      const group = e.currentTarget.closest('.chapter-group[data-folded]');
 
       if (group) {
         group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';
@@ -189,15 +189,12 @@ function fcn_loadStoryComments() {
   _$('.load-more-list-item').remove();
   _$('.comments-loading-placeholder').classList.remove('hidden');
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxGet({
     'action': 'fictioneer_request_story_comments',
     'post_id': fcn_inlineStorage.postId,
     'page': fcn_storyCommentPage
-  }
-
-  // Request
-  fcn_ajaxGet(payload)
+  })
   .then((response) => {
     // Check for success
     if (response.success) {
