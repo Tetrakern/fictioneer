@@ -23,8 +23,8 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   if (!fcn_ajaxCommentsSection) return;
 
   // Setup
-  let commentSection = _$$$('comments'),
-      commentText = '',
+  const commentSection = _$$$('comments');
+  let commentText = '',
       comment = _$$$('comment'),
       errorNote;
 
@@ -44,7 +44,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   if (!fcn_ajaxCommentsSection) return;
 
   // Payload
-  let payload = {
+  const payload = {
     'action': 'fictioneer_ajax_get_comment_section',
     'post_id': post_id ?? fcn_ajaxCommentsSection.dataset.postId,
     'page': page
@@ -61,7 +61,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       page = response.data.page;
 
       // Get HTML
-      let temp = document.createElement('div');
+      const temp = document.createElement('div');
       temp.innerHTML = response.data.html;
 
       // Fix comment form
@@ -69,7 +69,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
         temp.querySelector('#comment_post_ID').value = response.data.postId;
         temp.querySelector('#cancel-comment-reply-link').href = "#respond";
 
-        let logoutLink = temp.querySelector('.logout-link');
+        const logoutLink = temp.querySelector('.logout-link');
         if (logoutLink) logoutLink.href = _$$$('comments').dataset.logoutUrl;
       }
 
@@ -107,13 +107,13 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       fcn_revealEditButton();
 
       // Scroll to top of comment section
-      let scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond',
-          scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
+      const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond',
+            scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
       if (scroll) scrollTarget.scrollIntoView({behavior: 'smooth'});
 
       // Add page to URL and preserve params/anchor
-      let refresh = window.location.protocol + '//' + window.location.host + window.location.pathname,
-          urlPart = '';
+      const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
+      let urlPart = '';
 
       if (fcn_urlParams.commentcode) urlPart += `?commentcode=${fcn_urlParams.commentcode}`;
 
@@ -153,7 +153,7 @@ function fcn_reloadCommentsPage(page = null) {
 
 function fcn_jumpToCommentPage() {
   // Prompt user to enter desired page number
-  let input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
+  const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
   // Reload comments on entered page
   if (input > 0) fcn_reloadCommentsPage(input);
