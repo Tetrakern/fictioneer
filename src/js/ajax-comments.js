@@ -97,6 +97,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       fcn_addModerationEvents();
       fcn_addCommentMouseleaveEvents();
       fcn_addTextareaEvents();
+      fcn_addCommentFormEvents();
       fcn_addPrivateToggleEvents()
       fcn_bindAJAXCommentSubmit();
 

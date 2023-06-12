@@ -946,6 +946,7 @@ function fcn_getCommentForm() {
 
       // Bind events
       fcn_addTextareaEvents();
+      fcn_addCommentFormEvents();
       fcn_addPrivateToggleEvents()
       if (fcn_theRoot.dataset.ajaxSubmit) fcn_bindAJAXCommentSubmit();
 
