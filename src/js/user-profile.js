@@ -18,7 +18,7 @@
 
 function fcn_unsetOauth(nonce, channel, id) {
   // Confirm deletion request using localized string
-  let confirm = prompt(
+  const confirm = prompt(
     sprintf(
       _x('Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'Unset OAuth prompt.', 'fictioneer'),
       _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
@@ -30,21 +30,18 @@ function fcn_unsetOauth(nonce, channel, id) {
     confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
   ) return;
 
-  let connection = _$$$(`oauth-${channel}`);
+  const connection = _$$$(`oauth-${channel}`);
 
   // Mark as in-progress
   connection.classList.add('ajax-in-progress');
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost(payload = {
     'action': 'fictioneer_ajax_unset_my_oauth',
     'nonce': nonce,
     'channel': channel,
     'id': id
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     if (response.success) {
       // Successfully unset
@@ -104,7 +101,7 @@ _$$('.button-unset-oauth').forEach(element => {
 function fcn_deleteMyAccount(button) {
   if (_$$$('button-delete-my-account').hasAttribute('disabled')) return;
 
-  let confirm = prompt(
+  const confirm = prompt(
     sprintf(
       button.dataset.warning,
       _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
@@ -119,15 +116,12 @@ function fcn_deleteMyAccount(button) {
   // Disable button
   _$$$('button-delete-my-account').setAttribute('disabled', true);
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost({
     'action': 'fictioneer_ajax_delete_my_account',
     'nonce': button.dataset.nonce,
     'id': button.dataset.id
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     if (response.success) {
       // Successfully deleted
@@ -169,7 +163,7 @@ const /** @const {DOMStringMap} */ fcn_profileDataTranslations = _$$$('profile-d
  */
 
 function fcn_dataDeletionPrompt(button) {
-  let confirm = prompt(
+  const confirm = prompt(
     sprintf(
       button.dataset.warning,
       _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
@@ -194,7 +188,7 @@ function fcn_dataDeletionPrompt(button) {
 
 function fcn_clearData(button, action) {
   // Update view
-  let card = button.closest('.card');
+  const card = button.closest('.card');
 
   // Clear web storage
   localStorage.removeItem('fcnBookshelfContent');
@@ -203,14 +197,11 @@ function fcn_clearData(button, action) {
   card.classList.add('ajax-in-progress');
   button.remove();
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost({
     'action': action,
     'nonce': button.dataset.nonce
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     // Check for success
     if (response.success) {
