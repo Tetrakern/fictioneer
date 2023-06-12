@@ -46,7 +46,8 @@ function fcn_showLightbox(target) {
     // fcn_theBody.classList.add('no-scroll');
     fcn_lightbox.classList.add('show');
 
-    let close = fcn_lightbox.querySelector('.lightbox__close');
+    const close = fcn_lightbox.querySelector('.lightbox__close');
+
     close?.focus();
     close?.blur();
   }
@@ -91,11 +92,11 @@ document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
     e => {
       if (e.target.tagName != 'IMG') {
         // Restore default view
-        // fcn_theBody.classList.remove('no-scroll');
         fcn_lightbox.classList.remove('show');
 
         // Restore last tab focus
-        let lastTrigger = _$('.lightbox-last-trigger');
+        const lastTrigger = _$('.lightbox-last-trigger');
+
         lastTrigger?.focus();
         lastTrigger?.blur();
         lastTrigger?.classList.remove('lightbox-last-trigger');
