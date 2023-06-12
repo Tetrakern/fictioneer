@@ -257,6 +257,24 @@ function fcn_revealCommentFormInputs(area) {
 }
 
 /**
+ * Listen for events on comment form.
+ *
+ * @since 4.7
+ */
+
+function fcn_addCommentFormEvents() {
+  _$$$('comment')?.addEventListener(
+    'focus',
+    event => {
+      fcn_revealCommentFormInputs(event.currentTarget);
+    },
+    {once: true}
+  );
+}
+
+fcn_addCommentFormEvents();
+
+/**
  * Adjust textarea height to fit the value without vertical scroll bar.
  *
  * @since 4.7

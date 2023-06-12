@@ -241,7 +241,6 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
   $oauth_links = fictioneer_get_oauth_links( false, '', 'comments', $post_id );
   $profile_link = get_edit_profile_url();
   $profile_page = intval( get_option( 'fictioneer_user_profile_page', -1 ) );
-  $onclick = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'onclick="fcn_revealCommentFormInputs(this)"' : '';
   $aria_label_textarea = __( 'Leave a comments please', 'fictioneer' );
 
   if ( $profile_page && $profile_page > 0 ) {
@@ -261,7 +260,7 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
       fictioneer_get_logout_url( get_permalink( $post_id ) )
     )
   );
-  $comment_field = "<div class='comment-form-comment fictioneer-respond__form-comment'><textarea id='comment' class='adaptive-textarea' aria-label='{$aria_label_textarea}' name='comment' maxlength='65525' {$onclick} required></textarea>{$toolbar}</div>";
+  $comment_field = "<div class='comment-form-comment fictioneer-respond__form-comment'><textarea id='comment' class='adaptive-textarea' aria-label='{$aria_label_textarea}' name='comment' maxlength='65525' required></textarea>{$toolbar}</div>";
 
   // Prepare arguments
   $args = array(
