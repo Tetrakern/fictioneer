@@ -40,7 +40,7 @@ function fcn_initializeFollows() {
 
 function fcn_getFollows() {
   // Get JSON string from local storage
-  let f = localStorage.getItem('fcnStoryFollows');
+  const f = localStorage.getItem('fcnStoryFollows');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : { 'lastLoaded': 0, 'data': {}, 'seen': Date.now(), 'new': false };
@@ -138,7 +138,7 @@ function fcn_updateFollowsView() {
   localStorage.setItem('fcnStoryFollows', JSON.stringify(fcn_follows));
 
   // Set "new" marker if there are new items
-  let isNew = parseInt(fcn_follows['new']) > 0;
+  const isNew = parseInt(fcn_follows['new']) > 0;
 
   _$$('.mark-follows-read, .follows-alert-number, .mobile-menu-button').forEach(element => {
     element.classList.toggle('_new', isNew);
@@ -162,7 +162,7 @@ function fcn_updateFollowsView() {
 
 function fcn_toggleFollow(storyId) {
   // Check local storage for outside changes
-  let currentFollows = fcn_getFollows();
+  const currentFollows = fcn_getFollows();
 
   // Clear cached bookshelf content (if any)
   localStorage.removeItem('fcnBookshelfContent');
@@ -191,19 +191,16 @@ function fcn_toggleFollow(storyId) {
   // Update view and local storage
   fcn_updateFollowsView();
 
-  // Payload
-  let payload = {
-    'action': 'fictioneer_ajax_toggle_follow',
-    'story_id': storyId,
-    'set': fcn_follows.data.hasOwnProperty(storyId)
-  }
-
   // Clear previous timeout (if still pending)
   clearTimeout(fcn_userFollowsTimeout);
 
   // Update in database; only one request every n seconds
   fcn_userFollowsTimeout = setTimeout(() => {
-    fcn_ajaxPost(payload)
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_toggle_follow',
+      'story_id': storyId,
+      'set': fcn_follows.data.hasOwnProperty(storyId)
+    })
     .then((response) => {
       // Check for failure
       if (response.data.error) {
@@ -232,13 +229,10 @@ function fcn_setupFollowsHTML() {
   // Abort if already loaded
   if (fcn_followsMenuItem.classList.contains('_loaded')) return;
 
-  // Payload
-  let payload = {
-    'action': 'fictioneer_ajax_get_follows_notifications'
-  }
-
   // Request
-  fcn_ajaxGet(payload)
+  fcn_ajaxGet({
+    'action': 'fictioneer_ajax_get_follows_notifications'
+  })
   .then((response) => {
     // Any Follows HTML retrieved?
     if (response.data.html) {
