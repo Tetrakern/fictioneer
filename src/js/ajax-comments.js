@@ -104,12 +104,14 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       // JS trap (if active)
       fcn_addJSTrap();
 
-      // Reveal edit buttons
+      // Reveal edit/delete buttons
       fcn_revealEditButton();
+      fcn_revealDeleteButton();
 
       // Scroll to top of comment section
       const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond',
             scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
+
       if (scroll) scrollTarget.scrollIntoView({behavior: 'smooth'});
 
       // Add page to URL and preserve params/anchor

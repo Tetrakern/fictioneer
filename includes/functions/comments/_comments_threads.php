@@ -742,7 +742,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
             type="button"
             data-tooltip="<?php echo esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ); ?>"
             onclick="fcn_triggerInlineCommentEdit(this)"
-            <?php echo $ajax_in_progress ? '' : 'hidden'; ?>
+            <?php echo $ajax_in_progress && $is_editable ? '' : 'hidden'; ?>
           ><i class="fa-solid fa-pen"></i></button>
           <?php endif; ?>
           <?php
