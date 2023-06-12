@@ -427,7 +427,9 @@ if ( ! function_exists( 'fictioneer_ajax_get_follows_list' ) ) {
         'order' => $order
       ),
       __( 'You are not following any stories.', 'fictioneer' ),
-      ['show_latest' => true]
+      array(
+        'show_latest' => true
+      )
     );
 
     // Total number of pages
