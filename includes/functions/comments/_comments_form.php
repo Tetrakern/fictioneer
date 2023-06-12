@@ -178,6 +178,12 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
       $notification_toggle = '<div class="fictioneer-comment-notification-toggle fictioneer-respond__form-toggle"><label class="comment-respond-option-toggle" tabindex="0" role="checkbox" aria-checked="' . $aria_checked . '" aria-label="' . $hint . '"><input name="fictioneer-comment-notification-toggle" id="fictioneer-comment-notification-toggle" type="checkbox" ' . checked( 1, $notification_checked, false ) . ' tabindex="-1" onchange="fcn_ariaCheckedUpdate(this)" hidden><span class="tooltipped _mobile-tooltip" data-tooltip="' . $hint . '"><i class="fa-solid fa-bell on"></i><i class="fa-solid fa-bell-slash off"></i></span></label></div>';
     }
 
+    // Hidden parent_comment field
+    $parent_field = '<input type="hidden" name="comment_parent" id="comment_parent" value="0">';
+
+    // Hidden comment post ID field (fixed via JS)
+    $comment_post_id = '<input type="hidden" name="comment_post_ID" value="0" id="comment_post_ID">';
+
     // Private comment notice for guests
     $private_notice = '';
 
@@ -199,7 +205,7 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
     return sprintf(
   		$close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div>' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
   		$submit_button,
-  		get_comment_id_fields( get_the_ID() ),
+  		get_the_ID() ? get_comment_id_fields( get_the_ID() ) : $parent_field . $comment_post_id,
       preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
   	);
   }
