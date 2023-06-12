@@ -26,7 +26,7 @@ if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
 
 function fcn_getBookshelfContent() {
   // Get JSON string from session storage
-  let c = sessionStorage.getItem('fcnBookshelfContent');
+  const c = sessionStorage.getItem('fcnBookshelfContent');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (c && fcn_isValidJSONString(c)) ? JSON.parse(c) : { html: {}, count: {} };
@@ -36,13 +36,26 @@ function fcn_getBookshelfContent() {
 // UPDATE VIEW
 // =============================================================================
 
-function fcn_updateBookshelfView(action = null, page = null, order = null, update = false) {
+/**
+ * Update the bookshelf view with fetched/cached content.
+ *
+ * @since 5.0.0
+ *
+ * @param {string|null} action - The action to perform (default: null).
+ * @param {string|null} page - The page to display (default: null).
+ * @param {string|null} order - The order of the bookshelf (default: null).
+ * @param {boolean} scroll - Whether to scroll to the content (default: false).
+ */
+
+function fcn_updateBookshelfView(action = null, page = null, order = null, scroll = false) {
   // Setup
   let fcn_bookshelfStorage = fcn_getBookshelfContent();
+
   action = action ?? fcn_bookshelfTarget.dataset.action,
   page = page ?? fcn_bookshelfTarget.dataset.page,
   order = order ?? fcn_bookshelfTarget.dataset.order;
-  let htmlKey = action + page + order;
+
+  const htmlKey = action + page + order;
 
   // Storage item valid for 60 seconds
   if (
@@ -51,7 +64,7 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, updat
   ) {
     sessionStorage.removeItem('fcnBookshelfContent');
     fcn_bookshelfStorage = { html: {}, count: {} };
-    fcn_fetchBookshelfPart(action, page, order, update);
+    fcn_fetchBookshelfPart(action, page, order, scroll);
     return;
   }
 
@@ -64,15 +77,23 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, updat
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
     fcn_bookshelfTarget.dataset.page = page;
     _$('.item-number').innerHTML = `(${fcn_bookshelfStorage['count'][action]})`;
-    if (update) _$$$('main').scrollIntoView({behavior: 'smooth'});
+    if (scroll) _$$$('main').scrollIntoView({behavior: 'smooth'});
   } else {
-    fcn_fetchBookshelfPart(action, page, order, update);
+    fcn_fetchBookshelfPart(action, page, order, scroll);
   }
 }
 
 // =============================================================================
 // CHANGE PAGE
 // =============================================================================
+
+/**
+ * Change current bookshelf page.
+ *
+ * @since 5.0.0
+ *
+ * @param {string} page - The page to browse to.
+ */
 
 function fcn_browseBookshelfPage(page) {
   // Indicate loading
@@ -82,23 +103,34 @@ function fcn_browseBookshelfPage(page) {
   fcn_updateBookshelfView(null, page, null, true);
 
   // Update URL
-  let url = fcn_buildUrl({
-    tab: fcn_bookshelfTarget.dataset.tab,
-    pg: page,
-    order: fcn_bookshelfTarget.dataset.order
-  });
-
-  history.pushState({}, '', url.href);
+  history.pushState(
+    {},
+    '',
+    fcn_buildUrl({
+      tab: fcn_bookshelfTarget.dataset.tab,
+      pg: page,
+      order: fcn_bookshelfTarget.dataset.order
+    }).href
+  );
 }
 
 // =============================================================================
 // REQUEST BOOKSHELF VIA AJAX
 // =============================================================================
 
-function fcn_fetchBookshelfPart(action, page, order, update = false) {
+/**
+ * Fetch a part of the bookshelf via AJAX.
+ *
+ * @param {string} action - The action to perform.
+ * @param {string} page - The page to retrieve.
+ * @param {string} order - The order of the bookshelf.
+ * @param {boolean} [scroll=false] - Whether to scroll to the top after rendering.
+ */
+
+function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   // Setup
-  let fcn_bookshelfStorage = fcn_getBookshelfContent(),
-      htmlKey = action + page + order;
+  const htmlKey = action + page + order,
+        fcn_bookshelfStorage = fcn_getBookshelfContent();
 
   // Request
   fcn_ajaxGet({
@@ -135,6 +167,6 @@ function fcn_fetchBookshelfPart(action, page, order, update = false) {
   .then(() => {
     // Regardless of outcome
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
-    if (update) _$$$('main').scrollIntoView({behavior: 'smooth'});
+    if (scroll) _$$$('main').scrollIntoView({behavior: 'smooth'});
   });
 }
