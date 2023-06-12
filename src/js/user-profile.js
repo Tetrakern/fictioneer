@@ -196,7 +196,7 @@ function fcn_clearData(button, action) {
   // Update view
   let card = button.closest('.card');
 
-  // Clear local storage
+  // Clear web storage
   localStorage.removeItem('fcnBookshelfContent');
 
   // Indicator

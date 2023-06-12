@@ -14,19 +14,19 @@ if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
 }
 
 // =============================================================================
-// GET CONTENT FROM SESSION STORAGE
+// GET CONTENT FROM WEB STORAGE
 // =============================================================================
 
 /**
- * Get bookshelf content from session storage or create new JSON.
+ * Get bookshelf content from web storage or create new JSON.
  *
  * @since 4.3
  * @see fcn_isValidJSONString()
  */
 
 function fcn_getBookshelfContent() {
-  // Get JSON string from session storage
-  const c = sessionStorage.getItem('fcnBookshelfContent');
+  // Get JSON string from web storage
+  const c = localStorage.getItem('fcnBookshelfContent');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (c && fcn_isValidJSONString(c)) ? JSON.parse(c) : { html: {}, count: {} };
@@ -62,7 +62,7 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
     ! fcn_bookshelfStorage.hasOwnProperty('timestamp') ||
     fcn_bookshelfStorage['timestamp'] + 60000 < Date.now()
   ) {
-    sessionStorage.removeItem('fcnBookshelfContent');
+    localStorage.removeItem('fcnBookshelfContent');
     fcn_bookshelfStorage = { html: {}, count: {} };
     fcn_fetchBookshelfPart(action, page, order, scroll);
     return;
@@ -141,11 +141,11 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   .then((response) => {
     // Check for success
     if (response.success) {
-      // Temporary remember in session storage
+      // Temporary remember in web storage
       fcn_bookshelfStorage['timestamp'] = Date.now();
       fcn_bookshelfStorage['html'][htmlKey] = response.data.html;
       fcn_bookshelfStorage['count'][action] = response.data.count;
-      sessionStorage.setItem('fcnBookshelfContent', JSON.stringify(fcn_bookshelfStorage));
+      localStorage.setItem('fcnBookshelfContent', JSON.stringify(fcn_bookshelfStorage));
 
       // Render in view
       fcn_bookshelfTarget.innerHTML = response.data.html;

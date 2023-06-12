@@ -66,16 +66,16 @@ function fcn_cleanupWebStorage(keepGuestData = false) {
   localStorage.removeItem('fcnStoryReminders');
   localStorage.removeItem('fcnCheckmarks');
   localStorage.removeItem('fcnFingerprint');
-  sessionStorage.removeItem('fcnLoginState');
-  sessionStorage.removeItem('fcnBookshelfContent');
+  localStorage.removeItem('fcnLoginState');
+  localStorage.removeItem('fcnBookshelfContent');
   if (!keepGuestData) localStorage.removeItem('fcnChapterBookmarks');
 
   // Clean up private nonce but keep public nonce
-  let maybeNonce = sessionStorage.getItem('fcnNonce');
+  let maybeNonce = localStorage.getItem('fcnNonce');
   maybeNonce = (maybeNonce && fcn_isValidJSONString(maybeNonce)) ? JSON.parse(maybeNonce) : false;
 
   if (maybeNonce && maybeNonce['loggedIn']) {
-    sessionStorage.removeItem('fcnNonce');
+    localStorage.removeItem('fcnNonce');
   }
 }
 
@@ -111,19 +111,19 @@ if (fcn_theRoot.dataset.ajaxNonce) {
 }
 
 /**
- * Fetch nonce via AJAX or session storage.
+ * Fetch nonce via AJAX or web storage.
  *
  * @since 5.0
  */
 
 function fcn_fetchNonce() {
-  // Look for recent state in session storage
-  let storage = sessionStorage.getItem('fcnNonce');
+  // Look for recent state in web storage
+  let storage = localStorage.getItem('fcnNonce');
   storage = (storage && fcn_isValidJSONString(storage)) ? JSON.parse(storage) : false;
 
   // Clear cached public nonce if any
   if (storage && !storage['loggedIn'] && fcn_isLoggedIn) {
-    sessionStorage.removeItem('fcnNonce');
+    localStorage.removeItem('fcnNonce');
     storage = false;
   }
 
@@ -148,7 +148,7 @@ function fcn_fetchNonce() {
       fcn_addNonceAndAuth(response.data.nonceHtml);
 
       // Remember to avoid too many requests
-      sessionStorage.setItem(
+      localStorage.setItem(
         'fcnNonce',
         JSON.stringify({ 'lastLoaded': Date.now(), 'nonceHtml': response.data.nonceHtml, 'loggedIn': fcn_isLoggedIn })
       );
@@ -160,7 +160,7 @@ function fcn_fetchNonce() {
   })
   .catch(() => {
     // Most likely 403 after likely unsafe logout, clear local data
-    sessionStorage.removeItem('fcnNonce');
+    localStorage.removeItem('fcnNonce');
     _$$$('fictioneer-ajax-nonce')?.remove();
     fcn_cleanupGuestView();
   });
@@ -196,14 +196,14 @@ if (!fcn_isLoggedIn && (typeof fcn_isAjaxAuth !== 'undefined') && !fcn_theRoot.d
 }
 
 /**
- * Fetch login state via AJAX or session storage.
+ * Fetch login state via AJAX or web storage.
  *
  * @since 5.0
  */
 
 function fcn_fetchLoginState() {
-  // Look for recent state in session storage
-  let storage = sessionStorage.getItem('fcnLoginState');
+  // Look for recent state in web storage
+  let storage = localStorage.getItem('fcnLoginState');
   storage = (storage && fcn_isValidJSONString(storage)) ? JSON.parse(storage) : false;
 
   // Update from cache to avoid delays but only cache for a short while
@@ -224,7 +224,7 @@ function fcn_fetchLoginState() {
       fcn_setLoggedInState(response.data, !storage['loggedIn']);
 
       // Remember to avoid too many requests
-      sessionStorage.setItem(
+      localStorage.setItem(
         'fcnLoginState',
         JSON.stringify({
           'lastLoaded': Date.now(),
@@ -1631,7 +1631,6 @@ class FCN_KeywordInput {
       this.operator.addEventListener(
         'change',
         e => {
-          console.log(e.currentTarget.checked);
           e.currentTarget.closest('label').ariaChecked = e.currentTarget.checked;
         }
       );
