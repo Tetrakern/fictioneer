@@ -162,8 +162,9 @@ function fcn_evaluateAsBoolean(candidate, fallback = false) {
   }
 
   // Truthy/Falsy value?
-  let s = String(candidate),
-      i = parseInt(candidate);
+  const s = String(candidate),
+        i = parseInt(candidate);
+
   if (s === 'true' || s === '1' || i === 1) return true;
   if (s === 'false' || s === '0' || i === 0) return false;
 
@@ -261,12 +262,13 @@ function fcn_clamp(min, max, val) {
  */
 
 function fcn_updateThemeColor(color = false) {
-  let themeColor = fcn_cssVars.getPropertyValue('--theme-color-base').trim().split(' '),
-      darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0,
-      saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0,
-      hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0,
-      d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
-      s = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+  const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0,
+        saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0,
+        hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0,
+        d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2),
+        s = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+
+  let themeColor = fcn_cssVars.getPropertyValue('--theme-color-base').trim().split(' ');
 
   themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * s).toFixed(2)}% ${(parseInt(themeColor[2]) * d).toFixed(2)}%)`;
 
@@ -293,7 +295,7 @@ function fcn_updateThemeColor(color = false) {
  */
 
 function fcn_offset(element) {
-  let rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect();
 
   return {
     top: rect.top + window.scrollY,
@@ -397,7 +399,7 @@ var /** @const {HTMLElement} */ fcn_lastClicked;
  */
 
 function fcn_toggleLastClicked(element) {
-  let set = !element.classList.contains('last-clicked');
+  const set = !element.classList.contains('last-clicked');
 
   element.classList.toggle('last-clicked', set);
   element.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
@@ -524,10 +526,11 @@ function fcn_deleteAllCookies() {
  */
 
 function fcn_setCookie(cname, value, days = 30) {
-  let d = new Date();
+  const d = new Date();
+
   d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
 
-  let expires = 'expires=' + d.toUTCString();
+  const expires = 'expires=' + d.toUTCString();
 
   document.cookie = cname + '=' + encodeURIComponent(value) + ';' + expires + ';SameSite=Strict;path=/';
 }
@@ -545,11 +548,11 @@ function fcn_setCookie(cname, value, days = 30) {
  */
 
 function fcn_getCookie(cname) {
-  let name = cname + '=',
-      cookies = document.cookie.split(';');
+  const name = cname + '=',
+        cookies = document.cookie.split(';');
 
   for (var i = 0; i < cookies.length; i++) {
-    let c = cookies[i].trim();
+    const c = cookies[i].trim();
 
     if (c.indexOf(name) == 0) {
       return decodeURIComponent(c.substring(name.length, c.length));
@@ -656,8 +659,8 @@ function fcn_buildUrl(params = {}, url = null) {
 
 function fcn_buildErrorNotice(message, id = false) {
   // Setup
-  let notice = document.createElement('div'),
-      text = message;
+  const notice = document.createElement('div');
+  let text = message;
 
   if (id) notice.id = id;
 
@@ -692,7 +695,8 @@ function fcn_buildErrorNotice(message, id = false) {
  */
 
 function fcn_sanitizeHTML(html) {
-  let temp = document.createElement('div');
+  const temp = document.createElement('div');
+
   temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
   return temp.innerHTML;
 }
@@ -723,10 +727,11 @@ function fcn_resizeInput(input, size = null) {
  */
 
 function fcn_ariaCheckedUpdate(source) {
-  let target = source.closest('[role="checkbox"][aria-checked]');
+  const target = source.closest('[role="checkbox"][aria-checked]');
 
   if (target) {
-    let checked = fcn_evaluateAsBoolean(source);
+    const checked = fcn_evaluateAsBoolean(source);
+
     target.ariaChecked = checked;
   }
 }
@@ -763,14 +768,14 @@ function fcn_scrollToAnchor(source) {
  */
 
 function fcn_detectScreenCollision(element) {
-  let rect = element.getBoundingClientRect(),
-      elementHeight = element.clientHeight,
-      viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
-      threshold = 50,
-      offset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16,
-      bottomSpacing = viewportHeight - rect.bottom - elementHeight,
-      topSpacing = rect.top - elementHeight,
-      result = [];
+  const rect = element.getBoundingClientRect(),
+        elementHeight = element.clientHeight,
+        viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
+        threshold = 50,
+        offset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16,
+        bottomSpacing = viewportHeight - rect.bottom - elementHeight,
+        topSpacing = rect.top - elementHeight,
+        result = [];
 
   if (rect.top <= threshold && bottomSpacing > threshold + offset) result.push('top');
   if (rect.bottom >= viewportHeight - threshold && topSpacing > threshold + offset) result.push('bottom');
