@@ -15,10 +15,10 @@
 <?php
 
 // Setup
-$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : null;
-$order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
-$order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
-$current_page = get_query_var( 'pg', 1 );
+$current_tab = $_GET['tab'] ?? null;
+$order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
+$order = reset( $order ) ?: 'desc';
+$current_page = get_query_var( 'pg', 1 ) ?: 1;
 $max_pages = 1;
 $tabs = [];
 
@@ -86,7 +86,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         $order_link = add_query_arg(
           array(
             'tab' => $current_tab,
-            'order' => ['desc' => 'asc', 'asc' => 'desc'][ $order ]
+            'order' => $order === 'desc' ? 'asc' : 'desc'
           ),
           $current_url
         ) . '#main';
@@ -110,17 +110,8 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           <section id="tabs" class="bookshelf__tabs tabs-wrapper spacing-top">
             <div class="tabs">
               <?php foreach ( $tabs as $key => $value ) : ?>
-                <a href="<?php echo
-                  esc_url(
-                    add_query_arg(
-                      array(
-                        'tab' => $key,
-                        'order' => $order
-                      ),
-                      $current_url
-                    ) . '#main');
-                ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>">
-                  <span><?php echo $value['name']; ?></span>
+                <a href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>">
+                  <?php echo $value['name']; ?>
                   <?php if ( $current_tab == $key ) : ?>
                     <span class="item-number">(<i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i>)</span>
                   <?php endif; ?>
