@@ -332,7 +332,12 @@ function fcn_fetchCheckmarksFromDatabase() {
     // Update view regardless of success
     fcn_updateCheckmarksView();
 
+    /*
+     * NOTE: The AJAX bookshelf may be out of sync for 1 minute if recently
+     * loaded in another tab or window, which cannot be cleared from here!
+     */
+
     // Clear cached bookshelf content (if any)
-    localStorage.removeItem('fcnBookshelfContent');
+    sessionStorage.removeItem('fcnBookshelfContent');
   });
 }
