@@ -15,11 +15,12 @@
 
 function fcn_addJSTrap() {
   // Setup
-  let red = document.querySelector('.comment-form'); // Red makes it faster!
+  const red = document.querySelector('.comment-form'); // Red makes it faster!
 
   // Add validation field to form
   if (red) {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
+
     input.setAttribute('type', 'hidden');
     input.id = 'fictioneer-comment-validator';
     input.setAttribute('name', 'fictioneer_comment_validator');
@@ -50,8 +51,8 @@ fcn_addJSTrap();
 
 function fcn_moderateComment(id, operation) {
   // Setup
-  let comment = _$$$(`comment-${id}`),
-      menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
+  const comment = _$$$(`comment-${id}`),
+        menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) return;
@@ -64,15 +65,12 @@ function fcn_moderateComment(id, operation) {
     comment.style.height = comment.clientHeight + 'px';
   }
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost({
     'action': 'fictioneer_ajax_moderate_comment',
     'operation': operation,
     'id': id
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     if (response.success) {
         // Server action succeeded
@@ -196,8 +194,8 @@ function fcn_flagComment(source) {
   if (!fcn_isLoggedIn) return;
 
   // Setup
-  let comment = source.closest('.fictioneer-comment'),
-      reportButton = comment.querySelector('.fictioneer-report-comment-button');
+  const comment = source.closest('.fictioneer-comment'),
+        reportButton = comment.querySelector('.fictioneer-report-comment-button');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) return;
@@ -205,15 +203,12 @@ function fcn_flagComment(source) {
   // Lock comment until AJAX action is complete
   comment.classList.add('ajax-in-progress');
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost({
     'action': 'fictioneer_ajax_report_comment',
     'id': comment.dataset.id,
     'dubious': reportButton.classList.contains('_dubious')
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     // Comment successfully reported?
     if (response.success) {
@@ -336,13 +331,13 @@ fcn_addPrivateToggleEvents();
  */
 
 function fcn_wrapInTag(element, tag, options = {}) {
-  let href = options.href ? ' href="' + options.href + '" target="_blank" rel="nofollow noreferrer noopener"' : '',
-      brackets = options.shortcode ? ['[', ']'] : ['<', '>'],
-      start = element.selectionStart,
-      end = element.selectionEnd,
-      open = brackets[0] + tag + href + brackets[1],
-      close = brackets[0] + '/' + tag + brackets[1],
-      text = open + element.value.substring(start, end) + close;
+  const href = options.href ? ' href="' + options.href + '" target="_blank" rel="nofollow noreferrer noopener"' : '',
+        brackets = options.shortcode ? ['[', ']'] : ['<', '>'],
+        start = element.selectionStart,
+        end = element.selectionEnd,
+        open = brackets[0] + tag + href + brackets[1],
+        close = brackets[0] + '/' + tag + brackets[1],
+        text = open + element.value.substring(start, end) + close;
 
   element.value = element.value.substring(0, start) + text + element.value.substring(end, element.value.length);
   element.setSelectionRange((start + open.length), (end + open.length));
@@ -444,19 +439,20 @@ function fcn_bindAJAXCommentSubmit() {
     if (Date.now() < fcn_pageLoadTimestamp + 3000) return;
 
     // Get comment form input
-    let form = e.currentTarget,
-        button = _$$$('submit'),
-        content = _$$$('comment'),
-        author = _$$$('author'),
-        email = _$$$('email'),
-        cookie_consent = _$$$('wp-comment-cookies-consent'),
-        privacy_consent = _$$$('fictioneer-privacy-policy-consent'),
-        jsValidator = _$$$('fictioneer-comment-validator'),
-        parentId = _$$$('comment_parent').value,
-        parent = _$$$(`comment-${parentId}`),
-        private_comment = _$$$('fictioneer-private-comment-toggle'),
-        notification = _$$$('fictioneer-comment-notification-toggle'),
-        emailValidation = true,
+    const form = e.currentTarget,
+          button = _$$$('submit'),
+          content = _$$$('comment'),
+          author = _$$$('author'),
+          email = _$$$('email'),
+          cookie_consent = _$$$('wp-comment-cookies-consent'),
+          privacy_consent = _$$$('fictioneer-privacy-policy-consent'),
+          jsValidator = _$$$('fictioneer-comment-validator'),
+          parentId = _$$$('comment_parent').value,
+          parent = _$$$(`comment-${parentId}`),
+          private_comment = _$$$('fictioneer-private-comment-toggle'),
+          notification = _$$$('fictioneer-comment-notification-toggle');
+
+    let emailValidation = true,
         contentValidation = true,
         privacyValidation = true;
 
@@ -481,7 +477,7 @@ function fcn_bindAJAXCommentSubmit() {
     button.value = button.dataset.disabled;
 
     // Payload
-    let payload = {
+    const payload = {
       'action': 'fictioneer_ajax_submit_comment',
       'post_id': _$$$('comment_post_ID').value,
       'content': content.value,
@@ -508,8 +504,13 @@ function fcn_bindAJAXCommentSubmit() {
       // Comment successfully saved?
       if (!response.success || !response.data?.comment) {
         // Add error message
-        let errorNote = response.data?.error ?? __('Error', 'fictioneer');
-        form.insertBefore(fcn_buildErrorNotice(errorNote, 'comment-submit-error-notice'), form.firstChild);
+        form.insertBefore(
+          fcn_buildErrorNotice(
+            response.data?.error ?? __('Error', 'fictioneer'),
+            'comment-submit-error-notice'
+          ),
+          form.firstChild
+        );
       } else {
         // Insert new comment
         let target = _$('.commentlist'),
@@ -534,11 +535,10 @@ function fcn_bindAJAXCommentSubmit() {
         // Create list if missing
         if (!target) {
           // First comment, list missing!
-          let list = document.createElement('ol');
-          list.classList = 'fictioneer-comments__list commentlist';
-          _$$$('comments').appendChild(list);
+          target = document.createElement('ol');
+          target.classList = 'fictioneer-comments__list commentlist';
+          _$$$('comments').appendChild(target);
           insertMode = 'append';
-          target = list;
         }
 
         // Account for parent of reply
@@ -551,7 +551,7 @@ function fcn_bindAJAXCommentSubmit() {
 
           // Create child comment list if missing
           if (!target) {
-            let node = document.createElement('ol');
+            const node = document.createElement('ol');
             parent.appendChild(node);
             target = node;
           }
@@ -586,12 +586,12 @@ function fcn_bindAJAXCommentSubmit() {
         content.style.height = '';
 
         // Update URL
-        let refresh = window.location.protocol + '//' + window.location.host + window.location.pathname,
-            urlPart = '';
+        const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        let urlPart = '';
 
         if (response.data.commentcode) urlPart += `?commentcode=${response.data.commentcode}`;
 
-        history.pushState({ path: refresh }, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
+        history.pushState({path: refresh}, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
 
         // Scroll to new comment
         commentNode.scrollIntoView({behavior: 'smooth'});
@@ -641,13 +641,13 @@ var /** @type {Object} */ fcn_commentEditUndos = {};
 
 function fcn_triggerInlineCommentEdit(source) {
   // Setup
-  let red = source.closest('.fictioneer-comment'); // Red makes it faster!
+  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
 
   // Main comment container found...
   if (red) {
-    let content = red.querySelector('.fictioneer-comment__content'),
-        edit = red.querySelector('.fictioneer-comment__edit'),
-        textarea = red.querySelector('.comment-inline-edit-content');
+    const content = red.querySelector('.fictioneer-comment__content'),
+          edit = red.querySelector('.fictioneer-comment__edit'),
+          textarea = red.querySelector('.comment-inline-edit-content');
 
     // Save unedited content
     fcn_commentEditUndos[red.id] = textarea.value;
@@ -669,10 +669,11 @@ function fcn_triggerInlineCommentEdit(source) {
 
 function fcn_submitInlineCommentEdit(source) {
   // Setup
-  let red = source.closest('.fictioneer-comment'), // Red makes it faster!
-      edit = red.querySelector('.fictioneer-comment__edit'),
-      editNote = red.querySelector('.fictioneer-comment__edit-note'),
-      content = red.querySelector('.comment-inline-edit-content').value;
+  const red = source.closest('.fictioneer-comment'), // Red makes it faster!
+        edit = red.querySelector('.fictioneer-comment__edit'),
+        content = red.querySelector('.comment-inline-edit-content').value;
+
+  let editNote = red.querySelector('.fictioneer-comment__edit-note');
 
   // Abort if...
   if (content == fcn_commentEditUndos[red.id]) {
@@ -682,24 +683,23 @@ function fcn_submitInlineCommentEdit(source) {
 
   // Send update
   if (red) {
-    let payload = {
-      'action': 'fictioneer_ajax_edit_comment',
-      'comment_id': red.id.replace('comment-', ''),
-      'content': content
-    }
-
     // Disable edit form
     edit.classList.add('ajax-in-progress');
     source.innerHTML = source.dataset.disabled;
     source.disabled = true;
 
     // Request
-    fcn_ajaxPost(payload)
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_edit_comment',
+      'comment_id': red.id.replace('comment-', ''),
+      'content': content
+    })
     .then(response => {
       // Comment successfully updated?
       if (response.success) {
         // Replace content in view and restore non-edit state
-        let content = red.querySelector('.fictioneer-comment__content');
+        const content = red.querySelector('.fictioneer-comment__content');
+
         content.innerHTML = response.data.content;
         fcn_restoreComment(red, false, response.data.raw);
 
@@ -743,7 +743,7 @@ function fcn_submitInlineCommentEdit(source) {
 
 function fcn_cancelInlineCommentEdit(source) {
   // Setup
-  let red = source.closest('.fictioneer-comment'); // Red makes it faster!
+  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
 
   // Restore comment to non-edit state
   if (red) fcn_restoreComment(red, true);
@@ -796,7 +796,8 @@ function fcn_revealEditButton() {
       }
 
       // Reveal button
-      let button = element.querySelector('.fictioneer-comment__edit-toggle');
+      const button = element.querySelector('.fictioneer-comment__edit-toggle');
+
       if (button) button.hidden = false;
     }
   });
@@ -820,7 +821,8 @@ function fcn_revealDeleteButton() {
   _$$('.fictioneer-comment[data-fingerprint]').forEach(element => {
     if (fcn_matchFingerprint(element.dataset.fingerprint)) {
       // Reveal button
-      let button = element.querySelector('.fictioneer-comment__delete');
+      const button = element.querySelector('.fictioneer-comment__delete');
+
       if (button) button.hidden = false;
     }
   });
@@ -845,14 +847,14 @@ function fcn_deleteMyComment(button) {
   if (!fcn_isLoggedIn) return;
 
   // Prompt for confirmation
-  let confirm = prompt(button.dataset.dialogMessage);
+  const confirm = prompt(button.dataset.dialogMessage);
 
   if (!confirm || confirm.toLowerCase() != button.dataset.dialogConfirm.toLowerCase()) {
     return;
   }
 
   // Setup
-  let comment = button.closest('.fictioneer-comment');
+  const comment = button.closest('.fictioneer-comment');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) return;
@@ -860,14 +862,11 @@ function fcn_deleteMyComment(button) {
   // Lock comment until AJAX action is complete
   comment.classList.add('ajax-in-progress');
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxPost(payload = {
     'action': 'fictioneer_ajax_delete_my_comment',
     'comment_id': comment.dataset.id
-  }
-
-  // Request
-  fcn_ajaxPost(payload)
+  })
   .then((response) => {
     if (response.success) {
       comment.classList.add('_deleted');
@@ -919,24 +918,22 @@ function fcn_getCommentForm() {
   // Setup
   let errorNote;
 
-  // Payload
-  let payload = {
+  // Request
+  fcn_ajaxGet({
     'action': 'fictioneer_ajax_get_comment_form',
     'post_id': _$$$('comments').dataset.postId
-  }
-
-  // Request
-  fcn_ajaxGet(payload)
+  })
   .then((response) => {
     if (response.success) {
       // Get HTML
-      let temp = document.createElement('div');
+      const temp = document.createElement('div');
+
       temp.innerHTML = response.data.html;
 
       // Get form elements
-      let commentPostId = temp.querySelector('#comment_post_ID'),
-          cancelReplyLink = temp.querySelector('#cancel-comment-reply-link'),
-          logoutLink = temp.querySelector('.logout-link');
+      const commentPostId = temp.querySelector('#comment_post_ID'),
+            cancelReplyLink = temp.querySelector('#cancel-comment-reply-link'),
+            logoutLink = temp.querySelector('.logout-link');
 
       // Fix form elements
       if (commentPostId) commentPostId.value = response.data.postId;
