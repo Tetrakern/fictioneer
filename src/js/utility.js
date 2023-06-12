@@ -777,3 +777,23 @@ function fcn_detectScreenCollision(element) {
 
   return result;
 }
+
+// =============================================================================
+// SCROLL TO ELEMENT
+// =============================================================================
+
+/**
+ * Scroll to a specific target on the page.
+ *
+ * @since 5.4.0
+ *
+ * @param {HTMLElement} target - The target element to scroll to.
+ */
+
+function fcn_scrollTo(target) {
+  // Scroll to position + offset
+  window.scrollTo({
+    top: target.getBoundingClientRect().top + window.pageYOffset - 64,
+    behavior: 'smooth'
+  });
+}

@@ -16,21 +16,17 @@ const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggl
  */
 
 function fcn_toggleMobileMenu(isOpened) {
-  let adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
 
   if (isOpened) {
     // Mobile menu was opened
-    let newScroll = window.scrollY - adminBarOffset;
     fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
     fcn_theBody.classList.remove('scrolling-up');
     fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
-    fcn_theSite.scrollTop = newScroll;
+    fcn_theSite.scrollTop = window.scrollY - adminBarOffset;
     fcn_updateThemeColor();
   } else {
     // Mobile menu was closed
-    let newScroll = fcn_theSite.scrollTop + adminBarOffset;
-
-    // Reset site
     fcn_theSite.classList.remove('transformed-site', 'transformed-scroll');
     fcn_theBody.classList.remove('mobile-menu-open');
     fcn_updateThemeColor();
@@ -38,7 +34,7 @@ function fcn_toggleMobileMenu(isOpened) {
     fcn_openMobileFrame('main'); // Reset to main frame
 
     // Restore scroll position
-    window.scroll(0, newScroll);
+    window.scroll(0, fcn_theSite.scrollTop + adminBarOffset);
 
     // Reset control checkbox
     fcn_mobileMenuToggle.checked = false;
@@ -62,24 +58,20 @@ fcn_theSite.addEventListener('click', e => {
 });
 
 // =============================================================================
-// ACTION BUTTONS & LINKS
+// JUMP BUTTONS
 // =============================================================================
 
 // Listen for click on comment jump mobile menu button
 _$$$('mobile-menu-comment-jump')?.addEventListener(
   'click',
-  e => {
+  () => {
     fcn_toggleMobileMenu(false);
 
     setTimeout(function() {
-      let target = _$$$('comments');
+      const target = _$$$('comments');
 
-      if (!target) return;
-
-      let position = target.getBoundingClientRect().top,
-          offset = position + window.pageYOffset - 64;
-
-      window.scrollTo({ top: offset, behavior: 'smooth' });
+      // Scroll to position + offset
+      if (target) fcn_scrollTo(target);
     }, 200); // Wait for mobile menu to close
   }
 );
@@ -87,18 +79,14 @@ _$$$('mobile-menu-comment-jump')?.addEventListener(
 // Listen for click on bookmark jump mobile menu button
 _$$$('mobile-menu-bookmark-jump')?.addEventListener(
   'click',
-  e => {
+  () => {
     fcn_toggleMobileMenu(false);
 
     setTimeout(function() {
-      let target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
+      const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
 
-      if (!target) return;
-
-      let position = target.getBoundingClientRect().top,
-          offset = position + window.pageYOffset - 64;
-
-      window.scrollTo({ top: offset, behavior: 'smooth' });
+      // Scroll to position + offset
+      if (target) fcn_scrollTo(target);
     }, 200); // Wait for mobile menu to close
   }
 );
@@ -130,7 +118,7 @@ function fcn_closeMobileFrames() {
   });
 
   // End bookmarks edit mode
-  let bookmarksPanel = _$('.mobile-menu__bookmarks-panel');
+  const bookmarksPanel = _$('.mobile-menu__bookmarks-panel');
   if (bookmarksPanel) bookmarksPanel.dataset.editing = 'false';
 }
 
@@ -159,7 +147,7 @@ _$$('.mobile-menu__back-button').forEach(element => {
  */
 
 function fcn_appendChapterList() {
-  let target = _$$$('mobile-menu-chapters-list');
+  const target = _$$$('mobile-menu-chapters-list');
 
   if (fcn_chapterList && !target.hasChildNodes()) {
     target.appendChild(fcn_chapterList.cloneNode(true));
@@ -188,7 +176,7 @@ _$$$('micro-menu-label-open-chapter-list')?.addEventListener('click', () => {
 // =============================================================================
 
 _$$$('button-mobile-menu-toggle-bookmarks-edit')?.addEventListener('click', event => {
-  let panel = event.currentTarget.closest('.mobile-menu__bookmarks-panel');
+  const panel = event.currentTarget.closest('.mobile-menu__bookmarks-panel');
   panel.dataset.editing = panel.dataset.editing == 'false' ? 'true' : 'false';
 });
 
