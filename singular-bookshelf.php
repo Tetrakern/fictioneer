@@ -126,10 +126,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           <section id="tabs" class="bookshelf__tabs tabs-wrapper spacing-top">
             <div class="tabs">
               <?php foreach ( $tabs as $key => $value ) : ?>
-                <a
-                  href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>"
-                  class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"
-                ><?php
+                <a href="<?php echo esc_url( add_query_arg( array( 'tab' => $key, 'order' => $order ), $current_url ) . '#main'); ?>" class="tabs__item <?php echo implode( ' ', $value['classes'] )?>"><?php
                   printf(
                     _x( '%s (%s)', 'Bookshelf tab name pattern: {Tab} ({Count})', 'fictioneer' ),
                     $value['name'],
