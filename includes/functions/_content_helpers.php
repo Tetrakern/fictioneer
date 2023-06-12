@@ -1124,7 +1124,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo fictioneer_get_logout_url(); ?>" onclick="fcn_cleanupLocalStorage()" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ) ?></a>
+        <a href="<?php echo fictioneer_get_logout_url(); ?>" onclick="fcn_cleanupWebStorage()" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ) ?></a>
       </li>
       <?php // <--- End HTML
       $output['logout'] = ob_get_clean();

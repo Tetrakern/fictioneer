@@ -397,9 +397,9 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnStoryFollows')
   localStorage.removeItem('fcnStoryReminders');
   localStorage.removeItem('fcnCheckmarks');
-  localStorage.removeItem('fcnLoginState');
-  localStorage.removeItem('fcnNonce');
   localStorage.removeItem('fcnFingerprint');
-  localStorage.removeItem('fcnBookshelfContent');
+  sessionStorage.removeItem('fcnLoginState');
+  sessionStorage.removeItem('fcnNonce');
+  sessionStorage.removeItem('fcnBookshelfContent');
   localStorage.removeItem('fcnChapterBookmarks');
 });

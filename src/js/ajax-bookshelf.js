@@ -14,19 +14,19 @@ if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
 }
 
 // =============================================================================
-// GET CONTENT FROM LOCAL STORAGE
+// GET CONTENT FROM SESSION STORAGE
 // =============================================================================
 
 /**
- * Get bookshelf content from local storage or create new JSON.
+ * Get bookshelf content from session storage or create new JSON.
  *
  * @since 4.3
  * @see fcn_isValidJSONString()
  */
 
 function fcn_getBookshelfContent() {
-  // Get JSON string from local storage
-  let c = localStorage.getItem('fcnBookshelfContent');
+  // Get JSON string from session storage
+  let c = sessionStorage.getItem('fcnBookshelfContent');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (c && fcn_isValidJSONString(c)) ? JSON.parse(c) : { html: {}, count: {} };
@@ -49,7 +49,7 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, updat
     ! fcn_bookshelfStorage.hasOwnProperty('timestamp') ||
     fcn_bookshelfStorage['timestamp'] + 60000 < Date.now()
   ) {
-    localStorage.removeItem('fcnBookshelfContent');
+    sessionStorage.removeItem('fcnBookshelfContent');
     fcn_bookshelfStorage = { html: {}, count: {} };
     fcn_fetchBookshelfPart(action, page, order, update);
     return;
@@ -113,7 +113,7 @@ function fcn_fetchBookshelfPart(action, page, order, update = false) {
       fcn_bookshelfStorage['timestamp'] = Date.now();
       fcn_bookshelfStorage['html'][htmlKey] = response.data.html;
       fcn_bookshelfStorage['count'][action] = response.data.count;
-      localStorage.setItem('fcnBookshelfContent', JSON.stringify(fcn_bookshelfStorage));
+      sessionStorage.setItem('fcnBookshelfContent', JSON.stringify(fcn_bookshelfStorage));
 
       // Render in view
       fcn_bookshelfTarget.innerHTML = response.data.html;
