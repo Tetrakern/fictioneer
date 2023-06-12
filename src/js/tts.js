@@ -94,15 +94,16 @@ function fcn_getTTSsettings() {
  */
 
 function fcn_setUpVoices() {
-  let systemVoices = fcn_synth.getVoices(),
-      index = 0,
-      select = _$$$('tts-voice-select'),
-      languages = [fcn_theRoot.lang];
+  const systemVoices = fcn_synth.getVoices(),
+        select = _$$$('tts-voice-select'),
+        languages = [fcn_theRoot.lang];
 
   if (!select) return;
 
+  let index = 0;
+
   for (let i = 0; i < systemVoices.length; i++) {
-    let voice = systemVoices[i];
+    const voice = systemVoices[i];
 
     // Filter voices by set language
     if (fcn_theRoot.lang == 'en-US') languages.push('en-GB');
@@ -111,7 +112,9 @@ function fcn_setUpVoices() {
 
     // Add voice to selection
     fcn_voices.push(voice);
-    let option = document.createElement('option');
+
+    const option = document.createElement('option');
+
     option.value = index;
     option.innerHTML = voice.name;
     select.appendChild(option);
@@ -235,7 +238,7 @@ function fcn_updateRate(value) {
  */
 
 function fcn_readTextStack() {
-  let current = _$('.current-reading');
+  const current = _$('.current-reading');
 
   // End of stack reached
   if (fcn_ttsStack.length === 0) {
@@ -247,7 +250,7 @@ function fcn_readTextStack() {
   }
 
   // Get next item from stack
-  let item = fcn_ttsStack.shift();
+  const item = fcn_ttsStack.shift();
 
   fcn_ttsCurrentText = item[1];
 
@@ -273,9 +276,9 @@ if (typeof speechSynthesis !== 'undefined') {
     fcn_currentReadingId = -1;
 
     // Hide sensitive content?
-    let hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
-        sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
-        playButton = _$$$('button-tts-play');
+    const hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
+          sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
+          playButton = _$$$('button-tts-play');
 
     // Cancel ongoing reading if any
     if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -300,9 +303,10 @@ if (typeof speechSynthesis !== 'undefined') {
 
     // Prepare items to read
     fcn_ttsStack = fcn_ttsStack.map(node => {
-      let result = [],
-          inner = node.querySelector('.paragraph-inner'),
-          sentences = inner ? inner.innerText : node.innerText; // Check if wrapped
+      const result = [],
+            inner = node.querySelector('.paragraph-inner');
+
+      let sentences = inner ? inner.innerText : node.innerText; // Check if wrapped
 
       // Split text into array of sentences (regex is... acceptable)
       sentences = sentences.replace(/(\.+|\:|\!|\?)(\"*|\'*|\)*|}*|]*)(\s|\n|\r|\r\n)/gm, "$1$2|").split("|");
@@ -328,12 +332,14 @@ if (typeof speechSynthesis !== 'undefined') {
 
   // Stop button
   _$$$('button-tts-stop')?.addEventListener('click', (e) => {
-    let current = _$('.current-reading');
+    const current = _$('.current-reading');
 
     fcn_ttsInterface.classList.add('hidden', 'ended');
     fcn_ttsInterface.classList.remove('playing', 'paused');
     fcn_theBody.classList.remove('tts-open');
+
     if (current) current.classList.remove('current-reading');
+
     fcn_ttsStack = [];
     fcn_currentReadingId = -1;
     fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -376,10 +382,10 @@ if (typeof speechSynthesis !== 'undefined') {
 
   _$$$('button-tts-scroll')?.addEventListener(
     'click',
-    e => {
-      let target = _$(`p[id="${fcn_currentReadingId}"]`),
-          position = target.getBoundingClientRect().top,
-          offset = position + window.pageYOffset - 128;
+    () => {
+      const target = _$(`p[id="${fcn_currentReadingId}"]`),
+            position = target.getBoundingClientRect().top,
+            offset = position + window.pageYOffset - 128;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
     }
