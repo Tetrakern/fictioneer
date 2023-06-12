@@ -17,11 +17,12 @@ fcn_getProfileImage();
 
 function fcn_replaceProfileImage(target, avatar) {
   // Setup
-  let old = target.querySelector('.icon._user');
+  const old = target.querySelector('.icon._user');
 
   // Add avatar to view
   if (old) {
-    let img = document.createElement('img');
+    const img = document.createElement('img');
+
     img.classList.add('user-profile-image');
     img.src = avatar;
     old.remove();
@@ -144,7 +145,7 @@ function fcn_initializeFingerprint() {
 
 function fcn_getFingerprint() {
   // Get JSON string from local storage
-  let f = localStorage.getItem('fcnFingerprint');
+  const f = localStorage.getItem('fcnFingerprint');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : { 'lastLoaded': 0, 'fingerprint': false };
@@ -169,18 +170,15 @@ function fcn_fetchFingerprint() {
     return;
   }
 
-   // Payload
-  let payload = {
-    'action': 'fictioneer_ajax_get_fingerprint'
-  }
-
   // Request
-  fcn_ajaxGet(payload)
+  fcn_ajaxGet({
+    'action': 'fictioneer_ajax_get_fingerprint'
+  })
   .then((response) => {
     // Fingerprint successfully received?
     if (response.success) {
       // Unpack
-      let fingerprint = response.data.fingerprint;
+      const fingerprint = response.data.fingerprint;
 
       // Setup
       fcn_fingerprint = { 'fingerprint': fingerprint };
