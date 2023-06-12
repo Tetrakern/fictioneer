@@ -36,7 +36,7 @@ function fcn_initializeReminders() {
 
 function fcn_getReminders() {
   // Get JSON string from local storage
-  let r = localStorage.getItem('fcnStoryReminders');
+  const r = localStorage.getItem('fcnStoryReminders');
 
   // Parse and return JSON string if valid, otherwise return new JSON
   return (r && fcn_isValidJSONString(r)) ? JSON.parse(r) : { 'lastLoaded': 0, 'data': {} };
@@ -94,8 +94,13 @@ function fcn_fetchRemindersFromDatabase() {
     // Update view regardless of success
     fcn_updateRemindersView();
 
+    /*
+     * NOTE: The AJAX bookshelf may be out of sync for 1 minute if recently
+     * loaded in another tab or window, which cannot be cleared from here!
+     */
+
     // Clear cached bookshelf content (if any)
-    localStorage.removeItem('fcnBookshelfContent');
+    sessionStorage.removeItem('fcnBookshelfContent');
   });
 }
 
@@ -115,7 +120,7 @@ function fcn_fetchRemindersFromDatabase() {
 
 function fcn_toggleReminder(storyId) {
   // Check local storage for outside changes
-  let currentReminders = fcn_getReminders();
+  const currentReminders = fcn_getReminders();
 
   // Clear cached bookshelf content (if any)
   localStorage.removeItem('fcnBookshelfContent');
@@ -144,19 +149,16 @@ function fcn_toggleReminder(storyId) {
   // Update view and local storage
   fcn_updateRemindersView();
 
-  // Payload
-  let payload = {
-    'action': 'fictioneer_ajax_toggle_reminder',
-    'story_id': storyId,
-    'set': fcn_reminders.data.hasOwnProperty(storyId)
-  }
-
   // Clear previous timeout (if still pending)
   clearTimeout(fcn_userRemindersTimeout);
 
   // Update in database; only one request every n seconds
   fcn_userRemindersTimeout = setTimeout(() => {
-    fcn_ajaxPost(payload)
+    fcn_ajaxPost(payload = {
+      'action': 'fictioneer_ajax_toggle_reminder',
+      'story_id': storyId,
+      'set': fcn_reminders.data.hasOwnProperty(storyId)
+    })
     .then((response) => {
       // Check for failure
       if (response.data.error) {
