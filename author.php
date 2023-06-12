@@ -237,9 +237,9 @@ $tabs[ $current_tab ]['classes'][] = '_current';
     'post_id' => null,
     'template' => 'author.php',
     'breadcrumbs' => array(
-      [ fcntr( 'frontpage' ), get_home_url() ],
-      [ __( 'Author', 'fictioneer' ), null ],
-      [ $author->display_name, null ]
+      [fcntr( 'frontpage' ), get_home_url()],
+      [__( 'Author', 'fictioneer' ), null],
+      [$author->display_name, null]
     )
   );
 
