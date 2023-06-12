@@ -84,7 +84,7 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
   if (!fcn_checkmarks) return;
 
   // Check local storage for outside changes
-  let currentCheckmarks = fcn_getCheckmarks();
+  const currentCheckmarks = fcn_getCheckmarks();
 
   // Clear cached bookshelf content (if any)
   localStorage.removeItem('fcnBookshelfContent');
@@ -126,7 +126,8 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
 
       // Not complete anymore
       fcn_removeItemOnce(fcn_checkmarks.data[story], story);
-      let completeCheckmark = _$('button[data-type=story]');
+
+      const completeCheckmark = _$('button[data-type=story]');
 
       if (completeCheckmark) {
         completeCheckmark.classList.remove('marked');
@@ -147,7 +148,7 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
   // Flip all checkmarks if necessary
   if (type === 'story') {
     // Unset all?
-    let unsetAll = (fcn_checkmarks.data[story].includes(story) || mode === 'unset') && mode !== 'set';
+    const unsetAll = (fcn_checkmarks.data[story].includes(story) || mode === 'unset') && mode !== 'set';
 
     // Always remove all from JSON
     fcn_checkmarks.data[story] = [];
@@ -174,19 +175,16 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
   // Update view and local storage
   fcn_updateCheckmarksView();
 
-  // Payload
-  let payload = {
-    'action': 'fictioneer_ajax_set_checkmark',
-    'story_id': story,
-    'update': fcn_checkmarks.data[story].join(' ')
-  }
-
   // Clear previous timeout (if still pending)
   clearTimeout(fcn_userCheckmarksTimeout);
 
   // Update in database; only one request every n seconds
   fcn_userCheckmarksTimeout = setTimeout(() => {
-    fcn_ajaxPost(payload)
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_set_checkmark',
+      'story_id': story,
+      'update': fcn_checkmarks.data[story].join(' ')
+    })
     .then((response) => {
       // Check for failure
       if (response.data.error) {
@@ -233,9 +231,9 @@ function fcn_updateCheckmarksView() {
   if (!fcn_checkmarks) return;
 
   // Setup
-  let storyId = parseInt(fcn_inlineStorage.storyId),
-      included = fcn_checkmarks.data.hasOwnProperty(storyId),
-      completed = included && fcn_checkmarks.data[storyId].includes(storyId);
+  const storyId = parseInt(fcn_inlineStorage.storyId),
+        included = fcn_checkmarks.data.hasOwnProperty(storyId),
+        completed = included && fcn_checkmarks.data[storyId].includes(storyId);
 
   // Initialize if story is not yet tracked
   if (!included) fcn_checkmarks.data[storyId] = [];
@@ -244,7 +242,8 @@ function fcn_updateCheckmarksView() {
   if (completed) {
     // Add all checkmarks (if missing)
     _$$('button.checkmark').forEach(item => {
-      let checkId = parseInt(item.dataset.id);
+      const checkId = parseInt(item.dataset.id);
+
       if (!fcn_checkmarks.data[storyId].includes(checkId)) fcn_checkmarks.data[storyId].push(checkId);
     });
   }
@@ -254,21 +253,24 @@ function fcn_updateCheckmarksView() {
 
   // Update checkmarks on story pages
   _$$('button.checkmark')?.forEach(item => {
-    let checkStoryId = parseInt(item.dataset.storyId);
+    const checkStoryId = parseInt(item.dataset.storyId);
+
     if (!fcn_checkmarks.data.hasOwnProperty(checkStoryId)) return;
-    let checked = fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
+
+    const checked = fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
+
     item.classList.toggle('marked', checked);
     item.ariaChecked = checked;
   });
 
   // Update icon and buttons on cards
   _$$('.card')?.forEach(item => {
-    let cardStoryId = parseInt(item.dataset.storyId),
-        force = fcn_checkmarks.data.hasOwnProperty(cardStoryId) &&
-                (
-                  fcn_checkmarks.data[cardStoryId].includes(parseInt(item.dataset.checkId)) ||
-                  fcn_checkmarks.data[cardStoryId].includes(cardStoryId)
-                );
+    const cardStoryId = parseInt(item.dataset.storyId),
+          force = fcn_checkmarks.data.hasOwnProperty(cardStoryId) &&
+                  (
+                    fcn_checkmarks.data[cardStoryId].includes(parseInt(item.dataset.checkId)) ||
+                    fcn_checkmarks.data[cardStoryId].includes(cardStoryId)
+                  );
     item.classList.toggle('has-checkmark', force);
   });
 
