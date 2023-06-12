@@ -70,8 +70,8 @@ class FCN_Suggestion {
   }
 
   showTools(top, left) {
-    let offset = document.documentElement.offsetWidth / 2 + this.tools.offsetWidth,
-        adminBar = _$$$('wpadminbar') ? _$$$('wpadminbar').offsetHeight : 0;
+    const offset = document.documentElement.offsetWidth / 2 + this.tools.offsetWidth,
+          adminBar = _$$$('wpadminbar') ? _$$$('wpadminbar').offsetHeight : 0;
 
     if (left > offset) {
       this.tools.style.transform = 'translate(-100%)';
@@ -107,8 +107,10 @@ class FCN_Suggestion {
   }
 
   getDiff(old, now) {
-    let diff = this.dmp.diff_main(old, now);
+    const diff = this.dmp.diff_main(old, now);
+
     this.dmp.diff_cleanupEfficiency(diff);
+
     return this.dmp.fcn_prettyHtml(diff);
   }
 
@@ -121,7 +123,8 @@ class FCN_Suggestion {
       instance.text = instance.textSelection().replace('Add Suggestion', '').replaceAll('\n\n', '\n');
 
       if (instance.text !== '') {
-        let pos = instance.getCaretCoordinates();
+        const pos = instance.getCaretCoordinates();
+
         instance.showTools(pos.y, pos.x);
       } else {
         instance.hideTools();
@@ -147,12 +150,17 @@ class FCN_Suggestion {
     // Close paragraph tools if open
     if (fcn_lastSelectedParagraphId) fcn_toggleParagraphTools(false);
 
+    // Setup modal content
     instance.original = instance.text;
     instance.current.innerHTML = instance.text.replaceAll('\n', '<br>');
     instance.input.value = instance.text;
     instance.output.innerHTML = instance.getDiff(instance.original, instance.text);
+
+    // Open modal
+    instance.toggle.click();
     instance.toggle.checked = true;
 
+    // Clean up and set focus
     instance.clearSelection();
     instance.hideTools();
     instance.resizeInput();
@@ -171,16 +179,27 @@ class FCN_Suggestion {
   }
 
   submitSuggestion(instance) {
-    let defaultEditor = _$$$('comment'),
-        final = instance.output.innerHTML.replaceAll('¶', '&para;\n')
-          .replaceAll('<br>', '\n')
-          .replaceAll('<ins>', '[ins]')
-          .replaceAll('</ins>', '[/ins]')
-          .replaceAll('<del>', '[del]')
-          .replaceAll('</del>', '[/del]'); // Could this be done better? Perhaps.
+    const defaultEditor = _$$$('comment'),
+          replacements = [
+            ['¶', '&para;\n'],
+            ['<br>', '\n'],
+            ['<ins>', '[ins]'],
+            ['</ins>', '[/ins]'],
+            ['<del>', '[del]'],
+            ['</del>', '[/del]']
+          ];
 
+    // Perform replacements
+    let final = instance.output.innerHTML;
+
+    replacements.forEach(([source, target]) => {
+      final = final.replaceAll(source, target);
+    });
+
+    // Output
     instance.latest = `\n[quote]${final}[/quote]\n`;
 
+    // Send to comment form or remember for later
     if (defaultEditor) {
       defaultEditor.value += instance.latest;
       fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
@@ -188,8 +207,11 @@ class FCN_Suggestion {
       fcn_commentStack.push(instance.latest);
     }
 
+    // Close modal
+    instance.toggle.click();
     instance.toggle.checked = false;
 
+    // Inform user
     fcn_showNotification(
       __('Suggestion appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer')
     );
