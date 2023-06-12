@@ -3,7 +3,6 @@
 // =============================================================================
 
 const /** @const {HTMLElement[]} */ fcn_jumpToBookmarkButtons = _$$('.button--bookmark'),
-      /** @const {HTMLElement} */ fcn_chapterBookmarkData = _$$$('chapter-bookmark-data'),
       /** @const {HTMLElement} */ fcn_mobileBookmarkJump = _$$$('mobile-menu-bookmark-jump'),
       /** @const {HTMLElement} */ fcn_mobileBookmarkList = _$('.mobile-menu__bookmark-list'),
       /** @const {HTMLElement} */ fcn_mobileBookmarkTemplate = _$('#mobile-bookmark-template'),
@@ -269,7 +268,8 @@ function fcn_toggleBookmark(id, color = 'none') {
     let p = _$(`[data-paragraph-id="${id}"]`),
         offset = fcn_offset(p),
         parentOffset = fcn_offset(p.parentElement),
-        progress = (offset.top - parentOffset.top) * 100 / p.parentElement.clientHeight;
+        progress = (offset.top - parentOffset.top) * 100 / p.parentElement.clientHeight,
+        fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
 
     // Add data node (chapter-id: {}) to bookmarks JSON
     fcn_bookmarks.data[chapter.id] = {
@@ -277,11 +277,11 @@ function fcn_toggleBookmark(id, color = 'none') {
       'progress': progress,
       'date': new Date(),
       'color': color,
-      'chapter': fcn_chapterBookmarkData.dataset.title.trim(),
-      'link': `/?p=${chapter.id.replace('ch-', '')}`,
-      'thumb': fcn_chapterBookmarkData.dataset.thumb,
-      'image': fcn_chapterBookmarkData.dataset.image,
-      'story': fcn_chapterBookmarkData.dataset.storyTitle.trim(),
+      'chapter': fcn_chapterBookmarkData.title.trim(),
+      'link': fcn_chapterBookmarkData.link,
+      'thumb': fcn_chapterBookmarkData.thumb,
+      'image': fcn_chapterBookmarkData.image,
+      'story': fcn_chapterBookmarkData.storyTitle.trim(),
       'content': p.querySelector('span').innerHTML.substring(0, 128) + '…'
     };
 
@@ -290,10 +290,10 @@ function fcn_toggleBookmark(id, color = 'none') {
       element.classList.remove('hidden');
     });
 
-    if (fcn_mobileBookmarkJump) fcn_mobileBookmarkJump.removeAttribute('hidden');
+    fcn_mobileBookmarkJump?.removeAttribute('hidden');
 
     // Remove current-bookmark class from previous paragraph (if any)
-    if (currentBookmark) currentBookmark.classList.remove('current-bookmark');
+    currentBookmark?.classList.remove('current-bookmark');
 
     // Add new current-bookmark class to paragraph
     p.classList.add('current-bookmark');
@@ -344,7 +344,7 @@ function fcn_showChapterBookmark() {
     });
 
     // Reveal bookmark jump button in mobile menu
-    if (fcn_mobileBookmarkJump) fcn_mobileBookmarkJump.removeAttribute('hidden');
+    fcn_mobileBookmarkJump?.removeAttribute('hidden');
 
     // Add bookmark line and color
     p.classList.add('current-bookmark');
@@ -537,7 +537,7 @@ function fcn_removeBookmark(id) {
       element.classList.add('hidden');
     });
 
-    if (fcn_mobileBookmarkJump) fcn_mobileBookmarkJump.setAttribute('hidden', true);
+    fcn_mobileBookmarkJump?.setAttribute('hidden', true);
 
     // Remove current-bookmark class from paragraph
     if (currentBookmark) {
