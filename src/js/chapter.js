@@ -93,7 +93,7 @@ function fcn_touchParagraph(e) {
   if (window.getSelection().toString() != '') return;
 
   // Bubble up and search for valid paragraph (if click was on nested tag)
-  let target = e.target.closest('p[data-paragraph-id]');
+  const target = e.target.closest('p[data-paragraph-id]');
 
   // Ignore clicks inside TTS and paragraph tools buttons
   if (
@@ -112,12 +112,12 @@ function fcn_touchParagraph(e) {
   id = id == fcn_lastSelectedParagraphId ? false : id;
 
   // Remember click start time
-  let startClick = new Date().getTime();
+  const startClick = new Date().getTime();
 
   // Evaluate click...
   target.addEventListener('mouseup', () => {
-    let endClick = new Date().getTime(),
-        long = startClick + 300;
+    const endClick = new Date().getTime(),
+          long = startClick + 300;
 
     // Click was short, which probably means the user wants to toggle the tools
     if (endClick <= long) fcn_toggleParagraphTools(id, target);
@@ -133,17 +133,18 @@ function fcn_touchParagraph(e) {
 
 function fcn_getQuote(e) {
   // Get paragraph text, selection, anchor, and prepare ellipsis
+  const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString()),
+        anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
+
   let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerHTML,
-      selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString()),
       pre = '[…] ',
-      suf = ' […]',
-      anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
+      suf = ' […]';
 
   // Build from text selection and add ellipsis if necessary
   if (quote.length > 16 && selection.replace(/\s/g, '').length) {
-    let fraction = Math.ceil(selection.length * .25),
-        first = quote.substring(0, fraction + 1),
-        last = quote.substring(quote.length - fraction, quote.length);
+    const fraction = Math.ceil(selection.length * .25),
+          first = quote.substring(0, fraction + 1),
+          last = quote.substring(quote.length - fraction, quote.length);
 
     if (selection.startsWith(first)) pre = '';
     if (selection.endsWith(last)) suf = '';
@@ -172,7 +173,7 @@ function fcn_getQuote(e) {
 
 function fcn_addQuoteToStack(quote) {
   // Get comment form
-  let defaultEditor = _$$$('comment');
+  const defaultEditor = _$$$('comment');
 
   // Add quote
   if (defaultEditor) {
@@ -192,8 +193,10 @@ if (fcn_paragraphTools) {
 
   // Listen for click on paragraph tools copy link button
   _$$$('button-get-link').onclick = (e) => {
-    let link = `${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`;
-    fcn_copyToClipboard(link, __('Link copied to clipboard!', 'fictioneer'));
+    fcn_copyToClipboard(
+      `${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
+      __('Link copied to clipboard!', 'fictioneer')
+    );
   }
 
   // Listen for click on paragraph tools quote button
@@ -847,7 +850,7 @@ const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings
 
 function fcn_updateSiteWidth(value, save = true) {
   // Target
-  let main = _$('main');
+  const main = _$('main');
 
   // Evaluate
   value = fcn_clamp(640, 1920, value ?? 960);
@@ -909,11 +912,10 @@ fcn_updateSiteWidth(fcn_formatting['site-width'], false);
 
 function fcn_updateIndent(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        cb = _$$$('reader-settings-indent-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-indent-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -951,11 +953,10 @@ fcn_updateIndent(fcn_formatting['indent'], false);
 
 function fcn_updateJustify(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        cb = _$$$('reader-settings-justify-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-justify-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -993,11 +994,10 @@ fcn_updateJustify(fcn_formatting['justify'], false);
 
 function fcn_updateParagraphTools(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        cb = _$$$('reader-settings-paragraph-tools-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-paragraph-tools-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -1032,12 +1032,11 @@ fcn_updateParagraphTools(fcn_formatting['show-paragraph-tools'], false);
 
 function fcn_updateSensitiveContent(value, save = true) {
   // Evaluate
-  let boolean = fcn_evaluateAsBoolean(value, true),
-      sensitiveToggle = _$$$('inline-sensitive-content-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        sensitiveToggle = _$$$('inline-sensitive-content-toggle'),
+        cb = _$$$('reader-settings-sensitive-content-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-sensitive-content-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -1081,11 +1080,10 @@ fcn_updateSensitiveContent(fcn_formatting['show-sensitive-content'], false);
 
 function fcn_updateChapterNotes(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        cb = _$$$('reader-settings-chapter-notes-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-chapter-notes-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -1115,11 +1113,10 @@ fcn_updateChapterNotes(fcn_formatting['show-chapter-notes'], false);
 
 function fcn_updateCommentSection(value, save = true) {
   // Evaluate
-  boolean = fcn_evaluateAsBoolean(value, true);
+  const boolean = fcn_evaluateAsBoolean(value, true),
+        cb = _$$$('reader-settings-comments-toggle');
 
   // Update associated checkbox
-  let cb = _$$$('reader-settings-comments-toggle');
-
   if (cb) {
     cb.checked = boolean;
     cb.closest('label').ariaChecked = boolean;
@@ -1188,13 +1185,12 @@ function fcn_readingProgress() {
   ) return;
 
   // Setup
-  let rect = fcn_chapterContent.getBoundingClientRect(),
-      bottom = rect.bottom,
-      height = rect.height,
-      viewPortHeight = window.innerHeight,
-      offSet = Math.max(rect.top, 0),
-      w = (height - bottom - offSet + viewPortHeight / 2),
-      p = 100 * w / height;
+  const rect = fcn_chapterContent.getBoundingClientRect(),
+        height = rect.height,
+        viewPortHeight = window.innerHeight,
+        w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight / 2);
+
+  let p = 100 * w / height;
 
   // Show progress bar depending on progress
   fcn_theBody.classList.toggle('hasProgressBar', !(p < 0 || w > height + 500));
@@ -1207,8 +1203,7 @@ function fcn_readingProgress() {
 
   // If end of chapter has been reached and the user is logged in...
   if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
-    let chapterId = fcn_inlineStorage.postId,
-        chapterList = _$$$('story-chapter-list');
+    const chapterList = _$$$('story-chapter-list');
 
     // Only do this once per page load
     fcn_chapterCheckmarkUpdated = true;
@@ -1217,7 +1212,7 @@ function fcn_readingProgress() {
     if (!chapterList || typeof fcn_toggleCheckmark != 'function') return;
 
     // Mark chapter as read
-    fcn_toggleCheckmark(chapterList.dataset.storyId, 'progress', parseInt(chapterId), null, 'set');
+    fcn_toggleCheckmark(chapterList.dataset.storyId, 'progress', parseInt(fcn_inlineStorage.postId), null, 'set');
   }
 }
 
