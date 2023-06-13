@@ -1,6 +1,6 @@
 <?php
 /**
- * RSS2 Feed Template to display the latest posts.
+ * RSS2 Feed Template to display the latest content.
  *
  * @package WordPress
  * @subpackage Fictioneer
@@ -15,9 +15,32 @@ $posts = new WP_Query(
     'post_status' => 'publish',
     'orderby' => 'date',
     'order' => 'DESC',
-    'meta_key' => 'fictioneer_chapter_hidden',
-    'meta_value' => '0',
     'posts_per_page' => get_option( 'posts_per_rss' ),
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'relation' => 'OR',
+        array(
+          'key' => 'fictioneer_chapter_hidden',
+          'value' => '0'
+        ),
+        array(
+          'key' => 'fictioneer_chapter_hidden',
+          'compare' => 'NOT EXISTS'
+        )
+      ),
+      array(
+        'relation' => 'OR',
+        array(
+          'key' => 'fictioneer_story_hidden',
+          'value' => '0'
+        ),
+        array(
+          'key' => 'fictioneer_story_hidden',
+          'compare' => 'NOT EXISTS'
+        )
+      )
+    ),
     'no_found_rows' => true
   )
 );
