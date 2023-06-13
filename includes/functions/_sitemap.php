@@ -168,7 +168,7 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
               array(
                 'key' => 'fictioneer_story_hidden',
                 'compare' => 'NOT EXISTS'
-              ),
+              )
             )
           )
         );
@@ -192,8 +192,17 @@ if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
           'orderby' => 'date',
           'order' => 'DESC',
           'numberposts' => '10000',
-          'meta_key' => 'fictioneer_chapter_hidden',
-          'meta_value' => '0'
+          'meta_query' => array(
+              'relation' => 'OR',
+              array(
+                'key' => 'fictioneer_chapter_hidden',
+                'value' => '0'
+              ),
+              array(
+                'key' => 'fictioneer_chapter_hidden',
+                'compare' => 'NOT EXISTS'
+              )
+            )
         ));
         set_transient( 'fictioneer_sitemap_chapters', $chapters );
       }
