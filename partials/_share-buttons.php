@@ -31,7 +31,7 @@ $feed = fictioneer_get_rss_link();
 
     <?php $feed_url = urlencode( $feed ); ?>
 
-    <?php if ( get_post_type() == 'fcn_story' ) : ?>
+    <?php if ( get_post_type() == 'fcn_story' && ! fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) : ?>
       <a
         href="<?php echo $feed; ?>"
         class="rss-link tooltipped"

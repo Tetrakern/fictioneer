@@ -14,10 +14,11 @@
  */
 
 // Get ID from parameter
-$story_id = fictioneer_validate_id( $_GET[ 'story_id' ], 'fcn_story' );
+$story_id = fictioneer_validate_id( $_GET[ 'story_id' ] ?? 0, 'fcn_story' );
+$is_hidden = fictioneer_get_field( 'fictioneer_story_hidden', $story_id ?: 0 ) ?: 0;
 
 // Abort if not a valid story ID or password protected
-if ( ! $story_id || post_password_required( $story_id ) ) {
+if ( ! $story_id || $is_hidden || post_password_required( $story_id ) ) {
   wp_redirect( home_url() );
   exit();
 }
