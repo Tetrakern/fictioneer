@@ -12,7 +12,21 @@
  */
 ?>
 
-<?php get_header( null, array( 'type' => 'fcn_story' ) ); ?>
+<?php
+
+// Header
+$is_hidden = fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ?: 0;
+$header_args = array(
+  'type' => 'fcn_story'
+);
+
+if ( ! empty( $is_hidden ) ) {
+  $header_args['no_index'] = true;
+}
+
+get_header( null, $header_args );
+
+?>
 
 <main id="main" class="main story">
   <div class="main-observer"></div>
