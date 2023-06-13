@@ -416,24 +416,6 @@ Filters the intermediate output array of the `fictioneer_mobile_user_menu()` fun
 
 ---
 
-### `apply_filters( 'fictioneer_filter_orderby_popup_menu', $menu, $args )`
-Filters the array of URLs and labels of the orderby popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered.
-
-**$menu:**
-* $modified (array) – Tuple of $label (Updated) and unescaped $url (`...?orderby=modified&order={$order}#sof`).
-* $date (array) – Tuple of $label (Published) and unescaped $url (`...?orderby=date&order={$order}#sof`).
-* $title (array) – Tuple of $label (Title) and unescaped $url (`...?orderby=title&order={$order}#sof`).
-
-**$args:**
-* $current_page (int) – Current page if paginated or `1`.
-* $post_id (int) – Current post ID.
-* $queried_type (string) – Queried post type.
-* $query_args (array) – Query arguments used.
-* $order (string) – Current order or `'desc'`.
-* $orderby (string) – Current orderby or `'modified'`.
-
----
-
 ### `apply_filters( 'fictioneer_filter_post_meta_items', $output, $args )`
 Filters the intermediate output array of the `fictioneer_get_post_meta_items()` function before it is imploded and returned.
 
@@ -754,6 +736,77 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $no_cap (boolean) – Whether to hide captions. Default `false`.
 * $classes (\[string]) – Array of additional CSS classes. Default empty.
+
+---
+
+### `apply_filters( 'fictioneer_filter_sof_date_options', $options, $current_url, $args )`
+Filters the option array of URL/label tuples for the date popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Can be any positive integer (days) or [strtotime](https://www.php.net/manual/en/function.strtotime.php) compatible string. See `fictioneer_append_date_query(...)`. Includes '0', '1', '3', '1 week ago', '1 month ago', '3 months ago', '6 months ago', and '1 year ago'.
+
+**$options:**
+* '0' (array) – Tuple of $label (Any Date) and unescaped $url (`...ago=0&...#sof`).
+* '1' (array) – Tuple of $label (Past 24 Hours) and unescaped $url (`...ago=1&...#sof`).
+* '3' (array) – Tuple of $label (Past 3 Days) and unescaped $url (`...ago=3&...#sof`).
+* '1_week_ago' (array) – Tuple of $label (Past Week) and unescaped $url (`...ago=1+week+ago&...#sof`).
+* '1_month_ago' (array) – Tuple of $label (Past Month) and unescaped $url (`...ago=1+month+ago&...#sof`).
+* '3_months_ago' (array) – Tuple of $label (Past 3 Months) and unescaped $url (`...ago=3+months+ago&...#sof`).
+* '6_months_ago' (array) – Tuple of $label (Past 6 Months) and unescaped $url (`...ago=6+months+ago&...#sof`).
+* '1_year_ago' (array) – Tuple of $label (Past Year) and unescaped $url (`...ago=1+year+ago&...#sof`).
+
+**Parameters:**
+* $current_url (array) – Current URL with all query parameters to sort, order, and filter included. Used to build option links.
+
+**$args:**
+* $current_page (int) – Current page if paginated or `1`.
+* $post_id (int) – Current post ID.
+* $queried_type (string) – Queried post type.
+* $query_args (array) – Query arguments used.
+* $order (string) – Current order. Defaults to `'desc'`.
+* $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
+
+---
+
+### `apply_filters( 'fictioneer_filter_sof_orderby_options', $options, $current_url, $args )`
+Filters the option array of URL/label tuples for the orderby popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Allows and includes 'modified', 'date', 'title', and 'rand' (excluded).
+
+**$options:**
+* 'modified' (array) – Tuple of $label (Updated) and unescaped $url (`...orderby=modified&...#sof`).
+* 'date' (array) – Tuple of $label (Published) and unescaped $url (`...orderby=date&...#sof`).
+* 'title' (array) – Tuple of $label (By Title) and unescaped $url (`...orderby=title&...#sof`).
+
+**Parameters:**
+* $current_url (array) – Current URL with all query parameters to sort, order, and filter included. Used to build option links.
+
+**$args:**
+* $current_page (int) – Current page if paginated or `1`.
+* $post_id (int) – Current post ID.
+* $queried_type (string) – Queried post type.
+* $query_args (array) – Query arguments used.
+* $order (string) – Current order. Defaults to `'desc'`.
+* $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
+
+---
+
+### `apply_filters( 'fictioneer_filter_sof_post_type_options', $options, $current_url, $args )`
+Filters the option array of URL/label tuples for the post type popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Only rendered in archives. Includes 'any', 'post, 'fcn_story', 'fcn_chapter', 'fcn_collection', and 'fcn_recommendation'.
+
+**$options:**
+* $any (array) – Tuple of $label (All Posts) and unescaped $url (`...post_type=any&...#sof`).
+* $post (array) – Tuple of $label (Blog Posts) and unescaped $url (`...post_type=post&...#sof`).
+* $fcn_story (array) – Tuple of $label (Stories) and unescaped $url (`...post_type=fcn_story&...#sof`).
+* $fcn_chapter (array) – Tuple of $label (Chapters) and unescaped $url (`...post_type=fcn_chapter&...#sof`).
+* $fcn_collection (array) – Tuple of $label (Collections) and unescaped $url (`...post_type=fcn_collection&...#sof`).
+* $fcn_recommendation (array) – Tuple of $label (Recommendations) and unescaped $url (`...post_type=fcn_recommendation&...#sof`).
+
+**Parameters:**
+* $current_url (array) – Current URL with all query parameters to sort, order, and filter included. Used to build option links.
+
+**$args:**
+* $current_page (int) – Current page if paginated or `1`.
+* $post_id (int) – Current post ID.
+* $queried_type (string) – Queried post type.
+* $query_args (array) – Query arguments used.
+* $order (string) – Current order. Defaults to `'desc'`.
+* $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
 ---
 
