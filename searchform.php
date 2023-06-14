@@ -111,7 +111,7 @@ if ( ! $skip_author_keywords ) {
 					tabindex="0"
 				><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></label>
 			<?php endif; ?>
-			<button type="submit" class="search-form__submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+			<button type="submit" class="search-form__submit" aria-label="<?php echo esc_attr__( 'Submit search request', 'fictioneer' ) ?>"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 
 	</div>
