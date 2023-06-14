@@ -333,7 +333,13 @@ fcn_theBody.addEventListener('click', e => {
   // Handle last click
   const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
-  if (lastClickTarget && !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName)) {
+  if (
+    lastClickTarget &&
+    (
+      !['BUTTON', 'A', 'INPUT', 'SELECT'].includes(e.target.tagName) ||
+      e.target.classList.contains('toggle-last-clicked')
+    )
+  ) {
     if (typeof fcn_toggleLastClicked === 'function') fcn_toggleLastClicked(lastClickTarget);
     if (typeof fcn_popupPosition === 'function') fcn_popupPosition();
     e.stopPropagation();

@@ -421,7 +421,7 @@ _$('body').addEventListener(
   'click',
   e => {
     if (
-      e.currentTarget.classList.contains('escape-last-click') ||
+      (!['BUTTON', 'A'].includes(e.target.tagName) && e.target.closest('.toggle-last-clicked')) ||
       e.target.closest('.escape-last-click') !== null
     ) return;
 
