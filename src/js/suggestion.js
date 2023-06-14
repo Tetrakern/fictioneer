@@ -119,7 +119,7 @@ class FCN_Suggestion {
     if (window.getSelection().rangeCount < 1) return;
     if (!window.getSelection().getRangeAt(0).startContainer.parentNode.closest('.content-section')) return;
 
-    setTimeout(function() {
+    setTimeout(() => {
       instance.text = instance.textSelection().replace('Add Suggestion', '').replaceAll('\n\n', '\n');
 
       if (instance.text !== '') {

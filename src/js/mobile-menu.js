@@ -67,7 +67,7 @@ _$$$('mobile-menu-comment-jump')?.addEventListener(
   () => {
     fcn_toggleMobileMenu(false);
 
-    setTimeout(function() {
+    setTimeout(() => {
       const target = _$$$('comments');
 
       // Scroll to position + offset
@@ -82,7 +82,7 @@ _$$$('mobile-menu-bookmark-jump')?.addEventListener(
   () => {
     fcn_toggleMobileMenu(false);
 
-    setTimeout(function() {
+    setTimeout(() => {
       const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
 
       // Scroll to position + offset
