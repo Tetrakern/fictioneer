@@ -10,7 +10,7 @@ if (fcn_consentBanner && fcn_hasConsent === '') {
   // Delay by 1000 ms to avoid impacting web vitals
   setTimeout(() => {
     fcn_loadConsentBanner();
-  }, 1000);
+  }, 2000);
 } else {
   fcn_consentBanner.remove();
 }
