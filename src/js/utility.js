@@ -797,7 +797,7 @@ function fcn_detectScreenCollision(element) {
 function fcn_scrollTo(target) {
   // Scroll to position + offset
   window.scrollTo({
-    top: target.getBoundingClientRect().top + window.pageYOffset - 64,
+    top: target.getBoundingClientRect().top + window.scrollY - 64,
     behavior: 'smooth'
   });
 }

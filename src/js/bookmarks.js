@@ -550,7 +550,7 @@ fcn_jumpToBookmarkButtons.forEach(button => {
     'click',
     () => {
       const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`),
-            offset = target.getBoundingClientRect().top + window.pageYOffset - 64;
+            offset = target.getBoundingClientRect().top + window.scrollY - 64;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
     }

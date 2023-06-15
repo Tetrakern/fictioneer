@@ -385,7 +385,7 @@ if (typeof speechSynthesis !== 'undefined') {
     () => {
       const target = _$(`p[id="${fcn_currentReadingId}"]`),
             position = target.getBoundingClientRect().top,
-            offset = position + window.pageYOffset - 128;
+            offset = position + window.scrollY - 128;
 
       window.scrollTo({ top: offset, behavior: 'smooth' });
     }
