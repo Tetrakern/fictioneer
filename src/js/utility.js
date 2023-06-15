@@ -792,12 +792,13 @@ function fcn_detectScreenCollision(element) {
  * @since 5.4.0
  *
  * @param {HTMLElement} target - The target element to scroll to.
+ * @param {Number} [offset=64] - Optional. Offset from top.
  */
 
-function fcn_scrollTo(target) {
-  // Scroll to position + offset
+function fcn_scrollTo(target, offset = 64) {
+  // Scroll to position - offset
   window.scrollTo({
-    top: target.getBoundingClientRect().top + window.scrollY - 64,
+    top: target.getBoundingClientRect().top + window.scrollY - offset,
     behavior: 'smooth'
   });
 }

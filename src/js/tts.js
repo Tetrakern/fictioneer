@@ -383,11 +383,7 @@ if (typeof speechSynthesis !== 'undefined') {
   _$$$('button-tts-scroll')?.addEventListener(
     'click',
     () => {
-      const target = _$(`p[id="${fcn_currentReadingId}"]`),
-            position = target.getBoundingClientRect().top,
-            offset = position + window.scrollY - 128;
-
-      window.scrollTo({ top: offset, behavior: 'smooth' });
+      fcn_scrollTo(_$(`p[id="${fcn_currentReadingId}"]`), 128)
     }
   );
 
