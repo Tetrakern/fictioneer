@@ -302,22 +302,24 @@ if (typeof speechSynthesis !== 'undefined') {
     }
 
     // Prepare items to read
-    fcn_ttsStack = fcn_ttsStack.map(node => {
+    fcn_ttsStack = fcn_ttsStack.flatMap(node => {
       const result = [],
-            inner = node.querySelector('.paragraph-inner');
+            inner = node.querySelector('.paragraph-inner'),
+            text = inner ? inner.textContent : node.textContent;
 
-      let sentences = inner ? inner.innerText : node.innerText; // Check if wrapped
+      // Split text into array of sentences using a regex pattern
+      const sentences = text.split(/(?<=[.!?:"'\u201C\u201D])\s+(?=[A-Z"'\u201C\u201D])/g);
 
-      // Split text into array of sentences (regex is... acceptable)
-      sentences = sentences.replace(/(\.+|\:|\!|\?)(\"*|\'*|\)*|}*|]*)(\s|\n|\r|\r\n)/gm, "$1$2|").split("|");
+      sentences.forEach(sentence => {
+        const trimmedSentence = sentence.trim();
 
-      sentences.forEach(s => {
-        s = s.trim();
-        if (s) result.push([node.id, s]);
+        if (trimmedSentence.length > 0) {
+          result.push([node.id, trimmedSentence]);
+        }
       });
 
       return result;
-    }).flat();
+    });
 
     // Start reading stack
     fcn_readTextStack();
