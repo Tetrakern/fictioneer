@@ -390,36 +390,28 @@ if (typeof speechSynthesis !== 'undefined') {
     }
   );
 
-  // Volume range input
-  _$$$('tts-volume-range')?.addEventListener('input', (e) => {
-    fcn_updateVolume(e.target.value);
+  // Volume inputs
+  _$$('#tts-volume-range, #tts-volume-text').forEach(element => {
+    element.addEventListener('input', (e) => {
+      fcn_updateVolume(e.target.value);
+    });
   });
 
-  // Volume text input
-  _$$$('tts-volume-text')?.addEventListener('input', (e) => {
-    fcn_updateVolume(e.target.value);
+  // Pitch inputs
+  _$$('#tts-pitch-range, #tts-pitch-text').forEach(element => {
+    element.addEventListener('input', (e) => {
+      fcn_updatePitch(e.target.value);
+    });
   });
 
-  // Pitch range input
-  _$$$('tts-pitch-range')?.addEventListener('input', (e) => {
-    fcn_updatePitch(e.target.value);
+  // Rate inputs
+  _$$('#tts-rate-range, #tts-rate-text').forEach(element => {
+    element.addEventListener('input', (e) => {
+      fcn_updateRate(e.target.value);
+    });
   });
 
-  // Pitch text input
-  _$$$('tts-pitch-text')?.addEventListener('input', (e) => {
-    fcn_updatePitch(e.target.value);
-  });
-
-  // Rate range input
-  _$$$('tts-rate-range')?.addEventListener('input', (e) => {
-    fcn_updateRate(e.target.value);
-  });
-
-  // Rate text input
-  _$$$('tts-rate-text')?.addEventListener('input', (e) => {
-    fcn_updateRate(e.target.value);
-  });
-
+  // Settings button
   _$$$('tts-settings-toggle')?.addEventListener('change', event => {
     event.currentTarget.closest('#tts-interface').dataset.showSettings = event.currentTarget.checked;
   });
