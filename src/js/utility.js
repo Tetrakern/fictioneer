@@ -769,12 +769,11 @@ function fcn_scrollToAnchor(source) {
 
 function fcn_detectScreenCollision(element) {
   const rect = element.getBoundingClientRect(),
-        elementHeight = element.clientHeight,
         viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
         threshold = 50,
         offset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16,
-        bottomSpacing = viewportHeight - rect.bottom - elementHeight,
-        topSpacing = rect.top - elementHeight,
+        bottomSpacing = viewportHeight - rect.bottom - element.clientHeight,
+        topSpacing = rect.top - element.clientHeight,
         result = [];
 
   if (rect.top <= threshold && bottomSpacing > threshold + offset) result.push('top');
