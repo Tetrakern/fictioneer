@@ -86,6 +86,11 @@ if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
   define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
 }
 
+// String: TTS regex (used to split text into sentences)
+if ( ! defined( 'FICTIONEER_TTS_REGEX' ) ) {
+  define( 'FICTIONEER_TTS_REGEX', '(?<=[.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])' );
+}
+
 /*
  * Date Strings
  */

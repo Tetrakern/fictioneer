@@ -278,7 +278,8 @@ if (typeof speechSynthesis !== 'undefined') {
     // Hide sensitive content?
     const hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
           sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
-          playButton = _$$$('button-tts-play');
+          playButton = _$$$('button-tts-play'),
+          regex = new RegExp(fcn_ttsInterface.dataset.regex, 'g');
 
     // Cancel ongoing reading if any
     if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -308,7 +309,7 @@ if (typeof speechSynthesis !== 'undefined') {
             text = inner ? inner.textContent : node.textContent;
 
       // Split text into array of sentences using a regex pattern
-      const sentences = text.split(/(?<=[.!?:"'\u201C\u201D])\s+(?=[A-Z"'\u201C\u201D])/g);
+      const sentences = text.split(regex);
 
       sentences.forEach(sentence => {
         const trimmedSentence = sentence.trim();
