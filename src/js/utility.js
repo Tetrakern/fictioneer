@@ -359,6 +359,8 @@ function fcn_throttle(func, wait, options) {
 // BIND EVENT TO ANIMATION FRAME
 // =============================================================================
 
+var /** @const {Map} */ fcn_animFrameEvents = new Map();
+
 /**
  * Bind event to animation frame for improved performance.
  *
@@ -369,16 +371,14 @@ function fcn_throttle(func, wait, options) {
  */
 
 function fcn_bindEventToAnimationFrame(type, name, obj = window) {
-  var running = false;
-
   var func = function() {
-    if (running) return;
+    if (fcn_animFrameEvents.get(name)) return;
 
-    running = true;
+    fcn_animFrameEvents.set(name, true);
 
     requestAnimationFrame(() => {
       obj.dispatchEvent(new CustomEvent(name));
-      running = false;
+      fcn_animFrameEvents.set(name, false);
     });
   };
 
