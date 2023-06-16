@@ -24,14 +24,11 @@
 
   &__controls {
     display: flex;
+    justify-content: center;
     gap: 3px;
 
     .button {
       border-radius: 0;
-
-      span {
-        letter-spacing: get_relative_clamp(-0.01, 0, 320, 375);
-      }
     }
 
     > :first-child {
@@ -46,27 +43,24 @@
   &__settings {
     display: flex;
     flex-direction: column;
+    gap: 8px;
     margin-top: 8px;
     max-width: 98vw;
     min-width: 288px;
 
-    > div:not(:last-child) {
-      margin-bottom: 8px;
-    }
-
     > div {
       display: flex;
       align-items: center;
+    }
 
-      > span {
-        color: var(--fg-600);
-        font-size: 15px;
-        text-align: right;
-        line-height: 1;
-        padding: 0 4px 2px 0;
-        margin-right: 4px;
-        min-width: 64px;
-      }
+    span {
+      color: var(--fg-600);
+      font-size: 15px;
+      text-align: right;
+      line-height: 1;
+      padding: 0 4px 2px 0;
+      margin-right: 4px;
+      min-width: 64px;
     }
   }
 
@@ -86,26 +80,6 @@
   &:not(.ended).playing button.play {
     background: var(--tts-button-active-background);
     color: var(--tts-button-active-text);
-  }
-
-  .settings {
-    span {
-      display: none;
-
-      @include bp(430px) {
-        display: initial;
-      }
-    }
-  }
-
-  :is(.skip, .scroll) {
-    span {
-      display: none;
-
-      @include bp(375px) {
-        display: initial;
-      }
-    }
   }
 
   &__voice-selection {
