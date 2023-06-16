@@ -405,10 +405,23 @@ function fcn_toggleLastClicked(element) {
   element.closest('.watch-last-clicked')?.classList.toggle('has-last-clicked', set);
 
   if (fcn_lastClicked && fcn_lastClicked != element) {
-    fcn_lastClicked.classList.remove('last-clicked');
+    fcn_removeLastClick(fcn_lastClicked);
   }
 
   fcn_lastClicked = element;
+}
+
+/**
+ * Removes last-clicked classes from an element and parents.
+ *
+ * @since 5.4.1
+ * @param {HTMLElement} target - The element to clean.
+ */
+
+function fcn_removeLastClick(target) {
+  target.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
+  target.classList.remove('last-clicked');
+  fcn_lastClicked = null;
 }
 
 /**
@@ -426,9 +439,7 @@ _$('body').addEventListener(
     ) return;
 
     if (fcn_lastClicked && e.currentTarget != fcn_lastClicked) {
-      fcn_lastClicked.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
-      fcn_lastClicked.classList.remove('last-clicked');
-      fcn_lastClicked = null;
+      fcn_removeLastClick(fcn_lastClicked);
     }
   }
 );
@@ -438,9 +449,7 @@ _$('body').addEventListener(
   'keydown',
   e => {
     if (e.keyCode == 27 && fcn_lastClicked) {
-      fcn_lastClicked.closest('.watch-last-clicked')?.classList.remove('has-last-clicked');
-      fcn_lastClicked.classList.remove('last-clicked');
-      fcn_lastClicked = null;
+      fcn_removeLastClick(fcn_lastClicked);
       document.activeElement?.blur();
     }
   }
