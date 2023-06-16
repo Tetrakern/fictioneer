@@ -253,7 +253,7 @@ function fcn_openFullscreen() {
 _$$('.open-fullscreen').forEach(element => {
   element.addEventListener(
     'click',
-    (e) => {
+    () => {
       fcn_openFullscreen();
     }
   );
@@ -282,7 +282,7 @@ function fcn_closeFullscreen() {
 _$$('.close-fullscreen').forEach(element => {
   element.addEventListener(
     'click',
-    (e) => {
+    () => {
       fcn_closeFullscreen();
     }
   );
