@@ -327,7 +327,7 @@ fcn_addPrivateToggleEvents();
  * @since 4.7
  * @param {HTMLElement} element - The editable element with the selection.
  * @param {String} tag - The tag to be used.
- * @param {String[]=} Options - Options defined as strings.
+ * @param {String[]=} options - Options defined as strings.
  */
 
 function fcn_wrapInTag(element, tag, options = {}) {
@@ -344,75 +344,14 @@ function fcn_wrapInTag(element, tag, options = {}) {
   element.focus();
 }
 
-/**
- * Wrap text selection into [b] shortcode.
- *
- * @since 4.7
- */
+// Listen for clicks on BBCode buttons...
+_$('.comment-section')?.addEventListener('click', event => {
+  const formattingButton = event.target.closest('[data-bbcode]');
 
-function fcn_commentMakeBold() {
-  fcn_wrapInTag(_$$$('comment'), 'b', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [i] shortcode.
- *
- * @since 4.7
- */
-
-function fcn_commentMakeItalic() {
-  fcn_wrapInTag(_$$$('comment'), 'i', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [s] shortcode.
- *
- * @since 4.7
- */
-
-function fcn_commentMakeStrike() {
-  fcn_wrapInTag(_$$$('comment'), 's', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [link] shortcode.
- *
- * @since 4.7
- */
-
-function fcn_commentMakeLink() {
-  fcn_wrapInTag(_$$$('comment'), 'link', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [quote] shortcode.
- *
- * @since 5.0
- */
-
-function fcn_commentMakeQuote() {
-  fcn_wrapInTag(_$$$('comment'), 'quote', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [spoiler] shortcode.
- *
- * @since 4.7
- */
-
-function fcn_commentMakeSpoiler() {
-  fcn_wrapInTag(_$$$('comment'), 'spoiler', {'shortcode': true});
-}
-
-/**
- * Wrap text selection into [img] shortcode.
- *
- * @since 5.0
- */
-
-function fcn_commentMakeImage() {
-  fcn_wrapInTag(_$$$('comment'), 'img', {'shortcode': true});
-}
+  if (formattingButton) {
+    fcn_wrapInTag(_$$$('comment'), formattingButton.dataset.bbcode, {'shortcode': true});
+  }
+});
 
 // =============================================================================
 // AJAX COMMENT SUBMISSION
