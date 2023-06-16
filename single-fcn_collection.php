@@ -32,7 +32,7 @@
         $featured_list = empty( $featured_list ) ? [] : $featured_list;
         $title = fictioneer_get_safe_title( $post->ID );
         $this_breadcrumb = [$title, get_the_permalink()];
-        $current_page = max( 1, get_query_var( 'pg', 1 ) ); // Paged not available
+        $current_page = max( 1, get_query_var( 'pg', 1 ) ?: 1 ); // Paged not available
 
         // Clean featured list of unwanted entries
         foreach ( $featured_list as $key => $post_id ) {
@@ -49,7 +49,18 @@
           'orderby' => 'modified',
           'order' => 'DESC',
           'paged' => $current_page,
-          'posts_per_page' => get_option( 'posts_per_page', 8 )
+          'posts_per_page' => get_option( 'posts_per_page', 8 ),
+          'meta_query' => array(
+            'relation' => 'OR',
+            array(
+              'key' => 'fictioneer_story_hidden',
+              'value' => '0'
+            ),
+            array(
+              'key' => 'fictioneer_story_hidden',
+              'compare' => 'NOT EXISTS'
+            ),
+          )
         );
 
         // Query featured posts

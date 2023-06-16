@@ -47,6 +47,11 @@ if ( ! empty( $args['featured_list'] ) ) {
         $processed_ids[] = $post_id;
       }
     } elseif ( $post_type == 'fcn_story' ) {
+      // Skip hidden stories
+      if ( fictioneer_get_field( 'fictioneer_story_hidden', $post_id ) ) {
+        continue;
+      }
+
       $story = fictioneer_get_story_data( $post_id );
       $story_count += 1;
 
