@@ -204,19 +204,19 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
   function fictioneer_chapter_nav_buttons( $args, $location ) {
 		// Start HTML ---> ?>
     <?php if ( $args['prev_index'] !== false ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'previous' ) ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ) ?></a>
     <?php endif; ?>
     <?php if ( $location === 'top' ) : ?>
-      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to bottom', 'fictioneer' ); ?>">
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>">
         <a href="#bottom" onclick="return fcn_scrollToAnchor(this)" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
       </div>
     <?php else : ?>
-      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Jump to top', 'fictioneer' ); ?>">
+      <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>">
         <a href="#top" onclick="return fcn_scrollToAnchor(this)" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
       </div>
     <?php endif; ?>
     <?php if ( $args['next_index'] ) : ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation"><?php echo fcntr( 'next' ); ?></a>
+      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
     <?php endif; ?>
 		<?php // <--- End HTML
   }

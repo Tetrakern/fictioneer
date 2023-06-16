@@ -1224,3 +1224,15 @@ function fcn_readingProgress() {
 _$$$('chapter-list-popup-toggle')?.addEventListener('click', () => {
   _$('[data-target="popup-chapter-list"]')?.appendChild(fcn_chapterList.cloneNode(true));
 }, { once: true });
+
+// =============================================================================
+// KEYBOARD NAVIGATION
+// =============================================================================
+
+document.addEventListener('keydown', event => {
+  if (event.code === 'ArrowLeft') {
+    _$('a.button._navigation._prev')?.click();
+  } else if (event.code === 'ArrowRight') {
+    _$('a.button._navigation._next')?.click();
+  }
+});
