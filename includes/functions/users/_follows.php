@@ -266,9 +266,15 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
           'compare' => 'IN',
         ),
         array(
-          'key' => 'fictioneer_chapter_hidden',
-          'value' => 0,
-          'compare' => '=',
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'value' => '0'
+          ),
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'compare' => 'NOT EXISTS'
+          )
         )
       ),
       'numberposts' => $count,
