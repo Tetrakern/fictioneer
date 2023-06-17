@@ -796,7 +796,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" title="<?php esc_attr_e( 'Enter fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
+    <button type="button" title="<?php esc_attr_e( 'Enter fullscreen', 'fictioneer' ); ?>" class="micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
 		<?php // <--- End HTML
@@ -804,7 +804,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 
     ob_start();
 		// Start HTML ---> ?>
-    <button type="button" title="<?php esc_attr_e( 'Exit fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
+    <button type="button" title="<?php esc_attr_e( 'Exit fullscreen', 'fictioneer' ); ?>" class="micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
       <?php fictioneer_icon( 'collapse' ); ?>
     </button>
 		<?php // <--- End HTML
