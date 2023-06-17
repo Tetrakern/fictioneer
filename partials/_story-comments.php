@@ -51,7 +51,7 @@ $hook_args = array(
     <div class="fictioneer-comments__list">
       <ul>
         <li class="load-more-list-item">
-          <button onclick="fcn_loadStoryComments()" class="load-more-comments-button"><?php
+          <button class="load-more-comments-button"><?php
             $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ? $story['comment_count'] : get_option( 'comments_per_page' );
 
             printf(

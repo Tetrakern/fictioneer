@@ -215,3 +215,10 @@ function fcn_loadStoryComments() {
     if (errorNote) _$('.fictioneer-comments__list > ul').appendChild(errorNote);
   });
 }
+
+// Listen for clicks to load more comments...
+_$('.comment-section').addEventListener('click', event => {
+  if (event.target?.classList.contains('load-more-comments-button')) {
+    fcn_loadStoryComments();
+  }
+});

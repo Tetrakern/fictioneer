@@ -195,7 +195,7 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
 
         // Start HTML ---> ?>
         <li class="load-more-list-item">
-          <button onclick="fcn_loadStoryComments()" class="load-more-comments-button"><?php
+          <button class="load-more-comments-button"><?php
             printf(
               _n(
                 'Load next comment (may contain spoilers)',
