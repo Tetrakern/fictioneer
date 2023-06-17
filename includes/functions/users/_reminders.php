@@ -215,9 +215,9 @@ if ( ! function_exists( 'fictioneer_ajax_get_reminders_list' ) ) {
         <?php
           for ( $i = 1; $i <= $max_pages; $i++ ) {
             if ( $i == $page ) {
-              ?><span class="page-numbers current"><?php echo $i; ?></span><?php
+              ?><span class="page-numbers current" aria-current="page"><?php echo $i; ?></span><?php
             } else {
-              ?><button class="page-numbers" onclick="fcn_browseBookshelfPage(<?php echo $i; ?>)"><?php echo $i; ?></button><?php
+              ?><button class="page-numbers" data-page="<?php echo $i; ?>"><?php echo $i; ?></button><?php
             }
           }
         ?>
@@ -230,7 +230,7 @@ if ( ! function_exists( 'fictioneer_ajax_get_reminders_list' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="pagination bookshelf-pagination">
-        <button class="page-numbers" onclick="fcn_browseBookshelfPage(1)"><?php _e( 'First Page', 'fictioneer' ); ?></button>
+        <button class="page-numbers" data-page="1"><?php _e( 'First Page', 'fictioneer' ); ?></button>
       </li>
       <?php // <--- End HTML
 

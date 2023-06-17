@@ -170,3 +170,17 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
     if (scroll) _$$$('main').scrollIntoView({behavior: 'smooth'});
   });
 }
+
+// =============================================================================
+// BOOKSHELF EVENT DELEGATES
+// =============================================================================
+
+_$('.bookshelf__list')?.addEventListener('click', event => {
+  // Handle page number
+  const pageButton = event.target.closest('.page-numbers[data-page]');
+
+  if (pageButton) {
+    fcn_browseBookshelfPage(pageButton.dataset.page);
+    return;
+  }
+});
