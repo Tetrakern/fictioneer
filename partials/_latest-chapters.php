@@ -108,7 +108,7 @@ $entries = new WP_Query( $query_args );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _3-3 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>">
+                <div class="truncate _3-3 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>" data-obfuscation-target>
                   <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
@@ -127,7 +127,7 @@ $entries = new WP_Query( $query_args );
                     $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation character.', 'fictioneer' ), intval( strlen( $excerpt ) ) );
                   ?>
                   <?php if ( ! $args['spoiler'] ) : ?>
-                    <span onclick="this.parentElement.classList.toggle('_obfuscated');" tabindex="0">
+                    <span data-toggle-obfuscation tabindex="0">
                       <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
                       <span class="clean">— <?php echo $excerpt; ?></span>
                     </span>

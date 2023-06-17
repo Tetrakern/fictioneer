@@ -366,6 +366,14 @@ fcn_theBody.addEventListener('click', e => {
     if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
     return;
   }
+
+  // Handle obfuscation
+  const obfuscationTarget = e.target.closest('[data-toggle-obfuscation]');
+
+  if (obfuscationTarget) {
+    obfuscationTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
+    return;
+  }
 });
 
 // =============================================================================
