@@ -1304,6 +1304,12 @@ function fcn_revealCommentImage(button) {
   button.remove();
 }
 
+_$$$('comments')?.addEventListener('click', event => {
+  if (event.target?.classList.contains('consent-button')) {
+    fcn_revealCommentImage(event.target);
+  }
+});
+
 // =============================================================================
 // CONTACT FORM SHORTCODE
 // =============================================================================
