@@ -181,7 +181,7 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
         }
 
         // Start HTML ---> ?>
-        <li class="fictioneer-comment <?php echo $comment->comment_type; ?>">
+        <li class="fictioneer-comment _story-comment <?php echo $comment->comment_type; ?>">
           <div class="fictioneer-comment__container">
             <?php fictioneer_build_story_comment( $comment, $chapter_data ); ?>
           </div>

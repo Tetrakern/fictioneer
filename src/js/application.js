@@ -1894,7 +1894,14 @@ fcn_theBody.addEventListener('click', event => {
 
   if (trigger && trigger.tagName === 'A' && href.startsWith('#') && href.length > 1 && href !== '#respond') {
     const target = href.replace('#', ''),
-          targetElement = _$$(`[name="${target}"], #${target}`)[0];
+          targetElement = _$$(`[name="${target}"], #${target}`)[0],
+          storyComment = trigger.closest('.comment._story-comment'); // Special case
+
+    if (storyComment) {
+      const url = storyComment.querySelector('.fictioneer-comment__link').href + href;
+
+      if (url) window.location.href = url;
+    }
 
     if (targetElement) {
       event.preventDefault();
