@@ -906,7 +906,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
           <?php elseif ( ! $hide_icons ) : ?>
             <span class="text-icon"><?php echo $text_icon; ?></span>
           <?php endif; ?>
-          <span><?php echo $list_title ? wp_strip_all_tags( $list_title ) : $title; ?></span>
+          <span><?php echo wp_strip_all_tags( $list_title ?: $title ); ?></span>
         </a>
       </li>
       <?php // <--- End HTML
