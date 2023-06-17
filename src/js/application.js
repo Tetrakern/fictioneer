@@ -374,6 +374,14 @@ fcn_theBody.addEventListener('click', e => {
     obfuscationTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
     return;
   }
+
+  // Handle copy input to clipboard
+  const copyTarget = e.target.closest('input[data-copy-to-clipboard]');
+
+  if (copyTarget) {
+    copyTarget.select();
+    fcn_copyToClipboard(copyTarget.value, copyTarget.dataset.message);
+  }
 });
 
 // =============================================================================
