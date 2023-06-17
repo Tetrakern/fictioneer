@@ -1360,7 +1360,7 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
       '<span class="comment-image-consent-wrapper"><button class="button _secondary" title="$1" onclick="fcn_revealCommentImage(this);">' . _x( '<i class="fa-solid fa-image"></i> Show Image', 'Comment image consent wrapper button.', 'fictioneer' ) . '</button><img class="comment-image" data-src="$1"></span>',
       "<a href=\"$1\" rel=\"noreferrer noopener nofollow\">$1</a>",
       "<a href=\"$1\" rel=\"noreferrer noopener nofollow\">$5</a>",
-      '<a href="#$1" class="comment-anchor">:anchor:</a>'
+      '<a href="#$1" data-block="center" class="comment-anchor">:anchor:</a>'
     );
 
     // Pattern replace

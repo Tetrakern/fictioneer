@@ -1883,3 +1883,22 @@ _$$('.modal-toggle').forEach(element => {
     close?.blur();
   });
 });
+
+// =============================================================================
+// SCROLL TO ANCHORS
+// =============================================================================
+
+fcn_theBody.addEventListener('click', event => {
+  const trigger = event.target.closest('[href]'),
+        href = trigger?.getAttribute('href');
+
+  if (trigger && trigger.tagName === 'A' && href.startsWith('#') && href.length > 1 && href !== '#respond') {
+    const target = href.replace('#', ''),
+          targetElement = _$$(`[name="${target}"], #${target}`)[0];
+
+    if (targetElement) {
+      event.preventDefault();
+      targetElement.scrollIntoView({ behavior: 'smooth', block: trigger.dataset?.block ?? 'start' });
+    }
+  }
+});

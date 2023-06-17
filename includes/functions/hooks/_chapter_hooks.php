@@ -208,11 +208,11 @@ if ( ! function_exists( 'fictioneer_chapter_nav_buttons' ) ) {
     <?php endif; ?>
     <?php if ( $location === 'top' ) : ?>
       <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>">
-        <a href="#bottom" onclick="return fcn_scrollToAnchor(this)" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
+        <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
       </div>
     <?php else : ?>
       <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>">
-        <a href="#top" onclick="return fcn_scrollToAnchor(this)" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
+        <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
       </div>
     <?php endif; ?>
     <?php if ( $args['next_index'] ) : ?>

@@ -746,24 +746,6 @@ function fcn_ariaCheckedUpdate(source) {
 }
 
 // =============================================================================
-// SCROLL ANCHOR INTO VIEW
-// =============================================================================
-
-/*
- * Scroll smoothly to anchor.
- *
- * @since 5.2.0
- * @param {HTMLElement} source - Clicked element.
- *
- * @return false
- */
-
-function fcn_scrollToAnchor(source) {
-  _$(`[name="${source.getAttribute('href').replace('#', '')}"]`).scrollIntoView({ behavior: 'smooth', block: 'center' });
-  return false; // Prevent default link behavior
-}
-
-// =============================================================================
 // SCREEN COLLISION DETECTION
 // =============================================================================
 
