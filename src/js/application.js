@@ -330,6 +330,11 @@ window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 
 // =============================================================================
 
 fcn_theBody.addEventListener('click', e => {
+  // Handle logout cleanup
+  if (e.target.closest('[data-logout]')) {
+    fcn_cleanupWebStorage();
+  }
+
   // Handle last click
   const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
