@@ -153,7 +153,7 @@ if ( ! function_exists( 'fictioneer_ajax_get_comment_section' ) ) {
           foreach ( $steps as $step ) {
             switch ( $step ) {
               case $page:
-                ?><span class="page-numbers current"><?php echo $step; ?></span><?php
+                ?><span class="page-numbers current" aria-current="page"><?php echo $step; ?></span><?php
                 break;
               case '…':
                 ?><button class="page-numbers dots" data-page-jump><?php echo $step; ?></button><?php
