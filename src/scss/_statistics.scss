@@ -14,7 +14,7 @@
     border-radius: var(--layout-border-radius-small);
     padding: 3px 6px;
 
-    > * {
+    > :is(strong, span) {
       display: block;
       text-align: center;
     }
