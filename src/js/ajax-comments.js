@@ -47,7 +47,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   const payload = {
     'action': 'fictioneer_ajax_get_comment_section',
     'post_id': post_id ?? fcn_ajaxCommentsSection.dataset.postId,
-    'page': page
+    'page': parseInt(page)
   }
 
   if (fcn_urlParams.commentcode) payload['commentcode'] = fcn_urlParams.commentcode;
@@ -142,6 +142,10 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   });
 }
 
+// =============================================================================
+// COMMENTS PAGINATION
+// =============================================================================
+
 /**
  * Wrapper to reload the comments section with only the page number
  * as parameter and scroll set to true.
@@ -227,3 +231,23 @@ function fcn_loadCommentEarly() {
     }
   }
 }
+
+// =============================================================================
+// COMMENTS EVENT DELEGATES
+// =============================================================================
+
+_$('.fictioneer-comments')?.addEventListener('click', event => {
+  // Handle page number jump
+  if (event.target.closest('[data-page-jump]')) {
+    fcn_jumpToCommentPage();
+    return;
+  }
+
+  // Handle page number
+  const pageButton = event.target.closest('[data-page]');
+
+  if (pageButton) {
+    fcn_reloadCommentsPage(pageButton.dataset.page);
+    return;
+  }
+});

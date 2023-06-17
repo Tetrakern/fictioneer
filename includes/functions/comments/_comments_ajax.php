@@ -156,10 +156,10 @@ if ( ! function_exists( 'fictioneer_ajax_get_comment_section' ) ) {
                 ?><span class="page-numbers current"><?php echo $step; ?></span><?php
                 break;
               case '…':
-                ?><button class="page-numbers dots" onclick="fcn_jumpToCommentPage()"><?php echo $step; ?></button><?php
+                ?><button class="page-numbers dots" data-page-jump><?php echo $step; ?></button><?php
                 break;
               default:
-                ?><button class="page-numbers" onclick="fcn_reloadCommentsPage(<?php echo $step; ?>)"><?php echo $step; ?></button><?php
+                ?><button class="page-numbers" data-page="<?php echo $step; ?>"><?php echo $step; ?></button><?php
             }
           }
         ?>
