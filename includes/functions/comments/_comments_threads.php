@@ -767,7 +767,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
               data-tooltip="<?php echo esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ); ?>"
               data-click="delete-my-comment"
               <?php echo $ajax_in_progress ? '' : 'hidden'; ?>
-            ><i class="fa-solid fa-ban"></i></button>
+            ><i class="fa-solid fa-eraser"></i></button>
           <?php endif; ?>
           <?php
           // =============================================================================
