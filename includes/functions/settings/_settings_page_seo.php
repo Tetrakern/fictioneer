@@ -172,8 +172,8 @@ $purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_pur
 
       <div class="action-row split mt-32">
         <div class="left-actions">
-          <a class="button secondary" id="button-purge-all-schemas" onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to purge all schemas? They will be regenerated on visit.', 'fictioneer' ) ?>' );" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All Schemas', 'fictioneer' ); ?></a>
-          <a class="button secondary" id="button-purge-all-meta" onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to purge all SEO meta caches? They will be regenerated on visit.', 'fictioneer' ) ?>' );" href="<?php echo $purge_meta_url; ?>"><?php _e( 'Purge SEO Meta Caches', 'fictioneer' ); ?></a>
+          <a class="button secondary" id="button-purge-all-schemas" data-click="purge-all-schemas" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all schemas? They will be regenerated on visit.', 'fictioneer' ) ?>" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All Schemas', 'fictioneer' ); ?></a>
+          <a class="button secondary" id="button-purge-all-meta" data-click="purge-all-meta" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all SEO meta caches? They will be regenerated on visit.', 'fictioneer' ) ?>" href="<?php echo $purge_meta_url; ?>"><?php _e( 'Purge SEO Meta Caches', 'fictioneer' ); ?></a>
         </div>
         <div class="right-actions">
           <?php if ( $query->have_posts() ) fictioneer_admin_pagination( $per_page, $query->max_num_pages, $query->found_posts ); ?>

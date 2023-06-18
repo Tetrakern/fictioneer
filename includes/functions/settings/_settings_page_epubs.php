@@ -190,7 +190,7 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
 
       <div class="action-row split mt-32">
         <div class="left-actions">
-          <a class="button secondary" id="button-purge-all-epubs" onclick="return confirm( '<?php esc_attr_e( 'Are you sure you want to purge all ePUBs?', 'fictioneer' ) ?>' );" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All', 'fictioneer' ); ?></a>
+          <a class="button secondary" id="button-purge-all-epubs" data-click="purge-all-epubs" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all ePUBs?', 'fictioneer' ) ?>" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All', 'fictioneer' ); ?></a>
         </div>
         <div class="right-actions">
           <?php if ( $epubs ) fictioneer_admin_pagination( $epubs_per_page, ceil( $count / $epubs_per_page ), $count ); ?>

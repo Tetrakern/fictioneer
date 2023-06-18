@@ -404,3 +404,28 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnBookshelfContent');
   localStorage.removeItem('fcnChapterBookmarks');
 });
+
+// =============================================================================
+// EVENT DELEGATES
+// =============================================================================
+
+_$('.fictioneer-settings')?.addEventListener('click', event => {
+  const clickTarget = event.target.closest('[data-click]'),
+        clickAction = clickTarget?.dataset.click;
+
+  if (!clickAction) return;
+
+  switch (clickAction) {
+    case 'purge-all-epubs':
+    case 'purge-all-schemas':
+    case 'purge-all-meta':
+    case 'reset-post-relationship-registry':
+      if (!confirm(clickTarget.dataset.prompt)) {
+        event.preventDefault();
+      }
+      break;
+    case 'dismiss-popup-note':
+      clickTarget.closest('.popup-note').remove();
+      break;
+  }
+});

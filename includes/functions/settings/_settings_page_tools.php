@@ -177,7 +177,7 @@
                   </code>
                 </details>
                 <div class="row flex wrap gap-6">
-                  <a class="button button--secondary" id="reset-post-relationship-registry" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_post_relationship_registry' ); ?>" onclick="return confirm('<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ) ?>' );"><?php _e( 'Reset Registry', 'fictioneer' ) ?></a>
+                  <a class="button button--secondary" id="reset-post-relationship-registry" data-click="reset-post-relationship-registry" data-prompt="<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ) ?>" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_post_relationship_registry' ); ?>"><?php _e( 'Reset Registry', 'fictioneer' ) ?></a>
                 </div>
               <?php endif; ?>
             </div>

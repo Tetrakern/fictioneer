@@ -112,7 +112,7 @@
                     <div class="popup-note floating invalid dismissable">
     									<div>
                         <span><?php _e( 'Please enter a valid email address or none', 'fictioneer' ) ?></span>
-                        <span class="dismiss" onclick="this.closest('.popup-note').remove()"><i class="fa-solid fa-xmark"></i></span>
+                        <span class="dismiss" data-click="dismiss-popup-note"><i class="fa-solid fa-xmark"></i></span>
                       </div>
     								</div>
   									<p class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_system_email_address']['label']; ?></p>
