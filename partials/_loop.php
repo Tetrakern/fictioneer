@@ -13,7 +13,7 @@
 ?>
 
 <?php if ( have_posts() ) : ?>
-  <section class="blog">
+  <section class="blog-posts">
     <?php
       while ( have_posts() ) {
         the_post();

@@ -1188,7 +1188,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   if ( $blog_query->have_posts() ) {
     // Start HTML ---> ?>
-    <section class="blog _nested <?php echo $classes; ?>" id="blog">
+    <section class="blog-posts _nested <?php echo $classes; ?>" id="blog">
       <?php
         while ( $blog_query->have_posts() ) {
           $blog_query->the_post();

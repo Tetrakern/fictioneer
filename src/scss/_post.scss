@@ -1,4 +1,4 @@
-.blog:not(._nested) {
+.blog-posts:not(._nested) {
   &:first-child {
     padding-top: var(--layout-spacing-vertical);
   }
@@ -8,13 +8,13 @@
   }
 }
 
-.blog._nested {
+.blog-posts._nested {
   .pagination {
     margin-top: -1rem;
   }
 }
 
-:is(.blog, .latest-posts) {
+:is(.blog-posts, .latest-posts) {
   .post {
     padding-bottom: 1rem;
 
