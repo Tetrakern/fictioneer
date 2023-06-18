@@ -341,6 +341,11 @@ $header_breakpoint: 640px;
       font-size: 18px;
       padding: 0 4px;
       margin: 0 0 0 1.25rem;
+
+      &:not(.marked) {
+        color: var(--checkmark-not-checked);
+        text-shadow: none;
+      }
     }
 
     > span {
