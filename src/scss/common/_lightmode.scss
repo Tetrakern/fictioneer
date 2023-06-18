@@ -279,9 +279,9 @@
 
   // === COMMENTS ==============================================================
   --comment-background: hsl(var(--bg-1000-free) / 5%);
-  --comment-background-private: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(-45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
-  --comment-background-deleted: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(-45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
-  --comment-background-offensive: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
+  --comment-background-private: hsl(var(--bg-1000-free) / 2%) repeating-linear-gradient(-45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
+  --comment-background-deleted: hsl(var(--bg-1000-free) / 2%) repeating-linear-gradient(-45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
+  --comment-background-offensive: hsl(var(--bg-1000-free) / 2%) repeating-linear-gradient(45deg, var(--comment-background), var(--comment-background) 2px, transparent 2px, transparent 5px);
   --comment-background-sticky: hsl(var(--bg-1000-free) / 7%);
   --comment-border-sticky: 1px dashed rgb(0 0 0 / 30%);
 
