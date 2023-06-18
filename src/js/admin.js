@@ -18,7 +18,7 @@
  */
 
 function fcn_getWindowPosition(element) {
-  let rect = element.getBoundingClientRect();
+  const rect = element.getBoundingClientRect();
 
   return {
     top: rect.top + window.scrollY,
@@ -52,7 +52,7 @@ var fcn_lastPopupMenu;
  */
 
 function fcn_togglePopupMenu(id) {
-  let menu = _$$$(`popup-${id}`);
+  const menu = _$$$(`popup-${id}`);
 
   if (menu.classList.contains('hidden')) {
     // Is closed...
@@ -63,10 +63,10 @@ function fcn_togglePopupMenu(id) {
       fcn_togglePopupMenu(fcn_lastPopupMenu.dataset.id);
     }
 
-    let dest = menu.closest('.fictioneer-settings'),
-        pos_menu = fcn_getWindowPosition(menu),
-        pos_dest = fcn_getWindowPosition(dest),
-        offset = window.innerWidth < 600 ? 0 : pos_dest.top; // Adminbar
+    const dest = menu.closest('.fictioneer-settings'),
+          pos_menu = fcn_getWindowPosition(menu),
+          pos_dest = fcn_getWindowPosition(dest),
+          offset = window.innerWidth < 600 ? 0 : pos_dest.top; // Adminbar
 
     // Position based on new parent and window offset
     menu.style.top = `${pos_menu.top - offset}px`;
@@ -80,7 +80,7 @@ function fcn_togglePopupMenu(id) {
     // Is open...
     menu.classList.add('hidden');
 
-    let dest = _$$$(`popup-container-${id}`);
+    const dest = _$$$(`popup-container-${id}`);
 
     // Reverse positioning
     menu.style.top = '50%';
@@ -164,7 +164,7 @@ function fcn_purgeSchema(id) {
     dataType: 'json',
     success: function(response) {
       if (response.success) {
-        let tr = _$$$(`schema-${id}`);
+        const tr = _$$$(`schema-${id}`);
         tr.querySelector('.text-blob').innerHTML = tr.querySelector('summary').innerHTML;
         tr.querySelector('.delete').remove();
         tr.querySelector('.no-schema-note').classList.remove('hidden');
@@ -282,7 +282,7 @@ function fcn_ogMediaUpload(event) {
   })
   .open()
   .on('select', function() {
-    let attachment = uploader.state().get('selection').first().toJSON();
+    const attachment = uploader.state().get('selection').first().toJSON();
     _$$$('fictioneer-seo-og-image').value = attachment.id;
     _$$$('fictioneer-seo-og-display').setAttribute('src', attachment.url);
     _$$$('fictioneer-button-seo-og-image-remove').classList.remove('hidden');
@@ -302,7 +302,7 @@ if (button = _$$$('fictioneer-button-og-upload')) {
  */
 
 function fcn_update_seo_title_chars() {
-  let input = _$$$('fictioneer-seo-title');
+  const input = _$$$('fictioneer-seo-title');
 
   if (input.value != '{{title}} – {{site}}') {
     _$$$('fictioneer-seo-title-chars').innerHTML = `(${input.value.length}/70)`;
@@ -328,7 +328,8 @@ if (button = _$$$('fictioneer-seo-title')) {
 function fcn_remove_seo_og_image(event) {
   event.preventDefault();
 
-  let placeholder = _$$$('fictioneer-seo-og-display').dataset.placeholder;
+  const placeholder = _$$$('fictioneer-seo-og-display').dataset.placeholder;
+
   _$$$('fictioneer-seo-og-image').value = '';
   _$$$('fictioneer-seo-og-display').setAttribute('src', placeholder);
   _$$$('fictioneer-button-seo-og-image-remove').classList.add('hidden');
@@ -356,14 +357,14 @@ if (button = _$$$('fictioneer-button-seo-og-image-remove')) {
 
 function fcn_confirmIt(event) {
   // Get texts
-  let message = event.currentTarget.dataset.dialogMessage,
-      confirm = event.currentTarget.dataset.dialogConfirm;
+  const message = event.currentTarget.dataset.dialogMessage,
+        confirm = event.currentTarget.dataset.dialogConfirm;
 
   // Abort if...
   if (!message || !confirm) return;
 
   // Prompt
-  let result = prompt(message);
+  const result = prompt(message);
 
   // Cancel
   if (!result) {
