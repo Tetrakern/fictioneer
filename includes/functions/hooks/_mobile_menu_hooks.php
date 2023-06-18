@@ -484,7 +484,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
     if ( fictioneer_show_auth_content() ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo fictioneer_get_logout_url(); ?>" data-logout rel="noopener noreferrer nofollow" class="hide-if-logged-out">
+      <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
         <?php fictioneer_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ); ?>
         <?php echo fcntr( 'logout' ); ?>
       </a>

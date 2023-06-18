@@ -653,9 +653,10 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
                 type="button"
                 class="comment-inline-edit-submit button"
                 data-enabled="<?php echo esc_attr_x( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?>"
-                data-disabled="<?php esc_attr_e( 'Updating…', 'fictioneer' ); ?>" onclick="fcn_submitInlineCommentEdit(this)"
+                data-disabled="<?php esc_attr_e( 'Updating…', 'fictioneer' ); ?>"
+                data-click="submit-inline-comment-edit"
               ><?php _ex( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?></button>
-              <button type="button" class="comment-inline-edit-cancel button _secondary" onclick="fcn_cancelInlineCommentEdit(this)"><?php _ex( 'Cancel', 'Comment inline edit cancel button.', 'fictioneer' ); ?></button>
+              <button type="button" class="comment-inline-edit-cancel button _secondary" data-click="cancel-inline-comment-edit"><?php _ex( 'Cancel', 'Comment inline edit cancel button.', 'fictioneer' ); ?></button>
             </div>
           </div>
         <?php endif; ?>
@@ -741,7 +742,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
             class="fictioneer-comment__edit-toggle hide-on-edit tooltipped hide-if-logged-out"
             type="button"
             data-tooltip="<?php echo esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ); ?>"
-            onclick="fcn_triggerInlineCommentEdit(this)"
+            data-click="trigger-inline-comment-edit"
             <?php echo $ajax_in_progress && $is_editable ? '' : 'hidden'; ?>
           ><i class="fa-solid fa-pen"></i></button>
           <?php endif; ?>
@@ -764,7 +765,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
               ); ?>"
               data-dialog-confirm="<?php echo esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ); ?>"
               data-tooltip="<?php echo esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ); ?>"
-              onclick="fcn_deleteMyComment(this)"
+              data-click="delete-my-comment"
               <?php echo $ajax_in_progress ? '' : 'hidden'; ?>
             ><i class="fa-solid fa-ban"></i></button>
           <?php endif; ?>
@@ -792,7 +793,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           <?php if ( fictioneer_show_auth_content() && $is_reportable ) : ?>
             <button
             class="fictioneer-report-comment-button hide-if-logged-out tooltipped <?php echo $flag_classes ?> <?php echo $is_flagged_by_current_user ? 'on' : ''; ?>"
-            onclick="fcn_flagComment(this)"
+            data-click="flag-comment"
             data-tooltip="<?php echo esc_attr_x( 'Report', 'Report this comment.', 'fictioneer' ); ?>"
           ><i class="fa-solid fa-flag"></i></button>
           <?php endif; ?>

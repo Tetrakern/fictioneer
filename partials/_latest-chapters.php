@@ -127,7 +127,7 @@ $entries = new WP_Query( $query_args );
                     $spoiler_note = str_repeat( _x( '&#183; ', 'Chapter preview obfuscation character.', 'fictioneer' ), intval( strlen( $excerpt ) ) );
                   ?>
                   <?php if ( ! $args['spoiler'] ) : ?>
-                    <span data-toggle-obfuscation tabindex="0">
+                    <span data-click="toggle-obfuscation" tabindex="0">
                       <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
                       <span class="clean">— <?php echo $excerpt; ?></span>
                     </span>

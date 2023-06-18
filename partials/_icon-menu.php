@@ -135,7 +135,7 @@ if ( $profile_page && $profile_page > 0 ) {
     <a
       href="<?php echo fictioneer_get_logout_url(); ?>"
       title="<?php esc_attr_e( 'Logout', 'fictioneer' ) ?>"
-      data-logout
+      data-click="logout"
       class="icon-menu__item button--logout hide-if-logged-out"
       rel="noopener noreferrer nofollow"
       aria-label="<?php esc_attr_e( 'Click to log out', 'fictioneer' ) ?>"

@@ -909,3 +909,32 @@ function fcn_getCommentForm() {
     }
   });
 }
+
+// =============================================================================
+// EVENT DELEGATES
+// =============================================================================
+
+_$('.fictioneer-comments')?.addEventListener('click', event => {
+  const clickTarget = event.target.closest('[data-click]'),
+        clickAction = clickTarget?.dataset.click;
+
+  if (!clickAction) return;
+
+  switch (clickAction) {
+    case 'submit-inline-comment-edit':
+      fcn_submitInlineCommentEdit(clickTarget);
+      break;
+    case 'cancel-inline-comment-edit':
+      fcn_cancelInlineCommentEdit(clickTarget);
+      break;
+    case 'trigger-inline-comment-edit':
+      fcn_triggerInlineCommentEdit(clickTarget);
+      break;
+    case 'delete-my-comment':
+      fcn_deleteMyComment(clickTarget);
+      break;
+    case 'flag-comment':
+      fcn_flagComment(clickTarget);
+      break;
+  }
+});

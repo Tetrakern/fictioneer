@@ -1124,7 +1124,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo fictioneer_get_logout_url(); ?>" data-logout rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ) ?></a>
+        <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ) ?></a>
       </li>
       <?php // <--- End HTML
       $output['logout'] = ob_get_clean();
@@ -1285,8 +1285,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_follows ) {
       ob_start();
       // Start HTML ---> ?>
-      <button class="popup-action-follow" onclick="fcn_inlineToggleFollow(<?php echo $story_id; ?>)"><?php echo fcntr( 'follow' ); ?></button>
-      <button class="popup-action-unfollow" onclick="fcn_inlineToggleFollow(<?php echo $story_id; ?>)"><?php echo fcntr( 'unfollow' ); ?></button>
+      <button class="popup-action-follow" data-click="card-toggle-follow" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'follow' ); ?></button>
+      <button class="popup-action-unfollow" data-click="card-toggle-follow" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'unfollow' ); ?></button>
       <?php // <--- End HTML
       $menu['follow'] = ob_get_clean();
     }
@@ -1294,8 +1294,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_reminders ) {
       ob_start();
       // Start HTML ---> ?>
-      <button class="popup-action-reminder" onclick="fcn_inlineToggleReminder(<?php echo $story_id; ?>)"><?php echo fcntr( 'read_later' ); ?></button>
-      <button class="popup-action-forget" onclick="fcn_inlineToggleReminder(<?php echo $story_id; ?>)"><?php echo fcntr( 'forget' ); ?></button>
+      <button class="popup-action-reminder" data-click="card-toggle-reminder" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'read_later' ); ?></button>
+      <button class="popup-action-forget" data-click="card-toggle-reminder" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'forget' ); ?></button>
       <?php // <--- End HTML
       $menu['reminder'] = ob_get_clean();
     }
@@ -1303,8 +1303,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( $can_checkmarks ) {
       ob_start();
       // Start HTML ---> ?>
-      <button class="popup-action-mark-read" onclick="fcn_inlineToggleCheckmark(<?php echo $story_id; ?>, '<?php echo $type; ?>', <?php echo $chapter_id ? $chapter_id : 'null'; ?>, 'set')"><?php echo fcntr( 'mark_read' ); ?></button>
-      <button class="popup-action-mark-unread" onclick="fcn_inlineToggleCheckmark(<?php echo $story_id; ?>, '<?php echo $type; ?>', <?php echo $chapter_id ? $chapter_id : 'null'; ?>, 'unset')"><?php echo fcntr( 'mark_unread' ); ?></button>
+      <button class="popup-action-mark-read" data-click="card-toggle-checkmarks" data-story-id="<?php echo $story_id; ?>" data-type="<?php echo $type; ?>" data-chapter-id="<?php echo $chapter_id ?: 'null'; ?>" data-mode="set"><?php echo fcntr( 'mark_read' ); ?></button>
+      <button class="popup-action-mark-unread" data-click="card-toggle-checkmarks" data-story-id="<?php echo $story_id; ?>" data-type="<?php echo $type; ?>" data-chapter-id="<?php echo $chapter_id ?: 'null'; ?>" data-mode="unset"><?php echo fcntr( 'mark_unread' ); ?></button>
       <?php // <--- End HTML
       $menu['checkmark'] = ob_get_clean();
     }

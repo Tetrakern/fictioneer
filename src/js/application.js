@@ -330,11 +330,6 @@ window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 
 // =============================================================================
 
 fcn_theBody.addEventListener('click', e => {
-  // Handle logout cleanup
-  if (e.target.closest('[data-logout]')) {
-    fcn_cleanupWebStorage();
-  }
-
   // Handle last click
   const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
@@ -367,20 +362,54 @@ fcn_theBody.addEventListener('click', e => {
     return;
   }
 
-  // Handle obfuscation
-  const obfuscationTarget = e.target.closest('[data-toggle-obfuscation]');
+  // === DATA CLICK HANDLERS ===================================================
 
-  if (obfuscationTarget) {
-    obfuscationTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
-    return;
-  }
+  const clickTarget = e.target.closest('[data-click]'),
+        clickAction = clickTarget?.dataset.click;
 
-  // Handle copy input to clipboard
-  const copyTarget = e.target.closest('input[data-copy-to-clipboard]');
+  if (!clickAction) return;
 
-  if (copyTarget) {
-    copyTarget.select();
-    fcn_copyToClipboard(copyTarget.value, copyTarget.dataset.message);
+  switch (clickAction) {
+    case 'copy-to-clipboard':
+      // Handle copy input to clipboard
+      clickTarget.select();
+      fcn_copyToClipboard(clickTarget.value, clickTarget.dataset.message);
+      break;
+    case 'reset-consent':
+      // Handle consent reset
+      fcn_deleteCookie('fcn_cookie_consent');
+      location.reload();
+      break;
+    case 'clear-cookies':
+      // Handle clear all cookies
+      fcn_deleteAllCookies();
+      alert(clickTarget.dataset.message);
+      break;
+    case 'logout':
+      // Handle logout cleanup
+      fcn_cleanupWebStorage();
+      break;
+    case 'card-toggle-follow':
+      // Handle toggle card Follow
+      fcn_inlineToggleFollow(clickTarget.dataset.storyId);
+      break;
+    case 'card-toggle-reminder':
+      // Handle toggle card Reminder
+      fcn_inlineToggleReminder(clickTarget.dataset.storyId);
+      break;
+    case 'card-toggle-checkmarks':
+      // Handle toggle card Checkmark(s)
+      fcn_inlineToggleCheckmark(
+        parseInt(clickTarget.dataset.storyId),
+        clickTarget.dataset.type,
+        parseInt(clickTarget.dataset.chapterId),
+        clickTarget.dataset.mode
+      );
+      break;
+    case 'toggle-obfuscation':
+      // Handle obfuscation
+      clickTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
+      break;
   }
 });
 
@@ -1129,7 +1158,7 @@ fcn_updateThemeColor();
 // =============================================================================
 
 /**
- * Helper to toggle story Reminder with onclick attribute.
+ * Helper to toggle story Reminder.
  *
  * @since 5.0
  * @see fcn_toggleReminder()
@@ -1152,7 +1181,7 @@ function fcn_inlineToggleReminder(storyId) {
 }
 
 /**
- * Helper to toggle story Follow with onclick attribute.
+ * Helper to toggle story Follow.
  *
  * @since 5.0
  * @see fcn_toggleFollow()
@@ -1175,7 +1204,7 @@ function fcn_inlineToggleFollow(storyId) {
 }
 
 /**
- * Helper to toggle story checkmark with onclick attribute.
+ * Helper to toggle story checkmark.
  *
  * @since 5.0
  * @see fcn_toggleCheckmark()
