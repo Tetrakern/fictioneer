@@ -90,9 +90,9 @@ if ( ! function_exists( 'fictioneer_recommendation_tags' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_Post $args['recommendation']    The recommendation object.
-   * @param int     $args['recommendation_id'] The recommendation post ID.
-   * @param int     $args['title']             The safe recommendation title.
+   * @param WP_Post $args['recommendation']     The recommendation object.
+   * @param int     $args['recommendation_id']  The recommendation post ID.
+   * @param int     $args['title']              The safe recommendation title.
    */
 
   function fictioneer_recommendation_tags( $args ) {
@@ -101,12 +101,16 @@ if ( ! function_exists( 'fictioneer_recommendation_tags' ) ) {
 
     // Show tags?
     if ( ! get_option( 'fictioneer_hide_tags_on_pages' ) ) {
-      $tag_args[] = get_the_tags( $args['recommendation_id'] );
+      $tags = get_the_tags( $args['recommendation_id'] );
+
+      if ( ! empty( $tags ) ) $tag_args[] = $tags;
     }
 
     // Show content warnings?
     if ( ! get_option( 'fictioneer_hide_content_warnings_on_pages' ) ) {
-      $tag_args[] = get_the_terms( $args['recommendation_id'], 'fcn_content_warning' );
+      $warnings = get_the_terms( $args['recommendation_id'], 'fcn_content_warning' );
+
+      if ( ! empty( $warnings ) ) $tag_args[] = $warnings;
     }
 
     // Abort conditions...
