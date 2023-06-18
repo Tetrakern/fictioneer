@@ -205,7 +205,7 @@ if ( ! function_exists( 'fictioneer_change_submit_field' ) ) {
     return sprintf(
   		$close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div>' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
   		$submit_button,
-  		get_the_ID() ? get_comment_id_fields( get_the_ID() ) : $parent_field . $comment_post_id,
+  		get_the_ID() ? get_comment_id_fields( get_the_ID() ) : ( $parent_field . $comment_post_id ),
       preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
   	);
   }
