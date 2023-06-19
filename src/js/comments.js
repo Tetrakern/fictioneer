@@ -564,6 +564,8 @@ fcn_bindAJAXCommentSubmit();
 // AJAX INLINE COMMENT EDIT
 // =============================================================================
 
+const /** @const {HTMLElement} */ fcn_commentEditActionsTemplate = _$('.comment-edit-actions-template');
+
 var /** @type {Object} */ fcn_commentEditUndos = {};
 
 /**
@@ -587,6 +589,9 @@ function fcn_triggerInlineCommentEdit(source) {
     const content = red.querySelector('.fictioneer-comment__content'),
           edit = red.querySelector('.fictioneer-comment__edit'),
           textarea = red.querySelector('.comment-inline-edit-content');
+
+    // Append buttons
+    edit.appendChild(fcn_commentEditActionsTemplate.content.cloneNode(true));
 
     // Save unedited content
     fcn_commentEditUndos[red.id] = textarea.value;
@@ -698,7 +703,9 @@ function fcn_cancelInlineCommentEdit(source) {
 function fcn_restoreComment(target, undo = false, update = null) {
   target.querySelector('.fictioneer-comment__content').hidden = false;
   target.querySelector('.fictioneer-comment__edit').hidden = true;
+  target.querySelector('.fictioneer-comment__edit-actions')?.remove();
   target.classList.remove('_editing');
+
   if (undo && fcn_commentEditUndos[target.id]) {
     target.querySelector('.comment-inline-edit-content').value = fcn_commentEditUndos[target.id];
   } else if (update) {

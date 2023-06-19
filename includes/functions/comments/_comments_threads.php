@@ -648,16 +648,6 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         <?php if ( ( $can_edit && $is_editable ) || ( $is_caching && ! $is_deleted_by_owner) ) : ?>
           <div class="fictioneer-comment__edit" hidden>
             <textarea class="comment-inline-edit-content"><?php echo $comment->comment_content; ?></textarea>
-            <div class="fictioneer-comment__edit-actions">
-              <button
-                type="button"
-                class="comment-inline-edit-submit button"
-                data-enabled="<?php echo esc_attr_x( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?>"
-                data-disabled="<?php esc_attr_e( 'Updating…', 'fictioneer' ); ?>"
-                data-click="submit-inline-comment-edit"
-              ><?php _ex( 'Submit Changes', 'Comment inline edit submit button.', 'fictioneer' ); ?></button>
-              <button type="button" class="comment-inline-edit-cancel button _secondary" data-click="cancel-inline-comment-edit"><?php _ex( 'Cancel', 'Comment inline edit cancel button.', 'fictioneer' ); ?></button>
-            </div>
           </div>
         <?php endif; ?>
         <?php
