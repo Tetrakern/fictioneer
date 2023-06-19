@@ -1261,6 +1261,8 @@ function fcn_jumpPage(source) {
       window.location.href = url.replace(/paged=\d+/, 'paged=' + input);
     } else if (url.includes('comment-page-')) {
       window.location.href = url.replace(/comment-page-\d+/, `comment-page-${input}`);
+    } else if ( url.includes('pg=') ) {
+      window.location.href = url.replace(/pg=\d+/, 'pg=' + input);
     } else {
       window.location.href = url.replace(/page\/\d+/, 'page/' + input);
     }
