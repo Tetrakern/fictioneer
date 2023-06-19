@@ -56,6 +56,7 @@
       background: var(--navigation-background-sticky);
       filter: var(--navigation-drop-shadow);
       opacity: 1;
+      box-shadow: 0 0 1px transparent; // Safari fix to show drop-shadow
     }
 
     &__list,
