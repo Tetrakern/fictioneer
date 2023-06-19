@@ -1251,21 +1251,17 @@ function fcn_jumpPage(source) {
   const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
   if (input > 0) {
-    const url = source.nextElementSibling.href; // Guaranteed to always have the query parameter
+    const url = source.nextElementSibling.getAttribute('href'), // Guaranteed to always have the query parameter
+          pageParams = ['page=', 'paged=', 'comment-page-', 'pg='];
 
-    if (!url) return;
-
-    if (url.includes('page=')) {
-      window.location.href = url.replace(/page=\d+/, 'page=' + input);
-    } else if ( url.includes('paged=') ) {
-      window.location.href = url.replace(/paged=\d+/, 'paged=' + input);
-    } else if (url.includes('comment-page-')) {
-      window.location.href = url.replace(/comment-page-\d+/, `comment-page-${input}`);
-    } else if ( url.includes('pg=') ) {
-      window.location.href = url.replace(/pg=\d+/, 'pg=' + input);
-    } else {
-      window.location.href = url.replace(/page\/\d+/, 'page/' + input);
+    for (const param of pageParams) {
+      if (url.includes(param)) {
+        window.location.href = url.replace(new RegExp(`${param}\\d+`), param + input);
+        return;
+      }
     }
+
+    window.location.href = url.replace(/page\/\d+/, `page/${input}`);
   }
 }
 
