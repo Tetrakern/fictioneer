@@ -507,7 +507,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
     $output = apply_filters( 'fictioneer_filter_mobile_user_menu_items', $output );
 
     // Return
-    echo '<div class="mobile-menu__panel">' . implode( '', $output ) . '</div>';
+    echo '<div id="mobile-menu-user-panel" class="mobile-menu__panel">' . implode( '', $output ) . '</div>';
   }
 }
 add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_user_menu', 30 );
