@@ -1352,7 +1352,7 @@ function fcn_revealCommentImage(button) {
   button.remove();
 }
 
-_$$$('comments')?.addEventListener('click', event => {
+_$('.fictioneer-comments')?.addEventListener('click', event => {
   if (event.target?.classList.contains('consent-button')) {
     fcn_revealCommentImage(event.target);
   }
