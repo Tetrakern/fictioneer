@@ -524,10 +524,8 @@ html:not(.logged-in) body:not(.logged-in) {
   }
 
   &._closed {
-    .chapter-group__label {
-      :is(i, .icon) {
-        transform: translateY(4px) rotate(-180deg);
-      }
+    .chapter-group__heading-icon {
+      transform: translateY(4px) rotate(-180deg);
     }
 
     .chapter-group__list {
