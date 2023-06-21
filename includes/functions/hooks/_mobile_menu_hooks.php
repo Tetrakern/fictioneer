@@ -451,7 +451,8 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
 
     if (
       $post_type === 'fcn_chapter' &&
-      ! is_search() && comments_open() &&
+      ! is_search() &&
+      comments_open() &&
       ! fictioneer_is_commenting_disabled() &&
       ! post_password_required()
     ) {
