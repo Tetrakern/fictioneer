@@ -14,8 +14,10 @@ if ( ! function_exists( 'fictioneer_ajax_get_comment_form' ) ) {
    */
 
   function fictioneer_ajax_get_comment_form() {
-    // Nonce (die on failure)
-    check_ajax_referer( 'fictioneer_nonce', 'nonce' );
+    // Nonce
+    if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+      wp_send_json_error( ['error' => __( 'Security token expired. Please reload.', 'fictioneer' )] );
+    }
 
     // Validations
     if ( empty( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
@@ -61,8 +63,10 @@ if ( ! function_exists( 'fictioneer_ajax_get_comment_section' ) ) {
    */
 
   function fictioneer_ajax_get_comment_section() {
-    // Nonce (die on failure)
-    check_ajax_referer( 'fictioneer_nonce', 'nonce' );
+    // Nonce
+    if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+      wp_send_json_error( ['error' => __( 'Security token expired. Please reload.', 'fictioneer' )] );
+    }
 
     // Validations
     if ( ! isset( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
