@@ -199,7 +199,9 @@ if ( ! function_exists( 'fictioneer_ajax_submit_comment' ) ) {
 
   function fictioneer_ajax_submit_comment() {
     // Nonce
-    check_ajax_referer( 'fictioneer_nonce', 'nonce' );
+    if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+      wp_send_json_error( ['error' => __( 'Security token expired or invalid. Please reload and try again.', 'fictioneer' )] );
+    }
 
     // Validations
     if (
