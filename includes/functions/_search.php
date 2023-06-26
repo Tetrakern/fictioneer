@@ -26,7 +26,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
     $examples = is_array( $examples ) ? $examples : [$examples];
 
     // Start HTML ---> ?>
-    <div class="keyword-input">
+    <div class="keyword-input _empty">
       <?php if ( ! ( $args['no_operator'] ?? 0 ) ) : ?>
         <label
           class="keyword-input__operator"
@@ -118,7 +118,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
     $examples = is_array( $examples ) ? $examples : [$examples];
 
     // Start HTML ---> ?>
-    <div class="keyword-input">
+    <div class="keyword-input  _empty">
       <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
       <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
         <?php

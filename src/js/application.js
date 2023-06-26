@@ -1682,6 +1682,9 @@ class FCN_KeywordInput {
     // Update internal keywords
     this.collection.value = this.keywords.join(',');
 
+    // Empty?
+    this.block.classList.toggle('_empty', this.collection.value === '');
+
     // Reset current query info
     this.form.querySelector('.search-form__current').innerHTML = '';
   }

@@ -224,6 +224,17 @@ input[type=radio] {
   position: relative;
   flex: 1 0 100%;
 
+  &._empty {
+    .keyword-input__track::before {
+      content: attr(data-hint);
+      position: absolute;
+      color: var(--fg-900);
+      font-size: 12px;
+      line-height: 1;
+      padding: 4px 0 4px 0;
+    }
+  }
+
   &__operator {
     --focus-offset: -2px;
     position: absolute;
@@ -271,17 +282,6 @@ input[type=radio] {
 
     &._operator {
       border-top-right-radius: 0;
-    }
-
-    &:not(:has(.node)) {
-      &::before {
-        content: attr(data-hint);
-        position: absolute;
-        color: var(--fg-900);
-        font-size: 12px;
-        line-height: 1;
-        padding: 4px 0 4px 0;
-      }
     }
   }
 
