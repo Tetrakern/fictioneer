@@ -1743,23 +1743,25 @@ class FCN_KeywordInput {
     // When leaving the input
     this.input.addEventListener(
       'blur',
-      e => {
+      () => {
         // Get and prepare value
         const value = this.allowList[this.encode(this.input.value)];
 
+        // Stoppable to account for blur through button click
         if (value) {
-          // Stoppable to account for blur through button click
           this.blurTimeout = setTimeout(() => { this.addNode() }, 150)
         } else {
-          // Reset input
-          this.input.value = '';
-          this.tabSuggestion.innerHTML = '';
+          this.blurTimeout = setTimeout(() => {
+            // Reset input
+            this.input.value = '';
+            this.tabSuggestion.innerHTML = '';
 
-          // Filter suggestions
-          this.filterSuggestions();
+            // Filter suggestions
+            this.filterSuggestions();
 
-          // Resize width
-          this.resize();
+            // Resize width
+            this.resize();
+          }, 150)
         }
       }
     );
