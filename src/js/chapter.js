@@ -1229,11 +1229,16 @@ _$$$('chapter-list-popup-toggle')?.addEventListener('click', () => {
 // KEYBOARD NAVIGATION
 // =============================================================================
 
-// CAUSES ISSUES IF YOU USE ARROWS AND DO NOT WANT TO CHANGE PAGES
-// document.addEventListener('keydown', event => {
-//   if (event.code === 'ArrowLeft') {
-//     _$('a.button._navigation._prev')?.click();
-//   } else if (event.code === 'ArrowRight') {
-//     _$('a.button._navigation._next')?.click();
-//   }
-// });
+document.addEventListener('keydown', event => {
+  // Abort if inside input...
+  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.isContentEditable) {
+    return;
+  }
+
+  // Check if arrow keys were pressed...
+  if (event.code === 'ArrowLeft') {
+    _$('a.button._navigation._prev')?.click();
+  } else if (event.code === 'ArrowRight') {
+    _$('a.button._navigation._next')?.click();
+  }
+});
