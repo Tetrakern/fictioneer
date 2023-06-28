@@ -1235,10 +1235,33 @@ document.addEventListener('keydown', event => {
     return;
   }
 
+  let link = false;
+
   // Check if arrow keys were pressed...
   if (event.code === 'ArrowLeft') {
-    _$('a.button._navigation._prev')?.click();
+    link = _$('a.button._navigation._prev');
   } else if (event.code === 'ArrowRight') {
-    _$('a.button._navigation._next')?.click();
+    link = _$('a.button._navigation._next');
+  }
+
+  // Change page with scroll anchor
+  if (link.href) {
+    window.location.href = link + '#start';
   }
 });
+
+// =============================================================================
+// SCROLL TO START OG CHAPTER
+// =============================================================================
+
+if (window.location.hash === '#start') {
+  // remove anchor from URL
+  history.replaceState(null, document.title, window.location.pathname);
+
+  // Scroll to beginning of article
+  const targetElement = _$('.chapter__article');
+
+  if (targetElement) {
+    fcn_scrollTo(targetElement, 128);
+  }
+}
