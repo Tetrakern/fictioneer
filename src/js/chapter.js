@@ -1230,8 +1230,10 @@ _$$$('chapter-list-popup-toggle')?.addEventListener('click', () => {
 // =============================================================================
 
 document.addEventListener('keydown', event => {
+  const editableTags = ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'];
+
   // Abort if inside input...
-  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.isContentEditable) {
+  if (editableTags.includes(event.target.tagName) || event.target.isContentEditable) {
     return;
   }
 
