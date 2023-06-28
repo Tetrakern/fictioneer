@@ -1237,7 +1237,7 @@ document.addEventListener('keydown', event => {
     return;
   }
 
-  let link = false;
+  let link = null;
 
   // Check if arrow keys were pressed...
   if (event.code === 'ArrowLeft') {
@@ -1247,7 +1247,7 @@ document.addEventListener('keydown', event => {
   }
 
   // Change page with scroll anchor
-  if (link.href) {
+  if (link && link.href) {
     window.location.href = link + '#start';
   }
 });
