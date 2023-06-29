@@ -1318,10 +1318,10 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
     $url_search = '(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?';
 
     // Deal with some multi-line spoiler issues
-    if ( preg_match_all( '/\[spoiler](.+?)\[\/spoiler]/i', $content, $spoilers, PREG_PATTERN_ORDER ) ) {
+    if ( preg_match_all( '/\[spoiler](.+?)\[\/spoiler]/is', $content, $spoilers, PREG_PATTERN_ORDER ) ) {
       foreach ( $spoilers[0] as $spoiler ) {
         $replace = str_replace( '<p></p>', ' ', $spoiler );
-        $replace = preg_replace( '/\[quote](.+?)\[\/quote]/i', '<blockquote class="spoiler">$1</blockquote>', $replace );
+        $replace = preg_replace( '/\[quote](.+?)\[\/quote]/is', '<blockquote class="spoiler">$1</blockquote>', $replace );
 
         $content = str_replace( $spoiler, $replace, $content );
       }
@@ -1329,14 +1329,15 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
 
     // Possible patterns
     $patterns = array(
-      '/\[spoiler]\[quote](.+?)\[\/quote]\[\/spoiler]/i',
+      '/\[spoiler]\[quote](.+?)\[\/quote]\[\/spoiler]/is',
       '/\[spoiler](.+?)\[\/spoiler]/i',
+      '/\[spoiler](.+?)\[\/spoiler]/is',
       '/\[b](.+?)\[\/b]/i',
       '/\[i](.+?)\[\/i]/i',
       '/\[s](.+?)\[\/s]/i',
-      '/\[quote](.+?)\[\/quote]/i',
-      '/\[ins](.+?)\[\/ins]/i',
-      '/\[del](.+?)\[\/del]/i',
+      '/\[quote](.+?)\[\/quote]/is',
+      '/\[ins](.+?)\[\/ins]/is',
+      '/\[del](.+?)\[\/del]/is',
       '/\[li](.+?)\[\/li]/i',
       "/\[link.*]\[img]($img_search)\[\/img]\[\/link]/i",
       "/\[img]($img_search)\[\/img]/i",
@@ -1349,6 +1350,7 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
     $replacements = array(
       '<blockquote class="spoiler">$1</blockquote>',
       '<span class="spoiler">$1</span>',
+      '<div class="spoiler">$1</div>',
       '<strong>$1</strong>',
       '<em>$1</em>',
       '<strike>$1</strike>',

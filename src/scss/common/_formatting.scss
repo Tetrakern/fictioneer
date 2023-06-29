@@ -139,6 +139,10 @@ p a,
     display: inline;
   }
 
+  &:is(div) {
+    white-space: break-spaces;
+  }
+
   &:is(blockquote, p) {
     display: block;
   }
@@ -147,7 +151,8 @@ p a,
     pointer-events: none;
   }
 
-  > * {
+  > *,
+  a {
     color: inherit !important;
   }
 
