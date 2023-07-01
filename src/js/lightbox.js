@@ -38,10 +38,7 @@ function fcn_showLightbox(target) {
 
   // Show lightbox
   if (valid && img) {
-    img.removeAttribute('class');
-    img.removeAttribute('style');
-    img.removeAttribute('height');
-    img.removeAttribute('width');
+    ['class', 'style', 'height', 'width'].forEach(attr => img.removeAttribute(attr));
     fcn_lightboxTarget.appendChild(img);
     fcn_lightbox.classList.add('show');
 
