@@ -53,35 +53,34 @@ function fcn_showLightbox(target) {
 // EVENTS
 // =============================================================================
 
-fcn_theBody.querySelectorAll('[data-lightbox]').forEach(element => {
-  // Click on images
-  element.addEventListener(
-    'click',
-    e => {
+fcn_theBody.addEventListener('click', e => {
+  const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
+
+  if (target) {
+    // Prevent links from working
+    e.preventDefault();
+
+    // Call lightbox
+    fcn_showLightbox(target);
+  }
+});
+
+fcn_theBody.addEventListener('keydown', e => {
+  const target = e.target.closest('[data-lightbox]:not(.no-auto-lightbox)');
+
+  if (target) {
+    // Check pressed key
+    if (e.keyCode == 32 || e.keyCode == 13) {
       // Prevent links from working
       e.preventDefault();
 
       // Call lightbox
-      fcn_showLightbox(e.currentTarget);
+      fcn_showLightbox(target);
     }
-  );
-
-  // When pressing space or enter
-  element.addEventListener(
-    'keydown',
-    e => {
-      // Check pressed key
-      if (e.keyCode == 32 || e.keyCode == 13) {
-        // Prevent links from working
-        e.preventDefault();
-
-        // Call lightbox
-        fcn_showLightbox(e.currentTarget);
-      }
-    }
-  );
+  }
 });
 
+// Lightbox controls
 document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
   element.addEventListener(
     'click',
