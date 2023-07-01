@@ -199,15 +199,9 @@ if ( ! function_exists( 'fictioneer_mobile_bookmarks_frame' ) ) {
    */
 
   function fictioneer_mobile_bookmarks_frame() {
+    get_template_part( 'partials/_template_mobile_bookmark' );
+
     // Start HTML ---> ?>
-    <template id="mobile-bookmark-template" hidden>
-      <li class="mobile-menu__bookmark">
-        <button class="mobile-menu-bookmark-delete-button" data-bookmark-id><i class="fa-solid fa-trash-alt"></i></button>
-        <i class="fa-solid fa-bookmark"></i>
-        <a href="#"><span></span></a>
-        <div class="mobile-menu__bookmark-progress"><div><div class="mobile-menu__bookmark-bg" style></div></div></div>
-      </li>
-    </template>
     <div class="mobile-menu__frame" data-frame="bookmarks">
       <div class="mobile-menu__panel mobile-menu__bookmarks-panel" data-editing="false">
         <div class="mobile-menu__panel-header">
