@@ -36,14 +36,13 @@ function fcn_showLightbox(target) {
     valid = true;
   }
 
-  // Stop scrolling and show lightbox
+  // Show lightbox
   if (valid && img) {
     img.removeAttribute('class');
     img.removeAttribute('style');
     img.removeAttribute('height');
     img.removeAttribute('width');
     fcn_lightboxTarget.appendChild(img);
-    // fcn_theBody.classList.add('no-scroll');
     fcn_lightbox.classList.add('show');
 
     const close = fcn_lightbox.querySelector('.lightbox__close');
