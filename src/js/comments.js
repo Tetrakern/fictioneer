@@ -375,7 +375,9 @@ function fcn_bindAJAXCommentSubmit() {
     e.preventDefault();
 
     // Delay trap (cannot be done server-side because of caching)
-    if (Date.now() < fcn_pageLoadTimestamp + 3000) return;
+    if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+      return;
+    }
 
     // Get comment form input
     const form = e.currentTarget,
@@ -400,15 +402,21 @@ function fcn_bindAJAXCommentSubmit() {
     content.classList.toggle('_error', !contentValidation);
 
     // Validate privacy policy checkbox
-    if (privacy_consent) privacyValidation = privacy_consent.checked;
-    privacy_consent?.classList.toggle('_error', !privacyValidation);
+    if (privacy_consent) {
+      privacyValidation = privacy_consent.checked;
+      privacy_consent.classList.toggle('_error', !privacyValidation);
+    }
 
     // Validate email address pattern (better validation server-side)
-    if (email && email.value.length > 0) emailValidation = /\S+@\S+\.\S+/.test(email.value);
-    email?.classList.toggle('_error', !emailValidation);
+    if (email && email.value.length > 0) {
+      emailValidation = /\S+@\S+\.\S+/.test(email.value);
+      email.classList.toggle('_error', !emailValidation);
+    }
 
     // Abort if...
-    if (!contentValidation || !privacyValidation || !emailValidation) return false;
+    if (!contentValidation || !privacyValidation || !emailValidation) {
+      return false;
+    }
 
     // Disable form during submit
     form.classList.add('ajax-in-progress');
