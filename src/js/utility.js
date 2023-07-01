@@ -793,3 +793,31 @@ function fcn_scrollTo(target, offset = 64) {
     behavior: 'smooth'
   });
 }
+
+// =============================================================================
+// CONVERT HTML STRING TO DOM ELEMENT
+// =============================================================================
+
+/**
+ * Creates an HTML element from a template string.
+ *
+ * @since 5.4.5
+ * @param {...string} args - The template strings and placeholders.
+ * @returns {HTMLElement} The HTML element created from the template string.
+ *
+ * @example
+ * const element = fcn_html`
+ *   <div class="my-element">
+ *     <h1>Title</h1>
+ *     <p>Content</p>
+ *   </div>
+ * `;
+ *
+ * document.body.appendChild(element);
+ */
+
+function fcn_html(...args) {
+  const template = document.createElement('template');
+  template.innerHTML = String.raw(...args).trim();
+  return template.content.firstChild;
+}

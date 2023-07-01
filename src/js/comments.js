@@ -19,13 +19,9 @@ function fcn_addJSTrap() {
 
   // Add validation field to form
   if (red) {
-    const input = document.createElement('input');
-
-    input.setAttribute('type', 'hidden');
-    input.id = 'fictioneer-comment-validator';
-    input.setAttribute('name', 'fictioneer_comment_validator');
-    input.setAttribute('value', '299792458');
-    red.appendChild(input);
+    red.appendChild(fcn_html`
+      <input type="hidden" id="fictioneer-comment-validator" name="fictioneer_comment_validator" value="299792458">
+    `);
   }
 }
 
