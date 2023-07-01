@@ -221,7 +221,7 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
     }
 
     // Get buffer
-    $output = ob_get_clean();
+    $output = fictioneer_minify_html( ob_get_clean() );
 
     // Return buffer
     wp_send_json_success( ['html' => $output, 'postId' => $story_id, 'page' => $page] );
