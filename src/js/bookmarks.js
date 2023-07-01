@@ -431,7 +431,7 @@ function fcn_updateBookmarkCards() {
   });
 
   // Max number of rendered bookmarks (-1 for all)
-  let count = _$('.bookmarks-block').dataset.count;
+  let count = fcn_bookmarksSmallCardBlock.dataset.count;
 
   // Loop bookmarks
   Object.entries(fcn_bookmarks.data).forEach(b => {
