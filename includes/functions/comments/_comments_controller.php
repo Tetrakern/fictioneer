@@ -412,7 +412,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
           )
         ),
         '[[reply_excerpt]]' => get_comment_excerpt( $comment_id ),
-        '[[reply_content]]' => $comment_text,
+        '[[reply_content]]' => stripslashes( $comment_text ),
         '[[site_title]]' => $site_name,
         '[[site_url]]' => site_url(),
         '[[unsubscribe_url]]' => add_query_arg(
