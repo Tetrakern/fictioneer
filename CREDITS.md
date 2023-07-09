@@ -76,6 +76,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)<br>
   Source: https://commons.wikimedia.org/wiki/File:No-Image-Placeholder.svg
 
+* **Bootstrap Icons**<br>
+  Copyright: The Bootstrap Authors, Twitter, Inc.<br>
+  License: [MIT](https://github.com/twbs/bootstrap/blob/v4.0.0/LICENSE)<br>
+  Source: https://icons.getbootstrap.com/
+
 ## CSS
 
 * **Reset CSS 2.0**<br>

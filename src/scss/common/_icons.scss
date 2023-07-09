@@ -57,6 +57,24 @@
     width: .625em;
   }
 
+  &._soundwave {
+    height: 1.25em;
+
+    &._modified {
+      padding: 5px 0;
+      min-height: unset;
+      height: 1.1em;
+    }
+  }
+
+  &._pulse {
+    height: 1.1em;
+
+    &._modified {
+      padding: 5.5px 0;
+      min-height: unset;
+      height: 1em;
+    }
   }
 }
 

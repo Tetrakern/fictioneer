@@ -8,20 +8,6 @@
   background: var(--tts-background);
   padding: 16px;
 
-  &[data-show-settings="false"] {
-    .tts-interface__settings {
-      display: none;
-      content-visibility: hidden;
-    }
-  }
-
-  &[data-show-settings="true"] {
-    .button.settings {
-      background: var(--tts-button-active-background);
-      color: var(--tts-button-active-text);
-    }
-  }
-
   &__controls {
     display: flex;
     justify-content: center;
@@ -40,62 +26,9 @@
     }
   }
 
-  &__settings {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-    max-width: 98vw;
-    min-width: 288px;
-
-    > div {
-      display: flex;
-      align-items: center;
-    }
-
-    span {
-      color: var(--fg-600);
-      font-size: 15px;
-      text-align: right;
-      line-height: 1;
-      padding: 0 4px 2px 0;
-      margin-right: 4px;
-      min-width: 64px;
-    }
-  }
-
-  &__range:is(input) {
-    flex-grow: 1;
-    margin: 0 4px 0 0;
-  }
-
-  &__number:is(input) {
-    flex: 0 0 48px;
-    text-align: center;
-    height: 24px;
-    width: 48px;
-  }
-
   &:not(.ended).paused button.pause,
   &:not(.ended).playing button.play {
     background: var(--tts-button-active-background);
     color: var(--tts-button-active-text);
-  }
-
-  &__voice-selection {
-    position: relative;
-    justify-content: center;
-
-    select {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      opacity: 0;
-    }
-
-    .button {
-      pointer-events: none;
-      width: 100%;
-    }
   }
 }

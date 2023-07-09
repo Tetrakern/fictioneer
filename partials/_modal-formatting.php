@@ -18,49 +18,49 @@
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-adjust reset setting-darken-reset" title="<?php esc_attr_e( 'Darken Background', 'fictioneer' ); ?>"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="slider setting-darken-range">
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-darken-range">
       <input type="number" value="0" min="-100" max="100" class="setting-darken-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-droplet reset setting-saturation-resets" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="slider setting-saturation-range">
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range">
       <input type="number" value="0" min="-100" max="100" class="setting-saturation-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640">
       <i class="fa-solid fa-arrows-alt-h reset" title="<?php esc_attr_e( 'Content Width', 'fictioneer' ); ?>" id="reader-settings-site-width-reset"></i>
-      <input type="range" value="960" min="640" max="1920" step="1" class="slider" id="reader-settings-site-width-range">
+      <input type="range" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-range">
       <input type="number" value="960" min="640" max="1920" step="1" id="reader-settings-site-width-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-text-height reset" title="<?php esc_attr_e( 'Font Size (Percentage)', 'fictioneer' ); ?>" id="reader-settings-font-size-reset"></i>
-      <input type="range" value="100" min="50" max="200" step="1" class="slider" id="reader-settings-font-size-range">
+      <input type="range" value="100" min="50" max="200" step="1" id="reader-settings-font-size-range">
       <input type="number" value="100" min="50" max="200" step="1" id="reader-settings-font-size-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-text-width reset" title="<?php esc_attr_e( 'Letter Spacing', 'fictioneer' ); ?>" id="reader-settings-letter-spacing-reset"></i>
-      <input type="range" value="0.0" min="-0.1" max="0.2" step=".001" class="slider" id="reader-settings-letter-spacing-range">
+      <input type="range" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-range">
       <input type="number" value="0.0" min="-0.1" max="0.2" step=".001" id="reader-settings-letter-spacing-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <?php fictioneer_icon( 'line-height', 'reset', 'reader-settings-line-height-reset' ); ?>
-      <input type="range" value="1.7" min="0.8" max="3.0" step=".1" class="slider" id="reader-settings-line-height-range">
+      <input type="range" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-range">
       <input type="number" value="1.7" min="0.8" max="3.0" step=".1" id="reader-settings-line-height-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-paragraph reset" title="<?php esc_attr_e( 'Paragraph Spacing', 'fictioneer' ); ?>" id="reader-settings-paragraph-spacing-reset"></i>
-      <input type="range" value="1.5" min="0" max="3.0" step=".05" class="slider" id="reader-settings-paragraph-spacing-range">
+      <input type="range" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-range">
       <input type="number" value="1.5" min="0" max="3.0" step=".05" id="reader-settings-paragraph-spacing-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-pen-nib reset" title="<?php esc_attr_e( 'Font Saturation', 'fictioneer' ); ?>" id="reader-settings-font-saturation-reset"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="slider" id="reader-settings-font-saturation-range">
+      <input type="range" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-range">
       <input type="number" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-text">
     </div>
 

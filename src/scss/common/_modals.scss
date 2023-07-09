@@ -14,6 +14,19 @@
     width: 100%;
   }
 
+  :is([type=text], [type=number]) {
+    flex-shrink: 0;
+    text-align: center;
+    border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
+    padding: 0;
+    width: 55px;
+  }
+
+  input[type=range] {
+    flex-grow: 1;
+    border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
+  }
+
   .close {
     --focus-offset: -2px;
     position: absolute;
@@ -39,18 +52,6 @@
     display: block;
     background: var(--modal-overlay);
     height: 100%; // Prevent gaps caused by mobile interface
-  }
-
-  // Inner utility class
-  .border-bottom {
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--bg-200);
-  }
-
-  // Inner utility class
-  .border-top {
-    padding-top: 12px;
-    border-top: 1px solid var(--bg-200);
   }
 
   &__wrapper {
@@ -81,6 +82,11 @@
       background-color: var(--scrollbar-thumb);
       border-radius: 1px;
     }
+
+    > hr {
+      border-bottom: 1px solid var(--bg-200);
+      margin: 0 12px;
+    }
   }
 
   &__header:is(h4) {
@@ -91,6 +97,16 @@
     margin: 0;
   }
 
+  &__row,
+  &__horizontal-input-group {
+    > :is(i, .icon) {
+      flex-shrink: 0;
+      color: var(--modal-icon);
+      text-align: center;
+      min-width: 26px;
+    }
+  }
+
   &__row {
     padding: 12px;
 
@@ -98,18 +114,9 @@
       padding: #{get_clamp(6, 8, 320, 480)} 12px;
     }
 
-    &._no-vertical-padding {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
     > :is(i, .icon) {
-      flex-shrink: 0;
-      color: var(--modal-icon);
       font-size: 18px;
-      text-align: center;
       margin: 0 3px 0 -3px;
-      min-width: 26px;
     }
 
     .reset {
@@ -134,6 +141,26 @@
           color: var(--button-primary-text-hover);
         }
       }
+    }
+  }
+
+  &__horizontal-input-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 13px;
+
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+
+    &._with-checkbox {
+      gap: 12px;
+    }
+
+    :is(i, .icon) {
+      font-size: 15px;
+      margin: 0 3px 0 -4px;
     }
   }
 

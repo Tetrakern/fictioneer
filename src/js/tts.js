@@ -151,7 +151,6 @@ function fcn_updateVoice(id) {
   fcn_utter.voice = selection;
 
   _$$$('tts-voice-select').value = id;
-  _$$$('selected-voice-label').innerHTML = `Selected Voice: ${selection.name} (${selection.lang})`;
 
   fcn_ttsSettings['voice'] = id;
   fcn_setTTSsettings(fcn_ttsSettings);
@@ -174,6 +173,7 @@ function fcn_updateVolume(value) {
 
   _$$$('tts-volume-range').value = value;
   _$$$('tts-volume-text').value = value;
+  _$$$('tts-volume-reset').classList.toggle('_modified', value != 100);
 
   fcn_ttsSettings['volume'] = value;
   fcn_setTTSsettings(fcn_ttsSettings);
@@ -194,6 +194,7 @@ function fcn_updatePitch(value) {
 
   _$$$('tts-pitch-range').value = value;
   _$$$('tts-pitch-text').value = value;
+  _$$$('tts-pitch-reset').classList.toggle('_modified', value != 1.0);
 
   fcn_ttsSettings['pitch'] = value;
   fcn_setTTSsettings(fcn_ttsSettings);
@@ -214,6 +215,7 @@ function fcn_updateRate(value) {
 
   _$$$('tts-rate-range').value = value;
   _$$$('tts-rate-text').value = value;
+  _$$$('tts-rate-reset').classList.toggle('_modified', value != 1.0);
 
   fcn_ttsSettings['rate'] = value;
   fcn_setTTSsettings(fcn_ttsSettings);
@@ -390,12 +392,18 @@ if (typeof speechSynthesis !== 'undefined') {
     });
   });
 
+  // Volume reset
+  _$$$('tts-volume-reset')?.addEventListener('click', () => { fcn_updateVolume(100) });
+
   // Pitch inputs
   _$$('#tts-pitch-range, #tts-pitch-text').forEach(element => {
     element.addEventListener('input', (e) => {
       fcn_updatePitch(e.target.value);
     });
   });
+
+  // Pitch reset
+  _$$$('tts-pitch-reset')?.addEventListener('click', () => { fcn_updatePitch(1.0) });
 
   // Rate inputs
   _$$('#tts-rate-range, #tts-rate-text').forEach(element => {
@@ -404,10 +412,8 @@ if (typeof speechSynthesis !== 'undefined') {
     });
   });
 
-  // Settings button
-  _$$$('tts-settings-toggle')?.addEventListener('change', event => {
-    event.currentTarget.closest('#tts-interface').dataset.showSettings = event.currentTarget.checked;
-  });
+  // Pitch reset
+  _$$$('tts-rate-reset')?.addEventListener('click', () => { fcn_updateRate(1.0) });
 
   // Terminate TTS on any chapter page reload (otherwise, it will keep running in the background)
   window.addEventListener('beforeunload', () => {

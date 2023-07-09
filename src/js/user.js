@@ -17,7 +17,7 @@ fcn_getProfileImage();
 
 function fcn_replaceProfileImage(target, avatar) {
   // Setup
-  const old = target.querySelector('.icon._user');
+  const old = target.querySelector('.user-icon');
 
   // Add avatar to view
   if (old) {

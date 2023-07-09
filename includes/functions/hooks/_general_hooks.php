@@ -83,6 +83,9 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
       ?><input id="modal-formatting-toggle" data-target="formatting-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-formatting' );
 
+      ?><input id="modal-tts-settings-toggle" data-target="tts-settings-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
+      get_template_part( 'partials/_modal-tts-settings' );
+
       if (
         get_option( 'fictioneer_enable_suggestions' ) &&
         ! fictioneer_get_field( 'fictioneer_disable_commenting' ) &&
