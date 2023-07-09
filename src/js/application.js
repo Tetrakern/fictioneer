@@ -1934,10 +1934,13 @@ window.addEventListener('scroll.rAF', fcn_throttle(fcn_popupPosition, 250));
 // Toggle modals
 _$$('.modal-toggle').forEach(element => {
   element.addEventListener('change', (event) => {
-    event.currentTarget.nextElementSibling.classList.toggle('_open', event.currentTarget.checked);
+    const target = _$$$(event.currentTarget.dataset.target);
+
+    // Toggle class
+    target.classList.toggle('_open', event.currentTarget.checked);
 
     // Set focus inside modal
-    const close = event.currentTarget.nextElementSibling.querySelector('.close');
+    const close = target.querySelector('.close');
     close?.focus();
     close?.blur();
   });

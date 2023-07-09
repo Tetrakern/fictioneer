@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="reader-settings" class="reader-settings modal">
+<div id="formatting-modal" class="reader-settings modal">
   <label for="modal-formatting-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">
     <label class="close" for="modal-formatting-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">

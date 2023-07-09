@@ -8,13 +8,13 @@
  */
 ?>
 
-<div id="modal-suggestions" class="suggestions modal">
+<div id="suggestions-modal" class="suggestions modal">
 
-  <label for="modal-suggestions-toggle" class="background-close"></label>
+  <label for="suggestions-modal-toggle" class="background-close"></label>
 
   <div class="modal__wrapper suggestions__wrapper">
 
-    <label class="close" for="modal-suggestions-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
+    <label class="close" for="suggestions-modal-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
 
@@ -22,19 +22,19 @@
 
     <div class="modal__row suggestions__display">
       <div class="suggestions__original">
-        <div id="modal-suggestions-original" class="suggestions__text"></div>
+        <div id="suggestions-modal-original" class="suggestions__text"></div>
       </div>
     </div>
 
     <div class="modal__row suggestions__input">
-      <div id="modal-suggestions-edit" class="suggestions__edit">
-        <textarea id="modal-suggestions-input" rows="1"></textarea>
+      <div id="suggestions-modal-edit" class="suggestions__edit">
+        <textarea id="suggestions-modal-input" rows="1"></textarea>
       </div>
     </div>
 
     <div class="modal__row suggestions__display">
       <div class="suggestions__diff">
-        <div id="modal-suggestions-diff" class="suggestions__text"></div>
+        <div id="suggestions-modal-diff" class="suggestions__text"></div>
       </div>
     </div>
 

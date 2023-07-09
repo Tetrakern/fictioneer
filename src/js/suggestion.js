@@ -30,15 +30,15 @@ diff_match_patch.prototype.fcn_prettyHtml = function(diffs) {
 
 class FCN_Suggestion {
   constructor() {
-    this.toggle = _$$$('modal-suggestions-toggle');
+    this.toggle = _$$$('suggestions-modal-toggle');
     this.tools = _$$$('selection-tools');
     this.button = _$$$('button-add-suggestion');
     this.toolsButton = _$$$('button-tools-add-suggestion');
     this.reset = _$$$('button-suggestion-reset');
     this.submit = _$$$('button-suggestion-submit');
-    this.current = _$$$('modal-suggestions-original');
-    this.input = _$$$('modal-suggestions-input');
-    this.output = _$$$('modal-suggestions-diff');
+    this.current = _$$$('suggestions-modal-original');
+    this.input = _$$$('suggestions-modal-input');
+    this.output = _$$$('suggestions-modal-diff');
     this.chapter = _$('.chapter__article');
     this.text = '';
     this.original = '';
