@@ -378,17 +378,17 @@
       display: none;
     }
 
-    .icon._sticky-pin {
+    .sticky-pin {
       position: absolute;
       top: -7px;
-      right: 4px;
+      right: 6px;
       color: var(--fg-700);
       transform: rotate(30deg);
     }
   }
 
   &:not(._sticky) {
-    > div :is(button[data-action=unsticky], .icon._sticky-pin) {
+    > div :is(button[data-action=unsticky], .sticky-pin) {
       display: none;
     }
   }

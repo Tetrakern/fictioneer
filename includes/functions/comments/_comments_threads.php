@@ -531,7 +531,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $timestamp_ms = $timestamp * 1000;
     $open = "<$tag id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"$depth\" data-timestamp=\"$timestamp_ms\" $fingerprint_data>";
     $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\">";
-    if ( $is_sticky ) $open .= fictioneer_get_icon( 'sticky-pin' );
+    if ( $is_sticky ) $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';
 
     // Hidden private comments
     if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $ajax_in_progress && ! $is_child_of_private ) {
