@@ -31,10 +31,12 @@ if (typeof speechSynthesis !== 'undefined') {
   }, 2000);
 
   // If they support the event, we clear the timeout
-  fcn_synth.addEventListener('voiceschanged', () => {
-    fcn_setupTTS();
-    clearTimeout(fcn_ttsSetupTimeout);
-  }, { once: true });
+  if ('onvoiceschanged' in speechSynthesis) {
+    fcn_synth.addEventListener('voiceschanged', () => {
+      fcn_setupTTS();
+      clearTimeout(fcn_ttsSetupTimeout);
+    }, { once: true });
+  }
 }
 
 /**
