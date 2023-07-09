@@ -463,7 +463,7 @@ $header_breakpoint: 640px;
         padding: .5rem;
         border: none !important; // Accounts for minimalist mode
         border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
-        filter: var(--container-drop-shadow);
+        box-shadow: var(--container-box-shadow);
 
         &-icon {
           display: none;
