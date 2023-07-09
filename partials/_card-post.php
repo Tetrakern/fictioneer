@@ -72,7 +72,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
     <div class="card__footer">
       <div class="card__left text-overflow-ellipsis">
         <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
-          <?php fictioneer_icon( 'user' ); ?>
+          <i class="fa-solid fa-circle-user"></i>
           <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
         <?php endif; ?>
         <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>

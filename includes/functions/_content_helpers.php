@@ -1179,7 +1179,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <div class="post__author">
-        <?php fictioneer_icon( 'user' ); ?>
+        <i class="fa-solid fa-circle-user"></i>
         <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
       </div>
       <?php // <--- End HTML

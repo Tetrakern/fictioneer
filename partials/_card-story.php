@@ -174,7 +174,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
         <?php endif; ?>
 
         <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
-          <?php fictioneer_icon( 'user', 'hide-below-desktop' ); ?>
+          <i class="fa-solid fa-circle-user hide-below-desktop"></i>
           <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ), 'hide-below-desktop' ); ?>
         <?php endif; ?>
 

@@ -372,7 +372,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $profile_link ); ?>" class="hide-if-logged-out">
-        <?php fictioneer_icon( 'user', 'mobile-menu__item-icon', '', 'style="transform: translate(0px,-14%) scale(1.725);"' ); ?>
+        <i class="fa-solid fa-circle-user mobile-menu__item-icon"></i>
         <?php echo fcntr( 'account' ); ?>
       </a>
       <?php // <--- End HTML

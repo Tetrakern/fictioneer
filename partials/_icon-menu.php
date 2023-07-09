@@ -46,7 +46,7 @@ if ( $profile_page && $profile_page > 0 ) {
         class="subscriber-profile icon-menu__item _with-submenu"
         rel="noopener noreferrer nofollow"
         aria-label="<?php esc_attr_e( 'Link to user profile', 'fictioneer' ) ?>"
-      ><?php fictioneer_icon( 'user' ); ?></a>
+      ><i class="fa-solid fa-circle-user user-icon"></i></a>
       <ul class="sub-menu"><?php echo fictioneer_user_menu_items(); ?></ul>
     </div>
   <?php endif; ?>
