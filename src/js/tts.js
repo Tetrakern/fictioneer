@@ -24,24 +24,34 @@ if (typeof speechSynthesis !== 'undefined') {
   fcn_utter = new SpeechSynthesisUtterance();
   fcn_utter.lang = fcn_theRoot.lang;
 
-  // Listen to onvoiceschanged event once when voices are initially loaded
-  if ('onvoiceschanged' in speechSynthesis) {
-    fcn_synth.addEventListener('voiceschanged', () => {
-      fcn_setUpVoices();
-      fcn_updateVolume(fcn_ttsSettings['volume']);
-      fcn_updatePitch(fcn_ttsSettings['pitch']);
-      fcn_updateRate(fcn_ttsSettings['rate']);
-    }, { once: true });
-  } else {
-    // Some browsers (e.g. Safari as of 2022/09/09) do not support the event,
-    // so we just wait for two seconds and hope for the best!
-    setTimeout(() => {
-      fcn_setUpVoices();
-      fcn_updateVolume(fcn_ttsSettings['volume']);
-      fcn_updatePitch(fcn_ttsSettings['pitch']);
-      fcn_updateRate(fcn_ttsSettings['rate']);
-    }, 2000);
+  // Some browsers (e.g. Safari as of 2022/09/09) do not support the  voiceschanged event,
+  // so we just wait for two seconds and hope for the best!
+  const fcn_ttsSetupTimeout = setTimeout(() => {
+    fcn_setupTTS();
+  }, 2000);
+
+  // If they support the event, we clear the timeout
+  fcn_synth.addEventListener('voiceschanged', () => {
+    fcn_setupTTS();
+    clearTimeout(fcn_ttsSetupTimeout);
+  }, { once: true });
+}
+
+/**
+ * Initial setup of TTS.
+ *
+ * @since 5.4.6
+ */
+
+function fcn_setupTTS() {
+  if (fcn_voices.length > 0) {
+    return;
   }
+
+  fcn_setUpVoices();
+  fcn_updateVolume(fcn_ttsSettings['volume']);
+  fcn_updatePitch(fcn_ttsSettings['pitch']);
+  fcn_updateRate(fcn_ttsSettings['rate']);
 }
 
 // =============================================================================
@@ -110,7 +120,7 @@ function fcn_setUpVoices() {
     const option = document.createElement('option');
 
     option.value = index;
-    option.innerHTML = voice.name;
+    option.innerHTML = `${voice.name} (${voice.lang})`;
     select.appendChild(option);
 
     index++;
@@ -143,12 +153,24 @@ function fcn_setUpVoices() {
  */
 
 function fcn_updateVoice(id) {
-  id = isNaN(id) ? 0 : id;
+  // Ensure Samantha (en-US) is the default/fallback voice
+  if (isNaN(id) || fcn_voices[id] === undefined) {
+    let index = fcn_voices.findIndex(voice => {
+      return voice.name === 'Samantha' && (voice.lang === 'en-US' || voice.lang === 'en_US');
+    });
 
-  let selection = fcn_voices[id];
-  if (selection === undefined) selection = fcn_voices[0];
+    // Samantha not found, use first English voice found instead
+    if (index < 0) {
+      index = fcn_voices.findIndex(voice => {
+        return voice.lang === 'en-US' || voice.lang === 'en_US';
+      });
+    }
 
-  fcn_utter.voice = selection;
+    // Use found voice or surrender and use the first horrible thing in the array
+    id = index > -1 ? index : 0;
+  }
+
+  fcn_utter.voice = fcn_voices[id];
 
   _$$$('tts-voice-select').value = id;
 
