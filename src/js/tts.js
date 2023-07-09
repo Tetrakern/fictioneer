@@ -95,8 +95,7 @@ function fcn_getTTSsettings() {
 
 function fcn_setUpVoices() {
   const systemVoices = fcn_synth.getVoices(),
-        select = _$$$('tts-voice-select'),
-        languages = [fcn_theRoot.lang];
+        select = _$$$('tts-voice-select');
 
   if (!select) return;
 
@@ -104,11 +103,6 @@ function fcn_setUpVoices() {
 
   for (let i = 0; i < systemVoices.length; i++) {
     const voice = systemVoices[i];
-
-    // Filter voices by set language
-    if (fcn_theRoot.lang == 'en-US') languages.push('en-GB');
-    if (fcn_theRoot.lang == 'en-GB') languages.push('en-US');
-    if (!languages.includes(voice.lang)) continue;
 
     // Add voice to selection
     fcn_voices.push(voice);
@@ -279,7 +273,7 @@ if (typeof speechSynthesis !== 'undefined') {
     const hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
           sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
           playButton = _$$$('button-tts-play'),
-          regex = new RegExp(fcn_ttsInterface.dataset.regex, 'g');
+          regex = new RegExp(fcn_ttsInterface.dataset.regex, 'gm');
 
     // Cancel ongoing reading if any
     if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -290,9 +284,8 @@ if (typeof speechSynthesis !== 'undefined') {
 
     fcn_ttsStack.push(node);
 
-    while (node = node.nextSibling) {
+    while (node = node.nextElementSibling) {
       if (
-        node.nodeType == 1 &&
         fcn_ttsAllowedTags.includes(node.tagName) &&
         !node.classList.contains('skip-tts') &&
         !node.classList.contains('inside-epub') &&
@@ -309,7 +302,7 @@ if (typeof speechSynthesis !== 'undefined') {
             text = inner ? inner.textContent : node.textContent;
 
       // Split text into array of sentences using a regex pattern
-      const sentences = text.split(regex);
+      const sentences = text.replace(regex, '$1|').split('|');
 
       sentences.forEach(sentence => {
         const trimmedSentence = sentence.trim();
@@ -414,5 +407,10 @@ if (typeof speechSynthesis !== 'undefined') {
   // Settings button
   _$$$('tts-settings-toggle')?.addEventListener('change', event => {
     event.currentTarget.closest('#tts-interface').dataset.showSettings = event.currentTarget.checked;
+  });
+
+  // Terminate TTS on any chapter page reload (otherwise, it will keep running in the background)
+  window.addEventListener('beforeunload', () => {
+    fcn_synth.cancel();
   });
 }

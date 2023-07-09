@@ -88,7 +88,9 @@ if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
 
 // String: TTS regex (used to split text into sentences)
 if ( ! defined( 'FICTIONEER_TTS_REGEX' ) ) {
-  define( 'FICTIONEER_TTS_REGEX', '(?<=[.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])' );
+  // Note: Because lookbehind assertions do not work in Safari, the script uses a little
+  // detour to preserve punctuation marks: text.replace(regex, '$1|').split('|')
+  define( 'FICTIONEER_TTS_REGEX', '([.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])' );
 }
 
 /*
