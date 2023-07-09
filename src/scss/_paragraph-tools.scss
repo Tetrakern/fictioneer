@@ -70,11 +70,10 @@
       border-radius: var(--layout-border-radius-small);
       height: 20px;
       max-width: 20px;
-      filter: var(--container-drop-shadow);
       transition: filter var(--transition-duration);
 
       &:hover {
-        filter: var(--container-drop-shadow) brightness(1.1);
+        filter: brightness(1.1);
       }
     }
   }

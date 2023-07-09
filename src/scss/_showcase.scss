@@ -31,8 +31,7 @@
     --focus-offset: 2px;
     position: relative;
     border-radius: var(--layout-border-radius-small);
-    box-shadow: 0 0 1px transparent; // iOS Safari fix or it won't show drop-shadow
-    filter: var(--container-drop-shadow);
+    box-shadow: var(--container-box-shadow);
     overflow: hidden;
     max-width: max(420px, 100%);
     height: max(64px, #{get_clamp(64, 96, 375, 768)});
