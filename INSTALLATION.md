@@ -578,7 +578,7 @@ Anything that connects with external service providers goes here, such as the Cl
 * [Patreon Developer Portal](https://docs.patreon.com/#oauth)
 * [Google Developer Portal](https://developers.google.com/identity/protocols/oauth2)
 
-The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. You can change the endpoint by overriding the FICTIONEER_OAUTH_ENDPOINT constant.
+The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. Note that the service providers can be picky, such as rejecting an URI that includes "www" if that is not actually part of your website’s address. Use the _exact_ string you see in your browser’s address bar. You can change the endpoint by overriding the FICTIONEER_OAUTH_ENDPOINT constant.
 
 ### Phrases Tab
 
