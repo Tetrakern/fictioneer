@@ -578,6 +578,8 @@ Anything that connects with external service providers goes here, such as the Cl
 * [Patreon Developer Portal](https://docs.patreon.com/#oauth)
 * [Google Developer Portal](https://developers.google.com/identity/protocols/oauth2)
 
+The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. You can change the endpoint by overriding the FICTIONEER_OAUTH_ENDPOINT constant.
+
 ### Phrases Tab
 
 Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin.
