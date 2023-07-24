@@ -1,6 +1,42 @@
 <?php
 
 // =============================================================================
+// CUSTOM CSS
+// =============================================================================
+
+/**
+   * Outputs custom CSS for stories/chapters
+   *
+   * @since Fictioneer 5.4.7
+   */
+
+function fictioneer_add_fiction_css() {
+  /*
+   * Most post types and pages can add individual custom CSS, which is
+   * included here. This can hypothetically be used to completely change
+   * the style but requires in-depth knowledge of the theme. Validated
+   * using the same method as in WP_Customize_Custom_CSS_Setting(). And
+   * removes any "<" for good measure since CSS does not use it.
+   */
+
+  $custom_css = fictioneer_get_field( 'fictioneer_custom_css', get_the_ID() );
+
+  if ( get_post_type( get_the_ID() ) == 'fcn_story' ) {
+    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', get_the_ID() );
+  }
+
+  if ( get_post_type( get_the_ID() ) == 'fcn_chapter' ) {
+    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_the_ID() );
+    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', $story_id );
+  }
+
+  if ( ! empty( $custom_css ) && ! preg_match( '#</?\w+#', $custom_css ) ) {
+    echo '<style id="fictioneer-custom-styles">' . str_replace( '<', '', $custom_css ). '</style>';
+  }
+}
+add_action( 'wp_head', 'fictioneer_add_fiction_css', 10 );
+
+// =============================================================================
 // BREADCRUMBS
 // =============================================================================
 
