@@ -17,6 +17,8 @@
 
 Fictioneer was originally developed for a closed group of authors and not intended for a public release. This is still reflected in the code, which takes several liberties not considered best practice. You will most likely never find it in official libraries for that reason, meaning installation and updates need to be done manually.
 
+The theme is best suited for individuals and small collectives, not so much open community archives.
+
 Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Ko-fi](https://ko-fi.com/tetrakern). I also take on [commissions](https://fictioneer-theme.com/commissions/) for setup and customizations, *within reason.*
 
 ## Key Features
