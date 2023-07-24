@@ -20,7 +20,10 @@ function fictioneer_acf_loading_point( $paths ) {
 
   return $paths;
 }
-add_filter( 'acf/settings/load_json', 'fictioneer_acf_loading_point' );
+
+if ( ! FICTIONEER_DISABLE_ACF_JSON_IMPORT ) {
+  add_filter( 'acf/settings/load_json', 'fictioneer_acf_loading_point' );
+}
 
 // =============================================================================
 // ACF THEME SETUP

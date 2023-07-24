@@ -289,6 +289,11 @@ if ( ! defined( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS' ) ) {
   define( 'FICTIONEER_API_STORYGRAPH_TRANSIENTS', true );
 }
 
+// Boolean: Disable ACF JSON import
+if ( ! defined( 'FICTIONEER_DISABLE_ACF_JSON_IMPORT' ) ) {
+  define( 'FICTIONEER_DISABLE_ACF_JSON_IMPORT', false );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
