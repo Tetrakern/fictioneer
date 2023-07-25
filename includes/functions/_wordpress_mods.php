@@ -953,9 +953,14 @@ if ( ! function_exists( 'fictioneer_reduce_subscriber_profile' ) ) {
     // Abort if administrator
     if ( fictioneer_is_admin( $user->ID ) ) return;
 
+    // Remove application password
+    add_filter( 'wp_is_application_passwords_available', '__return_false' );
+
+    // Abort if not a subscriber (higher role)
+    if ( ! in_array( 'subscriber', $user->roles ) ) return;
+
     // Reduce profile...
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-    add_filter( 'wp_is_application_passwords_available', '__return_false' );
     add_filter( 'user_contactmethods', '__return_empty_array', 20 );
   }
 }
