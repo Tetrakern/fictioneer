@@ -971,8 +971,8 @@ if ( ! function_exists( 'fictioneer_hide_subscriber_profile_blocks' ) ) {
     // Setup
     $user = wp_get_current_user();
 
-    // Abort if administrator
-    if ( fictioneer_is_admin( $user->ID ) ) return;
+    // Abort if not a subscriber (higher role)
+    if ( ! in_array( 'subscriber', $user->roles ) ) return;
 
     // Add CSS to hide blocks...
     echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
