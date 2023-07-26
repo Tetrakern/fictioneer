@@ -278,7 +278,10 @@ _$$('.fictioneer-ui input[type=email]').forEach(element => {
 function fcn_ogMediaUpload(event) {
   event.preventDefault();
   var uploader = wp.media({
-    multiple: false
+    multiple: false,
+    library: {
+      type: 'image'
+    }
   })
   .open()
   .on('select', function() {
