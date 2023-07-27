@@ -43,6 +43,7 @@ get_header( null, $header_args );
         $story = fictioneer_get_story_data( $post->ID );
         $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
         $this_breadcrumb = [$story['title'], get_the_permalink()];
+        $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note' );
 
         // Flags
         $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
@@ -64,7 +65,12 @@ get_header( null, $header_args );
           do_action( 'fictioneer_story_after_header', $hook_args );
         ?>
 
-        <section class="story__summary padding-left padding-right"><?php the_content(); ?></section>
+        <section class="story__summary padding-left padding-right">
+          <?php if ( post_password_required() && $password_note ) : ?>
+            <div class="story__password-note infobox"><?php echo $password_note; ?></div>
+          <?php endif; ?>
+          <?php the_content(); ?>
+        </section>
 
         <?php
           // Renders copyright notice, tags, actions, and chapters

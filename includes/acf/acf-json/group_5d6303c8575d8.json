@@ -75,6 +75,26 @@
             "min": "",
             "max": 6,
             "elements": ""
+        },
+        {
+            "key": "field_64c1a27b3adcb",
+            "label": "Password Note",
+            "name": "fictioneer_story_password_note",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Custom message only shown for password protected content. Make clear why there is a password and maybe how to get it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 0,
+            "delay": 1
         }
     ],
     "location": [
@@ -95,5 +115,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1676677452
+    "modified": 1690411727
 }
