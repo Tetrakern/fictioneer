@@ -1086,19 +1086,26 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
  *
  * @param string|null $attr['simple']      Optional. Hide the advanced options.
  * @param string|null $attr['placeholder'] Optional. Placeholder text.
+ * @param string|null $attr['type']        Optional. Default post type to query.
  *
  * @return string The rendered shortcode HTML.
  */
 
 function fictioneer_shortcode_search( $attr ) {
   // Setup
-  $args = ['cache' => true];
+  $args = array( 'cache' => true );
   $simple = isset( $attr['simple'] ) ? $attr['simple'] == 'true' || $attr['simple'] == '1' : false;
   $placeholder = $attr['placeholder'] ?? false;
+  $type = $attr['type'] ?? false;
 
   // Prepare arguments
   if ( $simple ) $args['simple'] = $simple;
+
   if ( $placeholder ) $args['placeholder'] = $placeholder;
+
+  if ( $type && in_array( $type, ['any', 'story', 'chapter', 'recommendation', 'collection', 'post'] ) ) {
+    $args['preselect_type'] = in_array( $type, ['story', 'chapter', 'recommendation', 'collection'] ) ? "fcn_$type" : $type;
+  }
 
   // Buffer
   ob_start();

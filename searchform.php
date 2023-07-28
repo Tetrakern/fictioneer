@@ -6,9 +6,10 @@
  * @subpackage Fictioneer
  * @since 5.0
  *
- * @internal $args['simple'] 		  Optional. Hide advanced options.
- * @internal $args['placeholder'] Optional. Change search placeholder.
- * @internal $args['cache']       Whether to account for active caching.
+ * @internal $args['simple'] 		  		Optional. Hide advanced options.
+ * @internal $args['placeholder'] 		Optional. Change search placeholder.
+ * @internal $args['preselect_type']  Optional. Default post type to query.
+ * @internal $args['cache']       		Whether to account for active caching.
  */
 ?>
 
@@ -20,7 +21,7 @@ $cache_mode = isset( $args['cache'] ) && $args['cache'];
 $show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
 $placeholder = $args['placeholder'] ?? _x( 'Search keywords or phrase', 'Advanced search placeholder.', 'fictioneer' );
 $toggle_id = wp_unique_id( 'fictioneer-advanced-search-toggle-' );
-$post_type = $_GET['post_type'] ?? 'any';
+$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
 $sentence = $_GET['sentence'] ?? '0';
 $order = $_GET['order'] ?? 'desc';
 $orderby = $_GET['orderby'] ?? 'modified';
