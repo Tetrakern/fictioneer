@@ -257,8 +257,12 @@ if ( ! $skip_author_keywords ) {
 						<option value="any" <?php echo $post_type == 'any' ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
 						<option value="fcn_chapter" <?php echo $post_type == 'fcn_chapter' ? 'selected' : ''; ?>><?php _ex( 'Chapters', 'Advanced search option.', 'fictioneer' ); ?></option>
 						<option value="fcn_story" <?php echo $post_type == 'fcn_story' ? 'selected' : ''; ?>><?php _ex( 'Stories', 'Advanced search option.', 'fictioneer' ); ?></option>
-						<option value="fcn_recommendation" <?php echo $post_type == 'fcn_recommendation' ? 'selected' : ''; ?>><?php _ex( 'Recommendations', 'Advanced search option.', 'fictioneer' ); ?></option>
-						<option value="fcn_collection" <?php echo $post_type == 'fcn_collection' ? 'selected' : ''; ?>><?php _ex( 'Collections', 'Advanced search option.', 'fictioneer' ); ?></option>
+						<?php if ( post_type_exists( 'fcn_recommendation' ) ) : ?>
+							<option value="fcn_recommendation" <?php echo $post_type == 'fcn_recommendation' ? 'selected' : ''; ?>><?php _ex( 'Recommendations', 'Advanced search option.', 'fictioneer' ); ?></option>
+						<?php endif; ?>
+						<?php if ( post_type_exists( 'fcn_collection' ) ) : ?>
+							<option value="fcn_collection" <?php echo $post_type == 'fcn_collection' ? 'selected' : ''; ?>><?php _ex( 'Collections', 'Advanced search option.', 'fictioneer' ); ?></option>
+						<?php endif; ?>
 						<option value="post" <?php echo $post_type == 'post' ? 'selected' : ''; ?>><?php _ex( 'Posts', 'Advanced search option.', 'fictioneer' ); ?></option>
 					</select>
 				</div>
