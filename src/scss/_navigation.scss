@@ -1,6 +1,6 @@
 .nav-observer {
   position: absolute;
-  top: -1px;
+  top: calc(-1px + var(--nav-observer-offset, 0px));
   left: 0;
   z-index: -1000;
   height: 1px;
@@ -11,11 +11,11 @@
 @include bp(601px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
-      top: 46px;
+      top: calc(46px - var(--nav-observer-offset, 0px));
     }
 
     .nav-observer {
-      top: -47px;
+      top: calc(-47px + var(--nav-observer-offset, 0px));
     }
   }
 }
@@ -23,11 +23,11 @@
 @include bp(783px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
-      top: 32px;
+      top: calc(32px - var(--nav-observer-offset, 0px));
     }
 
     .nav-observer {
-      top: -33px;
+      top: calc(-33px + var(--nav-observer-offset, 0px));
     }
   }
 }
@@ -71,7 +71,7 @@
 .main-navigation {
   --focus-offset: -2px;
   position: sticky;
-  top: 0;
+  top: calc(0px - var(--nav-observer-offset, 0px));
   z-index: 1000;
   color: var(--navigation-text);
   font-size: get_clamp(14, 16, 375, 768);
