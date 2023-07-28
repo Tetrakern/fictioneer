@@ -22,6 +22,7 @@ $story_id = $args['story_id'];
 $story = $args['story_data'];
 $custom_pages = fictioneer_get_field( 'fictioneer_story_custom_pages' );
 $tab_pages = [];
+$blog_posts = fictioneer_get_story_blog_posts( $story_id );
 
 if ( $custom_pages ) {
   foreach ( $custom_pages as $page_id ) {
@@ -36,21 +37,6 @@ $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ? get_transient( 'fictioneer
 $hide_icons = fictioneer_get_field( 'fictioneer_story_hide_chapter_icons' ) || get_option( 'fictioneer_hide_chapter_icons' );
 $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) && ! fictioneer_get_field( 'fictioneer_story_disable_groups' );
 $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
-
-// Query blog posts (if any)
-$category = implode( ', ', wp_get_post_categories( $args['story_id'] ) );
-
-$blog_posts = new WP_Query(
-  array (
-    'author__in'  => fictioneer_get_post_author_ids( $story_id ),
-    'nopaging' => false,
-    'posts_per_page' => 10,
-    'cat' => $category == 0 ? '99999999' : $category,
-    'no_found_rows' => true,
-    'update_post_meta_cache' => false,
-    'update_post_term_cache' => false
-  )
-);
 
 ?>
 

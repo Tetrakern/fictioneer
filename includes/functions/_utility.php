@@ -1623,4 +1623,87 @@ if ( ! function_exists( 'fictioneer_get_post_author_ids' ) ) {
   }
 }
 
+// =============================================================================
+// GET STORY BLOG POSTS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
+  /**
+   * Returns WP_Query with blog posts associated with the story
+   *
+   * @since 5.4.8
+   *
+   * @param int $story_id  The story ID.
+   *
+   * @return WP_Query Queried blog posts.
+   */
+
+  function fictioneer_get_story_blog_posts( $story_id ) {
+    // Setup
+    $category = implode( ', ', wp_get_post_categories( $story_id ) );
+    $blog_posts = new WP_Query();
+
+    // Query by category
+    $blog_category_query_args = array (
+      'ignore_sticky_posts' => 1,
+      'author__in'  => fictioneer_get_post_author_ids( $story_id ),
+      'nopaging' => false,
+      'posts_per_page' => 10,
+      'cat' => empty( $category ) ? '99999999' : $category,
+      'no_found_rows' => true,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false
+    );
+
+    $blog_category_posts = new WP_Query( $blog_category_query_args );
+
+    // Query by ACF relationship
+    $blog_relationship_query_args = array (
+      'ignore_sticky_posts' => 1,
+      'author__in'  => fictioneer_get_post_author_ids( $story_id ),
+      'nopaging' => false,
+      'posts_per_page' => 10,
+      'no_found_rows' => true,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'meta_query' => array(
+        array(
+          'key' => 'fictioneer_post_story_blogs',
+          'value' => '"' . $story_id . '"',
+          'compare' => 'LIKE',
+        )
+      )
+    );
+
+    $blog_associated_posts = new WP_Query( $blog_relationship_query_args );
+
+    // Merge results
+    $merged_blog_posts = array_merge( $blog_category_posts->posts, $blog_associated_posts->posts );
+
+    // Make sure posts are unique
+    $unique_blog_posts = [];
+
+    foreach ( $merged_blog_posts as $blog_post ) {
+      if ( ! in_array( $blog_post, $unique_blog_posts ) ) {
+        $unique_blog_posts[] = $blog_post;
+      }
+    }
+
+    // Sort by date
+    usort( $unique_blog_posts, function( $a, $b ) {
+      return strcmp( $b->post_date, $a->post_date );
+    });
+
+    // Limit to 10 posts
+    $unique_blog_posts = array_slice( $unique_blog_posts, 0, 10 );
+
+    // Set up query object
+    $blog_posts->posts = $unique_blog_posts;
+    $blog_posts->post_count = count( $unique_blog_posts );
+
+    // Return merged query
+    return $blog_posts;
+  }
+}
+
 ?>
