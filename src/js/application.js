@@ -1846,12 +1846,14 @@ _$$('.search-form').forEach(form => {
   });
 });
 
-_$('.search-form__advanced-control')?.addEventListener(
-  'change',
-  event => {
-    event.currentTarget.closest('form').dataset.advanced = event.currentTarget.checked;
-  }
-);
+_$$('.search-form__advanced-control').forEach(element => {
+  element.addEventListener(
+    'change',
+    event => {
+      event.currentTarget.closest('form').dataset.advanced = event.currentTarget.checked;
+    }
+  );
+});
 
 // =============================================================================
 // DETECT KEYBOARD USER (UNNECESSARILY COMPLICATED EDITION)
