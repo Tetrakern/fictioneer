@@ -42,6 +42,7 @@ $category = implode( ', ', wp_get_post_categories( $args['story_id'] ) );
 
 $blog_posts = new WP_Query(
   array (
+    'author__in'  => fictioneer_get_post_author_ids( $story_id ),
     'nopaging' => false,
     'posts_per_page' => 10,
     'cat' => $category == 0 ? '99999999' : $category,
