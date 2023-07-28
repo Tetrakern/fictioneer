@@ -1599,4 +1599,28 @@ if ( ! function_exists( 'fictioneer_get_clean_url' ) ) {
   }
 }
 
+// =============================================================================
+// GET AUTHOR IDS OF POST
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_post_author_ids' ) ) {
+  /**
+   * Returns array of author IDs for a post ID
+   *
+   * @since 5.4.8
+   *
+   * @param int $post_id  The post ID.
+   *
+   * @return array The author IDs.
+   */
+
+  function fictioneer_get_post_author_ids( $post_id ) {
+    $author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $post_id ) ?? [];
+		$author_ids = is_array( $author_ids ) ? $author_ids : [];
+		array_unshift( $author_ids, get_post_field( 'post_author', $post_id ) );
+
+    return array_unique( $author_ids );
+  }
+}
+
 ?>

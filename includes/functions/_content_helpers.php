@@ -439,6 +439,11 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
     // Setup
 		$author_nodes = [];
 
+    // If no author was found...
+    if ( empty( $authors ) ) {
+      return __( 'Unknown', 'No story author(s) were found.', 'fictioneer' );
+    }
+
 		// The meta field returns an array of IDs
 		foreach ( $authors as $author ) {
 			$author_nodes[] = fictioneer_get_author_node( $author );
@@ -466,9 +471,7 @@ if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
 
   function fictioneer_get_story_author_nodes( $story_id ) {
     // Setup
-    $all_authors = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id ) ?? [];
-		$all_authors = is_array( $all_authors ) ? $all_authors : [];
-		array_unshift( $all_authors, get_post_field( 'post_author', $story_id ) );
+    $all_authors = fictioneer_get_post_author_ids( $story_id );
 
     // Return author nodes
     return fictioneer_get_multi_author_nodes( $all_authors );
