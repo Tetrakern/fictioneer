@@ -14,7 +14,7 @@
     width: 100%;
   }
 
-  :is([type=text], [type=number]) {
+  :where([type=text], [type=number]) {
     flex-shrink: 0;
     text-align: center;
     border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
