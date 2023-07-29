@@ -1,11 +1,7 @@
 .nav-observer {
+  visibility: hidden;
   position: absolute;
   top: calc(-1px + var(--nav-observer-offset, 0px));
-  left: 0;
-  z-index: -1000;
-  height: 1px;
-  width: 1px;
-  transform: translateZ(0); // Improve performance
 }
 
 @include bp(601px) {

@@ -478,7 +478,9 @@ window.addEventListener('scroll.rAF', fcn_throttle(fcn_scrollDirection, 200));
 
 // Main observer
 const /** @const {IntersectionObserver} */ fcn_mainObserver = new IntersectionObserver(
-  ([e]) => fcn_theBody.classList.toggle('is-inside-main', e.intersectionRatio < 1),
+  ([e]) => {
+    fcn_theBody.classList.toggle('is-inside-main', e.intersectionRatio < 1 && e.boundingClientRect.top <= 0);
+  },
   { threshold: [1] }
 );
 
