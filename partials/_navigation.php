@@ -18,6 +18,9 @@
 <nav id="full-navigation" class="main-navigation" aria-label="Main Navigation">
   <div id="nav-observer-sticky" class="nav-observer"></div>
   <div class="main-navigation__background"></div>
+
+  <?php do_action( 'fictioneer_navigation_top', $args ); ?>
+
   <div class="main-navigation__wrapper">
     <div class="main-navigation__left">
       <?php
@@ -39,4 +42,6 @@
       </label>
     </div>
   </div>
+
+  <?php do_action( 'fictioneer_navigation_bottom', $args ); ?>
 </nav>
