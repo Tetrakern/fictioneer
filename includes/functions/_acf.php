@@ -81,6 +81,8 @@ if ( ! class_exists('acf') && is_admin() ) {
  * @param array  $args     The query arguments.
  * @param string $paths    The queried field.
  * @param int    $post_id  The post ID.
+ *
+ * @return array Modified query arguments.
  */
 
 function fictioneer_acf_filter_chapters( $args, $field, $post_id ) {
@@ -158,5 +160,30 @@ function fictioneer_update_post_relationships( $post_id ) {
 if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
   add_action( 'acf/save_post', 'fictioneer_update_post_relationships', 100 );
 }
+
+// =============================================================================
+// LIMIT BLOG STORIES TO AUTHOR
+// =============================================================================
+
+/**
+ * Limit blog stories to author
+ *
+ * @since Fictioneer 5.4.8
+ *
+ * @param array  $args     The query arguments.
+ * @param string $paths    The queried field.
+ * @param int    $post_id  The post ID.
+ *
+ * @return array Modified query arguments.
+ */
+
+function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
+  if ( ! current_user_can( 'administrator' ) ) {
+    $args['author'] = get_post_field( 'post_author', $post_id );
+  }
+
+  return $args;
+}
+add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fictioneer_acf_scope_blog_posts', 10, 3 );
 
 ?>
