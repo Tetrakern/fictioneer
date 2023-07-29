@@ -661,6 +661,7 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 * **simple:** Set `true` to hide the advanced search options. Default `false`.
 * **placeholder:** Change the placeholder text.
+* **type:** Preselect either "any", "story", "chapter", "recommendation", "collection", or "post".
 
 ```
 [fictioneer_search]
