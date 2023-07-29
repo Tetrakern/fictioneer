@@ -136,7 +136,7 @@ function fcn_getQuote(e) {
   const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString()),
         anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
 
-  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerHTML,
+  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText,
       pre = '[…] ',
       suf = ' […]';
 

@@ -136,7 +136,7 @@ class FCN_Suggestion {
     if (fcn_theSite.classList.contains('transformed-site')) return;
 
     instance.text = _$('.selected-paragraph')
-      .querySelector('.paragraph-inner').innerHTML;
+      .querySelector('.paragraph-inner').innerText;
 
     instance.showModal(instance);
   }
