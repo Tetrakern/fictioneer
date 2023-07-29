@@ -628,6 +628,28 @@ Fires right after the default modals have been included in the `fictioneer_outpu
 
 ---
 
+### `do_action( 'fictioneer_navigation_bottom', $args )`
+Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the main navigation wrapper is rendered.
+
+**$args:**
+* $post_id (int) – Current post ID or null.
+* $story_id (int) – Current story ID (if chapter) or null.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+---
+
+### `do_action( 'fictioneer_navigation_top', $args )`
+Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the header background and before the main navigation wrapper is rendered.
+
+**$args:**
+* $post_id (int) – Current post ID or null.
+* $story_id (int) – Current story ID (if chapter) or null.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+---
+
 ### `do_action( 'fictioneer_post_after_content', $post_id )`
 Fires between the article content and featured list (if any) in the `single-post.php` template.
 
