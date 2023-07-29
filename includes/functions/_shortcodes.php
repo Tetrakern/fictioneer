@@ -1126,14 +1126,16 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  *
  * @since 5.2.0
  *
- * @param string|null $attr['per_page']        Optional. Number of posts per page.
- * @param string|null $attr['author']          Optional. Limit items to a specific author.
- * @param string|null $attr['exclude_tag_ids'] Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids'] Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']      Optional. Limit items to specific category names.
- * @param string|null $attr['tags']            Optional. Limit items to specific tag names.
- * @param string|null $attr['rel']             Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['per_page']            Optional. Number of posts per page.
+ * @param string|null $attr['author']              Optional. Limit items to a specific author.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit items to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit items to specific tag names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -1144,6 +1146,8 @@ function fictioneer_shortcode_blog( $attr ) {
   $taxonomies = fictioneer_get_shortcode_taxonomies( $attr );
   $exclude_tag_ids = fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' );
   $exclude_cat_ids = fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' );
+  $exclude_author_ids = fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' );
+  $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
   $rel = 'AND';
   $classes = '';
 
@@ -1163,6 +1167,9 @@ function fictioneer_shortcode_blog( $attr ) {
   // Author?
   if ( ! empty( $author ) ) $query_args['author_name'] = $author;
 
+  // Author IDs?
+  if ( ! empty( $author_ids ) ) $query_args['author__in'] = $author_ids;
+
   // Relation?
   if ( ! empty( $attr['rel'] ) ) {
     $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
@@ -1180,6 +1187,9 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Excluded categories?
   if ( ! empty( $exclude_cat_ids ) ) $query_args['category__not_in'] = $exclude_cat_ids;
+
+  // Excluded authors?
+  if ( ! empty( $exclude_author_ids ) ) $query_args['author__not_in'] = $exclude_author_ids;
 
   // Extra classes
   if ( ! empty( $attr['class'] ) ) $classes = esc_attr( wp_strip_all_tags( $attr['class'] ) );
