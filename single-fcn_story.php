@@ -29,7 +29,7 @@ get_header( null, $header_args );
 ?>
 
 <main id="main" class="main story">
-  <div class="main-observer"></div>
+  <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background polygon polygon--main background-texture"></div>
   <div class="main__wrapper _no-padding">

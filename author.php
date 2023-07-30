@@ -109,7 +109,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
 <?php get_header(); ?>
 
 <main id="main" class="main author-page singular">
-  <div class="main-observer"></div>
+  <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background polygon polygon--main background-texture"></div>
   <div class="main__wrapper">

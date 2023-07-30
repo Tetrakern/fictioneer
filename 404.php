@@ -18,7 +18,7 @@ $custom_404 = intval( get_option( 'fictioneer_404_page', -1 ) );
 <?php get_header(); ?>
 
 <main id="main" class="main singular the-404">
-  <div class="main-observer"></div>
+  <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background polygon polygon--main background-texture"></div>
   <div class="main__wrapper">

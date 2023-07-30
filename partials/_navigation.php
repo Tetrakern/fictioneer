@@ -16,7 +16,7 @@
 ?>
 
 <nav id="full-navigation" class="main-navigation" aria-label="Main Navigation">
-  <div id="nav-observer-sticky" class="nav-observer"></div>
+  <div id="nav-observer-sticky" class="observer nav-observer"></div>
   <div class="main-navigation__background"></div>
 
   <?php do_action( 'fictioneer_navigation_top', $args ); ?>

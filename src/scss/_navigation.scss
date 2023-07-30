@@ -1,6 +1,4 @@
 .nav-observer {
-  visibility: hidden;
-  position: absolute;
   top: calc(-1px + var(--nav-observer-offset, 0px));
 }
 

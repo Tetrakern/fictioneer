@@ -32,7 +32,7 @@ get_header( null, $header_args );
 </div>
 
 <main id="main" class="main chapter">
-  <div class="main-observer"></div>
+  <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background chapter__background polygon polygon--main background-texture"></div>
   <div class="main__wrapper">

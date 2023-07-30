@@ -50,7 +50,7 @@ $list_of_recommendations = new WP_Query( $query_args );
 <?php get_header(); ?>
 
 <main id="main" class="main singular recommendations">
-  <div class="main-observer"></div>
+  <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background polygon polygon--main background-texture"></div>
   <div class="main__wrapper">

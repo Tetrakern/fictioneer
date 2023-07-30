@@ -1,10 +1,6 @@
 :is(:fullscreen, :-webkit-full-screen) {
   --layout-main-inset-top: 0;
 
-  #nav-observer {
-    top: 4px;
-  }
-
   .background-texture {
     background: {
       image: none !important;

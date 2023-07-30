@@ -213,9 +213,12 @@ button[type=submit]:where(:not(._inline)) {
   padding: 1rem;
 }
 
-.main-observer {
+.observer {
   visibility: hidden;
   position: absolute;
+}
+
+.main-observer {
   top: var(--layout-spacing-vertical);
 }
 
