@@ -146,7 +146,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         </section>
       <?php endif; ?>
 
-      <section class="statistics">
+      <section class="statistics spacing-top">
         <div class="statistics__inline-stat">
           <strong><?php _e( 'Stories', 'fictioneer' ); ?></strong>
           <span><?php echo number_format_i18n( $author_statistics['story_count'] ); ?></span>

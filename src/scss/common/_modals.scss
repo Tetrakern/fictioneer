@@ -14,7 +14,7 @@
     width: 100%;
   }
 
-  :where([type=text], [type=number]) {
+  input:where([type=text], [type=number]):not(:first-child):last-child {
     flex-shrink: 0;
     text-align: center;
     border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;

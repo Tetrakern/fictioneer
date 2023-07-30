@@ -28,15 +28,14 @@
 }
 
 .follow-menu-item {
-  &:not(._new),
-  &:not(:hover),
-  &:not(._loaded) {
-    > span {
+  &:not(._new, ._loaded),
+  &:not(:hover) {
+    .follow-menu-item__read {
       opacity: 0;
     }
   }
 
-  > span {
+  &__read {
     pointer-events: none;
     position: absolute;
     bottom: 3px;

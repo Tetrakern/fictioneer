@@ -10,7 +10,6 @@
 
   &__controls {
     display: flex;
-    justify-content: center;
     gap: 3px;
 
     .button {
@@ -26,8 +25,8 @@
     }
   }
 
-  &:not(.ended).paused button.pause,
-  &:not(.ended).playing button.play {
+  &:not(.ended).paused .button.pause,
+  &:not(.ended).playing .button.play {
     background: var(--tts-button-active-background);
     color: var(--tts-button-active-text);
   }

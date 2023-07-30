@@ -80,7 +80,7 @@ if ( $profile_page && $profile_page > 0 ) {
         aria-label="<?php esc_attr_e( 'Mark follows as read', 'fictioneer' ) ?>"
       ><?php fictioneer_icon( 'fa-bell' ); ?>
         <i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i>
-        <span><?php _ex( 'Read', 'Mark as read button.', 'fictioneer' ) ?></span>
+        <span class="follow-menu-item__read"><?php _ex( 'Read', 'Mark as read button.', 'fictioneer' ) ?></span>
       </button>
 
       <div class="follow-notifications sub-menu">

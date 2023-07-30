@@ -18,7 +18,7 @@
   bottom: 12px;
   z-index: 10;
   display: flex;
-  align-items: center;
+  gap: get_clamp(0, 3, 375, 768);
   transform: translate3d(calc(-1 * min(var(--site-width), 100vw) / 2 + 12px), 0, 0);
   transition: opacity var(--transition-duration);
 
@@ -37,11 +37,10 @@
     box-shadow: var(--micro-menu-box-shadow);
   }
 
-  > :is(button, label, a) {
+  &__item {
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-content: center;
     background: none;
     color: var(--micro-menu-text);
     font-size: 16px;
@@ -55,13 +54,9 @@
       background: inherit;
       color: var(--micro-menu-text-hover);
     }
-
-    &:not(:last-child) {
-      margin-right: get_clamp(0, 3, 375, 768);
-    }
   }
 
-  > :is(.previous, .next, .up) {
+  &__item:is(.previous, .next, .up) {
     font-size: 24px;
   }
 }
