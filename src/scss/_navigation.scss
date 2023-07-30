@@ -119,13 +119,11 @@
     flex-shrink: 0;
   }
 
-  &__list,
-  &__list > ul {
+  &__list {
     position: relative;
     display: flex;
     max-width: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow: scroll hidden;
     scrollbar-width: none; // FF
 
     @include bp(desktop) {
