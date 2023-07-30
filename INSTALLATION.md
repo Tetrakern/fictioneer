@@ -39,7 +39,7 @@ If the hosting cost are too much for you alone, there is also the option to shar
 
 ## Installing WordPress
 
-The installation process for WordPress is [documented on the official site](https://wordpress.org/support/article/how-to-install-wordpress/) and in many guides only a quick search away. Nowadays, most hosts offer a one-click installation service as well. Note that the latter often comes with pre-installed plugins that you may want to get rid off, especially analytics plugins which tend to violate data privacy laws.
+The installation process for WordPress is [documented on the official site](https://wordpress.org/support/article/how-to-install-wordpress/) and in many guides only a quick search away. Nowadays, most hosts offer a one-click installation service as well. Note that the latter often comes with pre-installed plugins that you may want to get rid of, especially analytics plugins which tend to violate data privacy laws.
 
 Fictioneer is best used on a fresh install due to its complexity and possible conflicts with existing plugins or customizations. Which does not mean you cannot switch or migrate, but it would be an ordeal. For example, Fictioneer has custom post types for stories and chapters, so you would need to either [convert existing posts](https://wordpress.org/plugins/post-type-switcher/) or upload them anew (which would disassociate all comments). They also have several additional settings, making automatic conversion scripts risky. Depending on how many posts you have, this may take a while.
 
@@ -53,7 +53,7 @@ Everything installed? Head to **[Settings](https://wordpress.org/support/article
 
     * **Disallowed Comment Keys:** For simple yet reliable comment spam protection, you are advised to use the [compiled disallow list by slorp](https://github.com/splorp/wordpress-comment-blacklist). Just copy the content of the blacklist into the [Disallowed Comment Key](https://wordpress.org/support/article/comment-moderation/#comment-blocking) field. Check your comment trash occasionally as this can lead to false positives. You can search for less restrictive lists too.
 
-* **Permalinks:** You want the permalink structure set to "Post name". As an off-note, whenever some pages do not show up even through they clearly should, come back here and save to update the permalink structure. You would be surprised how many issues that solves.
+* **Permalinks:** You want the permalink structure set to "Post name". As an off-note, whenever some pages do not show up even though they clearly should, come back here and save to update the permalink structure. You would be surprised how many issues that solves.
 
 * **Open Graph Default Image:** Only used when you enable the SEO features and no (known) SEP plugin is running. This image will be shown in search engine results and social media embeds if no other image is provided by individual posts, such as story cover images. Can be set under **Appearance > Customize > Site Identity**.
 
@@ -221,8 +221,6 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Aggregate CSS-files?</li>
         <li>- [x] Generate data: URIs for images?</li>
       </ul>
-      <h4>[JS, CSS & HTML] HTML Options:</h4>
-      <p>&numsp;If you have no caching or other HTML optimizer, you can tick "Optimize HTML Code?".</p>
       <h4>[JS, CSS & HTML] Misc Options:</h4>
       <ul>
         <li>- [x] Save aggregated script/css as static files?</li>
