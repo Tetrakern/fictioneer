@@ -220,7 +220,7 @@ Think of the sentence as elevator pitch, something you can tell within a few sec
 
 > Two women forge an unlikely bond and explore a simple question: is selling your body the same as selling yourself?
 
-> Reanimated girls from different epochs roam the ruins of civilization on the scarred corpse of Earth.
+> Reanimated girls from different eras roam the ruins of civilization on the scarred corpse of Earth.
 
 > Dying magical girl eats the hearts of living nightmares to cheat death.
 
