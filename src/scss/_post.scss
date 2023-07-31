@@ -8,12 +8,6 @@
   }
 }
 
-.blog-posts._nested {
-  .pagination {
-    margin-top: -1rem;
-  }
-}
-
 :is(.blog-posts, .latest-posts) {
   .post {
     padding-bottom: 1rem;
