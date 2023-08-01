@@ -39,7 +39,7 @@ $query_args = array(
   'meta_key' => 'fictioneer_chapters_added',
   'orderby' => 'meta_value',
   'order' => $args['order'] ?? 'desc',
-  'posts_per_page' => $args['count'] + 4, // Little buffer in case of no viable chapters
+  'posts_per_page' => $args['count'] + 4, // Little buffer in case of no viable stories
   'meta_query' => array(
     'relation' => 'OR',
     array(
