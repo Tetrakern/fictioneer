@@ -8,7 +8,7 @@
             "name": "fictioneer_chapter_story",
             "aria-label": "",
             "type": "post_object",
-            "instructions": "The story this chapter belongs to (if any); you still need to add it to the list on the story.",
+            "instructions": "The story this chapter belongs to (if any); add chapters to the list in your story.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -19,6 +19,7 @@
             "post_type": [
                 "fcn_story"
             ],
+            "post_status": "",
             "taxonomy": "",
             "return_format": "object",
             "multiple": 0,
@@ -86,7 +87,7 @@
             "delay": 1
         },
         {
-            "key": "field_5d6644ed4c85d",
+            "key": "field_63b6ea0319ecc",
             "label": "Afterword",
             "name": "fictioneer_chapter_afterword",
             "aria-label": "",
@@ -144,5 +145,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1668176273
+    "modified": 1690933646
 }
