@@ -186,4 +186,106 @@ function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
 }
 add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fictioneer_acf_scope_blog_posts', 10, 3 );
 
+// =============================================================================
+// LIMIT STORY CHAPTERS TO AUTHOR
+// =============================================================================
+
+/**
+ * Limit chapter stories to author
+ *
+ * @since Fictioneer 5.4.9
+ *
+ * @param array  $args     The query arguments.
+ * @param string $paths    The queried field.
+ * @param int    $post_id  The post ID.
+ *
+ * @return array Modified query arguments.
+ */
+
+function fictioneer_acf_scope_chapter_story( $args, $field, $post_id ) {
+  if ( ! current_user_can( 'administrator' ) ) {
+    $args['author'] = get_post_field( 'post_author', $post_id );
+  }
+
+  return $args;
+}
+
+if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
+  add_filter( 'acf/fields/post_object/query/name=fictioneer_chapter_story', 'fictioneer_acf_scope_chapter_story', 10, 3 );
+}
+
+// =============================================================================
+// APPEND NEW CHAPTERS TO STORY
+// =============================================================================
+
+/**
+ * Append new chapters to story list
+ *
+ * @since Fictioneer 5.4.9
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_acf_append_chapter_to_story( $post_id ) {
+  // Prevent miss-fire
+  if (
+    ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+    wp_is_post_autosave( $post_id ) ||
+    wp_is_post_revision( $post_id ) ||
+    ! in_array( get_post_status( $post_id ), ['publish', 'future'] ) ||
+    get_post_type( $post_id ) != 'fcn_chapter'
+  ) {
+    return;
+  }
+
+  // Only do this for newly published chapters (not more than 5 seconds ago)
+  $publishing_time = get_post_time( 'U', true, $post_id, true );
+  $current_time = current_time( 'timestamp', true );
+
+  if ( $current_time - $publishing_time > 5 ) {
+    return;
+  }
+
+  // Setup
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story = get_post( $story_id );
+
+  // Abort if story not found
+  if ( empty( $story ) ) {
+    return;
+  }
+
+  // Setup, continued
+  $chapter_author_id = get_post_field( 'post_author', $post_id );
+  $story_author_id = get_post_field( 'post_author', $story_id );
+
+  // Abort if the author IDs do not match unless it's an administrator
+  if ( ! current_user_can( 'administrator' ) && $chapter_author_id != $story_author_id ) {
+    return;
+  }
+
+  // Get current story chapters
+  $story_chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
+
+  // Prepare chapter array if null (or broken)
+  if ( ! is_array( $story_chapters ) ) {
+    $story_chapters = [];
+  }
+
+  // Append chapter (if not already included) and save to database
+  if ( ! in_array( $post_id, $story_chapters ) ) {
+    $story_chapters[] = $post_id;
+    update_post_meta( $story_id, 'fictioneer_story_chapters', array_unique( $story_chapters ) );
+  } else {
+    return;
+  }
+
+  // Fire save_post action for story
+  do_action( 'save_post', $story_id, $story, true );
+}
+
+if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+  add_action( 'acf/save_post', 'fictioneer_acf_append_chapter_to_story', 99 );
+}
+
 ?>

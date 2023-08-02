@@ -614,6 +614,20 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Restrict Default REST API', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_enable_chapter_appending' => array(
+      'name' => 'fictioneer_enable_chapter_appending',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Append new chapters to story', 'fictioneer' ),
+      'default' => false
+    ),
+    'fictioneer_limit_chapter_stories_by_author' => array(
+      'name' => 'fictioneer_limit_chapter_stories_by_author',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Limit chapter stories by author', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

@@ -166,6 +166,22 @@
                   </div>
                 </label>
 
+                <label class="label-wrapped-checkbox row" for="fictioneer_enable_chapter_appending">
+                  <input name="fictioneer_enable_chapter_appending" type="checkbox" id="fictioneer_enable_chapter_appending" <?php echo checked( 1, get_option( 'fictioneer_enable_chapter_appending' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_chapter_appending']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Only once when the chapter is first saved.', 'fictioneer' ) ?></p>
+                  </div>
+                </label>
+
+                <label class="label-wrapped-checkbox row" for="fictioneer_limit_chapter_stories_by_author">
+                  <input name="fictioneer_limit_chapter_stories_by_author" type="checkbox" id="fictioneer_limit_chapter_stories_by_author" <?php echo checked( 1, get_option( 'fictioneer_limit_chapter_stories_by_author' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_limit_chapter_stories_by_author']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Also disables cross-posting as guest author.', 'fictioneer' ) ?></p>
+                  </div>
+                </label>
+
   							<div class="text-input-inline row"><?php
                   printf(
                     __( '<span>Calculate reading time with</span> %s <span>words per minute.</span>', 'fictioneer' ),
@@ -638,7 +654,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 162px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 280px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
