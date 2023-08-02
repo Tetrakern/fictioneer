@@ -699,11 +699,11 @@ if ( ! function_exists( 'fictioneer_output_head_seo' ) ) {
       <meta property="og:image:width" content="<?php echo $og_image['width']; ?>">
       <meta property="og:image:height" content="<?php echo $og_image['height']; ?>">
       <meta property="og:image:type" content="<?php echo $og_image['type']; ?>">
+      <meta name="twitter:image" content="<?php echo $og_image['url']; ?>">
     <?php endif; ?>
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="<?php echo $og_title; ?>">
-    <meta name="twitter:image" content="<?php echo $og_image['url']; ?>">
     <meta name="twitter:description" content="<?php echo $og_description; ?>">
 
     <?php if ( $show_author && $article_twitter ) : ?>
