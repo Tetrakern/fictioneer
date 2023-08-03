@@ -23,11 +23,11 @@
 
 global $post;
 
-// Post ID (-1 for generated pages)
-$post_id = $post ? $post->ID : -1;
+// Post ID
+$post_id = $post ? $post->ID : null;
 
 if ( is_archive() || is_search() || is_404() ) {
-  $post_id = -1;
+  $post_id = null;
 }
 
 ?>
@@ -54,7 +54,7 @@ if ( is_archive() || is_search() || is_404() ) {
     ?>
   </head>
 
-  <body <?php body_class( 'site-bg' ); ?> data-post-id="<?php echo $post_id; ?>">
+  <body <?php body_class( 'site-bg' ); ?> data-post-id="<?php echo $post_id ?: -1; ?>">
     <?php wp_body_open(); ?>
 
     <?php
@@ -63,7 +63,7 @@ if ( is_archive() || is_search() || is_404() ) {
       $header_image_url = get_header_image();
 
       // If this is a content page...
-      if ( $post_id > 0 ) {
+      if ( ! empty( $post_id ) ) {
         // Type?
         switch ( $post->post_type ) {
           case 'fcn_story':
@@ -85,7 +85,7 @@ if ( is_archive() || is_search() || is_404() ) {
       }
 
       // Filter header image
-      if ( $header_image_url && $post_id > 0 ) {
+      if ( ! empty( $post_id ) && $header_image_url ) {
         $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id );
       }
 
