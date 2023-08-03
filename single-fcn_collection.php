@@ -115,15 +115,15 @@
   );
 
   // Add recommendation list breadcrumb (if set)
-  $collections_page = intval( get_option( 'fictioneer_collections_page', -1 ) );
+  $collections_page_id = intval( get_option( 'fictioneer_collections_page', -1 ) ?: -1 );
 
-  if ( $collections_page > 0 ) {
-    $collections_page_title = trim( get_the_title( $collections_page ) );
+  if ( $collections_page_id > 0 ) {
+    $collections_page_title = trim( get_the_title( $collections_page_id ) );
     $collections_page_title = empty( $collections_page_title ) ? __( 'Stories', 'fictioneer' ) : $collections_page_title;
 
     $footer_args['breadcrumbs'][] = array(
       $collections_page_title,
-      get_permalink( $collections_page )
+      fictioneer_get_assigned_page_link( 'fictioneer_collections_page' )
     );
   }
 

@@ -16,13 +16,13 @@
 <?php
 
 // Setup
-$bookmarks_link = get_permalink( get_option( 'fictioneer_bookmarks_page' ) );
+$bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
 $discord_invite_link = get_option( 'fictioneer_discord_invite_link' );
 $profile_link = get_edit_profile_url();
-$profile_page = intval( get_option( 'fictioneer_user_profile_page', -1 ) );
+$profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
 
-if ( $profile_page && $profile_page > 0 ) {
-  $profile_link = get_permalink( $profile_page );
+if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
+  $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
 }
 
 ?>

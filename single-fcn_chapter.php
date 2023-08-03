@@ -190,15 +190,15 @@ get_header( null, $header_args );
   );
 
   // Add stories list breadcrumb (if set)
-  $stories_page = intval( get_option( 'fictioneer_stories_page', -1 ) );
+  $stories_page_id = intval( get_option( 'fictioneer_stories_page', -1 ) ?: -1 );
 
-  if ( $stories_page > 0 ) {
-    $stories_page_title = trim( get_the_title( $stories_page ) );
+  if ( $stories_page_id > 0 ) {
+    $stories_page_title = trim( get_the_title( $stories_page_id ) );
     $stories_page_title = empty( $stories_page_title ) ? __( 'Stories', 'fictioneer' ) : $stories_page_title;
 
     $footer_args['breadcrumbs'][] = array(
       $stories_page_title,
-      get_permalink( $stories_page )
+      fictioneer_get_assigned_page_link( 'fictioneer_stories_page' )
     );
   }
 

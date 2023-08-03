@@ -18,8 +18,8 @@
 
 // Setup
 $current_user = $args['user'];
-$bookshelf_link = get_permalink( get_option( 'fictioneer_bookshelf_page' ) );
-$bookmarks_link = get_permalink( get_option( 'fictioneer_bookmarks_page' ) );
+$bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
+$bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
 $checkmarks = fictioneer_load_checkmarks( $current_user );
 $follows = fictioneer_load_follows( $current_user );
 $reminders = fictioneer_load_reminders( $current_user );

@@ -1040,4 +1040,64 @@ function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
   return strlen( $input ) < 32 ? $default : $output;
 }
 
+// =============================================================================
+// UPDATED HOOK ACTIONS
+// =============================================================================
+
+add_filter( 'sanitize_option_fictioneer_user_profile_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_user_profile_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_bookmarks_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_bookmarks_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_stories_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_stories_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_chapters_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_chapters_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_recommendations_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_recommendations_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_collections_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_collections_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_bookshelf_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_bookshelf_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
+add_filter( 'sanitize_option_fictioneer_404_page', function( $new_value ) {
+  $link = get_permalink( $new_value );
+  update_option( 'fictioneer_404_page_link', $link, true );
+
+  return $new_value;
+}, 99);
+
 ?>

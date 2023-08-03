@@ -11,7 +11,7 @@
 <?php
 
 // Setup
-$custom_404 = intval( get_option( 'fictioneer_404_page', -1 ) );
+$custom_404 = intval( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
 
 ?>
 

@@ -353,19 +353,19 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
   function fictioneer_mobile_user_menu() {
     // Setup
     $post_type = is_archive() ? 'archive' : get_post_type();
-    $profile_link = get_edit_profile_url();
-    $profile_page = intval( get_option( 'fictioneer_user_profile_page', -1 ) );
-    $discord_link = get_option( 'fictioneer_discord_invite_link' );
-    $bookshelf_link = get_permalink( get_option( 'fictioneer_bookshelf_page' ) );
+    $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
+    $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
     $bookshelf_title = trim( get_the_title( get_option( 'fictioneer_bookshelf_page' ) ) );
-    $bookmarks_link = get_permalink( get_option( 'fictioneer_bookmarks_page' ) );
+    $discord_link = get_option( 'fictioneer_discord_invite_link' );
     $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
     $can_follows = get_option( 'fictioneer_enable_follows' );
     $can_reminders = get_option( 'fictioneer_enable_reminders' );
+    $profile_link = get_edit_profile_url();
+    $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
     $output = [];
 
-    if ( $profile_page && $profile_page > 0 ) {
-      $profile_link = get_permalink( $profile_page );
+    if ( $profile_page_id && $profile_page_id > 0 ) {
+      $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
     }
 
     // Build

@@ -70,15 +70,15 @@
   );
 
   // Add recommendations list breadcrumb (if set)
-  $rec_page = intval( get_option( 'fictioneer_recommendations_page', -1 ) );
+  $rec_page_id = intval( get_option( 'fictioneer_recommendations_page', -1 ) ?: -1 );
 
-  if ( $rec_page > 0 ) {
-    $rec_page_title = trim( get_the_title( $rec_page ) );
+  if ( $rec_page_id > 0 ) {
+    $rec_page_title = trim( get_the_title( $rec_page_id ) );
     $rec_page_title = empty( $rec_page_title ) ? __( 'Recommendations', 'fictioneer' ) : $rec_page_title;
 
     $footer_args['breadcrumbs'][] = array(
       $rec_page_title,
-      get_permalink( $rec_page )
+      fictioneer_get_assigned_page_link( 'fictioneer_recommendations_page' )
     );
   }
 

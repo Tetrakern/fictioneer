@@ -240,11 +240,11 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
   $toolbar = fictioneer_get_comment_toolbar();
   $oauth_links = fictioneer_get_oauth_links( false, '', 'comments', $post_id );
   $profile_link = get_edit_profile_url();
-  $profile_page = intval( get_option( 'fictioneer_user_profile_page', -1 ) );
+  $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
   $aria_label_textarea = __( 'Leave a comments please', 'fictioneer' );
 
-  if ( $profile_page && $profile_page > 0 ) {
-    $profile_link = get_permalink( $profile_page );
+  if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
+    $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
   }
 
   // Build arguments

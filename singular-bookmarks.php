@@ -77,7 +77,7 @@ if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
 
 <?php
   // Get profile link
-  $profile_link = get_permalink( get_option( 'fictioneer_user_profile_page' ) );
+  $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
   $profile_link = $profile_link ? $profile_link : get_edit_profile_url();
 
   // Footer arguments
