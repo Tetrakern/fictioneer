@@ -310,7 +310,7 @@ if ( ! function_exists( 'fictioneer_chapter_index_popup_menu' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_Post|null $args['story_post'] The story the chapter belongs to or null.
+   * @param WP_Post|null $args['story_post'] Optional. The story the chapter belongs to.
    */
 
   function fictioneer_chapter_index_popup_menu( $args ) {

@@ -645,8 +645,8 @@ Fires right after the default modals have been included in the `fictioneer_outpu
 Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the main navigation wrapper is rendered.
 
 **$args:**
-* $post_id (int) – Current post ID or null.
-* $story_id (int) – Current story ID (if chapter) or null.
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID (if chapter). Unsafe.
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
 
@@ -656,8 +656,8 @@ Fires within the `#full-navigation` container in the `_navigation.php` partial, 
 Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the header background and before the main navigation wrapper is rendered.
 
 **$args:**
-* $post_id (int) – Current post ID or null.
-* $story_id (int) – Current story ID (if chapter) or null.
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID (if chapter). Unsafe.
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
 

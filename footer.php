@@ -14,8 +14,8 @@
  * @see partials/_consent-banner.php
  * @see wp_footer()
  *
- * @internal $args['post_id']     Current post ID or null.
- * @internal $args['post_type']   Current post type or null.
+ * @internal $args['post_id']     Optional. Current post ID.
+ * @internal $args['post_type']   Optional. Current post type.
  * @internal $args['breadcrumbs'] Array of breadcrumb tuples with label (0) and link (1).
  */
 ?>
