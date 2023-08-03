@@ -247,7 +247,7 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | `wp_dashboard_setup` | `fictioneer_reduce_contributor_dashboard_widgets`, `fictioneer_reduce_editor_dashboard_widgets`, `fictioneer_reduce_moderator_dashboard_widgets`, `fictioneer_reduce_subscriber_dashboard_widgets`
 | `wp_default_scripts` | `fictioneer_remove_jquery_migrate`
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
-| `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`
+| `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`
 
 | ACF HOOK | FICTIONEER ACTIONS
 | ---: | :--- |
