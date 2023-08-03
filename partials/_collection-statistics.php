@@ -25,9 +25,8 @@
 
 // Setup
 $story_count = 0;
-$chapter_count = 0;
 $word_count = 0;
-$processed_ids = [];
+$query_chapter_ids = [];
 
 // If there are featured posts...
 if ( ! empty( $args['featured_list'] ) ) {
@@ -37,15 +36,7 @@ if ( ! empty( $args['featured_list'] ) ) {
     $post_type = get_post_type( $post_id );
 
     if ( $post_type == 'fcn_chapter' ) {
-      // Make sure chapters are not counted twice if added independently
-      if ( ! in_array( $post_id, $processed_ids ) ) {
-        // Make sure chapter is not marked as non-chapter
-        if ( ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $post_id ) ) {
-          $chapter_count += 1;
-          $word_count += get_post_meta( $post_id, '_word_count', true );
-        }
-        $processed_ids[] = $post_id;
-      }
+      $query_chapter_ids[] = $post_id;
     } elseif ( $post_type == 'fcn_story' ) {
       // Skip hidden stories
       if ( fictioneer_get_field( 'fictioneer_story_hidden', $post_id ) ) {
@@ -56,20 +47,40 @@ if ( ! empty( $args['featured_list'] ) ) {
       $story_count += 1;
 
       // Count all chapters in story (if any)
-      if ( $story['chapter_ids'] ) {
-        foreach ( $story['chapter_ids'] as $chapter_id ) {
-          // Make sure chapters are not counted twice if added independently
-          if ( ! in_array( $chapter_id, $processed_ids ) ) {
-            // Make sure chapter is not marked as non-chapter
-            if ( ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id ) ) {
-              $chapter_count += 1;
-              $word_count += get_post_meta( $chapter_id, '_word_count', true );
-            }
-            $processed_ids[] = $chapter_id;
-          }
-        }
+      if ( ! empty( $story['chapter_ids'] ) ) {
+        $query_chapter_ids = array_merge( $query_chapter_ids, $story['chapter_ids'] );
       }
     }
+  }
+
+  // Remove duplicates
+  $query_chapter_ids = array_unique( $query_chapter_ids );
+
+  // Query eligible chapters
+  $chapter_query_args = array(
+    'post_type' => 'fcn_chapter',
+    'post_status' => 'publish',
+    'post__in' => $query_chapter_ids,
+    'posts_per_page' => -1,
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'key' => 'fictioneer_chapter_hidden',
+        'value' => '0'
+      ),
+      array(
+        'key' => 'fictioneer_chapter_no_chapter',
+        'value' => '0'
+      )
+    )
+  );
+
+  $chapters = new WP_Query( $chapter_query_args );
+
+  // Count words
+  foreach ( $chapters->posts as $chapter ) {
+    $words = get_post_meta( $chapter->ID, '_word_count', true );
+    $word_count += intval( $words );
   }
 }
 
@@ -83,7 +94,7 @@ if ( ! empty( $args['featured_list'] ) ) {
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Chapters', 'fictioneer' ) ?></strong>
-      <span><?php echo number_format_i18n( $chapter_count ); ?></span>
+      <span><?php echo number_format_i18n( $chapters->found_posts ); ?></span>
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Words', 'fictioneer' ) ?></strong>
@@ -95,8 +106,8 @@ if ( ! empty( $args['featured_list'] ) ) {
         echo number_format_i18n(
           get_comments(
             array(
-              'post_type' => array( 'fcn_chapter' ),
-              'post__in' => $processed_ids,
+              'post_type' => 'fcn_chapter',
+              'post__in' => $query_chapter_ids,
               'status' => 1,
               'count' => true
             )
