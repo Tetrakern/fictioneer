@@ -19,6 +19,19 @@
  */
 ?>
 
+<?php
+
+global $post;
+
+// Post ID (-1 for generated pages)
+$post_id = $post ? $post->ID : -1;
+
+if ( is_archive() || is_search() || is_404() ) {
+  $post_id = -1;
+}
+
+?>
+
 <!doctype html>
 
 <html <?php language_attributes(); ?> <?php fictioneer_root_attributes(); ?>>
@@ -41,18 +54,16 @@
     ?>
   </head>
 
-  <body <?php body_class( 'site-bg' ); ?>>
+  <body <?php body_class( 'site-bg' ); ?> data-post-id="<?php echo $post_id; ?>">
     <?php wp_body_open(); ?>
 
     <?php
       // Setup
-      global $post;
-      $post_id = $post ? $post->ID : null;
       $story_id = null;
       $header_image_url = get_header_image();
 
       // If this is a content page...
-      if ( ! is_archive() && ! is_search() && ! is_404() && $post_id ) {
+      if ( $post_id > 0 ) {
         // Type?
         switch ( $post->post_type ) {
           case 'fcn_story':
@@ -74,7 +85,7 @@
       }
 
       // Filter header image
-      if ( $header_image_url && $post_id ) {
+      if ( $header_image_url && $post_id > 0 ) {
         $header_image_url = apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id );
       }
 
