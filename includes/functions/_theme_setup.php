@@ -397,7 +397,7 @@ if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
    */
 
   function fictioneer_allowed_block_types() {
-    return array(
+    $allowed = array(
       // WP Core
       'core/image',
       'core/paragraph',
@@ -418,7 +418,6 @@ if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
       'core/html',
       'core/separator',
       'core/spacer',
-      'core/shortcode',
       'core/more',
       'core/embed',
       'core-embed/twitter',
@@ -472,6 +471,15 @@ if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
       'jetpack/payments-intro',
       'jetpack/payment-buttons'
     );
+
+    if (
+      ! get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ||
+      current_user_can( 'administrator' )
+    ) {
+      $allowed[] = 'core/shortcode';
+    }
+
+    return $allowed;
   }
 }
 

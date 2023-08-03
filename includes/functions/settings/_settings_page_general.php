@@ -759,6 +759,14 @@
                   </div>
                 </label>
 
+                <label for="fictioneer_strip_shortcodes_for_non_administrators" class="label-wrapped-checkbox row">
+                  <input name="fictioneer_strip_shortcodes_for_non_administrators" type="checkbox" id="fictioneer_strip_shortcodes_for_non_administrators" <?php echo checked( 1, get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_strip_shortcodes_for_non_administrators']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Beware! Strips shortcodes from the content when a post is saved by a non-administrator.', 'fictioneer' ) ?></p>
+                  </div>
+                </label>
+
                 <label for="fictioneer_disable_application_passwords" class="label-wrapped-checkbox row">
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>

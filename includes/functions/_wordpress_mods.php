@@ -1120,4 +1120,53 @@ function fictioneer_add_sof_to_taxonomy_query( $query ) {
 }
 add_action( 'pre_get_posts', 'fictioneer_add_sof_to_taxonomy_query' );
 
+// =============================================================================
+// ADD ATTRIBUTES TO MENU ITEMS
+// =============================================================================
+
+/**
+ * Add target ID as data attribute to menu links
+ *
+ * @since 5.4.9
+ *
+ * @param array   $attributes  The HTML attributes applied to the menu item's
+ *                             <a> element, empty strings are ignored.
+ * @param WP_Post $item        The current menu item object.
+ *
+ * @return array The modified attributes.
+ */
+
+function fictioneer_add_menu_link_attributes( $attributes, $item ) {
+  $attributes['data-target-id'] = $item->ID;
+
+  return $attributes;
+}
+add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 10, 2 );
+
+// =============================================================================
+// PURGE SHORTCODE TRANSIENTS
+// =============================================================================
+
+/**
+ * Strip shortcodes for non-admins
+ *
+ * @since Fictioneer 5.4.9
+ *
+ * @param string $content  The content to be saved.
+ *
+ * @return string The cleaned content.
+ */
+
+function fictioneer_strip_shortcodes_for_non_administrators( $content ) {
+  if ( ! current_user_can( 'administrator' ) ) {
+    $content = strip_shortcodes( $content );
+  }
+
+  return $content;
+}
+
+if ( get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ) {
+  add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes_for_non_administrators' );
+}
+
 ?>
