@@ -57,7 +57,7 @@ if ( ! empty( $args['featured_list'] ) ) {
 
       // Count all chapters in story (if any)
       if ( $story['chapter_ids'] ) {
-        foreach ( $story['chapter_ids']as $chapter_id ) {
+        foreach ( $story['chapter_ids'] as $chapter_id ) {
           // Make sure chapters are not counted twice if added independently
           if ( ! in_array( $chapter_id, $processed_ids ) ) {
             // Make sure chapter is not marked as non-chapter

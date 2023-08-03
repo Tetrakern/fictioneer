@@ -203,7 +203,8 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
       array(
         'numberposts' => -1,
         'post_type' => 'fcn_story',
-        'post_status' => 'publish'
+        'post_status' => 'publish',
+        'no_found_rows' => true
       )
     );
 
@@ -213,8 +214,8 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   		$word_count += $story_data['word_count'];
   	}
 
-    // Cache for next time
-    set_transient( 'fictioneer_stories_total_word_count', $word_count );
+    // Cache for next time (24 hours)
+    set_transient( 'fictioneer_stories_total_word_count', $word_count, HOUR_IN_SECONDS * 24 );
 
     // Return newly calculated value
   	return $word_count;

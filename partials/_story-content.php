@@ -147,7 +147,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
             'ignore_sticky_posts' => true,
             'orderby' => 'post__in', // Preserve order from meta box
             'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-            'no_found_rows' => false, // Improve performance
+            'no_found_rows' => true, // Improve performance
             'update_post_term_cache' => false // Improve performance
           )
         );
