@@ -105,17 +105,16 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
   /**
    * Outputs the HTML for the modals
    *
-   * @since Fictioneer 5.0
+   * @since Fictioneer 5.0.0
    *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   * @param int|null    $args['post_id']      Current post ID or null.
+   * @param string|null $args['post_type']    Current post type or null.
+   * @param array       $args['breadcrumbs']  Array of breadcrumb tuples with label (0) and link (1).
    */
 
   function fictioneer_output_modals( $args ) {
     // Formatting and suggestions
-    if ( get_post_type() == 'fcn_chapter' ) {
+    if ( ! empty( $args['post_id'] ) && $args['post_type'] == 'fcn_chapter' ) {
       ?><input id="modal-formatting-toggle" data-target="formatting-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-formatting' );
 
@@ -147,7 +146,12 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
     get_template_part( 'partials/_modal-site-settings' );
 
     // BBCodes tutorial
-    if ( ! post_password_required() && comments_open() && ! fictioneer_is_commenting_disabled() ) {
+    if (
+      ! empty( $args['post_id'] ) &&
+      ! post_password_required() &&
+      comments_open() &&
+      ! fictioneer_is_commenting_disabled()
+    ) {
       ?><input id="modal-bbcodes-toggle" data-target="bbcodes-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
       get_template_part( 'partials/_modal-bbcodes' );
     }
@@ -156,7 +160,7 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
     do_action( 'fictioneer_modals' );
   }
 }
-add_action( 'wp_footer', 'fictioneer_output_modals' );
+add_action( 'fictioneer_footer', 'fictioneer_output_modals' );
 
 // =============================================================================
 // OUTPUT NAVIGATION BAR

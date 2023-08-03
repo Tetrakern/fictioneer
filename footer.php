@@ -14,8 +14,8 @@
  * @see partials/_consent-banner.php
  * @see wp_footer()
  *
- * @internal $args['post_type']   Current post type or null.
  * @internal $args['post_id']     Current post ID or null.
+ * @internal $args['post_type']   Current post type or null.
  * @internal $args['breadcrumbs'] Array of breadcrumb tuples with label (0) and link (1).
  */
 ?>
@@ -30,16 +30,24 @@
     </div> <!-- .site -->
 
     <?php
+      // Null post ID for generated pages
+      if ( is_archive() || is_search() || is_404() ) {
+        $args['post_id'] = null;
+      }
+
       // Render TTS interface if required
       if (
-        get_post_type() == 'fcn_chapter' &&
+        ! empty( $args['post_id'] ) &&
+        $args['post_type'] == 'fcn_chapter' &&
         ! post_password_required()
       ) {
         get_template_part( 'partials/_tts-interface' );
       }
 
       // Render cookie banner HTML if required
-      if ( get_option( 'fictioneer_cookie_banner' ) ) get_template_part( 'partials/_consent-banner' );
+      if ( get_option( 'fictioneer_cookie_banner' ) ) {
+        get_template_part( 'partials/_consent-banner' );
+      }
     ?>
 
     <?php /* Adding the AJAX nonce this way allows caching plugins to update it dynamically. */ ?>
@@ -50,6 +58,9 @@
       if ( get_option( 'fictioneer_enable_lightbox' ) ) {
         echo '<div id="fictioneer-lightbox" class="lightbox"><button type="button" class="lightbox__close" aria-label="' . esc_attr__( 'Close lightbox', 'fictioneer' ) . '">' . fictioneer_get_icon( 'fa-xmark' ) . '</button><i class="fa-solid fa-spinner fa-spin loader" style="--fa-animation-duration: .8s;"></i><div class="lightbox__content target"></div></div>';
       }
+
+      // Fictioneer footer hook
+      do_action( 'fictioneer_footer', $args );
 
       // WordPress footer hook (includes modals)
       wp_footer();
