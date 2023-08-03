@@ -63,30 +63,38 @@ add_action( 'fictioneer_site_footer', 'fictioneer_breadcrumbs', 10 );
 
 if ( ! function_exists( 'fictioneer_footer_menu_row' ) ) {
   /**
-   * Outputs the HTML for the breadcrumbs
+   * Outputs the HTML for the footer menu and theme copyright notice
    *
    * @since Fictioneer 5.0
    *
-   * @param array  $args['breadcrumbs'] Breadcrumb tuples with label (0) and link (1).
-   * @param string $args['post_type']   Optional. Post type of the current page.
-   * @param int    $args['post_id']     Optional. Post ID of the current page.
+   * @param int|null    $args['post_id']      Optional. Post ID of the current page.
+   * @param string|null $args['post_type']    Optional. Post type of the current page.
+   * @param array       $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    */
 
   function fictioneer_footer_menu_row( $args ) {
     // Start HTML ---> ?>
     <div class="footer__split-row">
       <div class="footer__menu"><?php
-        $menu = wp_nav_menu(
-          array(
-            'theme_location' => 'footer_menu',
-            'menu_class' => 'footer__menu-list',
-            'container' => '',
-            'echo' => false
-          )
-        );
+        $menu = get_transient( 'fictioneer_footer_menu' );
 
-        $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
-        $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
+        if ( empty( $menu ) ) {
+          $menu = wp_nav_menu(
+            array(
+              'theme_location' => 'footer_menu',
+              'menu_class' => 'footer__menu-list',
+              'container' => '',
+              'echo' => false
+            )
+          );
+
+          $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
+          $menu = str_replace( 'current_page_item', '', $menu );
+          $menu = str_replace( 'current-menu-item', '', $menu );
+          $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
+
+          set_transient( 'fictioneer_footer_menu', $menu, HOUR_IN_SECONDS * 24 );
+        }
 
         echo $menu;
       ?></div>
