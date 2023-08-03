@@ -114,7 +114,7 @@ Fires within the Fictioneer user profile section in the WordPress `wp-admin/prof
 ---
 
 ### `do_action( 'fictioneer_after_main', $args )`
-Fires between the site’s `<main>` and `<footer>` blocks. This is the empty space before the breadcrumbs, footer menu, and copyright notice. Still within the `#site` container scope. To escape that, hook into `'wp_footer'` instead.
+Fires between the site’s `<main>` and `<footer>` blocks. This is the empty space before the breadcrumbs, footer menu, and copyright notice. Still within the `#site` container scope. To escape that, hook into `'fictioneer_footer'` or `'wp_footer'` instead.
 
 **$args:**
 * $post_type (string|null) – Current post type. Unsafe.
@@ -157,7 +157,7 @@ Fires right before the comment section outside the `<article>` but still within 
 Fires after `wp_body_open()` in the `<body>` right before the inline storage element (for scripts) and notifications, outside the layout. Normally includes the modals and mobile menu.
 
 **$args:**
-* $post_id (int|null) – Current post ID . Unsafe.
+* $post_id (int|null) – Current post ID. Unsafe.
 * $story_id (int|null) – Current story ID (if chapter). Unsafe.
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
@@ -557,6 +557,19 @@ List page template hook. Fires right at the top of an empty result list in the `
 
 ---
 
+### `do_action( 'fictioneer_footer', $args )`
+Fires outside the `#site` container and before the `wp_footer` hook, near the end of the document. Not to be confused with the `fictioneer_site_footer` hook.
+
+**$args:**
+* $post_id (int|null) – Current post ID. Unsafe.
+* $post_type (string|null) – Current post type. Unsafe.
+* $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
+
+**Hooked actions:**
+* `fictioneer_output_modals( $args )` – Render modals based on login status and page type. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_header', $args )`
 Fires right after opening the site’s `<header>` container. Normally includes the header background image.
 
@@ -799,8 +812,8 @@ Fires right after opening the `#site` container in the `header.php` template. In
 Fires first inside the site’s `<footer>` container. Normally includes the breadcrumb navigation (if any), the footer menu, and the theme copyright notice.
 
 **$args:**
-* $post_type (string|null) – Optional. Current post type.
-* $post_id (int|null) – Optional. Current post ID.
+* $post_type (string|null) – Current post type. Unsafe.
+* $post_id (int|null) – Current post ID. Unsafe.
 * $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
 
 **Hooked actions:**
