@@ -22,6 +22,13 @@
 
 <?php
 
+// IDs
+$page_id = get_queried_object_id();
+
+if ( $page_id != $args['post_id'] ) {
+  $args['post_id'] = $page_id;
+}
+
 // Null post ID for generated pages
 if ( is_archive() || is_search() || is_404() ) {
   $args['post_id'] = null;

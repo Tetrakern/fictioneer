@@ -23,8 +23,13 @@
 
 global $post;
 
-// Post ID
+// IDs
+$page_id = get_queried_object_id();
 $post_id = $post ? $post->ID : null;
+
+if ( $page_id != $post_id ) {
+  $post_id = $page_id;
+}
 
 if ( is_archive() || is_search() || is_404() ) {
   $post_id = null;
