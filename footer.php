@@ -20,21 +20,26 @@
  */
 ?>
 
-      <?php do_action( 'fictioneer_after_main', $args ); ?>
+<?php
+
+// Null post ID for generated pages
+if ( is_archive() || is_search() || is_404() ) {
+  $args['post_id'] = null;
+}
+
+// Hook after #main closes
+do_action( 'fictioneer_after_main', $args );
+
+?>
 
       <footer class="footer layout-links">
         <div class="footer__wrapper">
           <?php do_action( 'fictioneer_site_footer', $args ); ?>
         </div>
       </footer>
-    </div> <!-- .site -->
+    </div> <!-- #site -->
 
     <?php
-      // Null post ID for generated pages
-      if ( is_archive() || is_search() || is_404() ) {
-        $args['post_id'] = null;
-      }
-
       // Render TTS interface if required
       if (
         ! empty( $args['post_id'] ) &&
