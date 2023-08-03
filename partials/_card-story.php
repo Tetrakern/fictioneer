@@ -85,31 +85,44 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
       <?php if ( count( $chapter_ids ) > 0 ): ?>
         <ol class="card__link-list cell-list">
-          <?php foreach ( $chapter_ids as $id ) : ?>
+          <?php
+            // Prepare
+            $chapter_query_args = array(
+              'post_type' => 'fcn_chapter',
+              'post_status' => 'publish',
+              'post__in' => $chapter_ids,
+              'posts_per_page' => -1,
+              'no_found_rows' => true, // Improve performance
+              'update_post_term_cache' => false // Improve performance
+            );
+
+            $chapters = new WP_Query( $chapter_query_args );
+          ?>
+          <?php foreach ( $chapters->posts as $chapter ) : ?>
             <li>
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
-                <a href="<?php the_permalink( $id ); ?>"><?php
-                  $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $id );
+                <a href="<?php the_permalink( $chapter->ID ); ?>"><?php
+                  $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter->ID );
 
                   if ( ! empty( $list_title ) ) {
                     echo wp_strip_all_tags( $list_title );
                   } else {
-                    echo fictioneer_get_safe_title( $id );
+                    echo fictioneer_get_safe_title( $chapter->ID );
                   }
                 ?></a>
               </div>
               <div class="card__right">
                 <?php
-                  echo fictioneer_shorten_number( get_post_meta( $id, '_word_count', true ) );
+                  echo fictioneer_shorten_number( get_post_meta( $chapter->ID, '_word_count', true ) );
                   echo '<span class="hide-below-480"> ';
                   echo __( 'Words', 'fictioneer' );
                   echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
 
-                  if ( strtotime( '-1 days' ) < strtotime( get_the_date( '', $id ) ) ) {
+                  if ( strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ) {
                     _e( 'New', 'fictioneer' );
                   } else {
-                    echo get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $id );
+                    echo get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID );
                   }
                 ?>
               </div>
