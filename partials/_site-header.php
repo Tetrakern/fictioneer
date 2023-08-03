@@ -8,10 +8,10 @@
  * @subpackage Fictioneer
  * @since 5.0
  *
- * @internal $args['post_id']          Current post ID or null.
- * @internal $args['story_id']         Current story ID (if chapter) or null.
- * @internal $args['header_image_url'] URL of the filtered header image or false.
- * @internal $args['header_args']      Arguments passed to the header.php partial.
+ * @internal $args['post_id']           Optional. Current post ID.
+ * @internal $args['story_id']          Optional. Current story ID (if chapter).
+ * @internal $args['header_image_url']  URL of the filtered header image or false.
+ * @internal $args['header_args']       Arguments passed to the header.php partial.
  */
 ?>
 

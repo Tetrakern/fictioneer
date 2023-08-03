@@ -46,9 +46,9 @@ if ( ! function_exists( 'fictioneer_breadcrumbs' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array  $args['breadcrumbs'] Breadcrumb tuples with label (0) and link (1).
-   * @param string $args['post_type']   Optional. Post type of the current page.
-   * @param int    $args['post_id']     Optional. Post ID of the current page.
+   * @param int|null    $args['post_id']      Optional. Post ID of the current page.
+   * @param string|null $args['post_type']    Optional. Post type of the current page.
+   * @param array       $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    */
 
   function fictioneer_breadcrumbs( $args ) {
@@ -115,8 +115,8 @@ if ( ! function_exists( 'fictioneer_output_modals' ) ) {
    *
    * @since Fictioneer 5.0.0
    *
-   * @param int|null    $args['post_id']      Current post ID or null.
-   * @param string|null $args['post_type']    Current post type or null.
+   * @param int|null    $args['post_id']      Optional. Current post ID.
+   * @param string|null $args['post_type']    Optional. Current post type.
    * @param array       $args['breadcrumbs']  Array of breadcrumb tuples with label (0) and link (1).
    */
 
@@ -180,10 +180,10 @@ if ( ! function_exists( 'fictioneer_navigation_bar' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   * @param int|null       $args['post_id']           Optional. Current post ID.
+   * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+   * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+   * @param array          $args['header_args']       Arguments passed to the header.php partial.
    */
 
   function fictioneer_navigation_bar( $args ) {
@@ -202,10 +202,10 @@ if ( ! function_exists( 'fictioneer_site_header' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   * @param int|null       $args['post_id']           Optional. Current post ID.
+   * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+   * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+   * @param array          $args['header_args']       Arguments passed to the header.php partial.
    */
 
   function fictioneer_site_header( $args ) {
@@ -225,10 +225,10 @@ if ( ! function_exists( 'fictioneer_header_background' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   * @param int|null       $args['post_id']           Optional. Current post ID.
+   * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+   * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+   * @param array          $args['header_args']       Arguments passed to the header.php partial.
    */
 
   function fictioneer_header_background( $args ) {

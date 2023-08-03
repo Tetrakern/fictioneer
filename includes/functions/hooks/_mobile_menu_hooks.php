@@ -14,10 +14,10 @@ if ( ! function_exists( 'fictioneer_output_mobile_menu' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int|null       $args['post_id']          Current post ID or null.
-   * @param int|null       $args['story_id']         Current story ID (if chapter) or null.
-   * @param string|boolean $args['header_image_url'] URL of the filtered header image or false.
-   * @param array          $args['header_args']      Arguments passed to the header.php partial.
+   * @param int|null       $args['post_id']           Optional. Current post ID.
+   * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+   * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+   * @param array          $args['header_args']       Arguments passed to the header.php partial.
    */
 
   function fictioneer_output_mobile_menu( $args ) {
@@ -72,6 +72,7 @@ if ( ! function_exists( 'fictioneer_mobile_quick_buttons' ) ) {
     $output = [];
 
     // Build
+
     ob_start();
     // Start HTML ---> ?>
     <label for="site-setting-minimal" class="button _quick"><span><?php _e( 'Minimalist', 'fictioneer' ); ?></span></label>
