@@ -1,6 +1,43 @@
 <?php
 
 // =============================================================================
+// GET SHORTCODE TRANSIENT
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
+  /**
+   * Returns query for shortcode
+   *
+   * @since 5.4.9
+   *
+   * @param array $args  Query arguments.
+   *
+   * @return WP_Query The query result.
+   */
+
+  function fictioneer_shortcode_query( $args ) {
+    // Transient for shortcodes disabled or in admin panel?
+    if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION < 1 || is_admin() ) {
+      return new WP_Query( $args );
+    }
+
+    // Setup
+    $transient_key = 'fictioneer_shortcode_' . md5( serialize( $args ) );
+    $transient = get_transient( $transient_key );
+
+    // Query
+    if ( empty( $transient ) ) {
+      $result = new WP_Query( $args );
+      set_transient( $transient_key, $result, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
+    } else {
+      $result = $transient;
+    }
+
+    return $result;
+  }
+}
+
+// =============================================================================
 // SHORTCODE-BASED RELATIONSHIPS
 // =============================================================================
 
@@ -842,18 +879,18 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   if ( empty( $chapters ) ) return $empty;
 
   // Query chapters
-  $chapter_query = new WP_Query(
-    array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'post__in' => $chapters,
-      'ignore_sticky_posts' => true,
-      'orderby' => 'post__in', // Preserve order from meta box
-      'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-      'no_found_rows' => false, // Improve performance
-      'update_post_term_cache' => false // Improve performance
-    )
+  $query_args = array(
+    'post_type' => 'fcn_chapter',
+    'post_status' => 'publish',
+    'post__in' => $chapters,
+    'ignore_sticky_posts' => true,
+    'orderby' => 'post__in', // Preserve order from meta box
+    'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+    'no_found_rows' => true, // Improve performance
+    'update_post_term_cache' => false // Improve performance
   );
+
+  $chapter_query = fictioneer_shortcode_query( $query_args );
 
   // Check query for items
   if ( ! $chapter_query->have_posts() ) return $empty;

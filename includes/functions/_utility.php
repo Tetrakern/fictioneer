@@ -1706,4 +1706,62 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
   }
 }
 
+// =============================================================================
+// DELETE TRANSIENTS THAT INCLUDE A STRING
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_delete_transients_like' ) ) {
+  /**
+   * Delete Transients with a like key and return the count deleted
+   *
+   * @since 5.4.9
+   *
+   * @param string  $partial_key  String that is part of the key.
+   * @param boolean $fast         Optional. Whether to delete with a single SQL query or
+   *                              loop each Transient with delete_transient(), which can
+   *                              trigger hooked actions (if any). Default true.
+   *
+   * @return int Count of deleted Transients.
+   */
+
+  function fictioneer_delete_transients_like( $partial_key, $fast = true ) {
+    // Globals
+    global $wpdb;
+
+    // Setup
+    $count = 0;
+
+    // Fast?
+    if ( $fast ) {
+      // Prepare SQL
+      $sql = $wpdb->prepare(
+        "DELETE FROM $wpdb->options WHERE `option_name` LIKE %s OR `option_name` LIKE %s",
+        "%_transient%{$partial_key}%",
+        "%_transient_timeout%{$partial_key}%"
+      );
+
+      // Query
+      $count = $wpdb->query( $sql ) / 2; // Count Transient and Transient timeout as one
+    } else {
+      // Prepare SQL
+      $sql = $wpdb->prepare(
+        "SELECT `option_name` AS `name` FROM $wpdb->options WHERE `option_name` LIKE %s",
+        "_transient%{$partial_key}%"
+      );
+
+      // Query
+      $transients = $wpdb->get_col( $sql );
+
+      // Build full keys and delete
+      foreach ( $transients as $transient ) {
+        $key = str_replace( '_transient_', '', $transient );
+        $count += delete_transient( $key ) ? 1 : 0;
+      }
+    }
+
+    // Return count
+    return $count;
+  }
+}
+
 ?>

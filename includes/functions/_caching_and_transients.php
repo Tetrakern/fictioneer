@@ -567,4 +567,32 @@ if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
   }
 }
 
+// =============================================================================
+// PURGE SHORTCODE TRANSIENTS
+// =============================================================================
+
+/**
+ * Purge all shortcode Transients
+ *
+ * @since Fictioneer 5.4.9
+ *
+ * @param int $post_id  Updated post ID.
+ */
+
+function fictioneer_purge_shortcode_transients( $post_id ) {
+  // Prevent multi-fire
+  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
+  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+
+  // Delete Transients (fast)
+  fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+}
+
+if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  add_action( 'save_post', 'fictioneer_purge_shortcode_transients' );
+  add_action( 'untrash_post', 'fictioneer_purge_shortcode_transients' );
+  add_action( 'trashed_post', 'fictioneer_purge_shortcode_transients' );
+  add_action( 'delete_post', 'fictioneer_purge_shortcode_transients' );
+}
+
 ?>

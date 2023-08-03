@@ -61,7 +61,7 @@ if ( ! empty( $args['excluded_cats'] ) ) {
 $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_chapters_query_args', $query_args, $args );
 
 // Query chapters
-$entries = new WP_Query( $query_args );
+$entries = fictioneer_shortcode_query( $query_args );
 
 ?>
 

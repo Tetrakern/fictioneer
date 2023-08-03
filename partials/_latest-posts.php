@@ -56,7 +56,7 @@ if ( ! empty( $args['excluded_cats'] ) ) {
 $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_posts_query_args', $query_args, $args );
 
 // Query post
-$latest_entries = new WP_Query( $query_args );
+$latest_entries = fictioneer_shortcode_query( $query_args );
 
 ?>
 

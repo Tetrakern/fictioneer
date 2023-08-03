@@ -61,7 +61,7 @@ if ( ! empty( $args['excluded_cats'] ) ) {
 $query_args = apply_filters( 'fictioneer_filter_shortcode_showcase_query_args', $query_args, $args );
 
 // Query collections
-$query = new WP_Query( $query_args );
+$query = fictioneer_shortcode_query( $query_args );
 
 ?>
 
