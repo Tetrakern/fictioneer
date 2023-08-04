@@ -256,7 +256,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
 | `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
 
-| WORDPRESS HOOK | FICTIONEER FILTER
+| WORDPRESS HOOK | FICTIONEER FILTERS
 | ---: | :--- |
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
