@@ -572,7 +572,7 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
    * @param int          $id       The ID to validate.
    * @param string|array $for_type Optional. The expected post type(s).
    *
-   * @return int|boolean $safe_id The validated ID or false if invalid.
+   * @return int|boolean The validated ID or false if invalid.
    */
 
   function fictioneer_validate_id( $id, $for_type = [] ) {
@@ -580,7 +580,10 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
     $types = is_array( $for_type ) ? $for_type : [$for_type];
 
     if ( empty( $safe_id ) || $safe_id < 0 ) return false;
-    if ( $for_type && ! in_array( get_post_type( $safe_id ), $types ) ) return false;
+
+    if ( ! empty( $for_type ) && ! in_array( get_post_type( $safe_id ), $types ) ) {
+      return false;
+    }
 
     return $safe_id;
   }
