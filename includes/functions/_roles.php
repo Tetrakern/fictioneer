@@ -498,4 +498,80 @@ if (
   add_action( 'admin_bar_menu', 'fictioneer_reduce_contributor_admin_bar', 999 );
 }
 
+// =============================================================================
+// RESTRICT AUTHOR ROLE
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_reduce_author_dashboard_widgets' ) ) {
+  /**
+   * Remove admin dashboard widgets for authors
+   *
+   * @since Fictioneer 5.5.0
+   * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
+   */
+
+  function fictioneer_reduce_author_dashboard_widgets() {
+    global $wp_meta_boxes;
+
+    // Keep
+    $right_now = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'];
+    $activity = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'];
+
+    // Remove all
+    $wp_meta_boxes['dashboard']['normal']['core'] = [];
+    $wp_meta_boxes['dashboard']['side']['core'] = [];
+
+    // Re-add kept widgets
+    $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'] = $right_now;
+    $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] = $activity;
+
+    // Remove actions
+    remove_action( 'welcome_panel', 'wp_welcome_panel' );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_reduce_author_admin_bar' ) ) {
+  /**
+   * Remove items from admin bar for authors
+   *
+   * @since Fictioneer 5.5.0
+   */
+
+  function fictioneer_reduce_author_admin_bar() {
+    global $wp_admin_bar;
+
+    // Remove comments
+    $wp_admin_bar->remove_node( 'comments' );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_hide_author_comments_utilities' ) ) {
+  /**
+   * Hide comments utilities in admin dashboard for authors
+   *
+   * @since Fictioneer 5.5.0
+   */
+
+  function fictioneer_hide_author_comments_utilities() {
+    wp_add_inline_script(
+      'fictioneer-admin-script',
+      "jQuery(function($) {
+        $('.dashboard-comment-wrap > .row-actions').remove();
+        $('#latest-comments > .subsubsub').remove();
+        $('#dashboard_right_now .comment-count').remove();
+      });"
+    );
+  }
+}
+
+// Apply restrictions to authors
+if (
+  fictioneer_has_role( get_current_user_id(), 'author' ) &&
+  ! user_can( get_current_user_id(), 'administrator' )
+) {
+  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_author_dashboard_widgets' );
+  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_author_comments_utilities', 99 );
+  add_action( 'admin_bar_menu', 'fictioneer_reduce_author_admin_bar', 999 );
+}
+
 ?>

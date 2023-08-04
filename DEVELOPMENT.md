@@ -210,7 +210,8 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | ---: | :--- |
 | `add_meta_boxes` | `fictioneer_add_seo_metabox`
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
-| `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_contributor_comments_utilities`, `fictioneer_hide_editor_comments_utilities`, `fictioneer_hide_private_data`
+| `admin_bar_menu` | `fictioneer_reduce_author_admin_bar`, `fictioneer_reduce_contributor_admin_bar`, `fictioneer_reduce_editor_admin_bar`, `fictioneer_reduce_moderator_admin_bar`
+| `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_contributor_comments_utilities`, `fictioneer_hide_editor_comments_utilities`, `fictioneer_hide_private_data`, `fictioneer_hide_author_comments_utilities`
 | `admin_head-profile.php` | `fictioneer_hide_subscriber_profile_blocks`
 | `admin_init` | `fictioneer_reduce_subscriber_profile`, `fictioneer_register_settings`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_reduce_moderator_admin_panel`, `fictioneer_reduce_subscriber_admin_panel`, `fictioneer_remove_menu_pages`
@@ -244,7 +245,7 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_bookmarks`, `fictioneer_ajax_get_checkmarks`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_fingerprint`, `fictioneer_ajax_get_finished_list`, `fictioneer_ajax_get_follows`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_nonce`, `fictioneer_ajax_get_reminders`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_is_user_logged_in`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_request_story_comments`
 | `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_nonce`, `fictioneer_ajax_is_user_logged_in`, `fictioneer_ajax_submit_comment`, `fictioneer_request_story_comments`
 | `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links`
-| `wp_dashboard_setup` | `fictioneer_reduce_contributor_dashboard_widgets`, `fictioneer_reduce_editor_dashboard_widgets`, `fictioneer_reduce_moderator_dashboard_widgets`, `fictioneer_reduce_subscriber_dashboard_widgets`
+| `wp_dashboard_setup` | `fictioneer_reduce_contributor_dashboard_widgets`, `fictioneer_reduce_editor_dashboard_widgets`, `fictioneer_reduce_moderator_dashboard_widgets`, `fictioneer_reduce_subscriber_dashboard_widgets`, `fictioneer_reduce_author_dashboard_widgets`
 | `wp_default_scripts` | `fictioneer_remove_jquery_migrate`
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
 | `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`
