@@ -26,7 +26,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
     $examples = is_array( $examples ) ? $examples : [$examples];
 
     // Start HTML ---> ?>
-    <div class="keyword-input _empty">
+    <div class="keyword-input <?php if ( empty( $query_list ) ) echo '_empty'; ?>">
       <?php if ( ! ( $args['no_operator'] ?? 0 ) ) : ?>
         <label
           class="keyword-input__operator"
@@ -35,12 +35,12 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
           title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ) ?>"
           tabindex="0"
         >
-          <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and == 1 ) echo 'checked'; ?>>
+          <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and == 1 ) echo 'checked'; ?> autocomplete="off">
           <span class="on"><?php _ex( 'AND', 'Advanced search operator.', 'fictioneer' ); ?></span>
           <span class="off"><?php _ex( 'OR', 'Advanced search operator.', 'fictioneer' ); ?></span>
         </label>
       <?php endif; ?>
-      <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
+      <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>" autocomplete="off">
       <label
         class="keyword-input__track <?php if ( ! ( $args['no_operator'] ?? 0 ) ) echo '_operator'; ?>"
         data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>"
@@ -62,7 +62,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
         ?>
         <div class="keyword-input__input-wrapper">
           <div class="keyword-input__tab-suggestion"></div>
-          <input type="text" class="keyword-input__input" style="width: 16px;">
+          <input type="text" class="keyword-input__input" style="width: 16px;" autocomplete="off">
         </div>
       </label>
       <div class="keyword-input__hints"><?php
@@ -119,7 +119,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
 
     // Start HTML ---> ?>
     <div class="keyword-input  _empty">
-      <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>">
+      <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>" autocomplete="off">
       <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
         <?php
           if ( ! empty( $query_list ) ) {
@@ -138,7 +138,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
         ?>
         <div class="keyword-input__input-wrapper">
           <div class="keyword-input__tab-suggestion"></div>
-          <input type="text" class="keyword-input__input" style="width: 16px;">
+          <input type="text" class="keyword-input__input" style="width: 16px;" autocomplete="off">
         </div>
       </label>
       <div class="keyword-input__hints"><?php

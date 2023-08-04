@@ -285,12 +285,6 @@ input[type=radio] {
     }
   }
 
-  &:has(.keyword-input__hints[hidden]) {
-    .keyword-input__track::before {
-      display: none; // Hide empty hint on typing
-    }
-  }
-
   .node {
     position: relative;
     background: var(--input-node-background);

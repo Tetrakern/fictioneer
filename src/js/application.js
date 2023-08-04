@@ -1708,6 +1708,9 @@ class FCN_KeywordInput {
         // Check for comma, which indicates end of input
         if (e.currentTarget.value.includes(',')) this.addNode();
 
+        // Empty?
+        this.block.classList.toggle('_empty', e.currentTarget.value === '');
+
         // Filter suggestions
         this.filterSuggestions();
 
@@ -1738,6 +1741,7 @@ class FCN_KeywordInput {
 
         // Backspace
         if (e.keyCode == 8) {
+          console.log(this.keywords.length);
           if (this.input.value == '' && this.keywords.length > 0) {
             this.removeNodeByValue(this.keywords.slice(-1));
           }
