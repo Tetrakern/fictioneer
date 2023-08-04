@@ -36,42 +36,68 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
 
 if ( ! function_exists( 'fictioneer_shift_sticky_comments' ) ) {
   /**
-   * Shift sticky comments to the top
-   *
-   * So the 'orderby' by 'meta_key' query arguments do not work for some reason.
-   * You want to do this the hard way? Fine, let's do this the hard way!
+   * Query sticky comments and merge them in first
    *
    * @since Fictioneer 5.0
    *
-   * @param array $comments Queried comments.
+   * @param array $comments  Queried comments.
+   * @param int   $post_id   The post ID.
    *
-   * @return array Comments with sticky ones shifted to the top.
+   * @return array Comments with sticky ones on top.
    */
 
-  function fictioneer_shift_sticky_comments( $comments ) {
-    // Setup
-    $sticky = [];
+  function fictioneer_shift_sticky_comments( $comments, $post_id ) {
+    // Query arguments
+    $stick_comments_args = array(
+      'status' => 'approve',
+      'post_id' => $post_id,
+      'parent' => 0,
+      'meta_query' => array(
+        'relation' => 'AND',
+        array(
+          'key' => 'fictioneer_sticky',
+          'value' => 1,
+        ),
+        array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_marked_offensive',
+            'compare' => 'NOT EXISTS',
+          ),
+          array(
+            'key' => 'fictioneer_marked_offensive',
+            'value' => 1,
+            'compare' => '!=',
+          ),
+        ),
+        array(
+          'key' => 'fictioneer_deleted_by_user',
+          'compare' => 'NOT EXISTS',
+        )
+      )
+    );
 
-    // Loop through all f*cking comments like a madman!
-    foreach ( $comments as $key => $comment ) {
-      if (
-        ! get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true ) ||
-        $comment->comment_parent ||
-        get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true ) ||
-        get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true )
-      ) continue;
-
-      $sticky[] = $comment;
-      unset( $comments[ $key ] );
+    if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
+      $stick_comments_args['type'] = ['comment', 'private'];
+      $stick_comments_args['order'] = get_option( 'comment_order' );
+    } else {
+      $stick_comments_args['type'] = ['comment'];
     }
 
-    // Result
-    return array_merge( $sticky, $comments );
+    // Filter query arguments
+    $query_args = apply_filters( 'fictioneer_filter_comments_query', $stick_comments_args, $post_id );
+
+    // Query comments
+    $sticky_comments_query = new WP_Comment_Query( $query_args );
+    $sticky_comments = $sticky_comments_query->comments;
+
+    // Return merged comment lists
+    return array_merge( $sticky_comments, $comments );
   }
 }
 
 if ( get_option( 'fictioneer_enable_sticky_comments' ) ) {
-  add_filter( 'fictioneer_filter_comments', 'fictioneer_shift_sticky_comments' );
+  add_filter( 'fictioneer_filter_comments', 'fictioneer_shift_sticky_comments', 10, 2 );
 }
 
 // =============================================================================
