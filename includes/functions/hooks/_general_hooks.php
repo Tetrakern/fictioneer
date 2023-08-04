@@ -93,7 +93,7 @@ if ( ! function_exists( 'fictioneer_footer_menu_row' ) ) {
           $menu = str_replace( 'current-menu-item', '', $menu );
           $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
 
-          set_transient( 'fictioneer_footer_menu', $menu, HOUR_IN_SECONDS * 24 );
+          set_transient( 'fictioneer_footer_menu', $menu );
         }
 
         echo $menu;
