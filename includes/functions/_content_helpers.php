@@ -882,8 +882,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       'post_type' => 'fcn_chapter',
       'orderby' => 'post__in',
       'posts_per_page' => -1,
-      'update_post_term_cache' => false,
-      'no_found_rows' => true
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     );
 
     $chapters = new WP_Query( $query_args );
