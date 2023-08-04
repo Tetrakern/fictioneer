@@ -1077,7 +1077,6 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     // Setup
     $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
     $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
-    $bookshelf_title = trim( get_the_title( get_option( 'fictioneer_bookshelf_page' ) ) );
     $discord_link = get_option( 'fictioneer_discord_invite_link' );
     $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
     $can_follows = get_option( 'fictioneer_enable_follows' );
@@ -1123,7 +1122,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo empty( $bookshelf_title ) ? __( 'Bookshelf', 'fictioneer' ) : $bookshelf_title; ?></a>
+        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'account' ) ?></a>
       </li>
       <?php // <--- End HTML
       $output['bookshelf'] = ob_get_clean();

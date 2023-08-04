@@ -1065,6 +1065,7 @@ function fcntr( $key, $escape = false ) {
   // Define default translations
   $strings = array(
     'account' => __( 'Account', 'fictioneer' ),
+    'bookshelf' => __( 'Bookshelf', 'fictioneer' ),
     'admin' => _x( 'Admin', 'Caption for administrator badge label.', 'fictioneer' ),
     'anonymous_guest' => __( 'Anonymous Guest', 'fictioneer' ),
     'author' => _x( 'Author', 'Caption for author badge label.', 'fictioneer' ),

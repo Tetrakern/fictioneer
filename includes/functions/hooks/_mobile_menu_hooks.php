@@ -355,7 +355,6 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
     $post_type = is_archive() ? 'archive' : get_post_type();
     $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
     $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
-    $bookshelf_title = trim( get_the_title( get_option( 'fictioneer_bookshelf_page' ) ) );
     $discord_link = get_option( 'fictioneer_discord_invite_link' );
     $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
     $can_follows = get_option( 'fictioneer_enable_follows' );
@@ -416,7 +415,7 @@ if ( ! function_exists( 'fictioneer_mobile_user_menu' ) ) {
       // Start HTML ---> ?>
       <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
         <i class="fa-solid fa-list mobile-menu__item-icon"></i>
-        <?php echo empty( $bookshelf_title ) ? __( 'Bookshelf', 'fictioneer' ) : $bookshelf_title; ?>
+        <?php echo fcntr( 'bookshelf' ); ?>
       </a>
       <?php // <--- End HTML
       $output['bookshelf'] = ob_get_clean();
