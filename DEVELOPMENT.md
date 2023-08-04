@@ -249,18 +249,15 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
 | `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`
 
-| ACF HOOK | FICTIONEER ACTIONS
-| ---: | :--- |
-| `acf/fields/post_object/query/name=fictioneer_chapter_story` | `fictioneer_acf_scope_chapter_story`
-| `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
-| `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
-| `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
+<br>
 
 | WORDPRESS HOOK | FICTIONEER FILTERS
 | ---: | :--- |
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
+| `get_avatar` | `fictioneer_avatar_fallback`
+| `get_avatar_url` | `fictioneer_get_avatar_url`
 | `get_the_excerpt` | `fictioneer_fix_excerpt`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
@@ -275,6 +272,15 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `user_contactmethods` | `fictioneer_user_contact_methods`
 | `wp_is_application_passwords_available` | `__return_false`
 | `wp_sitemaps_enabled` | `__return_false`
+
+<br>
+
+| ACF HOOK | FICTIONEER ACTIONS
+| ---: | :--- |
+| `acf/fields/post_object/query/name=fictioneer_chapter_story` | `fictioneer_acf_scope_chapter_story`
+| `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
+| `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
+| `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
 
 ## Caching
 

@@ -17,7 +17,8 @@ if ( ! function_exists( 'fictioneer_avatar_fallback' ) ) {
    */
 
   function fictioneer_avatar_fallback( $avatar, $id_or_email ) {
-    $default_url = get_avatar_url( $id_or_email, ['force_default' => true] );
+    $default_url = get_avatar_url( 'nonexistentemail@example.com', array( 'force_default' => true ) );
+
     return str_replace( '<img', '<img onerror="this.src=\'' . $default_url . '\';this.srcset=\'\';this.onerror=\'\';"', $avatar );
   }
 }
@@ -42,7 +43,10 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
     // Override default avatar with external avatar if allowed
     if ( $user && is_object( $user ) && ! $user->fictioneer_enforce_gravatar ) {
       $avatar_url = empty( $user->fictioneer_external_avatar_url ) ? null : $user->fictioneer_external_avatar_url;
-      if ( $avatar_url ) return $avatar_url;
+
+      if ( ! empty( $avatar_url ) ) {
+        return $avatar_url;
+      }
     }
 
     return false;
@@ -67,12 +71,14 @@ if ( ! function_exists( 'fictioneer_get_avatar_url' ) ) {
    */
 
   function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
+    // Abort conditions...
+    if ( $args['force_default'] ) {
+      return $url;
+    }
+
     // Setup
     $user = fictioneer_get_user_by_id_or_email( $id_or_email );
     $custom_avatar = fictioneer_get_custom_avatar_url( $user );
-
-    // Abort conditions...
-    if ( $args['force_default'] ) return $url;
 
     // Check user and permissions
     if ( $user ) {
@@ -85,7 +91,9 @@ if ( ! function_exists( 'fictioneer_get_avatar_url' ) ) {
     }
 
     // Return custom avatar if set
-    if ( $custom_avatar ) return $custom_avatar;
+    if ( ! empty( $custom_avatar ) ) {
+      return $custom_avatar;
+    }
 
     // Return default avatar
     return $url;
@@ -110,10 +118,13 @@ if ( ! function_exists( 'fictioneer_ajax_get_avatar' ) ) {
   function fictioneer_ajax_get_avatar() {
     // Setup and validations
     $user = fictioneer_get_validated_ajax_user();
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+    if ( ! $user ) {
+      wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+    }
 
     // Response
-    wp_send_json_success( ['url' => get_avatar_url( $user->ID )] );
+    wp_send_json_success( array( 'url' => get_avatar_url( $user->ID ) ) );
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_avatar', 'fictioneer_ajax_get_avatar' );
