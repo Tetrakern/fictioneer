@@ -1137,8 +1137,10 @@ add_action( 'pre_get_posts', 'fictioneer_add_sof_to_taxonomy_query' );
  */
 
 function fictioneer_add_menu_link_attributes( $attributes, $item ) {
-  $attributes['data-target-id'] = $item->ID;
+  // Assign
+  $attributes['data-target-id'] = $item->object_id;
 
+  // Return
   return $attributes;
 }
 add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 10, 2 );
