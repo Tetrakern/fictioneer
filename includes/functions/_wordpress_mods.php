@@ -177,7 +177,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   	}
 
     // Cache for next time (24 hours)
-    set_transient( 'fictioneer_stories_total_word_count', $word_count, HOUR_IN_SECONDS * 24 );
+    set_transient( 'fictioneer_stories_total_word_count', $word_count );
 
     // Return newly calculated value
   	return $word_count;
