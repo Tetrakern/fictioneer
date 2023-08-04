@@ -91,6 +91,7 @@ if ( ! function_exists( 'fictioneer_footer_menu_row' ) ) {
           $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
           $menu = str_replace( 'current_page_item', '', $menu );
           $menu = str_replace( 'current-menu-item', '', $menu );
+          $menu = str_replace( 'aria-current="page"', '', $menu );
           $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
 
           set_transient( 'fictioneer_footer_menu', $menu );

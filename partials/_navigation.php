@@ -24,14 +24,27 @@
   <div class="main-navigation__wrapper">
     <div class="main-navigation__left">
       <?php
-        wp_nav_menu(
-          array(
-            'theme_location' => 'nav_menu',
-            'menu_class' => 'main-navigation__list',
-            'container' => '',
-            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>'
-          )
-        );
+        $menu = get_transient( 'fictioneer_main_nav_menu' );
+
+        if ( empty( $menu ) ) {
+          $menu = wp_nav_menu(
+            array(
+              'theme_location' => 'nav_menu',
+              'menu_class' => 'main-navigation__list',
+              'container' => '',
+              'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+              'echo' => false
+            )
+          );
+
+          $menu = str_replace( 'current_page_item', '', $menu );
+          $menu = str_replace( 'current-menu-item', '', $menu );
+          $menu = str_replace( 'aria-current="page"', '', $menu );
+
+          set_transient( 'fictioneer_main_nav_menu', $menu );
+        }
+
+        echo $menu;
       ?>
     </div>
     <div class="main-navigation__right">

@@ -589,7 +589,8 @@ function fictioneer_purge_cache_transients( $post_id ) {
     fictioneer_delete_transients_like( 'fictioneer_shortcode' );
   }
 
-  // Footer menu
+  // Menus
+  delete_transient( 'fictioneer_main_nav_menu' );
   delete_transient( 'fictioneer_footer_menu' );
 }
 add_action( 'save_post', 'fictioneer_purge_cache_transients' );

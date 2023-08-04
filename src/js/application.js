@@ -1978,3 +1978,23 @@ fcn_theBody.addEventListener('click', event => {
     }
   }
 });
+
+// =============================================================================
+// SCROLL TO ANCHORS
+// =============================================================================
+
+/**
+ * Mark currently active menu item
+ *
+ * @since 5.5.0
+ */
+
+function fcn_markCurrentMenuItem() {
+  _$$(`.menu-item > [data-nav-object-id="${fcn_theBody.dataset.postId}"]`).forEach(element => {
+    element.setAttribute('aria-current', 'page');
+    element.closest('.menu-item').classList.add('current-menu-item');
+  });
+}
+
+// Initialize
+fcn_markCurrentMenuItem();
