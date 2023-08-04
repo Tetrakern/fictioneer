@@ -11,6 +11,9 @@ var fcn_mobileMenuNavElements = [],
     fcn_mobileMenuUserElements = [],
     fcn_mobileMenuBottomElements = [];
 
+// Clone main navigation into mobile menu
+fcn_copyNavIntoMobileMenu();
+
 // Remove and store elements until needed
 fcn_toggleMobileMenuContent(false);
 
@@ -79,6 +82,7 @@ function fcn_toggleMobileMenuContent(add = true) {
     while (fcn_mobileMenuBottom.firstChild) {
       fcn_mobileMenuBottomElements.push(fcn_mobileMenuBottom.removeChild(fcn_mobileMenuBottom.firstChild));
     }
+
     return;
   }
 
@@ -116,6 +120,20 @@ fcn_theSite.addEventListener('click', e => {
     fcn_toggleMobileMenu(false);
   }
 });
+
+function fcn_copyNavIntoMobileMenu() {
+  const mainMenu = _$$$('menu-navigation');
+
+  if (mainMenu && !_$('#mobile-navigation > ul')) {
+    const clone = _$$$('menu-navigation').cloneNode(true);
+
+    clone.id = 'mobile-menu-navigation';
+    clone.classList.remove('main-navigation__list');
+    clone.classList.add('mobile-navigation__list');
+
+    _$$$('mobile-navigation').appendChild(clone);
+  }
+}
 
 // =============================================================================
 // JUMP BUTTONS

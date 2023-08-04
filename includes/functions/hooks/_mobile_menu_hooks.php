@@ -269,13 +269,7 @@ if ( ! function_exists( 'fictioneer_mobile_navigation_panel' ) ) {
   function fictioneer_mobile_navigation_panel() {
     // Start HTML ---> ?>
     <nav id="mobile-navigation" class="mobile-navigation mobile-menu__panel"><?php
-      wp_nav_menu(
-        array(
-          'theme_location' => 'nav_menu',
-          'menu_class' => 'mobile-navigation__list',
-          'container' => ''
-        )
-      );
+      // Cloned from the main navigation via JS
     ?></nav>
     <?php // <--- End HTML
   }
