@@ -21,9 +21,9 @@ function fictioneer_display_render_time() {
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.4.9' );
+define( 'FICTIONEER_VERSION', '5.5.0' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.4.9' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.5.0' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', false );
