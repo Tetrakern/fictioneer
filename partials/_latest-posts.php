@@ -31,7 +31,8 @@ $query_args = array(
   'order' => 'DESC',
   'posts_per_page' => $args['count'],
   'ignore_sticky_posts' => 1,
-  'no_found_rows' => true
+  'no_found_rows' => true, // Improve performance
+  'update_post_term_cache' => false // Improve performance
 );
 
 // Parameter for author?
@@ -66,9 +67,10 @@ $latest_entries = fictioneer_shortcode_query( $query_args );
     <?php while ( $latest_entries->have_posts() ) : $latest_entries->the_post(); ?>
 
       <?php
+        remove_filter( 'the_content', [ $GLOBALS['wp_embed'], 'run_shortcode' ], 8 );
+
         // Setup
         $title = fictioneer_get_safe_title( get_the_ID() );
-        $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
         $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 
         if (
@@ -76,6 +78,8 @@ $latest_entries = fictioneer_shortcode_query( $query_args );
           ! strpos( $post->post_content, '<!--more-->' )
         ) {
           $content = '<p>' . fictioneer_get_excerpt() . '</p><a class="more-link" href="' . get_permalink() . '" title="' . $label . '" aria-label="' . $label . '">' . fcntr( 'read_more' ) . '</a>';
+        } else {
+          $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
         }
       ?>
 

@@ -18,7 +18,6 @@
 
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
-$content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 $nested = $args['nested'] ?? false;
 
@@ -32,6 +31,8 @@ if (
   ! strpos( $post->post_content, '<!--more-->' )
 ) {
   $content = '<p>' . fictioneer_get_excerpt() . '</p><a class="more-link" href="' . get_permalink() . '" title="' . $label . '" aria-label="' . $label . '">' . fcntr( 'read_more' ) . '</a>';
+} else {
+  $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
 }
 
 ?>
