@@ -1741,7 +1741,6 @@ class FCN_KeywordInput {
 
         // Backspace
         if (e.keyCode == 8) {
-          console.log(this.keywords.length);
           if (this.input.value == '' && this.keywords.length > 0) {
             this.removeNodeByValue(this.keywords.slice(-1));
           }
