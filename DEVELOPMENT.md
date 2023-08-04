@@ -4,7 +4,7 @@ This is a quick guide to get you started if you want to contribute to the theme,
 
 ### Table of Contents
 
-* [Coding Standards and Documentation](#coding-standards-and-documentation)
+* [Coding Standards & Documentation](#coding-standards--documentation)
 * [Build Pipeline](#build-pipeline)
 * [CSS/SCSS](#cssscss)
   * [CSS Custom Properties (Variables)](#css-custom-properties-variables)
@@ -14,7 +14,7 @@ This is a quick guide to get you started if you want to contribute to the theme,
   * [Shorthands](#shorthands)
   * [Custom Events](#custom-events)
   * [AJAX Requests](#ajax-requests)
-* [Hooked Actions](#hooked-actions)
+* [Hooked Actions & Filters](#hooked-actions--filters)
 * [Caching](#caching)
   * [References](#references)
   * [Functions](#functions-1)
@@ -26,7 +26,7 @@ This is a quick guide to get you started if you want to contribute to the theme,
 * [Child theme example](https://github.com/Tetrakern/fictioneer-child-theme)
 * [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal)
 
-## Coding Standards and Documentation
+## Coding Standards & Documentation
 
 You can follow the WordPress [coding](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/) and [documentation](https://developer.wordpress.org/coding-standards/inline-documentation-standards/) standards, but they are not imperative here. Since the theme was originally not meant to be publicly released, no thought was spent on collaboration. Which does not mean no standards apply, just not the official ones. Great effort has been put into refactoring and documenting, making everything orderly and clean. Contributors are to uphold this effort and improve what is lacking. Either by following the official handbook or mimicking the existing code.
 
@@ -202,9 +202,9 @@ fcn_ajaxPost(
 });
 ```
 
-## Hooked Actions
+## Hooked Actions & Filters
 
-Fictioneer customizes WordPress by using as many standard action hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s [custom actions](ACTIONS.md). Following is a list of (unlikely) all theme actions hooked to WordPress in a not particularly easy to read at fashion.
+Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [actions](ACTIONS.md) and [filters](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion.
 
 | WORDPRESS HOOK | FICTIONEER ACTIONS
 | ---: | :--- |
@@ -219,7 +219,6 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | `admin_post_*` | `fictioneer_purge_all_epubs`, `admin_post_purge_all_seo_schemas`, `fictioneer_purge_seo_meta_caches`, `fictioneer_tools_add_moderator_role`, `fictioneer_tools_remove_moderator_role`, `fictioneer_tools_upgrade_author_role`, `fictioneer_tools_reset_author_role`, `fictioneer_tools_upgrade_contributor_role`, `fictioneer_tools_reset_contributor_role`, `fictioneer_tools_limit_editor_role`, `fictioneer_tools_reset_editor_role`, `fictioneer_tools_move_story_tags_to_genres`, `fictioneer_tools_duplicate_story_tags_to_genres`, `fictioneer_tools_purge_story_data_caches`, `fictioneer_tools_move_chapter_tags_to_genres`, `fictioneer_tools_duplicate_chapter_tags_to_genres`, `fictioneer_tools_append_default_genres`, `fictioneer_tools_append_default_tags`, `fictioneer_tools_remove_unused_tags`, `fictioneer_tools_reset_post_relationship_registry`, `fictioneer_tools_fix_users`, `fictioneer_tools_fix_stories`, `fictioneer_tools_fix_chapters`, `fictioneer_tools_fix_collections`, `fictioneer_tools_fix_pages`, `fictioneer_tools_fix_posts`, `fictioneer_tools_fix_recommendations`, `fictioneer_admin_profile_unset_oauth`, `fictioneer_admin_profile_clear_data_node`, `fictioneer_update_frontend_profile`, `fictioneer_cancel_frontend_email_change`
 | `after_setup_theme` | `fictioneer_theme_setup`
 | `comment_post` | `fictioneer_comment_post`, `fictioneer_post_comment_to_discord`
-| `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `current_screen` | `fictioneer_restrict_editor_menu_access`, `fictioneer_restrict_menu_access`, `fictioneer_restrict_moderator_menu_access`
 | `customize_register` | `fictioneer_add_customizers`
 | `customize_save_after` | `fictioneer_watch_for_customer_updates`
@@ -234,7 +233,7 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
-| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_extend_taxonomy_pages`, `fictioneer_limit_authors_to_own_posts_and_pages`, `fictioneer_remove_unlisted_from_search`, `fictioneer_add_sof_to_taxonomy_query`
+| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`
 | `preprocess_comment` | `fictioneer_preprocess_comment`
 | `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_cache_transients`
 | `show_user_profile` | `fictioneer_custom_profile_fields`
@@ -252,9 +251,30 @@ Fictioneer customizes WordPress by using as many standard action hooks as possib
 
 | ACF HOOK | FICTIONEER ACTIONS
 | ---: | :--- |
-| `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
-| `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
 | `acf/fields/post_object/query/name=fictioneer_chapter_story` | `fictioneer_acf_scope_chapter_story`
+| `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
+| `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
+| `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
+
+| WORDPRESS HOOK | FICTIONEER FILTER
+| ---: | :--- |
+| `comment_reply_link` | `fictioneer_comment_login_to_reply`
+| `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
+| `excerpt_length` | `fictioneer_custom_excerpt_length`
+| `get_the_excerpt` | `fictioneer_fix_excerpt`
+| `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
+| `logout_url` | `fictioneer_logout_redirect`
+| `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
+| `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_limit_authors_to_own_posts_and_pages`, `fictioneer_add_sof_to_taxonomy_query`
+| `protected_title_format` | `fictioneer_remove_protected_text`
+| `query_vars` | `fictioneer_query_vars`
+| `render_block` | `fictioneer_download_block_wrapper`
+| `rest_authentication_errors` | `fictioneer_restrict_rest_api`
+| `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
+| `the_password_form` | `fictioneer_password_form`
+| `user_contactmethods` | `fictioneer_user_contact_methods`
+| `wp_is_application_passwords_available` | `__return_false`
+| `wp_sitemaps_enabled` | `__return_false`
 
 ## Caching
 
