@@ -117,6 +117,11 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         )
       );
 
+      // Prime author cache
+      if ( ! empty( $chapter_query->posts ) && function_exists( 'update_post_author_caches' ) ) {
+        update_post_author_caches( $chapter_query->posts );
+      }
+
       if ( $chapter_query->have_posts() ) {
         $node['chapters'] = [];
 
@@ -349,6 +354,11 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     // Query stories
     $query = new WP_Query( $query_args );
     $stories = $query->posts;
+
+    // Prime author cache
+    if ( ! empty( $query->posts ) && function_exists( 'update_post_author_caches' ) ) {
+      update_post_author_caches( $query->posts );
+    }
 
     // Return error if...
     if ( $page > $query->max_num_pages ) {

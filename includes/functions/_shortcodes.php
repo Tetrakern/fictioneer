@@ -1250,6 +1250,11 @@ function fictioneer_shortcode_blog( $attr ) {
   // Query
   $blog_query = new WP_Query( $query_args );
 
+  // Prime author cache
+  if ( function_exists( 'update_post_author_caches' ) ) {
+    update_post_author_caches( $blog_query->posts );
+  }
+
   // Buffer
   ob_start();
 

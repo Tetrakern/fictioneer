@@ -22,7 +22,7 @@ function fictioneer_get_card_list( $type, $query_args = [], $empty = '', $card_a
   // Setup
   $html = '';
   $empty = $empty === '' ? __( 'No results.', 'fictioneer' ) : $empty;
-  $posts = false;
+  $query = false;
   $allowed_types = ['fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation', 'post'];
   $post_type = in_array( $type, ['story', 'chapter', 'collection', 'recommendation'] ) ? "fcn_$type" : $type;
   $page = isset( $query_args['paged'] ) ? $query_args['paged'] : 1;
@@ -51,16 +51,21 @@ function fictioneer_get_card_list( $type, $query_args = [], $empty = '', $card_a
 
   // Query (but not if 'post__in' is set and empty)
   if ( ! ( isset( $query_args['post__in'] ) && empty( $the_query_args['post__in'] ) ) ) {
-    $posts = new WP_Query( $the_query_args );
+    $query = new WP_Query( $the_query_args );
+
+    // Prime author cache
+    if ( ! empty( $query->posts ) && function_exists( 'update_post_author_caches' ) ) {
+      update_post_author_caches( $query->posts );
+    }
   }
 
   // Buffer HTML output
   ob_start();
 
   // Loop results
-  if ( $posts && $posts->have_posts() ) {
-    while ( $posts->have_posts() ) {
-      $posts->the_post();
+  if ( $query && $query->have_posts() ) {
+    while ( $query->have_posts() ) {
+      $query->the_post();
       get_template_part( 'partials/_card-' . str_replace( 'fcn_', '', $post_type ), null, $the_card_args );
     }
 
@@ -74,10 +79,9 @@ function fictioneer_get_card_list( $type, $query_args = [], $empty = '', $card_a
 
   // Get buffered HTML
   $html = ob_get_clean();
-  // $html = preg_replace( '/\s+/', ' ', $html ); // Remove excessive whitespaces
 
   // Return results
-  return ['query' => $posts, 'html' => $html, 'page' => $page, 'empty' => $is_empty];
+  return ['query' => $query, 'html' => $html, 'page' => $page, 'empty' => $is_empty];
 }
 
 // =============================================================================
