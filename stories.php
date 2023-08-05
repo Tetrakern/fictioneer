@@ -10,8 +10,8 @@
  * @subpackage Fictioneer
  * @since 3.0
  *
- * @internal ('fictioneer_filter_and_search_id') ACF field. You can use this ID for plugins.
- * @internal ('fictioneer_short_name')           ACF field. Meant for an abbreviated page name.
+ * @internal ('fictioneer_filter_and_search_id')  ACF field. You can use this ID for plugins.
+ * @internal ('fictioneer_short_name')            ACF field. Meant for an abbreviated page name.
  */
 ?>
 
@@ -34,18 +34,7 @@ $query_args = array (
   'orderby' => "meta_value {$orderby}",
   'order' => $order,
   'paged' => $page,
-  'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'meta_query' => array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'value' => '0'
-    ),
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'compare' => 'NOT EXISTS'
-    ),
-  )
+  'posts_per_page' => get_option( 'posts_per_page', 8 )
 );
 
 // Append date query (if any)

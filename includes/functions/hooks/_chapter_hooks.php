@@ -42,7 +42,12 @@ if ( ! function_exists( 'fictioneer_chapters_list' ) ) {
 
             while ( $args['chapters']->have_posts() ) {
               $args['chapters']->the_post();
-              get_template_part( 'partials/_card-chapter', null, $card_args );
+
+              if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+                get_template_part( 'partials/_card-hidden', null, $card_args );
+              } else {
+                get_template_part( 'partials/_card-chapter', null, $card_args );
+              }
             }
 
             // Actions at end of results

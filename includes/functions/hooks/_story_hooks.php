@@ -110,7 +110,12 @@ if ( ! function_exists( 'fictioneer_stories_list' ) ) {
 
             while ( $args['stories']->have_posts() ) {
               $args['stories']->the_post();
-              get_template_part( 'partials/_card-story', null, $card_args );
+
+              if ( fictioneer_get_field( 'fictioneer_story_hidden' ) ) {
+                get_template_part( 'partials/_card-hidden', null, $card_args );
+              } else {
+                get_template_part( 'partials/_card-story', null, $card_args );
+              }
             }
 
             // Actions at end of results
