@@ -316,8 +316,8 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
     return;
   }
 
-  // Fire save_post action for story
-  do_action( 'save_post', $story_id, $story, true );
+  // Update story post
+  wp_update_post( array( 'ID' => $story_id ) );
 }
 
 if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
