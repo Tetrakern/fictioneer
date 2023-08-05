@@ -1122,7 +1122,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'account' ) ?></a>
+        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookshelf' ) ?></a>
       </li>
       <?php // <--- End HTML
       $output['bookshelf'] = ob_get_clean();
