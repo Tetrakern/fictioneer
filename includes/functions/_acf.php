@@ -175,8 +175,8 @@ if ( ! function_exists( 'fictioneer_remember_chapters_modified' ) ) {
    * @since 4.0
    * @link https://www.advancedcustomfields.com/resources/acf-update_value/
    *
-   * @param mixed $value The field value.
-   * @param int|string $post_id The post ID where the value is saved.
+   * @param mixed      $value    The field value.
+   * @param int|string $post_id  The post ID where the value is saved.
    *
    * @return mixed The modified value.
    */
@@ -313,7 +313,11 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
   // Append chapter (if not already included) and save to database
   if ( ! in_array( $post_id, $story_chapters ) ) {
     $story_chapters[] = $post_id;
+
     update_post_meta( $story_id, 'fictioneer_story_chapters', array_unique( $story_chapters ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
   } else {
     return;
   }
@@ -323,7 +327,7 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
 }
 
 if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
-  add_action( 'acf/save_post', 'fictioneer_acf_append_chapter_to_story', 99 );
+  add_action( 'acf/save_post', 'fictioneer_acf_append_chapter_to_story', 10 );
 }
 
 ?>
