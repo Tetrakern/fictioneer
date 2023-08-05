@@ -1734,7 +1734,7 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
    *
    * @param int $post_id  The ID of the updated post.
    *
-   * @return boolean True if not saved by user, false otherwise.
+   * @return boolean True if NOT allowed, false otherwise.
    */
 
   function fictioneer_multi_save_guard( $post_id ) {
@@ -1748,7 +1748,7 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
       return true;
     }
 
-    // User-initiated save
+    // Allowed save
     return false;
   }
 }
