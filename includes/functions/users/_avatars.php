@@ -72,7 +72,7 @@ if ( ! function_exists( 'fictioneer_get_avatar_url' ) ) {
 
   function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
     // Abort conditions...
-    if ( $args['force_default'] ) {
+    if ( $args['force_default'] ?? false ) {
       return $url;
     }
 
