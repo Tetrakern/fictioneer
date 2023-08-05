@@ -27,6 +27,11 @@ function fictioneer_theme_deactivation() {
   delete_transient( 'fictioneer_sitemap_chapters' );
   delete_transient( 'fictioneer_sitemap_recommendations' );
   delete_transient( 'fictioneer_stories_total_word_count' );
+  delete_transient( 'fictioneer_main_nav_menu' );
+  delete_transient( 'fictioneer_footer_menu' );
+
+  // Delete all remaining theme Transients
+  fictioneer_delete_transients_like( 'fictioneer_' );
 
   // Only continue if the user wants to delete all options/mods
   if ( get_option( 'fictioneer_delete_theme_options_on_deactivation', false ) ) {
