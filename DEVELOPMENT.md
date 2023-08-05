@@ -253,14 +253,20 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 | WORDPRESS HOOK | FICTIONEER FILTERS
 | ---: | :--- |
+| `admin_body_class` | `fictioneer_addClassesToAdminBody`
+| `body_class` | `fictioneer_addClassesToBody`
+| `comment_email` | `__return_false`
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
+| `comment_row_actions` | `fictioneer_remove_quick_edit`
 | `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
 | `get_avatar` | `fictioneer_avatar_fallback`
 | `get_avatar_url` | `fictioneer_get_avatar_url`
+| `get_comment_author_IP` | `__return_empty_string`
 | `get_the_excerpt` | `fictioneer_fix_excerpt`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
+| `manage_users_columns` | `fictioneer_hide_users_columns`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
 | `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_limit_authors_to_own_posts_and_pages`, `fictioneer_add_sof_to_taxonomy_query`
 | `protected_title_format` | `fictioneer_remove_protected_text`
