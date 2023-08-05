@@ -97,66 +97,6 @@ if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
 }
 
 // =============================================================================
-// CURL HELPER
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_do_curl' ) ) {
-  /**
-   * Helper to do cURL
-   *
-   * @since Fictioneer 4.0
-   * @link  https://gist.github.com/cp6/aec1e58498d44111c4cbc3606d366367
-   * @link  https://www.php.net/manual/en/function.curl-setopt.php
-   *
-   * @param string  $url         URL string to cURL.
-   * @param string  $type        Whether to do a GET or POST request. Default 'GET'.
-   * @param array   $headers     CURLOPT_HTTPHEADER
-   * @param array   $post_fields CURLOPT_POSTFIELDS
-   * @param string  $user_agent  CURLOPT_USERAGENT
-   * @param boolean $follow      CURLOPT_FOLLOWLOCATION
-   * @param boolean $use_ssl     CURLOPT_SSL_VERIFYHOST, CURLOPT_SSL_VERIFYPEER
-   * @param int     $con_timeout CURLOPT_CONNECTTIMEOUT
-   * @param int     $timeout     URL CURLOPT_TIMEOUT
-   *
-   * @return boolean True if successful, false otherwise
-   */
-
-  function fictioneer_do_curl( string $url, string $type = 'GET', array $headers = [], array $post_fields = [], string $user_agent = '', string $referrer = '', bool $follow = true, bool $use_ssl = false, int $con_timeout = 10, int $timeout = 40 ) {
-    $crl = curl_init( $url );
-
-    curl_setopt( $crl, CURLOPT_CUSTOMREQUEST, $type );
-    curl_setopt( $crl, CURLOPT_USERAGENT, $user_agent );
-    curl_setopt( $crl, CURLOPT_REFERER, $referrer );
-
-    if ( $type == 'POST' ) {
-      curl_setopt( $crl, CURLOPT_POST, true );
-
-      if ( ! empty( $post_fields ) ) {
-        curl_setopt( $crl, CURLOPT_POSTFIELDS, $post_fields );
-      }
-    }
-
-    if ( ! empty( $headers ) ) {
-      curl_setopt( $crl, CURLOPT_HTTPHEADER, $headers );
-    }
-
-    curl_setopt( $crl, CURLOPT_FOLLOWLOCATION, $follow );
-    curl_setopt( $crl, CURLOPT_CONNECTTIMEOUT, $con_timeout );
-    curl_setopt( $crl, CURLOPT_TIMEOUT, $timeout );
-    curl_setopt( $crl, CURLOPT_SSL_VERIFYHOST, $use_ssl );
-    curl_setopt( $crl, CURLOPT_SSL_VERIFYPEER, $use_ssl );
-    curl_setopt( $crl, CURLOPT_ENCODING, 'gzip,deflate' );
-    curl_setopt( $crl, CURLOPT_RETURNTRANSFER, true );
-
-    $call_response = curl_exec( $crl );
-
-    curl_close( $crl );
-
-    return $call_response;
-  }
-}
-
-// =============================================================================
 // GET USER BY ID OR EMAIL
 // =============================================================================
 

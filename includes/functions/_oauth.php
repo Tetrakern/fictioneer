@@ -325,19 +325,30 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
 
   function fictioneer_process_oauth_discord( string $url, string $access_token ) {
     // Retrieve user data from Discord
-    $user = json_decode(
-      fictioneer_do_curl(
-        $url,
-        'GET',
-        array(
-          "Authorization: Bearer $access_token",
-          'Client-ID: ' . OAUTH2_CLIENT_ID
+    $response = wp_remote_get(
+      $url,
+      array(
+        'headers' => array(
+          'Authorization' => 'Bearer ' . $access_token,
+          'Client-ID' => OAUTH2_CLIENT_ID,
         )
       )
     );
 
+    if ( is_wp_error( $response ) ) {
+      fictioneer_oauth_die( $response->get_error_message() );
+    } else {
+      $user = json_decode( wp_remote_retrieve_body( $response ) );
+    }
+
     // User data successfully retrieved?
-    if ( ! $user || ! $user->verified ) fictioneer_oauth2_exit_and_return();
+    if ( ! isset( $user ) ) {
+      fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
+    }
+
+    if ( ! isset( $user->verified ) || ! $user->verified ) {
+      fictioneer_oauth_die( 'Account not verified.' );
+    }
 
     // Login or register user; note may be 'new', 'known', or 'error'
     $note = fictioneer_make_oauth_user(
@@ -346,7 +357,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
         'avatar' => esc_url_raw( "https://cdn.discordapp.com/avatars/{$user->id}/{$user->avatar}.png" ),
         'channel' => 'discord',
         'email' => $user->email,
-        'username' => $user->username . $user->discriminator,
+        'username' => $user->username . ( $user->discriminator ?? ''),
         'nickname' => $user->username
       )
     );
@@ -386,25 +397,32 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
 
   function fictioneer_process_oauth_twitch( string $url, string $access_token ) {
     // Retrieve user data from Twitch
-    $user = json_decode(
-      fictioneer_do_curl(
-        $url,
-        'GET',
-        array(
-          "Authorization: Bearer $access_token",
-          'Client-ID: ' . OAUTH2_CLIENT_ID
+    $response = wp_remote_get(
+      $url,
+      array(
+        'headers' => array(
+          'Authorization' => 'Bearer ' . $access_token,
+          'Client-ID' => OAUTH2_CLIENT_ID,
         )
       )
     );
 
+    if ( is_wp_error( $response ) ) {
+      fictioneer_oauth_die( $response->get_error_message() );
+    } else {
+      $user = json_decode( wp_remote_retrieve_body( $response ) );
+    }
+
     // User data successfully retrieved?
-    if ( ! $user ) fictioneer_oauth2_exit_and_return();
+    if ( empty( $user ) ) {
+      fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
+    }
 
     // Login or register user; note may be 'new', 'known', or 'error'
     $note = fictioneer_make_oauth_user(
       array(
         'uid' => $user->data[0]->id,
-        'avatar' => esc_url_raw( $user->data[0]->profile_image_url ),
+        'avatar' => esc_url_raw( $user->data[0]->profile_image_url ?? '' ),
         'channel' => 'twitch',
         'email' => $user->data[0]->email,
         'username' => $user->data[0]->login,
@@ -446,25 +464,36 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
 
   function fictioneer_process_oauth_google( string $url, string $access_token ) {
     // Retrieve user data from Google
-    $user = json_decode(
-      fictioneer_do_curl(
-        $url,
-        'GET',
-        array(
-          "Authorization: Bearer $access_token",
-          'Client-ID: ' . OAUTH2_CLIENT_ID
+    $response = wp_remote_get(
+      $url,
+      array(
+        'headers' => array(
+          'Authorization' => 'Bearer ' . $access_token,
+          'Client-ID' => OAUTH2_CLIENT_ID,
         )
       )
     );
 
+    if ( is_wp_error( $response ) ) {
+      fictioneer_oauth_die( $response->get_error_message() );
+    } else {
+      $user = json_decode( wp_remote_retrieve_body( $response ) );
+    }
+
     // User data successfully retrieved?
-    if ( ! $user || ! $user->verified_email ) fictioneer_oauth2_exit_and_return();
+    if ( ! isset( $user ) ) {
+      fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
+    }
+
+    if ( ! isset( $user->verified_email ) || ! $user->verified_email ) {
+      fictioneer_oauth_die( 'Email not verified.' );
+    }
 
     // Login or register user; note may be 'new', 'merged', 'known', or an error code
     $note = fictioneer_make_oauth_user(
       array(
         'uid' => $user->id,
-        'avatar' => esc_url_raw( $user->picture ),
+        'avatar' => esc_url_raw( $user->picture ?? '' ),
         'channel' => 'google',
         'email' => $user->email,
         'username' => $user->name,
@@ -509,13 +538,37 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     $params .= '&include=memberships.currently_entitled_tiers';
 
     // Retrieve user data from Patreon
-    $user = json_decode(
-      fictioneer_do_curl(
-        $url . $params,
-        'GET',
-        array( "Authorization: Bearer $access_token" )
+    $response = wp_remote_get(
+      $url . $params,
+      array(
+        'headers' => array(
+          'Authorization' => 'Bearer ' . $access_token
+        )
       )
     );
+
+    if ( is_wp_error( $response ) ) {
+      fictioneer_oauth_die( $response->get_error_message() );
+    } else {
+      $user = json_decode( wp_remote_retrieve_body( $response ) );
+    }
+
+    // User data successfully retrieved?
+    if ( ! isset( $user ) ) {
+      fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
+    }
+
+    if ( ! isset( $user->data ) ) {
+      fictioneer_oauth_die( 'Data node not found.' );
+    }
+
+    if ( ! isset( $user->data->attributes ) ) {
+      fictioneer_oauth_die( 'Attributes node not found.' );
+    }
+
+    if ( ! isset( $user->data->attributes->is_email_verified ) || ! $user->data->attributes->is_email_verified ) {
+      fictioneer_oauth_die( 'Email not verified.' );
+    }
 
     // Find Patreon tiers if any
     $tiers = [];
@@ -532,12 +585,9 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
       }
     }
 
-    // User data successfully retrieved?
-    if ( ! $user || ! $user->data->attributes->is_email_verified ) fictioneer_oauth2_exit_and_return();
-
     $args = array(
       'uid' => $user->data->id,
-      'avatar' => esc_url_raw( $user->data->attributes->image_url ),
+      'avatar' => esc_url_raw( $user->data->attributes->image_url ?? '' ),
       'channel' => 'patreon',
       'email' => $user->data->attributes->email,
       'username' => $user->data->attributes->first_name,
@@ -687,6 +737,26 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
 // =============================================================================
 // HELPERS
 // =============================================================================
+
+if ( ! function_exists( 'fictioneer_oauth_die' ) ) {
+  /**
+   * Outputs a formatted error message and stops script execution
+   *
+   * @since Fictioneer 5.5.2
+   *
+   * @param string $message  The error message.
+   * @param string $title    Optional. Title of the error page. Default 'Error'.
+   */
+
+  function fictioneer_oauth_die( $message, $title = 'Error' ) {
+    wp_die(
+      '<h1 style="margin-top: 0;">' . $title . '</h1>' .
+      '<p><pre>' . print_r( $message, true ) . '</pre></p>' .
+      '<p>The good news is, nothing has happened to your account. The bad new is, something is not working. Please try again later or contact an administrator for help. <a href="' . RETURN_URL . '">Back to site</a></p>',
+      $title
+    );
+  }
+}
 
 if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
   /**
