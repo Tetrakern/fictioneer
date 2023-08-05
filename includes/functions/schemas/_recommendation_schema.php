@@ -19,8 +19,9 @@ if ( ! function_exists( 'fictioneer_refresh_recommendation_schema' ) ) {
 
    function fictioneer_refresh_recommendation_schema( $post_id, $post ) {
     // Prevent multi-fire
-    if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-    if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
+      return;
+    }
 
     // Check what was updated
     if ( $post->post_type !== 'fcn_recommendation' ) return;

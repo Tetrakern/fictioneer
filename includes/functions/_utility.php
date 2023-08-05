@@ -1722,4 +1722,35 @@ if ( ! function_exists( 'fictioneer_get_assigned_page_link' ) ) {
   }
 }
 
+// =============================================================================
+// MULTI SAVE GUARD
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
+  /**
+   * Prevents multi-fire in update hooks
+   *
+   * @since 5.5.2
+   *
+   * @param int $post_id  The ID of the updated post.
+   *
+   * @return boolean True if not saved by user, false otherwise.
+   */
+
+  function fictioneer_multi_save_guard( $post_id ) {
+    // Automatic save?
+    if (
+      ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+      wp_is_post_autosave( $post_id ) ||
+      wp_is_post_revision( $post_id ) ||
+      in_array( get_post_status( $post_id ), ['auto-draft'] )
+    ) {
+      return true;
+    }
+
+    // User-initiated save
+    return false;
+  }
+}
+
 ?>

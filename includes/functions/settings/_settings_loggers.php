@@ -500,8 +500,9 @@ add_action( 'untrashed_post', function( $post_id ) {
 
 function fictioneer_log_published_posts( $post_id ) {
   // Prevent multi-fire
-  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
   // Updated or first published?
   if ( strtotime( '-5 seconds' ) < strtotime( get_the_date( 'c', $post_id ) ) ) {
@@ -535,8 +536,9 @@ add_action( 'publish_fcn_recommendation', 'fictioneer_log_published_posts' );
 
 function fictioneer_log_pending_posts( $post_id ) {
   // Prevent multi-fire
-  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
   // Relay
 	fictioneer_log_post_update( $post_id, __( 'submitted for review', 'fictioneer' ) );
@@ -564,8 +566,12 @@ add_action( 'pending_fcn_recommendation', 'fictioneer_log_published_posts' );
 
 function fictioneer_log_deleted_posts( $post_id ) {
   // Prevent multi-fire
-  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-  if ( did_action( 'before_delete_post' ) != 1 ) return;
+  if (
+    ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
+    did_action( 'before_delete_post' ) != 1
+  ) {
+    return;
+  }
 
   // Setup
   $post_type = get_post_type( $post_id );

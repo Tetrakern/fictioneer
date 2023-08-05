@@ -49,8 +49,9 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
 
 function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   // Prevent multi-fire
-  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
   // Setup
   $registry = fictioneer_get_relationship_registry();

@@ -266,13 +266,7 @@ if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
 
 function fictioneer_acf_append_chapter_to_story( $post_id ) {
   // Prevent miss-fire
-  if (
-    ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ||
-    wp_is_post_autosave( $post_id ) ||
-    wp_is_post_revision( $post_id ) ||
-    ! in_array( get_post_status( $post_id ), ['publish', 'future'] ) ||
-    get_post_type( $post_id ) != 'fcn_chapter'
-  ) {
+  if ( fictioneer_multi_save_guard( $post_id ) || get_post_type( $post_id ) != 'fcn_chapter' ) {
     return;
   }
 

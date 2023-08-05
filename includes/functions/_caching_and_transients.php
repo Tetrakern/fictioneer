@@ -293,8 +293,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
   function fictioneer_refresh_post_caches( $post_id ) {
     // Prevent multi-fire
-    if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-    if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
+      return;
+    }
 
     // Purge all?
     if ( get_option( 'fictioneer_purge_all_caches' ) ) {
@@ -508,14 +509,15 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
   function fictioneer_track_chapter_and_story_updates( $post_id ) {
     // Prevent multi-fire
-    if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-    if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
+      return;
+    }
 
     // Get story ID from post or parent story (if any)
     $post_type = get_post_type( $post_id );
     $story_id = $post_type == 'fcn_story' ? $post_id : fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
 
-    // Since every chapter needs to be attached to a story...
+    // If there is a story...
     if ( ! empty( $story_id ) ) {
       // Decides when cached story/chapter data need to be refreshed
       // Beware: This is an option, not a Transient!
@@ -585,8 +587,9 @@ if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
 
 function fictioneer_purge_cache_transients( $post_id ) {
   // Prevent multi-fire
-  if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) return;
-  if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) return;
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
   // Shortcodes
   if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
