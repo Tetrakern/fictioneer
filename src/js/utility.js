@@ -662,11 +662,12 @@ function fcn_buildUrl(params = {}, url = null) {
  *
  * @since 5.0
  * @param {String} message - Message of the error notice.
- * @param {String} id - Optional. ID of the element.
+ * @param {String} [id=false] - Optional. ID of the element.
+ * @param {Boolean} [sanitize=true] - Optional. Whether to sanitize the HTML.
  * @return {HTMLElement} Error notice to be added.
  */
 
-function fcn_buildErrorNotice(message, id = false) {
+function fcn_buildErrorNotice(message, id = false, sanitize = true) {
   // Setup
   const notice = document.createElement('div');
   let text = message;
@@ -684,7 +685,7 @@ function fcn_buildErrorNotice(message, id = false) {
   }
 
   // Build and return
-  notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${fcn_sanitizeHTML(text)}</div>`;
+  notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><div>${sanitize ? fcn_sanitizeHTML(text) : text}</div>`;
   return notice;
 }
 

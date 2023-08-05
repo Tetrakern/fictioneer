@@ -450,7 +450,8 @@ function fcn_bindAJAXCommentSubmit() {
         form.insertBefore(
           fcn_buildErrorNotice(
             response.data?.error ?? __('Error', 'fictioneer'),
-            'comment-submit-error-notice'
+            'comment-submit-error-notice',
+            false
           ),
           form.firstChild
         );
