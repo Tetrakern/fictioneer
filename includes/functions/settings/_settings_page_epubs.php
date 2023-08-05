@@ -92,7 +92,7 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
                       $story_data = null;
 
                       if ( $story ) {
-                        $story_data = fictioneer_get_story_data( $story->ID );
+                        $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
                       }
 
                       $downloads = $story ? get_post_meta( $story->ID, 'fictioneer_epub_downloads', true ) : 0;

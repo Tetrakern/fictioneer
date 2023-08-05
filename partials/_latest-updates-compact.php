@@ -87,7 +87,7 @@ $entries = fictioneer_shortcode_query( $query_args );
 
         <?php
           // Setup
-          $story = fictioneer_get_story_data( $post->ID );
+          $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
           $chapter_list = [];
           $chapter_excerpt; // Set inside inner loop
           $chapter_title; // Set inside inner loop

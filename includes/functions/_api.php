@@ -18,7 +18,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
   function fictioneer_api_get_story_node( $story_id, $with_chapters = true ) {
     // Validation
-    $data = fictioneer_get_story_data( $story_id );
+    $data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
     // Abort if...
     if ( empty( $data ) ) return false;

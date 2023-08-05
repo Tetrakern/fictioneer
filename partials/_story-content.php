@@ -133,7 +133,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
 
   <section id="chapters" class="story__tab-page _current story__chapters" data-order="asc" data-view="list">
     <?php
-      $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+      $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id ); // Already prepared!
       $chapter_groups = [];
 
       // Loop and prepare groups

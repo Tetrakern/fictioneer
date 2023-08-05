@@ -52,7 +52,7 @@ get_header( null, $header_args );
 
         // Story data
         if ( $story_post ) {
-          $story_data = fictioneer_get_story_data( $story_id );
+          $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
           $chapter_ids = $story_data['chapter_ids'];
         }
 

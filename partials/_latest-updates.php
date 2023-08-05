@@ -88,7 +88,7 @@ $entries = fictioneer_shortcode_query( $query_args );
 
         <?php
           // Setup
-          $story = fictioneer_get_story_data( $post->ID );
+          $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
           $chapter_list = [];
 

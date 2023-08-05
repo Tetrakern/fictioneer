@@ -77,7 +77,7 @@ $entries = fictioneer_shortcode_query( $query_args );
           $title = fictioneer_get_safe_title( get_the_ID() );
           $chapter_rating = fictioneer_get_field( 'fictioneer_chapter_rating' );
           $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
-          $story = $story_id ? fictioneer_get_story_data( $story_id ) : false;
+          $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : false; // Does not refresh comment count!
           $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
 
           // Chapter images

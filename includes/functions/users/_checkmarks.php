@@ -163,7 +163,7 @@ if ( ! function_exists( 'fictioneer_ajax_set_checkmark' ) ) {
       wp_send_json_error( ['error' => __( 'Invalid story ID.', 'fictioneer' )] );
     }
 
-    $story_data = fictioneer_get_story_data( $story_id );
+    $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
     // Prepare update
     $update = isset( $_POST['update'] ) ? explode( ' ', sanitize_text_field( $_POST['update'] ) ) : [];

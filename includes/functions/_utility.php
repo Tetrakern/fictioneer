@@ -200,12 +200,14 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    *
    * @since Fictioneer 4.3
    *
-   * @param int $story_id ID of the story.
+   * @param int     $story_id               ID of the story.
+   * @param boolean $refresh_comment_count  Optional. Whether to refresh comment count.
+   *                                        Default true.
    *
    * @return array|boolean $result Data of the story or false if invalid.
    */
 
-  function fictioneer_get_story_data( $story_id ) {
+  function fictioneer_get_story_data( $story_id, $refresh_comment_count = true ) {
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
 
     if ( ! $story_id ) return false;
@@ -215,16 +217,18 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
     if ( ! empty( $old_data ) && $old_data['last_modified'] >= get_the_modified_time( 'U', $story_id ) ) {
       // Refresh comment count
-      $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
-        array(
-          'status' => 'approve',
-          'post_type' => array( 'fcn_chapter' ),
-          'post__in' => $old_data['chapter_ids'],
-          'count' => true
-        )
-      );
+      if ( $refresh_comment_count ) {
+        $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
+          array(
+            'status' => 'approve',
+            'post_type' => array( 'fcn_chapter' ),
+            'post__in' => $old_data['chapter_ids'],
+            'count' => true
+          )
+        );
 
-      $old_data['comment_count'] = $comment_count;
+        $old_data['comment_count'] = $comment_count;
+      }
 
       // Return cached data
       return $old_data;

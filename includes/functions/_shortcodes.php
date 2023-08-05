@@ -871,7 +871,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   if ( $story_id && empty( $chapter_ids ) ) {
     // ... via story
     $hide_icons = $hide_icons || fictioneer_get_field( 'fictioneer_story_hide_chapter_icons', $story_id );
-    $story_data = fictioneer_get_story_data( $story_id );
+    $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
     $chapters = $story_data['chapter_ids'];
   } elseif ( ! empty( $chapter_ids ) ) {
     // ... via chapter IDs

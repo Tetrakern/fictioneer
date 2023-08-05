@@ -19,7 +19,7 @@
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
 $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
-$story_data = $story_id ? fictioneer_get_story_data( $story_id ) : null;
+$story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
 $chapter_rating = fictioneer_get_field( 'fictioneer_chapter_rating' );
 $story_thumbnail_url_full = $story_id ? get_the_post_thumbnail_url( $story_id, 'full' ) : null;
 $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
