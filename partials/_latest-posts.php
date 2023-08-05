@@ -67,8 +67,6 @@ $latest_entries = fictioneer_shortcode_query( $query_args );
     <?php while ( $latest_entries->have_posts() ) : $latest_entries->the_post(); ?>
 
       <?php
-        remove_filter( 'the_content', [ $GLOBALS['wp_embed'], 'run_shortcode' ], 8 );
-
         // Setup
         $title = fictioneer_get_safe_title( get_the_ID() );
         $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
