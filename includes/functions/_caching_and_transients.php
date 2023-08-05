@@ -171,15 +171,18 @@ if ( ! function_exists( 'fictioneer_purge_story_list_caches' ) ) {
         'fields' => 'ids',
         'meta_key' => '_wp_page_template',
         'meta_value' => 'stories.php',
-        'update_post_meta_cache' => false,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       )
     );
 
     // Purge
     if ( $pages ) {
       foreach ( $pages as $page_id ) {
+        // Fires hooks, may be important to purge object caches
+        wp_update_post( array( 'ID' => $page_id ) );
+
         fictioneer_purge_post_cache( $page_id );
       }
     }
@@ -202,15 +205,18 @@ if ( ! function_exists( 'fictioneer_purge_chapter_list_caches' ) ) {
         'fields' => 'ids',
         'meta_key' => '_wp_page_template',
         'meta_value' => 'chapters.php',
-        'update_post_meta_cache' => false,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       )
     );
 
     // Purge
     if ( $pages ) {
       foreach ( $pages as $page_id ) {
+        // Fires hooks, may be important to purge object caches
+        wp_update_post( array( 'ID' => $page_id ) );
+
         fictioneer_purge_post_cache( $page_id );
       }
     }
@@ -233,15 +239,18 @@ if ( ! function_exists( 'fictioneer_purge_collection_list_caches' ) ) {
         'fields' => 'ids',
         'meta_key' => '_wp_page_template',
         'meta_value' => 'collections.php',
-        'update_post_meta_cache' => false,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       )
     );
 
     // Purge
     if ( $pages ) {
       foreach ( $pages as $page_id ) {
+        // Fires hooks, may be important to purge object caches
+        wp_update_post( array( 'ID' => $page_id ) );
+
         fictioneer_purge_post_cache( $page_id );
       }
     }
@@ -264,15 +273,18 @@ if ( ! function_exists( 'fictioneer_purge_recommendation_list_caches' ) ) {
         'fields' => 'ids',
         'meta_key' => '_wp_page_template',
         'meta_value' => 'recommendations.php',
-        'update_post_meta_cache' => false,
-        'update_post_term_cache' => false,
-        'no_found_rows' => true
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       )
     );
 
     // Purge
     if ( $pages ) {
       foreach ( $pages as $page_id ) {
+        // Fires hooks, may be important to purge object caches
+        wp_update_post( array( 'ID' => $page_id ) );
+
         fictioneer_purge_post_cache( $page_id );
       }
     }
@@ -307,7 +319,14 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     fictioneer_purge_post_cache( $post_id );
 
     // Purge front page (if any)
-    fictioneer_purge_post_cache( get_option( 'page_on_front' ) );
+    $font_page_id = intval( get_option( 'page_on_front' ) ?: -1 );
+
+    if ( $font_page_id != $post_id && $font_page_id > 0 ) {
+      // Fires hooks, may be important to purge object caches
+      wp_update_post( array( 'ID' => $font_page_id ) );
+
+      fictioneer_purge_post_cache( $font_page_id );
+    }
 
     // Purge parent story (if any)
     fictioneer_purge_post_cache(
@@ -332,6 +351,26 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
         foreach ( $chapters as $chapter_id ) {
           fictioneer_purge_post_cache( $chapter_id );
         }
+      }
+    }
+
+    // Purge all collections (cheapest option)
+    if ( get_post_type( $post_id ) != 'page' ) {
+      fictioneer_purge_collection_list_caches();
+
+      $collections = get_posts(
+        array(
+          'post_type' => 'fcn_collection',
+          'numberposts' => -1,
+          'fields' => 'ids',
+          'update_post_meta_cache' => false, // Improve performance
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      foreach ( $collections as $collection_id ) {
+        fictioneer_purge_post_cache( $collection_id );
       }
     }
 
@@ -376,25 +415,6 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
           fictioneer_purge_post_cache( $key );
           delete_post_meta( $key, 'fictioneer_schema' );
         }
-      }
-    }
-
-    // Purge all collections (cheapest option)
-    if ( get_post_type( $post_id ) != 'page' ) {
-      fictioneer_purge_collection_list_caches();
-
-      $collections = get_posts(
-        array(
-          'post_type' => 'fcn_collection',
-          'numberposts' => -1,
-          'fields' => 'ids',
-          'update_post_meta_cache' => false,
-          'update_post_term_cache' => false
-        )
-      );
-
-      foreach ( $collections as $collection_id ) {
-        fictioneer_purge_post_cache( $collection_id );
       }
     }
   }

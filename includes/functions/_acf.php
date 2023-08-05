@@ -308,15 +308,20 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
   if ( ! in_array( $post_id, $story_chapters ) ) {
     $story_chapters[] = $post_id;
 
+    // Append chapter to field
     update_post_meta( $story_id, 'fictioneer_story_chapters', array_unique( $story_chapters ) );
+
+    // Remember when chapter list has been last updated
     update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
     update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+
+    // Clear story data cache to ensure it gets refreshed
     update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
   } else {
     return;
   }
 
-  // Update story post
+  // Update story post to fire associated actions
   wp_update_post( array( 'ID' => $story_id ) );
 }
 
