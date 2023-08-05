@@ -116,10 +116,6 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     }
 
     // WP Super Cache
-    if ( function_exists( 'wpsc_delete_post_cache' ) ) {
-      wpsc_delete_post_cache( $post_id );
-    }
-
     if ( function_exists( 'wp_cache_post_change' ) ) {
       wp_cache_post_change( $post_id );
     }
