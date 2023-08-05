@@ -60,6 +60,9 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
    */
 
   function fictioneer_purge_all_caches() {
+    // WordPress Query Cache
+    wp_cache_flush();
+
     // LiteSpeed Cache
     if ( class_exists( '\LiteSpeed\Purge' ) ) {
       do_action( 'litespeed_purge_all' );
@@ -103,7 +106,10 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     $post_id = fictioneer_validate_id( $post_id );
 
     // Abort if...
-    if ( ! $post_id ) return;
+    if ( empty( $post_id ) ) return;
+
+    // WordPress Query Cache
+    clean_post_cache( $post_id );
 
     // LiteSpeed Cache
     if ( class_exists( '\LiteSpeed\Purge' ) ) {
@@ -380,15 +386,15 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
       // Always purge...
       foreach ( $registry['always'] as $key => $entry ) {
-        fictioneer_purge_post_cache( $key );
         delete_post_meta( $key, 'fictioneer_schema' );
+        fictioneer_purge_post_cache( $key );
       }
 
       // Direct relationships
       if ( isset( $registry[ $post_id ] ) ) {
         foreach ( $registry[ $post_id ] as $key => $entry ) {
-          fictioneer_purge_post_cache( $key );
           delete_post_meta( $key, 'fictioneer_schema' );
+          fictioneer_purge_post_cache( $key );
         }
       }
 
@@ -412,8 +418,8 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
       if ( $relation ) {
         foreach ( $registry[ $relation ] as $key => $entry ) {
-          fictioneer_purge_post_cache( $key );
           delete_post_meta( $key, 'fictioneer_schema' );
+          fictioneer_purge_post_cache( $key );
         }
       }
     }

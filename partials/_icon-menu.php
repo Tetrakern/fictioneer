@@ -51,7 +51,7 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
     </div>
   <?php endif; ?>
 
-  <?php if ( $bookmarks_link ) : ?>
+  <?php if ( ! empty( $bookmarks_link ) ) : ?>
     <a
       href="<?php echo esc_url( $bookmarks_link ); ?>"
       title="<?php esc_attr_e( 'Bookmarks Page', 'fictioneer' ) ?>"
