@@ -31,7 +31,7 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Support the Development
 
-Fictioneer (up to 5.4) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [actions](ACTIONS.md), and [filters](FILTERS.md). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer (up to 5.5) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [actions](ACTIONS.md), and [filters](FILTERS.md). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
 ## Screenshots
 
