@@ -17,7 +17,7 @@ if ( ! function_exists( 'fictioneer_avatar_fallback' ) ) {
    */
 
   function fictioneer_avatar_fallback( $avatar, $id_or_email ) {
-    $default_url = get_avatar_url( 'nonexistentemail@example.com', array( 'force_default' => true ) );
+    $default_url = get_avatar_url( 'nonexistentemail@example.com' );
 
     return str_replace( '<img', '<img onerror="this.src=\'' . $default_url . '\';this.srcset=\'\';this.onerror=\'\';"', $avatar );
   }
