@@ -11,13 +11,13 @@
  * @since 4.7
  * @see single-fcn_collection.php
  *
- * @internal $args['collection']     Collection post object.
- * @internal $args['collection_id']  The collection post ID.
- * @internal $args['title']          Safe collection title.
- * @internal $args['current_page']   Number of the current page or 1.
- * @internal $args['max_pages']      Total number of pages or 1.
- * @internal $args['featured_list']  IDs of featured items in the collection.
- * @internal $args['featured_query'] Paginated query of featured items.
+ * @internal $args['collection']      Collection post object.
+ * @internal $args['collection_id']   The collection post ID.
+ * @internal $args['title']           Safe collection title.
+ * @internal $args['current_page']    Number of the current page or 1.
+ * @internal $args['max_pages']       Total number of pages or 1.
+ * @internal $args['featured_list']   IDs of featured items in the collection. Already cleaned.
+ * @internal $args['featured_query']  Paginated query of featured items. Already cleaned.
  */
 ?>
 
@@ -38,11 +38,6 @@ if ( ! empty( $args['featured_list'] ) ) {
     if ( $post_type == 'fcn_chapter' ) {
       $query_chapter_ids[] = $post_id;
     } elseif ( $post_type == 'fcn_story' ) {
-      // Skip hidden stories
-      if ( fictioneer_get_field( 'fictioneer_story_hidden', $post_id ) ) {
-        continue;
-      }
-
       $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
       $story_count += 1;
 
@@ -61,7 +56,8 @@ if ( ! empty( $args['featured_list'] ) ) {
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
     'post__in' => $query_chapter_ids,
-    'posts_per_page' => -1
+    'posts_per_page' => -1,
+    'update_post_term_cache' => false
   );
 
   $chapters = new WP_Query( $chapter_query_args );

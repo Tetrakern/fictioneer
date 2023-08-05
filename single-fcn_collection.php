@@ -34,33 +34,43 @@
         $this_breadcrumb = [$title, get_the_permalink()];
         $current_page = max( 1, get_query_var( 'pg', 1 ) ?: 1 ); // Paged not available
 
-        // Clean featured list of unwanted entries
-        foreach ( $featured_list as $key => $post_id ) {
-          if ( get_post_status( $post_id ) != 'publish' ) unset( $featured_list[$key] );
-          if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $post_id ) ) unset( $featured_list[$key] );
-        }
-
-        // Prepare query
-        $query_args = array (
+        // Prepare raw query (because meta query takes far too long)
+        $raw_query_args = array (
           'post_type' => 'any',
           'post_status' => 'publish',
+          'post__in' => $featured_list,
+          'ignore_sticky_posts' => 1,
+          'posts_per_page' => -1,
+          'no_found_rows' => true
+        );
+
+        $raw_query = new WP_Query( $raw_query_args );
+
+        // Filter raw results (yes, this is the fastest and cleanest way I could find)
+        $featured_list = [];
+
+        foreach ( $raw_query->posts as $raw_post ) {
+          if (
+            fictioneer_get_field( 'fictioneer_story_hidden', $raw_post->ID ) ||
+            fictioneer_get_field( 'fictioneer_chapter_hidden', $raw_post->ID )
+          ) {
+            continue;
+          }
+
+          $featured_list[] = $raw_post->ID;
+        }
+
+        // Prepare paginated featured query
+        $query_args = array (
+          'post_type' => 'any',
           'post__in' => $featured_list,
           'ignore_sticky_posts' => 1,
           'orderby' => 'modified',
           'order' => 'DESC',
           'paged' => $current_page,
           'posts_per_page' => get_option( 'posts_per_page', 8 ),
-          'meta_query' => array(
-            'relation' => 'OR',
-            array(
-              'key' => 'fictioneer_story_hidden',
-              'value' => '0'
-            ),
-            array(
-              'key' => 'fictioneer_story_hidden',
-              'compare' => 'NOT EXISTS'
-            ),
-          )
+          'update_post_meta_cache' => false, // Already updated in superset of raw query
+					'update_post_term_cache' => false // Already updated in superset of raw query
         );
 
         // Query featured posts
