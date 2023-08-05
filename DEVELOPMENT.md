@@ -204,7 +204,7 @@ fcn_ajaxPost(
 
 ## Hooked Actions & Filters
 
-Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [actions](ACTIONS.md) and [filters](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion.
+Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [actions](ACTIONS.md) and [filters](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion. Some of them are conditional.
 
 | WORDPRESS HOOK | FICTIONEER ACTIONS
 | ---: | :--- |
@@ -234,7 +234,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`
-| `preprocess_comment` | `fictioneer_preprocess_comment`
 | `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_cache_transients`
 | `show_user_profile` | `fictioneer_custom_profile_fields`
 | `switch_theme` | `fictioneer_theme_deactivation`
@@ -254,29 +253,47 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | WORDPRESS HOOK | FICTIONEER FILTERS
 | ---: | :--- |
 | `admin_body_class` | `fictioneer_addClassesToAdminBody`
+| `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter`
+| `allowed_block_types_all` | `fictioneer_allowed_block_types`
 | `body_class` | `fictioneer_addClassesToBody`
+| `cancel_comment_reply_link` | `__return_empty_string`
 | `comment_email` | `__return_false`
+| `comment_form_default_fields` | `fictioneer_change_comment_fields`
+| `comment_form_defaults` | `fictioneer_comment_form_args`
+| `comment_form_submit_field` | `fictioneer_change_submit_field`
+| `comment_post_redirect` | `fictioneer_redirect_comment`
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `comment_row_actions` | `fictioneer_remove_quick_edit`
+| `comment_text` | `fictioneer_bbcodes`
 | `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
+| `excerpt_more` | `fictioneer_excerpt_ellipsis`
 | `get_avatar` | `fictioneer_avatar_fallback`
 | `get_avatar_url` | `fictioneer_get_avatar_url`
 | `get_comment_author_IP` | `__return_empty_string`
+| `get_comment_text` | `fictioneer_replace_comment_line_breaks`
 | `get_the_excerpt` | `fictioneer_fix_excerpt`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
+| `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`
 | `manage_users_columns` | `fictioneer_hide_users_columns`
+| `navigation_markup_template` | `fictioneer_pagination_markup`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
+| `pre_comment_user_ip` | `__return_empty_string`
 | `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_limit_authors_to_own_posts_and_pages`, `fictioneer_add_sof_to_taxonomy_query`
+| `preprocess_comment` | `fictioneer_preprocess_comment`, `fictioneer_validate_comment_form`
 | `protected_title_format` | `fictioneer_remove_protected_text`
 | `query_vars` | `fictioneer_query_vars`
+| `removable_query_args` | `fictioneer_removable_args`
 | `render_block` | `fictioneer_download_block_wrapper`
 | `rest_authentication_errors` | `fictioneer_restrict_rest_api`
+| `show_admin_bar` | `__return_false`
 | `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
 | `the_password_form` | `fictioneer_password_form`
 | `user_contactmethods` | `fictioneer_user_contact_methods`
+| `wp_list_comments_args` | `fictioneer_comment_list_args`
 | `wp_is_application_passwords_available` | `__return_false`
+| `wp_robots` | `fictioneer_add_noindex_to_robots`
 | `wp_sitemaps_enabled` | `__return_false`
 
 <br>
