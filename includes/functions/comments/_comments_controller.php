@@ -156,7 +156,7 @@ if ( ! function_exists( 'fictioneer_preprocess_comment' ) ) {
     return $commentdata;
   }
 }
-add_action( 'preprocess_comment', 'fictioneer_preprocess_comment', 30, 1 );
+add_filter( 'preprocess_comment', 'fictioneer_preprocess_comment', 30, 1 );
 
 // =============================================================================
 // VALIDATE COMMENT FORM
