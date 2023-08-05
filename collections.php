@@ -45,6 +45,11 @@ $query_args = apply_filters( 'fictioneer_filter_collections_query_args', $query_
 // Query collections
 $list_of_collections = new WP_Query( $query_args );
 
+// Prime author cache
+if ( function_exists( 'update_post_author_caches' ) ) {
+  update_post_author_caches( $list_of_collections->posts );
+}
+
 ?>
 
 <?php get_header(); ?>

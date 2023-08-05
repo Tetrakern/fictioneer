@@ -57,6 +57,11 @@ $query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args
 // Query stories
 $list_of_stories = new WP_Query( $query_args );
 
+// Prime author cache
+if ( function_exists( 'update_post_author_caches' ) ) {
+  update_post_author_caches( $list_of_stories->posts );
+}
+
 ?>
 
 <?php get_header(); ?>

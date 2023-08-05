@@ -56,6 +56,11 @@ $query_args = apply_filters( 'fictioneer_filter_chapters_query_args', $query_arg
 // Query chapters
 $list_of_chapters = new WP_Query( $query_args );
 
+// Prime author cache
+if ( function_exists( 'update_post_author_caches' ) ) {
+  update_post_author_caches( $list_of_chapters->posts );
+}
+
 ?>
 
 <?php get_header(); ?>

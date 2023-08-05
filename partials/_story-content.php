@@ -152,13 +152,19 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
           )
         );
 
+        // Prime author cache
+        if ( function_exists( 'update_post_author_caches' ) ) {
+          update_post_author_caches( $chapter_query->posts );
+        }
+
+        // Prepare chapter groups
         if ( $chapter_query->have_posts() ) {
           while( $chapter_query->have_posts() ) {
             // Setup
             $chapter_query->the_post();
             $chapter_id = get_the_ID();
 
-            // Skip not visible chapters
+            // Skip not visible chapters (redundant for paranoia)
             if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
 
             // Data

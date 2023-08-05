@@ -66,6 +66,11 @@
         // Query featured posts
         $featured_query = new WP_Query( $query_args );
 
+        // Prime author cache
+        if ( function_exists( 'update_post_author_caches' ) ) {
+          update_post_author_caches( $featured_query->posts );
+        }
+
         // Arguments for hooks and templates/etc.
         $hook_args = array(
           'collection' => $post,

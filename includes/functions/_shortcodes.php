@@ -18,7 +18,14 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
   function fictioneer_shortcode_query( $args ) {
     // Transient for shortcodes disabled or in admin panel?
     if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION < 1 || is_admin() ) {
-      return new WP_Query( $args );
+      $result = new WP_Query( $args );
+
+      // Prime author cache
+      if ( ! empty( $result->posts ) && function_exists( 'update_post_author_caches' ) ) {
+        update_post_author_caches( $result->posts );
+      }
+
+      return $result;
     }
 
     // Setup
@@ -31,6 +38,11 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
       set_transient( $transient_key, $result, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
     } else {
       $result = $transient;
+    }
+
+    // Prime author cache
+    if ( ! empty( $result->posts ) && function_exists( 'update_post_author_caches' ) ) {
+      update_post_author_caches( $result->posts );
     }
 
     return $result;
