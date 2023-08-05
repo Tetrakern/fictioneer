@@ -261,15 +261,32 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
     }
 
+    // Query chapters
+    $chapters = new WP_Query(
+      array(
+        'post_type' => 'fcn_chapter',
+        'post_status' => 'publish',
+        'post__in' => $chapters,
+        'ignore_sticky_posts' => true,
+        'orderby' => 'post__in', // Preserve order from meta box
+        'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+        'no_found_rows' => true // Improve performance
+      )
+    );
+
     // Count chapters and words
-    if ( $chapters ) {
-      foreach ( $chapters as $chapter_id ) {
-        if ( ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) && get_post_status( $chapter_id ) === 'publish' ) {
-          if ( ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id ) ) {
+    if ( $chapters->have_posts() ) {
+      foreach ( $chapters->posts as $chapter ) {
+        // This is about 50 times faster than using a meta query lol
+        if ( ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) {
+          // Do not count non-chapters...
+          if ( ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ) {
             $chapter_count += 1;
-            $word_count += get_post_meta( $chapter_id, '_word_count', true );
+            $word_count += fictioneer_get_field( '_word_count', $chapter->ID );
           }
-          $chapter_ids[] = $chapter_id;
+
+          // ... but they are still listed!
+          $chapter_ids[] = $chapter->ID;
         }
       }
     }
