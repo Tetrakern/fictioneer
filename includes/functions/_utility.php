@@ -274,6 +274,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         'ignore_sticky_posts' => true,
         'orderby' => 'post__in', // Preserve order from meta box
         'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+        'update_post_term_cache' => false, // Improve performance
         'no_found_rows' => true // Improve performance
       )
     );
