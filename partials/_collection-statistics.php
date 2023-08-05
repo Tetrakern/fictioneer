@@ -43,7 +43,7 @@ if ( ! empty( $args['featured_list'] ) ) {
         continue;
       }
 
-      $story = fictioneer_get_story_data( $post_id );
+      $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
       $story_count += 1;
 
       // Count all chapters in story (if any)
@@ -61,26 +61,21 @@ if ( ! empty( $args['featured_list'] ) ) {
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
     'post__in' => $query_chapter_ids,
-    'posts_per_page' => -1,
-    'meta_query' => array(
-      'relation' => 'AND',
-      array(
-        'key' => 'fictioneer_chapter_hidden',
-        'value' => '0'
-      ),
-      array(
-        'key' => 'fictioneer_chapter_no_chapter',
-        'value' => '0'
-      )
-    )
+    'posts_per_page' => -1
   );
 
   $chapters = new WP_Query( $chapter_query_args );
 
   // Count words
   foreach ( $chapters->posts as $chapter ) {
-    $words = get_post_meta( $chapter->ID, '_word_count', true );
-    $word_count += intval( $words );
+    // This is about 50 times faster than using a meta query lol
+    if (
+      ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) &&
+      ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID )
+    ) {
+      $words = fictioneer_get_field( '_word_count', $chapter->ID );
+      $word_count += intval( $words );
+    }
   }
 }
 
