@@ -229,6 +229,12 @@ function fictioneer_extend_search_query( $query ) {
     return;
   }
 
+  // Empty search if no params provided
+  if ( empty( array_filter( $_GET ) ) ) {
+    $query->set( 'post__in', [0] );
+    return;
+  }
+
   // Fix broken search if no term was entered
   if ( empty( $query->get( 's' ) ) ) {
     $query->set( 's', ' ' ); // Most posts should have at least one whitespace

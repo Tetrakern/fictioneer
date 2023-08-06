@@ -493,4 +493,30 @@ add_action( 'fictioneer_collections_after_content', 'fictioneer_sort_order_filte
 add_action( 'fictioneer_recommendations_after_content', 'fictioneer_sort_order_filter_interface', 20 );
 add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_interface', 10 );
 
+// =============================================================================
+// SEARCH RESULTS
+// =============================================================================
+
+/**
+ * Outputs the HTML for no search params
+ *
+ * @since Fictioneer 5.5.2
+ */
+
+function fictioneer_no_search_params() {
+  echo __( 'Please enter search parameters.', 'fictioneer' );
+}
+add_action( 'fictioneer_search_no_params', 'fictioneer_no_search_params' );
+
+/**
+ * Outputs the HTML for no search results
+ *
+ * @since Fictioneer 5.5.2
+ */
+
+function fictioneer_no_search_results() {
+  echo __( 'No results.', 'fictioneer' );
+}
+add_action( 'fictioneer_search_no_results', 'fictioneer_no_search_results' );
+
 ?>

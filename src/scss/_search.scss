@@ -197,5 +197,12 @@
 
   &__content {
     margin-top: 2rem;
+
+    &:is(._no-results, ._no-params) {
+      font: var(--font-weight-strong) var(--fs-ds)/1.5 var(--ff-note);
+      text-align: center;
+      overflow-wrap: break-word;
+      opacity: 0.25;
+    }
   }
 }

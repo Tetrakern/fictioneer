@@ -14,6 +14,7 @@ global $wp_query;
 
 // Setup
 $count = $wp_query->found_posts;
+$no_params = empty( array_filter( $_GET ) );
 
 $post_type = $_GET['post_type'] ?? 'any';
 $sentence = $_GET['sentence'] ?? '0';
@@ -101,7 +102,7 @@ $hook_args = array(
         do_action( 'fictioneer_search_form_after' );
       ?>
 
-      <?php if ( have_posts() ) : ?>
+      <?php if ( have_posts() && ! $no_params ) : ?>
         <section class="search-results__content">
           <ul class="card-list _no-mutation-observer" id="search-result-list">
             <?php
@@ -128,8 +129,10 @@ $hook_args = array(
           </ul>
           <nav class="pagination _padding-top"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
         </section>
+      <?php elseif ( $no_params ) : ?>
+        <section class="search-results__content _no-params"><?php do_action( 'fictioneer_search_no_params' ); ?></section>
       <?php else : ?>
-        <section class="search-results__no-results"><?php do_action( 'fictioneer_search_no_results' ); ?></section>
+        <section class="search-results__content _no-results"><?php do_action( 'fictioneer_search_no_results' ); ?></section>
       <?php endif; ?>
 
       <footer class="search-results__footer"><?php do_action( 'fictioneer_search_footer' ); ?></footer>

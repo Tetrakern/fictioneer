@@ -16,6 +16,7 @@
 <?php
 
 // Setup
+$no_params = empty( array_filter( $_GET ) );
 $simple_mode = isset( $args['simple'] ) && $args['simple'];
 $cache_mode = isset( $args['cache'] ) && $args['cache'];
 $show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
@@ -83,12 +84,19 @@ if ( ! $skip_author_keywords ) {
 	method="get"
 	class="search-form <?php if ( ! $show_advanced ) echo '_simple'; ?>"
 	action="<?php echo esc_url( home_url( '/' ) ); ?>"
-	data-advanced="false"
+	data-advanced="<?php echo ( $show_advanced && $no_params ) ? 'true' : 'false'; ?>"
 >
 
 	<?php if ( $show_advanced ) : ?>
 		<div class="allow-list" hidden><?php echo json_encode( $allow_list ); ?></div>
-		<input type="checkbox" class="search-form__advanced-control" id="<?php echo $toggle_id; ?>" autocomplete="off" hidden>
+		<input
+			type="checkbox"
+			class="search-form__advanced-control"
+			id="<?php echo $toggle_id; ?>"
+			autocomplete="off"
+			checked="<?php echo ( $show_advanced && $no_params ) ? 'checked' : ''; ?>"
+			hidden
+		>
 	<?php endif; ?>
 
 	<div class="search-form__bar">

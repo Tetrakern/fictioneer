@@ -788,8 +788,19 @@ Fires right after the search form has been rendered.
 
 ---
 
+### `do_action( 'fictioneer_search_no_params' )`
+Fires right after opening the article’s no-params `<section>` container in the `search.php` template.
+
+**Hooked actions:**
+* `fictioneer_no_search_params()` – HTML for no search params. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_search_no_results' )`
 Fires right after opening the article’s no-results `<section>` container in the `search.php` template.
+
+**Hooked actions:**
+* `fictioneer_no_search_results()` – HTML for no search results. Priority 10.
 
 ---
 
