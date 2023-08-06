@@ -209,7 +209,15 @@ if ( ! function_exists( 'fictioneer_save_word_count' ) ) {
       return;
     }
 
-    $word_count = str_word_count( strip_tags( get_post_field( 'post_content', $post_id ) ) );
+    // Prepare
+    $content = get_post_field( 'post_content', $post_id );
+    $content = strip_shortcodes( $content );
+    $content = strip_tags( $content );
+
+    // Count
+    $word_count = str_word_count( $content );
+
+    // Remember
     update_post_meta( $post_id, '_word_count', $word_count );
   }
 }
