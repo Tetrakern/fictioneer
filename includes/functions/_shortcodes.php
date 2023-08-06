@@ -16,29 +16,8 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
    */
 
   function fictioneer_shortcode_query( $args ) {
-    // Transient for shortcodes disabled or in admin panel?
-    if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION < 1 || is_admin() ) {
-      $result = new WP_Query( $args );
-
-      // Prime author cache
-      if ( ! empty( $result->posts ) && function_exists( 'update_post_author_caches' ) ) {
-        update_post_author_caches( $result->posts );
-      }
-
-      return $result;
-    }
-
-    // Setup
-    $transient_key = 'fictioneer_shortcode_' . md5( serialize( $args ) );
-    $transient = get_transient( $transient_key );
-
     // Query
-    if ( empty( $transient ) ) {
-      $result = new WP_Query( $args );
-      set_transient( $transient_key, $result, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
-    } else {
-      $result = $transient;
-    }
+    $result = new WP_Query( $args );
 
     // Prime author cache
     if ( ! empty( $result->posts ) && function_exists( 'update_post_author_caches' ) ) {
