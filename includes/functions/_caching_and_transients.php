@@ -161,124 +161,24 @@ if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
 // PURGE RELEVANT CACHE(S) ON POST SAVE
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_purge_story_list_caches' ) ) {
+if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
   /**
-   * Purges all posts with the Stories template
+   * Purges all posts with the given template template
    *
-   * @since Fictioneer 5.0
+   * @since Fictioneer 5.5.2
+   *
+   * @param string $template  The page template (without `.php`)
    */
 
-  function fictioneer_purge_story_list_caches() {
-    // Setup (this should normally only yield on page or none)
+  function fictioneer_purge_template_caches( $template ) {
+    // Setup (this should normally only yield one page or none)
     $pages = get_posts(
       array(
         'post_type' => 'page',
         'numberposts' => -1,
         'fields' => 'ids',
         'meta_key' => '_wp_page_template',
-        'meta_value' => 'stories.php',
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
-      )
-    );
-
-    // Purge
-    if ( $pages ) {
-      foreach ( $pages as $page_id ) {
-        // Fires hooks, may be important to purge object caches
-        wp_update_post( array( 'ID' => $page_id ) );
-
-        fictioneer_purge_post_cache( $page_id );
-      }
-    }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_purge_chapter_list_caches' ) ) {
-  /**
-   * Purges all posts with the Chapters template
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_purge_chapter_list_caches() {
-    // Setup (this should normally only yield on page or none)
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'fields' => 'ids',
-        'meta_key' => '_wp_page_template',
-        'meta_value' => 'chapters.php',
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
-      )
-    );
-
-    // Purge
-    if ( $pages ) {
-      foreach ( $pages as $page_id ) {
-        // Fires hooks, may be important to purge object caches
-        wp_update_post( array( 'ID' => $page_id ) );
-
-        fictioneer_purge_post_cache( $page_id );
-      }
-    }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_purge_collection_list_caches' ) ) {
-  /**
-   * Purges all posts with the Collections template
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_purge_collection_list_caches() {
-    // Setup (this should normally only yield on page or none)
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'fields' => 'ids',
-        'meta_key' => '_wp_page_template',
-        'meta_value' => 'collections.php',
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
-      )
-    );
-
-    // Purge
-    if ( $pages ) {
-      foreach ( $pages as $page_id ) {
-        // Fires hooks, may be important to purge object caches
-        wp_update_post( array( 'ID' => $page_id ) );
-
-        fictioneer_purge_post_cache( $page_id );
-      }
-    }
-  }
-}
-
-if ( ! function_exists( 'fictioneer_purge_recommendation_list_caches' ) ) {
-  /**
-   * Purges all posts with the Recommendations template
-   *
-   * @since Fictioneer 5.0
-   */
-
-  function fictioneer_purge_recommendation_list_caches() {
-    // Setup (this should normally only yield on page or none)
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'fields' => 'ids',
-        'meta_key' => '_wp_page_template',
-        'meta_value' => 'recommendations.php',
+        'meta_value' => "{$template}.php",
         'update_post_meta_cache' => false, // Improve performance
         'update_post_term_cache' => false, // Improve performance
         'no_found_rows' => true // Improve performance
@@ -321,6 +221,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       return;
     }
 
+    // Remove actions to prevent infinite loops
+    fictioneer_toggle_refresh_hooks( false );
+
     // Purge updated post
     fictioneer_purge_post_cache( $post_id );
 
@@ -341,12 +244,15 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge associated list pages
     if ( in_array( get_post_type( $post_id ), ['fcn_chapter', 'fcn_story'] ) ) {
-      fictioneer_purge_chapter_list_caches();
-      fictioneer_purge_story_list_caches();
+      fictioneer_purge_template_caches( 'chapters' );
+      fictioneer_purge_template_caches( 'stories' );
+      // fictioneer_purge_chapter_list_caches();
+      // fictioneer_purge_story_list_caches();
     }
 
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
-      fictioneer_purge_recommendation_list_caches();
+      fictioneer_purge_template_caches( 'recommendations' );
+      // fictioneer_purge_recommendation_list_caches();
     }
 
     // Purge associated chapters
@@ -362,7 +268,8 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge all collections (cheapest option)
     if ( get_post_type( $post_id ) != 'page' ) {
-      fictioneer_purge_collection_list_caches();
+      fictioneer_purge_template_caches( 'collections' );
+      // fictioneer_purge_collection_list_caches();
 
       $collections = get_posts(
         array(
@@ -423,14 +330,36 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
         }
       }
     }
+
+    // Restore actions
+    fictioneer_toggle_refresh_hooks();
+  }
+}
+
+/**
+ * Add or remove actions for `fictioneer_refresh_post_caches`
+ *
+ * @since Fictioneer 5.5.2
+ *
+ * @param boolean $add  Optional. Whether to add or remove the action. Default true.
+ */
+
+function fictioneer_toggle_refresh_hooks( $add = true ) {
+  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
+
+  if ( $add ) {
+    foreach( $hooks as $hook ) {
+      add_action( $hook, 'fictioneer_refresh_post_caches' );
+    }
+  } else {
+    foreach( $hooks as $hook ) {
+      remove_action( $hook, 'fictioneer_refresh_post_caches' );
+    }
   }
 }
 
 if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
-  add_action( 'save_post', 'fictioneer_refresh_post_caches' );
-  add_action( 'untrash_post', 'fictioneer_refresh_post_caches' );
-  add_action( 'trashed_post', 'fictioneer_refresh_post_caches' );
-  add_action( 'delete_post', 'fictioneer_refresh_post_caches' );
+  fictioneer_toggle_refresh_hooks();
 }
 
 // =============================================================================
