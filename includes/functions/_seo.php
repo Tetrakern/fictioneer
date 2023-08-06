@@ -163,7 +163,8 @@ if ( ! function_exists( 'fictioneer_save_seo_metabox' ) ) {
       ! wp_verify_nonce( $_POST['fictioneer_metabox_seo_nonce'], 'fictioneer-metabox-seo-save' ) ||
       ! current_user_can( 'edit_post', $post_id ) ||
       wp_is_post_autosave( $post_id ) ||
-      wp_is_post_revision( $post_id )
+      wp_is_post_revision( $post_id ) ||
+      in_array( get_post_status( $post_id ), ['auto-draft'] )
     ) {
       return;
     }
