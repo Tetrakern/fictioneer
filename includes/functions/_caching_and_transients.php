@@ -246,13 +246,10 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     if ( in_array( get_post_type( $post_id ), ['fcn_chapter', 'fcn_story'] ) ) {
       fictioneer_purge_template_caches( 'chapters' );
       fictioneer_purge_template_caches( 'stories' );
-      // fictioneer_purge_chapter_list_caches();
-      // fictioneer_purge_story_list_caches();
     }
 
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
       fictioneer_purge_template_caches( 'recommendations' );
-      // fictioneer_purge_recommendation_list_caches();
     }
 
     // Purge associated chapters
@@ -269,7 +266,6 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     // Purge all collections (cheapest option)
     if ( get_post_type( $post_id ) != 'page' ) {
       fictioneer_purge_template_caches( 'collections' );
-      // fictioneer_purge_collection_list_caches();
 
       $collections = get_posts(
         array(
