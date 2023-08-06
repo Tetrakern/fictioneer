@@ -314,7 +314,7 @@ function fictioneer_shortcode_showcase( $attr ) {
   if ( ! isset( $args['type'] ) ) return '';
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $type = $args['type'];
     $transient_key = "fictioneer_shortcode_showcase_{$type}_html_" . md5( $base );
@@ -332,7 +332,7 @@ function fictioneer_shortcode_showcase( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -415,7 +415,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $transient_key = "fictioneer_shortcode_latest_chapters_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -439,7 +439,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -517,7 +517,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $transient_key = "fictioneer_shortcode_latest_stories_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -540,7 +540,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -615,7 +615,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $transient_key = "fictioneer_shortcode_latest_updates_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -639,7 +639,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -716,7 +716,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $transient_key = "fictioneer_shortcode_latest_recommendations_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -739,7 +739,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -807,7 +807,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $args ) . serialize( $attr ) . $count;
     $transient_key = "fictioneer_shortcode_latest_posts_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -824,7 +824,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -986,7 +986,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $query_args ) . serialize( $attr ) . serialize( $classes );
     $base .= ( $hide_icons ? '1' : '0' ) . ( $can_checkmarks ? '1' : '0' );
     $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
@@ -1105,7 +1105,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Store buffer
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
@@ -1347,7 +1347,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $attr );
 
   // Transient?
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     $base = serialize( $query_args ) . serialize( $attr ) . serialize( $classes ) . $page;
     $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1400,7 +1400,7 @@ function fictioneer_shortcode_blog( $attr ) {
   // Store buffer
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
