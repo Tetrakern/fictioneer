@@ -55,7 +55,11 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
       $query = new WP_Query( $the_query_args );
 
       // Prime author cache
-      if ( ! empty( $query->posts ) && function_exists( 'update_post_author_caches' ) ) {
+      if (
+        get_option( 'fictioneer_show_authors' ) &&
+        ! empty( $query->posts ) &&
+        function_exists( 'update_post_author_caches' )
+      ) {
         update_post_author_caches( $query->posts );
       }
     }

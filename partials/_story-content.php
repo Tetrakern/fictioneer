@@ -152,11 +152,6 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
           )
         );
 
-        // Prime author cache
-        if ( function_exists( 'update_post_author_caches' ) ) {
-          update_post_author_caches( $chapter_query->posts );
-        }
-
         // Prepare chapter groups
         if ( $chapter_query->have_posts() ) {
           while( $chapter_query->have_posts() ) {

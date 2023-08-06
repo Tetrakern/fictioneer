@@ -20,7 +20,11 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
     $result = new WP_Query( $args );
 
     // Prime author cache
-    if ( ! empty( $result->posts ) && function_exists( 'update_post_author_caches' ) ) {
+    if (
+      get_option( 'fictioneer_show_authors' ) &&
+      ! empty( $result->posts ) &&
+      function_exists( 'update_post_author_caches' )
+    ) {
       update_post_author_caches( $result->posts );
     }
 
