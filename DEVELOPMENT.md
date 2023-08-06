@@ -330,17 +330,8 @@ Helper to trigger the "purge all" functions of known cache plugins. Can be exten
 #### `fictioneer_purge_post_cache( $post_id )`
 Helper to trigger the "purge post" functions of known cache plugins. Can be extended with the `fictioneer_cache_purge_post` hook.
 
-#### `fictioneer_purge_story_list_caches()`
-Purges all caches for posts with the Stories (stories.php) template.
-
-#### `fictioneer_purge_chapter_list_caches()`
-Purges all caches for posts with the Chapters (chapters.php) template.
-
-#### `fictioneer_purge_collection_list_caches()`
-Purges all caches for posts with the Collections (collections.php) template.
-
-#### `fictioneer_purge_recommendation_list_caches()`
-Purges all caches for posts with the Recommendations (recommendations.php) template.
+#### `fictioneer_purge_template_caches( $template )`
+Purges all caches for posts with the given template (without the `.php`). This is by default done for `stories`, `chapters`, `collections`, and `recommendations`.
 
 #### `fictioneer_refresh_post_caches( $post_id )`
 Hooked if caching is active and called whenever a post is published, updated, trashed, restored, or deleted. Purges the cache for the given post and any other that has or may have a relationship with it. This includes the front page, the associated story, all associated chapters, relevant list pages, collections, featured lists, and theme shortcodes.
