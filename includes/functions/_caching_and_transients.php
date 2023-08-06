@@ -618,7 +618,7 @@ function fictioneer_purge_cache_transients( $post_id ) {
   }
 
   // Shortcodes
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > 0 ) {
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
     fictioneer_delete_transients_like( 'fictioneer_shortcode' );
   }
 
