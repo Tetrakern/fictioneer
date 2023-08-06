@@ -369,6 +369,9 @@ if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
 // that while the registry is pulled for updating by one post, it is also pulled
 // by another, causing the last to override the first without the first's data.
 // However, this is unlikely and not the end of the world.
+//
+// A possible solution would be to create a new database table for registry
+// updates which is processed by a worker occasionally. Cannot be bothered tho.
 // =============================================================================
 
 /**
