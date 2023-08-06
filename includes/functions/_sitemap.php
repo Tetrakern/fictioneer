@@ -72,6 +72,11 @@ function fictioneer_url_node( $loc, $lastmod = null, $freq = null ) {
 
 if ( ! function_exists( 'fictioneer_create_sitemap' ) ) {
   function fictioneer_create_sitemap( $last_saved_id ) {
+    // Prevent multi-fire
+    if ( fictioneer_multi_save_guard( $last_saved_id ) ) {
+      return;
+    }
+
     // Only rebuild necessary part of the sitemap
     $last_saved_type = get_post_type( $last_saved_id );
 
