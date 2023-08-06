@@ -84,7 +84,7 @@ if ( ! $skip_author_keywords ) {
 	method="get"
 	class="search-form <?php if ( ! $show_advanced ) echo '_simple'; ?>"
 	action="<?php echo esc_url( home_url( '/' ) ); ?>"
-	data-advanced="<?php echo ( $show_advanced && $no_params ) ? 'true' : 'false'; ?>"
+	data-advanced="<?php echo ( is_search() && $show_advanced && $no_params ) ? 'true' : 'false'; ?>"
 >
 
 	<?php if ( $show_advanced ) : ?>
@@ -94,7 +94,7 @@ if ( ! $skip_author_keywords ) {
 			class="search-form__advanced-control"
 			id="<?php echo $toggle_id; ?>"
 			autocomplete="off"
-			checked="<?php echo ( $show_advanced && $no_params ) ? 'checked' : ''; ?>"
+			checked="<?php echo ( is_search() && $show_advanced && $no_params ) ? 'checked' : ''; ?>"
 			hidden
 		>
 	<?php endif; ?>
