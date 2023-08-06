@@ -168,12 +168,12 @@ Fires after `wp_body_open()` in the `<body>` right before the inline storage ele
 ---
 
 ### `do_action( 'fictioneer_cache_purge_all' )`
-Fires after all caches from known plugins have been purged in the `fictioneer_purge_all_caches()` function, normally triggered by a site-wide update. You can use this hook to purge additional caches.
+Fires *before* all caches from known plugins have been purged in the `fictioneer_purge_all_caches()` function, normally triggered by a site-wide update. You can use this hook to purge additional caches.
 
 ---
 
 ### `do_action( 'fictioneer_cache_purge_post', $post_id )`
-Fires after a post cache from known plugins has been purged in the `fictioneer_purge_post_cache( $post_id )` function, normally triggered by a specific post or page update. You can use this hook to purge additional caches.
+Fires *before* a post cache from known plugins has been purged in the `fictioneer_purge_post_cache( $post_id )` function, normally triggered by a specific post or page update. You can use this hook to purge additional caches.
 
 **Parameter:**
 * $post_id (int) – The ID of the post/page to purge the cache for.

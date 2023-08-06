@@ -63,6 +63,9 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     // WordPress Query Cache
     wp_cache_flush();
 
+    // Hook for additional purges
+    do_action( 'fictioneer_cache_purge_all' );
+
     // LiteSpeed Cache
     if ( class_exists( '\LiteSpeed\Purge' ) ) {
       do_action( 'litespeed_purge_all' );
@@ -83,9 +86,6 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     if ( function_exists( 'w3tc_flush_all' ) ) {
       w3tc_flush_all();
     }
-
-    // Hook for additional purges
-    do_action( 'fictioneer_cache_purge_all' );
   }
 }
 
@@ -107,6 +107,9 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
 
     // Abort if...
     if ( empty( $post_id ) ) return;
+
+    // Hook for additional purges
+    do_action( 'fictioneer_cache_purge_post', $post_id );
 
     // WordPress Query Cache
     clean_post_cache( $post_id );
@@ -130,9 +133,6 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     if ( function_exists( 'w3tc_flush_post' ) ) {
       w3tc_flush_post( $post_id );
     }
-
-    // Hook for additional purges
-    do_action( 'fictioneer_cache_purge_post', $post_id );
   }
 }
 
