@@ -1855,7 +1855,8 @@ _$$('.search-form__advanced-control').forEach(element => {
   element.addEventListener(
     'change',
     event => {
-      event.currentTarget.closest('form').dataset.advanced = event.currentTarget.checked;
+      const toggle = event.currentTarget.closest('form');
+      toggle.dataset.advanced = toggle.dataset.advanced == 'true' ? 'false' : 'true';
     }
   );
 });
