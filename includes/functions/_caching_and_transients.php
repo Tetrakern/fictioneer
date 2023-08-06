@@ -98,7 +98,7 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
    * @link https://docs.wp-rocket.me/article/494-how-to-clear-cache-via-cron-job#clear-cache
    * @link https://wp-kama.com/plugin/wp-super-cache/function/wpsc_delete_post_cache
    *
-   * @param int $post_id Post ID.
+   * @param int $post_id  Post ID.
    */
 
   function fictioneer_purge_post_cache( $post_id ) {
@@ -221,8 +221,10 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       return;
     }
 
-    // Remove actions to prevent infinite loops
+    // Remove actions to prevent infinite loops and multi-fire
     fictioneer_toggle_refresh_hooks( false );
+    fictioneer_toggle_transient_purge_hooks( false );
+    fictioneer_toggle_update_tracker_hooks( false );
 
     // Purge updated post
     fictioneer_purge_post_cache( $post_id );
@@ -329,6 +331,8 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Restore actions
     fictioneer_toggle_refresh_hooks();
+    fictioneer_toggle_transient_purge_hooks();
+    fictioneer_toggle_update_tracker_hooks();
   }
 }
 
@@ -458,7 +462,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int $post_id Updated post ID.
+   * @param int $post_id  Updated post ID.
    */
 
   function fictioneer_track_chapter_and_story_updates( $post_id ) {
@@ -468,7 +472,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
     }
 
     // Get story ID from post or parent story (if any)
-    $post_type = get_post_type( $post_id );
+    $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
     $story_id = $post_type == 'fcn_story' ? $post_id : fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
 
     // If there is a story...
@@ -497,10 +501,30 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
     }
   }
 }
-add_action( 'save_post', 'fictioneer_track_chapter_and_story_updates' );
-add_action( 'untrash_post', 'fictioneer_track_chapter_and_story_updates' );
-add_action( 'trashed_post', 'fictioneer_track_chapter_and_story_updates' );
-add_action( 'delete_post', 'fictioneer_track_chapter_and_story_updates' );
+
+/**
+ * Add or remove actions for `fictioneer_purge_cache_transients`
+ *
+ * @since Fictioneer 5.5.2
+ *
+ * @param boolean $add  Optional. Whether to add or remove the action. Default true.
+ */
+
+function fictioneer_toggle_update_tracker_hooks( $add = true ) {
+  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
+
+  if ( $add ) {
+    foreach( $hooks as $hook ) {
+      add_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
+    }
+  } else {
+    foreach( $hooks as $hook ) {
+      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
+    }
+  }
+}
+
+fictioneer_toggle_update_tracker_hooks();
 
 // =============================================================================
 // GET LAST CHAPTER/STORY UPDATE
@@ -545,18 +569,48 @@ function fictioneer_purge_cache_transients( $post_id ) {
     return;
   }
 
-  // Shortcodes
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
-    fictioneer_delete_transients_like( 'fictioneer_shortcode' );
-  }
+  // Setup
+  $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
 
   // Menus
   delete_transient( 'fictioneer_main_nav_menu' );
   delete_transient( 'fictioneer_footer_menu' );
+
+  // Shortcode...
+  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
+    // Recommendation?
+    if ( $post_type == 'fcn_recommendation' ) {
+      fictioneer_delete_transients_like( 'fictioneer_shortcode_latest_recommendations' );
+      return;
+    }
+
+    // All
+    fictioneer_delete_transients_like( 'fictioneer_shortcode' );
+  }
 }
-add_action( 'save_post', 'fictioneer_purge_cache_transients' );
-add_action( 'untrash_post', 'fictioneer_purge_cache_transients' );
-add_action( 'trashed_post', 'fictioneer_purge_cache_transients' );
-add_action( 'delete_post', 'fictioneer_purge_cache_transients' );
+
+/**
+ * Add or remove actions for `fictioneer_purge_cache_transients`
+ *
+ * @since Fictioneer 5.5.2
+ *
+ * @param boolean $add  Optional. Whether to add or remove the action. Default true.
+ */
+
+function fictioneer_toggle_transient_purge_hooks( $add = true ) {
+  $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
+
+  if ( $add ) {
+    foreach( $hooks as $hook ) {
+      add_action( $hook, 'fictioneer_purge_cache_transients' );
+    }
+  } else {
+    foreach( $hooks as $hook ) {
+      remove_action( $hook, 'fictioneer_purge_cache_transients' );
+    }
+  }
+}
+
+fictioneer_toggle_transient_purge_hooks();
 
 ?>
