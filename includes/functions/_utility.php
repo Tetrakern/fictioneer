@@ -161,9 +161,10 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
           array(
             'status' => 'approve',
-            'post_type' => array( 'fcn_chapter' ),
+            'post_type' => 'fcn_chapter',
             'post__in' => $old_data['chapter_ids'],
-            'count' => true
+            'count' => true,
+            'update_comment_meta_cache' => false
           )
         );
 
@@ -214,7 +215,6 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         'ignore_sticky_posts' => true,
         'orderby' => 'post__in', // Preserve order from meta box
         'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-        'update_post_term_cache' => false, // Improve performance
         'no_found_rows' => true // Improve performance
       )
     );
@@ -238,9 +238,10 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
     $comment_args = array(
       'status' => 'approve',
-      'post_type' => array( 'fcn_chapter' ),
+      'post_type' => 'fcn_chapter',
       'post__in' => $chapter_ids,
-      'count' => true
+      'count' => true,
+      'update_comment_meta_cache' => false
     );
 
     $comment_count = $chapter_count > 0 ? get_comments( $comment_args ) : 0;

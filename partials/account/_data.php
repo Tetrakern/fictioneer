@@ -23,7 +23,9 @@ $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page'
 $checkmarks = fictioneer_load_checkmarks( $current_user );
 $follows = fictioneer_load_follows( $current_user );
 $reminders = fictioneer_load_reminders( $current_user );
-$comments_count = get_comments( ['user_id' => $current_user->ID, 'count' => true] );
+$comments_count = get_comments(
+  array( 'user_id' => $current_user->ID, 'count' => true, 'update_comment_meta_cache' => false )
+);
 $last_comment = $comments_count > 0 ? get_comments( ['user_id' => $current_user->ID, 'number' => 1] )[0] : false;
 $timezone = get_user_meta( $current_user->ID, 'fictioneer_user_timezone_string', true );
 $timezone = empty( $timezone ) ? get_option( 'timezone_string' ) : $timezone;
@@ -37,7 +39,8 @@ if ( empty( $notification_validator ) ) {
       'user_id' => $current_user->ID,
       'meta_key' => 'fictioneer_send_notifications',
       'meta_value' => $notification_validator,
-      'count' => true
+      'count' => true,
+      'update_comment_meta_cache' => false
     )
   );
 }

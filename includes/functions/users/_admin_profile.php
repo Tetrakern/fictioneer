@@ -496,7 +496,9 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
 function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
   // Setup
   $success = $_GET['success'] ?? null;
-  $comments_count = get_comments( array( 'user_id' => $profile_user->ID, 'count' => true ) );
+  $comments_count = get_comments(
+    array( 'user_id' => $profile_user->ID, 'count' => true, 'update_comment_meta_cache' => false )
+  );
   $checkmarks = fictioneer_load_checkmarks( $profile_user );
   $checkmarks_count = count( $checkmarks['data'] );
   $checkmarks_chapters_count = fictioneer_count_chapter_checkmarks( $checkmarks );

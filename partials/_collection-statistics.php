@@ -100,7 +100,8 @@ if ( ! empty( $args['featured_list'] ) ) {
               'post_type' => 'fcn_chapter',
               'post__in' => $query_chapter_ids,
               'status' => 1,
-              'count' => true
+              'count' => true,
+              'update_comment_meta_cache' => false
             )
           )
         );

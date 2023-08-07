@@ -38,9 +38,10 @@ if ( ! function_exists( 'fictioneer_stories_statistics' ) ) {
         'content' => number_format_i18n(
           get_comments(
             array(
-              'post_type' => array( 'fcn_chapter' ),
+              'post_type' => 'fcn_chapter',
               'status' => 1,
-              'count' => true
+              'count' => true,
+              'update_comment_meta_cache' => false
             )
           )
         )

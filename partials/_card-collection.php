@@ -88,7 +88,13 @@ if ( ! empty( $items ) ) {
 
 // Required since it's possible to add chapters to collection outside of
 // their stories, which would cause the comments to be counted twice.
-$comment_args = array( 'post_type' => array( 'fcn_chapter' ), 'post__in' => $processed_ids, 'count' => true );
+$comment_args = array(
+  'post_type' => 'fcn_chapter',
+  'post__in' => $processed_ids,
+  'count' => true,
+  'update_comment_meta_cache' => false
+);
+
 $comment_count = get_comments( $comment_args );
 
 ?>

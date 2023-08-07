@@ -809,7 +809,7 @@ if ( ! function_exists( 'fictioneer_ajax_delete_my_account' ) ) {
     }
 
     // Update comments
-    $comments = get_comments( ['user_id' => $current_user->ID] );
+    $comments = get_comments( array( 'user_id' => $current_user->ID ) );
 
     foreach ( $comments as $comment ) {
       wp_update_comment(
