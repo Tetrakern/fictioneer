@@ -30,12 +30,16 @@ $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
 $query_args = array (
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
-  'meta_key' => 'fictioneer_story_sticky',
-  'orderby' => "meta_value {$orderby}",
+  'orderby' => $orderby,
   'order' => $order,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 )
 );
+
+if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
+  $query_args['meta_key'] = 'fictioneer_story_sticky';
+  $query_args['orderby'] = 'meta_value ' . $query_args['orderby'];
+}
 
 // Append date query (if any)
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );

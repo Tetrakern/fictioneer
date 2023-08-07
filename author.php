@@ -41,8 +41,7 @@ $tabs['stories'] = array(
   'query_args' => array(
     'post_type' => 'fcn_story',
     'author' => $author_id,
-    'meta_key' => 'fictioneer_story_sticky',
-    'orderby' => 'meta_value modified',
+    'orderby' => 'modified',
     'paged' => $current_page,
     'order' => $order,
     'meta_query' => array(
@@ -60,6 +59,11 @@ $tabs['stories'] = array(
   'classes' => [],
   'empty' => __( 'No stories published yet.', 'fictioneer' )
 );
+
+if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
+  $tabs['stories']['query_args']['meta_key'] = 'fictioneer_story_sticky';
+  $tabs['stories']['query_args']['orderby'] = 'meta_value ' . $tabs['stories']['query_args']['orderby'];
+}
 
 // Chapters tab
 $tabs['chapters'] = array(
