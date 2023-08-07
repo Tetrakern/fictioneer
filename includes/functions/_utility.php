@@ -143,11 +143,12 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    * @param int     $story_id               ID of the story.
    * @param boolean $refresh_comment_count  Optional. Whether to refresh comment count.
    *                                        Default true.
+   * @param array   $args                   Optional array og arguments.
    *
    * @return array|boolean $result Data of the story or false if invalid.
    */
 
-  function fictioneer_get_story_data( $story_id, $refresh_comment_count = true ) {
+  function fictioneer_get_story_data( $story_id, $refresh_comment_count = true, $args = [] ) {
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
 
     if ( ! $story_id ) return false;
@@ -156,8 +157,16 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $old_data = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
 
     if ( ! empty( $old_data ) && $old_data['last_modified'] >= get_the_modified_time( 'U', $story_id ) ) {
-      // Refresh comment count
-      if ( $refresh_comment_count ) {
+      // Return cached data without refreshing the comment count
+      if ( ! $refresh_comment_count ) {
+        return $old_data;
+      }
+
+      // Time to refresh comment count?
+      $comment_count_delay = ( $old_data['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
+
+      // Refresh comment count (unless disabled or within the delay)
+      if ( $refresh_comment_count && ( $comment_count_delay < time() || ( $args['force_comment_count_refresh'] ?? 0 ) ) ) {
         $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
           array(
             'status' => 'approve',
@@ -169,6 +178,12 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         );
 
         $old_data['comment_count'] = $comment_count;
+        $old_data['comment_count_timestamp'] = time();
+
+        // Update meta
+        if ( FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT > 0 && ! ( $args['force_comment_count_refresh'] ?? 0 ) ) {
+          update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
+        }
       }
 
       // Return cached data
@@ -264,7 +279,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'rating_letter' => fictioneer_get_field( 'fictioneer_story_rating', $story_id )[0],
       'chapter_ids' => $chapter_ids,
       'last_modified' => get_the_modified_time( 'U', $story_id ),
-      'comment_count' => $comment_count
+      'comment_count' => $comment_count,
+      'comment_count_timestamp' => time()
     );
 
     update_post_meta( $story_id, 'fictioneer_story_data_collection', $result );

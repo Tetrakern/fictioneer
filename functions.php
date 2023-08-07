@@ -219,6 +219,11 @@ if ( ! defined( 'FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION' ) ) {
   define( 'FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION', 300 );
 }
 
+// Integer: Timeout between refreshes of story comment counts (0 for always)
+if ( ! defined( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT' ) ) {
+  define( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT', 900 );
+}
+
 /*
  * Booleans
  */

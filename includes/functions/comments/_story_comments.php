@@ -104,7 +104,7 @@ if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
 
     // Setup
     $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-    $story = fictioneer_get_story_data( $story_id, true );
+    $story = fictioneer_get_story_data( $story_id, true, array( 'force_comment_count_refresh' => true ) );
     $chapter_ids = $story['chapter_ids']; // Only contains publicly visible chapters
     $comments_per_page = get_option( 'comments_per_page' );
     $chapter_data = [];

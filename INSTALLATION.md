@@ -743,6 +743,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY | integer | Maximum number of story custom pages. Default `4`.
 | FICTIONEER_CHAPTER_FOLDING_THRESHOLD | integer | Threshold before and after folding in chapter lists. Default `5`.
 | FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION | integer | Expiration duration for shortcode Transients in seconds. Default `300`.
+| FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT | integer | Timeout between comment count refreshes for stories in seconds. Default `900`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
