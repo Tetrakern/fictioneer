@@ -1851,9 +1851,9 @@ _$$('.search-form').forEach(form => {
   });
 });
 
-_$$('.search-form__advanced-control').forEach(element => {
+_$$('.search-form__advanced-toggle').forEach(element => {
   element.addEventListener(
-    'change',
+    'click',
     event => {
       const toggle = event.currentTarget.closest('form');
       toggle.dataset.advanced = toggle.dataset.advanced == 'true' ? 'false' : 'true';

@@ -17,63 +17,70 @@
 
 // Setup
 $no_params = empty( array_filter( $_GET ) );
-$simple_mode = isset( $args['simple'] ) && $args['simple'];
-$cache_mode = isset( $args['cache'] ) && $args['cache'];
+$simple_mode = $args['simple'] ?? false;
+$cache_mode = $args['cache'] ?? false;
 $show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
 $placeholder = $args['placeholder'] ?? _x( 'Search keywords or phrase', 'Advanced search placeholder.', 'fictioneer' );
-$toggle_id = wp_unique_id( 'fictioneer-advanced-search-toggle-' );
-$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
-$sentence = $_GET['sentence'] ?? '0';
-$order = $_GET['order'] ?? 'desc';
-$orderby = $_GET['orderby'] ?? 'modified';
 
-$all_authors = get_users(
-	array(
-		'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post'],
-		'fields' => ['ID', 'display_name']
-	)
-);
+// Advanced setup
+if ( $show_advanced ) {
+	$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
+	$sentence = $_GET['sentence'] ?? '0';
+	$order = $_GET['order'] ?? 'desc';
+	$orderby = $_GET['orderby'] ?? 'modified';
 
-$skip_author_keywords = count( $all_authors ) > FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT;
+	$all_authors = get_users(
+		array(
+			'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post']
+		)
+	);
 
-$queried_authors_in = $_GET['authors'] ?? 0;
-$queried_authors_out = $_GET['ex_authors'] ?? 0;
-$author_name = $_GET['author_name'] ?? 0; // Simple text field
+	$skip_author_keywords = count( $all_authors ) > FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT;
 
-$all_tags = get_tags();
-$all_genres = get_tags( ['taxonomy' => 'fcn_genre'] );
-$all_fandoms = get_tags( ['taxonomy' => 'fcn_fandom'] );
-$all_characters = get_tags( ['taxonomy' => 'fcn_character'] );
-$all_warnings = get_tags( ['taxonomy' => 'fcn_content_warning'] );
+	$queried_authors_in = $_GET['authors'] ?? 0;
+	$queried_authors_out = $_GET['ex_authors'] ?? 0;
+	$author_name = $_GET['author_name'] ?? 0; // Simple text field
 
-$queried_genres = $_GET['genres'] ?? 0;
-$queried_fandoms = $_GET['fandoms'] ?? 0;
-$queried_characters = $_GET['characters'] ?? 0;
-$queried_warnings = $_GET['warnings'] ?? 0;
-$queried_tags = $_GET['tags'] ?? 0;
+	$all_tags = get_tags();
+	$all_genres = get_tags( ['taxonomy' => 'fcn_genre'] );
+	$all_fandoms = get_tags( ['taxonomy' => 'fcn_fandom'] );
+	$all_characters = get_tags( ['taxonomy' => 'fcn_character'] );
+	$all_warnings = get_tags( ['taxonomy' => 'fcn_content_warning'] );
 
-$queried_ex_genres = $_GET['ex_genres'] ?? 0;
-$queried_ex_fandoms = $_GET['ex_fandoms'] ?? 0;
-$queried_ex_characters = $_GET['ex_characters'] ?? 0;
-$queried_ex_warnings = $_GET['ex_warnings'] ?? 0;
-$queried_ex_tags = $_GET['ex_tags'] ?? 0;
+	$queried_genres = $_GET['genres'] ?? 0;
+	$queried_fandoms = $_GET['fandoms'] ?? 0;
+	$queried_characters = $_GET['characters'] ?? 0;
+	$queried_warnings = $_GET['warnings'] ?? 0;
+	$queried_tags = $_GET['tags'] ?? 0;
 
-$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified';
-$is_advanced_search = $is_advanced_search || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings;
-$is_advanced_search = $is_advanced_search || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
-$is_advanced_search = $is_advanced_search || $queried_authors_in || $queried_authors_out || $author_name;
+	$queried_ex_genres = $_GET['ex_genres'] ?? 0;
+	$queried_ex_fandoms = $_GET['ex_fandoms'] ?? 0;
+	$queried_ex_characters = $_GET['ex_characters'] ?? 0;
+	$queried_ex_warnings = $_GET['ex_warnings'] ?? 0;
+	$queried_ex_tags = $_GET['ex_tags'] ?? 0;
 
-// Prepare data JSONs
-$all_terms = array_merge( $all_tags, $all_genres, $all_fandoms, $all_characters, $all_warnings );
-$allow_list = [];
+	$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified';
+	$is_advanced_search = $is_advanced_search || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings;
+	$is_advanced_search = $is_advanced_search || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
+	$is_advanced_search = $is_advanced_search || $queried_authors_in || $queried_authors_out || $author_name;
 
-foreach ( $all_terms as $term ) {
-	$allow_list[ rawurlencode( strtolower( $term->name ) ) ] = $term->term_id;
-}
+	// Prime author cache
+	if ( function_exists( 'update_post_author_caches' ) ) {
+		update_post_author_caches( $all_authors );
+	}
 
-if ( ! $skip_author_keywords ) {
-	foreach ( $all_authors as $author ) {
-		$allow_list[ rawurlencode( strtolower( $author->display_name ) ) ] = $author->ID;
+	// Prepare data JSONs
+	$all_terms = array_merge( $all_tags, $all_genres, $all_fandoms, $all_characters, $all_warnings );
+	$allow_list = [];
+
+	foreach ( $all_terms as $term ) {
+		$allow_list[ rawurlencode( strtolower( $term->name ) ) ] = $term->term_id;
+	}
+
+	if ( ! $skip_author_keywords ) {
+		foreach ( $all_authors as $author ) {
+			$allow_list[ rawurlencode( strtolower( $author->display_name ) ) ] = $author->ID;
+		}
 	}
 }
 
@@ -89,14 +96,6 @@ if ( ! $skip_author_keywords ) {
 
 	<?php if ( $show_advanced ) : ?>
 		<div class="allow-list" hidden><?php echo json_encode( $allow_list ); ?></div>
-		<input
-			type="checkbox"
-			class="search-form__advanced-control"
-			id="<?php echo $toggle_id; ?>"
-			autocomplete="off"
-			checked="<?php echo ( is_search() && $show_advanced && $no_params ) ? 'checked' : ''; ?>"
-			hidden
-		>
 	<?php endif; ?>
 
 	<div class="search-form__bar">
@@ -114,11 +113,11 @@ if ( ! $skip_author_keywords ) {
 
 		<div class="search-form__bar-actions">
 			<?php if ( $show_advanced ) : ?>
-				<label
-					for="<?php echo $toggle_id; ?>"
+				<button
+					type="button"
 					class="search-form__advanced-toggle"
 					tabindex="0"
-				><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></label>
+				><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></button>
 			<?php endif; ?>
 			<button type="submit" class="search-form__submit" aria-label="<?php echo esc_attr__( 'Submit search request', 'fictioneer' ) ?>"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
