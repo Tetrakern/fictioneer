@@ -484,12 +484,6 @@ require_once __DIR__ . '/includes/functions/_roles.php';
 require_once __DIR__ . '/includes/functions/_forms.php';
 
 /**
- * Add search.
- */
-
-require_once __DIR__ . '/includes/functions/_search.php';
-
-/**
  * Add API.
  */
 
@@ -526,6 +520,12 @@ if ( is_admin() ) {
 // =============================================================================
 
 if ( ! is_admin() ) {
+
+  /**
+   * Add search.
+   */
+
+  require_once __DIR__ . '/includes/functions/_search.php';
 
   /**
    * Add general hooks.
