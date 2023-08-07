@@ -664,7 +664,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 240px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 277px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
@@ -708,6 +708,14 @@
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_reduce_admin_bar']['label']; ?></span>
                       <p class="sub-label"><?php _e( 'Less menu items, links, and icons in the admin bar.', 'fictioneer' ) ?></p>
+                    </div>
+                  </label>
+
+                  <label for="fictioneer_disable_all_widgets" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_disable_all_widgets" type="checkbox" id="fictioneer_disable_all_widgets" <?php echo checked( 1, get_option( 'fictioneer_disable_all_widgets' ), false ); ?> value="1">
+                    <div>
+                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_disable_all_widgets']['label']; ?></span>
+                      <p class="sub-label"><?php _e( 'The theme does not use widgets by default and removing them slightly boosts performance.', 'fictioneer' ) ?></p>
                     </div>
                   </label>
 

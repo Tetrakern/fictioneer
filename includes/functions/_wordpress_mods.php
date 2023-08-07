@@ -1168,4 +1168,24 @@ function fictioneer_limit_update_notice(){
 }
 add_action( 'admin_head', 'fictioneer_limit_update_notice' );
 
+// =============================================================================
+// DISABLE WIDGETS
+// =============================================================================
+
+/**
+ * Disable all widgets and boost performance slightly
+ *
+ * @since Fictioneer 5.5.3
+ */
+
+function fictioneer_disable_widgets() {
+  global $wp_widget_factory;
+
+  $wp_widget_factory->widgets = array();
+}
+
+if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
+  add_action( 'widgets_init', 'fictioneer_disable_widgets', 99 );
+}
+
 ?>

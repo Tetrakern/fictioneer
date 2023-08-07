@@ -649,6 +649,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable shortcodes for non-administrators', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_disable_all_widgets' => array(
+      'name' => 'fictioneer_disable_all_widgets',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
+      'label' => __( 'Disable all widgets', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(
@@ -1034,8 +1041,9 @@ function fictioneer_validate_email_address( $input ) {
  */
 
 function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
-  // Setup
   global $allowedtags;
+
+  // Setup
 	$default = __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' );
 
   // Return default if input is empty
@@ -1052,6 +1060,37 @@ function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
 
 	// Return
   return strlen( $input ) < 32 ? $default : $output;
+}
+
+/**
+ * Sanitizes a the checkbox and toggles "autoload" for all widgets
+ *
+ * @since 5.5.3
+ * @link  https://www.php.net/manual/en/function.filter-var.php
+ *
+ * @param string|boolean $value The checkbox value to be sanitized.
+ *
+ * @return boolean True or false.
+ */
+
+function fictioneer_sanitize_disable_widget_checkbox( $value ) {
+  global $wpdb;
+
+  // Setup
+  $value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+  $autoload = $value ? 'no' : 'yes';
+
+  // Toggle autoload for widget options
+  $wpdb->query(
+    $wpdb->prepare(
+      "UPDATE {$wpdb->prefix}options SET autoload=%s WHERE option_name LIKE %s",
+      $autoload,
+      $wpdb->esc_like( 'widget_' ) . '%'
+    )
+  );
+
+  // Return sanitized value for database update
+  return filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 }
 
 // =============================================================================
