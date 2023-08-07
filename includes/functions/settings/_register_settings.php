@@ -55,6 +55,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Hide taxonomies on recommendation cards', 'fictioneer' ),
       'default' => false
     ),
+    'fictioneer_hide_taxonomies_on_collection_cards' => array(
+      'name' => 'fictioneer_hide_taxonomies_on_collection_cards',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Hide taxonomies on collection cards', 'fictioneer' ),
+      'default' => false
+    ),
 		'fictioneer_show_tags_on_story_cards' => array(
       'name' => 'fictioneer_show_tags_on_story_cards',
 			'group' => 'fictioneer-settings-general-group',
@@ -74,6 +81,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show tags on recommendation cards', 'fictioneer' ),
+      'default' => false
+    ),
+    'fictioneer_show_tags_on_collection_cards' => array(
+      'name' => 'fictioneer_show_tags_on_collection_cards',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Show tags on collection cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_taxonomies_on_pages' => array(

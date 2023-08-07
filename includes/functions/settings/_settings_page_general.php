@@ -216,6 +216,11 @@
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_hide_taxonomies_on_recommendation_cards']['label']; ?></span>
                   </label>
 
+                  <label for="fictioneer_hide_taxonomies_on_collection_cards" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_hide_taxonomies_on_collection_cards" type="checkbox" id="fictioneer_hide_taxonomies_on_collection_cards" <?php echo checked( 1, get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ), false ); ?> value="1">
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_hide_taxonomies_on_collection_cards']['label']; ?></span>
+                  </label>
+
     							<p class="description row"><?php _e( 'Tags are normally not shown on cards since they tend to be numerous, making the cards unsightly. But this is up to you.', 'fictioneer' ) ?></p>
 
                   <label for="fictioneer_show_tags_on_story_cards" class="label-wrapped-checkbox row">
@@ -231,6 +236,11 @@
                   <label for="fictioneer_show_tags_on_recommendation_cards" class="label-wrapped-checkbox row">
                     <input name="fictioneer_show_tags_on_recommendation_cards" type="checkbox" id="fictioneer_show_tags_on_recommendation_cards" <?php echo checked( 1, get_option( 'fictioneer_show_tags_on_recommendation_cards' ), false ); ?> value="1">
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_show_tags_on_recommendation_cards']['label']; ?></span>
+                  </label>
+
+                  <label for="fictioneer_show_tags_on_collection_cards" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_show_tags_on_collection_cards" type="checkbox" id="fictioneer_show_tags_on_collection_cards" <?php echo checked( 1, get_option( 'fictioneer_show_tags_on_collection_cards' ), false ); ?> value="1">
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_show_tags_on_collection_cards']['label']; ?></span>
                   </label>
 
     							<p class="description row"><?php _e( 'Taxonomies on pages are displayed above the title, tags and content warnings get their own rows below the description.', 'fictioneer' ) ?></p>
@@ -654,7 +664,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 280px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 240px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
