@@ -1166,6 +1166,6 @@ function fictioneer_limit_update_notice(){
     remove_action( 'admin_notices', 'update_nag', 3 );
   }
 }
-add_action( 'admin_head', 'fictioneer_limit_update_notice');
+add_action( 'admin_head', 'fictioneer_limit_update_notice' );
 
 ?>
