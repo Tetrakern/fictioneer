@@ -1126,7 +1126,7 @@ function fictioneer_add_menu_link_attributes( $attributes, $item ) {
 add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 10, 2 );
 
 // =============================================================================
-// PURGE SHORTCODE TRANSIENTS
+// STRIP SHORTCODES FROM NON-ADMIN POSTS
 // =============================================================================
 
 /**
@@ -1150,5 +1150,22 @@ function fictioneer_strip_shortcodes_for_non_administrators( $content ) {
 if ( get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ) {
   add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes_for_non_administrators' );
 }
+
+// =============================================================================
+// HIDE UPDATE NOTICE FOR NON-ADMINS
+// =============================================================================
+
+/**
+ * Hide update notice for non-admins
+ *
+ * @since Fictioneer 5.5.3
+ */
+
+function fictioneer_limit_update_notice(){
+  if ( ! current_user_can( 'manage_options' ) ) {
+    remove_action( 'admin_notices', 'update_nag', 3 );
+  }
+}
+add_action( 'admin_head', 'fictioneer_limit_update_notice');
 
 ?>
