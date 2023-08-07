@@ -23,17 +23,31 @@ $story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; 
 $chapter_rating = fictioneer_get_field( 'fictioneer_chapter_rating' );
 $story_thumbnail_url_full = $story_id ? get_the_post_thumbnail_url( $story_id, 'full' ) : null;
 $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
+$excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
 
 // Taxonomies
-$tags = get_option( 'fictioneer_show_tags_on_chapter_cards' ) ? get_the_tags() : false;
-$fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-$characters = get_the_terms( $post->ID, 'fcn_character' );
-$genres = get_the_terms( $post->ID, 'fcn_genre' );
+$tags = false;
+$fandoms = false;
+$characters = false;
+$genres = false;
+
+if (
+  get_option( 'fictioneer_show_tags_on_chapter_cards' ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
+) {
+  $tags = get_the_tags();
+}
+
+if ( ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) ) {
+  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
+  $characters = get_the_terms( $post->ID, 'fcn_character' );
+  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+}
 
 // Flags
-$hide_author = isset( $args['hide_author'] ) && $args['hide_author'];
+$hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) && ( $tags || $fandoms || $characters || $genres );
-$show_type = isset( $args['show_type'] ) && $args['show_type'];
+$show_type = $args['show_type'] ?? false;
 
 ?>
 
@@ -74,67 +88,67 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
     <div class="card__main _grid _large">
 
       <?php
+        // Thumbnail
         if ( has_post_thumbnail() ) {
 
-          // Start HTML ---> ?>
-          <a
-            href="<?php the_post_thumbnail_url( 'full' ); ?>"
-            title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ) ?>"
-            class="card__image cell-img"
-            <?php echo fictioneer_get_lightbox_attribute(); ?>
-          ><?php the_post_thumbnail( 'cover' ); ?></a>
-          <?php // <--- End HTML
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__image _chapter-image cell-img" %3$s>%4$s</a>',
+            get_the_post_thumbnail_url( null, 'full' ),
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( null, 'cover' )
+          );
 
         } elseif ( ! empty( $story_thumbnail_url_full ) ) {
 
-          // Start HTML ---> ?>
-          <a
-            href="<?php echo $story_thumbnail_url_full; ?>"
-            title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ) ?>"
-            class="card__image cell-img"
-            <?php echo fictioneer_get_lightbox_attribute(); ?>
-          ><?php echo get_the_post_thumbnail( $story_id, 'cover' ); ?></a>
-          <?php // <--- End HTML
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__image _story-image cell-img" %3$s>%4$s</a>',
+            $story_thumbnail_url_full,
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( $story_id, 'cover' )
+          );
 
         } elseif ( ! empty( $text_icon ) ) {
 
-          // Start HTML ---> ?>
-          <a
-            href="<?php the_permalink(); ?>"
-            title="<?php echo esc_attr( $title ) ?>"
-            class="card__text-icon cell-img"
-          ><span class="text-icon"><?php echo fictioneer_get_field( 'fictioneer_chapter_text_icon' ) ?></span></a>
-          <?php // <--- End HTML
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__text-icon cell-img"><span class="text-icon">%3$s</span></a>',
+            get_permalink(),
+            esc_attr( $title ),
+            fictioneer_get_field( 'fictioneer_chapter_text_icon' )
+          );
 
         }
-      ?>
 
-      <div class="card__content cell-desc truncate _4-4">
-        <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
-          <span class="card__by-author show-below-desktop"><?php
-            printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
-          ?></span>
-        <?php endif; ?>
-        <span><?php
-          $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
-          echo empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
-        ?></span>
-      </div>
+        // Content
+        printf(
+          '<div class="card__content cell-desc truncate _4-4">%1$s<span>%2$s</span></div>',
+          $hide_author ? '' : sprintf(
+            '<span class="card__by-author show-below-desktop">%s</span> ',
+            sprintf(
+              _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
+              fictioneer_get_author_node()
+            )
+          ),
+          empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt
+        );
+      ?>
 
       <?php if ( ! empty( $story_id ) && ! empty( $story_data ) ) : ?>
         <ul class="card__link-list cell-list">
           <li>
             <div class="card__left text-overflow-ellipsis">
               <i class="fa-solid fa-caret-right"></i>
-              <a href="<?php echo get_the_permalink( $story_id ); ?>"><?php echo $story_data['title']; ?></a>
+              <a href="<?php the_permalink( $story_id ); ?>"><?php echo $story_data['title']; ?></a>
             </div>
             <div class="card__right">
               <?php
-                echo $story_data['word_count_short'];
-                echo ' <span class="hide-below-480">';
-                echo __( 'Words', 'fictioneer' );
-                echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
-                echo $story_data['status'];
+                printf(
+                  '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                  $story_data['word_count_short'],
+                  __( 'Words', 'fictioneer' ),
+                  $story_data['status']
+                );
               ?>
             </div>
           </li>
@@ -144,34 +158,15 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php if ( $show_taxonomies ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $output = [];
-
-            if ( $fandoms ) {
-              foreach ( $fandoms as $fandom ) {
-                $output[] = "<a href='" . get_tag_link( $fandom ) . "' class='tag-pill _inline _fandom'>{$fandom->name}</a>";
-              }
-            }
-
-            if ( $genres ) {
-              foreach ( $genres as $genre ) {
-                $output[] = "<a href='" . get_tag_link( $genre ) . "' class='tag-pill _inline _genre'>{$genre->name}</a>";
-              }
-            }
-
-            if ( $tags ) {
-              foreach ( $tags as $tag ) {
-                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
-              }
-            }
-
-            if ( $characters ) {
-              foreach ( $characters as $character ) {
-                $output[] = "<a href='" . get_tag_link( $character ) . "' class='tag-pill _inline _character'>{$character->name}</a>";
-              }
-            }
+            $taxonomies = array_merge(
+              $fandoms ? fictioneer_generate_card_tags( $fandoms, '_fandom' ) : [],
+              $genres ? fictioneer_generate_card_tags( $genres, '_genre' ) : [],
+              $tags ? fictioneer_generate_card_tags( $tags ) : [],
+              $characters ? fictioneer_generate_card_tags( $characters, '_character' ) : []
+            );
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
           ?>
         </div>
       <?php endif; ?>

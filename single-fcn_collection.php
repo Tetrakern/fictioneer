@@ -41,7 +41,7 @@
           'post__in' => $featured_list,
           'ignore_sticky_posts' => 1,
           'posts_per_page' => -1,
-          'no_found_rows' => true
+          'no_found_rows' => true // Improve performance
         );
 
         $raw_query = new WP_Query( $raw_query_args );

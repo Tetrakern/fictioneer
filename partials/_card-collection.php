@@ -131,7 +131,7 @@ $comment_args = array(
   'status' => 1,
   'post__in' => $processed_ids,
   'count' => true,
-  'update_comment_meta_cache' => false
+  'update_comment_meta_cache' => false // Improve performance
 );
 
 $comment_count = get_comments( $comment_args );
@@ -142,42 +142,61 @@ $comment_count = get_comments( $comment_args );
   <div class="card__body polygon">
 
     <div class="card__header _large">
+
       <?php if ( $show_type ) : ?>
         <div class="card__label"><?php _ex( 'Collection', 'Collection card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
+
       <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
+
     </div>
 
     <div class="card__main _grid _large">
 
-      <?php if ( has_post_thumbnail() ) : ?>
-        <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php printf( __( '%s Thumbnail', 'fictioneer' ), $title ) ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php the_post_thumbnail( 'cover' ); ?></a>
-      <?php endif; ?>
+      <?php
+        // Thumbnail
+        if ( has_post_thumbnail() ) {
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__image cell-img" %3$s>%4$s</a>',
+            get_the_post_thumbnail_url( null, 'full' ),
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( null, 'cover' )
+          );
+        }
 
-      <div class="card__content cell-desc truncate <?php echo count( $items ) > 2 ? '_3-4' : '_4-4'; ?>"><span><?php echo $description; ?></span></div>
+        // Content
+        printf(
+          '<div class="card__content cell-desc truncate %1$s"><span>%2$s</span></div>',
+          count( $items ) > 2 ? '_3-4' : '_4-4',
+          $description
+        );
+      ?>
 
-      <?php if ( ! empty( $items ) ): ?>
+      <?php if ( ! empty( $items ) ) : ?>
         <ol class="card__link-list cell-list">
-          <?php foreach ( $items as $post_id ) : ?>
+          <?php foreach ( $items as $item ) : ?>
             <li>
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
-                <a href="<?php the_permalink( $post_id ); ?>"><?php
-                  $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $post_id );
+                <a href="<?php the_permalink( $item->ID ); ?>"><?php
+                  $list_title = $item->post_type == 'fcn_chapter' ?
+                    fictioneer_get_field( 'fictioneer_chapter_list_title', $item->ID ) : 0;
 
                   if ( $list_title ) {
                     echo wp_strip_all_tags( $list_title );
                   } else {
-                    echo fictioneer_get_safe_title( $post_id );
+                    echo fictioneer_get_safe_title( $item->ID );
                   }
                 ?></a>
               </div>
               <div class="card__right">
                 <?php
-                  echo get_post_type_object( get_post_type( $post_id ) )->labels->singular_name;
-                  echo '<span class="separator-dot hide-below-480">&#8196;&bull;&#8196;</span><span class="hide-below-480">';
-                  echo get_the_modified_date( FICTIONEER_CARD_COLLECTION_LI_DATE, $post_id );
-                  echo '</span>';
+                  printf(
+                    '%1$s<span class="separator-dot">&#8196;&bull;&#8196;</span>%2$s',
+                    get_post_type_object( $item->post_type )->labels->singular_name,
+                    get_the_modified_date( FICTIONEER_CARD_COLLECTION_LI_DATE, $item->ID )
+                  );
                 ?>
               </div>
             </li>
@@ -188,34 +207,15 @@ $comment_count = get_comments( $comment_args );
       <?php if ( $show_taxonomies ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $output = [];
-
-            if ( $fandoms ) {
-              foreach ( $fandoms as $fandom ) {
-                $output[] = "<a href='" . get_tag_link( $fandom ) . "' class='tag-pill _inline _fandom'>{$fandom->name}</a>";
-              }
-            }
-
-            if ( $genres ) {
-              foreach ( $genres as $genre ) {
-                $output[] = "<a href='" . get_tag_link( $genre ) . "' class='tag-pill _inline _genre'>{$genre->name}</a>";
-              }
-            }
-
-            if ( $tags ) {
-              foreach ( $tags as $tag ) {
-                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
-              }
-            }
-
-            if ( $characters ) {
-              foreach ( $characters as $character ) {
-                $output[] = "<a href='" . get_tag_link( $character ) . "' class='tag-pill _inline _character'>{$character->name}</a>";
-              }
-            }
+            $taxonomies = array_merge(
+              $fandoms ? fictioneer_generate_card_tags( $fandoms, '_fandom' ) : [],
+              $genres ? fictioneer_generate_card_tags( $genres, '_genre' ) : [],
+              $tags ? fictioneer_generate_card_tags( $tags ) : [],
+              $characters ? fictioneer_generate_card_tags( $characters, '_character' ) : []
+            );
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
           ?>
         </div>
       <?php endif; ?>
@@ -231,7 +231,7 @@ $comment_count = get_comments( $comment_args );
         <i class="fa-solid fa-list" title="<?php esc_attr_e( 'Chapters', 'fictioneer' ) ?>"></i>
         <?php echo $chapter_count; ?>
 
-        <i class="fa-solid fa-font"></i>
+        <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>"></i>
         <?php echo fictioneer_shorten_number( $word_count ); ?>
 
         <?php if ( ( $args['orderby'] ?? 0 ) === 'date' ) : ?>

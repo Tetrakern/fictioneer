@@ -19,26 +19,32 @@
 
 // Setup
 $story = fictioneer_get_story_data( $post->ID );
-$tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags() : false;
-$latest = isset( $args['show_latest'] ) && $args['show_latest'];
+$latest = $args['show_latest'] ?? false;
 $chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
-$classes = ['card'];
+$chapter_count = count( $chapter_ids );
+$excerpt = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
+$excerpt = empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
+$tags = false;
 
-// Sticky?
-if ( fictioneer_get_field( 'fictioneer_story_sticky' ) ) {
-  $classes[] = '_sticky';
+if (
+  get_option( 'fictioneer_show_tags_on_story_cards' ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )
+) {
+  $tags = get_the_tags();
 }
 
 // Flags
-$hide_author = isset( $args['hide_author'] ) && $args['hide_author'];
+$hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
-$show_type = isset( $args['show_type'] ) && $args['show_type'];
+$show_type = $args['show_type'] ?? false;
+$is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
+  fictioneer_get_field( 'fictioneer_story_sticky' ) && ! is_search() && ! is_archive();
 
 ?>
 
 <li
   id="story-card-<?php the_ID(); ?>"
-  class="<?php echo implode( ' ', $classes ); ?>"
+  class="card <?php echo $is_sticky ? '_sticky' : ''; ?>"
   data-story-id="<?php echo $post->ID; ?>"
   data-check-id="<?php echo $post->ID; ?>"
 >
@@ -52,7 +58,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
       <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
 
-      <?php if ( fictioneer_get_field( 'fictioneer_story_sticky' ) && ! is_search() && ! is_archive() ) : ?>
+      <?php if ( $is_sticky ) : ?>
         <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
       <?php endif; ?>
 
@@ -62,28 +68,34 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
     <div class="card__main _grid _large">
 
-      <?php if ( has_post_thumbnail() ) : ?>
-        <a
-          href="<?php the_post_thumbnail_url( 'full' ); ?>"
-          title="<?php printf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ?>"
-          class="card__image cell-img"
-          <?php echo fictioneer_get_lightbox_attribute(); ?>
-        ><?php the_post_thumbnail( 'cover' ); ?></a>
-      <?php endif; ?>
+      <?php
+        // Thumbnail
+        if ( has_post_thumbnail() ) {
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__image cell-img" %3$s>%4$s</a>',
+            get_the_post_thumbnail_url( null, 'full' ),
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( null, 'cover' )
+          );
+        }
 
-      <div class="card__content cell-desc truncate <?php echo count( $chapter_ids ) > 2 ? '_3-4' : '_4-4'; ?>">
-        <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
-          <span class="card__by-author show-below-desktop"><?php
-            printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
-          ?></span>
-        <?php endif; ?>
-        <span><?php
-          $excerpt = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
-          echo empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
-        ?></span>
-      </div>
+        // Content
+        printf(
+          '<div class="card__content cell-desc truncate %1$s">%2$s<span>%3$s</span></div>',
+          $chapter_count > 2 ? '_3-4' : '_4-4',
+          $hide_author ? '' : sprintf(
+            '<span class="card__by-author show-below-desktop">%s</span> ',
+            sprintf(
+              _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
+              fictioneer_get_author_node()
+            )
+          ),
+          $excerpt
+        );
+      ?>
 
-      <?php if ( count( $chapter_ids ) > 0 ): ?>
+      <?php if ( $chapter_count > 0 ): ?>
         <ol class="card__link-list cell-list">
           <?php
             // Prepare
@@ -105,25 +117,22 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
                 <a href="<?php the_permalink( $chapter->ID ); ?>"><?php
                   $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter->ID );
 
-                  if ( ! empty( $list_title ) ) {
-                    echo wp_strip_all_tags( $list_title );
-                  } else {
+                  if ( empty( $list_title ) ) {
                     echo fictioneer_get_safe_title( $chapter->ID );
+                  } else {
+                    echo wp_strip_all_tags( $list_title );
                   }
                 ?></a>
               </div>
               <div class="card__right">
                 <?php
-                  echo fictioneer_shorten_number( get_post_meta( $chapter->ID, '_word_count', true ) );
-                  echo '<span class="hide-below-480"> ';
-                  echo __( 'Words', 'fictioneer' );
-                  echo '</span><span class="separator-dot">&#8196;&bull;&#8196;</span>';
-
-                  if ( strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ) {
-                    _e( 'New', 'fictioneer' );
-                  } else {
-                    echo get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID );
-                  }
+                  printf(
+                    '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                    fictioneer_shorten_number( get_post_meta( $chapter->ID, '_word_count', true ) ),
+                    __( 'Words', 'fictioneer' ),
+                    strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ?
+                      _e( 'New', 'fictioneer' ) : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )
+                  );
                 ?>
               </div>
             </li>
@@ -134,34 +143,15 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php if ( $show_taxonomies ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $output = [];
-
-            if ( $story['fandoms'] ) {
-              foreach ( $story['fandoms'] as $fandom ) {
-                $output[] = "<a href='" . get_tag_link( $fandom ) . "' class='tag-pill _inline _fandom'>{$fandom->name}</a>";
-              }
-            }
-
-            if ( $story['genres'] ) {
-              foreach ( $story['genres'] as $genre ) {
-                $output[] = "<a href='" . get_tag_link( $genre ) . "' class='tag-pill _inline _genre'>{$genre->name}</a>";
-              }
-            }
-
-            if ( $tags ) {
-              foreach ( $tags as $tag ) {
-                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
-              }
-            }
-
-            if ( $story['characters'] ) {
-              foreach ( $story['characters'] as $character ) {
-                $output[] = "<a href='" . get_tag_link( $character ) . "' class='tag-pill _inline _character'>{$character->name}</a>";
-              }
-            }
+            $taxonomies = array_merge(
+              $story['fandoms'] ? fictioneer_generate_card_tags( $story['fandoms'], '_fandom' ) : [],
+              $story['genres'] ? fictioneer_generate_card_tags( $story['genres'], '_genre' ) : [],
+              $tags ? fictioneer_generate_card_tags( $tags ) : [],
+              $story['characters'] ? fictioneer_generate_card_tags( $story['characters'], '_character' ) : []
+            );
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
           ?>
         </div>
       <?php endif; ?>
@@ -186,7 +176,7 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
           <?php the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE ); ?>
         <?php endif; ?>
 
-        <?php if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) : ?>
+        <?php if ( ! $hide_author ) : ?>
           <i class="fa-solid fa-circle-user hide-below-desktop"></i>
           <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ), 'hide-below-desktop' ); ?>
         <?php endif; ?>

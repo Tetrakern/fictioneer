@@ -1355,6 +1355,35 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
 }
 
 // =============================================================================
+// GENERATE CARD TAGS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_generate_card_tags' ) ) {
+  /**
+   * Returns array of card tags with HTML markup
+   *
+   * @since 5.5.3
+   *
+   * @param array  $items    Array of terms.
+   * @param string $classes  Optional. CSS classes to add.
+   *
+   * @return array Array of output-ready tags.
+   */
+
+  function fictioneer_generate_card_tags( $items, $classes = '' ) {
+    $tags = [];
+
+    foreach ( $items as $item ) {
+      $link = get_tag_link( $item );
+
+      $tags[] = "<a href='{$link}' class='tag-pill _inline {$classes}'>{$item->name}</a>";
+    }
+
+    return $tags;
+  }
+}
+
+// =============================================================================
 // ECHO CARD
 // =============================================================================
 
