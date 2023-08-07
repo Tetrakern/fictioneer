@@ -57,7 +57,7 @@ if ( ! empty( $args['featured_list'] ) ) {
     'post_status' => 'publish',
     'post__in' => $query_chapter_ids,
     'posts_per_page' => -1,
-    'update_post_term_cache' => false
+    'update_post_term_cache' => false // Improve performance
   );
 
   $chapters = new WP_Query( $chapter_query_args );

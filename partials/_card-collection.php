@@ -27,54 +27,92 @@ $word_count = 0;
 $processed_ids = [];
 
 // Taxonomies
-$tags = get_option( 'fictioneer_show_tags_on_collection_cards' ) ? get_the_tags() : false;
-$fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-$characters = get_the_terms( $post->ID, 'fcn_character' );
-$genres = get_the_terms( $post->ID, 'fcn_genre' );
+$tags = false;
+$fandoms = false;
+$characters = false;
+$genres = false;
+
+if (
+  get_option( 'fictioneer_show_tags_on_collection_cards' ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' )
+) {
+  $tags = get_the_tags();
+}
+
+if ( ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) ) {
+  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
+  $characters = get_the_terms( $post->ID, 'fcn_character' );
+  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+}
 
 // Flags
 $show_type = $args['show_type'] ?? false;
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) && ( $fandoms || $characters || $genres || $tags );
 
-// Clean items of non-published entries
-foreach ( $items as $key => $post_id ) {
-  if ( get_post_status( $post_id ) != 'publish' ) unset( $items[$key] );
+// Query featured posts
+if ( ! empty( $items ) ) {
+  $items = new WP_Query(
+    array(
+      'post_type' => 'any',
+      'post_status' => 'publish',
+      'post__in' => $items,
+      'ignore_sticky_posts' => true,
+      'orderby' => 'modified',
+      'posts_per_page' => -1,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  $items = $items->posts;
 }
 
 // Statistics
 if ( ! empty( $items ) ) {
-  foreach ( $items as $post_id ) {
+  foreach ( $items as $item ) {
     // Count by type
-    switch ( get_post_type( $post_id ) ) {
+    switch ( $item->post_type ) {
       case 'fcn_chapter':
-        if ( ! in_array( $post_id, $processed_ids ) ) {
+        if ( ! in_array( $item->ID, $processed_ids ) ) {
           $chapter_count += 1;
-          $word_count += get_post_meta( $post_id, '_word_count', true );
-          $processed_ids[] = $post_id;
+          $word_count += get_post_meta( $item->ID, '_word_count', true );
+          $processed_ids[] = $item->ID;
         }
         break;
       case 'fcn_story':
         $story_count += 1;
-        $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+        $chapter_ids = fictioneer_get_field( 'fictioneer_story_chapters', $item->ID );
 
         // Try to rescue an empty description by using one from a story...
         if ( empty( $description ) ) {
           $description = fictioneer_first_paragraph_as_excerpt(
-            fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
+            fictioneer_get_content_field( 'fictioneer_story_short_description', $item->ID )
           );
         }
 
-        if ( $chapters ) {
-          foreach ( $chapters as $chapter_id ) {
-            if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id ) ) continue;
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) ) continue;
+        // Query eligible chapters
+        $chapter_query_args = array(
+          'post_type' => 'fcn_chapter',
+          'post_status' => 'publish',
+          'post__in' => $chapter_ids,
+          'posts_per_page' => -1,
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        );
 
-            if ( get_post_status( $chapter_id ) === 'publish' ) {
-              if ( ! in_array( $chapter_id, $processed_ids ) ) {
-                $chapter_count += 1;
-                $word_count += get_post_meta( $chapter_id, '_word_count', true );
-                $processed_ids[] = $chapter_id;
-              }
+        $chapters = new WP_Query( $chapter_query_args );
+        $chapters = $chapters->posts;
+
+        if ( ! empty( $chapters ) ) {
+          foreach ( $chapters as $chapter ) {
+            if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ) continue;
+            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) continue;
+
+            if ( ! in_array( $chapter->ID, $processed_ids ) ) {
+              $chapter_count += 1;
+              $word_count += get_post_meta( $chapter->ID, '_word_count', true );
+              $processed_ids[] = $chapter->ID;
             }
           }
         }
@@ -83,7 +121,7 @@ if ( ! empty( $items ) ) {
   }
 
   // Prepare features items
-  $items = array_slice( $items, -3, null, true );
+  $items = array_slice( $items, 0, 3 );
 }
 
 // Required since it's possible to add chapters to collection outside of
