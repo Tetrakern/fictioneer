@@ -37,6 +37,9 @@ if ( get_option( 'fictioneer_remove_head_clutter' ) ) {
   remove_action( 'wp_head', 'wp_generator' );
 }
 
+// Nobody needs that (or just override this filter in a child theme)
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
 // =============================================================================
 // SITEMAPS
 // =============================================================================
