@@ -34,7 +34,7 @@ $query_args = array (
   'order' => $order,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )
+  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
 );
 
 // Append date query (if any)
