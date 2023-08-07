@@ -183,6 +183,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         // Update meta
         if ( FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT > 0 && ! ( $args['force_comment_count_refresh'] ?? 0 ) ) {
           update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
+          fictioneer_purge_post_cache( $story_id );
         }
       }
 
