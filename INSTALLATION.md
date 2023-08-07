@@ -758,3 +758,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
 | FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.
 | FICTIONEER_DISABLE_ACF_JSON_IMPORT | boolean | Whether to disable the ACF JSON field import. Dangerous. Default `false`.
+| FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
