@@ -128,6 +128,7 @@ if ( ! empty( $items ) ) {
 // their stories, which would cause the comments to be counted twice.
 $comment_args = array(
   'post_type' => 'fcn_chapter',
+  'status' => 1,
   'post__in' => $processed_ids,
   'count' => true,
   'update_comment_meta_cache' => false
@@ -242,7 +243,7 @@ $comment_count = get_comments( $comment_args );
         <?php endif; ?>
 
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-        <?php echo $comment_count; ?>
+        <?php echo number_format_i18n( $comment_count ); ?>
 
       </div>
     </div>
