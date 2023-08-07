@@ -27,14 +27,14 @@ $word_count = 0;
 $processed_ids = [];
 
 // Taxonomies
-$tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags() : false;
+$tags = get_option( 'fictioneer_show_tags_on_collection_cards' ) ? get_the_tags() : false;
 $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
 $characters = get_the_terms( $post->ID, 'fcn_character' );
 $genres = get_the_terms( $post->ID, 'fcn_genre' );
 
 // Flags
-$show_type = isset( $args['show_type'] ) && $args['show_type'];
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $fandoms || $characters || $genres || $tags );
+$show_type = $args['show_type'] ?? false;
+$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) && ( $fandoms || $characters || $genres || $tags );
 
 // Clean items of non-published entries
 foreach ( $items as $key => $post_id ) {
