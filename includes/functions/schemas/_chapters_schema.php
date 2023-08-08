@@ -4,44 +4,46 @@
 // REFRESH CHAPTERS SUMMARY SCHEMA
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_refresh_chapters_schema' ) ) {
-  /**
-   * Refresh chapters summary schemas
-   *
-   * "There are only two hard things in Computer Science: cache invalidation and
-   * naming things" -- Phil Karlton.
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param int     $post_id The ID of the saved post.
-   * @param WP_Post $post    The saved post object.
-   */
+/**
+ * Refresh chapters summary schemas
+ *
+ * "There are only two hard things in Computer Science: cache invalidation and
+ * naming things" -- Phil Karlton.
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param int     $post_id The ID of the saved post.
+ * @param WP_Post $post    The saved post object.
+ */
 
-  function fictioneer_refresh_chapters_schema( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
+function fictioneer_refresh_chapters_schema( $post_id, $post ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
-    // Check what was updated
-    $sub_update = in_array( $post->post_type, ['fcn_chapter', 'fcn_collection'] );
-    if ( get_page_template_slug() != 'chapters.php' && ! $sub_update ) return;
+  // Check what was updated
+  if (
+    get_page_template_slug() != 'chapters.php' &&
+    ! in_array( $post->post_type, ['fcn_chapter', 'fcn_collection'] )
+  ) {
+    return;
+  }
 
-    // Get all pages with the chapters template
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'meta_key' => '_wp_page_template',
-        'meta_value' => 'chapters.php'
-      )
-    );
+  // Get all pages with the chapters template
+  $pages = get_posts(
+    array(
+      'post_type' => 'page',
+      'numberposts' => -1,
+      'meta_key' => '_wp_page_template',
+      'meta_value' => 'chapters.php'
+    )
+  );
 
-    // Rebuild schemas
-    if ( $pages ) {
-      foreach ( $pages as $page ) {
-        fictioneer_build_chapters_schema( $page->ID );
-      }
+  // Rebuild schemas
+  if ( $pages ) {
+    foreach ( $pages as $page ) {
+      fictioneer_build_chapters_schema( $page->ID );
     }
   }
 }

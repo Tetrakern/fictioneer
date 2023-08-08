@@ -34,66 +34,64 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
 // SHIFT STICKY COMMENTS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_shift_sticky_comments' ) ) {
-  /**
-   * Query sticky comments and merge them in first
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param array $comments  Queried comments.
-   * @param int   $post_id   The post ID.
-   *
-   * @return array Comments with sticky ones on top.
-   */
+/**
+ * Query sticky comments and merge them in first
+ *
+ * @since Fictioneer 5.0
+ *
+ * @param array $comments  Queried comments.
+ * @param int   $post_id   The post ID.
+ *
+ * @return array Comments with sticky ones on top.
+ */
 
-  function fictioneer_shift_sticky_comments( $comments, $post_id ) {
-    // Query arguments
-    $stick_comments_args = array(
-      'status' => 'approve',
-      'post_id' => $post_id,
-      'parent' => 0,
-      'meta_query' => array(
-        'relation' => 'AND',
+function fictioneer_shift_sticky_comments( $comments, $post_id ) {
+  // Query arguments
+  $stick_comments_args = array(
+    'status' => 'approve',
+    'post_id' => $post_id,
+    'parent' => 0,
+    'meta_query' => array(
+      'relation' => 'AND',
+      array(
+        'key' => 'fictioneer_sticky',
+        'value' => 1,
+      ),
+      array(
+        'relation' => 'OR',
         array(
-          'key' => 'fictioneer_sticky',
-          'value' => 1,
-        ),
-        array(
-          'relation' => 'OR',
-          array(
-            'key' => 'fictioneer_marked_offensive',
-            'compare' => 'NOT EXISTS',
-          ),
-          array(
-            'key' => 'fictioneer_marked_offensive',
-            'value' => 1,
-            'compare' => '!=',
-          ),
-        ),
-        array(
-          'key' => 'fictioneer_deleted_by_user',
+          'key' => 'fictioneer_marked_offensive',
           'compare' => 'NOT EXISTS',
-        )
+        ),
+        array(
+          'key' => 'fictioneer_marked_offensive',
+          'value' => 1,
+          'compare' => '!=',
+        ),
+      ),
+      array(
+        'key' => 'fictioneer_deleted_by_user',
+        'compare' => 'NOT EXISTS',
       )
-    );
+    )
+  );
 
-    if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
-      $stick_comments_args['type'] = ['comment', 'private'];
-      $stick_comments_args['order'] = get_option( 'comment_order' );
-    } else {
-      $stick_comments_args['type'] = ['comment'];
-    }
-
-    // Filter query arguments
-    $query_args = apply_filters( 'fictioneer_filter_comments_query', $stick_comments_args, $post_id );
-
-    // Query comments
-    $sticky_comments_query = new WP_Comment_Query( $query_args );
-    $sticky_comments = $sticky_comments_query->comments;
-
-    // Return merged comment lists
-    return array_merge( $sticky_comments, $comments );
+  if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
+    $stick_comments_args['type'] = ['comment', 'private'];
+    $stick_comments_args['order'] = get_option( 'comment_order' );
+  } else {
+    $stick_comments_args['type'] = ['comment'];
   }
+
+  // Filter query arguments
+  $query_args = apply_filters( 'fictioneer_filter_comments_query', $stick_comments_args, $post_id );
+
+  // Query comments
+  $sticky_comments_query = new WP_Comment_Query( $query_args );
+  $sticky_comments = $sticky_comments_query->comments;
+
+  // Return merged comment lists
+  return array_merge( $sticky_comments, $comments );
 }
 
 if ( get_option( 'fictioneer_enable_sticky_comments' ) ) {
@@ -370,30 +368,28 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
 // THEME COMMENT TEXT
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_replace_comment_line_breaks' ) ) {
-  /**
-   * Properly wrap empty lines into paragraphs
-   *
-   * @since Fictioneer 4.0
-   * @since Fictioneer 5.2.6 Updated and changed to not mess up some languages.
-   *
-   * @param string $comment_content The comment content.
-   *
-   * @return string $comment_content The modified comment content.
-   */
+/**
+ * Properly wrap empty lines into paragraphs
+ *
+ * @since Fictioneer 4.0
+ * @since Fictioneer 5.2.6 Updated and changed to not mess up some languages.
+ *
+ * @param string $comment_content The comment content.
+ *
+ * @return string $comment_content The modified comment content.
+ */
 
-  function fictioneer_replace_comment_line_breaks( $comment_content ) {
-    $lines = preg_split( '/\R/', $comment_content );
+function fictioneer_replace_comment_line_breaks( $comment_content ) {
+  $lines = preg_split( '/\R/', $comment_content );
 
-    $wrapped = array_map( function( $line ) {
-      if ( trim( $line ) === '' ) {
-        return '<p></p>';
-      }
-      return $line;
-    }, $lines );
+  $wrapped = array_map( function( $line ) {
+    if ( trim( $line ) === '' ) {
+      return '<p></p>';
+    }
+    return $line;
+  }, $lines );
 
-    return implode( PHP_EOL, $wrapped );
-  }
+  return implode( PHP_EOL, $wrapped );
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_callback' ) ) {
@@ -832,20 +828,18 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 // THEME COMMENT PAGINATION MARKUP
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_pagination_markup' ) ) {
-  /**
-   * Change comment pagination markup
-   *
-   * @since Fictioneer 4.7
-   *
-   * @param string $template The default comment pagination template.
-   *
-   * @return string The modified comment pagination template.
-   */
+/**
+ * Change comment pagination markup
+ *
+ * @since Fictioneer 4.7
+ *
+ * @param string $template The default comment pagination template.
+ *
+ * @return string The modified comment pagination template.
+ */
 
-  function fictioneer_pagination_markup( $template ) {
-    return '<nav class="pagination _padding-top %1$s" aria-label="%4$s" role="navigation">%3$s</nav>';
-  }
+function fictioneer_pagination_markup( $template ) {
+  return '<nav class="pagination _padding-top %1$s" aria-label="%4$s" role="navigation">%3$s</nav>';
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_pagination' ) )  {

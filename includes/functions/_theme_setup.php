@@ -363,15 +363,15 @@ add_action( 'get_footer', 'fictioneer_style_footer_queue' );
 // FONT AWESOME 6+
 // =============================================================================
 
-/**
- * Add Font Awesome 6+ to the site
- *
- * @since 4.5
- * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
- * @link https://fontawesome.com/account/cdn
- */
-
 if ( ! function_exists( 'fa_custom_setup_cdn_webfont' ) ) {
+  /**
+   * Add Font Awesome 6+ to the site
+   *
+   * @since 4.5
+   * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
+   * @link https://fontawesome.com/account/cdn
+   */
+
   function fa_custom_setup_cdn_webfont( $cdn_url = '', $integrity = null ) {
     $matches = [];
     $match_result = preg_match( '|/([^/]+?)\.css$|', $cdn_url, $matches );

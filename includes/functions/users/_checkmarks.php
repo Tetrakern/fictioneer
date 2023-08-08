@@ -102,29 +102,27 @@ if ( ! function_exists( 'fictioneer_count_chapter_checkmarks' ) ) {
 // GET CHECKMARKS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_get_checkmarks' ) ) {
-  /**
-   * Sends the user's Checkmarks as JSON via Ajax
-   *
-   * @since Fictioneer 4.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-   * @see fictioneer_load_checkmarks()
-   */
+/**
+ * Sends the user's Checkmarks as JSON via Ajax
+ *
+ * @since Fictioneer 4.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ * @see fictioneer_load_checkmarks()
+ */
 
-  function fictioneer_ajax_get_checkmarks() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user();
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_get_checkmarks() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user();
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    // Prepare Checkmarks
-    $checkmarks = fictioneer_load_checkmarks( $user );
-    $checkmarks['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
+  // Prepare Checkmarks
+  $checkmarks = fictioneer_load_checkmarks( $user );
+  $checkmarks['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
 
-    // Response
-    wp_send_json_success( ['checkmarks' => json_encode( $checkmarks )] );
-  }
+  // Response
+  wp_send_json_success( ['checkmarks' => json_encode( $checkmarks )] );
 }
 
 if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
@@ -135,69 +133,67 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 // SET CHECKMARKS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_set_checkmark' ) ) {
-  /**
-   * Set Checkmarks for a story via AJAX
-   *
-   * @since Fictioneer 4.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-   * @see fictioneer_validate_id()
-   * @see fictioneer_get_story_data()
-   * @see fictioneer_load_checkmarks()
-   */
+/**
+ * Set Checkmarks for a story via AJAX
+ *
+ * @since Fictioneer 4.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ * @see fictioneer_validate_id()
+ * @see fictioneer_get_story_data()
+ * @see fictioneer_load_checkmarks()
+ */
 
-  function fictioneer_ajax_set_checkmark() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user();
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_set_checkmark() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user();
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    if ( empty( $_POST['story_id'] ) ) {
-      wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
-    }
+  if ( empty( $_POST['story_id'] ) ) {
+    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+  }
 
-    $story_id = fictioneer_validate_id( $_POST['story_id'], 'fcn_story' );
+  $story_id = fictioneer_validate_id( $_POST['story_id'], 'fcn_story' );
 
-    if ( ! $story_id ) {
-      wp_send_json_error( ['error' => __( 'Invalid story ID.', 'fictioneer' )] );
-    }
+  if ( ! $story_id ) {
+    wp_send_json_error( ['error' => __( 'Invalid story ID.', 'fictioneer' )] );
+  }
 
-    $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
+  $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
-    // Prepare update
-    $update = isset( $_POST['update'] ) ? explode( ' ', sanitize_text_field( $_POST['update'] ) ) : [];
-    $update_ids = [];
+  // Prepare update
+  $update = isset( $_POST['update'] ) ? explode( ' ', sanitize_text_field( $_POST['update'] ) ) : [];
+  $update_ids = [];
 
-    // Check update...
-    if ( in_array( $story_id, $update ) ) {
-      // If story ID in update, add all chapters and mark story as read
-      $update_ids = array_map( function ( $a ) { return absint( $a ); }, $story_data['chapter_ids'] );
-      $update_ids[] = absint( $story_id );
-    } else {
-      // Check if chapter IDs are part of the story
-      foreach ( $update as $chapter_id ) {
-        $chapter_id = absint( $chapter_id );
+  // Check update...
+  if ( in_array( $story_id, $update ) ) {
+    // If story ID in update, add all chapters and mark story as read
+    $update_ids = array_map( function ( $a ) { return absint( $a ); }, $story_data['chapter_ids'] );
+    $update_ids[] = absint( $story_id );
+  } else {
+    // Check if chapter IDs are part of the story
+    foreach ( $update as $chapter_id ) {
+      $chapter_id = absint( $chapter_id );
 
-        if ( in_array( $chapter_id, $story_data['chapter_ids'] ) ) {
-          $update_ids[] = $chapter_id;
-        }
+      if ( in_array( $chapter_id, $story_data['chapter_ids'] ) ) {
+        $update_ids[] = $chapter_id;
       }
     }
+  }
 
-    // Prepare Checkmarks
-    $checkmarks = fictioneer_load_checkmarks( $user );
-    $checkmarks['updated'] = time() * 1000; // Compatible with Date.now() in JavaScript
+  // Prepare Checkmarks
+  $checkmarks = fictioneer_load_checkmarks( $user );
+  $checkmarks['updated'] = time() * 1000; // Compatible with Date.now() in JavaScript
 
-    // Update checkmarks
-    $checkmarks['data'][ $story_id ] = empty( $_POST['update'] ) ? [] : $update_ids;
+  // Update checkmarks
+  $checkmarks['data'][ $story_id ] = empty( $_POST['update'] ) ? [] : $update_ids;
 
-    // Update user
-    if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', $checkmarks ) ) {
-      wp_send_json_success();
-    } else {
-      wp_send_json_error( ['error' => __( 'Database error. Checkmarks could not be updated.', 'fictioneer' )] );
-    }
+  // Update user
+  if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', $checkmarks ) ) {
+    wp_send_json_success();
+  } else {
+    wp_send_json_error( ['error' => __( 'Database error. Checkmarks could not be updated.', 'fictioneer' )] );
   }
 }
 
@@ -209,27 +205,25 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 // CLEAR MY CHECKMARKS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_clear_my_checkmarks' ) ) {
-  /**
-   * Clears Checkmarks for a story via AJAX
-   *
-   * @since Fictioneer 5.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-   */
+/**
+ * Clears Checkmarks for a story via AJAX
+ *
+ * @since Fictioneer 5.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ */
 
-  function fictioneer_ajax_clear_my_checkmarks() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_checkmarks' );
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_clear_my_checkmarks() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_checkmarks' );
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    // Update user
-    if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', [] ) ) {
-      wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
-    } else {
-      wp_send_json_error( ['error' => __( 'Database error. Checkmarks could not be updated.', 'fictioneer' )] );
-    }
+  // Update user
+  if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', [] ) ) {
+    wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
+  } else {
+    wp_send_json_error( ['error' => __( 'Database error. Checkmarks could not be updated.', 'fictioneer' )] );
   }
 }
 
@@ -241,83 +235,81 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 // GET FINISHED LIST - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_get_finished_list' ) ) {
-  function fictioneer_ajax_get_finished_list() {
-    // Validations
-    $user = wp_get_current_user();
+function fictioneer_ajax_get_finished_list() {
+  // Validations
+  $user = wp_get_current_user();
 
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Not logged in.', 'fictioneer' )] );
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Not logged in.', 'fictioneer' )] );
 
-    if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-      wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
-    }
-
-    // Setup
-    $checkmarks = fictioneer_load_checkmarks( $user );
-    $post_ids = fictioneer_get_finished_checkmarks( $checkmarks );
-    $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-    $order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
-
-    // Sanitize
-    $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
-
-    // Query
-    $list_items = fictioneer_get_card_list(
-      'story',
-      array(
-        'post__in' => $post_ids,
-        'paged' => $page,
-        'order' => $order
-      ),
-      __( 'You have not marked any stories as finished.', 'fictioneer' ),
-      ['show_latest' => true]
-    );
-
-    // Total number of pages
-    $max_pages = $list_items['query']->max_num_pages ?? 1;
-
-    // Navigation (if any)
-    $navigation = '';
-
-    if ( $max_pages > 1 ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="pagination bookshelf-pagination">
-        <?php
-          for ( $i = 1; $i <= $max_pages; $i++ ) {
-            if ( $i == $page ) {
-              ?><span class="page-numbers current" aria-current="page"><?php echo $i; ?></span><?php
-            } else {
-              ?><button class="page-numbers" data-page="<?php echo $i; ?>"><?php echo $i; ?></button><?php
-            }
-          }
-        ?>
-      </li>
-      <?php // <--- End HTML
-
-      // Get buffered navigation
-      $navigation = ob_get_clean();
-    } elseif ( $page > 1 ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="pagination bookshelf-pagination">
-        <button class="page-numbers" data-page="1"><?php _e( 'First Page', 'fictioneer' ); ?></button>
-      </li>
-      <?php // <--- End HTML
-
-      // Get buffered back button
-      $navigation = ob_get_clean();
-    }
-
-    // Send result
-    wp_send_json_success(
-      array(
-        'html' => $list_items['html'] . $navigation,
-        'count' => count( $post_ids ),
-        'maxPages' => $max_pages
-      )
-    );
+  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
   }
+
+  // Setup
+  $checkmarks = fictioneer_load_checkmarks( $user );
+  $post_ids = fictioneer_get_finished_checkmarks( $checkmarks );
+  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
+  $order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
+
+  // Sanitize
+  $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
+
+  // Query
+  $list_items = fictioneer_get_card_list(
+    'story',
+    array(
+      'post__in' => $post_ids,
+      'paged' => $page,
+      'order' => $order
+    ),
+    __( 'You have not marked any stories as finished.', 'fictioneer' ),
+    ['show_latest' => true]
+  );
+
+  // Total number of pages
+  $max_pages = $list_items['query']->max_num_pages ?? 1;
+
+  // Navigation (if any)
+  $navigation = '';
+
+  if ( $max_pages > 1 ) {
+    ob_start();
+    // Start HTML ---> ?>
+    <li class="pagination bookshelf-pagination">
+      <?php
+        for ( $i = 1; $i <= $max_pages; $i++ ) {
+          if ( $i == $page ) {
+            ?><span class="page-numbers current" aria-current="page"><?php echo $i; ?></span><?php
+          } else {
+            ?><button class="page-numbers" data-page="<?php echo $i; ?>"><?php echo $i; ?></button><?php
+          }
+        }
+      ?>
+    </li>
+    <?php // <--- End HTML
+
+    // Get buffered navigation
+    $navigation = ob_get_clean();
+  } elseif ( $page > 1 ) {
+    ob_start();
+    // Start HTML ---> ?>
+    <li class="pagination bookshelf-pagination">
+      <button class="page-numbers" data-page="1"><?php _e( 'First Page', 'fictioneer' ); ?></button>
+    </li>
+    <?php // <--- End HTML
+
+    // Get buffered back button
+    $navigation = ob_get_clean();
+  }
+
+  // Send result
+  wp_send_json_success(
+    array(
+      'html' => $list_items['html'] . $navigation,
+      'count' => count( $post_ids ),
+      'maxPages' => $max_pages
+    )
+  );
 }
 
 if ( get_option( 'fictioneer_enable_checkmarks' ) ) {

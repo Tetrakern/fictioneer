@@ -4,49 +4,47 @@
 // FIX COMMENT POST REDIRECT
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_redirect_comment' ) ) {
-  /**
-   * Fixes redirect after posting a comment
-   *
-   * Due to the modified query, after posting a comment, the commenter may be
-   * redirected to the wrong comment page. This resolves the issue and also adds
-   * a query argument with a comment's visibility code to allow guests without
-   * email and cookies to preview their comment for a limited time as set in
-   * fictioneer_theme_comment().
-   *
-   * @since Fictioneer 4.7
-   *
-   * @param string $location    Default redirect URI.
-   * @param object $commentdata Comment data.
-   *
-   * @return string Either $location or a new redirect URI.
-   */
+/**
+ * Fixes redirect after posting a comment
+ *
+ * Due to the modified query, after posting a comment, the commenter may be
+ * redirected to the wrong comment page. This resolves the issue and also adds
+ * a query argument with a comment's visibility code to allow guests without
+ * email and cookies to preview their comment for a limited time as set in
+ * fictioneer_theme_comment().
+ *
+ * @since Fictioneer 4.7
+ *
+ * @param string $location    Default redirect URI.
+ * @param object $commentdata Comment data.
+ *
+ * @return string Either $location or a new redirect URI.
+ */
 
-  function fictioneer_redirect_comment( $location, $commentdata ) {
-    if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) ) {
-      return $location;
-    }
-
-    $visibility_code = get_comment_meta(
-      $commentdata->comment_ID,
-      'fictioneer_visibility_code',
-      true
-    );
-
-    if ( wp_get_referer() ) {
-      if ( $visibility_code && ! $commentdata->comment_approved ) {
-        return add_query_arg(
-          'commentcode',
-          $visibility_code['code'],
-          wp_get_referer() . '#comment-' . $commentdata->comment_ID
-        );
-      } else {
-        return wp_get_referer() . '#comment-' . $commentdata->comment_ID;
-      }
-    }
-
+function fictioneer_redirect_comment( $location, $commentdata ) {
+  if ( ! isset( $commentdata ) || empty( $commentdata->comment_post_ID ) ) {
     return $location;
   }
+
+  $visibility_code = get_comment_meta(
+    $commentdata->comment_ID,
+    'fictioneer_visibility_code',
+    true
+  );
+
+  if ( wp_get_referer() ) {
+    if ( $visibility_code && ! $commentdata->comment_approved ) {
+      return add_query_arg(
+        'commentcode',
+        $visibility_code['code'],
+        wp_get_referer() . '#comment-' . $commentdata->comment_ID
+      );
+    } else {
+      return wp_get_referer() . '#comment-' . $commentdata->comment_ID;
+    }
+  }
+
+  return $location;
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
@@ -71,90 +69,88 @@ if ( get_option( 'fictioneer_do_not_save_comment_ip' ) ) {
 // PREPROCESS COMMENTS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_preprocess_comment' ) ) {
-  /**
-   * Applies anti-spam measures, checks for flags, filters the content, etc.
-   *
-   * @since Fictioneer 4.7
-   *
-   * @param array $commentdata Comment data.
-   *
-   * @return array $commentdata The preprocessed comment data.
-   */
+/**
+ * Applies anti-spam measures, checks for flags, filters the content, etc.
+ *
+ * @since Fictioneer 4.7
+ *
+ * @param array $commentdata Comment data.
+ *
+ * @return array $commentdata The preprocessed comment data.
+ */
 
-  function fictioneer_preprocess_comment( $commentdata ) {
-    // Setup
-    $current_user = wp_get_current_user();
-    $user_id = $current_user ? $current_user->ID : false;
-    $is_ajax = get_option( 'fictioneer_enable_ajax_comment_submit' );
-    $is_admin = fictioneer_is_admin( $user_id );
+function fictioneer_preprocess_comment( $commentdata ) {
+  // Setup
+  $current_user = wp_get_current_user();
+  $user_id = $current_user ? $current_user->ID : false;
+  $is_ajax = get_option( 'fictioneer_enable_ajax_comment_submit' );
+  $is_admin = fictioneer_is_admin( $user_id );
 
-    // Commenting disabled
-    if ( fictioneer_is_commenting_disabled( $commentdata['comment_post_ID'] ) ) {
-      if ( $is_ajax ) {
-        wp_send_json_error( ['error' => __( 'Commenting disabled.', 'fictioneer' )] );
-      } else {
-        wp_die( __( 'Commenting disabled.', 'fictioneer' ) );
-      }
+  // Commenting disabled
+  if ( fictioneer_is_commenting_disabled( $commentdata['comment_post_ID'] ) ) {
+    if ( $is_ajax ) {
+      wp_send_json_error( ['error' => __( 'Commenting disabled.', 'fictioneer' )] );
+    } else {
+      wp_die( __( 'Commenting disabled.', 'fictioneer' ) );
     }
-
-    // Require JS to comment unless the commenter is logged-in as
-    // administrator, moderator, author, or editor.
-    if (
-      get_option( 'fictioneer_require_js_to_comment' ) &&
-      (
-        ! $current_user ||
-        (
-          ! $is_admin &&
-          ! fictioneer_is_author( $user_id ) &&
-          ! fictioneer_is_moderator( $user_id ) &&
-          ! fictioneer_is_editor( $user_id )
-        )
-      )
-    ) {
-      if ( ! isset( $_POST['fictioneer_comment_validator'] ) || ! $_POST['fictioneer_comment_validator'] ) {
-        if ( $is_ajax ) {
-          wp_send_json_error( ['error' => __( 'Comment did not pass validation.', 'fictioneer' )] );
-        } else {
-          wp_die( __( 'Comment did not pass validation.', 'fictioneer' ) );
-        }
-      }
-    }
-
-    // Check fictioneer_admin_disable_commenting user flag
-    if ( $current_user->fictioneer_admin_disable_commenting ) {
-      if ( $is_ajax ) {
-        wp_send_json_error( ['error' => __( 'Commenting capability disabled.', 'fictioneer' )] );
-      } else {
-        wp_die( __( 'Commenting capability disabled.', 'fictioneer' ) );
-      }
-    }
-
-    // Count links in comment the non-sophisticated way...
-    $link_count = substr_count( $commentdata['comment_content'], 'http' );
-
-    // No more than n links allowed (unless you are an administrator)
-    if (
-      get_option( 'fictioneer_enable_comment_link_limit' ) &&
-      $link_count > get_option( 'fictioneer_comment_link_limit_threshold', 3 ) &&
-      ! fictioneer_is_admin( $current_user->ID )
-    ) {
-      if ( $is_ajax ) {
-        wp_send_json_error( ['error' => __( 'Too many links.', 'fictioneer' )] );
-      } else {
-        wp_die( __( 'Too many links.', 'fictioneer' ) );
-      }
-    }
-
-    // Change allowed tags
-    global $allowedtags;
-
-    if ( ! $is_admin && get_option( 'fictioneer_disable_html_in_comments' ) ) {
-      $allowedtags = [];
-    }
-
-    return $commentdata;
   }
+
+  // Require JS to comment unless the commenter is logged-in as
+  // administrator, moderator, author, or editor.
+  if (
+    get_option( 'fictioneer_require_js_to_comment' ) &&
+    (
+      ! $current_user ||
+      (
+        ! $is_admin &&
+        ! fictioneer_is_author( $user_id ) &&
+        ! fictioneer_is_moderator( $user_id ) &&
+        ! fictioneer_is_editor( $user_id )
+      )
+    )
+  ) {
+    if ( ! isset( $_POST['fictioneer_comment_validator'] ) || ! $_POST['fictioneer_comment_validator'] ) {
+      if ( $is_ajax ) {
+        wp_send_json_error( ['error' => __( 'Comment did not pass validation.', 'fictioneer' )] );
+      } else {
+        wp_die( __( 'Comment did not pass validation.', 'fictioneer' ) );
+      }
+    }
+  }
+
+  // Check fictioneer_admin_disable_commenting user flag
+  if ( $current_user->fictioneer_admin_disable_commenting ) {
+    if ( $is_ajax ) {
+      wp_send_json_error( ['error' => __( 'Commenting capability disabled.', 'fictioneer' )] );
+    } else {
+      wp_die( __( 'Commenting capability disabled.', 'fictioneer' ) );
+    }
+  }
+
+  // Count links in comment the non-sophisticated way...
+  $link_count = substr_count( $commentdata['comment_content'], 'http' );
+
+  // No more than n links allowed (unless you are an administrator)
+  if (
+    get_option( 'fictioneer_enable_comment_link_limit' ) &&
+    $link_count > get_option( 'fictioneer_comment_link_limit_threshold', 3 ) &&
+    ! fictioneer_is_admin( $current_user->ID )
+  ) {
+    if ( $is_ajax ) {
+      wp_send_json_error( ['error' => __( 'Too many links.', 'fictioneer' )] );
+    } else {
+      wp_die( __( 'Too many links.', 'fictioneer' ) );
+    }
+  }
+
+  // Change allowed tags
+  global $allowedtags;
+
+  if ( ! $is_admin && get_option( 'fictioneer_disable_html_in_comments' ) ) {
+    $allowedtags = [];
+  }
+
+  return $commentdata;
 }
 add_filter( 'preprocess_comment', 'fictioneer_preprocess_comment', 30, 1 );
 
@@ -162,53 +158,66 @@ add_filter( 'preprocess_comment', 'fictioneer_preprocess_comment', 30, 1 );
 // VALIDATE COMMENT FORM
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
-  /**
-   * Validate comment form submission
-   *
-   * @since Fictioneer 4.7
-   * @link  https://developer.wordpress.org/reference/hooks/preprocess_comment/
-   *
-   * @param array $commentdata Comment data.
-   */
+/**
+ * Validate comment form submission
+ *
+ * @since Fictioneer 4.7
+ * @link  https://developer.wordpress.org/reference/hooks/preprocess_comment/
+ *
+ * @param array $commentdata Comment data.
+ */
 
-  function fictioneer_validate_comment_form( $commentdata ) {
-    // Setup
-    $parent_id = absint( $commentdata['comment_parent'] ?? 0 );
-    $is_ajax = get_option( 'fictioneer_enable_ajax_comment_submit' );
+function fictioneer_validate_comment_form( $commentdata ) {
+  // Setup
+  $parent_id = absint( $commentdata['comment_parent'] ?? 0 );
+  $is_ajax = get_option( 'fictioneer_enable_ajax_comment_submit' );
 
-    // Check privacy consent for guests
-    if ( ! is_user_logged_in() && ! $is_ajax && get_option( 'wp_page_for_privacy_policy' ) ) {
-      // You cannot post a comment without accepting the privacy policy (Tested earlier on AJAX submit!)
-      if (
-        ! isset( $_POST['fictioneer-privacy-policy-consent'] ) ||
-        ! filter_var( $_POST['fictioneer-privacy-policy-consent'], FILTER_VALIDATE_BOOLEAN )
-      ) {
-        wp_die( __( 'You did not accept the privacy policy.', 'fictioneer' ) );
-      }
+  // Check privacy consent for guests
+  if ( ! is_user_logged_in() && ! $is_ajax && get_option( 'wp_page_for_privacy_policy' ) ) {
+    // You cannot post a comment without accepting the privacy policy (Tested earlier on AJAX submit!)
+    if (
+      ! isset( $_POST['fictioneer-privacy-policy-consent'] ) ||
+      ! filter_var( $_POST['fictioneer-privacy-policy-consent'], FILTER_VALIDATE_BOOLEAN )
+    ) {
+      wp_die( __( 'You did not accept the privacy policy.', 'fictioneer' ) );
     }
+  }
 
-    // Abort if direct parent comment is deleted
-    if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_deleted_by_user', true ) ) {
+  // Abort if direct parent comment is deleted
+  if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_deleted_by_user', true ) ) {
+    if ( $is_ajax ) {
+      wp_send_json_error( ['error' => __( 'You cannot reply to deleted comments.', 'fictioneer' )] );
+    } else {
+      wp_die( __( 'You cannot reply to deleted comments.', 'fictioneer' ) );
+    }
+  }
+
+  // Abort if direct parent comment is marked as offensive
+  if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_marked_offensive', true ) ) {
+    if ( $is_ajax ) {
+      wp_send_json_error( ['error' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' )] );
+    } else {
+      wp_die( __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) );
+    }
+  }
+
+  // Abort if parent comment or ancestors are closed
+  if ( $parent_id && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
+    if ( get_comment_meta( $parent_id, 'fictioneer_thread_closed', true ) ) {
       if ( $is_ajax ) {
-        wp_send_json_error( ['error' => __( 'You cannot reply to deleted comments.', 'fictioneer' )] );
+        wp_send_json_error( ['error' => __( 'Comment thread is closed.', 'fictioneer' )] );
       } else {
-        wp_die( __( 'You cannot reply to deleted comments.', 'fictioneer' ) );
+        wp_die( __( 'Comment thread is closed.', 'fictioneer' ) );
       }
     }
 
-    // Abort if direct parent comment is marked as offensive
-    if ( $parent_id && get_comment_meta( $parent_id, 'fictioneer_marked_offensive', true ) ) {
-      if ( $is_ajax ) {
-        wp_send_json_error( ['error' => __( 'You cannot reply to comments marked as offensive.', 'fictioneer' )] );
-      } else {
-        wp_die( __( 'You cannot reply to comments marked as offensive.', 'fictioneer' ) );
-      }
-    }
+    $ancestor = get_comment( $parent_id );
 
-    // Abort if parent comment or ancestors are closed
-    if ( $parent_id && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
-      if ( get_comment_meta( $parent_id, 'fictioneer_thread_closed', true ) ) {
+    while ( $ancestor ) {
+      if ( ! is_object( $ancestor ) ) break;
+
+      // Ancestor closed?
+      if ( get_comment_meta( $ancestor->comment_ID, 'fictioneer_thread_closed', true ) ) {
         if ( $is_ajax ) {
           wp_send_json_error( ['error' => __( 'Comment thread is closed.', 'fictioneer' )] );
         } else {
@@ -216,54 +225,39 @@ if ( ! function_exists( 'fictioneer_validate_comment_form' ) ) {
         }
       }
 
-      $ancestor = get_comment( $parent_id );
-
-      while ( $ancestor ) {
-        if ( ! is_object( $ancestor ) ) break;
-
-        // Ancestor closed?
-        if ( get_comment_meta( $ancestor->comment_ID, 'fictioneer_thread_closed', true ) ) {
-          if ( $is_ajax ) {
-            wp_send_json_error( ['error' => __( 'Comment thread is closed.', 'fictioneer' )] );
-          } else {
-            wp_die( __( 'Comment thread is closed.', 'fictioneer' ) );
-          }
-        }
-
-        // Next ancestor if any
-        $ancestor = $ancestor->comment_parent ? get_comment( $ancestor->comment_parent ) : false;
-      }
+      // Next ancestor if any
+      $ancestor = $ancestor->comment_parent ? get_comment( $ancestor->comment_parent ) : false;
     }
-
-    // Mark comment as private
-    if (
-      get_option( 'fictioneer_enable_private_commenting' ) &&
-      (
-        isset( $_POST['fictioneer-private-comment-toggle'] ) &&
-        filter_var( $_POST['fictioneer-private-comment-toggle'], FILTER_VALIDATE_BOOLEAN )
-      )
-    ) {
-      $commentdata['comment_type'] = 'private';
-    }
-
-    // Mark private if parent is private
-    if ( $parent_id && get_comment_type( $parent_id ) == 'private' ) {
-      $commentdata['comment_type'] = 'private';
-    }
-
-    // Enable email notification for replies
-    if (
-      get_option( 'fictioneer_enable_comment_notifications' ) &&
-      (
-        isset( $_POST['fictioneer-comment-notification-toggle'] ) &&
-        filter_var( $_POST['fictioneer-comment-notification-toggle'], FILTER_VALIDATE_BOOLEAN )
-      )
-    ) {
-      $commentdata['notification'] = true;
-    }
-
-    return $commentdata;
   }
+
+  // Mark comment as private
+  if (
+    get_option( 'fictioneer_enable_private_commenting' ) &&
+    (
+      isset( $_POST['fictioneer-private-comment-toggle'] ) &&
+      filter_var( $_POST['fictioneer-private-comment-toggle'], FILTER_VALIDATE_BOOLEAN )
+    )
+  ) {
+    $commentdata['comment_type'] = 'private';
+  }
+
+  // Mark private if parent is private
+  if ( $parent_id && get_comment_type( $parent_id ) == 'private' ) {
+    $commentdata['comment_type'] = 'private';
+  }
+
+  // Enable email notification for replies
+  if (
+    get_option( 'fictioneer_enable_comment_notifications' ) &&
+    (
+      isset( $_POST['fictioneer-comment-notification-toggle'] ) &&
+      filter_var( $_POST['fictioneer-comment-notification-toggle'], FILTER_VALIDATE_BOOLEAN )
+    )
+  ) {
+    $commentdata['notification'] = true;
+  }
+
+  return $commentdata;
 }
 
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
@@ -274,83 +268,81 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 // COMMENT POST ACTION
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_comment_post' ) ) {
-  /**
-   * Fires after the comment has been inserted into the database
-   *
-   * @since Fictioneer 4.7
-   * @link  https://developer.wordpress.org/reference/hooks/comment_post/
-   * @link  https://github.com/WordPress/WordPress/blob/master/wp-includes/comment.php
-   * @see   add_comment_meta()
-   * @see   filter_var()
-   *
-   * @param int        $comment_id       The comment ID.
-   * @param int|string $comment_approved 1 if the comment is approved, 0 if not, 'spam' if spam.
-   * @param array      $commentdata      Comment data.
-   */
+/**
+ * Fires after the comment has been inserted into the database
+ *
+ * @since Fictioneer 4.7
+ * @link  https://developer.wordpress.org/reference/hooks/comment_post/
+ * @link  https://github.com/WordPress/WordPress/blob/master/wp-includes/comment.php
+ * @see   add_comment_meta()
+ * @see   filter_var()
+ *
+ * @param int        $comment_id       The comment ID.
+ * @param int|string $comment_approved 1 if the comment is approved, 0 if not, 'spam' if spam.
+ * @param array      $commentdata      Comment data.
+ */
 
-  function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata ) {
-    // Store privacy policy agreement in case theme comments are turned off
-    if (
-      isset( $_POST['fictioneer-privacy-policy-consent'] ) &&
-      filter_var( $_POST['fictioneer-privacy-policy-consent'], FILTER_VALIDATE_BOOLEAN )
-    ) {
-      add_comment_meta( $comment_id, 'fictioneer_privacy_policy_accepted', true );
-    }
+function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata ) {
+  // Store privacy policy agreement in case theme comments are turned off
+  if (
+    isset( $_POST['fictioneer-privacy-policy-consent'] ) &&
+    filter_var( $_POST['fictioneer-privacy-policy-consent'], FILTER_VALIDATE_BOOLEAN )
+  ) {
+    add_comment_meta( $comment_id, 'fictioneer_privacy_policy_accepted', true );
+  }
 
-    // Store visibility code for unapproved comments based on Unix seconds
-    add_comment_meta(
-      $comment_id,
-      'fictioneer_visibility_code',
-      array(
-        'timestamp' => time(),
-        'code' => uniqid() // Sufficiently unique for this purpose
-      ),
-      true
-    );
+  // Store visibility code for unapproved comments based on Unix seconds
+  add_comment_meta(
+    $comment_id,
+    'fictioneer_visibility_code',
+    array(
+      'timestamp' => time(),
+      'code' => uniqid() // Sufficiently unique for this purpose
+    ),
+    true
+  );
 
-    // Hold for moderation if user is flagged
-    if ( get_user_meta( $commentdata['user_id'], 'fictioneer_admin_always_moderate_comments', true ) ) {
-      wp_set_comment_status( $comment_id, 'hold' );
-    }
+  // Hold for moderation if user is flagged
+  if ( get_user_meta( $commentdata['user_id'], 'fictioneer_admin_always_moderate_comments', true ) ) {
+    wp_set_comment_status( $comment_id, 'hold' );
+  }
 
-    // Purge cache of post/page the comment is for
-    if ( fictioneer_caching_active() && isset( $commentdata['comment_post_ID'] ) ) {
-      fictioneer_purge_post_cache( $commentdata['comment_post_ID'] );
-    }
+  // Purge cache of post/page the comment is for
+  if ( fictioneer_caching_active() && isset( $commentdata['comment_post_ID'] ) ) {
+    fictioneer_purge_post_cache( $commentdata['comment_post_ID'] );
+  }
 
-    // Notification validator determines whether a subscription is active; change the validator
-    // and all associated comment reply subscriptions are terminated
-    $notification_validator = get_user_meta( $commentdata['user_id'], 'fictioneer_comment_reply_validator', true );
+  // Notification validator determines whether a subscription is active; change the validator
+  // and all associated comment reply subscriptions are terminated
+  $notification_validator = get_user_meta( $commentdata['user_id'], 'fictioneer_comment_reply_validator', true );
 
-    if ( empty( $notification_validator ) ) {
-      $notification_validator = time();
-      update_user_meta( $commentdata['user_id'], 'fictioneer_comment_reply_validator', $notification_validator );
-    }
+  if ( empty( $notification_validator ) ) {
+    $notification_validator = time();
+    update_user_meta( $commentdata['user_id'], 'fictioneer_comment_reply_validator', $notification_validator );
+  }
 
-    // If user opted for email notifications
-    if (
-      isset( $_POST['fictioneer-comment-notification-toggle'] ) &&
-      filter_var( $_POST['fictioneer-comment-notification-toggle'], FILTER_VALIDATE_BOOLEAN )
-    ) {
-      add_comment_meta( $comment_id, 'fictioneer_send_notifications', $notification_validator );
-      // Reset code to stop notifications (sufficiently unique for this purpose)
-      add_comment_meta( $comment_id, 'fictioneer_notifications_reset', md5( wp_generate_password() ) );
-    }
+  // If user opted for email notifications
+  if (
+    isset( $_POST['fictioneer-comment-notification-toggle'] ) &&
+    filter_var( $_POST['fictioneer-comment-notification-toggle'], FILTER_VALIDATE_BOOLEAN )
+  ) {
+    add_comment_meta( $comment_id, 'fictioneer_send_notifications', $notification_validator );
+    // Reset code to stop notifications (sufficiently unique for this purpose)
+    add_comment_meta( $comment_id, 'fictioneer_notifications_reset', md5( wp_generate_password() ) );
+  }
 
-    // Anything related to comment parent (if any)...
-    $parent_comment = get_comment( $commentdata['comment_parent'] );
+  // Anything related to comment parent (if any)...
+  $parent_comment = get_comment( $commentdata['comment_parent'] );
 
-    if ( $parent_comment ) {
-      $parent_notification_check = get_comment_meta( $commentdata['comment_parent'], 'fictioneer_send_notifications', true );
-      $parent_notification_validator = get_user_meta( $parent_comment->user_id, 'fictioneer_comment_reply_validator', true );
+  if ( $parent_comment ) {
+    $parent_notification_check = get_comment_meta( $commentdata['comment_parent'], 'fictioneer_send_notifications', true );
+    $parent_notification_validator = get_user_meta( $parent_comment->user_id, 'fictioneer_comment_reply_validator', true );
 
-      // Send notification to parent comment author (if wanted)
-      if ( get_option( 'fictioneer_enable_comment_notifications' ) && ! empty( $parent_notification_check ) ) {
-        // Parent comment user guest or member?
-        if ( $parent_comment->user_id == 0 || $parent_notification_check == $parent_notification_validator ) {
-          fictioneer_comment_notification( $parent_comment, $comment_id, $commentdata );
-        }
+    // Send notification to parent comment author (if wanted)
+    if ( get_option( 'fictioneer_enable_comment_notifications' ) && ! empty( $parent_notification_check ) ) {
+      // Parent comment user guest or member?
+      if ( $parent_comment->user_id == 0 || $parent_notification_check == $parent_notification_validator ) {
+        fictioneer_comment_notification( $parent_comment, $comment_id, $commentdata );
       }
     }
   }
@@ -364,17 +356,17 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 // COMMENT NOTIFICATION EMAIL
 // =============================================================================
 
-/**
- * Send notification email about replies to commenter
- *
- * @since Fictioneer 5.0
- *
- * @param WP_Comment $parent      Comment that was replied to.
- * @param int        $comment_id  ID of the reply comment.
- * @param array      $commentdata Fields of the reply comment.
- */
-
 if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
+  /**
+   * Send notification email about replies to commenter
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_Comment $parent      Comment that was replied to.
+   * @param int        $comment_id  ID of the reply comment.
+   * @param array      $commentdata Fields of the reply comment.
+   */
+
   function fictioneer_comment_notification( WP_Comment $parent, int $comment_id, array $commentdata ) {
     // Abort if...
     if ( empty( $parent->comment_author_email ) || ! $comment_id || empty( $commentdata['comment_content'] ) ) {

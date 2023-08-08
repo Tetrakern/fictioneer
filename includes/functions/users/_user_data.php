@@ -519,7 +519,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
    * @param int $user_id User ID to get the hash for.
    *
    * @return string The unique fingerprint hash or empty string if not found.
- */
+   */
 
   function fictioneer_get_user_fingerprint( $user_id ) {
     // Setup
@@ -547,48 +547,46 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
 // SELF-UNSET OAUTH CONNECTIONS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_unset_my_oauth' ) ) {
-  /**
-   * Unset one of the user's OAuth bindings via AJAX
-   *
-   * @since Fictioneer 4.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   */
+/**
+ * Unset one of the user's OAuth bindings via AJAX
+ *
+ * @since Fictioneer 4.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ */
 
-  function fictioneer_ajax_unset_my_oauth() {
-    // Setup
-    $sender_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
-    $channel = isset( $_POST['channel'] ) ? sanitize_text_field( $_POST['channel'] ) : false;
-    $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_unset_oauth' );
+function fictioneer_ajax_unset_my_oauth() {
+  // Setup
+  $sender_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
+  $channel = isset( $_POST['channel'] ) ? sanitize_text_field( $_POST['channel'] ) : false;
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_unset_oauth' );
 
-    // Validations
-    if (
-      ! $user ||
-      ! $sender_id ||
-      ! $channel ||
-      ! in_array( $channel, ['discord', 'twitch', 'patreon', 'google'] ) ||
-      $sender_id !== $user->ID
-    ) {
-      wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
-    }
+  // Validations
+  if (
+    ! $user ||
+    ! $sender_id ||
+    ! $channel ||
+    ! in_array( $channel, ['discord', 'twitch', 'patreon', 'google'] ) ||
+    $sender_id !== $user->ID
+  ) {
+    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+  }
 
-    // Delete connection
-    if ( delete_user_meta( $user->ID, "fictioneer_{$channel}_id_hash" ) ) {
-      // Success response
-      wp_send_json_success(
-        array(
-          'channel' => $channel,
-          'label' => sprintf(
-            __( '%s disconnected', 'fictioneer' ),
-            ucfirst( $channel )
-          )
+  // Delete connection
+  if ( delete_user_meta( $user->ID, "fictioneer_{$channel}_id_hash" ) ) {
+    // Success response
+    wp_send_json_success(
+      array(
+        'channel' => $channel,
+        'label' => sprintf(
+          __( '%s disconnected', 'fictioneer' ),
+          ucfirst( $channel )
         )
-      );
-    } else {
-      // Failure response
-      wp_send_json_error( ['error' => __( 'Database error. Please ask an administrator.', 'fictioneer' )] );
-    }
+      )
+    );
+  } else {
+    // Failure response
+    wp_send_json_error( ['error' => __( 'Database error. Please ask an administrator.', 'fictioneer' )] );
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_unset_my_oauth', 'fictioneer_ajax_unset_my_oauth' );
@@ -613,7 +611,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
    *                     for completeness, partial success, and errors. Includes
    *                     'complete' (boolean), 'failure' (boolean), 'success' (boolean),
    *                     'comment_count' (int), and 'updated_count' (int). Or false.
-  */
+   */
 
   function fictioneer_soft_delete_user_comments( $user_id ) {
     // Setup
@@ -673,65 +671,63 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
 // SELF-CLEAR USER COMMENTS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_clear_my_comments' ) ) {
-  /**
-   * Clears all the user's comments via AJAX
-   *
-   * Queries all comments of the user and overrides the comment data with
-   * garbage, preserving the comment thread integrity.
-   *
-   * @since Fictioneer 5.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-  */
+/**
+ * Clears all the user's comments via AJAX
+ *
+ * Queries all comments of the user and overrides the comment data with
+ * garbage, preserving the comment thread integrity.
+ *
+ * @since Fictioneer 5.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ */
 
-  function fictioneer_ajax_clear_my_comments() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comments' );
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_clear_my_comments() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comments' );
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    if (
-      fictioneer_is_admin( $user->ID ) ||
-      fictioneer_is_author( $user->ID ) ||
-      fictioneer_is_moderator( $user->ID ) )
-    {
-      wp_send_json_error( ['error' => __( 'User role too high. Please ask an administrator.', 'fictioneer' )] );
-    }
+  if (
+    fictioneer_is_admin( $user->ID ) ||
+    fictioneer_is_author( $user->ID ) ||
+    fictioneer_is_moderator( $user->ID ) )
+  {
+    wp_send_json_error( ['error' => __( 'User role too high. Please ask an administrator.', 'fictioneer' )] );
+  }
 
-    // Soft-delete comments
-    $result = fictioneer_soft_delete_user_comments( $user->ID );
+  // Soft-delete comments
+  $result = fictioneer_soft_delete_user_comments( $user->ID );
 
-    if ( ! $result ) {
-      wp_send_json_error( ['error' => __( 'Database error. No comments found.', 'fictioneer' )] );
-    }
+  if ( ! $result ) {
+    wp_send_json_error( ['error' => __( 'Database error. No comments found.', 'fictioneer' )] );
+  }
 
-    if ( $result['failure'] && ! $result['complete'] ) {
-      wp_send_json_error(
-        array(
-          'error' => sprintf(
-            __( 'Partial database error. Only %1$s of %2$s comments could be cleared.', 'fictioneer' ),
-            $result['updated_count'],
-            $result['comment_count']
-          )
-        )
-      );
-    }
-
-    if ( $result['failure'] ) {
-      wp_send_json_error( ['error' => __( 'Database error. Comments could not be cleared.', 'fictioneer' )] );
-    }
-
-    // Report success
-    wp_send_json_success(
+  if ( $result['failure'] && ! $result['complete'] ) {
+    wp_send_json_error(
       array(
-        'success' => sprintf(
-          __( '%s comments have been cleared.', 'fictioneer' ),
-          $result['updated_count']
+        'error' => sprintf(
+          __( 'Partial database error. Only %1$s of %2$s comments could be cleared.', 'fictioneer' ),
+          $result['updated_count'],
+          $result['comment_count']
         )
       )
     );
   }
+
+  if ( $result['failure'] ) {
+    wp_send_json_error( ['error' => __( 'Database error. Comments could not be cleared.', 'fictioneer' )] );
+  }
+
+  // Report success
+  wp_send_json_success(
+    array(
+      'success' => sprintf(
+        __( '%s comments have been cleared.', 'fictioneer' ),
+        $result['updated_count']
+      )
+    )
+  );
 }
 add_action( 'wp_ajax_fictioneer_ajax_clear_my_comments', 'fictioneer_ajax_clear_my_comments' );
 
@@ -739,31 +735,29 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comments', 'fictioneer_ajax_clear_
 // SELF-CLEAR USER COMMENT SUBSCRIPTIONS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_clear_my_comment_subscriptions' ) ) {
-  /**
-   * Clears all the user's comment subscriptions via AJAX
-   *
-   * Changes the comment notification validation timestamp, effectively terminating
-   * all associated previous comment subscriptions. This is far cheaper than looping
-   * and updating all comments.
-   *
-   * @since Fictioneer 5.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-  */
+/**
+ * Clears all the user's comment subscriptions via AJAX
+ *
+ * Changes the comment notification validation timestamp, effectively terminating
+ * all associated previous comment subscriptions. This is far cheaper than looping
+ * and updating all comments.
+ *
+ * @since Fictioneer 5.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ */
 
-  function fictioneer_ajax_clear_my_comment_subscriptions() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comment_subscriptions' );
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_clear_my_comment_subscriptions() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_comment_subscriptions' );
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    // Change validator
-    if ( update_user_meta( $user->ID, 'fictioneer_comment_reply_validator', time() ) ) {
-      wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
-    } else {
-      wp_send_json_error( ['error' => __( 'Database error. Comment subscriptions could not be cleared.', 'fictioneer' )] );
-    }
+  // Change validator
+  if ( update_user_meta( $user->ID, 'fictioneer_comment_reply_validator', time() ) ) {
+    wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
+  } else {
+    wp_send_json_error( ['error' => __( 'Database error. Comment subscriptions could not be cleared.', 'fictioneer' )] );
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictioneer_ajax_clear_my_comment_subscriptions' );
@@ -772,78 +766,76 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictionee
 // SELF-DELETE USER - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_delete_my_account' ) ) {
-  /**
-   * Delete an user's account via AJAX
-   *
-   * @since Fictioneer 4.5
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_validate_id()
-   * @see fictioneer_get_validated_ajax_user()
-   */
+/**
+ * Delete an user's account via AJAX
+ *
+ * @since Fictioneer 4.5
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_validate_id()
+ * @see fictioneer_get_validated_ajax_user()
+ */
 
-  function fictioneer_ajax_delete_my_account() {
-    // Setup
-    $sender_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
-    $current_user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_delete_account' );
+function fictioneer_ajax_delete_my_account() {
+  // Setup
+  $sender_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
+  $current_user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_delete_account' );
 
-    // Extra validations
-    if (
-      ! $sender_id ||
-      ! $current_user ||
-      $sender_id !== $current_user->ID ||
-      $current_user == 1 ||
-      in_array( 'administrator', $current_user->roles ) ||
-      current_user_can( 'edit_posts' ) ||
-      current_user_can( 'publish_posts' ) ||
-      current_user_can( 'moderate_comments' )
-    ) {
-      wp_send_json_error(
-        array(
-          'error' => __( 'User role too high.', 'fictioneer' ),
-          'button' => __( 'Denied', 'fictioneer' )
-        )
-      );
-      die(); // Just to be sure
-    }
+  // Extra validations
+  if (
+    ! $sender_id ||
+    ! $current_user ||
+    $sender_id !== $current_user->ID ||
+    $current_user == 1 ||
+    in_array( 'administrator', $current_user->roles ) ||
+    current_user_can( 'edit_posts' ) ||
+    current_user_can( 'publish_posts' ) ||
+    current_user_can( 'moderate_comments' )
+  ) {
+    wp_send_json_error(
+      array(
+        'error' => __( 'User role too high.', 'fictioneer' ),
+        'button' => __( 'Denied', 'fictioneer' )
+      )
+    );
+    die(); // Just to be sure
+  }
 
-    // Update comments
-    $comments = get_comments( array( 'user_id' => $current_user->ID ) );
+  // Update comments
+  $comments = get_comments( array( 'user_id' => $current_user->ID ) );
 
-    foreach ( $comments as $comment ) {
-      wp_update_comment(
-        array(
-          'comment_ID' => $comment->comment_ID,
-          'user_ID' => 0,
-          'comment_author' => fcntr( 'deleted_user' ),
-          'comment_author_email' => '',
-          'comment_author_IP' => '',
-          'comment_agent' => '',
-          'comment_author_url' => ''
-        )
-      );
+  foreach ( $comments as $comment ) {
+    wp_update_comment(
+      array(
+        'comment_ID' => $comment->comment_ID,
+        'user_ID' => 0,
+        'comment_author' => fcntr( 'deleted_user' ),
+        'comment_author_email' => '',
+        'comment_author_IP' => '',
+        'comment_agent' => '',
+        'comment_author_url' => ''
+      )
+    );
 
-      // Make absolutely sure no comment subscriptions remain
-      update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
+    // Make absolutely sure no comment subscriptions remain
+    update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
 
-      // Retain some (redacted) data in case there was a mistake
-      add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
-      add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
-      add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
-    }
+    // Retain some (redacted) data in case there was a mistake
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
+  }
 
-    // Delete user
-    if ( wp_delete_user( $current_user->ID ) ) {
-      wp_send_json_success();
-    } else {
-      wp_send_json_error(
-        array(
-          'error' => __( 'Database error. Account could not be deleted.', 'fictioneer' ),
-          'button' => __( 'Failure', 'fictioneer' )
-        )
-      );
-    }
+  // Delete user
+  if ( wp_delete_user( $current_user->ID ) ) {
+    wp_send_json_success();
+  } else {
+    wp_send_json_error(
+      array(
+        'error' => __( 'Database error. Account could not be deleted.', 'fictioneer' ),
+        'button' => __( 'Failure', 'fictioneer' )
+      )
+    );
   }
 }
 
@@ -855,24 +847,22 @@ if ( get_option( 'fictioneer_enable_subscriber_self_delete' ) ) {
 // FETCH FINGERPRINT - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_ajax_get_fingerprint' ) ) {
-  /**
-   * Sends the user's fingerprint via AJAX
-   *
-   * @since Fictioneer 5.0
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
-   * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
-   * @see fictioneer_get_validated_ajax_user()
-  */
+/**
+ * Sends the user's fingerprint via AJAX
+ *
+ * @since Fictioneer 5.0
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ */
 
-  function fictioneer_ajax_get_fingerprint() {
-    // Setup and validations
-    $user = fictioneer_get_validated_ajax_user();
-    if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+function fictioneer_ajax_get_fingerprint() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user();
+  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
 
-    // Response
-    wp_send_json_success( ['fingerprint' => fictioneer_get_user_fingerprint( $user->ID )] );
-  }
+  // Response
+  wp_send_json_success( ['fingerprint' => fictioneer_get_user_fingerprint( $user->ID )] );
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fingerprint' );
 

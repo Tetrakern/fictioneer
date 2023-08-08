@@ -4,20 +4,18 @@
 // MAINTENANCE MODE
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_maintenance_mode' ) ) {
-  /**
-   * Toggle maintenance mode from settings with message
-   *
-   * @since 5.0
-   */
+/**
+ * Toggle maintenance mode from settings with message
+ *
+ * @since 5.0
+ */
 
-  function fictioneer_maintenance_mode() {
-    if ( get_option( 'fictioneer_enable_maintenance_mode' ) ) {
-      if ( ! current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
-        $note = get_option( 'fictioneer_phrase_maintenance' );
-        $note = ! empty( $note ) ? $note : __( 'Website under planned maintenance. Please check back later.', 'fictioneer' );
-        wp_die( __( '<h1>Under Maintenance</h1><br>', 'fictioneer' ) . $note );
-      }
+function fictioneer_maintenance_mode() {
+  if ( get_option( 'fictioneer_enable_maintenance_mode' ) ) {
+    if ( ! current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
+      $note = get_option( 'fictioneer_phrase_maintenance' );
+      $note = ! empty( $note ) ? $note : __( 'Website under planned maintenance. Please check back later.', 'fictioneer' );
+      wp_die( __( '<h1>Under Maintenance</h1><br>', 'fictioneer' ) . $note );
     }
   }
 }
@@ -56,14 +54,12 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
 // CUSTOM EXCERPT LENGTH
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_custom_excerpt_length' ) ) {
-  /**
-   * Change excerpt length
-   */
+/**
+ * Change excerpt length
+ */
 
-  function fictioneer_custom_excerpt_length( $length ) {
-    return 64;
-  }
+function fictioneer_custom_excerpt_length( $length ) {
+  return 64;
 }
 add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length', 999 );
 
@@ -71,22 +67,20 @@ add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length', 999 );
 // FIX EXCERPT FORMATTING
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_fix_excerpt' ) ) {
-  /**
-   * Fix inconsistent line breaks in excerpts
-   *
-   * @since 4.0
-   * @link https://github.com/WordPress/gutenberg/issues/15117
-   *
-   * @param string $excerpt The post excerpt.
-   */
+/**
+ * Fix inconsistent line breaks in excerpts
+ *
+ * @since 4.0
+ * @link https://github.com/WordPress/gutenberg/issues/15117
+ *
+ * @param string $excerpt The post excerpt.
+ */
 
-  function fictioneer_fix_excerpt( $excerpt ) {
-    add_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
-    $excerpt = wp_trim_excerpt( $excerpt );
-    remove_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
-    return $excerpt;
-  }
+function fictioneer_fix_excerpt( $excerpt ) {
+  add_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
+  $excerpt = wp_trim_excerpt( $excerpt );
+  remove_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
+  return $excerpt;
 }
 remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
 add_filter( 'get_the_excerpt', 'fictioneer_fix_excerpt' );
@@ -107,39 +101,37 @@ function fictioneer_replace_br_with_whitespace( $text ) {
 // UPDATE MODIFIED DATE OF STORY WHEN CHAPTER IS UPDATED
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_update_modified_date_on_story_for_chapter' ) ) {
-  /**
-   * Update modified date of story when chapter is updated
-   *
-   * @since 3.0
-   *
-   * @param int $post_id The post ID.
-   */
+/**
+ * Update modified date of story when chapter is updated
+ *
+ * @since 3.0
+ *
+ * @param int $post_id The post ID.
+ */
 
-  function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
-    global $wpdb;
+function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
+  global $wpdb;
 
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
-
-    // Chapter updated?
-    if ( get_post_type( $post_id ) != 'fcn_chapter' ) return;
-
-    // Setup
-    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
-
-    // No linked story found
-    if ( empty( $story_id ) ) return;
-
-    // Get current time for update (close enough to the chapter)
-    $post_modified = current_time( 'mysql' );
-    $post_modified_gmt = current_time( 'mysql', true );
-
-    // Update database
-    $wpdb->query( "UPDATE $wpdb->posts SET post_modified = '{$post_modified}', post_modified_gmt = '{$post_modified_gmt}' WHERE ID = {$story_id}" );
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
   }
+
+  // Chapter updated?
+  if ( get_post_type( $post_id ) != 'fcn_chapter' ) return;
+
+  // Setup
+  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+
+  // No linked story found
+  if ( empty( $story_id ) ) return;
+
+  // Get current time for update (close enough to the chapter)
+  $post_modified = current_time( 'mysql' );
+  $post_modified_gmt = current_time( 'mysql', true );
+
+  // Update database
+  $wpdb->query( "UPDATE $wpdb->posts SET post_modified = '{$post_modified}', post_modified_gmt = '{$post_modified_gmt}' WHERE ID = {$story_id}" );
 }
 add_action( 'save_post', 'fictioneer_update_modified_date_on_story_for_chapter' );
 add_action( 'trashed_post', 'fictioneer_update_modified_date_on_story_for_chapter' );
@@ -150,33 +142,31 @@ add_action( 'untrash_post', 'fictioneer_update_modified_date_on_story_for_chapte
 // STORE WORD COUNT AS CUSTOM FIELD
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_save_word_count' ) ) {
-  /**
-   * Store word count of posts as meta data
-   *
-   * @since 3.0
-   * @see   update_post_meta()
-   *
-   * @param int $post_id Post ID.
-   */
+/**
+ * Store word count of posts as meta data
+ *
+ * @since 3.0
+ * @see   update_post_meta()
+ *
+ * @param int $post_id Post ID.
+ */
 
-  function fictioneer_save_word_count( $post_id ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
-
-    // Prepare
-    $content = get_post_field( 'post_content', $post_id );
-    $content = strip_shortcodes( $content );
-    $content = strip_tags( $content );
-
-    // Count
-    $word_count = str_word_count( $content );
-
-    // Remember
-    update_post_meta( $post_id, '_word_count', $word_count );
+function fictioneer_save_word_count( $post_id ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
   }
+
+  // Prepare
+  $content = get_post_field( 'post_content', $post_id );
+  $content = strip_shortcodes( $content );
+  $content = strip_tags( $content );
+
+  // Count
+  $word_count = str_word_count( $content );
+
+  // Remember
+  update_post_meta( $post_id, '_word_count', $word_count );
 }
 add_action( 'save_post', 'fictioneer_save_word_count' );
 
@@ -212,41 +202,39 @@ if ( get_option( 'fictioneer_reduce_admin_bar' ) ) {
 // LOGOUT REDIRECT
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_logout_redirect' ) ) {
-  /**
-   * Change redirect after logout
-   *
-   * @since 4.0
-   *
-   * @param string $logout_url The HTML-encoded logout URL.
-   * @param string $redirect   Path to redirect to on logout.
-   *
-   * @return string $logout_url The updated logout URL.
-   */
+/**
+ * Change redirect after logout
+ *
+ * @since 4.0
+ *
+ * @param string $logout_url The HTML-encoded logout URL.
+ * @param string $redirect   Path to redirect to on logout.
+ *
+ * @return string $logout_url The updated logout URL.
+ */
 
-  function fictioneer_logout_redirect( $logout_url, $redirect ) {
-    // Setup
-    $args = [];
+function fictioneer_logout_redirect( $logout_url, $redirect ) {
+  // Setup
+  $args = [];
 
-    // Add redirect to args
-    if ( empty( $redirect ) ) {
-      $args['redirect_to'] = urlencode( get_permalink() );
-    } else {
-      $args['redirect_to'] = urlencode( $redirect );
-    }
-
-    // Avoid login page
-    if ( is_admin() || empty( $redirect ) ) {
-      $args['redirect_to'] = urlencode( get_home_url() );
-    }
-
-    // Rebuild logout URL
-    $logout_url = add_query_arg( $args, site_url( 'wp-login.php?action=logout', 'login' ) );
-	  $logout_url = wp_nonce_url( $logout_url, 'log-out' );
-
-    // Return updated logout URL
-    return $logout_url;
+  // Add redirect to args
+  if ( empty( $redirect ) ) {
+    $args['redirect_to'] = urlencode( get_permalink() );
+  } else {
+    $args['redirect_to'] = urlencode( $redirect );
   }
+
+  // Avoid login page
+  if ( is_admin() || empty( $redirect ) ) {
+    $args['redirect_to'] = urlencode( get_home_url() );
+  }
+
+  // Rebuild logout URL
+  $logout_url = add_query_arg( $args, site_url( 'wp-login.php?action=logout', 'login' ) );
+  $logout_url = wp_nonce_url( $logout_url, 'log-out' );
+
+  // Return updated logout URL
+  return $logout_url;
 }
 
 if ( get_option( 'fictioneer_logout_redirects_home' ) ) {
@@ -257,58 +245,54 @@ if ( get_option( 'fictioneer_logout_redirects_home' ) ) {
 // CUSTOM LOGOUT
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_add_logout_endpoint' ) ) {
-  /**
-   * Add route to logout script
-   *
-   * @since Fictioneer 5.0
-   */
+/**
+ * Add route to logout script
+ *
+ * @since Fictioneer 5.0
+ */
 
-  function fictioneer_add_logout_endpoint() {
-    add_rewrite_endpoint( FICTIONEER_LOGOUT_ENDPOINT, EP_ROOT );
-  }
+function fictioneer_add_logout_endpoint() {
+  add_rewrite_endpoint( FICTIONEER_LOGOUT_ENDPOINT, EP_ROOT );
 }
 
 if ( FICTIONEER_LOGOUT_ENDPOINT && ! get_option( 'fictioneer_disable_theme_logout' ) ) {
   add_action( 'init', 'fictioneer_add_logout_endpoint', 10 );
 }
 
-if ( ! function_exists( 'fictioneer_logout' ) ) {
-  /**
-   * Logout without _wpnonce and no login screen
-   *
-   * @since 5.0
-   */
+/**
+ * Logout without _wpnonce and no login screen
+ *
+ * @since 5.0
+ */
 
-  function fictioneer_logout() {
-    global $wp;
+function fictioneer_logout() {
+  global $wp;
 
-    // Abort if not on logout route
-    if ( $wp->request != FICTIONEER_LOGOUT_ENDPOINT ) return;
+  // Abort if not on logout route
+  if ( $wp->request != FICTIONEER_LOGOUT_ENDPOINT ) return;
 
-    // Redirect home if not logged-in
-    if ( ! is_user_logged_in() ) wp_safe_redirect( get_home_url() );
+  // Redirect home if not logged-in
+  if ( ! is_user_logged_in() ) wp_safe_redirect( get_home_url() );
 
-    // Setup
-    $user = wp_get_current_user();
+  // Setup
+  $user = wp_get_current_user();
 
-    // Default WP logout
-    wp_logout();
+  // Default WP logout
+  wp_logout();
 
-    // Redirect URL
-    if ( empty( $_REQUEST['redirect_to'] ) ) {
-      $redirect_to = get_home_url();
-		} else {
-      $redirect_to = $_REQUEST['redirect_to'];
-		}
-
-    // Apply default filters
-    $redirect_to = apply_filters( 'logout_redirect', $redirect_to, $redirect_to, $user );
-
-    // Redirect
-    wp_safe_redirect( $redirect_to );
-		exit;
+  // Redirect URL
+  if ( empty( $_REQUEST['redirect_to'] ) ) {
+    $redirect_to = get_home_url();
+  } else {
+    $redirect_to = $_REQUEST['redirect_to'];
   }
+
+  // Apply default filters
+  $redirect_to = apply_filters( 'logout_redirect', $redirect_to, $redirect_to, $user );
+
+  // Redirect
+  wp_safe_redirect( $redirect_to );
+  exit;
 }
 
 if ( FICTIONEER_LOGOUT_ENDPOINT && ! get_option( 'fictioneer_disable_theme_logout' ) ) {
@@ -350,21 +334,19 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
 // SHOW CUSTOM POST TYPES ON TAG/CATEGORY ARCHIVES
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_extend_taxonomy_pages' ) ) {
-  /**
-   * Show custom post types in tag and category archives
-   *
-   * @since 4.0
-   * @link https://wordpress.stackexchange.com/a/28147/223620
-   *
-   * @param WP_Query $query The query.
-   */
+/**
+ * Show custom post types in tag and category archives
+ *
+ * @since 4.0
+ * @link https://wordpress.stackexchange.com/a/28147/223620
+ *
+ * @param WP_Query $query The query.
+ */
 
-  function fictioneer_extend_taxonomy_pages( $query ) {
-    if ( ( is_tag() || is_tax( 'fcn_genre' ) || is_tax( 'fcn_fandom' ) || is_tax( 'fcn_character' ) || is_tax( 'fcn_content_warning' ) || is_category() ) && $query->is_main_query() && ! is_admin() ) {
-      $post_types = array( 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection' );
-      $query->set( 'post_type', $post_types );
-    }
+function fictioneer_extend_taxonomy_pages( $query ) {
+  if ( ( is_tag() || is_tax( 'fcn_genre' ) || is_tax( 'fcn_fandom' ) || is_tax( 'fcn_character' ) || is_tax( 'fcn_content_warning' ) || is_category() ) && $query->is_main_query() && ! is_admin() ) {
+    $post_types = array( 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection' );
+    $query->set( 'post_type', $post_types );
   }
 }
 add_filter( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
@@ -443,62 +425,60 @@ if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
 // OUTPUT RSS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_rss' ) ) {
-  /**
-   * Output RSS feed
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param int|null $post_id Optional. The current post ID.
-   */
+/**
+ * Output RSS feed
+ *
+ * @since Fictioneer 5.0
+ *
+ * @param int|null $post_id Optional. The current post ID.
+ */
 
-  function fictioneer_output_rss( $post_id = null ) {
-    // Setup
-    $post_id = $post_id ? $post_id : get_queried_object_id(); // In archives, this is the first post
-    $post_type = get_post_type(); // In archives, this is the first post
-    $rss_link = '';
-    $skip_to_default = is_archive() || is_search() || post_password_required( $post_id );
+function fictioneer_output_rss( $post_id = null ) {
+  // Setup
+  $post_id = $post_id ? $post_id : get_queried_object_id(); // In archives, this is the first post
+  $post_type = get_post_type(); // In archives, this is the first post
+  $rss_link = '';
+  $skip_to_default = is_archive() || is_search() || post_password_required( $post_id );
 
-    // RSS Feed if story...
-    if ( $post_type == 'fcn_story' && ! $skip_to_default ) {
-      $title = sprintf(
-        _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME,
-        get_the_title( get_the_ID() )
-      );
+  // RSS Feed if story...
+  if ( $post_type == 'fcn_story' && ! $skip_to_default ) {
+    $title = sprintf(
+      _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
+      FICTIONEER_SITE_NAME,
+      get_the_title( get_the_ID() )
+    );
 
-      $url = esc_url( add_query_arg( 'story_id', get_the_ID(), home_url( 'feed/rss-chapters' ) ) );
-      $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
-    }
-
-    // RSS Feed if chapter...
-    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
-
-    if ( $post_type == 'fcn_chapter' && ! empty( $story_id ) && ! $skip_to_default ) {
-      $title = sprintf(
-        _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME,
-        get_the_title( $story_id )
-      );
-
-      $url = esc_url( add_query_arg( 'story_id', $story_id, home_url( 'feed/rss-chapters' ) ) );
-      $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
-    }
-
-    // Default RSS Feed
-    if ( empty( $rss_link ) ) {
-      $title = sprintf(
-        _x( '%s Feed', '[Site] Feed', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
-      );
-
-      $url = esc_url( home_url( 'feed' ) );
-      $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
-    }
-
-    // Output
-    echo $rss_link;
+    $url = esc_url( add_query_arg( 'story_id', get_the_ID(), home_url( 'feed/rss-chapters' ) ) );
+    $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
   }
+
+  // RSS Feed if chapter...
+  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+
+  if ( $post_type == 'fcn_chapter' && ! empty( $story_id ) && ! $skip_to_default ) {
+    $title = sprintf(
+      _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
+      FICTIONEER_SITE_NAME,
+      get_the_title( $story_id )
+    );
+
+    $url = esc_url( add_query_arg( 'story_id', $story_id, home_url( 'feed/rss-chapters' ) ) );
+    $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
+  }
+
+  // Default RSS Feed
+  if ( empty( $rss_link ) ) {
+    $title = sprintf(
+      _x( '%s Feed', '[Site] Feed', 'fictioneer' ),
+      FICTIONEER_SITE_NAME
+    );
+
+    $url = esc_url( home_url( 'feed' ) );
+    $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
+  }
+
+  // Output
+  echo $rss_link;
 }
 
 if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
@@ -573,37 +553,35 @@ add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
 // ADD ID TO CONTENT PARAGRAPHS IN CHAPTERS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_add_chapter_paragraph_id' ) ) {
-  /**
-   * Adds incrementing ID to chapter paragraphs
-   *
-   * @since 3.0
-   * @license CC BY-SA 3.0
-   * @link https://wordpress.stackexchange.com/a/152169/223620
-   *
-   * @param  string $content The content.
-   * @return string $content The modified content.
-   */
+/**
+ * Adds incrementing ID to chapter paragraphs
+ *
+ * @since 3.0
+ * @license CC BY-SA 3.0
+ * @link https://wordpress.stackexchange.com/a/152169/223620
+ *
+ * @param  string $content The content.
+ * @return string $content The modified content.
+ */
 
-  function fictioneer_add_chapter_paragraph_id( $content ) {
-    global $post;
+function fictioneer_add_chapter_paragraph_id( $content ) {
+  global $post;
 
-    if (
-      get_post_type() != 'fcn_chapter' ||
-      ! in_the_loop() ||
-      ! is_main_query() ||
-      post_password_required()
-    ) return $content;
+  if (
+    get_post_type() != 'fcn_chapter' ||
+    ! in_the_loop() ||
+    ! is_main_query() ||
+    post_password_required()
+  ) return $content;
 
-    return preg_replace_callback(
-      '|<p|',
-      function ( $matches ) {
-        static $i = 0;
-        return sprintf( '<p id="paragraph-%d" data-paragraph-id="%d" ', $i, $i++ );
-      },
-      $content
-    );
-  }
+  return preg_replace_callback(
+    '|<p|',
+    function ( $matches ) {
+      static $i = 0;
+      return sprintf( '<p id="paragraph-%d" data-paragraph-id="%d" ', $i, $i++ );
+    },
+    $content
+  );
 }
 add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
 
@@ -611,67 +589,65 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
 // ADD LIGHTBOX TO POST IMAGES
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_add_lightbox_to_post_images' ) ) {
-  /**
-   * Adds lightbox data attributes to post images
-   *
-   * @since 3.0
-   * @license CC BY-SA 3.0
-   * @link https://wordpress.stackexchange.com/a/84542/223620
-   * @link https://jhtechservices.com/changing-your-image-markup-in-wordpress/
-   *
-   * @param  string $content The content.
-   * @return string $content The modified content.
-   */
+/**
+ * Adds lightbox data attributes to post images
+ *
+ * @since 3.0
+ * @license CC BY-SA 3.0
+ * @link https://wordpress.stackexchange.com/a/84542/223620
+ * @link https://jhtechservices.com/changing-your-image-markup-in-wordpress/
+ *
+ * @param  string $content The content.
+ * @return string $content The modified content.
+ */
 
-  function fictioneer_add_lightbox_to_post_images( $content ) {
-    if ( empty( $content ) ) return $content;
+function fictioneer_add_lightbox_to_post_images( $content ) {
+  if ( empty( $content ) ) return $content;
 
-    // Setup
-    libxml_use_internal_errors( true );
-    $doc = new DOMDocument();
-    $doc->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
-    $images = $doc->getElementsByTagName( 'img' );
+  // Setup
+  libxml_use_internal_errors( true );
+  $doc = new DOMDocument();
+  $doc->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+  $images = $doc->getElementsByTagName( 'img' );
 
-    // Iterate over each img tag
-    foreach ( $images as $img ) {
-      $classes = $img->getAttribute( 'class' );
-      $parent = $img->parentNode;
-      $parent_classes = $parent->getAttribute( 'class' );
-      $parent_href = strtolower( $parent->getAttribute( 'href' ) );
+  // Iterate over each img tag
+  foreach ( $images as $img ) {
+    $classes = $img->getAttribute( 'class' );
+    $parent = $img->parentNode;
+    $parent_classes = $parent->getAttribute( 'class' );
+    $parent_href = strtolower( $parent->getAttribute( 'href' ) );
 
-      // Abort if...
-      if (
-        str_contains( $classes . $parent_classes, 'no-auto-lightbox' ) ||
-        $parent->hasAttribute( 'target' )
-      ) continue;
+    // Abort if...
+    if (
+      str_contains( $classes . $parent_classes, 'no-auto-lightbox' ) ||
+      $parent->hasAttribute( 'target' )
+    ) continue;
 
-      if (
-        $parent->hasAttribute( 'href' ) &&
-        ! preg_match( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng|tiff|ico)(?:$|[#?])/', $parent_href )
-      ) continue;
+    if (
+      $parent->hasAttribute( 'href' ) &&
+      ! preg_match( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng|tiff|ico)(?:$|[#?])/', $parent_href )
+    ) continue;
 
-      $src = $img->getAttribute( 'src' );
-      $id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
+    $src = $img->getAttribute( 'src' );
+    $id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
 
-      if ( $class_id ) {
-        $id = absint( $class_id[1] );
-        $img->setAttribute( 'data-attachment-id', $id );
-      }
+    if ( $class_id ) {
+      $id = absint( $class_id[1] );
+      $img->setAttribute( 'data-attachment-id', $id );
+    }
 
-      if ( wp_get_attachment_image_url( $id, 'full' ) ) {
-        $src = wp_get_attachment_image_url( $id, 'full' );
-      }
+    if ( wp_get_attachment_image_url( $id, 'full' ) ) {
+      $src = wp_get_attachment_image_url( $id, 'full' );
+    }
 
-      $img->setAttribute( 'data-src', $src );
-      $img->setAttribute( 'data-lightbox', '' );
-      $img->setAttribute( 'tabindex', '0' );
-    };
+    $img->setAttribute( 'data-src', $src );
+    $img->setAttribute( 'data-lightbox', '' );
+    $img->setAttribute( 'tabindex', '0' );
+  };
 
-    $content = $doc->saveHTML();
+  $content = $doc->saveHTML();
 
-    return $content;
-  }
+  return $content;
 }
 
 if ( get_option( 'fictioneer_enable_lightbox' ) ) {
@@ -743,90 +719,88 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
 // ADD CONSENT WRAPPER TO EMBEDS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_embed_consent_wrappers' ) ) {
-  /**
-   * Wraps embeds into a consent box that must be clicked to load the embed.
-   *
-   * @since Fictioneer 3.0
-   *
-   * @param  string $content The content.
-   *
-   * @return string The modified content.
-   */
+/**
+ * Wraps embeds into a consent box that must be clicked to load the embed.
+ *
+ * @since Fictioneer 3.0
+ *
+ * @param  string $content The content.
+ *
+ * @return string The modified content.
+ */
 
-  function fictioneer_embed_consent_wrappers( $content ) {
-    if( empty( $content ) ) return $content;
+function fictioneer_embed_consent_wrappers( $content ) {
+  if( empty( $content ) ) return $content;
 
-    libxml_use_internal_errors( true );
-    $dom = new DOMDocument();
-    $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
-    $xpath = new DomXPath( $dom );
+  libxml_use_internal_errors( true );
+  $dom = new DOMDocument();
+  $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+  $xpath = new DomXPath( $dom );
 
-    $iframes = $dom->getElementsByTagName( 'iframe' );
-    $twitter_timelines = $xpath->query( "//a[@class='twitter-timeline']/following-sibling::*[1]" );
-    $twitter_tweets = $xpath->query( "//blockquote[@class='twitter-tweet']/following-sibling::*[1]" );
+  $iframes = $dom->getElementsByTagName( 'iframe' );
+  $twitter_timelines = $xpath->query( "//a[@class='twitter-timeline']/following-sibling::*[1]" );
+  $twitter_tweets = $xpath->query( "//blockquote[@class='twitter-tweet']/following-sibling::*[1]" );
 
-    // Process iframes
-    foreach ( $iframes as $iframe ) {
-      $src = $iframe->getAttribute( 'src' );
-      $title = htmlspecialchars( $iframe->getAttribute( 'title' ) );
-      $title = ( ! $title || $title == '') ? 'embedded content' : $title;
+  // Process iframes
+  foreach ( $iframes as $iframe ) {
+    $src = $iframe->getAttribute( 'src' );
+    $title = htmlspecialchars( $iframe->getAttribute( 'title' ) );
+    $title = ( ! $title || $title == '') ? 'embedded content' : $title;
 
-      $iframe->removeAttribute('src');
+    $iframe->removeAttribute('src');
 
-      $consent_element = $dom->createElement( 'button' );
-      $consent_element->setAttribute( 'type', 'button' );
-      $consent_element->setAttribute( 'class', 'iframe-consent' );
-      $consent_element->setAttribute( 'data-src', $src );
-      $consent_element->nodeValue = sprintf(
-        __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-        $title
-      );
+    $consent_element = $dom->createElement( 'button' );
+    $consent_element->setAttribute( 'type', 'button' );
+    $consent_element->setAttribute( 'class', 'iframe-consent' );
+    $consent_element->setAttribute( 'data-src', $src );
+    $consent_element->nodeValue = sprintf(
+      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
+      $title
+    );
 
-      $embed_logo = $dom->createElement( 'div' );
-      $embed_logo->setAttribute( 'class', 'embed-logo' );
+    $embed_logo = $dom->createElement( 'div' );
+    $embed_logo->setAttribute( 'class', 'embed-logo' );
 
-      $iframe->parentNode->insertBefore( $consent_element );
-      $iframe->parentNode->insertBefore( $embed_logo );
-    }
-
-    // Process Twitter timelines
-    foreach ( $twitter_timelines as $twitter ) {
-      $src = $twitter->getAttribute( 'src' );
-
-      $twitter->removeAttribute( 'src' );
-      $twitter->previousSibling->nodeValue = '';
-
-      $consent_element = $dom->createElement( 'div' );
-      $consent_element->setAttribute( 'class', 'twitter-consent' );
-      $consent_element->setAttribute( 'data-src', $src );
-      $consent_element->nodeValue = sprintf(
-        __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-        __( 'Twitter', 'fictioneer' )
-      );
-
-      $twitter->parentNode->insertBefore( $consent_element );
-    }
-
-    // Process Twitter tweets
-    foreach ( $twitter_tweets as $twitter ) {
-      $src = $twitter->getAttribute( 'src' );
-
-      $twitter->removeAttribute( 'src' );
-
-      $consent_element = $dom->createElement( 'div' );
-      $consent_element->setAttribute( 'class', 'twitter-consent' );
-      $consent_element->setAttribute( 'data-src', $src );
-      $consent_element->nodeValue = sprintf(
-        __( 'Click to load %s with third-party consent.', 'fictioneer' ),
-        __( 'Twitter', 'fictioneer' )
-      );
-
-      $twitter->parentNode->insertBefore( $consent_element );
-    }
-
-    return $dom->saveHTML();
+    $iframe->parentNode->insertBefore( $consent_element );
+    $iframe->parentNode->insertBefore( $embed_logo );
   }
+
+  // Process Twitter timelines
+  foreach ( $twitter_timelines as $twitter ) {
+    $src = $twitter->getAttribute( 'src' );
+
+    $twitter->removeAttribute( 'src' );
+    $twitter->previousSibling->nodeValue = '';
+
+    $consent_element = $dom->createElement( 'div' );
+    $consent_element->setAttribute( 'class', 'twitter-consent' );
+    $consent_element->setAttribute( 'data-src', $src );
+    $consent_element->nodeValue = sprintf(
+      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
+      __( 'Twitter', 'fictioneer' )
+    );
+
+    $twitter->parentNode->insertBefore( $consent_element );
+  }
+
+  // Process Twitter tweets
+  foreach ( $twitter_tweets as $twitter ) {
+    $src = $twitter->getAttribute( 'src' );
+
+    $twitter->removeAttribute( 'src' );
+
+    $consent_element = $dom->createElement( 'div' );
+    $consent_element->setAttribute( 'class', 'twitter-consent' );
+    $consent_element->setAttribute( 'data-src', $src );
+    $consent_element->nodeValue = sprintf(
+      __( 'Click to load %s with third-party consent.', 'fictioneer' ),
+      __( 'Twitter', 'fictioneer' )
+    );
+
+    $twitter->parentNode->insertBefore( $consent_element );
+  }
+
+  return $dom->saveHTML();
 }
 
 if ( get_option( 'fictioneer_consent_wrappers' ) ) {

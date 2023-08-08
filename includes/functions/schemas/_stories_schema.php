@@ -4,44 +4,46 @@
 // REFRESH STORIES SUMMARY SCHEMA
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_refresh_stories_schema' ) ) {
-  /**
-   * Refresh stories summary schemas
-   *
-   * "There are only two hard things in Computer Science: cache invalidation and
-   * naming things" -- Phil Karlton.
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param int     $post_id The ID of the saved post.
-   * @param WP_Post $post    The saved post object.
-   */
+/**
+ * Refresh stories summary schemas
+ *
+ * "There are only two hard things in Computer Science: cache invalidation and
+ * naming things" -- Phil Karlton.
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param int     $post_id The ID of the saved post.
+ * @param WP_Post $post    The saved post object.
+ */
 
-  function fictioneer_refresh_stories_schema( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
+function fictioneer_refresh_stories_schema( $post_id, $post ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
-    // Check what was updated
-    $sub_update = in_array( $post->post_type, ['fcn_story', 'fcn_collection'] );
-    if ( get_page_template_slug() != 'stories.php' && ! $sub_update ) return;
+  // Check what was updated
+  if (
+    get_page_template_slug() != 'stories.php' &&
+    ! in_array( $post->post_type, ['fcn_story', 'fcn_collection'] )
+  ) {
+    return;
+  }
 
-    // Get all pages with the stories template
-    $pages = get_posts(
-      array(
-        'post_type' => 'page',
-        'numberposts' => -1,
-        'meta_key' => '_wp_page_template',
-        'meta_value' => 'stories.php'
-      )
-    );
+  // Get all pages with the stories template
+  $pages = get_posts(
+    array(
+      'post_type' => 'page',
+      'numberposts' => -1,
+      'meta_key' => '_wp_page_template',
+      'meta_value' => 'stories.php'
+    )
+  );
 
-    // Rebuild schemas
-    if ( $pages ) {
-      foreach ( $pages as $page ) {
-        fictioneer_build_stories_schema( $page->ID );
-      }
+  // Rebuild schemas
+  if ( $pages ) {
+    foreach ( $pages as $page ) {
+      fictioneer_build_stories_schema( $page->ID );
     }
   }
 }

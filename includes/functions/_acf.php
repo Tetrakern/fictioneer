@@ -165,37 +165,35 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 // REMEMBER WHEN CHAPTERS OF STORIES HAVE BEEN MODIFIED
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_remember_chapters_modified' ) ) {
-  /**
-   * Update story ACF field when associated chapter is updated
-   *
-   * The difference to the modified date is that this field is only updated when
-   * the chapters list changes, not when a chapter or story is updated in general.
-   *
-   * @since 4.0
-   * @link https://www.advancedcustomfields.com/resources/acf-update_value/
-   *
-   * @param mixed      $value    The field value.
-   * @param int|string $post_id  The post ID where the value is saved.
-   *
-   * @return mixed The modified value.
-   */
+/**
+ * Update story ACF field when associated chapter is updated
+ *
+ * The difference to the modified date is that this field is only updated when
+ * the chapters list changes, not when a chapter or story is updated in general.
+ *
+ * @since 4.0
+ * @link https://www.advancedcustomfields.com/resources/acf-update_value/
+ *
+ * @param mixed      $value    The field value.
+ * @param int|string $post_id  The post ID where the value is saved.
+ *
+ * @return mixed The modified value.
+ */
 
-  function fictioneer_remember_chapters_modified( $value, $post_id ) {
-    $previous = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
-    $previous = is_array( $previous ) ? $previous : [];
-    $new = is_array( $value ) ? $value : [];
+function fictioneer_remember_chapters_modified( $value, $post_id ) {
+  $previous = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+  $previous = is_array( $previous ) ? $previous : [];
+  $new = is_array( $value ) ? $value : [];
 
-    if ( $previous !== $value ) {
-      update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
-    }
-
-    if ( count( $previous ) < count( $new ) ) {
-      update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
-    }
-
-    return $value;
+  if ( $previous !== $value ) {
+    update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
   }
+
+  if ( count( $previous ) < count( $new ) ) {
+    update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+  }
+
+  return $value;
 }
 add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remember_chapters_modified', 10, 2 );
 

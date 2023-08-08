@@ -203,103 +203,101 @@ add_filter( 'removable_query_args', 'fictioneer_removable_args' );
 // LIMIT DEFAULT BLOCKS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_allowed_block_types' ) ) {
-  /**
-   * Limit the available default blocks
-   *
-   * Fictioneer is has a particular and delicate content section, built around and
-   * for the main purpose of displaying prose. Other features, such as the ePUB
-   * converter heavily depend on _expected_ input or may break. There are certainly
-   * more possible but the initial selection has been chosen carefully.
-   *
-   * @since 4.0
-   */
+/**
+ * Limit the available default blocks
+ *
+ * Fictioneer is has a particular and delicate content section, built around and
+ * for the main purpose of displaying prose. Other features, such as the ePUB
+ * converter heavily depend on _expected_ input or may break. There are certainly
+ * more possible but the initial selection has been chosen carefully.
+ *
+ * @since 4.0
+ */
 
-  function fictioneer_allowed_block_types() {
-    $allowed = array(
-      // WP Core
-      'core/image',
-      'core/paragraph',
-      'core/heading',
-      'core/list',
-      'core/list-item',
-      'core/gallery',
-      'core/quote',
-      'core/pullquote',
-      'core/buttons',
-      'core/button',
-      'core/audio',
-      'core/file',
-      'core/video',
-      'core/table',
-      'core/code',
-      'core/preformatted',
-      'core/html',
-      'core/separator',
-      'core/spacer',
-      'core/more',
-      'core/embed',
-      'core-embed/twitter',
-      'core-embed/youtube',
-      'core-embed/soundcloud',
-      'core-embed/spotify',
-      'core-embed/vimeo',
-      // Known plugins
-      'cloudinary/gallery',
-      'jetpack/business-hours',
-      'jetpack/button',
-      'jetpack/calendly',
-      'jetpack/contact-form',
-      'jetpack/field-text',
-      'jetpack/field-name',
-      'jetpack/field-email',
-      'jetpack/field-url',
-      'jetpack/field-date',
-      'jetpack/field-telephone',
-      'jetpack/field-textarea',
-      'jetpack/field-checkbox',
-      'jetpack/field-consent',
-      'jetpack/field-checkbox-multiple',
-      'jetpack/field-radio',
-      'jetpack/field-select',
-      'jetpack/contact-info',
-      'jetpack/address',
-      'jetpack/email',
-      'jetpack/phone',
-      'jetpack/eventbrite',
-      'jetpack/gif',
-      'jetpack/google-calendar',
-      'jetpack/image-compare',
-      'jetpack/instagram-gallery',
-      'jetpack/mailchimp',
-      'jetpack/map',
-      'jetpack/markdown',
-      'jetpack/opentable',
-      'jetpack/pinterest',
-      'jetpack/podcast-player',
-      'jetpack/rating-star',
-      'jetpack/recurring-payments',
-      'jetpack/repeat-visitor',
-      'jetpack/revue',
-      'jetpack/send-a-message',
-      'jetpack/whatsapp-button',
-      'jetpack/slideshow',
-      'jetpack/story',
-      'jetpack/subscriptions',
-      'jetpack/tiled-gallery',
-      'jetpack/payments-intro',
-      'jetpack/payment-buttons'
-    );
+function fictioneer_allowed_block_types() {
+  $allowed = array(
+    // WP Core
+    'core/image',
+    'core/paragraph',
+    'core/heading',
+    'core/list',
+    'core/list-item',
+    'core/gallery',
+    'core/quote',
+    'core/pullquote',
+    'core/buttons',
+    'core/button',
+    'core/audio',
+    'core/file',
+    'core/video',
+    'core/table',
+    'core/code',
+    'core/preformatted',
+    'core/html',
+    'core/separator',
+    'core/spacer',
+    'core/more',
+    'core/embed',
+    'core-embed/twitter',
+    'core-embed/youtube',
+    'core-embed/soundcloud',
+    'core-embed/spotify',
+    'core-embed/vimeo',
+    // Known plugins
+    'cloudinary/gallery',
+    'jetpack/business-hours',
+    'jetpack/button',
+    'jetpack/calendly',
+    'jetpack/contact-form',
+    'jetpack/field-text',
+    'jetpack/field-name',
+    'jetpack/field-email',
+    'jetpack/field-url',
+    'jetpack/field-date',
+    'jetpack/field-telephone',
+    'jetpack/field-textarea',
+    'jetpack/field-checkbox',
+    'jetpack/field-consent',
+    'jetpack/field-checkbox-multiple',
+    'jetpack/field-radio',
+    'jetpack/field-select',
+    'jetpack/contact-info',
+    'jetpack/address',
+    'jetpack/email',
+    'jetpack/phone',
+    'jetpack/eventbrite',
+    'jetpack/gif',
+    'jetpack/google-calendar',
+    'jetpack/image-compare',
+    'jetpack/instagram-gallery',
+    'jetpack/mailchimp',
+    'jetpack/map',
+    'jetpack/markdown',
+    'jetpack/opentable',
+    'jetpack/pinterest',
+    'jetpack/podcast-player',
+    'jetpack/rating-star',
+    'jetpack/recurring-payments',
+    'jetpack/repeat-visitor',
+    'jetpack/revue',
+    'jetpack/send-a-message',
+    'jetpack/whatsapp-button',
+    'jetpack/slideshow',
+    'jetpack/story',
+    'jetpack/subscriptions',
+    'jetpack/tiled-gallery',
+    'jetpack/payments-intro',
+    'jetpack/payment-buttons'
+  );
 
-    if (
-      ! get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ||
-      current_user_can( 'administrator' )
-    ) {
-      $allowed[] = 'core/shortcode';
-    }
-
-    return $allowed;
+  if (
+    ! get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ||
+    current_user_can( 'administrator' )
+  ) {
+    $allowed[] = 'core/shortcode';
   }
+
+  return $allowed;
 }
 
 if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
@@ -377,27 +375,25 @@ if ( get_option( 'fictioneer_admin_reduce_subscriber_profile' ) ) {
 // LIMIT AUTHORS TO OWN POSTS/PAGES
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_limit_authors_to_own_posts_and_pages' ) ) {
-  /**
-   * Limit authors to own posts and pages
-   *
-   * @since 5.0
-   */
+/**
+ * Limit authors to own posts and pages
+ *
+ * @since 5.0
+ */
 
-  function fictioneer_limit_authors_to_own_posts_and_pages( $query ) {
-    global $pagenow;
+function fictioneer_limit_authors_to_own_posts_and_pages( $query ) {
+  global $pagenow;
 
-    // Abort conditions...
-    if ( ! $query->is_admin || 'edit.php' != $pagenow ) return $query;
+  // Abort conditions...
+  if ( ! $query->is_admin || 'edit.php' != $pagenow ) return $query;
 
-    // Add author to query unless user is supposed to see other posts/pages
-    if ( ! current_user_can( 'edit_others_posts' ) ) {
-      $query->set( 'author', get_current_user_id() );
-    }
-
-    // Return modified query
-    return $query;
+  // Add author to query unless user is supposed to see other posts/pages
+  if ( ! current_user_can( 'edit_others_posts' ) ) {
+    $query->set( 'author', get_current_user_id() );
   }
+
+  // Return modified query
+  return $query;
 }
 add_filter( 'pre_get_posts', 'fictioneer_limit_authors_to_own_posts_and_pages' );
 

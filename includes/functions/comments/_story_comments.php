@@ -83,149 +83,147 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
 // SEND STORY COMMENTS - AJAX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_request_story_comments' ) ) {
-  /**
-   * Sends a block of comments for a given story via AJAX
-   *
-   * @since Fictioneer 4.0
-   */
+/**
+ * Sends a block of comments for a given story via AJAX
+ *
+ * @since Fictioneer 4.0
+ */
 
-  function fictioneer_request_story_comments() {
-    // Nonce
-    check_ajax_referer( 'fictioneer_nonce', 'nonce' );
+function fictioneer_request_story_comments() {
+  // Nonce
+  check_ajax_referer( 'fictioneer_nonce', 'nonce' );
 
-    // Validations
-    $story_id = isset( $_GET['post_id'] ) ? fictioneer_validate_id( $_GET['post_id'], 'fcn_story' ) : false;
+  // Validations
+  $story_id = isset( $_GET['post_id'] ) ? fictioneer_validate_id( $_GET['post_id'], 'fcn_story' ) : false;
 
-    // Abort if not a story
-    if ( ! $story_id ) {
-      wp_send_json_error( ['error' => __( 'Comments could not be loaded.', 'fictioneer' )] );
-    }
+  // Abort if not a story
+  if ( ! $story_id ) {
+    wp_send_json_error( ['error' => __( 'Comments could not be loaded.', 'fictioneer' )] );
+  }
 
-    // Setup
-    $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-    $story = fictioneer_get_story_data( $story_id, true, array( 'force_comment_count_refresh' => true ) );
-    $chapter_ids = $story['chapter_ids']; // Only contains publicly visible chapters
-    $comments_per_page = get_option( 'comments_per_page' );
-    $chapter_data = [];
-    $report_threshold = get_option( 'fictioneer_comment_report_threshold', 10 ) ?? 10;
+  // Setup
+  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
+  $story = fictioneer_get_story_data( $story_id, true, array( 'force_comment_count_refresh' => true ) );
+  $chapter_ids = $story['chapter_ids']; // Only contains publicly visible chapters
+  $comments_per_page = get_option( 'comments_per_page' );
+  $chapter_data = [];
+  $report_threshold = get_option( 'fictioneer_comment_report_threshold', 10 ) ?? 10;
 
-    // Abort if no chapters have been found
-    if ( count( $chapter_ids ) < 1 ) die();
+  // Abort if no chapters have been found
+  if ( count( $chapter_ids ) < 1 ) die();
 
-    // Collect titles and permalinks of all chapters
-    foreach ( $chapter_ids as $chapter_id ) {
-      $chapter_data[ $chapter_id ] = [get_the_title( $chapter_id ), get_the_permalink( $chapter_id )];
-    }
+  // Collect titles and permalinks of all chapters
+  foreach ( $chapter_ids as $chapter_id ) {
+    $chapter_data[ $chapter_id ] = [get_the_title( $chapter_id ), get_the_permalink( $chapter_id )];
+  }
 
-    // Get comments
-    $comments = get_comments(
-      array(
-        'status' => 'approve',
-        'post_type' => ['fcn_chapter'],
-        'post__in' => $chapter_ids,
-        'number' => $comments_per_page,
-        'paged' => $page,
-        'meta_query' => array(
+  // Get comments
+  $comments = get_comments(
+    array(
+      'status' => 'approve',
+      'post_type' => ['fcn_chapter'],
+      'post__in' => $chapter_ids,
+      'number' => $comments_per_page,
+      'paged' => $page,
+      'meta_query' => array(
+        array(
+          'relation' => 'OR',
           array(
-            'relation' => 'OR',
-            array(
-              'key' => 'fictioneer_marked_offensive',
-              'value' => [true, 1, '1'],
-              'compare' => 'NOT IN'
-            ),
-            array(
-              'key' => 'fictioneer_marked_offensive',
-              'compare' => 'NOT EXISTS'
-            )
+            'key' => 'fictioneer_marked_offensive',
+            'value' => [true, 1, '1'],
+            'compare' => 'NOT IN'
+          ),
+          array(
+            'key' => 'fictioneer_marked_offensive',
+            'compare' => 'NOT EXISTS'
           )
         )
       )
-    );
+    )
+  );
 
-    // Calculate how many more comments (if any) are there after this batch
-    $remaining = $story['comment_count'] - $page * $comments_per_page;
+  // Calculate how many more comments (if any) are there after this batch
+  $remaining = $story['comment_count'] - $page * $comments_per_page;
 
-    // Start buffer
-    ob_start();
+  // Start buffer
+  ob_start();
 
-    // Make sure there are comments to display...
-    if ( count( $comments ) > 0 ) {
-      foreach ( $comments as $comment ) {
-        $reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
+  // Make sure there are comments to display...
+  if ( count( $comments ) > 0 ) {
+    foreach ( $comments as $comment ) {
+      $reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
 
-        // Render empty if...
-        if ( get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true ) ) {
-          // Start HTML ---> ?>
-          <li class="fictioneer-comment _deleted">
-            <div class="fictioneer-comment__container">
-              <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been deleted by user.', 'fictioneer' ); ?></div>
-            </div>
-          </li>
-          <?php // <--- End HTML
-
-          continue;
-        }
-
-        // Hidden by reports...
-        if ( get_option( 'fictioneer_enable_comment_reporting' ) ) {
-          if ( ! empty( $reports ) && count( $reports ) >= $report_threshold ) {
-            // Start HTML ---> ?>
-            <li class="fictioneer-comment _deleted">
-              <div class="fictioneer-comment__container">
-                <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment is hidden due to negative reports.', 'fictioneer' ); ?></div>
-              </div>
-            </li>
-            <?php // <--- End HTML
-          }
-        }
-
+      // Render empty if...
+      if ( get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true ) ) {
         // Start HTML ---> ?>
-        <li class="fictioneer-comment _story-comment <?php echo $comment->comment_type; ?>">
+        <li class="fictioneer-comment _deleted">
           <div class="fictioneer-comment__container">
-            <?php fictioneer_build_story_comment( $comment, $chapter_data ); ?>
+            <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been deleted by user.', 'fictioneer' ); ?></div>
           </div>
         </li>
         <?php // <--- End HTML
+
+        continue;
       }
 
-      // Load more button and loading placeholder if there are still comments left
-      if ( $remaining > 0 ) {
-        $load_n = $remaining > $comments_per_page ? $comments_per_page : $remaining;
-
-        // Start HTML ---> ?>
-        <li class="load-more-list-item">
-          <button class="load-more-comments-button"><?php
-            printf(
-              _n(
-                'Load next comment (may contain spoilers)',
-                'Load next %s comments (may contain spoilers)',
-                $load_n,
-                'fictioneer'
-              ),
-              $load_n
-            );
-          ?></button>
-        </li>
-        <div class="comments-loading-placeholder hidden"><i class="fas fa-spinner spinner"></i></div>
-        <?php // <--- End HTML
+      // Hidden by reports...
+      if ( get_option( 'fictioneer_enable_comment_reporting' ) ) {
+        if ( ! empty( $reports ) && count( $reports ) >= $report_threshold ) {
+          // Start HTML ---> ?>
+          <li class="fictioneer-comment _deleted">
+            <div class="fictioneer-comment__container">
+              <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment is hidden due to negative reports.', 'fictioneer' ); ?></div>
+            </div>
+          </li>
+          <?php // <--- End HTML
+        }
       }
-    } else {
+
       // Start HTML ---> ?>
-      <li class="fictioneer-comment private">
+      <li class="fictioneer-comment _story-comment <?php echo $comment->comment_type; ?>">
         <div class="fictioneer-comment__container">
-          <div class="fictioneer-comment__hidden-notice"><?php _e( 'No public comments to display.', 'fictioneer' ); ?></div>
+          <?php fictioneer_build_story_comment( $comment, $chapter_data ); ?>
         </div>
       </li>
       <?php // <--- End HTML
     }
 
-    // Get buffer
-    $output = fictioneer_minify_html( ob_get_clean() );
+    // Load more button and loading placeholder if there are still comments left
+    if ( $remaining > 0 ) {
+      $load_n = $remaining > $comments_per_page ? $comments_per_page : $remaining;
 
-    // Return buffer
-    wp_send_json_success( ['html' => $output, 'postId' => $story_id, 'page' => $page] );
+      // Start HTML ---> ?>
+      <li class="load-more-list-item">
+        <button class="load-more-comments-button"><?php
+          printf(
+            _n(
+              'Load next comment (may contain spoilers)',
+              'Load next %s comments (may contain spoilers)',
+              $load_n,
+              'fictioneer'
+            ),
+            $load_n
+          );
+        ?></button>
+      </li>
+      <div class="comments-loading-placeholder hidden"><i class="fas fa-spinner spinner"></i></div>
+      <?php // <--- End HTML
+    }
+  } else {
+    // Start HTML ---> ?>
+    <li class="fictioneer-comment private">
+      <div class="fictioneer-comment__container">
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'No public comments to display.', 'fictioneer' ); ?></div>
+      </div>
+    </li>
+    <?php // <--- End HTML
   }
+
+  // Get buffer
+  $output = fictioneer_minify_html( ob_get_clean() );
+
+  // Return buffer
+  wp_send_json_success( ['html' => $output, 'postId' => $story_id, 'page' => $page] );
 }
 add_action( 'wp_ajax_nopriv_fictioneer_request_story_comments', 'fictioneer_request_story_comments' );
 add_action( 'wp_ajax_fictioneer_request_story_comments', 'fictioneer_request_story_comments' );

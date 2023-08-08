@@ -647,74 +647,72 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_d
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_profile_moderation' ) ) {
-  function fictioneer_admin_profile_moderation( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
-    $editing_user_is_moderator = fictioneer_is_moderator( get_current_user_id() );
+function fictioneer_admin_profile_moderation( $profile_user ) {
+  // Setup
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+  $editing_user_is_moderator = fictioneer_is_moderator( get_current_user_id() );
 
-    // Abort conditions...
-    if ( ! $editing_user_is_admin && ! $editing_user_is_moderator ) return;
+  // Abort conditions...
+  if ( ! $editing_user_is_admin && ! $editing_user_is_moderator ) return;
 
-    // Start HTML ---> ?>
-    <tr class="user-moderation-flags-wrap">
-      <th><?php _e( 'Moderation Flags', 'fictioneer' ) ?></th>
-      <td>
-        <fieldset>
-          <div>
-            <label for="fictioneer_admin_disable_avatar" class="checkbox-group">
-              <input name="fictioneer_admin_disable_avatar" type="checkbox" id="fictioneer_admin_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_avatar', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable user avatar', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_disable_reporting" class="checkbox-group">
-              <input name="fictioneer_admin_disable_reporting" type="checkbox" id="fictioneer_admin_disable_reporting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_reporting', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable reporting capability', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_disable_renaming" class="checkbox-group">
-              <input name="fictioneer_admin_disable_renaming" type="checkbox" id="fictioneer_admin_disable_renaming" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_renaming', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable renaming capability', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_disable_commenting" class="checkbox-group">
-              <input name="fictioneer_admin_disable_commenting" type="checkbox" id="fictioneer_admin_disable_commenting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_commenting', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable commenting capability', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_disable_editing" class="checkbox-group">
-              <input name="fictioneer_admin_disable_editing" type="checkbox" id="fictioneer_admin_disable_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_editing', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable comment editing capability', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_disable_comment_notifications" class="checkbox-group">
-              <input name="fictioneer_admin_disable_comment_notifications" type="checkbox" id="fictioneer_admin_disable_comment_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_notifications', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-          <div>
-            <label for="fictioneer_admin_always_moderate_comments" class="checkbox-group">
-              <input name="fictioneer_admin_always_moderate_comments" type="checkbox" id="fictioneer_admin_always_moderate_comments" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_always_moderate_comments', $profile_user->ID ), false ); ?> value="1">
-              <span><?php _e( 'Always hold comments for moderation', 'fictioneer' ) ?></span>
-            </label>
-          </div>
-        </fieldset>
-      </td>
-    </tr>
-    <tr class="user-moderation-message-wrap">
-      <th><label for="fictioneer_admin_moderation_message"><?php _e( 'Moderation Message', 'fictioneer' ) ?></label></th>
-      <td>
-        <textarea name="fictioneer_admin_moderation_message" id="fictioneer_admin_moderation_message" rows="8" cols="30"><?php echo esc_attr( get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID ) ); ?></textarea>
-        <p class="description"><?php _e( 'Custom message in the user profile, which may be a nice thing as well.', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+  // Start HTML ---> ?>
+  <tr class="user-moderation-flags-wrap">
+    <th><?php _e( 'Moderation Flags', 'fictioneer' ) ?></th>
+    <td>
+      <fieldset>
+        <div>
+          <label for="fictioneer_admin_disable_avatar" class="checkbox-group">
+            <input name="fictioneer_admin_disable_avatar" type="checkbox" id="fictioneer_admin_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_avatar', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable user avatar', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_disable_reporting" class="checkbox-group">
+            <input name="fictioneer_admin_disable_reporting" type="checkbox" id="fictioneer_admin_disable_reporting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_reporting', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable reporting capability', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_disable_renaming" class="checkbox-group">
+            <input name="fictioneer_admin_disable_renaming" type="checkbox" id="fictioneer_admin_disable_renaming" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_renaming', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable renaming capability', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_disable_commenting" class="checkbox-group">
+            <input name="fictioneer_admin_disable_commenting" type="checkbox" id="fictioneer_admin_disable_commenting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_commenting', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable commenting capability', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_disable_editing" class="checkbox-group">
+            <input name="fictioneer_admin_disable_editing" type="checkbox" id="fictioneer_admin_disable_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_editing', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable comment editing capability', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_disable_comment_notifications" class="checkbox-group">
+            <input name="fictioneer_admin_disable_comment_notifications" type="checkbox" id="fictioneer_admin_disable_comment_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_notifications', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_admin_always_moderate_comments" class="checkbox-group">
+            <input name="fictioneer_admin_always_moderate_comments" type="checkbox" id="fictioneer_admin_always_moderate_comments" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_always_moderate_comments', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Always hold comments for moderation', 'fictioneer' ) ?></span>
+          </label>
+        </div>
+      </fieldset>
+    </td>
+  </tr>
+  <tr class="user-moderation-message-wrap">
+    <th><label for="fictioneer_admin_moderation_message"><?php _e( 'Moderation Message', 'fictioneer' ) ?></label></th>
+    <td>
+      <textarea name="fictioneer_admin_moderation_message" id="fictioneer_admin_moderation_message" rows="8" cols="30"><?php echo esc_attr( get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID ) ); ?></textarea>
+      <p class="description"><?php _e( 'Custom message in the user profile, which may be a nice thing as well.', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_moderation', 10 );
 
@@ -731,80 +729,78 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_moderati
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_profile_author' ) ) {
-  function fictioneer_admin_profile_author( $profile_user ) {
-    // Setup
-    $is_owner = $profile_user->ID === get_current_user_id();
-    $profile_user_is_author = fictioneer_is_author( $profile_user->ID );
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+function fictioneer_admin_profile_author( $profile_user ) {
+  // Setup
+  $is_owner = $profile_user->ID === get_current_user_id();
+  $profile_user_is_author = fictioneer_is_author( $profile_user->ID );
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
-    // Abort conditions...
-    if ( ! $profile_user_is_author ) return;
-    if ( ! $is_owner && ! $editing_user_is_admin ) return;
+  // Abort conditions...
+  if ( ! $profile_user_is_author ) return;
+  if ( ! $is_owner && ! $editing_user_is_admin ) return;
 
-    // Has pages?
-    $profile_user_has_pages = get_pages(
-      array(
-        'authors' => $profile_user->ID,
-        'number' => 1
-      )
-    );
+  // Has pages?
+  $profile_user_has_pages = get_pages(
+    array(
+      'authors' => $profile_user->ID,
+      'number' => 1
+    )
+  );
 
-    // Start HTML ---> ?>
-    <tr class="user-author-page-wrap">
-      <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
-      <td>
-        <?php if ( $profile_user_has_pages ) : ?>
-          <?php
-            wp_dropdown_pages(
-              array(
-                'name' => 'fictioneer_author_page',
-                'id' => 'fictioneer_author_page',
-                'option_none_value' => __( 'None', 'fictioneer' ),
-                'show_option_no_change' => __( 'None', 'fictioneer' ),
-                'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
-                'authors' => $profile_user->ID
-              )
-            );
-          ?>
-        <?php else : ?>
-          <select disabled>
-            <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
-          </select>
-        <?php endif; ?>
-        <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <tr class="user-support-message-wrap">
-      <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ) ?></label></th>
-      <td>
-        <input name="fictioneer_support_message" type="text" id="fictioneer_support_message" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_support_message', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Rendered at the bottom of your chapters. This will override "You can support the author on".', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <tr class="user-support-links-wrap">
-      <th><?php _e( 'Support Links', 'fictioneer' ) ?></th>
-      <td>
-        <fieldset>
-          <input name="fictioneer_user_patreon_link" type="text" id="fictioneer_user_patreon_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_patreon_link', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Patreon link', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_user_kofi_link" type="text" id="fictioneer_user_kofi_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_kofi_link', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Ko-Fi link', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_user_subscribestar_link" type="text" id="fictioneer_user_subscribestar_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_subscribestar_link', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'SubscribeStar link', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_user_paypal_link" type="text" id="fictioneer_user_paypal_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_paypal_link', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'PayPal link', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_user_donation_link" type="text" id="fictioneer_user_donation_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_donation_link', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Generic donation link', 'fictioneer' ) ?></p>
-        </fieldset>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+  // Start HTML ---> ?>
+  <tr class="user-author-page-wrap">
+    <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
+    <td>
+      <?php if ( $profile_user_has_pages ) : ?>
+        <?php
+          wp_dropdown_pages(
+            array(
+              'name' => 'fictioneer_author_page',
+              'id' => 'fictioneer_author_page',
+              'option_none_value' => __( 'None', 'fictioneer' ),
+              'show_option_no_change' => __( 'None', 'fictioneer' ),
+              'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
+              'authors' => $profile_user->ID
+            )
+          );
+        ?>
+      <?php else : ?>
+        <select disabled>
+          <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
+        </select>
+      <?php endif; ?>
+      <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <tr class="user-support-message-wrap">
+    <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ) ?></label></th>
+    <td>
+      <input name="fictioneer_support_message" type="text" id="fictioneer_support_message" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_support_message', $profile_user->ID ) ); ?>" class="regular-text">
+      <p class="description"><?php _e( 'Rendered at the bottom of your chapters. This will override "You can support the author on".', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <tr class="user-support-links-wrap">
+    <th><?php _e( 'Support Links', 'fictioneer' ) ?></th>
+    <td>
+      <fieldset>
+        <input name="fictioneer_user_patreon_link" type="text" id="fictioneer_user_patreon_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_patreon_link', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Patreon link', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_user_kofi_link" type="text" id="fictioneer_user_kofi_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_kofi_link', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Ko-Fi link', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_user_subscribestar_link" type="text" id="fictioneer_user_subscribestar_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_subscribestar_link', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'SubscribeStar link', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_user_paypal_link" type="text" id="fictioneer_user_paypal_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_paypal_link', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'PayPal link', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_user_donation_link" type="text" id="fictioneer_user_donation_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_donation_link', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Generic donation link', 'fictioneer' ) ?></p>
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_author', 20 );
 
@@ -821,35 +817,33 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_author',
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_profile_oauth' ) ) {
-  function fictioneer_admin_profile_oauth( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+function fictioneer_admin_profile_oauth( $profile_user ) {
+  // Setup
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
-    // Abort conditions...
-    if ( ! $editing_user_is_admin || ! get_option( 'fictioneer_enable_oauth' ) ) return;
+  // Abort conditions...
+  if ( ! $editing_user_is_admin || ! get_option( 'fictioneer_enable_oauth' ) ) return;
 
-    // Start HTML ---> ?>
-    <tr class="user-oauth-connections-wrap">
-      <th><?php _e( 'Account Bindings', 'fictioneer' ) ?></th>
-      <td>
-        <fieldset>
-          <input name="fictioneer_discord_id_hash" type="text" id="fictioneer_discord_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_discord_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Discord ID Hash', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_twitch_id_hash" type="text" id="fictioneer_twitch_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_twitch_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Twitch ID Hash', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_google_id_hash" type="text" id="fictioneer_google_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_google_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Google ID Hash', 'fictioneer' ) ?></p>
-          <br>
-          <input name="fictioneer_patreon_id_hash" type="text" id="fictioneer_patreon_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_patreon_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-          <p class="description"><?php _e( 'Patreon ID Hash', 'fictioneer' ) ?></p>
-        </fieldset>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+  // Start HTML ---> ?>
+  <tr class="user-oauth-connections-wrap">
+    <th><?php _e( 'Account Bindings', 'fictioneer' ) ?></th>
+    <td>
+      <fieldset>
+        <input name="fictioneer_discord_id_hash" type="text" id="fictioneer_discord_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_discord_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Discord ID Hash', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_twitch_id_hash" type="text" id="fictioneer_twitch_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_twitch_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Twitch ID Hash', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_google_id_hash" type="text" id="fictioneer_google_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_google_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Google ID Hash', 'fictioneer' ) ?></p>
+        <br>
+        <input name="fictioneer_patreon_id_hash" type="text" id="fictioneer_patreon_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_patreon_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
+        <p class="description"><?php _e( 'Patreon ID Hash', 'fictioneer' ) ?></p>
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
 
 if ( FICTIONEER_SHOW_OAUTH_HASHES ) {
@@ -869,24 +863,22 @@ if ( FICTIONEER_SHOW_OAUTH_HASHES ) {
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_profile_badge' ) ) {
-  function fictioneer_admin_profile_badge( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+function fictioneer_admin_profile_badge( $profile_user ) {
+  // Setup
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
-    // Abort conditions...
-    if ( ! $editing_user_is_admin ) return;
+  // Abort conditions...
+  if ( ! $editing_user_is_admin ) return;
 
-    // Start HTML ---> ?>
-    <tr class="user-badge-override-wrap">
-      <th><label for="fictioneer_badge_override"><?php _e( 'Badge Override', 'fictioneer' ) ?></label></th>
-      <td>
-        <input name="fictioneer_badge_override" type="text" id="fictioneer_badge_override" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Override the user’s badge.', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+  // Start HTML ---> ?>
+  <tr class="user-badge-override-wrap">
+    <th><label for="fictioneer_badge_override"><?php _e( 'Badge Override', 'fictioneer' ) ?></label></th>
+    <td>
+      <input name="fictioneer_badge_override" type="text" id="fictioneer_badge_override" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ); ?>" class="regular-text">
+      <p class="description"><?php _e( 'Override the user’s badge.', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_badge', 40 );
 
@@ -903,96 +895,23 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_badge', 
  *                              currently editing the profile!
  */
 
-if ( ! function_exists( 'fictioneer_admin_profile_external_avatar' ) ) {
-  function fictioneer_admin_profile_external_avatar( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+function fictioneer_admin_profile_external_avatar( $profile_user ) {
+  // Setup
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
-    // Abort conditions...
-    if ( ! $editing_user_is_admin ) return;
+  // Abort conditions...
+  if ( ! $editing_user_is_admin ) return;
 
-    // Start HTML ---> ?>
-    <tr class="user-external-avatar-wrap">
-      <th><label for="fictioneer_external_avatar_url"><?php _e( 'External Avatar URL', 'fictioneer' ) ?></label></th>
-      <td>
-        <input name="fictioneer_external_avatar_url" type="text" id="fictioneer_external_avatar_url" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_external_avatar_url', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'There is no guarantee this URL remains valid!', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
+  // Start HTML ---> ?>
+  <tr class="user-external-avatar-wrap">
+    <th><label for="fictioneer_external_avatar_url"><?php _e( 'External Avatar URL', 'fictioneer' ) ?></label></th>
+    <td>
+      <input name="fictioneer_external_avatar_url" type="text" id="fictioneer_external_avatar_url" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_external_avatar_url', $profile_user->ID ) ); ?>" class="regular-text">
+      <p class="description"><?php _e( 'There is no guarantee this URL remains valid!', 'fictioneer' ) ?></p>
+    </td>
+  </tr>
+  <?php // <--- End HTML
 }
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_external_avatar', 50 );
-
-// =============================================================================
-// SHOW PATREON TIERS
-// =============================================================================
-
-/**
- * Adds HTML for the Patreon tiers section to the wp-admin user profile
- *
- * DISABLED!
- *
- * @since Fictioneer 5.0
- *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
- */
-
-if ( ! function_exists( 'fictioneer_admin_profile_patreon_tiers' ) ) {
-  function fictioneer_admin_profile_patreon_tiers( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
-
-    // Abort conditions...
-    if ( ! $editing_user_is_admin ) return;
-
-    // Start HTML ---> ?>
-    <tr class="user-patreon-tiers-wrap">
-      <th><label for="fictioneer_patreon_tiers"><?php _e( 'Patreon Tiers', 'fictioneer' ) ?></label></th>
-      <td>
-        <input name="fictioneer_patreon_tiers" type="text" id="fictioneer_patreon_tiers" value="<?php echo esc_attr( json_encode( get_the_author_meta( 'fictioneer_patreon_tiers', $profile_user->ID ) ) ); ?>" class="regular-text" readonly>
-        <p class="description"><?php _e( 'Patreon tiers for the linked Patreon client. Valid for two weeks after last login.', 'fictioneer' ) ?></p>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
-}
-// add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_patreon_tiers', 60 );
-
-// =============================================================================
-// SHOW BOOKMARKS SECTION
-// =============================================================================
-
-/**
- * Adds HTML for the bookmarks section to the wp-admin user profile
- *
- * DISABLED!
- *
- * @since Fictioneer 5.0
- *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
- */
-
-if ( ! function_exists( 'fictioneer_admin_profile_bookmarks' ) ) {
-  function fictioneer_admin_profile_bookmarks( $profile_user ) {
-    // Setup
-    $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
-
-    // Abort conditions...
-    if ( ! $editing_user_is_admin ) return;
-
-    // Start HTML ---> ?>
-    <tr class="user-bookmarks-wrap">
-      <th><label for="user_bookmarks"><?php _e( 'Bookmarks JSON', 'fictioneer' ) ?></label></th>
-      <td>
-        <textarea name="user_bookmarks" id="user_bookmarks" rows="12" cols="30" style="font-family: monospace; font-size: 12px; word-break: break-all;" disabled><?php echo esc_attr( get_the_author_meta( 'fictioneer_bookmarks', $profile_user->ID ) ); ?></textarea>
-      </td>
-    </tr>
-    <?php // <--- End HTML
-  }
-}
-// add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_bookmarks', 70 );
 
 ?>

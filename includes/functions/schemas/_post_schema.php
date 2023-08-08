@@ -4,31 +4,31 @@
 // REFRESH POST SCHEMA
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_refresh_post_schema' ) ) {
-  /**
-   * Refresh post schema
-   *
-   * "There are only two hard things in Computer Science: cache invalidation and
-   * naming things" -- Phil Karlton.
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param int     $post_id The ID of the saved post.
-   * @param WP_Post $post    The saved post object.
-   */
+/**
+ * Refresh post schema
+ *
+ * "There are only two hard things in Computer Science: cache invalidation and
+ * naming things" -- Phil Karlton.
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param int     $post_id The ID of the saved post.
+ * @param WP_Post $post    The saved post object.
+ */
 
-  function fictioneer_refresh_post_schema( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
-
-    // Check what was updated
-    if ( $post->post_type !== 'post' ) return;
-
-    // Rebuild
-    fictioneer_build_post_schema( $post_id );
+function fictioneer_refresh_post_schema( $post_id, $post ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
   }
+
+  // Check what was updated
+  if ( $post->post_type !== 'post' ) {
+    return;
+  }
+
+  // Rebuild
+  fictioneer_build_post_schema( $post_id );
 }
 add_action( 'save_post', 'fictioneer_refresh_post_schema', 20, 2 );
 

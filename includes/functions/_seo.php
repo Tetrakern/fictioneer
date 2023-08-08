@@ -4,32 +4,30 @@
 // ADD SEO METABOX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_add_seo_metabox' ) ) {
-  /**
-   * Adds a SEO metabox to selected post types
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param string $post_type Post type.
-   * @param string $post      Post object.
-   */
+/**
+ * Adds a SEO metabox to selected post types
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param string $post_type Post type.
+ * @param string $post      Post object.
+ */
 
-  function fictioneer_add_seo_metabox( $post_type, $post ) {
-    // Setup
-    $for_these_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
-    $not_these_slugs = ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'];
+function fictioneer_add_seo_metabox( $post_type, $post ) {
+  // Setup
+  $for_these_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
+  $not_these_slugs = ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'];
 
-    // Add meta box
-    if ( in_array( $post_type, $for_these_types ) && ! in_array( get_page_template_slug( $post ), $not_these_slugs ) ) {
-      add_meta_box(
-        'fictioneer-search-engine-appearance',
-        __( 'SEO & Meta Tags', 'fictioneer' ),
-        'fictioneer_seo_fields',
-        null,
-        'normal',
-        'high'
-      );
-    }
+  // Add meta box
+  if ( in_array( $post_type, $for_these_types ) && ! in_array( get_page_template_slug( $post ), $not_these_slugs ) ) {
+    add_meta_box(
+      'fictioneer-search-engine-appearance',
+      __( 'SEO & Meta Tags', 'fictioneer' ),
+      'fictioneer_seo_fields',
+      null,
+      'normal',
+      'high'
+    );
   }
 }
 
@@ -147,48 +145,46 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 // SAVE SEO METABOX
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_save_seo_metabox' ) ) {
-  /**
-   * Save SEO metabox data
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param int $post_id The post ID.
-   */
+/**
+ * Save SEO metabox data
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param int $post_id The post ID.
+ */
 
-  function fictioneer_save_seo_metabox( $post_id ) {
-    // Validations
-    if (
-      ! isset( $_POST['fictioneer_metabox_seo_nonce'] ) ||
-      ! wp_verify_nonce( $_POST['fictioneer_metabox_seo_nonce'], 'fictioneer-metabox-seo-save' ) ||
-      ! current_user_can( 'edit_post', $post_id ) ||
-      wp_is_post_autosave( $post_id ) ||
-      wp_is_post_revision( $post_id ) ||
-      in_array( get_post_status( $post_id ), ['auto-draft'] )
-    ) {
-      return;
-    }
-
-    // Save image
-    if ( isset( $_POST['fictioneer_seo_og_image'] ) ) {
-      update_post_meta( $post_id, 'fictioneer_seo_og_image', $_POST['fictioneer_seo_og_image'] );
-    }
-
-    // Save title
-    if ( isset( $_POST['fictioneer_seo_title'] ) ) {
-      update_post_meta( $post_id, 'fictioneer_seo_title', $_POST['fictioneer_seo_title'] );
-    }
-
-    // Save description
-    if ( isset( $_POST['fictioneer_seo_description'] ) ) {
-      update_post_meta( $post_id, 'fictioneer_seo_description', $_POST['fictioneer_seo_description'] );
-    }
-
-    // Clear caches
-    delete_post_meta( $post_id, 'fictioneer_seo_title_cache' );
-    delete_post_meta( $post_id, 'fictioneer_seo_description_cache' );
-    delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
+function fictioneer_save_seo_metabox( $post_id ) {
+  // Validations
+  if (
+    ! isset( $_POST['fictioneer_metabox_seo_nonce'] ) ||
+    ! wp_verify_nonce( $_POST['fictioneer_metabox_seo_nonce'], 'fictioneer-metabox-seo-save' ) ||
+    ! current_user_can( 'edit_post', $post_id ) ||
+    wp_is_post_autosave( $post_id ) ||
+    wp_is_post_revision( $post_id ) ||
+    in_array( get_post_status( $post_id ), ['auto-draft'] )
+  ) {
+    return;
   }
+
+  // Save image
+  if ( isset( $_POST['fictioneer_seo_og_image'] ) ) {
+    update_post_meta( $post_id, 'fictioneer_seo_og_image', $_POST['fictioneer_seo_og_image'] );
+  }
+
+  // Save title
+  if ( isset( $_POST['fictioneer_seo_title'] ) ) {
+    update_post_meta( $post_id, 'fictioneer_seo_title', $_POST['fictioneer_seo_title'] );
+  }
+
+  // Save description
+  if ( isset( $_POST['fictioneer_seo_description'] ) ) {
+    update_post_meta( $post_id, 'fictioneer_seo_description', $_POST['fictioneer_seo_description'] );
+  }
+
+  // Clear caches
+  delete_post_meta( $post_id, 'fictioneer_seo_title_cache' );
+  delete_post_meta( $post_id, 'fictioneer_seo_description_cache' );
+  delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
@@ -617,120 +613,118 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 // OUTPUT HEAD SEO
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_head_seo' ) ) {
-  /**
-   * Output HTML <head> SEO meta
-   *
-   * @since Fictioneer 5.0
-   */
+/**
+ * Output HTML <head> SEO meta
+ *
+ * @since Fictioneer 5.0
+ */
 
-  function fictioneer_output_head_seo() {
-    global $wp;
-    global $post;
+function fictioneer_output_head_seo() {
+  global $wp;
+  global $post;
 
-    // Setup
-    $post_id = get_queried_object_id(); // In archives and search, this is the first post
-    $post_type = get_post_type(); // In archives and search, this is the first post
-    $post_author = $post->post_author ?? 0;
-    $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story' ) ?? 0;
-    $canonical_url = wp_get_canonical_url(); // Unreliable on aggregated pages
+  // Setup
+  $post_id = get_queried_object_id(); // In archives and search, this is the first post
+  $post_type = get_post_type(); // In archives and search, this is the first post
+  $post_author = $post->post_author ?? 0;
+  $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story' ) ?? 0;
+  $canonical_url = wp_get_canonical_url(); // Unreliable on aggregated pages
 
-    // Flags
-    $is_page = is_page() || is_front_page() || is_home();
-    $is_aggregated = is_archive() || is_search();
-    $is_article = ! $is_page && in_array( $post_type, ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post'] );
-    $show_author = $is_article && is_single() && ! is_front_page() && ! is_home() && ! $is_aggregated;
+  // Flags
+  $is_page = is_page() || is_front_page() || is_home();
+  $is_aggregated = is_archive() || is_search();
+  $is_article = ! $is_page && in_array( $post_type, ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post'] );
+  $show_author = $is_article && is_single() && ! is_front_page() && ! is_home() && ! $is_aggregated;
 
-    // Derived
-    $og_type = $is_article ? 'article' : 'website';
-    $og_image = fictioneer_get_seo_image( $post_id );
-    $og_title = fictioneer_get_seo_title( $post_id );
-    $og_description = fictioneer_get_seo_description( $post_id );
-    $article_author = $post_author && $show_author ? get_the_author_meta( 'display_name', $post_author ) : false;
-    $article_twitter = $post_author && $show_author ? get_the_author_meta( 'twitter', $post_author ) : false;
+  // Derived
+  $og_type = $is_article ? 'article' : 'website';
+  $og_image = fictioneer_get_seo_image( $post_id );
+  $og_title = fictioneer_get_seo_title( $post_id );
+  $og_description = fictioneer_get_seo_description( $post_id );
+  $article_author = $post_author && $show_author ? get_the_author_meta( 'display_name', $post_author ) : false;
+  $article_twitter = $post_author && $show_author ? get_the_author_meta( 'twitter', $post_author ) : false;
 
-    // Special Case: Recommendation author
-    if ( $post_author && $show_author && $post_type == 'fcn_recommendation' ) {
-      $article_author = fictioneer_get_field( 'fictioneer_recommendation_author', $post_id ) ?? $article_author;
-    }
-
-    // Special Case: Archives
-    if ( is_archive() ) $canonical_url = home_url( $wp->request );
-
-    // Special Case: Search
-    if ( is_search() ) $canonical_url = add_query_arg( 's', '', home_url( $wp->request ) );
-
-    // Start HTML ---> ?>
-    <link rel="canonical" href="<?php echo $canonical_url; ?>">
-    <meta name="description" content="<?php echo $og_description; ?>">
-    <meta property="og:locale" content="<?php echo get_locale(); ?>">
-    <meta property="og:type" content="<?php echo $og_type; ?>">
-    <meta property="og:title" content="<?php echo $og_title; ?>">
-    <meta property="og:description" content="<?php echo $og_description; ?>">
-    <meta property="og:url" content="<?php echo $canonical_url; ?>">
-    <meta property="og:site_name" content="<?php echo FICTIONEER_SITE_NAME; ?>">
-
-    <?php if ( ! $is_aggregated && $is_article ) : ?>
-
-      <meta property="article:published_time" content="<?php echo get_the_date( 'c' ); ?>">
-      <meta property="article:modified_time" content="<?php echo get_the_modified_date( 'c' ); ?>">
-
-      <?php if ( $show_author && $article_author ) : ?>
-        <?php
-          // Get URL for primary author (if any)
-          $article_author_url = get_the_author_meta( 'url', $post_author );
-          $article_author_url = empty( $article_author_url ) ? get_author_posts_url( $post_author ) : $article_author_url;
-
-          // Prepare author array with either URL (required) or name (better than nothing)
-          $all_authors = empty( $article_author_url ) ? [$article_author] : [$article_author_url];
-
-          // Get co-authors (if any)
-          $co_authors = $post_type == 'fcn_story' ?
-            fictioneer_get_field( 'fictioneer_story_co_authors', $post_id ) ?? [] :
-            fictioneer_get_field( 'fictioneer_chapter_co_authors', $post_id ) ?? [];
-
-          // Add co-authors URL or name
-          if ( ! empty( $co_authors ) ) {
-            foreach ( $co_authors as $co_author_id ) {
-              $co_author_name = get_the_author_meta( 'display_name', intval( $co_author_id ) );
-              $co_author_url = get_the_author_meta( 'url', intval( $co_author_id ) );
-              $co_author_url = empty( $co_author_url ) ? get_author_posts_url( $co_author_id ) : $co_author_url;
-              $author_item = empty( $co_author_url ) ? $co_author_name : $co_author_url;
-              if ( ! empty( $author_item ) && ! in_array( $author_item, $all_authors ) ) $all_authors[] = $author_item;
-            }
-          }
-
-          // Output og array
-          foreach ( $all_authors as $author_name ) {
-            echo "<meta property='article:author' content='$author_name'>";
-          }
-        ?>
-      <?php endif; ?>
-
-      <?php if ( $post_type == 'fcn_chapter' && ! empty( $chapter_story_id ) ) : ?>
-        <meta property="article:section" content="<?php echo get_the_title( $chapter_story_id ); ?>">
-      <?php endif; ?>
-
-    <?php endif; ?>
-
-    <?php if ( is_array( $og_image ) && count( $og_image ) >= 4 ) : ?>
-      <meta property="og:image" content="<?php echo $og_image['url']; ?>">
-      <meta property="og:image:width" content="<?php echo $og_image['width']; ?>">
-      <meta property="og:image:height" content="<?php echo $og_image['height']; ?>">
-      <meta property="og:image:type" content="<?php echo $og_image['type']; ?>">
-      <meta name="twitter:image" content="<?php echo $og_image['url']; ?>">
-    <?php endif; ?>
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="<?php echo $og_title; ?>">
-    <meta name="twitter:description" content="<?php echo $og_description; ?>">
-
-    <?php if ( $show_author && $article_twitter ) : ?>
-      <meta name="twitter:creator" content="<?php echo '@' . $article_twitter; ?>">
-      <meta name="twitter:site" content="<?php echo '@' . $article_twitter; ?>">
-    <?php endif; ?>
-    <?php // <--- End HTML
+  // Special Case: Recommendation author
+  if ( $post_author && $show_author && $post_type == 'fcn_recommendation' ) {
+    $article_author = fictioneer_get_field( 'fictioneer_recommendation_author', $post_id ) ?? $article_author;
   }
+
+  // Special Case: Archives
+  if ( is_archive() ) $canonical_url = home_url( $wp->request );
+
+  // Special Case: Search
+  if ( is_search() ) $canonical_url = add_query_arg( 's', '', home_url( $wp->request ) );
+
+  // Start HTML ---> ?>
+  <link rel="canonical" href="<?php echo $canonical_url; ?>">
+  <meta name="description" content="<?php echo $og_description; ?>">
+  <meta property="og:locale" content="<?php echo get_locale(); ?>">
+  <meta property="og:type" content="<?php echo $og_type; ?>">
+  <meta property="og:title" content="<?php echo $og_title; ?>">
+  <meta property="og:description" content="<?php echo $og_description; ?>">
+  <meta property="og:url" content="<?php echo $canonical_url; ?>">
+  <meta property="og:site_name" content="<?php echo FICTIONEER_SITE_NAME; ?>">
+
+  <?php if ( ! $is_aggregated && $is_article ) : ?>
+
+    <meta property="article:published_time" content="<?php echo get_the_date( 'c' ); ?>">
+    <meta property="article:modified_time" content="<?php echo get_the_modified_date( 'c' ); ?>">
+
+    <?php if ( $show_author && $article_author ) : ?>
+      <?php
+        // Get URL for primary author (if any)
+        $article_author_url = get_the_author_meta( 'url', $post_author );
+        $article_author_url = empty( $article_author_url ) ? get_author_posts_url( $post_author ) : $article_author_url;
+
+        // Prepare author array with either URL (required) or name (better than nothing)
+        $all_authors = empty( $article_author_url ) ? [$article_author] : [$article_author_url];
+
+        // Get co-authors (if any)
+        $co_authors = $post_type == 'fcn_story' ?
+          fictioneer_get_field( 'fictioneer_story_co_authors', $post_id ) ?? [] :
+          fictioneer_get_field( 'fictioneer_chapter_co_authors', $post_id ) ?? [];
+
+        // Add co-authors URL or name
+        if ( ! empty( $co_authors ) ) {
+          foreach ( $co_authors as $co_author_id ) {
+            $co_author_name = get_the_author_meta( 'display_name', intval( $co_author_id ) );
+            $co_author_url = get_the_author_meta( 'url', intval( $co_author_id ) );
+            $co_author_url = empty( $co_author_url ) ? get_author_posts_url( $co_author_id ) : $co_author_url;
+            $author_item = empty( $co_author_url ) ? $co_author_name : $co_author_url;
+            if ( ! empty( $author_item ) && ! in_array( $author_item, $all_authors ) ) $all_authors[] = $author_item;
+          }
+        }
+
+        // Output og array
+        foreach ( $all_authors as $author_name ) {
+          echo "<meta property='article:author' content='$author_name'>";
+        }
+      ?>
+    <?php endif; ?>
+
+    <?php if ( $post_type == 'fcn_chapter' && ! empty( $chapter_story_id ) ) : ?>
+      <meta property="article:section" content="<?php echo get_the_title( $chapter_story_id ); ?>">
+    <?php endif; ?>
+
+  <?php endif; ?>
+
+  <?php if ( is_array( $og_image ) && count( $og_image ) >= 4 ) : ?>
+    <meta property="og:image" content="<?php echo $og_image['url']; ?>">
+    <meta property="og:image:width" content="<?php echo $og_image['width']; ?>">
+    <meta property="og:image:height" content="<?php echo $og_image['height']; ?>">
+    <meta property="og:image:type" content="<?php echo $og_image['type']; ?>">
+    <meta name="twitter:image" content="<?php echo $og_image['url']; ?>">
+  <?php endif; ?>
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<?php echo $og_title; ?>">
+  <meta name="twitter:description" content="<?php echo $og_description; ?>">
+
+  <?php if ( $show_author && $article_twitter ) : ?>
+    <meta name="twitter:creator" content="<?php echo '@' . $article_twitter; ?>">
+    <meta name="twitter:site" content="<?php echo '@' . $article_twitter; ?>">
+  <?php endif; ?>
+  <?php // <--- End HTML
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {

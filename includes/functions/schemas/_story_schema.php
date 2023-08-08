@@ -4,39 +4,39 @@
 // REFRESH STORY SCHEMA
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_refresh_story_schema' ) ) {
-  /**
-   * Refresh story schema
-   *
-   * "There are only two hard things in Computer Science: cache invalidation and
-   * naming things" -- Phil Karlton.
-   *
-   * @since Fictioneer 4.0
-   *
-   * @param int     $post_id The ID of the saved post.
-   * @param WP_Post $post    The saved post object.
-   */
+/**
+ * Refresh story schema
+ *
+ * "There are only two hard things in Computer Science: cache invalidation and
+ * naming things" -- Phil Karlton.
+ *
+ * @since Fictioneer 4.0
+ *
+ * @param int     $post_id The ID of the saved post.
+ * @param WP_Post $post    The saved post object.
+ */
 
-  function fictioneer_refresh_story_schema( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
+function fictioneer_refresh_story_schema( $post_id, $post ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
 
-    // Check what was updated
-    if ( $post->post_type !== 'fcn_story' ) return;
+  // Check what was updated
+  if ( $post->post_type !== 'fcn_story' ) {
+    return;
+  }
 
-    // Rebuild schema(s)
-    fictioneer_build_story_schema( $post_id );
+  // Rebuild schema(s)
+  fictioneer_build_story_schema( $post_id );
 
-    // Get chapters of story
-    $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+  // Get chapters of story
+  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
 
-    // Rebuild chapter schemas (if any)
-    if ( ! empty( $chapters ) ) {
-      foreach ( $chapters as $chapter_id ) {
-        fictioneer_build_chapter_schema( $chapter_id );
-      }
+  // Rebuild chapter schemas (if any)
+  if ( ! empty( $chapters ) ) {
+    foreach ( $chapters as $chapter_id ) {
+      fictioneer_build_chapter_schema( $chapter_id );
     }
   }
 }

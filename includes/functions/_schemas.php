@@ -307,62 +307,60 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
 // OUTPUT SCHEMA
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_schemas' ) ) {
-  /**
-   * Output schema graph on selected pages
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param int|null $post_id Optional. The current post ID.
-   */
+/**
+ * Output schema graph on selected pages
+ *
+ * @since Fictioneer 5.0
+ *
+ * @param int|null $post_id Optional. The current post ID.
+ */
 
-  function fictioneer_output_schemas( $post_id = null ) {
-    // Setup
-    $post_id = $post_id ? $post_id : get_queried_object_id(); // In archives, this is the first post
-    $schema = get_post_meta( $post_id, 'fictioneer_schema', true ); // Cached schema
-    $skip = is_archive() || is_search() || is_home() || is_front_page();
+function fictioneer_output_schemas( $post_id = null ) {
+  // Setup
+  $post_id = $post_id ? $post_id : get_queried_object_id(); // In archives, this is the first post
+  $schema = get_post_meta( $post_id, 'fictioneer_schema', true ); // Cached schema
+  $skip = is_archive() || is_search() || is_home() || is_front_page();
 
-    // No schema found...
-    if ( ! $schema && ! $skip ) {
-      // Look at template first...
-      switch ( get_page_template_slug() ) {
-        case 'chapters.php':
-          $schema = fictioneer_build_chapters_schema( $post_id );
-          break;
-        case 'stories.php':
-          $schema = fictioneer_build_stories_schema( $post_id );
-          break;
-        case 'recommendations.php':
-          $schema = fictioneer_build_recommendations_schema( $post_id );
-          break;
-        case 'collections.php':
-          $schema = fictioneer_build_collections_schema( $post_id );
-          break;
-      }
-
-      // Look at post type if still no schema...
-      if ( ! $schema ) {
-        switch ( get_post_type() ) {
-          case 'post':
-            $schema = fictioneer_build_post_schema( $post_id );
-            break;
-          case 'fcn_story':
-            $schema = fictioneer_build_story_schema( $post_id );
-            break;
-          case 'fcn_chapter':
-            $schema = fictioneer_build_chapter_schema( $post_id );
-            break;
-          case 'fcn_recommendation':
-            $schema = fictioneer_build_recommendation_schema( $post_id );
-            break;
-        }
-      }
+  // No schema found...
+  if ( ! $schema && ! $skip ) {
+    // Look at template first...
+    switch ( get_page_template_slug() ) {
+      case 'chapters.php':
+        $schema = fictioneer_build_chapters_schema( $post_id );
+        break;
+      case 'stories.php':
+        $schema = fictioneer_build_stories_schema( $post_id );
+        break;
+      case 'recommendations.php':
+        $schema = fictioneer_build_recommendations_schema( $post_id );
+        break;
+      case 'collections.php':
+        $schema = fictioneer_build_collections_schema( $post_id );
+        break;
     }
 
-    // If schema has been found, echo for selected post types
-    if ( $schema && ! $skip ) {
-      echo $schema ? '<script type="application/ld+json">' . $schema . '</script>' : '';
+    // Look at post type if still no schema...
+    if ( ! $schema ) {
+      switch ( get_post_type() ) {
+        case 'post':
+          $schema = fictioneer_build_post_schema( $post_id );
+          break;
+        case 'fcn_story':
+          $schema = fictioneer_build_story_schema( $post_id );
+          break;
+        case 'fcn_chapter':
+          $schema = fictioneer_build_chapter_schema( $post_id );
+          break;
+        case 'fcn_recommendation':
+          $schema = fictioneer_build_recommendation_schema( $post_id );
+          break;
+      }
     }
+  }
+
+  // If schema has been found, echo for selected post types
+  if ( $schema && ! $skip ) {
+    echo $schema ? '<script type="application/ld+json">' . $schema . '</script>' : '';
   }
 }
 
