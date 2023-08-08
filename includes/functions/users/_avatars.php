@@ -10,14 +10,32 @@ if ( ! function_exists( 'fictioneer_avatar_fallback' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $avatar      HTML for the avatar.
-   * @param string $id_or_email ID or email of the user.
+   * @param string $avatar       HTML for the avatar.
+   * @param string $id_or_email  ID or email of the user.
    *
    * @return string HTML with fallback script added.
    */
 
   function fictioneer_avatar_fallback( $avatar, $id_or_email ) {
-    $default_url = get_avatar_url( 'nonexistentemail@example.com' );
+    $transient = get_transient( 'fictioneer_default_avatar' );
+
+    // Check Transient
+    if (
+      empty( $transient ) ||
+      ! is_array( $transient ) ||
+      $transient['timestamp'] + DAY_IN_SECONDS < time()
+    ) {
+      $default_url = get_avatar_url( 'nonexistentemail@example.com' );
+
+      $transient = array(
+        'url' => $default_url,
+        'timestamp' => time()
+      );
+
+      set_transient( 'fictioneer_default_avatar', $transient );
+    } else {
+      $default_url = $transient['url'];
+    }
 
     return str_replace( '<img', '<img onerror="this.src=\'' . $default_url . '\';this.srcset=\'\';this.onerror=\'\';"', $avatar );
   }
