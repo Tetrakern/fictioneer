@@ -38,7 +38,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
       'post_status' => 'publish',
       'orderby' => 'modified',
       'order' => 'DESC',
-      'posts_per_page' => get_option( 'posts_per_page' )
+      'posts_per_page' => get_option( 'posts_per_page' ),
+      'no_found_rows' => $query_args['no_found_rows'] ?? false
     );
 
     // Default card arguments
