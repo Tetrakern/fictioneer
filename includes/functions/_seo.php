@@ -537,6 +537,12 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Page with site default OG image?
     if ( $use_default ) {
+      $transient = get_transient( 'fictioneer_default_global_og_image' );
+
+      if ( ! empty( $transient ) ) {
+        return $transient;
+      }
+
       $image_id = get_theme_mod( 'og_image' );
     }
 
@@ -583,6 +589,10 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
           'type' => get_post_mime_type( $image_id ),
           'id' => $image_id
         );
+
+        if ( $use_default ) {
+          set_transient( 'fictioneer_default_global_og_image', $image );
+        }
       }
     }
 
