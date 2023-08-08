@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
    * @since Fictioneer 4.0
    * @link  https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
    *
-   * @param string $url The URL to check.
+   * @param string $url  The URL to check.
    *
    * @return boolean True if the URL exists and false otherwise.
    */
@@ -44,7 +44,7 @@ if ( ! function_exists( 'fictioneer_is_valid_json' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $data JSON string hopeful.
+   * @param string $data  JSON string hopeful.
    *
    * @return boolean True if the JSON is valid, false if not.
    */
@@ -66,7 +66,7 @@ if ( ! function_exists( 'fictioneer_is_plugin_active' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $path Relative path to the plugin.
+   * @param string $path  Relative path to the plugin.
    *
    * @return boolean True if the plugin is active, otherwise false.
    */
@@ -106,7 +106,7 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
    *
    * @since Fictioneer 4.6
    *
-   * @param int|string $id_or_email User ID or email address.
+   * @param int|string $id_or_email  User ID or email address.
    *
    * @return WP_User|boolean Returns the user or false if not found.
    */
@@ -300,7 +300,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
    *
    * @since Fictioneer 4.6
    *
-   * @param int $author_id User ID of the author.
+   * @param int $author_id  User ID of the author.
    *
    * @return array|boolean Statistics or false if user does not exist.
    */
@@ -404,8 +404,8 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
    *
    * @since Fictioneer 4.5
    *
-   * @param int $number    The number to be shortened.
-   * @param int $precision Precision of the fraction. Default 1.
+   * @param int $number     The number to be shortened.
+   * @param int $precision  Precision of the fraction. Default 1.
    *
    * @return string The minified number string.
    */
@@ -425,131 +425,6 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
 }
 
 // =============================================================================
-// CONVERT TAXONOMIES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
-  /**
-   * Convert taxonomies of post type from one type to another
-   *
-   * @since Fictioneer 4.7
-   *
-   * @param string  $post_type Post type the taxonomy is attached to.
-   * @param string  $target    Taxonomy to be converted to.
-   * @param string  $source    Taxonomy to be converted from. Default 'post_tag'.
-   * @param boolean $append    Whether to replace the post type's taxonomies with
-   *                           the new ones or append them. Default false.
-   * @param boolean $clean_up  Whether to delete the taxonomies from the post type
-   *                           after transfer or keep them. Default false.
-   */
-
-  function fictioneer_convert_taxonomies( $post_type, $target, $source = 'post_tag', $append = false, $clean_up = false ) {
-    $query_args = array(
-      'post_type' => $post_type,
-      'posts_per_page' => -1,
-      'fields' => 'ids',
-      'update_post_meta_cache' => false
-    );
-
-    $items = get_posts( $query_args );
-
-    function terms_to_array( $n ) {
-      return $n->name;
-    }
-
-    foreach ( $items as $item ) {
-      $source_tax = get_the_terms( $item, $source );
-
-      if ( ! $source_tax ) continue;
-
-      $source_tax = array_map( 'terms_to_array', $source_tax );
-
-      wp_set_object_terms( $item, $source_tax, $target, $append );
-
-      if ( $clean_up ) {
-        wp_delete_object_term_relationships( $item, $source );
-      }
-    }
-  }
-}
-
-// =============================================================================
-// ADD OR UPDATE TERM
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_add_or_update_term' ) ) {
-  /**
-   * Add or update term
-   *
-   * @since Fictioneer 4.6
-   *
-   * @param string $name     Name of the term to add or update.
-   * @param string $taxonomy Taxonomy type of the term.
-   * @param array  $args     Optional. An array of arguments.
-   *
-   * @return int|boolean The term ID or false.
-   */
-
-  function fictioneer_add_or_update_term( $name, $taxonomy, $args = [] ) {
-  	$parent = $args['parent'] ?? 0;
-  	$alias_of = $args['alias_of'] ?? '';
-  	$description = $args['description'] ?? '';
-    $result = false;
-
-    // Does term already exist?
-  	$old = get_term_by( 'name', $name, $taxonomy );
-
-    // Get parent or create one if it does not yet exist
-  	if ( $parent != 0 ) {
-  		$parent = get_term_by( 'name', $parent, $taxonomy );
-      $parent = $parent ? $parent->term_id : fictioneer_add_or_update_term( $args['parent'], $taxonomy );
-  	}
-
-    // Get alias or create one if it does not yet exist
-  	if ( ! empty( $alias_of ) ) {
-  		$alias_of = get_term_by( 'name', $alias_of, $taxonomy );
-
-      if ( ! $alias_of ) {
-        $alias_of = fictioneer_add_or_update_term( $args['alias_of'], $taxonomy );
-        $alias_of = $alias_of ? get_term_by( 'term_id', $alias_of, $taxonomy ) : false;
-      }
-
-      $alias_of = $alias_of ? $alias_of->slug : '';
-  	}
-
-  	if ( ! $old ) {
-      // Create term
-  		$result = wp_insert_term(
-  			$name,
-  			$taxonomy,
-  			array(
-  				'alias_of' => $alias_of,
-  				'parent' => $parent,
-  				'description' => $description
-  			)
-  		);
-  	} else {
-      // Update term
-  		$result = wp_update_term(
-  			$old->term_id,
-  			$taxonomy,
-  			array(
-  				'alias_of' => $alias_of,
-  				'parent' => $parent,
-  				'description' => $description
-  			)
-  		);
-  	}
-
-    if ( ! is_wp_error( $result ) ) {
-      return $result['term_id'];
-    } else {
-      return false;
-    }
-  }
-}
-
-// =============================================================================
 // VALIDATE ID
 // =============================================================================
 
@@ -560,8 +435,8 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int          $id       The ID to validate.
-   * @param string|array $for_type Optional. The expected post type(s).
+   * @param int          $id        The ID to validate.
+   * @param string|array $for_type  Optional. The expected post type(s).
    *
    * @return int|boolean The validated ID or false if invalid.
    */
@@ -590,8 +465,8 @@ if ( ! function_exists( 'fictioneer_get_validated_ajax_user' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $nonce_name Optional. The name of the nonce. Default 'nonce'.
-   * @param string $nonce_value Optional. The value of the nonce. Default 'fictioneer_nonce'.
+   * @param string $nonce_name   Optional. The name of the nonce. Default 'nonce'.
+   * @param string $nonce_value  Optional. The value of the nonce. Default 'fictioneer_nonce'.
    *
    * @return boolean|WP_User False if not valid, the current user object otherwise.
    */
@@ -622,10 +497,10 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $text    Text that has key/value pairs to be replaced.
-   * @param array  $args    The key/value pairs.
-   * @param string $default Optional. To be used if the the $text is empty or
-   *                        if any key/value pair is invalid. Default ''.
+   * @param string $text     Text that has key/value pairs to be replaced.
+   * @param array  $args     The key/value pairs.
+   * @param string $default  Optional. To be used if the the $text is empty or
+   *                         if any key/value pair is invalid. Default ''.
    *
    * @return string The modified text.
    */
@@ -669,8 +544,8 @@ if ( ! function_exists( 'fictioneer_has_role' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User|int $user The user object or ID to check.
-   * @param string      $role The role to check for.
+   * @param WP_User|int $user  The user object or ID to check.
+   * @param string      $role  The role to check for.
    *
    * @return boolean To be or not to be.
    */
@@ -696,7 +571,7 @@ if ( ! function_exists( 'fictioneer_is_admin' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id The user ID to check.
+   * @param int $user_id  The user ID to check.
    *
    * @return boolean To be or not to be.
    */
@@ -722,7 +597,7 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id The user ID to check.
+   * @param int $user_id  The user ID to check.
    *
    * @return boolean To be or not to be.
    */
@@ -748,7 +623,7 @@ if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id The user ID to check.
+   * @param int $user_id  The user ID to check.
    *
    * @return boolean To be or not to be.
    */
@@ -774,7 +649,7 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id The user ID to check.
+   * @param int $user_id  The user ID to check.
    *
    * @return boolean To be or not to be.
    */
@@ -804,9 +679,9 @@ if ( ! function_exists( 'fictioneer_get_field' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $field   Name of the meta field to retrieve.
-   * @param int    $post_id Optional. The ID of the post the field belongs to.
-   *                        Defaults to current post ID.
+   * @param string $field    Name of the meta field to retrieve.
+   * @param int    $post_id  Optional. The ID of the post the field belongs to.
+   *                         Defaults to current post ID.
    *
    * @return mixed The single field value.
    */
@@ -826,9 +701,9 @@ if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $field   Name of the meta field to retrieve.
-   * @param int    $post_id Optional. The ID of the post the field belongs to.
-   *                        Defaults to current post ID.
+   * @param string $field    Name of the meta field to retrieve.
+   * @param int    $post_id  Optional. The ID of the post the field belongs to.
+   *                         Defaults to current post ID.
    *
    * @return string The single field value formatted as content.
    */
@@ -855,9 +730,9 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string $field   Name of the meta field to retrieve.
-   * @param int    $post_id Optional. The ID of the post the field belongs to.
-   *                        Defaults to current post ID.
+   * @param string $field    Name of the meta field to retrieve.
+   * @param int    $post_id  Optional. The ID of the post the field belongs to.
+   *                         Defaults to current post ID.
    *
    * @return string The Font Awesome class.
    */
@@ -912,10 +787,10 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
  *
  * @since 4.0
  *
- * @param int         $value   The integer to be sanitized.
- * @param int         $default Default value if an invalid integer. Default 0.
- * @param int|boolean $minimum Optional. Minimum value of the integer. Default false.
- * @param int|boolean $maximum Optional. Maximum value of the integer. Default false.
+ * @param int         $value    The integer to be sanitized.
+ * @param int         $default  Default value if an invalid integer. Default 0.
+ * @param int|boolean $minimum  Optional. Minimum value of the integer. Default false.
+ * @param int|boolean $maximum  Optional. Maximum value of the integer. Default false.
  *
  * @return int The sanitized integer.
  */
@@ -938,7 +813,7 @@ function fictioneer_sanitize_integer( $value, $default = 0, $minimum = false, $m
  * @since 4.7
  * @link  https://www.php.net/manual/en/function.filter-var.php
  *
- * @param string|boolean $value The checkbox value to be sanitized.
+ * @param string|boolean $value  The checkbox value to be sanitized.
  *
  * @return boolean True or false.
  */
@@ -953,7 +828,7 @@ function fictioneer_sanitize_checkbox( $value ) {
  * @since 5.0
  * @see fictioneer_sanitize_checkbox_key()
  *
- * @param string $key The array key for $_POST.
+ * @param string $key  The array key for $_POST.
  *
  * @return boolean True or false.
  */
@@ -1048,9 +923,9 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_non
  *
  * @since Fictioneer 5.0
  *
- * @param string  $key    Key for requested translation.
- * @param boolean $escape Optional. Escape the string for safe use in
- *                        attributes. Default false.
+ * @param string  $key     Key for requested translation.
+ * @param boolean $escape  Optional. Escape the string for safe use in
+ *                         attributes. Default false.
  *
  * @return string The translation or an empty string if not found.
  */
@@ -1155,11 +1030,11 @@ function fcntr( $key, $escape = false ) {
  *
  * @since 5.0
  *
- * @param array|int $pages    Array of pages to balance. If an integer is provided,
- *                            it is converted to a number array.
- * @param int       $current  Current page number.
- * @param int       $keep     Optional. Balancing factor to each side. Default 2.
- * @param string    $ellipses Optional. String for skipped numbers. Default '…'.
+ * @param array|int $pages     Array of pages to balance. If an integer is provided,
+ *                             it is converted to a number array.
+ * @param int       $current   Current page number.
+ * @param int       $keep      Optional. Balancing factor to each side. Default 2.
+ * @param string    $ellipses  Optional. String for skipped numbers. Default '…'.
  *
  * @return array The balanced array.
  */
@@ -1217,7 +1092,7 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
    * @since 5.0
    * @see fictioneer_get_field()
    *
-   * @param int|null $post_id Post ID the comments are for. Defaults to current post ID.
+   * @param int|null $post_id  Post ID the comments are for. Defaults to current post ID.
    *
    * @return boolean True or false.
    */
@@ -1239,12 +1114,12 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
    * @since 5.0
    * @see wp_check_comment_disallowed_list()
    *
-   * @param string $author     The author of the comment.
-   * @param string $email      The email of the comment.
-   * @param string $url        The url used in the comment.
-   * @param string $comment    The comment content
-   * @param string $user_ip    The comment author's IP address.
-   * @param string $user_agent The author's browser user agent.
+   * @param string $author      The author of the comment.
+   * @param string $email       The email of the comment.
+   * @param string $url         The url used in the comment.
+   * @param string $comment     The comment content
+   * @param string $user_ip     The comment author's IP address.
+   * @param string $user_agent  The author's browser user agent.
    *
    * @return array Tuple of true/false [0] and offenders [1] as array.
    */
@@ -1303,8 +1178,9 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
    * @since Fictioneer 4.0
    * @link  https://stackoverflow.com/a/17508056/17140970
    *
-   * @param  string $content The content.
-   * @return string $content The content with interpreted BBCodes.
+   * @param  string $content  The content.
+   *
+   * @return string The content with interpreted BBCodes.
    */
 
   function fictioneer_bbcodes( $content ) {
@@ -1380,8 +1256,8 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_names' ) ) {
    *
    * @since 5.0.20
    *
-   * @param int     $post_id ID of the post to get the taxonomies of.
-   * @param boolean $flatten Whether to flatten the result. Default false.
+   * @param int     $post_id  ID of the post to get the taxonomies of.
+   * @param boolean $flatten  Whether to flatten the result. Default false.
    *
    * @return array Array with all taxonomies.
    */
@@ -1491,7 +1367,7 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
  *
  * @since 5.1.3
  *
- * @param string $string The string to explode.
+ * @param string $string  The string to explode.
  *
  * @return array The string content as array.
  */
@@ -1508,18 +1384,18 @@ function fictioneer_explode_list( $string ) {
 }
 
 // =============================================================================
-// BUILD NOTICE
+// BUILD FRONTEND PROFILE NOTICE
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_notice' ) ) {
   /**
-   * Render or return a notice element
+   * Render or return a frontend notice element
    *
    * @since 5.2.5
    *
-   * @param string $message  The notice to show.
-   * @param string $type     Optional. The notice type. Default 'warning'.
-   * @param bool   $display  Optional. Whether to render or return. Default true.
+   * @param string $message   The notice to show.
+   * @param string $type      Optional. The notice type. Default 'warning'.
+   * @param bool   $display   Optional. Whether to render or return. Default true.
    *
    * @return void|string The build HTML or nothing if rendered.
    */
@@ -1556,7 +1432,7 @@ if ( ! function_exists( 'fictioneer_minify_html' ) ) {
    *
    * @since 5.4.0
    *
-   * @param string $html The HTML string to be minified.
+   * @param string $html  The HTML string to be minified.
    *
    * @return string The minified HTML string.
    */
@@ -1741,6 +1617,52 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
 
     // Allowed save
     return false;
+  }
+}
+
+// =============================================================================
+// GET TOTAL WORD COUNT FOR ALL STORIES
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
+  /**
+   * Return the total word count of all published stories
+   *
+   * @since 4.0
+   * @see fictioneer_get_story_data()
+   */
+
+  function fictioneer_get_stories_total_word_count() {
+    // Look for cached value
+    $cached_word_count = get_transient( 'fictioneer_stories_total_word_count' );
+
+    // Return cached value if found
+    if ( $cached_word_count ) return $cached_word_count;
+
+    // Setup
+  	$word_count = 0;
+
+    // Query all stories
+    $stories = get_posts(
+      array(
+        'numberposts' => -1,
+        'post_type' => 'fcn_story',
+        'post_status' => 'publish',
+        'no_found_rows' => true
+      )
+    );
+
+    // Sum of all word counts
+    foreach( $stories as $story ) {
+      $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
+  		$word_count += $story_data['word_count'];
+  	}
+
+    // Cache for next time (24 hours)
+    set_transient( 'fictioneer_stories_total_word_count', $word_count );
+
+    // Return newly calculated value
+  	return $word_count;
   }
 }
 

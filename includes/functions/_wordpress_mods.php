@@ -147,52 +147,6 @@ add_action( 'delete_post', 'fictioneer_update_modified_date_on_story_for_chapter
 add_action( 'untrash_post', 'fictioneer_update_modified_date_on_story_for_chapter' );
 
 // =============================================================================
-// TOTAL WORD COUNT FOR ALL STORIES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
-  /**
-   * Return the total word count of all published stories
-   *
-   * @since 4.0
-   * @see fictioneer_get_story_data()
-   */
-
-  function fictioneer_get_stories_total_word_count() {
-    // Look for cached value
-    $cached_word_count = get_transient( 'fictioneer_stories_total_word_count' );
-
-    // Return cached value if found
-    if ( $cached_word_count ) return $cached_word_count;
-
-    // Setup
-  	$word_count = 0;
-
-    // Query all stories
-    $stories = get_posts(
-      array(
-        'numberposts' => -1,
-        'post_type' => 'fcn_story',
-        'post_status' => 'publish',
-        'no_found_rows' => true
-      )
-    );
-
-    // Sum of all word counts
-    foreach( $stories as $story ) {
-      $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
-  		$word_count += $story_data['word_count'];
-  	}
-
-    // Cache for next time (24 hours)
-    set_transient( 'fictioneer_stories_total_word_count', $word_count );
-
-    // Return newly calculated value
-  	return $word_count;
-  }
-}
-
-// =============================================================================
 // STORE WORD COUNT AS CUSTOM FIELD
 // =============================================================================
 
@@ -778,34 +732,6 @@ if ( get_option( 'fictioneer_disable_heartbeat' ) ) {
 }
 
 // =============================================================================
-// LIMIT AUTHORS TO OWN POSTS/PAGES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_limit_authors_to_own_posts_and_pages' ) ) {
-  /**
-   * Limit authors to own posts and pages
-   *
-   * @since 5.0
-   */
-
-  function fictioneer_limit_authors_to_own_posts_and_pages( $query ) {
-    global $pagenow;
-
-    // Abort conditions...
-    if ( ! $query->is_admin || 'edit.php' != $pagenow ) return $query;
-
-    // Add author to query unless user is supposed to see other posts/pages
-    if ( ! current_user_can( 'edit_others_posts' ) ) {
-      $query->set( 'author', get_current_user_id() );
-    }
-
-    // Return modified query
-    return $query;
-  }
-}
-add_filter( 'pre_get_posts', 'fictioneer_limit_authors_to_own_posts_and_pages' );
-
-// =============================================================================
 // REMOVE GLOBAL SVG FILTERS
 // =============================================================================
 
@@ -908,7 +834,7 @@ if ( get_option( 'fictioneer_consent_wrappers' ) ) {
 }
 
 // =============================================================================
-// REDUCE SUBSCRIBER ADMIN PROFILE
+// ALLOW TWITTER (X LOL) CONTACT METHOD
 // =============================================================================
 
 /**
@@ -922,56 +848,6 @@ function fictioneer_user_contact_methods( $methods ) {
 	return $methods;
 }
 add_filter( 'user_contactmethods', 'fictioneer_user_contact_methods' );
-
-if ( ! function_exists( 'fictioneer_reduce_subscriber_profile' ) ) {
-  /**
-   * Reduce subscriber profile in admin panel
-   *
-   * @since 5.0
-   */
-
-  function fictioneer_reduce_subscriber_profile() {
-    // Setup
-    $user = wp_get_current_user();
-
-    // Abort if administrator
-    if ( fictioneer_is_admin( $user->ID ) ) return;
-
-    // Remove application password
-    add_filter( 'wp_is_application_passwords_available', '__return_false' );
-
-    // Abort if not a subscriber (higher role)
-    if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-    // Reduce profile...
-    remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-    add_filter( 'user_contactmethods', '__return_empty_array', 20 );
-  }
-}
-
-if ( ! function_exists( 'fictioneer_hide_subscriber_profile_blocks' ) ) {
-  /**
-   * Hide subscriber profile blocks in admin panel
-   *
-   * @since 5.0
-   */
-
-  function fictioneer_hide_subscriber_profile_blocks() {
-    // Setup
-    $user = wp_get_current_user();
-
-    // Abort if not a subscriber (higher role)
-    if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-    // Add CSS to hide blocks...
-    echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
-  }
-}
-
-if ( get_option( 'fictioneer_admin_reduce_subscriber_profile' ) ) {
-  add_action( 'admin_init', 'fictioneer_reduce_subscriber_profile' );
-  add_action( 'admin_head-profile.php', 'fictioneer_hide_subscriber_profile_blocks' );
-}
 
 // =============================================================================
 // DISABLE APPLICATION PASSWORDS
@@ -1153,23 +1029,6 @@ function fictioneer_strip_shortcodes_for_non_administrators( $content ) {
 if ( get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ) {
   add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes_for_non_administrators' );
 }
-
-// =============================================================================
-// HIDE UPDATE NOTICE FOR NON-ADMINS
-// =============================================================================
-
-/**
- * Hide update notice for non-admins
- *
- * @since Fictioneer 5.5.3
- */
-
-function fictioneer_limit_update_notice(){
-  if ( ! current_user_can( 'manage_options' ) ) {
-    remove_action( 'admin_notices', 'update_nag', 3 );
-  }
-}
-add_action( 'admin_head', 'fictioneer_limit_update_notice' );
 
 // =============================================================================
 // DISABLE WIDGETS

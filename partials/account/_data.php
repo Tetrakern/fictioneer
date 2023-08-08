@@ -20,9 +20,6 @@
 $current_user = $args['user'];
 $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
 $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
-$checkmarks = fictioneer_load_checkmarks( $current_user );
-$follows = fictioneer_load_follows( $current_user );
-$reminders = fictioneer_load_reminders( $current_user );
 $comments_count = get_comments(
   array( 'user_id' => $current_user->ID, 'count' => true, 'update_comment_meta_cache' => false )
 );
@@ -46,17 +43,30 @@ if ( empty( $notification_validator ) ) {
 }
 
 // Remember data to pass on to hooks
-$args['follows'] = $follows;
-$args['reminders'] = $reminders;
-$args['checkmarks'] = $checkmarks;
 $args['timezone'] = $timezone;
 $args['comments_count'] = $comments_count;
 
 // Flags
 $can_follows = get_option( 'fictioneer_enable_follows' );
-$can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
 $can_reminders = get_option( 'fictioneer_enable_reminders' );
+$can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
 $can_bookmarks = get_option( 'fictioneer_enable_bookmarks' );
+
+// Follows/Reminders/Checkmarks
+if ( $can_follows ) {
+  $follows = fictioneer_load_follows( $current_user );
+  $args['follows'] = $follows;
+}
+
+if ( $can_reminders ) {
+  $reminders = fictioneer_load_reminders( $current_user );
+  $args['reminders'] = $reminders;
+}
+
+if ( $can_checkmarks ) {
+  $checkmarks = fictioneer_load_checkmarks( $current_user );
+  $args['checkmarks'] = $checkmarks;
+}
 
 ?>
 

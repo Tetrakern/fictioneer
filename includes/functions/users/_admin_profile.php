@@ -499,13 +499,10 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
   $comments_count = get_comments(
     array( 'user_id' => $profile_user->ID, 'count' => true, 'update_comment_meta_cache' => false )
   );
-  $checkmarks = fictioneer_load_checkmarks( $profile_user );
-  $checkmarks_count = count( $checkmarks['data'] );
-  $checkmarks_chapters_count = fictioneer_count_chapter_checkmarks( $checkmarks );
-  $follows = fictioneer_load_follows( $profile_user );
-  $follows_count = count( $follows['data'] );
-  $reminders = fictioneer_load_reminders( $profile_user );
-  $reminders_count = count( $reminders['data'] );
+  $checkmarks_count = 0;
+  $checkmarks_chapters_count = 0;
+  $follows_count = 0;
+  $reminders_count = 0;
   $bookmarks = get_user_meta( $profile_user->ID, 'fictioneer_bookmarks', true ) ?: null;
   $sender_is_owner = $profile_user->ID === get_current_user_id();
   $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
@@ -524,6 +521,23 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
         'count' => true
       )
     );
+  }
+
+  // Follows/Reminders/Checkmarks
+  if ( get_option( 'fictioneer_enable_follows' ) ) {
+    $follows = fictioneer_load_follows( $profile_user );
+    $follows_count = count( $follows['data'] );
+  }
+
+  if ( get_option( 'fictioneer_enable_reminders' ) ) {
+    $reminders = fictioneer_load_reminders( $profile_user );
+    $reminders_count = count( $reminders['data'] );
+  }
+
+  if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
+    $checkmarks = fictioneer_load_checkmarks( $profile_user );
+    $checkmarks_count = count( $checkmarks['data'] );
+    $checkmarks_chapters_count = fictioneer_count_chapter_checkmarks( $checkmarks );
   }
 
   // Clear local bookmarks

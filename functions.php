@@ -1,22 +1,6 @@
 <?php
 
 // =============================================================================
-// RENDER TIME
-// =============================================================================
-
-function fictioneer_measure_render_time() {
-  global $render_start_time;
-  $render_start_time = microtime( true );
-}
-// add_action( 'template_redirect', 'fictioneer_measure_render_time' );
-
-function fictioneer_display_render_time() {
-  global $render_start_time;
-  echo '<!-- Render Time: ' . microtime( true ) - $render_start_time . ' seconds -->';
-}
-// add_action( 'shutdown', 'fictioneer_display_render_time' );
-
-// =============================================================================
 // CONSTANTS/SETTINGS
 // =============================================================================
 
@@ -443,25 +427,31 @@ require_once __DIR__ . '/includes/functions/users/_avatars.php';
  * Add the follow feature.
  */
 
-require_once __DIR__ . '/includes/functions/users/_follows.php';
+if ( get_option( 'fictioneer_enable_follows' ) ) {
+  require_once __DIR__ . '/includes/functions/users/_follows.php';
+}
+
+/**
+ * Add the reminders feature.
+ */
+
+if ( get_option( 'fictioneer_enable_reminders' ) ) {
+  require_once __DIR__ . '/includes/functions/users/_reminders.php';
+}
+
+/**
+ * Add the checkmarks features.
+ */
+
+if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
+  require_once __DIR__ . '/includes/functions/users/_checkmarks.php';
+}
 
 /**
  * Add the bookmarks feature.
  */
 
 require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
-
-/**
- * Add the checkmarks features.
- */
-
-require_once __DIR__ . '/includes/functions/users/_checkmarks.php';
-
-/**
- * Add the reminders feature.
- */
-
-require_once __DIR__ . '/includes/functions/users/_reminders.php';
 
 /**
  * Add privacy and security measures.
@@ -512,22 +502,10 @@ require_once __DIR__ . '/includes/functions/_search.php';
 if ( is_admin() ) {
 
   /**
-   * Remove obsolete data and clean up when the theme is deactivated/deleted.
+   * Functions only required in the admin panel.
    */
 
-  require_once __DIR__ . '/includes/functions/_cleanup.php';
-
-  /**
-   * Add setting page for the theme.
-   */
-
-  require_once __DIR__ . '/includes/functions/settings/_settings.php';
-
-  /**
-   * Extend user profile in admin panel.
-   */
-
-  require_once __DIR__ . '/includes/functions/users/_admin_profile.php';
+  require_once __DIR__ . '/includes/functions/_admin.php';
 
 }
 
