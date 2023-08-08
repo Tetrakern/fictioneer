@@ -333,6 +333,17 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'numberposts' => -1,
         'orderby' => 'modified',
         'order' => 'DESC',
+        'meta_query' => array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_story_hidden',
+            'value' => '0'
+          ),
+          array(
+            'key' => 'fictioneer_story_hidden',
+            'compare' => 'NOT EXISTS'
+          ),
+        ),
         'update_post_term_cache' => false
       )
     );
