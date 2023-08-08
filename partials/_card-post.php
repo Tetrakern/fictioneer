@@ -17,7 +17,7 @@
 $title = fictioneer_get_safe_title( get_the_ID() );
 $tags = get_the_tags();
 $categories = wp_get_post_categories( get_the_ID() );
-$show_type = isset( $args['show_type'] ) && $args['show_type'];
+$show_type = $args['show_type'] ?? false;
 
 ?>
 
@@ -33,16 +33,20 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
     <div class="card__main _grid _large">
 
-      <?php if ( has_post_thumbnail() ) : ?>
-        <a
-          href="<?php the_post_thumbnail_url( 'full' ); ?>"
-          title="<?php printf( __( '%s Thumbnail', 'fictioneer' ), $title ) ?>"
-          class="card__image cell-img"
-          <?php echo fictioneer_get_lightbox_attribute(); ?>
-        ><?php the_post_thumbnail( 'cover' ); ?></a>
-      <?php endif; ?>
+      <?php
+        // Thumbnail
+        if ( has_post_thumbnail() ) {
+          printf(
+            '<a href="%1$s" title="%2$s" class="card__image cell-img" %3$s>%4$s</a>',
+            get_the_post_thumbnail_url( null, 'full' ),
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( null, 'cover' )
+          );
+        }
+      ?>
 
-      <div class="card__content cell-desc truncate _4-4"><span><?php echo get_the_excerpt(); ?></span></div>
+      <div class="card__content cell-desc truncate _4-4"><span><?php the_excerpt(); ?></span></div>
 
       <?php if ( $categories || $tags ) : ?>
         <div class="card__tag-list cell-tax">
@@ -70,16 +74,22 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
     </div>
 
     <div class="card__footer">
+
       <div class="card__left text-overflow-ellipsis">
+
         <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
           <i class="fa-solid fa-circle-user"></i>
           <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
         <?php endif; ?>
+
         <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
         <?php the_time( FICTIONEER_CARD_POST_FOOTER_DATE ); ?>
+
         <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
         <?php echo get_comments_number(); ?>
+
       </div>
+
     </div>
 
   </div>
