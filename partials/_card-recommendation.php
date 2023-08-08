@@ -21,19 +21,34 @@ $urls = array_merge(
   explode( "\n", fictioneer_get_field( 'fictioneer_recommendation_urls' ) ),
   explode( "\n", fictioneer_get_field( 'fictioneer_recommendation_support' ) )
 );
+$excerpt = get_the_excerpt();
+$one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' ) ?? '';
 
 // Sanitize
 $urls = array_map( 'wp_strip_all_tags', $urls );
 
 // Taxonomies
-$fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-$characters = get_the_terms( $post->ID, 'fcn_character' );
-$genres = get_the_terms( $post->ID, 'fcn_genre' );
-$tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags() : false;
+$tags = false;
+$fandoms = false;
+$characters = false;
+$genres = false;
+
+if (
+  get_option( 'fictioneer_show_tags_on_recommendation_cards' ) &&
+  ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' )
+) {
+  $tags = get_the_tags();
+}
+
+if ( ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' ) ) {
+  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
+  $characters = get_the_terms( $post->ID, 'fcn_character' );
+  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+}
 
 // Flags
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' ) && ( $tags || $genres || $fandoms || $characters );
-$show_type = isset( $args['show_type'] ) && $args['show_type'];
+$show_type = $args['show_type'] ?? false;
 
 ?>
 
@@ -49,28 +64,28 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
 
     <div class="card__main _grid _large">
 
-      <?php if ( has_post_thumbnail() ) : ?>
-        <a
-          href="<?php the_post_thumbnail_url( 'full' ); ?>"
-          title="<?php printf( __( '%s Thumbnail', 'fictioneer' ), $title ) ?>"
-          class="card__image cell-img"
-          <?php echo fictioneer_get_lightbox_attribute(); ?>
-        ><?php the_post_thumbnail( 'cover' ); ?></a>
-      <?php endif; ?>
-
-      <div class="card__content cell-desc truncate _4-4">
-        <span class="card__by-author"><?php
+      <?php
+        // Thumbnail
+        if ( has_post_thumbnail() ) {
           printf(
-            _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
-            fictioneer_get_field( 'fictioneer_recommendation_author' )
+            '<a href="%1$s" title="%2$s" class="card__image cell-img" %3$s>%4$s</a>',
+            get_the_post_thumbnail_url( null, 'full' ),
+            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            fictioneer_get_lightbox_attribute(),
+            get_the_post_thumbnail( null, 'cover' )
           );
-        ?></span>
-        <span><?php
-          $excerpt = get_the_excerpt();
-          $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' ) ?? '';
-          echo strlen( $one_sentence ) < strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true );
-        ?></span>
-      </div>
+        }
+
+        // Content
+        printf(
+          '<div class="card__content cell-desc truncate _4-4"><span class="card__by-author">%1$s</span> <span>%2$s</span></div>',
+          sprintf(
+            _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
+            fictioneer_get_field( 'fictioneer_recommendation_author' )
+          ),
+          strlen( $one_sentence ) < strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true )
+        );
+      ?>
 
       <?php if ( count( $urls ) > 0 ): ?>
         <ol class="card__link-list cell-list">
@@ -92,34 +107,15 @@ $show_type = isset( $args['show_type'] ) && $args['show_type'];
       <?php if ( $show_taxonomies ) : ?>
         <div class="card__tag-list cell-tax">
           <?php
-            $output = [];
-
-            if ( $fandoms ) {
-              foreach ( $fandoms as $fandom ) {
-                $output[] = "<a href='" . get_tag_link( $fandom ) . "' class='tag-pill _inline _fandom'>{$fandom->name}</a>";
-              }
-            }
-
-            if ( $genres ) {
-              foreach ( $genres as $genre ) {
-                $output[] = "<a href='" . get_tag_link( $genre ) . "' class='tag-pill _inline _genre'>{$genre->name}</a>";
-              }
-            }
-
-            if ( $tags ) {
-              foreach ( $tags as $tag ) {
-                $output[] = "<a href='" . get_tag_link( $tag ) . "' class='tag-pill _inline'>{$tag->name}</a>";
-              }
-            }
-
-            if ( $characters ) {
-              foreach ( $characters as $character ) {
-                $output[] = "<a href='" . get_tag_link( $character ) . "' class='tag-pill _inline _character'>{$character->name}</a>";
-              }
-            }
+            $taxonomies = array_merge(
+              $fandoms ? fictioneer_generate_card_tags( $fandoms, '_fandom' ) : [],
+              $genres ? fictioneer_generate_card_tags( $genres, '_genre' ) : [],
+              $tags ? fictioneer_generate_card_tags( $tags ) : [],
+              $characters ? fictioneer_generate_card_tags( $characters, '_character' ) : []
+            );
 
             // Implode with three-per-em spaces around a bullet
-            echo implode( '&#8196;&bull;&#8196;', $output );
+            echo implode( '&#8196;&bull;&#8196;', $taxonomies );
           ?>
         </div>
       <?php endif; ?>
