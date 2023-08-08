@@ -62,10 +62,8 @@ $hook_args = array(
 
           // Special conditions for chapters...
           if ( $type == 'fcn_chapter' ) {
-            $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter' );
-            $hidden_chapter = fictioneer_get_field( 'fictioneer_chapter_hidden' );
-
-            if ( $no_chapter || $hidden_chapter ) continue;
+            if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter' ) ) continue;
+            if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
           }
 
           // Echo correct card
