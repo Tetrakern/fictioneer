@@ -131,17 +131,28 @@ do_action( 'rss_tag_pre', 'rss2' );
         // Limit items
         $terminator = get_option( 'posts_per_rss' );
 
+        // Query
+        $query_args = array(
+          'post_type' => 'fcn_chapter',
+          'post_status' => 'publish',
+          'post__in' => $chapters,
+          'orderby' => 'post__in',
+          'posts_per_page' => get_option( 'posts_per_rss' ) + 4, // Buffer for hidden items
+          'no_found_rows' => true // Improve performance
+        );
+
+        $chapter_query = new WP_Query( $query_args );
+
         // Loop over chapters
-        foreach ( $chapters as $post_id ) {
+        foreach ( $chapter_query->posts as $post ) {
           // Setup
-          $post = get_post( $post_id );
           setup_postdata( $post );
 
           // Terminate?
           if ( $terminator < 1 ) break;
 
           // Skip invisible chapters
-          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) || get_post_status() !== 'publish' ) {
+          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
             continue;
           }
 

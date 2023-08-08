@@ -11,7 +11,7 @@
 // Query posts
 $posts = new WP_Query(
   array (
-    'post_type' => array( 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation' ),
+    'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
     'post_status' => 'publish',
     'orderby' => 'date',
     'order' => 'DESC',
@@ -65,6 +65,7 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?>';
 
 // Fire default action
 do_action( 'rss_tag_pre', 'rss2' );
+
 ?>
 
 <rss
