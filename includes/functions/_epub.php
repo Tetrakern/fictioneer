@@ -298,19 +298,34 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     $index = 0;
 
     // Abort if...
-    if ( empty( $chapters ) ) fictioneer_epub_return_and_exit();
+    if ( empty( $chapters ) ) {
+      fictioneer_epub_return_and_exit();
+    }
+
+    // Query
+    $query_args = array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'post__in' => $chapters,
+      'orderby' => 'post__in',
+      'posts_per_page' => -1,
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    );
+
+    $chapter_query = new WP_Query( $query_args );
 
     // Process chapters
-    foreach ( $chapters as $post_id ) {
-      $post = get_post( $post_id );
-
+    foreach ( $chapter_query->posts as $post ) {
       // Skip if...
-      if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter' ) || get_post_status() !== 'publish' ) continue;
+      if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $post->ID ) ) {
+        continue;
+      }
 
       // Setup
-      $title = fictioneer_get_safe_title( $post_id );
+      $title = fictioneer_get_safe_title( $post->ID );
       $content = apply_filters( 'the_content', $post->post_content );
-      $is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $post_id );
+      $is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $post->ID );
       $processed = false;
       $index++;
 
