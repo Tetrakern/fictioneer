@@ -4,6 +4,44 @@
 // AVATAR FALLBACK
 // =============================================================================
 
+if ( ! function_exists( 'fictioneer_get_default_avatar_url' ) ) {
+  /**
+   * Returns the default avatar URL
+   *
+   * @since Fictioneer 5.5.3
+   *
+   * @return string Default avatar URL.
+   */
+
+  function fictioneer_get_default_avatar_url() {
+    $transient = get_transient( 'fictioneer_default_avatar' );
+
+    // Check Transient
+    if (
+      empty( $transient ) ||
+      ! is_array( $transient ) ||
+      $transient['timestamp'] + DAY_IN_SECONDS < time()
+    ) {
+      $default_url = get_avatar_url( 'nonexistentemail@example.com' );
+
+      $transient = array(
+        'url' => $default_url,
+        'timestamp' => time()
+      );
+
+      set_transient( 'fictioneer_default_avatar', $transient );
+    } else {
+      $default_url = $transient['url'];
+    }
+
+    return $default_url;
+  }
+}
+
+// =============================================================================
+// AVATAR FALLBACK
+// =============================================================================
+
 /**
  * Add fallback inline script to avatars
  *
@@ -16,25 +54,7 @@
  */
 
 function fictioneer_avatar_fallback( $avatar, $id_or_email ) {
-  $transient = get_transient( 'fictioneer_default_avatar' );
-
-  // Check Transient
-  if (
-    empty( $transient ) ||
-    ! is_array( $transient ) ||
-    $transient['timestamp'] + DAY_IN_SECONDS < time()
-  ) {
-    $default_url = get_avatar_url( 'nonexistentemail@example.com' );
-
-    $transient = array(
-      'url' => $default_url,
-      'timestamp' => time()
-    );
-
-    set_transient( 'fictioneer_default_avatar', $transient );
-  } else {
-    $default_url = $transient['url'];
-  }
+  $default_url = fictioneer_get_default_avatar_url();
 
   return str_replace( '<img', '<img onerror="this.src=\'' . $default_url . '\';this.srcset=\'\';this.onerror=\'\';"', $avatar );
 }
@@ -88,7 +108,7 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
 function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
   // Abort conditions...
   if ( $args['force_default'] ?? false ) {
-    return $url;
+    return fictioneer_get_default_avatar_url();
   }
 
   // Setup
@@ -103,6 +123,8 @@ function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
     if ( $user_disabled || $admin_disabled ) {
       return false;
     }
+  } else {
+    return fictioneer_get_default_avatar_url();
   }
 
   // Return custom avatar if set
@@ -111,7 +133,7 @@ function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
   }
 
   // Return default avatar
-  return $url;
+  return fictioneer_get_default_avatar_url();
 };
 add_filter( 'get_avatar_url', 'fictioneer_get_avatar_url', 10, 3 );
 
