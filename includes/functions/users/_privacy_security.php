@@ -190,8 +190,8 @@ function fictioneer_scope_media_to_uploader( $query ) {
     return;
   }
 
-  // Limit non-administrator to their own uploads
-  if ( ! current_user_can( 'manage_options' ) ) {
+  // Those who can edit users, can also see their files
+  if ( ! current_user_can( 'edit_users' ) ) {
     $query->set( 'author', $current_user->ID );
   }
 }
