@@ -13,6 +13,7 @@ $posts = new WP_Query(
   array (
     'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
     'post_status' => 'publish',
+    'ignore_sticky_posts' => 1,
     'orderby' => 'date',
     'order' => 'DESC',
     'posts_per_page' => get_option( 'posts_per_rss' ),
@@ -44,6 +45,11 @@ $posts = new WP_Query(
     'no_found_rows' => true
   )
 );
+
+// Prime author cache
+if ( function_exists( 'update_post_author_caches' ) ) {
+  update_post_author_caches( $posts->posts );
+}
 
 // Feed title
 $title = sprintf( __( '%s Feed', 'fictioneer' ), get_bloginfo_rss( 'name' ) );
