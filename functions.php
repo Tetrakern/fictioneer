@@ -315,6 +315,10 @@ require_once __DIR__ . '/includes/functions/_wordpress_mods.php';
 
 require_once __DIR__ . '/includes/functions/_customizer.php';
 
+if ( is_customize_preview() ) {
+  require_once __DIR__ . '/includes/functions/_customizer-settings.php';
+}
+
 /**
  * Set up the theme.
  */
@@ -384,40 +388,32 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
 }
 
 /**
- * Handle comments on story pages.
- */
-
-require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
-
-/**
- * Display comments via AJAX.
- */
-
-require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
-
-/**
  * Handle comments.
  */
 
-require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
+if ( is_admin() ) {
+  // Required for AJAX
+  require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+}
 
-/**
- * Build comment form.
- */
+function fictioneer_conditional_require_comments() {
+  if ( is_singular( 'fcn_story' ) ) {
+    require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
+  }
 
-require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
-
-/**
- * Build comments thread.
- */
-
-require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
-
-/**
- * Handle comments moderation.
- */
-
-require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+  if ( comments_open() || is_singular( 'fcn_story' ) ) {
+    require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
+    require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
+    require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
+    require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+  }
+}
+add_action( 'wp', 'fictioneer_conditional_require_comments' );
 
 /**
  * Add functions for users.
@@ -459,7 +455,10 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  * Add the bookmarks feature.
  */
 
-require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
+if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
+  // Only used for AJAX
+  require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
+}
 
 /**
  * Add privacy and security measures.
@@ -535,20 +534,32 @@ if ( ! is_admin() ) {
    * Add post and page hooks.
    */
 
-  function fictioneer_conditional_require_hooks() {
-    if ( ! is_archive() && ! is_search() ) {
+  function fictioneer_conditional_require_frontend_hooks() {
+    if ( is_page_template( 'stories.php' ) || is_singular( 'fcn_story' ) ) {
       require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
-      require_once __DIR__ . '/includes/functions/hooks/_chapter_hooks.php';
-      require_once __DIR__ . '/includes/functions/hooks/_recommendation_hooks.php';
-      require_once __DIR__ . '/includes/functions/hooks/_collection_hooks.php';
-      require_once __DIR__ . '/includes/functions/hooks/_profile_hooks.php';
+    }
 
-      if ( is_single() ) {
-        require_once __DIR__ . '/includes/functions/hooks/_post_hooks.php';
-      }
+    if ( is_page_template( 'chapters.php' ) || is_singular( 'fcn_chapter' ) ) {
+      require_once __DIR__ . '/includes/functions/hooks/_chapter_hooks.php';
+    }
+
+    if ( is_page_template( 'recommendations.php' ) || is_singular( 'fcn_recommendation' ) ) {
+      require_once __DIR__ . '/includes/functions/hooks/_recommendation_hooks.php';
+    }
+
+    if ( is_page_template( 'collections.php' ) || is_singular( 'fcn_collection' ) ) {
+      require_once __DIR__ . '/includes/functions/hooks/_collection_hooks.php';
+    }
+
+    if ( is_page_template( 'user-profile.php' ) ) {
+      require_once __DIR__ . '/includes/functions/hooks/_profile_hooks.php';
+    }
+
+    if ( is_singular( 'post' ) ) {
+      require_once __DIR__ . '/includes/functions/hooks/_post_hooks.php';
     }
   }
-  add_action( 'wp', 'fictioneer_conditional_require_hooks' );
+  add_action( 'wp', 'fictioneer_conditional_require_frontend_hooks' );
 
   /**
    * Add mobile menu hooks.

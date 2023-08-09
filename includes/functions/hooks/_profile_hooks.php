@@ -9,11 +9,11 @@
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_moderation_message( $args ) {
@@ -42,11 +42,11 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_moderation_message
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_profile( $args ) {
@@ -63,11 +63,11 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_profile', 10 );
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_oauth( $args ) {
@@ -84,11 +84,11 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_oauth', 20 );
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_data( $args ) {
@@ -105,11 +105,11 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_data', 30 );
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_discussions( $args ) {
@@ -126,11 +126,11 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_discussions', 40 )
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $args['user']         Current user.
- * @param boolean $args['is_admin']     True if the user is an administrator.
- * @param boolean $args['is_author']    True if the user is an author (by capabilities).
- * @param boolean $args['is_editor']    True if the user is an editor.
- * @param boolean $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 
 function fictioneer_account_danger_zone( $args ) {
