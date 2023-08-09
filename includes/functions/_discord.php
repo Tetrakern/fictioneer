@@ -46,7 +46,9 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
 
 function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   // Exit conditions
-  if ( empty( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) ) return;
+  if ( empty( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) ) {
+    return;
+  }
 
   // Setup
   $comment = get_comment( $comment_id );

@@ -361,19 +361,27 @@ require_once __DIR__ . '/includes/functions/_seo.php';
  * Communicate with the Discord API.
  */
 
-require_once __DIR__ . '/includes/functions/_discord.php';
+if ( ! empty( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) ) {
+  require_once __DIR__ . '/includes/functions/_discord.php';
+}
 
 /**
  * Generate ePUBs for stories.
  */
 
-require_once __DIR__ . '/includes/functions/_epub.php';
+// require_once __DIR__ . '/includes/functions/_epub.php';
+
+if ( get_option( 'fictioneer_enable_epubs' ) ) {
+  require_once __DIR__ . '/includes/functions/_epub.php';
+}
 
 /**
  * Log-in and register subscribers via OAuth 2.0.
  */
 
-require_once __DIR__ . '/includes/functions/_oauth.php';
+if ( get_option( 'fictioneer_enable_oauth' ) ) {
+  require_once __DIR__ . '/includes/functions/_oauth.php';
+}
 
 /**
  * Handle comments on story pages.
@@ -487,7 +495,9 @@ require_once __DIR__ . '/includes/functions/_forms.php';
  * Add API.
  */
 
-require_once __DIR__ . '/includes/functions/_api.php';
+if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
+  require_once __DIR__ . '/includes/functions/_api.php';
+}
 
 /**
  * Add search.
