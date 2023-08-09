@@ -532,40 +532,23 @@ if ( ! is_admin() ) {
   require_once __DIR__ . '/includes/functions/hooks/_general_hooks.php';
 
   /**
-   * Add chapter hooks.
+   * Add post and page hooks.
    */
 
-  require_once __DIR__ . '/includes/functions/hooks/_chapter_hooks.php';
+  function fictioneer_conditional_require_hooks() {
+    if ( ! is_archive() && ! is_search() ) {
+      require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
+      require_once __DIR__ . '/includes/functions/hooks/_chapter_hooks.php';
+      require_once __DIR__ . '/includes/functions/hooks/_recommendation_hooks.php';
+      require_once __DIR__ . '/includes/functions/hooks/_collection_hooks.php';
+      require_once __DIR__ . '/includes/functions/hooks/_profile_hooks.php';
 
-  /**
-   * Add recommendation hooks.
-   */
-
-  require_once __DIR__ . '/includes/functions/hooks/_recommendation_hooks.php';
-
-  /**
-   * Add story hooks.
-   */
-
-  require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
-
-  /**
-   * Add post hooks.
-   */
-
-  require_once __DIR__ . '/includes/functions/hooks/_post_hooks.php';
-
-  /**
-   * Add collection hooks.
-   */
-
-  require_once __DIR__ . '/includes/functions/hooks/_collection_hooks.php';
-
-  /**
-   * Add profile hooks.
-   */
-
-  require_once __DIR__ . '/includes/functions/hooks/_profile_hooks.php';
+      if ( is_single() ) {
+        require_once __DIR__ . '/includes/functions/hooks/_post_hooks.php';
+      }
+    }
+  }
+  add_action( 'wp', 'fictioneer_conditional_require_hooks' );
 
   /**
    * Add mobile menu hooks.
