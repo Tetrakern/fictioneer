@@ -277,6 +277,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
 | `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`
+| `manage_pages_columns` | `fictioneer_restrict_comments_column`
 | `manage_posts_columns` | `fictioneer_restrict_comments_column`
 | `manage_users_columns` | `fictioneer_hide_users_columns`
 | `map_meta_cap` | `fictioneer_restrict_media_edit_delete`

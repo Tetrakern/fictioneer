@@ -140,6 +140,10 @@ if ( get_option( 'fictioneer_admin_restrict_menus' ) && ! fictioneer_is_admin( g
   add_action( 'current_screen', 'fictioneer_restrict_menu_access' );
 }
 
+// =============================================================================
+// RESTRICT COMMENTS (ALSO SEE _ROLES)
+// =============================================================================
+
 /**
  * Remove comments column for non-administrators
  *
@@ -165,6 +169,7 @@ function fictioneer_restrict_comments_column( $columns ) {
   return $columns;
 }
 add_filter( 'manage_posts_columns', 'fictioneer_restrict_comments_column' );
+add_filter( 'manage_pages_columns', 'fictioneer_restrict_comments_column' );
 
 // =============================================================================
 // RESTRICT MEDIA MANAGER
