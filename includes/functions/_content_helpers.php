@@ -1218,11 +1218,13 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
 
     // Comments node
     if ( ! $no_comments && $comments_number > 0 ) {
+      $comments_link = is_single() ? '#comments' : get_the_permalink() . '#comments';
+
       ob_start();
       // Start HTML ---> ?>
       <div class="post__comments-number">
         <i class="fa-solid fa-message"></i>
-        <a href="#comments"><?php printf( _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ), number_format_i18n( $comments_number ) ); ?></a>
+        <a href="<?php echo $comments_link; ?>"><?php printf( _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ), number_format_i18n( $comments_number ) ); ?></a>
       </div>
       <?php // <--- End HTML
       $output['comments'] = ob_get_clean();
