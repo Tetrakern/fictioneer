@@ -21,8 +21,8 @@ This is a quick guide to get you started if you want to contribute to the theme,
 
 ### Additional Resources
 
-* [Theme actions](ACTIONS.md)
-* [Theme filters](FILTERS.md)
+* [Theme action hooks](ACTIONS.md)
+* [Theme filter hooks](FILTERS.md)
 * [Child theme example](https://github.com/Tetrakern/fictioneer-child-theme)
 * [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal)
 
@@ -204,7 +204,7 @@ fcn_ajaxPost(
 
 ## Hooked Actions & Filters
 
-Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [actions](ACTIONS.md) and [filters](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion. Some of them are conditional.
+Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [action hooks](ACTIONS.md) and [filter hooks](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion. Some of them are conditional.
 
 | WORDPRESS HOOK | FICTIONEER ACTIONS
 | ---: | :--- |

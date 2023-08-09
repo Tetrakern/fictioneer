@@ -1,5 +1,5 @@
 # Filters
-The following [filters hooks](https://developer.wordpress.org/reference/functions/add_filter/) can be used to customize the output of action hooks and other functions without having to modify said functions. Filters can be easily added or overwritten in child themes or plugins. See `includes/functions/hooks/`.
+The following [filter hooks](https://developer.wordpress.org/reference/functions/add_filter/) can be used to customize the output of action hooks and other functions without having to modify said functions. Filters can be easily added or overwritten in child themes or plugins. See `includes/functions/hooks/`.
 
 ### Example: Add link to subscription options
 This is an example of how to add a link to the subscription popup menu via the `'fictioneer_filter_subscribe_buttons'` hook. The link will feature a [Font Awesome link icon](https://fontawesome.com/icons/link?s=solid&f=classic) and be added in first place. Note how the link is pulled from the author’s meta data, which you would need to add yourself as it does not exist outside this example.

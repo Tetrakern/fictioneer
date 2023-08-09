@@ -17,7 +17,7 @@
 
 Fictioneer was originally developed for a closed group of authors and not intended for a public release. This is still reflected in the code, which takes several liberties not considered best practice. You will most likely never find it in official libraries for that reason, meaning installation and updates need to be done manually.
 
-The theme is best suited for individuals and small collectives, not so much open community archives.
+The theme is intended for individuals and small collectives.
 
 Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Ko-fi](https://ko-fi.com/tetrakern). I also take on [commissions](https://fictioneer-theme.com/commissions/) for setup and customizations, *within reason.*
 
@@ -29,9 +29,11 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 [Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here. For starters, look at the [base child theme](https://github.com/Tetrakern/fictioneer-child-theme) and the [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal).
 
+You can find some example action and filter functions [here](https://github.com/Tetrakern/fictioneer-child-theme#action--filter-examples).
+
 ## Support the Development
 
-Fictioneer (up to 5.5) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [actions](ACTIONS.md), and [filters](FILTERS.md). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer (up to 5.5) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
 ## Screenshots
 
