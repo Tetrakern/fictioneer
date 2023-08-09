@@ -391,11 +391,12 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
  * Handle comments.
  */
 
+require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
+
 if ( is_admin() ) {
   // Required for AJAX
   require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
   require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
-  require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
   require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
   require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
   require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
@@ -407,7 +408,6 @@ function fictioneer_conditional_require_comments() {
   }
 
   if ( comments_open() || is_singular( 'fcn_story' ) ) {
-    require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
     require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
     require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
     require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
