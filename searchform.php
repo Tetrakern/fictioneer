@@ -21,10 +21,10 @@ $simple_mode = $args['simple'] ?? false;
 $cache_mode = $args['cache'] ?? false;
 $show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
 $placeholder = $args['placeholder'] ?? _x( 'Search keywords or phrase', 'Advanced search placeholder.', 'fictioneer' );
+$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
 
 // Advanced setup
 if ( $show_advanced ) {
-	$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
 	$sentence = $_GET['sentence'] ?? '0';
 	$order = $_GET['order'] ?? 'desc';
 	$orderby = $_GET['orderby'] ?? 'modified';
@@ -96,6 +96,8 @@ if ( $show_advanced ) {
 
 	<?php if ( $show_advanced ) : ?>
 		<div class="allow-list" hidden><?php echo json_encode( $allow_list ); ?></div>
+	<?php else : ?>
+		<input type="hidden" name="post_type" value="<?php echo $post_type; ?>">
 	<?php endif; ?>
 
 	<div class="search-form__bar">
