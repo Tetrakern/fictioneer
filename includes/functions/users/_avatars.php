@@ -22,7 +22,10 @@ if ( ! function_exists( 'fictioneer_get_default_avatar_url' ) ) {
       ! is_array( $transient ) ||
       $transient['timestamp'] + DAY_IN_SECONDS < time()
     ) {
+      // Get default avatar (and avoid infinite loop)
+      remove_filter( 'get_avatar_url', 'fictioneer_get_avatar_url' );
       $default_url = get_avatar_url( 'nonexistentemail@example.com' );
+      add_filter( 'get_avatar_url', 'fictioneer_get_avatar_url', 10, 3 );
 
       $transient = array(
         'url' => $default_url,
@@ -98,9 +101,9 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
  *
  * @since Fictioneer 4.0
  *
- * @param string     $url         The default URL by WordPress.
- * @param int|string $id_or_email User ID or email address.
- * @param WP_User    $args        Additional arguments.
+ * @param string     $url          The default URL by WordPress.
+ * @param int|string $id_or_email  User ID or email address.
+ * @param WP_User    $args         Additional arguments.
  *
  * @return string The avatar URL.
  */
