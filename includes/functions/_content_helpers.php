@@ -1222,7 +1222,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
       // Start HTML ---> ?>
       <div class="post__comments-number">
         <i class="fa-solid fa-message"></i>
-        <a href="<?php the_permalink(); ?>#comments"><?php printf( _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ), number_format_i18n( $comments_number ) ); ?></a>
+        <a href="#comments"><?php printf( _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ), number_format_i18n( $comments_number ) ); ?></a>
       </div>
       <?php // <--- End HTML
       $output['comments'] = ob_get_clean();
