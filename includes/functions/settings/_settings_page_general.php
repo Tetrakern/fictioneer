@@ -777,6 +777,14 @@
                   </div>
                 </label>
 
+                <label for="fictioneer_restrict_media_access" class="label-wrapped-checkbox row">
+                  <input name="fictioneer_restrict_media_access" type="checkbox" id="fictioneer_restrict_media_access" <?php echo checked( 1, get_option( 'fictioneer_restrict_media_access' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_restrict_media_access']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Users can only see and edit their own uploads unless they have the "edit_users" capability.', 'fictioneer' ) ?></p>
+                  </div>
+                </label>
+
                 <label for="fictioneer_strip_shortcodes_for_non_administrators" class="label-wrapped-checkbox row">
                   <input name="fictioneer_strip_shortcodes_for_non_administrators" type="checkbox" id="fictioneer_strip_shortcodes_for_non_administrators" <?php echo checked( 1, get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ), false ); ?> value="1">
                   <div>

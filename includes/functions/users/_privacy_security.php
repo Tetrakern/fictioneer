@@ -166,4 +166,80 @@ function fictioneer_restrict_comments_column( $columns ) {
 }
 add_filter( 'manage_posts_columns', 'fictioneer_restrict_comments_column' );
 
+// =============================================================================
+// RESTRICT MEDIA MANAGER
+// =============================================================================
+
+/**
+ * Scope media files visibility to the uploader
+ *
+ * @since Fictioneer 5.5.3
+ *
+ * @param WP_Query $query  The queried attachments.
+ */
+
+function fictioneer_scope_media_to_uploader( $query ) {
+  global $current_user, $pagenow;
+
+  if ( empty( $current_user ) ) {
+    return;
+  }
+
+  // Only affect media library on admin side
+  if( 'admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments' ) {
+    return;
+  }
+
+  // Limit non-administrator to their own uploads
+  if ( ! current_user_can( 'manage_options' ) ) {
+    $query->set( 'author', $current_user->ID );
+  }
+}
+
+/**
+ * Restrict edit and delete capabilities of media files
+ *
+ * @since Fictioneer 5.5.3
+ *
+ * @param array  $caps     Primitive capabilities required of the user.
+ * @param string $cap      Capability being checked.
+ * @param int    $user_id  The user ID.
+ * @param array  $args     Adds context to the capability check, typically
+ *                         starting with an object ID.
+ *
+ * @return array The still allowed primitive capabilities of the user.
+ */
+
+function fictioneer_restrict_media_edit_delete( $caps, $cap, $user_id, $args ) {
+  // Skip unrelated capabilities
+  if ( 'edit_post' != $cap && 'delete_post' != $cap ) {
+    return $caps;
+  }
+
+  // Those who can edit users, can also edit their files
+  if ( user_can( $user_id, 'edit_users' ) ) {
+    return $caps;
+  }
+
+  // Get the post in question.
+  $post = get_post( $args[0] );
+
+  // Check if an attachment and whether the user is the owner (author)
+  if (
+    empty( $post ) ||
+    $post->post_type != 'attachment' ||
+    $post->post_author == $user_id
+  ) {
+    return $caps;
+  }
+
+  // Disallow
+  return ['do_not_allow'];
+}
+
+if ( get_option( 'fictioneer_restrict_media_access' ) ) {
+  add_filter( 'map_meta_cap', 'fictioneer_restrict_media_edit_delete', 10, 4 );
+  add_action( 'pre_get_posts', 'fictioneer_scope_media_to_uploader' );
+}
+
 ?>
