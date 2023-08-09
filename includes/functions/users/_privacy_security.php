@@ -11,7 +11,7 @@
  *
  * @param array $column_headers Columns to show in the user table.
  *
- * @return array $column_headers Reduced columns to show in the user table.
+ * @return array Reduced columns to show in the user table.
  */
 
 function fictioneer_hide_users_columns( $column_headers ) {
@@ -30,7 +30,7 @@ function fictioneer_hide_users_columns( $column_headers ) {
  *
  * @param array $actions Actions per row in the comments table.
  *
- * @return array $actions Restricted actions per row in the comments table.
+ * @return array Restricted actions per row in the comments table.
  */
 
 function fictioneer_remove_quick_edit( $actions ) {
@@ -139,5 +139,31 @@ if ( get_option( 'fictioneer_admin_restrict_menus' ) && ! fictioneer_is_admin( g
   add_action( 'admin_menu', 'fictioneer_remove_menu_pages' );
   add_action( 'current_screen', 'fictioneer_restrict_menu_access' );
 }
+
+/**
+ * Remove comments column for non-administrators
+ *
+ * @since Fictioneer 5.5.3
+ *
+ * @param array $columns  The table columns.
+ *
+ * @return array Modified table column.
+ */
+
+function fictioneer_restrict_comments_column( $columns ) {
+  // Administrators and moderators
+  if ( current_user_can( 'moderate_comments' ) ) {
+    return $columns;
+  }
+
+  // Everyone else
+  if ( isset( $columns['comments'] ) ) {
+    unset( $columns['comments'] );
+  }
+
+  // Return modified array
+  return $columns;
+}
+add_filter( 'manage_posts_columns', 'fictioneer_restrict_comments_column' );
 
 ?>
