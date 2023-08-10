@@ -529,29 +529,6 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
 // =============================================================================
 
 /**
- * Add custom moderator role
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_add_moderator_role() {
-	return add_role(
-    'fcn_moderator',
-    __( 'Moderator', 'fictioneer' ),
-    array(
-      'read' => true,
-      'edit_posts' => true,
-      'edit_others_posts' => true,
-      'edit_published_posts' => true,
-      'moderate_comments' => true,
-      'edit_comment' => true,
-      'delete_posts' => false,
-      'delete_others_posts' => false
-    )
-  );
-}
-
-/**
  * Upgrade author role with additional capabilities
  *
  * @since Fictioneer 5.0

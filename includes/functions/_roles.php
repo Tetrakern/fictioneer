@@ -7,22 +7,28 @@
 define(
 	'FICTIONEER_BASE_CAPABILITIES',
 	array(
-		'fcn_read_others_files', // Fictioneer
-    'fcn_edit_others_files', // Fictioneer
-    'fcn_delete_others_files', // Fictioneer
+		'fcn_read_others_files',    // Fictioneer
+    'fcn_edit_others_files',    // Fictioneer
+    'fcn_delete_others_files',  // Fictioneer
     'fcn_select_page_template', // Fictioneer
     'fcn_admin_profile_access', // Fictioneer
-    'fcn_adminbar_access', // Fictioneer
-    'fcn_dashboard_access', // Fictioneer
-    'fcn_privacy_clearance', // Fictioneer
-    'fcn_shortcodes', // Fictioneer
-    'unfiltered_html', // Default
-    'edit_users', // Default
-    'add_users', // Default
-    'create_users', // Default
-    'delete_users' // Default
+    'fcn_adminbar_access',      // Fictioneer
+    'fcn_dashboard_access',     // Fictioneer
+    'fcn_privacy_clearance',    // Fictioneer
+    'fcn_shortcodes',           // Fictioneer
+    'unfiltered_html',          // Default
+    'edit_users',               // Default
+    'add_users',                // Default
+    'create_users',             // Default
+    'delete_users'              // Default
 	)
 );
+
+/**
+ * Initialize user roles with custom capabilities
+ *
+ * @since Fictioneer 5.6.0
+ */
 
 function fictioneer_initialize_roles() {
   // Capabilities
@@ -133,6 +139,7 @@ function fictioneer_initialize_roles() {
 
   // Moderator
   fictioneer_add_moderator_role();
+
   $moderator = get_role( 'fcn_moderator' );
   $moderator_caps = array(
     // Base
@@ -174,6 +181,28 @@ function fictioneer_initialize_roles() {
 }
 add_action( 'init', 'fictioneer_initialize_roles' );
 
+/**
+ * Add custom moderator role
+ *
+ * @since Fictioneer 5.0
+ */
+
+function fictioneer_add_moderator_role() {
+	return add_role(
+    'fcn_moderator',
+    __( 'Moderator', 'fictioneer' ),
+    array(
+      'read' => true,
+      'edit_posts' => true,
+      'edit_others_posts' => true,
+      'edit_published_posts' => true,
+      'moderate_comments' => true,
+      'edit_comment' => true,
+      'delete_posts' => false,
+      'delete_others_posts' => false
+    )
+  );
+}
 
 
 
