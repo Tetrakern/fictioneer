@@ -62,11 +62,11 @@ function fictioneer_hide_private_data() {
  */
 
 if ( get_option( 'fictioneer_admin_restrict_private_data' ) && ! current_user_can( 'administrator' ) ) {
-  add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns' );
-  add_filter( 'comment_email', '__return_false' );
-  add_filter( 'get_comment_author_IP', '__return_empty_string' );
-  add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit' );
-  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data' );
+  add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns', 99 );
+  add_filter( 'comment_email', '__return_false', 99 );
+  add_filter( 'get_comment_author_IP', '__return_empty_string', 99 );
+  add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit', 99 );
+  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 99 );
 }
 
 // =============================================================================

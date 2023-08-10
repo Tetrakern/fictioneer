@@ -150,27 +150,6 @@ function fictioneer_restrict_moderator_menu_access() {
   }
 }
 
-/**
- * Restrict access to admin pages/actions for moderators
- *
- * Prevent moderators from editing the comment content, which is rarely a good action.
- * Doing this via JS is a terrible solution but better than nothing.
- *
- * @since Fictioneer 5.0
- * @todo Do this server-side to prevent savvy moderators from circumventing it.
- */
-
-function fictioneer_disable_moderator_comment_edit() {
-  wp_add_inline_script(
-    'fictioneer-admin-script',
-    "jQuery(function($) {
-      $('#qt_content_toolbar').remove();
-      $('.wp-editor-area').prop('disabled', true);
-      $('.wp-editor-area').prop('name', '');
-    });"
-  );
-}
-
 // Apply restrictions to fcn_moderators
 if (
   fictioneer_has_role( get_current_user_id(), 'fcn_moderator' ) &&
@@ -180,7 +159,6 @@ if (
   add_action( 'current_screen', 'fictioneer_restrict_moderator_menu_access' );
   add_action( 'wp_dashboard_setup', 'fictioneer_reduce_moderator_dashboard_widgets' );
   add_action( 'admin_bar_menu', 'fictioneer_reduce_moderator_admin_bar', 999 );
-  add_action( 'admin_enqueue_scripts', 'fictioneer_disable_moderator_comment_edit', 99 );
 }
 
 // =============================================================================

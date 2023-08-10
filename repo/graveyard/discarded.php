@@ -89,4 +89,25 @@ function fictioneer_admin_profile_bookmarks( $profile_user ) {
 }
 // add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_bookmarks', 70 );
 
+/**
+ * Restrict access to admin pages/actions for moderators
+ *
+ * Prevent moderators from editing the comment content, which is rarely a good action.
+ * Doing this via JS is a terrible solution but better than nothing.
+ *
+ * @since Fictioneer 5.0
+ * @todo Do this server-side to prevent savvy moderators from circumventing it.
+ */
+
+function fictioneer_disable_moderator_comment_edit() {
+  wp_add_inline_script(
+    'fictioneer-admin-script',
+    "jQuery(function($) {
+      $('#qt_content_toolbar').remove();
+      $('.wp-editor-area').prop('disabled', true);
+      $('.wp-editor-area').prop('name', '');
+    });"
+  );
+}
+
 ?>
