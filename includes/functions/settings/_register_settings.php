@@ -307,13 +307,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Do not save comment IP addresses', 'fictioneer' ),
       'default' => false
     ),
-		'fictioneer_block_subscribers_from_admin' => array(
-      'name' => 'fictioneer_block_subscribers_from_admin',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Block admin panel access for subscribers', 'fictioneer' ),
-      'default' => false
-    ),
 		'fictioneer_logout_redirects_home' => array(
       'name' => 'fictioneer_logout_redirects_home',
 			'group' => 'fictioneer-settings-general-group',

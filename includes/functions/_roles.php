@@ -11,7 +11,7 @@ define(
     'fcn_edit_others_files',    // Fictioneer
     'fcn_delete_others_files',  // Fictioneer
     'fcn_select_page_template', // Fictioneer
-    'fcn_admin_profile_access', // Fictioneer
+    'fcn_admin_panel_access',   // Fictioneer
     'fcn_adminbar_access',      // Fictioneer
     'fcn_dashboard_access',     // Fictioneer
     'fcn_privacy_clearance',    // Fictioneer
@@ -55,7 +55,7 @@ function fictioneer_initialize_roles() {
       'fcn_read_others_media',
       'fcn_edit_others_media',
       'fcn_delete_others_media',
-      'fcn_admin_profile_access',
+      'fcn_admin_panel_access',
       'fcn_adminbar_access',
       'fcn_dashboard_access'
     ),
@@ -73,7 +73,7 @@ function fictioneer_initialize_roles() {
   $author = get_role( 'author' );
   $author_caps = array(
     // Base
-    'fcn_admin_profile_access',
+    'fcn_admin_panel_access',
     'fcn_adminbar_access',
     // Stories
     'read_fcn_story',
@@ -113,7 +113,7 @@ function fictioneer_initialize_roles() {
   $contributor = get_role( 'contributor' );
   $contributor_caps = array(
     // Base
-    'fcn_admin_profile_access',
+    'fcn_admin_panel_access',
     'fcn_adminbar_access',
     // Stories
     'read_fcn_story',
@@ -143,7 +143,7 @@ function fictioneer_initialize_roles() {
   $moderator = get_role( 'fcn_moderator' );
   $moderator_caps = array(
     // Base
-    'fcn_admin_profile_access',
+    'fcn_admin_panel_access',
     'fcn_adminbar_access',
     // Stories
     'read_fcn_story',
@@ -163,7 +163,7 @@ function fictioneer_initialize_roles() {
   $subscriber = get_role( 'subscriber' );
   $subscriber_caps = array(
     // Base
-    'fcn_admin_profile_access',
+    'fcn_admin_panel_access',
     // Stories
     'read_fcn_story',
     // Chapters
@@ -216,6 +216,29 @@ if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
   add_filter( 'show_admin_bar', '__return_false' );
 }
 
+/**
+ * Prevent users from accessing the admin panel
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_prevent_admin_panel_access() {
+  // Redirect back to Home (but always allow administrators)
+  if (
+    is_admin() &&
+    ! current_user_can( 'manage_options' ) &&
+    ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+  ) {
+    wp_redirect( home_url() );
+    exit;
+  }
+}
+
+if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
+  add_filter( 'init', 'fictioneer_prevent_admin_panel_access' );
+}
+
+
 
 
 
@@ -231,32 +254,6 @@ if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
 // RESTRICT SUBSCRIBERS ROLE
 // =============================================================================
 
-/**
- * Prevent subscribers from accessing the admin panel
- *
- * Subscribers have a custom frontend user profile and therefore no need to
- * access the admin panel at all. Only higher roles are granted access, although
- * admin-specific actions such as AJAX requests are still permitted.
- *
- * @since Fictioneer 4.0
- */
-
-function fictioneer_block_subscribers_from_admin() {
-  // Redirect back to Home
-  if (
-    is_admin() &&
-    ! current_user_can( 'edit_posts' ) &&
-    ! current_user_can( 'moderate_comments' ) &&
-    ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-  ) {
-    wp_redirect( home_url() );
-    exit;
-  }
-}
-
-if ( get_option( 'fictioneer_block_subscribers_from_admin' ) ) {
-  add_action( 'init', 'fictioneer_block_subscribers_from_admin' );
-}
 
 /**
  * Remove admin dashboard widgets for subscribers

@@ -753,14 +753,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_block_subscribers_from_admin" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_block_subscribers_from_admin" type="checkbox" id="fictioneer_block_subscribers_from_admin" <?php echo checked( 1, get_option( 'fictioneer_block_subscribers_from_admin' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_block_subscribers_from_admin']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'For when you have a frontend account page set up.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_enable_subscriber_self_delete" class="label-wrapped-checkbox row">
                   <input name="fictioneer_enable_subscriber_self_delete" type="checkbox" id="fictioneer_enable_subscriber_self_delete" <?php echo checked( 1, get_option( 'fictioneer_enable_subscriber_self_delete' ), false ); ?> value="1">
                   <div>
