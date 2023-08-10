@@ -31,7 +31,7 @@ add_filter( 'admin_comment_types_dropdown', 'fictioneer_add_private_to_comment_f
 function fictioneer_add_comment_meta_box() {
   add_meta_box(
     'title',
-    __( 'Fictioneer Comment Moderation', 'fictioneer' ),
+    __( 'Comment Moderation', 'fictioneer' ),
     'fictioneer_comment_meta_box',
     'comment',
     'normal',
@@ -44,10 +44,11 @@ function fictioneer_add_comment_meta_box() {
  *
  * @since Fictioneer 4.7
  *
- * @param object $comment The comment object.
+ * @param object $comment  The comment object.
  */
 
 function fictioneer_comment_meta_box ( $comment ) {
+  // Setup
   $type = get_comment_type( $comment->comment_ID );
   $comment_author = get_user_by( 'ID', $comment->user_id );
   $user_reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
@@ -101,12 +102,16 @@ function fictioneer_comment_meta_box ( $comment ) {
     <?php endif; ?>
     <?php if ( ! empty( $edit_stack ) ) : ?>
       <div style="margin-top: 12px;">
-        <div><strong><?php _ex( 'User Edit History:', 'Comment user edit history.', 'fictioneer' ); ?></strong></div>
+        <div><strong><?php _ex( 'Edit History (Previous Versions):', 'Comment edit history.', 'fictioneer' ); ?></strong></div>
         <?php foreach( $edit_stack as $edit ) : ?>
           <details style="margin-top: 6px;">
             <summary><?php
+              $edit_user = get_user_by( 'ID', $edit['user_id'] ?? 0 );
+
               printf(
-                _x( '%s (show previous version)', 'Comment moderation edit stack item with [datetime].', 'fictioneer' ),
+                _x( '%1$s (%2$s): %3$s', 'Comment moderation edit stack item.', 'fictioneer' ),
+                empty( $edit_user ) ? _x( 'Unknown', 'Unknown comment editor.', 'fictioneer' ) : $edit_user->user_login,
+                $edit['user_id'] ?? 0,
                 wp_date(
                   sprintf(
                     _x( '%1$s \a\t %2$s', 'Comment moderation edit stack item [date], [time].', 'fictioneer' ),
@@ -211,7 +216,7 @@ function fictioneer_comment_meta_box ( $comment ) {
  *
  * @since Fictioneer 4.7
  *
- * @param int $comment_id Comment ID.
+ * @param int $comment_id  Comment ID.
  */
 
 function fictioneer_edit_comment( $comment_id ) {
@@ -260,6 +265,43 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
   add_action( 'add_meta_boxes_comment', 'fictioneer_add_comment_meta_box' );
   add_action( 'edit_comment', 'fictioneer_edit_comment', 10 );
 }
+
+/**
+ * Tracks comment edits and stores a history of changes
+ *
+ * @since Fictioneer 5.5.3
+ *
+ * @param array|WP_Error $data     The comment data to be saved.
+ * @param array          $comment  The old comment data.
+ *
+ * @return array The unchanged comment data.
+ */
+
+function fictioneer_track_comment_edit( $data, $comment ) {
+  // Abort if...
+  if ( is_wp_error( $data ) ) {
+    return $data;
+  }
+
+  // Setup
+  $previous = get_comment( $comment['comment_ID'] );
+  $edit_stack = get_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', true );
+  $edit_stack = is_array( $edit_stack ) ? $edit_stack : [];
+
+  // Add new edit
+  $edit_stack[] = array(
+    'timestamp' => time(),
+    'previous_content' => $previous->comment_content,
+    'user_id' => get_current_user_id()
+  );
+
+  // Update stack
+  update_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', $edit_stack );
+
+  // Continue comment update
+  return $data;
+}
+add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
 
 // =============================================================================
 // GET COMMENT ACTION LINK

@@ -451,9 +451,18 @@ function fictioneer_ajax_edit_comment() {
   if ( wp_update_comment( $comment, true ) ) {
     // Remember edit time
     if ( $comment['user_id'] == $user->ID ) {
+      // Get previous edits or initialize
       $edit_stack = get_comment_meta( $comment_id, 'fictioneer_user_edit_stack', true );
       $edit_stack = is_array( $edit_stack ) ? $edit_stack : [];
-      $edit_stack[] = ['timestamp' => $edit_time, 'previous_content' => $old_content];
+
+      // Add new edit
+      $edit_stack[] = array(
+        'timestamp' => $edit_time,
+        'previous_content' => $old_content,
+        'user_id' => $user->ID
+      );
+
+      // Update
       update_comment_meta( $comment_id, 'fictioneer_user_edit_stack', $edit_stack );
     }
 
