@@ -390,7 +390,7 @@ function fictioneer_limit_users_to_own_posts_and_pages( $query ) {
   }
 
   // Add author to query unless user is supposed to see other posts/pages
-  if ( ! current_user_can( 'editor' ) ) {
+  if ( ! current_user_can( 'edit_others_posts' ) ) {
     $query->set( 'author', get_current_user_id() );
   }
 
