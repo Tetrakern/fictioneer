@@ -210,7 +210,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | ---: | :--- |
 | `add_meta_boxes` | `fictioneer_add_seo_metabox`
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
-| `admin_bar_menu` | `fictioneer_reduce_author_admin_bar`, `fictioneer_reduce_contributor_admin_bar`, `fictioneer_reduce_editor_admin_bar`, `fictioneer_reduce_moderator_admin_bar`
+| `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`, `fictioneer_reduce_moderator_admin_bar`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_contributor_comments_utilities`, `fictioneer_hide_editor_comments_utilities`, `fictioneer_hide_private_data`, `fictioneer_hide_author_comments_utilities`
 | `admin_head` | `fictioneer_limit_update_notice`
 | `admin_head-profile.php` | `fictioneer_hide_subscriber_profile_blocks`

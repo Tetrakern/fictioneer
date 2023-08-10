@@ -315,6 +315,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Filters the page template selection
    *
+   * @since Fictioneer 5.6.0
+   *
    * @param array $templates  Array of templates ('name' => true).
    *
    * @return array Array of allowed templates.
@@ -326,6 +328,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   /**
    * Makes sure only allowed templates are selected
+   *
+   * @since Fictioneer 5.6.0
    *
    * @param int $post_id  ID of the saved post.
    */
@@ -346,8 +350,24 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_select_page_template' ) ) {
-    add_action( 'save_post', 'fictioneer_restrict_page_templates' );
-    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select' );
+    add_action( 'save_post', 'fictioneer_restrict_page_templates', 9999 );
+    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 9999 );
+  }
+
+  /**
+   * Remove comment item from admin bar
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_comments_from_admin_bar() {
+    global $wp_admin_bar;
+
+    $wp_admin_bar->remove_node( 'comments' );
+  }
+
+  if ( ! current_user_can( 'moderate_comments' ) ) {
+    add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar', 9999 );
   }
 
 }
@@ -448,10 +468,10 @@ if (
   fictioneer_has_role( get_current_user_id(), 'fcn_moderator' ) &&
   ! user_can( get_current_user_id(), 'administrator' )
 ) {
-  add_action( 'admin_menu', 'fictioneer_reduce_moderator_admin_panel' );
-  add_action( 'current_screen', 'fictioneer_restrict_moderator_menu_access' );
-  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_moderator_dashboard_widgets' );
-  add_action( 'admin_bar_menu', 'fictioneer_reduce_moderator_admin_bar', 999 );
+  // add_action( 'admin_menu', 'fictioneer_reduce_moderator_admin_panel' );
+  // add_action( 'current_screen', 'fictioneer_restrict_moderator_menu_access' );
+  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_moderator_dashboard_widgets' );
+  // add_action( 'admin_bar_menu', 'fictioneer_reduce_moderator_admin_bar', 999 );
 }
 
 // =============================================================================
@@ -477,19 +497,6 @@ function fictioneer_restrict_editor_menu_access() {
   ) {
     wp_die( __( 'Access denied.', 'fictioneer' ) );
   }
-}
-
-/**
- * Remove items from admin bar for editors
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reduce_editor_admin_bar() {
-  global $wp_admin_bar;
-
-  // Remove comments
-  $wp_admin_bar->remove_node( 'comments' );
 }
 
 /**
@@ -540,10 +547,9 @@ if (
   fictioneer_has_role( get_current_user_id(), 'editor' ) &&
   ! user_can( get_current_user_id(), 'administrator' )
 ) {
-  add_action( 'current_screen', 'fictioneer_restrict_editor_menu_access' );
-  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_editor_dashboard_widgets' );
-  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_editor_comments_utilities', 99 );
-  add_action( 'admin_bar_menu', 'fictioneer_reduce_editor_admin_bar', 999 );
+  // add_action( 'current_screen', 'fictioneer_restrict_editor_menu_access' );
+  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_editor_dashboard_widgets' );
+  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_editor_comments_utilities', 99 );
 }
 
 // =============================================================================
@@ -577,19 +583,6 @@ function fictioneer_reduce_contributor_dashboard_widgets() {
 }
 
 /**
- * Remove items from admin bar for contributors
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reduce_contributor_admin_bar() {
-  global $wp_admin_bar;
-
-  // Remove comments
-  $wp_admin_bar->remove_node( 'comments' );
-}
-
-/**
  * Hide comments utilities in admin dashboard for contributors
  *
  * @since Fictioneer 5.0
@@ -611,9 +604,8 @@ if (
   fictioneer_has_role( get_current_user_id(), 'contributor' ) &&
   ! user_can( get_current_user_id(), 'administrator' )
 ) {
-  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_contributor_dashboard_widgets' );
-  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_contributor_comments_utilities', 99 );
-  add_action( 'admin_bar_menu', 'fictioneer_reduce_contributor_admin_bar', 999 );
+  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_contributor_dashboard_widgets' );
+  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_contributor_comments_utilities', 99 );
 }
 
 // =============================================================================
@@ -647,19 +639,6 @@ function fictioneer_reduce_author_dashboard_widgets() {
 }
 
 /**
- * Remove items from admin bar for authors
- *
- * @since Fictioneer 5.5.0
- */
-
-function fictioneer_reduce_author_admin_bar() {
-  global $wp_admin_bar;
-
-  // Remove comments
-  $wp_admin_bar->remove_node( 'comments' );
-}
-
-/**
  * Hide comments utilities in admin dashboard for authors
  *
  * @since Fictioneer 5.5.0
@@ -681,9 +660,8 @@ if (
   fictioneer_has_role( get_current_user_id(), 'author' ) &&
   ! user_can( get_current_user_id(), 'administrator' )
 ) {
-  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_author_dashboard_widgets' );
-  add_action( 'admin_enqueue_scripts', 'fictioneer_hide_author_comments_utilities', 99 );
-  add_action( 'admin_bar_menu', 'fictioneer_reduce_author_admin_bar', 999 );
+  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_author_dashboard_widgets' );
+  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_author_comments_utilities', 99 );
 }
 
 ?>
