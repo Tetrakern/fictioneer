@@ -1,12 +1,33 @@
 <?php
 
 // =============================================================================
-// SETUP CUSTOM CAPABILITIES
+// SETUP CAPABILITIES
 // =============================================================================
+
+define(
+	'FICTIONEER_BASE_CAPABILITIES',
+	array(
+		'fcn_read_others_files', // Fictioneer
+    'fcn_edit_others_files', // Fictioneer
+    'fcn_delete_others_files', // Fictioneer
+    'fcn_select_page_template', // Fictioneer
+    'fcn_admin_profile_access', // Fictioneer
+    'fcn_adminbar_access', // Fictioneer
+    'fcn_dashboard_access', // Fictioneer
+    'fcn_privacy_clearance', // Fictioneer
+    'fcn_shortcodes', // Fictioneer
+    'unfiltered_html', // Default
+    'edit_users', // Default
+    'add_users', // Default
+    'create_users', // Default
+    'delete_users' // Default
+	)
+);
 
 function fictioneer_initialize_roles() {
   // Capabilities
   $all = array_merge(
+    FICTIONEER_BASE_CAPABILITIES,
     FICTIONEER_STORY_CAPABILITIES,
     FICTIONEER_CHAPTER_CAPABILITIES,
     FICTIONEER_COLLECTION_CAPABILITIES,
@@ -14,10 +35,140 @@ function fictioneer_initialize_roles() {
   );
 
   // Administrator
-  $role = get_role( 'administrator' );
+  $administrator = get_role( 'administrator' );
 
   foreach ( $all as $cap ) {
-    $role->add_cap( $cap );
+    $administrator->add_cap( $cap );
+  }
+
+  // Editor
+  $editor = get_role( 'editor' );
+  $editor_caps = array_merge(
+    // Base
+    array(
+      'fcn_read_others_media',
+      'fcn_edit_others_media',
+      'fcn_delete_others_media',
+      'fcn_admin_profile_access',
+      'fcn_adminbar_access',
+      'fcn_dashboard_access'
+    ),
+    FICTIONEER_STORY_CAPABILITIES,
+    FICTIONEER_CHAPTER_CAPABILITIES,
+    FICTIONEER_COLLECTION_CAPABILITIES,
+    FICTIONEER_RECOMMENDATION_CAPABILITIES
+  );
+
+  foreach ( $editor_caps as $cap ) {
+    $editor->add_cap( $cap );
+  }
+
+  // Author
+  $author = get_role( 'author' );
+  $author_caps = array(
+    // Base
+    'fcn_admin_profile_access',
+    'fcn_adminbar_access',
+    // Stories
+    'read_fcn_story',
+    'edit_fcn_stories',
+    'publish_fcn_stories',
+    'delete_fcn_stories',
+    'delete_published_fcn_stories',
+    'edit_published_fcn_stories',
+    // Chapters
+    'read_fcn_chapter',
+    'edit_fcn_chapters',
+    'publish_fcn_chapters',
+    'delete_fcn_chapters',
+    'delete_published_fcn_chapters',
+    'edit_published_fcn_chapters',
+    // Collections
+    'read_fcn_collection',
+    'edit_fcn_collections',
+    'publish_fcn_collections',
+    'delete_fcn_collections',
+    'delete_published_fcn_collections',
+    'edit_published_fcn_collections',
+    // Recommendations
+    'read_fcn_recommendation',
+    'edit_fcn_recommendations',
+    'publish_fcn_recommendations',
+    'delete_fcn_recommendations',
+    'delete_published_fcn_recommendations',
+    'edit_published_fcn_recommendations'
+  );
+
+  foreach ( $author_caps as $cap ) {
+    $author->add_cap( $cap );
+  }
+
+  // Contributor
+  $contributor = get_role( 'contributor' );
+  $contributor_caps = array(
+    // Base
+    'fcn_admin_profile_access',
+    'fcn_adminbar_access',
+    // Stories
+    'read_fcn_story',
+    'edit_fcn_stories',
+    'delete_fcn_stories',
+    // Chapters
+    'read_fcn_chapter',
+    'edit_fcn_chapters',
+    'delete_fcn_chapters',
+    // Collections
+    'read_fcn_collection',
+    'edit_fcn_collections',
+    'delete_fcn_collections',
+    // Recommendations
+    'read_fcn_recommendation',
+    'edit_fcn_recommendations',
+    'delete_fcn_recommendations'
+  );
+
+  foreach ( $contributor_caps as $cap ) {
+    $contributor->add_cap( $cap );
+  }
+
+  // Moderator
+  fictioneer_add_moderator_role();
+  $moderator = get_role( 'fcn_moderator' );
+  $moderator_caps = array(
+    // Base
+    'fcn_admin_profile_access',
+    'fcn_adminbar_access',
+    // Stories
+    'read_fcn_story',
+    // Chapters
+    'read_fcn_chapter',
+    // Collections
+    'read_fcn_collection',
+    // Recommendations
+    'read_fcn_recommendation'
+  );
+
+  foreach ( $moderator_caps as $cap ) {
+    $moderator->add_cap( $cap );
+  }
+
+  // Subscriber
+  $subscriber = get_role( 'subscriber' );
+  $subscriber_caps = array(
+    // Base
+    'fcn_admin_profile_access',
+    // Stories
+    'read_fcn_story',
+    // Chapters
+    'read_fcn_chapter',
+    // Collections
+    'read_fcn_collection',
+    // Recommendations
+    'read_fcn_recommendation'
+  );
+
+  foreach ( $subscriber_caps as $cap ) {
+    $subscriber->add_cap( $cap );
   }
 
 }
