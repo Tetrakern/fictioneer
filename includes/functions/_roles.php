@@ -366,7 +366,18 @@ if ( ! current_user_can( 'manage_options' ) ) {
     $wp_admin_bar->remove_node( 'comments' );
   }
 
+  /**
+   * Remove comments menu
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_comments_menu_page() {
+    remove_menu_page( 'edit-comments.php' );
+  }
+
   if ( ! current_user_can( 'moderate_comments' ) ) {
+    add_action( 'admin_menu', 'fictioneer_remove_comments_menu_page', 9999 );
     add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar', 9999 );
   }
 

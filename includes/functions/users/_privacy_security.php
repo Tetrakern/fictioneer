@@ -91,11 +91,6 @@ function fictioneer_remove_menu_pages() {
 
   // Known plugins
   remove_menu_page( 'stc-subscribe-settings' );
-
-  // Is not moderator...
-  if ( ! current_user_can( 'moderate_comments' ) ) {
-    remove_menu_page( 'edit-comments.php' );
-  }
 }
 
 /**
