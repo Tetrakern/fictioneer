@@ -684,7 +684,6 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
 
       // Nice name, and hide admin bar for new subscribers
       if ( $new ) {
-        update_user_meta( $wp_user->ID, 'show_admin_bar_front', false );
         update_user_meta( $wp_user->ID, 'nickname', $args['nickname'] );
         wp_update_user( array( 'ID' => $wp_user->ID, 'display_name' => $args['nickname'] ) );
       }

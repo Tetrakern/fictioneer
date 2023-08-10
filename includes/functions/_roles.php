@@ -204,6 +204,18 @@ function fictioneer_add_moderator_role() {
   );
 }
 
+// =============================================================================
+// APPLY CAPABILITY RULES
+// =============================================================================
+
+/**
+ * Admin bar
+ */
+
+if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
+  add_filter( 'show_admin_bar', '__return_false' );
+}
+
 
 
 
@@ -279,7 +291,6 @@ function fictioneer_reduce_subscriber_admin_panel() {
 if ( fictioneer_has_role( get_current_user_id(), 'subscriber' ) ) {
   add_action( 'wp_dashboard_setup', 'fictioneer_reduce_subscriber_dashboard_widgets' );
   add_action( 'admin_menu', 'fictioneer_reduce_subscriber_admin_panel' );
-  add_filter( 'show_admin_bar', '__return_false' );
 }
 
 // =============================================================================
