@@ -1,6 +1,35 @@
 <?php
 
 // =============================================================================
+// SETUP CUSTOM CAPABILITIES
+// =============================================================================
+
+function fictioneer_initialize_roles() {
+  // Capabilities
+  $all = array_merge(
+    FICTIONEER_STORY_CAPABILITIES,
+    FICTIONEER_CHAPTER_CAPABILITIES,
+    FICTIONEER_COLLECTION_CAPABILITIES,
+    FICTIONEER_RECOMMENDATION_CAPABILITIES
+  );
+
+  // Administrator
+  $role = get_role( 'administrator' );
+
+  foreach ( $all as $cap ) {
+    $role->add_cap( $cap );
+  }
+
+}
+add_action( 'init', 'fictioneer_initialize_roles' );
+
+
+
+
+
+
+
+// =============================================================================
 // ROLE CUSTOMIZATION ACTIONS
 // =============================================================================
 
