@@ -208,35 +208,151 @@ function fictioneer_add_moderator_role() {
 // APPLY CAPABILITY RULES
 // =============================================================================
 
-/**
- * Admin bar
- */
-
-if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
-  add_filter( 'show_admin_bar', '__return_false' );
+// Add templates ('name' => true) to the array you want to allow
+if ( ! defined( 'CHILD_ALLOWED_PAGE_TEMPLATES' ) ) {
+  define( 'CHILD_ALLOWED_PAGE_TEMPLATES', [] );
 }
 
-/**
- * Prevent users from accessing the admin panel
- *
- * @since Fictioneer 5.6.0
- */
+// No restriction can be applied to administrators
+if ( ! current_user_can( 'manage_options' ) ) {
 
-function fictioneer_prevent_admin_panel_access() {
-  // Redirect back to Home (but always allow administrators)
-  if (
-    is_admin() &&
-    ! current_user_can( 'manage_options' ) &&
-    ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-  ) {
-    wp_redirect( home_url() );
-    exit;
+  /**
+   * Admin bar
+   */
+
+  if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
+    add_filter( 'show_admin_bar', '__return_false', 9999 );
   }
+
+  /**
+   * Prevent access to the admin panel
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_restrict_admin_panel() {
+    // Redirect back to Home
+    if (
+      is_admin() &&
+      ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+    ) {
+      wp_redirect( home_url() );
+      exit;
+    }
+  }
+
+  if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
+    add_filter( 'init', 'fictioneer_restrict_admin_panel', 9999 );
+  }
+
+  /**
+   * Remove admin dashboard widgets
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_dashboard_widgets() {
+    global $wp_meta_boxes;
+
+    // Remove all
+    $wp_meta_boxes['dashboard']['normal']['core'] = [];
+    $wp_meta_boxes['dashboard']['side']['core'] = [];
+
+    // Remove actions
+    remove_action( 'welcome_panel', 'wp_welcome_panel' );
+  }
+
+  /**
+   * Remove the dashboard menu page
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_dashboard() {
+    // Dashboard
+    remove_menu_page( 'index.php' );
+  }
+
+  /**
+   * Redirect from dashboard to user profile
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_skip_dashboard() {
+    global $pagenow;
+
+    // Unless it's AJAX or an administrator...
+    if (
+      $pagenow == 'index.php' &&
+      ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+    ) {
+      // Skip dashboard, go to user profile
+      wp_redirect( home_url( '/wp-admin/profile.php' ) );
+      exit;
+    }
+  }
+
+  /**
+   * Remove dashboard from admin bar dropdown
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_dashboard_from_admin_bar() {
+    global $wp_admin_bar;
+
+    $wp_admin_bar->remove_menu( 'dashboard' );
+  }
+
+  if ( ! current_user_can( 'fcn_dashboard_access' ) ) {
+    add_action( 'wp_before_admin_bar_render', 'fictioneer_remove_dashboard_from_admin_bar', 9999 );
+    add_action( 'wp_dashboard_setup', 'fictioneer_remove_dashboard_widgets', 9999 );
+    add_action( 'admin_menu', 'fictioneer_remove_dashboard', 9999 );
+    add_action( 'admin_init', 'fictioneer_skip_dashboard', 9999 );
+  }
+
+  /**
+   * Filters the page template selection
+   *
+   * @param array $templates  Array of templates ('name' => true).
+   *
+   * @return array Array of allowed templates.
+   */
+
+  function fictioneer_disallow_page_template_select( $templates ) {
+    return array_intersect_key( $templates, CHILD_ALLOWED_PAGE_TEMPLATES );
+  }
+
+  /**
+   * Makes sure only allowed templates are selected
+   *
+   * @param int $post_id  ID of the saved post.
+   */
+
+  function fictioneer_restrict_page_templates( $post_id ) {
+    // Do nothing if...
+    if ( get_post_type( $post_id ) !== 'page' ) {
+      return;
+    }
+
+    // Get currently selected template
+    $selected_template = get_post_meta( $post_id, '_wp_page_template', true );
+
+    // Remove if not allowed
+    if ( ! in_array( $selected_template, CHILD_ALLOWED_PAGE_TEMPLATES ) ) {
+      update_post_meta( $post_id, '_wp_page_template', '' );
+    }
+  }
+
+  if ( ! current_user_can( 'fcn_select_page_template' ) ) {
+    add_action( 'save_post', 'fictioneer_restrict_page_templates' );
+    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select' );
+  }
+
 }
 
-if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
-  add_filter( 'init', 'fictioneer_prevent_admin_panel_access' );
-}
+
 
 
 
@@ -249,46 +365,6 @@ if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
 // =============================================================================
 
 // See ./includes/functions/_admin.php
-
-// =============================================================================
-// RESTRICT SUBSCRIBERS ROLE
-// =============================================================================
-
-
-/**
- * Remove admin dashboard widgets for subscribers
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
- */
-
-function fictioneer_reduce_subscriber_dashboard_widgets() {
-  global $wp_meta_boxes;
-
-  // Remove all
-  $wp_meta_boxes['dashboard']['normal']['core'] = [];
-  $wp_meta_boxes['dashboard']['side']['core'] = [];
-
-  // Remove actions
-  remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-
-/**
- * Remove admin menu pages for subscribers
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reduce_subscriber_admin_panel() {
-  // Remove menu pages
-  remove_menu_page( 'index.php' ); // Dashboard
-}
-
-// Apply restrictions to subscribers
-if ( fictioneer_has_role( get_current_user_id(), 'subscriber' ) ) {
-  add_action( 'wp_dashboard_setup', 'fictioneer_reduce_subscriber_dashboard_widgets' );
-  add_action( 'admin_menu', 'fictioneer_reduce_subscriber_admin_panel' );
-}
 
 // =============================================================================
 // RESTRICT FICTIONEER MODERATOR ROLE
