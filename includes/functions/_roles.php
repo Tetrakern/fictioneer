@@ -268,9 +268,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * @since Fictioneer 5.6.0
    */
 
-  function fictioneer_remove_dashboard() {
-    // Dashboard
+  function fictioneer_remove_dashboard_menu() {
     remove_menu_page( 'index.php' );
+    remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
   }
 
   /**
@@ -308,7 +308,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_dashboard_access' ) ) {
     add_action( 'wp_before_admin_bar_render', 'fictioneer_remove_dashboard_from_admin_bar', 9999 );
     add_action( 'wp_dashboard_setup', 'fictioneer_remove_dashboard_widgets', 9999 );
-    add_action( 'admin_menu', 'fictioneer_remove_dashboard', 9999 );
+    add_action( 'admin_menu', 'fictioneer_remove_dashboard_menu', 9999 );
     add_action( 'admin_init', 'fictioneer_skip_dashboard', 9999 );
   }
 
