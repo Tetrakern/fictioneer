@@ -195,8 +195,8 @@ function fictioneer_scope_media_to_uploader( $query ) {
     return;
   }
 
-  // Those who can edit users, can also see their files
-  if ( ! current_user_can( 'edit_users' ) ) {
+  // Those who can edit posts of others, can also see their files
+  if ( ! current_user_can( 'edit_others_posts' ) ) {
     $query->set( 'author', $current_user->ID );
   }
 }
@@ -221,8 +221,8 @@ function fictioneer_restrict_media_edit_delete( $caps, $cap, $user_id, $args ) {
     return $caps;
   }
 
-  // Those who can edit users, can also edit their files
-  if ( user_can( $user_id, 'edit_users' ) ) {
+  // Those who can edit posts of others, can also edit their files
+  if ( user_can( $user_id, 'edit_others_posts' ) ) {
     return $caps;
   }
 

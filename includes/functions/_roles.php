@@ -195,9 +195,6 @@ function fictioneer_restrict_editor_menu_access() {
 function fictioneer_reduce_editor_admin_bar() {
   global $wp_admin_bar;
 
-  // Remove all [+New] items
-  $wp_admin_bar->remove_node( 'new-content' );
-
   // Remove comments
   $wp_admin_bar->remove_node( 'comments' );
 }
@@ -294,9 +291,6 @@ function fictioneer_reduce_contributor_dashboard_widgets() {
 
 function fictioneer_reduce_contributor_admin_bar() {
   global $wp_admin_bar;
-
-  // Remove all [+New] items
-  $wp_admin_bar->remove_node( 'new-content' );
 
   // Remove comments
   $wp_admin_bar->remove_node( 'comments' );
