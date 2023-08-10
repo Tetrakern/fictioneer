@@ -1,25 +1,25 @@
 <?php
 
 // =============================================================================
-// CUSTOM CAPABILITIES
+// CUSTOM CAPABILITIES (DO NOT CHANGE ORDER!)
 // =============================================================================
 
 define(
-	'FICTIONEER_BASE_CAPABILITIES',
+	'FICTIONEER_WP_CAPABILITIES',
 	array(
-		'edit_fcn_story',
-		'read_fcn_story',
-		'delete_fcn_story',
-		'edit_fcn_stories',
-		'edit_others_fcn_stories',
-		'publish_fcn_stories',
-		'read_private_fcn_stories',
-		'delete_fcn_stories',
-		'delete_private_fcn_stories',
-		'delete_published_fcn_stories',
-		'delete_others_fcn_stories',
-		'edit_private_fcn_stories',
-		'edit_published_fcn_stories'
+    'edit_post',
+    'read_post',
+    'delete_post',
+    'edit_posts',
+    'edit_others_posts',
+    'publish_posts',
+    'read_private_posts',
+    'delete_posts',
+    'delete_private_posts',
+    'delete_published_posts',
+    'delete_others_posts',
+    'edit_private_posts',
+    'edit_published_posts'
 	)
 );
 
@@ -160,7 +160,7 @@ function fictioneer_fcn_story_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => ['fcn_story', 'fcn_stories'],
-		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_STORY_CAPABILITIES ),
+		'capabilities'     		=> array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_STORY_CAPABILITIES ),
 		'map_meta_cap'     		=> true
 	);
 
@@ -229,7 +229,7 @@ function fictioneer_fcn_chapter_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => ['fcn_chapter', 'fcn_chapters'],
-		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_CHAPTER_CAPABILITIES ),
+		'capabilities'     		=> array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_CHAPTER_CAPABILITIES ),
 		'map_meta_cap'     		=> true
 	);
 
@@ -298,7 +298,7 @@ function fictioneer_fcn_collection_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => ['fcn_collection', 'fcn_collections'],
-		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_COLLECTION_CAPABILITIES ),
+		'capabilities'     		=> array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_COLLECTION_CAPABILITIES ),
 		'map_meta_cap'     		=> true
 	);
 
@@ -367,7 +367,7 @@ function fictioneer_fcn_recommendation_post_type() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => true,
 		'capability_type'     => ['fcn_recommendation', 'fcn_recommendations'],
-		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_RECOMMENDATION_CAPABILITIES ),
+		'capabilities'     		=> array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_RECOMMENDATION_CAPABILITIES ),
 		'map_meta_cap'     		=> true
 	);
 
