@@ -1,6 +1,105 @@
 <?php
 
 // =============================================================================
+// CUSTOM CAPABILITIES
+// =============================================================================
+
+define(
+	'FICTIONEER_BASE_CAPABILITIES',
+	array(
+		'edit_fcn_story',
+		'read_fcn_story',
+		'delete_fcn_story',
+		'edit_fcn_stories',
+		'edit_others_fcn_stories',
+		'publish_fcn_stories',
+		'read_private_fcn_stories',
+		'delete_fcn_stories',
+		'delete_private_fcn_stories',
+		'delete_published_fcn_stories',
+		'delete_others_fcn_stories',
+		'edit_private_fcn_stories',
+		'edit_published_fcn_stories'
+	)
+);
+
+define(
+	'FICTIONEER_STORY_CAPABILITIES',
+	array(
+		'edit_fcn_story',
+		'read_fcn_story',
+		'delete_fcn_story',
+		'edit_fcn_stories',
+		'edit_others_fcn_stories',
+		'publish_fcn_stories',
+		'read_private_fcn_stories',
+		'delete_fcn_stories',
+		'delete_private_fcn_stories',
+		'delete_published_fcn_stories',
+		'delete_others_fcn_stories',
+		'edit_private_fcn_stories',
+		'edit_published_fcn_stories'
+	)
+);
+
+define(
+	'FICTIONEER_CHAPTER_CAPABILITIES',
+	array(
+		'edit_fcn_chapter',
+		'read_fcn_chapter',
+		'delete_fcn_chapter',
+		'edit_fcn_chapters',
+		'edit_others_fcn_chapters',
+		'publish_fcn_chapters',
+		'read_private_fcn_chapters',
+		'delete_fcn_chapters',
+		'delete_private_fcn_chapters',
+		'delete_published_fcn_chapters',
+		'delete_others_fcn_chapters',
+		'edit_private_fcn_chapters',
+		'edit_published_fcn_chapters'
+	)
+);
+
+define(
+	'FICTIONEER_COLLECTION_CAPABILITIES',
+	array(
+		'edit_fcn_collection',
+		'read_fcn_collection',
+		'delete_fcn_collection',
+		'edit_fcn_collections',
+		'edit_others_fcn_collections',
+		'publish_fcn_collections',
+		'read_private_fcn_collections',
+		'delete_fcn_collections',
+		'delete_private_fcn_collections',
+		'delete_published_fcn_collections',
+		'delete_others_fcn_collections',
+		'edit_private_fcn_collections',
+		'edit_published_fcn_collections'
+	)
+);
+
+define(
+	'FICTIONEER_RECOMMENDATION_CAPABILITIES',
+	array(
+		'edit_fcn_recommendation',
+		'read_fcn_recommendation',
+		'delete_fcn_recommendation',
+		'edit_fcn_recommendations',
+		'edit_others_fcn_recommendations',
+		'publish_fcn_recommendations',
+		'read_private_fcn_recommendations',
+		'delete_fcn_recommendations',
+		'delete_private_fcn_recommendations',
+		'delete_published_fcn_recommendations',
+		'delete_others_fcn_recommendations',
+		'edit_private_fcn_recommendations',
+		'edit_published_fcn_recommendations'
+	)
+);
+
+// =============================================================================
 // CUSTOM POST TYPE: FCN_STORY
 // =============================================================================
 
@@ -41,26 +140,28 @@ function fictioneer_fcn_story_post_type() {
 	);
 
 	$args = array(
-		'label'                 => __( 'Story', 'fictioneer' ),
-		'description'           => __( 'Holds stories and details about them.', 'fictioneer' ),
-		'labels'                => $labels,
-		'menu_icon'							=> 'dashicons-book',
-		'supports'              => array( 'title', 'author', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
-		'taxonomies'            => array( 'category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning' ),
-		'hierarchical'          => false,
-		'public'                => true,
-    'rewrite'               => array( 'slug' => 'story' ),
-    'show_in_rest'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'menu_position'         => 5,
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => true,
-		'can_export'            => true,
-		'has_archive'           => false,
-		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
-		'capability_type'       => 'page',
+		'label'               => __( 'Story', 'fictioneer' ),
+		'description'         => __( 'Holds stories and details about them.', 'fictioneer' ),
+		'labels'              => $labels,
+		'menu_icon'						=> 'dashicons-book',
+		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'revisions'],
+		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
+		'hierarchical'        => false,
+		'public'              => true,
+    'rewrite'             => array( 'slug' => 'story' ),
+    'show_in_rest'        => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 5,
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'has_archive'         => false,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => ['fcn_story', 'fcn_stories'],
+		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_STORY_CAPABILITIES ),
+		'map_meta_cap'     		=> true
 	);
 
 	register_post_type( 'fcn_story', $args );
@@ -106,28 +207,32 @@ function fictioneer_fcn_chapter_post_type() {
 		'items_list_navigation' => __( 'Chapters list navigation', 'fictioneer' ),
 		'filter_items_list'     => __( 'Filter chapters list', 'fictioneer' ),
 	);
+
 	$args = array(
-		'label'                 => __( 'Chapter', 'fictioneer' ),
-		'description'           => __( 'Holds chapters and details about them.', 'fictioneer' ),
-		'labels'                => $labels,
-		'menu_icon'							=> 'dashicons-text-page',
-		'supports'              => array( 'title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions' ),
-		'taxonomies'            => array( 'category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning' ),
-		'hierarchical'          => false,
-		'public'                => true,
-    'rewrite'               => array( 'slug' => 'chapter' ),
-    'show_in_rest'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'menu_position'         => 6,
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => true,
-		'can_export'            => true,
-		'has_archive'           => false,
-		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
-		'capability_type'       => 'page',
+		'label'               => __( 'Chapter', 'fictioneer' ),
+		'description'         => __( 'Holds chapters and details about them.', 'fictioneer' ),
+		'labels'              => $labels,
+		'menu_icon'					  => 'dashicons-text-page',
+		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions'],
+		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
+		'hierarchical'        => false,
+		'public'              => true,
+    'rewrite'             => array( 'slug' => 'chapter' ),
+    'show_in_rest'        => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 6,
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'has_archive'         => false,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => ['fcn_chapter', 'fcn_chapters'],
+		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_CHAPTER_CAPABILITIES ),
+		'map_meta_cap'     		=> true
 	);
+
 	register_post_type( 'fcn_chapter', $args );
 }
 add_action( 'init', 'fictioneer_fcn_chapter_post_type', 0 );
@@ -171,28 +276,32 @@ function fictioneer_fcn_collection_post_type() {
 		'items_list_navigation' => __( 'Collections list navigation', 'fictioneer' ),
 		'filter_items_list'     => __( 'Filter collections list', 'fictioneer' ),
 	);
+
 	$args = array(
-		'label'                 => __( 'Collection', 'fictioneer' ),
-		'description'           => __( 'Collections of stories, chapters, and recommendations.', 'fictioneer' ),
-		'labels'                => $labels,
-		'menu_icon'							=> 'dashicons-category',
-		'supports'              => array( 'title', 'author', 'editor', 'thumbnail' ),
-		'taxonomies'            => array( 'category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning' ),
-		'hierarchical'          => false,
-		'public'                => true,
-    'rewrite'               => array( 'slug' => 'collection' ),
-    'show_in_rest'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'menu_position'         => 7,
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => true,
-		'can_export'            => true,
-		'has_archive'           => false,
-		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
-		'capability_type'       => 'page',
+		'label'               => __( 'Collection', 'fictioneer' ),
+		'description'         => __( 'Collections of stories, chapters, and recommendations.', 'fictioneer' ),
+		'labels'              => $labels,
+		'menu_icon'						=> 'dashicons-category',
+		'supports'            => ['title', 'author', 'editor', 'thumbnail'],
+		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
+		'hierarchical'        => false,
+		'public'              => true,
+    'rewrite'             => array( 'slug' => 'collection' ),
+    'show_in_rest'        => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 7,
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => true,
+		'can_export'          => true,
+		'has_archive'         => false,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => ['fcn_collection', 'fcn_collections'],
+		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_COLLECTION_CAPABILITIES ),
+		'map_meta_cap'     		=> true
 	);
+
 	register_post_type( 'fcn_collection', $args );
 }
 add_action( 'init', 'fictioneer_fcn_collection_post_type', 0 );
@@ -236,28 +345,32 @@ function fictioneer_fcn_recommendation_post_type() {
 		'items_list_navigation' => __( 'Recommendations list navigation', 'fictioneer' ),
 		'filter_items_list'     => __( 'Filter recommendations list', 'fictioneer' ),
 	);
+
 	$args = array(
-		'label'                 => __( 'Recommendation', 'fictioneer' ),
-		'description'           => __( 'Recommendations for external stories.', 'fictioneer' ),
-		'labels'                => $labels,
-		'menu_icon'							=> 'dashicons-star-filled',
-		'supports'              => array( 'title', 'author', 'editor', 'excerpt', 'thumbnail' ),
-		'taxonomies'            => array( 'category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning' ),
-		'hierarchical'          => false,
-		'public'                => true,
-    'rewrite'               => array( 'slug' => 'recommendation' ),
-    'show_in_rest'          => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'menu_position'         => 8,
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => false,
-		'can_export'            => true,
-		'has_archive'           => false,
-		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
-		'capability_type'       => 'page',
+		'label'               => __( 'Recommendation', 'fictioneer' ),
+		'description'         => __( 'Recommendations for external stories.', 'fictioneer' ),
+		'labels'              => $labels,
+		'menu_icon'						=> 'dashicons-star-filled',
+		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail'],
+		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
+		'hierarchical'        => false,
+		'public'              => true,
+    'rewrite'             => array( 'slug' => 'recommendation' ),
+    'show_in_rest'        => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => 8,
+		'show_in_admin_bar'   => true,
+		'show_in_nav_menus'   => false,
+		'can_export'          => true,
+		'has_archive'         => false,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => ['fcn_recommendation', 'fcn_recommendations'],
+		'capabilities'     		=> array_combine( FICTIONEER_BASE_CAPABILITIES, FICTIONEER_RECOMMENDATION_CAPABILITIES ),
+		'map_meta_cap'     		=> true
 	);
+
 	register_post_type( 'fcn_recommendation', $args );
 }
 add_action( 'init', 'fictioneer_fcn_recommendation_post_type', 0 );
@@ -286,6 +399,7 @@ function fictioneer_add_genre_taxonomy() {
     'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
     'new_item_name'     => __( 'New Genre Name', 'textdomain' )
   );
+
   $args = array(
     'hierarchical'      => true,
     'labels'            => $labels,
@@ -295,7 +409,8 @@ function fictioneer_add_genre_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'genre' ),
   );
-  register_taxonomy( 'fcn_genre', array( 'fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation' ), $args );
+
+  register_taxonomy( 'fcn_genre', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
 }
 add_action( 'init', 'fictioneer_add_genre_taxonomy', 0 );
 
@@ -323,6 +438,7 @@ function fictioneer_add_fandom_taxonomy() {
     'add_new_item'      => __( 'Add New Fandom', 'textdomain' ),
     'new_item_name'     => __( 'New Fandom Name', 'textdomain' )
   );
+
   $args = array(
     'hierarchical'      => true,
     'labels'            => $labels,
@@ -332,7 +448,8 @@ function fictioneer_add_fandom_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'fandom' ),
   );
-  register_taxonomy( 'fcn_fandom', array( 'fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation' ), $args );
+
+  register_taxonomy( 'fcn_fandom', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
 }
 add_action( 'init', 'fictioneer_add_fandom_taxonomy', 0 );
 
@@ -360,6 +477,7 @@ function fictioneer_add_character_taxonomy() {
     'add_new_item'      => __( 'Add New Character', 'textdomain' ),
     'new_item_name'     => __( 'New Character Name', 'textdomain' )
   );
+
   $args = array(
     'hierarchical'      => true,
     'labels'            => $labels,
@@ -369,7 +487,8 @@ function fictioneer_add_character_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'character' ),
   );
-  register_taxonomy( 'fcn_character', array( 'fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation' ), $args );
+
+  register_taxonomy( 'fcn_character', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
 }
 add_action( 'init', 'fictioneer_add_character_taxonomy', 0 );
 
@@ -397,6 +516,7 @@ function fictioneer_add_content_warning_taxonomy() {
     'add_new_item'      => __( 'Add New Content Warning', 'textdomain' ),
     'new_item_name'     => __( 'New Content Warning Name', 'textdomain' )
   );
+
   $args = array(
     'hierarchical'      => true,
     'labels'            => $labels,
@@ -406,7 +526,8 @@ function fictioneer_add_content_warning_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'content-warning' ),
   );
-  register_taxonomy( 'fcn_content_warning', array( 'fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation' ), $args );
+
+  register_taxonomy( 'fcn_content_warning', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
 }
 add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
 
