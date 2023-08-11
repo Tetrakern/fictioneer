@@ -1,6 +1,24 @@
 <?php
 
 // =============================================================================
+// LEGACY CLEANUP
+// =============================================================================
+
+function fictioneer_bring_out_legacy_trash() {
+  // Setup
+  $options = wp_cache_get( 'alloptions', 'options' );
+  $obsolete = ['fictioneer_disable_html_in_comments'];
+
+  // Check for most recent obsolete option, run a delete for everything
+  // if ( isset( $options['fictioneer_disable_html_in_comments'] ) ) {
+  //   foreach ( $obsolete as $trash ) {
+  //     delete_option( $trash );
+  //   }
+  // }
+}
+add_action( 'init', 'fictioneer_bring_out_legacy_trash' );
+
+// =============================================================================
 // THEME SETUP
 // =============================================================================
 
