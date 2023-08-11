@@ -34,10 +34,7 @@ require_once __DIR__ . '/users/_admin_profile.php';
 
 function fictioneer_admin_styles() {
   wp_register_style( 'fictioneer-admin-panel', get_template_directory_uri() . '/css/admin.css' );
-
-  if ( is_admin() ) {
-    wp_enqueue_style( 'fictioneer-admin-panel' );
-  }
+  wp_enqueue_style( 'fictioneer-admin-panel' );
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 
