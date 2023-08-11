@@ -523,7 +523,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes', 9999 );
   }
 
-  // === EDIT_OTHERS_{POST_TYPE} ===============================================
+  // === FCN_EDIT_OTHERS_{POST_TYPE} ===========================================
 
   /**
    * Limit users to their own fiction posts
@@ -559,7 +559,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
   add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts', 9999 );
 
-  // === READ_READ_OTHERS_FILES ================================================
+  // === FCN_READ_OTHERS_FILES =================================================
 
   /**
    * Prevent users from seeing uploaded files of others
@@ -588,7 +588,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
   }
 
-  // === EDIT_READ_OTHERS_FILES ================================================
+  // === FCN_EDIT_OTHERS_FILES =================================================
 
   /**
    * User cannot edit the files of others
@@ -630,7 +630,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'map_meta_cap', 'fictioneer_edit_others_files', 9999, 4 );
   }
 
-  // === DELETE_READ_OTHERS_FILES ==============================================
+  // === FCN_DELETE_OTHERS_FILES ===============================================
 
   /**
    * User cannot delete the files of others
