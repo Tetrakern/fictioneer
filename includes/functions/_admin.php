@@ -352,34 +352,6 @@ if ( get_option( 'fictioneer_admin_reduce_subscriber_profile' ) ) {
 }
 
 // =============================================================================
-// LIMIT USERS TO OWN POSTS/PAGES
-// =============================================================================
-
-/**
- * Limit users to own posts and pages
- *
- * @since 5.0
- */
-
-function fictioneer_limit_users_to_own_posts_and_pages( $query ) {
-  global $pagenow;
-
-  // Abort conditions...
-  if ( ! $query->is_admin || 'edit.php' != $pagenow ) {
-    return $query;
-  }
-
-  // Add author to query unless user is supposed to see other posts/pages
-  if ( ! current_user_can( 'edit_others_posts' ) ) {
-    $query->set( 'author', get_current_user_id() );
-  }
-
-  // Return modified query
-  return $query;
-}
-add_filter( 'pre_get_posts', 'fictioneer_limit_users_to_own_posts_and_pages' );
-
-// =============================================================================
 // ADD OR UPDATE TERM
 // =============================================================================
 

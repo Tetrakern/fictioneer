@@ -504,6 +504,42 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes', 9999 );
   }
 
+  // === EDIT_OTHERS_{POST_TYPE} ===============================================
+
+  /**
+   * Limit users to own fiction posts
+   *
+   * @since 5.6.0
+   *
+   * @param WP_Query $query  The WP_Query instance (passed by reference).
+   */
+
+  function fictioneer_limit_user_fiction_queries( $query ) {
+    global $pagenow;
+
+    // Abort conditions...
+    if ( ! $query->is_admin || $pagenow != 'edit.php' ) {
+      return;
+    }
+
+    // Setup
+    $post_type = $query->get( 'post_type' );
+
+    // Abort if wrong post type
+    if ( ! in_array( $post_type, ['fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] ) ) {
+      return;
+    }
+
+    // Prepare
+    $post_type_plural = $post_type == 'fcn_story' ? 'fcn_stories' : "{$post_type}s";
+
+    // Add author to query unless user is supposed to see other posts/pages
+    if ( ! current_user_can( "edit_others_{$post_type_plural}" ) ) {
+      $query->set( 'author', get_current_user_id() );
+    }
+  }
+  add_filter( 'pre_get_posts', 'fictioneer_limit_user_fiction_queries' );
+
 }
 
 ?>
