@@ -39,6 +39,8 @@ function fictioneer_initialize_roles() {
   // Administrator
   $administrator = get_role( 'administrator' );
 
+  $administrator->remove_cap( 'fcn_edit_only_others_comments' );
+
   foreach ( $all as $cap ) {
     $administrator->add_cap( $cap );
   }
@@ -54,22 +56,27 @@ function fictioneer_initialize_roles() {
       'fcn_admin_panel_access',
       'fcn_adminbar_access',
       'fcn_dashboard_access',
-      'delete_pages',           // Legacy restore
-      'delete_published_pages', // Legacy restore
-      'delete_published_posts', // Legacy restore
-      'delete_others_pages',    // Legacy restore
-      'delete_others_posts',    // Legacy restore
-      'publish_pages',          // Legacy restore
-      'publish_posts',          // Legacy restore
-      'manage_categories',      // Legacy restore
-      'unfiltered_html',        // Legacy restore
-      'manage_links',           // Legacy restore
+      'fcn_edit_all_others_posts',
+      'moderate_comments',         // Legacy restore
+      'edit_comment',              // Legacy restore
+      'delete_pages',              // Legacy restore
+      'delete_published_pages',    // Legacy restore
+      'delete_published_posts',    // Legacy restore
+      'delete_others_pages',       // Legacy restore
+      'delete_others_posts',       // Legacy restore
+      'publish_pages',             // Legacy restore
+      'publish_posts',             // Legacy restore
+      'manage_categories',         // Legacy restore
+      'unfiltered_html',           // Legacy restore
+      'manage_links',              // Legacy restore
     ),
     FICTIONEER_STORY_CAPABILITIES,
     FICTIONEER_CHAPTER_CAPABILITIES,
     FICTIONEER_COLLECTION_CAPABILITIES,
     FICTIONEER_RECOMMENDATION_CAPABILITIES
   );
+
+  $editor->remove_cap( 'fcn_edit_only_others_comments' );
 
   foreach ( $editor_caps as $cap ) {
     $editor->add_cap( $cap );
@@ -197,6 +204,7 @@ function fictioneer_add_moderator_role() {
     'delete_others_posts',
     'fcn_admin_panel_access',
     'fcn_adminbar_access',
+    'fcn_edit_only_others_comments',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -204,6 +212,7 @@ function fictioneer_add_moderator_role() {
     'delete_fcn_stories',
     'delete_published_fcn_stories',
     'edit_published_fcn_stories',
+    'edit_others_fcn_stories',
     // Chapters
     'read_fcn_chapter',
     'edit_fcn_chapters',
@@ -211,6 +220,7 @@ function fictioneer_add_moderator_role() {
     'delete_fcn_chapters',
     'delete_published_fcn_chapters',
     'edit_published_fcn_chapters',
+    'edit_others_fcn_chapters',
     // Collections
     'read_fcn_collection',
     'edit_fcn_collections',
@@ -218,13 +228,15 @@ function fictioneer_add_moderator_role() {
     'delete_fcn_collections',
     'delete_published_fcn_collections',
     'edit_published_fcn_collections',
+    'edit_others_fcn_collections',
     // Recommendations
     'read_fcn_recommendation',
     'edit_fcn_recommendations',
     'publish_fcn_recommendations',
     'delete_fcn_recommendations',
     'delete_published_fcn_recommendations',
-    'edit_published_fcn_recommendations'
+    'edit_published_fcn_recommendations',
+    'edit_others_fcn_recommendations'
   );
 
   if ( $moderator ) {
@@ -251,6 +263,7 @@ if ( ! defined( 'CHILD_ALLOWED_PAGE_TEMPLATES' ) ) {
 
 // No restriction can be applied to administrators
 if ( ! current_user_can( 'manage_options' ) ) {
+  $post_types = ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'page', 'fcn_recommendation'];
 
   // === FCN_ADMINBAR_ACCESS ===================================================
 
@@ -461,6 +474,40 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'current_screen', 'fictioneer_restrict_comment_edit', 9999 );
     add_filter( 'manage_posts_columns', 'fictioneer_remove_comments_column', 9999 );
     add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column', 9999 );
+  }
+
+  /**
+   * Only allow editing of comments
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param array $all_caps  An array of all the user's capabilities.
+   * @param array $cap      Primitive capabilities that are being checked.
+   * @param array $args     Arguments passed to the capabilities check.
+   *
+   * @return array Modified capabilities array.
+   */
+
+  function fictioneer_edit_only_comments( $all_caps, $cap, $args ) {
+    if ( ( $args[0] ?? 0 ) == 'edit_post' && isset( $args[2] ) ) {
+      $post = get_post( $args[2] );
+      $current_user_id = get_current_user_id();
+
+      // Remove capability if not a comment
+      if (
+        ! empty( $post ) &&
+        $post->post_type !== 'comment' &&
+        $post->post_author != $current_user_id
+      ) {
+        $all_caps[ $cap[0] ] = false;
+      }
+    }
+
+    return $all_caps;
+  }
+
+  if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_edit_only_others_comments' ) ) {
+    add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 10, 3 );
   }
 
   // === MANAGE_OPTIONS ========================================================

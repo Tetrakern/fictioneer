@@ -296,6 +296,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `the_password_form` | `fictioneer_password_form`
 | `theme_page_templates` | `fictioneer_disallow_page_template_select`
 | `user_contactmethods` | `fictioneer_user_contact_methods`
+| `user_has_cap` | `fictioneer_edit_only_comments`
 | `wp_list_comments_args` | `fictioneer_comment_list_args`
 | `wp_is_application_passwords_available` | `__return_false`
 | `wp_robots` | `fictioneer_add_noindex_to_robots`
