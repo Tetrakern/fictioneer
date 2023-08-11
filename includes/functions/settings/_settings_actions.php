@@ -94,10 +94,6 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 			'fictioneer-added-moderator-role' => __( 'Moderator role has been added.', 'fictioneer' ),
       'fictioneer-not-added-moderator-role' => __( 'Moderator role could not be added or already exists.', 'fictioneer' ),
 			'fictioneer-removed-moderator-role' => __( 'Moderator role has been removed.', 'fictioneer' ),
-			'fictioneer-upgraded-author-role' => __( 'Author role has been upgraded.', 'fictioneer' ),
-			'fictioneer-reset-author-role' => __( 'Author role has been reset.', 'fictioneer' ),
-			'fictioneer-upgraded-contributor-role' => __( 'Contributor role has been upgraded.', 'fictioneer' ),
-			'fictioneer-reset-contributor-role' => __( 'Contributor role has been reset.', 'fictioneer' ),
       'fictioneer-reset-post-relationship-registry' => __( 'Post relationship registry reset.', 'fictioneer' ),
       'fictioneer-fix-users' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-stories' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
@@ -329,48 +325,6 @@ function fictioneer_tools_remove_moderator_role() {
   fictioneer_finish_tool_action( 'fictioneer-removed-moderator-role' );
 }
 add_action( 'admin_post_fictioneer_remove_moderator_role', 'fictioneer_tools_remove_moderator_role' );
-
-/**
- * Upgrade author role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_upgrade_author_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_upgrade_author_role' );
-
-  // Upgrade role
-  fictioneer_upgrade_author_role();
-
-  // Log
-  fictioneer_log( __( 'Author role upgraded.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-upgraded-author-role' );
-}
-add_action( 'admin_post_fictioneer_upgrade_author_role', 'fictioneer_tools_upgrade_author_role' );
-
-/**
- * Reset author role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_reset_author_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_reset_author_role' );
-
-  // Reset role
-  fictioneer_reset_author_role();
-
-  // Log
-  fictioneer_log( __( 'Author role reset.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-reset-author-role' );
-}
-add_action( 'admin_post_fictioneer_reset_author_role', 'fictioneer_tools_reset_author_role' );
 
 /**
  * Convert story tags to genres

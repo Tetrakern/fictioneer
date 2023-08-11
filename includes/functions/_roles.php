@@ -32,6 +32,7 @@ define(
 
 function fictioneer_initialize_roles() {
   // Capabilities
+  $legacy_removal = ['delete_pages', 'delete_published_pages', 'edit_pages', 'edit_published_pages', 'publish_pages'];
   $all = array_merge(
     FICTIONEER_BASE_CAPABILITIES,
     FICTIONEER_STORY_CAPABILITIES,
@@ -119,6 +120,10 @@ function fictioneer_initialize_roles() {
     $author->add_cap( $cap );
   }
 
+  foreach ( $legacy_removal as $cap ) {
+    $author->remove_cap( $cap ); // Legacy restore
+  }
+
   // Contributor
   $contributor = get_role( 'contributor' );
   $contributor_caps = array(
@@ -147,7 +152,7 @@ function fictioneer_initialize_roles() {
     $contributor->add_cap( $cap );
   }
 
-  foreach ( ['delete_pages', 'edit_pages', 'edit_published_pages'] as $cap ) {
+  foreach ( $legacy_removal as $cap ) {
     $contributor->remove_cap( $cap ); // Legacy restore
   }
 

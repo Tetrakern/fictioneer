@@ -473,38 +473,4 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
   }
 }
 
-// =============================================================================
-// ROLE CUSTOMIZATION ACTIONS
-// =============================================================================
-
-/**
- * Upgrade author role with additional capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_upgrade_author_role() {
-	$role = get_role( 'author' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'delete_published_pages' );
-  $role->add_cap( 'edit_pages' );
-  $role->add_cap( 'edit_published_pages' );
-  $role->add_cap( 'publish_pages' );
-}
-
-/**
- * Reset author role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_author_role() {
-	$role = get_role( 'author' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'delete_published_pages' );
-  $role->remove_cap( 'edit_pages' );
-  $role->remove_cap( 'edit_published_pages' );
-  $role->remove_cap( 'publish_pages' );
-}
-
 ?>

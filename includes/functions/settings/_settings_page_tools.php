@@ -25,12 +25,6 @@
                 <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_add_moderator_role' ); ?>"><?php _e( 'Add Moderator Role', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_remove_moderator_role' ); ?>"><?php _e( 'Remove Moderator Role', 'fictioneer' ) ?></a>
               </div>
-              <hr>
-              <p class="description row"><?php _e( '<strong>Upgrade or reset author role.</strong> The default author role lacks the permissions to work with Fictioneer’s custom post types, which require page editing capabilities. You can amend this here for a multi-author website, or reset the permissions.', 'fictioneer' ) ?></p>
-              <div class="row flex gap-6">
-                <a class="button button--secondary" id="upgrade-author-role" href="<?php echo fictioneer_tool_action( 'fictioneer_upgrade_author_role' ); ?>"><?php _e( 'Upgrade Author Role', 'fictioneer' ) ?></a>
-                <a class="button button--secondary" id="reset-author-role" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_author_role' ); ?>"><?php _e( 'Reset Author Role', 'fictioneer' ) ?></a>
-              </div>
             </div>
           </div>
         </div>
