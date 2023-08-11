@@ -517,13 +517,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Enable AJAX user authentication', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_admin_reduce_subscriber_profile' => array(
-      'name' => 'fictioneer_admin_reduce_subscriber_profile',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Reduce subscriber user profile', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_disable_application_passwords' => array(
       'name' => 'fictioneer_disable_application_passwords',
 			'group' => 'fictioneer-settings-general-group',

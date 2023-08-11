@@ -40,6 +40,7 @@ function fictioneer_initialize_roles() {
   $administrator = get_role( 'administrator' );
 
   $administrator->remove_cap( 'fcn_edit_only_others_comments' );
+  $administrator->remove_cap( 'fcn_reduced_profile' );
 
   foreach ( $all as $cap ) {
     $administrator->add_cap( $cap );
@@ -77,6 +78,7 @@ function fictioneer_initialize_roles() {
   );
 
   $editor->remove_cap( 'fcn_edit_only_others_comments' );
+  $editor->remove_cap( 'fcn_reduced_profile' );
 
   foreach ( $editor_caps as $cap ) {
     $editor->add_cap( $cap );
@@ -166,6 +168,7 @@ function fictioneer_initialize_roles() {
   $subscriber_caps = array(
     // Base
     'fcn_admin_panel_access',
+    'fcn_reduced_profile',
     // Stories
     'read_fcn_story',
     // Chapters
@@ -799,6 +802,29 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns', 9999 );
     add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit', 9999 );
     add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 9999 );
+  }
+
+  // === FCN_REDUCED_PROFILE ===================================================
+
+  /**
+   * Hide subscriber profile blocks in admin panel
+   *
+   * @since 5.6.0
+   */
+
+  function fictioneer_remove_profile_blocks() {
+    // Add CSS to hide blocks...
+    echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
+
+    // Add JS to remove blocks...
+    echo '<script>document.addEventListener("DOMContentLoaded", () =>{document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {console.log(element); element.remove();});});</script>';
+  }
+
+  if ( current_user_can( 'fcn_reduced_profile' ) ) {
+    add_filter( 'wp_is_application_passwords_available', '__return_false', 9999 );
+    add_filter( 'user_contactmethods', '__return_empty_array', 9999 );
+    add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks', 9999 );
+    remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
   }
 }
 

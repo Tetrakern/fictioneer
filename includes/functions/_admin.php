@@ -299,56 +299,6 @@ if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
 }
 
 // =============================================================================
-// REDUCE SUBSCRIBER ADMIN PROFILE
-// =============================================================================
-
-/**
- * Reduce subscriber profile in admin panel
- *
- * @since 5.0
- */
-
-function fictioneer_reduce_subscriber_profile() {
-  // Setup
-  $user = wp_get_current_user();
-
-  // Abort if administrator
-  if ( fictioneer_is_admin( $user->ID ) ) return;
-
-  // Remove application password
-  add_filter( 'wp_is_application_passwords_available', '__return_false' );
-
-  // Abort if not a subscriber (higher role)
-  if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-  // Reduce profile...
-  remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-  add_filter( 'user_contactmethods', '__return_empty_array', 20 );
-}
-
-/**
- * Hide subscriber profile blocks in admin panel
- *
- * @since 5.0
- */
-
-function fictioneer_hide_subscriber_profile_blocks() {
-  // Setup
-  $user = wp_get_current_user();
-
-  // Abort if not a subscriber (higher role)
-  if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-  // Add CSS to hide blocks...
-  echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
-}
-
-if ( get_option( 'fictioneer_admin_reduce_subscriber_profile' ) ) {
-  add_action( 'admin_init', 'fictioneer_reduce_subscriber_profile' );
-  add_action( 'admin_head-profile.php', 'fictioneer_hide_subscriber_profile_blocks' );
-}
-
-// =============================================================================
 // ADD OR UPDATE TERM
 // =============================================================================
 

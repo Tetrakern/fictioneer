@@ -213,8 +213,8 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
 | `admin_head` | `fictioneer_remove_update_notice`
-| `admin_head-profile.php` | `fictioneer_hide_subscriber_profile_blocks`
-| `admin_init` | `fictioneer_reduce_subscriber_profile`, `fictioneer_register_settings`, `fictioneer_skip_dashboard`
+| `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
+| `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`
 | `admin_notices` | `fictioneer_admin_profile_notices`, `fictioneer_admin_settings_notices`, `fictioneer_admin_update_notice`
 | `admin_post_*` | `fictioneer_purge_all_epubs`, `admin_post_purge_all_seo_schemas`, `fictioneer_purge_seo_meta_caches`, `fictioneer_tools_add_moderator_role`, `fictioneer_tools_remove_moderator_role`, `fictioneer_tools_move_story_tags_to_genres`, `fictioneer_tools_duplicate_story_tags_to_genres`, `fictioneer_tools_purge_story_data_caches`, `fictioneer_tools_move_chapter_tags_to_genres`, `fictioneer_tools_duplicate_chapter_tags_to_genres`, `fictioneer_tools_append_default_genres`, `fictioneer_tools_append_default_tags`, `fictioneer_tools_remove_unused_tags`, `fictioneer_tools_reset_post_relationship_registry`, `fictioneer_tools_fix_users`, `fictioneer_tools_fix_stories`, `fictioneer_tools_fix_chapters`, `fictioneer_tools_fix_collections`, `fictioneer_tools_fix_pages`, `fictioneer_tools_fix_posts`, `fictioneer_tools_fix_recommendations`, `fictioneer_admin_profile_unset_oauth`, `fictioneer_admin_profile_clear_data_node`, `fictioneer_update_frontend_profile`, `fictioneer_cancel_frontend_email_change`

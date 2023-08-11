@@ -761,14 +761,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_admin_reduce_subscriber_profile" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_reduce_subscriber_profile" type="checkbox" id="fictioneer_admin_reduce_subscriber_profile" <?php echo checked( 1, get_option( 'fictioneer_admin_reduce_subscriber_profile' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_reduce_subscriber_profile']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Removes superfluous blocks from subscriber profile, such as personal options and application passwords.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_disable_application_passwords" class="label-wrapped-checkbox row">
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>
