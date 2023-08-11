@@ -514,7 +514,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * @param WP_Query $query  The WP_Query instance (passed by reference).
    */
 
-  function fictioneer_limit_user_fiction_queries( $query ) {
+  function fictioneer_edit_others_fictioneer_posts( $query ) {
     global $pagenow;
 
     // Abort conditions...
@@ -538,7 +538,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
       $query->set( 'author', get_current_user_id() );
     }
   }
-  add_filter( 'pre_get_posts', 'fictioneer_limit_user_fiction_queries', 9999 );
+  add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts', 9999 );
 
   // === EDIT_READ_OTHERS_FILES ================================================
 
