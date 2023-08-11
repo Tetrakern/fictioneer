@@ -147,6 +147,10 @@ function fictioneer_initialize_roles() {
     $contributor->add_cap( $cap );
   }
 
+  foreach ( ['delete_pages', 'edit_pages', 'edit_published_pages'] as $cap ) {
+    $contributor->remove_cap( $cap ); // Legacy restore
+  }
+
   // Moderator
   fictioneer_add_moderator_role();
 

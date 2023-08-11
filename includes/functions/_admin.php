@@ -507,30 +507,4 @@ function fictioneer_reset_author_role() {
   $role->remove_cap( 'publish_pages' );
 }
 
-/**
- * Upgrade contributor role with additional capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_upgrade_contributor_role() {
-	$role = get_role( 'contributor' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'edit_pages' );
-  $role->add_cap( 'edit_published_pages' );
-}
-
-/**
- * Reset contributor role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_contributor_role() {
-	$role = get_role( 'contributor' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'edit_pages' );
-  $role->remove_cap( 'edit_published_pages' );
-}
-
 ?>

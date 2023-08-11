@@ -373,48 +373,6 @@ function fictioneer_tools_reset_author_role() {
 add_action( 'admin_post_fictioneer_reset_author_role', 'fictioneer_tools_reset_author_role' );
 
 /**
- * Upgrade contributor role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_upgrade_contributor_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_upgrade_contributor_role' );
-
-  // Upgrade role
-  fictioneer_upgrade_contributor_role();
-
-  // Log
-  fictioneer_log( __( 'Contributor role upgraded.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-upgraded-contributor-role' );
-}
-add_action( 'admin_post_fictioneer_upgrade_contributor_role', 'fictioneer_tools_upgrade_contributor_role' );
-
-/**
- * Reset contributor role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_reset_contributor_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_reset_contributor_role' );
-
-  // Reset role
-  fictioneer_reset_contributor_role();
-
-  // Log
-  fictioneer_log( __( 'Contributor role reset.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-reset-contributor-role' );
-}
-add_action( 'admin_post_fictioneer_reset_contributor_role', 'fictioneer_tools_reset_contributor_role' );
-
-/**
  * Convert story tags to genres
  *
  * @since Fictioneer 5.2.5

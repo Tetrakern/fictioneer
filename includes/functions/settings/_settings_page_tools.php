@@ -31,12 +31,6 @@
                 <a class="button button--secondary" id="upgrade-author-role" href="<?php echo fictioneer_tool_action( 'fictioneer_upgrade_author_role' ); ?>"><?php _e( 'Upgrade Author Role', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="reset-author-role" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_author_role' ); ?>"><?php _e( 'Reset Author Role', 'fictioneer' ) ?></a>
               </div>
-              <hr>
-              <p class="description row"><?php _e( '<strong>Upgrade or reset contributor role.</strong> The default contributor role lacks the permissions to work with Fictioneer’s custom post types, which require page editing capabilities. You can amend this here to allow story and chapter submissions, or reset the permissions.', 'fictioneer' ) ?></p>
-              <div class="row flex wrap gap-6">
-                <a class="button button--secondary" id="upgrade-contributor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_upgrade_contributor_role' ); ?>"><?php _e( 'Upgrade Contributor Role', 'fictioneer' ) ?></a>
-                <a class="button button--secondary" id="reset-contributor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_contributor_role' ); ?>"><?php _e( 'Reset Contributor Role', 'fictioneer' ) ?></a>
-              </div>
             </div>
           </div>
         </div>
