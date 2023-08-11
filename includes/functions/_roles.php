@@ -376,9 +376,45 @@ if ( ! current_user_can( 'manage_options' ) ) {
     remove_menu_page( 'edit-comments.php' );
   }
 
+  /**
+   * Restrict menu access for non-administrators
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_restrict_comment_edit() {
+    // Setup
+    $screen = get_current_screen();
+
+    if ( $screen->id === 'edit-comments' ) {
+      wp_die( __( 'Access denied.', 'fictioneer' ) );
+    }
+  }
+
+  /**
+   * Remove comments column
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param array $columns  The table columns.
+   *
+   * @return array Modified table column.
+   */
+
+  function fictioneer_remove_comments_column( $columns ) {
+    if ( isset( $columns['comments'] ) ) {
+      unset( $columns['comments'] );
+    }
+
+    return $columns;
+  }
+
   if ( ! current_user_can( 'moderate_comments' ) ) {
     add_action( 'admin_menu', 'fictioneer_remove_comments_menu_page', 9999 );
     add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar', 9999 );
+    add_action( 'current_screen', 'fictioneer_restrict_comment_edit', 9999 );
+    add_filter( 'manage_posts_columns', 'fictioneer_remove_comments_column', 9999 );
+    add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column', 9999 );
   }
 
 }
