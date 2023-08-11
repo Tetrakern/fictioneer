@@ -801,14 +801,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_admin_restrict_private_data" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_restrict_private_data" type="checkbox" id="fictioneer_admin_restrict_private_data" <?php echo checked( 1, get_option( 'fictioneer_admin_restrict_private_data' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_restrict_private_data']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Hides names, emails, IPs, comment quick edit, and more privacy sensitive data sources.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_cookie_banner" class="label-wrapped-checkbox row">
                   <input name="fictioneer_cookie_banner" type="checkbox" id="fictioneer_cookie_banner" <?php echo checked( 1, get_option( 'fictioneer_cookie_banner' ), false ); ?> value="1">
                   <div>

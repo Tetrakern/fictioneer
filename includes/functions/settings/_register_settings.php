@@ -328,13 +328,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Add consent wrappers to embedded content', 'fictioneer' ),
       'default' => false
     ),
-		'fictioneer_admin_restrict_private_data' => array(
-      'name' => 'fictioneer_admin_restrict_private_data',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Restrict personal data for non-administrators', 'fictioneer' ),
-      'default' => false
-    ),
 		'fictioneer_cookie_banner' => array(
       'name' => 'fictioneer_cookie_banner',
 			'group' => 'fictioneer-settings-general-group',

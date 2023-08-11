@@ -461,12 +461,6 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
 }
 
 /**
- * Add privacy and security measures.
- */
-
-require_once __DIR__ . '/includes/functions/users/_privacy_security.php';
-
-/**
  * Add content helper functions.
  */
 
