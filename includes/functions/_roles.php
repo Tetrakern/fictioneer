@@ -52,9 +52,9 @@ function fictioneer_initialize_roles() {
   $editor_caps = array_merge(
     // Base
     array(
-      'fcn_read_others_media',
-      'fcn_edit_others_media',
-      'fcn_delete_others_media',
+      'fcn_read_others_files',
+      'fcn_edit_others_files',
+      'fcn_delete_others_files',
       'fcn_admin_panel_access',
       'fcn_adminbar_access',
       'fcn_dashboard_access'
@@ -507,7 +507,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === EDIT_OTHERS_{POST_TYPE} ===============================================
 
   /**
-   * Limit users to own fiction posts
+   * Limit users to their own fiction posts
    *
    * @since 5.6.0
    *
@@ -533,7 +533,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     // Prepare
     $post_type_plural = $post_type == 'fcn_story' ? 'fcn_stories' : "{$post_type}s";
 
-    // Add author to query unless user is supposed to see other posts/pages
+    // Add author to query unless user can edit the fiction of others
     if ( ! current_user_can( "edit_others_{$post_type_plural}" ) ) {
       $query->set( 'author', get_current_user_id() );
     }
