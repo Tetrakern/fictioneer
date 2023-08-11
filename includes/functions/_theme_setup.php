@@ -7,14 +7,14 @@
 function fictioneer_bring_out_legacy_trash() {
   // Setup
   $options = wp_cache_get( 'alloptions', 'options' );
-  $obsolete = ['fictioneer_disable_html_in_comments'];
+  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access'];
 
   // Check for most recent obsolete option, run a delete for everything
-  // if ( isset( $options['fictioneer_disable_html_in_comments'] ) ) {
-  //   foreach ( $obsolete as $trash ) {
-  //     delete_option( $trash );
-  //   }
-  // }
+  if ( isset( $options['fictioneer_disable_html_in_comments'] ) ) {
+    foreach ( $obsolete as $trash ) {
+      delete_option( $trash );
+    }
+  }
 }
 add_action( 'init', 'fictioneer_bring_out_legacy_trash' );
 
