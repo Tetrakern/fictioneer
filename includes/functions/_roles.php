@@ -507,7 +507,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_edit_only_others_comments' ) ) {
-    add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 10, 3 );
+    add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 9999, 3 );
   }
 
   // === MANAGE_OPTIONS ========================================================
