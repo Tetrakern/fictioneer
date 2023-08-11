@@ -41,6 +41,15 @@ function fictioneer_add_admin_menu() {
 
 	add_submenu_page(
 		'fictioneer',
+		__( 'Roles', 'fictioneer' ),
+		__( 'Roles', 'fictioneer' ),
+		'manage_options',
+		'fictioneer_roles',
+		'fictioneer_settings_roles'
+	);
+
+	add_submenu_page(
+		'fictioneer',
 		__( 'Connections', 'fictioneer' ),
 		__( 'Connections', 'fictioneer' ),
 		'manage_options',
@@ -167,6 +176,9 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 		// General tab
 		$output['general'] = '<a href="?page=fictioneer" class="tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
 
+		// Roles tab
+		$output['roles'] = '<a href="?page=fictioneer_roles" class="tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+
 		// Connections tab
 		$output['connections'] = '<a href="?page=fictioneer_connections" class="tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
 
@@ -237,6 +249,16 @@ function fictioneer_settings_connections() {
 
 function fictioneer_settings_general() {
 	get_template_part( 'includes/functions/settings/_settings_page_general' );
+}
+
+/**
+ * Callback for general settings page
+ *
+ * @since Fictioneer 4.7
+ */
+
+function fictioneer_settings_roles() {
+	get_template_part( 'includes/functions/settings/_settings_page_roles' );
 }
 
 /**
