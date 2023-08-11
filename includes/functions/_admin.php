@@ -169,7 +169,7 @@ function fictioneer_admin_update_notice() {
   update_option( 'fictioneer_update_notice_timestamp', time() );
 }
 
-if ( current_user_can( 'manage_options' ) ) {
+if ( current_user_can( 'install_themes' ) ) {
   add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
 }
 
