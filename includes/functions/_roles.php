@@ -838,12 +838,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks', 9999 );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
   }
-
-  // === FCN_ALLOW_SELF_DELETE =================================================
-
-  if ( current_user_can( 'fcn_allow_self_delete' ) ) {
-
-  }
 }
 
 ?>
