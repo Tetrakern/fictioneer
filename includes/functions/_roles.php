@@ -154,25 +154,6 @@ function fictioneer_initialize_roles() {
   // Moderator
   fictioneer_add_moderator_role();
 
-  $moderator = get_role( 'fcn_moderator' );
-  $moderator_caps = array(
-    // Base
-    'fcn_admin_panel_access',
-    'fcn_adminbar_access',
-    // Stories
-    'read_fcn_story',
-    // Chapters
-    'read_fcn_chapter',
-    // Collections
-    'read_fcn_collection',
-    // Recommendations
-    'read_fcn_recommendation'
-  );
-
-  foreach ( $moderator_caps as $cap ) {
-    $moderator->add_cap( $cap );
-  }
-
   // Subscriber
   $subscriber = get_role( 'subscriber' );
   $subscriber_caps = array(
@@ -202,19 +183,60 @@ add_action( 'init', 'fictioneer_initialize_roles' );
  */
 
 function fictioneer_add_moderator_role() {
+  $moderator = get_role( 'fcn_moderator' );
+
+  $caps = array(
+    // Base
+    'read',
+    'edit_posts',
+    'edit_others_posts',
+    'edit_published_posts',
+    'moderate_comments',
+    'edit_comment',
+    'delete_posts',
+    'delete_others_posts',
+    'fcn_admin_panel_access',
+    'fcn_adminbar_access',
+    // Stories
+    'read_fcn_story',
+    'edit_fcn_stories',
+    'publish_fcn_stories',
+    'delete_fcn_stories',
+    'delete_published_fcn_stories',
+    'edit_published_fcn_stories',
+    // Chapters
+    'read_fcn_chapter',
+    'edit_fcn_chapters',
+    'publish_fcn_chapters',
+    'delete_fcn_chapters',
+    'delete_published_fcn_chapters',
+    'edit_published_fcn_chapters',
+    // Collections
+    'read_fcn_collection',
+    'edit_fcn_collections',
+    'publish_fcn_collections',
+    'delete_fcn_collections',
+    'delete_published_fcn_collections',
+    'edit_published_fcn_collections',
+    // Recommendations
+    'read_fcn_recommendation',
+    'edit_fcn_recommendations',
+    'publish_fcn_recommendations',
+    'delete_fcn_recommendations',
+    'delete_published_fcn_recommendations',
+    'edit_published_fcn_recommendations'
+  );
+
+  if ( $moderator ) {
+    foreach ( $caps as $cap ) {
+      $moderator->add_cap( $cap );
+    }
+  }
+
 	return add_role(
     'fcn_moderator',
     __( 'Moderator', 'fictioneer' ),
-    array(
-      'read' => true,
-      'edit_posts' => true,
-      'edit_others_posts' => true,
-      'edit_published_posts' => true,
-      'moderate_comments' => true,
-      'edit_comment' => true,
-      'delete_posts' => false,
-      'delete_others_posts' => false
-    )
+    $caps
   );
 }
 
