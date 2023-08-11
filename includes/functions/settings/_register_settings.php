@@ -635,13 +635,6 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
       'label' => __( 'Disable all widgets', 'fictioneer' ),
       'default' => false
-    ),
-    'fictioneer_restrict_media_access' => array(
-      'name' => 'fictioneer_restrict_media_access',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Limit media file management by uploader', 'fictioneer' ),
-      'default' => false
     )
 	),
 	'integers' => array(

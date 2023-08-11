@@ -540,7 +540,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
   add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts', 9999 );
 
-  // === EDIT_READ_OTHERS_FILES ================================================
+  // === READ_READ_OTHERS_FILES ================================================
 
   /**
    * Prevent users from seeing uploaded files of others
@@ -569,6 +569,51 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
   }
 
+  // === EDIT_READ_OTHERS_FILES ================================================
+
+  /**
+   * User cannot edit the files of others
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param array  $caps     Primitive capabilities required of the user.
+   * @param string $cap      Capability being checked.
+   * @param int    $user_id  The user ID.
+   * @param array  $args     Adds context to the capability check, typically
+   *                         starting with an object ID.
+   *
+   * @return array The still allowed primitive capabilities of the user.
+   */
+
+  function fictioneer_edit_others_files( $caps, $cap, $user_id, $args ) {
+    // Skip unrelated capabilities
+    if ( $cap != 'edit_post' ) {
+      return $caps;
+    }
+
+    // if ( 'edit_post' != $cap && 'delete_post' != $cap ) {
+    //   return $caps;
+    // }
+
+    // Get the post in question.
+    $post = get_post( $args[0] );
+
+    // Check if an attachment and whether the user is the owner (author)
+    if (
+      empty( $post ) ||
+      $post->post_type != 'attachment' ||
+      $post->post_author == $user_id
+    ) {
+      return $caps;
+    }
+
+    // Disallow
+    return ['do_not_allow'];
+  }
+
+  if ( ! current_user_can( 'fcn_edit_others_files' ) ) {
+    add_filter( 'map_meta_cap', 'fictioneer_edit_others_files', 9999, 4 );
+  }
 
 
 
