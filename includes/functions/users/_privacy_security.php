@@ -69,42 +69,4 @@ if ( get_option( 'fictioneer_admin_restrict_private_data' ) && ! current_user_ca
   add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 99 );
 }
 
-// =============================================================================
-// RESTRICT ADMIN PANEL FOR NON-ADMINISTRATORS
-// =============================================================================
-
-
-/**
- * Restrict menu access for non-administrators
- *
- * This may be somewhat overzealous but ensures that users without the required
- * capabilities have no way to access these admin pages, regardless whether or not
- * they could do anything there.
- *
- * @since Fictioneer 4.7
- */
-
-// function fictioneer_restrict_menu_access() {
-//   // Setup
-//   $screen = get_current_screen();
-//   $base = $screen->id;
-
-//   // No access for non-administrators...
-//   if (
-//     in_array(
-//       $base,
-//       ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'users', 'user-new', 'options-general']
-//     )
-//   ) {
-//     wp_die( __( 'Access denied.', 'fictioneer' ) );
-//   }
-
-//   // Is not moderator...
-//   if ( ! current_user_can( 'moderate_comments' ) ) {
-//     if ( $base === 'edit-comments' ) {
-//       wp_die( __( 'Access denied.', 'fictioneer' ) );
-//     }
-//   }
-// }
-
 ?>
