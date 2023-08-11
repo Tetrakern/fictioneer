@@ -41,6 +41,7 @@ function fictioneer_initialize_roles() {
 
   $administrator->remove_cap( 'fcn_edit_only_others_comments' );
   $administrator->remove_cap( 'fcn_reduced_profile' );
+  $administrator->remove_cap( 'fcn_allow_self_delete' );
 
   foreach ( $all as $cap ) {
     $administrator->add_cap( $cap );
@@ -79,6 +80,7 @@ function fictioneer_initialize_roles() {
 
   $editor->remove_cap( 'fcn_edit_only_others_comments' );
   $editor->remove_cap( 'fcn_reduced_profile' );
+  $editor->remove_cap( 'fcn_allow_self_delete' );
 
   foreach ( $editor_caps as $cap ) {
     $editor->add_cap( $cap );
@@ -90,6 +92,7 @@ function fictioneer_initialize_roles() {
     // Base
     'fcn_admin_panel_access',
     'fcn_adminbar_access',
+    'fcn_allow_self_delete',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -120,6 +123,8 @@ function fictioneer_initialize_roles() {
     'edit_published_fcn_recommendations'
   );
 
+  $author->remove_cap( 'fcn_reduced_profile' );
+
   foreach ( $author_caps as $cap ) {
     $author->add_cap( $cap );
   }
@@ -134,6 +139,7 @@ function fictioneer_initialize_roles() {
     // Base
     'fcn_admin_panel_access',
     'fcn_adminbar_access',
+    'fcn_allow_self_delete',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -152,6 +158,8 @@ function fictioneer_initialize_roles() {
     'delete_fcn_recommendations'
   );
 
+  $contributor->remove_cap( 'fcn_reduced_profile' );
+
   foreach ( $contributor_caps as $cap ) {
     $contributor->add_cap( $cap );
   }
@@ -169,6 +177,7 @@ function fictioneer_initialize_roles() {
     // Base
     'fcn_admin_panel_access',
     'fcn_reduced_profile',
+    'fcn_allow_self_delete',
     // Stories
     'read_fcn_story',
     // Chapters
@@ -182,7 +191,6 @@ function fictioneer_initialize_roles() {
   foreach ( $subscriber_caps as $cap ) {
     $subscriber->add_cap( $cap );
   }
-
 }
 add_action( 'init', 'fictioneer_initialize_roles' );
 
@@ -243,6 +251,9 @@ function fictioneer_add_moderator_role() {
   );
 
   if ( $moderator ) {
+    $moderator->remove_cap( 'fcn_reduced_profile' );
+    $moderator->remove_cap( 'fcn_allow_self_delete' );
+
     foreach ( $caps as $cap ) {
       $moderator->add_cap( $cap );
     }
@@ -825,6 +836,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'user_contactmethods', '__return_empty_array', 9999 );
     add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks', 9999 );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
+  }
+
+  // === FCN_ALLOW_SELF_DELETE =================================================
+
+  if ( current_user_can( 'fcn_allow_self_delete' ) ) {
+
   }
 }
 

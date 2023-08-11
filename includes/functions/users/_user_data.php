@@ -839,7 +839,7 @@ function fictioneer_ajax_delete_my_account() {
   }
 }
 
-if ( get_option( 'fictioneer_enable_subscriber_self_delete' ) ) {
+if ( current_user_can( 'fcn_allow_self_delete' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_delete_my_account', 'fictioneer_ajax_delete_my_account' );
 }
 

@@ -137,7 +137,7 @@ function fictioneer_account_danger_zone( $args ) {
   get_template_part( 'partials/account/_danger-zone', null, $args );
 }
 
-if ( get_option( 'fictioneer_enable_subscriber_self_delete' ) ) {
+if ( current_user_can( 'fcn_allow_self_delete' ) ) {
   add_action( 'fictioneer_account_content', 'fictioneer_account_danger_zone', 100 );
 }
 

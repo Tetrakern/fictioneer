@@ -753,14 +753,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_enable_subscriber_self_delete" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_enable_subscriber_self_delete" type="checkbox" id="fictioneer_enable_subscriber_self_delete" <?php echo checked( 1, get_option( 'fictioneer_enable_subscriber_self_delete' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_subscriber_self_delete']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Convenient compliance with the “right to erasure”. Roles with higher privileges still need manual deletion.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_disable_application_passwords" class="label-wrapped-checkbox row">
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>
