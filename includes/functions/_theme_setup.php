@@ -4,6 +4,12 @@
 // LEGACY CLEANUP
 // =============================================================================
 
+/**
+ * Clean up obsolete database entries
+ *
+ * @since 5.6.0
+ */
+
 function fictioneer_bring_out_legacy_trash() {
   // Setup
   $options = wp_cache_get( 'alloptions', 'options' );
@@ -23,7 +29,7 @@ add_action( 'init', 'fictioneer_bring_out_legacy_trash' );
 // =============================================================================
 
 /**
- * Sets up theme defaults and registers support for various WordPress features.
+ * Sets up theme defaults and registers support for various WordPress features
  *
  * @since 1.0
  */
