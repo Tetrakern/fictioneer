@@ -533,44 +533,4 @@ function fictioneer_reset_contributor_role() {
   $role->remove_cap( 'edit_published_pages' );
 }
 
-/**
- * Limit editor role to less capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_limit_editor_role() {
-	$role = get_role( 'editor' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'delete_published_pages' );
-  $role->remove_cap( 'delete_published_posts' );
-  $role->remove_cap( 'delete_others_pages' );
-  $role->remove_cap( 'delete_others_posts' );
-  $role->remove_cap( 'publish_pages' );
-  $role->remove_cap( 'publish_posts' );
-  $role->remove_cap( 'manage_categories' );
-  $role->remove_cap( 'unfiltered_html' );
-  $role->remove_cap( 'manage_links' );
-}
-
-/**
- * Reset editor role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_editor_role() {
-	$role = get_role( 'editor' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'delete_published_pages' );
-  $role->add_cap( 'delete_published_posts' );
-  $role->add_cap( 'delete_others_pages' );
-  $role->add_cap( 'delete_others_posts' );
-  $role->add_cap( 'publish_pages' );
-  $role->add_cap( 'publish_posts' );
-  $role->add_cap( 'manage_categories' );
-  $role->add_cap( 'unfiltered_html' );
-  $role->add_cap( 'manage_links' );
-}
-
 ?>

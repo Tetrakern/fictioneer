@@ -37,12 +37,6 @@
                 <a class="button button--secondary" id="upgrade-contributor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_upgrade_contributor_role' ); ?>"><?php _e( 'Upgrade Contributor Role', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="reset-contributor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_contributor_role' ); ?>"><?php _e( 'Reset Contributor Role', 'fictioneer' ) ?></a>
               </div>
-              <hr>
-              <p class="description row"><?php _e( '<strong>Limit or reset editor role.</strong> The default editor role has an unreasonable level of permissions considering what its supposed to do. You can limit that to actual <em>editing</em> here, without publishing or moderation capabilities, or reset the permissions.', 'fictioneer' ) ?></p>
-              <div class="row flex wrap gap-6">
-                <a class="button button--secondary" id="limit-editor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_limit_editor_role' ); ?>"><?php _e( 'Limit Editor Role', 'fictioneer' ) ?></a>
-                <a class="button button--secondary" id="reset-editor-role" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_editor_role' ); ?>"><?php _e( 'Reset Editor Role', 'fictioneer' ) ?></a>
-              </div>
             </div>
           </div>
         </div>

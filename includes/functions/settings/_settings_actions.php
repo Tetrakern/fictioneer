@@ -96,8 +96,6 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 			'fictioneer-removed-moderator-role' => __( 'Moderator role has been removed.', 'fictioneer' ),
 			'fictioneer-upgraded-author-role' => __( 'Author role has been upgraded.', 'fictioneer' ),
 			'fictioneer-reset-author-role' => __( 'Author role has been reset.', 'fictioneer' ),
-			'fictioneer-limit-editor-role' => __( 'Editor role has been limited.', 'fictioneer' ),
-			'fictioneer-reset-editor-role' => __( 'Editor role has been reset.', 'fictioneer' ),
 			'fictioneer-upgraded-contributor-role' => __( 'Contributor role has been upgraded.', 'fictioneer' ),
 			'fictioneer-reset-contributor-role' => __( 'Contributor role has been reset.', 'fictioneer' ),
       'fictioneer-reset-post-relationship-registry' => __( 'Post relationship registry reset.', 'fictioneer' ),
@@ -415,48 +413,6 @@ function fictioneer_tools_reset_contributor_role() {
   fictioneer_finish_tool_action( 'fictioneer-reset-contributor-role' );
 }
 add_action( 'admin_post_fictioneer_reset_contributor_role', 'fictioneer_tools_reset_contributor_role' );
-
-/**
- * Limit editor role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_limit_editor_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_limit_editor_role' );
-
-  // Limit role
-  fictioneer_limit_editor_role();
-
-  // Log
-  fictioneer_log( __( 'Editor role limited.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-limit-editor-role' );
-}
-add_action( 'admin_post_fictioneer_limit_editor_role', 'fictioneer_tools_limit_editor_role' );
-
-/**
- * Reset editor role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_reset_editor_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_reset_editor_role' );
-
-  // Reset role
-  fictioneer_reset_editor_role();
-
-  // Log
-  fictioneer_log( __( 'Editor role reset.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-reset-editor-role' );
-}
-add_action( 'admin_post_fictioneer_reset_editor_role', 'fictioneer_tools_reset_editor_role' );
 
 /**
  * Convert story tags to genres

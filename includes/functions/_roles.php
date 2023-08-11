@@ -57,7 +57,17 @@ function fictioneer_initialize_roles() {
       'fcn_delete_others_files',
       'fcn_admin_panel_access',
       'fcn_adminbar_access',
-      'fcn_dashboard_access'
+      'fcn_dashboard_access',
+      'delete_pages',           // Legacy restore
+      'delete_published_pages', // Legacy restore
+      'delete_published_posts', // Legacy restore
+      'delete_others_pages',    // Legacy restore
+      'delete_others_posts',    // Legacy restore
+      'publish_pages',          // Legacy restore
+      'publish_posts',          // Legacy restore
+      'manage_categories',      // Legacy restore
+      'unfiltered_html',        // Legacy restore
+      'manage_links',           // Legacy restore
     ),
     FICTIONEER_STORY_CAPABILITIES,
     FICTIONEER_CHAPTER_CAPABILITIES,
