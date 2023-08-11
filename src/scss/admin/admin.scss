@@ -6,20 +6,6 @@
 // GENERAL ADMIN STYLES
 // =============================================================================
 
-.is-subscriber {
-  #wpcontent {
-    margin-left: 0 !important;
-  }
-
-  :is(#adminmenuwrap, #adminmenuback, #wpfooter, #wp-admin-bar-menu-toggle) {
-    display: none !important;
-  }
-
-  #wpbody-content {
-    padding-bottom: 0;
-  }
-}
-
 details {
   summary {
     cursor: pointer;
