@@ -21,12 +21,29 @@ define(
 );
 
 /**
- * Initialize user roles with custom capabilities
+ * Initialize user roles if not already done
  *
  * @since Fictioneer 5.6.0
  */
 
 function fictioneer_initialize_roles() {
+  // Only do this once...
+  $administrator = get_role( 'administrator' );
+
+  // If this capability is missing, the roles have not yet been initialized
+  if ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ) {
+    fictioneer_setup_roles();
+  }
+}
+add_action( 'init', 'fictioneer_initialize_roles' );
+
+/**
+ * Build user roles with custom capabilities
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_setup_roles() {
   // Capabilities
   $legacy_removal = ['delete_pages', 'delete_published_pages', 'edit_pages', 'edit_published_pages', 'publish_pages'];
   $all = array_merge(
@@ -193,7 +210,6 @@ function fictioneer_initialize_roles() {
     $subscriber->add_cap( $cap );
   }
 }
-add_action( 'init', 'fictioneer_initialize_roles' );
 
 /**
  * Add custom moderator role
