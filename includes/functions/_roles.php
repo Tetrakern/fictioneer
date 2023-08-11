@@ -15,7 +15,8 @@ define(
     'fcn_adminbar_access',
     'fcn_dashboard_access',
     'fcn_privacy_clearance',
-    'fcn_shortcodes'
+    'fcn_shortcodes',
+    'fcn_simple_comment_html'
 	)
 );
 

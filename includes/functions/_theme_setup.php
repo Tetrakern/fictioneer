@@ -146,7 +146,7 @@ function fictioneer_custom_background() {
  *
  * @since 4.7
  *
- * @global array $allowedtags Array of allowed tags.
+ * @global array $allowedtags  Array of allowed tags.
  */
 
 function fictioneer_modify_allowed_tags() {

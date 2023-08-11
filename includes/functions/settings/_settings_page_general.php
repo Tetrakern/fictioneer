@@ -761,14 +761,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_disable_html_in_comments" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_disable_html_in_comments" type="checkbox" id="fictioneer_disable_html_in_comments" <?php echo checked( 1, get_option( 'fictioneer_disable_html_in_comments' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_disable_html_in_comments']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'BBCodes still work and are easier to use anyway.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_logout_redirects_home" class="label-wrapped-checkbox row">
                   <input name="fictioneer_logout_redirects_home" type="checkbox" id="fictioneer_logout_redirects_home" <?php echo checked( 1, get_option( 'fictioneer_logout_redirects_home' ), false ); ?> value="1">
                   <div>

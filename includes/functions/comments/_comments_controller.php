@@ -146,7 +146,7 @@ function fictioneer_preprocess_comment( $commentdata ) {
   // Change allowed tags
   global $allowedtags;
 
-  if ( ! $is_admin && get_option( 'fictioneer_disable_html_in_comments' ) ) {
+  if ( ! current_user_can( 'fcn_simple_comment_html' ) && ! current_user_can( 'unfiltered_html' ) ) {
     $allowedtags = [];
   }
 

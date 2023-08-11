@@ -531,13 +531,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Enable comment editing', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_disable_html_in_comments' => array(
-      'name' => 'fictioneer_disable_html_in_comments',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Disable HTML in comments for non-administrators', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_enable_ajax_comment_form' => array(
       'name' => 'fictioneer_enable_ajax_comment_form',
 			'group' => 'fictioneer-settings-general-group',
