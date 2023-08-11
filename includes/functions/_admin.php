@@ -153,9 +153,6 @@ function fictioneer_admin_update_notice() {
   $last_notice = (int) get_option( 'fictioneer_update_notice_timestamp', 0 );
   $is_updates_page = $pagenow == 'update-core.php';
 
-  // Abort if...
-  if ( ! current_user_can( 'manage_options' ) ) return;
-
   // Show only once every n seconds
   if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) return;
 
@@ -174,7 +171,10 @@ function fictioneer_admin_update_notice() {
   // Remember notice
   update_option( 'fictioneer_update_notice_timestamp', time() );
 }
-add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
+
+if ( current_user_can( 'manage_options' ) ) {
+  add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
+}
 
 // =============================================================================
 // ADD REMOVABLE QUERY ARGS
