@@ -668,7 +668,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     return ['do_not_allow'];
   }
 
-  if ( ! current_user_can( 'fcn_edit_others_files' ) ) {
+  if ( ! current_user_can( 'fcn_delete_others_files' ) ) {
     add_filter( 'map_meta_cap', 'fictioneer_delete_others_files', 9999, 4 );
   }
 
