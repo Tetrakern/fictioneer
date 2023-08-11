@@ -7,20 +7,15 @@
 define(
 	'FICTIONEER_BASE_CAPABILITIES',
 	array(
-		'fcn_read_others_files',    // Fictioneer
-    'fcn_edit_others_files',    // Fictioneer
-    'fcn_delete_others_files',  // Fictioneer
-    'fcn_select_page_template', // Fictioneer
-    'fcn_admin_panel_access',   // Fictioneer
-    'fcn_adminbar_access',      // Fictioneer
-    'fcn_dashboard_access',     // Fictioneer
-    'fcn_privacy_clearance',    // Fictioneer
-    'fcn_shortcodes',           // Fictioneer
-    'unfiltered_html',          // Default
-    'edit_users',               // Default
-    'add_users',                // Default
-    'create_users',             // Default
-    'delete_users'              // Default
+		'fcn_read_others_files',
+    'fcn_edit_others_files',
+    'fcn_delete_others_files',
+    'fcn_select_page_template',
+    'fcn_admin_panel_access',
+    'fcn_adminbar_access',
+    'fcn_dashboard_access',
+    'fcn_privacy_clearance',
+    'fcn_shortcodes'
 	)
 );
 
@@ -736,7 +731,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit', 9999 );
     add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 9999 );
   }
-
 }
 
 ?>
