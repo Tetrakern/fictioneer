@@ -73,25 +73,6 @@ if ( get_option( 'fictioneer_admin_restrict_private_data' ) && ! current_user_ca
 // RESTRICT ADMIN PANEL FOR NON-ADMINISTRATORS
 // =============================================================================
 
-/**
- * Remove menu pages from admin panel
- *
- * WordPress does remove most menus for users without the required capabilities,
- * but not all. The same goes for plugins.
- *
- * @since Fictioneer 4.7
- */
-
-function fictioneer_remove_menu_pages() {
-  // Default menus
-  remove_menu_page( 'tools.php' );
-  remove_menu_page( 'plugins.php' );
-  remove_menu_page( 'themes.php' );
-  remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-
-  // Known plugins
-  remove_menu_page( 'stc-subscribe-settings' );
-}
 
 /**
  * Restrict menu access for non-administrators
@@ -103,68 +84,28 @@ function fictioneer_remove_menu_pages() {
  * @since Fictioneer 4.7
  */
 
-function fictioneer_restrict_menu_access() {
-  // Setup
-  $screen = get_current_screen();
-  $base = $screen->id;
+// function fictioneer_restrict_menu_access() {
+//   // Setup
+//   $screen = get_current_screen();
+//   $base = $screen->id;
 
-  // No access for non-administrators...
-  if (
-    in_array(
-      $base,
-      ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'users', 'user-new', 'options-general']
-    )
-  ) {
-    wp_die( __( 'Access denied.', 'fictioneer' ) );
-  }
+//   // No access for non-administrators...
+//   if (
+//     in_array(
+//       $base,
+//       ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'users', 'user-new', 'options-general']
+//     )
+//   ) {
+//     wp_die( __( 'Access denied.', 'fictioneer' ) );
+//   }
 
-  // Is not moderator...
-  if ( ! current_user_can( 'moderate_comments' ) ) {
-    if ( $base === 'edit-comments' ) {
-      wp_die( __( 'Access denied.', 'fictioneer' ) );
-    }
-  }
-}
-
-/**
- * Add filters and action depending on security settings
- */
-
-if ( get_option( 'fictioneer_admin_restrict_menus' ) && ! fictioneer_is_admin( get_current_user_id() ) ) {
-  add_action( 'admin_menu', 'fictioneer_remove_menu_pages' );
-  add_action( 'current_screen', 'fictioneer_restrict_menu_access' );
-}
-
-// =============================================================================
-// RESTRICT COMMENTS (ALSO SEE _ROLES)
-// =============================================================================
-
-/**
- * Remove comments column for non-administrators
- *
- * @since Fictioneer 5.5.3
- *
- * @param array $columns  The table columns.
- *
- * @return array Modified table column.
- */
-
-function fictioneer_restrict_comments_column( $columns ) {
-  // Administrators and moderators
-  if ( current_user_can( 'moderate_comments' ) ) {
-    return $columns;
-  }
-
-  // Everyone else
-  if ( isset( $columns['comments'] ) ) {
-    unset( $columns['comments'] );
-  }
-
-  // Return modified array
-  return $columns;
-}
-add_filter( 'manage_posts_columns', 'fictioneer_restrict_comments_column' );
-add_filter( 'manage_pages_columns', 'fictioneer_restrict_comments_column' );
+//   // Is not moderator...
+//   if ( ! current_user_can( 'moderate_comments' ) ) {
+//     if ( $base === 'edit-comments' ) {
+//       wp_die( __( 'Access denied.', 'fictioneer' ) );
+//     }
+//   }
+// }
 
 // =============================================================================
 // RESTRICT MEDIA MANAGER

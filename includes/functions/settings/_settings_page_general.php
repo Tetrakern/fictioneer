@@ -817,14 +817,6 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_admin_restrict_menus" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_restrict_menus" type="checkbox" id="fictioneer_admin_restrict_menus" <?php echo checked( 1, get_option( 'fictioneer_admin_restrict_menus' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_restrict_menus']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Hides more menus and plugins known to the theme as additional security layer.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_admin_restrict_private_data" class="label-wrapped-checkbox row">
                   <input name="fictioneer_admin_restrict_private_data" type="checkbox" id="fictioneer_admin_restrict_private_data" <?php echo checked( 1, get_option( 'fictioneer_admin_restrict_private_data' ), false ); ?> value="1">
                   <div>

@@ -216,6 +216,8 @@ if ( ! defined( 'CHILD_ALLOWED_PAGE_TEMPLATES' ) ) {
 // No restriction can be applied to administrators
 if ( ! current_user_can( 'manage_options' ) ) {
 
+  // === FCN_ADMINBAR_ACCESS ===================================================
+
   /**
    * Admin bar
    */
@@ -223,6 +225,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
     add_filter( 'show_admin_bar', '__return_false', 9999 );
   }
+
+  // === FCN_ADMIN_PANEL_ACCESS ================================================
 
   /**
    * Prevent access to the admin panel
@@ -244,6 +248,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
     add_filter( 'init', 'fictioneer_restrict_admin_panel', 9999 );
   }
+
+  // === FCN_DASHBOARD_ACCESS ==================================================
 
   /**
    * Remove admin dashboard widgets
@@ -312,6 +318,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'admin_init', 'fictioneer_skip_dashboard', 9999 );
   }
 
+  // === FCN_SELECT_PAGE_TEMPLATE ==============================================
+
   /**
    * Filters the page template selection
    *
@@ -353,6 +361,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'save_post', 'fictioneer_restrict_page_templates', 9999 );
     add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 9999 );
   }
+
+  // === MODERATE_COMMENTS =====================================================
 
   /**
    * Remove comment item from admin bar
@@ -417,6 +427,47 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column', 9999 );
   }
 
+  // === MANAGE_OPTIONS ========================================================
+
+  /**
+   * Reduce admin panel
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_reduce_admin_panel() {
+    // Remove menu pages
+    remove_menu_page( 'tools.php' );
+    remove_menu_page( 'plugins.php' );
+    remove_menu_page( 'themes.php' );
+  }
+
+  /**
+   * Restrict menu access for non-administrators
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_restrict_admin_only_pages() {
+    // Setup
+    $screen = get_current_screen();
+
+    // No access for non-administrators...
+    if (
+      in_array(
+        $screen->id,
+        ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'options-general']
+      )
+    ) {
+      wp_die( __( 'Access denied.', 'fictioneer' ) );
+    }
+  }
+
+  if ( ! current_user_can( 'manage_options' ) ) {
+    add_action( 'admin_menu', 'fictioneer_reduce_admin_panel', 9999 );
+    add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages', 9999 );
+  }
+
   // === UPDATE_CORE ===========================================================
 
   /**
@@ -430,301 +481,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'update_core' ) ) {
-    add_action( 'admin_head', 'fictioneer_remove_update_notice' );
+    add_action( 'admin_head', 'fictioneer_remove_update_notice', 9999 );
   }
 
 }
 
 
 
-
-
-
-
-
-
-// =============================================================================
-// ROLE CUSTOMIZATION ACTIONS
-// =============================================================================
-
-// See ./includes/functions/_admin.php
-
-// =============================================================================
-// RESTRICT FICTIONEER MODERATOR ROLE
-// =============================================================================
-
-/**
- * Remove admin menu pages for moderators
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reduce_moderator_admin_panel() {
-  // Remove menu pages
-  remove_menu_page( 'edit.php' );
-  remove_menu_page( 'tools.php' );
-  remove_menu_page( 'plugins.php' );
-  remove_menu_page( 'themes.php' );
-}
-
-/**
- * Remove admin dashboard widgets for moderators
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
- */
-
-function fictioneer_reduce_moderator_dashboard_widgets() {
-  global $wp_meta_boxes;
-
-  // Keep
-  $activity = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'];
-
-  // Remove all
-  $wp_meta_boxes['dashboard']['normal']['core'] = [];
-  $wp_meta_boxes['dashboard']['side']['core'] = [];
-
-  // Re-add kept widgets
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] = $activity;
-
-  // Remove actions
-  remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-
-/**
- * Remove items from admin bar for moderators
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reduce_moderator_admin_bar() {
-  global $wp_admin_bar;
-
-  // Remove all [+New] items
-  $wp_admin_bar->remove_node( 'new-content' );
-}
-
-/**
- * Restrict access to admin pages/actions for moderators
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_restrict_moderator_menu_access() {
-  // Setup
-  $screen = get_current_screen();
-
-  // Block access
-  if (
-    in_array(
-      $screen->id,
-      ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'users', 'user-new', 'options-general', 'post-new']
-    ) ||
-    ! empty( $screen->post_type )
-  ) {
-    wp_die( __( 'Access denied.', 'fictioneer' ) );
-  }
-}
-
-// Apply restrictions to fcn_moderators
-if (
-  fictioneer_has_role( get_current_user_id(), 'fcn_moderator' ) &&
-  ! user_can( get_current_user_id(), 'administrator' )
-) {
-  // add_action( 'admin_menu', 'fictioneer_reduce_moderator_admin_panel' );
-  // add_action( 'current_screen', 'fictioneer_restrict_moderator_menu_access' );
-  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_moderator_dashboard_widgets' );
-  // add_action( 'admin_bar_menu', 'fictioneer_reduce_moderator_admin_bar', 999 );
-}
-
-// =============================================================================
-// RESTRICT EDITOR ROLE
-// =============================================================================
-
-/**
- * Restrict access to admin pages/actions for editors
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_restrict_editor_menu_access() {
-  // Setup
-  $screen = get_current_screen();
-
-  // Block access
-  if (
-    in_array(
-      $screen->id,
-      ['tools', 'export', 'import', 'site-health', 'export-personal-data', 'erase-personal-data', 'themes', 'customize', 'nav-menus', 'theme-editor', 'users', 'user-new', 'options-general', 'comment']
-    )
-  ) {
-    wp_die( __( 'Access denied.', 'fictioneer' ) );
-  }
-}
-
-/**
- * Remove admin dashboard widgets for editors
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
- */
-
-function fictioneer_reduce_editor_dashboard_widgets() {
-  global $wp_meta_boxes;
-
-  // Keep
-  $right_now = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'];
-  $activity = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'];
-
-  // Remove all
-  $wp_meta_boxes['dashboard']['normal']['core'] = [];
-  $wp_meta_boxes['dashboard']['side']['core'] = [];
-
-  // Re-add kept widgets
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'] = $right_now;
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] = $activity;
-
-  // Remove actions
-  remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-
-/**
- * Hide comments utilities in admin dashboard for editors
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_hide_editor_comments_utilities() {
-  wp_add_inline_script(
-    'fictioneer-admin-script',
-    "jQuery(function($) {
-      $('.dashboard-comment-wrap > .row-actions').remove();
-      $('#latest-comments > .subsubsub').remove();
-      $('#dashboard_right_now .comment-count').remove();
-    });"
-  );
-}
-
-// Apply restrictions to editors
-if (
-  fictioneer_has_role( get_current_user_id(), 'editor' ) &&
-  ! user_can( get_current_user_id(), 'administrator' )
-) {
-  // add_action( 'current_screen', 'fictioneer_restrict_editor_menu_access' );
-  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_editor_dashboard_widgets' );
-  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_editor_comments_utilities', 99 );
-}
-
-// =============================================================================
-// RESTRICT CONTRIBUTOR ROLE
-// =============================================================================
-
-/**
- * Remove admin dashboard widgets for contributors
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
- */
-
-function fictioneer_reduce_contributor_dashboard_widgets() {
-  global $wp_meta_boxes;
-
-  // Keep
-  $right_now = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'];
-  $activity = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'];
-
-  // Remove all
-  $wp_meta_boxes['dashboard']['normal']['core'] = [];
-  $wp_meta_boxes['dashboard']['side']['core'] = [];
-
-  // Re-add kept widgets
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'] = $right_now;
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] = $activity;
-
-  // Remove actions
-  remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-
-/**
- * Hide comments utilities in admin dashboard for contributors
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_hide_contributor_comments_utilities() {
-  wp_add_inline_script(
-    'fictioneer-admin-script',
-    "jQuery(function($) {
-      $('.dashboard-comment-wrap > .row-actions').remove();
-      $('#latest-comments > .subsubsub').remove();
-      $('#dashboard_right_now .comment-count').remove();
-    });"
-  );
-}
-
-// Apply restrictions to editors
-if (
-  fictioneer_has_role( get_current_user_id(), 'contributor' ) &&
-  ! user_can( get_current_user_id(), 'administrator' )
-) {
-  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_contributor_dashboard_widgets' );
-  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_contributor_comments_utilities', 99 );
-}
-
-// =============================================================================
-// RESTRICT AUTHOR ROLE
-// =============================================================================
-
-/**
- * Remove admin dashboard widgets for authors
- *
- * @since Fictioneer 5.5.0
- * @link https://developer.wordpress.org/apis/handbook/dashboard-widgets/
- */
-
-function fictioneer_reduce_author_dashboard_widgets() {
-  global $wp_meta_boxes;
-
-  // Keep
-  $right_now = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'];
-  $activity = $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'];
-
-  // Remove all
-  $wp_meta_boxes['dashboard']['normal']['core'] = [];
-  $wp_meta_boxes['dashboard']['side']['core'] = [];
-
-  // Re-add kept widgets
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now'] = $right_now;
-  $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] = $activity;
-
-  // Remove actions
-  remove_action( 'welcome_panel', 'wp_welcome_panel' );
-}
-
-/**
- * Hide comments utilities in admin dashboard for authors
- *
- * @since Fictioneer 5.5.0
- */
-
-function fictioneer_hide_author_comments_utilities() {
-  wp_add_inline_script(
-    'fictioneer-admin-script',
-    "jQuery(function($) {
-      $('.dashboard-comment-wrap > .row-actions').remove();
-      $('#latest-comments > .subsubsub').remove();
-      $('#dashboard_right_now .comment-count').remove();
-    });"
-  );
-}
-
-// Apply restrictions to authors
-if (
-  fictioneer_has_role( get_current_user_id(), 'author' ) &&
-  ! user_can( get_current_user_id(), 'administrator' )
-) {
-  // add_action( 'wp_dashboard_setup', 'fictioneer_reduce_author_dashboard_widgets' );
-  // add_action( 'admin_enqueue_scripts', 'fictioneer_hide_author_comments_utilities', 99 );
-}
 
 ?>
