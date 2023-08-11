@@ -538,7 +538,39 @@ if ( ! current_user_can( 'manage_options' ) ) {
       $query->set( 'author', get_current_user_id() );
     }
   }
-  add_filter( 'pre_get_posts', 'fictioneer_limit_user_fiction_queries' );
+  add_filter( 'pre_get_posts', 'fictioneer_limit_user_fiction_queries', 9999 );
+
+  // === EDIT_READ_OTHERS_FILES ================================================
+
+  /**
+   * Prevent users from seeing uploaded files of others
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param WP_Query $query  The queried attachments.
+   */
+
+  function fictioneer_read_others_files( $query ) {
+    global $current_user, $pagenow;
+
+    // Only affect media library on admin side
+    if(
+      'admin-ajax.php' != $pagenow ||
+      $_REQUEST['action'] != 'query-attachments'
+    ) {
+      return;
+    }
+
+    // Limit to author (uploader)
+    $query->set( 'author', $current_user->ID );
+  }
+
+  if ( ! current_user_can( 'fcn_read_others_files' ) ) {
+    add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
+  }
+
+
+
 
 }
 

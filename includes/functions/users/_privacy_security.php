@@ -112,32 +112,6 @@ if ( get_option( 'fictioneer_admin_restrict_private_data' ) && ! current_user_ca
 // =============================================================================
 
 /**
- * Scope media files visibility to the uploader
- *
- * @since Fictioneer 5.5.3
- *
- * @param WP_Query $query  The queried attachments.
- */
-
-function fictioneer_scope_media_to_uploader( $query ) {
-  global $current_user, $pagenow;
-
-  if ( empty( $current_user ) ) {
-    return;
-  }
-
-  // Only affect media library on admin side
-  if( 'admin-ajax.php' != $pagenow || $_REQUEST['action'] != 'query-attachments' ) {
-    return;
-  }
-
-  // Those who can edit posts of others, can also see their files
-  if ( ! current_user_can( 'edit_others_posts' ) ) {
-    $query->set( 'author', $current_user->ID );
-  }
-}
-
-/**
  * Restrict edit and delete capabilities of media files
  *
  * @since Fictioneer 5.5.3
@@ -180,7 +154,6 @@ function fictioneer_restrict_media_edit_delete( $caps, $cap, $user_id, $args ) {
 
 if ( get_option( 'fictioneer_restrict_media_access' ) ) {
   add_filter( 'map_meta_cap', 'fictioneer_restrict_media_edit_delete', 10, 4 );
-  add_action( 'pre_get_posts', 'fictioneer_scope_media_to_uploader' );
 }
 
 ?>
