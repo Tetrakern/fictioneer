@@ -304,22 +304,6 @@ if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
   add_filter( 'allowed_block_types_all', 'fictioneer_allowed_block_types' );
 }
 
-// =============================================================================
-// HIDE UPDATE NOTICE FOR NON-ADMINS
-// =============================================================================
-
-/**
- * Hide update notice for non-admins
- *
- * @since Fictioneer 5.5.3
- */
-
-function fictioneer_limit_update_notice(){
-  if ( ! current_user_can( 'manage_options' ) ) {
-    remove_action( 'admin_notices', 'update_nag', 3 );
-  }
-}
-add_action( 'admin_head', 'fictioneer_limit_update_notice' );
 
 // =============================================================================
 // REDUCE SUBSCRIBER ADMIN PROFILE

@@ -417,6 +417,22 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column', 9999 );
   }
 
+  // === UPDATE_CORE ===========================================================
+
+  /**
+   * Remove update notice
+   *
+   * @since Fictioneer 5.6.0
+   */
+
+  function fictioneer_remove_update_notice(){
+    remove_action( 'admin_notices', 'update_nag', 3 );
+  }
+
+  if ( ! current_user_can( 'update_core' ) ) {
+    add_action( 'admin_head', 'fictioneer_remove_update_notice' );
+  }
+
 }
 
 
