@@ -290,10 +290,7 @@ function fictioneer_allowed_block_types() {
     'jetpack/payment-buttons'
   );
 
-  if (
-    ! get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ||
-    current_user_can( 'administrator' )
-  ) {
+  if ( current_user_can( 'fcn_shortcodes' ) || current_user_can( 'manage_options' ) ) {
     $allowed[] = 'core/shortcode';
   }
 
@@ -303,7 +300,6 @@ function fictioneer_allowed_block_types() {
 if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
   add_filter( 'allowed_block_types_all', 'fictioneer_allowed_block_types' );
 }
-
 
 // =============================================================================
 // REDUCE SUBSCRIBER ADMIN PROFILE

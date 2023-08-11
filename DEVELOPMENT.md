@@ -266,7 +266,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `comment_row_actions` | `fictioneer_remove_quick_edit`
 | `comment_text` | `fictioneer_bbcodes`
-| `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
+| `content_save_pre` | `fictioneer_strip_shortcodes`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
 | `excerpt_more` | `fictioneer_excerpt_ellipsis`
 | `get_avatar` | `fictioneer_avatar_fallback`

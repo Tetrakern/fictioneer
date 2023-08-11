@@ -629,13 +629,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Limit chapter stories by author', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_strip_shortcodes_for_non_administrators' => array(
-      'name' => 'fictioneer_strip_shortcodes_for_non_administrators',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Disable shortcodes for non-administrators', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_disable_all_widgets' => array(
       'name' => 'fictioneer_disable_all_widgets',
 			'group' => 'fictioneer-settings-general-group',

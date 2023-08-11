@@ -982,27 +982,7 @@ add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 1
 // STRIP SHORTCODES FROM NON-ADMIN POSTS
 // =============================================================================
 
-/**
- * Strip shortcodes for non-admins
- *
- * @since Fictioneer 5.4.9
- *
- * @param string $content  The content to be saved.
- *
- * @return string The cleaned content.
- */
 
-function fictioneer_strip_shortcodes_for_non_administrators( $content ) {
-  if ( ! current_user_can( 'administrator' ) ) {
-    $content = strip_shortcodes( $content );
-  }
-
-  return $content;
-}
-
-if ( get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ) {
-  add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes_for_non_administrators' );
-}
 
 // =============================================================================
 // DISABLE WIDGETS

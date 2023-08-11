@@ -484,9 +484,26 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'admin_head', 'fictioneer_remove_update_notice', 9999 );
   }
 
+  // === FCN_SHORTCODES ========================================================
+
+  /**
+   * Strip shortcodes before saving
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param string $content  The content to be saved.
+   *
+   * @return string The cleaned content.
+   */
+
+  function fictioneer_strip_shortcodes( $content ) {
+    return strip_shortcodes( $content );
+  }
+
+  if ( ! current_user_can( 'fcn_shortcodes' ) ) {
+    add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes', 9999 );
+  }
+
 }
-
-
-
 
 ?>
