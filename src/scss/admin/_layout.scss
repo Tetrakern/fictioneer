@@ -1,7 +1,45 @@
 & {
-  .single-columns-layout {
-    display: grid;
+  .sidebar-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: var(--32bp);
+
+    @include bp(768px) {
+      flex-direction: row;
+    }
+
+    &__side {
+      flex-shrink: 0;
+      margin: 0;
+
+      li {
+        user-select: none;
+        cursor: pointer;
+        display: grid;
+        place-content: center;
+        background: white;
+        color: var(--text-700);
+        font-size: var(--fs-xs);
+        line-height: 1;
+        padding: 0 16px;
+        border-radius: var(--large-border-radius);
+        height: 32px;
+
+        &:not(.current):hover {
+          background: var(--bg-300);
+        }
+      }
+
+      .current {
+        background: var(--bg-900);
+        color: var(--text-50);
+      }
+    }
+
+    &__content {
+      flex-grow: 1;
+    }
   }
 
   .columns-layout {

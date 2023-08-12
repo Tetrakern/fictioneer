@@ -102,11 +102,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-fix-collections' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-pages' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-posts' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
-      'fictioneer-updated-editor-caps' => __( 'Editor capabilities have been updated.', 'fictioneer' ),
-      'fictioneer-updated-author-caps' => __( 'Author capabilities have been updated.', 'fictioneer' ),
-      'fictioneer-updated-contributor-caps' => __( 'Contributor capabilities have been updated.', 'fictioneer' ),
-      'fictioneer-updated-fcn_moderator-caps' => __( 'Moderator capabilities have been updated.', 'fictioneer' ),
-      'fictioneer-updated-subscriber-caps' => __( 'Subscriber capabilities have been updated.', 'fictioneer' )
+      'fictioneer-updated-role-caps' => __( 'Role capabilities have been updated.', 'fictioneer' )
 		)
 	);
 }
@@ -727,9 +723,10 @@ function fictioneer_roles_update_role() {
   $role_name = $_POST['role'] ?? '';
   $role = get_role( $role_name );
 
-  // Role?
+  // Role not found?
   if ( empty( $role ) ) {
-    fictioneer_finish_tool_action( '', 'failure' );
+    wp_safe_redirect( add_query_arg( array( 'fictioneer-role' => $role_name ), wp_get_referer() ) );
+    exit();
   }
 
   // Update capabilities
@@ -741,10 +738,18 @@ function fictioneer_roles_update_role() {
     }
   }
 
-  // var_dump( ( $_POST['caps'] ?? [] ) );
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => "fictioneer-updated-role-caps",
+        'fictioneer-role' => $role_name
+      ),
+      wp_get_referer()
+    )
+  );
 
-  // Return
-  fictioneer_finish_tool_action( "fictioneer-updated-{$role_name}-caps" );
+  exit();
 }
 add_action( 'admin_post_fictioneer_roles_update_role', 'fictioneer_roles_update_role' );
 

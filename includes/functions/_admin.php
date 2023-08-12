@@ -192,6 +192,7 @@ function fictioneer_removable_args( $args ) {
   $args[] = 'failure';
   $args[] = 'fictioneer_nonce';
   $args[] = 'fictioneer-notice';
+  $args[] = 'fictioneer-role';
   return $args;
 }
 add_filter( 'removable_query_args', 'fictioneer_removable_args' );

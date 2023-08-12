@@ -16,7 +16,10 @@ $roles = wp_roles()->roles;
 // Remove administrators (do not touch them!)
 unset( $roles['administrator'] );
 
-function fictioneer_role_card( $role ) {
+// Current selection
+$selected_role = ( $_GET['fictioneer-role'] ?? 0 ) ?: array_keys( $roles )[0];
+
+function fictioneer_role_card( $role, $selected_role ) {
   // Setup
   $admin_nonce = wp_nonce_field( 'fictioneer_roles_update_role', 'fictioneer_nonce', true, false );
 
@@ -136,11 +139,21 @@ function fictioneer_role_card( $role ) {
   );
 
   // Start HTML ---> ?>
-  <div class="card">
-    <div class="card-wrapper">
-      <h3 class="card-header"><?php echo $role['name']; ?></h3>
-      <div class="card-content">
-        <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
+  <form
+    method="post"
+    class="<?php echo $selected_role == $role['type'] ? '' : 'hidden'; ?>"
+    action="<?php echo admin_url( 'admin-post.php' ); ?>"
+    data-sidebar-target="<?php echo $role['type']; ?>"
+  >
+
+    <input type="hidden" name="action" value="fictioneer_roles_update_role">
+    <input type="hidden" name="role" value="<?php echo $role['type']; ?>">
+    <?php echo $admin_nonce; ?>
+
+    <div class="card">
+      <div class="card-wrapper">
+        <h3 class="card-header"><?php echo $role['name']; ?></h3>
+        <div class="card-content">
           <input type="hidden" name="action" value="fictioneer_roles_update_role">
           <input type="hidden" name="role" value="<?php echo $role['type']; ?>">
           <?php echo $admin_nonce; ?>
@@ -257,18 +270,17 @@ function fictioneer_role_card( $role ) {
             ?>
           </div>
 
-          <hr>
-
-          <div class="row flex wrap gap-6">
-            <button type="submit" class="button button--secondary">
-              <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $role['name'] ); ?>
-            </button>
-          </div>
-
-        </form>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="flex wrap" style="margin-top: var(--32bp);">
+      <button type="submit" class="button button--secondary">
+        <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $role['name'] ); ?>
+      </button>
+    </div>
+
+  </form>
   <?php // <--- End HTML
 }
 
@@ -290,15 +302,27 @@ function fictioneer_capability_checkbox( $cap, $name, $set = false ) {
 
 	<div class="fictioneer-settings__content">
     <div class="tab-content">
-      <div class="single-columns-layout">
-        <?php
+      <div class="sidebar-layout">
 
-          foreach ( $roles as $key => $role ) {
-            $role['type'] = $key;
-            fictioneer_role_card( $role );
-          }
+        <ul class="sidebar-layout__side">
+          <?php
+            foreach ( $roles as $key => $role ) {
+              $role['type'] = $key;
+              $class = $selected_role == $key ? 'class="current"' : '';
+              echo '<li ' . $class . ' data-sidebar-click="' . $key . '">' . $role['name'] . '</li>';
+            }
+          ?>
+        </ul>
 
-        ?>
+        <div class="sidebar-layout__content">
+          <?php
+            foreach ( $roles as $key => $role ) {
+              $role['type'] = $key;
+              fictioneer_role_card( $role, $selected_role );
+            }
+          ?>
+        </div>
+
       </div>
     </div>
   </div>

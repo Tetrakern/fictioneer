@@ -432,3 +432,32 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
       break;
   }
 });
+
+// =============================================================================
+// SIDEBAR LAYOUT
+// =============================================================================
+
+_$('.fictioneer-settings')?.addEventListener('click', event => {
+  const clickTarget = event.target.closest('[data-sidebar-click]');
+
+  if (!clickTarget) {
+    return;
+  }
+
+  const target = _$(`[data-sidebar-target="${clickTarget.dataset.sidebarClick}"]`);
+
+  if (!target) {
+    return;
+  }
+
+  _$$('[data-sidebar-target]').forEach(element => {
+    element.classList.add('hidden');
+  });
+
+  _$$('[data-sidebar-click]').forEach(element => {
+    element.classList.remove('current');
+  });
+
+  target.classList.remove('hidden');
+  clickTarget.classList.add('current');
+});

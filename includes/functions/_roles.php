@@ -60,8 +60,6 @@ function fictioneer_initialize_roles() {
   if ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ) {
     fictioneer_setup_roles();
   }
-
-  fictioneer_setup_roles();
 }
 add_action( 'init', 'fictioneer_initialize_roles' );
 
