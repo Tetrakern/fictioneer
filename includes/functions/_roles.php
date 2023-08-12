@@ -312,14 +312,19 @@ function fictioneer_add_moderator_role() {
   );
 
   if ( $moderator ) {
+    $caps = array_keys( $caps );
     $moderator->remove_cap( 'fcn_reduced_profile' );
     $moderator->remove_cap( 'fcn_allow_self_delete' );
 
     foreach ( $caps as $cap ) {
       $moderator->add_cap( $cap );
     }
+
+    // Already exists
+    return null;
   }
 
+  // Add
 	return add_role(
     'fcn_moderator',
     __( 'Moderator', 'fictioneer' ),
