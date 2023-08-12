@@ -101,7 +101,12 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-fix-recommendations' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-collections' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-pages' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
-      'fictioneer-fix-posts' => __( 'This function does currently not cover any issues.', 'fictioneer' )
+      'fictioneer-fix-posts' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
+      'fictioneer-updated-editor-caps' => __( 'Editor capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-author-caps' => __( 'Author capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-contributor-caps' => __( 'Contributor capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-fcn_moderator-caps' => __( 'Moderator capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-subscriber-caps' => __( 'Subscriber capabilities have been updated.', 'fictioneer' )
 		)
 	);
 }
@@ -703,5 +708,44 @@ function fictioneer_tools_fix_recommendations() {
   fictioneer_finish_tool_action( 'fictioneer-fix-recommendations' );
 }
 add_action( 'admin_post_fictioneer_fix_recommendations', 'fictioneer_tools_fix_recommendations' );
+
+// =============================================================================
+// UPDATE ROLE
+// =============================================================================
+
+/**
+ * Update role
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_roles_update_role() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_roles_update_role' );
+
+  // Setup
+  $role_name = $_POST['role'] ?? '';
+  $role = get_role( $role_name );
+
+  // Role?
+  if ( empty( $role ) ) {
+    fictioneer_finish_tool_action( '', 'failure' );
+  }
+
+  // Update capabilities
+  foreach ( ( $_POST['caps'] ?? [] ) as $cap => $val ) {
+    if ( empty( $val ) ) {
+      $role->remove_cap( $cap );
+    } else {
+      $role->add_cap( $cap );
+    }
+  }
+
+  // var_dump( ( $_POST['caps'] ?? [] ) );
+
+  // Return
+  fictioneer_finish_tool_action( "fictioneer-updated-{$role_name}-caps" );
+}
+add_action( 'admin_post_fictioneer_roles_update_role', 'fictioneer_roles_update_role' );
 
 ?>

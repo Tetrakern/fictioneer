@@ -1,4 +1,9 @@
 & {
+  .single-columns-layout {
+    display: grid;
+    gap: var(--32bp);
+  }
+
   .columns-layout {
     --max-width-offset: var(--32bp);
     column-gap: var(--32bp);
@@ -94,5 +99,11 @@
     &:not(:last-child) {
       margin-bottom: var(--16bp);
     }
+  }
+
+  .toggle-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }

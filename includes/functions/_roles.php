@@ -46,6 +46,7 @@ add_action( 'init', 'fictioneer_initialize_roles' );
 function fictioneer_setup_roles() {
   // Capabilities
   $legacy_removal = ['delete_pages', 'delete_published_pages', 'edit_pages', 'edit_published_pages', 'publish_pages'];
+
   $all = array_merge(
     FICTIONEER_BASE_CAPABILITIES,
     FICTIONEER_STORY_CAPABILITIES,

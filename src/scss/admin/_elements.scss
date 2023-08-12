@@ -425,4 +425,24 @@
       }
     }
   }
+
+  .capability-checkbox {
+    &__input {
+      display: none;
+
+      &:checked + .capability-checkbox__name {
+        color: var(--text-50);
+        background: var(--bg-600);
+      }
+    }
+
+    &__name {
+      background: var(--bg-300);
+      font-size: var(--fs-xxs);
+      line-height: 1.4;
+      padding: 4px 6px;
+      border-radius: 2px;
+      width: fit-content;
+    }
+  }
 }
