@@ -340,6 +340,10 @@ function fictioneer_admin_capability_card( $title, $caps, $role ) {
 							$name = str_replace( 'fcn ', '', $name );
 							$name = ucwords( $name );
 
+							// Special cases
+							$name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
+							$name = str_replace( 'Recommendations', 'Recommend.', $name );
+
 							fictioneer_capability_checkbox( $cap, $name, $set );
 						}
 					?>
