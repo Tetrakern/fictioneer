@@ -19,7 +19,8 @@ define(
     'fcn_simple_comment_html',
     'fcn_custom_page_css',
     'fcn_custom_epub_css',
-    'fcn_seo_meta'
+    'fcn_seo_meta',
+    'fcn_make_sticky'
 	)
 );
 
@@ -118,6 +119,7 @@ function fictioneer_setup_roles() {
       'fcn_adminbar_access',
       'fcn_dashboard_access',
       'fcn_seo_meta',
+      'fcn_make_sticky',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore
@@ -686,7 +688,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     // Remove fields from the fields array
     foreach ( $fields as $key => &$field ) {
       if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[$key] );
+        unset( $fields[ $key ] );
       }
     }
 
@@ -994,7 +996,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     // Remove fields from the fields array
     foreach ( $fields as $key => &$field ) {
       if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[$key] );
+        unset( $fields[ $key ] );
       }
     }
 
@@ -1027,7 +1029,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     // Remove fields from the fields array
     foreach ( $fields as $key => &$field ) {
       if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[$key] );
+        unset( $fields[ $key ] );
       }
     }
 
@@ -1038,6 +1040,38 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_epub_custom_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_input', 9999 );
+  }
+
+  // === FCN_MAKE_STICKY =======================================================
+
+  /**
+   * Removes the custom ePUB CSS input field
+   *
+   * @since 5.6.0
+   *
+   * @param array $fields  An array of fields to be rendered.
+   *
+   * @return array The modified array.
+   */
+
+  function fictioneer_remove_make_sticky_input( $fields ) {
+    // Fields to remove
+    $field_keys = ['field_619a91f85da9d']; // fictioneer_story_sticky
+
+    // Remove fields from the fields array
+    foreach ( $fields as $key => &$field ) {
+      if ( in_array( $field['key'], $field_keys ) ) {
+        unset( $fields[ $key ] );
+      }
+    }
+
+    // Return modified fields array
+    return $fields;
+  }
+
+  if ( ! current_user_can( 'fcn_make_sticky' ) ) {
+    add_filter( 'acf/update_value/name=fictioneer_story_sticky', 'fictioneer_acf_prevent_value_update', 9999, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_make_sticky_input', 9999 );
   }
 }
 
