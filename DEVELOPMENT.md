@@ -234,7 +234,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
-| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`, `fictioneer_read_others_files`
+| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`, `fictioneer_read_others_files`, `fictioneer_read_others_files_list_view`
 | `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_cache_transients`, `fictioneer_restrict_page_templates`
 | `show_user_profile` | `fictioneer_custom_profile_fields`
 | `switch_theme` | `fictioneer_theme_deactivation`

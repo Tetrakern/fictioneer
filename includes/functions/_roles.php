@@ -798,8 +798,32 @@ if ( ! current_user_can( 'manage_options' ) ) {
     $query->set( 'author', $current_user->ID );
   }
 
+  /**
+   * Prevent users from seeing uploaded files of others in the list view
+   *
+   * @since Fictioneer 5.6.0
+   *
+   * @param WP_Query $wp_query  The current WP_Query.
+   */
+
+  function fictioneer_read_others_files_list_view( $wp_query ) {
+    $screen = get_current_screen();
+
+    if (
+      is_admin() &&
+      $wp_query->is_main_query() &&
+      $wp_query->query['post_type'] === 'attachment' &&
+      $screen && $screen->base == 'upload' &&
+      $screen->id == 'upload' &&
+      $screen->post_type == 'attachment'
+    ) {
+      $wp_query->set( 'author', get_current_user_id() );
+    }
+  }
+
   if ( ! current_user_can( 'fcn_read_others_files' ) ) {
     add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
+    add_action( 'pre_get_posts', 'fictioneer_read_others_files_list_view', 9999 );
   }
 
   // === FCN_EDIT_OTHERS_FILES =================================================
