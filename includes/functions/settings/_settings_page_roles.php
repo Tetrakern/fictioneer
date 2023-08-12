@@ -160,7 +160,7 @@ $recommendation_caps = array(
 $all_caps = array(
   [ __( 'Editor Capabilities', 'fictioneer' ), $editor_caps ],
   [ __( 'Restricted Capabilities', 'fictioneer' ), $restrictions ],
-  [ __( 'Admin Capabilities', 'fictioneer' ), $admin_caps ],
+  [ __( 'Admin Panel Capabilities', 'fictioneer' ), $admin_caps ],
   [ __( 'Taxonomy Capabilities', 'fictioneer' ), $taxonomy_caps ],
   [ __( 'Post Capabilities', 'fictioneer' ), $post_caps ],
   [ __( 'Page Capabilities', 'fictioneer' ), $page_caps ],
