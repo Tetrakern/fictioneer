@@ -437,16 +437,16 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 // SIDEBAR LAYOUT
 // =============================================================================
 
-_$('.fictioneer-settings')?.addEventListener('click', event => {
+_$('.fictioneer-settings .sub-navigation')?.addEventListener('click', event => {
   const clickTarget = event.target.closest('[data-sidebar-click]');
 
   if (!clickTarget) {
     return;
   }
 
-  const target = _$(`[data-sidebar-target="${clickTarget.dataset.sidebarClick}"]`);
+  const navTarget = _$(`[data-sidebar-target="${clickTarget.dataset.sidebarClick}"]`);
 
-  if (!target) {
+  if (!navTarget) {
     return;
   }
 
@@ -455,9 +455,9 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
   });
 
   _$$('[data-sidebar-click]').forEach(element => {
-    element.classList.remove('current');
+    element.classList.remove('active');
   });
 
-  target.classList.remove('hidden');
-  clickTarget.classList.add('current');
+  navTarget.classList.remove('hidden');
+  clickTarget.classList.add('active');
 });

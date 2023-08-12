@@ -327,6 +327,7 @@
     gap: var(--8bp);
 
     .tab {
+      cursor: pointer;
       display: grid;
       place-content: center;
       color: var(--text-50);
@@ -334,6 +335,7 @@
       line-height: 1;
       text-decoration: none;
       padding: 0 16px;
+      margin: 0;
       border-radius: var(--large-border-radius);
       height: 32px;
       opacity: .7;

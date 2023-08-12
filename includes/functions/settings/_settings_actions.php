@@ -102,7 +102,12 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-fix-collections' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-pages' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-posts' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
-      'fictioneer-updated-role-caps' => __( 'Role capabilities have been updated.', 'fictioneer' )
+      'fictioneer-updated-role-caps' => __( 'Role capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-editor-caps' => __( 'Editor capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-moderator-caps' => __( 'Moderator capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-author-caps' => __( 'Author capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-contributor-caps' => __( 'Contributor capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-updated-subscriber-caps' => __( 'Subscriber capabilities have been updated.', 'fictioneer' )
 		)
 	);
 }
@@ -722,10 +727,11 @@ function fictioneer_roles_update_role() {
   // Setup
   $role_name = $_POST['role'] ?? '';
   $role = get_role( $role_name );
+  $notice = 'fictioneer-updated-role-caps';
 
   // Role not found?
   if ( empty( $role ) ) {
-    wp_safe_redirect( add_query_arg( array( 'fictioneer-role' => $role_name ), wp_get_referer() ) );
+    wp_safe_redirect( add_query_arg( array( 'fictioneer-subnav' => $role_name ), wp_get_referer() ) );
     exit();
   }
 
@@ -738,15 +744,13 @@ function fictioneer_roles_update_role() {
     }
   }
 
+  if ( in_array( $role_name, ['editor', 'moderator', 'author', 'contributor', 'subscriber'] ) ) {
+    $notice = "fictioneer-updated-{$role_name}-caps";
+  }
+
   // Redirect
   wp_safe_redirect(
-    add_query_arg(
-      array(
-        'success' => "fictioneer-updated-role-caps",
-        'fictioneer-role' => $role_name
-      ),
-      wp_get_referer()
-    )
+    add_query_arg( array( 'success' => $notice, 'fictioneer-subnav' => $role_name ), wp_get_referer() )
   );
 
   exit();
