@@ -327,4 +327,27 @@ if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
   add_action( 'acf/save_post', 'fictioneer_acf_append_chapter_to_story', 10 );
 }
 
+// =============================================================================
+// PREVENT ACF FIELD FROM BEING SAVED
+// =============================================================================
+
+/**
+ * Prevents updating the value of an ACF field
+ *
+ * When an attempt is made to update an ACF field, this function returns the
+ * current value of the field, effectively discarding the new one.
+ *
+ * @since 5.6.0
+ *
+ * @param mixed $value    The new value to be saved,
+ * @param int   $post_id  The post ID.
+ * @param array $field    The ACF field settings array.
+ *
+ * @return mixed The current value of the ACF field.
+ */
+
+function fictioneer_acf_prevent_value_update( $value, $post_id, $field ) {
+  return get_field( $field['name'], $post_id );
+}
+
 ?>

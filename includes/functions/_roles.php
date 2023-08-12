@@ -668,6 +668,37 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages', 9999 );
   }
 
+  /**
+   * Removes search and filter ID input field
+   *
+   * @since 5.6.0
+   *
+   * @param array $fields  An array of fields to be rendered.
+   *
+   * @return array The modified array.
+   */
+
+
+  function fictioneer_remove_filter_search_id_input( $fields ) {
+    // Fields to remove
+    $field_keys = ['field_60040fa3bc4f1']; // fictioneer_filter_and_search_id
+
+    // Remove fields from the fields array
+    foreach ( $fields as $key => &$field ) {
+      if ( in_array( $field['key'], $field_keys ) ) {
+        unset( $fields[$key] );
+      }
+    }
+
+    // Return modified fields array
+    return $fields;
+  }
+
+  if ( ! current_user_can( 'manage_options' ) ) {
+    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 9999, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_filter_search_id_input', 9999 );
+  }
+
   // === UPDATE_CORE ===========================================================
 
   /**
@@ -943,9 +974,22 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   // === FCN_CUSTOM_PAGE_CSS ===================================================
 
+  /**
+   * Removes custom page/story CSS input fields
+   *
+   * @since 5.6.0
+   *
+   * @param array $fields  An array of fields to be rendered.
+   *
+   * @return array The modified array.
+   */
+
   function fictioneer_remove_custom_page_css_inputs( $fields ) {
     // Fields to remove
-    $field_keys = ['field_636d81d34cab1', 'field_621b5610818d2'];
+    $field_keys = array(
+      'field_636d81d34cab1', // fictioneer_story_css
+      'field_621b5610818d2' // fictioneer_custom_css
+    );
 
     // Remove fields from the fields array
     foreach ( $fields as $key => &$field ) {
@@ -959,14 +1003,26 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
+    add_filter( 'acf/update_value/name=fictioneer_story_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
+    add_filter( 'acf/update_value/name=fictioneer_custom_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs', 9999 );
   }
 
   // === FCN_CUSTOM_EPUB_CSS ===================================================
 
-  function fictioneer_remove_custom_epub_css_inputs( $fields ) {
+  /**
+   * Removes the custom ePUB CSS input field
+   *
+   * @since 5.6.0
+   *
+   * @param array $fields  An array of fields to be rendered.
+   *
+   * @return array The modified array.
+   */
+
+  function fictioneer_remove_custom_epub_css_input( $fields ) {
     // Fields to remove
-    $field_keys = ['field_60edba4ff33f8'];
+    $field_keys = ['field_60edba4ff33f8']; // fictioneer_story_epub_custom_css
 
     // Remove fields from the fields array
     foreach ( $fields as $key => &$field ) {
@@ -980,7 +1036,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_inputs', 9999 );
+    add_filter( 'acf/update_value/name=fictioneer_story_epub_custom_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_input', 9999 );
   }
 }
 
