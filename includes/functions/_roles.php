@@ -20,6 +20,32 @@ define(
 	)
 );
 
+define(
+	'FICTIONEER_TAXONOMY_CAPABILITIES',
+	array(
+    // Genres
+    'manage_fcn_genres',
+    'edit_fcn_genres',
+    'delete_fcn_genres',
+    'assign_fcn_genres',
+    // Fandoms
+    'manage_fcn_fandoms',
+    'edit_fcn_fandoms',
+    'delete_fcn_fandoms',
+    'assign_fcn_fandoms',
+    // Characters
+    'manage_fcn_characters',
+    'edit_fcn_characters',
+    'delete_fcn_characters',
+    'assign_fcn_characters',
+    // Warnings
+    'manage_fcn_content_warnings',
+    'edit_fcn_content_warnings',
+    'delete_fcn_content_warnings',
+    'assign_fcn_content_warnings'
+	)
+);
+
 /**
  * Initialize user roles if not already done
  *
@@ -34,6 +60,8 @@ function fictioneer_initialize_roles() {
   if ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ) {
     fictioneer_setup_roles();
   }
+
+  fictioneer_setup_roles();
 }
 add_action( 'init', 'fictioneer_initialize_roles' );
 
@@ -49,6 +77,7 @@ function fictioneer_setup_roles() {
 
   $all = array_merge(
     FICTIONEER_BASE_CAPABILITIES,
+    FICTIONEER_TAXONOMY_CAPABILITIES,
     FICTIONEER_STORY_CAPABILITIES,
     FICTIONEER_CHAPTER_CAPABILITIES,
     FICTIONEER_COLLECTION_CAPABILITIES,
@@ -91,6 +120,7 @@ function fictioneer_setup_roles() {
       'unfiltered_html',           // Legacy restore
       'manage_links',              // Legacy restore
     ),
+    FICTIONEER_TAXONOMY_CAPABILITIES,
     FICTIONEER_STORY_CAPABILITIES,
     FICTIONEER_CHAPTER_CAPABILITIES,
     FICTIONEER_COLLECTION_CAPABILITIES,
@@ -139,7 +169,12 @@ function fictioneer_setup_roles() {
     'publish_fcn_recommendations',
     'delete_fcn_recommendations',
     'delete_published_fcn_recommendations',
-    'edit_published_fcn_recommendations'
+    'edit_published_fcn_recommendations',
+    // Taxonomies
+    'assign_fcn_genres',
+    'assign_fcn_fandoms',
+    'assign_fcn_characters',
+    'assign_fcn_content_warnings'
   );
 
   $author->remove_cap( 'fcn_reduced_profile' );
@@ -174,7 +209,12 @@ function fictioneer_setup_roles() {
     // Recommendations
     'read_fcn_recommendation',
     'edit_fcn_recommendations',
-    'delete_fcn_recommendations'
+    'delete_fcn_recommendations',
+    // Taxonomies
+    'assign_fcn_genres',
+    'assign_fcn_fandoms',
+    'assign_fcn_characters',
+    'assign_fcn_content_warnings'
   );
 
   $contributor->remove_cap( 'fcn_reduced_profile' );
@@ -265,7 +305,12 @@ function fictioneer_add_moderator_role() {
     'delete_fcn_recommendations',
     'delete_published_fcn_recommendations',
     'edit_published_fcn_recommendations',
-    'edit_others_fcn_recommendations'
+    'edit_others_fcn_recommendations',
+    // Taxonomies
+    'assign_fcn_genres',
+    'assign_fcn_fandoms',
+    'assign_fcn_characters',
+    'assign_fcn_content_warnings'
   );
 
   if ( $moderator ) {

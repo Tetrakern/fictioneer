@@ -46,16 +46,28 @@ function fictioneer_role_card( $role ) {
   );
 
   $taxonomy_caps = array(
-    // Categories
+    // Categories & Tags
     'manage_categories',
-    'edit_categories',
-    'delete_categories',
-    'assign_categories',
-    // Tags
-    'manage_post_tags',
-    'edit_post_tags',
-    'delete_post_tags',
-    'assign_post_tags'
+    // Genres
+    'manage_fcn_genres',
+    'edit_fcn_genres',
+    'delete_fcn_genres',
+    'assign_fcn_genres',
+    // Fandoms
+    'manage_fcn_fandoms',
+    'edit_fcn_fandoms',
+    'delete_fcn_fandoms',
+    'assign_fcn_fandoms',
+    // Characters
+    'manage_fcn_characters',
+    'edit_fcn_characters',
+    'delete_fcn_characters',
+    'assign_fcn_characters',
+    // Warnings
+    'manage_fcn_content_warnings',
+    'edit_fcn_content_warnings',
+    'delete_fcn_content_warnings',
+    'assign_fcn_content_warnings'
   );
 
   $post_caps = array(

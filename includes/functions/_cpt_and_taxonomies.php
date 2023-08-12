@@ -408,6 +408,12 @@ function fictioneer_add_genre_taxonomy() {
     'show_in_rest'      => true,
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'genre' ),
+		'capabilities'			=> array(
+			'manage_terms' 		=> 'manage_fcn_genres',
+			'edit_terms'   		=> 'edit_fcn_genres',
+			'delete_terms' 		=> 'delete_fcn_genres',
+			'assign_terms' 		=> 'assign_fcn_genres'
+		)
   );
 
   register_taxonomy( 'fcn_genre', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
@@ -447,6 +453,12 @@ function fictioneer_add_fandom_taxonomy() {
     'show_in_rest'      => true,
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'fandom' ),
+		'capabilities'			=> array(
+			'manage_terms' 		=> 'manage_fcn_fandoms',
+			'edit_terms'   		=> 'edit_fcn_fandoms',
+			'delete_terms' 		=> 'delete_fcn_fandoms',
+			'assign_terms' 		=> 'assign_fcn_fandoms'
+		)
   );
 
   register_taxonomy( 'fcn_fandom', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
@@ -486,6 +498,12 @@ function fictioneer_add_character_taxonomy() {
     'show_in_rest'      => true,
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'character' ),
+		'capabilities'			=> array(
+			'manage_terms' 		=> 'manage_fcn_characters',
+			'edit_terms'   		=> 'edit_fcn_characters',
+			'delete_terms' 		=> 'delete_fcn_characters',
+			'assign_terms' 		=> 'assign_fcn_characters'
+		)
   );
 
   register_taxonomy( 'fcn_character', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
@@ -525,6 +543,12 @@ function fictioneer_add_content_warning_taxonomy() {
     'show_in_rest'      => true,
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'content-warning' ),
+		'capabilities'			=> array(
+			'manage_terms' 		=> 'manage_fcn_content_warnings',
+			'edit_terms'   		=> 'edit_fcn_content_warnings',
+			'delete_terms' 		=> 'delete_fcn_content_warnings',
+			'assign_terms' 		=> 'assign_fcn_content_warnings'
+		)
   );
 
   register_taxonomy( 'fcn_content_warning', ['fcn_chapter', 'fcn_story', 'fcn_collection', 'fcn_recommendation'], $args );
