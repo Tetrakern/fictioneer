@@ -280,7 +280,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `manage_pages_columns` | `fictioneer_remove_comments_column`
 | `manage_posts_columns` | `fictioneer_remove_comments_column`
 | `manage_users_columns` | `fictioneer_hide_users_columns`
-| `map_meta_cap` | `fcn_read_others_files`, `fictioneer_edit_others_files`, `fictioneer_delete_others_files`
+| `map_meta_cap` | `fcn_read_others_files`, `fictioneer_edit_others_files`, `fictioneer_delete_others_files`, `fictioneer_override_default_taxonomy_capability_check`
 | `navigation_markup_template` | `fictioneer_pagination_markup`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
 | `pre_comment_user_ip` | `__return_empty_string`

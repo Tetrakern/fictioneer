@@ -555,4 +555,63 @@ function fictioneer_add_content_warning_taxonomy() {
 }
 add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
 
+// =============================================================================
+// MODIFY DEFAULT CATEGORIES AND POST TAGS
+// =============================================================================
+
+/**
+ * Overrides the default taxonomy capability check for categories and post tags
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param array  $caps  Primitive capabilities required of the user.
+ * @param string $cap  Capability being checked.
+ *
+ * @return array Filtered primitive capabilities.
+ */
+
+function fictioneer_override_default_taxonomy_capability_check( $caps, $cap ) {
+	$targets = [
+		'manage_categories',
+		'edit_categories',
+		'delete_categories',
+		'assign_categories',
+		'manage_post_tags',
+		'edit_post_tags',
+		'delete_post_tags',
+		'assign_post_tags',
+	];
+
+	if ( in_array( $cap, $targets ) ) {
+		$caps = [ $cap ];
+	}
+
+	return $caps;
+}
+add_filter( 'map_meta_cap', 'fictioneer_override_default_taxonomy_capability_check', 9999, 2 );
+
+/**
+ * Restricts tag creation for the 'post_tag' taxonomy
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param mixed  $term      The term to be added.
+ * @param string $taxonomy  The taxonomy type of the term.
+ *
+ * @return mixed Either the original term or a WP_Error object.
+ */
+
+function fictioneer_restrict_tag_creation( $term, $taxonomy ) {
+	if ( $taxonomy == 'post_tag' ) {
+		return new WP_Error( 'term_addition_blocked', __( 'You are unauthorized to add new terms.' ) );
+	}
+
+	return $term;
+}
+
+if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_options' ) ) {
+	add_filter( 'pre_insert_term', 'fictioneer_restrict_tag_creation', 9999, 2 );
+}
+
+
 ?>

@@ -23,6 +23,16 @@ define(
 define(
 	'FICTIONEER_TAXONOMY_CAPABILITIES',
 	array(
+    // Categories
+    'manage_categories',
+    'edit_categories',
+    'delete_categories',
+    'assign_categories',
+    // Tags
+    'manage_post_tags',
+    'edit_post_tags',
+    'delete_post_tags',
+    'assign_post_tags',
     // Genres
     'manage_fcn_genres',
     'edit_fcn_genres',
@@ -169,6 +179,14 @@ function fictioneer_setup_roles() {
     'delete_published_fcn_recommendations',
     'edit_published_fcn_recommendations',
     // Taxonomies
+    'manage_categories',
+    'manage_post_tags',
+    'manage_fcn_genres',
+    'manage_fcn_fandoms',
+    'manage_fcn_characters',
+    'manage_fcn_content_warnings',
+    'assign_categories',
+    'assign_post_tags',
     'assign_fcn_genres',
     'assign_fcn_fandoms',
     'assign_fcn_characters',
@@ -209,6 +227,14 @@ function fictioneer_setup_roles() {
     'edit_fcn_recommendations',
     'delete_fcn_recommendations',
     // Taxonomies
+    'manage_categories',
+    'manage_post_tags',
+    'manage_fcn_genres',
+    'manage_fcn_fandoms',
+    'manage_fcn_characters',
+    'manage_fcn_content_warnings',
+    'assign_categories',
+    'assign_post_tags',
     'assign_fcn_genres',
     'assign_fcn_fandoms',
     'assign_fcn_characters',
@@ -305,6 +331,14 @@ function fictioneer_add_moderator_role() {
     'edit_published_fcn_recommendations' => true,
     'edit_others_fcn_recommendations' => true,
     // Taxonomies
+    'manage_categories' => true,
+    'manage_post_tags' => true,
+    'manage_fcn_genres' => true,
+    'manage_fcn_fandoms' => true,
+    'manage_fcn_characters' => true,
+    'manage_fcn_content_warnings',
+    'assign_categories' => true,
+    'assign_post_tags' => true,
     'assign_fcn_genres' => true,
     'assign_fcn_fandoms' => true,
     'assign_fcn_characters' => true,

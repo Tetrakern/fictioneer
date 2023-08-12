@@ -41,28 +41,36 @@ $admin_caps = array(
 );
 
 $taxonomy_caps = array(
-  // Categories & Tags
+  // Categories
   'manage_categories',
+  'assign_categories',
+  'edit_categories',
+  'delete_categories',
+  // Tags
+  'manage_post_tags',
+  'assign_post_tags',
+  'edit_post_tags',
+  'delete_post_tags',
   // Genres
   'manage_fcn_genres',
+  'assign_fcn_genres',
   'edit_fcn_genres',
   'delete_fcn_genres',
-  'assign_fcn_genres',
   // Fandoms
   'manage_fcn_fandoms',
+  'assign_fcn_fandoms',
   'edit_fcn_fandoms',
   'delete_fcn_fandoms',
-  'assign_fcn_fandoms',
   // Characters
   'manage_fcn_characters',
+  'assign_fcn_characters',
   'edit_fcn_characters',
   'delete_fcn_characters',
-  'assign_fcn_characters',
   // Warnings
   'manage_fcn_content_warnings',
+  'assign_fcn_content_warnings',
   'edit_fcn_content_warnings',
-  'delete_fcn_content_warnings',
-  'assign_fcn_content_warnings'
+  'delete_fcn_content_warnings'
 );
 
 $post_caps = array(
@@ -157,6 +165,25 @@ $all_caps = array(
 
 // Remove administrators (do not touch them!)
 unset( $roles['administrator'] );
+
+// Order roles
+$order = [
+  'editor' => 0,
+  'fcn_moderator' => 1,
+  'author' => 2,
+  'contributor' => 3,
+  'subscriber' => 99
+];
+
+uksort(
+  $roles,
+  function( $a, $b ) use ( $order ) {
+    $aVal = $order[ $a ] ?? PHP_INT_MAX;
+    $bVal = $order[ $b ] ?? PHP_INT_MAX;
+
+    return $aVal <=> $bVal;
+  }
+);
 
 // Current selection
 $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
