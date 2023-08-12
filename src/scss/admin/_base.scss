@@ -66,7 +66,7 @@
   }
 
   :is(input, select, textarea) {
-    background: var(--bg-200);
+    background: var(--input-background-color);
     border: none;
     border-radius: 2px;
 
@@ -103,7 +103,7 @@
     width: 16px;
 
     &:checked {
-      background: var(--bg-700);
+      background: var(--input-checkbox-background-color-checked);
 
       &::before {
         // https://icon-sets.iconify.design/?query=checkmark
@@ -135,7 +135,7 @@
   }
 
   select {
-    background: var(--bg-200) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' preserveAspectRatio='xMidYMid meet' width='20' height='20' viewBox='0 0 20 20' class='iconify iconify--bx'%3E%3Cpath fill='currentColor' d='M16.293 9.293L12 13.586L7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z'%3E%3C/path%3E%3C/svg%3E") no-repeat right 8px top 40%;
+    background: var(--input-background-color) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' preserveAspectRatio='xMidYMid meet' width='20' height='20' viewBox='0 0 20 20' class='iconify iconify--bx'%3E%3Cpath fill='currentColor' d='M16.293 9.293L12 13.586L7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z'%3E%3C/path%3E%3C/svg%3E") no-repeat right 8px top 40%;
     line-height: 32px;
     padding: 0 32px 0 8px;
     height: 32px;
