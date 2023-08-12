@@ -277,93 +277,6 @@
     }
   }
 
-  .button {
-    display: grid;
-    place-content: center;
-    background: var(--bg-700);
-    color: var(--text-white);
-    font-size: var(--fs-xxs);
-    line-height: 1;
-    padding: 0 16px;
-    border: none;
-    border-radius: var(--large-border-radius);
-    min-height: 32px;
-
-    &.disabled {
-      pointer-events: none;
-      background: var(--bg-200) !important; // WP
-      color: var(--text-400) !important; // WP
-      border: none !important; // WP
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-      background: var(--bg-600);
-      color: var(--text-white);
-      border: none;
-      box-shadow: none;
-    }
-
-    &.secondary {
-      background: transparent;
-      color: var(--bg-600);
-      font-weight: 500;
-      border: 1px solid var(--bg-600);
-
-      &:hover,
-      &:active,
-      &:focus {
-        background: var(--bg-50);
-        color: var(--bg-700);
-        border: 1px solid var(--bg-700);
-      }
-    }
-  }
-
-  .pill-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--8bp);
-
-    .tab {
-      cursor: pointer;
-      display: grid;
-      place-content: center;
-      color: var(--text-50);
-      font-size: var(--fs-xs);
-      line-height: 1;
-      text-decoration: none;
-      padding: 0 16px;
-      margin: 0;
-      border-radius: var(--large-border-radius);
-      height: 32px;
-      opacity: .7;
-      transition: opacity .1s;
-
-      &:focus {
-        box-shadow: none;
-        outline: none;
-      }
-
-      &:hover,
-      &:focus {
-        opacity: 1;
-        background: var(--bg-800);
-      }
-
-      &.active {
-        background: var(--bg-50);
-        color: var(--text-700);
-        opacity: 1;
-
-        &:focus {
-          background: var(--bg-300);
-        }
-      }
-    }
-  }
-
   .action-row {
     --gap-offset: var(--8bp);
     display: flex;
@@ -434,17 +347,26 @@
 
       &:checked + .capability-checkbox__name {
         color: var(--text-50);
-        background: var(--bg-600);
+        background: var(--checkbox-toggle-background-color-active);
+
+        &:hover {
+          filter: brightness(0.9);
+        }
       }
     }
 
     &__name {
-      background: var(--bg-300);
+      background: var(--checkbox-toggle-background-color);
       font-size: var(--fs-xxs);
       line-height: 1.4;
       padding: 4px 6px;
       border-radius: 2px;
       width: fit-content;
+      transition: color .1s;
+
+      &:hover {
+        background: var(--checkbox-toggle-background-color-hover);
+      }
     }
   }
 }

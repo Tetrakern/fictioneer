@@ -93,18 +93,48 @@ body[class*=fictioneer] {
 // FICTIONEER SETTING PAGES
 // =============================================================================
 
-.fictioneer-settings {
-  margin-left: -10px;
+body[class*="page_fictioneer"] #wpcontent {
+  padding-left: 0;
+}
 
-  @include bp(783px) {
-    margin-left: -20px;
+body[class*="page_fictioneer"] {
+  &.admin-color-fresh {
+    --focus-color: #ef4d4d;
+    --focus-box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, .8);
+
+    --header-heading-color: #fff;
+    --header-background-color: #1d2327;
+    --header-note-color: rgba(240, 246, 252, .7);
+    --header-note-color-active: #fff;
+    --header-nav-item-color: rgba(240, 246, 252, .7);
+    --header-nav-item-color-hover: #fff;
+    --header-nav-item-color-active: #fff;
+    --header-nav-item-background-active: #2271b1;
+    --header-nav-item-background-hover: #2c3337;
+
+    --subnav-background-color: #2c3337;
+    --subnav-item-color: rgba(240, 246, 252, .7);
+    --subnav-item-color-hover: #fff;
+    --subnav-item-color-active: #fff;
+    --subnav-item-border-color: transparent;
+    --subnav-item-border-color-hover: transparent;
+    --subnav-item-border-color-active: #fff;
+
+    --card-background-color: #fff;
+    --card-border-color: #c3c4c7;
+
+    --checkbox-toggle-background-color: #ddd;
+    --checkbox-toggle-background-color-hover: #d6d6d6;
+    --checkbox-toggle-background-color-active: #646970;
   }
+}
 
+.fictioneer-settings {
   &__header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: var(--bg-900);
+    background: var(--header-background-color);
     padding: var(--20bp) 4px;
     height: 256px;
 
@@ -121,25 +151,122 @@ body[class*=fictioneer] {
     }
 
     h1 {
-      color: var(--text-200);
+      color: var(--header-heading-color);
       font-size: 64px;
     }
 
     &-links {
-      color: var(--text-600);
+      color: var(--header-note-color);
       font-variant-numeric: tabular-nums;
 
       a {
-        color: var(--text-400);
+        color: var(--header-note-color);
         text-decoration: none;
 
         &:hover {
-          color: var(--text-200);
+          color: var(--header-note-color-active);
         }
       }
 
       .dashicons-external {
         font-size: inherit;
+      }
+    }
+
+    .pill-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--8bp);
+
+      .tab {
+        cursor: pointer;
+        display: grid;
+        place-content: center;
+        color: var(--header-nav-item-color);
+        font-size: 13px;
+        line-height: 1;
+        text-decoration: none;
+        padding: 0 16px;
+        margin: 0;
+        border-radius: 2px;
+        height: 32px;
+        transition: color .1s;
+
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+
+        &:focus-visible {
+          box-shadow: var(--focus-box-shadow);
+        }
+
+        &:hover {
+          background: var(--header-nav-item-background-hover);
+          color: var(--header-nav-item-color-hover);
+        }
+
+        &.active {
+          background: var(--header-nav-item-background-active);
+          color: var(--header-nav-item-color-active);
+
+          &:focus-visible {
+            box-shadow: var(--focus-box-shadow);
+          }
+        }
+      }
+    }
+  }
+
+  &__subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--8bp) var(--20bp);
+    background: var(--subnav-background-color);
+    padding: var(--8bp) 20px 0;
+    margin: 0;
+
+    @include bp(375px) {
+      padding: var(--8bp) calc(16px + var(--10bp)) 0;
+    }
+
+    @include bp(480px) {
+      padding: var(--8bp) calc(16px + var(--14bp)) 0;
+    }
+
+    @include bp(768px) {
+      padding: var(--8bp) calc(16px + var(--20bp)) 0;
+    }
+
+    .tab {
+      cursor: pointer;
+      display: block;
+      color: var(--subnav-item-color);
+      font-size: 13px;
+      line-height: 1;
+      text-decoration: none;
+      padding: 8px 0 calc(5px + var(--8bp));
+      border-bottom: 3px solid var(--subnav-item-border-color);
+      margin: 0;
+      transition: color .1s;
+
+      &:focus-visible {
+        box-shadow: var(--focus-box-shadow);
+        outline: none;
+      }
+
+      &:hover {
+        color: var(--subnav-item-color-hover);
+        border-bottom-color: var(--subnav-item-border-color-hover);
+      }
+
+      &.active {
+        color: var(--subnav-item-color-active);
+        border-bottom-color: var(--subnav-item-border-color-active);
+
+        &:focus-visible {
+          box-shadow: var(--focus-box-shadow);
+        }
       }
     }
   }

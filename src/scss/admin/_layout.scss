@@ -1,53 +1,4 @@
 & {
-  .sub-navigation {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 var(--20bp);
-    background: var(--bg-800);
-    padding: var(--8bp) 20px;
-    margin: 0;
-
-    @include bp(375px) {
-      padding: var(--8bp) calc(16px + var(--10bp));
-    }
-
-    @include bp(480px) {
-      padding: var(--8bp) calc(16px + var(--14bp));
-    }
-
-    @include bp(768px) {
-      padding: var(--8bp) calc(16px + var(--20bp));
-    }
-
-    .tab {
-      cursor: pointer;
-      display: block;
-      color: var(--text-400);
-      font-size: var(--fs-xs);
-      line-height: 1;
-      text-decoration: none;
-      padding: 8px 0;
-      margin: 0;
-      opacity: .7;
-      transition: opacity .1s;
-
-      &:focus {
-        box-shadow: none;
-        outline: none;
-      }
-
-      &:hover,
-      &:focus {
-        opacity: 1;
-      }
-
-      &.active {
-        color: var(--bg-50);
-        opacity: 1;
-      }
-    }
-  }
-
   .columns-layout {
     --max-width-offset: var(--32bp);
     column-gap: var(--32bp);
@@ -78,27 +29,29 @@
 
   .card {
     position: relative;
-    background: var(--card-background);
-    border-radius: var(--large-border-radius);
-    box-shadow: var(--card-shadow);
+    background: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
 
     &-header {
-      padding: var(--16bp) var(--16bp) 0;
+      padding: var(--8bp) var(--12bp);
+      border-bottom: 1px solid #c3c4c7;
     }
 
     &-header,
     &-header :is(h1, h2, h3, h4, h5, h6) {
-      font-size: var(--fs-m);
+      color: #1d2327;
+      font-size: var(--fs-xs);
       font-weight: 600;
+      line-height: 1.4;
     }
 
     &-content {
       font-size: var(--fs-xs);
-      padding: var(--16bp) 0;
+      padding: var(--12bp) 0;
     }
 
     &-footer {
-      padding: var(--16bp);
+      padding: var(--12bp);
     }
 
     &-capabilities {
@@ -145,10 +98,10 @@
   }
 
   .row {
-    padding: 0 var(--16bp);
+    padding: 0 var(--12bp);
 
     &:not(:last-child) {
-      margin-bottom: var(--16bp);
+      margin-bottom: var(--12bp);
     }
   }
 

@@ -21,8 +21,7 @@ $editor_caps = array(
   'fcn_custom_page_css',
   'fcn_custom_epub_css',
   'fcn_seo_meta',
-  'fcn_make_sticky',
-  'unfiltered_html'
+  'fcn_make_sticky'
 );
 
 $restrictions = array(
@@ -43,7 +42,8 @@ $admin_caps = array(
   'create_users',
   'edit_users',
   'delete_users',
-  'fcn_allow_self_delete'
+  'fcn_allow_self_delete',
+  'unfiltered_html'
 );
 
 $taxonomy_caps = array(
@@ -160,7 +160,7 @@ $recommendation_caps = array(
 $all_caps = array(
   [ __( 'Editor Capabilities', 'fictioneer' ), $editor_caps ],
   [ __( 'Restricted Capabilities', 'fictioneer' ), $restrictions ],
-  [ __( 'Admin Panel Capabilities', 'fictioneer' ), $admin_caps ],
+  [ __( 'Advanced Capabilities', 'fictioneer' ), $admin_caps ],
   [ __( 'Taxonomy Capabilities', 'fictioneer' ), $taxonomy_caps ],
   [ __( 'Post Capabilities', 'fictioneer' ), $post_caps ],
   [ __( 'Page Capabilities', 'fictioneer' ), $page_caps ],
@@ -201,12 +201,12 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 
 	<?php fictioneer_settings_header( 'roles' ); ?>
 
-  <ul class="sub-navigation">
+  <ul class="fictioneer-settings__subnav">
       <?php
       foreach ( $roles as $key => $role ) {
         $role['type'] = $key;
         $class = $selected_role == $key ? 'class="tab active"' : 'class="tab"';
-        echo '<li ' . $class . ' data-sidebar-click="' . $key . '">' . $role['name'] . '</li>';
+        echo '<li tabindex="0" ' . $class . ' data-sidebar-click="' . $key . '">' . $role['name'] . '</li>';
       }
     ?>
   </ul>
@@ -229,7 +229,7 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
           </div>
 
           <div class="flex">
-            <button type="submit" class="button button--secondary">
+            <button type="submit" class="button button-primary">
               <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $role['name'] ); ?>
             </button>
           </div>

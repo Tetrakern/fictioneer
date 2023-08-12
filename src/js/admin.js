@@ -437,7 +437,7 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 // SIDEBAR LAYOUT
 // =============================================================================
 
-_$('.fictioneer-settings .sub-navigation')?.addEventListener('click', event => {
+_$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
   const clickTarget = event.target.closest('[data-sidebar-click]');
 
   if (!clickTarget) {

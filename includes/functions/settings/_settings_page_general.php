@@ -664,7 +664,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 277px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 160px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
