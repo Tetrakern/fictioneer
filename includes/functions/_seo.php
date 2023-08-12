@@ -9,8 +9,8 @@
  *
  * @since Fictioneer 4.0
  *
- * @param string $post_type Post type.
- * @param string $post      Post object.
+ * @param string  $post_type  Post type.
+ * @param WP_Post $post       Post object.
  */
 
 function fictioneer_add_seo_metabox( $post_type, $post ) {
@@ -31,7 +31,11 @@ function fictioneer_add_seo_metabox( $post_type, $post ) {
   }
 }
 
-if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+if (
+  get_option( 'fictioneer_enable_seo' ) &&
+  ! fictioneer_seo_plugin_active() &&
+  current_user_can( 'fcn_seo_meta' )
+) {
   add_action( 'add_meta_boxes', 'fictioneer_add_seo_metabox', 10, 2 );
 }
 
@@ -187,7 +191,11 @@ function fictioneer_save_seo_metabox( $post_id ) {
   delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
 }
 
-if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+if (
+  get_option( 'fictioneer_enable_seo' ) &&
+  ! fictioneer_seo_plugin_active() &&
+  current_user_can( 'fcn_seo_meta' )
+) {
   add_action( 'save_post', 'fictioneer_save_seo_metabox', 10 );
 }
 

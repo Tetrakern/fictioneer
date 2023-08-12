@@ -343,6 +343,10 @@ function fictioneer_admin_capability_card( $title, $caps, $role ) {
 							// Special cases
 							$name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
 							$name = str_replace( 'Recommendations', 'Recommend.', $name );
+							$name = str_replace( 'Custom Css', 'Custom CSS', $name );
+							$name = str_replace( 'Seo Meta', 'SEO Meta', $name );
+							$name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
+							$name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
 
 							fictioneer_capability_checkbox( $cap, $name, $set );
 						}

@@ -613,5 +613,4 @@ if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_optio
 	add_filter( 'pre_insert_term', 'fictioneer_restrict_tag_creation', 9999, 2 );
 }
 
-
 ?>

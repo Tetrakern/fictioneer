@@ -16,7 +16,10 @@ define(
     'fcn_dashboard_access',
     'fcn_privacy_clearance',
     'fcn_shortcodes',
-    'fcn_simple_comment_html'
+    'fcn_simple_comment_html',
+    'fcn_custom_page_css',
+    'fcn_custom_epub_css',
+    'fcn_seo_meta'
 	)
 );
 
@@ -114,7 +117,7 @@ function fictioneer_setup_roles() {
       'fcn_admin_panel_access',
       'fcn_adminbar_access',
       'fcn_dashboard_access',
-      'fcn_edit_all_others_posts',
+      'fcn_seo_meta',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore
@@ -936,6 +939,48 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'user_contactmethods', '__return_empty_array', 9999 );
     add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks', 9999 );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
+  }
+
+  // === FCN_CUSTOM_PAGE_CSS ===================================================
+
+  function fictioneer_remove_custom_page_css_inputs( $fields ) {
+    // Fields to remove
+    $field_keys = ['field_636d81d34cab1', 'field_621b5610818d2'];
+
+    // Remove fields from the fields array
+    foreach ( $fields as $key => &$field ) {
+      if ( in_array( $field['key'], $field_keys ) ) {
+        unset( $fields[$key] );
+      }
+    }
+
+    // Return modified fields array
+    return $fields;
+  }
+
+  if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs', 9999 );
+  }
+
+  // === FCN_CUSTOM_EPUB_CSS ===================================================
+
+  function fictioneer_remove_custom_epub_css_inputs( $fields ) {
+    // Fields to remove
+    $field_keys = ['field_60edba4ff33f8'];
+
+    // Remove fields from the fields array
+    foreach ( $fields as $key => &$field ) {
+      if ( in_array( $field['key'], $field_keys ) ) {
+        unset( $fields[$key] );
+      }
+    }
+
+    // Return modified fields array
+    return $fields;
+  }
+
+  if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_inputs', 9999 );
   }
 }
 

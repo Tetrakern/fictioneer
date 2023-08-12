@@ -15,29 +15,34 @@ $roles = wp_roles()->roles;
 $admin_url = admin_url( 'admin-post.php' );
 $admin_nonce = wp_nonce_field( 'fictioneer_roles_update_role', 'fictioneer_nonce', true, false );
 
-$account_caps = array(
-  // Fictioneer
-  'fcn_adminbar_access',
-  'fcn_admin_panel_access',
-  'fcn_dashboard_access',
+$editor_caps = array(
   'fcn_shortcodes',
-  // WordPress
-  'upload_files',
-  'edit_files',
+  'fcn_select_page_template',
+  'fcn_custom_page_css',
+  'fcn_custom_epub_css',
+  'fcn_seo_meta',
   'unfiltered_html'
 );
 
+$restrictions = array(
+  'fcn_reduced_profile',
+  'fcn_edit_only_others_comments'
+);
+
 $admin_caps = array(
-  // Fictioneer
-  'fcn_select_page_template',
+  'fcn_adminbar_access',
+  'fcn_admin_panel_access',
+  'fcn_dashboard_access',
   'fcn_privacy_clearance',
+  'upload_files',
+  'edit_files',
   'fcn_read_others_files',
   'fcn_edit_others_files',
   'fcn_delete_others_files',
-  // WordPress
   'create_users',
   'edit_users',
-  'delete_users'
+  'delete_users',
+  'fcn_allow_self_delete'
 );
 
 $taxonomy_caps = array(
@@ -152,7 +157,8 @@ $recommendation_caps = array(
 );
 
 $all_caps = array(
-  [ __( 'Account Capabilities', 'fictioneer' ), $account_caps ],
+  [ __( 'Editor Capabilities', 'fictioneer' ), $editor_caps ],
+  [ __( 'Restricted Capabilities', 'fictioneer' ), $restrictions ],
   [ __( 'Admin Capabilities', 'fictioneer' ), $admin_caps ],
   [ __( 'Taxonomy Capabilities', 'fictioneer' ), $taxonomy_caps ],
   [ __( 'Post Capabilities', 'fictioneer' ), $post_caps ],
