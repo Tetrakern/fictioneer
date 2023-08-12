@@ -95,7 +95,7 @@
 
   .alternate-rows {
     > *:nth-child(even) {
-      background-color: rgb(0 0 0 / 2%);
+      background-color: var(--table-row-background-color-even);
     }
   }
 

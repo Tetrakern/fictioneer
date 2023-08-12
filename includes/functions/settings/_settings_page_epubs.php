@@ -50,12 +50,12 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
       <div class="card">
         <div class="card-wrapper">
           <h3 class="card-header"><?php _e( 'Generated ePUBs', 'fictioneer' ) ?></h3>
-          <div class="card-content">
+          <div class="card-content" style="padding-top: 0;">
             <div class="overflow-horizontal overflow-table">
               <div class="table image-cover">
                 <table class="th-no-wrap">
 
-                  <thead>
+                  <thead style="border-top: 0;">
                     <tr>
                       <th><?php _e( 'Story', 'fictioneer' ) ?></th>
                       <th><?php _e( 'File Name (.epub)', 'fictioneer' ) ?></th>

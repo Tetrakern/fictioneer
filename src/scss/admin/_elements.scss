@@ -73,8 +73,8 @@
     }
 
     thead {
-      background: var(--bg-50);
-      border: 1px solid rgb(0 0 0 / 5%);
+      background: var(--table-row-background-color-head);
+      border: 1px solid var(--table-border-color);
       border-width: 1px 0;
     }
 
@@ -93,7 +93,6 @@
     }
 
     th {
-      color: var(--text-500);
       font-size: var(--fs-xxs);
       font-weight: 600;
       text-transform: uppercase;
@@ -168,109 +167,9 @@
     }
   }
 
-  .popup-note {
-    --this-background: var(--bg-600);
-    --this-text-color: var(--text-white);
-
-    &.floating {
-      pointer-events: none;
-      user-select: none;
-      position: absolute;
-    }
-
-    &.dismissable {
-      pointer-events: all;
-
-      > * {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .dismiss {
-        cursor: pointer;
-        line-height: 1;
-        padding-right: 1px;
-        transform: translateY(2px);
-
-        &:not(:hover) {
-          opacity: .9;
-        }
-      }
-    }
-
-    &:is(.warning, .invalid) {
-      --this-background: var(--invalid-note-background);
-      --this-text-color: var(--invalid-note-text-color);
-    }
-
-    > * {
-      position: relative;
-      display: block;
-      background: var(--this-background);
-      color: var(--this-text-color);
-      font-size: var(--fs-xxs);
-      line-height: 1.3;
-      padding: 4px 6px;
-      margin: 0 4px;
-      border-radius: 2px;
-      transform: translateY(-3px);
-      width: fit-content;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 12px;
-        display: block;
-        border-style: solid;
-        border-width: 0 6px 4px 6px;
-        border-color: transparent transparent var(--this-background) transparent;
-        transform: translateY(-100%);
-      }
-    }
-  }
-
   .spacer {
     display: block;
     height: var(--24bp);
-  }
-
-  .popup-menu-toggle {
-    display: block;
-    text-align: center;
-    min-width: 32px;
-  }
-
-  .popup-menu {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    z-index: 100;
-    background: var(--bg-800);
-    border-radius: 2px;
-    min-width: 64px;
-    overflow: hidden;
-    box-shadow: var(--popup-shadow);
-
-    > * {
-      display: block;
-      color: var(--text-white);
-      line-height: 1;
-      text-align: center;
-      text-decoration: none;
-      white-space: nowrap;
-      padding: 8px 16px;
-
-      &:hover {
-        background: var(--bg-700);
-      }
-
-      &:focus {
-        outline: none;
-        box-shadow: none;
-      }
-    }
   }
 
   .action-row {
@@ -310,14 +209,13 @@
     }
 
     .button {
-      display: grid;
-      place-content: center;
-      padding: 0;
-      width: 32px;
-
-      &:not(.disabled, :hover) {
-        background: var(--bg-500);
-      }
+      display: inline-block;
+      font-size: 16px;
+      line-height: 1.625;
+      text-align: center;
+      padding: 0 4px;
+      min-height: 30px;
+      min-width: 30px;
     }
   }
 

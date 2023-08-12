@@ -109,12 +109,6 @@
   							<div class="text-input row">
   								<label for="fictioneer_system_email_address">
   									<input name="fictioneer_system_email_address" placeholder="<?php echo FICTIONEER_OPTIONS['strings']['fictioneer_system_email_address']['placeholder']; ?>" type="email" id="fictioneer_system_email_address" value="<?php echo esc_attr( get_option( 'fictioneer_system_email_address' ) ); ?>">
-                    <div class="popup-note floating invalid dismissable">
-    									<div>
-                        <span><?php _e( 'Please enter a valid email address or none', 'fictioneer' ) ?></span>
-                        <span class="dismiss" data-click="dismiss-popup-note"><i class="fa-solid fa-xmark"></i></span>
-                      </div>
-    								</div>
   									<p class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_system_email_address']['label']; ?></p>
   								</label>
   							</div>

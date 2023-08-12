@@ -89,12 +89,6 @@
     &:is([type=checkbox], [type=radio]):focus-visible {
       box-shadow: 0 0 0 1px white, 0 0 0 3px var(--input-border-color-active);
     }
-
-    &:not(.invalid) {
-      + .popup-note.invalid {
-        display: none;
-      }
-    }
   }
 
   input[type=checkbox] {

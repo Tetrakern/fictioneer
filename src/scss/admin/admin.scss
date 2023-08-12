@@ -77,7 +77,6 @@ body[class*=fictioneer] {
 // =============================================================================
 
 .fictioneer-ui {
-  color: var(--text-700);
   font-size: var(--fs-xs);
   line-height: 1.5;
 
@@ -142,6 +141,10 @@ body[class*="page_fictioneer"] {
     --hr-color: #c3c4c7;
     --code-background-color: #2c3337;
     --code-color: #fff;
+
+    --table-border-color: #c3c4c7;
+    --table-row-background-color-head: #f6f7f7;
+    --table-row-background-color-even: #f6f7f7;
   }
 }
 

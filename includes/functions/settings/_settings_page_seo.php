@@ -36,14 +36,12 @@ $purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_pur
 
           <div class="card-content">
 
-            <?php if ( $page_number < 2 ) : ?>
-              <p class="description row"><?php
-                printf(
-                  __( 'The following table lists the generated Open Graph metadata used for rich snippets in search engine results and social media embeds. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write anything in there. Schemas are generated when a post is first visited and cached until modified or purged. Note that not all post types get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">customizer</a>.', 'fictioneer' ),
-                  wp_customize_url()
-                );
-              ?></p>
-            <?php endif; ?>
+            <p class="description row"><?php
+              printf(
+                __( 'The following table lists the generated Open Graph metadata used for rich snippets in search engine results and social media embeds. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write anything in there. Schemas are generated when a post is first visited and cached until modified or purged. Note that not all post types get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">customizer</a>.', 'fictioneer' ),
+                wp_customize_url()
+              );
+            ?></p>
 
             <div class="overflow-horizontal overflow-table">
               <div class="table image-cover">

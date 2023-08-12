@@ -1,6 +1,5 @@
 & {
   .columns-layout {
-    --max-width-offset: var(--32bp);
     column-gap: var(--32bp);
 
     @include bp(768px) {
@@ -59,41 +58,6 @@
       flex-wrap: wrap;
       align-items: flex-start;
       gap: var(--8bp);
-    }
-  }
-
-  .modal {
-    position: fixed;
-    z-index: 1000;
-    background: var(--modal-background);
-    border-radius: var(--large-border-radius);
-    box-shadow: var(--modal-shadow);
-
-    &.hidden {
-      pointer-events: none;
-      z-index: -1000;
-    }
-
-    &:not(.hidden) {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    &__header {
-      font-size: var(--fs-m);
-      font-weight: 600;
-      padding: var(--16bp) var(--16bp) 0;
-    }
-
-    &__content {
-      font-size: var(--fs-xs);
-      padding: var(--16bp) 0;
-    }
-
-    &__footer {
-      padding: var(--16bp);
     }
   }
 
