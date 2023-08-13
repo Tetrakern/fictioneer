@@ -90,38 +90,6 @@ _$$('.button-delete-epub').forEach(element => {
 });
 
 // =============================================================================
-// INPUT VALIDATIONS
-// =============================================================================
-
-/**
- * Adds .invalid class to an :invalid input.
- *
- * @description If the element is :invalid by HTML5 validation, the .invalid class
- * is added. Otherwise, the class is removed.
- *
- * @since 4.7
- * @param {HTMLElement} element - The element to check for validity.
- */
-
-function fcn_checkInputValidity(element) {
-  element.classList.toggle(
-    'invalid',
-    (element.hasAttribute('required') && element.value == '') ||
-    !element.checkValidity()
-  );
-}
-
-// Listen for blur on email inputs
-_$$('.fictioneer-ui input[type=email]').forEach(element => {
-  element.addEventListener(
-    'blur',
-    () => {
-      fcn_checkInputValidity(element)
-    }
-  );
-});
-
-// =============================================================================
 // SEO METABOX
 // =============================================================================
 
