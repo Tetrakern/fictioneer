@@ -601,8 +601,7 @@ function fictioneer_purge_cache_transients( $post_id ) {
   $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
 
   // Menus
-  delete_transient( 'fictioneer_main_nav_menu' );
-  delete_transient( 'fictioneer_footer_menu' );
+  purge_nav_menu_transients();
 
   // Shortcode...
   if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
@@ -641,4 +640,15 @@ function fictioneer_toggle_transient_purge_hooks( $add = true ) {
 
 fictioneer_toggle_transient_purge_hooks();
 
+/**
+ * Purge nav menu Transients on menu updates
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function purge_nav_menu_transients() {
+  delete_transient( 'fictioneer_main_nav_menu' );
+  delete_transient( 'fictioneer_footer_menu' );
+}
+add_action( 'wp_update_nav_menu', 'purge_nav_menu_transients' );
 ?>
