@@ -293,7 +293,7 @@ _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
 
 _$$('button[data-dialog-target]').forEach(element => {
   element.addEventListener('click', event => {
-    _$$$(event.currentTarget.dataset.dialogTarget).showModal();
+    _$$$(event.currentTarget.dataset.dialogTarget)?.showModal();
   });
 });
 

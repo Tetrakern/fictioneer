@@ -217,10 +217,6 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 	<div class="fictioneer-settings__content">
     <div class="tab-content">
 
-      <div class="flex flex-wrap mb-20">
-        <button type="button" id="show-add-role-dialog" class="button button-secondary" data-dialog-target="add-role-dialog"><?php _e( 'Add Role', 'fictioneer' ); ?></button>
-      </div>
-
       <?php foreach ( $roles as $key => $role ) : ?>
         <form method="post" action="<?php echo $admin_url; ?>" class="<?php echo $selected_role == $key ? '' : 'hidden'; ?>" data-sidebar-target="<?php echo $key; ?>">
 
@@ -236,10 +232,19 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
             ?>
           </div>
 
-          <div class="flex">
+          <div class="flex flex-wrap gap-8 space-between">
             <button type="submit" class="button button-primary">
               <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $role['name'] ); ?>
             </button>
+
+            <div class="flex flex-wrap gap-8">
+              <button type="button" class="button button-secondary" data-dialog-target="add-role-dialog"><?php _e( 'Add Role', 'fictioneer' ); ?></button>
+              <?php if ( ! in_array( $role['name'], ['Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber'] ) ) : ?>
+                <button type="button" class="button button-secondary" data-dialog-target="remove-role-dialog">
+                  <?php printf( _x( 'Remove %s', 'Remove {Role}', 'fictioneer' ), $role['name'] ); ?>
+                </button>
+              <?php endif; ?>
+            </div>
           </div>
 
         </form>
