@@ -786,7 +786,7 @@ function fictioneer_ajax_delete_my_account() {
     ! $sender_id ||
     ! $current_user ||
     $sender_id !== $current_user->ID ||
-    $current_user == 1 ||
+    $current_user->ID === 1 ||
     in_array( 'administrator', $current_user->roles ) ||
     ! current_user_can( 'fcn_allow_self_delete' )
   ) {
