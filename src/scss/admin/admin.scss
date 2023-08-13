@@ -119,7 +119,7 @@ body[class*="page_fictioneer"] {
   --header-background-color: #1d2327;
   --header-note-color: rgba(240, 246, 252, .7);
   --header-note-color-active: #fff;
-  --header-nav-item-color: rgba(240, 246, 252, .7);
+  --header-nav-item-color: #fff;
   --header-nav-item-color-hover: #fff;
   --header-nav-item-color-active: #fff;
   --header-nav-item-background-active: #2271b1;
@@ -162,7 +162,8 @@ body[class*="page_fictioneer"] {
   &.admin-color-coffee {
     --header-background-color: #59524c;
     --header-note-color: #cdcbc9;
-    --header-nav-item-color: #cdcbc9;
+    --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
     --header-nav-item-background-active: #c7a589;
     --header-nav-item-background-hover: #c7a589;
 
@@ -180,8 +181,8 @@ body[class*="page_fictioneer"] {
     --header-background-color: #e5e5e5;
     --header-note-color: #686868;
     --header-note-color-active: #d64e07;
-    --header-nav-item-color: #686868;
-    --header-nav-item-color-hover: #686868;
+    --header-nav-item-color: #333;
+    --header-nav-item-color-hover: #333;
     --header-nav-item-background-active: #888;
     --header-nav-item-background-hover: #f9f9f9;
 
@@ -205,8 +206,8 @@ body[class*="page_fictioneer"] {
     --header-background-color: #1e1e1e;
     --header-note-color: #bcbcbc;
     --header-note-color-active: #33f078;
-    --header-nav-item-color: #bcbcbc;
-    --header-nav-item-color-hover: #010101;
+    --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
     --header-nav-item-background-hover: #0c0c0c;
     --header-nav-item-background-active: #3858e9;
 
@@ -225,6 +226,7 @@ body[class*="page_fictioneer"] {
     --header-background-color: #53accc;
     --header-note-color: #e2ecf1;
     --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
     --header-nav-item-background-hover: #4896b3;
     --header-nav-item-background-active: #0b6484;
 
