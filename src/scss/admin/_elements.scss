@@ -52,6 +52,7 @@
       padding-bottom: 1px;
       height: 20px;
       width: auto;
+      transform: translateY(-1px);
     }
 
     &.row:not(:first-child) {
