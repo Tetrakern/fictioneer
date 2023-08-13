@@ -206,7 +206,7 @@ body[class*="page_fictioneer"] {
     --header-note-color: #bcbcbc;
     --header-note-color-active: #33f078;
     --header-nav-item-color: #bcbcbc;
-    --header-nav-item-color-hover: #ddd;
+    --header-nav-item-color-hover: #010101;
     --header-nav-item-background-hover: #0c0c0c;
     --header-nav-item-background-active: #3858e9;
 
@@ -219,6 +219,24 @@ body[class*="page_fictioneer"] {
 
     --input-checkbox-background-color-checked: #3858e9;
     --input-border-color-active: #3858e9;
+  }
+
+  &.admin-color-blue {
+    --header-background-color: #53accc;
+    --header-note-color: #e2ecf1;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #4896b3;
+    --header-nav-item-background-active: #0b6484;
+
+    --subnav-background-color: #4896b3;
+    --subnav-item-color: #e2ecf1;
+
+    --checkbox-toggle-background-color-active: #4896b3;
+
+    --code-background-color: #04242f;
+
+    --input-checkbox-background-color-checked: #0b6484;
+    --input-border-color-active: #0b6484;
   }
 }
 
