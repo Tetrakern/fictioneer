@@ -30,12 +30,12 @@
 
         &::before {
           left: 0;
-          background: linear-gradient(to right, var(--card-background), var(--card-background) 50%, transparent);
+          background: linear-gradient(to right, var(--card-background-color), var(--card-background-color) 50%, transparent);
         }
 
         &::after {
           right: 0;
-          background: linear-gradient(to left, var(--card-background), var(--card-background) 50%, transparent);
+          background: linear-gradient(to left, var(--card-background-color), var(--card-background-color) 50%, transparent);
         }
       }
     }

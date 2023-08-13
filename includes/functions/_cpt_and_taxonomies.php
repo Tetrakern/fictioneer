@@ -565,7 +565,7 @@ add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
  * @since Fictioneer 5.6.0
  *
  * @param array  $caps  Primitive capabilities required of the user.
- * @param string $cap  Capability being checked.
+ * @param string $cap   Capability being checked.
  *
  * @return array Filtered primitive capabilities.
  */
