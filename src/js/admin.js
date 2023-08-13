@@ -288,7 +288,7 @@ _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
 });
 
 // =============================================================================
-// DIALOG
+// DIALOGS
 // =============================================================================
 
 _$$('button[data-dialog-target]').forEach(element => {
@@ -297,8 +297,10 @@ _$$('button[data-dialog-target]').forEach(element => {
   });
 });
 
-// _$$('button[data-dialog-close]').forEach(element => {
-//   element.addEventListener('click', event => {
-//     event.currentTarget.closest('dialog')
-//   });
-// });
+// Close regardless of required fields
+_$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
+  element.addEventListener('click', event => {
+    event.preventDefault();
+    event.currentTarget.closest('dialog').close();
+  });
+});
