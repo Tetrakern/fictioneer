@@ -882,7 +882,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_upload_mime_types',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_textarea_field',
-      'label' => __( 'Comma-separated list of allowed <a href="%s" target="_blank" rel="noreferrer">mime types</a> for user roles with the "Upload Restriction".', 'fictioneer' ),
+      'label' => __( 'Comma-separated list of allowed <a href="%s" target="_blank" rel="noreferrer">mime types</a> for user roles with the "Upload Restriction". Must be among the allowed mime type and file extensions of WordPress.', 'fictioneer' ),
       'default' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS,
 			'placeholder' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS
     )
