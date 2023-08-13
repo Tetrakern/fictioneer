@@ -97,54 +97,66 @@ body[class*="page_fictioneer"] #wpcontent {
 }
 
 body[class*="page_fictioneer"] {
-  &.admin-color-fresh {
-    --focus-color: #ef4d4d;
-    --focus-box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, .8);
-    --highlight-color: #72aee6;
+  --focus-color: #ef4d4d;
+  --focus-box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, .8);
+  --highlight-color: #72aee6;
 
-    --header-heading-color: #fff;
-    --header-background-color: #1d2327;
-    --header-note-color: rgba(240, 246, 252, .7);
-    --header-note-color-active: #fff;
-    --header-nav-item-color: rgba(240, 246, 252, .7);
-    --header-nav-item-color-hover: #fff;
-    --header-nav-item-color-active: #fff;
-    --header-nav-item-background-active: #2271b1;
-    --header-nav-item-background-hover: #2c3337;
+  --header-heading-color: #fff;
+  --header-background-color: #1d2327;
+  --header-note-color: rgba(240, 246, 252, .7);
+  --header-note-color-active: #fff;
+  --header-nav-item-color: rgba(240, 246, 252, .7);
+  --header-nav-item-color-hover: #fff;
+  --header-nav-item-color-active: #fff;
+  --header-nav-item-background-active: #2271b1;
+  --header-nav-item-background-hover: #2c3337;
 
-    --subnav-background-color: #2c3337;
-    --subnav-item-color: rgba(240, 246, 252, .7);
-    --subnav-item-color-hover: #fff;
-    --subnav-item-color-active: #fff;
-    --subnav-item-border-color: transparent;
-    --subnav-item-border-color-hover: transparent;
-    --subnav-item-border-color-active: #fff;
+  --subnav-background-color: #2c3337;
+  --subnav-item-color: rgba(240, 246, 252, .7);
+  --subnav-item-color-hover: #fff;
+  --subnav-item-color-active: #fff;
+  --subnav-item-border-color: transparent;
+  --subnav-item-border-color-hover: transparent;
+  --subnav-item-border-color-active: #fff;
 
-    --card-background-color: #fff;
-    --card-border-color: #c3c4c7;
+  --card-background-color: #fff;
+  --card-border-color: #c3c4c7;
 
-    --checkbox-toggle-background-color: #ddd;
-    --checkbox-toggle-background-color-hover: #d6d6d6;
-    --checkbox-toggle-background-color-active: #646970;
-    --checkbox-toggle-color-active: #fff;
+  --checkbox-toggle-background-color: #ddd;
+  --checkbox-toggle-background-color-hover: #d6d6d6;
+  --checkbox-toggle-background-color-active: #646970;
+  --checkbox-toggle-color-active: #fff;
 
-    --input-background-color: #e9ecec;
-    --input-checkbox-background-color-checked: #2271b1;
-    --input-color-placeholder: #646970;
-    --input-color-disabled: #858a93;
-    --input-border-color-active: #2271b1;
+  --input-background-color: #e9ecec;
+  --input-checkbox-background-color-checked: #2271b1;
+  --input-color-placeholder: #646970;
+  --input-color-disabled: #858a93;
+  --input-border-color-active: #2271b1;
 
-    --description-text-color: inherit;
-    --sublabel-text-color: #646970;
-    --subtext-color: #646970;
+  --description-text-color: inherit;
+  --sublabel-text-color: #646970;
+  --subtext-color: #646970;
 
-    --hr-color: #c3c4c7;
-    --code-background-color: #2c3337;
-    --code-color: #fff;
+  --hr-color: #c3c4c7;
+  --code-background-color: #2c3337;
+  --code-color: #fff;
 
-    --table-border-color: #c3c4c7;
-    --table-row-background-color-head: #f6f7f7;
-    --table-row-background-color-even: #f6f7f7;
+  --table-border-color: #c3c4c7;
+  --table-row-background-color-head: #f6f7f7;
+  --table-row-background-color-even: #f6f7f7;
+
+  &.admin-color-coffee {
+    --header-background-color: #59524c;
+    --header-note-color: #cdcbc9;
+    --header-nav-item-color: #cdcbc9;
+    --header-nav-item-background-active: #c7a589;
+    --header-nav-item-background-hover: #c7a589;
+
+    --subnav-background-color: #46403b;
+    --subnav-item-color: #cdcbc9;
+
+    --input-checkbox-background-color-checked: #59524c;
+    --input-border-color-active: #c7a589;
   }
 }
 
