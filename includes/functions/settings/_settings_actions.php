@@ -724,10 +724,20 @@ function fictioneer_roles_update_role() {
   // Verify request
   fictioneer_verify_tool_action( 'fictioneer_roles_update_role' );
 
+  // Permissions?
+  if ( ! current_user_can( 'manage_options' ) ) {
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+  }
+
   // Setup
   $role_name = $_POST['role'] ?? '';
   $role = get_role( $role_name );
   $notice = 'fictioneer-updated-role-caps';
+
+  // Guard administrators
+  if ( $role_name == 'administrator' ) {
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+  }
 
   // Role not found?
   if ( empty( $role ) ) {
