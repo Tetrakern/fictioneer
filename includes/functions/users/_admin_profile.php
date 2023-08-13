@@ -780,30 +780,32 @@ function fictioneer_admin_profile_author( $profile_user ) {
   );
 
   // Start HTML ---> ?>
-  <tr class="user-author-page-wrap">
-    <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
-    <td>
-      <?php if ( $profile_user_has_pages ) : ?>
-        <?php
-          wp_dropdown_pages(
-            array(
-              'name' => 'fictioneer_author_page',
-              'id' => 'fictioneer_author_page',
-              'option_none_value' => __( 'None', 'fictioneer' ),
-              'show_option_no_change' => __( 'None', 'fictioneer' ),
-              'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
-              'authors' => $profile_user->ID
-            )
-          );
-        ?>
-      <?php else : ?>
-        <select disabled>
-          <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
-        </select>
-      <?php endif; ?>
-      <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
-    </td>
-  </tr>
+  <?php if ( current_user_can( 'edit_pages' ) ) : ?>
+    <tr class="user-author-page-wrap">
+      <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
+      <td>
+        <?php if ( $profile_user_has_pages ) : ?>
+          <?php
+            wp_dropdown_pages(
+              array(
+                'name' => 'fictioneer_author_page',
+                'id' => 'fictioneer_author_page',
+                'option_none_value' => __( 'None', 'fictioneer' ),
+                'show_option_no_change' => __( 'None', 'fictioneer' ),
+                'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
+                'authors' => $profile_user->ID
+              )
+            );
+          ?>
+        <?php else : ?>
+          <select disabled>
+            <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
+          </select>
+        <?php endif; ?>
+        <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
+      </td>
+    </tr>
+  <?php endif; ?>
   <tr class="user-support-message-wrap">
     <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ) ?></label></th>
     <td>
