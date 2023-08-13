@@ -238,6 +238,24 @@ body[class*="page_fictioneer"] {
     --input-checkbox-background-color-checked: #0b6484;
     --input-border-color-active: #0b6484;
   }
+
+  &.admin-color-ectoplasm {
+    --header-background-color: #523f6d;
+    --header-note-color: #cbc5d3;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #413256;
+    --header-nav-item-background-active: #a3b745;
+
+    --subnav-background-color: #413256;
+    --subnav-item-color: #cbc5d3;
+
+    --checkbox-toggle-background-color-active: #413256;
+
+    --code-background-color: #181320;
+
+    --input-checkbox-background-color-checked: #413256;
+    --input-border-color-active: #a3b745;
+  }
 }
 
 .fictioneer-settings {
