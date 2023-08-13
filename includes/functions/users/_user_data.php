@@ -799,33 +799,8 @@ function fictioneer_ajax_delete_my_account() {
     die(); // Just to be sure
   }
 
-  // Update comments
-  $comments = get_comments( array( 'user_id' => $current_user->ID ) );
-
-  foreach ( $comments as $comment ) {
-    wp_update_comment(
-      array(
-        'comment_ID' => $comment->comment_ID,
-        'user_ID' => 0,
-        'comment_author' => fcntr( 'deleted_user' ),
-        'comment_author_email' => '',
-        'comment_author_IP' => '',
-        'comment_agent' => '',
-        'comment_author_url' => ''
-      )
-    );
-
-    // Make absolutely sure no comment subscriptions remain
-    update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
-
-    // Retain some (redacted) data in case there was a mistake
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
-  }
-
   // Delete user
-  if ( wp_delete_user( $current_user->ID ) ) {
+  if ( fictioneer_delete_my_account() ) {
     wp_send_json_success();
   } else {
     wp_send_json_error(

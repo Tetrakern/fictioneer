@@ -1672,4 +1672,64 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   }
 }
 
+// =============================================================================
+// USER SELF-DELETE
+// =============================================================================
+
+/**
+ * Deletes the current user's account and anonymized their comments
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @return bool True if the user was successfully deleted, false otherwise.
+ */
+
+function fictioneer_delete_my_account() {
+  // Setup
+  $current_user = wp_get_current_user();
+
+  // Guard
+  if (
+    ! $current_user ||
+    $current_user->ID === 1 ||
+    in_array( 'administrator', $current_user->roles ) ||
+    ! current_user_can( 'fcn_allow_self_delete' )
+  ) {
+    return false;
+  }
+
+  // Update comments
+  $comments = get_comments( array( 'user_id' => $current_user->ID ) );
+
+  foreach ( $comments as $comment ) {
+    wp_update_comment(
+      array(
+        'comment_ID' => $comment->comment_ID,
+        'user_ID' => 0,
+        'comment_author' => fcntr( 'deleted_user' ),
+        'comment_author_email' => '',
+        'comment_author_IP' => '',
+        'comment_agent' => '',
+        'comment_author_url' => ''
+      )
+    );
+
+    // Make absolutely sure no comment subscriptions remain
+    update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
+
+    // Retain some (redacted) data in case there was a mistake
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
+    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
+  }
+
+  // Delete user
+  if ( wp_delete_user( $current_user->ID ) ) {
+    return true;
+  }
+
+  // Failure
+  return false;
+}
+
 ?>
