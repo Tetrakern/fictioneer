@@ -204,9 +204,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
    * "There are only two hard things in Computer Science: cache invalidation and
    * naming things" -- Phil Karlton.
    *
-   * @since Fictioneer 5.0
+   * @since Fictioneer 5.0.0
    *
-   * @param int $post_id Updated post ID.
+   * @param int $post_id  Updated post ID.
    */
 
   function fictioneer_refresh_post_caches( $post_id ) {
@@ -360,6 +360,34 @@ function fictioneer_toggle_refresh_hooks( $add = true ) {
 
 if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
   fictioneer_toggle_refresh_hooks();
+}
+
+/**
+ * Flush object cache
+ *
+ * "There are only two hard things in Computer Science: cache invalidation and
+ * naming things" -- Phil Karlton.
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param int $post_id  Updated post ID.
+ */
+
+function fictioneer_flush_object_cache( $post_id ) {
+  // Prevent miss-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Nuclear option
+  wp_cache_flush();
+}
+
+if ( get_option( 'fictioneer_flush_object_cache' ) ) {
+  add_action( 'save_post', 'fictioneer_flush_object_cache', 9 );
+  add_action( 'untrash_post', 'fictioneer_flush_object_cache', 9 );
+  add_action( 'trashed_post', 'fictioneer_flush_object_cache', 9 );
+  add_action( 'delete_post', 'fictioneer_flush_object_cache', 9 );
 }
 
 // =============================================================================

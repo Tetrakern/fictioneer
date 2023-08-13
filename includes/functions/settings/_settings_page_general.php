@@ -840,6 +840,14 @@
                     </div>
                   </label>
 
+                  <label for="fictioneer_flush_object_cache" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_flush_object_cache" type="checkbox" id="fictioneer_flush_object_cache" <?php echo checked( 1, get_option( 'fictioneer_flush_object_cache' ), false ); ?> value="1">
+                    <div>
+                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_flush_object_cache']['label']; ?></span>
+                      <p class="sub-label"><?php _e( 'The nuclear option if persistent object caches (Memcached, Redis, etc.) act up. Included in the "purge all" setting.', 'fictioneer' ) ?></p>
+                    </div>
+                  </label>
+
                   <label for="fictioneer_enable_cache_compatibility" class="label-wrapped-checkbox row">
                     <input name="fictioneer_enable_cache_compatibility" type="checkbox" id="fictioneer_enable_cache_compatibility" <?php echo checked( 1, get_option( 'fictioneer_enable_cache_compatibility' ), false ); ?> value="1">
                     <div>
