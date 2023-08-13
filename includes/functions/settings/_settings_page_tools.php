@@ -25,6 +25,11 @@
                 <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_add_moderator_role' ); ?>"><?php _e( 'Add Moderator Role', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_remove_moderator_role' ); ?>"><?php _e( 'Remove Moderator Role', 'fictioneer' ) ?></a>
               </div>
+              <hr>
+              <p class="description row"><?php _e( '<strong>Initialize theme roles and capabilities.</strong> Fictioneer comes with extended capabilities and roles that need to be initialized in order to work correctly. This should happen once when you first activate the theme, but you can do it manually here. Note that this will only reset theme-related capabilities, not undo anything else done by other plugins.', 'fictioneer' ) ?></p>
+              <div class="row flex wrap gap-6">
+                <a class="button button--secondary" id="button-initialize-roles" href="<?php echo fictioneer_tool_action( 'fictioneer_initialize_roles' ); ?>"><?php _e( 'Initialize Roles', 'fictioneer' ) ?></a>
+              </div>
             </div>
           </div>
         </div>

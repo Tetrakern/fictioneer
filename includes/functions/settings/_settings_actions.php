@@ -107,7 +107,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-updated-moderator-caps' => __( 'Moderator capabilities have been updated.', 'fictioneer' ),
       'fictioneer-updated-author-caps' => __( 'Author capabilities have been updated.', 'fictioneer' ),
       'fictioneer-updated-contributor-caps' => __( 'Contributor capabilities have been updated.', 'fictioneer' ),
-      'fictioneer-updated-subscriber-caps' => __( 'Subscriber capabilities have been updated.', 'fictioneer' )
+      'fictioneer-updated-subscriber-caps' => __( 'Subscriber capabilities have been updated.', 'fictioneer' ),
+      'fictioneer-roles-initialized' => __( 'Theme roles initialized.', 'fictioneer' )
 		)
 	);
 }
@@ -331,6 +332,24 @@ function fictioneer_tools_remove_moderator_role() {
   fictioneer_finish_tool_action( 'fictioneer-removed-moderator-role' );
 }
 add_action( 'admin_post_fictioneer_remove_moderator_role', 'fictioneer_tools_remove_moderator_role' );
+
+/**
+ * Initialize roles
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_tools_initialize_roles() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_initialize_roles' );
+
+  // Force role initialization
+  fictioneer_initialize_roles( true );
+
+  // Finish
+  fictioneer_finish_tool_action( 'fictioneer-roles-initialized' );
+}
+add_action( 'admin_post_fictioneer_initialize_roles', 'fictioneer_tools_initialize_roles' );
 
 /**
  * Convert story tags to genres

@@ -64,14 +64,19 @@ define(
  * Initialize user roles if not already done
  *
  * @since Fictioneer 5.6.0
+ *
+ * @param boolean $force  Optional. Whether to force initialization.
  */
 
-function fictioneer_initialize_roles() {
+function fictioneer_initialize_roles( $force = false ) {
   // Only do this once...
   $administrator = get_role( 'administrator' );
 
   // If this capability is missing, the roles have not yet been initialized
-  if ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ) {
+  if (
+    ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ||
+    $force
+  ) ) {
     fictioneer_setup_roles();
   }
 }
