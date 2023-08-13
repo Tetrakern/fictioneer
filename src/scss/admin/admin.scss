@@ -29,6 +29,20 @@ td.comment {
   display: none;
 }
 
+.button.button-danger {
+  background: #dc3232;
+  color: #fff;
+  text-decoration: none;
+  border-color: #dc3232;
+}
+
+.button.button-danger:hover,
+.button.button-danger:focus {
+  background: #c00;
+  color: #fff;
+  border-color: #c00;
+}
+
 // =============================================================================
 // CUSTOMIZER
 // =============================================================================
