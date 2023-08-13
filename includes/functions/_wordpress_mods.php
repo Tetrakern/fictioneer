@@ -998,4 +998,27 @@ if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
   add_action( 'widgets_init', 'fictioneer_disable_widgets', 99 );
 }
 
+// =============================================================================
+// EXTEND ALLOWED FILE TYPES
+// =============================================================================
+
+/**
+ * Extend the list of allowed types for file uploads
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param array $mimes  Key-value pairs of file extensions and their MIME types.
+ *
+ * @return array Updated MIME types array.
+ */
+
+function fictioneer_extend_allowed_upload_types( $mimes ) {
+  $mimes['svg'] = 'image/svg+xml';
+  $mimes['epub'] = 'application/epub+zip';
+  $mimes['avif'] = 'image/avif';
+
+  return $mimes;
+}
+add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
+
 ?>

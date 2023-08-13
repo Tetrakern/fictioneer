@@ -155,6 +155,8 @@ function fictioneer_setup_roles() {
     'fcn_admin_panel_access',
     'fcn_adminbar_access',
     'fcn_allow_self_delete',
+    'fcn_upload_limit',
+    'fcn_upload_restrictions',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -215,6 +217,8 @@ function fictioneer_setup_roles() {
     'fcn_admin_panel_access',
     'fcn_adminbar_access',
     'fcn_allow_self_delete',
+    'fcn_upload_limit',
+    'fcn_upload_restrictions',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -266,6 +270,8 @@ function fictioneer_setup_roles() {
     'fcn_admin_panel_access',
     'fcn_reduced_profile',
     'fcn_allow_self_delete',
+    'fcn_upload_limit',
+    'fcn_upload_restrictions',
     // Stories
     'read_fcn_story',
     // Chapters
@@ -303,6 +309,8 @@ function fictioneer_add_moderator_role() {
     'fcn_admin_panel_access' => true,
     'fcn_adminbar_access' => true,
     'fcn_edit_only_others_comments' => true,
+    'fcn_upload_limit' => true,
+    'fcn_upload_restrictions' => true,
     // Stories
     'read_fcn_story' => true,
     'edit_fcn_stories' => true,
@@ -1096,6 +1104,65 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_sticky', 'fictioneer_acf_prevent_value_update', 9999, 3 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_make_sticky_input', 9999 );
+  }
+
+  // === FCN_UPLOAD_LIMIT ======================================================
+
+  /**
+   * Limit the default upload size in MB (minimum 1 MB)
+   *
+   * @since 5.6.0
+   *
+   * @param int $bytes  Default limit value in bytes.
+   *
+   * @return int Modified maximum upload file size in bytes.
+   */
+
+  function fictioneer_upload_size_limit( $bytes ) {
+    // Setup
+    $mb = absint( get_option( 'fictioneer_upload_size_limit', 5 ) ?: 5 );
+    $mb = max( $mb, 1 ); // 1 MB minimum
+
+    // Return maximum upload file size
+    return 1024 * 1024 * $mb;
+  }
+
+  if ( current_user_can( 'fcn_upload_limit' ) ) {
+    add_filter( 'upload_size_limit', 'fictioneer_upload_size_limit', 9999 );
+  }
+
+  // === FCN_UPLOAD_RESTRICTION ================================================
+
+  /**
+   * Restrict uploaded file types based on allowed MIME types
+   *
+   * @since 5.6.0
+   *
+   * @param array $file  An array of data for a single uploaded file. Has keys
+   *                     for 'name', 'type', 'tmp_name', 'error', and 'size'.
+   *
+   * @return array Modified array with error message if the MIME type is not allowed.
+   */
+
+  function fictioneer_upload_restrictions( $file ) {
+    // Setup
+    $filetype = wp_check_filetype( $file['name'] );
+    $mime_type = $filetype['type'];
+    $allowed = get_option( 'fictioneer_upload_mime_types', FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS ) ?:
+      FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS;
+    $allowed = fictioneer_explode_list( $allowed );
+
+    // Limit upload file types
+    if ( ! in_array( $mime_type, $allowed ) ){
+      $file['error'] = __( 'You are not allowed to upload files of this type.', 'fictioneer' );
+    }
+
+    // Continue filter
+    return $file;
+  }
+
+  if ( current_user_can( 'fcn_upload_restrictions' ) ) {
+    add_filter( 'wp_handle_upload_prefilter', 'fictioneer_upload_restrictions', 9999 );
   }
 }
 

@@ -77,6 +77,12 @@ if ( ! defined( 'FICTIONEER_TTS_REGEX' ) ) {
   define( 'FICTIONEER_TTS_REGEX', '([.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])' );
 }
 
+// String: Default list of allowed mime types for upload restrictions
+define(
+  'FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS',
+  'image/jpeg, image/png, image/webp, image/avif, image/gif, application/pdf, application/epub+zip, application/rtf, text/plain, image/svg+xml'
+);
+
 /*
  * Date Strings
  */

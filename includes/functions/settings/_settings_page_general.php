@@ -775,11 +775,38 @@
                   <input name="fictioneer_cookie_banner" type="checkbox" id="fictioneer_cookie_banner" <?php echo checked( 1, get_option( 'fictioneer_cookie_banner' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_cookie_banner']['label']; ?></span>
-                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, 'necessary', or 'full'.", 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, \"necessary\", or \"full\".", 'fictioneer' ) ?></p>
                   </div>
                 </label>
 
     					</div>
+    				</div>
+    			</div>
+
+          <div class="card">
+    				<div class="card-wrapper">
+    					<h3 class="card-header"><?php _e( 'File Uploads', 'fictioneer' ) ?></h3>
+    					<div class="card-content">
+
+                <div class="text-input-inline row"><?php
+                  printf(
+                    FICTIONEER_OPTIONS['integers']['fictioneer_upload_size_limit']['label'],
+                    '<input name="fictioneer_upload_size_limit" type="text" id="fictioneer_upload_size_limit" value="' . esc_attr( get_option( 'fictioneer_upload_size_limit', 5 ) ?: 5 ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="5" placeholder="5">'
+                  )
+                ?></div>
+
+                <div class="textarea row">
+                  <?php
+                    $mime_types = get_option( 'fictioneer_upload_mime_types', FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS ) ?: FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS;
+                  ?>
+                  <textarea name="fictioneer_upload_mime_types" id="fictioneer_upload_mime_types" rows="4" style="height: 100px;" placeholder="<?php echo FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS; ?>"><?php echo $mime_types; ?></textarea>
+                  <p class="sub-label"><?php printf(
+                    FICTIONEER_OPTIONS['strings']['fictioneer_upload_mime_types']['label'],
+                    'https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'
+                  ); ?></p>
+                </div>
+
+              </div>
     				</div>
     			</div>
 

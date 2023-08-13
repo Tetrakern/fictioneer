@@ -693,6 +693,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_integer',
       'label' => __( 'Minutes a comment can be edited. -1 for no limit.', 'fictioneer' ),
       'default' => 15
+		),
+		'fictioneer_upload_size_limit' => array(
+      'name' => 'fictioneer_upload_size_limit',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'label' => __( '<span>Limit file uploads to</span> %s <span>MB or less for user roles with the "Upload Limit" restriction.</span>', 'fictioneer' ),
+      'default' => 5
 		)
 	),
 	'strings' => array(
@@ -863,6 +870,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Contact Form Receivers (one email address per line)', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
+    ),
+		'fictioneer_upload_mime_types' => array(
+      'name' => 'fictioneer_upload_mime_types',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'sanitize_textarea_field',
+      'label' => __( 'Comma-separated list of allowed <a href="%s" target="_blank" rel="noreferrer">mime types</a> for user roles with the "Upload Restriction".', 'fictioneer' ),
+      'default' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS,
+			'placeholder' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS
     )
 	)
 ));
