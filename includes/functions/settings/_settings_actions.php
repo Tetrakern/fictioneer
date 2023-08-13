@@ -19,7 +19,7 @@ function fictioneer_verify_tool_action( $action ) {
   }
 
   // Guard
-  if ( ! current_user_can( 'administrator' ) || ! is_admin() ) {
+  if ( ! current_user_can( 'manage_options' ) || ! is_admin() ) {
     wp_die( __( 'You do not have permission to access this page.', 'fictioneer' ) );
   }
 }

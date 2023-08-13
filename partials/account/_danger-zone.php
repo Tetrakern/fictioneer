@@ -20,7 +20,7 @@
 $current_user = $args['user'];
 
 // Do not show for roles above subscriber
-if ( ! in_array( 'subscriber', $current_user->roles ) ) return;
+if ( ! current_user_can( 'fcn_allow_self_delete' ) ) return;
 
 ?>
 

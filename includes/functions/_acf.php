@@ -214,7 +214,7 @@ add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remem
  */
 
 function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'administrator' ) ) {
+  if ( ! current_user_can( 'manage_options' ) ) {
     $args['author'] = get_post_field( 'post_author', $post_id );
   }
 
@@ -239,7 +239,7 @@ add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fi
  */
 
 function fictioneer_acf_scope_chapter_story( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'administrator' ) ) {
+  if ( ! current_user_can( 'manage_options' ) ) {
     $args['author'] = get_post_field( 'post_author', $post_id );
   }
 
@@ -290,7 +290,7 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
   $story_author_id = get_post_field( 'post_author', $story_id );
 
   // Abort if the author IDs do not match unless it's an administrator
-  if ( ! current_user_can( 'administrator' ) && $chapter_author_id != $story_author_id ) {
+  if ( ! current_user_can( 'manage_options' ) && $chapter_author_id != $story_author_id ) {
     return;
   }
 

@@ -788,9 +788,7 @@ function fictioneer_ajax_delete_my_account() {
     $sender_id !== $current_user->ID ||
     $current_user == 1 ||
     in_array( 'administrator', $current_user->roles ) ||
-    current_user_can( 'edit_posts' ) ||
-    current_user_can( 'publish_posts' ) ||
-    current_user_can( 'moderate_comments' )
+    ! current_user_can( 'fcn_allow_self_delete' )
   ) {
     wp_send_json_error(
       array(
