@@ -13,7 +13,8 @@
 // Setup
 $roles = wp_roles()->roles;
 $admin_url = admin_url( 'admin-post.php' );
-$admin_nonce = wp_nonce_field( 'fictioneer_roles_update_role', 'fictioneer_nonce', true, false );
+$update_role_nonce = wp_nonce_field( 'fictioneer_roles_update_role', 'fictioneer_nonce', true, false );
+$add_role_nonce = wp_nonce_field( 'fictioneer_roles_add_role', 'fictioneer_nonce', true, false );
 
 $editor_caps = array(
   'fcn_shortcodes',
@@ -215,12 +216,17 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 
 	<div class="fictioneer-settings__content">
     <div class="tab-content">
+
+      <div class="flex flex-wrap mb-20">
+        <button type="button" id="show-add-role-dialog" class="button button-secondary" data-dialog-target="add-role-dialog"><?php _e( 'Add Role', 'fictioneer' ); ?></button>
+      </div>
+
       <?php foreach ( $roles as $key => $role ) : ?>
         <form method="post" action="<?php echo $admin_url; ?>" class="<?php echo $selected_role == $key ? '' : 'hidden'; ?>" data-sidebar-target="<?php echo $key; ?>">
 
           <input type="hidden" name="action" value="fictioneer_roles_update_role">
           <input type="hidden" name="role" value="<?php echo $key; ?>">
-          <?php echo $admin_nonce; ?>
+          <?php echo $update_role_nonce; ?>
 
           <div class="columns-layout two-columns">
             <?php
@@ -238,7 +244,37 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 
         </form>
       <?php endforeach; ?>
+
     </div>
   </div>
+
+  <dialog class="fictioneer-dialog" id="add-role-dialog">
+
+    <div class="fictioneer-dialog__header">
+      <span><?php _e( 'Add Role', 'fictioneer' ); ?></span>
+    </div>
+
+    <div class="fictioneer-dialog__content">
+      <form method="post" action="<?php echo $admin_url; ?>">
+
+        <input type="hidden" name="action" value="fictioneer_roles_add_role">
+        <?php echo $add_role_nonce; ?>
+
+        <div class="text-input">
+          <label for="fictioneer_add_role">
+            <input id="fictioneer_add_role" name="new_role" placeholder="<?php _ex( 'Role Name', 'fictioneer' ); ?>" type="text" required>
+            <p class="sub-label"><?php _e( 'Enter the name of the new role.', 'fictioneer' ) ?></p>
+          </label>
+        </div>
+
+        <div class="fictioneer-dialog__actions">
+          <button value="" class="button button-primary"><?php _e( 'Add', 'fictioneer' ); ?></button>
+          <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
+        </div>
+
+      </form>
+    </div>
+
+  </dialog>
 
 </div>

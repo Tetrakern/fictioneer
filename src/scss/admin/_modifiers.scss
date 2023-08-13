@@ -132,7 +132,7 @@
       justify-content: flex-end;
     }
 
-    &.wrap {
+    &.flex-wrap {
       flex-wrap: wrap;
     }
 
@@ -188,7 +188,7 @@
   }
 
   // Margin-top 2 to 16
-  @for $i from 1 through 16 {
+  @for $i from 1 through 32 {
     $n: 2 * $i;
     .mt-#{$n} {
       margin-top: var(--#{$n}bp);
@@ -196,7 +196,7 @@
   }
 
   // Margin-bottom 2 to 16
-  @for $i from 1 through 16 {
+  @for $i from 1 through 32 {
     $n: 2 * $i;
     .mb-#{$n} {
       margin-bottom: var(--#{$n}bp);

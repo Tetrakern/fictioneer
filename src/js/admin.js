@@ -286,3 +286,19 @@ _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
   navTarget.classList.remove('hidden');
   clickTarget.classList.add('active');
 });
+
+// =============================================================================
+// DIALOG
+// =============================================================================
+
+_$$('button[data-dialog-target]').forEach(element => {
+  element.addEventListener('click', event => {
+    _$$$(event.currentTarget.dataset.dialogTarget).showModal();
+  });
+});
+
+// _$$('button[data-dialog-close]').forEach(element => {
+//   element.addEventListener('click', event => {
+//     event.currentTarget.closest('dialog')
+//   });
+// });

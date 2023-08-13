@@ -474,6 +474,50 @@ body[class*="page_fictioneer"] {
 }
 
 // =============================================================================
+// FICTIONEER DIALOG MODAL
+// =============================================================================
+
+.fictioneer-dialog {
+  top: 50%;
+  left: 50%;
+  background: #fff;
+  padding: 0;
+  margin: 20px;
+  border: none;
+  width: min(480px, calc(100vw - 40px));
+  max-width: 480px;
+  transform: translate(-50%, -50%);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #1d2327;
+    font-size: var(--fs-m);
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0 var(--16bp);
+    height: 50px;
+  }
+
+  &__content {
+    font-size: var(--fs-xs);
+    padding: 0 var(--16bp) var(--16bp);
+  }
+
+  &__actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: var(--16bp);
+  }
+}
+
+// =============================================================================
 // FICTIONEER METABOXES
 // =============================================================================
 
