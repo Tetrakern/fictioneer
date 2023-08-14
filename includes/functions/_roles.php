@@ -21,7 +21,8 @@ define(
     'fcn_custom_epub_css',
     'fcn_seo_meta',
     'fcn_make_sticky',
-    'fcn_show_badge'
+    'fcn_show_badge',
+    'fcn_edit_permalink'
 	)
 );
 
@@ -126,6 +127,7 @@ function fictioneer_setup_roles() {
       'fcn_dashboard_access',
       'fcn_seo_meta',
       'fcn_make_sticky',
+      'fcn_edit_permalink',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore

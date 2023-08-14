@@ -147,7 +147,7 @@ function fictioneer_fcn_story_post_type() {
 		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'revisions'],
 		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
 		'hierarchical'        => false,
-		'public'              => true,
+		'public'              => current_user_can( 'fcn_edit_permalink' ), // Edit permalink in editor
     'rewrite'             => array( 'slug' => 'story' ),
     'show_in_rest'        => true,
 		'show_ui'             => true,
@@ -216,7 +216,7 @@ function fictioneer_fcn_chapter_post_type() {
 		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions'],
 		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
 		'hierarchical'        => false,
-		'public'              => true,
+		'public'              => current_user_can( 'fcn_edit_permalink' ), // Edit permalink in editor
     'rewrite'             => array( 'slug' => 'chapter' ),
     'show_in_rest'        => true,
 		'show_ui'             => true,
@@ -285,7 +285,7 @@ function fictioneer_fcn_collection_post_type() {
 		'supports'            => ['title', 'author', 'editor', 'thumbnail'],
 		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
 		'hierarchical'        => false,
-		'public'              => true,
+		'public'              => current_user_can( 'fcn_edit_permalink' ), // Edit permalink in editor
     'rewrite'             => array( 'slug' => 'collection' ),
     'show_in_rest'        => true,
 		'show_ui'             => true,
@@ -354,7 +354,7 @@ function fictioneer_fcn_recommendation_post_type() {
 		'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail'],
 		'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
 		'hierarchical'        => false,
-		'public'              => true,
+		'public'              => current_user_can( 'fcn_edit_permalink' ), // Edit permalink in editor
     'rewrite'             => array( 'slug' => 'recommendation' ),
     'show_in_rest'        => true,
 		'show_ui'             => true,
@@ -612,5 +612,33 @@ function fictioneer_restrict_tag_creation( $term, $taxonomy ) {
 if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_options' ) ) {
 	add_filter( 'pre_insert_term', 'fictioneer_restrict_tag_creation', 9999, 2 );
 }
+
+// =============================================================================
+// RESTRICT URL FIELD FOR POSTS AND PAGES
+// =============================================================================
+
+/**
+ * Modify post type registration arguments for the "post" and "page" types
+ *
+ * @param array  $args       Array of arguments for registering a post type.
+ * @param string $post_type  The post type slug.
+ *
+ * @return array Modified arguments.
+ */
+
+function fictioneer_modify_post_type_args( $args, $post_type ) {
+	if ( 'post' === $post_type || 'page' === $post_type ) {
+		$args['public'] = current_user_can( 'fcn_edit_permalink' ); // Edit permalink in editor
+		$args['show_ui'] = true;
+		$args['show_in_menu'] = true;
+		$args['show_in_admin_bar'] = true;
+		$args['publicly_queryable'] = true;
+		$args['show_in_nav_menus'] = true;
+		$args['exclude_from_search'] = false;
+	}
+
+	return $args;
+}
+add_filter( 'register_post_type_args', 'fictioneer_modify_post_type_args', 10, 2 );
 
 ?>
