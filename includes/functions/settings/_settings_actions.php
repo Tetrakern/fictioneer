@@ -316,27 +316,6 @@ function fictioneer_tools_add_moderator_role() {
 add_action( 'admin_post_fictioneer_add_moderator_role', 'fictioneer_tools_add_moderator_role' );
 
 /**
- * Remove a moderator role
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_tools_remove_moderator_role() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_remove_moderator_role' );
-
-  // Remove role
-  remove_role( 'fcn_moderator' );
-
-  // Log
-  fictioneer_log( __( 'Moderator role removed.', 'fictioneer' ) );
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-removed-moderator-role' );
-}
-add_action( 'admin_post_fictioneer_remove_moderator_role', 'fictioneer_tools_remove_moderator_role' );
-
-/**
  * Initialize roles
  *
  * @since Fictioneer 5.6.0
@@ -790,7 +769,7 @@ function fictioneer_update_role() {
 add_action( 'admin_post_fictioneer_update_role', 'fictioneer_update_role' );
 
 // =============================================================================
-// ADD/REMOVE ROLE
+// ROLES
 // =============================================================================
 
 /**
@@ -825,7 +804,7 @@ function fictioneer_add_role() {
   $name = wp_strip_all_tags( $new_role );
   $slug = strtolower( $name );
   $slug = str_replace( ' ', '_', $slug );
-  $slug = preg_replace( '/[^a-zA-Z0-9 ]/', '', $slug );
+  $slug = preg_replace( '/[^a-zA-Z0-9 _]/', '', $slug );
 
   $existing_role = get_role( $slug );
   $existing_fictioneer_role = get_role( "fcn_{$slug}" );
@@ -849,7 +828,7 @@ function fictioneer_add_role() {
   }
 
   // Add role
-  $role = add_role( $slug, $name );
+  $role = add_role( "fcn_{$slug}", $name );
 
   // Redirect
   if ( empty( $role ) ) {
@@ -858,7 +837,7 @@ function fictioneer_add_role() {
     );
   } else {
     wp_safe_redirect(
-      add_query_arg( array( 'success' => 'fictioneer-added-role', 'fictioneer-subnav' => $slug ), wp_get_referer() )
+      add_query_arg( array( 'success' => 'fictioneer-added-role', 'fictioneer-subnav' => "fcn_{$slug}" ), wp_get_referer() )
     );
   }
 
@@ -887,7 +866,12 @@ function fictioneer_remove_role() {
   $role = wp_strip_all_tags( $role );
   $role = strtolower( $role );
   $role = str_replace( ' ', '_', $role );
-  $role = preg_replace( '/[^a-zA-Z0-9 ]/', '', $role );
+  $role = preg_replace( '/[^a-zA-Z0-9 _]/', '', $role );
+
+  // Guard
+  if ( in_array( $role, ['administrator', 'editor', 'author', 'contributor', 'subscriber'] ) ) {
+    wp_die( __( 'This role cannot be removed.', 'fictioneer' ) );
+  }
 
   // Get users with role
   $role_holders = new WP_User_Query( array( 'role' => $role ) );
@@ -912,5 +896,89 @@ function fictioneer_remove_role() {
 }
 add_action( 'admin_post_fictioneer_remove_role', 'fictioneer_remove_role' );
 
+/**
+ * Rename role
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_rename_role() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_rename_role' );
+
+  // Permissions?
+  if ( ! current_user_can( 'manage_options' ) ) {
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+  }
+
+  // Setup
+  $role_slug = $_REQUEST['role'] ?? '';
+  $new_name = $_REQUEST['new_name'] ?? '';
+
+  // Params missing
+  if ( empty( $role_slug ) || empty( $new_name ) ) {
+    wp_safe_redirect(
+      add_query_arg( array( 'failure' => 'fictioneer-not-renamed-role' ), wp_get_referer() )
+    );
+
+    exit();
+  }
+
+  // Prepare strings
+  $new_name = sanitize_text_field( $new_name );
+  $new_name = wp_strip_all_tags( $new_name );
+  $role_slug = strtolower( $role_slug );
+  $role_slug = str_replace( ' ', '_', $role_slug );
+  $role_slug = preg_replace( '/[^a-zA-Z0-9 _]/', '', $role_slug );
+
+  // Guard
+  if ( in_array( $role_slug, ['administrator', 'editor', 'author', 'contributor', 'subscriber'] ) ) {
+    wp_die( __( 'This role cannot be renamed.', 'fictioneer' ) );
+  }
+
+  // Name or slug faulty
+  if ( empty( $new_name ) || empty( $role_slug ) ) {
+    wp_safe_redirect(
+      add_query_arg( array( 'failure' => 'fictioneer-not-renamed-role' ), wp_get_referer() )
+    );
+
+    exit();
+  }
+
+  // Get role to be renamed
+  $target_role = get_role( $role_slug );
+
+  // Role does not exist
+  if ( empty( $target_role ) ) {
+    wp_safe_redirect(
+      add_query_arg( array( 'failure' => 'fictioneer-not-renamed-role' ), wp_get_referer() )
+    );
+
+    exit();
+  }
+
+  // Remove old role with old name
+  remove_role( $role_slug );
+
+  // Add new role with new name but old slug
+  $role = add_role( $role_slug, $new_name, $target_role->capabilities );
+
+  // Redirect
+  if ( empty( $role ) ) {
+    // Try to restore old role
+    add_role( $role_slug, $target_role->name, $target_role->capabilities );
+
+    wp_safe_redirect(
+      add_query_arg( array( 'failure' => 'fictioneer-not-renamed-role' ), wp_get_referer() )
+    );
+  } else {
+    wp_safe_redirect(
+      add_query_arg( array( 'success' => 'fictioneer-renamed-role', 'fictioneer-subnav' => $role_slug ), wp_get_referer() )
+    );
+  }
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_rename_role', 'fictioneer_rename_role' );
 
 ?>

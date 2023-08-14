@@ -24,7 +24,7 @@ $rename_role_nonce = wp_nonce_field( 'fictioneer_rename_role', 'fictioneer_nonce
 $remove_message = __( 'Are you sure you want to remove the %s role? All current holders will become Subscribers. Enter %s to confirm.', 'fictioneer' );
 $remove_confirm = __( 'DELETE', 'fictioneer' );
 
-$protected_roles = ['Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber'];
+$protected_roles = ['administrator', 'editor', 'author', 'contributor', 'subscriber'];
 
 $editor_caps = array(
   'fcn_shortcodes',
@@ -215,8 +215,8 @@ uksort(
 );
 
 // Current role
-$selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
-$current_role = $roles[ $selected_role ];
+$current_role_slug = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
+$current_role = $roles[ $current_role_slug ];
 
 ?>
 
@@ -228,7 +228,7 @@ $current_role = $roles[ $selected_role ];
     <?php
       foreach ( $roles as $key => $role ) {
         $role['type'] = $key;
-        $class = $selected_role == $key ? ' class="tab active"' : ' class="tab"';
+        $class = $current_role_slug == $key ? ' class="tab active"' : ' class="tab"';
         $link = add_query_arg( 'fictioneer-subnav', $key, $current_url );
 
         echo '<a href="' . $link . '" ' . $class . '>' . $role['name'] . '</a>';
@@ -240,10 +240,10 @@ $current_role = $roles[ $selected_role ];
 	<div class="fictioneer-settings__content">
     <div class="tab-content">
 
-      <form method="post" action="<?php echo $admin_url; ?>" data-subnav-target="<?php echo $selected_role; ?>">
+      <form method="post" action="<?php echo $admin_url; ?>">
 
         <input type="hidden" name="action" value="fictioneer_update_role">
-        <input type="hidden" name="role" value="<?php echo $selected_role; ?>">
+        <input type="hidden" name="role" value="<?php echo $current_role_slug; ?>">
         <?php echo $update_role_nonce; ?>
 
         <div class="columns-layout two-columns">
@@ -255,25 +255,28 @@ $current_role = $roles[ $selected_role ];
         </div>
 
         <div class="flex flex-wrap gap-8 space-between">
+
           <div class="flex flex-wrap gap-8">
             <button type="submit" class="button button-primary">
               <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $current_role['name'] ); ?>
             </button>
-            <button type="button" class="button" data-dialog-target="rename-role-dialog">
-              <?php _ex( 'Rename', 'Rename role', 'fictioneer' ); ?>
-            </button>
+            <?php if ( ! in_array( $current_role_slug, $protected_roles ) ) : ?>
+              <button type="button" class="button" data-dialog-target="rename-role-dialog">
+                <?php _ex( 'Rename', 'Rename role', 'fictioneer' ); ?>
+              </button>
+            <?php endif; ?>
           </div>
 
           <div class="flex flex-wrap gap-8">
 
-            <?php if ( ! in_array( $current_role['name'], $protected_roles ) ) : ?>
+            <?php if ( ! in_array( $current_role_slug, $protected_roles ) ) : ?>
 
               <?php
                 $remove_action = 'fictioneer_remove_role';
                 $remove_link = wp_nonce_url(
                   add_query_arg(
                     'role',
-                    $selected_role,
+                    $current_role_slug,
                     admin_url( "admin-post.php?action={$remove_action}" )
                   ),
                   $remove_action,
@@ -324,11 +327,18 @@ $current_role = $roles[ $selected_role ];
     <div class="fictioneer-dialog__content">
       <form method="post" action="<?php echo $admin_url; ?>">
         <input type="hidden" name="action" value="fictioneer_rename_role">
+        <input type="hidden" name="role" value="<?php echo $current_role_slug; ?>">
         <?php echo $rename_role_nonce; ?>
         <div class="text-input">
           <label for="fictioneer_add_role">
             <input id="fictioneer_add_role" name="new_name" placeholder="<?php _ex( 'New Name', 'fictioneer' ); ?>" type="text" required>
             <p class="sub-label"><?php _e( 'Enter the new name for the role.', 'fictioneer' ) ?></p>
+          </label>
+        </div>
+        <div class="text-input mt-12">
+          <label for="fictioneer_add_role">
+            <input id="fictioneer_add_role" name="role_slug" placeholder="<?php echo $current_role_slug; ?>" type="text" disabled>
+            <p class="sub-label"><?php _e( 'Slug of the role. Cannot be changed.', 'fictioneer' ) ?></p>
           </label>
         </div>
         <div class="fictioneer-dialog__actions">
