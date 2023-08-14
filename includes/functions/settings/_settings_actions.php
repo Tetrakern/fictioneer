@@ -742,9 +742,9 @@ add_action( 'admin_post_fictioneer_fix_recommendations', 'fictioneer_tools_fix_r
  * @since Fictioneer 5.6.0
  */
 
-function fictioneer_roles_update_role() {
+function fictioneer_update_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_roles_update_role' );
+  fictioneer_verify_tool_action( 'fictioneer_update_role' );
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {
@@ -787,7 +787,7 @@ function fictioneer_roles_update_role() {
 
   exit();
 }
-add_action( 'admin_post_fictioneer_roles_update_role', 'fictioneer_roles_update_role' );
+add_action( 'admin_post_fictioneer_update_role', 'fictioneer_update_role' );
 
 // =============================================================================
 // ADD/REMOVE ROLE
@@ -801,7 +801,7 @@ add_action( 'admin_post_fictioneer_roles_update_role', 'fictioneer_roles_update_
 
 function fictioneer_add_role() {
   // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_roles_add_role' );
+  fictioneer_verify_tool_action( 'fictioneer_add_role' );
 
   // Permissions?
   if ( ! current_user_can( 'manage_options' ) ) {

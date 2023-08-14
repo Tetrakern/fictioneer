@@ -15,11 +15,16 @@ global $pagenow;
 // Setup
 $roles = wp_roles()->roles;
 $current_url = add_query_arg( $_GET, admin_url( $pagenow ) );
+
 $admin_url = admin_url( 'admin-post.php' );
-$update_role_nonce = wp_nonce_field( 'fictioneer_roles_update_role', 'fictioneer_nonce', true, false );
-$add_role_nonce = wp_nonce_field( 'fictioneer_roles_add_role', 'fictioneer_nonce', true, false );
+$update_role_nonce = wp_nonce_field( 'fictioneer_update_role', 'fictioneer_nonce', true, false );
+$add_role_nonce = wp_nonce_field( 'fictioneer_add_role', 'fictioneer_nonce', true, false );
+$rename_role_nonce = wp_nonce_field( 'fictioneer_rename_role', 'fictioneer_nonce', true, false );
+
 $remove_message = __( 'Are you sure you want to remove the %s role? All current holders will become Subscribers. Enter %s to confirm.', 'fictioneer' );
 $remove_confirm = __( 'DELETE', 'fictioneer' );
+
+$protected_roles = ['Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber'];
 
 $editor_caps = array(
   'fcn_shortcodes',
@@ -209,8 +214,9 @@ uksort(
   }
 );
 
-// Current selection
+// Current role
 $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
+$current_role = $roles[ $selected_role ];
 
 ?>
 
@@ -234,87 +240,103 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 	<div class="fictioneer-settings__content">
     <div class="tab-content">
 
-      <?php foreach ( $roles as $key => $role ) : ?>
-        <form method="post" action="<?php echo $admin_url; ?>" class="<?php echo $selected_role == $key ? '' : 'hidden'; ?>" data-subnav-target="<?php echo $key; ?>">
+      <form method="post" action="<?php echo $admin_url; ?>" data-subnav-target="<?php echo $selected_role; ?>">
 
-          <input type="hidden" name="action" value="fictioneer_roles_update_role">
-          <input type="hidden" name="role" value="<?php echo $key; ?>">
-          <?php echo $update_role_nonce; ?>
+        <input type="hidden" name="action" value="fictioneer_update_role">
+        <input type="hidden" name="role" value="<?php echo $selected_role; ?>">
+        <?php echo $update_role_nonce; ?>
 
-          <div class="columns-layout two-columns">
-            <?php
-              foreach ( $all_caps as $caps ) {
-                fictioneer_admin_capability_card( $caps[0], $caps[1], $role );
-              }
-            ?>
-          </div>
+        <div class="columns-layout two-columns">
+          <?php
+            foreach ( $all_caps as $caps ) {
+              fictioneer_admin_capability_card( $caps[0], $caps[1], $current_role );
+            }
+          ?>
+        </div>
 
-          <div class="flex flex-wrap gap-8 space-between">
+        <div class="flex flex-wrap gap-8 space-between">
+          <div class="flex flex-wrap gap-8">
             <button type="submit" class="button button-primary">
-              <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $role['name'] ); ?>
+              <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $current_role['name'] ); ?>
             </button>
-
-            <div class="flex flex-wrap gap-8">
-
-              <button type="button" class="button button-secondary" data-dialog-target="add-role-dialog"><?php _e( 'Add Role', 'fictioneer' ); ?></button>
-
-              <?php if ( ! in_array( $role['name'], ['Administrator', 'Editor', 'Author', 'Contributor', 'Subscriber'] ) ) : ?>
-
-                <?php
-                  $remove_action = 'fictioneer_remove_role';
-                  $remove_link = wp_nonce_url(
-                    add_query_arg(
-                      'role',
-                      $key,
-                      admin_url( "admin-post.php?action={$remove_action}" )
-                    ),
-                    $remove_action,
-                    'fictioneer_nonce'
-                  );
-                ?>
-
-                <a href="<?php echo $remove_link; ?>" class="button button-secondary confirm-dialog" data-dialog-message="<?php printf( $remove_message, $role['name'], $remove_confirm ); ?>" data-dialog-confirm="<?php echo $remove_confirm; ?>">
-                  <?php printf( _x( 'Remove %s', 'Remove {Role}', 'fictioneer' ), $role['name'] ); ?>
-                </a>
-
-              <?php endif; ?>
-
-            </div>
+            <button type="button" class="button" data-dialog-target="rename-role-dialog">
+              <?php _ex( 'Rename', 'Rename role', 'fictioneer' ); ?>
+            </button>
           </div>
 
-        </form>
-      <?php endforeach; ?>
+          <div class="flex flex-wrap gap-8">
+
+            <?php if ( ! in_array( $current_role['name'], $protected_roles ) ) : ?>
+
+              <?php
+                $remove_action = 'fictioneer_remove_role';
+                $remove_link = wp_nonce_url(
+                  add_query_arg(
+                    'role',
+                    $selected_role,
+                    admin_url( "admin-post.php?action={$remove_action}" )
+                  ),
+                  $remove_action,
+                  'fictioneer_nonce'
+                );
+              ?>
+
+              <a href="<?php echo $remove_link; ?>" class="button button-secondary confirm-dialog" data-dialog-message="<?php printf( $remove_message, $current_role['name'], $remove_confirm ); ?>" data-dialog-confirm="<?php echo $remove_confirm; ?>">
+                <?php printf( _x( 'Remove %s', 'Remove {Role}', 'fictioneer' ), $current_role['name'] ); ?>
+              </a>
+
+            <?php endif; ?>
+
+          </div>
+        </div>
+
+      </form>
 
     </div>
   </div>
 
   <dialog class="fictioneer-dialog" id="add-role-dialog">
-
     <div class="fictioneer-dialog__header">
       <span><?php _e( 'Add Role', 'fictioneer' ); ?></span>
     </div>
-
     <div class="fictioneer-dialog__content">
       <form method="post" action="<?php echo $admin_url; ?>">
-
         <input type="hidden" name="action" value="fictioneer_add_role">
         <?php echo $add_role_nonce; ?>
-
         <div class="text-input">
           <label for="fictioneer_add_role">
             <input id="fictioneer_add_role" name="new_role" placeholder="<?php _ex( 'Role Name', 'fictioneer' ); ?>" type="text" required>
             <p class="sub-label"><?php _e( 'Enter the name of the new role.', 'fictioneer' ) ?></p>
           </label>
         </div>
-
         <div class="fictioneer-dialog__actions">
           <button value="" class="button button-primary"><?php _e( 'Add', 'fictioneer' ); ?></button>
           <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
         </div>
-
       </form>
     </div>
+  </dialog>
 
+  <dialog class="fictioneer-dialog" id="rename-role-dialog">
+    <div class="fictioneer-dialog__header">
+      <span><?php printf( __( 'Rename %s Role', 'fictioneer' ), $current_role['name'] ); ?></span>
+    </div>
+    <div class="fictioneer-dialog__content">
+      <form method="post" action="<?php echo $admin_url; ?>">
+        <input type="hidden" name="action" value="fictioneer_rename_role">
+        <?php echo $rename_role_nonce; ?>
+        <div class="text-input">
+          <label for="fictioneer_add_role">
+            <input id="fictioneer_add_role" name="new_name" placeholder="<?php _ex( 'New Name', 'fictioneer' ); ?>" type="text" required>
+            <p class="sub-label"><?php _e( 'Enter the new name for the role.', 'fictioneer' ) ?></p>
+          </label>
+        </div>
+        <div class="fictioneer-dialog__actions">
+          <button value="" class="button button-primary"><?php _e( 'Rename', 'fictioneer' ); ?></button>
+          <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
+        </div>
+      </form>
+    </div>
   </dialog>
 
 </div>
