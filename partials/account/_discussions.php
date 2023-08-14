@@ -19,8 +19,7 @@
 // Setup
 $current_user = $args['user'];
 $avatar = get_avatar( $current_user->ID, 32 );
-$badge = fictioneer_get_patreon_badge( $current_user );
-$badge = empty( $badge ) ? fictioneer_get_override_badge( $current_user, 'Badge' ) : $badge;
+$badge = fictioneer_get_comment_badge( $current_user, null );
 
 ?>
 
@@ -99,9 +98,7 @@ $badge = empty( $badge ) ? fictioneer_get_override_badge( $current_user, 'Badge'
     <div class="comment__meta">
       <div class="comment__author">
         <span><?php echo $current_user->display_name; ?></span>
-        <?php if ( $badge ) : ?>
-          <div class="comment__badge"><?php echo $badge; ?></div>
-        <?php endif; ?>
+        <?php if ( $badge ) echo $badge; ?>
       </div>
       <div class="comment__date-and-link"><?php
         echo date_format(

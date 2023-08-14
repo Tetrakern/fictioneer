@@ -34,10 +34,7 @@ require_once __DIR__ . '/users/_admin_profile.php';
 
 function fictioneer_admin_styles() {
   wp_register_style( 'fictioneer-admin-panel', get_template_directory_uri() . '/css/admin.css' );
-
-  if ( is_admin() ) {
-    wp_enqueue_style( 'fictioneer-admin-panel' );
-  }
+  wp_enqueue_style( 'fictioneer-admin-panel' );
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 
@@ -153,9 +150,6 @@ function fictioneer_admin_update_notice() {
   $last_notice = (int) get_option( 'fictioneer_update_notice_timestamp', 0 );
   $is_updates_page = $pagenow == 'update-core.php';
 
-  // Abort if...
-  if ( ! current_user_can( 'manage_options' ) ) return;
-
   // Show only once every n seconds
   if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) return;
 
@@ -174,7 +168,10 @@ function fictioneer_admin_update_notice() {
   // Remember notice
   update_option( 'fictioneer_update_notice_timestamp', time() );
 }
-add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
+
+if ( current_user_can( 'install_themes' ) ) {
+  add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
+}
 
 // =============================================================================
 // ADD REMOVABLE QUERY ARGS
@@ -290,10 +287,7 @@ function fictioneer_allowed_block_types() {
     'jetpack/payment-buttons'
   );
 
-  if (
-    ! get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ||
-    current_user_can( 'administrator' )
-  ) {
+  if ( current_user_can( 'fcn_shortcodes' ) || current_user_can( 'manage_options' ) ) {
     $allowed[] = 'core/shortcode';
   }
 
@@ -303,101 +297,6 @@ function fictioneer_allowed_block_types() {
 if ( ! get_option( 'fictioneer_enable_all_blocks' ) ) {
   add_filter( 'allowed_block_types_all', 'fictioneer_allowed_block_types' );
 }
-
-// =============================================================================
-// HIDE UPDATE NOTICE FOR NON-ADMINS
-// =============================================================================
-
-/**
- * Hide update notice for non-admins
- *
- * @since Fictioneer 5.5.3
- */
-
-function fictioneer_limit_update_notice(){
-  if ( ! current_user_can( 'manage_options' ) ) {
-    remove_action( 'admin_notices', 'update_nag', 3 );
-  }
-}
-add_action( 'admin_head', 'fictioneer_limit_update_notice' );
-
-// =============================================================================
-// REDUCE SUBSCRIBER ADMIN PROFILE
-// =============================================================================
-
-/**
- * Reduce subscriber profile in admin panel
- *
- * @since 5.0
- */
-
-function fictioneer_reduce_subscriber_profile() {
-  // Setup
-  $user = wp_get_current_user();
-
-  // Abort if administrator
-  if ( fictioneer_is_admin( $user->ID ) ) return;
-
-  // Remove application password
-  add_filter( 'wp_is_application_passwords_available', '__return_false' );
-
-  // Abort if not a subscriber (higher role)
-  if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-  // Reduce profile...
-  remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-  add_filter( 'user_contactmethods', '__return_empty_array', 20 );
-}
-
-/**
- * Hide subscriber profile blocks in admin panel
- *
- * @since 5.0
- */
-
-function fictioneer_hide_subscriber_profile_blocks() {
-  // Setup
-  $user = wp_get_current_user();
-
-  // Abort if not a subscriber (higher role)
-  if ( ! in_array( 'subscriber', $user->roles ) ) return;
-
-  // Add CSS to hide blocks...
-  echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
-}
-
-if ( get_option( 'fictioneer_admin_reduce_subscriber_profile' ) ) {
-  add_action( 'admin_init', 'fictioneer_reduce_subscriber_profile' );
-  add_action( 'admin_head-profile.php', 'fictioneer_hide_subscriber_profile_blocks' );
-}
-
-// =============================================================================
-// LIMIT USERS TO OWN POSTS/PAGES
-// =============================================================================
-
-/**
- * Limit users to own posts and pages
- *
- * @since 5.0
- */
-
-function fictioneer_limit_users_to_own_posts_and_pages( $query ) {
-  global $pagenow;
-
-  // Abort conditions...
-  if ( ! $query->is_admin || 'edit.php' != $pagenow ) {
-    return $query;
-  }
-
-  // Add author to query unless user is supposed to see other posts/pages
-  if ( ! current_user_can( 'edit_others_posts' ) ) {
-    $query->set( 'author', get_current_user_id() );
-  }
-
-  // Return modified query
-  return $query;
-}
-add_filter( 'pre_get_posts', 'fictioneer_limit_users_to_own_posts_and_pages' );
 
 // =============================================================================
 // ADD OR UPDATE TERM
@@ -522,129 +421,6 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
       }
     }
   }
-}
-
-// =============================================================================
-// ROLE CUSTOMIZATION ACTIONS
-// =============================================================================
-
-/**
- * Add custom moderator role
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_add_moderator_role() {
-	return add_role(
-    'fcn_moderator',
-    __( 'Moderator', 'fictioneer' ),
-    array(
-      'read' => true,
-      'edit_posts' => true,
-      'edit_others_posts' => true,
-      'edit_published_posts' => true,
-      'moderate_comments' => true,
-      'edit_comment' => true,
-      'delete_posts' => false,
-      'delete_others_posts' => false
-    )
-  );
-}
-
-/**
- * Upgrade author role with additional capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_upgrade_author_role() {
-	$role = get_role( 'author' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'delete_published_pages' );
-  $role->add_cap( 'edit_pages' );
-  $role->add_cap( 'edit_published_pages' );
-  $role->add_cap( 'publish_pages' );
-}
-
-/**
- * Reset author role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_author_role() {
-	$role = get_role( 'author' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'delete_published_pages' );
-  $role->remove_cap( 'edit_pages' );
-  $role->remove_cap( 'edit_published_pages' );
-  $role->remove_cap( 'publish_pages' );
-}
-
-/**
- * Upgrade contributor role with additional capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_upgrade_contributor_role() {
-	$role = get_role( 'contributor' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'edit_pages' );
-  $role->add_cap( 'edit_published_pages' );
-}
-
-/**
- * Reset contributor role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_contributor_role() {
-	$role = get_role( 'contributor' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'edit_pages' );
-  $role->remove_cap( 'edit_published_pages' );
-}
-
-/**
- * Limit editor role to less capabilities
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_limit_editor_role() {
-	$role = get_role( 'editor' );
-  $role->remove_cap( 'delete_pages' );
-  $role->remove_cap( 'delete_published_pages' );
-  $role->remove_cap( 'delete_published_posts' );
-  $role->remove_cap( 'delete_others_pages' );
-  $role->remove_cap( 'delete_others_posts' );
-  $role->remove_cap( 'publish_pages' );
-  $role->remove_cap( 'publish_posts' );
-  $role->remove_cap( 'manage_categories' );
-  $role->remove_cap( 'unfiltered_html' );
-  $role->remove_cap( 'manage_links' );
-}
-
-/**
- * Reset editor role to WordPress defaults
- *
- * @since Fictioneer 5.0
- */
-
-function fictioneer_reset_editor_role() {
-	$role = get_role( 'editor' );
-  $role->add_cap( 'delete_pages' );
-  $role->add_cap( 'delete_published_pages' );
-  $role->add_cap( 'delete_published_posts' );
-  $role->add_cap( 'delete_others_pages' );
-  $role->add_cap( 'delete_others_posts' );
-  $role->add_cap( 'publish_pages' );
-  $role->add_cap( 'publish_posts' );
-  $role->add_cap( 'manage_categories' );
-  $role->add_cap( 'unfiltered_html' );
-  $role->add_cap( 'manage_links' );
 }
 
 ?>

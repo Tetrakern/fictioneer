@@ -565,7 +565,23 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable OAuth 2.0 authentication:** Allow visitors to register with social media accounts, but be aware of the implications!
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
-* **Disable theme comment \*:** If you want to use different comments. Disables most of the other comment options as well.
+* **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
+
+<br>
+
+![Roles Settings Preview](repo/assets/settings_roles_preview.jpg?raw=true)
+
+### Roles
+
+The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain roles. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. A few example capabilities:
+
+* **Edit Only Others Comments:** Limits moderators to only editing comments, despite being able to edit posts from others.
+* **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
+* **Select Page Template:** You cannot change the page template without this capability.
+
+<br>
+
+![Connections Settings Preview](repo/assets/settings_connections_preview.jpg?raw=true)
 
 ### Connections Tab
 
@@ -578,9 +594,17 @@ Anything that connects with external service providers goes here, such as the Cl
 
 The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. Note that the service providers can be picky, such as rejecting an URI that includes "www" if that is not actually part of your website’s address. Use the _exact_ string you see in your browser’s address bar.
 
+<br>
+
+![Phrases Settings Preview](repo/assets/settings_phrases_preview.png?raw=true)
+
 ### Phrases Tab
 
 Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin.
+
+<br>
+
+![ePUBs Settings Preview](repo/assets/settings_epubs_preview.jpg?raw=true)
 
 ### ePUBs Tab
 
@@ -594,7 +618,9 @@ Only available if you enable the SEO features and no (known) SEO plugin is runni
 
 ### Tools Tab
 
-A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role that WordPress somehow lacks and fix the permissions of other roles — or revert these changes. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
+A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role if missing or convert tags into genres. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
+
+If the user roles lack permissions, such as authors not being able to add stories and chapters, use the **Initialize Roles** action. This also restores the defaults if you mess something up, although it will not reset capabilities outside the theme’s scope. Most administrative capabilities are left untouched for security reasons.
 
 ### Log
 
@@ -760,3 +786,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.
 | FICTIONEER_DISABLE_ACF_JSON_IMPORT | boolean | Whether to disable the ACF JSON field import. Dangerous. Default `false`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
+| FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.

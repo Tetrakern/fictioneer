@@ -77,6 +77,12 @@ if ( ! defined( 'FICTIONEER_TTS_REGEX' ) ) {
   define( 'FICTIONEER_TTS_REGEX', '([.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])' );
 }
 
+// String: Default list of allowed mime types for upload restrictions
+define(
+  'FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS',
+  'image/jpeg, image/png, image/webp, image/avif, image/gif, application/pdf, application/epub+zip, application/rtf, text/plain, image/svg+xml'
+);
+
 /*
  * Date Strings
  */
@@ -293,6 +299,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_STICKY_CARDS' ) ) {
   define( 'FICTIONEER_ENABLE_STICKY_CARDS', true );
 }
 
+// Boolean: Enable story data meta cache
+if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
+  define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
@@ -459,12 +470,6 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
   // Only used for AJAX
   require_once __DIR__ . '/includes/functions/users/_bookmarks.php';
 }
-
-/**
- * Add privacy and security measures.
- */
-
-require_once __DIR__ . '/includes/functions/users/_privacy_security.php';
 
 /**
  * Add content helper functions.

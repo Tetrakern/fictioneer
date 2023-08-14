@@ -9,10 +9,10 @@
  *
  * @since Fictioneer 5.0
  *
- * @param string     $link    The HTML markup for the comment reply link.
- * @param array      $args    An array of arguments overriding the defaults.
- * @param WP_Comment $comment The object of the comment being replied.
- * @param WP_Post    $post    The WP_Post object.
+ * @param string     $link     The HTML markup for the comment reply link.
+ * @param array      $args     An array of arguments overriding the defaults.
+ * @param WP_Comment $comment  The object of the comment being replied.
+ * @param WP_Post    $post     The WP_Post object.
  *
  * @return string Reply link.
  */
@@ -108,7 +108,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $comment_count Total number of comments.
+   * @param int $comment_count  Total number of comments.
    */
 
   function fictioneer_comment_header( $comment_count ) {
@@ -144,7 +144,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $comments_count Total number of comments.
+   * @param int $comments_count  Total number of comments.
    */
 
   function fictioneer_comments_ajax_skeleton( $comments_count ) {
@@ -205,9 +205,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $comments Collection of comments to display.
-   * @param int   $page     Current page number of the comments.
-   * @param array $args     With 'commentcode', 'post_author_id', and 'post_id'.
+   * @param array $comments  Collection of comments to display.
+   * @param int   $page      Current page number of the comments.
+   * @param array $args      With 'commentcode', 'post_author_id', and 'post_id'.
    */
 
   function fictioneer_ajax_list_comments( $comments, $page, $args = [] ) {
@@ -253,7 +253,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
  *
  * @since Fictioneer 5.0
  *
- * @param array $parsed_args Default list arguments.
+ * @param array $parsed_args  Default list arguments.
  *
  * @return array Modified arguments.
  */
@@ -292,76 +292,6 @@ function fictioneer_comment_list_args( $parsed_args ) {
 
 if ( ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
   add_filter( 'wp_list_comments_args', 'fictioneer_comment_list_args' );
-}
-
-// =============================================================================
-// GET COMMENT BADGE
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
-  /**
-   * Get HTML for comment badge
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param WP_User    $user           The current user object.
-   * @param WP_Comment $comment        The comment object.
-   * @param int        $post_author_id ID of the author of the post the comment is for.
-   *
-   * @return string Badge HTML or empty string.
-   */
-
-  function fictioneer_get_comment_badge( $user, $comment, $post_author_id ) {
-    // Abort conditions...
-    if ( $user && get_the_author_meta( 'fictioneer_hide_badge', $comment->user_id ) ) return '';
-
-    // Setup
-    $comment_user = get_user_by( 'id', $comment->user_id );
-    $is_post_author = $comment->user_id == $post_author_id;
-    $is_moderator = fictioneer_is_moderator( $comment->user_id );
-    $is_admin = fictioneer_is_admin( $comment->user_id );
-    $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
-    $badge_class = '';
-    $badge = '';
-
-    // Role badge
-    if ( $is_post_author ) {
-      $badge = fcntr( 'author' );
-      $badge_class = 'is-author';
-    } elseif ( $is_admin ) {
-      $badge = fcntr( 'admin' );
-      $badge_class = 'is-admin';
-    } elseif ( $is_moderator ) {
-      $badge = fcntr( 'moderator' );
-      $badge_class = 'is-moderator';
-    }
-
-    // Patreon badge (if no higher badge set yet)
-    if ( empty( $badge ) ) {
-      $badge = fictioneer_get_patreon_badge( $comment_user );
-      $badge_class = 'is-supporter';
-    }
-
-    // Custom badge (can override all)
-    if (
-      get_option( 'fictioneer_enable_custom_badges' ) &&
-      ! get_the_author_meta( 'fictioneer_disable_badge_override', $comment->user_id )
-    ) {
-      $custom_badge = fictioneer_get_override_badge( $comment_user );
-
-      if ( $custom_badge ) {
-        $badge = $custom_badge;
-        $badge_class = 'badge-override';
-      }
-    }
-
-    // Apply filters
-    $output = empty( $badge ) ? '' : sprintf( $badge_body, $badge_class, $badge );
-    $output = apply_filters( 'fictioneer_filter_comment_badge', $output, $badge, $badge_class );
-
-    // Return badge or empty sting
-    return $output;
-  }
 }
 
 // =============================================================================
@@ -445,7 +375,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // Badge
-    $badge = fictioneer_get_comment_badge( $current_user, $comment, $post_author_id );
+    $badge = fictioneer_get_comment_badge( get_user_by( 'id', $comment->user_id ), $comment, $post_author_id );
 
     // Flags
     $is_caching = fictioneer_caching_active();

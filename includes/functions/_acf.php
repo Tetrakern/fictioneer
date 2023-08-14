@@ -214,7 +214,7 @@ add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remem
  */
 
 function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'administrator' ) ) {
+  if ( ! current_user_can( 'manage_options' ) ) {
     $args['author'] = get_post_field( 'post_author', $post_id );
   }
 
@@ -239,7 +239,7 @@ add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fi
  */
 
 function fictioneer_acf_scope_chapter_story( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'administrator' ) ) {
+  if ( ! current_user_can( 'manage_options' ) ) {
     $args['author'] = get_post_field( 'post_author', $post_id );
   }
 
@@ -290,7 +290,7 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
   $story_author_id = get_post_field( 'post_author', $story_id );
 
   // Abort if the author IDs do not match unless it's an administrator
-  if ( ! current_user_can( 'administrator' ) && $chapter_author_id != $story_author_id ) {
+  if ( ! current_user_can( 'manage_options' ) && $chapter_author_id != $story_author_id ) {
     return;
   }
 
@@ -326,5 +326,52 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
 if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
   add_action( 'acf/save_post', 'fictioneer_acf_append_chapter_to_story', 10 );
 }
+
+// =============================================================================
+// PREVENT ACF FIELD FROM BEING SAVED
+// =============================================================================
+
+/**
+ * Prevents updating the value of an ACF field
+ *
+ * When an attempt is made to update an ACF field, this function returns the
+ * current value of the field, effectively discarding the new one.
+ *
+ * @since 5.6.0
+ *
+ * @param mixed $value    The new value to be saved,
+ * @param int   $post_id  The post ID.
+ * @param array $field    The ACF field settings array.
+ *
+ * @return mixed The current value of the ACF field.
+ */
+
+function fictioneer_acf_prevent_value_update( $value, $post_id, $field ) {
+  return get_field( $field['name'], $post_id );
+}
+
+// =============================================================================
+// REDUCE TINYMCE TOOLBAR
+// =============================================================================
+
+/**
+ * Reduce items in the TinyMCE toolbar
+ *
+ * @since 5.6.0
+ *
+ * @param array $toolbars  The toolbar configuration.
+ *
+ * @return array The modified toolbar configuration.
+ */
+
+function fictioneer_acf_reduce_wysiwyg( $toolbars ) {
+  unset( $toolbars['Full'][1][0] ); // Formselect
+  unset( $toolbars['Full'][1][10] ); // WP More
+  unset( $toolbars['Full'][1][12] ); // Fullscreen
+  unset( $toolbars['Full'][1][13] ); // WP Adv.
+
+  return $toolbars;
+}
+add_filter( 'acf/fields/wysiwyg/toolbars', 'fictioneer_acf_reduce_wysiwyg' );
 
 ?>

@@ -436,6 +436,105 @@ function fictioneer_cancel_frontend_email_change() {
 add_action( 'admin_post_fictioneer_cancel_frontend_email_change', 'fictioneer_cancel_frontend_email_change' );
 
 // =============================================================================
+// GET COMMENT BADGE
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
+  /**
+   * Get HTML for comment badge
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_User|null    $user            The comment user.
+   * @param WP_Comment|null $comment         Optional. The comment object.
+   * @param int             $post_author_id  Optional. ID of the author of the post
+   *                                         the comment is for.
+   *
+   * @return string Badge HTML or empty string.
+   */
+
+  function fictioneer_get_comment_badge( $user, $comment = null, $post_author_id = 0 ) {
+    // Pre-setup
+    $user_id = $user ? $user->ID : 0;
+    $filter_args = array(
+      'comment' => $comment,
+      'post_author_id' => $post_author_id
+    );
+
+    // Abort conditions...
+    if ( empty( $user_id ) || get_the_author_meta( 'fictioneer_hide_badge', $user_id ) ) {
+      $filter_args['class'] = 'is-guest';
+      $filter_args['badge'] = '';
+
+      return apply_filters( 'fictioneer_filter_comment_badge', '', $user, $filter_args );
+    }
+
+    // Setup
+    $is_post_author = empty( $comment ) ? false : $comment->user_id == $post_author_id;
+    $is_moderator = fictioneer_is_moderator( $user_id );
+    $is_admin = fictioneer_is_admin( $user_id );
+    $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
+    $badge_class = '';
+    $badge = '';
+    $role_has_badge = user_can( $user_id, 'fcn_show_badge' );
+
+    // Role badge
+    if ( $role_has_badge ) {
+      if ( $is_post_author ) {
+        $badge = fcntr( 'author' );
+        $badge_class = 'is-author';
+      } elseif ( $is_admin ) {
+        $badge = fcntr( 'admin' );
+        $badge_class = 'is-admin';
+      } elseif ( $is_moderator ) {
+        $badge = fcntr( 'moderator' );
+        $badge_class = 'is-moderator';
+      } elseif ( ! empty( $user->roles ) ) {
+        global $wp_roles;
+
+        $role_slug = $user->roles[0] ?? '';
+        $role = $wp_roles->roles[ $role_slug ];
+
+        if ( ! empty( $role_slug ) ) {
+          $badge = $role['name'];
+          $badge_class = "is-{$role_slug}";
+        }
+      }
+    }
+
+    // Patreon badge (if no higher badge set yet)
+    if ( empty( $badge ) ) {
+      $badge = fictioneer_get_patreon_badge( $user );
+      $badge_class = 'is-supporter';
+    }
+
+    // Custom badge (can override all)
+    if (
+      get_option( 'fictioneer_enable_custom_badges' ) &&
+      ! get_the_author_meta( 'fictioneer_disable_badge_override', $user_id )
+    ) {
+      $custom_badge = fictioneer_get_override_badge( $user );
+
+      if ( $custom_badge ) {
+        $badge = $custom_badge;
+        $badge_class = 'badge-override';
+      }
+    }
+
+    // Apply filters
+    $output = empty( $badge ) ? '' : sprintf( $badge_body, $badge_class, $badge );
+
+    $filter_args['class'] = $badge_class;
+    $filter_args['badge'] = $badge;
+
+    $output = apply_filters( 'fictioneer_filter_comment_badge', $output, $user, $filter_args );
+
+    // Return badge or empty sting
+    return $output;
+  }
+}
+
+// =============================================================================
 // GET CUSTOM BADGE
 // =============================================================================
 
@@ -445,16 +544,20 @@ if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param WP_User        $user    The user.
-   * @param string|boolean $default Default value or false.
+   * @param WP_User        $user     The user.
+   * @param string|boolean $default  Default value or false.
    *
    * @return string|boolean The badge label, default, or false.
    */
 
   function fictioneer_get_override_badge( $user, $default = false ) {
     // Abort conditions...
-    if ( ! $user ) return $default;
-    if ( get_the_author_meta( 'fictioneer_hide_badge', $user->ID ) ) return false;
+    if (
+      ! $user ||
+      get_the_author_meta( 'fictioneer_hide_badge', $user->ID )
+    ) {
+      return $default;
+    }
 
     // Setup
     $badge = get_the_author_meta( 'fictioneer_badge_override', $user->ID );
@@ -479,21 +582,24 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User        $user    The user.
-   * @param string|boolean $default Default value or false.
+   * @param WP_User        $user     The user.
+   * @param string|boolean $default  Default value or false.
    *
    * @return string|boolean The badge label, default, or false.
    */
 
   function fictioneer_get_patreon_badge( $user, $default = false ) {
     // Abort conditions...
-    if ( ! $user ) return $default;
+    if ( ! $user ) {
+      return $default;
+    }
 
     // Setup
     $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+    $last_updated = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
 
     // Check if still valid (two weeks since last login) if not empty
-    if ( ! empty( $patreon_tiers ) && $patreon_tiers[0]['timestamp'] <= $patreon_tiers[0]['timestamp'] + 1209600 ) {
+    if ( time() <= $last_updated + WEEK_IN_SECONDS * 2 ) {
       $label = get_option( 'fictioneer_patreon_label' );
       return empty( $label ) ? _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' ) : $label;
     }
@@ -516,7 +622,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int $user_id User ID to get the hash for.
+   * @param int $user_id  User ID to get the hash for.
    *
    * @return string The unique fingerprint hash or empty string if not found.
    */
@@ -524,7 +630,11 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
   function fictioneer_get_user_fingerprint( $user_id ) {
     // Setup
     $user = get_user_by( 'ID', $user_id );
-    if ( ! $user ) return '';
+
+    if ( ! $user ) {
+      return '';
+    }
+
     $fingerprint = get_user_meta( $user_id, 'fictioneer_user_fingerprint', true );
 
     // If hash does not yet exist, create one
@@ -605,7 +715,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id User ID to soft delete the comments for.
+   * @param int $user_id  User ID to soft delete the comments for.
    *
    * @return array|false Detailed results about the database update. Accounts
    *                     for completeness, partial success, and errors. Includes
@@ -786,11 +896,9 @@ function fictioneer_ajax_delete_my_account() {
     ! $sender_id ||
     ! $current_user ||
     $sender_id !== $current_user->ID ||
-    $current_user == 1 ||
+    $current_user->ID === 1 ||
     in_array( 'administrator', $current_user->roles ) ||
-    current_user_can( 'edit_posts' ) ||
-    current_user_can( 'publish_posts' ) ||
-    current_user_can( 'moderate_comments' )
+    ! current_user_can( 'fcn_allow_self_delete' )
   ) {
     wp_send_json_error(
       array(
@@ -801,33 +909,8 @@ function fictioneer_ajax_delete_my_account() {
     die(); // Just to be sure
   }
 
-  // Update comments
-  $comments = get_comments( array( 'user_id' => $current_user->ID ) );
-
-  foreach ( $comments as $comment ) {
-    wp_update_comment(
-      array(
-        'comment_ID' => $comment->comment_ID,
-        'user_ID' => 0,
-        'comment_author' => fcntr( 'deleted_user' ),
-        'comment_author_email' => '',
-        'comment_author_IP' => '',
-        'comment_agent' => '',
-        'comment_author_url' => ''
-      )
-    );
-
-    // Make absolutely sure no comment subscriptions remain
-    update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
-
-    // Retain some (redacted) data in case there was a mistake
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_username_substr', substr( $current_user->user_login, 0, 3 ) );
-    add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_email_substr', substr( $comment->comment_author_email, 0, 3 ) );
-  }
-
   // Delete user
-  if ( wp_delete_user( $current_user->ID ) ) {
+  if ( fictioneer_delete_my_account() ) {
     wp_send_json_success();
   } else {
     wp_send_json_error(
@@ -839,7 +922,7 @@ function fictioneer_ajax_delete_my_account() {
   }
 }
 
-if ( get_option( 'fictioneer_enable_subscriber_self_delete' ) ) {
+if ( current_user_can( 'fcn_allow_self_delete' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_delete_my_account', 'fictioneer_ajax_delete_my_account' );
 }
 

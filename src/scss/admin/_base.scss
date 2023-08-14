@@ -14,7 +14,7 @@
   }
 
   hr {
-    border-top: 1px solid var(--bg-200);
+    border-top: 1px solid var(--hr-color);
     border-bottom: 0;
     margin: var(--16bp) 0;
   }
@@ -36,13 +36,13 @@
 
   code {
     display: block;
-    background: var(--bg-800);
-    color: var(--text-400);
+    background: var(--code-background-color);
+    color: var(--code-color);
     font-family: Consolas, Monaco, monospace;
     font-size: var(--fs-xxs);
     line-height: 1.7;
     padding: var(--12bp);
-    border-radius: var(--large-border-radius);
+    border-radius: 2px;
     overflow: scroll;
 
     pre {
@@ -66,12 +66,12 @@
   }
 
   :is(input, select, textarea) {
-    background: var(--bg-200);
+    background: var(--input-background-color);
     border: none;
     border-radius: 2px;
 
     &::placeholder {
-      color: var(--text-400);
+      color: var(--input-color-placeholder);
     }
 
     &:focus {
@@ -79,7 +79,7 @@
     }
 
     &:not([type=checkbox], [type=radio], [readonly], .button):focus {
-      box-shadow: inset 0 0 0 2px var(--primary-500);
+      box-shadow: inset 0 0 0 2px var(--input-border-color-active);
     }
 
     &[readonly]:focus {
@@ -87,13 +87,7 @@
     }
 
     &:is([type=checkbox], [type=radio]):focus-visible {
-      box-shadow: 0 0 0 1px white, 0 0 0 3px var(--primary-500);
-    }
-
-    &:not(.invalid) {
-      + .popup-note.invalid {
-        display: none;
-      }
+      box-shadow: 0 0 0 1px white, 0 0 0 3px var(--input-border-color-active);
     }
   }
 
@@ -103,7 +97,7 @@
     width: 16px;
 
     &:checked {
-      background: var(--bg-700);
+      background: var(--input-checkbox-background-color-checked);
 
       &::before {
         // https://icon-sets.iconify.design/?query=checkmark
@@ -128,14 +122,10 @@
   select {
     padding: 0 8px;
     height: 32px;
-
-    &:focus {
-      background-color: var(--bg-50);
-    }
   }
 
   select {
-    background: var(--bg-200) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' preserveAspectRatio='xMidYMid meet' width='20' height='20' viewBox='0 0 20 20' class='iconify iconify--bx'%3E%3Cpath fill='currentColor' d='M16.293 9.293L12 13.586L7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z'%3E%3C/path%3E%3C/svg%3E") no-repeat right 8px top 40%;
+    background: var(--input-background-color) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' preserveAspectRatio='xMidYMid meet' width='20' height='20' viewBox='0 0 20 20' class='iconify iconify--bx'%3E%3Cpath fill='currentColor' d='M16.293 9.293L12 13.586L7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z'%3E%3C/path%3E%3C/svg%3E") no-repeat right 8px top 40%;
     line-height: 32px;
     padding: 0 32px 0 8px;
     height: 32px;

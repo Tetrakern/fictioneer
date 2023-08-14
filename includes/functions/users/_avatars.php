@@ -110,8 +110,8 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
 
 function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
   // Abort conditions...
-  if ( $args['force_default'] ?? false ) {
-    return fictioneer_get_default_avatar_url();
+  if ( $args['force_default'] ?? false || empty( $id_or_email ) ) {
+    return $url;
   }
 
   // Setup
@@ -127,7 +127,7 @@ function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
       return false;
     }
   } else {
-    return fictioneer_get_default_avatar_url();
+    return $url;
   }
 
   // Return custom avatar if set
@@ -136,7 +136,7 @@ function fictioneer_get_avatar_url( $url, $id_or_email, $args ) {
   }
 
   // Return default avatar
-  return fictioneer_get_default_avatar_url();
+  return $url;
 };
 add_filter( 'get_avatar_url', 'fictioneer_get_avatar_url', 10, 3 );
 

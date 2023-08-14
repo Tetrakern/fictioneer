@@ -41,6 +41,15 @@ function fictioneer_add_admin_menu() {
 
 	add_submenu_page(
 		'fictioneer',
+		__( 'Roles', 'fictioneer' ),
+		__( 'Roles', 'fictioneer' ),
+		'manage_options',
+		'fictioneer_roles',
+		'fictioneer_settings_roles'
+	);
+
+	add_submenu_page(
+		'fictioneer',
 		__( 'Connections', 'fictioneer' ),
 		__( 'Connections', 'fictioneer' ),
 		'manage_options',
@@ -167,6 +176,9 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 		// General tab
 		$output['general'] = '<a href="?page=fictioneer" class="tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
 
+		// Roles tab
+		$output['roles'] = '<a href="?page=fictioneer_roles" class="tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+
 		// Connections tab
 		$output['connections'] = '<a href="?page=fictioneer_connections" class="tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
 
@@ -216,7 +228,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 }
 
 // =============================================================================
-// ADMIN HTML
+// ADMIN MENU PAGE HTML
 // =============================================================================
 
 /**
@@ -237,6 +249,16 @@ function fictioneer_settings_connections() {
 
 function fictioneer_settings_general() {
 	get_template_part( 'includes/functions/settings/_settings_page_general' );
+}
+
+/**
+ * Callback for general settings page
+ *
+ * @since Fictioneer 4.7
+ */
+
+function fictioneer_settings_roles() {
+	get_template_part( 'includes/functions/settings/_settings_page_roles' );
 }
 
 /**
@@ -287,4 +309,71 @@ function fictioneer_settings_tools() {
 
 function fictioneer_settings_logs() {
 	get_template_part( 'includes/functions/settings/_settings_page_logs' );
+}
+
+// =============================================================================
+// ADMIN CONTENT HELPERS
+// =============================================================================
+
+/**
+ * Renders a role settings capability card
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param string $title  The title of the card.
+ * @param array  $caps   An array of capabilities.
+ * @param array  $role   The WP_Role or equivalent array for the role being checked.
+ */
+
+function fictioneer_admin_capability_card( $title, $caps, $role ) {
+	// Start HTML ---> ?>
+	<div class="card">
+		<div class="card-wrapper">
+			<h3 class="card-header"><?php echo $title; ?></h3>
+			<div class="card-content">
+				<div class="card-capabilities row">
+					<?php
+						foreach ( $caps as $cap ) {
+							$role_caps = $role['capabilities'];
+							$set = in_array( $cap, $role_caps ) && ( $role_caps[ $cap ] ?? 0 );
+							$name = str_replace( '_', ' ', $cap );
+							$name = str_replace( 'fcn ', '', $name );
+							$name = ucwords( $name );
+
+							// Special cases
+							$name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
+							$name = str_replace( 'Recommendations', 'Recommend.', $name );
+							$name = str_replace( 'Custom Css', 'Custom CSS', $name );
+							$name = str_replace( 'Seo Meta', 'SEO Meta', $name );
+							$name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
+							$name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
+
+							fictioneer_capability_checkbox( $cap, $name, $set );
+						}
+					?>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php // <--- End HTML
+}
+
+/**
+ * Renders a checkbox for a specific capability
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param string $cap   The capability slug/string.
+ * @param string $name  Human-readable name for the capability.
+ * @param bool   $set   Whether the checkbox should be checked or not.
+ */
+
+function fictioneer_capability_checkbox( $cap, $name, $set ) {
+  // Start HTML ---> ?>
+  <label class="capability-checkbox">
+    <input type="hidden" name="caps[<?php echo $cap; ?>]" value="0">
+    <input class="capability-checkbox__input" name="caps[<?php echo $cap; ?>]" type="checkbox" <?php echo $set ? 'checked' : ''; ?> value="1">
+    <div class="capability-checkbox__name"><?php echo $name; ?></div>
+  </label>
+  <?php // <--- End HTML
 }

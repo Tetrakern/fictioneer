@@ -1,6 +1,5 @@
 & {
   .columns-layout {
-    --max-width-offset: var(--32bp);
     column-gap: var(--32bp);
 
     @include bp(768px) {
@@ -29,70 +28,50 @@
 
   .card {
     position: relative;
-    background: var(--card-background);
-    border-radius: var(--large-border-radius);
-    box-shadow: var(--card-shadow);
+    background: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
 
     &-header {
-      padding: var(--16bp) var(--16bp) 0;
+      padding: var(--8bp) var(--12bp);
+      border-bottom: 1px solid #c3c4c7;
     }
 
     &-header,
     &-header :is(h1, h2, h3, h4, h5, h6) {
-      font-size: var(--fs-m);
+      color: #1d2327;
+      font-size: var(--fs-xs);
       font-weight: 600;
+      line-height: 1.4;
     }
 
     &-content {
       font-size: var(--fs-xs);
-      padding: var(--16bp) 0;
+      padding: var(--12bp) 0;
     }
 
     &-footer {
-      padding: var(--16bp);
-    }
-  }
-
-  .modal {
-    position: fixed;
-    z-index: 1000;
-    background: var(--modal-background);
-    border-radius: var(--large-border-radius);
-    box-shadow: var(--modal-shadow);
-
-    &.hidden {
-      pointer-events: none;
-      z-index: -1000;
+      padding: var(--12bp);
     }
 
-    &:not(.hidden) {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    &__header {
-      font-size: var(--fs-m);
-      font-weight: 600;
-      padding: var(--16bp) var(--16bp) 0;
-    }
-
-    &__content {
-      font-size: var(--fs-xs);
-      padding: var(--16bp) 0;
-    }
-
-    &__footer {
-      padding: var(--16bp);
+    &-capabilities {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--8bp);
     }
   }
 
   .row {
-    padding: 0 var(--16bp);
+    padding: 0 var(--12bp);
 
     &:not(:last-child) {
-      margin-bottom: var(--16bp);
+      margin-bottom: var(--12bp);
     }
+  }
+
+  .toggle-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }

@@ -210,44 +210,45 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | ---: | :--- |
 | `add_meta_boxes` | `fictioneer_add_seo_metabox`
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
-| `admin_bar_menu` | `fictioneer_reduce_author_admin_bar`, `fictioneer_reduce_contributor_admin_bar`, `fictioneer_reduce_editor_admin_bar`, `fictioneer_reduce_moderator_admin_bar`
-| `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_contributor_comments_utilities`, `fictioneer_hide_editor_comments_utilities`, `fictioneer_hide_private_data`, `fictioneer_hide_author_comments_utilities`
-| `admin_head` | `fictioneer_limit_update_notice`
-| `admin_head-profile.php` | `fictioneer_hide_subscriber_profile_blocks`
-| `admin_init` | `fictioneer_reduce_subscriber_profile`, `fictioneer_register_settings`
-| `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_reduce_moderator_admin_panel`, `fictioneer_reduce_subscriber_admin_panel`, `fictioneer_remove_menu_pages`
+| `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`
+| `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
+| `admin_head` | `fictioneer_remove_update_notice`
+| `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
+| `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`
+| `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`
 | `admin_notices` | `fictioneer_admin_profile_notices`, `fictioneer_admin_settings_notices`, `fictioneer_admin_update_notice`
-| `admin_post_*` | `fictioneer_purge_all_epubs`, `admin_post_purge_all_seo_schemas`, `fictioneer_purge_seo_meta_caches`, `fictioneer_tools_add_moderator_role`, `fictioneer_tools_remove_moderator_role`, `fictioneer_tools_upgrade_author_role`, `fictioneer_tools_reset_author_role`, `fictioneer_tools_upgrade_contributor_role`, `fictioneer_tools_reset_contributor_role`, `fictioneer_tools_limit_editor_role`, `fictioneer_tools_reset_editor_role`, `fictioneer_tools_move_story_tags_to_genres`, `fictioneer_tools_duplicate_story_tags_to_genres`, `fictioneer_tools_purge_story_data_caches`, `fictioneer_tools_move_chapter_tags_to_genres`, `fictioneer_tools_duplicate_chapter_tags_to_genres`, `fictioneer_tools_append_default_genres`, `fictioneer_tools_append_default_tags`, `fictioneer_tools_remove_unused_tags`, `fictioneer_tools_reset_post_relationship_registry`, `fictioneer_tools_fix_users`, `fictioneer_tools_fix_stories`, `fictioneer_tools_fix_chapters`, `fictioneer_tools_fix_collections`, `fictioneer_tools_fix_pages`, `fictioneer_tools_fix_posts`, `fictioneer_tools_fix_recommendations`, `fictioneer_admin_profile_unset_oauth`, `fictioneer_admin_profile_clear_data_node`, `fictioneer_update_frontend_profile`, `fictioneer_cancel_frontend_email_change`
+| `admin_post_*` | `fictioneer_purge_all_epubs`, `admin_post_purge_all_seo_schemas`, `fictioneer_purge_seo_meta_caches`, `fictioneer_tools_add_moderator_role`, `fictioneer_tools_move_story_tags_to_genres`, `fictioneer_tools_duplicate_story_tags_to_genres`, `fictioneer_tools_purge_story_data_caches`, `fictioneer_tools_move_chapter_tags_to_genres`, `fictioneer_tools_duplicate_chapter_tags_to_genres`, `fictioneer_tools_append_default_genres`, `fictioneer_tools_append_default_tags`, `fictioneer_tools_remove_unused_tags`, `fictioneer_tools_reset_post_relationship_registry`, `fictioneer_tools_fix_users`, `fictioneer_tools_fix_stories`, `fictioneer_tools_fix_chapters`, `fictioneer_tools_fix_collections`, `fictioneer_tools_fix_pages`, `fictioneer_tools_fix_posts`, `fictioneer_tools_fix_recommendations`, `fictioneer_admin_profile_unset_oauth`, `fictioneer_admin_profile_clear_data_node`, `fictioneer_update_frontend_profile`, `fictioneer_cancel_frontend_email_change`, `fictioneer_add_role`, `fictioneer_remove_role`, `fictioneer_rename_role`
 | `after_setup_theme` | `fictioneer_theme_setup`
 | `comment_post` | `fictioneer_comment_post`, `fictioneer_post_comment_to_discord`
-| `current_screen` | `fictioneer_restrict_editor_menu_access`, `fictioneer_restrict_menu_access`, `fictioneer_restrict_moderator_menu_access`
+| `current_screen` | , `fictioneer_restrict_admin_only_pages`, `fictioneer_restrict_comment_edit`
 | `customize_register` | `fictioneer_add_customizers`
 | `customize_save_after` | `fictioneer_watch_for_customer_updates`
-| `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`
+| `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`, `fictioneer_flush_object_cache`
 | `do_feed_rss2` | `fictioneer_main_rss_template`
 | `edit_comment` | `fictioneer_comment_edit`, `fictioneer_edit_comment`
 | `edit_user_profile` | `fictioneer_custom_profile_fields`
 | `edit_user_profile_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `get_header` | `fictioneer_maintenance_mode`
-| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_block_subscribers_from_admin`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`
+| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_restrict_admin_panel`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`, `fictioneer_initialize_roles`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
-| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`, `fictioneer_scope_media_to_uploader`
-| `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_cache_transients`
+| `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`, `fictioneer_read_others_files`, `fictioneer_read_others_files_list_view`
+| `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_cache_transients`, `fictioneer_restrict_page_templates`, `fictioneer_flush_object_cache`
 | `show_user_profile` | `fictioneer_custom_profile_fields`
 | `switch_theme` | `fictioneer_theme_deactivation`
 | `template_redirect` | `fictioneer_disable_date_archives`, `fictioneer_generate_epub`, `fictioneer_handle_oauth`, `fictioneer_logout`, `fictioneer_disable_attachment_pages`
-| `trashed_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`
-| `untrash_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`
+| `trashed_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`, `fictioneer_flush_object_cache`
+| `untrash_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_cache_transients`, `fictioneer_flush_object_cache`
 | `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_bookmarks`, `fictioneer_ajax_get_checkmarks`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_fingerprint`, `fictioneer_ajax_get_finished_list`, `fictioneer_ajax_get_follows`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_nonce`, `fictioneer_ajax_get_reminders`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_is_user_logged_in`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_request_story_comments`
 | `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_nonce`, `fictioneer_ajax_is_user_logged_in`, `fictioneer_ajax_submit_comment`, `fictioneer_request_story_comments`
-| `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links`
-| `wp_dashboard_setup` | `fictioneer_reduce_contributor_dashboard_widgets`, `fictioneer_reduce_editor_dashboard_widgets`, `fictioneer_reduce_moderator_dashboard_widgets`, `fictioneer_reduce_subscriber_dashboard_widgets`, `fictioneer_reduce_author_dashboard_widgets`
+| `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links`, `fictioneer_remove_dashboard_from_admin_bar`
+| `wp_dashboard_setup` | `fictioneer_remove_dashboard_widgets`
 | `wp_default_scripts` | `fictioneer_remove_jquery_migrate`
 | `wp_enqueue_scripts` | `fictioneer_add_custom_scripts`, `fictioneer_customizer_queue`, `fictioneer_style_queue`
 | `wp_head` | `fictioneer_output_head_seo`, `fictioneer_output_rss`, `fictioneer_output_schemas`, `fictioneer_add_fiction_css`
+| `wp_update_nav_menu` | `purge_nav_menu_transients`
 
 <br>
 
@@ -266,7 +267,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `comment_row_actions` | `fictioneer_remove_quick_edit`
 | `comment_text` | `fictioneer_bbcodes`
-| `content_save_pre` | `fictioneer_strip_shortcodes_for_non_administrators`
+| `content_save_pre` | `fictioneer_strip_shortcodes`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
 | `excerpt_more` | `fictioneer_excerpt_ellipsis`
 | `get_avatar` | `fictioneer_avatar_fallback`
@@ -277,14 +278,16 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
 | `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`
-| `manage_pages_columns` | `fictioneer_restrict_comments_column`
-| `manage_posts_columns` | `fictioneer_restrict_comments_column`
+| `manage_pages_columns` | `fictioneer_remove_comments_column`
+| `manage_posts_columns` | `fictioneer_remove_comments_column`
 | `manage_users_columns` | `fictioneer_hide_users_columns`
-| `map_meta_cap` | `fictioneer_restrict_media_edit_delete`
+| `map_meta_cap` | `fcn_read_others_files`, `fictioneer_edit_others_files`, `fictioneer_delete_others_files`, `fictioneer_override_default_taxonomy_capability_check`
 | `navigation_markup_template` | `fictioneer_pagination_markup`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
+| `post_stuck` | `unstick_post`
 | `pre_comment_user_ip` | `__return_empty_string`
-| `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_limit_authors_to_own_posts_and_pages`, `fictioneer_add_sof_to_taxonomy_query`
+| `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_edit_others_fictioneer_posts`, `fictioneer_add_sof_to_taxonomy_query`
+| `pre_insert_term` | `fictioneer_restrict_tag_creation`
 | `preprocess_comment` | `fictioneer_preprocess_comment`, `fictioneer_validate_comment_form`
 | `protected_title_format` | `fictioneer_remove_protected_text`
 | `query_vars` | `fictioneer_query_vars`
@@ -294,8 +297,12 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `show_admin_bar` | `__return_false`
 | `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
 | `the_password_form` | `fictioneer_password_form`
+| `theme_page_templates` | `fictioneer_disallow_page_template_select`
+| `upload_size_limit` | `fictioneer_upload_size_limit`
 | `user_contactmethods` | `fictioneer_user_contact_methods`
+| `user_has_cap` | `fictioneer_edit_only_comments`
 | `wp_list_comments_args` | `fictioneer_comment_list_args`
+| `wp_handle_upload_prefilter` | `fictioneer_upload_restrictions`
 | `wp_is_application_passwords_available` | `__return_false`
 | `wp_robots` | `fictioneer_add_noindex_to_robots`
 | `wp_sitemaps_enabled` | `__return_false`
@@ -306,8 +313,14 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | ---: | :--- |
 | `acf/fields/post_object/query/name=fictioneer_chapter_story` | `fictioneer_acf_scope_chapter_story`
 | `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
+| `acf/fields/wysiwyg/toolbars` | `fictioneer_acf_reduce_wysiwyg`
+| `acf/pre_render_fields` | `fictioneer_remove_filter_search_id_input`, `fictioneer_remove_custom_page_css_inputs`, `fictioneer_remove_custom_epub_css_input`
 | `acf/save_post` | `fictioneer_update_post_relationships`, `fictioneer_acf_append_chapter_to_story`
+| `acf/update_value/name=fictioneer_custom_css` | `fictioneer_acf_prevent_value_update`
+| `acf/update_value/name=fictioneer_filter_and_search_id` | `fictioneer_acf_prevent_value_update`
 | `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
+| `acf/update_value/name=fictioneer_story_css` | `fictioneer_acf_prevent_value_update`
+| `acf/update_value/name=fictioneer_story_sticky` | `fictioneer_acf_prevent_value_update`
 
 ## Caching
 

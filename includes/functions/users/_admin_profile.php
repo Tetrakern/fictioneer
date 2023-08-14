@@ -144,6 +144,37 @@ function fictioneer_admin_profile_clear_data_node() {
 // Not conditional since clearing your data nodes should always be allowed
 add_action( 'admin_post_fictioneer_admin_profile_clear_data_node', 'fictioneer_admin_profile_clear_data_node' );
 
+/**
+ * Self-delete account
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_admin_profile_self_delete() {
+  // Verify request
+  fictioneer_verify_admin_profile_action( 'fictioneer_admin_profile_self_delete' );
+
+  // Setup
+  $sender = absint( $_GET['profile_user_id'] ?? 0 );
+
+  // Guard
+  if ( $sender != get_current_user_id() ) {
+    wp_die( __( 'Access Denied', 'fictioneer' ) );
+  }
+
+  // Delete
+  if ( fictioneer_delete_my_account() ) {
+    wp_redirect( home_url() );
+    exit;
+  } {
+    fictioneer_finish_admin_profile_action( 'admin-profile-not-deleted', 'failure' );
+  }
+}
+
+if ( current_user_can( 'fcn_allow_self_delete' ) ) {
+  add_action( 'admin_post_fictioneer_admin_profile_self_delete', 'fictioneer_admin_profile_self_delete' );
+}
+
 // =============================================================================
 // OUTPUT ADMIN PROFILE NOTICES
 // =============================================================================
@@ -173,6 +204,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
       'oauth_merged_google' => __( 'Google account successfully linked.', 'fictioneer' ),
       'oauth_merged_twitch' => __( 'Twitch account successfully linked.', 'fictioneer' ),
       'oauth_merged_patreon' => __( 'Patreon account successfully linked.', 'fictioneer' ),
+      'admin-profile-not-deleted' => __( 'Database error. Account could not be deleted.', 'fictioneer' )
 		)
 	);
 }
@@ -748,30 +780,32 @@ function fictioneer_admin_profile_author( $profile_user ) {
   );
 
   // Start HTML ---> ?>
-  <tr class="user-author-page-wrap">
-    <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
-    <td>
-      <?php if ( $profile_user_has_pages ) : ?>
-        <?php
-          wp_dropdown_pages(
-            array(
-              'name' => 'fictioneer_author_page',
-              'id' => 'fictioneer_author_page',
-              'option_none_value' => __( 'None', 'fictioneer' ),
-              'show_option_no_change' => __( 'None', 'fictioneer' ),
-              'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
-              'authors' => $profile_user->ID
-            )
-          );
-        ?>
-      <?php else : ?>
-        <select disabled>
-          <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
-        </select>
-      <?php endif; ?>
-      <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
-    </td>
-  </tr>
+  <?php if ( current_user_can( 'edit_pages' ) ) : ?>
+    <tr class="user-author-page-wrap">
+      <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
+      <td>
+        <?php if ( $profile_user_has_pages ) : ?>
+          <?php
+            wp_dropdown_pages(
+              array(
+                'name' => 'fictioneer_author_page',
+                'id' => 'fictioneer_author_page',
+                'option_none_value' => __( 'None', 'fictioneer' ),
+                'show_option_no_change' => __( 'None', 'fictioneer' ),
+                'selected' => get_the_author_meta( 'fictioneer_author_page', $profile_user->ID ),
+                'authors' => $profile_user->ID
+              )
+            );
+          ?>
+        <?php else : ?>
+          <select disabled>
+            <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
+          </select>
+        <?php endif; ?>
+        <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
+      </td>
+    </tr>
+  <?php endif; ?>
   <tr class="user-support-message-wrap">
     <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ) ?></label></th>
     <td>
@@ -913,5 +947,65 @@ function fictioneer_admin_profile_external_avatar( $profile_user ) {
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_external_avatar', 50 );
+
+// =============================================================================
+// DANGER ZONE SECTION
+// =============================================================================
+
+/**
+ * Adds HTML for the danger zone section to the wp-admin user profile
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param WP_User $profile_user The profile user object. Not necessarily the one
+ *                              currently editing the profile!
+ */
+
+function fictioneer_admin_danger_zone( $profile_user ) {
+  // Setup
+  $is_owner = $profile_user->ID === get_current_user_id();
+
+  // Only for the profile user
+  if ( ! $is_owner ) {
+    return;
+  }
+
+  // Action
+  $action = 'fictioneer_admin_profile_self_delete';
+  $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
+  $confirmation_message = sprintf(
+    __( 'Are you sure? Your account will be irrevocably deleted, although this will not remove your comments. Enter %s to confirm.', 'fictioneer' ),
+    strtoupper( $confirmation_string )
+  );
+
+  $deletion_url = add_query_arg(
+    array( 'profile_user_id' => $profile_user->ID ),
+    wp_nonce_url( admin_url( "admin-post.php?action={$action}" ), $action, 'fictioneer_nonce' )
+  );
+
+  // Start HTML ---> ?>
+  <tr class="user-danger-zone-wrap">
+    <th><label for=""><?php _e( 'Delete Account', 'fictioneer' ) ?></label></th>
+    <td>
+      <p style="margin: 0.35em 0 1em !important;"><?php _e( 'You can delete your account and associated data with it. Submitted <em>content</em> such as comments will remain under the “Deleted User” name unless you clear that <em>prior</em>. Be aware that once you delete your account, there is no going back.', 'fictioneer' ); ?></p>
+      <fieldset>
+        <div>
+          <a
+            href="<?php echo $deletion_url; ?>"
+            id="delete-my-account"
+            class="button button-danger confirm-dialog"
+            data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
+            data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
+          ><?php _e( 'Delete Account', 'fictioneer' ); ?></a>
+        </div>
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
+}
+
+if ( current_user_can( 'fcn_allow_self_delete' ) ) {
+  add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_danger_zone', 9999 );
+}
 
 ?>

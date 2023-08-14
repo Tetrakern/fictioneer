@@ -30,12 +30,12 @@
 
         &::before {
           left: 0;
-          background: linear-gradient(to right, var(--card-background), var(--card-background) 50%, transparent);
+          background: linear-gradient(to right, var(--card-background-color), var(--card-background-color) 50%, transparent);
         }
 
         &::after {
           right: 0;
-          background: linear-gradient(to left, var(--card-background), var(--card-background) 50%, transparent);
+          background: linear-gradient(to left, var(--card-background-color), var(--card-background-color) 50%, transparent);
         }
       }
     }
@@ -64,7 +64,7 @@
   }
 
   .subtext {
-    color: var(--text-500);
+    color: var(--subtext-color);
   }
 
   .code {
@@ -95,7 +95,7 @@
 
   .alternate-rows {
     > *:nth-child(even) {
-      background-color: rgb(0 0 0 / 2%);
+      background-color: var(--table-row-background-color-even);
     }
   }
 
@@ -132,7 +132,7 @@
       justify-content: flex-end;
     }
 
-    &.wrap {
+    &.flex-wrap {
       flex-wrap: wrap;
     }
 
@@ -188,7 +188,7 @@
   }
 
   // Margin-top 2 to 16
-  @for $i from 1 through 16 {
+  @for $i from 1 through 32 {
     $n: 2 * $i;
     .mt-#{$n} {
       margin-top: var(--#{$n}bp);
@@ -196,7 +196,7 @@
   }
 
   // Margin-bottom 2 to 16
-  @for $i from 1 through 16 {
+  @for $i from 1 through 32 {
     $n: 2 * $i;
     .mb-#{$n} {
       margin-bottom: var(--#{$n}bp);

@@ -18,7 +18,7 @@
 function fictioneer_validate_settings_ajax() {
 	return is_admin() &&
          wp_doing_ajax() &&
-         current_user_can( 'administrator' ) &&
+         current_user_can( 'manage_options' ) &&
          ! empty( $_POST['nonce'] ) &&
          check_admin_referer( 'fictioneer_settings_actions', 'nonce' );
 }

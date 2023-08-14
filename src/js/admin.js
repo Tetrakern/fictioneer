@@ -1,143 +1,3 @@
-// =============================================================================
-// GET POSITION OF ELEMENT RELATIVE TO WINDOW
-// =============================================================================
-
-/**
- * @typedef {Object} TopLeftPosition
- * @property {number} left - The X Coordinate.
- * @property {number} top - The Y Coordinate.
- * @inner
- */
-
-/**
- * Returns the top-left position of an element relative to the window.
- *
- * @since 4.7
- * @param {HTMLElement} element - Element to get the position for.
- * @return {TopLeftPosition} Top-left position of the element.
- */
-
-function fcn_getWindowPosition(element) {
-  const rect = element.getBoundingClientRect();
-
-  return {
-    top: rect.top + window.scrollY,
-    left: rect.left + window.scrollX
-  };
-}
-
-// =============================================================================
-// POPUP MENU
-// =============================================================================
-
-/**
- * The last opened popup menu.
- *
- * @type {HTMLElement}
- */
-
-var fcn_lastPopupMenu;
-
-/**
- * Toggles a popup menu.
- *
- * @description Gets the targeted menu by ID and checks whether it is currently
- * open or not. If closed, the menu is made visible and immediately relocated to the
- * closest parent with ".fictioneer-settings" class to escape overflow clippings,
- * the position set absolute to the new direct parent to remain in place. If open,
- * this whole process is reversed to restore the original conditions.
- *
- * @since 4.7
- * @param {Number} id - ID of the menu element
- */
-
-function fcn_togglePopupMenu(id) {
-  const menu = _$$$(`popup-${id}`);
-
-  if (menu.classList.contains('hidden')) {
-    // Is closed...
-    menu.classList.remove('hidden');
-
-    if (fcn_lastPopupMenu) {
-      // Close other open menu
-      fcn_togglePopupMenu(fcn_lastPopupMenu.dataset.id);
-    }
-
-    const dest = menu.closest('.fictioneer-settings'),
-          pos_menu = fcn_getWindowPosition(menu),
-          pos_dest = fcn_getWindowPosition(dest),
-          offset = window.innerWidth < 600 ? 0 : pos_dest.top; // Adminbar
-
-    // Position based on new parent and window offset
-    menu.style.top = `${pos_menu.top - offset}px`;
-    menu.style.left = `${pos_menu.left - pos_dest.left}px`;
-    menu.style.transform = 'translate(-100%, -50%)';
-
-    // Move to parent and remember
-    dest.append(menu);
-    fcn_lastPopupMenu = menu;
-  } else {
-    // Is open...
-    menu.classList.add('hidden');
-
-    const dest = _$$$(`popup-container-${id}`);
-
-    // Reverse positioning
-    menu.style.top = '50%';
-    menu.style.left = '0';
-    menu.style.transform = '';
-
-    // Move back to origin and unset reference
-    dest.append(menu);
-    fcn_lastPopupMenu = null;
-  }
-}
-
-/**
- * Clicking on any element with the .popup-menu-toggle class
- * toggles the associated popup menu via the data-id attribute.
- */
-
-_$$('.popup-menu-toggle').forEach(element => {
-  element.addEventListener(
-    'click',
-    (e) => {
-      fcn_togglePopupMenu(e.currentTarget.dataset.id);
-      e.stopPropagation(); // Prevent close click from firing
-    }
-  );
-});
-
-/**
- * Clicking anywhere except the menu toggle will close the last opened
- * popup menu, including the popup menu itself. This does not matter
- * since a click into the menu will also bubble up to the menu action,
- * dismissing the menu as expected.
- */
-
-_$('body').addEventListener(
-  'click',
-  () => {
-    if (fcn_lastPopupMenu) {
-      fcn_togglePopupMenu(fcn_lastPopupMenu.dataset.id);
-    }
-  }
-);
-
-/**
- * Resizing the window would cause an open popup menu to become misplaced,
- * so better close it and reset the location.
- */
-
-window.addEventListener(
-  'resize',
-  () => {
-    if (fcn_lastPopupMenu) {
-      fcn_togglePopupMenu(fcn_lastPopupMenu.dataset.id);
-    }
-  }
-);
-
 /* =============================================================================
 ** SCHEMAS
 ** ========================================================================== */
@@ -225,38 +85,6 @@ _$$('.button-delete-epub').forEach(element => {
         e.target.dataset.filename,
         e.target.dataset.id
       )
-    }
-  );
-});
-
-// =============================================================================
-// INPUT VALIDATIONS
-// =============================================================================
-
-/**
- * Adds .invalid class to an :invalid input.
- *
- * @description If the element is :invalid by HTML5 validation, the .invalid class
- * is added. Otherwise, the class is removed.
- *
- * @since 4.7
- * @param {HTMLElement} element - The element to check for validity.
- */
-
-function fcn_checkInputValidity(element) {
-  element.classList.toggle(
-    'invalid',
-    (element.hasAttribute('required') && element.value == '') ||
-    !element.checkValidity()
-  );
-}
-
-// Listen for blur on email inputs
-_$$('.fictioneer-ui input[type=email]').forEach(element => {
-  element.addEventListener(
-    'blur',
-    () => {
-      fcn_checkInputValidity(element)
     }
   );
 });
@@ -427,8 +255,58 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
         event.preventDefault();
       }
       break;
-    case 'dismiss-popup-note':
-      clickTarget.closest('.popup-note').remove();
-      break;
   }
+});
+
+// =============================================================================
+// SUBNAV TABS
+// =============================================================================
+
+// _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
+//   const clickTarget = event.target.closest('[data-subnav-click]');
+
+//   if (!clickTarget) {
+//     return;
+//   }
+
+//   const navTarget = _$(`[data-subnav-target="${clickTarget.dataset.subnavClick}"]`);
+
+//   if (!navTarget) {
+//     return;
+//   }
+
+//   _$$('[data-subnav-target]').forEach(element => {
+//     element.classList.add('hidden');
+//   });
+
+//   _$$('[data-subnav-click]').forEach(element => {
+//     element.classList.remove('active');
+//   });
+
+//   navTarget.classList.remove('hidden');
+//   clickTarget.classList.add('active');
+
+//   window.history.pushState(
+//     {},
+//     '',
+//     window.location.href += `&fictioneer-subnav=${clickTarget.dataset.subnavClick}`
+//   );
+// });
+
+// =============================================================================
+// DIALOGS
+// =============================================================================
+
+_$$('button[data-dialog-target]').forEach(element => {
+  element.addEventListener('click', event => {
+    _$$$(event.currentTarget.dataset.dialogTarget)?.showModal();
+  });
+});
+
+// Close regardless of required fields
+_$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
+  element.addEventListener('click', event => {
+    event.preventDefault();
+    event.currentTarget.closest('dialog').close();
+  });
 });

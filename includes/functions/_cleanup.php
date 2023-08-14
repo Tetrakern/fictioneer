@@ -102,9 +102,6 @@ function fictioneer_theme_deactivation() {
 
     // Reset user roles
     remove_role( 'fcn_moderator' );
-    fictioneer_reset_author_role();
-    fictioneer_reset_editor_role();
-    fictioneer_reset_contributor_role();
   }
 }
 add_action( 'switch_theme', 'fictioneer_theme_deactivation' );

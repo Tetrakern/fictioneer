@@ -109,12 +109,6 @@
   							<div class="text-input row">
   								<label for="fictioneer_system_email_address">
   									<input name="fictioneer_system_email_address" placeholder="<?php echo FICTIONEER_OPTIONS['strings']['fictioneer_system_email_address']['placeholder']; ?>" type="email" id="fictioneer_system_email_address" value="<?php echo esc_attr( get_option( 'fictioneer_system_email_address' ) ); ?>">
-                    <div class="popup-note floating invalid dismissable">
-    									<div>
-                        <span><?php _e( 'Please enter a valid email address or none', 'fictioneer' ) ?></span>
-                        <span class="dismiss" data-click="dismiss-popup-note"><i class="fa-solid fa-xmark"></i></span>
-                      </div>
-    								</div>
   									<p class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_system_email_address']['label']; ?></p>
   								</label>
   							</div>
@@ -664,7 +658,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 277px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 160px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 
@@ -753,59 +747,11 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_block_subscribers_from_admin" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_block_subscribers_from_admin" type="checkbox" id="fictioneer_block_subscribers_from_admin" <?php echo checked( 1, get_option( 'fictioneer_block_subscribers_from_admin' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_block_subscribers_from_admin']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'For when you have a frontend account page set up.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_enable_subscriber_self_delete" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_enable_subscriber_self_delete" type="checkbox" id="fictioneer_enable_subscriber_self_delete" <?php echo checked( 1, get_option( 'fictioneer_enable_subscriber_self_delete' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_subscriber_self_delete']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Convenient compliance with the “right to erasure”. Roles with higher privileges still need manual deletion.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_admin_reduce_subscriber_profile" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_reduce_subscriber_profile" type="checkbox" id="fictioneer_admin_reduce_subscriber_profile" <?php echo checked( 1, get_option( 'fictioneer_admin_reduce_subscriber_profile' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_reduce_subscriber_profile']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Removes superfluous blocks from subscriber profile, such as personal options and application passwords.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_restrict_media_access" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_restrict_media_access" type="checkbox" id="fictioneer_restrict_media_access" <?php echo checked( 1, get_option( 'fictioneer_restrict_media_access' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_restrict_media_access']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Users can only see and edit their own uploads in the media library unless they have the "edit_users" capability.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_strip_shortcodes_for_non_administrators" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_strip_shortcodes_for_non_administrators" type="checkbox" id="fictioneer_strip_shortcodes_for_non_administrators" <?php echo checked( 1, get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_strip_shortcodes_for_non_administrators']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Beware! Strips shortcodes from the content when a post is saved by a non-administrator.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_disable_application_passwords" class="label-wrapped-checkbox row">
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_disable_application_passwords']['label']; ?></span>
                     <p class="sub-label"><?php _e( 'If you do not need them, you should disable them.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_disable_html_in_comments" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_disable_html_in_comments" type="checkbox" id="fictioneer_disable_html_in_comments" <?php echo checked( 1, get_option( 'fictioneer_disable_html_in_comments' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_disable_html_in_comments']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'BBCodes still work and are easier to use anyway.', 'fictioneer' ) ?></p>
                   </div>
                 </label>
 
@@ -825,31 +771,42 @@
                   </div>
                 </label>
 
-                <label for="fictioneer_admin_restrict_menus" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_restrict_menus" type="checkbox" id="fictioneer_admin_restrict_menus" <?php echo checked( 1, get_option( 'fictioneer_admin_restrict_menus' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_restrict_menus']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Hides more menus and plugins known to the theme as additional security layer.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
-                <label for="fictioneer_admin_restrict_private_data" class="label-wrapped-checkbox row">
-                  <input name="fictioneer_admin_restrict_private_data" type="checkbox" id="fictioneer_admin_restrict_private_data" <?php echo checked( 1, get_option( 'fictioneer_admin_restrict_private_data' ), false ); ?> value="1">
-                  <div>
-                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_admin_restrict_private_data']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Hides names, emails, IPs, comment quick edit, and more privacy sensitive data sources.', 'fictioneer' ) ?></p>
-                  </div>
-                </label>
-
                 <label for="fictioneer_cookie_banner" class="label-wrapped-checkbox row">
                   <input name="fictioneer_cookie_banner" type="checkbox" id="fictioneer_cookie_banner" <?php echo checked( 1, get_option( 'fictioneer_cookie_banner' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_cookie_banner']['label']; ?></span>
-                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, 'necessary', or 'full'.", 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, \"necessary\", or \"full\".", 'fictioneer' ) ?></p>
                   </div>
                 </label>
 
     					</div>
+    				</div>
+    			</div>
+
+          <div class="card">
+    				<div class="card-wrapper">
+    					<h3 class="card-header"><?php _e( 'File Uploads', 'fictioneer' ) ?></h3>
+    					<div class="card-content">
+
+                <div class="text-input-inline row"><?php
+                  printf(
+                    FICTIONEER_OPTIONS['integers']['fictioneer_upload_size_limit']['label'],
+                    '<input name="fictioneer_upload_size_limit" type="text" id="fictioneer_upload_size_limit" value="' . esc_attr( get_option( 'fictioneer_upload_size_limit', 5 ) ?: 5 ) . '" style="font-family: Consolas, Monaco, monospace; font-size: 87.5%;" class="text-center" size="5" placeholder="5">'
+                  )
+                ?></div>
+
+                <div class="textarea row">
+                  <?php
+                    $mime_types = get_option( 'fictioneer_upload_mime_types', FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS ) ?: FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS;
+                  ?>
+                  <textarea name="fictioneer_upload_mime_types" id="fictioneer_upload_mime_types" rows="4" style="height: 100px;" placeholder="<?php echo FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS; ?>"><?php echo $mime_types; ?></textarea>
+                  <p class="sub-label"><?php printf(
+                    FICTIONEER_OPTIONS['strings']['fictioneer_upload_mime_types']['label'],
+                    'https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types'
+                  ); ?></p>
+                </div>
+
+              </div>
     				</div>
     			</div>
 
@@ -880,6 +837,14 @@
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_purge_all_caches']['label']; ?></span>
                       <p class="sub-label"><?php _e( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' ) ?></p>
+                    </div>
+                  </label>
+
+                  <label for="fictioneer_flush_object_cache" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_flush_object_cache" type="checkbox" id="fictioneer_flush_object_cache" <?php echo checked( 1, get_option( 'fictioneer_flush_object_cache' ), false ); ?> value="1">
+                    <div>
+                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_flush_object_cache']['label']; ?></span>
+                      <p class="sub-label"><?php _e( 'The nuclear option if persistent object caches (Memcached, Redis, etc.) act up. Included in the "purge all" setting.', 'fictioneer' ) ?></p>
                     </div>
                   </label>
 

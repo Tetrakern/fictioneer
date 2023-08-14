@@ -307,13 +307,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Do not save comment IP addresses', 'fictioneer' ),
       'default' => false
     ),
-		'fictioneer_block_subscribers_from_admin' => array(
-      'name' => 'fictioneer_block_subscribers_from_admin',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Block admin panel access for subscribers', 'fictioneer' ),
-      'default' => false
-    ),
 		'fictioneer_logout_redirects_home' => array(
       'name' => 'fictioneer_logout_redirects_home',
 			'group' => 'fictioneer-settings-general-group',
@@ -333,20 +326,6 @@ define( 'FICTIONEER_OPTIONS', array(
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Add consent wrappers to embedded content', 'fictioneer' ),
-      'default' => false
-    ),
-		'fictioneer_admin_restrict_menus' => array(
-      'name' => 'fictioneer_admin_restrict_menus',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Restrict admin menus for non-administrators', 'fictioneer' ),
-      'default' => false
-    ),
-		'fictioneer_admin_restrict_private_data' => array(
-      'name' => 'fictioneer_admin_restrict_private_data',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Restrict personal data for non-administrators', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_cookie_banner' => array(
@@ -538,13 +517,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Enable AJAX user authentication', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_admin_reduce_subscriber_profile' => array(
-      'name' => 'fictioneer_admin_reduce_subscriber_profile',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Reduce subscriber user profile', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_disable_application_passwords' => array(
       'name' => 'fictioneer_disable_application_passwords',
 			'group' => 'fictioneer-settings-general-group',
@@ -557,20 +529,6 @@ define( 'FICTIONEER_OPTIONS', array(
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable comment editing', 'fictioneer' ),
-      'default' => false
-    ),
-    'fictioneer_enable_subscriber_self_delete' => array(
-      'name' => 'fictioneer_enable_subscriber_self_delete',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Allow subscribers to delete their account', 'fictioneer' ),
-      'default' => false
-    ),
-    'fictioneer_disable_html_in_comments' => array(
-      'name' => 'fictioneer_disable_html_in_comments',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Disable HTML in comments for non-administrators', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_ajax_comment_form' => array(
@@ -643,13 +601,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Limit chapter stories by author', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_strip_shortcodes_for_non_administrators' => array(
-      'name' => 'fictioneer_strip_shortcodes_for_non_administrators',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Disable shortcodes for non-administrators', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_disable_all_widgets' => array(
       'name' => 'fictioneer_disable_all_widgets',
 			'group' => 'fictioneer-settings-general-group',
@@ -657,11 +608,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Disable all widgets', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_restrict_media_access' => array(
-      'name' => 'fictioneer_restrict_media_access',
+    'fictioneer_flush_object_cache' => array(
+      'name' => 'fictioneer_flush_object_cache',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Limit media file management by uploader', 'fictioneer' ),
+			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
+      'label' => __( 'Flush object cache on content updates', 'fictioneer' ),
       'default' => false
     )
 	),
@@ -749,6 +700,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_integer',
       'label' => __( 'Minutes a comment can be edited. -1 for no limit.', 'fictioneer' ),
       'default' => 15
+		),
+		'fictioneer_upload_size_limit' => array(
+      'name' => 'fictioneer_upload_size_limit',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'label' => __( '<span>Limit file uploads to</span> %s <span>MB or less for user roles with the "Upload Limit" restriction.</span>', 'fictioneer' ),
+      'default' => 5
 		)
 	),
 	'strings' => array(
@@ -919,6 +877,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Contact Form Receivers (one email address per line)', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
+    ),
+		'fictioneer_upload_mime_types' => array(
+      'name' => 'fictioneer_upload_mime_types',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'sanitize_textarea_field',
+      'label' => __( 'Comma-separated list of allowed <a href="%s" target="_blank" rel="noreferrer">mime types</a> for user roles with the "Upload Restriction". Must be among the allowed mime type and file extensions of WordPress.', 'fictioneer' ),
+      'default' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS,
+			'placeholder' => FICTIONEER_DEFAULT_UPLOAD_MIME_TYPE_RESTRICTIONS
     )
 	)
 ));

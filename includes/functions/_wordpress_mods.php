@@ -979,32 +979,6 @@ function fictioneer_add_menu_link_attributes( $attributes, $item ) {
 add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 10, 2 );
 
 // =============================================================================
-// STRIP SHORTCODES FROM NON-ADMIN POSTS
-// =============================================================================
-
-/**
- * Strip shortcodes for non-admins
- *
- * @since Fictioneer 5.4.9
- *
- * @param string $content  The content to be saved.
- *
- * @return string The cleaned content.
- */
-
-function fictioneer_strip_shortcodes_for_non_administrators( $content ) {
-  if ( ! current_user_can( 'administrator' ) ) {
-    $content = strip_shortcodes( $content );
-  }
-
-  return $content;
-}
-
-if ( get_option( 'fictioneer_strip_shortcodes_for_non_administrators' ) ) {
-  add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes_for_non_administrators' );
-}
-
-// =============================================================================
 // DISABLE WIDGETS
 // =============================================================================
 
@@ -1023,5 +997,28 @@ function fictioneer_disable_widgets() {
 if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
   add_action( 'widgets_init', 'fictioneer_disable_widgets', 99 );
 }
+
+// =============================================================================
+// EXTEND ALLOWED FILE TYPES
+// =============================================================================
+
+/**
+ * Extend the list of allowed types for file uploads
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param array $mimes  Key-value pairs of file extensions and their MIME types.
+ *
+ * @return array Updated MIME types array.
+ */
+
+function fictioneer_extend_allowed_upload_types( $mimes ) {
+  $mimes['svg'] = 'image/svg+xml';
+  $mimes['epub'] = 'application/epub+zip';
+  $mimes['avif'] = 'image/avif';
+
+  return $mimes;
+}
+add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
 
 ?>
