@@ -76,7 +76,7 @@ function fictioneer_initialize_roles( $force = false ) {
 
   // If this capability is missing, the roles have not yet been initialized
   if (
-    ( $administrator && ! in_array( 'fcn_admin_panel_access', $administrator->capabilities ) ||
+    ( $administrator && ! in_array( 'fcn_admin_panel_access', array_keys( $administrator->capabilities ) ) ||
     $force
   ) ) {
     fictioneer_setup_roles();
