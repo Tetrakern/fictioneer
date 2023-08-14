@@ -490,11 +490,13 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
         $badge = fcntr( 'moderator' );
         $badge_class = 'is-moderator';
       } elseif ( ! empty( $user->roles ) ) {
+        global $wp_roles;
+
         $role_slug = $user->roles[0] ?? '';
+        $role = $wp_roles->roles[ $role_slug ];
 
         if ( ! empty( $role_slug ) ) {
-          $badge = str_replace( '_', ' ', $role_slug );
-          $badge = ucwords( $badge );
+          $badge = $role['name'];
           $badge_class = "is-{$role_slug}";
         }
       }
