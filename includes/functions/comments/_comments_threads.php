@@ -334,6 +334,13 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
     } elseif ( $is_moderator ) {
       $badge = fcntr( 'moderator' );
       $badge_class = 'is-moderator';
+    } elseif ( user_can( $comment->user_id, 'fcn_show_badge' ) && ! empty( $comment_user->roles ) ) {
+      $role_slug = $user->roles[0] ?? '';
+
+      if ( ! empty( $role_slug ) ) {
+        $badge = ucwords( $role_slug );
+        $badge_class = "is-{$role_slug}";
+      }
     }
 
     // Patreon badge (if no higher badge set yet)
