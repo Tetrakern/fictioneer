@@ -289,7 +289,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'comment_count_timestamp' => time()
     );
 
-    update_post_meta( $story_id, 'fictioneer_story_data_collection', $result );
+    if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+      update_post_meta( $story_id, 'fictioneer_story_data_collection', $result );
+    }
 
     return $result;
   }
