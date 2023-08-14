@@ -20,10 +20,9 @@
           <div class="card-wrapper">
             <h3 class="card-header"><?php _e( 'Role Tools', 'fictioneer' ) ?></h3>
             <div class="card-content">
-              <p class="description row"><?php _e( '<strong>Add or remove Fictioneer moderator</strong> role that is limited to moderating comments. This role has been stripped of access to most other menus and settings, although it does not necessarily account for changes to the admin interface made by you. <strong>Note:</strong> Removing the moderator role may leave previous owners without a role.', 'fictioneer' ) ?></p>
+              <p class="description row"><?php _e( '<strong>Add or restore moderator role</strong> that is limited to only moderating comments. It has been stripped of access to most other menus and settings, although this does not necessarily account for changes to the admin panel made by you.', 'fictioneer' ) ?></p>
               <div class="row flex flex-wrap gap-6">
                 <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_add_moderator_role' ); ?>"><?php _e( 'Add Moderator Role', 'fictioneer' ) ?></a>
-                <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_remove_moderator_role' ); ?>"><?php _e( 'Remove Moderator Role', 'fictioneer' ) ?></a>
               </div>
               <hr>
               <p class="description row"><?php _e( '<strong>Initialize theme roles and capabilities.</strong> Fictioneer comes with extended capabilities and roles that need to be initialized in order to work correctly. This should happen once when you first activate the theme, but you can do it manually here. Note that this will only reset theme-related capabilities, not undo anything else done by other plugins.', 'fictioneer' ) ?></p>
