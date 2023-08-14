@@ -565,7 +565,15 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable OAuth 2.0 authentication:** Allow visitors to register with social media accounts, but be aware of the implications!
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
-* **Disable theme comment \*:** If you want to use different comments. Disables most of the other comment options as well.
+* **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
+
+### Roles
+
+The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain roles. A few examples:
+
+* **Edit Only Others Comments:** Limits moderators to only editing comments, despite being able to edit posts from others.
+* **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
+* **Select Page Template:** You cannot change the page template without this capability.
 
 ### Connections Tab
 
@@ -594,7 +602,9 @@ Only available if you enable the SEO features and no (known) SEO plugin is runni
 
 ### Tools Tab
 
-A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role that WordPress somehow lacks and fix the permissions of other roles — or revert these changes. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
+A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role if missing or convert tags into genres. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
+
+If the user roles lack permissions, such as authors not being able to add stories and chapters, use the **Initialize Roles** action. This also restores the defaults if you mess something up, although it will not reset capabilities outside the theme’s scope. Most administrative capabilities are left untouched for security reasons.
 
 ### Log
 
