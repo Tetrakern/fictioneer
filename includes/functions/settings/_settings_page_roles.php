@@ -338,7 +338,7 @@ $current_role = $roles[ $current_role_slug ];
         <div class="text-input mt-12">
           <label for="fictioneer_add_role">
             <input id="fictioneer_add_role" name="role_slug" placeholder="<?php echo $current_role_slug; ?>" type="text" disabled>
-            <p class="sub-label"><?php _e( 'Slug of the role. Cannot be changed.', 'fictioneer' ) ?></p>
+            <p class="sub-label"><?php _e( 'Slug of the role. Must not be changed.', 'fictioneer' ) ?></p>
           </label>
         </div>
         <div class="fictioneer-dialog__actions">
