@@ -111,7 +111,11 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-roles-initialized' => __( 'Theme roles initialized.', 'fictioneer' ),
       'fictioneer-added-role' => __( 'Role added.', 'fictioneer' ),
       'fictioneer-not-added-role' => __( 'Error. Role could not be added.', 'fictioneer' ),
-      'fictioneer-role-already-exists' => __( 'Error. Role (or sanitized role slug) already exists.', 'fictioneer' )
+      'fictioneer-role-already-exists' => __( 'Error. Role (or sanitized role slug) already exists.', 'fictioneer' ),
+      'fictioneer-renamed-role' => __( 'Role renamed.', 'fictioneer' ),
+      'fictioneer-not-renamed-role' => __( 'Error. Role could not be renamed.', 'fictioneer' ),
+      'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
+      'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' )
 		)
 	);
 }

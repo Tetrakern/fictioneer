@@ -15,6 +15,7 @@ global $pagenow;
 // Setup
 $roles = wp_roles()->roles;
 $current_url = add_query_arg( $_GET, admin_url( $pagenow ) );
+$current_url = remove_query_arg( array( 'success', 'failure' ), $current_url );
 
 $admin_url = admin_url( 'admin-post.php' );
 $update_role_nonce = wp_nonce_field( 'fictioneer_update_role', 'fictioneer_nonce', true, false );
