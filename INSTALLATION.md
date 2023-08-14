@@ -567,6 +567,8 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
 
+![Roles Settings Preview](repo/assets/settings_roles_preview.jpg?raw=true)
+
 ### Roles
 
 The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain roles. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. A few example capabilities:
