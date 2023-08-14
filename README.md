@@ -1,7 +1,7 @@
 <p align="center"><img src="./repo/assets/fictioneer_logo.svg?raw=true" alt="Fictioneer"></p>
 
 <p align="center">
-  <a href="https://github.com/Tetrakern/fictioneer"><img alt="Theme: 5.5" src="https://img.shields.io/badge/theme-5.5-blue?style=flat" /></a>
+  <a href="https://github.com/Tetrakern/fictioneer"><img alt="Theme: 5.6" src="https://img.shields.io/badge/theme-5.6-blue?style=flat" /></a>
   <a href="LICENSE.md"><img alt="License: GPL v3" src="https://img.shields.io/badge/license-GPL%20v3-blue?style=flat" /></a>
   <a href="https://wordpress.org/download/"><img alt="WordPress 6.1+" src="https://img.shields.io/badge/WordPress-%3E%3D6.1-blue?style=flat" /></a>
   <a href="https://www.php.net/"><img alt="PHP: 7.4+" src="https://img.shields.io/badge/php-%3E%3D7.4-blue?logoColor=white&style=flat" /></a>
@@ -33,7 +33,7 @@ You can find some example action and filter functions [here](https://github.com/
 
 ## Support the Development
 
-Fictioneer (up to 5.5) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer (up to 5.6) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
 ## Screenshots
 
