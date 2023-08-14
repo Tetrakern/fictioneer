@@ -423,6 +423,34 @@ body[class*="page_fictioneer"] {
       padding: var(--8bp) calc(16px + var(--20bp)) 0;
     }
 
+    button {
+      cursor: pointer;
+      background: none;
+      color: var(--subnav-item-color);
+      padding: 8px 0 calc(5px + var(--8bp));
+      border: none;
+
+      &:hover {
+        color: var(--subnav-item-color-hover);
+      }
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
+      &:focus-visible {
+        box-shadow: var(--focus-box-shadow);
+        outline: none;
+      }
+    }
+
+    .dashicons-plus {
+      font-size: 16px;
+      height: 16px;
+      width: 16px;
+    }
+
     .tab {
       cursor: pointer;
       display: block;

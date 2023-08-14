@@ -42,9 +42,14 @@ $advanced_caps = array(
   'fcn_admin_panel_access',
   'fcn_dashboard_access',
   'fcn_show_badge',
-  'fcn_privacy_clearance',
   'upload_files',
   'edit_files',
+  'fcn_allow_self_delete',
+  'unfiltered_html'
+);
+
+$admin_caps = array(
+  'fcn_privacy_clearance',
   'fcn_read_others_files',
   'fcn_edit_others_files',
   'fcn_delete_others_files',
@@ -52,8 +57,9 @@ $advanced_caps = array(
   'create_users',
   'edit_users',
   'remove_users',
-  'fcn_allow_self_delete',
-  'unfiltered_html'
+  'switch_themes',
+  'edit_theme_options',
+  'edit_themes'
 );
 
 $taxonomy_caps = array(
@@ -171,6 +177,7 @@ $all_caps = array(
   [ __( 'Editor Capabilities', 'fictioneer' ), $editor_caps ],
   [ __( 'Restricted Capabilities', 'fictioneer' ), $restrictions ],
   [ __( 'Advanced Capabilities', 'fictioneer' ), $advanced_caps ],
+  [ __( 'Admin Capabilities (Danger)', 'fictioneer' ), $admin_caps ],
   [ __( 'Taxonomy Capabilities', 'fictioneer' ), $taxonomy_caps ],
   [ __( 'Post Capabilities', 'fictioneer' ), $post_caps ],
   [ __( 'Page Capabilities', 'fictioneer' ), $page_caps ],
@@ -212,7 +219,7 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
 	<?php fictioneer_settings_header( 'roles' ); ?>
 
   <ul class="fictioneer-settings__subnav">
-      <?php
+    <?php
       foreach ( $roles as $key => $role ) {
         $role['type'] = $key;
         $class = $selected_role == $key ? ' class="tab active"' : ' class="tab"';
@@ -221,6 +228,7 @@ $selected_role = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
         echo '<a href="' . $link . '" ' . $class . '>' . $role['name'] . '</a>';
       }
     ?>
+    <button type="button" class="" data-dialog-target="add-role-dialog"><span class="dashicons dashicons-plus"></span></button>
   </ul>
 
 	<div class="fictioneer-settings__content">
