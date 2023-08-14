@@ -827,7 +827,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     $screen = get_current_screen();
 
     if (
-      is_admin() &&
       $wp_query->is_main_query() &&
       $wp_query->query['post_type'] === 'attachment' &&
       $screen && $screen->base == 'upload' &&
@@ -838,7 +837,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
   }
 
-  if ( ! current_user_can( 'fcn_read_others_files' ) ) {
+  if ( ! current_user_can( 'fcn_read_others_files' ) && is_admin() ) {
     add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
     add_action( 'pre_get_posts', 'fictioneer_read_others_files_list_view', 9999 );
   }
