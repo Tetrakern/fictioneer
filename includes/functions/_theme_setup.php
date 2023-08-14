@@ -246,9 +246,6 @@ function fictioneer_root_attributes() {
  */
 
 function fictioneer_style_queue() {
-  // Cache busting
-  $version = FICTIONEER_VERSION;
-
   // Either load separate small style files on demand or the complete one
   if ( ! get_option( 'fictioneer_bundle_stylesheets' ) ) {
     // Setup
@@ -261,7 +258,7 @@ function fictioneer_style_queue() {
         'fictioneer-properties',
         get_template_directory_uri() . '/css/properties.css',
         [],
-        $version
+        FICTIONEER_VERSION
       );
       $application_dependencies[] = 'fictioneer-properties';
     }
@@ -271,7 +268,7 @@ function fictioneer_style_queue() {
       'fictioneer-application',
       get_template_directory_uri() . '/css/application.css',
       $application_dependencies,
-      $version
+      FICTIONEER_VERSION
     );
 
     // If NOT an archive or search page...
@@ -282,7 +279,7 @@ function fictioneer_style_queue() {
           'fictioneer-collections',
           get_template_directory_uri() . '/css/collections.css',
           ['fictioneer-application'],
-          $version
+          FICTIONEER_VERSION
         );
       }
 
@@ -292,7 +289,7 @@ function fictioneer_style_queue() {
           'fictioneer-chapter',
           get_template_directory_uri() . '/css/chapter.css',
           ['fictioneer-application'],
-          $version
+          FICTIONEER_VERSION
         );
       }
 
@@ -302,7 +299,7 @@ function fictioneer_style_queue() {
           'fictioneer-story',
           get_template_directory_uri() . '/css/story.css',
           ['fictioneer-application'],
-          $version
+          FICTIONEER_VERSION
         );
       }
 
@@ -312,7 +309,7 @@ function fictioneer_style_queue() {
           'fictioneer-recommendation',
           get_template_directory_uri() . '/css/recommendation.css',
           ['fictioneer-application'],
-          $version
+          FICTIONEER_VERSION
         );
       }
 
@@ -322,7 +319,7 @@ function fictioneer_style_queue() {
           'fictioneer-comments',
           get_template_directory_uri() . '/css/comments.css',
           ['fictioneer-application'],
-          $version
+          FICTIONEER_VERSION
         );
       }
     }
@@ -333,7 +330,7 @@ function fictioneer_style_queue() {
         'fictioneer-archive',
         get_template_directory_uri() . '/css/taxonomies.css',
         ['fictioneer-application'],
-        $version
+        FICTIONEER_VERSION
       );
     }
   } else {
@@ -342,7 +339,7 @@ function fictioneer_style_queue() {
       'fictioneer-complete',
       get_template_directory_uri() . '/css/complete.css',
       [],
-      $version
+      FICTIONEER_VERSION
     );
   }
 
@@ -453,63 +450,62 @@ if ( ! function_exists( 'fa_custom_setup_cdn_webfont' ) ) {
 function fictioneer_add_custom_scripts() {
   // Setup
   $post_type = get_post_type();
-  $version = FICTIONEER_VERSION; // Cache busting
 
   // Utility
-  wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', [], $version, true );
+  wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', [], FICTIONEER_VERSION, true );
 
   // Application
-  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'wp-i18n'], $version, true );
+  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'wp-i18n'], FICTIONEER_VERSION, true );
 
   // Lightbox
   if ( get_option( 'fictioneer_enable_lightbox' ) ) {
-    wp_enqueue_script( 'fictioneer-lightbox', get_template_directory_uri() . '/js/lightbox.min.js', ['fictioneer-application-scripts'], $version, true );
+    wp_enqueue_script( 'fictioneer-lightbox', get_template_directory_uri() . '/js/lightbox.min.js', ['fictioneer-application-scripts'], FICTIONEER_VERSION, true );
   }
 
   // Mobile menu
-  wp_register_script( 'fictioneer-mobile-menu-scripts', get_template_directory_uri() . '/js/mobile-menu.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-mobile-menu-scripts', get_template_directory_uri() . '/js/mobile-menu.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Bookmarks
-  wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Consent
-  wp_register_script( 'fictioneer-consent-scripts', get_template_directory_uri() . '/js/consent.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-consent-scripts', get_template_directory_uri() . '/js/consent.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Chapter
-  wp_register_script( 'fictioneer-chapter-scripts', get_template_directory_uri() . '/js/chapter.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-chapter-scripts', get_template_directory_uri() . '/js/chapter.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Suggestions
-  wp_register_script( 'fictioneer-suggestion-scripts', get_template_directory_uri() . '/js/suggestion.min.js', [ 'fictioneer-chapter-scripts'], $version, true );
+  wp_register_script( 'fictioneer-suggestion-scripts', get_template_directory_uri() . '/js/suggestion.min.js', [ 'fictioneer-chapter-scripts'], FICTIONEER_VERSION, true );
 
   // Text-To-Speech
-  wp_register_script( 'fictioneer-tts-scripts', get_template_directory_uri() . '/js/tts.min.js', [ 'fictioneer-chapter-scripts'], $version, true );
+  wp_register_script( 'fictioneer-tts-scripts', get_template_directory_uri() . '/js/tts.min.js', [ 'fictioneer-chapter-scripts'], FICTIONEER_VERSION, true );
 
   // Story
-  wp_register_script( 'fictioneer-story-scripts', get_template_directory_uri() . '/js/story.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-story-scripts', get_template_directory_uri() . '/js/story.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // User
-  wp_register_script( 'fictioneer-user-scripts', get_template_directory_uri() . '/js/user.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-user-scripts', get_template_directory_uri() . '/js/user.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // User Profile
-  wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Follows
-  wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-user-scripts'], $version, true );
+  wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Checkmarks
-  wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Reminders
-  wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-user-scripts'], $version, true );
+  wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Comments
-  wp_register_script( 'fictioneer-comments-scripts', get_template_directory_uri() . '/js/comments.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-comments-scripts', get_template_directory_uri() . '/js/comments.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // AJAX Comments
-  wp_register_script( 'fictioneer-ajax-comments-scripts', get_template_directory_uri() . '/js/ajax-comments.min.js', [ 'fictioneer-comments-scripts'], $version, true );
+  wp_register_script( 'fictioneer-ajax-comments-scripts', get_template_directory_uri() . '/js/ajax-comments.min.js', [ 'fictioneer-comments-scripts'], FICTIONEER_VERSION, true );
 
   // AJAX Bookshelf
-  wp_register_script( 'fictioneer-ajax-bookshelf-scripts', get_template_directory_uri() . '/js/ajax-bookshelf.min.js', [ 'fictioneer-application-scripts'], $version, true );
+  wp_register_script( 'fictioneer-ajax-bookshelf-scripts', get_template_directory_uri() . '/js/ajax-bookshelf.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // Enqueue utility
   wp_enqueue_script( 'fictioneer-utility-scripts' );
@@ -629,6 +625,31 @@ function fictioneer_add_custom_scripts() {
   }
 }
 add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
+
+/**
+ * Enqueue block editor scripts
+ *
+ * @since 5.6.0
+ */
+
+function fictioneer_enqueue_block_editor_scripts() {
+  $current_user = wp_get_current_user();
+
+  wp_register_script(
+    'fictioneer-block-editor-scripts',
+    get_template_directory_uri() . '/js/block-editor.min.js',
+    ['wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
+    FICTIONEER_VERSION,
+    true
+  );
+
+  wp_enqueue_script( 'fictioneer-block-editor-scripts' );
+
+  wp_localize_script( 'fictioneer-block-editor-scripts', 'fictioneerData', array(
+    'userCapabilities' => $current_user->allcaps
+  ));
+}
+add_action( 'enqueue_block_editor_assets', 'fictioneer_enqueue_block_editor_scripts' );
 
 // =============================================================================
 // LOAD TRANSLATIONS FOR JAVASCRIPT

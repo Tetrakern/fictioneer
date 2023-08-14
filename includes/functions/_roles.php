@@ -1113,6 +1113,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_sticky', 'fictioneer_acf_prevent_value_update', 9999, 3 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_make_sticky_input', 9999 );
+    add_action( 'post_stuck', 'unstick_post', 9999 ); // lol
   }
 
   // === FCN_UPLOAD_LIMIT ======================================================
