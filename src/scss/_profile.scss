@@ -217,7 +217,7 @@
       }
     }
 
-    &__badge {
+    .fictioneer-comment__badge {
       display: inline-flex;
       align-items: center;
       background: var(--badge-generic-background);
@@ -231,30 +231,30 @@
       height: 16px;
       transform: translateY(-1px);
 
-      &--override {
+      &.badge-override {
         background: var(--badge-override-background);
         color: var(--badge-override-text);
       }
 
-      &--moderator {
+      &.is-moderator {
         background: var(--badge-moderator-background);
         color: var(--badge-moderator-text);
       }
 
-      &--admin {
+      &.is-admin {
         background: var(--badge-admin-background);
         color: var(--badge-admin-text);
       }
 
-      &--author {
+      &.is-author {
         background: var(--badge-author-background);
         color: var(--badge-author-text);
       }
 
-      &--supporter {
-      background: var(--badge-supporter-background);
-      color: var(--badge-supporter-text);
-    }
+      &.is-supporter {
+        background: var(--badge-supporter-background);
+        color: var(--badge-supporter-text);
+      }
     }
 
     &__date-and-link {
