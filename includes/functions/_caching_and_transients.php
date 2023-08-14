@@ -240,9 +240,14 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge parent story (if any)
-    fictioneer_purge_post_cache(
-      fictioneer_get_field( 'fictioneer_chapter_story', $post_id )
-    );
+    if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
+      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+
+      if ( ! empty( $story_id ) ) {
+        update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
+        fictioneer_purge_post_cache( $story_id );
+      }
+    }
 
     // Purge associated list pages
     if ( in_array( get_post_type( $post_id ), ['fcn_chapter', 'fcn_story'] ) ) {
@@ -349,11 +354,11 @@ function fictioneer_toggle_refresh_hooks( $add = true ) {
 
   if ( $add ) {
     foreach( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_refresh_post_caches' );
+      add_action( $hook, 'fictioneer_refresh_post_caches', 20 );
     }
   } else {
     foreach( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_refresh_post_caches' );
+      remove_action( $hook, 'fictioneer_refresh_post_caches', 20 );
     }
   }
 }
@@ -543,11 +548,11 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 
   if ( $add ) {
     foreach( $hooks as $hook ) {
-      add_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
+      add_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
     }
   } else {
     foreach( $hooks as $hook ) {
-      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates' );
+      remove_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
     }
   }
 }

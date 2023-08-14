@@ -150,11 +150,16 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
   function fictioneer_get_story_data( $story_id, $refresh_comment_count = true, $args = [] ) {
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
+    $old_data = false;
 
-    if ( ! $story_id ) return false;
+    if ( empty( $story_id ) ) {
+      return false;
+    }
 
     // Check cache
-    $old_data = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
+    if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
+      $old_data = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
+    }
 
     if ( ! empty( $old_data ) && $old_data['last_modified'] >= get_the_modified_time( 'U', $story_id ) ) {
       // Return cached data without refreshing the comment count

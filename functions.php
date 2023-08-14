@@ -299,6 +299,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_STICKY_CARDS' ) ) {
   define( 'FICTIONEER_ENABLE_STICKY_CARDS', true );
 }
 
+// Boolean: Enable story data meta cache
+if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
+  define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
