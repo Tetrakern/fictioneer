@@ -350,4 +350,28 @@ function fictioneer_acf_prevent_value_update( $value, $post_id, $field ) {
   return get_field( $field['name'], $post_id );
 }
 
+// =============================================================================
+// REDUCE TINYMCE TOOLBAR
+// =============================================================================
+
+/**
+ * Reduce items in the TinyMCE toolbar
+ *
+ * @since 5.6.0
+ *
+ * @param array $toolbars  The toolbar configuration.
+ *
+ * @return array The modified toolbar configuration.
+ */
+
+function fictioneer_acf_reduce_wysiwyg( $toolbars ) {
+  unset( $toolbars['Full'][1][0] ); // Formselect
+  unset( $toolbars['Full'][1][10] ); // WP More
+  unset( $toolbars['Full'][1][12] ); // Fullscreen
+  unset( $toolbars['Full'][1][13] ); // WP Adv.
+
+  return $toolbars;
+}
+add_filter( 'acf/fields/wysiwyg/toolbars', 'fictioneer_acf_reduce_wysiwyg' );
+
 ?>
