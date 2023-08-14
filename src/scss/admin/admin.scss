@@ -130,7 +130,7 @@ body[class*="page_fictioneer"] {
   --subnav-item-color-hover: #fff;
   --subnav-item-color-active: #fff;
   --subnav-item-border-color: transparent;
-  --subnav-item-border-color-hover: transparent;
+  --subnav-item-border-color-hover: currentColor;
   --subnav-item-border-color-active: #fff;
 
   --card-background-color: #fff;
@@ -433,7 +433,7 @@ body[class*="page_fictioneer"] {
       padding: 8px 0 calc(5px + var(--8bp));
       border-bottom: 3px solid var(--subnav-item-border-color);
       margin: 0;
-      transition: color .1s;
+      transition: color .1s, border .1s;
 
       &:focus {
         box-shadow: none;
@@ -452,6 +452,7 @@ body[class*="page_fictioneer"] {
 
       &.active {
         color: var(--subnav-item-color-active);
+        font-weight: 600;
         border-bottom-color: var(--subnav-item-border-color-active);
 
         &:focus-visible {
