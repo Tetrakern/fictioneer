@@ -304,27 +304,31 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User    $user            The comment user.
-   * @param WP_Comment $comment         The comment object.
-   * @param int        $post_author_id  ID of the author of the post the comment is for.
+   * @param WP_User         $user            The comment user.
+   * @param WP_Comment|null $comment         The comment object.
+   * @param int             $post_author_id  Optional. ID of the author of the post
+   *                                         the comment is for.
    *
    * @return string Badge HTML or empty string.
    */
 
-  function fictioneer_get_comment_badge( $user, $comment, $post_author_id ) {
+  function fictioneer_get_comment_badge( $user, $comment, $post_author_id = 0 ) {
+    // Pre-setup
+    $user_id = $user ? $user->ID : 0;
+
     // Abort conditions...
-    if ( get_the_author_meta( 'fictioneer_hide_badge', $comment->user_id ) ) {
-      return '';
+    if ( empty( $user_id ) || get_the_author_meta( 'fictioneer_hide_badge', $user_id ) ) {
+      return apply_filters( 'fictioneer_filter_comment_badge', '', '', 'is-guest' );
     }
 
     // Setup
-    $is_post_author = $comment->user_id == $post_author_id;
-    $is_moderator = fictioneer_is_moderator( $comment->user_id );
-    $is_admin = fictioneer_is_admin( $comment->user_id );
+    $is_post_author = empty( $comment ) ? false : $comment->user_id == $post_author_id;
+    $is_moderator = fictioneer_is_moderator( $user_id );
+    $is_admin = fictioneer_is_admin( $user_id );
     $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
     $badge_class = '';
     $badge = '';
-    $role_has_badge = user_can( $comment->user_id, 'fcn_show_badge' );
+    $role_has_badge = user_can( $user_id, 'fcn_show_badge' );
 
     // Role badge
     if ( $role_has_badge ) {
@@ -357,7 +361,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
     // Custom badge (can override all)
     if (
       get_option( 'fictioneer_enable_custom_badges' ) &&
-      ! get_the_author_meta( 'fictioneer_disable_badge_override', $comment->user_id )
+      ! get_the_author_meta( 'fictioneer_disable_badge_override', $user_id )
     ) {
       $custom_badge = fictioneer_get_override_badge( $user );
 
