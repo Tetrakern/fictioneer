@@ -445,16 +445,20 @@ if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param WP_User        $user    The user.
-   * @param string|boolean $default Default value or false.
+   * @param WP_User        $user     The user.
+   * @param string|boolean $default  Default value or false.
    *
    * @return string|boolean The badge label, default, or false.
    */
 
   function fictioneer_get_override_badge( $user, $default = false ) {
     // Abort conditions...
-    if ( ! $user ) return $default;
-    if ( get_the_author_meta( 'fictioneer_hide_badge', $user->ID ) ) return false;
+    if (
+      ! $user ||
+      get_the_author_meta( 'fictioneer_hide_badge', $user->ID )
+    ) {
+      return $default;
+    }
 
     // Setup
     $badge = get_the_author_meta( 'fictioneer_badge_override', $user->ID );
@@ -479,21 +483,24 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User        $user    The user.
-   * @param string|boolean $default Default value or false.
+   * @param WP_User        $user     The user.
+   * @param string|boolean $default  Default value or false.
    *
    * @return string|boolean The badge label, default, or false.
    */
 
   function fictioneer_get_patreon_badge( $user, $default = false ) {
     // Abort conditions...
-    if ( ! $user ) return $default;
+    if ( ! $user ) {
+      return $default;
+    }
 
     // Setup
     $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+    $last_updated = $patreon_tiers[0]['timestamp'];
 
     // Check if still valid (two weeks since last login) if not empty
-    if ( ! empty( $patreon_tiers ) && $patreon_tiers[0]['timestamp'] <= $patreon_tiers[0]['timestamp'] + 1209600 ) {
+    if ( ! empty( $patreon_tiers ) && time() <= $last_updated + WEEK_IN_SECONDS * 2 ) {
       $label = get_option( 'fictioneer_patreon_label' );
       return empty( $label ) ? _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' ) : $label;
     }
@@ -516,7 +523,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int $user_id User ID to get the hash for.
+   * @param int $user_id  User ID to get the hash for.
    *
    * @return string The unique fingerprint hash or empty string if not found.
    */
@@ -524,7 +531,11 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
   function fictioneer_get_user_fingerprint( $user_id ) {
     // Setup
     $user = get_user_by( 'ID', $user_id );
-    if ( ! $user ) return '';
+
+    if ( ! $user ) {
+      return '';
+    }
+
     $fingerprint = get_user_meta( $user_id, 'fictioneer_user_fingerprint', true );
 
     // If hash does not yet exist, create one
@@ -605,7 +616,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id User ID to soft delete the comments for.
+   * @param int $user_id  User ID to soft delete the comments for.
    *
    * @return array|false Detailed results about the database update. Accounts
    *                     for completeness, partial success, and errors. Includes

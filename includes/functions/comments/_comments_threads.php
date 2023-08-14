@@ -9,10 +9,10 @@
  *
  * @since Fictioneer 5.0
  *
- * @param string     $link    The HTML markup for the comment reply link.
- * @param array      $args    An array of arguments overriding the defaults.
- * @param WP_Comment $comment The object of the comment being replied.
- * @param WP_Post    $post    The WP_Post object.
+ * @param string     $link     The HTML markup for the comment reply link.
+ * @param array      $args     An array of arguments overriding the defaults.
+ * @param WP_Comment $comment  The object of the comment being replied.
+ * @param WP_Post    $post     The WP_Post object.
  *
  * @return string Reply link.
  */
@@ -108,7 +108,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $comment_count Total number of comments.
+   * @param int $comment_count  Total number of comments.
    */
 
   function fictioneer_comment_header( $comment_count ) {
@@ -144,7 +144,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $comments_count Total number of comments.
+   * @param int $comments_count  Total number of comments.
    */
 
   function fictioneer_comments_ajax_skeleton( $comments_count ) {
@@ -205,9 +205,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $comments Collection of comments to display.
-   * @param int   $page     Current page number of the comments.
-   * @param array $args     With 'commentcode', 'post_author_id', and 'post_id'.
+   * @param array $comments  Collection of comments to display.
+   * @param int   $page      Current page number of the comments.
+   * @param array $args      With 'commentcode', 'post_author_id', and 'post_id'.
    */
 
   function fictioneer_ajax_list_comments( $comments, $page, $args = [] ) {
@@ -253,7 +253,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
  *
  * @since Fictioneer 5.0
  *
- * @param array $parsed_args Default list arguments.
+ * @param array $parsed_args  Default list arguments.
  *
  * @return array Modified arguments.
  */
@@ -304,48 +304,53 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User    $user           The current user object.
-   * @param WP_Comment $comment        The comment object.
-   * @param int        $post_author_id ID of the author of the post the comment is for.
+   * @param WP_User    $user            The comment user.
+   * @param WP_Comment $comment         The comment object.
+   * @param int        $post_author_id  ID of the author of the post the comment is for.
    *
    * @return string Badge HTML or empty string.
    */
 
   function fictioneer_get_comment_badge( $user, $comment, $post_author_id ) {
     // Abort conditions...
-    if ( $user && get_the_author_meta( 'fictioneer_hide_badge', $comment->user_id ) ) return '';
+    if ( get_the_author_meta( 'fictioneer_hide_badge', $comment->user_id ) ) {
+      return '';
+    }
 
     // Setup
-    $comment_user = get_user_by( 'id', $comment->user_id );
     $is_post_author = $comment->user_id == $post_author_id;
     $is_moderator = fictioneer_is_moderator( $comment->user_id );
     $is_admin = fictioneer_is_admin( $comment->user_id );
     $badge_body = '<div class="fictioneer-comment__badge %1$s">%2$s</div>';
     $badge_class = '';
     $badge = '';
+    $role_has_badge = user_can( $comment->user_id, 'fcn_show_badge' );
 
     // Role badge
-    if ( $is_post_author ) {
-      $badge = fcntr( 'author' );
-      $badge_class = 'is-author';
-    } elseif ( $is_admin ) {
-      $badge = fcntr( 'admin' );
-      $badge_class = 'is-admin';
-    } elseif ( $is_moderator ) {
-      $badge = fcntr( 'moderator' );
-      $badge_class = 'is-moderator';
-    } elseif ( user_can( $comment->user_id, 'fcn_show_badge' ) && ! empty( $comment_user->roles ) ) {
-      $role_slug = $user->roles[0] ?? '';
+    if ( $role_has_badge ) {
+      if ( $is_post_author ) {
+        $badge = fcntr( 'author' );
+        $badge_class = 'is-author';
+      } elseif ( $is_admin ) {
+        $badge = fcntr( 'admin' );
+        $badge_class = 'is-admin';
+      } elseif ( $is_moderator ) {
+        $badge = fcntr( 'moderator' );
+        $badge_class = 'is-moderator';
+      } elseif ( ! empty( $user->roles ) ) {
+        $role_slug = $user->roles[0] ?? '';
 
-      if ( ! empty( $role_slug ) ) {
-        $badge = ucwords( $role_slug );
-        $badge_class = "is-{$role_slug}";
+        if ( ! empty( $role_slug ) ) {
+          $badge = str_replace( '_', ' ', $role_slug );
+          $badge = ucwords( $badge );
+          $badge_class = "is-{$role_slug}";
+        }
       }
     }
 
     // Patreon badge (if no higher badge set yet)
     if ( empty( $badge ) ) {
-      $badge = fictioneer_get_patreon_badge( $comment_user );
+      $badge = fictioneer_get_patreon_badge( $user );
       $badge_class = 'is-supporter';
     }
 
@@ -354,7 +359,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
       get_option( 'fictioneer_enable_custom_badges' ) &&
       ! get_the_author_meta( 'fictioneer_disable_badge_override', $comment->user_id )
     ) {
-      $custom_badge = fictioneer_get_override_badge( $comment_user );
+      $custom_badge = fictioneer_get_override_badge( $user );
 
       if ( $custom_badge ) {
         $badge = $custom_badge;
@@ -452,7 +457,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // Badge
-    $badge = fictioneer_get_comment_badge( $current_user, $comment, $post_author_id );
+    $badge = fictioneer_get_comment_badge( get_user_by( 'id', $comment->user_id ), $comment, $post_author_id );
 
     // Flags
     $is_caching = fictioneer_caching_active();
