@@ -516,10 +516,10 @@ body[class*="page_fictioneer"] {
   left: 50%;
   background: #fff;
   padding: 0;
-  margin: 20px;
+  margin: 0;
   border: none;
-  width: min(480px, calc(100vw - 40px));
-  max-width: 480px;
+  width: 100%;
+  max-width: min(480px, calc(100vw - 40px));
   transform: translate(-50%, -50%);
 
   &::backdrop {
