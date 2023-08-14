@@ -19,8 +19,6 @@
 // Setup
 $current_user = $args['user'];
 $avatar = get_avatar( $current_user->ID, 32 );
-// $badge = fictioneer_get_patreon_badge( $current_user );
-// $badge = empty( $badge ) ? fictioneer_get_override_badge( $current_user, 'Badge' ) : $badge;
 $badge = fictioneer_get_comment_badge( $current_user, null );
 
 ?>

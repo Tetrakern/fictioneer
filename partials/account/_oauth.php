@@ -22,6 +22,8 @@ if ( ! get_option( 'fictioneer_enable_oauth' ) ) return;
 // Setup
 $current_user = $args['user'];
 $patreon_tiers = get_user_meta( $current_user->ID, 'fictioneer_patreon_tiers', true );
+$patreon_timestamp = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
+$patreon_expired = $patreon_timestamp + WEEK_IN_SECONDS * 2 < time();
 $oauth_providers = [
   ['discord', 'Discord'],
   ['twitch', 'Twitch'],
@@ -36,23 +38,36 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
 
 <p class="profile__description"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ) ?></p>
 
-<ul class="profile__admin-notes">
-  <?php if ( ! empty( $patreon_tiers ) ) : ?>
-    <?php foreach ( $patreon_tiers as $tier ) : ?>
+<?php if ( is_array( $patreon_tiers ) && ! empty( $patreon_tiers ) ) : ?>
+
+  <?php if ( $patreon_expired ) : ?>
+    <ul class="profile__admin-notes">
       <li>
-        <i class="fa-solid fa-ribbon"></i>
-        <span>
-          <?php
-            printf(
-              _x( '<b>Patreon:</b> %1$s', 'Pattern form "Patreon: {Tier}"', 'fictioneer' ),
-              $tier['tier']
-            );
-          ?>
-        </span>
+        <i class="fa-solid fa-hourglass-end"></i>
+        <span><?php _e( '<b>Patreon:</b> Data expires after two weeks. Log in with Patreon again to refresh.', 'fictioneer' ) ?></span>
       </li>
-    <?php endforeach; ?>
+    </ul>
   <?php endif; ?>
-</ul>
+
+  <?php if ( ! $patreon_expired ) : ?>
+    <ul class="profile__admin-notes">
+      <?php foreach ( $patreon_tiers as $tier ) : ?>
+        <li>
+          <i class="fa-solid fa-ribbon"></i>
+          <span>
+            <?php
+              printf(
+                _x( '<b>Patreon:</b> %1$s', 'Pattern form "Patreon: {Tier}"', 'fictioneer' ),
+                $tier['tier']
+              );
+            ?>
+          </span>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+
+<?php endif; ?>
 
 <div class="profile__oauth profile__segment">
   <?php
