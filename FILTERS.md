@@ -240,13 +240,18 @@ Filters the queried comments in the `comments.php` template and `fictioneer_ajax
 
 ---
 
-### `apply_filters( 'fictioneer_filter_comment_badge', $output, $badge, $badge_class )`
+### `apply_filters( 'fictioneer_filter_comment_badge', $output, $user, $args )`
 Filters the HTML of the `fictioneer_get_comment_badge( $user, $comment, $post_author_id )` function before it is returned for rendering. The badge class and label are inserted into `<div class="fictioneer-comment__badge CLASS"><span>LABEL</span></div>`. Possible label classes are `is-author`, `is-admin`, `is-moderator`, `is-supporter`, and `badge-override`.
 
 **Parameters:**
-* $output (string) – Complete HTML of the comment badge.
-* $badge (string) – Label of the badge.
-* $badge_class (string) – Class of the badge.
+* $output (string) – Complete HTML of the comment badge or empty string.
+* $user (WP_User|null) – The user object. Unsafe.
+
+**$args:**
+* $badge (string) – Label of the badge or empty string.
+* $class (string) – Class of the badge or empty string.
+* $comment (WP_Comment|null) – Comment object or null if called outside a comment.
+* $post_author_id (int) – ID of the author of the post the comment is for or `0`.
 
 ---
 

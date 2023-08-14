@@ -445,21 +445,28 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User         $user            The comment user.
-   * @param WP_Comment|null $comment         The comment object.
+   * @param WP_User|null    $user            The comment user.
+   * @param WP_Comment|null $comment         Optional. The comment object.
    * @param int             $post_author_id  Optional. ID of the author of the post
    *                                         the comment is for.
    *
    * @return string Badge HTML or empty string.
    */
 
-  function fictioneer_get_comment_badge( $user, $comment, $post_author_id = 0 ) {
+  function fictioneer_get_comment_badge( $user, $comment = null, $post_author_id = 0 ) {
     // Pre-setup
     $user_id = $user ? $user->ID : 0;
+    $filter_args = array(
+      'comment' => $comment,
+      'post_author_id' => $post_author_id
+    );
 
     // Abort conditions...
     if ( empty( $user_id ) || get_the_author_meta( 'fictioneer_hide_badge', $user_id ) ) {
-      return apply_filters( 'fictioneer_filter_comment_badge', '', '', 'is-guest' );
+      $filter_args['class'] = 'is-guest';
+      $filter_args['badge'] = '';
+
+      return apply_filters( 'fictioneer_filter_comment_badge', '', $user, $filter_args );
     }
 
     // Setup
@@ -514,7 +521,11 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
 
     // Apply filters
     $output = empty( $badge ) ? '' : sprintf( $badge_body, $badge_class, $badge );
-    $output = apply_filters( 'fictioneer_filter_comment_badge', $output, $badge, $badge_class );
+
+    $filter_args['class'] = $badge_class;
+    $filter_args['badge'] = $badge;
+
+    $output = apply_filters( 'fictioneer_filter_comment_badge', $output, $user, $filter_args );
 
     // Return badge or empty sting
     return $output;
