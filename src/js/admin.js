@@ -259,33 +259,39 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 });
 
 // =============================================================================
-// SIDEBAR LAYOUT
+// SUBNAV TABS
 // =============================================================================
 
-_$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
-  const clickTarget = event.target.closest('[data-sidebar-click]');
+// _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
+//   const clickTarget = event.target.closest('[data-subnav-click]');
 
-  if (!clickTarget) {
-    return;
-  }
+//   if (!clickTarget) {
+//     return;
+//   }
 
-  const navTarget = _$(`[data-sidebar-target="${clickTarget.dataset.sidebarClick}"]`);
+//   const navTarget = _$(`[data-subnav-target="${clickTarget.dataset.subnavClick}"]`);
 
-  if (!navTarget) {
-    return;
-  }
+//   if (!navTarget) {
+//     return;
+//   }
 
-  _$$('[data-sidebar-target]').forEach(element => {
-    element.classList.add('hidden');
-  });
+//   _$$('[data-subnav-target]').forEach(element => {
+//     element.classList.add('hidden');
+//   });
 
-  _$$('[data-sidebar-click]').forEach(element => {
-    element.classList.remove('active');
-  });
+//   _$$('[data-subnav-click]').forEach(element => {
+//     element.classList.remove('active');
+//   });
 
-  navTarget.classList.remove('hidden');
-  clickTarget.classList.add('active');
-});
+//   navTarget.classList.remove('hidden');
+//   clickTarget.classList.add('active');
+
+//   window.history.pushState(
+//     {},
+//     '',
+//     window.location.href += `&fictioneer-subnav=${clickTarget.dataset.subnavClick}`
+//   );
+// });
 
 // =============================================================================
 // DIALOGS

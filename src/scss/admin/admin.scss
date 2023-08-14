@@ -435,6 +435,11 @@ body[class*="page_fictioneer"] {
       margin: 0;
       transition: color .1s;
 
+      &:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
       &:focus-visible {
         box-shadow: var(--focus-box-shadow);
         outline: none;

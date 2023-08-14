@@ -752,7 +752,7 @@ function fictioneer_roles_update_role() {
   }
 
   // Setup
-  $role_name = $_POST['role'] ?? '';
+  $role_name = $_REQUEST['role'] ?? '';
   $role = get_role( $role_name );
   $notice = 'fictioneer-updated-role-caps';
 
@@ -799,7 +799,7 @@ add_action( 'admin_post_fictioneer_roles_update_role', 'fictioneer_roles_update_
  * @since Fictioneer 5.6.0
  */
 
-function fictioneer_roles_add_role() {
+function fictioneer_add_role() {
   // Verify request
   fictioneer_verify_tool_action( 'fictioneer_roles_add_role' );
 
@@ -809,7 +809,7 @@ function fictioneer_roles_add_role() {
   }
 
   // Setup
-  $new_role = $_POST['new_role'] ?? '';
+  $new_role = $_REQUEST['new_role'] ?? '';
 
   // Name missing
   if ( empty( $new_role ) ) {
@@ -854,7 +854,7 @@ function fictioneer_roles_add_role() {
   // Redirect
   if ( empty( $role ) ) {
     wp_safe_redirect(
-      add_query_arg( array( 'success' => 'fictioneer-not-added-role' ), wp_get_referer() )
+      add_query_arg( array( 'failure' => 'fictioneer-not-added-role' ), wp_get_referer() )
     );
   } else {
     wp_safe_redirect(
@@ -864,6 +864,53 @@ function fictioneer_roles_add_role() {
 
   exit();
 }
-add_action( 'admin_post_fictioneer_roles_add_role', 'fictioneer_roles_add_role' );
+add_action( 'admin_post_fictioneer_add_role', 'fictioneer_add_role' );
+
+/**
+ * Remove role
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_remove_role() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_remove_role' );
+
+  // Permissions?
+  if ( ! current_user_can( 'manage_options' ) ) {
+    wp_die( __( 'Insufficient permissions.', 'fictioneer' ) );
+  }
+
+  // Setup
+  $role = $_REQUEST['role'] ?? '';
+  $role = sanitize_text_field( $role );
+  $role = wp_strip_all_tags( $role );
+  $role = strtolower( $role );
+  $role = str_replace( ' ', '_', $role );
+  $role = preg_replace( '/[^a-zA-Z0-9 ]/', '', $role );
+
+  // Get users with role
+  $role_holders = new WP_User_Query( array( 'role' => $role ) );
+
+  // Change role to subscriber
+  if ( ! empty( $role_holders->results )) {
+    foreach ( $role_holders->results as $user ) {
+      $user->remove_role( $role );
+      $user->add_role( 'subscriber' );
+    }
+  }
+
+  // Remove role
+  remove_role( $role );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg( array( 'success' => 'fictioneer-removed-role', 'fictioneer-subnav' => '' ), wp_get_referer() )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_remove_role', 'fictioneer_remove_role' );
+
 
 ?>

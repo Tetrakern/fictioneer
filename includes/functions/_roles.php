@@ -20,7 +20,8 @@ define(
     'fcn_custom_page_css',
     'fcn_custom_epub_css',
     'fcn_seo_meta',
-    'fcn_make_sticky'
+    'fcn_make_sticky',
+    'fcn_show_badge'
 	)
 );
 
@@ -316,6 +317,7 @@ function fictioneer_add_moderator_role() {
     'fcn_edit_only_others_comments' => true,
     'fcn_upload_limit' => true,
     'fcn_upload_restrictions' => true,
+    'fcn_show_badge' => true,
     // Stories
     'read_fcn_story' => true,
     'edit_fcn_stories' => true,
