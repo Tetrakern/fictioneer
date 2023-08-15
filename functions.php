@@ -304,6 +304,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
 }
 
+// Boolean: Enable ACF on frontend
+if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
+  define( 'FICTIONEER_ENABLE_FRONTEND_ACF', false );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================

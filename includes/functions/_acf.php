@@ -48,7 +48,7 @@ function fictioneer_acf_json_save_point( $path ) {
 // LOAD ACF PLUGIN FROM THEME IF NOT INSTALLED (ADMIN ONLY)
 // =============================================================================
 
-if ( ! class_exists('acf') && is_admin() ) {
+if ( ! class_exists('acf') && ( is_admin() || FICTIONEER_ENABLE_FRONTEND_ACF ) ) {
   // Define path and URL to the ACF plugin.
   define( 'FICTIONEER_ACF_PATH', get_template_directory() . '/includes/acf/' );
   define( 'FICTIONEER_ACF_URL', get_template_directory_uri() . '/includes/acf/' );
