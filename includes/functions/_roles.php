@@ -23,7 +23,8 @@ define(
     'fcn_make_sticky',
     'fcn_show_badge',
     'fcn_edit_permalink',
-    'fcn_all_blocks'
+    'fcn_all_blocks',
+    'fcn_story_pages'
 	)
 );
 
@@ -130,6 +131,7 @@ function fictioneer_setup_roles() {
       'fcn_make_sticky',
       'fcn_edit_permalink',
       'fcn_all_blocks',
+      'fcn_story_pages',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore
@@ -748,7 +750,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     return $fields;
   }
 
-  if ( ! current_user_can( 'edit_pages' ) ) {
+  if ( ! current_user_can( 'fcn_story_pages' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null', 9999 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_story_pages', 9999 );
   }
