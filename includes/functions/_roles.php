@@ -169,6 +169,7 @@ function fictioneer_setup_roles() {
     'fcn_allow_self_delete',
     'fcn_upload_limit',
     'fcn_upload_restrictions',
+    'fcn_story_pages',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -231,6 +232,7 @@ function fictioneer_setup_roles() {
     'fcn_allow_self_delete',
     'fcn_upload_limit',
     'fcn_upload_restrictions',
+    'fcn_story_pages',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -324,6 +326,7 @@ function fictioneer_add_moderator_role() {
     'fcn_upload_limit' => true,
     'fcn_upload_restrictions' => true,
     'fcn_show_badge' => true,
+    'fcn_story_pages' => true,
     // Stories
     'read_fcn_story' => true,
     'edit_fcn_stories' => true,
