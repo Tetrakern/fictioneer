@@ -824,6 +824,11 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_read_others_files_list_view( $wp_query ) {
+    // Safety check
+    if ( ! function_exists( 'get_current_screen' ) ) {
+      return;
+    }
+
     $screen = get_current_screen();
 
     if (
