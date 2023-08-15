@@ -291,7 +291,7 @@ function fictioneer_allowed_block_types() {
     'jetpack/payment-buttons'
   );
 
-  if ( ! current_user_can( 'fcn_all_blocks' ) ) {
+  if ( current_user_can( 'fcn_all_blocks' ) ) {
     $allowed = array_merge( $base, $extra, $plugins );
   } else {
     $allowed = $base;
