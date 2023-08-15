@@ -103,6 +103,12 @@ function fictioneer_theme_setup() {
   // Remove block patterns
   remove_theme_support( 'core-block-patterns' );
 
+  // Remove widget support...
+  if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
+    remove_theme_support( 'widgets' );
+    remove_theme_support( 'widgets-block-editor' );
+  }
+
   // Add new size for cover images used on story pages
   add_image_size( 'cover', 400 );
 
