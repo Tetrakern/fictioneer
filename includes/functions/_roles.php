@@ -720,6 +720,39 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_filter_search_id_input', 9999 );
   }
 
+  // === EDIT_PAGES ============================================================
+
+  /**
+   * Removes custom pages metabox
+   *
+   * @since 5.6.0
+   *
+   * @param array $fields  An array of fields to be rendered.
+   *
+   * @return array The modified array.
+   */
+
+
+  function fictioneer_remove_custom_story_pages( $fields ) {
+    // Fields to remove
+    $field_keys = ['field_5d6e33e253add']; // fictioneer_story_custom_pages
+
+    // Remove fields from the fields array
+    foreach ( $fields as $key => &$field ) {
+      if ( in_array( $field['key'], $field_keys ) ) {
+        unset( $fields[ $key ] );
+      }
+    }
+
+    // Return modified fields array
+    return $fields;
+  }
+
+  if ( ! current_user_can( 'edit_pages' ) ) {
+    add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null', 9999 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_story_pages', 9999 );
+  }
+
   // === UPDATE_CORE ===========================================================
 
   /**
