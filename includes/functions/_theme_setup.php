@@ -100,6 +100,9 @@ function fictioneer_theme_setup() {
     )
   );
 
+  // Remove block patterns
+  remove_theme_support( 'core-block-patterns' );
+
   // Add new size for cover images used on story pages
   add_image_size( 'cover', 400 );
 
