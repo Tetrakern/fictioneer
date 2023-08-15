@@ -17,6 +17,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Warning: SEO Plugins](#warning-seo-plugins)
 * [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
   * [General Tab](#general-tab)
+  * [Roles Tab](#roles-tab)
   * [Connections Tab](#connections-tab)
   * [Phrases Tab](#phrases-tab)
   * [ePUBs Tab](#epubs-tab)
@@ -571,13 +572,17 @@ Most of the theme’s configuration is found here, the options being largely sel
 
 ![Roles Settings Preview](repo/assets/settings_roles_preview.jpg?raw=true)
 
-### Roles
+### Roles Tab
 
 The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain roles. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. A few example capabilities:
 
-* **Edit Only Others Comments:** Limits moderators to only editing comments, despite being able to edit posts from others.
+* **Edit Only Others Comments:** Limits moderators to only editing comments, not all posts.
 * **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
 * **Select Page Template:** You cannot change the page template without this capability.
+* **Custom Page CSS:** Inject CSS into the header for an unique style. Dangerous!
+* **All Blocks:** Your block options are quite limited without this, for sanity reasons.
+* **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
+* **Allow Self Delete:** Provides you with the option to delete your own account.
 
 <br>
 
