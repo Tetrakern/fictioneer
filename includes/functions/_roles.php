@@ -1214,32 +1214,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   /**
-   * Restricts the block categories available in the Gutenberg editor
-   *
-   * @return array Array of block categories.
-   */
-
-  function fictioneer_restrict_block_categories() {
-    return array(
-      array(
-        'slug'  => 'text',
-        'title' => _x( 'Text', 'block category' ),
-        'icon'  => null,
-      ),
-      array(
-        'slug'  => 'media',
-        'title' => _x( 'Media', 'block category' ),
-        'icon'  => null,
-      ),
-      array(
-        'slug'  => 'embed',
-        'title' => _x( 'Embeds', 'block category' ),
-        'icon'  => null,
-      )
-    );
-  }
-
-  /**
    * Restricts the block types available in the Gutenberg editor
    *
    * @return string Array of allowed block types.
@@ -1278,7 +1252,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_all_blocks' ) ) {
-    add_filter( 'block_categories_all', 'fictioneer_restrict_block_categories', 9999 );
     add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types', 9999 );
     add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 9999 );
   }

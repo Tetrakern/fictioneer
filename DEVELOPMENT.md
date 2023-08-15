@@ -256,7 +256,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `admin_body_class` | `fictioneer_addClassesToAdminBody`
 | `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter`
 | `allowed_block_types_all` | `fictioneer_allowed_block_types`, `fictioneer_restrict_block_types`
-| `block_categories_all` | `fictioneer_restrict_block_categories`
 | `body_class` | `fictioneer_addClassesToBody`
 | `cancel_comment_reply_link` | `__return_empty_string`
 | `comment_email` | `__return_false`
