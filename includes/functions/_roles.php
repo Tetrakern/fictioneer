@@ -22,7 +22,8 @@ define(
     'fcn_seo_meta',
     'fcn_make_sticky',
     'fcn_show_badge',
-    'fcn_edit_permalink'
+    'fcn_edit_permalink',
+    'fcn_all_blocks'
 	)
 );
 
@@ -128,6 +129,7 @@ function fictioneer_setup_roles() {
       'fcn_seo_meta',
       'fcn_make_sticky',
       'fcn_edit_permalink',
+      'fcn_all_blocks',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore
@@ -1177,6 +1179,42 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( current_user_can( 'fcn_upload_restrictions' ) ) {
     add_filter( 'wp_handle_upload_prefilter', 'fictioneer_upload_restrictions', 9999 );
+  }
+
+  // === FCN_ALL_BLOCKS ========================================================
+
+  /**
+ * Restrict the use of specific Gutenberg blocks
+ *
+ * @since 5.6.0
+ *
+ * @param array $data  The array of post data being saved.
+ *
+ * @return array Modified post data with unwanted blocks removed.
+ */
+
+  function fictioneer_restrict_blocks( $data ) {
+    // Regular expression to match forbidden blocks
+    $forbidden_patterns = array(
+      '/<!-- wp:buttons\/?.*?-->(.*?)<!-- \/wp:buttons\/?.*? -->/s',
+      '/<!-- wp:button\/?.*?-->(.*?)<!-- \/wp:button\/?.*? -->/s',
+      '/<!-- wp:audio\/?.*?-->(.*?)<!-- \/wp:audio\/?.*? -->/s',
+      '/<!-- wp:video\/?.*?-->(.*?)<!-- \/wp:video\/?.*? -->/s',
+      '/<!-- wp:file\/?.*?-->(.*?)<!-- \/wp:file\/?.*? -->/s',
+      '/<!-- wp:jetpack\/?.*?-->(.*?)<!-- \/wp:jetpack\/?.*? -->/s' // Because it's common enough
+    );
+
+    // Remove matching blocks
+    foreach ( $forbidden_patterns as $pattern ) {
+      $data['post_content'] = preg_replace( $pattern, '', $data['post_content'] );
+    }
+
+    // Continue with cleaned-up data
+    return $data;
+  }
+
+  if ( ! current_user_can( 'fcn_all_blocks' ) ) {
+    add_filter( 'wp_insert_post_data', 'fictioneer_restrict_blocks' );
   }
 }
 

@@ -34,7 +34,8 @@ $editor_caps = array(
   'fcn_custom_epub_css',
   'fcn_seo_meta',
   'fcn_make_sticky',
-  'fcn_edit_permalink'
+  'fcn_edit_permalink',
+  'fcn_all_blocks'
 );
 
 $restrictions = array(
