@@ -647,7 +647,7 @@ function fictioneer_enqueue_block_editor_scripts() {
   wp_register_script(
     'fictioneer-block-editor-scripts',
     get_template_directory_uri() . '/js/block-editor.min.js',
-    ['wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
+    ['wp-dom-ready', 'wp-edit-post', 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
     FICTIONEER_VERSION,
     true
   );
