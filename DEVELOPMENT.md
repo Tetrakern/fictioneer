@@ -255,7 +255,8 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | ---: | :--- |
 | `admin_body_class` | `fictioneer_addClassesToAdminBody`
 | `admin_comment_types_dropdown` | `fictioneer_add_private_to_comment_filter`
-| `allowed_block_types_all` | `fictioneer_allowed_block_types`
+| `allowed_block_types_all` | `fictioneer_allowed_block_types`, `fictioneer_restrict_block_types`
+| `block_categories_all` | `fictioneer_restrict_block_categories`
 | `body_class` | `fictioneer_addClassesToBody`
 | `cancel_comment_reply_link` | `__return_empty_string`
 | `comment_email` | `__return_false`
@@ -302,6 +303,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `user_has_cap` | `fictioneer_edit_only_comments`
 | `wp_list_comments_args` | `fictioneer_comment_list_args`
 | `wp_handle_upload_prefilter` | `fictioneer_upload_restrictions`
+| `wp_insert_post_data` | `fictioneer_remove_restricted_block_content`
 | `wp_is_application_passwords_available` | `__return_false`
 | `wp_robots` | `fictioneer_add_noindex_to_robots`
 | `wp_sitemaps_enabled` | `__return_false`

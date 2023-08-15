@@ -1193,7 +1193,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
  * @return array Modified post data with unwanted blocks removed.
  */
 
-  function fictioneer_restrict_blocks( $data ) {
+  function fictioneer_remove_restricted_block_content( $data ) {
     // Regular expression to match forbidden blocks
     $forbidden_patterns = array(
       '/<!-- wp:buttons\/?.*?-->(.*?)<!-- \/wp:buttons\/?.*? -->/s',
@@ -1213,8 +1213,74 @@ if ( ! current_user_can( 'manage_options' ) ) {
     return $data;
   }
 
+  /**
+   * Restricts the block categories available in the Gutenberg editor
+   *
+   * @return array Array of block categories.
+   */
+
+  function fictioneer_restrict_block_categories() {
+    return array(
+      array(
+        'slug'  => 'text',
+        'title' => _x( 'Text', 'block category' ),
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'media',
+        'title' => _x( 'Media', 'block category' ),
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'embed',
+        'title' => _x( 'Embeds', 'block category' ),
+        'icon'  => null,
+      )
+    );
+  }
+
+  /**
+   * Restricts the block types available in the Gutenberg editor
+   *
+   * @return string Array of allowed block types.
+   */
+
+  function fictioneer_restrict_block_types() {
+    $allowed = array(
+      'core/image',
+      'core/paragraph',
+      'core/heading',
+      'core/list',
+      'core/list-item',
+      'core/gallery',
+      'core/quote',
+      'core/pullquote',
+      'core/table',
+      'core/code',
+      'core/preformatted',
+      'core/html',
+      'core/separator',
+      'core/spacer',
+      'core/more',
+      'core/embed',
+      'core-embed/youtube',
+      'core-embed/soundcloud',
+      'core-embed/spotify',
+      'core-embed/vimeo',
+      'core-embed/twitter'
+    );
+
+    if ( current_user_can( 'fcn_shortcodes' ) ) {
+      $allowed[] = 'core/shortcode';
+    }
+
+    return $allowed;
+  }
+
   if ( ! current_user_can( 'fcn_all_blocks' ) ) {
-    add_filter( 'wp_insert_post_data', 'fictioneer_restrict_blocks' );
+    add_filter( 'block_categories_all', 'fictioneer_restrict_block_categories', 9999 );
+    add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types', 9999 );
+    add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 9999 );
   }
 }
 

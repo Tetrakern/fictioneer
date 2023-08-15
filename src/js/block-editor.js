@@ -6,7 +6,6 @@
 wp.domReady(function() {
 
   setTimeout(() => {
-
     document.querySelectorAll('label').forEach(element => {
       if (element.textContent === 'Stick to the top of the blog') {
         if (!fictioneerData.userCapabilities?.fcn_make_sticky) {
@@ -20,7 +19,6 @@ wp.domReady(function() {
         return;
       }
     });
-
   }, 200); // Wait for async; not great, not terrible solution
 
 });

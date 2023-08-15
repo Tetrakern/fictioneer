@@ -212,7 +212,8 @@ add_filter( 'removable_query_args', 'fictioneer_removable_args' );
  */
 
 function fictioneer_allowed_block_types() {
-  $base = array(
+  $allowed = array(
+    // WordPress
     'core/image',
     'core/paragraph',
     'core/heading',
@@ -228,23 +229,18 @@ function fictioneer_allowed_block_types() {
     'core/separator',
     'core/spacer',
     'core/more',
+    'core/buttons',
+    'core/button',
+    'core/audio',
+    'core/video',
+    'core/file',
     'core/embed',
     'core-embed/youtube',
     'core-embed/soundcloud',
     'core-embed/spotify',
     'core-embed/vimeo',
-    'core-embed/twitter'
-  );
-
-  $extra = array(
-    'core/buttons',
-    'core/button',
-    'core/audio',
-    'core/video',
-    'core/file'
-  );
-
-  $plugins = array(
+    'core-embed/twitter',
+    // Plugins
     'cloudinary/gallery',
     'jetpack/business-hours',
     'jetpack/button',
@@ -290,12 +286,6 @@ function fictioneer_allowed_block_types() {
     'jetpack/payments-intro',
     'jetpack/payment-buttons'
   );
-
-  if ( current_user_can( 'fcn_all_blocks' ) ) {
-    $allowed = array_merge( $base, $extra, $plugins );
-  } else {
-    $allowed = $base;
-  }
 
   if ( current_user_can( 'fcn_shortcodes' ) || current_user_can( 'manage_options' ) ) {
     $allowed[] = 'core/shortcode';
