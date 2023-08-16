@@ -106,6 +106,53 @@ body[class*=fictioneer] {
 // FICTIONEER SETTING PAGES
 // =============================================================================
 
+body {
+  --fcn-bg-primary: #1d2327;
+  --fcn-bg-secondary: #2c3337;
+  --fcn-fg-color: #fff;
+
+  &.admin-color-coffee {
+    --fcn-bg-primary: #59524c;
+    --fcn-bg-secondary: #46403b;
+  }
+
+  &.admin-color-light {
+    --fcn-bg-primary: #e5e5e5;
+    --fcn-bg-secondary: #fff;
+    --fcn-fg-color: #333;
+  }
+
+  &.admin-color-modern {
+    --fcn-bg-primary: #1e1e1e;
+    --fcn-bg-secondary: #0c0c0c;
+  }
+
+  &.admin-color-blue {
+    --fcn-bg-primary: #53accc;
+    --fcn-bg-secondary: #4896b3;
+  }
+
+  &.admin-color-ectoplasm {
+    --fcn-bg-primary: #523f6d;
+    --fcn-bg-secondary: #413256;
+  }
+
+  &.admin-color-midnight {
+    --fcn-bg-primary: #363b3f;
+    --fcn-bg-secondary: #25282b;
+  }
+
+  &.admin-color-ocean {
+    --fcn-bg-primary: #738e96;
+    --fcn-bg-secondary: #627c83;
+  }
+
+  &.admin-color-sunrise {
+    --fcn-bg-primary: #cf4944;
+    --fcn-bg-secondary: #b43c38;
+  }
+}
+
 body[class*="page_fictioneer"] #wpcontent {
   padding-left: 0;
 }
@@ -622,7 +669,7 @@ body[class*="page_fictioneer"] {
     &__right {
       position: relative;
       flex: 0 1 auto;
-      background: #1d2327;
+      background: var(--fcn-bg-primary);
       padding: 8px;
       border-radius: 2px;
 
@@ -635,7 +682,7 @@ body[class*="page_fictioneer"] {
       }
 
       a {
-        color: #fff;
+        color: var(--fcn-fg-color);
         line-height: 1;
         text-decoration: none;
 
@@ -670,8 +717,8 @@ body[class*="page_fictioneer"] {
       pointer-events: none;
       top: 6px;
       left: 8px;
-      background: linear-gradient(160deg, #1d2327 20%, rgba(44, 51, 56, 0.6) 100%);
-      color: #eee;
+      background: var(--fcn-bg-primary);
+      color: var(--fcn-fg-color);
       border-radius: 2px 0 2px;
 
       > div {
