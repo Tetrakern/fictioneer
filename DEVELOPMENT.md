@@ -309,7 +309,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 <br>
 
-| ACF HOOK | FICTIONEER ACTIONS
+| ACF HOOK | FICTIONEER ACTIONS & FILTERS
 | ---: | :--- |
 | `acf/fields/post_object/query/name=fictioneer_chapter_story` | `fictioneer_acf_scope_chapter_story`
 | `acf/fields/post_object/query/name=fictioneer_post_story_blogs` | `fictioneer_acf_scope_blog_posts`
