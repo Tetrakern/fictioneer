@@ -30,7 +30,7 @@
 $query_args = array(
   'post_type' => 'fcn_chapter',
   'post_status' => 'publish',
-  'post__in' => fictioneer_post__in( $args['post_ids'] ),
+  'post__in' => $args['post_ids'], // May be empty!
   'orderby' => $args['orderby'] ?? 'date',
   'order' => $args['order'] ?? 'desc',
   'posts_per_page' => $args['count'],

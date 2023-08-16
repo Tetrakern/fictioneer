@@ -206,7 +206,7 @@ if ( ! defined( 'FICTIONEER_CHAPTER_FOLDING_THRESHOLD' ) ) {
 
 // Integer: Expiration time for shortcode Transients (0 for infinite, -1 to disable)
 if ( ! defined( 'FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION' ) ) {
-  define( 'FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION', 300 );
+  define( 'FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION', -1 );
 }
 
 // Integer: Timeout between refreshes of story comment counts (0 for always)

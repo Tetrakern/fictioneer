@@ -11,17 +11,17 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['type']          Post type if the showcase.
- * @internal $args['count']         Maximum number of items. Default 8.
- * @internal $args['order']         Order direction. Default 'DESC'.
- * @internal $args['orderby']       Order argument. Default 'date'.
- * @internal $args['author']        Author provided by the shortcode.
- * @internal $args['post_ids']      Array of post IDs. Default empty.
- * @internal $args['excluded_cats'] Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags'] Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']    Array of taxonomy arrays. Default empty.
- * @internal $args['relation']      Relationship between taxonomies.
- * @internal $args['classes']       Additional classes.
+ * @internal $args['type']           Post type if the showcase.
+ * @internal $args['count']          Maximum number of items. Default 8.
+ * @internal $args['order']          Order direction. Default 'DESC'.
+ * @internal $args['orderby']        Order argument. Default 'date'.
+ * @internal $args['author']         Author provided by the shortcode.
+ * @internal $args['post_ids']       Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']       Relationship between taxonomies.
+ * @internal $args['classes']        Additional classes.
  */
 ?>
 
@@ -31,7 +31,7 @@
 $query_args = array (
   'post_type' => $args['type'],
   'post_status' => 'publish',
-  'post__in' => fictioneer_post__in( $args['post_ids'] ),
+  'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'] ?? 'DESC',
   'orderby' => $args['orderby'] ?? 'date',
   'posts_per_page' => $args['count'] ?? 8,

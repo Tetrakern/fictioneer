@@ -43,13 +43,17 @@ function fictioneer_post_featured_list( $post_id ) {
   global $post;
 
   // Abort if...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Setup
   $featured = fictioneer_get_field( 'fictioneer_post_featured', $post_id );
 
   // Abort if...
-  if ( empty( $featured ) ) return;
+  if ( empty( $featured ) ) {
+    return;
+  }
 
   // Query
   $query_args = array(
@@ -64,7 +68,9 @@ function fictioneer_post_featured_list( $post_id ) {
   $featured_query = new WP_Query( $query_args );
 
   // Abort if...
-  if ( empty( $featured_query->posts ) ) return;
+  if ( empty( $featured_query->posts ) ) {
+    return;
+  }
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {

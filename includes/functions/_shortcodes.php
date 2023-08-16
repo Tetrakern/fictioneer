@@ -934,7 +934,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $empty = fictioneer_minify_html( ob_get_clean() );
 
   // Abort if...
-  if ( empty( $attr['story_id'] ) && empty( $attr['chapter_ids'] ) ) return $empty;
+  if ( empty( $attr['story_id'] ) && empty( $attr['chapter_ids'] ) ) {
+    return $empty;
+  }
 
   // Setup
   $count = max( -1, intval( $attr['count'] ?? -1 ) );
@@ -965,23 +967,30 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   }
 
   // Extra classes
-  if ( $hide_icons ) $classes[] = '_no-icons';
-  if ( ! empty( $attr['class'] ) ) $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+  if ( $hide_icons ) {
+    $classes[] = '_no-icons';
+  }
 
-  // Apply offset
-  if ( ! $group ) $chapters = array_slice( $chapters, $offset );
+  if ( ! empty( $attr['class'] ) ) {
+    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+  }
 
-  // Apply count
-  if ( ! $group ) $chapters = $count > 0 ? array_slice( $chapters, 0, $count ) : $chapters;
+  // Apply offset and count
+  if ( ! $group ) {
+    $chapters = array_slice( $chapters, $offset );
+    $chapters = $count > 0 ? array_slice( $chapters, 0, $count ) : $chapters;
+  }
 
   // Check array for items
-  if ( empty( $chapters ) ) return $empty;
+  if ( empty( $chapters ) ) {
+    return $empty;
+  }
 
   // Query chapters
   $query_args = array(
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
-    'post__in' => fictioneer_post__in( $chapters ),
+    'post__in' => $chapters, // Cannot be empty!
     'ignore_sticky_posts' => true,
     'orderby' => 'post__in', // Preserve order from meta box
     'posts_per_page' => -1, // Get all chapters (this can be hundreds)
@@ -1005,7 +1014,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $chapter_query = fictioneer_shortcode_query( $query_args );
 
   // Check query for items
-  if ( ! $chapter_query->have_posts() ) return $empty;
+  if ( ! $chapter_query->have_posts() ) {
+    return $empty;
+  }
 
   // Buffer
   ob_start();
