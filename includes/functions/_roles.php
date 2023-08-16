@@ -527,18 +527,40 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   /**
-   * Makes sure only allowed templates are selected
+   * Removes forbidden page templates after saving
    *
    * @since Fictioneer 5.6.0
    *
-   * @param int $post_id  ID of the saved post.
+   * @param int     $post_id  The ID of the post being saved.
+   * @param WP_Post $post     The post object being saved.
    */
 
-  function fictioneer_restrict_page_templates( $post_id ) {
-    // Do nothing if...
-    if ( get_post_type( $post_id ) !== 'page' ) {
+  function fictioneer_restrict_page_templates( $post_id, $post ) {
+    // Prevent multi-fire
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
       return;
     }
+
+    // Templates supported by post?
+    if ( ! post_type_supports( $post->post_type, 'page-attributes' ) ) {
+      // Stop all further hooks or bad things will happen!
+      remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
+      remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
+
+      return;
+    }
+
+    // Check permissions
+    if (
+      current_user_can( 'fcn_select_page_template' ) ||
+      get_current_user_id() !== (int) $post->post_author
+    ) {
+      return;
+    }
+
+    // Only needs to be done once for to trigger post
+    remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
+    remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
 
     // Get currently selected template
     $selected_template = get_post_meta( $post_id, '_wp_page_template', true );
@@ -549,9 +571,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
   }
 
+  // Run before other hooks or bad things will happen!
   if ( ! current_user_can( 'fcn_select_page_template' ) ) {
-    add_action( 'save_post', 'fictioneer_restrict_page_templates', 9999 );
-    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 9999 );
+    add_action( 'save_post', 'fictioneer_restrict_page_templates', 1, 2 );
+    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
   }
 
   // === MODERATE_COMMENTS =====================================================
@@ -777,21 +800,41 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_SHORTCODES ========================================================
 
   /**
-   * Strip shortcodes before saving
+   * Strip shortcodes after saving
    *
    * @since Fictioneer 5.6.0
    *
-   * @param string $content  The content to be saved.
-   *
-   * @return string The cleaned content.
+   * @param int     $post_id  The ID of the post being saved.
+   * @param WP_Post $post     The post object being saved.
    */
 
-  function fictioneer_strip_shortcodes( $content ) {
-    return strip_shortcodes( $content );
+  function fictioneer_strip_shortcodes_on_save( $post_id, $post ) {
+    // Prevent multi-fire
+    if ( fictioneer_multi_save_guard( $post_id ) ) {
+      return;
+    }
+
+    // Check permissions
+    if (
+      current_user_can( 'fcn_shortcodes' ) ||
+      get_current_user_id() !== (int) $post->post_author
+    ) {
+      return;
+    }
+
+    // Strip the shortcodes
+    $content = strip_shortcodes( $post->post_content );
+
+    // Only needs to be done once for to trigger post
+    remove_action( 'save_post', 'fictioneer_strip_shortcodes_on_save', 1 );
+
+    // Update post
+    wp_update_post( array( 'ID' => $post_id, 'post_content' => $content ) );
   }
 
+  // Run before other hooks or bad things will happen!
   if ( ! current_user_can( 'fcn_shortcodes' ) ) {
-    add_filter( 'content_save_pre', 'fictioneer_strip_shortcodes', 9999 );
+    add_action( 'save_post', 'fictioneer_strip_shortcodes_on_save', 1, 2 );
   }
 
   // === FCN_EDIT_OTHERS_{POST_TYPE} ===========================================
