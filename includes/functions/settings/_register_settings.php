@@ -794,7 +794,23 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_channel_comments_webhook',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Invite Link', 'fictioneer' ),
+      'label' => __( 'Discord Comment Channel Webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' ),
+      'default' => '',
+			'placeholder' => ''
+    ),
+		'fictioneer_discord_channel_stories_webhook' => array(
+      'name' => 'fictioneer_discord_channel_stories_webhook',
+			'group' => 'fictioneer-settings-connections-group',
+			'sanitize_callback' => 'sanitize_text_field',
+      'label' => __( 'Discord Story Channel Webhook', 'fictioneer' ),
+      'default' => '',
+			'placeholder' => ''
+    ),
+		'fictioneer_discord_channel_chapters_webhook' => array(
+      'name' => 'fictioneer_discord_channel_chapters_webhook',
+			'group' => 'fictioneer-settings-connections-group',
+			'sanitize_callback' => 'sanitize_text_field',
+      'label' => __( 'Discord Chapter Channel Webhook', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -802,7 +818,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_invite_link',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Comment Channel Webhook', 'fictioneer' ),
+      'label' => __( 'Discord Invite Link', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
