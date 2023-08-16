@@ -621,6 +621,8 @@ Lists all generated ePUBs with statistics, download links, and options to delete
 
 Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you can purge the cached meta data or schemas if that should become necessary.
 
+If you want to set up a default Open Graph image for search engine results and embeds, you can do that in the **Customizer** under **Site Identity**. This image will always be used if there is not a more specific one, like the thumbnail for posts.
+
 ### Tools Tab
 
 A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role if missing or convert tags into genres. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
