@@ -221,6 +221,10 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       return;
     }
 
+    // Start system action: unset user
+    $current_user_id = get_current_user_id();
+    wp_set_current_user( 0 );
+
     // Remove actions to prevent infinite loops and multi-fire
     fictioneer_toggle_refresh_hooks( false );
     fictioneer_toggle_transient_purge_hooks( false );
@@ -338,6 +342,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     fictioneer_toggle_refresh_hooks();
     fictioneer_toggle_transient_purge_hooks();
     fictioneer_toggle_update_tracker_hooks();
+
+    // End system action: restore user
+    wp_set_current_user( $current_user_id );
   }
 }
 
