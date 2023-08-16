@@ -176,7 +176,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           array(
             'status' => 'approve',
             'post_type' => 'fcn_chapter',
-            'post__in' => $old_data['chapter_ids'],
+            'post__in' => fictioneer_post__in( $old_data['chapter_ids'] ),
             'count' => true,
             'update_comment_meta_cache' => false
           )
@@ -228,11 +228,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Query chapters
-    $chapters = new WP_Query(
+    $chapters = empty( $chapters ) ? $chapters : new WP_Query(
       array(
         'post_type' => 'fcn_chapter',
         'post_status' => 'publish',
-        'post__in' => $chapters,
+        'post__in' => fictioneer_post__in( $chapters ),
         'ignore_sticky_posts' => true,
         'orderby' => 'post__in', // Preserve order from meta box
         'posts_per_page' => -1, // Get all chapters (this can be hundreds)
@@ -241,7 +241,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     );
 
     // Count chapters and words
-    if ( $chapters->have_posts() ) {
+    if ( ! empty( $chapters ) && $chapters->have_posts() ) {
       foreach ( $chapters->posts as $chapter ) {
         // This is about 50 times faster than using a meta query lol
         if ( ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) {
@@ -260,7 +260,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $comment_args = array(
       'status' => 'approve',
       'post_type' => 'fcn_chapter',
-      'post__in' => $chapter_ids,
+      'post__in' => fictioneer_post__in( $chapter_ids ),
       'count' => true,
       'update_comment_meta_cache' => false
     );
@@ -1737,6 +1737,27 @@ function fictioneer_delete_my_account() {
 
   // Failure
   return false;
+}
+
+// =============================================================================
+// POST__IN SAFETY CHECK
+// =============================================================================
+
+/**
+ * Returns the given array or an array with a single zero element if empty
+ *
+ * Prevents an array from being empty, which is useful for 'post__in' query
+ * arguments that cannot deal with empty arrays.
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param array $array  The input array to check.
+ *
+ * @return array The original array or [0].
+ */
+
+function fictioneer_post__in( $array ) {
+  return empty( $array ) ? [0] : $array;
 }
 
 ?>

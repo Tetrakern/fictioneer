@@ -27,7 +27,7 @@
 $query_args = array(
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
-  'post__in' => $args['post_ids'],
+  'post__in' => fictioneer_post__in( $args['post_ids'] ),
   'orderby' => $args['orderby'],
   'order' => $args['order'] ?? 'desc',
   'posts_per_page' => $args['count'],

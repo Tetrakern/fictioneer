@@ -981,7 +981,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $query_args = array(
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
-    'post__in' => $chapters,
+    'post__in' => fictioneer_post__in( $chapters ),
     'ignore_sticky_posts' => true,
     'orderby' => 'post__in', // Preserve order from meta box
     'posts_per_page' => -1, // Get all chapters (this can be hundreds)

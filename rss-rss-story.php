@@ -124,7 +124,7 @@ do_action( 'rss_tag_pre', 'rss2' );
     ?>
 
     <?php
-      if ( $chapters ) {
+      if ( ! empty( $chapters ) ) {
         // Reverse to get latest first
         $chapters = array_reverse( $chapters );
 

@@ -31,7 +31,7 @@
 $query_args = array (
   'post_type' => $args['type'],
   'post_status' => 'publish',
-  'post__in' => $args['post_ids'],
+  'post__in' => fictioneer_post__in( $args['post_ids'] ),
   'order' => $args['order'] ?? 'DESC',
   'orderby' => $args['orderby'] ?? 'date',
   'posts_per_page' => $args['count'] ?? 8,

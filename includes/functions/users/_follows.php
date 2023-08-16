@@ -417,7 +417,7 @@ function fictioneer_ajax_get_follows_list() {
   $list_items = fictioneer_get_card_list(
     'story',
     array(
-      'post__in' => $post_ids,
+      'post__in' => fictioneer_post__in( $post_ids ),
       'paged' => $page,
       'order' => $order
     ),

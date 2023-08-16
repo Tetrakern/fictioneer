@@ -25,7 +25,7 @@
 $query_args = array(
   'post_type' => 'post',
   'post_status' => 'publish',
-  'post__in' => $args['post_ids'],
+  'post__in' => fictioneer_post__in( $args['post_ids'] ),
   'has_password' => false,
   'orderby' => 'date',
   'order' => 'DESC',

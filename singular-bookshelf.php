@@ -164,7 +164,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
               $list_items = fictioneer_get_card_list(
                 'story',
                 array(
-                  'post__in' => $tabs[ $current_tab ]['post_ids'],
+                  'post__in' => fictioneer_post__in( $tabs[ $current_tab ]['post_ids'] ),
                   'paged' => $current_page,
                   'order' => $order
                 ),
