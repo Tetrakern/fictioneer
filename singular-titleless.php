@@ -9,7 +9,23 @@
  */
 ?>
 
-<?php get_header(); ?>
+<?php
+
+// Header
+get_header();
+
+// Draft or private (if caching is on)?
+$post_status = get_post_status( $post_id );
+
+if (
+  fictioneer_caching_active() &&
+  $post_status !== 'publish' &&
+  ( $_GET['preview'] ?? 0 ) !== 'true'
+) {
+  fictioneer_redirect_to_404();
+}
+
+?>
 
 <main id="main" class="main singular">
   <div class="observer main-observer"></div>
