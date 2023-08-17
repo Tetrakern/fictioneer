@@ -188,9 +188,6 @@ if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
     // Purge
     if ( $pages ) {
       foreach ( $pages as $page_id ) {
-        // Fires hooks, may be important to purge object caches
-        wp_update_post( array( 'ID' => $page_id ) );
-
         fictioneer_purge_post_cache( $page_id );
       }
     }
@@ -237,9 +234,6 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     $font_page_id = intval( get_option( 'page_on_front' ) ?: -1 );
 
     if ( $font_page_id != $post_id && $font_page_id > 0 ) {
-      // Fires hooks, may be important to purge object caches
-      wp_update_post( array( 'ID' => $font_page_id ) );
-
       fictioneer_purge_post_cache( $font_page_id );
     }
 
