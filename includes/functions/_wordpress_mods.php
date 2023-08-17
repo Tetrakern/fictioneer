@@ -1039,7 +1039,8 @@ function fictioneer_append_chapter_to_story( $post_id ) {
     return;
   }
 
-  // Only do this for newly published chapters (not more than 5 seconds ago)
+  // Only do this for newly published chapters (not more than 5 seconds ago),
+  // which means this can be triggered again by resetting the publish date.
   $publishing_time = get_post_time( 'U', true, $post_id, true );
   $current_time = current_time( 'timestamp', true );
 
@@ -1097,5 +1098,108 @@ function fictioneer_append_chapter_to_story( $post_id ) {
 if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
   add_action( 'save_post', 'fictioneer_append_chapter_to_story', 99 );
 }
+
+// =============================================================================
+// SEE SOME 3V1L
+// =============================================================================
+
+/**
+ * Monitors post submissions for potentially malicious content
+ *
+ * Note: This function only identifies attempts and does not block content submission.
+ * Posts are sanitized by WordPress before being saved to the database.
+ *
+ * @param array $data                 An array of slashed post data.
+ * @param array $postarr              An array of sanitized, but otherwise unmodified post data.
+ * @param array $unsanitized_postarr  An array of unsanitized and unprocessed post data as
+ *                                    originally passed to wp_insert_post().
+ *
+ * @return array Returns the original $data for continued processing.
+ */
+
+function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
+  // Prevent miss-fire
+  if ( fictioneer_multi_save_guard( $postarr['ID'] ) ) {
+    return $data;
+  }
+
+  // Setup
+  $current_user = wp_get_current_user();
+  $admin_email = get_option( 'admin_email' );
+  $content = wp_unslash( wp_specialchars_decode( $unsanitized_postarr['post_content'] ) );
+  $post_link = get_permalink( $postarr['ID'] );
+  $message = __( '<h3>Potentially Malicious Code Warning</h3><p>There has been a post with suspicious strings in the content, please review the results below. This might be an attempted attack or <strong>false positive.</strong> Note that posts are sanitized before being saved to the database and no damage can be caused this way, this is just to let you know that someone <strong>tried.</strong></p>', 'fictioneer' );
+  $sender = [];
+  $results = [];
+
+  // Check for JavaScript
+  $pattern = '/<script[^>]*>.*?<\/script>|on[a-z]+=/si';
+
+  if ( preg_match_all( $pattern, $content, $matches ) ) {
+    $results['js'] = $matches[0];
+  }
+
+  // Suspicious content found?
+  if ( empty( $results ) ) {
+    return $data;
+  }
+
+  // Request?
+  if ( isset( $_SERVER ) ) {
+    $output = '';
+
+    if ( $current_user ) {
+      $sender['user_name'] = '<strong>User:</strong> ' . $current_user->user_login;
+      $sender['user_id'] = '<strong>ID:</strong> ' . $current_user->ID;
+    }
+
+    $sender['post'] = "<strong>Post:</strong> <a href='{$post_link}'>{$data['post_title']}</a>";
+
+    $sender['ip_address'] = '<strong>IP:</strong> ' . $_SERVER['REMOTE_ADDR'] ?? 'n/a';
+    $sender['user_agent'] = '<strong>User Agent:</strong> ' . $_SERVER['HTTP_USER_AGENT'] ?? 'n/a';
+    $sender['method'] = '<strong>Method:</strong> ' . $_SERVER['REQUEST_METHOD'] ?? 'n/a';
+    $sender['request_uri'] = '<strong>Request URI:</strong> ' . $_SERVER['REQUEST_URI'] ?? 'n/a';
+    $sender['referer'] = '<strong>Referer:</strong> ' . $_SERVER['HTTP_REFERER'] ?? 'n/a';
+
+    foreach ( $sender as $item ) {
+      $output .= '<p>' . $item . '</p>';
+    }
+
+    $message .= sprintf(
+      __( '<br><fieldset><legend>Sender</legend>%s</fieldset>', 'fictioneer' ),
+      $output
+    );
+  }
+
+  // JavaScript?
+  if ( ! empty( $results['js'] ?? 0 ) ) {
+    $output = '';
+
+    foreach ( $results['js'] as $item ) {
+      $output .= '<p>' . esc_html( $item ) . '</p>';
+    }
+
+    $message .= sprintf(
+      __( '<br><fieldset><legend>Potential JavaScript</legend>%s</fieldset>', 'fictioneer' ),
+      $output
+    );
+  }
+
+  // Email to admin (if any)
+  if ( ! empty( $admin_email ) ) {
+    wp_mail(
+      $admin_email,
+      sprintf( __( 'Suspicious content on %s', 'fictioneer' ), get_bloginfo( 'name' ) ),
+      $message,
+      array(
+        'Content-Type: text/html; charset=UTF-8'
+      )
+    );
+  }
+
+  // Continue filter
+  return $data;
+}
+add_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1, 3 );
 
 ?>
