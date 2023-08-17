@@ -1800,48 +1800,75 @@ function fictioneer_save_array_zero( $array ) {
 // REDIRECT TO 404
 // =============================================================================
 
-/**
- * Redirects the current request to the WordPress 404 page
- *
- * @global WP_Query $wp_query  The main WP_Query instance.
- */
+if ( ! function_exists( 'fictioneer_redirect_to_404' ) ) {
+  /**
+   * Redirects the current request to the WordPress 404 page
+   *
+   * @global WP_Query $wp_query  The main WP_Query instance.
+   */
 
-function fictioneer_redirect_to_404() {
-  global $wp_query;
+  function fictioneer_redirect_to_404() {
+    global $wp_query;
 
-  $wp_query->set_404();
-  status_header( 404 );
-  get_template_part( 404 );
+    $wp_query->set_404();
+    status_header( 404 );
+    get_template_part( 404 );
 
-  exit();
+    exit();
+  }
 }
 
 // =============================================================================
 // UNPUBLISHED ACCESS
 // =============================================================================
 
-/**
- * Restrict access to unpublished posts
- *
- * This is meant for sites with public caching, which could otherwise
- * accidentally expose private posts or drafts.
- *
- * @global int|null $post_id  Optional. The current post ID. Defaults to the
- *                            currently queried object ID.
- */
+if ( ! function_exists( 'fictioneer_gate_unpublished_posts' ) ) {
+  /**
+   * Restrict access to unpublished posts
+   *
+   * This is meant for sites with public caching, which could otherwise
+   * accidentally expose private posts or drafts. It ignored the current
+   * user in favor of preview query vars via `fictioneer_verify_preview_access()`.
+   *
+   * @param int|null $post_id  Optional. The current post ID. Defaults to the
+   *                           currently queried object ID.
+   */
 
-function fictioneer_gate_unpublished_posts( $post_id = null ) {
-  // Setup
-  $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
-  $post_status = get_post_status( $post_id );
+  function fictioneer_gate_unpublished_posts( $post_id = null ) {
+    // Setup
+    $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
+    $post_status = get_post_status( $post_id );
 
-  // 404 if access not allowed
-  if (
-    fictioneer_caching_active() &&
-    $post_status !== 'publish' &&
-    ! fictioneer_verify_preview_access()
-  ) {
-    fictioneer_redirect_to_404();
+    // 404 if access not allowed
+    if (
+      fictioneer_caching_active() &&
+      $post_status !== 'publish' &&
+      ! fictioneer_verify_preview_access()
+    ) {
+      fictioneer_redirect_to_404();
+    }
+  }
+}
+
+// =============================================================================
+// PREVIEW ACCESS VERIFICATION
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_verify_preview_access' ) ) {
+  /**
+   * Verifies preview query vars
+   *
+   * @return boolean True if access granted, false otherwise.
+   */
+
+  function fictioneer_verify_preview_access() {
+    if ( isset( $_GET['preview'], $_GET['preview_nonce'] ) && $_GET['preview'] === 'true' ) {
+      if ( wp_verify_nonce( $_GET['preview_nonce'], 'post_preview_' . $_GET['preview_id'] ) ) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 

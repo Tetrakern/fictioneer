@@ -33,16 +33,12 @@ $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_queried_object
 $story_data = null;
 $story_post = null;
 
-// 404 if story set but not published
-// if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
-//   $story_post = empty( $story_id ) ? null : get_post( $story_id );
-// }
-
-if ( ! empty( $story_id ) && get_post_status( $story_id ) !== 'publish' ) {
+// Gate if story is unpublished
+if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
+  $story_post = empty( $story_id ) ? null : get_post( $story_id );
+} elseif ( ! empty( $story_id ) && ! fictioneer_verify_preview_access() ) {
   fictioneer_redirect_to_404();
 }
-
-$story_post = empty( $story_id ) ? null : get_post( $story_id );
 
 ?>
 
