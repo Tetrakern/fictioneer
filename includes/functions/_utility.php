@@ -1770,4 +1770,24 @@ function fictioneer_save_array_zero( $array ) {
   return empty( $array ) ? [0] : $array;
 }
 
+// =============================================================================
+// REDIRECT TO 404
+// =============================================================================
+
+/**
+ * Redirects the current request to the WordPress 404 page
+ *
+ * @global WP_Query $wp_query  The main WP_Query instance.
+ */
+
+function fictioneer_redirect_to_404() {
+  global $wp_query;
+
+  $wp_query->set_404();
+  status_header( 404 );
+  get_template_part( 404 );
+
+  exit();
+}
+
 ?>
