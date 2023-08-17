@@ -1033,7 +1033,7 @@ add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_acf_append_chapter_to_story( $post_id ) {
+function fictioneer_append_chapter_to_story( $post_id ) {
   // Prevent miss-fire
   if ( fictioneer_multi_save_guard( $post_id ) || get_post_type( $post_id ) != 'fcn_chapter' ) {
     return;
@@ -1095,7 +1095,7 @@ function fictioneer_acf_append_chapter_to_story( $post_id ) {
 }
 
 if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
-  add_action( 'save_post', 'fictioneer_acf_append_chapter_to_story', 99 );
+  add_action( 'save_post', 'fictioneer_append_chapter_to_story', 99 );
 }
 
 ?>
