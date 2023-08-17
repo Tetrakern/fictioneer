@@ -805,41 +805,33 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_SHORTCODES ========================================================
 
   /**
-   * Strip shortcodes after saving
+   * Strip shortcodes from content before saving to database
    *
    * @since Fictioneer 5.6.0
    *
-   * @param int     $post_id  The ID of the post being saved.
-   * @param WP_Post $post     The post object being saved.
+   * @param array $data  An array of slashed, sanitized, and processed post data.
+   *
+   * @return array Modified post data with shortcodes removed.
    */
 
-  function fictioneer_strip_shortcodes_on_save( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
-    }
-
+  function fictioneer_strip_shortcodes_on_save( $data ) {
     // Check permissions
     if (
       current_user_can( 'fcn_shortcodes' ) ||
-      get_current_user_id() !== (int) $post->post_author
+      get_current_user_id() !== (int) $data['post_author']
     ) {
       return;
     }
 
     // Strip the shortcodes
-    $content = strip_shortcodes( $post->post_content );
+    $data['post_content'] = strip_shortcodes( $data['post_content'] );
 
-    // Only do this for the trigger post or bad things can happen!
-    remove_action( 'save_post', 'fictioneer_strip_shortcodes_on_save', 1 );
-
-    // Update post
-    wp_update_post( array( 'ID' => $post_id, 'post_content' => $content ) );
+    // Continue filter
+    return $data;
   }
 
-  // Run before other hooks or bad things will happen!
   if ( ! current_user_can( 'fcn_shortcodes' ) ) {
-    add_action( 'save_post', 'fictioneer_strip_shortcodes_on_save', 1, 2 );
+    add_action( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
   }
 
   // === FCN_EDIT_OTHERS_{POST_TYPE} ===========================================
@@ -876,7 +868,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
       $query->set( 'author', get_current_user_id() );
     }
   }
-  add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts', 9999 );
+  add_filter( 'pre_get_posts', 'fictioneer_edit_others_fictioneer_posts' );
 
   // === FCN_READ_OTHERS_FILES =================================================
 
@@ -1274,7 +1266,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    *
    * @since 5.6.0
    *
-   * @param array $data  The array of post data being saved.
+   * @param array $data  An array of slashed, sanitized, and processed post data.
    *
    * @return array Modified post data with unwanted blocks removed.
    */
@@ -1341,7 +1333,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_all_blocks' ) ) {
-    add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types' ); // Only display
+    add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types', 20 ); // Run after global filter
     add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 1 );
   }
 }
