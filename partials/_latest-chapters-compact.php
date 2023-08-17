@@ -8,22 +8,25 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['count']         Number of posts provided by the shortcode.
- * @internal $args['author']        Author provided by the shortcode.
- * @internal $args['order']         Order of posts. Default 'desc'.
- * @internal $args['orderby']       Sorting of posts. Default 'date'.
- * @internal $args['spoiler']       Whether to obscure or show chapter excerpt.
- * @internal $args['source']        Whether to show author and story.
- * @internal $args['post_ids']      Array of post IDs. Default empty.
- * @internal $args['excluded_cats'] Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags'] Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']    Array of taxonomy arrays. Default empty.
- * @internal $args['relation']      Relationship between taxonomies.
- * @internal $args['class']         Additional classes.
+ * @internal $args['count']          Number of posts provided by the shortcode.
+ * @internal $args['author']         Author provided by the shortcode.
+ * @internal $args['order']          Order of posts. Default 'desc'.
+ * @internal $args['orderby']        Sorting of posts. Default 'date'.
+ * @internal $args['spoiler']        Whether to obscure or show chapter excerpt.
+ * @internal $args['source']         Whether to show author and story.
+ * @internal $args['post_ids']       Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']       Relationship between taxonomies.
+ * @internal $args['class']          Additional classes.
  */
 ?>
 
 <?php
+
+// Setup
+$card_counter = 0;
 
 // Prepare query
 $query_args = array(
@@ -32,7 +35,7 @@ $query_args = array(
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'] ?? 'desc',
   'orderby' => $args['orderby'] ?? 'date',
-  'posts_per_page' => $args['count'],
+  'posts_per_page' => $args['count'] + 8, // Little buffer in case of unpublished parent story
   'meta_key' => 'fictioneer_chapter_hidden',
   'meta_value' => 0,
   'no_found_rows' => true,
@@ -73,8 +76,13 @@ $entries = fictioneer_shortcode_query( $query_args );
 
         <?php
           // Setup
-          $title = fictioneer_get_safe_title( get_the_ID() );
           $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+
+          if ( get_post_status( $story_id ) !== 'publish' ) {
+            continue;
+          }
+
+          $title = fictioneer_get_safe_title( get_the_ID() );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : false; // Does not refresh comment count!
           $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
 
@@ -87,6 +95,9 @@ $entries = fictioneer_shortcode_query( $query_args );
             $thumbnail_full = get_the_post_thumbnail_url( $story_id, 'full' );
             $thumbnail_snippet = get_the_post_thumbnail( $story_id, 'snippet', ['class' => 'no-auto-lightbox']);
           }
+
+          // Count actually rendered cards to account for buffer
+          if ( ++$card_counter > $args['count'] ) break;
         ?>
 
         <li class="card watch-last-clicked _small _info">
