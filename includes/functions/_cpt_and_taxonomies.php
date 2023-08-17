@@ -620,6 +620,8 @@ if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_optio
 /**
  * Modify post type registration arguments for the "post" and "page" types
  *
+ * @since Fictioneer 5.6.0
+ *
  * @param array  $args       Array of arguments for registering a post type.
  * @param string $post_type  The post type slug.
  *
@@ -640,5 +642,53 @@ function fictioneer_modify_post_type_args( $args, $post_type ) {
 	return $args;
 }
 add_filter( 'register_post_type_args', 'fictioneer_modify_post_type_args', 10, 2 );
+
+// =============================================================================
+// REMOVE UNDESIRED SUB-MENUS
+// =============================================================================
+
+/**
+ * Removes undesired sub-menu items for taxonomies
+ *
+ * @since Fictioneer 5.6.0
+ */
+
+function fictioneer_remove_sub_menus() {
+	// Setup
+	$user = wp_get_current_user();
+
+	if ( ! $user->exists() ) {
+		return;
+	}
+
+	$user_caps = [];
+	$roles = $user->roles;
+	$taxonomies = ['category', 'post_tag', 'fcn_genre', 'fcn_fandom', 'fcn_character', 'fcn_content_warning'];
+	$post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
+
+	// Collect capabilities
+	foreach( $roles as $role ) {
+		$user_caps = array_merge( $user_caps, get_role( $role )->capabilities );
+	}
+
+	$user_caps = array_keys( $user_caps );
+
+	// Filter out undesired menus
+	foreach ( $post_types as $type ) {
+		$plural = $type == 'fcn_story' ? 'fcn_stories' : "{$type}s";
+
+		if ( ! in_array( "edit_{$plural}", $user_caps ) ) {
+			foreach ( $taxonomies as $tax ) {
+				if ( ! in_array( $tax, $user_caps ) ) {
+					remove_submenu_page(
+						"edit-tags.php?taxonomy=category&amp;post_type={$type}",
+						"edit-tags.php?taxonomy={$tax}&amp;post_type={$type}"
+					);
+				}
+			}
+		}
+	}
+}
+add_action( 'admin_menu', 'fictioneer_remove_sub_menus' );
 
 ?>
