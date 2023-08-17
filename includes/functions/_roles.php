@@ -1183,7 +1183,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_sticky', 'fictioneer_acf_prevent_value_update', 9999, 3 );
+    add_filter( 'acf/update_value/name=fictioneer_story_sticky', '__return_zero', 9999 );
     add_action( 'admin_head', 'fictioneer_hide_story_sticky_checkbox' );
     add_action( 'post_stuck', 'unstick_post', 9999 ); // lol
   }

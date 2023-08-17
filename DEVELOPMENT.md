@@ -323,7 +323,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
 | `acf/update_value/name=fictioneer_story_css` | `fictioneer_acf_prevent_value_update`
 | `acf/update_value/name=fictioneer_story_custom_pages` | `__return_null`
-| `acf/update_value/name=fictioneer_story_sticky` | `fictioneer_acf_prevent_value_update`
+| `acf/update_value/name=fictioneer_story_sticky` | `__return_zero`
 
 ## Caching
 
