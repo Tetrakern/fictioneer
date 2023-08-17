@@ -14,9 +14,6 @@
 // Header
 get_header();
 
-// Gate access
-fictioneer_gate_unpublished_posts();
-
 ?>
 
 <main id="main" class="main singular">

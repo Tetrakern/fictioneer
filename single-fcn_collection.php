@@ -20,9 +20,6 @@
 // Header
 get_header( null, array( 'type' => 'fcn_collection' ) );
 
-// Gate access
-fictioneer_gate_unpublished_posts();
-
 ?>
 
 <main id="main" class="main collection">

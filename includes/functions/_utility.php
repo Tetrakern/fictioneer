@@ -1810,43 +1810,22 @@ if ( ! function_exists( 'fictioneer_redirect_to_404' ) ) {
   function fictioneer_redirect_to_404() {
     global $wp_query;
 
+    // Remove scripts to avoid errors
+    add_action( 'wp_print_scripts', function() {
+      wp_dequeue_script( 'fictioneer-chapter-scripts' );
+      wp_dequeue_script( 'fictioneer-suggestion-scripts' );
+      wp_dequeue_script( 'fictioneer-tts-scripts' );
+      wp_dequeue_script( 'fictioneer-story-scripts' );
+    }, 99 );
+
+    // Set query to 404
     $wp_query->set_404();
     status_header( 404 );
+    nocache_headers();
     get_template_part( 404 );
 
+    // Terminate
     exit();
-  }
-}
-
-// =============================================================================
-// UNPUBLISHED ACCESS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_gate_unpublished_posts' ) ) {
-  /**
-   * Restrict access to unpublished posts
-   *
-   * This is meant for sites with public caching, which could otherwise
-   * accidentally expose private posts or drafts. It ignored the current
-   * user in favor of preview query vars via `fictioneer_verify_preview_access()`.
-   *
-   * @param int|null $post_id  Optional. The current post ID. Defaults to the
-   *                           currently queried object ID.
-   */
-
-  function fictioneer_gate_unpublished_posts( $post_id = null ) {
-    // Setup
-    $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
-    $post_status = get_post_status( $post_id );
-
-    // 404 if access not allowed
-    if (
-      fictioneer_caching_active() &&
-      $post_status !== 'publish' &&
-      ! fictioneer_verify_preview_access()
-    ) {
-      fictioneer_redirect_to_404();
-    }
   }
 }
 

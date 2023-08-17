@@ -16,9 +16,6 @@
 // Header
 get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
-// Gate access
-fictioneer_gate_unpublished_posts();
-
 ?>
 
 <main id="main" class="main recommendation">

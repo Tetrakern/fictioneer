@@ -25,21 +25,6 @@ if ( ! empty( $is_hidden ) ) {
 
 get_header( null, $header_args );
 
-// Gate access
-fictioneer_gate_unpublished_posts();
-
-// Story (if any)
-$story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_queried_object_id() );
-$story_data = null;
-$story_post = null;
-
-// Gate if story is unpublished
-if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
-  $story_post = empty( $story_id ) ? null : get_post( $story_id );
-} elseif ( ! empty( $story_id ) && ! fictioneer_verify_preview_access() ) {
-  fictioneer_redirect_to_404();
-}
-
 ?>
 
 <div class="progress">
@@ -61,6 +46,14 @@ if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
         $title = fictioneer_get_safe_title( get_the_ID() );
         $this_breadcrumb = [$title, get_the_permalink()];
+
+        $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_queried_object_id() );
+        $story_data = null;
+        $story_post = null;
+
+        if ( get_post_status( $story_id ) === 'publish' ) {
+          $story_post = empty( $story_id ) ? null : get_post( $story_id );
+        }
 
         // Story data
         if ( $story_post ) {

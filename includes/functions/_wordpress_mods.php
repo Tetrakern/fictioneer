@@ -1202,4 +1202,54 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
 }
 add_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1, 3 );
 
+// =============================================================================
+// GATE UNPUBLISHED CONTENT
+// =============================================================================
+
+/**
+ * Gates access to unpublished posts
+ *
+ * This is meant for sites with public caching, which could otherwise
+ * accidentally expose private posts or drafts. It ignored the user in
+ * favor of preview query vars via `fictioneer_verify_preview_access()`.
+ *
+ * @global WP_Post $post The current WordPress post object.
+ */
+
+function fictioneer_gate_unpublished_content() {
+  global $post;
+
+  // Do nothing if...
+  if (
+    ! is_singular() ||
+    ( $post->post_status === 'publish' && $post->post_type !== 'fcn_chapter' )
+  ) {
+    return;
+  }
+
+  // 404 if access is not allowed
+  if (
+    fictioneer_caching_active() &&
+    $post->post_status !== 'publish' &&
+    ! fictioneer_verify_preview_access()
+  ) {
+    fictioneer_redirect_to_404();
+  }
+
+  // 404 chapter of unpublished story
+  if ( $post->post_type === 'fcn_chapter' ) {
+    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
+
+    if (
+      ! empty( $story_id ) &&
+      get_post_status( $story_id ) !== 'publish' &&
+      ! fictioneer_verify_preview_access()
+    ) {
+      // 404
+      fictioneer_redirect_to_404();
+    }
+  }
+}
+add_action( 'template_redirect', 'fictioneer_gate_unpublished_content' );
+
 ?>

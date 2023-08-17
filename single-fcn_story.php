@@ -26,9 +26,6 @@ if ( ! empty( $is_hidden ) ) {
 
 get_header( null, $header_args );
 
-// Gate access
-fictioneer_gate_unpublished_posts();
-
 ?>
 
 <main id="main" class="main story">
