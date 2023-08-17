@@ -212,7 +212,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
 | `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
-| `admin_head` | `fictioneer_remove_update_notice`
+| `admin_head` | `fictioneer_remove_update_notice`, `fictioneer_hide_story_sticky_checkbox`
 | `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
 | `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`

@@ -1173,33 +1173,18 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_MAKE_STICKY =======================================================
 
   /**
-   * Removes the custom ePUB CSS input field
+   * Hide the 'sticky in lists" checkbox
    *
    * @since 5.6.0
-   *
-   * @param array $fields  An array of fields to be rendered.
-   *
-   * @return array The modified array.
    */
 
-  function fictioneer_remove_make_sticky_input( $fields ) {
-    // Fields to remove
-    $field_keys = ['field_619a91f85da9d']; // fictioneer_story_sticky
-
-    // Remove fields from the fields array
-    foreach ( $fields as $key => &$field ) {
-      if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[ $key ] );
-      }
-    }
-
-    // Return modified fields array
-    return $fields;
+  function fictioneer_hide_story_sticky_checkbox() {
+    echo '<style>[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
   }
 
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_sticky', 'fictioneer_acf_prevent_value_update', 9999, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_make_sticky_input', 9999 );
+    add_action( 'admin_head', 'fictioneer_hide_story_sticky_checkbox' );
     add_action( 'post_stuck', 'unstick_post', 9999 ); // lol
   }
 
