@@ -54,12 +54,17 @@ if (
       <?php
         // Setup
         $story_data = null;
+        $story_post = null;
         $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
-        $story_post = empty( $story_id ) ? null : get_post( $story_id );
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
         $title = fictioneer_get_safe_title( get_the_ID() );
         $this_breadcrumb = [$title, get_the_permalink()];
+
+        // Story published?
+        if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
+          $story_post = empty( $story_id ) ? null : get_post( $story_id );
+        }
 
         // Story data
         if ( $story_post ) {
@@ -83,7 +88,7 @@ if (
           'chapter_ids' => $chapter_ids,
           'current_index' => $current_index,
           'prev_index' => $prev_index >= 0 ? $prev_index : false,
-          'next_index' => isset( $chapter_ids[$next_index] ) ? $next_index : false
+          'next_index' => isset( $chapter_ids[ $next_index ] ) ? $next_index : false
         );
       ?>
 

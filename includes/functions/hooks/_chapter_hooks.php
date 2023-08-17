@@ -198,6 +198,13 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
  */
 
 function fictioneer_chapter_nav_buttons( $args, $location ) {
+  $post_status = get_post_status( get_the_ID() );
+
+  // Do not render on hidden posts
+  if ( $post_status !== 'publish' ) {
+    return;
+  }
+
   // Start HTML ---> ?>
   <?php if ( $args['prev_index'] !== false ) : ?>
     <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ) ?></a>
@@ -251,6 +258,12 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatt
 
 function fictioneer_chapter_subscribe_button() {
   $subscribe_buttons = fictioneer_get_subscribe_options();
+  $post_status = get_post_status( get_the_ID() );
+
+  // Do not render on hidden posts
+  if ( $post_status !== 'publish' ) {
+    return;
+  }
 
   if ( ! empty( $subscribe_buttons ) ) {
     // Start HTML ---> ?>
@@ -290,7 +303,7 @@ function fictioneer_chapter_fullscreen_buttons() {
 add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscreen_buttons', 20 );
 
 // =============================================================================
-// CHAPTER BACK TO STORY BUTTON
+// CHAPTER INDEX POPUP MENU
 // =============================================================================
 
 /**
@@ -302,8 +315,17 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
  */
 
 function fictioneer_chapter_index_popup_menu( $args ) {
-  // Abort if...
-  if ( ! $args['story_post'] ) return;
+  $post_status = get_post_status( get_the_ID() );
+
+  // Do not render on hidden posts
+  if ( $post_status !== 'publish' ) {
+    return;
+  }
+
+  // Abort if there is no story assigned
+  if ( ! $args['story_post'] ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <div id="chapter-list-popup-toggle" class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
@@ -356,6 +378,13 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_book
  */
 
 function fictioneer_chapter_media_buttons() {
+  $post_status = get_post_status( get_the_ID() );
+
+  // Do not render on hidden posts
+  if ( $post_status !== 'publish' ) {
+    return;
+  }
+
   get_template_part( 'partials/_share-buttons' );
 }
 add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_buttons', 10 );
