@@ -16,16 +16,8 @@
 // Header
 get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
-// Draft or private (if caching is on)?
-$post_status = get_post_status( get_queried_object_id() );
-
-if (
-  fictioneer_caching_active() &&
-  $post_status !== 'publish' &&
-  ( $_GET['preview'] ?? 0 ) !== 'true'
-) {
-  fictioneer_redirect_to_404();
-}
+// Gate access
+fictioneer_gate_unpublished_posts();
 
 ?>
 

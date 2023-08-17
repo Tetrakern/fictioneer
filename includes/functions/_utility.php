@@ -1816,4 +1816,33 @@ function fictioneer_redirect_to_404() {
   exit();
 }
 
+// =============================================================================
+// UNPUBLISHED ACCESS
+// =============================================================================
+
+/**
+ * Restrict access to unpublished posts
+ *
+ * This is meant for sites with public caching, which could otherwise
+ * accidentally expose private posts or drafts.
+ *
+ * @global int|null $post_id  Optional. The current post ID. Defaults to the
+ *                            currently queried object ID.
+ */
+
+function fictioneer_gate_unpublished_posts( $post_id = null ) {
+  // Setup
+  $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
+  $post_status = get_post_status( $post_id );
+
+  // 404 if access not allowed
+  if (
+    fictioneer_caching_active() &&
+    $post_status !== 'publish' &&
+    ! fictioneer_verify_preview_access()
+  ) {
+    fictioneer_redirect_to_404();
+  }
+}
+
 ?>

@@ -14,7 +14,7 @@
 <?php
 
 // Header
-$is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', get_the_ID() ) ?: 0;
+$is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', get_queried_object_id() ) ?: 0;
 $header_args = array(
   'type' => 'fcn_chapter'
 );
@@ -25,16 +25,24 @@ if ( ! empty( $is_hidden ) ) {
 
 get_header( null, $header_args );
 
-// Draft or private (if caching is on)?
-$post_status = get_post_status( get_queried_object_id() );
+// Gate access
+fictioneer_gate_unpublished_posts();
 
-if (
-  fictioneer_caching_active() &&
-  $post_status !== 'publish' &&
-  ( $_GET['preview'] ?? 0 ) !== 'true'
-) {
+// Story (if any)
+$story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_queried_object_id() );
+$story_data = null;
+$story_post = null;
+
+// 404 if story set but not published
+// if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
+//   $story_post = empty( $story_id ) ? null : get_post( $story_id );
+// }
+
+if ( ! empty( $story_id ) && get_post_status( $story_id ) !== 'publish' ) {
   fictioneer_redirect_to_404();
 }
+
+$story_post = empty( $story_id ) ? null : get_post( $story_id );
 
 ?>
 
@@ -53,18 +61,10 @@ if (
 
       <?php
         // Setup
-        $story_data = null;
-        $story_post = null;
-        $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
         $title = fictioneer_get_safe_title( get_the_ID() );
         $this_breadcrumb = [$title, get_the_permalink()];
-
-        // Story published?
-        if ( ! empty( $story_id ) && get_post_status( $story_id ) === 'publish' ) {
-          $story_post = empty( $story_id ) ? null : get_post( $story_id );
-        }
 
         // Story data
         if ( $story_post ) {
