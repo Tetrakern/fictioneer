@@ -831,7 +831,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_shortcodes' ) ) {
-    add_action( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
+    add_filter( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
   }
 
   // === FCN_EDIT_OTHERS_{POST_TYPE} ===========================================
