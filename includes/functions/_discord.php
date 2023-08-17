@@ -360,4 +360,23 @@ if ( ! empty( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) ) {
   add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
 }
 
+// =============================================================================
+// DEV: DISCORD NOTICE (LOL)
+// =============================================================================
+
+// function fictioneer_post_notice_to_discord( $notice, $webhook = null ) {
+//   // Message
+//   $message = array(
+//     'content' => html_entity_decode( $notice )
+//   );
+
+//   // Webhook
+//   if ( empty( $webhook ) ) {
+//     $webhook = get_option( 'fictioneer_discord_channel_comments_webhook' );
+//   }
+
+//   // Send to Discord
+//   fictioneer_discord_send_message( $webhook, $message );
+// }
+
 ?>
