@@ -118,13 +118,17 @@ function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   }
 
   // Chapter updated?
-  if ( get_post_type( $post_id ) != 'fcn_chapter' ) return;
+  if ( get_post_type( $post_id ) != 'fcn_chapter' ) {
+    return;
+  }
 
   // Setup
   $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
 
   // No linked story found
-  if ( empty( $story_id ) ) return;
+  if ( empty( $story_id ) || ! get_post_status( $story_id ?? 0 ) ) {
+    return;
+  }
 
   // Get current time for update (close enough to the chapter)
   $post_modified = current_time( 'mysql' );
