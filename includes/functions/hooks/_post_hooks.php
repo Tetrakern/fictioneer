@@ -59,7 +59,7 @@ function fictioneer_post_featured_list( $post_id ) {
   $query_args = array(
     'post_type' => 'any',
     'post_status' => 'publish',
-    'post__in' => fictioneer_post__in( $featured ),
+    'post__in' => fictioneer_save_array_zero( $featured ),
     'orderby' => 'post__in',
     'posts_per_page' => -1,
     'no_found_rows' => true // Improve performance

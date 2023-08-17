@@ -109,7 +109,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         array(
           'post_type' => 'fcn_chapter',
           'post_status' => 'publish',
-          'post__in' => fictioneer_post__in( $data['chapter_ids'] ),
+          'post__in' => fictioneer_save_array_zero( $data['chapter_ids'] ),
           'ignore_sticky_posts' => true,
           'orderby' => 'post__in',
           'posts_per_page' => -1,

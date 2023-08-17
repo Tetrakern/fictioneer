@@ -122,7 +122,7 @@ function fictioneer_request_story_comments() {
     array(
       'status' => 'approve',
       'post_type' => ['fcn_chapter'],
-      'post__in' => fictioneer_post__in( $chapter_ids ),
+      'post__in' => fictioneer_save_array_zero( $chapter_ids ),
       'number' => $comments_per_page,
       'paged' => $page,
       'meta_query' => array(

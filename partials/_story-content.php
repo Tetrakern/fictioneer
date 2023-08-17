@@ -143,7 +143,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
           array(
             'post_type' => 'fcn_chapter',
             'post_status' => 'publish',
-            'post__in' => fictioneer_post__in( $chapters ),
+            'post__in' => fictioneer_save_array_zero( $chapters ),
             'ignore_sticky_posts' => true,
             'orderby' => 'post__in', // Preserve order from meta box
             'posts_per_page' => -1, // Get all chapters (this can be hundreds)
