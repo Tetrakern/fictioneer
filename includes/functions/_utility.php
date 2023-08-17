@@ -131,6 +131,31 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
 }
 
 // =============================================================================
+// GET LAST CHAPTER/STORY UPDATE
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
+  /**
+   * Get Unix timestamp for last story or chapter update
+   *
+   * @since Fictioneer 5.0
+   *
+   * @return int The timestamp in milliseconds.
+   */
+
+  function fictioneer_get_last_fiction_update() {
+    $last_update = get_option( 'fictioneer_story_or_chapter_updated_timestamp' );
+
+    if ( empty( $last_update ) ) {
+      $last_update = time() * 1000;
+      update_option( 'fictioneer_story_or_chapter_updated_timestamp', $last_update );
+    }
+
+    return $last_update;
+  }
+}
+
+// =============================================================================
 // GET STORY DATA
 // =============================================================================
 
@@ -695,7 +720,8 @@ if ( ! function_exists( 'fictioneer_get_field' ) ) {
 
   function fictioneer_get_field( $field, $post_id = null ) {
     // Setup
-    $post_id = $post_id ? $post_id : get_the_ID();
+    $post_id = absint( $post_id );
+    $post_id = $post_id ?: get_the_ID();
 
     // Retrieve post meta
     return get_post_meta( $post_id, $field, true );

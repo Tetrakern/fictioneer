@@ -237,16 +237,6 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       fictioneer_purge_post_cache( $font_page_id );
     }
 
-    // Purge parent story (if any)
-    if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
-      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
-
-      if ( ! empty( $story_id ) ) {
-        update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
-        fictioneer_purge_post_cache( $story_id );
-      }
-    }
-
     // Purge associated list pages
     if ( in_array( get_post_type( $post_id ), ['fcn_chapter', 'fcn_story'] ) ) {
       fictioneer_purge_template_caches( 'chapters' );
@@ -255,6 +245,16 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
       fictioneer_purge_template_caches( 'recommendations' );
+    }
+
+    // Purge parent story (if any)
+    if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
+      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+
+      if ( ! empty( $story_id ) ) {
+        update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
+        fictioneer_purge_post_cache( $story_id );
+      }
     }
 
     // Purge associated chapters
@@ -367,6 +367,10 @@ function fictioneer_toggle_refresh_hooks( $add = true ) {
 if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
   fictioneer_toggle_refresh_hooks();
 }
+
+// =============================================================================
+// NUKE OBJECT CACHE
+// =============================================================================
 
 /**
  * Flush object cache
@@ -559,31 +563,6 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
 }
 
 fictioneer_toggle_update_tracker_hooks();
-
-// =============================================================================
-// GET LAST CHAPTER/STORY UPDATE
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
-  /**
-   * Get Unix timestamp for last story or chapter update
-   *
-   * @since Fictioneer 5.0
-   *
-   * @return int The timestamp in milliseconds.
-   */
-
-  function fictioneer_get_last_fiction_update() {
-    $last_update = get_option( 'fictioneer_story_or_chapter_updated_timestamp' );
-
-    if ( empty( $last_update ) ) {
-      $last_update = time() * 1000;
-      update_option( 'fictioneer_story_or_chapter_updated_timestamp', $last_update );
-    }
-
-    return $last_update;
-  }
-}
 
 // =============================================================================
 // PURGE CACHE TRANSIENTS
