@@ -19,6 +19,7 @@
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
 $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+$story_unpublished = get_post_status( $story_id ) !== 'publish';
 $story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
 $chapter_rating = fictioneer_get_field( 'fictioneer_chapter_rating' );
 $story_thumbnail_url_full = $story_id ? get_the_post_thumbnail_url( $story_id, 'full' ) : null;
@@ -53,7 +54,7 @@ $show_type = $args['show_type'] ?? false;
 
 <li
   id="chapter-card-<?php the_ID(); ?>"
-  class="card"
+  class="card <?php echo $story_unpublished ? '_story-unpublished' : ''; ?>"
   data-story-id="<?php echo $story_id; ?>"
   data-check-id="<?php the_ID(); ?>"
 >
@@ -122,7 +123,7 @@ $show_type = $args['show_type'] ?? false;
 
         // Content
         printf(
-          '<div class="card__content cell-desc truncate _4-4">%1$s<span>%2$s</span></div>',
+          '<div class="card__content cell-desc truncate _4-4">%1$s<span>%2$s</span>%3$s</div>',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author show-below-desktop">%s</span> ',
             sprintf(
@@ -130,7 +131,8 @@ $show_type = $args['show_type'] ?? false;
               fictioneer_get_author_node()
             )
           ),
-          empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt
+          empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt,
+          $story_unpublished ? '<div class="card__unavailable">' . __( 'Unavailable', 'fictioneer' ) . '</div>' : ''
         );
       ?>
 
