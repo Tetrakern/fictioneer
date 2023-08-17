@@ -19,10 +19,11 @@ function fictioneer_add_fiction_css() {
    * removes any "<" for good measure since CSS does not use it.
    */
 
-  $custom_css = fictioneer_get_field( 'fictioneer_custom_css', get_the_ID() );
+  $custom_css = '';
+  $custom_css .= fictioneer_get_field( 'fictioneer_custom_css', get_the_ID() ) ?: '';
 
   if ( get_post_type( get_the_ID() ) == 'fcn_story' ) {
-    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', get_the_ID() );
+    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', get_the_ID() ) ?: '';
   }
 
   if ( get_post_type( get_the_ID() ) == 'fcn_chapter' ) {

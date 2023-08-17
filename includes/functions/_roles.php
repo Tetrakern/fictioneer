@@ -415,7 +415,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   if ( ! current_user_can( 'fcn_adminbar_access' ) ) {
-    add_filter( 'show_admin_bar', '__return_false', 9999 );
+    add_filter( 'show_admin_bar', '__return_false' );
   }
 
   // === FCN_ADMIN_PANEL_ACCESS ================================================
@@ -438,7 +438,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
-    add_filter( 'init', 'fictioneer_restrict_admin_panel', 9999 );
+    add_filter( 'init', 'fictioneer_restrict_admin_panel' );
   }
 
   // === FCN_DASHBOARD_ACCESS ==================================================
@@ -504,10 +504,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_dashboard_access' ) ) {
-    add_action( 'wp_before_admin_bar_render', 'fictioneer_remove_dashboard_from_admin_bar', 9999 );
-    add_action( 'wp_dashboard_setup', 'fictioneer_remove_dashboard_widgets', 9999 );
-    add_action( 'admin_menu', 'fictioneer_remove_dashboard_menu', 9999 );
-    add_action( 'admin_init', 'fictioneer_skip_dashboard', 9999 );
+    add_action( 'wp_before_admin_bar_render', 'fictioneer_remove_dashboard_from_admin_bar' );
+    add_action( 'wp_dashboard_setup', 'fictioneer_remove_dashboard_widgets' );
+    add_action( 'admin_menu', 'fictioneer_remove_dashboard_menu' );
+    add_action( 'admin_init', 'fictioneer_skip_dashboard' );
   }
 
   // === FCN_SELECT_PAGE_TEMPLATE ==============================================
@@ -558,7 +558,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
       return;
     }
 
-    // Only needs to be done once for to trigger post
+    // Only do this for the trigger post or bad things can happen!
     remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
     remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
 
@@ -635,11 +635,11 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'moderate_comments' ) ) {
-    add_action( 'admin_menu', 'fictioneer_remove_comments_menu_page', 9999 );
-    add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar', 9999 );
-    add_action( 'current_screen', 'fictioneer_restrict_comment_edit', 9999 );
-    add_filter( 'manage_posts_columns', 'fictioneer_remove_comments_column', 9999 );
-    add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column', 9999 );
+    add_action( 'admin_menu', 'fictioneer_remove_comments_menu_page' );
+    add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar' );
+    add_action( 'current_screen', 'fictioneer_restrict_comment_edit' );
+    add_filter( 'manage_posts_columns', 'fictioneer_remove_comments_column' );
+    add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column' );
   }
 
   /**
@@ -673,7 +673,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_edit_only_others_comments' ) ) {
-    add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 9999, 3 );
+    add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 10, 3 );
   }
 
   // === MANAGE_OPTIONS ========================================================
@@ -713,8 +713,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'manage_options' ) ) {
-    add_action( 'admin_menu', 'fictioneer_reduce_admin_panel', 9999 );
-    add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages', 9999 );
+    add_action( 'admin_menu', 'fictioneer_reduce_admin_panel' );
+    add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages' );
   }
 
   /**
@@ -727,7 +727,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * @return array The modified array.
    */
 
-
   function fictioneer_remove_filter_search_id_input( $fields ) {
     // Fields to remove
     $field_keys = ['field_60040fa3bc4f1']; // fictioneer_filter_and_search_id
@@ -739,13 +738,16 @@ if ( ! current_user_can( 'manage_options' ) ) {
       }
     }
 
+    // Only do this for the trigger post or bad things can happen!
+    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 10, 3 );
+
     // Return modified fields array
     return $fields;
   }
 
   if ( ! current_user_can( 'manage_options' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 9999, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_filter_search_id_input', 9999 );
+    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 10, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_filter_search_id_input' );
   }
 
   // === EDIT_PAGES ============================================================
@@ -772,13 +774,16 @@ if ( ! current_user_can( 'manage_options' ) ) {
       }
     }
 
+    // Only do this for the trigger post or bad things can happen!
+    remove_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null' );
+
     // Return modified fields array
     return $fields;
   }
 
   if ( ! current_user_can( 'fcn_story_pages' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null', 9999 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_story_pages', 9999 );
+    add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null' );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_story_pages' );
   }
 
   // === UPDATE_CORE ===========================================================
@@ -794,7 +799,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'update_core' ) ) {
-    add_action( 'admin_head', 'fictioneer_remove_update_notice', 9999 );
+    add_action( 'admin_head', 'fictioneer_remove_update_notice' );
   }
 
   // === FCN_SHORTCODES ========================================================
@@ -825,7 +830,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     // Strip the shortcodes
     $content = strip_shortcodes( $post->post_content );
 
-    // Only needs to be done once for to trigger post
+    // Only do this for the trigger post or bad things can happen!
     remove_action( 'save_post', 'fictioneer_strip_shortcodes_on_save', 1 );
 
     // Update post
@@ -926,8 +931,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_read_others_files' ) && is_admin() ) {
-    add_action( 'pre_get_posts', 'fictioneer_read_others_files', 9999 );
-    add_action( 'pre_get_posts', 'fictioneer_read_others_files_list_view', 9999 );
+    add_action( 'pre_get_posts', 'fictioneer_read_others_files' );
+    add_action( 'pre_get_posts', 'fictioneer_read_others_files_list_view' );
   }
 
   // === FCN_EDIT_OTHERS_FILES =================================================
@@ -969,7 +974,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_edit_others_files' ) ) {
-    add_filter( 'map_meta_cap', 'fictioneer_edit_others_files', 9999, 4 );
+    add_filter( 'map_meta_cap', 'fictioneer_edit_others_files', 10, 4 );
   }
 
   // === FCN_DELETE_OTHERS_FILES ===============================================
@@ -1072,11 +1077,11 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_privacy_clearance' ) ) {
-    add_filter( 'comment_email', '__return_false', 9999 );
-    add_filter( 'get_comment_author_IP', '__return_empty_string', 9999 );
-    add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns', 9999 );
-    add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit', 9999 );
-    add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 9999 );
+    add_filter( 'comment_email', '__return_false' );
+    add_filter( 'get_comment_author_IP', '__return_empty_string' );
+    add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns' );
+    add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit' );
+    add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data' );
   }
 
   // === FCN_REDUCED_PROFILE ===================================================
@@ -1096,9 +1101,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( current_user_can( 'fcn_reduced_profile' ) ) {
-    add_filter( 'wp_is_application_passwords_available', '__return_false', 9999 );
-    add_filter( 'user_contactmethods', '__return_empty_array', 9999 );
-    add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks', 9999 );
+    add_filter( 'wp_is_application_passwords_available', '__return_false' );
+    add_filter( 'user_contactmethods', '__return_empty_array' );
+    add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks' );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
   }
 
@@ -1133,9 +1138,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
-    add_filter( 'acf/update_value/name=fictioneer_custom_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs', 9999 );
+    add_filter( 'acf/update_value/name=fictioneer_story_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
+    add_filter( 'acf/update_value/name=fictioneer_custom_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs' );
   }
 
   // === FCN_CUSTOM_EPUB_CSS ===================================================
@@ -1166,8 +1171,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_epub_custom_css', 'fictioneer_acf_prevent_value_update', 9999, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_input', 9999 );
+    add_filter( 'acf/update_value/name=fictioneer_story_epub_custom_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
+    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_input' );
   }
 
   // === FCN_MAKE_STICKY =======================================================
@@ -1182,10 +1187,25 @@ if ( ! current_user_can( 'manage_options' ) ) {
     echo '<style>[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
   }
 
+  /**
+   * Unstick a post
+   *
+   * @since 5.6.0
+   *
+   * @param int $post_id  The post ID.
+   */
+
+  function fictioneer_prevent_post_sticky( $post_id ) {
+    unstick_post( $post_id );
+
+    // Only do this for the trigger post or bad things can happen!
+    remove_action( 'post_stuck', 'fictioneer_prevent_post_sticky' );
+  }
+
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_sticky', '__return_zero', 9999 );
-    add_action( 'admin_head', 'fictioneer_hide_story_sticky_checkbox' );
-    add_action( 'post_stuck', 'unstick_post', 9999 ); // lol
+    add_filter( 'acf/update_value/name=fictioneer_story_sticky', '__return_zero' ); // Must be 0!
+    add_action( 'admin_head-post.php', 'fictioneer_hide_story_sticky_checkbox' ); // Field must be in form!
+    add_action( 'post_stuck', 'fictioneer_prevent_post_sticky' );
   }
 
   // === FCN_UPLOAD_LIMIT ======================================================
@@ -1210,7 +1230,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( current_user_can( 'fcn_upload_limit' ) ) {
-    add_filter( 'upload_size_limit', 'fictioneer_upload_size_limit', 9999 );
+    add_filter( 'upload_size_limit', 'fictioneer_upload_size_limit' );
   }
 
   // === FCN_UPLOAD_RESTRICTION ================================================
@@ -1244,20 +1264,20 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( current_user_can( 'fcn_upload_restrictions' ) ) {
-    add_filter( 'wp_handle_upload_prefilter', 'fictioneer_upload_restrictions', 9999 );
+    add_filter( 'wp_handle_upload_prefilter', 'fictioneer_upload_restrictions' );
   }
 
   // === FCN_ALL_BLOCKS ========================================================
 
   /**
- * Restrict the use of specific Gutenberg blocks
- *
- * @since 5.6.0
- *
- * @param array $data  The array of post data being saved.
- *
- * @return array Modified post data with unwanted blocks removed.
- */
+   * Restrict the use of specific Gutenberg blocks
+   *
+   * @since 5.6.0
+   *
+   * @param array $data  The array of post data being saved.
+   *
+   * @return array Modified post data with unwanted blocks removed.
+   */
 
   function fictioneer_remove_restricted_block_content( $data ) {
     // Regular expression to match forbidden blocks
@@ -1274,6 +1294,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
     foreach ( $forbidden_patterns as $pattern ) {
       $data['post_content'] = preg_replace( $pattern, '', $data['post_content'] );
     }
+
+    // Only do this for the trigger post or bad things can happen!
+    remove_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 1 );
 
     // Continue with cleaned-up data
     return $data;
@@ -1318,8 +1341,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_all_blocks' ) ) {
-    add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types', 9999 );
-    add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 9999 );
+    add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types' ); // Only display
+    add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 1 );
   }
 }
 

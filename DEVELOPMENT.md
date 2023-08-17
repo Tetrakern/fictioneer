@@ -212,7 +212,8 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
 | `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
-| `admin_head` | `fictioneer_remove_update_notice`, `fictioneer_hide_story_sticky_checkbox`
+| `admin_head` | `fictioneer_remove_update_notice`
+| `admin_head-post.php` | `fictioneer_hide_story_sticky_checkbox`
 | `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
 | `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`
@@ -282,7 +283,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `map_meta_cap` | `fcn_read_others_files`, `fictioneer_edit_others_files`, `fictioneer_delete_others_files`, `fictioneer_override_default_taxonomy_capability_check`
 | `navigation_markup_template` | `fictioneer_pagination_markup`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
-| `post_stuck` | `unstick_post`
+| `post_stuck` | `fictioneer_prevent_post_sticky`
 | `pre_comment_user_ip` | `__return_empty_string`
 | `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_edit_others_fictioneer_posts`, `fictioneer_add_sof_to_taxonomy_query`
 | `pre_insert_term` | `fictioneer_restrict_tag_creation`
