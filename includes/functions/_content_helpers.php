@@ -227,6 +227,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
   function fictioneer_get_safe_title( $post_id ) {
     // Get title and remove HTML
     $title = wp_strip_all_tags( get_the_title( $post_id ) );
+    $post_status = get_post_status( $post_id );
 
     // If empty, use the datetime as title
     if ( empty( $title ) ) {
@@ -234,6 +235,13 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
         _x( '%1$s — %2$s', '[Date] — [Time] if post title is missing.', 'fictioneer' ),
         get_the_date( '', $post_id ),
         get_the_time( '', $post_id )
+      );
+    }
+
+    if ( $post_status === 'draft' ) {
+      $title = sprintf(
+        _x( 'Draft: %s', 'Draft: {Post Title}', 'fictioneer' ),
+        $title
       );
     }
 
