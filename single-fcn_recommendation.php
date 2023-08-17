@@ -17,7 +17,7 @@
 get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
 // Draft or private (if caching is on)?
-$post_status = get_post_status( $post_id );
+$post_status = get_post_status( get_queried_object_id() );
 
 if (
   fictioneer_caching_active() &&
