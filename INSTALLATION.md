@@ -574,15 +574,42 @@ Most of the theme’s configuration is found here, the options being largely sel
 
 ### Roles Tab
 
-The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain roles. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. A few example capabilities:
+The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain user groups. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. For reference, look at the default [WordPress capabilities](https://wordpress.org/documentation/article/roles-and-capabilities/).
 
-* **Edit Only Others Comments:** Limits moderators to only editing comments, not all posts.
-* **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
-* **Select Page Template:** You cannot change the page template without this capability.
-* **Custom Page CSS:** Inject CSS into the header for an unique style. Dangerous!
-* **All Blocks:** Your block options are quite limited without this, for sanity reasons.
-* **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
-* **Allow Self Delete:** Provides you with the option to delete your own account.
+<details>
+  <summary>New Capabilities</summary>
+
+  * **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
+  * **Select Page Template:** You cannot change the page template without this.
+  * **Custom Page CSS:** Inject CSS into the header for an unique style. Dangerous!
+  * **Custom ePUB CSS:** Inject CSS into the ePUB for an unique style. Dangerous!
+  * **SEO Meta:** Show and edit the SEO meta for posts (if enabled in the settings).
+  * **Make Sticky:** You can make posts and stories stick to the top in lists.
+  * **Edit Permalink:** Customize the permalink slug derived from the title. Dangerous!
+  * **All Blocks:** Your block options are quite limited without this, for *sanity* reasons.
+  * **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
+  * **Edit Date:** Makes it possible to change the publishing date *after* publishing.
+  * **Reduced Profile:** Removes clutter from the admin profile page, like the color schemes.
+  * **Edit Only Others Comments:** Limits moderators to only editing comments, not all posts.
+  * **Upload Limit:** Enforce the file size limit from the General Settings.
+  * **Upload Restrictions:** Enforce the file type restrictions from the General Settings.
+  * **Adminbar Access:** Overrides individual settings to show or hide the adminbar.
+  * **Admin Panel Access:** Required to access the admin panel, including your admin profile.
+  * **Dashboard Access:** Required if you want to see the dashboard admin page.
+  * **Show Badge:** Shows the role name as comment badge. Can be overridden in your profile.
+  * **Upload Files:** Grants permission to upload files in the media manager.
+  * **Edit Files:** Grants permission to edit or delete your uploaded files.
+  * **Allow Self Delete:** Allows you to delete your own account. Default for subscribers.
+  * **Privacy Clearance:** Grants access to sensible data like emails and IP addresses.
+  * **Read Others Files:** Allows you to see uploaded files from *other* users.
+  * **Edit Others Files:** Allows you to edit uploaded files from *other* users.
+  * **Delete Others Files:** Allows you to delete uploaded files from *other* users.
+  * **Manage {Taxonomy}:** Lets you see the overview list table of the taxonomy.
+  * **Assign {Taxonomy}:** Lets you assign the taxonomy to your posts.
+  * **Edit {Taxonomy}:** Lets you create and edit taxonomies of this type.
+  * **Delete {Taxonomy}:** Lets you delete taxonomies of this type.
+
+</details>
 
 <br>
 
