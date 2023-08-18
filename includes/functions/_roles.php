@@ -95,8 +95,6 @@ add_action( 'init', 'fictioneer_initialize_roles' );
 
 function fictioneer_setup_roles() {
   // Capabilities
-  $legacy_removal = ['delete_pages', 'delete_published_pages', 'edit_pages', 'edit_published_pages', 'publish_pages'];
-
   $all = array_merge(
     FICTIONEER_BASE_CAPABILITIES,
     FICTIONEER_TAXONOMY_CAPABILITIES,
@@ -112,6 +110,8 @@ function fictioneer_setup_roles() {
   $administrator->remove_cap( 'fcn_edit_only_others_comments' );
   $administrator->remove_cap( 'fcn_reduced_profile' );
   $administrator->remove_cap( 'fcn_allow_self_delete' );
+  $administrator->remove_cap( 'fcn_upload_limit' );
+  $administrator->remove_cap( 'fcn_upload_restrictions' );
 
   foreach ( $all as $cap ) {
     $administrator->add_cap( $cap );
@@ -153,10 +153,6 @@ function fictioneer_setup_roles() {
     FICTIONEER_COLLECTION_CAPABILITIES,
     FICTIONEER_RECOMMENDATION_CAPABILITIES
   );
-
-  $editor->remove_cap( 'fcn_edit_only_others_comments' );
-  $editor->remove_cap( 'fcn_reduced_profile' );
-  $editor->remove_cap( 'fcn_allow_self_delete' );
 
   foreach ( $editor_caps as $cap ) {
     $editor->add_cap( $cap );
@@ -221,10 +217,6 @@ function fictioneer_setup_roles() {
     $author->add_cap( $cap );
   }
 
-  foreach ( $legacy_removal as $cap ) {
-    $author->remove_cap( $cap ); // Legacy restore
-  }
-
   // Contributor
   $contributor = get_role( 'contributor' );
   $contributor_caps = array(
@@ -270,10 +262,6 @@ function fictioneer_setup_roles() {
 
   foreach ( $contributor_caps as $cap ) {
     $contributor->add_cap( $cap );
-  }
-
-  foreach ( $legacy_removal as $cap ) {
-    $contributor->remove_cap( $cap ); // Legacy restore
   }
 
   // Moderator
@@ -378,8 +366,6 @@ function fictioneer_add_moderator_role() {
 
   if ( $moderator ) {
     $caps = array_keys( $caps );
-    $moderator->remove_cap( 'fcn_reduced_profile' );
-    $moderator->remove_cap( 'fcn_allow_self_delete' );
 
     foreach ( $caps as $cap ) {
       $moderator->add_cap( $cap );
