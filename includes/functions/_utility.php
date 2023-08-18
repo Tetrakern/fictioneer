@@ -197,6 +197,38 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
       // Refresh comment count (unless disabled or within the delay)
       if ( $refresh_comment_count && ( $comment_count_delay < time() || ( $args['force_comment_count_refresh'] ?? 0 ) ) ) {
+        // Use old count as fallback
+        $comment_count = $old_data['comment_count'];
+
+        if ( count( $old_data['chapter_ids'] ) > 0 ) {
+          // Counting the stored comment count of chapters is typically
+          // faster than querying and counting all comments.
+          $chapters = new WP_Query(
+            array(
+              'post_type' => 'fcn_chapter',
+              'post_status' => 'publish',
+              'post__in' => fictioneer_save_array_zero( $old_data['chapter_ids'] ),
+              'posts_per_page' => -1,
+              'no_found_rows' => true, // Improve performance
+              'update_post_meta_cache' => false, // Improve performance
+              'update_post_term_cache' => false // Improve performance
+            )
+          );
+
+          if ( $chapters->have_posts() ) {
+            $comment_count = 0; // Reset
+
+            foreach ( $chapters->posts as $chapter ) {
+               $comment_count += $chapter->comment_count;
+            }
+          }
+        }
+
+        /*
+
+        This approach would be faster if the number of chapters vastly exceeds
+        the comments. However, typically it's the other way around.
+
         $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
           array(
             'status' => 'approve',
@@ -206,6 +238,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
             'update_comment_meta_cache' => false
           )
         );
+
+        */
 
         $old_data['comment_count'] = $comment_count;
         $old_data['comment_count_timestamp'] = time();
@@ -232,6 +266,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $icon = 'fa-solid fa-circle';
     $chapter_count = 0;
     $word_count = 0;
+    $comment_count = 0;
     $chapter_ids = [];
 
     // Assign correct icon
@@ -279,18 +314,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // ... but they are still listed!
           $chapter_ids[] = $chapter->ID;
         }
+
+        // Count ALL comments
+        $comment_count += $chapter->comment_count;
       }
     }
-
-    $comment_args = array(
-      'status' => 'approve',
-      'post_type' => 'fcn_chapter',
-      'post__in' => fictioneer_save_array_zero( $chapter_ids ),
-      'count' => true,
-      'update_comment_meta_cache' => false
-    );
-
-    $comment_count = $chapter_count > 0 ? get_comments( $comment_args ) : 0;
 
     $result = array(
       'id' => $story_id,
