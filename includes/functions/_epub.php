@@ -59,7 +59,7 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
           $downloads[ $key ] = 1; // Start new counter
         }
 
-        // update counter(s)
+        // Update counter(s)
         update_post_meta( $story_id, 'fictioneer_epub_downloads', $downloads );
       }
 

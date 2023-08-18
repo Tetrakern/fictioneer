@@ -366,7 +366,7 @@ function fictioneer_append_chapter_to_story( $post_id ) {
     update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
 
     // Clear story data cache to ensure it gets refreshed
-    update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
+    delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
   } else {
     return;
   }

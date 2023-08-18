@@ -254,7 +254,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       if ( ! empty( $story_id ) ) {
         $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
 
-        update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
+        delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
         fictioneer_purge_post_cache( $story_id );
 
         // ... and associated chapters

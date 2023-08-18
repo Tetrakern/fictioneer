@@ -406,7 +406,7 @@ function fictioneer_tools_purge_story_data_caches() {
 
   // Loop over stories
   foreach ( $stories_ids as $story_id ) {
-    update_post_meta( $story_id, 'fictioneer_story_data_collection', false );
+    delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
     delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
   }
 
