@@ -614,6 +614,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
       'label' => __( 'Flush object cache on content updates', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_see_some_evil' => array(
+      'name' => 'fictioneer_see_some_evil',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
+      'label' => __( 'Monitor posts for suspicious content', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

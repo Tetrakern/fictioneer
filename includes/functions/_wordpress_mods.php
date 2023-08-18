@@ -1082,8 +1082,10 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
     $output = '';
 
     if ( $current_user ) {
-      $sender['user_name'] = '<strong>User:</strong> ' . $current_user->user_login;
       $sender['user_id'] = '<strong>ID:</strong> ' . $current_user->ID;
+      $sender['user_name'] = '<strong>User:</strong> ' . $current_user->user_login;
+      $sender['display_name'] = '<strong>Nickname:</strong> ' . $current_user->display_name;
+      $sender['email'] = '<strong>Email:</strong> ' . $current_user->user_email;
     }
 
     $sender['post'] = "<strong>Post:</strong> <a href='{$post_link}'>{$data['post_title']}</a>";
@@ -1133,7 +1135,10 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
   // Continue filter
   return $data;
 }
-add_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1, 3 );
+
+if ( get_option( 'fictioneer_see_some_evil' ) ) {
+  add_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1, 3 );
+}
 
 // =============================================================================
 // GATE UNPUBLISHED CONTENT
