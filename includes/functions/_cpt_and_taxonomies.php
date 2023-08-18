@@ -625,7 +625,8 @@ if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_optio
 
 function fictioneer_remove_sub_menus() {
 	// Setup
-	$user_caps = fictioneer_get_user_caps();
+	$current_user = wp_get_current_user();
+	$user_caps = array_keys( array_filter( $current_user->allcaps ) );
 	$taxonomies = ['category', 'post_tag', 'fcn_genre', 'fcn_fandom', 'fcn_character', 'fcn_content_warning'];
 	$post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
 

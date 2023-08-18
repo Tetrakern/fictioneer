@@ -728,14 +728,14 @@
 
           <div class="card">
     				<div class="card-wrapper">
-    					<h3 class="card-header"><?php _e( 'Security & Privacy', 'fictioneer' ) ?></h3>
+    					<h3 class="card-header"><?php _e( 'Security & Privacy', 'fictioneer' ); ?></h3>
     					<div class="card-content">
 
                 <label for="fictioneer_do_not_save_comment_ip" class="label-wrapped-checkbox row">
                   <input name="fictioneer_do_not_save_comment_ip" type="checkbox" id="fictioneer_do_not_save_comment_ip" <?php echo checked( 1, get_option( 'fictioneer_do_not_save_comment_ip' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_do_not_save_comment_ip']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'IP addresses are personal data.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'IP addresses are personal data.', 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
@@ -743,7 +743,7 @@
                   <input name="fictioneer_restrict_rest_api" type="checkbox" id="fictioneer_restrict_rest_api" <?php echo checked( 1, get_option( 'fictioneer_restrict_rest_api' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_restrict_rest_api']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Disables API for guests and low-permission users.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'Disables API for guests and low-permission users.', 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
@@ -751,7 +751,7 @@
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_disable_application_passwords']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'If you do not need them, you should disable them.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'If you do not need them, you should disable them.', 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
@@ -759,7 +759,7 @@
                   <input name="fictioneer_logout_redirects_home" type="checkbox" id="fictioneer_logout_redirects_home" <?php echo checked( 1, get_option( 'fictioneer_logout_redirects_home' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_logout_redirects_home']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'Prevents users from ending up on the login page.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'Prevents users from ending up on the login page.', 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
@@ -767,7 +767,15 @@
                   <input name="fictioneer_consent_wrappers" type="checkbox" id="fictioneer_consent_wrappers" <?php echo checked( 1, get_option( 'fictioneer_consent_wrappers' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_consent_wrappers']['label']; ?></span>
-                    <p class="sub-label"><?php _e( 'External content not loaded until deliberately clicked.', 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( 'External content not loaded until deliberately clicked.', 'fictioneer' ); ?></p>
+                  </div>
+                </label>
+
+                <label for="fictioneer_see_some_evil" class="label-wrapped-checkbox row">
+                  <input name="fictioneer_see_some_evil" type="checkbox" id="fictioneer_see_some_evil" <?php echo checked( 1, get_option( 'fictioneer_see_some_evil' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_see_some_evil']['label']; ?></span>
+                    <p class="sub-label"><?php _e( 'Sends an admin email if suspicious strings are found, which could be an attempted attack or <strong>false positive.</strong>', 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
@@ -775,7 +783,7 @@
                   <input name="fictioneer_cookie_banner" type="checkbox" id="fictioneer_cookie_banner" <?php echo checked( 1, get_option( 'fictioneer_cookie_banner' ), false ); ?> value="1">
                   <div>
                     <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_cookie_banner']['label']; ?></span>
-                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, \"necessary\", or \"full\".", 'fictioneer' ) ?></p>
+                    <p class="sub-label"><?php _e( "Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, \"necessary\", or \"full\".", 'fictioneer' ); ?></p>
                   </div>
                 </label>
 
