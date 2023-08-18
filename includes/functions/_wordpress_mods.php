@@ -1024,6 +1024,7 @@ function fictioneer_extend_allowed_upload_types( $mimes ) {
   return $mimes;
 }
 add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
+
 // =============================================================================
 // SEE SOME 3V1L
 // =============================================================================
@@ -1056,8 +1057,9 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
   $current_user = wp_get_current_user();
   $admin_email = get_option( 'admin_email' );
   $content = wp_unslash( wp_specialchars_decode( $unsanitized_postarr['post_content'] ?? '' ) );
+  $content .= ' ' . wp_unslash( wp_specialchars_decode( $unsanitized_postarr['post_title'] ?? '' ) );
   $post_link = get_permalink( $postarr['ID'] );
-  $message = __( '<h3>Potentially Malicious Code Warning</h3><p>There has been a post with suspicious strings in the content, please review the results below. This might be an attempted attack or <strong>false positive.</strong> Note that posts are sanitized before being saved to the database and no damage can be caused this way, this is just to let you know that someone <strong>tried.</strong></p>', 'fictioneer' );
+  $message = __( '<h3>Potentially Malicious Code Warning</h3><p>There has been a post with suspicious strings in the content or title, please review the results below. This might be an attempted attack or <strong>false positive.</strong> Note that posts are sanitized before being saved to the database and no damage can be caused this way, this is just to let you know that someone <strong>tried.</strong></p>', 'fictioneer' );
   $sender = [];
   $results = [];
 
