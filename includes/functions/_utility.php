@@ -1636,6 +1636,12 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
   /**
    * Prevents multi-fire in update hooks
    *
+   * Unfortunately, the block editor always fires twice: once as REST request and
+   * followed by WP_POST. Only the first will have the correct parameters such as
+   * $update set, the second is technically no longer an update. Since blocking
+   * the follow-up WP_POST would block programmatically triggered actions, there
+   * is no other choice but to block the REST request and live with it.
+   *
    * @since 5.5.2
    *
    * @param int $post_id  The ID of the updated post.
@@ -1645,6 +1651,7 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
 
   function fictioneer_multi_save_guard( $post_id ) {
     if (
+      ( defined('REST_REQUEST') && REST_REQUEST ) ||
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
       get_post_status( $post_id ) === 'auto-draft'
