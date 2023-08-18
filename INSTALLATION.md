@@ -602,8 +602,6 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Admin Panel Access:** Required to access the admin panel, including your admin profile.
   * **Dashboard Access:** Required if you want to see the dashboard admin page.
   * **Show Badge:** Shows the role name as comment badge. Can be overridden in your profile.
-  * **Upload Files:** Grants permission to upload files in the media manager.
-  * **Edit Files:** Grants permission to edit or delete your uploaded files.
   * **Allow Self Delete:** Allows you to delete your own account. Default for subscribers.
   * **Privacy Clearance:** Grants access to sensible data like emails and IP addresses.
   * **Read Others Files:** Allows you to see uploaded files from *other* users.
