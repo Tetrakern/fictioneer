@@ -1637,7 +1637,6 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
    * Prevents multi-fire in update hooks
    *
    * @since 5.5.2
-   * @since 5.6.0  Account for REST requests first.
    *
    * @param int $post_id  The ID of the updated post.
    *
@@ -1645,21 +1644,10 @@ if ( ! function_exists( 'fictioneer_multi_save_guard' ) ) {
    */
 
   function fictioneer_multi_save_guard( $post_id ) {
-    // Block if...
-    if ( use_block_editor_for_post_type( get_post_type( $post_id ) ) ) {
-      if ( ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
-        return true;
-      }
-    } else {
-      if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
-        return true;
-      }
-    }
-
     if (
       wp_is_post_autosave( $post_id ) ||
       wp_is_post_revision( $post_id ) ||
-      in_array( get_post_status( $post_id ), ['auto-draft'] )
+      get_post_status( $post_id ) === 'auto-draft'
     ) {
       return true;
     }

@@ -312,8 +312,7 @@ add_filter( 'acf/fields/wysiwyg/toolbars', 'fictioneer_acf_reduce_wysiwyg' );
 function fictioneer_append_chapter_to_story( $post_id ) {
   // Prevent miss-fire (REST_REQUEST undefined!)
   if (
-    wp_is_post_autosave( $post_id ) ||
-    wp_is_post_revision( $post_id ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
     get_post_status( $post_id ) !== 'publish' ||
     get_post_type( $post_id ) !== 'fcn_chapter'
   ) {
