@@ -1839,4 +1839,28 @@ if ( ! function_exists( 'fictioneer_verify_preview_access' ) ) {
   }
 }
 
+// =============================================================================
+// GET ALL CAPABILITIES OF USER
+// =============================================================================
+
+function fictioneer_get_user_caps( $user = null ) {
+  // Setup
+  $user = $user ? $user : wp_get_current_user();
+
+  if ( ! $user->exists() ) {
+		return;
+	}
+
+  $user_caps = [];
+  $roles = $user->roles;
+
+  // Collect capabilities from all roles
+	foreach( $roles as $role ) {
+		$user_caps = array_merge( $user_caps, get_role( $role )->capabilities );
+	}
+
+  // Return result
+  return array_keys( $user_caps );
+}
+
 ?>

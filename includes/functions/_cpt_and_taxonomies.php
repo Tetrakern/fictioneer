@@ -655,23 +655,9 @@ add_filter( 'register_post_type_args', 'fictioneer_modify_post_type_args', 10, 2
 
 function fictioneer_remove_sub_menus() {
 	// Setup
-	$user = wp_get_current_user();
-
-	if ( ! $user->exists() ) {
-		return;
-	}
-
-	$user_caps = [];
-	$roles = $user->roles;
+	$user_caps = fictioneer_get_user_caps();
 	$taxonomies = ['category', 'post_tag', 'fcn_genre', 'fcn_fandom', 'fcn_character', 'fcn_content_warning'];
 	$post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
-
-	// Collect capabilities
-	foreach( $roles as $role ) {
-		$user_caps = array_merge( $user_caps, get_role( $role )->capabilities );
-	}
-
-	$user_caps = array_keys( $user_caps );
 
 	// Filter out undesired menus
 	foreach ( $post_types as $type ) {
