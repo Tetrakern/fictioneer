@@ -86,7 +86,7 @@ function fictioneer_theme_setup() {
 
   // Add support for editor styles
   add_theme_support( 'editor-styles' );
-  add_editor_style( get_template_directory_uri() . '/css/editor.css' );
+  add_editor_style( '/css/editor.css' );
 
   // Add support for custom logo
   add_theme_support(
