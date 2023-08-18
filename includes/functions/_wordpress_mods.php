@@ -1123,14 +1123,18 @@ if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
 
 function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
   // Prevent miss-fire
-  if ( fictioneer_multi_save_guard( $postarr['ID'] ) ) {
+  if (
+    fictioneer_multi_save_guard( $postarr['ID'] ) ||
+    empty( $unsanitized_postarr['post_content'] ?? 0 ) ||
+    ( $unsanitized_postarr['post_status'] ?? 0 ) === 'auto-draft'
+  ) {
     return $data;
   }
 
   // Setup
   $current_user = wp_get_current_user();
   $admin_email = get_option( 'admin_email' );
-  $content = wp_unslash( wp_specialchars_decode( $unsanitized_postarr['post_content'] ) );
+  $content = wp_unslash( wp_specialchars_decode( $unsanitized_postarr['post_content'] ?? '' ) );
   $post_link = get_permalink( $postarr['ID'] );
   $message = __( '<h3>Potentially Malicious Code Warning</h3><p>There has been a post with suspicious strings in the content, please review the results below. This might be an attempted attack or <strong>false positive.</strong> Note that posts are sanitized before being saved to the database and no damage can be caused this way, this is just to let you know that someone <strong>tried.</strong></p>', 'fictioneer' );
   $sender = [];
