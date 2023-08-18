@@ -582,7 +582,7 @@ Most of the theme’s configuration is found here, the options being largely sel
 The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain user groups. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. For reference, look at the default [WordPress capabilities](https://wordpress.org/documentation/article/roles-and-capabilities/).
 
 <details>
-  <summary>New Capabilities</summary>
+  <summary>New Capabilities</summary><br>
 
   * **Shortcodes:** Without this capability, shortcodes are stripped when you save a post.
   * **Select Page Template:** You cannot change the page template without this.
