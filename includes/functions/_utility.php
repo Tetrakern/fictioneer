@@ -1878,12 +1878,21 @@ if ( ! function_exists( 'fictioneer_verify_preview_access' ) ) {
 // GET ALL CAPABILITIES OF USER
 // =============================================================================
 
+/**
+ * Retrieves all capabilities of a given user based on their roles
+ *
+ * @param WP_User|null $user  The user object whose capabilities are to be retrieved.
+ *                            Defaults to the current user if not provided.
+ *
+ * @return array  An array of capability strings.
+ */
+
 function fictioneer_get_user_caps( $user = null ) {
   // Setup
   $user = $user ? $user : wp_get_current_user();
 
   if ( ! $user->exists() ) {
-		return;
+		return [];
 	}
 
   $user_caps = [];
