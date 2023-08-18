@@ -231,18 +231,22 @@ function fictioneer_setup_roles() {
     'read_fcn_story',
     'edit_fcn_stories',
     'delete_fcn_stories',
+    'edit_published_fcn_stories',
     // Chapters
     'read_fcn_chapter',
     'edit_fcn_chapters',
     'delete_fcn_chapters',
+    'edit_published_fcn_chapters',
     // Collections
     'read_fcn_collection',
     'edit_fcn_collections',
     'delete_fcn_collections',
+    'edit_published_fcn_collections',
     // Recommendations
     'read_fcn_recommendation',
     'edit_fcn_recommendations',
     'delete_fcn_recommendations',
+    'edit_published_fcn_recommendations',
     // Taxonomies
     'manage_categories',
     'manage_post_tags',
