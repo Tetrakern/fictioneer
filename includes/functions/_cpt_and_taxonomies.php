@@ -648,4 +648,123 @@ function fictioneer_remove_sub_menus() {
 }
 add_action( 'admin_menu', 'fictioneer_remove_sub_menus' );
 
+// =============================================================================
+// DROPDOWN STORY FILTER FOR CHAPTER LIST TABLE
+// =============================================================================
+
+/**
+ * Adds a filter dropdown to the chapters list table
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param string $post_type  The current post type being viewed.
+ */
+
+function fictioneer_add_chapter_story_filter_dropdown( $post_type ) {
+	$screen = get_current_screen();
+
+	// Make sure this is the chapter list table view
+	if (
+		empty( $screen ) ||
+		$screen->id !== 'edit-fcn_chapter' ||
+		$post_type !== 'fcn_chapter'
+	) {
+		return;
+	}
+
+	// Setup
+	$current_user = wp_get_current_user();
+	$user_caps = array_keys( array_filter( $current_user->allcaps ) );
+	$args = array(
+		'post_type' => 'fcn_story',
+		'post_status' => 'any',
+		'posts_per_page' => 200,
+		'orderby' => 'modified',
+		'order' => 'DESC',
+		'no_found_rows' => true,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false
+	);
+
+	// If not an editor, only show the author's own stories
+	if ( ! in_array( 'edit_others_fcn_stories', $user_caps ) ) {
+		$args['author'] = get_current_user_id();
+	}
+
+	// Get stories
+	$posts = get_posts( $args );
+
+	// Do not display nothing or one
+	if ( count( $posts ) < 2 ) {
+		return;
+	}
+
+	// Restore alphabetic order
+	usort( $posts, function( $a, $b ) {
+		return strcmp( $a->post_title, $b->post_title );
+	});
+
+	// Build dropdown
+	$selected = absint( $_GET['filter_story'] ?? 0 );
+
+	// Open
+	echo '<select name="filter_story"><option value="">' . __( 'All Stories', 'fictioneer' ) . '</option>';
+
+	// Note if there are too many stories
+	if ( count( $posts ) >= 200 ) {
+		echo '<option value="" disabled>' . __( '200 MOST RECENTLY UPDATED', 'fictioneer' ) . '</option>';
+	}
+
+	// Items
+	foreach ( $posts as $post ) {
+		echo sprintf(
+			'<option value="%s" %s>%s</option>',
+			$post->ID,
+			$selected == $post->ID ? 'selected' : '',
+			$post->post_title
+		);
+	}
+
+	// Close
+	echo '</select>';
+}
+add_action( 'restrict_manage_posts', 'fictioneer_add_chapter_story_filter_dropdown' );
+
+/**
+ * Filters chapters in the chapter list table by story
+ *
+ * @param WP_Query $query  The WP_Query instance.
+ */
+
+function fictioneer_filter_chapters_by_story( $query ) {
+	global $post_type;
+
+	$screen = get_current_screen();
+
+	// Make damn sure this is the chapter list table query
+	if (
+		! is_admin() ||
+		empty( $screen ) ||
+		$screen->id !== 'edit-fcn_chapter' ||
+		$post_type !== 'fcn_chapter' ||
+		empty( $_GET['filter_story'] ?? 0 ) ||
+		$query->query_vars['post_type'] === 'fcn_story'
+	) {
+		return;
+	}
+
+	// Prepare meta query
+	$meta_query = array(
+		array(
+			'key' => 'fictioneer_chapter_story',
+			'value' => absint( $_GET['filter_story'] ?? 0 ),
+			'compare' => '='
+		)
+	);
+
+	// Apply to query
+	$query->set( 'meta_query', $meta_query );
+}
+add_action( 'pre_get_posts', 'fictioneer_filter_chapters_by_story' );
+
 ?>
