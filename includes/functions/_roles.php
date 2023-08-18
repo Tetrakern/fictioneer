@@ -24,7 +24,8 @@ define(
     'fcn_show_badge',
     'fcn_edit_permalink',
     'fcn_all_blocks',
-    'fcn_story_pages'
+    'fcn_story_pages',
+    'fcn_edit_date'
 	)
 );
 
@@ -132,6 +133,7 @@ function fictioneer_setup_roles() {
       'fcn_edit_permalink',
       'fcn_all_blocks',
       'fcn_story_pages',
+      'fcn_edit_date',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'delete_pages',              // Legacy restore
@@ -1371,6 +1373,38 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99 );
   }
 
+  // === FCN_EDIT_DATE =========================================================
+
+  /**
+   * Prevents the update of the publish date
+   *
+   * Note: The date can be edited until the post has been published once, so you
+   * can still schedule a post or change the target date. But once it is published,
+   * the date cannot be changed.
+   *
+   * @param array $data     An array of slashed, sanitized, and processed post data.
+   * @param array $postarr  An array of sanitized (and slashed) but otherwise unmodified post data.
+   *
+   * @return array         The potentially modified post data.
+   */
+
+  function fictioneer_prevent_publish_date_update( $data, $postarr ) {
+    // Setup
+    $first_publish_date = fictioneer_get_field( 'fictioneer_first_publish_date', $postarr['ID'] );
+
+    // Remove from update array if already published once
+    if ( ! empty( $first_publish_date ) ) {
+      unset( $data['post_date'] );
+      unset( $data['post_date_gmt'] );
+    }
+
+    // Continue filter
+    return $data;
+  }
+
+  if ( ! current_user_can( 'fcn_edit_date' ) ) {
+    add_filter( 'wp_insert_post_data', 'fictioneer_prevent_publish_date_update', 1, 2 );
+  }
 }
 
 ?>

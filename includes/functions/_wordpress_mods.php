@@ -1186,4 +1186,36 @@ function fictioneer_gate_unpublished_content() {
 }
 add_action( 'template_redirect', 'fictioneer_gate_unpublished_content' );
 
+// =============================================================================
+// STORE ORIGINAL PUBLISH DATE
+// =============================================================================
+
+/**
+ * Stores the original publish date of a post in post meta
+ *
+ * @since Fictioneer 5.6.0
+ *
+ * @param int     $post_id  The ID of the post being saved.
+ * @param WP_Post $post     The post object being saved.
+ */
+
+function fictioneer_store_original_publish_date( $post_id, $post ) {
+  // Prevent miss-fire
+  if (
+    fictioneer_multi_save_guard( $post_id ) ||
+    $post->post_status !== 'publish'
+  ) {
+    return;
+  }
+
+  // Get first publish date (if set)
+  $first_publish_date = fictioneer_get_field( 'fictioneer_first_publish_date', $post_id );
+
+  // Set if missing
+  if ( empty( $first_publish_date ) || strtotime( $first_publish_date ) === false ) {
+    update_post_meta( $post_id, 'fictioneer_first_publish_date', current_time( 'mysql' ) );
+  }
+}
+add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
+
 ?>

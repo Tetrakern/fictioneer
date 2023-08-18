@@ -36,7 +36,8 @@ $editor_caps = array(
   'fcn_make_sticky',
   'fcn_edit_permalink',
   'fcn_all_blocks',
-  'fcn_story_pages'
+  'fcn_story_pages',
+  'fcn_edit_date'
 );
 
 $restrictions = array(
