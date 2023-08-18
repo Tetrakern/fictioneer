@@ -550,6 +550,10 @@ While search engine optimization plugins such as [Yoast](https://wordpress.org/p
 
 And just to take a step back here and be real: SEO is important. Certainly. Unfortunately. But if you actually try to optimize your *prose* for keywords density, word complexity, sentence and paragraph length, or any other statistical insanity to beseech the great algorithm, you have a poison in your mind.
 
+### Warning: CSS Minification/Combination
+
+The theme’s CSS comes already minified and while additional optimizations such as combining files or filtering out *presumably* unused styles can further improve speed, it can also easily break your layout. This has been proven to be an issue with Cloudflare’s auto-minify feature, for example, which removes whitespaces in `clamp()` functions that are required for them to work. An especially insidious case that you might struggle to pinpoint as it happens during the network request, not on your own server.
+
 ## How to Configure the Fictioneer Theme
 
 ![General Settings Preview](repo/assets/settings_general_preview.jpg?raw=true)
