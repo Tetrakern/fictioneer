@@ -15,6 +15,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Optional: Additional Plugins](#optional-additional-plugins)
   * [Optional: Caching](#optional-caching)
   * [Warning: SEO Plugins](#warning-seo-plugins)
+  * [Warning: CSS Minification/Combination](#warning-css-minificationcombination)
 * [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
   * [General Tab](#general-tab)
   * [Roles Tab](#roles-tab)
