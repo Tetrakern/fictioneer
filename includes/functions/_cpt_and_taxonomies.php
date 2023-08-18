@@ -739,16 +739,22 @@ add_action( 'restrict_manage_posts', 'fictioneer_add_chapter_story_filter_dropdo
 function fictioneer_filter_chapters_by_story( $query ) {
 	global $post_type;
 
+	// Abort if...
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return;
+	}
+
 	$screen = get_current_screen();
 
 	// Make damn sure this is the chapter list table query
 	if (
 		! is_admin() ||
-		empty( $screen ) ||
-		$screen->id !== 'edit-fcn_chapter' ||
+		! $query->is_main_query() ||
+		$query->query_vars['post_type'] === 'fcn_story' ||
 		$post_type !== 'fcn_chapter' ||
 		empty( $_GET['filter_story'] ?? 0 ) ||
-		$query->query_vars['post_type'] === 'fcn_story'
+		empty( $screen ) ||
+		$screen->id !== 'edit-fcn_chapter'
 	) {
 		return;
 	}
@@ -765,6 +771,9 @@ function fictioneer_filter_chapters_by_story( $query ) {
 	// Apply to query
 	$query->set( 'meta_query', $meta_query );
 }
-add_action( 'pre_get_posts', 'fictioneer_filter_chapters_by_story' );
+
+if ( is_admin() ) {
+	add_action( 'pre_get_posts', 'fictioneer_filter_chapters_by_story' );
+}
 
 ?>
