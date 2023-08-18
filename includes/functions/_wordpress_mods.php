@@ -1035,6 +1035,8 @@ add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
  * Note: This function only identifies attempts and does not block content submission.
  * Posts are sanitized by WordPress before being saved to the database.
  *
+ * @since Fictioneer 5.6.0
+ *
  * @param array $data                 An array of slashed post data.
  * @param array $postarr              An array of sanitized, but otherwise unmodified post data.
  * @param array $unsanitized_postarr  An array of unsanitized and unprocessed post data as
@@ -1144,6 +1146,7 @@ add_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1, 3 );
  * accidentally expose private posts or drafts. It ignored the user in
  * favor of preview query vars via `fictioneer_verify_preview_access()`.
  *
+ * @since Fictioneer 5.6.0
  * @global WP_Post $post The current WordPress post object.
  */
 

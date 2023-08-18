@@ -1086,7 +1086,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_remove_profile_blocks() {
     // Add CSS to hide blocks...
-    echo '<style>.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
+    echo '<style type="text/css">.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
 
     // Add JS to remove blocks...
     echo '<script>document.addEventListener("DOMContentLoaded", () =>{document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {console.log(element); element.remove();});});</script>';
@@ -1170,13 +1170,13 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_MAKE_STICKY =======================================================
 
   /**
-   * Hide the 'sticky in lists" checkbox
+   * Hide the 'sticky in lists' checkbox
    *
    * @since 5.6.0
    */
 
   function fictioneer_hide_story_sticky_checkbox() {
-    echo '<style>[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
+    echo '<style type="text/css">[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
   }
 
   /**
@@ -1336,6 +1336,41 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'allowed_block_types_all', 'fictioneer_restrict_block_types', 20 ); // Run after global filter
     add_filter( 'wp_insert_post_data', 'fictioneer_remove_restricted_block_content', 1 );
   }
+
+  // === FCN_EDIT_PERMALINK ====================================================
+
+  /**
+   * Prevents user edit of permalink
+   *
+   * @since 5.6.0
+   *
+   * @param array $data  An array of slashed, sanitized, and processed post data.
+   *
+   * @return array The post data with the permalink enforced.
+   */
+
+  function fictioneer_prevent_permalink_edit( $data ) {
+    $data['post_name'] = sanitize_title( $data['post_title'] );
+
+    return $data;
+  }
+
+  /**
+   * Hide the permalink field
+   *
+   * @since 5.6.0
+   */
+
+
+  function fictioneer_hide_permalink() {
+    echo '<style type="text/css">.edit-post-post-url{display: none !important;}</style>';
+  }
+
+  if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
+    add_action( 'admin_head-post.php', 'fictioneer_hide_permalink' );
+    add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99 );
+  }
+
 }
 
 ?>
