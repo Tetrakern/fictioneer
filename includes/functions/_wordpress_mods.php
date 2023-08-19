@@ -1132,6 +1132,9 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
     );
   }
 
+  // Make sure this only triggers once
+  remove_filter( 'wp_insert_post_data', 'fictioneer_see_some_evil', 1 );
+
   // Continue filter
   return $data;
 }
