@@ -167,8 +167,6 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
             $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
             $group = $enable_groups ? $group : 'all_chapters';
             $group_key = sanitize_title( $group );
-            $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color' );
-            $warning_color = empty( $warning_color ) ? '' : 'color: ' . $warning_color . ';';
 
             if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
               $chapter_groups[sanitize_title( $group )] = array(
@@ -190,8 +188,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
               'title' => fictioneer_get_safe_title( $chapter_id ),
               'list_title' => fictioneer_get_field( 'fictioneer_chapter_list_title' ),
               'words' => get_post_meta( $chapter_id, '_word_count', true ),
-              'warning' => fictioneer_get_field( 'fictioneer_chapter_warning' ),
-              'warning_color' => $warning_color
+              'warning' => fictioneer_get_field( 'fictioneer_chapter_warning' )
             );
           }
         }

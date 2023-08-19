@@ -97,7 +97,6 @@ Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_r
 **data:**
 * $id (int) – ID of the chapter.
 * $warning (string) – Warning note or empty string.
-* $warning_color (string) – CSS color declaration or empty string.
 * $password (boolean) – Whether the chapter requires a password.
 * $timestamp (string) – Timestamp as ISO 8601 format.
 * $list_date (string) – Displayed chapter date for the list view.

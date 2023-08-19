@@ -1528,8 +1528,8 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
    *
    * @since Fictioneer 5.1.2
    *
-   * @param array $data Chapter data for the meta row.
-   * @param array $args Optional arguments.
+   * @param array $data  Chapter data for the meta row.
+   * @param array $args  Optional arguments.
    *
    * @return string HTML of the list chapter meta row.
    */
@@ -1543,7 +1543,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
     if ( ! empty( $data['warning'] ) ) {
       ob_start();
       // Start HTML ---> ?>
-      <span class="chapter-group__list-item-warning list-view" style="<?php echo $data['warning_color']; ?>"><?php
+      <span class="chapter-group__list-item-warning list-view"><?php
         printf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] );
       ?></span>
       <?php // <--- End HTML

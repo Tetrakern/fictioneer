@@ -124,13 +124,12 @@ function fictioneer_chapter_warnings( $args ) {
   // Setup
   $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $args['chapter_id'] );
   $warning_notes = fictioneer_get_field( 'fictioneer_chapter_warning_notes', $args['chapter_id'] );
-  $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color', $args['chapter_id'] );
 
   // Abort conditions
   if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) return '';
 
   // Start HTML ---> ?>
-  <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix" style="<?php if ( $warning_color ) echo "color: {$warning_color};"; ?>">
+  <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix">
     <?php if ( $warning ) : ?>
       <p><?php
         printf(

@@ -1056,8 +1056,6 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
           // Data
           $warning = fictioneer_get_field( 'fictioneer_chapter_warning' );
-          $warning_color = fictioneer_get_field( 'fictioneer_chapter_warning_color' );
-          $warning_color = $warning_color ? 'color: ' . $warning_color . ';' : '';
           $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon' );
           $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
           $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix' );
@@ -1065,7 +1063,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $title = fictioneer_get_safe_title( $chapter_id );
 
           // Start HTML ---> ?>
-          <li class="chapter-group__list-item" data-post-id="<?php echo $chapter_id; ?>">
+          <li class="chapter-group__list-item<?php echo $warning ? ' _warning' : ''; ?>" data-post-id="<?php echo $chapter_id; ?>">
             <?php if ( ! empty( $text_icon ) && ! $hide_icons ) : ?>
               <span class="chapter-group__list-item-icon _text text-icon"><?php echo $text_icon; ?></span>
             <?php elseif ( ! $hide_icons ) : ?>
@@ -1086,7 +1084,6 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               $chapter_data = [];
               $chapter_data['id'] = $chapter_id;
               $chapter_data['warning'] = $warning;
-              $chapter_data['warning_color'] = $warning_color;
               $chapter_data['password'] = post_password_required();
               $chapter_data['timestamp'] = get_the_time( 'c' );
               $chapter_data['list_date'] = get_the_date( '' );
