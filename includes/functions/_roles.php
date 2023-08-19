@@ -799,6 +799,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Strip shortcodes from content before saving to database
    *
+   * Note: The user can still use shortcodes on pages that already have them.
+   * This is not ideal, but an edge case. Someone who cannot use shortcodes
+   * usually also cannot edit others posts.
+   *
    * @since Fictioneer 5.6.0
    *
    * @param array $data  An array of slashed, sanitized, and processed post data.
@@ -812,11 +816,14 @@ if ( ! current_user_can( 'manage_options' ) ) {
       current_user_can( 'fcn_shortcodes' ) ||
       get_current_user_id() !== (int) $data['post_author']
     ) {
-      return;
+      return $data;
     }
 
     // Strip the shortcodes
     $data['post_content'] = strip_shortcodes( $data['post_content'] );
+
+    // Only do this for the trigger post or bad things can happen!
+    remove_filter( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
 
     // Continue filter
     return $data;
