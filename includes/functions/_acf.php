@@ -115,7 +115,7 @@ if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
  *
  * @since Fictioneer 5.0
  *
- * @param int $post_id The post ID.
+ * @param int $post_id  The post ID.
  */
 
 function fictioneer_update_post_relationships( $post_id ) {

@@ -26,7 +26,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
  *
  * @since 4.7
  *
- * @param WP_Customize_Manager $manager The customizer instance.
+ * @param WP_Customize_Manager $manager  The customizer instance.
  */
 
 function fictioneer_add_light_mode_customizer_settings( $manager ) {
@@ -1077,7 +1077,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
  *
  * @since 4.7
  *
- * @param WP_Customize_Manager $manager The customizer instance.
+ * @param WP_Customize_Manager $manager  The customizer instance.
  */
 
 function fictioneer_add_dark_mode_customizer_settings( $manager ) {
@@ -2107,7 +2107,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
  *
  * @since 4.7
  *
- * @param WP_Customize_Manager $manager The customizer instance.
+ * @param WP_Customize_Manager $manager  The customizer instance.
  */
 
 function fictioneer_add_layout_customizer_settings( $manager ) {
@@ -2734,7 +2734,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
  * @since 3.0
  * @since 4.7 Expanded settings to customize color scheme.
  *
- * @param WP_Customize_Manager $manager The customizer instance.
+ * @param WP_Customize_Manager $manager  The customizer instance.
  */
 
 function fictioneer_add_customizers( $manager ) {

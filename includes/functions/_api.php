@@ -10,8 +10,8 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
    *
    * @since Fictioneer 5.1
    *
-   * @param int     $story_id      ID of the story.
-   * @param boolean $with_chapters Whether to include chapters. Default true.
+   * @param int     $story_id       ID of the story.
+   * @param boolean $with_chapters  Whether to include chapters. Default true.
    *
    * @return array|boolean Either array with story data or false if not valid.
    */
@@ -245,7 +245,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
    * @since Fictioneer 5.1
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
-   * @param WP_REST_Request $WP_REST_Request Request object.
+   * @param WP_REST_Request $WP_REST_Request  Request object.
    *
    * @return WP_REST_Response|WP_Error Response or error.
    */
@@ -324,7 +324,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
    * @since Fictioneer 5.1
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
-   * @param WP_REST_Request $WP_REST_Request Request object.
+   * @param WP_REST_Request $WP_REST_Request  Request object.
    */
 
   function fictioneer_api_request_stories( WP_REST_Request $data ) {

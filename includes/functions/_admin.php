@@ -182,7 +182,7 @@ if ( current_user_can( 'install_themes' ) ) {
  *
  * @since Fictioneer 5.2.5
  *
- * @param array $args The list of removable query arguments.
+ * @param array $args  The list of removable query arguments.
  *
  * @return array The modified list of removable query arguments.
  */

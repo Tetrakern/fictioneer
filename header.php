@@ -15,7 +15,7 @@
  * @see fictioneer_output_head_meta()
  * @see fictioneer_output_head_critical_scripts()
  *
- * @internal $args Array of arguments passed to the template.
+ * @internal $args  Array of arguments passed to the template.
  */
 ?>
 

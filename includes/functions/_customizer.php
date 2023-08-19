@@ -14,8 +14,9 @@ if ( ! function_exists( 'fictioneer_hex_to_rgb' ) ) {
    * @since Fictioneer 4.7
    * @link https://github.com/SimonWaldherr/ColorConverter.php
    *
-   * @param  string $input The to be converted hex (six digits).
-   * @return array  RGB values as array.
+   * @param string $input  The to be converted hex (six digits).
+   *
+   * @return array RGB values as array.
    */
 
   function fictioneer_hex_to_rgb( $input ) {
@@ -63,9 +64,10 @@ if ( ! function_exists( 'fictioneer_rgb_to_hsl' ) ) {
    * @since Fictioneer 4.7
    * @link https://github.com/SimonWaldherr/ColorConverter.php
    *
-   * @param  array  $input     The to be converted RGB.
-   * @param  int    $precision Rounding precision. Default 0.
-   * @return array  HSL values as array.
+   * @param array $input      The to be converted RGB.
+   * @param int   $precision  Rounding precision. Default 0.
+   *
+   * @return array HSL values as array.
    */
 
   function fictioneer_rgb_to_hsl( $input, $precision = 0 ) {
@@ -110,7 +112,8 @@ if ( ! function_exists( 'fictioneer_minify_css' ) ) {
    * @link https://stackoverflow.com/a/15195752/17140970
    * @link https://stackoverflow.com/a/44350195/17140970
    *
-   * @param  string $string The to be minified CSS string.
+   * @param string $string  The to be minified CSS string.
+   *
    * @return string The minified CSS string.
    */
 
@@ -167,15 +170,15 @@ if ( ! function_exists( 'fictioneer_minify_css' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_css_clamp' ) ) {
   /**
-   * Generate a high-precision CSS clamp.
+   * Generate a high-precision CSS clamp
    *
    * @since Fictioneer 4.7
    *
-   * @param  int    $min  The minimum value.
-   * @param  int    $max  The maximum value.
-   * @param  int    $wmin The minimum viewport value.
-   * @param  int    $wmax The maximum viewport value.
-   * @param  string $unit The relative clamp unit. Default 'vw'.
+   * @param int    $min   The minimum value.
+   * @param int    $max   The maximum value.
+   * @param int    $wmin  The minimum viewport value.
+   * @param int    $wmax  The maximum viewport value.
+   * @param string $unit  The relative clamp unit. Default 'vw'.
    *
    * @return string The calculated clamp.
    */
@@ -201,8 +204,9 @@ if ( ! function_exists( 'fictioneer_hsl_code' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param  string $hex    The color as hex.
-   * @param  string $output Switch output style. Default 'default'.
+   * @param string $hex     The color as hex.
+   * @param string $output  Switch output style. Default 'default'.
+   *
    * @return string The converted color.
    */
 
@@ -236,7 +240,8 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
    * @since Fictioneer 4.7
    * @see fictioneer_hsl_code( $hex, $output )
    *
-   * @param  string $hex The color as hex.
+   * @param string $hex  The color as hex.
+   *
    * @return string The converted color.
    */
 
