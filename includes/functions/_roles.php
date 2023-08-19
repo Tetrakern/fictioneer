@@ -79,9 +79,9 @@ function fictioneer_initialize_roles( $force = false ) {
 
   // If this capability is missing, the roles have not yet been initialized
   if (
-    ( $administrator && ! in_array( 'fcn_edit_date', array_keys( $administrator->capabilities ) ) ||
+    ( $administrator && ! in_array( 'fcn_edit_date', array_keys( $administrator->capabilities ) ) ) ||
     $force
-  ) ) {
+  ) {
     fictioneer_setup_roles();
   }
 }
@@ -136,6 +136,7 @@ function fictioneer_setup_roles() {
       'fcn_edit_date',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
+      'edit_pages',                // Legacy restore
       'delete_pages',              // Legacy restore
       'delete_published_pages',    // Legacy restore
       'delete_published_posts',    // Legacy restore
