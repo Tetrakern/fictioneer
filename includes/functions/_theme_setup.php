@@ -103,6 +103,8 @@ function fictioneer_theme_setup() {
   // Remove block patterns
   remove_theme_support( 'core-block-patterns' );
 
+  remove_theme_support( 'block-templates' );
+
   // Remove widget support...
   if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
     remove_theme_support( 'widgets' );
