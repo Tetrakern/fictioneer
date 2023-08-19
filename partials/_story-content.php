@@ -10,8 +10,8 @@
  * @since 4.7
  * @see single-fcn_story.php
  *
- * @internal $args['story_data'] Story data from fictioneer_get_story_data().
- * @internal $args['story_id']   Current story and post ID.
+ * @internal $args['story_data']  Story data from fictioneer_get_story_data().
+ * @internal $args['story_id']    Current story and post ID.
  */
 ?>
 
@@ -26,7 +26,9 @@ $blog_posts = fictioneer_get_story_blog_posts( $story_id );
 
 if ( $custom_pages ) {
   foreach ( $custom_pages as $page_id ) {
-    $tab_pages[] = [$page_id, fictioneer_get_field( 'fictioneer_short_name', $page_id ), get_the_content( null, false, $page_id )];
+    if ( get_post_status( $page_id ) === 'publish' ) {
+      $tab_pages[] = [$page_id, fictioneer_get_field( 'fictioneer_short_name', $page_id ), get_the_content( null, false, $page_id )];
+    }
   }
 }
 
@@ -70,13 +72,17 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
         $index = 1;
 
         foreach ( $tab_pages as $page ) {
-          if ( empty( $page[1] ) ) continue;
+          if ( empty( $page[1] ) ) {
+            continue;
+          }
 
           echo "<button class='tabs__item' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
 
           $index++;
 
-          if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY) break; // Only show 4 custom tabs
+          if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY ) {
+            break; // Only show 4 custom tabs
+          }
         }
       }
     ?>
@@ -116,7 +122,9 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
 
       $index++;
 
-      if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY) break; // Only show 4 custom tabs
+      if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY ) {
+        break; // Only show 4 custom tabs
+      }
     }
   }
 ?>
