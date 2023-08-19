@@ -15,14 +15,15 @@ function fictioneer_bring_out_legacy_trash() {
   $options = wp_cache_get( 'alloptions', 'options' );
   $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_comment_form_selector', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log'];
 
-  // Check for most recent obsolete option, run a delete for everything
+  // Check for most recent obsolete option...
   if ( isset( $options['fictioneer_disable_html_in_comments'] ) ) {
+    // Looping everything is not great but it only happens once!
     foreach ( $obsolete as $trash ) {
       delete_option( $trash );
     }
   }
 }
-add_action( 'init', 'fictioneer_bring_out_legacy_trash' );
+add_action( 'admin_init', 'fictioneer_bring_out_legacy_trash' );
 
 // =============================================================================
 // THEME SETUP
@@ -72,7 +73,7 @@ function fictioneer_theme_setup() {
   );
 
   // Add support for custom backgrounds (with custom callback)
-  add_theme_support( 'custom-background', ['wp-head-callback' => 'fictioneer_custom_background'] );
+  add_theme_support( 'custom-background', array( 'wp-head-callback' => 'fictioneer_custom_background' ) );
 
   // Add support for custom header images
   add_theme_support(
@@ -96,13 +97,14 @@ function fictioneer_theme_setup() {
       'width' => (int) get_theme_mod( 'header_image_height_max', 210 ) * 1.5,
       'flex-height' => true,
       'height' => get_theme_mod( 'header_image_height_max', 210 ),
-      'header-text' => array( 'site-title', 'site-description' ),
+      'header-text' => ['site-title', 'site-description'],
     )
   );
 
   // Remove block patterns
   remove_theme_support( 'core-block-patterns' );
 
+  // Disable template editor (automatically added due to theme.json!)
   remove_theme_support( 'block-templates' );
 
   // Remove widget support...
@@ -146,24 +148,43 @@ function fictioneer_custom_background() {
   // Background position
   $position_x = get_theme_mod( 'background_position_x' );
   $position_y = get_theme_mod( 'background_position_y' );
-  if ( ! in_array( $position_x, ['left', 'center', 'right'], true ) ) $position_x = 'left';
-  if ( ! in_array( $position_y, ['top', 'center', 'bottom'], true ) ) $position_y = 'top';
-  $position = "background-position: $position_x $position_y;";
+
+  if ( ! in_array( $position_x, ['left', 'center', 'right'], true ) ) {
+    $position_x = 'left';
+  }
+
+  if ( ! in_array( $position_y, ['top', 'center', 'bottom'], true ) ) {
+    $position_y = 'top';
+  }
+
+  $position = "background-position: {$position_x} {$position_y};";
 
   // Background size
   $size = get_theme_mod( 'background_size' );
-  if ( ! in_array( $size, ['auto', 'contain', 'cover'], true ) ) $size = 'auto';
-  $size = "background-size: $size;";
+
+  if ( ! in_array( $size, ['auto', 'contain', 'cover'], true ) ) {
+    $size = 'auto';
+  }
+
+  $size = "background-size: {$size};";
 
   // Background repeat
   $repeat = get_theme_mod( 'background_repeat' );
-  if ( ! in_array( $repeat, ['repeat-x', 'repeat-y', 'repeat', 'no-repeat'], true ) ) $repeat = 'repeat';
-  $repeat = "background-repeat: $repeat;";
+
+  if ( ! in_array( $repeat, ['repeat-x', 'repeat-y', 'repeat', 'no-repeat'], true ) ) {
+    $repeat = 'repeat';
+  }
+
+  $repeat = "background-repeat: {$repeat};";
 
   // Background scroll
   $attachment = get_theme_mod( 'background_attachment' );
-  if ( 'fixed' !== $attachment ) $attachment = 'scroll';
-  $attachment = "background-attachment: $attachment;";
+
+  if ( 'fixed' !== $attachment ) {
+    $attachment = 'scroll';
+  }
+
+  $attachment = "background-attachment: {$attachment};";
 
   // Build
   $style = $image . $position . $size . $repeat . $attachment;
@@ -191,9 +212,9 @@ function fictioneer_modify_allowed_tags() {
     'datetime' => []
   );
 
-  $allowedtags['p'] = array();
-  $allowedtags['span'] = array();
-  $allowedtags['br'] = array();
+  $allowedtags['p'] = [];
+  $allowedtags['span'] = [];
+  $allowedtags['br'] = [];
 }
 add_action( 'init', 'fictioneer_modify_allowed_tags', 20 );
 
@@ -211,37 +232,43 @@ function fictioneer_root_attributes() {
   $output = [];
   $header_classes = [];
 
-  // Data
-  $site_width = get_theme_mod( 'site_width', 960 );
-  $header_inset_default = get_theme_mod( 'inset_header_image', false ) ? 1 : 0;
-  $mode_default = get_option( 'fictioneer_light_mode_as_default', false ) ? 'light' : 'dark';
-  $ajax_submit = get_option( 'fictioneer_enable_ajax_comment_submit', false );
-  $comment_edit_threshold = get_option( 'fictioneer_user_comment_edit_time', 15 );
-
   // Add configuration classes
-  if ( $header_inset_default ) $header_classes[] = 'inset-header-image';
+  if ( get_theme_mod( 'inset_header_image', false ) ) {
+    $header_classes[] = 'inset-header-image';
+  }
 
   // Prepare
   $output['class'] = implode( ' ', $header_classes );
-  $output['data-mode-default'] = $mode_default;
-  $output['data-site-width-default'] = $site_width;
+  $output['data-mode-default'] = get_option( 'fictioneer_light_mode_as_default', false ) ? 'light' : 'dark';
+  $output['data-site-width-default'] = get_theme_mod( 'site_width', 960 );
   $output['data-theme'] = 'default';
   $output['data-mode'] = '';
   $output['data-font-weight'] = 'default';
   $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT_CSS;
-  if ( $ajax_submit ) $output['data-ajax-submit'] = 'true';
-  if ( ! FICTIONEER_THEME_SWITCH ) $output['data-force-child-theme'] = '1';
-  if ( get_option( 'fictioneer_enable_ajax_nonce', false ) ) $output['data-ajax-nonce'] = '1';
-  if ( get_option( 'fictioneer_enable_public_cache_compatibility', false ) ) $output['data-public-caching'] = '1';
-  if ( get_option( 'fictioneer_enable_ajax_authentication', false ) ) $output['data-ajax-auth'] = '1';
-  if ( get_option( 'fictioneer_enable_user_comment_editing', false ) ) $output['data-edit-time'] = $comment_edit_threshold;
+
+  $conditions = array(
+    'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
+    'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,
+    'data-ajax-nonce' => get_option( 'fictioneer_enable_ajax_nonce', false ),
+    'data-public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
+    'data-ajax-auth' => get_option( 'fictioneer_enable_ajax_authentication', false ),
+    'data-edit-time' => get_option( 'fictioneer_enable_user_comment_editing', false ) ?
+      get_option( 'fictioneer_user_comment_edit_time', 15 ) : false,
+  );
+
+  // Iterate conditions and add the truthy to the output
+  foreach ( $conditions as $key => $condition ) {
+    if ( $condition ) {
+      $output[ $key ] = is_bool( $condition ) ? '1' : $condition;
+    }
+  }
 
   // Filter output
   $output = apply_filters( 'fictioneer_filter_root_attributes', $output );
 
   // Output
   foreach ( $output as $key => $value ) {
-    echo $key . '="' . $value . '" ';
+    echo "{$key}='{$value}' ";
   }
 }
 

@@ -50,7 +50,6 @@ function fictioneer_add_comment_meta_box() {
 function fictioneer_comment_meta_box ( $comment ) {
   // Setup
   $type = get_comment_type( $comment->comment_ID );
-  $comment_author = get_user_by( 'ID', $comment->user_id );
   $user_reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
   $is_offensive = get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true );
   $is_sticky = get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true );
@@ -314,11 +313,11 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
    * @since Fictioneer 4.7
    * @link https://github.com/WordPress/WordPress/blob/master/wp-admin/comment.php
    *
-   * @param int            $comment_id  The ID of the comment.
-   * @param string         $action      Optional. The action to perform. Default 'edit'.
-   * @param string|boolean $redirect_to Optional. Return URL after action. Default false.
+   * @param int            $comment_id   The ID of the comment.
+   * @param string         $action       Optional. The action to perform. Default 'edit'.
+   * @param string|boolean $redirect_to  Optional. Return URL after action. Default false.
    *
-   * @return string|boolean $output The link or false if an invalid call.
+   * @return string|boolean The link or false if an invalid call.
    */
 
   function fictioneer_get_comment_action_link( $comment_id, $action = 'edit', $redirect_to = false ) {
@@ -374,7 +373,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param object $comment Comment object.
+   * @param object $comment  Comment object.
    */
 
   function fictioneer_comment_mod_menu( $comment ) {
@@ -385,7 +384,9 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
     if (
       ! current_user_can( 'moderate_comments' ) &&
       ! get_option( 'fictioneer_enable_public_cache_compatibility' )
-    ) return;
+    ) {
+      return;
+    }
 
     // Buffer and return
     ob_start();
@@ -466,28 +467,31 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
 function fictioneer_ajax_moderate_comment() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   if ( ! current_user_can( 'moderate_comments' ) ) {
-    wp_send_json_error( ['error' => __( 'Permission denied!', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
   }
 
   $comment_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
 
   if ( empty( $_POST['operation'] ) || ! $comment_id ) {
-    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
   }
 
   $operation = sanitize_text_field( $_POST['operation'] );
 
   if ( ! in_array( $operation, ['spam', 'trash', 'approve', 'unapprove', 'close', 'open', 'sticky', 'unsticky'] ) ) {
-    wp_send_json_error( ['error' => __( 'Invalid operation.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Invalid operation.', 'fictioneer' ) ) );
   }
 
   $comment = get_comment( $comment_id );
 
   if ( ! $comment ) {
-    wp_send_json_error( ['error' => __( 'Comment not found in database.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Comment not found in database.', 'fictioneer' ) ) );
   }
 
   // Process and update
@@ -531,11 +535,13 @@ function fictioneer_ajax_moderate_comment() {
   // Send result
   if ( $result ) {
     // Clear cache if necessary
-    if ( fictioneer_caching_active() ) fictioneer_purge_post_cache( $comment->comment_post_ID );
+    if ( fictioneer_caching_active() ) {
+      fictioneer_purge_post_cache( $comment->comment_post_ID );
+    }
 
-    wp_send_json_success( ['id' => $comment_id, 'operation' => $operation] );
+    wp_send_json_success( array( 'id' => $comment_id, 'operation' => $operation ) );
   } else {
-    wp_send_json_error( ['error' => __( 'Database error. Comment could not be updated.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Comment could not be updated.', 'fictioneer' ) ) );
   }
 }
 
@@ -621,7 +627,9 @@ function fictioneer_ajax_report_comment() {
   }
 
   // Purge cache
-  if ( fictioneer_caching_active() ) fictioneer_purge_post_cache( $comment->comment_post_ID );
+  if ( fictioneer_caching_active() ) {
+    fictioneer_purge_post_cache( $comment->comment_post_ID );
+  }
 
   // Return result
   wp_send_json_success(
@@ -638,7 +646,7 @@ function fictioneer_ajax_report_comment() {
  * @since Fictioneer 4.7
  * @link  https://rudrastyh.com/wordpress/comments-table-columns.html
  *
- * @param array $cols Default columns.
+ * @param array $cols  Default columns.
  *
  * @return array Updated columns.
  */
@@ -656,8 +664,8 @@ function fictioneer_add_comments_report_column( $cols ) {
  * @link  https://rudrastyh.com/wordpress/comments-table-columns.html
  * @link  https://developer.wordpress.org/reference/hooks/manage_comments_custom_column/
  *
- * @param string $column     The custom column's name.
- * @param string $comment_id The comment ID as a numeric string.
+ * @param string $column      The custom column's name.
+ * @param string $comment_id  The comment ID as a numeric string.
  */
 
 function fictioneer_add_comments_report_column_content( $column, $comment_id ) {

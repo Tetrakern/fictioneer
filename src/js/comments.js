@@ -361,7 +361,7 @@ _$('.comment-section')?.addEventListener('click', event => {
 
 function fcn_bindAJAXCommentSubmit() {
   // Check whether AJAX submit is enabled, abort if not...
-  if (!fcn_theRoot.dataset.ajaxSubmit || fcn_theRoot.dataset.ajaxSubmit != 'true') {
+  if (!fcn_theRoot.dataset.ajaxSubmit) {
     return;
   }
 
@@ -899,7 +899,10 @@ function fcn_getCommentForm() {
       fcn_addTextareaEvents();
       fcn_addCommentFormEvents();
       fcn_addPrivateToggleEvents()
-      if (fcn_theRoot.dataset.ajaxSubmit) fcn_bindAJAXCommentSubmit();
+
+      if (fcn_theRoot.dataset.ajaxSubmit) {
+        fcn_bindAJAXCommentSubmit();
+      }
 
       // JS trap (if active)
       fcn_addJSTrap();

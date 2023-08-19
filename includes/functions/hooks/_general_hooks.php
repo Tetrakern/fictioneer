@@ -247,13 +247,13 @@ add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
  * @param array $args {
  *   Array of arguments.
  *
- *   @type int        $current_page  Optional. Current page if paginated or `1`.
- *   @type int        $post_id       Optional. Current post ID.
- *   @type string     $queried_type  Optional. Queried post type.
- *   @type array      $query_args    Optional. Query arguments used.
- *   @type string     $order         Current order or `desc`.
- *   @type string     $orderby       Current orderby or `'modified'`.
- *   @type int|string $ago           Current date query argument part or `0`.
+ *   @type int        $current_page   Optional. Current page if paginated or `1`.
+ *   @type int        $post_id        Optional. Current post ID.
+ *   @type string     $queried_type   Optional. Queried post type.
+ *   @type array      $query_args     Optional. Query arguments used.
+ *   @type string     $order          Current order or `desc`.
+ *   @type string     $orderby        Current orderby or `'modified'`.
+ *   @type int|string $ago            Current date query argument part or `0`.
  * }
  */
 

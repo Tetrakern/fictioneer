@@ -38,7 +38,7 @@ add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
  *
  * @since Fictioneer 5.0
  *
- * @param array $classes Current body classes.
+ * @param array $classes  Current body classes.
  */
 
 function fictioneer_add_classes_to_body( $classes ) {
@@ -47,7 +47,7 @@ function fictioneer_add_classes_to_body( $classes ) {
   $includes = [];
 
   // Roles
-  if ( ! get_option( 'fictioneer_enable_public_cache_compatibility' ) && ! is_admin() ) {
+  if ( $user->ID > 0 && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
     $includes['is-admin'] = fictioneer_is_admin( $user->ID );
     $includes['is-moderator'] = fictioneer_is_moderator( $user->ID );
     $includes['is-author'] = fictioneer_is_author( $user->ID );
@@ -55,7 +55,7 @@ function fictioneer_add_classes_to_body( $classes ) {
   }
 
   // Browsers
-  if ( ! fictioneer_caching_active() && ! is_admin() ) {
+  if ( ! fictioneer_caching_active() ) {
     $includes['is-iphone'] = $GLOBALS['is_iphone'];
     $includes['is-chrome'] = $GLOBALS['is_chrome'];
     $includes['is-safari'] = $GLOBALS['is_safari'];
@@ -74,7 +74,10 @@ function fictioneer_add_classes_to_body( $classes ) {
   // Return classes
   return $classes;
 }
-add_filter( 'body_class', 'fictioneer_add_classes_to_body' );
+
+if ( ! is_admin() ) {
+  add_filter( 'body_class', 'fictioneer_add_classes_to_body' );
+}
 
 function fictioneer_add_classes_to_admin_body( $classes ) {
   // Setup
@@ -112,7 +115,7 @@ add_filter( 'admin_body_class', 'fictioneer_add_classes_to_admin_body' );
  *
  * @since Fictioneer 4.3
  *
- * @param int $updated_user_id The ID of the updated user.
+ * @param int $updated_user_id  The ID of the updated user.
  */
 
 function fictioneer_update_admin_user_profile( $updated_user_id ) {
@@ -220,7 +223,7 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_admin_user_profile' )
  *
  * @since Fictioneer 4.3
  *
- * @param int $updated_user_id The ID of the updated user.
+ * @param int $updated_user_id  The ID of the updated user.
  */
 
 function fictioneer_update_my_user_profile( $updated_user_id ) {

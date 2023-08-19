@@ -949,8 +949,11 @@ function fictioneer_ajax_is_user_logged_in() {
     )
   );
 }
-add_action( 'wp_ajax_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
-add_action( 'wp_ajax_nopriv_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
+
+if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
+  add_action( 'wp_ajax_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
+  add_action( 'wp_ajax_nopriv_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
+}
 
 // =============================================================================
 // GET NONCE VIA AJAX
@@ -966,10 +969,14 @@ add_action( 'wp_ajax_nopriv_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax
 function fictioneer_ajax_get_nonce() {
   $nonce = wp_create_nonce( 'fictioneer_nonce' );
   $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
-  wp_send_json_success( ['nonce' => $nonce, 'nonceHtml' => $nonce_html] );
+
+  wp_send_json_success( array( 'nonce' => $nonce, 'nonceHtml' => $nonce_html ) );
 }
-add_action( 'wp_ajax_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
-add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
+
+if ( get_option( 'fictioneer_enable_ajax_nonce' ) ) {
+  add_action( 'wp_ajax_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
+  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
+}
 
 // =============================================================================
 // FICTIONEER TRANSLATIONS
@@ -1709,7 +1716,9 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     $cached_word_count = get_transient( 'fictioneer_stories_total_word_count' );
 
     // Return cached value if found
-    if ( $cached_word_count ) return $cached_word_count;
+    if ( $cached_word_count ) {
+      return $cached_word_count;
+    }
 
     // Setup
   	$word_count = 0;

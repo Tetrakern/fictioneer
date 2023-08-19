@@ -68,7 +68,10 @@ function fcn_cleanupWebStorage(keepGuestData = false) {
   localStorage.removeItem('fcnFingerprint');
   localStorage.removeItem('fcnLoginState');
   localStorage.removeItem('fcnBookshelfContent');
-  if (!keepGuestData) localStorage.removeItem('fcnChapterBookmarks');
+
+  if (!keepGuestData) {
+    localStorage.removeItem('fcnChapterBookmarks');
+  }
 
   // Clean up private nonce but keep public nonce
   let maybeNonce = localStorage.getItem('fcnNonce');
@@ -97,6 +100,7 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
 function fcn_cleanupGuestView() {
   fcn_isLoggedIn = false;
   fcn_theBody.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
+
   _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .chapter-group__list-item-checkmark').forEach(element => {
     element.remove()
   });
@@ -133,7 +137,9 @@ function fcn_fetchNonce() {
     fcn_addNonceAndAuth(storage['nonceHtml']);
 
     // If not timed out, skip server request
-    if (fcn_ajaxLimitThreshold < storage['lastLoaded']) return;
+    if (fcn_ajaxLimitThreshold < storage['lastLoaded']) {
+      return;
+    }
   }
 
   // Load from server
@@ -183,7 +189,9 @@ function fcn_addNonceAndAuth(nonceHtml) {
   fcn_theRoot.dispatchEvent(fcn_eventNonceReady);
 
   // Call to fetch login state (if necessary)
-  if (!fcn_isLoggedIn && fcn_isAjaxAuth) fcn_fetchLoginState();
+  if (!fcn_isLoggedIn && fcn_isAjaxAuth) {
+    fcn_fetchLoginState();
+  }
 }
 
 // =============================================================================
@@ -212,7 +220,9 @@ function fcn_fetchLoginState() {
     fcn_setLoggedInState(storage, false); // Do not initialize (happens later in this case)
 
     // If not timed out, skip server request
-    if (Date.now() - fictioneer_ajax.login_ttl < storage['lastLoaded']) return;
+    if (Date.now() - fictioneer_ajax.login_ttl < storage['lastLoaded']) {
+      return;
+    }
   }
 
   // Load from server
