@@ -294,7 +294,7 @@ if ( ! defined( 'FICTIONEER_DISABLE_ACF_JSON_IMPORT' ) ) {
   define( 'FICTIONEER_DISABLE_ACF_JSON_IMPORT', false );
 }
 
-// Boolean: Disable ACF JSON import
+// Boolean: Enable sticky cards
 if ( ! defined( 'FICTIONEER_ENABLE_STICKY_CARDS' ) ) {
   define( 'FICTIONEER_ENABLE_STICKY_CARDS', true );
 }
