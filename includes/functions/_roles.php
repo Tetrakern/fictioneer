@@ -1123,7 +1123,11 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_hide_story_sticky_checkbox() {
-    echo '<style type="text/css">[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
+    global $post_type;
+
+    if ( $post_type === 'fcn_story' ) {
+      echo '<style type="text/css">[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
+    }
   }
 
   /**
@@ -1143,7 +1147,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_sticky', '__return_zero' ); // Must be 0!
-    add_action( 'admin_head-post.php', 'fictioneer_hide_story_sticky_checkbox' ); // Field must be in form!
+    add_action( 'admin_head', 'fictioneer_hide_story_sticky_checkbox' ); // Field must be in form, value used in queries!
     add_action( 'post_stuck', 'fictioneer_prevent_post_sticky' );
   }
 
