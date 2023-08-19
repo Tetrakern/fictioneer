@@ -392,7 +392,7 @@ function fictioneer_add_moderator_role() {
 // APPLY CAPABILITY RULES
 // =============================================================================
 
-// Add templates ('name' => true) to the array you want to allow
+// Add templates ('name' => 'Display Name') to the array you want to allow
 if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
   define( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES', [] );
 }
@@ -510,71 +510,57 @@ if ( ! current_user_can( 'manage_options' ) ) {
    *
    * @since Fictioneer 5.6.0
    *
-   * @param array $templates  Array of templates ('name' => true).
+   * @param array $templates  Array of templates ('name' => 'Display Name').
    *
    * @return array Array of allowed templates.
    */
 
   function fictioneer_disallow_page_template_select( $templates ) {
-    return array_intersect_key(
-      $templates,
-      array( '_wp_page_template' => true ),
-      FICTIONEER_ALLOWED_PAGE_TEMPLATES
-    ) ?: [];
+    // Trim default template selection
+    $templates = array_intersect_key( $templates, FICTIONEER_ALLOWED_PAGE_TEMPLATES ) ?: [];
+
+    // Continue filter
+    return $templates;
   }
 
   /**
-   * Removes forbidden page templates after saving
+   * Prevents update of page template based on conditions
    *
-   * Note: The user can still change the template of other users' pages.
-   * This is not ideal, but an edge case. Someone who cannot choose templates
-   * usually also cannot edit other users' posts.
+   * If the user lacks permission and the page template is not listed
+   * as allowed for everyone, the meta update is stopped.
    *
-   * @since Fictioneer 5.6.0
+   * @since Fictioneer 5.6.2
    *
-   * @param int     $post_id  The ID of the post being saved.
-   * @param WP_Post $post     The post object being saved.
+   * @param null|mixed $check       Whether to allow updating metadata for the given type.
+   * @param int        $object_id   ID of the object metadata is for.
+   * @param string     $meta_key    Metadata key.
+   * @param mixed      $meta_value  Metadata value. Must be serializable if non-scalar.
+   *
+   * @return mixed Null if allowed (yes), literally anything else if not.
    */
 
-  function fictioneer_restrict_page_templates( $post_id, $post ) {
-    // Prevent multi-fire
-    if ( fictioneer_multi_save_guard( $post_id ) ) {
-      return;
+  function fictioneer_prevent_page_template_update( $check, $object_id, $meta_key, $meta_value ) {
+    // Page template update?
+    if ( $meta_key !== '_wp_page_template' ) {
+      return $check;
     }
 
-    // Only do this for the trigger post or bad things can happen!
-    remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
-    remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
-
-    // Templates supported by post?
-    if ( ! post_type_supports( $post->post_type, 'page-attributes' ) ) {
-      return;
-    }
-
-    // Check permissions
+    // Permission to change the page template?
     if (
-      current_user_can( 'fcn_select_page_template' ) ||
-      get_current_user_id() !== (int) $post->post_author
+      ! current_user_can( 'fcn_select_page_template' ) &&
+      ! in_array( $meta_value, array_keys( FICTIONEER_ALLOWED_PAGE_TEMPLATES ) )
     ) {
-      return;
+      return false;
     }
 
-    // Get currently selected template
-    $selected_template = get_post_meta( $post_id, '_wp_page_template', true ) ?: '_wp_page_template';
-
-    $allowed_templates = array_merge( array( '_wp_page_template' => true ), FICTIONEER_ALLOWED_PAGE_TEMPLATES );
-    $allowed_templates = array_keys( $allowed_templates );
-
-    // Remove if not allowed
-    if ( ! in_array( $selected_template, $allowed_templates ) ) {
-      update_post_meta( $post_id, '_wp_page_template', '' );
-    }
+    // Continue filter
+    return $check;
   }
 
   // Run before other hooks or bad things will happen!
   if ( ! current_user_can( 'fcn_select_page_template' ) ) {
-    add_action( 'save_post', 'fictioneer_restrict_page_templates', 1, 2 );
-    add_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
+    add_filter( 'update_post_metadata', 'fictioneer_prevent_page_template_update', 1, 4 );
+    add_filter( 'theme_templates', 'fictioneer_disallow_page_template_select', 1 );
   }
 
   // === MODERATE_COMMENTS =====================================================
