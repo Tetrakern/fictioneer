@@ -76,7 +76,8 @@
             "role": "",
             "return_format": "id",
             "multiple": 1,
-            "allow_null": 0
+            "allow_null": 0,
+            "bidirectional_target": []
         },
         {
             "key": "field_630a1ba640611",
@@ -305,14 +306,14 @@
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 10,
     "position": "side",
-    "style": "seamless",
+    "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683414548
+    "modified": 1692459828
 }

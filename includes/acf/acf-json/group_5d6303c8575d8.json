@@ -46,7 +46,8 @@
             "return_format": "object",
             "min": "",
             "max": -1,
-            "elements": ""
+            "elements": "",
+            "bidirectional_target": []
         },
         {
             "key": "field_5d6e33e253add",
@@ -74,7 +75,8 @@
             "return_format": "id",
             "min": "",
             "max": 6,
-            "elements": ""
+            "elements": "",
+            "bidirectional_target": []
         },
         {
             "key": "field_64c1a27b3adcb",
@@ -108,12 +110,12 @@
     ],
     "menu_order": 4,
     "position": "normal",
-    "style": "seamless",
+    "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1690411727
+    "modified": 1692459637
 }

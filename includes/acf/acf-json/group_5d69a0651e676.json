@@ -99,7 +99,8 @@
             "role": "",
             "return_format": "id",
             "multiple": 1,
-            "allow_null": 0
+            "allow_null": 0,
+            "bidirectional_target": []
         },
         {
             "key": "field_600afa4cd6d3b",
@@ -277,7 +278,7 @@
             }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 10,
     "position": "side",
     "style": "default",
     "label_placement": "top",
@@ -286,5 +287,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1676250530
+    "modified": 1692460493
 }
