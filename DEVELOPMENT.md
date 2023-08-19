@@ -215,7 +215,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `admin_head` | `fictioneer_remove_update_notice`
 | `admin_head-post.php` | `fictioneer_hide_story_sticky_checkbox`, `fictioneer_hide_permalink`
 | `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
-| `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`
+| `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`, `fictioneer_initialize_roles`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`, `fictioneer_remove_sub_menus`
 | `admin_notices` | `fictioneer_admin_profile_notices`, `fictioneer_admin_settings_notices`, `fictioneer_admin_update_notice`
 | `admin_post_*` | `fictioneer_purge_all_epubs`, `admin_post_purge_all_seo_schemas`, `fictioneer_purge_seo_meta_caches`, `fictioneer_tools_add_moderator_role`, `fictioneer_tools_move_story_tags_to_genres`, `fictioneer_tools_duplicate_story_tags_to_genres`, `fictioneer_tools_purge_story_data_caches`, `fictioneer_tools_move_chapter_tags_to_genres`, `fictioneer_tools_duplicate_chapter_tags_to_genres`, `fictioneer_tools_append_default_genres`, `fictioneer_tools_append_default_tags`, `fictioneer_tools_remove_unused_tags`, `fictioneer_tools_reset_post_relationship_registry`, `fictioneer_tools_fix_users`, `fictioneer_tools_fix_stories`, `fictioneer_tools_fix_chapters`, `fictioneer_tools_fix_collections`, `fictioneer_tools_fix_pages`, `fictioneer_tools_fix_posts`, `fictioneer_tools_fix_recommendations`, `fictioneer_admin_profile_unset_oauth`, `fictioneer_admin_profile_clear_data_node`, `fictioneer_update_frontend_profile`, `fictioneer_cancel_frontend_email_change`, `fictioneer_add_role`, `fictioneer_remove_role`, `fictioneer_rename_role`
@@ -230,7 +230,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `edit_user_profile` | `fictioneer_custom_profile_fields`
 | `edit_user_profile_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `get_header` | `fictioneer_maintenance_mode`
-| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_restrict_admin_panel`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`, `fictioneer_initialize_roles`
+| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_restrict_admin_panel`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`

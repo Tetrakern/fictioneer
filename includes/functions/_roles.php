@@ -85,7 +85,7 @@ function fictioneer_initialize_roles( $force = false ) {
     fictioneer_setup_roles();
   }
 }
-add_action( 'init', 'fictioneer_initialize_roles' );
+add_action( 'admin_init', 'fictioneer_initialize_roles' );
 
 /**
  * Build user roles with custom capabilities
