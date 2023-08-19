@@ -73,7 +73,7 @@ add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length', 999 );
  * @since 4.0
  * @link https://github.com/WordPress/gutenberg/issues/15117
  *
- * @param string $excerpt The post excerpt.
+ * @param string $excerpt  The post excerpt.
  */
 
 function fictioneer_fix_excerpt( $excerpt ) {
@@ -106,7 +106,7 @@ function fictioneer_replace_br_with_whitespace( $text ) {
  *
  * @since 3.0
  *
- * @param int $post_id The post ID.
+ * @param int $post_id  The post ID.
  */
 
 function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
@@ -150,9 +150,9 @@ add_action( 'untrash_post', 'fictioneer_update_modified_date_on_story_for_chapte
  * Store word count of posts as meta data
  *
  * @since 3.0
- * @see   update_post_meta()
+ * @see update_post_meta()
  *
- * @param int $post_id Post ID.
+ * @param int $post_id  Post ID.
  */
 
 function fictioneer_save_word_count( $post_id ) {
@@ -211,10 +211,10 @@ if ( get_option( 'fictioneer_reduce_admin_bar' ) ) {
  *
  * @since 4.0
  *
- * @param string $logout_url The HTML-encoded logout URL.
- * @param string $redirect   Path to redirect to on logout.
+ * @param string $logout_url  The HTML-encoded logout URL.
+ * @param string $redirect    Path to redirect to on logout.
  *
- * @return string $logout_url The updated logout URL.
+ * @return string The updated logout URL.
  */
 
 function fictioneer_logout_redirect( $logout_url, $redirect ) {
@@ -309,7 +309,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
    *
    * @since 5.0
    *
-   * @param string $redirect URL to redirect to after logout.
+   * @param string $redirect  URL to redirect to after logout.
    */
 
   function fictioneer_get_logout_url( $redirect = null ) {
@@ -344,7 +344,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
  * @since 4.0
  * @link https://wordpress.stackexchange.com/a/28147/223620
  *
- * @param WP_Query $query The query.
+ * @param WP_Query $query  The query.
  */
 
 function fictioneer_extend_taxonomy_pages( $query ) {
@@ -434,7 +434,7 @@ if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
  *
  * @since Fictioneer 5.0
  *
- * @param int|null $post_id Optional. The current post ID.
+ * @param int|null $post_id  Optional. The current post ID.
  */
 
 function fictioneer_output_rss( $post_id = null ) {
@@ -513,9 +513,10 @@ add_filter( 'protected_title_format', 'fictioneer_remove_protected_text' );
  *
  * @since 4.0
  *
- * @param  string $block_content The block content.
- * @param  array  $block         The full block, including name and attributes.
- * @return string $block_content The updated block content.
+ * @param  string $block_content  The block content.
+ * @param  array  $block          The full block, including name and attributes.
+ *
+ * @return string The updated block content.
  */
 
 function fictioneer_download_block_wrapper( $block_content, $block ) {
@@ -538,8 +539,9 @@ add_filter( 'render_block', 'fictioneer_download_block_wrapper', 10, 2 );
  * @license CC BY-SA 4.0
  * @link https://stackoverflow.com/a/67527400/17140970
  *
- * @global object $post The global post.
- * @return string $form The custom password form.
+ * @global object $post  The global post.
+ *
+ * @return string The custom password form.
  */
 
 function fictioneer_password_form() {
@@ -564,13 +566,12 @@ add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
  * @license CC BY-SA 3.0
  * @link https://wordpress.stackexchange.com/a/152169/223620
  *
- * @param  string $content The content.
- * @return string $content The modified content.
+ * @param string $content  The content.
+ *
+ * @return string The modified content.
  */
 
 function fictioneer_add_chapter_paragraph_id( $content ) {
-  global $post;
-
   if (
     get_post_type() != 'fcn_chapter' ||
     ! in_the_loop() ||
@@ -601,8 +602,9 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
  * @link https://wordpress.stackexchange.com/a/84542/223620
  * @link https://jhtechservices.com/changing-your-image-markup-in-wordpress/
  *
- * @param  string $content The content.
- * @return string $content The modified content.
+ * @param  string $content  The content.
+ *
+ * @return string The modified content.
  */
 
 function fictioneer_add_lightbox_to_post_images( $content ) {
@@ -728,7 +730,7 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
  *
  * @since Fictioneer 3.0
  *
- * @param  string $content The content.
+ * @param string $content  The content.
  *
  * @return string The modified content.
  */
@@ -866,9 +868,9 @@ if ( ! FICTIONEER_ATTACHMENT_PAGES ) {
  *
  * @since 4.0
  *
- * @param array $protocols Array of allowed protocols.
+ * @param array $protocols  Array of allowed protocols.
  *
- * @return array $protocols Updated array of allowed protocols.
+ * @return array Updated array of allowed protocols.
  */
 
 function fictioneer_extend_allowed_protocols( $protocols ){
@@ -890,11 +892,11 @@ add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
  * @since 5.2.4
  * @link https://developer.wordpress.org/reference/hooks/rest_authentication_errors/
  *
- * @param WP_Error|null|true $errors WP_Error if authentication error, null
- *                                   if authentication method wasn't used,
- *                                   true if authentication succeeded.
+ * @param WP_Error|null|true $errors  WP_Error if authentication error, null
+ *                                    if authentication method wasn't used,
+ *                                    true if authentication succeeded.
  *
- * @return WP_Error|null|true $errors The filters errors.
+ * @return WP_Error|null|true The filters errors.
  */
 
 function fictioneer_restrict_rest_api( $errors ) {
@@ -927,7 +929,7 @@ if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
  *
  * @since 5.4.0
  *
- * @param WP_Query $query The current WP_Query object.
+ * @param WP_Query $query  The current WP_Query object.
  */
 
 function fictioneer_add_sof_to_taxonomy_query( $query ) {
@@ -1037,10 +1039,10 @@ add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
  *
  * @since Fictioneer 5.6.0
  *
- * @param array $data                 An array of slashed post data.
- * @param array $postarr              An array of sanitized, but otherwise unmodified post data.
- * @param array $unsanitized_postarr  An array of unsanitized and unprocessed post data as
- *                                    originally passed to wp_insert_post().
+ * @param array $data                  An array of slashed post data.
+ * @param array $postarr               An array of sanitized, but otherwise unmodified post data.
+ * @param array $unsanitized_postarr   An array of unsanitized and unprocessed post data as
+ *                                     originally passed to wp_insert_post().
  *
  * @return array Returns the original $data for continued processing.
  */
@@ -1155,7 +1157,7 @@ if ( get_option( 'fictioneer_see_some_evil' ) ) {
  * favor of preview query vars via `fictioneer_verify_preview_access()`.
  *
  * @since Fictioneer 5.6.0
- * @global WP_Post $post The current WordPress post object.
+ * @global WP_Post $post  The current WordPress post object.
  */
 
 function fictioneer_gate_unpublished_content() {

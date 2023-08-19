@@ -8,14 +8,14 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['author']        The author provided by the shortcode. Default false.
- * @internal $args['count']         The number of posts provided by the shortcode. Default 1.
- * @internal $args['post_ids']      Array of post IDs. Default empty.
- * @internal $args['excluded_cats'] Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags'] Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']    Array of taxonomy arrays. Default empty.
- * @internal $args['relation']      Relationship between taxonomies.
- * @internal $args['classes']       Array of additional CSS classes. Default empty.
+ * @internal $args['author']         The author provided by the shortcode. Default false.
+ * @internal $args['count']          The number of posts provided by the shortcode. Default 1.
+ * @internal $args['post_ids']       Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']       Relationship between taxonomies.
+ * @internal $args['classes']        Array of additional CSS classes. Default empty.
  */
 ?>
 

@@ -12,15 +12,15 @@
  * @since 4.3
  * @see fictioneer_remember_chapters_modified()
  *
- * @internal $args['count']         Number of posts provided by the shortcode.
- * @internal $args['author']        Author provided by the shortcode.
- * @internal $args['order']         Order of posts. Default 'desc'.
- * @internal $args['post_ids']      Array of post IDs. Default empty.
- * @internal $args['excluded_cats'] Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags'] Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']    Array of taxonomy arrays. Default empty.
- * @internal $args['relation']      Relationship between taxonomies.
- * @internal $args['class']         Additional classes.
+ * @internal $args['count']          Number of posts provided by the shortcode.
+ * @internal $args['author']         Author provided by the shortcode.
+ * @internal $args['order']          Order of posts. Default 'desc'.
+ * @internal $args['post_ids']       Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
+ * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']       Relationship between taxonomies.
+ * @internal $args['class']          Additional classes.
  */
 ?>
 

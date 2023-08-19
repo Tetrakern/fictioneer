@@ -45,8 +45,8 @@ if ( ! function_exists( 'fictioneer_get_limited_excerpt' ) ) {
    *
    * @since Fictioneer 3.0
    *
-   * @param int    $limit  The character limit.
-   * @param string $source Either the 'content' or 'excerpt'. Default 'excerpt'.
+   * @param int    $limit   The character limit.
+   * @param string $source  Either the 'content' or 'excerpt'. Default 'excerpt'.
    *
    * @return string The customized excerpt.
    */
@@ -74,7 +74,7 @@ if ( ! function_exists( 'fictioneer_first_paragraph_as_excerpt' ) ) {
    *
    * @since Fictioneer 3.0
    *
-   * @param string $content The content as HTML.
+   * @param string $content  The content as HTML.
    *
    * @return string First paragraph as excerpt, stripped of tags.
    */
@@ -96,9 +96,9 @@ if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
    *
    * @since Fictioneer 4.5
    *
-   * @param int     $post_id Post ID.
-   * @param int     $limit   Maximum number of characters.
-   * @param boolean $default Whether to return the original excerpt if present.
+   * @param int     $post_id  Post ID.
+   * @param int     $limit    Maximum number of characters.
+   * @param boolean $default  Whether to return the original excerpt if present.
    *
    * @return string The excerpt stripped of tags.
    */
@@ -152,8 +152,8 @@ if ( ! function_exists( 'fictioneer_the_author_node' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int    $author_id The author's user ID. Defaults to current post author.
-   * @param string $classes   Optional. String of CSS classes.
+   * @param int    $author_id  The author's user ID. Defaults to current post author.
+   * @param string $classes    Optional. String of CSS classes.
    */
 
   function fictioneer_the_author_node( $author_id = null, $classes = '' ) {
@@ -171,10 +171,10 @@ if ( ! function_exists( 'fictioneer_icon' ) ) {
    *
    * @since  Fictioneer 4.0
    *
-   * @param string $icon    Name of the icon that matches the svg.
-   * @param string $classes Optional. String of CSS classes.
-   * @param string $id      Optional. An element ID.
-   * @param string $inserts Optional. Additional attributes.
+   * @param string $icon     Name of the icon that matches the svg.
+   * @param string $classes  Optional. String of CSS classes.
+   * @param string $id       Optional. An element ID.
+   * @param string $inserts  Optional. Additional attributes.
    */
 
   function fictioneer_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
@@ -190,12 +190,14 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    * via the <use> tag. The version is added as query variable for cache
    * busting purposes.
    *
-   * @since  Fictioneer 4.7
+   * @since Fictioneer 4.7
    *
-   * @param string $icon    Name of the icon that matches the svg.
-   * @param string $classes Optional. String of CSS classes.
-   * @param string $id      Optional. An element ID.
-   * @param string $inserts Optional. Additional attributes.
+   * @param string $icon     Name of the icon that matches the svg.
+   * @param string $classes  Optional. String of CSS classes.
+   * @param string $id       Optional. An element ID.
+   * @param string $inserts  Optional. Additional attributes.
+   *
+   * @return string The icon HTML.
    */
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
@@ -205,6 +207,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
       <use xlink:href="<?php echo get_template_directory_uri(); ?>/img/icon-sprite.svg?ver=<?php echo FICTIONEER_VERSION; ?>#icon-<?php echo $icon; ?>"></use>
     </svg>
 		<?php // <--- End HTML
+
 		return ob_get_clean();
   }
 }
@@ -219,7 +222,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int $post_id The post ID to get the title for.
+   * @param int $post_id  The post ID to get the title for.
    *
    * @return string The title, never empty.
    */
@@ -262,7 +265,7 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param int $word_count The number of words.
+   * @param int $word_count  The number of words.
    *
    * @return string HTML for the reading time nodes.
    */
@@ -326,9 +329,9 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array  $args['breadcrumbs'] Breadcrumb tuples with label (0) and link (1).
-   * @param string $args['post_type']   Optional. Post type of the current page.
-   * @param int    $args['post_id']     Optional. Post ID of the current page.
+   * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
+   * @param string $args['post_type']    Optional. Post type of the current page.
+   * @param int    $args['post_id']      Optional. Post ID of the current page.
    *
    * @return string HTML for the copyright note.
    */
@@ -379,10 +382,10 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array  $args['breadcrumbs'] Breadcrumb tuples with label (0) and link (1).
-   * @param string $args['post_type']   Optional. Post type of the current page.
-   * @param int    $args['post_id']     Optional. Post ID of the current page.
-   * @param string $args['template']    Optional. Name of the template file.
+   * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
+   * @param string $args['post_type']    Optional. Post type of the current page.
+   * @param int    $args['post_id']      Optional. Post ID of the current page.
+   * @param string $args['template']     Optional. Name of the template file.
    *
    * @return string HTML for the breadcrumbs.
    */
@@ -438,7 +441,7 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $authors Array of authors to process.
+   * @param array $authors  Array of authors to process.
    *
    * @return string HTML for the author nodes.
    */
@@ -472,7 +475,7 @@ if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $story_id The story ID.
+   * @param int $story_id  The story ID.
    *
    * @return string HTML for the author nodes.
    */
@@ -496,7 +499,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $story Collection of story data.
+   * @param array $story  Collection of story data.
    *
    * @return string HTML for the thumbnail.
    */
@@ -535,9 +538,9 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
    *
    * @since 5.0
    *
-   * @param int|null    $post_id   The post ID the buttons are for. Defaults to current.
-   * @param int|null    $author_id The author ID the buttons are for. Defaults to current.
-   * @param string|null $feed      RSS feed link. Default determined by post type.
+   * @param int|null    $post_id    The post ID the buttons are for. Defaults to current.
+   * @param int|null    $author_id  The author ID the buttons are for. Defaults to current.
+   * @param string|null $feed       RSS feed link. Default determined by post type.
    *
    * @return string HTML for subscribe buttons.
    */
@@ -637,8 +640,8 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
    *
    * @since 5.0
    *
-   * @param array $args['story_data'] Collection of story data.
-   * @param int   $args['story_id']   The story post ID.
+   * @param array $args['story_data']  Collection of story data.
+   * @param int   $args['story_id']    The story post ID.
    *
    * @return string HTML for the story buttons.
    */
@@ -741,7 +744,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $chapter_id The chapter ID.
+   * @param int $chapter_id  The chapter ID.
    *
    * @return string HTML for the author nodes.
    */
@@ -767,11 +770,11 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
-   * @param int          $args['chapter_id']  The chapter ID.
-   * @param array        $args['chapter_ids'] IDs of visible chapters in the same story or empty array.
-   * @param int|boolean  $args['prev_index']  Index of previous chapter or false if outside bounds.
-   * @param int|boolean  $args['next_index']  Index of next chapter or false if outside bounds.
+   * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
+   * @param int          $args['chapter_id']   The chapter ID.
+   * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
+   * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
+   * @param int|boolean  $args['next_index']   Index of next chapter or false if outside bounds.
    *
    * @return string The chapter micro menu HTML.
    */
@@ -953,7 +956,7 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_Post $recommendation The post object.
+   * @param WP_Post $recommendation  The post object.
    *
    * @return string HTML for the thumbnail.
    */
@@ -1029,8 +1032,8 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param string|null $post_type The post type. Defaults to current post type.
-   * @param int|null    $post_id   The post ID. Defaults to current post ID.
+   * @param string|null $post_type  The post type. Defaults to current post type.
+   * @param int|null    $post_id    The post ID. Defaults to current post ID.
    *
    * @return string|boolean Escaped RSS url or false if no feed found.
    */
@@ -1174,7 +1177,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $args Optional arguments.
+   * @param array $args  Optional arguments.
    *
    * @return string The HTML for the post meta row.
    */
@@ -1256,8 +1259,8 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $story_id   The story ID.
-   * @param int $chapter_id Optional. The chapter ID (use only for chapters).
+   * @param int $story_id    The story ID.
+   * @param int $chapter_id  Optional. The chapter ID (use only for chapters).
    *
    * @return string The HTML for the card controls.
    */
@@ -1403,7 +1406,7 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param array $args Optional. Card arguments.
+   * @param array $args  Optional. Card arguments.
    */
 
   function fictioneer_echo_card( $args = [] ) {
@@ -1444,9 +1447,9 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
    *
    * @since 5.0.19
    *
-   * @param int|null $post_id   The post ID. Defaults to global post.
-   * @param int|null $parent_id The parent ID. Default null.
-   * @param int|null $author_id The author ID. Defaults to post author ID.
+   * @param int|null $post_id    The post ID. Defaults to global post.
+   * @param int|null $parent_id  The parent ID. Default null.
+   * @param int|null $author_id  The author ID. Defaults to post author ID.
    *
    * @return array Array of support links.
    */

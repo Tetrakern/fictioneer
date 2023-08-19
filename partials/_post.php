@@ -10,7 +10,7 @@
  * @since 2.0
  * @see partials/_loop.php
  *
- * @internal $args['nested'] Whether the post is nested inside another query. Default null.
+ * @internal $args['nested']  Whether the post is nested inside another query. Default null.
  */
 ?>
 

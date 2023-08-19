@@ -9,7 +9,7 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['location'] Either 'in-navigation' or 'in-mobile-menu'.
+ * @internal $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
  */
 ?>
 

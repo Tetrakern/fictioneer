@@ -6,11 +6,11 @@
  * @subpackage Fictioneer
  * @since 5.0
  *
- * @internal $args['user']         Current user.
- * @internal $args['is_admin']     True if the user is an administrator.
- * @internal $args['is_author']    True if the user is an author (by capabilities).
- * @internal $args['is_editor']    True if the user is an editor.
- * @internal $args['is_moderator'] True if the user is a moderator (by capabilities).
+ * @internal $args['user']          Current user.
+ * @internal $args['is_admin']      True if the user is an administrator.
+ * @internal $args['is_author']     True if the user is an author (by capabilities).
+ * @internal $args['is_editor']     True if the user is an editor.
+ * @internal $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
 ?>
 

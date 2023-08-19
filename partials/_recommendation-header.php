@@ -10,9 +10,9 @@
  * @since 5.0
  * @see single-fcn_recommendation.php
  *
- * @internal $args['recommendation']    Recommendation post object.
- * @internal $args['recommendation_id'] Recommendation post ID.
- * @internal $args['title']             Safe recommendation title.
+ * @internal $args['recommendation']     Recommendation post object.
+ * @internal $args['recommendation_id']  Recommendation post ID.
+ * @internal $args['title']              Safe recommendation title.
  */
 ?>
 

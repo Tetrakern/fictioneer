@@ -10,8 +10,8 @@
  * @since 5.0
  * @see single-fcn_story.php
  *
- * @internal $args['story_data'] Story data from fictioneer_get_story_data().
- * @internal $args['story_id']   Current story and post ID.
+ * @internal $args['story_data']  Story data from fictioneer_get_story_data().
+ * @internal $args['story_id']    Current story and post ID.
  */
 ?>
 

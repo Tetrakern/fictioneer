@@ -10,13 +10,13 @@
  * @since 5.0
  * @see single-fcn_collection.php
  *
- * @internal $args['collection']     Collection post object.
- * @internal $args['collection_id']  The collection post ID.
- * @internal $args['title']          Safe collection title.
- * @internal $args['current_page']   Number of the current page or 1.
- * @internal $args['max_pages']      Total number of pages or 1.
- * @internal $args['featured_list']  IDs of featured items in the collection.
- * @internal $args['featured_query'] Paginated query of featured items.
+ * @internal $args['collection']      Collection post object.
+ * @internal $args['collection_id']   The collection post ID.
+ * @internal $args['title']           Safe collection title.
+ * @internal $args['current_page']    Number of the current page or 1.
+ * @internal $args['max_pages']       Total number of pages or 1.
+ * @internal $args['featured_list']   IDs of featured items in the collection.
+ * @internal $args['featured_query']  Paginated query of featured items.
  */
 ?>
 
