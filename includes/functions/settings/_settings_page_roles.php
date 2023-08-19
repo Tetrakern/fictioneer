@@ -54,8 +54,7 @@ $advanced_caps = array(
   'fcn_show_badge',
   'upload_files',
   'edit_files',
-  'fcn_allow_self_delete',
-  'unfiltered_html'
+  'fcn_allow_self_delete'
 );
 
 $admin_caps = array(
@@ -69,7 +68,8 @@ $admin_caps = array(
   'remove_users',
   'switch_themes',
   'edit_theme_options',
-  'edit_themes'
+  'edit_themes',
+  'unfiltered_html'
 );
 
 $taxonomy_caps = array(
