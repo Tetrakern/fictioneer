@@ -707,6 +707,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Removes search and filter ID input field
    *
    * @since 5.6.0
+   * @since 5.6.2  Simplified with helper function.
    *
    * @param array $fields  An array of fields to be rendered.
    *
@@ -714,21 +715,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_remove_filter_search_id_input( $fields ) {
-    // Fields to remove
-    $field_keys = ['field_60040fa3bc4f1']; // fictioneer_filter_and_search_id
-
-    // Remove fields from the fields array
-    foreach ( $fields as $key => &$field ) {
-      if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[ $key ] );
-      }
-    }
-
-    // Only do this for the trigger post or bad things can happen!
-    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 10, 3 );
-
     // Return modified fields array
-    return $fields;
+    return fictioneer_acf_remove_fields( 'field_60040fa3bc4f1', $fields );
   }
 
   if ( ! current_user_can( 'manage_options' ) ) {
@@ -742,29 +730,16 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Removes custom pages metabox
    *
    * @since 5.6.0
+   * @since 5.6.2  Simplified with helper function.
    *
    * @param array $fields  An array of fields to be rendered.
    *
    * @return array The modified array.
    */
 
-
   function fictioneer_remove_custom_story_pages( $fields ) {
-    // Fields to remove
-    $field_keys = ['field_5d6e33e253add']; // fictioneer_story_custom_pages
-
-    // Remove fields from the fields array
-    foreach ( $fields as $key => &$field ) {
-      if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[ $key ] );
-      }
-    }
-
-    // Only do this for the trigger post or bad things can happen!
-    remove_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null' );
-
     // Return modified fields array
-    return $fields;
+    return fictioneer_acf_remove_fields( 'field_5d6e33e253add', $fields );
   }
 
   if ( ! current_user_can( 'fcn_story_pages' ) ) {
@@ -1098,6 +1073,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Removes custom page/story CSS input fields
    *
    * @since 5.6.0
+   * @since 5.6.2  Simplified with helper function.
    *
    * @param array $fields  An array of fields to be rendered.
    *
@@ -1105,21 +1081,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_remove_custom_page_css_inputs( $fields ) {
-    // Fields to remove
-    $field_keys = array(
-      'field_636d81d34cab1', // fictioneer_story_css
-      'field_621b5610818d2' // fictioneer_custom_css
-    );
-
-    // Remove fields from the fields array
-    foreach ( $fields as $key => &$field ) {
-      if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[ $key ] );
-      }
-    }
-
-    // Return modified fields array
-    return $fields;
+    // Return modified fields array (fictioneer_story_css, fictioneer_custom_css)
+    return fictioneer_acf_remove_fields( ['field_636d81d34cab1', 'field_621b5610818d2'], $fields );
   }
 
   if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
@@ -1134,6 +1097,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Removes the custom ePUB CSS input field
    *
    * @since 5.6.0
+   * @since 5.6.2  Simplified with helper function.
    *
    * @param array $fields  An array of fields to be rendered.
    *
@@ -1141,18 +1105,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_remove_custom_epub_css_input( $fields ) {
-    // Fields to remove
-    $field_keys = ['field_60edba4ff33f8']; // fictioneer_story_epub_custom_css
-
-    // Remove fields from the fields array
-    foreach ( $fields as $key => &$field ) {
-      if ( in_array( $field['key'], $field_keys ) ) {
-        unset( $fields[ $key ] );
-      }
-    }
-
     // Return modified fields array
-    return $fields;
+    return fictioneer_acf_remove_fields( 'field_60edba4ff33f8', $fields );
   }
 
   if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {

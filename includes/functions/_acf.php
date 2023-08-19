@@ -380,4 +380,36 @@ if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
   add_action( 'acf/save_post', 'fictioneer_append_chapter_to_story', 99 );
 }
 
+// =============================================================================
+// REMOVE ACF METABOX (THE HARD WAY!)
+// =============================================================================
+
+/**
+ * Helper to remove ACF fields
+ *
+ * Must be used in combination with the 'acf/pre_render_fields' filter.
+ *
+ * @since 5.6.2
+ *
+ * @param string $keys    Keys of the field to be removed.
+ * @param array  $fields  An array of fields to be rendered.
+ *
+ * @return array The passed and modified fields array.
+ */
+
+function fictioneer_acf_remove_fields( $keys, $fields ) {
+  // Fields to remove
+  $field_keys = is_array( $keys ) ? $keys : [ $keys ];
+
+  // Remove field from the fields array
+  foreach ( $fields as $key => &$field ) {
+    if ( in_array( $field['key'], $field_keys ) ) {
+      unset( $fields[ $key ] );
+    }
+  }
+
+  // Return modified fields array
+  return $fields;
+}
+
 ?>
