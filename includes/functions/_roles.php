@@ -508,7 +508,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Prevents parent and order from being updated
    *
-   * @param array $data     An array of slashed, sanitized, and processed post data.
+   * @param array $data  An array of slashed, sanitized, and processed post data.
    *
    * @return array The potentially modified post data.
    */

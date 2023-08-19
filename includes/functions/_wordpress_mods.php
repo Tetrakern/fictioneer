@@ -1228,4 +1228,27 @@ function fictioneer_store_original_publish_date( $post_id, $post ) {
 }
 add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 
+// =============================================================================
+// ELIMINATE TRACKBACK AND PINGBACK VALUES FROM BEING UPDATED
+// =============================================================================
+
+/**
+ * Prevents trackback/pingback from being updated
+ *
+ * @param array $data  An array of slashed, sanitized, and processed post data.
+ *
+ * @return array The modified post data.
+ */
+
+function fictioneer_prevent_track_and_ping_updates( $data ) {
+  // Set data to defaults
+  $data['to_ping'] = '';
+  $data['ping_status'] = 'closed';
+  $data['pinged'] = '';
+
+  // Continue filter
+  return $data;
+}
+add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 1 );
+
 ?>
