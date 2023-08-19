@@ -41,7 +41,7 @@ add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
  * @param array $classes Current body classes.
  */
 
-function fictioneer_addClassesToBody( $classes ) {
+function fictioneer_add_classes_to_body( $classes ) {
   // Setup
   $user = wp_get_current_user();
   $includes = [];
@@ -74,9 +74,9 @@ function fictioneer_addClassesToBody( $classes ) {
   // Return classes
   return $classes;
 }
-add_filter( 'body_class', 'fictioneer_addClassesToBody' );
+add_filter( 'body_class', 'fictioneer_add_classes_to_body' );
 
-function fictioneer_addClassesToAdminBody( $classes ) {
+function fictioneer_add_classes_to_admin_body( $classes ) {
   // Setup
   $user = wp_get_current_user();
   $includes = [];
@@ -99,7 +99,7 @@ function fictioneer_addClassesToAdminBody( $classes ) {
   // Return classes
   return $classes;
 }
-add_filter( 'admin_body_class', 'fictioneer_addClassesToAdminBody' );
+add_filter( 'admin_body_class', 'fictioneer_add_classes_to_admin_body' );
 
 // =============================================================================
 // UPDATE ADMIN USER PROFILE (ADMIN)
