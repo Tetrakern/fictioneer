@@ -9,7 +9,7 @@
  *
  * @since Fictioneer 5.0
  *
- * @param int $post_id The post ID.
+ * @param int $post_id  The post ID.
  */
 
 function fictioneer_post_tags( $post_id ) {
@@ -36,7 +36,7 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10 );
  *
  * @since Fictioneer 5.0
  *
- * @param int $post_id The post ID.
+ * @param int $post_id  The post ID.
  */
 
 function fictioneer_post_featured_list( $post_id ) {
