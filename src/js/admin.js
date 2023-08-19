@@ -259,41 +259,6 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 });
 
 // =============================================================================
-// SUBNAV TABS
-// =============================================================================
-
-// _$('.fictioneer-settings__subnav')?.addEventListener('click', event => {
-//   const clickTarget = event.target.closest('[data-subnav-click]');
-
-//   if (!clickTarget) {
-//     return;
-//   }
-
-//   const navTarget = _$(`[data-subnav-target="${clickTarget.dataset.subnavClick}"]`);
-
-//   if (!navTarget) {
-//     return;
-//   }
-
-//   _$$('[data-subnav-target]').forEach(element => {
-//     element.classList.add('hidden');
-//   });
-
-//   _$$('[data-subnav-click]').forEach(element => {
-//     element.classList.remove('active');
-//   });
-
-//   navTarget.classList.remove('hidden');
-//   clickTarget.classList.add('active');
-
-//   window.history.pushState(
-//     {},
-//     '',
-//     window.location.href += `&fictioneer-subnav=${clickTarget.dataset.subnavClick}`
-//   );
-// });
-
-// =============================================================================
 // DIALOGS
 // =============================================================================
 
