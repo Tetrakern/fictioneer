@@ -1297,8 +1297,8 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
       '<ins>$1</ins>',
       '<del>$1</del>',
       '<div class="comment-list-item">$1</div>',
-      '<span class="comment-image-consent-wrapper"><button class="button _secondary consent-button" title="$1">' . _x( '<i class="fa-solid fa-image"></i> Show Image', 'Comment image consent wrapper button.', 'fictioneer' ) . '</button><a href="$1" class="comment-image-link" rel="noreferrer noopener nofollow" target="_blank"><img class="comment-image" data-src="$1"></a></span>',
-      '<span class="comment-image-consent-wrapper"><button class="button _secondary consent-button" title="$1">' . _x( '<i class="fa-solid fa-image"></i> Show Image', 'Comment image consent wrapper button.', 'fictioneer' ) . '</button><img class="comment-image" data-src="$1"></span>',
+      '<span class="comment-image-consent-wrapper"><button type="button" class="button _secondary consent-button" title="$1">' . _x( '<i class="fa-solid fa-image"></i> Show Image', 'Comment image consent wrapper button.', 'fictioneer' ) . '</button><a href="$1" class="comment-image-link" rel="noreferrer noopener nofollow" target="_blank"><img class="comment-image" data-src="$1"></a></span>',
+      '<span class="comment-image-consent-wrapper"><button type="button" class="button _secondary consent-button" title="$1">' . _x( '<i class="fa-solid fa-image"></i> Show Image', 'Comment image consent wrapper button.', 'fictioneer' ) . '</button><img class="comment-image" data-src="$1"></span>',
       "<a href=\"$1\" rel=\"noreferrer noopener nofollow\">$1</a>",
       "<a href=\"$1\" rel=\"noreferrer noopener nofollow\">$5</a>",
       '<a href="#$1" data-block="center" class="comment-anchor">:anchor:</a>'
