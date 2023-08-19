@@ -412,4 +412,29 @@ function fictioneer_acf_remove_fields( $keys, $fields ) {
   return $fields;
 }
 
+// =============================================================================
+// HIDE EPUB GROUP IF EPUBS ARE DISABLED
+// =============================================================================
+
+/**
+ * Hide ePUB metabox if ePUBs are disabled
+ *
+ * Note: The ACF field group is loaded from JSON, which happens after filters
+ * were applied. So this is one of the easier ways to hide the group.
+ *
+ * @since 5.6.2
+ */
+
+function fictioneer_hide_epub_inputs() {
+  global $post_type;
+
+  if ( $post_type === 'fcn_story' ) {
+    echo '<style> #acf-group_60edb914ba16c {display: none !important;}</style>';
+  }
+}
+
+if ( ! get_option( 'fictioneer_enable_epubs' ) ) {
+  add_action( 'admin_head', 'fictioneer_hide_epub_inputs' );
+}
+
 ?>
