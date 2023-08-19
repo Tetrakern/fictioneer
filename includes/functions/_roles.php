@@ -392,8 +392,8 @@ function fictioneer_add_moderator_role() {
 // =============================================================================
 
 // Add templates ('name' => true) to the array you want to allow
-if ( ! defined( 'CHILD_ALLOWED_PAGE_TEMPLATES' ) ) {
-  define( 'CHILD_ALLOWED_PAGE_TEMPLATES', [] );
+if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
+  define( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES', [] );
 }
 
 // No restriction can be applied to administrators
@@ -515,11 +515,19 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_disallow_page_template_select( $templates ) {
-    return array_intersect_key( $templates, CHILD_ALLOWED_PAGE_TEMPLATES );
+    return array_intersect_key(
+      $templates,
+      array( '_wp_page_template' => true ),
+      FICTIONEER_ALLOWED_PAGE_TEMPLATES
+    ) ?: [];
   }
 
   /**
    * Removes forbidden page templates after saving
+   *
+   * Note: The user can still change the template of other users' pages.
+   * This is not ideal, but an edge case. Someone who cannot choose templates
+   * usually also cannot edit other users' posts.
    *
    * @since Fictioneer 5.6.0
    *
@@ -533,12 +541,12 @@ if ( ! current_user_can( 'manage_options' ) ) {
       return;
     }
 
+    // Only do this for the trigger post or bad things can happen!
+    remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
+    remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
+
     // Templates supported by post?
     if ( ! post_type_supports( $post->post_type, 'page-attributes' ) ) {
-      // Stop all further hooks or bad things will happen!
-      remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
-      remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
-
       return;
     }
 
@@ -550,15 +558,14 @@ if ( ! current_user_can( 'manage_options' ) ) {
       return;
     }
 
-    // Only do this for the trigger post or bad things can happen!
-    remove_action( 'save_post', 'fictioneer_restrict_page_templates', 1 );
-    remove_filter( 'theme_page_templates', 'fictioneer_disallow_page_template_select', 1 );
-
     // Get currently selected template
-    $selected_template = get_post_meta( $post_id, '_wp_page_template', true );
+    $selected_template = get_post_meta( $post_id, '_wp_page_template', true ) ?: '_wp_page_template';
+
+    $allowed_templates = array_merge( array( '_wp_page_template' => true ), FICTIONEER_ALLOWED_PAGE_TEMPLATES );
+    $allowed_templates = array_keys( $allowed_templates );
 
     // Remove if not allowed
-    if ( ! in_array( $selected_template, CHILD_ALLOWED_PAGE_TEMPLATES ) ) {
+    if ( ! in_array( $selected_template, $allowed_templates ) ) {
       update_post_meta( $post_id, '_wp_page_template', '' );
     }
   }
