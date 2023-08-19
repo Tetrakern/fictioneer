@@ -60,6 +60,7 @@ function fictioneer_post_featured_list( $post_id ) {
     'post_type' => 'any',
     'post_status' => 'publish',
     'post__in' => fictioneer_save_array_zero( $featured ),
+    'ignore_sticky_posts' => 1,
     'orderby' => 'post__in',
     'posts_per_page' => -1,
     'no_found_rows' => true // Improve performance
