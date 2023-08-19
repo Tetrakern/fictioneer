@@ -208,12 +208,15 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 | WORDPRESS HOOK | FICTIONEER ACTIONS
 | ---: | :--- |
-| `add_meta_boxes` | `fictioneer_add_seo_metabox`
+| `add_meta_boxes` | `fictioneer_add_seo_metabox`, `fictioneer_restrict_classic_metaboxes`
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
 | `admin_bar_menu` | `fictioneer_remove_comments_from_admin_bar`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
+| `admin_footer-post.php` | `fictioneer_classic_editor_js_restrictions`, `fictioneer_hide_permalink_with_js`
+| `admin_footer-post-new.php` | `fictioneer_classic_editor_js_restrictions`
 | `admin_head` | `fictioneer_remove_update_notice`, `fictioneer_hide_epub_inputs`, `fictioneer_hide_story_sticky_checkbox`
-| `admin_head-post.php` | `fictioneer_hide_permalink`
+| `admin_head-post.php` | `fictioneer_hide_permalink_with_css`, `fictioneer_classic_editor_css_restrictions`
+| `admin_head-post-new.php` | `fictioneer_classic_editor_css_restrictions`
 | `admin_head-profile.php` | `fictioneer_remove_profile_blocks`
 | `admin_init` | `fictioneer_register_settings`, `fictioneer_skip_dashboard`, `fictioneer_initialize_roles`, `fictioneer_bring_out_legacy_trash`
 | `admin_menu` | `fictioneer_add_admin_menu`, `fictioneer_remove_dashboard_menu`, `fictioneer_remove_comments_menu_page`, `fictioneer_remove_sub_menus`
@@ -300,6 +303,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `theme_templates` | `fictioneer_disallow_page_template_select`
 | `update_post_metadata` | `fictioneer_prevent_page_template_update`
 | `upload_size_limit` | `fictioneer_upload_size_limit`
+| `use_block_editor_for_post_type` | `__return_false`
 | `user_contactmethods` | `fictioneer_user_contact_methods`
 | `user_has_cap` | `fictioneer_edit_only_comments`
 | `wp_list_comments_args` | `fictioneer_comment_list_args`

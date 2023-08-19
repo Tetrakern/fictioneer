@@ -44,7 +44,8 @@ $restrictions = array(
   'fcn_reduced_profile',
   'fcn_edit_only_others_comments',
   'fcn_upload_limit',
-  'fcn_upload_restrictions'
+  'fcn_upload_restrictions',
+  'fcn_classic_editor'
 );
 
 $advanced_caps = array(

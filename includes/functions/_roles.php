@@ -1325,18 +1325,28 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   /**
-   * Hide the permalink field
+   * Hide the permalink field with CSS
    *
    * @since 5.6.0
    */
 
+  function fictioneer_hide_permalink_with_css() {
+    echo '<style type="text/css">.edit-post-post-url,  #edit-slug-buttons{display: none !important;}</style>';
+  }
 
-  function fictioneer_hide_permalink() {
-    echo '<style type="text/css">.edit-post-post-url{display: none !important;}</style>';
+  /**
+   * Hide the permalink field with JS
+   *
+   * @since 5.6.2
+   */
+
+  function fictioneer_hide_permalink_with_js() {
+    echo '<script type="text/javascript">document.querySelectorAll("#edit-slug-buttons").forEach(element => {element.remove();});</script>';
   }
 
   if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
-    add_action( 'admin_head-post.php', 'fictioneer_hide_permalink' );
+    add_action( 'admin_head-post.php', 'fictioneer_hide_permalink_with_css' );
+    add_action( 'admin_footer-post.php', 'fictioneer_hide_permalink_with_js' );
     add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99 );
   }
 
@@ -1371,6 +1381,90 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( ! current_user_can( 'fcn_edit_date' ) ) {
     add_filter( 'wp_insert_post_data', 'fictioneer_prevent_publish_date_update', 1, 2 );
+  }
+
+  // === FCN_CLASSIC_EDITOR ====================================================
+
+  /**
+   * Inject CSS for the classic editor
+   *
+   * @since 5.6.2
+   */
+
+  function fictioneer_classic_editor_css_restrictions() {
+    echo '<style type="text/css">.selectit[for="ping_status"], #add-new-comment {display: none !important;}</style>';
+  }
+
+  /**
+   * Inject javascript for the classic editor
+   *
+   * @since 5.6.2
+   */
+
+  function fictioneer_classic_editor_js_restrictions() {
+    echo '<script type="text/javascript">document.querySelectorAll(".selectit[for=ping_status], #add-new-comment").forEach(element => {element.remove();});</script>';
+  }
+
+  /**
+   * Restrict metaboxes in the classic editor
+   *
+   * @since 5.6.2
+   */
+
+  function fictioneer_restrict_classic_metaboxes() {
+    $post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
+
+    // Trackbacks
+    remove_meta_box( 'trackbacksdiv', $post_types, 'normal' );
+
+    // Tags
+    if ( ! current_user_can( 'assign_post_tags' ) ) {
+      remove_meta_box( 'tagsdiv-post_tag', $post_types, 'side' );
+    }
+
+    // Categories
+    if ( ! current_user_can( 'assign_categories' ) ) {
+      remove_meta_box( 'categorydiv', $post_types, 'side' );
+    }
+
+    // Genres
+    if ( ! current_user_can( 'assign_fcn_genres' ) ) {
+      remove_meta_box( 'fcn_genrediv', $post_types, 'side' );
+    }
+
+    // Fandoms
+    if ( ! current_user_can( 'assign_fcn_fandoms' ) ) {
+      remove_meta_box( 'fcn_fandomdiv', $post_types, 'side' );
+    }
+
+    // Characters
+    if ( ! current_user_can( 'assign_fcn_characters' ) ) {
+      remove_meta_box( 'fcn_characterdiv', $post_types, 'side' );
+    }
+
+    // Content Warnings
+    if ( ! current_user_can( 'assign_fcn_content_warnings' ) ) {
+      remove_meta_box( 'fcn_content_warningdiv', $post_types, 'side' );
+    }
+
+    // Permalink
+    if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
+      remove_meta_box( 'slugdiv', $post_types, 'normal' );
+    }
+
+    // Page template
+    if ( ! current_user_can( 'fcn_select_page_template' ) ) {
+      remove_meta_box( 'pageparentdiv', $post_types, 'side' );
+    }
+  }
+
+  if ( current_user_can( 'fcn_classic_editor' ) ) {
+    add_filter( 'use_block_editor_for_post_type', '__return_false' );
+    add_action( 'add_meta_boxes', 'fictioneer_restrict_classic_metaboxes' );
+    add_action( 'admin_head-post.php', 'fictioneer_classic_editor_css_restrictions' );
+    add_action( 'admin_head-post-new.php', 'fictioneer_classic_editor_css_restrictions' );
+    add_action( 'admin_footer-post.php', 'fictioneer_classic_editor_js_restrictions' );
+    add_action( 'admin_footer-post-new.php', 'fictioneer_classic_editor_js_restrictions' );
   }
 }
 
