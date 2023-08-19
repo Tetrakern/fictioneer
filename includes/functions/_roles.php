@@ -506,6 +506,23 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_SELECT_PAGE_TEMPLATE ==============================================
 
   /**
+   * Prevents parent and order from being updated
+   *
+   * @param array $data     An array of slashed, sanitized, and processed post data.
+   *
+   * @return array The potentially modified post data.
+   */
+
+  function fictioneer_prevent_parent_and_order_update( $data ) {
+    // Remove items
+    unset( $data['post_parent'] );
+    unset( $data['menu_order'] );
+
+    // Continue filter
+    return $data;
+  }
+
+  /**
    * Filters the page template selection
    *
    * @since Fictioneer 5.6.0
@@ -561,6 +578,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_select_page_template' ) ) {
     add_filter( 'update_post_metadata', 'fictioneer_prevent_page_template_update', 1, 4 );
     add_filter( 'theme_templates', 'fictioneer_disallow_page_template_select', 1 );
+    add_filter( 'wp_insert_post_data', 'fictioneer_prevent_parent_and_order_update', 1 );
   }
 
   // === MODERATE_COMMENTS =====================================================
@@ -1334,7 +1352,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * @param array $data     An array of slashed, sanitized, and processed post data.
    * @param array $postarr  An array of sanitized (and slashed) but otherwise unmodified post data.
    *
-   * @return array         The potentially modified post data.
+   * @return array The potentially modified post data.
    */
 
   function fictioneer_prevent_publish_date_update( $data, $postarr ) {

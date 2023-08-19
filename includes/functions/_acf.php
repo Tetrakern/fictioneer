@@ -429,7 +429,7 @@ function fictioneer_hide_epub_inputs() {
   global $post_type;
 
   if ( $post_type === 'fcn_story' ) {
-    echo '<style> #acf-group_60edb914ba16c {display: none !important;}</style>';
+    echo '<style type="text/css"> #acf-group_60edb914ba16c {display: none !important;}</style>';
   }
 }
 
