@@ -241,11 +241,16 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
         */
 
+        $comment_count_changed = $comment_count != absint( $old_data['comment_count'] );
         $old_data['comment_count'] = $comment_count;
         $old_data['comment_count_timestamp'] = time();
 
         // Update meta
-        if ( FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT > 0 && ! ( $args['force_comment_count_refresh'] ?? 0 ) ) {
+        if (
+          $comment_count_changed &&
+          FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT > 0 &&
+          ! ( $args['force_comment_count_refresh'] ?? 0 )
+        ) {
           update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
           fictioneer_purge_post_cache( $story_id );
         }
