@@ -13,7 +13,7 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User $user User to get the Follows for.
+   * @param WP_User $user  User to get the Follows for.
    *
    * @return array Follows.
    */
@@ -60,7 +60,10 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
 function fictioneer_ajax_get_follows() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   // Prepare Follows
   $user_follows = fictioneer_load_follows( $user );
@@ -81,7 +84,7 @@ function fictioneer_ajax_get_follows() {
   $user_follows['new'] = $new;
 
   // Response
-  wp_send_json_success( ['follows' => json_encode( $user_follows )] );
+  wp_send_json_success( array( 'follows' => json_encode( $user_follows ) ) );
 }
 
 if ( get_option( 'fictioneer_enable_follows' ) ) {
@@ -105,16 +108,19 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 function fictioneer_ajax_toggle_follow() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   if ( empty( $_POST['story_id'] ) || empty( $_POST['set'] ) ) {
-    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
   }
 
   // Valid story ID?
   $story_id = fictioneer_validate_id( $_POST['story_id'], 'fcn_story' );
   if ( ! $story_id ) {
-    wp_send_json_error( ['error' => __( 'Invalid story ID.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Invalid story ID.', 'fictioneer' ) ) );
   }
 
   // Set or unset?
@@ -144,7 +150,7 @@ function fictioneer_ajax_toggle_follow() {
   if ( update_user_meta( $user->ID, 'fictioneer_user_follows', $user_follows ) ) {
     wp_send_json_success();
   } else {
-    wp_send_json_error( ['error' => __( 'Database error. Follows could not be updated.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Follows could not be updated.', 'fictioneer' ) ) );
   }
 }
 
@@ -168,14 +174,17 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 function fictioneer_ajax_clear_my_follows() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_follows' );
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   // Update user
   if ( update_user_meta( $user->ID, 'fictioneer_user_follows', [] ) ) {
     update_user_meta( $user->ID, 'fictioneer_user_follows_cache', false );
-    wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
+    wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
-    wp_send_json_error( ['error' => __( 'Database error. Follows could not be cleared.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Follows could not be cleared.', 'fictioneer' ) ) );
   }
 }
 
@@ -203,12 +212,15 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 function fictioneer_ajax_mark_follows_read() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   $user_follows = fictioneer_load_follows( $user );
 
   if ( empty( $user_follows ) ) {
-    wp_send_json_error( ['error' => __( 'Follows are empty.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Follows are empty.', 'fictioneer' ) ) );
   }
 
   // Update 'seen' timestamp to now; compatible with Date.now() in JavaScript
@@ -222,7 +234,7 @@ function fictioneer_ajax_mark_follows_read() {
   if ( $result ) {
     wp_send_json_success();
   } else {
-    wp_send_json_error( ['error' => __( 'Database error. Follows could not be updated.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Follows could not be updated.', 'fictioneer' ) ) );
   }
 }
 
@@ -240,9 +252,9 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
    *
    * @since Fictioneer 4.3
    *
-   * @param array        $story_ids  IDs of the followed stories.
-   * @param string|false $after_date Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
-   * @param int          $count      Optional. Maximum number of chapters to be returned. Default 16.
+   * @param array        $story_ids   IDs of the followed stories.
+   * @param string|false $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
+   * @param int          $count       Optional. Maximum number of chapters to be returned. Default 16.
    *
    * @return array Collection of chapters.
    */
@@ -278,7 +290,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
     );
 
     if ( $after_date ) {
-      $query_args['date_query'] = ['after' => $after_date];
+      $query_args['date_query'] = array( 'after' => $after_date );
     }
 
     return get_posts( $query_args );
@@ -317,12 +329,13 @@ function fictioneer_ajax_get_follows_notifications() {
     $cache = get_user_meta( $user->ID, 'fictioneer_user_follows_cache', true );
     if ( ! empty( $cache ) && array_key_exists( $last_update, $cache ) ) {
       $html = $cache[ $last_update ] . '<!-- Cached on ' . $cache['timestamp'] . ' -->';
-      wp_send_json_success( ['html' => $html] );
+      wp_send_json_success( array( 'html' => $html ) );
     }
   }
 
   // Chapters for notifications
-  $chapters = count( $user_follows['data'] ) > 0 ? fictioneer_query_followed_chapters( array_keys( $user_follows['data'] ) ) : false;
+  $chapters = count( $user_follows['data'] ) > 0 ?
+    fictioneer_query_followed_chapters( array_keys( $user_follows['data'] ) ) : false;
 
   // Build notifications
   ob_start();
@@ -389,7 +402,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 // =============================================================================
 
 /**
- * Sends the HTML for Follows list via AJAX
+ * Sends the HTML for list of followed stories via AJAX
  *
  * @since Fictioneer 4.3
  */
@@ -398,17 +411,19 @@ function fictioneer_ajax_get_follows_list() {
   // Validations
   $user = wp_get_current_user();
 
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Not logged in.', 'fictioneer' )] );
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Not logged in.', 'fictioneer' ) ) );
+  }
 
   if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 
   // Setup
   $follows = fictioneer_load_follows( $user );
   $post_ids = array_keys( $follows['data'] );
-  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-  $order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
+  $page = absint( $_GET['page'] ?? 1 );
+  $order = strtolower( $_GET['order'] ?? 'desc' );
 
   // Sanitize
   $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
@@ -422,9 +437,7 @@ function fictioneer_ajax_get_follows_list() {
       'order' => $order
     ),
     __( 'You are not following any stories.', 'fictioneer' ),
-    array(
-      'show_latest' => true
-    )
+    array( 'show_latest' => true )
   );
 
   // Total number of pages
