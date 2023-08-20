@@ -10,6 +10,11 @@
  * License URI: http://www.gnu.org/licenses/gpl.html
  */
 
+// Check if AJAX request
+if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+  return;
+}
+
 // Check if fast AJAX is activated
 if ( ! isset( $_REQUEST['fcn_fast_ajax'] ) ) {
   return;
