@@ -9,7 +9,7 @@
  *
  * @since Fictioneer 4.0
  *
- * @param string $content Content for the tag.
+ * @param string $content  Content for the tag.
  *
  * @return string Tag with content.
  */
@@ -23,7 +23,7 @@ function fictioneer_loc_node( $content ) {
  *
  * @since Fictioneer 4.0
  *
- * @param string $content Content for the tag.
+ * @param string $content  Content for the tag.
  *
  * @return string Tag with content.
  */
@@ -37,7 +37,7 @@ function fictioneer_lastmod_node( $content ) {
  *
  * @since Fictioneer 4.0
  *
- * @param string $content Content for the tag.
+ * @param string $content  Content for the tag.
  *
  * @return string Tag with content.
  */
@@ -54,9 +54,9 @@ function fictioneer_frequency_node( $content ) {
  * @see   fictioneer_lastmod_node()
  * @see   fictioneer_frequency_node()
  *
- * @param string $loc     URL.
- * @param string $lastmod Optional. Last modified timestamp.
- * @param string $freq    Optional. Refresh frequency, e.g. 'daily' or 'yearly'.
+ * @param string $loc      URL.
+ * @param string $lastmod  Optional. Last modified timestamp.
+ * @param string $freq     Optional. Refresh frequency, e.g. 'daily' or 'yearly'.
  *
  * @return string $node Node with tags.
  */

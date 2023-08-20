@@ -43,8 +43,8 @@ if ( ! function_exists( 'fictioneer_get_schema_primary_image' ) ) {
    * @since Fictioneer 4.0
    * @link https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
    *
-   * @param int|null $post_id The post ID the primary image is from.
-   * @param array    $args    Optional arguments.
+   * @param int|null $post_id  The post ID the primary image is from.
+   * @param array    $args     Optional arguments.
    *
    * @return array|boolean Either the array with the URL (0), width (1), and height (2),
    *                       or false if no image was found.
@@ -80,7 +80,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_website' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string|null $description The website description.
+   * @param string|null $description  The website description.
    *
    * @return array Website schema node.
    */
@@ -108,7 +108,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_image' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param array|boolean|null $image_data The image data with URL (0), width (1), and height (2).
+   * @param array|boolean|null $image_data  The image data with URL (0), width (1), and height (2).
    *
    * @return array Image schema node.
    */
@@ -140,11 +140,11 @@ if ( ! function_exists( 'fictioneer_get_schema_node_webpage' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string|array       $type        The type(s) of the page, which can be an array.
-   * @param string             $name        Title of the page.
-   * @param string             $description Description of the page.
-   * @param int|null           $post_id     The post ID of the page. Defaults to current ID.
-   * @param array|boolean|null $image_data  The image data or falsy value.
+   * @param string|array       $type         The type(s) of the page, which can be an array.
+   * @param string             $name         Title of the page.
+   * @param string             $description  Description of the page.
+   * @param int|null           $post_id      The post ID of the page. Defaults to current ID.
+   * @param array|boolean|null $image_data   The image data or falsy value.
    *
    * @return array Webpage schema node.
    */
@@ -186,11 +186,11 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string|array       $type        The type(s) of the article, which can be an array.
-   * @param string             $description Description of the article.
-   * @param WP_Post|null       $post        The post object of the article. Defaults to current post.
-   * @param array|boolean|null $image_data  The image data or falsy value.
-   * @param boolean            $no_cat      Whether to include the category or not.
+   * @param string|array       $type         The type(s) of the article, which can be an array.
+   * @param string             $description  Description of the article.
+   * @param WP_Post|null       $post         The post object of the article. Defaults to current post.
+   * @param array|boolean|null $image_data   The image data or falsy value.
+   * @param boolean            $no_cat       Whether to include the category or not.
    *
    * @return array Article schema node.
    */
@@ -258,10 +258,10 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param array  $list        List of post IDs.
-   * @param string $name        Name of the list.
-   * @param string $description Description of the list.
-   * @param string $part_of     The node ID the list belongs to. Defaults to '#webpage'.
+   * @param array  $list         List of post IDs.
+   * @param string $name         Name of the list.
+   * @param string $description  Description of the list.
+   * @param string $part_of      The node ID the list belongs to. Defaults to '#webpage'.
    *
    * @return array|null List schema node.
    */
@@ -312,7 +312,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
  *
  * @since Fictioneer 5.0
  *
- * @param int|null $post_id Optional. The current post ID.
+ * @param int|null $post_id  Optional. The current post ID.
  */
 
 function fictioneer_output_schemas( $post_id = null ) {

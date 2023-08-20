@@ -15,6 +15,7 @@ function fictioneer_maintenance_mode() {
     if ( ! current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
       $note = get_option( 'fictioneer_phrase_maintenance' );
       $note = ! empty( $note ) ? $note : __( 'Website under planned maintenance. Please check back later.', 'fictioneer' );
+
       wp_die( __( '<h1>Under Maintenance</h1><br>', 'fictioneer' ) . $note );
     }
   }
@@ -80,6 +81,7 @@ function fictioneer_fix_excerpt( $excerpt ) {
   add_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
   $excerpt = wp_trim_excerpt( $excerpt );
   remove_filter( 'the_content', 'fictioneer_replace_br_with_whitespace', 6 );
+
   return $excerpt;
 }
 remove_filter( 'get_the_excerpt', 'wp_trim_excerpt' );
@@ -273,10 +275,14 @@ function fictioneer_logout() {
   global $wp;
 
   // Abort if not on logout route
-  if ( $wp->request != FICTIONEER_LOGOUT_ENDPOINT ) return;
+  if ( $wp->request != FICTIONEER_LOGOUT_ENDPOINT ) {
+    return;
+  }
 
   // Redirect home if not logged-in
-  if ( ! is_user_logged_in() ) wp_safe_redirect( get_home_url() );
+  if ( ! is_user_logged_in() ) {
+    wp_safe_redirect( get_home_url() );
+  }
 
   // Setup
   $user = wp_get_current_user();
@@ -348,7 +354,18 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
  */
 
 function fictioneer_extend_taxonomy_pages( $query ) {
-  if ( ( is_tag() || is_tax( 'fcn_genre' ) || is_tax( 'fcn_fandom' ) || is_tax( 'fcn_character' ) || is_tax( 'fcn_content_warning' ) || is_category() ) && $query->is_main_query() && ! is_admin() ) {
+  if (
+    (
+      is_tag() ||
+      is_tax( 'fcn_genre' ) ||
+      is_tax( 'fcn_fandom' ) ||
+      is_tax( 'fcn_character' ) ||
+      is_tax( 'fcn_content_warning' ) ||
+      is_category()
+    ) &&
+    $query->is_main_query() &&
+    ! is_admin()
+  ) {
     $post_types = array( 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection' );
     $query->set( 'post_type', $post_types );
   }
@@ -577,7 +594,9 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
     ! in_the_loop() ||
     ! is_main_query() ||
     post_password_required()
-  ) return $content;
+  ) {
+    return $content;
+  }
 
   return preg_replace_callback(
     '|<p|',
@@ -608,7 +627,9 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
  */
 
 function fictioneer_add_lightbox_to_post_images( $content ) {
-  if ( empty( $content ) ) return $content;
+  if ( empty( $content ) ) {
+    return $content;
+  }
 
   // Setup
   libxml_use_internal_errors( true );
@@ -753,7 +774,7 @@ function fictioneer_embed_consent_wrappers( $content ) {
     $title = htmlspecialchars( $iframe->getAttribute( 'title' ) );
     $title = ( ! $title || $title == '') ? 'embedded content' : $title;
 
-    $iframe->removeAttribute('src');
+    $iframe->removeAttribute( 'src' );
 
     $consent_element = $dom->createElement( 'button' );
     $consent_element->setAttribute( 'type', 'button' );
@@ -852,6 +873,7 @@ function fictioneer_disable_attachment_pages() {
     $url = wp_get_attachment_url( get_queried_object_id() );
     wp_redirect( $url, 301 );
   }
+
   return;
 }
 
@@ -934,7 +956,9 @@ if ( get_option( 'fictioneer_restrict_rest_api' ) ) {
 
 function fictioneer_add_sof_to_taxonomy_query( $query ) {
   // Abort if...
-  if ( is_admin() || ! is_archive() || ! $query->is_main_query() ) return;
+  if ( is_admin() || ! is_archive() || ! $query->is_main_query() ) {
+    return;
+  }
 
   // Use empty array to get date query
   $date_query = fictioneer_append_date_query( [] );

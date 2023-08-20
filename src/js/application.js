@@ -1388,14 +1388,18 @@ function fcn_contactFormSubmit(button) {
         payload = {'action': 'fictioneer_ajax_submit_contact_form'};
 
   // Form valid?
-  if (!form.reportValidity()) return;
+  if (!form.reportValidity()) {
+    return;
+  }
 
   // Disable after click regardless of outcome
   button.disabled = true;
   button.innerHTML = button.dataset.disabled;
 
   // Delay trap (cannot be done server-side because of caching)
-  if (Date.now() < fcn_pageLoadTimestamp + 3000) return;
+  if (Date.now() < fcn_pageLoadTimestamp + 3000) {
+    return;
+  }
 
   // Prepare payload
   for (const [key, value] of formData) {
