@@ -371,6 +371,20 @@ function fictioneer_do_fast_ajax() {
     require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
   }
 
+  // Skip cache checks
+  if ( ! function_exists( 'fictioneer_caching_active' ) ) {
+    function fictioneer_caching_active() { return false; };
+  }
+
+  if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
+    function fictioneer_private_caching_active() { return false; };
+  }
+
+  // Skip cache purging
+  if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
+    function fictioneer_refresh_post_caches() { return; };
+  }
+
   // Function exists?
   if ( ! function_exists( $action ) ) {
     return;
