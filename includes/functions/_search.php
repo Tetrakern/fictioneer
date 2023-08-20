@@ -10,12 +10,12 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
    *
    * @since 5.0
    *
-   * @param array  $taxonomies Array of WP_Term objects.
-   * @param string $query_var  Name of the submitted collection field.
-   * @param string $and_var    Name of the submitted operator field.
-   * @param string $singular   Singular display name of taxonomy.
-   * @param string $plural     Plural display name of taxonomy.
-   * @param array  $args       Optional arguments.
+   * @param array  $taxonomies  Array of WP_Term objects.
+   * @param string $query_var   Name of the submitted collection field.
+   * @param string $and_var     Name of the submitted operator field.
+   * @param string $singular    Singular display name of taxonomy.
+   * @param string $plural      Plural display name of taxonomy.
+   * @param array  $args        Optional arguments.
    */
 
   function fcn_keyword_search_taxonomies_input( $taxonomies, $query_var, $and_var, $singular, $plural, $args = [] ) {
@@ -51,7 +51,9 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
             $x_mark = fictioneer_get_icon( 'fa-xmark' );
 
             foreach ( $taxonomies as $term ) {
-              if ( ! in_array( $term->term_id, $nodes ) ) continue;
+              if ( ! in_array( $term->term_id, $nodes ) ) {
+                continue;
+              }
 
               $name = $term->name;
               $value = rawurlencode( $term->term_id );
@@ -104,7 +106,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
    *
    * @since 5.0
    *
-   * @param array  $authors   Array of WP_User objects.
+   * @param array  $authors    Array of WP_User objects.
    * @param string $query_var  Name of the submitted collection field.
    * @param string $singular   Singular display name of taxonomy.
    * @param string $plural     Plural display name of taxonomy.
@@ -127,7 +129,9 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
             $x_mark = fictioneer_get_icon( 'fa-xmark' );
 
             foreach ( $authors as $author ) {
-              if ( ! in_array( $author->ID, $nodes ) ) continue;
+              if ( ! in_array( $author->ID, $nodes ) ) {
+                continue;
+              }
 
               $name = $author->display_name;
               $value = rawurlencode( $author->ID );
@@ -177,7 +181,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
  *
  * @since 5.2.4
  *
- * @param WP_Query $query The query.
+ * @param WP_Query $query  The query.
  */
 
 function fictioneer_remove_unlisted_from_search( $query ) {
@@ -220,7 +224,7 @@ add_action( 'pre_get_posts' ,'fictioneer_remove_unlisted_from_search', 10 );
  *
  * @since 5.0
  *
- * @param WP_Query $query The query.
+ * @param WP_Query $query  The query.
  */
 
 function fictioneer_extend_search_query( $query ) {
