@@ -28,9 +28,12 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
     $post_type = in_array( $type, ['story', 'chapter', 'collection', 'recommendation'] ) ? "fcn_$type" : $type;
     $page = $query_args['paged'] ?? 1;
     $is_empty = false;
+    $is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
     // Validations
-    if ( ! in_array( $post_type, $allowed_types ) ) return false;
+    if ( ! in_array( $post_type, $allowed_types ) ) {
+      return false;
+    }
 
     // Default query arguments
     $the_query_args = array(
@@ -44,7 +47,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Default card arguments
     $the_card_args = array(
-      'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active()
+      'cache' => ! $is_ajax && fictioneer_caching_active() && ! fictioneer_private_caching_active()
     );
 
     // Merge with optional arguments
