@@ -13,7 +13,7 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param WP_User $user User to get the Reminders for.
+   * @param WP_User $user  User to get the Reminders for.
    *
    * @return array Reminders.
    */
@@ -56,14 +56,17 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
 function fictioneer_ajax_get_reminders() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   // Prepare Reminders
   $reminders = fictioneer_load_reminders( $user );
   $reminders['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
 
   // Response
-  wp_send_json_success( ['reminders' => json_encode( $reminders )] );
+  wp_send_json_success( array( 'reminders' => json_encode( $reminders ) ) );
 }
 
 if ( get_option( 'fictioneer_enable_reminders' ) ) {
@@ -87,15 +90,21 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 function fictioneer_ajax_toggle_reminder() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   if ( empty( $_POST['story_id'] ) || empty( $_POST['set'] ) ) {
-    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
   }
 
   // Valid story ID?
   $story_id = fictioneer_validate_id( $_POST['story_id'], 'fcn_story' );
-  if ( ! $story_id ) wp_send_json_error( ['error' => __( 'Invalid story ID.', 'fictioneer' )] );
+
+  if ( ! $story_id ) {
+    wp_send_json_error( array( 'error' => __( 'Invalid story ID.', 'fictioneer' ) ) );
+  }
 
   // Set or unset?
   $set = $_POST['set'] == 'true';
@@ -122,7 +131,7 @@ function fictioneer_ajax_toggle_reminder() {
   if ( update_user_meta( $user->ID, 'fictioneer_user_reminders', $user_reminders ) ) {
     wp_send_json_success();
   } {
-    wp_send_json_error( ['error' => __( 'Database error. Reminders could not be updated.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Reminders could not be updated.', 'fictioneer' ) ) );
   }
 }
 
@@ -146,13 +155,16 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 function fictioneer_ajax_clear_my_reminders() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_reminders' );
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   // Update user
   if ( update_user_meta( $user->ID, 'fictioneer_user_reminders', [] ) ) {
-    wp_send_json_success( ['success' => __( 'Data has been cleared.', 'fictioneer' )] );
+    wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
-    wp_send_json_error( ['error' => __( 'Database error. Reminders could not be cleared.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Database error. Reminders could not be cleared.', 'fictioneer' ) ) );
   }
 }
 
@@ -161,24 +173,32 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 }
 
 // =============================================================================
-// GET FOLLOWS LIST - AJAX
+// GET REMINDERS LIST - AJAX
 // =============================================================================
+
+/**
+ * Sends the HTML for list of remembered stories via AJAX
+ *
+ * @since Fictioneer 4.3
+ */
 
 function fictioneer_ajax_get_reminders_list() {
   // Validations
   $user = wp_get_current_user();
 
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Not logged in.', 'fictioneer' )] );
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Not logged in.', 'fictioneer' ) ) );
+  }
 
   if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 
   // Setup
   $reminders = fictioneer_load_reminders( $user );
   $post_ids = array_keys( $reminders['data'] );
-  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-  $order = isset( $_GET['order'] ) ? strtolower( $_GET['order'] ) : 'desc';
+  $page = absint( $_GET['page'] ?? 1 );
+  $order = strtolower( $_GET['order'] ?? 'desc' );
 
   // Sanitize
   $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
@@ -192,7 +212,7 @@ function fictioneer_ajax_get_reminders_list() {
       'order' => $order
     ),
     __( 'You have not marked any stories to be read later.', 'fictioneer' ),
-    ['show_latest' => true]
+    array( 'show_latest' => true )
   );
 
   // Total number of pages
