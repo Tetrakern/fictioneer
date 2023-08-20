@@ -14,6 +14,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $feed = fictioneer_get_rss_link();
 

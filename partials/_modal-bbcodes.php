@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="bbcodes-modal" class="bbcodes modal">
   <label for="modal-bbcodes-toggle" class="background-close"></label>
   <div class="modal__wrapper">

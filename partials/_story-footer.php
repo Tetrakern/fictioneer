@@ -18,6 +18,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Only render to bottom padding if behind a password
 if ( post_password_required() ) {
   // Start HTML ---> ?>

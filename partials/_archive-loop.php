@@ -18,6 +18,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $page = get_query_var( 'paged', 1 ) ?: 1; // Main query
 $order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );

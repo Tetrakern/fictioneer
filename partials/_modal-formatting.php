@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="formatting-modal" class="reader-settings modal">
   <label for="modal-formatting-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">

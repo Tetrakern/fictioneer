@@ -17,6 +17,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $story = fictioneer_get_story_data( $post->ID );
 $latest = $args['show_latest'] ?? false;

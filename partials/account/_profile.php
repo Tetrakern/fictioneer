@@ -16,6 +16,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $current_user = $args['user'];
 $fingerprint = fictioneer_get_user_fingerprint( $current_user->ID );

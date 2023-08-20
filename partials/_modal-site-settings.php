@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="site-settings-modal" class="site-settings modal">
   <label for="modal-site-settings-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">

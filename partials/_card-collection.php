@@ -15,6 +15,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $list_title = trim( fictioneer_get_field( 'fictioneer_collection_list_title' ) );
 $title = empty( $list_title ) ? fictioneer_get_safe_title( get_the_ID() ) : $list_title;

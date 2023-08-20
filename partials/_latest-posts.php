@@ -21,6 +21,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Prepare query
 $query_args = array(
   'post_type' => 'post',

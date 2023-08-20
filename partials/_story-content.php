@@ -17,6 +17,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $story_id = $args['story_id'];
 $story = $args['story_data'];

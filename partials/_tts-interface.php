@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="tts-interface" class="tts-interface hidden" data-show-settings="false" data-regex="<?php echo esc_attr( FICTIONEER_TTS_REGEX ); ?>">
   <div class="tts-interface__wrapper">
     <div class="tts-interface__controls">

@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <template id="mobile-bookmark-template" hidden>
   <li class="mobile-menu__bookmark">
     <button class="mobile-menu-bookmark-delete-button" data-bookmark-id><i class="fa-solid fa-trash-alt"></i></button>

@@ -22,6 +22,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $fandoms = get_the_terms( $args['collection_id'], 'fcn_fandom' );
 $characters = get_the_terms( $args['collection_id'], 'fcn_character' );

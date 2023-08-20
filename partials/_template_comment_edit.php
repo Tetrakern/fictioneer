@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <template class="comment-edit-actions-template">
   <div class="fictioneer-comment__edit-actions">
     <button

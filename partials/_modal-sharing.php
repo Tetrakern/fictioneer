@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="sharing-modal" class="sharing modal">
   <label for="modal-sharing-toggle" class="background-close"></label>
   <div class="modal__wrapper">

@@ -15,6 +15,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <header class="header hide-on-fullscreen">
 
   <?php do_action( 'fictioneer_header', $args ); ?>

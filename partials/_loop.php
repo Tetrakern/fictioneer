@@ -12,6 +12,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <?php if ( have_posts() ) : ?>
   <section class="blog-posts">
     <?php

@@ -16,6 +16,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Abort if OAuth is disabled
 if ( ! get_option( 'fictioneer_enable_oauth' ) ) return;
 

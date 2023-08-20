@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <template class="bookmark-small-card-template">
   <li class="card _small bookmark-card" data-color>
     <div class="card__body polygon">

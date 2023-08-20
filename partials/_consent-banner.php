@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="consent-banner" class="consent-banner hidden" role="banner">
   <div class="consent-banner__wrapper">
     <?php

@@ -23,6 +23,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $story_count = 0;
 $word_count = 0;

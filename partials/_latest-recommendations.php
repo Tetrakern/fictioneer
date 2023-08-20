@@ -23,6 +23,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' );
 

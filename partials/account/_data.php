@@ -16,6 +16,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $current_user = $args['user'];
 $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );

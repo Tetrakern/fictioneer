@@ -15,6 +15,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $show_empty = isset( $args['show_empty'] ) && $args['show_empty'];
 $count = isset( $args['count'] ) ? intval( $args['count'] ) : -1;

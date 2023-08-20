@@ -15,6 +15,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
 $discord_invite_link = get_option( 'fictioneer_discord_invite_link' );

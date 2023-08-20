@@ -14,6 +14,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <li class="card _hidden-result">
   <div class="card__body polygon">
     <div class="card__main _hidden-result">

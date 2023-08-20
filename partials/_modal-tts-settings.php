@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="tts-settings-modal" class="tts-settings modal">
   <label for="modal-tts-settings-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">

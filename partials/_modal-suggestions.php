@@ -8,6 +8,13 @@
  */
 ?>
 
+<?php
+
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
+?>
+
 <div id="suggestions-modal" class="suggestions modal">
 
   <label for="suggestions-modal-toggle" class="background-close"></label>

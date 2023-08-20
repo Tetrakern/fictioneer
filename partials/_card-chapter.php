@@ -16,6 +16,9 @@
 
 <?php
 
+// No direct access!
+defined( 'ABSPATH' ) OR exit;
+
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
 $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
