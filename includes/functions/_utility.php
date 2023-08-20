@@ -1836,6 +1836,8 @@ if ( ! function_exists( 'fictioneer_redirect_to_404' ) ) {
   /**
    * Redirects the current request to the WordPress 404 page
    *
+   * @since Fictioneer 5.6.0
+   *
    * @global WP_Query $wp_query  The main WP_Query instance.
    */
 
@@ -1868,6 +1870,8 @@ if ( ! function_exists( 'fictioneer_redirect_to_404' ) ) {
 if ( ! function_exists( 'fictioneer_verify_preview_access' ) ) {
   /**
    * Verifies preview query vars
+   *
+   * @since Fictioneer 5.6.0
    *
    * @return boolean True if access granted, false otherwise.
    */

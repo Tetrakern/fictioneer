@@ -25,7 +25,7 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
 
     // Validate/Initialize
     if ( empty( $reminders ) || ! is_array( $reminders ) || ! array_key_exists( 'data', $reminders ) ) {
-      $reminders = ['data' => [], 'updated' => $timestamp];
+      $reminders = array( 'data' => [], 'updated' => $timestamp );
       update_user_meta( $user->ID, 'fictioneer_user_reminders', $reminders );
     }
 

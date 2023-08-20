@@ -25,7 +25,7 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
 
     // Validate/Initialize
     if ( empty( $follows ) || ! is_array( $follows ) || ! array_key_exists( 'data', $follows ) ) {
-      $follows = ['data' => [], 'seen' => $timestamp, 'updated' => $timestamp];
+      $follows = array( 'data' => [], 'seen' => $timestamp, 'updated' => $timestamp );
       update_user_meta( $user->ID, 'fictioneer_user_follows', $follows );
     }
 

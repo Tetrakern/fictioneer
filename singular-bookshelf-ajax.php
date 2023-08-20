@@ -59,7 +59,9 @@ if ( count( $tabs ) < 1 ) {
 }
 
 // Use first tab if queried tab is not available
-if ( ! array_key_exists( $current_tab, $tabs ) ) $current_tab = array_key_first( $tabs );
+if ( ! array_key_exists( $current_tab, $tabs ) ) {
+  $current_tab = array_key_first( $tabs );
+}
 
 // Select tab
 $tabs[ $current_tab ]['classes'][] = '_current';

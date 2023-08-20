@@ -162,7 +162,7 @@ if ( ! function_exists( 'fictioneer_the_author_node' ) ) {
 }
 
 // =============================================================================
-// ICON
+// GET ICON HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_icon' ) ) {
@@ -253,7 +253,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
 }
 
 // =============================================================================
-// GET READING TIME NODES
+// GET READING TIME NODES HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
@@ -529,7 +529,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
 }
 
 // =============================================================================
-// GET SUBSCRIBE BUTTONS
+// GET SUBSCRIBE BUTTONS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
@@ -631,7 +631,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 }
 
 // =============================================================================
-// GET STORY BUTTONS
+// GET STORY BUTTONS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
@@ -872,7 +872,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 }
 
 // =============================================================================
-// GET SIMPLE CHAPTER LIST
+// GET SIMPLE CHAPTER LIST HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
@@ -983,7 +983,7 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
 }
 
 // =============================================================================
-// GET TAXONOMY PILLS
+// GET TAXONOMY PILLS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
@@ -1072,7 +1072,7 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
 }
 
 // =============================================================================
-// GET USER SUBMENU ITEMS
+// GET USER SUBMENU ITEMS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
@@ -1168,7 +1168,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 }
 
 // =============================================================================
-// GET POST META ITEMS
+// GET POST META ITEMS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
@@ -1250,7 +1250,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
 }
 
 // =============================================================================
-// GET CARD CONTROLS
+// GET CARD CONTROLS HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
@@ -1522,7 +1522,7 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
 }
 
 // =============================================================================
-// GET CHAPTER LIST SUBROW
+// GET CHAPTER LIST SUBROW HTML
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {

@@ -883,7 +883,7 @@ function fictioneer_extend_allowed_protocols( $protocols ){
 add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 
 // =============================================================================
-// DISABLE REST API
+// RESTRICT REST API
 // =============================================================================
 
 /**
@@ -1229,7 +1229,7 @@ function fictioneer_store_original_publish_date( $post_id, $post ) {
 add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 
 // =============================================================================
-// ELIMINATE TRACKBACK AND PINGBACK VALUES FROM BEING UPDATED
+// PREVENT TRACKBACK AND PINGBACK VALUES FROM BEING UPDATED
 // =============================================================================
 
 /**
