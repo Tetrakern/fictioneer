@@ -21,7 +21,9 @@ function fictioneer_account_moderation_message( $args ) {
   $message = get_the_author_meta( 'fictioneer_admin_moderation_message', $args['user']->ID );
 
   // Abort conditions
-  if ( empty( $message ) ) return;
+  if ( empty( $message ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <div class="profile__moderation-message profile__segment">

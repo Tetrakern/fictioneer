@@ -100,18 +100,24 @@ function fictioneer_recommendation_tags( $args ) {
   if ( ! get_option( 'fictioneer_hide_tags_on_pages' ) ) {
     $tags = get_the_tags( $args['recommendation_id'] );
 
-    if ( ! empty( $tags ) ) $tag_args[] = $tags;
+    if ( ! empty( $tags ) ) {
+      $tag_args[] = $tags;
+    }
   }
 
   // Show content warnings?
   if ( ! get_option( 'fictioneer_hide_content_warnings_on_pages' ) ) {
     $warnings = get_the_terms( $args['recommendation_id'], 'fcn_content_warning' );
 
-    if ( ! empty( $warnings ) ) $tag_args[] = $warnings;
+    if ( ! empty( $warnings ) ) {
+      $tag_args[] = $warnings;
+    }
   }
 
   // Abort conditions...
-  if ( empty( $tag_args ) ) return;
+  if ( empty( $tag_args ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <section class="recommendation__tags tag-group">
@@ -130,9 +136,9 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post $args['recommendation']    The recommendation object.
- * @param int     $args['recommendation_id'] The recommendation post ID.
- * @param int     $args['title']             The safe recommendation title.
+ * @param WP_Post $args['recommendation']     The recommendation object.
+ * @param int     $args['recommendation_id']  The recommendation post ID.
+ * @param int     $args['title']              The safe recommendation title.
  */
 
 function fictioneer_recommendation_links( $args ) {
@@ -172,9 +178,9 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post $args['recommendation']    The recommendation object.
- * @param int     $args['recommendation_id'] The recommendation post ID.
- * @param int     $args['title']             The safe recommendation title.
+ * @param WP_Post $args['recommendation']     The recommendation object.
+ * @param int     $args['recommendation_id']  The recommendation post ID.
+ * @param int     $args['title']              The safe recommendation title.
  */
 
 function fictioneer_recommendation_support_links( $args ) {

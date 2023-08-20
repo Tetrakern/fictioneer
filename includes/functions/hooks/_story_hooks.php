@@ -14,10 +14,10 @@
  * @since 5.0
  * @see stories.php
  *
- * @param int      $args['current_page'] Current page number of pagination or 1.
- * @param int      $args['post_id']      The post ID.
- * @param WP_Query $args['stories']      Paginated query of all published stories.
- * @param string   $args['queried_type'] The queried post type ('fcn_story').
+ * @param int      $args['current_page']  Current page number of pagination or 1.
+ * @param int      $args['post_id']       The post ID.
+ * @param WP_Query $args['stories']       Paginated query of all published stories.
+ * @param string   $args['queried_type']  The queried post type ('fcn_story').
  */
 
 function fictioneer_stories_statistics( $args ) {
@@ -159,8 +159,8 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_list', 30 );
  *
  * @since Fictioneer 5.0
  *
- * @param array $args['story_data'] Collection of story data.
- * @param int   $args['story_id']   The story post ID.
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
  */
 
 function fictioneer_story_copyright_notice( $args ) {
@@ -187,8 +187,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_copyright_notice
  *
  * @since Fictioneer 5.0
  *
- * @param array $args['story_data'] Collection of story data.
- * @param int   $args['story_id']   The story post ID.
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
  */
 
 function fictioneer_story_tags_and_warnings( $args ) {
@@ -219,8 +219,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tags_and_warning
  *
  * @since Fictioneer 5.0
  *
- * @param array $args['story_data'] Collection of story data.
- * @param int   $args['story_id']   The story post ID.
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
  */
 
 function fictioneer_story_actions( $args ) {
@@ -245,8 +245,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
  *
  * @since Fictioneer 5.0
  *
- * @param array $args['story_data'] Collection of story data.
- * @param int   $args['story_id']   The story post ID.
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
  */
 
 function fictioneer_story_content( $args ) {
@@ -267,8 +267,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_content', 40 );
  *
  * @since Fictioneer 5.0
  *
- * @param array $args['story_data'] Collection of story data.
- * @param int   $args['story_id']   The story post ID.
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
  */
 
 function fictioneer_story_comment( $args ) {

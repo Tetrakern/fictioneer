@@ -223,7 +223,9 @@ add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
 
 function fictioneer_header_background( $args ) {
   // Abort if...
-  if ( ! isset( $args['header_image_url'] ) || ! $args['header_image_url'] ) return;
+  if ( ! isset( $args['header_image_url'] ) || ! $args['header_image_url'] ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <div class="header-background hide-on-fullscreen">

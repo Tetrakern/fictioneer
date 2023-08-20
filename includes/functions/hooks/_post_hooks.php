@@ -17,7 +17,9 @@ function fictioneer_post_tags( $post_id ) {
   $tags = get_the_tags( $post_id );
 
   // Abort if...
-  if ( ! $tags || get_option( 'fictioneer_hide_tags_on_pages' ) ) return;
+  if ( ! $tags || get_option( 'fictioneer_hide_tags_on_pages' ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <section class="post__tags tag-group">
@@ -118,7 +120,9 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20
 
 function fictioneer_post_media_buttons() {
   // Abort if...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Render template
   get_template_part( 'partials/_share-buttons' );
@@ -137,7 +141,9 @@ add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10 )
 
 function fictioneer_post_subscribe_button() {
   // Abort if...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Setup
   $subscribe_buttons = fictioneer_get_subscribe_options();

@@ -89,13 +89,13 @@ add_action( 'fictioneer_collections_after_content', 'fictioneer_collections_list
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post  $args['collection']     Collection post object.
- * @param int      $args['collection_id']  The collection post ID.
- * @param string   $args['title']          Safe collection title.
- * @param int      $args['current_page']   Number of the current page or 1.
- * @param int      $args['max_pages']      Total number of pages or 1.
- * @param array    $args['featured_list']  IDs of featured items in the collection.
- * @param WP_Query $args['featured_query'] Paginated query of featured items.
+ * @param WP_Post  $args['collection']      Collection post object.
+ * @param int      $args['collection_id']   The collection post ID.
+ * @param string   $args['title']           Safe collection title.
+ * @param int      $args['current_page']    Number of the current page or 1.
+ * @param int      $args['max_pages']       Total number of pages or 1.
+ * @param array    $args['featured_list']   IDs of featured items in the collection.
+ * @param WP_Query $args['featured_query']  Paginated query of featured items.
  */
 
 function fictioneer_collection_tags_and_warnings( $args ) {
@@ -132,13 +132,13 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_tags_a
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post  $args['collection']     Collection post object.
- * @param int      $args['collection_id']  The collection post ID.
- * @param string   $args['title']          Safe collection title.
- * @param int      $args['current_page']   Number of the current page or 1.
- * @param int      $args['max_pages']      Total number of pages or 1.
- * @param array    $args['featured_list']  IDs of featured items in the collection.
- * @param WP_Query $args['featured_query'] Paginated query of featured items.
+ * @param WP_Post  $args['collection']      Collection post object.
+ * @param int      $args['collection_id']   The collection post ID.
+ * @param string   $args['title']           Safe collection title.
+ * @param int      $args['current_page']    Number of the current page or 1.
+ * @param int      $args['max_pages']       Total number of pages or 1.
+ * @param array    $args['featured_list']   IDs of featured items in the collection.
+ * @param WP_Query $args['featured_query']  Paginated query of featured items.
  */
 
 function fictioneer_collection_statistics( $args ) {
@@ -159,13 +159,13 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_statis
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post  $args['collection']     Collection post object.
- * @param int      $args['collection_id']  The collection post ID.
- * @param string   $args['title']          Safe collection title.
- * @param int      $args['current_page']   Number of the current page or 1.
- * @param int      $args['max_pages']      Total number of pages or 1.
- * @param array    $args['featured_list']  IDs of featured items in the collection.
- * @param WP_Query $args['featured_query'] Paginated query of featured items.
+ * @param WP_Post  $args['collection']      Collection post object.
+ * @param int      $args['collection_id']   The collection post ID.
+ * @param string   $args['title']           Safe collection title.
+ * @param int      $args['current_page']    Number of the current page or 1.
+ * @param int      $args['max_pages']       Total number of pages or 1.
+ * @param array    $args['featured_list']   IDs of featured items in the collection.
+ * @param WP_Query $args['featured_query']  Paginated query of featured items.
  */
 
 function fictioneer_collection_featured_list( $args ) {

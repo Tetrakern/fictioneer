@@ -226,7 +226,9 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
 
 function fictioneer_mobile_chapters_frame() {
   // Abort conditions
-  if ( get_post_type() != 'fcn_chapter' || is_archive() || is_search() ) return;
+  if ( get_post_type() != 'fcn_chapter' || is_archive() || is_search() ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <div class="mobile-menu__frame" data-frame="chapters">

@@ -92,7 +92,7 @@ add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 
  *
  * @since Fictioneer 5.0
  *
- * @param int $args['chapter_id'] The chapter ID.
+ * @param int $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_foreword( $args ) {
@@ -117,7 +117,7 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 1
  *
  * @since Fictioneer 5.0
  *
- * @param int $args['chapter_id'] The chapter ID.
+ * @param int $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_warnings( $args ) {
@@ -190,10 +190,10 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
  *
  * @since Fictioneer 5.0
  *
- * @param array       $args['chapter_ids'] IDs of visible chapters in the same story or empty array.
- * @param int|boolean $args['prev_index']  Index of previous chapter or false if outside bounds.
- * @param int|boolean $args['next_index']  Index of next chapter or false if outside bounds.
- * @param string      $location            Either 'top' or 'bottom'.
+ * @param array       $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
+ * @param int|boolean $args['prev_index']   Index of previous chapter or false if outside bounds.
+ * @param int|boolean $args['next_index']   Index of next chapter or false if outside bounds.
+ * @param string      $location             Either 'top' or 'bottom'.
  */
 
 function fictioneer_chapter_nav_buttons( $args, $location ) {
@@ -310,7 +310,7 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post|null $args['story_post'] Optional. The story the chapter belongs to.
+ * @param WP_Post|null $args['story_post']  Optional. The story the chapter belongs to.
  */
 
 function fictioneer_chapter_index_popup_menu( $args ) {
@@ -397,7 +397,7 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
  *
  * @since Fictioneer 5.0
  *
- * @param int $args['chapter_id'] The chapter ID.
+ * @param int $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_afterword( $args ) {
@@ -422,9 +422,9 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User      $args['author']     Author of the post.
- * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
- * @param int          $args['chapter_id'] The chapter ID.
+ * @param WP_User      $args['author']      Author of the post.
+ * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
+ * @param int          $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_support_links( $args ) {
@@ -530,7 +530,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
  *
  * @since Fictioneer 5.0
  *
- * @param WP_Post|null $args['story_post'] Optional. Post object of the story.
+ * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
  * @param int          $args['chapter_id']   The chapter ID.
  * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
  * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
