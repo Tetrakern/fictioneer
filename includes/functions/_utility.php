@@ -1887,4 +1887,37 @@ if ( ! function_exists( 'fictioneer_verify_preview_access' ) ) {
   }
 }
 
+// =============================================================================
+// ADD ACTION TO SAVE/TRASH/UNTRASH/DELETE HOOKS WITH POST ID
+// =============================================================================
+
+/**
+ * Adds callback to save, trash, untrash, and delete hooks (1 argument)
+ *
+ * This helper saves some time/space adding a callback action to all four
+ * default post operations. But only with the first argument: post_id.
+ *
+ * @since Fictioneer 5.6.3
+ *
+ * @param callable $function  The callback function to be added.
+ * @param int      $priority  Optional. Used to specify the order in which the
+ *                            functions associated with a particular action are
+ *                            executed. Default 10. Lower numbers correspond with
+ *                            earlier execution, and functions with the same
+ *                            priority are executed in the order in which they
+ *                            were added to the action.
+ *
+ * @return true Will always return true.
+ */
+
+function fictioneer_add_stud_post_actions( $function, $priority = 10 ) {
+  $hooks = ['save_post', 'trashed_post', 'delete_post', 'untrash_post'];
+
+  foreach ( $hooks as $hook ) {
+    add_action( $hook, $function, $priority );
+  }
+
+  return true;
+}
+
 ?>
