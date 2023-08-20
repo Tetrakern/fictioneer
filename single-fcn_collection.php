@@ -43,7 +43,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
         $raw_query_args = array (
           'post_type' => 'any',
           'post_status' => 'publish',
-          'post__in' => fictioneer_save_array_zero( $featured_list ),
+          'post__in' => fictioneer_rescue_array_zero( $featured_list ),
           'ignore_sticky_posts' => 1,
           'posts_per_page' => -1,
           'no_found_rows' => true // Improve performance
@@ -68,7 +68,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
         // Prepare paginated featured query
         $query_args = array (
           'post_type' => 'any',
-          'post__in' => fictioneer_save_array_zero( $featured_list ),
+          'post__in' => fictioneer_rescue_array_zero( $featured_list ),
           'ignore_sticky_posts' => 1,
           'orderby' => 'modified',
           'order' => 'DESC',

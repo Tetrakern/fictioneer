@@ -889,7 +889,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     $hide_icons = fictioneer_get_field( 'fictioneer_story_hide_chapter_icons', $story_id ) || get_option( 'fictioneer_hide_chapter_icons' );
 
     $query_args = array(
-      'post__in' => fictioneer_save_array_zero( $data['chapter_ids'] ), // Only visible and published
+      'post__in' => fictioneer_rescue_array_zero( $data['chapter_ids'] ), // Only visible and published
       'post_type' => 'fcn_chapter',
       'orderby' => 'post__in',
       'posts_per_page' => -1,

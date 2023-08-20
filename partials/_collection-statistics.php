@@ -58,7 +58,7 @@ if ( ! empty( $args['featured_list'] ) ) {
   $chapter_query_args = array(
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
-    'post__in' => fictioneer_save_array_zero( $query_chapter_ids ),
+    'post__in' => fictioneer_rescue_array_zero( $query_chapter_ids ),
     'posts_per_page' => -1,
     'update_post_term_cache' => false // Improve performance
   );
@@ -101,7 +101,7 @@ if ( ! empty( $args['featured_list'] ) ) {
           get_comments(
             array(
               'post_type' => 'fcn_chapter',
-              'post__in' => fictioneer_save_array_zero( $query_chapter_ids ),
+              'post__in' => fictioneer_rescue_array_zero( $query_chapter_ids ),
               'status' => 1,
               'count' => true,
               'update_comment_meta_cache' => false

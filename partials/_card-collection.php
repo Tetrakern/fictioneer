@@ -58,7 +58,7 @@ if ( ! empty( $items ) ) {
     array(
       'post_type' => 'any',
       'post_status' => 'publish',
-      'post__in' => fictioneer_save_array_zero( $items ),
+      'post__in' => fictioneer_rescue_array_zero( $items ),
       'ignore_sticky_posts' => true,
       'orderby' => 'modified',
       'posts_per_page' => -1,
@@ -98,7 +98,7 @@ if ( ! empty( $items ) ) {
         $chapter_query_args = array(
           'post_type' => 'fcn_chapter',
           'post_status' => 'publish',
-          'post__in' => fictioneer_save_array_zero( $chapter_ids ),
+          'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
           'posts_per_page' => -1,
           'update_post_term_cache' => false, // Improve performance
           'no_found_rows' => true // Improve performance
@@ -132,7 +132,7 @@ if ( ! empty( $items ) ) {
 $comment_args = array(
   'post_type' => 'fcn_chapter',
   'status' => 1,
-  'post__in' => fictioneer_save_array_zero( $processed_ids ),
+  'post__in' => fictioneer_rescue_array_zero( $processed_ids ),
   'count' => true,
   'update_comment_meta_cache' => false // Improve performance
 );

@@ -207,7 +207,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
             array(
               'post_type' => 'fcn_chapter',
               'post_status' => 'publish',
-              'post__in' => fictioneer_save_array_zero( $old_data['chapter_ids'] ),
+              'post__in' => fictioneer_rescue_array_zero( $old_data['chapter_ids'] ),
               'posts_per_page' => -1,
               'no_found_rows' => true, // Improve performance
               'update_post_meta_cache' => false, // Improve performance
@@ -233,7 +233,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           array(
             'status' => 'approve',
             'post_type' => 'fcn_chapter',
-            'post__in' => fictioneer_save_array_zero( $old_data['chapter_ids'] ),
+            'post__in' => fictioneer_rescue_array_zero( $old_data['chapter_ids'] ),
             'count' => true,
             'update_comment_meta_cache' => false
           )
@@ -297,7 +297,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       array(
         'post_type' => 'fcn_chapter',
         'post_status' => 'publish',
-        'post__in' => fictioneer_save_array_zero( $chapters ),
+        'post__in' => fictioneer_rescue_array_zero( $chapters ),
         'ignore_sticky_posts' => true,
         'orderby' => 'post__in', // Preserve order from meta box
         'posts_per_page' => -1, // Get all chapters (this can be hundreds)
@@ -1813,7 +1813,7 @@ function fictioneer_delete_my_account() {
 }
 
 // =============================================================================
-// SAVE EMPTY ARRAY AS [0]
+// RESCUE EMPTY ARRAY AS [0]
 // =============================================================================
 
 /**
@@ -1829,7 +1829,7 @@ function fictioneer_delete_my_account() {
  * @return array The original array or [0].
  */
 
-function fictioneer_save_array_zero( $array ) {
+function fictioneer_rescue_array_zero( $array ) {
   return empty( $array ) ? [0] : $array;
 }
 
