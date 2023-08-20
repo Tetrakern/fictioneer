@@ -1,6 +1,69 @@
 <?php
 
 // =============================================================================
+// FAST AJAX REQUESTS
+// > Skips any unnecessary theme initialization!
+// =============================================================================
+
+define(
+  'FICTIONEER_FAST_AJAX_FUNCTIONS',
+  array(
+    'fictioneer_ajax_get_follows',
+    'fictioneer_ajax_toggle_follow',
+    'fictioneer_ajax_clear_my_follows',
+    'fictioneer_ajax_mark_follows_read',
+    'fictioneer_ajax_get_follows_notifications',
+    'fictioneer_ajax_get_follows_list'
+  )
+);
+
+if (
+  isset( $_REQUEST['fcn_fast_ajax'] ) &&
+  isset( $_REQUEST['action'] ) &&
+  ! ( defined('REST_REQUEST') && REST_REQUEST )
+) {
+  fictioneer_do_fast_ajax();
+}
+
+function fictioneer_do_fast_ajax() {
+  $action = $_REQUEST['action'];
+
+  // Allowed action?
+  if (
+    ! defined('FICTIONEER_FAST_AJAX_FUNCTIONS') ||
+    ! in_array( $action, FICTIONEER_FAST_AJAX_FUNCTIONS, true ) ||
+    strpos( $action, 'fictioneer_ajax' ) !== 0
+  ) {
+    return;
+  }
+
+  // Include required files
+  require_once __DIR__ . '/includes/functions/_utility.php';
+  require_once __DIR__ . '/includes/functions/_query_helpers.php';
+
+  if ( get_option( 'fictioneer_enable_follows' ) && strpos( $action, '_follow' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/_content_helpers.php';
+    require_once __DIR__ . '/includes/functions/users/_follows.php';
+  }
+
+  // Function exists?
+  if ( ! function_exists( $action ) ) {
+    return;
+  }
+
+  // Set DOING_AJAX true
+  if ( ! defined( 'DOING_AJAX' ) ) {
+    define( 'DOING_AJAX', true );
+  }
+
+  // Call function
+  call_user_func( $action );
+
+  // Terminate in case something goes wrong
+  die();
+}
+
+// =============================================================================
 // CONSTANTS/SETTINGS
 // =============================================================================
 

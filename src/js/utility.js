@@ -822,3 +822,45 @@ function fcn_html(...args) {
   template.innerHTML = String.raw(...args).trim();
   return template.content.firstChild;
 }
+
+// =============================================================================
+// DEV: AJAX BENCHMARK
+// =============================================================================
+
+// /**
+//  * Benchmark AJAX request response times
+//  *
+//  * Default: benchmarkAjax(20, {'action': '...'});
+//  *
+//  * Fast: benchmarkAjax(20, {'fcn_fast_ajax': 1, 'action': '...'});
+//  *
+//  * @param {number} n - The number of times the AJAX request should be made.
+//  * @param {Object} data - The payload for the AJAX request.
+//  * @param {String} url - Optional. The AJAX URL if different from the default.
+//  * @param {Object} headers - Optional. Headers for the request.
+//  * @returns {Promise<number>} Promise that resolves with the average response time in milliseconds.
+//  */
+
+// async function benchmarkAjax(n = 1, data = {}, url = null, headers = {}) {
+//   let totalTime = 0;
+
+//   console.log(`Starting benchmark with ${n} AJAX requests...`);
+
+//   for (let i = 0; i < n; i++) {
+//     const startTime = performance.now();
+
+//     try {
+//       await fcn_ajaxGet(data, url, headers);
+//       const endTime = performance.now();
+//       totalTime += (endTime - startTime);
+//     } catch (error) {
+//       console.error('Error during AJAX request:', error);
+//     }
+//   }
+
+//   const averageTime = totalTime / n;
+
+//   console.log(`Finished benchmarking. Average AJAX response time over ${n} requests: ${averageTime.toFixed(2)} ms`);
+
+//   return averageTime;
+// }

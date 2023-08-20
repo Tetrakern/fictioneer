@@ -78,7 +78,9 @@ function fictioneer_ajax_get_follows() {
       wp_date( 'c', $user_follows['seen'] / 1000 )
     );
 
-    if ( $latest ) $new = count( $latest );
+    if ( $latest ) {
+      $new = count( $latest );
+    }
   }
 
   $user_follows['new'] = $new;

@@ -66,7 +66,8 @@ function fcn_fetchFollowsFromDatabase() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_follows'
+    'action': 'fictioneer_ajax_get_follows',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Check for success
@@ -198,6 +199,7 @@ function fcn_toggleFollow(storyId) {
   fcn_userFollowsTimeout = setTimeout(() => {
     fcn_ajaxPost({
       'action': 'fictioneer_ajax_toggle_follow',
+      'fcn_fast_ajax': 1,
       'story_id': storyId,
       'set': fcn_follows.data.hasOwnProperty(storyId)
     })
@@ -231,7 +233,8 @@ function fcn_setupFollowsHTML() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_follows_notifications'
+    'action': 'fictioneer_ajax_get_follows_notifications',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Any Follows HTML retrieved?
@@ -285,7 +288,8 @@ function fcn_markFollowsRead() {
 
   // Request
   fcn_ajaxPost({
-    'action': 'fictioneer_ajax_mark_follows_read'
+    'action': 'fictioneer_ajax_mark_follows_read',
+    'fcn_fast_ajax': 1
   })
   .catch((error) => {
     if (error.status && error.statusText) {
