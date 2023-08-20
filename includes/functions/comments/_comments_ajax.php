@@ -493,7 +493,7 @@ function fictioneer_ajax_edit_comment() {
     );
   } else {
     // Something went wrong with the update (no details provided to frontend)
-    wp_send_json_error( ['error' => __( 'Comment could not be updated.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Comment could not be updated.', 'fictioneer' ) ) );
   }
 }
 
@@ -502,7 +502,7 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
 }
 
 // =============================================================================
-// REQUEST COMMENT FORM - AJAX
+// DELETE MY COMMENT - AJAX
 // =============================================================================
 
 /**
@@ -514,6 +514,14 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
  */
 
 function fictioneer_ajax_delete_my_comment() {
+  // Enabled for fast AJAX?
+  if ( get_option( 'fictioneer_disable_comment_callback' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup
   $comment_id = isset( $_POST['comment_id'] ) ? intval( $_POST['comment_id'] ) : false;
   $user = fictioneer_get_validated_ajax_user();
@@ -552,7 +560,9 @@ function fictioneer_ajax_delete_my_comment() {
 
   // Response
   if ( ! $result ) {
-    wp_send_json_error( ['error' => __( 'Database error. Comment could not be deleted. Please try again later or contact an administrator.', 'fictioneer' )] );
+    wp_send_json_error(
+      array( 'error' => __( 'Database error. Comment could not be deleted. Please try again later or contact an administrator.', 'fictioneer' ) )
+    );
   } else {
     wp_send_json_success(
       array(

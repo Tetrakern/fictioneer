@@ -465,6 +465,14 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
  */
 
 function fictioneer_ajax_moderate_comment() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
@@ -562,9 +570,20 @@ if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
  */
 
 function fictioneer_ajax_report_comment() {
+  // Enabled?
+  if ( get_option( 'fictioneer_disable_comment_callback' ) || ! get_option( 'fictioneer_enable_comment_reporting' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+  }
 
   if ( empty( $_POST['id'] ) ) {
     wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );

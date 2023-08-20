@@ -10,10 +10,10 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param  object $comment      The comment.
-   * @param  array  $chapter_data Array of [post_id] tuples with title [0] and
+   * @param object $comment       The comment.
+   * @param array  $chapter_data  Array of [post_id] tuples with title [0] and
    *                              permalink [1] of the associated chapter.
-   * @param  int    $depth        The current depth of the comment. Default 0.
+   * @param int    $depth         The current depth of the comment. Default 0.
    */
 
   function fictioneer_build_story_comment( $comment, $chapter_data, $depth = 0 ) {
@@ -89,7 +89,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
  * @since Fictioneer 4.0
  */
 
-function fictioneer_request_story_comments() {
+function fictioneer_ajax_request_story_comments() {
   // Nonce
   check_ajax_referer( 'fictioneer_nonce', 'nonce' );
 
@@ -98,7 +98,7 @@ function fictioneer_request_story_comments() {
 
   // Abort if not a story
   if ( ! $story_id ) {
-    wp_send_json_error( ['error' => __( 'Comments could not be loaded.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Comments could not be loaded.', 'fictioneer' ) ) );
   }
 
   // Setup
@@ -110,7 +110,9 @@ function fictioneer_request_story_comments() {
   $report_threshold = get_option( 'fictioneer_comment_report_threshold', 10 ) ?? 10;
 
   // Abort if no chapters have been found
-  if ( count( $chapter_ids ) < 1 ) die();
+  if ( count( $chapter_ids ) < 1 ) {
+    wp_send_json_error( array( 'error' => __( 'No chapters with comments.', 'fictioneer' ) ) );
+  }
 
   // Collect titles and permalinks of all chapters
   foreach ( $chapter_ids as $chapter_id ) {
@@ -223,9 +225,9 @@ function fictioneer_request_story_comments() {
   $output = fictioneer_minify_html( ob_get_clean() );
 
   // Return buffer
-  wp_send_json_success( ['html' => $output, 'postId' => $story_id, 'page' => $page] );
+  wp_send_json_success( array( 'html' => $output, 'postId' => $story_id, 'page' => $page ) );
 }
-add_action( 'wp_ajax_nopriv_fictioneer_request_story_comments', 'fictioneer_request_story_comments' );
-add_action( 'wp_ajax_fictioneer_request_story_comments', 'fictioneer_request_story_comments' );
+add_action( 'wp_ajax_nopriv_fictioneer_ajax_request_story_comments', 'fictioneer_ajax_request_story_comments' );
+add_action( 'wp_ajax_fictioneer_ajax_request_story_comments', 'fictioneer_ajax_request_story_comments' );
 
 ?>

@@ -20,7 +20,9 @@ var /** @type {String[]} */ fcn_commentStack = [];
 
 function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   //Abort conditions...
-  if (!fcn_ajaxCommentsSection) return;
+  if (!fcn_ajaxCommentsSection) {
+    return;
+  }
 
   // Setup
   const commentSection = _$$$('comments');
@@ -29,19 +31,27 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       errorNote;
 
   // Preserve comment text (if any)
-  if (comment) commentText = comment.value;
+  if (comment) {
+    commentText = comment.value;
+  }
 
   // Abort if another AJAX action is in progress
-  if (fcn_ajaxCommentsSection.classList.contains('ajax-in-progress')) return;
+  if (fcn_ajaxCommentsSection.classList.contains('ajax-in-progress')) {
+    return;
+  }
 
   // Lock comment until AJAX action is complete
   fcn_ajaxCommentsSection.classList.add('ajax-in-progress');
 
   // Get page
-  if (!page) page = fcn_urlParams.pg ?? 1;
+  if (!page) {
+    page = fcn_urlParams.pg ?? 1;
+  }
 
   // Abort if Fictioneer comment section not found
-  if (!fcn_ajaxCommentsSection) return;
+  if (!fcn_ajaxCommentsSection) {
+    return;
+  }
 
   // Payload
   const payload = {
@@ -50,7 +60,9 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
     'page': parseInt(page)
   }
 
-  if (fcn_urlParams.commentcode) payload['commentcode'] = fcn_urlParams.commentcode;
+  if (fcn_urlParams.commentcode) {
+    payload['commentcode'] = fcn_urlParams.commentcode;
+  }
 
   // Request
   fcn_ajaxGet(payload)
@@ -70,19 +82,23 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
         temp.querySelector('#cancel-comment-reply-link').href = "#respond";
 
         const logoutLink = temp.querySelector('.logout-link');
-        if (logoutLink) logoutLink.href = _$$$('comments').dataset.logoutUrl;
+
+        if (logoutLink) {
+          logoutLink.href = _$$$('comments').dataset.logoutUrl;
+        }
       }
 
       // Output HTML
       commentSection.innerHTML = temp.innerHTML;
       temp.remove();
 
-      // Restore comment text (if any)
+      // Restore comment content and add stack (if any)
       comment = _$$$('comment');
-      if (comment) comment.value = commentText;
 
       // Append stack contents
       if (comment) {
+        comment.value = commentText;
+
         fcn_commentStack.forEach(node => {
           comment.value += node;
         });
@@ -91,7 +107,9 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       fcn_commentStack = [];
 
       // Resize comment textarea if necessary
-      if (comment) fcn_textareaAdjust(comment);
+      if (comment) {
+        fcn_textareaAdjust(comment);
+      }
 
       // Bind events
       fcn_addModerationEvents();
@@ -112,15 +130,21 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond',
             scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
 
-      if (scroll) scrollTarget.scrollIntoView({behavior: 'smooth'});
+      if (scroll) {
+        scrollTarget.scrollIntoView({behavior: 'smooth'});
+      }
 
       // Add page to URL and preserve params/anchor
       const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
       let urlPart = '';
 
-      if (fcn_urlParams.commentcode) urlPart += `?commentcode=${fcn_urlParams.commentcode}`;
+      if (fcn_urlParams.commentcode) {
+        urlPart += `?commentcode=${fcn_urlParams.commentcode}`;
+      }
 
-      if (page > 1) urlPart += urlPart.length > 1 ? `&pg=${page}` : `?pg=${page}`;
+      if (page > 1) {
+        urlPart += urlPart.length > 1 ? `&pg=${page}` : `?pg=${page}`;
+      }
 
       window.history.pushState({ path: refresh }, '', refresh + urlPart + location.hash);
     } else {
@@ -199,7 +223,9 @@ function fcn_setupCommentObserver() {
   );
 
   // Observer comment section and fire AJAX request once
-  if (fcn_ajaxCommentsSection) fct_commentsObserver.observe(fcn_ajaxCommentsSection);
+  if (fcn_ajaxCommentsSection) {
+    fct_commentsObserver.observe(fcn_ajaxCommentsSection);
+  }
 }
 
 // =============================================================================

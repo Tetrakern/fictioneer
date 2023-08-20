@@ -51,7 +51,9 @@ function fcn_moderateComment(id, operation) {
         menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
 
   // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) return;
+  if (comment.classList.contains('ajax-in-progress')) {
+    return;
+  }
 
   // Lock comment until AJAX action is complete
   comment.classList.add('ajax-in-progress');
@@ -64,50 +66,51 @@ function fcn_moderateComment(id, operation) {
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_moderate_comment',
+    'fcn_fast_ajax': 1,
     'operation': operation,
     'id': id
   })
   .then((response) => {
     if (response.success) {
-        // Server action succeeded
-        switch (response.data.operation) {
-          case 'sticky':
-            comment.classList.add('_sticky');
-            break;
-          case 'unsticky':
-            comment.classList.remove('_sticky');
-            break;
-          case 'approve':
-            comment.classList.remove('_unapproved');
-            break;
-          case 'unapprove':
-            comment.classList.add('_unapproved');
-            break;
-          case 'open':
-            comment.classList.remove('_closed');
-            break;
-          case 'close':
-            comment.classList.add('_closed');
-            break;
-          case 'trash':
-          case 'spam':
-            // Let comment collapse and fade to nothing
-            comment.style.overflow = 'hidden';
-            comment.style.height = '0';
-            comment.style.margin = '0';
-            comment.style.opacity = '0';
-            break;
+      // Server action succeeded
+      switch (response.data.operation) {
+        case 'sticky':
+          comment.classList.add('_sticky');
+          break;
+        case 'unsticky':
+          comment.classList.remove('_sticky');
+          break;
+        case 'approve':
+          comment.classList.remove('_unapproved');
+          break;
+        case 'unapprove':
+          comment.classList.add('_unapproved');
+          break;
+        case 'open':
+          comment.classList.remove('_closed');
+          break;
+        case 'close':
+          comment.classList.add('_closed');
+          break;
+        case 'trash':
+        case 'spam':
+          // Let comment collapse and fade to nothing
+          comment.style.overflow = 'hidden';
+          comment.style.height = '0';
+          comment.style.margin = '0';
+          comment.style.opacity = '0';
+          break;
         }
-      } else {
-        // Server action failed, mark comment with alert
-        menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
-        menuToggleIcon.style.color = 'var(--warning)';
-        comment.querySelector('.popup-menu-toggle').style.opacity = '1';
+    } else {
+      // Server action failed, mark comment with alert
+      menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
+      menuToggleIcon.style.color = 'var(--warning)';
+      comment.querySelector('.popup-menu-toggle').style.opacity = '1';
 
-        if (response.data.error) {
-          fcn_showNotification(response.data.error, 5, 'warning');
-        }
+      if (response.data.error) {
+        fcn_showNotification(response.data.error, 5, 'warning');
       }
+    }
   })
   .catch((error) => {
     // Server action failed, mark comment with alert
@@ -202,6 +205,7 @@ function fcn_flagComment(source) {
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_report_comment',
+    'fcn_fast_ajax': 1,
     'id': comment.dataset.id,
     'dubious': reportButton.classList.contains('_dubious')
   })
@@ -653,7 +657,10 @@ function fcn_submitInlineCommentEdit(source) {
         fcn_restoreComment(red, false, response.data.raw);
 
         // Edit note
-        if (!editNote) editNote = document.createElement('div');
+        if (!editNote) {
+          editNote = document.createElement('div');
+        }
+
         editNote.classList.add('fictioneer-comment__edit-note');
         editNote.innerHTML = response.data.edited;
         content.parentNode.appendChild(editNote);
@@ -662,7 +669,9 @@ function fcn_submitInlineCommentEdit(source) {
         fcn_restoreComment(red, true);
 
         // Show error notice
-        if (response.data?.error) fcn_showNotification(response.data.error, 5, 'warning');
+        if (response.data?.error) {
+          fcn_showNotification(response.data.error, 5, 'warning');
+        }
       }
     })
     .catch((error) => {
@@ -695,7 +704,9 @@ function fcn_cancelInlineCommentEdit(source) {
   const red = source.closest('.fictioneer-comment'); // Red makes it faster!
 
   // Restore comment to non-edit state
-  if (red) fcn_restoreComment(red, true);
+  if (red) {
+    fcn_restoreComment(red, true);
+  }
 }
 
 /**
@@ -733,7 +744,9 @@ function fcn_revealEditButton() {
   let editTime = parseInt(fcn_theRoot.dataset.editTime);
 
   // Abort if no time set
-  if (!editTime) return;
+  if (!editTime) {
+    return;
+  }
 
   // Prepare comparison
   editTime = editTime > 0 ? editTime * 60000 : editTime;
@@ -749,13 +762,17 @@ function fcn_revealEditButton() {
       // Reveal button
       const button = element.querySelector('.fictioneer-comment__edit-toggle');
 
-      if (button) button.hidden = false;
+      if (button) {
+        button.hidden = false;
+      }
     }
   });
 }
 
 // Reveal edit buttons
-if (fcn_isLoggedIn) fcn_revealEditButton();
+if (fcn_isLoggedIn) {
+  fcn_revealEditButton();
+}
 
 // =============================================================================
 // SHOW DELETE BUTTON BASED ON FINGERPRINT
@@ -774,7 +791,9 @@ function fcn_revealDeleteButton() {
       // Reveal button
       const button = element.querySelector('.fictioneer-comment__delete');
 
-      if (button) button.hidden = false;
+      if (button) {
+        button.hidden = false;
+      }
     }
   });
 }
@@ -795,7 +814,9 @@ if (fcn_isLoggedIn) fcn_revealDeleteButton();
 
 function fcn_deleteMyComment(button) {
   // Only if user is logged in
-  if (!fcn_isLoggedIn) return;
+  if (!fcn_isLoggedIn) {
+    return;
+  }
 
   // Prompt for confirmation
   const confirm = prompt(button.dataset.dialogMessage);
@@ -808,7 +829,9 @@ function fcn_deleteMyComment(button) {
   const comment = button.closest('.fictioneer-comment');
 
   // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) return;
+  if (comment.classList.contains('ajax-in-progress')) {
+    return;
+  }
 
   // Lock comment until AJAX action is complete
   comment.classList.add('ajax-in-progress');
@@ -816,6 +839,7 @@ function fcn_deleteMyComment(button) {
   // Request
   fcn_ajaxPost(payload = {
     'action': 'fictioneer_ajax_delete_my_comment',
+    'fcn_fast_ajax': 1,
     'comment_id': comment.dataset.id
   })
   .then((response) => {
@@ -887,9 +911,17 @@ function fcn_getCommentForm() {
             logoutLink = temp.querySelector('.logout-link');
 
       // Fix form elements
-      if (commentPostId) commentPostId.value = response.data.postId;
-      if (cancelReplyLink) cancelReplyLink.href = "#respond";
-      if (logoutLink) logoutLink.href = _$$$('comments').dataset.logoutUrl;
+      if (commentPostId) {
+        commentPostId.value = response.data.postId;
+      }
+
+      if (cancelReplyLink) {
+        cancelReplyLink.href = "#respond";
+      }
+
+      if (logoutLink) {
+        logoutLink.href = _$$$('comments').dataset.logoutUrl;
+      }
 
       // Output HTML
       fcn_ajaxCommentForm.innerHTML = temp.innerHTML;
@@ -933,7 +965,9 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
   const clickTarget = event.target.closest('[data-click]'),
         clickAction = clickTarget?.dataset.click;
 
-  if (!clickAction) return;
+  if (!clickAction) {
+    return;
+  }
 
   switch (clickAction) {
     case 'submit-inline-comment-edit':

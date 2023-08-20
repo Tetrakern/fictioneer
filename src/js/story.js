@@ -191,7 +191,7 @@ function fcn_loadStoryComments() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_request_story_comments',
+    'action': 'fictioneer_ajax_request_story_comments',
     'post_id': fcn_inlineStorage.postId,
     'page': fcn_storyCommentPage
   })
