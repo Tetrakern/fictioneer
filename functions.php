@@ -450,9 +450,7 @@ require_once __DIR__ . '/includes/functions/_seo.php';
  * Communicate with the Discord API.
  */
 
-if ( ! empty( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) ) {
-  require_once __DIR__ . '/includes/functions/_discord.php';
-}
+require_once __DIR__ . '/includes/functions/_discord.php';
 
 /**
  * Generate ePUBs for stories.
