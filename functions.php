@@ -326,6 +326,12 @@ require_once __DIR__ . '/includes/functions/_utility.php';
 require_once __DIR__ . '/includes/functions/_wordpress_mods.php';
 
 /**
+ * Actions whenever a post is created or updated.
+ */
+
+require_once __DIR__ . '/includes/functions/_post_updates.php';
+
+/**
  * Set up the theme customizer.
  */
 
