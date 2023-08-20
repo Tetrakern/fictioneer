@@ -246,7 +246,7 @@ function fictioneer_create_sitemap( $last_saved_id ) {
 }
 
 if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
-  add_action( 'save_post', 'fictioneer_create_sitemap' );
+  add_action( 'save_post', 'fictioneer_create_sitemap', 99 );
 }
 
 ?>
