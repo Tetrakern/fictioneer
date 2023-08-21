@@ -218,6 +218,11 @@ if ( ! defined( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT' ) ) {
  * Booleans
  */
 
+// Prevent warnings
+if ( ! defined( 'WP_DEBUG' ) ) {
+  define( 'WP_DEBUG', false );
+}
+
 // Boolean: Theme cache purging on post update
 if ( ! defined( 'FICTIONEER_CACHE_PURGE_ASSIST' ) ) {
   define( 'FICTIONEER_CACHE_PURGE_ASSIST', true );
@@ -550,28 +555,11 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
  */
 
 require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
-
-if ( is_admin() ) {
-  // Required for AJAX
-  require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
-  require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
-  require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
-  require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
-  require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
-}
-
-function fictioneer_conditional_require_comments() {
-  if ( is_singular( 'fcn_story' ) ) {
-    require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
-  }
-
-  if ( comments_open() || is_singular( 'fcn_story' ) ) {
-    require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
-    require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
-    require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
-  }
-}
-add_action( 'wp', 'fictioneer_conditional_require_comments' );
+require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
+require_once __DIR__ . '/includes/functions/comments/_comments_form.php';
+require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
+require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
 
 /**
  * Add functions for users.

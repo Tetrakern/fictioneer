@@ -80,29 +80,80 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
 }
 
 // =============================================================================
-// SEND STORY COMMENTS - AJAX
+// SEND STORY COMMENTS - REST
 // =============================================================================
 
 /**
- * Sends a block of comments for a given story via AJAX
+ * Register REST API endpoint to fetch story comments
  *
- * @since Fictioneer 4.0
+ * Endpoint URL: /wp-json/fictioneer/v1/get_story_comments
+ *
+ * Expected Parameters:
+ * - post_id (required): The ID of the story post.
+ * - page (optional): The page number for pagination. Default 1.
+ *
+ * @since Fictioneer 5.6.3
  */
 
-function fictioneer_ajax_request_story_comments() {
-  // Nonce
-  check_ajax_referer( 'fictioneer_nonce', 'nonce' );
+function fictioneer_register_endpoint_get_story_comments() {
+  register_rest_route(
+    'fictioneer/v1',
+    '/get_story_comments',
+    array(
+      'methods' => 'GET',
+      'callback' => 'fictioneer_rest_get_story_comments',
+      'args' => array(
+        'post_id' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'required' => true
+        ),
+        'page' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'default' => 1
+        )
+      ),
+      'permission_callback' => '__return_true' // Public
+    )
+  );
+}
+add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_story_comments' );
 
+/**
+ * Sends HTML of paginated comments for a given story
+ *
+ * @since Fictioneer 4.0
+ * @since Fictioneer 5.6.3 Refactored for REST API.
+ *
+ * @param WP_REST_Request $WP_REST_Request  Request object.
+ *
+ * @return WP_REST_Response|WP_Error Response or error.
+ */
+
+function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
   // Validations
-  $story_id = isset( $_GET['post_id'] ) ? fictioneer_validate_id( $_GET['post_id'], 'fcn_story' ) : false;
+  $story_id = $request->get_param( 'post_id' );
+  $story_id = isset( $story_id ) ? fictioneer_validate_id( $_GET['post_id'], 'fcn_story' ) : false;
+  $default_error = array( 'error' => __( 'Comments could not be loaded.', 'fictioneer' ) );
 
   // Abort if not a story
   if ( ! $story_id ) {
-    wp_send_json_error( array( 'error' => __( 'Comments could not be loaded.', 'fictioneer' ) ) );
+    if ( WP_DEBUG ) {
+      $data = array( 'error' => __( 'Provided post ID is not a story ID.', 'fictioneer' ) );
+    } else {
+      $data = $default_error;
+    }
+
+    return rest_ensure_response( array( 'data' => $data, 'success' => false ), 400 );
   }
 
   // Setup
-  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
+  $page = $request->get_param( 'page' );
   $story = fictioneer_get_story_data( $story_id, true, array( 'force_comment_count_refresh' => true ) );
   $chapter_ids = $story['chapter_ids']; // Only contains publicly visible chapters
   $comments_per_page = get_option( 'comments_per_page' );
@@ -111,7 +162,13 @@ function fictioneer_ajax_request_story_comments() {
 
   // Abort if no chapters have been found
   if ( count( $chapter_ids ) < 1 ) {
-    wp_send_json_error( array( 'error' => __( 'No chapters with comments.', 'fictioneer' ) ) );
+    if ( WP_DEBUG ) {
+      $data = array( 'error' => __( 'There are no valid chapters with comments.', 'fictioneer' ) );
+    } else {
+      $data = $default_error;
+    }
+
+    return rest_ensure_response( array( 'data' => $data, 'success' => false ) );
   }
 
   // Collect titles and permalinks of all chapters
@@ -224,10 +281,11 @@ function fictioneer_ajax_request_story_comments() {
   // Get buffer
   $output = fictioneer_minify_html( ob_get_clean() );
 
+  // Response body (compatible to wp_send_json_success())
+  $data = array( 'html' => $output, 'postId' => $story_id, 'page' => $page );
+
   // Return buffer
-  wp_send_json_success( array( 'html' => $output, 'postId' => $story_id, 'page' => $page ) );
+  return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
 }
-add_action( 'wp_ajax_nopriv_fictioneer_ajax_request_story_comments', 'fictioneer_ajax_request_story_comments' );
-add_action( 'wp_ajax_fictioneer_ajax_request_story_comments', 'fictioneer_ajax_request_story_comments' );
 
 ?>

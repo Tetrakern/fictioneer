@@ -272,7 +272,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
         new WP_Error(
           'invalid_story_id',
           'No valid story was found matching the ID.',
-          ['status' => '400']
+          array( 'status' => '400' )
         )
       );
     }

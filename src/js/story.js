@@ -189,13 +189,15 @@ function fcn_loadStoryComments() {
   _$('.load-more-list-item').remove();
   _$('.comments-loading-placeholder').classList.remove('hidden');
 
-  // Request
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_request_story_comments',
-    'post_id': fcn_inlineStorage.postId,
-    'page': fcn_storyCommentPage
-  })
-  .then((response) => {
+  // REST request
+  fcn_ajaxGet(
+    {
+      'post_id': fcn_inlineStorage.postId,
+      'page': fcn_storyCommentPage
+    },
+    'get_story_comments'
+  )
+  .then(response => {
     // Check for success
     if (response.success) {
       _$('.fictioneer-comments__list > ul').innerHTML += response.data.html;
@@ -204,7 +206,7 @@ function fcn_loadStoryComments() {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }
   })
-  .catch((error) => {
+  .catch(error => {
     errorNote = fcn_buildErrorNotice(error);
   })
   .then(() => {
@@ -212,7 +214,9 @@ function fcn_loadStoryComments() {
     _$('.comments-loading-placeholder').remove();
 
     // Add error if any
-    if (errorNote) _$('.fictioneer-comments__list > ul').appendChild(errorNote);
+    if (errorNote) {
+      _$('.fictioneer-comments__list > ul').appendChild(errorNote);
+    }
   });
 }
 

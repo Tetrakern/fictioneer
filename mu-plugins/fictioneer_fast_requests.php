@@ -23,7 +23,7 @@ if (
 $request_uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 
 // Check REST Request
-if ( strpos( $request_uri, 'wp-json/fictioneer_rest/v1/fictioneer_' ) !== false ) {
+if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins' );
 }
 

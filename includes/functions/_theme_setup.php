@@ -554,6 +554,7 @@ function fictioneer_add_custom_scripts() {
   // Localize application
   wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_ajax', array(
     'ajax_url' => admin_url( 'admin-ajax.php' ),
+    'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
     'ttl' => FICTIONEER_AJAX_TTL,
     'login_ttl' => FICTIONEER_AJAX_LOGIN_TTL,
     'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE

@@ -508,9 +508,11 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
 
   function fictioneer_validate_id( $id, $for_type = [] ) {
     $safe_id = intval( $id );
-    $types = is_array( $for_type ) ? $for_type : [$for_type];
+    $types = is_array( $for_type ) ? $for_type : [ $for_type ];
 
-    if ( empty( $safe_id ) || $safe_id < 0 ) return false;
+    if ( empty( $safe_id ) || $safe_id < 0 ) {
+      return false;
+    }
 
     if ( ! empty( $for_type ) && ! in_array( get_post_type( $safe_id ), $types ) ) {
       return false;

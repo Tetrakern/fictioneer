@@ -46,18 +46,23 @@ const _$$$ = document.getElementById.bind(document);
 // =============================================================================
 
 /**
- * Make an AJAX POST request with the Fetch API.
+ * Make a POST request with the Fetch API
  *
  * @since 5.0
  * @param {Object} data - The payload, including the action and nonce.
- * @param {String} url - Optional. The AJAX URL if different from the default.
+ * @param {String} url - Optional. The request URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
  * @returns {Promise} A Promise that resolves to the parsed JSON response if successful.
  */
 
 async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
+  // Auto-complete REST request if not a full URL
+  if (url && !url.startsWith('http')) {
+    url = fictioneer_ajax.rest_url + url;
+  }
+
   // Get URL if not provided
-  if (!url) url = fictioneer_ajax.ajax_url;
+  url = url ? url : fictioneer_ajax.ajax_url;
 
   // Default headers
   final_headers = {
@@ -89,16 +94,21 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
 }
 
 /**
- * Make an AJAX GET request with the Fetch API.
+ * Make a GET request with the Fetch API.
  *
  * @since 5.0
  * @param {Object} data - The payload, including the action and nonce.
- * @param {String} url - Optional. The AJAX URL if different from the default.
+ * @param {String} url - Optional. The request URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
  * @return {JSON} The parsed JSON response if successful.
  */
 
 async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
+  // Auto-complete REST request if not a full URL
+  if (url && !url.startsWith('http')) {
+    url = fictioneer_ajax.rest_url + url;
+  }
+
   // Build URL
   url = url ? url : fictioneer_ajax.ajax_url;
   data = {...{'nonce': fcn_getNonce()}, ...data};
@@ -841,7 +851,7 @@ function fcn_html(...args) {
 //  * @returns {Promise<number>} Promise that resolves with the average response time in milliseconds.
 //  */
 
-// async function benchmarkAjax(n = 1, data = {}, url = null, headers = {}) {
+// async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}) {
 //   let totalTime = 0;
 
 //   console.log(`Starting benchmark with ${n} AJAX requests...`);
@@ -863,4 +873,16 @@ function fcn_html(...args) {
 //   console.log(`Finished benchmarking. Average AJAX response time over ${n} requests: ${averageTime.toFixed(2)} ms`);
 
 //   return averageTime;
+// }
+
+// /**
+//  * Makes a GET request and prints the response to the console
+//  *
+//  * @param {Object} payload - The data payload to be sent with the AJAX request.
+//  *
+//  * @example fcn_ajaxPrintResponse({'action': 'the_function', 'fcn_fast_ajax': 1})
+//  */
+
+// function fcn_printAjaxResponse(payload) {
+//   fcn_ajaxGet(payload).then((response) => { console.log(response); });
 // }
