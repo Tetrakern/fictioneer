@@ -144,7 +144,8 @@ function fcn_fetchNonce() {
 
   // Load from server
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_nonce'
+    'action': 'fictioneer_ajax_get_nonce',
+    'fcn_fast_ajax': 1
   }).then((response) => {
     // Remove cached nonce
     _$$$('fictioneer-ajax-nonce')?.remove();
