@@ -14,6 +14,14 @@
  */
 
 function fictioneer_ajax_get_bookmarks() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
@@ -49,6 +57,14 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
  */
 
 function fictioneer_ajax_save_bookmarks() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 

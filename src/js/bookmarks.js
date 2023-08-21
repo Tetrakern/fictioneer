@@ -45,6 +45,7 @@ function fcn_saveBookmarksForUser(value) {
   // Payload
   const payload = {
     'action': 'fictioneer_ajax_save_bookmarks',
+    'fcn_fast_ajax': 1,
     'bookmarks': value
   }
 
@@ -88,7 +89,9 @@ function fcn_saveBookmarksForUser(value) {
 
 function fcn_getBookmarksForUser() {
   // Do not proceed if not logged in
-  if (!fcn_isLoggedIn) return;
+  if (!fcn_isLoggedIn) {
+    return;
+  }
 
   // Only update from server after some time has passed (e.g. 60 seconds)
   if (fcn_ajaxLimitThreshold < fcn_bookmarks['lastLoaded']) {
@@ -98,7 +101,8 @@ function fcn_getBookmarksForUser() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_bookmarks'
+    'action': 'fictioneer_ajax_get_bookmarks',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Check for success
@@ -110,7 +114,9 @@ function fcn_getBookmarksForUser() {
       bookmarks = fcn_isValidJSONString(bookmarks) ? bookmarks : '{}';
       bookmarks = JSON.parse(bookmarks);
 
-      if (Object.keys(bookmarks).length > 2) bookmarks = {};
+      if (Object.keys(bookmarks).length > 2) {
+        bookmarks = {};
+      }
 
       // Setup
       if (typeof bookmarks === 'object' && bookmarks.data) {
@@ -151,12 +157,16 @@ function fcn_getBookmarks() {
   fcn_setBookmarks(b, true);
 
   // Render bookmark cards if no AJAX request following
-  if (!fcn_isLoggedIn) fcn_updateBookmarkCards();
+  if (!fcn_isLoggedIn) {
+    fcn_updateBookmarkCards();
+  }
 
   // Insert bookmarks count on user profile page
   const stats = _$('.profile-bookmarks-stats');
 
-  if (stats) stats.innerHTML = stats.innerHTML.replace('%s', Object.keys(b.data).length);
+  if (stats) {
+    stats.innerHTML = stats.innerHTML.replace('%s', Object.keys(b.data).length);
+  }
 
   if (Object.keys(b.data).length > 0) {
     _$$('.icon-menu-bookmarks').forEach(element => {
@@ -189,7 +199,9 @@ function fcn_getBookmarks() {
 
 function fcn_setBookmarks(value, silent = false) {
   // Make sure this is a JSON object
-  if (typeof value !== 'object') return;
+  if (typeof value !== 'object') {
+    return;
+  }
 
   // Keep global updated
   fcn_bookmarks = value;
@@ -235,7 +247,9 @@ function fcn_toggleBookmark(id, color = 'none') {
         currentBookmark = _$('.current-bookmark');
 
   // Check whether an article has been found or abort
-  if (!chapter) return;
+  if (!chapter) {
+    return;
+  }
 
   // Look for existing bookmark...
   const b = fcn_bookmarks.data[chapter.id];
@@ -321,7 +335,9 @@ function fcn_showChapterBookmark() {
   const chapter = _$('.chapter__article');
 
   // Abort if not a chapter or no bookmark set for chapter
-  if (!chapter || !fcn_bookmarks.data[chapter.id]) return;
+  if (!chapter || !fcn_bookmarks.data[chapter.id]) {
+    return;
+  }
 
   // Collect necessary data to show bookmark in chapter
   const id = fcn_bookmarks.data[chapter.id]['paragraph-id'],
@@ -436,7 +452,9 @@ function fcn_updateBookmarkCards() {
   // Loop bookmarks
   Object.entries(fcn_bookmarks.data).forEach(b => {
     // Limit rendered bookmarks
-    if (count > -1 && count-- < 1) return;
+    if (count > -1 && count-- < 1) {
+      return;
+    }
 
     // Clone template and get data from JSON
     const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true),
