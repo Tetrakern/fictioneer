@@ -328,7 +328,12 @@ define(
     'fictioneer_ajax_clear_my_follows',
     'fictioneer_ajax_mark_follows_read',
     'fictioneer_ajax_get_follows_notifications',
-    'fictioneer_ajax_get_follows_list'
+    'fictioneer_ajax_get_follows_list',
+    // Reminders
+    'fictioneer_ajax_get_reminders',
+    'fictioneer_ajax_toggle_reminder',
+    'fictioneer_ajax_clear_my_reminders',
+    'fictioneer_ajax_get_reminders_list'
   )
 );
 
@@ -360,6 +365,15 @@ function fictioneer_do_fast_ajax() {
   if ( get_option( 'fictioneer_enable_follows' ) && strpos( $action, '_follow' ) !== false ) {
     require_once __DIR__ . '/includes/functions/_content_helpers.php';
     require_once __DIR__ . '/includes/functions/users/_follows.php';
+  }
+
+  if ( get_option( 'fictioneer_enable_reminders' ) && strpos( $action, '_reminder' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/_content_helpers.php';
+    require_once __DIR__ . '/includes/functions/users/_reminders.php';
+  }
+
+  if ( strpos( $action, '_list' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/_wordpress_mods.php';
   }
 
   if ( strpos( $action, '_comment' ) !== false ) {

@@ -135,6 +135,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   // Request
   fcn_ajaxGet({
     'action': action,
+    'fcn_fast_ajax': 1,
     'page': page,
     'order': order
   })

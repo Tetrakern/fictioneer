@@ -62,7 +62,8 @@ function fcn_fetchRemindersFromDatabase() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_reminders'
+    'action': 'fictioneer_ajax_get_reminders',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Check for success
@@ -151,6 +152,7 @@ function fcn_toggleReminder(storyId) {
   fcn_userRemindersTimeout = setTimeout(() => {
     fcn_ajaxPost(payload = {
       'action': 'fictioneer_ajax_toggle_reminder',
+      'fcn_fast_ajax': 1,
       'story_id': storyId,
       'set': fcn_reminders.data.hasOwnProperty(storyId)
     })

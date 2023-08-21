@@ -200,6 +200,7 @@ function fcn_clearData(button, action) {
   // Request
   fcn_ajaxPost({
     'action': action,
+    'fcn_fast_ajax': 1,
     'nonce': button.dataset.nonce
   })
   .then((response) => {

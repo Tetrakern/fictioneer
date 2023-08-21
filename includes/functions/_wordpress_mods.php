@@ -605,7 +605,7 @@ if ( get_option( 'fictioneer_enable_lightbox' ) ) {
 }
 
 /**
- * Adds data-lightbox attribute if enabled
+ * Returns data-lightbox attribute if enabled
  *
  * @since 4.7
  *
