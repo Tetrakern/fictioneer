@@ -110,4 +110,266 @@ function fictioneer_disable_moderator_comment_edit() {
   );
 }
 
+// =============================================================================
+// REQUEST COMMENT FORM - AJAX (DOES NOT WORK WITH CURRENT USER!)
+// > Issue: The current user requires a specific nonce to be present, which will
+// > cause a lot of headache with caching plugins.
+// =============================================================================
+
+/**
+ * Register REST API endpoint to fetch comment form
+ *
+ * Endpoint URL: /wp-json/fictioneer/v1/get_comment_form
+ *
+ * Expected Parameters:
+ * - post_id (required): The ID of the story post.
+ *
+ * @since Fictioneer 5.6.3
+ */
+
+function fictioneer_register_endpoint_get_comment_form() {
+  register_rest_route(
+    'fictioneer/v1',
+    '/get_comment_form',
+    array(
+      'methods' => 'GET',
+      'callback' => 'fictioneer_rest_get_comment_form',
+      'args' => array(
+        'post_id' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'required' => true
+        )
+      ),
+      'permission_callback' => '__return_true' // Public
+    )
+  );
+}
+
+if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
+  add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_comment_form' );
+}
+
+/**
+ * Sends the comment form HTML
+ *
+ * @since Fictioneer 5.0
+ * @since Fictioneer 5.6.3 Refactored for REST API.
+ *
+ * @param WP_REST_Request $WP_REST_Request  Request object.
+ *
+ * @return WP_REST_Response|WP_Error Response or error.
+ */
+
+function fictioneer_rest_get_comment_form( WP_REST_Request $request ) {
+  // Setup
+  $post_id = $request->get_param( 'post_id' );
+  $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
+
+  // Get buffered form
+  ob_start();
+
+  if ( get_option( 'fictioneer_disable_comment_form' ) ) {
+    comment_form( [], $post_id );
+  } else {
+    comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
+  }
+
+  // Get buffer
+  $output = ob_get_clean();
+
+  // Response body (compatible to wp_send_json_success())
+  $data = array( 'html' => $output, 'postId' => $post_id, 'mustLogin' => $must_login );
+
+  // Return buffer
+  return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
+}
+
+// =============================================================================
+// REQUEST COMMENT SECTION - REST (DOES NOT WORK WITH CURRENT USER!)
+// > Issue: The current user requires a specific nonce to be present, which will
+// > cause a lot of headache with caching plugins.
+// =============================================================================
+
+/**
+ * Register REST API endpoint to fetch comment section
+ *
+ * Endpoint URL: /wp-json/fictioneer/v1/get_comment_section
+ *
+ * Expected Parameters:
+ * - post_id (required): The ID of the story post.
+ *
+ * @since Fictioneer 5.6.3
+ */
+
+function fictioneer_register_endpoint_get_comment_section() {
+  register_rest_route(
+    'fictioneer/v1',
+    '/get_comment_section',
+    array(
+      'methods' => 'GET',
+      'callback' => 'fictioneer_rest_get_comment_section',
+      'args' => array(
+        'post_id' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'required' => true
+        ),
+        'page' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'default' => 1
+        ),
+        'commentcode' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return empty( $param ) || preg_match( '/^[a-zA-Z0-9]{13,23}$/', $param ) === 1;
+          },
+          'sanitize_callback' => 'sanitize_text_field',
+          'default' => ''
+        )
+      ),
+      'permission_callback' => '__return_true' // Public
+    )
+  );
+}
+
+if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
+  add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_comment_section' );
+}
+
+/**
+ * Sends the comment section HTML
+ *
+ * @since Fictioneer 5.0
+ * @since Fictioneer 5.6.3 Refactored for REST API.
+ *
+ * @param WP_REST_Request $WP_REST_Request  Request object.
+ *
+ * @return WP_REST_Response|WP_Error Response or error.
+ */
+
+function fictioneer_rest_get_comment_section( WP_REST_Request $request ) {
+  // Setup
+  $post_id = $request->get_param( 'post_id' );
+  $page = $request->get_param( 'page' );
+  $commentcode = $request->get_param( 'commentcode' ) ?: false;
+  $post = get_post( $post_id );
+  $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
+  $default_error = array( 'error' => __( 'Comments could not be loaded.', 'fictioneer' ) );
+
+  // Abort if post not found
+  if ( empty( $post ) ) {
+    if ( WP_DEBUG ) {
+      $data = array( 'error' => __( 'Provided post ID does not match any post.', 'fictioneer' ) );
+    } else {
+      $data = $default_error;
+    }
+
+    return rest_ensure_response( array( 'data' => $data, 'success' => false ), 400 );
+  }
+
+  // Abort if password required
+  if ( post_password_required( $post ) ) {
+    $data = array( 'error' => __( 'Password required.', 'fictioneer' ) );
+    return rest_ensure_response( array( 'data' => $data, 'success' => false ), 403 );
+  }
+
+  // Abort if comments are closed
+  if ( ! comments_open( $post ) ) {
+    $data = array( 'error' => __( 'Comments are disabled.', 'fictioneer' ) );
+    return rest_ensure_response( array( 'data' => $data, 'success' => false ), 403 );
+  }
+
+  // Query arguments
+  $query_args = array( 'post_id' => $post_id );
+
+  if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
+    $query_args['type'] = ['comment', 'private'];
+    $query_args['order'] = get_option( 'comment_order' );
+  } else {
+    // Still hide private comments but do not limit the types preemptively
+    $query_args = array( 'type__not_in' => 'private' );
+  }
+
+  // Filter query arguments
+  $query_args = apply_filters( 'fictioneer_filter_comments_query', $query_args, $post_id );
+
+  // Query comments
+  $comments_query = new WP_Comment_Query( $query_args );
+  $comments = $comments_query->comments;
+
+  // Filter comments
+  $comments = apply_filters( 'fictioneer_filter_comments', $comments, $post_id );
+
+  // Pagination
+  $max_pages = get_comment_pages_count( $comments );
+  $page = min( $max_pages, $page );
+  $page = max( 1, $page );
+
+  // Start buffer
+  ob_start();
+
+  // Header
+  fictioneer_comment_header( get_comments_number( $post_id ) );
+
+  // Form
+  if ( ! fictioneer_is_commenting_disabled( $post_id ) ) {
+    if ( get_option( 'fictioneer_disable_comment_form' ) ) {
+      comment_form( [], $post_id );
+    } else {
+      comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
+    }
+  }
+
+  // List
+  fictioneer_ajax_list_comments(
+    $comments,
+    $page,
+    array(
+      'commentcode' => $commentcode,
+      'post_author_id' => $post->post_author,
+      'post_id' => $post_id
+    )
+  );
+
+  // Navigation
+  if ( $max_pages > 1 ) {
+    // Start HTML ---> ?>
+    <nav class="pagination comments-pagination _padding-top">
+      <?php
+        $steps = fictioneer_balance_pagination_array( $max_pages, $page );
+
+        foreach ( $steps as $step ) {
+          switch ( $step ) {
+            case $page:
+              ?><span class="page-numbers current" aria-current="page"><?php echo $step; ?></span><?php
+              break;
+            case '…':
+              ?><button type="button" class="page-numbers dots" data-page-jump><?php echo $step; ?></button><?php
+              break;
+            default:
+              ?><button type="button" class="page-numbers" data-page="<?php echo $step; ?>"><?php echo $step; ?></button><?php
+          }
+        }
+      ?>
+    </nav>
+    <?php // <--- End HTML
+  }
+
+  // Get buffer
+  $output = ob_get_clean();
+
+  // Response body (compatible to wp_send_json_success())
+  $data = array( 'html' => $output, 'postId' => $post_id, 'page' => $page, 'mustLogin' => $must_login );
+
+  // Return buffer
+  return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
+}
+
 ?>

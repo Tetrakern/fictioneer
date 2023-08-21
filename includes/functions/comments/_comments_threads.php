@@ -212,7 +212,9 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
 
   function fictioneer_ajax_list_comments( $comments, $page, $args = [] ) {
     // Abort conditions
-    if ( count( $comments ) < 1) return;
+    if ( count( $comments ) < 1) {
+      return;
+    }
 
     $list_args = array(
       'avatar_size' => 32,
@@ -336,46 +338,49 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
    * Callback function for basic theme comment markup
    *
    * @since Fictioneer 4.7
+   * @global WP_Post|null $post  The post object. May not be available.
    *
-   * @global WP_Post|null $post    The post object. May not be available.
-   * @param  WP_Comment   $comment The comment object.
-   * @param  array        $args    List of arguments.
-   * @param  int          $depth   Depth.
+   * @param WP_Comment $comment  The comment object.
+   * @param array      $args     List of arguments.
+   * @param int        $depth    Depth.
    */
 
   function fictioneer_theme_comment( $comment, $args, $depth ) {
     // Global not available in AJAX request!
     global $post;
 
-    // Setup
+    // User data
     $current_user = wp_get_current_user(); // Viewer, not necessarily commenter!
+    $is_new = $args['new'] ?? false;
+
+    // Post data
+    $post_id = empty( $post ) ? ( $args['post_id'] ?? 0 ) : $post->ID;
+    $post_author_id = empty( $post ) ? ( $args['post_author_id'] ?? 0 ) : $post->post_author;
+
+    // Commenter data
     $comment_user_id = $comment->user_id; // User ID of comment author or 0
-    $post_author_id = $post->post_author; // Of the post the comment is for
     $comment_author = empty( $comment->comment_author ) ? fcntr( 'anonymous_guest' ) : $comment->comment_author;
+    $fingerprint = $comment_user_id ? fictioneer_get_user_fingerprint( $comment_user_id ) : false;
+    $badge = fictioneer_get_comment_badge( get_user_by( 'id', $comment_user_id ), $comment, $post_author_id );
+
+    // Comment data
     $unapproved_comment_email = wp_get_unapproved_comment_author_email();
-    $commentcode = isset( $_GET['commentcode'] ) ? sanitize_text_field( $_GET['commentcode'] ) : false;
-    $fingerprint = $comment->user_id ? fictioneer_get_user_fingerprint( $comment->user_id ) : false;
     $timestamp = strtotime( "{$comment->comment_date_gmt} GMT" );
     $edit_stack = get_comment_meta( $comment->comment_ID, 'fictioneer_user_edit_stack', true );
     $parent_comment = $comment->comment_parent ? get_comment( absint( $comment->comment_parent ) ) : false;
     $reports = get_comment_meta( $comment->comment_ID, 'fictioneer_user_reports', true );
     $visibility_code = get_comment_meta( $comment->comment_ID, 'fictioneer_visibility_code', true );
-    $can_comment = ! fictioneer_is_commenting_disabled( $post->ID );
+    $commentcode = sanitize_text_field( $_GET['commentcode'] ?? '' ) ?: false;
+
+    if ( wp_doing_ajax() || $is_new ) {
+      $commentcode = $args['commentcode'] ?? false;
+    }
+
+    // Build helpers
+    $can_comment = ! fictioneer_is_commenting_disabled( $post_id );
     $tag = $args['style'] === 'div' ? 'div' : 'li';
     $classes = ['fictioneer-comment'];
     $flag_classes = '';
-
-    // Handle AJAX
-    $is_ajax = get_option( 'fictioneer_enable_ajax_comments' );
-    $ajax_in_progress = isset( $args['ajax_in_progress'] ) && $args['ajax_in_progress'];
-
-    if ( $is_ajax || $ajax_in_progress ) {
-      $post_author_id = isset( $args['post_author_id'] ) ? absint( $args['post_author_id'] ) : 0;
-      $commentcode = isset( $args['commentcode'] ) ? $args['commentcode'] : false;
-    }
-
-    // Badge
-    $badge = fictioneer_get_comment_badge( get_user_by( 'id', $comment->user_id ), $comment, $post_author_id );
 
     // Flags
     $is_caching = fictioneer_caching_active();
@@ -386,23 +391,28 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $is_closed = get_comment_meta( $comment->comment_ID, 'fictioneer_thread_closed', true );
     $is_deleted_by_owner = get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
     $is_ignoring_reports = get_comment_meta( $comment->comment_ID, 'fictioneer_ignore_reports', true );
-    $is_reportable = ! get_the_author_meta( 'fictioneer_admin_disable_reporting', $current_user->ID ) && get_option( 'fictioneer_enable_comment_reporting' );
     $is_child_of_private = false;
     $is_report_hidden = false;
     $is_flagged_by_current_user = false;
-    $is_sticky = get_option( 'fictioneer_enable_sticky_comments' ) && get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true ) && ! $parent_comment && ! $is_deleted_by_owner && ! $is_offensive;
+
+    $is_reportable = ! get_the_author_meta( 'fictioneer_admin_disable_reporting', $current_user->ID ) &&
+      get_option( 'fictioneer_enable_comment_reporting' );
+
+    $is_sticky = get_option( 'fictioneer_enable_sticky_comments' ) &&
+      get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true ) &&
+      ! $parent_comment && ! $is_deleted_by_owner && ! $is_offensive;
+
     $is_hidden = ! is_user_logged_in() ||
-                 (
-                   ! fictioneer_is_admin( $current_user->ID ) &&
-                   ! fictioneer_is_moderator( $current_user->ID ) &&
-                   $comment->user_id != $current_user->ID &&
-                   $post_author_id != $current_user->ID &&
-                   ! ($parent_comment && $parent_comment->user_id == $current_user->ID)
-                 );
+      (
+        ! fictioneer_is_admin( $current_user->ID ) &&
+        ! fictioneer_is_moderator( $current_user->ID ) &&
+        $comment->user_id != $current_user->ID &&
+        $post_author_id != $current_user->ID &&
+        ! ($parent_comment && $parent_comment->user_id == $current_user->ID)
+      );
+
     $is_editable = get_option( 'fictioneer_enable_user_comment_editing' ) &&
-                   $is_owner &&
-                   ! $is_offensive &&
-                   ! $is_closed;
+      $is_owner && ! $is_offensive && ! $is_closed;
 
     // Check reports
     if ( get_option( 'fictioneer_enable_comment_reporting' ) ) {
@@ -411,7 +421,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // No individual flags for cached comments unless loaded via AJAX or caches are per user
-    if ( ! $is_ajax && $is_caching && ! $is_private_caching ) {
+    if ( ! wp_doing_ajax() && $is_caching && ! $is_private_caching ) {
       $is_flagged_by_current_user = false;
       $flag_classes = '_dubious';
     }
@@ -421,7 +431,9 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $closed_ancestor = false;
 
     while ( $ancestor ) {
-      if ( ! is_object( $ancestor ) ) break;
+      if ( ! is_object( $ancestor ) ) {
+        break;
+      }
 
       // Private ancestor?
       if ( get_comment_type( $ancestor ) === 'private' ) {
@@ -436,20 +448,30 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
       }
 
       // We can stop if...
-      if ( $is_child_of_private && $closed_ancestor ) break;
+      if ( $is_child_of_private && $closed_ancestor ) {
+        break;
+      }
 
       // Next ancestor if any
       $ancestor = $ancestor->comment_parent ? get_comment( $ancestor->comment_parent ) : false;
     }
 
     // Additional classes
-    if ( ! empty( $args['has_children'] ) ) $classes[] = 'parent';
-    if ( ! $is_approved ) $classes[] = '_unapproved';
-    if ( $is_offensive ) $classes[] = '_offensive';
-    if ( $is_report_hidden && ! $is_ignoring_reports ) $classes[] = 'hidden-by-reports';
-    if ( $is_closed ) $classes[] = '_closed';
-    if ( $is_sticky ) $classes[] = '_sticky';
-    if ( $is_deleted_by_owner ) $classes[] = '_deleted';
+    $class_candidates = array(
+      'parent' => ! empty( $args['has_children'] ),
+      '_unapproved' => ! $is_approved,
+      '_offensive' => $is_offensive,
+      'hidden-by-reports' => $is_report_hidden && ! $is_ignoring_reports,
+      '_closed' => $is_closed,
+      '_sticky' => $is_sticky,
+      '_deleted' => $is_deleted_by_owner
+    );
+
+    foreach ( $class_candidates as $class => $condition ) {
+      if ( $condition ) {
+        $classes[] = $class;
+      }
+    }
 
     /**
      * Show or hide comment if not approved, no moderation capabilities, no email has been set
@@ -471,7 +493,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
       ! $commentcode &&
       ! current_user_can( 'moderate_comments' ) &&
       ( $unapproved_comment_email != $comment->comment_author_email || empty( $unapproved_comment_email ) ) &&
-      ! $ajax_in_progress
+      ! $is_new
     ) {
       return;
     }
@@ -479,14 +501,20 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     // Build HTML (tag closed by WordPress!)
     $comment_class = comment_class( $classes, $comment, $comment->comment_post_ID, false );
     $fingerprint_data = empty( $fingerprint ) ? '' : "data-fingerprint=\"$fingerprint\"";
-    if ( $ajax_in_progress ) $comment_class = str_replace( 'depth-1', "depth-$depth", $comment_class );
-    $timestamp_ms = $timestamp * 1000;
-    $open = "<$tag id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"$depth\" data-timestamp=\"$timestamp_ms\" $fingerprint_data>";
+
+    if ( $is_new ) {
+      $comment_class = str_replace( 'depth-1', "depth-$depth", $comment_class );
+    }
+
+    $open = "<{$tag} id=\"comment-{$comment->comment_ID}\" {$comment_class} data-id=\"{$comment->comment_ID}\" data-depth=\"{$depth}\" data-timestamp=\"" . ( $timestamp * 1000 ) . "\" {$fingerprint_data}>";
     $open .= "<div id=\"div-comment-{$comment->comment_ID}\" class=\"fictioneer-comment__container\">";
-    if ( $is_sticky ) $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';
+
+    if ( $is_sticky ) {
+      $open .= '<i class="fa-solid fa-thumbtack sticky-pin"></i>';
+    }
 
     // Hidden private comments
-    if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $ajax_in_progress && ! $is_child_of_private ) {
+    if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $is_child_of_private && ! $is_new ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
         <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as private.', 'fictioneer' ) ?></div>
@@ -496,7 +524,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // Hidden child of a private comment
-    if ( $is_child_of_private && $is_hidden ) {
+    if ( $is_child_of_private && $is_hidden && ! $is_new ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
         <div class="fictioneer-comment__hidden-notice"><?php _e( 'Reply has been marked as private.', 'fictioneer' ) ?></div>
@@ -685,7 +713,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
             type="button"
             data-tooltip="<?php echo esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ); ?>"
             data-click="trigger-inline-comment-edit"
-            <?php echo $ajax_in_progress && $is_editable ? '' : 'hidden'; ?>
+            <?php echo $is_new && $is_editable ? '' : 'hidden'; ?>
           ><i class="fa-solid fa-pen"></i></button>
           <?php endif; ?>
           <?php
@@ -708,7 +736,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
               data-dialog-confirm="<?php echo esc_attr_x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' ); ?>"
               data-tooltip="<?php echo esc_attr_x( 'Delete', 'Delete comment inline.'. 'fictioneer' ); ?>"
               data-click="delete-my-comment"
-              <?php echo $ajax_in_progress ? '' : 'hidden'; ?>
+              <?php echo $is_new ? '' : 'hidden'; ?>
             ><i class="fa-solid fa-eraser"></i></button>
           <?php endif; ?>
           <?php

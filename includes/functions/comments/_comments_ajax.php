@@ -356,7 +356,7 @@ function fictioneer_ajax_submit_comment() {
     'avatar_size' => 32,
     'post_author_id' => $post->post_author,
     'max_depth' => get_option( 'thread_comments_depth' ),
-    'ajax_in_progress' => true
+    'new' => true
   );
 
   // Build HTML
