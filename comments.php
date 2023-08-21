@@ -13,7 +13,9 @@
 <?php
 
 // Don't show the comments if the password has not been entered
-if ( post_password_required() ) return;
+if ( post_password_required() ) {
+  return;
+}
 
 // Setup
 $user = wp_get_current_user();
@@ -78,11 +80,6 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
         </ol>
         <?php // <--- End HTML
 
-        // Edit template
-        if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
-          get_template_part( 'partials/_template_comment_edit' );
-        }
-
         // Pagination
         $pag_args = [];
 
@@ -93,6 +90,14 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
 
         the_comments_pagination( $pag_args );
       }
+    }
+
+    // Edit template
+    if (
+      get_option( 'fictioneer_enable_user_comment_editing' ) &&
+      ! fictioneer_is_commenting_disabled()
+    ) {
+      get_template_part( 'partials/_template_comment_edit' );
     }
 
   ?>
