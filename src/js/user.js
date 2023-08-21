@@ -99,7 +99,8 @@ function fcn_getProfileImage() {
 function fcn_getUserAvatar() {
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_avatar'
+    'action': 'fictioneer_ajax_get_avatar',
+    'fcn_fast_ajax': 1
   })
   .then(response => {
     // Check for success

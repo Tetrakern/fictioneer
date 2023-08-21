@@ -326,6 +326,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       // System
       'fictioneer_ajax_is_user_logged_in',
       'fictioneer_ajax_get_nonce',
+      'fictioneer_ajax_get_avatar',
       // Comments
       'fictioneer_ajax_delete_my_comment',
       'fictioneer_ajax_moderate_comment',
@@ -409,6 +410,10 @@ function fictioneer_do_fast_ajax() {
 
   if ( strpos( $action, '_fingerprint' ) !== false ) {
     require_once __DIR__ . '/includes/functions/users/_user_data.php';
+  }
+
+  if ( strpos( $action, '_avatar' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/users/_avatars.php';
   }
 
   // Skip cache checks
