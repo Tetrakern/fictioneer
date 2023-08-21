@@ -311,44 +311,54 @@ if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
 
 // =============================================================================
 // FAST AJAX REQUESTS
-// > Skips any unnecessary theme initialization!
-// > Only for functions that do not need actions or filters!
+//
+// This is significantly faster than even the REST API because it skips most of
+// the theme initialization and the init() action. However, this also means you
+// cannot use any actions and filters not loaded at this point, ignoring child
+// themes altogether. Customization is still possible with MU plugins and in
+// the config.php, although the latter is bad practice.
 // =============================================================================
 
-define(
-  'FICTIONEER_FAST_AJAX_FUNCTIONS',
-  array(
-    // Comments
-    'fictioneer_ajax_delete_my_comment',
-    'fictioneer_ajax_moderate_comment',
-    'fictioneer_ajax_report_comment',
-    // Follows
-    'fictioneer_ajax_get_follows',
-    'fictioneer_ajax_toggle_follow',
-    'fictioneer_ajax_clear_my_follows',
-    'fictioneer_ajax_mark_follows_read',
-    'fictioneer_ajax_get_follows_notifications',
-    'fictioneer_ajax_get_follows_list',
-    // Reminders
-    'fictioneer_ajax_get_reminders',
-    'fictioneer_ajax_toggle_reminder',
-    'fictioneer_ajax_clear_my_reminders',
-    'fictioneer_ajax_get_reminders_list',
-    // Checkmarks
-    'fictioneer_ajax_get_checkmarks',
-    'fictioneer_ajax_set_checkmark',
-    'fictioneer_ajax_clear_my_checkmarks',
-    'fictioneer_ajax_get_finished_checkmarks_list',
-    // User
-    'fictioneer_ajax_get_fingerprint'
-  )
-);
+if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
+  define(
+    'FICTIONEER_FAST_AJAX_FUNCTIONS',
+    array(
+      // System
+      'fictioneer_ajax_is_user_logged_in',
+      // Comments
+      'fictioneer_ajax_delete_my_comment',
+      'fictioneer_ajax_moderate_comment',
+      'fictioneer_ajax_report_comment',
+      // Follows
+      'fictioneer_ajax_get_follows',
+      'fictioneer_ajax_toggle_follow',
+      'fictioneer_ajax_clear_my_follows',
+      'fictioneer_ajax_mark_follows_read',
+      'fictioneer_ajax_get_follows_notifications',
+      'fictioneer_ajax_get_follows_list',
+      // Reminders
+      'fictioneer_ajax_get_reminders',
+      'fictioneer_ajax_toggle_reminder',
+      'fictioneer_ajax_clear_my_reminders',
+      'fictioneer_ajax_get_reminders_list',
+      // Checkmarks
+      'fictioneer_ajax_get_checkmarks',
+      'fictioneer_ajax_set_checkmark',
+      'fictioneer_ajax_clear_my_checkmarks',
+      'fictioneer_ajax_get_finished_checkmarks_list',
+      // User
+      'fictioneer_ajax_get_fingerprint'
+    )
+  );
+}
 
 if (
   defined( 'DOING_AJAX' ) && DOING_AJAX &&
   isset( $_REQUEST['fcn_fast_ajax'] ) &&
   isset( $_REQUEST['action'] ) &&
-  ! ( defined('REST_REQUEST') && REST_REQUEST )
+  ! ( defined('REST_REQUEST') && REST_REQUEST ) &&
+  defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) &&
+  is_array( FICTIONEER_FAST_AJAX_FUNCTIONS )
 ) {
   fictioneer_do_fast_ajax();
 }

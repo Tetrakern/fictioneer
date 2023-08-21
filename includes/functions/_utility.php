@@ -937,6 +937,14 @@ function fictioneer_show_auth_content() {
  */
 
 function fictioneer_ajax_is_user_logged_in() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_authentication' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Nonce
   check_ajax_referer( 'fictioneer_nonce', 'nonce' );
 
