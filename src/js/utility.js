@@ -878,7 +878,7 @@ function fcn_html(...args) {
 // /**
 //  * Makes a GET request and prints the response to the console
 //  *
-//  * @param {Object} payload - The data payload to be sent with the AJAX request.
+//  * @param {Object} payload - Payload to be sent with the request.
 //  *
 //  * @example fcn_ajaxPrintResponse({'action': 'the_function', 'fcn_fast_ajax': 1})
 //  */
