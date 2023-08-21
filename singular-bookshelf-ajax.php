@@ -48,7 +48,7 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
   $tabs['finished'] = array(
     'name' => __( 'Finished', 'fictioneer' ),
     'classes' => [],
-    'action' => 'fictioneer_ajax_get_finished_list'
+    'action' => 'fictioneer_ajax_get_finished_checkmarks_list'
   );
 }
 

@@ -6,7 +6,9 @@ var /** @type {Object} */ fcn_checkmarks,
     /** @type {Number} */ fcn_userCheckmarksTimeout;
 
 // Initialize
-if (fcn_isLoggedIn) fcn_initializeCheckmarks();
+if (fcn_isLoggedIn) {
+  fcn_initializeCheckmarks();
+}
 
 // =============================================================================
 // INITIALIZE
@@ -81,7 +83,9 @@ function fcn_getCheckmarks() {
 
 function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 'toggle') {
   // Prevent error in case something went very wrong
-  if (!fcn_checkmarks) return;
+  if (!fcn_checkmarks) {
+    return;
+  }
 
   // Check local storage for outside changes
   const currentCheckmarks = fcn_getCheckmarks();
@@ -90,8 +94,13 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
   localStorage.removeItem('fcnBookshelfContent');
 
   // Initialize if story is not yet tracked
-  if (!fcn_checkmarks.data.hasOwnProperty(story)) fcn_checkmarks.data[story] = [];
-  if (!currentCheckmarks.data.hasOwnProperty(story)) currentCheckmarks.data[story] = [];
+  if (!fcn_checkmarks.data.hasOwnProperty(story)) {
+    fcn_checkmarks.data[story] = [];
+  }
+
+  if (!currentCheckmarks.data.hasOwnProperty(story)) {
+    currentCheckmarks.data[story] = [];
+  }
 
   // Re-synchronize if data has diverged
   if (
@@ -101,6 +110,7 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
     fcn_checkmarks = currentCheckmarks;
     fcn_showNotification(__('Checkmarks re-synchronized.', 'fictioneer'));
     fcn_updateCheckmarksView();
+
     return;
   }
 
@@ -182,6 +192,7 @@ function fcn_toggleCheckmark(story, type, chapter = null, source = null, mode = 
   fcn_userCheckmarksTimeout = setTimeout(() => {
     fcn_ajaxPost({
       'action': 'fictioneer_ajax_set_checkmark',
+      'fcn_fast_ajax': 1,
       'story_id': story,
       'update': fcn_checkmarks.data[story].join(' ')
     })
@@ -228,7 +239,9 @@ function fcn_clickCheckmark(source) {
 
 function fcn_updateCheckmarksView() {
   // Not ready yet
-  if (!fcn_checkmarks) return;
+  if (!fcn_checkmarks) {
+    return;
+  }
 
   // Setup
   const storyId = parseInt(fcn_inlineStorage.storyId),
@@ -236,7 +249,9 @@ function fcn_updateCheckmarksView() {
         completed = included && fcn_checkmarks.data[storyId].includes(storyId);
 
   // Initialize if story is not yet tracked
-  if (!included) fcn_checkmarks.data[storyId] = [];
+  if (!included) {
+    fcn_checkmarks.data[storyId] = [];
+  }
 
   // Completed story?
   if (completed) {
@@ -244,7 +259,9 @@ function fcn_updateCheckmarksView() {
     _$$('button.checkmark').forEach(item => {
       const checkId = parseInt(item.dataset.id);
 
-      if (!fcn_checkmarks.data[storyId].includes(checkId)) fcn_checkmarks.data[storyId].push(checkId);
+      if (!fcn_checkmarks.data[storyId].includes(checkId)) {
+        fcn_checkmarks.data[storyId].push(checkId);
+      }
     });
   }
 
@@ -255,7 +272,9 @@ function fcn_updateCheckmarksView() {
   _$$('button.checkmark')?.forEach(item => {
     const checkStoryId = parseInt(item.dataset.storyId);
 
-    if (!fcn_checkmarks.data.hasOwnProperty(checkStoryId)) return;
+    if (!fcn_checkmarks.data.hasOwnProperty(checkStoryId)) {
+      return;
+    }
 
     const checked = fcn_checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
 
@@ -300,7 +319,8 @@ function fcn_fetchCheckmarksFromDatabase() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_checkmarks'
+    'action': 'fictioneer_ajax_get_checkmarks',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Check for success

@@ -255,7 +255,7 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  * @since Fictioneer 4.3
  */
 
-function fictioneer_ajax_get_finished_list() {
+function fictioneer_ajax_get_finished_checkmarks_list() {
   // Validations
   $user = wp_get_current_user();
 
@@ -335,7 +335,7 @@ function fictioneer_ajax_get_finished_list() {
 }
 
 if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_finished_list', 'fictioneer_ajax_get_finished_list' );
+  add_action( 'wp_ajax_fictioneer_ajax_get_finished_checkmarks_list', 'fictioneer_ajax_get_finished_checkmarks_list' );
 }
 
 ?>

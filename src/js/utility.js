@@ -851,8 +851,8 @@ function fcn_html(...args) {
 
 //     try {
 //       await fcn_ajaxGet(data, url, headers);
-//       const endTime = performance.now();
-//       totalTime += (endTime - startTime);
+
+//       totalTime += (performance.now() - startTime);
 //     } catch (error) {
 //       console.error('Error during AJAX request:', error);
 //     }

@@ -312,7 +312,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
 // =============================================================================
 // FAST AJAX REQUESTS
 // > Skips any unnecessary theme initialization!
-// > Only functions that do not need actions or filters!
+// > Only for functions that do not need actions or filters!
 // =============================================================================
 
 define(
@@ -333,7 +333,12 @@ define(
     'fictioneer_ajax_get_reminders',
     'fictioneer_ajax_toggle_reminder',
     'fictioneer_ajax_clear_my_reminders',
-    'fictioneer_ajax_get_reminders_list'
+    'fictioneer_ajax_get_reminders_list',
+    // Checkmarks
+    'fictioneer_ajax_get_checkmarks',
+    'fictioneer_ajax_set_checkmark',
+    'fictioneer_ajax_clear_my_checkmarks',
+    'fictioneer_ajax_get_finished_checkmarks_list'
   )
 );
 
@@ -370,6 +375,11 @@ function fictioneer_do_fast_ajax() {
   if ( get_option( 'fictioneer_enable_reminders' ) && strpos( $action, '_reminder' ) !== false ) {
     require_once __DIR__ . '/includes/functions/_content_helpers.php';
     require_once __DIR__ . '/includes/functions/users/_reminders.php';
+  }
+
+  if ( get_option( 'fictioneer_enable_checkmarks' ) && strpos( $action, '_checkmark' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/_content_helpers.php';
+    require_once __DIR__ . '/includes/functions/users/_checkmarks.php';
   }
 
   if ( strpos( $action, '_list' ) !== false ) {
