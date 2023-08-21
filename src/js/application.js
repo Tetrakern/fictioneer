@@ -227,7 +227,8 @@ function fcn_fetchLoginState() {
 
   // Load from server
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_is_user_logged_in'
+    'action': 'fictioneer_ajax_is_user_logged_in',
+    'fcn_fast_ajax': 1
   }).then((response) => {
     if (response.success && response.data.loggedIn) {
       // Update view to logged-in state (beware double initialize!)
