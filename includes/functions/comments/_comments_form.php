@@ -10,7 +10,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @return string $output Comment toolbar or empty string if it is disabled.
+   * @return string Comment toolbar or empty string if it is disabled.
    */
 
   function fictioneer_get_comment_toolbar() {
@@ -46,9 +46,9 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
  *
  * @since Fictioneer 4.7
  *
- * @param array $fields Array of the default comment fields.
+ * @param array $fields  Array of the default comment fields.
  *
- * @return array $fields Modified array of the default comment fields.
+ * @return array Modified array of the default comment fields.
  */
 
 function fictioneer_change_comment_fields( $fields ) {
@@ -127,11 +127,11 @@ if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fict
  * Change the submit field and add the Cancel Reply link
  *
  * @since Fictioneer 4.7
- * @link  https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
- * @link  https://stackoverflow.com/a/57080105/17140970
+ * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
+ * @link https://stackoverflow.com/a/57080105/17140970
  *
- * @param string $submit_field HTML markup for the submit field.
- * @param array  $args         Arguments passed to comment_form().
+ * @param string $submit_field  HTML markup for the submit field.
+ * @param array  $args          Arguments passed to comment_form().
  */
 
 function fictioneer_change_submit_field( $submit_field, $args ) {
@@ -222,15 +222,18 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
  * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/comment_form/
  *
- * @param array    $defaults Default form arguments. Defaults to empty array.
- * @param int|null $post_id  The post ID. Defaults to current post ID.
+ * @param array    $defaults  Default form arguments. Defaults to empty array.
+ * @param int|null $post_id   The post ID. Defaults to current post ID.
  *
  * @return array Modified arguments.
  */
 
 function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
   // Setup
-  if ( $post_id === null ) $post_id = get_the_ID();
+  if ( empty( $post_id ) ) {
+    $post_id = get_the_ID();
+  }
+
   $user = wp_get_current_user();
   $user_name = $user->exists() ? $user->display_name : '';
   $toolbar = fictioneer_get_comment_toolbar();

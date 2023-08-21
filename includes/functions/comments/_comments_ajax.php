@@ -5,26 +5,55 @@
 // =============================================================================
 
 /**
- * Sends the comment form HTML via AJAX
+ * Register REST API endpoint to fetch comment form
  *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * Endpoint URL: /wp-json/fictioneer/v1/get_comment_form
+ *
+ * Expected Parameters:
+ * - post_id (required): The ID of the story post.
+ *
+ * @since Fictioneer 5.6.3
  */
 
-function fictioneer_ajax_get_comment_form() {
-  // Nonce
-  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-    wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
-  }
+function fictioneer_register_endpoint_get_comment_form() {
+  register_rest_route(
+    'fictioneer/v1',
+    '/get_comment_form',
+    array(
+      'methods' => 'GET',
+      'callback' => 'fictioneer_rest_get_comment_form',
+      'args' => array(
+        'post_id' => array(
+          'validate_callback' => function( $param, $request, $key ) {
+            return is_numeric( $param );
+          },
+          'sanitize_callback' => 'absint',
+          'required' => true
+        )
+      ),
+      'permission_callback' => '__return_true' // Public
+    )
+  );
+}
 
-  // Validations
-  if ( empty( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
-    wp_send_json_error( array( 'error' => __( 'Missing or invalid ID. Comment form could not be loaded.', 'fictioneer' ) ) );
-  }
+if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
+  add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_comment_form' );
+}
 
+/**
+ * Sends the comment form HTML
+ *
+ * @since Fictioneer 5.0
+ * @since Fictioneer 5.6.3 Refactored for REST API.
+ *
+ * @param WP_REST_Request $WP_REST_Request  Request object.
+ *
+ * @return WP_REST_Response|WP_Error Response or error.
+ */
+
+function fictioneer_rest_get_comment_form( WP_REST_Request $request ) {
   // Setup
-  $post_id = absint( $_GET['post_id'] );
+  $post_id = $request->get_param( 'post_id' );
   $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
 
   // Get buffered form
@@ -39,12 +68,11 @@ function fictioneer_ajax_get_comment_form() {
   // Get buffer
   $output = ob_get_clean();
 
-  wp_send_json_success( array( 'html' => $output, 'postId' => $post_id, 'mustLogin' => $must_login ) );
-}
+  // Response body (compatible to wp_send_json_success())
+  $data = array( 'html' => $output, 'postId' => $post_id, 'mustLogin' => $must_login );
 
-if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_comment_form', 'fictioneer_ajax_get_comment_form' );
-  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_comment_form', 'fictioneer_ajax_get_comment_form' );
+  // Return buffer
+  return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
 }
 
 // =============================================================================

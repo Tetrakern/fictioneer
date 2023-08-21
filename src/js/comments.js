@@ -894,10 +894,10 @@ function fcn_getCommentForm() {
   let errorNote;
 
   // Request
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_comment_form',
-    'post_id': _$$$('comments').dataset.postId
-  })
+  fcn_ajaxGet(
+    { 'post_id': _$$$('comments').dataset.postId },
+    'get_comment_form'
+  )
   .then((response) => {
     if (response.success) {
       // Get HTML
