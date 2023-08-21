@@ -257,13 +257,9 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 
 function fictioneer_ajax_get_finished_checkmarks_list() {
   // Validations
-  $user = wp_get_current_user();
+  $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Not logged in.', 'fictioneer' ) ) );
-  }
-
-  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
     wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 

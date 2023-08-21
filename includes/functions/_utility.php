@@ -542,7 +542,7 @@ if ( ! function_exists( 'fictioneer_get_validated_ajax_user' ) ) {
 
     // Validate
     if (
-      ! $user ||
+      ! $user->exists() ||
       ! check_ajax_referer( $nonce_value, $nonce_name, false )
     ) {
       return false;

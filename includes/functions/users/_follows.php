@@ -121,6 +121,7 @@ function fictioneer_ajax_toggle_follow() {
 
   // Valid story ID?
   $story_id = fictioneer_validate_id( $_POST['story_id'], 'fcn_story' );
+
   if ( ! $story_id ) {
     wp_send_json_error( array( 'error' => __( 'Invalid story ID.', 'fictioneer' ) ) );
   }
@@ -313,12 +314,15 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
 function fictioneer_ajax_get_follows_notifications() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error(
-    array(
-      'error' => __( 'Not logged in.', 'fictioneer' ),
-      'html' => '<div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">' . __( 'Not logged in.', 'fictioneer' ) . '</div></div></div>'
-    )
-  );
+
+  if ( ! $user ) {
+    wp_send_json_error(
+      array(
+        'error' => __( 'Not logged in.', 'fictioneer' ),
+        'html' => '<div class="follow-item"><div class="follow-wrapper"><div class="follow-placeholder truncate _1-1">' . __( 'Not logged in.', 'fictioneer' ) . '</div></div></div>'
+      )
+    );
+  }
 
   // Follows
   $user_follows = fictioneer_load_follows( $user );
@@ -411,13 +415,9 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 
 function fictioneer_ajax_get_follows_list() {
   // Validations
-  $user = wp_get_current_user();
+  $user = fictioneer_get_validated_ajax_user();
 
   if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Not logged in.', 'fictioneer' ) ) );
-  }
-
-  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
     wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 

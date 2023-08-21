@@ -16,14 +16,19 @@
 function fictioneer_ajax_get_bookmarks() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   // Look for saved bookmarks on user...
   $bookmarks = get_user_meta( $user->ID, 'fictioneer_bookmarks', true );
   $bookmarks = $bookmarks ? $bookmarks : '{}';
 
   // Response
-  if ( $bookmarks ) wp_send_json_success( ['bookmarks' => $bookmarks] );
+  if ( $bookmarks ) {
+    wp_send_json_success( array( 'bookmarks' => $bookmarks ) );
+  }
 }
 
 if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
@@ -46,10 +51,13 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
 function fictioneer_ajax_save_bookmarks() {
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
-  if ( ! $user ) wp_send_json_error( ['error' => __( 'Request did not pass validation.', 'fictioneer' )] );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
 
   if ( empty( $_POST['bookmarks'] ) ) {
-    wp_send_json_error( ['error' => __( 'Missing arguments.', 'fictioneer' )] );
+    wp_send_json_error( array( 'error' => __( 'Missing arguments.', 'fictioneer' ) ) );
   }
 
   // Valid?
@@ -65,19 +73,19 @@ function fictioneer_ajax_save_bookmarks() {
       ! isset( $decoded['lastLoaded'] ) ||
       count( $decoded ) != 2
     ) {
-      wp_send_json_error( ['error' => __( 'Invalid JSON.', 'fictioneer' )] );
+      wp_send_json_error( array( 'error' => __( 'Invalid JSON.', 'fictioneer' ) ) );
     }
 
     // Update and response
     if ( update_user_meta( $user->ID, 'fictioneer_bookmarks', $bookmarks ) ) {
       wp_send_json_success();
     } else {
-      wp_send_json_error( ['error' => __( 'Database error. Bookmarks could not be updated', 'fictioneer' )] );
+      wp_send_json_error( array( 'error' => __( 'Database error. Bookmarks could not be updated', 'fictioneer' ) ) );
     }
   }
 
   // Something went wrong if we end up here...
-  wp_send_json_error( ['error' => __( 'Not a valid JSON string.', 'fictioneer' )] );
+  wp_send_json_error( array( 'error' => __( 'Not a valid JSON string.', 'fictioneer' ) ) );
 }
 
 if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
