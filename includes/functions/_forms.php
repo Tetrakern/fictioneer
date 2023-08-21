@@ -92,7 +92,9 @@ function fictioneer_ajax_submit_contact_form() {
     $field_label = sanitize_text_field( $_POST[ "text_label_$i" ] ?? '' );
 
     // Skip if label is missing
-    if ( empty( $field_label ) ) continue;
+    if ( empty( $field_label ) ) {
+      continue;
+    }
 
     // Build field
     if ( ! empty( $field_value ) ) {
@@ -204,7 +206,9 @@ function fictioneer_ajax_submit_contact_form() {
     $to = sanitize_email( $to );
 
     // Skip if not valid email address
-    if ( ! is_email( $to ) ) continue;
+    if ( ! is_email( $to ) ) {
+      continue;
+    }
 
     // Send email
     wp_mail(
