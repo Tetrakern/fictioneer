@@ -325,6 +325,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
     array(
       // System
       'fictioneer_ajax_is_user_logged_in',
+      'fictioneer_ajax_get_nonce',
       // Comments
       'fictioneer_ajax_delete_my_comment',
       'fictioneer_ajax_moderate_comment',
