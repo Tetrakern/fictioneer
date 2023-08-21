@@ -172,7 +172,8 @@ function fcn_fetchFingerprint() {
 
   // Request
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_fingerprint'
+    'action': 'fictioneer_ajax_get_fingerprint',
+    'fcn_fast_ajax': 1
   })
   .then((response) => {
     // Fingerprint successfully received?
@@ -190,10 +191,14 @@ function fcn_fetchFingerprint() {
       localStorage.setItem('fcnFingerprint', JSON.stringify(fcn_fingerprint));
 
       // Reveal comment edit buttons
-      if (typeof fcn_revealEditButton === 'function') fcn_revealEditButton();
+      if (typeof fcn_revealEditButton === 'function') {
+        fcn_revealEditButton();
+      }
 
       // Reveal comment delete buttons
-      if (typeof fcn_revealDeleteButton === 'function') fcn_revealDeleteButton();
+      if (typeof fcn_revealDeleteButton === 'function') {
+        fcn_revealDeleteButton();
+      }
     } else {
       // Something went wrong, possibly logged-out; clear local storage
       localStorage.removeItem('fcnFingerprint');

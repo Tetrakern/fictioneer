@@ -338,7 +338,9 @@ define(
     'fictioneer_ajax_get_checkmarks',
     'fictioneer_ajax_set_checkmark',
     'fictioneer_ajax_clear_my_checkmarks',
-    'fictioneer_ajax_get_finished_checkmarks_list'
+    'fictioneer_ajax_get_finished_checkmarks_list',
+    // User
+    'fictioneer_ajax_get_fingerprint'
   )
 );
 
@@ -356,7 +358,6 @@ function fictioneer_do_fast_ajax() {
 
   // Allowed action?
   if (
-    ! defined('FICTIONEER_FAST_AJAX_FUNCTIONS') ||
     ! in_array( $action, FICTIONEER_FAST_AJAX_FUNCTIONS, true ) ||
     strpos( $action, 'fictioneer_ajax' ) !== 0
   ) {
@@ -393,6 +394,10 @@ function fictioneer_do_fast_ajax() {
 
   if ( strpos( $action, '_moderate_comment' ) !== false ) {
     require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
+  }
+
+  if ( strpos( $action, '_fingerprint' ) !== false ) {
+    require_once __DIR__ . '/includes/functions/users/_user_data.php';
   }
 
   // Skip cache checks
