@@ -160,7 +160,7 @@
         margin-bottom: 1.5em;
       }
 
-      &:not(:first-of-type, .has-text-align-center, [class*=wp-block-]) {
+      &:not(:first-of-type, .has-text-align-center, [class*=wp-block-], [align="center"], [align="right"]) {
         text-indent: 1.5rem;
       }
 
@@ -184,7 +184,7 @@
 
       &.justify {
         p {
-          &:not(.has-text-align-center, .has-text-align-left, .has-text-align-right) {
+          &:not(.has-text-align-center, .has-text-align-left, .has-text-align-right, [align="center"], [align="right"]) {
             text-align: justify;
           }
         }
