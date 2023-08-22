@@ -122,7 +122,7 @@ fcn_theSite.addEventListener('click', e => {
 });
 
 function fcn_copyNavIntoMobileMenu() {
-  const mainMenu = _$$$('menu-navigation');
+  const mainMenu = _$('.main-navigation__list');
 
   if (mainMenu && !_$('#mobile-navigation > ul')) {
     const clone = _$$$('menu-navigation').cloneNode(true);
