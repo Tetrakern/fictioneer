@@ -387,6 +387,7 @@ function fictioneer_do_fast_ajax() {
   // Include required files
   require_once __DIR__ . '/includes/functions/_utility.php';
   require_once __DIR__ . '/includes/functions/_query_helpers.php';
+  require_once __DIR__ . '/includes/functions/_caching_and_transients.php';
 
   if ( get_option( 'fictioneer_enable_follows' ) && strpos( $action, '_follow' ) !== false ) {
     require_once __DIR__ . '/includes/functions/_content_helpers.php';
