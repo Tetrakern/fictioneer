@@ -250,7 +250,7 @@ function fictioneer_custom_profile_fields( $profile_user ) {
   $moderation_message = get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID );
 
   // Start HTML ---> ?>
-  <h2 class="fictioneer-data-heading"><?php _e( 'Fictioneer', 'fictioneer' ) ?></h2>
+  <h2 class="fictioneer-data-heading"><?php _e( 'Fictioneer', 'fictioneer' ); ?></h2>
   <table class="form-table">
     <tbody>
       <?php
@@ -294,10 +294,10 @@ function fictioneer_admin_profile_fields_fingerprint( $profile_user ) {
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-fingerprint-wrap">
-    <th><label for="fictioneer_support_message"><?php _e( 'Fingerprint', 'fictioneer' ) ?></label></th>
+    <th><label for="fictioneer_support_message"><?php _e( 'Fingerprint', 'fictioneer' ); ?></label></th>
     <td>
       <input type="text" value="<?php echo esc_attr( fictioneer_get_user_fingerprint( $profile_user->ID ) ); ?>" class="regular-text" disabled>
-      <p class="description"><?php _e( 'Your unique hash. Used to distinguish commenters.', 'fictioneer' ) ?></p>
+      <p class="description"><?php _e( 'Your unique hash. Used to distinguish commenters.', 'fictioneer' ); ?></p>
     </td>
   </tr>
   <?php // <--- End HTML
@@ -334,7 +334,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-profile-flags-wrap">
-    <th><?php _e( 'Profile Flags', 'fictioneer' ) ?></th>
+    <th><?php _e( 'Profile Flags', 'fictioneer' ); ?></th>
     <td>
       <fieldset>
         <div>
@@ -346,7 +346,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
               value="1"
               <?php echo checked( 1, $always_gravatar, false ); ?>
             >
-            <span><?php _e( 'Always use gravatar', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Always use gravatar', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
@@ -358,7 +358,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
               value="1"
               <?php echo checked( 1, $disable_avatar, false ); ?>
             >
-            <span><?php _e( 'Disable avatar', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable avatar', 'fictioneer' ); ?></span>
           </label>
         </div>
         <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
@@ -371,7 +371,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
                 value="1"
                 <?php echo checked( 1, $hide_badge, false ); ?>
               >
-              <span><?php _e( 'Hide badge', 'fictioneer' ) ?></span>
+              <span><?php _e( 'Hide badge', 'fictioneer' ); ?></span>
             </label>
           </div>
           <?php if ( ! empty( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ) ) : ?>
@@ -384,7 +384,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
                   value="1"
                   <?php echo checked( 1, $disable_override_badge, false ); ?>
                 >
-                <span><?php _e( 'Override assigned badge', 'fictioneer' ) ?></span>
+                <span><?php _e( 'Override assigned badge', 'fictioneer' ); ?></span>
               </label>
             </div>
           <?php endif; ?>
@@ -399,7 +399,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
                 value="1"
                 <?php echo checked( 1, $reply_notifications, false ); ?>
               >
-              <span><?php _e( 'Always subscribe to comment reply notifications', 'fictioneer' ) ?></span>
+              <span><?php _e( 'Always subscribe to comment reply notifications', 'fictioneer' ); ?></span>
             </label>
           </div>
         <?php endif; ?>
@@ -439,7 +439,7 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-fictioneer-oauth-wrap">
-    <th><?php _e( 'OAuth 2.0 Connections', 'fictioneer' ) ?></th>
+    <th><?php _e( 'OAuth 2.0 Connections', 'fictioneer' ); ?></th>
     <td>
       <p style="margin: 0.35em 0 1em !important;">
         <?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?>
@@ -607,7 +607,7 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-data-wrap">
-    <th><?php _e( 'Data', 'fictioneer' ) ?></th>
+    <th><?php _e( 'Data', 'fictioneer' ); ?></th>
     <td>
       <p style="margin: 0.35em 0 1em !important;">
         <?php _e( 'The following items represent data nodes stored in your account. Anything submitted by yourself, such as comments. You can clear these nodes here, but be aware that this is irreversible.', 'fictioneer' ); ?>
@@ -675,8 +675,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_d
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_moderation( $profile_user ) {
@@ -689,59 +689,59 @@ function fictioneer_admin_profile_moderation( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-moderation-flags-wrap">
-    <th><?php _e( 'Moderation Flags', 'fictioneer' ) ?></th>
+    <th><?php _e( 'Moderation Flags', 'fictioneer' ); ?></th>
     <td>
       <fieldset>
         <div>
           <label for="fictioneer_admin_disable_avatar" class="checkbox-group">
             <input name="fictioneer_admin_disable_avatar" type="checkbox" id="fictioneer_admin_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_avatar', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable user avatar', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable user avatar', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_reporting" class="checkbox-group">
             <input name="fictioneer_admin_disable_reporting" type="checkbox" id="fictioneer_admin_disable_reporting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_reporting', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable reporting capability', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable reporting capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_renaming" class="checkbox-group">
             <input name="fictioneer_admin_disable_renaming" type="checkbox" id="fictioneer_admin_disable_renaming" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_renaming', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable renaming capability', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable renaming capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_commenting" class="checkbox-group">
             <input name="fictioneer_admin_disable_commenting" type="checkbox" id="fictioneer_admin_disable_commenting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_commenting', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable commenting capability', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable commenting capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_editing" class="checkbox-group">
             <input name="fictioneer_admin_disable_editing" type="checkbox" id="fictioneer_admin_disable_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_editing', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable comment editing capability', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable comment editing capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_comment_notifications" class="checkbox-group">
             <input name="fictioneer_admin_disable_comment_notifications" type="checkbox" id="fictioneer_admin_disable_comment_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_notifications', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_always_moderate_comments" class="checkbox-group">
             <input name="fictioneer_admin_always_moderate_comments" type="checkbox" id="fictioneer_admin_always_moderate_comments" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_always_moderate_comments', $profile_user->ID ), false ); ?> value="1">
-            <span><?php _e( 'Always hold comments for moderation', 'fictioneer' ) ?></span>
+            <span><?php _e( 'Always hold comments for moderation', 'fictioneer' ); ?></span>
           </label>
         </div>
       </fieldset>
     </td>
   </tr>
   <tr class="user-moderation-message-wrap">
-    <th><label for="fictioneer_admin_moderation_message"><?php _e( 'Moderation Message', 'fictioneer' ) ?></label></th>
+    <th><label for="fictioneer_admin_moderation_message"><?php _e( 'Moderation Message', 'fictioneer' ); ?></label></th>
     <td>
       <textarea name="fictioneer_admin_moderation_message" id="fictioneer_admin_moderation_message" rows="8" cols="30"><?php echo esc_attr( get_the_author_meta( 'fictioneer_admin_moderation_message', $profile_user->ID ) ); ?></textarea>
-      <p class="description"><?php _e( 'Custom message in the user profile, which may be a nice thing as well.', 'fictioneer' ) ?></p>
+      <p class="description"><?php _e( 'Custom message in the user profile, which may be a nice thing as well.', 'fictioneer' ); ?></p>
     </td>
   </tr>
   <?php // <--- End HTML
@@ -782,7 +782,7 @@ function fictioneer_admin_profile_author( $profile_user ) {
   // Start HTML ---> ?>
   <?php if ( current_user_can( 'edit_pages' ) ) : ?>
     <tr class="user-author-page-wrap">
-      <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ) ?></label></th>
+      <th><label for="fictioneer_author_page"><?php _e( 'Author Page', 'fictioneer' ); ?></label></th>
       <td>
         <?php if ( $profile_user_has_pages ) : ?>
           <?php
@@ -802,35 +802,35 @@ function fictioneer_admin_profile_author( $profile_user ) {
             <option value="-1"><?php _e( 'You have no published pages yet.', 'fictioneer' ); ?></option>
           </select>
         <?php endif; ?>
-        <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Rendered inside your public author profile. This will override your biographical info.', 'fictioneer' ); ?></p>
       </td>
     </tr>
   <?php endif; ?>
   <tr class="user-support-message-wrap">
-    <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ) ?></label></th>
+    <th><label for="fictioneer_support_message"><?php _e( 'Support Message', 'fictioneer' ); ?></label></th>
     <td>
       <input name="fictioneer_support_message" type="text" id="fictioneer_support_message" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_support_message', $profile_user->ID ) ); ?>" class="regular-text">
-      <p class="description"><?php _e( 'Rendered at the bottom of your chapters. This will override "You can support the author on".', 'fictioneer' ) ?></p>
+      <p class="description"><?php _e( 'Rendered at the bottom of your chapters. This will override "You can support the author on".', 'fictioneer' ); ?></p>
     </td>
   </tr>
   <tr class="user-support-links-wrap">
-    <th><?php _e( 'Support Links', 'fictioneer' ) ?></th>
+    <th><?php _e( 'Support Links', 'fictioneer' ); ?></th>
     <td>
       <fieldset>
         <input name="fictioneer_user_patreon_link" type="text" id="fictioneer_user_patreon_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_patreon_link', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Patreon link', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Patreon link', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_user_kofi_link" type="text" id="fictioneer_user_kofi_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_kofi_link', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Ko-Fi link', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Ko-Fi link', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_user_subscribestar_link" type="text" id="fictioneer_user_subscribestar_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_subscribestar_link', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'SubscribeStar link', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'SubscribeStar link', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_user_paypal_link" type="text" id="fictioneer_user_paypal_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_paypal_link', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'PayPal link', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'PayPal link', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_user_donation_link" type="text" id="fictioneer_user_donation_link" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_user_donation_link', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Generic donation link', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Generic donation link', 'fictioneer' ); ?></p>
       </fieldset>
     </td>
   </tr>
@@ -860,20 +860,20 @@ function fictioneer_admin_profile_oauth( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-oauth-connections-wrap">
-    <th><?php _e( 'Account Bindings', 'fictioneer' ) ?></th>
+    <th><?php _e( 'Account Bindings', 'fictioneer' ); ?></th>
     <td>
       <fieldset>
         <input name="fictioneer_discord_id_hash" type="text" id="fictioneer_discord_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_discord_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Discord ID Hash', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Discord ID Hash', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_twitch_id_hash" type="text" id="fictioneer_twitch_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_twitch_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Twitch ID Hash', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Twitch ID Hash', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_google_id_hash" type="text" id="fictioneer_google_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_google_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Google ID Hash', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Google ID Hash', 'fictioneer' ); ?></p>
         <br>
         <input name="fictioneer_patreon_id_hash" type="text" id="fictioneer_patreon_id_hash" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_patreon_id_hash', $profile_user->ID ) ); ?>" class="regular-text">
-        <p class="description"><?php _e( 'Patreon ID Hash', 'fictioneer' ) ?></p>
+        <p class="description"><?php _e( 'Patreon ID Hash', 'fictioneer' ); ?></p>
       </fieldset>
     </td>
   </tr>
@@ -906,10 +906,10 @@ function fictioneer_admin_profile_badge( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-badge-override-wrap">
-    <th><label for="fictioneer_badge_override"><?php _e( 'Badge Override', 'fictioneer' ) ?></label></th>
+    <th><label for="fictioneer_badge_override"><?php _e( 'Badge Override', 'fictioneer' ); ?></label></th>
     <td>
       <input name="fictioneer_badge_override" type="text" id="fictioneer_badge_override" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ); ?>" class="regular-text">
-      <p class="description"><?php _e( 'Override the user’s badge.', 'fictioneer' ) ?></p>
+      <p class="description"><?php _e( 'Override the user’s badge.', 'fictioneer' ); ?></p>
     </td>
   </tr>
   <?php // <--- End HTML
@@ -938,10 +938,10 @@ function fictioneer_admin_profile_external_avatar( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-external-avatar-wrap">
-    <th><label for="fictioneer_external_avatar_url"><?php _e( 'External Avatar URL', 'fictioneer' ) ?></label></th>
+    <th><label for="fictioneer_external_avatar_url"><?php _e( 'External Avatar URL', 'fictioneer' ); ?></label></th>
     <td>
       <input name="fictioneer_external_avatar_url" type="text" id="fictioneer_external_avatar_url" value="<?php echo esc_attr( get_the_author_meta( 'fictioneer_external_avatar_url', $profile_user->ID ) ); ?>" class="regular-text">
-      <p class="description"><?php _e( 'There is no guarantee this URL remains valid!', 'fictioneer' ) ?></p>
+      <p class="description"><?php _e( 'There is no guarantee this URL remains valid!', 'fictioneer' ); ?></p>
     </td>
   </tr>
   <?php // <--- End HTML
@@ -985,7 +985,7 @@ function fictioneer_admin_danger_zone( $profile_user ) {
 
   // Start HTML ---> ?>
   <tr class="user-danger-zone-wrap">
-    <th><label for=""><?php _e( 'Delete Account', 'fictioneer' ) ?></label></th>
+    <th><label for=""><?php _e( 'Delete Account', 'fictioneer' ); ?></label></th>
     <td>
       <p style="margin: 0.35em 0 1em !important;"><?php _e( 'You can delete your account and associated data with it. Submitted <em>content</em> such as comments will remain under the “Deleted User” name unless you clear that <em>prior</em>. Be aware that once you delete your account, there is no going back.', 'fictioneer' ); ?></p>
       <fieldset>

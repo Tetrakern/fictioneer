@@ -25,7 +25,9 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
     if ( curl_exec( $curl ) ) {
       $statusCode = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
 
-      if ( $statusCode == 404 ) return false;
+      if ( $statusCode == 404 ) {
+        return false;
+      }
 
       return true;
     }
@@ -50,8 +52,12 @@ if ( ! function_exists( 'fictioneer_is_valid_json' ) ) {
    */
 
   function fictioneer_is_valid_json( $data = null ) {
-    if ( empty( $data ) ) return false;
+    if ( empty( $data ) ) {
+      return false;
+    }
+
     $data = @json_decode( $data, true );
+
     return ( json_last_error() === JSON_ERROR_NONE );
   }
 }
@@ -91,7 +97,10 @@ if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
    */
 
   function fictioneer_seo_plugin_active() {
-    $bool = fictioneer_is_plugin_active( 'wordpress-seo/wp-seo.php' ) || fictioneer_is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) || function_exists( 'aioseo' );
+    $bool = fictioneer_is_plugin_active( 'wordpress-seo/wp-seo.php' ) ||
+      fictioneer_is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ||
+      function_exists( 'aioseo' );
+
     return $bool;
   }
 }
@@ -373,10 +382,16 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
   function fictioneer_get_author_statistics( $author_id ) {
     // Setup
     $author_id = fictioneer_validate_id( $author_id );
-    if ( ! $author_id ) return false;
+
+    if ( ! $author_id ) {
+      return false;
+    }
 
     $author = get_user_by( 'id', $author_id );
-    if ( ! get_user_by( 'id', $author_id ) ) return false;
+
+    if ( ! $author ) {
+      return false;
+    }
 
     // Check cache
     $old_data = $author->fictioneer_author_statistics;
@@ -577,7 +592,9 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
     $invalid = false;
 
     // Check if text exists
-    if ( empty( $text ) ) $text = $default;
+    if ( empty( $text ) ) {
+      $text = $default;
+    }
 
     // Replace key/value pairs
     foreach( $args as $key => $value ) {
@@ -594,7 +611,9 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
     }
 
     // Return default a key/value pair was invalid
-    if ( $invalid ) return $default;
+    if ( $invalid ) {
+      return $default;
+    }
 
     // Return modified text
     return trim( $text );
@@ -622,10 +641,14 @@ if ( ! function_exists( 'fictioneer_has_role' ) ) {
     $user = is_int( $user ) ? get_user_by( 'ID', $user ) : $user;
 
     // Abort conditions
-    if ( ! $user || ! $role ) return false;
+    if ( ! $user || ! $role ) {
+      return false;
+    }
 
     // Check if user has role...
-    if ( in_array( $role, (array) $user->roles ) ) return true;
+    if ( in_array( $role, (array) $user->roles ) ) {
+      return true;
+    }
 
     // Else...
     return false;
@@ -645,7 +668,9 @@ if ( ! function_exists( 'fictioneer_is_admin' ) ) {
 
   function fictioneer_is_admin( $user_id ) {
     // Abort conditions
-    if ( ! $user_id ) return false;
+    if ( ! $user_id ) {
+      return false;
+    }
 
     // Check capabilities
     $check = user_can( $user_id, 'administrator' );
@@ -671,7 +696,9 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
 
   function fictioneer_is_author( $user_id ) {
     // Abort conditions
-    if ( ! $user_id ) return false;
+    if ( ! $user_id ) {
+      return false;
+    }
 
     // Check capabilities
     $check = user_can( $user_id, 'publish_posts' );
@@ -697,7 +724,9 @@ if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
 
   function fictioneer_is_moderator( $user_id ) {
     // Abort conditions
-    if ( ! $user_id ) return false;
+    if ( ! $user_id ) {
+      return false;
+    }
 
     // Check capabilities
     $check = user_can( $user_id, 'moderate_comments' );
@@ -723,7 +752,9 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 
   function fictioneer_is_editor( $user_id ) {
     // Abort conditions
-    if ( ! $user_id ) return false;
+    if ( ! $user_id ) {
+      return false;
+    }
 
     // Check capabilities
     $check = user_can( $user_id, 'editor' ) || user_can( $user_id, 'administrator' );
