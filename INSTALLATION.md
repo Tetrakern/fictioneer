@@ -421,7 +421,9 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
-      &numsp;<code>/bookshelf</code>
+      &numsp;<code>/bookshelf</code><br>
+      &numsp;<code>/wp-json/storygraph</code><br>
+      &numsp;<code>/wp-json/fictioneer</code>
     </blockquote><br>
   </details>
 
@@ -467,7 +469,9 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/oauth2*</code><br>
       &numsp;<code>/download-epub*</code><br>
       &numsp;<code>/account*</code><br>
-      &numsp;<code>/bookshelf*</code>
+      &numsp;<code>/bookshelf*</code><br>
+      &numsp;<code>/wp-json/storygraph</code><br>
+      &numsp;<code>/wp-json/fictioneer</code>
     </blockquote><br>
   </details>
 
@@ -509,6 +513,8 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
+      &numsp;<code>/wp-json/storygraph</code><br>
+      &numsp;<code>/wp-json/fictioneer</code><br>
       <h4>[4 - Excludes] Do Not Cache Query Strings:</h4>
       &numsp;<code>commentcode</code><br>
       <h4>[4 - Excludes] Do Not Cache Roles:</h4>
