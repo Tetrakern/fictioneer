@@ -46,6 +46,29 @@ if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
 }
 
 // =============================================================================
+// ENABLE SHORTCODE TRANSIENTS?
+// =============================================================================
+
+/**
+ * Return whether shortcode Transients should be enabled
+ *
+ * @since 5.6.3
+ *
+ * @return boolean Either true or false.
+ */
+
+function fictioneer_enable_shortcode_transients() {
+  // Check constant and caching status
+  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 && ! fictioneer_caching_active();
+
+  // Filter
+  $bool = apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool );
+
+  // Return
+  return $bool;
+}
+
+// =============================================================================
 // PURGE CACHES
 // =============================================================================
 
@@ -598,7 +621,7 @@ function fictioneer_purge_transients( $post_id ) {
   fictioneer_purge_nav_menu_transients();
 
   // Shortcode...
-  if ( FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 ) {
+  if ( fictioneer_enable_shortcode_transients() ) {
     // Recommendation?
     if ( $post_type == 'fcn_recommendation' ) {
       fictioneer_delete_transients_like( 'fictioneer_shortcode_latest_recommendations' );

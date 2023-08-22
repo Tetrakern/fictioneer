@@ -506,16 +506,16 @@ require_once __DIR__ . '/includes/functions/_acf.php';
 require_once __DIR__ . '/includes/functions/_cpt_and_taxonomies.php';
 
 /**
- * Add custom shortcodes.
- */
-
-require_once __DIR__ . '/includes/functions/_shortcodes.php';
-
-/**
  * Caches and Transients.
  */
 
 require_once __DIR__ . '/includes/functions/_caching_and_transients.php';
+
+/**
+ * Add custom shortcodes.
+ */
+
+require_once __DIR__ . '/includes/functions/_shortcodes.php';
 
 /**
  * Generate sitemap.

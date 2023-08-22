@@ -743,6 +743,14 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 
 ---
 
+### `apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool )`
+Filters the boolean return value of whether shortcode Transients should be enabled. By default, this depends on the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant being greater than -1 and the `fictioneer_caching_active()` function returning false. Because the Transients would interfere with caching. If you exclude a page from caching, it might make sense to turn them on for that page.
+
+**Parameter:**
+* $bool (boolean) – Whether the Transients are enabled or not by default.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_sof_date_options', $options, $current_url, $args )`
 Filters the option array of URL/label tuples for the date popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Can be any positive integer (days) or [strtotime](https://www.php.net/manual/en/function.strtotime.php) compatible string. See `fictioneer_append_date_query(...)`. Includes '0', '1', '3', '1 week ago', '1 month ago', '3 months ago', '6 months ago', and '1 year ago'.
 
