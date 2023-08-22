@@ -3,9 +3,9 @@
 // =============================================================================
 
 const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggle'),
-    /** @const {HTMLElement} */ fcn_mobileMenuBottom = _$('.mobile-menu__bottom'),
-    /** @const {HTMLElement} */ fcn_mobileMenuUser = _$$$('mobile-menu-user-panel'),
-    /** @const {HTMLElement} */ fcn_mobileMenuNav = _$$$('mobile-navigation');
+      /** @const {HTMLElement} */ fcn_mobileMenuBottom = _$('.mobile-menu__bottom'),
+      /** @const {HTMLElement} */ fcn_mobileMenuUser = _$$$('mobile-menu-user-panel'),
+      /** @const {HTMLElement} */ fcn_mobileMenuNav = _$$$('mobile-navigation');
 
 var fcn_mobileMenuNavElements = [],
     fcn_mobileMenuUserElements = [],
@@ -125,7 +125,7 @@ function fcn_copyNavIntoMobileMenu() {
   const mainMenu = _$('.main-navigation__list');
 
   if (mainMenu && !_$('#mobile-navigation > ul')) {
-    const clone = _$$$('menu-navigation').cloneNode(true);
+    const clone = mainMenu.cloneNode(true);
 
     clone.id = 'mobile-menu-navigation';
     clone.classList.remove('main-navigation__list');
