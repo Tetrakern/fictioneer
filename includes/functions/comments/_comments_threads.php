@@ -297,6 +297,14 @@ if ( ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
 }
 
 // =============================================================================
+// FORMATTING BBCODES (DUPLICATE IN STORY COMMENTS!)
+// =============================================================================
+
+if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
+  add_filter( 'comment_text', 'fictioneer_bbcodes' );
+}
+
+// =============================================================================
 // THEME COMMENT TEXT
 // =============================================================================
 
@@ -384,7 +392,6 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
     // Flags
     $is_caching = fictioneer_caching_active();
-    $is_private_caching = fictioneer_private_caching_active();
     $is_owner = ! empty( $comment_user_id ) && $comment_user_id == $current_user->ID;
     $is_approved = $comment->comment_approved;
     $is_offensive = get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true );
@@ -404,11 +411,10 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 
     $is_hidden = ! is_user_logged_in() ||
       (
-        ! fictioneer_is_admin( $current_user->ID ) &&
-        ! fictioneer_is_moderator( $current_user->ID ) &&
+        ! current_user_can( 'moderate_comments' ) &&
         $comment->user_id != $current_user->ID &&
         $post_author_id != $current_user->ID &&
-        ! ($parent_comment && $parent_comment->user_id == $current_user->ID)
+        ! ( $parent_comment && $parent_comment->user_id == $current_user->ID )
       );
 
     $is_editable = get_option( 'fictioneer_enable_user_comment_editing' ) &&
@@ -421,7 +427,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // No individual flags for cached comments unless loaded via AJAX or caches are per user
-    if ( ! wp_doing_ajax() && $is_caching && ! $is_private_caching ) {
+    if ( ! wp_doing_ajax() && $is_caching && ! fictioneer_private_caching_active() ) {
       $is_flagged_by_current_user = false;
       $flag_classes = '_dubious';
     }

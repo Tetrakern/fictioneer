@@ -1,6 +1,15 @@
 <?php
 
 // =============================================================================
+// FORMATTING BBCODES (DUPLICATE TO AVOID INCLUDING OTHER FILE)
+// =============================================================================
+
+if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
+  remove_filter( 'comment_text', 'fictioneer_bbcodes' ); // Make sure the filter is only added once
+  add_filter( 'comment_text', 'fictioneer_bbcodes' );
+}
+
+// =============================================================================
 // BUILD STORY COMMENT
 // =============================================================================
 

@@ -13,10 +13,10 @@
  */
 
 function fictioneer_ajax_get_comment_form() {
-  // Nonce
-  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-    wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
-  }
+  // Nonce (disabled for now because public content, might conflict with caching)
+  // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+  //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
+  // }
 
   // Validations
   if ( empty( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
@@ -60,10 +60,10 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
  */
 
 function fictioneer_ajax_get_comment_section() {
-  // Nonce
-  if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
-    wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
-  }
+  // Nonce (disabled for now because public content, might conflict with caching)
+  // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
+  //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
+  // }
 
   // Validations
   if ( ! isset( $_GET['post_id'] ) || intval( $_GET['post_id'] ) < 1 ) {
@@ -73,12 +73,12 @@ function fictioneer_ajax_get_comment_section() {
   // Setup
   $post_id = absint( $_GET['post_id'] );
   $post = get_post( $post_id ); // Called later anyway; no performance loss
-  $page = isset( $_GET['page'] ) ? absint( $_GET['page'] ) : 1;
-  $commentcode = isset( $_GET['commentcode'] ) ? $_GET['commentcode'] : false;
+  $page = absint( $_GET['page'] ?? 1 ) ?: 1;
+  $commentcode = ( $_GET['commentcode'] ?? 0 ) ?: false;
   $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
 
   // Abort if post not found
-  if ( ! $post ) {
+  if ( empty( $post ) ) {
     wp_send_json_error( array( 'error' => __( 'Invalid ID. Comments could not be loaded.', 'fictioneer' ) ) );
   }
 
@@ -93,14 +93,14 @@ function fictioneer_ajax_get_comment_section() {
   }
 
   // Query arguments
-  $query_args = ['post_id' => $post_id];
+  $query_args = array( 'post_id' => $post_id );
 
   if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
     $query_args['type'] = ['comment', 'private'];
     $query_args['order'] = get_option( 'comment_order' );
   } else {
     // Still hide private comments but do not limit the types preemptively
-    $query_args = ['type__not_in' => 'private'];
+    $query_args = array( 'type__not_in' => 'private' );
   }
 
   // Filter query arguments
@@ -371,7 +371,7 @@ function fictioneer_ajax_submit_comment() {
   }
 
   // Prepare arguments to return
-  $output = ['comment' => $html, 'comment_id' => $comment->comment_ID];
+  $output = array( 'comment' => $html, 'comment_id' => $comment->comment_ID );
 
   if ( $commentcode ) {
     $output['commentcode'] = $commentcode;

@@ -112,14 +112,6 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 }
 
 // =============================================================================
-// FORMATTING BBCODES
-// =============================================================================
-
-if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fictioneer_disable_comment_callback' ) ) {
-  add_filter( 'comment_text', 'fictioneer_bbcodes' );
-}
-
-// =============================================================================
 // COMMENT FORM SUBMIT
 // =============================================================================
 
@@ -127,8 +119,8 @@ if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fict
  * Change the submit field and add the Cancel Reply link
  *
  * @since Fictioneer 4.7
- * @link  https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
- * @link  https://stackoverflow.com/a/57080105/17140970
+ * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
+ * @link https://stackoverflow.com/a/57080105/17140970
  *
  * @param string $submit_field  HTML markup for the submit field.
  * @param array  $args          Arguments passed to comment_form().
