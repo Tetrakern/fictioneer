@@ -38,8 +38,22 @@ $query_args = array (
 );
 
 if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
-  $query_args['meta_key'] = 'fictioneer_story_sticky';
-  $query_args['orderby'] = 'meta_value ' . $query_args['orderby'];
+  $query_args['meta_query'] = array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_story_sticky',
+      'compare' => 'EXISTS'
+    ),
+    array(
+      'key' => 'fictioneer_story_sticky',
+      'compare' => 'NOT EXISTS'
+    )
+  );
+
+  $query_args['orderby'] = array(
+    'fictioneer_story_sticky' => 'DESC',
+    $orderby => $order
+  );
 }
 
 // Append date query (if any)
