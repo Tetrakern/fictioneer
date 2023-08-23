@@ -14,7 +14,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Optional: Install Plugin Dependencies](#optional-install-plugin-dependencies)
   * [Optional: Additional Plugins](#optional-additional-plugins)
   * [Optional: Caching](#optional-caching)
-  * [Recommended: Fast Requests Must-Use Plugin](#recommended-fast-requests-must-use-plugin)
+  * [Recommended: Must-Use Plugins](#recommended-must-use-plugins)
   * [Warning: SEO Plugins](#warning-seo-plugins)
   * [Warning: CSS Minification/Combination](#warning-css-minificationcombination)
 * [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
@@ -550,7 +550,7 @@ Technically just another plugin, but one that will make your site significantly 
     </blockquote><br>
   </details>
 
-### Recommended: Fast Requests Must-Use Plugin
+### Recommended: Must-Use Plugins
 
 [Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with two must-use plugins ready to be copied over.
 
