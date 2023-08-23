@@ -460,7 +460,10 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_COMMENT_FUNCTIONS' ) ) {
       'fictioneer_ajax_delete_my_comment',
       'fictioneer_ajax_moderate_comment',
       'fictioneer_ajax_report_comment',
-      'fictioneer_ajax_get_comment_form'
+      'fictioneer_ajax_get_comment_form',
+      'fictioneer_ajax_get_comment_section',
+      'fictioneer_ajax_submit_comment',
+      'fictioneer_ajax_edit_comment'
     )
   );
 }

@@ -196,7 +196,9 @@ function fcn_flagComment(source) {
         reportButton = comment.querySelector('.fictioneer-report-comment-button');
 
   // Abort if another AJAX action is in progress
-  if (comment.classList.contains('ajax-in-progress')) return;
+  if (comment.classList.contains('ajax-in-progress')) {
+    return;
+  }
 
   // Lock comment until AJAX action is complete
   comment.classList.add('ajax-in-progress');
@@ -214,10 +216,14 @@ function fcn_flagComment(source) {
       reportButton.classList.remove('_dubious');
 
       // If report was dubious, it will be resynchronized
-      if (response.data.resync) fcn_showNotification(response.data.resync);
+      if (response.data.resync) {
+        fcn_showNotification(response.data.resync);
+      }
     } else {
       // Show error notice
-      if (response.data?.error) fcn_showNotification(response.data.error, 5, 'warning');
+      if (response.data?.error) {
+        fcn_showNotification(response.data.error, 5, 'warning');
+      }
     }
   })
   .catch((error) => {
@@ -463,9 +469,17 @@ function fcn_bindAJAXCommentSubmit() {
     }
 
     // Optional payload
-    if (parentId) payload['parent_id'] = parentId;
-    if (email?.value) payload['email'] = email?.value;
-    if (author?.value) payload['author'] = author?.value;
+    if (parentId) {
+      payload['parent_id'] = parentId;
+    }
+
+    if (email?.value) {
+      payload['email'] = email?.value;
+    }
+
+    if (author?.value) {
+      payload['author'] = author?.value;
+    }
 
     // Request
     fcn_ajaxPost(payload)
@@ -554,7 +568,10 @@ function fcn_bindAJAXCommentSubmit() {
         fcn_addCommentMouseleaveEvents();
 
         // Clean-up form
-        if (_$$$('comment_parent').value != '0') _$$$('cancel-comment-reply-link').click();
+        if (_$$$('comment_parent').value != '0') {
+          _$$$('cancel-comment-reply-link').click();
+        }
+
         content.value = '';
         content.style.height = '';
 
@@ -562,7 +579,9 @@ function fcn_bindAJAXCommentSubmit() {
         const refresh = window.location.protocol + '//' + window.location.host + window.location.pathname;
         let urlPart = '';
 
-        if (response.data.commentcode) urlPart += `?commentcode=${response.data.commentcode}`;
+        if (response.data.commentcode) {
+          urlPart += `?commentcode=${response.data.commentcode}`;
+        }
 
         history.pushState({path: refresh}, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
 

@@ -131,7 +131,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
             scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
 
       if (scroll) {
-        scrollTarget.scrollIntoView({behavior: 'smooth'});
+        scrollTarget.scrollIntoView({ behavior: 'smooth' });
       }
 
       // Add page to URL and preserve params/anchor
@@ -187,7 +187,9 @@ function fcn_jumpToCommentPage() {
   const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
   // Reload comments on entered page
-  if (input > 0) fcn_reloadCommentsPage(input);
+  if (input > 0) {
+    fcn_reloadCommentsPage(input);
+  }
 }
 
 // =============================================================================

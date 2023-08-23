@@ -13,6 +13,17 @@
  */
 
 function fictioneer_ajax_get_comment_form() {
+  // Enabled?
+  if (
+    ! get_option( 'fictioneer_enable_ajax_comment_form' ) &&
+    ! get_option( 'fictioneer_enable_ajax_comments' )
+  ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Nonce (disabled for now because public content, might conflict with caching)
   // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
   //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
@@ -60,6 +71,14 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
  */
 
 function fictioneer_ajax_get_comment_section() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Nonce (disabled for now because public content, might conflict with caching)
   // if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
   //   wp_send_json_error( array( 'error' => __( 'Security token expired. Please reload.', 'fictioneer' ) ) );
@@ -193,6 +212,14 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
  */
 
 function fictioneer_ajax_submit_comment() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Nonce
   if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
     wp_send_json_error(
@@ -399,6 +426,14 @@ if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
  */
 
 function fictioneer_ajax_edit_comment() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_user_comment_editing' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
   // Setup
   $comment_id = isset( $_POST['comment_id'] ) ? fictioneer_validate_id( $_POST['comment_id'] ) : false;
   $user = fictioneer_get_validated_ajax_user();

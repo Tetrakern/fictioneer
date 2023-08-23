@@ -571,7 +571,10 @@ if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
 
 function fictioneer_ajax_report_comment() {
   // Enabled?
-  if ( get_option( 'fictioneer_disable_comment_callback' ) || ! get_option( 'fictioneer_enable_comment_reporting' ) ) {
+  if (
+    get_option( 'fictioneer_disable_comment_callback' ) ||
+    ! get_option( 'fictioneer_enable_comment_reporting' )
+  ) {
     wp_send_json_error(
       array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
       403
