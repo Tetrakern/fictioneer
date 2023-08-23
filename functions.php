@@ -332,10 +332,6 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_is_user_logged_in',
       'fictioneer_ajax_get_nonce',
       'fictioneer_ajax_get_avatar',
-      // Comments
-      'fictioneer_ajax_delete_my_comment',
-      'fictioneer_ajax_moderate_comment',
-      'fictioneer_ajax_report_comment',
       // Bookmarks
       'fictioneer_ajax_save_bookmarks',
       'fictioneer_ajax_get_bookmarks',
@@ -362,16 +358,17 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
   );
 }
 
-if (
-  defined( 'DOING_AJAX' ) && DOING_AJAX &&
-  isset( $_REQUEST['fcn_fast_ajax'] ) &&
-  isset( $_REQUEST['action'] ) &&
-  ! ( defined('REST_REQUEST') && REST_REQUEST ) &&
-  defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) &&
-  is_array( FICTIONEER_FAST_AJAX_FUNCTIONS )
-) {
-  fictioneer_do_fast_ajax();
-}
+/**
+ * Executes an AJAX action before initialization
+ *
+ * Fires after the theme constants have been defined, but skips
+ * everything after that is not required by the action. Child
+ * themes are not called and custom actions/filters not loaded.
+ * Any customization must happen in a must-use plugin or the
+ * config.php (which is bad practice).
+ *
+ * @since 5.6.3
+ */
 
 function fictioneer_do_fast_ajax() {
   $action = sanitize_text_field( $_REQUEST['action'] );
@@ -412,15 +409,6 @@ function fictioneer_do_fast_ajax() {
     require_once __DIR__ . '/includes/functions/_wordpress_mods.php';
   }
 
-  if ( strpos( $action, '_comment' ) !== false ) {
-    require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
-    require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';
-  }
-
-  if ( strpos( $action, '_moderate_comment' ) !== false ) {
-    require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php';
-  }
-
   if ( strpos( $action, '_fingerprint' ) !== false ) {
     require_once __DIR__ . '/includes/functions/users/_user_data.php';
   }
@@ -453,6 +441,89 @@ function fictioneer_do_fast_ajax() {
 
   // Terminate in case something goes wrong
   die();
+}
+
+if (
+  defined( 'DOING_AJAX' ) && DOING_AJAX &&
+  isset( $_REQUEST['fcn_fast_ajax'] ) &&
+  isset( $_REQUEST['action'] ) &&
+  ! ( defined('REST_REQUEST') && REST_REQUEST ) &&
+  is_array( FICTIONEER_FAST_AJAX_FUNCTIONS )
+) {
+  fictioneer_do_fast_ajax();
+}
+
+if ( ! defined( 'FICTIONEER_FAST_AJAX_COMMENT_FUNCTIONS' ) ) {
+  define(
+    'FICTIONEER_FAST_AJAX_COMMENT_FUNCTIONS',
+    array(
+      'fictioneer_ajax_delete_my_comment',
+      'fictioneer_ajax_moderate_comment',
+      'fictioneer_ajax_report_comment',
+      'fictioneer_ajax_get_comment_form'
+    )
+  );
+}
+
+/**
+ * Executes an AJAX comment action before initialization
+ *
+ * Fires after the theme constants have been defined, but skips
+ * everything after that is not required by the action. Child
+ * themes are not called and custom actions/filters not loaded.
+ * Any customization must happen in a must-use plugin or the
+ * config.php (which is bad practice).
+ *
+ * @since 5.6.3
+ */
+
+function fictioneer_do_fast_comment_ajax() {
+  $action = sanitize_text_field( $_REQUEST['action'] );
+
+  // Allowed action?
+  if ( ! in_array( $action, FICTIONEER_FAST_AJAX_COMMENT_FUNCTIONS, true ) ) {
+    return;
+  }
+
+  // Include required files
+  require_once __DIR__ . '/includes/functions/_utility.php'; // Obviously
+  require_once __DIR__ . '/includes/functions/_caching_and_transients.php'; // Maybe?
+  require_once __DIR__ . '/includes/functions/comments/_comments_controller.php'; // Obviously
+  require_once __DIR__ . '/includes/functions/comments/_comments_moderation.php'; // Obviously
+  require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php'; // Obviously
+
+  // Moderating needs less, otherwise include everything related to comments
+  if ( strpos( $action, '_moderate_comment' ) === false ) {
+    require_once __DIR__ . '/includes/functions/_wordpress_mods.php'; // Obviously
+    require_once __DIR__ . '/includes/functions/_discord.php'; // Notifications
+    require_once __DIR__ . '/includes/functions/_cpt_and_taxonomies.php'; // Depends
+    require_once __DIR__ . '/includes/functions/_oauth.php'; // Login buttons
+    require_once __DIR__ . '/includes/functions/users/_user_data.php'; // Obviously
+    require_once __DIR__ . '/includes/functions/users/_avatars.php'; // Obviously
+    require_once __DIR__ . '/includes/functions/comments/_comments_form.php'; // Obviously
+    require_once __DIR__ . '/includes/functions/comments/_comments_threads.php'; // Obviously
+  }
+
+  // Function exists?
+  if ( ! function_exists( $action ) ) {
+    return;
+  }
+
+  // Call function
+  call_user_func( $action );
+
+  // Terminate in case something goes wrong
+  die();
+}
+
+if (
+  get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
+  defined( 'DOING_AJAX' ) && DOING_AJAX &&
+  strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0 &&
+  strpos( $_REQUEST['action'] ?? '', 'comment' ) !== false &&
+  ! ( defined('REST_REQUEST') && REST_REQUEST )
+) {
+  fictioneer_do_fast_comment_ajax();
 }
 
 // =============================================================================

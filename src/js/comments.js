@@ -66,7 +66,6 @@ function fcn_moderateComment(id, operation) {
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_moderate_comment',
-    'fcn_fast_ajax': 1,
     'operation': operation,
     'id': id
   })
@@ -205,7 +204,6 @@ function fcn_flagComment(source) {
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_report_comment',
-    'fcn_fast_ajax': 1,
     'id': comment.dataset.id,
     'dubious': reportButton.classList.contains('_dubious')
   })
@@ -866,7 +864,6 @@ function fcn_deleteMyComment(button) {
   // Request
   fcn_ajaxPost(payload = {
     'action': 'fictioneer_ajax_delete_my_comment',
-    'fcn_fast_ajax': 1,
     'comment_id': comment.dataset.id
   })
   .then((response) => {
