@@ -44,6 +44,7 @@ defined( 'ABSPATH' ) OR exit;
             )
           );
 
+          $menu = str_replace( 'class="', 'data-menu-id="main" class="', $menu );
           $menu = str_replace( 'current_page_item', '', $menu );
           $menu = str_replace( 'current-menu-item', '', $menu );
           $menu = str_replace( 'aria-current="page"', '', $menu );

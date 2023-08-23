@@ -57,7 +57,9 @@ function fcn_toggleMobileMenu(isOpened) {
     fcn_toggleMobileMenuContent(false);
 
     // Restart progress bar
-    if (typeof fcn_trackProgress === 'function') fcn_trackProgress();
+    if (typeof fcn_trackProgress === 'function') {
+      fcn_trackProgress();
+    }
   }
 }
 
@@ -122,7 +124,7 @@ fcn_theSite.addEventListener('click', e => {
 });
 
 function fcn_copyNavIntoMobileMenu() {
-  const mainMenu = _$('.main-navigation__list');
+  const mainMenu = _$('[data-menu-id="main"]');
 
   if (mainMenu && !_$('#mobile-navigation > ul')) {
     const clone = mainMenu.cloneNode(true);
@@ -130,6 +132,7 @@ function fcn_copyNavIntoMobileMenu() {
     clone.id = 'mobile-menu-navigation';
     clone.classList.remove('main-navigation__list');
     clone.classList.add('mobile-navigation__list');
+    clone.dataset.menuId = 'mobile';
 
     _$$$('mobile-navigation').appendChild(clone);
   }
@@ -197,7 +200,10 @@ function fcn_closeMobileFrames() {
 
   // End bookmarks edit mode
   const bookmarksPanel = _$('.mobile-menu__bookmarks-panel');
-  if (bookmarksPanel) bookmarksPanel.dataset.editing = 'false';
+
+  if (bookmarksPanel) {
+    bookmarksPanel.dataset.editing = 'false';
+  }
 }
 
 // Listen for clicks on frame buttons...
