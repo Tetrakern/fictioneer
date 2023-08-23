@@ -14,6 +14,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Optional: Install Plugin Dependencies](#optional-install-plugin-dependencies)
   * [Optional: Additional Plugins](#optional-additional-plugins)
   * [Optional: Caching](#optional-caching)
+  * [Recommended: Fast Requests Must-Use Plugin](#recommended-fast-requests-must-use-plugin)
   * [Warning: SEO Plugins](#warning-seo-plugins)
   * [Warning: CSS Minification/Combination](#warning-css-minificationcombination)
 * [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
@@ -198,9 +199,7 @@ Note that any changes made to the theme files will be undone — which you shoul
 
 ### Optional: Install Plugin Dependencies
 
-Fictioneer relies heavily on one developer plugin, [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/). ACF is already bundled into the theme, but you may want to install it separately to stay on the latest version or use it for your own modifications — which should happen in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You cannot access the bundled version in order to prevent non-developer users from accidentally breaking the theme.
-
-If you decide to install ACF separately, especially if only for the updates, you should consider copying the `mu-plugins` folder from the theme into the `wp-content` directory. The included plugin file by [Bill Erickson](https://www.billerickson.net/code/disable-acf-frontend/) disables ACF on the frontend, which grants a performance boost (the bundled version is disabled by default). You cannot use its functions in that case, however. Beware, changing the ACF fields can break the theme and there is no easy way to revert this!
+Fictioneer relies heavily on one developer plugin, [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/). ACF is already bundled into the theme, but you may want to install it separately to stay on the latest version or use it for your own modifications — which should happen in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You cannot access the bundled version in order to prevent non-developer users from accidentally breaking the theme. Changing ACF fields can cause difficult to repair damage!
 
 ### Optional: Additional Plugins
 
@@ -550,6 +549,16 @@ Technically just another plugin, but one that will make your site significantly 
       </ul>
     </blockquote><br>
   </details>
+
+### Recommended: Fast Requests Must-Use Plugin
+
+[Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with two must-use plugins ready to be copied over.
+
+**Disable ACF on Frontend** was created by [Bill Erickson](https://www.billerickson.net/code/disable-acf-frontend/) and disables the ACF plugin on the frontend if you installed it separately. The integrated version is disabled by default. You cannot use its functions in that case, however.
+
+**Fictioneer 001 Fast Requests** accelerates AJAX and REST requests by disabling non-allow-listed plugins during selected theme actions. Depending on the number of plugins you have installed, this can boost your request performance significantly. However, it will prevent the plugins from working during these requests, although that has no effect on the theme’s default functionality. Be not afraid to edit the file and extend the allow list, it will not be overwritten when you update the theme. Or add your own plugin files. This is one of the best speed optimizations you can make.
+
+If problems arise, you can just delete the plugin files.
 
 ### Warning: SEO Plugins
 
