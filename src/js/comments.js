@@ -379,7 +379,7 @@ _$('.comment-section')?.addEventListener('keydown', event => {
 
       const bbCode = keyMapping[key] || key;
 
-      fcn_wrapInTag(_$$$('comment'), bbCode, {'shortcode': true});
+      fcn_wrapInTag(document.activeElement, bbCode, {'shortcode': true});
     }
   }
 });
