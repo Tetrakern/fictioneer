@@ -356,18 +356,22 @@ _$('.comment-section')?.addEventListener('click', event => {
 // Listen for BBCode key combinations...
 _$('.comment-section')?.addEventListener('keydown', event => {
   // Start key combination...
-  if (event.ctrlKey || event.metaKey) {
+  if (
+    _$('.fictioneer-comment-toolbar') &&
+    document.activeElement.tagName === 'TEXTAREA' &&
+    (event.ctrlKey || event.metaKey)
+  ) {
     const key = event.key.toLowerCase();
-
-    const keyMapping = {
-      'q': 'quote',
-      'h': 'spoiler',
-      'l': 'link'
-    };
 
     // ... with associated BBCode keys
     if (['b', 'i', 's', 'q', 'h', 'l'].includes(key)) {
       event.preventDefault();
+
+      const keyMapping = {
+        'q': 'quote',
+        'h': 'spoiler',
+        'l': 'link'
+      };
 
       const bbCode = keyMapping[key] || key;
 
