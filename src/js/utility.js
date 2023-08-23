@@ -848,10 +848,11 @@ function fcn_html(...args) {
 //  * @param {Object} data - The payload for the AJAX request.
 //  * @param {String} url - Optional. The AJAX URL if different from the default.
 //  * @param {Object} headers - Optional. Headers for the request.
+//  * @param {String} method - Either 'get' or 'post'. Default 'get'.
 //  * @returns {Promise<number>} Promise that resolves with the average response time in milliseconds.
 //  */
 
-// async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}) {
+// async function fcn_benchmarkAjax(n = 1, data = {}, url = null, headers = {}, method = 'get') {
 //   let totalTime = 0;
 
 //   console.log(`Starting benchmark with ${n} AJAX requests...`);
@@ -860,7 +861,11 @@ function fcn_html(...args) {
 //     const startTime = performance.now();
 
 //     try {
-//       await fcn_ajaxGet(data, url, headers);
+//       if (method === 'get') {
+//         await fcn_ajaxGet(data, url, headers);
+//       } else {
+//         await fcn_ajaxPost(data, url, headers);
+//       }
 
 //       totalTime += (performance.now() - startTime);
 //     } catch (error) {
@@ -879,10 +884,15 @@ function fcn_html(...args) {
 //  * Makes a GET request and prints the response to the console
 //  *
 //  * @param {Object} payload - Payload to be sent with the request.
+//  * @param {String} method - Either 'get' or 'post'. Default 'get'.
 //  *
 //  * @example fcn_ajaxPrintResponse({'action': 'the_function', 'fcn_fast_ajax': 1})
 //  */
 
-// function fcn_printAjaxResponse(payload) {
-//   fcn_ajaxGet(payload).then((response) => { console.log(response); });
+// function fcn_printAjaxResponse(payload, method = 'get') {
+//   if (method === 'get') {
+//     fcn_ajaxGet(payload).then((response) => { console.log(response); });
+//   } else {
+//     fcn_ajaxPost(payload).then((response) => { console.log(response); });
+//   }
 // }
