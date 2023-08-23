@@ -563,7 +563,18 @@
                     <input name="fictioneer_enable_ajax_comment_moderation" type="checkbox" id="fictioneer_enable_ajax_comment_moderation" <?php echo checked( 1, get_option( 'fictioneer_enable_ajax_comment_moderation' ), false ); ?> value="1">
                     <div>
                       <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_ajax_comment_moderation']['label']; ?></span>
-                      <p class="sub-label"><?php _e( 'Moderation actions directly in the comment section.', 'fictioneer' ) ?></p>
+                      <p class="sub-label"><?php _e( 'Moderation actions directly in the comment section.', 'fictioneer' ); ?></p>
+                    </div>
+                  </label>
+
+                  <label for="fictioneer_enable_fast_ajax_comments" class="label-wrapped-checkbox row">
+                    <input name="fictioneer_enable_fast_ajax_comments" type="checkbox" id="fictioneer_enable_fast_ajax_comments" <?php echo checked( 1, get_option( 'fictioneer_enable_fast_ajax_comments' ), false ); ?> value="1">
+                    <div>
+                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_fast_ajax_comments']['label']; ?></span>
+                      <p class="sub-label"><?php printf(
+                        __( 'Accelerate AJAX comment requests by skipping plugins and theme initialization. Actions and filters will be ignored unless applied by core or a <a href="%s" target="_blank">must-use plugin</a>.', 'fictioneer' ),
+                        'https://wordpress.org/documentation/article/must-use-plugins/' );
+                      ?></p>
                     </div>
                   </label>
 
@@ -658,7 +669,7 @@
     							</div>
 
                   <div class="textarea row">
-                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 160px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
+                    <textarea name="fictioneer_comments_notice" id="fictioneer_comments_notice" rows="4" style="height: 165px;"><?php echo get_option( 'fictioneer_comments_notice' ); ?></textarea>
                     <p class="sub-label"><?php _e( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ) ?></p>
                   </div>
 

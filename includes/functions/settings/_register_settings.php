@@ -611,15 +611,22 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_flush_object_cache' => array(
       'name' => 'fictioneer_flush_object_cache',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Flush object cache on content updates', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_see_some_evil' => array(
       'name' => 'fictioneer_see_some_evil',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_disable_widget_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Monitor posts for suspicious content', 'fictioneer' ),
+      'default' => false
+    ),
+    'fictioneer_enable_fast_ajax_comments' => array(
+      'name' => 'fictioneer_enable_fast_ajax_comments',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Enable fast AJAX for comments', 'fictioneer' ),
       'default' => false
     )
 	),

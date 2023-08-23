@@ -14,13 +14,22 @@
 if (
   ( defined( 'DOING_AJAX' ) && DOING_AJAX ) &&
   isset( $_REQUEST['fcn_fast_ajax'] ) &&
-  isset( $_REQUEST['action'] ) &&
-  strpos( $_REQUEST['action'], 'fictioneer_ajax' ) === 0
+  strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0
 ) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins' );
 }
 
 $request_uri = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+
+// Check if AJAX comment request
+if (
+  get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
+  ( defined( 'DOING_AJAX' ) && DOING_AJAX ) &&
+  strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0 &&
+  strpos( $_REQUEST['action'] ?? '', 'comment' ) !== false
+) {
+  add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins' );
+}
 
 // Check REST Request
 if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
