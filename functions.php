@@ -314,6 +314,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
   define( 'FICTIONEER_ENABLE_FRONTEND_ACF', false );
 }
 
+// Boolean: Enable nav menu Transients
+if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
+  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', false );
+}
+
 // =============================================================================
 // FAST AJAX REQUESTS
 //

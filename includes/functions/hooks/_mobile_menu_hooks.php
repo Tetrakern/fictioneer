@@ -256,6 +256,10 @@ add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame',
  */
 
 function fictioneer_mobile_navigation_panel() {
+  if ( ! has_nav_menu( 'nav_menu' ) ) {
+    return;
+  }
+
   // Start HTML ---> ?>
   <nav id="mobile-navigation" class="mobile-navigation mobile-menu__panel"><?php
     // Cloned from the main navigation via JS

@@ -31,28 +31,38 @@ defined( 'ABSPATH' ) OR exit;
   <div class="main-navigation__wrapper">
     <div class="main-navigation__left">
       <?php
-        $menu = get_transient( 'fictioneer_main_nav_menu' );
+        if ( has_nav_menu( 'nav_menu' ) ) {
+          $menu = null;
 
-        if ( empty( $menu ) ) {
-          $menu = wp_nav_menu(
-            array(
-              'theme_location' => 'nav_menu',
-              'menu_class' => 'main-navigation__list',
-              'container' => '',
-              'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-              'echo' => false
-            )
-          );
+          if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+            $menu = get_transient( 'fictioneer_main_nav_menu' );
+          }
 
-          $menu = str_replace( 'class="', 'data-menu-id="main" class="', $menu );
-          $menu = str_replace( 'current_page_item', '', $menu );
-          $menu = str_replace( 'current-menu-item', '', $menu );
-          $menu = str_replace( 'aria-current="page"', '', $menu );
+          if ( empty( $menu ) ) {
+            $menu = wp_nav_menu(
+              array(
+                'theme_location' => 'nav_menu',
+                'menu_class' => 'main-navigation__list',
+                'container' => '',
+                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'echo' => false
+              )
+            );
 
-          set_transient( 'fictioneer_main_nav_menu', $menu );
+            if ( $menu !== false ) {
+              $menu = str_replace( 'class="', 'data-menu-id="main" class="', $menu );
+              $menu = str_replace( 'current_page_item', '', $menu );
+              $menu = str_replace( 'current-menu-item', '', $menu );
+              $menu = str_replace( 'aria-current="page"', '', $menu );
+            }
+
+            if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+              set_transient( 'fictioneer_main_nav_menu', $menu );
+            }
+          }
+
+          echo $menu;
         }
-
-        echo $menu;
       ?>
     </div>
     <div class="main-navigation__right">

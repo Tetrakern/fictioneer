@@ -73,8 +73,10 @@ function fcn_toggleMobileMenu(isOpened) {
 function fcn_toggleMobileMenuContent(add = true) {
   // Remove
   if (!add) {
-    while (fcn_mobileMenuNav.firstChild) {
-      fcn_mobileMenuNavElements.push(fcn_mobileMenuNav.removeChild(fcn_mobileMenuNav.firstChild));
+    if (fcn_mobileMenuNav) {
+      while (fcn_mobileMenuNav.firstChild) {
+        fcn_mobileMenuNavElements.push(fcn_mobileMenuNav.removeChild(fcn_mobileMenuNav.firstChild));
+      }
     }
 
     while (fcn_mobileMenuUser.firstChild) {
@@ -126,7 +128,7 @@ fcn_theSite.addEventListener('click', e => {
 function fcn_copyNavIntoMobileMenu() {
   const mainMenu = _$('[data-menu-id="main"]');
 
-  if (mainMenu && !_$('#mobile-navigation > ul')) {
+  if (mainMenu && fcn_mobileMenuNav && !_$('#mobile-navigation > ul')) {
     const clone = mainMenu.cloneNode(true);
 
     clone.id = 'mobile-menu-navigation';
