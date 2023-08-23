@@ -353,6 +353,29 @@ _$('.comment-section')?.addEventListener('click', event => {
   }
 });
 
+// Listen for BBCode key combinations...
+_$('.comment-section')?.addEventListener('keydown', event => {
+  // Start key combination...
+  if (event.ctrlKey || event.metaKey) {
+    const key = event.key.toLowerCase();
+
+    const keyMapping = {
+      'q': 'quote',
+      'h': 'spoiler',
+      'l': 'link'
+    };
+
+    // ... with associated BBCode keys
+    if (['b', 'i', 's', 'q', 'h', 'l'].includes(key)) {
+      event.preventDefault();
+
+      const bbCode = keyMapping[key] || key;
+
+      fcn_wrapInTag(_$$$('comment'), bbCode, {'shortcode': true});
+    }
+  }
+});
+
 // =============================================================================
 // AJAX COMMENT SUBMISSION
 // =============================================================================
