@@ -547,9 +547,7 @@ if ( get_option( 'fictioneer_enable_epubs' ) ) {
  * Log-in and register subscribers via OAuth 2.0.
  */
 
-if ( get_option( 'fictioneer_enable_oauth' ) ) {
-  require_once __DIR__ . '/includes/functions/_oauth.php';
-}
+require_once __DIR__ . '/includes/functions/_oauth.php';
 
 /**
  * Handle comments.
