@@ -123,6 +123,25 @@ Fires between the site’s `<main>` and `<footer>` blocks. This is the empty spa
 
 ---
 
+### `do_action( 'fictioneer_after_oauth_user', $user, $args )`
+Fires after an user has been successfully created or logged-in via the OAuth 2.0 protocol.
+
+**Parameters:**
+* $user (WP_User) – The user object.
+
+**$args:**
+* $channel (string) – Either `discord`, `patreon`, `twitch`, or `google`.
+* $uid (string) – External unique user ID from the linked account. Unsanitized.
+* $username (string) – The external username. Unsanitized.
+* $nickname (string) – The external nickname (or same as username). Unsanitized.
+* $email (string) – The external email address. Unsanitized.
+* $avatar_url (string) – The external avatar URL. Unsanitized.
+* $patreon_tiers (array) – The relevant Patreon tiers or an empty array. Unsanitized.
+* $new (boolean) – Whether this is a newly created user.
+* $merged (boolean) – Whether the account has been newly linked to an existing user.
+
+---
+
 ### `do_action( 'fictioneer_archive_loop_after', $args )`
 Archive template hook. Fires right after the result loop section in any archive template.
 

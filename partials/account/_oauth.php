@@ -20,7 +20,9 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Abort if OAuth is disabled
-if ( ! get_option( 'fictioneer_enable_oauth' ) ) return;
+if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
+  return;
+}
 
 // Setup
 $current_user = $args['user'];

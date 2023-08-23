@@ -71,11 +71,11 @@ if ( ! function_exists( 'fictioneer_get_oauth_login_link' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param string       $channel  The channel (discord, google, twitch, or patreon).
-   * @param string       $content  Content of the link.
-   * @param string|false $anchor   Optional. An anchor for the return page. Default false.
-   * @param boolean      $merge    Optional. Whether to link the account to another.
-   * @param string       $classes  Optional. Additional CSS classes.
+   * @param string       $channel   The channel (discord, google, twitch, or patreon).
+   * @param string       $content   Content of the link.
+   * @param string|false $anchor    Optional. An anchor for the return page. Default false.
+   * @param boolean      $merge     Optional. Whether to link the account to another.
+   * @param string       $classes   Optional. Additional CSS classes.
    *
    * @return string OAuth login link or empty string if disabled.
    */
@@ -109,11 +109,11 @@ if ( ! function_exists( 'fictioneer_get_oauth_links' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param boolean|string $label   Optional. Whether to show the channel as
-   *                                label and the text before that (if any).
-   *                                Can be false, true, or 'some string'.
-   * @param string         $classes Optional. Additional CSS classes.
-   * @param boolean|string $anchor  Optional. Anchor to append to the URL.
+   * @param boolean|string $label    Optional. Whether to show the channel as
+   *                                 label and the text before that (if any).
+   *                                 Can be false, true, or 'some string'.
+   * @param string         $classes  Optional. Additional CSS classes.
+   * @param boolean|string $anchor   Optional. Anchor to append to the URL.
    *
    * @return string Sequence of links or empty string if OAuth is disabled.
    */
@@ -313,8 +313,8 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
    * @since Fictioneer 4.0
    * @see fictioneer_make_oauth_user()
    *
-   * @param string $url          The request URL.
-   * @param string $access_token The access token.
+   * @param string $url           The request URL.
+   * @param string $access_token  The access token.
    *
    * @return string Passed through result of fictioneer_make_oauth_user().
    */
@@ -385,8 +385,8 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
    * @since Fictioneer 4.0
    * @see fictioneer_make_oauth_user()
    *
-   * @param string $url          The request URL.
-   * @param string $access_token The access token.
+   * @param string $url           The request URL.
+   * @param string $access_token  The access token.
    *
    * @return string Passed through result of fictioneer_make_oauth_user().
    */
@@ -452,8 +452,8 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
    * @since Fictioneer 4.0
    * @see fictioneer_make_oauth_user()
    *
-   * @param string $url          The request URL.
-   * @param string $access_token The access token.
+   * @param string $url           The request URL.
+   * @param string $access_token  The access token.
    *
    * @return string Passed through result of fictioneer_make_oauth_user().
    */
@@ -521,8 +521,8 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
    * @since Fictioneer 4.0
    * @see fictioneer_make_oauth_user()
    *
-   * @param string $url          The request URL.
-   * @param string $access_token The access token.
+   * @param string $url           The request URL.
+   * @param string $access_token  The access token.
    *
    * @return string Passed through result of fictioneer_make_oauth_user().
    */
@@ -608,7 +608,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param array $args Array of user data.
+   * @param array $args  Array of user data.
    *
    * @return string Returns either 'new', 'merged', 'known', or an error code.
    */
@@ -634,7 +634,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
     $wp_user = reset( $wp_user );
 
     // If no user has been found, find a valid username
-    if ( ! $wp_user && username_exists( $username ) ) {
+    if ( ! is_a( $wp_user, 'WP_User' ) && username_exists( $username ) ) {
       $alt_username = $username;
       $discriminator = 1;
 
@@ -661,7 +661,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
     }
 
     // ... if not found, create a new user and get the object if successful
-    if ( ! $wp_user ) {
+    if ( ! is_a( $wp_user, 'WP_User' ) ) {
       $wp_user_id = wp_create_user(
         $alt_username ? $alt_username : $username,
         wp_generate_password( 32, true, true ),
@@ -670,6 +670,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
 
       if ( is_wp_error( $wp_user_id ) ) {
         $error_key = key( $wp_user_id->errors );
+
         return $error_key == 'existing_user_email' ? 'oauth_email_taken' : $error_key;
       } else {
         $wp_user = get_user_by( 'id', $wp_user_id );
@@ -678,7 +679,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
     }
 
     // ... if user has been found or created, update user data
-    if ( $wp_user ) {
+    if ( is_a( $wp_user, 'WP_User' ) ) {
       // Current avatar
       $current_avatar = empty( $wp_user->fictioneer_external_avatar_url ) ? null : $wp_user->fictioneer_external_avatar_url;
 
@@ -716,10 +717,33 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
         wp_set_auth_cookie( $wp_user->ID, true );
       }
 
+      // Action
+      do_action(
+        'fictioneer_after_oauth_user',
+        $wp_user,
+        array(
+          'channel' => $args['channel'],
+          'uid' => $args['uid'],
+          'username' => $args['username'],
+          'nickname' => $args['nickname'],
+          'email' => $args['email'],
+          'avatar_url' => $args['avatar'],
+          'patreon_tiers' => $args['tiers'] ?? [],
+          'new' => $new,
+          'merged' => defined( 'MERGE_ID' )
+        )
+      );
+
       // Return whether this is a new or known user
       if ( is_user_logged_in() ) {
-        if ( $new ) return 'new';
-        if ( defined( 'MERGE_ID' ) ) return 'merged';
+        if ( $new ) {
+          return 'new';
+        }
+
+        if ( defined( 'MERGE_ID' ) ) {
+          return 'merged';
+        }
+
         return 'known';
       }
     }
@@ -814,7 +838,7 @@ if ( ! function_exists( 'fictioneer_oauth2_exit_and_return' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $return_url Optional. URL to return to.
+   * @param string $return_url  Optional. URL to return to.
    */
 
   function fictioneer_oauth2_exit_and_return( $return_url = RETURN_URL ) {
@@ -832,9 +856,9 @@ if ( ! function_exists( 'fictioneer_get_oauth_client_credentials' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $channel The channel to retrieve the credential for.
-   * @param string $type    Optional. The type of credential to retrieve,
-   *                        'id' or 'secret'. Default 'id'.
+   * @param string $channel  The channel to retrieve the credential for.
+   * @param string $type     Optional. The type of credential to retrieve,
+   *                         'id' or 'secret'. Default 'id'.
    *
    * @return string|null The client ID or secret, or null if not found.
    */
@@ -852,9 +876,9 @@ if ( ! function_exists( 'fictioneer_get_oauth_token' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $url     URL to make the API request to.
-   * @param array  $post    Post query.
-   * @param array  $headers Array of header options.
+   * @param string $url      URL to make the API request to.
+   * @param array  $post     Post query.
+   * @param array  $headers  Array of header options.
    *
    * @return object Decoded JSON result.
    */
@@ -882,8 +906,8 @@ if ( ! function_exists( 'fictioneer_revoke_oauth_token' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string $url     URL to make the API request to.
-   * @param array  $post    Post query.
+   * @param string $url   URL to make the API request to.
+   * @param array  $post  Post query.
    *
    * @return string HTTP response code.
    */
