@@ -251,6 +251,31 @@ if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
 }
 
 // =============================================================================
+// LIMIT STORY PAGES TO AUTHOR
+// =============================================================================
+
+/**
+ * Limit story pages to author
+ *
+ * @since Fictioneer 5.6.3
+ *
+ * @param array  $args     The query arguments.
+ * @param string $paths    The queried field.
+ * @param int    $post_id  The post ID.
+ *
+ * @return array Modified query arguments.
+ */
+
+function fictioneer_acf_scope_story_pages( $args, $field, $post_id ) {
+  if ( ! current_user_can( 'edit_others_pages' ) ) {
+    $args['author'] = get_post_field( 'post_author', $post_id );
+  }
+
+  return $args;
+}
+add_filter( 'acf/fields/relationship/query/name=fictioneer_story_custom_pages', 'fictioneer_acf_scope_story_pages', 10, 3 );
+
+// =============================================================================
 // PREVENT ACF FIELD FROM BEING SAVED
 // =============================================================================
 
