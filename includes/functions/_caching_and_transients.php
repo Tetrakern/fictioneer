@@ -341,6 +341,13 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       return;
     }
 
+    // Get type
+    $post_type = get_post_type( $post_id );
+
+    if ( ! $post_type ) {
+      return;
+    }
+
     // Start system action: unset user
     $current_user_id = get_current_user_id();
     wp_set_current_user( 0 );
@@ -361,17 +368,17 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge associated list pages
-    if ( in_array( get_post_type( $post_id ), ['fcn_chapter', 'fcn_story'] ) ) {
+    if ( in_array( $post_type, ['fcn_chapter', 'fcn_story'] ) ) {
       fictioneer_purge_template_caches( 'chapters' );
       fictioneer_purge_template_caches( 'stories' );
     }
 
-    if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
+    if ( $post_type == 'fcn_recommendation' ) {
       fictioneer_purge_template_caches( 'recommendations' );
     }
 
     // Purge parent story (if any)...
-    if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
+    if ( $post_type == 'fcn_chapter' ) {
       $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
 
       if ( ! empty( $story_id ) ) {
@@ -390,7 +397,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge associated chapters
-    if ( get_post_type( $post_id ) == 'fcn_story' ) {
+    if ( $post_type == 'fcn_story' ) {
       $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
 
       if ( ! empty( $chapters ) ) {
@@ -401,7 +408,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     }
 
     // Purge all collections (cheapest option)
-    if ( get_post_type( $post_id ) != 'page' ) {
+    if ( $post_type != 'page' ) {
       fictioneer_purge_template_caches( 'collections' );
 
       $collections = get_posts(
@@ -441,7 +448,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       // Purge post relationships
       $relation = false;
 
-      switch ( get_post_type( $post_id ) ) {
+      switch ( $post_type ) {
         case 'post':
           $relation = 'ref_posts';
           break;
