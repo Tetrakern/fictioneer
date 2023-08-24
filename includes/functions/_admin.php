@@ -33,7 +33,7 @@ require_once __DIR__ . '/users/_admin_profile.php';
  */
 
 function fictioneer_admin_styles() {
-  wp_register_style( 'fictioneer-admin-panel', get_template_directory_uri() . '/css/admin.css' );
+  wp_register_style( 'fictioneer-admin-panel', get_template_directory_uri() . '/css/admin.css', [], FICTIONEER_VERSION );
   wp_enqueue_style( 'fictioneer-admin-panel' );
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
@@ -55,7 +55,7 @@ function fictioneer_admin_scripts( $hook_suffix ) {
     'fictioneer-utility-scripts',
     get_template_directory_uri() . '/js/utility.min.js',
     ['jquery'],
-    false,
+    FICTIONEER_VERSION,
     true
   );
 
@@ -63,7 +63,7 @@ function fictioneer_admin_scripts( $hook_suffix ) {
     'fictioneer-admin-script',
     get_template_directory_uri() . '/js/admin.min.js',
     ['jquery', 'fictioneer-utility-scripts'],
-    false,
+    FICTIONEER_VERSION,
     true
   );
 
