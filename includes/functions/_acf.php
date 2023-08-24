@@ -206,9 +206,9 @@ add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remem
  *
  * @since Fictioneer 5.4.8
  *
- * @param array  $args     The query arguments.
- * @param string $paths    The queried field.
- * @param int    $post_id  The post ID.
+ * @param array      $args     The query arguments.
+ * @param array      $field    The queried field.
+ * @param int|string $post_id  The post ID.
  *
  * @return array Modified query arguments.
  */
@@ -231,9 +231,9 @@ add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fi
  *
  * @since Fictioneer 5.4.9
  *
- * @param array  $args     The query arguments.
- * @param string $paths    The queried field.
- * @param int    $post_id  The post ID.
+ * @param array      $args     The query arguments.
+ * @param array      $field    The queried field.
+ * @param int|string $post_id  The post ID.
  *
  * @return array Modified query arguments.
  */
@@ -259,9 +259,9 @@ if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
  *
  * @since Fictioneer 5.6.3
  *
- * @param array  $args     The query arguments.
- * @param string $paths    The queried field.
- * @param int    $post_id  The post ID.
+ * @param array      $args     The query arguments.
+ * @param array      $field    The queried field.
+ * @param int|string $post_id  The post ID.
  *
  * @return array Modified query arguments.
  */
