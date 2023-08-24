@@ -48,6 +48,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
 
     // Any cache plugins active?
     return ! empty( $active_cache_plugins );
+  }
 }
 
 if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
