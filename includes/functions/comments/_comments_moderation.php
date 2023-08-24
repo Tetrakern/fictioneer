@@ -108,7 +108,7 @@ function fictioneer_comment_meta_box ( $comment ) {
               $edit_user = get_user_by( 'ID', $edit['user_id'] ?? 0 );
 
               printf(
-                _x( '%1$s (%2$s): %3$s', 'Comment moderation edit stack item.', 'fictioneer' ),
+                _x( '%1$s (ID: %2$s): %3$s', 'Comment moderation edit stack item.', 'fictioneer' ),
                 empty( $edit_user ) ? _x( 'Unknown', 'Unknown comment editor.', 'fictioneer' ) : $edit_user->user_login,
                 $edit['user_id'] ?? 0,
                 wp_date(
@@ -287,6 +287,11 @@ function fictioneer_track_comment_edit( $data, $comment ) {
   $edit_stack = get_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', true );
   $edit_stack = is_array( $edit_stack ) ? $edit_stack : [];
 
+  // Not edited?
+  if ( $previous->comment_content === $data['comment_content'] ) {
+    return $data;
+  }
+
   // Add new edit
   $edit_stack[] = array(
     'timestamp' => time(),
@@ -294,8 +299,14 @@ function fictioneer_track_comment_edit( $data, $comment ) {
     'user_id' => get_current_user_id()
   );
 
+  // Prevent loop
+  remove_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10 );
+
   // Update stack
   update_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', $edit_stack );
+
+  // Restore filter
+  add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
 
   // Continue comment update
   return $data;
