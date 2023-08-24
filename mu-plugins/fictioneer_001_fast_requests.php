@@ -83,20 +83,15 @@ function fictioneer_exclude_plugins_while_commenting( $plugins ) {
     'litespeed-cache/litespeed-cache.php', // LiteSpeed Cache
     'wp-fastest-cache/wpFastestCache.php', // WP Fastest Cache
     'cache-enabler/cache-enabler.php', // Cache Enabler
-    'hummingbird-performance/wp-hummingbird.php', // Hummingbird – Optimize Speed, Enable Cache
+    'hummingbird-performance/wp-hummingbird.php', // Hummingbird
     'wp-optimize/wp-optimize.php', // WP-Optimize - Clean, Compress, Cache
     'sg-cachepress/sg-cachepress.php', // SG Optimizer (SiteGround)
     'breeze/breeze.php', // Breeze (by Cloudways)
     'nitropack/nitropack.php' // NitroPack
   );
 
-  // Remove not allowed plugins
-  foreach ( $plugins as $index => $plugin ) {
-    if ( ! in_array( $plugin, $allow_list ) ) {
-      unset( $plugins[ $index ] );
-    }
-  }
-
-  // Continue filter
-  return $plugins;
+  // Filter and continue
+  return array_intersect( $plugins, $allow_list );
 }
+
+?>
