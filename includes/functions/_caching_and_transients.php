@@ -4,6 +4,26 @@
 // ANY CACHE ACTIVE?
 // =============================================================================
 
+// List of known cache plugins
+if ( ! defined( 'FICTIONEER_KNOWN_CACHE_PLUGINS' ) ) {
+  define(
+    'FICTIONEER_KNOWN_CACHE_PLUGINS',
+    array(
+      'w3-total-cache/w3-total-cache.php', // W3 Total Cache
+      'wp-super-cache/wp-cache.php', // WP Super Cache
+      'wp-rocket/wp-rocket.php', // WP Rocket
+      'litespeed-cache/litespeed-cache.php', // LiteSpeed Cache
+      'wp-fastest-cache/wpFastestCache.php', // WP Fastest Cache
+      'cache-enabler/cache-enabler.php', // Cache Enabler
+      'hummingbird-performance/wp-hummingbird.php', // Hummingbird – Optimize Speed, Enable Cache
+      'wp-optimize/wp-optimize.php', // WP-Optimize - Clean, Compress, Cache
+      'sg-cachepress/sg-cachepress.php', // SG Optimizer (SiteGround)
+      'breeze/breeze.php', // Breeze (by Cloudways)
+      'nitropack/nitropack.php' // NitroPack
+    )
+  );
+}
+
 if ( ! function_exists( 'fictioneer_caching_active' ) ) {
   /**
    * Checks whether caching is active
@@ -17,12 +37,17 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
    */
 
   function fictioneer_caching_active() {
-    return fictioneer_litespeed_running() ||
-           get_option( 'fictioneer_enable_cache_compatibility' ) ||
-           function_exists( 'wp_cache_clean_cache' ) ||
-           defined( 'W3TC' ) ||
-           function_exists( 'rocket_clean_domain' );
-  }
+    // Check early
+    if ( get_option( 'fictioneer_enable_cache_compatibility' ) ) {
+      return true;
+    }
+
+    // Check active plugins
+    $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+    $active_cache_plugins = array_intersect( $active_plugins, FICTIONEER_KNOWN_CACHE_PLUGINS );
+
+    // Any cache plugins active?
+    return ! empty( $active_cache_plugins );
 }
 
 if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
@@ -109,6 +134,43 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     if ( function_exists( 'w3tc_flush_all' ) ) {
       w3tc_flush_all();
     }
+
+    // Cache Enabler
+    if ( has_action( 'cache_enabler_clear_complete_cache' ) ) {
+      do_action( 'cache_enabler_clear_complete_cache' );
+    }
+
+    // Hummingbird
+    if ( has_action( 'wphb_clear_page_cache' ) ) {
+      do_action( 'wphb_clear_page_cache' );
+    }
+
+    // SG Optimizer
+    // Insufficient or hard-to-find documentation and if the
+    // developer cannot be bothered, neither can I.
+
+    // Breeze
+    if ( has_action( 'breeze_clear_all_cache' ) ) {
+      do_action( 'breeze_clear_all_cache' );
+    }
+
+    // WP Optimize
+    if ( class_exists( 'WP_Optimize' ) ) {
+      $wp_optimize = WP_Optimize();
+
+      if ( method_exists( $wp_optimize, 'get_page_cache' ) ) {
+        $wp_optimize->get_page_cache()->purge();
+      }
+    }
+
+    // W3 Fastest Cache
+    if ( function_exists( 'wpfc_clear_all_cache' ) ) {
+      wpfc_clear_all_cache();
+    }
+
+    // NitroPack
+    // Insufficient or hard-to-find documentation and if the
+    // developer cannot be bothered, neither can I.
   }
 }
 
@@ -129,7 +191,9 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     $post_id = fictioneer_validate_id( $post_id );
 
     // Abort if...
-    if ( empty( $post_id ) ) return;
+    if ( empty( $post_id ) ) {
+      return;
+    }
 
     // Hook for additional purges
     do_action( 'fictioneer_cache_purge_post', $post_id );
@@ -156,6 +220,41 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     if ( function_exists( 'w3tc_flush_post' ) ) {
       w3tc_flush_post( $post_id );
     }
+
+    // Cache Enabler
+    if ( has_action( 'cache_enabler_clear_page_cache_by_post' ) ) {
+      do_action( 'cache_enabler_clear_page_cache_by_post', $post_id );
+    }
+
+    // Hummingbird
+    if ( has_action( 'wphb_clear_page_cache' ) ) {
+      do_action( 'wphb_clear_page_cache', $post_id );
+    }
+
+    // SG Optimizer
+    // Insufficient or hard-to-find documentation and if the
+    // developer cannot be bothered, neither can I.
+
+    // Breeze
+    // Insufficient or hard-to-find documentation and if the
+    // developer cannot be bothered, neither can I.
+
+    // WP Optimize
+    if (
+      class_exists( 'WPO_Page_Cache' ) &&
+      method_exists( 'WPO_Page_Cache', 'delete_single_post_cache' )
+    ) {
+      WPO_Page_Cache::delete_single_post_cache( $post_id );
+    }
+
+    // W3 Fastest Cache
+    if ( function_exists( 'wpfc_clear_post_cache_by_id' ) ) {
+      wpfc_clear_post_cache_by_id( $post_id );
+    }
+
+    // NitroPack
+    // Insufficient or hard-to-find documentation and if the
+    // developer cannot be bothered, neither can I.
   }
 }
 
