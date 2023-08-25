@@ -531,6 +531,34 @@ if (
   fictioneer_do_fast_comment_ajax();
 }
 
+// Fast REST request to get story comments
+if (
+  get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
+  strpos( $_SERVER['REQUEST_URI'], 'wp-json/fictioneer/v1/get_story_comments' ) !== false
+) {
+  // Include required files
+  require_once __DIR__ . '/includes/functions/_utility.php';
+  require_once __DIR__ . '/includes/functions/users/_user_data.php';
+  require_once __DIR__ . '/includes/functions/users/_avatars.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_controller.php';
+  require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
+  require_once __DIR__ . '/includes/functions/comments/_story_comments.php';
+
+  // Build fake REST request
+  $rest_request = new WP_REST_Request( 'GET', 'fictioneer/v1/get_story_comments' );
+  $rest_request->set_param( 'post_id', absint( $_REQUEST['post_id'] ?? 0 ) );
+  $rest_request->set_param( 'page', absint( $_REQUEST['page'] ?? 1 ) );
+
+  // Get comments with fake REST request
+  $response = fictioneer_rest_get_story_comments( $rest_request );
+
+  // Extract data from WP_REST_Response
+  wp_send_json( $response->get_data(), $response->get_status() );
+
+  // Terminate in case something goes wrong
+  die();
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
