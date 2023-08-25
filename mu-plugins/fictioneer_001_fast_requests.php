@@ -40,7 +40,7 @@ if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
 function fictioneer_exclude_plugins( $plugins ) {
   // Setup
   $allow_list = array(
-    'fictioneer-email-subscriptions/fictioneer-email-subscriptions.php'
+    'plugin-name/plugin-name.php' // Example!
   );
 
   // Remove not allowed plugins
