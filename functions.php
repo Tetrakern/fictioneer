@@ -451,9 +451,7 @@ function fictioneer_do_fast_ajax() {
 if (
   defined( 'DOING_AJAX' ) && DOING_AJAX &&
   isset( $_REQUEST['fcn_fast_ajax'] ) &&
-  isset( $_REQUEST['action'] ) &&
-  ! ( defined('REST_REQUEST') && REST_REQUEST ) &&
-  is_array( FICTIONEER_FAST_AJAX_FUNCTIONS )
+  isset( $_REQUEST['action'] )
 ) {
   fictioneer_do_fast_ajax();
 }
@@ -528,8 +526,7 @@ if (
   get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
   defined( 'DOING_AJAX' ) && DOING_AJAX &&
   strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0 &&
-  strpos( $_REQUEST['action'] ?? '', 'comment' ) !== false &&
-  ! ( defined('REST_REQUEST') && REST_REQUEST )
+  strpos( $_REQUEST['action'] ?? '', 'comment' ) !== false
 ) {
   fictioneer_do_fast_comment_ajax();
 }
