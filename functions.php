@@ -635,6 +635,10 @@ require_once __DIR__ . '/includes/functions/_oauth.php';
 require_once __DIR__ . '/includes/functions/comments/_comments_controller.php'; // Used in REST
 require_once __DIR__ . '/includes/functions/comments/_story_comments.php'; // Used in REST
 
+if ( strpos( $_SERVER['REQUEST_URI'], 'wp-json/fictioneer/' ) !== false ) {
+  require_once __DIR__ . '/includes/functions/comments/_comments_threads.php';
+}
+
 if ( is_admin() ) {
   // Required for AJAX
   require_once __DIR__ . '/includes/functions/comments/_comments_ajax.php';

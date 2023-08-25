@@ -147,7 +147,7 @@ add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_story_comments' )
 function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
   // Validations
   $story_id = $request->get_param( 'post_id' );
-  $story_id = isset( $story_id ) ? fictioneer_validate_id( $_GET['post_id'], 'fcn_story' ) : false;
+  $story_id = isset( $story_id ) ? fictioneer_validate_id( $story_id, 'fcn_story' ) : false;
   $default_error = array( 'error' => __( 'Comments could not be loaded.', 'fictioneer' ) );
 
   // Abort if not a story
