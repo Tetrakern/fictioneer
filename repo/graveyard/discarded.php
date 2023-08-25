@@ -372,4 +372,93 @@ function fictioneer_rest_get_comment_section( WP_REST_Request $request ) {
   return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
 }
 
+// =============================================================================
+// VALIDATE & BALANCE BBCODES
+// > Issue: Just not working, too stupid to make it work lol
+// > except for the finding functions, they did their job
+// =============================================================================
+
+function find_back_closing_tag( $content, $tag ) {
+  $pattern = '/\[' . preg_quote( $tag, '/' ) . '[^\]]*\]/';
+
+  if ( preg_match_all( $pattern, $content, $matches, PREG_OFFSET_CAPTURE ) ) {
+    $last = end( $matches[1] );
+    $offset = $last[1];
+
+    return [$tag, $offset];
+  }
+
+  return false;
+}
+
+function find_back_opening_tag( $content, $tag, $closingOffset ) {
+  $pattern = '/\[' . preg_quote( $tag, '/' ) . '[^\]]*\]/';
+  $sub_content = substr( $content, 0, $closingOffset );
+
+  if ( preg_match_all( $pattern, $sub_content, $matches, PREG_OFFSET_CAPTURE )) {
+    $last = end( $matches[0] );
+    $tag = $last[0];
+    $offset = $last[1];
+    $tag_length = strlen( $tag );
+    $inner_offset = $offset + $tag_length;
+    $inner_content = substr( $sub_content, $inner_offset, strlen( $sub_content ) - $offset - $tag_length - 2 );
+
+    return [$tag, $offset, $inner_content, $inner_offset ];
+  }
+
+  return false;
+}
+
+function validate_tags($content) {
+    $stack = [];
+    $validTags = ['b', 'i', 's', 'img']; // List of valid tags
+    $maybeValidStack = [];  // A secondary stack to track "maybe valid" tags
+
+    preg_match_all('/\[(\/?)([a-zA-Z0-9]+)([^\]]*)\]/', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+
+    foreach ($matches as $match) {
+        $tag = $match[2][0];
+        $offset = $match[0][1];
+        $fullTag = $match[0][0];
+
+        if (!in_array($tag, $validTags)) {
+            continue; // Skip invalid tags
+        }
+
+        $dummyString = str_repeat("#", strlen($fullTag));  // Dynamic-length dummy string
+
+        if ($match[1][0] === '/') {
+            // It's a closing tag
+            if (!empty($stack) && end($stack)['tag'] === $tag) {
+                array_pop($stack); // Remove the last element from the stack
+                if (!empty($maybeValidStack)) {
+                    array_pop($maybeValidStack);  // Remove the corresponding "maybe valid" element
+                }
+            } else {
+                // Remove this closing tag
+                $content = substr_replace($content, $dummyString, $offset, strlen($fullTag));
+
+                // Remove all "maybe valid" tags from the content and clear the secondary stack
+                foreach ($maybeValidStack as $unmatched) {
+                    $dummyStringForUnmatched = str_repeat("#", strlen($unmatched['fullTag']));
+                    $content = substr_replace($content, $dummyStringForUnmatched, $unmatched['offset'], strlen($unmatched['fullTag']));
+                }
+                $maybeValidStack = [];
+            }
+        } else {
+            // It's an opening tag
+            $stack[] = ['tag' => $tag, 'offset' => $offset, 'fullTag' => $fullTag];
+            $maybeValidStack[] = ['tag' => $tag, 'offset' => $offset, 'fullTag' => $fullTag];
+        }
+    }
+
+    // Remove any unmatched opening tags
+    foreach (array_reverse($stack) as $unmatched) {
+        $dummyStringForUnmatched = str_repeat("#", strlen($unmatched['fullTag']));
+        $content = substr_replace($content, $dummyStringForUnmatched, $unmatched['offset'], strlen($unmatched['fullTag']));
+    }
+
+    return $content;
+}
+
 ?>

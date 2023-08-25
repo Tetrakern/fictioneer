@@ -1301,9 +1301,9 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
    * Note: Spoilers do not work properly if wrapping multiple lines or other codes.
    *
    * @since Fictioneer 4.0
-   * @link  https://stackoverflow.com/a/17508056/17140970
+   * @link https://stackoverflow.com/a/17508056/17140970
    *
-   * @param  string $content  The content.
+   * @param string $content  The content.
    *
    * @return string The content with interpreted BBCodes.
    */
