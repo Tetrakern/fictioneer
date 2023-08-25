@@ -1430,18 +1430,32 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
    */
 
   function fictioneer_get_fonts() {
+    // Make sure 'Open Sans' is always in first or second place
+    if ( FICTIONEER_PRIMARY_FONT_CSS !== 'Open Sans' ) {
+      $fonts = array(
+        ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME],
+        ['css' => 'Open Sans', 'name' => _x( 'Open Sans', 'Font name.', 'fictioneer' )]
+      );
+    } else {
+      $fonts = array(
+        ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME]
+      );
+    }
+
     // Setup default fonts
-    $fonts = array(
-      ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME],
-      ['css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' )],
-      ['css' => 'Lato', 'name' => _x( 'Lato', 'Font name.', 'fictioneer' )],
-      ['css' => 'Helvetica Neue', 'name' => _x( 'Helvetica Neue', 'Font name.', 'fictioneer' ), 'alt' => 'Arial'],
-      ['css' => 'Georgia', 'name' => _x( 'Georgia', 'Font name.', 'fictioneer' )],
-      ['css' => 'Roboto Mono', 'name' => _x( 'Roboto Mono', 'Font name.', 'fictioneer' )],
-      ['css' => 'Roboto Serif', 'name' => _x( 'Roboto Serif', 'Font name.', 'fictioneer' )],
-      ['css' => 'Cormorant Garamond', 'name' => _x( 'Cormorant Garamond', 'Font name.', 'fictioneer' ), 'alt' => 'Garamond'],
-      ['css' => 'Crimson Text', 'name' => _x( 'Crimson Text', 'Font name.', 'fictioneer' )],
-      ['css' => 'OpenDyslexic', 'name' => _x( 'Open Dyslexic', 'Font name.', 'fictioneer' )]
+    $fonts = array_merge(
+      $fonts,
+      array(
+        ['css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' )],
+        ['css' => 'Lato', 'name' => _x( 'Lato', 'Font name.', 'fictioneer' )],
+        ['css' => 'Helvetica Neue', 'name' => _x( 'Helvetica Neue', 'Font name.', 'fictioneer' ), 'alt' => 'Arial'],
+        ['css' => 'Georgia', 'name' => _x( 'Georgia', 'Font name.', 'fictioneer' )],
+        ['css' => 'Roboto Mono', 'name' => _x( 'Roboto Mono', 'Font name.', 'fictioneer' )],
+        ['css' => 'Roboto Serif', 'name' => _x( 'Roboto Serif', 'Font name.', 'fictioneer' )],
+        ['css' => 'Cormorant Garamond', 'name' => _x( 'Cormorant Garamond', 'Font name.', 'fictioneer' ), 'alt' => 'Garamond'],
+        ['css' => 'Crimson Text', 'name' => _x( 'Crimson Text', 'Font name.', 'fictioneer' )],
+        ['css' => 'OpenDyslexic', 'name' => _x( 'Open Dyslexic', 'Font name.', 'fictioneer' )]
+      )
     );
 
     // Apply filters and return
