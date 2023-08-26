@@ -122,8 +122,7 @@ function fcn_toggleFollow(storyId) {
 // =============================================================================
 
 /**
- * Updates the view to reflect the current Follows state and saves the JSON
- * to local storage.
+ * Updates the view with the current Follows state.
  *
  * @since 4.3
  */

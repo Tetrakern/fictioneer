@@ -9,126 +9,54 @@ const /** @const {HTMLElement[]} */ fcn_jumpToBookmarkButtons = _$$('.button--bo
       /** @const {HTMLElement} */ fcn_bookmarksSmallCardBlock = _$('.bookmarks-block'),
       /** @const {HTMLElement} */ fcn_bookmarksSmallCardTemplate = _$('.bookmark-small-card-template');
 
-var /** @type {Object} */ fcn_bookmarks = fcn_getBookmarks(),
+var /** @type {Object} */ fcn_bookmarks,
     /** @type {Number} */ fcn_userBookmarksTimeout;
 
 // Initialize
-fcn_getBookmarksForUser();
-fcn_showChapterBookmark();
+fcn_initializeLocalBookmarks();
+
+document.addEventListener('fcnUserDataReady', event => {
+  fcn_initializeUserBookmarks(event);
+});
 
 // =============================================================================
-// SAVE BOOKMARKS FOR USER
+// INITIALIZE
 // =============================================================================
 
 /**
- * Save bookmarks JSON to the database via AJAX.
+ * Initialize local bookmarks.
  *
- * @description Saves the bookmarks JSON to the database if an user is logged in,
- * otherwise the function aborts to avoid unnecessary requests. This can only
- * happen once every n seconds, as set by the timeout interval, to avoid further
- * unnecessary requests in case someone triggers multiple updates.
+ * @description Looks for bookmarks in local storage, both for guests and logged-in
+ * users. If none are found, an empty bookmarks JSON is created and set.
  *
  * @since 4.0
- * @param {String} value - The stringified bookmarks JSON to be saved.
+ * @see fcn_isValidJSONString()
  */
 
-function fcn_saveBookmarksForUser(value) {
-  // Do not proceed if not logged in
-  if (!fcn_isLoggedIn) return;
+function fcn_initializeLocalBookmarks() {
+  // Look for bookmarks in local storage
+  fcn_bookmarks = fcn_getBookmarks();
 
-  // Reset AJAX threshold
-  fcn_bookmarks['lastLoaded'] = 0;
+  // Always update bookmarks in storage
+  fcn_setBookmarks(fcn_bookmarks, true);
 
-  // Save to local storage
-  localStorage.setItem('fcnChapterBookmarks', JSON.stringify(fcn_bookmarks));
-
-  // Payload
-  const payload = {
-    'action': 'fictioneer_ajax_save_bookmarks',
-    'fcn_fast_ajax': 1,
-    'bookmarks': value
-  }
-
-  // Clear previous timeout (if still pending)
-  clearTimeout(fcn_userBookmarksTimeout);
-
-  // Only one save request every n seconds
-  fcn_userBookmarksTimeout = setTimeout(() => {
-    fcn_ajaxPost(payload)
-    .then((response) => {
-      // Check for failure
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 3, 'warning');
-      }
-    })
-    .catch((error) => {
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
-      }
-    });
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
+  // Update view
+  fcn_updateBookmarksView();
 }
 
-// =============================================================================
-// GET BOOKMARKS FOR USER
-// =============================================================================
-
 /**
- * Fetch bookmarks JSON from database via AJAX and set it.
+ * Initialize Bookmarks for logged-in users.
  *
- * @description Check whether to pull bookmarks for a logged-in user from the
- * database. This can only happen once every n seconds, as set by the difference
- * between the fcn_ajaxLimitThreshold and 'lastLoaded' node, in order to reduce
- * the number of requests if someone is just browsing.
- *
- * @since 4.0
- * @see fcn_setBookmarks()
- * @see fcn_showChapterBookmark()
- * @see fcn_updateBookmarkCards()
+ * @since 5.7.0
+ * @param {Event} event - The fcnUserDataReady event.
  */
 
-function fcn_getBookmarksForUser() {
-  // Do not proceed if not logged in
-  if (!fcn_isLoggedIn) {
-    return;
-  }
+function fcn_initializeUserBookmarks(event) {
+  // Always update bookmarks in storage
+  fcn_setBookmarks(JSON.parse(event.detail.data.bookmarks), true);
 
-  // Only update from server after some time has passed (e.g. 60 seconds)
-  if (fcn_ajaxLimitThreshold < fcn_bookmarks['lastLoaded']) {
-    if (Object.keys(fcn_bookmarks.data).length > 0) fcn_updateBookmarkCards();
-    return;
-  }
-
-  // Request
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_bookmarks',
-    'fcn_fast_ajax': 1
-  })
-  .then((response) => {
-    // Check for success
-    if (response.success) {
-      // Unpack
-      let bookmarks = response.data.bookmarks;
-
-      // Validate
-      bookmarks = fcn_isValidJSONString(bookmarks) ? bookmarks : '{}';
-      bookmarks = JSON.parse(bookmarks);
-
-      if (Object.keys(bookmarks).length > 2) {
-        bookmarks = {};
-      }
-
-      // Setup
-      if (typeof bookmarks === 'object' && bookmarks.data) {
-        bookmarks['lastLoaded'] = Date.now();
-        fcn_setBookmarks(bookmarks, true);
-        fcn_showChapterBookmark();
-      }
-    }
-
-    // Regardless of success
-    fcn_updateBookmarkCards();
-  });
+  // Update view
+  fcn_updateBookmarksView();
 }
 
 // =============================================================================
@@ -136,46 +64,20 @@ function fcn_getBookmarksForUser() {
 // =============================================================================
 
 /**
- * Get bookmarks JSON from local storage or create new one.
+ * Initialize bookmarks from local storage.
  *
- * @description Looks for bookmarks in local storage, both for guests and logged-in
- * users. If none are found, an empty bookmarks JSON is created, set, and returned.
- *
- * @since 4.0
+ * @since 5.7.0
  * @see fcn_isValidJSONString()
  * @return {Object} The bookmarks JSON.
  */
 
 function fcn_getBookmarks() {
   // Look for bookmarks in local storage
-  let b = localStorage.getItem('fcnChapterBookmarks');
+  fcn_bookmarks = localStorage.getItem('fcnChapterBookmarks');
 
   // Check for valid JSON and create new one if not found
-  b = (b && fcn_isValidJSONString(b)) ? JSON.parse(b) : { 'lastLoaded': 0, 'data': {} };
-
-  // Always update bookmarks in storage
-  fcn_setBookmarks(b, true);
-
-  // Render bookmark cards if no AJAX request following
-  if (!fcn_isLoggedIn) {
-    fcn_updateBookmarkCards();
-  }
-
-  // Insert bookmarks count on user profile page
-  const stats = _$('.profile-bookmarks-stats');
-
-  if (stats) {
-    stats.innerHTML = stats.innerHTML.replace('%s', Object.keys(b.data).length);
-  }
-
-  if (Object.keys(b.data).length > 0) {
-    _$$('.icon-menu-bookmarks').forEach(element => {
-      element.classList.remove('hidden');
-    });
-  }
-
-  // Return bookmarks JSON
-  return b;
+  return (fcn_bookmarks && fcn_isValidJSONString(fcn_bookmarks)) ?
+    JSON.parse(fcn_bookmarks) : { 'data': {} };
 }
 
 // =============================================================================
@@ -192,7 +94,7 @@ function fcn_getBookmarks() {
  * unfinished requests can be cancelled without loss of data.
  *
  * @since 4.0
- * @see fcn_saveBookmarksForUser()
+ * @see fcn_saveUserBookmarks()
  * @param {Object} value - The bookmarks JSON to be set.
  * @param {Boolean} [silent=false] - Whether or not to update the database.
  */
@@ -205,16 +107,110 @@ function fcn_setBookmarks(value, silent = false) {
 
   // Keep global updated
   fcn_bookmarks = value;
-
-  // Save to local storage
   localStorage.setItem('fcnChapterBookmarks', JSON.stringify(value));
 
-  // Do not save to database if silent update
-  if (silent) return;
+  // Keep user data updated as well
+  if (fcn_isLoggedIn) {
+    const currentUserData = fcn_getUserData();
 
-  // Update database for user; cancel any enqueued update via the timeout
-  window.clearTimeout(fcn_userBookmarksTimeout);
-  fcn_saveBookmarksForUser(JSON.stringify(value));
+    if (currentUserData) {
+      currentUserData.bookmarks = JSON.stringify(value);
+      fcn_setUserData(currentUserData);
+    }
+  }
+
+  // Do not save to database if silent update
+  if (silent) {
+    return;
+  }
+
+  // Update database for user
+  fcn_saveUserBookmarks(JSON.stringify(value));
+}
+
+// =============================================================================
+// UPDATE BOOKMARKS VIEW
+// =============================================================================
+
+/**
+ * Updates the view with the current Bookmarks state.
+ *
+ * @since 5.7.0
+ */
+
+function fcn_updateBookmarksView() {
+  // Abort if bookmarks are not set
+  if (!fcn_bookmarks) {
+    return;
+  }
+
+  // Setup
+  const stats = _$('.profile-bookmarks-stats'),
+        count = Object.keys(fcn_bookmarks.data).length;
+
+  // Insert bookmarks count on user profile page
+  if (stats) {
+    stats.innerHTML = stats.innerHTML.replace('%s', count);
+  }
+
+  // Bookmark icons
+  if (count > 0) {
+    _$$('.icon-menu-bookmarks').forEach(element => {
+      element.classList.remove('hidden');
+    });
+  }
+
+  // Render bookmark cards if already logged-in
+  fcn_showBookmarkCards();
+
+  // Chapter bookmark
+  fcn_showChapterBookmark();
+}
+
+// =============================================================================
+// SAVE USER BOOKMARKS
+// =============================================================================
+
+/**
+ * Save bookmarks JSON to the database via AJAX.
+ *
+ * @description Saves the bookmarks JSON to the database if an user is logged in,
+ * otherwise the function aborts to avoid unnecessary requests. This can only
+ * happen once every n seconds, as set by the timeout interval, to avoid further
+ * unnecessary requests in case someone triggers multiple updates.
+ *
+ * @since 4.0
+ * @param {String} value - The stringified bookmarks JSON to be saved.
+ */
+
+function fcn_saveUserBookmarks(value) {
+  // Do not proceed if not logged in
+  if (!fcn_isLoggedIn) {
+    return;
+  }
+
+  // Clear previous timeout (if still pending)
+  clearTimeout(fcn_userBookmarksTimeout);
+
+  // Only one save request every n seconds
+  fcn_userBookmarksTimeout = setTimeout(() => {
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_save_bookmarks',
+      'fcn_fast_ajax': 1,
+      'bookmarks': value
+    })
+    .then(response => {
+      // Check for failure
+      if (response.data.error) {
+        fcn_showNotification(response.data.error, 3, 'warning');
+      }
+    })
+    .catch(error => {
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 3, 'warning');
+      }
+    });
+  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
 }
 
 // =============================================================================
@@ -428,14 +424,17 @@ function fcn_setMobileMenuBookmarks() {
  * @see fcn_bookmarkDeleteHandler()
  */
 
-function fcn_updateBookmarkCards() {
-  // Check whether there are bookmark cards to render
+function fcn_showBookmarkCards() {
+  // Check whether bookmark cards need to be rendered
   if (
     !fcn_bookmarks ||
     !fcn_bookmarksSmallCardBlock ||
     !fcn_bookmarksSmallCardTemplate ||
-    Object.keys(fcn_bookmarks.data).length < 1
-  ) return;
+    Object.keys(fcn_bookmarks.data).length < 1 ||
+    _$('.bookmark-card')
+  ) {
+    return;
+  }
 
   // Make block visible
   fcn_bookmarksSmallCardBlock.classList.remove('hidden');

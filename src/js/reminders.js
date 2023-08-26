@@ -118,8 +118,7 @@ function fcn_toggleReminder(storyId) {
 // =============================================================================
 
 /**
- * Updates the view to reflect the current Reminders state and saves the JSON
- * to local storage.
+ * Updates the view with the current Reminders state.
  *
  * @since 5.0
  */

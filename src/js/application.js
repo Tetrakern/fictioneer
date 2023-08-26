@@ -297,8 +297,6 @@ function fcn_setLoggedInState(state, initialize = true) {
   // Setup local user data, but only if the login state has not been added
   // synchronous from local storage (avoid double initialize).
   if (initialize) {
-    if (typeof fcn_getBookmarksForUser === 'function') fcn_getBookmarksForUser();
-    if (typeof fcn_showChapterBookmark === 'function') fcn_showChapterBookmark();
     fcn_getProfileImage();
   }
 }

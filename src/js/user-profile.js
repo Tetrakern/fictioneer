@@ -274,6 +274,8 @@ _$('.button-clear-checkmarks')?.addEventListener(
     const currentUserData = fcn_getUserData();
     currentUserData.checkmarks = { 'data': {}, 'updated': Date.now() };
     fcn_setUserData(currentUserData);
+
+    // Update views
     fcn_updateCheckmarksView();
 
     // Clear data
@@ -298,6 +300,8 @@ _$('.button-clear-reminders')?.addEventListener(
     const currentUserData = fcn_getUserData();
     currentUserData.reminders = { 'data': {} };
     fcn_setUserData(currentUserData);
+
+    // Update view
     fcn_updateRemindersView();
 
     // Clear data
@@ -322,6 +326,8 @@ _$('.button-clear-follows')?.addEventListener(
     const currentUserData = fcn_getUserData();
     currentUserData.follows = { 'data': {} };
     fcn_setUserData(currentUserData);
+
+    // Update view
     fcn_updateFollowsView();
 
     // Clear data
@@ -338,15 +344,20 @@ _$('.button-clear-bookmarks')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
-
-    // Remove bookmarks
-    if (fcn_bookmarks.data) {
-      Object.keys(fcn_bookmarks.data).forEach(id => fcn_removeBookmark(id));
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
     }
 
-    // Update database and view
+    // Remove bookmarks
+    const currentUserData = fcn_getUserData();
+    currentUserData.bookmarks = '{}';
+    fcn_setUserData(currentUserData);
+    fcn_bookmarks.data = {};
+
+    // Update view
     e.currentTarget.closest('.card').querySelector('.card__content').innerHTML = fcn_profileDataTranslations.clearedSuccess;
+
+    // Update local storage and database
     fcn_setBookmarks(fcn_bookmarks);
   }
 );
