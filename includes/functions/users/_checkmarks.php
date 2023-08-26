@@ -104,40 +104,6 @@ if ( ! function_exists( 'fictioneer_count_chapter_checkmarks' ) ) {
 }
 
 // =============================================================================
-// GET CHECKMARKS - AJAX
-// =============================================================================
-
-/**
- * Sends the user's Checkmarks as JSON via Ajax
- *
- * @since Fictioneer 4.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
- * @see fictioneer_load_checkmarks()
- */
-
-function fictioneer_ajax_get_checkmarks() {
-  // Setup and validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  // Prepare Checkmarks
-  $checkmarks = fictioneer_load_checkmarks( $user );
-  $checkmarks['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
-
-  // Response
-  wp_send_json_success( array( 'checkmarks' => json_encode( $checkmarks ) ) );
-}
-
-if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_checkmarks', 'fictioneer_ajax_get_checkmarks' );
-}
-
-// =============================================================================
 // SET CHECKMARKS - AJAX
 // =============================================================================
 
