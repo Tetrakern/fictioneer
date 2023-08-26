@@ -49,7 +49,6 @@ function fcn_initializeReminders(event) {
  * of the view to reflect the changes and makes a save request to the database.
  *
  * @since 5.0
- * @see fcn_getReminders()
  * @see fcn_updateRemindersView()
  * @param {Number} storyId - The ID of the story.
  */
@@ -79,7 +78,7 @@ function fcn_toggleReminder(storyId) {
   if (fcn_reminders.data.hasOwnProperty(storyId)) {
     delete fcn_reminders.data[storyId];
   } else {
-    fcn_reminders.data[storyId] = { 'story_id': parseInt( storyId ), 'timestamp': Date.now() };
+    fcn_reminders.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
   }
 
   // Update local storage
@@ -95,18 +94,18 @@ function fcn_toggleReminder(storyId) {
 
   // Update in database; only one request every n seconds
   fcn_userRemindersTimeout = setTimeout(() => {
-    fcn_ajaxPost(payload = {
+    fcn_ajaxPost({
       'action': 'fictioneer_ajax_toggle_reminder',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
       'set': fcn_reminders.data.hasOwnProperty(storyId)
     })
-    .then((response) => {
+    .then(response => {
       if (response.data.error) {
         fcn_showNotification(response.data.error, 5, 'warning');
       }
     })
-    .catch((error) => {
+    .catch(error => {
       if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
@@ -127,10 +126,9 @@ function fcn_toggleReminder(storyId) {
 
 function fcn_updateRemindersView() {
   // Get current data
-  const currentUserData = fcn_getUserData(),
-        reminders = currentUserData.reminders;
+  const currentUserData = fcn_getUserData();
 
-  if (!reminders) {
+  if (!currentUserData.reminders) {
     return;
   }
 

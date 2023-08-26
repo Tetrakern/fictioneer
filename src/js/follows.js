@@ -10,7 +10,9 @@ var /** @type {Number} */ fcn_userFollowsTimeout,
     /** @type {Object} */ fcn_follows;
 
 // Initialize
-if (fcn_isLoggedIn) fcn_initializeFollows();
+document.addEventListener('fcnUserDataReady', event => {
+  fcn_initializeFollows(event);
+});
 
 // =============================================================================
 // INITIALIZE
@@ -20,88 +22,99 @@ if (fcn_isLoggedIn) fcn_initializeFollows();
  * Initialize Follows.
  *
  * @since 5.0
+ * @param {Event} event - The fcnUserDataReady event.
  */
 
-function fcn_initializeFollows() {
-  fcn_follows = fcn_getFollows();
-  fcn_fetchFollowsFromDatabase();
-}
+function fcn_initializeFollows(event) {
+  // Unpack
+  const follows = event.detail.data.follows;
 
-// =============================================================================
-// GET FOLLOWS FROM LOCAL STORAGE
-// =============================================================================
-
-/**
- * Get Follows from local storage or create new JSON.
- *
- * @since 4.3
- * @see fcn_isValidJSONString()
- */
-
-function fcn_getFollows() {
-  // Get JSON string from local storage
-  const f = localStorage.getItem('fcnStoryFollows');
-
-  // Parse and return JSON string if valid, otherwise return new JSON
-  return (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : { 'lastLoaded': 0, 'data': {}, 'seen': Date.now(), 'new': false };
-}
-
-// =============================================================================
-// FETCH FOLLOWS FROM DATABASE - AJAX
-// =============================================================================
-
-/**
- * Fetch Follows from database via AJAX.
- *
- * @since 4.3
- * @see fcn_updateFollowsView()
- */
-
-function fcn_fetchFollowsFromDatabase() {
-  // Only update from server after some time has passed (e.g. 60 seconds)
-  if (fcn_ajaxLimitThreshold < fcn_follows['lastLoaded']) {
-    fcn_updateFollowsView();
+  // Validate
+  if (follows === false) {
     return;
   }
 
-  // Request
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_follows',
-    'fcn_fast_ajax': 1
-  })
-  .then((response) => {
-    // Check for success
-    if (response.success) {
-      // Unpack
-      let follows = response.data.follows;
+  // Set follows instance
+  fcn_follows = follows;
 
-      // Validate
-      follows = fcn_isValidJSONString(follows) ? follows : '{}';
-      follows = JSON.parse(follows);
+  // Update view
+  fcn_updateFollowsView();
 
-      // Setup
-      if (typeof follows === 'object' && follows.data && Object.keys(follows.data).length > 0) {
-        fcn_follows = follows;
-      } else {
-        fcn_follows = { 'data': {}, 'seen': Date.now(), 'new': false };
-      }
+  // Clear cached bookshelf content (if any)
+  localStorage.removeItem('fcnBookshelfContent');
+}
 
-      // Remember last pull
-      fcn_follows['lastLoaded'] = Date.now();
-    }
-  })
-  .catch(() => {
-    // Probably not logged in, clear local data
-    localStorage.removeItem('fcnStoryFollows')
-    fcn_follows = false;
-  })
-  .then(() => {
-    // Update view regardless of success
+// =============================================================================
+// TOGGLE FOLLOW - AJAX
+// =============================================================================
+
+/**
+ * Adds or removes a story ID from the Follows JSON, then calls for an update of
+ * the view to reflect the changes and makes a save request to the database.
+ *
+ * @since 4.3
+ * @see fcn_updateFollowsView()
+ * @param {Number} storyId - The ID of the story.
+ */
+
+function fcn_toggleFollow(storyId) {
+  // Get current data
+  const currentUserData = fcn_getUserData();
+
+  // Prevent error in case something went very wrong
+  if (!fcn_follows || !currentUserData.follows) {
+    return;
+  }
+
+  // Clear cached bookshelf content (if any)
+  localStorage.removeItem('fcnBookshelfContent');
+
+  // Re-synchronize if data has diverged
+  if (JSON.stringify(fcn_follows.data[storyId]) !== JSON.stringify(currentUserData.follows.data[storyId])) {
+    fcn_follows = currentUserData.follows;
+    fcn_showNotification(__('Follows re-synchronized.', 'fictioneer'));
     fcn_updateFollowsView();
 
-    // Clear cached bookshelf content (if any)
-    localStorage.removeItem('fcnBookshelfContent');
-  });
+    return;
+  }
+
+  // Set/Unset follow
+  if (fcn_follows.data.hasOwnProperty(storyId)) {
+    delete fcn_follows.data[storyId];
+  } else {
+    fcn_follows.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
+  }
+
+  // Update local storage
+  currentUserData.follows.data[storyId] = fcn_follows.data[storyId];
+  currentUserData.lastLoaded = 0;
+  fcn_setUserData(currentUserData);
+
+  // Update view
+  fcn_updateFollowsView();
+
+  // Clear previous timeout (if still pending)
+  clearTimeout(fcn_userFollowsTimeout);
+
+  // Update in database; only one request every n seconds
+  fcn_userFollowsTimeout = setTimeout(() => {
+    fcn_ajaxPost({
+      'action': 'fictioneer_ajax_toggle_follow',
+      'fcn_fast_ajax': 1,
+      'story_id': storyId,
+      'set': fcn_follows.data.hasOwnProperty(storyId)
+    })
+    .then(response => {
+      if (response.data.error) {
+        fcn_showNotification(response.data.error, 5, 'warning');
+      }
+    })
+    .catch(error => {
+      if (error.status && error.statusText) {
+        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+      }
+    });
+  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
 }
 
 // =============================================================================
@@ -116,8 +129,12 @@ function fcn_fetchFollowsFromDatabase() {
  */
 
 function fcn_updateFollowsView() {
-  // Not ready yet
-  if (!fcn_follows) return;
+  // Get current data
+  const currentUserData = fcn_getUserData();
+
+  if (!currentUserData.follows) {
+    return;
+  }
 
   // Update button state
   _$$('.button-follow-story').forEach(element => {
@@ -135,86 +152,16 @@ function fcn_updateFollowsView() {
     );
   });
 
-  // Update local storage
-  localStorage.setItem('fcnStoryFollows', JSON.stringify(fcn_follows));
-
   // Set "new" marker if there are new items
   const isNew = parseInt(fcn_follows['new']) > 0;
 
   _$$('.mark-follows-read, .follows-alert-number, .mobile-menu-button').forEach(element => {
     element.classList.toggle('_new', isNew);
-    if (isNew > 0) element.dataset.newCount = fcn_follows['new'];
+
+    if (isNew > 0) {
+      element.dataset.newCount = fcn_follows['new'];
+    }
   });
-}
-
-// =============================================================================
-// TOGGLE FOLLOW - AJAX
-// =============================================================================
-
-/**
- * Adds or removes a story ID from the Follows JSON, then calls for an update of
- * the view to reflect the changes and makes a save request to the database.
- *
- * @since 4.3
- * @see fcn_getFollows()
- * @see fcn_updateFollowsView()
- * @param {Number} storyId - The ID of the story.
- */
-
-function fcn_toggleFollow(storyId) {
-  // Check local storage for outside changes
-  const currentFollows = fcn_getFollows();
-
-  // Clear cached bookshelf content (if any)
-  localStorage.removeItem('fcnBookshelfContent');
-
-  // Re-synchronize if data has diverged
-  if (JSON.stringify(fcn_follows.data[storyId]) !== JSON.stringify(currentFollows.data[storyId])) {
-    fcn_follows = currentFollows;
-    fcn_showNotification(__('Follows re-synchronized.', 'fictioneer'));
-    fcn_updateFollowsView();
-    return;
-  }
-
-  // Refresh object
-  fcn_follows = currentFollows;
-
-  // Add/Remove from current JSON
-  if (fcn_follows.data.hasOwnProperty(storyId)) {
-    delete fcn_follows.data[storyId];
-  } else {
-    fcn_follows.data[storyId] = { 'timestamp': Date.now() };
-  }
-
-  // Reset AJAX threshold
-  fcn_follows['lastLoaded'] = 0;
-
-  // Update view and local storage
-  fcn_updateFollowsView();
-
-  // Clear previous timeout (if still pending)
-  clearTimeout(fcn_userFollowsTimeout);
-
-  // Update in database; only one request every n seconds
-  fcn_userFollowsTimeout = setTimeout(() => {
-    fcn_ajaxPost({
-      'action': 'fictioneer_ajax_toggle_follow',
-      'fcn_fast_ajax': 1,
-      'story_id': storyId,
-      'set': fcn_follows.data.hasOwnProperty(storyId)
-    })
-    .then((response) => {
-      // Check for failure
-      if (response.data.error) {
-        fcn_showNotification(response.data.error, 5, 'warning');
-      }
-    })
-    .catch((error) => {
-      if (error.status && error.statusText) {
-        fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
-      }
-    });
-  }, fictioneer_ajax.post_debounce_rate); // Debounce synchronization
 }
 
 // =============================================================================
@@ -229,21 +176,23 @@ function fcn_toggleFollow(storyId) {
 
 function fcn_setupFollowsHTML() {
   // Abort if already loaded
-  if (fcn_followsMenuItem.classList.contains('_loaded')) return;
+  if (fcn_followsMenuItem.classList.contains('_loaded')) {
+    return;
+  }
 
   // Request
   fcn_ajaxGet({
     'action': 'fictioneer_ajax_get_follows_notifications',
     'fcn_fast_ajax': 1
   })
-  .then((response) => {
+  .then(response => {
     // Any Follows HTML retrieved?
     if (response.data.html) {
       fcn_desktopFollowList.innerHTML = response.data.html;
       fcn_mobileFollowList.innerHTML = response.data.html;
     }
   })
-  .catch((error) => {
+  .catch(error => {
     // Show server error
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
@@ -282,16 +231,17 @@ function fcn_markFollowsRead() {
   });
 
   // Update local storage
-  fcn_follows['new'] = 0;
-  fcn_follows['lastLoaded'] = 0;
-  localStorage.setItem('fcnStoryFollows', JSON.stringify(fcn_follows));
+  const currentUserData = fcn_getUserData();
+  currentUserData.new = 0;
+  currentUserData.lastLoaded = 0;
+  fcn_setUserData(currentUserData);
 
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_mark_follows_read',
     'fcn_fast_ajax': 1
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }

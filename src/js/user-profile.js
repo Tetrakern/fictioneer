@@ -42,7 +42,7 @@ function fcn_unsetOauth(nonce, channel, id) {
     'channel': channel,
     'id': id
   })
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       // Successfully unset
       connection.classList.remove('_connected');
@@ -55,7 +55,7 @@ function fcn_unsetOauth(nonce, channel, id) {
       fcn_showNotification(response.data.error, 5, 'warning');
     }
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       connection.style.background = 'var(--warning)';
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
@@ -122,7 +122,7 @@ function fcn_deleteMyAccount(button) {
     'nonce': button.dataset.nonce,
     'id': button.dataset.id
   })
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       // Successfully deleted
       location.reload();
@@ -132,7 +132,7 @@ function fcn_deleteMyAccount(button) {
       _$$$('button-delete-my-account').innerHTML = response.data.button;
     }
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       _$$$('button-delete-my-account').innerHTML = response.data.button;
@@ -203,7 +203,7 @@ function fcn_clearData(button, action) {
     'fcn_fast_ajax': 1,
     'nonce': button.dataset.nonce
   })
-  .then((response) => {
+  .then(response => {
     // Check for success
     if (response.success) {
       card.querySelector('.card__content').innerHTML = response.data.success;
@@ -211,7 +211,7 @@ function fcn_clearData(button, action) {
       fcn_showNotification(response.data.error, 10, 'warning');
     }
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 10, 'warning');
     }
@@ -221,29 +221,45 @@ function fcn_clearData(button, action) {
   });
 }
 
+// =============================================================================
+// BUTTON: CLEAR COMMENTS
+// =============================================================================
+
 // Listen for click on clear comments button
 _$('.button-clear-comments')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
+    }
 
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_comments');
   }
 );
 
+// =============================================================================
+// BUTTON: CLEAR COMMENT SUBSCRIPTIONS
+// =============================================================================
+
 // Listen for click on clear comment subscriptions button
 _$('.button-clear-comment-subscriptions')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
+    }
 
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_comment_subscriptions');
   }
 );
+
+// =============================================================================
+// BUTTON: CLEAR CHECKMARKS
+// =============================================================================
 
 // Listen for click on clear checkmarks button
 _$('.button-clear-checkmarks')?.addEventListener(
@@ -265,6 +281,10 @@ _$('.button-clear-checkmarks')?.addEventListener(
   }
 );
 
+// =============================================================================
+// BUTTON: CLEAR REMINDERS
+// =============================================================================
+
 // Listen for click on clear reminders button
 _$('.button-clear-reminders')?.addEventListener(
   'click',
@@ -285,21 +305,33 @@ _$('.button-clear-reminders')?.addEventListener(
   }
 );
 
+// =============================================================================
+// BUTTON: CLEAR FOLLOWS
+// =============================================================================
+
 // Listen for click on clear follows button
 _$('.button-clear-follows')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
+    }
 
     // Update local storage and view
-    fcn_follows = { 'data': {} };
+    const currentUserData = fcn_getUserData();
+    currentUserData.follows = { 'data': {} };
+    fcn_setUserData(currentUserData);
     fcn_updateFollowsView();
 
     // Clear data
     fcn_clearData(e.currentTarget, 'fictioneer_ajax_clear_my_follows', true);
   }
 );
+
+// =============================================================================
+// BUTTON: CLEAR BOOKMARKS
+// =============================================================================
 
 // Listen for click on clear bookmarks button
 _$('.button-clear-bookmarks')?.addEventListener(

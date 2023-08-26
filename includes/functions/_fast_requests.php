@@ -15,7 +15,6 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_save_bookmarks',
       'fictioneer_ajax_get_bookmarks',
       // Follows
-      'fictioneer_ajax_get_follows',
       'fictioneer_ajax_toggle_follow',
       'fictioneer_ajax_clear_my_follows',
       'fictioneer_ajax_mark_follows_read',

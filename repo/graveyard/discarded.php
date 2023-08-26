@@ -529,5 +529,53 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_reminders', 'fictioneer_ajax_get_reminders' );
 }
 
+// =============================================================================
+// GET FOLLOWS - AJAX
+// =============================================================================
+
+/**
+ * Sends the user's Follows as JSON via Ajax
+ *
+ * @since Fictioneer 4.3
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
+ * @see fictioneer_get_validated_ajax_user()
+ */
+
+function fictioneer_ajax_get_follows() {
+  // Setup and validations
+  $user = fictioneer_get_validated_ajax_user();
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  // Prepare Follows
+  $user_follows = fictioneer_load_follows( $user );
+  $user_follows['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
+  $latest = 0;
+  $new = false;
+
+  // New notifications?
+  if ( count( $user_follows['data'] ) > 0 ) {
+    $latest = fictioneer_query_followed_chapters(
+      array_keys( $user_follows['data'] ),
+      wp_date( 'c', $user_follows['seen'] / 1000 )
+    );
+
+    if ( $latest ) {
+      $new = count( $latest );
+    }
+  }
+
+  $user_follows['new'] = $new;
+
+  // Response
+  wp_send_json_success( array( 'follows' => json_encode( $user_follows ) ) );
+}
+
+if ( get_option( 'fictioneer_enable_follows' ) ) {
+  add_action( 'wp_ajax_fictioneer_ajax_get_follows', 'fictioneer_ajax_get_follows' );
+}
 
 ?>
