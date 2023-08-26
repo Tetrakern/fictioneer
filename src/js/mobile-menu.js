@@ -29,7 +29,10 @@ fcn_toggleMobileMenuContent(false);
  */
 
 function fcn_toggleMobileMenu(isOpened) {
-  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+  // Get and preserve values before DOM changes destroy them
+  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0,
+        windowScrollY = window.scrollY,
+        siteScrollTop = fcn_theSite.scrollTop;
 
   if (isOpened) {
     // Mobile menu was opened
@@ -37,7 +40,7 @@ function fcn_toggleMobileMenu(isOpened) {
     fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
     fcn_theBody.classList.remove('scrolling-up');
     fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
-    fcn_theSite.scrollTop = window.scrollY - adminBarOffset;
+    fcn_theSite.scrollTop = windowScrollY - adminBarOffset;
     fcn_updateThemeColor();
   } else {
     // Mobile menu was closed
@@ -48,7 +51,7 @@ function fcn_toggleMobileMenu(isOpened) {
     fcn_openMobileFrame('main'); // Reset to main frame
 
     // Restore scroll position
-    window.scroll(0, fcn_theSite.scrollTop + adminBarOffset);
+    window.scroll(0, siteScrollTop + adminBarOffset);
 
     // Reset control checkbox
     fcn_mobileMenuToggle.checked = false;
