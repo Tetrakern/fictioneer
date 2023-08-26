@@ -11,8 +11,6 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       // System
       'fictioneer_ajax_is_user_logged_in',
       'fictioneer_ajax_get_nonce',
-      'fictioneer_ajax_get_avatar',
-      'fictioneer_ajax_get_user_data',
       // Bookmarks
       'fictioneer_ajax_save_bookmarks',
       'fictioneer_ajax_get_bookmarks',
@@ -29,11 +27,12 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_clear_my_reminders',
       'fictioneer_ajax_get_reminders_list',
       // Checkmarks
-      'fictioneer_ajax_get_checkmarks',
       'fictioneer_ajax_set_checkmark',
       'fictioneer_ajax_clear_my_checkmarks',
       'fictioneer_ajax_get_finished_checkmarks_list',
       // User
+      'fictioneer_ajax_get_user_data',
+      'fictioneer_ajax_get_avatar',
       'fictioneer_ajax_get_fingerprint'
     )
   );
