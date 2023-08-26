@@ -630,8 +630,13 @@ function fcn_getNonce() {
  */
 
 function fcn_matchFingerprint(fingerprint) {
-  if (typeof fcn_fingerprint === 'undefined') return false;
-  return fcn_fingerprint.fingerprint === fingerprint;
+  const userFingerprint = fcn_getUserData().fingerprint;
+
+  if (!userFingerprint) {
+    return false;
+  }
+
+  return userFingerprint === fingerprint;
 }
 
 // =============================================================================
@@ -682,16 +687,27 @@ function fcn_buildErrorNotice(message, id = false, sanitize = true) {
   const notice = document.createElement('div');
   let text = message;
 
-  if (id) notice.id = id;
+  if (id) {
+    notice.id = id;
+  }
 
   notice.classList = 'notice _warning';
 
   // Check if message is error object
   if (typeof message == 'object') {
     text = '';
-    if (message.status) text = `${message.status}: `;
-    if (message.statusText) text += message.statusText;
-    if (!text) text = 'Unknown error.';
+
+    if (message.status) {
+      text = `${message.status}: `;
+    }
+
+    if (message.statusText) {
+      text += message.statusText;
+    }
+
+    if (!text) {
+      text = 'Unknown error.';
+    }
   }
 
   // Build and return
@@ -718,6 +734,7 @@ function fcn_sanitizeHTML(html) {
   const temp = document.createElement('div');
 
   temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
+
   return temp.innerHTML;
 }
 
@@ -778,8 +795,13 @@ function fcn_detectScreenCollision(element) {
         topSpacing = rect.top - element.clientHeight,
         result = [];
 
-  if (rect.top <= threshold && bottomSpacing > threshold + offset) result.push('top');
-  if (rect.bottom >= viewportHeight - threshold && topSpacing > threshold + offset) result.push('bottom');
+  if (rect.top <= threshold && bottomSpacing > threshold + offset) {
+    result.push('top');
+  }
+
+  if (rect.bottom >= viewportHeight - threshold && topSpacing > threshold + offset) {
+    result.push('bottom');
+  }
 
   return result;
 }
@@ -830,6 +852,7 @@ function fcn_scrollTo(target, offset = 64) {
 function fcn_html(...args) {
   const template = document.createElement('template');
   template.innerHTML = String.raw(...args).trim();
+
   return template.content.firstChild;
 }
 

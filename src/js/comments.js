@@ -816,9 +816,9 @@ function fcn_revealEditButton() {
 }
 
 // Reveal edit buttons
-if (fcn_isLoggedIn) {
+document.addEventListener('fcnUserDataReady', () => {
   fcn_revealEditButton();
-}
+});
 
 // =============================================================================
 // SHOW DELETE BUTTON BASED ON FINGERPRINT
@@ -845,7 +845,9 @@ function fcn_revealDeleteButton() {
 }
 
 // Reveal edit buttons
-if (fcn_isLoggedIn) fcn_revealDeleteButton();
+document.addEventListener('fcnUserDataReady', () => {
+  fcn_revealDeleteButton();
+});
 
 // =============================================================================
 // AJAX USER COMMENT DELETE

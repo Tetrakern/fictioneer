@@ -120,6 +120,7 @@ if (fcn_theRoot.dataset.ajaxNonce) {
 function fcn_fetchNonce() {
   // Look for recent state in web storage
   let storage = localStorage.getItem('fcnNonce');
+
   storage = (storage && fcn_isValidJSONString(storage)) ? JSON.parse(storage) : false;
 
   // Clear cached public nonce if any
@@ -296,12 +297,8 @@ function fcn_setLoggedInState(state, initialize = true) {
   // Setup local user data, but only if the login state has not been added
   // synchronous from local storage (avoid double initialize).
   if (initialize) {
-    if (typeof fcn_initializeCheckmarks === 'function') fcn_initializeCheckmarks();
-    if (typeof fcn_initializeFollows === 'function') fcn_initializeFollows();
-    if (typeof fcn_initializeReminders === 'function') fcn_initializeReminders();
     if (typeof fcn_getBookmarksForUser === 'function') fcn_getBookmarksForUser();
     if (typeof fcn_showChapterBookmark === 'function') fcn_showChapterBookmark();
-    fcn_initializeFingerprint();
     fcn_getProfileImage();
   }
 }

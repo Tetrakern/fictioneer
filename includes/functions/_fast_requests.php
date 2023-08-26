@@ -30,8 +30,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_get_finished_checkmarks_list',
       // User
       'fictioneer_ajax_get_user_data',
-      'fictioneer_ajax_get_avatar',
-      'fictioneer_ajax_get_fingerprint'
+      'fictioneer_ajax_get_avatar'
     )
   );
 }
