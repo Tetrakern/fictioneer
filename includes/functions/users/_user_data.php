@@ -937,32 +937,6 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
 }
 
 // =============================================================================
-// FETCH FINGERPRINT - AJAX
-// =============================================================================
-
-/**
- * Sends the user's fingerprint via AJAX
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
- */
-
-function fictioneer_ajax_get_fingerprint() {
-  // Setup and validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  // Response
-  wp_send_json_success( array( 'fingerprint' => fictioneer_get_user_fingerprint( $user->ID ) ) );
-}
-add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fingerprint' );
-
-// =============================================================================
 // GET USER DATA - AJAX
 // =============================================================================
 
