@@ -106,6 +106,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
               'post_type' => 'fcn_chapter',
               'post_status' => 'publish',
               'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+              'orderby' => 'post__in',
               'posts_per_page' => -1,
               'no_found_rows' => true, // Improve performance
               'update_post_term_cache' => false // Improve performance
