@@ -536,18 +536,12 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
     $use_default = is_archive() || is_search() || is_author();
-    $transient = get_transient( 'fictioneer_default_global_og_image' );
     $default_id = get_theme_mod( 'og_image' );
     $image_id = false;
     $image = false;
 
     // Page with site default OG image?
     if ( $use_default ) {
-      // Try default OG image Transient
-      if ( ! empty( $transient ) && $default_id == ( $transient['id'] ?? -1 ) ) {
-        return $transient;
-      }
-
       // Get default ID from settings
       $image_id = $default_id;
     }
@@ -579,11 +573,6 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
       // Try default if still nothing...
       if ( ! $image_id && get_theme_mod( 'og_image') ) {
-        // Try default OG image Transient
-        if ( ! empty( $transient ) && $default_id == ( $transient['id'] ?? -1 ) ) {
-          return $transient;
-        }
-
         // Get default ID from settings
         $image_id = $default_id;
       }
@@ -601,10 +590,6 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
           'type' => get_post_mime_type( $image_id ),
           'id' => $image_id
         );
-
-        if ( $use_default ) {
-          set_transient( 'fictioneer_default_global_og_image', $image );
-        }
       }
     }
 
