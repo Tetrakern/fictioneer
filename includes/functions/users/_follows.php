@@ -88,7 +88,6 @@ function fictioneer_ajax_toggle_follow() {
   // Add/Remove story from Follows
   if ( ! array_key_exists( $story_id, $user_follows['data'] ) || $set ) {
     $item = array(
-      'user_id' => $user->ID,
       'story_id' => $story_id,
       'timestamp' => $timestamp
     );
