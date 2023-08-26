@@ -405,20 +405,34 @@ fcn_theBody.addEventListener('click', e => {
       break;
     case 'card-toggle-follow':
       // Handle toggle card Follow
-      fcn_inlineToggleFollow(clickTarget.dataset.storyId);
+      if (fcn_isLoggedIn) {
+        fcn_toggleFollow(clickTarget.dataset.storyId);
+      } else {
+        _$$$('modal-login-toggle')?.click();
+      }
       break;
     case 'card-toggle-reminder':
       // Handle toggle card Reminder
-      fcn_inlineToggleReminder(clickTarget.dataset.storyId);
+      if (fcn_isLoggedIn) {
+        fcn_toggleReminder(clickTarget.dataset.storyId);
+      } else {
+        _$$$('modal-login-toggle')?.click();
+      }
       break;
     case 'card-toggle-checkmarks':
-      // Handle toggle card Checkmark(s)
-      fcn_inlineToggleCheckmark(
-        parseInt(clickTarget.dataset.storyId),
-        clickTarget.dataset.type,
-        parseInt(clickTarget.dataset.chapterId),
-        clickTarget.dataset.mode
-      );
+      // Handle toggle card Reminder
+      if (fcn_isLoggedIn) {
+        fcn_toggleCheckmark(
+          parseInt(clickTarget.dataset.storyId),
+          clickTarget.dataset.type,
+          parseInt(clickTarget.dataset.chapterId),
+          null,
+          clickTarget.dataset.mode
+        );
+        fcn_updateCheckmarksView();
+      } else {
+        _$$$('modal-login-toggle')?.click();
+      }
       break;
     case 'toggle-obfuscation':
       // Handle obfuscation
@@ -1168,89 +1182,6 @@ _$$$('site-setting-theme-reset')?.addEventListener('click', fcn_resetSiteTheme);
 
 // Initialize
 fcn_updateThemeColor();
-
-// =============================================================================
-// LIST TOGGLE HELPERS
-// =============================================================================
-
-/**
- * Helper to toggle story Reminder.
- *
- * @since 5.0
- * @see fcn_toggleReminder()
- * @param {Number} storyId - ID of the story.
- */
-
-function fcn_inlineToggleReminder(storyId) {
-  // Logged-in?
-  if (!fcn_isLoggedIn) {
-    const toggle = _$$$('modal-login-toggle');
-
-    fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    if (toggle) toggle.checked = true;
-
-    return;
-  }
-
-  // Call target function
-  fcn_toggleReminder(storyId);
-}
-
-/**
- * Helper to toggle story Follow.
- *
- * @since 5.0
- * @see fcn_toggleFollow()
- * @param {Number} storyId - ID of the story.
- */
-
-function fcn_inlineToggleFollow(storyId) {
-  // Logged-in?
-  if (!fcn_isLoggedIn) {
-    const toggle = _$$$('modal-login-toggle');
-
-    fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    if (toggle) toggle.checked = true;
-
-    return;
-  }
-
-  // Call target function
-  fcn_toggleFollow(storyId);
-}
-
-/**
- * Helper to toggle story checkmark.
- *
- * @since 5.0
- * @see fcn_toggleCheckmark()
- * @see fcn_updateCheckmarksView()
- * @param {Number} storyId - ID of the story.
- * @param {String} type - Either 'story' or 'chapter'.
- * @param {Number=} chapter - ID of the chapter.
- * @param {String} [mode=toggle] - Force specific change with 'toggle', 'set', or 'unset'.
- */
-
-function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode = 'toggle') {
-  // Logged-in?
-  if (!fcn_isLoggedIn) {
-    const toggle = _$$$('modal-login-toggle');
-
-    fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-
-    if (toggle) {
-      toggle.checked = true;
-    }
-
-    return;
-  }
-
-  // Call target function
-  fcn_toggleCheckmark(storyId, type, chapter, null, mode);
-
-  // Update view
-  fcn_updateCheckmarksView();
-}
 
 // =============================================================================
 // PAGE NUMBER JUMP
