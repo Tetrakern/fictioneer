@@ -40,40 +40,6 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
 }
 
 // =============================================================================
-// GET REMINDERS - AJAX
-// =============================================================================
-
-/**
- * Sends the user's Reminders as JSON via Ajax
- *
- * @since Fictioneer 5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
- * @see fictioneer_get_validated_ajax_user()
- * @see fictioneer_load_reminders()
- */
-
-function fictioneer_ajax_get_reminders() {
-  // Setup and validations
-  $user = fictioneer_get_validated_ajax_user();
-
-  if ( ! $user ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  // Prepare Reminders
-  $reminders = fictioneer_load_reminders( $user );
-  $reminders['timestamp'] = time() * 1000; // Compatible with Date.now() in JavaScript
-
-  // Response
-  wp_send_json_success( array( 'reminders' => json_encode( $reminders ) ) );
-}
-
-if ( get_option( 'fictioneer_enable_reminders' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_reminders', 'fictioneer_ajax_get_reminders' );
-}
-
-// =============================================================================
 // TOGGLE REMINDER - AJAX
 // =============================================================================
 
@@ -117,7 +83,6 @@ function fictioneer_ajax_toggle_reminder() {
   // Add/Remove story from Reminders
   if ( ! array_key_exists( $story_id, $user_reminders['data'] ) || $set ) {
     $item = array(
-      'user_id' => $user->ID,
       'story_id' => $story_id,
       'timestamp' => $timestamp
     );

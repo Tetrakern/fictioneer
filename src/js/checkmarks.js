@@ -20,6 +20,7 @@ if (fcn_isLoggedIn) {
  * Initialize checkmarks.
  *
  * @since 5.0
+ * @param {Event} event - The fcnUserDataReady event.
  */
 
 function fcn_initializeCheckmarks(event) {
@@ -77,6 +78,9 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
     return;
   }
 
+  // Clear cached bookshelf content (if any)
+  localStorage.removeItem('fcnBookshelfContent');
+
   // Re-synchronize if data has diverged from other tab/window
   if (
     mode === 'toggle' &&
@@ -88,9 +92,6 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
 
     return;
   }
-
-  // Clear cached bookshelf content (if any)
-  localStorage.removeItem('fcnBookshelfContent');
 
   // Initialize if story is not yet tracked
   if (!fcn_checkmarks.data.hasOwnProperty(storyId)) {

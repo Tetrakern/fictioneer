@@ -22,7 +22,6 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_get_follows_notifications',
       'fictioneer_ajax_get_follows_list',
       // Reminders
-      'fictioneer_ajax_get_reminders',
       'fictioneer_ajax_toggle_reminder',
       'fictioneer_ajax_clear_my_reminders',
       'fictioneer_ajax_get_reminders_list',

@@ -270,10 +270,14 @@ _$('.button-clear-reminders')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
+    }
 
     // Update local storage and view
-    fcn_reminders = { 'data': {} };
+    const currentUserData = fcn_getUserData();
+    currentUserData.reminders = { 'data': {} };
+    fcn_setUserData(currentUserData);
     fcn_updateRemindersView();
 
     // Clear data

@@ -6,7 +6,11 @@ var /** @type {Number} */ fcn_userRemindersTimeout,
     /** @type {Object} */ fcn_reminders;
 
 // Initialize
-if (fcn_isLoggedIn) fcn_initializeReminders();
+if (fcn_isLoggedIn) {
+  document.addEventListener('fcnUserDataReady', event => {
+    fcn_initializeReminders(event);
+  });
+}
 
 // =============================================================================
 // INITIALIZE
@@ -16,88 +20,26 @@ if (fcn_isLoggedIn) fcn_initializeReminders();
  * Initialize Reminders.
  *
  * @since 5.0
+ * @param {Event} event - The fcnUserDataReady event.
  */
 
-function fcn_initializeReminders() {
-  fcn_reminders = fcn_getReminders();
-  fcn_fetchRemindersFromDatabase();
-}
+function fcn_initializeReminders(event) {
+  // Unpack
+  const reminders = event.detail.data.reminders;
 
-// =============================================================================
-// GET REMINDERS FROM LOCAL STORAGE
-// =============================================================================
-
-/**
- * Get Reminders from local storage or create new JSON.
- *
- * @since 5.0
- * @see fcn_isValidJSONString()
- */
-
-function fcn_getReminders() {
-  // Get JSON string from local storage
-  const r = localStorage.getItem('fcnStoryReminders');
-
-  // Parse and return JSON string if valid, otherwise return new JSON
-  return (r && fcn_isValidJSONString(r)) ? JSON.parse(r) : { 'lastLoaded': 0, 'data': {} };
-}
-
-// =============================================================================
-// FETCH REMINDERS FROM DATABASE - AJAX
-// =============================================================================
-
-/**
- * Fetch Reminders from database via AJAX.
- *
- * @since 5.0
- * @see fcn_updateRemindersView()
- */
-
-function fcn_fetchRemindersFromDatabase() {
-  // Only update from server after some time has passed (e.g. 60 seconds)
-  if (fcn_ajaxLimitThreshold < fcn_reminders['lastLoaded']) {
-    fcn_updateRemindersView();
+  // Validate
+  if (reminders === false) {
     return;
   }
 
-  // Request
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_reminders',
-    'fcn_fast_ajax': 1
-  })
-  .then((response) => {
-    // Check for success
-    if (response.success) {
-      // Unpack
-      let reminders = response.data.reminders;
+  // Set reminders instance
+  fcn_reminders = reminders;
 
-      // Validate
-      reminders = fcn_isValidJSONString(reminders) ? reminders : '{}';
-      reminders = JSON.parse(reminders);
+  // Update view
+  fcn_updateRemindersView();
 
-      // Setup
-      if (typeof reminders === 'object' && reminders.data && Object.keys(reminders.data).length > 0) {
-        fcn_reminders = reminders;
-      } else {
-        fcn_reminders = { 'data': {} };
-      }
-
-      // Remember last pull
-      fcn_reminders['lastLoaded'] = Date.now();
-    }
-  })
-  .catch(() => {
-    // Probably not logged in, clear local data
-    localStorage.removeItem('fcnStoryReminders')
-    fcn_reminders = false;
-  })
-  .then(() => {
-    // Update view regardless of success
-    fcn_updateRemindersView();
-
-    // Clear cached bookshelf content (if any)
-    localStorage.removeItem('fcnBookshelfContent');
-  });
+  // Clear cached bookshelf content (if any)
+  localStorage.removeItem('fcnBookshelfContent');
 }
 
 // =============================================================================
@@ -115,34 +57,39 @@ function fcn_fetchRemindersFromDatabase() {
  */
 
 function fcn_toggleReminder(storyId) {
-  // Check local storage for outside changes
-  const currentReminders = fcn_getReminders();
+  // Get current data
+  const currentUserData = fcn_getUserData();
+
+  // Prevent error in case something went very wrong
+  if (!fcn_reminders || !currentUserData.reminders) {
+    return;
+  }
 
   // Clear cached bookshelf content (if any)
   localStorage.removeItem('fcnBookshelfContent');
 
   // Re-synchronize if data has diverged
-  if (JSON.stringify(fcn_reminders.data[storyId]) !== JSON.stringify(currentReminders.data[storyId])) {
-    fcn_reminders = currentReminders;
+  if (JSON.stringify(fcn_reminders.data[storyId]) !== JSON.stringify(currentUserData.reminders.data[storyId])) {
+    fcn_reminders = currentUserData.reminders;
     fcn_showNotification(__('Reminders re-synchronized.', 'fictioneer'));
     fcn_updateRemindersView();
+
     return;
   }
 
-  // Refresh object
-  fcn_reminders = currentReminders;
-
-  // Add/Remove from current JSON
+  // Set/Unset reminder
   if (fcn_reminders.data.hasOwnProperty(storyId)) {
     delete fcn_reminders.data[storyId];
   } else {
-    fcn_reminders.data[storyId] = { 'timestamp': Date.now() };
+    fcn_reminders.data[storyId] = { 'story_id': parseInt( storyId ), 'timestamp': Date.now() };
   }
 
-  // Reset AJAX threshold
-  fcn_reminders['lastLoaded'] = 0;
+  // Update local storage
+  currentUserData.reminders.data[storyId] = fcn_reminders.data[storyId];
+  currentUserData.lastLoaded = 0;
+  fcn_setUserData(currentUserData);
 
-  // Update view and local storage
+  // Update view
   fcn_updateRemindersView();
 
   // Clear previous timeout (if still pending)
@@ -157,7 +104,6 @@ function fcn_toggleReminder(storyId) {
       'set': fcn_reminders.data.hasOwnProperty(storyId)
     })
     .then((response) => {
-      // Check for failure
       if (response.data.error) {
         fcn_showNotification(response.data.error, 5, 'warning');
       }
@@ -182,8 +128,13 @@ function fcn_toggleReminder(storyId) {
  */
 
 function fcn_updateRemindersView() {
-  // Not ready yet
-  if (!fcn_reminders) return;
+  // Get current data
+  const currentUserData = fcn_getUserData(),
+        reminders = currentUserData.reminders;
+
+  if (!reminders) {
+    return;
+  }
 
   // Update button state
   _$$('.button-read-later').forEach(element => {
@@ -200,9 +151,6 @@ function fcn_updateRemindersView() {
       fcn_reminders?.data.hasOwnProperty(element.dataset.storyId)
     );
   });
-
-  // Update local storage
-  localStorage.setItem('fcnStoryReminders', JSON.stringify(fcn_reminders));
 }
 
 // =============================================================================
