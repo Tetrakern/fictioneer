@@ -54,7 +54,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
     $the_card_args = array_merge( $the_card_args, $card_args );
 
     // Query (but not if 'post__in' is set and empty)
-    if ( ! empty( $the_query_args['post__in'] ?? 0 ) ) {
+    if ( ! ( isset( $the_query_args['post__in'] ) && empty( $the_query_args['post__in'] ) ) ) {
       $query = new WP_Query( $the_query_args );
 
       // Prime author cache
