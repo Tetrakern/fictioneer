@@ -250,10 +250,14 @@ _$('.button-clear-checkmarks')?.addEventListener(
   'click',
   e => {
     // Confirm clear request using localized string
-    if (!fcn_dataDeletionPrompt(e.currentTarget)) return;
+    if (!fcn_dataDeletionPrompt(e.currentTarget)) {
+      return;
+    }
 
     // Update local storage and view
-    fcn_checkmarks = { 'data': {}, 'timestamp': Date.now() };
+    const currentUserData = fcn_getUserData();
+    currentUserData.checkmarks = { 'data': {}, 'updated': Date.now() };
+    fcn_setUserData(currentUserData);
     fcn_updateCheckmarksView();
 
     // Clear data

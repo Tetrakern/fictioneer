@@ -379,7 +379,9 @@ fcn_theBody.addEventListener('click', e => {
   const clickTarget = e.target.closest('[data-click]'),
         clickAction = clickTarget?.dataset.click;
 
-  if (!clickAction) return;
+  if (!clickAction) {
+    return;
+  }
 
   switch (clickAction) {
     case 'copy-to-clipboard':
@@ -1235,7 +1237,10 @@ function fcn_inlineToggleCheckmark(storyId, type = 'story', chapter = null, mode
     const toggle = _$$$('modal-login-toggle');
 
     fcn_showNotification(__( 'You need to be logged in.', 'fictioneer' ));
-    if (toggle) toggle.checked = true;
+
+    if (toggle) {
+      toggle.checked = true;
+    }
 
     return;
   }
