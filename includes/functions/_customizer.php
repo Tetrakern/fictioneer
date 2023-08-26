@@ -293,7 +293,9 @@ if ( ! function_exists( 'fictioneer_add_customized_light_mode_css' ) ) {
     wp_add_inline_style( 'fictioneer-application', $light_header_css );
 
     // ...but abort if custom light mode colors are not enabled
-    if ( ! get_theme_mod( 'use_custom_light_mode', false ) ) return;
+    if ( ! get_theme_mod( 'use_custom_light_mode', false ) ) {
+      return;
+    }
 
     // Look for pre-compiled CSS in Transients (except when in Customizer)
     if (
@@ -360,7 +362,10 @@ if ( ! function_exists( 'fictioneer_add_customized_light_mode_css' ) ) {
     $light_css = fictioneer_minify_css( $light_css );
 
     // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) set_transient( 'fictioneer_customized_light_mode', $light_css );
+    if ( ! is_customize_preview() ) {
+      set_transient( 'fictioneer_customized_light_mode', $light_css );
+    }
+
     wp_add_inline_style( 'fictioneer-application', $light_css );
   }
 }
@@ -385,7 +390,9 @@ if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
     wp_add_inline_style( 'fictioneer-application', $dark_header_css );
 
     // ...but abort if custom light mode colors are not enabled
-    if ( ! get_theme_mod( 'use_custom_dark_mode', false ) ) return;
+    if ( ! get_theme_mod( 'use_custom_dark_mode', false ) ) {
+      return;
+    }
 
     // Look for pre-compiled CSS in Transients (except when in Customizer)
     if (
@@ -453,7 +460,10 @@ if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
     $dark_css = fictioneer_minify_css( $dark_css );
 
     // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) set_transient( 'fictioneer_customized_dark_mode', $dark_css );
+    if ( ! is_customize_preview() ) {
+      set_transient( 'fictioneer_customized_dark_mode', $dark_css );
+    }
+
     wp_add_inline_style( 'fictioneer-application', $dark_css );
   }
 }
@@ -536,7 +546,10 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $layout_css = fictioneer_minify_css( $layout_css );
 
     // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) set_transient( 'fictioneer_customized_layout', $layout_css );
+    if ( ! is_customize_preview() ) {
+      set_transient( 'fictioneer_customized_layout', $layout_css );
+    }
+
     wp_add_inline_style( 'fictioneer-application', $layout_css );
   }
 }
