@@ -12,6 +12,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_is_user_logged_in',
       'fictioneer_ajax_get_nonce',
       'fictioneer_ajax_get_avatar',
+      'fictioneer_ajax_get_user_data',
       // Bookmarks
       'fictioneer_ajax_save_bookmarks',
       'fictioneer_ajax_get_bookmarks',
@@ -83,6 +84,15 @@ function fictioneer_do_fast_ajax() {
 
   if ( get_option( 'fictioneer_enable_bookmarks' ) && strpos( $action, '_bookmarks' ) !== false ) {
     require_once __DIR__ . '/users/_bookmarks.php';
+  }
+
+  if ( strpos( $action, 'get_user_data' ) !== false ) {
+    require_once __DIR__ . '/users/_user_data.php';
+    require_once __DIR__ . '/users/_follows.php';
+    require_once __DIR__ . '/users/_reminders.php';
+    require_once __DIR__ . '/users/_checkmarks.php';
+    require_once __DIR__ . '/users/_bookmarks.php';
+    require_once __DIR__ . '/_content_helpers.php';
   }
 
   if ( strpos( $action, '_list' ) !== false ) {

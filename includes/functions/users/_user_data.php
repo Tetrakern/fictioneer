@@ -965,4 +965,80 @@ function fictioneer_ajax_get_fingerprint() {
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fingerprint' );
 
+// =============================================================================
+// GET USER DATA - AJAX
+// =============================================================================
+
+/**
+ * Get relevant user data via AJAX
+ *
+ * @since Fictioneer 5.7.0
+ */
+
+function fictioneer_ajax_get_user_data() {
+  // Validations
+  $user = fictioneer_get_validated_ajax_user();
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $data = array(
+    'timestamp' => time() * 1000, // Compatible with Date.now() in JavaScript
+    'follows' => false,
+    'reminders' => false,
+    'checkmarks' => false,
+    'bookmarks' => '{}',
+    'fingerprint' => fictioneer_get_user_fingerprint( $user->ID )
+  );
+
+  // --- FOLLOWS ---------------------------------------------------------------
+
+  if ( get_option( 'fictioneer_enable_follows' ) ) {
+    $follows = fictioneer_load_follows( $user );
+    $follows['new'] = false;
+    $latest = 0;
+
+    // New notifications?
+    if ( count( $follows['data'] ) > 0 ) {
+      $latest = fictioneer_query_followed_chapters(
+        array_keys( $follows['data'] ),
+        wp_date( 'c', $follows['seen'] / 1000 )
+      );
+
+      if ( $latest ) {
+        $follows['new'] = count( $latest );
+      }
+    }
+
+    $data['follows'] = $follows;
+  }
+
+  // --- REMINDERS -------------------------------------------------------------
+
+  if ( get_option( 'fictioneer_enable_reminders' ) ) {
+    $data['reminders'] = fictioneer_load_reminders( $user );
+  }
+
+  // --- CHECKMARKS ------------------------------------------------------------
+
+  if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
+    $data['checkmarks'] = fictioneer_load_checkmarks( $user );
+  }
+
+  // --- BOOKMARKS -------------------------------------------------------------
+
+  if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+    $bookmarks = get_user_meta( $user->ID, 'fictioneer_bookmarks', true );
+    $data['bookmarks'] = $bookmarks ? $bookmarks : '{}';
+  }
+
+  // ---------------------------------------------------------------------------
+
+  // Response
+  wp_send_json_success( $data );
+}
+add_action( 'wp_ajax_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get_user_data' );
+
 ?>
