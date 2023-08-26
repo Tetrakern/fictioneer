@@ -316,7 +316,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
 
 // Boolean: Enable nav menu Transients
 if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
-  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', false );
+  define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', true );
 }
 
 // =============================================================================

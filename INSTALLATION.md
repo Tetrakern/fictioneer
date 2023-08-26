@@ -840,3 +840,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_FRONTEND_ACF | boolean | Whether to load ACF on the frontend. Default `false`.
+| FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.

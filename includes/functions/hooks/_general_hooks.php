@@ -74,28 +74,38 @@ function fictioneer_footer_menu_row( $args ) {
   // Start HTML ---> ?>
   <div class="footer__split-row">
     <div class="footer__menu"><?php
-      $menu = get_transient( 'fictioneer_footer_menu' );
+      if ( has_nav_menu( 'footer_menu' ) ) {
+        $menu = null;
 
-      if ( empty( $menu ) ) {
-        $menu = wp_nav_menu(
-          array(
-            'theme_location' => 'footer_menu',
-            'menu_class' => 'footer__menu-list',
-            'container' => '',
-            'echo' => false
-          )
-        );
+        if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+          $menu = get_transient( 'fictioneer_footer_menu' );
+        }
 
-        $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
-        $menu = str_replace( 'current_page_item', '', $menu );
-        $menu = str_replace( 'current-menu-item', '', $menu );
-        $menu = str_replace( 'aria-current="page"', '', $menu );
-        $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
+        if ( empty( $menu ) ) {
+          $menu = wp_nav_menu(
+            array(
+              'theme_location' => 'footer_menu',
+              'menu_class' => 'footer__menu-list',
+              'container' => '',
+              'echo' => false
+            )
+          );
 
-        set_transient( 'fictioneer_footer_menu', $menu );
+          if ( $menu !== false ) {
+            $menu = str_replace( 'class="', 'class="footer__menu-list-item ', $menu );
+            $menu = str_replace( 'current_page_item', '', $menu );
+            $menu = str_replace( 'current-menu-item', '', $menu );
+            $menu = str_replace( 'aria-current="page"', '', $menu );
+            $menu = preg_replace( '/<\/li>\s*<li/', '</li><li', $menu );
+          }
+
+          if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+            set_transient( 'fictioneer_footer_menu', $menu );
+          }
+        }
+
+        echo $menu;
       }
-
-      echo $menu;
     ?></div>
     <div class="footer__copyright"><?php echo fictioneer_get_footer_copyright_note( $args ); ?></div>
   </div>
