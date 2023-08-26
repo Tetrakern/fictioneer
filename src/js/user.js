@@ -1,11 +1,4 @@
 // =============================================================================
-// SETUP
-// =============================================================================
-
-// Initialize
-fcn_getProfileImage();
-
-// =============================================================================
 // REPLACE PROFILE IMAGE IN ELEMENTS
 // =============================================================================
 
@@ -47,10 +40,14 @@ function fcn_replaceProfileImage(target, avatar) {
 
 function fcn_setProfileImage(avatar, save = true) {
   // Check if URL is valid
-  if (!avatar || !fcn_isValidUrl(avatar)) return;
+  if (!avatar || !fcn_isValidUrl(avatar)) {
+    return;
+  }
 
   // Save in local storage for later
-  if (save) localStorage.setItem('fcnProfileAvatar', avatar);
+  if (save) {
+    localStorage.setItem('fcnProfileAvatar', avatar);
+  }
 
   // replace user icon with avatar
   _$$('a.subscriber-profile')?.forEach(element => {
@@ -78,7 +75,9 @@ function fcn_getProfileImage() {
   }
 
   // Check if URL is valid
-  if (!fcn_isValidUrl(avatar)) avatar = false;
+  if (!fcn_isValidUrl(avatar)) {
+    avatar = false;
+  }
 
   if (avatar) {
     // Set profile image if URL has been found
@@ -116,6 +115,9 @@ function fcn_getUserAvatar() {
     }
   });
 }
+
+// Initialize
+fcn_getProfileImage();
 
 // =============================================================================
 // GET FINGERPRINT
@@ -212,3 +214,112 @@ function fcn_fetchFingerprint() {
     fcn_fingerprint = false;
   });
 }
+
+// =============================================================================
+// FETCH RELEVANT USER DATA
+// =============================================================================
+
+var /** @type {Object} */ fcn_userData;
+
+function fcn_initializeUserData() {
+  fcn_userData = fcn_getUserData();
+  fcn_fetchUserData();
+}
+
+function fcn_getUserData() {
+  // Get JSON string from local storage
+  const data = localStorage.getItem('fcnUserData');
+
+  // Parse and return JSON string if valid, otherwise return new JSON
+  return (data && fcn_isValidJSONString(data)) ? JSON.parse(data) :
+    {
+      'lastLoaded': 0,
+      'timestamp': 0,
+      'follows': false,
+      'reminders': false,
+      'checkmarks': false,
+      'bookmarks': {},
+      'fingerprint': false
+    };
+}
+
+function fcn_setUserData(data) {
+  // Update local storage
+  localStorage.setItem('fcnUserData', JSON.stringify(data));
+}
+
+function fcn_fetchUserData() {
+  // Only update from server after some time has passed (e.g. 60 seconds)
+  if (fcn_ajaxLimitThreshold < fcn_userData['lastLoaded']) {
+    const fcn_eventUserDataReady = new CustomEvent('fcnUserDataReady', {
+      detail: { data: fcn_userData, time: new Date() },
+      bubbles: false,
+      cancelable: true
+    });
+
+    document.dispatchEvent(fcn_eventUserDataReady);
+    return;
+  }
+
+  // Request
+  fcn_ajaxGet({
+    'action': 'fictioneer_ajax_get_user_data',
+    'fcn_fast_ajax': 1
+  })
+  .then(response => {
+    if (response.success) {
+      // Assign
+      fcn_userData = response.data;
+      fcn_userData['lastLoaded'] = Date.now();
+
+      // Prepare custom event
+      const eventReady = new CustomEvent('fcnUserDataReady', {
+        detail: { data: response.data, time: new Date() },
+        bubbles: true,
+        cancelable: false
+      });
+
+      // Set in local storage
+      fcn_setUserData(fcn_userData);
+
+      // Fire event
+      document.dispatchEvent(eventReady);
+    } else {
+      // Something went wrong, possibly logged-out; clear local storage
+      localStorage.removeItem('fcnUserData');
+      fcn_userData = false;
+
+      // Prepare custom event
+      const eventFailure = new CustomEvent('fcnUserDataFailed', {
+        detail: { response: response, time: new Date() },
+        bubbles: true,
+        cancelable: false
+      });
+
+      // Fire event
+      document.dispatchEvent(eventFailure);
+    }
+  })
+  .catch(error => {
+    // Something went extremely wrong; clear local storage
+    localStorage.removeItem('fcnUserData');
+    fcn_userData = false;
+
+    // Prepare custom event
+    const eventError = new CustomEvent('fcnUserDataError', {
+      detail: { error: error, time: new Date() },
+      bubbles: true,
+      cancelable: false
+    });
+
+    // Fire event
+    document.dispatchEvent(eventError);
+  });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  if (fcn_isLoggedIn) {
+    fcn_initializeUserData();
+  }
+});
