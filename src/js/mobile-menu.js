@@ -7,9 +7,7 @@ const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggl
       /** @const {HTMLElement} */ fcn_mobileMenuUser = _$$$('mobile-menu-user-panel'),
       /** @const {HTMLElement} */ fcn_mobileMenuNav = _$$$('mobile-navigation');
 
-var fcn_mobileMenuNavElements = [],
-    fcn_mobileMenuUserElements = [],
-    fcn_mobileMenuBottomElements = [];
+var fcn_mobileMenuNavElements = [];
 
 // Clone main navigation into mobile menu
 fcn_copyNavIntoMobileMenu();
@@ -75,19 +73,9 @@ function fcn_toggleMobileMenu(isOpened) {
 
 function fcn_toggleMobileMenuContent(add = true) {
   // Remove
-  if (!add) {
-    if (fcn_mobileMenuNav) {
-      while (fcn_mobileMenuNav.firstChild) {
-        fcn_mobileMenuNavElements.push(fcn_mobileMenuNav.removeChild(fcn_mobileMenuNav.firstChild));
-      }
-    }
-
-    while (fcn_mobileMenuUser.firstChild) {
-      fcn_mobileMenuUserElements.push(fcn_mobileMenuUser.removeChild(fcn_mobileMenuUser.firstChild));
-    }
-
-    while (fcn_mobileMenuBottom.firstChild) {
-      fcn_mobileMenuBottomElements.push(fcn_mobileMenuBottom.removeChild(fcn_mobileMenuBottom.firstChild));
+  if (!add && fcn_mobileMenuNav) {
+    while (fcn_mobileMenuNav.firstChild) {
+      fcn_mobileMenuNavElements.push(fcn_mobileMenuNav.removeChild(fcn_mobileMenuNav.firstChild));
     }
 
     return;
@@ -99,20 +87,6 @@ function fcn_toggleMobileMenuContent(add = true) {
   });
 
   fcn_mobileMenuNavElements = [];
-
-  // Restore user elements
-  fcn_mobileMenuUserElements.forEach(element => {
-    fcn_mobileMenuUser.appendChild(element);
-  });
-
-  fcn_mobileMenuUserElements = [];
-
-  // Restore bottom elements
-  fcn_mobileMenuBottomElements.forEach(element => {
-    fcn_mobileMenuBottom.appendChild(element);
-  });
-
-  fcn_mobileMenuBottomElements = [];
 }
 
 // Listen for change of mobile menu toggle checkbox
