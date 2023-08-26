@@ -319,7 +319,7 @@ function fcn_fetchUserData() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  if (fcn_isLoggedIn) {
+  if (fcn_isLoggedIn && !fcn_userData) {
     fcn_initializeUserData();
   }
 });
