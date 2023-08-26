@@ -62,10 +62,7 @@ if (typeof fcn_removeQueryArgs === 'function') {
 
 function fcn_cleanupWebStorage(keepGuestData = false) {
   localStorage.removeItem('fcnProfileAvatar');
-  localStorage.removeItem('fcnStoryFollows')
-  localStorage.removeItem('fcnStoryReminders');
-  localStorage.removeItem('fcnCheckmarks');
-  localStorage.removeItem('fcnFingerprint');
+  localStorage.removeItem('fcnUserData');
   localStorage.removeItem('fcnLoginState');
   localStorage.removeItem('fcnBookshelfContent');
 

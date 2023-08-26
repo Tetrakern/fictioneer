@@ -226,10 +226,7 @@ _$$('.confirm-dialog').forEach(element => {
 // Admin bar logout link
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnProfileAvatar');
-  localStorage.removeItem('fcnStoryFollows')
-  localStorage.removeItem('fcnStoryReminders');
-  localStorage.removeItem('fcnCheckmarks');
-  localStorage.removeItem('fcnFingerprint');
+  localStorage.removeItem('fcnUserData');
   localStorage.removeItem('fcnLoginState');
   localStorage.removeItem('fcnNonce');
   localStorage.removeItem('fcnBookshelfContent');
