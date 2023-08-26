@@ -6,11 +6,9 @@ var /** @type {Number} */ fcn_userRemindersTimeout,
     /** @type {Object} */ fcn_reminders;
 
 // Initialize
-if (fcn_isLoggedIn) {
-  document.addEventListener('fcnUserDataReady', event => {
-    fcn_initializeReminders(event);
-  });
-}
+document.addEventListener('fcnUserDataReady', event => {
+  fcn_initializeReminders(event);
+});
 
 // =============================================================================
 // INITIALIZE

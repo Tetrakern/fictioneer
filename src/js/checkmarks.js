@@ -6,11 +6,9 @@ var /** @type {Object} */ fcn_checkmarks,
     /** @type {Number} */ fcn_userCheckmarksTimeout;
 
 // Initialize
-if (fcn_isLoggedIn) {
-  document.addEventListener('fcnUserDataReady', event => {
-    fcn_initializeCheckmarks(event);
-  });
-}
+document.addEventListener('fcnUserDataReady', event => {
+  fcn_initializeCheckmarks(event);
+});
 
 // =============================================================================
 // INITIALIZE
