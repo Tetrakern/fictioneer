@@ -490,20 +490,12 @@ const /** @const {IntersectionObserver} */ fcn_mainObserver = new IntersectionOb
   { threshold: [1] }
 );
 
-if (observer = _$('.main-observer')) {
-  fcn_mainObserver.observe(observer);
-}
-
 // End of chapter observer
 const /** @const {IntersectionObserver} */ fcn_endOfChapterObserver = new IntersectionObserver(
   ([e]) => {
     fcn_theBody.classList.toggle('is-end-of-chapter', e.isIntersecting || e.boundingClientRect.top < 0)
   }, { root: null, threshold: 0 }
 );
-
-if (observer = _$('.chapter-end')) {
-  fcn_endOfChapterObserver.observe(observer);
-}
 
 // Sticky navigation observer
 const /** @const {IntersectionObserver} */ fct_navStickyObserver = new IntersectionObserver(
@@ -512,16 +504,18 @@ const /** @const {IntersectionObserver} */ fct_navStickyObserver = new Intersect
   }, { threshold: [1] }
 );
 
-if (observer = _$$$('nav-observer-sticky')) {
-  fct_navStickyObserver.observe(observer);
-}
-
-// Because loading a page with anchor can cause observers to not fire
+// Apply observers
 document.addEventListener('DOMContentLoaded', () => {
-  const header = _$('.header')?.getBoundingClientRect();
+  if (observer = _$('.main-observer')) {
+    fcn_mainObserver.observe(observer);
+  }
 
-  if (header && header.top < 20 ) {
-    fcn_mainNavigation?.classList.add('is-sticky');
+  if (observer = _$('.chapter-end')) {
+    fcn_endOfChapterObserver.observe(observer);
+  }
+
+  if (observer = _$$$('nav-observer-sticky')) {
+    fct_navStickyObserver.observe(observer);
   }
 });
 
