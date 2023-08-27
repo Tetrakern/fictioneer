@@ -313,14 +313,14 @@ $current_role = $roles[ $current_role_slug ];
         <input type="hidden" name="action" value="fictioneer_add_role">
         <?php echo $add_role_nonce; ?>
         <div class="text-input">
-          <label for="fictioneer_add_role">
-            <input id="fictioneer_add_role" name="new_role" placeholder="<?php _ex( 'Role Name', 'fictioneer' ); ?>" type="text" required>
+          <label for="new_role">
+            <input name="new_role" placeholder="<?php _ex( 'Role Name', 'fictioneer' ); ?>" type="text" required>
             <p class="sub-label"><?php _e( 'Enter the name of the new role.', 'fictioneer' ) ?></p>
           </label>
         </div>
         <div class="fictioneer-dialog__actions">
-          <button value="" class="button button-primary"><?php _e( 'Add', 'fictioneer' ); ?></button>
           <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
+          <button value="" class="button button-primary"><?php _e( 'Add', 'fictioneer' ); ?></button>
         </div>
       </form>
     </div>
@@ -336,20 +336,20 @@ $current_role = $roles[ $current_role_slug ];
         <input type="hidden" name="role" value="<?php echo $current_role_slug; ?>">
         <?php echo $rename_role_nonce; ?>
         <div class="text-input">
-          <label for="fictioneer_add_role">
-            <input id="fictioneer_add_role" name="new_name" placeholder="<?php _ex( 'New Name', 'fictioneer' ); ?>" type="text" required>
+          <label for="new_name">
+            <input name="new_name" placeholder="<?php _ex( 'New Name', 'fictioneer' ); ?>" type="text" required>
             <p class="sub-label"><?php _e( 'Enter the new name for the role.', 'fictioneer' ) ?></p>
           </label>
         </div>
         <div class="text-input mt-12">
-          <label for="fictioneer_add_role">
-            <input id="fictioneer_add_role" name="role_slug" placeholder="<?php echo $current_role_slug; ?>" type="text" disabled>
+          <label for="role_slug">
+            <input name="role_slug" placeholder="<?php echo $current_role_slug; ?>" type="text" disabled>
             <p class="sub-label"><?php _e( 'Slug of the role. Must not be changed.', 'fictioneer' ) ?></p>
           </label>
         </div>
         <div class="fictioneer-dialog__actions">
-          <button value="" class="button button-primary"><?php _e( 'Rename', 'fictioneer' ); ?></button>
           <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Cancel', 'fictioneer' ); ?></button>
+          <button value="" class="button button-primary"><?php _e( 'Rename', 'fictioneer' ); ?></button>
         </div>
       </form>
     </div>
