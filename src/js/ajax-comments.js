@@ -4,8 +4,6 @@
 
 const /** @const {HTMLElement} */ fcn_ajaxCommentsSection = _$$$('comments');
 
-var /** @type {String[]} */ fcn_commentStack = [];
-
 // =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
 // =============================================================================
@@ -33,12 +31,12 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   // Setup
   const commentSection = _$$$('comments');
   let commentText = '',
-      comment = _$$$('comment'),
+      commentTextarea = _$$$('comment'),
       errorNote;
 
-  // Preserve comment text (if any)
-  if (comment) {
-    commentText = comment.value;
+  // Preserve comment text (in case of pagination)
+  if (commentTextarea) {
+    commentText = commentTextarea.value;
   }
 
   // Abort if another AJAX action is in progress
@@ -98,24 +96,12 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       commentSection.innerHTML = temp.innerHTML;
       temp.remove();
 
-      // Restore comment content and add stack (if any)
-      comment = _$$$('comment');
+      // Append stored content (in case of pagination)
+      commentTextarea = _$$$('comment');
+      commentTextarea.value = commentText;
 
-      // Append stack contents
-      if (comment) {
-        comment.value = commentText;
-
-        fcn_commentStack.forEach(node => {
-          comment.value += node;
-        });
-      }
-
-      fcn_commentStack = [];
-
-      // Resize comment textarea if necessary
-      if (comment) {
-        fcn_textareaAdjust(comment);
-      }
+      // Append stack contents (if any)
+      fcn_applyCommentStack(commentTextarea);
 
       // Bind events
       fcn_addModerationEvents();

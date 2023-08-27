@@ -485,7 +485,7 @@ function fcn_bindAJAXCommentSubmit() {
 
     // Request
     fcn_ajaxPost(payload)
-    .then((response) => {
+    .then(response => {
       // Remove previous error notices (if any)
       _$$$('comment-submit-error-notice')?.remove();
 
@@ -591,7 +591,7 @@ function fcn_bindAJAXCommentSubmit() {
         commentNode.scrollIntoView({behavior: 'smooth'});
       }
     })
-    .catch((error) => {
+    .catch(error => {
       // Remove any old error
       _$$$('comment-submit-error-notice')?.remove();
 
@@ -720,7 +720,7 @@ function fcn_submitInlineCommentEdit(source) {
         }
       }
     })
-    .catch((error) => {
+    .catch(error => {
       // Restore non-edit state
       fcn_restoreComment(red, true);
 
@@ -922,12 +922,32 @@ if (fcn_ajaxCommentForm) {
   if (fcn_theRoot.dataset.ajaxNonce) {
     // Load after nonce has been fetched
     document.addEventListener('fcnAuthReady', () => {
-      fcn_getCommentForm();
+      fcn_setupCommentFormObserver();
     });
   } else {
-    // Load as soon as possible
-    fcn_getCommentForm();
+    fcn_setupCommentFormObserver();
   }
+}
+
+/**
+ * Helper to set up comment form observer.
+ *
+ * @since 5.7.0
+ */
+
+function fcn_setupCommentFormObserver() {
+  fct_commentFormObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        fcn_getCommentForm();
+        fct_commentFormObserver.disconnect();
+      }
+    },
+    { rootMargin: '400px', threshold: 1 }
+  );
+
+  // Observe comment form to fire AJAX request once
+  fct_commentFormObserver.observe(fcn_ajaxCommentForm);
 }
 
 /**
@@ -974,6 +994,9 @@ function fcn_getCommentForm() {
       fcn_ajaxCommentForm.innerHTML = temp.innerHTML;
       temp.remove();
 
+      // Append stack contents (if any)
+      fcn_applyCommentStack();
+
       // Bind events
       fcn_addTextareaEvents();
       fcn_addCommentFormEvents();
@@ -1002,6 +1025,36 @@ function fcn_getCommentForm() {
       fcn_ajaxCommentForm.appendChild(errorNote);
     }
   });
+}
+
+// =============================================================================
+// COMMENT STACK
+// =============================================================================
+
+var /** @type {String[]} */ fcn_commentStack = [];
+
+/**
+ * Append comment stack content to comment (if any)
+ *
+ * @since 5.7.0
+ * @param {HTMLElement=} textarea - Optional. The targeted textarea.
+ */
+
+function fcn_applyCommentStack(textarea = null) {
+  textarea = textarea ?? _$$$('comment');
+
+  if (textarea) {
+    // Append stack content to comment
+    fcn_commentStack.forEach(node => {
+      textarea.value += node;
+    });
+
+    // Empty stack
+    fcn_commentStack = [];
+
+    // Resize textarea if necessary
+    fcn_textareaAdjust(textarea);
+  }
 }
 
 // =============================================================================

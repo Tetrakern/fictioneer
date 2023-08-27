@@ -204,7 +204,7 @@ class FCN_Suggestion {
       defaultEditor.value += instance.latest;
       fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
     } else {
-      fcn_commentStack.push(instance.latest);
+      fcn_commentStack?.push(instance.latest); // AJAX comment form or section
     }
 
     // Close modal
