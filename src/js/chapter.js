@@ -75,13 +75,19 @@ document.addEventListener('click', event => {
 
 function fcn_touchParagraph(e) {
   // Do not call paragraph tools when mobile menu is open
-  if (fcn_theSite.classList.contains('transformed-site')) return;
+  if (fcn_theSite.classList.contains('transformed-site')) {
+    return;
+  }
 
   // Do not call paragraphs tolls on spoilers
-  if (e.target.classList.contains('spoiler')) return;
+  if (e.target.classList.contains('spoiler')) {
+    return;
+  }
 
   // Ignore nested paragraphs
-  if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) return;
+  if (!e.target.closest('p')?.parentElement?.classList.contains('chapter-formatting')) {
+    return;
+  }
 
   // Ignore paragraphs with special classes
   if (
@@ -90,7 +96,9 @@ function fcn_touchParagraph(e) {
   ) return;
 
   // Text selection in progress
-  if (window.getSelection().toString() != '') return;
+  if (window.getSelection().toString() != '') {
+    return;
+  }
 
   // Bubble up and search for valid paragraph (if click was on nested tag)
   const target = e.target.closest('p[data-paragraph-id]');
@@ -99,7 +107,9 @@ function fcn_touchParagraph(e) {
   if (
     e.target.closest('.tts-interface') ||
     e.target.closest('.paragraph-tools__actions')
-  ) return;
+  ) {
+    return;
+  }
 
   // Clicked anywhere except on a valid paragraph or TTS
   if (!target) {
@@ -120,7 +130,9 @@ function fcn_touchParagraph(e) {
           long = startClick + 300;
 
     // Click was short, which probably means the user wants to toggle the tools
-    if (endClick <= long) fcn_toggleParagraphTools(id, target);
+    if (endClick <= long) {
+      fcn_toggleParagraphTools(id, target);
+    }
   }, { once: true });
 }
 
@@ -222,7 +234,9 @@ if (fcn_paragraphTools) {
       );
 
       // Close paragraph tools on desktop after adding bookmark
-      if (window.matchMedia('(min-width: 1024px)').matches) fcn_toggleParagraphTools(false);
+      if (window.matchMedia('(min-width: 1024px)').matches) {
+        fcn_toggleParagraphTools(false);
+      }
 
       // Reset bookmark color
       fcn_bookmarkColor = 'none';
@@ -363,7 +377,9 @@ function fcn_defaultFormatting() {
 
 function fcn_setFormatting(value) {
   // Simple validation
-  if (typeof value !== 'object') return;
+  if (typeof value !== 'object') {
+    return;
+  }
 
   // Keep global updated
   fcn_formatting = value;
@@ -406,7 +422,10 @@ function fcn_updateFontSize(value, save = true) {
 
   // Update local storage
   fcn_formatting['font-size'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -479,7 +498,10 @@ function fcn_updateFontColor(index, save = true) {
 
   // Update local storage
   fcn_formatting['font-color'] = fictioneer_font_colors[index].css;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -535,7 +557,9 @@ function fcn_updateFontFamily(index, save = true) {
   let fontFamily = `"${fictioneer_fonts[index].css}"`;
 
   // Add alternative fonts if any
-  if (fictioneer_fonts[index].alt) fontFamily = `${fontFamily}, "${fictioneer_fonts[index].alt}"`;
+  if (fictioneer_fonts[index].alt) {
+    fontFamily = `${fontFamily}, "${fictioneer_fonts[index].alt}"`;
+  }
 
   // Catch non-indexed values
   if (index < 0) {
@@ -554,7 +578,10 @@ function fcn_updateFontFamily(index, save = true) {
 
   // Update local storage
   fcn_formatting['font-name'] = fictioneer_fonts[index].css;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -621,7 +648,10 @@ function fcn_updateFontSaturation(value, save = true) {
 
   // Update local storage
   fcn_formatting['font-saturation'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -688,7 +718,10 @@ function fcn_updateLetterSpacing(value, save = true) {
 
   // Update local storage
   fcn_formatting['letter-spacing'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -745,7 +778,10 @@ function fcn_updateParagraphSpacing(value, save = true) {
 
   // Update local storage
   fcn_formatting['paragraph-spacing'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -802,7 +838,10 @@ function fcn_updateLineHeight(value, save = true) {
 
   // Update local storage
   fcn_formatting['line-height'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -871,7 +910,10 @@ function fcn_updateSiteWidth(value, save = true) {
 
   // Update local storage
   fcn_formatting['site-width'] = value;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 /**
@@ -926,7 +968,10 @@ function fcn_updateIndent(value, save = true) {
 
   // Update local storage
   fcn_formatting['indent'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 // Listen for click on indent toggle
@@ -967,7 +1012,10 @@ function fcn_updateJustify(value, save = true) {
 
   // Update local storage
   fcn_formatting['justify'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 // Listen for click on justify toggle
@@ -1005,7 +1053,10 @@ function fcn_updateParagraphTools(value, save = true) {
 
   // Update local storage
   fcn_formatting['show-paragraph-tools'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 // Listen for click on justify toggle
@@ -1053,7 +1104,10 @@ function fcn_updateSensitiveContent(value, save = true) {
 
   // Update local storage
   fcn_formatting['show-sensitive-content'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 // Listen for click on justify toggle
@@ -1150,7 +1204,9 @@ const /** @const {HTMLElement} */ fcn_progressBar = _$('.progress__bar'),
 var /** @type {Boolean} */ fcn_chapterCheckmarkUpdated = false;
 
 // Initialize
-if (_$('article:not(._password)')) fcn_trackProgress();
+if (_$('article:not(._password)')) {
+  fcn_trackProgress();
+}
 
 /**
  * Checks whether this is a chapter, then adds a throttled event listener to a
@@ -1162,7 +1218,10 @@ if (_$('article:not(._password)')) fcn_trackProgress();
  */
 
 function fcn_trackProgress() {
-  if (!fcn_chapterContent) return;
+  if (!fcn_chapterContent) {
+    return;
+  }
+
   fcn_readingProgress();
   window.addEventListener('scroll.rAF', fcn_throttle(fcn_readingProgress, 1000 / 48));
 }
@@ -1209,7 +1268,9 @@ function fcn_readingProgress() {
     fcn_chapterCheckmarkUpdated = true;
 
     // Make sure necessary data is available
-    if (!chapterList || typeof fcn_toggleCheckmark != 'function') return;
+    if (!chapterList || typeof fcn_toggleCheckmark != 'function') {
+      return;
+    }
 
     // Mark chapter as read
     fcn_toggleCheckmark(chapterList.dataset.storyId, 'progress', parseInt(fcn_inlineStorage.postId), null, 'set');

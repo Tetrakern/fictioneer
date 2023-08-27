@@ -2,7 +2,7 @@
 // SETUP
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_ajaxCommentsSection = _$$$('comments');
+const /** @const {HTMLElement} */ fcn_commentSection = _$$$('comments');
 
 // =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
@@ -24,12 +24,11 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentsSection = _$$$('comments');
 
 function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   //Abort conditions...
-  if (!fcn_ajaxCommentsSection) {
+  if (!fcn_commentSection) {
     return;
   }
 
   // Setup
-  const commentSection = _$$$('comments');
   let commentText = '',
       commentTextarea = _$$$('comment'),
       errorNote;
@@ -40,12 +39,12 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   }
 
   // Abort if another AJAX action is in progress
-  if (fcn_ajaxCommentsSection.classList.contains('ajax-in-progress')) {
+  if (fcn_commentSection.classList.contains('ajax-in-progress')) {
     return;
   }
 
   // Lock comment until AJAX action is complete
-  fcn_ajaxCommentsSection.classList.add('ajax-in-progress');
+  fcn_commentSection.classList.add('ajax-in-progress');
 
   // Get page
   if (!page) {
@@ -53,14 +52,14 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   }
 
   // Abort if Fictioneer comment section not found
-  if (!fcn_ajaxCommentsSection) {
+  if (!fcn_commentSection) {
     return;
   }
 
   // Payload
   const payload = {
     'action': 'fictioneer_ajax_get_comment_section',
-    'post_id': post_id ?? fcn_ajaxCommentsSection.dataset.postId,
+    'post_id': post_id ?? fcn_commentSection.dataset.postId,
     'page': parseInt(page)
   }
 
@@ -88,12 +87,12 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
         const logoutLink = temp.querySelector('.logout-link');
 
         if (logoutLink) {
-          logoutLink.href = _$$$('comments').dataset.logoutUrl;
+          logoutLink.href = fcn_commentSection.dataset.logoutUrl;
         }
       }
 
       // Output HTML
-      commentSection.innerHTML = temp.innerHTML;
+      fcn_commentSection.innerHTML = temp.innerHTML;
       temp.remove();
 
       // Append stored content (in case of pagination)
@@ -148,12 +147,12 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   })
   .then(() => {
     // Update view regardless of success
-    fcn_ajaxCommentsSection.classList.remove('ajax-in-progress');
+    fcn_commentSection.classList.remove('ajax-in-progress');
 
     // Add error (if any)
     if (errorNote) {
-      commentSection.innerHTML = '';
-      commentSection.appendChild(errorNote);
+      fcn_commentSection.innerHTML = '';
+      fcn_commentSection.appendChild(errorNote);
     }
   });
 }
@@ -217,8 +216,8 @@ function fcn_setupCommentSectionObserver() {
   );
 
   // Observe comment section to fire AJAX request once
-  if (fcn_ajaxCommentsSection) {
-    fct_commentSectionObserver.observe(fcn_ajaxCommentsSection);
+  if (fcn_commentSection) {
+    fct_commentSectionObserver.observe(fcn_commentSection);
   }
 }
 
@@ -243,7 +242,7 @@ if (fcn_theRoot.dataset.ajaxNonce) {
 
 function fcn_loadCommentEarly() {
   // Check URL whether there is a comment anchor
-  if (_$$$('comments') && location.hash.includes('#comment')) {
+  if (fcn_commentSection && location.hash.includes('#comment')) {
     // Start loading comments via AJAX if not done already
     if (!_$$$('comment')) {
       fct_commentSectionObserver.disconnect();

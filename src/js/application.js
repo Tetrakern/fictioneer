@@ -462,7 +462,9 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
 
 function fcn_scrollDirection() {
   // Do not proceed if the mobile menu is open
-  if (fcn_theSite.classList.contains('transformed-scroll')) return;
+  if (fcn_theSite.classList.contains('transformed-scroll')) {
+    return;
+  }
 
   // Get current scroll offset
   const newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
@@ -750,7 +752,9 @@ function fcn_setLightMode(boolean, silent = false) {
   });
 
   // Update theme color meta tag
-  if (!silent) fcn_updateThemeColor();
+  if (!silent) {
+    fcn_updateThemeColor();
+  }
 }
 
 // Initialize (with default from HTML root)
@@ -988,7 +992,10 @@ function fcn_setSaturationFromRange() {
  */
 
 function fcn_setSaturationFromText() {
-  if (this.value == '-' || this.value == '') return;
+  if (this.value == '-' || this.value == '') {
+    return;
+  }
+
   fcn_updateSaturation((parseInt(this.value) ?? 0) / 100);
 }
 
@@ -1095,7 +1102,9 @@ function fcn_applySiteSettings(value) {
     // Update checkboxes
     const control = _$$$(`site-setting-${setting[0]}`);
 
-    if (control) control.checked = setting[1];
+    if (control) {
+      control.checked = setting[1];
+    }
 
     // Update styles and classes
     switch (setting[0]) {
@@ -1341,7 +1350,7 @@ function fcn_contactFormSubmit(button) {
 
   // Request
   fcn_ajaxPost(payload)
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       // Success
       form.querySelector('textarea').value = '';
@@ -1354,7 +1363,7 @@ function fcn_contactFormSubmit(button) {
       fcn_showNotification(response.data.error, 5, 'warning');
     }
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       button.disabled = false;
@@ -1579,7 +1588,9 @@ class FCN_KeywordInput {
           value = this.allowList[this.encode(name)];
 
     // Only allowed value and no duplicates
-    if (!value || this.keywords.indexOf(value) > -1) return;
+    if (!value || this.keywords.indexOf(value) > -1) {
+      return;
+    }
 
     // Add to keywords
     this.keywords.push(value);
@@ -1748,7 +1759,9 @@ _$$('.search-form').forEach(form => {
   const keywordInputs = [];
 
   // Skip if simple form
-  if (form.classList.contains('_simple')) return;
+  if (form.classList.contains('_simple')) {
+    return;
+  }
 
   // Initialize each keyword input in form
   form.querySelectorAll('.keyword-input__input').forEach(element => { keywordInputs.push(new FCN_KeywordInput(element)) });
