@@ -227,8 +227,7 @@ _$$('.confirm-dialog').forEach(element => {
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   localStorage.removeItem('fcnProfileAvatar');
   localStorage.removeItem('fcnUserData');
-  localStorage.removeItem('fcnLoginState');
-  localStorage.removeItem('fcnNonce');
+  localStorage.removeItem('fcnAuth');
   localStorage.removeItem('fcnBookshelfContent');
   localStorage.removeItem('fcnChapterBookmarks');
 });

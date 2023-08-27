@@ -8,9 +8,6 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
   define(
     'FICTIONEER_FAST_AJAX_FUNCTIONS',
     array(
-      // System
-      'fictioneer_ajax_is_user_logged_in',
-      'fictioneer_ajax_get_nonce',
       // Bookmarks
       'fictioneer_ajax_save_bookmarks',
       // Follows
@@ -28,6 +25,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_clear_my_checkmarks',
       'fictioneer_ajax_get_finished_checkmarks_list',
       // User
+      'fictioneer_ajax_get_auth',
       'fictioneer_ajax_get_user_data',
       'fictioneer_ajax_get_avatar'
     )

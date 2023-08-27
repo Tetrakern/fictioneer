@@ -960,17 +960,16 @@ function fictioneer_show_auth_content() {
 }
 
 // =============================================================================
-// GET LOGIN STATUS VIA AJAX
+// AJAX AUTHENTICATION
 // =============================================================================
 
 /**
- * Sends login status via AJAX
+ * Send user authentication status via AJAX
  *
- * @since 5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
+ * @since 5.7.0
  */
 
-function fictioneer_ajax_is_user_logged_in() {
+function fictioneer_ajax_get_auth() {
   // Enabled?
   if ( ! get_option( 'fictioneer_enable_ajax_authentication' ) ) {
     wp_send_json_error(
@@ -979,60 +978,27 @@ function fictioneer_ajax_is_user_logged_in() {
     );
   }
 
-  // Nonce
-  check_ajax_referer( 'fictioneer_nonce', 'nonce' );
-
   // Setup
   $user = wp_get_current_user();
+  $nonce = wp_create_nonce( 'fictioneer_nonce' );
+  $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
 
-  // Send login status
+  // Response
   wp_send_json_success(
     array(
       'loggedIn' => is_user_logged_in(),
       'isAdmin' => fictioneer_is_admin( $user->ID ),
       'isModerator' => fictioneer_is_moderator( $user->ID ),
       'isAuthor' => fictioneer_is_author( $user->ID ),
-      'isEditor' => fictioneer_is_editor( $user->ID )
+      'isEditor' => fictioneer_is_editor( $user->ID ),
+      'nonce' => $nonce,
+      'nonceHtml' => $nonce_html
     )
   );
 }
-
 if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
-  add_action( 'wp_ajax_nopriv_fictioneer_ajax_is_user_logged_in', 'fictioneer_ajax_is_user_logged_in' );
-}
-
-// =============================================================================
-// GET NONCE VIA AJAX
-// =============================================================================
-
-/**
- * Sends valid nonce via AJAX
- *
- * @since 5.0
- * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
- */
-
-function fictioneer_ajax_get_nonce() {
-  // Enabled?
-  if ( ! get_option( 'fictioneer_enable_ajax_nonce' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
-  }
-
-  // Prepare nonce field
-  $nonce = wp_create_nonce( 'fictioneer_nonce' );
-  $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
-
-  // Send nonce field
-  wp_send_json_success( array( 'nonce' => $nonce, 'nonceHtml' => $nonce_html ) );
-}
-
-if ( get_option( 'fictioneer_enable_ajax_nonce' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
-  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_nonce', 'fictioneer_ajax_get_nonce' );
+  add_action( 'wp_ajax_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
+  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
 }
 
 // =============================================================================

@@ -15,11 +15,8 @@ function fictioneer_after_logout_cleanup() {
   <script>
     localStorage.removeItem('fcnProfileAvatar');
     localStorage.removeItem('fcnUserData');
-    localStorage.removeItem('fcnLoginState');
-    localStorage.removeItem('fcnNonce');
+    localStorage.removeItem('fcnAuth');
     localStorage.removeItem('fcnBookshelfContent');
-
-    // Deliberate logout means clear bookmarks!
     localStorage.removeItem('fcnChapterBookmarks');
   </script>
   <?php // <--- End HTML

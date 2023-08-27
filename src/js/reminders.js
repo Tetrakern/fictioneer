@@ -127,7 +127,7 @@ function fcn_updateRemindersView() {
   // Get current data
   const currentUserData = fcn_getUserData();
 
-  if (!currentUserData.reminders) {
+  if (!fcn_reminders || !currentUserData.reminders) {
     return;
   }
 

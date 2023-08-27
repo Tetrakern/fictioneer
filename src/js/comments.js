@@ -918,10 +918,10 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentForm = _$$$('ajax-comment-form-
 
 // Check whether form target exists...
 if (fcn_ajaxCommentForm) {
-  // Check for nonce deferment...
-  if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
+  // In case of AJAx authentication...
+  if (fcn_theRoot.dataset.ajaxNonce) {
     // Load after nonce has been fetched
-    fcn_theRoot.addEventListener('nonceReady', () => {
+    document.addEventListener('fcnAuthReady', () => {
       fcn_getCommentForm();
     });
   } else {

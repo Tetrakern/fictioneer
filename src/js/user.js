@@ -117,7 +117,9 @@ function fcn_getUserAvatar() {
 }
 
 // Initialize
-fcn_getProfileImage();
+if (fcn_isLoggedIn || !fcn_theRoot.dataset.ajaxAuth) {
+  fcn_getProfileImage();
+}
 
 // =============================================================================
 // FETCH RELEVANT USER DATA
@@ -132,10 +134,10 @@ function fcn_initializeUserData() {
 
 function fcn_getUserData() {
   // Get JSON string from local storage
-  const data = localStorage.getItem('fcnUserData');
+  const data = fcn_parseJSON(localStorage.getItem('fcnUserData'));
 
   // Parse and return JSON string if valid, otherwise return new JSON
-  return (data && fcn_isValidJSONString(data)) ? JSON.parse(data) :
+  return data ??
     {
       'lastLoaded': 0,
       'timestamp': 0,
@@ -223,7 +225,7 @@ function fcn_fetchUserData() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  if (fcn_isLoggedIn && !fcn_userData) {
+  if ((fcn_isLoggedIn && !fcn_userData) || !fcn_theRoot.dataset.ajaxAuth) {
     fcn_initializeUserData();
   }
 });

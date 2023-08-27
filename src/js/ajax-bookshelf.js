@@ -5,8 +5,8 @@
 const fcn_bookshelfTarget = _$$$('ajax-bookshelf-target');
 
 // Initialize
-if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
-  fcn_theRoot.addEventListener('nonceReady', () => {
+if (fcn_theRoot.dataset.ajaxNonce) {
+  document.addEventListener('fcnAuthReady', () => {
     fcn_updateBookshelfView();
   });
 } else {
@@ -21,15 +21,11 @@ if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
  * Get bookshelf content from web storage or create new JSON.
  *
  * @since 4.3
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  */
 
 function fcn_getBookshelfContent() {
-  // Get JSON string from web storage
-  const c = localStorage.getItem('fcnBookshelfContent');
-
-  // Parse and return JSON string if valid, otherwise return new JSON
-  return (c && fcn_isValidJSONString(c)) ? JSON.parse(c) : { html: {}, count: {} };
+  return fcn_parseJSON(localStorage.getItem('fcnBookshelfContent')) ?? { html: {}, count: {} };
 }
 
 // =============================================================================
@@ -77,7 +73,10 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
     fcn_bookshelfTarget.dataset.page = page;
     _$('.item-number').innerHTML = `(${fcn_bookshelfStorage['count'][action]})`;
-    if (scroll) _$$$('main').scrollIntoView({behavior: 'smooth'});
+
+    if (scroll) {
+      _$$$('main').scrollIntoView({ behavior: 'smooth' });
+    }
   } else {
     fcn_fetchBookshelfPart(action, page, order, scroll);
   }

@@ -131,7 +131,7 @@ function fcn_updateFollowsView() {
   // Get current data
   const currentUserData = fcn_getUserData();
 
-  if (!currentUserData.follows) {
+  if (!fcn_follows || !currentUserData.follows) {
     return;
   }
 

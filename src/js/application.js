@@ -10,9 +10,7 @@ const /** @const {HTMLElement} */ fcn_theSite = _$$$('site'),
       /** @const {URLSearchParams} */ fcn_urlSearchParams = new URLSearchParams(window.location.search),
       /** @const {Object} */ fcn_urlParams = Object.fromEntries(fcn_urlSearchParams.entries()),
       /** @const {Number} */ fcn_pageLoadTimestamp = Date.now(),
-      /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl), // Default: 60 seconds
-      /** @const {Event} */ fcn_eventNonceReady = new Event('nonceReady'),
-      /** @const {Boolean} */ fcn_isAjaxAuth = fcn_theRoot.dataset.ajaxAuth;
+      /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
 var /** @type {Object} */ fcn_cssVars = getComputedStyle(document.documentElement),
     /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in'),
@@ -33,14 +31,9 @@ if (fcn_chapterList) {
 // =============================================================================
 
 // Remove superfluous data and nodes if not logged in
-if (!fcn_isLoggedIn && !fcn_isAjaxAuth) {
+if (!fcn_isLoggedIn && !fcn_theRoot.dataset.ajaxAuth) {
   fcn_cleanupWebStorage(true);
-
-  // Since chapter lists on story pages are globally cached, the checkmarks are
-  // always delivered if enabled regardless of log-in status
-  _$$('.chapter-group__list-item-checkmark').forEach(element => {
-    element.remove();
-  });
+  fcn_cleanupGuestView();
 }
 
 // Remove query args (defined in _theme_setup.php)
@@ -63,19 +56,17 @@ if (typeof fcn_removeQueryArgs === 'function') {
 function fcn_cleanupWebStorage(keepGuestData = false) {
   localStorage.removeItem('fcnProfileAvatar');
   localStorage.removeItem('fcnUserData');
-  localStorage.removeItem('fcnLoginState');
   localStorage.removeItem('fcnBookshelfContent');
 
   if (!keepGuestData) {
     localStorage.removeItem('fcnChapterBookmarks');
   }
 
-  // Clean up private nonce but keep public nonce
-  let maybeNonce = localStorage.getItem('fcnNonce');
-  maybeNonce = (maybeNonce && fcn_isValidJSONString(maybeNonce)) ? JSON.parse(maybeNonce) : false;
+  // Clean up private authentication data
+  const auth = fcn_parseJSON(localStorage.getItem('fcnAuth'));
 
-  if (maybeNonce && maybeNonce['loggedIn']) {
-    localStorage.removeItem('fcnNonce');
+  if (auth?.loggedIn) {
+    localStorage.removeItem('fcnAuth');
   }
 }
 
@@ -85,7 +76,7 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
 });
 
 // =============================================================================
-// VIEW CLEANUP
+// GUEST VIEW CLEANUP
 // =============================================================================
 
 /**
@@ -98,163 +89,155 @@ function fcn_cleanupGuestView() {
   fcn_isLoggedIn = false;
   fcn_theBody.classList.remove('logged-in', 'is-admin', 'is-moderator', 'is-editor', 'is-author');
 
+  _$$$('fictioneer-ajax-nonce')?.remove();
+
   _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .chapter-group__list-item-checkmark').forEach(element => {
     element.remove()
   });
 }
 
 // =============================================================================
-// LOAD NONCE VIA AJAX
+// AUTHENTICATE VIA AJAX
 // =============================================================================
 
-if (fcn_theRoot.dataset.ajaxNonce) {
-  fcn_fetchNonce();
-}
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  if (fcn_theRoot.dataset.ajaxAuth) {
+    fcn_ajaxAuth();
+  }
+});
 
 /**
- * Fetch nonce via AJAX or web storage.
+ * Authenticate user via AJAX or from web storage
  *
  * @since 5.0
  */
 
-function fcn_fetchNonce() {
-  // Look for recent state in web storage
-  let storage = localStorage.getItem('fcnNonce');
+function fcn_ajaxAuth() {
+  let eventFired = false;
 
-  storage = (storage && fcn_isValidJSONString(storage)) ? JSON.parse(storage) : false;
+  // Look for recent authentication in web storage
+  let localAuth = fcn_parseJSON(localStorage.getItem('fcnAuth')) ?? false;
 
-  // Clear cached public nonce if any
-  if (storage && !storage['loggedIn'] && fcn_isLoggedIn) {
-    localStorage.removeItem('fcnNonce');
-    storage = false;
+  // Clear left over guest authentication
+  if (fcn_isLoggedIn && !localAuth?.loggedIn) {
+    localStorage.removeItem('fcnAuth');
+    localAuth = false;
   }
 
-  // Only update from server after some time has passed (e.g. 60 seconds)
-  if (storage) {
-    // Add nonce to DOM
-    fcn_addNonceAndAuth(storage['nonceHtml']);
+  // Authenticate from web storage (if set)...
+  if (localAuth) {
+    fcn_addNonceHTML(localAuth['nonceHtml']);
 
-    // If not timed out, skip server request
-    if (fcn_ajaxLimitThreshold < storage['lastLoaded']) {
+    // Fire fcnAuthReady event
+    const event = new CustomEvent('fcnAuthReady', {
+      detail: {
+        nonceHtml: localAuth['nonceHtml'],
+        nonce: localAuth['nonce'],
+        loggedIn: localAuth['loggedIn'],
+        isAdmin: localAuth['isAdmin'],
+        isModerator: localAuth['isModerator'],
+        isAuthor: localAuth['isAuthor'],
+        isEditor: localAuth['isEditor']
+      },
+      bubbles: true,
+      cancelable: false
+    });
+
+    document.dispatchEvent(event);
+    eventFired = true;
+
+    // ... but refresh from server after some time has passed (e.g. 60 seconds)
+    if (fcn_ajaxLimitThreshold < localAuth.lastLoaded) {
       return;
     }
   }
 
-  // Load from server
+  // Request nonce via AJAX
   fcn_ajaxGet({
-    'action': 'fictioneer_ajax_get_nonce',
+    'action': 'fictioneer_ajax_get_auth',
     'fcn_fast_ajax': 1
-  }).then((response) => {
-    // Remove cached nonce
-    _$$$('fictioneer-ajax-nonce')?.remove();
-
+  }).then(response => {
     if (response.success) {
       // Append hidden input with nonce to DOM
-      fcn_addNonceAndAuth(response.data.nonceHtml);
+      fcn_addNonceHTML(response.data.nonceHtml);
+
+      // Unpack
+      const data = {
+        'lastLoaded': Date.now(),
+        'nonceHtml': response.data.nonceHtml,
+        'nonce': response.data.nonce,
+        'loggedIn': response.data.loggedIn,
+        'isAdmin': response.data.isAdmin,
+        'isModerator': response.data.isModerator,
+        'isAuthor': response.data.isAuthor,
+        'isEditor': response.data.isEditor
+      }
+
+      // Fire fcnAuthReady event (if not already done)
+      if (!eventFired) {
+        const event = new CustomEvent('fcnAuthReady', {
+          detail: data,
+          bubbles: true,
+          cancelable: false
+        });
+
+        document.dispatchEvent(event);
+      }
 
       // Remember to avoid too many requests
       localStorage.setItem(
-        'fcnNonce',
-        JSON.stringify({ 'lastLoaded': Date.now(), 'nonceHtml': response.data.nonceHtml, 'loggedIn': fcn_isLoggedIn })
+        'fcnAuth',
+        JSON.stringify(data)
       );
     } else {
       // If unsuccessful, clear local data
-      _$$$('fictioneer-ajax-nonce')?.remove();
       fcn_cleanupGuestView();
+
+      // Fire fcnAuthFailed event
+      const event = new Event('fcnAuthFailed');
+      document.dispatchEvent(event);
     }
   })
   .catch(() => {
     // Most likely 403 after likely unsafe logout, clear local data
-    localStorage.removeItem('fcnNonce');
-    _$$$('fictioneer-ajax-nonce')?.remove();
+    localStorage.removeItem('fcnAuth');
     fcn_cleanupGuestView();
+
+    // Fire fcnAuthError event
+    const event = new Event('fcnAuthError');
+    document.dispatchEvent(event);
   });
 }
 
 /**
- * Append hidden input element with nonce to DOM and fetch login state.
+ * Append hidden input element with nonce to DOM.
  *
  * @since 5.0
  * @param {String} nonceHtml - HTML for the hidden input with nonce value.
  */
 
-function fcn_addNonceAndAuth(nonceHtml) {
+function fcn_addNonceHTML(nonceHtml) {
+  // Remove old (if any)
+  _$$$('fictioneer-ajax-nonce')?.remove();
+
   // Append hidden input with nonce to DOM
-  const node = document.createElement('div');
-  node.innerHTML += nonceHtml;
-  fcn_theBody.appendChild(node.firstChild);
-
-  // Fire nonceReady event
-  fcn_theRoot.dispatchEvent(fcn_eventNonceReady);
-
-  // Call to fetch login state (if necessary)
-  if (!fcn_isLoggedIn && fcn_isAjaxAuth) {
-    fcn_fetchLoginState();
-  }
+  fcn_theBody.appendChild(fcn_html`${nonceHtml}`);
 }
 
 // =============================================================================
-// UPDATE LOGIN STATE VIA AJAX
+// UPDATE LOGIN STATE
 // =============================================================================
 
-// Only if public caching compatibility mode is active and the nonce is not deferred
-if (!fcn_isLoggedIn && (typeof fcn_isAjaxAuth !== 'undefined') && !fcn_theRoot.dataset.ajaxNonce) {
-  fcn_fetchLoginState();
-}
-
-/**
- * Fetch login state via AJAX or web storage.
- *
- * @since 5.0
- */
-
-function fcn_fetchLoginState() {
-  // Look for recent state in web storage
-  let storage = localStorage.getItem('fcnLoginState');
-  storage = (storage && fcn_isValidJSONString(storage)) ? JSON.parse(storage) : false;
-
-  // Update from cache to avoid delays but only cache for a short while
-  if (storage && storage['loggedIn']) {
-    // Set logged-in state and call setup functions
-    fcn_setLoggedInState(storage, false); // Do not initialize (happens later in this case)
-
-    // If not timed out, skip server request
-    if (Date.now() - fictioneer_ajax.login_ttl < storage['lastLoaded']) {
-      return;
-    }
-  }
-
-  // Load from server
-  fcn_ajaxGet({
-    'action': 'fictioneer_ajax_is_user_logged_in',
-    'fcn_fast_ajax': 1
-  }).then((response) => {
-    if (response.success && response.data.loggedIn) {
-      // Update view to logged-in state (beware double initialize!)
-      fcn_setLoggedInState(response.data, !storage['loggedIn']);
-
-      // Remember to avoid too many requests
-      localStorage.setItem(
-        'fcnLoginState',
-        JSON.stringify({
-          'lastLoaded': Date.now(),
-          'loggedIn': response.data.loggedIn,
-          'isAdmin': response.data.isAdmin,
-          'isModerator': response.data.isModerator,
-          'isAuthor': response.data.isAuthor,
-          'isEditor': response.data.isEditor
-        })
-      );
+// Only if AJAX authentication is active
+if (!fcn_isLoggedIn && fcn_theRoot.dataset.ajaxAuth) {
+  document.addEventListener('fcnAuthReady', (event) => {
+    if (event.detail.loggedIn) {
+      fcn_setLoggedInState(event.detail);
     } else {
-      // Cleanup if not logged in (200)
       fcn_cleanupWebStorage(true);
       fcn_cleanupGuestView();
     }
-  })
-  .catch(() => {
-    // Most likely 403 after likely unsafe logout, clear local data
-    fcn_cleanupWebStorage();
-    fcn_cleanupGuestView();
   });
 }
 
@@ -263,10 +246,9 @@ function fcn_fetchLoginState() {
  *
  * @since 5.0
  * @param {Object} state - Fetched/Cached login state.
- * @param {Boolean} initialize - Whether to call setup functions.
  */
 
-function fcn_setLoggedInState(state, initialize = true) {
+function fcn_setLoggedInState(state) {
   // Update state and DOM
   fcn_isLoggedIn = state.loggedIn;
   fcn_theBody.classList.add('logged-in');
@@ -294,11 +276,9 @@ function fcn_setLoggedInState(state, initialize = true) {
 
   _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(element => { element.remove() });
 
-  // Setup local user data, but only if the login state has not been added
-  // synchronous from local storage (avoid double initialize).
-  if (initialize) {
-    fcn_getProfileImage();
-  }
+  // Initialize
+  fcn_initializeUserData();
+  fcn_getProfileImage();
 }
 
 // =============================================================================
@@ -344,8 +324,14 @@ fcn_theBody.addEventListener('click', e => {
       e.target.classList.contains('toggle-last-clicked')
     )
   ) {
-    if (typeof fcn_toggleLastClicked === 'function') fcn_toggleLastClicked(lastClickTarget);
-    if (typeof fcn_popupPosition === 'function') fcn_popupPosition();
+    if (typeof fcn_toggleLastClicked === 'function') {
+      fcn_toggleLastClicked(lastClickTarget);
+    }
+
+    if (typeof fcn_popupPosition === 'function') {
+      fcn_popupPosition();
+    }
+
     e.stopPropagation();
     return;
   }
@@ -731,7 +717,8 @@ function fcn_toggleLightMode() {
     localStorage.getItem('fcnLightmode') ?
     localStorage.getItem('fcnLightmode') == 'true' :
     fcn_theRoot.dataset.modeDefault == 'light';
-  fcn_setLightMode(!current);
+
+    fcn_setLightMode(!current);
 }
 
 /**
@@ -927,7 +914,10 @@ function fcn_setDarkenFromRange() {
  */
 
 function fcn_setDarkenFromText() {
-  if (this.value == '-' || this.value == '') return;
+  if (this.value == '-' || this.value == '') {
+    return;
+  }
+
   fcn_updateDarken((parseInt(this.value) ?? 0) / 100);
 }
 
@@ -1046,23 +1036,21 @@ function fcn_defaultSiteSettings() {
 }
 
 /**
- * Get site settings JSON from local storage or create new one.
+ * Get site settings JSON from web storage or create new one.
  *
  * @since 4.0
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  * @see fcn_defaultSiteSettings()
  * @return {Object} The site settings.
  */
 
 function fcn_getSiteSettings() {
-  // Look in local storage...
-  let s = localStorage.getItem('fcnSiteSettings');
+  // Get settings from web storage or use defaults
+  const s = fcn_parseJSON(localStorage.getItem('fcnSiteSettings')) ?? fcn_defaultSiteSettings();
 
-  // ... parse if found, set defaults otherwise
-  s = (s && fcn_isValidJSONString(s)) ? JSON.parse(s) : fcn_defaultSiteSettings();
-
-  // Update local storage and return
+  // Update web storage and return
   fcn_setSiteSettings(s);
+
   return s;
 }
 
@@ -1078,7 +1066,9 @@ function fcn_setSiteSettings(value = null) {
   value = value ? value : fcn_siteSettings;
 
   // Simple validation
-  if (typeof value !== 'object') return;
+  if (typeof value !== 'object') {
+    return;
+  }
 
   // Keep global updated
   fcn_siteSettings = value;
@@ -1216,9 +1206,17 @@ const /** @const {HTMLElement[]} */ fcn_cardLists = _$$('.card-list:not(._no-mut
 var /** @type {MutationObserver} */ fcn_cardListMutationObserver = new MutationObserver((e) => {
   if (e[0].addedNodes) {
     // Update view
-    if (typeof fcn_updateFollowsView === 'function') fcn_updateFollowsView();
-    if (typeof fcn_updateCheckmarksView === 'function') fcn_updateCheckmarksView();
-    if (typeof fcn_updateRemindersView === 'function') fcn_updateRemindersView();
+    if (typeof fcn_updateFollowsView === 'function') {
+      fcn_updateFollowsView();
+    }
+
+    if (typeof fcn_updateCheckmarksView === 'function') {
+      fcn_updateCheckmarksView();
+    }
+
+    if (typeof fcn_updateRemindersView === 'function') {
+      fcn_updateRemindersView();
+    }
   }
 });
 

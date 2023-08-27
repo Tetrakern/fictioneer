@@ -314,7 +314,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
       <h4>[Fictioneer: General] Compatibility:</h4>
       <ul>
         <li>- [x] Enable cache compatibility mode</li>
-        <li>- [x] Enable AJAX nonce deferment</li>
+        <li>- [x] Enable AJAX user authentication</li>
         <li>- [x] Enable AJAX comment form (best performance) ... or ... comment section (best compatibility)</li>
       </ul>
     </blockquote>
@@ -450,7 +450,6 @@ Technically just another plugin, but one that will make your site significantly 
       <h4>[General] Compatibility:</h4>
       <ul>
         <li>- [x] Enable public cache compatibility mode</li>
-        <li>- [x] Enable AJAX nonce deferment</li>
         <li>- [x] Enable AJAX user authentication</li>
         <li>- [x] Enable AJAX comment form (best performance) ... or ... comment section (best compatibility)</li>
       </ul>
@@ -582,10 +581,10 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
-* **Enable Storygraph API:** Allow external services to index and search your site to reach a larger audience. Recommended.
-* **Enable OAuth 2.0 authentication:** Allow visitors to register with social media accounts, but be aware of the implications!
+* **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
+* **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications!
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
-* **Enable AJAX nonce deferment:** [Nonces](https://developer.wordpress.org/apis/security/nonces/) can conflict with caching. Use this as *last resort* to bypass the cache.
+* **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
 
 <br>

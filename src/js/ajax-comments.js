@@ -198,9 +198,9 @@ function fcn_jumpToCommentPage() {
 
 var /** @type {IntersectionObserver} */ fct_commentsObserver;
 
-// In case of nonce deferment
-if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
-  fcn_theRoot.addEventListener('nonceReady', () => {
+// In case of AJAx authentication...
+if (fcn_theRoot.dataset.ajaxNonce) {
+  document.addEventListener('fcnAuthReady', () => {
     fcn_setupCommentObserver();
   });
 } else {
@@ -234,9 +234,9 @@ function fcn_setupCommentObserver() {
 // SCROLL NEW COMMENT INTO VIEW SUBMITTING VIA RELOAD
 // =============================================================================
 
-// In case of nonce deferment
-if (fcn_theRoot.dataset.ajaxNonce && !_$$$('fictioneer-ajax-nonce')) {
-  fcn_theRoot.addEventListener('nonceReady', () => {
+// In case of AJAx authentication...
+if (fcn_theRoot.dataset.ajaxNonce) {
+  document.addEventListener('fcnAuthReady', () => {
     fcn_loadCommentEarly();
   });
 } else {

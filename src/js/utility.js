@@ -204,29 +204,8 @@ function fcn_copyToClipboard(text, message = false) {
 }
 
 // =============================================================================
-// JSONS
+// PARSE JSON
 // =============================================================================
-
-/**
- * Is a string a valid JSON?
- *
- * @since 4.0
- * @param {String} str - The string to test.
- * @return {Boolean} True if valid, false of not.
- */
-
-function fcn_isValidJSONString(str) {
-  if (str === null || typeof str === 'undefined' || typeof str !== 'string') {
-    return false;
-  }
-
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
 
 /**
  * Parse JSON and account for invalid strings
@@ -617,7 +596,10 @@ function fcn_getCookie(cname) {
  */
 
 function fcn_isValidUrl(url) {
-  if (!url) return false;
+  if (!url) {
+    return false;
+  }
+
   return(url.match(/^(https?:\/\/)/) != null);
 }
 
@@ -627,7 +609,7 @@ function fcn_isValidUrl(url) {
 
 // This nonce is always included in the template file but may not be correct
 // if caching is active. Some caching plugins can localize nonces if you add
-// them to a special list. Otherwise use nonce deferment in the options.
+// them to a special list. Otherwise enable AJAX user authentication.
 var fcn_defaultNonce = _$$$('fictioneer-nonce')?.value ?? 0;
 
 /**

@@ -931,14 +931,6 @@
                     </div>
                   </label>
 
-                  <label for="fictioneer_enable_ajax_nonce" class="label-wrapped-checkbox row">
-                    <input name="fictioneer_enable_ajax_nonce" type="checkbox" id="fictioneer_enable_ajax_nonce" <?php echo checked( 1, get_option( 'fictioneer_enable_ajax_nonce' ), false ); ?> value="1">
-                    <div>
-                      <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_ajax_nonce']['label']; ?></span>
-                      <p class="sub-label"><?php _e( 'Fetch the nonce via AJAX after the page has been loaded to get around aggressive caching strategies.', 'fictioneer' ) ?></p>
-                    </div>
-                  </label>
-
                   <label for="fictioneer_enable_ajax_authentication" class="label-wrapped-checkbox row">
                     <input name="fictioneer_enable_ajax_authentication" type="checkbox" id="fictioneer_enable_ajax_authentication" <?php echo checked( 1, get_option( 'fictioneer_enable_ajax_authentication' ), false ); ?> value="1">
                     <div>
