@@ -940,13 +940,15 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  */
 
 function fictioneer_shortcode_chapter_list( $attr ) {
-  // Build empty case
+  // Aria label
+  $aria_label = __( 'Toggle %s chapter group collapse', 'fictioneer' );
 
+  // Build empty case
   ob_start();
   // Start HTML ---> ?>
   <div class="chapter-group">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <button class="chapter-group__name" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>" tabindex="0">
+      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( $aria_label, $attr['heading'] ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $attr['heading']; ?></span>
       </button>
@@ -1049,7 +1051,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group <?php echo implode( ' ', $classes ); ?>">
     <?php if ( $heading ) : ?>
-      <button class="chapter-group__name" aria-label="<?php esc_attr_e( 'Toggle chapter group collapse', 'fictioneer' ); ?>" tabindex="0">
+      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( $aria_label, $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
       </button>
