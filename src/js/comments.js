@@ -885,11 +885,11 @@ function fcn_deleteMyComment(button) {
   comment.classList.add('ajax-in-progress');
 
   // Request
-  fcn_ajaxPost(payload = {
+  fcn_ajaxPost({
     'action': 'fictioneer_ajax_delete_my_comment',
     'comment_id': comment.dataset.id
   })
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       comment.classList.add('_deleted');
       comment.querySelector('.fictioneer-comment__container').innerHTML = response.data.html;
@@ -899,7 +899,7 @@ function fcn_deleteMyComment(button) {
       }
     }
   })
-  .catch((error) => {
+  .catch(error => {
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
@@ -945,7 +945,7 @@ function fcn_getCommentForm() {
     'action': 'fictioneer_ajax_get_comment_form',
     'post_id': _$$$('comments').dataset.postId
   })
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       // Get HTML
       const temp = document.createElement('div');
@@ -989,7 +989,7 @@ function fcn_getCommentForm() {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }
   })
-  .catch((error) => {
+  .catch(error => {
     errorNote = fcn_buildErrorNotice(error);
   })
   .then(() => {

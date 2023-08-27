@@ -7,6 +7,12 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentsSection = _$$$('comments');
 var /** @type {String[]} */ fcn_commentStack = [];
 
 // =============================================================================
+// REQUEST COMMENTS FORM VIA AJAX
+// =============================================================================
+
+// See comments.js (this is to reduce the amount of unnecessary JS)
+
+// =============================================================================
 // REQUEST COMMENTS SECTION VIA AJAX
 // =============================================================================
 
@@ -66,7 +72,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
 
   // Request
   fcn_ajaxGet(payload)
-  .then((response) => {
+  .then(response => {
     // Check for success
     if (response.success) {
       // Update page
@@ -151,7 +157,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       errorNote = fcn_buildErrorNotice(response.data.error);
     }
   })
-  .catch((error) => {
+  .catch(error => {
     errorNote = fcn_buildErrorNotice(error);
   })
   .then(() => {
@@ -196,37 +202,37 @@ function fcn_jumpToCommentPage() {
 // COMMENTS OBSERVER
 // =============================================================================
 
-var /** @type {IntersectionObserver} */ fct_commentsObserver;
+var /** @type {IntersectionObserver} */ fct_commentSectionObserver;
 
 // In case of AJAx authentication...
 if (fcn_theRoot.dataset.ajaxNonce) {
   document.addEventListener('fcnAuthReady', () => {
-    fcn_setupCommentObserver();
+    fcn_setupCommentSectionObserver();
   });
 } else {
-  fcn_setupCommentObserver();
+  fcn_setupCommentSectionObserver();
 }
 
 /**
- * Helper to set up comments observer.
+ * Helper to set up comment section observer.
  *
  * @since 5.0
  */
 
-function fcn_setupCommentObserver() {
-  fct_commentsObserver = new IntersectionObserver(
+function fcn_setupCommentSectionObserver() {
+  fct_commentSectionObserver = new IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting) {
         fcn_getCommentSection();
-        fct_commentsObserver.disconnect();
+        fct_commentSectionObserver.disconnect();
       }
     },
     { rootMargin: '400px', threshold: 1 }
   );
 
-  // Observer comment section and fire AJAX request once
+  // Observe comment section to fire AJAX request once
   if (fcn_ajaxCommentsSection) {
-    fct_commentsObserver.observe(fcn_ajaxCommentsSection);
+    fct_commentSectionObserver.observe(fcn_ajaxCommentsSection);
   }
 }
 
@@ -254,7 +260,7 @@ function fcn_loadCommentEarly() {
   if (_$$$('comments') && location.hash.includes('#comment')) {
     // Start loading comments via AJAX if not done already
     if (!_$$$('comment')) {
-      fct_commentsObserver.disconnect();
+      fct_commentSectionObserver.disconnect();
       fcn_reloadCommentsPage();
     }
   }
