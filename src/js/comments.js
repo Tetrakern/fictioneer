@@ -943,7 +943,7 @@ function fcn_setupCommentFormObserver() {
         fct_commentFormObserver.disconnect();
       }
     },
-    { rootMargin: '400px', threshold: 1 }
+    { rootMargin: '450px', threshold: 1 }
   );
 
   // Observe comment form to fire AJAX request once

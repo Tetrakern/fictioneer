@@ -213,7 +213,7 @@ function fcn_setupCommentSectionObserver() {
         fct_commentSectionObserver.disconnect();
       }
     },
-    { rootMargin: '400px', threshold: 1 }
+    { rootMargin: '450px', threshold: 1 }
   );
 
   // Observe comment section to fire AJAX request once
