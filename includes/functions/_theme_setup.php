@@ -502,9 +502,6 @@ function fictioneer_add_custom_scripts() {
   // Mobile menu
   wp_register_script( 'fictioneer-mobile-menu-scripts', get_template_directory_uri() . '/js/mobile-menu.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
-  // Bookmarks
-  wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
-
   // Consent
   wp_register_script( 'fictioneer-consent-scripts', get_template_directory_uri() . '/js/consent.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
@@ -524,16 +521,19 @@ function fictioneer_add_custom_scripts() {
   wp_register_script( 'fictioneer-user-scripts', get_template_directory_uri() . '/js/user.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
   // User Profile
-  wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
+  wp_register_script( 'fictioneer-user-profile-scripts', get_template_directory_uri() . '/js/user-profile.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
+
+  // Bookmarks
+  wp_register_script( 'fictioneer-bookmarks-scripts', get_template_directory_uri() . '/js/bookmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Follows
-  wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
+  wp_register_script( 'fictioneer-follows-scripts', get_template_directory_uri() . '/js/follows.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Checkmarks
-  wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
+  wp_register_script( 'fictioneer-checkmarks-scripts', get_template_directory_uri() . '/js/checkmarks.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Reminders
-  wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
+  wp_register_script( 'fictioneer-reminders-scripts', get_template_directory_uri() . '/js/reminders.min.js', [ 'fictioneer-application-scripts', 'fictioneer-user-scripts'], FICTIONEER_VERSION, true );
 
   // Comments
   wp_register_script( 'fictioneer-comments-scripts', get_template_directory_uri() . '/js/comments.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
@@ -577,11 +577,6 @@ function fictioneer_add_custom_scripts() {
   // Enqueue mobile menu
   wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );
 
-  // Enqueue bookmarks
-  if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
-    wp_enqueue_script( 'fictioneer-bookmarks-scripts' );
-  }
-
   // Enqueue consent
   if ( get_option( 'fictioneer_cookie_banner' ) ) {
     wp_enqueue_script( 'fictioneer-consent-scripts' );
@@ -623,7 +618,7 @@ function fictioneer_add_custom_scripts() {
   }
 
   // Enqueue users + user profile + follows + checkmarks + reminders
-  if ( is_user_logged_in() || ! empty( get_option( 'fictioneer_enable_ajax_authentication', false ) ) ) {
+  if ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) ) {
     wp_enqueue_script( 'fictioneer-user-scripts' );
 
     if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
@@ -641,6 +636,11 @@ function fictioneer_add_custom_scripts() {
     if ( is_page_template( 'user-profile.php' ) ) {
       wp_enqueue_script( 'fictioneer-user-profile-scripts' );
     }
+  }
+
+  // Enqueue bookmarks
+  if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
+    wp_enqueue_script( 'fictioneer-bookmarks-scripts' );
   }
 
   // Enqueue WordPress comment-reply

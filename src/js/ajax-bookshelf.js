@@ -138,7 +138,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
     'page': page,
     'order': order
   })
-  .then((response) => {
+  .then(response => {
     // Check for success
     if (response.success) {
       // Temporary remember in web storage
@@ -156,7 +156,7 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
       fcn_bookshelfTarget.appendChild(fcn_buildErrorNotice(response.data.error));
     }
   })
-  .catch((error) => {
+  .catch(error => {
     // Clear view
     _$('.item-number').innerHTML = '';
     fcn_bookshelfTarget.innerHTML = '';
