@@ -1934,13 +1934,6 @@ fcn_theBody.addEventListener('click', event => {
   }
 });
 
-// Enable smooth scrolling if there is an anchor
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hash) {
-    fcn_theRoot.style.scrollBehavior = 'smooth';
-  }
-});
-
 // =============================================================================
 // MARK CURRENTLY ACTIVE MENU ITEM
 // =============================================================================
