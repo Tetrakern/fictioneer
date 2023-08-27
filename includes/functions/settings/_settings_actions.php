@@ -753,8 +753,15 @@ function fictioneer_update_role() {
     exit();
   }
 
+  // Forbidden capabilities
+  $forbidden = ['create_sites', 'delete_sites', 'manage_network', 'manage_sites', 'manage_network_users', 'manage_network_plugins', 'manage_network_themes', 'manage_network_options', 'upgrade_network', 'setup_network', 'activate_plugins', 'edit_dashboard', 'export', 'import', 'manage_options', 'promote_users', 'customize', 'delete_site', 'update_core', 'update_plugins', 'update_themes', 'install_plugins', 'install_themes', 'delete_themes', 'delete_plugins', 'edit_plugins', 'unfiltered_upload'];
+
   // Update capabilities
   foreach ( ( $_POST['caps'] ?? [] ) as $cap => $val ) {
+    if ( in_array( $cap, $forbidden ) ) {
+      continue;
+    }
+
     if ( empty( $val ) ) {
       $role->remove_cap( $cap );
     } else {
