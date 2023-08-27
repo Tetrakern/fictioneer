@@ -1506,10 +1506,10 @@ class FCN_KeywordInput {
   }
 
   resize() {
-    fcn_resizeInput(
-      this.input,
-      this.tabSuggestion.innerText.length > 0 ? this.tabSuggestion.innerText.length : this.input.value.length
-    );
+    const size = this.tabSuggestion.innerText.length > 0 ?
+      this.tabSuggestion.innerText.length : this.input.value.length;
+
+    this.input.style.width = size * 0.88 + 2 + 'ch'; // Good enough
   }
 
   reset() {

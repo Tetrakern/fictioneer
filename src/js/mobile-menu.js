@@ -133,7 +133,9 @@ _$$$('mobile-menu-comment-jump')?.addEventListener(
       const target = _$$$('comments');
 
       // Scroll to position + offset
-      if (target) fcn_scrollTo(target);
+      if (target) {
+        fcn_scrollTo(target);
+      }
     }, 200); // Wait for mobile menu to close
   }
 );
@@ -148,7 +150,9 @@ _$$$('mobile-menu-bookmark-jump')?.addEventListener(
       const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
 
       // Scroll to position + offset
-      if (target) fcn_scrollTo(target);
+      if (target) {
+        fcn_scrollTo(target);
+      }
     }, 200); // Wait for mobile menu to close
   }
 );

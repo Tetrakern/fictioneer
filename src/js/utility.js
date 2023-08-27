@@ -154,13 +154,19 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
 
 function fcn_evaluateAsBoolean(candidate, fallback = false) {
   // Is the candidate a boolean?
-  if (typeof candidate === 'boolean') return candidate;
+  if (typeof candidate === 'boolean') {
+    return candidate;
+  }
 
   // Does the candidate even exist?
-  if (typeof candidate === 'undefined') return fallback;
+  if (typeof candidate === 'undefined') {
+    return fallback;
+  }
 
   // Is the candidate a checkbox?
-  if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'checkbox') return candidate.checked;
+  if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'checkbox') {
+    return candidate.checked;
+  }
 
   // Is the candidate an element with (data-) value?
   if (candidate instanceof HTMLElement) {
@@ -175,8 +181,13 @@ function fcn_evaluateAsBoolean(candidate, fallback = false) {
   const s = String(candidate),
         i = parseInt(candidate);
 
-  if (s === 'true' || s === '1' || i === 1) return true;
-  if (s === 'false' || s === '0' || i === 0) return false;
+  if (s === 'true' || s === '1' || i === 1) {
+    return true;
+  }
+
+  if (s === 'false' || s === '0' || i === 0) {
+    return false;
+  }
 
   // Return fallback if nothing sticks
   return fallback;
@@ -764,23 +775,6 @@ function fcn_sanitizeHTML(html) {
   temp.innerText = html instanceof HTMLElement ? html.innerHTML : html;
 
   return temp.innerHTML;
-}
-
-// =============================================================================
-// RESIZE INPUTS
-// =============================================================================
-
-/**
- * Resize input width based on value.
- *
- * @since 5.0
- * @param {HTMLElement} input - The input element.
- * @param {Number|null} [size=] - Optional size in characters.
- */
-
-function fcn_resizeInput(input, size = null) {
-  size = size ? size : input.value.length;
-  input.style.width = size * 0.88 + 2 + 'ch'; // Good enough
 }
 
 // =============================================================================
