@@ -167,7 +167,10 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   .then(() => {
     // Regardless of outcome
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
-    if (scroll) _$$$('main').scrollIntoView({behavior: 'smooth'});
+
+    if (scroll) {
+      _$$$('main').scrollIntoView({ behavior: 'smooth' });
+    }
   });
 }
 

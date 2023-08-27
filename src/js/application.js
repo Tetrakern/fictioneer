@@ -1901,29 +1901,40 @@ _$$('.modal-toggle').forEach(element => {
 // =============================================================================
 
 fcn_theBody.addEventListener('click', event => {
+  // Setup
   const trigger = event.target.closest('[href]'),
         href = trigger?.getAttribute('href');
 
-  if (trigger && trigger.tagName === 'A' && href.startsWith('#') && href.length > 1 && href !== '#respond') {
-    const target = href.replace('#', ''),
-          targetElement = _$$(`[name="${target}"], #${target}`)[0],
-          storyComment = trigger.closest('.comment._story-comment'); // Special case
+  // Phew...
+  if (!trigger || !trigger.tagName === 'A' || !href.startsWith('#') || href.length < 2 || href === '#respond') {
+    return;
+  }
 
-    if (storyComment) {
-      const url = storyComment.querySelector('.fictioneer-comment__link').href + href;
+  // More setup
+  const target = href.replace('#', ''),
+        targetElement = _$$(`[name="${target}"], #${target}`)[0],
+        storyComment = trigger.closest('.comment._story-comment');
 
-      if (url) window.location.href = url;
-    }
+  // Story comments need their anchors fixed
+  if (storyComment) {
+    window.location.href = storyComment.querySelector('.fictioneer-comment__link').href + href;
+  }
 
-    if (targetElement) {
-      event.preventDefault();
-      targetElement.scrollIntoView({ behavior: 'smooth', block: trigger.dataset?.block ?? 'start' });
-    }
+  if (targetElement) {
+    event.preventDefault();
+    targetElement.scrollIntoView({ behavior: 'smooth', block: trigger.dataset?.block ?? 'start' });
+  }
+});
+
+// Enable smooth scrolling if there is an anchor
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash) {
+    fcn_theRoot.style.scrollBehavior = 'smooth';
   }
 });
 
 // =============================================================================
-// SCROLL TO ANCHORS
+// MARK CURRENTLY ACTIVE MENU ITEM
 // =============================================================================
 
 /**

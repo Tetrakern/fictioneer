@@ -49,7 +49,9 @@ function fcn_toggleMobileMenu(isOpened) {
     fcn_openMobileFrame('main'); // Reset to main frame
 
     // Restore scroll position
+    fcn_theRoot.style.scrollBehavior = 'auto';
     window.scroll(0, siteScrollTop + adminBarOffset);
+    fcn_theRoot.style.scrollBehavior = '';
 
     // Reset control checkbox
     fcn_mobileMenuToggle.checked = false;

@@ -585,10 +585,10 @@ function fcn_bindAJAXCommentSubmit() {
           urlPart += `?commentcode=${response.data.commentcode}`;
         }
 
-        history.pushState({path: refresh}, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
+        history.pushState({ path: refresh }, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
 
         // Scroll to new comment
-        commentNode.scrollIntoView({behavior: 'smooth'});
+        commentNode.scrollIntoView({ behavior: 'smooth' });
       }
     })
     .catch(error => {
