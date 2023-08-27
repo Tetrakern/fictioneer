@@ -219,7 +219,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
           $reverse_order = 99999;
           $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
           $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
-          $aria_label = __( 'Toggle %s chapter group collapse', 'fictioneer' );
+          $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
           $group_index++;
 
           // Start HTML ---> ?>

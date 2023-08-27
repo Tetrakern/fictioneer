@@ -90,7 +90,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 			'fictioneer-purged-epubs' => __( 'All ePUB files have been purged.', 'fictioneer' ),
       'fictioneer-purged-seo-schemas' => __( 'All SEO schemas have been purged.', 'fictioneer' ),
       'fictioneer-purged-seo-meta-caches' => __( 'All SEO meta caches have been purged.', 'fictioneer' ),
-			'fictioneer-purge-story-data-caches' => __( 'Story data caches have been purged.', 'fictioneer' ),
+			'fictioneer-purge-theme-caches' => __( 'Theme caches have been purged.', 'fictioneer' ),
 			'fictioneer-added-moderator-role' => __( 'Moderator role has been added.', 'fictioneer' ),
       'fictioneer-not-added-moderator-role' => __( 'Moderator role could not be added or already exists.', 'fictioneer' ),
 			'fictioneer-removed-moderator-role' => __( 'Moderator role has been removed.', 'fictioneer' ),
@@ -389,9 +389,9 @@ add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_
  * @since Fictioneer 5.2.5
  */
 
-function fictioneer_tools_purge_story_data_caches() {
+function fictioneer_tools_purge_theme_caches() {
   // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_purge_story_data_caches' );
+  fictioneer_verify_tool_action( 'fictioneer_tools_purge_theme_caches' );
 
   // Setup
   $query_args = array(
@@ -407,16 +407,19 @@ function fictioneer_tools_purge_story_data_caches() {
   // Loop over stories
   foreach ( $stories_ids as $story_id ) {
     delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
-    delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
   }
 
+  // Transients
+  fictioneer_purge_nav_menu_transients();
+  fictioneer_delete_transients_like( 'fictioneer_' );
+
   // Log
-  fictioneer_log( __( 'Purged story data caches.', 'fictioneer' ) );
+  fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );
 
   // Finish
-  fictioneer_finish_tool_action( 'fictioneer-purge-story-data-caches' );
+  fictioneer_finish_tool_action( 'fictioneer-purge-theme-caches' );
 }
-add_action( 'admin_post_fictioneer_purge_story_data_caches', 'fictioneer_tools_purge_story_data_caches' );
+add_action( 'admin_post_fictioneer_tools_purge_theme_caches', 'fictioneer_tools_purge_theme_caches' );
 
 // =============================================================================
 // CHAPTER TOOLS ACTIONS

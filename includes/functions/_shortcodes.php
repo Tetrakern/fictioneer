@@ -941,7 +941,7 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
 
 function fictioneer_shortcode_chapter_list( $attr ) {
   // Aria label
-  $aria_label = __( 'Toggle %s chapter group collapse', 'fictioneer' );
+  $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
   // Build empty case
   ob_start();

@@ -37,15 +37,15 @@
           <div class="card-wrapper">
             <h3 class="card-header"><?php _e( 'Story Tools', 'fictioneer' ) ?></h3>
             <div class="card-content">
-              <p class="description row"><?php _e( '<strong>Convert or duplicate story tags to genres.</strong> If you want to change your previous tagging choices in bulk, you can start here. Converting will turn all tags into genres, duplicating will copy and append them as genres but also keep the originals. No taxonomies are ever deleted with either operation.', 'fictioneer' ) ?></p>
+              <p class="description row"><?php _e( '<strong>Convert or duplicate story tags to genres.</strong> If you want to change your previous tagging choices in bulk, you can start here. Converting will turn all tags into genres, duplicating will copy and append them as genres but also keep the originals.', 'fictioneer' ) ?></p>
               <div class="row flex flex-wrap gap-6">
                 <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_move_story_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_duplicate_story_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ) ?></a>
               </div>
               <hr>
-              <p class="description row"><?php _e( '<strong>Purge story data caches.</strong> In order to accelerate story and chapter pages, certain information is collected once and then cached. These caches should get purged whenever you make a relevant update. If that should fail for whatever reason, you can purge them manually here.', 'fictioneer' ) ?></p>
+              <p class="description row"><?php _e( '<strong>Purge theme caches.</strong> In order to accelerate page rendering, certain content is composed once and then cached. These caches get purged whenever you make relevant updates. If you need to purge them manually, you can do so here.', 'fictioneer' ) ?></p>
               <div class="row flex flex-wrap gap-6">
-                <a class="button button--secondary" id="purge-story-data-caches" href="<?php echo fictioneer_tool_action( 'fictioneer_purge_story_data_caches' ); ?>"><?php _e( 'Purge Story Data Caches', 'fictioneer' ) ?></a>
+                <a class="button button--secondary" id="purge-theme-caches" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_purge_theme_caches' ); ?>"><?php _e( 'Purge Theme Caches', 'fictioneer' ) ?></a>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@
           <div class="card-wrapper">
             <h3 class="card-header"><?php _e( 'Chapter Tools', 'fictioneer' ) ?></h3>
             <div class="card-content">
-              <p class="description row"><?php _e( '<strong>Convert or duplicate chapter tags to genres.</strong> If you want to change your previous tagging choices in bulk, you can start here. Converting will turn all tags into genres, duplicating will copy and append them as genres but also keep the originals. No taxonomies are ever deleted with either operation.', 'fictioneer' ) ?></p>
+              <p class="description row"><?php _e( '<strong>Convert or duplicate chapter tags to genres.</strong> If you want to change your previous tagging choices in bulk, you can start here. Converting will turn all tags into genres, duplicating will copy and append them as genres but also keep the originals.', 'fictioneer' ) ?></p>
               <div class="row flex flex-wrap gap-6">
                 <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_move_chapter_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ) ?></a>
                 <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_duplicate_chapter_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ) ?></a>
