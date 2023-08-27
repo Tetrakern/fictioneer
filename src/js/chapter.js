@@ -296,31 +296,31 @@ _$$('.close-fullscreen').forEach(element => {
  * Get formatting JSON from local storage or create new one.
  *
  * @since 4.0
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  * @see fcn_defaultFormatting()
  * @see fcn_setFormatting();
  * @return {Object} The formatting settings.
  */
 
 function fcn_getFormatting() {
-  // Look in local storage...
-  let f = localStorage.getItem('fcnChapterFormatting');
-
-  // ... parse if found, set defaults otherwise
-  f = (f && fcn_isValidJSONString(f)) ? JSON.parse(f) : fcn_defaultFormatting();
+  // Get settings from local storage or use defaults
+  let formatting = fcn_parseJSON(localStorage.getItem('fcnChapterFormatting')) ?? fcn_defaultFormatting();
 
   // Simple validation
-  if (!f || typeof f !== 'object' || Object.keys(f).length < 15) f = fcn_defaultFormatting();
+  if (Object.keys(formatting).length < 15) {
+    formatting = fcn_defaultFormatting();
+  }
 
   // Timestamp allows to force resets after script updates (may annoy users)
-  if (!f.hasOwnProperty('timestamp') || f['timestamp'] < 1651164557584) {
-    f = fcn_defaultFormatting();
-    f['timestamp'] = Date.now();
+  if (!formatting.hasOwnProperty('timestamp') || formatting['timestamp'] < 1651164557584) {
+    formatting = fcn_defaultFormatting();
+    formatting['timestamp'] = Date.now();
   }
 
   // Update local storage and return
-  fcn_setFormatting(f);
-  return f;
+  fcn_setFormatting(formatting);
+
+  return formatting;
 }
 
 /**

@@ -30,7 +30,6 @@ document.addEventListener('fcnUserDataReady', event => {
  * users. If none are found, an empty bookmarks JSON is created and set.
  *
  * @since 4.0
- * @see fcn_isValidJSONString()
  */
 
 function fcn_initializeLocalBookmarks() {
@@ -64,20 +63,15 @@ function fcn_initializeUserBookmarks(event) {
 // =============================================================================
 
 /**
- * Initialize bookmarks from local storage.
+ * Get bookmarks from local storage.
  *
  * @since 5.7.0
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  * @return {Object} The bookmarks JSON.
  */
 
 function fcn_getBookmarks() {
-  // Look for bookmarks in local storage
-  fcn_bookmarks = localStorage.getItem('fcnChapterBookmarks');
-
-  // Check for valid JSON and create new one if not found
-  return (fcn_bookmarks && fcn_isValidJSONString(fcn_bookmarks)) ?
-    JSON.parse(fcn_bookmarks) : { 'data': {} };
+  return fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
 }
 
 // =============================================================================

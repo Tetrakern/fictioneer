@@ -204,7 +204,7 @@ function fcn_copyToClipboard(text, message = false) {
 }
 
 // =============================================================================
-// IS JSON VALID?
+// JSONS
 // =============================================================================
 
 /**
@@ -216,12 +216,36 @@ function fcn_copyToClipboard(text, message = false) {
  */
 
 function fcn_isValidJSONString(str) {
+  if (str === null || typeof str === 'undefined' || typeof str !== 'string') {
+    return false;
+  }
+
   try {
     JSON.parse(str);
   } catch (e) {
     return false;
   }
   return true;
+}
+
+/**
+ * Parse JSON and account for invalid strings
+ *
+ * @since 5.7.0
+ * @param {String} str - The string to parse.
+ * @return {Object|null} Parsed JSON or null if not a JSON string.
+ */
+
+function fcn_parseJSON(str) {
+  if (str === null || typeof str === 'undefined' || typeof str !== 'string') {
+    return null;
+  }
+
+  try {
+    return JSON.parse(str);
+  } catch (e) {
+    return null;
+  }
 }
 
 // =============================================================================

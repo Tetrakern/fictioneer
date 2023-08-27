@@ -79,20 +79,19 @@ function fcn_setTTSsettings(value) {
  * found, an empty settings JSON is created and returned.
  *
  * @since 3.0
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  * @see fcn_setTTSsettings()
  */
 
 function fcn_getTTSsettings() {
   // Get JSON string from local storage
-  let s = localStorage.getItem('ttsSettings');
-
-  // Parse JSON string if valid, otherwise create new
-  s = (s && fcn_isValidJSONString(s)) ? JSON.parse(s) : {};
+  const settings = fcn_parseJSON(localStorage.getItem('ttsSettings')) ?? {};
 
   // Set up locals
-  fcn_setTTSsettings(s);
-  return s;
+  fcn_setTTSsettings(settings);
+
+  // Return
+  return settings;
 }
 
 // =============================================================================
@@ -109,7 +108,9 @@ function fcn_setUpVoices() {
   const systemVoices = fcn_synth.getVoices(),
         select = _$$$('tts-voice-select');
 
-  if (!select) return;
+  if (!select) {
+    return;
+  }
 
   let index = 0;
 

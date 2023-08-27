@@ -15,18 +15,15 @@ var /** @type {Object} */ fcn_storySettings = fcn_getStorySettings();
  * Get story settings JSON from local storage or create new one.
  *
  * @since 5.0.6
- * @see fcn_isValidJSONString()
+ * @see fcn_parseJSON()
  * @see fcn_defaultStorySettings()
  * @see fcn_setStorySettings();
  * @return {Object} The story settings.
  */
 
 function fcn_getStorySettings() {
-  // Look in local storage...
-  let settings = localStorage.getItem('fcnStorySettings');
-
-  // ... parse if found, set defaults otherwise
-  settings = (settings && fcn_isValidJSONString(settings)) ? JSON.parse(settings) : fcn_defaultStorySettings();
+  // Get settings from local storage or use defaults
+  let settings = fcn_parseJSON(localStorage.getItem('fcnStorySettings')) ?? fcn_defaultStorySettings();
 
   // Timestamp allows to force resets after script updates (may annoy users)
   if (!settings.hasOwnProperty('timestamp') || settings['timestamp'] < 1674770712849) {
