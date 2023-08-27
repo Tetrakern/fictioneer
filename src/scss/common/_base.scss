@@ -5,9 +5,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: {
-    color: var(--e-0);
-  }
+  background-color: var(--e-0);
   text-shadow: var(--text-shadow);
   min-height: 101vh;
   transform-origin: top left;
@@ -15,6 +13,10 @@
   @include bp(desktop) {
     background-image: var(--layout-background-texture-body);
   }
+}
+
+:root:not(.minimal) .custom-background .site {
+  background-color: transparent;
 }
 
 .header,

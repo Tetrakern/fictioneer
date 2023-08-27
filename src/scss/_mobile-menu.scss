@@ -89,6 +89,7 @@ body:not(.mobile-menu-open) {
   content-visibility: hidden;
   flex-direction: column;
   justify-content: space-between;
+  background-color: var(--mobile-menu-background);
   font-size: 15px;
   line-height: 1.66; // ~ 25px @ 15px
   text-shadow: var(--mobile-menu-text-shadow);

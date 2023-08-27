@@ -43,9 +43,7 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
 }
 
 body {
-  background: {
-    color: var(--e-body);
-  }
+  background-color: var(--e-body);
   color: var(--fg-500);
   font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--ff-base);
   letter-spacing: var(--font-letter-spacing-base);

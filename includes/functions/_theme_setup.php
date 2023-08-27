@@ -180,7 +180,7 @@ function fictioneer_custom_background() {
   // Background scroll
   $attachment = get_theme_mod( 'background_attachment' );
 
-  if ( 'fixed' !== $attachment ) {
+  if ( $attachment !== 'fixed' ) {
     $attachment = 'scroll';
   }
 
@@ -190,7 +190,7 @@ function fictioneer_custom_background() {
   $style = $image . $position . $size . $repeat . $attachment;
 
   // Output
-  echo '<style id="custom-background-css" type="text/css">.site.background-texture {' . trim( $style ) . '}</style>';
+  echo '<style id="custom-background-css" type="text/css">.custom-background {' . trim( $style ) . '}</style>';
 }
 
 // =============================================================================
