@@ -21,6 +21,11 @@
 
 <?php
 
+if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+  global $fictioneer_render_start_time;
+  $fictioneer_render_start_time = microtime( true );
+}
+
 global $post;
 
 // IDs

@@ -661,6 +661,12 @@ function fictioneer_add_custom_scripts() {
   if ( is_page_template( 'singular-bookshelf-ajax.php' ) ) {
     wp_enqueue_script( 'fictioneer-ajax-bookshelf-scripts' );
   }
+
+  // DEV Utilities
+  if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    wp_register_script( 'fictioneer-dev-scripts', get_template_directory_uri() . '/js/dev-tools.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
+    wp_enqueue_script( 'fictioneer-dev-scripts' );
+  }
 }
 add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
 

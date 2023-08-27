@@ -1,6 +1,33 @@
 <?php
 
 // =============================================================================
+// DEBUG
+// =============================================================================
+
+function fictioneer_display_execution_time() {
+  // Abort on AJAX
+  if ( defined('DOING_AJAX') && DOING_AJAX ) {
+    return;
+  }
+
+  // Abort on REST
+  if ( strpos( $_SERVER['REQUEST_URI'], 'wp-json' ) !== false ) {
+    return;
+  }
+
+  echo '<!-- Execution Time: ' . microtime( true ) - WP_START_TIMESTAMP . ' seconds -->';
+}
+
+if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+  // This should be set, but just to make sure...
+  if ( ! defined( 'WP_START_TIMESTAMP' ) ) {
+    define( 'WP_START_TIMESTAMP', microtime(true) );
+  }
+
+  add_action( 'shutdown', 'fictioneer_display_execution_time' );
+}
+
+// =============================================================================
 // CONSTANTS/SETTINGS
 // =============================================================================
 
