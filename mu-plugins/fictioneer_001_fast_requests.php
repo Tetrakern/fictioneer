@@ -45,7 +45,7 @@ function fictioneer_exclude_plugins( $plugins ) {
 
   // Remove not allowed plugins
   foreach ( $plugins as $index => $plugin ) {
-    if ( ! in_array( $plugin, $allow_list ) ) {
+    if ( ! in_array( $plugin, $allow_list ) && strpos( $plugin, 'fictioneer' ) === false ) {
       unset( $plugins[ $index ] );
     }
   }
