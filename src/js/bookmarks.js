@@ -71,7 +71,9 @@ function fcn_initializeUserBookmarks(event) {
  */
 
 function fcn_getBookmarks() {
-  return fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
+  const bookmarks = fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
+
+  return (!bookmarks || Object.keys(bookmarks).length < 1) ? { 'data': {} } : bookmarks;
 }
 
 // =============================================================================
@@ -134,7 +136,7 @@ function fcn_setBookmarks(value, silent = false) {
 
 function fcn_updateBookmarksView() {
   // Abort if bookmarks are not set
-  if (!fcn_bookmarks) {
+  if (!fcn_bookmarks || !fcn_bookmarks.data) {
     return;
   }
 

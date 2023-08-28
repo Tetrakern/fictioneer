@@ -131,7 +131,7 @@ function fcn_setUpVoices() {
 
   // Remove button if no voices have been found
   if (fcn_voices.length < 1) {
-    _$('.tts-interface__voice-selection').remove();
+    _$('.tts-settings__voice-selection')?.remove();
     return;
   }
 
