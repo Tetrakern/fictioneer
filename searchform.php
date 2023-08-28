@@ -211,7 +211,9 @@ if ( $show_advanced ) {
 
 					foreach ( $queried_terms as $quad ) {
 						// Skip if nothing has been queried
-						if ( empty( $quad[0] ) ) continue;
+						if ( empty( $quad[0] ) ) {
+							continue;
+						}
 
 						// Open wrapper
 						echo "<span class='search-form__current-{$quad[2]}'>";

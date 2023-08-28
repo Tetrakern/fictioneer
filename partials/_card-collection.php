@@ -109,8 +109,12 @@ if ( ! empty( $items ) ) {
 
         if ( ! empty( $chapters ) ) {
           foreach ( $chapters as $chapter ) {
-            if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ) continue;
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) continue;
+            if (
+              fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ||
+              fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID )
+            ) {
+              continue;
+            }
 
             if ( ! in_array( $chapter->ID, $processed_ids ) ) {
               $chapter_count += 1;

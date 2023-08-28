@@ -631,5 +631,39 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_bookmarks', 'fictioneer_ajax_get_bookmarks' );
 }
 
+// =============================================================================
+// CHECK USER CAPABILITIES
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_has_role' ) ) {
+  /**
+   * Checks if an user has a specific role
+   *
+   * @since Fictioneer 5.0
+   *
+   * @param WP_User|int $user  The user object or ID to check.
+   * @param string      $role  The role to check for.
+   *
+   * @return boolean To be or not to be.
+   */
+
+  function fictioneer_has_role( $user, $role ) {
+    // Setup
+    $user = is_int( $user ) ? get_user_by( 'ID', $user ) : $user;
+
+    // Abort conditions
+    if ( ! $user || ! $role ) {
+      return false;
+    }
+
+    // Check if user has role...
+    if ( in_array( $role, (array) $user->roles ) ) {
+      return true;
+    }
+
+    // Else...
+    return false;
+  }
+}
 
 ?>

@@ -59,7 +59,9 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
 
   function fictioneer_build_story_schema( $post_id ) {
     // Abort if...
-    if ( ! $post_id ) return '';
+    if ( ! $post_id ) {
+      return '';
+    }
 
     // Setup
     $schema = fictioneer_get_schema_node_root();

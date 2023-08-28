@@ -120,7 +120,9 @@ if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
 
 function fictioneer_update_post_relationships( $post_id ) {
   // Only posts...
-  if ( get_post_type( $post_id ) != 'post' ) return;
+  if ( get_post_type( $post_id ) != 'post' ) {
+    return;
+  }
 
   // Setup
   $registry = fictioneer_get_relationship_registry();
@@ -144,13 +146,17 @@ function fictioneer_update_post_relationships( $post_id ) {
   // Check for and remove outdated direct references
   foreach ( $registry as $key => $entry ) {
     // Skip if...
-    if ( absint( $key ) < 1 || ! is_array( $entry ) || in_array( $key, $featured ) ) continue;
+    if ( absint( $key ) < 1 || ! is_array( $entry ) || in_array( $key, $featured ) ) {
+      continue;
+    }
 
     // Unset if in array
     unset( $registry[ $key ][ $post_id ] );
 
     // Remove node if empty
-    if ( empty( $registry[ $key ] ) ) unset( $registry[ $key ] );
+    if ( empty( $registry[ $key ] ) ) {
+      unset( $registry[ $key ] );
+    }
   }
 
   // Update database

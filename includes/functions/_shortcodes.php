@@ -270,7 +270,9 @@ function fictioneer_get_shortcode_tax_query( $args ) {
 
 function fictioneer_shortcode_showcase( $attr ) {
   // Abort if...
-  if ( empty( $attr['for'] ) ) return '';
+  if ( empty( $attr['for'] ) ) {
+    return '';
+  }
 
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 8 ) );

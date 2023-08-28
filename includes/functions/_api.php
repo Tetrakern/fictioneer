@@ -21,7 +21,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
 
     // Abort if...
-    if ( empty( $data ) ) return false;
+    if ( empty( $data ) ) {
+      return false;
+    }
 
     // Setup
     $author_id = get_post_field( 'post_author', $story_id );
@@ -131,7 +133,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter_id = get_the_ID();
 
           // Skip not visible chapters
-          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
+          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+            continue;
+          }
 
           // Data
           $author_id = get_the_author_meta( 'id' );

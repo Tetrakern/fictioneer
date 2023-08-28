@@ -213,7 +213,9 @@ if ( ! function_exists( 'fictioneer_hsl_code' ) ) {
   function fictioneer_hsl_code( $hex, $output = 'default' ) {
     $hsl_array = fictioneer_rgb_to_hsl( fictioneer_hex_to_rgb( $hex ), 2 );
 
-    if ( $output == 'values' ) return "$hsl_array[0] $hsl_array[1] $hsl_array[2]";
+    if ( $output == 'values' ) {
+      return "$hsl_array[0] $hsl_array[1] $hsl_array[2]";
+    }
 
     $deg = 'calc(' . $hsl_array[0] . 'deg + var(--hue-rotate))';
     $saturation = 'calc(' . $hsl_array[1] . '% * var(--saturation))';
@@ -221,7 +223,9 @@ if ( ! function_exists( 'fictioneer_hsl_code' ) ) {
     $max = $hsl_array[2] + (100 - $hsl_array[2]) / 2;
     $lightness = 'clamp('. $min . '%, ' . $hsl_array[2] . '% * var(--darken), ' . $max . '%)';
 
-    if ( $output == 'free' ) return "$deg $saturation $lightness";
+    if ( $output == 'free' ) {
+      return "$deg $saturation $lightness";
+    }
 
     return "hsl($deg $saturation $lightness)";
   }

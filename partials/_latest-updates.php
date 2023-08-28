@@ -96,22 +96,34 @@ $entries = fictioneer_shortcode_query( $query_args );
           $chapter_list = [];
 
           // Skip if no chapters
-          if ( $story['chapter_count'] < 1 ) continue;
+          if ( $story['chapter_count'] < 1 ) {
+            continue;
+          }
 
           // Search for viable chapters...
           $search_list = array_reverse( $story['chapter_ids'] );
 
           foreach ( $search_list as $chapter_id ) {
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) ) continue;
+            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) ) {
+              continue;
+            }
+
             $chapter_list[] = $chapter_id;
-            if ( count( $chapter_list ) > 1 ) break; // Max two
+
+            if ( count( $chapter_list ) > 1 ) {
+              break; // Max two
+            }
           }
 
           // No viable chapters
-          if ( count( $chapter_list ) < 1 ) continue;
+          if ( count( $chapter_list ) < 1 ) {
+            continue;
+          }
 
           // Count actually rendered cards to account for buffer
-          if ( ++$card_counter > $args['count'] ) break;
+          if ( ++$card_counter > $args['count'] ) {
+            break;
+          }
         ?>
 
         <li class="card _small">

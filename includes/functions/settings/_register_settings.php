@@ -1043,7 +1043,9 @@ function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
 	$default = __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' );
 
   // Return default if input is empty
-	if ( ! is_string( $input ) ) return $default;
+	if ( ! is_string( $input ) ) {
+    return $default;
+  }
 
   // Temporarily allow tabindex attribute
   $allowedtags['a']['tabindex'] = [];

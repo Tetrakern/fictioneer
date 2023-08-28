@@ -62,7 +62,7 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
 function fictioneer_custom_excerpt_length( $length ) {
   return 64;
 }
-add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 
 // =============================================================================
 // FIX EXCERPT FORMATTING
@@ -571,12 +571,16 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
     if (
       str_contains( $classes . $parent_classes, 'no-auto-lightbox' ) ||
       $parent->hasAttribute( 'target' )
-    ) continue;
+    ) {
+      continue;
+    }
 
     if (
       $parent->hasAttribute( 'href' ) &&
       ! preg_match( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng|tiff|ico)(?:$|[#?])/', $parent_href )
-    ) continue;
+    ) {
+      continue;
+    }
 
     $src = $img->getAttribute( 'src' );
     $id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
@@ -680,7 +684,9 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
  */
 
 function fictioneer_embed_consent_wrappers( $content ) {
-  if( empty( $content ) ) return $content;
+  if ( empty( $content ) ) {
+    return $content;
+  }
 
   libxml_use_internal_errors( true );
   $dom = new DOMDocument();

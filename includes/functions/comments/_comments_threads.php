@@ -19,7 +19,9 @@
 
 function fictioneer_comment_login_to_reply( $link, $args, $comment, $post ) {
   // Return default if OAuth authentication is disabled
-  if ( ! get_option( 'fictioneer_enable_oauth' ) ) return $link;
+  if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
+    return $link;
+  }
 
   // Reply link or login modal toggle
   if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) {

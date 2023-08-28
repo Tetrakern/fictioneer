@@ -106,7 +106,9 @@ if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
   function fictioneer_get_forced_excerpt( $post_id, $limit = 256, $default = false ) {
     $post = get_post( $post_id );
 
-    if ( ! $default && $post->post_excerpt != '' ) return $post->post_excerpt;
+    if ( ! $default && $post->post_excerpt != '' ) {
+      return $post->post_excerpt;
+    }
 
     $excerpt = $post->post_content;
     $excerpt = preg_replace( ' (\[.*?\])', '', $excerpt );
@@ -397,13 +399,17 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
       ! is_array( $args['breadcrumbs'] ) ||
       count( $args['breadcrumbs'] ) < 1 ||
       is_front_page()
-    ) return '';
+    ) {
+      return '';
+    }
 
     // Setup
     $count = count( $args['breadcrumbs'] );
 
     // Abort if array does not have two or more items
-    if ( $count < 2 ) return '';
+    if ( $count < 2 ) {
+      return '';
+    }
 
     // Filter breadcrumbs array
     $args['breadcrumbs'] = apply_filters( 'fictioneer_filter_breadcrumbs_array', $args['breadcrumbs'], $args );
@@ -1001,14 +1007,18 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 
   function fictioneer_get_taxonomy_pills( $taxonomy_groups, $classes = '' ) {
     // Abort conditions
-    if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1) return '';
+    if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1) {
+      return '';
+    }
 
 		ob_start();
 
     // Loop over all groups...
     foreach ( $taxonomy_groups as $group ) {
       // Check for empty group
-      if ( ! $group || ! is_array( $group ) || count( $group ) < 1 ) continue;
+      if ( ! $group || ! is_array( $group ) || count( $group ) < 1 ) {
+        continue;
+      }
 
       // Process group
       foreach ( $group as $taxonomy ) {
@@ -1040,7 +1050,9 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
 
   function fictioneer_get_rss_link( $post_type = null, $post_id = null ) {
     // Abort conditions
-    if ( ! get_option( 'fictioneer_enable_theme_rss' ) ) return false;
+    if ( ! get_option( 'fictioneer_enable_theme_rss' ) ) {
+      return false;
+    }
 
     // Setup
     $post_type = $post_type ? $post_type : get_post_type();
@@ -1345,7 +1357,9 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     $menu = apply_filters( 'fictioneer_filter_card_control_menu', $menu, $story_id, $chapter_id );
 
     // Abort if...
-    if ( count( $icons ) < 1 || count( $menu ) < 1 ) return '';
+    if ( count( $icons ) < 1 || count( $menu ) < 1 ) {
+      return '';
+    }
 
     ob_start();
     // Start HTML ---> ?>

@@ -61,12 +61,18 @@ $hook_args = array(
           );
 
           // Cached?
-          if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) $card_args['cache'] = true;
+          if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) {
+            $card_args['cache'] = true;
+          }
 
           // Special conditions for chapters...
           if ( $type == 'fcn_chapter' ) {
-            if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter' ) ) continue;
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
+            if (
+              fictioneer_get_field( 'fictioneer_chapter_no_chapter' ) ||
+              fictioneer_get_field( 'fictioneer_chapter_hidden' )
+            ) {
+              continue;
+            }
           }
 
           // Echo correct card

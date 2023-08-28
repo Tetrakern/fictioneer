@@ -6,18 +6,20 @@
 
 if ( ! function_exists( 'fictioneer_url_exists' ) ) {
   /**
-   * Checks whether an URL exists.
+   * Checks whether an URL exists
    *
    * @since Fictioneer 4.0
-   * @link  https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
+   * @link https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
    *
    * @param string $url  The URL to check.
    *
-   * @return boolean True if the URL exists and false otherwise.
+   * @return boolean True if the URL exists and false otherwise. Probably.
    */
 
   function fictioneer_url_exists( $url ) {
-    if ( ! $url ) return false;
+    if ( ! $url ) {
+      return false;
+    }
 
     $curl = curl_init( $url );
     curl_setopt( $curl, CURLOPT_NOBODY, true );
@@ -512,7 +514,7 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
 if ( ! function_exists( 'fictioneer_validate_id' ) ) {
   /**
    * Ensures an ID is a valid integer and positive; optionally checks whether the
-   * associated post is of a certain types (or among an array of types).
+   * associated post is of a certain types (or among an array of types)
    *
    * @since Fictioneer 4.7
    *
@@ -624,37 +626,6 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
 // =============================================================================
 // CHECK USER CAPABILITIES
 // =============================================================================
-
-if ( ! function_exists( 'fictioneer_has_role' ) ) {
-  /**
-   * Checks if an user has a specific role
-   *
-   * @since Fictioneer 5.0
-   *
-   * @param WP_User|int $user  The user object or ID to check.
-   * @param string      $role  The role to check for.
-   *
-   * @return boolean To be or not to be.
-   */
-
-  function fictioneer_has_role( $user, $role ) {
-    // Setup
-    $user = is_int( $user ) ? get_user_by( 'ID', $user ) : $user;
-
-    // Abort conditions
-    if ( ! $user || ! $role ) {
-      return false;
-    }
-
-    // Check if user has role...
-    if ( in_array( $role, (array) $user->roles ) ) {
-      return true;
-    }
-
-    // Else...
-    return false;
-  }
-}
 
 if ( ! function_exists( 'fictioneer_is_admin' ) ) {
   /**
@@ -873,7 +844,10 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
    */
 
   function fictioneer_get_consent() {
-    if ( ! isset( $_COOKIE['fcn_cookie_consent'] ) || $_COOKIE['fcn_cookie_consent'] === '' ) return false;
+    if ( ! isset( $_COOKIE['fcn_cookie_consent'] ) || $_COOKIE['fcn_cookie_consent'] === '' ) {
+      return false;
+    }
+
     return strval( $_COOKIE['fcn_cookie_consent'] );
   }
 }
@@ -883,23 +857,37 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
 // =============================================================================
 
 /**
- * Sanitizes an integer with options for default, minimum, and maximum
+ * Sanitizes an integer with options for default, minimum, and maximum.
  *
  * @since 4.0
  *
- * @param int         $value    The integer to be sanitized.
- * @param int         $default  Default value if an invalid integer. Default 0.
- * @param int|boolean $minimum  Optional. Minimum value of the integer. Default false.
- * @param int|boolean $maximum  Optional. Maximum value of the integer. Default false.
+ * @param mixed $value    The value to be sanitized.
+ * @param int   $default  Default value if an invalid integer is provided. Default 0.
+ * @param int   $min      Optional. Minimum value for the integer. Default is no minimum.
+ * @param int   $max      Optional. Maximum value for the integer. Default is no maximum.
  *
  * @return int The sanitized integer.
  */
 
-function fictioneer_sanitize_integer( $value, $default = 0, $minimum = false, $maximum = false ) {
+function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = null ) {
+  // Ensure $value is numeric in the first place
+  if ( ! is_numeric( $value ) ) {
+    return $default;
+  }
+
+  // Cast to integer
   $value = (int) $value;
-  if ( ! is_int( $value ) ) $value = $default;
-  if ( $minimum !== false ) $value = max( $value, $minimum );
-  if ( $maximum !== false ) $value = min( $value, $maximum );
+
+  // Apply minimum limit if specified
+  if ( $min !== null && $value < $min ) {
+    return $min;
+  }
+
+  // Apply maximum limit if specified
+  if ( $max !== null && $value > $max ) {
+    return $max;
+  }
+
   return $value;
 }
 
@@ -996,6 +984,7 @@ function fictioneer_ajax_get_auth() {
     )
   );
 }
+
 if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
   add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );

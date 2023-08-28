@@ -121,13 +121,17 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
     curl_close( $ch );
 
     // Abort if request failed
-    if ( empty( $response ) ) return false;
+    if ( empty( $response ) ) {
+      return false;
+    }
 
     // Decode JSON to array
     $release = json_decode( $response, true );
 
     // Abort if request did not return expected data
-    if ( ! isset( $release['tag_name'] ) ) return false;
+    if ( ! isset( $release['tag_name'] ) ) {
+      return false;
+    }
 
     // Remember latest version
     update_option( 'fictioneer_latest_version', $release['tag_name'] );
@@ -151,10 +155,14 @@ function fictioneer_admin_update_notice() {
   $is_updates_page = $pagenow == 'update-core.php';
 
   // Show only once every n seconds
-  if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) return;
+  if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) {
+    return;
+  }
 
   // Update?
-  if ( ! fictioneer_check_for_updates() ) return;
+  if ( ! fictioneer_check_for_updates() ) {
+    return;
+  }
 
   // Render notice
   $message = sprintf(
@@ -410,7 +418,9 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
     foreach ( $items as $item ) {
       $source_tax = get_the_terms( $item, $source );
 
-      if ( ! $source_tax ) continue;
+      if ( ! $source_tax ) {
+        continue;
+      }
 
       $source_tax = array_map( 'terms_to_array', $source_tax );
 

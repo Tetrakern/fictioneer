@@ -18,7 +18,9 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
     if (
       ! get_option( 'fictioneer_enable_comment_toolbar' ) ||
       get_option( 'fictioneer_disable_comment_bbcodes' )
-    ) return '';
+    ) {
+      return '';
+    }
 
     ob_start();
     // Start HTML ---> ?>

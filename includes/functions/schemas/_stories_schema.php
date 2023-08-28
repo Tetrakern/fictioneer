@@ -66,7 +66,9 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
 
   function fictioneer_build_stories_schema( $post_id ) {
     // Abort if...
-    if ( ! $post_id ) return '';
+    if ( ! $post_id ) {
+      return '';
+    }
 
     // Prepare query arguments
     $query_args = array (

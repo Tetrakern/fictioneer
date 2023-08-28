@@ -23,7 +23,9 @@ defined( 'ABSPATH' ) OR exit;
 $current_user = $args['user'];
 
 // Do not show for roles above subscriber
-if ( ! current_user_can( 'fcn_allow_self_delete' ) ) return;
+if ( ! current_user_can( 'fcn_allow_self_delete' ) ) {
+  return;
+}
 
 ?>
 

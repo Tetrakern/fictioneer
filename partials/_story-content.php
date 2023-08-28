@@ -115,7 +115,9 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
     $index = 1;
 
     foreach ( $tab_pages as $page ) {
-      if ( empty( $page[1] ) ) continue;
+      if ( empty( $page[1] ) ) {
+        continue;
+      }
 
       ?>
       <section id="tab-page-<?php echo $index; ?>" class="story__tab-page padding-left padding-right content-section background-texture">
@@ -171,7 +173,9 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
             $chapter_id = get_the_ID();
 
             // Skip not visible chapters (redundant for paranoia)
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) continue;
+            if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+              continue;
+            }
 
             // Data
             $group = fictioneer_get_field( 'fictioneer_chapter_group' );

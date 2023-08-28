@@ -36,7 +36,9 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
     $story_id = $story_id ? $story_id : get_query_var( FICTIONEER_EPUB_ENDPOINT, null );
 
     // Abort if...
-    if ( is_null( $story_id ) ) return;
+    if ( is_null( $story_id ) ) {
+      return;
+    }
 
     // Validate story ID again
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
@@ -243,7 +245,9 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
 
   function fictioneer_add_epub_cover( $dir, $epub_dir, $story_id ) {
     // Abort if the story has no cover image...
-    if ( ! has_post_thumbnail( $story_id ) ) return;
+    if ( ! has_post_thumbnail( $story_id ) ) {
+      return;
+    }
 
     // Setup
     $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
@@ -444,7 +448,9 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
           $alt = urldecode( $img->getAttribute( 'alt' ) );
 
           // Abort if...
-          if ( ! $url ) continue;
+          if ( ! $url ) {
+            continue;
+          }
 
           // Prepare path (remove unwanted extensions, e.g. '.jpg?_i=AA')
           $path_parts = pathinfo( $url );
@@ -525,7 +531,9 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     }
 
     // Terminate script if no chapter has been added
-    if ( $index == 0 ) exit();
+    if ( $index == 0 ) {
+      exit;
+    }
 
     // Return lists
     return array(
@@ -580,7 +588,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
     $guide = $opf->getElementsByTagName( 'guide' )->item( 0 );
 
     // Cover node (if any)
-    if( has_post_thumbnail( $story_id ) ) {
+    if ( has_post_thumbnail( $story_id ) ) {
       $path_parts = pathinfo( get_the_post_thumbnail_url( $story_id, 'full' ) );
       $path_extension = isset( $path_parts['extension'] ) ? $path_parts['extension'] : 'jpg';
       $extension = preg_replace( '/(?<=\.jpg|jpeg|png|gif|webp|svg|avif|apng).+/', '', '.' . $path_extension );
@@ -960,7 +968,9 @@ function fictioneer_generate_epub() {
   $story_id = get_query_var( FICTIONEER_EPUB_ENDPOINT, null );
 
   // Abort if this is not an /download-epub/ URL...
-  if ( is_null( $story_id ) ) return;
+  if ( is_null( $story_id ) ) {
+    return;
+  }
 
   // Abort if no story ID provided or ePUB download is disabled...
   if (
@@ -1088,7 +1098,9 @@ function fictioneer_generate_epub() {
   $zip->addFile( $mimetype_path, substr( $mimetype_path, strlen( $directory ) + 1) );
 
   foreach ( $files as $name => $file ) {
-    if ( $name == 'mimetype' ) continue;
+    if ( $name == 'mimetype' ) {
+      continue;
+    }
 
     if ( ! $file->isDir() ) {
       $filePath = $file->getRealPath();

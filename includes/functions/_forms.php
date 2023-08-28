@@ -122,7 +122,9 @@ function fictioneer_ajax_submit_contact_form() {
     $field_label = sanitize_text_field( $_POST[ "check_label_$i" ] ?? '' );
 
     // Skip if label is missing
-    if ( empty( $field_label ) ) continue;
+    if ( empty( $field_label ) ) {
+      continue;
+    }
 
     // Strip HTML for good measure
     $field_label = wp_strip_all_tags( $field_label );

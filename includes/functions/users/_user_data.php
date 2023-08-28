@@ -229,7 +229,9 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
   $sender_is_owner = $sender_id === $updated_user_id;
 
   // Make sure the sender is the profile owner unless it's an administrator
-  if ( ! $sender_is_owner && ! $sender_is_admin ) return false;
+  if ( ! $sender_is_owner && ! $sender_is_admin ) {
+    return false;
+  }
 
   // Profile flags...
   if ( $sender_is_owner || $sender_is_admin ) {

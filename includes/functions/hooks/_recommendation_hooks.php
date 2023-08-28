@@ -146,7 +146,9 @@ function fictioneer_recommendation_links( $args ) {
   $links = fictioneer_get_field( 'fictioneer_recommendation_urls', $args['recommendation_id'] );
 
   // Abort conditions...
-  if ( ! $links ) return;
+  if ( ! $links ) {
+    return;
+  }
 
   // Prepare
   $links = array_filter( explode( "\n", $links ) );
@@ -188,7 +190,9 @@ function fictioneer_recommendation_support_links( $args ) {
   $links = fictioneer_get_field( 'fictioneer_recommendation_support', $args['recommendation_id'] );
 
   // Abort conditions...
-  if ( ! $links ) return;
+  if ( ! $links ) {
+    return;
+  }
 
   // Prepare
   $links = array_filter( explode( "\n", $links ) );

@@ -336,7 +336,9 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
     $comment_id = fictioneer_validate_id( $comment_id );
 
     // Validation
-    if ( ! $comment_id ) return false;
+    if ( ! $comment_id ) {
+      return false;
+    }
 
     // Data
     $template = '<a class="comment-' . $action . '-link" href="%1$s">%2$s</a>';

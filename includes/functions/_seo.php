@@ -314,7 +314,10 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
 
     // Cached title?
     $cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
-    if ( ! empty( $cache ) && ! $skip_cache ) return $cache;
+
+    if ( ! empty( $cache ) && ! $skip_cache ) {
+      return $cache;
+    }
 
     // Start building...
     $seo_title = get_post_meta( $post_id, 'fictioneer_seo_title', true );
@@ -470,7 +473,10 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Cached description?
     $cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
-    if ( ! empty( $cache ) && ! $skip_cache ) return $cache;
+
+    if ( ! empty( $cache ) && ! $skip_cache ) {
+      return $cache;
+    }
 
     // Start building...
     $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
@@ -549,7 +555,10 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
     // Cached image? Except for site default, which can globally change!
     if ( ! $use_default ) {
       $cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
-      if ( $cache ) return $cache;
+
+      if ( $cache ) {
+        return $cache;
+      }
     }
 
     // Get image ID if not yet set

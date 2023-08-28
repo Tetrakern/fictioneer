@@ -108,7 +108,11 @@ function fictioneer_create_sitemap( $last_saved_id ) {
 
     foreach( $pages as $post ) {
       $template = get_page_template_slug( $post->ID );
-      if ( in_array( $template, ['user-profile.php', 'single-bookmarks.php'] ) ) continue;
+
+      if ( in_array( $template, ['user-profile.php', 'single-bookmarks.php'] ) ) {
+        continue;
+      }
+
       $frequency = 'yearly';
       $lastmod = get_the_modified_date( 'c', $post->ID );
       $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'yearly' );

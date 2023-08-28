@@ -95,7 +95,9 @@ $entries = fictioneer_shortcode_query( $query_args );
           $urls = array_filter( $urls );
 
           // Abort if no links found
-          if ( empty( $urls ) ) continue;
+          if ( empty( $urls ) ) {
+            continue;
+          }
 
           // Extract first link
           $url = $urls[0];

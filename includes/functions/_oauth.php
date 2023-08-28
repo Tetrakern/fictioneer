@@ -179,7 +179,9 @@ if ( ! function_exists( 'fictioneer_get_oauth_links' ) ) {
 
 function fictioneer_handle_oauth() {
   // Check whether this is the OAuth2 route
-  if ( is_null( get_query_var( FICTIONEER_OAUTH_ENDPOINT, null ) ) ) return;
+  if ( is_null( get_query_var( FICTIONEER_OAUTH_ENDPOINT, null ) ) ) {
+    return;
+  }
 
   // Setup
   fictioneer_set_oauth_constants();
@@ -864,8 +866,12 @@ if ( ! function_exists( 'fictioneer_get_oauth_client_credentials' ) ) {
    */
 
   function fictioneer_get_oauth_client_credentials( $channel, $type = 'id' ) {
-    if ( ! $channel ) return null;
+    if ( ! $channel ) {
+      return null;
+    }
+
     $it = get_option( "fictioneer_{$channel}_client_{$type}" );
+
     return $it ? $it : null;
   }
 }

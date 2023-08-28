@@ -100,7 +100,9 @@ function fictioneer_chapter_foreword( $args ) {
   $foreword = fictioneer_get_content_field( 'fictioneer_chapter_foreword', $args['chapter_id'] );
 
   // Abort conditions
-  if ( empty( $foreword ) || post_password_required() ) return '';
+  if ( empty( $foreword ) || post_password_required() ) {
+    return '';
+  }
 
   // Start HTML ---> ?>
   <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix"><?php echo $foreword; ?></section>
@@ -126,7 +128,9 @@ function fictioneer_chapter_warnings( $args ) {
   $warning_notes = fictioneer_get_field( 'fictioneer_chapter_warning_notes', $args['chapter_id'] );
 
   // Abort conditions
-  if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) return '';
+  if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) {
+    return '';
+  }
 
   // Start HTML ---> ?>
   <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix">
@@ -354,7 +358,9 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_inde
 
 function fictioneer_chapter_bookmark_jump_button() {
   // Check if available
-  if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) return;
+  if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <button type="button" class="button _secondary button--bookmark hidden">
@@ -405,7 +411,9 @@ function fictioneer_chapter_afterword( $args ) {
   $afterword = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] ); // ACF formatted output
 
   // Abort conditions
-  if ( empty( $afterword ) || post_password_required() ) return '';
+  if ( empty( $afterword ) || post_password_required() ) {
+    return '';
+  }
 
   // Start HTML ---> ?>
   <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix"><?php echo $afterword; ?></section>
@@ -500,7 +508,9 @@ function fictioneer_chapter_support_links( $args ) {
   $support_links = apply_filters( 'fictioneer_filter_chapter_support_links', $support_links, $args );
 
   // Abort if no support links
-  if ( count( $support_links ) < 1 ) return;
+  if ( count( $support_links ) < 1 ) {
+    return;
+  }
 
   // Support message
   $support_message = get_the_author_meta( 'fictioneer_support_message', $author_id ) ? get_the_author_meta( 'fictioneer_support_message', $author_id ) : __( 'You can support the author on', 'fictioneer' );
@@ -614,7 +624,9 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_paragraph_tools
 
 function fictioneer_chapter_suggestion_tools() {
   // Abort if...
-  if ( fictioneer_get_field( 'fictioneer_disable_commenting' ) || ! comments_open() ) return;
+  if ( fictioneer_get_field( 'fictioneer_disable_commenting' ) || ! comments_open() ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <div id="selection-tools" class="invisible suggestion-tools">

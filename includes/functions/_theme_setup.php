@@ -722,7 +722,9 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_load_script_translations', 99 );
 
 function fictioneer_remove_jquery_migrate( $scripts ) {
   // Abort if...
-  if ( ! isset( $scripts->registered['jquery'] ) ) return;
+  if ( ! isset( $scripts->registered['jquery'] ) ) {
+    return;
+  }
 
   // Setup
   $script = $scripts->registered['jquery'];
