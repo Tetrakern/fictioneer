@@ -36,6 +36,23 @@ Filters the intermediate output array of the tab pills inside the `fictioneer_se
 
 ---
 
+### `apply_filters( 'fictioneer_filter_ajax_get_user_data', $data, $user )`
+Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()` function, which is used to set up the user’s local environment with Follows, Checkmarks, Reminders, and so forth to get around caching. Note that this function is accelerated and skips the WordPress initialization, as well as most plugins if the optional MU plugin has been installed.
+
+**$data:**
+* $user_id (int) – The user ID.
+* $timestamp (int) – Milliseconds elapsed since the epoch.
+* $follows (array|false) – The user’s Follows data or false if disabled.
+* $reminders (array|false) – The user’s Reminders data or false if disabled.
+* $checkmarks (array|false) – The user’s Checkmarks data or false if disabled.
+* $bookmarks (string) – The user’s Bookmarks JSON as string. `'{}'` if disabled.
+* $fingerprint (string) – The user’s unique hash.
+
+**Parameters:**
+* $user (WP_User) – The user object.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_breadcrumbs_array', $breadcrumbs, $args )`
 Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $args )` function before the HTML is build.
 

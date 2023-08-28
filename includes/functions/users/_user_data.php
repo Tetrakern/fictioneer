@@ -1005,6 +1005,10 @@ function fictioneer_ajax_get_user_data() {
     $data['bookmarks'] = $bookmarks ? $bookmarks : '{}';
   }
 
+  // --- FILTER ----------------------------------------------------------------
+
+  $data = apply_filters( 'fictioneer_filter_ajax_get_user_data', $data, $user );
+
   // ---------------------------------------------------------------------------
 
   // Response
