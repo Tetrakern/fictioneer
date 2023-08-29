@@ -125,12 +125,12 @@ if (fcn_isLoggedIn || fcn_theRoot.dataset.ajaxAuth) {
 // FETCH RELEVANT USER DATA
 // =============================================================================
 
-var /** @type {Object} */ fcn_userData;
-
-function fcn_initializeUserData() {
-  fcn_userData = fcn_getUserData();
-  fcn_fetchUserData();
-}
+/**
+ * Get user data from web storage or initialize if missing.
+ *
+ * @since 5.7.0
+ * @return {Object} The user data JSON.
+ */
 
 function fcn_getUserData() {
   // Get JSON string from local storage
@@ -149,19 +149,30 @@ function fcn_getUserData() {
     };
 }
 
-function fcn_setUserData(data) {
-  // Keep global updated
-  fcn_userData = data;
+/**
+ * Update user data in web storage.
+ *
+ * @since 5.7.0
+ * @param {Object} data - The user data JSON.
+ */
 
-  // Update local storage
+function fcn_setUserData(data) {
   localStorage.setItem('fcnUserData', JSON.stringify(data));
 }
 
+/**
+ * Fetch user data via AJAX or from web storage, then fire events.
+ *
+ * @since 5.7.0
+ */
+
 function fcn_fetchUserData() {
+  const currentUserData = fcn_getUserData();
+
   // Only update from server after some time has passed (e.g. 60 seconds)
-  if (fcn_ajaxLimitThreshold < fcn_userData['lastLoaded']) {
+  if (fcn_ajaxLimitThreshold < currentUserData['lastLoaded']) {
     const fcn_eventUserDataReady = new CustomEvent('fcnUserDataReady', {
-      detail: { data: fcn_userData, time: new Date() },
+      detail: { data: currentUserData, time: new Date() },
       bubbles: false,
       cancelable: true
     });
@@ -177,9 +188,12 @@ function fcn_fetchUserData() {
   })
   .then(response => {
     if (response.success) {
-      // Assign
-      fcn_userData = response.data;
-      fcn_userData['lastLoaded'] = Date.now();
+      let updatedUserData = fcn_getUserData();
+
+      // Update local user data
+      updatedUserData = response.data;
+      updatedUserData['lastLoaded'] = Date.now();
+      fcn_setUserData(updatedUserData);
 
       // Prepare custom event
       const eventReady = new CustomEvent('fcnUserDataReady', {
@@ -188,15 +202,11 @@ function fcn_fetchUserData() {
         cancelable: false
       });
 
-      // Set in local storage
-      fcn_setUserData(fcn_userData);
-
       // Fire event
       document.dispatchEvent(eventReady);
     } else {
       // Something went wrong, possibly logged-out; clear local storage
       localStorage.removeItem('fcnUserData');
-      fcn_userData = false;
 
       // Prepare custom event
       const eventFailure = new CustomEvent('fcnUserDataFailed', {
@@ -212,7 +222,6 @@ function fcn_fetchUserData() {
   .catch(error => {
     // Something went extremely wrong; clear local storage
     localStorage.removeItem('fcnUserData');
-    fcn_userData = false;
 
     // Prepare custom event
     const eventError = new CustomEvent('fcnUserDataError', {
@@ -229,6 +238,6 @@ function fcn_fetchUserData() {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   if (fcn_isLoggedIn || fcn_theRoot.dataset.ajaxAuth) {
-    fcn_initializeUserData();
+    fcn_fetchUserData();
   }
 });
