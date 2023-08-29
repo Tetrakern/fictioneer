@@ -150,6 +150,9 @@ function fcn_getUserData() {
 }
 
 function fcn_setUserData(data) {
+  // Keep global updated
+  fcn_userData = data;
+
   // Update local storage
   localStorage.setItem('fcnUserData', JSON.stringify(data));
 }
