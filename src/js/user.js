@@ -117,7 +117,7 @@ function fcn_getUserAvatar() {
 }
 
 // Initialize
-if (fcn_isLoggedIn || !fcn_theRoot.dataset.ajaxAuth) {
+if (fcn_isLoggedIn || fcn_theRoot.dataset.ajaxAuth) {
   fcn_getProfileImage();
 }
 
@@ -225,7 +225,7 @@ function fcn_fetchUserData() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  if ((fcn_isLoggedIn && !fcn_userData) || !fcn_theRoot.dataset.ajaxAuth) {
+  if (fcn_isLoggedIn || fcn_theRoot.dataset.ajaxAuth) {
     fcn_initializeUserData();
   }
 });
