@@ -73,8 +73,8 @@ $query = fictioneer_shortcode_query( $query_args );
     <ul class="showcase__list">
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <li class="showcase__list-item">
-          <a class="polygon" href="<?php the_permalink(); ?>">
-            <figure>
+          <a class="showcase__list-item-link polygon" href="<?php the_permalink(); ?>">
+            <figure class="showcase__list-item-figure">
               <?php
                 // Setup
                 $list_title = '';
@@ -116,7 +116,7 @@ $query = fictioneer_shortcode_query( $query_args );
                 }
               ?>
               <?php if ( ! $args['no_cap'] ) : ?>
-                <figcaption><?php echo $title; ?></figcaption>
+                <figcaption class="showcase__list-item-figcaption"><?php echo $title; ?></figcaption>
               <?php endif; ?>
             </figure>
           </a>
