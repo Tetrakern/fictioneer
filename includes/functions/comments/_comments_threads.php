@@ -717,7 +717,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           ?>
           <?php if ( ( $can_edit && $is_editable ) || $is_caching ) : ?>
             <button
-            class="fictioneer-comment__edit-toggle hide-on-edit tooltipped hide-if-logged-out"
+            class="fictioneer-comment__edit-toggle quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
             type="button"
             data-tooltip="<?php echo esc_attr_x( 'Edit', 'Edit comment inline.'. 'fictioneer' ); ?>"
             data-click="trigger-inline-comment-edit"
@@ -733,7 +733,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           ?>
           <?php if ( $is_owner || $is_caching ) : ?>
             <button
-              class="fictioneer-comment__delete hide-on-edit tooltipped hide-if-logged-out"
+              class="fictioneer-comment__delete quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
               type="button"
               data-dialog-message="<?php echo esc_attr(
                 sprintf(
@@ -753,7 +753,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // =============================================================================
           ?>
           <?php if ( $fingerprint ) : ?>
-            <span class="fictioneer-comment__fingerprint tooltipped _mobile-tooltip" data-tooltip="<?php echo esc_attr( $fingerprint ); ?>">
+            <span class="fictioneer-comment__fingerprint quick-button tooltipped _mobile-tooltip hide-on-ajax" data-tooltip="<?php echo esc_attr( $fingerprint ); ?>">
               <i class="fa-solid fa-fingerprint"></i>
             </span>
           <?php endif; ?>
@@ -762,7 +762,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // AJAX INDICATOR
           // =============================================================================
           ?>
-          <i class="fas fa-spinner spinner ajax"></i>
+          <i class="fas fa-spinner spinner ajax quick-button"></i>
           <?php
           // =============================================================================
           // REPORTING
@@ -770,7 +770,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           ?>
           <?php if ( fictioneer_show_auth_content() && $is_reportable ) : ?>
             <button
-            class="fictioneer-report-comment-button hide-if-logged-out tooltipped <?php echo $flag_classes ?> <?php echo $is_flagged_by_current_user ? 'on' : ''; ?>"
+            class="fictioneer-report-comment-button quick-button hide-if-logged-out tooltipped <?php echo $flag_classes ?> <?php echo $is_flagged_by_current_user ? 'on' : ''; ?> hide-on-ajax"
             data-click="flag-comment"
             data-tooltip="<?php echo esc_attr_x( 'Report', 'Report this comment.', 'fictioneer' ); ?>"
           ><i class="fa-solid fa-flag"></i></button>

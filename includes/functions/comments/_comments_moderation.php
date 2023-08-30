@@ -404,7 +404,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
     // Buffer and return
     ob_start();
     // Start HTML ---> ?>
-    <div class="popup-menu-toggle toggle-last-clicked hide-if-logged-out only-moderators" tabindex="0">
+    <div class="popup-menu-toggle quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0">
       <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
       <div class="popup-menu hide-if-logged-out only-moderators _top _justify-right _fixed-position">
         <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
@@ -433,8 +433,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
         <?php echo fictioneer_get_comment_action_link( $comment_id, 'edit' ); ?>
       </div>
     </div>
-    <button type="button" class="hidden fictioneer-mod-menu-toggle toggle-last-clicked hide-if-logged-out only-moderators"><i class="fa-solid fa-gear"></i></button>
-    <div class="popup-menu hide-if-logged-out only-moderators hidden">
+    <div class="popup-menu hide-if-logged-out only-moderators hidden hide-on-ajax">
       <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
         <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
         <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>

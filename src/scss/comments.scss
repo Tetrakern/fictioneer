@@ -137,19 +137,19 @@
 
       @include bp(600px) {
         flex-direction: row;
+      }
 
-        > div {
+      &-block {
+        @include bp(600px) {
           flex: 1 1 250px;
         }
       }
     }
 
     &-identity {
+      display: flex;
+      flex-direction: column;
       gap: 8px;
-
-      > *:not(:first-child) {
-        margin-top: 8px;
-      }
 
       input {
         display: block;
@@ -163,7 +163,7 @@
       gap: 8px;
       margin-top: 16px;
 
-      > div {
+      &-wrapper {
         display: flex;
         align-items: center;
 
@@ -177,12 +177,12 @@
   }
 
   &__notices {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     font-size: var(--fs-dxs);
     line-height: 1.5;
-
-    > div {
-      margin-top: 1rem;
-    }
+    margin-top: 1rem;
   }
 
   &:not(._private) {
@@ -331,6 +331,7 @@
 
   &.ajax-in-progress {
     > .fictioneer-comment__container {
+      pointer-events: none;
       filter: blur(1px); // Indicate progress
       transition: filter var(--transition-duration);
 
@@ -339,23 +340,23 @@
           display: block;
         }
 
-        > *:not(.ajax) {
+        > .hide-on-ajax {
           display: none;
         }
       }
     }
   }
 
-  &._unapproved {
+  &._unapproved > .fictioneer-comment__container {
     color: var(--fg-700);
 
-    > div :is([data-action=unapprove], .fictioneer-comment__actions) {
+    :is([data-action=unapprove], .fictioneer-comment__actions) {
       display: none;
     }
   }
 
-  &:not(._unapproved) {
-    > div :is([data-action=approve], .moderation-note-unapproved) {
+  &:not(._unapproved) > .fictioneer-comment__container {
+    :is([data-action=approve], .moderation-note-unapproved) {
       display: none;
     }
   }
@@ -368,14 +369,14 @@
       border: var(--comment-border-sticky);
     }
 
+    [data-action=sticky] {
+      display: none;
+    }
+
     &.private {
       > .fictioneer-comment__container {
         background: var(--comment-background-private);
       }
-    }
-
-    > div [data-action=sticky] {
-      display: none;
     }
 
     .sticky-pin {
@@ -388,26 +389,26 @@
   }
 
   &:not(._sticky) {
-    > div :is(button[data-action=unsticky], .sticky-pin) {
+    :is([data-action=unsticky], .sticky-pin) {
       display: none;
     }
   }
 
   &._closed {
-    > div :is([data-action=close], .fictioneer-comment__edit-toggle),
+    > .fictioneer-comment__container :is([data-action=close], .fictioneer-comment__edit-toggle),
     .fictioneer-comment__actions {
       display: none;
     }
 
-    .fictioneer-comment {
-      > div .closed-icon {
+    .fictioneer-comment > .fictioneer-comment__container {
+      .closed-icon {
         display: block;
       }
     }
   }
 
-  &:not(._closed) {
-    > div :is([data-action=open], .closed-icon) {
+  &:not(._closed) > .fictioneer-comment__container {
+    :is([data-action=open], .closed-icon) {
       display: none;
     }
   }
@@ -628,14 +629,11 @@
       transition: color var(--transition-duration);
     }
 
-    > div {
-      min-height: 18px; // Prevent layout shift with ajax-in-progress
-    }
-
     &-left {
       display: flex;
       flex-direction: column;
       gap: .5rem;
+      min-height: 18px; // Prevent layout shift with ajax-in-progress
     }
 
     &-right {
@@ -644,25 +642,21 @@
       align-items: center;
       gap: 8px;
       margin-right: -2px;
-
-      > :not(.popup-menu) {
-        padding-left: 2px;
-        padding-right: 2px;
-      }
+      min-height: 18px; // Prevent layout shift with ajax-in-progress
 
       @include bp(desktop) {
         gap: 8px;
       }
-    }
-  }
 
-  &__edit-toggle,
-  &__delete,
-  &__fingerprint {
-    transition: opacity var(--transition-duration);
+      .quick-button {
+        padding-left: 2px;
+        padding-right: 2px;
+        transition: opacity var(--transition-duration);
 
-    &:not(:hover, :focus-visible) {
-      opacity: .2;
+        &:not(:hover, :focus-visible, .fictioneer-report-comment-button, .popup-menu-toggle) {
+          opacity: .2;
+        }
+      }
     }
   }
 
@@ -690,8 +684,6 @@
   }
 
   .fictioneer-report-comment-button {
-    transition: opacity var(--transition-duration);
-
     &:not(:hover, :focus-visible, .on) {
       opacity: .2;
     }
@@ -754,10 +746,10 @@
   opacity: .5;
   animation: skeleton-animation 2s linear infinite;
 
-  h2 {
+  .fictioneer-comments__title {
     border-style: solid;
 
-    div {
+    .shape {
       height: 18px;
       width: 144px;
     }
@@ -778,7 +770,7 @@
   &__login {
     padding: 8px 0 12px;
 
-    > div {
+    > .shape {
       height: 16px;
       width: 200px;
     }
@@ -788,21 +780,10 @@
     height: 144px;
   }
 
-  &__actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
-
-    > div {
-      height: 32px;
-      width: 106px;
-    }
-  }
-
   &__list {
     margin-top: 40px;
 
-    > div {
+    > .shape {
       padding: 12px;
       margin-top: 16px;
       height: 128px;

@@ -74,7 +74,7 @@ function fictioneer_change_comment_fields( $fields ) {
   $fields['email'] = '<div class="comment-form-email"><input type="text" id="email" name="email" data-lpignore="true" value="' . esc_attr( $commenter['comment_author_email'] ) . '" maxlength="100" aria-describedby="email-notes" placeholder="' . $email_placeholder . '"' . $required_attribute . '></div>';
 
   // Open .fictioneer-respond__checkboxes wrapper
-  $fields['checkboxes'] = '<div class="fictioneer-respond__form-checkboxes">';
+  $fields['checkboxes'] = '<div class="fictioneer-respond__form-checkboxes fictioneer-respond__form-bottom-block">';
 
   // Rebuild cookies field (ignores 'show_comments_cookies_opt_in' and is always enabled)
   $fields['cookies'] = '<div class="comment-form-cookies-consent fictioneer-respond__checkbox-label-pair"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $cookie_checked_attribute . '><label for="wp-comment-cookies-consent">' . fcntr( 'save_in_cookie' ) . '</label></div>';
@@ -103,7 +103,7 @@ function fictioneer_change_comment_fields( $fields ) {
    * around the author and email fields.
    */
 
-  $fields['author'] = '<div class="fictioneer-respond__form-bottom ' . $hidden . '"><div class="fictioneer-respond__form-identity">' . $fields['author'];
+  $fields['author'] = '<div class="fictioneer-respond__form-bottom ' . $hidden . '"><div class="fictioneer-respond__form-identity fictioneer-respond__form-bottom-block">' . $fields['author'];
   $fields['email'] = $fields['email'] . '</div>';
 
   return $fields;
@@ -194,7 +194,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
    */
 
   return sprintf(
-    $close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div>' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
+    $close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div class="fictioneer-respond__form-actions-wrapper">' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
     $submit_button,
     get_the_ID() ? get_comment_id_fields( get_the_ID() ) : ( $parent_field . $comment_post_id ),
     preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
