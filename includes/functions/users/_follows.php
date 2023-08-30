@@ -313,7 +313,7 @@ function fictioneer_ajax_get_follows_notifications() {
       <div class="follow-item <?php echo $new; ?>" data-chapter-id="<?php echo $chapter->ID; ?>" data-story-id="<?php echo $story_id; ?>" data-timestamp="<?php echo $chapter_timestamp; ?>">
         <div class="follow-wrapper">
           <div class="follow-title truncate _1-1">
-            <a href="<?php echo get_the_permalink( $chapter->ID ); ?>"><?php echo fictioneer_get_safe_title( $chapter->ID ); ?></a>
+            <a class="follow-title-link" href="<?php echo get_the_permalink( $chapter->ID ); ?>"><?php echo fictioneer_get_safe_title( $chapter->ID ); ?></a>
           </div>
           <div class="follow-meta truncate _1-1"><?php echo $date ; ?> in <?php echo fictioneer_get_safe_title( $story_id ); ?></div>
           <div class="follow-marker">&bull;</div>
