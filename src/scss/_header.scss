@@ -17,17 +17,17 @@
     transform: translate3d(-50%, -50%, 0);
     filter: var(--layout-site-logo-filter);
     content-visibility: auto;
+  }
 
-    :is(a, img) {
-      display: block;
-    }
+  :is(.custom-logo-link, .custom-logo, .header__title-link) {
+    display: block;
+  }
 
-    img {
-      height: var(--layout-site-logo-height);
-      max-height: calc(var(--layout-site-header-height) - 2rem);
-      width: fit-content;
-      object-fit: contain;
-    }
+  .custom-logo {
+    height: var(--layout-site-logo-height);
+    max-height: calc(var(--layout-site-header-height) - 2rem);
+    width: fit-content;
+    object-fit: contain;
   }
 
   &__title {
