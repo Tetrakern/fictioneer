@@ -78,20 +78,27 @@ $show_type = $args['show_type'] ?? false;
 
     <div class="card__footer">
 
-      <div class="card__left text-overflow-ellipsis">
+      <div class="card__left text-overflow-ellipsis"><?php
+        // Build footer items
+        $footer_items = [];
 
-        <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
-          <i class="fa-solid fa-circle-user"></i>
-          <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
-        <?php endif; ?>
+        if ( get_option( 'fictioneer_show_authors' ) ) {
+          $footer_items['author'] = '<i class="fa-solid fa-circle-user"></i> ' .
+            fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
+        }
 
-        <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
-        <?php the_time( FICTIONEER_CARD_POST_FOOTER_DATE ); ?>
+        $footer_items['publish_date'] = '<i class="fa-solid fa-clock" title="' .
+          esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_POST_FOOTER_DATE );
 
-        <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-        <?php echo get_comments_number(); ?>
+        $footer_items['comments'] = '<i class="fa-solid fa-message" title="' .
+          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
-      </div>
+        // Filer footer items
+        $footer_items = apply_filters( 'fictioneer_filer_post_card_footer', $footer_items, $post, $args );
+
+        // Implode and render footer items
+        echo implode( ' ', $footer_items );
+      ?></div>
 
     </div>
 
