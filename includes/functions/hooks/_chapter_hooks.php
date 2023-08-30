@@ -213,13 +213,9 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
     <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ) ?></a>
   <?php endif; ?>
   <?php if ( $location === 'top' ) : ?>
-    <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>">
-      <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary"><i class="fa-solid fa-caret-down"></i></a>
-    </div>
+    <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
   <?php else : ?>
-    <div class="tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>">
-      <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary"><i class="fa-solid fa-caret-up"></i></a>
-    </div>
+    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
   <?php endif; ?>
   <?php if ( $args['next_index'] ) : ?>
     <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
@@ -338,7 +334,6 @@ function fictioneer_chapter_index_popup_menu( $args ) {
         <i class="fa-solid fa-caret-left"></i>
         <span><?php _e( 'Back to Story', 'fictioneer' ); ?></span>
       </a>
-      <hr>
       <div class="popup-menu__section" data-target="popup-chapter-list"></div>
     </div>
   </div>
