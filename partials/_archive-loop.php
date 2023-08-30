@@ -23,9 +23,9 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $page = get_query_var( 'paged', 1 ) ?: 1; // Main query
-$order = array_intersect( [strtolower( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+$order = array_intersect( [sanitize_key( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
 $order = reset( $order ) ?: 'desc';
-$orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+$orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], fictioneer_allowed_orderby() );
 $orderby = reset( $orderby ) ?: 'date';
 $ago = $_GET['ago'] ?? 0;
 $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );

@@ -53,6 +53,17 @@ Filters the data to be returned as JSON by the `fictioneer_ajax_get_user_data()`
 
 ---
 
+### `apply_filters( 'fictioneer_filter_allowed_orderby', $defaults )`
+Filters the array of allowed orderby arguments for WP_Query.
+
+**$defaults:**
+* $0 (string) – `modified`
+* $0 (string) – `date`
+* $0 (string) – `title`
+* $0 (string) – `rand`
+
+---
+
 ### `apply_filters( 'fictioneer_filter_breadcrumbs_array', $breadcrumbs, $args )`
 Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $args )` function before the HTML is build.
 

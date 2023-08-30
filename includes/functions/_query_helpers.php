@@ -1,6 +1,24 @@
 <?php
 
 // =============================================================================
+// ALLOWED ORDERBY
+// =============================================================================
+
+/**
+ * Returns list of allowed orderby parameters for WP_Query
+ *
+ * @since Fictioneer 5.7.0
+ *
+ * @return array List of allowed orderby parameters.
+ */
+
+function fictioneer_allowed_orderby() {
+  $defaults = ['modified', 'date', 'title', 'rand'];
+
+  return apply_filters( 'fictioneer_filter_allowed_orderby', $defaults );
+}
+
+// =============================================================================
 // GET CARD LIST
 // =============================================================================
 
@@ -119,7 +137,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
 
     // Orderby?
     if ( empty( $orderby ) ) {
-      $orderby = array_intersect( [strtolower( $_GET['orderby'] ?? 0 )], ['modified', 'date', 'title', 'rand'] );
+      $orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], fictioneer_allowed_orderby() );
       $orderby = reset( $orderby ) ?: 'modified';
     }
 
