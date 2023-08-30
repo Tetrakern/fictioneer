@@ -404,7 +404,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
     // Buffer and return
     ob_start();
     // Start HTML ---> ?>
-    <div class="popup-menu-toggle quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0">
+    <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0">
       <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
       <div class="popup-menu hide-if-logged-out only-moderators _top _justify-right _fixed-position">
         <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>

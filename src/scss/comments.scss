@@ -647,16 +647,6 @@
       @include bp(desktop) {
         gap: 8px;
       }
-
-      .quick-button {
-        padding-left: 2px;
-        padding-right: 2px;
-        transition: opacity var(--transition-duration);
-
-        &:not(:hover, :focus-visible, .fictioneer-report-comment-button, .popup-menu-toggle) {
-          opacity: .2;
-        }
-      }
     }
   }
 
@@ -671,12 +661,22 @@
     }
   }
 
+  .comment-quick-button {
+    padding: 0 2px;
+    transition: opacity var(--transition-duration);
+
+    &:not(:hover, :focus-visible, .fictioneer-report-comment-button, .popup-menu-toggle) {
+      opacity: .2;
+    }
+  }
+
   .popup-menu {
     min-width: 104px;
   }
 
   .spinner.ajax {
     display: none;
+    padding: 0 2px;
   }
 
   .hide-unless-hover-on-desktop {
