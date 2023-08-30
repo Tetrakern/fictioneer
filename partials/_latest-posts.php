@@ -97,10 +97,10 @@ $latest_entries = fictioneer_shortcode_query( $query_args );
 
       <?php if ( has_action( 'fictioneer_latest_posts_footers_left' ) || has_action( 'fictioneer_latest_posts_footers_right' ) ) : ?>
         <footer class="post__footer">
-          <div class="post__footer-left">
+          <div class="post__footer-box post__footer-left">
             <?php do_action( 'fictioneer_latest_posts_footers_left', get_the_ID() ); ?>
           </div>
-          <div class="post__footer-right">
+          <div class="post__footer-box post__footer-right">
             <?php do_action( 'fictioneer_latest_posts_footers_right', get_the_ID() ); ?>
           </div>
         </footer>

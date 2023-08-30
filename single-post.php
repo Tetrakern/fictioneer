@@ -43,8 +43,12 @@ get_header();
 
         <?php if ( ! post_password_required() && ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) ) : ?>
           <footer class="post__footer">
-            <div class="post__footer-left"><?php do_action( 'fictioneer_post_footer_left', get_the_ID() ); ?></div>
-            <div class="post__footer-right"><?php do_action( 'fictioneer_post_footer_right', get_the_ID() ); ?></div>
+            <div class="post__footer-box post__footer-left">
+              <?php do_action( 'fictioneer_post_footer_left', get_the_ID() ); ?>
+            </div>
+            <div class="post__footer-box post__footer-right">
+              <?php do_action( 'fictioneer_post_footer_right', get_the_ID() ); ?>
+            </div>
           </footer>
         <?php endif; ?>
 

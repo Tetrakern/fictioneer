@@ -34,10 +34,6 @@
   &._empty {
     text-align: center;
     color: var(--fg-900);
-
-    > * {
-      display: block;
-    }
   }
 
   &__title:is(h1):not(:last-child) {
@@ -51,10 +47,6 @@
     color: var(--fg-800);
     font: var(--font-weight-post-meta) var(--fs-dxs)/1.7 var(--ff-note);
     margin: .75rem 0 1.5rem;
-
-    a {
-      white-space: nowrap;
-    }
 
     :is(i, .icon) {
       color: var(--fg-900);
@@ -73,7 +65,7 @@
     justify-content: space-between;
     margin-top: 2rem;
 
-    > div {
+    &-box {
       display: flex;
       align-items: flex-start;
       gap: 3px;
