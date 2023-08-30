@@ -94,6 +94,23 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $args, $story )`
+Filters the intermediate output array in the `_card-chapter.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of words, publishing date, comments, and so forth.
+
+**$footer_items:**
+* $words (string) – HTML for the word count.
+* $publish_date (string) – Conditional. HTML for the publish date.
+* $modified_date (string) – Conditional. HTML for the modified date.
+* $author (string) – Conditional. HTML for the author.
+* $comments (string) – HTML for the number of comments.
+
+**Parameters**
+* $post (WP_Post) – The post object.
+* $args (array) – Arguments passed to the partial.
+* $story (array) – Chapter story data.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix )`
 Filters the prefix string (if any) in front of a chapter title before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode. Useful if you want to add a wrapper for styling purposes.
 
@@ -208,6 +225,24 @@ Filters the arguments to query the chapters in the `chapters.php` template.
 
 **Parameters:**
 * $post_id (int) – Current post ID.
+
+---
+
+### `apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items )`
+Filters the intermediate output array in the `_card-collection.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of stories and chapters, publishing date, comments, and so forth.
+
+**$footer_items:**
+* $stories (string) – HTML for the number of stories.
+* $chapters (string) – HTML for the number of chapters.
+* $words (string) – HTML for the collective word count.
+* $publish_date (string) – Conditional. HTML for the publish date.
+* $modified_date (string) – Conditional. HTML for the modified date.
+* $comments (string) – HTML for the number of comments.
+
+**Parameters**
+* $post (WP_Post) – The collection post object.
+* $args (array) – Arguments passed to the partial.
+* $items (WP_Post[]) – Array of featured posts (if any).
 
 ---
 
@@ -434,6 +469,34 @@ Filters the intermediate output array of the `fictioneer_mobile_user_menu()` fun
 * $bookmark_jump (string) – Scrolls to the current bookmark. Only in chapters.
 * $logout (string) – Logout link.
 * $login (string) – Login modal.
+
+---
+
+### `apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args )`
+Filters the intermediate output array in the `_card-page.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
+
+**$footer_items:**
+* $author (string) – Conditional. HTML for the author.
+* $publish_date (string) – HTML for the publish date.
+* $comments (string) – HTML for the number of comments (if more than 0).
+
+**Parameters**
+* $post (WP_Post) – The page post object.
+* $args (array) – Arguments passed to the partial.
+
+---
+
+### `apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args )`
+Filters the intermediate output array in the `_card-post.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
+
+**$footer_items:**
+* $author (string) – Conditional. HTML for the author.
+* $publish_date (string) – HTML for the publish date.
+* $comments (string) – HTML for the number of comments.
+
+**Parameters**
+* $post (WP_Post) – The post object.
+* $args (array) – Arguments passed to the partial.
 
 ---
 
@@ -886,6 +949,25 @@ Filters the statistics for all stories rendered by the `fictioneer_stories_stati
 * $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $stories (WP_Query) – Paginated query of all published stories.
+
+---
+
+### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $args, $story )`
+Filters the intermediate output array in the `_card-story.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, publishing date, comments, and so forth.
+
+**$footer_items:**
+* $chapters (string) – HTML for the number of chapters.
+* $words (string) – HTML for the total word count.
+* $publish_date (string) – Conditional. HTML for the publish date.
+* $modified_date (string) – Conditional. HTML for the modified date.
+* $author (string) – Conditional. HTML for the author.
+* $comments (string) – HTML for the number of comments.
+* $status (status) – HTML for the status.
+
+**Parameters**
+* $post (WP_Post) – The post object.
+* $args (array) – Arguments passed to the partial.
+* $story (array) – Story data.
 
 ---
 
