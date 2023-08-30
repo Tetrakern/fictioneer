@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 3px;
 
-  > * {
+  .page-numbers {
     --focus-offset: -2px;
     @extend %button;
     background: var(--pagination-background);
@@ -25,7 +25,7 @@
     }
   }
 
-  span.current {
+  .current {
     cursor: default;
     background: var(--pagination-current-background);
     color: var(--pagination-current-text);
