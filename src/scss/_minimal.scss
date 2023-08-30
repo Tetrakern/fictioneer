@@ -21,7 +21,7 @@
     --infobox-gradient: hsl(var(--infobox-background-free) / 3%);
   }
 
-  :is(.card, .showcase__list-item, .story__thumbnail img, .modal__wrapper, .cookies__list, .litrpg-frame) {
+  :is(.card, .showcase__list-item, .story__thumbnail-image, .modal__wrapper, .cookies__list, .litrpg-frame) {
     box-shadow: var(--minimal-container-box-shadow);
   }
 
@@ -36,10 +36,8 @@
     }
   }
 
-  div.site {
-    background: {
-      image: none;
-    }
+  .site {
+    background-image: none;
   }
 
   .header-background {
