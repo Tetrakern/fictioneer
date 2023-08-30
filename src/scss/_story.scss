@@ -152,6 +152,7 @@ $header_breakpoint: 640px;
     }
 
     &-ribbon {
+      pointer-events: none;
       position: absolute;
       inset: 0;
       top: 0;
@@ -225,7 +226,7 @@ $header_breakpoint: 640px;
     display: flex;
     gap: 3px;
 
-    > * {
+    > .button {
       border-radius: 0;
 
       &:first-child {
@@ -312,6 +313,7 @@ $header_breakpoint: 640px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
     color: var(--fg-600);
     font-family: var(--ff-note);
     font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile)
@@ -319,7 +321,7 @@ $header_breakpoint: 640px;
     padding: .25rem 4px .25rem 0;
     white-space: nowrap;
 
-    > *:not(:first-child) {
+    &-item:not(:first-child) {
       @include bp(640px) {
         margin-left: 1.5rem;
       }
