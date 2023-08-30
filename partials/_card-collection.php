@@ -257,7 +257,7 @@ $comment_count = get_comments( $comment_args );
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comment_count;
 
         // Filer footer items
-        $footer_items = apply_filters( 'fictioneer_filer_collection_card_footer', $footer_items, $post, $args, $items );
+        $footer_items = apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items );
 
         // Implode and render footer items
         echo implode( ' ', $footer_items );

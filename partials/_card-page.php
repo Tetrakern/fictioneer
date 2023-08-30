@@ -72,7 +72,7 @@ $comments_number = get_comments_number();
         }
 
         // Filer footer items
-        $footer_items = apply_filters( 'fictioneer_filer_page_card_footer', $footer_items, $post, $args );
+        $footer_items = apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args );
 
         // Implode and render footer items
         echo implode( ' ', $footer_items );

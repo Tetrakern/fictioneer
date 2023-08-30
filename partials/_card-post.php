@@ -94,7 +94,7 @@ $show_type = $args['show_type'] ?? false;
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
         // Filer footer items
-        $footer_items = apply_filters( 'fictioneer_filer_post_card_footer', $footer_items, $post, $args );
+        $footer_items = apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args );
 
         // Implode and render footer items
         echo implode( ' ', $footer_items );
