@@ -140,8 +140,8 @@ $show_type = $args['show_type'] ?? false;
       ?>
 
       <?php if ( ! empty( $story_id ) && ! empty( $story_data ) ) : ?>
-        <ul class="card__link-list cell-list">
-          <li>
+        <ol class="card__link-list cell-list">
+          <li class="card__link-list-item">
             <div class="card__left text-overflow-ellipsis">
               <i class="fa-solid fa-caret-right"></i>
               <a href="<?php the_permalink( $story_id ); ?>"><?php echo $story_data['title']; ?></a>
@@ -157,7 +157,7 @@ $show_type = $args['show_type'] ?? false;
               ?>
             </div>
           </li>
-        </ul>
+        </ol>
       <?php endif; ?>
 
       <?php if ( $show_taxonomies ) : ?>
@@ -180,28 +180,28 @@ $show_type = $args['show_type'] ?? false;
 
     <div class="card__footer">
 
-      <div class="card__left text-overflow-ellipsis"><?php
+      <div class="card__footer-box _left text-overflow-ellipsis"><?php
         // Build footer items
         $footer_items = [];
 
-        $footer_items['words'] =
-          '<i class="fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> '
-          . fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) );
+        $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+          esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
+          fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) );
 
         if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-          $footer_items['publish_date'] = '<i class="fa-solid fa-clock" title="' .
+          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
             esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
         } else {
-          $footer_items['modified_date'] = '<i class="fa-regular fa-clock" title="' .
+          $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
             esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
         }
 
         if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) {
-          $footer_items['author'] = '<i class="fa-solid fa-circle-user hide-below-desktop"></i> ' .
+          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user hide-below-desktop"></i> ' .
             fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'hide-below-desktop' );
         }
 
-        $footer_items['comments'] = '<i class="fa-solid fa-message" title="' .
+        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
         // Filer footer items
@@ -212,7 +212,7 @@ $show_type = $args['show_type'] ?? false;
       ?></div>
 
       <?php if ( ! empty( $chapter_rating ) ) : ?>
-        <div class="card__right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
+        <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
           <span class="hide-below-480"><?php echo fcntr( $chapter_rating ); ?></span>
           <span class="show-below-480"><?php echo fcntr( $chapter_rating[0] ); ?></span>
         </div>

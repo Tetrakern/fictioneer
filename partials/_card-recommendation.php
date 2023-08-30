@@ -93,7 +93,7 @@ $show_type = $args['show_type'] ?? false;
       <?php if ( count( $urls ) > 0 ): ?>
         <ol class="card__link-list cell-list">
           <?php foreach ( $urls as $url ) : ?>
-            <li>
+            <li class="card__link-list-item">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-square-up-right"></i>
                 <?php

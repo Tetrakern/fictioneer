@@ -183,7 +183,7 @@ $comment_count = get_comments( $comment_args );
       <?php if ( ! empty( $items ) ) : ?>
         <ol class="card__link-list cell-list">
           <?php foreach ( $items as $item ) : ?>
-            <li>
+            <li class="card__link-list-item">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
                 <a href="<?php the_permalink( $item->ID ); ?>"><?php
@@ -230,30 +230,30 @@ $comment_count = get_comments( $comment_args );
     </div>
 
     <div class="card__footer">
-      <div class="card__left text-overflow-ellipsis"><?php
+      <div class="card__footer-box text-overflow-ellipsis"><?php
         // Build footer items
         $footer_items = [];
 
-        $footer_items['stories'] = '<i class="fa-solid fa-book" title="' .
+        $footer_items['stories'] = '<i class="card-footer-icon fa-solid fa-book" title="' .
           esc_attr__( 'Stories', 'fictioneer' ) . '"></i> ' . $story_count;
 
-        $footer_items['chapters'] = '<i class="fa-solid fa-list" title="' .
+        $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
           esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $chapter_count;
 
-        $footer_items['words'] = '<i class="fa-solid fa-font" title="' .
+        $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
           esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $word_count );
 
         if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-          $footer_items['publish_date'] = '<i class="fa-solid fa-clock" title="' .
+          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
             esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' .
             get_the_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
         } else {
-          $footer_items['modified_date'] = '<i class="fa-regular fa-clock" title="' .
+          $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
             esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' .
             get_the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
         }
 
-        $footer_items['comments'] = '<i class="fa-solid fa-message" title="' .
+        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comment_count;
 
         // Filer footer items

@@ -142,7 +142,7 @@ $entries = fictioneer_shortcode_query( $query_args );
 
               <?php if ( $show_taxonomies ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div>
+                  <div class="card__h-scroll">
                     <?php
                       if ( $fandoms || $characters || $genres || $tags ) {
                         $output = [];

@@ -54,20 +54,20 @@ $comments_number = get_comments_number();
 
     <div class="card__footer">
 
-      <div class="card__left text-overflow-ellipsis"><?php
+      <div class="card__footer-box text-overflow-ellipsis"><?php
         // Build footer items
         $footer_items = [];
 
         if ( get_option( 'fictioneer_show_authors' ) ) {
-          $footer_items['author'] = '<i class="fa-solid fa-circle-user"></i> ' .
+          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
             fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
         }
 
-        $footer_items['publish_date'] = '<i class="fa-solid fa-clock" title="' .
+        $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
           esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_PAGE_FOOTER_DATE );
 
         if ( $comments_number > 0 ) {
-          $footer_items['comments'] = '<i class="fa-solid fa-message" title="' .
+          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
             esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comments_number;
         }
 

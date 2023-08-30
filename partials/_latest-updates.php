@@ -153,7 +153,7 @@ $entries = fictioneer_shortcode_query( $query_args );
 
               <ol class="card__link-list _small cell-list">
                 <?php foreach ( $chapter_list as $chapter_id ) : ?>
-                  <li>
+                  <li class="card__link-list-item">
                     <div class="card__left text-overflow-ellipsis">
                       <i class="fa-solid fa-caret-right"></i>
                       <a href="<?php the_permalink( $chapter_id ); ?>"><?php
@@ -180,7 +180,7 @@ $entries = fictioneer_shortcode_query( $query_args );
 
               <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! $args['simple'] ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
-                  <div>
+                  <div class="card__h-scroll">
                     <?php
                       if ( $story['has_taxonomies'] || $tags ) {
                         $output = [];
@@ -224,23 +224,23 @@ $entries = fictioneer_shortcode_query( $query_args );
             <?php if ( ! $args['simple'] ) : ?>
               <div class="card__footer _small">
 
-                <div class="card__left text-overflow-ellipsis">
+                <div class="card__footer-box _left text-overflow-ellipsis">
 
-                  <i class="fa-solid fa-list" title="<?php esc_attr_e( 'Chapters', 'fictioneer' ); ?>"></i>
+                  <i class="card-footer-icon fa-solid fa-list" title="<?php esc_attr_e( 'Chapters', 'fictioneer' ); ?>"></i>
                   <?php echo $story['chapter_count']; ?>
 
-                  <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ); ?>"></i>
+                  <i class="card-footer-icon fa-solid fa-font" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ); ?>"></i>
                   <?php echo $story['word_count_short']; ?>
 
-                  <i class="fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"></i>
+                  <i class="card-footer-icon fa-regular fa-clock" title="<?php esc_attr_e( 'Last Updated', 'fictioneer' ); ?>"></i>
                   <?php echo get_the_modified_date( FICTIONEER_LATEST_UPDATES_FOOTER_DATE, $post ); ?>
 
-                  <i class="<?php echo $story['icon']; ?>"></i>
+                  <i class="card-footer-icon <?php echo $story['icon']; ?>"></i>
                   <?php echo fcntr( $story['status'] ); ?>
 
                 </div>
 
-                <div class="card__right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+                <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
                   <?php echo fcntr( $story['rating_letter'] ); ?>
                 </div>
 

@@ -8,10 +8,8 @@
 
 :root.minimal {
   .card {
-    &__link-list {
-      li {
-        padding-left: 4px;
-      }
+    &__link-list-item {
+      padding-left: 4px;
     }
   }
 }
@@ -348,7 +346,7 @@
     font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile);
     line-height: 1.3;
 
-    li {
+    &-item {
       display: flex;
       justify-content: space-between;
       gap: 0 1rem;
@@ -367,12 +365,12 @@
     .card__left {
       flex: 1 1 auto;
       line-height: 18px; // For vertical centering
+    }
 
-      :is(i, .icon) {
-        display: inline-block;
-        color: var(--fg-800);
-        margin: 0 4px 0 0;
-      }
+    .fa-caret-right {
+      display: inline-block;
+      color: var(--fg-800);
+      margin: 0 4px 0 0;
     }
 
     .card__right {
@@ -426,23 +424,22 @@
         height: 85%;
         width: 8px;
       }
-
-      // Scroll wrapper
-      > div {
-        white-space: nowrap;
-        padding: .625rem .5rem .5rem 0; // Increase scroll container profile for mobile
-        overflow: auto hidden;
-        scrollbar-width: none; // FF
-
-        &::-webkit-scrollbar {
-          width: 0;
-          display: none;
-        }
-      }
     }
 
     a {
       display: inline-block;
+    }
+  }
+
+  &__h-scroll {
+    white-space: nowrap;
+    padding: .625rem .5rem .5rem 0; // Increase scroll container profile for mobile
+    overflow: auto hidden;
+    scrollbar-width: none; // FF
+
+    &::-webkit-scrollbar {
+      width: 0;
+      display: none;
     }
   }
 
@@ -458,15 +455,15 @@
       font-size: 12px; // Minimum desktop and mobile
     }
 
-    > div {
+    &-box {
       background: var(--infobox-background);
+    }
 
-      > :is(i, .icon) {
-        margin-right: .25rem;
+    .card-footer-icon {
+      margin-right: .25rem;
 
-        &:not(:first-child) {
-          margin-left: .875rem;
-        }
+      &:not(:first-child) {
+        margin-left: .875rem;
       }
     }
 

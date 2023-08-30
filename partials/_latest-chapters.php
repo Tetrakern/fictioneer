@@ -156,26 +156,26 @@ $entries = fictioneer_shortcode_query( $query_args );
             <?php if ( ! $args['simple'] ) : ?>
               <div class="card__footer _small">
 
-                <div class="card__left text-overflow-ellipsis">
+                <div class="card__footer-box _left text-overflow-ellipsis">
 
-                  <i class="fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
+                  <i class="card-footer-icon fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
                   <?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?>
 
-                  <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+                  <i class="card-footer-icon fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
                   <?php echo get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE ); ?>
 
-                  <i class="fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
+                  <i class="card-footer-icon fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
                   <?php echo get_comments_number(); ?>
 
                   <?php if ( $story ) : ?>
-                    <i class="<?php echo $story['icon']; ?>"></i>
+                    <i class="card-footer-icon <?php echo $story['icon']; ?>"></i>
                     <?php echo fcntr( $story['status'] ); ?>
                   <?php endif; ?>
 
                 </div>
 
                 <?php if ( ! empty( $chapter_rating ) ) : ?>
-                  <div class="card__right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
+                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
                     <?php echo fcntr( $chapter_rating[0] ); ?>
                   </div>
                 <?php endif; ?>

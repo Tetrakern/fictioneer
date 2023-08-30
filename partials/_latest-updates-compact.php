@@ -161,7 +161,7 @@ $entries = fictioneer_shortcode_query( $query_args );
                     // Chapter excerpt
                     $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter_id );
                   ?>
-                  <li>
+                  <li class="card__link-list-item">
                     <div class="card__left text-overflow-ellipsis">
                       <i class="fa-solid fa-caret-right"></i>
                       <a href="<?php the_permalink( $chapter_id ); ?>"><?php echo $chapter_title; ?></a>
