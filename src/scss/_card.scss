@@ -367,7 +367,7 @@
       line-height: 18px; // For vertical centering
     }
 
-    .fa-caret-right {
+    :is(i, .icon) {
       display: inline-block;
       color: var(--fg-800);
       margin: 0 4px 0 0;

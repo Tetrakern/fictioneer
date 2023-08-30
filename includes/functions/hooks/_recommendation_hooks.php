@@ -157,15 +157,13 @@ function fictioneer_recommendation_links( $args ) {
   foreach( $links as $tuple ) {
     $tuple = explode( '|', $tuple );
     $tuple = array_map( 'trim', $tuple );
-    $tuples[] = '<li><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
+    $tuples[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
   }
 
   // Start HTML ---> ?>
   <div class="recommendation__read-on">
     <h5><?php _e( 'Read on', 'fictioneer' ) ?></h5>
-    <div>
-      <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
-    </div>
+    <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
   </div>
   <?php // <--- End HTML
 }
@@ -201,7 +199,7 @@ function fictioneer_recommendation_support_links( $args ) {
   foreach( $links as $tuple ) {
     $tuple = explode( '|', $tuple );
     $tuple = array_map( 'trim', $tuple );
-    $tuples[] = '<li><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
+    $tuples[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
   }
 
   // Start HTML ---> ?>
@@ -212,9 +210,7 @@ function fictioneer_recommendation_support_links( $args ) {
         fictioneer_get_field( 'fictioneer_recommendation_author', $args['recommendation_id'] )
       )
     ?></h5>
-    <div>
-      <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
-    </div>
+    <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
   </div>
   <?php // <--- End HTML
 }
