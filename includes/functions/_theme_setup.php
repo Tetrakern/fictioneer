@@ -247,6 +247,7 @@ function fictioneer_root_attributes() {
   $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT_CSS;
 
   $conditions = array(
+    'data-caching-active' => fictioneer_caching_active(),
     'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
     'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,
     'data-public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
