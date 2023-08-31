@@ -168,6 +168,7 @@ function fictioneer_ajax_get_reminders_list() {
   $list_items = fictioneer_get_card_list(
     'story',
     array(
+      'fictioneer_query_name' => "bookshelf_reminders",
       'post__in' => $post_ids,
       'paged' => $page,
       'order' => $order

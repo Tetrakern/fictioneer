@@ -217,6 +217,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // faster than querying and counting all comments.
           $chapters = new WP_Query(
             array(
+              'fictioneer_query_name' => 'story_chapters',
               'post_type' => 'fcn_chapter',
               'post_status' => 'publish',
               'post__in' => fictioneer_rescue_array_zero( $old_data['chapter_ids'] ),
@@ -307,6 +308,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     // Query chapters
     $chapters = empty( $chapters ) ? $chapters : new WP_Query(
       array(
+        'fictioneer_query_name' => 'story_chapters',
         'post_type' => 'fcn_chapter',
         'post_status' => 'publish',
         'post__in' => fictioneer_rescue_array_zero( $chapters ),

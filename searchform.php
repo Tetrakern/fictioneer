@@ -42,10 +42,10 @@ if ( $show_advanced ) {
 	$author_name = $_GET['author_name'] ?? 0; // Simple text field
 
 	$all_tags = get_tags();
-	$all_genres = get_tags( ['taxonomy' => 'fcn_genre'] );
-	$all_fandoms = get_tags( ['taxonomy' => 'fcn_fandom'] );
-	$all_characters = get_tags( ['taxonomy' => 'fcn_character'] );
-	$all_warnings = get_tags( ['taxonomy' => 'fcn_content_warning'] );
+	$all_genres = get_tags( array( 'taxonomy' => 'fcn_genre' ) );
+	$all_fandoms = get_tags( array( 'taxonomy' => 'fcn_fandom' ) );
+	$all_characters = get_tags( array( 'taxonomy' => 'fcn_character' ) );
+	$all_warnings = get_tags( array( 'taxonomy' => 'fcn_content_warning' ) );
 
 	$queried_genres = $_GET['genres'] ?? 0;
 	$queried_fandoms = $_GET['fandoms'] ?? 0;

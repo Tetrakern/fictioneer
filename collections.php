@@ -28,6 +28,7 @@ $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
 
 // Prepare query
 $query_args = array (
+  'fictioneer_query_name' => 'collections_list',
   'post_type' => 'fcn_collection',
   'post_status' => 'publish',
   'orderby' => $orderby,

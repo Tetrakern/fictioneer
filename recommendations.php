@@ -28,6 +28,7 @@ $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
 
 // Prepare query
 $query_args = array (
+  'fictioneer_query_name' => 'recommendations_list',
   'post_type' => 'fcn_recommendation',
   'post_status' => 'publish',
   'orderby' => $orderby,
