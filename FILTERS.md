@@ -297,7 +297,7 @@ Filters the queried comments in the `comments.php` template and `fictioneer_ajax
 * $comments (array) – The queried comments.
 * $post_id (int) – Current post ID.
 
-**Hooked filters:**
+**Hooked Filters:**
 * `fictioneer_shift_sticky_comments( $comments )` – Shift sticky comments to the top. Priority 10.
 
 ---
@@ -596,6 +596,19 @@ Filters the RSS link returned by the `fictioneer_get_rss_link( $post_type, $post
 * $feed (int) – The escaped RSS feed URL, either the main or story (chapters) feed.
 * $post_type (string) – The post type the RSS is for. This can differ from the current post type.
 * $post_id (int) – The post ID the RSS is for. This can differ from the current post ID.
+
+---
+
+### `apply_filters( 'fictioneer_filter_safe_title', $title, $post_id )`
+Filters the string returned by the `fictioneer_get_safe_title( $post_id )` function, after all tags and line breaks have been stripped. No further sanitization is applied here, so you can add HTML again.
+
+**Parameters:**
+* $title (string) – The sanitized title of the post.
+* $post_id (int) – The post ID.
+
+**Hooked Filters:**
+* `fictioneer_prefix_sticky_safe_title( $comments )` – Prepends icon to sticky blog posts.
+* `fictioneer_prefix_draft_safe_title( $comments )` – Prepends "Draft:" to drafts.
 
 ---
 

@@ -231,10 +231,8 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    */
 
   function fictioneer_get_safe_title( $post_id ) {
-    // Get title and remove script/style tags and line breaks
-    $title = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', get_the_title( $post_id ) );
-    $title = preg_replace( '/[\r\n\t ]+/', ' ', $title );
-    $post_status = get_post_status( $post_id );
+    // Get title and remove HTML
+    $title = wp_strip_all_tags( get_the_title( $post_id ) );
 
     // If empty, use the datetime as title
     if ( empty( $title ) ) {
@@ -245,16 +243,56 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
       );
     }
 
-    if ( $post_status === 'draft' ) {
-      $title = sprintf(
-        _x( 'Draft: %s', 'Draft: {Post Title}', 'fictioneer' ),
-        $title
-      );
-    }
+    // Apply filters
+    $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id );
 
     return $title;
   }
 }
+
+/**
+ * Prepends icon to sanitized titles of sticky blog posts
+ *
+ * @since Fictioneer 5.7.1
+ *
+ * @param string $title  The sanitized title of the post.
+ * @param int    $id     The ID of the post.
+ *
+ * @return string The modified title.
+ */
+
+function fictioneer_prefix_sticky_safe_title( $title, $id ) {
+  // Prepend icon to titles of sticky posts
+  if ( is_sticky( $id ) && get_post_type( $id ) === 'post' ) {
+    return '<i class="fa-solid fa-thumbtack sticky-pin"></i> ' . $title;
+  }
+
+  // Continue filter
+  return $title;
+}
+add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_sticky_safe_title', 10, 2 );
+
+/**
+ * Prepends "Draft:" to sanitized titles of drafts
+ *
+ * @since Fictioneer 5.7.1
+ *
+ * @param string $title  The sanitized title of the post.
+ * @param int    $id     The ID of the post.
+ *
+ * @return string The modified title.
+ */
+
+function fictioneer_prefix_draft_safe_title( $title, $id ) {
+  // Prepend icon to titles of drafts
+  if ( get_post_status( $id ) === 'draft' ) {
+    return 'Draft: ' . $title;
+  }
+
+  // Continue filter
+  return $title;
+}
+add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title', 10, 2 );
 
 // =============================================================================
 // GET READING TIME NODES HTML
