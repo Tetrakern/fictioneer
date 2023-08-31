@@ -176,7 +176,7 @@
     }
   }
 
-  &__notices {
+  &__notices:not(:empty) {
     display: flex;
     flex-direction: column;
     gap: 1rem;
