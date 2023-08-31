@@ -89,6 +89,7 @@ $query = fictioneer_shortcode_query( $query_args );
                   case 'fcn_chapter':
                     $list_title = trim( fictioneer_get_field( 'fictioneer_chapter_list_title' ) );
                     $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_the_ID() );
+
                     if ( empty( $landscape_image_id ) ) {
                       $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', $story_id );
                     }
@@ -96,7 +97,7 @@ $query = fictioneer_shortcode_query( $query_args );
                 }
 
                 // Prepare title
-                $title = empty( $list_title ) ? fictioneer_get_safe_title( $post ) : $list_title;
+                $title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
 
                 // Prepare image arguments
                 $image_args = array(

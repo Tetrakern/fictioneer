@@ -225,12 +225,15 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    * @since Fictioneer 4.7
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
-   * @param int $post_id  The post ID to get the title for.
+   * @param int|WP_Post $post  The post ID to get the title for.
    *
    * @return string The title, never empty.
    */
 
-  function fictioneer_get_safe_title( $post_id ) {
+  function fictioneer_get_safe_title( $post ) {
+    // Setup
+    $post_id = ( $post instanceof WP_Post ) ? $post->ID : $post;
+
     // Get title and remove HTML
     $title = wp_strip_all_tags( get_the_title( $post_id ) );
 
