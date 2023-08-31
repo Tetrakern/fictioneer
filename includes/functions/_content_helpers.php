@@ -220,9 +220,10 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
   /**
-   * Returns the cleaned title and accounts for empty strings
+   * Returns the sanitized title and accounts for empty strings
    *
    * @since Fictioneer 4.7
+   * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
    * @param int $post_id  The post ID to get the title for.
    *
@@ -230,8 +231,9 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    */
 
   function fictioneer_get_safe_title( $post_id ) {
-    // Get title and remove HTML
-    $title = wp_strip_all_tags( get_the_title( $post_id ) );
+    // Get title and remove script/style tags and line breaks
+    $title = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', get_the_title( $post_id ) );
+    $title = preg_replace( '/[\r\n\t ]+/', ' ', $title );
     $post_status = get_post_status( $post_id );
 
     // If empty, use the datetime as title
