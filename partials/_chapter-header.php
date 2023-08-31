@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) OR exit;
 
 $story_visible = $args['story_post'] &&
   ! empty( $args['story_data']['title'] ) &&
-  get_post_status( $args['story_post']->ID ) === 'publish';
+  in_array( get_post_status( $args['story_post']->ID ), ['publish', 'private'] );
 
 ?>
 

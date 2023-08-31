@@ -51,7 +51,7 @@ get_header( null, $header_args );
         $story_data = null;
         $story_post = null;
 
-        if ( get_post_status( $story_id ) === 'publish' ) {
+        if ( $story_id && in_array( get_post_status( $story_id ), ['publish', 'private'] ) ) {
           $story_post = empty( $story_id ) ? null : get_post( $story_id );
         }
 
