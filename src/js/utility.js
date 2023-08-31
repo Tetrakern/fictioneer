@@ -782,7 +782,7 @@ function fcn_sanitizeHTML(html) {
 // =============================================================================
 
 /*
- * Update ariaChecked when the state changes.
+ * Update aria-checked attribute when the state changes.
  */
 
 function fcn_ariaCheckedUpdate(source) {
@@ -791,7 +791,7 @@ function fcn_ariaCheckedUpdate(source) {
   if (target) {
     const checked = fcn_evaluateAsBoolean(source);
 
-    target.ariaChecked = checked;
+    target.setAttribute( 'aria-checked', checked );
   }
 }
 
