@@ -1156,6 +1156,8 @@ add_action( 'template_redirect', 'fictioneer_gate_unpublished_content' );
 /**
  * Prevents trackback/pingback from being updated
  *
+ * @since Fictioneer 5.7.0
+ *
  * @param array $data  An array of slashed, sanitized, and processed post data.
  *
  * @return array The modified post data.
@@ -1171,5 +1173,31 @@ function fictioneer_prevent_track_and_ping_updates( $data ) {
   return $data;
 }
 add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 1 );
+
+// =============================================================================
+// ADD STICKY PREFIX TO STICKY BLOG POSTS
+// =============================================================================
+
+/**
+ * Prepends icon to titles of sticky posts
+ *
+ * @since Fictioneer 5.7.1
+ *
+ * @param string $title  The original title of the post.
+ * @param int    $id     The ID of the post.
+ *
+ * @return string The modified title.
+ */
+
+function fictioneer_prefix_sticky_title( $title, $id ) {
+  // Prepend icon to titles of sticky posts
+  if ( is_sticky( $id ) ) {
+    return '<i class="fa-solid fa-thumbtack sticky-pin"></i> ' . $title;
+  }
+
+  // Continue filter
+  return $title;
+}
+add_filter( 'the_title', 'fictioneer_prefix_sticky_title', 10, 2 );
 
 ?>
