@@ -90,17 +90,19 @@ $tabs['chapters'] = array(
 );
 
 // Recommendations tab
-$tabs['recommendations'] = array(
-  'name' => __( 'Recommendations', 'fictioneer' ),
-  'query_args' => array(
-    'post_type' => 'fcn_recommendation',
-    'author' => $author_id,
-    'paged' => $current_page,
-    'order' => $order
-  ),
-  'classes' => [],
-  'empty' => __( 'No recommendations published yet.', 'fictioneer' )
-);
+if ( user_can( $author_id, 'publish_fcn_recommendations' ) ) {
+  $tabs['recommendations'] = array(
+    'name' => __( 'Recommendations', 'fictioneer' ),
+    'query_args' => array(
+      'post_type' => 'fcn_recommendation',
+      'author' => $author_id,
+      'paged' => $current_page,
+      'order' => $order
+    ),
+    'classes' => [],
+    'empty' => __( 'No recommendations published yet.', 'fictioneer' )
+  );
+}
 
 // Use first tab if queried tab is not available
 if ( ! array_key_exists( $current_tab, $tabs ) ) {
