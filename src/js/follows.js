@@ -193,7 +193,9 @@ function fcn_setupFollowsHTML() {
   })
   .catch(error => {
     // Show server error
-    if (error.status && error.statusText) {
+    if (error.status === 429) {
+      fcn_showNotification(__( 'Slow down.', 'fcnl' ), 3, 'warning');
+    } else if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
 

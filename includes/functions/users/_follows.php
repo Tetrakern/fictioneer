@@ -258,10 +258,14 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
  * Sends the HTML for Follows notifications via AJAX
  *
  * @since Fictioneer 4.3
+ * @see fictioneer_check_rate_limit()
  * @see fictioneer_get_validated_ajax_user()
  */
 
 function fictioneer_ajax_get_follows_notifications() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_get_follows_notifications' );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 

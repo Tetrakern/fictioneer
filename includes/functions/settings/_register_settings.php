@@ -621,6 +621,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable fast AJAX for comments', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_enable_rate_limits' => array(
+      'name' => 'fictioneer_enable_rate_limits',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Enable rate limiting for AJAX requests', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

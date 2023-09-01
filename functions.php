@@ -241,6 +241,11 @@ if ( ! defined( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT' ) ) {
   define( 'FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT', 900 );
 }
 
+// Integer: Requests per minute
+if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
+  define( 'FICTIONEER_REQUESTS_PER_MINUTE', 5 );
+}
+
 /*
  * Booleans
  */

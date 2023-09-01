@@ -758,6 +758,19 @@
                   </div>
                 </label>
 
+                <label for="fictioneer_enable_rate_limits" class="label-wrapped-checkbox row">
+                  <input name="fictioneer_enable_rate_limits" type="checkbox" id="fictioneer_enable_rate_limits" <?php echo checked( 1, get_option( 'fictioneer_enable_rate_limits' ), false ); ?> value="1">
+                  <div>
+                    <span><?php echo FICTIONEER_OPTIONS['booleans']['fictioneer_enable_rate_limits']['label']; ?></span>
+                    <p class="sub-label"><?php
+                      printf(
+                        __( 'Simple session-based rate limiting, allowing <code>%s</code> requests per minute for selected actions (per action).', 'fictioneer' ),
+                        FICTIONEER_REQUESTS_PER_MINUTE
+                      );
+                    ?></p>
+                  </div>
+                </label>
+
                 <label for="fictioneer_disable_application_passwords" class="label-wrapped-checkbox row">
                   <input name="fictioneer_disable_application_passwords" type="checkbox" id="fictioneer_disable_application_passwords" <?php echo checked( 1, get_option( 'fictioneer_disable_application_passwords' ), false ); ?> value="1">
                   <div>
