@@ -957,6 +957,7 @@ function fictioneer_ajax_get_user_data() {
   $data = array(
     'user_id' => $user->ID,
     'timestamp' => time() * 1000, // Compatible with Date.now() in JavaScript
+    'loggedIn' => true,
     'follows' => false,
     'reminders' => false,
     'checkmarks' => false,

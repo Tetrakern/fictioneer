@@ -141,6 +141,7 @@ function fcn_getUserData() {
     {
       'lastLoaded': 0,
       'timestamp': 0,
+      'loggedIn': 'pending',
       'follows': false,
       'reminders': false,
       'checkmarks': false,
@@ -170,14 +171,28 @@ function fcn_fetchUserData() {
   const currentUserData = fcn_getUserData();
 
   // Only update from server after some time has passed (e.g. 60 seconds)
-  if (fcn_ajaxLimitThreshold < currentUserData['lastLoaded']) {
-    const fcn_eventUserDataReady = new CustomEvent('fcnUserDataReady', {
-      detail: { data: currentUserData, time: new Date() },
-      bubbles: false,
-      cancelable: true
-    });
+  if (fcn_ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
 
-    document.dispatchEvent(fcn_eventUserDataReady);
+    if (currentUserData.loggedIn) {
+      // User logged-in
+      const eventReady = new CustomEvent('fcnUserDataReady', {
+        detail: { data: currentUserData, time: new Date() },
+        bubbles: false,
+        cancelable: true
+      });
+
+      document.dispatchEvent(eventReady);
+    } else {
+      // User logged-out
+      const eventFailure = new CustomEvent('fcnUserDataFailed', {
+        detail: { response: currentUserData, time: new Date() },
+        bubbles: true,
+        cancelable: false
+      });
+
+      document.dispatchEvent(eventFailure);
+    }
+
     return;
   }
 
@@ -205,8 +220,12 @@ function fcn_fetchUserData() {
       // Fire event
       document.dispatchEvent(eventReady);
     } else {
-      // Something went wrong, possibly logged-out; clear local storage
-      localStorage.removeItem('fcnUserData');
+      const updatedUserData = fcn_getUserData();
+
+      // Update guest data
+      updatedUserData['lastLoaded'] = Date.now();
+      updatedUserData['loggedIn'] = false;
+      fcn_setUserData(updatedUserData);
 
       // Prepare custom event
       const eventFailure = new CustomEvent('fcnUserDataFailed', {

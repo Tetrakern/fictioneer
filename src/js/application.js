@@ -46,7 +46,7 @@ if (typeof fcn_removeQueryArgs === 'function') {
 // =============================================================================
 
 /**
- * Cleanup web storage.
+ * Clean-up web storage.
  *
  * @since 4.5
  * @param {Boolean} keepGuestData - Whether to keep data that does not need the
@@ -55,11 +55,24 @@ if (typeof fcn_removeQueryArgs === 'function') {
 
 function fcn_cleanupWebStorage(keepGuestData = false) {
   localStorage.removeItem('fcnProfileAvatar');
-  localStorage.removeItem('fcnUserData');
   localStorage.removeItem('fcnBookshelfContent');
 
   if (!keepGuestData) {
     localStorage.removeItem('fcnChapterBookmarks');
+  }
+
+  // Clean up user data
+  const userData = fcn_parseJSON(localStorage.getItem('fcnUserData'));
+
+  if (userData) {
+    userData['loggedIn'] = false;
+    userData['follows'] = false;
+    userData['reminders'] = false;
+    userData['checkmarks'] = false;
+    userData['bookmarks'] = false;
+    userData['fingerprint'] = false;
+
+    localStorage.setItem('fcnUserData', JSON.stringify(userData));
   }
 
   // Clean up private authentication data
@@ -73,6 +86,22 @@ function fcn_cleanupWebStorage(keepGuestData = false) {
 // Admin bar logout link
 _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
   fcn_cleanupWebStorage();
+});
+
+/**
+ * Clean-up web storage in preparation of login
+ *
+ * @since 5.71
+ */
+
+function fcn_prepareLogin() {
+  localStorage.removeItem('fcnUserData');
+}
+
+_$$('.subscriber-login').forEach(element => {
+  element.addEventListener('click', () => {
+    localStorage.removeItem('fcnUserData');
+  });
 });
 
 // =============================================================================
