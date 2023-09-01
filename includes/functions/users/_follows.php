@@ -59,6 +59,9 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
  */
 
 function fictioneer_ajax_toggle_follow() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_toggle_follow' );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
@@ -125,6 +128,9 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  */
 
 function fictioneer_ajax_clear_my_follows() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_clear_my_follows' );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_follows' );
 
@@ -163,6 +169,9 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  */
 
 function fictioneer_ajax_mark_follows_read() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_mark_follows_read' );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 

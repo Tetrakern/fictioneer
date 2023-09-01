@@ -946,6 +946,9 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
  */
 
 function fictioneer_ajax_get_user_data() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_get_user_data', 30 );
+
   // Validations
   $user = fictioneer_get_validated_ajax_user();
 

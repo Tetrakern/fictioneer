@@ -120,6 +120,9 @@ if ( ! function_exists( 'fictioneer_count_chapter_checkmarks' ) ) {
  */
 
 function fictioneer_ajax_set_checkmark() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_set_checkmark', 30 );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user();
 
@@ -192,6 +195,9 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
  */
 
 function fictioneer_ajax_clear_my_checkmarks() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_clear_my_checkmarks' );
+
   // Setup and validations
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_clear_checkmarks' );
 

@@ -110,7 +110,9 @@ function fcn_toggleFollow(storyId) {
       }
     })
     .catch(error => {
-      if (error.status && error.statusText) {
+      if (error.status === 429) {
+        fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
+      } else if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
     });
@@ -194,7 +196,7 @@ function fcn_setupFollowsHTML() {
   .catch(error => {
     // Show server error
     if (error.status === 429) {
-      fcn_showNotification(__( 'Slow down.', 'fcnl' ), 3, 'warning');
+      fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
     } else if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }

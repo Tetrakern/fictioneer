@@ -106,7 +106,9 @@ function fcn_toggleReminder(storyId) {
       }
     })
     .catch(error => {
-      if (error.status && error.statusText) {
+      if (error.status === 429) {
+        fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
+      } else if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
     });

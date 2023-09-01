@@ -583,11 +583,13 @@ if ( ! function_exists( 'fictioneer_get_validated_ajax_user' ) ) {
  *
  * @since Fictioneer 5.7.1
  *
- * @param string $action  The action to check for rate-limiting.
- *                        Defaults to 'fictioneer_global'.
+ * @param string   $action  The action to check for rate-limiting.
+ *                          Defaults to 'fictioneer_global'.
+ * @param int|null $max     Optional. Maximum number of requests.
+ *                          Defaults to FICTIONEER_REQUESTS_PER_MINUTE.
  */
 
-function fictioneer_check_rate_limit( $action = 'fictioneer_global' ) {
+function fictioneer_check_rate_limit( $action = 'fictioneer_global', $max = null ) {
   if ( ! get_option( 'fictioneer_enable_rate_limits' ) ) {
     return;
   }
@@ -605,6 +607,8 @@ function fictioneer_check_rate_limit( $action = 'fictioneer_global' ) {
   // Setup
   $current_time = microtime( true );
   $time_window = 60;
+  $max = $max ? absint( $max ) : FICTIONEER_REQUESTS_PER_MINUTE;
+  $max = max( 1, $max );
 
   // Filter out old timestamps
   $_SESSION[ $action ]['request_times'] = array_filter(
@@ -615,7 +619,7 @@ function fictioneer_check_rate_limit( $action = 'fictioneer_global' ) {
   );
 
   // Limit exceeded?
-  if ( count( $_SESSION[ $action ]['request_times'] ) >= FICTIONEER_REQUESTS_PER_MINUTE ) {
+  if ( count( $_SESSION[ $action ]['request_times'] ) >= $max ) {
     http_response_code( 429 ); // Too many requests
     exit;
   }
