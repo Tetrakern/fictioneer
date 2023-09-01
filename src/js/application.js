@@ -96,11 +96,12 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
 
 function fcn_prepareLogin() {
   localStorage.removeItem('fcnUserData');
+  localStorage.removeItem('fcnAuth');
 }
 
-_$$('.subscriber-login').forEach(element => {
+_$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(element => {
   element.addEventListener('click', () => {
-    localStorage.removeItem('fcnUserData');
+    fcn_prepareLogin();
   });
 });
 
@@ -305,9 +306,9 @@ function fcn_setLoggedInState(state) {
 
   _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(element => { element.remove() });
 
-  // Initialize
-  fcn_initializeUserData();
+  // Initialize local user
   fcn_getProfileImage();
+  fcn_fetchUserData();
 }
 
 // =============================================================================
@@ -343,7 +344,8 @@ window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 
 // =============================================================================
 
 fcn_theBody.addEventListener('click', e => {
-  // Handle last click
+  // --- LAST CLICK ------------------------------------------------------------
+
   const lastClickTarget = e.target.closest('.toggle-last-clicked');
 
   if (
@@ -365,7 +367,8 @@ fcn_theBody.addEventListener('click', e => {
     return;
   }
 
-  // Handle page jump
+  // --- PAGINATION JUMP -------------------------------------------------------
+
   const pageDots = e.target.closest('.page-numbers.dots:not(button)');
 
   if (pageDots) {
@@ -373,7 +376,8 @@ fcn_theBody.addEventListener('click', e => {
     return;
   }
 
-  // Handle spoilers
+  // --- SPOILERS --------------------------------------------------------------
+
   const spoilerTarget = e.target.closest('.spoiler');
 
   if (spoilerTarget) {
@@ -381,7 +385,17 @@ fcn_theBody.addEventListener('click', e => {
     return;
   }
 
-  // === DATA CLICK HANDLERS ===================================================
+  // --- LOGIN CLICKS ----------------------------------------------------------
+
+  if (
+    e.target.closest('.oauth-login-link') ||
+    e.target.closest('.subscriber-login') ||
+    e.target.closest('[data-prepare-login]')
+  ) {
+    fcn_prepareLogin();
+  }
+
+  // --- DATA CLICK HANDLERS ---------------------------------------------------
 
   const clickTarget = e.target.closest('[data-click]'),
         clickAction = clickTarget?.dataset.click;
