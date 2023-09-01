@@ -26,6 +26,12 @@
     }
   }
 
+  .single-column-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--32bp);
+  }
+
   .card {
     position: relative;
     background: var(--card-background-color);

@@ -20,6 +20,13 @@ require_once( '_settings_actions.php' );
  */
 
 function fictioneer_add_admin_menu() {
+	$fictioneer_plugins = array_filter(
+		get_option( 'active_plugins' ) ?: [],
+		function( $plugin ) {
+			return strpos( $plugin, 'fictioneer' ) !== false;
+		}
+	);
+
 	add_menu_page(
     __( 'Fictioneer Settings', 'fictioneer' ),
     __( 'Fictioneer', 'fictioneer' ),
@@ -47,6 +54,17 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_roles',
 		'fictioneer_settings_roles'
 	);
+
+	if ( ! empty( $fictioneer_plugins ) ) {
+		add_submenu_page(
+			'fictioneer',
+			__( 'Plugins', 'fictioneer' ),
+			__( 'Plugins', 'fictioneer' ),
+			'manage_options',
+			'fictioneer_plugins',
+			'fictioneer_settings_plugins'
+		);
+	}
 
 	add_submenu_page(
 		'fictioneer',
@@ -172,12 +190,23 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 	function fictioneer_settings_header( $tab = 'general' ) {
 		// Setup
 		$output = [];
+		$fictioneer_plugins = array_filter(
+			get_option( 'active_plugins' ) ?: [],
+			function( $plugin ) {
+				return strpos( $plugin, 'fictioneer' ) !== false;
+			}
+		);
 
 		// General tab
 		$output['general'] = '<a href="?page=fictioneer" class="tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
 
 		// Roles tab
 		$output['roles'] = '<a href="?page=fictioneer_roles" class="tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+
+		// Plugins tab
+		if ( ! empty( $fictioneer_plugins ) ) {
+			$output['plugins'] = '<a href="?page=fictioneer_plugins" class="tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
+		}
 
 		// Connections tab
 		$output['connections'] = '<a href="?page=fictioneer_connections" class="tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
@@ -252,13 +281,23 @@ function fictioneer_settings_general() {
 }
 
 /**
- * Callback for general settings page
+ * Callback for roles settings page
  *
  * @since Fictioneer 4.7
  */
 
 function fictioneer_settings_roles() {
 	get_template_part( 'includes/functions/settings/_settings_page_roles' );
+}
+
+/**
+ * Callback for plugins settings page
+ *
+ * @since Fictioneer 5.7.1
+ */
+
+function fictioneer_settings_plugins() {
+	get_template_part( 'includes/functions/settings/_settings_page_plugins' );
 }
 
 /**

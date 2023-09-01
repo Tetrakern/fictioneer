@@ -538,6 +538,7 @@ body[class*="page_fictioneer"] {
   }
 
   &__content {
+    max-width: 1780px;
     padding: var(--20bp) 4px;
 
     @include bp(375px) {
