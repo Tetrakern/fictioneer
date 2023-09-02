@@ -258,7 +258,7 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 // DIALOGS
 // =============================================================================
 
-_$$('button[data-dialog-target]').forEach(element => {
+_$$('[data-dialog-target]').forEach(element => {
   element.addEventListener('click', event => {
     _$$$(event.currentTarget.dataset.dialogTarget)?.showModal();
   });
@@ -269,5 +269,12 @@ _$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault();
     event.currentTarget.closest('dialog').close();
+  });
+});
+
+// Close dialog on click outside
+_$$('dialog').forEach(element => {
+  element.addEventListener('click', event => {
+    event.target.tagName.toLowerCase() === 'dialog' && event.target.close();
   });
 });
