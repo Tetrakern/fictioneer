@@ -274,7 +274,7 @@ _$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
 
 // Close dialog on click outside
 _$$('dialog').forEach(element => {
-  element.addEventListener('click', event => {
+  element.addEventListener('mousedown', event => {
     event.target.tagName.toLowerCase() === 'dialog' && event.target.close();
   });
 });
