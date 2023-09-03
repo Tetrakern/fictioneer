@@ -1,25 +1,203 @@
-& {
-  // Dynamic pixels
-  --2bp: #{get_clamp(0, 2, 320, 768)};
-  --4bp: #{get_clamp(2, 4, 320, 768)};
-  --6bp: #{get_clamp(4, 6, 320, 768)};
-  --8bp: #{get_clamp(6, 8, 320, 768)};
-  --10bp: #{get_clamp(8, 10, 320, 768)};
-  --12bp: #{get_clamp(10, 12, 320, 768)};
-  --14bp: #{get_clamp(12, 14, 320, 768)};
-  --16bp: #{get_clamp(14, 16, 320, 768)};
-  --18bp: #{get_clamp(16, 18, 320, 768)};
-  --20bp: #{get_clamp(18, 20, 320, 768)};
-  --22bp: #{get_clamp(20, 22, 320, 768)};
-  --24bp: #{get_clamp(22, 24, 320, 768)};
-  --26bp: #{get_clamp(24, 26, 320, 768)};
-  --28bp: #{get_clamp(26, 28, 320, 768)};
-  --30bp: #{get_clamp(28, 30, 320, 768)};
-  --32bp: #{get_clamp(30, 16, 320, 768)};
+body[class*="page_fictioneer"] {
+  --focus-color: #ef4d4d;
+  --focus-box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, .8);
+  --highlight-color: #72aee6;
 
-  // Font sizes
-  --fs-xxs: #{get_clamp(11, 12, 320, 768)};
-  --fs-xs: #{get_clamp(13, 14, 320, 768)};
-  --fs-s: #{get_clamp(15, 16, 320, 768)};
-  --fs-m: #{get_clamp(17, 18, 320, 768)};
+  --header-heading-color: #fff;
+  --header-background-color: #1d2327;
+  --header-note-color: rgba(240, 246, 252, .7);
+  --header-note-color-active: #fff;
+  --header-nav-item-color: #fff;
+  --header-nav-item-color-hover: #fff;
+  --header-nav-item-color-active: #fff;
+  --header-nav-item-background-active: #2271b1;
+  --header-nav-item-background-hover: #2c3337;
+
+  --subnav-background-color: #2c3337;
+  --subnav-item-color: rgba(240, 246, 252, .7);
+  --subnav-item-color-hover: #fff;
+  --subnav-item-color-active: #fff;
+  --subnav-item-border-color: transparent;
+  --subnav-item-border-color-hover: currentColor;
+  --subnav-item-border-color-active: #fff;
+
+  --card-background-color: #fff;
+  --card-border-color: #c3c4c7;
+
+  --checkbox-toggle-background-color: #ddd;
+  --checkbox-toggle-background-color-hover: #d6d6d6;
+  --checkbox-toggle-background-color-active: #646970;
+  --checkbox-toggle-color-active: #fff;
+
+  --input-background-color: #eaeaeb;
+  --input-checkbox-background-color-checked: #2271b1;
+  --input-color-placeholder: #646970;
+  --input-color-disabled: #858a93;
+  --input-border-color-active: #2271b1;
+
+  --description-text-color: inherit;
+  --sublabel-text-color: #646970;
+  --subtext-color: #646970;
+
+  --hr-color: #c3c4c7;
+  --code-background-color: #2c3337;
+  --code-color: #fff;
+
+  --table-border-color: #c3c4c7;
+  --table-row-background-color-head: #f6f7f7;
+  --table-row-background-color-even: #f6f7f7;
+
+  &.admin-color-coffee {
+    --header-background-color: #59524c;
+    --header-note-color: #cdcbc9;
+    --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
+    --header-nav-item-background-active: #c7a589;
+    --header-nav-item-background-hover: #c7a589;
+
+    --subnav-background-color: #46403b;
+    --subnav-item-color: #cdcbc9;
+
+    --checkbox-toggle-background-color-active: #615851;
+
+    --input-checkbox-background-color-checked: #59524c;
+    --input-border-color-active: #c7a589;
+  }
+
+  &.admin-color-light {
+    --header-heading-color: #333;
+    --header-background-color: #e5e5e5;
+    --header-note-color: #686868;
+    --header-note-color-active: #d64e07;
+    --header-nav-item-color: #333;
+    --header-nav-item-color-hover: #333;
+    --header-nav-item-background-active: #888;
+    --header-nav-item-background-hover: #f9f9f9;
+
+    --subnav-background-color: #fff;
+    --subnav-item-color: #686868;
+    --subnav-item-color-hover: #333;
+    --subnav-item-color-active: #333;
+    --subnav-item-border-color-active: #888;
+
+    --checkbox-toggle-background-color: #e5e5e5;
+    --checkbox-toggle-background-color-hover: #ddd;
+    --checkbox-toggle-background-color-active: #888;
+
+    --code-background-color: #222;
+
+    --input-checkbox-background-color-checked: #888;
+    --input-border-color-active: #04a4cc;
+  }
+
+  &.admin-color-modern {
+    --header-background-color: #1e1e1e;
+    --header-note-color: #bcbcbc;
+    --header-note-color-active: #33f078;
+    --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
+    --header-nav-item-background-hover: #0c0c0c;
+    --header-nav-item-background-active: #3858e9;
+
+    --subnav-background-color: #0c0c0c;
+    --subnav-item-color: #bcbcbc;
+
+    --checkbox-toggle-background-color-active: #2e2e2e;
+
+    --code-background-color: #0c0c0c;
+
+    --input-checkbox-background-color-checked: #3858e9;
+    --input-border-color-active: #3858e9;
+  }
+
+  &.admin-color-blue {
+    --header-background-color: #53accc;
+    --header-note-color: #e2ecf1;
+    --header-nav-item-color: #fff;
+    --header-nav-item-color-hover: #fff;
+    --header-nav-item-background-hover: #4896b3;
+    --header-nav-item-background-active: #0b6484;
+
+    --subnav-background-color: #4896b3;
+    --subnav-item-color: #e2ecf1;
+
+    --checkbox-toggle-background-color-active: #4896b3;
+
+    --code-background-color: #04242f;
+
+    --input-checkbox-background-color-checked: #0b6484;
+    --input-border-color-active: #0b6484;
+  }
+
+  &.admin-color-ectoplasm {
+    --header-background-color: #523f6d;
+    --header-note-color: #cbc5d3;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #413256;
+    --header-nav-item-background-active: #a3b745;
+
+    --subnav-background-color: #413256;
+    --subnav-item-color: #cbc5d3;
+
+    --checkbox-toggle-background-color-active: #413256;
+
+    --code-background-color: #181320;
+
+    --input-checkbox-background-color-checked: #413256;
+    --input-border-color-active: #a3b745;
+  }
+
+  &.admin-color-midnight {
+    --header-background-color: #363b3f;
+    --header-note-color: #c3c4c5;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #25282b;
+    --header-nav-item-background-active: #e14d43;
+
+    --subnav-background-color: #25282b;
+    --subnav-item-color: #c3c4c5;
+
+    --checkbox-toggle-background-color-active: #363b3f;
+
+    --code-background-color: #25282b;
+
+    --input-checkbox-background-color-checked: #25282b;
+    --input-border-color-active: #e14d43;
+  }
+
+  &.admin-color-ocean {
+    --header-background-color: #738e96;
+    --header-note-color: #d5dde0;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #627c83;
+    --header-nav-item-background-active: #9ebaa0;
+
+    --subnav-background-color: #627c83;
+    --subnav-item-color: #d5dde0;
+
+    --checkbox-toggle-background-color-active: #627c83;
+
+    --code-background-color: #2c373a;
+
+    --input-checkbox-background-color-checked: #627c83;
+    --input-border-color-active: #9ebaa0;
+  }
+
+  &.admin-color-sunrise {
+    --header-background-color: #cf4944;
+    --header-note-color: #f1c8c7;
+    --header-nav-item-color: #fff;
+    --header-nav-item-background-hover: #b43c38;
+    --header-nav-item-background-active: #dd823b;
+
+    --subnav-background-color: #b43c38;
+    --subnav-item-color: #f1c8c7;
+
+    --checkbox-toggle-background-color-active: #b43c38;
+
+    --code-background-color: #1f0a0a;
+
+    --input-checkbox-background-color-checked: #b43c38;
+    --input-border-color-active: #dd823b;
+  }
 }

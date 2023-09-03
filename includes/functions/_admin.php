@@ -43,7 +43,7 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 // =============================================================================
 
 /**
- * Enqueue scripts for admin panel
+ * Enqueue scripts and styles for admin panel
  *
  * @since 4.0
  *
@@ -75,6 +75,24 @@ function fictioneer_admin_scripts( $hook_suffix ) {
       'fictioneer_nonce' => wp_create_nonce( 'fictioneer_nonce' )
     )
   );
+
+  // Admin-wide styles
+  wp_enqueue_style(
+    'fictioneer-admin-panel',
+    get_template_directory_uri() . '/css/admin.css',
+    [],
+    FICTIONEER_VERSION
+  );
+
+  // Theme settings styles
+  if ( strpos( $hook_suffix, 'page_fictioneer' ) !== false ) {
+    wp_enqueue_style(
+      'fictioneer-admin-settings',
+      get_template_directory_uri() . '/css/settings.css',
+      ['fictioneer-admin-panel'],
+      FICTIONEER_VERSION
+    );
+  }
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
 

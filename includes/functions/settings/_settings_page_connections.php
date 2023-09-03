@@ -8,160 +8,113 @@
  */
 ?>
 
-<div class="fictioneer-ui fictioneer-settings">
+<div class="fictioneer-settings">
 
   <?php fictioneer_settings_header( 'connections' ); ?>
 
   <div class="fictioneer-settings__content">
+		<form method="post" action="options.php" class="fictioneer-form">
+			<?php settings_fields( 'fictioneer-settings-connections-group' ); ?>
+			<?php do_settings_sections( 'fictioneer-settings-connections-group' ); ?>
 
-    <div class="tab-content">
-      <form method="post" action="options.php" class="form">
-        <?php settings_fields( 'fictioneer-settings-connections-group' ); ?>
-        <?php do_settings_sections( 'fictioneer-settings-connections-group' ); ?>
+			<div class="fictioneer-columns fictioneer-columns--two-columns">
 
-        <div class="columns-layout two-columns">
+				<div class="fictioneer-card">
+					<div class="fictioneer-card__wrapper">
+						<h3 class="fictioneer-card__header"><?php _e( 'Discord', 'fictioneer' ); ?></h3>
+						<div class="fictioneer-card__content">
 
-          <div class="card">
-    				<div class="card-wrapper">
-    					<h3 class="card-header"><?php _e( 'Discord', 'fictioneer' ); ?></h3>
-    					<div class="card-content">
-    						<div class="overflow-horizontal">
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_client_id' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_discord_client_id">
-    									<input data-lpignore="true" name="fictioneer_discord_client_id" type="text" id="fictioneer_discord_client_id" value="<?php echo esc_attr( get_option( 'fictioneer_discord_client_id' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Discord Client ID', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_client_secret' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_discord_client_secret">
-    									<input data-lpignore="true" name="fictioneer_discord_client_secret" type="text" id="fictioneer_discord_client_secret" value="<?php echo esc_attr( get_option( 'fictioneer_discord_client_secret' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Discord Client Secret', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_invite_link' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_discord_invite_link">
-    									<input data-lpignore="true" name="fictioneer_discord_invite_link" type="url" id="fictioneer_discord_invite_link" value="<?php echo esc_attr( get_option( 'fictioneer_discord_invite_link' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Discord Invite Link', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+							<hr>
 
-									<hr>
+							<div class="fictioneer-card__row">
+                <p><?php printf( __( 'You can set up <a href="%s" target="_blank" rel="noreferrer noopener nofollow">channel webhooks</a> to send notifications to Discord whenever a comment, story, or chapter is first <em>published</em>. This is useful for moderation (instead of emails) and to keep people posted.', 'fictioneer' ), 'https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks' ); ?></p>
+              </div>
 
-									<p class="description row"><?php printf( __( 'You can set up <a href="%s" target="_blank" rel="noreferrer noopener nofollow">channel webhooks</a> to send notifications to Discord whenever a comment, story, or chapter is first <em>published</em>. This is useful for moderation (instead of emails) and to keep people posted.', 'fictioneer' ), 'https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks' ); ?></p>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_channel_comments_webhook' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_discord_channel_comments_webhook">
-    									<input data-lpignore="true" name="fictioneer_discord_channel_comments_webhook" type="text" id="fictioneer_discord_channel_comments_webhook" value="<?php echo esc_attr( get_option( 'fictioneer_discord_channel_comments_webhook' ) ); ?>">
-    									<span class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_discord_channel_comments_webhook']['label']; ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_channel_stories_webhook' ); ?>
+              </div>
 
-									<div class="text-input row">
-    								<label for="fictioneer_discord_channel_stories_webhook">
-    									<input data-lpignore="true" name="fictioneer_discord_channel_stories_webhook" type="text" id="fictioneer_discord_channel_stories_webhook" value="<?php echo esc_attr( get_option( 'fictioneer_discord_channel_stories_webhook' ) ); ?>">
-    									<span class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_discord_channel_stories_webhook']['label']; ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_discord_channel_chapters_webhook' ); ?>
+              </div>
 
-									<div class="text-input row">
-    								<label for="fictioneer_discord_channel_chapters_webhook">
-    									<input data-lpignore="true" name="fictioneer_discord_channel_chapters_webhook" type="text" id="fictioneer_discord_channel_chapters_webhook" value="<?php echo esc_attr( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ); ?>">
-    									<span class="sub-label"><?php echo FICTIONEER_OPTIONS['strings']['fictioneer_discord_channel_chapters_webhook']['label']; ?></span>
-    								</label>
-    							</div>
+						</div>
+					</div>
+				</div>
 
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+				<div class="fictioneer-card">
+					<div class="fictioneer-card__wrapper">
+						<h3 class="fictioneer-card__header"><?php _e( 'Twitch', 'fictioneer' ); ?></h3>
+						<div class="fictioneer-card__content">
 
-          <div class="card">
-    				<div class="card-wrapper">
-    					<h3 class="card-header"><?php _e( 'Twitch', 'fictioneer' ); ?></h3>
-    					<div class="card-content">
-    						<div class="overflow-horizontal">
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_twitch_client_id' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_twitch_client_id">
-    									<input data-lpignore="true" name="fictioneer_twitch_client_id" type="text" id="fictioneer_twitch_client_id" value="<?php echo esc_attr( get_option( 'fictioneer_twitch_client_id' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Twitch Client ID' ); ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_twitch_client_secret' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_twitch_client_secret">
-    									<input data-lpignore="true" name="fictioneer_twitch_client_secret" type="text" id="fictioneer_twitch_client_secret" value="<?php echo esc_attr( get_option( 'fictioneer_twitch_client_secret' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Twitch Client Secret', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+						</div>
+					</div>
+				</div>
 
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+				<div class="fictioneer-card">
+					<div class="fictioneer-card__wrapper">
+						<h3 class="fictioneer-card__header"><?php _e( 'Google', 'fictioneer' ); ?></h3>
+						<div class="fictioneer-card__content">
 
-          <div class="card">
-    				<div class="card-wrapper">
-    					<h3 class="card-header"><?php _e( 'Google', 'fictioneer' ); ?></h3>
-    					<div class="card-content">
-    						<div class="overflow-horizontal">
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_google_client_id' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_google_client_id">
-    									<input data-lpignore="true" name="fictioneer_google_client_id" type="text" id="fictioneer_google_client_id" value="<?php echo esc_attr( get_option( 'fictioneer_google_client_id' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Google Client ID', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_google_client_secret' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_google_client_secret">
-    									<input data-lpignore="true" name="fictioneer_google_client_secret" type="text" id="fictioneer_google_client_secret" value="<?php echo esc_attr( get_option( 'fictioneer_google_client_secret' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Google Client Secret', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+						</div>
+					</div>
+				</div>
 
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+				<div class="fictioneer-card">
+					<div class="fictioneer-card__wrapper">
+						<h3 class="fictioneer-card__header"><?php _e( 'Patreon', 'fictioneer' ); ?></h3>
+						<div class="fictioneer-card__content">
 
-          <div class="card">
-    				<div class="card-wrapper">
-    					<h3 class="card-header"><?php _e( 'Patreon', 'fictioneer' ); ?></h3>
-    					<div class="card-content">
-    						<div class="overflow-horizontal">
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_patreon_client_id' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_patreon_client_id">
-    									<input data-lpignore="true" name="fictioneer_patreon_client_id" type="text" id="fictioneer_patreon_client_id" value="<?php echo esc_attr( get_option( 'fictioneer_patreon_client_id' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Patreon Client ID', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+							<div class="fictioneer-card__row">
+                <?php fictioneer_text_input( 'fictioneer_patreon_client_secret' ); ?>
+              </div>
 
-                  <div class="text-input row">
-    								<label for="fictioneer_patreon_client_secret">
-    									<input data-lpignore="true" name="fictioneer_patreon_client_secret" type="text" id="fictioneer_patreon_client_secret" value="<?php echo esc_attr( get_option( 'fictioneer_patreon_client_secret' ) ); ?>">
-    									<span class="sub-label"><?php _e( 'Patreon Client Secret', 'fictioneer' ); ?></span>
-    								</label>
-    							</div>
+						</div>
+					</div>
+				</div>
 
-    						</div>
-    					</div>
-    				</div>
-    			</div>
+				<?php do_action( 'fictioneer_admin_settings_connections' ); ?>
 
-					<?php do_action( 'fictioneer_admin_settings_connections' ); ?>
+			</div>
 
-        </div>
+			<div class="fictioneer-actions"><?php submit_button(); ?></div>
 
-        <div class="action-row">
-          <?php submit_button(); ?>
-        </div>
-
-      </form>
-    </div>
+		</form>
   </div>
 </div>

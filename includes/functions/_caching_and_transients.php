@@ -508,38 +508,6 @@ if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
 }
 
 // =============================================================================
-// NUKE OBJECT CACHE
-// =============================================================================
-
-/**
- * Flush object cache
- *
- * "There are only two hard things in Computer Science: cache invalidation and
- * naming things" -- Phil Karlton.
- *
- * @since Fictioneer 5.6.0
- *
- * @param int $post_id  Updated post ID.
- */
-
-function fictioneer_flush_object_cache( $post_id ) {
-  // Prevent miss-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
-    return;
-  }
-
-  // Nuclear option
-  wp_cache_flush();
-}
-
-if ( get_option( 'fictioneer_flush_object_cache' ) ) {
-  add_action( 'save_post', 'fictioneer_flush_object_cache', 9 );
-  add_action( 'untrash_post', 'fictioneer_flush_object_cache', 9 );
-  add_action( 'trashed_post', 'fictioneer_flush_object_cache', 9 );
-  add_action( 'delete_post', 'fictioneer_flush_object_cache', 9 );
-}
-
-// =============================================================================
 // RELATIONSHIP REGISTRY
 //
 // The relationship directory array is not fail-safe. Technically, it can happen

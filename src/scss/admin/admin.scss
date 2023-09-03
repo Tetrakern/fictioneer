@@ -3,6 +3,57 @@
 @import '../common/variables';
 
 // =============================================================================
+// GLOBAL PROPERTIES
+// =============================================================================
+
+body {
+  --fcn-bg-primary: #1d2327;
+  --fcn-bg-secondary: #2c3337;
+  --fcn-fg-color: #fff;
+
+  &.admin-color-coffee {
+    --fcn-bg-primary: #59524c;
+    --fcn-bg-secondary: #46403b;
+  }
+
+  &.admin-color-light {
+    --fcn-bg-primary: #e5e5e5;
+    --fcn-bg-secondary: #fff;
+    --fcn-fg-color: #333;
+  }
+
+  &.admin-color-modern {
+    --fcn-bg-primary: #1e1e1e;
+    --fcn-bg-secondary: #0c0c0c;
+  }
+
+  &.admin-color-blue {
+    --fcn-bg-primary: #53accc;
+    --fcn-bg-secondary: #4896b3;
+  }
+
+  &.admin-color-ectoplasm {
+    --fcn-bg-primary: #523f6d;
+    --fcn-bg-secondary: #413256;
+  }
+
+  &.admin-color-midnight {
+    --fcn-bg-primary: #363b3f;
+    --fcn-bg-secondary: #25282b;
+  }
+
+  &.admin-color-ocean {
+    --fcn-bg-primary: #738e96;
+    --fcn-bg-secondary: #627c83;
+  }
+
+  &.admin-color-sunrise {
+    --fcn-bg-primary: #cf4944;
+    --fcn-bg-secondary: #b43c38;
+  }
+}
+
+// =============================================================================
 // GENERAL ADMIN STYLES
 // =============================================================================
 
@@ -53,550 +104,6 @@ td.comment {
   padding-top: 8px;
   margin-top: 8px;
   border-top: 2px solid #dcdcde;
-}
-
-// =============================================================================
-// CHANGE NOTICES STYLE ON FICTIONEER SETTING PAGES
-// =============================================================================
-
-body[class*=fictioneer] {
-  #wpbody-content {
-    position: relative;
-  }
-
-  .notice {
-    position: absolute !important;
-    top: 10px;
-    left: 0;
-    right: 20px;
-    margin: 0;
-    box-shadow: 0 3px 4px 1px rgb(0 0 0 / 35%);
-
-    + .notice {
-      top: 60px;
-
-      + .notice {
-        top: 110px;
-
-        + .notice {
-          top: 160px;
-        }
-      }
-    }
-  }
-}
-
-// =============================================================================
-// LOAD CUSTOM FICTIONEER UI STYLES
-// =============================================================================
-
-.fictioneer-ui {
-  font-size: var(--fs-xs);
-  line-height: 1.5;
-
-  @import '_properties';
-  @import '_wordpress-reset';
-  @import '_base';
-  @import '_layout';
-  @import '_elements';
-  @import '_modifiers';
-}
-
-// =============================================================================
-// FICTIONEER SETTING PAGES
-// =============================================================================
-
-body {
-  --fcn-bg-primary: #1d2327;
-  --fcn-bg-secondary: #2c3337;
-  --fcn-fg-color: #fff;
-
-  &.admin-color-coffee {
-    --fcn-bg-primary: #59524c;
-    --fcn-bg-secondary: #46403b;
-  }
-
-  &.admin-color-light {
-    --fcn-bg-primary: #e5e5e5;
-    --fcn-bg-secondary: #fff;
-    --fcn-fg-color: #333;
-  }
-
-  &.admin-color-modern {
-    --fcn-bg-primary: #1e1e1e;
-    --fcn-bg-secondary: #0c0c0c;
-  }
-
-  &.admin-color-blue {
-    --fcn-bg-primary: #53accc;
-    --fcn-bg-secondary: #4896b3;
-  }
-
-  &.admin-color-ectoplasm {
-    --fcn-bg-primary: #523f6d;
-    --fcn-bg-secondary: #413256;
-  }
-
-  &.admin-color-midnight {
-    --fcn-bg-primary: #363b3f;
-    --fcn-bg-secondary: #25282b;
-  }
-
-  &.admin-color-ocean {
-    --fcn-bg-primary: #738e96;
-    --fcn-bg-secondary: #627c83;
-  }
-
-  &.admin-color-sunrise {
-    --fcn-bg-primary: #cf4944;
-    --fcn-bg-secondary: #b43c38;
-  }
-}
-
-body[class*="page_fictioneer"] #wpcontent {
-  padding-left: 0;
-}
-
-body[class*="page_fictioneer"] {
-  --focus-color: #ef4d4d;
-  --focus-box-shadow: 0 0 0 1px #4f94d4, 0 0 2px 1px rgba(79, 148, 212, .8);
-  --highlight-color: #72aee6;
-
-  --header-heading-color: #fff;
-  --header-background-color: #1d2327;
-  --header-note-color: rgba(240, 246, 252, .7);
-  --header-note-color-active: #fff;
-  --header-nav-item-color: #fff;
-  --header-nav-item-color-hover: #fff;
-  --header-nav-item-color-active: #fff;
-  --header-nav-item-background-active: #2271b1;
-  --header-nav-item-background-hover: #2c3337;
-
-  --subnav-background-color: #2c3337;
-  --subnav-item-color: rgba(240, 246, 252, .7);
-  --subnav-item-color-hover: #fff;
-  --subnav-item-color-active: #fff;
-  --subnav-item-border-color: transparent;
-  --subnav-item-border-color-hover: currentColor;
-  --subnav-item-border-color-active: #fff;
-
-  --card-background-color: #fff;
-  --card-border-color: #c3c4c7;
-
-  --checkbox-toggle-background-color: #ddd;
-  --checkbox-toggle-background-color-hover: #d6d6d6;
-  --checkbox-toggle-background-color-active: #646970;
-  --checkbox-toggle-color-active: #fff;
-
-  --input-background-color: #eaeaeb;
-  --input-checkbox-background-color-checked: #2271b1;
-  --input-color-placeholder: #646970;
-  --input-color-disabled: #858a93;
-  --input-border-color-active: #2271b1;
-
-  --description-text-color: inherit;
-  --sublabel-text-color: #646970;
-  --subtext-color: #646970;
-
-  --hr-color: #c3c4c7;
-  --code-background-color: #2c3337;
-  --code-color: #fff;
-
-  --table-border-color: #c3c4c7;
-  --table-row-background-color-head: #f6f7f7;
-  --table-row-background-color-even: #f6f7f7;
-
-  &.admin-color-coffee {
-    --header-background-color: #59524c;
-    --header-note-color: #cdcbc9;
-    --header-nav-item-color: #fff;
-    --header-nav-item-color-hover: #fff;
-    --header-nav-item-background-active: #c7a589;
-    --header-nav-item-background-hover: #c7a589;
-
-    --subnav-background-color: #46403b;
-    --subnav-item-color: #cdcbc9;
-
-    --checkbox-toggle-background-color-active: #615851;
-
-    --input-checkbox-background-color-checked: #59524c;
-    --input-border-color-active: #c7a589;
-  }
-
-  &.admin-color-light {
-    --header-heading-color: #333;
-    --header-background-color: #e5e5e5;
-    --header-note-color: #686868;
-    --header-note-color-active: #d64e07;
-    --header-nav-item-color: #333;
-    --header-nav-item-color-hover: #333;
-    --header-nav-item-background-active: #888;
-    --header-nav-item-background-hover: #f9f9f9;
-
-    --subnav-background-color: #fff;
-    --subnav-item-color: #686868;
-    --subnav-item-color-hover: #333;
-    --subnav-item-color-active: #333;
-    --subnav-item-border-color-active: #888;
-
-    --checkbox-toggle-background-color: #e5e5e5;
-    --checkbox-toggle-background-color-hover: #ddd;
-    --checkbox-toggle-background-color-active: #888;
-
-    --code-background-color: #222;
-
-    --input-checkbox-background-color-checked: #888;
-    --input-border-color-active: #04a4cc;
-  }
-
-  &.admin-color-modern {
-    --header-background-color: #1e1e1e;
-    --header-note-color: #bcbcbc;
-    --header-note-color-active: #33f078;
-    --header-nav-item-color: #fff;
-    --header-nav-item-color-hover: #fff;
-    --header-nav-item-background-hover: #0c0c0c;
-    --header-nav-item-background-active: #3858e9;
-
-    --subnav-background-color: #0c0c0c;
-    --subnav-item-color: #bcbcbc;
-
-    --checkbox-toggle-background-color-active: #2e2e2e;
-
-    --code-background-color: #0c0c0c;
-
-    --input-checkbox-background-color-checked: #3858e9;
-    --input-border-color-active: #3858e9;
-  }
-
-  &.admin-color-blue {
-    --header-background-color: #53accc;
-    --header-note-color: #e2ecf1;
-    --header-nav-item-color: #fff;
-    --header-nav-item-color-hover: #fff;
-    --header-nav-item-background-hover: #4896b3;
-    --header-nav-item-background-active: #0b6484;
-
-    --subnav-background-color: #4896b3;
-    --subnav-item-color: #e2ecf1;
-
-    --checkbox-toggle-background-color-active: #4896b3;
-
-    --code-background-color: #04242f;
-
-    --input-checkbox-background-color-checked: #0b6484;
-    --input-border-color-active: #0b6484;
-  }
-
-  &.admin-color-ectoplasm {
-    --header-background-color: #523f6d;
-    --header-note-color: #cbc5d3;
-    --header-nav-item-color: #fff;
-    --header-nav-item-background-hover: #413256;
-    --header-nav-item-background-active: #a3b745;
-
-    --subnav-background-color: #413256;
-    --subnav-item-color: #cbc5d3;
-
-    --checkbox-toggle-background-color-active: #413256;
-
-    --code-background-color: #181320;
-
-    --input-checkbox-background-color-checked: #413256;
-    --input-border-color-active: #a3b745;
-  }
-
-  &.admin-color-midnight {
-    --header-background-color: #363b3f;
-    --header-note-color: #c3c4c5;
-    --header-nav-item-color: #fff;
-    --header-nav-item-background-hover: #25282b;
-    --header-nav-item-background-active: #e14d43;
-
-    --subnav-background-color: #25282b;
-    --subnav-item-color: #c3c4c5;
-
-    --checkbox-toggle-background-color-active: #363b3f;
-
-    --code-background-color: #25282b;
-
-    --input-checkbox-background-color-checked: #25282b;
-    --input-border-color-active: #e14d43;
-  }
-
-  &.admin-color-ocean {
-    --header-background-color: #738e96;
-    --header-note-color: #d5dde0;
-    --header-nav-item-color: #fff;
-    --header-nav-item-background-hover: #627c83;
-    --header-nav-item-background-active: #9ebaa0;
-
-    --subnav-background-color: #627c83;
-    --subnav-item-color: #d5dde0;
-
-    --checkbox-toggle-background-color-active: #627c83;
-
-    --code-background-color: #2c373a;
-
-    --input-checkbox-background-color-checked: #627c83;
-    --input-border-color-active: #9ebaa0;
-  }
-
-  &.admin-color-sunrise {
-    --header-background-color: #cf4944;
-    --header-note-color: #f1c8c7;
-    --header-nav-item-color: #fff;
-    --header-nav-item-background-hover: #b43c38;
-    --header-nav-item-background-active: #dd823b;
-
-    --subnav-background-color: #b43c38;
-    --subnav-item-color: #f1c8c7;
-
-    --checkbox-toggle-background-color-active: #b43c38;
-
-    --code-background-color: #1f0a0a;
-
-    --input-checkbox-background-color-checked: #b43c38;
-    --input-border-color-active: #dd823b;
-  }
-}
-
-.fictioneer-settings {
-  &__header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: var(--header-background-color);
-    padding: var(--20bp) 4px;
-    height: 256px;
-
-    @include bp(375px) {
-      padding: var(--20bp) var(--10bp);
-    }
-
-    @include bp(480px) {
-      padding: var(--20bp) var(--14bp);
-    }
-
-    @include bp(768px) {
-      padding: var(--20bp);
-    }
-
-    h1 {
-      color: var(--header-heading-color);
-      font-size: 64px;
-    }
-
-    &-links {
-      color: var(--header-note-color);
-      font-variant-numeric: tabular-nums;
-
-      a {
-        color: var(--header-note-color);
-        text-decoration: none;
-
-        &:hover {
-          color: var(--header-note-color-active);
-        }
-      }
-
-      .dashicons-external {
-        font-size: inherit;
-      }
-    }
-
-    .pill-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--8bp);
-
-      .tab {
-        cursor: pointer;
-        display: grid;
-        place-content: center;
-        color: var(--header-nav-item-color);
-        font-size: 13px;
-        line-height: 1;
-        text-decoration: none;
-        padding: 0 16px;
-        margin: 0;
-        border-radius: 2px;
-        height: 32px;
-        transition: color .1s;
-
-        &:focus {
-          box-shadow: none;
-          outline: none;
-        }
-
-        &:focus-visible {
-          box-shadow: var(--focus-box-shadow);
-        }
-
-        &:hover {
-          background: var(--header-nav-item-background-hover);
-          color: var(--header-nav-item-color-hover);
-        }
-
-        &.active {
-          background: var(--header-nav-item-background-active);
-          color: var(--header-nav-item-color-active);
-
-          &:focus-visible {
-            box-shadow: var(--focus-box-shadow);
-          }
-        }
-      }
-    }
-  }
-
-  &__subnav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--8bp) var(--20bp);
-    background: var(--subnav-background-color);
-    padding: var(--8bp) 20px 0;
-    margin: 0;
-
-    @include bp(375px) {
-      padding: var(--8bp) calc(16px + var(--10bp)) 0;
-    }
-
-    @include bp(480px) {
-      padding: var(--8bp) calc(16px + var(--14bp)) 0;
-    }
-
-    @include bp(768px) {
-      padding: var(--8bp) calc(16px + var(--20bp)) 0;
-    }
-
-    button {
-      cursor: pointer;
-      background: none;
-      color: var(--subnav-item-color);
-      padding: 8px 0 calc(5px + var(--8bp));
-      border: none;
-
-      &:hover {
-        color: var(--subnav-item-color-hover);
-      }
-
-      &:focus {
-        box-shadow: none;
-        outline: none;
-      }
-
-      &:focus-visible {
-        box-shadow: var(--focus-box-shadow);
-        outline: none;
-      }
-    }
-
-    .dashicons-plus {
-      font-size: 16px;
-      height: 16px;
-      width: 16px;
-    }
-
-    .tab {
-      cursor: pointer;
-      display: block;
-      color: var(--subnav-item-color);
-      font-size: 13px;
-      line-height: 1;
-      text-decoration: none;
-      padding: 8px 0 calc(5px + var(--8bp));
-      border-bottom: 3px solid var(--subnav-item-border-color);
-      margin: 0;
-      transition: color .1s, border .1s;
-
-      &:focus {
-        box-shadow: none;
-        outline: none;
-      }
-
-      &:focus-visible {
-        box-shadow: var(--focus-box-shadow);
-        outline: none;
-      }
-
-      &:hover {
-        color: var(--subnav-item-color-hover);
-        border-bottom-color: var(--subnav-item-border-color-hover);
-      }
-
-      &.active {
-        color: var(--subnav-item-color-active);
-        font-weight: 600;
-        border-bottom-color: var(--subnav-item-border-color-active);
-
-        &:focus-visible {
-          box-shadow: var(--focus-box-shadow);
-        }
-      }
-    }
-  }
-
-  &__content {
-    max-width: 1780px;
-    padding: var(--20bp) 4px;
-
-    @include bp(375px) {
-      padding: var(--20bp) var(--10bp);
-    }
-
-    @include bp(480px) {
-      padding: var(--20bp) var(--14bp);
-    }
-
-    @include bp(768px) {
-      padding: var(--20bp);
-    }
-  }
-}
-
-// =============================================================================
-// FICTIONEER DIALOG MODAL
-// =============================================================================
-
-.fictioneer-dialog {
-  top: 50%;
-  left: 50%;
-  background: #fff;
-  padding: 0;
-  margin: 0;
-  border: none;
-  width: 100%;
-  max-width: min(480px, calc(100vw - 40px));
-  transform: translate(-50%, -50%);
-
-  &::backdrop {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #1d2327;
-    font-size: var(--fs-m);
-    font-weight: 600;
-    line-height: 1.2;
-    padding: 0 var(--16bp);
-    height: 50px;
-  }
-
-  &__content {
-    font-size: var(--fs-xs);
-    padding: 0 var(--16bp) var(--16bp);
-  }
-
-  &__actions {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-top: var(--16bp);
-  }
 }
 
 // =============================================================================

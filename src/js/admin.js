@@ -209,8 +209,8 @@ function fcn_confirmIt(event) {
   }
 }
 
-// Add event listener to each element with the 'confirm-dialog' class
-_$$('.confirm-dialog').forEach(element => {
+// Add event listener to each element with the 'data-confirm-dialog' attribute
+_$$('[data-confirm-dialog]').forEach(element => {
   element.addEventListener(
     'click',
     (e) => {

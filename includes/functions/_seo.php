@@ -375,8 +375,8 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int   $post_id Optional. The post ID.
-   * @param array $args    Optional. Array of arguments.
+   * @param int   $post_id  Optional. The post ID.
+   * @param array $args     Optional. Array of arguments.
    *
    * @return string The SEO description.
    */
@@ -384,7 +384,6 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
   function fictioneer_get_seo_description( $post_id = null, $args = [] ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
-    $site_name = FICTIONEER_SITE_NAME;
     $skip_cache = isset( $args['skip_cache'] ) && $args['skip_cache'];
     $default = isset( $args['default'] ) && ! empty( $args['default'] ) ? $args['default'] : false;
 
@@ -393,7 +392,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       return esc_html(
         sprintf(
           _x( 'Search results on %s.', 'Search page SEO description.', 'fictioneer' ),
-          $site_name
+          FICTIONEER_SITE_NAME
         )
       );
     }
@@ -409,7 +408,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
         return esc_html(
           sprintf(
             _x( 'Author on %s.', 'Fallback SEO description for author pages.', 'fictioneer' ),
-            $site_name
+            FICTIONEER_SITE_NAME
           )
         );
       }
@@ -468,7 +467,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       }
 
       // Generic archive?
-      return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), $site_name ) );
+      return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), FICTIONEER_SITE_NAME ) );
     }
 
     // Cached description?

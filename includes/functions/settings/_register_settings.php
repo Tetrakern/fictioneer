@@ -601,13 +601,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Disable all widgets', 'fictioneer' ),
       'default' => false
     ),
-    'fictioneer_flush_object_cache' => array(
-      'name' => 'fictioneer_flush_object_cache',
-			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Flush object cache on content updates', 'fictioneer' ),
-      'default' => false
-    ),
     'fictioneer_see_some_evil' => array(
       'name' => 'fictioneer_see_some_evil',
 			'group' => 'fictioneer-settings-general-group',
@@ -635,56 +628,56 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_user_profile_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => fcntr( 'account' ),
+      'label' => __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_bookmarks_page' => array(
       'name' => 'fictioneer_bookmarks_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => fcntr( 'bookmarks' ),
+      'label' => __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_stories_page' => array(
       'name' => 'fictioneer_stories_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( 'Stories', 'fictioneer' ),
+      'label' => __( 'Stories page (Template: Stories)', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_chapters_page' => array(
       'name' => 'fictioneer_chapters_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( 'Chapters', 'fictioneer' ),
+      'label' => __( 'Chapters page (Template: Chapters)', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_recommendations_page' => array(
       'name' => 'fictioneer_recommendations_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( 'Recommendations', 'fictioneer' ),
+      'label' => __( 'Recommendations page (Template: Recommendations)', 'fictioneer' ),
       'default' => -1
 		),
     'fictioneer_collections_page' => array(
       'name' => 'fictioneer_collections_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( 'Collections', 'fictioneer' ),
+      'label' => __( 'Collections page (Template: Collections)', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_bookshelf_page' => array(
       'name' => 'fictioneer_bookshelf_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( 'Bookshelf', 'fictioneer' ),
+      'label' => __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_404_page' => array(
       'name' => 'fictioneer_404_page',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_page_id',
-      'label' => __( '404', 'fictioneer' ),
+      'label' => __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' ),
       'default' => -1
 		),
 		'fictioneer_comment_report_threshold' => array(
@@ -728,7 +721,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_phrase_maintenance',
 			'group' => 'fictioneer-settings-phrases-group',
 			'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Maintenance Note', 'fictioneer' ),
+      'label' => __( 'Maintenance note', 'fictioneer' ),
       'default' => __( 'Website under planned maintenance. Please check back later.', 'fictioneer' ),
 			'placeholder' => __( 'Website under planned maintenance. Please check back later.', 'fictioneer' )
     ),
@@ -736,7 +729,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_phrase_login_modal',
 			'group' => 'fictioneer-settings-phrases-group',
 			'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Login Modal', 'fictioneer' ),
+      'label' => __( 'Login modal', 'fictioneer' ),
       'default' => __( '<p>Log in with a social media account to set up a profile. You can change your nickname later.</p>', 'fictioneer' ),
 			'placeholder' => __( '<p>Log in with a social media account to set up a profile. You can change your nickname later.</p>', 'fictioneer' )
     ),
@@ -744,7 +737,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_phrase_cookie_consent_banner',
 			'group' => 'fictioneer-settings-phrases-group',
 			'sanitize_callback' => 'fictioneer_validate_phrase_cookie_consent_banner',
-      'label' => __( 'Cookie Consent Banner', 'fictioneer' ),
+      'label' => __( 'Cookie consent banner', 'fictioneer' ),
       'default' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' ),
 			'placeholder' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' )
     ),
@@ -752,7 +745,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_phrase_comment_reply_notification',
 			'group' => 'fictioneer-settings-phrases-group',
 			'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Comment Reply Notification Email', 'fictioneer' ),
+      'label' => __( 'Comment reply notification email', 'fictioneer' ),
       'default' => __( 'Hello [[comment_name]],<br><br>you have a new reply to your comment in <a href="[[post_url]]">[[post_title]]</a>.<br><br><br><strong>[[reply_name]] replied on [[reply_date]]:</strong><br><br><fieldset>[[reply_content]]</fieldset><br><br><a href="[[unsubscribe_url]]">Unsubscribe from this comment.</a>', 'fictioneer' ),
 			'placeholder' => __( 'Hello [[comment_name]],<br><br>you have a new reply to your comment in <a href="[[post_url]]">[[post_title]]</a>.<br><br><br><strong>[[reply_name]] replied on [[reply_date]]:</strong><br><br><fieldset>[[reply_content]]</fieldset><br><br><a href="[[unsubscribe_url]]">Unsubscribe from this comment.</a>', 'fictioneer' )
     ),
@@ -760,7 +753,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_system_email_address',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_validate_email_address',
-      'label' => __( 'System Email Address', 'fictioneer' ),
+      'label' => __( 'System email address', 'fictioneer' ),
       'default' => '',
 			'placeholder' => 'noreply@example.com'
     ),
@@ -768,7 +761,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_system_email_name',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'System Email Name', 'fictioneer' ),
+      'label' => __( 'System email name', 'fictioneer' ),
       'default' => '',
 			'placeholder' => 'Site Name'
     ),
@@ -776,7 +769,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_patreon_label',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Patreon Badge Label', 'fictioneer' ),
+      'label' => __( 'Patreon badge label', 'fictioneer' ),
       'default' => '',
 			'placeholder' => _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' )
     ),
@@ -784,7 +777,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_comments_notice',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Comment Section Notice', 'fictioneer' ),
+      'label' => __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -808,7 +801,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_channel_comments_webhook',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Comment Channel Webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' ),
+      'label' => __( 'Discord comment channel webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -816,7 +809,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_channel_stories_webhook',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Story Channel Webhook', 'fictioneer' ),
+      'label' => __( 'Discord story channel webhook', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -824,7 +817,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_channel_chapters_webhook',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Chapter Channel Webhook', 'fictioneer' ),
+      'label' => __( 'Discord chapter channel webhook', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -832,7 +825,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_discord_invite_link',
 			'group' => 'fictioneer-settings-connections-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Invite Link', 'fictioneer' ),
+      'label' => __( 'Discord invite link', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -888,7 +881,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_subitem_date_format',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Subitem Long Date Format', 'fictioneer' ),
+      'label' => __( 'Subitem long date format', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -896,7 +889,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_subitem_short_date_format',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Subitem Short Date Format', 'fictioneer' ),
+      'label' => __( 'Subitem short date format', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),
@@ -904,7 +897,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_contact_email_addresses',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'sanitize_textarea_field',
-      'label' => __( 'Contact Form Receivers (one email address per line)', 'fictioneer' ),
+      'label' => __( 'Contact form receivers (one email address per line)', 'fictioneer' ),
       'default' => '',
 			'placeholder' => ''
     ),

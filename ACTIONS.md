@@ -62,18 +62,6 @@ Fires after the last card in the `_settings_page_connections.php` partial. You c
 
 ---
 
-### `do_action( 'fictioneer_admin_settings_epubs', $args )`
-Fires after the ePUBs table in the `_settings_page_epubs.php` partial. You can use this hook to add additional options to the ePUBs tab in the Fictioneer settings menu. There is no default settings form group here.
-
-**$args:**
-* $page (int) – Current page number.
-* $epubs_per_page (int) – Number of ePUBs displayed per page.
-* $epub_dir (string) – Path to the ePUBs directory.
-* $epubs (array) – List of all ePUBs in the directory.
-* $current_epubs (array) – List of all currently displayed ePUBs in the table.
-
----
-
 ### `do_action( 'fictioneer_admin_settings_general' )`
 Fires before the last card (Deactivation) in the `_settings_page_general.php` partial. You can use this hook to add additional options to the General tab in the Fictioneer settings menu, belonging to the `fictioneer-settings-general-group` group.
 

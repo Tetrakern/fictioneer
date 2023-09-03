@@ -164,7 +164,7 @@ if ( ! function_exists( 'fictioneer_admin_pagination' ) ) {
 			$page_links[] = '<span class="button disabled">&raquo;</span>';
 		}
 		// Start HTML ---> ?>
-		<div class='pagination'>
+		<div class='fictioneer-pagination'>
 			<?php if ( $max_items ) : ?>
 				<span class="number-of-items"><?php printf( _n( '%s item', '%s items', $max_items, 'fictioneer' ), $max_items ) ?></span>
 			<?php endif; ?>
@@ -198,35 +198,35 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 		);
 
 		// General tab
-		$output['general'] = '<a href="?page=fictioneer" class="tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
+		$output['general'] = '<a href="?page=fictioneer" class="fictioneer-settings__nav-tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
 
 		// Roles tab
-		$output['roles'] = '<a href="?page=fictioneer_roles" class="tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+		$output['roles'] = '<a href="?page=fictioneer_roles" class="fictioneer-settings__nav-tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
 
 		// Plugins tab
 		if ( ! empty( $fictioneer_plugins ) ) {
-			$output['plugins'] = '<a href="?page=fictioneer_plugins" class="tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
+			$output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
 		}
 
 		// Connections tab
-		$output['connections'] = '<a href="?page=fictioneer_connections" class="tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
+		$output['connections'] = '<a href="?page=fictioneer_connections" class="fictioneer-settings__nav-tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
 
 		// Phrases tab
-		$output['phrases'] = '<a href="?page=fictioneer_phrases" class="tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
+		$output['phrases'] = '<a href="?page=fictioneer_phrases" class="fictioneer-settings__nav-tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
 
 		// EPubs tab
-		$output['epubs'] = '<a href="?page=fictioneer_epubs" class="tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
+		$output['epubs'] = '<a href="?page=fictioneer_epubs" class="fictioneer-settings__nav-tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
 
 		// SEO tab (if enabled)
 		if ( get_option( 'fictioneer_enable_seo' ) ) {
-			$output['seo'] = '<a href="?page=fictioneer_seo" class="tab' . ( $tab == 'seo' ? ' active' : '' ) . '">' . __( 'SEO', 'fictioneer' ) . '</a>';
+			$output['seo'] = '<a href="?page=fictioneer_seo" class="fictioneer-settings__nav-tab' . ( $tab == 'seo' ? ' active' : '' ) . '">' . __( 'SEO', 'fictioneer' ) . '</a>';
 		}
 
 		// Tools tab
-		$output['tools'] = '<a href="?page=fictioneer_tools" class="tab' . ( $tab == 'tools' ? ' active' : '' ) . '">' . __( 'Tools', 'fictioneer' ) . '</a>';
+		$output['tools'] = '<a href="?page=fictioneer_tools" class="fictioneer-settings__nav-tab' . ( $tab == 'tools' ? ' active' : '' ) . '">' . __( 'Tools', 'fictioneer' ) . '</a>';
 
 		// Logs tab
-		$output['logs'] = '<a href="?page=fictioneer_logs" class="tab' . ( $tab == 'logs' ? ' active' : '' ) . '">' . __( 'Logs', 'fictioneer' ) . '</a>';
+		$output['logs'] = '<a href="?page=fictioneer_logs" class="fictioneer-settings__nav-tab' . ( $tab == 'logs' ? ' active' : '' ) . '">' . __( 'Logs', 'fictioneer' ) . '</a>';
 
 		// Apply filters
 		$output = apply_filters( 'fictioneer_filter_admin_settings_navigation', $output );
@@ -250,7 +250,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
           </div>
         <?php endif; ?>
 			</div>
-			<nav class="pill-nav"><?php echo implode( '', $output ); ?></nav>
+			<nav class="fictioneer-settings__nav"><?php echo implode( '', $output ); ?></nav>
 		</header>
 		<?php // <--- End HTML
 	}
@@ -366,11 +366,11 @@ function fictioneer_settings_logs() {
 
 function fictioneer_admin_capability_card( $title, $caps, $role ) {
 	// Start HTML ---> ?>
-	<div class="card">
-		<div class="card-wrapper">
-			<h3 class="card-header"><?php echo $title; ?></h3>
-			<div class="card-content">
-				<div class="card-capabilities row">
+	<div class="fictioneer-card">
+		<div class="fictioneer-card__wrapper">
+			<h3 class="fictioneer-card__header"><?php echo $title; ?></h3>
+			<div class="fictioneer-card__content">
+				<div class="fictioneer-card__row fictioneer-card__row--capabilities">
 					<?php
 						foreach ( $caps as $cap ) {
 							$role_caps = $role['capabilities'];
@@ -409,10 +409,89 @@ function fictioneer_admin_capability_card( $title, $caps, $role ) {
 
 function fictioneer_capability_checkbox( $cap, $name, $set ) {
   // Start HTML ---> ?>
-  <label class="capability-checkbox">
+  <label class="fictioneer-capability-checkbox">
     <input type="hidden" name="caps[<?php echo $cap; ?>]" value="0">
-    <input class="capability-checkbox__input" name="caps[<?php echo $cap; ?>]" type="checkbox" <?php echo $set ? 'checked' : ''; ?> value="1">
-    <div class="capability-checkbox__name"><?php echo $name; ?></div>
+    <input class="fictioneer-capability-checkbox__input" name="caps[<?php echo $cap; ?>]" type="checkbox" <?php echo $set ? 'checked' : ''; ?> value="1">
+    <div class="fictioneer-capability-checkbox__name"><?php echo $name; ?></div>
   </label>
   <?php // <--- End HTML
+}
+
+/**
+ * Renders a label-wrapped setting checkbox
+ *
+ * @since Fictioneer 5.7.2
+ *
+ * @param string $option     The name of the setting option.
+ * @param string $sub_label  Optional. The description below the label.
+ */
+
+function fictioneer_label_checkbox( $option, $sub_label = null ) {
+	// Start HTML ---> ?>
+	<label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
+		<input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1">
+		<div>
+			<span><?php echo FICTIONEER_OPTIONS['booleans'][ $option ]['label']; ?></span>
+			<?php if ( ! empty( $sub_label ) ) : ?>
+				<p class="fictioneer-sub-label"><?php echo $sub_label; ?></p>
+			<?php endif; ?>
+		</div>
+	</label>
+	<?php // <--- End HTML
+}
+
+/**
+ * Renders a label-wrapped setting text field
+ *
+ * @since Fictioneer 5.7.2
+ *
+ * @param string $option  The name of the setting option.
+ * @param string $type    Optional. The field type, default 'text'.
+ */
+
+function fictioneer_text_input( $option, $type = 'text' ) {
+	// Start HTML ---> ?>
+	<label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
+		<input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>">
+		<p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+	</label>
+	<?php // <--- End HTML
+}
+
+/**
+ * Renders a setting textarea
+ *
+ * @since Fictioneer 5.7.2
+ *
+ * @param string $option  The name of the setting option.
+ * @param string $height  Optional. The height with unit, default 'auto'.
+ */
+
+function fictioneer_textarea( $option, $height = 'auto' ) {
+	// Start HTML ---> ?>
+	<textarea class="fictioneer-textarea" name="<?php echo $option; ?>" id="<?php echo $option; ?>" rows="4" style="height: <?php echo $height; ?>;"><?php echo get_option( $option ); ?></textarea>
+	<p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+	<?php // <--- End HTML
+}
+
+/**
+ * Renders a setting page assignment select field
+ *
+ * @since Fictioneer 5.7.2
+ *
+ * @param string $option  The name of the setting option.
+ */
+
+function fictioneer_page_assignment( $option ) {
+	wp_dropdown_pages(
+		array(
+			'name' => $option,
+			'id' => $option,
+			'option_none_value' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
+			'show_option_no_change' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
+			'selected' => get_option( $option )
+		)
+	);
+
+	echo '<p class="fictioneer-sub-label">' . FICTIONEER_OPTIONS['integers'][ $option ]['label'] . '</p>';
 }

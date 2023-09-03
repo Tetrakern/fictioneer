@@ -8,17 +8,13 @@
  */
 ?>
 
-<div class="fictioneer-ui fictioneer-settings">
+<div class="fictioneer-settings">
 
 	<?php fictioneer_settings_header( 'plugins' ); ?>
 
 	<div class="fictioneer-settings__content">
-    <div class="tab-content">
-
-      <div class="single-column-layout">
-        <?php do_action( 'fictioneer_admin_settings_plugins' ); ?>
-      </div>
-
+    <div class="single-column-layout">
+      <?php do_action( 'fictioneer_admin_settings_plugins' ); ?>
     </div>
   </div>
 

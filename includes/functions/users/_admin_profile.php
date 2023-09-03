@@ -489,7 +489,8 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
                   <a
                     href="<?php echo $unset_url; ?>"
                     id="oauth-disconnect-<?php echo $provider[0]; ?>"
-                    class="button confirm-dialog"
+                    class="button"
+                    data-confirm-dialog
                     data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
                     data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
                   >
@@ -637,7 +638,8 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
             <a
               href="<?php echo esc_url( $clear_url ); ?>"
               id="data-node-clear-<?php echo $node[0]; ?>"
-              class="button confirm-dialog"
+              class="button"
+              data-confirm-dialog
               data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
               data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
             >
@@ -993,7 +995,8 @@ function fictioneer_admin_danger_zone( $profile_user ) {
           <a
             href="<?php echo $deletion_url; ?>"
             id="delete-my-account"
-            class="button button-danger confirm-dialog"
+            class="button button-danger"
+            data-confirm-dialog
             data-dialog-message="<?php echo esc_attr( $confirmation_message ); ?>"
             data-dialog-confirm="<?php echo esc_attr( $confirmation_string ); ?>"
           ><?php _e( 'Delete Account', 'fictioneer' ); ?></a>
