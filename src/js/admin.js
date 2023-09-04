@@ -25,9 +25,9 @@ function fcn_purgeSchema(id) {
     success: function(response) {
       if (response.success) {
         const tr = _$$$(`schema-${id}`);
-        tr.querySelector('.text-blob').innerHTML = tr.querySelector('summary').innerHTML;
+        tr.querySelector('.cell-schema').innerHTML = tr.querySelector('summary').innerHTML;
         tr.querySelector('.delete').remove();
-        tr.querySelector('.no-schema-note').classList.remove('hidden');
+        tr.querySelector('[data-remove-on-delete]').remove();
       }
     }
   });

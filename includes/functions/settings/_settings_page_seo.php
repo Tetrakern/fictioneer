@@ -109,7 +109,7 @@ $post_ids = $query->posts;
                               <?php _e( 'Edit', 'fictioneer' ); ?>
                             </a>
                             <?php if ( $schema ) : ?>
-                              |
+                              <span data-remove-on-delete>|</span>
                               <label class="delete button-purge-schema" data-id="<?php echo $post_id; ?>">
                                 <?php _e( 'Purge Schema', 'fictioneer' ); ?>
                               </label>
