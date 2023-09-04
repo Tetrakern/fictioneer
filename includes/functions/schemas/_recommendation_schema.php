@@ -57,13 +57,11 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
+    $default_description = fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id );
 
     $page_description = fictioneer_get_seo_description(
       $post_id,
-      array(
-        'default' => fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id ),
-        'skip_cache' => true
-      )
+      array( 'default' => $default_description, 'skip_cache' => true )
     );
 
     // Website node

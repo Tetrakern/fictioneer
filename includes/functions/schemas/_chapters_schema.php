@@ -40,11 +40,9 @@ function fictioneer_refresh_chapters_schema( $post_id, $post ) {
     )
   );
 
-  // Rebuild schemas
-  if ( $pages ) {
-    foreach ( $pages as $page ) {
-      fictioneer_build_chapters_schema( $page->ID );
-    }
+  // Rebuild schemas (empty array if nothing found)
+  foreach ( $pages as $page ) {
+    fictioneer_build_chapters_schema( $page->ID );
   }
 }
 add_action( 'save_post', 'fictioneer_refresh_chapters_schema', 20, 2 );
@@ -72,8 +70,8 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
 
     // Prepare query arguments
     $query_args = array (
-      'post_type' => array( 'fcn_chapter' ),
-      'post_status' => array( 'publish' ),
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
       'meta_query' => array(
         array( 'key' => 'fictioneer_chapter_hidden', 'compare' => '=', 'value' => 0, 'type' => 'numeric' ),
         array( 'key' => 'fictioneer_chapter_no_chapter', 'compare' => '=', 'value' => 0, 'type' => 'numeric' )
@@ -94,14 +92,14 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'All chapters on %s.', 'fictioneer' ),
+        _x( 'All chapters on %s.', 'SEO default description for Chapters template.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => _x( 'Chapters', 'SEO fallback title for Chapters template.', 'fictioneer' ),
+      'default' => _x( 'Chapters', 'SEO default title for Chapters template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 
@@ -126,9 +124,9 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
     // List node
     $schema['@graph'][] = fictioneer_get_schema_node_list(
       $list,
-      __( 'Chapters', 'fictioneer' ),
+      _x( 'Chapters', 'SEO schema chapter list node name.', 'fictioneer' ),
       sprintf(
-        __( 'List of chapters on %s.', 'fictioneer' ),
+        _x( 'List of chapters on %s.', 'SEO schema chapter list node description.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       '#article'

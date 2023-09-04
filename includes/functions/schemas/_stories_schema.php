@@ -40,11 +40,9 @@ function fictioneer_refresh_stories_schema( $post_id, $post ) {
     )
   );
 
-  // Rebuild schemas
-  if ( $pages ) {
-    foreach ( $pages as $page ) {
-      fictioneer_build_stories_schema( $page->ID );
-    }
+  // Rebuild schemas (empty array if nothing found)
+  foreach ( $pages as $page ) {
+    fictioneer_build_stories_schema( $page->ID );
   }
 }
 add_action( 'save_post', 'fictioneer_refresh_stories_schema', 20, 2 );
@@ -72,8 +70,8 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
 
     // Prepare query arguments
     $query_args = array (
-      'post_type' => array( 'fcn_story', 'fcn_collection' ),
-      'post_status' => array( 'publish' ),
+      'post_type' => 'fcn_story',
+      'post_status' => 'publish',
       'orderby' => 'modified',
       'order' => 'DESC',
       'posts_per_page' => 20,
@@ -90,14 +88,14 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'All stories on %s.', 'fictioneer' ),
+        _x( 'All stories on %s.', 'SEO default description for Stories template.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => _x( 'Stories', 'SEO fallback title for Stories template.', 'fictioneer' ),
+      'default' => _x( 'Stories', 'SEO default title for Stories template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 
@@ -122,9 +120,9 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
     // List node
     $schema['@graph'][] = fictioneer_get_schema_node_list(
       $list,
-      __( 'Stories', 'fictioneer' ),
+      _x( 'Stories', 'SEO schema story list node name.', 'fictioneer' ),
       sprintf(
-        __( 'List of stories on %s.', 'fictioneer' ),
+        _x( 'List of stories on %s.', 'SEO schema story list node description.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       '#article'

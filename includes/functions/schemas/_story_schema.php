@@ -27,14 +27,14 @@ function fictioneer_refresh_story_schema( $post_id, $post ) {
     return;
   }
 
-  // Rebuild schema(s)
+  // Rebuild schema
   fictioneer_build_story_schema( $post_id );
 
   // Get chapters of story
   $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
 
   // Rebuild chapter schemas (if any)
-  if ( ! empty( $chapters ) ) {
+  if ( is_array( $chapters ) ) {
     foreach ( $chapters as $chapter_id ) {
       fictioneer_build_chapter_schema( $chapter_id );
     }
@@ -68,22 +68,18 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $rating = fictioneer_get_field( 'fictioneer_story_rating', $post_id );
     $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
+    $default_description = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id ) );
     $chapter_count = 0;
     $chapter_list = [];
-    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
-
-    $page_description = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id ) );
 
     $page_description = fictioneer_get_seo_description(
       $post_id,
-      array(
-        'default' => $page_description,
-        'skip_cache' => true
-      )
+      array( 'default' => $default_description, 'skip_cache' => true )
     );
 
     // Collect visible chapters
-    if ( ! empty( $chapters ) ) {
+    if ( is_array( $chapters ) ) {
       foreach ( $chapters as $chapter_id ) {
         if (
           ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id ) &&
@@ -128,16 +124,16 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
     if ( ! empty( $chapter_list ) ) {
       $list_node = array(
         '@type' => 'ItemList',
-        'name' => __( 'Chapters', 'fictioneer' ),
+        'name' => _x( 'Chapters', 'SEO schema story chapters list node name.', 'fictioneer' ),
         'description' => sprintf(
-          __( 'Chapters of %s.', 'fictioneer' ),
+          _x( 'Chapters of %s.', 'SEO schema story chapters list node description.', 'fictioneer' ),
           fictioneer_get_safe_title( $post_id )
         ),
         'mainEntityOfPage' => ['@id' => '#article'],
         'itemListElement' => []
       );
 
-      foreach( $chapter_list as $chapter ) {
+      foreach ( $chapter_list as $chapter ) {
         $list_node['itemListElement'][] = array(
           '@type' => 'ListItem',
           'position' => $chapter['position'],

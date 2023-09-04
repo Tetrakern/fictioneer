@@ -40,11 +40,9 @@ function fictioneer_refresh_recommendations_schema( $post_id, $post ) {
     )
   );
 
-  // Rebuild schemas
-  if ( $pages ) {
-    foreach ( $pages as $page ) {
-      fictioneer_build_recommendations_schema( $page->ID );
-    }
+  // Rebuild schemas (empty array if nothing found)
+  foreach ( $pages as $page ) {
+    fictioneer_build_recommendations_schema( $page->ID );
   }
 }
 add_action( 'save_post', 'fictioneer_refresh_recommendations_schema', 20, 2 );
@@ -72,8 +70,8 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
 
     // Prepare query arguments
     $query_args = array (
-      'post_type' => array( 'fcn_recommendation' ),
-      'post_status' => array( 'publish' ),
+      'post_type' => 'fcn_recommendation',
+      'post_status' => 'publish',
       'orderby' => 'modified',
       'order' => 'DESC',
       'posts_per_page' => 20,
@@ -90,14 +88,14 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'All recommendations on %s.', 'fictioneer' ),
+        _x( 'All recommendations on %s.', 'SEO default description for Recommendations template.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => _x( 'Recommendations', 'SEO fallback title for Recommendations template.', 'fictioneer' ),
+      'default' => _x( 'Recommendations', 'SEO default title for Recommendations template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 
@@ -122,9 +120,9 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
     // List node
     $schema['@graph'][] = fictioneer_get_schema_node_list(
       $list,
-      __( 'Recommendations', 'fictioneer' ),
+      _x( 'Recommendations', 'SEO schema recommendation list node name.', 'fictioneer' ),
       sprintf(
-        __( 'List of recommendations on %s.', 'fictioneer' ),
+        _x( 'List of recommendations on %s.', 'SEO schema recommendation list node description.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       '#article'

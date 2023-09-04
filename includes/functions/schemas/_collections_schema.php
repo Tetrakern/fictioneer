@@ -40,11 +40,9 @@ function fictioneer_refresh_collections_schema( $post_id, $post ) {
     )
   );
 
-  // Rebuild schemas
-  if ( $pages ) {
-    foreach ( $pages as $page ) {
-      fictioneer_build_collections_schema( $page->ID );
-    }
+  // Rebuild schemas (empty array if nothing found)
+  foreach ( $pages as $page ) {
+    fictioneer_build_collections_schema( $page->ID );
   }
 }
 add_action( 'save_post', 'fictioneer_refresh_collections_schema', 20, 2 );
@@ -72,8 +70,8 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
 
     // Prepare query arguments
     $query_args = array (
-      'post_type' => array( 'fcn_collection' ),
-      'post_status' => array( 'publish' ),
+      'post_type' => 'fcn_collection',
+      'post_status' => 'publish',
       'orderby' => 'modified',
       'order' => 'DESC',
       'posts_per_page' => 20,
@@ -90,14 +88,14 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'All collections on %s.', 'fictioneer' ),
+        _x( 'All collections on %s.', 'SEO default description for Collections template.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => _x( 'Collections', 'SEO fallback title for Collections template.', 'fictioneer' ),
+      'default' => _x( 'Collections', 'SEO default title for Collections template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 
@@ -122,9 +120,9 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
     // List node
     $schema['@graph'][] = fictioneer_get_schema_node_list(
       $list,
-      __( 'Collections', 'fictioneer' ),
+      _x( 'Collections', 'SEO schema collection list node name.', 'fictioneer' ),
       sprintf(
-        __( 'List of collections on %s.', 'fictioneer' ),
+        _x( 'List of collections on %s.', 'SEO schema collection list node description.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       '#article'
