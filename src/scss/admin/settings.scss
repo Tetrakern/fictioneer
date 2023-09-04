@@ -3,16 +3,6 @@
 @import '../common/variables';
 @import '_properties';
 
-
-
-
-.fictioneer-ui {
-  @import '_elements';
-  @import '_modifiers';
-}
-
-
-
 // ===============================================================================
 // NOTICES AND WP CONTENT
 // ===============================================================================
@@ -70,6 +60,10 @@
 
   .button {
     margin: 0;
+
+    &.disabled {
+      pointer-events: none;
+    }
   }
 
   p.submit {
@@ -348,6 +342,12 @@
         gap: 8px;
       }
 
+      &--buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
       &--meta {
         color: var(--subtext-color);
         font-size: 12px;
@@ -509,6 +509,16 @@
   // =============================================================================
   // ELEMENTS
   // =============================================================================
+
+  .fictioneer-term-imports {
+    > span {
+      cursor: default;
+
+      &:hover {
+        color: var(--highlight-color);
+      }
+    }
+  }
 
   .fictioneer-actions {
     display: flex;

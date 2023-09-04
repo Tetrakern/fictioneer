@@ -8,25 +8,23 @@
  */
 ?>
 
-<div class="fictioneer-ui fictioneer-settings">
+<div class="fictioneer-settings">
 
 	<?php fictioneer_settings_header( 'logs' ); ?>
 
 	<div class="fictioneer-settings__content">
-    <div class="tab-content">
 
-      <div class="card">
-        <div class="card-wrapper">
-          <h3 class="card-header"><?php _e( 'Fictioneer Log', 'fictioneer' ) ?></h3>
-          <div class="card-content">
+    <div class="fictioneer-card">
+      <div class="fictioneer-card__wrapper">
+        <h3 class="fictioneer-card__header"><?php _e( 'Fictioneer Log', 'fictioneer' ) ?></h3>
+        <div class="fictioneer-card__content">
+          <div class="fictioneer-card__row">
             <?php echo fictioneer_get_log(); ?>
           </div>
         </div>
       </div>
-
-      <?php do_action( 'fictioneer_admin_settings_logs' ); ?>
-
     </div>
+
   </div>
 
 </div>

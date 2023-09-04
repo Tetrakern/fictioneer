@@ -67,11 +67,6 @@ Fires before the last card (Deactivation) in the `_settings_page_general.php` pa
 
 ---
 
-### `do_action( 'fictioneer_admin_settings_logs' )`
-Fires after the last card in the `_settings_page_logs.php` partial. You can use this hook to add additional options to the Logs tab in the Fictioneer settings menu. There is no default settings form group here.
-
----
-
 ### `do_action( 'fictioneer_admin_settings_phrases' )`
 Fires after the last card in the `_settings_page_phrases.php` partial. You can use this hook to add additional options to the Phrases tab in the Fictioneer settings menu, belonging to the `fictioneer-settings-phrases-group` group.
 
