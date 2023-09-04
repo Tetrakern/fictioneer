@@ -278,7 +278,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `get_avatar_url` | `fictioneer_get_avatar_url`
 | `get_comment_author_IP` | `__return_empty_string`
 | `get_comment_text` | `fictioneer_replace_comment_line_breaks`
-| `get_the_excerpt` | `fictioneer_fix_excerpt`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
 | `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`

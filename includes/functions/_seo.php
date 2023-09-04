@@ -384,8 +384,8 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
   function fictioneer_get_seo_description( $post_id = null, $args = [] ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
-    $skip_cache = isset( $args['skip_cache'] ) && $args['skip_cache'];
-    $default = isset( $args['default'] ) && ! empty( $args['default'] ) ? $args['default'] : false;
+    $skip_cache = $args['skip_cache'] ?? false;
+    $default = ! empty( trim( $args['default'] ?? '' ) ) ? $args['default'] : false;
 
     // Search?
     if ( is_search() ) {
@@ -480,34 +480,31 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     // Start building...
     $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
     $seo_description = empty( $seo_description ) ? false : $seo_description;
-    $excerpt = '';
+    $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
+    $excerpt = mb_strimwidth( $excerpt, 0, 155, '…' );
+    $default = empty( $default ) ? $excerpt : $default;
 
     // Special Case: Recommendations
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
-      $default = fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id );
+      $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id ) ?? '';
+      $one_sentence = trim( $one_sentence );
+
+      $default = empty( $one_sentence ) ? $default : $one_sentence;
+    }
+
+    // Placeholder: {{excerpt}}
+    if ( str_contains( $seo_description, '{{excerpt}}' ) ) {
+      $seo_description = str_replace( '{{excerpt}}', $excerpt ?? '', $seo_description );
     }
 
     // Defaults...
-    if ( $default && ( ! $seo_description || $seo_description == '{{excerpt}}' ) ) {
+    if ( ! empty( $default ) && empty( $seo_description ) ) {
       $seo_description = $default;
-    }
-
-    // Get description from excerpt if necessary...
-    if ( ! $seo_description || str_contains( $seo_description, '{{excerpt}}' ) ) {
-      $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
-      $excerpt = mb_strimwidth( $excerpt, 0, 155, '…' );
-
-      if ( ! $seo_description ) $seo_description = $excerpt;
-    }
-
-    // Replace {{excerpt}} placeholder...
-    if ( str_contains( $seo_description, '{{excerpt}}' ) ) {
-      $seo_description = str_replace( '{{excerpt}}', $excerpt, $seo_description );
     }
 
     // Catch empty
     if ( empty( $seo_description ) ) {
-      $seo_description = $default ? $default : FICTIONEER_SITE_DESCRIPTION;
+      $seo_description = empty( $default ) ? FICTIONEER_SITE_DESCRIPTION : $default;
     }
 
     // Finalize
