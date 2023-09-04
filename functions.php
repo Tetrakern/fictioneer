@@ -566,6 +566,14 @@ if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
 
 require_once __DIR__ . '/includes/functions/_search.php';
 
+/**
+ * Generate SEO schema graphs.
+ */
+
+if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+  require_once __DIR__ . '/includes/functions/_schemas.php';
+}
+
 // =============================================================================
 // ADMIN ONLY
 // =============================================================================
@@ -628,14 +636,6 @@ if ( ! is_admin() ) {
    */
 
   require_once __DIR__ . '/includes/functions/hooks/_mobile_menu_hooks.php';
-
-  /**
-   * Generate SEO schema graphs.
-   */
-
-  if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
-    require_once __DIR__ . '/includes/functions/_schemas.php';
-  }
 }
 
 ?>

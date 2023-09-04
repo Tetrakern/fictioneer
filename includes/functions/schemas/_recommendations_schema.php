@@ -12,8 +12,8 @@
  *
  * @since Fictioneer 4.0
  *
- * @param int     $post_id The ID of the saved post.
- * @param WP_Post $post    The saved post object.
+ * @param int     $post_id  The ID of the saved post.
+ * @param WP_Post $post     The saved post object.
  */
 
 function fictioneer_refresh_recommendations_schema( $post_id, $post ) {
@@ -59,7 +59,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int $post_id The ID of the page the schema is for.
+   * @param int $post_id  The ID of the page the schema is for.
    *
    * @return string The encoded JSON or an empty string.
    */
@@ -90,17 +90,14 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'Recommendations on %s.', 'fictioneer' ),
+        __( 'All recommendations on %s.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => sprintf(
-        __( 'Recommendations – %s.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
-      ),
+      'default' => _x( 'Recommendations', 'SEO fallback title for Recommendations template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 

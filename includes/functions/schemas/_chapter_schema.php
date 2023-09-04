@@ -12,8 +12,8 @@
  *
  * @since Fictioneer 4.0
  *
- * @param int     $post_id The ID of the saved post.
- * @param WP_Post $post    The saved post object.
+ * @param int     $post_id  The ID of the saved post.
+ * @param WP_Post $post     The saved post object.
  */
 
 function fictioneer_refresh_chapter_schema( $post_id, $post ) {
@@ -63,14 +63,7 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $word_count = intval( get_post_meta( $post_id, '_word_count', true ) );
     $page_description = fictioneer_get_seo_description( $post_id );
-
-    $page_title = fictioneer_get_seo_title(
-      $post_id,
-      array(
-        'default' => fictioneer_get_safe_title( $post_id ) . ' &ndash; ' . FICTIONEER_SITE_NAME,
-        'skip_cache' => true
-      )
-    );
+    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
 
     // Website node
     $schema['@graph'][] = fictioneer_get_schema_node_website();

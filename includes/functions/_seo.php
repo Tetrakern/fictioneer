@@ -49,16 +49,16 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param object $post The post object.
+   * @param object $post  The post object.
    */
 
   function fictioneer_seo_fields( $post ) {
     // Title
-    $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true ) ?? '{{title}} – {{site}}';
-    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID ) . ' – ' . FICTIONEER_SITE_NAME;
+    $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true ) ?: '';
+    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID );
 
     // Description (truncated if necessary)
-    $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true ) ?? '{{excerpt}}';
+    $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true ) ?: '';
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
     $seo_description_placeholder = mb_strimwidth( $seo_description_placeholder, 0, 155, '…' );
 
@@ -74,7 +74,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
     }
 
     // ... if not found, look for parent thumbnail...
-    if ( ! $seo_og_image_display && $post->post_type == 'fcn_chapter' ) {
+    if ( ! $seo_og_image_display && $post->post_type === 'fcn_chapter' ) {
       $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
 
       if ( $story_id && has_post_thumbnail( $story_id ) ) {
@@ -109,7 +109,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
             <span><?php _e( 'Title', 'fictioneer' ); ?></span>
             <span id="fictioneer-seo-title-chars" class="counter"></span>
           </label>
-          <input id="fictioneer-seo-title" type="text" data-lpignore="true" name="fictioneer_seo_title" value="<?php echo esc_attr( $seo_title ); ?>" placeholder="<?php echo esc_attr( $seo_title_placeholder ); ?>">
+          <input id="fictioneer-seo-title" type="text" name="fictioneer_seo_title" value="<?php echo esc_attr( $seo_title ); ?>" placeholder="<?php echo esc_attr( $seo_title_placeholder ); ?>">
         </div>
 
         <div class="fictioneer-metabox__row">
@@ -172,17 +172,17 @@ function fictioneer_save_seo_metabox( $post_id ) {
 
   // Save image
   if ( isset( $_POST['fictioneer_seo_og_image'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_og_image', $_POST['fictioneer_seo_og_image'] );
+    update_post_meta( $post_id, 'fictioneer_seo_og_image', absint( $_POST['fictioneer_seo_og_image'] ) );
   }
 
   // Save title
   if ( isset( $_POST['fictioneer_seo_title'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_title', $_POST['fictioneer_seo_title'] );
+    update_post_meta( $post_id, 'fictioneer_seo_title', sanitize_text_field( $_POST['fictioneer_seo_title'] ) );
   }
 
   // Save description
   if ( isset( $_POST['fictioneer_seo_description'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_description', $_POST['fictioneer_seo_description'] );
+    update_post_meta( $post_id, 'fictioneer_seo_description', sanitize_text_field( $_POST['fictioneer_seo_description'] ) );
   }
 
   // Clear caches
@@ -209,8 +209,8 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int   $post_id Optional. The post ID.
-   * @param array $args    Optional. Array of arguments.
+   * @param int   $post_id  Optional. The post ID.
+   * @param array $args     Optional. Array of arguments.
    *
    * @return string The SEO title.
    */
@@ -218,18 +218,15 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
   function fictioneer_get_seo_title( $post_id = null, $args = [] ) {
     // Setup
     $post_id = $post_id ? $post_id : get_queried_object_id();
-    $page = get_query_var( 'paged', 0 ); // Only default pagination is considered
-    $page_note = $page > 1 ? sprintf( __( ' – Page %s', 'fictioneer' ), $page ) : '';
-    $site_name = FICTIONEER_SITE_NAME;
-    $skip_cache = isset( $args['skip_cache'] ) && $args['skip_cache'];
-    $default = isset( $args['default'] ) && ! empty( $args['default'] ) ? $args['default'] : false;
+    $skip_cache = $args['skip_cache'] ?? false;
+    $default = ! empty( trim( $args['default'] ?? '' ) ) ? $args['default'] : false;
 
     // Search?
     if ( is_search() ) {
       return esc_html(
         sprintf(
-          _x( 'Search – %s', 'Search – Site Name.', 'fictioneer' ),
-          $site_name
+          _x( 'Search Results', 'SEO search results title.', 'fictioneer' ),
+          FICTIONEER_SITE_NAME
         )
       );
     }
@@ -240,9 +237,14 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       $author = get_userdata( $author_id );
 
       if ( $author ) {
-        return $author->display_name;
+        return esc_html(
+          sprintf(
+            _x( 'Author: %s', 'SEO author page title.', 'fictioneer' ),
+            $author->display_name
+          )
+        );
       } else {
-        return _x( 'Author', 'Fallback SEO title for author pages.', 'fictioneer' );
+        return esc_html( _x( 'Author', 'SEO fallback title for author pages.', 'fictioneer' ) );
       }
     }
 
@@ -252,10 +254,8 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       if ( is_category() ) {
         return esc_html(
           sprintf(
-            _x( 'Category: %1$s%2$s – %3$s', 'Category: Category[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-            single_cat_title( '', false ),
-            $page_note,
-            $site_name
+            _x( 'Category: %s', 'SEO post category title.', 'fictioneer' ),
+            single_cat_title( '', false )
           )
         );
       }
@@ -264,10 +264,8 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       if ( is_tag() ) {
         return esc_html(
           sprintf(
-            _x( 'Tag: %1$s%2$s – %3$s', 'Tag: Tag[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-            single_tag_title( '', false ),
-            $page_note,
-            $site_name
+            _x( 'Tag: %s', 'SEO post tag title.', 'fictioneer' ),
+            single_tag_title( '', false )
           )
         );
       }
@@ -276,10 +274,8 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       if ( is_tax( 'fcn_character' ) ) {
         return esc_html(
           sprintf(
-            _x( 'Character: %1$s%2$s – %3$s', 'Character: Character[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-            single_tag_title( '', false ),
-            $page_note,
-            $site_name
+            _x( 'Character: %s', 'SEO character taxonomy title.', 'fictioneer' ),
+            single_tag_title( '', false )
           )
         );
       }
@@ -288,10 +284,8 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       if ( is_tax( 'fcn_fandom' ) ) {
         return esc_html(
           sprintf(
-            _x( 'Fandom: %1$s%2$s – %3$s', 'Fandom: Fandom[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-            single_tag_title( '', false ),
-            $page_note,
-            $site_name
+            _x( 'Fandom: %s', 'SEO fandom taxonomy title.', 'fictioneer' ),
+            single_tag_title( '', false )
           )
         );
       }
@@ -300,16 +294,14 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       if ( is_tax( 'fcn_genre' ) ) {
         return esc_html(
           sprintf(
-            _x( 'Genre: %1$s%2$s – %3$s', 'Genre: Genre[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-            single_tag_title( '', false ),
-            $page_note,
-            $site_name
+            _x( 'Genre: %s', 'SEO genre taxonomy title.', 'fictioneer' ),
+            single_tag_title( '', false )
           )
         );
       }
 
       // Generic archive?
-      return esc_html( sprintf( __( 'Archive – %1$s', 'fictioneer' ), $site_name ) );
+      return esc_html( _x( 'Archive', 'SEO fallback archive title.', 'fictioneer' ) );
     }
 
     // Cached title?
@@ -322,35 +314,32 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     // Start building...
     $seo_title = get_post_meta( $post_id, 'fictioneer_seo_title', true );
     $seo_title = empty( $seo_title ) ? false : $seo_title;
+    $title = fictioneer_get_safe_title( $post_id );
+    $default = empty( $default ) ? $title : $default;
 
-    // Frontpage case...
-    if ( is_front_page() && $seo_title == '{{title}} – {{site}}' ) {
-      $seo_title = $site_name;
+    // Special Case: Frontpage
+    if ( is_front_page() ) {
+      $default = empty( $default ) ? FICTIONEER_SITE_NAME : $default;
+    }
+
+    // Placeholder: {{title}}
+    if ( str_contains( $seo_title, '{{title}}' ) ) {
+      $seo_title = str_replace( '{{title}}', $title, $seo_title );
+    }
+
+    // Placeholder: {{site}}
+    if ( str_contains( $seo_title, '{{site}}' ) ) {
+      $seo_title = str_replace( '{{site}}', FICTIONEER_SITE_NAME ?? '', $seo_title );
     }
 
     // Defaults...
-    if ( $default && ( ! $seo_title || $seo_title == '{{title}} – {{site}}' ) ) {
+    if ( ! empty( $default ) && empty( $seo_title ) ) {
       $seo_title = $default;
-    }
-
-    // Replace {{title}} placeholder...
-    if ( str_contains( $seo_title, '{{title}}' ) ) {
-      $seo_title = str_replace( '{{title}}', fictioneer_get_safe_title( $post_id ), $seo_title );
-    }
-
-    // Replace {{site}} placeholder...
-    if ( str_contains( $seo_title, '{{site}}' ) ) {
-      $seo_title = str_replace( '{{site}}', $site_name, $seo_title );
     }
 
     // Catch empty
     if ( empty( $seo_title ) ) {
-      $seo_title = sprintf(
-        _x( '%1$s%2$s – %3$s', 'Post Title[ – Page n] – Site Name. The page is optional.', 'fictioneer' ),
-        get_the_title( $post_id ),
-        $page_note,
-        $site_name
-      );
+      $seo_title = FICTIONEER_SITE_NAME;
     }
 
     // Finalize
@@ -403,7 +392,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       $author = get_userdata( $author_id );
 
       if ( $author && ! empty( $author->user_description ) ) {
-        return $author->user_description;
+        return esc_html( $author->user_description );
       } else {
         return esc_html(
           sprintf(
@@ -480,6 +469,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     // Start building...
     $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
     $seo_description = empty( $seo_description ) ? false : $seo_description;
+    $title = fictioneer_get_safe_title( $post_id );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
     $excerpt = mb_strimwidth( $excerpt, 0, 155, '…' );
     $default = empty( $default ) ? $excerpt : $default;
@@ -497,6 +487,16 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       $seo_description = str_replace( '{{excerpt}}', $excerpt ?? '', $seo_description );
     }
 
+    // Placeholder: {{title}}
+    if ( str_contains( $seo_description, '{{title}}' ) ) {
+      $seo_description = str_replace( '{{title}}', $title, $seo_description );
+    }
+
+    // Placeholder: {{site}}
+    if ( str_contains( $seo_description, '{{site}}' ) ) {
+      $seo_description = str_replace( '{{site}}', FICTIONEER_SITE_NAME ?? '', $seo_description );
+    }
+
     // Defaults...
     if ( ! empty( $default ) && empty( $seo_description ) ) {
       $seo_description = $default;
@@ -504,7 +504,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Catch empty
     if ( empty( $seo_description ) ) {
-      $seo_description = empty( $default ) ? FICTIONEER_SITE_DESCRIPTION : $default;
+      $seo_description = FICTIONEER_SITE_DESCRIPTION;
     }
 
     // Finalize

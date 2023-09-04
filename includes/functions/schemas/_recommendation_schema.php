@@ -12,8 +12,8 @@
  *
  * @since Fictioneer 4.0
  *
- * @param int     $post_id The ID of the saved post.
- * @param WP_Post $post    The saved post object.
+ * @param int     $post_id  The ID of the saved post.
+ * @param WP_Post $post     The saved post object.
  */
 
   function fictioneer_refresh_recommendation_schema( $post_id, $post ) {
@@ -42,7 +42,7 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int $post_id The ID of the recommendation the schema is for.
+   * @param int $post_id  The ID of the recommendation the schema is for.
    *
    * @return string The encoded JSON or an empty string.
    */
@@ -56,19 +56,12 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
     // Setup
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
+    $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
 
     $page_description = fictioneer_get_seo_description(
       $post_id,
       array(
         'default' => fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id ),
-        'skip_cache' => true
-      )
-    );
-
-    $page_title = fictioneer_get_seo_title(
-      $post_id,
-      array(
-        'default' => fictioneer_get_safe_title( $post_id ) . ' &ndash; ' . FICTIONEER_SITE_NAME,
         'skip_cache' => true
       )
     );

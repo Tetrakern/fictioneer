@@ -12,8 +12,8 @@
  *
  * @since Fictioneer 4.0
  *
- * @param int     $post_id The ID of the saved post.
- * @param WP_Post $post    The saved post object.
+ * @param int     $post_id  The ID of the saved post.
+ * @param WP_Post $post     The saved post object.
  */
 
 function fictioneer_refresh_stories_schema( $post_id, $post ) {
@@ -59,7 +59,7 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param int $post_id The ID of the page the schema is for.
+   * @param int $post_id  The ID of the page the schema is for.
    *
    * @return string The encoded JSON or an empty string.
    */
@@ -90,17 +90,14 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
 
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
-        __( 'All stories hosted on %s.', 'fictioneer' ),
+        __( 'All stories on %s.', 'fictioneer' ),
         FICTIONEER_SITE_NAME
       ),
       'skip_cache' => true
     ));
 
     $page_title = fictioneer_get_seo_title( $post_id, array(
-      'default' => sprintf(
-          __( 'Stories – %s.', 'fictioneer' ),
-          FICTIONEER_SITE_NAME
-        ),
+      'default' => _x( 'Stories', 'SEO fallback title for Stories template.', 'fictioneer' ),
       'skip_cache' => true
     ));
 
