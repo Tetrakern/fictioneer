@@ -52,7 +52,7 @@ if ( ! function_exists( 'fictioneer_get_schema_primary_image' ) ) {
 
   function fictioneer_get_schema_primary_image( $post_id = null, $args = [] ) {
     // Setup
-    $post_id = $post_id ? $post_id : get_queried_object_id();
+    $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
     $seo_image = fictioneer_get_seo_image( $post_id );
 
     // Try SEO image... (custom > thumbnail > story thumbnail > OG default)
@@ -151,7 +151,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_webpage' ) ) {
 
   function fictioneer_get_schema_node_webpage( $type, $name, $description, $post_id = null, $image_data = null ) {
     // Setup
-    $post_id = $post_id ? $post_id : get_queried_object_id();
+    $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
 
     // Build node
     $webpage_node = array(
@@ -197,16 +197,15 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
 
   function fictioneer_get_schema_node_article( $type, $description, $post = null, $image_data = null, $no_cat = false ) {
     // Setup
-    $post = $post ? $post : get_queried_object();
+    $post = empty( $post ) ? get_queried_object() : $post;
     $author = get_the_author_meta( 'display_name', $post->post_author );
     $tags = get_the_tags( $post->ID );
     $categories = $no_cat ? [] : get_the_category( $post->ID );
-    $taxonomies = $tags ? array_merge( $categories, $tags ) : $categories;
-    $headline = fictioneer_get_safe_title( $post->ID );
+    $taxonomies = is_array( $tags ) ? array_merge( $categories, $tags ) : $categories;
     $keywords = [];
 
     // Collect keywords (if any)
-    if ( $taxonomies ) {
+    if ( is_array( $taxonomies ) ) {
       foreach ( $taxonomies as $tax ) {
         $keywords[] = $tax->name;
       }
@@ -216,7 +215,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
     $article_node = array(
       '@type' => $type,
       '@id' => "#article",
-      'headline' => $headline,
+      'headline' => fictioneer_get_safe_title( $post->ID ),
       'description' => $description,
       'url' => get_the_permalink( $post->ID ),
       'author' => array(
@@ -241,7 +240,9 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
     }
 
     // Add keywords (if any)
-    if ( $keywords ) $article_node['keywords'] = $keywords;
+    if ( ! empty( $keywords ) ) {
+      $article_node['keywords'] = $keywords;
+    }
 
     // Return node
     return $article_node;
@@ -281,7 +282,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
         'name' => $name,
         'description' => $description,
         'mainEntityOfPage' => array( '@id' => $part_of ),
-        'itemListElement' => array()
+        'itemListElement' => []
       );
 
       foreach ( $list as $post_id ) {
@@ -316,13 +317,17 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
  */
 
 function fictioneer_output_schemas( $post_id = null ) {
+  // Abort if...
+  if ( is_archive() || is_search() || is_home() || is_front_page() ) {
+    return;
+  }
+
   // Setup
-  $post_id = $post_id ? $post_id : get_queried_object_id(); // In archives, this is the first post
-  $schema = get_post_meta( $post_id, 'fictioneer_schema', true ); // Cached schema
-  $skip = is_archive() || is_search() || is_home() || is_front_page();
+  $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
+  $schema = get_post_meta( $post_id, 'fictioneer_schema', true ) ?? false;
 
   // No schema found...
-  if ( ! $schema && ! $skip ) {
+  if ( ! $schema ) {
     // Look at template first...
     switch ( get_page_template_slug() ) {
       case 'chapters.php':
@@ -359,7 +364,7 @@ function fictioneer_output_schemas( $post_id = null ) {
   }
 
   // If schema has been found, echo for selected post types
-  if ( $schema && ! $skip ) {
+  if ( $schema ) {
     echo $schema ? '<script type="application/ld+json">' . $schema . '</script>' : '';
   }
 }
