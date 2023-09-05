@@ -105,14 +105,18 @@ $post_ids = $query->posts;
                         <td class="cell-primary">
                           <a href="<?php echo $link; ?>"><?php echo $title; ?></a>
                           <div class="fictioneer-table-actions">
-                            <a href="<?php edit_post_link( $post_id ); ?>" class="edit">
-                              <?php _e( 'Edit', 'fictioneer' ); ?>
-                            </a>
+                            <span class="edit">
+                              <a href="<?php edit_post_link( $post_id ); ?>">
+                                <?php _e( 'Edit', 'fictioneer' ); ?>
+                              </a>
+                            </span>
                             <?php if ( $schema ) : ?>
-                              <span data-remove-on-delete>|</span>
-                              <label class="delete button-purge-schema" data-id="<?php echo $post_id; ?>">
-                                <?php _e( 'Purge Schema', 'fictioneer' ); ?>
-                              </label>
+                              <span class="delete">
+                                |
+                                <label class="button-purge-schema" data-id="<?php echo $post_id; ?>">
+                                  <?php _e( 'Purge Schema', 'fictioneer' ); ?>
+                                </label>
+                              </span>
                             <?php endif; ?>
                           </div>
                         </td>

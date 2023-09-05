@@ -25,15 +25,14 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param string  $file_name  File name of the ePUB to download.
-   * @param int|null $story_id  Optional. The story ID.
+   * @param string       $file_name  File name of the ePUB to download.
+   * @param WP_Post|null $story_id   Optional. The story post.
    */
 
-  function fictioneer_download_epub( $file_name, $story_id = null ) {
+  function fictioneer_download_epub( $file_name, $story = null ) {
     // Setup
     $path = wp_upload_dir()['basedir'] . '/epubs/' . $file_name;
-    $download_url = wp_upload_dir()['baseurl'] . '/epubs/' . $file_name;
-    $story_id = $story_id ? $story_id : get_query_var( FICTIONEER_EPUB_ENDPOINT, null );
+    $story_id = $story->ID ?: get_query_var( FICTIONEER_EPUB_ENDPOINT, null );
 
     // Abort if...
     if ( is_null( $story_id ) ) {
@@ -44,7 +43,7 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
 
     // If path to file exists...
-    if ( file_exists( $path ) && $story_id ) {
+    if ( file_exists( $path ) && is_readable( $path ) && $story_id ) {
       // Count downloads per ePUB version
       if ( $story_id ) {
         // Download counter(s)
@@ -55,21 +54,29 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
         $key = md5( get_post_meta( $story_id, 'fictioneer_epub_timestamp', true ) );
 
         // Is this version already tracked?
-        if ( array_key_exists( $key, $downloads ) ) {
-          $downloads[ $key ] += 1; // Increment counter
-        } else {
-          $downloads[ $key ] = 1; // Start new counter
-        }
+        $downloads[ $key ] = ( $downloads[ $key ] ?? 0 ) + 1;
 
         // Update counter(s)
         update_post_meta( $story_id, 'fictioneer_epub_downloads', $downloads );
       }
 
       // Start download
-      wp_redirect( $download_url );
+      $file_name = sanitize_file_name( $story->post_name ); // This is the slug!
+
+      header( 'Content-Type: application/epub+zip' );
+      header( "Content-Disposition: attachment; filename={$file_name}.epub" );
+      header( 'Content-Length: ' . filesize( $path ) );
+      header( 'Expires: 0' );
+      header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+      header( 'Pragma: public' );
+      header( 'Connection: Keep-Alive' );
+      readfile( $path );
+    } else {
+      header( 'HTTP/1.0 404 Not Found' );
+      echo __( 'File not found or not readable.', 'fictioneer' );
     }
 
-    // Terminate script
+    // Terminate
     exit;
   }
 }
@@ -991,18 +998,16 @@ function fictioneer_generate_epub() {
 
   // Setup
   $story = get_post( $story_id );
-  $story_title = fictioneer_get_safe_title( $story_id );
   $dir = get_template_directory() . '/epubs/';
-  $folder = sanitize_file_name( $story->post_name ); // This is the slug!
-  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id ); // ACF formatted output
+  $folder = "{$story_id}";
+  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
   $author = get_the_author_meta( 'display_name', $story->post_author );
   $co_authors = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id ) ?? [];
   $all_authors = [];
-  $home_link = home_url();
   $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
   $short_description = fictioneer_fix_html_entities( $short_description );
-  $last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id ); // Story
-  $last_updated = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true ); // ePUB
+  $story_last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id );
+  $epub_last_built = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true );
   $toc_list = [];
   $ncx_list = [];
   $opf_list = [];
@@ -1012,17 +1017,15 @@ function fictioneer_generate_epub() {
   if ( ! empty( $co_authors ) ) {
     foreach ( $co_authors as $co_author_id ) {
       $co_author_name = get_the_author_meta( 'display_name', intval( $co_author_id ) );
-      if ( ! empty( $co_author_name ) && $co_author_name != $author ) $all_authors[] = $co_author_name;
+
+      if ( ! empty( $co_author_name ) && $co_author_name != $author ) {
+        $all_authors[] = $co_author_name;
+      }
     }
   }
 
   $co_authors = $all_authors; // Names of co-authors
   array_unshift( $all_authors, $author ); // Prepend main author
-
-  // Abort if post is not a story, the folder an empty string or contains the build templates...
-  if ( get_post_type( $story_id ) !== 'fcn_story' || empty( $folder ) || $folder == '_build' ) {
-    fictioneer_epub_return_and_exit();
-  }
 
   // Uploads directory path
   wp_mkdir_p( trailingslashit( wp_upload_dir()['basedir'] ) . 'epubs' );
@@ -1035,8 +1038,8 @@ function fictioneer_generate_epub() {
   }
 
   // Download last generated ePUB if still up-to-date
-  if ( $last_updated === $last_modified && file_exists( $uploads_dir . "$folder.epub" ) ) {
-    fictioneer_download_epub( "$folder.epub", $story_id );
+  if ( $epub_last_built === $story_last_modified && file_exists( $uploads_dir . "$folder.epub" ) ) {
+    fictioneer_download_epub( "{$folder}.epub", $story );
   }
 
   // Prepare build clean directory
@@ -1054,16 +1057,16 @@ function fictioneer_generate_epub() {
 
   // Prepare shared arguments
   $epub_args = array(
-    'home_link' => $home_link,
+    'home_link' => home_url(),
     'story_id' => $story_id,
-    'title' => fictioneer_fix_html_entities( $story_title ),
+    'title' => fictioneer_fix_html_entities( fictioneer_get_safe_title( $story_id ) ),
     'permalink' => get_permalink( $story_id ),
     'author' => $author,
     'co_authors' => $co_authors,
     'all_authors' => $all_authors,
     'fictioneer_story_short_description' => $short_description,
-    'story_last_modified' => $last_modified,
-    'epub_last_updated' => wp_date( 'c', strtotime( $last_updated ) ),
+    'story_last_modified' => $story_last_modified,
+    'epub_last_updated' => wp_date( 'c', strtotime( $epub_last_built ) ),
     'dir' => $dir,
     'uploads_dir' => $uploads_dir,
     'epub_dir' => $epub_dir,
@@ -1090,7 +1093,7 @@ function fictioneer_generate_epub() {
 
   // Zip as epub and save to uploads directory
   $zip = new ZipArchive;
-  $zip->open( $uploads_dir . "$folder.epub", ZipArchive::CREATE | ZipArchive::OVERWRITE );
+  $zip->open( $uploads_dir . "{$folder}.epub", ZipArchive::CREATE | ZipArchive::OVERWRITE );
   $directory = $uploads_dir . $folder;
   $mimetype_path = $uploads_dir . $folder . '/mimetype';
   $files = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $directory ), RecursiveIteratorIterator::LEAVES_ONLY );
@@ -1124,14 +1127,15 @@ function fictioneer_generate_epub() {
         unlink( $file->getRealPath() );
       }
     }
+
     rmdir( $uploads_dir . $folder );
   }
 
   // Remember date
-  update_post_meta( $story_id, 'fictioneer_epub_timestamp', $last_modified );
+  update_post_meta( $story_id, 'fictioneer_epub_timestamp', $story_last_modified );
 
   // Download
-  fictioneer_download_epub( "$folder.epub", $story_id );
+  fictioneer_download_epub( "{$folder}.epub", $story );
 }
 add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
 

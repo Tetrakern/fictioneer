@@ -27,7 +27,6 @@ function fcn_purgeSchema(id) {
         const tr = _$$$(`schema-${id}`);
         tr.querySelector('.cell-schema').innerHTML = tr.querySelector('summary').innerHTML;
         tr.querySelector('.delete').remove();
-        tr.querySelector('[data-remove-on-delete]').remove();
       }
     }
   });
@@ -50,41 +49,35 @@ _$$('.button-purge-schema').forEach(element => {
 /**
  * Deletes an ePUB by filename.
  *
- * @description Takes the ID of the row in the table and filename of an ePUB to
- * delete the ePUB via AJAX. Removes the ePUB row if successful.
- *
  * @since 4.7
- * @param {String} filename - Filename of the ePUB to delete.
- * @param {Number} rowId - The row ID in the table view.
+ * @param {Number} postId - ID of the story and name of the ePUB.
  */
 
-function fcn_delete_epub(filename, rowId) {
+function fcn_delete_epub(postId) {
   jQuery.ajax({
     url: fictioneer_ajax.ajax_url,
     type: 'post',
     data: {
       action: 'fictioneer_ajax_delete_epub',
       nonce: document.getElementById('fictioneer_admin_nonce').value,
-      name: filename
+      post_id: postId
     },
     dataType: 'json',
     success: function(response) {
       if (response.success) {
-        document.getElementById(`epub-id-${rowId}`).remove();
+        document.querySelector(`[data-delete-epub][data-id="${postId}"]`).closest('tr').remove();
       }
 		}
   });
 }
 
 // Listen for clicks in ePUB delete buttons
-_$$('.button-delete-epub').forEach(element => {
+_$$('[data-delete-epub]').forEach(element => {
   element.addEventListener(
     'click',
     (e) => {
-      fcn_delete_epub(
-        e.target.dataset.filename,
-        e.target.dataset.id
-      )
+      e.preventDefault();
+      fcn_delete_epub(e.target.dataset.id)
     }
   );
 });

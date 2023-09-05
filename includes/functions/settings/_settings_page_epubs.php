@@ -10,30 +10,257 @@
 
 <?php
 
-// Setup
-$page_number = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
-$epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
-$files = list_files( $epub_dir, 1 );
-$epubs = [];
-$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_all_epubs' ), 'fictioneer_purge_all_epubs', 'fictioneer_nonce' );
+class Fictioneer_Epubs_List extends WP_List_Table {
+  private $epubs = [];
+  private $current_epubs = [];
 
-// Get list of compiled ePUBs if any
-foreach ( $files as $file ) {
-  if ( is_file( $file ) ) {
-    $info = pathinfo( $file );
-    $extension = $info['extension'];
+  public $page = 1;
+  public $count = 0;
+  public $per_page = 25;
 
-    if ( $extension === 'epub' ) {
-      $epubs[] = $file;
+  public function __construct() {
+    parent::__construct([
+      'singular' => 'epub',
+      'plural' => 'epubs',
+      'ajax' => false
+    ]);
+  }
+
+  public function prepare_items() {
+    // Setup
+    $columns = $this->get_columns();
+    $hidden = [];
+    $sortable = $this->get_sortable_columns();
+    $primary = 'story';
+
+    $this->epubs = glob(wp_upload_dir()['basedir'] . '/epubs/*.epub');
+    $this->page = absint( $_GET['paged'] ?? 1 );
+    $this->count = count( $this->epubs );
+
+    // Sort
+    $orderby = $_GET['orderby'] ?? 'date';
+    $order = $_GET['order'] ?? 'desc';
+
+    switch ( $orderby ) {
+      case 'story':
+        $this->epubs = $this->sort_by_story( $this->epubs, $order );
+        break;
+      case 'words':
+        $this->epubs = $this->sort_by_words( $this->epubs, $order );
+        break;
+      case 'size':
+        $this->epubs = $this->sort_by_size( $this->epubs, $order );
+        break;
+      case 'date':
+        $this->epubs = $this->sort_by_date( $this->epubs, $order );
+        break;
     }
+
+    // Pagination
+    $this->current_epubs = array_slice(
+      $this->epubs,
+      $this->per_page * ( $this->page - 1 ),
+      $this->per_page,
+      true
+    );
+
+    $this->set_pagination_args(
+      array(
+        'total_items' => $this->count,
+        'per_page' => $this->per_page,
+        'total_pages' => ceil( $this->count / $this->per_page )
+      )
+    );
+
+    // Data
+    $this->_column_headers = [ $columns, $hidden, $sortable, $primary ];
+    $this->items = $this->current_epubs;
+  }
+
+  public function get_columns() {
+    return array(
+      'story' => __( 'Story', 'fictioneer' ),
+      'chapters' => __( 'Chapters', 'fictioneer' ),
+      'words' => __( 'Words', 'fictioneer' ),
+      'downloads' => __( 'Downloads', 'fictioneer' ),
+      'size' => __( 'Size', 'fictioneer' ),
+      'date' => __( 'Date', 'fictioneer' )
+    );
+  }
+
+  public function column_default( $item, $column_name ) {
+    $item = strval( $item );
+    $info = pathinfo( $item );
+    $file_name = absint( $info['filename'] ); // Is the post ID
+    $size = size_format( filesize( $item ) );
+    $date = filectime( $item );
+    $story = get_post( $file_name );
+    $downloads_version = '—';
+    $downloads_total = '—';
+    $story_data = array(
+      'chapter_count' => '—',
+      'word_count_short' => '—',
+      'word_count' => '—'
+    );
+
+    if ( $story ) {
+      $story_data = fictioneer_get_story_data( $story->ID, false );
+      $download_stats = get_post_meta( $story->ID, 'fictioneer_epub_downloads', true );
+      $download_stats = is_array( $download_stats ) ? $download_stats : [0];
+      $downloads_version = end( $download_stats );
+      $downloads_total = array_sum( $download_stats );
+    }
+
+    switch ( $column_name ) {
+      case 'story':
+        $actions = [];
+        $download_url = get_site_url() . "/download-epub/{$file_name}";
+
+        if ( $story ) {
+          $title = '<a href="' . get_the_permalink( $story ) . '" class="row-title">' . $story->post_title . '</a>';
+          $actions['edit'] = '<a href="' . get_edit_post_link( $story ) . '">' . __( 'Edit', 'fictioneer' ) . '</a>';
+        } else {
+          $title = '<div>' . __( 'Story not found.', 'fictioneer' ) . '</div>';
+        }
+
+        $actions['download'] = '<a href="' . $download_url . '" download>' . __( 'Download', 'fictioneer' ) . '</a>';
+        $actions['trash'] = '<a href="#" data-delete-epub data-id="' . $file_name . '">' . __( 'Delete', 'fictioneer' ) . '</a>';
+
+        printf(
+          '<span>%s</span> %s',
+          $title,
+          $this->row_actions( $actions )
+        );
+        break;
+      case 'chapters':
+        echo $story_data['chapter_count'];
+        break;
+      case 'words':
+        $words = $story_data['word_count'];
+        echo is_numeric( $words ) ? number_format_i18n( $words ) : $words;
+        break;
+      case 'downloads':
+        echo "{$downloads_version} ({$downloads_total})";
+        break;
+      case 'size':
+        echo esc_html( $size );
+        break;
+      case 'date':
+        printf(
+          _x( '%1$s<br>at %2$s', 'Table date and time column.', 'fictioneer' ),
+          date( get_option( 'date_format' ), $date ),
+          date( get_option( 'time_format' ), $date )
+        );
+        break;
+    }
+  }
+
+  /**
+   * Render extra content in the table navigation section
+   *
+   * @since Fictioneer 5.7.2
+   *
+   * @param string $which  Either "top" or "bottom".
+   */
+
+  protected function extra_tablenav( $which ) {
+    // Setup
+    $actions = [];
+
+    // Delete All
+    if ( current_user_can( 'manage_options' ) ) {
+      $actions[] = sprintf(
+        '<a href="%s" class="button action" data-click="purge-all-epubs" data-prompt="%s">%s</a>',
+        wp_nonce_url(
+          admin_url( 'admin-post.php?action=fictioneer_delete_all_epubs' ),
+          'fictioneer_delete_all_epubs',
+          'fictioneer_nonce'
+        ),
+        esc_attr__( 'Are you sure you want to delete all ePUBs?', 'fictioneer' ),
+        __( 'Delete All', 'fictioneer' )
+      );
+    }
+
+    // Output
+    if ( ! empty( $actions ) ) {
+      // Start HTML ---> ?>
+      <div class="alignleft actions"><?php echo implode( ' ', $actions ); ?></div>
+      <?php // <--- End HTML
+    }
+  }
+
+  protected function get_sortable_columns() {
+    return array(
+      'story' => ['story', false],
+      'words' => ['words', false],
+      'size' => ['size', false],
+      'date' => ['date', false]
+    );
+  }
+
+  protected function sort_by_story( $data, $order ) {
+    usort( $data, function( $a, $b ) use ( $order ) {
+      $a_story = get_the_title( absint( pathinfo( $a )['filename'] ) );
+      $b_story = get_the_title( absint( pathinfo( $b )['filename'] ) );
+
+      if ( strtolower( $order ) === 'asc' ) {
+        return $a_story < $b_story ? -1 : 1;
+      } else {
+        return $a_story < $b_story ? 1 : -1;
+      }
+    });
+
+    return $data;
+  }
+
+  protected function sort_by_words( $data, $order ) {
+    usort( $data, function( $a, $b ) use ( $order ) {
+      $a_story = fictioneer_get_story_data( absint( pathinfo( $a )['filename'] ) );
+      $b_story = fictioneer_get_story_data( absint( pathinfo( $b )['filename'] ) );
+
+      if ( strtolower( $order ) === 'asc' ) {
+        return absint( $a_story['word_count'] ) < absint( $b_story['word_count'] ) ? -1 : 1;
+      } else {
+        return absint( $a_story['word_count'] ) < absint( $b_story['word_count'] ) ? 1 : -1;
+      }
+    });
+
+    return $data;
+  }
+
+  protected function sort_by_date( $data, $order ) {
+    usort( $data, function( $a, $b ) use ( $order ) {
+      $a_date = filectime( $a );
+      $b_date = filectime( $b );
+
+      if ( strtolower( $order ) === 'asc' ) {
+        return $a_date < $b_date ? -1 : 1;
+      } else {
+        return $a_date < $b_date ? 1 : -1;
+      }
+    });
+
+    return $data;
+  }
+
+  protected function sort_by_size( $data, $order ) {
+    usort( $data, function( $a, $b ) use ( $order ) {
+      $a_size = filesize( $a );
+      $b_size = filesize( $b );
+
+      if ( strtolower( $order ) === 'asc' ) {
+          return $a_size < $b_size ? -1 : 1;
+      } else {
+          return $a_size < $b_size ? 1 : -1;
+      }
+    });
+
+    return $data;
   }
 }
 
-// Prepare
-$count = count( $epubs );
-$epubs_per_page = 50;
-$offset = $epubs_per_page * ( $page_number - 1 );
-$current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
+$epubs_table = new Fictioneer_Epubs_List();
+$epubs_table->prepare_items();
 
 ?>
 
@@ -44,153 +271,9 @@ $current_epubs = array_slice( $epubs, $offset, $epubs_per_page, true );
 
   <div class="fictioneer-settings__content">
     <div class="fictioneer-single-column">
-
-      <div class="fictioneer-card">
-        <div class="fictioneer-card__wrapper">
-          <h3 class="fictioneer-card__header"><?php _e( 'Generated ePUBs', 'fictioneer' ); ?></h3>
-          <div class="fictioneer-card__content" style="padding-top: 0;">
-
-            <div class="fictioneer-card__table">
-              <table>
-
-                <thead>
-                  <tr>
-                    <th><?php _e( 'Story', 'fictioneer' ); ?></th>
-                    <th><?php _e( 'File Name (.epub)', 'fictioneer' ); ?></th>
-                    <th class="cell-centered" style="width: 120px;"><?php _e( 'Chapters', 'fictioneer' ); ?></th>
-                    <th class="cell-centered" style="width: 100px;"><?php _e( 'Words', 'fictioneer' ); ?></th>
-                    <th class="cell-centered" style="width: 150px;"><?php _e( 'Downloads', 'fictioneer' ); ?></th>
-                    <th><?php _e( 'Size', 'fictioneer' ); ?></th>
-                    <th style="width: 160px;"><?php _e( 'Generated', 'fictioneer' ); ?></th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <?php
-                    $epub_list_id = 0;
-
-                    foreach ( $current_epubs as $epub ) {
-                      $info = pathinfo( $epub );
-                      $size = size_format( filesize( $epub ) );
-                      $name = $info['filename'];
-                      $extension = $info['extension'];
-                      $date = filectime( $epub );
-
-                      // Find story
-                      $stories = get_posts(
-                        array(
-                          'name' => $name,
-                          'posts_per_page' => 1,
-                          'post_type' => 'fcn_story'
-                        )
-                      );
-
-                      $story = $stories ? $stories[0] : false;
-                      $story_data = null;
-
-                      if ( $story ) {
-                        $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
-                      }
-
-                      $downloads = $story ? get_post_meta( $story->ID, 'fictioneer_epub_downloads', true ) : 0;
-                      $downloads = is_array( $downloads ) ? $downloads : [0];
-
-                      $epub_list_id += 1;
-                    ?>
-                      <tr id="epub-id-<?php echo $epub_list_id; ?>">
-
-                        <?php if ( $story ) : ?>
-
-                          <td class="cell-primary">
-
-                            <a href="<?php echo get_the_permalink( $story ); ?>"><?php echo get_the_title( $story ); ?></a>
-
-                            <div class="fictioneer-table-actions">
-                              <a href="<?php echo get_edit_post_link( $story ); ?>" class="edit"><?php _e( 'Edit Story', 'fictioneer' ); ?></a>
-                              |
-                              <label class="delete button-delete-epub" data-id="<?php echo $epub_list_id; ?>" data-filename="<?php echo $name; ?>">
-                                <?php _e( 'Delete', 'fictioneer' ); ?>
-                              </label>
-                              |
-                              <a href="<?php echo get_site_url(); ?>/download-epub/<?php echo $story->ID ?>" class="download" download><?php _e( 'Download', 'fictioneer' ); ?></a>
-                            </div>
-
-                          </td>
-
-                          <td class="cell-no-wrap"><?php echo esc_html( $name ); ?></td>
-
-                          <td class="cell-centered cell-no-wrap"><?php echo $story_data['chapter_count']; ?></td>
-
-                          <td class="cell-centered cell-no-wrap"><?php echo $story_data['word_count_short']; ?></td>
-
-                        <?php else : ?>
-
-                          <td class="cell-no-wrap">
-
-                            <div><?php _e( 'Story not found.', 'fictioneer' ); ?></div>
-
-                            <div class="fictioneer-table-actions">
-                              <label class="delete button-delete-epub" data-id="<?php echo $epub_list_id; ?>" data-filename="<?php echo $name; ?>">
-                                <?php _e( 'Delete', 'fictioneer' ); ?>
-                              </label>
-                            </div>
-
-                          </td>
-
-                          <td class="cell-no-wrap"><?php echo esc_html( $name ); ?></td>
-
-                          <td class="cell-centered cell-no-wrap"><?php _e( 'n/a', 'fictioneer' ); ?></td>
-
-                          <td class="cell-centered cell-no-wrap"><?php _e( 'n/a', 'fictioneer' ); ?></td>
-
-                        <?php endif; ?>
-
-                        <td class="cell-centered cell-no-wrap"><?php echo end( $downloads ); ?> (<?php echo array_sum( $downloads ); ?>)</td>
-
-                        <td class="cell-no-wrap"><?php echo esc_html( $size ); ?></td>
-
-                        <td class="cell-no-wrap">
-                          <?php
-                            printf(
-                              _x( '%1$s<br>at %2$s', 'Table date and time column.', 'fictioneer' ),
-                              date( get_option( 'date_format' ), $date ),
-                              date( get_option( 'time_format' ), $date )
-                            );
-                          ?>
-                        </td>
-
-                      </tr>
-                    <?php
-                    }
-                  ?>
-                  <tr class="row-nothing">
-                    <td colspan="99"><?php _e( 'Nothing to display.', 'fictioneer' ); ?></td>
-                  </tr>
-                </tbody>
-
-              </table>
-            </div>
-
-          </div>
-        </div>
+      <div>
+        <?php $epubs_table->display(); ?>
       </div>
-
-      <div class="fictioneer-actions">
-
-        <div class="fictioneer-actions__group">
-          <a class="button secondary" id="button-purge-all-epubs" data-click="purge-all-epubs" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all ePUBs?', 'fictioneer' ); ?>" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All', 'fictioneer' ); ?></a>
-        </div>
-
-        <div class="fictioneer-actions__group">
-          <?php
-            if ( $epubs ) {
-              fictioneer_admin_pagination( $epubs_per_page, ceil( $count / $epubs_per_page ), $count );
-            }
-          ?>
-        </div>
-
-      </div>
-
     </div>
   </div>
 

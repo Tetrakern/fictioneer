@@ -87,7 +87,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 			'fictioneer-append-default-genres' => __( 'Default genres have been added to the list.', 'fictioneer' ),
 			'fictioneer-append-default-tags' => __( 'Default tags have been added to the list.', 'fictioneer' ),
 			'fictioneer-remove-unused-tags' => __( 'All unused tags have been removed.', 'fictioneer' ),
-			'fictioneer-purged-epubs' => __( 'All ePUB files have been purged.', 'fictioneer' ),
+			'fictioneer-deleted-epubs' => __( 'All ePUB files have been deleted.', 'fictioneer' ),
       'fictioneer-purged-seo-schemas' => __( 'All SEO schemas have been purged.', 'fictioneer' ),
       'fictioneer-purged-seo-meta-caches' => __( 'All SEO meta caches have been purged.', 'fictioneer' ),
 			'fictioneer-purge-theme-caches' => __( 'Theme caches have been purged.', 'fictioneer' ),
@@ -148,14 +148,14 @@ add_action( 'admin_notices', 'fictioneer_admin_settings_notices' );
 // =============================================================================
 
 /**
- * Delete all generated ePUBs from the server
+ * Delete all generated ePUBs in the ./uploads/epubs/ directory
  *
  * @since Fictioneer 5.2.5
  */
 
-function fictioneer_purge_all_epubs() {
+function fictioneer_delete_all_epubs() {
   // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_purge_all_epubs' );
+  fictioneer_verify_tool_action( 'fictioneer_delete_all_epubs' );
 
   // Setup
   $epub_dir = wp_upload_dir()['basedir'] . '/epubs/';
@@ -172,13 +172,13 @@ function fictioneer_purge_all_epubs() {
 
   // Log
   fictioneer_log(
-    __( 'Purged all generated ePUBs from the server.', 'fictioneer' )
+    __( 'Deleted all generated ePUBs from the server.', 'fictioneer' )
   );
 
   // Finish
-  fictioneer_finish_tool_action( 'fictioneer-purged-epubs' );
+  fictioneer_finish_tool_action( 'fictioneer-deleted-epubs' );
 }
-add_action( 'admin_post_fictioneer_purge_all_epubs', 'fictioneer_purge_all_epubs' );
+add_action( 'admin_post_fictioneer_delete_all_epubs', 'fictioneer_delete_all_epubs' );
 
 // =============================================================================
 // SEO ACTIONS

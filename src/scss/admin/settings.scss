@@ -224,6 +224,27 @@
     text-align: left;
   }
 
+  // Reset table page input
+  .tablenav-pages .current-page {
+    display: inline-block;
+    background: #fff;
+    color: #2c3338;
+    font-size: 13px;
+    line-height: 2;
+    padding: 0 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    height: auto;
+    min-height: 30px !important;
+    width: auto;
+
+    @media screen and (max-width: 782px) {
+      padding: 12px 6px;
+      font-size: 16px;
+      line-height: 1.125;
+    }
+  }
+
   // =============================================================================
   // LAYOUT
   // =============================================================================
@@ -486,6 +507,7 @@
       }
 
       .fictioneer-table-actions {
+        color: #a7aaad;
         font-size: 12px;
         font-weight: 400;
         padding-top: 4px;
@@ -495,7 +517,7 @@
           opacity: 0;
         }
 
-        .delete {
+        .delete > :is(a, label, button) {
           color: #b32d2e;
         }
       }
