@@ -101,15 +101,15 @@ add_action( 'wp_ajax_fictioneer_ajax_delete_epub', 'fictioneer_ajax_delete_epub'
 function fictioneer_ajax_purge_schema() {
 	if ( fictioneer_validate_settings_ajax() ) {
     // Abort if...
-    if ( empty( $_POST['id'] ?? '' ) ) {
+    if ( empty( $_POST['post_id'] ?? '' ) ) {
       wp_send_json_error( array( 'notice' => __( 'ID missing', 'fictioneer' ) ) );
     }
 
     // Setup
-		$id = fictioneer_validate_id( $_POST['id'] );
+		$post_id = fictioneer_validate_id( $_POST['post_id'] );
 
     // Delete schema stored in post meta
-		if ( $id && delete_post_meta( $id, 'fictioneer_schema' ) ) {
+		if ( $post_id && delete_post_meta( $post_id, 'fictioneer_schema' ) ) {
       // Log
       fictioneer_log(
         sprintf(
@@ -118,19 +118,22 @@ function fictioneer_ajax_purge_schema() {
             'Pattern for purged schema graphs in logs: "Purged schema graph of #{%s}".',
             'fictioneer'
           ),
-          $id
+          $post_id
         )
       );
 
       // Purge caches
-      fictioneer_refresh_post_caches( $id );
+      delete_post_meta( $post_id, 'fictioneer_seo_title_cache' );
+      delete_post_meta( $post_id, 'fictioneer_seo_description_cache' );
+      delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
+      fictioneer_refresh_post_caches( $post_id );
 
       // Success
       wp_send_json_success(
         array(
           'notice' => sprintf(
             __( 'Schema of post #%s purged.', 'fictioneer' ),
-            $id
+            $post_id
           )
         )
       );
@@ -140,7 +143,7 @@ function fictioneer_ajax_purge_schema() {
         array(
           'notice' => sprintf(
             __( 'Error. Schema of post #%s could not be purged.', 'fictioneer' ),
-            $id
+            $post_id
           )
         )
       );
@@ -151,5 +154,89 @@ function fictioneer_ajax_purge_schema() {
   wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
 }
 add_action( 'wp_ajax_fictioneer_ajax_purge_schema', 'fictioneer_ajax_purge_schema' );
+
+/**
+ * AJAX: Purge schemas for all posts and pages
+ *
+ * @since Fictioneer 5.7.2
+ */
+
+function fictioneer_ajax_purge_all_schemas() {
+  // Validate
+  if ( ! fictioneer_validate_settings_ajax() ) {
+    wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $offset = absint( $_POST['offset'] ?? 0 );
+  $limit = 100;
+
+  // Query
+  $args = array(
+    'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+    'post_status' => 'any',
+    'fields' => 'ids',
+    'ignore_sticky_posts' => 1,
+    'offset' => $offset,
+    'posts_per_page' => $limit,
+    'update_post_meta_cache' => false,
+    'update_post_term_cache' => false
+  );
+
+  $query = new WP_Query( $args );
+
+  // If post have been found...
+  if ( $query->have_posts() ) {
+    global $wpdb;
+
+    // Prepare SQL
+    $placeholders = implode( ', ', array_fill( 0, count( $query->posts ), '%d' ) );
+    $meta_keys = array(
+      'fictioneer_schema',
+      'fictioneer_seo_title_cache',
+      'fictioneer_seo_description_cache',
+      'fictioneer_seo_og_image_cache'
+    );
+
+    // Execute
+    foreach ( $meta_keys as $meta_key ) {
+      $wpdb->query(
+        $wpdb->prepare(
+          "DELETE FROM {$wpdb->postmeta} WHERE post_id IN ($placeholders) AND meta_key = %s",
+          array_merge( $query->posts, [ $meta_key ] )
+        )
+      );
+    }
+
+    // Log
+    fictioneer_log(
+      __( 'Purged all schemas graphs.', 'fictioneer' )
+    );
+
+    // ... continue with next batch
+    wp_send_json_success(
+      array(
+        'finished' => false,
+        'processed' => count( $query->posts ),
+        'total' => $query->found_posts,
+        'next_offset' => $offset + $limit
+      )
+    );
+  } else {
+    // Purge caches
+    fictioneer_purge_all_caches();
+
+    // ... all done
+    wp_send_json_success(
+      array(
+        'finished' => true,
+        'processed' => 0,
+        'total' => $query->found_posts,
+        'next_offset' => -1
+      )
+    );
+  }
+}
+add_action( 'wp_ajax_fictioneer_ajax_purge_all_schemas', 'fictioneer_ajax_purge_all_schemas' );
 
 ?>

@@ -88,8 +88,6 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 			'fictioneer-append-default-tags' => __( 'Default tags have been added to the list.', 'fictioneer' ),
 			'fictioneer-remove-unused-tags' => __( 'All unused tags have been removed.', 'fictioneer' ),
 			'fictioneer-deleted-epubs' => __( 'All ePUB files have been deleted.', 'fictioneer' ),
-      'fictioneer-purged-seo-schemas' => __( 'All SEO schemas have been purged.', 'fictioneer' ),
-      'fictioneer-purged-seo-meta-caches' => __( 'All SEO meta caches have been purged.', 'fictioneer' ),
 			'fictioneer-purge-theme-caches' => __( 'Theme caches have been purged.', 'fictioneer' ),
 			'fictioneer-added-moderator-role' => __( 'Moderator role has been added.', 'fictioneer' ),
       'fictioneer-not-added-moderator-role' => __( 'Moderator role could not be added or already exists.', 'fictioneer' ),
@@ -179,102 +177,6 @@ function fictioneer_delete_all_epubs() {
   fictioneer_finish_tool_action( 'fictioneer-deleted-epubs' );
 }
 add_action( 'admin_post_fictioneer_delete_all_epubs', 'fictioneer_delete_all_epubs' );
-
-// =============================================================================
-// SEO ACTIONS
-// =============================================================================
-
-/**
- * Purge all SEO schemas
- *
- * This function deletes the "fictioneer_schema" meta data from all posts and pages
- * of specified post types.
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_purge_all_seo_schemas() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_purge_all_seo_schemas' );
-
-  // Setup
-  $all_ids = get_posts(
-    array(
-	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-	    'numberposts' => -1,
-	    'fields' => 'ids',
-	    'update_post_meta_cache' => false,
-	    'update_post_term_cache' => false
-	  )
-  );
-
-  // If IDs were found...
-  if ( ! empty( $all_ids ) ) {
-    // Loop all IDs to delete schemas
-    foreach ( $all_ids as $id ) {
-      delete_post_meta( $id, 'fictioneer_schema' );
-    }
-
-    // Log
-    fictioneer_log(
-      __( 'Purged all schema graphs.', 'fictioneer' )
-    );
-
-    // Purge caches
-    fictioneer_purge_all_caches();
-  }
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-purged-seo-schemas' );
-}
-add_action( 'admin_post_fictioneer_purge_all_seo_schemas', 'fictioneer_purge_all_seo_schemas' );
-
-/**
- * Purge all SEO meta caches
- *
- * This function deletes the cached SEO meta values for all posts and custom post types
- * specified in the post_type parameter.
- *
- * @since Fictioneer 5.2.5
- */
-
-function fictioneer_purge_seo_meta_caches() {
-  // Verify request
-  fictioneer_verify_tool_action( 'fictioneer_purge_seo_meta_caches' );
-
-  // Setup
-  $all_ids = get_posts(
-    array(
-	    'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-	    'numberposts' => -1,
-	    'fields' => 'ids',
-	    'update_post_meta_cache' => false,
-	    'update_post_term_cache' => false
-	  )
-  );
-
-  // If IDs were found...
-  if ( $all_ids ) {
-    // Loop all IDs to delete SEO meta caches
-    foreach ( $all_ids as $id ) {
-      delete_post_meta( $id, 'fictioneer_seo_title_cache' );
-      delete_post_meta( $id, 'fictioneer_seo_description_cache' );
-      delete_post_meta( $id, 'fictioneer_seo_og_image_cache' );
-    }
-
-    // Log
-    fictioneer_log(
-      __( 'Purged all SEO meta caches.', 'fictioneer' )
-    );
-
-    // Purge caches
-    fictioneer_purge_all_caches();
-  }
-
-  // Finish
-  fictioneer_finish_tool_action( 'fictioneer-purged-seo-meta-caches' );
-}
-add_action( 'admin_post_fictioneer_purge_seo_meta_caches', 'fictioneer_purge_seo_meta_caches' );
 
 // =============================================================================
 // ROLE TOOLS ACTIONS

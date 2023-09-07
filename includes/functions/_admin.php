@@ -72,6 +72,7 @@ function fictioneer_admin_scripts( $hook_suffix ) {
     'fictioneer_ajax',
     array(
       'ajax_url' => admin_url( 'admin-ajax.php' ),
+      'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
       'fictioneer_nonce' => wp_create_nonce( 'fictioneer_nonce' )
     )
   );

@@ -79,6 +79,14 @@
     }
   }
 
+  a[data-dialog-target] {
+    cursor: pointer;
+  }
+
+  a.disabled {
+    pointer-events: none;
+  }
+
   :where(h1, h2, h3, h4, h5, h6) {
     line-height: 1.3;
     margin: 0;
@@ -215,13 +223,15 @@
     }
   }
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
+  .table-view-list.epubs tr {
+    transition: opacity .3s, filter .3s;
 
-  :is(th, td) {
-    text-align: left;
+    &.no-schema {
+      > * {
+        opacity: .5;
+        filter: grayscale(.5);
+      }
+    }
   }
 
   // Reset table page input
@@ -242,6 +252,28 @@
       padding: 12px 6px;
       font-size: 16px;
       line-height: 1.125;
+    }
+  }
+
+  :is(.column-chapters, .column-words, .column-downloads, .column-size, .column-type) {
+    width: 13%;
+
+    @include bp(1200px) {
+      width: 10%;
+    }
+  }
+
+  .column-description {
+    font-size: 12px;
+  }
+
+  .row-thumbnail {
+    float: left;
+    margin-right: 10px;
+    object-fit: cover;
+
+    @include bp(783px) {
+      margin-right: 15px;
     }
   }
 
@@ -376,149 +408,6 @@
         a {
           cursor: pointer;
           text-decoration: none;
-        }
-      }
-    }
-
-    &__table {
-      position: relative;
-      z-index: 1;
-      background: {
-        image: radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 15%), transparent),
-               radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 15%), transparent);
-        position: -1px 0, calc(100% + 1px) 0;
-        size: 8px 100%;
-        repeat: no-repeat;
-      }
-      overflow-x: auto;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar {
-        display: none;
-        height: 0;
-        width: 0;
-      }
-
-      table {
-        position: relative;
-
-        &::before,
-        &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          z-index: -1;
-          display: block;
-          width: 24px;
-        }
-
-        &::before {
-          left: 0;
-          background: linear-gradient(to right, var(--card-background-color), var(--card-background-color) 50%, transparent);
-        }
-
-        &::after {
-          right: 0;
-          background: linear-gradient(to left, var(--card-background-color), var(--card-background-color) 50%, transparent);
-        }
-      }
-
-      thead {
-        background: var(--table-row-background-color-head);
-        border-bottom: 1px solid var(--table-border-color);
-      }
-
-      &:not(:first-child) thead {
-        border-top: 1px solid var(--table-border-color);
-      }
-
-      tr:hover .fictioneer-table-actions {
-        opacity: 1;
-      }
-
-      tr:nth-child(even) {
-        background-color: var(--table-row-background-color-even);
-      }
-
-      th {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        white-space: nowrap;
-        vertical-align: bottom;
-        padding: 8px 10px;
-      }
-
-      td {
-        font-size: 12px;
-        overflow-wrap: break-word;
-        vertical-align: top;
-        padding: 10px;
-      }
-
-      a {
-        text-decoration: none;
-      }
-
-      img {
-        object-fit: cover;
-      }
-
-      textarea {
-        font-size: 11px;
-      }
-
-      .cell-primary {
-        > a {
-          font-weight: 600;
-          white-space: nowrap;
-        }
-      }
-
-      .cell-centered {
-        text-align: center;
-      }
-
-      .cell-no-wrap {
-        white-space: nowrap;
-      }
-
-      .cell-schema {
-        min-width: 280px;
-
-        @include bp(375px) {
-          min-width: 335px;
-        }
-
-        @include bp(420px) {
-          min-width: 380px;
-        }
-
-        @include bp(768px) {
-          min-width: 480px;
-        }
-      }
-
-      .row-nothing {
-        &:not(:first-child) {
-          display: none;
-        }
-      }
-
-      .fictioneer-table-actions {
-        color: #a7aaad;
-        font-size: 12px;
-        font-weight: 400;
-        padding-top: 4px;
-        transition: opacity .1s;
-
-        @media only screen and (min-width: 1200px) {
-          opacity: 0;
-        }
-
-        .delete > :is(a, label, button) {
-          color: #b32d2e;
         }
       }
     }
@@ -730,5 +619,9 @@
       justify-content: space-between;
       padding-top: 16px;
     }
+  }
+
+  textarea[data-target="schema-content"] {
+    font-size: 10px;
   }
 }

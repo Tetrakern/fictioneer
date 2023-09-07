@@ -10,7 +10,7 @@
 
 <?php
 
-class Fictioneer_Epubs_List extends WP_List_Table {
+class Fictioneer_Epubs_Table extends WP_List_Table {
   private $epubs = [];
   private $current_epubs = [];
 
@@ -155,14 +155,6 @@ class Fictioneer_Epubs_List extends WP_List_Table {
     }
   }
 
-  /**
-   * Render extra content in the table navigation section
-   *
-   * @since Fictioneer 5.7.2
-   *
-   * @param string $which  Either "top" or "bottom".
-   */
-
   protected function extra_tablenav( $which ) {
     // Setup
     $actions = [];
@@ -259,7 +251,7 @@ class Fictioneer_Epubs_List extends WP_List_Table {
   }
 }
 
-$epubs_table = new Fictioneer_Epubs_List();
+$epubs_table = new Fictioneer_Epubs_Table();
 $epubs_table->prepare_items();
 
 ?>

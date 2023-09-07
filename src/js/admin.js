@@ -1,45 +1,150 @@
-/* =============================================================================
-** SCHEMAS
-** ========================================================================== */
+// =============================================================================
+// PROGRESSIVE ACTIONS
+// =============================================================================
 
 /**
- * Purges a schema from a post.
+ * Toggles progression state of an element.
  *
- * @description Takes the ID of a post to delete the schema via AJAX.
- * Removes the schema row if successful.
- *
- * @since 4.7
- * @param {Number} id - ID of the post.
+ * @since 5.7.2
+ * @param {HTMLElement} element - The element.
+ * @param {Boolean|null} force - Whether to disable or enable. Defaults to
+ *                               the opposite of the current state.
  */
 
-function fcn_purgeSchema(id) {
-  jQuery.ajax({
-    url: fictioneer_ajax.ajax_url,
-    type: 'post',
-    data: {
-      action: 'fictioneer_ajax_purge_schema',
-      nonce: document.getElementById('fictioneer_admin_nonce').value,
-      id: id
-    },
-    dataType: 'json',
-    success: function(response) {
-      if (response.success) {
-        const tr = _$$$(`schema-${id}`);
-        tr.querySelector('.cell-schema').innerHTML = tr.querySelector('summary').innerHTML;
-        tr.querySelector('.delete').remove();
-      }
+function fcn_toggleInProgress(element, force = null) {
+  force = force !== null ? force : !element.disabled;
+
+  if (force) {
+    element.dataset.enableWith = element.innerHTML;
+    element.innerHTML = element.dataset.disableWith;
+    element.disabled = true;
+    element.classList.add('disabled');
+  } else {
+    element.innerHTML = element.dataset.enableWith;
+    element.disabled = false;
+    element.classList.remove('disabled');
+  }
+}
+
+// =============================================================================
+// SCHEMAS
+// =============================================================================
+
+/**
+ * Purges the schema of a post.
+ *
+ * @since 5.7.2
+ * @param {Number} post_id - ID of the post.
+ */
+
+function fcn_purgeSchema(post_id) {
+  const button = _$(`a[data-id="${post_id}"]`);
+  const actions = button.closest('.row-actions');
+  const row = button.closest('tr');
+
+  row.classList.add('no-schema');
+  actions.remove();
+
+  // Request
+  fcn_ajaxPost({
+    'action': 'fictioneer_ajax_purge_schema',
+    'nonce': document.getElementById('fictioneer_admin_nonce').value,
+    'post_id': post_id
+  })
+  .then(response => {
+    if (!response.success) {
+      console.log(response.data);
     }
+  })
+  .catch(error => {
+    console.log(error);
   });
 }
 
 // Listen for clicks on schema purge buttons
-_$$('.button-purge-schema').forEach(element => {
+_$$('[data-purge-schema]').forEach(element => {
   element.addEventListener(
     'click',
-    (e) => {
-      fcn_purgeSchema(e.currentTarget.dataset.id)
+    event => {
+      event.preventDefault();
+      fcn_purgeSchema(event.currentTarget.dataset.id)
     }
   );
+});
+
+/**
+ * Purges the schema of all posts.
+ *
+ * @since 5.7.2
+ * @param {Number=0} offset - Offset of post IDs to query.
+ * @param {Number|null} total - The total number of posts to be processed.
+ * @param {Number=0} processed - The total number of posts processed so far.
+ */
+
+function fcn_purgeAllSchemas(offset = 0, total = null, processed = 0) {
+   // --- Setup ----------------------------------------------------------------
+
+  const buttons = _$$('[data-action-purge-all-schemas]');
+
+  if ( total === null ) {
+    buttons.forEach(element => {
+      fcn_toggleInProgress(element, true);
+    });
+  }
+
+  // --- Request ---------------------------------------------------------------
+
+  fcn_ajaxPost({
+    'action': 'fictioneer_ajax_purge_all_schemas',
+    'offset': offset,
+    'nonce': document.getElementById('fictioneer_admin_nonce').value
+  })
+  .then(response => {
+    if (!response.data.finished) {
+      const progress = parseInt(processed / Math.max(response.data.total, 1) * 100);
+      const part = progress > 0 ? ` ${progress} %` : '';
+
+      buttons.forEach(element => {
+        element.innerHTML = element.dataset.disableWith + part;
+      });
+
+      fcn_purgeAllSchemas(
+        response.data.next_offset,
+        response.data.total,
+        processed + response.data.processed
+      );
+    } else {
+      buttons.forEach(element => {
+        fcn_toggleInProgress(element, false);
+      });
+
+      _$$('tr').forEach(row => {
+        row.classList.add('no-schema');
+      });
+    }
+  })
+  .catch(error => {
+    console.log(error);
+  });
+}
+
+// Listen to click on "Purge All" buttons
+_$$('[data-action-purge-all-schemas]').forEach(element => {
+  element.addEventListener('click', event => {
+    event.preventDefault();
+    fcn_purgeAllSchemas();
+  });
+});
+
+// Listen to click on schema dialog buttons
+_$$('[data-dialog-target="schema-dialog"]').forEach(element => {
+  element.addEventListener('click', event => {
+    const target = _$('[data-target="schema-content"]');
+    target.value = event.currentTarget.closest('tr').querySelector('[data-schema-id]').textContent;
+    target.scrollTop = 0;
+
+    setTimeout(() => { target.scrollTop = 0; }, 10);
+  });
 });
 
 /* =============================================================================
@@ -128,11 +233,7 @@ if (button = _$$$('fictioneer-button-og-upload')) {
 function fcn_update_seo_title_chars() {
   const input = _$$$('fictioneer-seo-title');
 
-  if (input.value != '{{title}} – {{site}}') {
-    _$$$('fictioneer-seo-title-chars').innerHTML = `(${input.value.length}/70)`;
-  } else {
-    _$$$('fictioneer-seo-title-chars').innerHTML = '';
-  }
+  _$$$('fictioneer-seo-title-chars').innerHTML = `(${input.value.length}/70)`;
 }
 
 // Initial call and listen for keyup input

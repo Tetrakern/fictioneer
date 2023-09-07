@@ -10,27 +10,172 @@
 
 <?php
 
-// Setup
-$per_page = 50;
-$page_number = absint( $_GET['paged'] ?? 1 );
-$purge_all_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_all_seo_schemas' ), 'fictioneer_purge_all_seo_schemas', 'fictioneer_nonce' );
-$purge_meta_url = wp_nonce_url( admin_url( 'admin-post.php?action=fictioneer_purge_seo_meta_caches' ), 'fictioneer_purge_seo_meta_caches', 'fictioneer_nonce' );
+class Fictioneer_Seo_Table extends WP_List_Table {
+  public $page = 1;
+  public $per_page = 25;
 
-// Query
-$query_args = array(
-  'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-  'post_status' => 'publish',
-  'orderby' => 'modified',
-  'order' => 'DESC',
-  'paged' => $page_number,
-  'posts_per_page' => $per_page,
-  'fields' => 'ids',
-  'update_post_meta_cache' => false,
-  'update_post_term_cache' => false
-);
+  public function __construct() {
+    parent::__construct([
+      'singular' => 'epub',
+      'plural' => 'epubs',
+      'ajax' => false
+    ]);
+  }
 
-$query = new WP_Query( $query_args );
-$post_ids = $query->posts;
+  public function prepare_items() {
+    // Setup
+    $columns = $this->get_columns();
+    $hidden = [];
+    $sortable = $this->get_sortable_columns();
+    $primary = 'title';
+
+    $this->page = absint( $_GET['paged'] ?? 1 );
+
+    // Sort
+    $orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], ['title', 'type', 'modified'] );
+    $orderby = reset( $orderby ) ?: 'modified';
+    $order = array_intersect( [sanitize_key( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
+    $order = reset( $order ) ?: 'desc';
+
+    // Query
+    $query_args = array(
+      'post_type' => ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
+      'post_status' => 'publish',
+      'orderby' => $orderby,
+      'order' => $order,
+      'paged' => $this->page,
+      'posts_per_page' => $this->per_page,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false
+    );
+
+    $query = new WP_Query( $query_args );
+
+    // Pagination
+    $this->set_pagination_args(
+      array(
+        'total_items' => $query->found_posts,
+        'per_page' => $this->per_page,
+        'total_pages' => ceil( $query->found_posts / $this->per_page )
+      )
+    );
+
+    // Data
+    $this->_column_headers = [ $columns, $hidden, $sortable, $primary ];
+    $this->items = $query->posts;
+  }
+
+  public function get_columns() {
+    return array(
+      'title' => __( 'Title', 'fictioneer' ),
+      'description' => __( 'Description', 'fictioneer' ),
+      'type' => __( 'Type', 'fictioneer' ),
+      'date' => __( 'Modified', 'fictioneer' )
+    );
+  }
+
+  public function column_default( $item, $column_name ) {
+    $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
+    $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
+    $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
+    $schema_text = stripslashes( json_encode( json_decode( $schema ), JSON_PRETTY_PRINT ) );
+    $seo_description = fictioneer_get_seo_description( $item->ID );
+    $link = get_the_permalink( $item->ID );
+    $title = mb_strimwidth( fictioneer_get_seo_title( $item->ID ), 0, 48, '…' );
+    $template = get_page_template_slug( $item->ID );
+    $is_excluded = in_array( $template, ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'] );
+
+    $actions = array(
+      'edit' => '<a href="' . get_edit_post_link( $item->ID ) . '">' . __( 'Edit', 'fictioneer' ) . '</a>'
+    );
+
+    if ( $schema ) {
+      $actions['schema'] = '<a data-dialog-target="schema-dialog">' . __( 'Schema', 'fcnl' ) . '</a>';
+      $actions['trash'] = "<a href='#' data-purge-schema data-id='{$item->ID}'>" . __( 'Purge', 'fictioneer' ) . '</a>';
+    }
+
+    switch ( $column_name ) {
+      case 'title':
+        printf(
+          _x( '%s<span>%s%s</span> %s<div style="clear: both;"></div>', 'SEO table row item title column.', 'fictioneer' ),
+          '<img src="' . $image_url . '" width="31" height="46" class="row-thumbnail">',
+          "<a href='{$link}' class='row-title'>{$title}</a></span>",
+          $is_excluded ? _x( ' — Excluded', 'SEO table row item title column excluded note.', 'fictioneer' ) : '',
+          $this->row_actions( $actions )
+        );
+        break;
+      case 'description':
+        echo $seo_description;
+
+        if ( $schema ) {
+          echo "<div data-schema-id='{$item->ID}' hidden>{$schema_text}</div>";
+        }
+
+        break;
+      case 'type':
+        echo get_post_type_object( $item->post_type )->labels->singular_name;
+        break;
+      case 'date':
+        printf(
+          _x( '%1$s<br>at %2$s', 'Table date and time column.', 'fictioneer' ),
+          get_the_modified_date( get_option( 'date_format' ), $item->ID ),
+          get_the_modified_date( get_option( 'time_format' ), $item->ID )
+        );
+        break;
+    }
+  }
+
+  public function single_row( $item ) {
+    // Default
+    static $row_class = '';
+    $row_class = $row_class == '' ? 'alternate' : '';
+
+    // Setup
+    $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
+
+    // Add class or not
+    if ( ! $schema ) {
+      $row_class .= ' no-schema';
+    }
+
+    // Output
+    echo "<tr class='{$row_class}'>";
+    $this->single_row_columns( $item );
+    echo '</tr>';
+  }
+
+  protected function extra_tablenav( $which ) {
+    // Setup
+    $actions = [];
+
+    // Purge All
+    if ( current_user_can( 'manage_options' ) ) {
+      $actions[] = sprintf(
+        '<a href="#" class="button" data-action-purge-all-schemas data-disable-with="%s">%s</a>',
+        esc_html( __( 'Purging…', 'fictioneer' ) ),
+        __( 'Purge All', 'fictioneer' )
+      );
+    }
+
+    // Output
+    if ( ! empty( $actions ) ) {
+      // Start HTML ---> ?>
+      <div class="alignleft actions"><?php echo implode( ' ', $actions ); ?></div>
+      <?php // <--- End HTML
+    }
+  }
+
+  protected function get_sortable_columns() {
+    return array(
+      'title' => ['title', false],
+      'type' => ['type', false],
+      'date' => ['modified', false]
+    );
+  }
+}
+
+$seo_table = new Fictioneer_Seo_Table();
+$seo_table->prepare_items();
 
 ?>
 
@@ -44,140 +189,41 @@ $post_ids = $query->posts;
 
       <div class="fictioneer-card">
         <div class="fictioneer-card__wrapper">
-          <h3 class="fictioneer-card__header"><?php _e( 'SEO Data', 'fictioneer' ); ?></h3>
           <div class="fictioneer-card__content">
-
             <div class="fictioneer-card__row">
               <p><?php
                 printf(
-                  __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
+                  __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types or page templates get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
                   'https://ogp.me/',
                   wp_customize_url()
                 );
               ?></p>
             </div>
-
-            <div class="fictioneer-card__table">
-              <table>
-
-                <thead>
-                  <tr>
-                    <th class="cell-centered"><?php _e( 'OG Image', 'fictioneer' ); ?></th>
-                    <th><?php _e( 'OG Title', 'fictioneer' ); ?></th>
-                    <th><?php _e( 'OG Description & Schema', 'fictioneer' ); ?></th>
-                    <th style="width: 120px;"><?php _e( 'Type', 'fictioneer' ); ?></th>
-                    <th style="width: 160px;"><?php _e( 'Modified', 'fictioneer' ); ?></th>
-                  </tr>
-                </thead>
-
-                <?php if ( fictioneer_seo_plugin_active() ) : ?>
-
-                  <tbody>
-                    <tr>
-                      <td colspan="99"><?php _e( 'Disabled due to incompatible SEO plugin being active.', 'fictioneer' ); ?></td>
-                    </tr>
-                  </tbody>
-
-                <?php else : ?>
-
-                  <tbody>
-
-                    <?php foreach ( $post_ids as $post_id ) : ?>
-
-                      <?php
-                        $schema = get_post_meta( $post_id, 'fictioneer_schema', true );
-                        $schema_text = stripslashes( json_encode( json_decode( $schema ), JSON_PRETTY_PRINT ) );
-                        $image = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
-                        $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
-                        $type = get_post_type( $post_id );
-                        $type_label = get_post_type_object( $type )->labels->singular_name;
-                        $title = mb_strimwidth( fictioneer_get_seo_title( $post_id ), 0, 48, '…' );
-                        $link = get_the_permalink( $post_id );
-                        $seo_description = fictioneer_get_seo_description( $post_id );
-                      ?>
-
-                      <tr id="schema-<?php echo $post_id; ?>">
-
-                        <td>
-                          <img src="<?php echo $image_url ?>" width="72" height="48">
-                        </td>
-
-                        <td class="cell-primary">
-                          <a href="<?php echo $link; ?>"><?php echo $title; ?></a>
-                          <div class="fictioneer-table-actions">
-                            <span class="edit">
-                              <a href="<?php edit_post_link( $post_id ); ?>">
-                                <?php _e( 'Edit', 'fictioneer' ); ?>
-                              </a>
-                            </span>
-                            <?php if ( $schema ) : ?>
-                              <span class="delete">
-                                |
-                                <label class="button-purge-schema" data-id="<?php echo $post_id; ?>">
-                                  <?php _e( 'Purge Schema', 'fictioneer' ); ?>
-                                </label>
-                              </span>
-                            <?php endif; ?>
-                          </div>
-                        </td>
-
-                        <td class="cell-schema">
-                          <?php if ( $schema ) : ?>
-                            <details>
-                              <summary><?php echo $seo_description; ?></summary>
-                              <textarea rows="8" readonly><?php echo $schema_text; ?></textarea>
-                            </details>
-                          <?php else : ?>
-                            <strong><?php _e( '[Empty]', 'fictioneer' ); ?></strong>
-                            <?php echo $seo_description; ?>
-                          <?php endif; ?>
-                        </td>
-
-                        <td class="cell-no-wrap"><?php echo $type_label ?></td>
-
-                        <td class="cell-no-wrap"><?php
-                          printf(
-                            _x( '%1$s<br>at %2$s', 'Table date and time column.', 'fictioneer' ),
-                            get_the_modified_date( get_option( 'date_format' ), $post_id ),
-                            get_the_modified_date( get_option( 'time_format' ), $post_id )
-                          );
-                        ?></td>
-
-                      </tr>
-
-                    <?php endforeach; ?>
-
-                  </tbody>
-
-                <?php endif; ?>
-
-              </table>
-            </div>
           </div>
         </div>
       </div>
 
-      <div class="fictioneer-actions">
-
-        <div class="fictioneer-actions__group">
-
-          <a class="button secondary" id="button-purge-all-schemas" data-click="purge-all-schemas" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all schemas? They will be regenerated on visit.', 'fictioneer' ); ?>" href="<?php echo $purge_all_url; ?>"><?php _e( 'Purge All Schemas', 'fictioneer' ); ?></a>
-
-          <a class="button secondary" id="button-purge-all-meta" data-click="purge-all-meta" data-prompt="<?php esc_attr_e( 'Are you sure you want to purge all SEO meta caches? They will be regenerated on visit.', 'fictioneer' ); ?>" href="<?php echo $purge_meta_url; ?>"><?php _e( 'Purge SEO Meta Caches', 'fictioneer' ); ?></a>
-
-        </div>
-
-        <div class="fictioneer-actions__group">
-          <?php
-            if ( $query->have_posts() ) {
-              fictioneer_admin_pagination( $per_page, $query->max_num_pages, $query->found_posts );
-            }
-          ?>
-        </div>
-
+      <div>
+        <?php $seo_table->display(); ?>
       </div>
 
     </div>
   </div>
+
+  <dialog class="fictioneer-dialog" id="schema-dialog">
+    <div class="fictioneer-dialog__header">
+      <span><?php _e( 'Schema', 'fictioneer' ); ?></span>
+    </div>
+    <div class="fictioneer-dialog__content">
+      <form>
+        <div class="fictioneer-dialog__row">
+          <textarea rows="16" data-target="schema-content" readonly></textarea>
+        </div>
+        <div class="fictioneer-dialog__actions">
+          <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Close', 'fictioneer' ); ?></button>
+        </div>
+      </form>
+    </div>
+  </dialog>
 
 </div>
