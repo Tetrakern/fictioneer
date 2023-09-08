@@ -263,9 +263,11 @@ $epubs_table->prepare_items();
 
   <div class="fictioneer-settings__content">
     <div class="fictioneer-single-column">
-      <div>
+      <form id="epubs-table" method="get" class="fictioneer-form">
+        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>">
+
         <?php $epubs_table->display(); ?>
-      </div>
+      </form>
     </div>
   </div>
 

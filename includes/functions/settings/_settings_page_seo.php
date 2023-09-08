@@ -203,9 +203,11 @@ $seo_table->prepare_items();
         </div>
       </div>
 
-      <div>
+      <form id="seo-table" method="get" class="fictioneer-form">
+        <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>">
+
         <?php $seo_table->display(); ?>
-      </div>
+      </form>
 
     </div>
   </div>
