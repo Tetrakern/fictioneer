@@ -75,27 +75,27 @@ class Fictioneer_Seo_Table extends WP_List_Table {
   }
 
   public function column_default( $item, $column_name ) {
-    $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
-    $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
     $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
     $schema_text = stripslashes( json_encode( json_decode( $schema ), JSON_PRETTY_PRINT ) );
-    $seo_description = fictioneer_get_seo_description( $item->ID );
-    $link = get_the_permalink( $item->ID );
-    $title = mb_strimwidth( fictioneer_get_seo_title( $item->ID ), 0, 48, '…' );
-    $template = get_page_template_slug( $item->ID );
-    $is_excluded = in_array( $template, ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'] );
-
-    $actions = array(
-      'edit' => '<a href="' . get_edit_post_link( $item->ID ) . '">' . __( 'Edit', 'fictioneer' ) . '</a>'
-    );
-
-    if ( $schema ) {
-      $actions['schema'] = '<a data-dialog-target="schema-dialog">' . __( 'Schema', 'fcnl' ) . '</a>';
-      $actions['trash'] = "<a href='#' data-purge-schema data-id='{$item->ID}'>" . __( 'Purge', 'fictioneer' ) . '</a>';
-    }
 
     switch ( $column_name ) {
       case 'title':
+        $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
+        $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
+        $link = get_the_permalink( $item->ID );
+        $title = mb_strimwidth( fictioneer_get_seo_title( $item->ID ), 0, 48, '…' );
+        $template = get_page_template_slug( $item->ID );
+        $is_excluded = in_array( $template, ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'] );
+
+        $actions = array(
+          'edit' => '<a href="' . get_edit_post_link( $item->ID ) . '">' . __( 'Edit', 'fictioneer' ) . '</a>'
+        );
+
+        if ( $schema ) {
+          $actions['schema'] = '<a data-dialog-target="schema-dialog">' . __( 'Schema', 'fcnl' ) . '</a>';
+          $actions['trash'] = "<a href='#' data-purge-schema data-id='{$item->ID}'>" . __( 'Purge', 'fictioneer' ) . '</a>';
+        }
+
         printf(
           _x( '%s<span>%s%s</span> %s<div style="clear: both;"></div>', 'SEO table row item title column.', 'fictioneer' ),
           '<img src="' . $image_url . '" width="31" height="46" class="row-thumbnail">',
@@ -105,7 +105,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
         );
         break;
       case 'description':
-        echo $seo_description;
+        echo fictioneer_get_seo_description( $item->ID );
 
         if ( $schema ) {
           echo "<div data-schema-id='{$item->ID}' hidden>{$schema_text}</div>";

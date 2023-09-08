@@ -92,8 +92,6 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
     $item = strval( $item );
     $info = pathinfo( $item );
     $file_name = absint( $info['filename'] ); // Is the post ID
-    $size = size_format( filesize( $item ) );
-    $date = filectime( $item );
     $story = get_post( $file_name );
     $downloads_version = '—';
     $downloads_total = '—';
@@ -143,9 +141,11 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
         echo "{$downloads_version} ({$downloads_total})";
         break;
       case 'size':
-        echo esc_html( $size );
+        echo esc_html( size_format( filesize( $item ) ) );
         break;
       case 'date':
+        $date = filectime( $item );
+
         printf(
           _x( '%1$s<br>at %2$s', 'Table date and time column.', 'fictioneer' ),
           date( get_option( 'date_format' ), $date ),
