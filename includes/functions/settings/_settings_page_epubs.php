@@ -139,7 +139,7 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
         echo is_numeric( $words ) ? number_format_i18n( $words ) : $words;
         break;
       case 'downloads':
-        echo "{$downloads_version} ({$downloads_total})";
+        echo "<span title='" . __( 'Version (Total)', 'fictioneer' ) . "'>{$downloads_version} ({$downloads_total})</span>";
         break;
       case 'size':
         echo esc_html( size_format( filesize( $item ) ) );
