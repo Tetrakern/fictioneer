@@ -30,6 +30,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
     $primary = 'title';
 
     $this->page = absint( $_GET['paged'] ?? 1 );
+    $this->per_page = $this->get_items_per_page( 'fictioneer_seo_items_per_page', 25 );
 
     // Sort
     $orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], ['title', 'type', 'modified'] );

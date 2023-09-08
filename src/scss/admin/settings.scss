@@ -37,6 +37,42 @@
 // SETTINGS PAGES
 // ===============================================================================
 
+body[class*="fictioneer_page_"] {
+  #screen-meta-links {
+    position: absolute;
+    right: 20px;
+    float: none;
+    margin: 0;
+
+    @media screen and (max-width: 782px) {
+      right: 10px;
+    }
+
+    + .fictioneer-settings .fictioneer-settings__header {
+      padding-top: 40px;
+    }
+
+    .show-settings {
+      border: none;
+    }
+  }
+
+  #screen-meta {
+    background: var(--header-background-color);
+    padding: 0 20px;
+    margin: 0;
+    border: 0;
+
+    @media screen and (max-width: 782px) {
+      padding: 0 10px;
+    }
+  }
+
+  #screen-options-wrap {
+    background: #fff;
+  }
+}
+
 .fictioneer-settings {
   font-size: 14px;
   line-height: 1.5;

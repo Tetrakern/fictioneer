@@ -37,7 +37,7 @@ function fictioneer_add_admin_menu() {
     61
   );
 
-	add_submenu_page(
+	$general_hook = add_submenu_page(
 		'fictioneer',
 		__( 'General', 'fictioneer' ),
 		__( 'General', 'fictioneer' ),
@@ -46,7 +46,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_general'
 	);
 
-	add_submenu_page(
+	$roles_hook = add_submenu_page(
 		'fictioneer',
 		__( 'Roles', 'fictioneer' ),
 		__( 'Roles', 'fictioneer' ),
@@ -56,7 +56,7 @@ function fictioneer_add_admin_menu() {
 	);
 
 	if ( ! empty( $fictioneer_plugins ) ) {
-		add_submenu_page(
+		$plugins_hook = add_submenu_page(
 			'fictioneer',
 			__( 'Plugins', 'fictioneer' ),
 			__( 'Plugins', 'fictioneer' ),
@@ -66,7 +66,7 @@ function fictioneer_add_admin_menu() {
 		);
 	}
 
-	add_submenu_page(
+	$connections_hook = add_submenu_page(
 		'fictioneer',
 		__( 'Connections', 'fictioneer' ),
 		__( 'Connections', 'fictioneer' ),
@@ -75,7 +75,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_connections'
 	);
 
-	add_submenu_page(
+	$phrases_hook = add_submenu_page(
 		'fictioneer',
 		__( 'Phrases', 'fictioneer' ),
 		__( 'Phrases', 'fictioneer' ),
@@ -84,7 +84,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_phrases'
 	);
 
-	add_submenu_page(
+	$epubs_hook = add_submenu_page(
 		'fictioneer',
 		__( 'ePUBs', 'fictioneer' ),
 		__( 'ePUBs', 'fictioneer' ),
@@ -93,7 +93,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_epubs'
 	);
 
-	add_submenu_page(
+	$seo_hook = add_submenu_page(
 		'fictioneer',
 		__( 'SEO', 'fictioneer' ),
 		__( 'SEO', 'fictioneer' ),
@@ -102,7 +102,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_seo'
 	);
 
-	add_submenu_page(
+	$tools_hook = add_submenu_page(
 		'fictioneer',
 		__( 'Tools', 'fictioneer' ),
 		__( 'Tools', 'fictioneer' ),
@@ -111,7 +111,7 @@ function fictioneer_add_admin_menu() {
 		'fictioneer_settings_tools'
 	);
 
-	add_submenu_page(
+	$logs_hook = add_submenu_page(
 		'fictioneer',
 		__( 'Logs', 'fictioneer' ),
 		__( 'Logs', 'fictioneer' ),
@@ -121,8 +121,71 @@ function fictioneer_add_admin_menu() {
 	);
 
 	add_action( 'admin_init', 'fictioneer_register_settings' );
+
+	// Add screen options
+  add_action( "load-{$epubs_hook}", 'fictioneer_settings_epubs_screen_options' );
+	add_action( "load-{$seo_hook}", 'fictioneer_settings_seo_screen_options' );
 }
 add_action( 'admin_menu', 'fictioneer_add_admin_menu' );
+
+/**
+ * Configure the screen options for the ePUBs page
+ *
+ * @since Fictioneer 5.7.2
+ */
+
+function fictioneer_settings_epubs_screen_options() {
+  // Add pagination option
+	$args = array(
+		'label' => __( 'ePUBs per page', 'fcnes' ),
+		'default' => 25,
+		'option' => 'fictioneer_epubs_per_page'
+	);
+	add_screen_option( 'per_page', $args );
+}
+
+/**
+ * Configure the screen options for the SEO page
+ *
+ * @since Fictioneer 5.7.2
+ */
+
+function fictioneer_settings_seo_screen_options() {
+  // Add pagination option
+	$args = array(
+		'label' => __( 'Items per page', 'fcnes' ),
+		'default' => 25,
+		'option' => 'fictioneer_seo_items_per_page'
+	);
+	add_screen_option( 'per_page', $args );
+}
+
+/**
+ * Save custom screen options values
+ *
+ * @since Fictioneer 5.7.2
+ *
+ * @param bool   $status  The current status of the screen option saving.
+ * @param string $option  The name of the screen option being saved.
+ * @param mixed  $value   The value of the screen option being saved.
+ *
+ * @return bool The updated status of the screen option saving.
+ */
+
+function fictioneer_save_screen_options( $status, $option, $value ) {
+  // ePUBs per page
+  if ( $option === 'fictioneer_epubs_per_page' ) {
+    update_user_meta( get_current_user_id(), $option, $value );
+  }
+
+  // Updated per page
+  if ( $option === 'fictioneer_seo_items_per_page' ) {
+    update_user_meta( get_current_user_id(), $option, $value );
+  }
+
+  return $status;
+}
+add_filter( 'set-screen-option', 'fictioneer_save_screen_options', 10, 3 );
 
 // =============================================================================
 // ADMIN MENU PAGINATION
