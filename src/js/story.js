@@ -249,7 +249,7 @@ function fcn_startEpubDownload(link, times = 0) {
   .then(response => {
     if (response.success) {
       window.location.href = link.href;
-      setTimeout(() => { link.classList.remove('ajax-in-progress') }, 1000);
+      setTimeout(() => { link.classList.remove('ajax-in-progress') }, 2000);
     } else {
       setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
     }
