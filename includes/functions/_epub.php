@@ -1164,7 +1164,7 @@ add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
 
 function fictioneer_ajax_download_epub() {
   // Rate limit
-  fictioneer_check_rate_limit( 'fictioneer_ajax_download_epub', 5 );
+  fictioneer_check_rate_limit( 'fictioneer_ajax_download_epub', 10 );
 
   // Setup
   $story_id = absint( $_POST['story_id'] ?? 0 );

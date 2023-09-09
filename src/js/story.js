@@ -253,6 +253,13 @@ function fcn_startEpubDownload(link, times = 0) {
     } else {
       setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
     }
+  })
+  .catch(error => {
+    link.classList.remove('ajax-in-progress');
+
+    if (error.status && error.statusText) {
+      fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
+    }
   });
 }
 
