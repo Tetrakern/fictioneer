@@ -128,8 +128,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
 
   public function single_row( $item ) {
     // Default
-    static $row_class = '';
-    $row_class = $row_class == '' ? 'alternate' : '';
+    $row_class = '';
 
     // Setup
     $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
