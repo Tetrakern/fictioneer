@@ -996,7 +996,7 @@ function fictioneer_generate_epub() {
     fictioneer_epub_return_and_exit();
   }
 
-  // Generating?
+  // Locked?
   $lock = fictioneer_get_field( 'fictioneer_epub_wip', $story_id );
 
   if ( ! empty( $lock ) && absint( $lock ) + 30 < time() ) {
@@ -1151,5 +1151,35 @@ function fictioneer_generate_epub() {
   fictioneer_download_epub( "{$folder}.epub", $story );
 }
 add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
+
+// =============================================================================
+// AJAX - CHECK IF READY TO DOWNLOAD
+// =============================================================================
+
+/**
+ * Start ePUB download if ready
+ *
+ * @since Fictioneer 5.7.2
+ */
+
+function fictioneer_ajax_download_epub() {
+  // Rate limit
+  fictioneer_check_rate_limit( 'fictioneer_ajax_download_epub', 5 );
+
+  // Setup
+  $story_id = absint( $_POST['story_id'] ?? 0 );
+  $lock = fictioneer_get_field( 'fictioneer_epub_wip', $story_id );
+
+  if ( ! empty( $lock ) && absint( $lock ) + 30 < time() ) {
+    wp_send_json_error();
+  } else {
+    wp_send_json_success();
+  }
+}
+
+if ( get_option( 'fictioneer_enable_epubs' ) ) {
+  add_action( 'wp_ajax_fictioneer_ajax_download_epub', 'fictioneer_ajax_download_epub' );
+  add_action( 'wp_ajax_nopriv_fictioneer_ajax_download_epub', 'fictioneer_ajax_download_epub' );
+}
 
 ?>
