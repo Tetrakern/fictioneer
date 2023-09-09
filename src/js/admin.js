@@ -155,34 +155,34 @@ _$$('[data-dialog-target="schema-dialog"]').forEach(element => {
  * Deletes an ePUB by filename.
  *
  * @since 4.7
- * @param {Number} postId - ID of the story and name of the ePUB.
+ * @param {String} name - Name of the ePUB.
  */
 
-function fcn_delete_epub(postId) {
-  jQuery.ajax({
-    url: fictioneer_ajax.ajax_url,
-    type: 'post',
-    data: {
-      action: 'fictioneer_ajax_delete_epub',
-      nonce: document.getElementById('fictioneer_admin_nonce').value,
-      post_id: postId
-    },
-    dataType: 'json',
-    success: function(response) {
-      if (response.success) {
-        document.querySelector(`[data-delete-epub][data-id="${postId}"]`).closest('tr').remove();
-      }
-		}
+function fcn_delete_epub(name) {
+  fcn_ajaxPost({
+    'action': 'fictioneer_ajax_delete_epub',
+    'name': name,
+    'nonce': document.getElementById('fictioneer_admin_nonce').value
+  })
+  .then(response => {
+    if (response.success) {
+      document.querySelector(`[data-action="delete-epub"][data-name="${name}"]`).closest('tr').remove();
+    } else {
+      console.log(response);
+    }
+  })
+  .catch(error => {
+    console.log(error);
   });
 }
 
 // Listen for clicks in ePUB delete buttons
-_$$('[data-delete-epub]').forEach(element => {
+_$$('[data-action="delete-epub"]').forEach(element => {
   element.addEventListener(
     'click',
     (e) => {
       e.preventDefault();
-      fcn_delete_epub(e.target.dataset.id)
+      fcn_delete_epub(e.target.dataset.name)
     }
   );
 });
@@ -286,7 +286,9 @@ function fcn_confirmIt(event) {
         confirm = event.currentTarget.dataset.dialogConfirm;
 
   // Abort if...
-  if (!message || !confirm) return;
+  if (!message || !confirm) {
+    return;
+  }
 
   // Prompt
   const result = prompt(message);
@@ -334,7 +336,9 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
   const clickTarget = event.target.closest('[data-click]'),
         clickAction = clickTarget?.dataset.click;
 
-  if (!clickAction) return;
+  if (!clickAction) {
+    return;
+  }
 
   switch (clickAction) {
     case 'purge-all-epubs':

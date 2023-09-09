@@ -92,8 +92,8 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
   public function column_default( $item, $column_name ) {
     $item = strval( $item );
     $info = pathinfo( $item );
-    $file_name = absint( $info['filename'] ); // Is the post ID
-    $story = get_post( $file_name );
+    $file_name = $info['filename']; // Is the post ID
+    $story = get_post( absint( $file_name ) );
     $downloads_version = '—';
     $downloads_total = '—';
     $story_data = array(
@@ -118,12 +118,12 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
         if ( $story ) {
           $title = '<a href="' . get_the_permalink( $story ) . '" class="row-title">' . $story->post_title . '</a>';
           $actions['edit'] = '<a href="' . get_edit_post_link( $story ) . '">' . __( 'Edit', 'fictioneer' ) . '</a>';
+          $actions['download'] = '<a href="' . $download_url . '" download>' . __( 'Download', 'fictioneer' ) . '</a>';
         } else {
-          $title = '<div>' . __( 'Story not found.', 'fictioneer' ) . '</div>';
+          $title = '<div>' . sprintf( __( 'N/A (%s)', 'fictioneer' ), $file_name ) . '</div>';
         }
 
-        $actions['download'] = '<a href="' . $download_url . '" download>' . __( 'Download', 'fictioneer' ) . '</a>';
-        $actions['trash'] = '<a href="#" data-delete-epub data-id="' . $file_name . '">' . __( 'Delete', 'fictioneer' ) . '</a>';
+        $actions['trash'] = '<a href="#" data-action="delete-epub" data-name="' . $file_name . '">' . __( 'Delete', 'fictioneer' ) . '</a>';
 
         printf(
           '<span>%s</span> %s',

@@ -36,12 +36,12 @@ function fictioneer_validate_settings_ajax() {
 function fictioneer_ajax_delete_epub() {
   if ( fictioneer_validate_settings_ajax() ) {
     // Abort if...
-    if ( empty( $_POST['post_id'] ?? '' ) ) {
-      wp_send_json_error( array( 'notice' => __( 'Name missing', 'fictioneer' ) ) );
+    if ( empty( $_POST['name'] ?? '' ) ) {
+      wp_send_json_error( array( 'notice' => __( 'File name missing.', 'fictioneer' ) ) );
     }
 
     // Setup
-    $file_name = sanitize_text_field( $_POST['post_id'] ) . '.epub';
+    $file_name = sanitize_text_field( $_POST['name'] ) . '.epub';
     $path = wp_upload_dir()['basedir'] . '/epubs/' . $file_name;
 
     // Delete file from directory
