@@ -568,7 +568,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
 					);
 				?>
 				<div id="ribbon-read" class="story__thumbnail-ribbon hidden">
-					<div class="ribbon _read"><?php _ex( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ) ?></div>
+					<div class="ribbon _read"><?php _ex( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ); ?></div>
 				</div>
 			</a>
 		</figure>
@@ -724,18 +724,18 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     if ( $show_epub_download && ! $ebook_upload ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo esc_url( home_url( 'download-epub/' . $args['story_id'] ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download ePUB', 'fictioneer' ) ?>" download>
+      <a href="<?php echo esc_url( home_url( 'download-epub/' . $args['story_id'] ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" data-action="download-epub" data-story-id="<?php echo $args['story_id']; ?>" aria-label="<?php esc_attr_e( 'Download ePUB', 'fictioneer' ); ?>" download>
         <i class="fa-solid fa-cloud-download-alt"></i>
-        <span class="span-epub hide-below-640"><?php _e( 'ePUB', 'fictioneer' ) ?></span>
+        <span class="span-epub hide-below-640"><?php _e( 'ePUB', 'fictioneer' ); ?></span>
       </a>
       <?php // <--- End HTML
       $output['epub'] = ob_get_clean();
     } elseif ( wp_get_attachment_url( $ebook_upload ) ) {
       ob_start();
       // Start HTML ---> ?>
-      <a href="<?php echo esc_url( wp_get_attachment_url( $ebook_upload ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download eBook', 'fictioneer' ) ?>" download>
+      <a href="<?php echo esc_url( wp_get_attachment_url( $ebook_upload ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download eBook', 'fictioneer' ); ?>" download>
         <i class="fa-solid fa-cloud-download-alt"></i>
-        <span class="span-epub hide-below-640"><?php _e( 'eBook', 'fictioneer' ) ?></span>
+        <span class="span-epub hide-below-640"><?php _e( 'eBook', 'fictioneer' ); ?></span>
       </a>
       <?php // <--- End HTML
       $output['ebook'] = ob_get_clean();
@@ -746,12 +746,12 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
       // Start HTML ---> ?>
       <button class="button _secondary button-read-later hide-if-logged-out" data-story-id="<?php echo $story_id; ?>">
         <i class="fa-solid fa-clock"></i>
-        <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
+        <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ); ?></span>
       </button>
       <?php if ( $show_login ) : ?>
         <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
           <i class="fa-solid fa-clock"></i>
-          <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ) ?></span>
+          <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ); ?></span>
         </label>
       <?php endif; ?>
       <?php // <--- End HTML
@@ -763,12 +763,12 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
       // Start HTML ---> ?>
       <button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="<?php echo $story_id; ?>">
         <i class="fa-solid fa-star"></i>
-        <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
+        <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ); ?></span>
       </button>
       <?php if ( $show_login ) : ?>
         <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
           <i class="fa-regular fa-star off"></i>
-          <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ) ?></span>
+          <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ); ?></span>
         </label>
       <?php endif; ?>
       <?php // <--- End HTML
@@ -978,7 +978,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
         <li class="<?php echo implode( ' ', $classes ); ?>">
           <a href="<?php echo "{$relative_path}?p={$post->ID}"; ?>">
             <?php if ( empty( $text_icon ) && ! $hide_icons ) : ?>
-              <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $post->ID ) ?>"></i>
+              <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $post->ID ); ?>"></i>
             <?php elseif ( ! $hide_icons ) : ?>
               <span class="text-icon"><?php echo $text_icon; ?></span>
             <?php endif; ?>
@@ -1188,7 +1188,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookshelf' ) ?></a>
+        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookshelf' ); ?></a>
       </li>
       <?php // <--- End HTML
       $output['bookshelf'] = ob_get_clean();
@@ -1198,7 +1198,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item">
-        <a href="<?php echo esc_url( $bookmarks_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookmarks' ) ?></a>
+        <a href="<?php echo esc_url( $bookmarks_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookmarks' ); ?></a>
       </li>
       <?php // <--- End HTML
       $output['bookmarks'] = ob_get_clean();
@@ -1208,7 +1208,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ) ?></a>
+        <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ); ?></a>
       </li>
       <?php // <--- End HTML
       $output['logout'] = ob_get_clean();
@@ -1251,7 +1251,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
       ob_start();
       // Start HTML ---> ?>
       <time datetime="<?php the_time( 'c' ); ?>" class="post__date">
-        <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
+        <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ); ?>"></i>
         <?php echo get_the_date(); ?>
       </time>
       <?php // <--- End HTML

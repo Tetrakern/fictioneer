@@ -223,3 +223,53 @@ _$('.comment-section')?.addEventListener('click', event => {
     fcn_loadStoryComments();
   }
 });
+
+// =============================================================================
+// EPUB DOWNLOAD
+// =============================================================================
+
+/**
+ * Initiates the download of an EPUB file.
+ *
+ * @since 5.7.2
+ * @param {HTMLElement} link - The link that triggered the download.
+ * @param {number} times - The number of times the function has been called recursively.
+ */
+
+function fcn_startEpubDownload(link, times = 0) {
+  if ( times > 3 ) {
+    link.classList.remove('ajax-in-progress')
+    return;
+  }
+
+  fcn_ajaxGet({
+    'action': 'fictioneer_ajax_download_epub',
+    'story_id': link.dataset.storyId
+  })
+  .then(response => {
+    if (response.success) {
+      window.location.href = link.href;
+      setTimeout(() => { link.classList.remove('ajax-in-progress') }, 1000);
+    } else {
+      setTimeout(() => { fcn_startEpubDownload(link, times + 1) }, 2000);
+    }
+  });
+}
+
+_$$('[data-action="download-epub"]').forEach(element => {
+  element.addEventListener('click', event => {
+    // Stop link
+    event.preventDefault();
+
+    // Abort if...
+    if (event.currentTarget.classList.contains('ajax-in-progress')) {
+      return;
+    }
+
+    // Disable button
+    event.currentTarget.classList.add('ajax-in-progress');
+
+    // Request
+    fcn_startEpubDownload(event.currentTarget);
+  });
+});

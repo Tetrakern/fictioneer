@@ -175,7 +175,7 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
     }
 
     // Output
-    if ( ! empty( $actions ) ) {
+    if ( ! empty( $actions ) && $this->count > 0 ) {
       // Start HTML ---> ?>
       <div class="alignleft actions"><?php echo implode( ' ', $actions ); ?></div>
       <?php // <--- End HTML

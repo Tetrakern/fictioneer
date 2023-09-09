@@ -177,6 +177,7 @@
   --litrpg-drop-shadow: var(--container-drop-shadow);
   --lit-rpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
   --paragraph-spacing: 1.5rem; // Fallback if not defined deeper
+  --barberpole: var(--bg-600);
 
   // === FOCUS =================================================================
   --focus-background: var(--red);
