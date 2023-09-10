@@ -755,7 +755,7 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 
 ---
 
-### `apply_filters( 'fictioneer_filter_latest_stories_card_footer', $footer_items, $story, $args, $query )`
+### `apply_filters( 'fictioneer_filter_shortcode_latest_stories_card_footer', $footer_items, $story, $args, $post )`
 Filters the intermediate output arrays in the `_latest-stories.php` and `_latest-stories-compact.php` partials before they are imploded and rendered. Contains statistics with icons such as the number of chapters, words, dates, and so forth.
 
 **$footer_items:**
@@ -768,7 +768,7 @@ Filters the intermediate output arrays in the `_latest-stories.php` and `_latest
 **Parameters**
 * $story (array) – Collection of story post data.
 * $args (array) – Arguments passed to the partial.
-* $story (WP_Query) – Query of the shortcode.
+* $story (WP_Post) – The post object.
 
 ---
 

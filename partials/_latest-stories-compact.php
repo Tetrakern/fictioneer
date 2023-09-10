@@ -194,11 +194,11 @@ $entries = fictioneer_shortcode_query( $query_args );
 
                   // Filer footer items
                   $footer_items = apply_filters(
-                    'fictioneer_filter_latest_stories_card_footer',
+                    'fictioneer_filter_shortcode_latest_stories_card_footer',
                     $footer_items,
                     $story,
                     $args,
-                    $entries
+                    $post
                   );
 
                   // Implode and render footer items
