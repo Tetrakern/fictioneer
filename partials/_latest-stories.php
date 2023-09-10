@@ -172,14 +172,14 @@ $entries = fictioneer_shortcode_query( $query_args );
                 $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
                   esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
 
-                if ( $args['orderby'] == 'date' ) {
-                  $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-                    esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' .
-                    get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post );
-                } else {
+                if ( $args['orderby'] == 'modified' ) {
                   $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
                     esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
                     get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post );
+                } else {
+                  $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+                    esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' .
+                    get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post );
                 }
 
                 $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' .
