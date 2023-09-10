@@ -35,9 +35,7 @@
       color: var(--tab-text-active);
       text-shadow: var(--tab-text-shadow-active);
     }
-  }
 
-  > *  {
     &:first-of-type, &:first-of-type > .tabs__item {
       border-top-left-radius: var(--layout-border-radius-small);
       border-bottom-left-radius: var(--layout-border-radius-small);

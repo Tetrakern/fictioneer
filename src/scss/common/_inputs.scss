@@ -309,10 +309,6 @@ input[type=radio] {
       transform: translateY(-50%);
       transition: opacity var(--transition-duration);
 
-      > * {
-        pointer-events: none;
-      }
-
       &:not(:hover) {
         opacity: .5;
       }

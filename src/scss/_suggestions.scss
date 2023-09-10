@@ -14,7 +14,8 @@
     line-height: 1.5;
   }
 
-  &__display > div,
+  &__original,
+  &__diff,
   &__edit {
     position: relative;
 
@@ -30,23 +31,16 @@
     }
   }
 
-  &__display {
-    > div {
-      user-select: none;
-      background: var(--disabled-pattern);
-      border-radius: 2px;
-      overflow: hidden;
-
-      &::before {
-        z-index: 1;
-        border: 1px dashed var(--fg-900);
-      }
-    }
-  }
-
+  &__original,
   &__diff {
-    > div {
-      color: var(--fg-600);
+    user-select: none;
+    background: var(--disabled-pattern);
+    border-radius: 2px;
+    overflow: hidden;
+
+    &::before {
+      z-index: 1;
+      border: 1px dashed var(--fg-900);
     }
   }
 
@@ -71,18 +65,18 @@
 
   textarea {
     display: block;
+    background: none;
+    padding: 8px;
+    border: none;
     width: 100%;
     height: 33px;
-    padding: 8px;
-    background: none;
-    border: none;
     resize: none;
   }
 
   &__text {
     color: var(--fg-700);
-    border-radius: 2px;
     padding: 8px;
+    border-radius: 2px;
     white-space: pre-wrap;
     max-height: 112px;
     overflow: auto;
