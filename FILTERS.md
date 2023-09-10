@@ -105,7 +105,7 @@ Filters the intermediate output array of the card control popup menu inside the 
 
 ---
 
-### `apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $args, $story )`
+### `apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-chapter.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of words, publishing date, comments, and so forth.
 
 **$footer_items:**
@@ -117,8 +117,8 @@ Filters the intermediate output array in the `_card-chapter.php` partial before 
 
 **Parameters**
 * $post (WP_Post) – The post object.
+* $story (array|null) – Optional. Chapter story data.
 * $args (array) – Arguments passed to the partial.
-* $story (array) – Chapter story data.
 
 ---
 
@@ -755,7 +755,7 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 
 ---
 
-### `apply_filters( 'fictioneer_filter_shortcode_latest_stories_card_footer', $footer_items, $story, $args, $post )`
+### `apply_filters( 'fictioneer_filter_shortcode_latest_stories_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output arrays in the `_latest-stories.php` and `_latest-stories-compact.php` partials before they are imploded and rendered. Contains statistics with icons such as the number of chapters, words, dates, and so forth.
 
 **$footer_items:**
@@ -763,12 +763,12 @@ Filters the intermediate output arrays in the `_latest-stories.php` and `_latest
 * $words (string) – HTML for the total word count.
 * $publish_date (string) – Conditional. HTML for the publish date.
 * $modified_date (string) – Conditional. HTML for the modified date.
-* $status (status) – HTML for the status.
+* $status (string) – HTML for the status.
 
 **Parameters**
+* $post (WP_Post) – The post object.
 * $story (array) – Collection of story post data.
 * $args (array) – Arguments passed to the partial.
-* $story (WP_Post) – The post object.
 
 ---
 
@@ -802,19 +802,19 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 
 ---
 
-### `apply_filters( 'fictioneer_filter_shortcode_latest_updates_card_footer', $footer_items, $story, $args, $post )`
+### `apply_filters( 'fictioneer_filter_shortcode_latest_updates_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_latest-updates.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, words, dates, and so forth.
 
 **$footer_items:**
 * $chapters (string) – HTML for the number of chapters.
 * $words (string) – HTML for the total word count.
 * $modified_date (string) – Conditional. HTML for the modified date.
-* $status (status) – HTML for the status.
+* $status (string) – HTML for the status.
 
 **Parameters**
+* $post (WP_Post) – The post object.
 * $story (array) – Collection of story post data.
 * $args (array) – Arguments passed to the partial.
-* $story (WP_Post) – The post object.
 
 ---
 
@@ -1009,7 +1009,7 @@ Filters the statistics for all stories rendered by the `fictioneer_stories_stati
 
 ---
 
-### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $args, $story )`
+### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-story.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, publishing date, comments, and so forth.
 
 **$footer_items:**
@@ -1019,12 +1019,12 @@ Filters the intermediate output array in the `_card-story.php` partial before it
 * $modified_date (string) – Conditional. HTML for the modified date.
 * $author (string) – Conditional. HTML for the author.
 * $comments (string) – HTML for the number of comments.
-* $status (status) – HTML for the status.
+* $status (string) – HTML for the status.
 
 **Parameters**
 * $post (WP_Post) – The post object.
-* $args (array) – Arguments passed to the partial.
 * $story (array) – Story data.
+* $args (array) – Arguments passed to the partial.
 
 ---
 

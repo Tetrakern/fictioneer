@@ -246,9 +246,9 @@ $entries = fictioneer_shortcode_query( $query_args );
                   $footer_items = apply_filters(
                     'fictioneer_filter_shortcode_latest_updates_card_footer',
                     $footer_items,
+                    $post,
                     $story,
-                    $args,
-                    $post
+                    $args
                   );
 
                   // Implode and render footer items

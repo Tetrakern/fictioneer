@@ -57,7 +57,9 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
 }
 
 // Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
@@ -196,9 +198,9 @@ $entries = fictioneer_shortcode_query( $query_args );
                   $footer_items = apply_filters(
                     'fictioneer_filter_shortcode_latest_stories_card_footer',
                     $footer_items,
+                    $post,
                     $story,
-                    $args,
-                    $post
+                    $args
                   );
 
                   // Implode and render footer items
