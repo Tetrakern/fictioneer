@@ -47,7 +47,9 @@ $query_args = array(
 );
 
 // Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
@@ -102,7 +104,9 @@ $entries = fictioneer_shortcode_query( $query_args );
           }
 
           // Count actually rendered cards to account for buffer
-          if ( ++$card_counter > $args['count'] ) break;
+          if ( ++$card_counter > $args['count'] ) {
+            break;
+          }
         ?>
 
         <li class="card _small">
@@ -156,23 +160,46 @@ $entries = fictioneer_shortcode_query( $query_args );
             <?php if ( ! $args['simple'] ) : ?>
               <div class="card__footer _small">
 
-                <div class="card__footer-box _left text-overflow-ellipsis">
+                <div class="card__footer-box _left text-overflow-ellipsis"><?php
 
-                  <i class="card-footer-icon fa-solid fa-font" title="<?php esc_attr_e( 'Words', 'fictioneer' ) ?>"></i>
-                  <?php echo fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ); ?>
+                  // Build footer items
+                  $footer_items = [];
 
-                  <i class="card-footer-icon fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>"></i>
-                  <?php echo get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE ); ?>
+                  $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+                    esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
+                    fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) );
 
-                  <i class="card-footer-icon fa-solid fa-message" title="<?php esc_attr_e( 'Comments', 'fictioneer' ) ?>"></i>
-                  <?php echo get_comments_number(); ?>
+                  if ( $args['orderby'] == 'modified' ) {
+                    $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
+                      esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
+                      get_the_modified_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post );
+                  } else {
+                    $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+                      esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' .
+                      get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post );
+                  }
 
-                  <?php if ( $story ) : ?>
-                    <i class="card-footer-icon <?php echo $story['icon']; ?>"></i>
-                    <?php echo fcntr( $story['status'] ); ?>
-                  <?php endif; ?>
+                  $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
+                    esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number();
 
-                </div>
+                  if ( $story ) {
+                    $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' .
+                      fcntr( $story['status'] );
+                  }
+
+                  // Filer footer items
+                  $footer_items = apply_filters(
+                    'fictioneer_filter_shortcode_latest_chapters_card_footer',
+                    $footer_items,
+                    $post,
+                    $args,
+                    $story
+                  );
+
+                  // Implode and render footer items
+                  echo implode( ' ', $footer_items );
+
+                ?></div>
 
                 <?php if ( ! empty( $chapter_rating ) ) : ?>
                   <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
