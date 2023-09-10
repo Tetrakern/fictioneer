@@ -755,6 +755,23 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 
 ---
 
+### `apply_filters( 'fictioneer_filter_latest_stories_card_footer', $footer_items, $story, $args, $query )`
+Filters the intermediate output arrays in the `_latest-stories.php` and `_latest-stories-compact.php` partials before they are imploded and rendered. Contains statistics with icons such as the number of chapters, words, dates, and so forth.
+
+**$footer_items:**
+* $chapters (string) – HTML for the number of chapters.
+* $words (string) – HTML for the total word count.
+* $publish_date (string) – Conditional. HTML for the publish date.
+* $modified_date (string) – Conditional. HTML for the modified date.
+* $status (status) – HTML for the status.
+
+**Parameters**
+* $story (array) – Collection of story post data.
+* $args (array) – Arguments passed to the partial.
+* $story (WP_Query) – Query of the shortcode.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_stories_query_args', $query_args, $args )`
 Filters the query arguments in the `fictioneer_latest_stories` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
