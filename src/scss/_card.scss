@@ -541,11 +541,11 @@
       border-top: 3px solid var(--e-2);
       margin-top: 0;
 
-      > div {
+      > .card__footer-box {
         background: transparent; // Background already set on container
       }
 
-      .card__right {
+      .card__footer-box._right {
         border-left: 3px solid var(--e-2);
       }
     }
