@@ -37,7 +37,7 @@ $max-mobile-menu-width: 320px;
     transform: translate3d(0, 0, 0);
   }
 
-  > * {
+  > :is(nav, header, main, footer, div) {
     pointer-events: none;
   }
 

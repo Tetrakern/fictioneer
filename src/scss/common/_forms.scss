@@ -7,7 +7,7 @@
   &.ajax-in-progress {
     pointer-events: none;
 
-    :is(textarea, input) {
+    :is(textarea, input, select, label) {
       filter: blur(1px);
     }
   }
@@ -20,7 +20,7 @@
     min-height: 104px;
     width: 100%;
     resize: none;
-    opacity: 1 !important; // Override inline bot trap
+    opacity: 1 !important; // Override inline bot trap (make all opacity 0 as obfuscation)
   }
 
   > input:not([class]) {
@@ -36,13 +36,8 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 8px;
 
-    > * {
-      flex: 1 1 280px;
-      opacity: 1 !important; // Override inline bot trap
-    }
-
-    input {
-      opacity: 1 !important; // Override inline bot trap
+    :is(input, select, label) {
+      opacity: 1 !important; // Override inline bot trap (make all opacity 0 as obfuscation)
 
       &:not(._no-stretch) {
         width: 100%;
@@ -55,6 +50,6 @@
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: 8px; // +8px gap
+    margin-top: 8px; // +8px gap for 16px spacing
   }
 }

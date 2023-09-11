@@ -25,7 +25,7 @@ $feed = fictioneer_get_rss_link();
 <div class="media-buttons">
   <label
     for="modal-sharing-toggle"
-    class="tooltipped"
+    class="tooltipped media-buttons__item"
     data-tooltip="<?php esc_attr_e( 'Share', 'fictioneer' ); ?>"
     tabindex="0"
   ><i class="fa-solid fa-share-nodes"></i></label>
@@ -37,7 +37,7 @@ $feed = fictioneer_get_rss_link();
     <?php if ( get_post_type() == 'fcn_story' && ! fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) : ?>
       <a
         href="<?php echo $feed; ?>"
-        class="rss-link tooltipped"
+        class="rss-link tooltipped media-buttons__item"
         target="_blank"
         rel="noopener"
         data-tooltip="<?php esc_attr_e( 'Story RSS Feed', 'fictioneer' ); ?>"
@@ -47,7 +47,7 @@ $feed = fictioneer_get_rss_link();
 
     <a
       href="https://feedly.com/i/subscription/feed/<?php echo $feed_url; ?>"
-      class="feedly tooltipped hide-below-640"
+      class="feedly tooltipped hide-below-640 media-buttons__item"
       target="_blank"
       rel="noopener"
       data-tooltip="<?php esc_attr_e( 'Follow on Feedly', 'fictioneer' ); ?>"
@@ -56,7 +56,7 @@ $feed = fictioneer_get_rss_link();
 
     <a
       href="https://www.inoreader.com/?add_feed=<?php echo $feed_url; ?>"
-      class="inoreader tooltipped hide-below-640"
+      class="inoreader tooltipped hide-below-640 media-buttons__item"
       target="_blank"
       rel="noopener"
       data-tooltip="<?php esc_attr_e( 'Follow on Inoreader', 'fictioneer' ); ?>"
