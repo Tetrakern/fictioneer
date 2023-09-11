@@ -956,7 +956,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
       </button>
     <?php endif; ?>
     <ol class="chapter-group__list">
-      <li class="chapter-group__list-item _empty"><?php _e( 'No chapters published yet.', 'fictioneer' ) ?></li>
+      <li class="chapter-group__list-item _empty"><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></li>
     </ol>
   </div>
   <?php // <--- End HTML
@@ -1352,6 +1352,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $exclude_cat_ids = fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' );
   $exclude_author_ids = fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' );
   $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
+  $ignore_sticky = filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $rel = 'AND';
   $classes = '';
 
@@ -1365,7 +1366,8 @@ function fictioneer_shortcode_blog( $attr ) {
     'post_type' => 'post',
     'post_status' => 'publish',
     'paged' => max( 1, $page ),
-    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' )
+    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' ),
+    'ignore_sticky_posts' => $ignore_sticky
   );
 
   // Author?
@@ -1459,7 +1461,7 @@ function fictioneer_shortcode_blog( $attr ) {
   } else {
     // Start HTML ---> ?>
     <article class="post _empty">
-      <span><?php _e( 'No (more) posts found.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'No (more) posts found.', 'fictioneer' ); ?></span>
     </article>
     <?php // <--- End HTML
   }

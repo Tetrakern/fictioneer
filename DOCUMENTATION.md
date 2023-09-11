@@ -389,6 +389,7 @@ The custom HTML block is the best way to add special elements to the content, su
 Renders paginated blog posts akin to the default blog page, but with options. Makes use of the main query pagination variable, so only use this once per page. Optional parameters are **per_page**, **author**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **rel**, and **class**.
 
 * **per_page:** Number of posts per page. Defaults to theme settings.
+* **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
