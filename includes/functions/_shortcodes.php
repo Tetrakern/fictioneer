@@ -1331,6 +1331,8 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  * @since 5.2.0
  *
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
+ * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
+ * @param string|null $attr['include_protected']   Optional. Whether to include protected posts. Default false.
  * @param string|null $attr['author']              Optional. Limit items to a specific author.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
@@ -1353,6 +1355,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $exclude_author_ids = fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' );
   $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
   $ignore_sticky = filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $include_protected = filter_var( $attr['include_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $rel = 'AND';
   $classes = '';
 
@@ -1412,6 +1415,11 @@ function fictioneer_shortcode_blog( $attr ) {
     $classes = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
+  // Exclude protected
+  if ( ! $include_protected ) {
+    add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+  }
+
   // Apply filters
   $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $attr );
 
@@ -1428,6 +1436,9 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Query
   $blog_query = new WP_Query( $query_args );
+
+  // Remove temporary filters
+  remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {

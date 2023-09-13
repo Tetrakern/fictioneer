@@ -577,7 +577,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
       }
 
       // Try default if still nothing...
-      if ( ! $image_id && get_theme_mod( 'og_image') ) {
+      if ( ! $image_id && get_theme_mod( 'og_image' ) ) {
         // Get default ID from settings
         $image_id = $default_id;
       }
