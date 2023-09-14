@@ -390,7 +390,7 @@ Renders paginated blog posts akin to the default blog page, but with options. Ma
 
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
-* **include_protected:** Whether protected posts should be included or not. Default `false`.
+* **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.

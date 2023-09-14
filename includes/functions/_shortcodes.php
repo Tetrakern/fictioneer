@@ -1355,7 +1355,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $exclude_author_ids = fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' );
   $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
   $ignore_sticky = filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $include_protected = filter_var( $attr['include_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $ignore_protected = filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $rel = 'AND';
   $classes = '';
 
@@ -1416,7 +1416,7 @@ function fictioneer_shortcode_blog( $attr ) {
   }
 
   // Exclude protected
-  if ( ! $include_protected ) {
+  if ( $ignore_protected ) {
     add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
   }
 
