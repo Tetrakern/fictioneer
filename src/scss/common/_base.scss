@@ -713,7 +713,6 @@ html:not(.logged-in) body:not(.logged-in) {
 }
 
 #wpadminbar {
-  z-index: 100 !important;
   contain: layout size;
   transform: translateZ(0); // Improve performance
 }
