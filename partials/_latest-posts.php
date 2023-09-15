@@ -8,14 +8,15 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['author']         The author provided by the shortcode. Default false.
- * @internal $args['count']          The number of posts provided by the shortcode. Default 1.
- * @internal $args['post_ids']       Array of post IDs. Default empty.
- * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
- * @internal $args['relation']       Relationship between taxonomies.
- * @internal $args['classes']        Array of additional CSS classes. Default empty.
+ * @internal $args['author']            The author provided by the shortcode. Default false.
+ * @internal $args['count']             The number of posts provided by the shortcode. Default 1.
+ * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['classes']           Array of additional CSS classes. Default empty.
  */
 ?>
 
@@ -30,7 +31,6 @@ $query_args = array(
   'post_type' => 'post',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'has_password' => false,
   'orderby' => 'date',
   'order' => 'DESC',
   'posts_per_page' => $args['count'],
@@ -57,11 +57,19 @@ if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
 }
 
+// Ignore protected?
+if ( $args['ignore_protected'] ) {
+  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+}
+
 // Apply filters
 $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_posts_query_args', $query_args, $args );
 
 // Query post
 $latest_entries = fictioneer_shortcode_query( $query_args );
+
+// Remove temporary filters
+remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 ?>
 

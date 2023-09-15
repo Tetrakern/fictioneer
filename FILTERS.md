@@ -653,6 +653,8 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 **$args:**
 * $per_page (string|null) – Optional. The number of posts per page.
 * $author (string|null) – Optional. The author provided by the shortcode.
+* $ignore_sticky (boolean) – Optional. Whether to ignore sticky posts. Default `false`.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $exclude_tag_ids (string|null) – Optional. Comma-separated list of tag IDs.
 * $exclude_cat_ids (string|null) – Optional. Comma-separated list of category IDs.
 * $categories (string|null) – Optional. Comma-separated list of category names.
@@ -702,10 +704,11 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'desc'`.
+* $order (string) – Optional. Default `'DESC'`.
 * $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
 * $source (boolean) – Optional. Show chapter source story. Default `true`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -726,7 +729,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $author_name (string|null) – `$args['author']`
 * $has_password (boolean) – `false`
 * $orderby (string) – `'date'`
-* $order (string) – `'desc'`
+* $order (string) – `'DESC'`
 * $posts_per_page (int) – `$args['count']`
 * $ignore_sticky_posts (boolean) – `true`
 * $no_found_rows (boolean) – `true`
@@ -735,6 +738,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -762,8 +766,9 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'desc'`.
+* $order (string) – Optional. Default `'DESC'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -809,8 +814,9 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'desc'`.
+* $order (string) – Optional. Default `'DESC'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -855,8 +861,9 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $simple (boolean) – Whether to render the simple variants. Default `false`.
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $order (string) – Optional. Default `'desc'`.
+* $order (string) – Optional. Default `'DESC'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -886,8 +893,9 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 * $author (boolean|string) – The author provided by the shortcode. Default `false`.
 * $count (int) – The number of posts provided by the shortcode. Default `1`.
 * $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'desc'`.
+* $order (string) – Optional. Default `'DESC'`.
 * $post_ids (\[string]) – Array of post IDs. Default empty.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
@@ -926,7 +934,7 @@ Filters the option array of URL/label tuples for the date popup menu in the `fic
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
 * $query_args (array) – Query arguments used.
-* $order (string) – Current order. Defaults to `'desc'`.
+* $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
 ---
@@ -947,7 +955,7 @@ Filters the option array of URL/label tuples for the orderby popup menu in the `
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
 * $query_args (array) – Query arguments used.
-* $order (string) – Current order. Defaults to `'desc'`.
+* $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
 ---
@@ -971,7 +979,7 @@ Filters the option array of URL/label tuples for the post type popup menu in the
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
 * $query_args (array) – Query arguments used.
-* $order (string) – Current order. Defaults to `'desc'`.
+* $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
 ---

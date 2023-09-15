@@ -12,15 +12,16 @@
  * @since 4.3
  * @see fictioneer_remember_chapters_modified()
  *
- * @internal $args['count']          Number of posts provided by the shortcode.
- * @internal $args['author']         Author provided by the shortcode.
- * @internal $args['order']          Order of posts. Default 'DESC'.
- * @internal $args['post_ids']       Array of post IDs. Default empty.
- * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
- * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
- * @internal $args['taxonomies']     Array of taxonomy arrays. Default empty.
- * @internal $args['relation']       Relationship between taxonomies.
- * @internal $args['class']          Additional classes.
+ * @internal $args['count']             Number of posts provided by the shortcode.
+ * @internal $args['author']            Author provided by the shortcode.
+ * @internal $args['order']             Order of posts. Default 'DESC'.
+ * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
+ * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
+ * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
+ * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
+ * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['class']             Additional classes.
  */
 ?>
 
@@ -75,11 +76,19 @@ if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
 }
 
+// Ignore protected?
+if ( $args['ignore_protected'] ) {
+  add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
+}
+
 // Apply filters
 $query_args = apply_filters( 'fictioneer_filter_shortcode_latest_updates_query_args', $query_args, $args );
 
 // Query stories
 $entries = fictioneer_shortcode_query( $query_args );
+
+// Remove temporary filters
+remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 ?>
 
