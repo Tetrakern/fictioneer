@@ -282,12 +282,12 @@ function fictioneer_shortcode_showcase( $attr ) {
   $orderby = $attr['orderby'] ?? 'date';
   $no_cap = $attr['no_cap'] ?? false;
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
+    $count = count( $post_ids );
   }
 
   // Prepare arguments
@@ -395,12 +395,11 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $spoiler = $attr['spoiler'] ?? false;
   $source = $attr['source'] ?? 'true';
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
     $count = count( $post_ids );
   }
 
@@ -495,12 +494,11 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
     $count = count( $post_ids );
   }
 
@@ -588,12 +586,11 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
     $count = count( $post_ids );
   }
 
@@ -684,12 +681,11 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
     $count = count( $post_ids );
   }
 
@@ -770,13 +766,12 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   // Setup
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
-  $post_ids = [];
+  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
 
-  // Post IDs
-  if ( ! empty( $attr['post_ids'] ) ) {
-    $post_ids = fictioneer_explode_list( $attr['post_ids'] );
+  // Update count?
+  if ( ! empty( $post_ids ) ) {
     $count = count( $post_ids );
   }
 
