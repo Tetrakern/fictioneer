@@ -90,7 +90,7 @@ if ( ! $args['ignore_protected'] ) {
 }
 
 // Apply filters
-$query_args = apply_filters( 'fictioneer_filter_shortcode_cards_query_args', $query_args, $args );
+$query_args = apply_filters( 'fictioneer_filter_shortcode_article_cards_query_args', $query_args, $args );
 
 // Query
 $query = fictioneer_shortcode_query( $query_args );
