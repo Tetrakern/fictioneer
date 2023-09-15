@@ -247,6 +247,10 @@ $pag_args = array(
       <nav class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
     <?php endif; ?>
 
+  <?php else : ?>
+
+    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
+
   <?php endif; ?>
 
 </section>

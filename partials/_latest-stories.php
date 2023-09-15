@@ -225,7 +225,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   <?php else: ?>
 
-    <div class="no-results"><?php _e( 'No stories have been published yet.', 'fictioneer' ); ?></div>
+    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 
   <?php endif; wp_reset_postdata(); ?>
 </section>
