@@ -483,6 +483,15 @@ Filters the intermediate output array of the `fictioneer_mobile_user_menu()` fun
 
 ---
 
+### `apply_filters( 'fictioneer_filter_obfuscation_string', $obfuscation, $post )`
+Filters the obfuscation string generated for chapter spoilers and protected posts.
+
+**Parameters:**
+* $obfuscation (string) – The obfuscation string.
+* $post (WP_Post) – The post object.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args )`
 Filters the intermediate output array in the `_card-page.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
 
@@ -637,12 +646,55 @@ Filters the HTML for the search title before it is rendered in the `search.php` 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_shortcode_article_cards_query_args', $query_args, $args )`
+Filters the query arguments in the `fictioneer_article_cards` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+
+**$query_args:**
+* $fictioneer_query_name (string) – `'article_cards'`
+* $post_type (array) – `'$args['post_type']'`
+* $post_status (string) – `'publish'`
+* $ignore_sticky_posts (boolean|null) – `$args['ignore_sticky']`
+* $post__in (array|null) – `$args['post_ids']`
+* $order (string) – `$args['order']`
+* $orderby (string) – `$args['orderby']`
+* $paged (int) – Current main query page number.
+* $posts_per_page (int) – `$args['posts_per_page']` or `$args['count']`
+* $author_name (string|null) – `$args['author']`
+* $author__in (array|null) – `$args['author_ids']`
+* $author__not_in (array|null) – `$args['excluded_authors']`
+* $category__not_in (array|null) – `$args['excluded_cats']`
+* $tag__not_in (array|null) – `$args['excluded_tags']`
+* $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
+* $no_found_rows (boolean|null) – `true` if `$args['count'] > 0`
+
+**$args:**
+* $post_type (array) – The post types to query. Default `\['post']`.
+* $ignore_sticky (boolean) – Whether to ignore sticky posts. Default `false`.
+* $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
+* $count (int) – Maximum number of posts. Default `-1`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $order (string) – Order argument. Default `'DESC'`.
+* $orderby (string) – Orderby argument. Default `'date'`.
+* $page (int) – Current main query page number. Default `1`.
+* $posts_per_page (int) – Number of posts per page. Defaults to WordPress.
+* $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
+* $relation (string) – Relationship between taxonomies. Default `'AND'`.
+* $classes (string) – String of additional CSS classes. Default empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $args )`
 Filters the query arguments in the `fictioneer_blog` shortcode.
 
 **$query_args:**
 * $post_type (string) – `post`
 * $post_status (string) – `'publish'`
+* $ignore_sticky_posts (boolean) – `$args['ignore_sticky']`
 * $author_name (string|null) – `$args['author']`
 * $tag__not_in (\[string]|null) – Array extracted from `$args['exclude_tag_ids']`.
 * $category__not_in (\[string]|null) – Array extracted from `$args['exclude_cat_ids']`.
@@ -653,8 +705,8 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 **$args:**
 * $per_page (string|null) – Optional. The number of posts per page.
 * $author (string|null) – Optional. The author provided by the shortcode.
-* $ignore_sticky (boolean) – Optional. Whether to ignore sticky posts. Default `false`.
-* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
+* $ignore_sticky (boolean|null) – Optional. Whether to ignore sticky posts. Default `false`.
+* $ignore_protected (boolean|null) – Optional. Whether to ignore protected posts. Default `false`.
 * $exclude_tag_ids (string|null) – Optional. Comma-separated list of tag IDs.
 * $exclude_cat_ids (string|null) – Optional. Comma-separated list of category IDs.
 * $categories (string|null) – Optional. Comma-separated list of category names.
@@ -713,7 +765,7 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
@@ -727,7 +779,6 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
 * $author_name (string|null) – `$args['author']`
-* $has_password (boolean) – `false`
 * $orderby (string) – `'date'`
 * $order (string) – `'DESC'`
 * $posts_per_page (int) – `$args['count']`
@@ -743,7 +794,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
@@ -773,7 +824,7 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
@@ -821,7 +872,7 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
@@ -868,7 +919,7 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
@@ -901,7 +952,7 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 * $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $no_cap (boolean) – Whether to hide captions. Default `false`.
-* $classes (\[string]) – Array of additional CSS classes. Default empty.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
