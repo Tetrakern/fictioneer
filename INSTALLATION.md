@@ -808,6 +808,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_CARD_COLLECTION_FOOTER_DATE | string | Collection card footer date format. Default `"M j, 'y"`.
 | FICTIONEER_CARD_POST_FOOTER_DATE | string | Post card footer date format. Default `"M j, 'y"`
 | FICTIONEER_CARD_PAGE_FOOTER_DATE | string | Page card footer date format. Default `"M j, 'y"`.
+| FICTIONEER_CARD_ARTICLE_FOOTER_DATE | string | Article card footer date format. Default `"M j, 'y"`.
 | FICTIONEER_STORY_FOOTER_B480_DATE | string | Story page footer date format (<= 480px). Default `"M j, 'y"`.
 | FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
 | FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.

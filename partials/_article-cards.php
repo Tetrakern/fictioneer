@@ -218,10 +218,10 @@ $pag_args = array(
                   if ( $args['orderby'] == 'modified' ) {
                     $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
                       esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
-                      get_the_modified_date( FICTIONEER_CARD_POST_FOOTER_DATE, $post );
+                      get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post );
                   } else {
                     $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-                      esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_POST_FOOTER_DATE );
+                      esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE );
                   }
 
                   $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .

@@ -172,6 +172,11 @@ if ( ! defined( 'FICTIONEER_CARD_PAGE_FOOTER_DATE' ) ) {
   define( 'FICTIONEER_CARD_PAGE_FOOTER_DATE', $long_date );
 }
 
+// String: Article card footer date format
+if ( ! defined( 'FICTIONEER_CARD_ARTICLE_FOOTER_DATE' ) ) {
+  define( 'FICTIONEER_CARD_ARTICLE_FOOTER_DATE', $long_date );
+}
+
 // String: Story page footer date format below 480px
 if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
   define( 'FICTIONEER_STORY_FOOTER_B480_DATE', $long_date );
