@@ -8,7 +8,7 @@
  * @subpackage Fictioneer
  * @since 5.7.3
  *
- * @internal $args['post_type']         Post types to query. Default 'post'.
+ * @internal $args['post_type']         Array of post types to query. Default 'post'.
  * @internal $args['ignore_sticky']     Whether to ignore sticky flags. Default false.
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['count']             Number of posts to display. Default -1.

@@ -1458,9 +1458,10 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
 
 function fictioneer_shortcode_article_cards( $attr ) {
   // Setup
-  $post_type = sanitize_key( $attr['post_type'] ?? 'post' );
+  $post_types = fictioneer_explode_list( $attr['post_type'] ?? 'post' );
   $count = intval( $attr['count'] ?? -1 );
 
+  // Post types...
   $allowed_post_types = array(
     'post' => 'post',
     'posts' => 'post',
@@ -1476,15 +1477,24 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'recommendations' => 'fcn_recommendation'
   );
 
-  if ( array_key_exists( $post_type, $allowed_post_types ) ) {
-    $post_type = $allowed_post_types[ $post_type ];
-  } else {
-    $post_type = 'post';
-  }
+  // ... must be in array
+  $query_post_types = array_map( function( $item ) use ( $allowed_post_types ) {
+    return $allowed_post_types[ $item ] ?? null;
+  }, $post_types);
+
+  // ... remove null values
+  $query_post_types = array_filter( $query_post_types, function( $value ) {
+    return ! is_null( $value );
+  });
+
+  // ... fix array
+  $query_post_types = array_unique( $query_post_types );
+  $query_post_types = array_values( $query_post_types );
+  $query_post_types = empty( $query_post_types ) ? ['post'] : $query_post_types;
 
   // Args
   $args = array(
-    'post_type' => $post_type,
+    'post_type' => $query_post_types,
     'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'count' => $count,
