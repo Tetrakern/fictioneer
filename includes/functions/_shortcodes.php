@@ -1496,7 +1496,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'author' => $attr['author'] ?? false,
     'order' => $attr['order'] ?? 'DESC',
     'orderby' => $attr['orderby'] ?? 'date',
-    'page' => get_query_var( 'page' ) ?? get_query_var( 'paged' ) ?? 1,
+    'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
     'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' ),
     'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'author_ids' => fictioneer_explode_list( $attr['author_ids'] ?? '' ),

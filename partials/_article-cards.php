@@ -53,7 +53,7 @@ if ( $args['count'] > 0 ) {
   $query_args['posts_per_page'] = $args['count'];
   $query_args['no_found_rows'] = true;
 } else {
-  $query_args['paged'] = max( 1, $args['page'] );
+  $query_args['paged'] = $args['page'];
   $query_args['posts_per_page'] = $args['posts_per_page'];
 }
 
