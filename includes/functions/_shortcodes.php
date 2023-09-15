@@ -251,18 +251,18 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string      $attr['for']               What the showcase is for. Allowed are chapters,
  *                                               collections, recommendations, and stories.
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 9.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['order']             Optional. Order direction. Default 'DESC'.
  * @param string|null $attr['orderby']           Optional. Order argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit items to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit items to specific character names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -281,23 +281,13 @@ function fictioneer_shortcode_showcase( $attr ) {
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $no_cap = $attr['no_cap'] ?? false;
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Prepare arguments
@@ -374,21 +364,21 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @since 3.0
  *
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['type']              Optional. Choose between 'default', 'simple', and 'compact'.
  * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['spoiler']           Optional. Whether to show spoiler content.
  * @param string|null $attr['source']            Optional. Whether to show author and story.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit items to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit items to specific character names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -404,24 +394,14 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $orderby = $attr['orderby'] ?? 'date';
   $spoiler = $attr['spoiler'] ?? false;
   $source = $attr['source'] ?? 'true';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
     $count = count( $post_ids );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Args
@@ -488,19 +468,19 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @since 3.0
  *
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['type']              Optional. Choose between 'default' and 'compact'.
  * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit items to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit items to specific character names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -514,24 +494,14 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
     $count = count( $post_ids );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Args
@@ -594,17 +564,17 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @since 4.3
  *
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['type']              Optional. Choose between 'default', 'simple', and 'compact'.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit items to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit items to specific character names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -617,24 +587,14 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $type = $attr['type'] ?? 'default';
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
     $count = count( $post_ids );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Args
@@ -697,19 +657,19 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @since 4.0
  *
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['type']              Optional. Choose between 'default' and 'compact'.
  * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
  * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit items to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit items to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit items to specific character names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -723,24 +683,14 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
     $count = count( $post_ids );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Args
@@ -803,13 +753,13 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  * @since 4.0
  *
  * @param string|null $attr['count']             Optional. Maximum number of items. Default 1.
- * @param string|null $attr['author']            Optional. Limit items to a specific author.
- * @param string|null $attr['post_ids']          Optional. Limit items to specific post IDs.
+ * @param string|null $attr['author']            Optional. Limit posts to a specific author.
+ * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit items to specific category names.
- * @param string|null $attr['tags']              Optional. Limit items to specific tag names.
+ * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
  * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
  *
@@ -821,23 +771,13 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
   $post_ids = [];
-  $rel = 'AND';
-  $classes = [];
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
 
   // Post IDs
   if ( ! empty( $attr['post_ids'] ) ) {
     $post_ids = fictioneer_explode_list( $attr['post_ids'] );
     $count = count( $post_ids );
-  }
-
-  // Relation
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
-  }
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
   }
 
   // Args
@@ -991,9 +931,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
   $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' ) && ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) );
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $chapter_ids = [];
   $chapters = [];
-  $classes = [];
 
   // Extract chapter IDs (if any)
   if ( ! empty( $attr['chapter_ids'] ) ) {
@@ -1013,11 +953,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
   // Extra classes
   if ( $hide_icons ) {
-    $classes[] = '_no-icons';
-  }
-
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
+    $classes .= ' _no-icons';
   }
 
   // Apply offset and count
@@ -1045,7 +981,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $query_args ) . serialize( $attr ) . serialize( $classes );
+    $base = serialize( $query_args ) . serialize( $attr ) . $classes;
     $base .= ( $hide_icons ? '1' : '0' ) . ( $can_checkmarks ? '1' : '0' );
     $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -1067,7 +1003,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="chapter-group <?php echo implode( ' ', $classes ); ?>">
+  <div class="chapter-group <?php echo $classes; ?>">
     <?php if ( $heading ) : ?>
       <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( $aria_label, $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
@@ -1209,13 +1145,8 @@ function fictioneer_shortcode_contact_form( $attr ) {
   $required = isset( $attr['required'] ) ? 'required' : '';
   $email = $attr['email'] ?? '';
   $name = $attr['name'] ?? '';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $fields = [];
-  $classes = [];
-
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes[] = esc_attr( wp_strip_all_tags( $attr['class'] ) );
-  }
 
   // HTML snippets
   if ( ! empty( $email ) ) {
@@ -1266,7 +1197,7 @@ function fictioneer_shortcode_contact_form( $attr ) {
    */
 
   // Start HTML ---> ?>
-  <form class="fcn-contact-form <?php echo implode( ' ', $classes ); ?>">
+  <form class="fcn-contact-form <?php echo $classes; ?>">
     <div class="fcn-contact-form__message">
       <textarea class="fcn-contact-form__textarea adaptive-textarea" style="opacity: 0;" name="message" maxlength="65525" placeholder="<?php _e( 'Please enter your message.', 'fictioneer' ); ?>" required></textarea>
     </div>
@@ -1349,13 +1280,13 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
  * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['author']              Optional. Limit items to a specific author.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']          Optional. Limit items to specific category names.
- * @param string|null $attr['tags']                Optional. Limit items to specific tag names.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
@@ -1372,8 +1303,8 @@ function fictioneer_shortcode_blog( $attr ) {
   $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
   $ignore_sticky = filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $ignore_protected = filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $rel = 'AND';
-  $classes = '';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
+  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
 
   // Page
   $page = get_query_var( 'page' ) ?? get_query_var( 'paged' ) ?? 1;
@@ -1395,11 +1326,6 @@ function fictioneer_shortcode_blog( $attr ) {
   // Author IDs?
   if ( ! empty( $author_ids ) ) {
     $query_args['author__in'] = $author_ids;
-  }
-
-  // Relation?
-  if ( ! empty( $attr['rel'] ) ) {
-    $rel = strtolower( $attr['rel'] ) == 'or' ? 'OR' : $rel;
   }
 
   // Taxonomies?
@@ -1424,11 +1350,6 @@ function fictioneer_shortcode_blog( $attr ) {
     $query_args['author__not_in'] = $exclude_author_ids;
   }
 
-  // Extra classes
-  if ( ! empty( $attr['class'] ) ) {
-    $classes = esc_attr( wp_strip_all_tags( $attr['class'] ) );
-  }
-
   // Exclude protected
   if ( $ignore_protected ) {
     add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
@@ -1439,7 +1360,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $query_args ) . serialize( $attr ) . serialize( $classes ) . $page;
+    $base = serialize( $query_args ) . serialize( $attr ) . $page;
     $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 

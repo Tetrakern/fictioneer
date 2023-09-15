@@ -73,7 +73,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 ?>
 
-<section class="latest-posts <?php echo implode( ' ', $args['classes'] ); ?>">
+<section class="latest-posts <?php echo $args['classes']; ?>">
   <?php if ( $latest_entries->have_posts() ) : ?>
 
     <?php while ( $latest_entries->have_posts() ) : $latest_entries->the_post(); ?>

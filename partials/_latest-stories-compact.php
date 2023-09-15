@@ -18,7 +18,7 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['classes']           Array of additional CSS classes. Default empty.
+ * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
 
@@ -94,7 +94,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 ?>
 
-<section class="small-card-block latest-stories _compact <?php echo implode( ' ', $args['classes'] ); ?>">
+<section class="small-card-block latest-stories _compact <?php echo $args['classes']; ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">

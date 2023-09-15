@@ -22,7 +22,7 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['classes']           Additional classes.
+ * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
 
@@ -78,7 +78,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 ?>
 
 <?php if ( $query->have_posts() ) : ?>
-  <section class="showcase <?php echo implode( ' ', $args['classes'] ); ?>">
+  <section class="showcase <?php echo $args['classes']; ?>">
     <ul class="showcase__list">
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <li class="showcase__list-item">

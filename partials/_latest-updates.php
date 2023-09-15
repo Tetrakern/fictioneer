@@ -23,7 +23,7 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['simple']            Whether to show the simple variant.
- * @internal $args['class']             Additional classes.
+ * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
 
@@ -93,7 +93,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
 ?>
 
-<section class="small-card-block latest-updates <?php echo implode( ' ', $args['classes'] ); ?>">
+<section class="small-card-block latest-updates <?php echo $args['classes']; ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
     <ul class="two-columns _collapse-on-mobile">
