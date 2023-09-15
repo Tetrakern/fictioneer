@@ -276,6 +276,28 @@ function fictioneer_prefix_sticky_safe_title( $title, $id ) {
 add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_sticky_safe_title', 10, 2 );
 
 /**
+ * Prepends icon to sanitized titles of protected blog posts
+ *
+ * @since Fictioneer 5.7.3
+ *
+ * @param string $title  The sanitized title of the post.
+ * @param int    $id     The ID of the post.
+ *
+ * @return string The modified title.
+ */
+
+function fictioneer_prefix_protected_safe_title( $title, $id ) {
+  // Prepend icon to titles of sticky posts
+  if ( post_password_required( $id ) && get_post_type( $id ) === 'post' ) {
+    return '<i class="fa-solid fa-lock protected-icon"></i> ' . $title;
+  }
+
+  // Continue filter
+  return $title;
+}
+add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_protected_safe_title', 10, 2 );
+
+/**
  * Prepends "Draft:" to sanitized titles of drafts
  *
  * @since Fictioneer 5.7.1

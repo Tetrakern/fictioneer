@@ -24,11 +24,6 @@ $title = fictioneer_get_safe_title( get_the_ID() );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 $nested = $args['nested'] ?? false;
 
-// Password?
-if ( post_password_required() ) {
-  $title .= ' <i class="fa-solid fa-lock password-icon"></i>';
-}
-
 if (
   ! get_option( 'fictioneer_show_full_post_content' ) &&
   ! strpos( $post->post_content, '<!--more-->' )

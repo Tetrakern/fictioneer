@@ -22,11 +22,6 @@
         padding-top: var(--layout-spacing-vertical);
       }
     }
-
-    .password-icon {
-      font-size: 75%;
-      transform: translateY(-2px);
-    }
   }
 }
 
@@ -40,9 +35,17 @@
     margin-bottom: 0; // Override if inside content-section
   }
 
-  &__title .sticky-pin {
-    font-size: 0.85em;
-    margin-right: 0.125em;
+  &__title {
+    .sticky-pin {
+      font-size: 0.85em;
+      margin-right: 0.125em;
+    }
+
+    .protected-icon {
+      font-size: 0.75em;
+      margin-right: 0.125em;
+      transform: translateY(-0.125em);
+    }
   }
 
   &__meta {
