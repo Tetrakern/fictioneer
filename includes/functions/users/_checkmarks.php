@@ -248,7 +248,7 @@ function fictioneer_ajax_get_finished_checkmarks_list() {
   $list_items = fictioneer_get_card_list(
     'story',
     array(
-      'fictioneer_query_name' => "bookshelf_finished",
+      'fictioneer_query_name' => 'bookshelf_finished',
       'post__in' => $post_ids,
       'paged' => $page,
       'order' => $order

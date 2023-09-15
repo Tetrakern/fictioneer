@@ -28,6 +28,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Prepare query
 $query_args = array(
+  'fictioneer_query_name' => 'latest_stories',
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!

@@ -26,6 +26,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Prepare query
 $query_args = array(
+  'fictioneer_query_name' => 'latest_posts',
   'post_type' => 'post',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!

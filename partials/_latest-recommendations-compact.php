@@ -30,6 +30,7 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_c
 
 // Prepare query
 $query_args = array (
+  'fictioneer_query_name' => 'latest_recommendations_compact',
   'post_type' => 'fcn_recommendation',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!

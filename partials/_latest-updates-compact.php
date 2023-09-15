@@ -34,6 +34,7 @@ $card_counter = 0;
 
 // Prepare query
 $query_args = array(
+  'fictioneer_query_name' => 'latest_updates_compact',
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
