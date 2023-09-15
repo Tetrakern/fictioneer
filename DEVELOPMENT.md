@@ -288,6 +288,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `navigation_markup_template` | `fictioneer_pagination_markup`
 | `nav_menu_link_attributes` | `fictioneer_add_menu_link_attributes`
 | `post_stuck` | `fictioneer_prevent_post_sticky`
+| `posts_where` | `fictioneer_exclude_protected_posts`
 | `pre_comment_user_ip` | `__return_empty_string`
 | `pre_get_posts` | `fictioneer_extend_taxonomy_pages`, `fictioneer_edit_others_fictioneer_posts`, `fictioneer_add_sof_to_taxonomy_query`
 | `pre_insert_term` | `fictioneer_restrict_tag_creation`
