@@ -1290,73 +1290,72 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
 
 function fictioneer_shortcode_blog( $attr ) {
   // Setup
-  $author = $attr['author'] ?? false;
-  $taxonomies = fictioneer_get_shortcode_taxonomies( $attr );
-  $exclude_tag_ids = fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' );
-  $exclude_cat_ids = fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' );
-  $exclude_author_ids = fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' );
-  $author_ids = fictioneer_explode_list( $attr['author_ids'] ?? '' );
-  $ignore_sticky = filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $ignore_protected = filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
+  $args = array(
+    'posts_per_page' => absint( $attr['per_page'] ?? 0 ) ?: get_option( 'posts_per_page' ),
+    'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
+    'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'author' => $attr['author'] ?? false,
+    'author_ids' => fictioneer_explode_list( $attr['author_ids'] ?? '' ),
+    'excluded_authors' => fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' ),
+    'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
+    'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
+  );
 
-  // Page
-  $page = get_query_var( 'page' ) ?? get_query_var( 'paged' ) ?? 1;
-
-  // Arguments
+  // Query arguments
   $query_args = array(
     'post_type' => 'post',
     'post_status' => 'publish',
-    'paged' => max( 1, $page ),
-    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' ),
-    'ignore_sticky_posts' => $ignore_sticky
+    'paged' => $args['page'],
+    'posts_per_page' => $args['posts_per_page'],
+    'ignore_sticky_posts' => $args['ignore_sticky']
   );
 
   // Author?
-  if ( ! empty( $author ) ) {
-    $query_args['author_name'] = $author;
+  if ( ! empty( $args['author'] ) ) {
+    $query_args['author_name'] = $args['author'];
   }
 
   // Author IDs?
-  if ( ! empty( $author_ids ) ) {
-    $query_args['author__in'] = $author_ids;
+  if ( ! empty( $args['author_ids'] ) ) {
+    $query_args['author__in'] = $args['author_ids'];
   }
 
   // Taxonomies?
-  if ( ! empty( $taxonomies ) ) {
-    $taxonomies['relation'] = $rel;
-    $taxonomies['taxonomies'] = $taxonomies;
-    $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $taxonomies );
+  if ( ! empty( $args['taxonomies'] ) ) {
+    $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
   }
 
   // Excluded tags?
-  if ( ! empty( $exclude_tag_ids ) ) {
-    $query_args['tag__not_in'] = $exclude_tag_ids;
+  if ( ! empty( $args['excluded_tags'] ) ) {
+    $query_args['tag__not_in'] = $args['excluded_tags'];
   }
 
   // Excluded categories?
-  if ( ! empty( $exclude_cat_ids ) ) {
-    $query_args['category__not_in'] = $exclude_cat_ids;
+  if ( ! empty( $args['excluded_cats'] ) ) {
+    $query_args['category__not_in'] = $args['excluded_cats'];
   }
 
   // Excluded authors?
-  if ( ! empty( $exclude_author_ids ) ) {
-    $query_args['author__not_in'] = $exclude_author_ids;
+  if ( ! empty( $args['excluded_authors'] ) ) {
+    $query_args['author__not_in'] = $args['excluded_authors'];
   }
 
   // Exclude protected
-  if ( $ignore_protected ) {
+  if ( $args['ignore_protected'] ) {
     add_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
   }
 
   // Apply filters
-  $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $attr );
+  $query_args = apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $args );
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $query_args ) . serialize( $attr ) . $page;
-    $transient_key = "fictioneer_shortcode_chapter_list_html_" . md5( $base );
+    $base = serialize( $query_args ) . serialize( $args );
+    $transient_key = 'fictioneer_shortcode_chapter_list_html_' . md5( $base );
     $transient = get_transient( $transient_key );
 
     if ( ! empty( $transient ) ) {
@@ -1375,28 +1374,33 @@ function fictioneer_shortcode_blog( $attr ) {
     update_post_author_caches( $blog_query->posts );
   }
 
+  // Pagination
+  $pag_args = array(
+    'current' => $args['page'],
+    'total' => $blog_query->max_num_pages,
+    'prev_text' => fcntr( 'previous' ),
+    'next_text' => fcntr( 'next' ),
+    'add_fragment' => '#blog'
+  );
+
   // Buffer
   ob_start();
 
   if ( $blog_query->have_posts() ) {
     // Start HTML ---> ?>
-    <section class="blog-posts _nested <?php echo $classes; ?>" id="blog">
+    <section class="blog-posts _nested <?php echo $args['classes']; ?>" id="blog">
       <?php
         while ( $blog_query->have_posts() ) {
           $blog_query->the_post();
           get_template_part( 'partials/_post', null, ['nested' => true] );
-
-          $pag_args = array(
-            'current' => max( 1, $page ),
-            'total' => $blog_query->max_num_pages,
-            'prev_text' => fcntr( 'previous' ),
-            'next_text' => fcntr( 'next' ),
-            'add_fragment' => '#blog'
-          );
         }
+
         wp_reset_postdata();
+
+        if ( $blog_query->max_num_pages > 1 ) {
+          echo '<nav class="pagination">' . fictioneer_paginate_links( $pag_args ) . '</nav>';
+        }
       ?>
-      <nav class="pagination"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
     </section>
     <?php // <--- End HTML
   } else {
@@ -1497,7 +1501,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'order' => $attr['order'] ?? 'DESC',
     'orderby' => $attr['orderby'] ?? 'date',
     'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
-    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' ),
+    'posts_per_page' => absint( $attr['per_page'] ?? 0 ) ?: get_option( 'posts_per_page' ),
     'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'author_ids' => fictioneer_explode_list( $attr['author_ids'] ?? '' ),
     'excluded_authors' => fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' ),

@@ -653,7 +653,7 @@ Filters the query arguments in the `fictioneer_article_cards` shortcode. The opt
 * $fictioneer_query_name (string) – `'article_cards'`
 * $post_type (array) – `'$args['post_type']'`
 * $post_status (string) – `'publish'`
-* $ignore_sticky_posts (boolean|null) – `$args['ignore_sticky']`
+* $ignore_sticky_posts (boolean) – `$args['ignore_sticky']`
 * $post__in (array|null) – `$args['post_ids']`
 * $order (string) – `$args['order']`
 * $orderby (string) – `$args['orderby']`
@@ -696,23 +696,23 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 * $post_status (string) – `'publish'`
 * $ignore_sticky_posts (boolean) – `$args['ignore_sticky']`
 * $author_name (string|null) – `$args['author']`
-* $tag__not_in (\[string]|null) – Array extracted from `$args['exclude_tag_ids']`.
-* $category__not_in (\[string]|null) – Array extracted from `$args['exclude_cat_ids']`.
-* $paged (int) – Current main query page.
-* $posts_per_page (int) – `$args['per_page']` or theme default.
-* $tax_query (array|null) – Query arguments for taxonomies.
+* $category__not_in (array|null) – `$args['excluded_cats']`
+* $tag__not_in (array|null) – `$args['excluded_tags']`
+* $paged (int) – Current main query page number.
+* $posts_per_page (int) – `$args['posts_per_page']`
+* $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
 
-**$args:**
-* $per_page (string|null) – Optional. The number of posts per page.
-* $author (string|null) – Optional. The author provided by the shortcode.
-* $ignore_sticky (boolean|null) – Optional. Whether to ignore sticky posts. Default `false`.
-* $ignore_protected (boolean|null) – Optional. Whether to ignore protected posts. Default `false`.
-* $exclude_tag_ids (string|null) – Optional. Comma-separated list of tag IDs.
-* $exclude_cat_ids (string|null) – Optional. Comma-separated list of category IDs.
-* $categories (string|null) – Optional. Comma-separated list of category names.
-* $tags (string|null) – Optional. Comma-separated list of tag names.
-* $rel (string|null) – Optional. Relationship between taxonomies (`AND` or `OR`).
-* $class (string|null) – Optional. Additional CSS classes.
+**$attr:**
+* $posts_per_page (int) – The number of posts per page. Defaults to WordPress.
+* $page (int) – Current main query page number. Default `1`.
+* $ignore_sticky (boolean) – Optional. Whether to ignore sticky posts. Default `false`.
+* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $relation (string) – Relationship between taxonomies. Default `'AND'`.
+* $classes (string) – String of additional CSS classes. Default empty.
 
 ---
 
