@@ -109,6 +109,10 @@ body:not(.is-editor):not(.is-admin) {
   &._4-4 {
     -webkit-line-clamp: 4;
   }
+
+  &._5-5 {
+    -webkit-line-clamp: 5;
+  }
 }
 
 .no-scroll {

@@ -1376,9 +1376,7 @@ function fictioneer_shortcode_blog( $attr ) {
   $classes = '';
 
   // Page
-  $page = get_query_var( 'page' );
-  $page = empty( $page ) ? get_query_var( 'paged' ) : $page;
-  $page = empty( $page ) ? 1 : $page;
+  $page = get_query_var( 'page' ) ?? get_query_var( 'paged' ) ?? 1;
 
   // Arguments
   $query_args = array(
@@ -1504,5 +1502,111 @@ function fictioneer_shortcode_blog( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
+
+// =============================================================================
+// ARTICLE CARDS SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show article cards with pagination
+ *
+ * @since 5.7.3
+ *
+ * @param string|null $attr['post_type']           Optional. The post types to query. Default 'post'.
+ * @param string|null $attr['per_page']            Optional. Number of posts per page.
+ * @param string|null $attr['count']               Optional. Maximum number of posts. Default -1.
+ * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
+ * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
+ *
+ * @return string The rendered shortcode HTML.
+ */
+
+function fictioneer_shortcode_article_cards( $attr ) {
+  // Setup
+  $post_type = sanitize_key( $attr['post_type'] ?? 'post' );
+  $count = intval( $attr['count'] ?? -1 );
+
+  $allowed_post_types = array(
+    'post' => 'post',
+    'posts' => 'post',
+    'page' => 'page',
+    'pages' => 'page',
+    'story' => 'fcn_story',
+    'stories' => 'fcn_story',
+    'chapter' => 'fcn_chapter',
+    'chapters' => 'fcn_chapter',
+    'collection' => 'fcn_collection',
+    'collections' => 'fcn_collection',
+    'recommendation' => 'fcn_recommendation',
+    'recommendations' => 'fcn_recommendation'
+  );
+
+  if ( array_key_exists( $post_type, $allowed_post_types ) ) {
+    $post_type = $allowed_post_types[ $post_type ];
+  } else {
+    $post_type = 'post';
+  }
+
+  // Args
+  $args = array(
+    'post_type' => $post_type,
+    'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'count' => $count,
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'orderby' => $attr['orderby'] ?? 'date',
+    'page' => get_query_var( 'page' ) ?? get_query_var( 'paged' ) ?? 1,
+    'posts_per_page' => $attr['per_page'] ?? get_option( 'posts_per_page' ),
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
+    'author_ids' => fictioneer_explode_list( $attr['author_ids'] ?? '' ),
+    'excluded_authors' => fictioneer_explode_list( $attr['exclude_author_ids'] ?? '' ),
+    'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
+    'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
+    'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
+  );
+
+  // Transient?
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $transient_key = "fictioneer_shortcode_article_cards_html_" . md5( $base );
+    $transient = get_transient( $transient_key );
+
+    if ( ! empty( $transient ) ) {
+      return $transient;
+    }
+  }
+
+  // Buffer
+  ob_start();
+
+  get_template_part( 'partials/_article-cards', null, $args );
+
+  $html = fictioneer_minify_html( ob_get_clean() );
+
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
+  }
+
+  // Return minified buffer
+  return $html;
+}
+add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' );
 
 ?>
