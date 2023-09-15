@@ -15,7 +15,7 @@
  *
  * @internal $args['count']          Number of posts provided by the shortcode.
  * @internal $args['author']         Author provided by the shortcode.
- * @internal $args['order']          Order of posts. Default 'desc'.
+ * @internal $args['order']          Order of posts. Default 'DESC'.
  * @internal $args['post_ids']       Array of post IDs. Default empty.
  * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
  * @internal $args['excluded_tags']  Array of tag IDs to exclude. Default empty.
@@ -42,7 +42,7 @@ $query_args = array(
   'post__in' => $args['post_ids'], // May be empty!
   'meta_key' => 'fictioneer_chapters_added',
   'orderby' => 'meta_value',
-  'order' => $args['order'] ?? 'desc',
+  'order' => $args['order'] ?? 'DESC',
   'posts_per_page' => $args['count'] + 4, // Little buffer in case of no viable stories
   'meta_query' => array(
     'relation' => 'OR',

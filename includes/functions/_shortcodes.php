@@ -373,8 +373,9 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  *
  * @param string|null $attr['count']            Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']           Optional. Limit items to a specific author.
- * @param string|null $attr['orderby']          Optional. Order argument. Default 'date'.
  * @param string|null $attr['type']             Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['order']            Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']          Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['spoiler']          Optional. Whether to show spoiler content.
  * @param string|null $attr['source']           Optional. Whether to show author and story.
  * @param string|null $attr['post_ids']         Optional. Limit items to specific post IDs.
@@ -396,7 +397,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
   $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'desc';
+  $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $spoiler = $attr['spoiler'] ?? false;
   $source = $attr['source'] ?? 'true';
@@ -485,7 +486,8 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['count']            Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']           Optional. Limit items to a specific author.
  * @param string|null $attr['type']             Optional. Choose between 'default' and 'compact'.
- * @param string|null $attr['orderby']          Optional. Order argument. Default 'date'.
+ * @param string|null $attr['order']            Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']          Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']         Optional. Limit items to specific post IDs.
  * @param string|null $attr['exclude_tag_ids']  Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']  Optional. Exclude posts with these categories.
@@ -505,7 +507,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
   $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'desc';
+  $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
   $rel = 'AND';
@@ -607,7 +609,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
   $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'desc';
+  $order = $attr['order'] ?? 'DESC';
   $post_ids = [];
   $rel = 'AND';
   $classes = [];
@@ -689,6 +691,8 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['count']            Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']           Optional. Limit items to a specific author.
  * @param string|null $attr['type']             Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['order']            Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']          Optional. Orderby argument. Default 'date'.
  * @param string|null $attr['post_ids']         Optional. Limit items to specific post IDs.
  * @param string|null $attr['exclude_tag_ids']  Optional. Exclude posts with these tags.
  * @param string|null $attr['exclude_cat_ids']  Optional. Exclude posts with these categories.
@@ -708,7 +712,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
   $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'desc';
+  $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
   $post_ids = [];
   $rel = 'AND';
@@ -1332,7 +1336,7 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  *
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
  * @param string|null $attr['ignore_sticky']       Optional. Whether to ignore sticky posts. Default false.
- * @param string|null $attr['include_protected']   Optional. Whether to include protected posts. Default false.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['author']              Optional. Limit items to a specific author.
  * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
  * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.

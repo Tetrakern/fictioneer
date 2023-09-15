@@ -10,7 +10,7 @@
  *
  * @internal $args['count']          Number of posts provided by the shortcode.
  * @internal $args['author']         Author provided by the shortcode.
- * @internal $args['order']          Order of posts. Default 'desc'.
+ * @internal $args['order']          Order of posts. Default 'DESC'.
  * @internal $args['orderby']        Sorting of posts. Default 'date'.
  * @internal $args['post_ids']       Array of post IDs. Default empty.
  * @internal $args['excluded_cats']  Array of category IDs to exclude. Default empty.
@@ -33,7 +33,7 @@ $query_args = array(
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'orderby' => $args['orderby'],
-  'order' => $args['order'] ?? 'desc',
+  'order' => $args['order'] ?? 'DESC',
   'posts_per_page' => $args['count'],
   'meta_query' => array(
     'relation' => 'OR',

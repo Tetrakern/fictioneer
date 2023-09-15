@@ -10,7 +10,7 @@
  *
  * @internal $args['count']          Number of posts provided by the shortcode.
  * @internal $args['author']         Author provided by the shortcode.
- * @internal $args['order']          Order of posts. Default 'desc'.
+ * @internal $args['order']          Order of posts. Default 'DESC'.
  * @internal $args['orderby']        Sorting of posts. Default 'date'.
  * @internal $args['spoiler']        Whether to obscure or show chapter excerpt.
  * @internal $args['source']         Whether to show author and story.
@@ -37,7 +37,7 @@ $query_args = array(
   'post_type' => 'fcn_chapter',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'order' => $args['order'] ?? 'desc',
+  'order' => $args['order'] ?? 'DESC',
   'orderby' => $args['orderby'] ?? 'date',
   'posts_per_page' => $args['count'] + 8, // Little buffer in case of unpublished parent story
   'meta_key' => 'fictioneer_chapter_hidden',
