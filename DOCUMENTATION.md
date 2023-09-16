@@ -397,7 +397,7 @@ Renders a two-column grid of paginated medium cards ordered by publishing date, 
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
-* **author:** Only show recommendations by a specific author. Make sure to write the name right.
+* **author:** Only show recommendations by a specific author. Make sure to use the url-safe nice_name.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
@@ -431,7 +431,7 @@ Renders paginated blog posts akin to the default blog page, but with options. On
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
-* **author:** Only show posts of a specific author. Make sure to write the name right.
+* **author:** Only show posts of a specific author. Make sure to use the url-safe nice_name.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
 * **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
@@ -540,7 +540,7 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
-* **author:** Only show chapters of a specific author. Make sure to write the name right.
+* **author:** Only show chapters of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **spoiler:** The excerpt is obfuscated, set `true` if you want to reveal it. Default `false`.
@@ -578,7 +578,7 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
-* **author:** Only show posts of a specific author. Make sure to write the name right.
+* **author:** Only show posts of a specific author. Make sure to use the url-safe nice_name.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
 * **author_ids:** Only show posts of a comma-separated list of author IDs.
@@ -610,7 +610,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
-* **author:** Only show recommendations by a specific author. Make sure to write the name right.
+* **author:** Only show recommendations by a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
@@ -684,7 +684,7 @@ Renders a two-column grid of small cards, showing the latest four updated storie
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
-* **author:** Only show updates of a specific author. Make sure to write the name right.
+* **author:** Only show updates of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
@@ -738,7 +738,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `8`.
-* **author:** Only show posts for a specific author. Make sure to write the name right.
+* **author:** Only show posts for a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.

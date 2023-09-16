@@ -65,7 +65,7 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
 }
 
 // Author?
-if ( isset( $args['author'] ) && $args['author'] ) {
+if ( ! empty( $args['author'] ) ) {
   $query_args['author_name'] = $args['author'];
 }
 
