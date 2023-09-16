@@ -270,6 +270,9 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  */
 
 function fictioneer_shortcode_showcase( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Abort if...
   if ( empty( $attr['for'] ) ) {
     return '';
@@ -328,7 +331,7 @@ function fictioneer_shortcode_showcase( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $type = $args['type'];
     $transient_key = "fictioneer_shortcode_showcase_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
@@ -386,6 +389,9 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  */
 
 function fictioneer_shortcode_latest_chapters( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
@@ -423,7 +429,7 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_chapters_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -487,6 +493,9 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  */
 
 function fictioneer_shortcode_latest_stories( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
@@ -519,7 +528,7 @@ function fictioneer_shortcode_latest_stories( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_stories_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -580,6 +589,9 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  */
 
 function fictioneer_shortcode_latest_story_updates( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
@@ -610,7 +622,7 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_updates_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -674,6 +686,9 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  */
 
 function fictioneer_shortcode_latest_recommendations( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $count = max( 1, intval( $attr['count'] ?? 4 ) );
   $type = $attr['type'] ?? 'default';
@@ -706,7 +721,7 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_recommendations_{$type}_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -763,6 +778,9 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  */
 
 function fictioneer_shortcode_latest_posts( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $author = $attr['author'] ?? false;
   $count = max( 1, intval( $attr['count'] ?? 1 ) );
@@ -790,7 +808,7 @@ function fictioneer_shortcode_latest_posts( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_latest_posts_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -832,6 +850,9 @@ add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); 
  */
 
 function fictioneer_shortcode_bookmarks( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $count = max( -1, intval( $attr['count'] ?? -1 ) );
   $show_empty = $attr['show_empty'] ?? false;
@@ -893,6 +914,9 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  */
 
 function fictioneer_shortcode_chapter_list( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Aria label
   $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
 
@@ -1133,6 +1157,9 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
  */
 
 function fictioneer_shortcode_contact_form( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $title = $attr['title'] ?? _x( 'Nameless Form', 'Contact form.', 'fictioneer' );
   $submit = $attr['submit'] ?? __( 'Submit', 'fictioneer' );
@@ -1234,6 +1261,9 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
  */
 
 function fictioneer_shortcode_search( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $args = array( 'cache' => true );
   $simple = isset( $attr['simple'] ) ? $attr['simple'] == 'true' || $attr['simple'] == '1' : false;
@@ -1289,6 +1319,9 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  */
 
 function fictioneer_shortcode_blog( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $args = array(
     'posts_per_page' => absint( $attr['per_page'] ?? 0 ) ?: get_option( 'posts_per_page' ),
@@ -1354,7 +1387,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $query_args ) . serialize( $args );
+    $base = serialize( $query_args ) . serialize( $args ) . serialize( $attr );
     $transient_key = 'fictioneer_shortcode_chapter_list_html_' . md5( $base );
     $transient = get_transient( $transient_key );
 
@@ -1456,6 +1489,9 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  */
 
 function fictioneer_shortcode_article_cards( $attr ) {
+  // Sanitize attributes
+  $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
+
   // Setup
   $post_types = fictioneer_explode_list( $attr['post_type'] ?? 'post' );
   $count = intval( $attr['count'] ?? -1 );
@@ -1512,11 +1548,9 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
 
-  $args = fictioneer_sanitize_args( $args );
-
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args );
+    $base = serialize( $args ) . serialize( $attr );
     $transient_key = "fictioneer_shortcode_article_cards_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
