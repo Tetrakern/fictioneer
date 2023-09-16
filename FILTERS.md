@@ -775,26 +775,28 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 Filters the query arguments in the `fictioneer_latest_posts` shortcode. The optional taxonomy arrays can include categories and tags.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'latest_posts'`
 * $post_type (string) – `'post'`
 * $post_status (string) – `'publish'`
+* $ignore_sticky_posts (boolean) – `true`
 * $post__in (array) – `$args['post_ids']`
+* $order (string) – `'DESC'`
+* $orderby (string) – `'date'`
+* $posts_per_page (int) – `$args['count']`
+* $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
-* $author_name (string|null) – `$args['author']`
-* $orderby (string) – `'date'`
-* $order (string) – `'DESC'`
-* $posts_per_page (int) – `$args['count']`
-* $ignore_sticky_posts (boolean) – `true`
 * $no_found_rows (boolean) – `true`
+* $update_post_term_cache (boolean) – `false`
 
 **$args:**
-* $author (boolean|string) – The author provided by the shortcode. Default `false`.
-* $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $post_ids (\[string]) – Array of post IDs. Default empty.
-* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
-* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
-* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
-* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $count (int) – Maximum number of posts. Default `-1`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
+* $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (string) – String of additional CSS classes. Default empty.
 

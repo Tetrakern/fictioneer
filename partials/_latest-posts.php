@@ -31,16 +31,18 @@ $query_args = array(
   'post_type' => 'post',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'orderby' => 'date',
   'order' => 'DESC',
+  'orderby' => 'date',
   'posts_per_page' => $args['count'],
   'ignore_sticky_posts' => 1,
   'no_found_rows' => true, // Improve performance
   'update_post_term_cache' => false // Improve performance
 );
 
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
