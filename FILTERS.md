@@ -692,6 +692,7 @@ Filters the query arguments in the `fictioneer_article_cards` shortcode. The opt
 Filters the query arguments in the `fictioneer_blog` shortcode.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'blog_shortcode'`
 * $post_type (string) – `post`
 * $post_status (string) – `'publish'`
 * $ignore_sticky_posts (boolean) – `$args['ignore_sticky']`

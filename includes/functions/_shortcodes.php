@@ -1339,6 +1339,7 @@ function fictioneer_shortcode_blog( $attr ) {
 
   // Query arguments
   $query_args = array(
+    'fictioneer_query_name' => 'blog_shortcode',
     'post_type' => 'post',
     'post_status' => 'publish',
     'paged' => $args['page'],
