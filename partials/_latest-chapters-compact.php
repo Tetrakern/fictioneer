@@ -38,8 +38,8 @@ $query_args = array(
   'post_type' => 'fcn_chapter',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'order' => $args['order'] ?? 'DESC',
-  'orderby' => $args['orderby'] ?? 'date',
+  'order' => $args['order'],
+  'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'] + 8, // Little buffer in case of unpublished parent story
   'meta_key' => 'fictioneer_chapter_hidden',
   'meta_value' => 0,
@@ -47,8 +47,15 @@ $query_args = array(
   'update_post_term_cache' => false
 );
 
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
+
+// Author IDs?
+if ( ! empty( $args['author_ids'] ) ) {
+  $query_args['author__in'] = $args['author_ids'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
@@ -63,6 +70,11 @@ if ( ! empty( $args['excluded_tags'] ) ) {
 // Excluded categories?
 if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
+}
+
+// Excluded authors?
+if ( ! empty( $args['excluded_authors'] ) ) {
+  $query_args['author__not_in'] = $args['excluded_authors'];
 }
 
 // Ignore protected?

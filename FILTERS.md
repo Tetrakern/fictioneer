@@ -744,6 +744,8 @@ Filters the query arguments in the `fictioneer_blog` shortcode.
 * $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
@@ -797,6 +799,8 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
 * $source (boolean) – Optional. Show chapter source story. Default `true`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
@@ -828,6 +832,8 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 * $count (int) – Maximum number of posts. Default `-1`.
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
@@ -860,6 +866,8 @@ Filters the query arguments in the `fictioneer_latest_recommendations` shortcode
 * $order (string) – Order argument. Default `'DESC'`.
 * $orderby (string) – Orderby argument. Default `'date'`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
@@ -920,6 +928,8 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
 * $order (string) – Order argument. Default `'DESC'`.
 * $orderby (string) – Orderby argument. Default `'date'`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
@@ -956,7 +966,7 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $order (string) – `$args['order']`
 * $orderby (string) – `'meta_value'`
 * $meta_key (string) – `'fictioneer_chapters_added'`
-* $posts_per_page (int) – `$args['count']`
+* $posts_per_page (int) – `$args['count'] + 4` (accounts for non-eligible posts)
 * $meta_query (array)
   * $relation (string) – `'OR'`
   * (array)
@@ -977,6 +987,8 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $order (string) – Order argument. Default `'DESC'`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
@@ -1005,12 +1017,14 @@ Filters the query arguments in the `fictioneer_showcase` shortcode. The optional
 * $no_found_rows (boolean) – `true`
 
 **$args:**
-* $type (string) – Either `'fcn_collection'`, `'fcn_story'`, `'fcn_chapter'`, or `'fcn_recommendation'`.
+* $post_type (string) – Either `'fcn_collection'`, `'fcn_story'`, `'fcn_chapter'`, or `'fcn_recommendation'`.
 * $count (int) – Maximum number of posts. Default `-1`.
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $order (string) – Order argument. Default `'DESC'`.
 * $orderby (string) – Orderby argument. Default `'date'`.
 * $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $author_ids (array) – Limit posts to specific author IDs. Default empty.
+* $excluded_authors (array) – Exclude specific author IDs. Default empty.
 * $excluded_tags (array) – Exclude specific tag names. Default empty.
 * $excluded_cats (array) – Exclude specific category names. Default empty.
 * $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.

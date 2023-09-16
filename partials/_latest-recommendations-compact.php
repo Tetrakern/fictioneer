@@ -36,8 +36,8 @@ $query_args = array (
   'post_type' => 'fcn_recommendation',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'orderby' => $args['orderby'] ?? 'date',
-  'order' => $args['order'] ?? 'DESC',
+  'order' => $args['order'],
+  'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'],
   'no_found_rows' => true
 );
@@ -45,6 +45,11 @@ $query_args = array (
 // Author?
 if ( isset( $args['author'] ) && $args['author'] ) {
   $query_args['author_name'] = $args['author'];
+}
+
+// Author IDs?
+if ( ! empty( $args['author_ids'] ) ) {
+  $query_args['author__in'] = $args['author_ids'];
 }
 
 // Taxonomies?
@@ -60,6 +65,11 @@ if ( ! empty( $args['excluded_tags'] ) ) {
 // Excluded categories?
 if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
+}
+
+// Excluded authors?
+if ( ! empty( $args['excluded_authors'] ) ) {
+  $query_args['author__not_in'] = $args['excluded_authors'];
 }
 
 // Ignore protected?

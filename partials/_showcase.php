@@ -11,7 +11,7 @@
  * @subpackage Fictioneer
  * @since 4.0
  *
- * @internal $args['type']              Post type if the showcase.
+ * @internal $args['post_type']         Post type if the showcase.
  * @internal $args['count']             Maximum number of items. Default 8.
  * @internal $args['order']             Order direction. Default 'DESC'.
  * @internal $args['orderby']           Order argument. Default 'date'.
@@ -34,7 +34,7 @@ defined( 'ABSPATH' ) OR exit;
 // Prepare query
 $query_args = array (
   'fictioneer_query_name' => 'showcase',
-  'post_type' => $args['type'],
+  'post_type' => $args['post_type'],
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
@@ -47,6 +47,11 @@ $query_args = array (
 // Author?
 if ( isset( $args['author'] ) && $args['author'] ) {
   $query_args['author_name'] = $args['author'];
+}
+
+// Author IDs?
+if ( ! empty( $args['author_ids'] ) ) {
+  $query_args['author__in'] = $args['author_ids'];
 }
 
 // Taxonomies?
@@ -62,6 +67,11 @@ if ( ! empty( $args['excluded_tags'] ) ) {
 // Excluded categories?
 if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
+}
+
+// Excluded authors?
+if ( ! empty( $args['excluded_authors'] ) ) {
+  $query_args['author__not_in'] = $args['excluded_authors'];
 }
 
 // Ignore protected?
@@ -94,7 +104,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', get_the_ID() );
 
                 // Get list title and story ID (if any)
-                switch ( $args['type'] ) {
+                switch ( $args['post_type'] ) {
                   case 'fcn_collection':
                     $list_title = trim( fictioneer_get_field( 'fictioneer_collection_list_title' ) );
                     break;

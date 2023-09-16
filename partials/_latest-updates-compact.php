@@ -42,7 +42,7 @@ $query_args = array(
   'order' => $args['order'],
   'orderby' => 'meta_value',
   'meta_key' => 'fictioneer_chapters_added',
-  'posts_per_page' => $args['count'],
+  'posts_per_page' => $args['count'] + 4, // Account for non-eligible posts!
   'meta_query' => array(
     'relation' => 'OR',
     array(
@@ -63,6 +63,11 @@ if ( isset( $args['author'] ) && $args['author'] ) {
   $query_args['author_name'] = $args['author'];
 }
 
+// Author IDs?
+if ( ! empty( $args['author_ids'] ) ) {
+  $query_args['author__in'] = $args['author_ids'];
+}
+
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
   $query_args['tax_query'] = fictioneer_get_shortcode_tax_query( $args );
@@ -76,6 +81,11 @@ if ( ! empty( $args['excluded_tags'] ) ) {
 // Excluded categories?
 if ( ! empty( $args['excluded_cats'] ) ) {
   $query_args['category__not_in'] = $args['excluded_cats'];
+}
+
+// Excluded authors?
+if ( ! empty( $args['excluded_authors'] ) ) {
+  $query_args['author__not_in'] = $args['excluded_authors'];
 }
 
 // Ignore protected?

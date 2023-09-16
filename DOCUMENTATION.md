@@ -547,6 +547,8 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 * **source:** Set `false` to hide the author and story nodes. Default `true`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -579,6 +581,8 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 * **author:** Only show posts of a specific author. Make sure to write the name right.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -611,6 +615,8 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -646,6 +652,8 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 * **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -680,6 +688,8 @@ Renders a two-column grid of small cards, showing the latest four updated storie
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
@@ -733,6 +743,8 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
 * **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
 * **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
 * **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
 * **no_cap:** Set `true` if you want to hide the caption.
