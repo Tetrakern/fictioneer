@@ -13,6 +13,8 @@
  * @internal $args['order']             Order of posts. Default 'DESC'.
  * @internal $args['orderby']           Sorting of posts. Default 'date'.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['author_ids']        Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
  * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.

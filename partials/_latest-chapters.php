@@ -15,6 +15,8 @@
  * @internal $args['spoiler']           Whether to obscure or show chapter excerpt.
  * @internal $args['source']            Whether to show author and story.
  * @internal $args['post_ids']          Array of post IDs. Default empty.
+ * @internal $args['author_ids']        Array of author IDs. Default empty.
+ * @internal $args['excluded_authors']  Array of author IDs to exclude. Default empty.
  * @internal $args['excluded_cats']     Array of category IDs to exclude. Default empty.
  * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.

@@ -121,6 +121,22 @@ if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
 // GET SHORTCODE DEFAULT ARGS
 // =============================================================================
 
+/**
+ * Returns sanitized arguments extracted from shortcode attributes
+ *
+ * Checks for 'count', 'offset', 'order', 'orderby', 'page', 'per_page', 'post_ids',
+ * 'author', 'author_ids', 'exclude_author_ids', 'exclude_tag_ids', 'exclude_cat_ids',
+ * 'rel', 'ignore_sticky', 'ignore_protected', 'class', and taxonomies with the
+ * fictioneer_get_shortcode_taxonomies() helper functions.
+ *
+ * @since 5.7.3
+ *
+ * @param array $attr       Attributes passed to the shortcode.
+ * @param int   $def_count  Default for the 'count' argument.
+ *
+ * @return array The extracted arguments.
+ */
+
 function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   //--- Sanitize attributes ----------------------------------------------------
 
@@ -301,23 +317,25 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  *
  * @since 5.0
  *
- * @param string      $attr['for']               What the showcase is for. Allowed are chapters,
- *                                               collections, recommendations, and stories.
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 8.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['order']             Optional. Order direction. Default 'DESC'.
- * @param string|null $attr['orderby']           Optional. Order argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string      $attr['for']                 What the showcase is for. Allowed are chapters,
+ *                                                 collections, recommendations, and stories.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 8.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['order']               Optional. Order direction. Default 'DESC'.
+ * @param string|null $attr['orderby']             Optional. Order argument. Default 'date'.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -391,24 +409,26 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  *
  * @since 3.0
  *
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['type']              Optional. Choose between 'default', 'simple', and 'compact'.
- * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
- * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
- * @param string|null $attr['spoiler']           Optional. Whether to show spoiler content.
- * @param string|null $attr['source']            Optional. Whether to show author and story.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
+ * @param string|null $attr['spoiler']             Optional. Whether to show spoiler content.
+ * @param string|null $attr['source']              Optional. Whether to show author and story.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -470,22 +490,24 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  *
  * @since 3.0
  *
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['type']              Optional. Choose between 'default' and 'compact'.
- * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
- * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['type']                Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -541,20 +563,22 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  *
  * @since 4.3
  *
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['type']              Optional. Choose between 'default', 'simple', and 'compact'.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -611,22 +635,24 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  *
  * @since 4.0
  *
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 4.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['type']              Optional. Choose between 'default' and 'compact'.
- * @param string|null $attr['order']             Optional. Order argument. Default 'DESC'.
- * @param string|null $attr['orderby']           Optional. Orderby argument. Default 'date'.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['fandoms']           Optional. Limit posts to specific fandom names.
- * @param string|null $attr['genres']            Optional. Limit posts to specific genre names.
- * @param string|null $attr['characters']        Optional. Limit posts to specific character names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['type']                Optional. Choose between 'default' and 'compact'.
+ * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
+ * @param string|null $attr['orderby']             Optional. Orderby argument. Default 'date'.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['fandoms']             Optional. Limit posts to specific fandom names.
+ * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
+ * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
@@ -682,16 +708,18 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  *
  * @since 4.0
  *
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 1.
- * @param string|null $attr['author']            Optional. Limit posts to a specific author.
- * @param string|null $attr['post_ids']          Optional. Limit posts to specific post IDs.
- * @param string|null $attr['ignore_protected']  Optional. Whether to ignore protected posts. Default false.
- * @param string|null $attr['exclude_tag_ids']   Optional. Exclude posts with these tags.
- * @param string|null $attr['exclude_cat_ids']   Optional. Exclude posts with these categories.
- * @param string|null $attr['categories']        Optional. Limit posts to specific category names.
- * @param string|null $attr['tags']              Optional. Limit posts to specific tag names.
- * @param string|null $attr['rel']               Optional. Relationship between taxonomies. Default 'AND'.
- * @param string|null $attr['class']             Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['count']               Optional. Maximum number of items. Default 1.
+ * @param string|null $attr['author']              Optional. Limit posts to a specific author.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
+ * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
+ * @param string|null $attr['author_ids']          Optional. Only include posts by these author IDs.
+ * @param string|null $attr['exclude_author_ids']  Optional. Exclude posts with these author IDs.
+ * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
+ * @param string|null $attr['exclude_cat_ids']     Optional. Exclude posts with these categories.
+ * @param string|null $attr['categories']          Optional. Limit posts to specific category names.
+ * @param string|null $attr['tags']                Optional. Limit posts to specific tag names.
+ * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The rendered shortcode HTML.
  */
