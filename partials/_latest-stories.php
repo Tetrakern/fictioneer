@@ -33,8 +33,8 @@ $query_args = array(
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
+  'order' => $args['order'],
   'orderby' => $args['orderby'],
-  'order' => $args['order'] ?? 'DESC',
   'posts_per_page' => $args['count'],
   'meta_query' => array(
     'relation' => 'OR',
@@ -45,14 +45,18 @@ $query_args = array(
     array(
       'key' => 'fictioneer_story_hidden',
       'compare' => 'NOT EXISTS'
-    ),
+    )
   ),
   'no_found_rows' => true
 );
 
 if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
   $query_args['meta_key'] = 'fictioneer_story_sticky';
-  $query_args['orderby'] = 'meta_value ' . $query_args['orderby'];
+
+  $query_args['orderby'] = array(
+    'fictioneer_story_sticky' => 'DESC',
+    $args['orderby'] => $args['order']
+  );
 }
 
 // Parameter for author?

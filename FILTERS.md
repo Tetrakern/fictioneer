@@ -855,28 +855,40 @@ Filters the intermediate output arrays in the `_latest-stories.php` and `_latest
 Filters the query arguments in the `fictioneer_latest_stories` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'latest_stories'` or `'latest_stories_compact'`
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
-* $author_name (string|null) – `$args['author']`
 * $post__in (array) – `$args['post_ids']`
+* $order (string) – `$args['order']`
+* $orderby (array)
+  * $fictioneer_story_sticky – `'DESC'`
+  * `$args['orderby']` – `$args['order']`
+* $posts_per_page (int) – `$args['count']`
+* $meta_key (string) – `'fictioneer_story_sticky'`
+* $meta_query (array)
+  * $relation (string) – `'OR'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $value – `'0'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $compare – `'NOT EXISTS'`
+* $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
-* $meta_key (string) – `'fictioneer_story_sticky'`
-* $orderby (string) – `'meta_value ' . $args['orderby']`
-* $order (string) – `$args['order']`
-* $posts_per_page (int) – `$args['count']`
+* $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
 * $no_found_rows (boolean) – `true`
 
 **$args:**
-* $author (boolean|string) – The author provided by the shortcode. Default `false`.
-* $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'DESC'`.
-* $post_ids (\[string]) – Array of post IDs. Default empty.
-* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
-* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
-* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
-* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $count (int) – Maximum number of posts. Default `-1`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $order (string) – Order argument. Default `'DESC'`.
+* $orderby (string) – Orderby argument. Default `'date'`.
+* $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
+* $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (string) – String of additional CSS classes. Default empty.
 
@@ -1062,13 +1074,25 @@ Filters the arguments passed to the `partials/_card-story` template part in the 
 Filters the arguments to query the stories in the `stories.php` template.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'stories_list'`
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
-* $meta_key (string) – `'fictioneer_story_sticky'`
-* $orderby (string) – Current orderby or `'meta_value modified'`.
-* $order (string) – Current order or `desc`.
-* $paged (int) – Current page if paginated or `1`.
+* $order (string) – `'DESC'` or `'ASC'`
+* $orderby (array)
+  * $fictioneer_story_sticky – `'DESC'`
+  * `$args['orderby']` – `$args['order']`
+* $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
+* $meta_key (string) – `'fictioneer_story_sticky'`
+* $meta_query (array)
+  * $relation (string) – `'OR'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $value – `'0'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $compare – `'NOT EXISTS'`
+* $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )`
 
 **Parameters:**
 * $post_id (int) – Current post ID.

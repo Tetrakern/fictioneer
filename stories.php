@@ -31,25 +31,26 @@ $query_args = array (
   'fictioneer_query_name' => 'stories_list',
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
-  'orderby' => $orderby,
   'order' => $order,
+  'orderby' => $orderby,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )
+  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ),
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    ),
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'compare' => 'NOT EXISTS'
+    )
+  )
 );
 
 if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
-  $query_args['meta_query'] = array(
-    'relation' => 'OR',
-    array(
-      'key' => 'fictioneer_story_sticky',
-      'compare' => 'EXISTS'
-    ),
-    array(
-      'key' => 'fictioneer_story_sticky',
-      'compare' => 'NOT EXISTS'
-    )
-  );
+  $query_args['meta_key'] = 'fictioneer_story_sticky';
 
   $query_args['orderby'] = array(
     'fictioneer_story_sticky' => 'DESC',
