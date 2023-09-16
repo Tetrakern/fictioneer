@@ -90,7 +90,7 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_statistics',
 function fictioneer_stories_list( $args ) {
   // Start HTML ---> ?>
   <section class="stories__list spacing-top">
-    <ul class="card-list" id="list-of-stories">
+    <ul id="list-of-stories" class="scroll-margin-top card-list">
 
       <?php if ( $args['stories']->have_posts() ) : ?>
 

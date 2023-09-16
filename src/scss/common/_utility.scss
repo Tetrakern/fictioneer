@@ -332,3 +332,7 @@ html:not(.logged-in) body:not(.logged-in) .hide-if-logged-out,
     clear: both;
   }
 }
+
+.scroll-margin-top {
+  scroll-margin-top: 48px;
+}

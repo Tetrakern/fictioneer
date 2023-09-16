@@ -23,7 +23,7 @@
 function fictioneer_chapters_list( $args ) {
   // Start HTML ---> ?>
   <section class="chapters__list spacing-top">
-    <ul class="card-list" id="list-of-chapters">
+    <ul id="list-of-chapters" class="scroll-margin-top card-list">
 
       <?php if ( $args['chapters']->have_posts() ) : ?>
 

@@ -104,17 +104,21 @@ $query = fictioneer_shortcode_query( $query_args );
 // Remove temporary filters
 remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
+// Unique ID
+$unique_id = wp_unique_id( 'article-block-' );
+
 // Pagination
 $pag_args = array(
   'current' => max( 1, $args['page'] ),
   'total' => $query->max_num_pages,
   'prev_text' => fcntr( 'previous' ),
-  'next_text' => fcntr( 'next' )
+  'next_text' => fcntr( 'next' ),
+  'add_fragment' => "#{$unique_id}"
 );
 
 ?>
 
-<section class="article-card-block <?php echo esc_attr( $args['classes'] ); ?>">
+<section id="<?php echo $unique_id; ?>" class="scroll-margin-top article-card-block <?php echo esc_attr( $args['classes'] ); ?>">
 
   <?php if ( $query->have_posts() ) : ?>
 

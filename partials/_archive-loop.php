@@ -45,7 +45,7 @@ $hook_args = array(
 <?php if ( have_posts() ) : ?>
 
   <section class="archive__posts">
-    <ul class="card-list _no-mutation-observer" id="archive-list">
+    <ul id="archive-list" class="scroll-margin-top card-list _no-mutation-observer">
       <?php
         while ( have_posts() ) {
           the_post();
@@ -96,9 +96,9 @@ $hook_args = array(
 <?php else : ?>
 
   <section class="archive__posts">
-    <ul class="card-list _no-mutation-observer" id="archive-list">
+    <ul id="archive-list" class="scroll-margin-top card-list _no-mutation-observer">
       <li class="no-results">
-        <span><?php _e( 'No matching posts found.', 'fictioneer' ) ?></span>
+        <span><?php _e( 'No matching posts found.', 'fictioneer' ); ?></span>
       </li>
     </ul>
   </section>

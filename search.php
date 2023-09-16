@@ -104,7 +104,7 @@ $hook_args = array(
 
       <?php if ( have_posts() && ! $no_params ) : ?>
         <section class="search-results__content">
-          <ul class="card-list _no-mutation-observer" id="search-result-list">
+          <ul id="search-result-list" class="scroll-margin-top card-list _no-mutation-observer">
             <?php
               while ( have_posts() ) {
                 the_post();

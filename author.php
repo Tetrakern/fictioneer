@@ -177,7 +177,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         </div>
       </section>
 
-      <section id="tabs" class="author-page__tabs tabs-wrapper spacing-top">
+      <section id="tabs" class="scroll-margin-top author-page__tabs tabs-wrapper spacing-top">
         <div class="tabs">
           <?php foreach ( $tabs as $key => $value ) : ?>
             <a

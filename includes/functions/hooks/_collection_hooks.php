@@ -23,7 +23,7 @@
 function fictioneer_collections_list( $args ) {
   // Start HTML ---> ?>
   <section class="collections__list spacing-top">
-    <ul class="card-list" id="list-of-collections">
+    <ul id="list-of-collections" class="scroll-margin-top card-list">
 
       <?php if ( $args['collections']->have_posts() ) : ?>
 
@@ -174,7 +174,7 @@ function fictioneer_collection_featured_list( $args ) {
 
   // Start HTML ---> ?>
   <section class="collection__list spacing-top">
-    <ul id="featured-list" class="card-list">
+    <ul id="featured-list" class="scroll-margin-top card-list">
       <?php
         // Render cards...
         if ( $args['featured_query']->have_posts() ) {
