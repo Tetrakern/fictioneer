@@ -127,7 +127,8 @@ $pag_args = array(
         while ( $query->have_posts() ) {
           $query->the_post();
 
-          // Setup post
+          // Setup
+          $story_id = ( $post->post_type === 'fcn_story' ) ? $post->ID : null;
           $title = fictioneer_get_safe_title( get_the_ID() );
           $permalink = get_permalink();
           $categories = wp_get_post_categories( get_the_ID() );
@@ -135,7 +136,24 @@ $pag_args = array(
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
+
+          // Thumbnail
           $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', get_the_ID() );
+          $thumbnail = null;
+
+          $image_args = array(
+            'alt' => sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+            'class' => 'no-auto-lightbox'
+          );
+
+          if ( empty( $landscape_image_id ) ) {
+            $thumbnail = get_the_post_thumbnail( $post, 'medium', $image_args );
+          }
+
+          // Chapter story?
+          if ( $post->post_type === 'fcn_chapter' ) {
+            $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+          }
 
           // Start HTML ---> ?>
           <li id="article-card-<?php the_ID(); ?>" class="card _article">
@@ -144,18 +162,16 @@ $pag_args = array(
               <div class="card__main _article">
 
                 <?php
-                  $image_args = array(
-                    'alt' => sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
-                    'class' => 'no-auto-lightbox'
-                  );
+                  // Try parent thumbnail (if any)
+                  if ( ! $landscape_image_id && ! $thumbnail && $story_id ) {
+                    $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', $story_id );
+                    $thumbnail = get_the_post_thumbnail( $story_id, 'medium', $image_args );
+                  }
 
                   if ( ! empty( $landscape_image_id ) ) {
                     $thumbnail = wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
-
                     echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
-                  } elseif ( has_post_thumbnail() ) {
-                    $thumbnail = get_the_post_thumbnail( $post, 'medium', $image_args );
-
+                  } elseif ( ! empty( $thumbnail ) ) {
                     echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
                   } else {
                     echo "<a href='{$permalink}'  class='card__image _article cell-img _default'></a>";
