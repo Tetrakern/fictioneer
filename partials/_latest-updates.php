@@ -41,9 +41,9 @@ $query_args = array(
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'meta_key' => 'fictioneer_chapters_added',
+  'order' => $args['order'],
   'orderby' => 'meta_value',
-  'order' => $args['order'] ?? 'DESC',
+  'meta_key' => 'fictioneer_chapters_added',
   'posts_per_page' => $args['count'] + 4, // Little buffer in case of no viable stories
   'meta_query' => array(
     'relation' => 'OR',
@@ -59,8 +59,10 @@ $query_args = array(
   'no_found_rows' => true
 );
 
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
@@ -281,7 +283,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   <?php else: ?>
 
-    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ) ?></div>
+    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 
   <?php endif; wp_reset_postdata(); ?>
 </section>

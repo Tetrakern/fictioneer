@@ -742,7 +742,7 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 * $post_status (string) – `'publish'`
 * $order (string) – `$args['order']`
 * $orderby (string) – `$args['orderby']`
-* $posts_per_page (int) – `$args['count'] + 8` (buffer for disabled posts)
+* $posts_per_page (int) – `$args['count'] + 8` (buffer for invalid posts)
 * $post__in (array) – `$args['post_ids']`
 * $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
@@ -914,28 +914,38 @@ Filters the intermediate output array in the `_latest-updates.php` partial befor
 Filters the query arguments in the `fictioneer_latest_updates` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'latest_updates'` or `'latest_updates_compact'`
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
-* $author_name (string|null) – `$args['author']`
 * $post__in (array) – `$args['post_ids']`
+* $order (string) – `$args['order']`
+* $orderby (string) – `'meta_value'`
+* $meta_key (string) – `'fictioneer_chapters_added'`
+* $posts_per_page (int) – `$args['count'] + 4` (buffer for invalid posts)
+* $meta_query (array)
+  * $relation (string) – `'OR'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $value – `'0'`
+  * (array)
+    * $key – `'fictioneer_story_hidden'`
+    * $compare – `'NOT EXISTS'`
+* $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
-* $meta_key (string) – `'fictioneer_chapters_added'`
-* $orderby (string) – `'meta_value'`
-* $order (string) – `$args['order']`
-* $posts_per_page (int) – `$args['count'] + 4`
+* $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
 * $no_found_rows (boolean) – `true`
 
 **$args:**
-* $simple (boolean) – Whether to render the simple variants. Default `false`.
-* $author (boolean|string) – The author provided by the shortcode. Default `false`.
-* $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $order (string) – Optional. Default `'DESC'`.
-* $post_ids (\[string]) – Array of post IDs. Default empty.
-* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
-* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
-* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
-* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $simple (boolean|null) – Whether to render the simple variant. Default `false`.
+* $count (int) – Maximum number of posts. Default `-1`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $order (string) – Order argument. Default `'DESC'`.
+* $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
+* $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (string) – String of additional CSS classes. Default empty.
 

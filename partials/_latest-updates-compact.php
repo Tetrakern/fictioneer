@@ -39,9 +39,9 @@ $query_args = array(
   'post_type' => 'fcn_story',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'meta_key' => 'fictioneer_chapters_added',
+  'order' => $args['order'],
   'orderby' => 'meta_value',
-  'order' => $args['order'] ?? 'DESC',
+  'meta_key' => 'fictioneer_chapters_added',
   'posts_per_page' => $args['count'] + 4, // Little buffer in case of no viable chapters
   'meta_query' => array(
     'relation' => 'OR',
@@ -58,8 +58,10 @@ $query_args = array(
   'update_post_term_cache' => false
 );
 
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
@@ -128,7 +130,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
 
           // Count actually rendered cards to account for buffer
-          if ( ++$card_counter > $args['count'] ) break;
+          if ( ++$card_counter > $args['count'] ) {
+            break;
+          }
         ?>
 
         <li class="card watch-last-clicked _small _info">
@@ -201,7 +205,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
   <?php else: ?>
 
-    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ) ?></div>
+    <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 
   <?php endif; wp_reset_postdata(); ?>
 </section>
