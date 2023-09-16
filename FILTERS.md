@@ -64,6 +64,20 @@ Filters the array of allowed orderby arguments for WP_Query.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_article_card_footer', $footer_items, $posts )`
+Filters the intermediate output array in the `_article-cards.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing or modified date, and comments.
+
+**$footer_items:**
+* $author (string|null) – Conditional. HTML for the author.
+* $publish_date (string) – Conditional. HTML for the publish date.
+* $modified_date (string) – Conditional. HTML for the modified date.
+* $comments (string) – HTML for the number of comments.
+
+**Parameters**
+* $post (WP_Post) – The post object.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_breadcrumbs_array', $breadcrumbs, $args )`
 Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $args )` function before the HTML is build.
 
