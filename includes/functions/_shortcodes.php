@@ -62,6 +62,20 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
   // Setup
   $registry = fictioneer_get_relationship_registry();
 
+  // Look for blog shortcode
+  if ( str_contains( $post->post_content, 'fictioneer_blog' ) ) {
+    $registry['always'][ $post_id ] = 'shortcode';
+  } else {
+    unset( $registry['always'][ $post_id ] );
+  }
+
+  // Look for article cards shortcode
+  if ( str_contains( $post->post_content, 'fictioneer_article_cards' ) ) {
+    $registry['always'][ $post_id ] = 'shortcode';
+  } else {
+    unset( $registry['always'][ $post_id ] );
+  }
+
   // Look for showcase shortcode
   if ( str_contains( $post->post_content, 'fictioneer_showcase' ) ) {
     $registry['always'][ $post_id ] = 'shortcode';
