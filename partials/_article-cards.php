@@ -37,16 +37,11 @@ $query_args = array(
   'fictioneer_query_name' => 'article_cards',
   'post_type' => $args['post_type'],
   'post_status' => 'publish',
+  'post__in' => $args['post_ids'], // May be empty!
   'order' => $args['order'],
   'orderby' => $args['orderby'],
   'ignore_sticky_posts' => $args['ignore_sticky']
 );
-
-// Post IDs?
-if ( ! empty( $args['post_ids'] ) ) {
-  $query_args['post__in'] = $args['post_ids'];
-  $args['count'] = count( $args['post_ids'] );
-}
 
 // Pagination or count?
 if ( $args['count'] > 0 ) {

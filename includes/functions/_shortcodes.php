@@ -278,35 +278,26 @@ function fictioneer_shortcode_showcase( $attr ) {
     return '';
   }
 
-  // Setup
-  $count = max( 1, intval( $attr['count'] ?? 8 ) );
-  $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'DESC';
-  $orderby = $attr['orderby'] ?? 'date';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
-
   // Prepare arguments
   $args = array(
-    'count' => $count,
-    'author' => $author,
-    'order' => $order,
-    'orderby' => $orderby,
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 8 ) ),
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'orderby' => $attr['orderby'] ?? 'date',
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
     'no_cap' => filter_var( $attr['no_cap'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
-    'classes' => $classes
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   switch ( $attr['for'] ) {
     case 'collections':
@@ -391,40 +382,31 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $count = max( 1, intval( $attr['count'] ?? 4 ) );
+  // Type
   $type = $attr['type'] ?? 'default';
-  $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'DESC';
-  $orderby = $attr['orderby'] ?? 'date';
-  $spoiler = $attr['spoiler'] ?? false;
-  $source = $attr['source'] ?? 'true';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
 
   // Args
   $args = array(
     'simple' => false,
-    'count' => $count,
-    'author' => $author,
-    'order' => $order,
-    'orderby' => $orderby,
-    'spoiler' => $spoiler == 'true',
-    'source' => $source == 'true',
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 4 ) ),
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'orderby' => $attr['orderby'] ?? 'date',
+    'spoiler' => ( $attr['spoiler'] ?? false ) == 'true',
+    'source' => ( $attr['source'] ?? 'true' ) == 'true',
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
-    'classes' => $classes
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -495,35 +477,28 @@ function fictioneer_shortcode_latest_stories( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $count = max( 1, intval( $attr['count'] ?? 4 ) );
+  // Type
   $type = $attr['type'] ?? 'default';
-  $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'DESC';
-  $orderby = $attr['orderby'] ?? 'date';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
 
   // Args
   $args = array(
-    'count' => $count,
-    'author' => $author,
-    'order' => $order,
-    'orderby' => $orderby,
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 4 ) ),
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'orderby' => $attr['orderby'] ?? 'date',
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
-    'classes' => $classes
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -591,33 +566,27 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $count = max( 1, intval( $attr['count'] ?? 4 ) );
+  // Type
   $type = $attr['type'] ?? 'default';
-  $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'DESC';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
 
   // Args
   $args = array(
-    'count' => $count,
-    'author' => $author,
-    'order' => $order,
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 4 ) ),
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
-    'classes' => $classes
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -688,35 +657,28 @@ function fictioneer_shortcode_latest_recommendations( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $count = max( 1, intval( $attr['count'] ?? 4 ) );
+  // Type
   $type = $attr['type'] ?? 'default';
-  $author = $attr['author'] ?? false;
-  $order = $attr['order'] ?? 'DESC';
-  $orderby = $attr['orderby'] ?? 'date';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
 
   // Args
   $args = array(
-    'count' => $count,
-    'author' => $author,
-    'order' => $order,
-    'orderby' => $orderby,
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 4 ) ),
+    'author' => $attr['author'] ?? false,
+    'order' => $attr['order'] ?? 'DESC',
+    'orderby' => $attr['orderby'] ?? 'date',
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
-    'classes' => $classes
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -780,30 +742,23 @@ function fictioneer_shortcode_latest_posts( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $author = $attr['author'] ?? false;
-  $count = max( 1, intval( $attr['count'] ?? 1 ) );
-  $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
-  $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
-
-  // Update count?
-  if ( ! empty( $post_ids ) ) {
-    $count = count( $post_ids );
-  }
-
   // Args
   $args = array(
-    'count' => $count,
-    'author' => $author,
-    'post_ids' => $post_ids,
+    'count' => max( 1, intval( $attr['count'] ?? 1 ) ),
+    'author' => $attr['author'] ?? false,
+    'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
-    'relation' => $rel,
-    'classes' => $classes
+    'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
+    'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -1493,11 +1448,9 @@ function fictioneer_shortcode_article_cards( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Setup
-  $post_types = fictioneer_explode_list( $attr['post_type'] ?? 'post' );
-  $count = intval( $attr['count'] ?? -1 );
-
   // Post types...
+  $post_types = fictioneer_explode_list( $attr['post_type'] ?? 'post' );
+
   $allowed_post_types = array(
     'post' => 'post',
     'posts' => 'post',
@@ -1533,7 +1486,7 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'post_type' => $query_post_types,
     'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
-    'count' => $count,
+    'count' => intval( $attr['count'] ?? -1 ),
     'author' => $attr['author'] ?? false,
     'order' => $attr['order'] ?? 'DESC',
     'orderby' => $attr['orderby'] ?? 'date',
@@ -1548,6 +1501,11 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
+
+  // Post IDs?
+  if ( ! empty( $args['post_ids'] ) ) {
+    $args['count']= count( $args['post_ids'] );
+  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
