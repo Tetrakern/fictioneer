@@ -983,6 +983,40 @@ function fictioneer_sanitize_checkbox_by_key( $key ) {
 }
 
 // =============================================================================
+// SANITIZE ARGUMENTS
+// =============================================================================
+
+/**
+ * Sanitizes an array of arguments
+ *
+ * @since 5.7.3
+ *
+ * @param array $args  Array of arguments to sanitize
+ *
+ * @return array The sanitized arguments.
+ */
+
+function fictioneer_sanitize_args( $args ) {
+  $sanitized_args = [];
+
+  foreach ( $args as $key => $value ) {
+    if ( is_string( $value ) ) {
+      $sanitized_args[ $key ] = sanitize_text_field( $value );
+    } elseif ( is_numeric( $value ) ) {
+      $sanitized_args[ $key ] = intval( $value );
+    } elseif ( is_bool( $value ) ) {
+      $sanitized_args[ $key ] = filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+    } elseif ( is_array( $value ) ) {
+      $sanitized_args[ $key ] = fictioneer_sanitize_args( $value );
+    } else {
+      $sanitized_args[ $key ] = $value;
+    }
+  }
+
+  return $sanitized_args;
+}
+
+// =============================================================================
 // SHOW NON-PUBLIC CONTENT
 // =============================================================================
 

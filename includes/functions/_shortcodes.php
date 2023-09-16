@@ -1512,9 +1512,11 @@ function fictioneer_shortcode_article_cards( $attr ) {
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
 
+  $args = fictioneer_sanitize_args( $args );
+
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-    $base = serialize( $args ) . serialize( $attr ) . $count;
+    $base = serialize( $args );
     $transient_key = "fictioneer_shortcode_article_cards_html_" . md5( $base );
     $transient = get_transient( $transient_key );
 
