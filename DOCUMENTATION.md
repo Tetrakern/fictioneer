@@ -23,6 +23,7 @@ This documentation is about the Fictioneer theme. If you need help with WordPres
   * [Additional CSS Classes](#additional-css-classes)
   * [HTML Block / litRPG Box](#html-block)
 * [Shortcodes](#shortcodes)
+  * [Article Cards](#article-cards)
   * [Blog](#blog)
   * [Bookmarks](#bookmarks)
   * [Contact Form](#contact-form)
@@ -386,15 +387,32 @@ The custom HTML block is the best way to add special elements to the content, su
 
 ### Article Cards
 
-Renders paginated cards...
+Renders a two-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
 
-
-
-
+* **post_type:** Comma-separated list of post types to query. Default `post`.
+* **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
+* **per_page:** Number of posts per page. Defaults to theme settings.
+* **count:** Limit articles to any positive number, disabling the pagination.
+* **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
+* **orderby:** The default is `date`, but you can also use `modified` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
+* **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
+* **ignore_protected:** Whether protected posts should be ignored or not. Default `false`.
+* **author:** Only show recommendations by a specific author. Make sure to write the name right.
+* **author_ids:** Only show posts of a comma-separated list of author IDs.
+* **exclude_author_ids:** Comma-separated list of author IDs to exclude.
+* **exclude_cat_ids:** Comma-separated list of category IDs to exclude.
+* **exclude_tag_ids:** Comma-separated list of tag IDs to exclude.
+* **categories:** Comma-separated list of category names (case-insensitive), if you want to pick from a curated pool.
+* **tags:** Comma-separated list of tag names (case-insensitive), if you want to pick from a curated pool.
+* **fandoms:** Comma-separated list of fandom names (case-insensitive), if you want to pick from a curated pool.
+* **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
+* **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
+* **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **class:** Additional CSS classes, separated by whitespace.
 
 ### Blog
 
-Renders paginated blog posts akin to the default blog page, but with options. Makes use of the main query pagination variable, so only use this once per page. Optional parameters are **per_page**, **author**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **rel**, and **class**.
+Renders paginated blog posts akin to the default blog page, but with options. Only add this once per page since it uses the main query page argument.
 
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
@@ -423,7 +441,7 @@ Renders paginated blog posts akin to the default blog page, but with options. Ma
 
 ### Bookmarks
 
-Renders a two-column grid of small bookmark cards, ordered by date of creation. The bookmarks are stored in the browser and appended to the document via JavaScript. You can combine this with the `show-if-bookmarks hidden` additional CSS classes, displaying a headline or other element only if bookmarks are present. Optional parameters are **count** and **show_empty**.
+Renders a two-column grid of small bookmark cards, ordered by date of creation. The bookmarks are stored in the browser and appended to the document via JavaScript. You can combine this with the `show-if-bookmarks hidden` additional CSS classes, displaying a headline or other element only if bookmarks are present.
 
 * **count:** Limit bookmarks to any positive number. Default `-1` (all).
 * **show_empty:** Whether to show a "no bookmarks" note or nothing if empty. Default `false`.
@@ -440,7 +458,7 @@ Renders a two-column grid of small bookmark cards, ordered by date of creation. 
 
 ### Chapter List
 
-Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter. Optional parameters are **count**, **offset**, **group**, **heading**, and **class**.
+Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter.
 
 * **story_id:** ID of a single story. You need either this or **chapters**.
 * **chapter_ids:** Comma-separated list of chapter IDs. You need either this or **story**.
@@ -466,7 +484,7 @@ Renders a list of chapters identical to those on story pages, ordered by sequenc
 
 ### Contact Form
 
-Renders a contact form with various (optional) fields. Submissions are validated, sanitized, have basic spam protection, and are checked against the WordPress disallow list under **Settings > Discussions**. If all steps are passed, the submission is sent to the email addresses listed under **Fictioneer > General > Contact Form Receivers**, which are never revealed to the public. If empty, the admin email address is used instead. Optional parameters are **title**, **submit**, **privacy_policy**, **required**, **email**, **name**, **text_[1-6]**, **check_[1-6]**, and **class**.
+Renders a contact form with various (optional) fields. Submissions are validated, sanitized, have basic spam protection, and are checked against the WordPress disallow list under **Settings > Discussions**. If all steps are passed, the submission is sent to the email addresses listed under **Fictioneer > General > Contact Form Receivers**, which are never revealed to the public. If empty, the admin email address is used instead.
 
 * **title:** Title of the form shown in emails. Defaults to "Nameless Form".
 * **submit:** Label of the submit button. Defaults to "Submit".
@@ -504,7 +522,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **spoiler**, **source**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -541,7 +559,7 @@ Renders a two-column grid of small cards, showing the latest four chapters order
 
 ### Latest Posts
 
-Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending. Optional parameters are **count**, **author**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **rel**, and **class**.
+Renders the last blog post or a list of blog posts, ignoring sticky posts, ordered by publishing date, descending.
 
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `1`.
 * **author:** Only show posts of a specific author. Make sure to write the name right.
@@ -570,7 +588,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -605,7 +623,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 ### Latest Stories
 
-Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending. Optional parameters are **count**, **type**, **author**, **order**, **orderby**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -640,7 +658,7 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending. Optional parameters are **count**, **type**, **author**, **order**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **categories**, **tags**, **fandoms**, **genres**, **characters**, **rel**, and **class**.
+Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -674,7 +692,7 @@ Renders a two-column grid of small cards, showing the latest four updated storie
 
 ### Search Form
 
-Renders the search form with advanced options (if not disabled in the settings). Optional parameters are **simple** and **placeholder**.
+Renders the search form with advanced options (if not disabled in the settings).
 
 * **simple:** Set `true` to hide the advanced search options. Default `false`.
 * **placeholder:** Change the placeholder text.
@@ -692,7 +710,7 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ### Showcase
 
-Renders dynamic grid of thumbnails with title, showing the latest nine posts of the specified type ordered by publishing date, descending. Requires **for** parameter. Optional parameters are **count**, **author**, **order**, **orderby**, **post_ids**, **ignore_protected**, **exclude_cat_ids**, **exclude_tag_ids**, **no_cap**, and **class**. The thumbnail is either the **Landscape Image** or **Cover Image** (if available), with chapters defaulting to the parent story.
+Renders dynamic grid of thumbnails with title, showing the latest nine posts of the specified type ordered by publishing date, descending. Requires **for** parameter. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
 * **count:** Limit posts to any positive number, although you should keep it reasonable. Default `9`.

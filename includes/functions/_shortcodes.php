@@ -1466,6 +1466,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @since 5.7.3
  *
  * @param string|null $attr['post_type']           Optional. The post types to query. Default 'post'.
+ * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['per_page']            Optional. Number of posts per page.
  * @param string|null $attr['count']               Optional. Maximum number of posts. Default -1.
  * @param string|null $attr['order']               Optional. Order argument. Default 'DESC'.
