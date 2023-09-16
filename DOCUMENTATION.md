@@ -410,6 +410,20 @@ Renders a two-column grid of paginated medium cards ordered by publishing date, 
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **class:** Additional CSS classes, separated by whitespace.
 
+```
+[fictioneer_article_cards]
+```
+
+```
+[fictioneer_article_cards post_type="post" per_page="4" ignore_sticky="1"]
+```
+
+```
+[fictioneer_article_cards post_type="story, chapter" count="8" ignore_protected="1"]
+```
+
+![Bookmarks](repo/assets/shortcode_example_article_cards.jpg?raw=true)
+
 ### Blog
 
 Renders paginated blog posts akin to the default blog page, but with options. Only add this once per page since it uses the main query page argument.
