@@ -250,7 +250,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  *
  * @param string      $attr['for']               What the showcase is for. Allowed are chapters,
  *                                               collections, recommendations, and stories.
- * @param string|null $attr['count']             Optional. Maximum number of items. Default 9.
+ * @param string|null $attr['count']             Optional. Maximum number of items. Default 8.
  * @param string|null $attr['author']            Optional. Limit posts to a specific author.
  * @param string|null $attr['order']             Optional. Order direction. Default 'DESC'.
  * @param string|null $attr['orderby']           Optional. Order argument. Default 'date'.
@@ -279,7 +279,7 @@ function fictioneer_shortcode_showcase( $attr ) {
   }
 
   // Setup
-  $count = max( 1, intval( $attr['count'] ?? 9 ) );
+  $count = max( 1, intval( $attr['count'] ?? 8 ) );
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';

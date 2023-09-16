@@ -12,7 +12,7 @@
  * @since 4.0
  *
  * @internal $args['type']              Post type if the showcase.
- * @internal $args['count']             Maximum number of items. Default 9.
+ * @internal $args['count']             Maximum number of items. Default 8.
  * @internal $args['order']             Order direction. Default 'DESC'.
  * @internal $args['orderby']           Order argument. Default 'date'.
  * @internal $args['author']            Author provided by the shortcode.

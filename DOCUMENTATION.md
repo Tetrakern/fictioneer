@@ -724,10 +724,10 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ### Showcase
 
-Renders dynamic grid of thumbnails with title, showing the latest nine posts of the specified type ordered by publishing date, descending. Requires **for** parameter. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
+Renders dynamic grid of thumbnails with title, showing the latest eight posts of the specified type ordered by publishing date, descending. Requires **for** parameter. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
 
 * **for:** Desired post type, either `stories`, `chapters`, `collections`, or `recommendations`.
-* **count:** Limit posts to any positive number, although you should keep it reasonable. Default `9`.
+* **count:** Limit posts to any positive number, although you should keep it reasonable. Default `8`.
 * **author:** Only show posts for a specific author. Make sure to write the name right.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **orderby:** The default is `date`, but you can also use `rand` and [more](https://developer.wordpress.org/reference/classes/wp_query/#order-orderby-parameters).
