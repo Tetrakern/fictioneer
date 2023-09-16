@@ -227,12 +227,23 @@ Filters the arguments passed to the `partials/_card-chapter` template part in th
 Filters the arguments to query the chapters in the `chapters.php` template.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'chapters_list'`
 * $post_type (string) – `'fcn_chapter'`
 * $post_status (string) – `'publish'`
-* $orderby (string) – `'modified'`
-* $order (string) – `'DESC'`
-* $paged (int) – Current page if paginated or `1`.
+* $order (string) – `'DESC'` or `'ASC'`
+* $orderby (string) – `'modified'`, `'date'`, `'title'`, or `'rand'`
+* $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
+* $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )`
+* $meta_query (array)
+  * $relation (string) – `'OR'`
+  * (array)
+    * $key – `'fictioneer_chapter_hidden'`
+    * $value – `'0'`
+  * (array)
+    * $key – `'fictioneer_chapter_hidden'`
+    * $compare – `'NOT EXISTS'`
+* $date_query – `fictioneer_append_date_query()`
 
 **Parameters:**
 * $post_id (int) – Current post ID.
@@ -278,12 +289,15 @@ Filters the arguments passed to the `partials/_card-collection` template part in
 Filters the arguments to query the collections in the `collections.php` template.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'collections_list'`
 * $post_type (string) – `'fcn_collection'`
 * $post_status (string) – `'publish'`
-* $orderby (string) – `'modified'`
-* $order (string) – `'DESC'`
-* $paged (int) – Current page if paginated or `1`.
+* $order (string) – `'DESC'` or `'ASC'`
+* $orderby (string) – `'modified'`, `'date'`, `'title'`, or `'rand'`
+* $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
+* $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' )`
+* $date_query – `fictioneer_append_date_query()`
 
 **Parameters:**
 * $post_id (int) – Current post ID.
@@ -558,12 +572,18 @@ Filters the arguments passed to the `partials/_card-recommendation` template par
 Filters the arguments to query the recommendations in the `recommendations.php` template.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'recommendations_list'`
 * $post_type (string) – `'fcn_recommendation'`
 * $post_status (string) – `'publish'`
+* $order (string) – `'DESC'` or `'ASC'`
 * $orderby (string) – `'publish_date'`
-* $order (string) – `'DESC'`
-* $paged (int) – Current page if paginated or `1`.
+* $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
+* $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' )`
+* $date_query – `fictioneer_append_date_query()`
+
+**Parameters:**
+* $post_id (int) – Current post ID.
 
 ---
 
@@ -1091,9 +1111,7 @@ Filters the arguments to query the stories in the `stories.php` template.
 * $post_type (string) – `'fcn_story'`
 * $post_status (string) – `'publish'`
 * $order (string) – `'DESC'` or `'ASC'`
-* $orderby (array)
-  * $fictioneer_story_sticky – `'DESC'`
-  * `$args['orderby']` – `$args['order']`
+* $orderby (array) – `'modified'`, `'date'`, `'title'`, or `'rand'`
 * $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
 * $meta_key (string) – `'fictioneer_story_sticky'`
@@ -1106,6 +1124,7 @@ Filters the arguments to query the stories in the `stories.php` template.
     * $key – `'fictioneer_story_hidden'`
     * $compare – `'NOT EXISTS'`
 * $update_post_term_cache – `! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )`
+* $date_query – `fictioneer_append_date_query()`
 
 **Parameters:**
 * $post_id (int) – Current post ID.
