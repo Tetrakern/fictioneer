@@ -279,11 +279,10 @@ function fictioneer_shortcode_showcase( $attr ) {
   }
 
   // Setup
-  $count = max( 1, intval( $attr['count'] ?? 8 ) );
+  $count = max( 1, intval( $attr['count'] ?? 9 ) );
   $author = $attr['author'] ?? false;
   $order = $attr['order'] ?? 'DESC';
   $orderby = $attr['orderby'] ?? 'date';
-  $no_cap = $attr['no_cap'] ?? false;
   $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
   $post_ids = fictioneer_explode_list( $attr['post_ids'] ?? '' );
   $rel = strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND';
@@ -297,15 +296,15 @@ function fictioneer_shortcode_showcase( $attr ) {
   $args = array(
     'count' => $count,
     'author' => $author,
-    'orderby' => $orderby,
     'order' => $order,
+    'orderby' => $orderby,
     'post_ids' => $post_ids,
     'excluded_tags' => fictioneer_explode_list( $attr['exclude_tag_ids'] ?? '' ),
     'excluded_cats' => fictioneer_explode_list( $attr['exclude_cat_ids'] ?? '' ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'taxonomies' => fictioneer_get_shortcode_taxonomies( $attr ),
     'relation' => $rel,
-    'no_cap' => $no_cap == 'true' || $no_cap == '1',
+    'no_cap' => filter_var( $attr['no_cap'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'classes' => $classes
   );
 

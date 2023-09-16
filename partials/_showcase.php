@@ -12,7 +12,7 @@
  * @since 4.0
  *
  * @internal $args['type']              Post type if the showcase.
- * @internal $args['count']             Maximum number of items. Default 8.
+ * @internal $args['count']             Maximum number of items. Default 9.
  * @internal $args['order']             Order direction. Default 'DESC'.
  * @internal $args['orderby']           Order argument. Default 'date'.
  * @internal $args['author']            Author provided by the shortcode.
@@ -33,18 +33,21 @@ defined( 'ABSPATH' ) OR exit;
 
 // Prepare query
 $query_args = array (
+  'fictioneer_query_name' => 'showcase',
   'post_type' => $args['type'],
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'order' => $args['order'] ?? 'DESC',
-  'orderby' => $args['orderby'] ?? 'date',
-  'posts_per_page' => $args['count'] ?? 8,
+  'order' => $args['order'],
+  'orderby' => $args['orderby'],
+  'posts_per_page' => $args['count'],
   'update_post_term_cache' => false,
   'no_found_rows' => true
 );
 
-// Filter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
