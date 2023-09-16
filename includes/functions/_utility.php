@@ -1549,7 +1549,7 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
 /**
  * Explodes string into an array
  *
- * Strips lines breaks, trims whitespaces, sanitizes, and removes empty elements.
+ * Strips lines breaks, trims whitespaces, and removes empty elements.
  * Values might not be unique.
  *
  * @since 5.1.3
@@ -1567,7 +1567,6 @@ function fictioneer_explode_list( $string ) {
   $string = str_replace( ["\n", "\r"], '', $string ); // Remove line breaks
   $array = explode( ',', $string );
   $array = array_map( 'trim', $array ); // Remove extra whitespaces
-  $array = array_map( 'sanitize_text_field', $array ); // Sanitize
   $array = array_filter( $array, 'strlen' ); // Remove empty elements
   $array = is_array( $array ) ? $array : [];
 
