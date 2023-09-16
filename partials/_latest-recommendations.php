@@ -36,14 +36,16 @@ $query_args = array (
   'post_type' => 'fcn_recommendation',
   'post_status' => 'publish',
   'post__in' => $args['post_ids'], // May be empty!
-  'orderby' => $args['orderby'] ?? 'date',
-  'order' => $args['order'] ?? 'DESC',
+  'order' => $args['order'],
+  'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'],
   'no_found_rows' => true
 );
 
-// Parameter for author?
-if ( isset( $args['author'] ) && $args['author'] ) $query_args['author_name'] = $args['author'];
+// Author?
+if ( isset( $args['author'] ) && $args['author'] ) {
+  $query_args['author_name'] = $args['author'];
+}
 
 // Taxonomies?
 if ( ! empty( $args['taxonomies'] ) ) {
