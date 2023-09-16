@@ -9,9 +9,6 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.0
- *
- * @internal ('fictioneer_filter_and_search_id')  ACF field. You can use this ID for plugins.
- * @internal ('fictioneer_short_name')            ACF field. Meant for an abbreviated page name.
  */
 ?>
 
