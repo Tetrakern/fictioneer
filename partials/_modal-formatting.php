@@ -111,9 +111,9 @@ defined( 'ABSPATH' ) OR exit;
       <i class="fa-solid fa-weight-hanging reset font-weight-reset"></i>
       <div class="select-wrapper">
         <select name="font-weight" class="site-setting-font-weight">
-          <option value="default" selected="selected"><?php _ex( 'Default Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ) ?></option>
-          <option value="thinner"><?php _ex( 'Thinner Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ) ?></option>
-          <option value="normal"><?php _ex( 'Normal Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ) ?></option>
+          <option value="default" selected="selected"><?php _ex( 'Default Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ); ?></option>
+          <option value="thinner"><?php _ex( 'Thinner Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ); ?></option>
+          <option value="normal"><?php _ex( 'Normal Font Weight', 'Formatting modal font weight selection.', 'fictioneer' ); ?></option>
         </select>
       </div>
     </div>

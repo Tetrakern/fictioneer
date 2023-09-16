@@ -121,7 +121,7 @@ if ( $show_advanced ) {
 					tabindex="0"
 				><?php _ex( 'Advanced', 'Advanced search toggle.', 'fictioneer' ); ?></button>
 			<?php endif; ?>
-			<button type="submit" class="search-form__submit" aria-label="<?php echo esc_attr__( 'Submit search request', 'fictioneer' ) ?>"><i class="fa-solid fa-magnifying-glass"></i></button>
+			<button type="submit" class="search-form__submit" aria-label="<?php echo esc_attr__( 'Submit search request', 'fictioneer' ); ?>"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 
 	</div>
@@ -134,7 +134,7 @@ if ( $show_advanced ) {
 				<button
 					type="button"
 					class="reset"
-					data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ) ?>"
+					data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ); ?>"
 				><?php _ex( 'Reset', 'Advanced search reset button.', 'fictioneer' ); ?></button>
 
 				<span class="search-form__current-type"><?php
@@ -377,7 +377,7 @@ if ( $show_advanced ) {
 
 			<div class="search-form__advanced-actions">
 				<div class="search-form__advanced-actions-left">
-					<button type="button" class="search-form__advanced-reset reset button _secondary" data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ) ?>"><?php _ex( 'Reset', 'Advanced search reset button.', 'fictioneer' ); ?></button>
+					<button type="button" class="search-form__advanced-reset reset button _secondary" data-reset="<?php echo esc_attr_x( 'Search form reset.', 'Advanced search reset message.', 'fictioneer' ); ?>"><?php _ex( 'Reset', 'Advanced search reset button.', 'fictioneer' ); ?></button>
 				</div>
 				<div class="search-form__advanced-actions-right">
 					<button type="submit" class="search-form__advanced-submit submit button"><?php _ex( 'Search', 'Advanced search submit.', 'fictioneer' ); ?></button>

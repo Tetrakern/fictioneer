@@ -92,7 +92,7 @@ do_action( 'rss_tag_pre', 'rss2' );
     <description><?php echo $description; ?></description>
     <language><?php echo bloginfo_rss( 'language' ); ?></language>
     <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
-    <link><?php bloginfo_rss( 'url' ) ?></link>
+    <link><?php bloginfo_rss( 'url' ); ?></link>
     <lastBuildDate><?php echo $date; ?></lastBuildDate>
     <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
     <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
@@ -132,7 +132,7 @@ do_action( 'rss_tag_pre', 'rss2' );
           <pubDate><?php echo $pub_date; ?></pubDate>
           <dc:creator><?php the_author(); ?></dc:creator>
           <guid isPermaLink="false"><?php the_guid(); ?></guid>
-          <description><![CDATA[<?php the_excerpt_rss() ?>]]></description>
+          <description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 
           <?php if ( $og_image ) : ?>
             <webfeeds:featuredImage

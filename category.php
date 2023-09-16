@@ -44,7 +44,7 @@
               ?>
             </h1>
             <?php if ( ! empty( $current_description ) ) : ?>
-              <p class="tax-cloud__tax-description"><strong><?php _e( 'Definition:', 'fictioneer' ) ?></strong> <?php echo $current_description; ?></p>
+              <p class="tax-cloud__tax-description"><strong><?php _e( 'Definition:', 'fictioneer' ); ?></strong> <?php echo $current_description; ?></p>
             <?php endif; ?>
           </div>
 

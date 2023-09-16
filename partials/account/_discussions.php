@@ -26,9 +26,9 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
 
 ?>
 
-<h3 class="profile__discussions-headline"><?php _e( 'Discussions', 'fictioneer' ) ?></h3>
+<h3 class="profile__discussions-headline"><?php _e( 'Discussions', 'fictioneer' ); ?></h3>
 
-<p class="profile__description"><?php _e( 'This is how your comments will look. You <b>avatar is pulled from the last account you logged in with</b> — which can fail if something is wrong with the avatar. This happens, for example, if you have changed your Discord avatar since you last logged in. Logging out and in again should resolve this issue.', 'fictioneer' ) ?></p>
+<p class="profile__description"><?php _e( 'This is how your comments will look. You <b>avatar is pulled from the last account you logged in with</b> — which can fail if something is wrong with the avatar. This happens, for example, if you have changed your Discord avatar since you last logged in. Logging out and in again should resolve this issue.', 'fictioneer' ); ?></p>
 
 <p class="profile__description">
   <?php
@@ -58,35 +58,35 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
   <?php if ( $current_user->fictioneer_admin_disable_avatar ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
-      <span><?php _e( 'Avatar capability disabled.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Avatar capability disabled.', 'fictioneer' ); ?></span>
     </li>
   <?php endif; ?>
 
   <?php if ( $current_user->fictioneer_admin_disable_reporting ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
-      <span><?php _e( 'Reporting capability disabled.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Reporting capability disabled.', 'fictioneer' ); ?></span>
     </li>
   <?php endif; ?>
 
   <?php if ( $current_user->fictioneer_admin_disable_commenting ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
-      <span><?php _e( 'Commenting capability disabled.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Commenting capability disabled.', 'fictioneer' ); ?></span>
     </li>
   <?php endif; ?>
 
   <?php if ( $current_user->fictioneer_admin_disable_editing ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
-      <span><?php _e( 'Comment editing capability disabled.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Comment editing capability disabled.', 'fictioneer' ); ?></span>
     </li>
   <?php endif; ?>
 
   <?php if ( $current_user->fictioneer_admin_always_moderate_comments ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
-      <span><?php _e( 'Comments are moderated.', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Comments are moderated.', 'fictioneer' ); ?></span>
     </li>
   <?php endif; ?>
 
@@ -118,7 +118,7 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
   </div>
 
   <div class="comment__body clearfix">
-    <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus consequat, justo vulputate rutrum aliquam, magna sem malesuada turpis, et convallis est metus eget.', 'fictioneer' ) ?></p>
+    <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus consequat, justo vulputate rutrum aliquam, magna sem malesuada turpis, et convallis est metus eget.', 'fictioneer' ); ?></p>
   </div>
 
 </div>

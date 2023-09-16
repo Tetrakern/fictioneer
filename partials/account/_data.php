@@ -75,7 +75,7 @@ if ( $can_checkmarks ) {
 
 <div id="profile-data-translations" data-cleared-success="<?php esc_attr_e( 'Data has been cleared.', 'fictioneer' ); ?>" data-cleared-error="<?php esc_attr_e( 'Error. Data could not be cleared.', 'fictioneer' ); ?>" hidden></div>
 
-<h3 class="profile__actions-headline" id="profile-actions"><?php _e( 'Data', 'fictioneer' ) ?></h3>
+<h3 class="profile__actions-headline" id="profile-actions"><?php _e( 'Data', 'fictioneer' ); ?></h3>
 
 <p class="profile__description"><?php
   printf(

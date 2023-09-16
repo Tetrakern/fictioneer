@@ -83,19 +83,19 @@ if ( ! empty( $args['featured_list'] ) ) {
 <section class="collection__statistics spacing-top">
   <div class="statistics">
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Stories', 'fictioneer' ) ?></strong>
+      <strong><?php _e( 'Stories', 'fictioneer' ); ?></strong>
       <span><?php echo number_format_i18n( $story_count ); ?></span>
     </div>
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Chapters', 'fictioneer' ) ?></strong>
+      <strong><?php _e( 'Chapters', 'fictioneer' ); ?></strong>
       <span><?php echo number_format_i18n( $chapters->found_posts ); ?></span>
     </div>
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Words', 'fictioneer' ) ?></strong>
+      <strong><?php _e( 'Words', 'fictioneer' ); ?></strong>
       <span><?php echo fictioneer_shorten_number( $word_count ); ?></span>
     </div>
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Comments', 'fictioneer' ) ?></strong>
+      <strong><?php _e( 'Comments', 'fictioneer' ); ?></strong>
       <span><?php
         echo number_format_i18n(
           get_comments(
@@ -111,7 +111,7 @@ if ( ! empty( $args['featured_list'] ) ) {
       ?></span>
     </div>
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Reading', 'fictioneer' ) ?></strong>
+      <strong><?php _e( 'Reading', 'fictioneer' ); ?></strong>
       <span><?php echo fictioneer_get_reading_time_nodes( $word_count ); ?></span>
     </div>
   </div>

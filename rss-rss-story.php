@@ -171,7 +171,7 @@ do_action( 'rss_tag_pre', 'rss2' );
             <pubDate><?php echo $pub_date; ?></pubDate>
             <dc:creator><?php the_author(); ?></dc:creator>
             <guid isPermaLink="false"><?php the_guid(); ?></guid>
-            <description><![CDATA[<?php the_excerpt_rss() ?>]]></description>
+            <description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 
             <?php if ( $og_image ) : ?>
               <webfeeds:featuredImage

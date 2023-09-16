@@ -525,7 +525,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $comment->comment_type === 'private' && $is_hidden && ! $commentcode && ! $is_child_of_private && ! $is_new ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
-        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as private.', 'fictioneer' ) ?></div>
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as private.', 'fictioneer' ); ?></div>
       </div>
       <?php // <--- End HTML
       return;
@@ -535,7 +535,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $is_child_of_private && $is_hidden && ! $is_new ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
-        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Reply has been marked as private.', 'fictioneer' ) ?></div>
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Reply has been marked as private.', 'fictioneer' ); ?></div>
       </div>
       <?php // <--- End HTML
       return;
@@ -545,7 +545,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $is_offensive && $is_hidden ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
-        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as offensive.', 'fictioneer' ) ?></div>
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment has been marked as offensive.', 'fictioneer' ); ?></div>
       </div>
       <?php // <--- End HTML
       return;
@@ -555,7 +555,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     if ( $is_report_hidden && ! $is_ignoring_reports && $is_hidden ) {
       // Start HTML ---> ?>
       <?php echo $open; ?>
-        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment is hidden due to negative reports.', 'fictioneer' ) ?></div>
+        <div class="fictioneer-comment__hidden-notice"><?php _e( 'Comment is hidden due to negative reports.', 'fictioneer' ); ?></div>
       </div>
       <?php // <--- End HTML
       return;
@@ -567,7 +567,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
       <?php echo $open; ?>
         <div class="fictioneer-comment__footer">
           <div class="fictioneer-comment__footer-left fictioneer-comment__hidden-notice">
-            <?php _e( 'Comment has been deleted by user.', 'fictioneer' ) ?>
+            <?php _e( 'Comment has been deleted by user.', 'fictioneer' ); ?>
           </div>
           <div class="fictioneer-comment__footer-right hide-unless-hover-on-desktop">
             <?php fictioneer_comment_mod_menu( $comment ); ?>
@@ -591,7 +591,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         <div class="fictioneer-comment__meta">
           <div class="fictioneer-comment__author truncate _1-1"><?php
             if ( fictioneer_is_author( $comment->user_id ) ) {
-              ?><a href="<?php echo get_author_posts_url( $comment->user_id ) ?>"><?php echo $comment->comment_author; ?></a><?php
+              ?><a href="<?php echo get_author_posts_url( $comment->user_id ); ?>"><?php echo $comment->comment_author; ?></a><?php
             } else {
               ?><span><?php echo $comment_author; ?></span><?php
             }

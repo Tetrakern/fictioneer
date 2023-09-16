@@ -387,7 +387,7 @@ function fictioneer_mobile_user_menu() {
     // Start HTML ---> ?>
     <a href="<?php echo esc_url( $discord_link ); ?>" rel="noopener noreferrer nofollow">
       <i class="fa-brands fa-discord mobile-menu__item-icon"></i>
-      <?php _e( 'Discord', 'fictioneer' ) ?>
+      <?php _e( 'Discord', 'fictioneer' ); ?>
     </a>
     <?php // <--- End HTML
     $output['discord'] = ob_get_clean();

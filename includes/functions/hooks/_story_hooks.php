@@ -125,7 +125,7 @@ function fictioneer_stories_list( $args ) {
         <?php do_action( 'fictioneer_stories_no_results', $args ); ?>
 
         <li class="no-results">
-          <span><?php _e( 'No stories found.', 'fictioneer' ) ?></span>
+          <span><?php _e( 'No stories found.', 'fictioneer' ); ?></span>
         </li>
 
       <?php endif; wp_reset_postdata(); ?>

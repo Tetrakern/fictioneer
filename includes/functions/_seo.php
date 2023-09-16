@@ -125,17 +125,17 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
         <input type="hidden" id="fictioneer-seo-og-image" name="fictioneer_seo_og_image" value="<?php echo $seo_og_image; ?>">
 
-        <a href="#" id="fictioneer-button-seo-og-image-remove" class="og-remove <?php echo $seo_og_image ? '' : 'hidden'; ?>"><?php _e( 'Remove', 'fictioneer' ) ?></a>
+        <a href="#" id="fictioneer-button-seo-og-image-remove" class="og-remove <?php echo $seo_og_image ? '' : 'hidden'; ?>"><?php _e( 'Remove', 'fictioneer' ); ?></a>
 
         <div class="og-source <?php echo $image_source; ?>">
-          <div class="thumbnail"><?php _e( 'Source: Thumbnail', 'fictioneer' ) ?></div>
-          <div class="parent-thumbnail"><?php _e( 'Source: Parent', 'fictioneer' ) ?></div>
-          <div class="default"><?php _e( 'Source: Site Default', 'fictioneer' ) ?></div>
+          <div class="thumbnail"><?php _e( 'Source: Thumbnail', 'fictioneer' ); ?></div>
+          <div class="parent-thumbnail"><?php _e( 'Source: Parent', 'fictioneer' ); ?></div>
+          <div class="default"><?php _e( 'Source: Site Default', 'fictioneer' ); ?></div>
         </div>
 
         <a href="#" id="fictioneer-button-og-upload">
           <img id="fictioneer-seo-og-display" src="<?php echo esc_url( $seo_og_image_display ); ?>" data-placeholder="<?php echo esc_url( get_template_directory_uri() . '/img/no_image_placeholder.svg' ); ?>">
-          <div class="og-upload-label"><?php _e( 'Open Graph Image', 'fictioneer' ) ?></div>
+          <div class="og-upload-label"><?php _e( 'Open Graph Image', 'fictioneer' ); ?></div>
         </a>
 
       </div>

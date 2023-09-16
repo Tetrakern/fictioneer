@@ -32,7 +32,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
           class="keyword-input__operator"
           role="checkbox"
           aria-checked="<?php if ( $and == 1 ) echo 'true'; ?>"
-          title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ) ?>"
+          title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ); ?>"
           tabindex="0"
         >
           <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and == 1 ) echo 'checked'; ?> autocomplete="off">

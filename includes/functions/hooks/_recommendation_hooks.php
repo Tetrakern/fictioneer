@@ -53,7 +53,7 @@ function fictioneer_recommendations_list( $args ) {
         <?php do_action( 'fictioneer_recommendations_no_results', $args ); ?>
 
         <li class="no-results">
-          <span><?php _e( 'No recommendations found.', 'fictioneer' ) ?></span>
+          <span><?php _e( 'No recommendations found.', 'fictioneer' ); ?></span>
         </li>
 
       <?php endif; wp_reset_postdata(); ?>
@@ -162,7 +162,7 @@ function fictioneer_recommendation_links( $args ) {
 
   // Start HTML ---> ?>
   <div class="recommendation__read-on">
-    <h5><?php _e( 'Read on', 'fictioneer' ) ?></h5>
+    <h5><?php _e( 'Read on', 'fictioneer' ); ?></h5>
     <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
   </div>
   <?php // <--- End HTML

@@ -127,7 +127,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <?php if ( $thumbnail_full ) : ?>
                 <a href="<?php echo $thumbnail_full; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail_snippet ?></a>
               <?php elseif ( ! empty( $text_icon ) ) : ?>
-                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ) ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
+                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ); ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
@@ -215,7 +215,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 ?></div>
 
                 <?php if ( ! empty( $chapter_rating ) ) : ?>
-                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ) ?>">
+                  <div class="card__footer-box _right rating-letter-label tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
                     <?php echo fcntr( $chapter_rating[0] ); ?>
                   </div>
                 <?php endif; ?>

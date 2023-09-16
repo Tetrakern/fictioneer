@@ -141,7 +141,7 @@ function fictioneer_comment_meta_box ( $comment ) {
       <div style="margin-top: 6px;">
         <label for="fictioneer_thread_closed">
           <input name="fictioneer_thread_closed" type="checkbox" id="fictioneer_thread_closed" <?php echo checked( 1, $is_closed, false ); ?> value="1">
-          <span><?php _e( 'Closed', 'fictioneer' ) ?></span>
+          <span><?php _e( 'Closed', 'fictioneer' ); ?></span>
         </label>
       </div>
       <div style="margin-top: 6px;">
@@ -153,11 +153,11 @@ function fictioneer_comment_meta_box ( $comment ) {
       <div style="margin-top: 6px;">
         <label for="fictioneer_ignore_reports">
           <input name="fictioneer_ignore_reports" type="checkbox" id="fictioneer_ignore_reports" <?php echo checked( 1, $ignores_reports, false ); ?> value="1">
-          <span><?php _e( 'Ignores reports', 'fictioneer' ) ?></span>
+          <span><?php _e( 'Ignores reports', 'fictioneer' ); ?></span>
         </label>
       </div>
       <?php if ( user_can( $comment->user_id, 'moderate_comments' ) ) : ?>
-        <div style="margin-top: 12px;"><strong><?php _e( 'User Flags:', 'fictioneer' ) ?></strong></div>
+        <div style="margin-top: 12px;"><strong><?php _e( 'User Flags:', 'fictioneer' ); ?></strong></div>
         <div style="margin-top: 6px;">
           <label for="fictioneer_admin_disable_avatar" class="checkbox-group">
             <input name="fictioneer_admin_disable_avatar" type="checkbox" id="fictioneer_admin_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_avatar', $comment->user_id ), false ); ?> value="1">

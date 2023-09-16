@@ -229,7 +229,7 @@ if ( ! function_exists( 'fictioneer_admin_pagination' ) ) {
 		// Start HTML ---> ?>
 		<div class='fictioneer-pagination'>
 			<?php if ( $max_items ) : ?>
-				<span class="number-of-items"><?php printf( _n( '%s item', '%s items', $max_items, 'fictioneer' ), $max_items ) ?></span>
+				<span class="number-of-items"><?php printf( _n( '%s item', '%s items', $max_items, 'fictioneer' ), $max_items ); ?></span>
 			<?php endif; ?>
 			<span class="pages"><?php echo implode( ' ', $page_links ); ?></span>
 		</div>

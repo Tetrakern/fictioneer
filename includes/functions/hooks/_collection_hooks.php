@@ -53,7 +53,7 @@ function fictioneer_collections_list( $args ) {
         <?php do_action( 'fictioneer_collections_no_results', $args ); ?>
 
         <li class="no-results">
-          <span><?php _e( 'No collections found.', 'fictioneer' ) ?></span>
+          <span><?php _e( 'No collections found.', 'fictioneer' ); ?></span>
         </li>
 
       <?php endif; wp_reset_postdata(); ?>

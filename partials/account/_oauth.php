@@ -39,9 +39,9 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
 
 ?>
 
-<h3 class="profile__oauth-headline" id="oauth-connections"><?php _e( 'Account Bindings', 'fictioneer' ) ?></h3>
+<h3 class="profile__oauth-headline" id="oauth-connections"><?php _e( 'Account Bindings', 'fictioneer' ); ?></h3>
 
-<p class="profile__description"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ) ?></p>
+<p class="profile__description"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?></p>
 
 <?php if ( is_array( $patreon_tiers ) && ! empty( $patreon_tiers ) ) : ?>
 
@@ -49,7 +49,7 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
     <ul class="profile__admin-notes">
       <li>
         <i class="fa-solid fa-hourglass-end"></i>
-        <span><?php _e( '<b>Patreon:</b> Data expires after two weeks. Log in with Patreon again to refresh.', 'fictioneer' ) ?></span>
+        <span><?php _e( '<b>Patreon:</b> Data expires after two weeks. Log in with Patreon again to refresh.', 'fictioneer' ); ?></span>
       </li>
     </ul>
   <?php endif; ?>

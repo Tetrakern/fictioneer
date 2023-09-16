@@ -322,7 +322,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
         <div class="chapter-group<?php echo $hide_icons ? ' _no-icons' : ''; ?>">
           <ol class="chapter-group__list">
             <li class="chapter-group__list-item _empty">
-              <span><?php _e( 'No chapters published yet.', 'fictioneer' ) ?></span>
+              <span><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></span>
             </li>
           </ol>
         </div>

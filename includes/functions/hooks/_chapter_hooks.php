@@ -58,7 +58,7 @@ function fictioneer_chapters_list( $args ) {
         <?php do_action( 'fictioneer_chapters_no_results', $args ); ?>
 
         <li class="no-results">
-          <span><?php _e( 'No chapters found.', 'fictioneer' ) ?></span>
+          <span><?php _e( 'No chapters found.', 'fictioneer' ); ?></span>
         </li>
 
       <?php endif; wp_reset_postdata(); ?>
@@ -210,7 +210,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
 
   // Start HTML ---> ?>
   <?php if ( $args['prev_index'] !== false ) : ?>
-    <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ) ?></a>
+    <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
   <?php endif; ?>
   <?php if ( $location === 'top' ) : ?>
     <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
@@ -330,7 +330,7 @@ function fictioneer_chapter_index_popup_menu( $args ) {
   <div id="chapter-list-popup-toggle" class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
     <i class="fa-solid fa-list"></i>
     <div class="popup-menu _top _center _align-items-right _v-scrolling">
-      <a href="<?php echo get_permalink( $args['story_post'] ) ?>" class="">
+      <a href="<?php echo get_permalink( $args['story_post'] ); ?>" class="">
         <i class="fa-solid fa-caret-left"></i>
         <span><?php _e( 'Back to Story', 'fictioneer' ); ?></span>
       </a>
@@ -567,7 +567,7 @@ function fictioneer_chapter_paragraph_tools() {
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
         <button id="button-set-bookmark" type="button" class="button">
           <i class="fa-solid fa-bookmark"></i>
-          <span><?php _ex( 'Bookmark', 'Paragraph tools bookmark button', 'fictioneer' ) ?></span>
+          <span><?php _ex( 'Bookmark', 'Paragraph tools bookmark button', 'fictioneer' ); ?></span>
           <div class="paragraph-tools__bookmark-colors">
             <div data-color="default" class="paragraph-tools__bookmark-colors-field"></div>
             <div data-color="beta" class="paragraph-tools__bookmark-colors-field"></div>
@@ -579,24 +579,24 @@ function fictioneer_chapter_paragraph_tools() {
       <?php if ( $can_comment ) : ?>
         <button id="button-comment-stack" type="button" class="button">
           <i class="fa-solid fa-quote-right"></i>
-          <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ) ?></span>
+          <span><?php _ex( 'Quote', 'Paragraph tools quote button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <?php if ( $can_comment && get_option( 'fictioneer_enable_suggestions' ) ) : ?>
         <button id="button-tools-add-suggestion" type="button" class="button">
           <i class="fa-solid fa-highlighter"></i>
-          <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ) ?></span>
+          <span class="hide-below-480"><?php _ex( 'Suggestion', 'Paragraph tools suggestion button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <?php if ( get_option( 'fictioneer_enable_tts' ) ) : ?>
         <button id="button-tts-set" type="button" class="button">
           <i class="fa-solid fa-volume-up"></i>
-          <span class="hide-below-480"><?php _ex( 'TTS', 'Paragraph tools text-to-speech button', 'fictioneer' ) ?></span>
+          <span class="hide-below-480"><?php _ex( 'TTS', 'Paragraph tools text-to-speech button', 'fictioneer' ); ?></span>
         </button>
       <?php endif; ?>
       <button id="button-get-link" type="button" class="button">
         <i class="fa-solid fa-link"></i>
-        <span class="hide-below-480"><?php _ex( 'Link', 'Paragraph tools copy link button', 'fictioneer' ) ?></span>
+        <span class="hide-below-480"><?php _ex( 'Link', 'Paragraph tools copy link button', 'fictioneer' ); ?></span>
       </button>
       <button id="button-close-paragraph-tools" type="button" class="button">
         <i class="fa-solid fa-times"></i>
@@ -627,7 +627,7 @@ function fictioneer_chapter_suggestion_tools() {
   <div id="selection-tools" class="invisible suggestion-tools">
     <button id="button-add-suggestion" type="button" class="button button--suggestion">
       <i class="fa-solid fa-highlighter"></i>
-      <span><?php _e( 'Add Suggestion', 'fictioneer' ) ?></span>
+      <span><?php _e( 'Add Suggestion', 'fictioneer' ); ?></span>
     </button>
   </div>
   <?php // <--- End HTML

@@ -39,7 +39,7 @@ defined( 'ABSPATH' ) OR exit;
 <?php else: ?>
 
   <article class="post _empty padding-top padding-bottom padding-left padding-right">
-    <span><?php _e( 'No (more) posts found.', 'fictioneer' ) ?></span>
+    <span><?php _e( 'No (more) posts found.', 'fictioneer' ); ?></span>
   </article>
 
 <?php endif; ?>

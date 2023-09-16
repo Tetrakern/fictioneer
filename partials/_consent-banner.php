@@ -28,8 +28,8 @@ defined( 'ABSPATH' ) OR exit;
     ?>
     <p class="consent-banner__notice"><?php echo $info; ?></p>
     <div class="consent-banner__actions">
-      <button type="button" id="consent-accept-button" class="button button--cookie-banner" tabindex="2"><?php _e( 'Accept', 'fictioneer' ) ?></button>
-      <button type="button" id="consent-reject-button" class="button button--cookie-banner" tabindex="3"><?php _e( 'Reject Non-Essential', 'fictioneer' ) ?></button>
+      <button type="button" id="consent-accept-button" class="button button--cookie-banner" tabindex="2"><?php _e( 'Accept', 'fictioneer' ); ?></button>
+      <button type="button" id="consent-reject-button" class="button button--cookie-banner" tabindex="3"><?php _e( 'Reject Non-Essential', 'fictioneer' ); ?></button>
     </div>
   </div>
 </div>

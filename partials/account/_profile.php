@@ -35,7 +35,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
 
 ?>
 
-<h3 id="profile" class="profile__account-headline"><?php _e( 'Profile', 'fictioneer' ) ?></h3>
+<h3 id="profile" class="profile__account-headline"><?php _e( 'Profile', 'fictioneer' ); ?></h3>
 
 <form method="post" action="<?php echo esc_url( $submit_url ); ?>" class="profile__account profile__segment">
 
@@ -189,7 +189,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
   <input name="user_id" type="hidden" value="<?php echo $current_user->ID; ?>">
 
   <div class="profile__actions">
-    <input name="submit" type="submit" value="<?php esc_attr_e( 'Update Profile', 'fictioneer' ) ?>" class="button">
+    <input name="submit" type="submit" value="<?php esc_attr_e( 'Update Profile', 'fictioneer' ); ?>" class="button">
   </div>
 
 </form>

@@ -41,16 +41,16 @@ $story = $args['story_data'];
       <i class="<?php echo $story['icon']; ?>"></i>
       <?php echo $story['status']; ?>
     </span>
-    <span class="story__meta-item story__date _published" title="<?php esc_attr_e( 'Published', 'fictioneer' ) ?>">
+    <span class="story__meta-item story__date _published" title="<?php esc_attr_e( 'Published', 'fictioneer' ); ?>">
       <i class="fa-solid fa-clock"></i>
       <span class="hide-below-480"><?php the_time( get_option( 'date_format' ) ); ?></span>
       <span class="show-below-480"><?php the_time( FICTIONEER_STORY_FOOTER_B480_DATE ); ?></span>
     </span>
-    <span class="story__meta-item story__words" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ) ?>">
+    <span class="story__meta-item story__words" title="<?php esc_attr_e( 'Total Words', 'fictioneer' ); ?>">
       <i class="fa-solid fa-font"></i>
       <?php echo $story['word_count_short']; ?>
     </span>
-    <span class="story__meta-item story__rating" title="<?php esc_attr_e( 'Rating', 'fictioneer' ) ?>">
+    <span class="story__meta-item story__rating" title="<?php esc_attr_e( 'Rating', 'fictioneer' ); ?>">
       <i class="fa-solid fa-exclamation-circle"></i>
       <?php echo $story['rating']; ?>
     </span>
