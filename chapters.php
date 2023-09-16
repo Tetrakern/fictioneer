@@ -31,11 +31,22 @@ $query_args = array (
   'fictioneer_query_name' => 'chapters_list',
   'post_type' => 'fcn_chapter',
   'post_status' => 'publish',
-  'orderby' => $orderby,
   'order' => $order,
+  'orderby' => $orderby,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
+  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ),
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'value' => '0'
+    ),
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'compare' => 'NOT EXISTS'
+    )
+  )
 );
 
 // Append date query (if any)
