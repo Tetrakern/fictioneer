@@ -737,33 +737,35 @@ Filters the intermediate output array in the `_latest-chapters.php` partial befo
 Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
+* $fictioneer_query_name (string) – `'latest_chapters'` or `'latest_chapters_compact'`
 * $post_type (string) – `'fcn_chapter'`
 * $post_status (string) – `'publish'`
-* $author_name (string|null) – `$args['author']`
+* $order (string) – `$args['order']`
+* $orderby (string) – `$args['orderby']`
+* $posts_per_page (int) – `$args['count'] + 8` (buffer for disabled posts)
 * $post__in (array) – `$args['post_ids']`
+* $author_name (string|null) – `$args['author']`
 * $category__not_in (array|null) – `$args['excluded_cats']`
 * $tag__not_in (array|null) – `$args['excluded_tags']`
 * $meta_key (string) – `'fictioneer_chapter_hidden'`
 * $meta_value (int) – `0`
-* $orderby (string) – `$args['orderby']`
-* $order (string) – `$args['order']`
-* $posts_per_page (int) – `$args['count']`
+* $tax_query (array|null) – `fictioneer_get_shortcode_tax_query( $args )`
 * $no_found_rows (boolean) – `true`
 * $update_post_term_cache (boolean) – `false`
 
 **$args:**
 * $simple (boolean) – Whether to render the simple variants. Default `false`.
-* $author (boolean|string) – The author provided by the shortcode. Default `false`.
-* $count (int) – The number of posts provided by the shortcode. Default `1`.
-* $orderby (string) – Optional. Default `'date'`.
-* $order (string) – Optional. Default `'DESC'`.
+* $count (int) – Maximum number of posts. Default `-1`.
+* $author (boolean|string) – Limit posts to a specific author. Default `false`.
+* $order (string) – Order argument. Default `'DESC'`.
+* $orderby (string) – Orderby argument. Default `'date'`.
 * $spoiler (boolean) – Optional. Show preview un-obfuscated. Default `false`.
 * $source (boolean) – Optional. Show chapter source story. Default `true`.
-* $post_ids (\[string]) – Array of post IDs. Default empty.
-* $ignore_protected (boolean) – Optional. Whether to ignore protected posts. Default `false`.
-* $excluded_cats (\[string]) – Array of category IDs to exclude. Default empty.
-* $excluded_tags (\[string]) – Array of tag IDs to exclude. Default empty.
-* $taxonomies (\[array]) – Array of taxonomy arrays (names). Default empty.
+* $post_ids (array) – Limit posts to specific post IDs. Default empty.
+* $excluded_tags (array) – Exclude specific tag names. Default empty.
+* $excluded_cats (array) – Exclude specific category names. Default empty.
+* $ignore_protected (boolean) – Whether to ignore protected posts. Default `false`.
+* $taxonomies (array) – Array of arrays of required taxonomy names. Default empty.
 * $relation (string) – Relationship between taxonomies. Default `'AND'`.
 * $classes (string) – String of additional CSS classes. Default empty.
 
