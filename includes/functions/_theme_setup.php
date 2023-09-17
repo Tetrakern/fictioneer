@@ -697,6 +697,22 @@ function fictioneer_enqueue_block_editor_scripts() {
 add_action( 'enqueue_block_editor_assets', 'fictioneer_enqueue_block_editor_scripts' );
 
 // =============================================================================
+// ADD SCRIPTS TO LOGIN HEAD
+// =============================================================================
+
+/**
+ * Print scripts to the wp-login-php
+ *
+ * @since 5.7.3
+ */
+
+function fictioneer_wp_login_scripts() {
+  // Clear web storage in preparation of login
+  echo "<script type='text/javascript'>localStorage.removeItem('fcnUserData'); localStorage.removeItem('fcnAuth');</script>";
+}
+add_action( 'login_head', 'fictioneer_wp_login_scripts' );
+
+// =============================================================================
 // LOAD TRANSLATIONS FOR JAVASCRIPT
 // =============================================================================
 

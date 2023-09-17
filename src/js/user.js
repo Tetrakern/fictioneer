@@ -169,7 +169,13 @@ function fcn_setUserData(data) {
  */
 
 function fcn_fetchUserData() {
-  const currentUserData = fcn_getUserData();
+  let currentUserData = fcn_getUserData();
+
+  // Fix wrong login state
+  if (fcn_isLoggedIn && currentUserData.loggedIn === false) {
+    fcn_prepareLogin(); // Remove outdated data from web storage
+    currentUserData = fcn_getUserData();
+  }
 
   // Only update from server after some time has passed (e.g. 60 seconds)
   if (fcn_ajaxLimitThreshold < currentUserData['lastLoaded'] || currentUserData.loggedIn === false) {
