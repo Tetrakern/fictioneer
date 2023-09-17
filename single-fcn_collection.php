@@ -41,6 +41,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
         // Prepare raw query (because meta query takes far too long)
         $raw_query_args = array (
+          'fictioneer_query_name' => 'collection_featured_raw',
           'post_type' => 'any',
           'post_status' => 'publish',
           'post__in' => fictioneer_rescue_array_zero( $featured_list ),
@@ -67,6 +68,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
         // Prepare paginated featured query
         $query_args = array (
+          'fictioneer_query_name' => 'collection_featured',
           'post_type' => 'any',
           'post__in' => fictioneer_rescue_array_zero( $featured_list ),
           'ignore_sticky_posts' => 1,

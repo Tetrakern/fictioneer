@@ -52,15 +52,6 @@ $query_args = array(
   'no_found_rows' => true
 );
 
-if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
-  $query_args['meta_key'] = 'fictioneer_story_sticky';
-
-  $query_args['orderby'] = array(
-    'fictioneer_story_sticky' => 'DESC',
-    $args['orderby'] => $args['order']
-  );
-}
-
 // Author?
 if ( ! empty( $args['author'] ) ) {
   $query_args['author_name'] = $args['author'];

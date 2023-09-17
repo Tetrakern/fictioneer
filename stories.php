@@ -46,15 +46,6 @@ $query_args = array (
   )
 );
 
-if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
-  $query_args['meta_key'] = 'fictioneer_story_sticky';
-
-  $query_args['orderby'] = array(
-    'fictioneer_story_sticky' => 'DESC',
-    $orderby => $order
-  );
-}
-
 // Append date query (if any)
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 

@@ -907,7 +907,6 @@ Filters the query arguments in the `fictioneer_latest_stories` shortcode. The op
   * $fictioneer_story_sticky – `'DESC'`
   * `$args['orderby']` – `$args['order']`
 * $posts_per_page (int) – `$args['count']`
-* $meta_key (string) – `'fictioneer_story_sticky'`
 * $meta_query (array)
   * $relation (string) – `'OR'`
   * (array)
@@ -1142,7 +1141,6 @@ Filters the arguments to query the stories in the `stories.php` template.
 * $orderby (array) – `'modified'`, `'date'`, `'title'`, or `'rand'`
 * $paged (int) – Current page number or `1`.
 * $posts_per_page (int) – `get_option( 'posts_per_page' )`
-* $meta_key (string) – `'fictioneer_story_sticky'`
 * $meta_query (array)
   * $relation (string) – `'OR'`
   * (array)

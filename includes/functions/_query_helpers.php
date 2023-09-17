@@ -208,4 +208,37 @@ function fictioneer_exclude_protected_posts( $where = '' ) {
   return $where;
 }
 
+// =============================================================================
+// STICKY STORIES
+// =============================================================================
+
+function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
+  global $wpdb;
+
+  // Setup
+  $vars = $wp_query->query_vars;
+  $allowed_queries = ['stories_list', 'latest_stories', 'latest_stories_compact', 'author_stories'];
+  $allowed_orderby = ['date', 'modified', 'title'];
+
+  // Return if wrong query
+  if (
+    ! in_array( $vars['fictioneer_query_name'] ?? 0 , $allowed_queries) ||
+    ! in_array( $vars['orderby'] ?? '', $allowed_orderby )
+  ) {
+    return $clauses;
+  }
+
+  // Update clauses to set missing meta key to 0
+  $clauses['join'] .= " LEFT JOIN $wpdb->postmeta AS m ON ($wpdb->posts.ID = m.post_id AND m.meta_key = 'fictioneer_story_sticky')";
+  $clauses['orderby'] = "COALESCE(m.meta_value+0, 0) DESC, " . $clauses['orderby'];
+  $clauses['groupby'] = "$wpdb->posts.ID";
+
+  // Pass to query
+  return $clauses;
+}
+
+if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
+  add_filter( 'posts_clauses', 'fictioneer_clause_sticky_stories', 10, 2 );
+}
+
 ?>
