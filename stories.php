@@ -9,6 +9,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 3.0
+ * @see fictioneer_clause_sticky_stories()
  */
 ?>
 

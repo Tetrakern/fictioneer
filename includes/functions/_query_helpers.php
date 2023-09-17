@@ -212,6 +212,17 @@ function fictioneer_exclude_protected_posts( $where = '' ) {
 // STICKY STORIES
 // =============================================================================
 
+/**
+ * Filter sticky stories to the top and account for missing meta fields
+ *
+ * @since 5.7.3
+ *
+ * @param array    $clauses   An associative array of WP Query SQL clauses.
+ * @param WP_Query $wp_query  The WP_Query instance.
+ *
+ * @return string The updated where statement.
+ */
+
 function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
   global $wpdb;
 
