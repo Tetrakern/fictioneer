@@ -37,8 +37,9 @@
 
   &__title {
     .sticky-pin {
-      font-size: 0.85em;
+      font-size: 0.8em;
       margin-right: 0.125em;
+      transform: translateY(-0.05em);
     }
 
     .protected-icon {
