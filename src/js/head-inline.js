@@ -51,6 +51,6 @@ if (_s && (_s = JSON.parse(_s))) {
   }
 }
 
-if (localStorage.getItem('lightmode')) {
-  _r.dataset.mode = localStorage.getItem('lightmode') == 'true' ? 'light' : '';
+if (localStorage.getItem('fcnLightmode')) {
+  _r.dataset.mode = localStorage.getItem('fcnLightmode') == 'true' ? 'light' : '';
 }
