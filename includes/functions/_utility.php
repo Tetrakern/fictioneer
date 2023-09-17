@@ -689,12 +689,15 @@ if ( ! function_exists( 'fictioneer_is_admin' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id  The user ID to check.
+   * @param int|null $user_id  The user ID to check. Default to current user ID.
    *
    * @return boolean To be or not to be.
    */
 
-  function fictioneer_is_admin( $user_id ) {
+  function fictioneer_is_admin( $user_id = null ) {
+    // Setup
+    $user_id = $user_id ? $user_id : get_current_user_id();
+
     // Abort conditions
     if ( ! $user_id ) {
       return false;
@@ -717,12 +720,15 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id  The user ID to check.
+   * @param int|null $user_id  The user ID to check. Default to current user ID.
    *
    * @return boolean To be or not to be.
    */
 
-  function fictioneer_is_author( $user_id ) {
+  function fictioneer_is_author( $user_id = null ) {
+    // Setup
+    $user_id = $user_id ? $user_id : get_current_user_id();
+
     // Abort conditions
     if ( ! $user_id ) {
       return false;
@@ -745,12 +751,15 @@ if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id  The user ID to check.
+   * @param int|null $user_id  The user ID to check. Default to current user ID.
    *
    * @return boolean To be or not to be.
    */
 
-  function fictioneer_is_moderator( $user_id ) {
+  function fictioneer_is_moderator( $user_id = null ) {
+    // Setup
+    $user_id = $user_id ? $user_id : get_current_user_id();
+
     // Abort conditions
     if ( ! $user_id ) {
       return false;
@@ -773,12 +782,15 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
    *
    * @since Fictioneer 5.0
    *
-   * @param int $user_id  The user ID to check.
+   * @param int|null $user_id  The user ID to check. Default to current user ID.
    *
    * @return boolean To be or not to be.
    */
 
-  function fictioneer_is_editor( $user_id ) {
+  function fictioneer_is_editor( $user_id = null ) {
+    // Setup
+    $user_id = $user_id ? $user_id : get_current_user_id();
+
     // Abort conditions
     if ( ! $user_id ) {
       return false;
