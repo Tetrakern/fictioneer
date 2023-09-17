@@ -24,7 +24,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
 
 ?>
 
-<div id="comments" class="fictioneer-comments" data-post-id="<?php echo get_the_ID(); ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>">
+<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo get_the_ID(); ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>">
 
   <?php
 
