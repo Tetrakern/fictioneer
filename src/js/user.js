@@ -49,10 +49,15 @@ function fcn_setProfileImage(avatar, save = true) {
     localStorage.setItem('fcnProfileAvatar', avatar);
   }
 
-  // replace user icon with avatar
+  // Replace user icon with avatar
   _$$('a.subscriber-profile')?.forEach(element => {
     fcn_replaceProfileImage(element, avatar);
   });
+
+  // Use opportunity to fix broken login state
+  if (fcn_getUserData().loggedIn === false) {
+    fcn_prepareLogin();
+  }
 }
 
 /**
@@ -171,7 +176,7 @@ function fcn_setUserData(data) {
 function fcn_fetchUserData() {
   let currentUserData = fcn_getUserData();
 
-  // Fix wrong login state
+  // Fix broken login state
   if (fcn_isLoggedIn && currentUserData.loggedIn === false) {
     fcn_prepareLogin(); // Remove outdated data from web storage
     currentUserData = fcn_getUserData();

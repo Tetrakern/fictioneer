@@ -191,6 +191,12 @@ function fcn_setupFollowsHTML() {
     if (response.data.html) {
       fcn_desktopFollowList.innerHTML = response.data.html;
       fcn_mobileFollowList.innerHTML = response.data.html;
+
+      // Use opportunity to fix broken login state
+      if (fcn_getUserData().loggedIn === false) {
+        fcn_prepareLogin();
+        fcn_fetchUserData();
+      }
     }
   })
   .catch(error => {

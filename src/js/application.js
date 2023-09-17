@@ -122,7 +122,7 @@ function fcn_cleanupGuestView() {
   _$$$('fictioneer-ajax-nonce')?.remove();
 
   _$$('.only-moderators, .only-admins, .only-authors, .only-editors, .chapter-group__list-item-checkmark').forEach(element => {
-    element.remove()
+    element.remove();
   });
 }
 
