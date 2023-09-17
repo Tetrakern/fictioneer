@@ -229,8 +229,16 @@ add_action( 'init', 'fictioneer_modify_allowed_tags', 20 );
  */
 
 function fictioneer_root_attributes() {
+  global $post;
+
+  // Setup
+  $post_author_id = ( $post instanceof WP_Post ) ? $post->post_author : 0;
   $output = [];
   $header_classes = [];
+
+  if ( is_archive() || is_search() || is_404() ) {
+    $post_author_id = 0;
+  }
 
   // Add configuration classes
   if ( get_theme_mod( 'inset_header_image', false ) ) {
@@ -261,6 +269,11 @@ function fictioneer_root_attributes() {
     if ( $condition ) {
       $output[ $key ] = is_bool( $condition ) ? '1' : $condition;
     }
+  }
+
+  // Fingerprint
+  if ( $post_author_id ) {
+    $output['data-author-fingerprint'] = fictioneer_get_user_fingerprint( $post_author_id );
   }
 
   // Filter output

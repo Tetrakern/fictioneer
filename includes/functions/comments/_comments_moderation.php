@@ -377,6 +377,42 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
 }
 
 // =============================================================================
+// CHECK USER COMMENT MODERATION PERMISSION
+// =============================================================================
+
+/**
+ * Checks whether an user can moderate a comment
+ *
+ * @since Fictioneer 5.7.3
+ *
+ * @param WP_Comment $comment  Comment object.
+ * @param int|null   $user_id  The user ID to check permission for. Defaults to
+ *                             the current user ID.
+ *
+ * @return boolean True if the user can moderate the comment, false otherwise.
+ */
+
+function fictioneer_user_can_moderate( $comment, $user_id = null ) {
+  // Capability?
+  $user_id = $user_id ? $user_id : get_current_user_id();
+
+  if ( user_can( $user_id, 'moderate_comments' ) ) {
+    return true;
+  }
+
+  // Post author?
+  $post = get_post( $comment->comment_post_ID );
+  $post_author_id = absint( $post->post_author );
+
+  if ( $post_author_id === get_current_user_id() ) {
+    return true;
+  }
+
+  // Nope!
+  return false;
+}
+
+// =============================================================================
 // RENDER COMMENT MODERATION MENU
 // =============================================================================
 
@@ -386,7 +422,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
    *
    * @since Fictioneer 4.7
    *
-   * @param object $comment  Comment object.
+   * @param WP_Comment $comment  Comment object.
    */
 
   function fictioneer_comment_mod_menu( $comment ) {
@@ -396,6 +432,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
     // Abort conditions...
     if (
       ! current_user_can( 'moderate_comments' ) &&
+      // TODO: ! fictioneer_user_can_moderate( $comment ) &&
       ! get_option( 'fictioneer_enable_public_cache_compatibility' )
     ) {
       return;

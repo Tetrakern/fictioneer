@@ -1,4 +1,14 @@
 // =============================================================================
+// CHECK IF USER IS POST AUTHOR (TODO)
+// =============================================================================
+
+// document.addEventListener('fcnUserDataReady', () => {
+//   if (fcn_getUserData().fingerprint == fcn_theRoot.dataset.authorFingerprint) {
+//     fcn_theBody.classList.add('is-post-author');
+//   }
+// });
+
+// =============================================================================
 // THEME COMMENTS JS TRAP
 // =============================================================================
 
@@ -69,7 +79,7 @@ function fcn_moderateComment(id, operation) {
     'operation': operation,
     'id': id
   })
-  .then((response) => {
+  .then(response => {
     if (response.success) {
       // Server action succeeded
       switch (response.data.operation) {
@@ -111,7 +121,7 @@ function fcn_moderateComment(id, operation) {
       }
     }
   })
-  .catch((error) => {
+  .catch(error => {
     // Server action failed, mark comment with alert
     menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
     menuToggleIcon.style.color = 'var(--warning)';
@@ -166,7 +176,10 @@ function fcn_addCommentMouseleaveEvents() {
     element.addEventListener(
       'mouseleave',
       e => {
-        if ( fcn_lastClicked ) fcn_lastClicked.classList.remove('last-clicked');
+        if (fcn_lastClicked) {
+          fcn_lastClicked.classList.remove('last-clicked');
+        }
+
         fcn_lastClicked = null;
         e.stopPropagation();
       }
@@ -189,7 +202,9 @@ fcn_addCommentMouseleaveEvents();
 
 function fcn_flagComment(source) {
   // Only if user is logged in
-  if (!fcn_isLoggedIn) return;
+  if (!fcn_isLoggedIn) {
+    return;
+  }
 
   // Setup
   const comment = source.closest('.fictioneer-comment'),
@@ -209,7 +224,7 @@ function fcn_flagComment(source) {
     'id': comment.dataset.id,
     'dubious': reportButton.classList.contains('_dubious')
   })
-  .then((response) => {
+  .then(response => {
     // Comment successfully reported?
     if (response.success) {
       reportButton.classList.toggle('on', response.data.flagged);
@@ -226,7 +241,7 @@ function fcn_flagComment(source) {
       }
     }
   })
-  .catch((error) => {
+  .catch(error => {
     // Show server error
     if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
@@ -267,7 +282,7 @@ function fcn_addCommentFormEvents() {
     event => {
       fcn_revealCommentFormInputs(event.currentTarget);
     },
-    {once: true}
+    { once: true }
   );
 }
 

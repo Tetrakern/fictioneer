@@ -29,7 +29,7 @@ body:not(.is-admin) {
   }
 }
 
-body:not(.is-moderator):not(.is-admin) {
+body:not(.is-moderator):not(.is-admin):not(.is-post-author) {
   .only-moderators {
     display: none;
   }
