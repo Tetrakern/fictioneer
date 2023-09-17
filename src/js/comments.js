@@ -1,12 +1,12 @@
 // =============================================================================
-// CHECK IF USER IS POST AUTHOR (TODO)
+// CHECK IF USER IS POST AUTHOR
 // =============================================================================
 
-// document.addEventListener('fcnUserDataReady', () => {
-//   if (fcn_getUserData().fingerprint == fcn_theRoot.dataset.authorFingerprint) {
-//     fcn_theBody.classList.add('is-post-author');
-//   }
-// });
+document.addEventListener('fcnUserDataReady', () => {
+  if (fcn_getUserData().fingerprint == fcn_theRoot.dataset.authorFingerprint) {
+    fcn_theBody.classList.add('is-post-author');
+  }
+});
 
 // =============================================================================
 // THEME COMMENTS JS TRAP

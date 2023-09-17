@@ -1,6 +1,47 @@
 <?php
 
 // =============================================================================
+// CHECK USER COMMENT MODERATION PERMISSION
+// =============================================================================
+
+/**
+ * Checks whether an user can moderate a comment
+ *
+ * @since Fictioneer 5.7.3
+ *
+ * @param WP_Comment $comment  Comment object.
+ * @param int|null   $user_id  The user ID to check permission for. Defaults to
+ *                             the current user ID.
+ *
+ * @return boolean True if the user can moderate the comment, false otherwise.
+ */
+
+function fictioneer_user_can_moderate( $comment, $user_id = null ) {
+  // Capability?
+  $user_id = $user_id ? $user_id : get_current_user_id();
+
+  if ( user_can( $user_id, 'moderate_comments' ) ) {
+    return true;
+  }
+
+  // Restricted?
+  if ( get_the_author_meta( 'fictioneer_admin_disable_post_moderation', get_current_user_id() ) ) {
+    return false;
+  }
+
+  // Post author?
+  $post = get_post( $comment->comment_post_ID );
+  $post_author_id = absint( $post->post_author );
+
+  if ( $post_author_id === get_current_user_id() ) {
+    return true;
+  }
+
+  // Nope!
+  return false;
+}
+
+// =============================================================================
 // ADD PRIVATE TYPE TO FILTER
 // =============================================================================
 
@@ -377,42 +418,6 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
 }
 
 // =============================================================================
-// CHECK USER COMMENT MODERATION PERMISSION
-// =============================================================================
-
-/**
- * Checks whether an user can moderate a comment
- *
- * @since Fictioneer 5.7.3
- *
- * @param WP_Comment $comment  Comment object.
- * @param int|null   $user_id  The user ID to check permission for. Defaults to
- *                             the current user ID.
- *
- * @return boolean True if the user can moderate the comment, false otherwise.
- */
-
-function fictioneer_user_can_moderate( $comment, $user_id = null ) {
-  // Capability?
-  $user_id = $user_id ? $user_id : get_current_user_id();
-
-  if ( user_can( $user_id, 'moderate_comments' ) ) {
-    return true;
-  }
-
-  // Post author?
-  $post = get_post( $comment->comment_post_ID );
-  $post_author_id = absint( $post->post_author );
-
-  if ( $post_author_id === get_current_user_id() ) {
-    return true;
-  }
-
-  // Nope!
-  return false;
-}
-
-// =============================================================================
 // RENDER COMMENT MODERATION MENU
 // =============================================================================
 
@@ -428,11 +433,12 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
   function fictioneer_comment_mod_menu( $comment ) {
     // Setup
     $comment_id = $comment->comment_ID;
+    $user_can_moderate = fictioneer_user_can_moderate( $comment );
 
     // Abort conditions...
     if (
       ! current_user_can( 'moderate_comments' ) &&
-      // TODO: ! fictioneer_user_can_moderate( $comment ) &&
+      ! $user_can_moderate &&
       ! get_option( 'fictioneer_enable_public_cache_compatibility' )
     ) {
       return;
@@ -529,10 +535,6 @@ function fictioneer_ajax_moderate_comment() {
     wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 
-  if ( ! current_user_can( 'moderate_comments' ) ) {
-    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
-  }
-
   $comment_id = isset( $_POST['id'] ) ? fictioneer_validate_id( $_POST['id'] ) : false;
 
   if ( empty( $_POST['operation'] ) || ! $comment_id ) {
@@ -549,6 +551,15 @@ function fictioneer_ajax_moderate_comment() {
 
   if ( ! $comment ) {
     wp_send_json_error( array( 'error' => __( 'Comment not found in database.', 'fictioneer' ) ) );
+  }
+
+  // Capabilities?
+  if ( ! fictioneer_user_can_moderate( $comment ) ) {
+    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
+  }
+
+  if ( $operation === 'trash' &&  ! current_user_can( 'moderate_comments' ) ) {
+    wp_send_json_error( array( 'error' => __( 'Permission denied!', 'fictioneer' ) ) );
   }
 
   // Process and update

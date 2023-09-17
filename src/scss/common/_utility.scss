@@ -35,6 +35,12 @@ body:not(.is-moderator):not(.is-admin):not(.is-post-author) {
   }
 }
 
+body:not(.is-moderator):not(.is-admin) {
+  :is(.comment-edit-link, .button-ajax-moderate-comment[data-action="trash"]) {
+    display: none;
+  }
+}
+
 body:not(.is-author):not(.is-admin) {
   .only-authors {
     display: none;
