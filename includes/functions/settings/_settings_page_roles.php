@@ -59,6 +59,7 @@ $advanced_caps = array(
 );
 
 $admin_caps = array(
+  'moderate_comments',
   'fcn_privacy_clearance',
   'fcn_read_others_files',
   'fcn_edit_others_files',

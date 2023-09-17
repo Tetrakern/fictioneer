@@ -640,7 +640,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( ! current_user_can( 'moderate_comments' ) ) {
     add_action( 'admin_menu', 'fictioneer_remove_comments_menu_page' );
-    add_action( 'admin_bar_menu', 'fictioneer_remove_comments_from_admin_bar' );
+    add_action( 'wp_before_admin_bar_render', 'fictioneer_remove_comments_from_admin_bar' );
     add_action( 'current_screen', 'fictioneer_restrict_comment_edit' );
     add_filter( 'manage_posts_columns', 'fictioneer_remove_comments_column' );
     add_filter( 'manage_pages_columns', 'fictioneer_remove_comments_column' );
@@ -678,6 +678,40 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_edit_only_others_comments' ) ) {
     add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 10, 3 );
+  }
+
+  /**
+   * Restrict comment editing
+   *
+   * @since Fictioneer 5.7.3
+   *
+   * @param array  $caps     Primitive capabilities required of the user.
+   * @param string $cap      Capability being checked.
+   * @param int    $user_id  The user ID.
+   *
+   * @return array The still allowed primitive capabilities of the user.
+   */
+
+  function fictioneer_edit_comments( $caps, $cap, $user_id ) {
+    // Skip unrelated capabilities
+    if ( $cap !== 'edit_comment' ) {
+      return $caps;
+    }
+
+    // Get user
+    $user = get_userdata( $user_id );
+
+    // Check capabilities
+    if ( $user && $user->has_cap( 'moderate_comments' ) ) {
+      return $caps;
+    }
+
+    // Disallow
+    return ['do_not_allow'];
+  }
+
+  if ( ! current_user_can( 'moderate_comments' ) ) {
+    add_filter( 'map_meta_cap', 'fictioneer_edit_comments', 10, 3 );
   }
 
   // === MANAGE_OPTIONS ========================================================
