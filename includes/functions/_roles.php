@@ -1093,7 +1093,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'get_comment_author_IP', '__return_empty_string' );
     add_filter( 'manage_users_columns', 'fictioneer_hide_users_columns' );
     add_filter( 'comment_row_actions', 'fictioneer_remove_quick_edit' );
-    add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data' );
+    add_action( 'admin_enqueue_scripts', 'fictioneer_hide_private_data', 20 );
   }
 
   // === FCN_REDUCED_PROFILE ===================================================
