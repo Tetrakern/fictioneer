@@ -24,6 +24,11 @@ function fictioneer_user_can_moderate( $comment, $user_id = null ) {
     return true;
   }
 
+  // AJAX comments enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
+    return false;
+  }
+
   // Restricted?
   if ( get_the_author_meta( 'fictioneer_admin_disable_post_moderation', get_current_user_id() ) ) {
     return false;
@@ -33,7 +38,7 @@ function fictioneer_user_can_moderate( $comment, $user_id = null ) {
   $post = get_post( $comment->comment_post_ID );
   $post_author_id = absint( $post->post_author );
 
-  if ( $post_author_id === get_current_user_id() ) {
+  if ( $post_author_id === get_current_user_id() && current_user_can( 'fcn_moderate_post_comments' ) ) {
     return true;
   }
 

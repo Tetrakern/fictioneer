@@ -25,7 +25,8 @@ define(
     'fcn_edit_permalink',
     'fcn_all_blocks',
     'fcn_story_pages',
-    'fcn_edit_date'
+    'fcn_edit_date',
+    'fcn_moderate_post_comments'
 	)
 );
 
