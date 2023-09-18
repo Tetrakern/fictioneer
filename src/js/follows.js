@@ -232,7 +232,9 @@ function fcn_markFollowsRead() {
   if (
     !fcn_followsMenuItem.classList.contains('_new') ||
     !fcn_followsMenuItem.classList.contains('_loaded')
-  ) return;
+  ) {
+    return;
+  }
 
   // Remove the 'new' markers
   _$$('.mark-follows-read, .follows-alert-number, .follow-item, .mobile-menu-button').forEach(element => {

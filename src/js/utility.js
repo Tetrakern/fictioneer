@@ -418,7 +418,9 @@ var /** @const {Map} */ fcn_animFrameEvents = new Map();
 
 function fcn_bindEventToAnimationFrame(type, name, obj = window) {
   var func = function() {
-    if (fcn_animFrameEvents.get(name)) return;
+    if (fcn_animFrameEvents.get(name)) {
+      return;
+    }
 
     fcn_animFrameEvents.set(name, true);
 
@@ -482,7 +484,9 @@ _$('body').addEventListener(
     if (
       (!['BUTTON', 'A'].includes(e.target.tagName) && e.target.closest('.toggle-last-clicked')) ||
       e.target.closest('.escape-last-click') !== null
-    ) return;
+    ) {
+      return;
+    }
 
     if (fcn_lastClicked && e.currentTarget != fcn_lastClicked) {
       fcn_removeLastClick(fcn_lastClicked);

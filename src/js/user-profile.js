@@ -28,7 +28,9 @@ function fcn_unsetOauth(nonce, channel, id) {
   if (
     !confirm ||
     confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
-  ) return;
+  ) {
+    return;
+  }
 
   const connection = _$$$(`oauth-${channel}`);
 
@@ -99,7 +101,9 @@ _$$('.button-unset-oauth').forEach(element => {
  */
 
 function fcn_deleteMyAccount(button) {
-  if (_$$$('button-delete-my-account').hasAttribute('disabled')) return;
+  if (_$$$('button-delete-my-account').hasAttribute('disabled')) {
+    return;
+  }
 
   const confirm = prompt(
     sprintf(
@@ -111,7 +115,9 @@ function fcn_deleteMyAccount(button) {
   if (
     !confirm ||
     confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
-  ) return;
+  ) {
+    return;
+  }
 
   // Disable button
   _$$$('button-delete-my-account').setAttribute('disabled', true);

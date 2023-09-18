@@ -90,10 +90,9 @@ function fcn_touchParagraph(e) {
   }
 
   // Ignore paragraphs with special classes
-  if (
-    e.target.closest('.hidden') ||
-    e.target.closest('.inside-epub')
-  ) return;
+  if (e.target.closest('.hidden') || e.target.closest('.inside-epub')) {
+    return;
+  }
 
   // Text selection in progress
   if (window.getSelection().toString() != '') {
@@ -954,8 +953,8 @@ fcn_updateSiteWidth(fcn_formatting['site-width'], false);
 
 function fcn_updateIndent(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        cb = _$$$('reader-settings-indent-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const cb = _$$$('reader-settings-indent-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -998,8 +997,8 @@ fcn_updateIndent(fcn_formatting['indent'], false);
 
 function fcn_updateJustify(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        cb = _$$$('reader-settings-justify-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const cb = _$$$('reader-settings-justify-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -1042,8 +1041,8 @@ fcn_updateJustify(fcn_formatting['justify'], false);
 
 function fcn_updateParagraphTools(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        cb = _$$$('reader-settings-paragraph-tools-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const cb = _$$$('reader-settings-paragraph-tools-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -1083,9 +1082,9 @@ fcn_updateParagraphTools(fcn_formatting['show-paragraph-tools'], false);
 
 function fcn_updateSensitiveContent(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        sensitiveToggle = _$$$('inline-sensitive-content-toggle'),
-        cb = _$$$('reader-settings-sensitive-content-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const sensitiveToggle = _$$$('inline-sensitive-content-toggle');
+  const cb = _$$$('reader-settings-sensitive-content-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -1134,8 +1133,8 @@ fcn_updateSensitiveContent(fcn_formatting['show-sensitive-content'], false);
 
 function fcn_updateChapterNotes(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        cb = _$$$('reader-settings-chapter-notes-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const cb = _$$$('reader-settings-chapter-notes-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -1150,7 +1149,10 @@ function fcn_updateChapterNotes(value, save = true) {
 
   // Update local storage
   fcn_formatting['show-chapter-notes'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
+
+  if (save) {
+    fcn_setFormatting(fcn_formatting);
+  }
 }
 
 // Listen for click on justify toggle
@@ -1167,8 +1169,8 @@ fcn_updateChapterNotes(fcn_formatting['show-chapter-notes'], false);
 
 function fcn_updateCommentSection(value, save = true) {
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true),
-        cb = _$$$('reader-settings-comments-toggle');
+  const boolean = fcn_evaluateAsBoolean(value, true);
+  const cb = _$$$('reader-settings-comments-toggle');
 
   // Update associated checkbox
   if (cb) {
@@ -1238,16 +1240,15 @@ function fcn_trackProgress() {
 
 function fcn_readingProgress() {
   // Do nothing if minimal is enabled or the progress bar disabled
-  if (
-    fcn_settingMinimal.checked ||
-    !fcn_settingChapterProgressBar.checked
-  ) return;
+  if (fcn_settingMinimal.checked || !fcn_settingChapterProgressBar.checked) {
+    return;
+  }
 
   // Setup
-  const rect = fcn_chapterContent.getBoundingClientRect(),
-        height = rect.height,
-        viewPortHeight = window.innerHeight,
-        w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight / 2);
+  const rect = fcn_chapterContent.getBoundingClientRect();
+  const height = rect.height;
+  const viewPortHeight = window.innerHeight;
+  const w = (height - rect.bottom - Math.max(rect.top, 0) + viewPortHeight / 2);
 
   let p = 100 * w / height;
 

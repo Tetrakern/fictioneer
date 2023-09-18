@@ -1232,7 +1232,9 @@ fcn_updateThemeColor();
  */
 
 function fcn_jumpPage(source) {
-  if (fcn_theRoot.dataset.disablePageJump) return;
+  if (fcn_theRoot.dataset.disablePageJump) {
+    return;
+  }
 
   const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
@@ -1913,13 +1915,17 @@ function fcn_popupPosition() {
   // Look for technically open popup menus...
   _$$('.popup-menu-toggle.last-clicked .popup-menu:not(._fixed-position)').forEach(element => {
     // Visible?
-    if (window.getComputedStyle(element).display === 'none') return;
+    if (window.getComputedStyle(element).display === 'none') {
+      return;
+    }
 
     // Collision with screen borders?
     const collision = fcn_detectScreenCollision(element);
 
     // No collisions
-    if (collision && collision.length === 0) return;
+    if (collision && collision.length === 0) {
+      return;
+    }
 
     // Top/Bottom?
     if (collision.includes('top')) {

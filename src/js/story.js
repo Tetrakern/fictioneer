@@ -60,7 +60,9 @@ function fcn_defaultStorySettings() {
 
 function fcn_setStorySettings(settings) {
   // Simple validation
-  if (typeof settings !== 'object') return;
+  if (typeof settings !== 'object') {
+    return;
+  }
 
   // Keep global updated
   fcn_storySettings = settings;
@@ -77,7 +79,9 @@ function fcn_setStorySettings(settings) {
 
 function fcn_applyStorySettings() {
   // Simple validation
-  if (typeof fcn_storySettings !== 'object') return;
+  if (typeof fcn_storySettings !== 'object') {
+    return;
+  }
 
   // List view
   _$$('[data-view]').forEach(element => {
@@ -237,7 +241,7 @@ _$('.comment-section')?.addEventListener('click', event => {
  */
 
 function fcn_startEpubDownload(link, times = 0) {
-  if ( times > 3 ) {
+  if (times > 3) {
     link.classList.remove('ajax-in-progress')
     return;
   }
