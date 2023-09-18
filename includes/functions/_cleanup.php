@@ -78,6 +78,7 @@ function fictioneer_theme_deactivation() {
       delete_user_meta( $user->ID, 'fictioneer_admin_disable_renaming' );
       delete_user_meta( $user->ID, 'fictioneer_admin_disable_commenting' );
       delete_user_meta( $user->ID, 'fictioneer_admin_disable_comment_editing' );
+      delete_user_meta( $user->ID, 'fictioneer_admin_disable_post_comment_moderation' );
       delete_user_meta( $user->ID, 'fictioneer_admin_disable_comment_notifications' );
       delete_user_meta( $user->ID, 'fictioneer_admin_always_moderate_comments' );
       delete_user_meta( $user->ID, 'fictioneer_admin_moderation_message' );

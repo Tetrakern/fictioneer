@@ -160,6 +160,13 @@ function fictioneer_update_admin_user_profile( $updated_user_id ) {
       isset( $_POST['fictioneer_admin_disable_comment_editing'] )
     );
 
+    // Disable post comment moderation capability checkbox
+    update_user_meta(
+      $updated_user_id,
+      'fictioneer_admin_disable_post_comment_moderation',
+      isset( $_POST['fictioneer_admin_disable_post_comment_moderation'] )
+    );
+
     // Disable comment notification capability checkbox
     update_user_meta(
       $updated_user_id,

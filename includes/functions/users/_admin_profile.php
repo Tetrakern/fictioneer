@@ -725,6 +725,12 @@ function fictioneer_admin_profile_moderation( $profile_user ) {
           </label>
         </div>
         <div>
+          <label for="fictioneer_admin_disable_post_comment_moderation" class="checkbox-group">
+            <input name="fictioneer_admin_disable_post_comment_moderation" type="checkbox" id="fictioneer_admin_disable_post_comment_moderation" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_post_comment_moderation', $profile_user->ID ), false ); ?> value="1">
+            <span><?php _e( 'Disable post comment moderation capability', 'fictioneer' ); ?></span>
+          </label>
+        </div>
+        <div>
           <label for="fictioneer_admin_disable_comment_notifications" class="checkbox-group">
             <input name="fictioneer_admin_disable_comment_notifications" type="checkbox" id="fictioneer_admin_disable_comment_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_notifications', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ); ?></span>

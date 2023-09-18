@@ -30,7 +30,7 @@ function fictioneer_user_can_moderate( $comment, $user_id = null ) {
   }
 
   // Restricted?
-  if ( get_the_author_meta( 'fictioneer_admin_disable_post_moderation', get_current_user_id() ) ) {
+  if ( get_the_author_meta( 'fictioneer_admin_disable_post_comment_moderation', get_current_user_id() ) ) {
     return false;
   }
 
