@@ -422,7 +422,7 @@ Renders a two-column grid of paginated medium cards ordered by publishing date, 
 [fictioneer_article_cards post_type="story, chapter" count="8" ignore_protected="1"]
 ```
 
-![Bookmarks](repo/assets/shortcode_example_article_cards.jpg?raw=true)
+![Article Cards](repo/assets/shortcode_example_article_cards.jpg?raw=true)
 
 ### Blog
 
