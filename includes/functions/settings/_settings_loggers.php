@@ -140,7 +140,9 @@ function fictioneer_log_post_update( $post_id, $action ) {
 
 function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
 	// Abort if...
-	if ( ! is_null( $old_value ) && $old_value === $value ) return;
+	if ( ! is_null( $old_value ) && $old_value === $value ) {
+    return;
+  }
 
 	// Build message
   $update = sprintf(
@@ -164,7 +166,9 @@ function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
 
 function fictioneer_settings_checkbox_added( $option, $value ) {
   // Abort if...
-  if ( ! in_array( $option, array_keys( FICTIONEER_OPTIONS['booleans'] ) ) ) return;
+  if ( ! in_array( $option, array_keys( FICTIONEER_OPTIONS['booleans'] ) ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_checkbox_update(
@@ -187,7 +191,9 @@ add_action( 'added_option', 'fictioneer_settings_checkbox_added', 10, 2 );
 
 function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
   // Abort if...
-  if ( ! in_array( $option, array_keys( FICTIONEER_OPTIONS['booleans'] ) ) ) return;
+  if ( ! in_array( $option, array_keys( FICTIONEER_OPTIONS['booleans'] ) ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_checkbox_update(
@@ -227,7 +233,9 @@ define(
 
 function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
 	// Abort if...
-	if ( ! is_null( $old_value ) && $old_value === $value ) return;
+	if ( ! is_null( $old_value ) && $old_value === $value ) {
+    return;
+  }
 
 	// Build message
   $message = sprintf(
@@ -256,7 +264,9 @@ function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
 
 function fictioneer_settings_page_assignment_added( $option, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_PAGE_ASSIGNMENTS ) ) return;
+  if ( ! in_array( $option, FICTIONEER_PAGE_ASSIGNMENTS ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_page_assignment_update(
@@ -279,7 +289,9 @@ add_action( 'added_option', 'fictioneer_settings_page_assignment_added', 10, 2 )
 
 function fictioneer_settings_page_assignment_updated( $option, $old_value, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_PAGE_ASSIGNMENTS ) ) return;
+  if ( ! in_array( $option, FICTIONEER_PAGE_ASSIGNMENTS ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_page_assignment_update(
@@ -316,7 +328,9 @@ define(
 
 function fictioneer_log_phrase_update( $option, $old_value, $value ) {
 	// Abort if...
-  if ( ! is_null( $old_value ) && $old_value === $value ) return;
+  if ( ! is_null( $old_value ) && $old_value === $value ) {
+    return;
+  }
 
 	// Build message
   $message = sprintf(
@@ -344,7 +358,9 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
 
 function fictioneer_settings_phrase_added( $option, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_PHRASES ) ) return;
+  if ( ! in_array( $option, FICTIONEER_PHRASES ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_phrase_update(
@@ -367,7 +383,9 @@ add_action( 'added_option', 'fictioneer_settings_phrase_added', 10, 2 );
 
 function fictioneer_settings_phrase_updated( $option, $old_value, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_PHRASES ) ) return;
+  if ( ! in_array( $option, FICTIONEER_PHRASES ) ) {
+    return;
+  }
 
   // Replay
   fictioneer_log_phrase_update(
@@ -410,7 +428,9 @@ define(
 
 function fictioneer_log_connection_update( $connection, $old_value, $value ) {
 	// Abort if...
-  if ( ! is_null( $old_value ) && $old_value === $value ) return;
+  if ( ! is_null( $old_value ) && $old_value === $value ) {
+    return;
+  }
 
 	// Build message
   $message = sprintf(
@@ -437,7 +457,9 @@ function fictioneer_log_connection_update( $connection, $old_value, $value ) {
 
 function fictioneer_settings_connection_added( $option, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_CONNECTIONS ) ) return;
+  if ( ! in_array( $option, FICTIONEER_CONNECTIONS ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_connection_update(
@@ -460,7 +482,9 @@ add_action( 'added_option', 'fictioneer_settings_connection_added', 10, 2 );
 
 function fictioneer_settings_connection_updated( $option, $old_value, $value ) {
   // Abort if...
-  if ( ! in_array( $option, FICTIONEER_CONNECTIONS ) ) return;
+  if ( ! in_array( $option, FICTIONEER_CONNECTIONS ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_connection_update(
@@ -578,7 +602,9 @@ function fictioneer_log_deleted_posts( $post_id ) {
   $allowed_post_types = ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection', 'post', 'page'];
 
   // Only log certain post types
-  if ( ! in_array( $post_type, $allowed_post_types ) ) return;
+  if ( ! in_array( $post_type, $allowed_post_types ) ) {
+    return;
+  }
 
   // Relay
   fictioneer_log_post_update( $post_id, __( 'deleted', 'fictioneer' ) );

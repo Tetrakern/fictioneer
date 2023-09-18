@@ -108,7 +108,9 @@ function fictioneer_collection_tags_and_warnings( $args ) {
   $warnings_shown = $warnings && ! get_option( 'fictioneer_hide_content_warnings_on_pages' );
 
   // Abort conditions...
-  if ( ! $tags_shown && ! $warnings_shown ) return;
+  if ( ! $tags_shown && ! $warnings_shown ) {
+    return;
+  }
 
   // Prepare
   $tag_args = [];
@@ -143,7 +145,9 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_tags_a
 
 function fictioneer_collection_statistics( $args ) {
   // Abort if...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Render template
   get_template_part( 'partials/_collection-statistics', null, $args );
@@ -170,7 +174,9 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_statis
 
 function fictioneer_collection_featured_list( $args ) {
   // Abort if...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <section class="collection__list spacing-top">

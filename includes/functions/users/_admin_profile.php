@@ -290,7 +290,9 @@ function fictioneer_admin_profile_fields_fingerprint( $profile_user ) {
   $sender_is_owner = $profile_user->ID === get_current_user_id();
 
   // Guard
-  if ( ! $sender_is_admin && ! $sender_is_owner ) return;
+  if ( ! $sender_is_admin && ! $sender_is_owner ) {
+    return;
+  }
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-fingerprint-wrap">
@@ -323,7 +325,9 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
   $sender_is_owner = $profile_user->ID === get_current_user_id();
 
   // Guard
-  if ( ! $sender_is_admin && ! $sender_is_owner ) return;
+  if ( ! $sender_is_admin && ! $sender_is_owner ) {
+    return;
+  }
 
   // Continue setup
   $always_gravatar = get_the_author_meta( 'fictioneer_enforce_gravatar', $profile_user->ID ) ?: false;
@@ -435,7 +439,9 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
   $confirmation_string = _x( 'delete', 'Prompt confirm deletion string.', 'fictioneer' );
 
   // Guard (only profile owner)
-  if ( ! $sender_is_owner ) return;
+  if ( ! $sender_is_owner ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <tr class="user-fictioneer-oauth-wrap">
@@ -604,7 +610,9 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
   }
 
   // Guard (only profile owner)
-  if ( ! $sender_is_owner ) return;
+  if ( ! $sender_is_owner ) {
+    return;
+  }
 
   // --- Start HTML ---> ?>
   <tr class="user-fictioneer-data-wrap">
@@ -687,7 +695,9 @@ function fictioneer_admin_profile_moderation( $profile_user ) {
   $editing_user_is_moderator = fictioneer_is_moderator( get_current_user_id() );
 
   // Abort conditions...
-  if ( ! $editing_user_is_admin && ! $editing_user_is_moderator ) return;
+  if ( ! $editing_user_is_admin && ! $editing_user_is_moderator ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <tr class="user-moderation-flags-wrap">
@@ -776,8 +786,13 @@ function fictioneer_admin_profile_author( $profile_user ) {
   $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
   // Abort conditions...
-  if ( ! $profile_user_is_author ) return;
-  if ( ! $is_owner && ! $editing_user_is_admin ) return;
+  if ( ! $profile_user_is_author ) {
+    return;
+  }
+
+  if ( ! $is_owner && ! $editing_user_is_admin ) {
+    return;
+  }
 
   // Has pages?
   $profile_user_has_pages = get_pages(
@@ -864,7 +879,9 @@ function fictioneer_admin_profile_oauth( $profile_user ) {
   $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
   // Abort conditions...
-  if ( ! $editing_user_is_admin || ! get_option( 'fictioneer_enable_oauth' ) ) return;
+  if ( ! $editing_user_is_admin || ! get_option( 'fictioneer_enable_oauth' ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <tr class="user-oauth-connections-wrap">
@@ -910,7 +927,9 @@ function fictioneer_admin_profile_badge( $profile_user ) {
   $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
   // Abort conditions...
-  if ( ! $editing_user_is_admin ) return;
+  if ( ! $editing_user_is_admin ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <tr class="user-badge-override-wrap">
@@ -942,7 +961,9 @@ function fictioneer_admin_profile_external_avatar( $profile_user ) {
   $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
 
   // Abort conditions...
-  if ( ! $editing_user_is_admin ) return;
+  if ( ! $editing_user_is_admin ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <tr class="user-external-avatar-wrap">

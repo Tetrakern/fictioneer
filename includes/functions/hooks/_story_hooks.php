@@ -168,7 +168,9 @@ function fictioneer_story_copyright_notice( $args ) {
   $copyright_notice = fictioneer_get_field( 'fictioneer_story_copyright_notice', $args['story_id'] );
 
   // Abort conditions...
-  if ( empty( $copyright_notice ) ) return;
+  if ( empty( $copyright_notice ) ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <section class="story__copyright-notice padding-left padding-right">
@@ -195,12 +197,21 @@ function fictioneer_story_tags_and_warnings( $args ) {
   // Abort conditions...
   $tags_shown = $args['story_data']['tags'] && ! get_option( 'fictioneer_hide_tags_on_pages' ) && ! fictioneer_get_field( 'fictioneer_story_no_tags' );;
   $warnings_shown = $args['story_data']['warnings'] && ! get_option( 'fictioneer_hide_content_warnings_on_pages' );
-  if ( ! $tags_shown && ! $warnings_shown ) return;
+
+  if ( ! $tags_shown && ! $warnings_shown ) {
+    return;
+  }
 
   // Setup
   $tag_args = [];
-  if ( $tags_shown ) $tag_args[] = $args['story_data']['tags'];
-  if ( $warnings_shown ) $tag_args[] = $args['story_data']['warnings'];
+
+  if ( $tags_shown ) {
+    $tag_args[] = $args['story_data']['tags'];
+  }
+
+  if ( $warnings_shown ) {
+    $tag_args[] = $args['story_data']['warnings'];
+  }
 
   // Start HTML ---> ?>
   <section class="story__tags-and-warnings tag-group padding-left padding-right"><?php
@@ -225,7 +236,9 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tags_and_warning
 
 function fictioneer_story_actions( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Start HTML ---> ?>
   <section class="story__after-summary padding-left padding-right">
@@ -251,7 +264,9 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 
 function fictioneer_story_content( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Render partial
   get_template_part( 'partials/_story-content', null, $args );
@@ -273,7 +288,9 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_content', 40 );
 
 function fictioneer_story_comment( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) return;
+  if ( post_password_required() ) {
+    return;
+  }
 
   // Render partial
   get_template_part( 'partials/_story-comments', null, $args );
