@@ -279,23 +279,23 @@ function fictioneer_edit_comment( $comment_id ) {
   $comment = get_comment( $comment_id );
 
   // Always evaluate because checkboxes can be deselected (and thus be empty)
-  $is_sticky = fictioneer_sanitize_checkbox_by_key( 'fictioneer_sticky' );
-  $is_closed = fictioneer_sanitize_checkbox_by_key( 'fictioneer_thread_closed' );
-  $is_offensive = fictioneer_sanitize_checkbox_by_key( 'fictioneer_marked_offensive' );
-  $ignores_reports = fictioneer_sanitize_checkbox_by_key( 'fictioneer_ignore_reports' );
-  $disable_avatar = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_avatar' );
-  $disable_reports = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_reporting' );
-  $disable_renaming = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_renaming' );
-  $disable_commenting = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_commenting' );
-  $disable_editing = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_comment_editing' );
-  $disable_notifications = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_comment_notifications' );
-  $hold_comments = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_always_moderate_comments' );
+  $is_sticky = fictioneer_sanitize_checkbox( $_POST['fictioneer_sticky'] ?? 0 );
+  $is_closed = fictioneer_sanitize_checkbox( $_POST['fictioneer_thread_closed'] ?? 0 );
+  $is_offensive = fictioneer_sanitize_checkbox( $_POST['fictioneer_marked_offensive'] ?? 0 );
+  $ignores_reports = fictioneer_sanitize_checkbox( $_POST['fictioneer_ignore_reports'] ?? 0 );
+  $disable_avatar = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_avatar'] ?? 0 );
+  $disable_reports = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_reporting'] ?? 0 );
+  $disable_renaming = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_renaming'] ?? 0 );
+  $disable_commenting = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_commenting'] ?? 0 );
+  $disable_editing = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_comment_editing'] ?? 0 );
+  $disable_notifications = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_disable_comment_notifications'] ?? 0 );
+  $hold_comments = fictioneer_sanitize_checkbox( $_POST['fictioneer_admin_always_moderate_comments'] ?? 0 );
 
   // Save to database
-  update_comment_meta( $comment_id, 'fictioneer_sticky', $is_sticky );
-  update_comment_meta( $comment_id, 'fictioneer_thread_closed', $is_closed );
-  update_comment_meta( $comment_id, 'fictioneer_marked_offensive', $is_offensive );
-  update_comment_meta( $comment_id, 'fictioneer_ignore_reports', $ignores_reports );
+  fictioneer_update_comment_meta( $comment_id, 'fictioneer_sticky', $is_sticky );
+  fictioneer_update_comment_meta( $comment_id, 'fictioneer_thread_closed', $is_closed );
+  fictioneer_update_comment_meta( $comment_id, 'fictioneer_marked_offensive', $is_offensive );
+  fictioneer_update_comment_meta( $comment_id, 'fictioneer_ignore_reports', $ignores_reports );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_avatar', $disable_avatar );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_reporting', $disable_reports );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_renaming', $disable_renaming );
@@ -349,7 +349,7 @@ function fictioneer_track_comment_edit( $data, $comment ) {
   remove_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10 );
 
   // Update stack
-  update_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', $edit_stack );
+  fictioneer_update_comment_meta( $comment['comment_ID'], 'fictioneer_user_edit_stack', $edit_stack );
 
   // Restore filter
   add_filter( 'wp_update_comment_data', 'fictioneer_track_comment_edit', 10, 2 );
@@ -584,10 +584,10 @@ function fictioneer_ajax_moderate_comment() {
       $result = wp_set_comment_status( $comment_id, 'hold' );
       break;
     case 'close':
-      $result = update_comment_meta( $comment_id, 'fictioneer_thread_closed', true );
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_thread_closed', true );
       break;
     case 'open':
-      $result = update_comment_meta( $comment_id, 'fictioneer_thread_closed', false );
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_thread_closed', false );
       break;
     case 'sticky':
       if ( $comment->comment_parent ) {
@@ -598,10 +598,10 @@ function fictioneer_ajax_moderate_comment() {
         wp_send_json_error( ['error' => __( 'Deleted comments cannot be sticky.', 'fictioneer' )] );
         break;
       }
-      $result = update_comment_meta( $comment_id, 'fictioneer_sticky', true );
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_sticky', true );
       break;
     case 'unsticky':
-      $result = update_comment_meta( $comment_id, 'fictioneer_sticky', false );
+      $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_sticky', false );
       break;
   }
 
@@ -696,7 +696,7 @@ function fictioneer_ajax_report_comment() {
   }
 
   // Update comment meta
-  $result = update_comment_meta( $comment_id, 'fictioneer_user_reports', $reports );
+  $result = fictioneer_update_comment_meta( $comment_id, 'fictioneer_user_reports', $reports );
 
   if ( ! $result ) {
     wp_send_json_error( ['error' => __( 'Database error. Report could not be saved.', 'fictioneer' )] );
@@ -707,7 +707,7 @@ function fictioneer_ajax_report_comment() {
 
   if ( empty( $auto_moderation ) && count( $reports ) >= get_option( 'fictioneer_comment_report_threshold', 10 ) ) {
     // Only ever auto-moderate once!
-    update_comment_meta( $comment_id, 'fictioneer_auto_moderation', time() );
+    fictioneer_update_comment_meta( $comment_id, 'fictioneer_auto_moderation', time() );
 
     // Set back to hold
     wp_set_comment_status( $comment_id, 'hold' );

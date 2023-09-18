@@ -759,7 +759,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
         )
       );
 
-      $result_two = update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
+      $result_two = fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
 
       // Keep track of updated comments
       if ( $result_one && $result_two ) {

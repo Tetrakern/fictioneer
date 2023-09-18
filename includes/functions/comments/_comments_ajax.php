@@ -575,7 +575,8 @@ function fictioneer_ajax_delete_my_comment() {
   }
 
   // Soft-delete comment
-  update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
+  fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true );
+
   $result = wp_update_comment(
     array(
       'user_ID' => 0,

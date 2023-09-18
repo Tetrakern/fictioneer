@@ -896,6 +896,35 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
 }
 
 // =============================================================================
+// UPDATE META FIELDS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_update_comment_meta' ) ) {
+  /**
+   * Wrapper to update comment meta
+   *
+   * If the meta value is truthy, the meta field is updated as normal.
+   * If not, the meta field is deleted instead to keep the database tidy.
+   *
+   * @since 5.7.3
+   *
+   * @param int    $comment_id  The ID of the comment.
+   * @param string $meta_key    The meta key to update.
+   * @param mixed  $meta_value  The new meta value. If empty, the meta key will be deleted.
+   * @param mixed  $prev_value  Optional. If specified, only updates existing metadata with this value.
+   *                            Otherwise, update all entries. Default empty.
+   */
+
+  function fictioneer_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value = '' ) {
+    if ( empty( $meta_value ) ) {
+      delete_comment_meta( $comment_id, $meta_key );
+    } else {
+      update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value );
+    }
+  }
+}
+
+// =============================================================================
 // GET COOKIE CONSENT
 // =============================================================================
 
@@ -976,22 +1005,6 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
 
 function fictioneer_sanitize_checkbox( $value ) {
   return filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-}
-
-/**
- * Wrapper for fictioneer_sanitize_checkbox() to check for array key existence
- *
- * @since 5.0
- * @see fictioneer_sanitize_checkbox_key()
- *
- * @param string $key  The array key for $_POST.
- *
- * @return boolean True or false.
- */
-
-function fictioneer_sanitize_checkbox_by_key( $key ) {
-  $value = isset( $_POST[ $key ] ) ? $_POST[ $key ] : false;
-  return fictioneer_sanitize_checkbox( $value );
 }
 
 // =============================================================================
@@ -1918,7 +1931,7 @@ function fictioneer_delete_my_account() {
     );
 
     // Make absolutely sure no comment subscriptions remain
-    update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
+    fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
 
     // Retain some (redacted) data in case there was a mistake
     add_comment_meta( $comment->comment_ID, 'fictioneer_deleted_user_id', $current_user->ID );
