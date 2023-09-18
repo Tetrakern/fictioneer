@@ -206,7 +206,7 @@ function fictioneer_ajax_clear_my_checkmarks() {
   }
 
   // Update user
-  if ( update_user_meta( $user->ID, 'fictioneer_user_checkmarks', [] ) ) {
+  if ( delete_user_meta( $user->ID, 'fictioneer_user_checkmarks' ) ) {
     wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
     wp_send_json_error( array( 'error' => __( 'Database error. Checkmarks could not be updated.', 'fictioneer' ) ) );

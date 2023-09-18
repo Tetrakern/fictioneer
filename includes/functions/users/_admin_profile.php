@@ -116,21 +116,21 @@ function fictioneer_admin_profile_clear_data_node() {
       $result = is_array( $result ) ? $result['complete'] : $result;
       break;
     case 'comment-subscriptions':
-      $result = update_user_meta( $profile_user_id, 'fictioneer_comment_reply_validator', time() );
+      $result = fictioneer_update_user_meta( $profile_user_id, 'fictioneer_comment_reply_validator', time() );
       break;
     case 'follows':
-      $result = update_user_meta( $profile_user_id, 'fictioneer_user_follows', [] );
-      update_user_meta( $profile_user_id, 'fictioneer_user_follows_cache', false );
+      $result = delete_user_meta( $profile_user_id, 'fictioneer_user_follows' );
+      delete_user_meta( $profile_user_id, 'fictioneer_user_follows_cache' );
       break;
     case 'reminders':
-      $result = update_user_meta( $profile_user_id, 'fictioneer_user_reminders', [] );
+      $result = delete_user_meta( $profile_user_id, 'fictioneer_user_reminders' );
       break;
     case 'checkmarks':
-      $result = update_user_meta( $profile_user_id, 'fictioneer_user_checkmarks', [] );
+      $result = delete_user_meta( $profile_user_id, 'fictioneer_user_checkmarks' );
       break;
     case 'bookmarks':
       // Bookmarks are only parsed client-side and stored as JSON string
-      $result = update_user_meta( $profile_user_id, 'fictioneer_bookmarks', '{}' );
+      $result = fictioneer_update_user_meta( $profile_user_id, 'fictioneer_bookmarks', '{}' );
       break;
   }
 
@@ -189,13 +189,13 @@ if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
       'admin-profile-unset-oauth-discord' => __( 'Discord connection successfully removed.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-comments' => __( 'Comments could not be cleared.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-comment-subscriptions' => __( 'Comment subscriptions could not be cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-comments' => __( 'Comments successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-comment-subscriptions' => __( 'Comment subscriptions successfully cleared.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-follows' => __( 'Follows could not be cleared.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-reminders' => __( 'Reminders could not be cleared.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-checkmarks' => __( 'Checkmarks could not be cleared.', 'fictioneer' ),
       'admin-profile-not-cleared-data-node-bookmarks' => __( 'Bookmarks could not be cleared.', 'fictioneer' ),
-      'admin-profile-cleared-data-node-comments' => __( 'Comments successfully cleared.', 'fictioneer' ),
-      'admin-profile-cleared-data-node-comment-subscriptions' => __( 'Comment subscriptions successfully cleared.', 'fictioneer' ),
-      'admin-profile-not-cleared-data-node-follows' => __( 'Follows successfully cleared.', 'fictioneer' ),
+      'admin-profile-cleared-data-node-follows' => __( 'Follows successfully cleared.', 'fictioneer' ),
       'admin-profile-cleared-data-node-reminders' => __( 'Reminders successfully cleared.', 'fictioneer' ),
       'admin-profile-cleared-data-node-checkmarks' => __( 'Checkmarks successfully cleared.', 'fictioneer' ),
       'admin-profile-cleared-data-node-bookmarks' => __( 'Bookmarks successfully cleared.', 'fictioneer' ),

@@ -687,22 +687,22 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
 
       // Nice name, and hide admin bar for new subscribers
       if ( $new ) {
-        update_user_meta( $wp_user->ID, 'nickname', $args['nickname'] );
+        fictioneer_update_user_meta( $wp_user->ID, 'nickname', $args['nickname'] );
         wp_update_user( array( 'ID' => $wp_user->ID, 'display_name' => $args['nickname'] ) );
       }
 
       // Channel ID for new users and merged accounts
       if ( $new || defined( 'MERGE_ID' ) ) {
-        update_user_meta( $wp_user->ID, "fictioneer_{$args['channel']}_id_hash", $channel_id );
+        fictioneer_update_user_meta( $wp_user->ID, "fictioneer_{$args['channel']}_id_hash", $channel_id );
       }
 
       // Change avatar if updated or empty
       if ( $avatar && $avatar != $current_avatar ) {
-        update_user_meta( $wp_user->ID, 'fictioneer_external_avatar_url', $avatar );
+        fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_external_avatar_url', $avatar );
       }
 
       if ( isset( $args['tiers'] ) && count( $args['tiers'] ) > 0 ) {
-        update_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers', $args['tiers'] );
+        fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers', $args['tiers'] );
       }
 
       // Login

@@ -139,7 +139,7 @@ function fictioneer_ajax_clear_my_follows() {
   }
 
   // Update user
-  if ( update_user_meta( $user->ID, 'fictioneer_user_follows', [] ) ) {
+  if ( delete_user_meta( $user->ID, 'fictioneer_user_follows' ) ) {
     update_user_meta( $user->ID, 'fictioneer_user_follows_cache', false );
     wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
@@ -189,7 +189,7 @@ function fictioneer_ajax_mark_follows_read() {
   $user_follows['seen'] = time() * 1000;
 
   // Update database
-  update_user_meta( $user->ID, 'fictioneer_user_follows_cache', false );
+  delete_user_meta( $user->ID, 'fictioneer_user_follows_cache' );
   $result = update_user_meta( $user->ID, 'fictioneer_user_follows', $user_follows );
 
   // Response

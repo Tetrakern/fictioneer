@@ -132,7 +132,7 @@ function fictioneer_ajax_clear_my_reminders() {
   }
 
   // Update user
-  if ( update_user_meta( $user->ID, 'fictioneer_user_reminders', [] ) ) {
+  if ( delete_user_meta( $user->ID, 'fictioneer_user_reminders' ) ) {
     wp_send_json_success( array( 'success' => __( 'Data has been cleared.', 'fictioneer' ) ) );
   } else {
     wp_send_json_error( array( 'error' => __( 'Database error. Reminders could not be cleared.', 'fictioneer' ) ) );
