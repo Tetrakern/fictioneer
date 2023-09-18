@@ -913,13 +913,17 @@ if ( ! function_exists( 'fictioneer_update_comment_meta' ) ) {
    * @param mixed  $meta_value  The new meta value. If empty, the meta key will be deleted.
    * @param mixed  $prev_value  Optional. If specified, only updates existing metadata with this value.
    *                            Otherwise, update all entries. Default empty.
+   *
+   * @return int|bool Meta ID if the key didn't exist on update, true on successful update or delete,
+   *                  false on failure or if the value passed to the function is the same as the one
+   *                  that is already in the database.
    */
 
   function fictioneer_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value = '' ) {
     if ( empty( $meta_value ) ) {
-      delete_comment_meta( $comment_id, $meta_key );
+      return delete_comment_meta( $comment_id, $meta_key );
     } else {
-      update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value );
+      return update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value );
     }
   }
 }
