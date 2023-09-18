@@ -165,7 +165,11 @@ p a,
 .post-password-form {
   letter-spacing: 0;
   padding-top: 168px;
-  margin: 6rem 0 4rem;
+  margin: 4rem 0;
+
+  @include bp(tablet) {
+    margin-top: 6rem;
+  }
 
   > div {
     position: relative;
