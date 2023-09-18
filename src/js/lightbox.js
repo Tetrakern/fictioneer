@@ -2,8 +2,8 @@
 // SETUP
 // =============================================================================
 
-const fcn_lightbox = _$$$('fictioneer-lightbox'),
-      fcn_lightboxTarget = fcn_lightbox.querySelector('.target');
+const /** @const {HTMLElement} */ fcn_lightbox = _$$$('fictioneer-lightbox'),
+      /** @const {HTMLElement} */ fcn_lightboxTarget = _$('.lightbox__content');
 
 // =============================================================================
 // SHOW LIGHTBOX
