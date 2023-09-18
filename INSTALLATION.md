@@ -616,7 +616,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Admin Panel Access:** Required to access the admin panel, including your admin profile.
   * **Dashboard Access:** Required if you want to see the dashboard admin page.
   * **Show Badge:** Shows the role name as comment badge. Can be overridden in your profile.
-  * **Moderate Post Comments:** Allows you limited comment moderation on your own posts.
+  * **Moderate Post Comments:** Allows you limited comment moderation on your own posts. AJAX only.
   * **Allow Self Delete:** Allows you to delete your own account. Default for subscribers.
   * **Privacy Clearance:** Grants access to sensible data like emails and IP addresses.
   * **Read Others Files:** Allows you to see uploaded files from *other* users.
