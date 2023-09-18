@@ -444,7 +444,7 @@ function fictioneer_ajax_edit_comment() {
   }
 
   // Abort if comment editing capability disabled
-  if ( get_user_meta( $user->ID, 'fictioneer_admin_disable_editing', true ) ) {
+  if ( get_user_meta( $user->ID, 'fictioneer_admin_disable_comment_editing', true ) ) {
     wp_send_json_error( array( 'error' => __( 'Comment editing capability disabled.', 'fictioneer' ) ) );
   }
 

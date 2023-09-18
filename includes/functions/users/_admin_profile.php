@@ -719,8 +719,8 @@ function fictioneer_admin_profile_moderation( $profile_user ) {
           </label>
         </div>
         <div>
-          <label for="fictioneer_admin_disable_editing" class="checkbox-group">
-            <input name="fictioneer_admin_disable_editing" type="checkbox" id="fictioneer_admin_disable_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_editing', $profile_user->ID ), false ); ?> value="1">
+          <label for="fictioneer_admin_disable_comment_editing" class="checkbox-group">
+            <input name="fictioneer_admin_disable_comment_editing" type="checkbox" id="fictioneer_admin_disable_comment_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_editing', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable comment editing capability', 'fictioneer' ); ?></span>
           </label>
         </div>

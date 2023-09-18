@@ -229,8 +229,8 @@ function fictioneer_comment_meta_box ( $comment ) {
           </label>
         </div>
         <div style="margin-top: 6px;">
-          <label for="fictioneer_admin_disable_editing" class="checkbox-group">
-            <input name="fictioneer_admin_disable_editing" type="checkbox" id="fictioneer_admin_disable_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_editing', $comment->user_id ), false ); ?> value="1">
+          <label for="fictioneer_admin_disable_comment_editing" class="checkbox-group">
+            <input name="fictioneer_admin_disable_comment_editing" type="checkbox" id="fictioneer_admin_disable_comment_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_editing', $comment->user_id ), false ); ?> value="1">
             <span><?php _e( 'Disable comment editing capability', 'fictioneer' ); ?></span>
           </label>
         </div>
@@ -287,7 +287,7 @@ function fictioneer_edit_comment( $comment_id ) {
   $disable_reports = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_reporting' );
   $disable_renaming = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_renaming' );
   $disable_commenting = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_commenting' );
-  $disable_editing = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_editing' );
+  $disable_editing = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_comment_editing' );
   $disable_notifications = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_disable_comment_notifications' );
   $hold_comments = fictioneer_sanitize_checkbox_by_key( 'fictioneer_admin_always_moderate_comments' );
 
@@ -300,7 +300,7 @@ function fictioneer_edit_comment( $comment_id ) {
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_reporting', $disable_reports );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_renaming', $disable_renaming );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_commenting', $disable_commenting );
-  update_user_meta( $comment->user_id, 'fictioneer_admin_disable_editing', $disable_editing );
+  update_user_meta( $comment->user_id, 'fictioneer_admin_disable_comment_editing', $disable_editing );
   update_user_meta( $comment->user_id, 'fictioneer_admin_disable_comment_notifications', $disable_notifications );
   update_user_meta( $comment->user_id, 'fictioneer_admin_always_moderate_comments', $hold_comments );
 }

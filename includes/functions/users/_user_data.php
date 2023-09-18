@@ -156,8 +156,8 @@ function fictioneer_update_admin_user_profile( $updated_user_id ) {
     // Disable comment editing capability checkbox
     update_user_meta(
       $updated_user_id,
-      'fictioneer_admin_disable_editing',
-      isset( $_POST['fictioneer_admin_disable_editing'] )
+      'fictioneer_admin_disable_comment_editing',
+      isset( $_POST['fictioneer_admin_disable_comment_editing'] )
     );
 
     // Disable comment notification capability checkbox

@@ -76,7 +76,7 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
     </li>
   <?php endif; ?>
 
-  <?php if ( $current_user->fictioneer_admin_disable_editing ) : ?>
+  <?php if ( $current_user->fictioneer_admin_disable_comment_editing ) : ?>
     <li>
       <i class="fa-solid fa-bolt"></i>
       <span><?php _e( 'Comment editing capability disabled.', 'fictioneer' ); ?></span>
