@@ -609,7 +609,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
   * **Edit Date:** Makes it possible to change the publishing date *after* publishing.
   * **Reduced Profile:** Removes clutter from the admin profile page, like the color schemes.
-  * **Edit Only Others Comments:** Limits moderators to only editing comments, not all posts.
+  * **Only Moderate Comments:** Limits moderators to only editing comments, not all posts.
   * **Upload Limit:** Enforce the file size limit from the General Settings.
   * **Upload Restrictions:** Enforce the file type restrictions from the General Settings.
   * **Adminbar Access:** Overrides individual settings to show or hide the adminbar.

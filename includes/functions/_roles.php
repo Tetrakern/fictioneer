@@ -108,7 +108,7 @@ function fictioneer_setup_roles() {
   // Administrator
   $administrator = get_role( 'administrator' );
 
-  $administrator->remove_cap( 'fcn_edit_only_others_comments' );
+  $administrator->remove_cap( 'fcn_only_moderate_comments' );
   $administrator->remove_cap( 'fcn_reduced_profile' );
   $administrator->remove_cap( 'fcn_allow_self_delete' );
   $administrator->remove_cap( 'fcn_upload_limit' );
@@ -318,7 +318,7 @@ function fictioneer_add_moderator_role() {
     'delete_others_posts' => true,
     'fcn_admin_panel_access' => true,
     'fcn_adminbar_access' => true,
-    'fcn_edit_only_others_comments' => true,
+    'fcn_only_moderate_comments' => true,
     'fcn_upload_limit' => true,
     'fcn_upload_restrictions' => true,
     'fcn_show_badge' => true,
@@ -653,8 +653,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * @since Fictioneer 5.6.0
    *
    * @param array $all_caps  An array of all the user's capabilities.
-   * @param array $cap      Primitive capabilities that are being checked.
-   * @param array $args     Arguments passed to the capabilities check.
+   * @param array $cap       Primitive capabilities that are being checked.
+   * @param array $args      Arguments passed to the capabilities check.
    *
    * @return array Modified capabilities array.
    */
@@ -677,7 +677,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     return $all_caps;
   }
 
-  if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_edit_only_others_comments' ) ) {
+  if ( current_user_can( 'moderate_comments' ) && current_user_can( 'fcn_only_moderate_comments' ) ) {
     add_filter( 'user_has_cap', 'fictioneer_edit_only_comments', 10, 3 );
   }
 
