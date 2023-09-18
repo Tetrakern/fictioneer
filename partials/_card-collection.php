@@ -186,7 +186,7 @@ $comment_count = get_comments( $comment_args );
             <li class="card__link-list-item">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
-                <a href="<?php the_permalink( $item->ID ); ?>"><?php
+                <a href="<?php the_permalink( $item->ID ); ?>" class="card__link-list-link"><?php
                   $list_title = $item->post_type == 'fcn_chapter' ?
                     fictioneer_get_field( 'fictioneer_chapter_list_title', $item->ID ) : 0;
 

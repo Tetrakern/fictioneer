@@ -392,6 +392,10 @@
       }
     }
 
+    &-link {
+      padding: 4px 0; // Increase link click target
+    }
+
     .card__left {
       flex: 1 1 auto;
       line-height: 18px; // For vertical centering

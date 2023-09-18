@@ -144,7 +144,9 @@ $show_type = $args['show_type'] ?? false;
           <li class="card__link-list-item">
             <div class="card__left text-overflow-ellipsis">
               <i class="fa-solid fa-caret-right"></i>
-              <a href="<?php the_permalink( $story_id ); ?>"><?php echo $story_data['title']; ?></a>
+              <a href="<?php the_permalink( $story_id ); ?>" class="card__link-list-link"><?php
+                echo $story_data['title'];
+              ?></a>
             </div>
             <div class="card__right">
               <?php

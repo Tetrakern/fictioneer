@@ -118,7 +118,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
             <li class="card__link-list-item">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
-                <a href="<?php the_permalink( $chapter->ID ); ?>"><?php
+                <a href="<?php the_permalink( $chapter->ID ); ?>" class="card__link-list-link"><?php
                   $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter->ID );
 
                   if ( empty( $list_title ) ) {

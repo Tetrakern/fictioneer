@@ -100,7 +100,9 @@ $show_type = $args['show_type'] ?? false;
                   $tuple = explode( '|', $url );
                   $tuple = array_map( 'trim', $tuple );
                 ?>
-                <a href="<?php echo esc_url( $tuple[1] ); ?>" rel="noopener" target="_blank"><?php echo $tuple[0]; ?></a>
+                <a href="<?php echo esc_url( $tuple[1] ); ?>" rel="noopener" target="_blank" class="card__link-list-link"><?php
+                  echo $tuple[0];
+                ?></a>
               </div>
             </li>
           <?php endforeach; ?>

@@ -180,7 +180,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <li class="card__link-list-item">
                     <div class="card__left text-overflow-ellipsis">
                       <i class="fa-solid fa-caret-right"></i>
-                      <a href="<?php the_permalink( $chapter_id ); ?>"><?php
+                      <a href="<?php the_permalink( $chapter_id ); ?>" class="card__link-list-link"><?php
                         // Chapter title
                         $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter_id );
 
