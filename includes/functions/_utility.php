@@ -957,6 +957,35 @@ if ( ! function_exists( 'fictioneer_update_comment_meta' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_update_post_meta' ) ) {
+  /**
+   * Wrapper to update post meta
+   *
+   * If the meta value is truthy, the meta field is updated as normal.
+   * If not, the meta field is deleted instead to keep the database tidy.
+   *
+   * @since 5.7.4
+   *
+   * @param int    $post_id     The ID of the post.
+   * @param string $meta_key    The meta key to update.
+   * @param mixed  $meta_value  The new meta value. If empty, the meta key will be deleted.
+   * @param mixed  $prev_value  Optional. If specified, only updates existing metadata with this value.
+   *                            Otherwise, update all entries. Default empty.
+   *
+   * @return int|bool Meta ID if the key didn't exist on update, true on successful update or delete,
+   *                  false on failure or if the value passed to the function is the same as the one
+   *                  that is already in the database.
+   */
+
+  function fictioneer_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
+    if ( empty( $meta_value ) ) {
+      return delete_post_meta( $post_id, $meta_key );
+    } else {
+      return update_post_meta( $post_id, $meta_key, $meta_value, $prev_value );
+    }
+  }
+}
+
 // =============================================================================
 // GET COOKIE CONSENT
 // =============================================================================
