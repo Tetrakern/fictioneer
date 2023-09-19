@@ -42,13 +42,6 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "fcn_story"
-            }
-        ],
-        [
-            {
-                "param": "post_type",
-                "operator": "==",
                 "value": "fcn_chapter"
             }
         ]
@@ -62,5 +55,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1692460514
+    "modified": 1695164601
 }
