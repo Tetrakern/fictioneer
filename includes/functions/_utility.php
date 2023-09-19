@@ -1378,7 +1378,24 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
    */
 
   function fictioneer_is_commenting_disabled( $post_id = null ) {
-    return fictioneer_get_field( 'fictioneer_disable_commenting', $post_id ) || get_option( 'fictioneer_disable_commenting' );
+    // Return immediately if...
+    if (
+      get_option( 'fictioneer_disable_commenting' ) ||
+      fictioneer_get_field( 'fictioneer_disable_commenting', $post_id )
+    ) {
+      return true;
+    }
+
+    // Check parent story if chapter...
+    if ( get_post_type( $post_id ) === 'fcn_chapter' ) {
+      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+
+      if ( $story_id ) {
+        return fictioneer_get_field( 'fictioneer_disable_commenting', $story_id );
+      }
+    }
+
+    return false;
   }
 }
 

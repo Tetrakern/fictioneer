@@ -317,6 +317,12 @@ function fictioneer_render_story_metabox( $post ) {
     );
   }
 
+  $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
+    $post,
+    'fictioneer_disable_commenting',
+    __( 'Disable new comments', 'fictioneer' )
+  );
+
   if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
     $output['fictioneer_story_css'] = fictioneer_get_metabox_textarea(
       $post,
@@ -381,6 +387,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     'fictioneer_story_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hidden'] ?? 0 ),
     'fictioneer_story_no_thumbnail' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_thumbnail'] ?? 0 ),
     'fictioneer_story_no_tags' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] ?? 0 ),
+    'fictioneer_disable_commenting' => fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 )
   );
 
   $twf_url = sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] ?? '' );
