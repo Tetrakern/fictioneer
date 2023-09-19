@@ -1135,11 +1135,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_remove_custom_page_css_inputs( $fields ) {
     // Return modified fields array (fictioneer_story_css, fictioneer_custom_css)
-    return fictioneer_acf_remove_fields( ['field_636d81d34cab1', 'field_621b5610818d2'], $fields );
+    return fictioneer_acf_remove_fields( ['field_621b5610818d2'], $fields );
   }
 
   if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
     add_filter( 'acf/update_value/name=fictioneer_custom_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
     add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs' );
   }
@@ -1170,20 +1169,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
   // === FCN_MAKE_STICKY =======================================================
 
   /**
-   * Hide the 'sticky in lists' checkbox
-   *
-   * @since 5.6.0
-   */
-
-  function fictioneer_hide_story_sticky_checkbox() {
-    global $post_type;
-
-    if ( $post_type === 'fcn_story' ) {
-      echo '<style type="text/css">[data-name="fictioneer_story_sticky"] {display: none !important;}</style>';
-    }
-  }
-
-  /**
    * Unstick a post
    *
    * @since 5.6.0
@@ -1199,8 +1184,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
   }
 
   if ( ! current_user_can( 'fcn_make_sticky' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_sticky', '__return_zero' ); // Must be 0!
-    add_action( 'admin_head', 'fictioneer_hide_story_sticky_checkbox' ); // Field must be in form, value used in queries!
     add_action( 'post_stuck', 'fictioneer_prevent_post_sticky' );
   }
 

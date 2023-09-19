@@ -17,6 +17,12 @@ require_once __DIR__ . '/_cleanup.php';
 require_once __DIR__ . '/settings/_settings.php';
 
 /**
+ * Add meta fields to editor.
+ */
+
+require_once __DIR__ . '/_meta_fields.php';
+
+/**
  * Extend user profile in admin panel.
  */
 

@@ -155,6 +155,197 @@ td.comment {
   }
 }
 
+.fictioneer-side-metabox[id] .inside {
+  padding: 0 16px 16px;
+}
+
+.fictioneer-side-metabox [data-required] {
+  label {
+    &::after {
+      content: ' *';
+      color: #cc1818;
+    }
+  }
+}
+
+.fictioneer-metabox-checkbox {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: fit-content;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  + [class*="fictioneer-metabox-"] {
+    margin-top: 16px;
+  }
+
+  &:focus-within {
+    .fictioneer-metabox-checkbox__checkbox {
+      outline: 2px solid var(--wp-admin-theme-color);
+      outline-offset: 1.5px;
+    }
+  }
+
+  &__checkbox {
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 2px;
+    height: 24px;
+    width: 24px;
+
+    @include bp(600px) {
+      height: 20px;
+      width: 20px;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      display: block;
+      background: #fff;
+      border: 1px solid #1e1e1e;
+      border-radius: 2px;
+      box-shadow: none;
+      margin: 0;
+      height: 24px;
+      width: 24px;
+
+      @include bp(600px) {
+        height: 20px;
+        width: 20px;
+      }
+
+      &::before {
+        content: none !important;
+      }
+
+      &:checked {
+        background: var(--wp-admin-theme-color) !important;
+        border-color: var(--wp-admin-theme-color) !important;
+      }
+
+      &:not(:checked) + svg {
+        opacity: 0;
+      }
+    }
+
+    svg {
+      pointer-events: none;
+      fill: #fff;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+
+      @include bp(600px) {
+        top: -2px;
+        left: -2px;
+      }
+    }
+  }
+
+  &__label {
+    margin-top: 2.5px;
+
+    @include bp(600px) {
+      margin-top: 1px;
+    }
+  }
+}
+
+.fictioneer-metabox-text,
+.fictioneer-metabox-url,
+.fictioneer-metabox-select,
+.fictioneer-metabox-textarea {
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-transform: uppercase;
+    padding: 0px;
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    color: rgb(117, 117, 117);
+    font-size: 12px;
+    margin: 6px 0 0;
+  }
+
+  &__input:is(input) {
+    display: block;
+    font-size: 16px;
+    line-height: normal;
+    padding: 6px 8px;
+    margin: 0;
+    border: 1px solid #949494;
+    border-radius: 2px;
+    width: 100%;
+    box-shadow: 0 0 0 transparent;
+
+    @include bp(600px) {
+      font-size: 13px;
+      line-height: normal;
+    }
+  }
+}
+
+.fictioneer-metabox-url {
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    opacity: .5;
+    transform: translateY(calc(-50% + 1px));
+  }
+
+  &__input:is(input) {
+    padding-left: 24px;
+  }
+}
+
+.fictioneer-metabox-select {
+  &__select:is(select) {
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    margin: 0;
+    width: 100%;
+
+    @include bp(600px) {
+      font-size: 13px;
+    }
+  }
+}
+
+.fictioneer-metabox-textarea {
+  &__textarea:is(textarea) {
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+    padding: 6px 8px;
+    border-radius: 2px;
+    height: 82px;
+    width: 100%;
+    resize: vertical;
+  }
+}
+
 // =============================================================================
 // FICTIONEER SEO METABOX
 // =============================================================================
