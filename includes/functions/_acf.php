@@ -229,11 +229,11 @@ function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
 add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fictioneer_acf_scope_blog_posts', 10, 3 );
 
 // =============================================================================
-// LIMIT STORY CHAPTERS TO AUTHOR
+// RESTRICT STORY CHAPTERS TO AUTHOR
 // =============================================================================
 
 /**
- * Limit chapter stories to author
+ * Restrict chapter stories to author
  *
  * @since Fictioneer 5.4.9
  *

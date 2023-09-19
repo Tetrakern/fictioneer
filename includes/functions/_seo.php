@@ -154,7 +154,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
  *
  * @since Fictioneer 4.0
  *
- * @param int $post_id The post ID.
+ * @param int $post_id  The post ID.
  */
 
 function fictioneer_save_seo_metabox( $post_id ) {

@@ -591,7 +591,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_limit_chapter_stories_by_author',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Limit chapter stories by author', 'fictioneer' ),
+      'label' => __( 'Restrict chapter stories by author', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_all_widgets' => array(
