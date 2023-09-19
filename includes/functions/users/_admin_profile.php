@@ -272,6 +272,38 @@ add_action( 'show_user_profile', 'fictioneer_custom_profile_fields', 20 );
 add_action( 'edit_user_profile', 'fictioneer_custom_profile_fields', 20 );
 
 // =============================================================================
+// SHOW USER ID
+// =============================================================================
+
+/**
+ * Render user ID in admin profile
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_User $profile_user The profile user object. Not necessarily the one
+ *                              currently editing the profile!
+ */
+
+function fictioneer_admin_profile_fields_user_id( $profile_user ) {
+  // Setup
+  $sender_is_admin = fictioneer_is_admin( get_current_user_id() );
+  $sender_is_owner = $profile_user->ID === get_current_user_id();
+
+  // Guard
+  if ( ! $sender_is_admin && ! $sender_is_owner ) {
+    return;
+  }
+
+  // --- Start HTML ---> ?>
+  <tr class="user-fictioneer-fingerprint-wrap">
+    <th><label for="fictioneer_support_message"><?php _e( 'User ID', 'fictioneer' ); ?></label></th>
+    <td><span><?php echo $profile_user->ID; ?></span></td>
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_user_id', 4 );
+
+// =============================================================================
 // SHOW FINGERPRINT
 // =============================================================================
 

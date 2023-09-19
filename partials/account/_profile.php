@@ -42,7 +42,12 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
   <div class="profile__identity">
 
     <div class="profile__input-group">
-      <div class="profile__input-label"><?php _e( 'Username', 'fictioneer' ); ?></div>
+      <div class="profile__input-label"><?php
+        printf(
+          _x( 'Username (ID: %s)', 'Username profile label with user ID.', 'fictioneer' ),
+          $current_user->ID
+        );
+      ?></div>
       <div class="profile__input-wrapper">
         <input
           type="text"
