@@ -207,12 +207,6 @@ function fictioneer_render_story_metabox( $post ) {
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
   $output = [];
 
-  // --- Render nonce ------------------------------------------------------------
-
-  // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
-  <?php // <--- End HTML
-
   // --- Add fields --------------------------------------------------------------
 
   $output['fictioneer_story_status'] = fictioneer_get_metabox_select(
@@ -338,6 +332,10 @@ function fictioneer_render_story_metabox( $post ) {
   // --- Render ------------------------------------------------------------------
 
   echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
 }
 
 /**

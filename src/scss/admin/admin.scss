@@ -179,10 +179,6 @@ td.comment {
     margin-bottom: 8px;
   }
 
-  + [class*="fictioneer-metabox-"] {
-    margin-top: 16px;
-  }
-
   &:focus-within {
     .fictioneer-metabox-checkbox__checkbox {
       outline: 2px solid var(--wp-admin-theme-color);
@@ -260,8 +256,12 @@ td.comment {
 .fictioneer-metabox-url,
 .fictioneer-metabox-select,
 .fictioneer-metabox-textarea {
-  &:not(:last-child) {
-    margin-bottom: 16px;
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+
+  + .fictioneer-metabox-checkbox {
+    margin-top: 16px;
   }
 
   &__wrapper {
