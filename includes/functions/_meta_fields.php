@@ -240,6 +240,10 @@ foreach ( ['page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommenda
   add_filter( "postbox_classes_{$type}_fictioneer-page-layout", 'fictioneer_append_metabox_classes' );
 }
 
+foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
+  add_filter( "postbox_classes_{$type}_fictioneer-landscape-image", 'fictioneer_append_metabox_classes' );
+}
+
 // =============================================================================
 // STORY META FIELDS
 // =============================================================================
@@ -414,16 +418,6 @@ function fictioneer_render_story_metabox( $post ) {
     );
   }
 
-  $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
-    $post,
-    'fictioneer_landscape_image',
-    array(
-      'label' => __( 'Landscape Cover Image', 'fictioneer' ),
-      'description' => __( 'Used where the image is wider than high.', 'fictioneer' ),
-      'button' => __( 'Set landscape image', 'fictioneer' ),
-    )
-  );
-
   // --- Filters -----------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_story_meta_fields', $output, $post );
@@ -480,8 +474,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     'fictioneer_story_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hidden'] ?? 0 ),
     'fictioneer_story_no_thumbnail' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_thumbnail'] ?? 0 ),
     'fictioneer_story_no_tags' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] ?? 0 ),
-    'fictioneer_disable_commenting' => fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 ),
-    'fictioneer_landscape_image' => absint( $_POST['fictioneer_landscape_image'] ?? 0 )
+    'fictioneer_disable_commenting' => fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 )
   );
 
   $twf_url = sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] ?? '' );
@@ -715,5 +708,116 @@ function fictioneer_save_page_layout_metabox( $post_id ) {
 if ( current_user_can( 'fcn_custom_page_header' ) || current_user_can( 'fcn_custom_page_css' ) ) {
   add_action( 'save_post', 'fictioneer_save_page_layout_metabox' );
 }
+
+// =============================================================================
+// LANDSCAPE IMAGE META FIELD
+// =============================================================================
+
+/**
+ * Adds landscape image metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_type  The current post type.
+ */
+
+function fictioneer_add_landscape_image_metabox( $post_type ) {
+  add_meta_box(
+    'fictioneer-landscape-image',
+    __( 'Landscape Image', 'fictioneer' ),
+    'fictioneer_render_landscape_image_metabox',
+    ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
+    'side',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_landscape_image_metabox' );
+
+/**
+ * Render landscape image metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_landscape_image_metabox( $post ) {
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
+    $post,
+    'fictioneer_landscape_image',
+    array(
+      'description' => __( 'Used where the image is wider than high.', 'fictioneer' ),
+      'button' => __( 'Set landscape image', 'fictioneer' ),
+    )
+  );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save landscape image metabox data
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_landscape_image_metabox( $post_id ) {
+  $post_type = get_post_type( $post_id );
+
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] )
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  $permission_list = array(
+    'post' => ['edit_posts', 'edit_published_posts'],
+    'page' => ['edit_pages', 'edit_published_pages'],
+    'fcn_story' => ['edit_fcn_stories', 'edit_published_fcn_stories'],
+    'fcn_chapter' => ['edit_fcn_chapters', 'edit_published_fcn_chapters'],
+    'fcn_collections' => ['edit_fcn_collections', 'edit_published_fcn_collections'],
+    'fcn_recommendation' => ['edit_fcn_recommendations', 'edit_published_fcn_recommendations']
+  );
+
+  if (
+    ! current_user_can( $permission_list[ $post_type ][0], $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( $permission_list[ $post_type ][1], $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = array(
+    'fictioneer_landscape_image' => absint( $_POST['fictioneer_landscape_image'] ?? 0 )
+  );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_landscape_image_metabox' );
 
 ?>
