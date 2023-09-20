@@ -32,6 +32,7 @@ $editor_caps = array(
   'fcn_select_page_template',
   'fcn_custom_page_css',
   'fcn_custom_epub_css',
+  'fcn_custom_page_header',
   'fcn_seo_meta',
   'fcn_make_sticky',
   'fcn_edit_permalink',

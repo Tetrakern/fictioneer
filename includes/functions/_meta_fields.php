@@ -193,7 +193,7 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   // Start HTML ---> ?>
   <div class="fictioneer-metabox-image">
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-image__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <div class="fictioneer-metabox-image__label"><?php echo $label; ?></div>
     <?php endif; ?>
     <input type="hidden" name="<?php echo $meta_key; ?>" class="fictioneer-metabox-image__id" value="<?php echo esc_attr( $meta_value ); ?>" autocomplete="off">
     <div class="fictioneer-metabox-image__wrapper">
@@ -211,6 +211,33 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   <?php // <--- End HTML
 
   return ob_get_clean();
+}
+
+// =============================================================================
+// METABOX CLASSES
+// =============================================================================
+
+/**
+ * Append classes to the metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param array $classes  An array of postbox classes.
+ *
+ * @return array The modified array of postbox classes.
+ */
+
+function fictioneer_append_metabox_classes( $classes ) {
+  // Add class
+  $classes[] = 'fictioneer-side-metabox';
+
+  // Return with added class
+  return $classes;
+}
+add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
+
+foreach ( ['page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
+  add_filter( "postbox_classes_{$type}_fictioneer-page-layout", 'fictioneer_append_metabox_classes' );
 }
 
 // =============================================================================
@@ -234,25 +261,6 @@ function fictioneer_add_story_meta_metabox() {
   );
 }
 add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
-
-/**
- * Append classes to the story metabox
- *
- * @since Fictioneer 5.7.4
- *
- * @param array $classes  An array of postbox classes.
- *
- * @return array The modified array of postbox classes.
- */
-
-function fictioneer_append_story_metabox_classes( $classes ) {
-  // Add class
-  $classes[] = 'fictioneer-side-metabox';
-
-  // Return with added class
-  return $classes;
-}
-add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_story_metabox_classes' );
 
 /**
  * Render story metabox
@@ -418,7 +426,7 @@ function fictioneer_render_story_metabox( $post ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $output = apply_filters( 'fictioneer_filter_story_sidebar_meta_fields', $output, $post );
+  $output = apply_filters( 'fictioneer_filter_story_meta_fields', $output, $post );
 
   // --- Render ------------------------------------------------------------------
 
@@ -432,7 +440,7 @@ function fictioneer_render_story_metabox( $post ) {
 /**
  * Save story metabox data
  *
- * @since Fictioneer 4.0
+ * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -516,17 +524,196 @@ function fictioneer_save_story_metabox( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_story_sidebar_meta_updates', $fields );
+  $fields = apply_filters( 'fictioneer_filter_story_meta_updates', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
   foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 );
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
 add_action( 'save_post', 'fictioneer_save_story_metabox' );
 
+// =============================================================================
+// PAGE LAYOUT FIELDS
+// =============================================================================
 
+/**
+ * Adds page layout metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_type  The current post type.
+ */
 
+function fictioneer_add_page_layout_metabox( $post_type ) {
+  if (
+    ! current_user_can( 'fcn_custom_page_header' ) &&
+    ! current_user_can( 'fcn_custom_page_css' ) &&
+    $post_type !== 'page'
+  ) {
+    return;
+  }
+
+  add_meta_box(
+    'fictioneer-page-layout',
+    __( 'Page Layout', 'fictioneer' ),
+    'fictioneer_render_page_layout_metabox',
+    ['page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
+    'side',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_page_layout_metabox' );
+
+/**
+ * Render page layout metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_page_layout_metabox( $post ) {
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  if ( $post->post_type === 'page' ) {
+    $output['fictioneer_short_name'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_short_name',
+      array(
+        'label' => _x( 'Short Name', 'Page short name meta field label.', 'fictioneer' ),
+        'description' => __( 'Required for the tab view in stories.', 'fictioneer' )
+      )
+    );
+
+    if ( current_user_can( 'install_plugins' ) ) {
+      $output['fictioneer_filter_and_search_id'] = fictioneer_get_metabox_text(
+        $post,
+        'fictioneer_filter_and_search_id',
+        array(
+          'label' => _x( 'Filter & Search ID', 'Page filter ans search meta field label.', 'fictioneer' ),
+          'description' => __( 'ID for a filter and/or search plugins.', 'fictioneer' )
+        )
+      );
+    }
+  }
+
+  if ( current_user_can( 'fcn_custom_page_header', $post->ID ) ) {
+    $output['fictioneer_custom_header_image'] = fictioneer_get_metabox_image(
+      $post,
+      'fictioneer_custom_header_image',
+      array(
+        'label' => __( 'Custom Header Image', 'fictioneer' ),
+        'description' => __( 'Replaces the default header image.', 'fictioneer' ),
+        'button' => __( 'Set header image', 'fictioneer' ),
+      )
+    );
+  }
+
+  if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
+    $output['fictioneer_custom_css'] = fictioneer_get_metabox_textarea(
+      $post,
+      'fictioneer_custom_css',
+      array(
+        'label' => __( 'Custom Page CSS', 'fictioneer' ),
+        'description' => __( 'Only applied to the page.', 'fictioneer' ),
+        'placeholder' => __( '.selector { ... }', 'fictioneer' )
+      )
+    );
+  }
+
+  // --- Filters -----------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_page_layout_meta_fields', $output, $post );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save page layout metabox data
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_page_layout_metabox( $post_id ) {
+  $post_type = get_post_type( $post_id );
+
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    ! in_array( $post_type, ['page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] )
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  $permission_list = array(
+    'page' => ['edit_pages', 'edit_published_pages'],
+    'fcn_story' => ['edit_fcn_stories', 'edit_published_fcn_stories'],
+    'fcn_chapter' => ['edit_fcn_chapters', 'edit_published_fcn_chapters'],
+    'fcn_collections' => ['edit_fcn_collections', 'edit_published_fcn_collections'],
+    'fcn_recommendation' => ['edit_fcn_recommendations', 'edit_published_fcn_recommendations']
+  );
+
+  if (
+    ! current_user_can( $permission_list[ $post_type ][0], $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( $permission_list[ $post_type ][1], $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = [];
+
+  if ( $post_type === 'page' ) {
+    $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] ?? '' );
+
+    if ( current_user_can( 'install_plugins' ) ) {
+      $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] ?? 0 );
+    }
+  }
+
+  if ( current_user_can( 'fcn_custom_page_header', $post_id ) ) {
+    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] ?? 0 );
+  }
+
+  if ( current_user_can( 'fcn_custom_page_css', $post_id ) ) {
+    $css = sanitize_textarea_field( $_POST['fictioneer_custom_css'] ?? '' );
+    $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
+    $fields['fictioneer_custom_css'] = str_replace( '<', '', $css );
+  }
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_page_layout_meta_updates', $fields, $post_id );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+
+if ( current_user_can( 'fcn_custom_page_header' ) || current_user_can( 'fcn_custom_page_css' ) ) {
+  add_action( 'save_post', 'fictioneer_save_page_layout_metabox' );
+}
 
 ?>

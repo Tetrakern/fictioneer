@@ -17,6 +17,7 @@ define(
     'fcn_privacy_clearance',
     'fcn_shortcodes',
     'fcn_simple_comment_html',
+    'fcn_custom_page_header',
     'fcn_custom_page_css',
     'fcn_custom_epub_css',
     'fcn_seo_meta',
@@ -85,6 +86,19 @@ function fictioneer_initialize_roles( $force = false ) {
   ) {
     fictioneer_setup_roles();
   }
+
+  // If this capability is missing, the roles need to be updated
+  if ( $administrator && ! in_array( 'fcn_custom_page_header', array_keys( $administrator->capabilities ) ) ) {
+    get_role( 'administrator' )->add_cap( 'fcn_custom_page_header' );
+
+    if ( $editor = get_role( 'editor' ) ) {
+      $editor->add_cap( 'fcn_custom_page_header' );
+    }
+
+    if ( $moderator = get_role( 'fcn_moderator' ) ) {
+      $moderator->add_cap( 'fcn_only_moderate_comments' );
+    }
+  }
 }
 add_action( 'admin_init', 'fictioneer_initialize_roles' );
 
@@ -135,6 +149,7 @@ function fictioneer_setup_roles() {
       'fcn_all_blocks',
       'fcn_story_pages',
       'fcn_edit_date',
+      'fcn_custom_page_header',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'edit_pages',                // Legacy restore
@@ -756,27 +771,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages' );
   }
 
-  /**
-   * Removes search and filter ID input field
-   *
-   * @since 5.6.0
-   * @since 5.6.2  Simplified with helper function.
-   *
-   * @param array $fields  An array of fields to be rendered.
-   *
-   * @return array The modified array.
-   */
-
-  function fictioneer_remove_filter_search_id_input( $fields ) {
-    // Return modified fields array
-    return fictioneer_acf_remove_fields( 'field_60040fa3bc4f1', $fields );
-  }
-
-  if ( ! current_user_can( 'manage_options' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_filter_and_search_id', 'fictioneer_acf_prevent_value_update', 10, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_filter_search_id_input' );
-  }
-
   // === EDIT_PAGES ============================================================
 
   /**
@@ -1118,29 +1112,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'user_contactmethods', '__return_empty_array' );
     add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks' );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-  }
-
-  // === FCN_CUSTOM_PAGE_CSS ===================================================
-
-  /**
-   * Removes custom page/story CSS input fields
-   *
-   * @since 5.6.0
-   * @since 5.6.2  Simplified with helper function.
-   *
-   * @param array $fields  An array of fields to be rendered.
-   *
-   * @return array The modified array.
-   */
-
-  function fictioneer_remove_custom_page_css_inputs( $fields ) {
-    // Return modified fields array (fictioneer_story_css, fictioneer_custom_css)
-    return fictioneer_acf_remove_fields( ['field_621b5610818d2'], $fields );
-  }
-
-  if ( ! current_user_can( 'fcn_custom_page_css' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_custom_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_page_css_inputs' );
   }
 
   // === FCN_CUSTOM_EPUB_CSS ===================================================
