@@ -711,6 +711,9 @@ function fictioneer_save_story_metabox( $post_id ) {
 
   $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ?? '' );
   $co_authors = array_map( 'absint', $co_authors );
+  $co_authors = array_filter ($co_authors, function( $user_id ) {
+    return get_userdata( $user_id ) !== false;
+  });
   $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
 
   if ( current_user_can( 'fcn_make_sticky', $post_id ) && FICTIONEER_ENABLE_STICKY_CARDS ) {

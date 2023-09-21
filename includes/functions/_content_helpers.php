@@ -144,6 +144,10 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
     $author_name = get_the_author_meta( 'display_name', $author_id );
     $author_url = get_author_posts_url( $author_id );
 
+    if ( ! $author_name ) {
+      return '';
+    }
+
     return "<a href='{$author_url}' class='author {$classes}'>{$author_name}</a>";
   }
 }
@@ -530,6 +534,9 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
 		foreach ( $authors as $author ) {
 			$author_nodes[] = fictioneer_get_author_node( $author );
 		}
+
+    // Remove empty items
+    $author_nodes = array_filter( $author_nodes );
 
 		// Build and return HTML
 		return implode( ', ', array_unique( $author_nodes ) );
