@@ -481,6 +481,10 @@ foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fc
   add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
 }
 
+foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
+  add_filter( "postbox_classes_{$type}_fictioneer-support-links", 'fictioneer_append_metabox_classes' );
+}
+
 // =============================================================================
 // STORY META FIELDS
 // =============================================================================
@@ -1039,7 +1043,173 @@ add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
 // SUPPORT LINKS META FIELDS
 // =============================================================================
 
+/**
+ * Adds support links metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
 
+function fictioneer_add_support_metabox() {
+  add_meta_box(
+    'fictioneer-support-links',
+    __( 'Support Links', 'fictioneer' ),
+    'fictioneer_render_support_links_metabox',
+    ['post', 'fcn_story', 'fcn_chapter'],
+    'side',
+    'low'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
 
+/**
+ * Render support links metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_support_links_metabox( $post ) {
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  $output['fictioneer_patreon_link'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_patreon_link',
+    array(
+      'label' => _x( 'Patreon Link', 'Patreon link meta field label.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_kofi_link'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_kofi_link',
+    array(
+      'label' => _x( 'Ko-fi Link', 'Ko-fi link meta field label.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_subscribestar_link'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_subscribestar_link',
+    array(
+      'label' => _x( 'SubscribeStar Link', 'SubscribeStar link meta field label.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_paypal_link'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_paypal_link',
+    array(
+      'label' => _x( 'Paypal Link', 'Paypal link meta field label.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_donation_link'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_donation_link',
+    array(
+      'label' => _x( 'Donation Link', 'Donation link meta field label.', 'fictioneer' )
+    )
+  );
+
+  // --- Filters -----------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_support_links_meta_fields', $output, $post );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save support links metabox data
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_support_links_metabox( $post_id ) {
+  $post_type = get_post_type( $post_id );
+
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    ! in_array( $post_type, ['post', 'fcn_story', 'fcn_chapter'] )
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  $permission_list = array(
+    'post' => ['edit_posts', 'edit_published_posts'],
+    'fcn_story' => ['edit_fcn_stories', 'edit_published_fcn_stories'],
+    'fcn_chapter' => ['edit_fcn_chapters', 'edit_published_fcn_chapters']
+  );
+
+  if (
+    ! current_user_can( $permission_list[ $post_type ][0], $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( $permission_list[ $post_type ][1], $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = [];
+
+  // Patreon link
+  $patreon = sanitize_url( $_POST['fictioneer_patreon_link'] ?? '' );
+  $patreon = filter_var( $patreon, FILTER_VALIDATE_URL ) ? $patreon : '';
+  $patreon = preg_match( '#^https://(www\.)?patreon#', $patreon ) ? $patreon : '';
+  $fields['fictioneer_patreon_link'] = $patreon;
+
+  // Ko-fi link
+  $kofi = sanitize_url( $_POST['fictioneer_kofi_link'] ?? '' );
+  $kofi = filter_var( $kofi, FILTER_VALIDATE_URL ) ? $kofi : '';
+  $kofi = preg_match( '#^https://(www\.)?ko-fi#', $kofi ) ? $kofi : '';
+  $fields['fictioneer_kofi_link'] = $kofi;
+
+  // Ko-fi link
+  $subscribe_star = sanitize_url( $_POST['fictioneer_subscribestar_link'] ?? '' );
+  $subscribe_star = filter_var( $subscribe_star, FILTER_VALIDATE_URL ) ? $subscribe_star : '';
+  $subscribe_star = preg_match( '#^https://(www\.)?subscribestar#', $subscribe_star ) ? $subscribe_star : '';
+  $fields['fictioneer_subscribestar_link'] = $subscribe_star;
+
+  // Paypal link
+  $paypal = sanitize_url( $_POST['fictioneer_paypal_link'] ?? '' );
+  $paypal = filter_var( $paypal, FILTER_VALIDATE_URL ) ? $paypal : '';
+  $paypal = preg_match( '#^https://(www\.)?paypal#', $paypal ) ? $paypal : '';
+  $fields['fictioneer_paypal_link'] = $paypal;
+
+  // Donation link
+  $donation = sanitize_url( $_POST['fictioneer_donation_link'] ?? '' );
+  $donation = filter_var( $donation, FILTER_VALIDATE_URL ) ? $donation : '';
+  $donation = strpos( $donation, 'https://' ) === 0 ? $donation : '';
+  $fields['fictioneer_donation_link'] = $donation;
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_support_links_meta_updates', $fields, $post_id );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_support_links_metabox' );
 
 ?>
