@@ -159,6 +159,10 @@ td.comment {
   padding: 0 16px 16px;
 }
 
+.fictioneer-side-metabox--classic[id] .inside {
+  padding: 2px 12px 12px;
+}
+
 .fictioneer-side-metabox [data-required] {
   label {
     &::after {
@@ -175,8 +179,8 @@ td.comment {
   gap: 12px;
   width: fit-content;
 
-  &:not(:last-child) {
-    margin-bottom: 8px;
+  &:not(:first-child) {
+    margin-top: 8px;
   }
 
   &:focus-within {

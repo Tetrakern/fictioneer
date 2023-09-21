@@ -463,8 +463,14 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
  */
 
 function fictioneer_append_metabox_classes( $classes ) {
+  global $post;
+
   // Add class
   $classes[] = 'fictioneer-side-metabox';
+
+  if ( ! use_block_editor_for_post_type( $post->post_type ) ) {
+    $classes[] = 'fictioneer-side-metabox--classic';
+  }
 
   // Return with added class
   return $classes;
