@@ -988,7 +988,6 @@ function fictioneer_save_advanced_metabox( $post_id ) {
 
     if ( ! empty( $story_blogs ) ) {
       $story_blogs = array_map( 'absint', $story_blogs );
-      $story_blogs = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
       $story_blogs = array_unique( $story_blogs );
 
       // Ensure the stories belong to the post author
@@ -1007,6 +1006,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
       );
 
       $story_blogs = $blog_story_query->posts;
+      $story_blogs = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
     }
 
     $fields['fictioneer_post_story_blogs'] = $story_blogs;
