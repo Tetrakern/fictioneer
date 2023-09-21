@@ -12,13 +12,16 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
   ob_start();
 
   // Start HTML ---> ?>
-  <label class="fictioneer-metabox-checkbox" for="<?php echo $meta_key; ?>" <?php echo $data_required; ?>>
-    <div class="fictioneer-metabox-checkbox__checkbox">
+  <label class="fictioneer-meta-checkbox" for="<?php echo $meta_key; ?>" <?php echo $data_required; ?>>
+
+    <div class="fictioneer-meta-checkbox__checkbox">
       <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
       <input type="checkbox" id="<?php echo $meta_key; ?>" name="<?php echo $meta_key; ?>" value="1" autocomplete="off" <?php checked( get_post_meta( $post->ID, $meta_key, true ), 1 ); ?> <?php echo $required; ?>>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" focusable="false"><path d="M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"></path></svg>
     </div>
-    <div class="fictioneer-metabox-checkbox__label"><?php echo $label; ?></div>
+
+    <div class="fictioneer-meta-checkbox__label"><?php echo $label; ?></div>
+
   </label>
   <?php // <--- End HTML
 
@@ -37,15 +40,20 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-text" <?php echo $data_required; ?>>
+  <div class="fictioneer-meta-field" <?php echo $data_required; ?>>
+
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-text__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
+
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-metabox-text__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+
+    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-text__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
@@ -64,18 +72,23 @@ function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-url" <?php echo $data_required; ?>>
+  <div class="fictioneer-meta-field" <?php echo $data_required; ?>>
+
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-url__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
+
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-    <div class="fictioneer-metabox-url__wrapper">
-      <span class="fictioneer-metabox-url__icon dashicons dashicons-admin-site"></span>
-      <input type="url" id="<?php echo $meta_key; ?>" class="fictioneer-metabox-url__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+
+    <div class="fictioneer-meta-field__wrapper">
+      <span class="fictioneer-meta-field__url-icon dashicons dashicons-admin-site"></span>
+      <input type="url" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
     </div>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-url__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
@@ -96,15 +109,20 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-text" <?php echo $data_required; ?>>
+  <div class="fictioneer-meta-field" <?php echo $data_required; ?>>
+
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-text__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
+
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-metabox-text__input" name="<?php echo $meta_key; ?>" value="<?php echo $list; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+
+    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $list; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-text__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
@@ -123,13 +141,16 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-select" <?php echo $data_required; ?>>
+  <div class="fictioneer-meta-field" <?php echo $data_required; ?>>
+
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-select__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
+
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-    <div class="fictioneer-metabox-select__wrapper">
-      <select id="<?php echo $meta_key; ?>" class="fictioneer-metabox-select__select" name="<?php echo $meta_key; ?>" autocomplete="off" <?php echo $required; ?>><?php
+
+    <div class="fictioneer-meta-field__wrapper">
+      <select id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__select" name="<?php echo $meta_key; ?>" autocomplete="off" <?php echo $required; ?>><?php
         foreach ( $options as $value => $translation ) {
           $value = esc_attr( $value );
           $translation = esc_html( $translation );
@@ -138,9 +159,11 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
         }
       ?></select>
     </div>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-select__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
@@ -159,17 +182,22 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-textarea" <?php echo $data_required; ?>>
+  <div class="fictioneer-meta-field" <?php echo $data_required; ?>>
+
     <?php if ( $label ) : ?>
-      <label class="fictioneer-metabox-textarea__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
+
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-    <div class="fictioneer-metabox-textarea__wrapper">
-      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-metabox-textarea__textarea" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
+
+    <div class="fictioneer-meta-field__wrapper">
+      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
     </div>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-textarea__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
@@ -191,21 +219,25 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-metabox-image">
+  <div class="fictioneer-meta-field" data-target="fcn-image-meta-select">
+
     <?php if ( $label ) : ?>
-      <div class="fictioneer-metabox-image__label"><?php echo $label; ?></div>
+      <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
     <?php endif; ?>
-    <input type="hidden" name="<?php echo $meta_key; ?>" class="fictioneer-metabox-image__id" value="<?php echo esc_attr( $meta_value ); ?>" autocomplete="off">
-    <div class="fictioneer-metabox-image__wrapper">
-      <div class="fictioneer-metabox-image__display" <?php echo $image_css; ?>></div>
-      <button class="fictioneer-metabox-image__upload <?php echo $image_css ? 'hidden' : ''; ?>"><?php echo $upload; ?></button>
-      <div class="fictioneer-metabox-image__edit-actions <?php echo $image_css ? '' : 'hidden'; ?>">
-        <button class="fictioneer-metabox-image__replace"><?php echo $replace; ?></button>
-        <button class="fictioneer-metabox-image__remove"><?php echo $remove; ?></button>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="<?php echo esc_attr( $meta_value ); ?>" autocomplete="off" data-target="fcn-image-meta-id">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--image">
+      <div class="fictioneer-meta-field__image-display" <?php echo $image_css; ?>></div>
+      <button type="button" class="fictioneer-meta-field__image-upload <?php echo $image_css ? 'hidden' : ''; ?>"><?php echo $upload; ?></button>
+      <div class="fictioneer-meta-field__image-actions <?php echo $image_css ? '' : 'hidden'; ?>">
+        <button type="button" class="fictioneer-meta-field__image-replace"><?php echo $replace; ?></button>
+        <button type="button" class="fictioneer-meta-field__image-remove"><?php echo $remove; ?></button>
       </div>
     </div>
+
     <?php if ( $description ) : ?>
-      <div class="fictioneer-metabox-image__description"><?php echo $description; ?></div>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
   </div>
   <?php // <--- End HTML

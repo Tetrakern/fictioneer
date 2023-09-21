@@ -396,7 +396,7 @@ function fcn_mediaUpload(event) {
   event.preventDefault();
 
   // Metabox
-  const metabox = event.currentTarget.closest('.fictioneer-metabox-image');
+  const metabox = event.currentTarget.closest('[data-target="fcn-image-meta-select"]');
 
   // Open media modal
   var uploader = wp.media({
@@ -409,31 +409,31 @@ function fcn_mediaUpload(event) {
   .on('select', () => {
     const attachment = uploader.state().get('selection').first().toJSON();
 
-    metabox.querySelector('.fictioneer-metabox-image__id').value = attachment.id;
-    metabox.querySelector('.fictioneer-metabox-image__display').style.backgroundImage = `url("${attachment.url}")`;
-    metabox.querySelector('.fictioneer-metabox-image__upload').classList.add('hidden');
-    metabox.querySelector('.fictioneer-metabox-image__edit-actions').classList.remove('hidden');
+    metabox.querySelector('[data-target="fcn-image-meta-id"]').value = attachment.id;
+    metabox.querySelector('.fictioneer-meta-field__image-display').style.backgroundImage = `url("${attachment.url}")`;
+    metabox.querySelector('.fictioneer-meta-field__image-upload').classList.add('hidden');
+    metabox.querySelector('.fictioneer-meta-field__image-actions').classList.remove('hidden');
   })
 }
 
 // Listen for clicks on image upload and replace
-_$$('.fictioneer-metabox-image__upload, .fictioneer-metabox-image__replace').forEach(button => {
+_$$('.fictioneer-meta-field__image-upload, .fictioneer-meta-field__image-replace').forEach(button => {
   button.addEventListener('click', fcn_mediaUpload);
 });
 
 // Listen for clicks on image remove
-_$$('.fictioneer-metabox-image__remove').forEach(button => {
+_$$('.fictioneer-meta-field__image-remove').forEach(button => {
   button.addEventListener('click', event => {
     // Stop trigger element behavior
     event.preventDefault();
 
     // Metabox
-    const metabox = event.currentTarget.closest('.fictioneer-metabox-image');
+    const metabox = event.currentTarget.closest('[data-target="fcn-image-meta-select"]');
 
     // Reset
-    metabox.querySelector('.fictioneer-metabox-image__id').value = '';
-    metabox.querySelector('.fictioneer-metabox-image__display').style.backgroundImage = '';
-    metabox.querySelector('.fictioneer-metabox-image__upload').classList.remove('hidden');
-    metabox.querySelector('.fictioneer-metabox-image__edit-actions').classList.add('hidden');
+    metabox.querySelector('[data-target="fcn-image-meta-id"]').value = '';
+    metabox.querySelector('.fictioneer-meta-field__image-display').style.backgroundImage = '';
+    metabox.querySelector('.fictioneer-meta-field__image-upload').classList.remove('hidden');
+    metabox.querySelector('.fictioneer-meta-field__image-actions').classList.add('hidden');
   });
 });
