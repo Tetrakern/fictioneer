@@ -326,9 +326,9 @@ function fictioneer_render_story_metabox( $post ) {
     ),
     array(
       'label' => _x( 'Status', 'Story status meta field label.', 'fictioneer' ),
-      'description' => __( 'Current status of the story.', 'fictioneer' )
-    ),
-    array( 'required' => 1 )
+      'description' => __( 'Current status of the story.', 'fictioneer' ),
+      'required' => 1
+    )
   );
 
   $output['fictioneer_story_rating'] = fictioneer_get_metabox_select(
@@ -342,9 +342,9 @@ function fictioneer_render_story_metabox( $post ) {
     ),
     array(
       'label' => _x( 'Age Rating', 'Story age rating meta field label.', 'fictioneer' ),
-      'description' => __( 'Select an overall age rating.', 'fictioneer' )
-    ),
-    array( 'required' => 1 )
+      'description' => __( 'Select an overall age rating.', 'fictioneer' ),
+      'required' => 1
+    )
   );
 
   $output['fictioneer_story_co_authors'] = fictioneer_get_metabox_array(
