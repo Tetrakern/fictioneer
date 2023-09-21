@@ -268,6 +268,11 @@ td.comment {
       background: #f0f0f0;
       border-radius: 2px;
     }
+
+    &--tokens {
+      display: grid;
+      gap: 8px;
+    }
   }
 
   &__label {
@@ -295,6 +300,47 @@ td.comment {
     width: 16px;
     opacity: .5;
     transform: translateY(calc(-50% + 1px));
+  }
+
+  &__token-track {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 4px;
+    border: 1px solid #949494;
+    border-radius: 2px;
+    min-height: 30px;
+  }
+
+  &__token {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    background: #ddd;
+    border-radius: 2px;
+    width: fit-content;
+
+    &-name {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-left: 8px;
+      max-width: 128px;
+      overflow: hidden;
+    }
+
+    &-button {
+      cursor: pointer;
+      appearance: none;
+      background: transparent;
+      line-height: 10px;
+      padding: 0 2px;
+      border: none;
+    }
   }
 
   &__image-display {

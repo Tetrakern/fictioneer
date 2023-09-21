@@ -437,3 +437,82 @@ _$$('.fictioneer-meta-field__image-remove').forEach(button => {
     metabox.querySelector('.fictioneer-meta-field__image-actions').classList.add('hidden');
   });
 });
+
+// =============================================================================
+// TOKENS META FIELD
+// =============================================================================
+
+/**
+ * Add or remove ID from token field
+ *
+ * @since 5.7.4
+ *
+ * @param {int} id - The ID of the token.
+ * @param {HTMLElement} parent - The parent element.
+ */
+
+function fcn_tokensToggle(id, parent) {
+  // Abort if...
+  if (id < 1) {
+    parent.querySelector('select').value = 0;
+    return;
+  }
+
+  // Setup
+  const tokenOptions = JSON.parse(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
+  const tokenTrack = parent.querySelector('[data-target="fcn-meta-field-tokens-track"]');
+  const tokenInput = parent.querySelector('[data-target="fcn-meta-field-tokens-values"]');
+
+  let tokenValues = fcn_splitList(tokenInput.value);
+  tokenValues = tokenValues.filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));
+
+  // Add or remove
+  const index = tokenValues.indexOf(id);
+
+  if (index === -1) {
+    tokenValues.push(id)
+  } else {
+    tokenValues.splice(index, 1);
+  }
+
+  // Update
+  tokenInput.value = tokenValues.join(', ');
+  tokenTrack.innerHTML = '';
+
+  tokenValues.forEach(item => {
+    const name = tokenOptions[item] ? tokenOptions[item] : item;
+
+    tokenTrack.innerHTML += `<span class="fictioneer-meta-field__token" data-id="${item}"><span class="fictioneer-meta-field__token-name">${name}</span><button type="button" class="fictioneer-meta-field__token-button" data-id="${item}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path></svg></button></span>`;
+  });
+
+  // Reset
+  parent.querySelector('select').value = 0;
+}
+
+// Listen for clicks on the token select
+_$$('[data-target="fcn-meta-field-tokens-add"]').forEach(select => {
+  select.addEventListener('change', event => {
+    event.preventDefault();
+
+    const id = parseInt(event.currentTarget.value);
+    const parent = event.currentTarget.closest('[data-target="fcn-meta-field-tokens"]');
+
+    fcn_tokensToggle(id, parent);
+  });
+});
+
+// Listen for clicks on the token track
+_$$('[data-target="fcn-meta-field-tokens-track"]').forEach(track => {
+  track.addEventListener('click', event => {
+    event.preventDefault();
+
+    const token = event.target.closest('.fictioneer-meta-field__token');
+
+    if (token) {
+      fcn_tokensToggle(
+        parseInt(token.dataset.id),
+        token.closest('[data-target="fcn-meta-field-tokens"]')
+      );
+    }
+  });
+});

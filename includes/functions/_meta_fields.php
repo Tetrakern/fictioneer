@@ -241,6 +241,60 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
     <?php if ( $description ) : ?>
       <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
     <?php endif; ?>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
+function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] ) {
+  // Setup
+  $array = get_post_meta( $post->ID, $meta_key, true );
+  $array = is_array( $array ) ? $array : [];
+  $list = esc_attr( implode( ', ', $array ) );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--tokens" data-target="fcn-meta-field-tokens">
+
+    <?php if ( $label ) : ?>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
+
+    <input type="hidden" value="<?php echo esc_attr( json_encode( $options ) ); ?>" autocomplete="off" data-target="fcn-meta-field-tokens-options">
+
+    <input type="hidden" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $list; ?>" autocomplete="off" data-target="fcn-meta-field-tokens-values">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--tokens">
+
+      <div class="fictioneer-meta-field__token-track" data-target="fcn-meta-field-tokens-track">
+        <?php
+          foreach ( $array as $token ) {
+            $name = get_the_title( $token ) ?: __( 'n/a', 'fictioneer' );
+
+            echo "<span class='fictioneer-meta-field__token' data-id='{$token}'><span class='fictioneer-meta-field__token-name'>{$name}</span><button type='button' class='fictioneer-meta-field__token-button' data-id='{$token}'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' aria-hidden='true' focusable='false'><path d='M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z'></path></svg></button></span>";
+          }
+        ?>
+      </div>
+
+      <select class="fictioneer-meta-field__select" autocomplete="off" data-target="fcn-meta-field-tokens-add"><?php
+        foreach ( $options as $value => $translation ) {
+          echo '<option value="' . esc_attr( $value ) . '">' . esc_html( $translation ) . '</option>';
+        }
+      ?></select>
+
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
   </div>
   <?php // <--- End HTML
 
