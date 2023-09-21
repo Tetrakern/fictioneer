@@ -881,3 +881,27 @@ function fcn_html(...args) {
 
   return template.content.firstChild;
 }
+
+// =============================================================================
+// SPLIT LIST INTO ARRAY
+// =============================================================================
+
+/**
+ * Split string into an array
+ *
+ * @param {string} list - The input string to split.
+ * @param {string} [separator=','] - The substring to use for splitting.
+ *
+ * @returns {Array<string>} - An array of items.
+ */
+
+function fcn_splitList(list, separator = ',') {
+  if (!list || list.trim() === '') {
+    return [];
+  }
+
+  let array = list.replace(/\r?\n|\r/g, '').split(separator);
+  array = array.map(item => item.trim()).filter(item => item.length > 0);
+
+  return array;
+}
