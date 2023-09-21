@@ -1709,7 +1709,7 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
     $blog_posts = new WP_Query();
 
     // Query by category
-    $blog_category_query_args = array (
+    $blog_category_query_args = array(
       'ignore_sticky_posts' => 1,
       'author__in'  => fictioneer_get_post_author_ids( $story_id ),
       'nopaging' => false,
@@ -1722,8 +1722,8 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
 
     $blog_category_posts = new WP_Query( $blog_category_query_args );
 
-    // Query by ACF relationship
-    $blog_relationship_query_args = array (
+    // Query by relationship
+    $blog_relationship_query_args = array(
       'ignore_sticky_posts' => 1,
       'author__in'  => fictioneer_get_post_author_ids( $story_id ),
       'nopaging' => false,

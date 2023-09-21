@@ -262,7 +262,7 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
   <div class="fictioneer-meta-field fictioneer-meta-field--tokens" data-target="fcn-meta-field-tokens">
 
     <?php if ( $label ) : ?>
-      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
     <?php endif; ?>
 
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
@@ -324,12 +324,8 @@ function fictioneer_append_metabox_classes( $classes ) {
 }
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
 
-foreach ( ['page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
-  add_filter( "postbox_classes_{$type}_fictioneer-page-layout", 'fictioneer_append_metabox_classes' );
-}
-
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
-  add_filter( "postbox_classes_{$type}_fictioneer-landscape-image", 'fictioneer_append_metabox_classes' );
+  add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
 }
 
 // =============================================================================
@@ -430,6 +426,9 @@ function fictioneer_render_story_metabox( $post ) {
     )
   );
 
+  $output['additional_settings_heading'] = '<div class="fictioneer-meta-field-heading">' .
+    __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
+
   if ( current_user_can( 'fcn_make_sticky', $post->ID ) && FICTIONEER_ENABLE_STICKY_CARDS ) {
     $output['fictioneer_story_sticky'] = fictioneer_get_metabox_checkbox(
       $post,
@@ -487,12 +486,6 @@ function fictioneer_render_story_metabox( $post ) {
       __( 'Disable ePUB download', 'fictioneer' )
     );
   }
-
-  $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
-    $post,
-    'fictioneer_disable_commenting',
-    __( 'Disable new comments', 'fictioneer' )
-  );
 
   if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
     $output['fictioneer_story_css'] = fictioneer_get_metabox_textarea(
@@ -561,8 +554,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     'fictioneer_story_copyright_notice' => sanitize_text_field( $_POST['fictioneer_story_copyright_notice'] ?? '' ),
     'fictioneer_story_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hidden'] ?? 0 ),
     'fictioneer_story_no_thumbnail' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_thumbnail'] ?? 0 ),
-    'fictioneer_story_no_tags' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] ?? 0 ),
-    'fictioneer_disable_commenting' => fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 )
+    'fictioneer_story_no_tags' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] ?? 0 )
   );
 
   $twf_url = sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] ?? '' );
@@ -616,52 +608,78 @@ function fictioneer_save_story_metabox( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_story_metabox' );
 
 // =============================================================================
-// PAGE LAYOUT FIELDS
+// ADVANCED META FIELDS
 // =============================================================================
 
 /**
- * Adds page layout metabox
+ * Adds advanced metabox
  *
  * @since Fictioneer 5.7.4
- *
- * @param int $post_type  The current post type.
  */
 
-function fictioneer_add_page_layout_metabox( $post_type ) {
-  if (
-    ! current_user_can( 'fcn_custom_page_header' ) &&
-    ! current_user_can( 'fcn_custom_page_css' ) &&
-    $post_type !== 'page'
-  ) {
-    return;
-  }
-
+function fictioneer_add_advanced_metabox() {
   add_meta_box(
-    'fictioneer-page-layout',
-    __( 'Page Layout', 'fictioneer' ),
-    'fictioneer_render_page_layout_metabox',
-    ['page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
+    'fictioneer-advanced',
+    __( 'Advanced', 'fictioneer' ),
+    'fictioneer_render_advanced_metabox',
+    ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
     'side',
     'high'
   );
 }
-add_action( 'add_meta_boxes', 'fictioneer_add_page_layout_metabox' );
+add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
 
 /**
- * Render page layout metabox
+ * Render advanced metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_page_layout_metabox( $post ) {
+function fictioneer_render_advanced_metabox( $post ) {
   // --- Setup -------------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
   $output = [];
+  $author_id = $post->post_author ?: get_current_user_id();
 
   // --- Add fields --------------------------------------------------------------
+
+  // Landscape Image
+  $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
+    $post,
+    'fictioneer_landscape_image',
+    array(
+      'label' => __( 'Landscape Image', 'fictioneer' ),
+      'description' => __( 'Used where the image is wider than high.', 'fictioneer' ),
+      'button' => __( 'Set landscape image', 'fictioneer' )
+    )
+  );
+
+  if ( current_user_can( 'fcn_custom_page_header', $post->ID ) ) {
+    $output['fictioneer_custom_header_image'] = fictioneer_get_metabox_image(
+      $post,
+      'fictioneer_custom_header_image',
+      array(
+        'label' => __( 'Header Image', 'fictioneer' ),
+        'description' => __( 'Replaces the default header image.', 'fictioneer' ),
+        'button' => __( 'Set header image', 'fictioneer' ),
+      )
+    );
+  }
+
+  if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
+    $output['fictioneer_custom_css'] = fictioneer_get_metabox_textarea(
+      $post,
+      'fictioneer_custom_css',
+      array(
+        'label' => __( 'Custom Page CSS', 'fictioneer' ),
+        'description' => __( 'Only applied to the page.', 'fictioneer' ),
+        'placeholder' => __( '.selector { ... }', 'fictioneer' )
+      )
+    );
+  }
 
   if ( $post->post_type === 'page' ) {
     $output['fictioneer_short_name'] = fictioneer_get_metabox_text(
@@ -685,166 +703,54 @@ function fictioneer_render_page_layout_metabox( $post ) {
     }
   }
 
-  if ( current_user_can( 'fcn_custom_page_header', $post->ID ) ) {
-    $output['fictioneer_custom_header_image'] = fictioneer_get_metabox_image(
-      $post,
-      'fictioneer_custom_header_image',
+  // Story Blogs
+  if ( $post->post_type === 'post' ) {
+    $user_stories = get_posts(
       array(
-        'label' => __( 'Custom Header Image', 'fictioneer' ),
-        'description' => __( 'Replaces the default header image.', 'fictioneer' ),
-        'button' => __( 'Set header image', 'fictioneer' ),
+        'post_type' => 'fcn_story',
+        'post_status' => ['publish', 'private'],
+        'author' => $author_id,
+        'posts_per_page' => -1,
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       )
     );
-  }
 
-  if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
-    $output['fictioneer_custom_css'] = fictioneer_get_metabox_textarea(
-      $post,
-      'fictioneer_custom_css',
-      array(
-        'label' => __( 'Custom Page CSS', 'fictioneer' ),
-        'description' => __( 'Only applied to the page.', 'fictioneer' ),
-        'placeholder' => __( '.selector { ... }', 'fictioneer' )
-      )
-    );
-  }
+    if ( ! empty( $user_stories ) ) {
+      $blog_options = array( '0' => __( '— Story —', 'fictioneer' ) );
 
-  // --- Filters -----------------------------------------------------------------
+      foreach ( $user_stories as $story ) {
+        $blog_options[ $story->ID ] = $story->post_title;
+      }
 
-  $output = apply_filters( 'fictioneer_filter_page_layout_meta_fields', $output, $post );
-
-  // --- Render ------------------------------------------------------------------
-
-  echo implode( '', $output );
-
-  // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
-  <?php // <--- End HTML
-}
-
-/**
- * Save page layout metabox data
- *
- * @since Fictioneer 5.7.4
- *
- * @param int $post_id  The post ID.
- */
-
-function fictioneer_save_page_layout_metabox( $post_id ) {
-  $post_type = get_post_type( $post_id );
-
-  // --- Verify ------------------------------------------------------------------
-
-  if (
-    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
-    fictioneer_multi_save_guard( $post_id ) ||
-    ! in_array( $post_type, ['page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] )
-  ) {
-    return;
-  }
-
-  // --- Permissions? ------------------------------------------------------------
-
-  $permission_list = array(
-    'page' => ['edit_pages', 'edit_published_pages'],
-    'fcn_story' => ['edit_fcn_stories', 'edit_published_fcn_stories'],
-    'fcn_chapter' => ['edit_fcn_chapters', 'edit_published_fcn_chapters'],
-    'fcn_collections' => ['edit_fcn_collections', 'edit_published_fcn_collections'],
-    'fcn_recommendation' => ['edit_fcn_recommendations', 'edit_published_fcn_recommendations']
-  );
-
-  if (
-    ! current_user_can( $permission_list[ $post_type ][0], $post_id ) ||
-    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( $permission_list[ $post_type ][1], $post_id ) )
-  ) {
-    return;
-  }
-
-  // --- Sanitize and add data ---------------------------------------------------
-
-  $fields = [];
-
-  if ( $post_type === 'page' ) {
-    $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] ?? '' );
-
-    if ( current_user_can( 'install_plugins' ) ) {
-      $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] ?? 0 );
+      $output['fictioneer_post_story_blogs'] = fictioneer_get_metabox_tokens(
+        $post,
+        'fictioneer_post_story_blogs',
+        $blog_options,
+        array(
+          'label' => _x( 'Story Blogs', 'Story blogs meta field label.', 'fictioneer' ),
+          'description' => __( 'Select where the post should appear.', 'fictioneer' )
+        )
+      );
     }
   }
 
-  if ( current_user_can( 'fcn_custom_page_header', $post_id ) ) {
-    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] ?? 0 );
-  }
+  // Checkbox: Disable new comments
+  if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
+    $output['additional_settings_heading'] = '<div class="fictioneer-meta-field-heading">' .
+      _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
-  if ( current_user_can( 'fcn_custom_page_css', $post_id ) ) {
-    $css = sanitize_textarea_field( $_POST['fictioneer_custom_css'] ?? '' );
-    $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
-    $fields['fictioneer_custom_css'] = str_replace( '<', '', $css );
+    $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
+      $post,
+      'fictioneer_disable_commenting',
+      __( 'Disable new comments', 'fictioneer' )
+    );
   }
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_page_layout_meta_updates', $fields, $post_id );
-
-  // --- Save --------------------------------------------------------------------
-
-  foreach ( $fields as $key => $value ) {
-    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
-  }
-}
-
-if ( current_user_can( 'fcn_custom_page_header' ) || current_user_can( 'fcn_custom_page_css' ) ) {
-  add_action( 'save_post', 'fictioneer_save_page_layout_metabox' );
-}
-
-// =============================================================================
-// LANDSCAPE IMAGE META FIELD
-// =============================================================================
-
-/**
- * Adds landscape image metabox
- *
- * @since Fictioneer 5.7.4
- *
- * @param int $post_type  The current post type.
- */
-
-function fictioneer_add_landscape_image_metabox( $post_type ) {
-  add_meta_box(
-    'fictioneer-landscape-image',
-    __( 'Landscape Image', 'fictioneer' ),
-    'fictioneer_render_landscape_image_metabox',
-    ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
-    'side',
-    'high'
-  );
-}
-add_action( 'add_meta_boxes', 'fictioneer_add_landscape_image_metabox' );
-
-/**
- * Render landscape image metabox
- *
- * @since Fictioneer 5.7.4
- *
- * @param WP_Post $post  The current post object.
- */
-
-function fictioneer_render_landscape_image_metabox( $post ) {
-  // --- Setup -------------------------------------------------------------------
-
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
-  $output = [];
-
-  // --- Add fields --------------------------------------------------------------
-
-  $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
-    $post,
-    'fictioneer_landscape_image',
-    array(
-      'description' => __( 'Used where the image is wider than high.', 'fictioneer' ),
-      'button' => __( 'Set landscape image', 'fictioneer' ),
-    )
-  );
+  $output = apply_filters( 'fictioneer_filter_advanced_meta_fields', $output, $post );
 
   // --- Render ------------------------------------------------------------------
 
@@ -856,15 +762,16 @@ function fictioneer_render_landscape_image_metabox( $post ) {
 }
 
 /**
- * Save landscape image metabox data
+ * Save advanced metabox data
  *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_save_landscape_image_metabox( $post_id ) {
+function fictioneer_save_advanced_metabox( $post_id ) {
   $post_type = get_post_type( $post_id );
+  $post_author = get_post_field( 'post_author', $post_id );
 
   // --- Verify ------------------------------------------------------------------
 
@@ -896,9 +803,73 @@ function fictioneer_save_landscape_image_metabox( $post_id ) {
 
   // --- Sanitize and add data ---------------------------------------------------
 
+  // Landscape Image
   $fields = array(
     'fictioneer_landscape_image' => absint( $_POST['fictioneer_landscape_image'] ?? 0 )
   );
+
+  // Custom Page Header
+  if ( current_user_can( 'fcn_custom_page_header', $post_id ) ) {
+    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] ?? 0 );
+  }
+
+  // Custom Page CSS
+  if ( current_user_can( 'fcn_custom_page_css', $post_id ) ) {
+    $css = sanitize_textarea_field( $_POST['fictioneer_custom_css'] ?? '' );
+    $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
+    $fields['fictioneer_custom_css'] = str_replace( '<', '', $css );
+  }
+
+  // Short Name
+  if ( $post_type === 'page' ) {
+    $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] ?? '' );
+  }
+
+  // Search & Filter ID
+  if ( $post_type === 'page' ) {
+    if ( current_user_can( 'install_plugins' ) ) {
+      $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] ?? 0 );
+    }
+  }
+
+  // Story Blogs
+  if ( $post_type === 'post' ) {
+    $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] ?? '' );
+
+    if ( ! empty( $story_blogs ) ) {
+      $story_blogs = array_map( 'absint', $story_blogs );
+      $story_blogs = array_map( 'strval', $story_blogs ); // Safer to match with LIKE in SQL
+      $story_blogs = array_unique( $story_blogs );
+
+      // Ensure the stories belong to the post author
+      $blog_story_query = new WP_Query(
+        array(
+          'author' => $post_author,
+          'post_type' => 'fcn_story',
+          'post_status' => ['publish', 'private'],
+          'post__in' => $story_blogs,
+          'fields' => 'ids',
+          'posts_per_page'=> -1,
+          'update_post_meta_cache' => false, // Improve performance
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      $story_blogs = $blog_story_query->posts;
+    }
+
+    $fields['fictioneer_post_story_blogs'] = $story_blogs;
+  }
+
+  // Checkbox: Disable new comments
+  if ( in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
+    $fields['fictioneer_disable_commenting'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 );
+  }
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_advanced_meta_updates', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -906,6 +877,13 @@ function fictioneer_save_landscape_image_metabox( $post_id ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
-add_action( 'save_post', 'fictioneer_save_landscape_image_metabox' );
+add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
+
+// =============================================================================
+// SUPPORT LINKS META FIELDS
+// =============================================================================
+
+
+
 
 ?>

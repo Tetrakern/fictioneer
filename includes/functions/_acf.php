@@ -204,31 +204,6 @@ function fictioneer_remember_chapters_modified( $value, $post_id ) {
 add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remember_chapters_modified', 10, 2 );
 
 // =============================================================================
-// LIMIT BLOG STORIES TO AUTHOR
-// =============================================================================
-
-/**
- * Limit blog stories to author
- *
- * @since Fictioneer 5.4.8
- *
- * @param array      $args     The query arguments.
- * @param array      $field    The queried field.
- * @param int|string $post_id  The post ID.
- *
- * @return array Modified query arguments.
- */
-
-function fictioneer_acf_scope_blog_posts( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'manage_options' ) ) {
-    $args['author'] = get_post_field( 'post_author', $post_id );
-  }
-
-  return $args;
-}
-add_filter( 'acf/fields/post_object/query/name=fictioneer_post_story_blogs', 'fictioneer_acf_scope_blog_posts', 10, 3 );
-
-// =============================================================================
 // RESTRICT STORY CHAPTERS TO AUTHOR
 // =============================================================================
 

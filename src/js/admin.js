@@ -447,7 +447,7 @@ _$$('.fictioneer-meta-field__image-remove').forEach(button => {
  *
  * @since 5.7.4
  *
- * @param {int} id - The ID of the token.
+ * @param {number} id - The ID of the token.
  * @param {HTMLElement} parent - The parent element.
  */
 
@@ -462,13 +462,10 @@ function fcn_tokensToggle(id, parent) {
   const tokenOptions = JSON.parse(parent.querySelector('[data-target="fcn-meta-field-tokens-options"]').value);
   const tokenTrack = parent.querySelector('[data-target="fcn-meta-field-tokens-track"]');
   const tokenInput = parent.querySelector('[data-target="fcn-meta-field-tokens-values"]');
-
-  let tokenValues = fcn_splitList(tokenInput.value);
-  tokenValues = tokenValues.filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));
-
-  // Add or remove
+  const tokenValues = fcn_splitList(tokenInput.value).filter(item => !isNaN(item)).map(item => Math.abs(parseInt(item)));
   const index = tokenValues.indexOf(id);
 
+  // Add or remove
   if (index === -1) {
     tokenValues.push(id)
   } else {
@@ -507,12 +504,21 @@ _$$('[data-target="fcn-meta-field-tokens-track"]').forEach(track => {
     event.preventDefault();
 
     const token = event.target.closest('.fictioneer-meta-field__token');
+    const field = event.target.closest('.fictioneer-meta-field');
 
+    // Remove token
     if (token) {
       fcn_tokensToggle(
         parseInt(token.dataset.id),
         token.closest('[data-target="fcn-meta-field-tokens"]')
       );
+
+      return;
+    }
+
+    // Open select options
+    if (field) {
+      field.querySelector('select').focus();
     }
   });
 });
