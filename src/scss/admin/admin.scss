@@ -305,12 +305,12 @@ td.comment {
   &__url-icon {
     position: absolute;
     top: 50%;
-    left: 6px;
-    font-size: 16px;
-    height: 16px;
-    width: 16px;
+    left: 7px;
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
     opacity: .5;
-    transform: translateY(calc(-50% + 1px));
+    transform: translateY(calc(-50%));
   }
 
   &__token-track {
