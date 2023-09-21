@@ -396,7 +396,7 @@ function fcn_mediaUpload(event) {
   event.preventDefault();
 
   // Metabox
-  const metabox = event.currentTarget.closest('[data-target="fcn-image-meta-select"]');
+  const metabox = event.currentTarget.closest('[data-target="fcn-meta-field-image"]');
 
   // Open media modal
   var uploader = wp.media({
@@ -409,11 +409,11 @@ function fcn_mediaUpload(event) {
   .on('select', () => {
     const attachment = uploader.state().get('selection').first().toJSON();
 
-    metabox.querySelector('[data-target="fcn-image-meta-id"]').value = attachment.id;
+    metabox.querySelector('[data-target="fcn-meta-field-image-id"]').value = attachment.id;
     metabox.querySelector('.fictioneer-meta-field__image-display').style.backgroundImage = `url("${attachment.url}")`;
     metabox.querySelector('.fictioneer-meta-field__image-upload').classList.add('hidden');
     metabox.querySelector('.fictioneer-meta-field__image-actions').classList.remove('hidden');
-  })
+  });
 }
 
 // Listen for clicks on image upload and replace
@@ -428,10 +428,10 @@ _$$('.fictioneer-meta-field__image-remove').forEach(button => {
     event.preventDefault();
 
     // Metabox
-    const metabox = event.currentTarget.closest('[data-target="fcn-image-meta-select"]');
+    const metabox = event.currentTarget.closest('[data-target="fcn-meta-field-image"]');
 
     // Reset
-    metabox.querySelector('[data-target="fcn-image-meta-id"]').value = '';
+    metabox.querySelector('[data-target="fcn-meta-field-image-id"]').value = '';
     metabox.querySelector('.fictioneer-meta-field__image-display').style.backgroundImage = '';
     metabox.querySelector('.fictioneer-meta-field__image-upload').classList.remove('hidden');
     metabox.querySelector('.fictioneer-meta-field__image-actions').classList.add('hidden');
