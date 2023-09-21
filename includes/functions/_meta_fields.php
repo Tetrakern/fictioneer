@@ -4,6 +4,23 @@
 // META FIELD HELPERS
 // =============================================================================
 
+/**
+ * Returns HTML for a checkbox meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param string  $label     The checkbox label.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type bool $required  Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
 function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] ) {
   // Setup
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
@@ -27,6 +44,25 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
 
   return ob_get_clean();
 }
+
+/**
+ * Returns HTML for a text meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
 
 function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   // Setup
@@ -61,6 +97,25 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
 
   return ob_get_clean();
 }
+
+/**
+ * Returns HTML for a URL meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
 
 function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
   // Setup
@@ -97,6 +152,25 @@ function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for a comma-separated text meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
 function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
   // Setup
   $array = get_post_meta( $post->ID, $meta_key, true );
@@ -130,6 +204,25 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 
   return ob_get_clean();
 }
+
+/**
+ * Returns HTML for a select meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $options   Array of select options (ID => Name).
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
 
 function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] ) {
   // Setup
@@ -172,6 +265,25 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for a textarea meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
 function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
   // Setup
   $meta_value = get_post_meta( $post->ID, $meta_key, true );
@@ -205,6 +317,24 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
 
   return ob_get_clean();
 }
+
+/**
+ * Returns HTML for a image meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $button       Caption on the button.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
 
 function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   // Setup
@@ -247,6 +377,23 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
 
   return ob_get_clean();
 }
+
+/**
+ * Returns HTML for a token array meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
 
 function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] ) {
   // Setup
