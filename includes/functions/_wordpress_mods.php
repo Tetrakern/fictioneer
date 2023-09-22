@@ -824,8 +824,12 @@ function fictioneer_restrict_rest_api( $errors ) {
     return $errors;
   }
 
+  $can_edit = current_user_can( 'edit_posts' ) || current_user_can( 'edit_fcn_stories' ) ||
+    current_user_can( 'edit_fcn_chapters' ) || current_user_can( 'edit_fcn_collections' ) ||
+    current_user_can( 'edit_fcn_recommendations' ) || current_user_can( 'edit_pages' );
+
   // Restrict default API endpoints to users with 'edit_posts' permission (required for Gutenberg to work)
-  if ( preg_match( '/^\/wp-json\/wp\/v2\//', $_SERVER['REQUEST_URI'] ) && ! current_user_can( 'edit_posts' ) ) {
+  if ( preg_match( '/^\/wp-json\/wp\/v2\//', $_SERVER['REQUEST_URI'] ) && ! $can_edit ) {
     return new WP_Error(
       'rest_insufficient_permission',
       __( 'You are not authorized to use the API.' ),
