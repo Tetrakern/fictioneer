@@ -882,7 +882,11 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
     $icon_object = json_decode( $icon ); // Check for ACF Font Awesome
 
     // Valid?
-    if ( ! $icon_object && ( empty( $icon ) || ! str_contains( $icon, 'fa-' ) ) ) {
+    if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {
+      return 'fa-solid fa-book';
+    }
+
+    if ( $icon_object && ( ! property_exists( $icon_object, 'style' ) || ! property_exists( $icon_object, 'id' ) ) ) {
       return 'fa-solid fa-book';
     }
 
