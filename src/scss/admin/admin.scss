@@ -265,6 +265,10 @@ td.comment {
     margin-top: 16px;
   }
 
+  .hidden {
+    display: none !important;
+  }
+
   &__wrapper {
     position: relative;
 
@@ -275,6 +279,12 @@ td.comment {
 
     &--tokens {
       display: grid;
+      gap: 8px;
+    }
+
+    &--icon {
+      display: flex;
+      align-items: center;
       gap: 8px;
     }
   }
@@ -288,6 +298,7 @@ td.comment {
     text-transform: uppercase;
     padding: 0px;
     margin-bottom: 8px;
+    width: fit-content;
   }
 
   &-heading {
@@ -302,15 +313,65 @@ td.comment {
     margin: 6px 0 0;
   }
 
+  &__button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  &__icon-button {
+    cursor: pointer;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    appearance: none;
+    display: grid;
+    place-content: center;
+    background: transparent;
+    font-size: 18px;
+    padding: 0;
+    border: none;
+    height: 40px;
+    width: 40px;
+
+    @include bp(600px) {
+      font-size: 16px;
+      height: 28px;
+      width: 28px;
+    }
+  }
+
   &__url-icon {
+    pointer-events: none;
     position: absolute;
     top: 50%;
     left: 7px;
     font-size: 14px;
     height: 14px;
     width: 14px;
+    transform: translateY(-50%);
     opacity: .5;
-    transform: translateY(calc(-50%));
+  }
+
+  &__fa-icon {
+    cursor: pointer;
+    box-sizing: border-box;
+    display: grid;
+    place-content: center;
+    flex: 0 0 40px;
+    background: #f0f0f0;
+    font-size: 16px;
+    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+
+    @include bp(600px) {
+      flex: 0 0 30px;
+      font-size: 14px;
+      height: 30px;
+      width: 30px;
+    }
   }
 
   &__token-track {

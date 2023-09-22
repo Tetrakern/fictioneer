@@ -448,6 +448,76 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for an icon class meta field
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type bool   $required     Whether the field is required. Default false.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
+  // Setup
+  $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+  $placeholder = strval( $args['placeholder'] ?? '' );
+  $required = ( $args['required'] ?? 0 ) ? 'required' : '';
+  $data_required = $required ? 'data-required="true"' : '';
+  $current_icon_class = fictioneer_get_icon_field( $meta_key, $post->ID );
+
+  $icons = ['fa-solid fa-book', 'fa-solid fa-star', 'fa-solid fa-heart', 'fa-solid fa-bomb', 'fa-solid fa-wine-glass',
+    'fa-solid fa-face-smile', 'fa-solid fa-shield', 'fa-solid fa-ghost', 'fa-solid fa-gear', 'fa-solid fa-droplet',
+    'fa-solid fa-fire', 'fa-solid fa-radiation', 'fa-solid fa-lemon', 'fa-solid fa-globe', 'fa-solid fa-flask',
+    'fa-solid fa-snowflake', 'fa-solid fa-cookie', 'fa-solid fa-circle', 'fa-solid fa-square', 'fa-solid fa-moon',
+    'fa-solid fa-brain', 'fa-solid fa-diamond', 'fa-solid fa-virus', 'fa-solid fa-horse-head', 'fa-solid fa-certificate',
+    'fa-solid fa-scroll', 'fa-solid fa-spa', 'fa-solid fa-skull'];
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--icons" <?php echo $data_required; ?>>
+
+    <?php if ( $label ) : ?>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--icon">
+      <i class="fictioneer-meta-field__fa-icon <?php echo $current_icon_class; ?>"></i>
+      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input fictioneer-meta-field__input--icon" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+    <div class="fictioneer-meta-field__button-grid hidden">
+      <?php
+        foreach( $icons as $icon ) {
+          echo "<button type='button' class='fictioneer-meta-field__icon-button' data-value='{$icon}'><i class='{$icon}'></i></button>";
+        }
+      ?>
+    </div>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
 // =============================================================================
 // METABOX CLASSES
 // =============================================================================
@@ -516,12 +586,12 @@ add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
  */
 
 function fictioneer_render_story_metabox( $post ) {
-  // --- Setup -------------------------------------------------------------------
+  // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
   $output = [];
 
-  // --- Add fields --------------------------------------------------------------
+  // --- Add fields ------------------------------------------------------------
 
   $output['fictioneer_story_status'] = fictioneer_get_metabox_select(
     $post,
@@ -656,11 +726,11 @@ function fictioneer_render_story_metabox( $post ) {
     );
   }
 
-  // --- Filters -----------------------------------------------------------------
+  // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_story_meta_fields', $output, $post );
 
-  // --- Render ------------------------------------------------------------------
+  // --- Render ----------------------------------------------------------------
 
   echo implode( '', $output );
 
@@ -678,7 +748,7 @@ function fictioneer_render_story_metabox( $post ) {
  */
 
 function fictioneer_save_story_metabox( $post_id ) {
-  // --- Verify ------------------------------------------------------------------
+  // --- Verify ----------------------------------------------------------------
 
   if (
     ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
@@ -688,7 +758,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     return;
   }
 
-  // --- Permissions? ------------------------------------------------------------
+  // --- Permissions? ----------------------------------------------------------
 
   if (
     ! current_user_can( 'edit_fcn_stories', $post_id ) ||
@@ -697,7 +767,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     return;
   }
 
-  // --- Sanitize and add data ---------------------------------------------------
+  // --- Sanitize and add data -------------------------------------------------
 
   $allowed_statuses = ['Ongoing', 'Completed', 'Oneshot', 'Hiatus', 'Canceled'];
   $status = fictioneer_sanitize_selection( $_POST['fictioneer_story_status'] ?? '', $allowed_statuses, $allowed_statuses[0] );
@@ -755,11 +825,11 @@ function fictioneer_save_story_metabox( $post_id ) {
     $fields['fictioneer_story_css'] = str_replace( '<', '', $css );
   }
 
-  // --- Filters -----------------------------------------------------------------
+  // --- Filters ---------------------------------------------------------------
 
   $fields = apply_filters( 'fictioneer_filter_story_meta_updates', $fields, $post_id );
 
-  // --- Save --------------------------------------------------------------------
+  // --- Save ------------------------------------------------------------------
 
   foreach ( $fields as $key => $value ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
@@ -798,13 +868,13 @@ add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
  */
 
 function fictioneer_render_advanced_metabox( $post ) {
-  // --- Setup -------------------------------------------------------------------
+  // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
   $output = [];
   $author_id = $post->post_author ?: get_current_user_id();
 
-  // --- Add fields --------------------------------------------------------------
+  // --- Add fields ------------------------------------------------------------
 
   // Landscape Image
   $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
@@ -908,11 +978,11 @@ function fictioneer_render_advanced_metabox( $post ) {
     );
   }
 
-  // --- Filters -----------------------------------------------------------------
+  // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_advanced_meta_fields', $output, $post );
 
-  // --- Render ------------------------------------------------------------------
+  // --- Render ----------------------------------------------------------------
 
   echo implode( '', $output );
 

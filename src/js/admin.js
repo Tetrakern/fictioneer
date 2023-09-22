@@ -522,3 +522,37 @@ _$$('[data-target="fcn-meta-field-tokens-track"]').forEach(track => {
     }
   });
 });
+
+// =============================================================================
+// ICONS META FIELD
+// =============================================================================
+
+function fcn_insertIconClass(button) {
+  const parent = button.closest('.fictioneer-meta-field');
+
+  if (!parent || !button) {
+    return;
+  }
+
+  parent.querySelector('.fictioneer-meta-field__input').value = button.dataset.value;
+
+  parent.querySelector('.fictioneer-meta-field__fa-icon')
+    .setAttribute('class', `fictioneer-meta-field__fa-icon ${button.dataset.value}`);
+}
+
+// Listen for clicks on icons
+_$$('.fictioneer-meta-field__icon-button[data-value]').forEach(button => {
+  button.addEventListener('click', event => {
+    event.preventDefault();
+    fcn_insertIconClass(event.currentTarget);
+  });
+});
+
+// Listen for clicks on current icon
+_$$('.fictioneer-meta-field__fa-icon').forEach(field => {
+  field.addEventListener('click', event => {
+    const icons = event.currentTarget.closest('.fictioneer-meta-field').querySelector('.fictioneer-meta-field__button-grid');
+
+    icons.classList.toggle('hidden', !icons.classList.contains('hidden'));
+  });
+});
