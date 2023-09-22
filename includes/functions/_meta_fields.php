@@ -626,14 +626,16 @@ function fictioneer_render_story_metabox( $post ) {
     )
   );
 
-  $output['fictioneer_story_co_authors'] = fictioneer_get_metabox_array(
-    $post,
-    'fictioneer_story_co_authors',
-    array(
-      'label' => _x( 'Co-Authors', 'Story co-authors meta field label.', 'fictioneer' ),
-      'description' => __( 'Comma-separated list of author IDs.', 'fictioneer' )
-    )
-  );
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $output['fictioneer_story_co_authors'] = fictioneer_get_metabox_array(
+      $post,
+      'fictioneer_story_co_authors',
+      array(
+        'label' => _x( 'Co-Authors', 'Story co-authors meta field label.', 'fictioneer' ),
+        'description' => __( 'Comma-separated list of author IDs.', 'fictioneer' )
+      )
+    );
+  }
 
   $output['fictioneer_story_copyright_notice'] = fictioneer_get_metabox_text(
     $post,
@@ -789,12 +791,14 @@ function fictioneer_save_story_metabox( $post_id ) {
   $twf_url = strpos( $twf_url, 'https://topwebfiction.com/') === 0 ? $twf_url : '';
   $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
 
-  $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ?? '' );
-  $co_authors = array_map( 'absint', $co_authors );
-  $co_authors = array_filter ($co_authors, function( $user_id ) {
-    return get_userdata( $user_id ) !== false;
-  });
-  $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
+    $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ?? '' );
+    $co_authors = array_map( 'absint', $co_authors );
+    $co_authors = array_filter ($co_authors, function( $user_id ) {
+      return get_userdata( $user_id ) !== false;
+    });
+    $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
+}
 
   if ( current_user_can( 'fcn_make_sticky', $post_id ) && FICTIONEER_ENABLE_STICKY_CARDS ) {
     $fields['fictioneer_story_sticky'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_sticky'] ?? 0 );

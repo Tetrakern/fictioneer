@@ -621,6 +621,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable rate limiting for AJAX requests', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_enable_advanced_meta_fields' => array(
+      'name' => 'fictioneer_enable_advanced_meta_fields',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Enable advanced meta fields', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

@@ -874,6 +874,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_label_checkbox(
+                    'fictioneer_enable_advanced_meta_fields',
+                    __( 'Additional options you most likely do not need.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_label_checkbox(
                     'fictioneer_disable_theme_logout',
                     __( 'Return to the default WordPress logout with nonce.', 'fictioneer' )
                   );
