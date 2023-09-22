@@ -827,7 +827,7 @@ if ( ! function_exists( 'fictioneer_get_field' ) ) {
   function fictioneer_get_field( $field, $post_id = null ) {
     // Setup
     $post_id = absint( $post_id );
-    $post_id = $post_id ?: get_the_ID();
+    $post_id = $post_id ? $post_id : get_the_ID();
 
     // Retrieve post meta
     return get_post_meta( $post_id, $field, true );
