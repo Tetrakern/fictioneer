@@ -546,6 +546,7 @@ function fictioneer_append_metabox_classes( $classes ) {
   return $classes;
 }
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
 
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
   add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
@@ -655,7 +656,7 @@ function fictioneer_render_story_metabox( $post ) {
     )
   );
 
-  $output['additional_settings_heading'] = '<div class="fictioneer-meta-field-heading">' .
+  $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
     __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
   if ( current_user_can( 'fcn_make_sticky', $post->ID ) && FICTIONEER_ENABLE_STICKY_CARDS ) {
@@ -842,6 +843,178 @@ function fictioneer_save_story_metabox( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_story_metabox' );
 
 // =============================================================================
+// CHAPTER META FIELDS
+// =============================================================================
+
+/**
+ * Adds chapter metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_chapter_meta_metabox() {
+  add_meta_box(
+    'fictioneer-chapter-meta',
+    __( 'Chapter Meta', 'fictioneer' ),
+    'fictioneer_render_chapter_metabox',
+    ['fcn_chapter'],
+    'side',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
+
+/**
+ * Render chapter metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_chapter_metabox( $post ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $output = [];
+
+  // --- Add fields ------------------------------------------------------------
+
+  if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
+    $output['fictioneer_chapter_icon'] = fictioneer_get_metabox_icons(
+      $post,
+      'fictioneer_chapter_icon',
+      array(
+        'label' => _x( 'Icon', 'Chapter icon meta field label.', 'fictioneer' ),
+        'description' => sprintf(
+          __( 'You can use all <em>free</em> <a href="%s" target="_blank">Font Awesome</a> icons.', 'fictioneer' ),
+          'https://fontawesome.com/search'
+        ),
+        'placeholder' => 'fa-solid fa-book',
+        'required' => true
+      )
+    );
+  }
+
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $output['fictioneer_chapter_text_icon'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_chapter_text_icon',
+      array(
+        'label' => _x( 'Text Icon', 'Chapter text icon meta field label.', 'fictioneer' ),
+        'description' => __( 'Text string as icon; mind the limited space.', 'fictioneer' )
+      )
+    );
+  }
+
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $output['fictioneer_chapter_short_title'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_chapter_short_title',
+      array(
+        'label' => _x( 'Short Title', 'Chapter short title meta field label.', 'fictioneer' ),
+        'description' => __( 'Shorter title, such as "Arc 15, Ch. 17".', 'fictioneer' )
+      )
+    );
+  }
+
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $output['fictioneer_chapter_prefix'] = fictioneer_get_metabox_text(
+      $post,
+      'fictioneer_chapter_prefix',
+      array(
+        'label' => _x( 'Prefix', 'Chapter prefix meta field label.', 'fictioneer' ),
+        'description' => __( 'Prefix, such as "Prologue" or "Act I ~ 01".', 'fictioneer' )
+      )
+    );
+  }
+
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $output['fictioneer_chapter_co_authors'] = fictioneer_get_metabox_array(
+      $post,
+      'fictioneer_chapter_co_authors',
+      array(
+        'label' => _x( 'Co-Authors', 'Chapter co-authors meta field label.', 'fictioneer' ),
+        'description' => __( 'Comma-separated list of author IDs.', 'fictioneer' )
+      )
+    );
+  }
+
+  $output['fictioneer_chapter_rating'] = fictioneer_get_metabox_select(
+    $post,
+    'fictioneer_chapter_rating',
+    array(
+      '0' => __( '— Unset —', 'fictioneer' ),
+      'Everyone' => _x( 'Everyone', 'Chapter age rating select option.', 'fictioneer' ),
+      'Teen' => _x( 'Teen', 'Chapter age rating select option.', 'fictioneer' ),
+      'Mature' => _x( 'Mature', 'Chapter age rating select option.', 'fictioneer' ),
+      'Adult' => _x( 'Adult', 'Chapter age rating select option.', 'fictioneer' )
+    ),
+    array(
+      'label' => _x( 'Age Rating', 'Chapter age rating meta field label.', 'fictioneer' ),
+      'description' => __( 'Optional age rating only for the chapter.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_chapter_warning'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_chapter_warning',
+    array(
+      'label' => _x( 'Warning', 'Chapter warning meta field label.', 'fictioneer' ),
+      'description' => __( 'Warning shown in chapter lists.', 'fictioneer' )
+    )
+  );
+
+  $output['fictioneer_chapter_warning_notes'] = fictioneer_get_metabox_textarea(
+    $post,
+    'fictioneer_chapter_warning_notes',
+    array(
+      'label' => __( 'Warning Notes', 'fictioneer' ),
+      'description' => __( 'Warning note shown in chapters.', 'fictioneer' )
+    )
+  );
+
+  $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
+    __( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
+
+  $output['fictioneer_chapter_hidden'] = fictioneer_get_metabox_checkbox(
+    $post,
+    'fictioneer_chapter_hidden',
+    __( 'Unlisted (but accessible with link)', 'fictioneer' )
+  );
+
+  $output['fictioneer_chapter_no_chapter'] = fictioneer_get_metabox_checkbox(
+    $post,
+    'fictioneer_chapter_no_chapter',
+    __( 'Do not count as chapter', 'fictioneer' )
+  );
+
+  $output['fictioneer_chapter_hide_title'] = fictioneer_get_metabox_checkbox(
+    $post,
+    'fictioneer_chapter_hide_title',
+    __( 'Hide title in chapter', 'fictioneer' )
+  );
+
+  $output['fictioneer_chapter_hide_support_links'] = fictioneer_get_metabox_checkbox(
+    $post,
+    'fictioneer_chapter_hide_support_links',
+    __( 'Hide support links', 'fictioneer' )
+  );
+
+  // --- Filters ---------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_chapter_meta_fields', $output, $post );
+
+  // --- Render ----------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+// =============================================================================
 // ADVANCED META FIELDS
 // =============================================================================
 
@@ -972,7 +1145,7 @@ function fictioneer_render_advanced_metabox( $post ) {
 
   // Checkbox: Disable new comments
   if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
-    $output['additional_settings_heading'] = '<div class="fictioneer-meta-field-heading">' .
+    $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
       _x( 'Flags', 'Metabox checkbox heading.', 'fictioneer' ) . '</div>';
 
     $output['fictioneer_disable_commenting'] = fictioneer_get_metabox_checkbox(
