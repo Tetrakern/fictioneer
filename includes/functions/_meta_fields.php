@@ -795,11 +795,11 @@ function fictioneer_save_story_metabox( $post_id ) {
   if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
     $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ?? '' );
     $co_authors = array_map( 'absint', $co_authors );
-    $co_authors = array_filter ($co_authors, function( $user_id ) {
+    $co_authors = array_filter( $co_authors, function( $user_id ) {
       return get_userdata( $user_id ) !== false;
     });
     $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
-}
+  }
 
   if ( current_user_can( 'fcn_make_sticky', $post_id ) && FICTIONEER_ENABLE_STICKY_CARDS ) {
     $fields['fictioneer_story_sticky'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_sticky'] ?? 0 );
@@ -1013,6 +1013,113 @@ function fictioneer_render_chapter_metabox( $post ) {
   <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
 }
+
+/**
+ * Save chapter metabox data
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_chapter_metabox( $post_id ) {
+  // --- Verify ----------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    get_post_type( $post_id ) !== 'fcn_chapter'
+  ) {
+    return;
+  }
+
+  // --- Permissions? ----------------------------------------------------------
+
+  if (
+    ! current_user_can( 'edit_fcn_chapters', $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( 'edit_published_fcn_chapters', $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data -------------------------------------------------
+
+  // Flags
+  $fields = array(
+    'fictioneer_chapter_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hidden'] ?? 0 ),
+    'fictioneer_chapter_no_chapter' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_no_chapter'] ?? 0 ),
+    'fictioneer_chapter_hide_title' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hide_title'] ?? 0 ),
+    'fictioneer_chapter_hide_support_links' => fictioneer_sanitize_checkbox(
+      $_POST['fictioneer_chapter_hide_support_links'] ?? 0
+    )
+  );
+
+  // Rating
+  $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
+  $rating = fictioneer_sanitize_selection( $_POST['fictioneer_chapter_rating'] ?? '', $allowed_ratings );
+  $fields['fictioneer_chapter_rating'] = $rating;
+
+  // Icon
+  if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
+    $icon = sanitize_text_field( $_POST['fictioneer_chapter_icon'] ?? '' );
+    $icon_object = json_decode( $icon ); // Legacy
+
+    // Valid?
+    if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {
+      $icon = 'fa-solid fa-book';
+    }
+
+    if ( $icon_object && ( ! property_exists( $icon_object, 'style' ) || ! property_exists( $icon_object, 'id' ) ) ) {
+      $icon = 'fa-solid fa-book';
+    }
+
+    $fields['fictioneer_chapter_icon'] = $icon;
+  }
+
+  // Text icon
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $text_icon = sanitize_text_field( $_POST['fictioneer_chapter_text_icon'] ?? '' );
+    $fields['fictioneer_chapter_text_icon'] = mb_substr( $text_icon, 0, 10, 'UTF-8' ); // Icon codes, etc.
+  }
+
+  // Short title
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $fields['fictioneer_chapter_short_title'] = sanitize_text_field( $_POST['fictioneer_chapter_short_title'] ?? '' );
+  }
+
+  // Prefix
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $fields['fictioneer_chapter_prefix'] = sanitize_text_field( $_POST['fictioneer_chapter_prefix'] ?? '' );
+  }
+
+  // Co-authors
+  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
+    $co_authors = fictioneer_explode_list( $_POST['fictioneer_chapter_co_authors'] ?? '' );
+    $co_authors = array_map( 'absint', $co_authors );
+    $co_authors = array_filter( $co_authors, function( $user_id ) {
+      return get_userdata( $user_id ) !== false;
+    });
+    $fields['fictioneer_chapter_co_authors'] = array_unique( $co_authors );
+  }
+
+  // Warning
+  $fields['fictioneer_chapter_warning'] = sanitize_text_field( $_POST['fictioneer_chapter_warning'] ?? '' );
+
+  // Warning notes
+  $notes = sanitize_textarea_field( $_POST['fictioneer_chapter_warning_notes'] ?? '' );
+  $fields['fictioneer_chapter_warning_notes'] = $notes;
+
+  // --- Filters ---------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_chapter_meta_updates', $fields, $post_id );
+
+  // --- Save ------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_chapter_metabox' );
 
 // =============================================================================
 // ADVANCED META FIELDS
