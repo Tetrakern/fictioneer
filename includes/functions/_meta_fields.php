@@ -561,7 +561,7 @@ foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
 // =============================================================================
 
 /**
- * Adds story metabox
+ * Adds story side metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -570,7 +570,7 @@ function fictioneer_add_story_meta_metabox() {
   add_meta_box(
     'fictioneer-story-meta',
     __( 'Story Meta', 'fictioneer' ),
-    'fictioneer_render_story_metabox',
+    'fictioneer_render_story_side_metabox',
     ['fcn_story'],
     'side',
     'high'
@@ -579,14 +579,14 @@ function fictioneer_add_story_meta_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
 
 /**
- * Render story metabox
+ * Render story side metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_story_metabox( $post ) {
+function fictioneer_render_story_side_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -847,7 +847,7 @@ add_action( 'save_post', 'fictioneer_save_story_metabox' );
 // =============================================================================
 
 /**
- * Adds chapter metabox
+ * Adds chapter side metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -856,7 +856,7 @@ function fictioneer_add_chapter_meta_metabox() {
   add_meta_box(
     'fictioneer-chapter-meta',
     __( 'Chapter Meta', 'fictioneer' ),
-    'fictioneer_render_chapter_metabox',
+    'fictioneer_render_chapter_side_metabox',
     ['fcn_chapter'],
     'side',
     'high'
@@ -865,14 +865,14 @@ function fictioneer_add_chapter_meta_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
 
 /**
- * Render chapter metabox
+ * Render chapter side metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_chapter_metabox( $post ) {
+function fictioneer_render_chapter_side_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -1126,7 +1126,7 @@ add_action( 'save_post', 'fictioneer_save_chapter_metabox' );
 // =============================================================================
 
 /**
- * Adds advanced metabox
+ * Adds advanced side metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -1135,7 +1135,7 @@ function fictioneer_add_advanced_metabox() {
   add_meta_box(
     'fictioneer-advanced',
     __( 'Advanced', 'fictioneer' ),
-    'fictioneer_render_advanced_metabox',
+    'fictioneer_render_advanced_side_metabox',
     ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
     'side',
     'high'
@@ -1144,14 +1144,14 @@ function fictioneer_add_advanced_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
 
 /**
- * Render advanced metabox
+ * Render advanced side metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_advanced_metabox( $post ) {
+function fictioneer_render_advanced_side_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -1398,7 +1398,7 @@ add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
 // =============================================================================
 
 /**
- * Adds support links metabox
+ * Adds support links side metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -1407,7 +1407,7 @@ function fictioneer_add_support_metabox() {
   add_meta_box(
     'fictioneer-support-links',
     __( 'Support Links', 'fictioneer' ),
-    'fictioneer_render_support_links_metabox',
+    'fictioneer_render_support_links_side_metabox',
     ['post', 'fcn_story', 'fcn_chapter'],
     'side',
     'low'
@@ -1416,14 +1416,14 @@ function fictioneer_add_support_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
 
 /**
- * Render support links metabox
+ * Render support links side metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_support_links_metabox( $post ) {
+function fictioneer_render_support_links_side_metabox( $post ) {
   // --- Setup -------------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
