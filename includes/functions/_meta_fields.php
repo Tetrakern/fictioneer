@@ -70,6 +70,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
+  $list = ( $args['list'] ?? 0 ) ? 'list="' . $args['list'] . '"' : '';
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
 
@@ -85,7 +86,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $list; ?> <?php echo $required; ?>>
     </div>
 
     <?php if ( $description ) : ?>
