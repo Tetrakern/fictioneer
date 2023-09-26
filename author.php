@@ -144,8 +144,10 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         <section class="singular__content author-page__content content-section">
           <?php
             if ( $author_page ) {
-              setup_postdata( $author_page );
+              $post = get_post( $author_page );
+              setup_postdata( $post );
               the_content();
+              wp_reset_postdata();
             } elseif ( ! empty( $author->user_description ) ) {
               echo $author->user_description;
             }
