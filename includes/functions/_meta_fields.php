@@ -519,6 +519,74 @@ function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for an editor meta field
+ *
+ * Note: As of WordPress 6.3.1, the TinyMCE editor does not properly load in
+ * Firefox if the visual tab is preselected. It does work if you switch from
+ * the text tab, therefore this is set as default for now.
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
+  // Setup
+  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+
+  $settings = array(
+    'wpautop' => true,
+    'media_buttons' => false,
+    'textarea_name' => $meta_key,
+    'textarea_rows' => 10,
+    'default_editor' => 'html',
+    'tinymce' => array(
+      'toolbar1' => 'bold,italic,bullist,numlist,blockquote,alignleft,aligncenter,alignright,link',
+      'toolbar2' => '',
+      'paste_as_text' => true
+    ),
+    'quicktags' => array(
+      'buttons' => 'strong,em,link,block,img,ul,ol,li,close'
+    )
+  );
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--editor">
+
+    <?php if ( $label ) : ?>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--editor">
+      <?php wp_editor( $meta_value, "{$meta_key}_editor", $settings ); ?>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
 // =============================================================================
 // METABOX CLASSES
 // =============================================================================
