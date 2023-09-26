@@ -110,10 +110,8 @@ p a,
   p {
     img {
       display: inline-block;
-      vertical-align: middle;
-      height: 1rem;
-      width: auto !important;
-      transform: translateY(-0.1em);
+      height: auto;
+      transform: translateY(0.2em);
     }
   }
 }

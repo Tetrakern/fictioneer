@@ -76,10 +76,8 @@ body {
   p {
     img:not(.wp-more-tag) {
       display: inline-block;
-      vertical-align: middle;
-      height: 1em;
-      width: auto !important;
-      transform: translateY(-0.1em);
+      height: auto;
+      transform: translateY(0.2em);
     }
   }
 
