@@ -568,7 +568,7 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
   <div class="fictioneer-meta-field fictioneer-meta-field--editor">
 
     <?php if ( $label ) : ?>
-      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label fictioneer-meta-field__label--editor" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
 
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">

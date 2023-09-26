@@ -301,6 +301,12 @@ td.comment {
     width: fit-content;
   }
 
+  &__label {
+    &--editor {
+      margin-bottom: -12px;
+    }
+  }
+
   &-heading {
     &:not(:first-child) {
       margin-top: 16px;
