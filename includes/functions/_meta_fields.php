@@ -607,6 +607,62 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for a relationship meta field
+ *
+ * Note: Currently relies on ACF.
+ *
+ * @since 5.7.4
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_relationship_field( $post, $meta_key, $args = [] ) {
+  // Setup
+  $acf_field = get_field_object( $meta_key );
+  $acf_field['label'] = '';
+  $acf_field['instructions'] = '';
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+
+  // Abort if field object not found
+  if ( ! $acf_field ) {
+    return;
+  }
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--relationship">
+
+    <?php if ( $label ) : ?>
+      <label class="fictioneer-meta-field__label fictioneer-meta-field__label--relationship" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+    <?php endif; ?>
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--relationship">
+      <?php acf_render_field_wrap( $acf_field ); ?>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+  </div>
+
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
 // =============================================================================
 // METABOX CLASSES
 // =============================================================================

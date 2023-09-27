@@ -100,6 +100,9 @@ function fictioneer_admin_scripts( $hook_suffix ) {
       FICTIONEER_VERSION
     );
   }
+
+  // ACF
+  acf_enqueue_scripts();
 }
 add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
 
