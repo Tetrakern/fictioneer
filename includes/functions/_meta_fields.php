@@ -1,5 +1,25 @@
 <?php
 
+/**
+ * Sanitizes editor content
+ *
+ * Removes malicious HTML, shortcodes, and blocks.
+ *
+ * @since 5.7.4
+ *
+ * @param string $content  The content to be sanitized
+ *
+ * @return string The sanitized content.
+ */
+
+function fictioneer_sanitize_editor( $content ) {
+  $content = wp_kses_post( $content );
+  $content = strip_shortcodes( $content );
+  $content = preg_replace( '/<!--\s*wp:(.*?)-->(.*?)<!--\s*\/wp:\1\s*-->/s', '', $content );
+
+  return $content;
+}
+
 // =============================================================================
 // META FIELD HELPERS
 // =============================================================================
@@ -616,6 +636,7 @@ function fictioneer_append_metabox_classes( $classes ) {
 }
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
 
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
   add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
@@ -639,7 +660,7 @@ function fictioneer_add_story_meta_metabox() {
   add_meta_box(
     'fictioneer-story-meta',
     __( 'Story Meta', 'fictioneer' ),
-    'fictioneer_render_story_side_metabox',
+    'fictioneer_render_story_meta_metabox',
     ['fcn_story'],
     'side',
     'high'
@@ -648,14 +669,14 @@ function fictioneer_add_story_meta_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
 
 /**
- * Render story side metabox
+ * Render story meta metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_story_side_metabox( $post ) {
+function fictioneer_render_story_meta_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -800,7 +821,7 @@ function fictioneer_render_story_side_metabox( $post ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $output = apply_filters( 'fictioneer_filter_story_meta_fields', $output, $post );
+  $output = apply_filters( 'fictioneer_filter_metabox_story_meta', $output, $post );
 
   // --- Render ----------------------------------------------------------------
 
@@ -901,7 +922,7 @@ function fictioneer_save_story_metabox( $post_id ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_story_meta_updates', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_field_updates_story', $fields, $post_id );
 
   // --- Save ------------------------------------------------------------------
 
@@ -916,7 +937,7 @@ add_action( 'save_post', 'fictioneer_save_story_metabox' );
 // =============================================================================
 
 /**
- * Adds chapter side metabox
+ * Adds chapter meta metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -925,7 +946,7 @@ function fictioneer_add_chapter_meta_metabox() {
   add_meta_box(
     'fictioneer-chapter-meta',
     __( 'Chapter Meta', 'fictioneer' ),
-    'fictioneer_render_chapter_side_metabox',
+    'fictioneer_render_chapter_meta_metabox',
     ['fcn_chapter'],
     'side',
     'high'
@@ -934,14 +955,14 @@ function fictioneer_add_chapter_meta_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
 
 /**
- * Render chapter side metabox
+ * Render chapter meta metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_chapter_side_metabox( $post ) {
+function fictioneer_render_chapter_meta_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -1072,7 +1093,7 @@ function fictioneer_render_chapter_side_metabox( $post ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $output = apply_filters( 'fictioneer_filter_chapter_meta_fields', $output, $post );
+  $output = apply_filters( 'fictioneer_filter_metabox_chapter_meta', $output, $post );
 
   // --- Render ----------------------------------------------------------------
 
@@ -1084,14 +1105,220 @@ function fictioneer_render_chapter_side_metabox( $post ) {
 }
 
 /**
- * Save chapter metabox data
+ * Adds chapter data metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_chapter_data_metabox() {
+  add_meta_box(
+    'fictioneer-chapter-data',
+    __( 'Chapter Data', 'fictioneer' ),
+    'fictioneer_render_chapter_data_metabox',
+    ['fcn_chapter'],
+    'normal',
+    'high'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_chapter_data_metabox' );
+
+/**
+ * Render chapter data metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_chapter_data_metabox( $post ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $post_author_id = get_post_field( 'post_author', $post->ID );
+  $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $output = [];
+
+  // --- Add fields ------------------------------------------------------------
+
+  // Story
+  $stories = array( '0' => _x( '— Unassigned —', 'Chapter story select option.', 'fictioneer' ) );
+  $description = __( 'Select the story this chapter belongs to; assign and order in the story.', 'fictioneer' );
+  $author_warning = '';
+
+  $author_stories = new WP_Query(
+    array(
+      'author' => $post_author_id,
+      'post_type' => 'fcn_story',
+      'post_status' => ['publish', 'private'],
+      'posts_per_page'=> -1,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  if ( $author_stories->have_posts() ) {
+    foreach( $author_stories->posts as $story ) {
+      if ( $story->post_status !== 'publish' ) {
+        $status_object = get_post_status_object( $story->post_status );
+        $status_label = $status_object ? $status_object->label : $story->post_status;
+
+        $stories[ $story->ID ] = sprintf(
+          _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
+          fictioneer_get_safe_title( $story->ID ),
+          $status_label
+        );
+      } else {
+        $stories[ $story->ID ] = fictioneer_get_safe_title( $story->ID );
+      }
+    }
+  }
+
+  if ( $current_story_id ) {
+    // Check unmatched story assignment...
+    if ( ! array_key_exists( $current_story_id, $stories ) ) {
+      $other_author_id = get_post_field( 'post_author', $current_story_id );
+      $suffix = [];
+
+      // Other author
+      if ( $other_author_id != $post_author_id ) {
+        $suffix['author'] = get_the_author_meta( 'display_name', $other_author_id );
+        $author_warning = __( '<strong>Warning:</strong> The selected story belongs to another author. If you change the selection, you cannot go back.', 'fictioneer' );
+      }
+
+      // Other status
+      if ( get_post_status( $current_story_id ) === 'publish' ) {
+        $status_object = get_post_status_object( $story->post_status );
+        $status_label = $status_object ? $status_object->label : $story->post_status;
+
+        $suffix['status'] = $status_label;
+      }
+
+      // Prepare suffix
+      if ( ! empty( $suffix ) ) {
+        $suffix = ' (' . implode( ' | ', $suffix ) . ')';
+      }
+
+      $stories[ $current_story_id ] = sprintf(
+        _x( '%s %s', 'Chapter story meta field mismatched option with author and/or status label.', 'fictioneer' ),
+        fictioneer_get_safe_title( $current_story_id ),
+        $suffix
+      );
+    }
+  }
+
+  if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+    $description = __( 'Select the story this chapter belongs to; new <em>published</em> chapters are automatically appended to the story.', 'fictioneer' );
+  }
+
+  $output['fictioneer_chapter_story'] = fictioneer_get_metabox_select(
+    $post,
+    'fictioneer_chapter_story',
+    $stories,
+    array(
+      'label' => _x( 'Story', 'Chapter story meta field label.', 'fictioneer' ),
+      'description' => $description . ' ' . $author_warning
+    )
+  );
+
+  // Card/List title
+  $output['fictioneer_chapter_list_title'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_chapter_list_title',
+    array(
+      'label' => _x( 'Card/List Title', 'Chapter card/list title meta field label.', 'fictioneer' ),
+      'description' => __( 'Alternative title used in cards and lists. Useful for long titles that get truncated on small screens.', 'fictioneer' )
+    )
+  );
+
+  // Group
+  $current_story = fictioneer_get_story_data( $current_story_id, false );
+  $groups = [];
+
+  if ( $current_story && ! empty( $current_story['chapter_ids'] ) ) {
+    foreach ( $current_story['chapter_ids'] as $chapter_id ) {
+      $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
+
+      if ( $group ) {
+        $groups[] = $group;
+      }
+    }
+
+    $groups = array_unique( $groups );
+  }
+
+  if ( ! empty( $groups ) ) {
+    echo "<datalist id='chapter_groups_for_{$post->ID}'>";
+
+    foreach ( $groups as $group ) {
+      echo "<option value='$group'></option>";
+    }
+
+    echo '</datalist>';
+  }
+
+  $output['fictioneer_chapter_group'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_chapter_group',
+    array(
+      'label' => _x( 'Group', 'Chapter group meta field label.', 'fictioneer' ),
+      'description' => __( 'Organize chapters into groups; mind the order and spelling (case-sensitive). Only rendered if there are at least two, unassigned chapters are grouped under "Unassigned".', 'fictioneer' ),
+      'list' => "chapter_groups_for_{$post->ID}"
+    )
+  );
+
+  // Foreword
+  $output['fictioneer_chapter_foreword'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_chapter_foreword',
+    array(
+      'label' => _x( 'Foreword', 'Chapter foreword meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed in a box above the chapter. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
+  // Afterword
+  $output['fictioneer_chapter_afterword'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_chapter_afterword',
+    array(
+      'label' => _x( 'Afterword', 'Chapter afterword meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed in a box below the chapter. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
+  // Password note
+  $output['fictioneer_chapter_password_note'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_chapter_password_note',
+    array(
+      'label' => _x( 'Password Note', 'Chapter password note meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed for password protected content. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
+  // --- Filters ---------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_chapter_data', $output, $post );
+
+  // --- Render ----------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save chapter meta fields
  *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_save_chapter_metabox( $post_id ) {
+function fictioneer_save_chapter_meta( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
   if (
@@ -1112,6 +1339,8 @@ function fictioneer_save_chapter_metabox( $post_id ) {
   }
 
   // --- Sanitize and add data -------------------------------------------------
+
+  $post_author_id = get_post_field( 'post_author', $post_id );
 
   // Flags
   $fields = array(
@@ -1178,9 +1407,40 @@ function fictioneer_save_chapter_metabox( $post_id ) {
   $notes = sanitize_textarea_field( $_POST['fictioneer_chapter_warning_notes'] ?? '' );
   $fields['fictioneer_chapter_warning_notes'] = $notes;
 
+  // Story
+  $story_id = absint( $_POST['fictioneer_chapter_story'] ?? 0 );
+  $current_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+  if ( $story_id ) {
+    $story_author_id = get_post_field( 'post_author', $story_id );
+
+    if ( $story_author_id != $post_author_id && $current_story_id != $story_id ) {
+      $story_id = 0;
+    } else {
+      fictioneer_append_chapter_to_story( $post_id, $story_id );
+    }
+  }
+
+  $fields['fictioneer_chapter_story'] = $story_id;
+
+  // Card/List title
+  $fields['fictioneer_chapter_list_title'] = sanitize_text_field( $_POST['fictioneer_chapter_list_title'] ?? '' );
+
+  // Group
+  $fields['fictioneer_chapter_group'] = sanitize_text_field( $_POST['fictioneer_chapter_group'] ?? '' );
+
+  // Foreword
+  $fields['fictioneer_chapter_foreword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_foreword'] ?? '' );
+
+  // Afterword
+  $fields['fictioneer_chapter_afterword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_afterword'] ?? '' );
+
+  // Password note
+  $fields['fictioneer_chapter_password_note'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_password_note'] ?? '' );
+
   // --- Filters ---------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_chapter_meta_updates', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_field_updates_chapter', $fields, $post_id );
 
   // --- Save ------------------------------------------------------------------
 
@@ -1188,14 +1448,84 @@ function fictioneer_save_chapter_metabox( $post_id ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
-add_action( 'save_post', 'fictioneer_save_chapter_metabox' );
+add_action( 'save_post', 'fictioneer_save_chapter_meta' );
+
+/**
+ * Append new chapters to story list
+ *
+ * @since Fictioneer 5.4.9
+ * @since Fictioneer 5.7.4 - Updated
+ *
+ * @param int $post_id   The chapter post ID.
+ * @param int $story_id  The story post ID.
+ */
+
+function fictioneer_append_chapter_to_story( $post_id, $story_id ) {
+  if ( ! get_option( 'fictioneer_enable_chapter_appending' ) ) {
+    return;
+  }
+
+  // Abort if older than 5 seconds
+  $publishing_time = get_post_time( 'U', true, $post_id, true );
+  $current_time = current_time( 'timestamp', true );
+
+  if ( $current_time - $publishing_time > 5 ) {
+    return;
+  }
+
+  // Setup
+  $story = get_post( $story_id );
+
+  // Abort if story not found
+  if ( ! $story || ! $story_id ) {
+    return;
+  }
+
+  // Setup, continued
+  $chapter_author_id = get_post_field( 'post_author', $post_id );
+  $story_author_id = get_post_field( 'post_author', $story_id );
+
+  // Abort if the author IDs do not match
+  if ( $chapter_author_id != $story_author_id ) {
+    return;
+  }
+
+  // Get current story chapters
+  $story_chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
+
+  // Prepare chapter array if null (or broken)
+  if ( ! is_array( $story_chapters ) ) {
+    $story_chapters = [];
+  }
+
+  // Append chapter (if not already included) and save to database
+  if ( ! in_array( $post_id, $story_chapters ) ) {
+    $story_chapters[] = $post_id;
+
+    // Append chapter to field
+    update_post_meta( $story_id, 'fictioneer_story_chapters', array_unique( $story_chapters ) );
+
+    // Remember when chapter list has been last updated
+    update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+
+    // Clear story data cache to ensure it gets refreshed
+    delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+  } else {
+    // Nothing to do
+    return;
+  }
+
+  // Update story post to fire associated actions
+  wp_update_post( array( 'ID' => $story_id ) );
+}
 
 // =============================================================================
 // ADVANCED META FIELDS
 // =============================================================================
 
 /**
- * Adds advanced side metabox
+ * Adds advanced metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -1204,7 +1534,7 @@ function fictioneer_add_advanced_metabox() {
   add_meta_box(
     'fictioneer-advanced',
     __( 'Advanced', 'fictioneer' ),
-    'fictioneer_render_advanced_side_metabox',
+    'fictioneer_render_advanced_metabox',
     ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
     'side',
     'high'
@@ -1213,14 +1543,14 @@ function fictioneer_add_advanced_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
 
 /**
- * Render advanced side metabox
+ * Render advanced metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_advanced_side_metabox( $post ) {
+function fictioneer_render_advanced_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
@@ -1333,7 +1663,7 @@ function fictioneer_render_advanced_side_metabox( $post ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $output = apply_filters( 'fictioneer_filter_advanced_meta_fields', $output, $post );
+  $output = apply_filters( 'fictioneer_filter_metabox_advanced', $output, $post );
 
   // --- Render ----------------------------------------------------------------
 
@@ -1452,7 +1782,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_advanced_meta_updates', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_field_updates_advanced', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -1542,7 +1872,7 @@ function fictioneer_render_support_links_side_metabox( $post ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $output = apply_filters( 'fictioneer_filter_support_links_meta_fields', $output, $post );
+  $output = apply_filters( 'fictioneer_filter_metabox_support_links', $output, $post );
 
   // --- Render ------------------------------------------------------------------
 
@@ -1625,7 +1955,7 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_support_links_meta_updates', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_field_updates_support_links', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
