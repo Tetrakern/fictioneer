@@ -8,6 +8,10 @@ body {
   font-family: var(--wp--preset--font-family--system-fonts);
   line-height: 1.5;
 
+  &.block-editor-writing-flow {
+    padding-bottom: 24px;
+  }
+
   --red: #dc2626;
   --litrpg-bg: white;
   --litrpg-fg: currentColor;
