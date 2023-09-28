@@ -1883,7 +1883,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
 function fictioneer_render_support_links_side_metabox( $post ) {
   // --- Setup -------------------------------------------------------------------
 
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $nonce = wp_create_nonce( "support_links_{$post->ID}" );
   $output = [];
 
   // --- Add fields --------------------------------------------------------------
@@ -1937,7 +1937,7 @@ function fictioneer_render_support_links_side_metabox( $post ) {
   echo implode( '', $output );
 
   // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <input type="hidden" name="fictioneer_support_links_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
 }
 
@@ -1955,7 +1955,7 @@ function fictioneer_save_support_links_metabox( $post_id ) {
   // --- Verify ------------------------------------------------------------------
 
   if (
-    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    ! wp_verify_nonce( ( $_POST['fictioneer_support_links_nonce'] ?? '' ), "support_links_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
     ! in_array( $post_type, ['post', 'fcn_story', 'fcn_chapter'] )
   ) {
@@ -1982,34 +1982,49 @@ function fictioneer_save_support_links_metabox( $post_id ) {
   $fields = [];
 
   // Patreon link
-  $patreon = sanitize_url( $_POST['fictioneer_patreon_link'] ?? '' );
-  $patreon = filter_var( $patreon, FILTER_VALIDATE_URL ) ? $patreon : '';
-  $patreon = preg_match( '#^https://(www\.)?patreon#', $patreon ) ? $patreon : '';
-  $fields['fictioneer_patreon_link'] = $patreon;
+  if ( isset( $_POST['fictioneer_patreon_link'] ) ) {
+    $patreon = sanitize_url( $_POST['fictioneer_patreon_link'] );
+    $patreon = filter_var( $patreon, FILTER_VALIDATE_URL ) ? $patreon : '';
+    $patreon = preg_match( '#^https://(www\.)?patreon#', $patreon ) ? $patreon : '';
+
+    $fields['fictioneer_patreon_link'] = $patreon;
+  }
 
   // Ko-fi link
-  $kofi = sanitize_url( $_POST['fictioneer_kofi_link'] ?? '' );
-  $kofi = filter_var( $kofi, FILTER_VALIDATE_URL ) ? $kofi : '';
-  $kofi = preg_match( '#^https://(www\.)?ko-fi#', $kofi ) ? $kofi : '';
-  $fields['fictioneer_kofi_link'] = $kofi;
+  if ( isset( $_POST['fictioneer_kofi_link'] ) ) {
+    $kofi = sanitize_url( $_POST['fictioneer_kofi_link'] );
+    $kofi = filter_var( $kofi, FILTER_VALIDATE_URL ) ? $kofi : '';
+    $kofi = preg_match( '#^https://(www\.)?ko-fi#', $kofi ) ? $kofi : '';
 
-  // Ko-fi link
-  $subscribe_star = sanitize_url( $_POST['fictioneer_subscribestar_link'] ?? '' );
-  $subscribe_star = filter_var( $subscribe_star, FILTER_VALIDATE_URL ) ? $subscribe_star : '';
-  $subscribe_star = preg_match( '#^https://(www\.)?subscribestar#', $subscribe_star ) ? $subscribe_star : '';
-  $fields['fictioneer_subscribestar_link'] = $subscribe_star;
+    $fields['fictioneer_kofi_link'] = $kofi;
+  }
+
+  // SubscribeStar link
+  if ( isset( $_POST['fictioneer_subscribestar_link'] ) ) {
+    $subscribe_star = sanitize_url( $_POST['fictioneer_subscribestar_link'] );
+    $subscribe_star = filter_var( $subscribe_star, FILTER_VALIDATE_URL ) ? $subscribe_star : '';
+    $subscribe_star = preg_match( '#^https://(www\.)?subscribestar#', $subscribe_star ) ? $subscribe_star : '';
+
+    $fields['fictioneer_subscribestar_link'] = $subscribe_star;
+  }
 
   // Paypal link
-  $paypal = sanitize_url( $_POST['fictioneer_paypal_link'] ?? '' );
-  $paypal = filter_var( $paypal, FILTER_VALIDATE_URL ) ? $paypal : '';
-  $paypal = preg_match( '#^https://(www\.)?paypal#', $paypal ) ? $paypal : '';
-  $fields['fictioneer_paypal_link'] = $paypal;
+  if ( isset( $_POST['fictioneer_paypal_link'] ) ) {
+    $paypal = sanitize_url( $_POST['fictioneer_paypal_link'] );
+    $paypal = filter_var( $paypal, FILTER_VALIDATE_URL ) ? $paypal : '';
+    $paypal = preg_match( '#^https://(www\.)?paypal#', $paypal ) ? $paypal : '';
+
+    $fields['fictioneer_paypal_link'] = $paypal;
+  }
 
   // Donation link
-  $donation = sanitize_url( $_POST['fictioneer_donation_link'] ?? '' );
-  $donation = filter_var( $donation, FILTER_VALIDATE_URL ) ? $donation : '';
-  $donation = strpos( $donation, 'https://' ) === 0 ? $donation : '';
-  $fields['fictioneer_donation_link'] = $donation;
+  if ( isset( $_POST['fictioneer_donation_link'] ) ) {
+    $donation = sanitize_url( $_POST['fictioneer_donation_link'] );
+    $donation = filter_var( $donation, FILTER_VALIDATE_URL ) ? $donation : '';
+    $donation = strpos( $donation, 'https://' ) === 0 ? $donation : '';
+
+    $fields['fictioneer_donation_link'] = $donation;
+  }
 
   // --- Filters -----------------------------------------------------------------
 
