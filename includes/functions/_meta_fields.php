@@ -565,6 +565,8 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
   $meta_value = get_post_meta( $post->ID, $meta_key, true );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
+  $required = ( $args['required'] ?? 0 ) ? 'required' : '';
+  $data_required = $required ? 'data-required="true"' : '';
 
   $settings = array(
     'wpautop' => true,
@@ -585,7 +587,7 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-meta-field fictioneer-meta-field--editor">
+  <div class="fictioneer-meta-field fictioneer-meta-field--editor" <?php echo $data_required; ?>>
 
     <?php if ( $label ) : ?>
       <label class="fictioneer-meta-field__label fictioneer-meta-field__label--editor" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
