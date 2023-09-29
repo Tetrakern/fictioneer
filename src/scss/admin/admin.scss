@@ -256,6 +256,14 @@ td.comment {
   }
 }
 
+.metabox-location-normal {
+  .fictioneer-meta-field {
+    &:not(:first-child) {
+      margin-top: 24px;
+    }
+  }
+}
+
 .fictioneer-meta-field {
   &:not(:first-child) {
     margin-top: 16px;
