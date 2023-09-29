@@ -3,32 +3,12 @@
     "title": "Story Data",
     "fields": [
         {
-            "key": "field_5d63046c48ec3",
-            "label": "Short Description",
-            "name": "fictioneer_story_short_description",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "The <em>first paragraph<\/em> is used for story cards, so keep it nice and concise. The full short description is passed to the storygraph API. Do not use shortcodes or embeds, keep the content easy to parse.",
-            "required": 1,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 0,
-            "delay": 0
-        },
-        {
             "key": "field_5d6304e4330fd",
             "label": "Chapters",
             "name": "fictioneer_story_chapters",
             "aria-label": "",
             "type": "relationship",
-            "instructions": "Select and order all chapters that belong to this story (set in the chapter).",
+            "instructions": "Select and order chapters assigned to the story (set in the chapter).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -39,14 +19,16 @@
             "post_type": [
                 "fcn_chapter"
             ],
+            "post_status": "",
             "taxonomy": "",
             "filters": [
                 "search"
             ],
-            "return_format": "object",
+            "return_format": "id",
             "min": "",
             "max": -1,
             "elements": "",
+            "bidirectional": 0,
             "bidirectional_target": []
         },
         {
@@ -55,7 +37,7 @@
             "name": "fictioneer_story_custom_pages",
             "aria-label": "",
             "type": "relationship",
-            "instructions": "Add up to six pages to be shows as tabs alongside [Chapters] and [Blog]. All pages must have a short name or will not be shown.",
+            "instructions": "Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -66,37 +48,17 @@
             "post_type": [
                 "page"
             ],
+            "post_status": "",
             "taxonomy": "",
             "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
+                "search"
             ],
             "return_format": "id",
             "min": "",
             "max": 6,
             "elements": "",
+            "bidirectional": 0,
             "bidirectional_target": []
-        },
-        {
-            "key": "field_64c1a27b3adcb",
-            "label": "Password Note",
-            "name": "fictioneer_story_password_note",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "Custom message only shown for password protected content. Make clear why there is a password and maybe how to get it.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 0,
-            "delay": 1
         }
     ],
     "location": [
@@ -112,10 +74,10 @@
     "position": "normal",
     "style": "default",
     "label_placement": "top",
-    "instruction_placement": "label",
+    "instruction_placement": "field",
     "hide_on_screen": "",
-    "active": true,
+    "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1692459637
+    "modified": 1695845421
 }

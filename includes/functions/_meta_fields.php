@@ -693,6 +693,7 @@ function fictioneer_append_metabox_classes( $classes ) {
   return $classes;
 }
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_story_fictioneer-story-data', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
 
@@ -709,7 +710,7 @@ foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
 // =============================================================================
 
 /**
- * Adds story side metabox
+ * Adds story meta metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -737,7 +738,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
 function fictioneer_render_story_meta_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $nonce = wp_create_nonce( "story_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $output = [];
 
   // --- Add fields ------------------------------------------------------------
@@ -886,8 +887,97 @@ function fictioneer_render_story_meta_metabox( $post ) {
   echo implode( '', $output );
 
   // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <input type="hidden" name="fictioneer_story_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
+}
+
+/**
+ * Adds chapter story metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_story_data_metabox() {
+  add_meta_box(
+    'fictioneer-story-data',
+    __( 'Story Data', 'fictioneer' ),
+    'fictioneer_render_story_data_metabox',
+    ['fcn_story'],
+    'normal',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_story_data_metabox' );
+
+/**
+ * Render story data metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_story_data_metabox( $post ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "story_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $output = [];
+
+  // --- Add fields ------------------------------------------------------------
+
+  // Short description
+  $output['fictioneer_story_short_description'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_short_description',
+    array(
+      'label' => _x( 'Short Description', 'Story short description meta field label.', 'fictioneer' ),
+      'description' => __( 'The <em>first paragraph</em> is used for story cards, so keep it nice and concise. The full short description is passed to the Storygraph API.', 'fictioneer' ),
+      'required' => 1
+    )
+  );
+
+  // Chapters
+  $output['fictioneer_story_status'] = fictioneer_get_relationship_field(
+    $post,
+    'fictioneer_story_chapters',
+    array(
+      'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
+      'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' )
+    )
+  );
+
+  // Custom pages
+  $output['fictioneer_story_custom_pages'] = fictioneer_get_relationship_field(
+    $post,
+    'fictioneer_story_custom_pages',
+    array(
+      'label' => _x( 'Custom Pages', 'Story custom pages meta field label.', 'fictioneer' ),
+      'description' => __( 'Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' )
+    )
+  );
+
+  // Password note
+  $output['fictioneer_story_password_note'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_password_note',
+    array(
+      'label' => _x( 'Password Note', 'Story password note meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed for password protected content. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
+  // --- Filters ---------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_story_data', $output, $post );
+
+  // --- Render ----------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_story_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+
 }
 
 /**
@@ -902,7 +992,7 @@ function fictioneer_save_story_metabox( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
   if (
-    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    ! wp_verify_nonce( ( $_POST['fictioneer_story_nonce'] ?? '' ), "story_meta_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_story'
   ) {
@@ -920,28 +1010,38 @@ function fictioneer_save_story_metabox( $post_id ) {
 
   // --- Sanitize and add data -------------------------------------------------
 
-  $allowed_statuses = ['Ongoing', 'Completed', 'Oneshot', 'Hiatus', 'Canceled'];
-  $status = fictioneer_sanitize_selection( $_POST['fictioneer_story_status'] ?? '', $allowed_statuses, $allowed_statuses[0] );
+  $post_author_id = get_post_field( 'post_author', $post_id );
 
-  $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
-  $rating = fictioneer_sanitize_selection( $_POST['fictioneer_story_rating'] ?? '', $allowed_ratings, $allowed_ratings[0] );
+  // Status
+  if ( isset( $_POST['fictioneer_story_status'] ) ) {
+    $allowed_statuses = ['Ongoing', 'Completed', 'Oneshot', 'Hiatus', 'Canceled'];
+    $status = fictioneer_sanitize_selection( $_POST['fictioneer_story_status'], $allowed_statuses, $allowed_statuses[0] );
+    $fields['fictioneer_story_status'] = $status;
+  }
 
-  $fields = array(
-    'fictioneer_story_status' => $status,
-    'fictioneer_story_rating' => $rating,
-    'fictioneer_story_copyright_notice' => sanitize_text_field( $_POST['fictioneer_story_copyright_notice'] ?? '' ),
-    'fictioneer_story_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hidden'] ?? 0 ),
-    'fictioneer_story_no_thumbnail' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_thumbnail'] ?? 0 ),
-    'fictioneer_story_no_tags' => fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] ?? 0 )
-  );
+  // Rating
+  if ( isset( $_POST['fictioneer_story_rating'] ) ) {
+    $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
+    $rating = fictioneer_sanitize_selection( $_POST['fictioneer_story_rating'], $allowed_ratings, $allowed_ratings[0] );
+    $fields['fictioneer_story_rating'] = $rating;
+  }
 
-  $twf_url = sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] ?? '' );
-  $twf_url = filter_var( $twf_url, FILTER_VALIDATE_URL ) ? $twf_url : '';
-  $twf_url = strpos( $twf_url, 'https://topwebfiction.com/') === 0 ? $twf_url : '';
-  $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
+  // Copyright notice
+  if ( isset( $_POST['fictioneer_story_copyright_notice'] ) ) {
+    $fields['fictioneer_story_copyright_notice'] = sanitize_text_field( $_POST['fictioneer_story_copyright_notice'] );
+  }
 
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
-    $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ?? '' );
+  // Top Web Fiction
+  if ( isset( $_POST['fictioneer_story_topwebfiction_link'] ) ) {
+    $twf_url = sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] );
+    $twf_url = filter_var( $twf_url, FILTER_VALIDATE_URL ) ? $twf_url : '';
+    $twf_url = strpos( $twf_url, 'https://topwebfiction.com/') === 0 ? $twf_url : '';
+    $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
+  }
+
+  // Co-Authors
+  if ( isset( $_POST['fictioneer_story_co_authors'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
+    $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] );
     $co_authors = array_map( 'absint', $co_authors );
     $co_authors = array_filter( $co_authors, function( $user_id ) {
       return get_userdata( $user_id ) !== false;
@@ -949,33 +1049,111 @@ function fictioneer_save_story_metabox( $post_id ) {
     $fields['fictioneer_story_co_authors'] = array_unique( $co_authors );
   }
 
-  if ( current_user_can( 'fcn_make_sticky', $post_id ) && FICTIONEER_ENABLE_STICKY_CARDS ) {
-    $fields['fictioneer_story_sticky'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_sticky'] ?? 0 );
+  // Sticky flag
+  if (
+    isset( $_POST['fictioneer_story_sticky'] ) &&
+    current_user_can( 'fcn_make_sticky', $post_id ) &&
+    FICTIONEER_ENABLE_STICKY_CARDS
+  ) {
+    $fields['fictioneer_story_sticky'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_sticky'] );
   }
 
-  if ( get_option( 'fictioneer_enable_epubs' ) ) {
-    $fields['fictioneer_story_no_epub'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_epub'] ?? 0 );
+  // Hidden flag
+  if ( isset( $_POST['fictioneer_story_hidden'] ) ) {
+    $fields['fictioneer_story_hidden'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hidden'] );
   }
 
-  if ( ! get_option( 'fictioneer_disable_chapter_collapsing' ) ) {
+  // Thumbnail flag
+  if ( isset( $_POST['fictioneer_story_no_thumbnail'] ) ) {
+    $fields['fictioneer_story_no_thumbnail'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_thumbnail'] );
+  }
+
+  // Tags flag
+  if ( isset( $_POST['fictioneer_story_no_tags'] ) ) {
+    $fields['fictioneer_story_no_tags'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_tags'] );
+  }
+
+  // ePUBs flag
+  if ( isset( $_POST['fictioneer_story_no_epub'] ) && get_option( 'fictioneer_enable_epubs' ) ) {
+    $fields['fictioneer_story_no_epub'] =
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_no_epub'] );
+  }
+
+  // Chapter collapsing flag
+  if ( isset( $_POST['fictioneer_story_disable_collapse'] ) && ! get_option( 'fictioneer_disable_chapter_collapsing' ) ) {
     $fields['fictioneer_story_disable_collapse'] =
-      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_disable_collapse'] ?? 0 );
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_disable_collapse'] );
   }
 
-  if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
+  // Hide icons flag
+  if ( isset( $_POST['fictioneer_story_hide_chapter_icons'] ) && ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
     $fields['fictioneer_story_hide_chapter_icons'] =
-      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hide_chapter_icons'] ?? 0 );
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_hide_chapter_icons']);
   }
 
-  if ( get_option( 'fictioneer_enable_chapter_groups' ) ) {
+  // Chapter groups flag
+  if ( isset( $_POST['fictioneer_story_disable_groups'] ) && get_option( 'fictioneer_enable_chapter_groups' ) ) {
     $fields['fictioneer_story_disable_groups'] =
-      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_disable_groups'] ?? 0 );
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_story_disable_groups'] );
   }
 
-  if ( current_user_can( 'fcn_custom_page_css', $post_id ) ) {
-    $css = sanitize_textarea_field( $_POST['fictioneer_story_css'] ?? '' );
-    $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
-    $fields['fictioneer_story_css'] = str_replace( '<', '', $css );
+  // Custom story CSS
+  if ( isset( $_POST['fictioneer_story_css'] ) && current_user_can( 'fcn_custom_page_css', $post_id ) ) {
+    $fields['fictioneer_story_css'] = fictioneer_sanitize_css( $_POST['fictioneer_story_css'] );
+  }
+
+  // Short description (required)
+  if ( isset( $_POST['fictioneer_story_short_description'] ) ) {
+    $fields['fictioneer_story_short_description'] =
+      fictioneer_sanitize_editor( $_POST['fictioneer_story_short_description'] );
+
+    if ( empty( $fields['fictioneer_story_short_description'] ) ) {
+      $fields['fictioneer_story_short_description'] = __( 'No description provided yet.', 'fictioneer' );
+    }
+  }
+
+  // Chapters (already saved by ACF; restrict by story)
+  $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
+
+  $chapters_query = new WP_Query(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post__in' => fictioneer_rescue_array_zero( $chapters ),
+      'orderby' => 'post__in',
+      'fields' => 'ids',
+      'posts_per_page' => -1,
+      'meta_key' => 'fictioneer_chapter_story',
+      'meta_value' => $post_id,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
+
+  // Custom pages (already saved by ACF; restrict by post author)
+  $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
+
+  $pages_query = new WP_Query(
+    array(
+      'post_type' => 'page',
+      'post__in' => fictioneer_rescue_array_zero( $pages ),
+      'author' => $post_author_id, // Only allow author's pages
+      'fields' => 'ids',
+      'posts_per_page' => -1,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts ); // This has query advantages
+
+  // Password note
+  if ( isset( $_POST['fictioneer_story_password_note'] ) ) {
+    $fields['fictioneer_story_password_note'] =
+      fictioneer_sanitize_editor( $_POST['fictioneer_story_password_note'] );
   }
 
   // --- Filters ---------------------------------------------------------------
@@ -1023,7 +1201,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
 function fictioneer_render_chapter_meta_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $output = [];
 
   // --- Add fields ------------------------------------------------------------
@@ -1158,7 +1336,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
   echo implode( '', $output );
 
   // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <input type="hidden" name="fictioneer_chapter_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
 }
 
@@ -1191,7 +1369,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_data_metabox' );
 function fictioneer_render_chapter_data_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $post_author_id = get_post_field( 'post_author', $post->ID );
   $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
   $output = [];
@@ -1364,7 +1542,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   echo implode( '', $output );
 
   // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <input type="hidden" name="fictioneer_chapter_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
 }
 
@@ -1380,7 +1558,7 @@ function fictioneer_save_chapter_meta( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
   if (
-    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    ! wp_verify_nonce( ( $_POST['fictioneer_chapter_nonce'] ?? '' ), "chapter_meta_data_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
     get_post_type( $post_id ) !== 'fcn_chapter'
   ) {
@@ -1400,24 +1578,37 @@ function fictioneer_save_chapter_meta( $post_id ) {
 
   $post_author_id = get_post_field( 'post_author', $post_id );
 
-  // Flags
-  $fields = array(
-    'fictioneer_chapter_hidden' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hidden'] ?? 0 ),
-    'fictioneer_chapter_no_chapter' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_no_chapter'] ?? 0 ),
-    'fictioneer_chapter_hide_title' => fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hide_title'] ?? 0 ),
-    'fictioneer_chapter_hide_support_links' => fictioneer_sanitize_checkbox(
-      $_POST['fictioneer_chapter_hide_support_links'] ?? 0
-    )
-  );
+  // Hidden flag
+  if ( isset( $_POST['fictioneer_chapter_hidden'] ) ) {
+    $fields['fictioneer_chapter_hidden'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hidden'] );
+  }
+
+  // No chapter flag
+  if ( isset( $_POST['fictioneer_chapter_no_chapter'] ) ) {
+    $fields['fictioneer_chapter_no_chapter'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_no_chapter'] );
+  }
+
+  // Hide title flag
+  if ( isset( $_POST['fictioneer_chapter_hide_title'] ) ) {
+    $fields['fictioneer_chapter_hide_title'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hide_title'] );
+  }
+
+  // Hide support links flag
+  if ( isset( $_POST['fictioneer_chapter_hide_support_links'] ) ) {
+    $fields['fictioneer_chapter_hide_support_links'] =
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hide_support_links'] );
+  }
 
   // Rating
-  $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
-  $rating = fictioneer_sanitize_selection( $_POST['fictioneer_chapter_rating'] ?? '', $allowed_ratings );
-  $fields['fictioneer_chapter_rating'] = $rating;
+  if ( isset( $_POST['fictioneer_chapter_rating'] ) ) {
+    $allowed_ratings = ['Everyone', 'Teen', 'Mature', 'Adult'];
+    $rating = fictioneer_sanitize_selection( $_POST['fictioneer_chapter_rating'], $allowed_ratings );
+    $fields['fictioneer_chapter_rating'] = $rating;
+  }
 
   // Icon
-  if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
-    $icon = sanitize_text_field( $_POST['fictioneer_chapter_icon'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_icon'] ) && ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
+    $icon = sanitize_text_field( $_POST['fictioneer_chapter_icon'] );
     $icon_object = json_decode( $icon ); // Legacy
 
     // Valid?
@@ -1433,24 +1624,24 @@ function fictioneer_save_chapter_meta( $post_id ) {
   }
 
   // Text icon
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
-    $text_icon = sanitize_text_field( $_POST['fictioneer_chapter_text_icon'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_text_icon'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $text_icon = sanitize_text_field( $_POST['fictioneer_chapter_text_icon'] );
     $fields['fictioneer_chapter_text_icon'] = mb_substr( $text_icon, 0, 10, 'UTF-8' ); // Icon codes, etc.
   }
 
   // Short title
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
-    $fields['fictioneer_chapter_short_title'] = sanitize_text_field( $_POST['fictioneer_chapter_short_title'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_short_title'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $fields['fictioneer_chapter_short_title'] = sanitize_text_field( $_POST['fictioneer_chapter_short_title'] );
   }
 
   // Prefix
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
-    $fields['fictioneer_chapter_prefix'] = sanitize_text_field( $_POST['fictioneer_chapter_prefix'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_prefix'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+    $fields['fictioneer_chapter_prefix'] = sanitize_text_field( $_POST['fictioneer_chapter_prefix'] );
   }
 
   // Co-authors
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
-    $co_authors = fictioneer_explode_list( $_POST['fictioneer_chapter_co_authors'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_co_authors'] ) && get_option( 'fictioneer_enable_advanced_meta_fields' ) ){
+    $co_authors = fictioneer_explode_list( $_POST['fictioneer_chapter_co_authors'] );
     $co_authors = array_map( 'absint', $co_authors );
     $co_authors = array_filter( $co_authors, function( $user_id ) {
       return get_userdata( $user_id ) !== false;
@@ -1459,42 +1650,58 @@ function fictioneer_save_chapter_meta( $post_id ) {
   }
 
   // Warning
-  $fields['fictioneer_chapter_warning'] = sanitize_text_field( $_POST['fictioneer_chapter_warning'] ?? '' );
-
-  // Warning notes
-  $notes = sanitize_textarea_field( $_POST['fictioneer_chapter_warning_notes'] ?? '' );
-  $fields['fictioneer_chapter_warning_notes'] = $notes;
-
-  // Story
-  $story_id = absint( $_POST['fictioneer_chapter_story'] ?? 0 );
-  $current_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-
-  if ( $story_id ) {
-    $story_author_id = get_post_field( 'post_author', $story_id );
-
-    if ( $story_author_id != $post_author_id && $current_story_id != $story_id ) {
-      $story_id = 0;
-    } else {
-      fictioneer_append_chapter_to_story( $post_id, $story_id );
-    }
+  if ( isset( $_POST['fictioneer_chapter_warning'] ) ) {
+    $fields['fictioneer_chapter_warning'] = sanitize_text_field( $_POST['fictioneer_chapter_warning'] );
   }
 
-  $fields['fictioneer_chapter_story'] = $story_id;
+  // Warning notes
+  if ( isset( $_POST['fictioneer_chapter_warning_notes'] ) ) {
+    $notes = sanitize_textarea_field( $_POST['fictioneer_chapter_warning_notes'] );
+    $fields['fictioneer_chapter_warning_notes'] = $notes;
+  }
+
+  // Story
+  if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
+    $story_id = absint( $_POST['fictioneer_chapter_story'] );
+    $current_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+    if ( $story_id ) {
+      $story_author_id = get_post_field( 'post_author', $story_id );
+
+      if ( $story_author_id != $post_author_id && $current_story_id != $story_id ) {
+        $story_id = 0;
+      } else {
+        fictioneer_append_chapter_to_story( $post_id, $story_id );
+      }
+    }
+
+    $fields['fictioneer_chapter_story'] = $story_id;
+  }
 
   // Card/List title
-  $fields['fictioneer_chapter_list_title'] = sanitize_text_field( $_POST['fictioneer_chapter_list_title'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_list_title'] ) ) {
+    $fields['fictioneer_chapter_list_title'] = sanitize_text_field( $_POST['fictioneer_chapter_list_title'] );
+  }
 
   // Group
-  $fields['fictioneer_chapter_group'] = sanitize_text_field( $_POST['fictioneer_chapter_group'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_group'] ) ) {
+    $fields['fictioneer_chapter_group'] = sanitize_text_field( $_POST['fictioneer_chapter_group'] );
+  }
 
   // Foreword
-  $fields['fictioneer_chapter_foreword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_foreword'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_foreword'] ) ) {
+    $fields['fictioneer_chapter_foreword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_foreword'] );
+  }
 
   // Afterword
-  $fields['fictioneer_chapter_afterword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_afterword'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_afterword'] ) ) {
+    $fields['fictioneer_chapter_afterword'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_afterword'] );
+  }
 
   // Password note
-  $fields['fictioneer_chapter_password_note'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_password_note'] ?? '' );
+  if ( isset( $_POST['fictioneer_chapter_password_note'] ) ) {
+    $fields['fictioneer_chapter_password_note'] = fictioneer_sanitize_editor( $_POST['fictioneer_chapter_password_note'] );
+  }
 
   // --- Filters ---------------------------------------------------------------
 
@@ -1611,7 +1818,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
 function fictioneer_render_advanced_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
-  $nonce = wp_create_nonce( 'fictioneer_metabox_nonce' );
+  $nonce = wp_create_nonce( "advanced_meta_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $output = [];
   $author_id = $post->post_author ?: get_current_user_id();
 
@@ -1728,7 +1935,7 @@ function fictioneer_render_advanced_metabox( $post ) {
   echo implode( '', $output );
 
   // Start HTML ---> ?>
-  <input type="hidden" name="fictioneer_metabox_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <input type="hidden" name="fictioneer_advanced_meta_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
 }
 
@@ -1742,12 +1949,11 @@ function fictioneer_render_advanced_metabox( $post ) {
 
 function fictioneer_save_advanced_metabox( $post_id ) {
   $post_type = get_post_type( $post_id );
-  $post_author = get_post_field( 'post_author', $post_id );
 
   // --- Verify ------------------------------------------------------------------
 
   if (
-    ! wp_verify_nonce( ( $_POST['fictioneer_metabox_nonce'] ?? '' ), 'fictioneer_metabox_nonce' ) ||
+    ! wp_verify_nonce( ( $_POST['fictioneer_advanced_meta_nonce'] ?? '' ), "advanced_meta_{$post_id}" ) ||
     fictioneer_multi_save_guard( $post_id ) ||
     ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] )
   ) {
@@ -1774,38 +1980,39 @@ function fictioneer_save_advanced_metabox( $post_id ) {
 
   // --- Sanitize and add data ---------------------------------------------------
 
+  $post_author_id = get_post_field( 'post_author', $post_id );
+  $fields = [];
+
   // Landscape Image
-  $fields = array(
-    'fictioneer_landscape_image' => absint( $_POST['fictioneer_landscape_image'] ?? 0 )
-  );
+  if ( isset( $_POST['fictioneer_landscape_image'] ) ) {
+    $fields['fictioneer_landscape_image'] = absint( $_POST['fictioneer_landscape_image'] );
+  }
 
   // Custom Page Header
-  if ( current_user_can( 'fcn_custom_page_header', $post_id ) ) {
-    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] ?? 0 );
+  if ( isset( $_POST['fictioneer_custom_header_image'] ) && current_user_can( 'fcn_custom_page_header', $post_id ) ) {
+    $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] );
   }
 
   // Custom Page CSS
-  if ( current_user_can( 'fcn_custom_page_css', $post_id ) ) {
-    $css = sanitize_textarea_field( $_POST['fictioneer_custom_css'] ?? '' );
-    $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
-    $fields['fictioneer_custom_css'] = str_replace( '<', '', $css );
+  if ( isset( $_POST['fictioneer_custom_css'] ) && current_user_can( 'fcn_custom_page_css', $post_id ) ) {
+    $fields['fictioneer_custom_css'] = fictioneer_sanitize_css( $_POST['fictioneer_custom_css'] );
   }
 
   // Short Name
-  if ( $post_type === 'page' ) {
+  if ( isset( $_POST['fictioneer_short_name'] ) && $post_type === 'page' ) {
     $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] ?? '' );
   }
 
   // Search & Filter ID
-  if ( $post_type === 'page' ) {
+  if ( isset( $_POST['fictioneer_filter_and_search_id'] ) && $post_type === 'page' ) {
     if ( current_user_can( 'install_plugins' ) ) {
       $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] ?? 0 );
     }
   }
 
   // Story Blogs
-  if ( $post_type === 'post' ) {
-    $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] ?? '' );
+  if ( isset( $_POST['fictioneer_post_story_blogs'] ) && $post_type === 'post' ) {
+    $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] );
 
     if ( ! empty( $story_blogs ) ) {
       $story_blogs = array_map( 'absint', $story_blogs );
@@ -1814,10 +2021,10 @@ function fictioneer_save_advanced_metabox( $post_id ) {
       // Ensure the stories belong to the post author
       $blog_story_query = new WP_Query(
         array(
-          'author' => $post_author,
+          'author' => $post_author_id,
           'post_type' => 'fcn_story',
           'post_status' => ['publish', 'private'],
-          'post__in' => $story_blogs,
+          'post__in' => fictioneer_rescue_array_zero( $story_blogs ),
           'fields' => 'ids',
           'posts_per_page'=> -1,
           'update_post_meta_cache' => false, // Improve performance
@@ -1834,8 +2041,11 @@ function fictioneer_save_advanced_metabox( $post_id ) {
   }
 
   // Checkbox: Disable new comments
-  if ( in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
-    $fields['fictioneer_disable_commenting'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] ?? 0 );
+  if (
+    isset( $_POST['fictioneer_disable_commenting'] ) &&
+    in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] )
+  ) {
+    $fields['fictioneer_disable_commenting'] = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_commenting'] );
   }
 
   // --- Filters -----------------------------------------------------------------
@@ -1883,7 +2093,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
 function fictioneer_render_support_links_side_metabox( $post ) {
   // --- Setup -------------------------------------------------------------------
 
-  $nonce = wp_create_nonce( "support_links_{$post->ID}" );
+  $nonce = wp_create_nonce( "support_links_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $output = [];
 
   // --- Add fields --------------------------------------------------------------

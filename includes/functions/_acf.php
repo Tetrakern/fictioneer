@@ -204,39 +204,11 @@ function fictioneer_remember_chapters_modified( $value, $post_id ) {
 add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remember_chapters_modified', 10, 2 );
 
 // =============================================================================
-// RESTRICT STORY CHAPTERS TO AUTHOR
-// =============================================================================
-
-/**
- * Restrict chapter stories to author
- *
- * @since Fictioneer 5.4.9
- *
- * @param array      $args     The query arguments.
- * @param array      $field    The queried field.
- * @param int|string $post_id  The post ID.
- *
- * @return array Modified query arguments.
- */
-
-function fictioneer_acf_scope_chapter_story( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'manage_options' ) ) {
-    $args['author'] = get_post_field( 'post_author', $post_id );
-  }
-
-  return $args;
-}
-
-if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
-  add_filter( 'acf/fields/post_object/query/name=fictioneer_chapter_story', 'fictioneer_acf_scope_chapter_story', 10, 3 );
-}
-
-// =============================================================================
 // LIMIT STORY PAGES TO AUTHOR
 // =============================================================================
 
 /**
- * Limit story pages to author
+ * Restrict story pages to author
  *
  * @since Fictioneer 5.6.3
  *
@@ -248,9 +220,7 @@ if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
  */
 
 function fictioneer_acf_scope_story_pages( $args, $field, $post_id ) {
-  if ( ! current_user_can( 'edit_others_pages' ) ) {
-    $args['author'] = get_post_field( 'post_author', $post_id );
-  }
+  $args['author'] = get_post_field( 'post_author', $post_id );
 
   return $args;
 }
