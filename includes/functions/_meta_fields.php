@@ -1483,16 +1483,6 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     $groups = array_unique( $groups );
   }
 
-  if ( ! empty( $groups ) ) {
-    echo "<datalist id='chapter_groups_for_{$post->ID}'>";
-
-    foreach ( $groups as $group ) {
-      echo "<option value='$group'></option>";
-    }
-
-    echo '</datalist>';
-  }
-
   $output['fictioneer_chapter_group'] = fictioneer_get_metabox_text(
     $post,
     'fictioneer_chapter_group',
@@ -1502,6 +1492,18 @@ function fictioneer_render_chapter_data_metabox( $post ) {
       'list' => "chapter_groups_for_{$post->ID}"
     )
   );
+
+  if ( ! empty( $groups ) ) {
+    $datalist = "<datalist id='chapter_groups_for_{$post->ID}'>";
+
+    foreach ( $groups as $group ) {
+      $datalist .= "<option value='$group'></option>";
+    }
+
+    $datalist .= '</datalist>';
+
+    $output['fictioneer_chapter_group_datalist'] = $datalist;
+  }
 
   // Foreword
   $output['fictioneer_chapter_foreword'] = fictioneer_get_metabox_editor(
@@ -1664,6 +1666,7 @@ function fictioneer_save_chapter_meta( $post_id ) {
   if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
     $story_id = absint( $_POST['fictioneer_chapter_story'] );
     $current_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+    $current_story_id = absint( $current_story_id );
 
     if ( $story_id ) {
       $story_author_id = get_post_field( 'post_author', $story_id );
@@ -1675,7 +1678,7 @@ function fictioneer_save_chapter_meta( $post_id ) {
       }
     }
 
-    $fields['fictioneer_chapter_story'] = $story_id;
+    $fields['fictioneer_chapter_story'] = strval( $story_id );
   }
 
   // Card/List title
