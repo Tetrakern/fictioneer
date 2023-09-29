@@ -34,6 +34,11 @@ function fcn_initializeFollows(event) {
     return;
   }
 
+  // Fix empty array that should be an object
+  if (Array.isArray(follows.data) && follows.data.length === 0) {
+    follows.data = {};
+  }
+
   // Set follows instance
   fcn_follows = follows;
 

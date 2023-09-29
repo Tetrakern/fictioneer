@@ -30,6 +30,11 @@ function fcn_initializeCheckmarks(event) {
     return;
   }
 
+  // Fix empty array that should be an object
+  if (Array.isArray(checkmarks.data) && checkmarks.data.length === 0) {
+    checkmarks.data = {};
+  }
+
   // Set checkmarks instance
   fcn_checkmarks = checkmarks;
 

@@ -30,6 +30,11 @@ function fcn_initializeReminders(event) {
     return;
   }
 
+  // Fix empty array that should be an object
+  if (Array.isArray(reminders.data) && reminders.data.length === 0) {
+    reminders.data = {};
+  }
+
   // Set reminders instance
   fcn_reminders = reminders;
 
