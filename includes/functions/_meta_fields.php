@@ -892,7 +892,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
 }
 
 /**
- * Adds chapter story metabox
+ * Adds story data metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -981,14 +981,14 @@ function fictioneer_render_story_data_metabox( $post ) {
 }
 
 /**
- * Save story metabox data
+ * Save story metaboxes
  *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_save_story_metabox( $post_id ) {
+function fictioneer_save_story_metaboxes( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
   if (
@@ -1166,7 +1166,7 @@ function fictioneer_save_story_metabox( $post_id ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
-add_action( 'save_post', 'fictioneer_save_story_metabox' );
+add_action( 'save_post', 'fictioneer_save_story_metaboxes' );
 
 // =============================================================================
 // CHAPTER META FIELDS
@@ -1549,14 +1549,14 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 }
 
 /**
- * Save chapter meta fields
+ * Save chapter metaboxes
  *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_save_chapter_meta( $post_id ) {
+function fictioneer_save_chapter_metaboxes( $post_id ) {
   // --- Verify ----------------------------------------------------------------
 
   if (
@@ -1716,7 +1716,7 @@ function fictioneer_save_chapter_meta( $post_id ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
-add_action( 'save_post', 'fictioneer_save_chapter_meta' );
+add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 
 /**
  * Append new chapters to story list
@@ -1943,7 +1943,7 @@ function fictioneer_render_advanced_metabox( $post ) {
 }
 
 /**
- * Save advanced metabox data
+ * Save advanced metabox
  *
  * @since Fictioneer 5.7.4
  *
@@ -2077,7 +2077,7 @@ function fictioneer_add_support_metabox() {
   add_meta_box(
     'fictioneer-support-links',
     __( 'Support Links', 'fictioneer' ),
-    'fictioneer_render_support_links_side_metabox',
+    'fictioneer_render_support_links_metabox',
     ['post', 'fcn_story', 'fcn_chapter'],
     'side',
     'low'
@@ -2086,14 +2086,14 @@ function fictioneer_add_support_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
 
 /**
- * Render support links side metabox
+ * Render support links metabox
  *
  * @since Fictioneer 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_support_links_side_metabox( $post ) {
+function fictioneer_render_support_links_metabox( $post ) {
   // --- Setup -------------------------------------------------------------------
 
   $nonce = wp_create_nonce( "support_links_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
@@ -2155,7 +2155,7 @@ function fictioneer_render_support_links_side_metabox( $post ) {
 }
 
 /**
- * Save support links metabox data
+ * Save support links metabox
  *
  * @since Fictioneer 5.7.4
  *
