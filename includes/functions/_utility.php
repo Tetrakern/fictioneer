@@ -1105,7 +1105,7 @@ function fictioneer_sanitize_selection( $value, $allowed_options, $default = nul
  *
  * @since 5.7.3
  *
- * @param array $args  Array of arguments to sanitize
+ * @param array $args  Array of arguments to be sanitized.
  *
  * @return array The sanitized arguments.
  */
@@ -1128,6 +1128,34 @@ function fictioneer_sanitize_args( $args ) {
   }
 
   return $sanitized_args;
+}
+
+// =============================================================================
+// SANITIZE CSS
+// =============================================================================
+
+/**
+ * Sanitizes a CSS string
+ *
+ * @since 5.7.4
+ *
+ * @param string $css  The CSS string to be sanitized.
+ *
+ * @return string The sanitized string.
+ */
+
+function fictioneer_sanitize_css( $css ) {
+  $css = sanitize_textarea_field( $css );
+  $css = preg_match( '/<\/?\w+/', $css ) ? '' : $css;
+
+  $opening_braces = substr_count( $css, '{' );
+  $closing_braces = substr_count( $css, '}' );
+
+  if ( $opening_braces < 1 || $opening_braces !== $closing_braces ) {
+    $css = '';
+  }
+
+  return $css;
 }
 
 // =============================================================================
