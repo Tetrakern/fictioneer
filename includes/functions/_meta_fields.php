@@ -610,9 +610,7 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
 }
 
 /**
- * Returns HTML for a relationship meta field
- *
- * Note: Currently relies on ACF.
+ * Returns HTML for an ACF meta field
  *
  * @since 5.7.4
  *
@@ -628,9 +626,9 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
  * @return string The HTML markup for the field.
  */
 
-function fictioneer_get_relationship_field( $post, $meta_key, $args = [] ) {
+function fictioneer_get_acf_field( $post, $meta_key, $args = [] ) {
   // Setup
-  $acf_field = get_field_object( $meta_key );
+  $acf_field = get_field_object( $meta_key, $post->ID );
   $acf_field['label'] = '';
   $acf_field['instructions'] = '';
   $label = strval( $args['label'] ?? '' );
@@ -644,13 +642,13 @@ function fictioneer_get_relationship_field( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-meta-field fictioneer-meta-field--relationship">
+  <div class="fictioneer-meta-field fictioneer-meta-field--acf <?php echo $meta_key; ?>">
 
     <?php if ( $label ) : ?>
-      <label class="fictioneer-meta-field__label fictioneer-meta-field__label--relationship" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <label class="fictioneer-meta-field__label fictioneer-meta-field__label--acf" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
     <?php endif; ?>
 
-    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--relationship">
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--acf">
       <?php acf_render_field_wrap( $acf_field ); ?>
     </div>
 
