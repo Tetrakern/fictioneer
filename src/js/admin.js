@@ -477,7 +477,7 @@ function fcn_tokensToggle(id, parent) {
   tokenTrack.innerHTML = '';
 
   tokenValues.forEach(item => {
-    const name = tokenOptions[item] ? tokenOptions[item] : item;
+    const name = fcn_sanitizeHTML(tokenOptions[item] ? tokenOptions[item] : item);
 
     tokenTrack.innerHTML += `<span class="fictioneer-meta-field__token" data-id="${item}"><span class="fictioneer-meta-field__token-name">${name}</span><button type="button" class="fictioneer-meta-field__token-button" data-id="${item}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"></path></svg></button></span>`;
   });
@@ -504,10 +504,11 @@ _$$('[data-target="fcn-meta-field-tokens-track"]').forEach(track => {
     event.preventDefault();
 
     const token = event.target.closest('.fictioneer-meta-field__token');
+    const remove = event.target.closest('.fictioneer-meta-field__token-button');
     const field = event.target.closest('.fictioneer-meta-field');
 
     // Remove token
-    if (token) {
+    if (token && remove) {
       fcn_tokensToggle(
         parseInt(token.dataset.id),
         token.closest('[data-target="fcn-meta-field-tokens"]')
