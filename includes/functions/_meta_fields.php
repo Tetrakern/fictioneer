@@ -1226,6 +1226,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   );
 
   $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
+  $fields['_fictioneer_story_chapters'] = 0; // Remove unnecessary ACF control field
 
   // Custom pages (already saved by ACF; restrict by post author)
   $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
@@ -1249,6 +1250,8 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $fields['fictioneer_story_custom_pages'] = []; // Ensure empty ACF meta is removed
   }
 
+  $fields['_fictioneer_story_custom_pages'] = 0; // Remove unnecessary ACF control field
+
   // Password note
   if ( isset( $_POST['fictioneer_story_password_note'] ) ) {
     $fields['fictioneer_story_password_note'] =
@@ -1261,6 +1264,8 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   if ( isset( $custom_ebook ) && empty( $custom_ebook ) ) {
     $fields['fictioneer_story_ebook_upload_one'] = 0; // Ensure empty ACF meta is removed
   }
+
+  $fields['_fictioneer_story_ebook_upload_one'] = 0; // Remove unnecessary ACF control field
 
   if ( get_option( 'fictioneer_enable_epubs' ) ) {
     // ePUB preface
