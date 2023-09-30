@@ -313,6 +313,7 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
   $placeholder = strval( $args['placeholder'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $input_classes = strval( $args['input_classes'] ?? '' );
 
   ob_start();
 
@@ -326,7 +327,7 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
+      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea <?php echo $input_classes; ?>" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
     </div>
 
     <?php if ( $description ) : ?>
@@ -692,6 +693,7 @@ function fictioneer_append_metabox_classes( $classes ) {
 }
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-data', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_story_fictioneer-story-epub', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
 
@@ -871,7 +873,8 @@ function fictioneer_render_story_meta_metabox( $post ) {
       array(
         'label' => __( 'Custom Story CSS', 'fictioneer' ),
         'description' => __( 'Applied to the story and all chapters.', 'fictioneer' ),
-        'placeholder' => __( '.selector { ... }', 'fictioneer' )
+        'placeholder' => __( '.selector { ... }', 'fictioneer' ),
+        'input_classes' => 'fictioneer-meta-field__textarea--code'
       )
     );
   }
@@ -935,7 +938,7 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $output['fictioneer_story_status'] = fictioneer_get_relationship_field(
+  $output['fictioneer_story_status'] = fictioneer_get_acf_field(
     $post,
     'fictioneer_story_chapters',
     array(
@@ -945,14 +948,16 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Custom pages
-  $output['fictioneer_story_custom_pages'] = fictioneer_get_relationship_field(
-    $post,
-    'fictioneer_story_custom_pages',
-    array(
-      'label' => _x( 'Custom Pages', 'Story custom pages meta field label.', 'fictioneer' ),
-      'description' => __( 'Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' )
-    )
-  );
+  if ( current_user_can( 'fcn_story_pages', $post->ID ) ) {
+    $output['fictioneer_story_custom_pages'] = fictioneer_get_acf_field(
+      $post,
+      'fictioneer_story_custom_pages',
+      array(
+        'label' => _x( 'Custom Pages', 'Story custom pages meta field label.', 'fictioneer' ),
+        'description' => __( 'Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' )
+      )
+    );
+  }
 
   // Password note
   $output['fictioneer_story_password_note'] = fictioneer_get_metabox_editor(
@@ -975,7 +980,99 @@ function fictioneer_render_story_data_metabox( $post ) {
   // Start HTML ---> ?>
   <input type="hidden" name="fictioneer_story_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
   <?php // <--- End HTML
+}
 
+/**
+ * Adds story epub metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_story_epub_metabox() {
+  add_meta_box(
+    'fictioneer-story-epub',
+    __( 'ePUB Setup', 'fictioneer' ),
+    'fictioneer_render_story_epub_metabox',
+    ['fcn_story'],
+    'normal',
+    'default'
+  );
+}
+
+if ( get_option( 'fictioneer_enable_epubs' ) ) {
+  add_action( 'add_meta_boxes', 'fictioneer_add_story_epub_metabox' );
+}
+
+/**
+ * Render story epub metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_story_epub_metabox( $post ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "story_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $output = [];
+
+  // --- Add fields ------------------------------------------------------------
+
+  // Upload
+  $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_acf_field(
+    $post,
+    'fictioneer_story_ebook_upload_one',
+    array(
+      'label' => _x( 'Custom Upload', 'Story ebook upload meta field label.', 'fictioneer' ),
+      'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>ibooks</strong>, <strong>azw</strong>, <strong>azw3</strong>, <strong>kf8</strong>, <strong>kfx</strong>, <strong>pdf</strong>, <strong>iba</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
+    )
+  );
+
+  // Preface
+  $output['fictioneer_story_epub_preface'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_epub_preface',
+    array(
+      'label' => _x( 'ePUB Preface', 'Story ePUB preface meta field label.', 'fictioneer' ),
+      'description' => __( 'Required for the download. Inserted as separate page between cover and table of contents. Disclaimers, copyright notes, tags, and other front matter goes here.', 'fictioneer' )
+    )
+  );
+
+  // Afterword
+  $output['fictioneer_story_epub_afterword'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_epub_afterword',
+    array(
+      'label' => _x( 'ePUB Afterword', 'Story ePUB afterword meta field label.', 'fictioneer' ),
+      'description' => __( 'Inserted after the last chapter. Thanks and personal thoughts on the story go here, for example.', 'fictioneer' )
+    )
+  );
+
+  // CSS
+  if ( current_user_can( 'fcn_custom_epub_css', $post->ID ) ) {
+    $output['fictioneer_story_epub_custom_css'] = fictioneer_get_metabox_textarea(
+      $post,
+      'fictioneer_story_epub_custom_css',
+      array(
+        'label' => _x( 'ePUB CSS', 'Story ePUB CSS meta field label.', 'fictioneer' ),
+        'description' => __( 'Inject CSS into the ePUB to customize the style for your story. Dangerous.', 'fictioneer' ),
+        'input_classes' => 'fictioneer-meta-field__textarea--code'
+      )
+    );
+  }
+
+  // --- Filters ---------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_story_epub', $output, $post );
+
+  // --- Render ----------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_story_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
 }
 
 /**
@@ -1131,27 +1228,47 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
 
   // Custom pages (already saved by ACF; restrict by post author)
-  $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
+  if ( current_user_can( 'fcn_story_pages', $post_id ) ) {
+    $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
 
-  $pages_query = new WP_Query(
-    array(
-      'post_type' => 'page',
-      'post__in' => fictioneer_rescue_array_zero( $pages ),
-      'author' => $post_author_id, // Only allow author's pages
-      'fields' => 'ids',
-      'posts_per_page' => -1,
-      'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    )
-  );
+    $pages_query = new WP_Query(
+      array(
+        'post_type' => 'page',
+        'post__in' => fictioneer_rescue_array_zero( $pages ),
+        'author' => $post_author_id, // Only allow author's pages
+        'fields' => 'ids',
+        'posts_per_page' => -1,
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
 
-  $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts ); // This has query advantages
+    $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts ); // This has query advantages
+  }
 
   // Password note
   if ( isset( $_POST['fictioneer_story_password_note'] ) ) {
     $fields['fictioneer_story_password_note'] =
       fictioneer_sanitize_editor( $_POST['fictioneer_story_password_note'] );
+  }
+
+  // ePUBs...
+  if ( get_option( 'fictioneer_enable_epubs' ) ) {
+    // ePUB preface
+    if ( isset( $_POST['fictioneer_story_epub_preface'] ) ) {
+      $fields['fictioneer_story_epub_preface'] = fictioneer_sanitize_editor( $_POST['fictioneer_story_epub_preface'] );
+    }
+
+    // ePUB afterword
+    if ( isset( $_POST['fictioneer_story_epub_afterword'] ) ) {
+      $fields['fictioneer_story_epub_afterword'] = fictioneer_sanitize_editor( $_POST['fictioneer_story_epub_afterword'] );
+    }
+
+    // Custom ePUB CSS
+    if ( isset( $_POST['fictioneer_story_epub_custom_css'] ) && current_user_can( 'fcn_custom_epub_css', $post_id ) ) {
+      $fields['fictioneer_story_epub_custom_css'] = fictioneer_sanitize_css( $_POST['fictioneer_story_epub_custom_css'] );
+    }
   }
 
   // --- Filters ---------------------------------------------------------------
@@ -1855,7 +1972,8 @@ function fictioneer_render_advanced_metabox( $post ) {
       array(
         'label' => __( 'Custom Page CSS', 'fictioneer' ),
         'description' => __( 'Only applied to the page.', 'fictioneer' ),
-        'placeholder' => __( '.selector { ... }', 'fictioneer' )
+        'placeholder' => __( '.selector { ... }', 'fictioneer' ),
+        'input_classes' => 'fictioneer-meta-field__textarea--code'
       )
     );
   }

@@ -771,27 +771,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages' );
   }
 
-  // === EDIT_PAGES ============================================================
-
-  /**
-   * Removes custom pages metabox
-   *
-   * @since 5.6.0
-   * @since 5.6.2  Simplified with helper function.
-   *
-   * @param array $fields  An array of fields to be rendered.
-   *
-   * @return array The modified array.
-   */
-
-  function fictioneer_remove_custom_story_pages( $fields ) {
-    // Return modified fields array
-    return fictioneer_acf_remove_fields( 'field_5d6e33e253add', $fields );
-  }
+  // === FCN_STORY_PAGES =======================================================
 
   if ( ! current_user_can( 'fcn_story_pages' ) ) {
     add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null' );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_story_pages' );
   }
 
   // === UPDATE_CORE ===========================================================
@@ -1112,29 +1095,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_filter( 'user_contactmethods', '__return_empty_array' );
     add_action( 'admin_head-profile.php', 'fictioneer_remove_profile_blocks' );
     remove_action( 'admin_color_scheme_picker', 'admin_color_scheme_picker' );
-  }
-
-  // === FCN_CUSTOM_EPUB_CSS ===================================================
-
-  /**
-   * Removes the custom ePUB CSS input field
-   *
-   * @since 5.6.0
-   * @since 5.6.2  Simplified with helper function.
-   *
-   * @param array $fields  An array of fields to be rendered.
-   *
-   * @return array The modified array.
-   */
-
-  function fictioneer_remove_custom_epub_css_input( $fields ) {
-    // Return modified fields array
-    return fictioneer_acf_remove_fields( 'field_60edba4ff33f8', $fields );
-  }
-
-  if ( ! current_user_can( 'fcn_custom_epub_css' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_epub_custom_css', 'fictioneer_acf_prevent_value_update', 10, 3 );
-    add_filter( 'acf/pre_render_fields', 'fictioneer_remove_custom_epub_css_input' );
   }
 
   // === FCN_MAKE_STICKY =======================================================

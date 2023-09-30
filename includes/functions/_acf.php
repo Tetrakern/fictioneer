@@ -227,29 +227,6 @@ function fictioneer_acf_scope_story_pages( $args, $field, $post_id ) {
 add_filter( 'acf/fields/relationship/query/name=fictioneer_story_custom_pages', 'fictioneer_acf_scope_story_pages', 10, 3 );
 
 // =============================================================================
-// PREVENT ACF FIELD FROM BEING SAVED
-// =============================================================================
-
-/**
- * Prevents updating the value of an ACF field
- *
- * When an attempt is made to update an ACF field, this function returns the
- * current value of the field, effectively discarding the new one.
- *
- * @since 5.6.0
- *
- * @param mixed $value    The new value to be saved,
- * @param int   $post_id  The post ID.
- * @param array $field    The ACF field settings array.
- *
- * @return mixed The current value of the ACF field.
- */
-
-function fictioneer_acf_prevent_value_update( $value, $post_id, $field ) {
-  return get_field( $field['name'], $post_id );
-}
-
-// =============================================================================
 // REDUCE TINYMCE TOOLBAR
 // =============================================================================
 
@@ -272,62 +249,5 @@ function fictioneer_acf_reduce_wysiwyg( $toolbars ) {
   return $toolbars;
 }
 add_filter( 'acf/fields/wysiwyg/toolbars', 'fictioneer_acf_reduce_wysiwyg' );
-
-// =============================================================================
-// REMOVE ACF METABOX (THE HARD WAY!)
-// =============================================================================
-
-/**
- * Helper to remove ACF fields
- *
- * Must be used in combination with the 'acf/pre_render_fields' filter.
- *
- * @since 5.6.2
- *
- * @param string $keys    Keys of the field to be removed.
- * @param array  $fields  An array of fields to be rendered.
- *
- * @return array The passed and modified fields array.
- */
-
-function fictioneer_acf_remove_fields( $keys, $fields ) {
-  // Fields to remove
-  $field_keys = is_array( $keys ) ? $keys : [ $keys ];
-
-  // Remove field from the fields array
-  foreach ( $fields as $key => &$field ) {
-    if ( in_array( $field['key'], $field_keys ) ) {
-      unset( $fields[ $key ] );
-    }
-  }
-
-  // Return modified fields array
-  return $fields;
-}
-
-// =============================================================================
-// HIDE EPUB GROUP IF EPUBS ARE DISABLED
-// =============================================================================
-
-/**
- * Hide ePUB metabox if ePUBs are disabled
- *
- * Note: The ACF field group is loaded from JSON, which happens after filters
- * were applied. So this is one of the easier ways to hide the group.
- *
- * @since 5.6.2
- */
-
-function fictioneer_hide_epub_inputs() {
-  global $post_type;
-
-  if ( $post_type === 'fcn_story' ) {
-    echo '<style type="text/css"> #acf-group_60edb914ba16c {display: none !important;}</style>';
-  }
-}
-
-if ( ! get_option( 'fictioneer_enable_epubs' ) ) {
-  add_action( 'admin_head', 'fictioneer_hide_epub_inputs' );
-}
 
 ?>
