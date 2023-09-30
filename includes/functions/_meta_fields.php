@@ -615,8 +615,8 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
  *
  * @since 5.7.4
  *
- * @param WP_Post $post      The post.
- * @param string  $meta_key  The meta key.
+ * @param WP_Post $post       The post.
+ * @param string  $field_key  The ACF field key.
  * @param array   $args {
  *   Optional. An array of additional arguments.
  *
@@ -627,9 +627,9 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
  * @return string The HTML markup for the field.
  */
 
-function fictioneer_get_acf_field( $post, $meta_key, $args = [] ) {
+function fictioneer_get_acf_field( $post, $field_key, $args = [] ) {
   // Setup
-  $acf_field = get_field_object( $meta_key, $post->ID );
+  $acf_field = get_field_object( $field_key, $post->ID );
   $acf_field['label'] = '';
   $acf_field['instructions'] = '';
   $label = strval( $args['label'] ?? '' );
@@ -643,10 +643,10 @@ function fictioneer_get_acf_field( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-meta-field fictioneer-meta-field--acf <?php echo $meta_key; ?>">
+  <div class="fictioneer-meta-field fictioneer-meta-field--acf <?php echo $field_key; ?>">
 
     <?php if ( $label ) : ?>
-      <label class="fictioneer-meta-field__label fictioneer-meta-field__label--acf" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+      <div class="fictioneer-meta-field__label fictioneer-meta-field__label--acf"><?php echo $label; ?></div>
     <?php endif; ?>
 
     <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--acf">
@@ -938,9 +938,9 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $output['fictioneer_story_status'] = fictioneer_get_acf_field(
+  $output['fictioneer_story_chapters'] = fictioneer_get_acf_field(
     $post,
-    'fictioneer_story_chapters',
+    'field_5d6304e4330fd',
     array(
       'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
       'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' )
@@ -951,7 +951,7 @@ function fictioneer_render_story_data_metabox( $post ) {
   if ( current_user_can( 'fcn_story_pages', $post->ID ) ) {
     $output['fictioneer_story_custom_pages'] = fictioneer_get_acf_field(
       $post,
-      'fictioneer_story_custom_pages',
+      'field_5d6e33e253add',
       array(
         'label' => _x( 'Custom Pages', 'Story custom pages meta field label.', 'fictioneer' ),
         'description' => __( 'Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' )
@@ -1022,7 +1022,7 @@ function fictioneer_render_story_epub_metabox( $post ) {
   // Upload
   $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_acf_field(
     $post,
-    'fictioneer_story_ebook_upload_one',
+    'field_62eb89244fb11',
     array(
       'label' => _x( 'Custom Upload', 'Story ebook upload meta field label.', 'fictioneer' ),
       'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>ibooks</strong>, <strong>azw</strong>, <strong>azw3</strong>, <strong>kf8</strong>, <strong>kfx</strong>, <strong>pdf</strong>, <strong>iba</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
