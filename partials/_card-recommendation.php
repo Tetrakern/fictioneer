@@ -20,15 +20,15 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
-$urls = array_merge(
-  explode( "\n", fictioneer_get_field( 'fictioneer_recommendation_urls' ) ),
-  explode( "\n", fictioneer_get_field( 'fictioneer_recommendation_support' ) )
+$links = array_merge(
+  fictioneer_url_list_to_array( fictioneer_get_field( 'fictioneer_recommendation_urls' ) ),
+  fictioneer_url_list_to_array( fictioneer_get_field( 'fictioneer_recommendation_support' ) )
 );
 $excerpt = get_the_excerpt();
 $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' ) ?? '';
 
 // Sanitize
-$urls = array_map( 'wp_strip_all_tags', $urls );
+// $urls = array_map( 'wp_strip_all_tags', $urls );
 
 // Taxonomies
 $tags = false;
@@ -90,19 +90,13 @@ $show_type = $args['show_type'] ?? false;
         );
       ?>
 
-      <?php if ( count( $urls ) > 0 ): ?>
+      <?php if ( count( $links ) > 0 ): ?>
         <ol class="card__link-list cell-list">
-          <?php foreach ( $urls as $url ) : ?>
+          <?php foreach ( $links as $link ) : ?>
             <li class="card__link-list-item">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-square-up-right"></i>
-                <?php
-                  $tuple = explode( '|', $url );
-                  $tuple = array_map( 'trim', $tuple );
-                ?>
-                <a href="<?php echo esc_url( $tuple[1] ); ?>" rel="noopener" target="_blank" class="card__link-list-link"><?php
-                  echo $tuple[0];
-                ?></a>
+                <a href="<?php echo esc_url( $link['url'] ); ?>" rel="noopener" target="_blank" class="card__link-list-link"><?php echo $link['name']; ?></a>
               </div>
             </li>
           <?php endforeach; ?>

@@ -2229,4 +2229,48 @@ function fictioneer_add_stud_post_actions( $function, $priority = 10 ) {
   return true;
 }
 
+// =============================================================================
+// CONVERT URL LIST TO ARRAY
+// =============================================================================
+
+/**
+ * Turn line-break separated list into array of links
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param string $list  The list of links
+ *
+ * @return array The array of links.
+ */
+
+function fictioneer_url_list_to_array( $list ) {
+  // Already array?
+  if ( is_array( $list ) ) {
+    return $list;
+  }
+
+  // Catch falsy values
+  if ( empty( $list ) ) {
+    return [];
+  }
+
+  // Prepare URLs
+  $urls = [];
+  $lines = explode( "\n", $list );
+
+  // Extract
+  foreach ( $lines as $line ) {
+    $tuple = explode( '|', $line );
+    $tuple = array_map( 'trim', $tuple );
+
+    $urls[] = array(
+      'name' => wp_strip_all_tags( $tuple[0] ),
+      'url' => sanitize_url( $tuple[1] )
+    );
+  }
+
+  // Return
+  return $urls;
+}
+
 ?>

@@ -144,26 +144,24 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 function fictioneer_recommendation_links( $args ) {
   // Setup
   $links = fictioneer_get_field( 'fictioneer_recommendation_urls', $args['recommendation_id'] );
+  $links = fictioneer_url_list_to_array( $links );
 
   // Abort conditions...
-  if ( ! $links ) {
+  if ( empty( $links ) ) {
     return;
   }
 
   // Prepare
-  $links = array_filter( explode( "\n", $links ) );
-  $tuples = [];
+  $output = [];
 
-  foreach( $links as $tuple ) {
-    $tuple = explode( '|', $tuple );
-    $tuple = array_map( 'trim', $tuple );
-    $tuples[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
+  foreach( $links as $link ) {
+    $output[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $link['url'] ) . '" class="link" rel="noopener" target="_blank">' . $link['name'] . '</a></li>';
   }
 
   // Start HTML ---> ?>
   <div class="recommendation__read-on">
     <h5><?php _e( 'Read on', 'fictioneer' ); ?></h5>
-    <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
+    <ul class="recommendation__list"><?php echo implode( '', $output ); ?></ul>
   </div>
   <?php // <--- End HTML
 }
@@ -186,6 +184,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 function fictioneer_recommendation_support_links( $args ) {
   // Setup
   $links = fictioneer_get_field( 'fictioneer_recommendation_support', $args['recommendation_id'] );
+  $links = fictioneer_url_list_to_array( $links );
 
   // Abort conditions...
   if ( ! $links ) {
@@ -193,13 +192,10 @@ function fictioneer_recommendation_support_links( $args ) {
   }
 
   // Prepare
-  $links = array_filter( explode( "\n", $links ) );
-  $tuples = [];
+  $output = [];
 
-  foreach( $links as $tuple ) {
-    $tuple = explode( '|', $tuple );
-    $tuple = array_map( 'trim', $tuple );
-    $tuples[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $tuple[1] ) . '" class="link" rel="noopener" target="_blank">' . wp_strip_all_tags( $tuple[0] ) . '</a></li>';
+  foreach( $links as $link ) {
+    $output[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $link['url'] ) . '" class="link" rel="noopener" target="_blank">' . $link['name'] . '</a></li>';
   }
 
   // Start HTML ---> ?>
@@ -210,7 +206,7 @@ function fictioneer_recommendation_support_links( $args ) {
         fictioneer_get_field( 'fictioneer_recommendation_author', $args['recommendation_id'] )
       )
     ?></h5>
-    <ul class="recommendation__list"><?php echo implode( '', $tuples ); ?></ul>
+    <ul class="recommendation__list"><?php echo implode( '', $output ); ?></ul>
   </div>
   <?php // <--- End HTML
 }
