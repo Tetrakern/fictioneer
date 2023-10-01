@@ -127,6 +127,11 @@ if ( ! empty( $items ) ) {
     }
   }
 
+  // Last rescue for empty description
+  if ( empty( $description ) ) {
+    $description = __( 'No description provided yet.', 'fictioneer' );
+  }
+
   // Prepare features items
   $items = array_slice( $items, 0, 3 );
 }
@@ -176,7 +181,7 @@ $comment_count = get_comments( $comment_args );
         printf(
           '<div class="card__content cell-desc truncate %1$s"><span>%2$s</span></div>',
           count( $items ) > 2 ? '_3-4' : '_4-4',
-          $description
+          mb_strimwidth( $description, 0, 512, '…' )
         );
       ?>
 
