@@ -696,6 +696,8 @@ add_filter( 'postbox_classes_fcn_story_fictioneer-story-data', 'fictioneer_appen
 add_filter( 'postbox_classes_fcn_story_fictioneer-story-epub', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_post_fictioneer-featured-content', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_collection_fictioneer-collection-data', 'fictioneer_append_metabox_classes' );
 
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
   add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
@@ -932,7 +934,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     'fictioneer_story_short_description',
     array(
       'label' => _x( 'Short Description', 'Story short description meta field label.', 'fictioneer' ),
-      'description' => __( 'The <em>first paragraph</em> is used for story cards, so keep it nice and concise. The full short description is passed to the Storygraph API.', 'fictioneer' ),
+      'description' => __( 'The <em>first paragraph</em> is used on cards, so keep it nice and concise. The full short description is passed to the Storygraph API.', 'fictioneer' ),
       'required' => 1
     )
   );
@@ -1077,6 +1079,8 @@ function fictioneer_render_story_epub_metabox( $post ) {
 
 /**
  * Save story metaboxes
+ *
+ * Note: Must use the general 'save_post' hook to fire after ACF.
  *
  * @since Fictioneer 5.7.4
  *
@@ -1679,6 +1683,8 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 /**
  * Save chapter metaboxes
  *
+ * Note: Must use the general 'save_post' hook to fire after ACF.
+ *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
@@ -2132,13 +2138,17 @@ function fictioneer_save_advanced_metabox( $post_id ) {
 
   // Short Name
   if ( isset( $_POST['fictioneer_short_name'] ) && $post_type === 'page' ) {
-    $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] ?? '' );
+    $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] );
+
+    if ( empty( $fields['fictioneer_short_name'] ) ) {
+      $fields['fictioneer_short_name'] = mb_strimwidth( get_the_title( $post_id ), 0, 16, '…' );
+    }
   }
 
   // Search & Filter ID
   if ( isset( $_POST['fictioneer_filter_and_search_id'] ) && $post_type === 'page' ) {
     if ( current_user_can( 'install_plugins' ) ) {
-      $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] ?? 0 );
+      $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] );
     }
   }
 
@@ -2197,7 +2207,7 @@ add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
 // =============================================================================
 
 /**
- * Adds support links side metabox
+ * Adds support links metabox
  *
  * @since Fictioneer 5.7.4
  */
@@ -2379,5 +2389,213 @@ function fictioneer_save_support_links_metabox( $post_id ) {
   }
 }
 add_action( 'save_post', 'fictioneer_save_support_links_metabox' );
+
+// =============================================================================
+// BLOG POST META FIELDS
+// =============================================================================
+
+/**
+ * Adds featured content side metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_featured_content_metabox() {
+  add_meta_box(
+    'fictioneer-featured-content',
+    __( 'Featured Content', 'fictioneer' ),
+    'fictioneer_render_featured_content_metabox',
+    'post',
+    'normal',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_featured_content_metabox' );
+
+/**
+ * Render featured content metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_featured_content_metabox( $post ) {
+  echo fictioneer_get_acf_field(
+    $post,
+    'field_5ed4382ba70b2',
+    array(
+      'description' => __( 'Select content to be shown as cards below the post.', 'fictioneer' )
+    )
+  );
+}
+
+// =============================================================================
+// COLLECTION META FIELDS
+// =============================================================================
+
+/**
+ * Adds collection data metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_collection_data_metabox() {
+  add_meta_box(
+    'fictioneer-collection-data',
+    __( 'Collection Data', 'fictioneer' ),
+    'fictioneer_render_collection_data_metabox',
+    'fcn_collection',
+    'normal',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_collection_data_metabox' );
+
+/**
+ * Render collection data metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_collection_data_metabox( $post ) {
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "collection_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  // Card/List title
+  $output['fictioneer_collection_list_title'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_collection_list_title',
+    array(
+      'label' => _x( 'Card/List Title', 'Collection card/list title meta field label.', 'fictioneer' ),
+      'description' => __( 'Alternative title used in cards and lists. Useful for long titles that get truncated on small screens.', 'fictioneer' )
+    )
+  );
+
+  // Short description
+  $output['fictioneer_collection_description'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_collection_description',
+    array(
+      'label' => _x( 'Short Description', 'Collection short description meta field label.', 'fictioneer' ),
+      'description' => __( 'The short description is used on cards, so best keep it under 100 words or 400 characters.', 'fictioneer' ),
+      'required' => 1
+    )
+  );
+
+  // Collection items
+  $output['fictioneer_collection_items'] = fictioneer_get_acf_field(
+    $post,
+    'field_619fc7732b611',
+    array(
+      'label' => _x( 'Collection Items', 'Collection items meta field label.', 'fictioneer' ),
+      'description' => __( 'Select the posts you want to be featured. If you add a story, <strong>do not</strong> add its chapters separately.', 'fictioneer' )
+    )
+  );
+
+  // --- Filters -----------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_collection_data', $output, $post );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_collection_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save collection metaboxes
+ *
+ * Note: Must use the general 'save_post' hook to fire after ACF.
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_collection_metaboxes( $post_id ) {
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_collection_nonce'] ?? '' ), "collection_data_{$post_id}" ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    get_post_type( $post_id ) !== 'fcn_collection'
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  if (
+    ! current_user_can( 'edit_fcn_collections', $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( 'edit_published_fcn_collections', $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = [];
+
+  // Card/List title
+  if ( isset( $_POST['fictioneer_collection_list_title'] ) ) {
+    $fields['fictioneer_collection_list_title'] = sanitize_text_field( $_POST['fictioneer_collection_list_title'] );
+  }
+
+  // Short description
+  if ( isset( $_POST['fictioneer_collection_description'] ) ) {
+    $fields['fictioneer_collection_description'] = fictioneer_sanitize_editor( $_POST['fictioneer_collection_description'] );
+
+    if ( empty( $fields['fictioneer_collection_description'] ) ) {
+      $fields['fictioneer_collection_description'] = __( 'No description provided yet.', 'fictioneer' );
+    }
+  }
+
+  // Collection items
+  $items = get_post_meta( $post_id, 'fictioneer_collection_items', true );
+  $items = is_array( $items ) ? $items : [];
+
+  if ( isset( $items ) && empty( $items ) ) {
+    $fields['fictioneer_collection_items'] = []; // Ensure empty ACF meta is removed
+  }
+
+  $forbidden = array(
+    get_option( 'fictioneer_user_profile_page', 0 ),
+    get_option( 'fictioneer_bookmarks_page', 0 ),
+    get_option( 'fictioneer_stories_page', 0 ),
+    get_option( 'fictioneer_chapters_page', 0 ),
+    get_option( 'fictioneer_recommendations_page', 0 ),
+    get_option( 'fictioneer_collections_page', 0 ),
+    get_option( 'fictioneer_bookshelf_page', 0 ),
+    get_option( 'fictioneer_404_page', 0 ),
+    get_option( 'page_on_front', 0 ),
+    get_option( 'page_for_posts', 0 )
+  );
+
+  $forbidden = array_map( 'strval', $forbidden );
+
+  $fields['fictioneer_collection_items'] = array_diff( $items, $forbidden );
+  $fields['_fictioneer_collection_items'] = 0; // Remove unnecessary ACF control field
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_field_updates_collection', $fields, $post_id );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_collection_metaboxes' );
 
 ?>
