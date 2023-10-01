@@ -199,7 +199,7 @@ Note that any changes made to the theme files will be undone — which you shoul
 
 ### Optional: Install Plugin Dependencies
 
-Fictioneer relies heavily on one developer plugin, [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/). ACF is already bundled into the theme, but you may want to install it separately to stay on the latest version or use it for your own modifications — which should happen in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You cannot access the bundled version in order to prevent non-developer users from accidentally breaking the theme. Changing ACF fields can cause difficult to repair damage!
+Fictioneer relies on the [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/) plugin for a few inputs. ACF is already bundled into the theme, but you may want to install it separately to stay on the latest version or use it for your own modifications — which should happen in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You cannot access the bundled version in order to prevent non-developer users from accidentally breaking the theme. Note that ACF can quickly bloat your database if used without care.
 
 ### Optional: Additional Plugins
 
@@ -839,7 +839,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_HOTLINK | boolean | Whether hotlinking images from the Storygraph is allowed. Default `false`.
 | FICTIONEER_API_STORYGRAPH_CHAPTERS | boolean | Whether to add chapters to the Storygraph `/stories` endpoint. Default `true`.
 | FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.
-| FICTIONEER_DISABLE_ACF_JSON_IMPORT | boolean | Whether to disable the ACF JSON field import. Dangerous. Default `false`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_FRONTEND_ACF | boolean | Whether to load ACF on the frontend. Default `false`.
