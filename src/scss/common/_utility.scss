@@ -123,7 +123,8 @@ body:not(.is-editor):not(.is-admin) {
 
 .no-scroll {
   overflow: hidden;
-  height: 100vh;
+  height: 100vh; // Fallback
+  height: 100dvh;
 }
 
 .invisible {

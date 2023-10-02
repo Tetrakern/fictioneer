@@ -28,7 +28,8 @@
   img {
     cursor: default;
     display: block;
-    max-height: calc(100vh - 4rem);
+    max-height: calc(100vh - 4rem); // Fallback
+    max-height: calc(100dvh - 4rem);
     max-width: calc(100vw - 2rem);
     object-fit: contain;
   }

@@ -1,7 +1,8 @@
 $max-mobile-menu-width: 320px;
 
 .transformed-scroll {
-  height: 200vh;
+  height: 200vh; // Fallback
+  height: 200dvh;
   overflow: hidden auto;
   scrollbar-width: none; // FF
 
@@ -10,11 +11,13 @@ $max-mobile-menu-width: 320px;
   }
 
   @include bp(640px) {
-    height: 134vh;
+    height: 134vh; // Fallback
+    height: 134dvh;
   }
 
   @include bp(1024px) {
-    height: 100vh;
+    height: 100vh; // Fallback
+    height: 100dvh;
   }
 }
 

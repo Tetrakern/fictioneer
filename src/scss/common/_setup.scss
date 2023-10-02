@@ -49,7 +49,8 @@ body {
   -webkit-font-smoothing: var(--font-smoothing-webkit);
   -moz-osx-font-smoothing: var(--font-smoothing-moz);
   text-rendering: optimizeLegibility;
-  min-height: 100vh;
+  min-height: 100vh; // Fallback
+  min-height: 100dvh;
   min-width: 320px;
   max-width: 100%;
   padding:
