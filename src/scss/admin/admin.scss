@@ -285,6 +285,16 @@ td.comment {
     display: none;
   }
 
+  &--invalid {
+    [class*="fictioneer-meta-field"]:is(input, textarea, select) {
+      border-color: #dc3232;
+
+      &:focus {
+        box-shadow: 0 0 0 1px #dc3232;
+      }
+    }
+  }
+
   &__wrapper {
     position: relative;
 

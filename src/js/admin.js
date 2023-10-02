@@ -528,6 +528,14 @@ _$$('[data-target="fcn-meta-field-tokens-track"]').forEach(track => {
 // ICONS META FIELD
 // =============================================================================
 
+/**
+ * Change icon class on icon field
+ *
+ * @since 5.7.4
+ *
+ * @param {HTMLElement} button - The button clicked.
+ */
+
 function fcn_insertIconClass(button) {
   const parent = button.closest('.fictioneer-meta-field');
 
@@ -555,5 +563,52 @@ _$$('.fictioneer-meta-field__fa-icon').forEach(field => {
     const icons = event.currentTarget.closest('.fictioneer-meta-field').querySelector('.fictioneer-meta-field__button-grid');
 
     icons.classList.toggle('hidden', !icons.classList.contains('hidden'));
+  });
+});
+
+// =============================================================================
+// DISABLE EDITOR FOR REQUIRED FIELDS
+// =============================================================================
+
+/**
+ * Lock or unlock post saving
+ *
+ * @since 5.7.4
+ */
+
+function fcn_checkRequiredFields() {
+  let requiredMissing = null;
+
+  _$$('.fictioneer-meta-field [required]').forEach(element => {
+    if (requiredMissing === true) {
+      return;
+    }
+
+    requiredMissing = element?.value.trim() === '';
+  });
+
+  if (requiredMissing) {
+    wp.data?.dispatch('core/editor').lockPostSaving('requiredValueLock');
+  } else {
+    wp.data?.dispatch('core/editor').unlockPostSaving('requiredValueLock');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  wp.data?.dispatch('core/editor').lockPostSaving('requiredValueLock');
+  fcn_checkRequiredFields();
+
+  _$$('.fictioneer-meta-field [required]').forEach(element => {
+    element.addEventListener('input', () => {
+      fcn_checkRequiredFields();
+    });
+  });
+
+  wp.data?.subscribe(() => {
+    _$$('.fictioneer-meta-field [required]').forEach(element => {
+      const wrapper = element.closest('.fictioneer-meta-field');
+
+      wrapper.classList.toggle('fictioneer-meta-field--invalid', element?.value.trim() === '');
+    });
   });
 });
