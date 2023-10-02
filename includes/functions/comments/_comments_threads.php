@@ -645,15 +645,22 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         ?>
         <?php if ( ! empty( $edit_stack ) && ! $is_deleted_by_owner ) : ?>
           <div class="fictioneer-comment__edit-note"><?php
+            $edit_data = $edit_stack[count( $edit_stack ) - 1];
+            $edit_user = $comment->user_id != $edit_data['user_id'] ? get_user_by( 'id', $edit_data['user_id'] ) : false;
+
             printf(
-              _x( 'Last edited on %s.', 'Comment last edited by user on [datetime].', 'fictioneer' ),
+              _x( 'Last edited on %s%s', 'Comment last edited by user on {datetime}{end}', 'fictioneer' ),
               wp_date(
                 sprintf(
                   _x( '%1$s \a\t %2$s', 'Comment time format string.', 'fictioneer' ),
                   get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y",
                   get_option( 'time_format' )
                 ),
-                $edit_stack[count( $edit_stack ) - 1]['timestamp']
+                $edit_data['timestamp']
+              ),
+              ! $edit_user ? '.' : sprintf(
+                _x( ' by %s.', 'Comment edited by {user}.', 'fictioneer' ),
+                $edit_user->display_name
               )
             );
           ?></div>
