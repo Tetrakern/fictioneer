@@ -1501,6 +1501,8 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_data_metabox' );
 function fictioneer_render_chapter_data_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
+  global $wpdb;
+
   $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $post_author_id = get_post_field( 'post_author', $post->ID );
   $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
@@ -1604,11 +1606,22 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   $groups = [];
 
   if ( $current_story && ! empty( $current_story['chapter_ids'] ) ) {
-    foreach ( $current_story['chapter_ids'] as $chapter_id ) {
-      $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
+    $post_ids_format = implode( ', ', array_fill( 0, count( $current_story['chapter_ids'] ), '%d' ) );
 
-      if ( $group ) {
-        $groups[] = $group;
+    $sql = $wpdb->prepare(
+      "SELECT post_id, meta_value
+      FROM $wpdb->postmeta
+      WHERE meta_key = 'fictioneer_chapter_group'
+      AND meta_value != ''
+      AND post_id IN ($post_ids_format)",
+      $current_story['chapter_ids']
+    );
+
+    $results = $wpdb->get_results( $sql );
+
+    foreach ( $results as $result ) {
+      if ( $result->meta_value ) {
+        $groups[] = $result->meta_value;
       }
     }
 
