@@ -932,6 +932,8 @@ add_post_type_support( 'page', 'excerpt' );
  */
 
 function fictioneer_paginate_links( $args = [] ) {
+  $args['end_size'] = 1;
+  $args['mid_size'] = 1;
   $pagination = paginate_links( $args );
 
   return str_replace(
