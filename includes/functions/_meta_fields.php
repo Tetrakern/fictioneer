@@ -2212,7 +2212,7 @@ add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
  * @since Fictioneer 5.7.4
  */
 
-function fictioneer_add_support_metabox() {
+function fictioneer_add_support_links_metabox() {
   add_meta_box(
     'fictioneer-support-links',
     __( 'Support Links', 'fictioneer' ),
@@ -2222,7 +2222,7 @@ function fictioneer_add_support_metabox() {
     'low'
   );
 }
-add_action( 'add_meta_boxes', 'fictioneer_add_support_metabox' );
+add_action( 'add_meta_boxes', 'fictioneer_add_support_links_metabox' );
 
 /**
  * Render support links metabox
