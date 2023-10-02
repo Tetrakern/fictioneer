@@ -698,6 +698,7 @@ add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-meta', 'fictioneer_a
 add_filter( 'postbox_classes_fcn_chapter_fictioneer-chapter-data', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_post_fictioneer-featured-content', 'fictioneer_append_metabox_classes' );
 add_filter( 'postbox_classes_fcn_collection_fictioneer-collection-data', 'fictioneer_append_metabox_classes' );
+add_filter( 'postbox_classes_fcn_recommendation_fictioneer-recommendation-data', 'fictioneer_append_metabox_classes' );
 
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
   add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
@@ -724,7 +725,7 @@ function fictioneer_add_story_meta_metabox() {
     'fictioneer_render_story_meta_metabox',
     ['fcn_story'],
     'side',
-    'high'
+    'default'
   );
 }
 add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
@@ -1317,7 +1318,7 @@ function fictioneer_add_chapter_meta_metabox() {
     'fictioneer_render_chapter_meta_metabox',
     ['fcn_chapter'],
     'side',
-    'high'
+    'default'
   );
 }
 add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
@@ -1348,8 +1349,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
           __( 'You can use all <em>free</em> <a href="%s" target="_blank">Font Awesome</a> icons.', 'fictioneer' ),
           'https://fontawesome.com/search'
         ),
-        'placeholder' => 'fa-solid fa-book',
-        'required' => true
+        'placeholder' => 'fa-solid fa-book'
       )
     );
   }
@@ -1939,7 +1939,7 @@ function fictioneer_add_advanced_metabox() {
     'fictioneer_render_advanced_metabox',
     ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
     'side',
-    'high'
+    'default'
   );
 }
 add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
@@ -2597,5 +2597,197 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
   }
 }
 add_action( 'save_post', 'fictioneer_save_collection_metaboxes' );
+
+// =============================================================================
+// RECOMMENDATION META FIELDS
+// =============================================================================
+
+/**
+ * Adds recommendation data metabox
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_add_recommendation_data_metabox() {
+  add_meta_box(
+    'fictioneer-recommendation-data',
+    __( 'Recommendation Data', 'fictioneer' ),
+    'fictioneer_render_recommendation_data_metabox',
+    'fcn_recommendation',
+    'normal',
+    'default'
+  );
+}
+add_action( 'add_meta_boxes', 'fictioneer_add_recommendation_data_metabox' );
+
+/**
+ * Render recommendation data metabox
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param WP_Post $post  The current post object.
+ */
+
+function fictioneer_render_recommendation_data_metabox( $post ) {
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "recommendation_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  // One sentence
+  $output['fictioneer_recommendation_one_sentence'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_recommendation_one_sentence',
+    array(
+      'label' => _x( 'One Sentence', 'Recommendation one sentence meta field label.', 'fictioneer' ),
+      'description' => __( 'Elevator pitch with 150 characters are less. For example: "Rebellious corporate heiress and her genius friend commit high-tech heists in a doomed city."', 'fictioneer' ),
+      'required' => 1
+    )
+  );
+
+  // Author
+  $output['fictioneer_recommendation_author'] = fictioneer_get_metabox_text(
+    $post,
+    'fictioneer_recommendation_author',
+    array(
+      'label' => _x( 'Author', 'Recommendation author meta field label.', 'fictioneer' ),
+      'description' => __( 'The name of the author. Separate multiple authors with commas.', 'fictioneer' ),
+      'required' => 1
+    )
+  );
+
+  // Primary URL
+  $output['fictioneer_recommendation_primary_url'] = fictioneer_get_metabox_url(
+    $post,
+    'fictioneer_recommendation_primary_url',
+    array(
+      'label' => _x( 'Primary Link', 'Recommendation primary link meta field label.', 'fictioneer' ),
+      'description' => __( "Primary link to the recommendation or author's website.", 'fictioneer' ),
+      'required' => 1
+    )
+  );
+
+  // URLs
+  $output['fictioneer_recommendation_urls'] = fictioneer_get_metabox_textarea(
+    $post,
+    'fictioneer_recommendation_urls',
+    array(
+      'label' => _x( 'Additional Links', 'Recommendation additional links meta field label.', 'fictioneer' ),
+      'description' => __( 'Links to the story, one link per line and mind the whitespaces. Format: "Link Name | https://www.address.abc" (without quotes).', 'fictioneer' )
+    )
+  );
+
+  // Support
+  $output['fictioneer_recommendation_support'] = fictioneer_get_metabox_textarea(
+    $post,
+    'fictioneer_recommendation_support',
+    array(
+      'label' => _x( 'Support', 'Recommendation support meta field label.', 'fictioneer' ),
+      'description' => __( 'Link to the author\'s Patreon, Ko-Fi, etc. One link per line and mind the whitespaces. Format: "Link Name | https://www.address.abc" (without quotes).', 'fictioneer' )
+    )
+  );
+
+  // --- Filters -----------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_recommendation_data', $output, $post );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_recommendation_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
+}
+
+/**
+ * Save recommendation metaboxes
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_recommendation_metaboxes( $post_id ) {
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_recommendation_nonce'] ?? '' ), "recommendation_data_{$post_id}" ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    get_post_type( $post_id ) !== 'fcn_recommendation'
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  if (
+    ! current_user_can( 'edit_fcn_recommendations', $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( 'edit_published_fcn_recommendations', $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = [];
+
+  // One sentence
+  if ( isset( $_POST['fictioneer_recommendation_one_sentence'] ) ) {
+    $fields['fictioneer_recommendation_one_sentence'] = sanitize_text_field( $_POST['fictioneer_recommendation_one_sentence'] );
+
+    if ( empty( $fields['fictioneer_recommendation_one_sentence'] ) ) {
+      $excerpt = get_the_excerpt( $post_id ) ?: __( 'No description provided yet.', 'fictioneer' );
+
+      $fields['fictioneer_recommendation_one_sentence'] = mb_strimwidth( $excerpt, 0, 150, '…' );
+    }
+  }
+
+  // Author
+  if ( isset( $_POST['fictioneer_recommendation_author'] ) ) {
+    $fields['fictioneer_recommendation_author'] = sanitize_text_field( $_POST['fictioneer_recommendation_author'] );
+
+    if ( empty( $fields['fictioneer_recommendation_author'] ) ) {
+      $fields['fictioneer_recommendation_author'] = _x( 'Undefined', 'Undefined recommendation author.', 'fictioneer' );
+    }
+  }
+
+  // Primary URL
+  if ( isset( $_POST['fictioneer_recommendation_primary_url'] ) ) {
+    $url = sanitize_url( $_POST['fictioneer_recommendation_primary_url'] );
+    $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
+
+    $fields['fictioneer_recommendation_primary_url'] = $url;
+
+    if ( empty( $fields['fictioneer_recommendation_primary_url'] ) ) {
+      $fields['fictioneer_recommendation_primary_url'] = get_permalink( $post_id );
+    }
+  }
+
+  // URLs
+  if ( isset( $_POST['fictioneer_recommendation_urls'] ) ) {
+    $notes = sanitize_textarea_field( $_POST['fictioneer_recommendation_urls'] );
+    $fields['fictioneer_recommendation_urls'] = $notes;
+  }
+
+  // Support
+  if ( isset( $_POST['fictioneer_recommendation_support'] ) ) {
+    $notes = sanitize_textarea_field( $_POST['fictioneer_recommendation_support'] );
+    $fields['fictioneer_recommendation_support'] = $notes;
+  }
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_field_updates_recommendation', $fields, $post_id );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 
 ?>
