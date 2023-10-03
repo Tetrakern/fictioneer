@@ -201,7 +201,7 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Analyze', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Scan', 'fictioneer' ); ?></a>
               <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="optimize-database" data-message="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
             </div>
 

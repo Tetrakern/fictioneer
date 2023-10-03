@@ -1231,7 +1231,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   );
 
   $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
-  $fields['_fictioneer_story_chapters'] = 0; // Remove unnecessary ACF control field
 
   // Custom pages (already saved by ACF; restrict by post author)
   $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
@@ -1252,10 +1251,8 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
     $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts ); // This has query advantages
   } elseif ( isset( $pages ) && empty( $pages ) ) {
-    $fields['fictioneer_story_custom_pages'] = []; // Ensure empty ACF meta is removed
+    $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
   }
-
-  $fields['_fictioneer_story_custom_pages'] = 0; // Remove unnecessary ACF control field
 
   // Password note
   if ( isset( $_POST['fictioneer_story_password_note'] ) ) {
@@ -1269,8 +1266,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   if ( isset( $custom_ebook ) && empty( $custom_ebook ) ) {
     $fields['fictioneer_story_ebook_upload_one'] = 0; // Ensure empty ACF meta is removed
   }
-
-  $fields['_fictioneer_story_ebook_upload_one'] = 0; // Remove unnecessary ACF control field
 
   if ( get_option( 'fictioneer_enable_epubs' ) ) {
     // ePUB preface
@@ -1288,6 +1283,35 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       $fields['fictioneer_story_epub_custom_css'] = fictioneer_sanitize_css( $_POST['fictioneer_story_epub_custom_css'] );
     }
   }
+
+  // --- Cleanup -----------------------------------------------------------------
+
+  global $wpdb;
+
+  // Deleting ACF control fields
+  $key_value_pairs = array(
+    ['_fictioneer_story_chapters', 'field_5d6304e4330fd'],
+    ['_fictioneer_story_custom_pages', 'field_5d6e33e253add'],
+    ['_fictioneer_story_ebook_upload_one', 'field_62eb89244fb11']
+  );
+  $where_clauses = [];
+
+  foreach ( $key_value_pairs as $pair ) {
+    $where_clauses[] = $wpdb->prepare( "(meta_key = %s AND meta_value = %s)", $pair[0], $pair[1] );
+  }
+
+  $where_condition = implode( ' OR ', $where_clauses );
+  $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE {$where_condition}" );
+
+  // Orphaned values
+  $wpdb->query(
+    $wpdb->prepare("
+      DELETE FROM $wpdb->postmeta
+      WHERE meta_key = %s
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')",
+      'fictioneer_story_ebook_upload_one'
+    )
+  );
 
   // --- Filters ---------------------------------------------------------------
 
@@ -2501,7 +2525,26 @@ function fictioneer_save_post_metaboxes( $post_id ) {
     $fields['fictioneer_post_featured'] = [];
   }
 
-  $fields['_fictioneer_post_featured'] = 0; // Remove unnecessary ACF control field
+  // --- Cleanup -----------------------------------------------------------------
+
+  global $wpdb;
+
+  $wpdb->delete(
+    $wpdb->postmeta,
+    array(
+      'meta_key' => '_fictioneer_post_featured',
+      'meta_value' => 'field_5ed4382ba70b2' // ACF control field
+    )
+  );
+
+  $wpdb->query(
+    $wpdb->prepare("
+      DELETE FROM $wpdb->postmeta
+      WHERE meta_key = %s
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')",
+      'fictioneer_post_featured'
+    )
+  );
 
   // --- Filters -----------------------------------------------------------------
 
@@ -2669,7 +2712,18 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
   $forbidden = array_map( 'strval', $forbidden );
 
   $fields['fictioneer_collection_items'] = array_diff( $items, $forbidden );
-  $fields['_fictioneer_collection_items'] = 0; // Remove unnecessary ACF control field
+
+  // --- Cleanup -----------------------------------------------------------------
+
+  global $wpdb;
+
+  $wpdb->delete(
+    $wpdb->postmeta,
+    array(
+      'meta_key' => '_fictioneer_collection_items',
+      'meta_value' => 'field_619fc7732b611' // ACF control field
+    )
+  );
 
   // --- Filters -----------------------------------------------------------------
 
