@@ -172,17 +172,17 @@ function fictioneer_save_seo_metabox( $post_id ) {
 
   // Save image
   if ( isset( $_POST['fictioneer_seo_og_image'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_og_image', absint( $_POST['fictioneer_seo_og_image'] ) );
+    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_og_image', absint( $_POST['fictioneer_seo_og_image'] ) );
   }
 
   // Save title
   if ( isset( $_POST['fictioneer_seo_title'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_title', sanitize_text_field( $_POST['fictioneer_seo_title'] ) );
+    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_title', sanitize_text_field( $_POST['fictioneer_seo_title'] ) );
   }
 
   // Save description
   if ( isset( $_POST['fictioneer_seo_description'] ) ) {
-    update_post_meta( $post_id, 'fictioneer_seo_description', sanitize_text_field( $_POST['fictioneer_seo_description'] ) );
+    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_description', sanitize_text_field( $_POST['fictioneer_seo_description'] ) );
   }
 
   // Clear caches
