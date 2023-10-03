@@ -1084,7 +1084,9 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
  */
 
 function fictioneer_sanitize_checkbox( $value ) {
-  return filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+  $value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+
+  return empty( $value ) ? 0 : 1;
 }
 
 // =============================================================================
