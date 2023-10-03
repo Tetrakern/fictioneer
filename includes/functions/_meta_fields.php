@@ -2434,14 +2434,86 @@ add_action( 'add_meta_boxes', 'fictioneer_add_featured_content_metabox' );
  */
 
 function fictioneer_render_featured_content_metabox( $post ) {
-  echo fictioneer_get_acf_field(
+  // --- Setup -------------------------------------------------------------------
+
+  $nonce = wp_create_nonce( "post_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $output = [];
+
+  // --- Add fields --------------------------------------------------------------
+
+  $output['fictioneer_post_featured'] = fictioneer_get_acf_field(
     $post,
     'field_5ed4382ba70b2',
     array(
       'description' => __( 'Select content to be shown as cards below the post.', 'fictioneer' )
     )
   );
+
+  // --- Filters -----------------------------------------------------------------
+
+  $output = apply_filters( 'fictioneer_filter_metabox_post_data', $output, $post );
+
+  // --- Render ------------------------------------------------------------------
+
+  echo implode( '', $output );
+
+  // Start HTML ---> ?>
+  <input type="hidden" name="fictioneer_post_nonce" value="<?php echo esc_attr( $nonce ); ?>" autocomplete="off">
+  <?php // <--- End HTML
 }
+
+/**
+ * Save post metaboxes
+ *
+ * @since Fictioneer 5.7.4
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function fictioneer_save_post_metaboxes( $post_id ) {
+  // --- Verify ------------------------------------------------------------------
+
+  if (
+    ! wp_verify_nonce( ( $_POST['fictioneer_post_nonce'] ?? '' ), "post_data_{$post_id}" ) ||
+    fictioneer_multi_save_guard( $post_id ) ||
+    get_post_type( $post_id ) !== 'post'
+  ) {
+    return;
+  }
+
+  // --- Permissions? ------------------------------------------------------------
+
+  if (
+    ! current_user_can( 'edit_posts', $post_id ) ||
+    ( get_post_status( $post_id ) === 'publish' && ! current_user_can( 'edit_published_posts', $post_id ) )
+  ) {
+    return;
+  }
+
+  // --- Sanitize and add data ---------------------------------------------------
+
+  $fields = [];
+
+  // Featured
+  $featured = get_post_meta( $post_id, 'fictioneer_post_featured', true );
+
+  if ( empty( $featured ) ) {
+    $fields['fictioneer_post_featured'] = [];
+  }
+
+  $fields['_fictioneer_post_featured'] = 0; // Remove unnecessary ACF control field
+
+  // --- Filters -----------------------------------------------------------------
+
+  $fields = apply_filters( 'fictioneer_filter_field_updates_post', $fields, $post_id );
+
+  // --- Save --------------------------------------------------------------------
+
+  foreach ( $fields as $key => $value ) {
+    fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
+  }
+}
+add_action( 'save_post', 'fictioneer_save_post_metaboxes' );
 
 // =============================================================================
 // COLLECTION META FIELDS
