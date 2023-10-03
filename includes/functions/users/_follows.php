@@ -297,8 +297,10 @@ function fictioneer_ajax_get_follows_notifications() {
   // Check for cached HTML
   if ( ! empty( $last_update ) ) {
     $cache = get_user_meta( $user->ID, 'fictioneer_user_follows_cache', true );
+
     if ( ! empty( $cache ) && array_key_exists( $last_update, $cache ) ) {
       $html = $cache[ $last_update ] . '<!-- Cached on ' . $cache['timestamp'] . ' -->';
+
       wp_send_json_success( array( 'html' => $html ) );
     }
   }
