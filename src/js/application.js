@@ -551,16 +551,16 @@ const /** @const {IntersectionObserver} */ fct_navStickyObserver = new Intersect
 
 // Apply observers
 document.addEventListener('DOMContentLoaded', () => {
-  if (observer = _$('.main-observer')) {
-    fcn_mainObserver.observe(observer);
+  if (_$('.main-observer')) {
+    fcn_mainObserver.observe(_$('.main-observer'));
   }
 
-  if (observer = _$('.chapter-end')) {
-    fcn_endOfChapterObserver.observe(observer);
+  if (_$('.chapter-end')) {
+    fcn_endOfChapterObserver.observe(_$('.chapter-end'));
   }
 
-  if (observer = _$$$('nav-observer-sticky')) {
-    fct_navStickyObserver.observe(observer);
+  if (_$$$('nav-observer-sticky')) {
+    fct_navStickyObserver.observe(_$$$('nav-observer-sticky'));
   }
 });
 
