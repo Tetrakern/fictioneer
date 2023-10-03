@@ -73,8 +73,29 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
       'meta_query' => array(
-        array( 'key' => 'fictioneer_chapter_hidden', 'compare' => '=', 'value' => 0, 'type' => 'numeric' ),
-        array( 'key' => 'fictioneer_chapter_no_chapter', 'compare' => '=', 'value' => 0, 'type' => 'numeric' )
+        'relation' => 'AND',
+        array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'value' => '0'
+          ),
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'compare' => 'NOT EXISTS'
+          )
+        ),
+        array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_chapter_no_chapter',
+            'value' => '0'
+          ),
+          array(
+            'key' => 'fictioneer_chapter_no_chapter',
+            'compare' => 'NOT EXISTS'
+          )
+        )
       ),
       'orderby' => 'modified',
       'order' => 'DESC',

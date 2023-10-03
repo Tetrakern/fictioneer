@@ -44,10 +44,20 @@ $query_args = array(
   'orderby' => $args['orderby'],
   'order' => $args['order'],
   'posts_per_page' => $args['count'] + 8, // Little buffer in case of unpublished parent story
-  'meta_key' => 'fictioneer_chapter_hidden',
-  'meta_value' => 0,
   'no_found_rows' => true,
-  'update_post_term_cache' => false
+  'update_post_term_cache' => false,
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'compare' => 'NOT EXISTS'
+    ),
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'value' => 0,
+      'compare' => '='
+    )
+  )
 );
 
 // Author?

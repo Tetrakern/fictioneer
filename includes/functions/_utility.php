@@ -444,12 +444,26 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'meta_query' => array(
           'relation' => 'AND',
           array(
-            'key'   => 'fictioneer_chapter_hidden',
-            'value' => '0'
+            'relation' => 'OR',
+            array(
+              'key' => 'fictioneer_chapter_hidden',
+              'value' => '0'
+            ),
+            array(
+              'key' => 'fictioneer_chapter_hidden',
+              'compare' => 'NOT EXISTS'
+            )
           ),
           array(
-            'key'   => 'fictioneer_chapter_no_chapter',
-            'value' => '0'
+            'relation' => 'OR',
+            array(
+              'key' => 'fictioneer_chapter_no_chapter',
+              'value' => '0'
+            ),
+            array(
+              'key' => 'fictioneer_chapter_no_chapter',
+              'compare' => 'NOT EXISTS'
+            )
           )
         ),
         'update_post_term_cache' => false

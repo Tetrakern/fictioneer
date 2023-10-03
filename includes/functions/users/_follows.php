@@ -226,6 +226,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
       'meta_query' => array(
+        'relation' => 'AND',
         array(
           'key' => 'fictioneer_chapter_story',
           'value' => $story_ids,
