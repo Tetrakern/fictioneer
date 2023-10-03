@@ -931,6 +931,20 @@ function fictioneer_tools_optimize_database() {
 
   global $wpdb;
 
+  // Allowed
+  $allowed_meta_keys = fictioneer_get_falsy_meta_allow_list();
+  $not_like_sql = '';
+
+  if ( ! empty( $allowed_meta_keys ) ) {
+    $not_like_statements = [];
+
+    foreach ( $allowed_meta_keys as $key ) {
+      $not_like_statements[] = "meta_key NOT LIKE '{$key}'";
+    }
+
+    $not_like_sql = " AND " . implode( ' AND ', $not_like_statements );
+  }
+
   // Delete and return number of rows
   $count = $wpdb->query("
     DELETE FROM $wpdb->postmeta
@@ -939,6 +953,7 @@ function fictioneer_tools_optimize_database() {
       meta_key LIKE 'fictioneer%'
       AND meta_key NOT LIKE '%_cache'
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+      $not_like_sql
     )
   ");
 
@@ -970,6 +985,20 @@ function fictioneer_tools_optimize_database_preview() {
 
   global $wpdb;
 
+  // Allowed
+  $allowed_meta_keys = fictioneer_get_falsy_meta_allow_list();
+  $not_like_sql = '';
+
+  if ( ! empty( $allowed_meta_keys ) ) {
+    $not_like_statements = [];
+
+    foreach ( $allowed_meta_keys as $key ) {
+      $not_like_statements[] = "meta_key NOT LIKE '{$key}'";
+    }
+
+    $not_like_sql = " AND " . implode( ' AND ', $not_like_statements );
+  }
+
   // Return number of rows affected
   $count = $wpdb->get_var("
     SELECT COUNT(*) FROM $wpdb->postmeta
@@ -978,6 +1007,7 @@ function fictioneer_tools_optimize_database_preview() {
       meta_key LIKE 'fictioneer%'
       AND meta_key NOT LIKE '%_cache'
       AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+      $not_like_sql
     )
   ");
 

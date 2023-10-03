@@ -938,7 +938,7 @@ if ( ! function_exists( 'fictioneer_update_user_meta' ) ) {
    */
 
   function fictioneer_update_user_meta( $user_id, $meta_key, $meta_value, $prev_value = '' ) {
-    if ( empty( $meta_value ) ) {
+    if ( empty( $meta_value ) && ! in_array( $meta_key, fictioneer_get_falsy_meta_allow_list() ) ) {
       return delete_user_meta( $user_id, $meta_key );
     } else {
       return update_user_meta( $user_id, $meta_key, $meta_value, $prev_value );
@@ -967,7 +967,7 @@ if ( ! function_exists( 'fictioneer_update_comment_meta' ) ) {
    */
 
   function fictioneer_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value = '' ) {
-    if ( empty( $meta_value ) ) {
+    if ( empty( $meta_value ) && ! in_array( $meta_key, fictioneer_get_falsy_meta_allow_list() ) ) {
       return delete_comment_meta( $comment_id, $meta_key );
     } else {
       return update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value );
@@ -996,12 +996,31 @@ if ( ! function_exists( 'fictioneer_update_post_meta' ) ) {
    */
 
   function fictioneer_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
-    if ( empty( $meta_value ) ) {
+    if ( empty( $meta_value ) && ! in_array( $meta_key, fictioneer_get_falsy_meta_allow_list() ) ) {
       return delete_post_meta( $post_id, $meta_key );
     } else {
       return update_post_meta( $post_id, $meta_key, $meta_value, $prev_value );
     }
   }
+}
+
+/**
+ * Return allow list for falsy meta fields
+ *
+ * @since 5.7.4
+ *
+ * @return array Meta fields allowed to be saved falsy and not be deleted.
+ */
+
+function fictioneer_get_falsy_meta_allow_list() {
+  $allowed = array(
+    'fictioneer_story_sticky',
+    'fictioneer_chapter_hidden'
+  );
+
+  $allowed = apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed );
+
+  return $allowed;
 }
 
 // =============================================================================
