@@ -61,7 +61,7 @@ add_action( 'acf/include_fields', function() {
             3 => 'fcn_recommendation',
             4 => 'post',
           ),
-          'post_status' => '',
+          'post_status' => 'publish',
           'taxonomy' => '',
           'filters' => array(
             0 => 'search',
@@ -150,7 +150,7 @@ add_action( 'acf/include_fields', function() {
           'post_type' => array(
             0 => 'page',
           ),
-          'post_status' => '',
+          'post_status' => 'publish',
           'taxonomy' => '',
           'filters' => array(
             0 => 'search',
@@ -259,6 +259,7 @@ add_action( 'acf/include_fields', function() {
             4 => 'post',
             5 => 'page',
           ),
+          'post_status' => 'publish',
           'taxonomy' => '',
           'filters' => array(
             0 => 'search',
