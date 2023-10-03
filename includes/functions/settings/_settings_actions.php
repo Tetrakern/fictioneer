@@ -946,7 +946,7 @@ function fictioneer_tools_optimize_database() {
   wp_safe_redirect(
     add_query_arg(
       array(
-        'info' => 'fictioneer-db-optimization',
+        'success' => 'fictioneer-db-optimization',
         'data' => $count
       ),
       wp_get_referer()
