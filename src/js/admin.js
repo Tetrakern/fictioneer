@@ -349,6 +349,11 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
         event.preventDefault();
       }
       break;
+    case 'optimize-database':
+      if (!confirm(clickTarget.dataset.message)) {
+        event.preventDefault();
+      }
+      break;
   }
 });
 

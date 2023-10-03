@@ -113,7 +113,9 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-renamed-role' => __( 'Role renamed.', 'fictioneer' ),
       'fictioneer-not-renamed-role' => __( 'Error. Role could not be renamed.', 'fictioneer' ),
       'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
-      'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' )
+      'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
+      'fictioneer-db-optimization-preview' => __( '%s superfluous rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
+      'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' )
 		)
 	);
 }
@@ -912,5 +914,86 @@ function fictioneer_rename_role() {
   exit();
 }
 add_action( 'admin_post_fictioneer_rename_role', 'fictioneer_rename_role' );
+
+// =============================================================================
+// DATABASE TOOLS ACTIONS
+// =============================================================================
+
+/**
+ * Optimize database
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_tools_optimize_database() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_optimize_database' );
+
+  global $wpdb;
+
+  // Delete and return number of rows
+  $count = $wpdb->query("
+    DELETE FROM $wpdb->postmeta
+    WHERE meta_key LIKE '_fictioneer_%'
+    OR (
+      meta_key LIKE 'fictioneer%'
+      AND meta_key NOT LIKE '%_cache'
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+    )
+  ");
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'info' => 'fictioneer-db-optimization',
+        'data' => $count
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+
+}
+add_action( 'admin_post_fictioneer_tools_optimize_database', 'fictioneer_tools_optimize_database' );
+
+/**
+ * Optimize database preview
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_tools_optimize_database_preview() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_optimize_database_preview' );
+
+  global $wpdb;
+
+  // Return number of rows affected
+  $count = $wpdb->get_var("
+    SELECT COUNT(*) FROM $wpdb->postmeta
+    WHERE meta_key LIKE '_fictioneer_%'
+    OR (
+      meta_key LIKE 'fictioneer%'
+      AND meta_key NOT LIKE '%_cache'
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+    )
+  ");
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'info' => 'fictioneer-db-optimization-preview',
+        'data' => $count
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_tools_optimize_database_preview', 'fictioneer_tools_optimize_database_preview' );
 
 ?>
