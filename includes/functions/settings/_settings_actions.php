@@ -125,18 +125,34 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
  */
 
 function fictioneer_admin_settings_notices() {
-  // Get performed action
+  // Get query vars
   $success = $_GET['success'] ?? null;
   $failure = $_GET['failure'] ?? null;
+  $info = $_GET['info'] ?? null;
+  $data = $_GET['data'] ?? '';
 
   // Has success notice?
   if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ] ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ] . '</p></div>';
+    echo '<div class="notice notice-success is-dismissible"><p>' . sprintf(
+      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ],
+      esc_html( $data )
+    ) . '</p></div>';
   }
 
   // Has failure notice?
   if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ] ) ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ] . '</p></div>';
+    echo '<div class="notice notice-error is-dismissible"><p>' . sprintf(
+      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ],
+      esc_html( $data )
+    ) . '</p></div>';
+  }
+
+  // Has info notice?
+  if ( ! empty( $info ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ] ) ) {
+    echo '<div class="notice notice-info is-dismissible"><p>' . sprintf(
+      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ],
+      esc_html( $data )
+    ) . '</p></div>';
   }
 }
 add_action( 'admin_notices', 'fictioneer_admin_settings_notices' );

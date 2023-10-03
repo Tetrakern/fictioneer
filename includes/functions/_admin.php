@@ -226,6 +226,8 @@ if ( current_user_can( 'install_themes' ) ) {
 function fictioneer_removable_args( $args ) {
   $args[] = 'success';
   $args[] = 'failure';
+  $args[] = 'info';
+  $args[] = 'data';
   $args[] = 'fictioneer_nonce';
   $args[] = 'fictioneer-notice';
   return $args;
