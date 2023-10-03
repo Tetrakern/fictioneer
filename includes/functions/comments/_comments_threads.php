@@ -646,7 +646,8 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         <?php if ( ! empty( $edit_stack ) && ! $is_deleted_by_owner ) : ?>
           <div class="fictioneer-comment__edit-note"><?php
             $edit_data = $edit_stack[count( $edit_stack ) - 1];
-            $edit_user = $comment->user_id != $edit_data['user_id'] ? get_user_by( 'id', $edit_data['user_id'] ) : false;
+            $edit_user = isset( $edit_data['user_id'] ) && $comment->user_id != $edit_data['user_id'] ?
+              get_user_by( 'id', $edit_data['user_id'] ) : false;
 
             printf(
               _x( 'Last edited on %s%s', 'Comment last edited by user on {datetime}{end}', 'fictioneer' ),
