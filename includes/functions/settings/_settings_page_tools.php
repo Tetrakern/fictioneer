@@ -101,7 +101,7 @@
             <div class="fictioneer-card__row">
               <p><?php
                 printf(
-                  __( '<strong>Append a pre-defined collection of %1$s genres and subgenres</strong> to the list (English) or update an existing list, taken from the <a href="%2$s" target="_blank">Fictioneer Taxonomies Project</a>.', 'fictioneer' ),
+                  __( '<strong>Append a pre-defined collection of %1$s genres and subgenres</strong> to the list (English) or update an existing list, taken from the <a href="%2$s" target="_blank">Fictioneer Taxonomy Project</a>.', 'fictioneer' ),
                   $item_count,
                   'https://github.com/Tetrakern/fictioneer-taxonomies'
                 )
@@ -152,7 +152,7 @@
             <div class="fictioneer-card__row">
               <p><?php
                 printf(
-                  __( '<strong>Append a pre-defined collection of %1$s tags</strong> to the list (English) or update an existing list, taken from the <a href="%2$s" target="_blank">Fictioneer Taxonomies Project</a>.', 'fictioneer' ),
+                  __( '<strong>Append a pre-defined collection of %1$s tags</strong> to the list (English) or update an existing list, taken from the <a href="%2$s" target="_blank">Fictioneer Taxonomy Project</a>.', 'fictioneer' ),
                   $item_count,
                   'https://github.com/Tetrakern/fictioneer-taxonomies'
                 )
