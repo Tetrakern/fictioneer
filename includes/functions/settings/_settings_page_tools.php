@@ -21,7 +21,7 @@
           <div class="fictioneer-card__content">
 
             <div class="fictioneer-card__row">
-              <p class="description row"><?php _e( '<strong>Add or restore moderator role</strong> that is limited to only moderating comments. It has been stripped of access to most other menus and settings, although this does not necessarily account for changes to the admin panel made by you.', 'fictioneer' ); ?></p>
+              <p class="row"><?php _e( '<strong>Add or restore moderator role</strong> that is limited to only moderating comments. It has been stripped of access to most other menus and settings, although this does not necessarily account for changes to the admin panel made by you.', 'fictioneer' ); ?></p>
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
