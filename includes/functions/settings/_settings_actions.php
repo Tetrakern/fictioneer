@@ -255,6 +255,11 @@ function fictioneer_tools_initialize_roles() {
   // Force role initialization
   fictioneer_initialize_roles( true );
 
+  // Log
+  fictioneer_log(
+    __( 'Initialized roles.', 'fictioneer' )
+  );
+
   // Finish
   fictioneer_finish_tool_action( 'fictioneer-roles-initialized' );
 }
@@ -696,6 +701,14 @@ function fictioneer_update_role() {
     $notice = "fictioneer-updated-{$role_name}-caps";
   }
 
+  // Log
+  fictioneer_log(
+    sprintf(
+      __( 'Updated "%s" role.', 'fictioneer' ),
+      $role_name
+    )
+  );
+
   // Redirect
   wp_safe_redirect(
     add_query_arg( array( 'success' => $notice, 'fictioneer-subnav' => $role_name ), wp_get_referer() )
@@ -773,6 +786,14 @@ function fictioneer_add_role() {
       add_query_arg( array( 'failure' => 'fictioneer-not-added-role' ), wp_get_referer() )
     );
   } else {
+    // Log
+    fictioneer_log(
+      sprintf(
+        __( 'Added "%s" role.', 'fictioneer' ),
+        $name
+      )
+    );
+
     wp_safe_redirect(
       add_query_arg( array( 'success' => 'fictioneer-added-role', 'fictioneer-subnav' => "fcn_{$slug}" ), wp_get_referer() )
     );
@@ -823,6 +844,14 @@ function fictioneer_remove_role() {
 
   // Remove role
   remove_role( $role );
+
+  // Log
+  fictioneer_log(
+    sprintf(
+      __( 'Removed "%s" role.', 'fictioneer' ),
+      $role
+    )
+  );
 
   // Redirect
   wp_safe_redirect(
@@ -961,6 +990,14 @@ function fictioneer_tools_optimize_database() {
     )
   ");
 
+  // Log
+  fictioneer_log(
+    sprintf(
+      __( 'Optimized database and removed %s superfluous rows.', 'fictioneer' ),
+      $count
+    )
+  );
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
@@ -1041,6 +1078,9 @@ function fictioneer_tools_add_story_hidden_fields() {
   // Append 'fictioneer_story_hidden'
   fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
 
+  // Log
+  fictioneer_log( __( 'Appended missing "fictioneer_story_hidden" meta fields with value 0.', 'fictioneer' ) );
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
@@ -1065,6 +1105,9 @@ function fictioneer_tools_add_story_sticky_fields() {
   // Append 'fictioneer_story_sticky'
   fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_sticky', 0 );
 
+  // Log
+  fictioneer_log( __( 'Appended missing "fictioneer_story_sticky" meta fields with value 0.', 'fictioneer' ) );
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
@@ -1088,6 +1131,9 @@ add_action( 'admin_post_fictioneer_tools_add_story_sticky_fields', 'fictioneer_t
 function fictioneer_tools_add_chapter_hidden_fields() {
   // Append 'fictioneer_chapter_hidden'
   fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
+
+  // Log
+  fictioneer_log( __( 'Appended missing "fictioneer_chapter_hidden" meta fields with value 0.', 'fictioneer' ) );
 
   // Redirect
   wp_safe_redirect(
