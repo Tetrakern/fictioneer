@@ -1315,7 +1315,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_story', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_story', $fields, $post_id );
 
   // --- Save ------------------------------------------------------------------
 
@@ -1879,7 +1879,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_chapter', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_chapter', $fields, $post_id );
 
   // --- Save ------------------------------------------------------------------
 
@@ -2229,7 +2229,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_advanced', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_advanced', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -2417,7 +2417,7 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_support_links', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_support_links', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -2548,7 +2548,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_post', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_post', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -2727,7 +2727,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_collection', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_collection', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
@@ -2919,7 +2919,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
 
   // --- Filters -----------------------------------------------------------------
 
-  $fields = apply_filters( 'fictioneer_filter_field_updates_recommendation', $fields, $post_id );
+  $fields = apply_filters( 'fictioneer_filter_metabox_updates_recommendation', $fields, $post_id );
 
   // --- Save --------------------------------------------------------------------
 
