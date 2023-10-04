@@ -163,7 +163,7 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
     // Delete All
     if ( current_user_can( 'manage_options' ) ) {
       $actions[] = sprintf(
-        '<a href="%s" class="button action" data-click="purge-all-epubs" data-prompt="%s">%s</a>',
+        '<a href="%s" class="button action" data-click="warning-dialog" data-dialog="%s">%s</a>',
         wp_nonce_url(
           admin_url( 'admin-post.php?action=fictioneer_delete_all_epubs' ),
           'fictioneer_delete_all_epubs',

@@ -202,7 +202,7 @@
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
               <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Scan', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="optimize-database" data-message="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
             </div>
 
             <hr>
@@ -212,9 +212,9 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_sticky_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_story_sticky" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Sticky', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_hidden_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_story_hidden" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Hidden', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_chapter_hidden_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_chapter_hidden" (0) meta field to every chapter. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Chapter Hidden', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_sticky_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_sticky" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Sticky', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_hidden" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Hidden', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_chapter_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_chapter_hidden" (0) meta field to every chapter. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Chapter Hidden', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -258,7 +258,7 @@
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--buttons">
-                <a class="button button--secondary" id="reset-post-relationship-registry" data-click="reset-post-relationship-registry" data-prompt="<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ); ?>" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_post_relationship_registry' ); ?>"><?php _e( 'Reset Registry', 'fictioneer' ); ?></a>
+                <a class="button button--secondary" id="reset-post-relationship-registry" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ); ?>" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_post_relationship_registry' ); ?>"><?php _e( 'Reset Registry', 'fictioneer' ); ?></a>
               </div>
 
             <?php endif; ?>

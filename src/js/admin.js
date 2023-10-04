@@ -340,18 +340,10 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
     return;
   }
 
+  // This was more once lol
   switch (clickAction) {
-    case 'purge-all-epubs':
-    case 'purge-all-schemas':
-    case 'purge-all-meta':
-    case 'reset-post-relationship-registry':
-      if (!confirm(clickTarget.dataset.prompt)) {
-        event.preventDefault();
-      }
-      break;
-    case 'optimize-database':
-    case 'append-meta-fields':
-      if (!confirm(clickTarget.dataset.message)) {
+    case 'warning-dialog':
+      if (!confirm(clickTarget.dataset.dialog)) {
         event.preventDefault();
       }
       break;
