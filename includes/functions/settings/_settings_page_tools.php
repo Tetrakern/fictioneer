@@ -205,6 +205,18 @@
               <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="optimize-database" data-message="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
             </div>
 
+            <hr>
+
+            <div class="fictioneer-card__row">
+              <p><?php _e( '<strong>Add missing database fields.</strong> To save thousands of rows, the theme only stores "truthy" values and deletes "falsy" ones. However, some fields are relevant in queries and that can cause issues, for example if you use search plugins. You can add missing fields here, but make sure to allow-list them in the <code>fictioneer_filter_falsy_meta_allow_list</code> filter too.', 'fictioneer' ); ?></p>
+            </div>
+
+            <div class="fictioneer-card__row fictioneer-card__row--buttons">
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_sticky_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_story_sticky" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Sticky', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_hidden_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_story_hidden" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Hidden', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_chapter_hidden_fields' ); ?>" data-click="append-meta-fields" data-message="<?php esc_attr_e( 'You are about to append the "fictioneer_chapter_hidden" (0) meta field to every chapter. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Chapter Hidden', 'fictioneer' ); ?></a>
+            </div>
+
           </div>
         </div>
       </div>

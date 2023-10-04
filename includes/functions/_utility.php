@@ -1013,10 +1013,7 @@ if ( ! function_exists( 'fictioneer_update_post_meta' ) ) {
  */
 
 function fictioneer_get_falsy_meta_allow_list() {
-  $allowed = array(
-    'fictioneer_story_sticky',
-    'fictioneer_chapter_hidden'
-  );
+  $allowed = [];
 
   $allowed = apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed );
 

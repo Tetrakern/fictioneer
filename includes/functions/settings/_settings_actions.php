@@ -115,7 +115,10 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
       'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
       'fictioneer-db-optimization-preview' => __( '%s superfluous rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
-      'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' )
+      'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' ),
+      'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
+      'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
+      'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' )
 		)
 	);
 }
@@ -923,6 +926,7 @@ add_action( 'admin_post_fictioneer_rename_role', 'fictioneer_rename_role' );
  * Optimize database
  *
  * @since Fictioneer 5.7.4
+ * @global wpdb $wpdb  WordPress database object.
  */
 
 function fictioneer_tools_optimize_database() {
@@ -977,6 +981,7 @@ add_action( 'admin_post_fictioneer_tools_optimize_database', 'fictioneer_tools_o
  * Optimize database preview
  *
  * @since Fictioneer 5.7.4
+ * @global wpdb $wpdb  WordPress database object.
  */
 
 function fictioneer_tools_optimize_database_preview() {
@@ -1025,5 +1030,122 @@ function fictioneer_tools_optimize_database_preview() {
   exit();
 }
 add_action( 'admin_post_fictioneer_tools_optimize_database_preview', 'fictioneer_tools_optimize_database_preview' );
+
+/**
+ * Append missing 'fictioneer_story_hidden' post meta
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_tools_add_story_hidden_fields() {
+  // Append 'fictioneer_story_hidden'
+  fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-add-story-hidden'
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_tools_add_story_hidden_fields', 'fictioneer_tools_add_story_hidden_fields' );
+
+/**
+ * Append missing 'fictioneer_story_sticky' post meta
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_tools_add_story_sticky_fields() {
+  // Append 'fictioneer_story_sticky'
+  fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_sticky', 0 );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-add-story-sticky'
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_tools_add_story_sticky_fields', 'fictioneer_tools_add_story_sticky_fields' );
+
+/**
+ * Append missing 'fictioneer_chapter_hidden' post meta
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_tools_add_chapter_hidden_fields() {
+  // Append 'fictioneer_chapter_hidden'
+  fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-add-chapter-hidden'
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_tools_add_chapter_hidden_fields', 'fictioneer_tools_add_chapter_hidden_fields' );
+
+/**
+ * Append a missing meta field to selected posts
+ *
+ * @since Fictioneer 5.7.4
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param string $post_type   The post type to append to.
+ * @param string $meta_key    The meta key to append.
+ * @param mixed  $meta_value  The value to assign.
+ */
+
+function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
+  global $wpdb;
+
+  // Setup
+  $values = [];
+
+  // Get posts with missing meta field
+  $posts = $wpdb->get_col("
+    SELECT p.ID
+    FROM {$wpdb->posts} p
+    LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '{$meta_key}'
+    WHERE p.post_type = '{$post_type}' AND pm.meta_id IS NULL
+  ");
+
+  // Prepare values
+  foreach ( $posts as $post_id ) {
+    $values[] = $wpdb->prepare( "(%d, %s, %d)", $post_id, $meta_key, $meta_value );
+  }
+
+  $chunks = array_chunk( $values, 1000 );
+
+  // Query
+  foreach ( $chunks as $chunk ) {
+    $values_sql = implode( ', ', $chunk );
+
+    if( ! empty( $values_sql ) ) {
+      $wpdb->query("
+        INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
+        VALUES {$values_sql};
+      ");
+    }
+  }
+}
 
 ?>

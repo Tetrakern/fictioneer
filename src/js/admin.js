@@ -350,6 +350,7 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
       }
       break;
     case 'optimize-database':
+    case 'append-meta-fields':
       if (!confirm(clickTarget.dataset.message)) {
         event.preventDefault();
       }
