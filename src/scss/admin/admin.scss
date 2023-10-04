@@ -285,7 +285,7 @@ td.comment {
     display: none;
   }
 
-  &--invalid {
+  &--invalid:not(.pending-validation) {
     [class*="fictioneer-meta-field"]:is(input, textarea, select) {
       border-color: #dc3232;
 

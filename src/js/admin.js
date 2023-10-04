@@ -597,9 +597,17 @@ document.addEventListener('DOMContentLoaded', () => {
   fcn_checkRequiredFields();
 
   _$$('.fictioneer-meta-field [required]').forEach(element => {
+    const wrapper = element.closest('.fictioneer-meta-field');
+
+    wrapper.classList.add('pending-validation');
+
     element.addEventListener('input', () => {
       fcn_checkRequiredFields();
     });
+
+    element.addEventListener('input', () => {
+      wrapper.classList.remove('pending-validation');
+    }, { once: true });
   });
 
   wp.data?.subscribe(() => {
