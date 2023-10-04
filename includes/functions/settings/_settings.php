@@ -474,7 +474,7 @@ function fictioneer_capability_checkbox( $cap, $name, $set ) {
   // Start HTML ---> ?>
   <label class="fictioneer-capability-checkbox">
     <input type="hidden" name="caps[<?php echo $cap; ?>]" value="0">
-    <input class="fictioneer-capability-checkbox__input" name="caps[<?php echo $cap; ?>]" type="checkbox" <?php echo $set ? 'checked' : ''; ?> value="1">
+    <input class="fictioneer-capability-checkbox__input" name="caps[<?php echo $cap; ?>]" type="checkbox" <?php echo $set ? 'checked' : ''; ?> value="1" autocomplete="off">
     <div class="fictioneer-capability-checkbox__name"><?php echo $name; ?></div>
   </label>
   <?php // <--- End HTML
