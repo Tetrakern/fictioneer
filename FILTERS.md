@@ -136,37 +136,6 @@ Filters the intermediate output array in the `_card-chapter.php` partial before 
 
 ---
 
-### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix )`
-Filters the prefix string (if any) in front of a chapter title before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode. Useful if you want to add a wrapper for styling purposes.
-
-**Parameters:**
-* $prefix (string) – Chapter prefix.
-
----
-
-### `apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args )`
-Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode.
-
-**output:**
-* $warning (string|null) – Optional. Warning node.
-* $password (string|null) – Optional. Password node.
-* $date (string) – Time node.
-* $words (string) – Words node.
-
-**data:**
-* $id (int) – ID of the chapter.
-* $warning (string) – Warning note or empty string.
-* $password (boolean) – Whether the chapter requires a password.
-* $timestamp (string) – Timestamp as ISO 8601 format.
-* $list_date (string) – Displayed chapter date for the list view.
-* $grid_date (string|null) – Optional. Displayed chapter date for the grid view.
-* $words (int) – Chapter word count.
-
-**args:**
-* $grid (boolean|null) – Optional. `true` if the row needs to account for grid view.
-
----
-
 ### `apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args )`
 Filters the intermediate output array of the chapter micro menu in the `fictioneer_get_chapter_micro_menu( $args )` function before it is imploded and rendered.
 
@@ -403,6 +372,14 @@ Filters the form fields of the `fictioneer_contact_form` shortcode.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed )`
+Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, false, []) instead of being deleted when updated via theme functions. Applies to post, comment, and user meta fields. This does not affect the core update functions. See `fictioneer_update_user_meta(…)`, `fictioneer_update_comment_meta(…)`, and `fictioneer_update_post_meta(…)`.
+
+**Parameters:**
+* $allowed (array) – Array of allowed meta keys. Default empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_fonts', $fonts )`
 Filters the return array of the `fictioneer_get_fonts()` function, used to set up the chapter font options.
 
@@ -472,6 +449,55 @@ Filters the boolean return value of the `fictioneer_is_editor( $user_id )` funct
 **Parameters:**
 * $check (boolean) – True or false.
 * $user_id (int) – The tested user ID.
+
+---
+
+### `apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix )`
+Filters the prefix string (if any) in front of a chapter title before it is rendered in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode. Useful if you want to add a wrapper for styling purposes.
+
+**Parameters:**
+* $prefix (string) – Chapter prefix.
+
+---
+
+### `apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args )`
+Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_row( $data, $args )` function before it is imploded and returned in the `_story-content.php` partial or `fictioneer_chapter_list` shortcode.
+
+**output:**
+* $warning (string|null) – Optional. Warning node.
+* $password (string|null) – Optional. Password node.
+* $date (string) – Time node.
+* $words (string) – Words node.
+
+**data:**
+* $id (int) – ID of the chapter.
+* $warning (string) – Warning note or empty string.
+* $password (boolean) – Whether the chapter requires a password.
+* $timestamp (string) – Timestamp as ISO 8601 format.
+* $list_date (string) – Displayed chapter date for the list view.
+* $grid_date (string|null) – Optional. Displayed chapter date for the grid view.
+* $words (int) – Chapter word count.
+
+**args:**
+* $grid (boolean|null) – Optional. `true` if the row needs to account for grid view.
+
+---
+
+### `apply_filters( 'fictioneer_filter_metabox_{meta_box}', $output, $post )`
+Filters the intermediate output array for meta box fields before it is imploded and rendered, see `_meta_fields.php`. The dynamic part of the hook can be `story_meta`, `story_data`, `story_epub`, `chapter_meta`, `chapter_data`, `advanced`, `support_links`, `post_data`, `collection_data`, and `recommendation_data`.
+
+**Parameters:**
+* $output (array) – Captured HTML of meta fields to be rendered.
+* $post (WP_Post) – The post object.
+
+---
+
+### `apply_filters( 'fictioneer_filter_metabox_updates_{type}', $fields, $post_id )`
+Filters the sanitized POST meta box fields before they are saved, see `_meta_fields.php`. The dynamic part of the hook can be `story`, `chapter`, `advanced`, `support_links`, `post`, `collection`, and `recommendation`.
+
+**Parameters:**
+* $output (array) – Captured HTML of meta fields to be rendered.
+* $post_id (int) – The post ID.
 
 ---
 
