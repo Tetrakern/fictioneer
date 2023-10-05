@@ -1022,7 +1022,7 @@
                 <?php
                   fictioneer_label_checkbox(
                     'fictioneer_delete_theme_options_on_deactivation',
-                    __( 'This will also remove all additional user meta data, such as bookmarks or Follows. Stories, chapters, collections, and recommendations remain but you will need to register their custom post types in order to access them.', 'fictioneer' )
+                    __( 'This will also remove all additional user meta data, such as bookmarks or follows. Stories, chapters, collections, and recommendations remain but you will need to register their custom post types in order to access them.', 'fictioneer' )
                   );
                 ?>
               </div>
