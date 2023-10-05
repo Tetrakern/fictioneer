@@ -267,11 +267,6 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
  */
 
 function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata ) {
-  // Store privacy policy agreement in case theme comments are turned off
-  if ( filter_var( $_POST['fictioneer-privacy-policy-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
-    add_comment_meta( $comment_id, 'fictioneer_privacy_policy_accepted', true );
-  }
-
   // Store visibility code for unapproved comments based on Unix seconds
   add_comment_meta(
     $comment_id,
