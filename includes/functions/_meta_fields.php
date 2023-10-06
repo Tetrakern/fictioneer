@@ -93,6 +93,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   $list = ( $args['list'] ?? 0 ) ? 'list="' . $args['list'] . '"' : '';
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $maxlength = isset( $args['maxlength'] ) ? 'maxlength="' . $args['maxlength'] . '"' : '';
 
   ob_start();
 
@@ -106,7 +107,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $list; ?> <?php echo $required; ?>>
+      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $list; ?> <?php echo $required; ?>>
     </div>
 
     <?php if ( $description ) : ?>
@@ -1443,7 +1444,8 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     'fictioneer_chapter_warning',
     array(
       'label' => _x( 'Warning', 'Chapter warning meta field label.', 'fictioneer' ),
-      'description' => __( 'Warning shown in chapter lists.', 'fictioneer' )
+      'description' => __( 'Warning shown in chapter lists.', 'fictioneer' ),
+      'maxlength' => 48
     )
   );
 
