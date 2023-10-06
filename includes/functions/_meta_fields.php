@@ -1452,7 +1452,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     'fictioneer_chapter_warning_notes',
     array(
       'label' => __( 'Warning Notes', 'fictioneer' ),
-      'description' => __( 'Warning note shown in chapters.', 'fictioneer' )
+      'description' => __( 'Warning note shown above chapters.', 'fictioneer' )
     )
   );
 
@@ -1825,6 +1825,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // Warning
   if ( isset( $_POST['fictioneer_chapter_warning'] ) ) {
     $fields['fictioneer_chapter_warning'] = sanitize_text_field( $_POST['fictioneer_chapter_warning'] );
+    $fields['fictioneer_chapter_warning'] = mb_strimwidth( $fields['fictioneer_chapter_warning'], 0, 48, '…' );
   }
 
   // Warning notes
