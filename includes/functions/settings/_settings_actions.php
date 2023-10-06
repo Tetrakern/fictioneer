@@ -114,7 +114,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-not-renamed-role' => __( 'Error. Role could not be renamed.', 'fictioneer' ),
       'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
       'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
-      'fictioneer-db-optimization-preview' => __( '%s superfluous rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
+      'fictioneer-db-optimization-preview' => __( '%s superfluous post meta rows found. %s superfluous comment meta rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
       'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' ),
       'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
@@ -134,29 +134,31 @@ function fictioneer_admin_settings_notices() {
   $success = $_GET['success'] ?? null;
   $failure = $_GET['failure'] ?? null;
   $info = $_GET['info'] ?? null;
-  $data = $_GET['data'] ?? '';
+  $data = explode( ',', $_GET['data'] ?? '' );
+  $data = is_array( $data ) ? $data : [];
+  $data = array_map( 'esc_html', $data );
 
   // Has success notice?
   if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ] ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . sprintf(
+    echo '<div class="notice notice-success is-dismissible"><p>' . vsprintf(
       FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ],
-      esc_html( $data )
+      $data
     ) . '</p></div>';
   }
 
   // Has failure notice?
   if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ] ) ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . sprintf(
+    echo '<div class="notice notice-error is-dismissible"><p>' . vsprintf(
       FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ],
-      esc_html( $data )
+      $data
     ) . '</p></div>';
   }
 
   // Has info notice?
   if ( ! empty( $info ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ] ) ) {
-    echo '<div class="notice notice-info is-dismissible"><p>' . sprintf(
+    echo '<div class="notice notice-info is-dismissible"><p>' . vsprintf(
       FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ],
-      esc_html( $data )
+      $data
     ) . '</p></div>';
   }
 }
@@ -964,7 +966,7 @@ function fictioneer_tools_optimize_database() {
 
   global $wpdb;
 
-  // Allowed
+  // Delete post meta
   $allowed_meta_keys = fictioneer_get_falsy_meta_allow_list();
   $not_like_sql = '';
 
@@ -978,8 +980,7 @@ function fictioneer_tools_optimize_database() {
     $not_like_sql = " AND " . implode( ' AND ', $not_like_statements );
   }
 
-  // Delete and return number of rows
-  $count = $wpdb->query("
+  $post_meta_count = $wpdb->query("
     DELETE FROM $wpdb->postmeta
     WHERE meta_key LIKE '_fictioneer_%'
     OR (
@@ -990,11 +991,26 @@ function fictioneer_tools_optimize_database() {
     )
   ");
 
+  // Comment meta
+  $comment_meta_count = $wpdb->query("
+    DELETE FROM $wpdb->commentmeta
+    WHERE (
+      meta_key = 'fictioneer_visibility_code'
+      AND SUBSTRING_INDEX(SUBSTRING_INDEX(meta_value, ';', 2), ':', -1) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 24 HOUR))
+    ) OR (
+      meta_key LIKE 'fictioneer%'
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+    )
+  ");
+
+  // Total rows
+  $total = $post_meta_count + $comment_meta_count;
+
   // Log
   fictioneer_log(
     sprintf(
       __( 'Optimized database and removed %s superfluous rows.', 'fictioneer' ),
-      $count
+      $total
     )
   );
 
@@ -1003,7 +1019,7 @@ function fictioneer_tools_optimize_database() {
     add_query_arg(
       array(
         'success' => 'fictioneer-db-optimization',
-        'data' => $count
+        'data' => $total
       ),
       wp_get_referer()
     )
@@ -1027,7 +1043,7 @@ function fictioneer_tools_optimize_database_preview() {
 
   global $wpdb;
 
-  // Allowed
+  // Post meta
   $allowed_meta_keys = fictioneer_get_falsy_meta_allow_list();
   $not_like_sql = '';
 
@@ -1041,8 +1057,7 @@ function fictioneer_tools_optimize_database_preview() {
     $not_like_sql = " AND " . implode( ' AND ', $not_like_statements );
   }
 
-  // Return number of rows affected
-  $count = $wpdb->get_var("
+  $post_meta_count = $wpdb->get_var("
     SELECT COUNT(*) FROM $wpdb->postmeta
     WHERE meta_key LIKE '_fictioneer_%'
     OR (
@@ -1053,12 +1068,24 @@ function fictioneer_tools_optimize_database_preview() {
     )
   ");
 
+  // Comment meta
+  $comment_meta_count = $wpdb->get_var("
+    SELECT COUNT(*) FROM $wpdb->commentmeta
+    WHERE (
+      meta_key = 'fictioneer_visibility_code'
+      AND SUBSTRING_INDEX(SUBSTRING_INDEX(meta_value, ';', 2), ':', -1) < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 24 HOUR))
+    ) OR (
+      meta_key LIKE 'fictioneer%'
+      AND (meta_value = '' OR meta_value IS NULL OR meta_value = '0')
+    )
+  ");
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
       array(
         'info' => 'fictioneer-db-optimization-preview',
-        'data' => $count
+        'data' => "{$post_meta_count},{$comment_meta_count}"
       ),
       wp_get_referer()
     )
