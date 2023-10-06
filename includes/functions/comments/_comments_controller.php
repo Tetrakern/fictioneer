@@ -491,8 +491,9 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
 
     // Unsubscribe if code matches
     if ( $code == get_comment_meta( $comment->comment_ID, 'fictioneer_notifications_reset', true ) ) {
-      // Unset flag
+      // Remove meta
       fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', false );
+      fictioneer_update_comment_meta( $comment->comment_ID, 'fictioneer_notifications_reset', false );
 
       // Comment data
       $title = get_the_title( $comment->comment_post_ID );
