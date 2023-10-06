@@ -356,7 +356,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
     $comment_text = apply_filters( 'get_comment_text', $commentdata['comment_content'] );
     $comment_text = apply_filters( 'comment_text', $comment_text );
     $comment_author = empty( $parent->comment_author ) ? fcntr( 'anonymous_guest' ) : $parent->comment_author;
-    $reply_author =  empty( $commentdata['comment_author'] ) ? fcntr( 'anonymous_guest' ) : $commentdata['comment_author'];
+    $reply_author = empty( $commentdata['comment_author'] ) ? fcntr( 'anonymous_guest' ) : $commentdata['comment_author'];
     $template = fictioneer_replace_key_value(
       wp_kses_post( get_option( 'fictioneer_phrase_comment_reply_notification' ) ),
       array(

@@ -176,6 +176,7 @@ function fictioneer_do_fast_comment_ajax() {
   // Include required files
   require_once __DIR__ . '/_utility.php'; // Obviously
   require_once __DIR__ . '/_caching_and_transients.php'; // Maybe?
+  require_once __DIR__ . '/_content_helpers.php'; // Safe title
   require_once __DIR__ . '/comments/_comments_controller.php'; // Obviously
   require_once __DIR__ . '/comments/_comments_moderation.php'; // Obviously
   require_once __DIR__ . '/comments/_comments_ajax.php'; // Obviously
