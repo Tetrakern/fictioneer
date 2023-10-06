@@ -45,6 +45,7 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
   // Setup
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -53,7 +54,7 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
 
     <div class="fictioneer-meta-checkbox__checkbox">
       <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-      <input type="checkbox" id="<?php echo $meta_key; ?>" name="<?php echo $meta_key; ?>" value="1" autocomplete="off" <?php checked( get_post_meta( $post->ID, $meta_key, true ), 1 ); ?> <?php echo $required; ?>>
+      <input type="checkbox" id="<?php echo $meta_key; ?>" name="<?php echo $meta_key; ?>" value="1" autocomplete="off" <?php checked( get_post_meta( $post->ID, $meta_key, true ), 1 ); ?> <?php echo $attributes; ?> <?php echo $required; ?>>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" focusable="false"><path d="M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"></path></svg>
     </div>
 
@@ -90,10 +91,10 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
-  $list = ( $args['list'] ?? 0 ) ? 'list="' . $args['list'] . '"' : '';
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
   $maxlength = isset( $args['maxlength'] ) ? 'maxlength="' . $args['maxlength'] . '"' : '';
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -107,7 +108,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $list; ?> <?php echo $required; ?>>
+      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $attributes; ?> <?php echo $required; ?>>
     </div>
 
     <?php if ( $description ) : ?>
@@ -147,6 +148,7 @@ function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
   $placeholder = strval( $args['placeholder'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -161,7 +163,7 @@ function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
 
     <div class="fictioneer-meta-field__wrapper">
       <span class="fictioneer-meta-field__url-icon dashicons dashicons-admin-site"></span>
-      <input type="url" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+      <input type="url" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>>
     </div>
 
     <?php if ( $description ) : ?>
@@ -203,6 +205,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
   $placeholder = strval( $args['placeholder'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -215,7 +218,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
-    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $list; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>>
+    <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $list; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>>
 
     <?php if ( $description ) : ?>
       <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
@@ -254,6 +257,7 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
   $description = strval( $args['description'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -267,7 +271,7 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <select id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__select" name="<?php echo $meta_key; ?>" autocomplete="off" <?php echo $required; ?>><?php
+      <select id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__select" name="<?php echo $meta_key; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>><?php
         foreach ( $options as $value => $translation ) {
           $value = esc_attr( $value );
           $translation = esc_html( $translation );
@@ -315,6 +319,7 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
   $input_classes = strval( $args['input_classes'] ?? '' );
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
 
   ob_start();
 
@@ -328,7 +333,7 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea <?php echo $input_classes; ?>" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
+      <textarea id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__textarea <?php echo $input_classes; ?>" name="<?php echo $meta_key; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $attributes; ?> <?php echo $required; ?>><?php echo $meta_value; ?></textarea>
     </div>
 
     <?php if ( $description ) : ?>
@@ -1660,7 +1665,9 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     array(
       'label' => _x( 'Group', 'Chapter group meta field label.', 'fictioneer' ),
       'description' => __( 'Organize chapters into groups; mind the order and spelling (case-sensitive). Only rendered if there are at least two, unassigned chapters are grouped under "Unassigned".', 'fictioneer' ),
-      'list' => "chapter_groups_for_{$post->ID}"
+      'attributes' => array(
+        "list='chapter_groups_for_{$post->ID}'"
+      )
     )
   );
 
