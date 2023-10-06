@@ -73,6 +73,11 @@ function fcn_initializeUserBookmarks(event) {
 function fcn_getBookmarks() {
   const bookmarks = fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
 
+  // Fix empty array that should be an object
+  if (Array.isArray(bookmarks.data) && bookmarks.data.length === 0) {
+    bookmarks.data = {};
+  }
+
   return (!bookmarks || Object.keys(bookmarks).length < 1) ? { 'data': {} } : bookmarks;
 }
 
@@ -260,7 +265,7 @@ function fcn_toggleBookmark(id, color = 'none') {
     // --- Add new bookmark ----------------------------------------------------
 
     // Maximum of 50 bookmarks
-    if ( Object.keys(fcn_bookmarks.data).length >= 50 ) {
+    if (Object.keys(fcn_bookmarks.data).length >= 50) {
       // Remove oldest
       fcn_removeBookmark(Object.keys(fcn_bookmarks.data)[0]);
     }
