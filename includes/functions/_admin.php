@@ -530,7 +530,11 @@ function fictioneer_ajax_get_chapter_groups() {
   }
 
   // Send
-  wp_send_json_success( array( 'html' => $html ) );
+  if ( empty( $html ) ) {
+    wp_send_json_error( array( 'error' => __( 'No groups found.', 'fictioneer' ) ) );
+  } else {
+    wp_send_json_success( array( 'html' => $html ) );
+  }
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
 
