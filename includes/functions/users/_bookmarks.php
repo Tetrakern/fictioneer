@@ -36,19 +36,15 @@ function fictioneer_ajax_save_bookmarks() {
   // Valid?
   $bookmarks = sanitize_text_field( $_POST['bookmarks'] );
 
-  if ( $bookmarks && fictioneer_is_valid_json( stripslashes( $bookmarks ) ) ) {
+  if ( $bookmarks && fictioneer_is_valid_json( wp_unslash( $bookmarks ) ) ) {
     // Inspect
-    $decoded = json_decode( stripslashes( $bookmarks ), true );
+    $decoded = json_decode( wp_unslash( $bookmarks ), true );
 
     if ( ! $decoded || ! isset( $decoded['data'] ) ) {
       wp_send_json_error( array( 'error' => __( 'Invalid JSON.', 'fictioneer' ) ) );
     }
 
-    // Only keep data note in case of unwanted nodes
-    $bookmarks = array( 'data' => $decoded['data'] );
-    $bookmarks = json_encode( $bookmarks );
-
-    // Update and response
+    // Update and response (uses wp_slash/wp_unslash internally)
     $old_bookmarks = get_user_meta( $user->ID, 'fictioneer_bookmarks', true );
 
     if ( $bookmarks === $old_bookmarks ) {
@@ -56,7 +52,7 @@ function fictioneer_ajax_save_bookmarks() {
     }
 
     if ( update_user_meta( $user->ID, 'fictioneer_bookmarks', $bookmarks ) ) {
-      wp_send_json_success( array( 'bookmarks' => $bookmarks ) );
+      wp_send_json_success();
     } else {
       wp_send_json_error( array( 'error' => __( 'Database error. Bookmarks could not be updated.', 'fictioneer' ) ) );
     }
