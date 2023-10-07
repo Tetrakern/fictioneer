@@ -149,7 +149,7 @@ function fcn_fixBookmarksNode(node) {
   const date = new Date(fixedNode['date']);
 
   if (!date || Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date)) {
-    fixedNode['date'] = (new Date()).toISOString();
+    fixedNode['date'] = (new Date()).toISOString(); // This happens anyway when stringified
   }
 
   // Check progress
@@ -354,14 +354,14 @@ function fcn_toggleBookmark(id, color = 'none') {
     }
 
     // Setup
-    const p = _$(`[data-paragraph-id="${id}"]`),
-          fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
+    const p = _$(`[data-paragraph-id="${id}"]`);
+    const fcn_chapterBookmarkData = _$$$('chapter-bookmark-data').dataset;
 
     // Add data node (chapter-id: {}) to bookmarks JSON
     fcn_bookmarks.data[chapter.id] = {
       'paragraph-id': id,
       'progress': (fcn_offset(p).top - fcn_offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
-      'date': (new Date()).toISOString(),
+      'date': (new Date()).toISOString(), // This happens anyway when stringified
       'color': color,
       'chapter': fcn_chapterBookmarkData.title.trim(),
       'link': fcn_chapterBookmarkData.link,

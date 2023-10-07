@@ -788,7 +788,7 @@
 }
 
 .bookmark-card {
-  &:is([data-color=default], [data-color=none]) .bookmark-card__progress {
+  .bookmark-card__progress {
     background: var(--bookmark-color-alpha);
   }
 
@@ -802,10 +802,6 @@
 
   &[data-color=delta] .bookmark-card__progress {
     background: var(--bookmark-color-delta);
-  }
-
-  &__title {
-
   }
 
   &__meta {
