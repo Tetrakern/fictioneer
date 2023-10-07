@@ -71,14 +71,94 @@ function fcn_initializeUserBookmarks(event) {
  */
 
 function fcn_getBookmarks() {
-  const bookmarks = fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
+  let bookmarks = fcn_parseJSON(localStorage.getItem('fcnChapterBookmarks')) ?? { 'data': {} };
 
   // Fix empty array that should be an object
   if (Array.isArray(bookmarks.data) && bookmarks.data.length === 0) {
     bookmarks.data = {};
   }
 
+  // Validate and sanitize
+  bookmarks = fcn_fixBookmarks(bookmarks);
+
+  // Last check and return
   return (!bookmarks || Object.keys(bookmarks).length < 1) ? { 'data': {} } : bookmarks;
+}
+
+// =============================================================================
+// VALIDATE & SANITIZE BOOKMARKS
+// =============================================================================
+
+/**
+ * Fixes bookmarks to only contain valid data.
+ *
+ * @since 5.7.4
+ * @param {JSON} bookmarks - The bookmarks JSON to be fixed.
+ * @return {JSON} The fixed bookmarks JSON.
+ */
+
+function fcn_fixBookmarks(bookmarks) {
+  const fixedData = {};
+
+  for (const key in bookmarks.data) {
+    if (key.startsWith('ch-')) {
+      const node = fcn_fixBookmarksNode(bookmarks.data[key]);
+
+      if (node) {
+        fixedData[key] = node;
+      }
+    }
+  }
+
+  return { data: fixedData };
+}
+
+/**
+ * Fixes a bookmark child node.
+ *
+ * @since 5.7.4
+ * @param {JSON} node - The child node to be fixed.
+ * @return {JSON} The fixed child node.
+ */
+
+function fcn_fixBookmarksNode(node) {
+  const fixedNode = {};
+  const structure = {
+    'paragraph-id': '',
+    'progress': 0.0,
+    'date': '',
+    'color': '',
+    'chapter': '',
+    'link': '',
+    'thumb': '',
+    'image': '',
+    'story': '',
+    'content': ''
+  };
+
+  // Check structure and only leave allowed nodes
+  for (const key in structure) {
+    if (typeof node[key] === typeof structure[key]) {
+      fixedNode[key] = node[key];
+    } else {
+      return null;
+    }
+  }
+
+  // Check date
+  const date = new Date(fixedNode['date']);
+
+  if (!date || Object.prototype.toString.call(date) !== "[object Date]" || isNaN(date)) {
+    fixedNode['date'] = (new Date()).toISOString();
+  }
+
+  // Check progress
+  if (typeof fixedNode['progress'] !== 'number' || fixedNode['progress'] < 0) {
+    fixedNode['progress'] = 0.0;
+  }
+
+  // Done
+  return fixedNode;
 }
 
 // =============================================================================
@@ -126,7 +206,7 @@ function fcn_setBookmarks(value, silent = false) {
   }
 
   // Update database for user
-  fcn_saveUserBookmarks(JSON.stringify(value));
+  fcn_saveUserBookmarks(value);
 }
 
 // =============================================================================
@@ -181,10 +261,10 @@ function fcn_updateBookmarksView() {
  * unnecessary requests in case someone triggers multiple updates.
  *
  * @since 4.0
- * @param {String} value - The stringified bookmarks JSON to be saved.
+ * @param {JSON} bookmarks - The bookmarks JSON to be saved.
  */
 
-function fcn_saveUserBookmarks(value) {
+function fcn_saveUserBookmarks(bookmarks) {
   // Do not proceed if not logged in
   if (!fcn_isLoggedIn) {
     return;
@@ -193,12 +273,15 @@ function fcn_saveUserBookmarks(value) {
   // Clear previous timeout (if still pending)
   clearTimeout(fcn_userBookmarksTimeout);
 
+  // Validate and sanitize
+  bookmarks = fcn_fixBookmarks(bookmarks);
+
   // Only one save request every n seconds
   fcn_userBookmarksTimeout = setTimeout(() => {
     fcn_ajaxPost({
       'action': 'fictioneer_ajax_save_bookmarks',
       'fcn_fast_ajax': 1,
-      'bookmarks': value
+      'bookmarks': JSON.stringify(bookmarks)
     })
     .then(response => {
       // Check for failure
@@ -278,7 +361,7 @@ function fcn_toggleBookmark(id, color = 'none') {
     fcn_bookmarks.data[chapter.id] = {
       'paragraph-id': id,
       'progress': (fcn_offset(p).top - fcn_offset(p.parentElement).top) * 100 / p.parentElement.clientHeight,
-      'date': new Date(),
+      'date': (new Date()).toISOString(),
       'color': color,
       'chapter': fcn_chapterBookmarkData.title.trim(),
       'link': fcn_chapterBookmarkData.link,

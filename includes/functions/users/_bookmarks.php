@@ -7,6 +7,9 @@
 /**
  * Save bookmarks JSON for user via AJAX
  *
+ * Note: Bookmarks are not evaluated server-side, only stored as JSON string.
+ * Everything else happens client-side.
+ *
  * @since Fictioneer 4.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
@@ -47,7 +50,7 @@ function fictioneer_ajax_save_bookmarks() {
     // Update and response (uses wp_slash/wp_unslash internally)
     $old_bookmarks = get_user_meta( $user->ID, 'fictioneer_bookmarks', true );
 
-    if ( $bookmarks === $old_bookmarks ) {
+    if ( wp_unslash( $bookmarks ) === $old_bookmarks ) {
       wp_send_json_success(); // Nothing to update
     }
 
