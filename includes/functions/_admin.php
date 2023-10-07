@@ -463,4 +463,75 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
   }
 }
 
+// =============================================================================
+// AJAX: GET STORY CHAPTER GROUP OPTIONS
+// =============================================================================
+
+/**
+ * AJAX: Get chapter group options for story
+ *
+ * @since Fictioneer 5.7.4
+ */
+
+function fictioneer_ajax_get_chapter_groups() {
+  // Validate
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_nonce' );
+  $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
+
+  if ( ! is_admin() ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  if ( ! $user || ! current_user_can( 'edit_fcn_stories' ) ) {
+    wp_send_json_error( array( 'error' => __( 'User did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  if ( ! $story_id ) {
+    wp_send_json_error( array( 'error' => __( 'Story ID did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  global $wpdb;
+
+  $story = fictioneer_get_story_data( $story_id, false );
+  $groups = [];
+
+  // Query groups
+  if ( $story && ! empty( $story['chapter_ids'] ) ) {
+    $post_ids_format = implode( ', ', array_fill( 0, count( $story['chapter_ids'] ), '%d' ) );
+
+    $sql = $wpdb->prepare(
+      "SELECT post_id, meta_value
+      FROM $wpdb->postmeta
+      WHERE meta_key = 'fictioneer_chapter_group'
+      AND meta_value != ''
+      AND post_id IN ($post_ids_format)",
+      $story['chapter_ids']
+    );
+
+    $results = $wpdb->get_results( $sql );
+
+    foreach ( $results as $result ) {
+      if ( $result->meta_value ) {
+        $groups[] = $result->meta_value;
+      }
+    }
+
+    $groups = array_unique( $groups );
+  }
+
+  // Prepare HTML
+  $html = '';
+
+  if ( ! empty( $groups ) ) {
+    foreach ( $groups as $group ) {
+      $html .= "<option value='{$group}'></option>";
+    }
+  }
+
+  // Send
+  wp_send_json_success( array( 'html' => $html ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
+
 ?>

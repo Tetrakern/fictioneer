@@ -1618,7 +1618,11 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     $stories,
     array(
       'label' => _x( 'Story', 'Chapter story meta field label.', 'fictioneer' ),
-      'description' => $description . ' ' . $author_warning
+      'description' => $description . ' ' . $author_warning,
+      'attributes' => array(
+        'data-action="select-story"',
+        "data-target='chapter_groups_for_{$post->ID}'"
+      )
     )
   );
 
@@ -1633,32 +1637,6 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   );
 
   // Group
-  $current_story = fictioneer_get_story_data( $current_story_id, false );
-  $groups = [];
-
-  if ( $current_story && ! empty( $current_story['chapter_ids'] ) ) {
-    $post_ids_format = implode( ', ', array_fill( 0, count( $current_story['chapter_ids'] ), '%d' ) );
-
-    $sql = $wpdb->prepare(
-      "SELECT post_id, meta_value
-      FROM $wpdb->postmeta
-      WHERE meta_key = 'fictioneer_chapter_group'
-      AND meta_value != ''
-      AND post_id IN ($post_ids_format)",
-      $current_story['chapter_ids']
-    );
-
-    $results = $wpdb->get_results( $sql );
-
-    foreach ( $results as $result ) {
-      if ( $result->meta_value ) {
-        $groups[] = $result->meta_value;
-      }
-    }
-
-    $groups = array_unique( $groups );
-  }
-
   $output['fictioneer_chapter_group'] = fictioneer_get_metabox_text(
     $post,
     'fictioneer_chapter_group',
@@ -1670,18 +1648,6 @@ function fictioneer_render_chapter_data_metabox( $post ) {
       )
     )
   );
-
-  if ( ! empty( $groups ) ) {
-    $datalist = "<datalist id='chapter_groups_for_{$post->ID}'>";
-
-    foreach ( $groups as $group ) {
-      $datalist .= "<option value='$group'></option>";
-    }
-
-    $datalist .= '</datalist>';
-
-    $output['fictioneer_chapter_group_datalist'] = $datalist;
-  }
 
   // Foreword
   $output['fictioneer_chapter_foreword'] = fictioneer_get_metabox_editor(

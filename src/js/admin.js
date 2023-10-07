@@ -618,3 +618,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// =============================================================================
+// SHOW STORY GROUPS
+// =============================================================================
+
+/**
+ * Get datalist for story chapter groups
+ *
+ * @since 5.7.4
+ * @param {HTMLElement} source - Element that triggered the request.
+ */
+
+function fcn_setGroupDataList(source) {
+  // Setup
+  const storyId = source.value;
+  const listID = source.dataset.target;
+
+  _$$$(listID)?.remove();
+
+  if (storyId == 0) {
+    return;
+  }
+
+  // Request group options (if any)
+  fcn_ajaxGet({
+    'action': 'fictioneer_ajax_get_chapter_groups',
+    'story_id': storyId,
+    'nonce': fictioneer_ajax.fictioneer_nonce
+  })
+  .then(response => {
+    if (response.success) {
+      const list = fcn_html`<datalist id="${listID}">${response.data.html}</datalist>>`;
+      document.body.appendChild(list);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  _$$('[data-action="select-story"]').forEach(element => {
+    // Initialize
+    fcn_setGroupDataList(element);
+
+    // Listen for changes
+    element.addEventListener('change', event => {
+      fcn_setGroupDataList(event.currentTarget);
+    });
+  });
+});
