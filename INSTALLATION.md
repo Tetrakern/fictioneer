@@ -30,6 +30,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
+  * [Queries](#queries)
   * [Constants](#constants)
 
 ## Choosing a Host
@@ -776,6 +777,85 @@ On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** onl
 
 * `not-in-mobile-menu`: As you can guess, this will hide the menu item in the mobile menu. However, submenu items will still be shown, so you can use this to hide superfluous dropdown parents.
 * `static-menu-item`: For menu items without link. Changes the cursor and cannot be selected by keyboard (subitems can).
+
+### Queries
+
+In order to keep the database tidy, Fictioneer does not save or keep "falsy" (`""`, `0`, `null`, `false`, `[]`) meta values. This can cause issues with [meta queries](https://developer.wordpress.org/reference/classes/wp_query/#custom-field-post-meta-parameters) looking for these values. The most common troublemakers here are `fictioneer_story_sticky`, `fictioneer_story_hidden`, and `fictioneer_chapter_hidden`. There are multiple solutions for this.
+
+**1) Use an extended (but more expensive) meta query:**
+
+```php
+$query_args = array(
+  …
+  'meta_query' => array(
+    'relation' => 'OR',
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'value' => '0'
+    ),
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'compare' => 'NOT EXISTS'
+    )
+  )
+);
+```
+
+**2) Allow the desired "falsy" meta fields to be saved:**
+
+```php
+add_filter( 'fictioneer_filter_falsy_meta_allow_list', function( $allowed ) {
+  $allowed[] = 'fictioneer_story_sticky'; // For example
+
+  return $allowed;
+});
+```
+
+You can then append missing meta fields with value `0` under **Fictioneer > Tools**. The filter will also prevent those rows from being deleted when you optimize the database.
+
+**3) Hook into `posts_clauses` (complicated; example from the theme):**
+
+```php
+/**
+ * Filters sticky stories to the top and accounts for missing meta fields
+ *
+ * @since 5.7.3
+ *
+ * @param array    $clauses   An associative array of WP_Query SQL clauses.
+ * @param WP_Query $wp_query  The WP_Query instance.
+ *
+ * @return string The updated WHERE statement.
+ */
+
+function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
+  global $wpdb;
+
+  // Setup
+  $vars = $wp_query->query_vars;
+  $allowed_queries = ['stories_list', 'latest_stories', 'latest_stories_compact', 'author_stories'];
+  $allowed_orderby = ['date', 'modified', 'title'];
+
+  // Return if wrong query
+  if (
+    ! in_array( $vars['fictioneer_query_name'] ?? 0, $allowed_queries ) ||
+    ! in_array( $vars['orderby'] ?? '', $allowed_orderby )
+  ) {
+    return $clauses;
+  }
+
+  // Update clauses to set missing meta key to 0
+  $clauses['join'] .= " LEFT JOIN $wpdb->postmeta AS m ON ($wpdb->posts.ID = m.post_id AND m.meta_key = 'fictioneer_story_sticky')";
+  $clauses['orderby'] = "COALESCE(m.meta_value+0, 0) DESC, " . $clauses['orderby'];
+  $clauses['groupby'] = "$wpdb->posts.ID";
+
+  // Pass to query
+  return $clauses;
+}
+
+if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
+  add_filter( 'posts_clauses', 'fictioneer_clause_sticky_stories', 10, 2 );
+}
+```
 
 ### Constants
 
