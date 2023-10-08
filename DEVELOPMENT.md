@@ -144,7 +144,7 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
 
 ## JavaScript
 
-Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes, modules, and TypeScript. But since everything is already working, this would be a labor of passion without immediate benefit.
+Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard dependencies, *especially* not jQuery which is to be avoided like the plague. Bad enough that WordPress and most plugins insist on the performance hog. If you need something from an external library, just copy the functions and credit the source. Avoid additional overhead. There is also an argument for refactoring the JS into classes and modules. But since everything is already working, this would be a labor of passion without immediate benefit.
 
 ### Libraries
 
@@ -160,7 +160,10 @@ Fictioneer is built on [Vanilla JS](http://vanilla-js.com/) without hard depende
 
 * **scroll.rAF:** Window scroll event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
 * **resize.rAF:** Window resize event bound to [requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame).
-* **nonceReady:** Fires when the nonce has been fetched in AJAX authentication mode.
+* **fcnAuthReady:** Fires when the user has been successfully authenticated via AJAX.
+* **fcnUserDataReady:** Fires when the user data has been successfully fetched via AJAX.
+* **fcnUserDataFailed:** Fires when the user data could not be fetched via AJAX.
+* **fcnUserDataError:** Fires when there was an error while fetching the user data via AJAX.
 
 ### AJAX Requests
 
