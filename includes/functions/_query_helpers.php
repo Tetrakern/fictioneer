@@ -117,7 +117,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
 if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
   /**
-   * Append date query to query arguments
+   * Appends date query to query arguments
    *
    * @since 5.4.0
    *
@@ -197,9 +197,9 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
  *
  * @since 5.7.3
  *
- * @param string $where  Where statement. Default empty string.
+ * @param string $where  WHERE statement. Default empty string.
  *
- * @return string The updated where statement.
+ * @return string The updated WHERE statement.
  */
 
 function fictioneer_exclude_protected_posts( $where = '' ) {
@@ -213,14 +213,14 @@ function fictioneer_exclude_protected_posts( $where = '' ) {
 // =============================================================================
 
 /**
- * Filter sticky stories to the top and account for missing meta fields
+ * Filters sticky stories to the top and accounts for missing meta fields
  *
  * @since 5.7.3
  *
- * @param array    $clauses   An associative array of WP Query SQL clauses.
+ * @param array    $clauses   An associative array of WP_Query SQL clauses.
  * @param WP_Query $wp_query  The WP_Query instance.
  *
- * @return string The updated where statement.
+ * @return string The updated WHERE statement.
  */
 
 function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
@@ -233,7 +233,7 @@ function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
 
   // Return if wrong query
   if (
-    ! in_array( $vars['fictioneer_query_name'] ?? 0 , $allowed_queries) ||
+    ! in_array( $vars['fictioneer_query_name'] ?? 0, $allowed_queries ) ||
     ! in_array( $vars['orderby'] ?? '', $allowed_orderby )
   ) {
     return $clauses;

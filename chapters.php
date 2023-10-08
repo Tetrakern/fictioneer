@@ -24,7 +24,7 @@ $ago = $_GET['ago'] ?? 0;
 $ago = is_numeric( $ago ) ? absint( $ago ) : sanitize_text_field( $ago );
 
 // Prepare query
-$query_args = array (
+$query_args = array(
   'fictioneer_query_name' => 'chapters_list',
   'post_type' => 'fcn_chapter',
   'post_status' => 'publish',
