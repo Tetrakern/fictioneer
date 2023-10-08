@@ -651,6 +651,9 @@ function fcn_setGroupDataList(source) {
     if (response.success) {
       const list = fcn_html`<datalist id="${listID}">${response.data.html}</datalist>>`;
       document.body.appendChild(list);
+    } else {
+      // For potential future debugging
+      response.data.error && console.log(response.data.error);
     }
   });
 }

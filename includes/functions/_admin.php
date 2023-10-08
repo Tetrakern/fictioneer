@@ -478,7 +478,7 @@ function fictioneer_ajax_get_chapter_groups() {
   $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_nonce' );
   $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
 
-  if ( ! is_admin() ) {
+  if ( ! is_admin() || ! wp_doing_ajax() ) {
     wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
   }
 
@@ -531,7 +531,7 @@ function fictioneer_ajax_get_chapter_groups() {
 
   // Send
   if ( empty( $html ) ) {
-    wp_send_json_error( array( 'error' => __( 'No groups found.', 'fictioneer' ) ) );
+    wp_send_json_error( array( 'failure' => __( 'No groups found.', 'fictioneer' ) ) );
   } else {
     wp_send_json_success( array( 'html' => $html ) );
   }
