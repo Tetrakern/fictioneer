@@ -157,7 +157,7 @@ add_action( 'acf/include_fields', function() {
           ),
           'return_format' => 'id',
           'min' => '',
-          'max' => 6,
+          'max' => 4,
           'elements' => '',
           'bidirectional' => 0,
           'bidirectional_target' => array(
