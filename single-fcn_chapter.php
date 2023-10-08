@@ -91,7 +91,9 @@ get_header( null, $header_args );
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
           // Bookmark data
           $bookmark_story_title = '';
-          $bookmark_title = fictioneer_get_field( 'fictioneer_chapter_list_title' ) ? fictioneer_get_field( 'fictioneer_chapter_list_title' ) : $title;
+          $bookmark_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
+          $bookmark_title = trim( wp_strip_all_tags( $bookmark_title ) );
+          $bookmark_title = $bookmark_title ?: $title;
           $bookmark_thumbnail = get_the_post_thumbnail_url( null, 'snippet' );
           $bookmark_image = get_the_post_thumbnail_url( null, 'full' );
 

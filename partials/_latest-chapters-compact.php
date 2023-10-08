@@ -152,7 +152,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
                 $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
-                echo $list_title ? wp_strip_all_tags( $list_title ) : $title;
+                $list_title = trim( wp_strip_all_tags( $list_title ) );
+
+                echo $list_title ? $list_title : $title;
               ?></a></h3>
 
               <div class="card__content _small cell-desc">

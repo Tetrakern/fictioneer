@@ -183,11 +183,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       <a href="<?php the_permalink( $chapter_id ); ?>" class="card__link-list-link"><?php
                         // Chapter title
                         $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter_id );
+                        $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                         if ( empty( $list_title ) ) {
                           echo fictioneer_get_safe_title( $chapter_id );
                         } else {
-                          echo wp_strip_all_tags( $list_title );
+                          echo $list_title;
                         }
                       ?></a>
                     </div>

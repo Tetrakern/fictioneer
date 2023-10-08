@@ -71,10 +71,13 @@ $show_type = $args['show_type'] ?? false;
 
       <h3 class="card__title">
         <a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+          $list_title = wp_strip_all_tags( fictioneer_get_field( 'fictioneer_chapter_list_title' ) );
+          $list_title = trim( $list_title );
+
           // Make sure there are no whitespaces in-between!
-          if ( fictioneer_get_field( 'fictioneer_chapter_list_title' ) ) {
-            echo '<span class="show-below-480">' . wp_strip_all_tags( fictioneer_get_field( 'fictioneer_chapter_list_title' ) ) . '</span>';
-            echo '<span class="hide-below-480">' . $title . '</span>';
+          if ( $list_title ) {
+            echo "<span class='show-below-480'>{$list_title}</span>";
+            echo "<span class='hide-below-480'>{$title}</span>";
           } else {
             echo $title;
           }

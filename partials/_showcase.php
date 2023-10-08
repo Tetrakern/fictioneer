@@ -108,10 +108,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 // Get list title and story ID (if any)
                 switch ( $args['post_type'] ) {
                   case 'fcn_collection':
-                    $list_title = trim( fictioneer_get_field( 'fictioneer_collection_list_title' ) );
+                    $list_title = fictioneer_get_field( 'fictioneer_collection_list_title' );
                     break;
                   case 'fcn_chapter':
-                    $list_title = trim( fictioneer_get_field( 'fictioneer_chapter_list_title' ) );
+                    $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
                     $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_the_ID() );
 
                     if ( empty( $landscape_image_id ) ) {
@@ -120,7 +120,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     break;
                 }
 
-                // Prepare title
+                // Prepare titles
+                $list_title = trim( wp_strip_all_tags( $list_title ) );
                 $title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
 
                 // Prepare image arguments

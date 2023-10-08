@@ -986,6 +986,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
         $classes = [];
         $title = trim( $post->post_title );
         $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $post->ID );
+        $list_title = trim( wp_strip_all_tags( $list_title ) );
         $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $post->ID );
         $parsed_url = wp_parse_url( home_url() );
         $relative_path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
@@ -1000,8 +1001,13 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
         }
 
         // CSS classes
-        if ( $current_index == array_search( $post->ID, $data['chapter_ids'] ) ) $classes[] = 'current-chapter';
-        if ( ! empty( $post->post_password ) ) $classes[] = 'has-password';
+        if ( $current_index == array_search( $post->ID, $data['chapter_ids'] ) ) {
+          $classes[] = 'current-chapter';
+        }
+
+        if ( ! empty( $post->post_password ) ) {
+          $classes[] = 'has-password';
+        }
 
         // Start HTML ---> ?>
         <li class="<?php echo implode( ' ', $classes ); ?>">
@@ -1011,7 +1017,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
             <?php elseif ( ! $hide_icons ) : ?>
               <span class="text-icon"><?php echo $text_icon; ?></span>
             <?php endif; ?>
-            <span><?php echo wp_strip_all_tags( $list_title ?: $title ); ?></span>
+            <span><?php echo $list_title ?: $title; ?></span>
           </a>
         </li>
         <?php // <--- End HTML

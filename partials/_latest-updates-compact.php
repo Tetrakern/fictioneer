@@ -177,11 +177,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php
                     // Chapter title
                     $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter_id );
+                    $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                     if ( empty( $list_title ) ) {
                       $chapter_title = fictioneer_get_safe_title( $chapter_id );
                     } else {
-                      $chapter_title = wp_strip_all_tags( $list_title );
+                      $chapter_title = $list_title;
                     }
 
                     // Chapter excerpt
