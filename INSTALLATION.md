@@ -824,7 +824,7 @@ You can then append missing meta fields with value `0` under **Fictioneer > Tool
  * @param array    $clauses   An associative array of WP_Query SQL clauses.
  * @param WP_Query $wp_query  The WP_Query instance.
  *
- * @return string The updated WHERE statement.
+ * @return string The updated SQL clauses.
  */
 
 function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
