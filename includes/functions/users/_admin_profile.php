@@ -74,6 +74,11 @@ function fictioneer_admin_profile_unset_oauth() {
   // Unset connection
   delete_user_meta( $profile_user_id, "fictioneer_{$channel}_id_hash" );
 
+  // Remove tiers
+  if ( $channel === 'patreon' ) {
+    delete_user_meta( $profile_user_id, 'fictioneer_patreon_tiers' );
+  }
+
   // Finish
   fictioneer_finish_admin_profile_action( "admin-profile-unset-oauth-{$channel}" );
 }

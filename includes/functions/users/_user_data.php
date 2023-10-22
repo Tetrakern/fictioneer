@@ -727,6 +727,11 @@ function fictioneer_ajax_unset_my_oauth() {
 
   // Delete connection
   if ( delete_user_meta( $user->ID, "fictioneer_{$channel}_id_hash" ) ) {
+    // Remove tiers
+    if ( $channel === 'patreon' ) {
+      delete_user_meta( $user->ID, 'fictioneer_patreon_tiers' );
+    }
+
     // Success response
     wp_send_json_success(
       array(
