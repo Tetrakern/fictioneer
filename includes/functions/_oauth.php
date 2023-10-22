@@ -5,7 +5,7 @@
 // =============================================================================
 
 define(
-  'FICIONEER_OAUTH_API_ENDPOINTS',
+  'FCN_OAUTH2_API_ENDPOINTS',
   array(
     'discord' => array(
       'login' => 'https://discord.com/api/oauth2/authorize',
@@ -83,9 +83,9 @@ if ( ! function_exists( 'fictioneer_get_oauth_login_link' ) ) {
   function fictioneer_get_oauth_login_link( $channel, $content, $anchor = false, $merge = false, $classes = '', $post_id = 0, $return_to = false ) {
     // Return empty string if...
     if (
+      ! get_option( 'fictioneer_enable_oauth' ) ||
       ! get_option( 'fictioneer_' . $channel . '_client_id' ) ||
-      ! get_option( 'fictioneer_' . $channel . '_client_secret' ) ||
-      ! get_option( 'fictioneer_enable_oauth' )
+      ! get_option( 'fictioneer_' . $channel . '_client_secret' )
     ) {
       return '';
     }
@@ -162,14 +162,15 @@ if ( ! function_exists( 'fictioneer_get_oauth_links' ) ) {
  * Handle OAuth2 requests made to the OAuth2 route
  *
  * After an initial validation, delegates to the current OAuth2 steps based on
- * the action (GET) and session variables. Each provider differs a bit, but the
- * protocol is the same. First, you have to request a CODE with the pre-defined
- * permissions (SCOPE) that requires user confirmation. This is secured with a
- * cryptic key (STATE). Once you got the CODE, you need to make another request
- * for a TOKEN, which is then used to make yet another request for the user data
+ * the action (GET) and Transient store. Each provider differs a bit, but the
+ * protocol is the same. First, you have to request a code with the pre-defined
+ * permissions (scope) which requires user confirmation. This is secured with a
+ * cryptic key (state). Once you got the code, you need to make another request
+ * for a token, which is then used to make yet another request for the user data
  * to authenticate the user. The connection is severed after that.
  *
  * @since Fictioneer 4.0
+ * @since Fictioneer 5.7.5 Refactored.
  * @link https://developer.wordpress.org/reference/hooks/template_redirect/
  * @link https://dev.twitch.tv/docs/authentication
  * @link https://discord.com/developers/docs/topics/oauth2
@@ -185,122 +186,119 @@ function fictioneer_handle_oauth() {
 
   // Setup
   fictioneer_set_oauth_constants();
+  $return_url = FCN_OAUTH2_RETURN_URL;
   $note = '';
 
-  // Check nonce for initial call but not once a STATE is set
+  // Check nonce for initial call but not once a state is set
   if (
-    ! STATE &&
-    (
-      ! isset( $_GET['oauth_nonce'] ) ||
-      ! wp_verify_nonce( $_GET['oauth_nonce'], 'authenticate' )
-    )
+    empty( FCN_OAUTH2_STATE ) &&
+    ! wp_verify_nonce( $_GET['oauth_nonce'] ?? '', 'authenticate' )
   ) {
     fictioneer_oauth2_exit_and_return();
   }
 
-  // Exit on error
-  if ( ERROR ) fictioneer_oauth2_exit_and_return();
+  // Error?
+  if ( FCN_OAUTH2_ERROR ) {
+    fictioneer_oauth2_exit_and_return();
+  }
 
-  // Logout
-  if ( ACTION === 'logout' ) {
+  // Logout?
+  if ( FCN_OAUTH2_ACTION === 'logout' ) {
     wp_logout();
-    fictioneer_oauth2_exit_and_return( ANCHOR ? RETURN_URL . '#' . ANCHOR : RETURN_URL );
-  }
-
-  // Check whether oauth is working
-  if (
-    ! get_option( 'fictioneer_enable_oauth' ) ||
-    ! OAUTH2_CLIENT_ID ||
-    ! OAUTH2_CLIENT_SECRET
-  ) {
     fictioneer_oauth2_exit_and_return();
   }
 
-  // Check for MERGE if user is not logged in
-  if ( ! is_user_logged_in() && MERGE == '1' ) {
+  // OAuth working?
+  if ( ! get_option( 'fictioneer_enable_oauth' ) || ! FCN_OAUTH2_CLIENT_ID || ! FCN_OAUTH2_CLIENT_SECRET ) {
     fictioneer_oauth2_exit_and_return();
   }
 
-  // Check for MERGE if user is already logged in
-  if (
-    is_user_logged_in() &&
-    (
-      MERGE != '1' &&
-      ! isset( $_SESSION['current_user_id'] )
+  // Check for merge request if user is NOT logged in
+  if ( ! is_user_logged_in() && FCN_OAUTH2_MERGE == '1' ) {
+    fictioneer_oauth2_exit_and_return();
+  }
+
+  // Check for merge request if user is logged in
+  if ( is_user_logged_in() && ( FCN_OAUTH2_MERGE != '1' && ! defined( 'FCN_OAUTH2_MERGE_ID' ) ) ) {
+    fictioneer_oauth2_exit_and_return();
+  }
+
+  // Get code (and exit)
+  if ( FCN_OAUTH2_ACTION === 'login' ) {
+    fictioneer_get_oauth_code(); // Redirects and exits
+  }
+
+  // Security checks
+  if ( empty( FCN_OAUTH2_STATE ) || ! defined( 'FCN_OAUTH2_TRANSIENT_STATE' ) || empty( FCN_OAUTH2_TRANSIENT_STATE ) ) {
+    fictioneer_oauth2_exit_and_return();
+  }
+
+  if ( FCN_OAUTH2_STATE !== FCN_OAUTH2_TRANSIENT_STATE ) {
+    fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
+  }
+
+  if ( empty( FCN_OAUTH2_CODE ) ) {
+    fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
+  }
+
+  // Get access token
+  $token = fictioneer_get_oauth_token(
+    FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['token'],
+    array(
+      'grant_type' => 'authorization_code',
+      'client_id' => FCN_OAUTH2_CLIENT_ID,
+      'client_secret' => FCN_OAUTH2_CLIENT_SECRET,
+      'redirect_uri' => FCN_OAUTH2_REDIRECT_URL,
+      'code' => FCN_OAUTH2_CODE,
+      'scope' => FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['scope']
     )
-  ) {
-    fictioneer_oauth2_exit_and_return();
+  );
+
+  // Token successfully retrieved?
+  if ( is_wp_error( $token ) ) {
+    fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
   }
 
-  // Get code
-  if ( ACTION === 'login' ) {
-    fictioneer_get_oauth_code();
+  // Extract token
+  $access_token = isset( $token->access_token ) ? $token->access_token : null;
+
+  if ( ! $access_token ) {
+    fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
   }
 
-  // Security check
-  if ( ! STATE || $_SESSION['state'] != STATE ) fictioneer_oauth2_exit_and_return();
-
-  // Get token and delegate to login/register
-  if ( ! empty( CODE ) ) {
-    $token = fictioneer_get_oauth_token(
-      FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['token'],
-      array(
-        'grant_type' => 'authorization_code',
-        'client_id' => OAUTH2_CLIENT_ID,
-        'client_secret' => OAUTH2_CLIENT_SECRET,
-        'redirect_uri' => REDIRECT_URL,
-        'code' => CODE,
-        'scope' => FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['scope']
-      )
-    );
-
-    // Access token successfully retrieved?
-    $access_token = isset( $token->access_token ) ? $token->access_token : null;
-    if ( ! $access_token ) fictioneer_oauth2_exit_and_return();
-
-    // Delegate to respective channel function
-    switch ( CHANNEL ) {
-      case 'discord':
-        $note = fictioneer_process_oauth_discord( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
-        break;
-      case 'twitch':
-        $note = fictioneer_process_oauth_twitch( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
-        break;
-      case 'google':
-        $note = fictioneer_process_oauth_google( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
-        break;
-      case 'patreon':
-        $note = fictioneer_process_oauth_patreon( FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['user'], $access_token );
-        break;
-    }
-
-    // Error: Email already taken by another account
-    if ( ! is_user_logged_in() ) {
-      $return_url = ( $_SESSION['return_url'] ) ? urldecode( $_SESSION['return_url'] ) : RETURN_URL;
-      $return_url .= '?failure=' . $note;
-      $return_url = ( $_SESSION['anchor'] ) ? $return_url . '#' . $_SESSION['anchor'] : $return_url;
-      fictioneer_oauth2_exit_and_return( $return_url );
-    }
-
-    // Success: Merged into account
-    if ( $note == 'merged' ) {
-      $return_url = ( $_SESSION['return_url'] ) ? urldecode( $_SESSION['return_url'] ) : RETURN_URL;
-      $return_url .= '?success=oauth_merged_' . CHANNEL;
-      $return_url = ( $_SESSION['anchor'] ) ? $return_url . '#' . $_SESSION['anchor'] : $return_url;
-      fictioneer_oauth2_exit_and_return( $return_url );
-    }
-
-    // Success: New user registered
-    if ( $note == 'new' ) {
-      $return_url = ( $_SESSION['return_url'] ) ? urldecode( $_SESSION['return_url'] ) : RETURN_URL;
-      $return_url .= '?success=oauth_new_subscriber';
-      $return_url = ( $_SESSION['anchor'] ) ? $return_url . '#' . $_SESSION['anchor'] : $return_url;
-      fictioneer_oauth2_exit_and_return( $return_url );
-    }
-
-    // Finish
-    fictioneer_oauth2_exit_and_return();
+  // Delegate to respective channel function
+  switch ( FCN_OAUTH2_CHANNEL ) {
+    case 'discord':
+      $note = fictioneer_process_oauth_discord( FCN_OAUTH2_API_ENDPOINTS['discord']['user'], $access_token );
+      break;
+    case 'twitch':
+      $note = fictioneer_process_oauth_twitch( FCN_OAUTH2_API_ENDPOINTS['twitch']['user'], $access_token );
+      break;
+    case 'google':
+      $note = fictioneer_process_oauth_google( FCN_OAUTH2_API_ENDPOINTS['google']['user'], $access_token );
+      break;
+    case 'patreon':
+      $note = fictioneer_process_oauth_patreon( FCN_OAUTH2_API_ENDPOINTS['patreon']['user'], $access_token );
+      break;
   }
+
+  // Error
+  if ( ! is_user_logged_in() ) {
+    $return_url = add_query_arg( 'failure', $note, $return_url );
+  }
+
+  // Success: Merged
+  if ( $note == 'merged' ) {
+    $return_url = add_query_arg( 'success', 'oauth_merged_' . FCN_OAUTH2_CHANNEL, $return_url );
+  }
+
+  // Success: New
+  if ( $note == 'new' ) {
+    $return_url = add_query_arg( 'success', 'oauth_new', $return_url );
+  }
+
+  // Finish
+  fictioneer_oauth2_exit_and_return( $return_url, FCN_OAUTH2_TRANSIENT_STATE );
 }
 add_action( 'template_redirect', 'fictioneer_handle_oauth', 10 );
 
@@ -328,7 +326,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
       array(
         'headers' => array(
           'Authorization' => 'Bearer ' . $access_token,
-          'Client-ID' => OAUTH2_CLIENT_ID,
+          'Client-ID' => FCN_OAUTH2_CLIENT_ID,
         )
       )
     );
@@ -340,7 +338,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
     }
 
     // User data successfully retrieved?
-    if ( ! isset( $user ) ) {
+    if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
       fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
     }
 
@@ -348,7 +346,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
       fictioneer_oauth_die( 'Account not verified.' );
     }
 
-    // Login or register user; note may be 'new', 'known', or 'error'
+    // Login or register user; returns 'new', 'merged', 'known', or error code
     $note = fictioneer_make_oauth_user(
       array(
         'uid' => $user->id,
@@ -362,12 +360,12 @@ if ( ! function_exists( 'fictioneer_process_oauth_discord' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      FICIONEER_OAUTH_API_ENDPOINTS['discord']['revoke'],
+      FCN_OAUTH2_API_ENDPOINTS['discord']['revoke'],
       array(
         'token' => $access_token,
         'token_type_hint' => 'access_token',
-        'client_id' => OAUTH2_CLIENT_ID,
-        'client_secret' => OAUTH2_CLIENT_SECRET
+        'client_id' => FCN_OAUTH2_CLIENT_ID,
+        'client_secret' => FCN_OAUTH2_CLIENT_SECRET
       )
     );
 
@@ -400,7 +398,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
       array(
         'headers' => array(
           'Authorization' => 'Bearer ' . $access_token,
-          'Client-ID' => OAUTH2_CLIENT_ID,
+          'Client-ID' => FCN_OAUTH2_CLIENT_ID,
         )
       )
     );
@@ -412,11 +410,11 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
     }
 
     // User data successfully retrieved?
-    if ( empty( $user ) ) {
+    if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
       fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
     }
 
-    // Login or register user; note may be 'new', 'known', or 'error'
+    // Login or register user; returns 'new', 'merged', 'known', or error code
     $note = fictioneer_make_oauth_user(
       array(
         'uid' => $user->data[0]->id,
@@ -430,11 +428,11 @@ if ( ! function_exists( 'fictioneer_process_oauth_twitch' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      FICIONEER_OAUTH_API_ENDPOINTS['twitch']['revoke'],
+      FCN_OAUTH2_API_ENDPOINTS['twitch']['revoke'],
       array(
         'token' => $access_token,
         'token_type_hint' => 'access_token',
-        'client_id' => OAUTH2_CLIENT_ID
+        'client_id' => FCN_OAUTH2_CLIENT_ID
       )
     );
 
@@ -467,7 +465,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
       array(
         'headers' => array(
           'Authorization' => 'Bearer ' . $access_token,
-          'Client-ID' => OAUTH2_CLIENT_ID,
+          'Client-ID' => FCN_OAUTH2_CLIENT_ID,
         )
       )
     );
@@ -479,7 +477,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
     }
 
     // User data successfully retrieved?
-    if ( ! isset( $user ) ) {
+    if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
       fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
     }
 
@@ -487,7 +485,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
       fictioneer_oauth_die( 'Email not verified.' );
     }
 
-    // Login or register user; note may be 'new', 'merged', 'known', or an error code
+    // Login or register user; returns 'new', 'merged', 'known', or error code
     $note = fictioneer_make_oauth_user(
       array(
         'uid' => $user->id,
@@ -501,7 +499,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_google' ) ) {
 
     // Revoke token since it's not needed anymore
     fictioneer_revoke_oauth_token(
-      FICIONEER_OAUTH_API_ENDPOINTS['google']['revoke'],
+      FCN_OAUTH2_API_ENDPOINTS['google']['revoke'],
       array(
         'token' => $access_token
       )
@@ -552,7 +550,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     }
 
     // User data successfully retrieved?
-    if ( ! isset( $user ) ) {
+    if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
       fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
     }
 
@@ -595,7 +593,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
 
     /* Patreon does not have a function to revoke a token (2022/07/29). */
 
-    // Login or register user; return 'new', 'known', or 'error'
+    // Login or register user; returns 'new', 'merged', 'known', or error code
     return fictioneer_make_oauth_user( $args );
   }
 }
@@ -648,18 +646,18 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
     }
 
     // When the channel ID is not yet linked and a merge was requested...
-    if ( is_user_logged_in() && defined( 'MERGE_ID' ) && ! $wp_user ) {
-      $wp_user = get_user_by( 'id', MERGE_ID );
+    if ( is_user_logged_in() && defined( 'FCN_OAUTH2_MERGE_ID' ) && ! $wp_user ) {
+      $wp_user = get_user_by( 'id', FCN_OAUTH2_MERGE_ID );
     }
 
     // Cannot merge with non-existent user (not found after first try)...
-    if ( is_user_logged_in() && defined( 'MERGE_ID' ) && ! $wp_user ) {
+    if ( is_user_logged_in() && defined( 'FCN_OAUTH2_MERGE_ID' ) && ! $wp_user ) {
       fictioneer_oauth2_exit_and_return();
     }
 
     // When the channel ID is already linked and a merge was requested...
-    if ( is_user_logged_in() && defined( 'MERGE_ID' ) && MERGE_ID != $wp_user->ID ) {
-      fictioneer_oauth2_exit_and_return( RETURN_URL . '?failure=oauth_already_linked#oauth-connections' );
+    if ( is_user_logged_in() && defined( 'FCN_OAUTH2_MERGE_ID' ) && FCN_OAUTH2_MERGE_ID != $wp_user->ID ) {
+      fictioneer_oauth2_exit_and_return( FCN_OAUTH2_RETURN_URL . '?failure=oauth_already_linked#oauth-connections' );
     }
 
     // ... if not found, create a new user and get the object if successful
@@ -692,7 +690,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
       }
 
       // Channel ID for new users and merged accounts
-      if ( $new || defined( 'MERGE_ID' ) ) {
+      if ( $new || defined( 'FCN_OAUTH2_MERGE_ID' ) ) {
         fictioneer_update_user_meta( $wp_user->ID, "fictioneer_{$args['channel']}_id_hash", $channel_id );
       }
 
@@ -732,7 +730,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
           'avatar_url' => $args['avatar'],
           'patreon_tiers' => $args['tiers'] ?? [],
           'new' => $new,
-          'merged' => defined( 'MERGE_ID' )
+          'merged' => defined( 'FCN_OAUTH2_MERGE_ID' )
         )
       );
 
@@ -742,7 +740,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
           return 'new';
         }
 
-        if ( defined( 'MERGE_ID' ) ) {
+        if ( defined( 'FCN_OAUTH2_MERGE_ID' ) ) {
           return 'merged';
         }
 
@@ -764,16 +762,23 @@ if ( ! function_exists( 'fictioneer_oauth_die' ) ) {
    * Outputs a formatted error message and stops script execution
    *
    * @since Fictioneer 5.5.2
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @param string $message  The error message.
    * @param string $title    Optional. Title of the error page. Default 'Error'.
    */
 
   function fictioneer_oauth_die( $message, $title = 'Error' ) {
+    if ( ! empty( FCN_OAUTH2_STATE ) ) {
+      delete_transient( 'fictioneer_oauth2_state_' . FCN_OAUTH2_STATE );
+    }
+
+    fictioneer_delete_expired_oauth_transients();
+
     wp_die(
       '<h1 style="margin-top: 0;">' . $title . '</h1>' .
       '<p><pre>' . print_r( $message, true ) . '</pre></p>' .
-      '<p>The good news is, nothing has happened to your account. The bad new is, something is not working. Please try again later or contact an administrator for help. <a href="' . RETURN_URL . '">Back to site</a></p>',
+      '<p>The good news is, nothing has happened to your account. The bad new is, something is not working. Please try again later or contact an administrator for help. <a href="' . FCN_OAUTH2_RETURN_URL . '">Back to site</a></p>',
       $title
     );
   }
@@ -784,51 +789,53 @@ if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
    * Set up all constants
    *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    */
 
   function fictioneer_set_oauth_constants() {
     // Setup
-    $redirect_url = get_site_url( null, FICTIONEER_OAUTH_ENDPOINT );
-    $action = array_key_exists( 'action', $_GET ) ? sanitize_text_field( $_GET['action'] ) : NULL;
-    $code = array_key_exists( 'code', $_GET ) ? sanitize_text_field( $_GET['code'] ) : NULL;
-    $state = array_key_exists( 'state', $_GET ) ? sanitize_text_field( $_GET['state'] ) : NULL;
-    $return_url = array_key_exists( 'return_url', $_GET ) ? esc_url_raw( $_GET['return_url'] ) : home_url();
-    $anchor = array_key_exists( 'anchor', $_GET ) ? sanitize_text_field( $_GET['anchor'] ) : NULL;
-    $channel = array_key_exists( 'channel', $_GET ) ? sanitize_text_field( $_GET['channel'] ) : NULL;
-    $error = array_key_exists( 'error_description', $_GET ) ? sanitize_text_field( $_GET['error_description'] ) : NULL;
-    $merge = array_key_exists( 'merge', $_GET ) ? sanitize_text_field( $_GET['merge'] ) : NULL;
+    $state = sanitize_text_field( $_GET['state'] ?? '' );
+    $channel = sanitize_text_field( $_GET['channel'] ?? '' ) ?: null;
+    $is_valid_return_url = isset( $_GET['return_url'] ) && wp_http_validate_url( $_GET['return_url'] ) ;
+    $is_local_return_url = $is_valid_return_url && wp_validate_redirect( $_GET['return_url'], false );
+    $return_url = $is_local_return_url ? esc_url_raw( $_GET['return_url'] ) : home_url();
+    $anchor = sanitize_text_field( $_GET['anchor'] ?? '' ) ?: null;
 
-    // Session variables
-    if ( ! session_id() ) session_start();
+    // Transient
+    $transient = get_transient( "fictioneer_oauth2_state_{$state}" );
 
-    if ( isset( $_SESSION['channel'] ) ) {
-      $channel = $channel ? $channel : $_SESSION['channel'];
+    if ( $transient['channel'] ?? 0 ) {
+      $channel = $channel ? $channel : $transient['channel'];
     }
 
-    if ( isset( $_SESSION['return_url'] ) && $_SESSION['return_url'] != NULL ) {
-      $return_url = urldecode( $_SESSION['return_url'] );
+    if ( $transient['return_url'] ?? 0 ) {
+      $return_url = urldecode( $transient['return_url'] );
     }
 
-    if ( isset( $_SESSION['anchor'] ) && $_SESSION['anchor'] != NULL ) {
-      $return_url = $return_url . '#' . $_SESSION['anchor'];
-    }
-
-    if ( isset( $_SESSION['current_user_id'] ) && $_SESSION['current_user_id'] != NULL ) {
-      define( 'MERGE_ID', $_SESSION['current_user_id'] );
+    if ( $transient['anchor'] ?? 0 ) {
+      $anchor = $anchor ? $anchor : $transient['anchor'];
     }
 
     // Define constants
-    define( 'OAUTH2_CLIENT_ID', fictioneer_get_oauth_client_credentials( $channel ) );
-    define( 'OAUTH2_CLIENT_SECRET', fictioneer_get_oauth_client_credentials( $channel, 'secret' ) );
-    define( 'REDIRECT_URL', $redirect_url );
-    define( 'ACTION', $action );
-    define( 'CODE', $code );
-    define( 'STATE', $state );
-    define( 'RETURN_URL', $return_url );
-    define( 'ANCHOR', $anchor );
-    define( 'CHANNEL', $channel );
-    define( 'ERROR', $error );
-    define( 'MERGE', $merge );
+    define( 'FCN_OAUTH2_CLIENT_ID', fictioneer_get_oauth_client_credentials( $channel ) );
+    define( 'FCN_OAUTH2_CLIENT_SECRET', fictioneer_get_oauth_client_credentials( $channel, 'secret' ) );
+    define( 'FCN_OAUTH2_REDIRECT_URL', get_site_url( null, FICTIONEER_OAUTH_ENDPOINT ) );
+    define( 'FCN_OAUTH2_ACTION', sanitize_text_field( $_GET['action'] ?? '' ) ?: null );
+    define( 'FCN_OAUTH2_CODE', sanitize_text_field( $_GET['code'] ?? '' ) ?: null );
+    define( 'FCN_OAUTH2_STATE', $state );
+    define( 'FCN_OAUTH2_RETURN_URL', $return_url );
+    define( 'FCN_OAUTH2_ANCHOR', $anchor );
+    define( 'FCN_OAUTH2_CHANNEL', $channel );
+    define( 'FCN_OAUTH2_ERROR', sanitize_text_field( $_GET['error_description'] ?? '' ) ?: null );
+    define( 'FCN_OAUTH2_MERGE', sanitize_text_field( $_GET['merge'] ?? '' ) ?: null );
+
+    if ( $transient['user_id'] ?? 0 ) {
+      define( 'FCN_OAUTH2_MERGE_ID', $transient['user_id'] );
+    }
+
+    if ( $transient['state'] ?? 0 ) {
+      define( 'FCN_OAUTH2_TRANSIENT_STATE', $transient['state'] );
+    }
   }
 }
 
@@ -836,19 +843,28 @@ if ( ! function_exists( 'fictioneer_oauth2_exit_and_return' ) ) {
   /**
    * Terminate the script and redirect back
    *
-   * I'm sure there was a reason doing it like this.
-   *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @param string $return_url  Optional. URL to return to.
+   * @param string $state       Optional. The state hash.
    */
 
-  function fictioneer_oauth2_exit_and_return( $return_url = RETURN_URL ) {
-    if ( ! session_id() ) session_start();
-    setcookie( 'PHPSESSID', '', time() - 3600, '/' );
-    session_destroy();
+  function fictioneer_oauth2_exit_and_return( $return_url = null, $state = null ) {
+    // Clean up database
+    if ( ! empty( $state ) || ! empty( FCN_OAUTH2_STATE ) ) {
+      delete_transient( 'fictioneer_oauth2_state_' . ( $state ?? FCN_OAUTH2_STATE ) );
+    }
+
+    fictioneer_delete_expired_oauth_transients();
+
+    // Prepare return URL
+    $return_url = $return_url ?? FCN_OAUTH2_RETURN_URL;
+    $return_url = empty( FCN_OAUTH2_ANCHOR ) ? $return_url : $return_url . '#' . FCN_OAUTH2_ANCHOR;
+
+    // Redirect and exit script
     wp_safe_redirect( $return_url );
-    die();
+    exit;
   }
 }
 
@@ -857,22 +873,17 @@ if ( ! function_exists( 'fictioneer_get_oauth_client_credentials' ) ) {
    * Return credentials for the given channel
    *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @param string $channel  The channel to retrieve the credential for.
    * @param string $type     Optional. The type of credential to retrieve,
    *                         'id' or 'secret'. Default 'id'.
    *
-   * @return string|null The client ID or secret, or null if not found.
+   * @return string|false The client ID or secret, or false if not found.
    */
 
   function fictioneer_get_oauth_client_credentials( $channel, $type = 'id' ) {
-    if ( ! $channel ) {
-      return null;
-    }
-
-    $it = get_option( "fictioneer_{$channel}_client_{$type}" );
-
-    return $it ? $it : null;
+    return get_option( "fictioneer_{$channel}_client_{$type}" );
   }
 }
 
@@ -881,28 +892,40 @@ if ( ! function_exists( 'fictioneer_get_oauth_token' ) ) {
    * Get the OAuth2 access token
    *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @param string $url      URL to make the API request to.
-   * @param array  $post     Post query.
+   * @param array  $post     Post body.
    * @param array  $headers  Array of header options.
    *
-   * @return object Decoded JSON result.
+   * @return mixed Decoded JSON result or WP_Error on failure.
    */
 
   function fictioneer_get_oauth_token( $url, $post, $headers = [] ) {
-    $curl = curl_init( $url );
-    curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-    curl_setopt( $curl, CURLOPT_POST, true );
-    curl_setopt( $curl, CURLOPT_POSTFIELDS, http_build_query( $post ) );
+    // Params
+    $args = array(
+      'headers' => array_merge( array( 'Accept' => 'application/json' ), $headers ),
+      'body' => $post,
+      'timeout' => 10,
+      'blocking' => true,
+      'reject_unsafe_urls' => true,
+      'data_format' => 'body',
+      'limit_response_size' => 4096
+    );
 
-    $headers[] = 'Accept: application/json';
+    // Request
+    $response = wp_remote_post( $url, $args );
 
-    curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
+    // Error?
+    if ( is_wp_error( $response ) ) {
+      return $response;
+    }
 
-    $result = curl_exec( $curl );
-    curl_close( $curl );
+    // Body
+    $body = wp_remote_retrieve_body( $response );
 
-    return json_decode( $result );
+    // Return decoded
+    return json_decode( $body );
   }
 }
 
@@ -911,66 +934,102 @@ if ( ! function_exists( 'fictioneer_revoke_oauth_token' ) ) {
    * Revoke an OAuth2 access token
    *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @param string $url   URL to make the API request to.
-   * @param array  $post  Post query.
+   * @param array  $post  Post body.
    *
    * @return string HTTP response code.
    */
 
   function fictioneer_revoke_oauth_token( $url, $post = [] ) {
-    $curl = curl_init( $url );
-    curl_setopt_array( $curl, array(
-      CURLOPT_POST => TRUE,
-      CURLOPT_RETURNTRANSFER => TRUE,
-      CURLOPT_HTTPHEADER => array( 'Content-Type: application/x-www-form-urlencoded' ),
-      CURLOPT_POSTFIELDS => http_build_query( $post ),
-      CURLOPT_HEADER => TRUE,
-    ));
+    // Params
+    $args = array(
+      'headers' => array( 'Content-Type' => 'application/x-www-form-urlencoded' ),
+      'body' => $post
+    );
 
-    $result = curl_exec( $curl );
-    $httpcode = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
+    // Request
+    $response = wp_remote_post( $url, $args );
 
-    curl_close( $curl );
+    // Error?
+    if ( is_wp_error( $response ) ) {
+      return 500; // Internal Server Error
+    }
 
-    return $httpcode;
+    // Return response code
+    return wp_remote_retrieve_response_code( $response );
   }
 }
 
 if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
   /**
-   * Redirect to OAuth provider to retrieve permissions and the CODE
+   * Redirect to OAuth provider to retrieve permissions and the code
    *
    * @since Fictioneer 4.0
+   * @since Fictioneer 5.7.5 Refactored.
    */
 
   function fictioneer_get_oauth_code() {
-    // Store random Hash in session for security
-    $_SESSION['state'] = hash( 'sha256', microtime( TRUE ) . rand() . $_SERVER['REMOTE_ADDR'] );
-
-    // Store return url, channel, and anchor
-    $_SESSION['return_url'] = RETURN_URL;
-    $_SESSION['channel'] = CHANNEL;
-    $_SESSION['anchor'] = ANCHOR;
-
-    // Add another OAuth channel to existing account?
-    if ( MERGE === '1' && is_user_logged_in() ) {
-      $_SESSION['current_user_id'] = get_current_user_id();
-    }
-
-    // Redirect to provider
-    header( 'Location:' . FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['login']
-      . '?response_type=code'
-      . '&client_id=' . OAUTH2_CLIENT_ID
-      . '&redirect_uri=' . REDIRECT_URL
-      . '&scope=' . FICIONEER_OAUTH_API_ENDPOINTS[CHANNEL]['scope']
-      . '&state=' . $_SESSION['state']
-      . '&force_verify=true'
-      . '&prompt=consent'
-      . '&access_type=offline'
+    // Params
+    $params = array(
+      'response_type' => 'code',
+      'client_id' => FCN_OAUTH2_CLIENT_ID,
+      'state' => hash( 'sha256', microtime( TRUE ) . rand() . $_SERVER['REMOTE_ADDR'] ),
+      'scope' => FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['scope'],
+      'redirect_uri' => FCN_OAUTH2_REDIRECT_URL,
+      'force_verify' => 'true',
+      'prompt' => 'consent',
+      'access_type' => 'offline'
     );
 
-    die();
+    // Transient
+    $transient = array(
+      'state' => $params['state'],
+      'return_url' => FCN_OAUTH2_RETURN_URL,
+      'channel' => FCN_OAUTH2_CHANNEL,
+      'anchor' => FCN_OAUTH2_ANCHOR,
+      'user_id' => get_current_user_id()
+    );
+
+    set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 60 ); // Expires after 1 minute
+
+    // Redirect
+    $url = add_query_arg( $params, FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['login'] );
+    wp_redirect( $url );
+
+    // Terminate
+    exit();
+  }
+}
+
+if ( ! function_exists( 'fictioneer_delete_expired_oauth_transients' ) ) {
+  /**
+   * Deletes expires OAuth Transients
+   *
+   * @since Fictioneer 5.7.5
+   */
+
+  function fictioneer_delete_expired_oauth_transients() {
+    global $wpdb;
+
+    // Get the names of expired transient timeouts
+    $expired_timeouts = $wpdb->get_results(
+      $wpdb->prepare(
+        "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s AND option_value < %d",
+        $wpdb->esc_like( '_transient_timeout_fictioneer_oauth2_state_' ) . '%',
+        time()
+      )
+    );
+
+    // Delete results results...
+    if ( $expired_timeouts ) {
+      foreach ( $expired_timeouts as $timeout ) {
+        $transient_name = str_replace( '_transient_timeout_', '', $timeout->option_name );
+
+        delete_transient( $transient_name );
+      }
+    }
   }
 }
 

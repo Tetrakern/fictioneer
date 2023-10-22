@@ -666,7 +666,7 @@ if (fcn_urlParams['failure'] === 'oauth_already_linked') {
 }
 
 // Show new subscriber notice (if any)
-if (fcn_urlParams['success'] === 'oauth_new_subscriber') {
+if (fcn_urlParams['success'] === 'oauth_new') {
   fcn_showNotification(
     __('Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer'),
     10
