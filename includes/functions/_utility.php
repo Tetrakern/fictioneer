@@ -17,24 +17,20 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
    */
 
   function fictioneer_url_exists( $url ) {
-    if ( ! $url ) {
+    if ( empty( $url ) ) {
       return false;
     }
 
-    $curl = curl_init( $url );
-    curl_setopt( $curl, CURLOPT_NOBODY, true );
+    $response = wp_remote_head( $url );
 
-    if ( curl_exec( $curl ) ) {
-      $statusCode = curl_getinfo( $curl, CURLINFO_HTTP_CODE );
-
-      if ( $statusCode == 404 ) {
-        return false;
-      }
-
-      return true;
+    if ( is_wp_error( $response ) ) {
+      return false;
     }
 
-    return false;
+    $statusCode = wp_remote_retrieve_response_code( $response );
+
+    // Check for 2xx status codes which indicate success
+    return ( $statusCode >= 200 && $statusCode < 300 );
   }
 }
 

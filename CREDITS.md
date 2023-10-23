@@ -171,12 +171,6 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
   Source: https://stackoverflow.com/a/17508056/17140970
 
-* **Check whether an URL exists**<br>
-  Copyright: aman neekhara<br>
-  License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)<br>
-  Source 1: https://auth.geeksforgeeks.org/user/aman%20neekhara/articles<br>
-  Source 2: https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
-
 * **Add columns in admin view**<br>
   Copyright: Misha Rudrastyh<br>
   License: [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)<br>

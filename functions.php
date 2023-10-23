@@ -6,7 +6,7 @@
 
 function fictioneer_display_execution_time() {
   // Abort on AJAX
-  if ( defined('DOING_AJAX') && DOING_AJAX ) {
+  if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
     return;
   }
 
