@@ -135,11 +135,6 @@ The following list credits all third-party resources used in the Fictioneer them
   [MIT](https://opensource.org/licenses/MIT)<br>
   Source: https://github.com/soderlind/class-customizer-range-value-control
 
-* **Fix inconsistent line breaks in excerpts**<br>
-  Copyright: letizia66<br>
-  License: [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)<br>
-  Source: https://github.com/WordPress/gutenberg/issues/15117#issuecomment-719767986
-
 * **Change image markup in post content**<br>
   Copyright: Sunyatasattva, jer0dh<br>
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
