@@ -241,6 +241,10 @@ function fictioneer_handle_oauth() {
     fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
   }
 
+  if ( ! defined( 'FCN_OAUTH2_COOKIE' ) || empty( FCN_OAUTH2_COOKIE ) || FCN_OAUTH2_COOKIE !== FCN_OAUTH2_TRANSIENT_COOKIE ) {
+    fictioneer_oauth2_exit_and_return( null, FCN_OAUTH2_TRANSIENT_STATE );
+  }
+
   // Get access token
   $token = fictioneer_get_oauth_token(
     FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['token'],
@@ -775,6 +779,20 @@ if ( ! function_exists( 'fictioneer_oauth_die' ) ) {
 
     fictioneer_delete_expired_oauth_transients();
 
+    // Delete cookie
+    setcookie(
+      'fictioneer_oauth_id',
+      '',
+      array(
+        'expires' => time() - 3600,
+        'path' => '/',
+        'domain' => '',
+        'secure' => is_ssl(),
+        'httponly' => true,
+        'samesite' => 'Lax' // Necessary because of redirects
+      )
+    );
+
     wp_die(
       '<h1 style="margin-top: 0;">' . $title . '</h1>' .
       '<p><pre>' . print_r( $message, true ) . '</pre></p>' .
@@ -828,6 +846,7 @@ if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
     define( 'FCN_OAUTH2_CHANNEL', $channel );
     define( 'FCN_OAUTH2_ERROR', sanitize_text_field( $_GET['error_description'] ?? '' ) ?: null );
     define( 'FCN_OAUTH2_MERGE', sanitize_text_field( $_GET['merge'] ?? '' ) ?: null );
+    define( 'FCN_OAUTH2_COOKIE', sanitize_text_field( $_COOKIE['fictioneer_oauth_id'] ?? '' ) ?: null );
 
     if ( $transient['user_id'] ?? 0 ) {
       define( 'FCN_OAUTH2_MERGE_ID', $transient['user_id'] );
@@ -835,6 +854,10 @@ if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
 
     if ( $transient['state'] ?? 0 ) {
       define( 'FCN_OAUTH2_TRANSIENT_STATE', $transient['state'] );
+    }
+
+    if ( $transient['cookie'] ?? 0 ) {
+      define( 'FCN_OAUTH2_TRANSIENT_COOKIE', $transient['cookie'] );
     }
   }
 }
@@ -857,6 +880,20 @@ if ( ! function_exists( 'fictioneer_oauth2_exit_and_return' ) ) {
     }
 
     fictioneer_delete_expired_oauth_transients();
+
+    // Delete cookie
+    setcookie(
+      'fictioneer_oauth_id',
+      '',
+      array(
+        'expires' => time() - 3600,
+        'path' => '/',
+        'domain' => '',
+        'secure' => is_ssl(),
+        'httponly' => true,
+        'samesite' => 'Lax' // Necessary because of redirects
+      )
+    );
 
     // Prepare return URL
     $return_url = $return_url ?? FCN_OAUTH2_RETURN_URL;
@@ -989,10 +1026,25 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
       'return_url' => FCN_OAUTH2_RETURN_URL,
       'channel' => FCN_OAUTH2_CHANNEL,
       'anchor' => FCN_OAUTH2_ANCHOR,
-      'user_id' => get_current_user_id()
+      'user_id' => get_current_user_id(),
+      'cookie' => hash( 'sha256', microtime( TRUE ) . rand() . $_SERVER['REMOTE_ADDR'] )
     );
 
     set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 60 ); // Expires after 1 minute
+
+    // Cookie
+    setcookie(
+      'fictioneer_oauth_id',
+      $transient['cookie'],
+      array(
+        'expires' => time() + 60,
+        'path' => '/',
+        'domain' => '',
+        'secure' => is_ssl(),
+        'httponly' => true,
+        'samesite' => 'Lax' // Necessary because of redirects
+      )
+    );
 
     // Redirect
     $url = add_query_arg( $params, FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['login'] );
