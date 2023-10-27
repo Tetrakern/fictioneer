@@ -644,11 +644,6 @@ function fcn_isValidUrl(url) {
 // GET NONCE
 // =============================================================================
 
-// This nonce is always included in the template file but may not be correct
-// if caching is active. Some caching plugins can localize nonces if you add
-// them to a special list. Otherwise enable AJAX user authentication.
-var fcn_defaultNonce = _$$$('fictioneer-nonce')?.value ?? 0;
-
 /**
  * Return the Fictioneer nonce, accounting for dynamic nonces.
  *
@@ -657,7 +652,7 @@ var fcn_defaultNonce = _$$$('fictioneer-nonce')?.value ?? 0;
  */
 
 function fcn_getNonce() {
-  return _$$$('fictioneer-ajax-nonce')?.value ?? fcn_defaultNonce;
+  return _$$$('fictioneer-ajax-nonce')?.value ?? _$('[name="fictioneer_nonce"]')?.value ?? 0;
 }
 
 // =============================================================================
