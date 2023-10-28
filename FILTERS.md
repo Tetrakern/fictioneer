@@ -991,7 +991,7 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 * $order (string) – `$args['order']`
 * $orderby (string) – `'meta_value'`
 * $meta_key (string) – `'fictioneer_chapters_added'`
-* $posts_per_page (int) – `$args['count'] + 4` (accounts for non-eligible posts)
+* $posts_per_page (int) – `$args['count'] + 4` (buffer for invalid posts)
 * $meta_query (array)
   * $relation (string) – `'OR'`
   * (array)
