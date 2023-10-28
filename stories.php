@@ -47,6 +47,12 @@ $query_args = array (
   )
 );
 
+// Order by latest chapter update timestamp?
+if ( FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER && $orderby === 'modified' ) {
+  $query_args['orderby'] = 'meta_value modified';
+  $query_args['meta_key'] = 'fictioneer_chapters_added';
+}
+
 // Append date query (if any)
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 

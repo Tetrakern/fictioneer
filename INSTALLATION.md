@@ -833,7 +833,7 @@ function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
   // Setup
   $vars = $wp_query->query_vars;
   $allowed_queries = ['stories_list', 'latest_stories', 'latest_stories_compact', 'author_stories'];
-  $allowed_orderby = ['date', 'modified', 'title'];
+  $allowed_orderby = ['date', 'modified', 'title', 'meta_value', 'meta_value date', 'meta_value modified', 'meta_value title'];
 
   // Return if wrong query
   if (
@@ -923,3 +923,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
 | FICTIONEER_ENABLE_FRONTEND_ACF | boolean | Whether to load ACF on the frontend. Default `false`.
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
+| FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.

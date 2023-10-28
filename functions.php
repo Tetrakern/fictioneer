@@ -351,6 +351,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
   define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', true );
 }
 
+// Boolean: Order stories by last updated chapter timestamp
+if ( ! defined( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER' ) ) {
+  define( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER', false );
+}
+
 // =============================================================================
 // FAST REQUESTS
 //
