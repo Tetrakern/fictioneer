@@ -114,12 +114,13 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
   /**
    * Check Github repository for a new release
    *
-   * Makes a cURL request to the Github API to check the latest release and,
-   * if a newer version tag than what is installed is found, updates the
-   * 'fictioneer_latest_version' option. The request can only be made once
-   * every 30 minutes, otherwise the stored data is checked.
+   * Makes a remote request to the Github API to check the latest release and,
+   * if a newer version tag than what is installed is returned, updates the
+   * 'fictioneer_latest_version' option. Only one request is made every 12 hours
+   * unless you are on the updates page.
    *
    * @since Fictioneer 5.0
+   * @since Fictioneer 5.7.5 Refactored.
    *
    * @return boolean True if there is a newer version, false if not.
    */
@@ -130,7 +131,7 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
     // Setup
     $last_check = (int) get_option( 'fictioneer_update_check_timestamp', 0 );
     $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
-    $is_updates_page = $pagenow == 'update-core.php';
+    $is_updates_page = $pagenow === 'update-core.php';
 
     // Only call API every n seconds, otherwise check database
     if ( ! empty( $latest_version ) && time() < $last_check + FICTIONEER_UPDATE_CHECK_TIMEOUT && ! $is_updates_page ) {
@@ -140,21 +141,19 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
     // Remember this check
     update_option( 'fictioneer_update_check_timestamp', time() );
 
-    // API request to repo
-    $ch = curl_init( 'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest' );
-    curl_setopt( $ch, CURLOPT_HEADER, 0 );
-    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-    curl_setopt( $ch, CURLOPT_USERAGENT, 'FICTIONEER' );
-    $response = curl_exec( $ch );
-    curl_close( $ch );
+    // Request to repository
+    $response = wp_remote_get(
+      'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest',
+      array( 'headers' => array( 'User-Agent' => 'FICTIONEER' ) )
+    );
 
-    // Abort if request failed
-    if ( empty( $response ) ) {
+    // Abort if request failed or is not a 2xx success status code
+    if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) >= 300 ) {
       return false;
     }
 
     // Decode JSON to array
-    $release = json_decode( $response, true );
+    $release = json_decode( wp_remote_retrieve_body( $response ), true );
 
     // Abort if request did not return expected data
     if ( ! isset( $release['tag_name'] ) ) {
