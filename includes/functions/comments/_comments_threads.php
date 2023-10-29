@@ -156,7 +156,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
         <h2 class="fictioneer-comments__title"><div class="shape"></div></h2>
       </div>
       <?php if ( fictioneer_is_commenting_disabled() ) : ?>
-        <div class="fictioneer-comments__disabled"><?php _e( 'Comments are disabled.', 'fictioneer' ); ?></div>
+        <div class="fictioneer-comments__disabled"><?php _e( 'Commenting is disabled.', 'fictioneer' ); ?></div>
       <?php else : ?>
         <?php if ( get_option( 'fictioneer_enable_oauth' ) || is_user_logged_in() ) : ?>
           <div class="comments-skeleton__login"><div class="shape"></div></div>
@@ -242,9 +242,6 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
     $list_args = apply_filters( 'fictioneer_filter_comment_list_args', $list_args );
 
     // Start HTML ---> ?>
-    <?php if ( fictioneer_is_commenting_disabled( $args['post_id'] ) ) : ?>
-      <div class="fictioneer-comments__disabled"><?php _e( 'Comments are disabled.', 'fictioneer' ); ?></div>
-    <?php endif; ?>
     <ol class="fictioneer-comments__list commentlist">
       <?php wp_list_comments( $list_args, $comments ); ?>
     </ol>

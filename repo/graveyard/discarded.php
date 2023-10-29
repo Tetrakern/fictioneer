@@ -266,7 +266,7 @@ function fictioneer_rest_get_comment_section( WP_REST_Request $request ) {
 
   // Abort if comments are closed
   if ( ! comments_open( $post ) ) {
-    $data = array( 'error' => __( 'Comments are disabled.', 'fictioneer' ) );
+    $data = array( 'error' => __( 'Commenting is disabled.', 'fictioneer' ) );
     return rest_ensure_response( array( 'data' => $data, 'success' => false ), 403 );
   }
 

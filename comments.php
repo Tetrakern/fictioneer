@@ -62,7 +62,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
           comment_form();
         }
       } else {
-        echo '<div class="fictioneer-comments__disabled">' . __( 'Comments are disabled.', 'fictioneer' ) . '</div>';
+        echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
       }
 
       // Count all comments regardless of status

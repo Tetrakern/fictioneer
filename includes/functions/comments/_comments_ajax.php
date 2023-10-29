@@ -151,7 +151,7 @@ function fictioneer_ajax_get_comment_section() {
       comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
     }
   } else {
-    echo '<div class="fictioneer-comments__disabled">' . __( 'Comments are disabled.', 'fictioneer' ) . '</div>';
+    echo '<div class="fictioneer-comments__disabled">' . __( 'Commenting is disabled.', 'fictioneer' ) . '</div>';
   }
 
   // List
