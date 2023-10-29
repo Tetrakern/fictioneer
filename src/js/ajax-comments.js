@@ -96,11 +96,13 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       temp.remove();
 
       // Append stored content (in case of pagination)
-      commentTextarea = _$$$('comment');
-      commentTextarea.value = commentText;
+      if (!response.data.disabled) {
+        commentTextarea = _$$$('comment');
+        commentTextarea.value = commentText;
 
-      // Append stack contents (if any)
-      fcn_applyCommentStack(commentTextarea);
+        // Append stack contents (if any)
+        fcn_applyCommentStack(commentTextarea);
+      }
 
       // Bind events
       fcn_addModerationEvents();

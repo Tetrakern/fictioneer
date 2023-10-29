@@ -1439,7 +1439,7 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
       $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
 
       if ( $story_id ) {
-        return fictioneer_get_field( 'fictioneer_disable_commenting', $story_id );
+        return fictioneer_get_field( 'fictioneer_disable_commenting', $story_id ) == true;
       }
     }
 

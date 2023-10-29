@@ -150,6 +150,8 @@ function fictioneer_ajax_get_comment_section() {
     } else {
       comment_form( fictioneer_comment_form_args( [], $post_id ), $post_id );
     }
+  } else {
+    echo '<div class="fictioneer-comments__disabled">' . __( 'Comments are disabled.', 'fictioneer' ) . '</div>';
   }
 
   // List
@@ -191,7 +193,15 @@ function fictioneer_ajax_get_comment_section() {
   $output = ob_get_clean();
 
   // Return buffer
-  wp_send_json_success( array( 'html' => $output, 'postId' => $post_id, 'page' => $page, 'mustLogin' => $must_login ) );
+  wp_send_json_success(
+    array(
+      'html' => $output,
+      'postId' => $post_id,
+      'page' => $page,
+      'mustLogin' => $must_login,
+      'disabled' => fictioneer_is_commenting_disabled( $post_id )
+    )
+  );
 }
 
 if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
