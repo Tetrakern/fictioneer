@@ -170,7 +170,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_links' ) ) {
  * to authenticate the user. The connection is severed after that.
  *
  * @since Fictioneer 4.0
- * @since Fictioneer 5.7.5 Refactored.
+ * @since Fictioneer 5.7.5 - Refactored..
  * @link https://developer.wordpress.org/reference/hooks/template_redirect/
  * @link https://dev.twitch.tv/docs/authentication
  * @link https://discord.com/developers/docs/topics/oauth2
@@ -766,7 +766,7 @@ if ( ! function_exists( 'fictioneer_oauth_die' ) ) {
    * Outputs a formatted error message and stops script execution
    *
    * @since Fictioneer 5.5.2
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    *
    * @param string $message  The error message.
    * @param string $title    Optional. Title of the error page. Default 'Error'.
@@ -807,7 +807,7 @@ if ( ! function_exists( 'fictioneer_set_oauth_constants' ) ) {
    * Set up all constants
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    */
 
   function fictioneer_set_oauth_constants() {
@@ -867,7 +867,7 @@ if ( ! function_exists( 'fictioneer_oauth2_exit_and_return' ) ) {
    * Terminate the script and redirect back
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    *
    * @param string $return_url  Optional. URL to return to.
    * @param string $state       Optional. The state hash.
@@ -910,7 +910,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_client_credentials' ) ) {
    * Return credentials for the given channel
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    *
    * @param string $channel  The channel to retrieve the credential for.
    * @param string $type     Optional. The type of credential to retrieve,
@@ -929,7 +929,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_token' ) ) {
    * Get the OAuth2 access token
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    *
    * @param string $url      URL to make the API request to.
    * @param array  $post     Post body.
@@ -971,7 +971,7 @@ if ( ! function_exists( 'fictioneer_revoke_oauth_token' ) ) {
    * Revoke an OAuth2 access token
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    *
    * @param string $url   URL to make the API request to.
    * @param array  $post  Post body.
@@ -1004,7 +1004,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
    * Redirect to OAuth provider to retrieve permissions and the code
    *
    * @since Fictioneer 4.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored..
    */
 
   function fictioneer_get_oauth_code() {

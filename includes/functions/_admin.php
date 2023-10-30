@@ -120,7 +120,7 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
    * unless you are on the updates page.
    *
    * @since Fictioneer 5.0
-   * @since Fictioneer 5.7.5 Refactored.
+   * @since Fictioneer 5.7.5 - Refactored.
    *
    * @return boolean True if there is a newer version, false if not.
    */
