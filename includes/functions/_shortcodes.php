@@ -1017,7 +1017,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
             <a href="<?php the_permalink( $chapter_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
               <?php
                 if ( ! empty( $prefix ) ) {
-                  echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix );
+                  echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix ) . ' ';
                 }
                 echo $title;
               ?>
