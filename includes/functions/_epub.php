@@ -997,7 +997,7 @@ function fictioneer_generate_epub() {
   }
 
   // Locked?
-  $lock = fictioneer_get_field( 'fictioneer_epub_wip', $story_id );
+  $lock = get_transient( "fictioneer_epub_wip_{$story_id}" );
 
   if ( ! empty( $lock ) && absint( $lock ) + 30 < time() ) {
     fictioneer_epub_return_and_exit();
@@ -1050,7 +1050,7 @@ function fictioneer_generate_epub() {
   }
 
   // Lock!
-  update_post_meta( $story_id, 'fictioneer_epub_wip', time() );
+  set_transient( "fictioneer_epub_wip_{$story_id}", time(), 30 );
 
   // Prepare build clean directory
   fictioneer_prepare_build_directory( $dir, $epub_dir, $story_id );
@@ -1145,7 +1145,7 @@ function fictioneer_generate_epub() {
   update_post_meta( $story_id, 'fictioneer_epub_timestamp', $story_last_modified );
 
   // Unlock
-  delete_post_meta( $story_id, 'fictioneer_epub_wip' );
+  delete_transient( "fictioneer_epub_wip_{$story_id}" );
 
   // Download
   fictioneer_download_epub( "{$folder}.epub", $story );
@@ -1168,7 +1168,7 @@ function fictioneer_ajax_download_epub() {
 
   // Setup
   $story_id = absint( $_POST['story_id'] ?? 0 );
-  $lock = fictioneer_get_field( 'fictioneer_epub_wip', $story_id );
+  $lock = get_transient( "fictioneer_epub_wip_{$story_id}" );
 
   if ( ! empty( $lock ) && absint( $lock ) + 30 < time() ) {
     wp_send_json_error();
