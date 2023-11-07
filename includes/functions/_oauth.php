@@ -1012,7 +1012,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
     $params = array(
       'response_type' => 'code',
       'client_id' => FCN_OAUTH2_CLIENT_ID,
-      'state' => hash( 'sha256', microtime( TRUE ) . rand() . $_SERVER['REMOTE_ADDR'] ),
+      'state' => hash( 'sha256', microtime( TRUE ) . random_bytes( 15 ) . $_SERVER['REMOTE_ADDR'] ),
       'scope' => FCN_OAUTH2_API_ENDPOINTS[FCN_OAUTH2_CHANNEL]['scope'],
       'redirect_uri' => FCN_OAUTH2_REDIRECT_URL,
       'force_verify' => 'true',
@@ -1027,7 +1027,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
       'channel' => FCN_OAUTH2_CHANNEL,
       'anchor' => FCN_OAUTH2_ANCHOR,
       'user_id' => get_current_user_id(),
-      'cookie' => hash( 'sha256', microtime( TRUE ) . rand() . $_SERVER['REMOTE_ADDR'] )
+      'cookie' => hash( 'sha256', microtime( TRUE ) . random_bytes( 15 ) . $_SERVER['REMOTE_ADDR'] )
     );
 
     set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 60 ); // Expires after 1 minute
