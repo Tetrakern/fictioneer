@@ -57,6 +57,12 @@
 			]
 		},
 		"blocks": {
+			"core/image": {
+				"lightbox": {
+					"enabled": false,
+					"allowEditing": false
+				}
+			},
 			"core/table": {
 				"color": {
           "custom": false,
