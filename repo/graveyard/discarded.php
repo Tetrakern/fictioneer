@@ -666,4 +666,35 @@ if ( ! function_exists( 'fictioneer_has_role' ) ) {
   }
 }
 
+// =============================================================================
+// CLEANUP
+// =============================================================================
+
+/**
+ * When a fictioneer option is updated as empty, the option is deleted
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param string $option    The option name.
+ * @param mixed  $old_value The previous value.
+ * @param mixed  $value     The new value.
+ */
+
+function fictioneer_delete_null_option( $option, $old_value, $value ) {
+  // Theme option?
+  if (
+    ! array_key_exists( $option, FICTIONEER_OPTIONS['booleans'] ) &&
+    ! array_key_exists( $option, FICTIONEER_OPTIONS['strings'] )
+  ) {
+    return;
+  }
+
+  // Delete empty options
+  if ( empty( $value ) ) {
+    delete_option( $option );
+  }
+}
+add_action( 'updated_option', 'fictioneer_delete_null_option', 20, 3 );
+
+
 ?>

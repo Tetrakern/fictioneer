@@ -991,7 +991,7 @@ function fictioneer_tools_optimize_database() {
     )
   ");
 
-  // Comment meta
+  // Delete comment meta
   $comment_meta_count = $wpdb->query("
     DELETE FROM $wpdb->commentmeta
     WHERE (
