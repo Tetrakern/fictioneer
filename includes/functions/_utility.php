@@ -2289,4 +2289,27 @@ function fictioneer_url_list_to_array( $list ) {
   return $urls;
 }
 
+// =============================================================================
+// ARRAY OPERATION
+// =============================================================================
+
+/**
+ * Unset array element by value
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param mixed $value  The value to look for.
+ * @param array $array  The array to be modified.
+ *
+ * @return array The modified array.
+ */
+
+function fictioneer_unset_by_value( $value, $array ) {
+  if ( ( $key = array_search( $value, $array ) ) !== false ) {
+    unset( $array[ $key ] );
+  }
+
+  return $array;
+}
+
 ?>
