@@ -2290,7 +2290,7 @@ function fictioneer_url_list_to_array( $list ) {
 }
 
 // =============================================================================
-// ARRAY OPERATION
+// ARRAY OPERATIONS
 // =============================================================================
 
 /**
@@ -2310,6 +2310,22 @@ function fictioneer_unset_by_value( $value, $array ) {
   }
 
   return $array;
+}
+
+// =============================================================================
+// RETURN NO FORMAT STRING
+// =============================================================================
+
+/**
+ * Return unformatted replacement string
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @return string Just a simple '%s'.
+ */
+
+function fictioneer__return_no_format() {
+  return '%s';
 }
 
 ?>
