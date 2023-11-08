@@ -446,6 +446,11 @@ body[class*="fictioneer_page_"] {
           text-decoration: none;
         }
       }
+
+      &--disabled {
+        pointer-events: none;
+        opacity: .5;
+      }
     }
 
     &__footer {

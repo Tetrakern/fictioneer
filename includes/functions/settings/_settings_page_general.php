@@ -187,7 +187,15 @@
                 ?>
               </div>
 
-              <div class="fictioneer-card__row">
+              <?php
+                $changelog_classes = '';
+
+                if ( ! FICTIONEER_ENABLE_STORY_CHANGELOG ) {
+                  $changelog_classes = 'fictioneer-card__row--disabled';
+                }
+              ?>
+
+              <div class="fictioneer-card__row <?php echo $changelog_classes; ?>">
                 <?php
                   fictioneer_label_checkbox(
                     'fictioneer_show_story_changelog',
