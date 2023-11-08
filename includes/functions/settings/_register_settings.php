@@ -628,6 +628,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable advanced meta fields', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_show_story_changelog' => array(
+      'name' => 'fictioneer_show_story_changelog',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Show story changelog button', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

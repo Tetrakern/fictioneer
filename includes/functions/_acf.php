@@ -463,6 +463,9 @@ function fictioneer_remember_chapters_modified( $value, $post_id ) {
     update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
   }
 
+  // Log changes
+  fictioneer_log_story_chapter_changes( $post_id, $value, $previous );
+
   return $value;
 }
 add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remember_chapters_modified', 10, 2 );

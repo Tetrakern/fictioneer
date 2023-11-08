@@ -128,8 +128,10 @@ add_action( 'fictioneer_site_footer', 'fictioneer_footer_menu_row', 20 );
  */
 
 function fictioneer_output_modals( $args ) {
+  $is_archive = is_search() || is_archive() || empty( $args['post_id'] );
+
   // Formatting and suggestions
-  if ( ! empty( $args['post_id'] ) && $args['post_type'] == 'fcn_chapter' ) {
+  if ( ! $is_archive && $args['post_type'] == 'fcn_chapter' ) {
     ?><input id="modal-formatting-toggle" data-target="formatting-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-formatting' );
 
@@ -169,6 +171,17 @@ function fictioneer_output_modals( $args ) {
   ) {
     ?><input id="modal-bbcodes-toggle" data-target="bbcodes-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-bbcodes' );
+  }
+
+  // Story chapter changelog
+  if (
+    ! $is_archive &&
+    $args['post_type'] == 'fcn_story' &&
+    FICTIONEER_ENABLE_STORY_CHANGELOG &&
+    get_option( 'fictioneer_show_story_changelog' )
+  ) {
+    ?><input id="modal-chapter-changelog-toggle" data-target="chapter-changelog-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
+    get_template_part( 'partials/_modal-chapter-changelog' );
   }
 
   // Action to add modals

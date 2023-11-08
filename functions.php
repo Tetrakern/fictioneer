@@ -356,6 +356,11 @@ if ( ! defined( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER' ) ) {
   define( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER', false );
 }
 
+// Boolean: Enable tracking of chapter changes in stories
+if ( ! defined( 'FICTIONEER_ENABLE_STORY_CHANGELOG' ) ) {
+  define( 'FICTIONEER_ENABLE_STORY_CHANGELOG', true );
+}
+
 // =============================================================================
 // FAST REQUESTS
 //

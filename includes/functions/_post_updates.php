@@ -106,4 +106,234 @@ function fictioneer_store_original_publish_date( $post_id, $post ) {
 }
 add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 
+// =============================================================================
+// STORY CHANGELOG
+// =============================================================================
+
+/**
+ * Returns story changelog
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param int $story_id  The story post ID.
+ *
+ * @return array Array with logged chapter changes since initialization.
+ */
+
+function fictioneer_get_story_changelog( $story_id ) {
+  // Setup
+  $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
+  $changelog = is_array( $changelog ) ? $changelog : [];
+
+  // Initialize
+  if ( empty( $changelog ) ) {
+    $changelog[] = array(
+      time(),
+      _x( 'Initialized.', 'Story changelog initialized.', 'fictioneer' )
+    );
+  }
+
+  // Return
+  return $changelog;
+}
+
+/**
+ * Logs changes to story chapters
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param int    $story_id  The story post ID.
+ * @param array  $current   Current chapters.
+ * @param array  $previous  Previous chapters.
+ * @param string $verb      Optional. The verb describing the logged action.
+ */
+
+function fictioneer_log_story_chapter_changes( $story_id, $current, $previous, $verb = null ) {
+  if ( ! FICTIONEER_ENABLE_STORY_CHANGELOG ) {
+    return;
+  }
+
+  // Setup
+  $changelog = fictioneer_get_story_changelog( $story_id );
+  $current = is_array( $current ) ? $current : [];
+  $previous = is_array( $previous ) ? $previous : [];
+
+  // Check for changes
+  $added = array_diff( $current, $previous );
+  $removed = array_diff( $previous, $current );
+
+  // Log
+  foreach ( $added as $post_id ) {
+    $changelog[] = array(
+      time(),
+      sprintf(
+        _x( '#%s %s: %s.', 'Story changelog chapter added.', 'fictioneer' ),
+        $post_id,
+        $verb ? $verb : _x( 'added', 'Story changelog verb.', 'fictioneer' ),
+        fictioneer_get_safe_title( $post_id )
+      )
+    );
+  }
+
+  foreach ( $removed as $post_id ) {
+    $changelog[] = array(
+      time(),
+      sprintf(
+        _x( '#%s %s: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
+        $post_id,
+        $verb ? $verb : _x( 'removed', 'Story changelog verb.', 'fictioneer' ),
+        fictioneer_get_safe_title( $post_id )
+      )
+    );
+  }
+
+  // Save
+  update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
+}
+
+/**
+ * Logs status changes of story chapters
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param string  $new_status  The old status.
+ * @param string  $old_status  The new status.
+ * @param WP_Post $post        The post object.
+ */
+
+function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, $post ) {
+  // Changed?
+  if ( $old_status == $new_status ) {
+    return;
+  }
+
+  // Chapter?
+  if ( $post->post_type !== 'fcn_chapter' ) {
+    return;
+  }
+
+  // Story?
+  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
+
+  if ( empty( $story_id ) ) {
+    return;
+  }
+
+  // Log
+  $changelog = fictioneer_get_story_changelog( $story_id );
+
+  // Add filters
+  add_filter( 'private_title_format', 'fictioneer__return_no_format', 99 );
+
+  // Publish -> Private?
+  if ( $old_status == 'publish' && $new_status == 'private' ) {
+    $changelog[] = array(
+      time(),
+      sprintf(
+        _x( '#%s privated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
+        $post->ID,
+        fictioneer_get_safe_title( $post->ID, true )
+      )
+    );
+
+    update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
+  }
+
+  // Private -> Publish?
+  if ( $new_status == 'publish' && $old_status == 'private' ) {
+    $changelog[] = array(
+      time(),
+      sprintf(
+        _x( '#%s unprivated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
+        $post->ID,
+        fictioneer_get_safe_title( $post->ID, true )
+      )
+    );
+
+    update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
+  }
+
+  // Remove filters
+  remove_filter( 'private_title_format', 'fictioneer__return_no_format', 99 );
+}
+
+if ( FICTIONEER_ENABLE_STORY_CHANGELOG ) {
+  add_action( 'transition_post_status', 'fictioneer_log_story_chapter_status_changes', 10, 3 );
+}
+
+// =============================================================================
+// STORY CHAPTER LIST
+// =============================================================================
+
+/**
+ * Removes chapter from story
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param int $chapter_id  The chapter post ID.
+ */
+
+function fictioneer_remove_chapter_from_story( $chapter_id ) {
+  // Chapter?
+  if ( get_post_type( $chapter_id ) !== 'fcn_chapter' ) {
+    return;
+  }
+
+  // Story?
+  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $chapter_id );
+
+  if ( empty( $story_id ) ) {
+    return;
+  }
+
+  // Chapter list?
+  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+  $previous = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+
+  if ( empty( $chapters ) || ! in_array( $chapter_id, $chapters ) ) {
+    return;
+  }
+
+  // Update story
+  $chapters = fictioneer_unset_by_value( $chapter_id, $chapters );
+
+  update_post_meta( $story_id, 'fictioneer_story_chapters', $chapters );
+  update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+
+  // Log change
+  fictioneer_log_story_chapter_changes( $story_id, $chapters, $previous );
+
+  // Clear story data cache to ensure it gets refreshed
+  delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+
+  // Update story post to fire associated actions
+  wp_update_post( array( 'ID' => $story_id ) );
+}
+add_action( 'trashed_post', 'fictioneer_remove_chapter_from_story' );
+
+/**
+ * Removes chapter from story when unpublished
+ *
+ * @since Fictioneer 5.7.5
+ *
+ * @param WP_Post $post  The post object.
+ */
+
+function fictioneer_chapter_publish_to_draft( $post ) {
+  // Chapter?
+  if ( $post->post_type !== 'fcn_chapter' ) {
+    return;
+  }
+
+  // Remove filter
+  remove_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title' );
+
+  // Remove chapter from story
+  fictioneer_remove_chapter_from_story( $post->ID );
+
+  // Add filter
+  add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title', 10, 2 );
+}
+add_action( 'publish_to_draft', 'fictioneer_chapter_publish_to_draft' );
+
 ?>

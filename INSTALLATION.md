@@ -587,6 +587,7 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
+* **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
 
 <br>
 
@@ -924,3 +925,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_FRONTEND_ACF | boolean | Whether to load ACF on the frontend. Default `false`.
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
+| FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.

@@ -229,12 +229,13 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    * @since Fictioneer 4.7
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
-   * @param int|WP_Post $post  The post or post ID to get the title for.
+   * @param int|WP_Post $post        The post or post ID to get the title for.
+   * @param boolean     $no_filters  Optional. Whether to ignore filters. Default false.
    *
    * @return string The title, never empty.
    */
 
-  function fictioneer_get_safe_title( $post ) {
+  function fictioneer_get_safe_title( $post, $no_filters = false ) {
     // Setup
     $post_id = ( $post instanceof WP_Post ) ? $post->ID : $post;
 
@@ -251,7 +252,9 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
     }
 
     // Apply filters
-    $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id );
+    if ( ! $no_filters ) {
+      $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id );
+    }
 
     return $title;
   }

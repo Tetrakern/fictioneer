@@ -36,6 +36,13 @@ $story = $args['story_data'];
 ?>
 
 <footer class="story__footer padding-left padding-right">
+  <div class="story__extra">
+    <?php if ( FICTIONEER_ENABLE_STORY_CHANGELOG && get_option( 'fictioneer_show_story_changelog' ) ) : ?>
+      <label class="story__changelog hide-below-400" for="modal-chapter-changelog-toggle" tabindex="-1">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+      </label>
+    <?php endif; ?>
+  </div>
   <div class="story__meta">
     <span class="story__meta-item story__status">
       <i class="<?php echo $story['icon']; ?>"></i>

@@ -139,7 +139,7 @@
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <p><?php _e( 'Updating these settings may require the story caches to be purged. You can do that under Tools.', 'fictioneer' ); ?></p>
+                <p><?php _e( 'Updating these settings may require the theme caches to be purged. You can do that under Tools.', 'fictioneer' ); ?></p>
               </div>
 
               <div class="fictioneer-card__row">
@@ -183,6 +183,15 @@
                   fictioneer_label_checkbox(
                     'fictioneer_limit_chapter_stories_by_author',
                     __( 'Also disables cross-posting as guest author.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_label_checkbox(
+                    'fictioneer_show_story_changelog',
+                    __( 'Opens modal with timestamped chapter changes.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -610,7 +619,7 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_textarea( 'fictioneer_comments_notice', '158px' ); ?>
+                <?php fictioneer_textarea( 'fictioneer_comments_notice', '214px' ); ?>
               </div>
 
             </div>

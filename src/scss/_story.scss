@@ -295,8 +295,8 @@ $header_breakpoint: 640px;
       line-height: 1.125;
       text-align: center;
       padding: 1.125rem 0;
-      transition: color var(--transition-duration);
       width: 100%;
+      transition: color var(--transition-duration);
 
       &:hover {
         color: var(--fg-700);
@@ -305,8 +305,27 @@ $header_breakpoint: 640px;
   }
 
   &__footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
     padding-top: .75rem;
     padding-bottom: 1.75rem;
+  }
+
+  &__changelog {
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    color: var(--fg-600);
+    font-size: var(--fs-ds);
+    height: 2.25rem;
+    width: 1.5rem;
+    transition: opacity var(--transition-duration);
+
+    &:not(:hover) {
+      opacity: 0.15;
+    }
   }
 
   &__meta {
@@ -350,7 +369,7 @@ $header_breakpoint: 640px;
       }
     }
 
-    > span {
+    > :is(span, label) {
       :is(i, .icon) {
         display: none;
         color: var(--fg-800);

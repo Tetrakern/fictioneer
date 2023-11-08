@@ -1866,7 +1866,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 
 /**
- * Append new chapters to story list
+ * Appends new chapters to story list
  *
  * @since Fictioneer 5.4.9
  * @since Fictioneer 5.7.4 - Updated
@@ -1915,14 +1915,19 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id ) {
 
   // Append chapter (if not already included) and save to database
   if ( ! in_array( $post_id, $story_chapters ) ) {
+    $previous_chapters = $story_chapters;
     $story_chapters[] = $post_id;
+    $story_chapters = array_unique( $story_chapters );
 
     // Append chapter to field
-    update_post_meta( $story_id, 'fictioneer_story_chapters', array_unique( $story_chapters ) );
+    update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
 
     // Remember when chapter list has been last updated
     update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
     update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+
+    // Log changes
+    fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );
 
     // Clear story data cache to ensure it gets refreshed
     delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
