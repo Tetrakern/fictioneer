@@ -241,7 +241,8 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_remove_unlisted_from_search`, `fictioneer_read_others_files`, `fictioneer_read_others_files_list_view`, `fictioneer_filter_chapters_by_story`
-| `publish_to_draft` | `fictioneer_chapter_publish_to_draft`
+| `private_to_draft` | `fictioneer_chapter_to_draft`
+| `publish_to_draft` | `fictioneer_chapter_to_draft`
 | `rest_api_init` | `fictioneer_register_endpoint_get_story_comments`
 | `restrict_manage_posts` | `fictioneer_add_chapter_story_filter_dropdown`
 | `save_post` | `fictioneer_create_sitemap`, `fictioneer_refresh_chapters_schema`, `fictioneer_refresh_chapter_schema`, `fictioneer_refresh_collections_schema`, `fictioneer_refresh_post_caches`, `fictioneer_refresh_post_schema`, `fictioneer_refresh_recommendations_schema`, `fictioneer_refresh_recommendation_schema`, `fictioneer_refresh_stories_schema`, `fictioneer_refresh_story_schema`, `fictioneer_save_seo_metabox`, `fictioneer_save_word_count`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_update_shortcode_relationships`, `fictioneer_purge_transients`, `fictioneer_post_story_to_discord`, `fictioneer_post_chapter_to_discord`, `fictioneer_save_story_metaboxes`, `fictioneer_save_chapter_metaboxes`, `fictioneer_save_advanced_metabox`, `fictioneer_save_support_links_metabox`, `fictioneer_save_collection_metaboxes`, `fictioneer_save_recommendation_metaboxes`, `fictioneer_save_post_metaboxes`

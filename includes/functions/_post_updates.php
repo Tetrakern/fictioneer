@@ -131,6 +131,8 @@ function fictioneer_get_story_changelog( $story_id ) {
       time(),
       _x( 'Initialized.', 'Story changelog initialized.', 'fictioneer' )
     );
+
+    update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
   }
 
   // Return
@@ -219,7 +221,7 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
     return;
   }
 
-  // Log
+  // Setup
   $changelog = fictioneer_get_story_changelog( $story_id );
 
   // Add filters
@@ -286,7 +288,7 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
     return;
   }
 
-  // Chapter list?
+  // Check chapter list
   $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
   $previous = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
 
@@ -312,14 +314,14 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
 add_action( 'trashed_post', 'fictioneer_remove_chapter_from_story' );
 
 /**
- * Removes chapter from story when unpublished
+ * Wrapper for actions when a chapter is set to draft
  *
  * @since Fictioneer 5.7.5
  *
  * @param WP_Post $post  The post object.
  */
 
-function fictioneer_chapter_publish_to_draft( $post ) {
+function fictioneer_chapter_to_draft( $post ) {
   // Chapter?
   if ( $post->post_type !== 'fcn_chapter' ) {
     return;
@@ -334,6 +336,7 @@ function fictioneer_chapter_publish_to_draft( $post ) {
   // Add filter
   add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title', 10, 2 );
 }
-add_action( 'publish_to_draft', 'fictioneer_chapter_publish_to_draft' );
+add_action( 'publish_to_draft', 'fictioneer_chapter_to_draft' );
+add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
 
 ?>
