@@ -120,7 +120,11 @@ add_action( 'acf/include_fields', function() {
           'post_type' => array(
             0 => 'fcn_chapter',
           ),
-          'post_status' => '',
+          'post_status' => array(
+            0 => 'publish',
+            1 => 'private',
+            2 => 'future',
+          ),
           'taxonomy' => '',
           'filters' => array(
             0 => 'search',
