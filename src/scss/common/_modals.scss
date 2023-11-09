@@ -94,8 +94,9 @@
 
   &__header:is(h4) {
     color: var(--fg-400);
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1;
+    text-transform: uppercase;
     padding: 12px 40px 12px 12px;
     margin: 0;
   }
