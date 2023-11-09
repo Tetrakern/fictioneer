@@ -1066,7 +1066,8 @@ function fictioneer_render_story_epub_metabox( $post ) {
       array(
         'label' => _x( 'ePUB CSS', 'Story ePUB CSS meta field label.', 'fictioneer' ),
         'description' => __( 'Inject CSS into the ePUB to customize the style for your story. Dangerous.', 'fictioneer' ),
-        'input_classes' => 'fictioneer-meta-field__textarea--code'
+        'input_classes' => 'fictioneer-meta-field__textarea--code',
+        'placeholder' => '.selector { ... }'
       )
     );
   }
