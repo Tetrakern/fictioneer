@@ -1076,7 +1076,7 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
  * Sanitizes a checkbox value into true or false
  *
  * @since 4.7
- * @link  https://www.php.net/manual/en/function.filter-var.php
+ * @link https://www.php.net/manual/en/function.filter-var.php
  *
  * @param string|boolean $value  The checkbox value to be sanitized.
  *
@@ -1087,6 +1087,27 @@ function fictioneer_sanitize_checkbox( $value ) {
   $value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 
   return empty( $value ) ? 0 : 1;
+}
+
+/**
+ * Sanitizes a settings checkbox value into true or false
+ *
+ * Note: If false is returned, the Settings API will not save the option
+ * to the database. However, this only works if the database row does not
+ * already exist.
+ *
+ * @since 5.7.6
+ * @link https://www.php.net/manual/en/function.filter-var.php
+ *
+ * @param string|boolean $value  The checkbox value to be sanitized.
+ *
+ * @return boolean True or false.
+ */
+
+function fictioneer_sanitize_settings_checkbox( $value ) {
+  $value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+
+  return empty( $value ) ? false : 1;
 }
 
 // =============================================================================

@@ -114,7 +114,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-not-renamed-role' => __( 'Error. Role could not be renamed.', 'fictioneer' ),
       'fictioneer-removed-role' => __( 'Role removed.', 'fictioneer' ),
       'fictioneer-not-removed-role' => __( 'Error. Role could not be removed.', 'fictioneer' ),
-      'fictioneer-db-optimization-preview' => __( '%s superfluous post meta rows found. %s superfluous comment meta rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
+      'fictioneer-db-optimization-preview' => __( '%s superfluous post meta rows found. %s superfluous comment meta rows found. %s superfluous option rows found. Please backup your database before performing any optimization.', 'fictioneer' ),
       'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' ),
       'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
@@ -1003,8 +1003,15 @@ function fictioneer_tools_optimize_database() {
     )
   ");
 
+  // Delete options
+  $options_meta_count = $wpdb->query("
+    DELETE FROM $wpdb->options
+    WHERE option_name LIKE 'fictioneer_%'
+    AND (option_value IS NULL OR option_value = '')
+  ");
+
   // Total rows
-  $total = $post_meta_count + $comment_meta_count;
+  $total = $post_meta_count + $comment_meta_count + $options_meta_count;
 
   // Log
   fictioneer_log(
@@ -1080,12 +1087,19 @@ function fictioneer_tools_optimize_database_preview() {
     )
   ");
 
+  // Options
+  $options_meta_count = $wpdb->get_var("
+    SELECT COUNT(*) FROM $wpdb->options
+    WHERE option_name LIKE 'fictioneer_%'
+    AND (option_value IS NULL OR option_value = '')
+  ");
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(
       array(
         'info' => 'fictioneer-db-optimization-preview',
-        'data' => "{$post_meta_count},{$comment_meta_count}"
+        'data' => "{$post_meta_count},{$comment_meta_count},{$options_meta_count}"
       ),
       wp_get_referer()
     )
