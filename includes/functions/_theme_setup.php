@@ -485,7 +485,7 @@ if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
     foreach ( $actions as $action ) {
       add_action(
         $action,
-        function () {
+        function() {
           wp_enqueue_style( 'font-awesome-cdn-webfont-fictioneer', FICTIONEER_FA_CDN, [], null );
         }
       );
