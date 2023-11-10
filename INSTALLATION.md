@@ -31,6 +31,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
   * [Queries](#queries)
+  * [Font Awesome](#font-awesome)
   * [Constants](#constants)
 
 ## Choosing a Host
@@ -858,6 +859,14 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
 }
 ```
 
+### Font Awesome
+
+Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.com/) by default and unless you want to use a different one or encounter compatibility issues (usually when a plugin includes FA as well), no action is required here.
+
+* If you want to include it via plugin (perhaps a Pro Kit) or custom function, disable the theme version under **Fictioneer > General > Compatibility**.
+
+* If you want to change the CDN link and integrity hash, do that by overwriting the `FICTIONEER_FA_CDN` and `FICTIONEER_FA_INTEGRITY` constants in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You can set the integrity to `null` if not needed.
+
 ### Constants
 
 Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
@@ -893,6 +902,8 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_CARD_PAGE_FOOTER_DATE | string | Page card footer date format. Default `"M j, 'y"`.
 | FICTIONEER_CARD_ARTICLE_FOOTER_DATE | string | Article card footer date format. Default `"M j, 'y"`.
 | FICTIONEER_STORY_FOOTER_B480_DATE | string | Story page footer date format (<= 480px). Default `"M j, 'y"`.
+| FICTIONEER_FA_CDN | string | Font Awesome CDN URL.
+| FICTIONEER_FA_INTEGRITY | string | Font Awesome integrity SHA384 hash.
 | FICTIONEER_COMMENTCODE_TTL | integer | How long guests can see their private/unapproved comments in _seconds_. Default `600`.
 | FICTIONEER_AJAX_TTL | integer | How long to cache certain AJAX requests locally in _milliseconds_. Default `60000`.
 | FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.

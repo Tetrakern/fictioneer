@@ -635,6 +635,13 @@ define( 'FICTIONEER_OPTIONS', array(
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show story changelog button', 'fictioneer' ),
       'default' => false
+    ),
+    'fictioneer_disable_font_awesome' => array(
+      'name' => 'fictioneer_disable_font_awesome',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Disable Font Awesome integration', 'fictioneer' ),
+      'default' => false
     )
 	),
 	'integers' => array(

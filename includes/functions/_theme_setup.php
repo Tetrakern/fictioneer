@@ -432,59 +432,73 @@ function fictioneer_style_footer_queue() {
 add_action( 'get_footer', 'fictioneer_style_footer_queue' );
 
 // =============================================================================
-// FONT AWESOME 6+
+// FONT AWESOME
 // =============================================================================
 
-if ( ! function_exists( 'fa_custom_setup_cdn_webfont' ) ) {
+if ( ! function_exists( 'fictioneer_add_font_awesome_integrity' ) ) {
   /**
-   * Add Font Awesome 6+ to the site
+   * Enqueue Font Awesome
    *
-   * @since 4.5
+   * @since 5.7.6
    * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
-   * @link https://fontawesome.com/account/cdn
+   *
+   * @param string $tag     The link tag for the enqueued style.
+   * @param string $handle  The style's registered handle.
+   *
+   * @return string The modified link tag.
    */
 
-  function fa_custom_setup_cdn_webfont( $cdn_url = '', $integrity = null ) {
-    $matches = [];
-    $match_result = preg_match( '|/([^/]+?)\.css$|', $cdn_url, $matches );
-    $resource_handle_uniqueness = ( $match_result === 1 ) ? $matches[1] : md5( $cdn_url );
-    $resource_handle = "font-awesome-cdn-webfont-$resource_handle_uniqueness";
+  function fictioneer_add_font_awesome_integrity( $tag, $handle ) {
+    // Abort conditions...
+    if ( empty( FICTIONEER_FA_INTEGRITY ) ) {
+      return $tag;
+    }
 
-    foreach ( ['wp_enqueue_scripts', 'admin_enqueue_scripts', 'login_enqueue_scripts'] as $action ) {
+    // Modify HTML
+    if ( $handle === 'font-awesome-cdn-webfont-fictioneer' ) {
+      $tag = preg_replace( '/\/>$/', 'integrity="' . FICTIONEER_FA_INTEGRITY . '" crossorigin="anonymous" />', $tag, 1 );
+    }
+
+    // Continue filter
+    return $tag;
+  }
+}
+
+if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
+  /**
+   * Enqueue Font Awesome
+   *
+   * @since 5.7.6
+   * @link https://fontawesome.com/docs/web/use-with/wordpress/install-manually
+   */
+
+  function fictioneer_add_font_awesome() {
+    // Abort conditions...
+    if ( empty( FICTIONEER_FA_CDN ) ) {
+      return;
+    }
+
+    // Setup
+    $actions = ['wp_enqueue_scripts', 'admin_enqueue_scripts', 'login_enqueue_scripts'];
+
+    // Actions
+    foreach ( $actions as $action ) {
       add_action(
         $action,
-        function () use ( $cdn_url, $resource_handle ) {
-          wp_enqueue_style( $resource_handle, $cdn_url, [], null );
+        function () {
+          wp_enqueue_style( 'font-awesome-cdn-webfont-fictioneer', FICTIONEER_FA_CDN, [], null );
         }
       );
     }
 
-    if ( $integrity ) {
-      add_filter(
-        'style_loader_tag',
-        function( $html, $handle ) use ( $resource_handle, $integrity ) {
-          if ( in_array( $handle, [$resource_handle], true ) ) {
-            return preg_replace(
-              '/\/>$/',
-              'integrity="' . $integrity .
-              '" crossorigin="anonymous" />',
-              $html,
-              1
-            );
-          } else {
-            return $html;
-          }
-        },
-        10,
-        2
-      );
-    }
+    // Filters
+    add_filter( 'style_loader_tag', 'fictioneer_add_font_awesome_integrity', 10, 2 );
   }
 
-  fa_custom_setup_cdn_webfont(
-    'https://use.fontawesome.com/releases/v6.1.2/css/all.css',
-    'sha384-fZCoUih8XsaUZnNDOiLqnby1tMJ0sE7oBbNk2Xxf5x8Z4SvNQ9j83vFMa/erbVrV'
-  );
+  // Initialize
+  if ( ! get_option( 'fictioneer_disable_font_awesome' ) ) {
+    fictioneer_add_font_awesome();
+  }
 }
 
 // =============================================================================

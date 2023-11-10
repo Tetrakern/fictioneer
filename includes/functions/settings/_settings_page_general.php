@@ -828,6 +828,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_label_checkbox(
+                    'fictioneer_disable_font_awesome',
+                    __( 'Only do this if you integrate it yourself.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_label_checkbox(
                     'fictioneer_enable_jquery_migrate',
                     __( 'Some older plugins might require this.', 'fictioneer' )
                   );

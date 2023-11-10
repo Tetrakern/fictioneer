@@ -110,6 +110,19 @@ define(
   'image/jpeg, image/png, image/webp, image/avif, image/gif, application/pdf, application/epub+zip, application/rtf, text/plain, image/svg+xml'
 );
 
+// String: Font Awesome CDN URL
+if ( ! defined( 'FICTIONEER_FA_CDN' ) ) {
+  define( 'FICTIONEER_FA_CDN', 'https://use.fontawesome.com/releases/v6.4.2/css/all.css' );
+}
+
+// String: Font Awesome CDN integrity
+if ( ! defined( 'FICTIONEER_FA_INTEGRITY' ) ) {
+  define(
+    'FICTIONEER_FA_INTEGRITY',
+    'sha384-blOohCVdhjmtROpu8+CfTnUWham9nkX7P7OZQMst+RUnhtoY/9qemFAkIKOYxDI3'
+  );
+}
+
 /*
  * Date Strings
  */
