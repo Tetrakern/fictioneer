@@ -15,7 +15,6 @@
 	<div class="fictioneer-settings__content">
     <form method="post" action="options.php" class="fictioneer-form">
       <?php settings_fields( 'fictioneer-settings-general-group' ); ?>
-      <?php do_settings_sections( 'fictioneer-settings-general-group' ); ?>
 
       <div class="fictioneer-columns">
 

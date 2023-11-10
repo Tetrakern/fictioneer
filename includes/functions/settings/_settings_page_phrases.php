@@ -16,7 +16,6 @@
 
     <form method="post" action="options.php" class="fictioneer-form">
       <?php settings_fields( 'fictioneer-settings-phrases-group' ); ?>
-      <?php do_settings_sections( 'fictioneer-settings-phrases-group' ); ?>
 
       <div class="fictioneer-columns fictioneer-columns--two-columns">
 
