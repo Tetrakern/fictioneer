@@ -58,15 +58,15 @@ Everything installed? Head to **[Settings](https://wordpress.org/support/article
 
     * **Disallowed Comment Keys:** For simple yet reliable comment spam protection, you are advised to use the [compiled disallow list by slorp](https://github.com/splorp/wordpress-comment-blacklist). Just copy the content of the blacklist into the [Disallowed Comment Key](https://wordpress.org/support/article/comment-moderation/#comment-blocking) field. Check your comment trash occasionally as this can lead to false positives. You can search for less restrictive lists too.
 
-* **Permalinks:** You want the permalink structure set to "Post name". As an off-note, whenever some pages do not show up even though they clearly should, come back here and save to update the permalink structure. You would be surprised how many issues that solves.
+* **Permalinks:** You want the permalink structure set to "Post name". As an off-note, whenever some pages do not show up even though they clearly should, come back here and save to update the permalink structure. You would be surprised how many issues that solves, including the OAuth authentication not working.
 
-* **Open Graph Default Image:** Only used when you enable the SEO features and no (known) SEP plugin is running. This image will be shown in search engine results and social media embeds if no other image is provided by individual posts, such as story cover images. Can be set under **Appearance > Customize > Site Identity**.
+* **Open Graph Default Image:** Only used when you enable the SEO features and no (known) SEO plugin is running. This image will be shown in search engine results and social media embeds if no other image is provided by individual posts, such as story cover images. Can be set under **Appearance > Customize > Site Identity**.
 
 * **Author websites:** Technically not a required setting, but authors may want to fill out the website field in their profile. These are added as Open Graph author meta tags used by search engines and social media embeds. If left blank, the generated author page of the site will be used instead, which might be what you want anyway.
 
 ### Securing WordPress
 
-You can greatly improve your site security and performance by adding policies to the **.htaccess** file located in the WordPress root directory. Managed hosting plans normally do this for you. Make a backup and add the following lines anywhere before `# BEGIN WordPress` or after `# END WordPress`. If something goes wrong wrong, just remove everything again or restore the backup. You can also use a (cache) plugin. This is just the basics, far more is possible but please refer to a proper guide.
+You can greatly improve your site security and performance by adding policies to the **.htaccess** file located in the WordPress root directory. Managed hosting plans normally do this for you. Make a backup and add the following lines anywhere before `# BEGIN WordPress` or after `# END WordPress`. If something goes wrong wrong, just remove everything again or restore the backup. You can also use a (cache) plugin. This is just the basics, far more is possible, but please refer to a proper guide.
 
   <details>
     <summary>Example Policies</summary><br>
@@ -183,7 +183,7 @@ AddType image/svg+xml .svg
 
 ## Legal Considerations
 
-There is not much to consider aside from the [data privacy](https://wordpress.com/go/website-building/how-to-write-and-add-a-privacy-policy-to-your-wordpress-site/) issue, which depends on your country of residence and where your host server is located. However, to preempt any legal trouble, you want to assume the strictest laws apply — the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) and [CCPA](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act). Fictioneer is compliant with both unless you change things, but you also need to add a [Privacy Policy](PRIVACY.md). And forget about Google Analytics.
+There is not much to consider aside from the [data privacy](https://wordpress.com/go/website-building/how-to-write-and-add-a-privacy-policy-to-your-wordpress-site/) issue, which depends on your country of residence and where your host server is located. However, to preempt any legal trouble, you want to assume the strictest laws apply — the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) and [CCPA](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act). Fictioneer is compliant with both unless you change things, but you also need to add a [Privacy Policy](PRIVACY.md). And forget about Google Analytics or Fonts.
 
 ## How to Install/Update the Fictioneer Theme
 
