@@ -43,7 +43,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     if ( ! empty( $author_id ) ) {
       $node['author'] = [];
       $node['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-      if ( ! empty( $author_url ) ) $node['author']['url'] = $author_url;
+
+      if ( ! empty( $author_url ) ) {
+        $node['author']['url'] = $author_url;
+      }
     }
 
     // Co-authors
@@ -102,7 +105,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Taxonomies
     $taxonomies = fictioneer_get_taxonomy_names( $story_id );
-    if ( ! empty( $taxonomies ) ) $node['taxonomies'] = $taxonomies;
+
+    if ( ! empty( $taxonomies ) ) {
+      $node['taxonomies'] = $taxonomies;
+    }
 
     // Chapters
     if ( $with_chapters && ! empty( $data['chapter_ids'] ) ) {
@@ -154,15 +160,25 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['guid'] = get_the_guid( $chapter_id );
           $chapter['url'] = get_permalink();
           $chapter['language'] = empty( $language ) ? FICTIONEER_SITE_LANGUAGE : $language;
-          if ( ! empty( $prefix ) ) $chapter['prefix'] = $prefix;
+
+          if ( ! empty( $prefix ) ) {
+            $chapter['prefix'] = $prefix;
+          }
+
           $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
-          if ( ! empty( $group ) ) $chapter['group'] = $group;
+
+          if ( ! empty( $group ) ) {
+            $chapter['group'] = $group;
+          }
 
           // Chapter author
           if ( ! empty( $author_id ) ) {
             $chapter['author'] = [];
             $chapter['author']['name'] = get_the_author_meta( 'display_name', $author_id );
-            if ( ! empty( $author_url ) ) $chapter['author']['url'] = $author_url;
+
+            if ( ! empty( $author_url ) ) {
+              $chapter['author']['url'] = $author_url;
+            }
           }
 
           // Chapter co-authors
@@ -175,7 +191,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
                 $co_author_node = [];
 
                 $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
-                if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+
+                if ( ! empty( $co_author_url ) ) {
+                  $co_author_node['url'] = $co_author_url;
+                }
 
                 $chapter['coAuthors'][] = $co_author_node;
               }
@@ -188,12 +207,21 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['protected'] = post_password_required();
           $chapter['words'] = intval( get_post_meta( $chapter_id, '_word_count', true ) );
           $chapter['nonChapter'] = ! empty( $no_chapter );
-          if ( ! empty( $rating ) ) $chapter['ageRating'] = $rating;
-          if ( ! empty( $warning ) ) $chapter['warning'] = $warning;
+
+          if ( ! empty( $rating ) ) {
+            $chapter['ageRating'] = $rating;
+          }
+
+          if ( ! empty( $warning ) ) {
+            $chapter['warning'] = $warning;
+          }
 
           // Chapter taxonomies
           $taxonomies = fictioneer_get_taxonomy_names( $chapter_id );
-          if ( ! empty( $taxonomies ) ) $chapter['taxonomies'] = $taxonomies;
+
+          if ( ! empty( $taxonomies ) ) {
+            $chapter['taxonomies'] = $taxonomies;
+          }
 
           // Add to story node
           $node['chapters'][] = $chapter;
