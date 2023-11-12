@@ -76,7 +76,6 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
       'order' => 'DESC',
       'posts_per_page' => 20,
       'no_found_rows' => true,
-      'fields' => 'ids',
       'update_post_meta_cache' => false,
       'update_post_term_cache' => false
     );

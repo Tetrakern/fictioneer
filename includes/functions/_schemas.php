@@ -259,7 +259,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
    *
    * @since Fictioneer 4.0
    *
-   * @param array  $list         List of post IDs.
+   * @param array  $list         List of WP_Post objects.
    * @param string $name         Name of the list.
    * @param string $description  Description of the list.
    * @param string $part_of      The node ID the list belongs to. Defaults to '#webpage'.
@@ -285,13 +285,13 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
         'itemListElement' => []
       );
 
-      foreach ( $list as $post_id ) {
+      foreach ( $list as $post_object ) {
         $position += 1;
 
         $list_node['itemListElement'][] = array(
           '@type' => 'ListItem',
           'position' => $position,
-          'url' => get_the_permalink( $post_id )
+          'url' => get_the_permalink( $post_object->ID )
         );
       }
 

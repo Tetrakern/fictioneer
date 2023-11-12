@@ -76,24 +76,23 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
       'order' => 'DESC',
       'posts_per_page' => 20,
       'no_found_rows' => true,
-      'fields' => 'ids',
       'update_post_meta_cache' => true,
       'update_post_term_cache' => false
     );
 
     // Setup
-    $list_candidates = get_posts( $query_args );
+    $list = get_posts( $query_args );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
 
     // Filter out invalid chapters (faster than meta query)
-    $list = array_filter( $list_candidates, function ( $post_id ) {
+    $list = array_filter( $list, function ( $post ) {
       // Chapter hidden?
-      $chapter_hidden = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );
+      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
       $not_hidden = empty( $chapter_hidden ) || $chapter_hidden === '0';
 
       // Not a chapter?
-      $no_chapter = get_post_meta( $post_id, 'fictioneer_chapter_no_chapter', true );
+      $no_chapter = get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true );
       $is_chapter = empty( $no_chapter ) || $no_chapter === '0';
 
       // Only keep if both conditions are met
