@@ -408,8 +408,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
 
     $stories = get_posts(
       array(
-        'post_type' => array( 'fcn_story' ),
-        'post_status' => array( 'publish' ),
+        'post_type' => 'fcn_story',
+        'post_status' => 'publish',
         'author' => $author_id,
         'numberposts' => -1,
         'orderby' => 'modified',
@@ -431,8 +431,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
 
     $chapters = get_posts(
       array(
-        'post_type' => array( 'fcn_chapter' ),
-        'post_status' => array( 'publish' ),
+        'post_type' => 'fcn_chapter',
+        'post_status' => 'publish',
         'author' => $author_id,
         'numberposts' => -1,
         'orderby' => 'modified',

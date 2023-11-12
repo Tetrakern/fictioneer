@@ -217,7 +217,7 @@ function fictioneer_remove_unlisted_from_search( $query ) {
     );
   }
 }
-add_action( 'pre_get_posts' ,'fictioneer_remove_unlisted_from_search', 10 );
+add_action( 'pre_get_posts', 'fictioneer_remove_unlisted_from_search', 10 );
 
 /**
  * Extend search query with custom input

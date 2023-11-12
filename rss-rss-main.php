@@ -9,46 +9,44 @@
  */
 
 // Query posts
-$posts = new WP_Query(
-  array (
+$posts = get_posts(
+  array(
     'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation'],
     'post_status' => 'publish',
     'ignore_sticky_posts' => 1,
     'orderby' => 'date',
     'order' => 'DESC',
-    'posts_per_page' => get_option( 'posts_per_rss' ),
-    'meta_query' => array(
-      'relation' => 'AND',
-      array(
-        'relation' => 'OR',
-        array(
-          'key' => 'fictioneer_chapter_hidden',
-          'value' => '0'
-        ),
-        array(
-          'key' => 'fictioneer_chapter_hidden',
-          'compare' => 'NOT EXISTS'
-        )
-      ),
-      array(
-        'relation' => 'OR',
-        array(
-          'key' => 'fictioneer_story_hidden',
-          'value' => '0'
-        ),
-        array(
-          'key' => 'fictioneer_story_hidden',
-          'compare' => 'NOT EXISTS'
-        )
-      )
-    ),
+    'posts_per_page' => get_option( 'posts_per_rss' ) + 8, // Buffer in case of invalid results
+    'update_post_meta_cache' => true,
+    'update_post_term_cache' => true,
     'no_found_rows' => true
   )
 );
 
+// Filter out hidden posts (faster than meta query)
+$posts = array_filter( $posts, function ( $post ) {
+  // Chapter hidden?
+  if ( $post->post_type === 'fcn_chapter' ) {
+    $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
+    return empty( $chapter_hidden ) || $chapter_hidden === '0';
+  }
+
+  // Story hidden?
+  if ( $post->post_type === 'fcn_story' ) {
+    $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+    return empty( $story_hidden ) || $story_hidden === '0';
+  }
+
+  // Keep
+  return true;
+});
+
+// Crop number of posts (remove buffer posts)
+$posts = array_slice( $posts, 0, get_option( 'posts_per_rss' ) );
+
 // Prime author cache
 if ( function_exists( 'update_post_author_caches' ) ) {
-  update_post_author_caches( $posts->posts );
+  update_post_author_caches( $posts );
 }
 
 // Feed title
@@ -116,9 +114,10 @@ do_action( 'rss_tag_pre', 'rss2' );
     <?php endif; ?>
 
     <?php
-      while ( $posts->have_posts() ) {
+      foreach ( $posts as $post ) {
         // Setup
-        $posts->the_post();
+        // $posts->the_post();
+        setup_postdata( $post );
 
         // Data
         $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );

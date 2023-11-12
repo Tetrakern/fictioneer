@@ -93,8 +93,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
         $the_query_args['post__not_in'] = array_merge( $excluded, ( $the_query_args['post__not_in'] ?? [] ) );
       }
 
-      // Query without excluded posts (results should already be cached)
-       $query = new WP_Query( $the_query_args );
+      // Query without excluded posts
+      $query = new WP_Query( $the_query_args );
 
       // Prime author cache
       if (
