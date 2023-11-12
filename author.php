@@ -45,18 +45,7 @@ $tabs['stories'] = array(
     'author' => $author_id,
     'orderby' => 'modified',
     'paged' => $current_page,
-    'order' => $order,
-    'meta_query' => array(
-      'relation' => 'OR',
-      array(
-        'key' => 'fictioneer_story_hidden',
-        'value' => '0'
-      ),
-      array(
-        'key' => 'fictioneer_story_hidden',
-        'compare' => 'NOT EXISTS'
-      ),
-    )
+    'order' => $order
   ),
   'classes' => [],
   'empty' => __( 'No stories published yet.', 'fictioneer' )
