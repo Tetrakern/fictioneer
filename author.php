@@ -70,32 +70,7 @@ $tabs['chapters'] = array(
     'post_type' => 'fcn_chapter',
     'author' => $author_id,
     'paged' => $current_page,
-    'order' => $order,
-    'meta_query' => array(
-      'relation' => 'AND',
-      array(
-        'relation' => 'OR',
-        array(
-          'key' => 'fictioneer_chapter_hidden',
-          'value' => '0'
-        ),
-        array(
-          'key' => 'fictioneer_chapter_hidden',
-          'compare' => 'NOT EXISTS'
-        )
-      ),
-      array(
-        'relation' => 'OR',
-        array(
-          'key' => 'fictioneer_chapter_no_chapter',
-          'value' => '0'
-        ),
-        array(
-          'key' => 'fictioneer_chapter_no_chapter',
-          'compare' => 'NOT EXISTS'
-        )
-      )
-    )
+    'order' => $order
   ),
   'classes' => [],
   'empty' => __( 'No chapters published yet.', 'fictioneer' )

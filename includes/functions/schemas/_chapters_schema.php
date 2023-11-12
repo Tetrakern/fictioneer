@@ -86,7 +86,7 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
 
-    // Filter out invalid chapters (10x faster than meta query)
+    // Filter out invalid chapters (faster than meta query)
     $list = array_filter( $list_candidates, function ( $post_id ) {
       // Chapter hidden?
       $chapter_hidden = get_post_meta( $post_id, 'fictioneer_chapter_hidden', true );

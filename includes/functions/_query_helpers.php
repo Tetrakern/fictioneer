@@ -59,7 +59,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
       'orderby' => 'modified',
       'order' => 'DESC',
       'posts_per_page' => get_option( 'posts_per_page' ),
-      'no_found_rows' => $query_args['no_found_rows'] ?? false
+      'no_found_rows' => $query_args['no_found_rows'] ?? false,
+      'update_post_meta_cache' => true
     );
 
     // Default card arguments
@@ -73,7 +74,27 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Query (but not if 'post__in' is set and empty)
     if ( ! ( isset( $the_query_args['post__in'] ) && empty( $the_query_args['post__in'] ) ) ) {
-      $query = new WP_Query( $the_query_args );
+      $all_query = new WP_Query( $the_query_args );
+
+      // Get excluded posts (faster than meta query)
+      $excluded = [];
+
+      foreach ( $all_query->posts as $candidate ) {
+        if (
+          fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
+          fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID ) ||
+          fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID )
+        ) {
+          $excluded[] = $candidate->ID;
+        }
+      }
+
+      if ( ! empty( $excluded ) ) {
+        $the_query_args['post__not_in'] = array_merge( $excluded, ( $the_query_args['post__not_in'] ?? [] ) );
+      }
+
+      // Query without excluded posts (results should already be cached)
+       $query = new WP_Query( $the_query_args );
 
       // Prime author cache
       if (
