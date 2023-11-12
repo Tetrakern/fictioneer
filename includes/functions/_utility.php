@@ -422,9 +422,9 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     // Filter out unwanted stories (faster than meta query)
     $stories = array_filter( $stories, function ( $post ) {
       // Story hidden?
-      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+      $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
 
-      return empty( $chapter_hidden ) || $chapter_hidden === '0';
+      return empty( $story_hidden ) || $story_hidden === '0';
     });
 
     // Get chapters
