@@ -46,6 +46,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
     $post_type = in_array( $type, ['story', 'chapter', 'collection', 'recommendation'] ) ? "fcn_$type" : $type;
     $page = $query_args['paged'] ?? 1;
     $is_empty = false;
+    $excluded = [];
 
     // Validations
     if ( ! in_array( $post_type, $allowed_types ) ) {
@@ -75,34 +76,32 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Query (but not if 'post__in' is set and empty)
     if ( ! ( isset( $the_query_args['post__in'] ) && empty( $the_query_args['post__in'] ) ) ) {
-      // Get complete set for filtering (required due to pagination)
-      $all_query = new WP_Query(
-        array_merge( $the_query_args, array( 'posts_per_page' => -1, 'no_found_rows' => true ) )
-      );
 
-      // Get excluded posts (faster than meta query)
-      $excluded = [];
+      // Look for IDs to exclude if story or chapter...
+      if ( in_array( $post_type, ['fcn_story', 'fcn_chapter'] ) ) {
+        // Get complete set for filtering (required due to pagination)
+        $all_query = new WP_Query(
+          array_merge( $the_query_args, array( 'posts_per_page' => -1, 'no_found_rows' => true ) )
+        );
 
-      foreach ( $all_query->posts as $candidate ) {
-        // Chapter hidden or excluded?
-        if ( $candidate->post_type === 'fcn_chapter' ) {
-          if (
-            fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
-            fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID )
-          ) {
-            $excluded[] = $candidate->ID;
+        // Get excluded posts (faster than meta query)
+        if ( $post_type === 'fcn_story' ) {
+          // Story hidden?
+          foreach ( $all_query->posts as $candidate ) {
+            if ( fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID ) ) {
+              $excluded[] = $candidate->ID;
+            }
           }
-
-          continue;
-        }
-
-        // Story hidden?
-        if ( $candidate->post_type === 'fcn_story' ) {
-          if ( fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID ) ) {
-            $excluded[] = $candidate->ID;
+        } else {
+          // Chapter hidden or excluded?
+          foreach ( $all_query->posts as $candidate ) {
+            if (
+              fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
+              fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID )
+            ) {
+              $excluded[] = $candidate->ID;
+            }
           }
-
-          continue;
         }
       }
 
