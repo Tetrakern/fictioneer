@@ -413,8 +413,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'post_status' => 'publish',
         'author' => $author_id,
         'numberposts' => -1,
-        'orderby' => 'modified',
-        'order' => 'DESC',
+        'update_post_meta_cache' => true,
         'update_post_term_cache' => false
       )
     );
@@ -434,8 +433,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'post_status' => 'publish',
         'author' => $author_id,
         'numberposts' => -1,
-        'orderby' => 'modified',
-        'order' => 'DESC',
+        'update_post_meta_cache' => true,
         'update_post_term_cache' => false
       )
     );
