@@ -406,6 +406,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       return $old_data;
     }
 
+    // Get stories
     $stories = get_posts(
       array(
         'post_type' => 'fcn_story',
@@ -414,21 +415,19 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'numberposts' => -1,
         'orderby' => 'modified',
         'order' => 'DESC',
-        'meta_query' => array(
-          'relation' => 'OR',
-          array(
-            'key' => 'fictioneer_story_hidden',
-            'value' => '0'
-          ),
-          array(
-            'key' => 'fictioneer_story_hidden',
-            'compare' => 'NOT EXISTS'
-          ),
-        ),
         'update_post_term_cache' => false
       )
     );
 
+    // Filter out unwanted stories (faster than meta query)
+    $stories = array_filter( $stories, function ( $post ) {
+      // Story hidden?
+      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+
+      return empty( $chapter_hidden ) || $chapter_hidden === '0';
+    });
+
+    // Get chapters
     $chapters = get_posts(
       array(
         'post_type' => 'fcn_chapter',
@@ -437,35 +436,25 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'numberposts' => -1,
         'orderby' => 'modified',
         'order' => 'DESC',
-        'meta_query' => array(
-          'relation' => 'AND',
-          array(
-            'relation' => 'OR',
-            array(
-              'key' => 'fictioneer_chapter_hidden',
-              'value' => '0'
-            ),
-            array(
-              'key' => 'fictioneer_chapter_hidden',
-              'compare' => 'NOT EXISTS'
-            )
-          ),
-          array(
-            'relation' => 'OR',
-            array(
-              'key' => 'fictioneer_chapter_no_chapter',
-              'value' => '0'
-            ),
-            array(
-              'key' => 'fictioneer_chapter_no_chapter',
-              'compare' => 'NOT EXISTS'
-            )
-          )
-        ),
         'update_post_term_cache' => false
       )
     );
 
+    // Filter out unwanted chapters (faster than meta query)
+    $chapters = array_filter( $chapters, function ( $post ) {
+      // Chapter hidden?
+      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
+      $not_hidden = empty( $chapter_hidden ) || $chapter_hidden === '0';
+
+      // Not a chapter?
+      $no_chapter = get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true );
+      $is_chapter = empty( $no_chapter ) || $no_chapter === '0';
+
+      // Only keep if both conditions are met
+      return $not_hidden && $is_chapter;
+    });
+
+    // Count words and comments
     $word_count = 0;
     $comment_count = 0;
 
@@ -474,6 +463,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       $comment_count += get_comments_number( $chapter );
     }
 
+    // Prepare results
     $result = array(
       'story_count' => count( $stories ),
       'chapter_count' => count( $chapters ),
@@ -483,8 +473,10 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       'comment_count' => $comment_count
     );
 
+    // Remember results
     fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
 
+    // Return results
     return $result;
   }
 }
