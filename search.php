@@ -110,10 +110,12 @@ $hook_args = array(
                 the_post();
 
                 // Setup
-                $card_args = ['show_type' => true];
+                $card_args = array( 'show_type' => true );
 
                 // Cached?
-                if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) $card_args['cache'] = true;
+                if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) {
+                  $card_args['cache'] = true;
+                }
 
                 // Echo correct card
                 fictioneer_echo_card( $card_args );

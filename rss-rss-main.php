@@ -28,12 +28,14 @@ $posts = array_filter( $posts, function ( $post ) {
   // Chapter hidden?
   if ( $post->post_type === 'fcn_chapter' ) {
     $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
+
     return empty( $chapter_hidden ) || $chapter_hidden === '0';
   }
 
   // Story hidden?
   if ( $post->post_type === 'fcn_story' ) {
     $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+
     return empty( $story_hidden ) || $story_hidden === '0';
   }
 
