@@ -264,6 +264,13 @@ if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
   define( 'FICTIONEER_REQUESTS_PER_MINUTE', 5 );
 }
 
+// Integer: Maximum of 'post__not_in' query argument to prevent performance degradation.
+// If exceeded, the whole argument will be ignored in certain queries, which account for
+// this case in the view.
+if ( ! defined( 'FICTIONEER_POST_NOT_IN_LIMIT' ) ) {
+  define( 'FICTIONEER_POST_NOT_IN_LIMIT', 100 );
+}
+
 /*
  * Booleans
  */

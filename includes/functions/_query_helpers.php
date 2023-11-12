@@ -60,7 +60,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
       'order' => 'DESC',
       'posts_per_page' => get_option( 'posts_per_page' ),
       'no_found_rows' => $query_args['no_found_rows'] ?? false,
-      'update_post_meta_cache' => true
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => true
     );
 
     // Default card arguments
@@ -74,22 +75,38 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Query (but not if 'post__in' is set and empty)
     if ( ! ( isset( $the_query_args['post__in'] ) && empty( $the_query_args['post__in'] ) ) ) {
-      $all_query = new WP_Query( $the_query_args );
+      // Get complete set for filtering (required due to pagination)
+      $all_query = new WP_Query(
+        array_merge( $the_query_args, array( 'posts_per_page' => -1, 'no_found_rows' => true ) )
+      );
 
       // Get excluded posts (faster than meta query)
       $excluded = [];
 
       foreach ( $all_query->posts as $candidate ) {
-        if (
-          fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
-          fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID ) ||
-          fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID )
-        ) {
-          $excluded[] = $candidate->ID;
+        // Chapter hidden or excluded?
+        if ( $candidate->post_type === 'fcn_chapter' ) {
+          if (
+            fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
+            fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID )
+          ) {
+            $excluded[] = $candidate->ID;
+          }
+
+          continue;
+        }
+
+        // Story hidden?
+        if ( $candidate->post_type === 'fcn_story' ) {
+          if ( fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID ) ) {
+            $excluded[] = $candidate->ID;
+          }
+
+          continue;
         }
       }
 
-      if ( ! empty( $excluded ) ) {
+      if ( ! empty( $excluded ) && count( $excluded ) <= FICTIONEER_POST_NOT_IN_LIMIT ) {
         $the_query_args['post__not_in'] = array_merge( $excluded, ( $the_query_args['post__not_in'] ?? [] ) );
       }
 
@@ -111,9 +128,32 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Loop results
     if ( $query && $query->have_posts() ) {
+      $card_partial = 'partials/_card-' . str_replace( 'fcn_', '', $post_type );
+
       while ( $query->have_posts() ) {
         $query->the_post();
-        get_template_part( 'partials/_card-' . str_replace( 'fcn_', '', $post_type ), null, $the_card_args );
+
+        switch ( $post_type ) {
+          case 'fcn_story':
+            if ( fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) {
+              get_template_part( 'partials/_card-hidden', null, $the_card_args );
+            } else {
+              get_template_part( $card_partial, null, $the_card_args );
+            }
+            break;
+          case 'fcn_chapter':
+            if (
+              fictioneer_get_field( 'fictioneer_chapter_hidden', get_the_ID() ) ||
+              fictioneer_get_field( 'fictioneer_chapter_no_chapter', get_the_ID() )
+            ) {
+              get_template_part( 'partials/_card-hidden', null, $the_card_args );
+            } else {
+              get_template_part( $card_partial, null, $the_card_args );
+            }
+            break;
+          default:
+            get_template_part( $card_partial, null, $the_card_args );
+        }
       }
 
       wp_reset_postdata();
