@@ -1511,10 +1511,21 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
     // Echo correct card by post type
     switch ( $type ) {
       case 'fcn_chapter':
-        get_template_part( 'partials/_card-chapter', null, $args );
+        if (
+          fictioneer_get_field( 'fictioneer_chapter_hidden', get_the_ID() ) ||
+          fictioneer_get_field( 'fictioneer_chapter_no_chapter', get_the_ID() )
+        ) {
+          get_template_part( 'partials/_card-hidden', null, $args );
+        } else {
+          get_template_part( 'partials/_card-chapter', null, $args );
+        }
         break;
       case 'fcn_story':
-        get_template_part( 'partials/_card-story', null, $args );
+        if ( fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) {
+          get_template_part( 'partials/_card-hidden', null, $args );
+        } else {
+          get_template_part( 'partials/_card-story', null, $args );
+        }
         break;
       case 'fcn_recommendation':
         get_template_part( 'partials/_card-recommendation', null, $args );

@@ -696,5 +696,51 @@ function fictioneer_delete_null_option( $option, $old_value, $value ) {
 }
 add_action( 'updated_option', 'fictioneer_delete_null_option', 20, 3 );
 
+// =============================================================================
+// FILTER SEARCH QUERY
+// =============================================================================
+
+/**
+ * Remove unlisted chapters and stories from search results
+ *
+ * @since 5.2.4
+ *
+ * @param WP_Query $query  The query.
+ */
+
+function fictioneer_remove_unlisted_from_search( $query ) {
+  // Only for search queries on the frontend...
+  if ( ! is_admin() && $query->is_main_query() && $query->is_search ) {
+    $query->set(
+      'meta_query',
+      array(
+        'relation' => 'AND',
+        array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'compare' => 'NOT EXISTS'
+          ),
+          array(
+            'key' => 'fictioneer_chapter_hidden',
+            'value' => '0'
+          )
+        ),
+        array(
+          'relation' => 'OR',
+          array(
+            'key' => 'fictioneer_story_hidden',
+            'compare' => 'NOT EXISTS'
+          ),
+          array(
+            'key' => 'fictioneer_story_hidden',
+            'value' => '0'
+          )
+        )
+      )
+    );
+  }
+}
+add_action( 'pre_get_posts', 'fictioneer_remove_unlisted_from_search', 10 );
 
 ?>
