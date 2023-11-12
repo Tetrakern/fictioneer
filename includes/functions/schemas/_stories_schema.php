@@ -76,7 +76,7 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
       'order' => 'DESC',
       'posts_per_page' => 20,
       'no_found_rows' => true,
-      'update_post_meta_cache' => false,
+      'update_post_meta_cache' => true,
       'update_post_term_cache' => false
     );
 
@@ -85,6 +85,14 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
 
+    // Filter out invalid chapters (faster than meta query)
+    $list = array_filter( $list, function ( $post ) {
+      // Chapter hidden?
+      $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+      return empty( $story_hidden ) || $story_hidden === '0';
+    });
+
+    // Continue setup
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         _x( 'All stories on %s.', 'SEO default description for Stories template.', 'fictioneer' ),
