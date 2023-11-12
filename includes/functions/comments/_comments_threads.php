@@ -37,7 +37,7 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
 // =============================================================================
 
 /**
- * Query sticky comments and merge them in first
+ * Prepend sticky comments
  *
  * @since Fictioneer 5.0
  *
@@ -48,51 +48,29 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
  */
 
 function fictioneer_shift_sticky_comments( $comments, $post_id ) {
-  // Query arguments
-  $stick_comments_args = array(
-    'status' => 'approve',
-    'post_id' => $post_id,
-    'parent' => 0,
-    'meta_query' => array(
-      'relation' => 'AND',
-      array(
-        'key' => 'fictioneer_sticky',
-        'value' => 1,
-      ),
-      array(
-        'relation' => 'OR',
-        array(
-          'key' => 'fictioneer_marked_offensive',
-          'compare' => 'NOT EXISTS',
-        ),
-        array(
-          'key' => 'fictioneer_marked_offensive',
-          'value' => 1,
-          'compare' => '!=',
-        ),
-      ),
-      array(
-        'key' => 'fictioneer_deleted_by_user',
-        'compare' => 'NOT EXISTS',
-      )
-    )
-  );
+  // Extract sticky comments
+  $sticky_comments = [];
 
-  if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
-    $stick_comments_args['type'] = ['comment', 'private'];
-    $stick_comments_args['order'] = get_option( 'comment_order' );
-  } else {
-    $stick_comments_args['type'] = ['comment'];
+  foreach ( $comments as $comment ) {
+    if (
+      get_comment_meta( $comment->comment_ID, 'fictioneer_sticky', true ) &&
+      ! get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true ) &&
+      ! get_comment_meta( $comment->comment_ID, 'fictioneer_deleted_by_user', true )
+    ) {
+      $sticky_comments[] = $comment;
+    }
   }
 
-  // Filter query arguments
-  $query_args = apply_filters( 'fictioneer_filter_comments_query', $stick_comments_args, $post_id );
+  // Remove from original array
+  $comments = array_udiff( $comments, $sticky_comments, function( $a, $b ) {
+    if ( $a->comment_ID === $b->comment_ID ) {
+      return 0;
+    }
 
-  // Query comments
-  $sticky_comments_query = new WP_Comment_Query( $query_args );
-  $sticky_comments = $sticky_comments_query->comments;
+    return ( $a->comment_ID < $b->comment_ID ) ? -1 : 1;
+  });
 
-  // Return merged comment lists
+  // Prepend and return
   return array_merge( $sticky_comments, $comments );
 }
 
