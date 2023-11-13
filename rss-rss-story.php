@@ -149,7 +149,9 @@ do_action( 'rss_tag_pre', 'rss2' );
           setup_postdata( $post );
 
           // Terminate?
-          if ( $terminator < 1 ) break;
+          if ( $terminator < 1 ) {
+            break;
+          }
 
           // Skip invisible chapters
           if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {

@@ -134,7 +134,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
 
           // Count actually rendered cards to account for buffer
-          if ( ++$card_counter > $args['count'] ) break;
+          if ( ++$card_counter > $args['count'] ) {
+            break;
+          }
         ?>
 
         <li class="card watch-last-clicked _small _info">
