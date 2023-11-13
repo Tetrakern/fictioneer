@@ -47,7 +47,7 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
  * @return array Comments with sticky ones on top.
  */
 
-function fictioneer_shift_sticky_comments( $comments, $post_id ) {
+function fictioneer_shift_sticky_comments( $comments ) {
   // Extract sticky comments
   $sticky_comments = [];
 
@@ -75,7 +75,7 @@ function fictioneer_shift_sticky_comments( $comments, $post_id ) {
 }
 
 if ( get_option( 'fictioneer_enable_sticky_comments' ) ) {
-  add_filter( 'fictioneer_filter_comments', 'fictioneer_shift_sticky_comments', 10, 2 );
+  add_filter( 'fictioneer_filter_comments', 'fictioneer_shift_sticky_comments' );
 }
 
 // =============================================================================
