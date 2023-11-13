@@ -484,8 +484,9 @@ add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
  */
 
 function fictioneer_add_chapter_paragraph_id( $content ) {
+  // Return early if...
   if (
-    get_post_type() != 'fcn_chapter' ||
+    get_post_type() !== 'fcn_chapter' ||
     ! in_the_loop() ||
     ! is_main_query() ||
     post_password_required()
@@ -493,11 +494,19 @@ function fictioneer_add_chapter_paragraph_id( $content ) {
     return $content;
   }
 
+  // Counter
+  static $paragraph_id = 0;
+
+  // Account for multiple posts and reset the counter
+  if ( did_action( 'the_post' ) === 1 ) {
+    $paragraph_id = 0;
+  }
+
+  // Return modified content
   return preg_replace_callback(
-    '|<p|',
-    function ( $matches ) {
-      static $i = 0;
-      return sprintf( '<p id="paragraph-%d" data-paragraph-id="%d" ', $i, $i++ );
+    '/<p\s*/i',
+    function () use ( &$paragraph_id ) {
+      return "<p id='paragraph-{$paragraph_id}' data-paragraph-id='" . $paragraph_id++ . "'";
     },
     $content
   );
@@ -516,7 +525,7 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
  * @link https://wordpress.stackexchange.com/a/84542/223620
  * @link https://jhtechservices.com/changing-your-image-markup-in-wordpress/
  *
- * @param  string $content  The content.
+ * @param string $content  The content.
  *
  * @return string The modified content.
  */
