@@ -234,7 +234,9 @@ if ( $show_advanced ) {
 								foreach ( $item_ids as $author_id ) {
 									$author = get_user_by( 'ID', $author_id );
 
-									if ( $author ) $names[] = $author->display_name;
+									if ( $author ) {
+										$names[] = $author->display_name;
+									}
 								}
 								break;
 							case 'author_name':
@@ -244,7 +246,9 @@ if ( $show_advanced ) {
 								foreach ( $item_ids as $term_id ) {
 									$term = get_term_by( 'term_id', $term_id, $quad[1] );
 
-									if ( $term ) $names[] = $term->name;
+									if ( $term ) {
+										$names[] = $term->name;
+									}
 								}
 						}
 
