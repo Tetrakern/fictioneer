@@ -246,21 +246,24 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
  */
 
 function fictioneer_extend_taxonomy_pages( $query ) {
+  // Abort if wrong query
   if (
-    (
+    ! $query->is_main_query() ||
+    is_admin() ||
+    ! (
       is_tag() ||
-      is_tax( 'fcn_genre' ) ||
-      is_tax( 'fcn_fandom' ) ||
-      is_tax( 'fcn_character' ) ||
-      is_tax( 'fcn_content_warning' ) ||
-      is_category()
-    ) &&
-    $query->is_main_query() &&
-    ! is_admin()
+      is_category() ||
+      is_tax( ['fcn_genre', 'fcn_fandom', 'fcn_character', 'fcn_content_warning'] )
+    )
   ) {
-    $post_types = array( 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection' );
-    $query->set( 'post_type', $post_types );
+    return;
   }
+
+  // Only create this once
+  static $post_types = ['post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'];
+
+  // Add all post types to taxonomy page query
+  $query->set( 'post_type', $post_types );
 }
 add_filter( 'pre_get_posts', 'fictioneer_extend_taxonomy_pages' );
 
