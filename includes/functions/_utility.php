@@ -335,6 +335,10 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
     }
 
+    // Add story word count
+    $word_count += fictioneer_get_field( '_word_count', $story_id );
+
+    // Prepare result
     $result = array(
       'id' => $story_id,
       'chapter_count' => $chapter_count,
