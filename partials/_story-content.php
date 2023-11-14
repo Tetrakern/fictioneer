@@ -59,7 +59,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
         _e( 'Oneshot', 'fictioneer' );
       } else {
         printf(
-          __( '%1$s %2$s', 'fictioneer' ),
+          _x( '%1$s %2$s', 'Story chapter tab with count.', 'fictioneer' ),
           $story['chapter_count'],
           _n( 'Chapter', 'Chapters', $story['chapter_count'], 'fictioneer' )
         );
