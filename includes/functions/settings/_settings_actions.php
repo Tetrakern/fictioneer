@@ -328,7 +328,7 @@ function fictioneer_tools_purge_theme_caches() {
     'post_type' => 'fcn_story',
     'posts_per_page' => -1,
     'fields' => 'ids',
-    'update_term_meta_cache' => false
+    'update_post_term_cache' => false
   );
 
   // Get all story IDs
