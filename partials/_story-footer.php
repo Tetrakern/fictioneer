@@ -32,12 +32,13 @@ if ( post_password_required() ) {
 // Setup
 $story_id = $args['story_id'];
 $story = $args['story_data'];
+$show_log = $story['chapter_count'] > 0 && FICTIONEER_ENABLE_STORY_CHANGELOG && get_option( 'fictioneer_show_story_changelog' );
 
 ?>
 
 <footer class="story__footer padding-left padding-right">
   <div class="story__extra">
-    <?php if ( FICTIONEER_ENABLE_STORY_CHANGELOG && get_option( 'fictioneer_show_story_changelog' ) ) : ?>
+    <?php if ( $show_log ) : ?>
       <label class="story__changelog hide-below-400" for="modal-chapter-changelog-toggle" tabindex="-1">
         <i class="fa-solid fa-clock-rotate-left"></i>
       </label>
