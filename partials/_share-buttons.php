@@ -19,6 +19,8 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $feed = fictioneer_get_rss_link();
+$show_feed = get_post_type() !== 'fcn_story' ||
+  ( get_post_type() === 'fcn_story' && fictioneer_get_field( 'fictioneer_story_status', get_the_ID() ) !== 'Oneshot' )
 
 ?>
 
@@ -30,11 +32,11 @@ $feed = fictioneer_get_rss_link();
     tabindex="0"
   ><i class="fa-solid fa-share-nodes"></i></label>
 
-  <?php if ( $feed ) : ?>
+  <?php if ( $feed && $show_feed ) : ?>
 
     <?php $feed_url = urlencode( $feed ); ?>
 
-    <?php if ( get_post_type() == 'fcn_story' && ! fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) : ?>
+    <?php if ( get_post_type() === 'fcn_story' && ! fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) : ?>
       <a
         href="<?php echo $feed; ?>"
         class="rss-link tooltipped media-buttons__item"
