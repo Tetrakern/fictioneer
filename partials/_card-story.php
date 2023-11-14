@@ -169,8 +169,10 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
         // Build footer items
         $footer_items = [];
 
-        $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
-          esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
+        if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
+          $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
+            esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
+        }
 
         $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
           esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
