@@ -47,7 +47,7 @@ This documentation is about the Fictioneer theme. If you need help with WordPres
 
 ## Stories
 
-Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags.
+Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags. Also note that stories are not supposed to be used like chapters, for example as oneshot, because they lack all chapter features, including comments.
 
 ![Story Header](repo/assets/story_explanation_1.jpg?raw=true)
 
