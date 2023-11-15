@@ -36,7 +36,10 @@ function fictioneer_refresh_recommendations_schema( $post_id, $post ) {
       'post_type' => 'page',
       'numberposts' => -1,
       'meta_key' => '_wp_page_template',
-      'meta_value' => 'recommendations.php'
+      'meta_value' => 'recommendations.php',
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     )
   );
 
@@ -75,9 +78,9 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
       'orderby' => 'modified',
       'order' => 'DESC',
       'posts_per_page' => 20,
-      'no_found_rows' => true,
-      'update_post_meta_cache' => false,
-      'update_post_term_cache' => false
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     );
 
     // Setup

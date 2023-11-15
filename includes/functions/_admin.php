@@ -435,7 +435,9 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
       'post_type' => $post_type,
       'posts_per_page' => -1,
       'fields' => 'ids',
-      'update_post_meta_cache' => false
+      'update_post_term_cache' => true,
+      'update_post_meta_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     );
 
     $items = get_posts( $query_args );

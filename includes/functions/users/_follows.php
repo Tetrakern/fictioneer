@@ -236,9 +236,9 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
       'numberposts' => $count,
       'orderby' => 'date',
       'order' => 'DESC',
-      'no_found_rows' => true,
       'update_post_meta_cache' => true,
-      'update_post_term_cache' => false
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     );
 
     if ( $after_date ) {
