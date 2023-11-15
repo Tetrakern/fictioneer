@@ -314,7 +314,7 @@ function fictioneer_tools_duplicate_story_tags_to_genres() {
 add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_tools_duplicate_story_tags_to_genres' );
 
 /**
- * Purge story data caches
+ * Purge theme caches
  *
  * @since Fictioneer 5.2.5
  */
@@ -323,23 +323,15 @@ function fictioneer_tools_purge_theme_caches() {
   // Verify request
   fictioneer_verify_tool_action( 'fictioneer_tools_purge_theme_caches' );
 
-  // Setup
-  $query_args = array(
-    'post_type' => 'fcn_story',
-    'posts_per_page' => -1,
-    'fields' => 'ids',
-    'update_post_meta_cache' => false, // Improve performance
-    'update_post_term_cache' => false, // Improve performance
-    'no_found_rows' => true // Improve performance
-  );
+  global $wpdb;
 
-  // Get all story IDs
-  $stories_ids = get_posts( $query_args );
+  // SQL to delete 'fictioneer_story_data_collection' meta (unique to 'fcn_story' type)
+  $sql = "
+    DELETE FROM {$wpdb->postmeta}
+    WHERE meta_key = %s
+  ";
 
-  // Loop over stories
-  foreach ( $stories_ids as $story_id ) {
-    delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
-  }
+  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection' ) );
 
   // Transients
   fictioneer_purge_nav_menu_transients();
