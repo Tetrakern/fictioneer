@@ -2037,8 +2037,9 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
         'numberposts' => -1,
         'post_type' => 'fcn_story',
         'post_status' => 'publish',
+        'update_post_meta_cache' => true,
+        'update_post_term_cache' => false, // Improve performance
         'no_found_rows' => true, // Improve performance
-        'update_post_term_cache' => false // Improve performance
       )
     );
 
