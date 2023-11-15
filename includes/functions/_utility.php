@@ -418,7 +418,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'author' => $author_id,
         'numberposts' => -1,
         'update_post_meta_cache' => true,
-        'update_post_term_cache' => false
+        'update_post_term_cache' => false,
+        'no_found_rows' => true
       )
     );
 
@@ -438,7 +439,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
         'author' => $author_id,
         'numberposts' => -1,
         'update_post_meta_cache' => true,
-        'update_post_term_cache' => false
+        'update_post_term_cache' => false,
+        'no_found_rows' => true
       )
     );
 
