@@ -379,7 +379,7 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="fictioneer-meta-field fictioneer-meta-field--select" data-target="fcn-meta-field-image">
+  <div class="fictioneer-meta-field fictioneer-meta-field--image" data-target="fcn-meta-field-image">
 
     <?php if ( $label ) : ?>
       <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
