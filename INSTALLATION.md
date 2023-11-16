@@ -674,7 +674,7 @@ If you want to set up a default Open Graph image for search engine results and e
 
 ### Tools Tab
 
-A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role if missing or convert tags into genres. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Story Data Caches**, which should be done whenever you change chapter or story settings.
+A collection of actions to add, update, revert, fix, or purge certain items. For example, you can add a proper moderator role if missing or convert tags into genres. Everything is thoroughly explained. But the only action you will most likely need more than once is **Purge Theme Caches**, which should be done whenever you change chapter or story settings.
 
 If the user roles lack permissions, such as authors not being able to add stories and chapters, use the **Initialize Roles** action. This also restores the defaults if you mess something up, although it will not reset capabilities outside the theme’s scope. Most administrative capabilities are left untouched for security reasons.
 
