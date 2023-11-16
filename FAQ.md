@@ -14,7 +14,7 @@ Yes, you can use the theme for multiple authors. Just enable the option to "disp
 
 #### Q: Can this be an archive for user contributed content?
 
-Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grand random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities.
+Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grant random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities.
 
 WordPress is also not a performant choice to run community sites, requiring too many server resources. You will need a good host or your own hardware, plus caching and technical expertise. This is going to be a headache. But some people have already done it despite all warnings.
 
