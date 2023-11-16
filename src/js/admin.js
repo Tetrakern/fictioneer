@@ -380,7 +380,7 @@ _$$('dialog').forEach(element => {
 // =============================================================================
 
 /**
- * Add image attachment via WordPress media uploader.
+ * Add image attachment via WordPress media uploader to meta field.
  *
  * @since 5.7.4
  * @link https://codex.wordpress.org/Javascript_Reference/wp.media
@@ -389,7 +389,7 @@ _$$('dialog').forEach(element => {
  * @param {Event} event - The event.
  */
 
-function fcn_mediaUpload(event) {
+function fcn_imageMediaUpload(event) {
   // Stop trigger element behavior
   event.preventDefault();
 
@@ -416,7 +416,7 @@ function fcn_mediaUpload(event) {
 
 // Listen for clicks on image upload and replace
 _$$('.fictioneer-meta-field__image-upload, .fictioneer-meta-field__image-replace').forEach(button => {
-  button.addEventListener('click', fcn_mediaUpload);
+  button.addEventListener('click', fcn_imageMediaUpload);
 });
 
 // Listen for clicks on image remove
@@ -434,6 +434,89 @@ _$$('.fictioneer-meta-field__image-remove').forEach(button => {
     metabox.querySelector('.fictioneer-meta-field__image-upload').classList.remove('hidden');
     metabox.querySelector('.fictioneer-meta-field__image-actions').classList.add('hidden');
   });
+});
+
+// =============================================================================
+// FILE UPLOAD META FIELD
+// =============================================================================
+
+/**
+ * Add text/ebook attachment via WordPress media uploader to meta field.
+ *
+ * @since 5.7.7
+ * @link https://codex.wordpress.org/Javascript_Reference/wp.media
+ * @link https://stackoverflow.com/a/28549014/17140970
+ *
+ * @param {Event} event - The event.
+ */
+
+function fcn_ebookMediaUpload(event) {
+  // Stop trigger element behavior
+  event.preventDefault();
+
+  // Meta field
+  const metabox = event.currentTarget.closest('[data-target="fcn-meta-field-ebook"]');
+
+  // Open media modal
+  var uploader = wp.media({
+    multiple: false,
+    library : {
+        type : ['application/pdf', 'text/plain', 'application/rtf', 'application/x-mobipocket-ebook', 'application/epub+zip']
+    }
+  })
+  .open()
+  .on('select', () => {
+    const attachment = uploader.state().get('selection').first().toJSON();
+
+    metabox.querySelector('[data-target*="id"]').value = attachment.id;
+    metabox.querySelector('[data-target*="name"]').textContent = attachment.title;
+    metabox.querySelector('[data-target*="size"]').textContent = attachment.filesizeHumanReadable;
+    metabox.querySelector('[data-target*="filename"]').textContent = attachment.filename;
+    metabox.querySelector('[data-target*="filename"]').href = attachment.url;
+    metabox.querySelector('[data-target*="upload"]').classList.add('hidden');
+    metabox.querySelector('[data-target*="replace"]').classList.remove('hidden');
+    metabox.querySelector('[data-target*="remove"]').classList.remove('hidden');
+    metabox.querySelector('[data-target*="display"]').classList.remove('hidden');
+  });
+}
+
+/**
+ * Remove text/ebook attachment from meta field.
+ *
+ * @since 5.7.7
+ * @link https://codex.wordpress.org/Javascript_Reference/wp.media
+ * @link https://stackoverflow.com/a/28549014/17140970
+ *
+ * @param {Event} event - The event.
+ */
+
+function fcn_ebookMediaRemove(event) {
+  // Stop trigger element behavior
+  event.preventDefault();
+
+  // Meta field
+  const metabox = event.currentTarget.closest('[data-target="fcn-meta-field-ebook"]');
+
+  // Reset
+  metabox.querySelector('[data-target*="id"]').value = 0;
+  metabox.querySelector('[data-target*="name"]').textContent = '';
+  metabox.querySelector('[data-target*="size"]').textContent = '';
+  metabox.querySelector('[data-target*="filename"]').textContent = '';
+  metabox.querySelector('[data-target*="filename"]').href = '';
+  metabox.querySelector('[data-target*="upload"]').classList.remove('hidden');
+  metabox.querySelector('[data-target*="replace"]').classList.add('hidden');
+  metabox.querySelector('[data-target*="remove"]').classList.add('hidden');
+  metabox.querySelector('[data-target*="display"]').classList.add('hidden');
+}
+
+// Listen for clicks on upload and replace
+_$$('[data-target="fcn-meta-field-ebook-upload"], [data-target="fcn-meta-field-ebook-replace"]').forEach(button => {
+  button.addEventListener('click', fcn_ebookMediaUpload);
+});
+
+// Listen for clicks on remove
+_$$('[data-target="fcn-meta-field-ebook-remove"]').forEach(button => {
+  button.addEventListener('click', fcn_ebookMediaRemove);
 });
 
 // =============================================================================

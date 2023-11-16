@@ -345,6 +345,10 @@ td.comment {
     margin: 6px 0 0;
   }
 
+  &__actions {
+    margin: 12px 0 10px;
+  }
+
   &__button-grid {
     display: flex;
     flex-wrap: wrap;
@@ -520,6 +524,45 @@ td.comment {
 
     &:hover {
       color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+    }
+  }
+
+  &__ebook-display {
+    display: flex;
+    border: 1px solid #bdbdbd;
+
+    .dashicons {
+      font-size: 64px;
+      height: 64px;
+      width: 64px;
+      opacity: .5;
+    }
+  }
+
+  &__ebook-thumbnail {
+    flex: 0 0 auto;
+    display: grid;
+    place-content: center;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, .1);
+    background: #f0f0f1;
+  }
+
+  &__ebook-data {
+    flex: 1 1 auto;
+    background: #fbfbfc;
+    padding: 10px;
+    border-left: 1px solid #bdbdbd;
+  }
+
+  &__ebook-name {
+    font-weight: 600;
+  }
+
+  &__ebook-filename {
+    margin: 2px 0;
+
+    a {
+      text-decoration: none;
     }
   }
 

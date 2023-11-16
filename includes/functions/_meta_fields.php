@@ -407,6 +407,105 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
 }
 
 /**
+ * Returns HTML for an eBook meta field
+ *
+ * @since 5.7.7
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $button       Caption on the button.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_ebook( $post, $meta_key, $args = [] ) {
+  // Setup
+  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $file_path = get_attached_file( $meta_value );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+  $button_upload = strval( $args['button'] ?? _x( 'Add eBook', 'Metabox ebook upload button.', 'fictioneer' ) );
+  $button_replace = _x( 'Replace', 'Metabox replace button.', 'fictioneer' );
+  $button_remove = _x( 'Remove', 'Metabox remove button.', 'fictioneer' );
+  $title = null;
+  $filename = null;
+  $filesize = null;
+  $url = null;
+  $is_set = false;
+
+  if ( file_exists( $file_path ) ) {
+    $title = get_the_title( $meta_value );
+    $filename = wp_basename( $file_path );
+    $filesize = size_format( filesize( $file_path ) );
+    $url = wp_get_attachment_url( $meta_value );
+    $is_set = true;
+  } else {
+    $meta_value = null;
+  }
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--ebook" data-target="fcn-meta-field-ebook">
+
+    <?php if ( $label ) : ?>
+      <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="<?php echo esc_attr( $meta_value ); ?>" autocomplete="off" data-target="fcn-meta-field-ebook-id">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--ebook">
+      <div class="fictioneer-meta-field__ebook-display <?php echo $is_set ? '' : 'hidden'; ?>" data-target="fcn-meta-field-ebook-display">
+        <div class="fictioneer-meta-field__ebook-thumbnail">
+          <span class="dashicons dashicons-media-text"></span>
+        </div>
+        <div class="fictioneer-meta-field__ebook-data">
+          <div class="fictioneer-meta-field__ebook-name" data-target="fcn-meta-field-ebook-name">
+            <?php echo $title ?? ''; ?>
+          </div>
+          <div class="fictioneer-meta-field__ebook-filename">
+            <strong><?php _ex( 'File:', 'Meta box file name label.', 'fictioneer' ); ?></strong>
+            <a href="<?php echo $url ?? ''; ?>" rel="noreferrer noopener" data-target="fcn-meta-field-ebook-filename" target="_blank" download>
+              <?php echo $filename ?? ''; ?>
+            </a>
+          </div>
+          <div class="fictioneer-meta-field__ebook-size">
+            <strong><?php _ex( 'Size:', 'Meta box file size label.', 'fictioneer' ); ?></strong>
+            <span data-target="fcn-meta-field-ebook-size"><?php echo $filesize ?? ''; ?></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fictioneer-meta-field__actions fictioneer-meta-field__actions--ebook">
+      <button type="button" class="button <?php echo $is_set ? 'hidden' : ''; ?>" data-target="fcn-meta-field-ebook-upload">
+        <?php echo $button_upload; ?>
+      </button>
+      <button type="button" class="button <?php echo $is_set ? '' : 'hidden'; ?>" data-target="fcn-meta-field-ebook-replace">
+        <?php echo $button_replace; ?>
+      </button>
+      <button type="button" class="button <?php echo $is_set ? '' : 'hidden'; ?>" data-target="fcn-meta-field-ebook-remove">
+        <?php echo $button_remove; ?>
+      </button>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
+/**
  * Returns HTML for a token array meta field
  *
  * @since 5.7.4
@@ -1028,13 +1127,13 @@ function fictioneer_render_story_epub_metabox( $post ) {
 
   // --- Add fields ------------------------------------------------------------
 
-  // Upload
-  $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_acf_field(
+  // Custom upload
+  $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_metabox_ebook(
     $post,
-    'field_62eb89244fb11',
+    'fictioneer_story_ebook_upload_one',
     array(
       'label' => _x( 'Custom Upload', 'Story ebook upload meta field label.', 'fictioneer' ),
-      'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>ibooks</strong>, <strong>azw</strong>, <strong>azw3</strong>, <strong>kf8</strong>, <strong>kfx</strong>, <strong>pdf</strong>, <strong>iba</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
+      'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>pdf</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
     )
   );
 
@@ -1268,13 +1367,18 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   }
 
   // ePUBs...
-  $custom_ebook = get_post_meta( $post_id, 'fictioneer_story_ebook_upload_one', true );
-
-  if ( isset( $custom_ebook ) && empty( $custom_ebook ) ) {
-    $fields['fictioneer_story_ebook_upload_one'] = 0; // Ensure empty ACF meta is removed
-  }
-
   if ( get_option( 'fictioneer_enable_epubs' ) ) {
+    // Custom upload
+    if ( isset( $_POST['fictioneer_story_ebook_upload_one'] ) ) {
+      $ebook_id = absint( $_POST['fictioneer_story_ebook_upload_one'] );
+
+      if ( $ebook_id > 0 && wp_get_attachment_url( $ebook_id ) ) {
+        $fields['fictioneer_story_ebook_upload_one'] = $ebook_id;
+      } else {
+        $fields['fictioneer_story_ebook_upload_one'] = 0;
+      }
+    }
+
     // ePUB preface
     if ( isset( $_POST['fictioneer_story_epub_preface'] ) ) {
       $fields['fictioneer_story_epub_preface'] = fictioneer_sanitize_editor( $_POST['fictioneer_story_epub_preface'] );
@@ -1298,8 +1402,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   // Deleting ACF control fields
   $key_value_pairs = array(
     ['_fictioneer_story_chapters', 'field_5d6304e4330fd'],
-    ['_fictioneer_story_custom_pages', 'field_5d6e33e253add'],
-    ['_fictioneer_story_ebook_upload_one', 'field_62eb89244fb11']
+    ['_fictioneer_story_custom_pages', 'field_5d6e33e253add']
   );
   $where_clauses = [];
 

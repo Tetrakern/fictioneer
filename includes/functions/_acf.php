@@ -189,53 +189,6 @@ add_action( 'acf/include_fields', function() {
     )
   );
 
-	acf_add_local_field_group(
-    array(
-      'key' => 'group_60edb914ba16c',
-      'title' => 'Story ePUB',
-      'fields' => array(
-        array(
-          'key' => 'field_62eb89244fb11',
-          'label' => 'Upload Ebook',
-          'name' => 'fictioneer_story_ebook_upload_one',
-          'aria-label' => '',
-          'type' => 'file',
-          'instructions' => '',
-          'required' => 0,
-          'conditional_logic' => 0,
-          'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-          ),
-          'return_format' => 'id',
-          'library' => 'uploadedTo',
-          'min_size' => '',
-          'max_size' => '',
-          'mime_types' => 'epub, mobi, ibooks, azw, azw3, kf8, kfx, pdf, iba, txt, rtf',
-        ),
-      ),
-      'location' => array(
-        array(
-          array(
-            'param' => 'post_type',
-            'operator' => '==',
-            'value' => 'fcn_story',
-          ),
-        ),
-      ),
-      'menu_order' => 5,
-      'position' => 'normal',
-      'style' => 'default',
-      'label_placement' => 'top',
-      'instruction_placement' => 'label',
-      'hide_on_screen' => '',
-      'active' => false,
-      'description' => '',
-      'show_in_rest' => 0,
-    )
-  );
-
   acf_add_local_field_group(
     array(
       'key' => 'group_619fc7566ad8b',
