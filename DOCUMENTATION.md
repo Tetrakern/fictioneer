@@ -109,12 +109,12 @@ A manually uploaded eBook will always supersede an automatically generated ePUB 
 **Sensitive Content:** You can mark sensitive content in chapters and provide an alternative, which users can choose from. Generated ePUBs always use the sensitive (uncensored) content, not the alternative if provided.
 
 #### Example Disclaimer for Originals:
-> This is a work of fiction. Names, characters, business, events and incidents are the products of the author’s imagination. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.
+> This is a work of fiction. Names, characters, businesses, events and incidents are the products of the author’s imagination. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.
 >
 > Copyright &#169; `AUTHOR`. All rights reserved.
 
 #### Example Disclaimer for Fanfictions:
-> This is a work of fan fiction and not written for profit. Names, characters, business, events and incidents are the products of the author’s imagination. Any resemblance to actual persons, living or dead, or actual events is purely coincidental. Any trademarked characters and elements used belong to their respective copyright holders, who bear no responsibility for this work.
+> This is a work of fan fiction and not written for profit. Names, characters, businesses, events and incidents are the products of the author’s imagination. Any resemblance to actual persons, living or dead, or actual events is purely coincidental. Any trademarked characters and elements used belong to their respective copyright holders, who bear no responsibility for this work.
 >
 > Original Content Copyright &#169; `AUTHOR`. All rights reserved.
 
