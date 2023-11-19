@@ -1031,8 +1031,11 @@ function fcn_addRelationship(source, destination) {
     return;
   }
 
+  // Get field container
+  const field = source.closest('.fictioneer-meta-field');
+
   // Clone template
-  const clone = _$('[data-target="selected-item-template"]').content.cloneNode(true);
+  const clone = field.querySelector('[data-target="selected-item-template"]').content.cloneNode(true);
 
   // Fill data
   clone.querySelector('li').setAttribute('data-id', source.dataset.id);
