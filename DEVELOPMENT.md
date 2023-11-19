@@ -326,11 +326,9 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 | ACF HOOK | FICTIONEER ACTIONS & FILTERS
 | ---: | :--- |
-| `acf/fields/relationship/query/name=fictioneer_story_chapters` | `fictioneer_acf_filter_chapters`
 | `acf/fields/relationship/query/name=fictioneer_collection_items` | `fictioneer_acf_filter_collection_items`
 | `acf/save_post` | `fictioneer_update_post_relationships`
 | `acf/settings/show_admin` | `fictioneer_acf_settings_show_admin`
-| `acf/update_value/name=fictioneer_story_chapters` | `fictioneer_remember_chapters_modified`
 | `acf/update_value/name=fictioneer_story_custom_pages` | `fictioneer_acf_scope_story_pages`
 
 ## Caching

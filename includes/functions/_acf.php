@@ -220,42 +220,6 @@ add_action( 'acf/include_fields', function() {
 });
 
 // =============================================================================
-// ONLY SHOW CHAPTERS THAT BELONG TO STORY (ACF)
-// =============================================================================
-
-/**
- * Only show chapters that belong to story
- *
- * @since Fictioneer 4.0
- *
- * @param array  $args     The query arguments.
- * @param string $paths    The queried field.
- * @param int    $post_id  The post ID.
- *
- * @return array Modified query arguments.
- */
-
-function fictioneer_acf_filter_chapters( $args, $field, $post_id ) {
-  // Limit to chapters set to this story
-  if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
-    $args['meta_query'] = array(
-      array(
-        'key' => 'fictioneer_chapter_story',
-        'value' => $post_id
-      )
-    );
-  }
-
-  // Order by date, descending, to see the newest on top
-  $args['orderby'] = 'date';
-  $args['order'] = 'desc';
-
-  // Return
-  return $args;
-}
-add_filter( 'acf/fields/relationship/query/name=fictioneer_story_chapters', 'fictioneer_acf_filter_chapters', 10, 3 );
-
-// =============================================================================
 // FILTER POSSIBLE COLLECTION ITEMS
 // =============================================================================
 
@@ -353,45 +317,6 @@ function fictioneer_update_post_relationships( $post_id ) {
 if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
   add_action( 'acf/save_post', 'fictioneer_update_post_relationships', 100 );
 }
-
-// =============================================================================
-// REMEMBER WHEN CHAPTERS OF STORIES HAVE BEEN MODIFIED
-// =============================================================================
-
-/**
- * Update story ACF field when associated chapter is updated
- *
- * The difference to the modified date is that this field is only updated when
- * the chapters list changes, not when a chapter or story is updated in general.
- *
- * @since 4.0
- * @link https://www.advancedcustomfields.com/resources/acf-update_value/
- *
- * @param mixed      $value    The field value.
- * @param int|string $post_id  The post ID where the value is saved.
- *
- * @return mixed The modified value.
- */
-
-function fictioneer_remember_chapters_modified( $value, $post_id ) {
-  $previous = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
-  $previous = is_array( $previous ) ? $previous : [];
-  $new = is_array( $value ) ? $value : [];
-
-  if ( $previous !== $value ) {
-    update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
-  }
-
-  if ( count( $previous ) < count( $new ) ) {
-    update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
-  }
-
-  // Log changes
-  fictioneer_log_story_chapter_changes( $post_id, $value, $previous );
-
-  return $value;
-}
-add_filter( 'acf/update_value/name=fictioneer_story_chapters', 'fictioneer_remember_chapters_modified', 10, 2 );
 
 // =============================================================================
 // LIMIT STORY PAGES TO AUTHOR

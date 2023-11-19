@@ -10,7 +10,6 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 4.3
- * @see fictioneer_remember_chapters_modified()
  *
  * @internal $args['count']             Number of posts provided by the shortcode.
  * @internal $args['author']            Author provided by the shortcode.

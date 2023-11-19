@@ -1021,7 +1021,7 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
  * @since 5.8.0
  *
  * @param int    $post_id   The story post ID.
- * @param string $meta_key  he meta key.
+ * @param string $meta_key  The meta key.
  */
 
 function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
@@ -1048,21 +1048,24 @@ function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
   }
 
   // Query
-  $query = new WP_Query(
-    array(
-      'post_type' => 'fcn_chapter',
-      'post_status' => ['publish', 'private', 'future'],
-      'orderby' => 'date',
-      'order' => 'desc',
-      'posts_per_page' => 10,
-      'paged' => $page,
-      's' => $search,
-      'meta_key' => 'fictioneer_chapter_story',
-      'meta_value' => $post_id,
-      'update_post_meta_cache' => true,
-      'update_post_term_cache' => false // Improve performance
-    )
+  $query_args = array(
+    'post_type' => 'fcn_chapter',
+    'post_status' => ['publish', 'private', 'future'],
+    'orderby' => 'date',
+    'order' => 'desc',
+    'posts_per_page' => 10,
+    'paged' => $page,
+    's' => $search,
+    'update_post_meta_cache' => true,
+    'update_post_term_cache' => false // Improve performance
   );
+
+  if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
+    $query_args['meta_key'] = 'fictioneer_chapter_story';
+    $query_args['meta_value'] = $post_id;
+  }
+
+  $query = new WP_Query( $query_args );
 
   // Setup
   $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post_id}" );
@@ -1780,60 +1783,54 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     }
   }
 
-  // Chapters (already saved by ACF; restrict by story)
-  // $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
-
-  // $chapters_query = new WP_Query(
-  //   array(
-  //     'post_type' => 'fcn_chapter',
-  //     'post__in' => fictioneer_rescue_array_zero( $chapters ),
-  //     'orderby' => 'post__in',
-  //     'fields' => 'ids',
-  //     'posts_per_page' => -1,
-  //     'meta_key' => 'fictioneer_chapter_story',
-  //     'meta_value' => $post_id,
-  //     'update_post_meta_cache' => false, // Improve performance
-  //     'update_post_term_cache' => false, // Improve performance
-  //     'no_found_rows' => true // Improve performance
-  //   )
-  // );
-
-  // $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
-
-
-
-
   // Chapters
   if ( isset( $_POST['fictioneer_story_chapters'] ) && current_user_can( 'edit_fcn_stories', $post_id ) ) {
-    $chapter_ids = array_map( 'intval', $_POST['fictioneer_story_chapters'] );
+    $previous_chapter_ids = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+    $previous_chapter_ids = is_array( $previous_chapter_ids ) ? $previous_chapter_ids : [];
+
+    $chapter_ids = $_POST['fictioneer_story_chapters'];
+    $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];
+    $chapter_ids = array_map( 'intval', $chapter_ids );
     $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; });
     $chapter_ids = array_unique( $chapter_ids );
 
     if ( empty( $chapter_ids ) ) {
       $fields['fictioneer_story_chapters'] = [];
     } else {
-      $chapters_query = new WP_Query(
-        array(
-          'post_type' => 'fcn_chapter',
-          'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
-          'orderby' => 'post__in',
-          'fields' => 'ids',
-          'posts_per_page' => -1,
-          'meta_key' => 'fictioneer_chapter_story',
-          'meta_value' => $post_id,
-          'update_post_meta_cache' => false, // Improve performance
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        )
+      $chapter_query_args = array(
+        'post_type' => 'fcn_chapter',
+        'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+        'orderby' => 'post__in',
+        'fields' => 'ids',
+        'posts_per_page' => -1,
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
       );
 
-      $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts );
+      if ( FICTIONEER_FILTER_STORY_CHAPTERS ) {
+        $chapter_query_args['meta_key'] = 'fictioneer_chapter_story';
+        $chapter_query_args['meta_value'] = $post_id;
+      }
+
+      $chapters_query = new WP_Query( $chapter_query_args );
+
+      $chapter_ids = array_map( 'strval', $chapters_query->posts );
+      $fields['fictioneer_story_chapters'] = $chapter_ids;
     }
+
+    // Remember when chapters have been changed
+    if ( $previous_chapter_ids !== $chapter_ids ) {
+      update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+    }
+
+    if ( count( $previous_chapter_ids ) < count( $chapter_ids ) ) {
+      update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+    }
+
+    // Log changes
+    fictioneer_log_story_chapter_changes( $post_id, $chapter_ids, $previous_chapter_ids );
   }
-
-
-
-
 
   // Custom pages (already saved by ACF; restrict by post author)
   $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
