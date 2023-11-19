@@ -27,7 +27,9 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       // User
       'fictioneer_ajax_get_auth',
       'fictioneer_ajax_get_user_data',
-      'fictioneer_ajax_get_avatar'
+      'fictioneer_ajax_get_avatar',
+      // Admin
+      'fictioneer_ajax_query_relationship_posts'
     )
   );
 }
@@ -112,6 +114,11 @@ function fictioneer_do_fast_ajax() {
   // Skip cache purging
   if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
     function fictioneer_refresh_post_caches() { return; };
+  }
+
+  if ( $action === 'fictioneer_ajax_query_relationship_posts' ) {
+    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_admin.php';
   }
 
   // Function exists?

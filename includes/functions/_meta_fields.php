@@ -769,6 +769,452 @@ function fictioneer_get_acf_field( $post, $field_key, $args = [] ) {
   return ob_get_clean();
 }
 
+/**
+ * Returns HTML for a relationship meta field
+ *
+ * @since 5.7.7
+ *
+ * @param WP_Post $post      The post.
+ * @param array   $meta_key  The meta key.
+ * @param array   $selected  Currently selected post relationships.
+ * @param string  $callback  Function to build the selected items list.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string     $label        Label above the field.
+ *   @type string     $description  Description below the field.
+ *   @type string     $show_info    Whether to show the hover info field.
+ *   @type bool|array $post_types   Arguments for the post type select. Set true
+ *                                  to render a select field for all types.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $callback, $args = [] ) {
+  // Setup
+  $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post->ID}" );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+
+  // Build and return HTML
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--relationships" data-nonce="<?php echo $nonce; ?>" data-key="<?php echo $meta_key; ?>" data-post-id="<?php echo $post->ID; ?>" data-ajax-action="fictioneer_ajax_query_relationship_posts">
+
+    <?php if ( $label ) : ?>
+      <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>[]" value="0" autocomplete="off">
+
+    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--relationships">
+      <div class="fictioneer-meta-field__relationships">
+
+        <div class="fictioneer-meta-field__relationships-filters">
+          <div class="fictioneer-meta-field__relationships-search">
+            <input type="text" placeholder="<?php _ex( 'Search…', 'Relationship meta field search placeholder.', 'fictioneer' ); ?>" maxlength="200" autocomplete="off" data-target="fcn-relationships-search">
+          </div>
+          <?php if ( isset( $args['post_types'] ) && ! empty( $args['post_types'] ) ) : ?>
+            <div class="fictioneer-meta-field__relationships-selects">
+              <?php
+                fictioneer_render_relationship_post_type_select(
+                  'fcn-relationships-post-type',
+                  array( 'post_types' => $args['post_types'] )
+                );
+              ?>
+            </div>
+          <?php endif; ?>
+        </div>
+
+        <div class="fictioneer-meta-field__relationships-lists">
+          <ol class="fictioneer-meta-field__relationships-source" data-target="fcn-relationships-source">
+            <?php
+              // Start HTML ---> ?>
+              <li class="fictioneer-meta-field__relationships-source-observer disabled" data-target="fcn-relationships-observer" data-nonce="<?php echo $nonce; ?>" data-key="<?php echo $meta_key; ?>" data-post-id="<?php echo $post->ID; ?>" data-page="1" data-ajax-action="fictioneer_ajax_query_relationship_posts">
+                <img src="<?php echo esc_url( admin_url() . 'images/spinner-2x.gif' ); ?>">
+                <span><?php _ex( 'Loading', 'AJAX loading.', 'fictioneer' ); ?></span>
+              </li>
+              <?php // <--- End HTML
+            ?>
+          </ol>
+
+          <ol class="fictioneer-meta-field__relationships-values" data-target="fcn-relationships-values">
+            <?php
+              if ( function_exists( $callback ) ) {
+                call_user_func( $callback, $selected, $meta_key, $args );
+              }
+            ?>
+          </ol>
+        </div>
+
+        <?php if ( $args['show_info'] ?? 0 ) : ?>
+          <div class="fictioneer-meta-field__relationships-info" data-default="<?php esc_attr_e( 'Hover or tab chapter to see details.', 'fictioneer' ); ?>" data-target="fcn-relationships-info">
+            <?php _e( 'Hover or tab chapter to see details.', 'fictioneer' ); ?>
+          </div>
+        <?php endif; ?>
+
+      </div>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+    <template data-target="selected-item-template">
+      <li class="fictioneer-meta-field__relationships-item fictioneer-meta-field__relationships-values-item" data-id>
+        <input type="hidden" name="<?php echo $meta_key; ?>[]" value autocomplete="off">
+        <span></span>
+        <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
+      </li>
+    </template>
+
+    <template data-target="spinner-template">
+      <li class="fictioneer-meta-field__relationships-source-observer disabled" data-target="fcn-relationships-observer">
+        <img src="<?php echo esc_url( admin_url() . 'images/spinner-2x.gif' ); ?>">
+        <span><?php _ex( 'Loading', 'AJAX relationship field loading.', 'fictioneer' ); ?></span>
+      </li>
+    </template>
+
+    <template data-target="loading-error-template">
+      <li class="fictioneer-meta-field__relationships-item-error disabled">
+        <span class="dashicons dashicons-warning"></span>
+        <span class="error-message"></span>
+      </li>
+    </template>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
+/**
+ * Render HTML for relationship post type select
+ *
+ * @since 5.7.7
+ *
+ * @param string $name  The name for the data-target attribute.
+ * @param array  $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type array $type_args  Additional type query arguments.
+ *   @type array $excluded   Post types to exclude.
+ * }
+ */
+
+function fictioneer_render_relationship_post_type_select( $name, $args = [] ) {
+  // Setup
+  $args = is_array( $args ) ? $args : [];
+  $type_args = array_merge( array( 'public' => true ), $args['type_args'] ?? [] );
+  $post_types = get_post_types( $type_args, 'objects' );
+
+  // HTML
+  echo '<div class="fictioneer-meta-field fictioneer-meta-field--select"><div class="fictioneer-meta-field__wrapper">';
+  echo "<select data-target='{$name}' autocomplete='off'>";
+  echo '<option value="" selected>' . __( 'Select post type', 'fictioneer' ) . '</option>';
+
+  foreach ( $post_types as $post_type ) {
+    // Excluded?
+    if ( in_array( $post_type->name, $args['excluded'] ?? [] ) ) {
+      continue;
+    }
+
+    $label = esc_html( $post_type->labels->singular_name );
+    $value = esc_attr( $post_type->name );
+
+    echo "<option value='{$value}'>{$label}</option>";
+  }
+
+  echo '</select></div></div>';
+}
+
+/**
+ * Render HTML for selected story chapters
+ *
+ * @since 5.7.7
+ *
+ * @param array  $selected  Currently selected chapters.
+ * @param string $meta_key  The meta key.
+ * @param array  $args      Optional. An array of additional arguments.
+ */
+
+function fictioneer_callback_relationship_chapter_items( $chapters, $meta_key, $args = [] ) {
+  // Setup
+  $status_labels = array(
+    'draft' => get_post_status_object( 'draft' )->label,
+    'pending' => get_post_status_object( 'pending' )->label,
+    'publish' => get_post_status_object( 'publish' )->label,
+    'private' => get_post_status_object( 'private' )->label,
+    'future' => get_post_status_object( 'future' )->label,
+    'trash' => get_post_status_object( 'trash' )->label,
+  );
+
+  // Build HTML
+  foreach ( $chapters as $chapter ) {
+    $title = fictioneer_get_safe_title( $chapter );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
+
+    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
+    }
+
+    if ( $chapter->post_status !== 'publish' ) {
+      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
+    }
+
+    // Start HTML ---> ?>
+    <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $chapter->ID; ?>" data-info="<?php echo esc_attr( esc_attr( fictioneer_get_story_chapter_info_html( $chapter ) ) ); ?>">
+      <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $chapter->ID; ?>" autocomplete="off">
+      <span><?php echo $title; ?></span>
+      <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
+    </li>
+    <?php // <--- End HTML
+  }
+}
+
+/**
+ * AJAX: Delegate query and send posts for relationship fields
+ *
+ * @since 5.7.7
+ */
+
+function fictioneer_ajax_query_relationship_posts() {
+  // Validate
+  $action = sanitize_text_field( $_REQUEST['action'] ?? '' );
+  $nonce = sanitize_text_field( $_REQUEST['nonce'] ?? '' );
+  $meta_key = sanitize_text_field( $_REQUEST['key'] ?? '' );
+  $post_id = absint( $_REQUEST['post_id'] ?? 0 );
+  $user = wp_get_current_user();
+
+  // Abort if...
+  if ( empty( $action ) ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Action parameter missing.', 'fictioneer' ) ) );
+  }
+
+  if ( empty( $nonce ) ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Nonce parameter missing.', 'fictioneer' ) ) );
+  }
+
+  if ( empty( $meta_key ) ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Key parameter missing.', 'fictioneer' ) ) );
+  }
+
+  if ( ! $user->exists() ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Not logged in.', 'fictioneer' ) ) );
+  }
+
+  // Chapter assignment?
+  if ( check_ajax_referer( "relationship_posts_{$meta_key}_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
+    fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key );
+  }
+
+  // Nothing worked...
+  wp_send_json_error( array( 'error' => __( 'Error: Invalid request.', 'fictioneer' ) ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax_query_relationship_posts' );
+
+/**
+ * AJAX: Query and send paginated chapters for story chapter assignments
+ *
+ * @since 5.7.7
+ *
+ * @param int    $post_id   The story post ID.
+ * @param string $meta_key  he meta key.
+ */
+
+function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
+  // Setup
+  $post = get_post( $post_id );
+  $user = wp_get_current_user();
+  $page = absint( $_REQUEST['page'] ?? 1 );
+  $search = sanitize_text_field( $_REQUEST['search'] ?? '' );
+
+  // Validations
+  if ( $post->post_type !== 'fcn_story' ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+  }
+
+  if (
+    ! current_user_can( 'edit_fcn_stories' ) ||
+    (
+      $user->ID != $post->post_author &&
+      ! current_user_can( 'edit_others_fcn_stories' ) &&
+      ! current_user_can( 'manage_options' )
+    )
+  ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Query
+  $query = new WP_Query(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => ['publish', 'private', 'future'],
+      'orderby' => 'date',
+      'order' => 'desc',
+      'posts_per_page' => 10,
+      'paged' => $page,
+      's' => $search,
+      'meta_key' => 'fictioneer_chapter_story',
+      'meta_value' => $post_id,
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false // Improve performance
+    )
+  );
+
+  // Setup
+  $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post_id}" );
+  $output = [];
+  $status_labels = array(
+    'draft' => get_post_status_object( 'draft' )->label,
+    'pending' => get_post_status_object( 'pending' )->label,
+    'publish' => get_post_status_object( 'publish' )->label,
+    'private' => get_post_status_object( 'private' )->label,
+    'future' => get_post_status_object( 'future' )->label,
+    'trash' => get_post_status_object( 'trash' )->label,
+  );
+
+  // Build HTML for items
+  foreach ( $query->posts as $chapter ) {
+    // Chapter setup
+    $title = fictioneer_get_safe_title( $chapter );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
+
+    // Update title if necessary
+    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
+    }
+
+    if ( $chapter->post_status !== 'publish' ) {
+      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
+    }
+
+    // Build and append item
+    $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$chapter->ID}'";
+    $item .= "data-info='" . esc_attr( fictioneer_get_story_chapter_info_html( $chapter ) ) . "'><span>{$title}</span></li>";
+
+    $output[] = $item;
+  }
+
+  // Build HTML for observer
+  if ( $page < $query->max_num_pages ) {
+    $page++;
+
+    $observer = "<li class='fictioneer-meta-field__relationships-source-observer disabled' ";
+    $observer .= "data-target='fcn-relationships-observer' data-nonce='{$nonce}' ";
+    $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
+    $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
+    $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+
+    $output[] = $observer;
+  }
+
+  // No results
+  if ( empty( $output ) ) {
+    $no_matches = "<li class='fictioneer-meta-field__relationships-no-matches disabled'><span>";
+    $no_matches .= _x( 'No matches found.', 'AJAX relationship posts loading.', 'fictioneer' );
+    $no_matches .= '</span></li>';
+
+    $output[] = $no_matches;
+  }
+
+  // Response
+  wp_send_json_success(
+    array(
+      'html' => implode( '', $output )
+    )
+  );
+}
+
+/**
+ * Return HTML story chapter info
+ *
+ * @since 5.7.7
+ *
+ * @param WP_Post $chapter  The chapter post.
+ *
+ * @return string HTML for the chapter info.
+ */
+
+function fictioneer_get_story_chapter_info_html( $chapter ) {
+  // Setup
+  $title = fictioneer_get_safe_title( $chapter );
+  $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $chapter->ID );
+  $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID );
+  $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter->ID );
+  $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter->ID );
+  $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter->ID );
+  $flags = [];
+  $status_labels = array(
+    'draft' => get_post_status_object( 'draft' )->label,
+    'pending' => get_post_status_object( 'pending' )->label,
+    'publish' => get_post_status_object( 'publish' )->label,
+    'private' => get_post_status_object( 'private' )->label,
+    'future' => get_post_status_object( 'future' )->label,
+    'trash' => get_post_status_object( 'trash' )->label,
+  );
+  $status = $status_labels[ $chapter->post_status ];
+  $info = [];
+
+  // Build
+  $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
+
+  $info[] = sprintf( _x( '<strong>Title:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ), $title );
+
+  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+    $flags[] = _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' );
+  }
+
+  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
+    $flags[] = _x( 'No Chapter', 'Chapter assignment flag.', 'fictioneer' );
+  }
+
+  $info[] = sprintf(
+    _x( '<strong>Status:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
+    $status
+  );
+
+  $info[] = sprintf(
+    _x( '<strong>Date:</strong>&nbsp;%1$s at %2$s', 'Chapter assignment info.', 'fictioneer' ),
+    get_the_date( '', $chapter->ID ),
+    get_the_time( '', $chapter->ID )
+  );
+
+  if ( ! empty( $group ) ) {
+    $info[] = sprintf(
+      _x( '<strong>Group:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
+      $group
+    );
+  }
+
+  if ( ! empty( $rating ) ) {
+    $info[] = sprintf(
+      _x( '<strong>Age&nbsp;Rating:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
+      $rating
+    );
+  }
+
+  if ( ! empty( $flags ) ) {
+    $info[] = sprintf(
+      _x( '<strong>Flags:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
+      implode( ', ', $flags )
+    );
+  }
+
+  if ( ! empty( $warning ) ) {
+    $info[] = sprintf(
+      _x( '<strong>Warning:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ),
+      $warning
+    );
+  }
+
+  // Implode and return
+  return implode( ' &bull; ', $info );
+}
+
 // =============================================================================
 // METABOX CLASSES
 // =============================================================================
@@ -1046,12 +1492,31 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $output['fictioneer_story_chapters'] = fictioneer_get_acf_field(
+  $chapter_ids = get_post_meta( $post->ID, 'fictioneer_story_chapters', true ) ?: [];
+  $chapters = empty( $chapter_ids ) ? [] : get_posts(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'any',
+      'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+      'orderby' => 'post__in',
+      'posts_per_page' => -1,
+      'meta_key' => 'fictioneer_chapter_story',
+      'meta_value' => $post->ID,
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  $output['fictioneer_story_chapters'] = fictioneer_get_metabox_relationships(
     $post,
-    'field_5d6304e4330fd',
+    'fictioneer_story_chapters',
+    $chapters,
+    'fictioneer_callback_relationship_chapter_items',
     array(
       'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
-      'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' )
+      'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' ),
+      'show_info' => 1
     )
   );
 
@@ -1319,24 +1784,59 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   }
 
   // Chapters (already saved by ACF; restrict by story)
-  $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
+  // $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
 
-  $chapters_query = new WP_Query(
-    array(
-      'post_type' => 'fcn_chapter',
-      'post__in' => fictioneer_rescue_array_zero( $chapters ),
-      'orderby' => 'post__in',
-      'fields' => 'ids',
-      'posts_per_page' => -1,
-      'meta_key' => 'fictioneer_chapter_story',
-      'meta_value' => $post_id,
-      'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    )
-  );
+  // $chapters_query = new WP_Query(
+  //   array(
+  //     'post_type' => 'fcn_chapter',
+  //     'post__in' => fictioneer_rescue_array_zero( $chapters ),
+  //     'orderby' => 'post__in',
+  //     'fields' => 'ids',
+  //     'posts_per_page' => -1,
+  //     'meta_key' => 'fictioneer_chapter_story',
+  //     'meta_value' => $post_id,
+  //     'update_post_meta_cache' => false, // Improve performance
+  //     'update_post_term_cache' => false, // Improve performance
+  //     'no_found_rows' => true // Improve performance
+  //   )
+  // );
 
-  $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
+  // $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts ); // This has query advantages
+
+
+
+
+  // Chapters
+  if ( isset( $_POST['fictioneer_story_chapters'] ) && current_user_can( 'edit_fcn_stories', $post_id ) ) {
+    $chapter_ids = array_map( 'intval', $_POST['fictioneer_story_chapters'] );
+    $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; });
+    $chapter_ids = array_unique( $chapter_ids );
+
+    if ( empty( $chapter_ids ) ) {
+      $fields['fictioneer_story_chapters'] = [];
+    } else {
+      $chapters_query = new WP_Query(
+        array(
+          'post_type' => 'fcn_chapter',
+          'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+          'orderby' => 'post__in',
+          'fields' => 'ids',
+          'posts_per_page' => -1,
+          'meta_key' => 'fictioneer_chapter_story',
+          'meta_value' => $post_id,
+          'update_post_meta_cache' => false, // Improve performance
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      $fields['fictioneer_story_chapters'] = array_map( 'strval', $chapters_query->posts );
+    }
+  }
+
+
+
+
 
   // Custom pages (already saved by ACF; restrict by post author)
   $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
@@ -1401,7 +1901,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   // Deleting ACF control fields
   $key_value_pairs = array(
-    ['_fictioneer_story_chapters', 'field_5d6304e4330fd'],
     ['_fictioneer_story_custom_pages', 'field_5d6e33e253add']
   );
   $where_clauses = [];

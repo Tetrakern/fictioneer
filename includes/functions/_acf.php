@@ -104,40 +104,6 @@ add_action( 'acf/include_fields', function() {
       'title' => 'Story Data',
       'fields' => array(
         array(
-          'key' => 'field_5d6304e4330fd',
-          'label' => 'Chapters',
-          'name' => 'fictioneer_story_chapters',
-          'aria-label' => '',
-          'type' => 'relationship',
-          'instructions' => '',
-          'required' => 0,
-          'conditional_logic' => 0,
-          'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-          ),
-          'post_type' => array(
-            0 => 'fcn_chapter',
-          ),
-          'post_status' => array(
-            0 => 'publish',
-            1 => 'private',
-            2 => 'future',
-          ),
-          'taxonomy' => '',
-          'filters' => array(
-            0 => 'search',
-          ),
-          'return_format' => 'id',
-          'min' => '',
-          'max' => -1,
-          'elements' => '',
-          'bidirectional' => 0,
-          'bidirectional_target' => array(
-          ),
-        ),
-        array(
           'key' => 'field_5d6e33e253add',
           'label' => 'Custom Pages',
           'name' => 'fictioneer_story_custom_pages',

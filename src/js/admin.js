@@ -752,3 +752,296 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// =============================================================================
+// RELATIONSHIP FIELDS
+// =============================================================================
+
+// Initialize relationship field functionality
+_$$('.fictioneer-meta-field--relationships').forEach(element => {
+  const infoBox = element.querySelector('[data-target="fcn-relationships-info"]');
+
+  fcn_observeRelationshipSource(element);
+
+  element.addEventListener('click', event => {
+    // Remove
+    if (event.target.closest('[data-action="remove"]')) {
+      fcn_removeRelationship(event.target.closest('[data-id]'));
+    }
+
+    // Add
+    if (event.target.closest('[data-action="add"]')) {
+      fcn_addRelationship(
+        event.target.closest('[data-id]'),
+        element.querySelector('[data-target="fcn-relationships-values"]')
+      );
+    }
+  });
+
+  element.addEventListener('mouseover', event => {
+    // Info
+    if (infoBox && (info = event.target.closest('[data-info]'))) {
+      infoBox.innerHTML = info.dataset.info;
+    }
+  });
+});
+
+// Initialize relationship drag-and-drop sorting
+_$$('[data-target="fcn-relationships-values"]').forEach(element => {
+  // Sorting
+  Sortable.create(element, {
+    selectedClass: 'is-dragged',
+    ghostClass: 'is-dragged-ghost',
+    fallbackTolerance: 3,
+    animation: 150,
+    onStart: event => {
+      // Hover position wrong due to shifting elements
+      event.target.closest('ol, ul').classList.add('is-sorting');
+    },
+    onEnd: event => {
+      // Prevent jumping of hover element
+      setTimeout(() => { event.target.closest('ol, ul').classList.remove('is-sorting'); }, 5);
+    }
+  });
+});
+
+// Relationship search input
+var relationshipSearchTimer;
+
+_$$('[data-target="fcn-relationships-search"]').forEach(search => {
+  search.addEventListener('input', () => {
+    // Clear previous timer (if any)
+    clearTimeout(relationshipSearchTimer);
+
+    // Trigger search after delay
+    relationshipSearchTimer = setTimeout(() => {
+      // Get elements and values
+      const field = search.closest('.fictioneer-meta-field');
+      const sourceList = field.querySelector('[data-target="fcn-relationships-source"]');
+
+      // Clear source list and add spinner
+      sourceList.innerHTML = '';
+      sourceList.appendChild(_$('[data-target="spinner-template"]').content.cloneNode(true));
+
+      // Crop search input
+      if (search.value > 200) {
+        search.value = search.value.slice(0, 200);
+      }
+
+      // Request
+      fcn_queryRelationshipPosts(
+        {
+          'action': field.dataset.ajaxAction,
+          'nonce': field.dataset.nonce,
+          'key': field.dataset.key,
+          'post_id': field.dataset.postId,
+          'search': search.value,
+          'post_type': field.querySelector('[data-target="fcn-relationships-post-type"]')?.value ?? '',
+          'fcn_fast_ajax': 1
+        },
+        sourceList
+      );
+
+      // Reset info (if any)
+      if (infoBox = field.querySelector('[data-target="fcn-relationships-info"]')) {
+        infoBox.innerHTML = infoBox.dataset.default;
+      }
+    }, 800);
+  });
+});
+
+// Relationship post type select
+_$$('[data-target="fcn-relationships-post-type"]').forEach(select => {
+  select.addEventListener('change', (event) => {
+    // Get elements and values
+    const field = event.currentTarget.closest('.fictioneer-meta-field--relationships');
+    const sourceList = field.querySelector('[data-target="fcn-relationships-source"]');
+    let search = field.querySelector('[data-target="fcn-relationships-search"]')?.value ?? '';
+
+    // Clear source list and add spinner
+    sourceList.innerHTML = '';
+    sourceList.appendChild(_$('[data-target="spinner-template"]').content.cloneNode(true));
+
+    // Crop search input
+    if (search > 200) {
+      search = search.slice(0, 200);
+    }
+
+    // Request
+    fcn_queryRelationshipPosts(
+      {
+        'action': field.dataset.ajaxAction,
+        'nonce': field.dataset.nonce,
+        'key': field.dataset.key,
+        'post_id': field.dataset.postId,
+        'search': search,
+        'post_type': event.currentTarget.value,
+        'fcn_fast_ajax': 1
+      },
+      sourceList
+    );
+
+    // Reset info (if any)
+    if (infoBox = field.querySelector('[data-target="fcn-relationships-info"]')) {
+      infoBox.innerHTML = infoBox.dataset.default;
+    }
+  });
+});
+
+/**
+ * Observe relationship source container for successive loading.
+ *
+ * @since 5.7.7
+ * @param {HTMLElement} container - Field container element.
+ */
+
+function fcn_observeRelationshipSource(container) {
+  const field = container.closest('.fictioneer-meta-field');
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        let search = field.querySelector('[data-target="fcn-relationships-search"]')?.value ?? '';
+
+        if (search.length > 200) {
+          search = search.slice(0, 200);
+        }
+
+        fcn_queryRelationshipPosts(
+          {
+            'action': entry.target.dataset.ajaxAction,
+            'page': entry.target.dataset.page,
+            'nonce': entry.target.dataset.nonce,
+            'key': entry.target.dataset.key,
+            'post_id': entry.target.dataset.postId,
+            'search': search,
+            'post_type': field.querySelector('[data-target="fcn-relationships-post-type"]')?.value ?? '',
+            'fcn_fast_ajax': 1
+          },
+          entry.target.closest('[data-target="fcn-relationships-source"')
+        );
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { root: container, rootMargin: '0px', threshold: 0.5 });
+
+  container.querySelectorAll('[data-target="fcn-relationships-observer"]').forEach(target => {
+    observer.observe(target);
+  });
+}
+
+/**
+ * Query more relationship posts.
+ *
+ * @since 5.7.7
+ * @param {JSON} payload - GET request payload.
+ * @param {HTMLElement} container - Field container element.
+ * @param {boolean} [append=true] - Whether to append the response or replace the previous content.
+ */
+
+function fcn_queryRelationshipPosts(payload, container, append = true) {
+  const field = container.closest('.fictioneer-meta-field');
+  const sourceList = field.querySelector('[data-target="fcn-relationships-source"]');
+  const selectedList = field.querySelector('[data-target="fcn-relationships-values"]');
+  let errorMessage = null;
+
+  fcn_ajaxPost(payload)
+  .then(response => {
+    // Remove spinner (if any)
+    container.querySelector('[data-target="fcn-relationships-observer"]')?.remove();
+
+    // Pass on response
+    return response;
+  })
+  .then(response => {
+    // Evaluate response...
+    if (response.success) {
+      if (append) {
+        container.innerHTML += response.data.html;
+      } else {
+        container.innerHTML = response.data.html;
+      }
+
+      container.querySelectorAll('li').forEach(item => {
+        if (selectedList.querySelector(`[data-id="${item.dataset.id}"]`)) {
+          item.classList.add('disabled');
+        }
+      });
+
+      fcn_observeRelationshipSource(container);
+    } else {
+      errorMessage = response.data.error;
+    }
+  })
+  .catch(error => {
+    errorMessage = error;
+  })
+  .then(() => {
+    if (errorMessage) {
+      const clone = field.querySelector('[data-target="loading-error-template"]').content.cloneNode(true);
+
+      clone.querySelector('.error-message').textContent = errorMessage;
+      sourceList.appendChild(clone);
+    }
+  });
+}
+
+/**
+ * Remove relationship item.
+ *
+ * @since 5.7.7
+ * @param {HTMLElement} target - The element of the item to remove.
+ */
+
+function fcn_removeRelationship(target) {
+  // Get field container
+  const field = target.closest('.fictioneer-meta-field');
+
+  // ... abort if not found
+  if (!field) {
+    return;
+  }
+
+  // Get source list
+  const sourceList = field.querySelector('[data-target="fcn-relationships-source"]');
+
+  // Enable removed item in source list
+  const item = sourceList.querySelector(`[data-id="${target.dataset.id}"]`);
+
+  if (item) {
+    item.classList.remove('disabled');
+  }
+
+  // Remove from selection
+  target.remove();
+}
+
+/**
+ * Add relationship item.
+ *
+ * @since 5.7.7
+ * @param {HTMLElement} source - The element of the source item.
+ * @param {HTMLElement} destination - The container to append the item to.
+ */
+
+function fcn_addRelationship(source, destination) {
+  // Check
+  if (!source || !destination || source.classList.contains('disabled')) {
+    return;
+  }
+
+  // Clone template
+  const clone = _$('[data-target="selected-item-template"]').content.cloneNode(true);
+
+  // Fill data
+  clone.querySelector('li').setAttribute('data-id', source.dataset.id);
+  clone.querySelector('input[type="hidden"]').value = source.dataset.id;
+  clone.querySelector('span').innerHTML = source.querySelector('span').innerHTML;
+
+  // Append
+  destination.appendChild(clone);
+
+  // Disable
+  source.classList.add('disabled');
+}
