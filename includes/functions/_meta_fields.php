@@ -1007,7 +1007,7 @@ function fictioneer_ajax_query_relationship_posts() {
 
   // Chapter assignment?
   if ( check_ajax_referer( "relationship_posts_{$meta_key}_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
-    fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key );
+    fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key );
   }
 
   // Nothing worked...
@@ -1024,7 +1024,7 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
  * @param string $meta_key  The meta key.
  */
 
-function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
+function fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key ) {
   // Setup
   $post = get_post( $post_id );
   $user = wp_get_current_user();
@@ -1095,7 +1095,7 @@ function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
     }
 
     // Build and append item
-    $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$chapter->ID}'";
+    $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$chapter->ID}' ";
     $item .= "data-info='" . esc_attr( fictioneer_get_story_chapter_info_html( $chapter ) ) . "'><span>{$title}</span></li>";
 
     $output[] = $item;
