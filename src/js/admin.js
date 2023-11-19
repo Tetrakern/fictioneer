@@ -443,7 +443,7 @@ _$$('.fictioneer-meta-field__image-remove').forEach(button => {
 /**
  * Add text/ebook attachment via WordPress media uploader to meta field.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @link https://codex.wordpress.org/Javascript_Reference/wp.media
  * @link https://stackoverflow.com/a/28549014/17140970
  *
@@ -483,7 +483,7 @@ function fcn_ebookMediaUpload(event) {
 /**
  * Remove text/ebook attachment from meta field.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @link https://codex.wordpress.org/Javascript_Reference/wp.media
  * @link https://stackoverflow.com/a/28549014/17140970
  *
@@ -891,7 +891,7 @@ _$$('[data-target="fcn-relationships-post-type"]').forEach(select => {
 /**
  * Observe relationship source container for successive loading.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @param {HTMLElement} container - Field container element.
  */
 
@@ -934,7 +934,7 @@ function fcn_observeRelationshipSource(container) {
 /**
  * Query more relationship posts.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @param {JSON} payload - GET request payload.
  * @param {HTMLElement} container - Field container element.
  * @param {boolean} [append=true] - Whether to append the response or replace the previous content.
@@ -990,7 +990,7 @@ function fcn_queryRelationshipPosts(payload, container, append = true) {
 /**
  * Remove relationship item.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @param {HTMLElement} target - The element of the item to remove.
  */
 
@@ -1020,7 +1020,7 @@ function fcn_removeRelationship(target) {
 /**
  * Add relationship item.
  *
- * @since 5.7.7
+ * @since 5.8.0
  * @param {HTMLElement} source - The element of the source item.
  * @param {HTMLElement} destination - The container to append the item to.
  */

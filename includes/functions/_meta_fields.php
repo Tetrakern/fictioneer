@@ -409,7 +409,7 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
 /**
  * Returns HTML for an eBook meta field
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param WP_Post $post      The post.
  * @param string  $meta_key  The meta key.
@@ -772,7 +772,7 @@ function fictioneer_get_acf_field( $post, $field_key, $args = [] ) {
 /**
  * Returns HTML for a relationship meta field
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param WP_Post $post      The post.
  * @param array   $meta_key  The meta key.
@@ -893,7 +893,7 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
 /**
  * Render HTML for relationship post type select
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param string $name  The name for the data-target attribute.
  * @param array  $args {
@@ -933,7 +933,7 @@ function fictioneer_render_relationship_post_type_select( $name, $args = [] ) {
 /**
  * Render HTML for selected story chapters
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param array  $selected  Currently selected chapters.
  * @param string $meta_key  The meta key.
@@ -977,7 +977,7 @@ function fictioneer_callback_relationship_chapter_items( $chapters, $meta_key, $
 /**
  * AJAX: Delegate query and send posts for relationship fields
  *
- * @since 5.7.7
+ * @since 5.8.0
  */
 
 function fictioneer_ajax_query_relationship_posts() {
@@ -1018,7 +1018,7 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
 /**
  * AJAX: Query and send paginated chapters for story chapter assignments
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param int    $post_id   The story post ID.
  * @param string $meta_key  he meta key.
@@ -1132,7 +1132,7 @@ function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
 /**
  * Return HTML story chapter info
  *
- * @since 5.7.7
+ * @since 5.8.0
  *
  * @param WP_Post $chapter  The chapter post.
  *
