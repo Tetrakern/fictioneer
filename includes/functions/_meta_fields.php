@@ -1141,7 +1141,6 @@ function fictioneer_ajax_query_relationship_chapters( $post_id, $meta_key ) {
 
 function fictioneer_get_story_chapter_info_html( $chapter ) {
   // Setup
-  $title = fictioneer_get_safe_title( $chapter );
   $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $chapter->ID );
   $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID );
   $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter->ID );
@@ -1161,8 +1160,6 @@ function fictioneer_get_story_chapter_info_html( $chapter ) {
 
   // Build
   $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
-
-  $info[] = sprintf( _x( '<strong>Title:</strong>&nbsp;%s', 'Chapter assignment info.', 'fictioneer' ), $title );
 
   if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
     $flags[] = _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' );
