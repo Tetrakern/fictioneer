@@ -98,63 +98,6 @@ add_action( 'acf/include_fields', function() {
     )
   );
 
-	acf_add_local_field_group(
-    array(
-      'key' => 'group_5d6303c8575d8',
-      'title' => 'Story Data',
-      'fields' => array(
-        array(
-          'key' => 'field_5d6e33e253add',
-          'label' => 'Custom Pages',
-          'name' => 'fictioneer_story_custom_pages',
-          'aria-label' => '',
-          'type' => 'relationship',
-          'instructions' => '',
-          'required' => 0,
-          'conditional_logic' => 0,
-          'wrapper' => array(
-            'width' => '',
-            'class' => '',
-            'id' => '',
-          ),
-          'post_type' => array(
-            0 => 'page',
-          ),
-          'post_status' => 'publish',
-          'taxonomy' => '',
-          'filters' => array(
-            0 => 'search',
-          ),
-          'return_format' => 'id',
-          'min' => '',
-          'max' => 4,
-          'elements' => '',
-          'bidirectional' => 0,
-          'bidirectional_target' => array(
-          ),
-        ),
-      ),
-      'location' => array(
-        array(
-          array(
-            'param' => 'post_type',
-            'operator' => '==',
-            'value' => 'fcn_story',
-          ),
-        ),
-      ),
-      'menu_order' => 4,
-      'position' => 'normal',
-      'style' => 'default',
-      'label_placement' => 'top',
-      'instruction_placement' => 'field',
-      'hide_on_screen' => '',
-      'active' => false,
-      'description' => '',
-      'show_in_rest' => 0,
-    )
-  );
-
   acf_add_local_field_group(
     array(
       'key' => 'group_619fc7566ad8b',
@@ -317,28 +260,5 @@ function fictioneer_update_post_relationships( $post_id ) {
 if ( FICTIONEER_RELATIONSHIP_PURGE_ASSIST ) {
   add_action( 'acf/save_post', 'fictioneer_update_post_relationships', 100 );
 }
-
-// =============================================================================
-// LIMIT STORY PAGES TO AUTHOR
-// =============================================================================
-
-/**
- * Restrict story pages to author
- *
- * @since Fictioneer 5.6.3
- *
- * @param array      $args     The query arguments.
- * @param array      $field    The queried field.
- * @param int|string $post_id  The post ID.
- *
- * @return array Modified query arguments.
- */
-
-function fictioneer_acf_scope_story_pages( $args, $field, $post_id ) {
-  $args['author'] = get_post_field( 'post_author', $post_id );
-
-  return $args;
-}
-add_filter( 'acf/fields/relationship/query/name=fictioneer_story_custom_pages', 'fictioneer_acf_scope_story_pages', 10, 3 );
 
 ?>

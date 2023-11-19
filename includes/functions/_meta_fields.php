@@ -1005,9 +1005,14 @@ function fictioneer_ajax_query_relationship_posts() {
     wp_send_json_error( array( 'error' => __( 'Error: Not logged in.', 'fictioneer' ) ) );
   }
 
-  // Chapter assignment?
-  if ( check_ajax_referer( "relationship_posts_{$meta_key}_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
+  // Story chapter assignment?
+  if ( check_ajax_referer( "relationship_posts_fictioneer_story_chapters_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
     fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key );
+  }
+
+  // Story page assignment?
+  if ( check_ajax_referer( "relationship_posts_fictioneer_story_custom_pages_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
+    fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key );
   }
 
   // Nothing worked...
@@ -1213,6 +1218,128 @@ function fictioneer_get_story_chapter_info_html( $chapter ) {
 
   // Implode and return
   return implode( ' &bull; ', $info );
+}
+
+/**
+ * Render HTML for selected story pages
+ *
+ * @since 5.8.0
+ *
+ * @param array  $selected  Currently selected pages.
+ * @param string $meta_key  The meta key.
+ * @param array  $args      Optional. An array of additional arguments.
+ */
+
+function fictioneer_callback_relationship_page_items( $pages, $meta_key, $args = [] ) {
+  // Build HTML
+  foreach ( $pages as $page ) {
+    $title = fictioneer_get_safe_title( $page );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
+
+    // Start HTML ---> ?>
+    <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $page->ID; ?>">
+      <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $page->ID; ?>" autocomplete="off">
+      <span><?php echo $title; ?></span>
+      <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
+    </li>
+    <?php // <--- End HTML
+  }
+}
+
+/**
+ * AJAX: Query and send paginated pages for story custom pages
+ *
+ * @since 5.8.0
+ *
+ * @param int    $post_id   The story post ID.
+ * @param string $meta_key  he meta key.
+ */
+
+function fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key ) {
+  // Setup
+  $post = get_post( $post_id );
+  $user = wp_get_current_user();
+  $page = absint( $_REQUEST['page'] ?? 1 );
+  $search = sanitize_text_field( $_REQUEST['search'] ?? '' );
+
+  // Validations
+  if ( $post->post_type !== 'fcn_story' ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+  }
+
+  if (
+    ! current_user_can( 'edit_fcn_stories' ) ||
+    (
+      $user->ID != $post->post_author &&
+      ! current_user_can( 'edit_others_fcn_stories' ) &&
+      ! current_user_can( 'manage_options' )
+    )
+  ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Query
+  $query = new WP_Query(
+    array(
+      'post_type' => 'page',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'desc',
+      'author' => get_post_field( 'post_author', $post_id ),
+      'posts_per_page' => 10,
+      'paged' => $page,
+      's' => $search,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false // Improve performance
+    )
+  );
+
+  // Setup
+  $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post_id}" );
+  $output = [];
+
+  // Build HTML for items
+  foreach ( $query->posts as $item ) {
+    // Chapter setup
+    $title = fictioneer_get_safe_title( $item );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
+
+    // Build and append item
+    $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$item->ID}'>";
+    $item .= "<span>{$title}</span></li>";
+
+    $output[] = $item;
+  }
+
+  // Build HTML for observer
+  if ( $page < $query->max_num_pages ) {
+    $page++;
+
+    $observer = "<li class='fictioneer-meta-field__relationships-source-observer disabled' ";
+    $observer .= "data-target='fcn-relationships-observer' data-nonce='{$nonce}' ";
+    $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
+    $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
+    $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+
+    $output[] = $observer;
+  }
+
+  // No results
+  if ( empty( $output ) ) {
+    $no_matches = "<li class='fictioneer-meta-field__relationships-no-matches disabled'><span>";
+    $no_matches .= _x( 'No matches found.', 'AJAX relationship posts loading.', 'fictioneer' );
+    $no_matches .= '</span></li>';
+
+    $output[] = $no_matches;
+  }
+
+  // Response
+  wp_send_json_success(
+    array(
+      'html' => implode( '', $output )
+    )
+  );
 }
 
 // =============================================================================
@@ -1521,13 +1648,33 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Custom pages
-  if ( current_user_can( 'fcn_story_pages', $post->ID ) ) {
-    $output['fictioneer_story_custom_pages'] = fictioneer_get_acf_field(
-      $post,
-      'field_5d6e33e253add',
+  if ( current_user_can( 'fcn_story_pages', $post->ID ) && FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY > 0 ) {
+    $page_ids = get_post_meta( $post->ID, 'fictioneer_story_custom_pages', true ) ?: [];
+    $pages = empty( $page_ids ) ? [] : get_posts(
       array(
-        'label' => _x( 'Custom Pages', 'Story custom pages meta field label.', 'fictioneer' ),
-        'description' => __( 'Add up to six pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' )
+        'post_type' => 'page',
+        'post_status' => 'any',
+        'post__in' => fictioneer_rescue_array_zero( $page_ids ),
+        'orderby' => 'post__in',
+        'posts_per_page' => -1,
+        'author' => get_post_field( 'post_author', $post->ID ),
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
+
+    $output['_fictioneer_story_custom_pages'] = fictioneer_get_metabox_relationships(
+      $post,
+      'fictioneer_story_custom_pages',
+      $pages,
+      'fictioneer_callback_relationship_page_items',
+      array(
+        'label' => _x( 'Custom Pages', 'Story pages meta field label.', 'fictioneer' ),
+        'description' => sprintf(
+          __( 'Add up to %s pages as tabs to stories. Pages must have a short name or will not be shown.', 'fictioneer' ),
+          FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY
+        )
       )
     );
   }
@@ -1795,7 +1942,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $chapter_ids = array_unique( $chapter_ids );
 
     if ( empty( $chapter_ids ) ) {
-      $fields['fictioneer_story_chapters'] = [];
+      $fields['fictioneer_story_chapters'] = []; // Ensure empty meta is removed
     } else {
       $chapter_query_args = array(
         'post_type' => 'fcn_chapter',
@@ -1832,26 +1979,38 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     fictioneer_log_story_chapter_changes( $post_id, $chapter_ids, $previous_chapter_ids );
   }
 
-  // Custom pages (already saved by ACF; restrict by post author)
-  $pages = get_post_meta( $post_id, 'fictioneer_story_custom_pages', true );
+  // Custom pages
+  if (
+    isset( $_POST['fictioneer_story_custom_pages'] ) &&
+    current_user_can( 'fcn_story_pages', $post_id )
+  ) {
+    $page_ids = $_POST['fictioneer_story_custom_pages'];
+    $page_ids = is_array( $page_ids ) ? $page_ids : [ $page_ids ];
+    $page_ids = array_map( 'intval', $page_ids );
+    $page_ids = array_filter( $page_ids, function( $value ) { return $value > 0; });
 
-  if ( current_user_can( 'fcn_story_pages', $post_id ) ) {
-    $pages_query = new WP_Query(
-      array(
-        'post_type' => 'page',
-        'post__in' => fictioneer_rescue_array_zero( $pages ),
-        'author' => $post_author_id, // Only allow author's pages
-        'fields' => 'ids',
-        'posts_per_page' => -1,
-        'update_post_meta_cache' => false, // Improve performance
-        'update_post_term_cache' => false, // Improve performance
-        'no_found_rows' => true // Improve performance
-      )
-    );
+    if ( empty( $page_ids ) || FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY < 1 ) {
+      $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
+    } else {
+      $page_ids = array_unique( $page_ids );
+      $page_ids = array_slice( $page_ids, 0, FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY );
 
-    $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts ); // This has query advantages
-  } elseif ( isset( $pages ) && empty( $pages ) ) {
-    $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
+      $pages_query = new WP_Query(
+        array(
+          'post_type' => 'page',
+          'post__in' => fictioneer_rescue_array_zero( $page_ids ),
+          'author' => $post_author_id, // Only allow author's pages
+          'orderby' => 'post__in',
+          'fields' => 'ids',
+          'posts_per_page' => FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY,
+          'update_post_meta_cache' => false, // Improve performance
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts );
+    }
   }
 
   // Password note
@@ -1892,19 +2051,6 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   // --- Cleanup -----------------------------------------------------------------
 
   global $wpdb;
-
-  // Deleting ACF control fields
-  $key_value_pairs = array(
-    ['_fictioneer_story_custom_pages', 'field_5d6e33e253add']
-  );
-  $where_clauses = [];
-
-  foreach ( $key_value_pairs as $pair ) {
-    $where_clauses[] = $wpdb->prepare( "(meta_key = %s AND meta_value = %s)", $pair[0], $pair[1] );
-  }
-
-  $where_condition = implode( ' OR ', $where_clauses );
-  $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE {$where_condition}" );
 
   // Orphaned values
   $wpdb->query(

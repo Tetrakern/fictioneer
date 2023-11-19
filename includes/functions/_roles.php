@@ -771,12 +771,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'current_screen', 'fictioneer_restrict_admin_only_pages' );
   }
 
-  // === FCN_STORY_PAGES =======================================================
-
-  if ( ! current_user_can( 'fcn_story_pages' ) ) {
-    add_filter( 'acf/update_value/name=fictioneer_story_custom_pages', '__return_null' );
-  }
-
   // === UPDATE_CORE ===========================================================
 
   /**
