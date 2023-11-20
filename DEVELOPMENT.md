@@ -326,7 +326,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 
 | ACF HOOK | FICTIONEER ACTIONS & FILTERS
 | ---: | :--- |
-| `acf/save_post` | `fictioneer_update_post_relationships`
 | `acf/settings/show_admin` | `fictioneer_acf_settings_show_admin`
 
 ## Caching

@@ -679,6 +679,16 @@ td.comment {
         background: rgba(var(--wp-admin-theme-color--rgb), .1);
       }
 
+      &-label {
+        display: inline-block;
+        background: rgba(0, 0, 0, .12);
+        font-size: 10px;
+        line-height: 1;
+        padding: 3px 4px;
+        border-radius: 2px;
+        transform: translateY(-0.5px);
+      }
+
       > span {
         pointer-events: none;
         max-width: calc(100% - 30px);
