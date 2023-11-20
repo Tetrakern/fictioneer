@@ -2011,14 +2011,16 @@ function fictioneer_render_story_epub_metabox( $post ) {
   // --- Add fields ------------------------------------------------------------
 
   // Custom upload
-  $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_metabox_ebook(
-    $post,
-    'fictioneer_story_ebook_upload_one',
-    array(
-      'label' => _x( 'Custom Upload', 'Story ebook upload meta field label.', 'fictioneer' ),
-      'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>pdf</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
-    )
-  );
+  if ( current_user_can( 'fcn_custom_epub_upload', $post->ID ) ) {
+    $output['fictioneer_story_ebook_upload_one'] = fictioneer_get_metabox_ebook(
+      $post,
+      'fictioneer_story_ebook_upload_one',
+      array(
+        'label' => _x( 'Custom Upload', 'Story ebook upload meta field label.', 'fictioneer' ),
+        'description' => __( 'If you do not want to rely on the ePUB converter, you can upload your own ebook. Allowed formats are <strong>epub</strong>, <strong>mobi</strong>, <strong>pdf</strong>, <strong>rtf</strong>, and <strong>txt</strong>.', 'fictioneer' )
+      )
+    );
+  }
 
   // Preface
   $output['fictioneer_story_epub_preface'] = fictioneer_get_metabox_editor(
@@ -2292,7 +2294,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
   // ePUBs...
   if ( get_option( 'fictioneer_enable_epubs' ) ) {
     // Custom upload
-    if ( isset( $_POST['fictioneer_story_ebook_upload_one'] ) ) {
+    if ( isset( $_POST['fictioneer_story_ebook_upload_one'] ) && current_user_can( 'fcn_custom_epub_upload', $post_id ) ) {
       $ebook_id = absint( $_POST['fictioneer_story_ebook_upload_one'] );
 
       if ( $ebook_id > 0 && wp_get_attachment_url( $ebook_id ) ) {

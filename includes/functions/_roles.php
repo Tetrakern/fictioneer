@@ -20,6 +20,7 @@ define(
     'fcn_custom_page_header',
     'fcn_custom_page_css',
     'fcn_custom_epub_css',
+    'fcn_custom_epub_upload',
     'fcn_seo_meta',
     'fcn_make_sticky',
     'fcn_show_badge',
@@ -88,15 +89,22 @@ function fictioneer_initialize_roles( $force = false ) {
   }
 
   // If this capability is missing, the roles need to be updated
-  if ( $administrator && ! in_array( 'fcn_custom_page_header', array_keys( $administrator->capabilities ) ) ) {
+  if ( $administrator && ! in_array( 'fcn_custom_epub_upload', array_keys( $administrator->capabilities ) ) ) {
     get_role( 'administrator' )->add_cap( 'fcn_custom_page_header' );
+    get_role( 'administrator' )->add_cap( 'fcn_custom_epub_upload' );
 
     if ( $editor = get_role( 'editor' ) ) {
       $editor->add_cap( 'fcn_custom_page_header' );
+      $editor->add_cap( 'fcn_custom_epub_upload' );
     }
 
     if ( $moderator = get_role( 'fcn_moderator' ) ) {
       $moderator->add_cap( 'fcn_only_moderate_comments' );
+      $moderator->add_cap( 'fcn_custom_epub_upload' );
+    }
+
+    if ( $author = get_role( 'author' ) ) {
+      $author->add_cap( 'fcn_custom_epub_upload' );
     }
   }
 }
@@ -150,6 +158,7 @@ function fictioneer_setup_roles() {
       'fcn_story_pages',
       'fcn_edit_date',
       'fcn_custom_page_header',
+      'fcn_custom_epub_upload',
       'moderate_comments',         // Legacy restore
       'edit_comment',              // Legacy restore
       'edit_pages',                // Legacy restore
@@ -185,6 +194,7 @@ function fictioneer_setup_roles() {
     'fcn_upload_limit',
     'fcn_upload_restrictions',
     'fcn_story_pages',
+    'fcn_custom_epub_upload',
     // Stories
     'read_fcn_story',
     'edit_fcn_stories',
@@ -338,6 +348,7 @@ function fictioneer_add_moderator_role() {
     'fcn_upload_restrictions' => true,
     'fcn_show_badge' => true,
     'fcn_story_pages' => true,
+    'fcn_custom_epub_upload' => true,
     // Stories
     'read_fcn_story' => true,
     'edit_fcn_stories' => true,
