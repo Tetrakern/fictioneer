@@ -361,11 +361,6 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_DATA_META_CACHE', true );
 }
 
-// Boolean: Enable ACF on frontend
-if ( ! defined( 'FICTIONEER_ENABLE_FRONTEND_ACF' ) ) {
-  define( 'FICTIONEER_ENABLE_FRONTEND_ACF', false );
-}
-
 // Boolean: Enable nav menu Transients
 if ( ! defined( 'FICTIONEER_ENABLE_MENU_TRANSIENTS' ) ) {
   define( 'FICTIONEER_ENABLE_MENU_TRANSIENTS', true );
@@ -428,12 +423,6 @@ if ( is_customize_preview() ) {
  */
 
 require_once __DIR__ . '/includes/functions/_theme_setup.php';
-
-/**
- * Configuration for the Advanced Custom Fields plugin.
- */
-
-require_once __DIR__ . '/includes/functions/_acf.php';
 
 /**
  * Add custom post types.

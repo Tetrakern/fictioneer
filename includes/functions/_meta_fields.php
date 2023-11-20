@@ -716,60 +716,6 @@ function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
 }
 
 /**
- * Returns HTML for an ACF meta field
- *
- * @since 5.7.4
- *
- * @param WP_Post $post       The post.
- * @param string  $field_key  The ACF field key.
- * @param array   $args {
- *   Optional. An array of additional arguments.
- *
- *   @type string $label        Label above the field.
- *   @type string $description  Description below the field.
- * }
- *
- * @return string The HTML markup for the field.
- */
-
-function fictioneer_get_acf_field( $post, $field_key, $args = [] ) {
-  // Setup
-  $acf_field = get_field_object( $field_key, $post->ID );
-  $acf_field['label'] = '';
-  $acf_field['instructions'] = '';
-  $label = strval( $args['label'] ?? '' );
-  $description = strval( $args['description'] ?? '' );
-
-  // Abort if field object not found
-  if ( ! $acf_field ) {
-    return;
-  }
-
-  ob_start();
-
-  // Start HTML ---> ?>
-  <div class="fictioneer-meta-field fictioneer-meta-field--acf <?php echo $field_key; ?>">
-
-    <?php if ( $label ) : ?>
-      <div class="fictioneer-meta-field__label fictioneer-meta-field__label--acf"><?php echo $label; ?></div>
-    <?php endif; ?>
-
-    <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--acf">
-      <?php acf_render_field_wrap( $acf_field ); ?>
-    </div>
-
-    <?php if ( $description ) : ?>
-      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
-    <?php endif; ?>
-
-  </div>
-
-  <?php // <--- End HTML
-
-  return ob_get_clean();
-}
-
-/**
  * Returns HTML for a relationship meta field
  *
  * @since 5.8.0
@@ -2119,8 +2065,6 @@ function fictioneer_render_story_epub_metabox( $post ) {
 /**
  * Save story metaboxes
  *
- * Note: Must use the general 'save_post' hook to fire after ACF.
- *
  * @since Fictioneer 5.7.4
  *
  * @param int $post_id  The post ID.
@@ -2758,8 +2702,6 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
 /**
  * Save chapter metaboxes
- *
- * Note: Must use the general 'save_post' hook to fire after ACF.
  *
  * @since Fictioneer 5.7.4
  *
@@ -3787,8 +3729,6 @@ function fictioneer_render_collection_data_metabox( $post ) {
 
 /**
  * Save collection metaboxes
- *
- * Note: Must use the general 'save_post' hook to fire after ACF.
  *
  * @since Fictioneer 5.7.4
  *

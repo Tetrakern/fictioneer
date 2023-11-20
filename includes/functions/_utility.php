@@ -873,7 +873,7 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
   function fictioneer_get_icon_field( $field, $post_id = null ) {
     // Setup
     $icon = fictioneer_get_field( $field, $post_id );
-    $icon_object = json_decode( $icon ); // Check for ACF Font Awesome
+    $icon_object = json_decode( $icon ); // Check for ACF Font Awesome plugin
 
     // Valid?
     if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {

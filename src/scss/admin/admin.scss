@@ -277,14 +277,6 @@ td.comment {
     display: none !important;
   }
 
-  .acf-field {
-    margin: 0;
-  }
-
-  .acf-label {
-    display: none;
-  }
-
   &--invalid:not(.pending-validation) {
     [class*="fictioneer-meta-field"]:is(input, textarea, select) {
       border-color: #dc3232;
@@ -905,11 +897,47 @@ td.comment {
 }
 
 // =============================================================================
-// FIXES FOR PLUGINS KNOWN TO THE THEME
+// EDITOR FIXES
 // =============================================================================
 
-// Advanced Custom Fields adjustments to better match WordPress default
-@import 'acf';
+#editor {
+  .edit-post-layout__metaboxes {
+    border-top: 1px solid #ddd;
+  }
+
+  div.postbox {
+    color: #1e1e1e;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .postbox-header {
+      border-top: 0;
+
+      .hndle {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+    h2.hndle {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 0 24px 0 16px;
+    }
+
+    .code-box {
+      textarea {
+        color: #1e1e1e;
+        font-family: 'Roboto Mono', Courier, 'Courier New', 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+        font-size: 12px;
+        line-height: 1.5;
+        word-break: break-all;
+      }
+    }
+  }
+}
 
 // Cloudinary plugin that messes with unit selectors (2022/07/13)
 .components-input-control__container .components-base-control__field select,

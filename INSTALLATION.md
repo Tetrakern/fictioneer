@@ -199,10 +199,6 @@ Updating the theme works the same as installing the theme. If done in the admin 
 
 Note that any changes made to the theme files will be undone — which you should not have done in the first place. Always use a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) for modifications to avoid this issue. Your theme options and Customizer settings are preserved, however.
 
-### Optional: Install Plugin Dependencies
-
-Fictioneer relies on the [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/) plugin for a few inputs. ACF is already bundled into the theme, but you may want to install it separately to stay on the latest version or use it for your own modifications — which should happen in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You cannot access the bundled version in order to prevent non-developer users from accidentally breaking the theme. Note that ACF can quickly bloat your database if used without care.
-
 ### Optional: Additional Plugins
 
 The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and often confusing. There are plugins for almost everything, in variants, free or premium or "freemium". You often find articles about "must-have" plugins — you are well advised to question those. Too many plugins can slow down your site, open vulnerabilities, or conflict with the theme. Fictioneer is designed as standalone solution and technically works without additional plugins. However, nothing is ever complete, so here are a few recommendations anyway.
@@ -554,8 +550,6 @@ Technically just another plugin, but one that will make your site significantly 
 ### Recommended: Must-Use Plugins
 
 [Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with two must-use plugins ready to be copied over.
-
-**Disable ACF on Frontend** was created by [Bill Erickson](https://www.billerickson.net/code/disable-acf-frontend/) and disables the ACF plugin on the frontend if you installed it separately. The integrated version is disabled by default. You cannot use its functions in that case, however.
 
 **Fictioneer 001 Fast Requests** accelerates AJAX and REST requests by disabling non-allow-listed plugins during selected theme actions. Depending on the number of plugins you have installed, this can boost your request performance significantly. However, it will prevent the plugins from working during these requests, although that has no effect on the theme’s default functionality. Be not afraid to edit the file and extend the allow list, it will not be overwritten when you update the theme. Or add your own plugin files. This is one of the best speed optimizations you can make.
 
@@ -934,7 +928,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_API_STORYGRAPH_TRANSIENTS | boolean | Whether to cache Storygraph responses as Transients. Default `true`.
 | FICTIONEER_ENABLE_STICKY_CARDS | boolean | Whether to allow sticky cards. Expensive. Default `true`.
 | FICTIONEER_ENABLE_STORY_DATA_META_CACHE | boolean | Whether to "cache" story data in a meta field. Default `true`.
-| FICTIONEER_ENABLE_FRONTEND_ACF | boolean | Whether to load ACF on the frontend. Default `false`.
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.

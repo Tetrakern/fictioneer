@@ -322,12 +322,6 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_robots` | `fictioneer_add_noindex_to_robots`
 | `wp_sitemaps_enabled` | `__return_false`
 
-<br>
-
-| ACF HOOK | FICTIONEER ACTIONS & FILTERS
-| ---: | :--- |
-| `acf/settings/show_admin` | `fictioneer_acf_settings_show_admin`
-
 ## Caching
 
 Fictioneer is cache aware. This means the theme provides an interface to aid cache plugins in purging stale caches across the site, not just the updated post. It can even operate as static website with dynamic content being fetched via AJAX. By default, four cache plugins are considered: [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/), [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/), [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/), and [WP Rocket](https://wp-rocket.me/). Whenever you publish or update content, a series of actions is triggered to purge anything related.

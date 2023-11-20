@@ -16,13 +16,6 @@ The following list credits all third-party resources used in the Fictioneer them
 * **[Greet the Final Battle Alone by liuzishan](https://www.freepik.com/free-photo/study-halls-biology-digital-illustrations_14541125.htm)** on Freepik
 * **[Nuclear Blast in City by liuzishan](https://www.freepik.com/free-photo/moment-city-was-hit-by-nuclear-bomb-digital-painting_15174526.htm)** on Freepik
 
-## Plugins
-
-* **Advanced Custom Fields (Free)**<br>
-  Copyright: Delicious Brains Inc.<br>
-  License: [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)<br>
-  Source: https://www.advancedcustomfields.com/
-
 ## Graphics
 
 * **Font Awesome**<br>
@@ -175,11 +168,6 @@ The following list credits all third-party resources used in the Fictioneer them
   Copyright: Dador<br>
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
   Source: https://stackoverflow.com/a/4914807/17140970
-
-* **Disable ACF on frontend**<br>
-  Copyright: Bill Erickson<br>
-  License: [MIT](http://www.opensource.org/licenses/mit-license.php)<br>
-  Source: https://www.billerickson.net/code/disable-acf-frontend/
 
 ## Fonts
 

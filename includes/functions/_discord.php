@@ -247,10 +247,6 @@ function fictioneer_post_story_to_discord( $post_id ) {
   update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
 }
 
-/**
- * DO NOT USE POST TYPE HOOK! The ACF meta fields will not be updated yet!
- */
-
 if ( ! empty( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) ) {
   add_action( 'save_post', 'fictioneer_post_story_to_discord', 99 );
 }
@@ -351,10 +347,6 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
   // Set trigger true
   update_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true );
 }
-
-/**
- * DO NOT USE POST TYPE HOOK! The ACF meta fields will not be updated yet!
- */
 
 if ( ! empty( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) ) {
   add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );

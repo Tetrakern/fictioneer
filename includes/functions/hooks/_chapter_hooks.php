@@ -403,7 +403,7 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
 
 function fictioneer_chapter_afterword( $args ) {
   // Setup
-  $afterword = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] ); // ACF formatted output
+  $afterword = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] );
 
   // Abort conditions
   if ( empty( $afterword ) || post_password_required() ) {

@@ -122,6 +122,26 @@ function fictioneer_theme_setup() {
 add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
 
 // =============================================================================
+// REMOVE DEFAULT CUSTOM FIELDS META BOX
+// =============================================================================
+
+/**
+ * Removes default custom fields meta box
+ *
+ * @since 5.8.0
+ *
+ * @param string $post_type  Post type of the post on Edit Post screen, 'link'
+ *                           on Edit Link screen, 'dashboard' on Dashboard screen.
+ * @param string $context    Meta box context. Possible values include 'normal',
+ *                           'advanced', 'side'.
+ */
+
+function fictioneer_remove_default_custom_fields_meta_box( $post_type, $context ) {
+  remove_meta_box( 'postcustom', $post_type, $context );
+}
+add_action( 'do_meta_boxes', 'fictioneer_remove_default_custom_fields_meta_box', 1, 2 );
+
+// =============================================================================
 // CUSTOM BACKGROUND CALLBACK
 // =============================================================================
 
