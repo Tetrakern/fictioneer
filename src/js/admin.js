@@ -1057,6 +1057,10 @@ function fcn_addRelationship(source, destination) {
   clone.querySelector('input[type="hidden"]').value = source.dataset.id;
   clone.querySelector('span').innerHTML = source.querySelector('span').innerHTML;
 
+  if (source.dataset.info) {
+    clone.querySelector('li').setAttribute('data-info', source.dataset.info);
+  }
+
   // Append
   destination.appendChild(clone);
 
