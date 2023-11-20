@@ -940,7 +940,7 @@ function fictioneer_render_relationship_post_type_select( $name, $args = [] ) {
  * @param array  $args      Optional. An array of additional arguments.
  */
 
-function fictioneer_callback_relationship_chapter_items( $chapters, $meta_key, $args = [] ) {
+function fictioneer_callback_relationship_chapter_items( $selected, $meta_key, $args = [] ) {
   // Setup
   $status_labels = array(
     'draft' => get_post_status_object( 'draft' )->label,
@@ -952,7 +952,7 @@ function fictioneer_callback_relationship_chapter_items( $chapters, $meta_key, $
   );
 
   // Build HTML
-  foreach ( $chapters as $chapter ) {
+  foreach ( $selected as $chapter ) {
     $title = fictioneer_get_safe_title( $chapter );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
@@ -1230,9 +1230,9 @@ function fictioneer_get_story_chapter_info_html( $chapter ) {
  * @param array  $args      Optional. An array of additional arguments.
  */
 
-function fictioneer_callback_relationship_page_items( $pages, $meta_key, $args = [] ) {
+function fictioneer_callback_relationship_page_items( $selected, $meta_key, $args = [] ) {
   // Build HTML
-  foreach ( $pages as $page ) {
+  foreach ( $selected as $page ) {
     $title = fictioneer_get_safe_title( $page );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
@@ -1252,7 +1252,7 @@ function fictioneer_callback_relationship_page_items( $pages, $meta_key, $args =
  * @since 5.8.0
  *
  * @param int    $post_id   The story post ID.
- * @param string $meta_key  he meta key.
+ * @param string $meta_key  The meta key.
  */
 
 function fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key ) {
