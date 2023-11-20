@@ -88,7 +88,7 @@ if ( ! empty( $args['featured_list'] ) ) {
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Chapters', 'fictioneer' ); ?></strong>
-      <span><?php echo number_format_i18n( $chapters->found_posts ); ?></span>
+      <span><?php echo number_format_i18n( $chapters->found_posts ?? 0 ); ?></span>
     </div>
     <div class="statistics__inline-stat">
       <strong><?php _e( 'Words', 'fictioneer' ); ?></strong>
