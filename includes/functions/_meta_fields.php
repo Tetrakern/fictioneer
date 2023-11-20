@@ -1404,7 +1404,9 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   $user = wp_get_current_user();
   $page = absint( $_REQUEST['page'] ?? 1 );
   $search = sanitize_text_field( $_REQUEST['search'] ?? '' );
+  $allowed_post_types = ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'];
   $post_type = sanitize_text_field( $_REQUEST['post_type'] ?? '' );
+  $post_type = in_array( $post_type, $allowed_post_types ) ? $post_type : null;
 
   $post_type_labels = array(
     'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
@@ -1449,7 +1451,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   // Query
   $query = new WP_Query(
     array(
-      'post_type' => $post_type ?: ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+      'post_type' => $post_type ?: $allowed_post_types,
       'post_status' => 'publish',
       'orderby' => 'date',
       'order' => 'desc',
@@ -3530,7 +3532,7 @@ function fictioneer_render_collection_data_metabox( $post ) {
     )
   );
 
-  $output['_fictioneer_collection_items'] = fictioneer_get_metabox_relationships(
+  $output['fictioneer_collection_items'] = fictioneer_get_metabox_relationships(
     $post,
     'fictioneer_collection_items',
     $items,
