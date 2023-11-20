@@ -753,6 +753,11 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
       <div class="fictioneer-meta-field__label"><?php echo $label; ?></div>
     <?php endif; ?>
 
+    <div class="fictioneer-meta-field__top-actions">
+      <button type="button" data-action="fcn-relationships-scroll" data-direction="-1"><span class="dashicons dashicons-arrow-up-alt"></span></button>
+      <button type="button" data-action="fcn-relationships-scroll" data-direction="1"><span class="dashicons dashicons-arrow-down-alt"></span></button>
+    </div>
+
     <input type="hidden" name="<?php echo $meta_key; ?>[]" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper fictioneer-meta-field__wrapper--relationships">

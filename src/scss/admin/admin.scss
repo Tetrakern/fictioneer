@@ -265,6 +265,8 @@ td.comment {
 }
 
 .fictioneer-meta-field {
+  position: relative;
+
   &:not(:first-child) {
     margin-top: 16px;
   }
@@ -322,6 +324,31 @@ td.comment {
   &__label {
     &--editor {
       margin-bottom: -12px;
+    }
+  }
+
+  &__top-actions {
+    position: absolute;
+    top: -7px;
+    right: 0;
+    display: flex;
+    gap: 5px;
+
+    @include bp(1024px) {
+      display: none;
+    }
+
+    button {
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: 8px;
+
+      span {
+        font-size: 14px;
+        height: auto;
+        width: auto;
+      }
     }
   }
 

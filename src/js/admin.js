@@ -888,6 +888,21 @@ _$$('[data-target="fcn-relationships-post-type"]').forEach(select => {
   });
 });
 
+// Scroll buttons for mobile
+_$$('[data-action="fcn-relationships-scroll"]').forEach(button => {
+  const field = button.closest('.fictioneer-meta-field');
+  const target = field.querySelector('[data-target="fcn-relationships-values"');
+
+  button.addEventListener('click', event => {
+    const direction = parseInt(event.currentTarget.dataset.direction);
+
+    target.scrollBy({
+      top: (direction * target.offsetHeight) * 0.75,
+      behavior: 'smooth'
+    });
+  });
+});
+
 /**
  * Observe relationship source container for successive loading.
  *
