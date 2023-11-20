@@ -821,7 +821,7 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
               <?php
                 fictioneer_render_relationship_post_type_select(
                   'fcn-relationships-post-type',
-                  array( 'post_types' => $args['post_types'] )
+                  $args['post_types']
                 );
               ?>
             </div>
@@ -1013,6 +1013,11 @@ function fictioneer_ajax_query_relationship_posts() {
   // Story page assignment?
   if ( check_ajax_referer( "relationship_posts_fictioneer_story_custom_pages_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
     fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key );
+  }
+
+  // Collection item assignment?
+  if ( check_ajax_referer( "relationship_posts_fictioneer_collection_items_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
+    fictioneer_ajax_get_collection_relationship_items( $post_id, $meta_key );
   }
 
   // Nothing worked...
@@ -1307,6 +1312,165 @@ function fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key ) {
     // Build and append item
     $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$item->ID}'>";
     $item .= "<span>{$title}</span></li>";
+
+    $output[] = $item;
+  }
+
+  // Build HTML for observer
+  if ( $page < $query->max_num_pages ) {
+    $page++;
+
+    $observer = "<li class='fictioneer-meta-field__relationships-source-observer disabled' ";
+    $observer .= "data-target='fcn-relationships-observer' data-nonce='{$nonce}' ";
+    $observer .= "data-key='{$meta_key}' data-post-id='{$post_id}' data-page='{$page}' ";
+    $observer .= 'data-ajax-action="fictioneer_ajax_query_relationship_posts">';
+    $observer .= '<img src="' . esc_url( admin_url() . 'images/spinner-2x.gif' ) . '">';
+    $observer .= '<span>' . _x( 'Loading', 'AJAX relationship posts loading.', 'fictioneer' ) . '</span></li>';
+
+    $output[] = $observer;
+  }
+
+  // No results
+  if ( empty( $output ) ) {
+    $no_matches = "<li class='fictioneer-meta-field__relationships-no-matches disabled'><span>";
+    $no_matches .= _x( 'No matches found.', 'AJAX relationship posts loading.', 'fictioneer' );
+    $no_matches .= '</span></li>';
+
+    $output[] = $no_matches;
+  }
+
+  // Response
+  wp_send_json_success(
+    array(
+      'html' => implode( '', $output )
+    )
+  );
+}
+
+/**
+ * Render HTML for selected collection items
+ *
+ * @since 5.8.0
+ *
+ * @param array  $selected  Currently selected items.
+ * @param string $meta_key  The meta key.
+ * @param array  $args      Optional. An array of additional arguments.
+ */
+
+function fictioneer_callback_relationship_collection_items( $selected, $meta_key, $args = [] ) {
+  // Setup
+  $post_type_labels = array(
+    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
+    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
+    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
+    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
+    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
+    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
+  );
+
+  // Build HTML
+  foreach ( $selected as $item ) {
+    $title = fictioneer_get_safe_title( $item );
+    $label = esc_html( $post_type_labels[ $item->post_type ] ?? __( 'n/a', 'fictioneer' ) );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
+
+    // Start HTML ---> ?>
+    <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $item->ID; ?>">
+      <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $item->ID; ?>" autocomplete="off">
+      <span><strong>[<?php echo $label; ?>]</strong> <?php echo $title; ?></span>
+      <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
+    </li>
+    <?php // <--- End HTML
+  }
+}
+
+/**
+ * AJAX: Query and send paginated items for collection
+ *
+ * @since 5.8.0
+ *
+ * @param int    $post_id   The story post ID.
+ * @param string $meta_key  The meta key.
+ */
+
+function fictioneer_ajax_get_collection_relationship_items( $post_id, $meta_key ) {
+  // Setup
+  $post = get_post( $post_id );
+  $user = wp_get_current_user();
+  $page = absint( $_REQUEST['page'] ?? 1 );
+  $search = sanitize_text_field( $_REQUEST['search'] ?? '' );
+  $post_type = sanitize_text_field( $_REQUEST['post_type'] ?? '' );
+
+  $post_type_labels = array(
+    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
+    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
+    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
+    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
+    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
+    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
+  );
+
+  $forbidden = array_unique(
+    array(
+      get_option( 'fictioneer_user_profile_page', 0 ),
+      get_option( 'fictioneer_bookmarks_page', 0 ),
+      get_option( 'fictioneer_stories_page', 0 ),
+      get_option( 'fictioneer_chapters_page', 0 ),
+      get_option( 'fictioneer_recommendations_page', 0 ),
+      get_option( 'fictioneer_collections_page', 0 ),
+      get_option( 'fictioneer_bookshelf_page', 0 ),
+      get_option( 'fictioneer_404_page', 0 ),
+      get_option( 'page_on_front', 0 ),
+      get_option( 'page_for_posts', 0 )
+    )
+  );
+
+  // Validations
+  if ( $post->post_type !== 'fcn_collection' ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Wrong post type.', 'fictioneer' ) ) );
+  }
+
+  if (
+    ! current_user_can( 'edit_fcn_collections' ) ||
+    (
+      $user->ID != $post->post_author &&
+      ! current_user_can( 'edit_others_fcn_collections' ) &&
+      ! current_user_can( 'manage_options' )
+    )
+  ) {
+    wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Query
+  $query = new WP_Query(
+    array(
+      'post_type' => $post_type ?: ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'desc',
+      'post__not_in' => array_map( 'strval', $forbidden ),
+      'posts_per_page' => 10,
+      'paged' => $page,
+      's' => $search,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false // Improve performance
+    )
+  );
+
+  // Setup
+  $nonce = wp_create_nonce( "relationship_posts_{$meta_key}_{$post_id}" );
+  $output = [];
+
+  // Build HTML for items
+  foreach ( $query->posts as $item ) {
+    // Chapter setup
+    $title = fictioneer_get_safe_title( $item );
+    $label = esc_html( '[' . ( $post_type_labels[ $item->post_type ] ?? '?' ) . ']' );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
+
+    // Build and append item
+    $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$item->ID}'>";
+    $item .= "<span><strong>{$label}</strong> {$title}</span></li>";
 
     $output[] = $item;
   }
@@ -3342,12 +3506,33 @@ function fictioneer_render_collection_data_metabox( $post ) {
   );
 
   // Collection items
-  $output['fictioneer_collection_items'] = fictioneer_get_acf_field(
-    $post,
-    'field_619fc7732b611',
+  $item_ids = get_post_meta( $post->ID, 'fictioneer_collection_items', true ) ?: [];
+  $items = empty( $item_ids ) ? [] : get_posts(
     array(
-      'label' => _x( 'Collection Items', 'Collection items meta field label.', 'fictioneer' ),
-      'description' => __( 'Select the posts you want to be featured. If you add a story, <strong>do not</strong> add its chapters separately.', 'fictioneer' )
+      'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+      'post_status' => 'any',
+      'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+      'orderby' => 'post__in',
+      'posts_per_page' => -1,
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  $output['_fictioneer_collection_items'] = fictioneer_get_metabox_relationships(
+    $post,
+    'fictioneer_collection_items',
+    $items,
+    'fictioneer_callback_relationship_collection_items',
+    array(
+      'label' => _x( 'Collection Items', 'Collection Items meta field label.', 'fictioneer' ),
+      'description' => __(
+        'Select the posts you want to be featured. If you add a story, <strong>do not</strong> add its chapters separately.', 'fictioneer'
+      ),
+      'post_types' => array(
+        'excluded' => ['attachment']
+      )
     )
   );
 
@@ -3413,41 +3598,50 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
   }
 
   // Collection items
-  $items = get_post_meta( $post_id, 'fictioneer_collection_items', true );
-  $items = is_array( $items ) ? $items : [];
+  if ( isset( $_POST['fictioneer_collection_items'] ) ) {
+    $item_ids = $_POST['fictioneer_collection_items'];
+    $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
+    $item_ids = array_map( 'intval', $item_ids );
+    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; });
+    $item_ids = array_unique( $item_ids );
 
-  if ( isset( $items ) && empty( $items ) ) {
-    $fields['fictioneer_collection_items'] = []; // Ensure empty ACF meta is removed
+    $forbidden = array_unique(
+      array(
+        get_option( 'fictioneer_user_profile_page', 0 ),
+        get_option( 'fictioneer_bookmarks_page', 0 ),
+        get_option( 'fictioneer_stories_page', 0 ),
+        get_option( 'fictioneer_chapters_page', 0 ),
+        get_option( 'fictioneer_recommendations_page', 0 ),
+        get_option( 'fictioneer_collections_page', 0 ),
+        get_option( 'fictioneer_bookshelf_page', 0 ),
+        get_option( 'fictioneer_404_page', 0 ),
+        get_option( 'page_on_front', 0 ),
+        get_option( 'page_for_posts', 0 )
+      )
+    );
+
+    $item_ids = array_diff( $item_ids, array_map( 'strval', $forbidden ) );
+
+    if ( empty( $item_ids ) ) {
+      $fields['fictioneer_collection_items'] = []; // Ensure empty meta is removed
+    } else {
+      $items_query = new WP_Query(
+        array(
+          'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+          'post_status' => 'publish',
+          'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+          'orderby' => 'post__in',
+          'fields' => 'ids',
+          'posts_per_page' => -1,
+          'update_post_meta_cache' => false, // Improve performance
+          'update_post_term_cache' => false, // Improve performance
+          'no_found_rows' => true // Improve performance
+        )
+      );
+
+      $fields['fictioneer_collection_items'] = array_map( 'strval', $items_query->posts );
+    }
   }
-
-  $forbidden = array(
-    get_option( 'fictioneer_user_profile_page', 0 ),
-    get_option( 'fictioneer_bookmarks_page', 0 ),
-    get_option( 'fictioneer_stories_page', 0 ),
-    get_option( 'fictioneer_chapters_page', 0 ),
-    get_option( 'fictioneer_recommendations_page', 0 ),
-    get_option( 'fictioneer_collections_page', 0 ),
-    get_option( 'fictioneer_bookshelf_page', 0 ),
-    get_option( 'fictioneer_404_page', 0 ),
-    get_option( 'page_on_front', 0 ),
-    get_option( 'page_for_posts', 0 )
-  );
-
-  $forbidden = array_map( 'strval', $forbidden );
-
-  $fields['fictioneer_collection_items'] = array_diff( $items, $forbidden );
-
-  // --- Cleanup -----------------------------------------------------------------
-
-  global $wpdb;
-
-  $wpdb->delete(
-    $wpdb->postmeta,
-    array(
-      'meta_key' => '_fictioneer_collection_items',
-      'meta_value' => 'field_619fc7732b611' // ACF control field
-    )
-  );
 
   // --- Filters -----------------------------------------------------------------
 
