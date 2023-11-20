@@ -1935,7 +1935,7 @@ function fictioneer_render_story_data_metabox( $post ) {
       )
     );
 
-    $output['_fictioneer_story_custom_pages'] = fictioneer_get_metabox_relationships(
+    $output['fictioneer_story_custom_pages'] = fictioneer_get_metabox_relationships(
       $post,
       'fictioneer_story_custom_pages',
       $pages,
