@@ -231,11 +231,12 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `customize_save_after` | `fictioneer_watch_for_customer_updates`
 | `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `do_feed_rss2` | `fictioneer_main_rss_template`
+| `do_meta_boxes` | `fictioneer_remove_custom_fields_meta_boxes`
 | `edit_comment` | `fictioneer_comment_edit`, `fictioneer_edit_comment`
 | `edit_user_profile` | `fictioneer_custom_profile_fields`
 | `edit_user_profile_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `get_header` | `fictioneer_maintenance_mode`
-| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_restrict_admin_panel`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`
+| `init` | `fictioneer_add_character_taxonomy`, `fictioneer_add_content_warning_taxonomy`, `fictioneer_add_epub_download_endpoint`, `fictioneer_add_fandom_taxonomy`, `fictioneer_add_genre_taxonomy`, `fictioneer_add_logout_endpoint`, `fictioneer_add_oauth2_endpoint`, `fictioneer_restrict_admin_panel`, `fictioneer_disable_heartbeat`, `fictioneer_fcn_chapter_post_type`, `fictioneer_fcn_collection_post_type`, `fictioneer_fcn_recommendation_post_type`, `fictioneer_fcn_story_post_type`, `fictioneer_modify_allowed_tags`, `fictioneer_story_rss`, `fictioneer_remove_custom_fields_supports`
 | `login_form` | `fictioneer_after_logout_cleanup`
 | `login_head` | `fictioneer_wp_login_scripts`
 | `manage_comments_custom_column` | `fictioneer_add_comments_report_column_content`
@@ -284,6 +285,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `get_avatar_url` | `fictioneer_get_avatar_url`
 | `get_comment_author_IP` | `__return_empty_string`
 | `get_comment_text` | `fictioneer_replace_comment_line_breaks`
+| `is_protected_meta` | `fictioneer_make_theme_meta_protected`
 | `kses_allowed_protocols` | `fictioneer_extend_allowed_protocols`
 | `logout_url` | `fictioneer_logout_redirect`
 | `manage_edit-comments_columns` | `fictioneer_add_comments_report_column`

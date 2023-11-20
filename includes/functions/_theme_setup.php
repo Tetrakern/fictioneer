@@ -122,7 +122,7 @@ function fictioneer_theme_setup() {
 add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
 
 // =============================================================================
-// REMOVE DEFAULT CUSTOM FIELDS META BOX
+// PROTECT META FIELDS
 // =============================================================================
 
 /**
@@ -136,10 +136,42 @@ add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
  *                           'advanced', 'side'.
  */
 
-function fictioneer_remove_default_custom_fields_meta_box( $post_type, $context ) {
+function fictioneer_remove_custom_fields_meta_boxes( $post_type, $context ) {
   remove_meta_box( 'postcustom', $post_type, $context );
 }
-add_action( 'do_meta_boxes', 'fictioneer_remove_default_custom_fields_meta_box', 1, 2 );
+add_action( 'do_meta_boxes', 'fictioneer_remove_custom_fields_meta_boxes', 1, 2 );
+
+/**
+ * Removes 'custom-fields' support for posts and pages
+ *
+ * @since 5.8.0
+ */
+
+function fictioneer_remove_custom_fields_supports() {
+  remove_post_type_support( 'post', 'custom-fields' );
+  remove_post_type_support( 'page', 'custom-fields' );
+}
+add_action( 'init', 'fictioneer_remove_custom_fields_supports' );
+
+/**
+ * Makes theme meta fields protected
+ *
+ * @since 5.8.0
+ *
+ * @param bool   $protected  Whether the meta key is considered protected.
+ * @param string $meta_key   The meta key to check.
+ *
+ * @return bool True if the meta key is protected, false otherwise.
+ */
+
+function fictioneer_make_theme_meta_protected( $protected, $meta_key ) {
+  if ( strpos( $meta_key, 'fictioneer_' ) === 0 ) {
+    return true;
+  }
+
+  return $protected;
+}
+add_filter( 'is_protected_meta', 'fictioneer_make_theme_meta_protected', 10, 2 );
 
 // =============================================================================
 // CUSTOM BACKGROUND CALLBACK
