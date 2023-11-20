@@ -1371,13 +1371,18 @@ function fictioneer_callback_relationship_collection( $selected, $meta_key, $arg
   // Build HTML
   foreach ( $selected as $item ) {
     $title = fictioneer_get_safe_title( $item );
-    $label = esc_html( $post_type_labels[ $item->post_type ] ?? __( 'n/a', 'fictioneer' ) );
+    $label = esc_html(
+      sprintf(
+        _x( '[%s]', 'Relationship item label.', 'fictioneer' ),
+        $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' )
+      )
+    );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
     // Start HTML ---> ?>
     <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $item->ID; ?>">
       <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $item->ID; ?>" autocomplete="off">
-      <span><strong>[<?php echo $label; ?>]</strong> <?php echo $title; ?></span>
+      <span><strong><?php echo $label; ?></strong> <?php echo $title; ?></span>
       <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
     </li>
     <?php // <--- End HTML
@@ -1465,7 +1470,12 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   foreach ( $query->posts as $item ) {
     // Chapter setup
     $title = fictioneer_get_safe_title( $item );
-    $label = esc_html( '[' . ( $post_type_labels[ $item->post_type ] ?? '?' ) . ']' );
+    $label = esc_html(
+      sprintf(
+        _x( '[%s]', 'Relationship item label.', 'fictioneer' ),
+        $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' )
+      )
+    );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Build and append item
