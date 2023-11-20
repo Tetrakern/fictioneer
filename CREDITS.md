@@ -115,6 +115,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: No license information provided (assumed public domain)<br>
   Source: https://medium.com/hackernoon/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2
 
+* **Sortable**<br>
+  Copyright: [People on GitHub](https://github.com/orgs/SortableJS/people), I guess<br>
+  License: [MIT](https://github.com/SortableJS/Sortable/blob/master/LICENSE)<br>
+  Source: https://github.com/SortableJS/Sortable
+
 ## PHP
 
 * **Color Converter (Hex2RGB, RGB2HSL)**<br>
