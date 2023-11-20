@@ -819,7 +819,7 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
           <?php if ( isset( $args['post_types'] ) && ! empty( $args['post_types'] ) ) : ?>
             <div class="fictioneer-meta-field__relationships-selects">
               <?php
-                fictioneer_render_relationship_post_type_select(
+                fictioneer_relationship_post_type_select(
                   'fcn-relationships-post-type',
                   $args['post_types']
                 );
@@ -904,7 +904,7 @@ function fictioneer_get_metabox_relationships( $post, $meta_key, $selected, $cal
  * }
  */
 
-function fictioneer_render_relationship_post_type_select( $name, $args = [] ) {
+function fictioneer_relationship_post_type_select( $name, $args = [] ) {
   // Setup
   $args = is_array( $args ) ? $args : [];
   $type_args = array_merge( array( 'public' => true ), $args['type_args'] ?? [] );
@@ -928,50 +928,6 @@ function fictioneer_render_relationship_post_type_select( $name, $args = [] ) {
   }
 
   echo '</select></div></div>';
-}
-
-/**
- * Render HTML for selected story chapters
- *
- * @since 5.8.0
- *
- * @param array  $selected  Currently selected chapters.
- * @param string $meta_key  The meta key.
- * @param array  $args      Optional. An array of additional arguments.
- */
-
-function fictioneer_callback_relationship_chapter_items( $selected, $meta_key, $args = [] ) {
-  // Setup
-  $status_labels = array(
-    'draft' => get_post_status_object( 'draft' )->label,
-    'pending' => get_post_status_object( 'pending' )->label,
-    'publish' => get_post_status_object( 'publish' )->label,
-    'private' => get_post_status_object( 'private' )->label,
-    'future' => get_post_status_object( 'future' )->label,
-    'trash' => get_post_status_object( 'trash' )->label,
-  );
-
-  // Build HTML
-  foreach ( $selected as $chapter ) {
-    $title = fictioneer_get_safe_title( $chapter );
-    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
-
-    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
-      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
-    }
-
-    if ( $chapter->post_status !== 'publish' ) {
-      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
-    }
-
-    // Start HTML ---> ?>
-    <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $chapter->ID; ?>" data-info="<?php echo esc_attr( esc_attr( fictioneer_get_story_chapter_info_html( $chapter ) ) ); ?>">
-      <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $chapter->ID; ?>" autocomplete="off">
-      <span><?php echo $title; ?></span>
-      <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
-    </li>
-    <?php // <--- End HTML
-  }
 }
 
 /**
@@ -1007,23 +963,67 @@ function fictioneer_ajax_query_relationship_posts() {
 
   // Story chapter assignment?
   if ( check_ajax_referer( "relationship_posts_fictioneer_story_chapters_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
-    fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key );
+    fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key );
   }
 
   // Story page assignment?
   if ( check_ajax_referer( "relationship_posts_fictioneer_story_custom_pages_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
-    fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key );
+    fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key );
   }
 
   // Collection item assignment?
   if ( check_ajax_referer( "relationship_posts_fictioneer_collection_items_{$post_id}", 'nonce', false ) && $post_id > 0 ) {
-    fictioneer_ajax_get_collection_relationship_items( $post_id, $meta_key );
+    fictioneer_ajax_get_relationship_collection( $post_id, $meta_key );
   }
 
   // Nothing worked...
   wp_send_json_error( array( 'error' => __( 'Error: Invalid request.', 'fictioneer' ) ) );
 }
 add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax_query_relationship_posts' );
+
+/**
+ * Render HTML for selected story chapters
+ *
+ * @since 5.8.0
+ *
+ * @param array  $selected  Currently selected chapters.
+ * @param string $meta_key  The meta key.
+ * @param array  $args      Optional. An array of additional arguments.
+ */
+
+function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args = [] ) {
+  // Setup
+  $status_labels = array(
+    'draft' => get_post_status_object( 'draft' )->label,
+    'pending' => get_post_status_object( 'pending' )->label,
+    'publish' => get_post_status_object( 'publish' )->label,
+    'private' => get_post_status_object( 'private' )->label,
+    'future' => get_post_status_object( 'future' )->label,
+    'trash' => get_post_status_object( 'trash' )->label,
+  );
+
+  // Build HTML
+  foreach ( $selected as $chapter ) {
+    $title = fictioneer_get_safe_title( $chapter );
+    $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
+
+    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+      $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
+    }
+
+    if ( $chapter->post_status !== 'publish' ) {
+      $title = "{$title} ({$status_labels[ $chapter->post_status ]})";
+    }
+
+    // Start HTML ---> ?>
+    <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $chapter->ID; ?>" data-info="<?php echo esc_attr( esc_attr( fictioneer_get_relationship_chapter_details( $chapter ) ) ); ?>">
+      <input type="hidden" name="<?php echo $meta_key; ?>[]" value="<?php echo $chapter->ID; ?>" autocomplete="off">
+      <span><?php echo $title; ?></span>
+      <button type="button" data-action="remove"><span class="dashicons dashicons-no-alt"></span></button>
+    </li>
+    <?php // <--- End HTML
+  }
+}
 
 /**
  * AJAX: Query and send paginated chapters for story chapter assignments
@@ -1034,7 +1034,7 @@ add_action( 'wp_ajax_fictioneer_ajax_query_relationship_posts', 'fictioneer_ajax
  * @param string $meta_key  The meta key.
  */
 
-function fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key ) {
+function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
   // Setup
   $post = get_post( $post_id );
   $user = wp_get_current_user();
@@ -1106,7 +1106,7 @@ function fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key ) 
 
     // Build and append item
     $item = "<li class='" . implode( ' ', $classes ) . "' data-action='add' data-id='{$chapter->ID}' ";
-    $item .= "data-info='" . esc_attr( fictioneer_get_story_chapter_info_html( $chapter ) ) . "'><span>{$title}</span></li>";
+    $item .= "data-info='" . esc_attr( fictioneer_get_relationship_chapter_details( $chapter ) ) . "'><span>{$title}</span></li>";
 
     $output[] = $item;
   }
@@ -1152,7 +1152,7 @@ function fictioneer_ajax_get_story_relationship_chapters( $post_id, $meta_key ) 
  * @return string HTML for the chapter info.
  */
 
-function fictioneer_get_story_chapter_info_html( $chapter ) {
+function fictioneer_get_relationship_chapter_details( $chapter ) {
   // Setup
   $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon', $chapter->ID );
   $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID );
@@ -1235,7 +1235,7 @@ function fictioneer_get_story_chapter_info_html( $chapter ) {
  * @param array  $args      Optional. An array of additional arguments.
  */
 
-function fictioneer_callback_relationship_page_items( $selected, $meta_key, $args = [] ) {
+function fictioneer_callback_relationship_story_pages( $selected, $meta_key, $args = [] ) {
   // Build HTML
   foreach ( $selected as $page ) {
     $title = fictioneer_get_safe_title( $page );
@@ -1260,7 +1260,7 @@ function fictioneer_callback_relationship_page_items( $selected, $meta_key, $arg
  * @param string $meta_key  The meta key.
  */
 
-function fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key ) {
+function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
   // Setup
   $post = get_post( $post_id );
   $user = wp_get_current_user();
@@ -1357,7 +1357,7 @@ function fictioneer_ajax_get_story_relationship_pages( $post_id, $meta_key ) {
  * @param array  $args      Optional. An array of additional arguments.
  */
 
-function fictioneer_callback_relationship_collection_items( $selected, $meta_key, $args = [] ) {
+function fictioneer_callback_relationship_collection( $selected, $meta_key, $args = [] ) {
   // Setup
   $post_type_labels = array(
     'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
@@ -1393,7 +1393,7 @@ function fictioneer_callback_relationship_collection_items( $selected, $meta_key
  * @param string $meta_key  The meta key.
  */
 
-function fictioneer_ajax_get_collection_relationship_items( $post_id, $meta_key ) {
+function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   // Setup
   $post = get_post( $post_id );
   $user = wp_get_current_user();
@@ -1803,7 +1803,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     $post,
     'fictioneer_story_chapters',
     $chapters,
-    'fictioneer_callback_relationship_chapter_items',
+    'fictioneer_callback_relationship_chapters',
     array(
       'label' => _x( 'Chapters', 'Story chapters meta field label.', 'fictioneer' ),
       'description' => __( 'Select and order chapters assigned to the story (set in the chapter).', 'fictioneer' ),
@@ -1832,7 +1832,7 @@ function fictioneer_render_story_data_metabox( $post ) {
       $post,
       'fictioneer_story_custom_pages',
       $pages,
-      'fictioneer_callback_relationship_page_items',
+      'fictioneer_callback_relationship_story_pages',
       array(
         'label' => _x( 'Custom Pages', 'Story pages meta field label.', 'fictioneer' ),
         'description' => sprintf(
@@ -3524,7 +3524,7 @@ function fictioneer_render_collection_data_metabox( $post ) {
     $post,
     'fictioneer_collection_items',
     $items,
-    'fictioneer_callback_relationship_collection_items',
+    'fictioneer_callback_relationship_collection',
     array(
       'label' => _x( 'Collection Items', 'Collection Items meta field label.', 'fictioneer' ),
       'description' => __(
