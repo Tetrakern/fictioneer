@@ -777,9 +777,9 @@ On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** onl
 
 ### Queries
 
-In order to keep the database tidy, Fictioneer does not save or keep "falsy" (`""`, `0`, `null`, `false`, `[]`) meta values. This can cause issues with [meta queries](https://developer.wordpress.org/reference/classes/wp_query/#custom-field-post-meta-parameters) looking for these values. The most common troublemakers here are `fictioneer_story_sticky`, `fictioneer_story_hidden`, and `fictioneer_chapter_hidden`. There are multiple solutions for this.
+In order to keep the database tidy, Fictioneer does not save or keep "falsy" (`""`, `0`, `null`, `false`, `[]`) meta values. This can cause issues with [meta queries](https://developer.wordpress.org/reference/classes/wp_query/#custom-field-post-meta-parameters) looking for these values, because posts without are excluded from the results. The most common troublemakers here are `fictioneer_story_sticky`, `fictioneer_story_hidden`, and `fictioneer_chapter_hidden`. There are multiple solutions for this.
 
-**1) Use an extended (but more expensive) meta query:**
+**1) Use an extended (but slower) meta query:**
 
 ```php
 $query_args = array(
