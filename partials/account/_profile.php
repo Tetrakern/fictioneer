@@ -82,7 +82,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
           class="profile__input-field profile__nickname"
           <?php if ( $renaming_disabled ) echo 'disabled'; ?>
         >
-        <p class="profile__input-note"><?php _e( 'Your nickname will be displayed instead of your username. Not unique!', 'fictioneer' ); ?></p>
+        <p class="profile__input-note"><?php _e( 'Your nickname will be displayed instead of your username; comments store the nickname. Not unique!', 'fictioneer' ); ?></p>
       </div>
     </div>
 

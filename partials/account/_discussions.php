@@ -33,7 +33,7 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
 <p class="profile__description">
   <?php
     printf(
-      __( 'Alternatively, you can register your email address on the <a href="%s">Gravatar</a> service. Your avatar will then be matched with your email address; note the <b>[Always use gravatar]</b> flag under Account Settings in this case.', 'fictioneer' ),
+      __( 'Alternatively, you can register your email address on the <a href="%s">Gravatar</a> service. Your avatar will then be matched with your email address; note the <b>[Always use gravatar]</b> flag under Account Settings in this case. Note that comments store your nickname used at the time of posting and <em>will not update when changed.</em>', 'fictioneer' ),
       'https://gravatar.com/'
     )
   ?>
@@ -118,7 +118,7 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
   </div>
 
   <div class="comment__body clearfix">
-    <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus consequat, justo vulputate rutrum aliquam, magna sem malesuada turpis, et convallis est metus eget.', 'fictioneer' ); ?></p>
+    <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus.', 'fictioneer' ); ?></p>
   </div>
 
 </div>
