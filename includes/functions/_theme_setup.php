@@ -174,6 +174,33 @@ function fictioneer_make_theme_meta_protected( $protected, $meta_key ) {
 add_filter( 'is_protected_meta', 'fictioneer_make_theme_meta_protected', 10, 2 );
 
 // =============================================================================
+// PROTECT PERMALINKS
+// =============================================================================
+
+/**
+ * Prevents reserved slugs from being used in permalinks
+ *
+ * @since 5.8.0
+ *
+ * @param string $slug  The prospective slug.
+ *
+ * @return string The filtered slug.
+ */
+
+function fictioneer_protect_reserved_post_slugs( $slug ) {
+  $protected = ['oauth2', 'download-epub', 'fictioneer-logout'];
+
+  // Prevent slugs from being applied to posts
+  if ( in_array( $slug, $protected ) ) {
+    return $slug . '-2';
+  }
+
+  // Continue filter
+  return $slug;
+}
+add_filter( 'wp_unique_post_slug', 'fictioneer_protect_reserved_post_slugs' );
+
+// =============================================================================
 // CUSTOM BACKGROUND CALLBACK
 // =============================================================================
 
