@@ -1187,15 +1187,15 @@ add_filter( 'profile_update', 'fictioneer_on_profile_change', 10, 2 );
  *
  * @global wpdb $wpdb  WordPress database object.
  *
- * @param int    $user_id       The ID of the user whose comments should be updated.
- * @param string $new_nickname  The new nickname to be inserted.
+ * @param int    $user_id           The ID of the user whose comments should be updated.
+ * @param string $new_display_name  The new new_name to be inserted.
  */
 
-function fictioneer_update_user_comments_nickname( $user_id, $new_nickname ) {
+function fictioneer_update_user_comments_nickname( $user_id, $new_display_name ) {
   global $wpdb;
 
   // Update all comments with the new nickname
-  $data = array( 'comment_author' => $new_nickname );
+  $data = array( 'comment_author' => $new_display_name );
   $where = array( 'user_id' => $user_id );
   $wpdb->update( $wpdb->comments, $data, $where );
 }
