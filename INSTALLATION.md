@@ -599,6 +599,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Select Page Template:** You cannot change the page template without this.
   * **Custom Page CSS:** Inject CSS into the header for an unique style. Dangerous!
   * **Custom ePUB CSS:** Inject CSS into the ePUB for an unique style. Dangerous!
+  * **Custom ePUB Upload:** Assign custom ePUB file from the media library to the story.
   * **Custom Page Header:** Change the header image for selected pages.
   * **SEO Meta:** Show and edit the SEO meta for posts (if enabled in the settings).
   * **Make Sticky:** You can make posts and stories stick to the top in lists.
