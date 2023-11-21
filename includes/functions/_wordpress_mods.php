@@ -1171,11 +1171,11 @@ add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 
 
 function fictioneer_on_profile_change( $user_id, $old_user_data ) {
   // Setup
-  $user_info = get_userdata( $user_id );
+  $user_data = get_userdata( $user_id );
 
   // Display name changed?
-  if ( $old_user_data->display_name !== $user_info->display_name  ) {
-    fictioneer_update_user_comments_nickname( $user_id, $user_info->display_name  );
+  if ( $old_user_data->display_name !== $user_data->display_name  ) {
+    fictioneer_update_user_comments_nickname( $user_id, $user_data->display_name  );
   }
 }
 add_filter( 'profile_update', 'fictioneer_on_profile_change', 10, 2 );
