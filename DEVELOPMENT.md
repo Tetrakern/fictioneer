@@ -323,6 +323,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_is_application_passwords_available` | `__return_false`
 | `wp_robots` | `fictioneer_add_noindex_to_robots`
 | `wp_sitemaps_enabled` | `__return_false`
+| `wp_unique_post_slug` | `fictioneer_protect_reserved_post_slugs`
 
 ## Caching
 
