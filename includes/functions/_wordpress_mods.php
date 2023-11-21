@@ -1156,4 +1156,48 @@ function fictioneer_prevent_track_and_ping_updates( $data ) {
 }
 add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 1 );
 
+// =============================================================================
+// UPDATE ASSOCIATED DATA ON USER PROFILE CHANGE
+// =============================================================================
+
+/**
+ * Trigger delegated functions on user profile update
+ *
+ * @since Fictioneer 5.8.0
+ *
+ * @param int     $user_id        The ID of the updated user.
+ * @param WP_User $old_user_data  Object containing user's data prior to update.
+ */
+
+function fictioneer_on_profile_change( $user_id, $old_user_data ) {
+  // Setup
+  $user_info = get_userdata( $user_id );
+
+  // Display name changed?
+  if ( $old_user_data->display_name !== $user_info->display_name  ) {
+    fictioneer_update_user_comments_nickname( $user_id, $user_info->display_name  );
+  }
+}
+add_filter( 'profile_update', 'fictioneer_on_profile_change', 10, 2 );
+
+/**
+ * Updates the display name on all comments for a given user
+ *
+ * @since Fictioneer 5.8.0
+ *
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param int    $user_id       The ID of the user whose comments should be updated.
+ * @param string $new_nickname  The new nickname to be inserted.
+ */
+
+function fictioneer_update_user_comments_nickname( $user_id, $new_nickname ) {
+  global $wpdb;
+
+  // Update all comments with the new nickname
+  $data = array( 'comment_author' => $new_nickname );
+  $where = array( 'user_id' => $user_id );
+  $wpdb->update( $wpdb->comments, $data, $where );
+}
+
 ?>

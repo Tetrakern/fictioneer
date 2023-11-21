@@ -243,6 +243,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `personal_options_update` | `fictioneer_update_admin_user_profile`, `fictioneer_update_my_user_profile`
 | `pre_get_posts` | `fictioneer_extend_search_query`, `fictioneer_read_others_files`, `fictioneer_read_others_files_list_view`, `fictioneer_filter_chapters_by_story`
 | `private_to_draft` | `fictioneer_chapter_to_draft`
+| `profile_update` | `fictioneer_on_profile_change`
 | `publish_to_draft` | `fictioneer_chapter_to_draft`
 | `rest_api_init` | `fictioneer_register_endpoint_get_story_comments`
 | `restrict_manage_posts` | `fictioneer_add_chapter_story_filter_dropdown`

@@ -402,10 +402,10 @@ function fictioneer_update_frontend_profile() {
   }
 
   // Nickname?
-  if ( ! empty( $nickname  ) && ! $user->fictioneer_admin_disable_renaming ) {
+  if ( ! empty( $nickname ) && ! $user->fictioneer_admin_disable_renaming ) {
     wp_update_user(
       array(
-        'ID' => $user_id ,
+        'ID' => $user_id,
         'nickname' => $nickname,
         'display_name' => $nickname
       )
