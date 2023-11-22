@@ -479,6 +479,88 @@ function fictioneer_cancel_frontend_email_change() {
 add_action( 'admin_post_fictioneer_cancel_frontend_email_change', 'fictioneer_cancel_frontend_email_change' );
 
 // =============================================================================
+// UPDATE ASSOCIATED DATA ON USER PROFILE CHANGE
+// =============================================================================
+
+/**
+ * Trigger delegated functions on user profile update
+ *
+ * @since Fictioneer 5.8.0
+ *
+ * @param int     $user_id        The ID of the updated user.
+ * @param WP_User $old_user_data  Object containing user's data prior to update.
+ */
+
+function fictioneer_on_profile_change( $user_id, $old_user_data ) {
+  // Setup
+  $user_data = get_userdata( $user_id );
+
+  // Display name changed?
+  if ( $old_user_data->display_name !== $user_data->display_name ) {
+    fictioneer_update_user_comments_nickname( $user_id, $user_data->display_name );
+  }
+
+  // Email changed?
+  if ( $old_user_data->user_email !== $user_data->user_email ) {
+    fictioneer_update_user_comments_email( $user_id, $user_data->user_email );
+  }
+}
+add_filter( 'profile_update', 'fictioneer_on_profile_change', 10, 2 );
+
+/**
+ * Updates the display name on all comments for a given user
+ *
+ * @since Fictioneer 5.8.0
+ *
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param int    $user_id           The ID of the user whose comments should be updated.
+ * @param string $new_display_name  The new name to be used.
+ */
+
+function fictioneer_update_user_comments_nickname( $user_id, $new_display_name ) {
+  global $wpdb;
+
+  // Update all comments with the new nickname
+  $data = array( 'comment_author' => $new_display_name );
+  $where = array( 'user_id' => $user_id );
+  $wpdb->update( $wpdb->comments, $data, $where );
+}
+
+/**
+ * Updates the email on all comments for a given user
+ *
+ * Note: Will not update comments that have no 'comment_author_email' set,
+ * because this might be a privacy issue.
+ *
+ * @since Fictioneer 5.8.0
+ *
+ * @global wpdb $wpdb  WordPress database object.
+ *
+ * @param int    $user_id         The ID of the user whose comments should be updated.
+ * @param string $new_user_email  The new email to be used.
+ */
+
+function fictioneer_update_user_comments_email( $user_id, $new_user_email ) {
+  global $wpdb;
+
+  // SQL to update all comments with the new email (unless unset)
+  $sql = "
+    UPDATE $wpdb->comments
+    SET comment_author_email = %s
+    WHERE user_id = %d
+    AND comment_author_email IS NOT NULL
+    AND comment_author_email != ''
+  ";
+
+  // Prepare
+  $sql = $wpdb->prepare( $sql, $new_user_email, $user_id );
+
+  // Execute
+  $wpdb->query( $sql );
+}
+
+// =============================================================================
 // GET COMMENT BADGE
 // =============================================================================
 
