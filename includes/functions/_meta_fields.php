@@ -1239,6 +1239,21 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
     wp_send_json_error( array( 'error' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
   }
 
+  $forbidden = array_unique(
+    array(
+      get_option( 'fictioneer_user_profile_page', 0 ),
+      get_option( 'fictioneer_bookmarks_page', 0 ),
+      get_option( 'fictioneer_stories_page', 0 ),
+      get_option( 'fictioneer_chapters_page', 0 ),
+      get_option( 'fictioneer_recommendations_page', 0 ),
+      get_option( 'fictioneer_collections_page', 0 ),
+      get_option( 'fictioneer_bookshelf_page', 0 ),
+      get_option( 'fictioneer_404_page', 0 ),
+      get_option( 'page_on_front', 0 ),
+      get_option( 'page_for_posts', 0 )
+    )
+  );
+
   // Query
   $query = new WP_Query(
     array(
@@ -1247,6 +1262,7 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
       'orderby' => 'date',
       'order' => 'desc',
       'author' => get_post_field( 'post_author', $post_id ),
+      'post__not_in' => array_map( 'strval', $forbidden ),
       'posts_per_page' => 10,
       'paged' => $page,
       's' => $search,
