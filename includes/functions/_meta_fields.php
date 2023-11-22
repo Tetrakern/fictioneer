@@ -2576,21 +2576,23 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   $stories = array( '0' => _x( '— Unassigned —', 'Chapter story select option.', 'fictioneer' ) );
   $description = __( 'Select the story this chapter belongs to; assign and order in the story.', 'fictioneer' );
   $author_warning = '';
-
-  $author_stories = new WP_Query(
-    array(
-      'author' => $post_author_id,
-      'post_type' => 'fcn_story',
-      'post_status' => ['publish', 'private'],
-      'posts_per_page'=> -1,
-      'update_post_meta_cache' => false, // Improve performance
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    )
+  $selectable_stories_args = array(
+    'post_type' => 'fcn_story',
+    'post_status' => ['publish', 'private'],
+    'posts_per_page'=> -1,
+    'update_post_meta_cache' => false, // Improve performance
+    'update_post_term_cache' => false, // Improve performance
+    'no_found_rows' => true // Improve performance
   );
 
-  if ( $author_stories->have_posts() ) {
-    foreach( $author_stories->posts as $story ) {
+  if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
+    $selectable_stories_args['author'] = $post_author_id;
+  }
+
+  $selectable_stories = new WP_Query( $selectable_stories_args );
+
+  if ( $selectable_stories->have_posts() ) {
+    foreach( $selectable_stories->posts as $story ) {
       if ( $story->post_status !== 'publish' ) {
         $status_object = get_post_status_object( $story->post_status );
         $status_label = $status_object ? $status_object->label : $story->post_status;
@@ -2846,8 +2848,13 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
     if ( $story_id ) {
       $story_author_id = get_post_field( 'post_author', $story_id );
+      $invalid_story = false;
 
-      if ( $story_author_id != $post_author_id && $current_story_id != $story_id ) {
+      if ( get_option( 'fictioneer_limit_chapter_stories_by_author' ) ) {
+        $invalid_story = $story_author_id != $post_author_id;
+      }
+
+      if ( $invalid_story && $current_story_id != $story_id ) {
         $story_id = 0;
       } else {
         fictioneer_append_chapter_to_story( $post_id, $story_id );
