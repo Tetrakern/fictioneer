@@ -64,7 +64,7 @@ if ( is_archive() || is_search() || is_404() ) {
     ?>
   </head>
 
-  <body <?php body_class( 'site-bg' ); ?> data-post-id="<?php echo $post_id ?: -1; ?>">
+  <body <?php body_class( 'site-bg scrolled-to-top' ); ?> data-post-id="<?php echo $post_id ?: -1; ?>">
     <?php wp_body_open(); ?>
 
     <?php

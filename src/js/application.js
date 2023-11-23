@@ -501,16 +501,20 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
  * on the difference. Updates the stored value afterwards for the next time.
  *
  * @since 4.0
+ * @since 5.8.1 - Also checks whether the page is scrolled to the top.
  */
 
 function fcn_scrollDirection() {
-  // Do not proceed if the mobile menu is open
+  // Get current scroll offset
+  const newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
+
+  // Scrolled to top?
+  fcn_theBody.classList.toggle('scrolled-to-top', newScrollTop === 0);
+
+  // Stop if the mobile menu is open
   if (fcn_theSite.classList.contains('transformed-scroll')) {
     return;
   }
-
-  // Get current scroll offset
-  const newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
 
   // Check whether the difference between old and new offset exceeds the threshold
   if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 5) {
@@ -522,6 +526,9 @@ function fcn_scrollDirection() {
 
 // Listen for window scrolling
 window.addEventListener('scroll.rAF', fcn_throttle(fcn_scrollDirection, 200));
+
+// Initialize once
+fcn_scrollDirection();
 
 // =============================================================================
 // OBSERVERS
