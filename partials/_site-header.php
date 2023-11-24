@@ -20,27 +20,32 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Setup
+$tag = get_theme_mod( 'header_style', 'default' ) === 'default' ? 'header' : 'div';
+
 ?>
 
-<header class="header hide-on-fullscreen">
+<<?php echo $tag; ?> class="header hide-on-fullscreen">
 
   <?php do_action( 'fictioneer_header', $args ); ?>
 
-  <div class="header__content">
-    <?php if ( has_custom_logo() ) : ?>
+  <?php if ( get_theme_mod( 'header_style', 'default' ) === 'default' ) : ?>
+    <div class="header__content">
 
-      <div class="header__logo"><?php the_custom_logo(); ?></div>
+      <?php if ( has_custom_logo() ) : ?>
+        <div class="header__logo"><?php the_custom_logo(); ?></div>
+      <?php endif; ?>
 
-    <?php elseif ( display_header_text() ) : ?>
+      <?php if ( display_header_text() ) : ?>
+        <div class="header__title">
+          <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
+          <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
+            <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
 
-      <div class="header__title">
-        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
-        <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
-          <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>
-        <?php endif; ?>
-      </div>
+    </div>
+  <?php endif; ?>
 
-    <?php endif; ?>
-  </div>
-
-</header>
+</<?php echo $tag; ?>>

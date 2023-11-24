@@ -33,22 +33,12 @@
   --ff-heading: 'Open Sans', var(--ff-base);
   --ff-note: 'Lato', var(--ff-base);
   --ff-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
-}
 
-.header-background {
+  // === HEADER ================================================================
   --layout-header-background-height: #{get_clamp(210, 480, 320, $full-width)}; // Overridden by theme customizer
-}
-
-.header {
   --layout-site-header-height: calc(#{get_clamp(190, 380, 320, $full-width)} - var(--layout-main-inset-top)); // Overridden by theme customizer
-}
-
-.header__logo {
   --layout-site-logo-filter: none;
   --layout-site-logo-height: 210px; // Overridden by theme customizer
-}
-
-.header__title {
   --site-title-font: var(--ff-heading);
   --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)}; // Overridden by theme customizer
   --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)}; // Overridden by theme customizer
@@ -127,6 +117,7 @@
   --layout-background-texture-chapter: none;
   --layout-background-texture-container: none;
   --layout-background-texture-cards: none;
+  --layout-top-header-background-color: transparent;
   --layout-header-background-filter: none;
   --layout-header-background-box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
 
@@ -229,7 +220,7 @@
   --floating-shadow: 0 0 16px 4px rgb(0 0 0 / 30%), 1px 1px 0 0 rgb(255 255 255 / 1%) inset;
   --container-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
   --container-box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px -1px rgb(0 0 0 / 10%);
-  --figure-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  --figure-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.12)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.1));
   --card-image-drop-shadow: none;
   --caption-overlay-shadow: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
   --embed-box-shadow: 0 0 2px rgb(0 0 0 / 30%);

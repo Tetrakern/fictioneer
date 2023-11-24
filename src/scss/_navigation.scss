@@ -1,7 +1,9 @@
+// If outside window, activate sticky navigation
 .nav-observer {
   top: calc(-1px + var(--nav-observer-offset, 0px));
 }
 
+// Observer must account for large admin bar
 @include bp(601px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
@@ -14,6 +16,7 @@
   }
 }
 
+// Observer must account for small admin bar
 @include bp(783px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
@@ -26,48 +29,48 @@
   }
 }
 
-.scrolling-up.is-inside-main {
+// Float in from top
+:root:not(.no-nav-sticky) .scrolling-up.is-inside-main {
   .main-navigation {
     transform: translate3d(0, 0, 0);
   }
 }
 
-.scrolling-down.is-inside-main {
+// Float out to top
+:root:not(.no-nav-sticky) .scrolling-down.is-inside-main {
   .main-navigation:not(:hover, :focus-within) {
     transform: translate3d(0, -115%, 0); // Accounts for shadow
   }
 }
 
-.is-inside-main .main-navigation {
+// Narrow navigation bar when scrolled into the page
+:root:not(.no-nav-sticky) .is-inside-main .main-navigation {
   padding: 0;
 
-  &__list,
-  &__list > ul {
-    > :is(.menu-item, .page_item) {
-      border-radius: 0;
-    }
+  :is(.menu-item, .page_item) {
+    border-radius: 0;
   }
 }
 
-.static-menu-item {
-  cursor: default;
+// Case above or equal to 1024px
+:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky {
+  .main-navigation__background {
+    opacity: 1;
+  }
 }
 
-:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky {
-  .main-navigation {
-    &__background {
+// Case below 1024px
+:root:not(.no-nav-sticky) .main-navigation.is-sticky {
+  .main-navigation__background {
+    @media only screen and (max-width: 1023px) {
       opacity: 1;
     }
   }
 }
 
-.scrolled-to-top,
-.main-navigation:not(.is-sticky) {
-  .main-navigation__background {
-    @include bp(desktop) {
-      opacity: 0;
-    }
-  }
+// Extra spacing if header image is missing
+:is(.header-style-top, .header-style-none) .main-navigation {
+  margin-bottom: 1.25rem;
 }
 
 .main-navigation {
@@ -97,25 +100,50 @@
     display: block;
     background: var(--navigation-background-sticky);
     box-shadow: 0 0 1px transparent; // Safari fix to show drop-shadow
+    opacity: 0;
     filter: var(--navigation-drop-shadow);
     contain: strict; // Improve performance
   }
 
   &__wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0 auto;
     max-width: var(--site-width);
   }
 
   &__left {
-    flex-grow: 1;
+    flex-grow: 0;
     min-height: var(--navigation-height);
     max-width: calc(100% - 48px);
     overflow: hidden;
 
     @include bp(desktop) {
+      flex-grow: 1;
       overflow: visible;
+    }
+  }
+
+  // Customizer: Collapse mobile navigation
+  &._collapse-on-mobile {
+    .main-navigation__left {
+      display: none;
+      content-visibility: hidden;
+
+      @include bp(640px) {
+        display: block;
+        content-visibility: visible;
+      }
+    }
+
+    .mobile-menu-button {
+      &__label {
+        display: block;
+
+        @include bp(640px) {
+          display: none;
+        }
+      }
     }
   }
 
@@ -297,6 +325,10 @@
   }
 }
 
+.static-menu-item {
+  cursor: default;
+}
+
 .user-is-tabbing {
   .main-navigation {
     :is(.menu-item, .page_item) {
@@ -315,6 +347,7 @@
 .mobile-menu-button {
   display: flex;
   align-items: center;
+  gap: 8px;
   font-size: 20px;
   line-height: 1;
   padding: 0 16px;
@@ -323,5 +356,12 @@
   @include bp(desktop) {
     display: none;
     content-visibility: hidden;
+  }
+
+  &__label {
+    display: none;
+    font-size: 1rem;
+    font-weight: var(--font-weight-strong);
+    text-transform: uppercase;
   }
 }

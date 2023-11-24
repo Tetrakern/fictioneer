@@ -521,6 +521,11 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --hue-offset: " . $hue_offset . "deg;
       --saturation-offset: " . $saturation_offset / 100 . ";
       --lightness-offset: " . $lightness_offset / 100 . ";
+      --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
+      --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
+      --layout-site-logo-height: " . $logo_height . "px;
+      --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
+      --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {
@@ -532,20 +537,6 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
         --layout-border-radius-small: " . $small_border_radius . "px;
       }";
     }
-
-    $layout_css .= ".header-background {
-      --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
-    }
-    .header {
-      --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
-    }
-    .header__logo {
-      --layout-site-logo-height: " . $logo_height . "px;
-    }
-    .header__title {
-      --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
-      --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
-    }";
 
     $layout_css = fictioneer_minify_css( $layout_css );
 

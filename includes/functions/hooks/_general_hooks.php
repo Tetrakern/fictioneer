@@ -216,7 +216,7 @@ add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
 /**
  * Outputs the HTML for the site header
  *
- * @since Fictioneer 5.0
+ * @since Fictioneer 5.0.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -225,9 +225,39 @@ add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
  */
 
 function fictioneer_site_header( $args ) {
+  // Abort if...
+  if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['default', 'split'] ) ) {
+    return;
+  }
+
   get_template_part( 'partials/_site-header', null, $args );
 }
 add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
+
+// =============================================================================
+// OUTPUT TOP HEADER
+// =============================================================================
+
+/**
+ * Outputs the HTML for the top header
+ *
+ * @since Fictioneer 5.8.1
+ *
+ * @param int|null       $args['post_id']           Optional. Current post ID.
+ * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+ * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ */
+
+function fictioneer_top_header( $args ) {
+  // Abort if...
+  if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['top', 'split'] ) ) {
+    return;
+  }
+
+  get_template_part( 'partials/_top-header', null, $args );
+}
+add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
 
 // =============================================================================
 // OUTPUT HEADER BACKGROUND
@@ -236,7 +266,7 @@ add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
 /**
  * Outputs the HTML for the header background
  *
- * @since Fictioneer 5.0
+ * @since Fictioneer 5.0.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -246,7 +276,7 @@ add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
 
 function fictioneer_header_background( $args ) {
   // Abort if...
-  if ( ! isset( $args['header_image_url'] ) || ! $args['header_image_url'] ) {
+  if ( ! ( $args['header_image_url'] ?? 0 ) ) {
     return;
   }
 

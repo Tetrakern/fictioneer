@@ -27,6 +27,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Tools Tab](#tools-tab)
   * [Log Tab](#log)
 * [How to Customize the Fictioneer Theme](#how-to-customize-the-fictioneer-theme)
+  * [Header Style](#header-style)
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
@@ -685,6 +686,12 @@ There are two ways to customize the theme. The obvious one is the Customizer of 
 
 The second way is to directly modify the templates, styles, and scripts. This is indefinitely more powerful but requires some developer skills — and you can easily break your site. The theme’s files can be modified under **Appearance > Theme File Editor**, although you should never actually do this. Always create a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) because any code changes you make, regardless of quality, will be overwritten again when you update the theme.
 
+### Header Style
+
+![Customizer HSL Sliders](repo/assets/customizer_header_style_preview.jpg?raw=true)
+
+You can choose between three different header styles: **default**, **top**, and **split** — or **none** at all, if that is what you want. The **default style** is what you see on the screenshots and demo site, optionally with title, tagline, and/or logo. The **top style** puts the site identity above the navigation and removes the header image. And the **split style** is a mix of both, with the identity above but a header image below the navigation.
+
 ### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
@@ -770,7 +777,7 @@ The minimum and maximum values found in the Customizer are used to calculate [cl
 
 Fictioneer comes with two menu locations, **Navigation** and **Footer Menu**, located precisely where you would expect. You can read up on how to create and add menus in the [official documentation](https://codex.wordpress.org/WordPress_Menu_User_Guide). The only thing of note here are the special CSS classes you can assign to menu items for certain effects (whitespace-separated). Make sure to enable the additional menu properties under Screen Options at the top.
 
-On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** only shows the top level menu items in a scrollable track, but the mobile menu is an unfolded list of all items if not specifically excluded with optional CSS classes.
+On desktop, submenus are rendered as dropdown. On mobile, the **Navigation** shows either the top level items in a scrollable track (overflow) or only the mobile menu button (collapse). You can set that in the **Customizer**. The mobile menu is an unfolded list of all items if not specifically excluded with optional CSS classes.
 
 * `not-in-mobile-menu`: As you can guess, this will hide the menu item in the mobile menu. However, submenu items will still be shown, so you can use this to hide superfluous dropdown parents.
 * `static-menu-item`: For menu items without link. Changes the cursor and cannot be selected by keyboard (subitems can).

@@ -20,9 +20,16 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Setup
+$classes = [];
+
+if ( get_theme_mod( 'mobile_nav_style', 'overflow' ) === 'collapse' ) {
+  $classes[] = '_collapse-on-mobile';
+}
+
 ?>
 
-<nav id="full-navigation" class="main-navigation" aria-label="Main Navigation">
+<nav id="full-navigation" class="main-navigation <?php echo implode( ' ', $classes ); ?>" aria-label="<?php echo esc_attr__( 'Main Navigation', 'fictioneer' ); ?>">
   <div id="nav-observer-sticky" class="observer nav-observer"></div>
   <div class="main-navigation__background"></div>
 
@@ -30,10 +37,13 @@ defined( 'ABSPATH' ) OR exit;
 
   <div class="main-navigation__wrapper">
 
-    <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number"><?php
-      fictioneer_icon( 'fa-bars', 'off' );
-      fictioneer_icon( 'fa-xmark', 'on' );
-    ?></label>
+    <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number">
+      <?php
+        fictioneer_icon( 'fa-bars', 'off' );
+        fictioneer_icon( 'fa-xmark', 'on' );
+      ?>
+      <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer'); ?></span>
+    </label>
 
     <div class="main-navigation__left">
       <?php

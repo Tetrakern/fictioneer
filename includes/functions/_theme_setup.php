@@ -324,6 +324,9 @@ function fictioneer_root_attributes() {
     $header_classes[] = 'inset-header-image';
   }
 
+  // Header style
+  $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
+
   // Prepare
   $output['class'] = implode( ' ', $header_classes );
   $output['data-mode-default'] = get_option( 'fictioneer_light_mode_as_default', false ) ? 'light' : 'dark';

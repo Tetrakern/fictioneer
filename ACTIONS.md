@@ -573,7 +573,7 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 ---
 
 ### `do_action( 'fictioneer_header', $args )`
-Fires right after opening the site’s `<header>` container. Normally includes the header background image.
+Fires right after opening the default `<header>` container. Normally includes the header background image.
 
 **$args:**
 * $post_id (int|null) – Current post ID. Unsafe.
@@ -921,3 +921,14 @@ Fires right between the comments list and heading in the `_story-comments.php` p
 **$args:**
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
+
+---
+
+### `do_action( 'fictioneer_top_header', $args )`
+Fires right after opening the top-aligned `<header>` container.
+
+**$args:**
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID. Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
