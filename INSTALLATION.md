@@ -879,10 +879,6 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.
 | FICTIONEER_PRIMARY_FONT_CSS | string | CSS name of the primary font. Default `'Open Sans'`.
 | FICTIONEER_PRIMARY_FONT_NAME | string | Display name of the primary font. Default `'Open Sans'`.
-| FICTIONEER_SITE_CHARSET | string | Charset of the site (e.g. 'UTF-8'). Default `get_bloginfo( 'charset' )`.
-| FICTIONEER_SITE_LANGUAGE | string | Language of the site (e.g. 'en-US'). Default `get_bloginfo( 'language' )`.
-| FICTIONEER_SITE_NAME | string | Name of the site. Default `get_bloginfo( 'name' )`.
-| FICTIONEER_SITE_DESCRIPTION | string | Description of the site. Default `get_bloginfo( 'description' )`.
 | FICTIONEER_TTS_REGEX | string | Splits chapter text into sentences for the text-to-speech feature. Default `'([.!?:"\'\u201C\u201D])\s+(?=[A-Z"\'\u201C\u201D])'`.
 | FICTIONEER_LATEST_UPDATES_LI_DATE | string | Latest Updates shortcode list item date format. Default `'M j'`.
 | FICTIONEER_LATEST_UPDATES_FOOTER_DATE | string | Latest Updates shortcode footer date format. Default `"M j, 'y"`.

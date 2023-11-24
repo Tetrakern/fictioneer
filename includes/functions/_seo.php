@@ -226,7 +226,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       return esc_html(
         sprintf(
           _x( 'Search Results', 'SEO search results title.', 'fictioneer' ),
-          FICTIONEER_SITE_NAME
+          get_bloginfo( 'name' )
         )
       );
     }
@@ -319,7 +319,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
 
     // Special Case: Frontpage
     if ( is_front_page() ) {
-      $default = empty( $default ) ? FICTIONEER_SITE_NAME : $default;
+      $default = empty( $default ) ? get_bloginfo( 'name' ) : $default;
     }
 
     // Placeholder: {{title}}
@@ -329,7 +329,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
 
     // Placeholder: {{site}}
     if ( str_contains( $seo_title, '{{site}}' ) ) {
-      $seo_title = str_replace( '{{site}}', FICTIONEER_SITE_NAME ?? '', $seo_title );
+      $seo_title = str_replace( '{{site}}', get_bloginfo( 'name' ) ?? '', $seo_title );
     }
 
     // Defaults...
@@ -339,7 +339,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
 
     // Catch empty
     if ( empty( $seo_title ) ) {
-      $seo_title = FICTIONEER_SITE_NAME;
+      $seo_title = get_bloginfo( 'name' );
     }
 
     // Finalize
@@ -381,7 +381,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       return esc_html(
         sprintf(
           _x( 'Search results on %s.', 'Search page SEO description.', 'fictioneer' ),
-          FICTIONEER_SITE_NAME
+          get_bloginfo( 'name' )
         )
       );
     }
@@ -397,7 +397,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
         return esc_html(
           sprintf(
             _x( 'Author on %s.', 'Fallback SEO description for author pages.', 'fictioneer' ),
-            FICTIONEER_SITE_NAME
+            get_bloginfo( 'name' )
           )
         );
       }
@@ -456,7 +456,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       }
 
       // Generic archive?
-      return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), FICTIONEER_SITE_NAME ) );
+      return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), get_bloginfo( 'name' ) ) );
     }
 
     // Cached description?
@@ -494,7 +494,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Placeholder: {{site}}
     if ( str_contains( $seo_description, '{{site}}' ) ) {
-      $seo_description = str_replace( '{{site}}', FICTIONEER_SITE_NAME ?? '', $seo_description );
+      $seo_description = str_replace( '{{site}}', get_bloginfo( 'name' ) ?? '', $seo_description );
     }
 
     // Defaults...
@@ -504,7 +504,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Catch empty
     if ( empty( $seo_description ) ) {
-      $seo_description = FICTIONEER_SITE_DESCRIPTION;
+      $seo_description = get_bloginfo( 'description' );
     }
 
     // Finalize
@@ -661,7 +661,7 @@ function fictioneer_output_head_seo() {
   <meta property="og:title" content="<?php echo $og_title; ?>">
   <meta property="og:description" content="<?php echo $og_description; ?>">
   <meta property="og:url" content="<?php echo $canonical_url; ?>">
-  <meta property="og:site_name" content="<?php echo FICTIONEER_SITE_NAME; ?>">
+  <meta property="og:site_name" content="<?php echo get_bloginfo( 'name' ); ?>">
 
   <?php if ( ! $is_aggregated && $is_article ) : ?>
 

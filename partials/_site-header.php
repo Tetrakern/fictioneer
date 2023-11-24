@@ -34,9 +34,9 @@ defined( 'ABSPATH' ) OR exit;
     <?php elseif ( display_header_text() ) : ?>
 
       <div class="header__title">
-        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo FICTIONEER_SITE_NAME; ?></a></h1>
-        <?php if ( ! empty( FICTIONEER_SITE_DESCRIPTION ) ) : ?>
-          <div class="header__title-tagline"><?php echo FICTIONEER_SITE_DESCRIPTION; ?></div>
+        <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
+        <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
+          <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>
         <?php endif; ?>
       </div>
 

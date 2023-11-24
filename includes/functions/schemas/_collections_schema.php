@@ -91,7 +91,7 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         _x( 'All collections on %s.', 'SEO default description for Collections template.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       'skip_cache' => true
     ));
@@ -125,7 +125,7 @@ if ( ! function_exists( 'fictioneer_build_collections_schema' ) ) {
       _x( 'Collections', 'SEO schema collection list node name.', 'fictioneer' ),
       sprintf(
         _x( 'List of collections on %s.', 'SEO schema collection list node description.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       '#article'
     );

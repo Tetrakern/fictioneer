@@ -91,7 +91,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         _x( 'All recommendations on %s.', 'SEO default description for Recommendations template.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       'skip_cache' => true
     ));
@@ -125,7 +125,7 @@ if ( ! function_exists( 'fictioneer_build_recommendations_schema' ) ) {
       _x( 'Recommendations', 'SEO schema recommendation list node name.', 'fictioneer' ),
       sprintf(
         _x( 'List of recommendations on %s.', 'SEO schema recommendation list node description.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       '#article'
     );

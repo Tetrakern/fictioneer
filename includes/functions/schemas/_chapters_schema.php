@@ -106,7 +106,7 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         _x( 'All chapters on %s.', 'SEO default description for Chapters template.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       'skip_cache' => true
     ));
@@ -140,7 +140,7 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
       _x( 'Chapters', 'SEO schema chapter list node name.', 'fictioneer' ),
       sprintf(
         _x( 'List of chapters on %s.', 'SEO schema chapter list node description.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       '#article'
     );

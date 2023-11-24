@@ -99,7 +99,7 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
     $page_description = fictioneer_get_seo_description( $post_id, array(
       'default' => sprintf(
         _x( 'All stories on %s.', 'SEO default description for Stories template.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       'skip_cache' => true
     ));
@@ -133,7 +133,7 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
       _x( 'Stories', 'SEO schema story list node name.', 'fictioneer' ),
       sprintf(
         _x( 'List of stories on %s.', 'SEO schema story list node description.', 'fictioneer' ),
-        FICTIONEER_SITE_NAME
+        get_bloginfo( 'name' )
       ),
       '#article'
     );

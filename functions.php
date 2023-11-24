@@ -77,26 +77,6 @@ if ( ! defined( 'FICTIONEER_PRIMARY_FONT_NAME' ) ) {
   define( 'FICTIONEER_PRIMARY_FONT_NAME', 'Open Sans' );
 }
 
-// String: Meta charset attribute (skip database call if truthy for better performance)
-if ( ! defined( 'FICTIONEER_SITE_CHARSET' ) ) {
-  define( 'FICTIONEER_SITE_CHARSET', get_bloginfo( 'charset' ) );
-}
-
-// String: Lang attribute (skip database call if truthy for better performance)
-if ( ! defined( 'FICTIONEER_SITE_LANGUAGE' ) ) {
-  define( 'FICTIONEER_SITE_LANGUAGE', get_bloginfo( 'language' ) );
-}
-
-// String: Site name (skip database call if truthy for better performance)
-if ( ! defined( 'FICTIONEER_SITE_NAME' ) ) {
-  define( 'FICTIONEER_SITE_NAME', get_bloginfo( 'name' ) );
-}
-
-// String: Site description (skip database call if truthy for better performance)
-if ( ! defined( 'FICTIONEER_SITE_DESCRIPTION' ) ) {
-  define( 'FICTIONEER_SITE_DESCRIPTION', get_bloginfo( 'description' ) );
-}
-
 // String: TTS regex (used to split text into sentences)
 if ( ! defined( 'FICTIONEER_TTS_REGEX' ) ) {
   // Note: Because lookbehind assertions do not work in Safari, the script uses a little

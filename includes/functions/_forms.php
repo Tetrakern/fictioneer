@@ -199,7 +199,7 @@ function fictioneer_ajax_submit_contact_form() {
   // Headers
   if ( ! empty( $from_address ) ) {
     $from_name = get_option( 'fictioneer_system_email_name' );
-    $from_name = empty ( $from_name ) ? FICTIONEER_SITE_NAME : $from_name;
+    $from_name = empty ( $from_name ) ? get_bloginfo( 'name' ) : $from_name;
     $headers[] = 'From: ' . trim( $from_name )  . ' <'  . trim( $from_address ) . '>';
   }
 

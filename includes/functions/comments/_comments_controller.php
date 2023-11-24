@@ -352,7 +352,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
     }
 
     // Setup
-    $site_name = FICTIONEER_SITE_NAME;
+    $site_name = get_bloginfo( 'name' );
     $comment_text = apply_filters( 'get_comment_text', $commentdata['comment_content'] );
     $comment_text = apply_filters( 'comment_text', $comment_text );
     $comment_author = empty( $parent->comment_author ) ? fcntr( 'anonymous_guest' ) : $parent->comment_author;

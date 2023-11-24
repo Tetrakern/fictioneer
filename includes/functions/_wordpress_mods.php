@@ -360,7 +360,7 @@ function fictioneer_output_rss( $post_id = null ) {
   if ( $post_type == 'fcn_story' && ! $skip_to_default ) {
     $title = sprintf(
       _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
-      FICTIONEER_SITE_NAME,
+      get_bloginfo( 'name' ),
       get_the_title( get_the_ID() )
     );
 
@@ -374,7 +374,7 @@ function fictioneer_output_rss( $post_id = null ) {
   if ( $post_type == 'fcn_chapter' && ! empty( $story_id ) && ! $skip_to_default ) {
     $title = sprintf(
       _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
-      FICTIONEER_SITE_NAME,
+      get_bloginfo( 'name' ),
       get_the_title( $story_id )
     );
 
@@ -386,7 +386,7 @@ function fictioneer_output_rss( $post_id = null ) {
   if ( empty( $rss_link ) ) {
     $title = sprintf(
       _x( '%s Feed', '[Site] Feed', 'fictioneer' ),
-      FICTIONEER_SITE_NAME
+      get_bloginfo( 'name' )
     );
 
     $url = esc_url( home_url( 'feed' ) );
