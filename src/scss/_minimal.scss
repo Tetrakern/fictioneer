@@ -21,6 +21,11 @@
     --infobox-gradient: hsl(var(--infobox-background-free) / 3%);
   }
 
+  &.header-style-split .header {
+    display: none;
+    content-visibility: hidden;
+  }
+
   :is(.card, .showcase__list-item, .story__thumbnail-image, .modal__wrapper, .cookies__list, .litrpg-frame) {
     box-shadow: var(--minimal-container-box-shadow);
   }
