@@ -29,6 +29,12 @@ defined( 'ABSPATH' ) OR exit;
   <?php do_action( 'fictioneer_navigation_top', $args ); ?>
 
   <div class="main-navigation__wrapper">
+
+    <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number"><?php
+      fictioneer_icon( 'fa-bars', 'off' );
+      fictioneer_icon( 'fa-xmark', 'on' );
+    ?></label>
+
     <div class="main-navigation__left">
       <?php
         if ( has_nav_menu( 'nav_menu' ) ) {
@@ -65,14 +71,13 @@ defined( 'ABSPATH' ) OR exit;
         }
       ?>
     </div>
+
     <div class="main-navigation__right">
       <?php get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-navigation' ) ); ?>
-      <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number">
-        <?php fictioneer_icon( 'fa-bars', 'off' ); ?>
-        <?php fictioneer_icon( 'fa-xmark', 'on' ); ?>
-      </label>
     </div>
+
   </div>
 
   <?php do_action( 'fictioneer_navigation_bottom', $args ); ?>
+
 </nav>

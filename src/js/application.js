@@ -517,7 +517,7 @@ function fcn_scrollDirection() {
   }
 
   // Check whether the difference between old and new offset exceeds the threshold
-  if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 5) {
+  if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 25) {
     fcn_theBody.classList.toggle('scrolling-down', newScrollTop > fcn_lastScrollTop);
     fcn_theBody.classList.toggle('scrolling-up', !(newScrollTop > fcn_lastScrollTop));
     fcn_lastScrollTop = Math.max(newScrollTop, 0);
