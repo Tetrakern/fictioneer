@@ -27,7 +27,6 @@ $max-mobile-menu-width: 320px;
   position: fixed;
   top: 0;
   max-width: min(var(--site-width), 100%) !important;
-  box-shadow: var(--mobile-menu-site-box-shadow);
   transform: translate3d(min(75vw, #{$max-mobile-menu-width}), 0, 0) scale(.5);
 
   @include bp(640px) {
@@ -100,6 +99,7 @@ body:not(.mobile-menu-open) {
   width: 100%;
   max-width: min(75vw, #{$max-mobile-menu-width});
   overflow: auto;
+  box-shadow: var(--mobile-menu-site-box-shadow);
 
   @media (hover: hover) and (pointer: fine) {
     scrollbar-width: none; // FF
