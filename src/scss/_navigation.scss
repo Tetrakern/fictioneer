@@ -43,19 +43,14 @@
   }
 }
 
-// Narrow navigation bar when scrolled into the page
-:root:not(.no-nav-sticky) .is-inside-main .main-navigation {
-  padding: 0;
-
-  :is(.menu-item, .page_item) {
-    border-radius: 0;
-  }
-}
-
 // Case above or equal to 1024px
 :root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky {
   .main-navigation__background {
     opacity: 1;
+  }
+
+  :is(.menu-item, .page_item) {
+    border-radius: 0;
   }
 }
 
@@ -70,7 +65,9 @@
 
 // Extra spacing if header image is missing
 :is(.header-style-top, .header-style-none) .main-navigation {
-  margin-bottom: 1.25rem;
+  @include bp(640px) {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .main-navigation {
@@ -83,15 +80,11 @@
   font-weight: var(--font-weight-navigation);
   text-shadow: var(--navigation-text-shadow);
   padding: 0;
+  margin: 12px 0;
   width: 100%;
   transform: translateZ(0); // Improve performance
-  transition-duration: var(--transition-duration);
-  transition-property: padding, transform;
+  transition: transform var(--transition-duration);
   contain: layout style; // Improve performance
-
-  @include bp(desktop) {
-    padding: 12px 0;
-  }
 
   &__background {
     position: absolute;
