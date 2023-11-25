@@ -49,7 +49,7 @@
     opacity: var(--navigation-background-sticky-end-opacity);
   }
 
-  :is(.menu-item, .page_item) {
+  .main-navigation__list > :is(.menu-item, .page_item) {
     border-radius: 0;
   }
 }

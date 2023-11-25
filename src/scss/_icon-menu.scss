@@ -80,11 +80,11 @@
     &__item {
       cursor: pointer;
       text-shadow: inherit;
-      border-radius: 2px;
+      border-radius: var(--layout-border-radius-small);
       transition: background-color .1s;
 
       &._with-submenu {
-        border-radius: 2px 2px 0 0;
+        border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
       }
 
       &:hover {
