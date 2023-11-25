@@ -34,7 +34,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     'light_mode_colors',
     array(
       'title' => __( 'Light Mode Colors', 'fictioneer' ),
-      'description' => __( 'Color scheme for the light mode. If you want to add custom CSS, this needs to be under <code>:root[data-mode=light]</code>.', 'fictioneer' ),
+      'description' => __( 'Color scheme for the light mode. If you want to add custom CSS, this needs to be under <code>:root[data-mode="light"]</code>.', 'fictioneer' ),
       'priority' => '84'
     )
   );

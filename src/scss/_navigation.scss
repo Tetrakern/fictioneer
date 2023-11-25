@@ -46,7 +46,7 @@
 // Case above or equal to 1024px
 :root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky {
   .main-navigation__background {
-    opacity: 1;
+    opacity: var(--navigation-background-sticky-end-opacity);
   }
 
   :is(.menu-item, .page_item) {
@@ -58,7 +58,7 @@
 :root:not(.no-nav-sticky) .main-navigation.is-sticky {
   .main-navigation__background {
     @media only screen and (max-width: 1023px) {
-      opacity: 1;
+      opacity: var(--navigation-background-sticky-end-opacity);
     }
   }
 }
@@ -93,7 +93,7 @@
     display: block;
     background: var(--navigation-background-sticky);
     box-shadow: 0 0 1px transparent; // Safari fix to show drop-shadow
-    opacity: 0;
+    opacity: var(--navigation-background-sticky-start-opacity);
     filter: var(--navigation-drop-shadow);
     contain: strict; // Improve performance
   }

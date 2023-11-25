@@ -186,6 +186,8 @@
 
   // === NAVIGATION ============================================================
   --navigation-background-sticky: var(--bg-1000);
+  --navigation-background-sticky-start-opacity: 0;
+  --navigation-background-sticky-end-opacity: 1;
   --navigation-text: var(--fg-300);
   --navigation-text-hover: var(--fg-200);
   --navigation-actions-text: var(--fg-400);

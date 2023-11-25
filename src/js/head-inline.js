@@ -53,7 +53,7 @@
     }
 
     if (lightMode) {
-      root.dataset.mode = lightMode == 'true' ? 'light' : '';
+      root.dataset.mode = lightMode == 'true' ? 'light' : 'dark';
     }
   }
 })();

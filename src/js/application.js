@@ -787,7 +787,7 @@ function fcn_toggleLightMode() {
 function fcn_setLightMode(boolean, silent = false) {
   // Update light mode state
   localStorage.setItem('fcnLightmode', boolean);
-  fcn_theRoot.dataset.mode = boolean ? 'light' : '';
+  fcn_theRoot.dataset.mode = boolean ? 'light' : 'dark';
 
   // Update formatting modal (if present)
   const cb = _$$$('reader-settings-lightmode-toggle');
