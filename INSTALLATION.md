@@ -839,6 +839,61 @@ The default footer has no background, which might not be your liking or clash wi
 }
 ```
 
+#### Merge Top-Header & Navigation
+
+![Customizer HSL Sliders](repo/assets/merged_header_and_nav_preview.jpg?raw=true)
+
+You want the navigation next to your top-aligned header, without changing the HTML? Hacky, but possible. The actual values and result will depend on the size of your header and number of menu items, as this can lead to overlapping elements if you are not careful.
+
+**Site Title - Minimum Size:** 40px<br>
+**Site Title - Maximum Size:** 40px<br>
+**Tagline - Minimum Size:** 12px<br>
+**Tagline - Maximum Size:** 16px
+
+```css
+@media only screen and (min-width: 1024px) {
+  .main-navigation {
+    margin-top: calc(-1 * var(--navigation-height) + 5px); /* Adjust to fit your site. */
+  }
+
+  .main-navigation__wrapper {
+    position: relative;
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  .main-navigation__right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(calc(-100% - 2px)); /* Adjust to fit your site. */
+  }
+
+  .main-navigation.is-sticky .main-navigation__left {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-left: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Optional: Add this if you want to show something on the right side when the navigation becomes sticky. */
+  .main-navigation.is-sticky .main-navigation__left::before {
+    content: "FICTIONEER";
+    flex: 0 0 auto;
+    display: block;
+    font-weight: 700;
+    line-height: var(--navigation-height);
+  }
+}
+
+/* Optional: Add this if you want to reset the changes when the navigation becomes sticky. */
+:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .main-navigation__wrapper {
+  flex-direction: row;
+}
+```
+
 ### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
