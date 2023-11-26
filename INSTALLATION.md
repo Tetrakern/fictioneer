@@ -884,7 +884,7 @@ You want the navigation next to your top-aligned header, without changing the HT
     max-width: 100%;
   }
 
-  /* Optional: Add this if you want to show something on the right side when the navigation becomes sticky. */
+  /* Optional: Add this if you want to show something on the left side when the navigation becomes sticky. */
   .main-navigation.is-sticky .main-navigation__left::before {
     content: "FICTIONEER";
     flex: 0 0 auto;
