@@ -1,8 +1,8 @@
 <?php
 /**
- * Partial: Site Header
+ * Partial: Inner Header
  *
- * Renders the site header.
+ * Renders the inner header.
  *
  * @package WordPress
  * @subpackage Fictioneer
