@@ -572,8 +572,8 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 
 ---
 
-### `do_action( 'fictioneer_header', $args )`
-Fires right after opening the default `<header>` container. Normally includes the header background image.
+### `do_action( 'fictioneer_inner_header', $args )`
+Fires right after opening the inner `<header>` container. Normally includes a background image.
 
 **$args:**
 * $post_id (int|null) – Current post ID. Unsafe.
@@ -582,7 +582,7 @@ Fires right after opening the default `<header>` container. Normally includes th
 * $header_args (array) – Arguments passed to the header.php partial.
 
 **Hooked actions:**
-* `fictioneer_header_background( $args )` – Header background image. Priority 10.
+* `fictioneer_header_inner_background( $args )` – Header background image. Priority 10.
 
 ---
 
@@ -817,7 +817,7 @@ Fires right after opening the `#site` container in the `header.php` template. In
 
 **Hooked actions:**
 * `fictioneer_navigation_bar( $args )` – HTML for the navigation bar. Priority 10.
-* `fictioneer_site_header( $args )` – HTML for the site header. Priority 20.
+* `fictioneer_inner_header( $args )` – HTML for the inner header. Priority 20.
 
 ---
 

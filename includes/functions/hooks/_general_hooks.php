@@ -210,31 +210,6 @@ function fictioneer_navigation_bar( $args ) {
 add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
 
 // =============================================================================
-// OUTPUT SITE HEADER
-// =============================================================================
-
-/**
- * Outputs the HTML for the site header
- *
- * @since Fictioneer 5.0.0
- *
- * @param int|null       $args['post_id']           Optional. Current post ID.
- * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
- * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
- * @param array          $args['header_args']       Arguments passed to the header.php partial.
- */
-
-function fictioneer_site_header( $args ) {
-  // Abort if...
-  if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['default', 'split'] ) ) {
-    return;
-  }
-
-  get_template_part( 'partials/_site-header', null, $args );
-}
-add_action( 'fictioneer_site', 'fictioneer_site_header', 20 );
-
-// =============================================================================
 // OUTPUT TOP HEADER
 // =============================================================================
 
@@ -255,9 +230,37 @@ function fictioneer_top_header( $args ) {
     return;
   }
 
-  get_template_part( 'partials/_top-header', null, $args );
+  get_template_part( 'partials/_header-top', null, $args );
 }
 add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
+
+// =============================================================================
+// OUTPUT INNER HEADER
+// =============================================================================
+
+/**
+ * Outputs the HTML for the inner header
+ *
+ * @since Fictioneer 5.0.0
+ *
+ * @param int|null       $args['post_id']           Optional. Current post ID.
+ * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+ * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ */
+
+function fictioneer_inner_header( $args ) {
+  // Abort if...
+  if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['default', 'split'] ) ) {
+    return;
+  }
+
+  switch ( get_theme_mod( 'header_style', 'default' ) ) {
+    default:
+      get_template_part( 'partials/_header-inner', null, $args );
+  }
+}
+add_action( 'fictioneer_site', 'fictioneer_inner_header', 20 );
 
 // =============================================================================
 // OUTPUT HEADER BACKGROUND
@@ -274,7 +277,7 @@ add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
  * @param array          $args['header_args']       Arguments passed to the header.php partial.
  */
 
-function fictioneer_header_background( $args ) {
+function fictioneer_inner_header_background( $args ) {
   // Abort if...
   if ( ! ( $args['header_image_url'] ?? 0 ) ) {
     return;
@@ -288,7 +291,7 @@ function fictioneer_header_background( $args ) {
   </div>
   <?php // <--- End HTML
 }
-add_action( 'fictioneer_header', 'fictioneer_header_background', 10 );
+add_action( 'fictioneer_inner_header', 'fictioneer_inner_header_background', 10 );
 
 // =============================================================================
 // SORT, ORDER & FILTER QUERIES

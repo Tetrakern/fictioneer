@@ -27,7 +27,7 @@ $tag = get_theme_mod( 'header_style', 'default' ) === 'default' ? 'header' : 'di
 
 <<?php echo $tag; ?> class="header hide-on-fullscreen">
 
-  <?php do_action( 'fictioneer_header', $args ); ?>
+  <?php do_action( 'fictioneer_inner_header', $args ); ?>
 
   <?php if ( get_theme_mod( 'header_style', 'default' ) === 'default' ) : ?>
     <div class="header__content">
