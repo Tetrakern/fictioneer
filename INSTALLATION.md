@@ -745,17 +745,17 @@ Quite often, you need to apply specific styles depending on the theme mode or sc
 ```css
 /* Make the *sticky* navigation background 10% transparent (always). */
 :root {
-	--navigation-background-sticky-end-opacity: 0.9;
+  --navigation-background-sticky-end-opacity: 0.9;
 }
 
 /* Make the *sticky* navigation background 10% transparent (only in dark mode). */
 :root[data-mode="dark"] {
-	--navigation-background-sticky-end-opacity: 0.9;
+  --navigation-background-sticky-end-opacity: 0.9;
 }
 
 /* Make the navigation background always visible. */
 :root {
-	--navigation-background-sticky-start-opacity: 1;
+  --navigation-background-sticky-start-opacity: 1;
 }
 ```
 
@@ -765,16 +765,16 @@ Assuming you have set the **Header Style** to **top** or **split**, the followin
 
 ```css
 :root {
-	--layout-top-header-background-color: rgb(43 48 59 / 70%); /* Example RGB color with 70% opacity. */
-	--navigation-background-sticky-start-opacity: 1;
+  --layout-top-header-background-color: rgb(43 48 59 / 70%); /* Example RGB color with 70% opacity. */
+  --navigation-background-sticky-start-opacity: 1;
 }
 
 .top-header {
-	padding-bottom: 1rem; /* Bottom spacing inside the header. */
+  padding-bottom: 1rem; /* Bottom spacing inside the header. */
 }
 
 .main-navigation {
-	margin-top: 0; /* Close the gab between navigation and header. */
+  margin-top: 0; /* Close the gab between navigation and header. */
 }
 
 /* Applied to two chained selectors; the first one only affects direct descendants (>) */
@@ -790,27 +790,27 @@ Assuming you have set a background image for your site, this snippet adds an ove
 
 ```css
 .site {
-	background: transparent;
+  background: transparent;
 }
 
 /* Example: Semi-transparent black overlay. */
 body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	z-index: -1000;
-	display: block;
-	background-color: rgb(0 0 0 / 50%);
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1000;
+  display: block;
+  background-color: rgb(0 0 0 / 50%);
 }
 
 /* Example: Backdrop filters (beware performance impact) */
 body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	z-index: -1000;
-	display: block;
-	backdrop-filter: blur(3px) sepia(90%) brightness(0.5);
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1000;
+  display: block;
+  backdrop-filter: blur(3px) sepia(90%) brightness(0.5);
   -webkit-backdrop-filter: blur(3px) sepia(90%) brightness(0.5); /* For Safari. */
 }
 ```
@@ -821,21 +821,21 @@ The default footer has no background, which might not be your liking or clash wi
 
 ```css
 .footer {
-	background-color: var(--bg-1000); /* This is a theme color that works in both light and dark mode. */
-	margin-top: 3rem;
+  background-color: var(--bg-1000); /* This is a theme color that works in both light and dark mode. */
+  margin-top: 3rem;
 }
 
 .footer,
 .breadcrumbs {
-	color: rgb(255 255 255 / 40%); /* Convenient, but better used sparingly. */
+  color: rgb(255 255 255 / 40%); /* Convenient, but better used sparingly. */
 }
 
 .footer__wrapper {
-	margin: 2rem auto 1.5rem;
+  margin: 2rem auto 1.5rem;
 }
 
 :is(.footer__wrapper, .breadcrumbs) :is(a:hover, a:visited, a:active, a:focus) {
-	color: rgb(255 255 255 / 60%); /* We need to overwrite the default behavior. */
+  color: rgb(255 255 255 / 60%); /* We need to overwrite the default behavior. */
 }
 ```
 
