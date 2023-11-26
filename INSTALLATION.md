@@ -823,7 +823,7 @@ body::before {
 
 #### Isolated Footer
 
-The default footer has no background, which might not be your liking or clash with background images. Many sites isolate the footer in a separate container for that reason, and you can do the same. The following example also makes use of color transparency for convenience, which is alright for such a small, out-of-the-way element, but can cause performance issues if applied to the whole site. If you choose a semi-transparent background, use solid colors to keep them legible.
+The default footer has no background, which might not be to your liking or clash with background images. Many sites isolate the footer in a separate container for that reason, and you can do the same. The following example also makes use of color transparency for convenience, which is alright for such a small, out-of-the-way element, but can cause performance issues if applied to the whole site. If you choose a semi-transparent background, use solid colors to keep them legible.
 
 ```css
 .footer {
