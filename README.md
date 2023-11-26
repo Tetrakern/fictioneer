@@ -27,7 +27,7 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Customization & Child Themes
 
-[Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here. For starters, look at the [base child theme](https://github.com/Tetrakern/fictioneer-child-theme) and the [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal).
+[Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here. For starters, look at the [base child theme](https://github.com/Tetrakern/fictioneer-child-theme) and the [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal). The installation guide also offers some [customization tutorials](INSTALLATION.md#css-snippets).
 
 You can find some example action and filter functions [here](https://github.com/Tetrakern/fictioneer-child-theme#action--filter-examples).
 

@@ -28,6 +28,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Log Tab](#log)
 * [How to Customize the Fictioneer Theme](#how-to-customize-the-fictioneer-theme)
   * [Header Style](#header-style)
+  * [CSS Snippets](#css-snippets)
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
@@ -691,6 +692,152 @@ The second way is to directly modify the templates, styles, and scripts. This is
 ![Customizer HSL Sliders](repo/assets/customizer_header_style_preview.jpg?raw=true)
 
 You can choose between three different header styles: **default**, **top**, and **split** — or **none** at all, if that is what you want. The **default style** is what you see on the screenshots and demo site, optionally with title, tagline, and/or logo. The **top style** puts the site identity above the navigation and removes the header image. And the **split style** is a mix of both, with the identity above but a header image below the navigation.
+
+### CSS Snippets
+
+![Customizer HSL Sliders](repo/assets/developer_tools_preview.jpg?raw=true)
+
+While the customization options are not as extensive as with multi-purpose themes or page builders, you can achieve quite a lot with some simple [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) snippets. Easy to learn, hard to master. However, following are several snippets you can use and modify to your needs. Just put them into **Customizer > Additional CSS** or a child theme. This is by far the most powerful way of customization — there are over 500 properties and near infinite possible values that can be assigned to each and every element (although not all are valid, never mind reasonable).
+
+**Developer Tools:** Your very best friend! You can open them by right-clicking anywhere on the site and hitting **Inspect**, directly highlighting the element you are on. Hit **\[Option\] + \[⌘\] + \[J\]** (on macOS) or **\[Shift\] + \[CTRL\] + \[J\]** (on Windows/Linux) if you want to use the keyboard. Here you can see the HTML and applied CSS styles; you can even manipulate them to see what happens. There are many tutorials online on how to use the tools, please consult one first if you are new.
+
+In order to target an element with CSS, you first need to find a valid [selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors). This is usually a class, one of the whitespace-separated values as shown in the **Elements Inspector** (prepended with a single dot). They are best in terms of [performance](https://developer.mozilla.org/en-US/docs/Learn/Performance/CSS) and compatibility. You can even chain them for more [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity). The **Styles Inspector** lists the currently applied properties and values.
+
+#### Dark/Light Mode & Media Queries
+
+Quite often, you need to apply specific styles depending on the theme mode or screen size. Especially colors are a concern here, as some that pop on a light background might vanish on a dark one. Another issue are the constraints imposed by mobile viewports: there is rarely enough space. Luckily, this can be accounted for.
+
+```css
+/* Only applied to viewport sizes 768px and up. */
+@media only screen and (min-width: 768px) {
+  .selector {
+    property: value;
+  }
+}
+
+/* Only applied to viewport sizes 767px and down. */
+@media only screen and (max-width: 767px) {
+  .selector {
+    property: value;
+  }
+}
+
+/* Always applied. */
+.selector {
+  property: value;
+}
+
+/* Only applied in light mode (chained selector). */
+:root[data-mode="light"] .selector {
+  property: value;
+}
+
+/* Only applied in dark mode (chained selector). */
+:root[data-mode="dark"] .selector {
+  property: value;
+}
+```
+
+#### Overwrite Custom Properties
+
+[Custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), also known as CSS variables, contain values which can be assigned to style properties using the `var()` function. They are scoped to the selector(s) they are declared on, but typically the `:root` to make them available everywhere. Fictioneer makes liberal use of custom properties (see [here](https://github.com/Tetrakern/fictioneer/blob/main/src/scss/common/_properties.scss)) and you can change a lot just by overwriting them. But be careful, they can cause severe performance issues if made dynamic.
+
+```css
+/* Make the *sticky* navigation background 10% transparent (always). */
+:root {
+	--navigation-background-sticky-end-opacity: 0.9;
+}
+
+/* Make the *sticky* navigation background 10% transparent (only in dark mode). */
+:root[data-mode="dark"] {
+	--navigation-background-sticky-end-opacity: 0.9;
+}
+
+/* Make the navigation background always visible. */
+:root {
+	--navigation-background-sticky-start-opacity: 1;
+}
+```
+
+#### Top-Header & Navigation Backgrounds
+
+Assuming you have set the **Header Style** to **top** or **split**, the following snippet makes the navigation background always visible regardless of scroll position and adds a semi-transparent background color to the header. This might come in handy if your site has a background image.
+
+```css
+:root {
+	--layout-top-header-background-color: rgb(43 48 59 / 70%); /* Example RGB color with 70% opacity. */
+	--navigation-background-sticky-start-opacity: 1;
+}
+
+.top-header {
+	padding-bottom: 1rem; /* Bottom spacing inside the header. */
+}
+
+.main-navigation {
+	margin-top: 0; /* Close the gab between navigation and header. */
+}
+
+/* Applied to two chained selectors; the first one only affects direct descendants (>) */
+.main-navigation__list > .menu-item,
+.main-navigation .icon-menu__item {
+  border-radius: 0 !important; /* The !important enforces the value, even though the selector is too weak */
+}
+```
+
+#### Background Overlay & Filters
+
+Assuming you have set a background image for your site, this snippet adds an overlay that allows you to tint and filter said image — at a cost of performance. Usually, you are better off using an image already prepared for your needs, but this is one way to apply dynamic adjustments for dark or light mode. A simple semi-transparent color might do, but you can also go nuts with [mix-blend-mode](https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode) and [backdrop-filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter).
+
+```css
+.site {
+	background: transparent;
+}
+
+/* Example: Semi-transparent black overlay. */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1000;
+	display: block;
+	background-color: rgb(0 0 0 / 50%);
+}
+
+/* Example: Backdrop filters (beware performance impact) */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1000;
+	display: block;
+	backdrop-filter: blur(3px) sepia(90%) brightness(0.5);
+  -webkit-backdrop-filter: blur(3px) sepia(90%) brightness(0.5); /* For Safari. */
+}
+```
+
+#### Isolated Footer
+
+The default footer has no background, which might not be your liking or clash with background images. Many sites isolate the footer in a separate container for that reason, and you can do the same. The following example also makes use of color transparency for convenience, which is alright for such a small, out-of-the-way element, but can cause performance issues if applied to the whole site. If you choose a semi-transparent background, use solid colors to keep them legible.
+
+```css
+.footer {
+	background-color: var(--bg-1000); /* This is a theme color that works in both light and dark mode. */
+	margin-top: 3rem;
+}
+
+.footer,
+.breadcrumbs {
+	color: rgb(255 255 255 / 40%); /* Convenient, but better used sparingly. */
+}
+
+.footer__wrapper {
+	margin: 2rem auto 1.5rem;
+}
+
+:is(.footer__wrapper, .breadcrumbs) :is(a:hover, a:visited, a:active, a:focus) {
+	color: rgb(255 255 255 / 60%); /* We need to overwrite the default behavior. */
+}
+```
 
 ### Move the Title/Logo
 
