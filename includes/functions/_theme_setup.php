@@ -188,7 +188,7 @@ add_filter( 'is_protected_meta', 'fictioneer_make_theme_meta_protected', 10, 2 )
  */
 
 function fictioneer_protect_reserved_post_slugs( $slug ) {
-  $protected = ['oauth2', 'download-epub', 'fictioneer-logout'];
+  $protected = [FICTIONEER_OAUTH_ENDPOINT, FICTIONEER_EPUB_ENDPOINT, FICTIONEER_LOGOUT_ENDPOINT];
 
   // Prevent slugs from being applied to posts
   if ( in_array( $slug, $protected ) ) {
