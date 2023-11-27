@@ -72,8 +72,7 @@ if ( ! empty( $args['featured_list'] ) ) {
       ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) &&
       ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID )
     ) {
-      $words = fictioneer_get_field( '_word_count', $chapter->ID );
-      $word_count += intval( $words );
+      $word_count += (int) fictioneer_get_field( '_word_count', $chapter->ID );
     }
   }
 }

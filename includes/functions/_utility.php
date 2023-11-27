@@ -323,7 +323,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // Do not count non-chapters...
           if ( ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ) {
             $chapter_count += 1;
-            $word_count += fictioneer_get_field( '_word_count', $chapter->ID );
+            $word_count += (int) fictioneer_get_field( '_word_count', $chapter->ID );
           }
 
           // ... but they are still listed!
@@ -336,7 +336,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Add story word count
-    $word_count += fictioneer_get_field( '_word_count', $story_id );
+    $word_count += (int) fictioneer_get_field( '_word_count', $story_id );
 
     // Prepare result
     $result = array(
@@ -463,7 +463,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     $comment_count = 0;
 
     foreach ( $chapters as $chapter ) {
-      $word_count += get_post_meta( $chapter->ID, '_word_count', true );
+      $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
       $comment_count += get_comments_number( $chapter );
     }
 
@@ -502,6 +502,8 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
    */
 
   function fictioneer_shorten_number( $number, $precision = 1 ) {
+    $number = intval( $number );
+
     // The letters are prefixed by a HAIR SPACE (&hairsp;)
     if ( $number < 1000 ) {
       return strval( $number );
