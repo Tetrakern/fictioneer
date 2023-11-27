@@ -164,6 +164,37 @@ if ( ! function_exists( 'fictioneer_fix_html_entities' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_fix_tags' ) ) {
+  /**
+   * Replace tags not valid in ePUB
+   *
+   * @since Fictioneer 5.8.2
+   *
+   * @param string $xml  The XML string.
+   *
+   * @return string The fixed XML string.
+   */
+
+  function fictioneer_fix_tags( $xml ) {
+    $replacements = array(
+      '<figure' => '<div',
+      '</figure>' => '</div>',
+      '<cite' => '<div',
+      '</cite>' => '</div>',
+      '<figcaption' => '<div',
+      '</figcaption>' => '</div>',
+      '<u>' => '<span class="underline">',
+      '</u>' => '</span>',
+      '<s>' => '<span class="strike">',
+      '</s>' => '</span>',
+      '<tfoot>' => '<tbody>',
+      '</tfoot>' => '</tbody>'
+    );
+
+    return strtr( $xml, $replacements );
+  }
+}
+
 // =============================================================================
 // PREPARE BUILD DIRECTORY AND BASE FILES
 // =============================================================================
@@ -514,20 +545,16 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       // Add to ToC list
       array_push( $toc_list, array( "$nav_item_title", "../Text/chapter-$index.html", $index ) );
 
-      // Fix remaining elements not valid in ePUBs...
+      // Save XML file to string
       $file_content = $doc->saveXML();
-      $file_content = str_replace( '<figure', '<div', $file_content );
-      $file_content = str_replace( '</figure>', '</div>', $file_content );
-      $file_content = str_replace( '<cite', '<div', $file_content );
-      $file_content = str_replace( '</cite>', '</div>', $file_content );
-      $file_content = str_replace( '<figcaption', '<div', $file_content );
-      $file_content = str_replace( '</figcaption>', '</div>', $file_content );
-      $file_content = str_replace( '<u>', '<span class="underline">', $file_content );
-      $file_content = str_replace( '</u>', '</span>', $file_content );
-      $file_content = str_replace( '<s>', '<span class="strike">', $file_content );
-      $file_content = str_replace( '</s>', '</span>', $file_content );
-      $file_content = str_replace( '<tfoot>', '<tbody>', $file_content );
-      $file_content = str_replace( '</tfoot>', '</tbody>', $file_content );
+
+      // Terminate script on error
+      if ( $file_content === false ) {
+        fictioneer_epub_return_and_exit();
+      }
+
+      // Fix remaining elements not valid in ePUBs...
+      $file_content = fictioneer_fix_tags( $file_content );
 
       // Fix invalid entities (because of course)
       $file_content = fictioneer_fix_html_entities( $file_content );
@@ -541,7 +568,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
     // Terminate script if no chapter has been added
     if ( $index == 0 ) {
-      exit;
+      fictioneer_epub_return_and_exit();
     }
 
     // Return lists
