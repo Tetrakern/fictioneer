@@ -340,6 +340,12 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     $image_list = [];
     $index = 0;
 
+    $templateDoc = new DOMDocument();
+    $templateDoc->loadHTMLFile( $dir . '_build/templates/chapter.html' );
+    $templateDoc->preserveWhiteSpace = false;
+    $templateDoc->formatOutput = true;
+    $templateDoc->xmlStandalone = false;
+
     // Abort if...
     if ( empty( $chapters ) ) {
       fictioneer_epub_return_and_exit();
@@ -372,14 +378,8 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       $processed = false;
       $index++;
 
-      // Create empty chapter file from build template
-      $doc = new DOMDocument();
-      $doc->loadHTMLFile( $dir . '_build/templates/chapter.html' );
-      $doc->preserveWhiteSpace = false;
-      $doc->formatOutput = true;
-      $doc->xmlStandalone = false;
-
-      // Prepare nodes
+      // Prepare doc and nodes
+      $doc = clone $templateDoc;
       $finder = new DOMXpath( $doc );
       $head = $doc->getElementsByTagName( 'head' )->item( 0 );
       $frame = $finder->query( "*/div[contains(@class, 'content')]" )[0];
