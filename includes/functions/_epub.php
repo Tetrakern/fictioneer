@@ -144,21 +144,23 @@ if ( ! function_exists( 'fictioneer_fix_html_entities' ) ) {
    */
 
   function fictioneer_fix_html_entities( $text ) {
-    $text = str_replace( '&ndash;', '&#8211;&#8203;', $text ); // Add zero-width space for line break control
-    $text = str_replace( '&mdash;', '&#8212;&#8203;', $text ); // Add zero-width space for line break control
-    $text = str_replace( '&nbsp;', '&#160;', $text );
-    $text = str_replace( '&ldquo;', '&#8220;', $text );
-    $text = str_replace( '&rdquo;', '&#8221;', $text );
-    $text = str_replace( '&lsquo;', '&#8216;', $text );
-    $text = str_replace( '&rsquo;', '&#8217;', $text );
-    $text = str_replace( '&deg;', '&#176;', $text );
-    $text = str_replace( '&reg;', '&#174;', $text );
-    $text = str_replace( '&copy;', '&#169;', $text );
-    $text = str_replace( '&times;', '&#215;', $text );
-    $text = str_replace( '&tilde;', '&#732;', $text );
-    $text = str_replace( '&circ;', '&#710;', $text );
+    $replacements = array(
+      '&ndash;' => '&#8211;&#8203;', // Add zero-width space for line break control
+      '&mdash;' => '&#8212;&#8203;', // Add zero-width space for line break control
+      '&nbsp;' => '&#160;',
+      '&ldquo;' => '&#8220;',
+      '&rdquo;' => '&#8221;',
+      '&lsquo;' => '&#8216;',
+      '&rsquo;' => '&#8217;',
+      '&deg;' => '&#176;',
+      '&reg;' => '&#174;',
+      '&copy;' => '&#169;',
+      '&times;' => '&#215;',
+      '&tilde;' => '&#732;',
+      '&circ;' => '&#710;',
+    );
 
-    return $text;
+    return strtr( $text, $replacements );
   }
 }
 
