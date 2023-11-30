@@ -50,7 +50,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     }
 
     // Co-authors
-    if ( ! empty( $co_author_ids ) ) {
+    if ( is_array( $co_author_ids ) && ! empty( $co_author_ids ) ) {
       $node['coAuthors'] = [];
 
       foreach ( $co_author_ids as $co_id ) {
@@ -182,7 +182,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           }
 
           // Chapter co-authors
-          if ( ! empty( $co_author_ids ) ) {
+          if ( is_array( $co_author_ids ) && ! empty( $co_author_ids ) ) {
             $chapter['coAuthors'] = [];
 
             foreach ( $co_author_ids as $co_id ) {
