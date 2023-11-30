@@ -675,7 +675,7 @@ function fictioneer_output_head_seo() {
         $article_author_url = empty( $article_author_url ) ? get_author_posts_url( $post_author ) : $article_author_url;
 
         // Prepare author array with either URL (required) or name (better than nothing)
-        $all_authors = empty( $article_author_url ) ? [$article_author] : [$article_author_url];
+        $all_authors = empty( $article_author_url ) ? [ $article_author ] : [ $article_author_url ];
 
         // Get co-authors (if any)
         $co_authors = $post_type == 'fcn_story' ?
@@ -683,13 +683,16 @@ function fictioneer_output_head_seo() {
           fictioneer_get_field( 'fictioneer_chapter_co_authors', $post_id ) ?? [];
 
         // Add co-authors URL or name
-        if ( ! empty( $co_authors ) ) {
+        if ( is_array( $co_authors ) && ! empty( $co_authors ) ) {
           foreach ( $co_authors as $co_author_id ) {
-            $co_author_name = get_the_author_meta( 'display_name', intval( $co_author_id ) );
-            $co_author_url = get_the_author_meta( 'url', intval( $co_author_id ) );
+            $co_author_name = get_the_author_meta( 'display_name', $co_author_id );
+            $co_author_url = get_the_author_meta( 'url', $co_author_id );
             $co_author_url = empty( $co_author_url ) ? get_author_posts_url( $co_author_id ) : $co_author_url;
             $author_item = empty( $co_author_url ) ? $co_author_name : $co_author_url;
-            if ( ! empty( $author_item ) && ! in_array( $author_item, $all_authors ) ) $all_authors[] = $author_item;
+
+            if ( ! empty( $author_item ) && ! in_array( $author_item, $all_authors ) ) {
+              $all_authors[] = $author_item;
+            }
           }
         }
 

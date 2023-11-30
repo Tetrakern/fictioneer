@@ -564,6 +564,7 @@ if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
   function fictioneer_get_story_author_nodes( $story_id ) {
     // Setup
     $all_authors = fictioneer_get_post_author_ids( $story_id );
+    $all_authors = is_array( $all_authors ) ? $all_authors : [];
 
     // Return author nodes
     return fictioneer_get_multi_author_nodes( $all_authors );

@@ -54,15 +54,24 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
       $node['coAuthors'] = [];
 
       foreach ( $co_author_ids as $co_id ) {
-        if ( $co_id != $author_id ) {
-          $co_author_url = get_the_author_meta( 'user_url', $co_id );
-          $co_author_node = [];
+        $co_author_name = get_the_author_meta( 'display_name', $co_id );
 
-          $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
-          if ( ! empty( $co_author_url ) ) $co_author_node['url'] = $co_author_url;
+        if ( $co_id != $author_id && ! empty( $co_author_name ) ) {
+          $co_author_url = get_the_author_meta( 'user_url', $co_id );
+          $co_author_node = array(
+            'name' => $co_author_name
+          );
+
+          if ( ! empty( $co_author_url ) ) {
+            $co_author_node['url'] = $co_author_url;
+          }
 
           $node['coAuthors'][] = $co_author_node;
         }
+      }
+
+      if ( empty( $node['coAuthors'] ) ) {
+        unset( $node['coAuthors'] );
       }
     }
 
@@ -186,11 +195,13 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
             $chapter['coAuthors'] = [];
 
             foreach ( $co_author_ids as $co_id ) {
-              if ( $co_id != $author_id ) {
-                $co_author_url = get_the_author_meta( 'user_url', $co_id );
-                $co_author_node = [];
+              $co_author_name = get_the_author_meta( 'display_name', $co_id );
 
-                $co_author_node['name'] = get_the_author_meta( 'display_name', $co_id );
+              if ( $co_id != $author_id && ! empty( $co_author_name ) ) {
+                $co_author_url = get_the_author_meta( 'user_url', $co_id );
+                $co_author_node = array(
+                  'name' => $co_author_name
+                );
 
                 if ( ! empty( $co_author_url ) ) {
                   $co_author_node['url'] = $co_author_url;
@@ -198,6 +209,10 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
                 $chapter['coAuthors'][] = $co_author_node;
               }
+            }
+
+            if ( empty( $chapter['coAuthors'] ) ) {
+              unset( $chapter['coAuthors'] );
             }
           }
 
