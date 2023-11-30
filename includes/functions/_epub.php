@@ -60,6 +60,11 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
         update_post_meta( $story_id, 'fictioneer_epub_downloads', $downloads );
       }
 
+      // Erase any output buffer (errors, warnings) that might interfere
+      if ( ob_get_level() ) {
+        ob_end_clean();
+      }
+
       // Start download
       $file_name = sanitize_file_name( $story->post_name ); // This is the slug!
 
@@ -432,7 +437,9 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
         // Create temporary file to continue cleaning up content...
         $inner = new DOMDocument();
-        $inner->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+        libxml_use_internal_errors( true );
+        $inner->loadHTML( '<?xml encoding="UTF-8">' . $content );
+        libxml_clear_errors();
         $inner->preserveWhiteSpace = false;
         $inner->formatOutput = true;
         $inner_finder = new DOMXpath( $inner );
@@ -867,7 +874,6 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
     // Add preface (if any)
     if ( ! empty( $preface ) ) {
       // Clean-up...
-      $preface = mb_convert_encoding( $preface, 'HTML-ENTITIES', 'UTF-8' );
       $preface = str_replace( '&amp;', '&', $preface );
       $preface = preg_replace( '/(\r|\n){2,}/', '</p><p>', $preface );
 
@@ -880,7 +886,9 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
 
       // Create temporary work document
       $temp = new DOMDocument();
-      $temp->loadHTML( mb_convert_encoding( $preface, 'HTML-ENTITIES', 'UTF-8' ) );
+      libxml_use_internal_errors( true );
+      $temp->loadHTML( '<?xml encoding="UTF-8">' . $preface );
+      libxml_clear_errors();
       $temp->preserveWhiteSpace = false;
       $temp->formatOutput = true;
       $temp_finder = new DOMXpath( $temp );
@@ -896,7 +904,6 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
       $ftm_frame->appendChild( $ftm->createElement( 'h2', __( 'Description', 'fictioneer' ) ) );
 
       // Clean-up...
-      $short_description = mb_convert_encoding( $short_description, 'HTML-ENTITIES', 'UTF-8' );
       $short_description = str_replace( '&amp;', '&', $short_description );
       $short_description = preg_replace( '/(\r|\n){2,}/', '</p><p>', $short_description );
 
@@ -909,7 +916,9 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
 
       // Create temporary work document
       $temp = new DOMDocument();
-      $temp->loadHTML( mb_convert_encoding( $short_description, 'HTML-ENTITIES', 'UTF-8' ) );
+      libxml_use_internal_errors( true );
+      $temp->loadHTML( '<?xml encoding="UTF-8">' . $short_description );
+      libxml_clear_errors();
       $temp->preserveWhiteSpace = false;
       $temp->formatOutput = true;
       $temp_finder = new DOMXpath( $temp );
@@ -958,7 +967,6 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
       $atw_frame = $atw->getElementsByTagName( 'div' )->item( 0 ); // Only one at the start
 
       // Clean-up...
-      $afterword = mb_convert_encoding( $afterword, 'HTML-ENTITIES', 'UTF-8' );
       $afterword = str_replace( '&amp;', '&', $afterword );
       $afterword = preg_replace( '/(\r|\n){2,}/', '</p><p>', $afterword );
 
@@ -971,7 +979,9 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
 
       // Create temporary work document
       $temp = new DOMDocument();
-      $temp->loadHTML( mb_convert_encoding( $afterword, 'HTML-ENTITIES', 'UTF-8' ) );
+      libxml_use_internal_errors( true );
+      $temp->loadHTML( '<?xml encoding="UTF-8">' . $afterword );
+      libxml_clear_errors();
       $temp->preserveWhiteSpace = false;
       $temp->formatOutput = true;
       $temp_finder = new DOMXpath( $temp );
@@ -1040,7 +1050,7 @@ function fictioneer_generate_epub() {
   $author = get_the_author_meta( 'display_name', $story->post_author );
   $co_authors = get_post_meta( $story_id, 'fictioneer_story_co_authors', true ) ?: [];
   $all_authors = [];
-  $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
+  $short_description = fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false );
   $short_description = fictioneer_fix_html_entities( $short_description );
   $story_last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id );
   $epub_last_built = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true );
