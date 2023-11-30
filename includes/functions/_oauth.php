@@ -170,7 +170,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_links' ) ) {
  * to authenticate the user. The connection is severed after that.
  *
  * @since Fictioneer 4.0
- * @since Fictioneer 5.7.5 - Refactored..
+ * @since Fictioneer 5.7.5 - Refactored.
  * @link https://developer.wordpress.org/reference/hooks/template_redirect/
  * @link https://dev.twitch.tv/docs/authentication
  * @link https://discord.com/developers/docs/topics/oauth2

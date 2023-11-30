@@ -648,42 +648,26 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
    *
    * @param string $text     Text that has key/value pairs to be replaced.
    * @param array  $args     The key/value pairs.
-   * @param string $default  Optional. To be used if the the $text is empty or
-   *                         if any key/value pair is invalid. Default ''.
+   * @param string $default  Optional. To be used if the text is empty.
+   *                         Default is an empty string.
    *
    * @return string The modified text.
    */
 
   function fictioneer_replace_key_value( $text, $args, $default = '' ) {
-    // Setup
-    $invalid = false;
-
     // Check if text exists
     if ( empty( $text ) ) {
       $text = $default;
     }
 
-    // Replace key/value pairs
-    foreach( $args as $key => $value ) {
-      $value = (string) $value;
+    // Check args
+    $args = is_array( $args ) ? $args : [];
 
-      // Abort if any value is invalid
-      if ( empty( $value ) ) {
-        $invalid = true;
-        break;
-      }
-
-      // Replace string
-      $text = str_replace( $key, $value, $text );
-    }
-
-    // Return default a key/value pair was invalid
-    if ( $invalid ) {
-      return $default;
-    }
+    // Filter args
+    $args = array_filter( $args, 'is_scalar' );
 
     // Return modified text
-    return trim( $text );
+    return trim( strtr( $text, $args ) );
   }
 }
 
