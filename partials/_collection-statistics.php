@@ -42,6 +42,7 @@ if ( ! empty( $args['featured_list'] ) ) {
       $query_chapter_ids[] = $post_id;
     } elseif ( $post_type == 'fcn_story' ) {
       $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
+      $word_count += fictioneer_get_word_count( $post_id );
       $story_count += 1;
 
       // Count all chapters in story (if any)

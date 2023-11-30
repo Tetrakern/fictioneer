@@ -84,8 +84,9 @@ if ( ! empty( $items ) ) {
         }
         break;
       case 'fcn_story':
-        $story_count += 1;
         $chapter_ids = fictioneer_get_story_chapters( $item->ID );
+        $word_count += fictioneer_get_word_count( $item->ID );
+        $story_count += 1;
 
         // Try to rescue an empty description by using one from a story...
         if ( empty( $description ) ) {
