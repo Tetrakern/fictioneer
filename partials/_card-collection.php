@@ -79,7 +79,7 @@ if ( ! empty( $items ) ) {
       case 'fcn_chapter':
         if ( ! in_array( $item->ID, $processed_ids ) ) {
           $chapter_count += 1;
-          $word_count += (int) get_post_meta( $item->ID, '_word_count', true );
+          $word_count += fictioneer_get_word_count( $item->ID );
           $processed_ids[] = $item->ID;
         }
         break;
@@ -118,7 +118,7 @@ if ( ! empty( $items ) ) {
 
             if ( ! in_array( $chapter->ID, $processed_ids ) ) {
               $chapter_count += 1;
-              $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
+              $word_count += fictioneer_get_word_count( $chapter->ID );
               $processed_ids[] = $chapter->ID;
             }
           }

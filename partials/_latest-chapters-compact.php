@@ -180,7 +180,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php
                     printf(
                       _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
-                      fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) ),
+                      fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) ),
                       get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
                     );
                   ?>

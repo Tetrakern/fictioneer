@@ -323,7 +323,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           // Do not count non-chapters...
           if ( ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
             $chapter_count += 1;
-            $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
+            $word_count += fictioneer_get_word_count( $chapter->ID );
           }
 
           // ... but they are still listed!
@@ -336,7 +336,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Add story word count
-    $word_count += (int) get_post_meta( $story_id, '_word_count', true );
+    $word_count += fictioneer_get_word_count( $story_id );
 
     // Prepare result
     $result = array(
@@ -463,7 +463,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     $comment_count = 0;
 
     foreach ( $chapters as $chapter ) {
-      $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
+      $word_count += fictioneer_get_word_count( $chapter->ID );
       $comment_count += get_comments_number( $chapter );
     }
 
@@ -809,6 +809,28 @@ if ( ! function_exists( 'fictioneer_get_story_chapters' ) ) {
 
     // Always return an array
     return is_array( $chapter_ids ) ? $chapter_ids : [];
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
+  /**
+   * Wrapper for get_post_meta() to get word count
+   *
+   * @since Fictioneer 5.8.2
+   *
+   * @param int $post_id  Optional. The ID of the post the field belongs to.
+   *                      Defaults to current post ID.
+   *
+   * @return int The word count or 0.
+   */
+
+  function fictioneer_get_word_count( $post_id = null ) {
+    // Setup
+    $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true );
+    $words = (int) $words;
+
+    // Always return an integer greater or equal 0
+    return $words > 0 ? $words : 0;
   }
 }
 

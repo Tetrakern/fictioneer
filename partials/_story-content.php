@@ -206,7 +206,7 @@ $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse'
               'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
               'title' => fictioneer_get_safe_title( $chapter_id ),
               'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
-              'words' => get_post_meta( $chapter_id, '_word_count', true ),
+              'words' => fictioneer_get_word_count( $chapter_id ),
               'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
             );
           }

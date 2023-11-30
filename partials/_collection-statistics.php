@@ -72,7 +72,7 @@ if ( ! empty( $args['featured_list'] ) ) {
       ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) &&
       ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true )
     ) {
-      $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
+      $word_count += fictioneer_get_word_count( $chapter->ID );
     }
   }
 }

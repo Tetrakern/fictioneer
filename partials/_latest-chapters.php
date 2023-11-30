@@ -204,7 +204,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                   $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
                     esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-                    fictioneer_shorten_number( get_post_meta( $post->ID, '_word_count', true ) );
+                    fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) );
 
                   if ( $args['orderby'] == 'modified' ) {
                     $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
