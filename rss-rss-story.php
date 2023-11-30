@@ -25,8 +25,7 @@ if ( ! $story_id || $is_hidden || post_password_required( $story_id ) ) {
 
 // Get story data
 $story = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
-$chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
-$chapters = is_array( $chapters ) ? $chapters : [];
+$chapters = fictioneer_get_story_chapters( $story_id );
 
 // Feed title
 $title = sprintf(

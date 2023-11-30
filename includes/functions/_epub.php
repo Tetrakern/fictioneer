@@ -347,7 +347,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     $templateDoc->xmlStandalone = false;
 
     // Abort if...
-    if ( ! is_array( $chapters ) || empty( $chapters ) ) {
+    if ( empty( $chapters ) ) {
       fictioneer_epub_return_and_exit();
     }
 
@@ -1036,7 +1036,7 @@ function fictioneer_generate_epub() {
   $story = get_post( $story_id );
   $dir = get_template_directory() . '/epubs/';
   $folder = "{$story_id}";
-  $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
+  $chapters = fictioneer_get_story_chapters( $story_id );
   $author = get_the_author_meta( 'display_name', $story->post_author );
   $co_authors = get_post_meta( $story_id, 'fictioneer_story_co_authors', true ) ?: [];
   $all_authors = [];

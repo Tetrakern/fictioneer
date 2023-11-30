@@ -289,8 +289,8 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   }
 
   // Check chapter list
-  $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
-  $previous = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
+  $chapters = fictioneer_get_story_chapters( $story_id );
+  $previous = $chapters;
 
   if ( empty( $chapters ) || ! in_array( $chapter_id, $chapters ) ) {
     return;

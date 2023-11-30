@@ -150,7 +150,7 @@ $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse'
 
   <section id="chapters" class="story__tab-page _current story__chapters" data-order="asc" data-view="list">
     <?php
-      $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: []; // Already prepared!
+      $chapters = fictioneer_get_story_chapters( $story_id ); // Already prepared!
       $chapter_groups = [];
 
       // Loop and prepare groups

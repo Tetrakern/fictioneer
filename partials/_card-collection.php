@@ -85,7 +85,7 @@ if ( ! empty( $items ) ) {
         break;
       case 'fcn_story':
         $story_count += 1;
-        $chapter_ids = get_post_meta( $item->ID, 'fictioneer_story_chapters', true ) ?: [];
+        $chapter_ids = fictioneer_get_story_chapters( $item->ID );
 
         // Try to rescue an empty description by using one from a story...
         if ( empty( $description ) ) {

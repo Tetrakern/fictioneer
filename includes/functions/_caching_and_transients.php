@@ -382,13 +382,13 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
       if ( ! empty( $story_id ) ) {
-        $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
+        $chapters = fictioneer_get_story_chapters( $story_id );
 
         delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
         fictioneer_purge_post_cache( $story_id );
 
         // ... and associated chapters
-        if ( is_array( $chapters ) && ! empty( $chapters ) ) {
+        if ( ! empty( $chapters ) ) {
           foreach ( $chapters as $chapter_id ) {
             fictioneer_purge_post_cache( $chapter_id );
           }
@@ -398,9 +398,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge associated chapters
     if ( $post_type == 'fcn_story' ) {
-      $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
+      $chapters = fictioneer_get_story_chapters( $story_id );
 
-      if ( is_array( $chapters ) && ! empty( $chapters ) ) {
+      if ( ! empty( $chapters ) ) {
         foreach ( $chapters as $chapter_id ) {
           fictioneer_purge_post_cache( $chapter_id );
         }
