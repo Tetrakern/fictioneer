@@ -48,7 +48,7 @@ function fictioneer_collections_list( $args ) {
           do_action( 'fictioneer_collections_end_of_results', $args );
         ?>
 
-      <?php else: ?>
+      <?php else : ?>
 
         <?php do_action( 'fictioneer_collections_no_results', $args ); ?>
 

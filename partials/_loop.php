@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) OR exit;
 
   <nav class="pagination _padding-top padding-bottom"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
 
-<?php else: ?>
+<?php else : ?>
 
   <article class="post _empty padding-top padding-bottom padding-left padding-right">
     <span><?php _e( 'No (more) posts found.', 'fictioneer' ); ?></span>

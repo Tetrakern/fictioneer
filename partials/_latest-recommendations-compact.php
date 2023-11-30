@@ -188,7 +188,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
       <?php endwhile; ?>
     </ul>
 
-  <?php else: ?>
+  <?php else : ?>
 
     <div class="no-results"><?php _e( 'Nothing to show.', 'fictioneer' ); ?></div>
 

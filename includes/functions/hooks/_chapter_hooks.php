@@ -53,7 +53,7 @@ function fictioneer_chapters_list( $args ) {
           do_action( 'fictioneer_chapters_end_of_results', $args );
         ?>
 
-      <?php else: ?>
+      <?php else : ?>
 
         <?php do_action( 'fictioneer_chapters_no_results', $args ); ?>
 

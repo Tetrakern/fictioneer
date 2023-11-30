@@ -48,7 +48,7 @@ function fictioneer_recommendations_list( $args ) {
           do_action( 'fictioneer_recommendations_end_of_results', $args );
         ?>
 
-      <?php else: ?>
+      <?php else : ?>
 
         <?php do_action( 'fictioneer_recommendations_no_results', $args ); ?>
 

@@ -329,7 +329,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
 
     // Placeholder: {{site}}
     if ( str_contains( $seo_title, '{{site}}' ) ) {
-      $seo_title = str_replace( '{{site}}', get_bloginfo( 'name' ) ?? '', $seo_title );
+      $seo_title = str_replace( '{{site}}', get_bloginfo( 'name' ), $seo_title );
     }
 
     // Defaults...
@@ -476,7 +476,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Special Case: Recommendations
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
-      $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true ) ?? '';
+      $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
       $one_sentence = trim( $one_sentence );
 
       $default = empty( $one_sentence ) ? $default : $one_sentence;
@@ -494,7 +494,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Placeholder: {{site}}
     if ( str_contains( $seo_description, '{{site}}' ) ) {
-      $seo_description = str_replace( '{{site}}', get_bloginfo( 'name' ) ?? '', $seo_description );
+      $seo_description = str_replace( '{{site}}', get_bloginfo( 'name' ), $seo_description );
     }
 
     // Defaults...
