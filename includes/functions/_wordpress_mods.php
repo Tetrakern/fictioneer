@@ -538,7 +538,8 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
   // Setup
   libxml_use_internal_errors( true );
   $doc = new DOMDocument();
-  $doc->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+  $doc->loadHTML( '<?xml encoding="UTF-8">' . $content );
+  libxml_clear_errors();
   $images = $doc->getElementsByTagName( 'img' );
 
   // Iterate over each img tag
@@ -671,7 +672,8 @@ function fictioneer_embed_consent_wrappers( $content ) {
 
   libxml_use_internal_errors( true );
   $dom = new DOMDocument();
-  $dom->loadHTML( mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' ) );
+  $dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
+  libxml_clear_errors();
   $xpath = new DomXPath( $dom );
 
   $iframes = $dom->getElementsByTagName( 'iframe' );
