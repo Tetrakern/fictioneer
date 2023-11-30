@@ -54,16 +54,16 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
   function fictioneer_seo_fields( $post ) {
     // Title
-    $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true ) ?: '';
+    $seo_title = fictioneer_get_field( 'fictioneer_seo_title', $post->ID ) ?: '';
     $seo_title_placeholder = fictioneer_get_safe_title( $post->ID );
 
     // Description (truncated if necessary)
-    $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true ) ?: '';
+    $seo_description = fictioneer_get_field( 'fictioneer_seo_description', $post->ID ) ?: '';
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
     $seo_description_placeholder = mb_strimwidth( $seo_description_placeholder, 0, 155, '…' );
 
     // Open Graph image...
-    $seo_og_image = get_post_meta( $post->ID, 'fictioneer_seo_og_image', true );
+    $seo_og_image = fictioneer_get_field( 'fictioneer_seo_og_image', $post->ID );
     $seo_og_image_display = wp_get_attachment_url( $seo_og_image );
     $image_source = '';
 
@@ -305,14 +305,14 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     }
 
     // Cached title?
-    $cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
+    $cache = fictioneer_get_field( 'fictioneer_seo_title_cache', $post_id );
 
     if ( ! empty( $cache ) && ! $skip_cache ) {
       return $cache;
     }
 
     // Start building...
-    $seo_title = get_post_meta( $post_id, 'fictioneer_seo_title', true );
+    $seo_title = fictioneer_get_field( 'fictioneer_seo_title', $post_id );
     $seo_title = empty( $seo_title ) ? false : $seo_title;
     $title = fictioneer_get_safe_title( $post_id );
     $default = empty( $default ) ? $title : $default;
@@ -460,14 +460,14 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     }
 
     // Cached description?
-    $cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
+    $cache = fictioneer_get_field( 'fictioneer_seo_description_cache', $post_id );
 
     if ( ! empty( $cache ) && ! $skip_cache ) {
       return $cache;
     }
 
     // Start building...
-    $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
+    $seo_description = fictioneer_get_field( 'fictioneer_seo_description', $post_id );
     $seo_description = empty( $seo_description ) ? false : $seo_description;
     $title = fictioneer_get_safe_title( $post_id );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
@@ -550,7 +550,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Cached image? Except for site default, which can globally change!
     if ( ! $use_default ) {
-      $cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
+      $cache = fictioneer_get_field( 'fictioneer_seo_og_image_cache', $post_id );
 
       if ( $cache ) {
         return $cache;
@@ -559,7 +559,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Get image ID if not yet set
     if ( ! $image_id ) {
-      $image_id = get_post_meta( $post_id, 'fictioneer_seo_og_image', true );
+      $image_id = fictioneer_get_field( 'fictioneer_seo_og_image', $post_id );
       $image_id = wp_attachment_is_image( $image_id ) ? $image_id : false;
     }
 

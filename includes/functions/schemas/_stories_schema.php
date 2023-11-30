@@ -91,7 +91,7 @@ if ( ! function_exists( 'fictioneer_build_stories_schema' ) ) {
     // Filter out invalid chapters (faster than meta query)
     $list = array_filter( $list, function ( $post ) {
       // Chapter hidden?
-      $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+      $story_hidden = fictioneer_get_field( 'fictioneer_story_hidden', $post->ID );
       return empty( $story_hidden ) || $story_hidden === '0';
     });
 

@@ -193,7 +193,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     </div>
                     <div class="card__right">
                       <?php
-                        echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) );
+                        echo fictioneer_shorten_number( fictioneer_get_field( '_word_count', $chapter_id ) );
                         echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
                         echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter_id )
                       ?>

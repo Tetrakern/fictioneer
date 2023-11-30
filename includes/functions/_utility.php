@@ -190,7 +190,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
     // Check cache
     if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
-      $old_data = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
+      $old_data = fictioneer_get_field( 'fictioneer_story_data_collection', $story_id );
     }
 
     if ( ! empty( $old_data ) && $old_data['last_modified'] >= get_the_modified_time( 'U', $story_id ) ) {
@@ -426,7 +426,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     // Filter out unwanted stories (faster than meta query)
     $stories = array_filter( $stories, function ( $post ) {
       // Story hidden?
-      $story_hidden = get_post_meta( $post->ID, 'fictioneer_story_hidden', true );
+      $story_hidden = fictioneer_get_field( 'fictioneer_story_hidden', $post->ID );
 
       return empty( $story_hidden ) || $story_hidden === '0';
     });
@@ -447,11 +447,11 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     // Filter out unwanted chapters (faster than meta query)
     $chapters = array_filter( $chapters, function ( $post ) {
       // Chapter hidden?
-      $chapter_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
+      $chapter_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $post->ID );
       $not_hidden = empty( $chapter_hidden ) || $chapter_hidden === '0';
 
       // Not a chapter?
-      $no_chapter = get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true );
+      $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $post->ID );
       $is_chapter = empty( $no_chapter ) || $no_chapter === '0';
 
       // Only keep if both conditions are met
@@ -463,7 +463,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     $comment_count = 0;
 
     foreach ( $chapters as $chapter ) {
-      $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
+      $word_count += (int) fictioneer_get_field( '_word_count', $chapter->ID );
       $comment_count += get_comments_number( $chapter );
     }
 
@@ -793,7 +793,7 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_field' ) ) {
   /**
-   * Wrapper for get_post_meta
+   * Wrapper for get_post_meta with single value return
    *
    * @since Fictioneer 5.0
    *
@@ -806,8 +806,7 @@ if ( ! function_exists( 'fictioneer_get_field' ) ) {
 
   function fictioneer_get_field( $field, $post_id = null ) {
     // Setup
-    $post_id = absint( $post_id );
-    $post_id = $post_id ? $post_id : get_the_ID();
+    $post_id = $post_id ? absint( $post_id ) : get_the_ID();
 
     // Retrieve post meta
     return get_post_meta( $post_id, $field, true );

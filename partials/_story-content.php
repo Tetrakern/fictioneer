@@ -204,7 +204,7 @@ $disable_folding = fictioneer_get_field( 'fictioneer_story_disable_collapse' );
               'prefix' => fictioneer_get_field( 'fictioneer_chapter_prefix' ),
               'title' => fictioneer_get_safe_title( $chapter_id ),
               'list_title' => fictioneer_get_field( 'fictioneer_chapter_list_title' ),
-              'words' => get_post_meta( $chapter_id, '_word_count', true ),
+              'words' => fictioneer_get_field( '_word_count', $chapter_id ),
               'warning' => fictioneer_get_field( 'fictioneer_chapter_warning' )
             );
           }

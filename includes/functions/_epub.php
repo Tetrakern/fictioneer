@@ -47,11 +47,11 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
       // Count downloads per ePUB version
       if ( $story_id ) {
         // Download counter(s)
-        $downloads = get_post_meta( $story_id, 'fictioneer_epub_downloads', true );
+        $downloads = fictioneer_get_field( 'fictioneer_epub_downloads', $story_id );
         $downloads = is_array( $downloads ) ? $downloads : [];
 
         // Generate version key based on timestamp
-        $key = md5( get_post_meta( $story_id, 'fictioneer_epub_timestamp', true ) );
+        $key = md5( fictioneer_get_field( 'fictioneer_epub_timestamp', $story_id ) );
 
         // Is this version already tracked?
         $downloads[ $key ] = ( $downloads[ $key ] ?? 0 ) + 1;
@@ -1043,7 +1043,7 @@ function fictioneer_generate_epub() {
   $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
   $short_description = fictioneer_fix_html_entities( $short_description );
   $story_last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id );
-  $epub_last_built = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true );
+  $epub_last_built = fictioneer_get_field( 'fictioneer_epub_timestamp', $story_id );
   $toc_list = [];
   $ncx_list = [];
   $opf_list = [];

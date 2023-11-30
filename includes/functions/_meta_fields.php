@@ -54,7 +54,7 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
 
     <div class="fictioneer-meta-checkbox__checkbox">
       <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
-      <input type="checkbox" id="<?php echo $meta_key; ?>" name="<?php echo $meta_key; ?>" value="1" autocomplete="off" <?php checked( get_post_meta( $post->ID, $meta_key, true ), 1 ); ?> <?php echo $attributes; ?> <?php echo $required; ?>>
+      <input type="checkbox" id="<?php echo $meta_key; ?>" name="<?php echo $meta_key; ?>" value="1" autocomplete="off" <?php checked( fictioneer_get_field( $meta_key, $post->ID ), 1 ); ?> <?php echo $attributes; ?> <?php echo $required; ?>>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" focusable="false"><path d="M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"></path></svg>
     </div>
 
@@ -87,7 +87,7 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
 
 function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $meta_value = esc_attr( fictioneer_get_field( $meta_key, $post->ID ) );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
@@ -142,7 +142,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $meta_value = esc_attr( fictioneer_get_field( $meta_key, $post->ID ) );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
@@ -197,7 +197,7 @@ function fictioneer_get_metabox_url( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
   // Setup
-  $array = get_post_meta( $post->ID, $meta_key, true );
+  $array = fictioneer_get_field( $meta_key, $post->ID );
   $array = is_array( $array ) ? $array : [];
   $list = esc_attr( implode( ', ', $array ) );
   $label = strval( $args['label'] ?? '' );
@@ -251,7 +251,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] ) {
   // Setup
-  $selected = get_post_meta( $post->ID, $meta_key, true );
+  $selected = absint( fictioneer_get_field( $meta_key, $post->ID ) );
   $selected = empty( $selected ) ? array_keys( $options )[0] : $selected;
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
@@ -312,7 +312,7 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
 
 function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $meta_value = fictioneer_get_field( $meta_key, $post->ID );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
@@ -366,14 +366,13 @@ function fictioneer_get_metabox_textarea( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $meta_value = fictioneer_get_field( $meta_key, $post->ID );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $upload = strval( $args['button'] ?? _x( 'Set image', 'Metabox image upload button.', 'fictioneer' ) );
   $replace = _x( 'Replace', 'Metabox image upload button.', 'fictioneer' );
   $remove = _x( 'Remove', 'Metabox image remove button.', 'fictioneer' );
-  $image_id = get_post_meta( $post->ID, $meta_key, true );
-  $image_url = wp_get_attachment_url( $image_id );
+  $image_url = wp_get_attachment_url( $meta_value );
   $image_css = $image_url ? "style='background-image: url(\"{$image_url}\");'" : '';
 
   ob_start();
@@ -426,7 +425,7 @@ function fictioneer_get_metabox_image( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_ebook( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $meta_value = fictioneer_get_field( $meta_key, $post->ID );
   $file_path = get_attached_file( $meta_value );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
@@ -524,7 +523,7 @@ function fictioneer_get_metabox_ebook( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] ) {
   // Setup
-  $array = get_post_meta( $post->ID, $meta_key, true );
+  $array = fictioneer_get_field( $meta_key, $post->ID );
   $array = is_array( $array ) ? $array : [];
   $list = esc_attr( implode( ', ', $array ) );
   $label = strval( $args['label'] ?? '' );
@@ -596,7 +595,7 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
 
 function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $meta_value = esc_attr( fictioneer_get_field( $meta_key, $post->ID ) );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
@@ -668,7 +667,7 @@ function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_editor( $post, $meta_key, $args = [] ) {
   // Setup
-  $meta_value = get_post_meta( $post->ID, $meta_key, true );
+  $meta_value = fictioneer_get_field( $meta_key, $post->ID );
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
@@ -963,7 +962,7 @@ function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args 
     $title = fictioneer_get_safe_title( $chapter );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
-    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+    if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) {
       $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
     }
 
@@ -1052,7 +1051,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Update title if necessary
-    if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+    if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) {
       $title = "{$title} (" . _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' ) . ")";
     }
 
@@ -1130,11 +1129,11 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
   // Build
   $info[] = empty( $text_icon ) ? sprintf( '<i class="%s"></i>', $icon ) : "<strong>{$text_icon}</strong>";
 
-  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
+  if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) ) {
     $flags[] = _x( 'Unlisted', 'Chapter assignment flag.', 'fictioneer' );
   }
 
-  if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ) {
+  if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ) {
     $flags[] = _x( 'No Chapter', 'Chapter assignment flag.', 'fictioneer' );
   }
 
@@ -1906,7 +1905,8 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $chapter_ids = get_post_meta( $post->ID, 'fictioneer_story_chapters', true ) ?: [];
+  $chapter_ids = fictioneer_get_field( 'fictioneer_story_chapters', $post->ID ) ?: [];
+  $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [];
   $chapters = empty( $chapter_ids ) ? [] : get_posts(
     array(
       'post_type' => 'fcn_chapter',
@@ -1936,7 +1936,8 @@ function fictioneer_render_story_data_metabox( $post ) {
 
   // Custom pages
   if ( current_user_can( 'fcn_story_pages', $post->ID ) && FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY > 0 ) {
-    $page_ids = get_post_meta( $post->ID, 'fictioneer_story_custom_pages', true ) ?: [];
+    $page_ids = fictioneer_get_field( 'fictioneer_story_custom_pages', $post->ID ) ?: [];
+    $page_ids = is_array( $page_ids ) ? $page_ids : [];
     $pages = empty( $page_ids ) ? [] : get_posts(
       array(
         'post_type' => 'page',
@@ -2567,7 +2568,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
   $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $post_author_id = get_post_field( 'post_author', $post->ID );
-  $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $current_story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
   $output = [];
 
   // --- Add fields ------------------------------------------------------------
@@ -2843,8 +2844,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // Story
   if ( isset( $_POST['fictioneer_chapter_story'] ) ) {
     $story_id = absint( $_POST['fictioneer_chapter_story'] );
-    $current_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-    $current_story_id = absint( $current_story_id );
+    $current_story_id = absint( fictioneer_get_field( 'fictioneer_chapter_story', $post_id ) );
 
     if ( $story_id ) {
       $story_author_id = get_post_field( 'post_author', $story_id );
@@ -2942,7 +2942,7 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id ) {
   }
 
   // Get current story chapters
-  $story_chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
+  $story_chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
 
   // Prepare chapter array if null (or broken)
   if ( ! is_array( $story_chapters ) ) {
@@ -3483,7 +3483,8 @@ function fictioneer_render_featured_content_metabox( $post ) {
   // --- Add fields --------------------------------------------------------------
 
   // Featured items
-  $item_ids = get_post_meta( $post->ID, 'fictioneer_post_featured', true ) ?: [];
+  $item_ids = fictioneer_get_field( 'fictioneer_post_featured', $post->ID ) ?: [];
+  $item_ids = is_array( $item_ids ) ? $item_ids : [];
   $items = empty( $item_ids ) ? [] : get_posts(
     array(
       'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
@@ -3714,7 +3715,8 @@ function fictioneer_render_collection_data_metabox( $post ) {
   );
 
   // Collection items
-  $item_ids = get_post_meta( $post->ID, 'fictioneer_collection_items', true ) ?: [];
+  $item_ids = fictioneer_get_field( 'fictioneer_collection_items', $post->ID ) ?: [];
+  $item_ids = is_array( $item_ids ) ? $item_ids : [];
   $items = empty( $item_ids ) ? [] : get_posts(
     array(
       'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],

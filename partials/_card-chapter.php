@@ -191,7 +191,7 @@ $show_type = $args['show_type'] ?? false;
 
         $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
           esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-          fictioneer_shorten_number( get_post_meta( get_the_ID(), '_word_count', true ) );
+          fictioneer_shorten_number( fictioneer_get_field( '_word_count', get_the_ID() ) );
 
         if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
           $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .

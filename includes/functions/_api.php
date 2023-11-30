@@ -205,7 +205,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['published'] = get_post_time( 'U', true );
           $chapter['modified'] = get_post_modified_time( 'U', true );
           $chapter['protected'] = post_password_required();
-          $chapter['words'] = intval( get_post_meta( $chapter_id, '_word_count', true ) );
+          $chapter['words'] = intval( fictioneer_get_field( '_word_count', $chapter_id ) );
           $chapter['nonChapter'] = ! empty( $no_chapter );
 
           if ( ! empty( $rating ) ) {

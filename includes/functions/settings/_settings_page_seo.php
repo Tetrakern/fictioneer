@@ -76,12 +76,12 @@ class Fictioneer_Seo_Table extends WP_List_Table {
   }
 
   public function column_default( $item, $column_name ) {
-    $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
+    $schema = fictioneer_get_field( 'fictioneer_schema', $item->ID );
     $schema_text = stripslashes( json_encode( json_decode( $schema ), JSON_PRETTY_PRINT ) );
 
     switch ( $column_name ) {
       case 'title':
-        $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
+        $image = fictioneer_get_field( 'fictioneer_seo_og_image_cache', $item->ID );
         $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
         $link = get_the_permalink( $item->ID );
         $title = mb_strimwidth( fictioneer_get_seo_title( $item->ID ), 0, 48, '…' );
@@ -131,7 +131,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
     $row_class = '';
 
     // Setup
-    $schema = get_post_meta( $item->ID, 'fictioneer_schema', true );
+    $schema = fictioneer_get_field( 'fictioneer_schema', $item->ID );
 
     // Add class or not
     if ( ! $schema ) {

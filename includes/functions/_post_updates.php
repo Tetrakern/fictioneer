@@ -122,7 +122,7 @@ add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 
 function fictioneer_get_story_changelog( $story_id ) {
   // Setup
-  $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
+  $changelog = fictioneer_get_field( 'fictioneer_story_changelog', $story_id );
   $changelog = is_array( $changelog ) ? $changelog : [];
 
   // Initialize

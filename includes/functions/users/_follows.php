@@ -251,7 +251,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
     // Filter out hidden chapters (faster than meta query, highly unlikely to eliminate all)
     $chapters = array_filter( $all_chapters, function ( $candidate ) {
       // Chapter hidden?
-      $chapter_hidden = get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true );
+      $chapter_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID );
 
       // Only keep if not hidden
       return empty( $chapter_hidden ) || $chapter_hidden === '0';

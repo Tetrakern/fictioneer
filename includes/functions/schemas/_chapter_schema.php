@@ -65,7 +65,7 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
     $schema = fictioneer_get_schema_node_root();
     $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
     $image_data = fictioneer_get_schema_primary_image( $post_id );
-    $word_count = intval( get_post_meta( $post_id, '_word_count', true ) );
+    $word_count = intval( fictioneer_get_field( '_word_count', $post_id ) );
     $page_description = fictioneer_get_seo_description( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
 

@@ -1003,7 +1003,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon' );
           $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
           $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix' );
-          $words = get_post_meta( $chapter_id, '_word_count', true );
+          $words = fictioneer_get_field( '_word_count', $chapter_id );
           $title = fictioneer_get_safe_title( $chapter_id );
 
           // Start HTML ---> ?>

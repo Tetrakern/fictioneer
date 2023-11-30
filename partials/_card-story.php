@@ -133,7 +133,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
                 <?php
                   printf(
                     '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
-                    fictioneer_shorten_number( get_post_meta( $chapter->ID, '_word_count', true ) ),
+                    fictioneer_shorten_number( fictioneer_get_field( '_word_count', $chapter->ID ) ),
                     __( 'Words', 'fictioneer' ),
                     strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ?
                       __( 'New', 'fictioneer' ) : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )
