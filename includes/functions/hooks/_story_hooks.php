@@ -217,7 +217,7 @@ function fictioneer_story_tags_and_warnings( $args ) {
 
   // Start HTML ---> ?>
   <section class="story__tags-and-warnings tag-group padding-left padding-right"><?php
-    echo fictioneer_get_taxonomy_pills( $tag_args, '_secondary' );
+    echo fictioneer_get_taxonomy_pills( $tag_args, 'story_after_content', '_secondary' );
   ?></section>
   <?php // <--- End HTML
 }

@@ -43,7 +43,8 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) && ( $f
           'fandoms' => $fandoms,
           'genres' => $genres,
           'characters' => $characters
-        )
+        ),
+        'collection_header'
       );
     ?></div>
   <?php endif; ?>

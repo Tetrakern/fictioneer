@@ -1082,12 +1082,13 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
    * @link https://developer.wordpress.org/reference/classes/wp_term/
    *
    * @param array  $taxonomy_groups  Arrays of WP_Term objects.
-   * @param string $classes          Additional CSS classes.
+   * @param string $context          Optional. The render context or location.
+   * @param string $classes          Optional. Additional CSS classes.
    *
    * @return string HTML for the taxonomy tags.
    */
 
-  function fictioneer_get_taxonomy_pills( $taxonomy_groups, $classes = '' ) {
+  function fictioneer_get_taxonomy_pills( $taxonomy_groups, $context = '', $classes = '' ) {
     // Abort conditions
     if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1) {
       return '';
@@ -1096,11 +1097,14 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 		ob_start();
 
     // Loop over all groups...
-    foreach ( $taxonomy_groups as $group ) {
+    foreach ( $taxonomy_groups as $key => $group ) {
       // Check for empty group
       if ( ! $group || ! is_array( $group ) || count( $group ) < 1 ) {
         continue;
       }
+
+      // Filter group
+      $group = apply_filters( 'fictioneer_filter_taxonomy_pills_group', $group, $key, $context );
 
       // Process group
       foreach ( $group as $taxonomy ) {

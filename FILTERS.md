@@ -1251,6 +1251,18 @@ Filters the intermediate output array of the `fictioneer_get_subscribe_options( 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_taxonomy_pills_group', $group, $key, $context )`
+Filters the groups passed to `fictioneer_get_taxonomy_pills(...)` before they are looped and rendered, allowing you to limit the number of taxonomies or randomize the order, for example.
+
+Filters the source array of selected translation strings used in the theme, see `fcntr( $key, $escape )` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
+
+**Parameters:**
+* $group (array) – Array of WP_Term objects.
+* $key (string) – The group type (tags, fandoms, genres, characters, or warnings).
+* $context (string) – The render context or location. Can be empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_translations', $strings )`
 Filters the source array of selected translation strings used in the theme, see `fcntr( $key, $escape )` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
 

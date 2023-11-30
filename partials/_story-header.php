@@ -53,7 +53,8 @@ if ( ! $thumbnail_shown ) {
           'fandoms' => $story['fandoms'],
           'genres' => $story['genres'],
           'characters' => $story['characters']
-        )
+        ),
+        'story_header'
       );
     ?></div>
     <div class="story__taxonomies-space"></div>

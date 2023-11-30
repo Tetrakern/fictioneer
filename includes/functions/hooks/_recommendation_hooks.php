@@ -121,7 +121,7 @@ function fictioneer_recommendation_tags( $args ) {
 
   // Start HTML ---> ?>
   <section class="recommendation__tags tag-group">
-    <?php echo fictioneer_get_taxonomy_pills( $tag_args, '_secondary' ); ?>
+    <?php echo fictioneer_get_taxonomy_pills( $tag_args, 'recommendation_after_content', '_secondary' ); ?>
   </section>
   <?php // <--- End HTML
 }

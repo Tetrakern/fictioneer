@@ -125,7 +125,7 @@ function fictioneer_collection_tags_and_warnings( $args ) {
 
   // Start HTML ---> ?>
   <section class="collection__tags-and-warnings tag-group"><?php
-    echo fictioneer_get_taxonomy_pills( $tag_args, '_secondary' );
+    echo fictioneer_get_taxonomy_pills( $tag_args, 'collection_after_content', '_secondary' );
   ?></section>
   <?php // <--- End HTML
 }
