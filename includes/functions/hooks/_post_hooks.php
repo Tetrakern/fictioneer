@@ -23,7 +23,7 @@ function fictioneer_post_tags( $post_id ) {
 
   // Start HTML ---> ?>
   <section class="post__tags tag-group">
-    <?php echo fictioneer_get_taxonomy_pills( [$tags], '_secondary' ); ?>
+    <?php echo fictioneer_get_taxonomy_pills( array( 'tags' => $tags ), '_secondary' ); ?>
   </section>
   <?php // <--- End HTML
 }

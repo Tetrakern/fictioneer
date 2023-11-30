@@ -208,11 +208,11 @@ function fictioneer_story_tags_and_warnings( $args ) {
   $tag_args = [];
 
   if ( $tags_shown ) {
-    $tag_args[] = $args['story_data']['tags'];
+    $tag_args['tags'] = $args['story_data']['tags'];
   }
 
   if ( $warnings_shown ) {
-    $tag_args[] = $args['story_data']['warnings'];
+    $tag_args['warnings'] = $args['story_data']['warnings'];
   }
 
   // Start HTML ---> ?>

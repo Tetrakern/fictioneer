@@ -114,8 +114,14 @@ function fictioneer_collection_tags_and_warnings( $args ) {
 
   // Prepare
   $tag_args = [];
-  if ( $tags_shown ) $tag_args[] = $tags;
-  if ( $warnings_shown ) $tag_args[] = $warnings;
+
+  if ( $tags_shown ) {
+    $tag_args['tags'] = $tags;
+  }
+
+  if ( $warnings_shown ) {
+    $tag_args['warnings'] = $warnings;
+  }
 
   // Start HTML ---> ?>
   <section class="collection__tags-and-warnings tag-group"><?php

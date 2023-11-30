@@ -1081,7 +1081,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
    * @since Fictioneer 5.0
    * @link https://developer.wordpress.org/reference/classes/wp_term/
    *
-   * @param array  $taxonomy_groups  Collections of WP_Term objects.
+   * @param array  $taxonomy_groups  Arrays of WP_Term objects.
    * @param string $classes          Additional CSS classes.
    *
    * @return string HTML for the taxonomy tags.

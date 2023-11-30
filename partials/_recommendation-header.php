@@ -27,14 +27,20 @@ $characters = get_the_terms( $args['recommendation_id'], 'fcn_character' );
 $genres = get_the_terms( $args['recommendation_id'], 'fcn_genre' );
 
 // Flags
-$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) && ( $fandoms|| $characters || $genres );
+$show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) && ( $fandoms || $characters || $genres );
 
 ?>
 
 <header class="recommendation__header">
   <?php if ( $show_taxonomies ) : ?>
     <div class="recommendation__taxonomies tag-group"><?php
-      echo fictioneer_get_taxonomy_pills( [$fandoms, $genres, $characters] );
+      echo fictioneer_get_taxonomy_pills(
+        array(
+          'fandoms' => $fandoms,
+          'genres' => $genres,
+          'characters' => $characters
+        )
+      );
     ?></div>
   <?php endif; ?>
 

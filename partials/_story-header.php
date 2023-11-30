@@ -48,7 +48,13 @@ if ( ! $thumbnail_shown ) {
 
   <?php if ( $tax_shown ) : ?>
     <div class="story__taxonomies tag-group"><?php
-      echo fictioneer_get_taxonomy_pills( [$story['fandoms'], $story['genres'], $story['characters']] );
+      echo fictioneer_get_taxonomy_pills(
+        array(
+          'fandoms' => $story['fandoms'],
+          'genres' => $story['genres'],
+          'characters' => $story['characters']
+        )
+      );
     ?></div>
     <div class="story__taxonomies-space"></div>
   <?php endif; ?>

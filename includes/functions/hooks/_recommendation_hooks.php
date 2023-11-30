@@ -101,7 +101,7 @@ function fictioneer_recommendation_tags( $args ) {
     $tags = get_the_tags( $args['recommendation_id'] );
 
     if ( ! empty( $tags ) ) {
-      $tag_args[] = $tags;
+      $tag_args['tags'] = $tags;
     }
   }
 
@@ -110,7 +110,7 @@ function fictioneer_recommendation_tags( $args ) {
     $warnings = get_the_terms( $args['recommendation_id'], 'fcn_content_warning' );
 
     if ( ! empty( $warnings ) ) {
-      $tag_args[] = $warnings;
+      $tag_args['warnings'] = $warnings;
     }
   }
 
