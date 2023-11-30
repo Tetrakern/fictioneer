@@ -3621,7 +3621,7 @@ function fictioneer_update_post_relationship_registry( $post_id ) {
   // Update relationships
   $registry[ $post_id ] = [];
 
-  if ( ! empty( $featured ) ) {
+  if ( is_array( $featured ) && ! empty( $featured ) ) {
     foreach ( $featured as $featured_id ) {
       $registry[ $post_id ][ $featured_id ] = 'is_featured';
 

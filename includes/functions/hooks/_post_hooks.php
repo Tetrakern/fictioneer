@@ -53,7 +53,7 @@ function fictioneer_post_featured_list( $post_id ) {
   $featured = fictioneer_get_field( 'fictioneer_post_featured', $post_id );
 
   // Abort if...
-  if ( empty( $featured ) ) {
+  if ( ! is_array( $featured ) || empty( $featured ) ) {
     return;
   }
 
