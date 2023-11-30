@@ -3153,7 +3153,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
     'page' => ['edit_pages', 'edit_published_pages'],
     'fcn_story' => ['edit_fcn_stories', 'edit_published_fcn_stories'],
     'fcn_chapter' => ['edit_fcn_chapters', 'edit_published_fcn_chapters'],
-    'fcn_collections' => ['edit_fcn_collections', 'edit_published_fcn_collections'],
+    'fcn_collection' => ['edit_fcn_collections', 'edit_published_fcn_collections'],
     'fcn_recommendation' => ['edit_fcn_recommendations', 'edit_published_fcn_recommendations']
   );
 
