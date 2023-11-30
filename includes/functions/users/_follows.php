@@ -251,7 +251,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
     // Filter out hidden chapters (faster than meta query, highly unlikely to eliminate all)
     $chapters = array_filter( $all_chapters, function ( $candidate ) {
       // Chapter hidden?
-      $chapter_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID );
+      $chapter_hidden = get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true );
 
       // Only keep if not hidden
       return empty( $chapter_hidden ) || $chapter_hidden === '0';
@@ -324,7 +324,7 @@ function fictioneer_ajax_get_follows_notifications() {
         ), $chapter->ID
       );
       $chapter_timestamp = get_post_timestamp( $chapter->ID ) * 1000; // Compatible with Date.now() in JavaScript
-      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $chapter->ID );
+      $story_id = get_post_meta( $chapter->ID, 'fictioneer_chapter_story', true );
       $new = $user_follows['seen'] < $chapter_timestamp ? '_new' : '';
 
       // Start HTML ---> ?>

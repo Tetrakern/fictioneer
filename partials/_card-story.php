@@ -25,7 +25,9 @@ $story = fictioneer_get_story_data( $post->ID );
 $latest = $args['show_latest'] ?? false;
 $chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
 $chapter_count = count( $chapter_ids );
-$excerpt = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
+$excerpt = fictioneer_first_paragraph_as_excerpt(
+  fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
+);
 $excerpt = empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
 $tags = false;
 
@@ -41,7 +43,7 @@ $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_a
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
 $show_type = $args['show_type'] ?? false;
 $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
-  fictioneer_get_field( 'fictioneer_story_sticky' ) && ! is_search() && ! is_archive();
+  get_post_meta( $post->ID, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
 ?>
 
@@ -119,7 +121,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
                 <a href="<?php the_permalink( $chapter->ID ); ?>" class="card__link-list-link"><?php
-                  $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter->ID );
+                  $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
                   $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                   if ( empty( $list_title ) ) {
@@ -133,7 +135,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
                 <?php
                   printf(
                     '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
-                    fictioneer_shorten_number( fictioneer_get_field( '_word_count', $chapter->ID ) ),
+                    fictioneer_shorten_number( get_post_meta( $chapter->ID, '_word_count', true ) ),
                     __( 'Words', 'fictioneer' ),
                     strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ?
                       __( 'New', 'fictioneer' ) : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )

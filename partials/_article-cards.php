@@ -133,7 +133,7 @@ $pag_args = array(
           $genres = get_the_terms( $post, 'fcn_genre' );
 
           // Thumbnail
-          $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', get_the_ID() );
+          $landscape_image_id = get_post_meta( get_the_ID(), 'fictioneer_landscape_image', true );
           $thumbnail = null;
 
           $image_args = array(
@@ -147,7 +147,7 @@ $pag_args = array(
 
           // Chapter story?
           if ( $post->post_type === 'fcn_chapter' ) {
-            $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+            $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
           }
 
           // Start HTML ---> ?>
@@ -159,7 +159,7 @@ $pag_args = array(
                 <?php
                   // Try parent thumbnail (if any)
                   if ( ! $landscape_image_id && ! $thumbnail && $story_id ) {
-                    $landscape_image_id = fictioneer_get_field( 'fictioneer_landscape_image', $story_id );
+                    $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
                     $thumbnail = get_the_post_thumbnail( $story_id, 'medium', $image_args );
                   }
 

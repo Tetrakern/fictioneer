@@ -42,7 +42,7 @@ function fictioneer_chapters_list( $args ) {
           while ( $args['chapters']->have_posts() ) {
             $args['chapters']->the_post();
 
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+            if ( get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ) {
               get_template_part( 'partials/_card-hidden', null, $card_args );
             } else {
               get_template_part( 'partials/_card-chapter', null, $card_args );
@@ -124,8 +124,8 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 1
 
 function fictioneer_chapter_warnings( $args ) {
   // Setup
-  $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $args['chapter_id'] );
-  $warning_notes = fictioneer_get_field( 'fictioneer_chapter_warning_notes', $args['chapter_id'] );
+  $warning = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning', true );
+  $warning_notes = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning_notes', true );
 
   // Abort conditions
   if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) {
@@ -434,7 +434,7 @@ function fictioneer_chapter_support_links( $args ) {
   // Abort conditions
   if (
     post_password_required() ||
-    fictioneer_get_field( 'fictioneer_chapter_hide_support_links', $args['chapter_id'] )
+    get_post_meta( $args['chapter_id'], 'fictioneer_chapter_hide_support_links', true )
   ) {
     return;
   }
@@ -559,7 +559,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10
 
 function fictioneer_chapter_paragraph_tools() {
   // Setup
-  $can_comment = ! fictioneer_get_field( 'fictioneer_disable_commenting' ) && comments_open();
+  $can_comment = ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) && comments_open();
 
   // Start HTML ---> ?>
   <div id="paragraph-tools" class="paragraph-tools">
@@ -619,7 +619,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_paragraph_tools
 
 function fictioneer_chapter_suggestion_tools() {
   // Abort if...
-  if ( fictioneer_get_field( 'fictioneer_disable_commenting' ) || ! comments_open() ) {
+  if ( get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) || ! comments_open() ) {
     return;
   }
 

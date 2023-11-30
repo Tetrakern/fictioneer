@@ -143,7 +143,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 
 function fictioneer_recommendation_links( $args ) {
   // Setup
-  $links = fictioneer_get_field( 'fictioneer_recommendation_urls', $args['recommendation_id'] );
+  $links = get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_urls', true );
   $links = fictioneer_url_list_to_array( $links );
 
   // Abort conditions...
@@ -183,7 +183,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 
 function fictioneer_recommendation_support_links( $args ) {
   // Setup
-  $links = fictioneer_get_field( 'fictioneer_recommendation_support', $args['recommendation_id'] );
+  $links = get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_support', true );
   $links = fictioneer_url_list_to_array( $links );
 
   // Abort conditions...
@@ -203,7 +203,7 @@ function fictioneer_recommendation_support_links( $args ) {
     <h5><?php
       printf(
         _x( 'Support <em>%s</em>', 'Support _author_', 'fictioneer' ),
-        fictioneer_get_field( 'fictioneer_recommendation_author', $args['recommendation_id'] )
+        get_post_meta( $args['recommendation_id'], 'fictioneer_recommendation_author', true )
       )
     ?></h5>
     <ul class="recommendation__list"><?php echo implode( '', $output ); ?></ul>

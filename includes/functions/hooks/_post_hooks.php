@@ -50,7 +50,7 @@ function fictioneer_post_featured_list( $post_id ) {
   }
 
   // Setup
-  $featured = fictioneer_get_field( 'fictioneer_post_featured', $post_id );
+  $featured = get_post_meta( $post_id, 'fictioneer_post_featured', true );
 
   // Abort if...
   if ( ! is_array( $featured ) || empty( $featured ) ) {

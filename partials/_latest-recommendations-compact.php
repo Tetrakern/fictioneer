@@ -99,7 +99,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <?php
           // Setup
           $title = fictioneer_get_safe_title( get_the_ID() );
-          $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' );
+          $one_sentence = get_post_meta( get_the_ID(), 'fictioneer_recommendation_one_sentence', true );
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
@@ -127,7 +127,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 <span class="card__by-author"><?php
                   printf(
                     _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
-                    '<span class="author">' . fictioneer_get_field( 'fictioneer_recommendation_author' ) . '</span>'
+                    '<span class="author">' . get_post_meta( get_the_ID(), 'fictioneer_recommendation_author', true ) . '</span>'
                   );
                 ?></span>
                 <span><?php

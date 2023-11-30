@@ -54,16 +54,16 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
   function fictioneer_seo_fields( $post ) {
     // Title
-    $seo_title = fictioneer_get_field( 'fictioneer_seo_title', $post->ID ) ?: '';
+    $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true );
     $seo_title_placeholder = fictioneer_get_safe_title( $post->ID );
 
     // Description (truncated if necessary)
-    $seo_description = fictioneer_get_field( 'fictioneer_seo_description', $post->ID ) ?: '';
+    $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true );
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
     $seo_description_placeholder = mb_strimwidth( $seo_description_placeholder, 0, 155, '…' );
 
     // Open Graph image...
-    $seo_og_image = fictioneer_get_field( 'fictioneer_seo_og_image', $post->ID );
+    $seo_og_image = get_post_meta( $post->ID, 'fictioneer_seo_og_image', true );
     $seo_og_image_display = wp_get_attachment_url( $seo_og_image );
     $image_source = '';
 
@@ -75,7 +75,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
     // ... if not found, look for parent thumbnail...
     if ( ! $seo_og_image_display && $post->post_type === 'fcn_chapter' ) {
-      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
+      $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
       if ( $story_id && has_post_thumbnail( $story_id ) ) {
         $seo_og_image_display = get_the_post_thumbnail_url( $story_id );
@@ -305,14 +305,14 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     }
 
     // Cached title?
-    $cache = fictioneer_get_field( 'fictioneer_seo_title_cache', $post_id );
+    $cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
 
     if ( ! empty( $cache ) && ! $skip_cache ) {
       return $cache;
     }
 
     // Start building...
-    $seo_title = fictioneer_get_field( 'fictioneer_seo_title', $post_id );
+    $seo_title = get_post_meta( $post_id, 'fictioneer_seo_title', true );
     $seo_title = empty( $seo_title ) ? false : $seo_title;
     $title = fictioneer_get_safe_title( $post_id );
     $default = empty( $default ) ? $title : $default;
@@ -460,14 +460,14 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     }
 
     // Cached description?
-    $cache = fictioneer_get_field( 'fictioneer_seo_description_cache', $post_id );
+    $cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
 
     if ( ! empty( $cache ) && ! $skip_cache ) {
       return $cache;
     }
 
     // Start building...
-    $seo_description = fictioneer_get_field( 'fictioneer_seo_description', $post_id );
+    $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
     $seo_description = empty( $seo_description ) ? false : $seo_description;
     $title = fictioneer_get_safe_title( $post_id );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
@@ -476,7 +476,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
 
     // Special Case: Recommendations
     if ( get_post_type( $post_id ) == 'fcn_recommendation' ) {
-      $one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence', $post_id ) ?? '';
+      $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true ) ?? '';
       $one_sentence = trim( $one_sentence );
 
       $default = empty( $one_sentence ) ? $default : $one_sentence;
@@ -550,7 +550,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Cached image? Except for site default, which can globally change!
     if ( ! $use_default ) {
-      $cache = fictioneer_get_field( 'fictioneer_seo_og_image_cache', $post_id );
+      $cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
 
       if ( $cache ) {
         return $cache;
@@ -559,7 +559,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Get image ID if not yet set
     if ( ! $image_id ) {
-      $image_id = fictioneer_get_field( 'fictioneer_seo_og_image', $post_id );
+      $image_id = get_post_meta( $post_id, 'fictioneer_seo_og_image', true );
       $image_id = wp_attachment_is_image( $image_id ) ? $image_id : false;
     }
 
@@ -572,7 +572,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
       // Try story thumbnail if chapter...
       if ( ! $image_id && get_post_type( $post_id ) == 'fcn_chapter' ) {
-        $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+        $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
         $image_id = has_post_thumbnail( $story_id ) ? get_post_thumbnail_id( $story_id ) : $image_id;
       }
 
@@ -625,7 +625,7 @@ function fictioneer_output_head_seo() {
   $post_id = get_queried_object_id(); // In archives and search, this is the first post
   $post_type = get_post_type(); // In archives and search, this is the first post
   $post_author = $post->post_author ?? 0;
-  $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story' ) ?? 0;
+  $chapter_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
   $canonical_url = wp_get_canonical_url(); // Unreliable on aggregated pages
 
   // Flags
@@ -644,7 +644,7 @@ function fictioneer_output_head_seo() {
 
   // Special Case: Recommendation author
   if ( $post_author && $show_author && $post_type == 'fcn_recommendation' ) {
-    $article_author = fictioneer_get_field( 'fictioneer_recommendation_author', $post_id ) ?? $article_author;
+    $article_author = get_post_meta( $post_id, 'fictioneer_recommendation_author', true ) ?? $article_author;
   }
 
   // Special Case: Archives
@@ -679,8 +679,8 @@ function fictioneer_output_head_seo() {
 
         // Get co-authors (if any)
         $co_authors = $post_type == 'fcn_story' ?
-          fictioneer_get_field( 'fictioneer_story_co_authors', $post_id ) ?? [] :
-          fictioneer_get_field( 'fictioneer_chapter_co_authors', $post_id ) ?? [];
+          get_post_meta( $post_id, 'fictioneer_story_co_authors', true ) :
+          get_post_meta( $post_id, 'fictioneer_chapter_co_authors', true );
 
         // Add co-authors URL or name
         if ( is_array( $co_authors ) && ! empty( $co_authors ) ) {

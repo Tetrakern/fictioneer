@@ -33,8 +33,8 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
       <?php
         // Setup
-        $featured_list = fictioneer_get_field( 'fictioneer_collection_items' );
-        $featured_list = empty( $featured_list ) ? [] : $featured_list;
+        $featured_list = get_post_meta( get_the_ID(), 'fictioneer_collection_items', true );
+        $featured_list = is_array( $featured_list ) ? $featured_list : [];
         $title = fictioneer_get_safe_title( $post->ID );
         $this_breadcrumb = [$title, get_the_permalink()];
         $current_page = max( 1, get_query_var( 'pg', 1 ) ?: 1 ); // Paged not available
@@ -57,8 +57,8 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
         foreach ( $raw_query->posts as $raw_post ) {
           if (
-            fictioneer_get_field( 'fictioneer_story_hidden', $raw_post->ID ) ||
-            fictioneer_get_field( 'fictioneer_chapter_hidden', $raw_post->ID )
+            get_post_meta( $raw_post->ID, 'fictioneer_story_hidden', true ) ||
+            get_post_meta( $raw_post->ID, 'fictioneer_chapter_hidden', true )
           ) {
             continue;
           }

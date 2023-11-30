@@ -23,12 +23,18 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $story = $args['story_data'];
 $story_id = $args['story_id'];
-$tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) && $story['has_taxonomies'] && ! fictioneer_get_field( 'fictioneer_story_no_tags' );
-$thumbnail_shown = has_post_thumbnail() && ! fictioneer_get_field( 'fictioneer_story_no_thumbnail' );
+$thumbnail_shown = has_post_thumbnail() && ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true );
+$tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) &&
+  $story['has_taxonomies'] &&
+  ! get_post_meta( $story_id, 'fictioneer_story_no_tags', true );
 
 // Story header classes
 $header_classes = [];
-if ( ! $tax_shown ) $header_classes[] = '_no-tax';
+
+if ( ! $tax_shown ) {
+  $header_classes[] = '_no-tax';
+}
+
 if ( ! $thumbnail_shown ) {
   $header_classes[] = '_no-thumbnail';
   $header_classes[] = 'padding-top';

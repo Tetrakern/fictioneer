@@ -15,12 +15,11 @@
 <?php
 
 // Header
-$is_hidden = fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ?: 0;
 $header_args = array(
   'type' => 'fcn_story'
 );
 
-if ( ! empty( $is_hidden ) ) {
+if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
   $header_args['no_index'] = true;
 }
 
@@ -43,7 +42,7 @@ get_header( null, $header_args );
         $story = fictioneer_get_story_data( $post->ID );
         $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
         $this_breadcrumb = [$story['title'], get_the_permalink()];
-        $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note' );
+        $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post->ID );
 
         // Flags
         $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );

@@ -898,7 +898,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Get chapters...
   if ( $story_id && empty( $chapter_ids ) ) {
     // ... via story
-    $hide_icons = $hide_icons || fictioneer_get_field( 'fictioneer_story_hide_chapter_icons', $story_id );
+    $hide_icons = $hide_icons || get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true );
     $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
     $chapters = $story_data['chapter_ids'];
   } elseif ( ! empty( $chapter_ids ) ) {
@@ -973,15 +973,15 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           // Setup
           $chapter_query->the_post();
           $chapter_id = get_the_ID();
-          $chapter_story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+          $chapter_story_id = get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
 
           // Skip not visible chapters
-          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+          if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
             continue;
           }
 
           // Check group (if any)
-          if ( $group && $group != strtolower( trim( fictioneer_get_field( 'fictioneer_chapter_group' ) ) ) ) {
+          if ( $group && $group != strtolower( trim( get_post_meta( $chapter_id, 'fictioneer_chapter_group', true ) ) ) ) {
             continue;
           }
 
@@ -999,11 +999,11 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           }
 
           // Data
-          $warning = fictioneer_get_field( 'fictioneer_chapter_warning' );
-          $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon' );
-          $text_icon = fictioneer_get_field( 'fictioneer_chapter_text_icon' );
-          $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix' );
-          $words = fictioneer_get_field( '_word_count', $chapter_id );
+          $warning = get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true );
+          $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id );
+          $text_icon = get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true );
+          $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
+          $words = get_post_meta( $chapter_id, '_word_count', true );
           $title = fictioneer_get_safe_title( $chapter_id );
 
           // Start HTML ---> ?>

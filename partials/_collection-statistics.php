@@ -69,10 +69,10 @@ if ( ! empty( $args['featured_list'] ) ) {
   foreach ( $chapters->posts as $chapter ) {
     // This is about 50 times faster than using a meta query lol
     if (
-      ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID ) &&
-      ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID )
+      ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) &&
+      ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true )
     ) {
-      $word_count += (int) fictioneer_get_field( '_word_count', $chapter->ID );
+      $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
     }
   }
 }

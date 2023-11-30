@@ -704,7 +704,7 @@ function fictioneer_add_custom_scripts() {
     ! is_archive() &&
     ! is_search() &&
     ! post_password_required() &&
-    ! fictioneer_get_field( 'fictioneer_disable_commenting' ) &&
+    ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) &&
     comments_open()
   ) {
     wp_enqueue_script( 'dmp', get_template_directory_uri() . '/js/diff-match-patch.js', array(), null, true );

@@ -209,12 +209,12 @@ function fictioneer_create_sitemap( $last_saved_id, $last_saved_post ) {
     }
 
     foreach ( $stories as $post ) {
-      if ( fictioneer_get_field( 'fictioneer_story_hidden', $post->ID ) ) {
+      if ( get_post_meta( $post->ID, 'fictioneer_story_hidden', true ) ) {
         continue;
       }
 
       $lastmod = get_the_modified_date( 'c', $post->ID );
-      $status = fictioneer_get_field( 'fictioneer_story_status', $post->ID );
+      $status = get_post_meta( $post->ID, 'fictioneer_story_status', true );
       $frequency = $status == 'Ongoing' ? 'weekly' : 'monthly';
       $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, $frequency );
     }
@@ -240,7 +240,7 @@ function fictioneer_create_sitemap( $last_saved_id, $last_saved_post ) {
     }
 
     foreach( $chapters as $post ) {
-      if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $post->ID ) ) {
+      if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
         continue;
       }
 

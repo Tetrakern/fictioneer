@@ -26,7 +26,7 @@ function fictioneer_update_modified_date_on_story_for_chapter( $post_id ) {
   }
 
   // Setup
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
   // No linked story found
   if ( empty( $story_id ) || ! get_post_status( $story_id ?? 0 ) ) {
@@ -97,7 +97,7 @@ function fictioneer_store_original_publish_date( $post_id, $post ) {
   }
 
   // Get first publish date (if set)
-  $first_publish_date = fictioneer_get_field( 'fictioneer_first_publish_date', $post_id );
+  $first_publish_date = get_post_meta( $post_id, 'fictioneer_first_publish_date', true );
 
   // Set if missing
   if ( empty( $first_publish_date ) || strtotime( $first_publish_date ) === false ) {
@@ -122,7 +122,7 @@ add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 
 function fictioneer_get_story_changelog( $story_id ) {
   // Setup
-  $changelog = fictioneer_get_field( 'fictioneer_story_changelog', $story_id );
+  $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
   $changelog = is_array( $changelog ) ? $changelog : [];
 
   // Initialize
@@ -215,7 +215,7 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
   }
 
   // Story?
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
+  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
   if ( empty( $story_id ) ) {
     return;
@@ -282,15 +282,15 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   }
 
   // Story?
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $chapter_id );
+  $story_id = get_post_meta( $chapter_id, 'fictioneer_chapter_story', true );
 
   if ( empty( $story_id ) ) {
     return;
   }
 
   // Check chapter list
-  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
-  $previous = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+  $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
+  $previous = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
 
   if ( empty( $chapters ) || ! in_array( $chapter_id, $chapters ) ) {
     return;

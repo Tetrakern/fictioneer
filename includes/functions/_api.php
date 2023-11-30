@@ -28,8 +28,8 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     // Setup
     $author_id = get_post_field( 'post_author', $story_id );
     $author_url = get_the_author_meta( 'user_url', $author_id );
-    $co_author_ids = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id );
-    $language = fictioneer_get_field( 'fictioneer_story_language', $story_id );
+    $co_author_ids = get_post_meta( $story_id, 'fictioneer_story_co_authors', true );
+    $language = get_post_meta( $story_id, 'fictioneer_story_language', true );
     $node = [];
 
     // Identity
@@ -77,7 +77,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 
     // Content
     $content = get_the_content( null, false, $story_id );
-    $description = fictioneer_get_field( 'fictioneer_story_short_description', $story_id );
+    $description = get_post_meta( $story_id, 'fictioneer_story_short_description', true );
     $node['content'] = $content;
     $node['description'] = strip_shortcodes( $description );
 
@@ -96,7 +96,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         'hotlinkAllowed' => FICTIONEER_API_STORYGRAPH_HOTLINK,
       );
       $cover = get_the_post_thumbnail_url( $story_id, 'full' );
-      $header = fictioneer_get_field( 'fictioneer_custom_header_image', $story_id );
+      $header = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
       $header = wp_get_attachment_image_url( $header, 'full' );
 
       if ( ! empty( $header ) ) {
@@ -148,20 +148,20 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter_id = get_the_ID();
 
           // Skip not visible chapters
-          if ( fictioneer_get_field( 'fictioneer_chapter_hidden' ) ) {
+          if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
             continue;
           }
 
           // Data
           $author_id = get_the_author_meta( 'id' );
           $author_url = get_the_author_meta( 'user_url' );
-          $co_author_ids = fictioneer_get_field( 'fictioneer_chapter_co_authors', $chapter_id );
-          $group = fictioneer_get_field( 'fictioneer_chapter_group', $chapter_id );
-          $rating = fictioneer_get_field( 'fictioneer_chapter_rating', $chapter_id );
-          $language = fictioneer_get_field( 'fictioneer_chapter_language', $chapter_id );
-          $prefix = fictioneer_get_field( 'fictioneer_chapter_prefix', $chapter_id );
-          $no_chapter = fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id );
-          $warning = fictioneer_get_field( 'fictioneer_chapter_warning', $chapter_id );
+          $co_author_ids = get_post_meta( $chapter_id, 'fictioneer_chapter_co_authors', true );
+          $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
+          $rating = get_post_meta( $chapter_id, 'fictioneer_chapter_rating', true );
+          $language = get_post_meta( $chapter_id, 'fictioneer_chapter_language', true );
+          $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
+          $no_chapter = get_post_meta( $chapter_id, 'fictioneer_chapter_no_chapter', true );
+          $warning = get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true );
 
           // Chapter identity
           $chapter = [];
@@ -220,7 +220,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
           $chapter['published'] = get_post_time( 'U', true );
           $chapter['modified'] = get_post_modified_time( 'U', true );
           $chapter['protected'] = post_password_required();
-          $chapter['words'] = intval( fictioneer_get_field( '_word_count', $chapter_id ) );
+          $chapter['words'] = intval( get_post_meta( $chapter_id, '_word_count', true ) );
           $chapter['nonChapter'] = ! empty( $no_chapter );
 
           if ( ! empty( $rating ) ) {

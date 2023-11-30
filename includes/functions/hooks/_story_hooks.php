@@ -109,7 +109,7 @@ function fictioneer_stories_list( $args ) {
           while ( $args['stories']->have_posts() ) {
             $args['stories']->the_post();
 
-            if ( fictioneer_get_field( 'fictioneer_story_hidden' ) ) {
+            if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
               get_template_part( 'partials/_card-hidden', null, $card_args );
             } else {
               get_template_part( 'partials/_card-story', null, $card_args );
@@ -165,7 +165,7 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_list', 30 );
 
 function fictioneer_story_copyright_notice( $args ) {
   // Setup
-  $copyright_notice = fictioneer_get_field( 'fictioneer_story_copyright_notice', $args['story_id'] );
+  $copyright_notice = get_post_meta( $args['story_id'], 'fictioneer_story_copyright_notice', true );
 
   // Abort conditions...
   if ( empty( $copyright_notice ) ) {
@@ -195,7 +195,9 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_copyright_notice
 
 function fictioneer_story_tags_and_warnings( $args ) {
   // Abort conditions...
-  $tags_shown = $args['story_data']['tags'] && ! get_option( 'fictioneer_hide_tags_on_pages' ) && ! fictioneer_get_field( 'fictioneer_story_no_tags' );;
+  $tags_shown = $args['story_data']['tags'] &&
+    ! get_option( 'fictioneer_hide_tags_on_pages' ) &&
+    ! get_post_meta( get_the_ID(), 'fictioneer_story_no_tags', true );
   $warnings_shown = $args['story_data']['warnings'] && ! get_option( 'fictioneer_hide_content_warnings_on_pages' );
 
   if ( ! $tags_shown && ! $warnings_shown ) {

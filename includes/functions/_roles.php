@@ -1321,7 +1321,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_prevent_publish_date_update( $data, $postarr ) {
     // Setup
-    $first_publish_date = fictioneer_get_field( 'fictioneer_first_publish_date', $postarr['ID'] );
+    $first_publish_date = get_post_meta( $postarr['ID'], 'fictioneer_first_publish_date', true );
 
     // Remove from update array if already published once
     if ( ! empty( $first_publish_date ) ) {

@@ -35,7 +35,7 @@ $story_visible = $args['story_post'] &&
     <a href="<?php the_permalink( $args['story_post']->ID ); ?>"><?php echo $args['story_data']['title']; ?></a>
   <?php endif; ?>
 
-  <?php if ( ! fictioneer_get_field( 'fictioneer_chapter_hide_title' ) ) : ?>
+  <?php if ( ! get_post_meta( get_the_ID(), 'fictioneer_chapter_hide_title', true ) ) : ?>
     <h1 class="chapter__title<?php if ( ! empty( $args['chapter_password'] ) ) echo ' password'; ?>"><?php echo $args['chapter_title']; ?></h1>
     <em class="chapter__author"><?php
       printf(

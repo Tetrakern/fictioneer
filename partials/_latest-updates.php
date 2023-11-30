@@ -127,7 +127,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $search_list = array_reverse( $story['chapter_ids'] );
 
           foreach ( $search_list as $chapter_id ) {
-            if ( fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) ) {
+            if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
               continue;
             }
 
@@ -168,7 +168,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     ?></span>
                   <?php endif; ?>
                   <span><?php
-                    $short_description = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description' ) );
+                    $short_description = fictioneer_first_paragraph_as_excerpt(
+                      fictioneer_get_content_field( 'fictioneer_story_short_description', get_the_ID() )
+                    );
                     echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
                   ?></span>
                 </div>
@@ -181,7 +183,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       <i class="fa-solid fa-caret-right"></i>
                       <a href="<?php the_permalink( $chapter_id ); ?>" class="card__link-list-link"><?php
                         // Chapter title
-                        $list_title = fictioneer_get_field( 'fictioneer_chapter_list_title', $chapter_id );
+                        $list_title = get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true );
                         $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                         if ( empty( $list_title ) ) {
@@ -193,7 +195,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     </div>
                     <div class="card__right">
                       <?php
-                        echo fictioneer_shorten_number( fictioneer_get_field( '_word_count', $chapter_id ) );
+                        echo fictioneer_shorten_number( get_post_meta( $chapter_id, '_word_count', true ) );
                         echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
                         echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter_id )
                       ?>

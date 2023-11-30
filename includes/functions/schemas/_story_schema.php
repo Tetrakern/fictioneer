@@ -31,7 +31,7 @@ function fictioneer_refresh_story_schema( $post_id, $post ) {
   fictioneer_build_story_schema( $post_id );
 
   // Get chapters of story
-  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+  $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
 
   // Rebuild chapter schemas (if any)
   if ( is_array( $chapters ) ) {
@@ -66,8 +66,8 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
     // Setup
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
-    $rating = fictioneer_get_field( 'fictioneer_story_rating', $post_id );
-    $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+    $rating = get_post_meta( $post_id, 'fictioneer_story_rating', true );
+    $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
     $default_description = fictioneer_first_paragraph_as_excerpt( fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id ) );
     $chapter_count = 0;
@@ -82,8 +82,8 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
     if ( is_array( $chapters ) ) {
       foreach ( $chapters as $chapter_id ) {
         if (
-          ! fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter_id ) &&
-          ! fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter_id ) &&
+          ! get_post_meta( $chapter_id, 'fictioneer_chapter_no_chapter', true ) &&
+          ! get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) &&
           get_post_status( $chapter_id ) === 'publish'
         ) {
           $chapter_count += 1;

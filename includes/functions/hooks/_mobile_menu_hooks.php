@@ -284,7 +284,7 @@ function fictioneer_mobile_lists_panel() {
   $output = [];
 
   // Chapters?
-  if ( $post_type === 'fcn_chapter' && fictioneer_get_field( 'fictioneer_chapter_story' ) && ! is_search() ) {
+  if ( $post_type === 'fcn_chapter' && get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true ) && ! is_search() ) {
     ob_start();
     // Start HTML ---> ?>
     <button class="mobile-menu__frame-button" data-frame-target="chapters">

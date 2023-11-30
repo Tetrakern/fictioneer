@@ -324,7 +324,7 @@ function fictioneer_output_schemas( $post_id = null ) {
 
   // Setup
   $post_id = empty( $post_id ) ? get_queried_object_id() : $post_id;
-  $schema = fictioneer_get_field( 'fictioneer_schema', $post_id );
+  $schema = get_post_meta( $post_id, 'fictioneer_schema', true );
 
   // No schema found...
   if ( ! $schema ) {

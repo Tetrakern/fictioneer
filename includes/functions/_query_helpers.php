@@ -88,7 +88,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
         if ( $post_type === 'fcn_story' ) {
           // Story hidden?
           foreach ( $all_query->posts as $candidate ) {
-            if ( fictioneer_get_field( 'fictioneer_story_hidden', $candidate->ID ) ) {
+            if ( get_post_meta( $candidate->ID, 'fictioneer_story_hidden', true ) ) {
               $excluded[] = $candidate->ID;
             }
           }
@@ -96,8 +96,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
           // Chapter hidden or excluded?
           foreach ( $all_query->posts as $candidate ) {
             if (
-              fictioneer_get_field( 'fictioneer_chapter_hidden', $candidate->ID ) ||
-              fictioneer_get_field( 'fictioneer_chapter_no_chapter', $candidate->ID )
+              get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true ) ||
+              get_post_meta( $candidate->ID, 'fictioneer_chapter_no_chapter', true )
             ) {
               $excluded[] = $candidate->ID;
             }
@@ -134,7 +134,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
         switch ( $post_type ) {
           case 'fcn_story':
-            if ( fictioneer_get_field( 'fictioneer_story_hidden', get_the_ID() ) ) {
+            if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {
               get_template_part( $card_partial, null, $the_card_args );
@@ -142,8 +142,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             break;
           case 'fcn_chapter':
             if (
-              fictioneer_get_field( 'fictioneer_chapter_hidden', get_the_ID() ) ||
-              fictioneer_get_field( 'fictioneer_chapter_no_chapter', get_the_ID() )
+              get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ||
+              get_post_meta( get_the_ID(), 'fictioneer_chapter_no_chapter', true )
             ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {

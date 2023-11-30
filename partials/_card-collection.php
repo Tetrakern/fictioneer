@@ -19,10 +19,10 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$list_title = trim( fictioneer_get_field( 'fictioneer_collection_list_title' ) );
+$list_title = trim( get_post_meta( get_the_ID(), 'fictioneer_collection_list_title', true ) );
 $title = empty( $list_title ) ? fictioneer_get_safe_title( get_the_ID() ) : $list_title;
-$description = fictioneer_get_content_field( 'fictioneer_collection_description' );
-$items = fictioneer_get_field( 'fictioneer_collection_items' );
+$description = fictioneer_get_content_field( 'fictioneer_collection_description', get_the_ID() );
+$items = get_post_meta( get_the_ID(), 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
 $story_count = 0;
 $chapter_count = 0;
@@ -79,13 +79,13 @@ if ( ! empty( $items ) ) {
       case 'fcn_chapter':
         if ( ! in_array( $item->ID, $processed_ids ) ) {
           $chapter_count += 1;
-          $word_count += (int) fictioneer_get_field( '_word_count', $item->ID );
+          $word_count += (int) get_post_meta( $item->ID, '_word_count', true );
           $processed_ids[] = $item->ID;
         }
         break;
       case 'fcn_story':
         $story_count += 1;
-        $chapter_ids = fictioneer_get_field( 'fictioneer_story_chapters', $item->ID );
+        $chapter_ids = get_post_meta( $item->ID, 'fictioneer_story_chapters', true ) ?: [];
 
         // Try to rescue an empty description by using one from a story...
         if ( empty( $description ) ) {
@@ -110,15 +110,15 @@ if ( ! empty( $items ) ) {
         if ( ! empty( $chapters ) ) {
           foreach ( $chapters as $chapter ) {
             if (
-              fictioneer_get_field( 'fictioneer_chapter_no_chapter', $chapter->ID ) ||
-              fictioneer_get_field( 'fictioneer_chapter_hidden', $chapter->ID )
+              get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ||
+              get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true )
             ) {
               continue;
             }
 
             if ( ! in_array( $chapter->ID, $processed_ids ) ) {
               $chapter_count += 1;
-              $word_count += (int) fictioneer_get_field( '_word_count', $chapter->ID );
+              $word_count += (int) get_post_meta( $chapter->ID, '_word_count', true );
               $processed_ids[] = $chapter->ID;
             }
           }
@@ -193,7 +193,7 @@ $comment_count = get_comments( $comment_args );
                 <i class="fa-solid fa-caret-right"></i>
                 <a href="<?php the_permalink( $item->ID ); ?>" class="card__link-list-link"><?php
                   $list_title = $item->post_type == 'fcn_chapter' ?
-                    fictioneer_get_field( 'fictioneer_chapter_list_title', $item->ID ) : 0;
+                    get_post_meta( $item->ID, 'fictioneer_chapter_list_title', true ) : 0;
 
                   if ( $list_title ) {
                     echo wp_strip_all_tags( $list_title );

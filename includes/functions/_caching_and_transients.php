@@ -379,16 +379,16 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge parent story (if any)...
     if ( $post_type == 'fcn_chapter' ) {
-      $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+      $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
       if ( ! empty( $story_id ) ) {
-        $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+        $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true );
 
         delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
         fictioneer_purge_post_cache( $story_id );
 
         // ... and associated chapters
-        if ( ! empty( $chapters ) ) {
+        if ( is_array( $chapters ) && ! empty( $chapters ) ) {
           foreach ( $chapters as $chapter_id ) {
             fictioneer_purge_post_cache( $chapter_id );
           }
@@ -398,9 +398,9 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge associated chapters
     if ( $post_type == 'fcn_story' ) {
-      $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $post_id );
+      $chapters = get_post_meta( $post_id, 'fictioneer_story_chapters', true );
 
-      if ( ! empty( $chapters ) ) {
+      if ( is_array( $chapters ) && ! empty( $chapters ) ) {
         foreach ( $chapters as $chapter_id ) {
           fictioneer_purge_post_cache( $chapter_id );
         }
@@ -618,7 +618,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
     // Get story ID from post or parent story (if any)
     $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
-    $story_id = $post_type == 'fcn_story' ? $post_id : fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+    $story_id = $post_type == 'fcn_story' ? $post_id : get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
     // If there is a story...
     if ( ! empty( $story_id ) ) {

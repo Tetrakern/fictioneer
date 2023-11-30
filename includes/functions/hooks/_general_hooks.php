@@ -20,15 +20,15 @@ function fictioneer_add_fiction_css() {
    */
 
   $custom_css = '';
-  $custom_css .= fictioneer_get_field( 'fictioneer_custom_css', get_the_ID() ) ?: '';
+  $custom_css .= get_post_meta( get_the_ID(), 'fictioneer_custom_css', true );
 
   if ( get_post_type( get_the_ID() ) == 'fcn_story' ) {
-    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', get_the_ID() ) ?: '';
+    $custom_css .= get_post_meta( get_the_ID(), 'fictioneer_story_css', true );
   }
 
   if ( get_post_type( get_the_ID() ) == 'fcn_chapter' ) {
-    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_the_ID() );
-    $custom_css .= fictioneer_get_field( 'fictioneer_story_css', $story_id );
+    $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+    $custom_css .= get_post_meta( $story_id, 'fictioneer_story_css', true );
   }
 
   if ( ! empty( $custom_css ) && ! preg_match( '#</?\w+#', $custom_css ) ) {
@@ -140,7 +140,7 @@ function fictioneer_output_modals( $args ) {
 
     if (
       get_option( 'fictioneer_enable_suggestions' ) &&
-      ! fictioneer_get_field( 'fictioneer_disable_commenting' ) &&
+      ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) &&
       comments_open()
     ) {
       ?><input id="suggestions-modal-toggle" data-target="suggestions-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php

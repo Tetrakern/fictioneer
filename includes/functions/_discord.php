@@ -106,7 +106,7 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
   }
 
   // Is chapter with story?
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post->ID );
+  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
   if ( $story_id ) {
     $message['embeds'][0]['footer'] = array(
@@ -198,7 +198,7 @@ function fictioneer_post_story_to_discord( $post_id ) {
   }
 
   // Already triggered once?
-  if ( ! empty( fictioneer_get_field( 'fictioneer_discord_post_trigger', $post_id ) ) ) {
+  if ( ! empty( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) ) {
     return;
   }
 
@@ -286,12 +286,12 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
   }
 
   // Already triggered once?
-  if ( ! empty( fictioneer_get_field( 'fictioneer_discord_post_trigger', $post_id ) ) ) {
+  if ( ! empty( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) ) {
     return;
   }
 
   // Story?
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
   $story_status = get_post_status( $story_id );
   $story_title = get_the_title( $story_id );
   $story_url = get_permalink( $story_id );

@@ -80,16 +80,16 @@ if ( is_archive() || is_search() || is_404() ) {
             $story_id = $post_id;
             break;
           case 'fcn_chapter':
-            $story_id = fictioneer_get_field( 'fictioneer_chapter_story' );
+            $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
             break;
         }
 
         // Custom header image?
-        if ( fictioneer_get_field( 'fictioneer_custom_header_image', $post_id ) ) {
-          $header_image_url = fictioneer_get_field( 'fictioneer_custom_header_image', $post_id );
+        if ( get_post_meta( $post_id, 'fictioneer_custom_header_image', true ) ) {
+          $header_image_url = get_post_meta( $post_id, 'fictioneer_custom_header_image', true );
           $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
-        } elseif ( ! empty( $story_id ) && fictioneer_get_field( 'fictioneer_custom_header_image', $story_id ) ) {
-          $header_image_url = fictioneer_get_field( 'fictioneer_custom_header_image', $story_id );
+        } elseif ( ! empty( $story_id ) && get_post_meta( $story_id, 'fictioneer_custom_header_image', true ) ) {
+          $header_image_url = get_post_meta( $story_id, 'fictioneer_custom_header_image', true );
           $header_image_url = wp_get_attachment_image_url( $header_image_url, 'full' );
         }
       }

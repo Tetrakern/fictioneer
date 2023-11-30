@@ -21,14 +21,11 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $title = fictioneer_get_safe_title( get_the_ID() );
 $links = array_merge(
-  fictioneer_url_list_to_array( fictioneer_get_field( 'fictioneer_recommendation_urls' ) ),
-  fictioneer_url_list_to_array( fictioneer_get_field( 'fictioneer_recommendation_support' ) )
+  fictioneer_url_list_to_array( get_post_meta( get_the_ID(), 'fictioneer_recommendation_urls', true ) ),
+  fictioneer_url_list_to_array( get_post_meta( get_the_ID(), 'fictioneer_recommendation_support', true ) )
 );
 $excerpt = get_the_excerpt();
-$one_sentence = fictioneer_get_field( 'fictioneer_recommendation_one_sentence' ) ?? '';
-
-// Sanitize
-// $urls = array_map( 'wp_strip_all_tags', $urls );
+$one_sentence = get_post_meta( get_the_ID(), 'fictioneer_recommendation_one_sentence', true );
 
 // Taxonomies
 $tags = false;
@@ -84,7 +81,7 @@ $show_type = $args['show_type'] ?? false;
           '<div class="card__content cell-desc truncate _4-4"><span class="card__by-author">%1$s</span> <span>%2$s</span></div>',
           sprintf(
             _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
-            fictioneer_get_field( 'fictioneer_recommendation_author' )
+            get_post_meta( get_the_ID(), 'fictioneer_recommendation_author', true )
           ),
           strlen( $one_sentence ) < strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true )
         );

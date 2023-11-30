@@ -14,12 +14,11 @@
 <?php
 
 // Header
-$is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', get_queried_object_id() ) ?: 0;
 $header_args = array(
   'type' => 'fcn_chapter'
 );
 
-if ( ! empty( $is_hidden ) ) {
+if ( get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ) {
   $header_args['no_index'] = true;
 }
 
@@ -47,7 +46,7 @@ get_header( null, $header_args );
         $title = fictioneer_get_safe_title( get_the_ID() );
         $this_breadcrumb = [$title, get_the_permalink()];
 
-        $story_id = fictioneer_get_field( 'fictioneer_chapter_story', get_queried_object_id() );
+        $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
         $story_data = null;
         $story_post = null;
 
@@ -91,7 +90,7 @@ get_header( null, $header_args );
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
           // Bookmark data
           $bookmark_story_title = '';
-          $bookmark_title = fictioneer_get_field( 'fictioneer_chapter_list_title' );
+          $bookmark_title = get_post_meta( get_the_ID(), 'fictioneer_chapter_list_title', true );
           $bookmark_title = trim( wp_strip_all_tags( $bookmark_title ) );
           $bookmark_title = $bookmark_title ?: $title;
           $bookmark_thumbnail = get_the_post_thumbnail_url( null, 'snippet' );
@@ -146,7 +145,7 @@ get_header( null, $header_args );
           do_action( 'fictioneer_chapter_after_header', $hook_args );
 
           // Password note
-          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note' );
+          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', get_the_ID() );
         ?>
 
         <section id="chapter-content" class="chapter__content content-section">

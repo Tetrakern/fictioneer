@@ -104,7 +104,7 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
 
     if ( $story ) {
       $story_data = fictioneer_get_story_data( $story->ID, false );
-      $download_stats = fictioneer_get_field( 'fictioneer_epub_downloads', $story->ID );
+      $download_stats = get_post_meta( $story->ID, 'fictioneer_epub_downloads', true );
       $download_stats = is_array( $download_stats ) ? $download_stats : [0];
       $downloads_version = end( $download_stats );
       $downloads_total = array_sum( $download_stats );

@@ -28,7 +28,7 @@ function fictioneer_refresh_chapter_schema( $post_id, $post ) {
   }
 
   // Setup
-  $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
   // Rebuild schema
   fictioneer_build_chapter_schema( $post_id );
@@ -63,9 +63,9 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
 
     // Setup
     $schema = fictioneer_get_schema_node_root();
-    $story_id = fictioneer_get_field( 'fictioneer_chapter_story', $post_id );
+    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
     $image_data = fictioneer_get_schema_primary_image( $post_id );
-    $word_count = intval( fictioneer_get_field( '_word_count', $post_id ) );
+    $word_count = intval( get_post_meta( $post_id, '_word_count', true ) );
     $page_description = fictioneer_get_seo_description( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
 
@@ -92,7 +92,7 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
     }
 
     if ( ! empty( $story_id ) ) {
-      $article_node['contentRating'] = fictioneer_get_field( 'fictioneer_story_rating', $story_id );
+      $article_node['contentRating'] = get_post_meta( $story_id, 'fictioneer_story_rating', true );
       $article_node['articleSection'] = get_the_title( $story_id );
     }
 

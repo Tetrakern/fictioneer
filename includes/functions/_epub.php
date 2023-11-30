@@ -47,11 +47,11 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
       // Count downloads per ePUB version
       if ( $story_id ) {
         // Download counter(s)
-        $downloads = fictioneer_get_field( 'fictioneer_epub_downloads', $story_id );
+        $downloads = get_post_meta( $story_id, 'fictioneer_epub_downloads', true );
         $downloads = is_array( $downloads ) ? $downloads : [];
 
         // Generate version key based on timestamp
-        $key = md5( fictioneer_get_field( 'fictioneer_epub_timestamp', $story_id ) );
+        $key = md5( get_post_meta( $story_id, 'fictioneer_epub_timestamp', true ) );
 
         // Is this version already tracked?
         $downloads[ $key ] = ( $downloads[ $key ] ?? 0 ) + 1;
@@ -240,7 +240,7 @@ if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
 
     // Copy/Edit CSS file
     $css_path = $epub_dir . '/OEBPS/Styles/style.css';
-    $css_edit = fictioneer_get_field( 'fictioneer_story_epub_custom_css', $story_id, false );
+    $css_edit = get_post_meta( $story_id, 'fictioneer_story_epub_custom_css', true );
 
     copy( $dir . '_build/templates/style.css', $css_path );
 
@@ -367,14 +367,14 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     // Process chapters
     foreach ( $chapter_query->posts as $post ) {
       // Skip if...
-      if ( fictioneer_get_field( 'fictioneer_chapter_no_chapter', $post->ID ) ) {
+      if ( get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true ) ) {
         continue;
       }
 
       // Setup
       $title = fictioneer_get_safe_title( $post->ID );
       $content = apply_filters( 'the_content', $post->post_content );
-      $is_hidden = fictioneer_get_field( 'fictioneer_chapter_hidden', $post->ID );
+      $is_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
       $processed = false;
       $index++;
 
@@ -419,7 +419,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         $head->appendChild( $doc->createElement( 'title', $title ) );
 
         // Add title to frame if not hidden
-        if ( ! fictioneer_get_field( 'fictioneer_chapter_hide_title' ) ) {
+        if ( ! get_post_meta( $post->ID, 'fictioneer_chapter_hide_title', true ) ) {
           $frame->appendChild( $doc->createElement( 'h1', $title ) );
         }
 
@@ -697,7 +697,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
     }
 
     // Afterword node
-    if ( fictioneer_get_field( 'fictioneer_story_epub_afterword', $story_id, false ) ) {
+    if ( get_post_meta( $story_id, 'fictioneer_story_epub_afterword', true ) ) {
       $m_item = $opf->createElement( 'item' );
       $m_item->setAttribute( 'href', 'Text/afterword.html' );
       $m_item->setAttribute( 'id', 'afterword' );
@@ -775,7 +775,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_ncx' ) ) {
     }
 
     // Add afterword node
-    if ( fictioneer_get_field( 'fictioneer_story_epub_afterword', $story_id, false ) ) {
+    if ( get_post_meta( $story_id, 'fictioneer_story_epub_afterword', true ) ) {
       $navmap->appendChild( fictioneer_nav_point( $ncx, $index, 'Text/afterword.html', __( 'Afterword', 'fictioneer' ) ) );
       $index++;
     }
@@ -1012,7 +1012,7 @@ function fictioneer_generate_epub() {
   if (
     empty( $story_id ) ||
     ! get_option( 'fictioneer_enable_epubs' ) ||
-    fictioneer_get_field( 'fictioneer_story_no_epub', $story_id )
+    get_post_meta( $story_id, 'fictioneer_story_no_epub', true )
   ) {
     fictioneer_epub_return_and_exit();
   }
@@ -1036,14 +1036,14 @@ function fictioneer_generate_epub() {
   $story = get_post( $story_id );
   $dir = get_template_directory() . '/epubs/';
   $folder = "{$story_id}";
-  $chapters = fictioneer_get_field( 'fictioneer_story_chapters', $story_id );
+  $chapters = get_post_meta( $story_id, 'fictioneer_story_chapters', true ) ?: [];
   $author = get_the_author_meta( 'display_name', $story->post_author );
-  $co_authors = fictioneer_get_field( 'fictioneer_story_co_authors', $story_id ) ?? [];
+  $co_authors = get_post_meta( $story_id, 'fictioneer_story_co_authors', true ) ?: [];
   $all_authors = [];
   $short_description = mb_convert_encoding( fictioneer_get_content_field( 'fictioneer_story_short_description', $story_id, false ), 'HTML-ENTITIES', 'UTF-8' );
   $short_description = fictioneer_fix_html_entities( $short_description );
   $story_last_modified = get_the_modified_date( 'Y-m-d H:i:s', $story_id );
-  $epub_last_built = fictioneer_get_field( 'fictioneer_epub_timestamp', $story_id );
+  $epub_last_built = get_post_meta( $story_id, 'fictioneer_epub_timestamp', true );
   $toc_list = [];
   $ncx_list = [];
   $opf_list = [];
