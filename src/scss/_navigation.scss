@@ -237,7 +237,7 @@
     display: none;
     content-visibility: hidden;
     border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
-    min-width: 152px;
+    min-width: MAX(152px, 100%);
     box-shadow: var(--navigation-submenu-box-shadow);
     transition: opacity .1s;
 
