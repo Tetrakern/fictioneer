@@ -88,8 +88,8 @@ function fictioneer_ajax_submit_contact_form() {
   // ... text fields
   for ( $i = 1; $i <= 6; $i++ ) {
     // Get label and value (if any)
-    $field_value = sanitize_text_field( $_POST[ "text_$i" ] ?? '' );
-    $field_label = sanitize_text_field( $_POST[ "text_label_$i" ] ?? '' );
+    $field_value = sanitize_text_field( $_POST[ "text_{$i}" ] ?? '' );
+    $field_label = sanitize_text_field( $_POST[ "text_label_{$i}" ] ?? '' );
 
     // Skip if label is missing
     if ( empty( $field_label ) ) {
@@ -118,8 +118,8 @@ function fictioneer_ajax_submit_contact_form() {
   // ... checkboxes
   for ( $i = 1; $i <= 6; $i++ ) {
     // Get label and value (if any)
-    $field_value = filter_var( $_POST[ "check_$i" ] ?? 0, FILTER_VALIDATE_BOOLEAN );
-    $field_label = sanitize_text_field( $_POST[ "check_label_$i" ] ?? '' );
+    $field_value = filter_var( $_POST[ "check_{$i}" ] ?? 0, FILTER_VALIDATE_BOOLEAN );
+    $field_label = sanitize_text_field( $_POST[ "check_label_{$i}" ] ?? '' );
 
     // Skip if label is missing
     if ( empty( $field_label ) ) {

@@ -58,7 +58,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
               $name = $term->name;
               $value = rawurlencode( $term->term_id );
 
-              echo "<span class='node' data-value='$value'><span>$name</span><span class='node-delete'>$x_mark</span></span>";
+              echo "<span class='node' data-value='{$value}'><span>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
             }
           }
         ?>
@@ -73,7 +73,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
           $value = rawurlencode( $taxonomies[ $key ]->term_id );
           $description = esc_attr( $taxonomies[ $key ]->description );
 
-          echo "<button type='button' value='$value' class='keyword-input__suggestion keyword-button _$singular' title='$description'>$name</button>";
+          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' title='{$description}'>{$name}</button>";
         }
       ?></div>
       <div class="keyword-input__no-suggestions" hidden><?php
@@ -88,7 +88,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
           $value = rawurlencode( $term->term_id );
           $description = esc_attr( $term->description );
 
-          echo "<button type='button' value='$value' class='keyword-input__suggestion keyword-button _$singular' title='$description' hidden>$name</button>";
+          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' title='{$description}' hidden>{$name}</button>";
         }
       ?></div>
     </div>
@@ -136,7 +136,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
               $name = $author->display_name;
               $value = rawurlencode( $author->ID );
 
-              echo "<span class='node' data-value='$value'><span>$name</span><span class='node-delete'>$x_mark</span></span>";
+              echo "<span class='node' data-value='{$value}'><span>{$name}</span><span class='node-delete'>{$x_mark}</span></span>";
             }
           }
         ?>
@@ -150,7 +150,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
           $name = $authors[ $key ]->display_name;
           $value = rawurlencode( $authors[ $key ]->ID );
 
-          echo "<button type='button' value='$value' class='keyword-input__suggestion keyword-button _$singular'>$name</button>";
+          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}'>{$name}</button>";
         }
       ?></div>
       <div class="keyword-input__no-suggestions" hidden><?php
@@ -164,7 +164,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
           $name = $author->display_name;
           $value = rawurlencode( $author->ID );
 
-          echo "<button type='button' value='$value' class='keyword-input__suggestion keyword-button _$singular' hidden>$name</button>";
+          echo "<button type='button' value='{$value}' class='keyword-input__suggestion keyword-button _{$singular}' hidden>{$name}</button>";
         }
       ?></div>
     </div>

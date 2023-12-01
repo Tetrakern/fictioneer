@@ -43,7 +43,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
     $empty = empty( $empty ) ? __( 'No results.', 'fictioneer' ) : $empty;
     $query = false;
     $allowed_types = ['fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation', 'post'];
-    $post_type = in_array( $type, ['story', 'chapter', 'collection', 'recommendation'] ) ? "fcn_$type" : $type;
+    $post_type = in_array( $type, ['story', 'chapter', 'collection', 'recommendation'] ) ? "fcn_{$type}" : $type;
     $page = $query_args['paged'] ?? 1;
     $is_empty = false;
     $excluded = [];

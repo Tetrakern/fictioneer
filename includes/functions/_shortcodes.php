@@ -1003,7 +1003,6 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id );
           $text_icon = get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true );
           $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
-          $words = fictioneer_get_word_count( $chapter_id );;
           $title = fictioneer_get_safe_title( $chapter_id );
 
           // Start HTML ---> ?>
@@ -1031,7 +1030,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               $chapter_data['password'] = post_password_required();
               $chapter_data['timestamp'] = get_the_time( 'c' );
               $chapter_data['list_date'] = get_the_date( '' );
-              $chapter_data['words'] = $words;
+              $chapter_data['words'] = fictioneer_get_word_count( $chapter_id );
 
               echo fictioneer_get_list_chapter_meta_row( $chapter_data );
             ?>
@@ -1108,28 +1107,28 @@ function fictioneer_shortcode_contact_form( $attr ) {
 
   // HTML snippets
   if ( ! empty( $email ) ) {
-    $fields[] = "<input style='opacity: 0;' type='email' name='email' maxlength='100' placeholder='$email' $required>";
+    $fields[] = "<input style='opacity: 0;' type='email' name='email' maxlength='100' placeholder='{$email}' {$required}>";
   }
 
   if ( ! empty( $name ) ) {
-    $fields[] = "<input style='opacity: 0;' type='text' name='name' maxlength='100' placeholder='$name' $required>";
+    $fields[] = "<input style='opacity: 0;' type='text' name='name' maxlength='100' placeholder='{$name}' {$required}>";
   }
 
   // Custom text fields
   for ( $i = 1; $i <= 6; $i++ ) {
-    $field = $attr["text_$i"] ?? '';
+    $field = $attr["text_{$i}"] ?? '';
 
     if ( ! empty( $field ) ) {
-      $fields[] = "<input style='opacity: 0;' type='text' name='text_$i' maxlength='100' placeholder='$field' $required><input type='hidden' name='text_label_$i' value='$field'>";
+      $fields[] = "<input style='opacity: 0;' type='text' name='text_{$i}' maxlength='100' placeholder='{$field}' {$required}><input type='hidden' name='text_label_{$i}' value='{$field}'>";
     }
   }
 
   // Custom checkboxes
   for ( $i = 1; $i <= 6; $i++ ) {
-    $field = $attr["check_$i"] ?? '';
+    $field = $attr["check_{$i}"] ?? '';
 
     if ( ! empty( $field ) ) {
-      $fields[] = "<label class='checkbox-label'><input class='_no-stretch' style='opacity: 0;' type='checkbox' value='1' name='check_$i' autocomplete='off' $required><span>$field</span></label><input type='hidden' name='check_label_$i' value='$field'>";
+      $fields[] = "<label class='checkbox-label'><input class='_no-stretch' style='opacity: 0;' type='checkbox' value='1' name='check_{$i}' autocomplete='off' {$required}><span>{$field}</span></label><input type='hidden' name='check_label_{$i}' value='{$field}'>";
     }
   }
 
@@ -1216,7 +1215,7 @@ function fictioneer_shortcode_search( $attr ) {
   }
 
   if ( $type && in_array( $type, ['any', 'story', 'chapter', 'recommendation', 'collection', 'post'] ) ) {
-    $args['preselect_type'] = in_array( $type, ['story', 'chapter', 'recommendation', 'collection'] ) ? "fcn_$type" : $type;
+    $args['preselect_type'] = in_array( $type, ['story', 'chapter', 'recommendation', 'collection'] ) ? "fcn_{$type}" : $type;
   }
 
   // Buffer
@@ -1346,7 +1345,7 @@ function fictioneer_shortcode_blog( $attr ) {
       <?php
         while ( $blog_query->have_posts() ) {
           $blog_query->the_post();
-          get_template_part( 'partials/_post', null, ['nested' => true] );
+          get_template_part( 'partials/_post', null, array( 'nested' => true ) );
         }
 
         wp_reset_postdata();
