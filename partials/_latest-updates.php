@@ -169,7 +169,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php endif; ?>
                   <span><?php
                     $short_description = fictioneer_first_paragraph_as_excerpt(
-                      fictioneer_get_content_field( 'fictioneer_story_short_description', get_the_ID() )
+                      fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
                     );
                     echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
                   ?></span>

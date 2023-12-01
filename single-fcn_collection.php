@@ -33,7 +33,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
       <?php
         // Setup
-        $featured_list = get_post_meta( get_the_ID(), 'fictioneer_collection_items', true );
+        $featured_list = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
         $featured_list = is_array( $featured_list ) ? $featured_list : [];
         $title = fictioneer_get_safe_title( $post->ID );
         $this_breadcrumb = [$title, get_the_permalink()];
@@ -130,7 +130,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
   // Footer arguments
   $footer_args = array(
     'post_type' => 'fcn_collection',
-    'post_id' => get_the_ID(),
+    'post_id' => $post->ID,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )

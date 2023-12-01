@@ -124,16 +124,16 @@ $pag_args = array(
 
           // Setup
           $story_id = ( $post->post_type === 'fcn_story' ) ? $post->ID : null;
-          $title = fictioneer_get_safe_title( get_the_ID() );
+          $title = fictioneer_get_safe_title( $post->ID );
           $permalink = get_permalink();
-          $categories = wp_get_post_categories( get_the_ID() );
+          $categories = wp_get_post_categories( $post->ID );
           $tags = get_the_tags();
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
 
           // Thumbnail
-          $landscape_image_id = get_post_meta( get_the_ID(), 'fictioneer_landscape_image', true );
+          $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
           $thumbnail = null;
 
           $image_args = array(
@@ -147,7 +147,7 @@ $pag_args = array(
 
           // Chapter story?
           if ( $post->post_type === 'fcn_chapter' ) {
-            $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+            $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
           }
 
           // Start HTML ---> ?>

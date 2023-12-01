@@ -68,8 +68,8 @@ $hook_args = array(
           // Special conditions for chapters...
           if ( $type == 'fcn_chapter' ) {
             if (
-              get_post_meta( get_the_ID(), 'fictioneer_chapter_no_chapter', true ) ||
-              get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true )
+              get_post_meta( $post->ID, 'fictioneer_chapter_no_chapter', true ) ||
+              get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true )
             ) {
               continue;
             }

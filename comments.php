@@ -18,13 +18,14 @@ if ( post_password_required() ) {
 }
 
 // Setup
+$post_id = get_the_ID();
 $user = wp_get_current_user();
 $comments_count = get_comments_number();
 $logout_url = fictioneer_get_logout_url( get_permalink() );
 
 ?>
 
-<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo get_the_ID(); ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>">
+<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>">
 
   <?php
 
@@ -32,7 +33,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
       fictioneer_comments_ajax_skeleton( $comments_count ); // AJAX loading skeleton
     } else {
       // Query arguments
-      $query_args = ['post_id' => get_the_ID()];
+      $query_args = array( 'post_id' => $post_id );
 
       if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
         $query_args['type'] = ['comment', 'private'];
@@ -42,14 +43,14 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
       }
 
       // Filter query arguments
-      $query_args = apply_filters( 'fictioneer_filter_comments_query', $query_args, get_the_ID() );
+      $query_args = apply_filters( 'fictioneer_filter_comments_query', $query_args, $post_id );
 
       // Query comments
       $comments_query = new WP_Comment_Query( $query_args );
       $comments = $comments_query->comments;
 
       // Filter comments
-      $comments = apply_filters( 'fictioneer_filter_comments', $comments, get_the_ID() );
+      $comments = apply_filters( 'fictioneer_filter_comments', $comments, $post_id );
 
       // Comments header
       fictioneer_comment_header( $comments_count );

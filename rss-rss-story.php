@@ -154,7 +154,7 @@ do_action( 'rss_tag_pre', 'rss2' );
           }
 
           // Skip invisible chapters
-          if ( get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ) {
+          if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
             continue;
           }
 
@@ -184,25 +184,25 @@ do_action( 'rss_tag_pre', 'rss2' );
             <?php endif; ?>
 
             <?php
-              if ( $chapter_fandoms = get_the_terms( get_the_ID(), 'fcn_fandom' ) ) {
+              if ( $chapter_fandoms = get_the_terms( $post->ID, 'fcn_fandom' ) ) {
                 foreach ( $chapter_fandoms as $fandom ) {
                   echo '<category>' . $fandom->name . '</category>';
                 }
               }
 
-              if ( $chapter_genres = get_the_terms( get_the_ID(), 'fcn_genre' ) ) {
+              if ( $chapter_genres = get_the_terms( $post->ID, 'fcn_genre' ) ) {
                 foreach ( $chapter_genres as $genre ) {
                   echo '<category>' . $genre->name . '</category>';
                 }
               }
 
-              if ( $chapter_characters = get_the_terms( get_the_ID(), 'fcn_character' ) ) {
+              if ( $chapter_characters = get_the_terms( $post->ID, 'fcn_character' ) ) {
                 foreach ( $chapter_characters as $character ) {
                   echo '<category>' . $character->name . '</category>';
                 }
               }
 
-              if ( $chapter_tags = get_the_tags( get_the_ID() ) ) {
+              if ( $chapter_tags = get_the_tags( $post->ID ) ) {
                 foreach ( $chapter_tags as $tag ) {
                   echo '<category>' . $tag->name . '</category>';
                 }

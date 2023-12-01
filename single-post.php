@@ -26,8 +26,8 @@ get_header();
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( get_the_ID() );
-        $this_breadcrumb = [$title, get_the_permalink()];
+        $title = fictioneer_get_safe_title( $post->ID );
+        $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 
       <article id="post-<?php the_ID(); ?>" class="post__article padding-left padding-right padding-top padding-bottom">
@@ -39,15 +39,15 @@ get_header();
 
         <section class="post__main content-section"><?php the_content(); ?></section>
 
-        <?php do_action( 'fictioneer_post_after_content', get_the_ID() ); ?>
+        <?php do_action( 'fictioneer_post_after_content', $post->ID ); ?>
 
         <?php if ( ! post_password_required() && ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) ) : ?>
           <footer class="post__footer">
             <div class="post__footer-box post__footer-left">
-              <?php do_action( 'fictioneer_post_footer_left', get_the_ID() ); ?>
+              <?php do_action( 'fictioneer_post_footer_left', $post->ID ); ?>
             </div>
             <div class="post__footer-box post__footer-right">
-              <?php do_action( 'fictioneer_post_footer_right', get_the_ID() ); ?>
+              <?php do_action( 'fictioneer_post_footer_right', $post->ID ); ?>
             </div>
           </footer>
         <?php endif; ?>
@@ -70,7 +70,7 @@ get_header();
   // Footer arguments
   $footer_args = array(
     'post_type' => 'post',
-    'post_id' => get_the_ID(),
+    'post_id' => $post->ID,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )

@@ -94,7 +94,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( get_the_ID() );
+        $title = fictioneer_get_safe_title( $post->ID );
         $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 
         if (
@@ -111,7 +111,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
       <header class="post__header">
         <h2 class="post__title"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
-        <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items( ['no_cat' => true] ); ?></div>
+        <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items( array( 'no_cat' => true ) ); ?></div>
       </header>
 
       <section class="post__main content-section">
@@ -121,10 +121,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
       <?php if ( has_action( 'fictioneer_latest_posts_footers_left' ) || has_action( 'fictioneer_latest_posts_footers_right' ) ) : ?>
         <footer class="post__footer">
           <div class="post__footer-box post__footer-left">
-            <?php do_action( 'fictioneer_latest_posts_footers_left', get_the_ID() ); ?>
+            <?php do_action( 'fictioneer_latest_posts_footers_left', $post->ID ); ?>
           </div>
           <div class="post__footer-box post__footer-right">
-            <?php do_action( 'fictioneer_latest_posts_footers_right', get_the_ID() ); ?>
+            <?php do_action( 'fictioneer_latest_posts_footers_right', $post->ID ); ?>
           </div>
         </footer>
       <?php endif; ?>

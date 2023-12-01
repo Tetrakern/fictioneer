@@ -48,7 +48,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
 ?>
 
 <li
-  id="story-card-<?php the_ID(); ?>"
+  id="story-card-<?php echo $post->ID; ?>"
   class="card <?php echo $is_sticky ? '_sticky' : ''; ?>"
   data-story-id="<?php echo $post->ID; ?>"
   data-check-id="<?php echo $post->ID; ?>"
@@ -67,7 +67,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
         <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
       <?php endif; ?>
 
-      <?php echo fictioneer_get_card_controls( get_the_ID() ); ?>
+      <?php echo fictioneer_get_card_controls( $post->ID ); ?>
 
     </div>
 

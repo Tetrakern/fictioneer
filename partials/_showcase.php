@@ -103,16 +103,16 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 // Setup
                 $list_title = '';
                 $story_id = null;
-                $landscape_image_id = get_post_meta( get_the_ID(), 'fictioneer_landscape_image', true );
+                $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
 
                 // Get list title and story ID (if any)
                 switch ( $args['post_type'] ) {
                   case 'fcn_collection':
-                    $list_title = get_post_meta( get_the_ID(), 'fictioneer_collection_list_title', true );
+                    $list_title = get_post_meta( $post->ID, 'fictioneer_collection_list_title', true );
                     break;
                   case 'fcn_chapter':
-                    $list_title = get_post_meta( get_the_ID(), 'fictioneer_chapter_list_title', true );
-                    $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+                    $list_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
+                    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
                     if ( empty( $landscape_image_id ) ) {
                       $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );

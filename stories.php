@@ -84,12 +84,12 @@ if ( function_exists( 'update_post_author_caches' ) ) {
         // Setup
         $title = trim( get_the_title() );
         $breadcrumb_name = empty( $title ) ? __( 'Stories', 'fictioneer' ) : $title;
-        $this_breadcrumb = [$breadcrumb_name, get_the_permalink()];
+        $this_breadcrumb = [ $breadcrumb_name, get_the_permalink() ];
 
         // Arguments for hooks and templates/etc.
         $hook_args = array(
           'current_page' => $page,
-          'post_id' => get_the_ID(),
+          'post_id' => $post->ID,
           'stories' => $list_of_stories,
           'queried_type' => 'fcn_story',
           'query_args' => $query_args,
@@ -128,7 +128,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
   // Footer arguments
   $footer_args = array(
     'post_type' => 'page',
-    'post_id' => get_the_ID(),
+    'post_id' => $post->ID,
     'current_page' => $page,
     'stories' => $list_of_stories,
     'breadcrumbs' => array(

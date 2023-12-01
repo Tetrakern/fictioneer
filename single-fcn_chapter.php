@@ -43,10 +43,10 @@ get_header( null, $header_args );
         // Setup
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
-        $title = fictioneer_get_safe_title( get_the_ID() );
-        $this_breadcrumb = [$title, get_the_permalink()];
+        $title = fictioneer_get_safe_title( $post->ID );
+        $this_breadcrumb = [ $title, get_the_permalink() ];
 
-        $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+        $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
         $story_data = null;
         $story_post = null;
 
@@ -61,7 +61,7 @@ get_header( null, $header_args );
         }
 
         // Chapter navigation
-        $current_index = array_search( get_the_ID(), $chapter_ids );
+        $current_index = array_search( $post->ID, $chapter_ids );
         $prev_index = $current_index - 1;
         $next_index = $current_index + 1;
 
@@ -70,7 +70,7 @@ get_header( null, $header_args );
           'author' => get_userdata( $post->post_author ),
           'story_post' => $story_post,
           'story_data' => $story_data,
-          'chapter_id' => get_the_ID(),
+          'chapter_id' => $post->ID,
           'chapter_title' => $title,
           'chapter_password' => $post->post_password,
           'chapter_ids' => $chapter_ids,
@@ -90,7 +90,7 @@ get_header( null, $header_args );
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
           // Bookmark data
           $bookmark_story_title = '';
-          $bookmark_title = get_post_meta( get_the_ID(), 'fictioneer_chapter_list_title', true );
+          $bookmark_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
           $bookmark_title = trim( wp_strip_all_tags( $bookmark_title ) );
           $bookmark_title = $bookmark_title ?: $title;
           $bookmark_thumbnail = get_the_post_thumbnail_url( null, 'snippet' );
@@ -145,7 +145,7 @@ get_header( null, $header_args );
           do_action( 'fictioneer_chapter_after_header', $hook_args );
 
           // Password note
-          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', get_the_ID() );
+          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post->ID );
         ?>
 
         <section id="chapter-content" class="chapter__content content-section">
@@ -201,7 +201,7 @@ get_header( null, $header_args );
   // Footer arguments
   $footer_args = array(
     'post_type' => 'fcn_chapter',
-    'post_id' => get_the_ID(),
+    'post_id' => $post->ID,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )

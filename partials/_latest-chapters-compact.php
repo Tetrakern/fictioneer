@@ -113,15 +113,15 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
         <?php
           // Setup
-          $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
+          $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
           if ( get_post_status( $story_id ) !== 'publish' ) {
             continue;
           }
 
-          $title = fictioneer_get_safe_title( get_the_ID() );
+          $title = fictioneer_get_safe_title( $post->ID );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : false; // Does not refresh comment count!
-          $text_icon = get_post_meta( get_the_ID(), 'fictioneer_chapter_text_icon', true );
+          $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
 
           // Chapter images
           $thumbnail_full = get_the_post_thumbnail_url( $post, 'full' );
@@ -153,7 +153,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
-                $list_title = get_post_meta( get_the_ID(), 'fictioneer_chapter_list_title', true );
+                $list_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
                 $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                 echo $list_title ? $list_title : $title;

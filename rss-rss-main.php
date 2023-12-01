@@ -144,31 +144,33 @@ do_action( 'rss_tag_pre', 'rss2' );
           <?php endif; ?>
 
           <?php
-            if ( $categories = wp_get_post_categories( get_the_ID() ) ) {
+            $post_id = get_the_ID();
+
+            if ( $categories = wp_get_post_categories( $post_id ) ) {
               foreach ( $categories as $cat ) {
                 echo '<category>' . get_category( $cat )->name . '</category>';
               }
             }
 
-            if ( $fandoms = get_the_terms( get_the_ID(), 'fcn_fandom' ) ) {
+            if ( $fandoms = get_the_terms( $post_id, 'fcn_fandom' ) ) {
               foreach ( $fandoms as $fandom ) {
                 echo '<category>' . $fandom->name . '</category>';
               }
             }
 
-            if ( $genres = get_the_terms( get_the_ID(), 'fcn_genre' ) ) {
+            if ( $genres = get_the_terms( $post_id, 'fcn_genre' ) ) {
               foreach ( $genres as $genre ) {
                 echo '<category>' . $genre->name . '</category>';
               }
             }
 
-            if ( $characters = get_the_terms( get_the_ID(), 'fcn_character' ) ) {
+            if ( $characters = get_the_terms( $post_id, 'fcn_character' ) ) {
               foreach ( $characters as $character ) {
                 echo '<category>' . $character->name . '</category>';
               }
             }
 
-            if ( $tags = get_the_tags( get_the_ID() ) ) {
+            if ( $tags = get_the_tags( $post_id ) ) {
               foreach ( $tags as $tag ) {
                 echo '<category>' . $tag->name . '</category>';
               }
