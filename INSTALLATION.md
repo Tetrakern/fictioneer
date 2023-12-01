@@ -849,7 +849,7 @@ The default footer has no background, which might not be to your liking or clash
 
 ![Customizer HSL Sliders](repo/assets/merged_header_and_nav_preview.jpg?raw=true)
 
-You want the navigation next to your top-aligned header, without changing the HTML? Hacky, but possible. The actual values and result will depend on the size of your header and number of menu items, as this can lead to overlapping elements if you are not careful.
+You want the navigation next to your top-aligned header, without changing the HTML? Hacky, but possible. The actual values and result will depend on the size of your header and number of menu items, as this can lead to overlapping elements if you are not careful. Also, depending on your background, you may need to adjust some colors for both light and dark mode.
 
 **Site Title - Minimum Size:** 40px<br>
 **Site Title - Maximum Size:** 40px<br>
@@ -877,7 +877,7 @@ You want the navigation next to your top-aligned header, without changing the HT
 
   .main-navigation.is-sticky .main-navigation__left {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Use space-between if you add the optional ::before block.  */
     gap: 2rem;
     padding-left: 1rem;
     width: 100%;
