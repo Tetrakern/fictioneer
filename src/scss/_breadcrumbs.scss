@@ -18,5 +18,10 @@
         margin: 0 .3rem;
       }
     }
+
+    :where(i, .icon) {
+      font-size: .85em;
+      transform: translateY(-0.1em);
+    }
   }
 }
