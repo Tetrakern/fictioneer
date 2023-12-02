@@ -9,588 +9,588 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_enable_maintenance_mode' => array(
       'name' => 'fictioneer_enable_maintenance_mode',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable maintenance mode', 'fictioneer' ),
       'default' => false
 		),
 		'fictioneer_light_mode_as_default' => array(
       'name' => 'fictioneer_light_mode_as_default',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable light mode as default', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_show_authors' => array(
       'name' => 'fictioneer_show_authors',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Display authors on cards and posts', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_chapter_icons' => array(
       'name' => 'fictioneer_hide_chapter_icons',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide chapter icons', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_taxonomies_on_story_cards' => array(
       'name' => 'fictioneer_hide_taxonomies_on_story_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide taxonomies on story cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_taxonomies_on_chapter_cards' => array(
       'name' => 'fictioneer_hide_taxonomies_on_chapter_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide taxonomies on chapter cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_taxonomies_on_recommendation_cards' => array(
       'name' => 'fictioneer_hide_taxonomies_on_recommendation_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide taxonomies on recommendation cards', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_hide_taxonomies_on_collection_cards' => array(
       'name' => 'fictioneer_hide_taxonomies_on_collection_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide taxonomies on collection cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_show_tags_on_story_cards' => array(
       'name' => 'fictioneer_show_tags_on_story_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show tags on story cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_show_tags_on_chapter_cards' => array(
       'name' => 'fictioneer_show_tags_on_chapter_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show tags on chapter cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_show_tags_on_recommendation_cards' => array(
       'name' => 'fictioneer_show_tags_on_recommendation_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show tags on recommendation cards', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_show_tags_on_collection_cards' => array(
       'name' => 'fictioneer_show_tags_on_collection_cards',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show tags on collection cards', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_taxonomies_on_pages' => array(
       'name' => 'fictioneer_hide_taxonomies_on_pages',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide taxonomies on pages', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_tags_on_pages' => array(
       'name' => 'fictioneer_hide_tags_on_pages',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide tags on pages', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_hide_content_warnings_on_pages' => array(
       'name' => 'fictioneer_hide_content_warnings_on_pages',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide content warnings on pages', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_theme_rss' => array(
       'name' => 'fictioneer_enable_theme_rss',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable theme RSS feeds and buttons', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_oauth' => array(
       'name' => 'fictioneer_enable_oauth',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable OAuth 2.0 authentication', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_lightbox' => array(
       'name' => 'fictioneer_enable_lightbox',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable lightbox', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_bookmarks' => array(
       'name' => 'fictioneer_enable_bookmarks',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Bookmarks', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_follows' => array(
       'name' => 'fictioneer_enable_follows',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Follows (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_checkmarks' => array(
       'name' => 'fictioneer_enable_checkmarks',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Checkmarks (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_reminders' => array(
       'name' => 'fictioneer_enable_reminders',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Reminders (requires account)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_suggestions' => array(
       'name' => 'fictioneer_enable_suggestions',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Suggestions', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_tts' => array(
       'name' => 'fictioneer_enable_tts',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Text-To-Speech (experimental)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_seo' => array(
       'name' => 'fictioneer_enable_seo',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable SEO features', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_sitemap' => array(
       'name' => 'fictioneer_enable_sitemap',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable own sitemap generation', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_epubs' => array(
       'name' => 'fictioneer_enable_epubs',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable ePUB converter (experimental)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_require_js_to_comment' => array(
       'name' => 'fictioneer_require_js_to_comment',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Require JavaScript to comment', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_ajax_comment_submit' => array(
       'name' => 'fictioneer_enable_ajax_comment_submit',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable AJAX comment submission', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_comment_link_limit' => array(
       'name' => 'fictioneer_enable_comment_link_limit',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Limit comments to [n] link(s) or less', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_comment_toolbar' => array(
       'name' => 'fictioneer_enable_comment_toolbar',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable comment toolbar', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_comment_bbcodes' => array(
       'name' => 'fictioneer_disable_comment_bbcodes',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable comment BBCodes', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_ajax_comment_moderation' => array(
       'name' => 'fictioneer_enable_ajax_comment_moderation',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable AJAX comment moderation', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_custom_badges' => array(
       'name' => 'fictioneer_enable_custom_badges',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable custom badges', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_patreon_badges' => array(
       'name' => 'fictioneer_enable_patreon_badges',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Patreon badges', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_private_commenting' => array(
       'name' => 'fictioneer_enable_private_commenting',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable private commenting', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_comment_notifications' => array(
       'name' => 'fictioneer_enable_comment_notifications',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable comment reply notifications', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_comment_reporting' => array(
       'name' => 'fictioneer_enable_comment_reporting',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable comment reporting', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_heartbeat' => array(
       'name' => 'fictioneer_disable_heartbeat',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Heartbeat API', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_remove_head_clutter' => array(
       'name' => 'fictioneer_remove_head_clutter',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Remove clutter from HTML head', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_reduce_admin_bar' => array(
       'name' => 'fictioneer_reduce_admin_bar',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Reduce admin bar items', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_bundle_stylesheets' => array(
       'name' => 'fictioneer_bundle_stylesheets',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Bundle CSS files into one', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_do_not_save_comment_ip' => array(
       'name' => 'fictioneer_do_not_save_comment_ip',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Do not save comment IP addresses', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_logout_redirects_home' => array(
       'name' => 'fictioneer_logout_redirects_home',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Logout redirects Home', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_theme_logout' => array(
       'name' => 'fictioneer_disable_theme_logout',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme logout without nonce', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_consent_wrappers' => array(
       'name' => 'fictioneer_consent_wrappers',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Add consent wrappers to embedded content', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_cookie_banner' => array(
       'name' => 'fictioneer_cookie_banner',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable cookie banner and consent function', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_cache_compatibility' => array(
       'name' => 'fictioneer_enable_cache_compatibility',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable cache compatibility mode', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_private_cache_compatibility' => array(
       'name' => 'fictioneer_enable_private_cache_compatibility',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable private cache compatibility mode', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_ajax_comments' => array(
       'name' => 'fictioneer_enable_ajax_comments',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable AJAX comment section', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_comment_callback' => array(
       'name' => 'fictioneer_disable_comment_callback',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme comment style (callback)', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_comment_query' => array(
       'name' => 'fictioneer_disable_comment_query',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme comment query', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_comment_form' => array(
       'name' => 'fictioneer_disable_comment_form',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme comment form', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_comment_pagination' => array(
       'name' => 'fictioneer_disable_comment_pagination',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme comment pagination', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_facebook_share' => array(
       'name' => 'fictioneer_disable_facebook_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Facebook share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_twitter_share' => array(
       'name' => 'fictioneer_disable_twitter_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Twitter share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_tumblr_share' => array(
       'name' => 'fictioneer_disable_tumblr_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Tumblr share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_reddit_share' => array(
       'name' => 'fictioneer_disable_reddit_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Reddit share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_mastodon_share' => array(
       'name' => 'fictioneer_disable_mastodon_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Mastodon share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_telegram_share' => array(
       'name' => 'fictioneer_disable_telegram_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Telegram share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_whatsapp_share' => array(
       'name' => 'fictioneer_disable_whatsapp_share',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Whatsapp share button', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_delete_theme_options_on_deactivation' => array(
       'name' => 'fictioneer_delete_theme_options_on_deactivation',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Delete all settings and theme mods on deactivation', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_remove_wp_svg_filters' => array(
       'name' => 'fictioneer_remove_wp_svg_filters',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Remove global WordPress SVG filters', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_jquery_migrate' => array(
       'name' => 'fictioneer_enable_jquery_migrate',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable jQuery migrate script', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_properties' => array(
       'name' => 'fictioneer_disable_properties',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_chapter_groups' => array(
       'name' => 'fictioneer_enable_chapter_groups',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable chapter groups', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_disable_chapter_collapsing' => array(
       'name' => 'fictioneer_disable_chapter_collapsing',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable collapsing of chapters', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_public_cache_compatibility' => array(
       'name' => 'fictioneer_enable_public_cache_compatibility',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable public cache compatibility mode', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_show_full_post_content' => array(
       'name' => 'fictioneer_show_full_post_content',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Display full posts instead of excerpts', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_all_blocks' => array(
       'name' => 'fictioneer_enable_all_blocks',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable all Gutenberg blocks', 'fictioneer' ),
       'default' => false
     ),
 		'fictioneer_enable_all_block_styles' => array(
       'name' => 'fictioneer_enable_all_block_styles',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable all Gutenberg block styles', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_ajax_authentication' => array(
       'name' => 'fictioneer_enable_ajax_authentication',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable AJAX user authentication', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_application_passwords' => array(
       'name' => 'fictioneer_disable_application_passwords',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable application passwords', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_user_comment_editing' => array(
       'name' => 'fictioneer_enable_user_comment_editing',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable comment editing', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_ajax_comment_form' => array(
       'name' => 'fictioneer_enable_ajax_comment_form',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable AJAX comment form', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_sticky_comments' => array(
       'name' => 'fictioneer_enable_sticky_comments',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable sticky comments', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_commenting' => array(
       'name' => 'fictioneer_disable_commenting',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable commenting across the site', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_purge_all_caches' => array(
       'name' => 'fictioneer_purge_all_caches',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Purge all caches on content updates', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_theme_search' => array(
       'name' => 'fictioneer_disable_theme_search',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable advanced search', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_contact_forms' => array(
       'name' => 'fictioneer_disable_contact_forms',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable theme contact forms', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_storygraph_api' => array(
       'name' => 'fictioneer_enable_storygraph_api',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Storygraph API', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_restrict_rest_api' => array(
       'name' => 'fictioneer_restrict_rest_api',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Restrict Default REST API', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_chapter_appending' => array(
       'name' => 'fictioneer_enable_chapter_appending',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Append new chapters to story', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_limit_chapter_stories_by_author' => array(
       'name' => 'fictioneer_limit_chapter_stories_by_author',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Restrict chapter stories by author', 'fictioneer' ),
       'default' => false
     ),
@@ -604,42 +604,42 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_see_some_evil' => array(
       'name' => 'fictioneer_see_some_evil',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Monitor posts for suspicious content', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_fast_ajax_comments' => array(
       'name' => 'fictioneer_enable_fast_ajax_comments',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable fast AJAX for comments', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_rate_limits' => array(
       'name' => 'fictioneer_enable_rate_limits',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable rate limiting for AJAX requests', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_enable_advanced_meta_fields' => array(
       'name' => 'fictioneer_enable_advanced_meta_fields',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable advanced meta fields', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_show_story_changelog' => array(
       'name' => 'fictioneer_show_story_changelog',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show story changelog button', 'fictioneer' ),
       'default' => false
     ),
     'fictioneer_disable_font_awesome' => array(
       'name' => 'fictioneer_disable_font_awesome',
 			'group' => 'fictioneer-settings-general-group',
-			'sanitize_callback' => 'fictioneer_sanitize_settings_checkbox',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable Font Awesome integration', 'fictioneer' ),
       'default' => false
     )

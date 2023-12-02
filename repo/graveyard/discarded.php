@@ -694,7 +694,7 @@ function fictioneer_delete_null_option( $option, $old_value, $value ) {
     delete_option( $option );
   }
 }
-add_action( 'updated_option', 'fictioneer_delete_null_option', 20, 3 );
+// add_action( 'updated_option', 'fictioneer_delete_null_option', 20, 3 );
 
 // =============================================================================
 // FILTER SEARCH QUERY
