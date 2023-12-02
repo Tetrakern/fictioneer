@@ -36,7 +36,7 @@ if (
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" class="post <?php if ( ! $nested ) echo 'padding-left padding-right'; ?>">
+<article id="post-<?php echo $post_id; ?>" class="post <?php if ( ! $nested ) echo 'padding-left padding-right'; ?>">
 
   <header class="post__header">
     <h2 class="post__title"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
