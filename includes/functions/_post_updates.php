@@ -121,6 +121,12 @@ add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
  */
 
 function fictioneer_get_story_changelog( $story_id ) {
+  $story_id = absint( $story_id );
+
+  if ( empty( $story_id ) ) {
+    return [];
+  }
+
   // Setup
   $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
   $changelog = is_array( $changelog ) ? $changelog : [];
