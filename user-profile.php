@@ -36,10 +36,11 @@ if ( ! is_user_logged_in() ) {
 }
 
 // Setup
+$post_id = get_the_ID();
 $current_user = wp_get_current_user();
 $title = trim( get_the_title() );
 $title = empty( $title ) ? __( 'User Profile', 'fictioneer' ) : $title;
-$this_breadcrumb = [$title, get_the_permalink()];
+$this_breadcrumb = [ $title, get_the_permalink() ];
 
 // Flags
 $is_admin = fictioneer_is_admin( $current_user->ID );
@@ -67,7 +68,7 @@ $hook_args = array(
   <div class="main__wrapper">
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+    <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
 
       <section class="singular__content content-section profile__content">
         <?php do_action( 'fictioneer_account_content', $hook_args ); ?>
@@ -81,7 +82,7 @@ $hook_args = array(
   // Footer arguments
   $footer_args = array(
     'post_type' => 'page',
-    'post_id' => get_the_ID(),
+    'post_id' => $post_id,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )
