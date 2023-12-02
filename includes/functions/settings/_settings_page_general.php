@@ -46,7 +46,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_maintenance_mode',
                     __( 'Locks down the site with a maintenance notice.', 'fictioneer' )
                   );
@@ -55,7 +55,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_light_mode_as_default',
                     __( 'Overridden by personal site settings.', 'fictioneer' )
                   );
@@ -64,7 +64,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_authors',
                     __( 'When you have multiple publishing authors.', 'fictioneer' )
                   );
@@ -73,7 +73,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_full_post_content',
                     __( 'You can still use the [More] block for shortened previews.', 'fictioneer' )
                   );
@@ -82,7 +82,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_contact_forms',
                     __( 'Emergency stop with an error notice.', 'fictioneer' )
                   );
@@ -117,15 +117,15 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_system_email_address', 'email' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_system_email_address', 'email' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_system_email_name' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_system_email_name' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_textarea( 'fictioneer_contact_email_addresses', '205px' ); ?>
+                <?php fictioneer_settings_textarea( 'fictioneer_contact_email_addresses', '205px' ); ?>
               </div>
 
             </div>
@@ -143,7 +143,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_hide_chapter_icons',
                     __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )
                   );
@@ -152,7 +152,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_groups',
                     __( 'Display chapters in groups on story pages (if set).', 'fictioneer' )
                   );
@@ -161,7 +161,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_chapter_collapsing',
                     __( 'Do not collapse long chapter lists.', 'fictioneer' )
                   );
@@ -170,7 +170,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_appending',
                     __( 'Only once when the chapter is first saved.', 'fictioneer' )
                   );
@@ -179,7 +179,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_limit_chapter_stories_by_author',
                     __( 'Also disables cross-posting as guest author.', 'fictioneer' )
                   );
@@ -196,7 +196,7 @@
 
               <div class="fictioneer-card__row <?php echo $changelog_classes; ?>">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_show_story_changelog',
                     __( 'Opens modal with timestamped chapter changes.', 'fictioneer' )
                   );
@@ -226,19 +226,19 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_taxonomies_on_story_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_taxonomies_on_story_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_taxonomies_on_chapter_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_taxonomies_on_chapter_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_taxonomies_on_recommendation_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_taxonomies_on_recommendation_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_taxonomies_on_collection_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_taxonomies_on_collection_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
@@ -246,19 +246,19 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_show_tags_on_story_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_show_tags_on_story_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_show_tags_on_chapter_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_show_tags_on_chapter_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_show_tags_on_recommendation_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_show_tags_on_recommendation_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_show_tags_on_collection_cards' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_show_tags_on_collection_cards' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
@@ -266,15 +266,15 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_taxonomies_on_pages' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_taxonomies_on_pages' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_tags_on_pages' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_tags_on_pages' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_hide_content_warnings_on_pages' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_content_warnings_on_pages' ); ?>
               </div>
 
             </div>
@@ -291,35 +291,35 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_user_profile_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_user_profile_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_bookmarks_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_bookmarks_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_stories_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_stories_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_chapters_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_chapters_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_recommendations_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_recommendations_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_collections_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_collections_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_bookshelf_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_bookshelf_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_page_assignment( 'fictioneer_404_page' ); ?>
+                <?php fictioneer_settings_page_assignment( 'fictioneer_404_page' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
@@ -337,7 +337,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_storygraph_api',
                     __( 'Reach a larger audience by allowing external services to index and search your stories (meta data only).', 'fictioneer' )
                   );
@@ -346,7 +346,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_oauth',
                     sprintf(
                       __( 'Register/Login with social media accounts. This requires you to <a href="%s" target="_blank">set up an application</a> for each service provider.', 'fictioneer' ),
@@ -358,7 +358,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_lightbox',
                     __( 'Enlarge images in floating container on click.', 'fictioneer' )
                   );
@@ -367,7 +367,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_bookmarks',
                     __( 'Bookmark paragraphs in chapters. No account needed.', 'fictioneer' )
                   );
@@ -376,7 +376,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_follows',
                     __( 'Follow stories and get on-site alerts for updates.', 'fictioneer' )
                   );
@@ -385,7 +385,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_checkmarks',
                     __( 'Mark chapters and stories as "read".', 'fictioneer' )
                   );
@@ -394,7 +394,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_reminders',
                     __( 'Remember stories to be "read later".', 'fictioneer' )
                   );
@@ -403,7 +403,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_suggestions',
                     __( 'Suggest color-coded text changes in the comments.', 'fictioneer' )
                   );
@@ -412,7 +412,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_theme_rss',
                     __( 'Replace the default WordPress RSS feeds with theme feeds built for publishing your stories and chapters.', 'fictioneer' )
                   );
@@ -421,7 +421,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_seo',
                     __( 'Open Graph images, chat embeds, meta tags, and schema graphs for rich snippets. Incompatible with SEO plugins.', 'fictioneer' )
                   );
@@ -430,7 +430,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_sitemap',
                     __( 'Customized sitemap for search engines to crawl. Respects unlisted flags and custom post types.', 'fictioneer' )
                   );
@@ -439,7 +439,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_tts',
                     __( 'Sometimes wonky browser-based text-to-speech engine. Extend and availability depends on the browser and OS.', 'fictioneer' )
                   );
@@ -448,7 +448,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_epubs',
                     __( 'Automatically generated ePUBs. Can take a while and may fail due to non-conform content or excessive size. You can alternatively upload manually created ebooks as well.', 'fictioneer' )
                   );
@@ -470,7 +470,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_commenting',
                     __( 'Still shows the current comments.', 'fictioneer' )
                   );
@@ -479,7 +479,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_require_js_to_comment',
                     __( 'Simple but effective spam protection.', 'fictioneer' )
                   );
@@ -503,7 +503,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comment_submit',
                     __( 'Does not reload the page on submit.', 'fictioneer' )
                   );
@@ -512,7 +512,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comment_moderation',
                     __( 'Moderation actions directly in the comment section.', 'fictioneer' )
                   );
@@ -521,7 +521,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_fast_ajax_comments',
                     sprintf(
                       __( 'Accelerate AJAX comment requests by skipping plugins and theme initialization. Actions and filters will be ignored unless applied by core or a <a href="%s" target="_blank">must-use plugin</a>.', 'fictioneer' ),
@@ -533,7 +533,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_comment_toolbar',
                     __( 'Quick buttons to wrap text selection in BBCodes.', 'fictioneer' )
                   );
@@ -542,7 +542,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_custom_badges',
                     __( 'Assign custom badges (but users can disable them).', 'fictioneer' )
                   );
@@ -551,7 +551,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_patreon_badges',
                     sprintf(
                       __( 'Show supporter badge for the <a href="%s">linked Patreon client</a>. This only works for the owner of the linked client. You cannot add campaigns for individual authors.', 'fictioneer' ),
@@ -562,12 +562,12 @@
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--checkbox-inset">
-                <?php fictioneer_text_input( 'fictioneer_patreon_label' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_label' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_comment_notifications',
                     __( 'Notify commenters about replies via email (if provided).', 'fictioneer' )
                   );
@@ -576,7 +576,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_sticky_comments',
                     __( 'Always on top of the first page.', 'fictioneer' )
                   );
@@ -585,7 +585,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_private_commenting',
                     __( 'Private comments are invisible to the public.', 'fictioneer' )
                   );
@@ -594,7 +594,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_comment_reporting',
                     __( 'Logged-in users can report comments via flag button.', 'fictioneer' )
                   );
@@ -626,7 +626,7 @@
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_textarea( 'fictioneer_comments_notice', '214px' ); ?>
+                <?php fictioneer_settings_textarea( 'fictioneer_comments_notice', '214px' ); ?>
               </div>
 
             </div>
@@ -640,7 +640,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_heartbeat',
                     __( 'No more continuous requests for near real-time updates and autosaves, which can strain the server.', 'fictioneer' )
                   );
@@ -649,7 +649,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_remove_head_clutter',
                     __( 'Less meta tags, scripts, and styles in the &#60;head&#62;.', 'fictioneer' )
                   );
@@ -658,7 +658,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_remove_wp_svg_filters',
                     __( 'If not used, these are just clutter in the &#60;body&#62;. This will prevent duotone filters from working.', 'fictioneer' )
                   );
@@ -667,7 +667,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_reduce_admin_bar',
                     __( 'Less menu items, links, and icons in the admin bar.', 'fictioneer' )
                   );
@@ -676,7 +676,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_all_widgets',
                     __( 'The theme does not use widgets by default and removing them slightly boosts performance.', 'fictioneer' )
                   );
@@ -685,7 +685,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_bundle_stylesheets',
                     __( 'Faster if HTTP/2 (+) is not available to load multiple smaller files in parallel, but increases the initial payload.', 'fictioneer' )
                   );
@@ -703,7 +703,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_do_not_save_comment_ip',
                     __( 'IP addresses are personal data.', 'fictioneer' )
                   );
@@ -712,7 +712,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_restrict_rest_api',
                     __( 'Disables API for guests and low-permission users.', 'fictioneer' )
                   );
@@ -721,7 +721,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_rate_limits',
                     sprintf(
                       __( 'Simple session-based rate limiting, allowing %s requests per minute for selected actions (per action).', 'fictioneer' ),
@@ -733,7 +733,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_application_passwords',
                     __( 'If you do not need them, you should disable them.', 'fictioneer' )
                   );
@@ -742,7 +742,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_logout_redirects_home',
                     __( 'Prevents users from ending up on the login page.', 'fictioneer' )
                   );
@@ -751,7 +751,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_consent_wrappers',
                     __( 'External content not loaded until deliberately clicked.', 'fictioneer' )
                   );
@@ -760,7 +760,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_see_some_evil',
                     __( 'Sends an admin email if suspicious strings are found, which could be an attempted attack or <strong>false positive.</strong>', 'fictioneer' )
                   );
@@ -769,7 +769,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_cookie_banner',
                     __( 'Shows a generic cookie consent banner and activates the <code>fictioneer_get_consent()</code> theme function that returns either false, "necessary", or "full".', 'fictioneer' )
                   );
@@ -817,7 +817,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_properties',
                     __( 'Only do this if you define everything yourself.', 'fictioneer' )
                   );
@@ -826,7 +826,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_font_awesome',
                     __( 'Only do this if you integrate it yourself.', 'fictioneer' )
                   );
@@ -835,7 +835,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_jquery_migrate',
                     __( 'Some older plugins might require this.', 'fictioneer' )
                   );
@@ -844,7 +844,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_purge_all_caches',
                     __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )
                   );
@@ -853,7 +853,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_cache_compatibility',
                     __( 'Make the theme aware of unknown caching plugins.', 'fictioneer' )
                   );
@@ -862,7 +862,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_public_cache_compatibility',
                     __( 'For serving public caches to logged-in users. Exceptions for administrators and moderators are recommended.', 'fictioneer' )
                   );
@@ -871,7 +871,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_private_cache_compatibility',
                     __( 'For serving private caches to logged-in users. Also useful if you do not serve caches to logged-in users at all.', 'fictioneer' )
                   );
@@ -880,7 +880,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_all_blocks',
                     __( 'No guarantee these blocks work with the theme.', 'fictioneer' )
                   );
@@ -889,7 +889,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_all_block_styles',
                     __( 'This might interfere with theme styles.', 'fictioneer' )
                   );
@@ -898,7 +898,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_advanced_meta_fields',
                     __( 'Additional options you most likely do not need.', 'fictioneer' )
                   );
@@ -907,7 +907,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_theme_logout',
                     __( 'Return to the default WordPress logout with nonce.', 'fictioneer' )
                   );
@@ -916,7 +916,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comment_form',
                     __( 'Load the comment form via AJAX to circumvent caching.', 'fictioneer' )
                   );
@@ -925,7 +925,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_comments',
                     __( 'Load the comment section and form via AJAX. More server work but circumvents caching.', 'fictioneer' )
                   );
@@ -934,7 +934,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_authentication',
                     __( 'Check for user login state after the page has been loaded to get around anonymizing caching strategies.', 'fictioneer' )
                   );
@@ -943,7 +943,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_theme_search',
                     __( 'Return to the default search query and form.', 'fictioneer' )
                   );
@@ -952,7 +952,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_comment_bbcodes',
                     __( 'This will disable the comment toolbar as well.', 'fictioneer' )
                   );
@@ -961,7 +961,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_comment_callback',
                     __( 'Return to the default WordPress markup.', 'fictioneer' )
                   );
@@ -970,7 +970,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_comment_query',
                     __( 'Return to the default WordPress query.', 'fictioneer' )
                   );
@@ -979,7 +979,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_comment_form',
                     __( 'Return to the default WordPress form.', 'fictioneer' )
                   );
@@ -988,7 +988,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_comment_pagination',
                     __( 'Return to the default WordPress pagination (no-AJAX).', 'fictioneer' )
                   );
@@ -1005,31 +1005,31 @@
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_facebook_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_facebook_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_twitter_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_twitter_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_tumblr_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_tumblr_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_reddit_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_reddit_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_mastodon_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_mastodon_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_telegram_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_telegram_share' ); ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_label_checkbox( 'fictioneer_disable_whatsapp_share' ); ?>
+                <?php fictioneer_settings_label_checkbox( 'fictioneer_disable_whatsapp_share' ); ?>
               </div>
 
             </div>
@@ -1045,7 +1045,7 @@
 
               <div class="fictioneer-card__row">
                 <?php
-                  fictioneer_label_checkbox(
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_delete_theme_options_on_deactivation',
                     __( 'This will also remove all theme-related comment and user meta data, such as bookmarks or follows. Stories, chapters, collections, and recommendations remain, but you will need to register their custom post types to access them.', 'fictioneer' )
                   );

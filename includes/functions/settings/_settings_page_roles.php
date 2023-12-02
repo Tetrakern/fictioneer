@@ -257,7 +257,7 @@ $current_role = $roles[ $current_role_slug ];
       <div class="fictioneer-columns fictioneer-columns--two-columns">
         <?php
           foreach ( $all_caps as $caps ) {
-            fictioneer_admin_capability_card( $caps[0], $caps[1], $current_role );
+            fictioneer_settings_capability_card( $caps[0], $caps[1], $current_role );
           }
         ?>
       </div>

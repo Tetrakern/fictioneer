@@ -10,7 +10,7 @@ require_once( '_settings_ajax.php' );
 require_once( '_settings_actions.php' );
 
 // =============================================================================
-// ADD ADMIN MENU
+// ADD ADMIN MENUS
 // =============================================================================
 
 /**
@@ -188,56 +188,6 @@ function fictioneer_save_screen_options( $status, $option, $value ) {
 add_filter( 'set-screen-option', 'fictioneer_save_screen_options', 10, 3 );
 
 // =============================================================================
-// ADMIN MENU PAGINATION
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_admin_pagination' ) ) {
-  /**
-   * Pagination on admin page
-   *
-   * @since Fictioneer 4.7
-   *
-   * @param int    $per_page  Items per page.
-   * @param int    $max_pages Total number of pages.
-	 * @param int    $max_items Total number of items.
-	 * @param string $page_var  Pagination query variable. Default 'paged'.
-   */
-
-	function fictioneer_admin_pagination( $per_page, $max_pages, $max_items = false, $page_var = 'paged' ) {
-		$current_page = isset( $_GET[ $page_var ] ) ? absint( $_GET[ $page_var ] ) : 1;
-		$previous_page = max( $current_page - 1, 0 );
-		$next_page = $current_page + 1;
-		$page_links = [];
-
-		if ( $previous_page > 0 ) {
-			$page_links[] = '<a class="first-page button" href="' . get_pagenum_link( 0 ) . '"><span>&laquo;</span></a>';
-			$page_links[] = '<a class="prev-page button" href="' . get_pagenum_link( $previous_page ) . '"><span>&lsaquo;</span></a>';
-		} else {
-			$page_links[] = '<span class="button disabled">&laquo;</span>';
-			$page_links[] = '<span class="button disabled">&lsaquo;</span>';
-		}
-
-		$page_links[] = '<span class="current-of-total">' . sprintf( _x( '%1$s of %2$s', 'Pagination', 'fictioneer' ), $current_page, $max_pages ) . '</span>';
-
-		if ( $next_page <= $max_pages ) {
-			$page_links[] = '<a class="next-page button" href="' . get_pagenum_link( $next_page ) . '"><span>&rsaquo;</span></a>';
-			$page_links[] = '<a class="last-page button" href="' . get_pagenum_link( $max_pages ) . '"><span>&raquo;</span></a>';
-		} else {
-			$page_links[] = '<span class="button disabled">&rsaquo;</span>';
-			$page_links[] = '<span class="button disabled">&raquo;</span>';
-		}
-		// Start HTML ---> ?>
-		<div class='fictioneer-pagination'>
-			<?php if ( $max_items ) : ?>
-				<span class="number-of-items"><?php printf( _n( '%s item', '%s items', $max_items, 'fictioneer' ), $max_items ); ?></span>
-			<?php endif; ?>
-			<span class="pages"><?php echo implode( ' ', $page_links ); ?></span>
-		</div>
-		<?php // <--- End HTML
-	}
-}
-
-// =============================================================================
 // SETTINGS PAGE HEADER
 // =============================================================================
 
@@ -320,7 +270,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 }
 
 // =============================================================================
-// ADMIN MENU PAGE HTML
+// SETTINGS MENU PAGE HTML
 // =============================================================================
 
 /**
@@ -414,7 +364,7 @@ function fictioneer_settings_logs() {
 }
 
 // =============================================================================
-// ADMIN CONTENT HELPERS
+// SETTINGS CONTENT HELPERS
 // =============================================================================
 
 /**
@@ -427,7 +377,7 @@ function fictioneer_settings_logs() {
  * @param array  $role   The WP_Role or equivalent array for the role being checked.
  */
 
-function fictioneer_admin_capability_card( $title, $caps, $role ) {
+function fictioneer_settings_capability_card( $title, $caps, $role ) {
 	// Start HTML ---> ?>
 	<div class="fictioneer-card">
 		<div class="fictioneer-card__wrapper">
@@ -450,7 +400,7 @@ function fictioneer_admin_capability_card( $title, $caps, $role ) {
 							$name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
 							$name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
 
-							fictioneer_capability_checkbox( $cap, $name, $set );
+							fictioneer_settings_capability_checkbox( $cap, $name, $set );
 						}
 					?>
 				</div>
@@ -470,7 +420,7 @@ function fictioneer_admin_capability_card( $title, $caps, $role ) {
  * @param bool   $set   Whether the checkbox should be checked or not.
  */
 
-function fictioneer_capability_checkbox( $cap, $name, $set ) {
+function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
   // Start HTML ---> ?>
   <label class="fictioneer-capability-checkbox">
     <input type="hidden" name="caps[<?php echo $cap; ?>]" value="0">
@@ -489,7 +439,7 @@ function fictioneer_capability_checkbox( $cap, $name, $set ) {
  * @param string $sub_label  Optional. The description below the label.
  */
 
-function fictioneer_label_checkbox( $option, $sub_label = null ) {
+function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
 	// Start HTML ---> ?>
 	<label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
 		<input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
@@ -512,7 +462,7 @@ function fictioneer_label_checkbox( $option, $sub_label = null ) {
  * @param string $type    Optional. The field type, default 'text'.
  */
 
-function fictioneer_text_input( $option, $type = 'text' ) {
+function fictioneer_settings_text_input( $option, $type = 'text' ) {
 	// Start HTML ---> ?>
 	<label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
 		<input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
@@ -530,7 +480,7 @@ function fictioneer_text_input( $option, $type = 'text' ) {
  * @param string $height  Optional. The height with unit, default 'auto'.
  */
 
-function fictioneer_textarea( $option, $height = 'auto' ) {
+function fictioneer_settings_textarea( $option, $height = 'auto' ) {
 	// Start HTML ---> ?>
 	<textarea class="fictioneer-textarea" name="<?php echo $option; ?>" id="<?php echo $option; ?>" rows="4" style="height: <?php echo $height; ?>;"><?php echo get_option( $option ); ?></textarea>
 	<p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
@@ -545,7 +495,7 @@ function fictioneer_textarea( $option, $height = 'auto' ) {
  * @param string $option  The name of the setting option.
  */
 
-function fictioneer_page_assignment( $option ) {
+function fictioneer_settings_page_assignment( $option ) {
 	wp_dropdown_pages(
 		array(
 			'name' => $option,

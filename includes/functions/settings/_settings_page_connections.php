@@ -25,15 +25,15 @@
 						<div class="fictioneer-card__content">
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_client_id' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_client_id' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_client_secret' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_client_secret' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_invite_link' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_invite_link' ); ?>
               </div>
 
 							<hr>
@@ -43,15 +43,15 @@
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_channel_comments_webhook' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_comments_webhook' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_channel_stories_webhook' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_stories_webhook' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_discord_channel_chapters_webhook' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_chapters_webhook' ); ?>
               </div>
 
 						</div>
@@ -64,11 +64,11 @@
 						<div class="fictioneer-card__content">
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_twitch_client_id' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_twitch_client_id' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_twitch_client_secret' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_twitch_client_secret' ); ?>
               </div>
 
 						</div>
@@ -81,11 +81,11 @@
 						<div class="fictioneer-card__content">
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_google_client_id' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_google_client_id' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_google_client_secret' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_google_client_secret' ); ?>
               </div>
 
 						</div>
@@ -98,11 +98,11 @@
 						<div class="fictioneer-card__content">
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_patreon_client_id' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_id' ); ?>
               </div>
 
 							<div class="fictioneer-card__row">
-                <?php fictioneer_text_input( 'fictioneer_patreon_client_secret' ); ?>
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_secret' ); ?>
               </div>
 
 						</div>
