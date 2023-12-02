@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( get_the_ID() );
+$title = fictioneer_get_safe_title( $post->ID );
 $show_type = $args['show_type'] ?? false;
 $comments_number = get_comments_number();
 

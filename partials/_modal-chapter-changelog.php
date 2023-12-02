@@ -14,7 +14,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$changelog = array_reverse( fictioneer_get_story_changelog( get_the_ID() ) );
+$changelog = array_reverse( fictioneer_get_story_changelog( $post->ID ) );
 $output = '';
 
 // Prepare changelog

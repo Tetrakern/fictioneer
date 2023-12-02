@@ -1512,13 +1512,14 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
   function fictioneer_echo_card( $args = [] ) {
     // Setup
     $type = get_post_type();
+    $post_id = get_the_ID();
 
     // Echo correct card by post type
     switch ( $type ) {
       case 'fcn_chapter':
         if (
-          get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ||
-          get_post_meta( get_the_ID(), 'fictioneer_chapter_no_chapter', true )
+          get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ||
+          get_post_meta( $post_id, 'fictioneer_chapter_no_chapter', true )
         ) {
           get_template_part( 'partials/_card-hidden', null, $args );
         } else {
@@ -1526,7 +1527,7 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
         }
         break;
       case 'fcn_story':
-        if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
+        if ( get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
           get_template_part( 'partials/_card-hidden', null, $args );
         } else {
           get_template_part( 'partials/_card-story', null, $args );

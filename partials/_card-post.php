@@ -17,14 +17,14 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( get_the_ID() );
+$title = fictioneer_get_safe_title( $post->ID );
 $tags = get_the_tags();
-$categories = wp_get_post_categories( get_the_ID() );
+$categories = wp_get_post_categories( $post->ID );
 $show_type = $args['show_type'] ?? false;
 
 ?>
 
-<li id="post-card-<?php the_ID(); ?>" class="card">
+<li id="post-card-<?php echo $post->ID; ?>" class="card">
   <div class="card__body polygon">
 
     <div class="card__header _large">

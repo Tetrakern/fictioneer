@@ -11,7 +11,7 @@
  * @see chapters.php
  *
  * @param int        $args['current_page']  Current page number of pagination or 1.
- * @param int        $args['post_id']       The post ID.
+ * @param int        $args['post_id']       The post ID of the page.
  * @param WP_Query   $args['chapters']      Paginated query of all published chapters.
  * @param string     $args['queried_type']  The queried post type ('fcn_chapter').
  * @param array      $args['query_args']    The query arguments used.

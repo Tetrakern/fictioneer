@@ -78,7 +78,7 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_statistics',
  * @see stories.php
  *
  * @param int        $args['current_page']  Current page number of pagination or 1.
- * @param int        $args['post_id']       The post ID.
+ * @param int        $args['post_id']       The post ID of the page.
  * @param WP_Query   $args['stories']       Paginated query of all published stories.
  * @param string     $args['queried_type']  The queried post type ('fcn_story').
  * @param array      $args['query_args']    The query arguments used.
@@ -197,7 +197,7 @@ function fictioneer_story_tags_and_warnings( $args ) {
   // Abort conditions...
   $tags_shown = $args['story_data']['tags'] &&
     ! get_option( 'fictioneer_hide_tags_on_pages' ) &&
-    ! get_post_meta( get_the_ID(), 'fictioneer_story_no_tags', true );
+    ! get_post_meta( $args['story_id'], 'fictioneer_story_no_tags', true );
   $warnings_shown = $args['story_data']['warnings'] && ! get_option( 'fictioneer_hide_content_warnings_on_pages' );
 
   if ( ! $tags_shown && ! $warnings_shown ) {

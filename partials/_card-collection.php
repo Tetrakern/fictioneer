@@ -19,10 +19,10 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$list_title = trim( get_post_meta( get_the_ID(), 'fictioneer_collection_list_title', true ) );
-$title = empty( $list_title ) ? fictioneer_get_safe_title( get_the_ID() ) : $list_title;
-$description = fictioneer_get_content_field( 'fictioneer_collection_description', get_the_ID() );
-$items = get_post_meta( get_the_ID(), 'fictioneer_collection_items', true );
+$list_title = trim( get_post_meta( $post->ID, 'fictioneer_collection_list_title', true ) );
+$title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
+$description = fictioneer_get_content_field( 'fictioneer_collection_description', $post->ID );
+$items = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
 $story_count = 0;
 $chapter_count = 0;
