@@ -1002,6 +1002,7 @@ function fictioneer_tools_optimize_database() {
     DELETE FROM $wpdb->options
     WHERE option_name LIKE 'fictioneer_%'
     AND (option_value IS NULL OR option_value = '')
+    AND autoload = 'no'
   ");
 
   // Total rows
@@ -1086,6 +1087,7 @@ function fictioneer_tools_optimize_database_preview() {
     SELECT COUNT(*) FROM $wpdb->options
     WHERE option_name LIKE 'fictioneer_%'
     AND (option_value IS NULL OR option_value = '')
+    AND autoload = 'no'
   ");
 
   // Redirect
