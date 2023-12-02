@@ -771,7 +771,7 @@ Assuming you have set the **Header Style** to **top** or **split**, the followin
 
 ```css
 :root {
-  --layout-top-header-background-color: rgb(43 48 59 / 70%); /* Example RGB color with 70% opacity. */
+  --layout-top-header-background-color: hsl(calc(221deg + var(--hue-rotate)) calc(16% * var(--saturation)) clamp(10%, 20% * var(--darken), 60%) / 70%); /* Example dynamic HSL color with 70% opacity; rgb(43 48 59 / 70%). */
   --navigation-background-sticky-start-opacity: 1;
 }
 
