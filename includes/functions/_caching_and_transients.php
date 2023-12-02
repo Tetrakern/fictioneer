@@ -536,8 +536,13 @@ function fictioneer_get_relationship_registry() {
   $nodes = ['ref_posts', 'ref_chapters', 'ref_stories', 'ref_recommendations', 'always'];
 
   foreach ( $nodes as $node ) {
-    if ( ! isset( $registry[ $node ] ) ) $registry[ $node ] = [];
-    if ( ! is_array( $registry[ $node ] ) ) $registry[ $node ]  = [];
+    if ( ! isset( $registry[ $node ] ) ) {
+      $registry[ $node ] = [];
+    }
+
+    if ( ! is_array( $registry[ $node ] ) ) {
+      $registry[ $node ]  = [];
+    }
   }
 
   // Return

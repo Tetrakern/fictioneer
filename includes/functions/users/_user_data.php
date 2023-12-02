@@ -62,7 +62,9 @@ function fictioneer_add_classes_to_body( $classes ) {
 
   // Add classes to defaults
   foreach ( $includes as $class => $test )  {
-		if ( $test ) $classes[ $class ] = $class;
+		if ( $test ) {
+      $classes[ $class ] = $class;
+    }
 	}
 
   // Return classes

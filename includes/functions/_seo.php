@@ -648,10 +648,14 @@ function fictioneer_output_head_seo() {
   }
 
   // Special Case: Archives
-  if ( is_archive() ) $canonical_url = home_url( $wp->request );
+  if ( is_archive() ) {
+    $canonical_url = home_url( $wp->request );
+  }
 
   // Special Case: Search
-  if ( is_search() ) $canonical_url = add_query_arg( 's', '', home_url( $wp->request ) );
+  if ( is_search() ) {
+    $canonical_url = add_query_arg( 's', '', home_url( $wp->request ) );
+  }
 
   // Start HTML ---> ?>
   <link rel="canonical" href="<?php echo $canonical_url; ?>">

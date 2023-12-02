@@ -640,15 +640,31 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 
     // Look for story support links if none provided by post
     if ( ! empty( $story_id ) ) {
-      if ( empty( $patreon_link ) ) $patreon_link = get_post_meta( $story_id, 'fictioneer_patreon_link', true );
-      if ( empty( $kofi_link ) ) $kofi_link = get_post_meta( $story_id, 'fictioneer_kofi_link', true );
-      if ( empty( $subscribestar_link ) ) $subscribestar_link = get_post_meta( $story_id, 'fictioneer_subscribestar_link', true );
+      if ( empty( $patreon_link ) ) {
+        $patreon_link = get_post_meta( $story_id, 'fictioneer_patreon_link', true );
+      }
+
+      if ( empty( $kofi_link ) ) {
+        $kofi_link = get_post_meta( $story_id, 'fictioneer_kofi_link', true );
+      }
+
+      if ( empty( $subscribestar_link ) ) {
+        $subscribestar_link = get_post_meta( $story_id, 'fictioneer_subscribestar_link', true );
+      }
     }
 
     // Look for author support links if none provided by post or story
-    if ( empty( $patreon_link ) ) $patreon_link = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
-    if ( empty( $kofi_link ) ) $kofi_link = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
-    if ( empty( $subscribestar_link ) ) $subscribestar_link = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
+    if ( empty( $patreon_link ) ) {
+      $patreon_link = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
+    }
+
+    if ( empty( $kofi_link ) ) {
+      $kofi_link = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
+    }
+
+    if ( empty( $subscribestar_link ) ) {
+      $subscribestar_link = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
+    }
 
     // Get right RSS link if not provided
     if ( ! $feed && get_option( 'fictioneer_enable_theme_rss' ) ) {
