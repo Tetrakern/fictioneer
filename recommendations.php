@@ -82,7 +82,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
         );
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article recommendations__article padding-top padding-left padding-right padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article recommendations__article padding-top padding-left padding-right padding-bottom">
 
         <?php if ( ! empty( $title ) ) : ?>
           <header class="singular__header recommendations__header">

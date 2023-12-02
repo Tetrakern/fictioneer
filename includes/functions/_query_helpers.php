@@ -24,7 +24,7 @@ function fictioneer_allowed_orderby() {
 
 if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
   /**
-   * Returns the query and HTML list items for a post type.
+   * Returns the query and HTML list items for a post type
    *
    * @since Fictioneer 5.0
    *
@@ -131,10 +131,11 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
       while ( $query->have_posts() ) {
         $query->the_post();
+        $card_post_id = get_the_ID();
 
         switch ( $post_type ) {
           case 'fcn_story':
-            if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
+            if ( get_post_meta( $card_post_id, 'fictioneer_story_hidden', true ) ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {
               get_template_part( $card_partial, null, $the_card_args );
@@ -142,8 +143,8 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             break;
           case 'fcn_chapter':
             if (
-              get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ||
-              get_post_meta( get_the_ID(), 'fictioneer_chapter_no_chapter', true )
+              get_post_meta( $card_post_id, 'fictioneer_chapter_hidden', true ) ||
+              get_post_meta( $card_post_id, 'fictioneer_chapter_no_chapter', true )
             ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {

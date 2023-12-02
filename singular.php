@@ -11,6 +11,9 @@
 
 <?php
 
+// Setup
+$post_id = get_the_ID();
+
 // Header
 get_header();
 
@@ -27,11 +30,11 @@ get_header();
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( get_the_ID() );
+        $title = fictioneer_get_safe_title( $post_id );
         $this_breadcrumb = [$title, get_the_permalink()];
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
 
         <header class="singular__header">
           <h1 class="singular__title"><?php echo $title; ?></h1>
@@ -59,7 +62,7 @@ get_header();
   // Footer arguments
   $footer_args = array(
     'post_type' => 'page',
-    'post_id' => get_the_ID(),
+    'post_id' => $post_id,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )

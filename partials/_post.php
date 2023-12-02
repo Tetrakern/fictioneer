@@ -20,7 +20,8 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( get_the_ID() );
+$post_id = get_the_ID();
+$title = fictioneer_get_safe_title( $post_id );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 $nested = $args['nested'] ?? false;
 
@@ -47,10 +48,10 @@ if (
   <?php if ( has_action( 'fictioneer_blog_posts_footers_left' ) || has_action( 'fictioneer_blog_posts_footers_right' ) ) : ?>
     <footer class="post__footer">
       <div class="post__footer-box post__footer-left">
-        <?php do_action( 'fictioneer_blog_posts_footers_left', get_the_ID() ); ?>
+        <?php do_action( 'fictioneer_blog_posts_footers_left', $post_id ); ?>
       </div>
       <div class="post__footer-box post__footer-right">
-        <?php do_action( 'fictioneer_blog_posts_footers_right', get_the_ID() ); ?>
+        <?php do_action( 'fictioneer_blog_posts_footers_right', $post_id ); ?>
       </div>
     </footer>
   <?php endif; ?>

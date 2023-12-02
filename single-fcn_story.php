@@ -41,7 +41,7 @@ get_header( null, $header_args );
         $story_id = $post->ID;
         $story = fictioneer_get_story_data( $post->ID );
         $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
-        $this_breadcrumb = [$story['title'], get_the_permalink()];
+        $this_breadcrumb = [ $story['title'], get_the_permalink() ];
         $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post->ID );
 
         // Flags

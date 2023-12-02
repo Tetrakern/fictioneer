@@ -30,7 +30,7 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
       <?php
         // Setup
         $title = fictioneer_get_safe_title( $post->ID );
-        $this_breadcrumb = [$title, get_the_permalink()];
+        $this_breadcrumb = [ $title, get_the_permalink() ];
 
         // Arguments for hooks and templates/etc.
         $hook_args = array(

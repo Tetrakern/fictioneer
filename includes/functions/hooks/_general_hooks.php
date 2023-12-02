@@ -19,16 +19,20 @@ function fictioneer_add_fiction_css() {
    * removes any "<" for good measure since CSS does not use it.
    */
 
+  $post_id = get_the_ID();
   $custom_css = '';
-  $custom_css .= get_post_meta( get_the_ID(), 'fictioneer_custom_css', true );
+  $custom_css .= get_post_meta( $post_id, 'fictioneer_custom_css', true );
 
-  if ( get_post_type( get_the_ID() ) == 'fcn_story' ) {
-    $custom_css .= get_post_meta( get_the_ID(), 'fictioneer_story_css', true );
+  if ( get_post_type( $post_id ) == 'fcn_story' ) {
+    $custom_css .= get_post_meta( $post_id, 'fictioneer_story_css', true );
   }
 
-  if ( get_post_type( get_the_ID() ) == 'fcn_chapter' ) {
-    $story_id = get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true );
-    $custom_css .= get_post_meta( $story_id, 'fictioneer_story_css', true );
+  if ( get_post_type( $post_id ) == 'fcn_chapter' ) {
+    $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+
+    if ( ! empty( $story_id ) ) {
+      $custom_css .= get_post_meta( $story_id, 'fictioneer_story_css', true );
+    }
   }
 
   if ( ! empty( $custom_css ) && ! preg_match( '#</?\w+#', $custom_css ) ) {

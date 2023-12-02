@@ -132,6 +132,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
   remove_filter( 'cancel_comment_reply_link', '__return_empty_string' );
 
   // Setup
+  $post_id = get_the_ID();
   $close_bottom_container = is_user_logged_in() ? '' : '</div>';
   $is_ajax = get_option( 'fictioneer_enable_ajax_comment_form' ) || get_option( 'fictioneer_enable_ajax_comments' );
   $hidden = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'hidden' : '';
@@ -196,7 +197,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
   return sprintf(
     $close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div class="fictioneer-respond__form-actions-wrapper">' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
     $submit_button,
-    get_the_ID() ? get_comment_id_fields( get_the_ID() ) : ( $parent_field . $comment_post_id ),
+    $post_id ? get_comment_id_fields( $post_id ) : ( $parent_field . $comment_post_id ),
     preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
   );
 }

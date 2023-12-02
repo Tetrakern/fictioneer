@@ -15,6 +15,7 @@
 <?php
 
 // Setup
+$post_id = get_the_ID();
 $page = get_query_var( 'paged', 1 ) ?: 1; // Main query
 $order = array_intersect( [sanitize_key( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
 $order = reset( $order ) ?: 'desc';
@@ -39,7 +40,7 @@ $query_args = array (
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 
 // Filter query arguments
-$query_args = apply_filters( 'fictioneer_filter_collections_query_args', $query_args, get_the_ID() );
+$query_args = apply_filters( 'fictioneer_filter_collections_query_args', $query_args, $post_id );
 
 // Query collections
 $list_of_collections = new WP_Query( $query_args );
@@ -66,12 +67,12 @@ if ( function_exists( 'update_post_author_caches' ) ) {
         // Setup
         $title = trim( get_the_title() );
         $breadcrumb_name = empty( $title ) ? __( 'Collections', 'fictioneer' ) : $title;
-        $this_breadcrumb = [$breadcrumb_name, get_the_permalink()];
+        $this_breadcrumb = [ $breadcrumb_name, get_the_permalink() ];
 
         // Arguments for hooks and templates/etc.
         $hook_args = array(
           'current_page' => $page,
-          'post_id' => get_the_ID(),
+          'post_id' => $post_id,
           'collections' => $list_of_collections,
           'queried_type' => 'fcn_collection',
           'query_args' => $query_args,
@@ -81,7 +82,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
         );
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article collections__article padding-top padding-left padding-right padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article collections__article padding-top padding-left padding-right padding-bottom">
 
         <?php if ( ! empty( $title ) ) : ?>
           <header class="singular__header stories__header">
@@ -107,7 +108,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
   // Footer arguments
   $footer_args = array(
     'post_type' => 'page',
-    'post_id' => get_the_ID(),
+    'post_id' => $post_id,
     'current_page' => $page,
     'collections' => $list_of_collections,
     'breadcrumbs' => array(

@@ -16,6 +16,7 @@
 <?php
 
 // Setup
+$post_id = get_the_ID();
 $page = get_query_var( 'paged', 1 ) ?: 1; // Main query
 $order = array_intersect( [sanitize_key( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
 $order = reset( $order ) ?: 'desc';
@@ -57,7 +58,7 @@ if ( FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER && $orderby === 'modified' ) {
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 
 // Filter query arguments
-$query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, get_the_ID() );
+$query_args = apply_filters( 'fictioneer_filter_stories_query_args', $query_args, $post_id );
 
 // Query stories
 $list_of_stories = new WP_Query( $query_args );
@@ -99,7 +100,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
         );
       ?>
 
-      <article id="singular-<?php the_ID(); ?>" class="singular__article stories__article padding-top padding-left padding-right padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article stories__article padding-top padding-left padding-right padding-bottom">
 
         <?php if ( ! empty( $title ) ) : ?>
           <header class="singular__header stories__header">
@@ -128,7 +129,7 @@ if ( function_exists( 'update_post_author_caches' ) ) {
   // Footer arguments
   $footer_args = array(
     'post_type' => 'page',
-    'post_id' => $post->ID,
+    'post_id' => $post_id,
     'current_page' => $page,
     'stories' => $list_of_stories,
     'breadcrumbs' => array(

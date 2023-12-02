@@ -361,10 +361,10 @@ function fictioneer_output_rss( $post_id = null ) {
     $title = sprintf(
       _x( '%1$s - %2$s Chapters', 'Story Feed: [Site] - [Story] Chapters.', 'fictioneer' ),
       get_bloginfo( 'name' ),
-      get_the_title( get_the_ID() )
+      get_the_title( $post_id )
     );
 
-    $url = esc_url( add_query_arg( 'story_id', get_the_ID(), home_url( 'feed/rss-chapters' ) ) );
+    $url = esc_url( add_query_arg( 'story_id', $post_id, home_url( 'feed/rss-chapters' ) ) );
     $rss_link = '<link rel="alternate" type="application/rss+xml" title="' . $title . '" href="' . $url . '" />';
   }
 
