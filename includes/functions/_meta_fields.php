@@ -251,7 +251,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 
 function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] ) {
   // Setup
-  $selected = absint( get_post_meta( $post->ID, $meta_key, true ) );
+  $selected = get_post_meta( $post->ID, $meta_key, true );
   $selected = empty( $selected ) ? array_keys( $options )[0] : $selected;
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
