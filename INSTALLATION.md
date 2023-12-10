@@ -663,7 +663,11 @@ Lists all generated ePUBs with statistics, download links, and options to delete
 
 ### SEO Tab
 
-Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you can purge the cached meta data or schemas if that should become necessary.
+![ePUBs Settings Preview](repo/assets/settings_seo_preview.png?raw=true)
+
+Only available if you enable the SEO features and no (known) SEO plugin is running. Lists all generated Open Graph meta data and schemas used by search engines and social media embeds, created and cached when a post is first visited until modified or purged. Note that most page templates (besides list templates) and collections do not have schemas, appearing grayed out.
+
+Whether these services actually display the offered data is entirely up to them. You cannot force Google to show your custom description, for example. After all, you could write *anything* in there. This tab is mostly informative, but you can purge the cached meta data or schemas if that should become necessary.
 
 If you want to set up a default Open Graph image for search engine results and embeds, you can do that in the **Customizer** under **Site Identity**. This image will always be used if there is not a more specific one, like the thumbnail for posts.
 
