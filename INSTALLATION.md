@@ -592,11 +592,9 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
 * **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
 
-<br>
+### Roles Tab
 
 ![Roles Settings Preview](repo/assets/settings_roles_preview.jpg?raw=true)
-
-### Roles Tab
 
 The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain user groups. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. For reference, look at the default [WordPress capabilities](https://wordpress.org/documentation/article/roles-and-capabilities/).
 
@@ -636,11 +634,9 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
 
 </details>
 
-<br>
+### Connections Tab
 
 ![Connections Settings Preview](repo/assets/settings_connections_preview.jpg?raw=true)
-
-### Connections Tab
 
 Anything that connects with external service providers goes here, such as the Client ID and Secret for OAuth 2.0 applications. Please refer to respective tutorials on how to set them up and always, *always* keep those credentials confidential. If you enter a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) here, notifications about new comments will be sent directly into a channel on your server (leave free if you do not want that). This should be a hidden moderation channel because it will receive excerpts of private comments.
 
@@ -651,19 +647,15 @@ Anything that connects with external service providers goes here, such as the Cl
 
 The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. Note that the service providers can be picky, such as rejecting an URI that includes "www" if that is not actually part of your website’s address. Use the _exact_ string you see in your browser’s address bar. If the redirect returns 404, you usually need to flush your permalinks under **Settings > Permalinks** (just save).
 
-<br>
+### Phrases Tab
 
 ![Phrases Settings Preview](repo/assets/settings_phrases_preview.png?raw=true)
 
-### Phrases Tab
-
 Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin.
 
-<br>
+### ePUBs Tab
 
 ![ePUBs Settings Preview](repo/assets/settings_epubs_preview.jpg?raw=true)
-
-### ePUBs Tab
 
 Lists all generated ePUBs with statistics, download links, and options to delete them. File names are equal to the story’s `post_name`, which is the slug inside the permalink and *not* the title. They are cleaned of any special characters and are also used to query associated stories. If you change the permalink, they will no longer match and a new ePUB will be generated, leaving the old one orphaned. This is not terrible but takes up space.
 
