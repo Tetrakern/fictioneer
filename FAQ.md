@@ -14,7 +14,7 @@ Yes, you can use the theme for multiple authors. Just enable the option to "disp
 
 #### Q: Can this be an archive for user contributed content?
 
-Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grant random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities.
+Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grant random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities with a trustworthy team.
 
 WordPress is also not a performant choice to run community sites, requiring too many server resources. You will need a good host or your own hardware, plus caching and technical expertise. This is going to be a headache. But some people have already done it despite all warnings.
 
@@ -53,3 +53,15 @@ This has not been tested but most likely not.
 #### Q: Does the Jetpack plugin work with the theme?
 
 Partially, depending on what features you want. Anything affecting the layout (aside from Gutenberg blocks) may cause issues and will probably fit poorly into the style without custom adjustments. The comment form is working but disables several theme features. The post subscription feature will not work for stories, chapters, and any other custom post types — only posts, which is by design. Analytics and dashboard features should be fine, though.
+
+#### Q: What happened to Fictioneer version 1 to 4?
+
+They were never released or distributed, version 5 is the first public one.
+
+#### Q: Why do the OAuth links return a 404 error?
+
+After activating the feature, you need to flush the permalinks. You can do this under **Settings > Permalinks** by just saving, you do not need to change anything.
+
+#### Q: Can I use stories without chapters as oneshots?
+
+Nobody can stop you from doing that, but it is wrong. Stories do not have the same capabilities as chapters and the theme does not understand the concept. There will be no formatting options, bookmarks, text-to-speech, suggestions, comments, and so forth. SEO data and API responses may also be messed up. If you can live with that, go ahead.
