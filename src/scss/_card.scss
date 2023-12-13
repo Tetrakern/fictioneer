@@ -179,7 +179,7 @@
 
     &._article {
       flex: 0 0 auto;
-      margin: 0.75rem 0 .375rem;
+      margin-bottom: .375rem;
     }
 
     a {
@@ -296,6 +296,7 @@
 
     &._article {
       aspect-ratio: 3 / 1;
+      margin-bottom: 0.75rem;
     }
   }
 
