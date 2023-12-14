@@ -1,6 +1,8 @@
+@use 'sass:math';
+
 @function get_clamp($min, $max, $wmin, $wmax, $unit: 'vw') {
-  $vw: ($min - $max) / (($wmin / 100) - ($wmax / 100));
-  $offset: $min - $vw * ($wmin / 100);
+  $vw: math.div($min - $max, math.div($wmin, 100) - math.div($wmax, 100));
+  $offset: $min - $vw * math.div($wmin, 100);
   $operator: '';
 
   @if $offset > 0 {
@@ -18,8 +20,8 @@
   $tmax: $max * 16;
   $operator: '';
 
-  $vw: ($tmin - $tmax) / (($wmin / 100) - ($wmax / 100));
-  $offset: $tmin - $vw * ($wmin / 100);
+  $vw: math.div($tmin - $tmax, math.div($wmin, 100) - math.div($wmax, 100));
+  $offset: $tmin - $vw * math.div($wmin, 100);
 
   @if $offset > 0 {
     $operator: '+';
@@ -33,14 +35,14 @@
 
 @function hsl_code($deg, $s, $l, $a: false) {
   @if $a != false {
-    @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%) / #{$a})";
+    @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + math.div(100 - $l, 2)}%) / #{$a})";
   }
 
-  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%))";
+  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + math.div(100 - $l, 2)}%))";
 }
 
 @function hsl_code_free($deg, $s, $l) {
-  @return "calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + (100 - $l) / 2}%)";
+  @return "calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * var(--saturation)) clamp(#{$l * 0.5}%, #{$l}% * var(--darken), #{$l + math.div(100 - $l, 2)}%)";
 }
 
 @function hsl_font_code($deg, $s, $l) {
