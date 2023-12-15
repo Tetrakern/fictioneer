@@ -502,8 +502,12 @@ function fictioneer_ajax_edit_comment() {
   }
 
   // Update
-  $comment['comment_content'] = wp_kses_post( $_POST['content'] );
   $edit_time = time();
+  $comment['comment_content'] = wp_kses_post( $_POST['content'] );
+
+  if ( ! user_can( $user, 'unfiltered_html' ) ) {
+    $comment['comment_content'] = sanitize_textarea_field( $comment['comment_content'] );
+  }
 
   if ( wp_update_comment( $comment, true ) ) {
     // Get updated comment
