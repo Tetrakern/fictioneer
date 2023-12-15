@@ -181,8 +181,8 @@ function fictioneer_ajax_submit_contact_form() {
     $_SERVER['HTTP_USER_AGENT'] ?? ''
   );
 
-  // Only show error for keys in content, trash anything else as usual later.
-  // No need to tell someone his name or email address is blocked, etc.
+  // Only show error for keys in content, no need to tell
+  // someone his name or email address is blocked, etc.
   if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
     wp_send_json_error(
       array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )

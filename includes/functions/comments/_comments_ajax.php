@@ -310,8 +310,8 @@ function fictioneer_ajax_submit_comment() {
     $comment_data['comment_parent'] = absint( $_POST['parent_id'] );
   }
 
-  // Preemptively check for disallowed keys (Settings > Discussion)
-  if ( FICTIONEER_DISALLOWED_KEY_NOTICE ) {
+  // Check against disallow list (Settings > Discussion) if not admin
+  if ( ! fictioneer_is_admin( $user->ID ) ) {
     $offenders = fictioneer_check_comment_disallowed_list(
       $comment_data['author'] ?? '',
       $comment_data['email'] ?? '',
@@ -321,12 +321,14 @@ function fictioneer_ajax_submit_comment() {
       $_SERVER['HTTP_USER_AGENT'] ?? ''
     );
 
-    // Only show error for keys in content, trash anything else as usual later.
-    // No need to tell someone his name or email address is blocked, etc.
-    if ( $offenders[0] && $offenders[1] && ! fictioneer_is_admin( $user->ID ) ) {
+    // Only show error for keys in content, no need to tell
+    // someone his name or email address is blocked, etc.
+    if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
       wp_send_json_error(
         array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
       );
+    } elseif ( $offenders[0] ) {
+      wp_send_json_error( array( 'error' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
     }
   }
 
@@ -494,11 +496,26 @@ function fictioneer_ajax_edit_comment() {
   // Check if comment can (still) be edited...
   $timestamp = strtotime( "{$comment['comment_date_gmt']} GMT" );
   $edit_time = get_option( 'fictioneer_user_comment_edit_time', 15 );
-  $edit_time = empty( $edit_time ) ? -1 : (int) $edit_time * 60; // Minutes to seconds
+  $edit_time = empty( $edit_time ) ? -1 : intval( $edit_time ) * 60; // Minutes to seconds
   $can_edit = $edit_time < 0 || time() < $edit_time + $timestamp;
 
   if ( ! $can_edit ) {
     wp_send_json_error( array( 'error' => __( 'Editing time has expired.', 'fictioneer' ) ) );
+  }
+
+  // Check against disallow list (Settings > Discussion) if not admin
+  if ( ! fictioneer_is_admin( $user->ID ) ) {
+    $offenders = fictioneer_check_comment_disallowed_list( '', '', '', $_POST['content'], '', '' );
+
+    // Only show error for keys in content, no need to tell
+    // someone his name or email address is blocked, etc.
+    if ( FICTIONEER_DISALLOWED_KEY_NOTICE && $offenders[0] && $offenders[1] ) {
+      wp_send_json_error(
+        array( 'error' => __( 'Disallowed key found: "' . implode( ', ', $offenders[1] )  . '".', 'fictioneer' ) )
+      );
+    } elseif ( $offenders[0] ) {
+      wp_send_json_error( array( 'error' => __( 'Disallowed keys found.', 'fictioneer' ) ) );
+    }
   }
 
   // Update
