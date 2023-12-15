@@ -198,7 +198,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
 
     // Orderby?
     if ( empty( $orderby ) ) {
-      $orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], fictioneer_allowed_orderby() );
+      $orderby = array_intersect( [ strtolower( $_GET['orderby'] ?? 0 ) ], fictioneer_allowed_orderby() );
       $orderby = reset( $orderby ) ?: 'modified';
     }
 

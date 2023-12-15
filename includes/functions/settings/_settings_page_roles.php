@@ -226,6 +226,7 @@ uksort(
 
 // Current role
 $current_role_slug = ( $_GET['fictioneer-subnav'] ?? 0 ) ?: array_keys( $roles )[0];
+$current_role_slug = sanitize_key( $current_role_slug );
 $current_role = $roles[ $current_role_slug ];
 
 ?>

@@ -166,8 +166,6 @@ function fictioneer_ajax_get_reminders_list() {
   $post_ids = array_keys( $reminders['data'] );
   $page = absint( $_GET['page'] ?? 1 );
   $order = strtolower( $_GET['order'] ?? 'desc' );
-
-  // Sanitize
   $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
 
   // Query

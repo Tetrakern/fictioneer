@@ -326,9 +326,8 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
   // Archive?
   if ( is_archive() ) {
-    $post_type = strtolower( sanitize_text_field( $_GET['post_type'] ?? '' ) );
     $post_type = array_intersect(
-      [ $post_type ],
+      [ sanitize_key( $_GET['post_type'] ?? '' ) ],
       ['any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
     );
     $post_type = reset( $post_type ) ?: null;

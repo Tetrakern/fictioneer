@@ -240,8 +240,6 @@ function fictioneer_ajax_get_finished_checkmarks_list() {
   $post_ids = fictioneer_get_finished_checkmarks( $checkmarks );
   $page = absint( $_GET['page'] ?? 1 );
   $order = strtolower( $_GET['order'] ?? 'desc' );
-
-  // Sanitize
   $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
 
   // Query

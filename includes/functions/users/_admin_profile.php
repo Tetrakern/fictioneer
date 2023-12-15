@@ -9,7 +9,7 @@
  *
  * @since Fictioneer 5.2.5
  *
- * @param string $action Name of the admin profile action.
+ * @param string $action  Name of the admin profile action.
  */
 
 function fictioneer_verify_admin_profile_action( $action ) {
@@ -24,8 +24,8 @@ function fictioneer_verify_admin_profile_action( $action ) {
  *
  * @since Fictioneer 5.2.5
  *
- * @param string $notice Optional. The notice message to include in the redirect URL.
- * @param string $type   Optional. The type of notice. Default 'success'.
+ * @param string $notice  Optional. The notice message to include in the redirect URL.
+ * @param string $type    Optional. The type of notice. Default 'success'.
  */
 
 function fictioneer_finish_admin_profile_action( $notice = '', $type = 'success' ) {
@@ -222,8 +222,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
 
 function fictioneer_admin_profile_notices() {
   // Get performed action
-  $success = $_GET['success'] ?? null;
-  $failure = $_GET['failure'] ?? null;
+  $success = sanitize_text_field( $_GET['success'] ?? '' );
+  $failure = sanitize_text_field( $_GET['failure'] ?? '' );
 
   // Has success notice?
   if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] ) ) {
@@ -246,8 +246,8 @@ add_action( 'admin_notices', 'fictioneer_admin_profile_notices' );
  *
  * @since Fictioneer 4.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_custom_profile_fields( $profile_user ) {
@@ -285,8 +285,8 @@ add_action( 'edit_user_profile', 'fictioneer_custom_profile_fields', 20 );
  *
  * @since Fictioneer 5.7.4
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_fields_user_id( $profile_user ) {
@@ -317,8 +317,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_u
  *
  * @since Fictioneer 5.2.5
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_fields_fingerprint( $profile_user ) {
@@ -352,8 +352,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_f
  *
  * @since Fictioneer 5.2.5
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_fields_flags( $profile_user ) {
@@ -460,8 +460,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_f
  *
  * @since Fictioneer 5.2.5
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_fields_oauth( $profile_user ) {
@@ -565,13 +565,13 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
  *
  * @since Fictioneer 5.2.5
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
   // Setup
-  $success = $_GET['success'] ?? null;
+  $success = sanitize_text_field( $_GET['success'] ?? '' );
   $comments_count = get_comments(
     array( 'user_id' => $profile_user->ID, 'count' => true, 'update_comment_meta_cache' => false )
   );
@@ -812,8 +812,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_moderati
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_author( $profile_user ) {
@@ -907,8 +907,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_author',
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_oauth( $profile_user ) {
@@ -955,8 +955,8 @@ if ( FICTIONEER_SHOW_OAUTH_HASHES ) {
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_badge( $profile_user ) {
@@ -989,8 +989,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_badge', 
  *
  * @since Fictioneer 5.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_profile_external_avatar( $profile_user ) {
@@ -1023,8 +1023,8 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_external
  *
  * @since Fictioneer 5.6.0
  *
- * @param WP_User $profile_user The profile user object. Not necessarily the one
- *                              currently editing the profile!
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
  */
 
 function fictioneer_admin_danger_zone( $profile_user ) {

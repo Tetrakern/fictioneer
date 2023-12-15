@@ -502,8 +502,7 @@ function fictioneer_ajax_edit_comment() {
   }
 
   // Update
-  $old_content = $comment['comment_content'];
-  $comment['comment_content'] = $_POST['content'];
+  $comment['comment_content'] = wp_kses_post( $_POST['content'] );
   $edit_time = time();
 
   if ( wp_update_comment( $comment, true ) ) {

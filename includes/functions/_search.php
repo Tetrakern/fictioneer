@@ -20,8 +20,8 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
 
   function fcn_keyword_search_taxonomies_input( $taxonomies, $query_var, $and_var, $singular, $plural, $args = [] ) {
     // Setup
-    $and = wp_strip_all_tags( $_GET[ $and_var ] ?? 0, true );
-    $query_list = wp_strip_all_tags( $_GET[ $query_var ] ?? '', true );
+    $and = sanitize_key( $_GET[ $and_var ] ?? 0, true );
+    $query_list = sanitize_text_field( wp_strip_all_tags( $_GET[ $query_var ] ?? '', true ) );
     $examples = array_rand( $taxonomies, min( 5, count( $taxonomies ) ) );
     $examples = is_array( $examples ) ? $examples : [$examples];
 
@@ -31,11 +31,11 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
         <label
           class="keyword-input__operator"
           role="checkbox"
-          aria-checked="<?php if ( $and == 1 ) echo 'true'; ?>"
+          aria-checked="<?php if ( $and === '1' ) echo 'true'; ?>"
           title="<?php esc_attr_e( 'Operator. Either must match (OR) or all must match (AND).', 'fictioneer' ); ?>"
           tabindex="0"
         >
-          <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and == 1 ) echo 'checked'; ?> autocomplete="off">
+          <input type="checkbox" name="<?php echo $and_var; ?>" value="1" hidden <?php if ( $and === '1' ) echo 'checked'; ?> autocomplete="off">
           <span class="on"><?php _ex( 'AND', 'Advanced search operator.', 'fictioneer' ); ?></span>
           <span class="off"><?php _ex( 'OR', 'Advanced search operator.', 'fictioneer' ); ?></span>
         </label>
@@ -115,7 +115,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
 
   function fcn_keyword_search_authors_input( $authors, $query_var, $singular, $plural, $args = [] ) {
     // Setup
-    $query_list = wp_strip_all_tags( $_GET[ $query_var ] ?? '', true );
+    $query_list = sanitize_text_field( wp_strip_all_tags( $_GET[ $query_var ] ?? '', true ) );
     $examples = array_rand( $authors, min( 5, count( $authors ) ) );
     $examples = is_array( $examples ) ? $examples : [$examples];
 
@@ -246,7 +246,7 @@ function fictioneer_extend_search_query( $query ) {
       );
       $valid_terms = [];
       $query_part = [];
-      $and = $_GET[ $triple[2] ] ?? 0;
+      $and = sanitize_key( $_GET[ $triple[2] ] ?? 0 );
 
       // Filter out terms that do not exist
       foreach ( $triple[0] as $term_id ) {
@@ -312,7 +312,7 @@ function fictioneer_extend_search_query( $query ) {
       );
       $valid_terms = [];
       $query_part = [];
-      $and = $_GET[ $triple[2] ] ?? 0;
+      $and = sanitize_key( $_GET[ $triple[2] ] ?? 0 );
 
       // Filter out terms that do not exist
       foreach ( $triple[0] as $term_id ) {

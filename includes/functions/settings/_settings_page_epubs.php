@@ -33,14 +33,14 @@ class Fictioneer_Epubs_Table extends WP_List_Table {
     $sortable = $this->get_sortable_columns();
     $primary = 'story';
 
-    $this->epubs = glob(wp_upload_dir()['basedir'] . '/epubs/*.epub');
+    $this->epubs = glob( wp_upload_dir()['basedir'] . '/epubs/*.epub' );
     $this->page = absint( $_GET['paged'] ?? 1 );
     $this->count = count( $this->epubs );
     $this->per_page = $this->get_items_per_page( 'fictioneer_epubs_per_page', 25 );
 
     // Sort
-    $orderby = $_GET['orderby'] ?? 'date';
-    $order = $_GET['order'] ?? 'desc';
+    $orderby = sanitize_text_field( $_GET['orderby'] ?? 'date' );
+    $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
 
     switch ( $orderby ) {
       case 'story':

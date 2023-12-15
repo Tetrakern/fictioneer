@@ -33,10 +33,10 @@ class Fictioneer_Seo_Table extends WP_List_Table {
     $this->per_page = $this->get_items_per_page( 'fictioneer_seo_items_per_page', 25 );
 
     // Sort
-    $orderby = array_intersect( [sanitize_key( $_GET['orderby'] ?? 0 )], ['title', 'type', 'modified'] );
-    $orderby = reset( $orderby ) ?: 'modified';
-    $order = array_intersect( [sanitize_key( $_GET['order'] ?? 0 )], ['desc', 'asc'] );
-    $order = reset( $order ) ?: 'desc';
+    $orderby = array_intersect( [ strtolower( $_GET['orderby'] ?? 0 ) ], ['title', 'type', 'modified'] );
+    $orderby = reset( $orderby ) ?: 'modified'; // Sanitized
+    $order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
+    $order = reset( $order ) ?: 'desc'; // Sanitized
 
     // Query
     $query_args = array(

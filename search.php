@@ -16,27 +16,24 @@ global $wp_query;
 $count = $wp_query->found_posts;
 $no_params = empty( array_filter( $_GET ) );
 
-$post_type = $_GET['post_type'] ?? 'any';
-$sentence = $_GET['sentence'] ?? '0';
-$order = $_GET['order'] ?? 'desc';
-$orderby = $_GET['orderby'] ?? 'modified';
+$post_type = sanitize_text_field( $_GET['post_type'] ?? 'any' );
+$sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
+$order = sanitize_text_field( $_GET['order'] ?? 'desc' );
+$orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
 
-$queried_genres = $_GET[ 'genres' ] ?? 0;
-$queried_fandoms = $_GET[ 'fandoms' ] ?? 0;
-$queried_characters = $_GET[ 'characters' ] ?? 0;
-$queried_warnings = $_GET[ 'warnings' ] ?? 0;
-$queried_tags = $_GET[ 'tags' ] ?? 0;
+$queried_genres = sanitize_text_field( $_GET['genres'] ?? 0 );
+$queried_fandoms = sanitize_text_field( $_GET['fandoms'] ?? 0 );
+$queried_characters = sanitize_text_field( $_GET['characters'] ?? 0 );
+$queried_warnings = sanitize_text_field( $_GET['warnings'] ?? 0 );
+$queried_tags = sanitize_text_field( $_GET['tags'] ?? 0 );
 
-$queried_ex_genres = $_GET[ 'ex_genres' ] ?? 0;
-$queried_ex_fandoms = $_GET[ 'ex_fandoms' ] ?? 0;
-$queried_ex_characters = $_GET[ 'ex_characters' ] ?? 0;
-$queried_ex_warnings = $_GET[ 'ex_warnings' ] ?? 0;
-$queried_ex_tags = $_GET[ 'ex_tags' ] ?? 0;
+$queried_ex_genres = sanitize_text_field( $_GET['ex_genres'] ?? 0 );
+$queried_ex_fandoms = sanitize_text_field( $_GET['ex_fandoms'] ?? 0 );
+$queried_ex_characters = sanitize_text_field( $_GET['ex_characters'] ?? 0 );
+$queried_ex_warnings = sanitize_text_field( $_GET['ex_warnings'] ?? 0 );
+$queried_ex_tags = sanitize_text_field( $_GET['ex_tags'] ?? 0 );
 
-$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified';
-$is_advanced_search = $is_advanced_search || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings;
-$is_advanced_search = $is_advanced_search || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
-
+// Prepare hook arguments
 $hook_args = array(
   'post_type' => $post_type,
   'sentence' => $sentence,
@@ -51,9 +48,13 @@ $hook_args = array(
   'queried_ex_fandoms' => $queried_ex_fandoms,
   'queried_ex_characters' => $queried_ex_characters,
   'queried_ex_warnings' => $queried_ex_warnings,
-  'queried_ex_tags' => $queried_ex_tags,
-  'is_advanced_search' => $is_advanced_search,
+  'queried_ex_tags' => $queried_ex_tags
 );
+
+// Advanced search?
+$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
+
+$hook_args['is_advanced_search'] = $is_advanced_search;
 
 ?>
 

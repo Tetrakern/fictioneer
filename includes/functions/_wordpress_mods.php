@@ -885,9 +885,8 @@ function fictioneer_add_sof_to_taxonomy_query( $query ) {
   }
 
   // Post type?
-  $post_type = strtolower( sanitize_text_field( $_GET['post_type'] ?? '' ) );
   $post_type = array_intersect(
-    [ $post_type ],
+    [ sanitize_key( $_GET['post_type'] ?? '' ) ],
     ['any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
   );
   $post_type = reset( $post_type ) ?: null;

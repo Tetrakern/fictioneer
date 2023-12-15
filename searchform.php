@@ -21,13 +21,13 @@ $simple_mode = $args['simple'] ?? false;
 $cache_mode = $args['cache'] ?? false;
 $show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
 $placeholder = $args['placeholder'] ?? _x( 'Search keywords or phrase', 'Advanced search placeholder.', 'fictioneer' );
-$post_type = $_GET['post_type'] ?? $args['preselect_type'] ?? 'any';
+$post_type = sanitize_text_field( $_GET['post_type'] ?? $args['preselect_type'] ?? 'any' );
 
 // Advanced setup
 if ( $show_advanced ) {
-	$sentence = $_GET['sentence'] ?? '0';
-	$order = $_GET['order'] ?? 'desc';
-	$orderby = $_GET['orderby'] ?? 'modified';
+	$sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
+	$order = sanitize_text_field( $_GET['order'] ?? 'desc' );
+	$orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
 
 	$all_authors = get_users(
 		array(
@@ -37,9 +37,9 @@ if ( $show_advanced ) {
 
 	$skip_author_keywords = count( $all_authors ) > FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT;
 
-	$queried_authors_in = $_GET['authors'] ?? 0;
-	$queried_authors_out = $_GET['ex_authors'] ?? 0;
-	$author_name = $_GET['author_name'] ?? 0; // Simple text field
+	$queried_authors_in = sanitize_text_field( $_GET['authors'] ?? 0 );
+	$queried_authors_out = sanitize_text_field( $_GET['ex_authors'] ?? 0 );
+	$author_name = sanitize_text_field( $_GET['author_name'] ?? 0 ); // Simple text field
 
 	$all_tags = get_tags();
 	$all_genres = get_tags( array( 'taxonomy' => 'fcn_genre' ) );
@@ -47,22 +47,19 @@ if ( $show_advanced ) {
 	$all_characters = get_tags( array( 'taxonomy' => 'fcn_character' ) );
 	$all_warnings = get_tags( array( 'taxonomy' => 'fcn_content_warning' ) );
 
-	$queried_genres = $_GET['genres'] ?? 0;
-	$queried_fandoms = $_GET['fandoms'] ?? 0;
-	$queried_characters = $_GET['characters'] ?? 0;
-	$queried_warnings = $_GET['warnings'] ?? 0;
-	$queried_tags = $_GET['tags'] ?? 0;
+	$queried_genres = sanitize_text_field( $_GET['genres'] ?? 0 );
+	$queried_fandoms = sanitize_text_field( $_GET['fandoms'] ?? 0 );
+	$queried_characters = sanitize_text_field( $_GET['characters'] ?? 0 );
+	$queried_warnings = sanitize_text_field( $_GET['warnings'] ?? 0 );
+	$queried_tags = sanitize_text_field( $_GET['tags'] ?? 0 );
 
-	$queried_ex_genres = $_GET['ex_genres'] ?? 0;
-	$queried_ex_fandoms = $_GET['ex_fandoms'] ?? 0;
-	$queried_ex_characters = $_GET['ex_characters'] ?? 0;
-	$queried_ex_warnings = $_GET['ex_warnings'] ?? 0;
-	$queried_ex_tags = $_GET['ex_tags'] ?? 0;
+	$queried_ex_genres = sanitize_text_field( $_GET['ex_genres'] ?? 0 );
+	$queried_ex_fandoms = sanitize_text_field( $_GET['ex_fandoms'] ?? 0 );
+	$queried_ex_characters = sanitize_text_field( $_GET['ex_characters'] ?? 0 );
+	$queried_ex_warnings = sanitize_text_field( $_GET['ex_warnings'] ?? 0 );
+	$queried_ex_tags = sanitize_text_field( $_GET['ex_tags'] ?? 0 );
 
-	$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified';
-	$is_advanced_search = $is_advanced_search || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings;
-	$is_advanced_search = $is_advanced_search || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
-	$is_advanced_search = $is_advanced_search || $queried_authors_in || $queried_authors_out || $author_name;
+	$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name;
 
 	// Prime author cache
 	if ( function_exists( 'update_post_author_caches' ) ) {
@@ -219,7 +216,8 @@ if ( $show_advanced ) {
 						echo "<span class='search-form__current-{$quad[2]}'>";
 
 						// AND/OR?
-						$and = isset( $_GET[ $quad[3] ] ) && $_GET[ $quad[3] ] == '1' ? _x( '[&] ', 'Advanced search summary AND operation note.', 'fictioneer' ) : '';
+						$and = ( $_GET[ $quad[3] ] ?? 0 ) === '1' ?
+							_x( '[&] ', 'Advanced search summary AND operation note.', 'fictioneer' ) : '';
 
 						// Heading (needs whitespace left and right)
 						printf( ' <b>' . $quad[4] . '</b> ', $and );
@@ -340,7 +338,7 @@ if ( $show_advanced ) {
 			<?php if ( count( $all_authors ) > 1 ) : ?>
 				<?php if ( $skip_author_keywords ) : ?>
 					<h6 class="search-form__option-headline"><?php _ex( 'Author', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-					<input type="text" class="search-form__text-input" name="author_name" value="<?php echo esc_attr( $_GET['author_name'] ?? '' ); ?>" placeholder="<?php echo esc_attr_x( 'Search for an author', 'Advanced search placeholder.', 'fictioneer' ); ?>">
+					<input type="text" class="search-form__text-input" name="author_name" value="<?php echo esc_attr( $author_name ); ?>" placeholder="<?php echo esc_attr_x( 'Search for an author', 'Advanced search placeholder.', 'fictioneer' ); ?>">
 				<?php else : ?>
 					<h6 class="search-form__option-headline"><?php _ex( 'Authors', 'Advanced search heading.', 'fictioneer' ); ?></h6>
 					<?php fcn_keyword_search_authors_input( $all_authors, 'authors', 'author', 'authors' ); ?>

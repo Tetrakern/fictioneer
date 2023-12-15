@@ -73,7 +73,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
       if (
         have_comments() ||
         ( $count > 0 && user_can( $user, 'moderate_comments' ) ) ||
-        ( $count > 0 && ! empty( $_GET['commentcode'] ) )
+        ( $count > 0 && ! empty( $_GET['commentcode'] ?? 0 ) )
       ) {
         // Start HTML ---> ?>
         <ol class="fictioneer-comments__list commentlist">

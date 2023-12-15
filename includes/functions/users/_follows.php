@@ -394,8 +394,6 @@ function fictioneer_ajax_get_follows_list() {
   $post_ids = array_keys( $follows['data'] );
   $page = absint( $_GET['page'] ?? 1 );
   $order = strtolower( $_GET['order'] ?? 'desc' );
-
-  // Sanitize
   $order = in_array( $order, ['desc', 'asc'] ) ? $order : 'desc';
 
   // Query

@@ -131,10 +131,10 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 
 function fictioneer_admin_settings_notices() {
   // Get query vars
-  $success = $_GET['success'] ?? null;
-  $failure = $_GET['failure'] ?? null;
-  $info = $_GET['info'] ?? null;
-  $data = explode( ',', $_GET['data'] ?? '' );
+  $success = sanitize_text_field( $_GET['success'] ?? '' );
+  $failure = sanitize_text_field( $_GET['failure'] ?? '' );
+  $info = sanitize_text_field( $_GET['info'] ?? '' );
+  $data = explode( ',', sanitize_text_field( $_GET['data'] ?? '' ) );
   $data = is_array( $data ) ? $data : [];
   $data = array_map( 'esc_html', $data );
 
