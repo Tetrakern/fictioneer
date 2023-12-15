@@ -120,7 +120,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
     $examples = is_array( $examples ) ? $examples : [$examples];
 
     // Start HTML ---> ?>
-    <div class="keyword-input  _empty">
+    <div class="keyword-input <?php if ( empty( $query_list ) ) echo '_empty'; ?>">
       <input type="hidden" class="keyword-input__collection" name="<?php echo $query_var; ?>" value="<?php echo esc_attr( $query_list ); ?>" autocomplete="off">
       <label class="keyword-input__track" data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>">
         <?php
