@@ -582,6 +582,7 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
   };
 
   $content = $doc->saveHTML();
+  $content = str_replace( '<?xml encoding="UTF-8">', '', $content );
 
   return $content;
 }
@@ -739,7 +740,10 @@ function fictioneer_embed_consent_wrappers( $content ) {
     $twitter->parentNode->insertBefore( $consent_element );
   }
 
-  return $dom->saveHTML();
+  $content = $dom->saveHTML();
+  $content = str_replace( '<?xml encoding="UTF-8">', '', $content );
+
+  return $content;
 }
 
 if ( get_option( 'fictioneer_consent_wrappers' ) ) {
