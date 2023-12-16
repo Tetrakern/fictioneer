@@ -531,7 +531,7 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
  */
 
 function fictioneer_add_lightbox_to_post_images( $content ) {
-  if ( empty( $content ) ) {
+  if ( empty( $content ) || strpos( $content, '<img' ) === false ) {
     return $content;
   }
 
