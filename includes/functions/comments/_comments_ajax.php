@@ -610,7 +610,7 @@ function fictioneer_ajax_delete_my_comment() {
   $result = wp_update_comment(
     array(
       'user_ID' => 0,
-      'comment_author' => __( 'Deleted', 'fictioneer' ),
+      'comment_author' => _x( 'Deleted', 'Deleted comment author name.', 'fictioneer' ),
       'comment_ID' => $comment->comment_ID,
       'comment_content' => __( 'Comment has been deleted by user.', 'fictioneer' ),
       'comment_author_email' => '',
