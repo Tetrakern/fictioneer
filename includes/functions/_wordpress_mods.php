@@ -531,6 +531,7 @@ add_filter( 'the_content', 'fictioneer_add_chapter_paragraph_id', 10, 1 );
  */
 
 function fictioneer_add_lightbox_to_post_images( $content ) {
+  // Return early if...
   if ( empty( $content ) || strpos( $content, '<img' ) === false ) {
     return $content;
   }
@@ -667,10 +668,20 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
  */
 
 function fictioneer_embed_consent_wrappers( $content ) {
+  // Return early if...
   if ( empty( $content ) ) {
     return $content;
   }
 
+  if (
+    strpos( $content, '<iframe' ) === false &&
+    strpos( $content, "class='twitter-timeline'" ) === false &&
+    strpos( $content, "class='twitter-tweet'" ) === false
+  ) {
+    return $content;
+  }
+
+  // Setup
   libxml_use_internal_errors( true );
   $dom = new DOMDocument();
   $dom->loadHTML( '<?xml encoding="UTF-8">' . $content );
