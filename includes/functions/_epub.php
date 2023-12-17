@@ -402,10 +402,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
 
       // Hidden?
       if ( $is_hidden && ! $processed ) {
-        $processed = true;
-        $head->appendChild( $doc->createElement( 'title', _x( 'Hidden Chapter', 'ePUB', 'fictioneer' ) ) );
-        $frame->appendChild( $doc->createElement( 'h1', _x( 'Hidden Chapter', 'ePUB', 'fictioneer' ) ) );
-        $frame->appendChild( $doc->createElement( 'p', _x( 'This chapter is hidden and only available on the website.', 'ePUB', 'fictioneer' ) ) );
+        continue;
       }
 
       // No content?
