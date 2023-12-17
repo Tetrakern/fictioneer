@@ -376,10 +376,13 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         continue;
       }
 
+      if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
+        continue;
+      }
+
       // Setup
       $title = fictioneer_get_safe_title( $post->ID );
       $content = apply_filters( 'the_content', $post->post_content );
-      $is_hidden = get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true );
       $processed = false;
       $index++;
 
@@ -398,11 +401,6 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         $frame->appendChild(
           $doc->createElement( 'p', _x( 'This chapter requires a password and is only available on the website.', 'ePUB', 'fictioneer' ) )
         );
-      }
-
-      // Hidden?
-      if ( $is_hidden && ! $processed ) {
-        continue;
       }
 
       // No content?
@@ -551,11 +549,10 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       array_push( $opf_list, $index );
 
       // Add to NCX list
-      $nav_item_title = ( ! $is_hidden ) ? $title : _x( 'Unavailable', 'ePUB', 'fictioneer' );
-      array_push( $ncx_list, array( $nav_item_title, $index ) );
+      array_push( $ncx_list, array( $title, $index ) );
 
       // Add to ToC list
-      array_push( $toc_list, array( "$nav_item_title", "../Text/chapter-$index.html", $index ) );
+      array_push( $toc_list, array( "$title", "../Text/chapter-$index.html", $index ) );
 
       // Save XML file to string
       $file_content = $doc->saveXML();
