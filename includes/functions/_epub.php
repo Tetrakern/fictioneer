@@ -552,7 +552,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       array_push( $ncx_list, array( $title, $index ) );
 
       // Add to ToC list
-      array_push( $toc_list, array( "$title", "../Text/chapter-$index.html", $index ) );
+      array_push( $toc_list, array( "$title", "../Text/chapter-{$index}.html", $index ) );
 
       // Save XML file to string
       $file_content = $doc->saveXML();
@@ -569,7 +569,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       $file_content = fictioneer_fix_html_entities( $file_content );
 
       // Save chapter file in ePUB directory
-      $file_path = $epub_dir . "/OEBPS/Text/chapter-$index.html";
+      $file_path = $epub_dir . "/OEBPS/Text/chapter-{$index}.html";
       $file = fopen( $file_path, 'w' );
       fwrite( $file, $file_content );
       fclose( $file );
