@@ -429,15 +429,20 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         }
 
         // Start cleaning up content...
-        $content = str_replace( '<body>', '<div class="content__inner">', $content );
-        $content = str_replace( '</body>', '</div>', $content );
+        if ( strpos( $content, '<body>' ) !== false && strpos( $content, '</body>' ) !== false ) {
+          $content = str_replace( '<body>', '<div class="content__inner">', $content );
+          $content = str_replace( '</body>', '</div>', $content );
+        } else {
+          $content = '<div class="content__inner">' . $content . '</div>';
+        }
+
         $content = str_replace( 'data-type="URL"', '', $content );
         $content = preg_replace( ['(\s+)u', '(^\s|\s$)u'], [' ', ''], $content );
         $content = preg_replace( '/data-align="([^"]*)"/', '', $content );
 
         // Create temporary file to continue cleaning up content...
-        $inner = new DOMDocument();
         libxml_use_internal_errors( true );
+        $inner = new DOMDocument();
         $inner->loadHTML( '<?xml encoding="UTF-8">' . $content );
         libxml_clear_errors();
         $inner->preserveWhiteSpace = false;
@@ -448,6 +453,9 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
         foreach ( $inner_finder->query( "*/div[contains(@class, 'content__inner')]" ) as $node ) {
           $frame->appendChild( $doc->importNode( $node, true ) );
         }
+
+        unset( $inner ); // No longer required
+        unset( $inner_finder ); // No longer required
 
         // Remove sensitive-alternatives (only full chapters) from chapter file
         foreach ( $finder->query( "//*[contains(@class, 'sensitive-alternative')]" ) as $node ) {
@@ -513,7 +521,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
           $new_img->setAttribute( 'alt', $alt );
 
           // Add image to list
-          $image_list[] = [$path_parts['filename'] . $extension, substr( $extension, 1 )];
+          $image_list[] = [ $path_parts['filename'] . $extension, substr( $extension, 1 ) ];
 
           // Replace wrapped image node with cleaned image node
           $node->parentNode->insertBefore( $new_img, $node->nextSibling );

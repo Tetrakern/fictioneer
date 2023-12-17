@@ -582,9 +582,15 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
     $img->setAttribute( 'tabindex', '0' );
   };
 
-  $content = $doc->saveHTML();
-  $content = str_replace( '<?xml encoding="UTF-8">', '', $content );
+  // Extract and save body content
+  $body = $doc->getElementsByTagName( 'body' )->item( 0 );
+  $content = $body ? $doc->saveHTML( $body ) : '';
+  $content = preg_replace( '/<\/?body>/', '', $content );
 
+  // Release memory
+  unset( $doc );
+
+  // Continue filter
   return $content;
 }
 
@@ -751,9 +757,15 @@ function fictioneer_embed_consent_wrappers( $content ) {
     $twitter->parentNode->insertBefore( $consent_element );
   }
 
-  $content = $dom->saveHTML();
-  $content = str_replace( '<?xml encoding="UTF-8">', '', $content );
+  // Extract and save body content
+  $body = $dom->getElementsByTagName( 'body' )->item( 0 );
+  $content = $body ? $dom->saveHTML( $body ) : '';
+  $content = preg_replace( '/<\/?body>/', '', $content );
 
+  // Release memory
+  unset( $dom );
+
+  // Continue filter
   return $content;
 }
 
