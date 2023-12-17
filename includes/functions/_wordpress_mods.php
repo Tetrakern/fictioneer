@@ -565,7 +565,6 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
       continue;
     }
 
-    $src = $img->getAttribute( 'src' );
     $id = preg_match( '/wp-image-([0-9]+)/i', $classes, $class_id );
 
     if ( $class_id ) {
@@ -573,11 +572,6 @@ function fictioneer_add_lightbox_to_post_images( $content ) {
       $img->setAttribute( 'data-attachment-id', $id );
     }
 
-    if ( wp_get_attachment_image_url( $id, 'full' ) ) {
-      $src = wp_get_attachment_image_url( $id, 'full' );
-    }
-
-    $img->setAttribute( 'data-src', $src );
     $img->setAttribute( 'data-lightbox', '' );
     $img->setAttribute( 'tabindex', '0' );
   };
