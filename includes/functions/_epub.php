@@ -192,7 +192,7 @@ if ( ! function_exists( 'fictioneer_fix_tags' ) ) {
       '</u>' => '</span>',
       '<s>' => '<span class="strike">',
       '</s>' => '</span>',
-      '<tfoot>' => '<tbody>',
+      '<tfoot' => '<tbody',
       '</tfoot>' => '</tbody>'
     );
 
