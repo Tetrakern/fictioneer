@@ -7,7 +7,7 @@
 /**
  * Clean up when the theme is deactivated
  *
- * Always deletes all theme-related transients in the database. If the option to
+ * Always deletes all theme-related Transients in the database. If the option to
  * delete all settings and theme mods is activated, these will be removed as
  * well but otherwise preserved.
  *
