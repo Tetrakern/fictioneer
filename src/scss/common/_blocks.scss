@@ -130,19 +130,17 @@ figure {
   &::after {
     content: '';
     position: absolute;
+    top: -0.75rem;
+    left: -1rem;
     display: block;
     border: 5px solid var(--fg-900);
+    border-width: 3px 0 0 3px;
     height: 16px;
     width: 16px;
   }
 
-  &::before {
-    top: -0.75rem;
-    left: -1rem;
-    border-width: 3px 0 0 3px;
-  }
-
   &::after {
+    inset: inherit;
     bottom: -0.75rem;
     right: -1rem;
     border-width: 0 3px 3px 0;

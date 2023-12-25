@@ -127,9 +127,8 @@
       &._modified {
         cursor: pointer;
         box-sizing: content-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: grid;
+        place-content: center;
         background: var(--button-primary-background);
         color: var(--button-primary-text);
         font-size: 14px;

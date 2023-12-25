@@ -99,29 +99,28 @@ hr {
   margin: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)") auto;
 }
 
-ins {
-  background: var(--ins-background);
-  color: var(--ins-color);
-  font-size: inherit;
-  vertical-align: inherit;
-  text-decoration: none;
-  text-shadow: none;
-  border-radius: 1px;
-}
-
-del {
-  background: var(--del-background);
-  color: var(--del-color);
+:where(ins, del) {
   font-size: inherit;
   white-space: normal;
   vertical-align: inherit;
-  text-decoration: line-through;
   text-shadow: none;
   border-radius: 1px;
 
   br {
     display: none;
   }
+}
+
+ins {
+  background: var(--ins-background);
+  color: var(--ins-color);
+  text-decoration: none;
+}
+
+del {
+  background: var(--del-background);
+  color: var(--del-color);
+  text-decoration: line-through;
 }
 
 sup {

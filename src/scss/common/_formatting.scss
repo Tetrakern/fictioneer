@@ -218,8 +218,7 @@ p a,
 }
 
 .content-section {
-  .list,
-  :is(ul, ol):not([class]) {
+  :where(.list, :is(ul, ol):not([class])) {
     list-style: initial;
     padding-left: 1.75rem;
     margin: 1.5rem 0 0;
@@ -239,23 +238,21 @@ p a,
     }
   }
 
-  .list,
-  ul:not([class]) {
+  :where(.list, ul:not([class])) {
     li::marker {
       color: var(--fg-700);
     }
   }
 
-  :is(ul, .list) > li > ul:not([class]) {
+  :where(ul, .list) > li > ul:not([class]) {
     list-style: circle;
   }
 
-  :is(ul, .list) > li > ul > li > ul:not([class]) {
+  :where(ul, .list) > li > ul > li > ul:not([class]) {
     list-style: square;
   }
 
-  .list,
-  ol:not([class]) {
+  :where(.list, ol:not([class])) {
     list-style: ordered-list;
   }
 }
