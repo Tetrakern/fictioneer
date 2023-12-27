@@ -61,12 +61,21 @@ if ( ! $thumbnail_shown ) {
   <?php endif; ?>
 
   <div class="story__identity">
-    <h1 class="story__identity-title"><?php echo $story['title']; ?></h1>
+    <h1 class="story__identity-title"><?php echo $story['title']; 
+   
+
+ ?></h1> <?php
+ $views = get_post_views(get_the_ID());
+echo '<i class="fas fa-eye" style="font-size: 14px;"> ' . $views . '</i>';
+
+?>
+
     <div class="story__identity-meta"><?php
       printf(
         _x( 'by %s', 'Story page: by {Author(s)}', 'fictioneer' ),
         fictioneer_get_story_author_nodes( $story_id )
       );
+      
     ?></div>
   </div>
 
