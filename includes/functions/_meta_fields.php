@@ -4051,3 +4051,27 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 
 ?>
+
+<?php
+
+/**
+ * Post Views
+ * 
+ */
+
+function set_post_views($post_id) {
+    $key = 'post_views';
+    $count = get_post_meta($post_id, $key, true);
+    $count = (empty($count)) ? 1 : $count + 1;
+    update_post_meta($post_id, $key, $count);
+}
+
+function track_post_views() {
+    if (is_single() && get_post_type() == 'fcn_story') {
+        set_post_views(get_the_ID());
+    }
+}
+add_action('wp', 'track_post_views');
+
+
+?>
