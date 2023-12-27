@@ -25,6 +25,13 @@ if ( get_post_meta( get_the_ID(), 'fictioneer_story_hidden', true ) ) {
 
 get_header( null, $header_args );
 
+// Update the Display of View Count
+function get_post_views($post_id) {
+    $key = 'post_views';
+    $count = get_post_meta($post_id, $key, true);
+    return (empty($count)) ? 0 : $count;
+}
+
 ?>
 
 <main id="main" class="main story">
