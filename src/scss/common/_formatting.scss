@@ -170,7 +170,7 @@ p a,
   }
 
   p {
-    margin-bottom: 0;
+    margin-bottom: 0 !important; // Hide paragraph wrongly inserted by wpautop()
   }
 
   > div {
