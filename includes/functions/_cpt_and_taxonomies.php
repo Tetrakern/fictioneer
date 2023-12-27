@@ -167,6 +167,19 @@ function fictioneer_fcn_story_post_type() {
 	register_post_type( 'fcn_story', $args );
 }
 add_action( 'init', 'fictioneer_fcn_story_post_type', 0 );
+function set_post_views($post_id) {
+    $key = 'post_views';
+    $count = get_post_meta($post_id, $key, true);
+    $count = (empty($count)) ? 1 : $count + 1;
+    update_post_meta($post_id, $key, $count);
+}
+
+function track_post_views() {
+    if (is_single() && get_post_type() == 'fcn_story') {
+        set_post_views(get_the_ID());
+    }
+}
+add_action('wp', 'track_post_views');
 
 // =============================================================================
 // CUSTOM POST TYPE: FCN_CHAPTER
