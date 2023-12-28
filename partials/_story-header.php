@@ -60,14 +60,16 @@ if ( ! $thumbnail_shown ) {
     <div class="story__taxonomies-space"></div>
   <?php endif; ?>
 
-  <div class="story__identity">
-    <h1 class="story__identity-title"><?php echo $story['title']; ?></h1>
-    <div class="story__identity-meta"><?php
-      printf(
+  <div class="story__identity"><?php
+    $identity = [];
+    $identity['title'] = '<h1 class="story__identity-title">' . $story['title'] . '</h1>';
+    $identity['meta'] = '<div class="story__identity-meta">' . sprintf(
         _x( 'by %s', 'Story page: by {Author(s)}', 'fictioneer' ),
         fictioneer_get_story_author_nodes( $story_id )
-      );
-    ?></div>
-  </div>
+      ) . '</div>';
+    $identity = apply_filters( 'fictioneer_filter_story_identity', $identity, $story_id, $story );
+
+    echo implode( '', $identity );
+  ?></div>
 
 </header>

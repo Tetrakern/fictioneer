@@ -1234,6 +1234,19 @@ Filters the intermediate output array of the `fictioneer_get_story_buttons( $arg
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_identity', $output, $story_id, $story )`
+Filters the intermediate output array in the `_story-header.php` partial before it is imploded and rendered. Contains the HTML for the story title (safe) and author meta nodes (see `fictioneer_get_story_author_nodes()`).
+
+**$output:**
+* $title (string) – HTML for the story title `<h1>`.
+* $meta (string) – HTML for the story author(s) meta row.
+
+**Parameters:**
+* $story_id (int) – The story ID.
+* $story (array) – Array with story data from `fictioneer_get_story_data()`.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_subscribe_buttons', $buttons, $post_id, $author_id, $feed )`
 Filters the intermediate output array of the `fictioneer_get_subscribe_options( $post_id, $author_id, $feed )` function before it is imploded and returned. Normally accounts for Patreon, Ko-Fi, SubscribeStar, [Feedly](https://feedly.com/), and [Inoreader](https://www.inoreader.com/).
 
