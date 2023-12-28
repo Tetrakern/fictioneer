@@ -136,6 +136,19 @@ Filters the intermediate output array in the `_card-chapter.php` partial before 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_identity', $output, $args )`
+Filters the intermediate output array in the `_chapter_-header.php` partial before it is imploded and rendered. Contains the HTML for the story link, chapter title (safe), and author meta nodes (see `fictioneer_get_chapter_author_nodes()`). Any of these items may be missing depending on the chapter’s configuration.
+
+**$output:**
+* $link (string) – HTML for the story back link. Unsafe.
+* $title (string) – HTML for the chapter title `<h1>`. Unsafe.
+* $meta (string) – HTML for the chapter author(s) row. Unsafe.
+
+**Parameters:**
+* $args (array) – Array of story and chapter data. See partial.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args )`
 Filters the intermediate output array of the chapter micro menu in the `fictioneer_get_chapter_micro_menu( $args )` function before it is imploded and rendered.
 
