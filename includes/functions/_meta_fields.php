@@ -2856,7 +2856,9 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
       if ( $invalid_story && $current_story_id != $story_id ) {
         $story_id = 0;
       } else {
-        fictioneer_append_chapter_to_story( $post_id, $story_id );
+        if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
+          fictioneer_append_chapter_to_story( $post_id, $story_id );
+        }
       }
     }
 
@@ -2911,10 +2913,6 @@ add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
  */
 
 function fictioneer_append_chapter_to_story( $post_id, $story_id ) {
-  if ( ! get_option( 'fictioneer_enable_chapter_appending' ) ) {
-    return;
-  }
-
   // Abort if older than 5 seconds
   $publishing_time = get_post_time( 'U', true, $post_id, true );
   $current_time = current_time( 'timestamp', true );
