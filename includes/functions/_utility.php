@@ -1007,6 +1007,78 @@ function fictioneer_get_falsy_meta_allow_list() {
 }
 
 // =============================================================================
+// APPEND CHAPTER
+// =============================================================================
+
+/**
+ * Appends new chapters to story list
+ *
+ * @since Fictioneer 5.4.9
+ * @since Fictioneer 5.7.4 - Updated
+ * @since Fictioneer 5.8.6 - Added $force param and moved function.
+ *
+ * @param int  $post_id   The chapter post ID.
+ * @param int  $story_id  The story post ID.
+ * @param bool $force     Optional. Whether to skip some guard clauses. Default false.
+ */
+
+function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false ) {
+  // Abort if older than 5 seconds
+  $publishing_time = get_post_time( 'U', true, $post_id, true );
+  $current_time = current_time( 'timestamp', true );
+
+  if ( $current_time - $publishing_time > 5 && ! $force ) {
+    return;
+  }
+
+  // Setup
+  $story = get_post( $story_id );
+
+  // Abort if story not found
+  if ( ! $story || ! $story_id ) {
+    return;
+  }
+
+  // Setup, continued
+  $chapter_author_id = get_post_field( 'post_author', $post_id );
+  $story_author_id = get_post_field( 'post_author', $story_id );
+
+  // Abort if the author IDs do not match
+  if ( $chapter_author_id != $story_author_id && ! $force ) {
+    return;
+  }
+
+  // Get current story chapters
+  $story_chapters = fictioneer_get_story_chapters( $story_id );
+
+  // Append chapter (if not already included) and save to database
+  if ( ! in_array( $post_id, $story_chapters ) ) {
+    $previous_chapters = $story_chapters;
+    $story_chapters[] = $post_id;
+    $story_chapters = array_unique( $story_chapters );
+
+    // Append chapter to field
+    update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
+
+    // Remember when chapter list has been last updated
+    update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+
+    // Log changes
+    fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );
+
+    // Clear story data cache to ensure it gets refreshed
+    delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+  } else {
+    // Nothing to do
+    return;
+  }
+
+  // Update story post to fire associated actions
+  wp_update_post( array( 'ID' => $story_id ) );
+}
+
+// =============================================================================
 // GET COOKIE CONSENT
 // =============================================================================
 
