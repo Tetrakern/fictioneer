@@ -1112,6 +1112,9 @@ add_action( 'admin_post_fictioneer_tools_optimize_database_preview', 'fictioneer
  */
 
 function fictioneer_tools_add_story_hidden_fields() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_add_story_hidden_fields' );
+
   // Append 'fictioneer_story_hidden'
   fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
 
@@ -1139,6 +1142,9 @@ add_action( 'admin_post_fictioneer_tools_add_story_hidden_fields', 'fictioneer_t
  */
 
 function fictioneer_tools_add_story_sticky_fields() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_add_story_sticky_fields' );
+
   // Append 'fictioneer_story_sticky'
   fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_sticky', 0 );
 
@@ -1166,6 +1172,9 @@ add_action( 'admin_post_fictioneer_tools_add_story_sticky_fields', 'fictioneer_t
  */
 
 function fictioneer_tools_add_chapter_hidden_fields() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_add_chapter_hidden_fields' );
+
   // Append 'fictioneer_chapter_hidden'
   fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
 
