@@ -802,6 +802,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'default' => '',
 			'placeholder' => ''
     ),
+		'fictioneer_chapter_announcement_notice' => array(
+      'name' => 'fictioneer_chapter_announcement_notice',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'wp_kses_post',
+      'label' => __( 'Notice above chapters. Leave empty to hide. HTML allowed.', 'fictioneer' ),
+      'default' => '',
+			'placeholder' => ''
+    ),
 		'fictioneer_discord_client_id' => array(
       'name' => 'fictioneer_discord_client_id',
 			'group' => 'fictioneer-settings-connections-group',
