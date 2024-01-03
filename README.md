@@ -33,7 +33,7 @@ You can find some example action and filter functions [here](https://github.com/
 
 ## Support the Development
 
-Fictioneer (up to 5.8) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer (up to 5.8) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
 ## Screenshots
 
