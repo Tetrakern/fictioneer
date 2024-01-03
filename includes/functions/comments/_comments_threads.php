@@ -107,7 +107,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
         ?>
       </h2>
       <?php if ( ! empty( $notice ) ) : ?>
-        <div class="fictioneer-comments__notice"><?php echo force_balance_tags( $notice ); ?></div>
+        <div class="fictioneer-comments__notice"><?php echo $notice; ?></div>
       <?php endif; ?>
     </div>
     <?php // <--- End HTML
