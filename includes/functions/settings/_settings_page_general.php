@@ -202,7 +202,9 @@
                   );
                 ?>
               </div>
-
+ 		  <div class="fictioneer-card__row">
+                <?php fictioneer_settings_textarea( 'fictioneer_chapter_announcement_notice', '214px' ); ?>
+              </div>
               <div class="fictioneer-card__row fictioneer-card__row--inline-input">
                 <p class="fictioneer-inline-text-input"><?php
                   printf(
