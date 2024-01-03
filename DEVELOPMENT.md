@@ -25,6 +25,7 @@ This is a quick guide to get you started if you want to contribute to the theme,
 * [Theme filter hooks](FILTERS.md)
 * [Child theme example](https://github.com/Tetrakern/fictioneer-child-theme)
 * [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal)
+* [Plugin example](https://github.com/Tetrakern/fictioneer-base-plugin)
 
 ## Coding Standards & Documentation
 

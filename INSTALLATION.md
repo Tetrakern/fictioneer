@@ -20,6 +20,7 @@ This guide is mainly written for people who never had their own WordPress site b
 * [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
   * [General Tab](#general-tab)
   * [Roles Tab](#roles-tab)
+  * [Plugins Tab](#plugins-tab)
   * [Connections Tab](#connections-tab)
   * [Phrases Tab](#phrases-tab)
   * [ePUBs Tab](#epubs-tab)
@@ -633,6 +634,12 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Delete {Taxonomy}:** Lets you delete taxonomies of this type.
 
 </details>
+
+### Plugins Tab
+
+![Connections Settings Preview](repo/assets/settings_plugins_preview.jpg?raw=true)
+
+This tab is only visible if theme-related plugins are installed and active. Whether the displayed cards are purely informative or hold functions is up to the plugin author. This does not replace the default plugin page of WordPress.
 
 ### Connections Tab
 
