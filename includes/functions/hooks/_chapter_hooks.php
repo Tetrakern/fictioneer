@@ -111,6 +111,29 @@ function fictioneer_chapter_foreword( $args ) {
 add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 10 );
 
 // =============================================================================
+// CHAPTER Announcement
+// =============================================================================
+
+/**
+ * Outputs the HTML for the chapter announcement notice
+ *
+ * @since Fictioneer 5.8.5
+ */
+function fictioneer_chapter_announcement_notice() {
+  // Get notice
+  // Get notice
+$g_notices = trim( get_option( 'fictioneer_chapter_announcement_notice' ) );
+  // Show Notice
+  if ( ! empty( $g_notices ) ) {  ?>
+        <div class="chapter__warning infobox polygon clearfix hideable">
+          <?php echo force_balance_tags( $g_notices ); ?>
+        </div>
+      <?php };
+  
+}
+add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_announcement_notice', 20 );
+
+// =============================================================================
 // CHAPTER WARNINGS
 // =============================================================================
 
@@ -126,15 +149,7 @@ function fictioneer_chapter_warnings( $args ) {
   // Setup
   $warning = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning', true );
   $warning_notes = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning_notes', true );
-  // Get notice
-$g_notices = trim( get_option( 'fictioneer_chapter_announcement_notice' ) );
-  // Show Notice
-  if ( ! empty( $g_notices ) ) {  ?>
-        <div class="chapter__warning infobox infobox--warning polygon clearfix">
-          <?php echo force_balance_tags( $g_notices ); ?>
-        </div>
-      <?php };
-  
+
   // Abort conditions
   if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) {
     return '';
