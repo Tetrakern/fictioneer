@@ -126,7 +126,15 @@ function fictioneer_chapter_warnings( $args ) {
   // Setup
   $warning = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning', true );
   $warning_notes = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning_notes', true );
-
+  // Get notice
+$g_notices = trim( get_option( 'fictioneer_chapter_announcement_notice' ) );
+  // Show Notice
+  if ( ! empty( $g_notices ) ) {  ?>
+        <div class="chapter__warning infobox infobox--warning polygon clearfix">
+          <?php echo force_balance_tags( $g_notices ); ?>
+        </div>
+      <?php };
+  
   // Abort conditions
   if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) {
     return '';
