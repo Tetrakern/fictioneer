@@ -1143,7 +1143,7 @@ function fcn_updateChapterNotes(value, save = true) {
   }
 
   // Toggle classes on elements
-  _$$('#chapter-foreword, #chapter-afterword, #chapter-warning').forEach(element => {
+  _$$('.hideable').forEach(element => {
     element.classList.toggle('hidden', !boolean);
   });
 

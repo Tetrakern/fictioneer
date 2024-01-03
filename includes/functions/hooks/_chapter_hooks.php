@@ -105,7 +105,7 @@ function fictioneer_chapter_foreword( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix"><?php echo $foreword; ?></section>
+  <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix hideable"><?php echo $foreword; ?></section>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 10 );
@@ -133,7 +133,7 @@ function fictioneer_chapter_warnings( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix">
+  <section id="chapter-warning" class="chapter__warning infobox infobox--warning polygon clearfix hideable">
     <?php if ( $warning ) : ?>
       <p><?php
         printf(
@@ -411,7 +411,7 @@ function fictioneer_chapter_afterword( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix"><?php echo $afterword; ?></section>
+  <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix hideable"><?php echo $afterword; ?></section>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 10 );
