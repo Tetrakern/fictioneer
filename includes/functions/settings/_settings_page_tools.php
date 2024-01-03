@@ -227,7 +227,7 @@
           <div class="fictioneer-card__content">
 
             <div class="fictioneer-card__row">
-              <p><?php _e( '<strong>Append associated <em>published</em> chapters </strong> that are not already in the story’s chapter list. Enter the ID of the story, which can be found in the URL of the editor page. The story must be assigned to the chapters. Beware, ownership restrictions will be ignored!', 'fictioneer' ); ?></p>
+              <p><?php _e( '<strong>Append associated <em>published</em> chapters </strong> that are not already in the story’s chapter list. Enter the ID of the story, which can be found in the URL of the editor page. The chapters must be assigned to the story. Beware, ownership restrictions will be ignored!', 'fictioneer' ); ?></p>
             </div>
 
             <form class="fictioneer-card__row fictioneer-card__row--single-form-submit" action="<?php echo admin_url( 'admin-post.php' ); ?>" method="get">
