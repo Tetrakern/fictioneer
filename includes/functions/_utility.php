@@ -1057,7 +1057,7 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
     $story_chapters[] = $post_id;
     $story_chapters = array_unique( $story_chapters );
 
-    // Append chapter to field
+    // Save updated list
     update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
 
     // Remember when chapter list has been last updated

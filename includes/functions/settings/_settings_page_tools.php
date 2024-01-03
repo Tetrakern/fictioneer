@@ -223,6 +223,27 @@
 
       <div class="fictioneer-card">
         <div class="fictioneer-card__wrapper">
+          <h3 class="fictioneer-card__header"><?php _e( 'Migration Tools', 'fictioneer' ); ?></h3>
+          <div class="fictioneer-card__content">
+
+            <div class="fictioneer-card__row">
+              <p><?php _e( '<strong>Append associated <em>published</em> chapters </strong> that are not already in the story’s chapter list. Enter the ID of the story, which can be found in the URL of the editor page. The story must be assigned to the chapters. Beware, ownership restrictions will be ignored!', 'fictioneer' ); ?></p>
+            </div>
+
+            <form class="fictioneer-card__row fictioneer-card__row--single-form-submit" action="<?php echo admin_url( 'admin-post.php' ); ?>" method="get">
+              <input type="hidden" name="action" value="fictioneer_tools_append_chapters">
+              <?php wp_nonce_field( 'fictioneer_tools_append_chapters', 'fictioneer_nonce' ); ?>
+              <input name="story_id" placeholder="<?php _e( 'Story ID', 'fictioneer' ); ?>" type="text" autocomplete="off" style="max-width: 150px !important;" required>
+              <input type="submit" name="preview" class="button button--secondary" value="<?php echo esc_attr_x( 'Preview', 'Migration tools chapter preview button.', 'fictioneer' ); ?>">
+              <input type="submit" name="perform" class="button button--secondary" value="<?php echo esc_attr_x( 'Append Chapters', 'Migration tools chapter append button.', 'fictioneer' ); ?>">
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="fictioneer-card" style="display: none;">
+        <div class="fictioneer-card__wrapper">
           <h3 class="fictioneer-card__header"><?php _e( 'Repair Tools', 'fictioneer' ); ?></h3>
           <div class="fictioneer-card__content">
 

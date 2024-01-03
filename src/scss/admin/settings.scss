@@ -431,10 +431,18 @@ body[class*="fictioneer_page_"] {
         gap: 8px;
       }
 
-      &--buttons {
+      &--buttons,
+      &--single-form-submit {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+      }
+
+      &--single-form-submit {
+        input:not([type="checkbox"], [type="radio"], [type="range"], [type="submit"]) {
+          flex-grow: 1;
+          width: auto;
+        }
       }
 
       &--meta {

@@ -118,7 +118,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-db-optimization' => __( '%s superfluous rows have been deleted.', 'fictioneer' ),
       'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
-      'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' )
+      'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
+      'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' )
 		)
 	);
 }
@@ -1239,5 +1240,129 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
     }
   }
 }
+
+// =============================================================================
+// MIGRATION TOOLS ACTIONS
+// =============================================================================
+
+/**
+ * Append chapters to a story by ID
+ *
+ * @since Fictioneer 5.8.6
+ * @see fictioneer_append_chapter_to_story()
+ */
+
+function fictioneer_tools_append_chapters() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_append_chapters' );
+
+  // Story ID
+  $story_id = absint( $_REQUEST['story_id'] ?? 0 );
+  $story_post = get_post( $story_id );
+  $action = $_REQUEST['preview'] ?? 0 ? 'preview' : 'perform';
+
+  // Abort if...
+  if ( empty( $story_id ) || ! $story_post || get_post_type( $story_id ) !== 'fcn_story' ) {
+    wp_die( _x( 'Invalid or missing story ID.', 'Migration tools invalid story ID.', 'fictioneer' ), 400 );
+  }
+
+  // Query chapters to append
+  $query_args = array(
+    'post_type' => 'fcn_chapter',
+    'post_status' => 'publish',
+    'orderby' => 'date',
+    'order' => 'asc',
+    'posts_per_page' => -1,
+    'meta_key' => 'fictioneer_chapter_story',
+    'meta_value' => $story_id,
+    'update_post_meta_cache' => false, // Improve performance
+    'update_post_term_cache' => false, // Improve performance
+    'no_found_rows' => true // Improve performance
+  );
+
+  if ( $action === 'perform' ) {
+    $query_args['fields'] = 'ids';
+  }
+
+  $chapters_to_append = new WP_Query( $query_args );
+
+  // Show preview and exit...
+  if ( $action === 'preview' ) {
+    $previews = [];
+    $story_data = fictioneer_get_story_data( $story_id, false );
+    $description = sprintf(
+      "<p>The chapters to be appended to <strong>%s</strong> (#%s), in order (of publishing). Only chapters not already in the story’s chapter list will be appended. Beware that chapter and story ownership restrictions are ignored.</p><p>%s</p>",
+      $story_data['title'],
+      $story_id,
+      '<a href="' . wp_get_referer() . '">' . __( '← Back to tools', 'fictioneer' ) . '</a>'
+    );
+    $thead = '<tr><th style="padding-right: 24px;">' . __( 'ID', 'fictioneer' ) . '</th><th style="padding-right: 24px;">'
+      . __( 'Date', 'fictioneer' ) . '</th><th>' . __( 'Chapter', 'fictioneer' ) . '</th></tr>';
+
+    foreach ( $chapters_to_append->posts as $chapter ) {
+      $previews[] = "<tr><td style='padding-right: 24px;'>{$chapter->ID}</td><td style='padding-right: 24px;'>{$chapter->post_date}</td><td>{$chapter->post_title}</td></tr>";
+    }
+
+    wp_die(
+      '<h1>' . __( 'Appending Preview', 'fictioneer' ) . '</h1>' . $description .
+        '<table style="text-align: left;">' . $thead . implode( '', $previews ) . '</table>',
+      __( 'Preview', 'fictioneer' ),
+      200
+    );
+  }
+
+  // ... or append chapters
+  $chapter_ids_to_append = array_map( 'strval', $chapters_to_append->posts );
+
+  if ( ! empty( $chapter_ids_to_append ) ) {
+    // Prepare
+    $story_chapters = fictioneer_get_story_chapters( $story_id );
+    $count = 0;
+
+    // Append missing chapters
+    foreach ( $chapter_ids_to_append as $chapter_id ) {
+      if ( ! in_array( $chapter_id, $story_chapters ) ) {
+        $story_chapters[] = $chapter_id;
+        $count++;
+      }
+    }
+
+    // Anything added?
+    if ( $count > 0 ) {
+      // Make double sure IDs are unique
+      $story_chapters = array_unique( $story_chapters );
+
+      // Save updated list
+      update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
+
+      // Remember when chapter list has been last updated
+      update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+      update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+
+      // Clear story data cache to ensure it gets refreshed
+      delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+
+      // Update story post to fire associated actions
+      wp_update_post( array( 'ID' => $story_id ) );
+    }
+
+    // Redirect
+    wp_safe_redirect(
+      add_query_arg(
+        array(
+          'success' => 'fictioneer-chapters-appended',
+          'data' => $count
+        ),
+        wp_get_referer()
+      )
+    );
+
+    exit;
+  }
+
+  // Nothing found
+  wp_die( __( 'No published chapters associated with the story found.', 'fictioneer' ), 400 );
+}
+add_action( 'admin_post_fictioneer_tools_append_chapters', 'fictioneer_tools_append_chapters' );
 
 ?>
