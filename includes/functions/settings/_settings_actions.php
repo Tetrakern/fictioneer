@@ -1260,10 +1260,21 @@ function fictioneer_tools_append_chapters() {
   $story_id = absint( $_REQUEST['story_id'] ?? 0 );
   $story_post = get_post( $story_id );
   $action = $_REQUEST['preview'] ?? 0 ? 'preview' : 'perform';
+  $back_link = '<a href="' . wp_get_referer() . '">' . __( '← Back to tools', 'fictioneer' ) . '</a>';
 
   // Abort if...
   if ( empty( $story_id ) || ! $story_post || get_post_type( $story_id ) !== 'fcn_story' ) {
-    wp_die( _x( 'Invalid or missing story ID.', 'Migration tools invalid story ID.', 'fictioneer' ), 400 );
+    wp_die(
+      sprintf(
+        _x(
+          '<p>Invalid or missing story ID.</p><p style="margin-top: -10px;">%s</p>',
+          'Migration tools invalid story ID.',
+          'fictioneer'
+        ),
+        $back_link
+      ),
+      400
+    );
   }
 
   // Query chapters to append
@@ -1291,10 +1302,10 @@ function fictioneer_tools_append_chapters() {
     $previews = [];
     $story_data = fictioneer_get_story_data( $story_id, false );
     $description = sprintf(
-      "<p>The chapters to be appended to <strong>%s</strong> (#%s), in order (of publishing). Only chapters not already in the story’s chapter list will be appended. Beware that chapter and story ownership restrictions are ignored.</p><p>%s</p>",
+      "<p>The chapters to be appended to <strong>%s</strong> (#%s), in order of publication. Only chapters not already in list will be appended. Beware that chapter and story ownership restrictions are ignored.</p><p style='margin-top: -10px;'>%s</p>",
       $story_data['title'],
       $story_id,
-      '<a href="' . wp_get_referer() . '">' . __( '← Back to tools', 'fictioneer' ) . '</a>'
+      $back_link
     );
     $thead = '<tr><th style="padding-right: 24px;">' . __( 'ID', 'fictioneer' ) . '</th><th style="padding-right: 24px;">'
       . __( 'Date', 'fictioneer' ) . '</th><th>' . __( 'Chapter', 'fictioneer' ) . '</th></tr>';
@@ -1305,7 +1316,7 @@ function fictioneer_tools_append_chapters() {
 
     wp_die(
       '<h1>' . __( 'Appending Preview', 'fictioneer' ) . '</h1>' . $description .
-        '<table style="text-align: left;">' . $thead . implode( '', $previews ) . '</table>',
+        '<table style="text-align: left;"><thead>' . $thead . '</thead><tbody>' . implode( '', $previews ) . '</tbody></table>',
       __( 'Preview', 'fictioneer' ),
       200
     );
@@ -1361,7 +1372,13 @@ function fictioneer_tools_append_chapters() {
   }
 
   // Nothing found
-  wp_die( __( 'No published chapters associated with the story found.', 'fictioneer' ), 400 );
+  wp_die(
+    sprintf(
+      __( '<p>No associated published chapters found.</p><p style="margin-top: -10px;">%s</p>', 'fictioneer' ),
+      $back_link
+    ),
+    400
+  );
 }
 add_action( 'admin_post_fictioneer_tools_append_chapters', 'fictioneer_tools_append_chapters' );
 
