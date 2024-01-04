@@ -1083,7 +1083,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     'dark_mode_colors',
     array(
       'title' => __( 'Dark Mode Colors', 'fictioneer' ),
-      'description' => __( 'Color scheme for the dark mode. <b>Warning:</b> Looking at light text on dark background for a prolonged period of time causes immense eye strain! Try to keep the main text contrast between 5:1 and 6:1 to alleviate the issue.', 'fictioneer' ),
+      'description' => __( 'Color scheme for the dark mode. <b>Warning:</b> Looking at light text on dark background for a prolonged period of time causes immense eye strain! Try to keep the main text contrast between 5:1 and 7:1 to alleviate the issue.', 'fictioneer' ),
       'priority' => '83'
     )
   );
