@@ -14,7 +14,7 @@
  */
 
 if ( class_exists( 'WP_Customize_Control' ) ) {
-	require_once( __DIR__ . '/class-customizer-range-value-control/class-customizer-range-value-control.php' );
+  require_once( __DIR__ . '/class-customizer-range-value-control/class-customizer-range-value-control.php' );
 }
 
 // =============================================================================
@@ -82,22 +82,20 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-		'use_custom_light_mode',
-		array(
-			'default'=> ''
-		)
-	);
+    'use_custom_light_mode',
+    array(
+      'capability' => 'manage_options',
+      'default'=> ''
+    )
+  );
 
   $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'use_custom_light_mode',
-      array(
-        'type' => 'checkbox',
-        'label' => __( 'Use custom theme colors', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'use_custom_light_mode'
-      )
+    'use_custom_light_mode',
+    array(
+      'type' => 'checkbox',
+      'priority' => 10,
+      'section' => 'light_mode_colors',
+      'label' => __( 'Use custom light mode colors', 'fictioneer' )
     )
   );
 
@@ -1135,20 +1133,18 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'use_custom_dark_mode',
     array(
+      'capability' => 'manage_options',
       'default'=> ''
     )
   );
 
   $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'use_custom_dark_mode',
-      array(
-        'type' => 'checkbox',
-        'label' => __( 'Use custom theme colors', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'use_custom_dark_mode'
-      )
+    'use_custom_dark_mode',
+    array(
+      'type' => 'checkbox',
+      'priority' => 10,
+      'section' => 'dark_mode_colors',
+      'label' => __( 'Use custom dark mode colors', 'fictioneer' )
     )
   );
 
@@ -2548,20 +2544,18 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'use_custom_layout',
     array(
+      'capability' => 'manage_options',
       'default'=> ''
     )
   );
 
   $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'use_custom_layout',
-      array(
-        'type' => 'checkbox',
-        'label' => __( 'Use custom layout properties', 'fictioneer' ),
-        'section' => 'layout',
-        'settings' => 'use_custom_layout'
-      )
+    'use_custom_layout',
+    array(
+      'type' => 'checkbox',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Use custom layout properties', 'fictioneer' )
     )
   );
 
