@@ -538,6 +538,19 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       }";
     }
 
+    if ( get_theme_mod( 'dark_mode_font_weight', 'default' ) === 'normal' ) {
+      $layout_css .= ":root[data-font-weight=default]:is(html) {
+        --font-weight-normal: 400;
+        --font-weight-strong: 600;
+        --font-weight-medium: 500;
+        --font-weight-heading: 600;
+        --font-weight-badge: 600;
+        --font-weight-post-meta: 400;
+        --font-weight-ribbon: 700;
+        --font-weight-navigation: 400;
+      }";
+    }
+
     $layout_css = fictioneer_minify_css( $layout_css );
 
     // Remember CSS and add it to site
