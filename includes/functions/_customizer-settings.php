@@ -2546,7 +2546,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
+      'default' => 'adjusted'
     )
   );
 
@@ -2559,7 +2559,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Dark Mode Font Weight', 'fictioneer' ),
       'description' => __( 'Fonts are rendered thinner in dark mode to offset text bleeding; you can turn that off.', 'fictioneer' ),
       'choices'  => array(
-        'default' => _x( 'Adjusted', 'Customizer dark mode font weight option.', 'fictioneer' ),
+        'adjusted' => _x( 'Adjusted', 'Customizer dark mode font weight option.', 'fictioneer' ),
         'normal' => _x( 'Normal', 'Customizer dark mode font weight option.', 'fictioneer' )
       ),
     )

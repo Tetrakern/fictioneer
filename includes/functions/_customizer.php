@@ -538,16 +538,20 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       }";
     }
 
-    if ( get_theme_mod( 'dark_mode_font_weight', 'default' ) === 'normal' ) {
+    if ( get_theme_mod( 'dark_mode_font_weight', 'adjusted' ) === 'normal' ) {
       $layout_css .= ":root[data-font-weight=default]:is(html) {
+        --font-smoothing-webkit: subpixel-antialiased;
+        --font-smoothing-moz: auto;
         --font-weight-normal: 400;
+        --font-weight-semi-strong: 600;
         --font-weight-strong: 600;
         --font-weight-medium: 500;
-        --font-weight-heading: 600;
+        --font-weight-heading: 700;
         --font-weight-badge: 600;
         --font-weight-post-meta: 400;
         --font-weight-ribbon: 700;
         --font-weight-navigation: 400;
+        --font-letter-spacing-base: 0em;
       }";
     }
 
