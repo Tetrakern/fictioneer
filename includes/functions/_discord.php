@@ -290,26 +290,12 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
     return;
   }
 
-  // Story?
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-  $story_status = get_post_status( $story_id );
-  $story_title = get_the_title( $story_id );
-  $story_url = get_permalink( $story_id );
-
-  if ( empty( $story_id ) || empty( $story_title ) || empty( $story_url ) || $story_status !== 'publish' ) {
-    return;
-  }
-
   // Remove story webhook to prevent miss-fire
   remove_action( 'save_post', 'fictioneer_post_story_to_discord', 99 );
 
   // Message
   $message = array(
-    'content' => sprintf(
-      _x( "New chapter published for [%s](%s)!\n_ _", 'Discord message for new chapter.', 'fictioneer' ),
-      html_entity_decode( $story_title ),
-      $story_url
-    ),
+    'content' => _x( "New chapter published!\n_ _", 'Discord message for new chapter.', 'fictioneer' ),
     'embeds' => array(
       array(
         'title' => html_entity_decode( get_the_title( $post ) ),
@@ -320,16 +306,33 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
           'name' => get_the_author_meta( 'display_name', $post->post_author ),
           'icon_url' => get_avatar_url( $post->post_author )
         ),
-        'timestamp' => get_the_date( 'c', $post ),
-        'footer' => array(
-          'text' => sprintf(
-            _x( 'Story: %s', 'Discord message story footer note.', 'fictioneer' ),
-            html_entity_decode( $story_title )
-          )
-        )
+        'timestamp' => get_the_date( 'c', $post )
       )
     )
   );
+
+  // Story?
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_status = get_post_status( $story_id );
+  $story_title = get_the_title( $story_id );
+  $story_url = get_permalink( $story_id );
+
+  if ( ! empty( $story_id ) && ! empty( $story_title ) && ! empty( $story_url ) && $story_status === 'publish' ) {
+    // Change message to include story
+    $message['content'] = sprintf(
+      _x( "New chapter published for [%s](%s)!\n_ _", 'Discord message for new chapter.', 'fictioneer' ),
+      html_entity_decode( $story_title ),
+      $story_url
+    );
+
+    // Add footer
+    $message['embeds'][0]['footer'] = array(
+      'text' => sprintf(
+        _x( 'Story: %s', 'Discord message story footer note.', 'fictioneer' ),
+        html_entity_decode( $story_title )
+      )
+    );
+  }
 
   // Thumbnail?
   $thumbnail_url = get_the_post_thumbnail_url( $post, 'thumbnail' );
