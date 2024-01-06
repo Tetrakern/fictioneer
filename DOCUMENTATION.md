@@ -69,9 +69,11 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 
 ### Meta Fields
 
+Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
+
 | Field | Type | Explanation
 | :-- | :-: | :--
-| Short Description * | Content | The short description is used in the story list cards.
+| Short Description | Content | The short description is used in the story list cards.
 | Chapters | List | Add and sort chapters assigned to the story. Assignment is done in the chapters.
 | Custom Pages | List | Add up to four pages as extra tabs. Requires the short name field to show up.
 | Upload Ebook | File | Upload an epub, mobi, ibooks, azw, azw3, kf8, kfx, pdf, iba, or txt file.
@@ -80,13 +82,13 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | ePUB Custom CSS | Text | Inject custom styles into the generated ePUB. For advanced users.
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories (include story name).
 | Cover Image | Image | Cropped to an aspect ration of 2:3 from the center.
-| Status * | Select | Choose between ongoing, completed, oneshot, hiatus, and cancelled.
-| Age Rating * | Select | Choose between everyone, teen, mature, and adult.
-| Co-Authors | List | List of co-authors. They must be registered users, but dummies will do.
+| Status | Select | Choose between ongoing, completed, oneshot, hiatus, and cancelled.
+| Age Rating | Select | Choose between everyone, teen, mature, and adult.
+| Co-Authors (A) | List | List of co-authors. They must be registered users, but dummies will do.
 | Copyright Notice | String | Line below the content to declare copyrights if necessary.
 | Top Web Fiction Link | URL | Link to your story on [Top Web Fiction](https://topwebfiction.com/).
 | Sticky in lists | Check | Stick the story to the top of the first page in lists.
-| Hide in lists | Check | Hide the story in lists; it can still be accessed with the link.
+| Hide story in lists | Check | Hide the story in lists; it can still be accessed with the link.
 | Hide thumbnail on story page | Check | Hide the cover image on the page but not in lists.
 | Hide tags on story page | Check | Hide *all* taxonomies except warnings on the page but not in lists.
 | Hide chapter icons | Check | Hide chapter icons.
@@ -98,7 +100,7 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | Custom Header Image | Image | Override the default header image for the story and chapters.
 | Custom CSS | Text | Inject custom styles into the story page (but not chapters).
 | Support Links (Various) | URL | Links to subscription campaigns. Falls back to the author’s profile if left blank.
-| Disable commenting | Check | Disable new comments but keep the current ones visible.
+| Disable new comments | Check | Disable new comments but keep the current ones visible.
 
 ### eBooks/ePUBs
 
@@ -140,6 +142,8 @@ This notice appears above the title if you add a chapter warning, not to be conf
 
 ### Meta Fields
 
+Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
+
 | Field | Type | Explanation
 | :-- | :-: | :--
 | Story | Select | The story the chapter belongs to. Required if you want it listed.
@@ -151,19 +155,18 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories (include story name).
 | Chapter Cover Image | Image | Cropped to an aspect ration of 2:3 from the center. Defaults to the story cover.
 | Excerpt | Text | Chapter excerpt used in cards. If empty, part of the content will be used.
-| Chapter Icon * | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
-| Chapter Text Icon | String | Overrides icon with a text string, good for combining with symbol fonts.
-| Chapter Short Title | String | Optional short chapter title, not currently used by the base theme.
-| Chapter Prefix | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
-| Co-Authors | List | List of co-authors. They must be registered users, but dummies will do.
-| Unlisted? | Check | Hide the chapter in all lists, but keep it accessible with the link.
-| Not a Chapter? | Check | Exclude the chapter from chapter counts.
-| Hide Title? | Check | Hide the title and author on chapter pages.
-| Hide Support Links? | Check | Hide support links at the end of the chapter.
-| Chapter Age Rating | Select | Choose between everyone, teen, mature, and adult.
-| Chapter Warning | String | _Short_ warning displayed in chapter lists and above the chapter title.
+| Chapter Icon | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
+| Chapter Text Icon (A) | String | Overrides icon with a text string, good for combining with symbol fonts.
+| Chapter Short Title (A) | String | Optional short chapter title, not currently used by the base theme.
+| Chapter Prefix (A) | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
+| Co-Authors (A) | List | List of co-authors. They must be registered users, but dummies will do.
+| Unlisted (but accessible with link) | Check | Hide the chapter in all lists, but keep it accessible with the link.
+| Do not count as chapter | Check | Exclude the chapter from chapter counts.
+| Hide title in chapter | Check | Hide the title and author on chapter pages.
+| Hide support links | Check | Hide support links at the end of the chapter.
+| Age Rating | Select | Choose between everyone, teen, mature, and adult.
+| Warning | String | _Short_ warning displayed in chapter lists and above the chapter title.
 | Warning Notes | Text | Additional warning notes rendered above the chapter title.
-| Warning Color | Color | Change the color of the warning, but consider the legibility in light/dark mode.
 
 ### Text-To-Speech Engine
 
@@ -186,8 +189,8 @@ Collections are added under **Collections > Add New**. Required fields are the s
 | Field | Type | Explanation
 | :-- | :-: | :--
 | Card/List Title | String | Alternative title meant to be suitable for cards and lists with little space.
-| Collection Items * | List | Add and sort posts, pages, stories, chapters, recommendations, and collections.
-| Short Description * | Content | The short description is used in the collection list cards.
+| Collection Items | List | Add and sort posts, pages, stories, chapters, recommendations, and collections.
+| Short Description | Content | The short description is used in the collection list cards.
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories (include story name).
 | Collection Cover Image | Image | Cropped to an aspect ration of 2:3 from the center.
 
@@ -199,10 +202,10 @@ Recommendations are added under **Recommendations > Add New**. Required fields a
 
 | Field | Type | Explanation
 | :-- | :-: | :--
-| One Sentence * | String | 150 characters or less "elevator pitch" to describe the story.
-| Author * | String | The author of the recommended story.
-| Primary URL * | String | Primary link to the recommendation or author’s website.
-| URLs * | Text | Special formatted list of links to the recommendation, one per line.
+| One Sentence | String | 150 characters or less "elevator pitch" to describe the story.
+| Author | String | The author of the recommended story.
+| Primary URL | String | Primary link to the recommendation or author’s website.
+| URLs | Text | Special formatted list of links to the recommendation, one per line.
 | Support | Text | Special formatted list of links to support the author, one per line.
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories.
 | Recommendation Cover Image | Image | Cropped to an aspect ration of 2:3 from the center.
