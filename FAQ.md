@@ -12,6 +12,8 @@ Assuming this is your first WordPress site, take a look at the [Installation](IN
 
 Yes, you can use the theme for multiple authors. Just enable the option to "display authors on cards and posts" under **Fictioneer > General** and assign the author role as needed. Do not make everyone an administrator! Keep also in mind that huge visitor counts will require a more powerful server. The theme is intended for individuals and small collectives.
 
+If you want to display multiple authors **per story or chapter,** you need to check the "Enable advanced meta fields" option under Fictioneer > Settings > General. This will display several extra inputs that most sites just do not need, hence they are hidden by default.
+
 #### Q: Can this be an archive for user contributed content?
 
 Technically, yes. However, this is not recommended for several reasons. The theme lacks a frontend content submission system, which means you need to grant random people access to the admin panels. While the included role manager allows you to restrict a user’s capabilities, WordPress was never intended for unsafe authors. You will need to watch and moderate everyone, making this only viable for smaller communities with a trustworthy team.
