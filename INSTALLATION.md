@@ -645,7 +645,9 @@ This tab is only visible if theme-related plugins are installed and active. Whet
 
 ![Connections Settings Preview](repo/assets/settings_connections_preview.jpg?raw=true)
 
-Anything that connects with external service providers goes here, such as the Client ID and Secret for OAuth 2.0 applications. Please refer to respective tutorials on how to set them up and always, *always* keep those credentials confidential. If you enter a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) here, notifications about new comments will be sent directly into a channel on your server (leave free if you do not want that). This should be a hidden moderation channel because it will receive excerpts of private comments.
+Anything that connects with external service providers goes here, such as the Client ID and Secret for OAuth 2.0 applications. Please refer to respective tutorials on how to set them up and always, *always* keep those credentials confidential.
+
+If you enter a [Discord webhook](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) here, notifications about new comments, stories, and/or chapters will be sent directly into a channel on your server (leave free if you do not want that). Make sure comments are sent to a hidden moderation channel since it will receive excerpts of private comments. Note that webhooks cease to work if used for more than one app (for security reasons).
 
 * [Discord Developer Portal](https://discord.com/developers/docs/topics/oauth2)
 * [Twitch Developer Portal](https://dev.twitch.tv/docs/authentication/register-app)
