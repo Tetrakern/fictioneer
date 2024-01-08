@@ -175,6 +175,11 @@ if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
   define( 'FICTIONEER_STORY_FOOTER_B480_DATE', $long_date );
 }
 
+// String: Story page footer date format below 480px
+if ( ! defined( 'FICTIONEER_DISCORD_EMBED_COLOR' ) ) {
+  define( 'FICTIONEER_DISCORD_EMBED_COLOR', '9692513' );
+}
+
 /*
  * Integers
  */

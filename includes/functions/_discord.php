@@ -221,7 +221,7 @@ function fictioneer_post_story_to_discord( $post_id ) {
         'title' => $title,
         'description' => html_entity_decode( get_the_excerpt( $post ) ),
         'url' => get_permalink( $post_id ),
-        'color' => '9692513',
+        'color' => FICTIONEER_DISCORD_EMBED_COLOR,
         'author' => array(
           'name' => get_the_author_meta( 'display_name', $post->post_author ),
           'icon_url' => get_avatar_url( $post->post_author )
@@ -301,7 +301,7 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
         'title' => html_entity_decode( get_the_title( $post ) ),
         'description' => html_entity_decode( get_the_excerpt( $post ) ),
         'url' => get_permalink( $post_id ),
-        'color' => '9692513',
+        'color' => FICTIONEER_DISCORD_EMBED_COLOR,
         'author' => array(
           'name' => get_the_author_meta( 'display_name', $post->post_author ),
           'icon_url' => get_avatar_url( $post->post_author )
