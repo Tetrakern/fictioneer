@@ -558,11 +558,11 @@ Technically just another plugin, but one that will make your site significantly 
 
 ### Recommended: Must-Use Plugins
 
-[Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with two must-use plugins ready to be copied over.
+[Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with a must-use plugin ready to be copied over.
 
 **Fictioneer 001 Fast Requests** accelerates AJAX and REST requests by disabling non-allow-listed plugins during selected theme actions. Depending on the number of plugins you have installed, this can boost your request performance significantly. However, it will prevent the plugins from working during these requests, although that has no effect on the theme’s default functionality. Be not afraid to edit the file and extend the allow list, it will not be overwritten when you update the theme. Or add your own plugin files. This is one of the best speed optimizations you can make.
 
-If problems arise, you can just delete the plugin files.
+If problems arise, you can just delete the plugin file.
 
 ### Warning: SEO Plugins
 
