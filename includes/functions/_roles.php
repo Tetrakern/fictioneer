@@ -1266,15 +1266,33 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Prevents user edit of permalink
    *
    * @since 5.6.0
+   * @since 5.8.6 - Fixed duplicate permalinks.
    *
-   * @param array $data  An array of slashed, sanitized, and processed post data.
+   * @param array $data     An array of slashed, sanitized, and processed post data.
+   * @param array $postarr  An array of sanitized (and slashed) but otherwise unmodified post data.
    *
    * @return array The post data with the permalink enforced.
    */
 
-  function fictioneer_prevent_permalink_edit( $data ) {
-    $data['post_name'] = sanitize_title( $data['post_title'] );
+  function fictioneer_prevent_permalink_edit( $data, $postarr ) {
+    // Continue filter if empty
+    if ( empty( $data['post_name'] ) ) {
+      return $data;
+    }
 
+    // Generate slug from title
+    $slug = sanitize_title( $data['post_title'] );
+
+    // Ensure unique slug
+    $data['post_name'] = wp_unique_post_slug(
+      $slug,
+      $postarr['ID'],
+      $data['post_status'],
+      $data['post_type'],
+      $data['post_parent'] ?? 0
+    );
+
+    // Continue filter
     return $data;
   }
 
@@ -1301,7 +1319,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   if ( ! current_user_can( 'fcn_edit_permalink' ) ) {
     add_action( 'admin_head-post.php', 'fictioneer_hide_permalink_with_css' );
     add_action( 'admin_footer-post.php', 'fictioneer_hide_permalink_with_js' );
-    add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99 );
+    add_filter( 'wp_insert_post_data', 'fictioneer_prevent_permalink_edit', 99, 2 );
   }
 
   // === FCN_EDIT_DATE =========================================================
