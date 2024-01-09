@@ -56,7 +56,7 @@ $logout_url = fictioneer_get_logout_url( get_permalink() );
       fictioneer_comment_header( $comments_count );
 
       // Comment form
-      if ( ! fictioneer_is_commenting_disabled() ) {
+      if ( ! fictioneer_is_commenting_disabled( $post_id ) ) {
         if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
           fictioneer_comments_ajax_form_skeleton();
         } else {

@@ -171,7 +171,7 @@ function fictioneer_output_modals( $args ) {
     ! empty( $args['post_id'] ) &&
     ! post_password_required() &&
     comments_open() &&
-    ! fictioneer_is_commenting_disabled()
+    ! fictioneer_is_commenting_disabled( $args['post_id'] )
   ) {
     ?><input id="modal-bbcodes-toggle" data-target="bbcodes-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-bbcodes' );

@@ -1499,6 +1499,9 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
    */
 
   function fictioneer_is_commenting_disabled( $post_id = null ) {
+    // Setup
+    $post_id = $post_id ?? get_the_ID();
+
     // Return immediately if...
     if (
       get_option( 'fictioneer_disable_commenting' ) ||
