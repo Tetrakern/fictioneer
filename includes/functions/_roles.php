@@ -1275,8 +1275,8 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_prevent_permalink_edit( $data, $postarr ) {
-    // Continue filter if empty
-    if ( empty( $data['post_name'] ) ) {
+    // Continue filter if empty or no change
+    if ( empty( $data['post_name'] ) || $data['post_name'] === get_post_field( 'post_name', $postarr['ID'] ) ) {
       return $data;
     }
 
