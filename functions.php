@@ -256,6 +256,11 @@ if ( ! defined( 'FICTIONEER_POST_NOT_IN_LIMIT' ) ) {
   define( 'FICTIONEER_POST_NOT_IN_LIMIT', 100 );
 }
 
+// Integer: After how many seconds after saving is a post considered "old"
+if ( ! defined( 'FICTIONEER_OLD_POST_THRESHOLD' ) ) {
+  define( 'FICTIONEER_OLD_POST_THRESHOLD', 30 );
+}
+
 /*
  * Booleans
  */

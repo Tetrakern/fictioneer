@@ -189,11 +189,11 @@ function fictioneer_post_story_to_discord( $post_id ) {
     return;
   }
 
-  // Older than five seconds?
-  $publishing_time = get_post_time( 'U', true, $post_id, true );
+  // Older than n (30) seconds? The $update param is unreliable with block editor.
+  $publishing_time = get_post_time( 'U', true, $post_id );
   $current_time = current_time( 'timestamp', true );
 
-  if ( $current_time - $publishing_time > 5 ) {
+  if ( $current_time - $publishing_time > FICTIONEER_OLD_POST_THRESHOLD ) {
     return;
   }
 
@@ -277,11 +277,11 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
     return;
   }
 
-  // Older than five seconds?
-  $publishing_time = get_post_time( 'U', true, $post_id, true );
+  // Older than n (30) seconds? The $update param is unreliable with block editor.
+  $publishing_time = get_post_time( 'U', true, $post_id );
   $current_time = current_time( 'timestamp', true );
 
-  if ( $current_time - $publishing_time > 5 ) {
+  if ( $current_time - $publishing_time > FICTIONEER_OLD_POST_THRESHOLD ) {
     return;
   }
 

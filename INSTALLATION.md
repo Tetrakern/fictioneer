@@ -1130,6 +1130,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT | integer | Timeout between comment count refreshes for stories in _seconds_. Default `900`.
 | FICTIONEER_REQUESTS_PER_MINUTE | integer | Maximum requests per minute and action if the rate limit is enabled. Default `5`.
 | FICTIONEER_POST_NOT_IN_LIMIT | integer | Maximum allowed IDs in the 'post__not_in' query argument. Default `100`.
+| FICTIONEER_OLD_POST_THRESHOLD | integer | Age of published post that is considered "old" in seconds. Default `30`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.
