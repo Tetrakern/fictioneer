@@ -185,7 +185,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_enable_sitemap',
 			'group' => 'fictioneer-settings-general-group',
 			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable own sitemap generation', 'fictioneer' ),
+      'label' => __( 'Enable theme sitemap generation', 'fictioneer' ),
       'default' => 0
     ),
 		'fictioneer_enable_epubs' => array(

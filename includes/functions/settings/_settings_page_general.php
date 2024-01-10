@@ -432,7 +432,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_sitemap',
-                    __( 'Customized sitemap for search engines to crawl. Respects unlisted flags and custom post types.', 'fictioneer' )
+                    __( 'Customized sitemap for search engines to crawl. Respects unlisted flags and custom post types. Can be slow.', 'fictioneer' )
                   );
                 ?>
               </div>
