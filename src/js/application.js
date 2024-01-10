@@ -506,7 +506,8 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
 
 function fcn_scrollDirection() {
   // Get current scroll offset
-  const newScrollTop = window.scrollY ?? document.documentElement.scrollTop;
+  const root_overflow = window.getComputedStyle(document.documentElement).overflow !== 'hidden';
+  const newScrollTop = root_overflow ? (window.scrollY ?? document.documentElement.scrollTop) : (fcn_theBody.scrollTop ?? 1);
 
   // Scrolled to top?
   fcn_theBody.classList.toggle('scrolled-to-top', newScrollTop === 0);
