@@ -228,8 +228,10 @@
   --embed-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
 
   // === MOBILE MENU ===========================================================
-  --mobile-menu-background: var(--e-body);
-  --mobile-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
+  --mobile-menu-background: var(--e-1);
+  --mobile-menu-advanced-background: var(--e-body);
+  --mobile-menu-site-box-shadow: 2px 0 3px rgb(0 0 0 / 30%);
+  --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
   --mobile-menu-overlay: rgb(0 0 0 / 20%);
   --mobile-menu-text-shadow: var(--text-shadow);
   --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);

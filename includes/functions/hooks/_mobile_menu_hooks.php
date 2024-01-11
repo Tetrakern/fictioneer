@@ -20,9 +20,17 @@
  */
 
 function fictioneer_output_mobile_menu( $args ) {
+  // Setup
+  $style = get_theme_mod( 'mobile_menu_style', 'minimize_to_right' );
+  $classes = [];
+
+  if ( $style === 'minimize_to_right' ) {
+    $classes[] = '_advanced-mobile-menu';
+  }
+
   // Start HTML ---> ?>
   <input id="mobile-menu-toggle" type="checkbox" autocomplete="off" tabindex="-1" hidden>
-  <div class="mobile-menu">
+  <div class="mobile-menu <?php echo implode( ' ', $classes ); ?>">
     <div class="mobile-menu__top"><?php do_action( 'fictioneer_mobile_menu_top' ); ?></div>
     <div class="mobile-menu__center">
       <div class="mobile-menu__frame _active" data-frame="main"><?php

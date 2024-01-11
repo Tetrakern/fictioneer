@@ -7,16 +7,49 @@ const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggl
       /** @const {HTMLElement} */ fcn_mobileMenuUser = _$$$('mobile-menu-user-panel'),
       /** @const {HTMLElement} */ fcn_mobileMenuNav = _$$$('mobile-navigation');
 
-var fcn_mobileMenuNavElements = [];
+/**
+ * Delegate toggling of the mobile menu.
+ *
+ * @since 5.8.7
+ * @param {boolean} isOpened - True or false.
+ */
 
-// Clone main navigation into mobile menu
-fcn_copyNavIntoMobileMenu();
+function fcn_toggleMobileMenu(isOpened) {
+  // Clone main navigation into mobile menu
+  fcn_copyNavIntoMobileMenu();
 
-// Remove and store elements until needed
-fcn_toggleMobileMenuContent(false);
+  if (_$('.mobile-menu._advanced-mobile-menu')) {
+    fcn_toggleAdvancedMobileMenu(isOpened);
+  } else {
+    fcn_toggleSimpleMobileMenu(isOpened);
+  }
+}
 
 /**
- * Open or close the mobile menu.
+ * Open or close the simple mobile menu.
+ *
+ * @since 5.8.7
+ * @param {boolean} isOpened - True or false.
+ */
+
+function fcn_toggleSimpleMobileMenu(isOpened) {
+  if (isOpened) {
+    // Mobile menu was opened
+    fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
+    fcn_theBody.classList.remove('scrolling-up');
+  } else {
+    // Mobile menu was closed
+    fcn_theBody.classList.remove('mobile-menu-open');
+    fcn_closeMobileFrames(); // Close all frames
+    fcn_openMobileFrame('main'); // Reset to main frame
+
+    // Reset control checkbox
+    fcn_mobileMenuToggle.checked = false;
+  }
+}
+
+/**
+ * Open or close the advanced mobile menu.
  *
  * @description When the site is transformed, the scroll context is changed as
  * well. So the scroll position needs to be corrected by remembering the
@@ -26,7 +59,7 @@ fcn_toggleMobileMenuContent(false);
  * @param {boolean} isOpened - True or false.
  */
 
-function fcn_toggleMobileMenu(isOpened) {
+function fcn_toggleAdvancedMobileMenu(isOpened) {
   // Get and preserve values before DOM changes destroy them
   const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0,
         windowScrollY = window.scrollY,
@@ -34,7 +67,6 @@ function fcn_toggleMobileMenu(isOpened) {
 
   if (isOpened) {
     // Mobile menu was opened
-    fcn_toggleMobileMenuContent();
     fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
     fcn_theBody.classList.remove('scrolling-up');
     fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
@@ -56,9 +88,6 @@ function fcn_toggleMobileMenu(isOpened) {
     // Reset control checkbox
     fcn_mobileMenuToggle.checked = false;
 
-    // Remove main navigation to save elements
-    fcn_toggleMobileMenuContent(false);
-
     // Restart progress bar
     if (typeof fcn_trackProgress === 'function') {
       fcn_trackProgress();
@@ -66,33 +95,8 @@ function fcn_toggleMobileMenu(isOpened) {
   }
 }
 
-/**
- * Add/Remove mobile menu elements on demand.
- *
- * @since 5.4.2
- * @param {boolean} add - True or false.
- */
-
-function fcn_toggleMobileMenuContent(add = true) {
-  // Remove
-  if (!add && fcn_mobileMenuNav) {
-    while (fcn_mobileMenuNav.firstChild) {
-      fcn_mobileMenuNavElements.push(fcn_mobileMenuNav.removeChild(fcn_mobileMenuNav.firstChild));
-    }
-
-    return;
-  }
-
-  // Restore nav elements
-  fcn_mobileMenuNavElements.forEach(element => {
-    fcn_mobileMenuNav.appendChild(element);
-  });
-
-  fcn_mobileMenuNavElements = [];
-}
-
 // Listen for change of mobile menu toggle checkbox
-_$$$('mobile-menu-toggle')?.addEventListener('change', (e) => {
+_$$$('mobile-menu-toggle')?.addEventListener('change', e => {
   fcn_toggleMobileMenu(e.currentTarget.checked);
 });
 
@@ -103,6 +107,12 @@ fcn_theSite.addEventListener('click', e => {
     fcn_toggleMobileMenu(false);
   }
 });
+
+/**
+ * Copy and adjust navigation to mobile menu.
+ *
+ * @since 5.4.2
+ */
 
 function fcn_copyNavIntoMobileMenu() {
   const mainMenu = _$('[data-menu-id="main"]');

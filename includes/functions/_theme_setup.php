@@ -386,6 +386,11 @@ function fictioneer_add_classes_to_body( $classes ) {
   $user = wp_get_current_user();
   $includes = [];
 
+  // Mobile menu
+  if ( get_theme_mod( 'mobile_menu_style', 'minimize_to_right' ) === 'minimize_to_right' ) {
+    $classes[] = 'advanced-mobile-menu';
+  }
+
   // Roles
   if ( $user->ID > 0 && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
     $includes['is-admin'] = fictioneer_is_admin( $user->ID );
@@ -426,9 +431,9 @@ if ( ! is_admin() ) {
  *
  * @since Fictioneer 5.0.0
  *
- * @param array $classes  Current body classes.
+ * @param string $classes  Current body classes separated by whitespace.
  *
- * @return array The updated body classes.
+ * @return string The updated body classes.
  */
 
 function fictioneer_add_classes_to_admin_body( $classes ) {

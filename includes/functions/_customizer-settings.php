@@ -2542,6 +2542,30 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
+    'mobile_menu_style',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'minimize_to_right'
+    )
+  );
+
+  $manager->add_control(
+    'mobile_menu_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Mobile Menu Style', 'fictioneer' ),
+      'description' => __( 'Choose the style of your mobile menu.', 'fictioneer' ),
+      'choices'  => array(
+        'minimize_to_right' => _x( 'Minimize site to right', 'Customizer mobile menu style option.', 'fictioneer' ),
+        'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' )
+      ),
+    )
+  );
+
+  $manager->add_setting(
     'dark_mode_font_weight',
     array(
       'capability' => 'manage_options',
