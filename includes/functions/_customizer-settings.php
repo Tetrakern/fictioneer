@@ -2372,7 +2372,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'priority' => 10,
         'section' => 'layout',
         'settings' => 'saturation_offset',
-        'label' => __( 'Saturation Offset', 'fictioneer' ),
+        'label' => __( 'Saturation Offset (Dark Mode)', 'fictioneer' ),
         'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
@@ -2402,7 +2402,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'priority' => 10,
         'section' => 'layout',
         'settings' => 'lightness_offset',
-        'label' => __( 'Lightness Offset', 'fictioneer' ),
+        'label' => __( 'Lightness Offset (Dark Mode)', 'fictioneer' ),
         'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
