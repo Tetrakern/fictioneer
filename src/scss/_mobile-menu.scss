@@ -151,8 +151,6 @@ body:not(.mobile-menu-open) {
   }
 
   &._advanced-mobile-menu {
-    top: 0;
-    left: 0;
     display: none;
     content-visibility: hidden;
     background: var(--mobile-menu-advanced-background);
