@@ -368,6 +368,97 @@ function fictioneer_root_attributes() {
 }
 
 // =============================================================================
+// ADD BODY CLASSES
+// =============================================================================
+
+/**
+ * Add additional classes to the frontend <body>
+ *
+ * @since Fictioneer 5.0.0
+ *
+ * @param array $classes  Current body classes.
+ *
+ * @return array The updated body classes.
+ */
+
+function fictioneer_add_classes_to_body( $classes ) {
+  // Setup
+  $user = wp_get_current_user();
+  $includes = [];
+
+  // Roles
+  if ( $user->ID > 0 && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
+    $includes['is-admin'] = fictioneer_is_admin( $user->ID );
+    $includes['is-moderator'] = fictioneer_is_moderator( $user->ID );
+    $includes['is-author'] = fictioneer_is_author( $user->ID );
+    $includes['is-editor'] = fictioneer_is_editor( $user->ID );
+  }
+
+  // Browsers
+  if ( ! fictioneer_caching_active() ) {
+    $includes['is-iphone'] = $GLOBALS['is_iphone'];
+    $includes['is-chrome'] = $GLOBALS['is_chrome'];
+    $includes['is-safari'] = $GLOBALS['is_safari'];
+    $includes['is-opera'] = $GLOBALS['is_opera'];
+    $includes['is-gecko'] = $GLOBALS['is_gecko'];
+    $includes['is-lynx'] = $GLOBALS['is_lynx'];
+    $includes['is-ie'] = $GLOBALS['is_IE'];
+    $includes['is-edge'] = $GLOBALS['is_edge'];
+  }
+
+  // Add classes to defaults
+  foreach ( $includes as $class => $test )  {
+		if ( $test ) {
+      $classes[ $class ] = $class;
+    }
+	}
+
+  // Continue filter
+  return $classes;
+}
+
+if ( ! is_admin() ) {
+  add_filter( 'body_class', 'fictioneer_add_classes_to_body' );
+}
+
+/**
+ * Add additional classes to the admin <body>
+ *
+ * @since Fictioneer 5.0.0
+ *
+ * @param array $classes  Current body classes.
+ *
+ * @return array The updated body classes.
+ */
+
+function fictioneer_add_classes_to_admin_body( $classes ) {
+  // Setup
+  $user = wp_get_current_user();
+  $includes = [];
+
+  // Classes
+  $includes['is-admin'] = fictioneer_is_admin( $user->ID );
+  $includes['is-moderator'] = fictioneer_is_moderator( $user->ID );
+  $includes['is-author'] = fictioneer_is_author( $user->ID );
+  $includes['is-editor'] = fictioneer_is_editor( $user->ID );
+
+  // Add classes to defaults
+  if ( array_intersect( ['subscriber'], $user->roles ) ) {
+    $classes .= ' is-subscriber';
+  } else {
+    foreach ( $includes as $class => $test )  {
+      if ( $test ) {
+        $classes .= " $class";
+      }
+    }
+  }
+
+  // Continue filter
+  return $classes;
+}
+add_filter( 'admin_body_class', 'fictioneer_add_classes_to_admin_body' );
+
+// =============================================================================
 // ENQUEUE STYLESHEETS
 // =============================================================================
 
