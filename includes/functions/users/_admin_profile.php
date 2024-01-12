@@ -369,6 +369,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
   // Continue setup
   $always_gravatar = get_the_author_meta( 'fictioneer_enforce_gravatar', $profile_user->ID ) ?: false;
   $disable_avatar = get_the_author_meta( 'fictioneer_disable_avatar', $profile_user->ID ) ?: false;
+  $lock_avatar = get_the_author_meta( 'fictioneer_lock_avatar', $profile_user->ID ) ?: false;
   $hide_badge = get_the_author_meta( 'fictioneer_hide_badge', $profile_user->ID ) ?: false;
   $disable_override_badge = get_the_author_meta( 'fictioneer_disable_badge_override', $profile_user->ID ) ?: false;
   $reply_notifications = get_the_author_meta( 'fictioneer_comment_reply_notifications', $profile_user->ID ) ?: false;
@@ -400,6 +401,18 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
               <?php echo checked( 1, $disable_avatar, false ); ?>
             >
             <span><?php _e( 'Disable avatar', 'fictioneer' ); ?></span>
+          </label>
+        </div>
+        <div>
+          <label for="fictioneer_lock_avatar" class="checkbox-group">
+            <input
+              name="fictioneer_lock_avatar"
+              type="checkbox"
+              id="fictioneer_lock_avatar"
+              value="1"
+              <?php echo checked( 1, $lock_avatar, false ); ?>
+            >
+            <span><?php _e( 'Lock avatar', 'fictioneer' ); ?></span>
           </label>
         </div>
         <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
@@ -440,7 +453,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
                 value="1"
                 <?php echo checked( 1, $reply_notifications, false ); ?>
               >
-              <span><?php _e( 'Always subscribe to comment reply notifications', 'fictioneer' ); ?></span>
+              <span><?php _e( 'Always subscribe to comments', 'fictioneer' ); ?></span>
             </label>
           </div>
         <?php endif; ?>

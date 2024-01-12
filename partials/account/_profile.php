@@ -124,7 +124,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
 
   <div class="profile__flags">
 
-    <div class="profile__input-wrapper _checkbox">
+    <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Ignore site avatar and always pull from the Gravatar service.', 'fictioneer' ); ?>">
       <input
         id="fictioneer_enforce_gravatar"
         name="fictioneer_enforce_gravatar"
@@ -135,7 +135,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
       <label for="fictioneer_enforce_gravatar"><?php _e( 'Always use gravatar', 'fictioneer' ); ?></label>
     </div>
 
-    <div class="profile__input-wrapper _checkbox">
+    <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Hide your avatar.', 'fictioneer' ); ?>">
       <input
         id="fictioneer_disable_avatar"
         name="fictioneer_disable_avatar"
@@ -146,9 +146,20 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
       <label for="fictioneer_disable_avatar"><?php _e( 'Disable avatar', 'fictioneer' ); ?></label>
     </div>
 
+    <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Prevent avatar from being overwritten with the latest OAuth account login.', 'fictioneer' ); ?>">
+      <input
+        id="fictioneer_lock_avatar"
+        name="fictioneer_lock_avatar"
+        type="checkbox"
+        value="1"
+        <?php echo checked( 1, get_the_author_meta( 'fictioneer_lock_avatar', $current_user->ID ), false ); ?>
+      >
+      <label for="fictioneer_lock_avatar"><?php _e( 'Lock avatar', 'fictioneer' ); ?></label>
+    </div>
+
     <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
 
-      <div class="profile__input-wrapper _checkbox">
+      <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Hide your badge on comments.', 'fictioneer' ); ?>">
         <input
           id="fictioneer_hide_badge"
           name="fictioneer_hide_badge"
@@ -160,7 +171,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
       </div>
 
       <?php if ( ! empty( get_the_author_meta( 'fictioneer_badge_override', $current_user->ID ) ) ) : ?>
-        <div class="profile__input-wrapper _checkbox">
+        <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Disable custom badge overrides set by administrators.', 'fictioneer' ); ?>">
           <input
             id="fictioneer_disable_badge_override"
             name="fictioneer_disable_badge_override"
@@ -175,7 +186,7 @@ $renaming_disabled = $current_user->fictioneer_admin_disable_renaming;
     <?php endif; ?>
 
     <?php if ( get_option( 'fictioneer_enable_comment_notifications' ) ) : ?>
-      <div class="profile__input-wrapper _checkbox">
+      <div class="profile__input-wrapper _checkbox" title="<?php esc_attr_e( 'Toggle the subscription checkbox on comments by default.', 'fictioneer' ); ?>">
         <input
           id="fictioneer_comment_reply_notifications"
           name="fictioneer_comment_reply_notifications"

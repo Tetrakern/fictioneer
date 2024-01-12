@@ -203,6 +203,13 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_avatar'] ?? 0 )
     );
 
+    // Lock avatar checkbox
+    fictioneer_update_user_meta(
+      $updated_user_id,
+      'fictioneer_lock_avatar',
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_lock_avatar'] ?? 0 )
+    );
+
     // Hide badge checkbox
     fictioneer_update_user_meta(
       $updated_user_id,
@@ -346,6 +353,10 @@ function fictioneer_update_frontend_profile() {
   // Disable avatar?
   $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_avatar'] ?? 0 );
   fictioneer_update_user_meta( $user_id, 'fictioneer_disable_avatar', $checkbox_value );
+
+  // Lock avatar?
+  $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_lock_avatar'] ?? 0 );
+  fictioneer_update_user_meta( $user_id, 'fictioneer_lock_avatar', $checkbox_value );
 
   // Override assigned badge?
   $checkbox_value = fictioneer_sanitize_checkbox( $_POST['fictioneer_disable_badge_override'] ?? 0 );

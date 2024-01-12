@@ -699,7 +699,7 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
       }
 
       // Change avatar if updated or empty
-      if ( $avatar && $avatar != $current_avatar ) {
+      if ( $avatar && $avatar != $current_avatar && ! get_the_author_meta( 'fictioneer_lock_avatar', $wp_user->ID ) ) {
         fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_external_avatar_url', $avatar );
       }
 
