@@ -381,6 +381,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
       <fieldset>
         <div>
           <label for="fictioneer_enforce_gravatar" class="checkbox-group">
+            <input type="hidden" name="fictioneer_enforce_gravatar" value="0">
             <input
               name="fictioneer_enforce_gravatar"
               type="checkbox"
@@ -393,6 +394,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
         </div>
         <div>
           <label for="fictioneer_disable_avatar" class="checkbox-group">
+            <input type="hidden" name="fictioneer_disable_avatar" value="0">
             <input
               name="fictioneer_disable_avatar"
               type="checkbox"
@@ -405,6 +407,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
         </div>
         <div>
           <label for="fictioneer_lock_avatar" class="checkbox-group">
+            <input type="hidden" name="fictioneer_lock_avatar" value="0">
             <input
               name="fictioneer_lock_avatar"
               type="checkbox"
@@ -418,6 +421,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
         <?php if ( get_option( 'fictioneer_enable_custom_badges' ) ) : ?>
           <div class="profile__input-wrapper profile__input-wrapper--checkbox">
             <label for="fictioneer_hide_badge" class="checkbox-group">
+              <input type="hidden" name="fictioneer_hide_badge" value="0">
               <input
                 name="fictioneer_hide_badge"
                 type="checkbox"
@@ -431,6 +435,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
           <?php if ( ! empty( get_the_author_meta( 'fictioneer_badge_override', $profile_user->ID ) ) ) : ?>
             <div class="profile__input-wrapper profile__input-wrapper--checkbox">
               <label for="fictioneer_disable_badge_override" class="checkbox-group">
+                <input type="hidden" name="fictioneer_disable_badge_override" value="0">
                 <input
                   name="fictioneer_disable_badge_override"
                   type="checkbox"
@@ -446,6 +451,7 @@ function fictioneer_admin_profile_fields_flags( $profile_user ) {
         <?php if ( get_option( 'fictioneer_enable_comment_notifications' ) ) : ?>
           <div class="profile__input-wrapper profile__input-wrapper--checkbox">
             <label for="fictioneer_comment_reply_notifications" class="checkbox-group">
+              <input type="hidden" name="fictioneer_comment_reply_notifications" value="0">
               <input
                 name="fictioneer_comment_reply_notifications"
                 type="checkbox"
@@ -756,48 +762,56 @@ function fictioneer_admin_profile_moderation( $profile_user ) {
       <fieldset>
         <div>
           <label for="fictioneer_admin_disable_avatar" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_avatar" value="0">
             <input name="fictioneer_admin_disable_avatar" type="checkbox" id="fictioneer_admin_disable_avatar" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_avatar', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable user avatar', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_reporting" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_reporting" value="0">
             <input name="fictioneer_admin_disable_reporting" type="checkbox" id="fictioneer_admin_disable_reporting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_reporting', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable reporting capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_renaming" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_renaming" value="0">
             <input name="fictioneer_admin_disable_renaming" type="checkbox" id="fictioneer_admin_disable_renaming" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_renaming', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable renaming capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_commenting" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_commenting" value="0">
             <input name="fictioneer_admin_disable_commenting" type="checkbox" id="fictioneer_admin_disable_commenting" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_commenting', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable commenting capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_comment_editing" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_comment_editing" value="0">
             <input name="fictioneer_admin_disable_comment_editing" type="checkbox" id="fictioneer_admin_disable_comment_editing" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_editing', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable comment editing capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_post_comment_moderation" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_post_comment_moderation" value="0">
             <input name="fictioneer_admin_disable_post_comment_moderation" type="checkbox" id="fictioneer_admin_disable_post_comment_moderation" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_post_comment_moderation', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable post comment moderation capability', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_disable_comment_notifications" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_disable_comment_notifications" value="0">
             <input name="fictioneer_admin_disable_comment_notifications" type="checkbox" id="fictioneer_admin_disable_comment_notifications" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_disable_comment_notifications', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Disable comment reply notifications', 'fictioneer' ); ?></span>
           </label>
         </div>
         <div>
           <label for="fictioneer_admin_always_moderate_comments" class="checkbox-group">
+            <input type="hidden" name="fictioneer_admin_always_moderate_comments" value="0">
             <input name="fictioneer_admin_always_moderate_comments" type="checkbox" id="fictioneer_admin_always_moderate_comments" <?php echo checked( 1, get_the_author_meta( 'fictioneer_admin_always_moderate_comments', $profile_user->ID ), false ); ?> value="1">
             <span><?php _e( 'Always hold comments for moderation', 'fictioneer' ); ?></span>
           </label>
