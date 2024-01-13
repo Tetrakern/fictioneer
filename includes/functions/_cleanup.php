@@ -31,7 +31,7 @@ function fictioneer_legacy_cleanup() {
   // Remember cleanup
   update_option( 'fictioneer_last_cleanup', $cutoff );
 }
-add_action( 'init', 'fictioneer_legacy_cleanup' );
+add_action( 'init', 'fictioneer_legacy_cleanup', 99 );
 
 // =============================================================================
 // THEME DEACTIVATION
