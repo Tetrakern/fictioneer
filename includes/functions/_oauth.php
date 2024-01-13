@@ -1074,7 +1074,7 @@ if ( ! function_exists( 'fictioneer_delete_expired_oauth_transients' ) ) {
       )
     );
 
-    // Delete results results...
+    // Delete results...
     if ( $expired_timeouts ) {
       foreach ( $expired_timeouts as $timeout ) {
         $transient_name = str_replace( '_transient_timeout_', '', $timeout->option_name );
