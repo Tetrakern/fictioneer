@@ -1081,6 +1081,14 @@ Filters the boolean return value of the `fictioneer_enable_shortcode_transients(
 
 ---
 
+### `apply_filters( 'fictioneer_filter_sitemap_page_template_excludes', $excludes )`
+Filters the exclusion array of page templates for the custom theme sitemap. By default, these are `'user-profile.php'`, `'singular-bookmarks.php'`, `'singular-bookshelf.php'`, and `'singular-bookshelf-ajax.php'`.
+
+**Parameter:**
+* $excludes (array) – Array of excluded page templates.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_sof_date_options', $options, $current_url, $args )`
 Filters the option array of URL/label tuples for the date popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Can be any positive integer (days) or [strtotime](https://www.php.net/manual/en/function.strtotime.php) compatible string. See `fictioneer_append_date_query(...)`. Includes '0', '1', '3', '1 week ago', '1 month ago', '3 months ago', '6 months ago', and '1 year ago'.
 

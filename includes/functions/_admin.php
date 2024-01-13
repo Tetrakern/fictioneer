@@ -236,6 +236,7 @@ function fictioneer_removable_args( $args ) {
   $args[] = 'data';
   $args[] = 'fictioneer_nonce';
   $args[] = 'fictioneer-notice';
+
   return $args;
 }
 add_filter( 'removable_query_args', 'fictioneer_removable_args' );

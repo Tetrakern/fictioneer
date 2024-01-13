@@ -1,7 +1,52 @@
 <?php
 
 // =============================================================================
-// (RE-) BUILD SITEMAP WHEN POST/PAGE IS SAVED
+// SITEMAP REWRITE RULE & REDIRECT
+// =============================================================================
+
+/**
+ * Add rewrite rule for custom theme sitemap
+ *
+ * @since Fictioneer 5.8.7
+ */
+
+function fictioneer_add_sitemap_rewrite_rule() {
+  add_rewrite_rule( '^sitemap\.xml$', 'index.php?fictioneer_sitemap=1', 'top' );
+}
+
+if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
+  add_action( 'init', 'fictioneer_add_sitemap_rewrite_rule' );
+}
+
+/**
+ * Serve the custom theme sitemap.xml
+ *
+ * @since Fictioneer 5.8.7
+ */
+
+function fictioneer_serve_sitemap() {
+  // Check whether this is the sitemap route
+  if ( is_null( get_query_var( 'fictioneer_sitemap', null ) ) ) {
+    return;
+  }
+
+  // Setup
+  $sitemap_file = ABSPATH . '/fictioneer_sitemap.xml';
+
+  // Sitemap missing or older than 24 hours?
+  if ( ! file_exists( $sitemap_file ) || ( time() - filemtime( $sitemap_file ) ) > DAY_IN_SECONDS ) {
+    fictioneer_create_sitemap();
+  }
+
+  // Serve the sitemap file
+  header( 'Content-Type: application/xml' );
+  readfile( $sitemap_file );
+  exit;
+}
+add_action( 'template_redirect', 'fictioneer_serve_sitemap' );
+
+// =============================================================================
+// (RE-)BUILD SITEMAP
 // =============================================================================
 
 /**
@@ -74,217 +119,158 @@ function fictioneer_url_node( $loc, $lastmod = null, $freq = null ) {
  * Generate theme sitemap
  *
  * @since Fictioneer 4.0
- *
- * @param int     $last_saved_id    ID of the last saved post.
- * @param WP_Post $last_saved_post  The last saved post object.
+ * @since Fictioneer 5.8.7 - Create on demand, not on post save.
  */
 
-function fictioneer_create_sitemap( $last_saved_id, $last_saved_post ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $last_saved_id ) ) {
-    return;
+function fictioneer_create_sitemap() {
+  // Open
+  $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+  $sitemap .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+  // Blog and front page
+  $sitemap .= fictioneer_url_node( esc_url( home_url( '/' ) ), current_time( 'c' ), 'daily' );
+  $sitemap .= fictioneer_url_node( get_permalink( get_option( 'page_for_posts' ) ), current_time( 'c' ), 'daily' );
+
+  // Pages
+  $pages = get_posts(
+    array(
+      'post_type' => 'page',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '1000',
+      'post__not_in' => [get_option( 'page_on_front' ), get_option( 'page_for_posts' )],
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
+
+  foreach( $pages as $post ) {
+    $template = get_page_template_slug( $post->ID );
+    $template_excludes = ['user-profile.php', 'singular-bookmarks.php', 'singular-bookshelf.php', 'singular-bookshelf-ajax.php'];
+    $template_excludes = apply_filters( 'fictioneer_filter_sitemap_page_template_excludes', $template_excludes );
+
+    if ( in_array( $template, $template_excludes ) ) {
+      continue;
+    }
+
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
   }
 
-  // Only rebuild necessary part of the sitemap
-  $last_saved_type = $last_saved_post->post_type;
+  // Blogs
+  $blogs = get_posts(
+    array(
+      'post_type' => 'post',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '1000',
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
 
-  // Only consider these post types
-  $allowed_types = ['page', 'post', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'];
-
-  if ( in_array( $last_saved_type, $allowed_types ) ) {
-    // Open
-    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-    $sitemap .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-
-    // Blog and front page
-    $sitemap .= fictioneer_url_node( esc_url( home_url( '/' ) ), current_time( 'c' ), 'daily' );
-    $sitemap .= fictioneer_url_node( get_permalink( get_option( 'page_for_posts' ) ), current_time( 'c' ), 'daily' );
-
-    // Pages
-    $pages = $last_saved_type == 'page' ? null : get_transient( 'fictioneer_sitemap_pages' );
-
-    if ( ! $pages ) {
-      $pages = get_posts(
-        array(
-          'post_type' => 'page',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '1000',
-          'post__not_in' => [get_option( 'page_on_front' ), get_option( 'page_for_posts' )],
-          'update_post_meta_cache' => false,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_pages', $pages );
-    }
-
-    foreach( $pages as $post ) {
-      $template = get_page_template_slug( $post->ID );
-
-      if (
-        in_array(
-          $template,
-          ['user-profile.php', 'singular-bookmarks.php', 'singular-bookshelf.php', 'singular-bookshelf-ajax.php']
-        )
-      ) {
-        continue;
-      }
-
-      $frequency = 'yearly';
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'yearly' );
-    }
-
-    // Blogs
-    $blogs = $last_saved_type == 'post' ? null : get_transient( 'fictioneer_sitemap_posts' );
-
-    if ( ! $blogs ) {
-      $blogs = get_posts(
-        array(
-          'post_type' => 'post',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '1000',
-          'update_post_meta_cache' => false,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_posts', $blogs );
-    }
-
-    foreach( $blogs as $post ) {
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'never' );
-    }
-
-    // Collections
-    $collections = $last_saved_type == 'fcn_collection' ? null : get_transient( 'fictioneer_sitemap_collections' );
-
-    if ( ! $collections ) {
-      $collections = get_posts(
-        array(
-          'post_type' => 'fcn_collection',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '1000',
-          'update_post_meta_cache' => false,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_collections', $collections );
-    }
-
-    foreach( $collections as $post ) {
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
-    }
-
-    // Stories
-    $stories = $last_saved_type == 'fcn_story' ? null : get_transient( 'fictioneer_sitemap_stories' );
-
-    if ( ! $stories ) {
-      $stories = get_posts(
-        array(
-          'post_type' => 'fcn_story',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '2000',
-          'update_post_meta_cache' => true,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_stories', $stories );
-    }
-
-    foreach ( $stories as $post ) {
-      if ( get_post_meta( $post->ID, 'fictioneer_story_hidden', true ) ) {
-        continue;
-      }
-
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $status = get_post_meta( $post->ID, 'fictioneer_story_status', true );
-      $frequency = $status == 'Ongoing' ? 'weekly' : 'monthly';
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, $frequency );
-    }
-
-    // Chapters
-    $chapters = $last_saved_type == 'fcn_chapter' ? null : get_transient( 'fictioneer_sitemap_chapters' );
-
-    if ( ! $chapters ) {
-      $chapters = get_posts(
-        array(
-          'post_type' => 'fcn_chapter',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '10000',
-          'update_post_meta_cache' => true,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_chapters', $chapters );
-    }
-
-    foreach( $chapters as $post ) {
-      if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
-        continue;
-      }
-
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
-    }
-
-    // Recommendations
-    $recommendations = $last_saved_type == 'fcn_recommendation' ? null : get_transient( 'fictioneer_sitemap_recommendations' );
-
-    if ( ! $recommendations ) {
-      $recommendations = get_posts(
-        array(
-          'post_type' => 'fcn_recommendation',
-          'post_status' => 'publish',
-          'orderby' => 'date',
-          'order' => 'DESC',
-          'numberposts' => '1000',
-          'update_post_meta_cache' => false,
-          'update_post_term_cache' => false,
-          'no_found_rows' => true
-        )
-      );
-
-      set_transient( 'fictioneer_sitemap_recommendations', $recommendations );
-    }
-
-    foreach( $recommendations as $post ) {
-      $lastmod = get_the_modified_date( 'c', $post->ID );
-      $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'yearly' );
-    }
-
-    // End
-    $sitemap .= "\n" . '</urlset>';
-
-    // Save
-    $file_path = fopen( ABSPATH . '/sitemap.xml', 'w' );
-    fwrite( $file_path, $sitemap );
-    fclose( $file_path );
+  foreach( $blogs as $post ) {
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'never' );
   }
-}
 
-if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active() ) {
-  add_action( 'save_post', 'fictioneer_create_sitemap', 99, 2 );
+  // Collections
+  $collections = get_posts(
+    array(
+      'post_type' => 'fcn_collection',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '1000',
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
+
+  foreach( $collections as $post ) {
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
+  }
+
+  // Stories
+  $stories = get_posts(
+    array(
+      'post_type' => 'fcn_story',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '2000',
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
+
+  foreach ( $stories as $post ) {
+    if ( get_post_meta( $post->ID, 'fictioneer_story_hidden', true ) ) {
+      continue;
+    }
+
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $status = get_post_meta( $post->ID, 'fictioneer_story_status', true );
+    $frequency = $status == 'Ongoing' ? 'weekly' : 'monthly';
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, $frequency );
+  }
+
+  // Chapters
+  $chapters = get_posts(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '10000',
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
+
+  foreach( $chapters as $post ) {
+    if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
+      continue;
+    }
+
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
+  }
+
+  // Recommendations
+  $recommendations = get_posts(
+    array(
+      'post_type' => 'fcn_recommendation',
+      'post_status' => 'publish',
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'numberposts' => '1000',
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
+      'no_found_rows' => true
+    )
+  );
+
+  foreach( $recommendations as $post ) {
+    $lastmod = get_the_modified_date( 'c', $post->ID );
+    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
+  }
+
+  // End
+  $sitemap .= "\n" . '</urlset>';
+
+  // Save
+  $file_path = fopen( ABSPATH . '/fictioneer_sitemap.xml', 'w' );
+  fwrite( $file_path, $sitemap );
+  fclose( $file_path );
 }
 
 ?>

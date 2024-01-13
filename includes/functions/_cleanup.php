@@ -1,6 +1,37 @@
 <?php
 
 // =============================================================================
+// LEGACY CLEANUP
+// =============================================================================
+
+/**
+ * Clean up legacy fields, files, and settings
+ *
+ * This only runs on hardcoded cutoff dates, once. It will only run again if the
+ * date in this function is changed on an update.
+ *
+ * @since Fictioneer 5.8.7
+ */
+
+function fictioneer_legacy_cleanup() {
+  $cutoff = 202401130000; // YYYYMMDDHHMM
+  $last_cleanup = absint( get_option( 'fictioneer_last_cleanup' ) );
+
+  // Sitemap cleanup
+  if ( $last_cleanup < 202401130000 ) {
+    $old_sitemap = ABSPATH . '/sitemap.xml';
+
+    if ( file_exists( $old_sitemap ) ) {
+      unlink( $old_sitemap );
+    }
+  }
+
+  // Remember cleanup
+  update_option( 'fictioneer_last_cleanup', $cutoff );
+}
+add_action( 'init', 'fictioneer_legacy_cleanup' );
+
+// =============================================================================
 // THEME DEACTIVATION
 // =============================================================================
 
@@ -12,7 +43,8 @@
  * well but otherwise preserved.
  *
  * @since Fictioneer 4.7
- * @since Fictioneer 5.7.4 Updated to use SQL queries.
+ * @since Fictioneer 5.7.4 - Updated to use SQL queries.
+ *
  * @global wpdb $wpdb  WordPress database object.
  */
 

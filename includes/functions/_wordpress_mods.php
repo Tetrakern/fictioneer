@@ -595,7 +595,7 @@ if ( get_option( 'fictioneer_enable_lightbox' ) ) {
 /**
  * Returns data-lightbox attribute if enabled
  *
- * @since 4.7
+ * @since 4.7.0
  *
  * @return string The attribute or an empty string.
  */
@@ -610,6 +610,13 @@ function fictioneer_get_lightbox_attribute() {
 
 /**
  * Add custom query vars
+ *
+ * @since 4.0.0
+ * @since 5.8.7 - Appended 'fictioneer_sitemap'.
+ *
+ * @param array $qvars  Allowed query variable names.
+ *
+ * @return array Updated allowed query variable names.
  */
 
 function fictioneer_query_vars( $qvars ) {
@@ -617,6 +624,8 @@ function fictioneer_query_vars( $qvars ) {
   $qvars[] = 'commentcode';
   $qvars[] = 'cp'; // e.g. custom/current page
   $qvars[] = 'pg'; // e.g. page
+  $qvars[] = 'fictioneer_sitemap';
+
   return $qvars;
 }
 add_filter( 'query_vars', 'fictioneer_query_vars' );
@@ -632,7 +641,7 @@ add_filter( 'query_vars', 'fictioneer_query_vars' );
  * performance and may get you in trouble on a shared host. So it may be better
  * to turn it off and accept that there are no autosaves.
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_disable_heartbeat() {
@@ -660,7 +669,7 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
 /**
  * Wraps embeds into a consent box that must be clicked to load the embed.
  *
- * @since Fictioneer 3.0
+ * @since Fictioneer 3.0.0
  *
  * @param string $content  The content.
  *
@@ -798,7 +807,7 @@ if ( get_option( 'fictioneer_disable_application_passwords' ) ) {
 /**
  * Skip attachment pages and redirect to file
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fictioneer_disable_attachment_pages() {
@@ -821,7 +830,7 @@ if ( ! FICTIONEER_ATTACHMENT_PAGES ) {
 /**
  * Extend list of allowed protocols
  *
- * @since 4.0
+ * @since 4.0.0
  *
  * @param array $protocols  Array of allowed protocols.
  *
