@@ -24,6 +24,8 @@ function fictioneer_legacy_cleanup() {
     if ( file_exists( $old_sitemap ) ) {
       unlink( $old_sitemap );
     }
+
+    flush_rewrite_rules();
   }
 
   // Remember cleanup
