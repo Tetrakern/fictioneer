@@ -327,7 +327,7 @@ function fictioneer_chapter_index_popup_menu( $args ) {
   }
 
   // Start HTML ---> ?>
-  <div id="chapter-list-popup-toggle" class="toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
+  <div class="chapter-list-popup-toggle toggle-last-clicked button _secondary popup-menu-toggle tooltipped" tabindex="0" role="button" data-tooltip="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>" aria-label="<?php esc_attr_e( 'Index', 'fictioneer' ); ?>">
     <i class="fa-solid fa-list"></i>
     <div class="popup-menu _top _center _align-items-right _v-scrolling">
       <a href="<?php echo get_permalink( $args['story_post'] ); ?>" class="">
