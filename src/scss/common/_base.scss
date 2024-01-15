@@ -462,7 +462,7 @@ button[type=submit]:where(:not(._inline)) {
     overflow: hidden scroll;
     scrollbar-width: none; // FF
 
-    &::-webkit-scrollbar {
+    &:not(._v-scrolling-scrollbar)::-webkit-scrollbar {
       width: 0;
     }
   }
