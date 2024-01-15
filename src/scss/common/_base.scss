@@ -460,7 +460,10 @@ button[type=submit]:where(:not(._inline)) {
   &._v-scrolling {
     max-height: min(250px, 80vh);
     overflow: hidden scroll;
-    scrollbar-width: none; // FF
+
+    &:not(._v-scrolling-scrollbar) {
+      scrollbar-width: none; // FF
+    }
 
     &:not(._v-scrolling-scrollbar)::-webkit-scrollbar {
       width: 0;
