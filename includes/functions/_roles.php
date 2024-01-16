@@ -457,7 +457,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
   }
 
-  if ( ! current_user_can( 'fcn_admin_panel_access' ) ) {
+  if ( ! current_user_can( 'fcn_admin_panel_access' ) && is_user_logged_in() ) {
     add_filter( 'init', 'fictioneer_restrict_admin_panel' );
   }
 
