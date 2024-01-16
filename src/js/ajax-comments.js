@@ -191,8 +191,8 @@ function fcn_jumpToCommentPage() {
 
 var /** @type {IntersectionObserver} */ fct_commentSectionObserver;
 
-// In case of AJAx authentication...
-if (fcn_theRoot.dataset.ajaxNonce) {
+// In case of AJAX authentication...
+if (fcn_theRoot.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_setupCommentSectionObserver();
   });
@@ -227,8 +227,8 @@ function fcn_setupCommentSectionObserver() {
 // SCROLL NEW COMMENT INTO VIEW SUBMITTING VIA RELOAD
 // =============================================================================
 
-// In case of AJAx authentication...
-if (fcn_theRoot.dataset.ajaxNonce) {
+// In case of AJAX authentication...
+if (fcn_theRoot.dataset.ajaxAuth) {
   document.addEventListener('fcnAuthReady', () => {
     fcn_loadCommentEarly();
   });

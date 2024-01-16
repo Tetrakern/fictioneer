@@ -933,8 +933,8 @@ const /** @const {HTMLElement} */ fcn_ajaxCommentForm = _$$$('ajax-comment-form-
 
 // Check whether form target exists...
 if (fcn_ajaxCommentForm) {
-  // In case of AJAx authentication...
-  if (fcn_theRoot.dataset.ajaxNonce) {
+  // In case of AJAX authentication...
+  if (fcn_theRoot.dataset.ajaxAuth) {
     // Load after nonce has been fetched
     document.addEventListener('fcnAuthReady', () => {
       fcn_setupCommentFormObserver();

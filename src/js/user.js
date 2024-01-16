@@ -127,6 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+if (fcn_theRoot.dataset.ajaxAuth) {
+  document.addEventListener('fcnAuthReady', () => {
+    fcn_getProfileImage();
+  });
+}
+
 // =============================================================================
 // FETCH RELEVANT USER DATA
 // =============================================================================

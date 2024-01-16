@@ -1266,7 +1266,9 @@ function fictioneer_sanitize_css( $css ) {
  */
 
 function fictioneer_show_auth_content() {
-  return is_user_logged_in() || ! empty( get_option( 'fictioneer_enable_public_cache_compatibility' ) );
+  return is_user_logged_in() ||
+    get_option( 'fictioneer_enable_public_cache_compatibility' ) ||
+    get_option( 'fictioneer_enable_ajax_authentication' );
 }
 
 // =============================================================================
