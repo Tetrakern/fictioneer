@@ -2,7 +2,7 @@
   position: relative;
   height: var(--layout-site-header-height);
   width: 100%;
-  contain: style layout size; // Improves performance
+  contain: style size; // Improves performance
 
   &__content {
     height: 100%;
