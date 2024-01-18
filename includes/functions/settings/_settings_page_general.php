@@ -162,6 +162,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_collapse_groups_by_default',
+                    __( 'Chapter groups (if used) are collapsed on page load.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_chapter_collapsing',
                     __( 'Do not collapse long chapter lists.', 'fictioneer' )
                   );

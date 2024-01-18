@@ -911,6 +911,10 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     $classes .= ' _no-icons';
   }
 
+  if ( get_option( 'fictioneer_collapse_groups_by_default' ) && ! str_contains( $classes, 'no-auto-collapse' ) ) {
+    $classes .= ' _closed';
+  }
+
   // Apply offset and count
   if ( ! $group ) {
     $chapters = array_slice( $chapters, $offset );

@@ -44,6 +44,7 @@ $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', t
 $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) &&
   ! get_post_meta( $story_id, 'fictioneer_story_disable_groups', true );
 $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
+$collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
 
 ?>
 
@@ -152,6 +153,15 @@ $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse'
     <?php
       $chapters = fictioneer_get_story_chapters( $story_id ); // Already prepared!
       $chapter_groups = [];
+      $group_classes = [];
+
+      if ( $hide_icons ) {
+        $group_classes[] = '_no-icons';
+      }
+
+      if ( $collapse_groups ) {
+        $group_classes[] = '_closed';
+      }
 
       // Loop and prepare groups
       if ( ! empty( $chapters ) ) {
@@ -231,7 +241,7 @@ $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse'
           $group_index++;
 
           // Start HTML ---> ?>
-          <div class="chapter-group<?php echo $hide_icons ? ' _no-icons' : ''; ?>" data-folded="true">
+          <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
 
             <?php if ( $has_groups ) : ?>
               <button
@@ -323,7 +333,7 @@ $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse'
         }
       } elseif ( $story['status'] !== 'Oneshot' ) {
         // Start HTML ---> ?>
-        <div class="chapter-group<?php echo $hide_icons ? ' _no-icons' : ''; ?>">
+        <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>">
           <ol class="chapter-group__list">
             <li class="chapter-group__list-item _empty">
               <span><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></span>

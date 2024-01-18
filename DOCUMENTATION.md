@@ -483,14 +483,14 @@ Renders a list of chapters identical to those on story pages, ordered by sequenc
 * **offset:** Skip a number of chapters, which can make sense if you query all.
 * **heading:** Show a heading with collapse toggle above the list.
 * **group:** Only show chapters with a specific group name, which can transcend stories.
-* **class:** Additional CSS classes, separated by whitespace.
+* **class:** Additional CSS classes, separated by whitespace. `no-auto-collapse` prevents default group collapsing (if set).
 
 ```
 [fictioneer_chapter_list story="69"]
 ```
 
 ```
-[fictioneer_chapter_list story="69" count="10" offset="2"]
+[fictioneer_chapter_list class="foobar no-auto-collapse" story="69" count="10" offset="2"]
 ```
 
 ```

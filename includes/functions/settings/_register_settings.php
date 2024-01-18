@@ -475,6 +475,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Disable collapsing of chapters', 'fictioneer' ),
       'default' => 0
     ),
+    'fictioneer_collapse_groups_by_default' => array(
+      'name' => 'fictioneer_collapse_groups_by_default',
+			'group' => 'fictioneer-settings-general-group',
+			'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Collapse chapter groups by default', 'fictioneer' ),
+      'default' => 0
+    ),
 		'fictioneer_enable_public_cache_compatibility' => array(
       'name' => 'fictioneer_enable_public_cache_compatibility',
 			'group' => 'fictioneer-settings-general-group',
