@@ -559,7 +559,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
   &._closed {
     .chapter-group__heading-icon {
-      transform: translateY(4px) rotate(-180deg);
+      transform: translateY(4px) rotate(-90deg);
     }
 
     .chapter-group__list {
