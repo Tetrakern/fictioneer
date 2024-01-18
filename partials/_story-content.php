@@ -111,6 +111,46 @@ $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
 
 <?php
   // ======================================================================================
+  // ANNOUNCEMENT SECTION
+  // ======================================================================================
+?>
+
+<?php
+  $scheduled_chapters = get_posts(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'future',
+      'posts_per_page' => 1,
+      'orderby' => 'date',
+      'order' => 'ASC',
+      'update_post_term_cache' => false, // Improve performance
+      'update_post_meta_cache' => false, // Improve performance
+      'no_found_rows' => true, // Improve performance
+      'meta_query' => array(
+        array(
+          'key' => 'fictioneer_chapter_story',
+          'value' => $story_id,
+        ),
+      )
+    )
+  );
+?>
+
+<?php if ( ! empty( $scheduled_chapters ) ) : ?>
+  <section id="scheduled-chapter-note" class="story__scheduled-chapter">
+    <i class="fa-solid fa-calendar-days"></i>
+    <span><?php
+      printf(
+        _x( 'Next Chapter: %1$s, %2$s', 'Scheduled chapter note with date and time.', 'fictioneer' ),
+        get_the_date( '', $scheduled_chapters[0] ),
+        get_the_time( '', $scheduled_chapters[0] )
+      );
+    ?></span>
+  </section>
+<?php endif; ?>
+
+<?php
+  // ======================================================================================
   // CUSTOM PAGES SECTION
   // ======================================================================================
 ?>
