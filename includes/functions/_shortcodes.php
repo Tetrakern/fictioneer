@@ -973,6 +973,8 @@ function fictioneer_shortcode_chapter_list( $attr ) {
       <?php
         $render_count = 0;
 
+        global $post;
+
         while( $chapter_query->have_posts() ) {
           // Setup
           $chapter_query->the_post();
@@ -1031,7 +1033,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               $chapter_data = [];
               $chapter_data['id'] = $chapter_id;
               $chapter_data['warning'] = $warning;
-              $chapter_data['password'] = post_password_required();
+              $chapter_data['password'] = ! empty( $post->post_password );
               $chapter_data['timestamp'] = get_the_time( 'c' );
               $chapter_data['list_date'] = get_the_date( '' );
               $chapter_data['words'] = fictioneer_get_word_count( $chapter_id );
