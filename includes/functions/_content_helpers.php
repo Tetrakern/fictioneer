@@ -1670,6 +1670,25 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
     $output = [];
     $has_grid_view = ! empty( $args['grid'] );
 
+    // Password
+    if ( ! empty( $data['password'] ) ) {
+      ob_start();
+
+      /*
+      // Start HTML ---> ?>
+      <span class="chapter-group__list-item-password list-view"><?php
+        echo fcntr( 'password' );
+      ?></span>
+      <?php // <--- End HTML
+      */
+
+      // Start HTML ---> ?>
+      <i class="fa-solid fa-lock chapter-group__list-item-password-icon list-view"></i>
+      <?php // <--- End HTML
+
+      $output['password'] = ob_get_clean();
+    }
+
     // Warning
     if ( ! empty( $data['warning'] ) ) {
       ob_start();
@@ -1679,17 +1698,6 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       ?></span>
       <?php // <--- End HTML
       $output['warning'] = ob_get_clean();
-    }
-
-    // Password
-    if ( ! empty( $data['password'] ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <span class="chapter-group__list-item-password list-view"><?php
-        echo fcntr( 'password' );
-      ?></span>
-      <?php // <--- End HTML
-      $output['password'] = ob_get_clean();
     }
 
     // Date

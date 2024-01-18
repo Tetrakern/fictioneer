@@ -640,11 +640,17 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--fg-700);
         font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--ff-note);
 
-        > :is(span, time):not(:last-child)::after {
+        > :is(span, time, i):not(:last-child)::after {
           content: " •";
           color: var(--fg-800);
           font-family: var(--ff-base);
         }
+      }
+
+      &-password-icon {
+        color: var(--fg-800);
+        font-size: .8em;
+        transform: translateY(-0.125em);
       }
 
       &-warning {
