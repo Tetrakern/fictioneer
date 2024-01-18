@@ -61,7 +61,13 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
         <div class="card__label"><?php _ex( 'Story', 'Story card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
 
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
+      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+        if ( ! empty( $post->post_password ) ) {
+          echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+        }
+
+        echo $story['title'];
+      ?></a></h3>
 
       <?php if ( $is_sticky ) : ?>
         <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>

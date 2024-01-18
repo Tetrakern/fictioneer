@@ -74,6 +74,10 @@ $show_type = $args['show_type'] ?? false;
           $list_title = wp_strip_all_tags( get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true ) );
           $list_title = trim( $list_title );
 
+          if ( ! empty( $post->post_password ) ) {
+            echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+          }
+
           // Make sure there are no whitespaces in-between!
           if ( $list_title ) {
             echo "<span class='show-below-480'>{$list_title}</span>";

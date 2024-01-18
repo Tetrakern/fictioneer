@@ -158,7 +158,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] ); ?></a>
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $story['title']; ?></a></h3>
+              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+                if ( ! empty( $post->post_password ) ) {
+                  echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+                }
+
+                echo $story['title'];
+              ?></a></h3>
 
               <div class="card__content _small cell-desc">
                 <div class="truncate <?php echo count( $chapter_list ) > 1 ? '_1-1' : '_2-2'; ?>">

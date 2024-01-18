@@ -156,6 +156,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 $list_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
                 $list_title = trim( wp_strip_all_tags( $list_title ) );
 
+                if ( ! empty( $post->post_password ) ) {
+                  echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+                }
+
                 echo $list_title ? $list_title : $title;
               ?></a></h3>
 
