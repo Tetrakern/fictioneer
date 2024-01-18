@@ -252,28 +252,519 @@ function fictioneer_story_actions( $args ) {
 add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 
 // =============================================================================
-// STORY CHAPTERS
+// STORY TABS
 // =============================================================================
 
 /**
- * Outputs the HTML for the story page actions row
+ * Outputs the HTML for the story tabs
  *
- * @since Fictioneer 5.0
+ * @since Fictioneer 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
  */
 
-function fictioneer_story_content( $args ) {
+function fictioneer_story_tabs( $args ) {
   // Abort conditions...
   if ( post_password_required() ) {
     return;
   }
 
-  // Render partial
-  get_template_part( 'partials/_story-content', null, $args );
+  // Setup
+  $story_id = $args['story_id'];
+  $story = $args['story_data'];
+  $custom_pages = get_post_meta( $story_id, 'fictioneer_story_custom_pages', true );
+  $blog_posts = fictioneer_get_story_blog_posts( $story_id );
+  $tab_pages = [];
+
+  if ( is_array( $custom_pages ) ) {
+    foreach ( $custom_pages as $page_id ) {
+      if ( get_post_status( $page_id ) === 'publish' ) {
+        $tab_pages[] = [$page_id, get_post_meta( $page_id, 'fictioneer_short_name', true ), get_the_content( null, false, $page_id )];
+      }
+    }
+  }
+
+  // Start HTML ---> ?>
+  <section id="tabs" class="story__tabs tabs-wrapper padding-left padding-right" data-current="chapters" data-order="asc" data-view="list">
+
+    <div class="tabs">
+      <button class="tabs__item _current" data-target="chapters" tabindex="0"><?php
+        if ( $story['status'] === 'Oneshot' ) {
+          _e( 'Oneshot', 'fictioneer' );
+        } else {
+          printf(
+            _x( '%1$s %2$s', 'Story chapter tab with count.', 'fictioneer' ),
+            $story['chapter_count'],
+            _n( 'Chapter', 'Chapters', $story['chapter_count'], 'fictioneer' )
+          );
+        }
+      ?></button>
+
+      <?php if ( $blog_posts->have_posts() ) : ?>
+        <button class="tabs__item" data-target="blog" tabindex="0"><?php echo fcntr( 'story_blog' ); ?></button>
+      <?php endif; ?>
+
+      <?php
+        if ( $custom_pages ) {
+          $index = 1;
+
+          foreach ( $tab_pages as $page ) {
+            if ( empty( $page[1] ) ) {
+              continue;
+            }
+
+            echo "<button class='tabs__item' data-target='tab-page-{$index}' tabindex='0'>{$page[1]}</button>";
+
+            $index++;
+
+            if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY ) {
+              break; // Only show 4 custom tabs
+            }
+          }
+        }
+      ?>
+    </div>
+
+    <?php if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) : ?>
+      <div class="story__chapter-list-toggles">
+        <button id="button-toggle-chapter-view" class="list-button story__toggle _view" data-view="list" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between list and grid view', 'fictioneer' ); ?>">
+          <?php fictioneer_icon( 'grid-2x2', 'on' ); ?>
+          <i class="fa-solid fa-list off"></i>
+        </button>
+        <button id="button-toggle-chapter-order" class="list-button story__toggle _order" data-order="asc" tabindex="0" aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
+          <i class="fa-solid fa-arrow-down-1-9 off"></i>
+          <i class="fa-solid fa-arrow-down-9-1 on"></i>
+        </button>
+      </div>
+    <?php endif; ?>
+
+  </section>
+  <?php // <--- End HTML
 }
-add_action( 'fictioneer_story_after_content', 'fictioneer_story_content', 40 );
+add_action( 'fictioneer_story_after_content', 'fictioneer_story_tabs', 40 );
+
+// =============================================================================
+// STORY SCHEDULED CHAPTER
+// =============================================================================
+
+/**
+ * Outputs the HTML for the scheduled chapter
+ *
+ * @since Fictioneer 5.9.0
+ *
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
+ */
+
+function fictioneer_story_scheduled_chapter( $args ) {
+  // Abort conditions...
+  if ( post_password_required() ) {
+    return;
+  }
+
+  // Setup
+  $scheduled_chapters = get_posts(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'future',
+      'posts_per_page' => 1,
+      'orderby' => 'date',
+      'order' => 'ASC',
+      'update_post_term_cache' => false, // Improve performance
+      'update_post_meta_cache' => false, // Improve performance
+      'no_found_rows' => true, // Improve performance
+      'meta_query' => array(
+        array(
+          'key' => 'fictioneer_chapter_story',
+          'value' => $args['story_id'],
+        ),
+      )
+    )
+  );
+
+  // Abort if no chapters are scheduled
+  if ( empty( $scheduled_chapters ) ) {
+    return;
+  }
+
+  // Start HTML ---> ?>
+  <section id="scheduled-chapter-note" class="story__scheduled-chapter">
+    <i class="fa-solid fa-calendar-days"></i>
+    <span><?php
+      printf(
+        _x( 'Next Chapter: %1$s, %2$s', 'Scheduled chapter note with date and time.', 'fictioneer' ),
+        get_the_date( '', $scheduled_chapters[0] ),
+        get_the_time( '', $scheduled_chapters[0] )
+      );
+    ?></span>
+  </section>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapter', 41 );
+
+// =============================================================================
+// STORY PAGES
+// =============================================================================
+
+/**
+ * Outputs the HTML for the story custom pages
+ *
+ * @since Fictioneer 5.9.0
+ *
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
+ */
+
+function fictioneer_story_pages( $args ) {
+  // Abort conditions...
+  if ( post_password_required() ) {
+    return;
+  }
+
+  // Setup
+  $story_id = $args['story_id'];
+  $custom_pages = get_post_meta( $story_id, 'fictioneer_story_custom_pages', true );
+  $tab_pages = [];
+
+  if ( is_array( $custom_pages ) ) {
+    foreach ( $custom_pages as $page_id ) {
+      if ( get_post_status( $page_id ) === 'publish' ) {
+        $tab_pages[] = [$page_id, get_post_meta( $page_id, 'fictioneer_short_name', true ), get_the_content( null, false, $page_id )];
+      }
+    }
+  }
+
+  // Output
+  if ( $custom_pages ) {
+    $index = 1;
+
+    foreach ( $tab_pages as $page ) {
+      if ( empty( $page[1] ) ) {
+        continue;
+      }
+
+      // Start HTML ---> ?>
+      <section id="tab-page-<?php echo $index; ?>" class="story__tab-page padding-left padding-right content-section background-texture">
+        <div class="story__custom-page"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
+      </section>
+      <?php // <--- End HTML
+
+      $index++;
+
+      if ( $index > FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY ) {
+        break; // Only show 4 custom tabs
+      }
+    }
+  }
+}
+add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
+
+// =============================================================================
+// STORY CHAPTERS
+// =============================================================================
+
+/**
+ * Outputs the HTML for the story chapters
+ *
+ * @since Fictioneer 5.9.0
+ *
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
+ */
+
+function fictioneer_story_chapters( $args ) {
+  global $post;
+
+  // Abort conditions...
+  if ( post_password_required() ) {
+    return;
+  }
+
+  // Setup
+  $story_id = $args['story_id'];
+  $story = $args['story_data'];
+  $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
+  get_option( 'fictioneer_hide_chapter_icons' );
+  $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) &&
+    ! get_post_meta( $story_id, 'fictioneer_story_disable_groups', true );
+  $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
+  $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
+
+  // Check for cached chapters output
+  $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ? get_transient( 'fictioneer_story_chapter_list_' . $story_id ) : null;
+
+  if ( ! empty( $chapters_html ) ) {
+    echo $chapters_html;
+    return;
+  }
+
+  // Capture output
+  ob_start();
+
+  // Start HTML ---> ?>
+  <section id="chapters" class="story__tab-page _current story__chapters" data-order="asc" data-view="list">
+    <?php
+      $chapters = fictioneer_get_story_chapters( $story_id ); // Already prepared!
+      $chapter_groups = [];
+      $group_classes = [];
+
+      if ( $hide_icons ) {
+        $group_classes[] = '_no-icons';
+      }
+
+      if ( $collapse_groups ) {
+        $group_classes[] = '_closed';
+      }
+
+      // Loop and prepare groups
+      if ( ! empty( $chapters ) ) {
+        // Query chapters
+        $chapter_query = new WP_Query(
+          array(
+            'post_type' => 'fcn_chapter',
+            'post_status' => 'publish',
+            'post__in' => fictioneer_rescue_array_zero( $chapters ),
+            'ignore_sticky_posts' => true,
+            'orderby' => 'post__in', // Preserve order from meta box
+            'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+            'no_found_rows' => true, // Improve performance
+            'update_post_term_cache' => false // Improve performance
+          )
+        );
+
+        // Prepare chapter groups
+        if ( $chapter_query->have_posts() ) {
+          while( $chapter_query->have_posts() ) {
+            // Setup
+            $chapter_query->the_post();
+            $chapter_id = get_the_ID();
+
+            // Skip not visible chapters (redundant for paranoia)
+            if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+              continue;
+            }
+
+            // Data
+            $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
+            $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
+            $group = $enable_groups ? $group : 'all_chapters';
+            $group_key = sanitize_title( $group );
+
+            if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
+              $chapter_groups[sanitize_title( $group )] = array(
+                'group' => $group,
+                'data' => []
+              );
+            }
+
+            $chapter_groups[sanitize_title( $group )]['data'][] = array(
+              'id' => $chapter_id,
+              'link' => get_permalink(),
+              'timestamp' => get_the_time( 'c' ),
+              'password' => ! empty( $post->post_password ),
+              'list_date' => get_the_date( '', $post ),
+              'grid_date' => get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ),
+              'icon' => fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ),
+              'text_icon' => get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true ),
+              'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
+              'title' => fictioneer_get_safe_title( $chapter_id ),
+              'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
+              'words' => fictioneer_get_word_count( $chapter_id ),
+              'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
+            );
+          }
+        }
+
+        // Reset postdata
+        wp_reset_postdata();
+      }
+
+      // Build HTML
+      if ( ! empty( $chapter_groups ) ) {
+        $group_index = 0;
+        $has_groups = count( $chapter_groups ) > 1 && get_option( 'fictioneer_enable_chapter_groups' );
+
+        foreach ( $chapter_groups as $group ) {
+          $index = 0;
+          $group_chapter_count = count( $group['data'] );
+          $reverse_order = 99999;
+          $chapter_folding = ! $disable_folding && ! get_option( 'fictioneer_disable_chapter_collapsing' );
+          $chapter_folding = $chapter_folding && count( $group['data'] ) >= FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2 + 3;
+          $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
+          $group_index++;
+
+          // Start HTML ---> ?>
+          <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>" data-folded="true">
+
+            <?php if ( $has_groups ) : ?>
+              <button
+                class="chapter-group__name"
+                aria-label="<?php echo esc_attr( sprintf( $aria_label, $group['group'] ) ); ?>"
+                tabindex="0"
+              >
+                <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
+                <span><?php echo $group['group']; ?></span>
+              </button>
+            <?php endif; ?>
+
+            <ol class="chapter-group__list">
+              <?php foreach ( $group['data'] as $chapter ) : ?>
+                <?php $index++; ?>
+
+                <?php
+                  // Must account for extra toggle row and start at 1
+                  $is_folded = $chapter_folding && $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
+                    $index < ( $group_chapter_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
+                ?>
+
+                <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
+                  <li class="chapter-group__list-item _folding-toggle" style="order: <?php echo $reverse_order - $index; ?>">
+                    <button class="chapter-group__folding-toggle" tabindex="0">
+                      <?php
+                        printf(
+                          __( 'Show %s more', 'fictioneer' ),
+                          $group_chapter_count - FICTIONEER_CHAPTER_FOLDING_THRESHOLD * 2
+                        );
+                      ?>
+                    </button>
+                  </li>
+                  <?php $index++; ?>
+                <?php endif; ?>
+
+                <li
+                  class="chapter-group__list-item <?php echo $is_folded ? '_foldable' : ''; ?>"
+                  style="order: <?php echo $reverse_order - $index; ?>"
+                >
+
+                  <?php if ( ! empty( $chapter['text_icon'] ) && ! $hide_icons ) : ?>
+                    <span class="chapter-group__list-item-icon _text text-icon"><?php echo $chapter['text_icon']; ?></span>
+                  <?php elseif ( ! $hide_icons ) : ?>
+                    <i class="<?php echo empty( $chapter['icon'] ) ? 'fa-solid fa-book' : $chapter['icon']; ?> chapter-group__list-item-icon"></i>
+                  <?php endif; ?>
+
+                  <a
+                    href="<?php echo $chapter['link']; ?>"
+                    class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
+                  >
+                    <?php
+                      if ( ! empty( $chapter['prefix'] ) ) {
+                        echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] );
+                      }
+                    ?>
+                    <?php if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) : ?>
+                      <span class="chapter-group__list-item-title list-view"><?php echo $chapter['title']; ?></span>
+                      <span class="grid-view"><?php echo wp_strip_all_tags( $chapter['list_title'] ); ?></span>
+                    <?php else : ?>
+                      <?php echo $chapter['title']; ?>
+                    <?php endif; ?>
+                  </a>
+
+                  <?php if ( $chapter['password'] ) : ?>
+                    <i class="fa-solid fa-lock icon-password grid-view"></i>
+                  <?php endif; ?>
+
+                  <?php echo fictioneer_get_list_chapter_meta_row( $chapter, array( 'grid' => true ) ); ?>
+
+                  <?php if ( get_option( 'fictioneer_enable_checkmarks' ) ) : ?>
+                    <button
+                      class="checkmark chapter-group__list-item-checkmark"
+                      data-type="chapter"
+                      data-story-id="<?php echo $story_id; ?>"
+                      data-id="<?php echo $chapter['id']; ?>"
+                      role="checkbox"
+                      aria-checked="false"
+                      aria-label="<?php printf( esc_attr__( 'Chapter checkmark for %s.', 'fictioneer' ), $chapter['title'] ); ?>"
+                    ><i class="fa-solid fa-check"></i></button>
+                  <?php endif; ?>
+
+                </li>
+              <?php endforeach; ?>
+            </ol>
+
+          </div>
+          <?php // <--- End HTML
+        }
+      } elseif ( $story['status'] !== 'Oneshot' ) {
+        // Start HTML ---> ?>
+        <div class="chapter-group <?php echo implode( ' ', $group_classes ); ?>">
+          <ol class="chapter-group__list">
+            <li class="chapter-group__list-item _empty">
+              <span><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></span>
+            </li>
+          </ol>
+        </div>
+        <?php // <--- End HTML
+      }
+    ?>
+  </section>
+  <?php // <--- End HTML
+
+  // Store output
+  $chapters_html = ob_get_clean();
+
+  // Compress output
+  $chapters_html = fictioneer_minify_html( $chapters_html );
+
+  // Flush buffered output
+  echo $chapters_html;
+
+  // Cache for next time (24 hours)
+  if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS ) {
+    set_transient( 'fictioneer_story_chapter_list_' . $story_id, $chapters_html, 86400 );
+  }
+}
+add_action( 'fictioneer_story_after_content', 'fictioneer_story_chapters', 43 );
+
+// =============================================================================
+// STORY BLOG
+// =============================================================================
+
+/**
+ * Outputs the HTML for the story blog
+ *
+ * @since Fictioneer 5.9.0
+ *
+ * @param array $args['story_data']  Collection of story data.
+ * @param int   $args['story_id']    The story post ID.
+ */
+
+function fictioneer_story_blog( $args ) {
+  // Abort conditions...
+  if ( post_password_required() ) {
+    return;
+  }
+
+  // Setup
+  $story_id = $args['story_id'];
+  $blog_posts = fictioneer_get_story_blog_posts( $story_id );
+
+  // Start HTML ---> ?>
+  <section id="blog" class="story__blog story__tab-page">
+    <ol class="story__blog-list">
+      <?php
+        if ( $blog_posts->have_posts() ) {
+          while ( $blog_posts->have_posts() ) {
+            $blog_posts->the_post();
+            // Start HTML ---> ?>
+            <li class="story__blog-list-item">
+              <div class="story__blog-list-item-wrapper">
+                <span class="story__blog-title">
+                  <a class="story__blog-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>:
+                </span>
+                <span class="story__blog-content"><?php echo fictioneer_get_limited_excerpt( 160 ); ?></span>
+              </div>
+            </li>
+            <?php // <--- End HTML
+          }
+        }
+        wp_reset_postdata();
+      ?>
+    </ol>
+  </section>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
 
 // =============================================================================
 // STORY COMMENTS

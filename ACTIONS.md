@@ -900,7 +900,11 @@ Fires right after the content section in the `single-fcn_story.php` template, in
 * `fictioneer_story_copyright_notice( $args )` – Copyright notice. Priority 10.
 * `fictioneer_story_tags_and_warnings( $args )` – Tags and content warnings. Priority 20.
 * `fictioneer_story_actions( $args )` – Row with story actions. Priority 30.
-* `fictioneer_story_content( $args )` – Chapters, blog, and custom pages. Priority 40.
+* `fictioneer_story_tabs( $args )` – Tabs for the chapters, blog, and custom pages. Priority 40.
+* `fictioneer_story_scheduled_chapter( $args )` – Scheduled chapter note. Priority 41.
+* `fictioneer_story_pages( $args )` – Custom story pages. Priority 42.
+* `fictioneer_story_chapters( $args )` – Chapter list. Priority 43.
+* `fictioneer_story_blog( $args )` – Blog posts assigned to the story. Priority 44.
 
 ---
 
