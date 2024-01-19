@@ -124,7 +124,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _3-3">
+                <div class="truncate _cq-3-4">
                   <span class="card__by-author"><?php
                     printf(
                       _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
@@ -145,7 +145,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             <?php if ( $show_taxonomies ) : ?>
               <div class="card__overlay-infobox escape-last-click">
-                <div class="card__tag-list _small truncate _3-3">
+                <div class="card__tag-list _small">
                   <?php
                     if ( $fandoms || $characters || $genres || $tags ) {
                       $output = [];

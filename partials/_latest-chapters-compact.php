@@ -194,7 +194,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             </div>
 
             <div class="card__overlay-infobox _excerpt escape-last-click">
-              <div class="truncate <?php echo $args['source'] ? '_3-3' : '_2-2'; ?>"><?php echo fictioneer_get_forced_excerpt( $post ); ?></div>
+              <div class="card__excerpt"><?php echo fictioneer_get_forced_excerpt( $post ); ?></div>
             </div>
 
           </div>

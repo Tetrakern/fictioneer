@@ -181,7 +181,7 @@ $comment_count = get_comments( $comment_args );
         // Content
         printf(
           '<div class="card__content cell-desc"><div class="truncate %1$s"><span>%2$s</span></div></div>',
-          count( $items ) > 2 ? '_3-4' : '_4-4',
+          count( $items ) > 2 ? '_cq-4-3' : '_4-4',
           fictioneer_truncate( $description, 512 )
         );
       ?>

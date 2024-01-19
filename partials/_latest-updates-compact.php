@@ -166,7 +166,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _1-1">
+                <div class="truncate _cq-1-2">
                   <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
@@ -195,7 +195,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     }
 
                     // Chapter excerpt
-                    $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter_id );
+                    $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter_id, 768 );
                   ?>
                   <li class="card__link-list-item">
                     <div class="card__left text-overflow-ellipsis">
@@ -218,7 +218,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             </div>
 
             <div class="card__overlay-infobox _excerpt escape-last-click">
-              <div class="truncate _3-3"><strong><?php echo $chapter_title; ?>:</strong> <?php echo $chapter_excerpt; ?></div>
+              <div class="card__excerpt"><strong><?php echo $chapter_title; ?>:</strong> <?php echo $chapter_excerpt; ?></div>
             </div>
 
           </div>

@@ -131,7 +131,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _3-3">
+                <div class="truncate _cq-3-4">
                   <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );

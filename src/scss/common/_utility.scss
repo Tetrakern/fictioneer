@@ -55,15 +55,15 @@ body:not(.is-editor):not(.is-admin) {
 
 .grid-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
+  gap: var(--grid-columns-gap, 1.5rem);
 
   &._collapse-on-mobile {
     @media only screen and (max-width: 767px) {
       display: block;
 
       > :not(:last-child) {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--grid-columns-gap, 1.5rem);
       }
     }
   }

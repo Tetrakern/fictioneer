@@ -9,7 +9,7 @@
 :root.minimal {
   .card {
     &__link-list-item {
-      padding-left: 4px;
+      padding-left: .35em;
     }
   }
 }
@@ -35,6 +35,7 @@
   box-shadow: var(--container-box-shadow); // Drop-shadow filter can cause scroll lag in Chromium
   clear: both;
   contain: style layout; // Improve performance
+  container-type: inline-size; // Enable container query units
 
   &._story-unpublished {
     filter: var(--card-unavailable-filter);
@@ -128,7 +129,7 @@
   }
 
   &._info .card__title {
-    padding-right: 24px;
+    padding-right: 1.75em;
   }
 
   &__body {
@@ -137,7 +138,7 @@
     justify-content: space-between;
     background-color: var(--e-2);
     font-family: var(--ff-note);
-    padding: 0.75rem;
+    padding: var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem));
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
@@ -152,34 +153,22 @@
     display: flex;
     align-items: center;
     gap: .5rem;
-    font-size: 15px;
-    margin-bottom: 0.75rem;
-
-    &._large {
-      font-size: get_clamp(15, 18, 400, 768);
-    }
-
-    &._small {
-      margin-bottom: 0.375rem;
-    }
+    font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
+    margin-bottom: 0.75em; // Based on font-size
   }
 
   &__title {
     flex: 1 1 auto;
-    font-size: inherit;
+    font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
     font-family: var(--ff-heading); // Redundant for safety
 
-    &._small {
-      font-size: 15px;
-    }
-
     &._with-delete {
-      margin-right: 1.5rem;
+      padding-right: 1.75em;
     }
 
     &._article {
       flex: 0 0 auto;
-      margin-bottom: .375rem;
+      margin: var(--card-title-margin, 0 0 clamp(.375rem, 1.5cqw, 1rem));
     }
 
     a {
@@ -192,20 +181,19 @@
       }
     }
 
-    .sticky-pin {
+    :where(.sticky-pin, .protected-icon) {
       font-size: 0.8em;
       margin-right: 0.125em;
       transform: translateY(-0.05em);
     }
 
     .protected-icon {
-      font-size: 0.8em;
-      margin-right: 0.125em;
       transform: translateY(-0.125em);
     }
   }
 
-  &__delete {
+  &__delete,
+  &__info-toggle {
     --focus-offset: -8px;
     cursor: pointer;
     position: absolute;
@@ -216,7 +204,7 @@
     font-size: 14px;
     line-height: 1;
     text-align: center;
-    padding: 12px 12px 10px;
+    padding: var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem));
     opacity: .3;
     transition: opacity var(--transition-duration);
 
@@ -254,20 +242,20 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: .625rem;
+    gap: .625em;
     flex-shrink: 0;
     color: var(--fg-700);
     line-height: 1;
     text-align: right;
-    padding-right: .625rem;
-    margin-right: -0.75rem;
+    padding-right: .625em;
+    margin-right: -0.75em;
 
     > :not(.popup-menu, :focus-visible) {
       opacity: .375;
     }
 
     .popup-menu {
-      right: .75rem;
+      right: .75em;
     }
   }
 
@@ -296,26 +284,16 @@
 
     &._article {
       aspect-ratio: 3 / 1;
-      margin-bottom: 0.75rem;
+      margin-bottom: 2.5cqw;
     }
   }
 
   &__text-icon {
     display: grid;
     place-content: center;
-    font-size: 56px;
+    font-size: min(13cqw, 80px);
     line-height: 1;
     text-align: center;
-
-    @include bp(640px) {
-      font-size: 88px;
-      width: 96px;
-    }
-
-    &._small {
-      font-size: 56px;
-      width: 56px;
-    }
 
     .text-icon {
       color: var(--fg-600); // Overrides hover
@@ -337,18 +315,16 @@
   }
 
   &__content {
-    font-family: var(--ff-note);
-    font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile)
-    line-height: 1.5;
+    font-size: var(--card-content-font-size, clamp(13px, 2.5cqw, 14px));
+    line-height: var(--card-line-height, 1.45);
     overflow-wrap: break-word;
 
     &._small {
-      font-size: 13px; // Minimum desktop and mobile
-      line-height: 1.3;
+      line-height: var(--small-card-line-height, 1.45);
     }
 
     &._article {
-      line-height: 1.4;
+      line-height: var(--article-card-line-height, 1.5);
     }
 
     &._hidden-result {
@@ -374,15 +350,15 @@
     display: grid;
     gap: 3px;
     color: var(--fg-500);
-    font-size: var(--fs-ds); // 14px (desktop) to 13px (mobile);
+    font-size: var(--card-list-left-font-size, clamp(12px, 2.5cqw, 14px));
     line-height: 1.3;
 
     &-item {
       display: flex;
       justify-content: space-between;
-      gap: 0 1rem;
+      gap: 0 1.125em;
       background: var(--infobox-gradient);
-      padding: 2px 4px 2px 0;
+      padding: 0.175em 0.35em 0.175em 0;
       border-radius: var(--layout-border-radius-small);
       min-width: 0; // Fix whitespace nowrap issue
 
@@ -399,31 +375,22 @@
 
     .card__left {
       flex: 1 1 auto;
-      line-height: 18px; // For vertical centering
     }
 
     :is(i, .icon) {
       display: inline-block;
       color: var(--fg-800);
-      margin: 0 4px 0 0;
+      margin: 0 .35em 0 0;
     }
 
     .card__right {
       flex: 0 0 auto;
       color: var(--fg-700);
-      font-size: var(--fs-dxs); // 13px (desktop) to 12px (mobile)
+      font-size: var(--card-list-right-font-size, clamp(12px, 2.35cqw, 13px));
       line-height: 1.5;
 
       &._flex {
         display: flex;
-      }
-    }
-
-    &._small {
-      font-size: 12px;
-
-      .card__right {
-        font-size: 12px;
       }
     }
   }
@@ -436,18 +403,14 @@
   &__tag-list {
     color: var(--fg-800); // Separators, tags have own color
     font-family: var(--ff-base);
-    font-size: var(--fs-dxs); // 13px (desktop) to 12px (mobile)
+    font-size: var(--card-list-right-font-size, clamp(12px, 2.35cqw, 13px));
     line-height: 1.5;
     padding: 0 1px; // Visually more "embedded"
 
-    &._small,
-    &._small .tag-pill._inline {
-      font-size: 12px; // Minimum desktop and mobile
-    }
-
     &._scrolling {
+      --card-tax-margin-top: 0;
       position: relative;
-      margin: 0 0 -0.75rem; // Offset inner wrapper padding
+      margin-bottom: calc(-1 * var(--card-footer-margin-top, clamp(.875rem, 1.5cqw, 1rem))); // Offset inner wrapper padding
       max-width: 100%;
 
       &::after {
@@ -468,7 +431,8 @@
 
   &__h-scroll {
     white-space: nowrap;
-    padding: .625rem .5rem .5rem 0; // Increase scroll container profile for mobile
+    // Increase scroll container profile for mobile
+    padding: var(--card-tags-container-padding, clamp(0.65rem, 2.2cqw, 0.75rem) 0.5rem clamp(0.65rem, 2.2cqw, 0.75rem) 0);
     overflow: auto hidden;
     scrollbar-width: none; // FF
 
@@ -482,23 +446,19 @@
     display: flex;
     gap: 3px;
     color: var(--fg-600);
-    font-size: var(--fs-dxs); // 13px (desktop) to 12px (mobile)
+    font-size: var(--card-footer-font-size, clamp(12px, 2.25cqw, 13px));
     line-height: 1;
-    margin-top: .875rem;
-
-    &._small {
-      font-size: 12px; // Minimum desktop and mobile
-    }
+    margin-top: var(--card-footer-margin-top, clamp(.875rem, 1.5cqw, 1rem));
 
     &-box {
       background: var(--infobox-background);
     }
 
     .card-footer-icon {
-      margin-right: .25rem;
+      margin-right: .3em;
 
       &:not(:first-child) {
-        margin-left: .875rem;
+        margin-left: 1.1em;
       }
     }
 
@@ -535,41 +495,25 @@
     }
   }
 
-  &__info-toggle {
-    --focus-offset: -8px;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10;
-    color: var(--fg-800);
-    font-size: 14px;
-    line-height: 1;
-    text-align: center;
-    padding: 12px;
-    opacity: .3;
-    transition: opacity var(--transition-duration);
-
-    &:hover,
-    &:focus-visible {
-      opacity: 1;
-    }
-  }
-
   &__overlay-infobox {
     position: absolute;
-    inset: .7rem; // Little less than padding to make sure everything is covered
+    inset: 2.5cqw;
     display: none;
     content-visibility: hidden; // Improve performance
     flex-direction: column;
     justify-content: space-between;
     background: var(--infobox-background);
-    font-size: 12px;
-    line-height: 16px;
+    font-size: var(--card-overlay-font-size, clamp(12px, 2.5cqw, 14px));
+    line-height: 1.33;
     border-radius: var(--layout-border-radius-small);
 
     > :first-child {
-      padding: .5rem .5rem 0;
+      padding: 0;
+      margin: 1.5cqw;
+      height: 100%;
+      overflow: hidden;
+      mask: linear-gradient(180deg, black calc(100% - 1.5em), rgb(0 0 0 / 50%) calc(100% - 1em), transparent 100%) top;
+      -webkit-mask: linear-gradient(180deg, black calc(100% - 1.5em), rgb(0 0 0 / 50%) calc(100% - 1em), transparent 100%) top;
     }
 
     .card__footer {
@@ -587,12 +531,12 @@
     }
 
     &._excerpt {
-      justify-content: center;
-
       > :first-child {
+        position: absolute;
+        inset: 1.5cqw;
         line-height: 1.5;
-        padding: 0;
-        margin: .25rem .5rem;
+        margin: 0;
+        height: unset;
       }
     }
   }
@@ -603,8 +547,17 @@
 
     .cell-img {
       grid-area: img;
-      margin-right: .75rem; // Easy to hide in .minimal compared to column-gap!
-      width: 56px;
+      // Easy to hide in .minimal compared to column-gap!
+      margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
+      width: var(--card-cover-width, 56px);
+
+      @container (min-width: 450px) {
+        --card-cover-width: 72px;
+      }
+
+      @container (min-width: 560px) {
+        --card-cover-width: 80px;
+      }
     }
 
     .cell-title {
@@ -621,10 +574,12 @@
 
     .cell-list {
       grid-area: list;
+      margin-top: var(--card-list-margin-top, clamp(.875rem, 1.5cqw, 1rem));
     }
 
     .cell-tax {
       grid-area: tax;
+      margin-top: var(--card-tax-margin-top, clamp(.875rem, 1.5cqw, 1rem));
     }
   }
 
@@ -635,7 +590,7 @@
       'list list'
       'tax tax';
 
-    @include bp(640px) {
+    @container (min-width: 560px) {
       grid-template-areas:
         'img desc'
         'img list'
@@ -643,21 +598,21 @@
     }
 
     .cell-img {
-      @include bp(640px) {
-        width: 96px;
+      @container (min-width: 450px) {
+        --card-cover-width: 56px;
+      }
+
+      @container (min-width: 560px) {
+        --card-cover-width: 96px;
       }
     }
 
     .cell-desc {
       min-height: 58px;
 
-      @include bp(640px) {
+      @container (min-width: 560px) {
         min-height: 0;
       }
-    }
-
-    :is(.cell-list, .cell-tax) {
-      margin-top: .75rem;
     }
   }
 
@@ -670,23 +625,27 @@
       'img list'
       'tax tax';
 
-    :is(.cell-title, .cell-meta) {
-      margin-bottom: .375rem;
+    .cell-title {
+      margin: var(--card-title-margin, 0 0 clamp(0.375rem, 1.625cqw, 1.25rem));
+    }
+
+    .cell-meta {
+      margin: var(--card-meta-margin, 0 0 clamp(0.375rem, 1.625cqw, 1.25rem));
     }
 
     .cell-list {
-      margin-top: .375rem;
+      margin-top: var(--card-list-margin-top, clamp(.375rem, 1.5cqw, 0.5rem));
     }
   }
 
   ._bottom-spacer-xs {
-    margin-bottom: .25rem;
+    margin-bottom: .3em;
   }
 
   ._obfuscated {
     display: block;
     text-align: justify;
-    max-height: 51px;
+    max-height: var(--card-obfuscated-height, 5em);
     overflow: hidden;
 
     .clean {
@@ -734,6 +693,40 @@
     }
   }
 
+  .truncate {
+    &._cq-1-2 {
+      -webkit-line-clamp: 1;
+
+      @container (min-width: 450px) {
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    &._cq-2-3 {
+      -webkit-line-clamp: 2;
+
+      @container (min-width: 450px) {
+        -webkit-line-clamp: 3;
+      }
+    }
+
+    &._cq-3-4 {
+      -webkit-line-clamp: 3;
+
+      @container (min-width: 450px) {
+        -webkit-line-clamp: 4;
+      }
+    }
+
+    &._cq-4-3 {
+      -webkit-line-clamp: 4;
+
+      @container (min-width: 560px) {
+        -webkit-line-clamp: 3;
+      }
+    }
+  }
+
   &._skeleton {
     box-shadow: none;
     filter: none;
@@ -749,7 +742,7 @@
 
       &__title {
         background: var(--skeleton-cutout-color);
-        height: 25px;
+        height: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
         max-width: 250px;
       }
 
@@ -757,7 +750,7 @@
         background: var(--skeleton-cutout-color);
         height: 82px;
 
-        @include bp(640px) {
+        @container (min-width: 560px) {
           height: 150px;
         }
       }
@@ -777,7 +770,7 @@
       &__footer {
         > div {
           background: var(--skeleton-cutout-color);
-          height: 32px;
+          height: 27px;
         }
       }
     }
@@ -809,14 +802,14 @@
     line-height: 1;
 
     &._small {
-      font-size: 12px;
+      font-size: var(--card-bookmark-meta-font-size, clamp(12px, 2.35cqw, 13px));
     }
 
     > :is(i, .icon) {
-      margin-right: .25rem;
+      margin-right: .35em;
 
       &:not(:first-child) {
-        margin-left: 1rem;
+        margin-left: 1.25em;
       }
     }
   }
