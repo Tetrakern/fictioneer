@@ -93,7 +93,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 <section class="small-card-block latest-recommendations _compact <?php echo $args['classes']; ?>">
   <?php if ( $entries->have_posts() ) : ?>
 
-    <ul class="two-columns _collapse-on-mobile">
+    <ul class="grid-columns _collapse-on-mobile">
       <?php while ( $entries->have_posts() ) : $entries->the_post(); ?>
 
         <?php

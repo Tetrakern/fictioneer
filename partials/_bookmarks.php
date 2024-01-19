@@ -30,5 +30,5 @@ get_template_part( 'partials/_template_bookmark' );
   <?php if ( $show_empty ) : ?>
     <div class="bookmarks-block__no-bookmarks no-results"><?php echo fcntr( 'no_bookmarks' ); ?></div>
   <?php endif; ?>
-  <ul class="two-columns"></ul>
+  <ul class="grid-columns"></ul>
 </section>

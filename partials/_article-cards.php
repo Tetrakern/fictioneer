@@ -117,7 +117,7 @@ $pag_args = array(
 
   <?php if ( $query->have_posts() ) : ?>
 
-    <ul class="two-columns _collapse-on-mobile">
+    <ul class="grid-columns _collapse-on-mobile">
       <?php
         while ( $query->have_posts() ) {
           $query->the_post();

@@ -85,7 +85,7 @@ if ( $can_checkmarks ) {
 ?></p>
 
 <div class="profile__data profile__segment">
-  <ul class="two-columns">
+  <ul class="grid-columns">
 
     <?php if ( $comments_count > 0 ) : ?>
       <li class="card _small">
