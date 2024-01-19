@@ -94,9 +94,9 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
         // Content
         printf(
           '<div class="card__content cell-desc"><div class="truncate %1$s">%2$s<span>%3$s</span></div></div>',
-          $chapter_count > 2 ? '_3-4' : '_4-4',
+          $chapter_count > 2 ? '_cq-3-4' : '_4-4',
           $hide_author ? '' : sprintf(
-            '<span class="card__by-author show-below-desktop">%s</span> ',
+            '<span class="card__by-author cq-show-below-640">%s</span> ',
             sprintf(
               _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
               fictioneer_get_author_node()
@@ -140,7 +140,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
               <div class="card__right">
                 <?php
                   printf(
-                    '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                    '%1$s<span class="cq-hide-below-460"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
                     fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ),
                     __( 'Words', 'fictioneer' ),
                     strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ?
@@ -194,12 +194,12 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
         }
 
         if ( ! $hide_author ) {
-          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user hide-below-desktop"></i> ' .
-            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'hide-below-desktop' );
+          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
+            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
         }
 
-        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message hide-below-480" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="hide-below-480" title="' .
+        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message cq-hide-below-460" title="' .
+          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="cq-hide-below-460" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span>';
 
         $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] );
@@ -212,8 +212,8 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
       ?></div>
 
       <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-        <span class="hide-below-480"><?php echo fcntr( $story['rating'] ); ?></span>
-        <span class="show-below-480"><?php echo fcntr( $story['rating_letter'] ); ?></span>
+        <span class="cq-hide-below-460"><?php echo fcntr( $story['rating'] ); ?></span>
+        <span class="cq-show-below-460"><?php echo fcntr( $story['rating_letter'] ); ?></span>
       </div>
 
     </div>

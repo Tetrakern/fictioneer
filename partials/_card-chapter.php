@@ -80,8 +80,8 @@ $show_type = $args['show_type'] ?? false;
 
           // Make sure there are no whitespaces in-between!
           if ( $list_title ) {
-            echo "<span class='show-below-480'>{$list_title}</span>";
-            echo "<span class='hide-below-480'>{$title}</span>";
+            echo "<span class='cq-show-below-460'>{$list_title}</span>";
+            echo "<span class='cq-hide-below-460'>{$title}</span>";
           } else {
             echo $title;
           }
@@ -135,7 +135,7 @@ $show_type = $args['show_type'] ?? false;
         printf(
           '<div class="card__content cell-desc"><div class="truncate _4-4">%1$s<span>%2$s</span>%3$s</div></div>',
           $hide_author ? '' : sprintf(
-            '<span class="card__by-author show-below-desktop">%s</span> ',
+            '<span class="card__by-author cq-show-below-640">%s</span> ',
             sprintf(
               _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
               fictioneer_get_author_node()
@@ -158,7 +158,7 @@ $show_type = $args['show_type'] ?? false;
             <div class="card__right">
               <?php
                 printf(
-                  '%1$s<span class="hide-below-480"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                  '%1$s<span class="cq-hide-below-460"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
                   $story_data['word_count_short'],
                   __( 'Words', 'fictioneer' ),
                   $story_data['status']
@@ -206,8 +206,8 @@ $show_type = $args['show_type'] ?? false;
         }
 
         if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) {
-          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user hide-below-desktop"></i> ' .
-            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'hide-below-desktop' );
+          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
+            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
         }
 
         $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
@@ -222,8 +222,8 @@ $show_type = $args['show_type'] ?? false;
 
       <?php if ( ! empty( $chapter_rating ) ) : ?>
         <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
-          <span class="hide-below-480"><?php echo fcntr( $chapter_rating ); ?></span>
-          <span class="show-below-480"><?php echo fcntr( $chapter_rating[0] ); ?></span>
+          <span class="cq-hide-below-460"><?php echo fcntr( $chapter_rating ); ?></span>
+          <span class="cq-show-below-460"><?php echo fcntr( $chapter_rating[0] ); ?></span>
         </div>
       <?php endif; ?>
 

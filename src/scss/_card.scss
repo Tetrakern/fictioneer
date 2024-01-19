@@ -221,7 +221,7 @@
     font: var(--card-type-font-weight) 62.5%/1 var(--ff-base);
     text-shadow: none;
     text-transform: uppercase;
-    padding: .25rem .375rem;
+    padding: .35em .55em;
     border-radius: var(--layout-border-radius-small);
   }
 
@@ -232,7 +232,7 @@
     opacity: .375;
 
     &:not(:last-child) {
-      margin-right: .25rem;
+      margin-right: .35em;
     }
   }
 
@@ -725,6 +725,34 @@
       @container (min-width: 560px) {
         -webkit-line-clamp: 3;
       }
+    }
+  }
+
+  .cq-hide-below-460 {
+    @container (max-width: 459.99px) {
+      display: none !important;
+      content-visibility: hidden;
+    }
+  }
+
+  .cq-hide-below-640 {
+    @container (max-width: 639.99px) {
+      display: none !important;
+      content-visibility: hidden;
+    }
+  }
+
+  .cq-show-below-460 {
+    @container (min-width: 460px) {
+      display: none !important;
+      content-visibility: hidden;
+    }
+  }
+
+  .cq-show-below-640 {
+    @container (min-width: 640px) {
+      display: none !important;
+      content-visibility: hidden;
     }
   }
 
