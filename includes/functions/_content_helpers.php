@@ -1683,10 +1683,10 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
       */
 
       // Start HTML ---> ?>
-      <i class="fa-solid fa-lock chapter-group__list-item-password-icon list-view"></i>
+      <i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>
       <?php // <--- End HTML
 
-      $output['password'] = ob_get_clean();
+      $output['protected'] = ob_get_clean();
     }
 
     // Warning
