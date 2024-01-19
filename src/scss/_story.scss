@@ -411,7 +411,7 @@ $header_breakpoint: 640px;
     }
   }
 
-  &__tab-page:not(._current) {
+  &__tab-target:not(._current) {
     display: none;
     content-visibility: hidden;
   }

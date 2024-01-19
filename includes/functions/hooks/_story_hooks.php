@@ -389,7 +389,7 @@ function fictioneer_story_scheduled_chapter( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="scheduled-chapter-note" class="story__scheduled-chapter">
+  <section class="story__tab-target story__scheduled-chapter _current" data-finder="chapters">
     <i class="fa-solid fa-calendar-days"></i>
     <span><?php
       printf(
@@ -445,7 +445,7 @@ function fictioneer_story_pages( $args ) {
       }
 
       // Start HTML ---> ?>
-      <section id="tab-page-<?php echo $index; ?>" class="story__tab-page padding-left padding-right content-section background-texture">
+      <section class="story__tab-target padding-left padding-right content-section background-texture" data-finder="tab-page-<?php echo $index; ?>">
         <div class="story__custom-page"><?php echo apply_filters( 'the_content', $page[2] ); ?></div>
       </section>
       <?php // <--- End HTML
@@ -503,7 +503,7 @@ function fictioneer_story_chapters( $args ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <section id="chapters" class="story__tab-page _current story__chapters" data-order="asc" data-view="list">
+  <section class="story__tab-target _current story__chapters" data-finder="chapters" data-order="asc" data-view="list">
     <?php
       $chapters = fictioneer_get_story_chapters( $story_id ); // Already prepared!
       $chapter_groups = [];
@@ -740,7 +740,7 @@ function fictioneer_story_blog( $args ) {
   $blog_posts = fictioneer_get_story_blog_posts( $story_id );
 
   // Start HTML ---> ?>
-  <section id="blog" class="story__blog story__tab-page">
+  <section class="story__blog story__tab-target" data-finder="blog">
     <ol class="story__blog-list">
       <?php
         if ( $blog_posts->have_posts() ) {

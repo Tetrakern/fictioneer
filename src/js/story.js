@@ -157,7 +157,10 @@ function fcn_toggleStoryTab(target) {
   });
 
   // Set new tab
-  _$$$(target.dataset.target).classList.add('_current');
+  _$$(`[data-finder="${target.dataset.target}"]`).forEach(element => {
+    element.classList.add('_current');
+  });
+
   _$$$('tabs').dataset.current = target.dataset.target;
   target.classList.add('_current');
 }
