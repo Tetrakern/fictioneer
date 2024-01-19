@@ -14,7 +14,7 @@
  */
 
 function fictioneer_legacy_cleanup() {
-  $cutoff = 202401130000; // YYYYMMDDHHMM
+  $cutoff = 202419100000; // YYYYMMDDHHMM
   $last_cleanup = absint( get_option( 'fictioneer_last_cleanup' ) );
 
   // Sitemap cleanup
@@ -26,6 +26,11 @@ function fictioneer_legacy_cleanup() {
     }
 
     flush_rewrite_rules();
+  }
+
+  // Purge theme caches after update
+  if ( $last_cleanup < 202419100000 ) {
+    fictioneer_delete_transients_like( 'fictioneer_' );
   }
 
   // Remember cleanup
