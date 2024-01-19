@@ -78,7 +78,7 @@ $show_type = $args['show_type'] ?? false;
 
         // Content
         printf(
-          '<div class="card__content cell-desc truncate _4-4"><span class="card__by-author">%1$s</span> <span>%2$s</span></div>',
+          '<div class="card__content cell-desc"><div class="truncate _4-4"><span class="card__by-author">%1$s</span> <span>%2$s</span></div></div>',
           sprintf(
             _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
             get_post_meta( $post->ID, 'fictioneer_recommendation_author', true )

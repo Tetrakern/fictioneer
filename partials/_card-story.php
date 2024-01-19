@@ -93,7 +93,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
 
         // Content
         printf(
-          '<div class="card__content cell-desc truncate %1$s">%2$s<span>%3$s</span></div>',
+          '<div class="card__content cell-desc"><div class="truncate %1$s">%2$s<span>%3$s</span></div></div>',
           $chapter_count > 2 ? '_3-4' : '_4-4',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author show-below-desktop">%s</span> ',

@@ -165,18 +165,20 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 echo $story['title'];
               ?></a></h3>
 
-              <div class="card__content _small cell-desc truncate _1-1">
-                <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
-                  <span class="card__by-author"><?php
-                    printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
+              <div class="card__content _small cell-desc">
+                <div class="truncate _1-1">
+                  <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
+                    <span class="card__by-author"><?php
+                      printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
+                    ?></span>
+                  <?php endif; ?>
+                  <span><?php
+                    $short_description = fictioneer_first_paragraph_as_excerpt(
+                      fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
+                    );
+                    echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
                   ?></span>
-                <?php endif; ?>
-                <span><?php
-                  $short_description = fictioneer_first_paragraph_as_excerpt(
-                    fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
-                  );
-                  echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
-                ?></span>
+                </div>
               </div>
 
               <ol class="card__link-list _small cell-list">

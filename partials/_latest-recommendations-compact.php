@@ -123,20 +123,22 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
-              <div class="card__content _small cell-desc truncate _3-3">
-                <span class="card__by-author"><?php
-                  printf(
-                    _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
-                    '<span class="author">' . get_post_meta( $post->ID, 'fictioneer_recommendation_author', true ) . '</span>'
-                  );
-                ?></span>
-                <span><?php
-                  if ( ! empty( $one_sentence ) ) {
-                    echo wp_strip_all_tags( $one_sentence, true );
-                  } else {
-                    echo fictioneer_first_paragraph_as_excerpt( get_the_content() );
-                  }
-                ?></span>
+              <div class="card__content _small cell-desc">
+                <div class="truncate _3-3">
+                  <span class="card__by-author"><?php
+                    printf(
+                      _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
+                      '<span class="author">' . get_post_meta( $post->ID, 'fictioneer_recommendation_author', true ) . '</span>'
+                    );
+                  ?></span>
+                  <span><?php
+                    if ( ! empty( $one_sentence ) ) {
+                      echo wp_strip_all_tags( $one_sentence, true );
+                    } else {
+                      echo fictioneer_first_paragraph_as_excerpt( get_the_content() );
+                    }
+                  ?></span>
+                </div>
               </div>
 
             </div>

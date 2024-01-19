@@ -133,7 +133,7 @@ $show_type = $args['show_type'] ?? false;
 
         // Content
         printf(
-          '<div class="card__content cell-desc truncate _4-4">%1$s<span>%2$s</span>%3$s</div>',
+          '<div class="card__content cell-desc"><div class="truncate _4-4">%1$s<span>%2$s</span>%3$s</div></div>',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author show-below-desktop">%s</span> ',
             sprintf(

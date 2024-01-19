@@ -154,14 +154,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 ?></a>
               </div>
 
-              <div class="card__content _small cell-desc truncate _3-3">
-                <?php
+              <div class="card__content _small cell-desc">
+                <div class="truncate _3-3"><?php
                   if ( ! empty( $one_sentence ) ) {
                     echo wp_strip_all_tags( $one_sentence, true );
                   } else {
                     echo fictioneer_first_paragraph_as_excerpt( get_the_content() );
                   }
-                ?>
+                ?></div>
               </div>
 
               <?php if ( $show_taxonomies ) : ?>

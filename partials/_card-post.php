@@ -49,7 +49,7 @@ $show_type = $args['show_type'] ?? false;
         }
       ?>
 
-      <div class="card__content cell-desc truncate _4-4"><span><?php the_excerpt(); ?></span></div>
+      <div class="card__content cell-desc"><div class="truncate _4-4"><span><?php the_excerpt(); ?></span></div></div>
 
       <?php if ( $categories || $tags ) : ?>
         <div class="card__tag-list cell-tax">

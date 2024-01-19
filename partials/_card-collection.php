@@ -180,7 +180,7 @@ $comment_count = get_comments( $comment_args );
 
         // Content
         printf(
-          '<div class="card__content cell-desc truncate %1$s"><span>%2$s</span></div>',
+          '<div class="card__content cell-desc"><div class="truncate %1$s"><span>%2$s</span></div></div>',
           count( $items ) > 2 ? '_3-4' : '_4-4',
           mb_strimwidth( $description, 0, 512, '…' )
         );

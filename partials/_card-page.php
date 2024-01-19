@@ -48,7 +48,7 @@ $comments_number = get_comments_number();
         }
       ?>
 
-      <div class="card__content cell-desc truncate _4-4"><span><?php the_excerpt(); ?></span></div>
+      <div class="card__content cell-desc"><div class="truncate _4-4"><span><?php the_excerpt(); ?></span></div></div>
 
     </div>
 
