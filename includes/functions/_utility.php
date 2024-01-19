@@ -2397,7 +2397,7 @@ function fictioneer_unset_by_value( $value, $array ) {
 // =============================================================================
 
 /**
- * Return unformatted replacement string
+ * Returns an unformatted replacement string
  *
  * @since Fictioneer 5.7.5
  *
@@ -2406,6 +2406,35 @@ function fictioneer_unset_by_value( $value, $array ) {
 
 function fictioneer__return_no_format() {
   return '%s';
+}
+
+// =============================================================================
+// TRUNCATE STRING
+// =============================================================================
+
+/**
+ * Returns a truncated string without tags
+ *
+ * @since Fictioneer 5.9.0
+ *
+ * @param string      $string    The string to truncate.
+ * @param int         $length    Maximum length in characters.
+ * @param string|null $ellipsis  Optional. Truncation indicator suffix.
+ *
+ * @return string The truncated string without tags.
+ */
+
+function fictioneer_truncate( string $string, int $length, string $ellipsis = null ) {
+  // Setup
+  $string = wp_strip_all_tags( $string ); // Prevent tags from being cut off
+  $ellipsis = $ellipsis ?? FICTIONEER_TRUNCATION_ELLIPSIS;
+
+  // Return truncated string
+  if ( ! function_exists( 'mb_strimwidth' ) ) {
+    return mb_strimwidth( $string, 0, $length, $ellipsis );
+  } else {
+    return strlen( $string ) > $length ? substr( $string, 0, $length ) . $ellipsis : $string;
+  }
 }
 
 ?>

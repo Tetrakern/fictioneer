@@ -84,7 +84,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
         $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
         $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
         $link = get_the_permalink( $item->ID );
-        $title = mb_strimwidth( fictioneer_get_seo_title( $item->ID ), 0, 48, '…' );
+        $title = fictioneer_truncate( fictioneer_get_seo_title( $item->ID ), 48 );
         $template = get_page_template_slug( $item->ID );
         $is_excluded = in_array( $template, ['singular-bookshelf.php', 'singular-bookmarks.php', 'user-profile.php'] );
 

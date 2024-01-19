@@ -60,7 +60,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
     // Description (truncated if necessary)
     $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true );
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
-    $seo_description_placeholder = mb_strimwidth( $seo_description_placeholder, 0, 155, '…' );
+    $seo_description_placeholder = fictioneer_truncate( $seo_description_placeholder, 155 );
 
     // Open Graph image...
     $seo_og_image = get_post_meta( $post->ID, 'fictioneer_seo_og_image', true );
@@ -471,7 +471,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     $seo_description = empty( $seo_description ) ? false : $seo_description;
     $title = fictioneer_get_safe_title( $post_id );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
-    $excerpt = mb_strimwidth( $excerpt, 0, 155, '…' );
+    $excerpt = fictioneer_truncate( $excerpt, 155 );
     $default = empty( $default ) ? $excerpt : $default;
 
     // Special Case: Recommendations

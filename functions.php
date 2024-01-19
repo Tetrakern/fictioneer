@@ -180,6 +180,11 @@ if ( ! defined( 'FICTIONEER_DISCORD_EMBED_COLOR' ) ) {
   define( 'FICTIONEER_DISCORD_EMBED_COLOR', '9692513' );
 }
 
+// String: Truncation ellipsis
+if ( ! defined( 'FICTIONEER_TRUNCATION_ELLIPSIS' ) ) {
+  define( 'FICTIONEER_TRUNCATION_ELLIPSIS', '…' );
+}
+
 /*
  * Integers
  */

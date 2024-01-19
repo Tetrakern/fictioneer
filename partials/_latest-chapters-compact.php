@@ -175,7 +175,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       printf(
                         _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
                         get_permalink( $story_id ),
-                        mb_strimwidth( fictioneer_get_safe_title( $story_id ), 0, 24, '…' )
+                        fictioneer_truncate( fictioneer_get_safe_title( $story_id ), 24 )
                       );
                     }
                   ?>

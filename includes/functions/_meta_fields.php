@@ -2831,7 +2831,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   // Warning
   if ( isset( $_POST['fictioneer_chapter_warning'] ) ) {
     $fields['fictioneer_chapter_warning'] = sanitize_text_field( $_POST['fictioneer_chapter_warning'] );
-    $fields['fictioneer_chapter_warning'] = mb_strimwidth( $fields['fictioneer_chapter_warning'], 0, 48, '…' );
+    $fields['fictioneer_chapter_warning'] = fictioneer_truncate( $fields['fictioneer_chapter_warning'], 48 );
   }
 
   // Warning notes
@@ -3121,7 +3121,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
     $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] );
 
     if ( empty( $fields['fictioneer_short_name'] ) ) {
-      $fields['fictioneer_short_name'] = mb_strimwidth( get_the_title( $post_id ), 0, 16, '…' );
+      $fields['fictioneer_short_name'] = fictioneer_truncate( get_the_title( $post_id ), 16 );
     }
   }
 
@@ -3933,7 +3933,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
     if ( empty( $fields['fictioneer_recommendation_one_sentence'] ) ) {
       $excerpt = get_the_excerpt( $post_id ) ?: __( 'No description provided yet.', 'fictioneer' );
 
-      $fields['fictioneer_recommendation_one_sentence'] = mb_strimwidth( $excerpt, 0, 150, '…' );
+      $fields['fictioneer_recommendation_one_sentence'] = fictioneer_truncate( $excerpt, 150 );
     }
   }
 
