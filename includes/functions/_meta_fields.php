@@ -3933,7 +3933,7 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
     if ( empty( $fields['fictioneer_recommendation_one_sentence'] ) ) {
       $excerpt = get_the_excerpt( $post_id ) ?: __( 'No description provided yet.', 'fictioneer' );
 
-      $fields['fictioneer_recommendation_one_sentence'] = fictioneer_truncate( $excerpt, 150 );
+      $fields['fictioneer_recommendation_one_sentence'] = fictioneer_truncate( $excerpt, 256 );
     }
   }
 
