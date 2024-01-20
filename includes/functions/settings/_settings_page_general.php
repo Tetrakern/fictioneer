@@ -83,6 +83,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_site_age_confirmation',
+                    __( 'Require age confirmation for the whole site.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_contact_forms',
                     __( 'Emergency stop with an error notice.', 'fictioneer' )
                   );
@@ -139,6 +148,15 @@
 
               <div class="fictioneer-card__row">
                 <p><?php _e( 'Updating these settings may require the theme caches to be purged. You can do that under Tools.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_post_age_confirmation',
+                    __( 'Require age confirmation for <b>adult-rated</b> content.', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">

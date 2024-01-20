@@ -44,6 +44,7 @@ get_header( null, $header_args );
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
         $title = fictioneer_get_safe_title( $post->ID );
+        $age_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 
         $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
@@ -58,6 +59,10 @@ get_header( null, $header_args );
         if ( $story_post ) {
           $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
           $chapter_ids = $story_data['chapter_ids'];
+
+          if ( empty( $age_rating ) ) {
+            $age_rating = $story_data['rating'];
+          }
         }
 
         // Chapter navigation
@@ -120,7 +125,7 @@ get_header( null, $header_args );
         </div>
       <?php endif; ?>
 
-      <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo post_password_required() ? '_password' : ''; ?>">
+      <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo post_password_required() ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
         <div class="chapter__actions chapter__actions--top">
           <div class="chapter__actions-container chapter__actions-left"><?php

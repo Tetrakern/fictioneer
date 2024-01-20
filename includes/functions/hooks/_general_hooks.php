@@ -188,6 +188,20 @@ function fictioneer_output_modals( $args ) {
     get_template_part( 'partials/_modal-chapter-changelog' );
   }
 
+  // Age confirmation modal
+  if (
+    get_option( 'fictioneer_enable_site_age_confirmation' ) ||
+    (
+      ! $is_archive &&
+      get_option( 'fictioneer_enable_post_age_confirmation' ) &&
+      in_array( $args['post_type'], ['fcn_story', 'fcn_chapter'] )
+    )
+  ) {
+    if ( ! current_user_can( 'edit_fcn_stories' ) ) {
+      get_template_part( 'partials/_modal-age', null, $args );
+    }
+  }
+
   // Action to add modals
   do_action( 'fictioneer_modals' );
 }

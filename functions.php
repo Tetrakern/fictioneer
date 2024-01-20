@@ -185,6 +185,11 @@ if ( ! defined( 'FICTIONEER_TRUNCATION_ELLIPSIS' ) ) {
   define( 'FICTIONEER_TRUNCATION_ELLIPSIS', '…' );
 }
 
+// String: Age confirmation redirect
+if ( ! defined( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT' ) ) {
+  define( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT', 'https://search.brave.com/' );
+}
+
 /*
  * Integers
  */

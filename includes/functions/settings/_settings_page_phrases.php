@@ -107,6 +107,50 @@
           </div>
         </div>
 
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Age Confirmation Modal: Site', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <?php
+                $default = esc_html( __( 'This website is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' ) );
+              ?>
+
+              <div class="fictioneer-card__row">
+                <textarea class="fictioneer-textarea" name="fictioneer_phrase_site_age_confirmation" rows="4" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_site_age_confirmation' ) ); ?></textarea>
+                <p class="fictioneer-sub-label"><?php _e( 'HTML allowed.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <code><?php echo $default; ?></code>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'Age Confirmation Modal: Posts', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <?php
+                $default = esc_html( __( 'This content is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' ) );
+              ?>
+
+              <div class="fictioneer-card__row">
+                <textarea class="fictioneer-textarea" name="fictioneer_phrase_post_age_confirmation" rows="4" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_post_age_confirmation' ) ); ?></textarea>
+                <p class="fictioneer-sub-label"><?php _e( 'HTML allowed.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <code><?php echo $default; ?></code>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <?php do_action( 'fictioneer_admin_settings_phrases' ); ?>
 
       </div>
