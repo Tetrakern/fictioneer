@@ -103,7 +103,7 @@ $show_type = $args['show_type'] ?? false;
         if ( has_post_thumbnail() ) {
 
           printf(
-            '<a href="%1$s" title="%2$s" class="card__image _chapter-image cell-img" %3$s>%4$s</a>',
+            '<a href="%1$s" title="%2$s" class="card__image _chapter _chapter-image cell-img" %3$s>%4$s</a>',
             get_the_post_thumbnail_url( null, 'full' ),
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
             fictioneer_get_lightbox_attribute(),
@@ -113,7 +113,7 @@ $show_type = $args['show_type'] ?? false;
         } elseif ( ! empty( $story_thumbnail_url_full ) ) {
 
           printf(
-            '<a href="%1$s" title="%2$s" class="card__image _story-image cell-img" %3$s>%4$s</a>',
+            '<a href="%1$s" title="%2$s" class="card__image _chapter _story-image cell-img" %3$s>%4$s</a>',
             $story_thumbnail_url_full,
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
             fictioneer_get_lightbox_attribute(),
@@ -133,7 +133,7 @@ $show_type = $args['show_type'] ?? false;
 
         // Content
         printf(
-          '<div class="card__content cell-desc"><div class="truncate _4-4">%1$s<span>%2$s</span>%3$s</div></div>',
+          '<div class="card__content cell-desc"><div class="truncate _cq-4-5">%1$s<span>%2$s</span>%3$s</div></div>',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author cq-show-below-640">%s</span> ',
             sprintf(

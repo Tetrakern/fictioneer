@@ -647,16 +647,12 @@
       }
 
       @container (min-width: 560px) {
-        --card-cover-width: 96px;
+        --card-cover-width: 112px;
       }
     }
 
     .cell-desc {
       min-height: 58px;
-
-      @container (min-width: 560px) {
-        min-height: 0;
-      }
     }
   }
 
@@ -778,6 +774,14 @@
 
       @container (min-width: 560px) {
         -webkit-line-clamp: 3;
+      }
+    }
+
+    &._cq-4-5 {
+      -webkit-line-clamp: 4;
+
+      @container (min-width: 560px) {
+        -webkit-line-clamp: 5;
       }
     }
   }
