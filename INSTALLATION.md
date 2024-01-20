@@ -908,11 +908,14 @@ You want the navigation next to your top-aligned header, without changing the HT
 
 #### Card Size & Grid Spacing
 
-You can change the minimum width of cards under **Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite a custom property. The default is `1.5rem 1.5rem`.
+You can change the minimum width of cards under **Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.
+
+The default is `1.5rem` (22.5px to 24px), which is relative to the root font size scaling with the viewport (15px to 16px). If you want to apply changes only to specific grids, you need to scope them to a fitting selector, such as `.latest-updates` for the Latest Updates shortcode.
 
 ```css
 :root {
-  --grid-columns-gap: 1.5rem 1.5rem; /* The first value is the row gap, the second the column gap. */
+  --grid-columns-row-gap: 1.5rem; /* Vertical spacing. */
+  --grid-columns-col-gap: 1.5rem; /* Horizontal spacing. */
 }
 ```
 
