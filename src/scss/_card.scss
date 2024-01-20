@@ -63,10 +63,10 @@
     --card-overlay-font-size: 12px;
     --card-overlay-inset: .7rem;
     --card-cover-margin: 0 .75rem 0 0;
-    --card-cover-width: 56px;
+    --card-cover-width: 60px;
 
     @include bp(640px) {
-      --card-cover-width: 96px;
+      --card-cover-width: 116px;
     }
 
     &._small {
@@ -76,7 +76,7 @@
       --card-tags-font-size: 12px;
       --card-footer-font-size: 12px;
       --card-bookmark-meta-font-size: 12px;
-      --card-cover-width: 56px;
+      --card-cover-width: 60px;
     }
   }
 
@@ -593,7 +593,7 @@
       grid-area: img;
       // Easy to hide in .minimal compared to column-gap!
       margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
-      width: var(--card-cover-width, 56px);
+      width: var(--card-cover-width, 60px);
 
       @container (min-width: 450px) {
         --card-cover-width: 72px;
@@ -643,7 +643,7 @@
 
     .cell-img {
       @container (min-width: 450px) {
-        --card-cover-width: 56px;
+        --card-cover-width: 60px;
       }
 
       @container (min-width: 560px) {
