@@ -910,12 +910,20 @@ You want the navigation next to your top-aligned header, without changing the HT
 
 You can change the minimum width of cards under **Appearance > Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.
 
-The default is `1.5rem` (22.5px to 24px), which is relative to the root font size scaling with the viewport (15px to 16px). If you want to apply changes only to specific grids, you need to scope them to a fitting selector, such as `.latest-updates` for the Latest Updates shortcode.
+The default is `max(3cqw, 1.5rem)` (22.5px to 30px), which is relative to the section width or dynamic root font size, whichever is larger. If you want to apply changes only to specific grids, you need to scope them to a fitting selector, such as `.latest-updates` for the Latest Updates shortcode.
 
 ```css
 :root {
-  --grid-columns-row-gap: 1.5rem; /* Vertical spacing. */
-  --grid-columns-col-gap: 1.5rem; /* Horizontal spacing. */
+  --grid-columns-row-gap: max(3cqw, 1.5rem); /* Vertical spacing. */
+  --grid-columns-col-gap: max(3cqw, 1.5rem); /* Horizontal spacing. */
+}
+
+/* Fallback for older browsers that do not support container queries. */
+@supports (width: 1cqw) {
+  .root {
+    --grid-columns-row-gap: 1.5rem; /* Vertical spacing. */
+    --grid-columns-col-gap: 1.5rem; /* Horizontal spacing. */
+  }
 }
 ```
 
@@ -925,7 +933,14 @@ If you want to have a grid on the list page templates as well, for example Stori
 /* Targeting the unique IDs of the lists is safe. */
 #list-of-stories, #list-of-chapters {
   grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));
-  gap: 2rem 2rem; /* Larger by default than shortcode grids! */
+  gap: max(2cqw, 2rem) max(2cqw, 2rem); /* Larger by default than shortcode grids! */
+}
+
+/* Fallback for older browsers that do not support container queries. */
+@supports (width: 1cqw) {
+  #list-of-stories, #list-of-chapters {
+    gap: 2rem 2rem;
+  }
 }
 ```
 
