@@ -42,8 +42,6 @@ if (
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
 $show_type = $args['show_type'] ?? false;
-$is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
-  get_post_meta( $post->ID, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
 ?>
 
@@ -68,10 +66,6 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
 
         echo $story['title'];
       ?></a></h3>
-
-      <?php if ( $is_sticky ) : ?>
-        <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
-      <?php endif; ?>
 
       <?php echo fictioneer_get_card_controls( $post->ID ); ?>
 

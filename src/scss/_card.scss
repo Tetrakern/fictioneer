@@ -273,10 +273,6 @@
     font-size: 75%;
     line-height: 1;
     opacity: .375;
-
-    &:not(:last-child) {
-      margin-right: .35em;
-    }
   }
 
   &__controls {
@@ -290,8 +286,9 @@
     color: var(--fg-700);
     line-height: 1;
     text-align: right;
-    padding-right: .625em;
-    margin-right: -0.75em;
+    padding: .625em .625em 0 0;
+    margin: -0.625em -0.75em 0 0;
+    min-width: 28px;
 
     > :not(.popup-menu, :focus-visible) {
       opacity: .375;

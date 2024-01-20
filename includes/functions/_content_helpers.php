@@ -1385,11 +1385,21 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     $can_checkmarks = $can_login && get_option( 'fictioneer_enable_checkmarks' );
     $can_follows = $can_login && get_option( 'fictioneer_enable_follows' );
     $can_reminders = $can_login && get_option( 'fictioneer_enable_reminders' );
+    $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
+      get_post_meta( $story_id, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
     $type = $chapter_id ? 'chapter' : 'story';
     $icons = [];
     $menu = [];
 
     // Build icons
+    if ( $is_sticky && ! $chapter_id ) {
+      ob_start();
+      // Start HTML ---> ?>
+      <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
+      <?php // <--- End HTML
+      $icons['sticky'] = ob_get_clean();
+    }
+
     if ( $can_reminders ) {
       ob_start();
       // Start HTML ---> ?>
