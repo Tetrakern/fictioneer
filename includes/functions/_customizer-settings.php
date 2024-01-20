@@ -2150,7 +2150,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 40,
       'section' => 'title_tagline',
       'label' => __( 'Site Title - Minimum Size', 'fictioneer' ),
-      'description' => __( 'Minimum font size in pixel of the site title on 320px viewports. Default 32.', 'fictioneer' ),
+      'description' => __( 'Minimum font size in pixels of the site title on 320px viewports. Default 32.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '32',
         'style' => 'width: 80px',
@@ -2176,7 +2176,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 41,
       'section' => 'title_tagline',
       'label' => __( 'Site Title - Maximum Size', 'fictioneer' ),
-      'description' => __( 'Maximum font size in pixel of the site title on [site-width] viewports. Default 60.', 'fictioneer' ),
+      'description' => __( 'Maximum font size in pixels of the site title on [site-width] viewports. Default 60.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '60',
         'style' => 'width: 80px',
@@ -2202,7 +2202,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 41,
       'section' => 'title_tagline',
       'label' => __( 'Tagline - Minimum Size', 'fictioneer' ),
-      'description' => __( 'Minimum font size in pixel of the tagline on 320px viewports. Default 13.', 'fictioneer' ),
+      'description' => __( 'Minimum font size in pixels of the tagline on 320px viewports. Default 13.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '13',
         'style' => 'width: 80px',
@@ -2228,7 +2228,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 42,
       'section' => 'title_tagline',
       'label' => __( 'Tagline - Maximum Size', 'fictioneer' ),
-      'description' => __( 'Maximum font size in pixel of the tagline on [site-width] viewports. Default 18.', 'fictioneer' ),
+      'description' => __( 'Maximum font size in pixels of the tagline on [site-width] viewports. Default 18.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '18',
         'style' => 'width: 80px',
@@ -2278,7 +2278,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 40,
       'section' => 'header_image',
       'label' => __( 'Minimum Height', 'fictioneer' ),
-      'description' => __( 'Minimum height in pixel of the header image on 320px viewports. Default 210.', 'fictioneer' ),
+      'description' => __( 'Minimum height in pixels of the header image on 320px viewports. Default 210.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '210',
         'style' => 'width: 80px',
@@ -2304,7 +2304,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 41,
       'section' => 'header_image',
       'label' => __( 'Maximum Height', 'fictioneer' ),
-      'description' => __( 'Maximum height in pixel of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),
+      'description' => __( 'Maximum height in pixels of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '480',
         'style' => 'width: 80px',
@@ -2455,8 +2455,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'type' => 'number',
       'priority' => 10,
       'section' => 'layout',
-      'label' => __( 'Minimum Card Width', 'fictioneer' ),
-      'description' => __( 'Minimum card grid column width in pixels; does affect card size. Default 308.', 'fictioneer' ),
+      'label' => __( 'Card Width', 'fictioneer' ),
+      'description' => __( 'Minimum card width in pixels (limited by space); affects card scale. Default 308.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '308',
         'min' => 308,
@@ -2509,7 +2509,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Header Height - Minimum', 'fictioneer' ),
-      'description' => __( 'Minimum height of the header section in pixel on the smallest viewport. Default 190.', 'fictioneer' ),
+      'description' => __( 'Minimum height of the header section in pixels on the smallest viewport. Default 190.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '190',
         'style' => 'width: 80px',
@@ -2535,7 +2535,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Header Height - Maximum', 'fictioneer' ),
-      'description' => __( 'Maximum height of the header section in pixel on the largest viewport. Default 380.', 'fictioneer' ),
+      'description' => __( 'Maximum height of the header section in pixels on the largest viewport. Default 380.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '380',
         'style' => 'width: 80px',
@@ -2655,7 +2655,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Vertical Spacing - Minimum', 'fictioneer' ),
-      'description' => __( 'Minimum of the vertical spacing in pixel on the smallest viewport. Default 24.', 'fictioneer' ),
+      'description' => __( 'Minimum of the vertical spacing in pixels on the smallest viewport. Default 24.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '24',
         'style' => 'width: 80px',
@@ -2681,7 +2681,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Vertical Spacing - Maximum', 'fictioneer' ),
-      'description' => __( 'Maximum of the vertical spacing in pixel on [site-width] viewports. Default 48.', 'fictioneer' ),
+      'description' => __( 'Maximum of the vertical spacing in pixels on [site-width] viewports. Default 48.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '48',
         'style' => 'width: 80px',
@@ -2707,7 +2707,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Horizontal Spacing - Minimum', 'fictioneer' ),
-      'description' => __( 'Minimum of the horizontal spacing in pixel on 480px viewports. Default 20.', 'fictioneer' ),
+      'description' => __( 'Minimum of the horizontal spacing in pixels on 480px viewports. Default 20.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '20',
         'style' => 'width: 80px',
@@ -2733,7 +2733,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Horizontal Spacing - Maximum', 'fictioneer' ),
-      'description' => __( 'Maximum of the horizontal spacing in pixel on [site-width] viewport. Default 80.', 'fictioneer' ),
+      'description' => __( 'Maximum of the horizontal spacing in pixels on [site-width] viewport. Default 80.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '80',
         'style' => 'width: 80px',
@@ -2759,7 +2759,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Small Horizontal Spacing - Minimum', 'fictioneer' ),
-      'description' => __( 'Minimum of the small horizontal spacing in pixel on 320px viewports. Default 10.', 'fictioneer' ),
+      'description' => __( 'Minimum of the small horizontal spacing in pixels on 320px viewports. Default 10.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '10',
         'style' => 'width: 80px',
@@ -2785,7 +2785,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Small Horizontal Spacing - Maximum', 'fictioneer' ),
-      'description' => __( 'Maximum of the small horizontal spacing in pixel below 375px viewports. Default 20.', 'fictioneer' ),
+      'description' => __( 'Maximum of the small horizontal spacing in pixels below 375px viewports. Default 20.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '20',
         'style' => 'width: 80px',
