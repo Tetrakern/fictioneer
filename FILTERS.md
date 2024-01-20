@@ -95,6 +95,7 @@ Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $
 Filters the intermediate output array of the card control icons inside the `fictioneer_get_card_controls( $story_id, $chapter_id )` function before being rendered. Note that card controls will not be rendered without a story ID.
 
 **$icons:**
+* $sticky (string) – HTML of the sticky icon (if enabled).
 * $reminder (string) – HTML of the Reminder icon (if enabled).
 * $follow (string) – HTML of the Follow icon (if enabled).
 * $checkmark (string) – HTML of the checkmark icon (if enabled).
