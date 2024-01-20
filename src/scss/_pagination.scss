@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 3px;
+  grid-column: 1 / -1; // Span all grid columns if any
 
   .page-numbers {
     --focus-offset: -2px;
