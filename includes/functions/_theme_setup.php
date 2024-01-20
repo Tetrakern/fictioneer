@@ -337,6 +337,7 @@ function fictioneer_root_attributes() {
   $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT_CSS;
 
   $conditions = array(
+    'data-age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
     'data-caching-active' => fictioneer_caching_active(),
     'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
     'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,

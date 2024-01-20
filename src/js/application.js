@@ -2041,7 +2041,7 @@ function fcn_showAgeConfirmationModal() {
   // Adult story or chapter?
   const rating = _$('.story__article, .chapter__article')?.dataset.ageRating;
 
-  if (rating && rating !== 'adult') {
+  if (!fcn_theRoot.dataset.ageConfirmation && rating && rating !== 'adult') {
     _$$$('age-confirmation-modal')?.remove();
     return;
   }
