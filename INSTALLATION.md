@@ -919,6 +919,16 @@ The default is `1.5rem` (22.5px to 24px), which is relative to the root font siz
 }
 ```
 
+If you want to have a grid on the list page templates as well, for example Stories and Chapters, you need to apply more verbose CSS. Be aware that targeting the `.card-list` class may be convenient to convert all card lists to grids, but can have unintended side effects since the class is used in many places. Better be specific.
+
+```css
+/* Targeting the unique IDs of the lists is safe. */
+#list-of-stories, #list-of-chapters {
+  grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));
+  gap: 2rem 2rem; /* Larger by default than shortcode grids! */
+}
+```
+
 ### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
