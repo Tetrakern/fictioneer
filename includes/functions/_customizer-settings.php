@@ -2430,7 +2430,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Site Width', 'fictioneer' ),
-      'description' => __( 'Maximum site width in pixel, should not be less than 896. Default 960.', 'fictioneer' ),
+      'description' => __( 'Maximum site width in pixels, should not be less than 896. Default 960.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '960',
         'min' => 896,
@@ -2439,6 +2439,33 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Grid column minimum width
+  $manager->add_setting(
+    'card_grid_column_min',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 308
+    )
+  );
+
+  $manager->add_control(
+    'card_grid_column_min',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Minimum Card Width', 'fictioneer' ),
+      'description' => __( 'Minimum card grid column width in pixels; does affect card size. Default 308.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '308',
+        'min' => 308,
+        'style' => 'width: 80px'
+      )
+    )
+  );
+
+  // Header style
   $manager->add_setting(
     'header_style',
     array(
@@ -2517,6 +2544,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Mobile navigation style
   $manager->add_setting(
     'mobile_nav_style',
     array(
@@ -2541,6 +2569,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Mobile menu style
   $manager->add_setting(
     'mobile_menu_style',
     array(
@@ -2565,6 +2594,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Dark mode font weight adjustment
   $manager->add_setting(
     'dark_mode_font_weight',
     array(
@@ -2589,6 +2619,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Custom layout toggle
   $manager->add_setting(
     'use_custom_layout',
     array(

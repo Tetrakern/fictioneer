@@ -514,6 +514,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $horizontal_small_max = (int) get_theme_mod( 'horizontal_spacing_small_max', 20 );
     $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
+    $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 2 );
 
     // Build CSS
     $layout_css = ":root {
@@ -526,7 +527,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --layout-site-logo-height: " . $logo_height . "px;
       --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
       --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
-      --grid-columns-min: 308px;
+      --grid-columns-min: " . $card_grid_column_min . "px;
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {
