@@ -514,7 +514,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $horizontal_small_max = (int) get_theme_mod( 'horizontal_spacing_small_max', 20 );
     $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
-    $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 2 );
+    $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
 
     // Build CSS
     $layout_css = ":root {
