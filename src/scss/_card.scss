@@ -37,6 +37,44 @@
   contain: style layout; // Improve performance
   container-type: inline-size; // Enable container query units
 
+  // Fallbacks
+  @supports not (width: 1cqw) {
+    --card-body-container-padding: .75rem;
+    --card-title-font-size: inherit;
+    --card-title-margin: 0 0 .375rem;
+    --article-card-image-margin-bottom: .75rem;
+    --card-text-icon-font-size: 3.75rem;
+    --card-content-font-size: var(--fs-ds);
+    --card-meta-margin: .375rem;
+    --card-list-left-font-size: var(--fs-ds);
+    --card-list-right-font-size: var(--fs-dxs);
+    --card-list-margin-top: .875rem;
+    --card-tags-font-size: var(--fs-dxs);
+    --card-tags-container-padding: .625rem .5rem .625rem 0;
+    --card-tags-margin-top: .875rem;
+    --card-footer-font-size: var(--fs-dxs);
+    --card-footer-margin-top: .875rem;
+    --card-bookmark-meta-font-size: var(--fs-dxs);
+    --card-overlay-font-size: 12px;
+    --card-overlay-inset: .7rem;
+    --card-cover-margin: 0 .75rem 0 0;
+    --card-cover-width: 56px;
+
+    @include bp(640px) {
+      --card-cover-width: 96px;
+    }
+
+    &._small {
+      --card-title-font-size: 15px;
+      --card-content-font-size: 13px;
+      --card-list-left-font-size: 12px;
+      --card-tags-font-size: 12px;
+      --card-footer-font-size: 12px;
+      --card-bookmark-meta-font-size: 12px;
+      --card-cover-width: 56px;
+    }
+  }
+
   &._story-unpublished {
     filter: var(--card-unavailable-filter);
 
@@ -284,14 +322,14 @@
 
     &._article {
       aspect-ratio: 3 / 1;
-      margin-bottom: 2.5cqw;
+      margin-bottom: var(--article-card-image-margin-bottom, 2.5cqw);
     }
   }
 
   &__text-icon {
     display: grid;
     place-content: center;
-    font-size: min(13cqw, 80px);
+    font-size: min(var(--card-text-icon-font-size, 13cqw), 80px);
     line-height: 1;
     text-align: center;
 
@@ -403,12 +441,12 @@
   &__tag-list {
     color: var(--fg-800); // Separators, tags have own color
     font-family: var(--ff-base);
-    font-size: var(--card-list-right-font-size, clamp(12px, 2.35cqw, 13px));
+    font-size: var(--card-tags-font-size, clamp(12px, 2.35cqw, 13px));
     line-height: 1.5;
     padding: 0 1px; // Visually more "embedded"
 
     &._scrolling {
-      --card-tax-margin-top: 0;
+      --card-tags-margin-top: 0;
       position: relative;
       margin-bottom: calc(-1 * var(--card-footer-margin-top, clamp(.875rem, 1.5cqw, 1rem))); // Offset inner wrapper padding
       max-width: 100%;
@@ -498,7 +536,7 @@
 
   &__overlay-infobox {
     position: absolute;
-    inset: 2.5cqw;
+    inset: var(--card-overlay-inset, 2.5cqw);
     display: none;
     content-visibility: hidden; // Improve performance
     flex-direction: column;
@@ -510,7 +548,7 @@
 
     > :first-child {
       padding: 0;
-      margin: 1.5cqw;
+      margin: 0.625em;
       height: 100%;
       overflow: hidden;
       mask: linear-gradient(180deg, black calc(100% - 1.5em), rgb(0 0 0 / 50%) calc(100% - 1em), transparent 100%) top;
@@ -534,7 +572,7 @@
     &._excerpt {
       > :first-child {
         position: absolute;
-        inset: 1.5cqw;
+        inset: 0.625em;
         line-height: 1.5;
         margin: 0;
         height: unset;
@@ -580,7 +618,7 @@
 
     .cell-tax {
       grid-area: tax;
-      margin-top: var(--card-tax-margin-top, clamp(.875rem, 1.5cqw, 1rem));
+      margin-top: var(--card-tags-margin-top, clamp(.875rem, 1.5cqw, 1rem));
     }
   }
 
@@ -650,7 +688,7 @@
 
     // Hide ellipsis
     &::after {
-      content: '· ·';
+      content: '· · ·';
       position: absolute;
       right: 0;
       bottom: 0;
