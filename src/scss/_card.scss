@@ -644,10 +644,21 @@
   }
 
   ._obfuscated {
-    display: block;
+    position: relative;
     text-align: justify;
-    max-height: var(--card-obfuscated-height, 5em);
     overflow: hidden;
+
+    // Hide ellipsis
+    &::after {
+      content: '· ·';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: block;
+      color: transparent;
+      background-color: var(--e-2);
+      padding-left: 1px;
+    }
 
     .clean {
       display: none;
