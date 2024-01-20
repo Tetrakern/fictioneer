@@ -787,12 +787,26 @@
       display: none !important;
       content-visibility: hidden;
     }
+
+    @supports not (width: 1cqw) {
+      @media only screen and (max-width: 479.99px) {
+        display: none !important;
+        content-visibility: hidden;
+      }
+    }
   }
 
   .cq-hide-below-640 {
     @container (max-width: 639.99px) {
       display: none !important;
       content-visibility: hidden;
+    }
+
+    @supports not (width: 1cqw) {
+      @media only screen and (max-width: 767.99px) {
+        display: none !important;
+        content-visibility: hidden;
+      }
     }
   }
 
@@ -801,12 +815,26 @@
       display: none !important;
       content-visibility: hidden;
     }
+
+    @supports not (width: 1cqw) {
+      @media only screen and (min-width: 480px) {
+        display: none !important;
+        content-visibility: hidden;
+      }
+    }
   }
 
   .cq-show-below-640 {
     @container (min-width: 640px) {
       display: none !important;
       content-visibility: hidden;
+    }
+
+    @supports not (width: 1cqw) {
+      @media only screen and (min-width: 768px) {
+        display: none !important;
+        content-visibility: hidden;
+      }
     }
   }
 

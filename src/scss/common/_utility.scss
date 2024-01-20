@@ -69,6 +69,10 @@ body:not(.is-editor):not(.is-admin) {
 
       > :not(:last-child) {
         margin-bottom: var(--grid-columns-row-gap, max(3cqw, 1.5rem));
+
+        @supports not (width: 1cqw) {
+          margin-bottom: var(--grid-columns-row-gap, 1.5rem);
+        }
       }
     }
   }
