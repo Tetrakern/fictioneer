@@ -36,6 +36,7 @@ This guide is mainly written for people who never had their own WordPress site b
     * [Background Overlay & Filters](#background-overlay--filters)
     * [Isolated Footer](#isolated-footer)
     * [Merge Top-Header & Navigation](#merge-top-header--navigation)
+    * [Card Size & Grid Spacing](#card-size--grid-spacing)
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
@@ -902,6 +903,16 @@ You want the navigation next to your top-aligned header, without changing the HT
 /* Optional: Add this if you want to reset the changes when the navigation becomes sticky. */
 :root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .main-navigation__wrapper {
   flex-direction: row;
+}
+```
+
+#### Card Size & Grid Spacing
+
+You can change the minimum width of cards under **Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite a custom property. The default is `1.5rem 1.5rem`.
+
+```css
+:root {
+  --grid-columns-gap: 1.5rem 1.5rem; /* The first value is the row gap, the second the column gap. */
 }
 ```
 
