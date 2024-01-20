@@ -908,7 +908,7 @@ You want the navigation next to your top-aligned header, without changing the HT
 
 #### Card Size & Grid Spacing
 
-You can change the minimum width of cards under **Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.
+You can change the minimum width of cards under **Appearance > Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.
 
 The default is `1.5rem` (22.5px to 24px), which is relative to the root font size scaling with the viewport (15px to 16px). If you want to apply changes only to specific grids, you need to scope them to a fitting selector, such as `.latest-updates` for the Latest Updates shortcode.
 
@@ -933,7 +933,7 @@ If you want to have a grid on the list page templates as well, for example Stori
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
 
-In order to move the title or logo, you need a bit of custom CSS. This can be added directly under **Customize > Additional CSS**. Depending on whether you have a logo or not, you will have one of the following HTML/CSS combinations (and then some, but this is the relevant part).
+In order to move the title or logo, you need a bit of custom CSS. This can be added directly under **Appearance > Customize > Additional CSS**. Depending on whether you have a logo or not, you will have one of the following HTML/CSS combinations (and then some, but this is the relevant part).
 
 What you are interested in are the `position`, `transform`, and/or `text-align` properties. `transform` changes the origin point (kinda) of the element, which is normally the top-left corner, so that it can be better offset. The `text-align` only works on the title. If you overwrite those values, you can move the element or text around. If you want to offset from the right or bottom, you need to add `top: unset;` or `left: unset;` or both. Make sure the title or logo still fits on mobile. See references for [position](https://developer.mozilla.org/en-US/docs/Web/CSS/position), [transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform), and [text-align](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
 
