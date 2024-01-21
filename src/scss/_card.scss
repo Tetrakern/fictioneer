@@ -46,19 +46,14 @@
   @supports not (width: 1cqw) {
     --card-body-container-padding: .75rem;
     --card-title-font-size: inherit;
-    --card-title-margin: 0 0 .375rem;
     --article-card-image-margin-bottom: .75rem;
     --card-text-icon-font-size: 3.75rem;
     --card-content-font-size: var(--fs-ds);
-    --card-meta-margin: .375rem;
     --card-list-left-font-size: var(--fs-ds);
     --card-list-right-font-size: var(--fs-dxs);
-    --card-list-margin-top: .875rem;
     --card-tags-font-size: var(--fs-dxs);
     --card-tags-container-padding: .625rem .5rem .625rem 0;
-    --card-tags-margin-top: .875rem;
     --card-footer-font-size: var(--fs-dxs);
-    --card-footer-margin-top: .875rem;
     --card-bookmark-meta-font-size: var(--fs-dxs);
     --card-overlay-font-size: 12px;
     --card-overlay-inset: .7rem;
@@ -211,7 +206,7 @@
 
     &._article {
       flex: 0 0 auto;
-      margin: var(--card-title-margin, 0 0 clamp(.375rem, 1.5cqw, 1rem));
+      margin: var(--article-card-title-margin, 0 0 .4em);
     }
 
     a {
@@ -450,7 +445,7 @@
     &._scrolling {
       --card-tags-margin-top: 0;
       position: relative;
-      margin-bottom: calc(-1 * var(--card-footer-margin-top, clamp(.875rem, 1.5cqw, 1rem))); // Offset inner wrapper padding
+      margin-bottom: calc(-1 * var(--card-footer-margin-top, 1em)); // Offset inner wrapper padding + extra for baseline
       max-width: 100%;
 
       &::after {
@@ -473,7 +468,7 @@
   &__h-scroll {
     white-space: nowrap;
     // Increase scroll container profile for mobile
-    padding: var(--card-tags-container-padding, clamp(0.65rem, 2.2cqw, 0.75rem) 0.5rem clamp(0.65rem, 2.2cqw, 0.75rem) 0);
+    padding: var(--card-tags-container-padding, .9em 0.5rem .9em 0);
     overflow: auto hidden;
     scrollbar-width: none; // FF
 
@@ -489,7 +484,7 @@
     color: var(--fg-600);
     font-size: var(--card-footer-font-size, clamp(12px, 2.25cqw, 13px));
     line-height: 1;
-    margin-top: var(--card-footer-margin-top, clamp(.875rem, 1.5cqw, 1rem));
+    margin-top: var(--card-footer-margin-top, 1em);
 
     &-box {
       background: var(--infobox-background);
@@ -615,12 +610,12 @@
 
     .cell-list {
       grid-area: list;
-      margin-top: var(--card-list-margin-top, clamp(.875rem, 1.5cqw, 1rem));
+      margin-top: var(--card-list-margin-top, 1em);
     }
 
     .cell-tax {
       grid-area: tax;
-      margin-top: var(--card-tags-margin-top, clamp(.875rem, 1.5cqw, 1rem));
+      margin-top: var(--card-tags-margin-top, 1em);
     }
   }
 
@@ -663,20 +658,20 @@
       'tax tax';
 
     .cell-title {
-      margin: var(--card-title-margin, 0 0 clamp(0.375rem, 1.625cqw, 1.25rem));
+      margin: var(--small-card-title-margin, 0 0 .4em);
     }
 
     .cell-meta {
-      margin: var(--card-meta-margin, 0 0 clamp(0.375rem, 1.625cqw, 1.25rem));
+      margin: var(--small-card-meta-margin, 0 0 .4em);
     }
 
     .cell-list {
-      margin-top: var(--card-list-margin-top, clamp(.375rem, 1.5cqw, 0.5rem));
+      margin-top: var(--small-card-list-margin-top, 0.6em);
     }
   }
 
   ._bottom-spacer-xs {
-    margin-bottom: .3em;
+    margin-bottom: .4em;
   }
 
   ._obfuscated {
