@@ -84,7 +84,7 @@ if ( $can_checkmarks ) {
   );
 ?></p>
 
-<div class="profile__data profile__segment">
+<div class="profile__data profile__segment container-inline-size">
   <ul class="grid-columns">
 
     <?php if ( $comments_count > 0 ) : ?>

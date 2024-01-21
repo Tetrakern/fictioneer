@@ -22,7 +22,7 @@
 
 function fictioneer_collections_list( $args ) {
   // Start HTML ---> ?>
-  <section class="collections__list spacing-top">
+  <section class="collections__list spacing-top container-inline-size">
     <ul id="list-of-collections" class="scroll-margin-top card-list">
 
       <?php if ( $args['collections']->have_posts() ) : ?>

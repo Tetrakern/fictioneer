@@ -22,7 +22,7 @@
 
 function fictioneer_recommendations_list( $args ) {
   // Start HTML ---> ?>
-  <section class="recommendations__list spacing-top">
+  <section class="recommendations__list spacing-top container-inline-size">
     <ul id="list-of-recommendations" class="scroll-margin-top card-list">
 
       <?php if ( $args['recommendations']->have_posts() ) : ?>
