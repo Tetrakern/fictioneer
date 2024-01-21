@@ -48,6 +48,8 @@ However, there are a few guidelines:
 
 ## CSS/SCSS
 
+**Required feature support:** Container Queries
+
 Fictioneer was originally styled with [BEM](https://getbem.com/) — and still is, although with some modifications. While BEM offers great structure and prevents cascading issues, this comes with a bag of redundancy and heavy markup. You easily end up with extremely long class signatures and lists that break several lines. BEM also does not work well with utility classes which escape the idea of scoped concerns, causing cascading issues again. But adding redundant modifiers for each and every block is not great either.
 
 To alleviate these drawbacks, Fictioneer makes two changes to the default BEM methodology. Modifiers are no longer suffixes but classes that start with an underscore (`._modifier`), always within a block scope. Modifiers are chained to the block parent (`.block._modifier` or `.block__element._modifier`), granting them a higher specificity to override parent styles and single-specificity utility classes. Of course this is no silver bullet either, as it is slightly less efficient.
