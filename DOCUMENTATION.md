@@ -390,7 +390,7 @@ The custom HTML block is the best way to add special elements to the content, su
 
 ### Article Cards
 
-Renders a two-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
+Renders a multi-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
 
 * **post_type:** Comma-separated list of post types to query. Default `post`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
@@ -458,7 +458,7 @@ Renders paginated blog posts akin to the default blog page, but with options. On
 
 ### Bookmarks
 
-Renders a two-column grid of small bookmark cards, ordered by date of creation. The bookmarks are stored in the browser and appended to the document via JavaScript. You can combine this with the `show-if-bookmarks hidden` additional CSS classes, displaying a headline or other element only if bookmarks are present.
+Renders a multi-column grid of small bookmark cards, ordered by date of creation. The bookmarks are stored in the browser and appended to the document via JavaScript. You can combine this with the `show-if-bookmarks hidden` additional CSS classes, displaying a headline or other element only if bookmarks are present.
 
 * **count:** Limit bookmarks to any positive number. Default `-1` (all).
 * **show_empty:** Whether to show a "no bookmarks" note or nothing if empty. Default `false`.
@@ -539,7 +539,7 @@ Renders two buttons to deal with cookies, "Reset Consent" and "Clear Cookies". B
 
 ### Latest Chapters
 
-Renders a two-column grid of small cards, showing the latest four chapters ordered by publishing date, descending.
+Renders a multi-column grid of small cards, showing the latest four chapters ordered by publishing date, descending.
 
 * **count:** Limit chapters to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
@@ -609,7 +609,7 @@ Renders the last blog post or a list of blog posts, ignoring sticky posts, order
 
 ### Latest Recommendations
 
-Renders a two-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending.
+Renders a multi-column grid of small cards, showing the latest four recommendations ordered by publishing date, descending.
 
 * **count:** Limit recommendations to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -646,7 +646,7 @@ Renders a two-column grid of small cards, showing the latest four recommendation
 
 ### Latest Stories
 
-Renders a two-column grid of small cards, showing the latest four stories ordered by publishing date, descending.
+Renders a multi-column grid of small cards, showing the latest four stories ordered by publishing date, descending.
 
 * **count:** Limit stories to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default` or `compact`. The compact variant is smaller with less data.
@@ -683,7 +683,7 @@ Renders a two-column grid of small cards, showing the latest four stories ordere
 
 ### Latest Updates
 
-Renders a two-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending.
+Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
