@@ -383,6 +383,8 @@ Technically just another plugin, but one that will make your site significantly 
 
 **Cacheable Query Vars:** Most cache plugins automatically exclude pages with query vars (`/?foo=bar`), because they tend to have dynamic content. However, there are some query vars that can be safely cached if the plugin recognizes them as separate URLs: `pg` (page), `tab`, and technically `order` as well. You may have even more.
 
+**Minifying CSS/JS/HTML:** While this can bring a *tiny* performance boost, it also often leads to scripts not working, missing fonts, and display issues. Cloudflare is known to break CSS properties with overzealous minification, LiteSpeed tends to mess up relative file paths in the CSS, and purging presumably "redundant" whitespaces from the HTML can cause gaps between elements or words to disappear. You can try it out, but watch the results and more importantly the console for errors.
+
 **Rule of Thumb:** Is something missing or misplaced, purge the cache! Chapter order wrong? Purge the cache! Collections outdated? Purge the cache! Page flashing red? That’s right, call an exorcist and purge the cache!
 
 * [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/): Made by [Automattic](https://automattic.com/), a main contributor to WordPress the *software* and owner of WordPress.com the *service* (do not confuse them), this free cache plugin is a great choice if you want simple and reliable. It is also completely free.
@@ -573,7 +575,7 @@ And just to take a step back here and be real: SEO is important. Certainly. Unfo
 
 ### Warning: CSS Minification/Combination
 
-The theme’s CSS comes already minified and while additional optimizations such as combining files or filtering out *presumably* unused styles can further improve speed, it can also easily break your layout. This has been proven to be an issue with Cloudflare’s auto-minify feature, for example, which removes whitespaces in `clamp()` functions that are required for them to work. An especially insidious case that you might struggle to pinpoint as it happens during the network request, not on your own server.
+The theme’s CSS comes already minified and while additional optimizations such as combining files or filtering out *presumably* unused styles can further improve speed, it can also easily break your layout. This has been proven to be an issue with Cloudflare’s auto-minify feature, for example, which removes whitespaces in `clamp()` functions that are required for them to work. An especially insidious case that you might struggle to pinpoint as it happens during the request, not on your own server.
 
 ## How to Configure the Fictioneer Theme
 
