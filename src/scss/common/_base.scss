@@ -805,3 +805,64 @@ html:not(.logged-in) body:not(.logged-in) {
     margin-bottom: -0.5rem;
   }
 }
+
+.browser-notes {
+  display: none;
+  content-visibility: hidden;
+  font-size: 10px;
+  text-align: center;
+  padding: .5rem;
+  max-width: var(--site-width);
+  width: 100%;
+
+  @supports (not (--example: 0)) or (not (width: 1cqw)) or (not (display: grid)) or (not (gap: 1px 1px)) or (not (aspect-ratio: 3 / 2)) or (not (width: clamp(10px, 50%, 100px))) or (not (-webkit-line-clamp: 1)) {
+    display: block;
+    content-visibility: visible;
+  }
+
+  &__note {
+    display: none;
+  }
+
+  &__var {
+    @supports not (--example: 0) {
+      display: inline-block;
+    }
+  }
+
+  &__grid {
+    @supports not (display: grid) {
+      display: inline-block;
+    }
+  }
+
+  &__gap {
+    @supports not (gap: 1px 1px) {
+      display: inline-block;
+    }
+  }
+
+  &__aspect-ratio {
+    @supports not (aspect-ratio: 3 / 2) {
+      display: inline-block;
+    }
+  }
+
+  &__container-queries {
+    @supports not (width: 1cqw) {
+      display: inline-block;
+    }
+  }
+
+  &__clamp {
+    @supports not (width: clamp(10px, 50%, 100px)) {
+      display: inline-block;
+    }
+  }
+
+  &__line-clamp {
+    @supports not (-webkit-line-clamp: 1) {
+      display: inline-block;
+    }
+  }
+}

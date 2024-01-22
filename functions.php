@@ -103,6 +103,21 @@ if ( ! defined( 'FICTIONEER_FA_INTEGRITY' ) ) {
   );
 }
 
+// String: Story page footer date format below 480px
+if ( ! defined( 'FICTIONEER_DISCORD_EMBED_COLOR' ) ) {
+  define( 'FICTIONEER_DISCORD_EMBED_COLOR', '9692513' );
+}
+
+// String: Truncation ellipsis
+if ( ! defined( 'FICTIONEER_TRUNCATION_ELLIPSIS' ) ) {
+  define( 'FICTIONEER_TRUNCATION_ELLIPSIS', '…' );
+}
+
+// String: Age confirmation redirect
+if ( ! defined( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT' ) ) {
+  define( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT', 'https://search.brave.com/' );
+}
+
 /*
  * Date Strings
  */
@@ -173,21 +188,6 @@ if ( ! defined( 'FICTIONEER_CARD_ARTICLE_FOOTER_DATE' ) ) {
 // String: Story page footer date format below 480px
 if ( ! defined( 'FICTIONEER_STORY_FOOTER_B480_DATE' ) ) {
   define( 'FICTIONEER_STORY_FOOTER_B480_DATE', $long_date );
-}
-
-// String: Story page footer date format below 480px
-if ( ! defined( 'FICTIONEER_DISCORD_EMBED_COLOR' ) ) {
-  define( 'FICTIONEER_DISCORD_EMBED_COLOR', '9692513' );
-}
-
-// String: Truncation ellipsis
-if ( ! defined( 'FICTIONEER_TRUNCATION_ELLIPSIS' ) ) {
-  define( 'FICTIONEER_TRUNCATION_ELLIPSIS', '…' );
-}
-
-// String: Age confirmation redirect
-if ( ! defined( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT' ) ) {
-  define( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT', 'https://search.brave.com/' );
 }
 
 /*
@@ -374,6 +374,11 @@ if ( ! defined( 'FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER' ) ) {
 // Boolean: Enable tracking of chapter changes in stories
 if ( ! defined( 'FICTIONEER_ENABLE_STORY_CHANGELOG' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_CHANGELOG', true );
+}
+
+// Boolean: Enable tracking of chapter changes in stories
+if ( ! defined( 'FICTIONEER_ENABLE_BROWSER_NOTES' ) ) {
+  define( 'FICTIONEER_ENABLE_BROWSER_NOTES', true );
 }
 
 // =============================================================================

@@ -816,6 +816,8 @@ Fires right after opening the `#site` container in the `header.php` template. In
 * $header_args (array) – Arguments passed to the header.php partial.
 
 **Hooked actions:**
+* `fictioneer_browser_notes()` – HTML for the browser compatibility notes. Priority 1.
+* `fictioneer_top_header( $args )` – HTML for the top header. Priority 9.
 * `fictioneer_navigation_bar( $args )` – HTML for the navigation bar. Priority 10.
 * `fictioneer_inner_header( $args )` – HTML for the inner header. Priority 20.
 
