@@ -1,17 +1,17 @@
 // If outside window, activate sticky navigation
 .nav-observer {
-  top: calc(-1.1px + var(--nav-observer-offset, 0px));
+  top: calc(-1px + var(--nav-observer-offset, 0px));
 }
 
 // Observer must account for large admin bar
 @include bp(601px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
-      top: calc(46.1px - var(--nav-observer-offset, 0px));
+      top: calc(45.9px - var(--nav-observer-offset, 0px));
     }
 
     .nav-observer {
-      top: calc(-47.1px + var(--nav-observer-offset, 0px));
+      top: calc(-47px + var(--nav-observer-offset, 0px));
     }
   }
 }
@@ -20,11 +20,11 @@
 @include bp(783px) {
   .admin-bar:not(.mobile-menu-open) {
     .main-navigation {
-      top: calc(32.1px - var(--nav-observer-offset, 0px));
+      top: calc(31.9px - var(--nav-observer-offset, 0px));
     }
 
     .nav-observer {
-      top: calc(-33.1px + var(--nav-observer-offset, 0px));
+      top: calc(-33px + var(--nav-observer-offset, 0px));
     }
   }
 }
