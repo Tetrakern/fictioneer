@@ -807,13 +807,17 @@ html:not(.logged-in) body:not(.logged-in) {
 }
 
 .browser-notes {
-  display: none;
-  content-visibility: hidden;
   font-size: 10px;
   text-align: center;
   padding: .5rem;
   max-width: var(--site-width);
   width: 100%;
+
+  // Catch IE and other garbage
+  @supports (display: block) {
+    display: none;
+    content-visibility: hidden;
+  }
 
   @supports (not (--example: 0)) or (not (width: 1cqw)) or (not (display: grid)) or (not (gap: 1px 1px)) or (not (aspect-ratio: 3 / 2)) or (not (width: clamp(10px, 50%, 100px))) or (not (-webkit-line-clamp: 1)) {
     display: block;
@@ -822,6 +826,14 @@ html:not(.logged-in) body:not(.logged-in) {
 
   &__note {
     display: none;
+  }
+
+  &__garbage {
+    display: inline-block;
+
+    @supports (display: block) {
+      display: none;
+    }
   }
 
   &__var {

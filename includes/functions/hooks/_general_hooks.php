@@ -220,6 +220,9 @@ add_action( 'fictioneer_footer', 'fictioneer_output_modals' );
 function fictioneer_browser_notes() {
   $notes = [];
 
+  // Catch IE and other garbage!
+  $notes['garbage'] = __( 'Your browser is obsolete, you need to update or switch!', 'fictioneer' );
+
   // Support for custom properties?
   $notes['var'] = __( 'Missing var() support!', 'fictioneer' );
 
