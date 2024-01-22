@@ -1,4 +1,6 @@
 .showcase {
+  container-type: inline-size;
+
   &:not(:first-child) {
     margin-top: 2rem;
   }
@@ -24,7 +26,12 @@
   &__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(#{get_clamp(160, 175, 375, 480)}, 1fr));
-    gap: 1rem;
+    gap: var(--showcase-row-gap, max(3cqw, 1.5rem)) var(--showcase-row-col, max(3cqw, 1.5rem));
+
+    // Fallback
+    @supports not (width: 1cqw) {
+      gap: var(--showcase-row-gap, 1.5rem) var(--showcase-row-col, 1.5rem);
+    }
   }
 
   &__list-item {

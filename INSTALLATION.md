@@ -934,14 +934,16 @@ If you want to have a grid on the list page templates as well, for example Stori
 ```css
 /* Targeting the unique IDs of the lists is safe. */
 #list-of-stories, #list-of-chapters {
-  grid-template-columns: repeat(auto-fill, minmax(308px, 1fr));
-  gap: max(2cqw, 2rem) max(2cqw, 2rem); /* Larger by default than shortcode grids! */
+  --card-list-row-gap: max(4cqw, 2rem); /* Larger by default than shortcode grids! */
+  --card-list-col-gap: max(4cqw, 2rem); /* Larger by default than shortcode grids! */
+  --card-list-template-columns: repeat(auto-fill, minmax(308px, 1fr));
 }
 
 /* Fallback for older browsers that do not support container queries. */
 @supports (width: 1cqw) {
   #list-of-stories, #list-of-chapters {
-    gap: 2rem 2rem;
+    --card-list-row-gap: 2rem;
+    --card-list-col-gap: 2rem;
   }
 }
 ```

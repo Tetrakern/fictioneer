@@ -190,7 +190,7 @@
   &__header {
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: .5em;
     font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
     margin-bottom: 0.75em; // Based on font-size
   }

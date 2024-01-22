@@ -58,7 +58,7 @@ body:not(.is-editor):not(.is-admin) {
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
   gap: var(--grid-columns-row-gap, max(3cqw, 1.5rem)) var(--grid-columns-row-col, max(3cqw, 1.5rem));
 
-  // Fallbacks
+  // Fallback
   @supports not (width: 1cqw) {
     gap: var(--grid-columns-row-gap, 1.5rem) var(--grid-columns-row-col, 1.5rem);
   }
