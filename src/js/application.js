@@ -747,9 +747,9 @@ function fcn_updateSiteSetting(target, key, value) {
 
 // Listen for clicks on toggles
 fcn_settingEvents.forEach(setting => {
-  _$$$(`site-setting-${setting}`).onchange = (e) => {
+  _$$$(`site-setting-${setting}`)?.addEventListener('change', (e) => {
     fcn_updateSiteSetting(e.currentTarget, setting, e.currentTarget.checked);
-  }
+  });
 });
 
 // =============================================================================
