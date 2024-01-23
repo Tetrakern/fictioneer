@@ -55,7 +55,7 @@
 }
 
 // Case below 1024px
-:root:not(.no-nav-sticky) .main-navigation.is-sticky {
+:root:not(.no-nav-sticky, .header-style-overlay) .main-navigation.is-sticky {
   .main-navigation__background {
     @media only screen and (max-width: 1023px) {
       opacity: var(--navigation-background-sticky-end-opacity);
