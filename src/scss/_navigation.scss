@@ -83,6 +83,12 @@
   }
 }
 
+:root:is(:fullscreen, :-webkit-full-screen).header-style-overlay {
+  .main-navigation {
+    margin: 0;
+  }
+}
+
 :root:not(.no-nav-sticky) .site .main-navigation.is-sticky {
   position: sticky;
 }
