@@ -35,6 +35,7 @@ This guide is mainly written for people who never had their own WordPress site b
     * [Top-Header & Navigation Backgrounds](#top-header--navigation-backgrounds)
     * [Background Overlay & Filters](#background-overlay--filters)
     * [Isolated Footer](#isolated-footer)
+    * [Overlay Navigation](#overlay-navigation)
     * [Merge Top-Header & Navigation](#merge-top-header--navigation)
     * [Card Size & Grid Spacing](#card-size--grid-spacing)
   * [Move the Title/Logo](#move-the-titlelogo)
@@ -908,9 +909,9 @@ You want the navigation next to your top-aligned header, without changing the HT
 }
 ```
 
-#### Fixed Overlay Navigation
+#### Overlay Navigation
 
-You want the navigation fixed on top and above the header image? Just go to **Appearance > Customize > Layout** and change the Header Style to "Fixed". You may want to adjust the header image, title, tagline, or logo (if any) as well. Additional customizations require some CSS. Note that the follow snippets are *examples*; do not mindlessly copy and paste them, adjust them to your site.
+You want the navigation on top of the header image? Just go to **Appearance > Customize > Layout** and change the Header Style to "Overlay". You may want to adjust the header image, title, tagline, or logo (if any) as well. Additional customizations require some CSS. Note that the following snippets are *examples*; do not mindlessly copy and paste them, adjust them to your needs.
 
 ```css
 /* Semi-transparent navigation bar. */
