@@ -860,6 +860,8 @@ The default footer has no background, which might not be to your liking or clash
 
 You want the navigation next to your top-aligned header, without changing the HTML? Hacky, but possible. The actual values and result will depend on the size of your header and number of menu items, as this can lead to overlapping elements if you are not careful. Also, depending on your background, you may need to adjust some colors for both light and dark mode.
 
+**2024/01/23:** Updated the reset on sticky CSS.
+
 **Site Title - Minimum Size:** 40px<br>
 **Site Title - Maximum Size:** 40px<br>
 **Tagline - Minimum Size:** 12px<br>
@@ -906,6 +908,16 @@ You want the navigation next to your top-aligned header, without changing the HT
 /* Optional: Add this if you want to reset the changes when the navigation becomes sticky. */
 :root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .main-navigation__wrapper {
   flex-direction: row;
+}
+
+/* Added on 2024/01/23. */
+:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .main-navigation__left {
+  justify-content: flex-start;
+  padding-left: 0;
+}
+
+:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .main-navigation__right {
+  transform: none;
 }
 ```
 
