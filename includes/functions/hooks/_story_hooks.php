@@ -513,10 +513,6 @@ function fictioneer_story_chapters( $args ) {
         $group_classes[] = '_no-icons';
       }
 
-      if ( $collapse_groups ) {
-        $group_classes[] = '_closed';
-      }
-
       // Loop and prepare groups
       if ( ! empty( $chapters ) ) {
         // Query chapters
@@ -578,6 +574,11 @@ function fictioneer_story_chapters( $args ) {
 
         // Reset postdata
         wp_reset_postdata();
+      }
+
+      // Pre-collapse?
+      if ( $collapse_groups && count( $chapter_groups ) > 1 ) {
+        $group_classes[] = '_closed';
       }
 
       // Build HTML
