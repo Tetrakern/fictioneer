@@ -67,3 +67,7 @@ After activating the feature, you need to flush the permalinks. You can do this 
 #### Q: Can I use stories without chapters as oneshots?
 
 Nobody can stop you from doing that, but it is wrong. Stories do not have the same capabilities as chapters and the theme does not understand the concept. There will be no formatting options, bookmarks, text-to-speech, suggestions, comments, and so forth. SEO data and API responses may also be messed up. If you can live with that, go ahead.
+
+#### Why do chapter permalinks not include the story?
+
+Because.
