@@ -70,6 +70,19 @@
   }
 }
 
+// Overlay nav
+.header-style-overlay {
+  --navigation-background-sticky-start-opacity: 1;
+
+  .main-navigation {
+    margin: 0 0 calc(-1 * var(--navigation-height));
+
+    &__background {
+      transition: opacity .3s;
+    }
+  }
+}
+
 :root:not(.no-nav-sticky) .site .main-navigation.is-sticky {
   position: sticky;
 }

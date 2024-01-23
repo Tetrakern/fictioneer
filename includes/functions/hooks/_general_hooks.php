@@ -321,12 +321,14 @@ add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
  */
 
 function fictioneer_inner_header( $args ) {
+  $theme_mod = get_theme_mod( 'header_style', 'default' );
+
   // Abort if...
-  if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['default', 'split'] ) ) {
+  if ( ! in_array( $theme_mod, ['default', 'split', 'overlay'] ) ) {
     return;
   }
 
-  switch ( get_theme_mod( 'header_style', 'default' ) ) {
+  switch ( $theme_mod ) {
     default:
       get_template_part( 'partials/_header-inner', null, $args );
   }

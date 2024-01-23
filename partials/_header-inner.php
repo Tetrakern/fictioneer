@@ -21,7 +21,8 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$tag = get_theme_mod( 'header_style', 'default' ) === 'default' ? 'header' : 'div';
+$header_style = get_theme_mod( 'header_style', 'default' );
+$tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
 
 ?>
 
@@ -29,7 +30,7 @@ $tag = get_theme_mod( 'header_style', 'default' ) === 'default' ? 'header' : 'di
 
   <?php do_action( 'fictioneer_inner_header', $args ); ?>
 
-  <?php if ( get_theme_mod( 'header_style', 'default' ) === 'default' ) : ?>
+  <?php if ( in_array( $header_style, ['default', 'overlay'] ) ) : ?>
     <div class="header__content">
 
       <?php if ( has_custom_logo() ) : ?>

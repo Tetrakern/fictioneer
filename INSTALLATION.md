@@ -908,6 +908,42 @@ You want the navigation next to your top-aligned header, without changing the HT
 }
 ```
 
+#### Fixed Overlay Navigation
+
+You want the navigation fixed on top and above the header image? Just go to **Appearance > Customize > Layout** and change the Header Style to "Fixed". You may want to adjust the header image, title, tagline, or logo (if any) as well. Additional customizations require some CSS. Note that the follow snippets are *examples*; do not mindlessly copy and paste them.
+
+```css
+/* Semi-transparent navigation bar. */
+.header-style-overlay .main-navigation {
+  --navigation-background-sticky-start-opacity: .72;
+  --navigation-background-sticky-end-opacity: .9;
+  backdrop-filter: blur(4px); /* Blurs everything behind the bar; can decrease render performance. */
+  -webkit-backdrop-filter: blur(4px); /* ... same but works in Safari. */
+}
+
+/* Remove shadow when site is scrolled to the top. */
+.header-style-overlay .scrolled-to-top {
+  --navigation-drop-shadow: none;
+}
+
+/* Increase the height on mobile and up. */
+:root {
+  --navigation-height: 48px;
+}
+
+/* Increase the height on desktop and up. */
+@media only screen and (min-width: 1024px) {
+  :root {
+    --navigation-height: 60px;
+  }
+}
+
+/* Avoid increasing the height of submenus. */
+.sub-menu {
+  --navigation-height: 40px;
+}
+```
+
 #### Card Size & Grid Spacing
 
 You can change the minimum width of cards under **Appearance > Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.

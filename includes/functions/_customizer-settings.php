@@ -2487,6 +2487,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
         'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
         'split' => _x( 'Split', 'Customizer header style option.', 'fictioneer' ),
+        'overlay' => _x( 'Overlay', 'Customizer header style option.', 'fictioneer' ),
         'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
       ),
     )
