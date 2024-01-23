@@ -910,7 +910,7 @@ You want the navigation next to your top-aligned header, without changing the HT
 
 #### Fixed Overlay Navigation
 
-You want the navigation fixed on top and above the header image? Just go to **Appearance > Customize > Layout** and change the Header Style to "Fixed". You may want to adjust the header image, title, tagline, or logo (if any) as well. Additional customizations require some CSS. Note that the follow snippets are *examples*; do not mindlessly copy and paste them.
+You want the navigation fixed on top and above the header image? Just go to **Appearance > Customize > Layout** and change the Header Style to "Fixed". You may want to adjust the header image, title, tagline, or logo (if any) as well. Additional customizations require some CSS. Note that the follow snippets are *examples*; do not mindlessly copy and paste them, adjust them to your site.
 
 ```css
 /* Semi-transparent navigation bar. */
