@@ -603,13 +603,6 @@ function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
   $data_required = $required ? 'data-required="true"' : '';
   $current_icon_class = fictioneer_get_icon_field( $meta_key, $post->ID );
 
-  $icons = ['fa-solid fa-book', 'fa-solid fa-star', 'fa-solid fa-heart', 'fa-solid fa-bomb', 'fa-solid fa-wine-glass',
-    'fa-solid fa-face-smile', 'fa-solid fa-shield', 'fa-solid fa-ghost', 'fa-solid fa-gear', 'fa-solid fa-droplet',
-    'fa-solid fa-fire', 'fa-solid fa-radiation', 'fa-solid fa-lemon', 'fa-solid fa-globe', 'fa-solid fa-flask',
-    'fa-solid fa-snowflake', 'fa-solid fa-cookie', 'fa-solid fa-circle', 'fa-solid fa-square', 'fa-solid fa-moon',
-    'fa-solid fa-brain', 'fa-solid fa-diamond', 'fa-solid fa-virus', 'fa-solid fa-horse-head', 'fa-solid fa-certificate',
-    'fa-solid fa-scroll', 'fa-solid fa-spa', 'fa-solid fa-skull'];
-
   ob_start();
 
   // Start HTML ---> ?>
@@ -632,7 +625,7 @@ function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
 
     <div class="fictioneer-meta-field__button-grid hidden">
       <?php
-        foreach( $icons as $icon ) {
+        foreach( FICTIONEER_EXAMPLE_CHAPTER_ICONS as $icon ) {
           echo "<button type='button' class='fictioneer-meta-field__icon-button' data-value='{$icon}'><i class='{$icon}'></i></button>";
         }
       ?>

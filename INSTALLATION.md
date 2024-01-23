@@ -1195,3 +1195,4 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
+| FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.
