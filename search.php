@@ -104,7 +104,7 @@ $hook_args['is_advanced_search'] = $is_advanced_search;
       ?>
 
       <?php if ( have_posts() && ! $no_params ) : ?>
-        <section class="search-results__content">
+        <section class="search-results__content container-inline-size">
           <ul id="search-result-list" class="scroll-margin-top card-list _no-mutation-observer">
             <?php
               while ( have_posts() ) {
@@ -133,9 +133,9 @@ $hook_args['is_advanced_search'] = $is_advanced_search;
           <nav class="pagination _padding-top"><?php echo fictioneer_paginate_links( $pag_args ); ?></nav>
         </section>
       <?php elseif ( $no_params ) : ?>
-        <section class="search-results__content _no-params"><?php do_action( 'fictioneer_search_no_params' ); ?></section>
+        <section class="search-results__content _no-params container-inline-size"><?php do_action( 'fictioneer_search_no_params' ); ?></section>
       <?php else : ?>
-        <section class="search-results__content _no-results"><?php do_action( 'fictioneer_search_no_results' ); ?></section>
+        <section class="search-results__content _no-results container-inline-size"><?php do_action( 'fictioneer_search_no_results' ); ?></section>
       <?php endif; ?>
 
       <footer class="search-results__footer"><?php do_action( 'fictioneer_search_footer' ); ?></footer>
