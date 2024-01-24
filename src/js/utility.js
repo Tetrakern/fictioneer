@@ -65,7 +65,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   url = url ? url : fictioneer_ajax.ajax_url;
 
   // Default headers
-  final_headers = {
+  let final_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Cache-Control': 'no-cache'
   }
@@ -115,7 +115,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   url = fcn_buildUrl(data, url);
 
   // Default headers
-  final_headers = {
+  let final_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Cache-Control': 'no-cache'
   }
