@@ -98,12 +98,22 @@
         > :first-child {
           background: var(--navigation-item-active-submenu-background);
         }
+
+        .sub-menu {
+          transition-delay: .3s;
+        }
+      }
+
+      .sub-menu {
+        transform-origin: top left;
+        transition: var(--submenu-transition, opacity .1s, transform .01s);
       }
 
       &:not(:hover) {
         .sub-menu {
           pointer-events: none;
           opacity: 0;
+          transform: scale(1, 0);
           content-visibility: hidden;
         }
       }

@@ -211,6 +211,8 @@
       .sub-menu {
         pointer-events: none;
         opacity: 0;
+        transform: scale(1, 0);
+        content-visibility: hidden;
       }
     }
 
@@ -262,7 +264,8 @@
     border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
     min-width: MAX(152px, 100%);
     box-shadow: var(--navigation-submenu-box-shadow);
-    transition: opacity .1s;
+    transform-origin: top left;
+    transition: var(--submenu-transition, opacity .1s, transform .01s);
 
     @include bp(desktop) {
       display: block;
