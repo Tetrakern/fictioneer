@@ -270,7 +270,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Setup
-    $chapters = fictioneer_get_story_chapters( $story_id );
+    $chapters = fictioneer_get_story_chapter_ids( $story_id );
     $tags = get_the_tags( $story_id );
     $fandoms = get_the_terms( $story_id, 'fcn_fandom' );
     $characters = get_the_terms( $story_id, 'fcn_character' );
@@ -791,19 +791,19 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
 // GET META FIELDS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_story_chapters' ) ) {
+if ( ! function_exists( 'fictioneer_get_story_chapter_ids' ) ) {
   /**
-   * Wrapper for get_post_meta() to get story chapters
+   * Wrapper for get_post_meta() to get story chapter IDs
    *
    * @since Fictioneer 5.8.2
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
    *
-   * @return array Array of post IDs or an empty array.
+   * @return array Array of chapter post IDs or an empty array.
    */
 
-  function fictioneer_get_story_chapters( $post_id = null ) {
+  function fictioneer_get_story_chapter_ids( $post_id = null ) {
     // Setup
     $chapter_ids = get_post_meta( $post_id ?? get_the_ID(), 'fictioneer_story_chapters', true );
 
@@ -1049,7 +1049,7 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
   }
 
   // Get current story chapters
-  $story_chapters = fictioneer_get_story_chapters( $story_id );
+  $story_chapters = fictioneer_get_story_chapter_ids( $story_id );
 
   // Append chapter (if not already included) and save to database
   if ( ! in_array( $post_id, $story_chapters ) ) {

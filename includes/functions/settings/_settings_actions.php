@@ -1327,7 +1327,7 @@ function fictioneer_tools_append_chapters() {
 
   if ( ! empty( $chapter_ids_to_append ) ) {
     // Prepare
-    $story_chapters = fictioneer_get_story_chapters( $story_id );
+    $story_chapters = fictioneer_get_story_chapter_ids( $story_id );
     $count = 0;
 
     // Append missing chapters

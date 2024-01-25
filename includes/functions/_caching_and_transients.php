@@ -382,7 +382,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
       $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
       if ( ! empty( $story_id ) ) {
-        $chapters = fictioneer_get_story_chapters( $story_id );
+        $chapters = fictioneer_get_story_chapter_ids( $story_id );
 
         delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
         fictioneer_purge_post_cache( $story_id );
@@ -398,7 +398,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 
     // Purge associated chapters
     if ( $post_type == 'fcn_story' ) {
-      $chapters = fictioneer_get_story_chapters( $post_id );
+      $chapters = fictioneer_get_story_chapter_ids( $post_id );
 
       if ( ! empty( $chapters ) ) {
         foreach ( $chapters as $chapter_id ) {

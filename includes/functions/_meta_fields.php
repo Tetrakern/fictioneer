@@ -1898,7 +1898,7 @@ function fictioneer_render_story_data_metabox( $post ) {
   );
 
   // Chapters
-  $chapter_ids = fictioneer_get_story_chapters( $post->ID );
+  $chapter_ids = fictioneer_get_story_chapter_ids( $post->ID );
 
   $chapters = empty( $chapter_ids ) ? [] : get_posts(
     array(
@@ -2213,7 +2213,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   // Chapters
   if ( isset( $_POST['fictioneer_story_chapters'] ) && current_user_can( 'edit_fcn_stories', $post_id ) ) {
-    $previous_chapter_ids = fictioneer_get_story_chapters( $post_id );
+    $previous_chapter_ids = fictioneer_get_story_chapter_ids( $post_id );
 
     $chapter_ids = $_POST['fictioneer_story_chapters'];
     $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];

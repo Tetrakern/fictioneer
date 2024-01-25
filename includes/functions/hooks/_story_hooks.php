@@ -505,7 +505,7 @@ function fictioneer_story_chapters( $args ) {
   // Start HTML ---> ?>
   <section class="story__tab-target _current story__chapters" data-finder="chapters" data-order="asc" data-view="list">
     <?php
-      $chapters = fictioneer_get_story_chapters( $story_id ); // Already prepared!
+      $chapters = fictioneer_get_story_chapter_ids( $story_id ); // Already prepared!
       $chapter_groups = [];
       $group_classes = [];
 
