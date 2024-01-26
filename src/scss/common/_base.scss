@@ -526,6 +526,7 @@ button[type=submit]:where(:not(._inline)) {
     :is(i, .icon, .text-icon) {
       display: inline-block;
       color: currentColor;
+      line-height: 1;
       text-align: center;
       min-width: 20px;
     }
