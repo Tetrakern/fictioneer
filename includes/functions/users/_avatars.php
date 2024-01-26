@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_get_default_avatar_url' ) ) {
   /**
    * Returns the default avatar URL
    *
-   * @since 5.5.3
+   * @since Fictioneer 5.5.3
    *
    * @return string Default avatar URL.
    */
@@ -48,7 +48,7 @@ if ( ! function_exists( 'fictioneer_get_default_avatar_url' ) ) {
 /**
  * Add fallback inline script to avatars
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param string $avatar       HTML for the avatar.
  * @param string $id_or_email  ID or email of the user.
@@ -71,7 +71,7 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
   /**
    * Get custom avatar URL
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param WP_User $user The user to get the avatar for.
    *
@@ -99,7 +99,7 @@ if ( ! function_exists( 'fictioneer_get_custom_avatar_url' ) ) {
 /**
  * Filter the avatar URL
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param string     $url          The default URL by WordPress.
  * @param int|string $id_or_email  User ID or email address.
@@ -147,7 +147,7 @@ add_filter( 'get_avatar_url', 'fictioneer_get_avatar_url', 10, 3 );
 /**
  * Get user avatar URL via AJAX
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()

@@ -154,7 +154,7 @@ _$$('[data-dialog-target="schema-dialog"]').forEach(element => {
 /**
  * Deletes an ePUB by filename.
  *
- * @since 4.7.0
+ * @since 4.7
  * @param {String} name - Name of the ePUB.
  */
 
@@ -194,7 +194,7 @@ _$$('[data-action="delete-epub"]').forEach(element => {
 /**
  * Add attachment via WordPress media uploader.
  *
- * @since 4.0.0
+ * @since 4.0
  * @link https://codex.wordpress.org/Javascript_Reference/wp.media
  * @link https://stackoverflow.com/a/28549014/17140970
  *
@@ -227,7 +227,7 @@ if (button = _$$$('fictioneer-button-og-upload')) {
 /**
  * Update SEO metabox with character count of title
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_update_seo_title_chars() {
@@ -245,7 +245,7 @@ if (button = _$$$('fictioneer-seo-title')) {
 /**
  * Remove OG image
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param {Event} event - The event.
  */
@@ -275,7 +275,7 @@ if (button = _$$$('fictioneer-button-seo-og-image-remove')) {
  * The element needs to have the data attributes 'data-dialog-message'
  * and 'data-dialog-confirm'.
  *
- * @since 5.0.0
+ * @since 5.0
  *
  * @param {Event} event - The event.
  */

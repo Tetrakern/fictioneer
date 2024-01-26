@@ -5,7 +5,7 @@
 /**
  * Query one (first) element by selector.
  *
- * @since 4.0.0
+ * @since 4.0
  * @alias document.querySelector
  * @type {function}
  * @const
@@ -18,7 +18,7 @@ const _$ = document.querySelector.bind(document);
 /**
  * Query all elements by selector.
  *
- * @since 4.0.0
+ * @since 4.0
  * @alias document.querySelectorAll
  * @type {function}
  * @const
@@ -31,7 +31,7 @@ const _$$ = document.querySelectorAll.bind(document);
 /**
  * Get an element by ID.
  *
- * @since 4.0.0
+ * @since 4.0
  * @alias document.getElementById
  * @type {function}
  * @const
@@ -48,7 +48,7 @@ const _$$$ = document.getElementById.bind(document);
 /**
  * Make a POST request with the Fetch API
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} url - Optional. The request URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
@@ -96,7 +96,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
 /**
  * Make a GET request with the Fetch API.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Object} data - The payload, including the action and nonce.
  * @param {String} url - Optional. The request URL if different from the default.
  * @param {Object} headers - Optional. Headers for the request.
@@ -146,7 +146,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
 /**
  * Evaluate anything as boolean with a fallback value.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Any} candidate - The boolean hopeful to be evaluated.
  * @param {Boolean} fallback - Optional. The fallback boolean, default false.
  * @return {Boolean} True or false.
@@ -200,7 +200,7 @@ function fcn_evaluateAsBoolean(candidate, fallback = false) {
 /**
  * Copy valid to clipboard and optionally show a notice.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {String} text - The text to be copied.
  * @param {String} [message] - Optional notice to show.
  */
@@ -248,7 +248,7 @@ function fcn_parseJSON(str) {
 /**
  * Remove item from array once.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Any[]} array - The array from which to remove the item from.
  * @param {Any} value - The value of the item to remove.
  * @return {Any[]} The modified array.
@@ -271,7 +271,7 @@ function fcn_removeItemOnce(array, value) {
 /**
  * Clamp a number between a minimum and a maximum.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Number} min - The minimum.
  * @param {Number} max - The maximum.
  * @param {Number} val - The value to clamp.
@@ -288,7 +288,7 @@ function fcn_clamp(min, max, val) {
 /**
  * Update theme color meta tag.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {String|Boolean} [color=false] - Optional color code.
  */
 
@@ -320,7 +320,7 @@ function fcn_updateThemeColor(color = false) {
 /**
  * Returns the top-left position of an element relative to the window.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {HTMLElement} element - Element to get the position for.
  * @return {TopLeftPosition} Top-left position of the element.
  */
@@ -341,7 +341,7 @@ function fcn_offset(element) {
 /**
  * Throttle event for improved performance.
  *
- * @since 4.1.0
+ * @since 4.1
  * @link https://github.com/jashkenas/underscore/blob/master/underscore.js
  * @link https://stackoverflow.com/a/27078401/17140970
  * @param {Function} func - The function to throttle.
@@ -410,7 +410,7 @@ var /** @const {Map} */ fcn_animFrameEvents = new Map();
 /**
  * Bind event to animation frame for improved performance.
  *
- * @since 4.1.0
+ * @since 4.1
  * @param {String} type - The event type, e.g. 'scroll' or 'resize'.
  * @param {String} name - Name of the bound event.
  * @param {HTMLElement} [obj=window] - Target of the event listener.
@@ -442,7 +442,7 @@ var /** @const {HTMLElement} */ fcn_lastClicked;
 /**
  * Toggle the 'last-clicked' class on an element.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {HTMLElement} element - The clicked element.
  */
 
@@ -516,7 +516,7 @@ _$('body').addEventListener(
  * needs to make sure to not accidentally remove content since, while not
  * common, the button labels may occur in the chapter text intentionally.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {String} selection - The text selection to be cleaned.
  * @return {String} The cleaned text selection.
  */
@@ -543,7 +543,7 @@ function fcn_cleanTextSelectionFromButtons(selection) {
 /**
  * Delete a cookie.
  *
- * @since 4.7.0
+ * @since 4.7
  * @param {String} cname - Name of the cookie to delete.
  */
 
@@ -555,7 +555,7 @@ function fcn_deleteCookie(cname) {
 /**
  * Delete all cookies.
  *
- * @since 4.7.0
+ * @since 4.7
  * @link https://stackoverflow.com/questions/179355/clearing-all-cookies-with-javascript
  */
 
@@ -578,7 +578,7 @@ function fcn_deleteAllCookies() {
 /**
  * Set a cookie.
  *
- * @since 4.7.0
+ * @since 4.7
  * @param {String} cname - Name of the cookie to set.
  * @param {String} value - Value of the cookie to set.
  * @param {Number} [days=30] - Days the cookie will last.
@@ -601,7 +601,7 @@ function fcn_setCookie(cname, value, days = 30) {
 /**
  * Retrieves the given cookie if available.
  *
- * @since 4.7.0
+ * @since 4.7
  * @param {String} cname - Name of the cookie to retrieve.
  * @return {String|Null} The cookie or null if not found.
  */
@@ -628,7 +628,7 @@ function fcn_getCookie(cname) {
 /**
  * Very simple check whether an URL is valid.
  *
- * @since 4.7.0
+ * @since 4.7
  * @return {Boolean} True of the URL is valid, false otherwise.
  */
 
@@ -647,7 +647,7 @@ function fcn_isValidUrl(url) {
 /**
  * Return the Fictioneer nonce, accounting for dynamic nonces.
  *
- * @since 5.0.0
+ * @since 5.0
  * @return {String} The fictioneer_nonce value.
  */
 
@@ -662,7 +662,7 @@ function fcn_getNonce() {
 /**
  * Match a fingerprint with the local user fingerprint if set.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {String} fingerprint - The fingerprint to match with.
  * @return {Boolean} True or false
  */
@@ -684,7 +684,7 @@ function fcn_matchFingerprint(fingerprint) {
 /**
  * Build new URL with search parameters.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Object} [params=] - Optional. Search params to add.
  * @param {String|null} [url=] - Optional. The base URL string.
  * @return {URL} The built URL.
@@ -713,7 +713,7 @@ function fcn_buildUrl(params = {}, url = null) {
 /**
  * Build error message notice to add to the DOM.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {String} message - Message of the error notice.
  * @param {String} [id=false] - Optional. ID of the element.
  * @param {Boolean} [sanitize=true] - Optional. Whether to sanitize the HTML.

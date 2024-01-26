@@ -7,7 +7,7 @@
 /**
  * Add route to ePUB script
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  */
 
 function fictioneer_add_epub_download_endpoint() {
@@ -23,7 +23,7 @@ if ( ! function_exists( 'fictioneer_download_epub' ) ) {
   /**
    * Start and count ePUB download
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param string       $file_name  File name of the ePUB to download.
    * @param WP_Post|null $story_id   Optional. The story post.
@@ -94,7 +94,7 @@ if ( ! function_exists( 'fictioneer_epub_return_and_exit' ) ) {
   /**
    * Abort, redirect home, and terminate script
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    */
 
   function fictioneer_epub_return_and_exit() {
@@ -107,7 +107,7 @@ if ( ! function_exists( 'fictioneer_nav_point' ) ) {
   /**
    * Create an return navPoint node
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param DOMDocument $doc    The document to add the node to.
    * @param int         $index  Current numerical index.
@@ -141,7 +141,7 @@ if ( ! function_exists( 'fictioneer_fix_html_entities' ) ) {
   /**
    * Replace invalid HTML entities with XML entities
    *
-   * @since 5.0.6
+   * @since Fictioneer 5.0.6
    *
    * @param string $text  The string with invalid HTML entities.
    *
@@ -173,7 +173,7 @@ if ( ! function_exists( 'fictioneer_fix_tags' ) ) {
   /**
    * Replace tags not valid in ePUB
    *
-   * @since 5.8.2
+   * @since Fictioneer 5.8.2
    *
    * @param string $xml  The XML string.
    *
@@ -208,7 +208,7 @@ if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
   /**
    * Prepare clean directory and base files for build process
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param string $dir       The build template directory in the theme folder.
    * @param string $epub_dir  The target ePUB directory in the uploads folder.
@@ -280,7 +280,7 @@ if ( ! function_exists( 'fictioneer_add_epub_cover' ) ) {
   /**
    * Copy cover image and HTML file to the ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    * @link https://www.php.net/manual/en/class.domelement.php
    *
    * @param string $dir       The build template directory in the theme folder.
@@ -328,7 +328,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
   /**
    * Process and add chapters to ePUB directory and lists
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param string $dir       The build template directory in the theme folder.
    * @param string $epub_dir  The target ePUB directory in the uploads folder.
@@ -598,7 +598,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_opf' ) ) {
   /**
    * Generate and add OPF file to ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param int   $story_id  The story ID the ePUB is based on.
    * @param array $args      Collection of ePUB data.
@@ -738,7 +738,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_ncx' ) ) {
   /**
    * Generate and add NCX file to ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    * @link https://www.php.net/manual/en/class.domelement.php
    *
    * @param int   $story_id  The story ID the ePUB is based on.
@@ -804,7 +804,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_toc' ) ) {
   /**
    * Generate and add table of content file to ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param array $args  Collection of ePUB data.
    */
@@ -849,7 +849,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_front_matter' ) ) {
   /**
    * Generate and add front matter file to ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param int   $story_id  The story ID the ePUB is based on.
    * @param array $args      Collection of ePUB data.
@@ -946,7 +946,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
   /**
    * Generate and add afterword file to ePUB directory
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param int   $story_id  The story ID the ePUB is based on.
    * @param array $args      Collection of ePUB data.
@@ -1008,7 +1008,7 @@ if ( ! function_exists( 'fictioneer_generate_epub_afterword' ) ) {
 /**
  * Generate ePUB and save it to the uploads directory
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  */
 
 function fictioneer_generate_epub() {
@@ -1200,7 +1200,7 @@ add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
 /**
  * Start ePUB download if ready
  *
- * @since 5.7.2
+ * @since Fictioneer 5.7.2
  */
 
 function fictioneer_ajax_download_epub() {

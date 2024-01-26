@@ -7,7 +7,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.7.0
+ * @since 4.7
  * @see partials/_modal-sharing.php
  */
 ?>

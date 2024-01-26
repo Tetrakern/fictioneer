@@ -17,7 +17,7 @@ const /** @const {HTMLElement} */ fcn_commentSection = _$$$('comments');
 /**
  * Load comment section via AJAX.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Number=} post_id - The current post ID.
  * @param {Number=} page - The requested page number.
  */
@@ -167,7 +167,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
  * Wrapper to reload the comments section with only the page number
  * as parameter and scroll set to true.
  *
- * @since 5.0.0
+ * @since 5.0
  * @param {Number=} page - The requested page number.
  */
 
@@ -203,7 +203,7 @@ if (fcn_theRoot.dataset.ajaxAuth) {
 /**
  * Helper to set up comment section observer.
  *
- * @since 5.0.0
+ * @since 5.0
  */
 
 function fcn_setupCommentSectionObserver() {
@@ -239,7 +239,7 @@ if (fcn_theRoot.dataset.ajaxAuth) {
 /**
  * Load comment section early if there is a comment* anchor.
  *
- * @since 5.0.0
+ * @since 5.0
  */
 
 function fcn_loadCommentEarly() {

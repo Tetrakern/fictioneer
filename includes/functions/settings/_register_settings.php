@@ -977,7 +977,7 @@ define( 'FICTIONEER_OPTIONS', array(
 /**
  * Registers settings for the Fictioneer theme
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  */
 
 function fictioneer_register_settings() {
@@ -1037,7 +1037,7 @@ function fictioneer_register_settings() {
 /**
  * Validates the 'words per minute' setting with fallback
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  * @see   fictioneer_sanitize_integer()
  *
  * @param int $input The input value to sanitize.
@@ -1052,7 +1052,7 @@ function fictioneer_validate_words_per_minute( $input ) {
 /**
  * Validates integer to be 1 or more
  *
- * @since 4.6.0
+ * @since Fictioneer 4.6
  * @see   fictioneer_sanitize_integer()
  *
  * @param int $input The input value to sanitize.
@@ -1067,7 +1067,7 @@ function fictioneer_validate_integer_one_up( $input ) {
 /**
  * Checks whether an ID is a valid page ID
  *
- * @since 4.6.0
+ * @since Fictioneer 4.6
  *
  * @param int $input The page ID to be sanitized.
  *
@@ -1081,7 +1081,7 @@ function fictioneer_validate_page_id( $input ) {
 /**
  * Validates an email address
  *
- * @since 4.6.0
+ * @since Fictioneer 4.6
  * @see   sanitize_email()
  *
  * @param int $input The email address to be sanitized.
@@ -1101,7 +1101,7 @@ function fictioneer_validate_email_address( $input ) {
  * otherwise a default is returned. The content is also cleaned of any
  * problematic HTML.
  *
- * @since 4.6.0
+ * @since Fictioneer 4.6
  * @see wp_kses_post()
  *
  * @param int $input The content for the cookie consent banner.

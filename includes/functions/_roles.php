@@ -71,7 +71,7 @@ define(
 /**
  * Initialize user roles if not already done
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  *
  * @param boolean $force  Optional. Whether to force initialization.
  */
@@ -113,7 +113,7 @@ add_action( 'admin_init', 'fictioneer_initialize_roles' );
 /**
  * Build user roles with custom capabilities
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_setup_roles() {
@@ -325,7 +325,7 @@ function fictioneer_setup_roles() {
 /**
  * Add custom moderator role
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_add_moderator_role() {
@@ -443,7 +443,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Prevent access to the admin panel
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_restrict_admin_panel() {
@@ -466,7 +466,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove admin dashboard widgets
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_dashboard_widgets() {
@@ -483,7 +483,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove the dashboard menu page
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_dashboard_menu() {
@@ -494,7 +494,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Redirect from dashboard to user profile
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_skip_dashboard() {
@@ -514,7 +514,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove dashboard from admin bar dropdown
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_dashboard_from_admin_bar() {
@@ -552,7 +552,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Filters the page template selection
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array $templates  Array of templates ('name' => 'Display Name').
    *
@@ -573,7 +573,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * If the user lacks permission and the page template is not listed
    * as allowed for everyone, the meta update is stopped.
    *
-   * @since 5.6.2
+   * @since Fictioneer 5.6.2
    *
    * @param null|mixed $check       Whether to allow updating metadata for the given type.
    * @param int        $object_id   ID of the object metadata is for.
@@ -613,7 +613,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove comment item from admin bar
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_comments_from_admin_bar() {
@@ -625,7 +625,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove comments menu
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_comments_menu_page() {
@@ -635,7 +635,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Restrict menu access for non-administrators
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_restrict_comment_edit() {
@@ -650,7 +650,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove comments column
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array $columns  The table columns.
    *
@@ -676,7 +676,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Only allow editing of comments
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array $all_caps  An array of all the user's capabilities.
    * @param array $cap       Primitive capabilities that are being checked.
@@ -710,7 +710,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Restrict comment editing
    *
-   * @since 5.7.3
+   * @since Fictioneer 5.7.3
    *
    * @param array  $caps     Primitive capabilities required of the user.
    * @param string $cap      Capability being checked.
@@ -746,7 +746,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Reduce admin panel
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_reduce_admin_panel() {
@@ -759,7 +759,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Restrict menu access for non-administrators
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_restrict_admin_only_pages() {
@@ -787,7 +787,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove update notice
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    */
 
   function fictioneer_remove_update_notice(){
@@ -807,7 +807,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * This is not ideal, but an edge case. Someone who cannot use shortcodes
    * usually also cannot edit others posts.
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array $data  An array of slashed, sanitized, and processed post data.
    *
@@ -878,7 +878,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Prevent users from seeing uploaded files of others
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param WP_Query $query  The queried attachments.
    */
@@ -901,7 +901,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Prevent users from seeing uploaded files of others in the list view
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param WP_Query $wp_query  The current WP_Query.
    */
@@ -935,7 +935,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * User cannot edit the files of others
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array  $caps     Primitive capabilities required of the user.
    * @param string $cap      Capability being checked.
@@ -977,7 +977,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * User cannot delete the files of others
    *
-   * @since 5.6.0
+   * @since Fictioneer 5.6.0
    *
    * @param array  $caps     Primitive capabilities required of the user.
    * @param string $cap      Capability being checked.
@@ -1019,7 +1019,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
   /**
    * Remove email and name columns from user table
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
    * @param array $column_headers  Columns to show in the user table.
    *
@@ -1039,7 +1039,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * The quick edit form for comments shows unfortunately private data that
    * we want to hide if that setting is enabled.
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
    * @param array $actions  Actions per row in the comments table.
    *
@@ -1058,7 +1058,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
    * Since these are not normally accessible, we need to quickly hide them
    * with JavaScript. This is not a great solution but better than nothing.
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    */
 
   function fictioneer_hide_private_data() {

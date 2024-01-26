@@ -6,7 +6,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.0.0
+ * @since 4.0
  *
  * @internal $args['show_empty']  Whether to render a note when empty or nothing at all.
  * @internal $args['count']       Maximum number of bookmarks to render.

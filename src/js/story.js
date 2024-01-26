@@ -182,7 +182,7 @@ _$$('.tabs__item').forEach(element => {
 /**
  * Fetch and insert the HTML for the next batch of comments on the story page.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_loadStoryComments() {

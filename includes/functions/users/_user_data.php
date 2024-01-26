@@ -7,7 +7,7 @@
 /**
  * Make sure local storage is cleared on logout
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_after_logout_cleanup() {
@@ -32,7 +32,7 @@ add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
  *
  * Moderators can update some of these fields, administrators can update all.
  *
- * @since 4.3.0
+ * @since Fictioneer 4.3
  *
  * @param int $updated_user_id  The ID of the updated user.
  */
@@ -189,7 +189,7 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_admin_user_profile' )
  *
  * Only the respective user or an administrator can update these fields.
  *
- * @since 4.3.0
+ * @since Fictioneer 4.3
  *
  * @param int $updated_user_id  The ID of the updated user.
  */
@@ -350,7 +350,7 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_my_user_profile' );
 /**
  * Update profile from frontend
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_update_frontend_profile() {
@@ -441,7 +441,7 @@ add_action( 'admin_post_fictioneer_update_frontend_profile', 'fictioneer_update_
 /**
  * Cancel email change from frontend
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_cancel_frontend_email_change() {
@@ -475,7 +475,7 @@ add_action( 'admin_post_fictioneer_cancel_frontend_email_change', 'fictioneer_ca
 /**
  * Trigger delegated functions on user profile update
  *
- * @since 5.8.0
+ * @since Fictioneer 5.8.0
  *
  * @param int     $user_id        The ID of the updated user.
  * @param WP_User $old_user_data  Object containing user's data prior to update.
@@ -500,7 +500,7 @@ add_filter( 'profile_update', 'fictioneer_on_profile_change', 10, 2 );
 /**
  * Updates the display name on all comments for a given user
  *
- * @since 5.8.0
+ * @since Fictioneer 5.8.0
  *
  * @global wpdb $wpdb  WordPress database object.
  *
@@ -523,7 +523,7 @@ function fictioneer_update_user_comments_nickname( $user_id, $new_display_name )
  * Note: Will not update comments that have no 'comment_author_email' set,
  * because this might be a privacy issue.
  *
- * @since 5.8.0
+ * @since Fictioneer 5.8.0
  *
  * @global wpdb $wpdb  WordPress database object.
  *
@@ -558,7 +558,7 @@ if ( ! function_exists( 'fictioneer_get_comment_badge' ) ) {
   /**
    * Get HTML for comment badge
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param WP_User|null    $user            The comment user.
    * @param WP_Comment|null $comment         Optional. The comment object.
@@ -657,7 +657,7 @@ if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
   /**
    * Get an user's custom badge (if any)
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param WP_User        $user     The user.
    * @param string|boolean $default  Default value or false.
@@ -695,7 +695,7 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
   /**
    * Get an user's Patreon badge (if any)
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param WP_User        $user     The user.
    * @param string|boolean $default  Default value or false.
@@ -735,7 +735,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
    * display name (which is possible) but without exposing any sensitive data,
    * a simple cryptic hash is calculated.
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
    * @param int $user_id  User ID to get the hash for.
    *
@@ -775,7 +775,7 @@ if ( ! function_exists( 'fictioneer_get_user_fingerprint' ) ) {
 /**
  * Unset one of the user's OAuth bindings via AJAX
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
@@ -833,7 +833,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
    * but leave the comment itself in the database. This preserves the
    * structure of comment threads.
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param int $user_id  User ID to soft delete the comments for.
    *
@@ -909,7 +909,7 @@ if ( ! function_exists( 'fictioneer_soft_delete_user_comments' ) ) {
  * Queries all comments of the user and overrides the comment data with
  * garbage, preserving the comment thread integrity.
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -977,7 +977,7 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comments', 'fictioneer_ajax_clear_
  * all associated previous comment subscriptions. This is far cheaper than looping
  * and updating all comments.
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -1007,7 +1007,7 @@ add_action( 'wp_ajax_fictioneer_ajax_clear_my_comment_subscriptions', 'fictionee
 /**
  * Delete an user's account via AJAX
  *
- * @since 4.5.0
+ * @since Fictioneer 4.5
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_validate_id()
@@ -1061,7 +1061,7 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
 /**
  * Get relevant user data via AJAX
  *
- * @since 5.7.0
+ * @since Fictioneer 5.7.0
  */
 
 function fictioneer_ajax_get_user_data() {

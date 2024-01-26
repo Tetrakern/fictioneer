@@ -7,7 +7,7 @@
 /**
  * Returns list of allowed orderby parameters for WP_Query
  *
- * @since 5.7.0
+ * @since Fictioneer 5.7.0
  *
  * @return array List of allowed orderby parameters.
  */
@@ -26,7 +26,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
   /**
    * Returns the query and HTML list items for a post type
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param string $type        Either story, chapter, collection, recommendation, or post.
    * @param array  $query_args  Optional. Query arguments merged with the defaults.

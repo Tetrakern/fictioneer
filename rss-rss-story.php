@@ -9,7 +9,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.7.0
+ * @since 4.7
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/feed-rss2.php
  */
 

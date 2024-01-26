@@ -11,7 +11,7 @@
  * sections (top|center|bottom) > frames > panels. Only one frame per section
  * should be displayed at a time, segmenting the menu.
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -51,7 +51,7 @@ add_action( 'fictioneer_body', 'fictioneer_output_mobile_menu', 20 );
 /**
  * Adds the _icon-menu.php partial to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_user_icon_menu() {
@@ -66,7 +66,7 @@ add_action( 'fictioneer_mobile_menu_top', 'fictioneer_mobile_user_icon_menu', 10
 /**
  * Adds quick buttons to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_quick_buttons() {
@@ -159,7 +159,7 @@ add_action( 'fictioneer_mobile_menu_bottom', 'fictioneer_mobile_quick_buttons', 
 /**
  * Adds the Follows frame to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_follows_frame() {
@@ -195,7 +195,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 /**
  * Adds the bookmarks frame to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_bookmarks_frame() {
@@ -229,7 +229,7 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
 /**
  * Adds the chapters frame to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_chapters_frame() {
@@ -260,7 +260,7 @@ add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame',
 /**
  * Adds the navigation panel to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_navigation_panel() {
@@ -283,7 +283,7 @@ add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_navig
 /**
  * Adds the lists panel to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_lists_panel() {
@@ -338,7 +338,7 @@ add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_lists
 /**
  * Adds the user menu to the mobile menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_mobile_user_menu() {

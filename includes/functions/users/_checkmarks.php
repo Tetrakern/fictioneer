@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_load_checkmarks' ) ) {
    * Get an user's Checkmarks array from the database or creates a new one if it
    * does not yet exist.
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param WP_User $user  User to get the checkmarks for.
    *
@@ -47,7 +47,7 @@ if ( ! function_exists( 'fictioneer_get_finished_checkmarks' ) ) {
   /**
    * Returns array of story IDs marked as finished
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param array $checkmarks  The user's checkmarks.
    *
@@ -78,7 +78,7 @@ if ( ! function_exists( 'fictioneer_count_chapter_checkmarks' ) ) {
   /**
    * Returns the total number of chapter checkmarks
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param array $checkmarks  The user's checkmarks.
    *
@@ -110,7 +110,7 @@ if ( ! function_exists( 'fictioneer_count_chapter_checkmarks' ) ) {
 /**
  * Set Checkmarks for a story via AJAX
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -188,7 +188,7 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 /**
  * Clears Checkmarks for a story via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -224,7 +224,7 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 /**
  * Sends the HTML for list of finished stories via AJAX
  *
- * @since 4.3.0
+ * @since Fictioneer 4.3
  */
 
 function fictioneer_ajax_get_finished_checkmarks_list() {

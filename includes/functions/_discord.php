@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
   /**
    * Sends a message to a Discord channel
    *
-   * @since 4.0.0
+   * @since 4.0
    * @since 5.6.0  Refactored with wp_remote_post()
    *
    * @param string $webhook  The webhook for the Discord channel.
@@ -39,7 +39,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
 /**
  * Sends a comment as message to a Discord channel
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fictioneer_discord_send_message()
  *
  * @param int        $comment_id        The comment ID.

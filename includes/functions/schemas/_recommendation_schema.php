@@ -10,7 +10,7 @@
  * "There are only two hard things in Computer Science: cache invalidation and
  * naming things" -- Phil Karlton.
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param int     $post_id  The ID of the saved post.
  * @param WP_Post $post     The saved post object.
@@ -40,7 +40,7 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
   /**
    * Refresh single recommendation schema
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param int $post_id  The ID of the recommendation the schema is for.
    *

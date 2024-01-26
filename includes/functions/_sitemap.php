@@ -7,7 +7,7 @@
 /**
  * Add rewrite rule for custom theme sitemap
  *
- * @since 5.8.7
+ * @since Fictioneer 5.8.7
  */
 
 function fictioneer_add_sitemap_rewrite_rule() {
@@ -21,7 +21,7 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
 /**
  * Serve the custom theme sitemap.xml
  *
- * @since 5.8.7
+ * @since Fictioneer 5.8.7
  */
 
 function fictioneer_serve_sitemap() {
@@ -52,7 +52,7 @@ add_action( 'template_redirect', 'fictioneer_serve_sitemap' );
 /**
  * Get <loc> tag helper
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param string $content  Content for the tag.
  *
@@ -66,7 +66,7 @@ function fictioneer_loc_node( $content ) {
 /**
  * Get <lastmod> tag helper
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param string $content  Content for the tag.
  *
@@ -80,7 +80,7 @@ function fictioneer_lastmod_node( $content ) {
 /**
  * Get <changefreq> tag helper
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param string $content  Content for the tag.
  *
@@ -94,7 +94,7 @@ function fictioneer_frequency_node( $content ) {
 /**
  * Get <url> node helper
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  * @see fictioneer_loc_node()
  * @see fictioneer_lastmod_node()
  * @see fictioneer_frequency_node()
@@ -118,8 +118,8 @@ function fictioneer_url_node( $loc, $lastmod = null, $freq = null ) {
 /**
  * Generate theme sitemap
  *
- * @since 4.0.0
- * @since 5.8.7 - Create on demand, not on post save.
+ * @since Fictioneer 4.0
+ * @since Fictioneer 5.8.7 - Create on demand, not on post save.
  */
 
 function fictioneer_create_sitemap() {

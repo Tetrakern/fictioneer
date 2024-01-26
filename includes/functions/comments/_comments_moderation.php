@@ -7,7 +7,7 @@
 /**
  * Checks whether an user can moderate a comment
  *
- * @since 5.7.3
+ * @since Fictioneer 5.7.3
  *
  * @param WP_Comment $comment  Comment object.
  * @param int|null   $user_id  The user ID to check permission for. Defaults to
@@ -53,7 +53,7 @@ function fictioneer_user_can_moderate( $comment, $user_id = null ) {
 /**
  * Add private comments to dropdown filter menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_add_private_to_comment_filter( $comment_types ) {
@@ -71,7 +71,7 @@ add_filter( 'admin_comment_types_dropdown', 'fictioneer_add_private_to_comment_f
 /**
  * Adds Fictioneer comment meta box to the wp-admin comment edit screen
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  */
 
 function fictioneer_add_comment_meta_box() {
@@ -88,7 +88,7 @@ function fictioneer_add_comment_meta_box() {
 /**
  * HTML for the Fictioneer comment meta box
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  *
  * @param object $comment  The comment object.
  */
@@ -259,7 +259,7 @@ function fictioneer_comment_meta_box ( $comment ) {
 /**
  * Save data in the wp-admin comment edit screen
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  *
  * @param int $comment_id  Comment ID.
  */
@@ -314,7 +314,7 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 /**
  * Tracks comment edits and stores a history of changes
  *
- * @since 5.5.3
+ * @since Fictioneer 5.5.3
  *
  * @param array|WP_Error $data     The comment data to be saved.
  * @param array          $comment  The old comment data.
@@ -367,7 +367,7 @@ if ( ! function_exists( 'fictioneer_get_comment_action_link' ) ) {
   /**
    * Returns a link to an admin comment moderation action or false
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    * @link https://github.com/WordPress/WordPress/blob/master/wp-admin/comment.php
    *
    * @param int            $comment_id   The ID of the comment.
@@ -430,7 +430,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
   /**
    * Renders HTML for the moderation menu
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
    * @param WP_Comment $comment  Comment object.
    */
@@ -519,7 +519,7 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
 /**
  * Performs comment moderation action via AJAX
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
@@ -629,7 +629,7 @@ if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) {
 /**
  * Adds user to a comment's reports list via AJAX
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  * @link  https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link  https://developer.wordpress.org/reference/functions/wp_send_json_error/
  */
@@ -730,7 +730,7 @@ function fictioneer_ajax_report_comment() {
 /**
  * Add comments reports column
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  * @link  https://rudrastyh.com/wordpress/comments-table-columns.html
  *
  * @param array $cols  Default columns.
@@ -747,7 +747,7 @@ function fictioneer_add_comments_report_column( $cols ) {
 /**
  * Echo content for comments reports column
  *
- * @since 4.7.0
+ * @since Fictioneer 4.7
  * @link  https://rudrastyh.com/wordpress/comments-table-columns.html
  * @link  https://developer.wordpress.org/reference/hooks/manage_comments_custom_column/
  *

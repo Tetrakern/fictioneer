@@ -50,7 +50,7 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
 /**
  * Register relationships for posts with certain shortcodes
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_update_shortcode_relationships( $post_id, $post ) {
@@ -207,7 +207,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
 /**
  * Extract taxonomies from shortcode attributes
  *
- * @since 5.2.0
+ * @since Fictioneer 5.2.0
  *
  * @param array $attr  Attributes of the shortcode.
  *
@@ -254,7 +254,7 @@ function fictioneer_get_shortcode_taxonomies( $attr ) {
 /**
  * Get shortcode Tax Query
  *
- * @since 5.2.0
+ * @since Fictioneer 5.2.0
  *
  * @param array $args  Arguments of the shortcode partial.
  *
@@ -329,7 +329,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
 /**
  * Shortcode to display showcase
  *
- * @since 5.0.0
+ * @since 5.0
  *
  * @param string      $attr['for']                 What the showcase is for. Allowed are chapters,
  *                                                 collections, recommendations, and stories.
@@ -575,7 +575,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
 /**
  * Shortcode to show latest story updates
  *
- * @since 4.3.0
+ * @since 4.3
  *
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
@@ -647,7 +647,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
 /**
  * Shortcode to show latest recommendations
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
@@ -720,7 +720,7 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
 /**
  * Shortcode to show the latest post
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 1.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
@@ -777,7 +777,7 @@ add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); 
 /**
  * Shortcode to show bookmarks
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param string|null $attr['count']       Optional. Maximum number of items. Default -1 (all).
  * @param string|null $attr['show_empty']  Optional. Whether to show the "no bookmarks" message. Default false.
@@ -815,7 +815,7 @@ add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
  *
  * Renders buttons to handle your consent and stored cookies.
  *
- * @since 4.7.0
+ * @since 4.7
  *
  * @return string The rendered shortcode HTML.
  */
@@ -834,7 +834,7 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
 /**
  * Shortcode to show chapter list outside of story pages
  *
- * @since 5.0.0
+ * @since 5.0
  * @see fictioneer_validate_id()
  * @see fictioneer_get_story_data()
  *
@@ -1082,7 +1082,7 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
 /**
  * Shortcode to show a contact form
  *
- * @since 5.0.0
+ * @since 5.0
  *
  * @param string|null $attr['title']           Optional. Title of the form.
  * @param string|null $attr['submit']          Optional. Submit button caption.
@@ -1192,7 +1192,7 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
 /**
  * Shortcode to show the latest post
  *
- * @since 5.0.0
+ * @since 5.0
  *
  * @param string|null $attr['simple']       Optional. Hide the advanced options.
  * @param string|null $attr['placeholder']  Optional. Placeholder text.

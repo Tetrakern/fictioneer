@@ -55,7 +55,7 @@ function fcn_toggleSimpleMobileMenu(isOpened) {
  * well. So the scroll position needs to be corrected by remembering the
  * position before the transformation and setting it after.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {boolean} isOpened - True or false.
  */
 
@@ -222,7 +222,7 @@ _$$('.mobile-menu__back-button').forEach(element => {
 /**
  * Appends a cloned chapter list to the mobile menu.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_appendChapterList() {

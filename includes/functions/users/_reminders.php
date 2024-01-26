@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
    * Get an user's Reminders array from the database or creates a new one if it
    * does not yet exist.
    *
-   * @since 5.0.0
+   * @since Fictioneer 5.0
    *
    * @param WP_User $user  User to get the Reminders for.
    *
@@ -47,7 +47,7 @@ if ( ! function_exists( 'fictioneer_load_reminders' ) ) {
  * Set Reminder for a story via AJAX
  *
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -114,7 +114,7 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 /**
  * Clears an user's Reminders via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -150,7 +150,7 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 /**
  * Sends the HTML for list of remembered stories via AJAX
  *
- * @since 4.3.0
+ * @since Fictioneer 4.3
  */
 
 function fictioneer_ajax_get_reminders_list() {

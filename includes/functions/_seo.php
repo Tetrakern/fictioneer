@@ -7,7 +7,7 @@
 /**
  * Adds a SEO metabox to selected post types
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param string  $post_type  Post type.
  * @param WP_Post $post       Post object.
@@ -47,7 +47,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
   /**
    * Output HTML for SEO metabox
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param object $post  The post object.
    */
@@ -152,7 +152,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 /**
  * Save SEO metabox data
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @param int $post_id  The post ID.
  */
@@ -207,7 +207,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
   /**
    * Get SEO title
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param int   $post_id  Optional. The post ID.
    * @param array $args     Optional. Array of arguments.
@@ -362,7 +362,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
   /**
    * Get SEO description
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param int   $post_id  Optional. The post ID.
    * @param array $args     Optional. Array of arguments.
@@ -527,7 +527,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
   /**
    * Get SEO image data array
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param int $post_id Optional. The post ID.
    *
@@ -614,7 +614,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 /**
  * Output HTML <head> SEO meta
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_output_head_seo() {

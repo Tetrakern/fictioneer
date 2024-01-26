@@ -7,7 +7,7 @@
 /**
  * Toggle maintenance mode from settings with message
  *
- * @since 5.0.0
+ * @since 5.0
  */
 
 function fictioneer_maintenance_mode() {
@@ -75,7 +75,7 @@ add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
 /**
  * Reduce admin bar based on setting
  *
- * @since 5.0.0
+ * @since 5.0
  */
 
 function fictioneer_remove_admin_bar_links() {
@@ -103,7 +103,7 @@ if ( get_option( 'fictioneer_reduce_admin_bar' ) ) {
 /**
  * Change redirect after logout
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param string $logout_url  The HTML-encoded logout URL.
  * @param string $redirect    Path to redirect to on logout.
@@ -146,7 +146,7 @@ if ( get_option( 'fictioneer_logout_redirects_home' ) ) {
 /**
  * Add route to logout script
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_add_logout_endpoint() {
@@ -160,7 +160,7 @@ if ( FICTIONEER_LOGOUT_ENDPOINT && ! get_option( 'fictioneer_disable_theme_logou
 /**
  * Logout without _wpnonce and no login screen
  *
- * @since 5.0.0
+ * @since 5.0
  */
 
 function fictioneer_logout() {
@@ -205,7 +205,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
   /**
    * Fictioneer logout URL with optional redirect
    *
-   * @since 5.0.0
+   * @since 5.0
    *
    * @param string $redirect  URL to redirect to after logout.
    */
@@ -239,7 +239,7 @@ if ( ! function_exists( 'fictioneer_get_logout_url' ) ) {
 /**
  * Show custom post types in tag and category archives
  *
- * @since 4.0.0
+ * @since 4.0
  * @link https://wordpress.stackexchange.com/a/28147/223620
  *
  * @param WP_Query $query  The query.
@@ -292,7 +292,7 @@ add_action( 'template_redirect', 'fictioneer_disable_date_archives' );
 /**
  * Get template for story feed (chapters)
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fictioneer_story_rss_template() {
@@ -302,7 +302,7 @@ function fictioneer_story_rss_template() {
 /**
  * Add feed for story (chapters)
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fictioneer_story_rss() {
@@ -312,7 +312,7 @@ function fictioneer_story_rss() {
 /**
  * Add custom main feed
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fictioneer_main_rss_template() {
@@ -344,7 +344,7 @@ if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
 /**
  * Output RSS feed
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int|null $post_id  Optional. The current post ID.
  */
@@ -423,7 +423,7 @@ add_filter( 'protected_title_format', 'fictioneer_remove_protected_text' );
 /**
  * Add wrapper to download block
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param  string $block_content  The block content.
  * @param  array  $block          The full block, including name and attributes.
@@ -447,7 +447,7 @@ add_filter( 'render_block', 'fictioneer_download_block_wrapper', 10, 2 );
 /**
  * Changes password form and fixes redirect error
  *
- * @since 4.0.0
+ * @since 4.0
  * @license CC BY-SA 4.0
  * @link https://stackoverflow.com/a/67527400/17140970
  *
@@ -669,7 +669,7 @@ if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
 /**
  * Wraps embeds into a consent box that must be clicked to load the embed.
  *
- * @since 3.0.0
+ * @since Fictioneer 3.0.0
  *
  * @param string $content  The content.
  *
@@ -960,7 +960,7 @@ add_filter( 'nav_menu_link_attributes', 'fictioneer_add_menu_link_attributes', 1
 /**
  * Disable all widgets and boost performance slightly
  *
- * @since 5.5.3
+ * @since Fictioneer 5.5.3
  */
 
 function fictioneer_disable_widgets() {
@@ -980,7 +980,7 @@ if ( get_option( 'fictioneer_disable_all_widgets' ) ) {
 /**
  * Extend the list of allowed types for file uploads
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  *
  * @param array $mimes  Key-value pairs of file extensions and their MIME types.
  *
@@ -1006,7 +1006,7 @@ add_filter( 'upload_mimes', 'fictioneer_extend_allowed_upload_types' );
  * Note: This function only identifies attempts and does not block content submission.
  * Posts are sanitized by WordPress before being saved to the database.
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  *
  * @param array $data                  An array of slashed post data.
  * @param array $postarr               An array of sanitized, but otherwise unmodified post data.
@@ -1121,7 +1121,7 @@ if ( get_option( 'fictioneer_see_some_evil' ) ) {
 /**
  * Gates access to unpublished posts
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  * @global WP_Post $post  The current WordPress post object.
  */
 
@@ -1169,7 +1169,7 @@ add_action( 'template_redirect', 'fictioneer_gate_unpublished_content' );
 /**
  * Prevents trackback/pingback from being updated
  *
- * @since 5.7.0
+ * @since Fictioneer 5.7.0
  *
  * @param array $data  An array of slashed, sanitized, and processed post data.
  *

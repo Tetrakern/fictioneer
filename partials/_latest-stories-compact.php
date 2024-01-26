@@ -6,7 +6,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.0.0
+ * @since 4.0
  * @see fictioneer_clause_sticky_stories()
  *
  * @internal $args['count']             Number of posts provided by the shortcode.

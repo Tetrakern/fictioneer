@@ -17,7 +17,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
   /**
    * Outputs a single comment for the story comments list
    *
-   * @since 4.0.0
+   * @since Fictioneer 4.0
    *
    * @param object $comment       The comment.
    * @param array  $chapter_data  Array of [post_id] tuples with title [0] and
@@ -101,7 +101,7 @@ if ( ! function_exists( 'fictioneer_build_story_comment' ) ) {
  * - post_id (required): The ID of the story post.
  * - page (optional): The page number for pagination. Default 1.
  *
- * @since 5.6.3
+ * @since Fictioneer 5.6.3
  */
 
 function fictioneer_register_endpoint_get_story_comments() {
@@ -136,8 +136,8 @@ add_action( 'rest_api_init', 'fictioneer_register_endpoint_get_story_comments' )
 /**
  * Sends HTML of paginated comments for a given story
  *
- * @since 4.0.0
- * @since 5.6.3 Refactored for REST API.
+ * @since Fictioneer 4.0
+ * @since Fictioneer 5.6.3 Refactored for REST API.
  *
  * @param WP_REST_Request $WP_REST_Request  Request object.
  *

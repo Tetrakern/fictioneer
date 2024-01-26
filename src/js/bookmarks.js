@@ -29,7 +29,7 @@ document.addEventListener('fcnUserDataReady', event => {
  * @description Looks for bookmarks in local storage, both for guests and logged-in
  * users. If none are found, an empty bookmarks JSON is created and set.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_initializeLocalBookmarks() {
@@ -174,7 +174,7 @@ function fcn_fixBookmarksNode(node) {
  * requests. Since the bookmarks are always saved as complete collection, yet
  * unfinished requests can be cancelled without loss of data.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_saveUserBookmarks()
  * @param {Object} value - The bookmarks JSON to be set.
  * @param {Boolean} [silent=false] - Whether or not to update the database.
@@ -260,7 +260,7 @@ function fcn_updateBookmarksView() {
  * happen once every n seconds, as set by the timeout interval, to avoid further
  * unnecessary requests in case someone triggers multiple updates.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {JSON} bookmarks - The bookmarks JSON to be saved.
  */
 
@@ -308,7 +308,7 @@ function fcn_saveUserBookmarks(bookmarks) {
  * the bookmarks JSON or removing them. Updates any available buttons, lists,
  * and calls to persist the updated JSON.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_getBookmarks()
  * @see fcn_removeBookmark()
  * @see fcn_offset()
@@ -404,7 +404,7 @@ function fcn_toggleBookmark(id, color = 'none') {
  * 'current-bookmark' class is added to the bookmarked paragraph to show
  * the colored bookmark line and the jump buttons are revealed.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_showChapterBookmark() {
@@ -451,7 +451,7 @@ function fcn_showChapterBookmark() {
  * mobile menu (usually when a new bookmark is added or the menu panel opened for
  * the first time per page load).
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_bookmarkDeleteHandler()
  */
 
@@ -504,7 +504,7 @@ function fcn_setMobileMenuBookmarks() {
  * (via shortcode), bookmarks are rendered as cards up to the count specified
  * in the block as data-attribute (or all for -1).
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_bookmarkDeleteHandler()
  */
 
@@ -577,7 +577,7 @@ function fcn_showBookmarkCards() {
 /**
  * Register event handler for bookmark delete button(s).
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_removeBookmark()
  * @see fcn_setBookmarks()
  * @param {HTMLElement|HTMLElement[]} targets - One or more delete buttons.
@@ -608,7 +608,7 @@ function fcn_bookmarkDeleteHandler(targets) {
 /**
  * Remove bookmark from JSON and view.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Number} id - ID of the bookmark (chapter ID).
  */
 

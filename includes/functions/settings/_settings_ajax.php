@@ -10,7 +10,7 @@
  * Checks whether the request comes from the admin panel, the nonce, and the
  * current user’s capabilities.
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  *
  * @return boolean True if valid, false if not.
  */
@@ -30,7 +30,7 @@ function fictioneer_validate_settings_ajax() {
 /**
  * AJAX: Delete an ePUB file from the server
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  */
 
 function fictioneer_ajax_delete_epub() {
@@ -95,7 +95,7 @@ add_action( 'wp_ajax_fictioneer_ajax_delete_epub', 'fictioneer_ajax_delete_epub'
 /**
  * AJAX: Purge schema for a post/page
  *
- * @since 4.0.0
+ * @since Fictioneer 4.0
  */
 
 function fictioneer_ajax_purge_schema() {
@@ -158,7 +158,7 @@ add_action( 'wp_ajax_fictioneer_ajax_purge_schema', 'fictioneer_ajax_purge_schem
 /**
  * AJAX: Purge schemas for all posts and pages
  *
- * @since 5.7.2
+ * @since Fictioneer 5.7.2
  */
 
 function fictioneer_ajax_purge_all_schemas() {

@@ -7,7 +7,7 @@
 /**
  * Sends the comment form HTML via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
@@ -65,7 +65,7 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
 /**
  * Sends the comment section HTML via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
@@ -216,7 +216,7 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
 /**
  * Creates and sends a new comment via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
@@ -432,7 +432,7 @@ if ( get_option( 'fictioneer_enable_ajax_comment_submit' ) ) {
 /**
  * Edit comment via AJAX
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
@@ -569,7 +569,7 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
 /**
  * Delete a user's comment on AJAX request
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */

@@ -51,7 +51,7 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
 /**
  * Enqueue scripts and styles for admin panel
  *
- * @since 4.0.0
+ * @since 4.0
  *
  * @param string $hook_suffix The current admin page.
  */
@@ -126,8 +126,8 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
    * 'fictioneer_latest_version' option. Only one request is made every 12 hours
    * unless you are on the updates page.
    *
-   * @since 5.0.0
-   * @since 5.7.5 - Refactored.
+   * @since Fictioneer 5.0
+   * @since Fictioneer 5.7.5 - Refactored.
    *
    * @return boolean True if there is a newer version, false if not.
    */
@@ -178,7 +178,7 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
 /**
  * Show notice when a newer version is available
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_admin_update_notice() {
@@ -222,7 +222,7 @@ if ( current_user_can( 'install_themes' ) ) {
 /**
  * Modifies the list of removable query arguments (admin panel only)
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  *
  * @param array $args  The list of removable query arguments.
  *
@@ -253,7 +253,7 @@ add_filter( 'removable_query_args', 'fictioneer_removable_args' );
  * converter heavily depend on _expected_ input or may break. There are certainly
  * more possible but the initial selection has been chosen carefully.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fictioneer_allowed_block_types() {
@@ -351,7 +351,7 @@ if ( ! function_exists( 'fictioneer_add_or_update_term' ) ) {
   /**
    * Add or update term
    *
-   * @since 4.6.0
+   * @since Fictioneer 4.6
    *
    * @param string $name      Name of the term to add or update.
    * @param string $taxonomy  Taxonomy type of the term.
@@ -427,7 +427,7 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
   /**
    * Convert taxonomies of post type from one type to another
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
    * @param string  $post_type  Post type the taxonomy is attached to.
    * @param string  $target     Taxonomy to be converted to.
@@ -479,7 +479,7 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
 /**
  * AJAX: Get chapter group options for story
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  */
 
 function fictioneer_ajax_get_chapter_groups() {

@@ -4,7 +4,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.6.0
+ * @since 4.6
  * @see fictioneer_clause_sticky_stories()
  */
 ?>

@@ -250,7 +250,7 @@ if (fcn_paragraphTools) {
 /**
  * Enter fullscreen mode.
  *
- * @since 4.2.0
+ * @since 4.2
  */
 
 function fcn_openFullscreen() {
@@ -279,7 +279,7 @@ _$$('.open-fullscreen').forEach(element => {
 /**
  * Close fullscreen mode.
  *
- * @since 4.2.0
+ * @since 4.2
  */
 
 function fcn_closeFullscreen() {
@@ -308,7 +308,7 @@ _$$('.close-fullscreen').forEach(element => {
 /**
  * Get formatting JSON from local storage or create new one.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_parseJSON()
  * @see fcn_defaultFormatting()
  * @see fcn_setFormatting();
@@ -339,7 +339,7 @@ function fcn_getFormatting() {
 /**
  * Returns default formatting.
  *
- * @since 4.0.0
+ * @since 4.0
  * @return {Object} The formatting settings.
  */
 
@@ -370,7 +370,7 @@ function fcn_defaultFormatting() {
 /**
  * Set the formatting settings object and save to local storage.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Object} value - The formatting settings.
  */
 
@@ -398,7 +398,7 @@ const /** @const {HTMLInputElement} */ fcn_fontSizeText = _$$$('reader-settings-
 /**
  * Update font size formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Integer between 50 and 200.
@@ -430,7 +430,7 @@ function fcn_updateFontSize(value, save = true) {
 /**
  * Helper to call fcn_setFontSize() with input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setFontSize() {
@@ -440,7 +440,7 @@ function fcn_setFontSize() {
 /**
  * Helper to call fcn_setFontSize() with incremental/decremental value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_modifyFontSize() {
@@ -478,7 +478,7 @@ const /** @const {HTMLElement} */ fcn_fontColorReset = _$$$('reader-settings-fon
 /**
  * Update font color on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_setFormatting();
  * @param {String} index - Index of the CSS color value to set.
  * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -506,7 +506,7 @@ function fcn_updateFontColor(index, save = true) {
 /**
  * Helper to call fcn_setFontColor() with color code and name.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Number} [step=1] - Index modifier to move inside the font color array.
  */
 
@@ -542,7 +542,7 @@ const /** @const {HTMLElement} */ fcn_fontFamilyReset = _$$$('reader-settings-fo
 /**
  * Update font family on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_setFormatting();
  * @param {String} index - Index of the font.
  * @param {Boolean} [save=true] - Optional. Whether to save the change.
@@ -586,7 +586,7 @@ function fcn_updateFontFamily(index, save = true) {
 /**
  * Helper to call fcn_setFontFamily() with font name.
  *
- * @since 4.0.0
+ * @since 4.0
  * @param {Number} [step=1] - Index modifier to move inside the font array.
  */
 
@@ -623,7 +623,7 @@ const /** @const {HTMLInputElement} */ fcn_fontSaturationText = _$$$('reader-set
 /**
  * Update font saturation formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Float between -1 and 1.
@@ -656,7 +656,7 @@ function fcn_updateFontSaturation(value, save = true) {
 /**
  * Helper to call fcn_updateFontSaturation() with range input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setFontSaturationFromRange() {
@@ -666,7 +666,7 @@ function fcn_setFontSaturationFromRange() {
 /**
  * Helper to call fcn_updateFontSaturation() with text input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setFontSaturationFromText() {
@@ -696,7 +696,7 @@ const /** @const {HTMLInputElement} */ fcn_letterSpacingText = _$$$('reader-sett
 /**
  * Update letter-spacing formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Float between -0.1 and 0.2.
@@ -726,7 +726,7 @@ function fcn_updateLetterSpacing(value, save = true) {
 /**
  * Helper to call fcn_updateLetterSpacing() with input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setLetterSpacing() {
@@ -756,7 +756,7 @@ const /** @const {HTMLInputElement} */ fcn_paragraphSpacingText = _$$$('reader-s
 /**
  * Update paragraph spacing formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Float between 0 and 3.
@@ -786,7 +786,7 @@ function fcn_updateParagraphSpacing(value, save = true) {
 /**
  * Helper to call fcn_setParagraphSpacing() with input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setParagraphSpacing() {
@@ -816,7 +816,7 @@ const /** @const {HTMLInputElement} */ fcn_lineHeightText = _$$$('reader-setting
 /**
  * Update line height formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Float between 0.8 and 3.
@@ -846,7 +846,7 @@ function fcn_updateLineHeight(value, save = true) {
 /**
  * Helper to call fcn_setLineHeight() with input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setLineHeight() {
@@ -879,7 +879,7 @@ const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings
  * @description Only affects the width of the main container since 5.0.10
  * to avoid potential layout issues.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_clamp();
  * @see fcn_setFormatting();
  * @param {Number} value - Float between 640 and 1920.
@@ -918,7 +918,7 @@ function fcn_updateSiteWidth(value, save = true) {
 /**
  * Helper to call fcn_updateSiteWidth() with input value.
  *
- * @since 4.0.0
+ * @since 4.0
  */
 
 function fcn_setSiteWidth() {
@@ -944,7 +944,7 @@ fcn_updateSiteWidth(fcn_formatting['site-width'], false);
 /**
  * Update indent formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
@@ -988,7 +988,7 @@ fcn_updateIndent(fcn_formatting['indent'], false);
 /**
  * Update justify formatting on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
@@ -1032,7 +1032,7 @@ fcn_updateJustify(fcn_formatting['justify'], false);
 /**
  * Enable or disable paragraph tools on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
@@ -1073,7 +1073,7 @@ fcn_updateParagraphTools(fcn_formatting['show-paragraph-tools'], false);
 /**
  * Show or hide marked sensitive content on chapters.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
@@ -1124,7 +1124,7 @@ fcn_updateSensitiveContent(fcn_formatting['show-sensitive-content'], false);
 /**
  * Show or hide chapter foreword, afterword, and warning.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
@@ -1214,7 +1214,7 @@ if (_$('article:not(._password)')) {
  * Checks whether this is a chapter, then adds a throttled event listener to a
  * custom scroll event that is tied to request animation frame.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_readingProgress()
  * @see fcn_bindEventToAnimationFrame()
  */
@@ -1233,7 +1233,7 @@ function fcn_trackProgress() {
  * chapter and visualizes that information as filling bar at the top. If the end
  * of the chapter is reached, the chapter is marked as read for logged-in users.
  *
- * @since 4.0.0
+ * @since 4.0
  * @see fcn_toggleCheckmark()
  * @see fcn_clamp()
  */

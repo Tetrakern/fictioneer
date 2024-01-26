@@ -7,7 +7,7 @@
 /**
  * Outputs the paginated card list for all chapters
  *
- * @since 5.0.0
+ * @since 5.0
  * @see chapters.php
  *
  * @param int        $args['current_page']  Current page number of pagination or 1.
@@ -90,7 +90,7 @@ add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 
 /**
  * Outputs the HTML for the chapter foreword section
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int $args['chapter_id']  The chapter ID.
  */
@@ -117,7 +117,7 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 1
 /**
  * Outputs the HTML for the chapter warnings section
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int $args['chapter_id']  The chapter ID.
  */
@@ -163,7 +163,7 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_warnings', 2
 /**
  * Outputs the HTML for the chapter resize buttons
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_resize_buttons() {
@@ -192,7 +192,7 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
 /**
  * Outputs the HTML for the chapter navigation buttons
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param array       $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
  * @param int|boolean $args['prev_index']   Index of previous chapter or false if outside bounds.
@@ -232,7 +232,7 @@ add_action( 'fictioneer_chapter_actions_bottom_right', 'fictioneer_chapter_nav_b
 /**
  * Outputs the HTML for the chapter formatting button
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_formatting_button() {
@@ -252,7 +252,7 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_formatt
 /**
  * Outputs the HTML for the chapter subscribe button with popup menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_subscribe_button() {
@@ -282,7 +282,7 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_subs
 /**
  * Outputs the HTML for the chapter fullscreen button
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_fullscreen_buttons() {
@@ -308,7 +308,7 @@ add_action( 'fictioneer_chapter_actions_top_center', 'fictioneer_chapter_fullscr
 /**
  * Outputs the HTML for the index popup menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param WP_Post|null $args['story_post']  Optional. The story the chapter belongs to.
  */
@@ -348,7 +348,7 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_inde
 /**
  * Outputs the HTML for the chapter bookmark jump button
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_bookmark_jump_button() {
@@ -374,7 +374,7 @@ add_action( 'fictioneer_chapter_actions_bottom_center', 'fictioneer_chapter_book
 /**
  * Outputs the HTML for the chapter media buttons
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_media_buttons() {
@@ -396,7 +396,7 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
 /**
  * Outputs the HTML for the chapter afterword
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int $args['chapter_id']  The chapter ID.
  */
@@ -423,7 +423,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
 /**
  * Outputs the HTML for the chapter support links
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param WP_User      $args['author']      Author of the post.
  * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
@@ -533,7 +533,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
 /**
  * Outputs the HTML for the chapter micro menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
  * @param int          $args['chapter_id']   The chapter ID.
@@ -554,7 +554,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10
 /**
  * Outputs the HTML for the chapter paragraph tools
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_paragraph_tools() {
@@ -614,7 +614,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_paragraph_tools
 /**
  * Outputs the HTML for the chapter suggestion tools
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_chapter_suggestion_tools() {

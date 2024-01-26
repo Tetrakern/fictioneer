@@ -9,7 +9,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.3.0
+ * @since 4.3
  *
  * @internal $args['count']             Number of posts provided by the shortcode.
  * @internal $args['author']            Author provided by the shortcode.

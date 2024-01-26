@@ -7,7 +7,7 @@
 /**
  * Verify a tool action request
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  *
  * @param string $action Name of the tool action.
  */
@@ -27,7 +27,7 @@ function fictioneer_verify_tool_action( $action ) {
 /**
  * Finish a tool action and perform a redirect
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  *
  * @param string $notice Optional. The notice message to include in the redirect URL.
  * @param string $type   Optional. The type of notice. Default 'success'.
@@ -48,7 +48,7 @@ if ( ! function_exists( 'fictioneer_get_default_genres' ) ) {
   /**
    * Return array of default genre from decoded JSON
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
 	 * @param array Decoded JSON with default genres and meta data.
    */
@@ -62,7 +62,7 @@ if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
   /**
    * Return array of default tags from decoded JSON
    *
-   * @since 4.7.0
+   * @since Fictioneer 4.7
    *
 	 * @param array Decoded JSON with default tags and meta data.
    */
@@ -127,7 +127,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
 /**
  * Output admin settings notices
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_admin_settings_notices() {
@@ -172,7 +172,7 @@ add_action( 'admin_notices', 'fictioneer_admin_settings_notices' );
 /**
  * Delete all generated ePUBs in the ./uploads/epubs/ directory
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_delete_all_epubs() {
@@ -209,7 +209,7 @@ add_action( 'admin_post_fictioneer_delete_all_epubs', 'fictioneer_delete_all_epu
 /**
  * Generate a URL with a nonce for a tool action
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  *
  * @param string $action Action name.
  *
@@ -223,7 +223,7 @@ function fictioneer_tool_action( $action ) {
 /**
  * Add a moderator role
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_add_moderator_role() {
@@ -248,7 +248,7 @@ add_action( 'admin_post_fictioneer_add_moderator_role', 'fictioneer_tools_add_mo
 /**
  * Initialize roles
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_tools_initialize_roles() {
@@ -271,7 +271,7 @@ add_action( 'admin_post_fictioneer_initialize_roles', 'fictioneer_tools_initiali
 /**
  * Convert story tags to genres
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_move_story_tags_to_genres() {
@@ -296,7 +296,7 @@ add_action( 'admin_post_fictioneer_move_story_tags_to_genres', 'fictioneer_tools
 /**
  * Duplicate story tags to genres
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_duplicate_story_tags_to_genres() {
@@ -317,7 +317,7 @@ add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_
 /**
  * Purge theme caches
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_purge_theme_caches() {
@@ -353,7 +353,7 @@ add_action( 'admin_post_fictioneer_tools_purge_theme_caches', 'fictioneer_tools_
 /**
  * Convert chapter tags to genres
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_move_chapter_tags_to_genres() {
@@ -374,7 +374,7 @@ add_action( 'admin_post_fictioneer_move_chapter_tags_to_genres', 'fictioneer_too
 /**
  * Duplicate chapter tags to genres
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_duplicate_chapter_tags_to_genres() {
@@ -395,7 +395,7 @@ add_action( 'admin_post_fictioneer_duplicate_chapter_tags_to_genres', 'fictionee
 /**
  * Append default genres
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_append_default_genres() {
@@ -433,7 +433,7 @@ add_action( 'admin_post_fictioneer_append_default_genres', 'fictioneer_tools_app
 /**
  * Append default tags
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_append_default_tags() {
@@ -465,7 +465,7 @@ add_action( 'admin_post_fictioneer_append_default_tags', 'fictioneer_tools_appen
 /**
  * Remove unused tags
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_remove_unused_tags() {
@@ -499,7 +499,7 @@ add_action( 'admin_post_fictioneer_remove_unused_tags', 'fictioneer_tools_remove
 /**
  * Reset post relationship registry
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_reset_post_relationship_registry() {
@@ -520,7 +520,7 @@ add_action( 'admin_post_fictioneer_reset_post_relationship_registry', 'fictionee
 /**
  * Fix users
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_users() {
@@ -538,7 +538,7 @@ add_action( 'admin_post_fictioneer_fix_users', 'fictioneer_tools_fix_users' );
 /**
  * Fix stories
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_stories() {
@@ -556,7 +556,7 @@ add_action( 'admin_post_fictioneer_fix_stories', 'fictioneer_tools_fix_stories' 
 /**
  * Fix chapters
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_chapters() {
@@ -574,7 +574,7 @@ add_action( 'admin_post_fictioneer_fix_chapters', 'fictioneer_tools_fix_chapters
 /**
  * Fix collections
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_collections() {
@@ -592,7 +592,7 @@ add_action( 'admin_post_fictioneer_fix_collections', 'fictioneer_tools_fix_colle
 /**
  * Fix pages
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_pages() {
@@ -610,7 +610,7 @@ add_action( 'admin_post_fictioneer_fix_pages', 'fictioneer_tools_fix_pages' );
 /**
  * Fix posts
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_posts() {
@@ -628,7 +628,7 @@ add_action( 'admin_post_fictioneer_fix_posts', 'fictioneer_tools_fix_posts' );
 /**
  * Fix recommendations
  *
- * @since 5.2.5
+ * @since Fictioneer 5.2.5
  */
 
 function fictioneer_tools_fix_recommendations() {
@@ -650,7 +650,7 @@ add_action( 'admin_post_fictioneer_fix_recommendations', 'fictioneer_tools_fix_r
 /**
  * Update role
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_update_role() {
@@ -722,7 +722,7 @@ add_action( 'admin_post_fictioneer_update_role', 'fictioneer_update_role' );
 /**
  * Add role
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_add_role() {
@@ -803,7 +803,7 @@ add_action( 'admin_post_fictioneer_add_role', 'fictioneer_add_role' );
 /**
  * Remove role
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_remove_role() {
@@ -862,7 +862,7 @@ add_action( 'admin_post_fictioneer_remove_role', 'fictioneer_remove_role' );
 /**
  * Rename role
  *
- * @since 5.6.0
+ * @since Fictioneer 5.6.0
  */
 
 function fictioneer_rename_role() {
@@ -951,7 +951,7 @@ add_action( 'admin_post_fictioneer_rename_role', 'fictioneer_rename_role' );
 /**
  * Optimize database
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  * @global wpdb $wpdb  WordPress database object.
  */
 
@@ -1036,7 +1036,7 @@ add_action( 'admin_post_fictioneer_tools_optimize_database', 'fictioneer_tools_o
 /**
  * Optimize database preview
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  * @global wpdb $wpdb  WordPress database object.
  */
 
@@ -1109,7 +1109,7 @@ add_action( 'admin_post_fictioneer_tools_optimize_database_preview', 'fictioneer
 /**
  * Append missing 'fictioneer_story_hidden' post meta
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  */
 
 function fictioneer_tools_add_story_hidden_fields() {
@@ -1139,7 +1139,7 @@ add_action( 'admin_post_fictioneer_tools_add_story_hidden_fields', 'fictioneer_t
 /**
  * Append missing 'fictioneer_story_sticky' post meta
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  */
 
 function fictioneer_tools_add_story_sticky_fields() {
@@ -1169,7 +1169,7 @@ add_action( 'admin_post_fictioneer_tools_add_story_sticky_fields', 'fictioneer_t
 /**
  * Append missing 'fictioneer_chapter_hidden' post meta
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  */
 
 function fictioneer_tools_add_chapter_hidden_fields() {
@@ -1199,7 +1199,7 @@ add_action( 'admin_post_fictioneer_tools_add_chapter_hidden_fields', 'fictioneer
 /**
  * Append a missing meta field to selected posts
  *
- * @since 5.7.4
+ * @since Fictioneer 5.7.4
  * @global wpdb $wpdb  WordPress database object.
  *
  * @param string $post_type   The post type to append to.
@@ -1248,7 +1248,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 /**
  * Append chapters to a story by ID
  *
- * @since 5.8.6
+ * @since Fictioneer 5.8.6
  * @see fictioneer_append_chapter_to_story()
  */
 

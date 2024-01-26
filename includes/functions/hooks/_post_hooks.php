@@ -7,7 +7,7 @@
 /**
  * Outputs the HTML for the post tags
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int $post_id  The post ID.
  */
@@ -36,7 +36,7 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_tags', 10 );
 /**
  * Outputs the HTML for featured items in the post
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  *
  * @param int $post_id  The post ID.
  */
@@ -115,7 +115,7 @@ add_action( 'fictioneer_post_after_content', 'fictioneer_post_featured_list', 20
 /**
  * Outputs the HTML for the post media buttons
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_post_media_buttons() {
@@ -136,7 +136,7 @@ add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10 )
 /**
  * Outputs the HTML for the post subscribe button with popup menu
  *
- * @since 5.0.0
+ * @since Fictioneer 5.0
  */
 
 function fictioneer_post_subscribe_button() {
