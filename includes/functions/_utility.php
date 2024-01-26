@@ -532,6 +532,13 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
    */
 
   function fictioneer_get_collection_statistics( $collection_id ) {
+    // Cache?
+    $cache = get_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', true );
+
+    if ( ! empty( $cache ) && ( $cache['valid_until'] ?? 0 ) > time() ) {
+      return $cache;
+    }
+
     // Setup
     $featured = get_post_meta( $collection_id, 'fictioneer_collection_items', true );
     $story_count = 0;
@@ -603,13 +610,20 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
       }
     }
 
-    // Return result
-    return array(
+    // Statistics
+    $statistics = array(
       'story_count' => $story_count,
       'word_count' => $word_count,
       'chapter_count' => $chapter_count,
-      'comment_count' => $comment_count
+      'comment_count' => $comment_count,
+      'valid_until' => time() + 900 // 15 minutes
     );
+
+    // Set cache
+    update_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', $statistics );
+
+    // Return result
+    return $statistics;
   }
 }
 
