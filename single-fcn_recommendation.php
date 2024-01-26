@@ -6,7 +6,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.0
+ * @since 4.0.0
  * @see partials/_recommendation-header.php
  */
 ?>

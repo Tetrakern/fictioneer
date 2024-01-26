@@ -7,7 +7,7 @@
 /**
  * Outputs the paginated card list for all recommendations
  *
- * @since 5.0
+ * @since 5.0.0
  * @see recommendations.php
  *
  * @param int        $args['current_page']     Current page number of pagination or 1.
@@ -85,7 +85,7 @@ add_action( 'fictioneer_recommendations_after_content', 'fictioneer_recommendati
 /**
  * Outputs the HTML for the recommendation page tags
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post $args['recommendation']     The recommendation object.
  * @param int     $args['recommendation_id']  The recommendation post ID.
@@ -134,7 +134,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 /**
  * Outputs the HTML for the recommendation page links
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post $args['recommendation']     The recommendation object.
  * @param int     $args['recommendation_id']  The recommendation post ID.
@@ -174,7 +174,7 @@ add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendatio
 /**
  * Outputs the HTML for the recommendation page author links
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post $args['recommendation']     The recommendation object.
  * @param int     $args['recommendation_id']  The recommendation post ID.

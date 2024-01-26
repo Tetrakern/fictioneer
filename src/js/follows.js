@@ -21,7 +21,7 @@ document.addEventListener('fcnUserDataReady', event => {
 /**
  * Initialize Follows.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {Event} event - The fcnUserDataReady event.
  */
 
@@ -57,7 +57,7 @@ function fcn_initializeFollows(event) {
  * Adds or removes a story ID from the Follows JSON, then calls for an update of
  * the view to reflect the changes and makes a save request to the database.
  *
- * @since 4.3
+ * @since 4.3.0
  * @see fcn_updateFollowsView()
  * @param {Number} storyId - The ID of the story.
  */
@@ -131,7 +131,7 @@ function fcn_toggleFollow(storyId) {
 /**
  * Updates the view with the current Follows state.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_updateFollowsView() {
@@ -177,7 +177,7 @@ function fcn_updateFollowsView() {
 /**
  * Fetch and insert HTML for Follows list via AJAX.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_setupFollowsHTML() {
@@ -229,7 +229,7 @@ function fcn_setupFollowsHTML() {
 /**
  * Mark all Follows as read via Ajax.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_markFollowsRead() {

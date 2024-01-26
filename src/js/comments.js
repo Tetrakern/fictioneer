@@ -20,7 +20,7 @@ document.addEventListener('fcnUserDataReady', () => {
  * show and could be used better. A hashcash for example, to make spamming
  * really expensive!
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_addJSTrap() {
@@ -49,7 +49,7 @@ fcn_addJSTrap();
  * by the operation string. Applies a successful result directly to the DOM
  * without reloading the page.
  *
- * @since 4.7
+ * @since 4.7.0
  * @param {Number} id - ID of the comment to be moderated.
  * @param {String} operation - The moderation action to perform. Choose between
  *   'Sticky', 'Unsticky', 'Approve', 'Unapprove', 'Open', 'Close', 'Trash', or 'Spam'.
@@ -146,7 +146,7 @@ function fcn_moderateComment(id, operation) {
 /**
  * Listen to clicks on moderation action.
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fcn_addModerationEvents() {
@@ -168,7 +168,7 @@ fcn_addModerationEvents();
 /**
  * Listen to mouseleave to close the moderation menu.
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fcn_addCommentMouseleaveEvents() {
@@ -196,7 +196,7 @@ fcn_addCommentMouseleaveEvents();
 /**
  * Report a comment via AJAX.
  *
- * @since 4.7
+ * @since 4.7.0
  * @param {Number} id - ID of the comment to be moderated.
  */
 
@@ -273,7 +273,7 @@ function fcn_revealCommentFormInputs(area) {
 /**
  * Listen for events on comment form.
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fcn_addCommentFormEvents() {
@@ -291,7 +291,7 @@ fcn_addCommentFormEvents();
 /**
  * Adjust textarea height to fit the value without vertical scroll bar.
  *
- * @since 4.7
+ * @since 4.7.0
  * @param {HTMLElement} area - The textarea element to adjust.
  */
 
@@ -303,7 +303,7 @@ function fcn_textareaAdjust(area) {
 /**
  * Listen for input on adaptive textareas.
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fcn_addTextareaEvents() {
@@ -322,7 +322,7 @@ fcn_addTextareaEvents();
 /**
  * Listen for changes of the private toggle.
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_addPrivateToggleEvents() {
@@ -343,7 +343,7 @@ fcn_addPrivateToggleEvents();
 /**
  * Wrap a text selection within an editable element in tags.
  *
- * @since 4.7
+ * @since 4.7.0
  * @param {HTMLElement} element - The editable element with the selection.
  * @param {String} tag - The tag to be used.
  * @param {String[]=} options - Options defined as strings.
@@ -408,7 +408,7 @@ _$('.comment-section')?.addEventListener('keydown', event => {
 /**
  * Bind AJAX request to comment form submit and override default behavior.
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_bindAJAXCommentSubmit() {
@@ -646,7 +646,7 @@ var /** @type {Object} */ fcn_commentEditUndos = {};
  * event listeners is unreasonable. All that extra code, all the extra work for
  * the system, for something that you can get at no cost. Seriously.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} source - Event source.
  */
 
@@ -677,7 +677,7 @@ function fcn_triggerInlineCommentEdit(source) {
 /**
  * Submit inline comment edit via AJAX
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} source - Event source.
  */
 
@@ -756,7 +756,7 @@ function fcn_submitInlineCommentEdit(source) {
 /**
  * Cancel inline comment edit.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} source - Event source.
  */
 
@@ -773,7 +773,7 @@ function fcn_cancelInlineCommentEdit(source) {
 /**
  * Restore comment to non-editing state.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} target - The comment to restore.
  */
 
@@ -797,7 +797,7 @@ function fcn_restoreComment(target, undo = false, update = null) {
 /**
  * Reveal edit buttons that match the user's fingerprint
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_revealEditButton() {
@@ -842,7 +842,7 @@ document.addEventListener('fcnUserDataReady', () => {
 /**
  * Reveal delete buttons that match the user's fingerprint
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_revealDeleteButton() {
@@ -871,7 +871,7 @@ document.addEventListener('fcnUserDataReady', () => {
 /**
  * Soft-delete comment on user request
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} button - The clicked delete button.
  */
 
@@ -968,7 +968,7 @@ function fcn_setupCommentFormObserver() {
 /**
  * Load comment form via AJAX.
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_getCommentForm() {

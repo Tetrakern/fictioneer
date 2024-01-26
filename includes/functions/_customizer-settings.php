@@ -24,7 +24,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 /**
  * Add light mode customizer settings
  *
- * @since 4.7
+ * @since 4.7.0
  *
  * @param WP_Customize_Manager $manager  The customizer instance.
  */
@@ -1073,7 +1073,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
 /**
  * Add dark mode customizer settings
  *
- * @since 4.7
+ * @since 4.7.0
  *
  * @param WP_Customize_Manager $manager  The customizer instance.
  */
@@ -2101,7 +2101,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
 /**
  * Add layout customizer settings
  *
- * @since 4.7
+ * @since 4.7.0
  *
  * @param WP_Customize_Manager $manager  The customizer instance.
  */

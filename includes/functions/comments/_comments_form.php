@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
   /**
    * Returns the HTML for the comment toolbar
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    *
    * @return string Comment toolbar or empty string if it is disabled.
    */
@@ -46,7 +46,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
 /**
  * Change default fields of comment form
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  *
  * @param array $fields  Array of the default comment fields.
  *
@@ -120,7 +120,7 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 /**
  * Change the submit field and add the Cancel Reply link
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/comment-template.php
  * @link https://stackoverflow.com/a/57080105/17140970
  *
@@ -214,7 +214,7 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 /**
  * Returns themed comment form arguments
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/comment_form/
  *
  * @param array    $defaults  Default form arguments. Defaults to empty array.

@@ -11,7 +11,7 @@
  * word count, comments, and the estimated reading time for all stories. The
  * reading time divisor can be changed under Fictioneer > General (default: 200).
  *
- * @since 5.0
+ * @since 5.0.0
  * @see stories.php
  *
  * @param int      $args['current_page']  Current page number of pagination or 1.
@@ -74,7 +74,7 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_statistics',
 /**
  * Outputs the paginated card list for all stories
  *
- * @since 5.0
+ * @since 5.0.0
  * @see stories.php
  *
  * @param int        $args['current_page']  Current page number of pagination or 1.
@@ -157,7 +157,7 @@ add_action( 'fictioneer_stories_after_content', 'fictioneer_stories_list', 30 );
 /**
  * Outputs the HTML for the story page copyright notice
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -187,7 +187,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_copyright_notice
 /**
  * Outputs the HTML for the story page tags and warnings
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -230,7 +230,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tags_and_warning
 /**
  * Outputs the HTML for the story page actions row
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -258,7 +258,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
 /**
  * Outputs the HTML for the story tabs
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -351,7 +351,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tabs', 40 );
 /**
  * Outputs the HTML for the scheduled chapter
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -410,7 +410,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapte
 /**
  * Outputs the HTML for the story custom pages
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -467,7 +467,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
 /**
  * Outputs the HTML for the story chapters
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -708,7 +708,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_chapters', 43 );
 /**
  * Outputs the HTML for the story blog
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
@@ -758,7 +758,7 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
 /**
  * Outputs the HTML for the story page comments
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.

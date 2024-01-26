@@ -8,7 +8,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
   /**
    * Output keyword taxonomies input field for search form
    *
-   * @since 5.0
+   * @since 5.0.0
    *
    * @param array  $taxonomies  Array of WP_Term objects.
    * @param string $query_var   Name of the submitted collection field.
@@ -104,7 +104,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
   /**
    * Output keyword authors input field for search form
    *
-   * @since 5.0
+   * @since 5.0.0
    *
    * @param array  $authors    Array of WP_User objects.
    * @param string $query_var  Name of the submitted collection field.
@@ -179,7 +179,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
 /**
  * Extend search query with custom input
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @param WP_Query $query  The query.
  */

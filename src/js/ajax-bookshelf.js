@@ -20,7 +20,7 @@ if (fcn_theRoot.dataset.ajaxAuth) {
 /**
  * Get bookshelf content from web storage or create new JSON.
  *
- * @since 4.3
+ * @since 4.3.0
  * @see fcn_parseJSON()
  */
 

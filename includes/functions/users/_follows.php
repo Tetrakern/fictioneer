@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
    * Get an user's Follows array from the database or creates a new one if it
    * does not yet exist.
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param WP_User $user  User to get the Follows for.
    *
@@ -51,7 +51,7 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
 /**
  * Toggle Follow for a story via AJAX
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -121,7 +121,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 /**
  * Clears an user's Follows via AJAX
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -162,7 +162,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  * which is used to determine whether Follows are new. This will mark all
  * of them as read, you cannot mark single items in the list as read.
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -212,7 +212,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
   /**
    * Query chapters of followed stories
    *
-   * @since Fictioneer 4.3
+   * @since 4.3.0
    *
    * @param array        $story_ids   IDs of the followed stories.
    * @param string|false $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
@@ -269,7 +269,7 @@ if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
 /**
  * Sends the HTML for Follows notifications via AJAX
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  * @see fictioneer_check_rate_limit()
  * @see fictioneer_get_validated_ajax_user()
  */
@@ -378,7 +378,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 /**
  * Sends the HTML for list of followed stories via AJAX
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  */
 
 function fictioneer_ajax_get_follows_list() {

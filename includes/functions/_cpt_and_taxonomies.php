@@ -106,7 +106,7 @@ define(
 /**
  * Register custom post type fcn_story
  *
- * @since Fictioneer 1.0
+ * @since 1.0
  */
 
 function fictioneer_fcn_story_post_type() {
@@ -175,7 +175,7 @@ add_action( 'init', 'fictioneer_fcn_story_post_type', 0 );
 /**
  * Register custom post type fcn_chapter
  *
- * @since Fictioneer 1.0
+ * @since 1.0
  */
 
 function fictioneer_fcn_chapter_post_type() {
@@ -244,7 +244,7 @@ add_action( 'init', 'fictioneer_fcn_chapter_post_type', 0 );
 /**
  * Register custom post type fcn_collection
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  */
 
 function fictioneer_fcn_collection_post_type() {
@@ -313,7 +313,7 @@ add_action( 'init', 'fictioneer_fcn_collection_post_type', 0 );
 /**
  * Register custom post type fcn_recommendation
  *
- * @since Fictioneer 3.0
+ * @since 3.0
  */
 
 function fictioneer_fcn_recommendation_post_type() {
@@ -382,7 +382,7 @@ add_action( 'init', 'fictioneer_fcn_recommendation_post_type', 0 );
 /**
  * Register custom taxonomy fcn_genre
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  */
 
 function fictioneer_add_genre_taxonomy() {
@@ -427,7 +427,7 @@ add_action( 'init', 'fictioneer_add_genre_taxonomy', 0 );
 /**
  * Register custom taxonomy fcn_fandom
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  */
 
 function fictioneer_add_fandom_taxonomy() {
@@ -472,7 +472,7 @@ add_action( 'init', 'fictioneer_add_fandom_taxonomy', 0 );
 /**
  * Register custom taxonomy fcn_character
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  */
 
 function fictioneer_add_character_taxonomy() {
@@ -517,7 +517,7 @@ add_action( 'init', 'fictioneer_add_character_taxonomy', 0 );
 /**
  * Register custom taxonomy fcn_content_warning
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_add_content_warning_taxonomy() {
@@ -562,7 +562,7 @@ add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
 /**
  * Overrides the default taxonomy capability check for categories and post tags
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param array  $caps  Primitive capabilities required of the user.
  * @param string $cap   Capability being checked.
@@ -593,7 +593,7 @@ add_filter( 'map_meta_cap', 'fictioneer_override_default_taxonomy_capability_che
 /**
  * Restricts tag creation for the 'post_tag' taxonomy
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param mixed  $term      The term to be added.
  * @param string $taxonomy  The taxonomy type of the term.
@@ -620,7 +620,7 @@ if ( ! current_user_can( 'edit_post_tags' ) && ! current_user_can( 'manage_optio
 /**
  * Removes undesired sub-menu items for taxonomies
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  */
 
 function fictioneer_remove_sub_menus() {
@@ -655,7 +655,7 @@ add_action( 'admin_menu', 'fictioneer_remove_sub_menus' );
 /**
  * Adds a filter dropdown to the chapters list table
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param string $post_type  The current post type being viewed.
  */

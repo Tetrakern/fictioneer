@@ -21,7 +21,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_root' ) ) {
   /**
    * Return schema graph root node
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    */
 
   function fictioneer_get_schema_node_root() {
@@ -40,7 +40,7 @@ if ( ! function_exists( 'fictioneer_get_schema_primary_image' ) ) {
   /**
    * Returns primary image for schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    * @link https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
    *
    * @param int|null $post_id  The post ID the primary image is from.
@@ -78,7 +78,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_website' ) ) {
   /**
    * Returns the website node for the schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string|null $description  The website description.
    *
@@ -106,7 +106,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_image' ) ) {
   /**
    * Returns the primary image node for the schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param array|boolean|null $image_data  The image data with URL (0), width (1), and height (2).
    *
@@ -138,7 +138,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_webpage' ) ) {
   /**
    * Returns the webpage node for the schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string|array       $type         The type(s) of the page, which can be an array.
    * @param string             $name         Title of the page.
@@ -184,7 +184,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
   /**
    * Returns the article node for the schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string|array       $type         The type(s) of the article, which can be an array.
    * @param string             $description  Description of the article.
@@ -257,7 +257,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
   /**
    * Returns the list node for the schema graph
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param array  $list         List of WP_Post objects.
    * @param string $name         Name of the list.
@@ -311,7 +311,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_list' ) ) {
 /**
  * Output schema graph on selected pages
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int|null $post_id  Optional. The current post ID.
  */

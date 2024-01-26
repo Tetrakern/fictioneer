@@ -6,7 +6,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.7
+ * @since 4.7.0
  */
 ?>
 

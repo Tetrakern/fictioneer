@@ -5,7 +5,7 @@
 /**
  * Append image with avatar to target element.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_replaceProfileImage(target, avatar) {
@@ -30,7 +30,7 @@ function fcn_replaceProfileImage(target, avatar) {
 /**
  * Save avatar image in local storage and add it to the document.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_isValidUrl(url)
  * @see fcn_replaceProfileImage(element, avatar)
  *
@@ -63,7 +63,7 @@ function fcn_setProfileImage(avatar, save = true) {
 /**
  * Get avatar from local storage or pull it from the server.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_isValidUrl(url)
  * @see fcn_setProfileImage(avatar)
  * @see fcn_getUserAvatar()
@@ -96,7 +96,7 @@ function fcn_getProfileImage() {
 /**
  * Fetch avatar from server via AJAX.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_setProfileImage(avatar)
  */
 

@@ -10,7 +10,7 @@
  * This only runs on hardcoded cutoff dates, once. It will only run again if the
  * date in this function is changed on an update.
  *
- * @since Fictioneer 5.8.7
+ * @since 5.8.7
  */
 
 function fictioneer_legacy_cleanup() {
@@ -49,8 +49,8 @@ add_action( 'init', 'fictioneer_legacy_cleanup', 99 );
  * delete all settings and theme mods is activated, these will be removed as
  * well but otherwise preserved.
  *
- * @since Fictioneer 4.7
- * @since Fictioneer 5.7.4 - Updated to use SQL queries.
+ * @since 4.7.0
+ * @since 5.7.4 - Updated to use SQL queries.
  *
  * @global wpdb $wpdb  WordPress database object.
  */

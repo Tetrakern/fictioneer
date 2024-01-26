@@ -15,7 +15,7 @@
  *
  * DISABLED!
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $profile_user The profile user object. Not necessarily the one
  *                              currently editing the profile!
@@ -49,7 +49,7 @@ function fictioneer_admin_profile_patreon_tiers( $profile_user ) {
  *
  * DISABLED!
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $profile_user The profile user object. Not necessarily the one
  *                              currently editing the profile!
@@ -79,7 +79,7 @@ function fictioneer_admin_profile_bookmarks( $profile_user ) {
  * Prevent moderators from editing the comment content, which is rarely a good action.
  * Doing this via JS is a terrible solution but better than nothing.
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @todo Do this server-side to prevent savvy moderators from circumventing it.
  */
 
@@ -108,7 +108,7 @@ function fictioneer_disable_moderator_comment_edit() {
  * Expected Parameters:
  * - post_id (required): The ID of the story post.
  *
- * @since Fictioneer 5.6.3
+ * @since 5.6.3
  */
 
 function fictioneer_register_endpoint_get_comment_form() {
@@ -139,8 +139,8 @@ if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {
 /**
  * Sends the comment form HTML
  *
- * @since Fictioneer 5.0
- * @since Fictioneer 5.6.3 Refactored for REST API.
+ * @since 5.0.0
+ * @since 5.6.3 Refactored for REST API.
  *
  * @param WP_REST_Request $WP_REST_Request  Request object.
  *
@@ -185,7 +185,7 @@ function fictioneer_rest_get_comment_form( WP_REST_Request $request ) {
  * Expected Parameters:
  * - post_id (required): The ID of the story post.
  *
- * @since Fictioneer 5.6.3
+ * @since 5.6.3
  */
 
 function fictioneer_register_endpoint_get_comment_section() {
@@ -230,8 +230,8 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
 /**
  * Sends the comment section HTML
  *
- * @since Fictioneer 5.0
- * @since Fictioneer 5.6.3 Refactored for REST API.
+ * @since 5.0.0
+ * @since 5.6.3 Refactored for REST API.
  *
  * @param WP_REST_Request $WP_REST_Request  Request object.
  *
@@ -452,7 +452,7 @@ function validate_tags($content) {
 /**
  * Sends the user's Checkmarks as JSON via Ajax
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -486,7 +486,7 @@ if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
 /**
  * Sends the user's Reminders as JSON via Ajax
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -520,7 +520,7 @@ if ( get_option( 'fictioneer_enable_reminders' ) ) {
 /**
  * Sends the user's Follows as JSON via Ajax
  *
- * @since Fictioneer 4.3
+ * @since 4.3.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -569,7 +569,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
 /**
  * Sends the user's fingerprint via AJAX
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -595,7 +595,7 @@ add_action( 'wp_ajax_fictioneer_ajax_get_fingerprint', 'fictioneer_ajax_get_fing
 /**
  * Get an user's bookmarks via AJAX
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()
@@ -639,7 +639,7 @@ if ( ! function_exists( 'fictioneer_has_role' ) ) {
   /**
    * Checks if an user has a specific role
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param WP_User|int $user  The user object or ID to check.
    * @param string      $role  The role to check for.
@@ -673,7 +673,7 @@ if ( ! function_exists( 'fictioneer_has_role' ) ) {
 /**
  * When a fictioneer option is updated as empty, the option is deleted
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param string $option    The option name.
  * @param mixed  $old_value The previous value.

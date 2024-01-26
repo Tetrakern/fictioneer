@@ -4,7 +4,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.0
+ * @since 5.0.0
  *
  * @internal $args['user']          Current user.
  * @internal $args['is_admin']      True if the user is an administrator.

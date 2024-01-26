@@ -7,7 +7,7 @@
 /**
  * Submit comment form via AJAX
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */

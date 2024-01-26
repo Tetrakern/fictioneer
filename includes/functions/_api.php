@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
   /**
    * Returns array with story data
    *
-   * @since Fictioneer 5.1
+   * @since 5.1.0
    *
    * @param int     $story_id       ID of the story.
    * @param boolean $with_chapters  Whether to include chapters. Default true.
@@ -265,7 +265,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
 /**
  * Add GET route for single story by ID
  *
- * @since Fictioneer 5.1
+ * @since 5.1.0
  */
 
 if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
@@ -289,7 +289,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
   /**
    * Returns JSON for a single story
    *
-   * @since Fictioneer 5.1
+   * @since 5.1.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
    * @param WP_REST_Request $WP_REST_Request  Request object.
@@ -344,7 +344,7 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
 /**
  * Add GET route for all stories
  *
- * @since Fictioneer 5.1
+ * @since 5.1.0
  */
 
 if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
@@ -368,7 +368,7 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
   /**
    * Returns JSON with all stories plus meta data
    *
-   * @since Fictioneer 5.1
+   * @since 5.1.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
    * @param WP_REST_Request $WP_REST_Request  Request object.
