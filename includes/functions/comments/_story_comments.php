@@ -166,7 +166,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
 
   // Setup
   $page = $request->get_param( 'page' );
-  $story = fictioneer_get_story_data( $story_id, true, array( 'refresh_comments' => true ) );
+  $story = fictioneer_get_story_data( $story_id, true, array( 'refresh_comment_count' => true ) );
   $chapter_ids = $story['chapter_ids']; // Only contains publicly visible chapters
   $comments_per_page = get_option( 'comments_per_page' );
   $chapter_data = [];

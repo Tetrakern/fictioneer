@@ -248,7 +248,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
    * @param int     $story_id       ID of the story.
    * @param boolean $show_comments  Optional. Whether the comment count is needed.
    *                                Default true.
-   * @param array   $args           Optional array og arguments.
+   * @param array   $args           Optional array of arguments.
    *
    * @return array|boolean Data of the story or false if invalid.
    */
@@ -274,7 +274,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
       // Time to refresh comment count?
       $comment_count_delay = ( $old_data['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
-      $refresh_comments = $comment_count_delay < time() || ( $args['refresh_comments'] ?? 0 ) || fictioneer_caching_active();
+      $refresh_comments = $comment_count_delay < time() ||
+        ( $args['refresh_comment_count'] ?? 0 ) || fictioneer_caching_active();
 
       // Refresh comment count
       if ( $refresh_comments ) {
