@@ -265,7 +265,7 @@
     min-width: MAX(152px, 100%);
     box-shadow: var(--navigation-submenu-box-shadow);
     transform-origin: top left;
-    transition: var(--submenu-transition, opacity .1s, transform .09s);
+    transition: var(--submenu-transition, opacity .1s, transform .07s);
 
     @include bp(desktop) {
       display: block;

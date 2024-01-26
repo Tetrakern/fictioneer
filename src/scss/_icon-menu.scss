@@ -106,7 +106,7 @@
 
       .sub-menu {
         transform-origin: top left;
-        transition: var(--submenu-transition, opacity .1s, transform .09s);
+        transition: var(--submenu-transition, opacity .1s, transform .07s);
       }
 
       &:not(:hover) {
