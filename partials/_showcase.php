@@ -93,7 +93,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 ?>
 
 <?php if ( $query->have_posts() ) : ?>
-  <section class="showcase <?php echo $args['classes']; ?>">
+  <section class="showcase container-inline-size <?php echo $args['classes']; ?>">
     <ul class="showcase__list">
       <?php while ( $query->have_posts() ) : $query->the_post(); ?>
         <li class="showcase__list-item">
