@@ -187,8 +187,8 @@ $tabs[ $current_tab ]['classes'][] = '_current';
         );
       ?>
 
-      <section id="list" class="author-page __list">
-        <ul class="author-page __list card-list _no-mutation-observer">
+      <section id="list" class="author-page__list container-inline-size">
+        <ul class="card-list _no-mutation-observer">
           <?php
             $list_items = fictioneer_get_card_list(
               $tabs[ $current_tab ]['query_args']['post_type'],
