@@ -274,7 +274,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
       // Time to refresh comment count?
       $comment_count_delay = ( $old_data['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
-      $refresh_comments = $comment_count_delay < time() ||( $args['refresh_comments'] ?? 0 ) || fictioneer_caching_active();
+      $refresh_comments = $comment_count_delay < time() || ( $args['refresh_comments'] ?? 0 ) || fictioneer_caching_active();
 
       // Refresh comment count
       if ( $refresh_comments ) {
@@ -295,19 +295,12 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           }
         }
 
-        $comment_count_changed = $comment_count != absint( $old_data['comment_count'] );
         $old_data['comment_count'] = $comment_count;
         $old_data['comment_count_timestamp'] = time();
 
-        // Update meta if there is something to update
-        if (
-          $comment_count_changed &&
-          FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT > 0 &&
-          ! ( $args['refresh_comments'] ?? 0 )
-        ) {
-          update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
-          fictioneer_purge_post_cache( $story_id );
-        }
+        // Update meta cache and purge
+        update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
+        fictioneer_purge_post_cache( $story_id );
       }
 
       // Return cached data
