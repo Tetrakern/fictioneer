@@ -300,7 +300,10 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
         // Update meta cache and purge
         update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
-        fictioneer_purge_post_cache( $story_id );
+
+        if ( function_exists( 'fictioneer_purge_post_cache' ) ) {
+          fictioneer_purge_post_cache( $story_id );
+        }
       }
 
       // Return cached data
