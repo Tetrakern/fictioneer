@@ -42,6 +42,8 @@ if (
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
 $show_type = $args['show_type'] ?? false;
+$is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
+  get_post_meta( $post->ID, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
 ?>
 
