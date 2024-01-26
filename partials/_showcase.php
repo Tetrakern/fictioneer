@@ -9,7 +9,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.0
+ * @since 4.0.0
  *
  * @internal $args['post_type']         Post type if the showcase.
  * @internal $args['count']             Maximum number of items. Default 8.

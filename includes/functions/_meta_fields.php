@@ -1628,7 +1628,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
 /**
  * Append classes to the metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param array $classes  An array of postbox classes.
  *
@@ -1672,7 +1672,7 @@ foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
 /**
  * Adds story meta metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_story_meta_metabox() {
@@ -1690,7 +1690,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_story_meta_metabox' );
 /**
  * Render story meta metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -1855,7 +1855,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
 /**
  * Adds story data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_story_data_metabox() {
@@ -1873,7 +1873,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_story_data_metabox' );
 /**
  * Render story data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -1986,7 +1986,7 @@ function fictioneer_render_story_data_metabox( $post ) {
 /**
  * Adds story epub metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_story_epub_metabox() {
@@ -2007,7 +2007,7 @@ if ( get_option( 'fictioneer_enable_epubs' ) ) {
 /**
  * Render story epub metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -2082,7 +2082,7 @@ function fictioneer_render_story_epub_metabox( $post ) {
 /**
  * Save story metaboxes
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -2362,7 +2362,7 @@ add_action( 'save_post', 'fictioneer_save_story_metaboxes' );
 /**
  * Adds chapter meta metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_chapter_meta_metabox() {
@@ -2380,7 +2380,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_meta_metabox' );
 /**
  * Render chapter meta metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -2530,7 +2530,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
 /**
  * Adds chapter data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_chapter_data_metabox() {
@@ -2548,7 +2548,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_data_metabox' );
 /**
  * Render chapter data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -2721,7 +2721,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 /**
  * Save chapter metaboxes
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -2902,7 +2902,7 @@ add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 /**
  * Adds advanced metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_advanced_metabox() {
@@ -2920,7 +2920,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
 /**
  * Render advanced metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -3053,7 +3053,7 @@ function fictioneer_render_advanced_metabox( $post ) {
 /**
  * Save advanced metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -3182,7 +3182,7 @@ add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
 /**
  * Adds support links metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_support_links_metabox() {
@@ -3200,7 +3200,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_support_links_metabox' );
 /**
  * Render support links metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -3269,7 +3269,7 @@ function fictioneer_render_support_links_metabox( $post ) {
 /**
  * Save support links metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -3370,7 +3370,7 @@ add_action( 'save_post', 'fictioneer_save_support_links_metabox' );
 /**
  * Adds featured content side metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_featured_content_metabox() {
@@ -3388,7 +3388,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_featured_content_metabox' );
 /**
  * Render featured content metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -3446,7 +3446,7 @@ function fictioneer_render_featured_content_metabox( $post ) {
 /**
  * Save post metaboxes
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -3527,7 +3527,7 @@ add_action( 'save_post', 'fictioneer_save_post_metaboxes' );
 /**
  * Update relationship registry for 'post' post types
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int $post_id  The post ID.
  */
@@ -3581,7 +3581,7 @@ function fictioneer_update_post_relationship_registry( $post_id ) {
 /**
  * Adds collection data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_collection_data_metabox() {
@@ -3599,7 +3599,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_collection_data_metabox' );
 /**
  * Render collection data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -3681,7 +3681,7 @@ function fictioneer_render_collection_data_metabox( $post ) {
 /**
  * Save collection metaboxes
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */
@@ -3790,7 +3790,7 @@ add_action( 'save_post', 'fictioneer_save_collection_metaboxes' );
 /**
  * Adds recommendation data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  */
 
 function fictioneer_add_recommendation_data_metabox() {
@@ -3808,7 +3808,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_recommendation_data_metabox' );
 /**
  * Render recommendation data metabox
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param WP_Post $post  The current post object.
  */
@@ -3890,7 +3890,7 @@ function fictioneer_render_recommendation_data_metabox( $post ) {
 /**
  * Save recommendation metaboxes
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param int $post_id  The post ID.
  */

@@ -7,7 +7,7 @@
 /**
  * Outputs the paginated card list for all collections
  *
- * @since 5.0
+ * @since 5.0.0
  * @see collections.php
  *
  * @param int        $args['current_page']  Current page number of pagination or 1.
@@ -87,7 +87,7 @@ add_action( 'fictioneer_collections_after_content', 'fictioneer_collections_list
 /**
  * Outputs the HTML for the collection page tags and warnings
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post  $args['collection']      Collection post object.
  * @param int      $args['collection_id']   The collection post ID.
@@ -138,7 +138,7 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_tags_a
 /**
  * Outputs the HTML for the collection page statistics
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post  $args['collection']      Collection post object.
  * @param int      $args['collection_id']   The collection post ID.
@@ -167,7 +167,7 @@ add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_statis
 /**
  * Outputs the HTML for the collection page featured list
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_Post  $args['collection']      Collection post object.
  * @param int      $args['collection_id']   The collection post ID.

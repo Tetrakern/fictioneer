@@ -7,7 +7,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.0
+ * @since 4.0.0
  *
  * @internal $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
  */

@@ -17,7 +17,7 @@ document.addEventListener('fcnUserDataReady', event => {
 /**
  * Initialize checkmarks.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {Event} event - The fcnUserDataReady event.
  */
 
@@ -62,7 +62,7 @@ function fcn_initializeCheckmarks(event) {
 /**
  * Toggle checkmarks for chapters and stories.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_removeItemOnce()
  * @see fcn_updateCheckmarksView()
  * @param {Number} storyId - ID of the story.
@@ -190,7 +190,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
 /**
  * Evaluate click on a checkmark.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_toggleCheckmark()
  * @param {HTMLElement} source - Source of the event.
  */
@@ -246,7 +246,7 @@ function fcn_updateCheckmarks(storyId, checkmarks = null) {
 /**
  * Update the view with the current checkmarks state.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_updateCheckmarksView() {

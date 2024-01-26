@@ -16,7 +16,7 @@ require_once( '_settings_actions.php' );
 /**
  * Add Fictioneer settings menu to admin panel
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  */
 
 function fictioneer_add_admin_menu() {
@@ -131,7 +131,7 @@ add_action( 'admin_menu', 'fictioneer_add_admin_menu' );
 /**
  * Configure the screen options for the ePUBs page
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  */
 
 function fictioneer_settings_epubs_screen_options() {
@@ -147,7 +147,7 @@ function fictioneer_settings_epubs_screen_options() {
 /**
  * Configure the screen options for the SEO page
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  */
 
 function fictioneer_settings_seo_screen_options() {
@@ -163,7 +163,7 @@ function fictioneer_settings_seo_screen_options() {
 /**
  * Save custom screen options values
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  *
  * @param bool   $status  The current status of the screen option saving.
  * @param string $option  The name of the screen option being saved.
@@ -195,7 +195,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 	/**
 	 * Output HTML for the settings page header
 	 *
-	 * @since Fictioneer 4.7
+	 * @since 4.7
 	 *
 	 * @param string $tab The current tab to highlight. Defaults to 'general'.
 	 */
@@ -276,7 +276,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
 /**
  * Callback for connections settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_connections() {
@@ -286,7 +286,7 @@ function fictioneer_settings_connections() {
 /**
  * Callback for general settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_general() {
@@ -296,7 +296,7 @@ function fictioneer_settings_general() {
 /**
  * Callback for roles settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_roles() {
@@ -306,7 +306,7 @@ function fictioneer_settings_roles() {
 /**
  * Callback for plugins settings page
  *
- * @since Fictioneer 5.7.1
+ * @since 5.7.1
  */
 
 function fictioneer_settings_plugins() {
@@ -316,7 +316,7 @@ function fictioneer_settings_plugins() {
 /**
  * Callback for epubs settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_epubs() {
@@ -326,7 +326,7 @@ function fictioneer_settings_epubs() {
 /**
  * Callback for SEO settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_seo() {
@@ -336,7 +336,7 @@ function fictioneer_settings_seo() {
 /**
  * Callback for phrases settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_phrases() {
@@ -346,7 +346,7 @@ function fictioneer_settings_phrases() {
 /**
  * Callback for tools settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_tools() {
@@ -356,7 +356,7 @@ function fictioneer_settings_tools() {
 /**
  * Callback for logs settings page
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_settings_logs() {
@@ -370,7 +370,7 @@ function fictioneer_settings_logs() {
 /**
  * Renders a role settings capability card
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param string $title  The title of the card.
  * @param array  $caps   An array of capabilities.
@@ -413,7 +413,7 @@ function fictioneer_settings_capability_card( $title, $caps, $role ) {
 /**
  * Renders a checkbox for a specific capability
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param string $cap   The capability slug/string.
  * @param string $name  Human-readable name for the capability.
@@ -433,7 +433,7 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
 /**
  * Renders a label-wrapped setting checkbox
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  *
  * @param string $option     The name of the setting option.
  * @param string $sub_label  Optional. The description below the label.
@@ -456,7 +456,7 @@ function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
 /**
  * Renders a label-wrapped setting text field
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  *
  * @param string $option  The name of the setting option.
  * @param string $type    Optional. The field type, default 'text'.
@@ -474,7 +474,7 @@ function fictioneer_settings_text_input( $option, $type = 'text' ) {
 /**
  * Renders a setting textarea
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  *
  * @param string $option  The name of the setting option.
  * @param string $height  Optional. The height with unit, default 'auto'.
@@ -490,7 +490,7 @@ function fictioneer_settings_textarea( $option, $height = 'auto' ) {
 /**
  * Renders a setting page assignment select field
  *
- * @since Fictioneer 5.7.2
+ * @since 5.7.2
  *
  * @param string $option  The name of the setting option.
  */

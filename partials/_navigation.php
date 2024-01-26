@@ -6,7 +6,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.0
+ * @since 5.0.0
  *
  * @internal $args['post_id']           Optional. Current post ID.
  * @internal $args['story_id']          Optional. Current story ID (if chapter).

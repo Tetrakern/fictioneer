@@ -207,7 +207,7 @@ add_filter( 'wp_unique_post_slug', 'fictioneer_protect_reserved_post_slugs' );
 /**
  * Fictioneer version of _custom_background_cb() for custom backgrounds
  *
- * @since 4.7
+ * @since 4.7.0
  * @link https://developer.wordpress.org/reference/functions/_custom_background_cb/
  */
 
@@ -279,7 +279,7 @@ function fictioneer_custom_background() {
 /**
  * Update list of allowed tags
  *
- * @since 4.7
+ * @since 4.7.0
  *
  * @global array $allowedtags  Array of allowed tags.
  */
@@ -304,7 +304,7 @@ add_action( 'init', 'fictioneer_modify_allowed_tags', 20 );
 /**
  * Injects attributes and classes into the <html> root
  *
- * @since 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_root_attributes() {
@@ -375,7 +375,7 @@ function fictioneer_root_attributes() {
 /**
  * Add additional classes to the frontend <body>
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param array $classes  Current body classes.
  *
@@ -430,7 +430,7 @@ if ( ! is_admin() ) {
 /**
  * Add additional classes to the admin <body>
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param string $classes  Current body classes separated by whitespace.
  *
@@ -585,7 +585,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );
 /**
  * Enqueues customizer stylesheets
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fictioneer_customizer_queue() {
@@ -938,7 +938,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_load_script_translations', 99 );
 /**
  * Removed the jQuery migrate script
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @param object $scripts The loaded scripts.
  */
@@ -969,7 +969,7 @@ if ( ! is_admin() && ! get_option( 'fictioneer_enable_jquery_migrate' ) ) {
 /**
  * Change replace tag for Autoptimize (if installed)
  *
- * @since 4.0
+ * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
  * @param string $replacetag The original replace tag.
@@ -983,7 +983,7 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
 /**
  * Exclude scripts from Autoptimize (if installed)
  *
- * @since 4.0
+ * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
  * @param string $exclude List of default excludes.
@@ -997,7 +997,7 @@ add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10
 /**
  * Exclude stylesheets from Autoptimize (if installed)
  *
- * @since 4.0
+ * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
  * @param string $exclude List of default excludes.
@@ -1019,7 +1019,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
    * Critical fonts that need to be loaded as fast as possible and are
    * therefore inlined in the <head>.
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    */
 
   function fictioneer_output_head_fonts() {
@@ -1040,7 +1040,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
   /**
    * Output HTML <head> meta
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    */
 
   function fictioneer_output_head_meta() {
@@ -1071,7 +1071,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
  *
  * This is called in the header.php template.
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  */
 
 function fictioneer_add_noindex_to_robots( $robots ) {
@@ -1093,7 +1093,7 @@ if ( ! function_exists( 'fictioneer_output_head_critical_scripts' ) ) {
    * by adding configuration classes directly into the <html> root node, which
    * is the only one available at this point.
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    */
 
   function fictioneer_output_head_critical_scripts() {
@@ -1116,7 +1116,7 @@ add_post_type_support( 'page', 'excerpt' );
 /**
  * Modifies the pagination links output for the theme
  *
- * @since Fictioneer 5.4.0
+ * @since 5.4.0
  * @link https://developer.wordpress.org/reference/functions/paginate_links/
  *
  * @param array $args Optional. Array of arguments for generating the pagination links.

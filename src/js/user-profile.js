@@ -10,7 +10,7 @@
  * per default). In case this function is called maliciously, the request is
  * validated server-side as well.
  *
- * @since 4.5
+ * @since 4.5.0
  * @param {String} none - Nonce for the action.
  * @param {String} channel - The OAuth channel to delete.
  * @param {Number} id - The ID of the user.
@@ -96,7 +96,7 @@ _$$('.button-unset-oauth').forEach(element => {
  * In case this function is called maliciously, the request is validated
  * server-side as well.
  *
- * @since 4.5
+ * @since 4.5.0
  * @param {HTMLElement} button - The clicked button.
  */
 
@@ -163,7 +163,7 @@ const /** @const {DOMStringMap} */ fcn_profileDataTranslations = _$$$('profile-d
 /**
  * Prompt with string submission before deletion of user data.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} button - The clicked button.
  * @return {Boolean} True or false.
  */
@@ -187,7 +187,7 @@ function fcn_dataDeletionPrompt(button) {
 /**
  * AJAX request to clear specific data.
  *
- * @since 4.5
+ * @since 4.5.0
  * @param {HTMLElement} button - The clicked button.
  * @param {String} action - The action to perform.
  */

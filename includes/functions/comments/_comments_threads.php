@@ -7,7 +7,7 @@
 /**
  * Change default comment reply login link to login modal toggle
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string     $link     The HTML markup for the comment reply link.
  * @param array      $args     An array of arguments overriding the defaults.
@@ -39,7 +39,7 @@ add_filter( 'comment_reply_link', 'fictioneer_comment_login_to_reply', 10, 4 );
 /**
  * Prepend sticky comments
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $comments  Queried comments.
  * @param int   $post_id   The post ID.
@@ -86,7 +86,7 @@ if ( ! function_exists( 'fictioneer_comment_header' ) ) {
   /**
    * Output Fictioneer themed comment header
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $comment_count  Total number of comments.
    */
@@ -122,7 +122,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_skeleton' ) ) {
   /**
    * Output skeleton placeholder while comments are loaded via AJAX
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $comments_count  Total number of comments.
    */
@@ -160,7 +160,7 @@ if ( ! function_exists( 'fictioneer_comments_ajax_form_skeleton' ) ) {
   /**
    * Output skeleton placeholder while the form is loaded via AJAX
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    */
 
   function fictioneer_comments_ajax_form_skeleton() {
@@ -183,7 +183,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
   /**
    * Output Fictioneer themed paginated comment threads via AJAX
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param array $comments  Collection of comments to display.
    * @param int   $page      Current page number of the comments.
@@ -230,7 +230,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
 /**
  * Returns themed comment list arguments
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param array $parsed_args  Default list arguments.
  *
@@ -288,8 +288,8 @@ if ( ! get_option( 'fictioneer_disable_comment_bbcodes' ) && ! get_option( 'fict
 /**
  * Properly wrap empty lines into paragraphs
  *
- * @since Fictioneer 4.0
- * @since Fictioneer 5.2.6 Updated and changed to not mess up some languages.
+ * @since 4.0.0
+ * @since 5.2.6 Updated and changed to not mess up some languages.
  *
  * @param string $comment_content The comment content.
  *
@@ -322,7 +322,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
   /**
    * Callback function for basic theme comment markup
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    * @global WP_Post|null $post  The post object. May not be available.
    *
    * @param WP_Comment $comment  The comment object.
@@ -780,7 +780,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
 /**
  * Change comment pagination markup
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  *
  * @param string $template The default comment pagination template.
  *

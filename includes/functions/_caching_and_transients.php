@@ -31,7 +31,7 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
    * Checks for a number of known caching plugins or the cache
    * compatibility option for anything not covered.
    *
-   * @since 4.0
+   * @since 4.0.0
    *
    * @return boolean Either true (active) or false (inactive or not installed).
    */
@@ -59,7 +59,7 @@ if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
    * compatibility mode is enabled. Public and private caching
    * contradict each other, with public caching given priority.
    *
-   * @since 5.0
+   * @since 5.0.0
    *
    * @return boolean Either true or false.
    */
@@ -102,7 +102,7 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
   /**
    * Trigger the "purge all" functions of known cache plugins
    *
-   * @since 4.0
+   * @since 4.0.0
    * @link https://docs.litespeedtech.com/lscache/lscwp/api/#purge
    * @link https://docs.wp-rocket.me/article/494-how-to-clear-cache-via-cron-job#clear-cache
    * @link https://wp-kama.com/plugin/wp-super-cache/function/wp_cache_clean_cache
@@ -179,7 +179,7 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
   /**
    * Trigger the "purge post" functions of known cache plugins
    *
-   * @since 4.7
+   * @since 4.7.0
    * @link https://docs.litespeedtech.com/lscache/lscwp/api/#purge
    * @link https://docs.wp-rocket.me/article/494-how-to-clear-cache-via-cron-job#clear-cache
    * @link https://wp-kama.com/plugin/wp-super-cache/function/wpsc_delete_post_cache
@@ -267,7 +267,7 @@ if ( ! function_exists( 'fictioneer_litespeed_running' ) ) {
   /**
    * Checks whether LiteSpeed Cache plugin is active
    *
-   * @since 4.0
+   * @since 4.0.0
    *
    * @return boolean Either true (active) or false (inactive or not installed)
    */
@@ -288,7 +288,7 @@ if ( ! function_exists( 'fictioneer_purge_template_caches' ) ) {
   /**
    * Purges all posts with the given template template
    *
-   * @since Fictioneer 5.5.2
+   * @since 5.5.2
    *
    * @param string $template  The page template (without `.php`)
    */
@@ -324,7 +324,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
    * "There are only two hard things in Computer Science: cache invalidation and
    * naming things" -- Phil Karlton.
    *
-   * @since Fictioneer 5.0.0
+   * @since 5.0.0
    *
    * @param int $post_id  Updated post ID.
    */
@@ -484,7 +484,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
 /**
  * Add or remove actions for `fictioneer_refresh_post_caches`
  *
- * @since Fictioneer 5.5.2
+ * @since 5.5.2
  *
  * @param boolean $add  Optional. Whether to add or remove the action. Default true.
  */
@@ -522,7 +522,7 @@ if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
 /**
  * Returns relationship registry from options table
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @return array The balanced array.
  */
@@ -552,7 +552,7 @@ function fictioneer_get_relationship_registry() {
 /**
  * Saves relationship registry to options table
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @param array $registry Current registry to override the stored option.
  *
@@ -566,7 +566,7 @@ function fictioneer_save_relationship_registry( $registry ) {
 /**
  * Remove relationships on delete
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int $post_id The deleted post ID.
  */
@@ -610,7 +610,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
    * storage options to reflect the current state of content. This is mainly
    * used for caching purposes and there is no harm if these values vanish.
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    *
    * @param int $post_id  Updated post ID.
    */
@@ -655,7 +655,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 /**
  * Add or remove actions for `fictioneer_toggle_update_tracker_hooks`
  *
- * @since Fictioneer 5.5.2
+ * @since 5.5.2
  *
  * @param boolean $add  Optional. Whether to add or remove the action. Default true.
  */
@@ -683,7 +683,7 @@ fictioneer_toggle_update_tracker_hooks();
 /**
  * Purge Transients used for caching when posts are updated
  *
- * @since Fictioneer 5.4.9
+ * @since 5.4.9
  *
  * @param int $post_id  Updated post ID.
  */
@@ -716,7 +716,7 @@ function fictioneer_purge_transients( $post_id ) {
 /**
  * Add or remove actions for `fictioneer_purge_transients`
  *
- * @since Fictioneer 5.5.2
+ * @since 5.5.2
  *
  * @param boolean $add  Optional. Whether to add or remove the action. Default true.
  */
@@ -740,7 +740,7 @@ fictioneer_toggle_transient_purge_hooks();
 /**
  * Purge nav menu Transients on menu updates
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  */
 
 function fictioneer_purge_nav_menu_transients() {

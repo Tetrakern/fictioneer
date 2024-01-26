@@ -11,7 +11,7 @@ if ( ! function_exists( 'fictioneer_hex_to_rgb' ) ) {
    * @license MIT
    * @author Simon Waldherr https://github.com/SimonWaldherr
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    * @link https://github.com/SimonWaldherr/ColorConverter.php
    *
    * @param string $input  The to be converted hex (six digits).
@@ -61,7 +61,7 @@ if ( ! function_exists( 'fictioneer_rgb_to_hsl' ) ) {
    * @license MIT
    * @author Simon Waldherr https://github.com/SimonWaldherr
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    * @link https://github.com/SimonWaldherr/ColorConverter.php
    *
    * @param array $input      The to be converted RGB.
@@ -108,7 +108,7 @@ if ( ! function_exists( 'fictioneer_minify_css' ) ) {
    * @author Qtax https://stackoverflow.com/users/107152/qtax
    * @author lots0logs https://stackoverflow.com/users/2639936/lots0logs
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    * @link https://stackoverflow.com/a/15195752/17140970
    * @link https://stackoverflow.com/a/44350195/17140970
    *
@@ -172,7 +172,7 @@ if ( ! function_exists( 'fictioneer_get_css_clamp' ) ) {
   /**
    * Generate a high-precision CSS clamp
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    *
    * @param int    $min   The minimum value.
    * @param int    $max   The maximum value.
@@ -202,7 +202,7 @@ if ( ! function_exists( 'fictioneer_hsl_code' ) ) {
    * Example: #fcfcfd =>
    * hsl(calc(240deg + var(--hue-rotate)) calc(20% * var(--saturation)) clamp(49.5%, 99% * var(--darken), 99.5%))
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    *
    * @param string $hex     The color as hex.
    * @param string $output  Switch output style. Default 'default'.
@@ -241,7 +241,7 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
    *
    * This is a reduced variant of the regular HSL font code.
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    * @see fictioneer_hsl_code( $hex, $output )
    *
    * @param string $hex  The color as hex.
@@ -267,7 +267,7 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
 /**
  * Watches for customizer updates to delete Transients
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 function fictioneer_watch_for_customer_updates() {
@@ -285,7 +285,7 @@ if ( ! function_exists( 'fictioneer_add_customized_light_mode_css' ) ) {
   /**
    * Add customized light mode CSS
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    */
 
   function fictioneer_add_customized_light_mode_css() {
@@ -382,7 +382,7 @@ if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
   /**
    * Add customized dark mode CSS
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    */
 
   function fictioneer_add_customized_dark_mode_css() {
@@ -480,7 +480,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
   /**
    * Add customized layout CSS
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    */
 
   function fictioneer_add_customized_layout_css() {

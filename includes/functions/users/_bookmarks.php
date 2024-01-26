@@ -10,7 +10,7 @@
  * Note: Bookmarks are not evaluated server-side, only stored as JSON string.
  * Everything else happens client-side.
  *
- * @since Fictioneer 4.0
+ * @since 4.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @see fictioneer_get_validated_ajax_user()

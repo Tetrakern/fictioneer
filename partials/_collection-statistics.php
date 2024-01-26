@@ -8,7 +8,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 4.7
+ * @since 4.7.0
  * @see single-fcn_collection.php
  *
  * @internal $args['collection']      Collection post object.

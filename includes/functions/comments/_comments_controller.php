@@ -13,7 +13,7 @@
  * email and cookies to preview their comment for a limited time as set in
  * fictioneer_theme_comment().
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  *
  * @param string $location     Default redirect URI.
  * @param object $commentdata  Comment data.
@@ -58,7 +58,7 @@ if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
 /**
  * Prevents the commenter’s IP address from being stored in the database
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  */
 
 if ( get_option( 'fictioneer_do_not_save_comment_ip' ) ) {
@@ -72,7 +72,7 @@ if ( get_option( 'fictioneer_do_not_save_comment_ip' ) ) {
 /**
  * Applies anti-spam measures, checks for flags, filters the content, etc.
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  *
  * @param array $commentdata  Comment data.
  *
@@ -151,7 +151,7 @@ add_filter( 'preprocess_comment', 'fictioneer_preprocess_comment', 30, 1 );
 /**
  * Validate comment form submission
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  * @link  https://developer.wordpress.org/reference/hooks/preprocess_comment/
  *
  * @param array $commentdata  Comment data.
@@ -255,7 +255,7 @@ if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
 /**
  * Fires after the comment has been inserted into the database
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  * @link https://developer.wordpress.org/reference/hooks/comment_post/
  * @link https://github.com/WordPress/WordPress/blob/master/wp-includes/comment.php
  * @see add_comment_meta()
@@ -333,7 +333,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
   /**
    * Send notification email about replies to commenter
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param WP_Comment $parent       Comment that was replied to.
    * @param int        $comment_id   ID of the reply comment.
@@ -431,7 +431,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
 /**
  * Add GET route to unsubscribe
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  */
 
 if ( get_option( 'fictioneer_enable_comment_notifications' ) ) {
@@ -455,7 +455,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
   /**
    * Unsubscribe from comment reply notifications
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    * @link https://developer.wordpress.org/rest-api/extending-the-rest-api/adding-custom-endpoints/
    *
    * @param WP_REST_Request $WP_REST_Request  Request object.
@@ -520,7 +520,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
 /**
  * Fires immediately after an edited comment is updated in the database
  *
- * @since Fictioneer 4.7
+ * @since 4.7.0
  * @link https://developer.wordpress.org/reference/hooks/edit_comment/
  *
  * @param int   $comment_ID  The comment ID.

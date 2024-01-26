@@ -8,7 +8,7 @@ if ( ! function_exists( 'fictioneer_url_exists' ) ) {
   /**
    * Checks whether an URL exists
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    * @link https://www.geeksforgeeks.org/how-to-check-the-existence-of-url-in-php/
    *
    * @param string $url  The URL to check.
@@ -42,7 +42,7 @@ if ( ! function_exists( 'fictioneer_is_valid_json' ) ) {
   /**
    * Check whether a JSON is valid
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string $data  JSON string hopeful.
    *
@@ -68,7 +68,7 @@ if ( ! function_exists( 'fictioneer_is_plugin_active' ) ) {
   /**
    * Checks whether a plugin is active
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string $path  Relative path to the plugin.
    *
@@ -89,7 +89,7 @@ if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
    * At all. Regardless, if the user want to use a SEO plugin, it's better to turn
    * off the theme's own SEO features. This function detects some of them.
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    *
    * @return boolean True if a known SEO is active, otherwise false.
    */
@@ -111,7 +111,7 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
   /**
    * Get user by ID or email
    *
-   * @since Fictioneer 4.6
+   * @since 4.6.0
    *
    * @param int|string $id_or_email  User ID or email address.
    *
@@ -145,7 +145,7 @@ if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
   /**
    * Get Unix timestamp for last story or chapter update
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @return int The timestamp in milliseconds.
    */
@@ -169,7 +169,7 @@ if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
 /**
  * Returns array of chapter posts for a story
  *
- * @since Fictioneer 5.9.2
+ * @since 5.9.2
  *
  * @param int $story_id  ID of the story.
  *
@@ -223,7 +223,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
   /**
    * Get collection of a story's data
    *
-   * @since Fictioneer 4.3
+   * @since 4.3.0
    *
    * @param int     $story_id       ID of the story.
    * @param boolean $show_comments  Optional. Whether the comment count is needed.
@@ -388,7 +388,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
   /**
    * Returns an author's statistics
    *
-   * @since Fictioneer 4.6.0
+   * @since 4.6.0
    *
    * @param int $author_id  User ID of the author.
    *
@@ -504,7 +504,7 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
   /**
    * Returns a collection's statistics
    *
-   * @since Fictioneer 5.9.2
+   * @since 5.9.2
    *
    * @param int $collection_id  ID of the collection.
    *
@@ -601,7 +601,7 @@ if ( ! function_exists( 'fictioneer_shorten_number' ) ) {
   /**
    * Shortens a number to a fractional with a letter
    *
-   * @since Fictioneer 4.5
+   * @since 4.5.0
    *
    * @param int $number     The number to be shortened.
    * @param int $precision  Precision of the fraction. Default 1.
@@ -634,7 +634,7 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
    * Ensures an ID is a valid integer and positive; optionally checks whether the
    * associated post is of a certain types (or among an array of types)
    *
-   * @since Fictioneer 4.7
+   * @since 4.7.0
    *
    * @param int          $id        The ID to validate.
    * @param string|array $for_type  Optional. The expected post type(s).
@@ -666,7 +666,7 @@ if ( ! function_exists( 'fictioneer_get_validated_ajax_user' ) ) {
   /**
    * Get the current user after performing AJAX validations
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param string $nonce_name   Optional. The name of the nonce. Default 'nonce'.
    * @param string $nonce_value  Optional. The value of the nonce. Default 'fictioneer_nonce'.
@@ -697,7 +697,7 @@ if ( ! function_exists( 'fictioneer_get_validated_ajax_user' ) ) {
 /**
  * Checks rate limit globally or for an action via the session
  *
- * @since Fictioneer 5.7.1
+ * @since 5.7.1
  *
  * @param string   $action  The action to check for rate-limiting.
  *                          Defaults to 'fictioneer_global'.
@@ -752,7 +752,7 @@ if ( ! function_exists( 'fictioneer_replace_key_value' ) ) {
   /**
    * Replaces key/value pairs in a string
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param string $text     Text that has key/value pairs to be replaced.
    * @param array  $args     The key/value pairs.
@@ -787,7 +787,7 @@ if ( ! function_exists( 'fictioneer_is_admin' ) ) {
   /**
    * Checks if an user is an administrator
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $user_id  The user ID to check.
    *
@@ -815,7 +815,7 @@ if ( ! function_exists( 'fictioneer_is_author' ) ) {
   /**
    * Checks if an user is an author
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $user_id  The user ID to check.
    *
@@ -843,7 +843,7 @@ if ( ! function_exists( 'fictioneer_is_moderator' ) ) {
   /**
    * Checks if an user is a moderator
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $user_id  The user ID to check.
    *
@@ -871,7 +871,7 @@ if ( ! function_exists( 'fictioneer_is_editor' ) ) {
   /**
    * Checks if an user is an editor
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param int $user_id  The user ID to check.
    *
@@ -903,7 +903,7 @@ if ( ! function_exists( 'fictioneer_get_story_chapter_ids' ) ) {
   /**
    * Wrapper for get_post_meta() to get story chapter IDs
    *
-   * @since Fictioneer 5.8.2
+   * @since 5.8.2
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
@@ -924,7 +924,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
   /**
    * Wrapper for get_post_meta() to get word count
    *
-   * @since Fictioneer 5.8.2
+   * @since 5.8.2
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
@@ -946,7 +946,7 @@ if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
   /**
    * Wrapper for get_post_meta() with content filers applied
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param string $field    Name of the meta field to retrieve.
    * @param int    $post_id  Optional. The ID of the post the field belongs to.
@@ -975,7 +975,7 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
   /**
    * Wrapper for get_post_meta() to get Font Awesome icon class
    *
-   * @since Fictioneer 5.0
+   * @since 5.0.0
    *
    * @param string $field    Name of the meta field to retrieve.
    * @param int    $post_id  Optional. The ID of the post the field belongs to.
@@ -1121,9 +1121,9 @@ function fictioneer_get_falsy_meta_allow_list() {
 /**
  * Appends new chapters to story list
  *
- * @since Fictioneer 5.4.9
- * @since Fictioneer 5.7.4 - Updated
- * @since Fictioneer 5.8.6 - Added $force param and moved function.
+ * @since 5.4.9
+ * @since 5.7.4 - Updated
+ * @since 5.8.6 - Added $force param and moved function.
  *
  * @param int  $post_id   The chapter post ID.
  * @param int  $story_id  The story post ID.
@@ -1197,7 +1197,7 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
    * Checks the current user’s consent cookie for their preferences, either 'full'
    * or 'necessary' by default. Returns false if no consent cookie is set.
    *
-   * @since 4.7
+   * @since 4.7.0
    *
    * @return boolean|string Either false or a string describing the level of consent.
    */
@@ -1218,7 +1218,7 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
 /**
  * Sanitizes an integer with options for default, minimum, and maximum.
  *
- * @since 4.0
+ * @since 4.0.0
  *
  * @param mixed $value    The value to be sanitized.
  * @param int   $default  Default value if an invalid integer is provided. Default 0.
@@ -1257,7 +1257,7 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
 /**
  * Sanitizes a checkbox value into true or false
  *
- * @since 4.7
+ * @since 4.7.0
  * @link https://www.php.net/manual/en/function.filter-var.php
  *
  * @param string|boolean $value  The checkbox value to be sanitized.
@@ -1368,7 +1368,7 @@ function fictioneer_sanitize_css( $css ) {
  * users, such as the profile link. They are hidden via CSS, which works as
  * long as the 'logged-in' class is still set on the <body>.
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @return boolean True or false.
  */
@@ -1433,7 +1433,7 @@ if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
  * so this is done with a function that can be filtered as needed. For
  * giving your site a personal touch.
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string  $key     Key for requested translation.
  * @param boolean $escape  Optional. Escape the string for safe use in
@@ -1540,7 +1540,7 @@ function fcntr( $key, $escape = false ) {
  * current page number, replacing anything above the keep threshold with ellipses.
  * E.g. 1 … 7, 8, [9], 10, 11 … 20.
  *
- * @since 5.0
+ * @since 5.0.0
  *
  * @param array|int $pages     Array of pages to balance. If an integer is provided,
  *                             it is converted to a number array.
@@ -1601,7 +1601,7 @@ if ( ! function_exists( 'fictioneer_is_commenting_disabled' ) ) {
    * Differs from comments_open() in the regard that it does not hide the whole
    * comment section but does not allow new comments to be posted.
    *
-   * @since 5.0
+   * @since 5.0.0
    *
    * @param int|null $post_id  Post ID the comments are for. Defaults to current post ID.
    *
@@ -1642,7 +1642,7 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
    * Checks whether a comment contains disallowed characters or words and
    * returns the offenders within the comment content
    *
-   * @since 5.0
+   * @since 5.0.0
    * @see wp_check_comment_disallowed_list()
    *
    * @param string $author      The author of the comment.
@@ -1706,7 +1706,7 @@ if ( ! function_exists( 'fictioneer_bbcodes' ) ) {
    *
    * Note: Spoilers do not work properly if wrapping multiple lines or other codes.
    *
-   * @since Fictioneer 4.0
+   * @since 4.0.0
    * @link https://stackoverflow.com/a/17508056/17140970
    *
    * @param string $content  The content.
@@ -2184,7 +2184,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
   /**
    * Return the total word count of all published stories
    *
-   * @since 4.0
+   * @since 4.0.0
    * @see fictioneer_get_story_data()
    */
 
@@ -2233,7 +2233,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
 /**
  * Deletes the current user's account and anonymized their comments
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @return bool True if the user was successfully deleted, false otherwise.
  */
@@ -2296,7 +2296,7 @@ function fictioneer_delete_my_account() {
  * Prevents an array from being empty, which is useful for 'post__in' query
  * arguments that cannot deal with empty arrays.
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param array $array  The input array to check.
  *
@@ -2315,7 +2315,7 @@ if ( ! function_exists( 'fictioneer_redirect_to_404' ) ) {
   /**
    * Redirects the current request to the WordPress 404 page
    *
-   * @since Fictioneer 5.6.0
+   * @since 5.6.0
    *
    * @global WP_Query $wp_query  The main WP_Query instance.
    */
@@ -2350,7 +2350,7 @@ if ( ! function_exists( 'fictioneer_verify_unpublish_access' ) ) {
   /**
    * Verifies access to unpublished posts (not drafts)
    *
-   * @since Fictioneer 5.6.0
+   * @since 5.6.0
    *
    * @return boolean True if access granted, false otherwise.
    */
@@ -2410,7 +2410,7 @@ if ( ! function_exists( 'fictioneer_verify_unpublish_access' ) ) {
  * This helper saves some time/space adding a callback action to all four
  * default post operations. But only with the first argument: post_id.
  *
- * @since Fictioneer 5.6.3
+ * @since 5.6.3
  *
  * @param callable $function  The callback function to be added.
  * @param int      $priority  Optional. Used to specify the order in which the
@@ -2440,7 +2440,7 @@ function fictioneer_add_stud_post_actions( $function, $priority = 10 ) {
 /**
  * Turn line-break separated list into array of links
  *
- * @since Fictioneer 5.7.4
+ * @since 5.7.4
  *
  * @param string $list  The list of links
  *
@@ -2484,7 +2484,7 @@ function fictioneer_url_list_to_array( $list ) {
 /**
  * Unset array element by value
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param mixed $value  The value to look for.
  * @param array $array  The array to be modified.
@@ -2507,7 +2507,7 @@ function fictioneer_unset_by_value( $value, $array ) {
 /**
  * Returns an unformatted replacement string
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @return string Just a simple '%s'.
  */
@@ -2523,7 +2523,7 @@ function fictioneer__return_no_format() {
 /**
  * Returns a truncated string without tags
  *
- * @since Fictioneer 5.9.0
+ * @since 5.9.0
  *
  * @param string      $string    The string to truncate.
  * @param int         $length    Maximum length in characters.

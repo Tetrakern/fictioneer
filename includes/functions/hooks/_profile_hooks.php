@@ -7,7 +7,7 @@
 /**
  * Outputs the HTML for the account moderation message section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.
@@ -42,7 +42,7 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_moderation_message
 /**
  * Outputs the HTML for the account profile section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.
@@ -63,7 +63,7 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_profile', 10 );
 /**
  * Outputs the HTML for the OAuth section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.
@@ -84,7 +84,7 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_oauth', 20 );
 /**
  * Outputs the HTML for the data section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.
@@ -105,7 +105,7 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_data', 30 );
 /**
  * Outputs the HTML for the discussions section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.
@@ -126,7 +126,7 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_discussions', 40 )
 /**
  * Outputs the HTML for the danger zone section
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param WP_User $args['user']          Current user.
  * @param boolean $args['is_admin']      True if the user is an administrator.

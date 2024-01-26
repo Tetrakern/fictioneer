@@ -7,7 +7,7 @@
 /**
    * Outputs custom CSS for stories/chapters
    *
-   * @since Fictioneer 5.4.7
+   * @since 5.4.7
    */
 
 function fictioneer_add_fiction_css() {
@@ -48,7 +48,7 @@ add_action( 'wp_head', 'fictioneer_add_fiction_css', 10 );
 /**
  * Outputs the HTML for the breadcrumbs
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int|null    $args['post_id']      Optional. Post ID of the current page.
  * @param string|null $args['post_type']    Optional. Post type of the current page.
@@ -67,7 +67,7 @@ add_action( 'fictioneer_site_footer', 'fictioneer_breadcrumbs', 10 );
 /**
  * Outputs the HTML for the footer menu and theme copyright notice
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int|null    $args['post_id']      Optional. Post ID of the current page.
  * @param string|null $args['post_type']    Optional. Post type of the current page.
@@ -124,7 +124,7 @@ add_action( 'fictioneer_site_footer', 'fictioneer_footer_menu_row', 20 );
 /**
  * Outputs the HTML for the modals
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param int|null    $args['post_id']      Optional. Current post ID.
  * @param string|null $args['post_type']    Optional. Current post type.
@@ -214,7 +214,7 @@ add_action( 'fictioneer_footer', 'fictioneer_output_modals' );
 /**
  * Outputs the HTML for the browser notes
  *
- * @since Fictioneer 5.9.1
+ * @since 5.9.1
  */
 
 function fictioneer_browser_notes() {
@@ -267,7 +267,7 @@ if ( FICTIONEER_ENABLE_BROWSER_NOTES ) {
 /**
  * Outputs the HTML for the navigation bar
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -287,7 +287,7 @@ add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
 /**
  * Outputs the HTML for the top header
  *
- * @since Fictioneer 5.8.1
+ * @since 5.8.1
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -312,7 +312,7 @@ add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
 /**
  * Outputs the HTML for the inner header
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -342,7 +342,7 @@ add_action( 'fictioneer_site', 'fictioneer_inner_header', 20 );
 /**
  * Outputs the HTML for the header background
  *
- * @since Fictioneer 5.0.0
+ * @since 5.0.0
  *
  * @param int|null       $args['post_id']           Optional. Current post ID.
  * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
@@ -373,7 +373,7 @@ add_action( 'fictioneer_inner_header', 'fictioneer_inner_header_background', 10 
 /**
  * Renders interface to sort, order, and filter queries
  *
- * @since Fictioneer 5.4.0
+ * @since 5.4.0
  *
  * @param array $args {
  *   Array of arguments.
@@ -616,7 +616,7 @@ add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_inte
 /**
  * Outputs the HTML for no search params
  *
- * @since Fictioneer 5.5.2
+ * @since 5.5.2
  */
 
 function fictioneer_no_search_params() {
@@ -627,7 +627,7 @@ add_action( 'fictioneer_search_no_params', 'fictioneer_no_search_params' );
 /**
  * Outputs the HTML for no search results
  *
- * @since Fictioneer 5.5.2
+ * @since 5.5.2
  */
 
 function fictioneer_no_search_results() {

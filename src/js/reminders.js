@@ -17,7 +17,7 @@ document.addEventListener('fcnUserDataReady', event => {
 /**
  * Initialize Reminders.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {Event} event - The fcnUserDataReady event.
  */
 
@@ -53,7 +53,7 @@ function fcn_initializeReminders(event) {
  * Adds or removes a story ID from the Reminders JSON, then calls for an update
  * of the view to reflect the changes and makes a save request to the database.
  *
- * @since 5.0
+ * @since 5.0.0
  * @see fcn_updateRemindersView()
  * @param {Number} storyId - The ID of the story.
  */
@@ -127,7 +127,7 @@ function fcn_toggleReminder(storyId) {
 /**
  * Updates the view with the current Reminders state.
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_updateRemindersView() {

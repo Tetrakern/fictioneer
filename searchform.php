@@ -4,7 +4,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.0
+ * @since 5.0.0
  *
  * @internal $args['simple'] 		  		Optional. Hide advanced options.
  * @internal $args['placeholder'] 		Optional. Change search placeholder.

@@ -81,7 +81,7 @@ add_action( 'save_post', 'fictioneer_save_word_count' );
 /**
  * Stores the original publish date of a post in post meta
  *
- * @since Fictioneer 5.6.0
+ * @since 5.6.0
  *
  * @param int     $post_id  The ID of the post being saved.
  * @param WP_Post $post     The post object being saved.
@@ -113,7 +113,7 @@ add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 /**
  * Returns story changelog
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param int $story_id  The story post ID.
  *
@@ -148,7 +148,7 @@ function fictioneer_get_story_changelog( $story_id ) {
 /**
  * Logs changes to story chapters
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param int    $story_id  The story post ID.
  * @param array  $current   Current chapters.
@@ -202,7 +202,7 @@ function fictioneer_log_story_chapter_changes( $story_id, $current, $previous, $
 /**
  * Logs status changes of story chapters
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param string  $new_status  The old status.
  * @param string  $old_status  The new status.
@@ -276,7 +276,7 @@ if ( FICTIONEER_ENABLE_STORY_CHANGELOG ) {
 /**
  * Removes chapter from story
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param int $chapter_id  The chapter post ID.
  */
@@ -322,7 +322,7 @@ add_action( 'trashed_post', 'fictioneer_remove_chapter_from_story' );
 /**
  * Wrapper for actions when a chapter is set to draft
  *
- * @since Fictioneer 5.7.5
+ * @since 5.7.5
  *
  * @param WP_Post $post  The post object.
  */

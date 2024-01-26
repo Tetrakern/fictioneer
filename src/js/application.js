@@ -48,7 +48,7 @@ if (typeof fcn_removeQueryArgs === 'function') {
 /**
  * Clean-up web storage.
  *
- * @since 4.5
+ * @since 4.5.0
  * @param {Boolean} keepGuestData - Whether to keep data that does not need the
  *                                  user to be logged in.
  */
@@ -112,7 +112,7 @@ _$$('.subscriber-login, .oauth-login-link, [data-prepare-login]').forEach(elemen
 /**
  * Cleanup view for non-authenticated guests.
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_cleanupGuestView() {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Authenticate user via AJAX or from web storage
  *
- * @since 5.0
+ * @since 5.0.0
  */
 
 function fcn_ajaxAuth() {
@@ -243,7 +243,7 @@ function fcn_ajaxAuth() {
 /**
  * Append hidden input element with nonce to DOM.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {String} nonceHtml - HTML for the hidden input with nonce value.
  */
 
@@ -274,7 +274,7 @@ if (!fcn_isLoggedIn && fcn_theRoot.dataset.ajaxAuth) {
 /**
  * Manually set logged-in state and call setup functions.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {Object} state - Fetched/Cached login state.
  */
 
@@ -325,7 +325,7 @@ fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
 /**
  * Update viewport variables.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_updateViewportVariables() {
@@ -469,7 +469,7 @@ fcn_theBody.addEventListener('click', e => {
 /**
  * Load embedded content by setting the src attribute.
  *
- * @since 4.0
+ * @since 4.0.0
  * @param {Event} e - The event.
  */
 
@@ -500,7 +500,7 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
  * insignificant movements, the scroll direction class will be updated depending
  * on the difference. Updates the stored value afterwards for the next time.
  *
- * @since 4.0
+ * @since 4.0.0
  * @since 5.8.1 - Also checks whether the page is scrolled to the top.
  */
 
@@ -579,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Makes an element mouse draggable.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_dragElement(element) {
@@ -627,7 +627,7 @@ _$$('.modal__header.drag-anchor').forEach(element => {
 /**
  * Show notification that will vanish after a while.
  *
- * @since 4.0
+ * @since 4.0.0
  * @param {String} message - The message to display.
  * @param {Number} [duration=] - Seconds the message will be visible. Default 3.
  * @param {String} [type=] - Type of the message. Default 'base'.
@@ -732,7 +732,7 @@ var /** @const {OBJECT} */ fcn_siteSettings = fcn_getSiteSettings();
 /**
  * Toggle a single site setting.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_applySiteSettings();
  * @param {HTMLElement} target - The clicked toggle.
  * @param {String} key - The setting to set.
@@ -763,7 +763,7 @@ fcn_settingEvents.forEach(setting => {
  * back to the default set in the HTML root. Flips the state and then updates the
  * view and local storage via fcn_setLightMode().
  *
- * @since 4.3
+ * @since 4.3.0
  * @see fcn_setLightMode();
  */
 
@@ -779,7 +779,7 @@ function fcn_toggleLightMode() {
 /**
  * Set the light mode state.
  *
- * @since 4.3
+ * @since 4.3.0
  * @see fcn_updateThemeColor();
  * @param {Boolean} boolean - Set light mode to true or false.
  * @param {Boolean} [silent=false] - Optional. Whether to not update the theme color meta tag.
@@ -826,7 +826,7 @@ _$$('.toggle-light-mode').forEach(element => {
 /**
  * Update font weight setting.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_updateFontWeight() {
@@ -847,7 +847,7 @@ function fcn_updateFontWeight() {
 /**
  * Reset font weight setting to default.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_resetFontWeight() {
@@ -878,7 +878,7 @@ _$$('.site-setting-font-weight').forEach(setting => {
 /**
  * Update hue rotate setting.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_updateHueRotate(value) {
@@ -904,7 +904,7 @@ function fcn_updateHueRotate(value) {
 /**
  * Helper to call fcn_updateHueRotate() with input value.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_setHueRotate() {
@@ -927,7 +927,7 @@ fcn_settingHueRotateText?.addEventListener('input', fcn_setHueRotate);
 /**
  * Update darken setting.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_updateDarken(value = null) {
@@ -957,7 +957,7 @@ function fcn_updateDarken(value = null) {
 /**
  * Helper to call fcn_updateDarken() with range input value.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_setDarkenFromRange() {
@@ -967,7 +967,7 @@ function fcn_setDarkenFromRange() {
 /**
  * Helper to call fcn_updateDarken() with text input value.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_setDarkenFromText() {
@@ -1000,7 +1000,7 @@ fcn_settingDarkenTexts.forEach(element => {
 /**
  * Update saturation setting.
  *
- * @since 4.3
+ * @since 4.3.0
  */
 
 function fcn_updateSaturation(value = null) {
@@ -1029,7 +1029,7 @@ function fcn_updateSaturation(value = null) {
 /**
  * Helper to call fcn_updateSaturation() with range input value.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_setSaturationFromRange() {
@@ -1039,7 +1039,7 @@ function fcn_setSaturationFromRange() {
 /**
  * Helper to call fcn_updateSaturation() with text input value.
  *
- * @since 4.0
+ * @since 4.0.0
  */
 
 function fcn_setSaturationFromText() {
@@ -1073,7 +1073,7 @@ fcn_settingSaturationTexts.forEach(element => {
 /**
  * Returns default site settings.
  *
- * @since 4.0
+ * @since 4.0.0
  * @return {Object} The site settings.
  */
 
@@ -1098,7 +1098,7 @@ function fcn_defaultSiteSettings() {
 /**
  * Get site settings JSON from web storage or create new one.
  *
- * @since 4.0
+ * @since 4.0.0
  * @see fcn_parseJSON()
  * @see fcn_defaultSiteSettings()
  * @return {Object} The site settings.
@@ -1117,7 +1117,7 @@ function fcn_getSiteSettings() {
 /**
  * Set the site settings object and save to local storage.
  *
- * @since 4.0
+ * @since 4.0.0
  * @param {Object=} value - The site settings.
  */
 
@@ -1140,7 +1140,7 @@ function fcn_setSiteSettings(value = null) {
 /**
  * Apply site settings to the site.
  *
- * @since 4.0
+ * @since 4.0.0
  * @param {Object} value - The site settings.
  */
 
@@ -1331,7 +1331,7 @@ _$$('.chapter-group__name').forEach(element => {
 /**
  * Toggle visibility of a spoiler.
  *
- * @since 4.0
+ * @since 4.0.0
  * @param {HTMLElement} target - The spoiler.
  */
 
@@ -1346,7 +1346,7 @@ function fct_spoiler(target) {
 /**
  * Reveal image on click.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} button - The clicked reveal button.
  */
 
@@ -1369,7 +1369,7 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
 /**
  * Submit contact form via AJAX.
  *
- * @since 5.0
+ * @since 5.0.0
  * @param {HTMLElement} button - The submit button in the form.
  */
 

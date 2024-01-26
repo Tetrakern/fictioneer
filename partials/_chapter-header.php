@@ -7,7 +7,7 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.0
+ * @since 5.0.0
  * @see single-fcn_chapter.php
  *
  * @internal $args['story_post']        Optional. Post object of the story.

@@ -7,7 +7,7 @@
 /**
  * Log a message to the theme log file
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	 		 $message  What has been updated
  * @param WP_User|null $user	   The user who did it. Defaults to current user.
@@ -100,7 +100,7 @@ function fictioneer_get_log() {
 /**
  * Log post update
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param int 	 $post_id  The post ID.
  * @param string $action 	 The action performed.
@@ -131,7 +131,7 @@ function fictioneer_log_post_update( $post_id, $action ) {
 /**
  * Log update of checkbox option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	     $option 	   Name of the option.
  * @param boolean|null $old_value  The previous value or null if not set.
@@ -158,7 +158,7 @@ function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
 /**
  * Helper to log added theme boolean option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	$option  Name of the option.
  * @param boolean $value   The new value.
@@ -182,7 +182,7 @@ add_action( 'added_option', 'fictioneer_settings_checkbox_added', 10, 2 );
 /**
  * Helper to log updated theme boolean option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	$option 	  Name of the option.
  * @param boolean $old_value  The previous value.
@@ -224,7 +224,7 @@ define(
 /**
  * Log update of page assignment
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	 $option 	   Name of the option.
  * @param int|null $old_value  The previous value or null if not set.
@@ -256,7 +256,7 @@ function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
 /**
  * Helper to log added page assignment option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option  Name of the option.
  * @param int    $value   The new value.
@@ -280,7 +280,7 @@ add_action( 'added_option', 'fictioneer_settings_page_assignment_added', 10, 2 )
 /**
  * Helper to log updated page assignment option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option 	   Name of the option.
  * @param int    $old_value  The previous value.
@@ -319,7 +319,7 @@ define(
 /**
  * Log update of phrase option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	    $option 	  Name of the option.
  * @param string|null $old_value  The previous value or null if not set.
@@ -350,7 +350,7 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
 /**
  * Helper to log added phrase option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option  Name of the option.
  * @param string $value   The new value.
@@ -374,7 +374,7 @@ add_action( 'added_option', 'fictioneer_settings_phrase_added', 10, 2 );
 /**
  * Helper to log updated phrase option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option 	   Name of the option.
  * @param string $old_value  The previous value.
@@ -419,7 +419,7 @@ define(
 /**
  * Log update of connection option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string 	 $connection  Name of the connection option.
  * @param int|null $old_value   ID of the old page or null if unset.
@@ -449,7 +449,7 @@ function fictioneer_log_connection_update( $connection, $old_value, $value ) {
 /**
  * Helper to log added connection option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option  Name of the option.
  * @param string $value   The new value.
@@ -473,7 +473,7 @@ add_action( 'added_option', 'fictioneer_settings_connection_added', 10, 2 );
 /**
  * Helper to log updated connection option
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  *
  * @param string $option 	   Name of the option.
  * @param string $old_value  The previous value.
@@ -516,7 +516,7 @@ add_action( 'untrashed_post', function( $post_id ) {
 /**
  * Helper to log published posts
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
@@ -552,7 +552,7 @@ add_action( 'publish_fcn_recommendation', 'fictioneer_log_published_posts' );
 /**
  * Helper to log pending posts
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
@@ -582,7 +582,7 @@ add_action( 'pending_fcn_recommendation', 'fictioneer_log_published_posts' );
 /**
  * Helper to log deleted posts
  *
- * @since Fictioneer 5.0
+ * @since 5.0.0
  * @see fictioneer_log_post_update()
  *
  * @param int $post_id  The post ID.
