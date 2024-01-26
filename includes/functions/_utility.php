@@ -187,7 +187,8 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
 
   // Few chapters?
   if ( count( $chapter_ids ) < 50 ) {
-    // Query
+    // Query with post__in, which should be faster than meta query
+    // as long as the ID array is not too large.
     $chapter_query = new WP_Query(
       array(
         'post_type' => 'fcn_chapter',
