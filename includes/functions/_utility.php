@@ -163,6 +163,59 @@ if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
 }
 
 // =============================================================================
+// GET STORY CHAPTERS
+// =============================================================================
+
+/**
+ * Returns array of chapter posts for a story
+ *
+ * @since Fictioneer 5.9.2
+ *
+ * @param int $story_id  ID of the story.
+ *
+ * @return array Array of chapter posts or empty.
+ */
+
+function fictioneer_get_story_chapter_posts( $story_id ) {
+  // Setup
+  $chapter_ids = fictioneer_get_story_chapter_ids( $story_id );
+
+  // No chapters?
+  if ( empty( $chapter_ids ) ) {
+    return [];
+  }
+
+  // Query
+  $chapter_query = new WP_Query(
+    array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'meta_key' => 'fictioneer_chapter_story',
+      'meta_value' => $story_id,
+      'ignore_sticky_posts' => true,
+      'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+      'no_found_rows' => true, // Improve performance
+      'update_post_term_cache' => false // Improve performance
+    )
+  );
+
+  // Filter out chapters not included in chapter ID array
+  $filtered_chapters = array_filter( $chapter_query->posts, function( $post ) use ( $chapter_ids ) {
+    return in_array( $post->ID, $chapter_ids );
+  });
+
+  // Sort by order of chapter ID array
+  usort( $filtered_chapters, function( $a, $b ) use ( $chapter_ids ) {
+    $pos_a = array_search( $a->ID, $chapter_ids );
+    $pos_b = array_search( $b->ID, $chapter_ids );
+    return $pos_a - $pos_b;
+  });
+
+  // Return chapters selected in story
+  return $filtered_chapters;
+}
+
+// =============================================================================
 // GET STORY DATA
 // =============================================================================
 
@@ -211,44 +264,16 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
         if ( count( $old_data['chapter_ids'] ) > 0 ) {
           // Counting the stored comment count of chapters is typically
           // faster than querying and counting all comments.
-          $chapters = new WP_Query(
-            array(
-              'fictioneer_query_name' => 'story_chapters',
-              'post_type' => 'fcn_chapter',
-              'post_status' => 'publish',
-              'post__in' => fictioneer_rescue_array_zero( $old_data['chapter_ids'] ),
-              'posts_per_page' => -1,
-              'no_found_rows' => true, // Improve performance
-              'update_post_meta_cache' => false, // Improve performance
-              'update_post_term_cache' => false // Improve performance
-            )
-          );
+          $chapters = fictioneer_get_story_chapter_posts( $story_id );
 
-          if ( $chapters->have_posts() ) {
+          if ( ! empty( $chapters ) ) {
             $comment_count = 0; // Reset
 
-            foreach ( $chapters->posts as $chapter ) {
+            foreach ( $chapters as $chapter ) {
                $comment_count += $chapter->comment_count;
             }
           }
         }
-
-        /*
-
-        This approach would be faster if the number of chapters vastly exceeds
-        the comments. However, typically it's the other way around.
-
-        $comment_count = count( $old_data['chapter_ids'] ) < 1 ? 0 : get_comments(
-          array(
-            'status' => 'approve',
-            'post_type' => 'fcn_chapter',
-            'post__in' => fictioneer_rescue_array_zero( $old_data['chapter_ids'] ),
-            'count' => true,
-            'update_comment_meta_cache' => false
-          )
-        );
-
-        */
 
         $comment_count_changed = $comment_count != absint( $old_data['comment_count'] );
         $old_data['comment_count'] = $comment_count;
@@ -270,7 +295,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     }
 
     // Setup
-    $chapters = fictioneer_get_story_chapter_ids( $story_id );
+    $chapters = fictioneer_get_story_chapter_posts( $story_id );
     $tags = get_the_tags( $story_id );
     $fandoms = get_the_terms( $story_id, 'fcn_fandom' );
     $characters = get_the_terms( $story_id, 'fcn_character' );
@@ -301,23 +326,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
     }
 
-    // Query chapters
-    $chapters = empty( $chapters ) ? $chapters : new WP_Query(
-      array(
-        'fictioneer_query_name' => 'story_chapters',
-        'post_type' => 'fcn_chapter',
-        'post_status' => 'publish',
-        'post__in' => fictioneer_rescue_array_zero( $chapters ),
-        'ignore_sticky_posts' => true,
-        'orderby' => 'post__in', // Preserve order from meta box
-        'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-        'no_found_rows' => true // Improve performance
-      )
-    );
-
     // Count chapters and words
-    if ( ! empty( $chapters ) && $chapters->have_posts() ) {
-      foreach ( $chapters->posts as $chapter ) {
+    if ( ! empty( $chapters ) ) {
+      foreach ( $chapters as $chapter ) {
         // This is about 50 times faster than using a meta query lol
         if ( ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
           // Do not count non-chapters...

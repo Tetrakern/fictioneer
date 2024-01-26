@@ -505,7 +505,7 @@ function fictioneer_story_chapters( $args ) {
   // Start HTML ---> ?>
   <section class="story__tab-target _current story__chapters" data-finder="chapters" data-order="asc" data-view="list">
     <?php
-      $chapters = fictioneer_get_story_chapter_ids( $story_id ); // Already prepared!
+      $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = [];
       $group_classes = [];
 
@@ -513,63 +513,47 @@ function fictioneer_story_chapters( $args ) {
         $group_classes[] = '_no-icons';
       }
 
-      // Loop and prepare groups
+      // Loop chapters and prepare groups
       if ( ! empty( $chapters ) ) {
-        // Query chapters
-        $chapter_query = new WP_Query(
-          array(
-            'post_type' => 'fcn_chapter',
-            'post_status' => 'publish',
-            'post__in' => fictioneer_rescue_array_zero( $chapters ),
-            'ignore_sticky_posts' => true,
-            'orderby' => 'post__in', // Preserve order from meta box
-            'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-            'no_found_rows' => true, // Improve performance
-            'update_post_term_cache' => false // Improve performance
-          )
-        );
-
         // Prepare chapter groups
-        if ( $chapter_query->have_posts() ) {
-          while( $chapter_query->have_posts() ) {
-            // Setup
-            $chapter_query->the_post();
-            $chapter_id = get_the_ID();
+        foreach ( $chapters as $post ) {
+          // Setup
+          setup_postdata( $post );
+          $chapter_id = get_the_ID();
 
-            // Skip not visible chapters (redundant for paranoia)
-            if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
-              continue;
-            }
+          // Skip not visible chapters
+          if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
+            continue;
+          }
 
-            // Data
-            $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
-            $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
-            $group = $enable_groups ? $group : 'all_chapters';
-            $group_key = sanitize_title( $group );
+          // Data
+          $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
+          $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
+          $group = $enable_groups ? $group : 'all_chapters';
+          $group_key = sanitize_title( $group );
 
-            if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
-              $chapter_groups[sanitize_title( $group )] = array(
-                'group' => $group,
-                'data' => []
-              );
-            }
-
-            $chapter_groups[sanitize_title( $group )]['data'][] = array(
-              'id' => $chapter_id,
-              'link' => get_permalink(),
-              'timestamp' => get_the_time( 'c' ),
-              'password' => ! empty( $post->post_password ),
-              'list_date' => get_the_date( '', $post ),
-              'grid_date' => get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ),
-              'icon' => fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ),
-              'text_icon' => get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true ),
-              'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
-              'title' => fictioneer_get_safe_title( $chapter_id ),
-              'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
-              'words' => fictioneer_get_word_count( $chapter_id ),
-              'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
+          if ( ! array_key_exists( $group_key, $chapter_groups ) ) {
+            $chapter_groups[ $group_key ] = array(
+              'group' => $group,
+              'data' => []
             );
           }
+
+          $chapter_groups[ $group_key ]['data'][] = array(
+            'id' => $chapter_id,
+            'link' => get_permalink(),
+            'timestamp' => get_the_time( 'c' ),
+            'password' => ! empty( $post->post_password ),
+            'list_date' => get_the_date( '', $post ),
+            'grid_date' => get_the_time( get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y" ),
+            'icon' => fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ),
+            'text_icon' => get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true ),
+            'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
+            'title' => fictioneer_get_safe_title( $chapter_id ),
+            'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
+            'words' => fictioneer_get_word_count( $chapter_id ),
+            'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )
+          );
         }
 
         // Reset postdata
