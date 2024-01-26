@@ -563,7 +563,8 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
       'post_status' => 'publish',
       'post__in' => fictioneer_rescue_array_zero( $query_chapter_ids ),
       'posts_per_page' => -1,
-      'update_post_term_cache' => false // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
     );
 
     $chapters = new WP_Query( $chapter_query_args );
