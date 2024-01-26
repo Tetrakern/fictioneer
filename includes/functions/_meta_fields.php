@@ -259,6 +259,14 @@ function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] )
   $data_required = $required ? 'data-required="true"' : '';
   $attributes = implode( ' ', $args['attributes'] ?? [] );
 
+  // Sort alphabetically
+  if ( $args['asort'] ?? 0 ) {
+    $none_item = isset( $options['0'] ) ? array( '0' => $options['0'] ) : [];
+    unset( $options['0'] );
+    asort( $options );
+    $options = $none_item + $options;
+  }
+
   ob_start();
 
   // Start HTML ---> ?>
@@ -2556,8 +2564,6 @@ add_action( 'add_meta_boxes', 'fictioneer_add_chapter_data_metabox' );
 function fictioneer_render_chapter_data_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
-  global $wpdb;
-
   $nonce = wp_create_nonce( "chapter_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
   $post_author_id = get_post_field( 'post_author', $post->ID );
   $current_story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
@@ -2648,7 +2654,8 @@ function fictioneer_render_chapter_data_metabox( $post ) {
       'attributes' => array(
         'data-action="select-story"',
         "data-target='chapter_groups_for_{$post->ID}'"
-      )
+      ),
+      'asort' => 1
     )
   );
 
