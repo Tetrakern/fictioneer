@@ -185,6 +185,25 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
     return [];
   }
 
+  // Few chapters?
+  if ( count( $chapter_ids ) < 50 ) {
+    // Query
+    $chapter_query = new WP_Query(
+      array(
+        'post_type' => 'fcn_chapter',
+        'post_status' => 'publish',
+        'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+        'orderby' => 'post__in',
+        'ignore_sticky_posts' => true,
+        'posts_per_page' => -1,
+        'no_found_rows' => true, // Improve performance
+        'update_post_term_cache' => false // Improve performance
+      )
+    );
+
+    return $chapter_query->posts;
+  }
+
   // Query
   $chapter_query = new WP_Query(
     array(
