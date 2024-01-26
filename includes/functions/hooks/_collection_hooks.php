@@ -185,7 +185,7 @@ function fictioneer_collection_featured_list( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section class="collection__list spacing-top">
+  <section class="collection__list spacing-top container-inline-size">
     <ul id="featured-list" class="scroll-margin-top card-list">
       <?php
         // Render cards...

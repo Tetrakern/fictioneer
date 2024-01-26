@@ -81,7 +81,7 @@ function fictioneer_post_featured_list( $post_id ) {
   }
 
   // Start HTML ---> ?>
-  <section class="post__featured">
+  <section class="post__featured container-inline-size">
     <ul class="card-list _no-mutation-observer">
       <?php
         // Loop featured content
