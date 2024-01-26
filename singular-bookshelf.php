@@ -160,8 +160,8 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           );
         ?>
 
-        <section id="list" class="bookshelf__list">
-          <ul class="bookshelf__list card-list _no-mutation-observer">
+        <section id="list" class="bookshelf__list container-inline-size">
+          <ul class="card-list _no-mutation-observer">
             <?php
               $list_items = fictioneer_get_card_list(
                 'story',

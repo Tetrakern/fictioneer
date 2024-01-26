@@ -129,8 +129,8 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           </section>
         <?php endif; ?>
 
-        <section id="list" class="bookshelf__list">
-          <ul id="ajax-bookshelf-target" data-tab="<?php echo $current_tab; ?>" data-action="<?php echo $tabs[ $current_tab ]['action']; ?>" data-page="<?php echo get_query_var( 'pg', 1 ); ?>" data-order="<?php echo $order; ?>" class="bookshelf__list card-list">
+        <section id="list" class="bookshelf__list container-inline-size">
+          <ul id="ajax-bookshelf-target" data-tab="<?php echo $current_tab; ?>" data-action="<?php echo $tabs[ $current_tab ]['action']; ?>" data-page="<?php echo get_query_var( 'pg', 1 ); ?>" data-order="<?php echo $order; ?>" class="card-list">
 
             <?php for ( $i = 0; $i < 3; $i++ ) : ?>
               <li class="card _skeleton">
