@@ -375,13 +375,13 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
   /**
-   * Get collection of an author's statistics
+   * Returns an author's statistics
    *
-   * @since Fictioneer 4.6
+   * @since Fictioneer 4.6.0
    *
    * @param int $author_id  User ID of the author.
    *
-   * @return array|boolean Statistics or false if user does not exist.
+   * @return array|boolean Array of statistics or false if user does not exist.
    */
 
   function fictioneer_get_author_statistics( $author_id ) {
@@ -482,6 +482,102 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
 
     // Return results
     return $result;
+  }
+}
+
+// =============================================================================
+// GET COLLECTION STATISTICS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
+  /**
+   * Returns a collection's statistics
+   *
+   * @since Fictioneer 5.9.2
+   *
+   * @param int $collection_id  ID of the collection.
+   *
+   * @return array Array of statistics.
+   */
+
+  function fictioneer_get_collection_statistics( $collection_id ) {
+    // Setup
+    $featured = get_post_meta( $collection_id, 'fictioneer_collection_items', true );
+    $story_count = 0;
+    $word_count = 0;
+    $chapter_count = 0;
+    $comment_count = 0;
+    $found_chapter_ids = []; // Chapters that were already counted
+    $query_chapter_ids = []; // Chapters that need to be queried
+
+    // Empty collection?
+    if ( empty( $featured ) ) {
+      return array(
+        'story_count' => 0,
+        'word_count' => 0,
+        'chapter_count' => 0,
+        'comment_count' => 0
+      );
+    }
+
+    // Process featured items...
+    foreach ( $featured as $post_id ) {
+      $post_type = get_post_type( $post_id );
+
+      // Only look at stories and chapters...
+      if ( $post_type == 'fcn_chapter' ) {
+        // ... single chapters need to be looked up separately
+        $query_chapter_ids[] = $post_id;
+      } elseif ( $post_type == 'fcn_story' ) {
+        // ... stories have pre-processed data
+        $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
+        $found_chapter_ids = array_merge( $found_chapter_ids, $story['chapter_ids'] ); // Excluding hidden chapters
+        $word_count += $story['word_count']; // Excluding non-chapters
+        $chapter_count += $story['chapter_count']; // Excluding non-chapters
+        $comment_count += $story['comment_count'];
+        $story_count += 1;
+      }
+    }
+
+    // Remove duplicate chapters
+    $found_chapter_ids = array_unique( $found_chapter_ids );
+    $query_chapter_ids = array_unique( $query_chapter_ids );
+
+    // Do not query already counted chapters
+    $query_chapter_ids = array_diff( $query_chapter_ids, $found_chapter_ids );
+
+    // Query lone chapters not belong to featured stories...
+    $chapter_query_args = array(
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'post__in' => fictioneer_rescue_array_zero( $query_chapter_ids ),
+      'posts_per_page' => -1,
+      'update_post_term_cache' => false // Improve performance
+    );
+
+    $chapters = new WP_Query( $chapter_query_args );
+
+    // Add found chapters to statistics...
+    foreach ( $chapters->posts as $chapter ) {
+      $comment_count += $chapter->comment_count;
+
+      // This is about 50 times faster than using a meta query
+      if (
+        ! get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) &&
+        ! get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true )
+      ) {
+        $chapter_count += 1;
+        $word_count += fictioneer_get_word_count( $chapter->ID );
+      }
+    }
+
+    // Return result
+    return array(
+      'story_count' => $story_count,
+      'word_count' => $word_count,
+      'chapter_count' => $chapter_count,
+      'comment_count' => $comment_count
+    );
   }
 }
 

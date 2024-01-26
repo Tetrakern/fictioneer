@@ -22,12 +22,9 @@ defined( 'ABSPATH' ) OR exit;
 $list_title = trim( get_post_meta( $post->ID, 'fictioneer_collection_list_title', true ) );
 $title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
 $description = fictioneer_get_content_field( 'fictioneer_collection_description', $post->ID );
+$statistics = fictioneer_get_collection_statistics( $post->ID );
 $items = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
-$story_count = 0;
-$chapter_count = 0;
-$word_count = 0;
-$processed_ids = [];
 
 // Taxonomies
 $tags = false;
@@ -61,7 +58,7 @@ if ( ! empty( $items ) ) {
       'post__in' => fictioneer_rescue_array_zero( $items ),
       'ignore_sticky_posts' => true,
       'orderby' => 'modified',
-      'posts_per_page' => -1,
+      'posts_per_page' => 3,
       'update_post_meta_cache' => false, // Improve performance
       'update_post_term_cache' => false, // Improve performance
       'no_found_rows' => true // Improve performance
@@ -71,83 +68,10 @@ if ( ! empty( $items ) ) {
   $items = $items->posts;
 }
 
-// Statistics
-if ( ! empty( $items ) ) {
-  foreach ( $items as $item ) {
-    // Count by type
-    switch ( $item->post_type ) {
-      case 'fcn_chapter':
-        if ( ! in_array( $item->ID, $processed_ids ) ) {
-          $chapter_count += 1;
-          $word_count += fictioneer_get_word_count( $item->ID );
-          $processed_ids[] = $item->ID;
-        }
-        break;
-      case 'fcn_story':
-        $chapter_ids = fictioneer_get_story_chapter_ids( $item->ID );
-        $word_count += fictioneer_get_word_count( $item->ID );
-        $story_count += 1;
-
-        // Try to rescue an empty description by using one from a story...
-        if ( empty( $description ) ) {
-          $description = fictioneer_first_paragraph_as_excerpt(
-            fictioneer_get_content_field( 'fictioneer_story_short_description', $item->ID )
-          );
-        }
-
-        // Query eligible chapters
-        $chapter_query_args = array(
-          'post_type' => 'fcn_chapter',
-          'post_status' => 'publish',
-          'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
-          'posts_per_page' => -1,
-          'update_post_term_cache' => false, // Improve performance
-          'no_found_rows' => true // Improve performance
-        );
-
-        $chapters = new WP_Query( $chapter_query_args );
-        $chapters = $chapters->posts;
-
-        if ( ! empty( $chapters ) ) {
-          foreach ( $chapters as $chapter ) {
-            if (
-              get_post_meta( $chapter->ID, 'fictioneer_chapter_no_chapter', true ) ||
-              get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true )
-            ) {
-              continue;
-            }
-
-            if ( ! in_array( $chapter->ID, $processed_ids ) ) {
-              $chapter_count += 1;
-              $word_count += fictioneer_get_word_count( $chapter->ID );
-              $processed_ids[] = $chapter->ID;
-            }
-          }
-        }
-        break;
-    }
-  }
-
-  // Last rescue for empty description
-  if ( empty( $description ) ) {
-    $description = __( 'No description provided yet.', 'fictioneer' );
-  }
-
-  // Prepare features items
-  $items = array_slice( $items, 0, 3 );
+// Last rescue for empty description
+if ( empty( $description ) ) {
+  $description = __( 'No description provided yet.', 'fictioneer' );
 }
-
-// Required since it's possible to add chapters to collection outside of
-// their stories, which would cause the comments to be counted twice.
-$comment_args = array(
-  'post_type' => 'fcn_chapter',
-  'status' => 1,
-  'post__in' => fictioneer_rescue_array_zero( $processed_ids ),
-  'count' => true,
-  'update_comment_meta_cache' => false // Improve performance
-);
-
-$comment_count = get_comments( $comment_args );
 
 ?>
 
@@ -241,13 +165,13 @@ $comment_count = get_comments( $comment_args );
         $footer_items = [];
 
         $footer_items['stories'] = '<i class="card-footer-icon fa-solid fa-book" title="' .
-          esc_attr__( 'Stories', 'fictioneer' ) . '"></i> ' . $story_count;
+          esc_attr__( 'Stories', 'fictioneer' ) . '"></i> ' . $statistics['story_count'];
 
         $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
-          esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $chapter_count;
+          esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $statistics['chapter_count'];
 
         $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-          esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $word_count );
+          esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $statistics['word_count'] );
 
         if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
           $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
@@ -260,7 +184,7 @@ $comment_count = get_comments( $comment_args );
         }
 
         $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comment_count;
+          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $statistics['comment_count'];
 
         // Filer footer items
         $footer_items = apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items );
