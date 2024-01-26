@@ -426,15 +426,10 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       return false;
     }
 
-    // Check cache
+    // Cache?
     $old_data = $author->fictioneer_author_statistics;
-    $last_update = fictioneer_get_last_fiction_update();
 
-    if (
-      ! empty( $last_update ) &&
-      $old_data &&
-      $old_data['last_modified'] >= $last_update
-    ) {
+    if ( $old_data && ( $old_data['valid_until'] ?? 0 ) > time() ) {
       return $old_data;
     }
 
@@ -492,7 +487,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
 
     foreach ( $chapters as $chapter ) {
       $word_count += fictioneer_get_word_count( $chapter->ID );
-      $comment_count += get_comments_number( $chapter );
+      $comment_count += $chapter->comment_count;
     }
 
     // Prepare results
@@ -501,7 +496,7 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       'chapter_count' => count( $chapters ),
       'word_count' => $word_count,
       'word_count_short' => fictioneer_shorten_number( $word_count ),
-      'last_modified' => time() * 1000,
+      'valid_until' => time() + HOUR_IN_SECONDS,
       'comment_count' => $comment_count
     );
 
