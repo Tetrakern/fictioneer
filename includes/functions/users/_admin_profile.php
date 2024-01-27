@@ -186,9 +186,9 @@ if ( current_user_can( 'fcn_allow_self_delete' ) ) {
 
 if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
   define(
-		'FICTIONEER_ADMIN_PROFILE_NOTICES',
-		array(
-			'admin-profile-unset-oauth-patreon' => __( 'Patreon connection successfully removed.', 'fictioneer' ),
+    'FICTIONEER_ADMIN_PROFILE_NOTICES',
+    array(
+      'admin-profile-unset-oauth-patreon' => __( 'Patreon connection successfully removed.', 'fictioneer' ),
       'admin-profile-unset-oauth-google' => __( 'Google connection successfully removed.', 'fictioneer' ),
       'admin-profile-unset-oauth-twitch' => __( 'Twitch connection successfully removed.', 'fictioneer' ),
       'admin-profile-unset-oauth-discord' => __( 'Discord connection successfully removed.', 'fictioneer' ),
@@ -210,8 +210,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_PROFILE_NOTICES' ) ) {
       'oauth_merged_twitch' => __( 'Twitch account successfully linked.', 'fictioneer' ),
       'oauth_merged_patreon' => __( 'Patreon account successfully linked.', 'fictioneer' ),
       'admin-profile-not-deleted' => __( 'Database error. Account could not be deleted.', 'fictioneer' )
-		)
-	);
+    )
+  );
 }
 
 /**

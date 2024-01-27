@@ -277,11 +277,11 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
     $must_login_oauth = '<div class="fictioneer-respond__must-login">' . __( 'You must be <label for="modal-login-toggle">logged in</label> to comment.', 'fictioneer' ) . '</div>';
 
     $must_login_default = sprintf(
-			'<div class="fictioneer-respond__must-login">%s</div>',
-			sprintf(
-				__( 'You must be <a href="%s">logged in</a> to post a comment.' ),
-				wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
-			)
+      '<div class="fictioneer-respond__must-login">%s</div>',
+      sprintf(
+        __( 'You must be <a href="%s">logged in</a> to post a comment.' ),
+        wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
+      )
     );
 
     $args['must_log_in'] = empty( $oauth_links ) ? $must_login_default : $must_login_oauth;

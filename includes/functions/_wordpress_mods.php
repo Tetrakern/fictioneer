@@ -787,8 +787,8 @@ if ( get_option( 'fictioneer_consent_wrappers' ) ) {
  */
 
 function fictioneer_user_contact_methods( $methods ) {
-	$methods['twitter'] = __( 'Twitter Username' );
-	return $methods;
+  $methods['twitter'] = __( 'Twitter Username' );
+  return $methods;
 }
 add_filter( 'user_contactmethods', 'fictioneer_user_contact_methods' );
 
@@ -838,11 +838,11 @@ if ( ! FICTIONEER_ATTACHMENT_PAGES ) {
  */
 
 function fictioneer_extend_allowed_protocols( $protocols ){
-	$protocols[] = 's3'; // Amazon S3 bucket
-	$protocols[] = 'spotify'; // Load a track, album, artist, search, or playlist in Spotify
-	$protocols[] = 'steam'; // Interact with Steam: install apps, purchase games, run games, etc
+  $protocols[] = 's3'; // Amazon S3 bucket
+  $protocols[] = 'spotify'; // Load a track, album, artist, search, or playlist in Spotify
+  $protocols[] = 'steam'; // Interact with Steam: install apps, purchase games, run games, etc
 
-	return $protocols;
+  return $protocols;
 }
 add_filter( 'kses_allowed_protocols' , 'fictioneer_extend_allowed_protocols' );
 

@@ -9,7 +9,7 @@
  *
  * @since 5.2.5
  *
- * @param string $action Name of the tool action.
+ * @param string $action  Name of the tool action.
  */
 
 function fictioneer_verify_tool_action( $action ) {
@@ -29,8 +29,8 @@ function fictioneer_verify_tool_action( $action ) {
  *
  * @since 5.2.5
  *
- * @param string $notice Optional. The notice message to include in the redirect URL.
- * @param string $type   Optional. The type of notice. Default 'success'.
+ * @param string $notice  Optional. The notice message to include in the redirect URL.
+ * @param string $type    Optional. The type of notice. Default 'success'.
  */
 
 function fictioneer_finish_tool_action( $notice = '', $type = 'success' ) {
@@ -50,12 +50,12 @@ if ( ! function_exists( 'fictioneer_get_default_genres' ) ) {
    *
    * @since 4.7.0
    *
-	 * @param array Decoded JSON with default genres and meta data.
+   * @return array Decoded JSON with default genres and meta data.
    */
 
-	function fictioneer_get_default_genres() {
-		return json_decode( file_get_contents( get_template_directory_uri() . '/json/genres.json' ) );
-	}
+  function fictioneer_get_default_genres() {
+    return json_decode( file_get_contents( get_template_directory_uri() . '/json/genres.json' ) );
+  }
 }
 
 if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
@@ -64,12 +64,12 @@ if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
    *
    * @since 4.7.0
    *
-	 * @param array Decoded JSON with default tags and meta data.
+   * @return array Decoded JSON with default tags and meta data.
    */
 
-	function fictioneer_get_default_tags() {
-		return json_decode( file_get_contents( get_template_directory_uri() . '/json/tags.json' ) );
-	}
+  function fictioneer_get_default_tags() {
+    return json_decode( file_get_contents( get_template_directory_uri() . '/json/tags.json' ) );
+  }
 }
 
 // =============================================================================
@@ -78,20 +78,20 @@ if ( ! function_exists( 'fictioneer_get_default_tags' ) ) {
 
 if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
   define(
-		'FICTIONEER_ADMIN_SETTINGS_NOTICES',
-		array(
-			'fictioneer-story-tags-to-genres' => __( 'All story tags have been converted to genres.', 'fictioneer' ),
-			'fictioneer-duplicate-tags-to-genres' => __( 'All story tags have been duplicated to genres.', 'fictioneer' ),
-			'fictioneer-chapter-tags-to-genres' => __( 'All chapter tags have been converted to genres.', 'fictioneer' ),
-			'fictioneer-duplicate-tags-to-genres' => __( 'All chapter tags have been duplicated to genres.', 'fictioneer' ),
-			'fictioneer-append-default-genres' => __( 'Default genres have been added to the list.', 'fictioneer' ),
-			'fictioneer-append-default-tags' => __( 'Default tags have been added to the list.', 'fictioneer' ),
-			'fictioneer-remove-unused-tags' => __( 'All unused tags have been removed.', 'fictioneer' ),
-			'fictioneer-deleted-epubs' => __( 'All ePUB files have been deleted.', 'fictioneer' ),
-			'fictioneer-purge-theme-caches' => __( 'Theme caches have been purged.', 'fictioneer' ),
-			'fictioneer-added-moderator-role' => __( 'Moderator role has been added.', 'fictioneer' ),
+    'FICTIONEER_ADMIN_SETTINGS_NOTICES',
+    array(
+      'fictioneer-story-tags-to-genres' => __( 'All story tags have been converted to genres.', 'fictioneer' ),
+      'fictioneer-duplicate-tags-to-genres' => __( 'All story tags have been duplicated to genres.', 'fictioneer' ),
+      'fictioneer-chapter-tags-to-genres' => __( 'All chapter tags have been converted to genres.', 'fictioneer' ),
+      'fictioneer-duplicate-tags-to-genres' => __( 'All chapter tags have been duplicated to genres.', 'fictioneer' ),
+      'fictioneer-append-default-genres' => __( 'Default genres have been added to the list.', 'fictioneer' ),
+      'fictioneer-append-default-tags' => __( 'Default tags have been added to the list.', 'fictioneer' ),
+      'fictioneer-remove-unused-tags' => __( 'All unused tags have been removed.', 'fictioneer' ),
+      'fictioneer-deleted-epubs' => __( 'All ePUB files have been deleted.', 'fictioneer' ),
+      'fictioneer-purge-theme-caches' => __( 'Theme caches have been purged.', 'fictioneer' ),
+      'fictioneer-added-moderator-role' => __( 'Moderator role has been added.', 'fictioneer' ),
       'fictioneer-not-added-moderator-role' => __( 'Moderator role could not be added or already exists.', 'fictioneer' ),
-			'fictioneer-removed-moderator-role' => __( 'Moderator role has been removed.', 'fictioneer' ),
+      'fictioneer-removed-moderator-role' => __( 'Moderator role has been removed.', 'fictioneer' ),
       'fictioneer-reset-post-relationship-registry' => __( 'Post relationship registry reset.', 'fictioneer' ),
       'fictioneer-fix-users' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
       'fictioneer-fix-stories' => __( 'This function does currently not cover any issues.', 'fictioneer' ),
@@ -120,8 +120,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' )
-		)
-	);
+    )
+  );
 }
 
 /**

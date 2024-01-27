@@ -361,23 +361,23 @@ if ( ! function_exists( 'fictioneer_add_or_update_term' ) ) {
    */
 
   function fictioneer_add_or_update_term( $name, $taxonomy, $args = [] ) {
-  	$parent = $args['parent'] ?? 0;
-  	$alias_of = $args['alias_of'] ?? '';
-  	$description = $args['description'] ?? '';
+    $parent = $args['parent'] ?? 0;
+    $alias_of = $args['alias_of'] ?? '';
+    $description = $args['description'] ?? '';
     $result = false;
 
     // Does term already exist?
-  	$old = get_term_by( 'name', $name, $taxonomy );
+    $old = get_term_by( 'name', $name, $taxonomy );
 
     // Get parent or create one if it does not yet exist
-  	if ( $parent != 0 ) {
-  		$parent = get_term_by( 'name', $parent, $taxonomy );
+    if ( $parent != 0 ) {
+      $parent = get_term_by( 'name', $parent, $taxonomy );
       $parent = $parent ? $parent->term_id : fictioneer_add_or_update_term( $args['parent'], $taxonomy );
-  	}
+    }
 
     // Get alias or create one if it does not yet exist
-  	if ( ! empty( $alias_of ) ) {
-  		$alias_of = get_term_by( 'name', $alias_of, $taxonomy );
+    if ( ! empty( $alias_of ) ) {
+      $alias_of = get_term_by( 'name', $alias_of, $taxonomy );
 
       if ( ! $alias_of ) {
         $alias_of = fictioneer_add_or_update_term( $args['alias_of'], $taxonomy );
@@ -385,31 +385,31 @@ if ( ! function_exists( 'fictioneer_add_or_update_term' ) ) {
       }
 
       $alias_of = $alias_of ? $alias_of->slug : '';
-  	}
+    }
 
-  	if ( ! $old ) {
+    if ( ! $old ) {
       // Create term
-  		$result = wp_insert_term(
-  			$name,
-  			$taxonomy,
-  			array(
-  				'alias_of' => $alias_of,
-  				'parent' => $parent,
-  				'description' => $description
-  			)
-  		);
-  	} else {
+      $result = wp_insert_term(
+        $name,
+        $taxonomy,
+        array(
+          'alias_of' => $alias_of,
+          'parent' => $parent,
+          'description' => $description
+        )
+      );
+    } else {
       // Update term
-  		$result = wp_update_term(
-  			$old->term_id,
-  			$taxonomy,
-  			array(
-  				'alias_of' => $alias_of,
-  				'parent' => $parent,
-  				'description' => $description
-  			)
-  		);
-  	}
+      $result = wp_update_term(
+        $old->term_id,
+        $taxonomy,
+        array(
+          'alias_of' => $alias_of,
+          'parent' => $parent,
+          'description' => $description
+        )
+      );
+    }
 
     if ( ! is_wp_error( $result ) ) {
       return $result['term_id'];

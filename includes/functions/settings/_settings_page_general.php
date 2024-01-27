@@ -10,9 +10,9 @@
 
 <div class="fictioneer-settings">
 
-	<?php fictioneer_settings_header( 'general' ); ?>
+  <?php fictioneer_settings_header( 'general' ); ?>
 
-	<div class="fictioneer-settings__content">
+  <div class="fictioneer-settings__content">
     <form method="post" action="options.php" class="fictioneer-form">
       <?php settings_fields( 'fictioneer-settings-general-group' ); ?>
 

@@ -5,16 +5,16 @@
 // =============================================================================
 
 /**
- * Log a message to the theme log file
+ * Logs a message to the theme log file
  *
  * @since 5.0.0
  *
- * @param string 	 		 $message  What has been updated
- * @param WP_User|null $user	   The user who did it. Defaults to current user.
+ * @param string       $message  What has been updated
+ * @param WP_User|null $user     The user who did it. Defaults to current user.
  */
 
 function fictioneer_log( $message, $current_user = null ) {
-	// Setup
+  // Setup
   $current_user = $current_user ?? wp_get_current_user();
   $username = _x( 'System', 'Default name in logs.', 'fictioneer' );
   $log_file = WP_CONTENT_DIR . '/fictioneer-logs.log';
@@ -98,12 +98,12 @@ function fictioneer_get_log() {
 // =============================================================================
 
 /**
- * Log post update
+ * Logs post update
  *
  * @since 5.0.0
  *
- * @param int 	 $post_id  The post ID.
- * @param string $action 	 The action performed.
+ * @param int    $post_id  The post ID.
+ * @param string $action   The action performed.
  */
 
 function fictioneer_log_post_update( $post_id, $action ) {
@@ -120,8 +120,8 @@ function fictioneer_log_post_update( $post_id, $action ) {
     fictioneer_get_safe_title( $post_id )
   );
 
-	// Log
-	fictioneer_log( $message );
+  // Log
+  fictioneer_log( $message );
 }
 
 // =============================================================================
@@ -129,30 +129,30 @@ function fictioneer_log_post_update( $post_id, $action ) {
 // =============================================================================
 
 /**
- * Log update of checkbox option
+ * Logs update of checkbox option
  *
  * @since 5.0.0
  *
- * @param string 	     $option 	   Name of the option.
+ * @param string        $option    Name of the option.
  * @param boolean|null $old_value  The previous value or null if not set.
- * @param boolean      $value 		 The new value.
+ * @param boolean      $value      The new value.
  */
 
 function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
-	// Abort if...
-	if ( ! is_null( $old_value ) && $old_value === $value ) {
+  // Abort if...
+  if ( ! is_null( $old_value ) && $old_value === $value ) {
     return;
   }
 
-	// Build message
+  // Build message
   $update = sprintf(
     _x( '%1$s: %2$s', 'Pattern for checkbox option in logs: "{Checked} {Option}".', 'fictioneer' ),
     $value ? _x( 'Checked', 'State of checkbox option in logs.', 'fictioneer' ) : _x( 'Unchecked', 'State of checkbox option in logs.', 'fictioneer' ),
     $option
   );
 
-	// Log
-	fictioneer_log( $update );
+  // Log
+  fictioneer_log( $update );
 }
 
 /**
@@ -160,7 +160,7 @@ function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
  *
  * @since 5.0.0
  *
- * @param string 	$option  Name of the option.
+ * @param string  $option  Name of the option.
  * @param boolean $value   The new value.
  */
 
@@ -184,9 +184,9 @@ add_action( 'added_option', 'fictioneer_settings_checkbox_added', 10, 2 );
  *
  * @since 5.0.0
  *
- * @param string 	$option 	  Name of the option.
+ * @param string  $option     Name of the option.
  * @param boolean $old_value  The previous value.
- * @param boolean $value 		  The new value.
+ * @param boolean $value      The new value.
  */
 
 function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
@@ -222,22 +222,22 @@ define(
 );
 
 /**
- * Log update of page assignment
+ * Logs update of page assignment
  *
  * @since 5.0.0
  *
- * @param string 	 $option 	   Name of the option.
+ * @param string   $option     Name of the option.
  * @param int|null $old_value  The previous value or null if not set.
- * @param int      $value 		 The new value.
+ * @param int      $value      The new value.
  */
 
 function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
-	// Abort if...
-	if ( ! is_null( $old_value ) && $old_value === $value ) {
+  // Abort if...
+  if ( ! is_null( $old_value ) && $old_value === $value ) {
     return;
   }
 
-	// Build message
+  // Build message
   $message = sprintf(
     _x(
       '%1$s page assignment changed from #%2$s to #%3$s',
@@ -249,8 +249,8 @@ function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
     $value
   );
 
-	// Log
-	fictioneer_log( $message );
+  // Log
+  fictioneer_log( $message );
 }
 
 /**
@@ -282,9 +282,9 @@ add_action( 'added_option', 'fictioneer_settings_page_assignment_added', 10, 2 )
  *
  * @since 5.0.0
  *
- * @param string $option 	   Name of the option.
+ * @param string $option     Name of the option.
  * @param int    $old_value  The previous value.
- * @param int    $value 		 The new value.
+ * @param int    $value      The new value.
  */
 
 function fictioneer_settings_page_assignment_updated( $option, $old_value, $value ) {
@@ -317,22 +317,22 @@ define(
 );
 
 /**
- * Log update of phrase option
+ * Logs update of phrase option
  *
  * @since 5.0.0
  *
- * @param string 	    $option 	  Name of the option.
+ * @param string      $option     Name of the option.
  * @param string|null $old_value  The previous value or null if not set.
- * @param string      $value 		  The new value.
+ * @param string      $value      The new value.
  */
 
 function fictioneer_log_phrase_update( $option, $old_value, $value ) {
-	// Abort if...
+  // Abort if...
   if ( ! is_null( $old_value ) && $old_value === $value ) {
     return;
   }
 
-	// Build message
+  // Build message
   $message = sprintf(
     _x(
       'Phrase for the %1$s changed to \'%2$s\'',
@@ -343,8 +343,8 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
     preg_replace( '/\s+/', ' ', $value )
   );
 
-	// Log
-	fictioneer_log( $message );
+  // Log
+  fictioneer_log( $message );
 }
 
 /**
@@ -376,9 +376,9 @@ add_action( 'added_option', 'fictioneer_settings_phrase_added', 10, 2 );
  *
  * @since 5.0.0
  *
- * @param string $option 	   Name of the option.
+ * @param string $option     Name of the option.
  * @param string $old_value  The previous value.
- * @param string $value 		 The new value.
+ * @param string $value      The new value.
  */
 
 function fictioneer_settings_phrase_updated( $option, $old_value, $value ) {
@@ -417,22 +417,22 @@ define(
 );
 
 /**
- * Log update of connection option
+ * Logs update of connection option
  *
  * @since 5.0.0
  *
- * @param string 	 $connection  Name of the connection option.
+ * @param string   $connection  Name of the connection option.
  * @param int|null $old_value   ID of the old page or null if unset.
- * @param int			 $value 		  ID of the new page.
+ * @param int      $value       ID of the new page.
  */
 
 function fictioneer_log_connection_update( $connection, $old_value, $value ) {
-	// Abort if...
+  // Abort if...
   if ( ! is_null( $old_value ) && $old_value === $value ) {
     return;
   }
 
-	// Build message
+  // Build message
   $message = sprintf(
     _x(
       '%s updated.',
@@ -442,8 +442,8 @@ function fictioneer_log_connection_update( $connection, $old_value, $value ) {
     $connection
   );
 
-	// Log
-	fictioneer_log( $message );
+  // Log
+  fictioneer_log( $message );
 }
 
 /**
@@ -475,9 +475,9 @@ add_action( 'added_option', 'fictioneer_settings_connection_added', 10, 2 );
  *
  * @since 5.0.0
  *
- * @param string $option 	   Name of the option.
+ * @param string $option     Name of the option.
  * @param string $old_value  The previous value.
- * @param string $value 		 The new value.
+ * @param string $value      The new value.
  */
 
 function fictioneer_settings_connection_updated( $option, $old_value, $value ) {
@@ -501,12 +501,12 @@ add_action( 'updated_option', 'fictioneer_settings_connection_updated', 10, 3 );
 
 add_action( 'trashed_post', function( $post_id ) {
   // Relay
-	fictioneer_log_post_update( $post_id, __( 'trashed', 'fictioneer' ) );
+  fictioneer_log_post_update( $post_id, __( 'trashed', 'fictioneer' ) );
 });
 
 add_action( 'untrashed_post', function( $post_id ) {
   // Relay
-	fictioneer_log_post_update( $post_id, __( 'restored', 'fictioneer' ) );
+  fictioneer_log_post_update( $post_id, __( 'restored', 'fictioneer' ) );
 });
 
 // =============================================================================
@@ -536,7 +536,7 @@ function fictioneer_log_published_posts( $post_id ) {
   }
 
   // Relay
-	fictioneer_log_post_update( $post_id, $action );
+  fictioneer_log_post_update( $post_id, $action );
 }
 add_action( 'publish_post', 'fictioneer_log_published_posts' );
 add_action( 'publish_page', 'fictioneer_log_published_posts' );
@@ -565,7 +565,7 @@ function fictioneer_log_pending_posts( $post_id ) {
   }
 
   // Relay
-	fictioneer_log_post_update( $post_id, __( 'submitted for review', 'fictioneer' ) );
+  fictioneer_log_post_update( $post_id, __( 'submitted for review', 'fictioneer' ) );
 }
 
 add_action( 'pending_post', 'fictioneer_log_pending_posts' );

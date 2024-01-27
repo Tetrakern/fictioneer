@@ -2064,8 +2064,8 @@ if ( ! function_exists( 'fictioneer_get_post_author_ids' ) ) {
 
   function fictioneer_get_post_author_ids( $post_id ) {
     $author_ids = get_post_meta( $post_id, 'fictioneer_story_co_authors', true ) ?: [];
-		$author_ids = is_array( $author_ids ) ? $author_ids : [];
-		array_unshift( $author_ids, get_post_field( 'post_author', $post_id ) );
+    $author_ids = is_array( $author_ids ) ? $author_ids : [];
+    array_unshift( $author_ids, get_post_field( 'post_author', $post_id ) );
 
     return array_unique( $author_ids );
   }
@@ -2224,7 +2224,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     }
 
     // Setup
-  	$word_count = 0;
+    $word_count = 0;
 
     // Query all stories
     $stories = get_posts(
@@ -2241,14 +2241,14 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     // Sum of all word counts
     foreach( $stories as $story ) {
       $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
-  		$word_count += $story_data['word_count'];
-  	}
+      $word_count += $story_data['word_count'];
+    }
 
     // Cache for next time
     set_transient( 'fictioneer_stories_total_word_count', $word_count );
 
     // Return newly calculated value
-  	return $word_count;
+    return $word_count;
   }
 }
 

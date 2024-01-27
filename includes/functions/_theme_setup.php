@@ -414,10 +414,10 @@ function fictioneer_add_classes_to_body( $classes ) {
 
   // Add classes to defaults
   foreach ( $includes as $class => $test )  {
-		if ( $test ) {
+    if ( $test ) {
       $classes[ $class ] = $class;
     }
-	}
+  }
 
   // Continue filter
   return $classes;
@@ -990,7 +990,7 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
  */
 
 function fictioneer_ao_exclude_scripts( $exclude ) {
-	return $exclude . '';
+  return $exclude . '';
 }
 add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10, 1 );
 
@@ -1004,7 +1004,7 @@ add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
-	return $exclude . ', fonts.css';
+  return $exclude . ', fonts.css';
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
 

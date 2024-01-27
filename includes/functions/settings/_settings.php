@@ -20,14 +20,14 @@ require_once( '_settings_actions.php' );
  */
 
 function fictioneer_add_admin_menu() {
-	$fictioneer_plugins = array_filter(
-		get_option( 'active_plugins' ) ?: [],
-		function( $plugin ) {
-			return strpos( $plugin, 'fictioneer' ) !== false;
-		}
-	);
+  $fictioneer_plugins = array_filter(
+    get_option( 'active_plugins' ) ?: [],
+    function( $plugin ) {
+      return strpos( $plugin, 'fictioneer' ) !== false;
+    }
+  );
 
-	add_menu_page(
+  add_menu_page(
     __( 'Fictioneer Settings', 'fictioneer' ),
     __( 'Fictioneer', 'fictioneer' ),
     'manage_options',
@@ -37,94 +37,94 @@ function fictioneer_add_admin_menu() {
     61
   );
 
-	$general_hook = add_submenu_page(
-		'fictioneer',
-		__( 'General', 'fictioneer' ),
-		__( 'General', 'fictioneer' ),
-		'manage_options',
-		'fictioneer',
-		'fictioneer_settings_general'
-	);
+  $general_hook = add_submenu_page(
+    'fictioneer',
+    __( 'General', 'fictioneer' ),
+    __( 'General', 'fictioneer' ),
+    'manage_options',
+    'fictioneer',
+    'fictioneer_settings_general'
+  );
 
-	$roles_hook = add_submenu_page(
-		'fictioneer',
-		__( 'Roles', 'fictioneer' ),
-		__( 'Roles', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_roles',
-		'fictioneer_settings_roles'
-	);
+  $roles_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Roles', 'fictioneer' ),
+    __( 'Roles', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_roles',
+    'fictioneer_settings_roles'
+  );
 
-	if ( ! empty( $fictioneer_plugins ) ) {
-		$plugins_hook = add_submenu_page(
-			'fictioneer',
-			__( 'Plugins', 'fictioneer' ),
-			__( 'Plugins', 'fictioneer' ),
-			'manage_options',
-			'fictioneer_plugins',
-			'fictioneer_settings_plugins'
-		);
-	}
+  if ( ! empty( $fictioneer_plugins ) ) {
+    $plugins_hook = add_submenu_page(
+      'fictioneer',
+      __( 'Plugins', 'fictioneer' ),
+      __( 'Plugins', 'fictioneer' ),
+      'manage_options',
+      'fictioneer_plugins',
+      'fictioneer_settings_plugins'
+    );
+  }
 
-	$connections_hook = add_submenu_page(
-		'fictioneer',
-		__( 'Connections', 'fictioneer' ),
-		__( 'Connections', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_connections',
-		'fictioneer_settings_connections'
-	);
+  $connections_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Connections', 'fictioneer' ),
+    __( 'Connections', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_connections',
+    'fictioneer_settings_connections'
+  );
 
-	$phrases_hook = add_submenu_page(
-		'fictioneer',
-		__( 'Phrases', 'fictioneer' ),
-		__( 'Phrases', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_phrases',
-		'fictioneer_settings_phrases'
-	);
+  $phrases_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Phrases', 'fictioneer' ),
+    __( 'Phrases', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_phrases',
+    'fictioneer_settings_phrases'
+  );
 
-	$epubs_hook = add_submenu_page(
-		'fictioneer',
-		__( 'ePUBs', 'fictioneer' ),
-		__( 'ePUBs', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_epubs',
-		'fictioneer_settings_epubs'
-	);
+  $epubs_hook = add_submenu_page(
+    'fictioneer',
+    __( 'ePUBs', 'fictioneer' ),
+    __( 'ePUBs', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_epubs',
+    'fictioneer_settings_epubs'
+  );
 
-	$seo_hook = add_submenu_page(
-		'fictioneer',
-		__( 'SEO', 'fictioneer' ),
-		__( 'SEO', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_seo',
-		'fictioneer_settings_seo'
-	);
+  $seo_hook = add_submenu_page(
+    'fictioneer',
+    __( 'SEO', 'fictioneer' ),
+    __( 'SEO', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_seo',
+    'fictioneer_settings_seo'
+  );
 
-	$tools_hook = add_submenu_page(
-		'fictioneer',
-		__( 'Tools', 'fictioneer' ),
-		__( 'Tools', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_tools',
-		'fictioneer_settings_tools'
-	);
+  $tools_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Tools', 'fictioneer' ),
+    __( 'Tools', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_tools',
+    'fictioneer_settings_tools'
+  );
 
-	$logs_hook = add_submenu_page(
-		'fictioneer',
-		__( 'Logs', 'fictioneer' ),
-		__( 'Logs', 'fictioneer' ),
-		'manage_options',
-		'fictioneer_logs',
-		'fictioneer_settings_logs'
-	);
+  $logs_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Logs', 'fictioneer' ),
+    __( 'Logs', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_logs',
+    'fictioneer_settings_logs'
+  );
 
-	add_action( 'admin_init', 'fictioneer_register_settings' );
+  add_action( 'admin_init', 'fictioneer_register_settings' );
 
-	// Add screen options
+  // Add screen options
   add_action( "load-{$epubs_hook}", 'fictioneer_settings_epubs_screen_options' );
-	add_action( "load-{$seo_hook}", 'fictioneer_settings_seo_screen_options' );
+  add_action( "load-{$seo_hook}", 'fictioneer_settings_seo_screen_options' );
 }
 add_action( 'admin_menu', 'fictioneer_add_admin_menu' );
 
@@ -136,12 +136,12 @@ add_action( 'admin_menu', 'fictioneer_add_admin_menu' );
 
 function fictioneer_settings_epubs_screen_options() {
   // Add pagination option
-	$args = array(
-		'label' => __( 'ePUBs per page', 'fcnes' ),
-		'default' => 25,
-		'option' => 'fictioneer_epubs_per_page'
-	);
-	add_screen_option( 'per_page', $args );
+  $args = array(
+    'label' => __( 'ePUBs per page', 'fcnes' ),
+    'default' => 25,
+    'option' => 'fictioneer_epubs_per_page'
+  );
+  add_screen_option( 'per_page', $args );
 }
 
 /**
@@ -152,12 +152,12 @@ function fictioneer_settings_epubs_screen_options() {
 
 function fictioneer_settings_seo_screen_options() {
   // Add pagination option
-	$args = array(
-		'label' => __( 'Items per page', 'fcnes' ),
-		'default' => 25,
-		'option' => 'fictioneer_seo_items_per_page'
-	);
-	add_screen_option( 'per_page', $args );
+  $args = array(
+    'label' => __( 'Items per page', 'fcnes' ),
+    'default' => 25,
+    'option' => 'fictioneer_seo_items_per_page'
+  );
+  add_screen_option( 'per_page', $args );
 }
 
 /**
@@ -192,81 +192,81 @@ add_filter( 'set-screen-option', 'fictioneer_save_screen_options', 10, 3 );
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_settings_header' ) ) {
-	/**
-	 * Output HTML for the settings page header
-	 *
-	 * @since 4.7
-	 *
-	 * @param string $tab The current tab to highlight. Defaults to 'general'.
-	 */
+  /**
+   * Output HTML for the settings page header
+   *
+   * @since 4.7
+   *
+   * @param string $tab  The current tab to highlight. Defaults to 'general'.
+   */
 
-	function fictioneer_settings_header( $tab = 'general' ) {
-		// Setup
-		$output = [];
-		$fictioneer_plugins = array_filter(
-			get_option( 'active_plugins' ) ?: [],
-			function( $plugin ) {
-				return strpos( $plugin, 'fictioneer' ) !== false;
-			}
-		);
+  function fictioneer_settings_header( $tab = 'general' ) {
+    // Setup
+    $output = [];
+    $fictioneer_plugins = array_filter(
+      get_option( 'active_plugins' ) ?: [],
+      function( $plugin ) {
+        return strpos( $plugin, 'fictioneer' ) !== false;
+      }
+    );
 
-		// General tab
-		$output['general'] = '<a href="?page=fictioneer" class="fictioneer-settings__nav-tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
+    // General tab
+    $output['general'] = '<a href="?page=fictioneer" class="fictioneer-settings__nav-tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
 
-		// Roles tab
-		$output['roles'] = '<a href="?page=fictioneer_roles" class="fictioneer-settings__nav-tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
+    // Roles tab
+    $output['roles'] = '<a href="?page=fictioneer_roles" class="fictioneer-settings__nav-tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
 
-		// Plugins tab
-		if ( ! empty( $fictioneer_plugins ) ) {
-			$output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
-		}
+    // Plugins tab
+    if ( ! empty( $fictioneer_plugins ) ) {
+      $output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
+    }
 
-		// Connections tab
-		$output['connections'] = '<a href="?page=fictioneer_connections" class="fictioneer-settings__nav-tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
+    // Connections tab
+    $output['connections'] = '<a href="?page=fictioneer_connections" class="fictioneer-settings__nav-tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
 
-		// Phrases tab
-		$output['phrases'] = '<a href="?page=fictioneer_phrases" class="fictioneer-settings__nav-tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
+    // Phrases tab
+    $output['phrases'] = '<a href="?page=fictioneer_phrases" class="fictioneer-settings__nav-tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
 
-		// EPubs tab
-		$output['epubs'] = '<a href="?page=fictioneer_epubs" class="fictioneer-settings__nav-tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
+    // EPubs tab
+    $output['epubs'] = '<a href="?page=fictioneer_epubs" class="fictioneer-settings__nav-tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
 
-		// SEO tab (if enabled)
-		if ( get_option( 'fictioneer_enable_seo' ) ) {
-			$output['seo'] = '<a href="?page=fictioneer_seo" class="fictioneer-settings__nav-tab' . ( $tab == 'seo' ? ' active' : '' ) . '">' . __( 'SEO', 'fictioneer' ) . '</a>';
-		}
+    // SEO tab (if enabled)
+    if ( get_option( 'fictioneer_enable_seo' ) ) {
+      $output['seo'] = '<a href="?page=fictioneer_seo" class="fictioneer-settings__nav-tab' . ( $tab == 'seo' ? ' active' : '' ) . '">' . __( 'SEO', 'fictioneer' ) . '</a>';
+    }
 
-		// Tools tab
-		$output['tools'] = '<a href="?page=fictioneer_tools" class="fictioneer-settings__nav-tab' . ( $tab == 'tools' ? ' active' : '' ) . '">' . __( 'Tools', 'fictioneer' ) . '</a>';
+    // Tools tab
+    $output['tools'] = '<a href="?page=fictioneer_tools" class="fictioneer-settings__nav-tab' . ( $tab == 'tools' ? ' active' : '' ) . '">' . __( 'Tools', 'fictioneer' ) . '</a>';
 
-		// Logs tab
-		$output['logs'] = '<a href="?page=fictioneer_logs" class="fictioneer-settings__nav-tab' . ( $tab == 'logs' ? ' active' : '' ) . '">' . __( 'Logs', 'fictioneer' ) . '</a>';
+    // Logs tab
+    $output['logs'] = '<a href="?page=fictioneer_logs" class="fictioneer-settings__nav-tab' . ( $tab == 'logs' ? ' active' : '' ) . '">' . __( 'Logs', 'fictioneer' ) . '</a>';
 
-		// Apply filters
-		$output = apply_filters( 'fictioneer_filter_admin_settings_navigation', $output );
+    // Apply filters
+    $output = apply_filters( 'fictioneer_filter_admin_settings_navigation', $output );
 
-		// Start HTML ---> ?>
-		<header class="fictioneer-settings__header">
-			<div>
-				<h1><?php _e( 'Fictioneer', 'fictioneer' ); ?></h1>
-				<div class="fictioneer-settings__header-links">
-					<a href="https://github.com/Tetrakern/fictioneer/releases" target="_blank"><?php echo FICTIONEER_VERSION; ?></a>
-					&bull;
-					<a href="https://github.com/Tetrakern/fictioneer#readme" target="_blank"><?php
+    // Start HTML ---> ?>
+    <header class="fictioneer-settings__header">
+      <div>
+        <h1><?php _e( 'Fictioneer', 'fictioneer' ); ?></h1>
+        <div class="fictioneer-settings__header-links">
+          <a href="https://github.com/Tetrakern/fictioneer/releases" target="_blank"><?php echo FICTIONEER_VERSION; ?></a>
+          &bull;
+          <a href="https://github.com/Tetrakern/fictioneer#readme" target="_blank"><?php
             _e( 'Documentation on Github', 'fictioneer' );
           ?></a>
-					&bull;
-					<a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support me on Ko-fi', 'fictioneer' ); ?></a>
-				</div>
+          &bull;
+          <a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support me on Ko-fi', 'fictioneer' ); ?></a>
+        </div>
         <?php if ( CHILD_VERSION && CHILD_NAME ) : ?>
           <div class="fictioneer-settings__header-links">
             <span><?php echo CHILD_VERSION; ?> &bull; <?php echo CHILD_NAME; ?></span>
           </div>
         <?php endif; ?>
-			</div>
-			<nav class="fictioneer-settings__nav"><?php echo implode( '', $output ); ?></nav>
-		</header>
-		<?php // <--- End HTML
-	}
+      </div>
+      <nav class="fictioneer-settings__nav"><?php echo implode( '', $output ); ?></nav>
+    </header>
+    <?php // <--- End HTML
+  }
 }
 
 // =============================================================================
@@ -280,7 +280,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
  */
 
 function fictioneer_settings_connections() {
-	get_template_part( 'includes/functions/settings/_settings_page_connections' );
+  get_template_part( 'includes/functions/settings/_settings_page_connections' );
 }
 
 /**
@@ -290,7 +290,7 @@ function fictioneer_settings_connections() {
  */
 
 function fictioneer_settings_general() {
-	get_template_part( 'includes/functions/settings/_settings_page_general' );
+  get_template_part( 'includes/functions/settings/_settings_page_general' );
 }
 
 /**
@@ -300,7 +300,7 @@ function fictioneer_settings_general() {
  */
 
 function fictioneer_settings_roles() {
-	get_template_part( 'includes/functions/settings/_settings_page_roles' );
+  get_template_part( 'includes/functions/settings/_settings_page_roles' );
 }
 
 /**
@@ -310,7 +310,7 @@ function fictioneer_settings_roles() {
  */
 
 function fictioneer_settings_plugins() {
-	get_template_part( 'includes/functions/settings/_settings_page_plugins' );
+  get_template_part( 'includes/functions/settings/_settings_page_plugins' );
 }
 
 /**
@@ -320,7 +320,7 @@ function fictioneer_settings_plugins() {
  */
 
 function fictioneer_settings_epubs() {
-	get_template_part( 'includes/functions/settings/_settings_page_epubs' );
+  get_template_part( 'includes/functions/settings/_settings_page_epubs' );
 }
 
 /**
@@ -330,7 +330,7 @@ function fictioneer_settings_epubs() {
  */
 
 function fictioneer_settings_seo() {
-	get_template_part( 'includes/functions/settings/_settings_page_seo' );
+  get_template_part( 'includes/functions/settings/_settings_page_seo' );
 }
 
 /**
@@ -340,7 +340,7 @@ function fictioneer_settings_seo() {
  */
 
 function fictioneer_settings_phrases() {
-	get_template_part( 'includes/functions/settings/_settings_page_phrases' );
+  get_template_part( 'includes/functions/settings/_settings_page_phrases' );
 }
 
 /**
@@ -350,7 +350,7 @@ function fictioneer_settings_phrases() {
  */
 
 function fictioneer_settings_tools() {
-	get_template_part( 'includes/functions/settings/_settings_page_tools' );
+  get_template_part( 'includes/functions/settings/_settings_page_tools' );
 }
 
 /**
@@ -360,7 +360,7 @@ function fictioneer_settings_tools() {
  */
 
 function fictioneer_settings_logs() {
-	get_template_part( 'includes/functions/settings/_settings_page_logs' );
+  get_template_part( 'includes/functions/settings/_settings_page_logs' );
 }
 
 // =============================================================================
@@ -378,36 +378,36 @@ function fictioneer_settings_logs() {
  */
 
 function fictioneer_settings_capability_card( $title, $caps, $role ) {
-	// Start HTML ---> ?>
-	<div class="fictioneer-card">
-		<div class="fictioneer-card__wrapper">
-			<h3 class="fictioneer-card__header"><?php echo $title; ?></h3>
-			<div class="fictioneer-card__content">
-				<div class="fictioneer-card__row fictioneer-card__row--capabilities">
-					<?php
-						foreach ( $caps as $cap ) {
-							$role_caps = $role['capabilities'];
-							$set = in_array( $cap, $role_caps ) && ( $role_caps[ $cap ] ?? 0 );
-							$name = str_replace( '_', ' ', $cap );
-							$name = str_replace( 'fcn ', '', $name );
-							$name = ucwords( $name );
+  // Start HTML ---> ?>
+  <div class="fictioneer-card">
+    <div class="fictioneer-card__wrapper">
+      <h3 class="fictioneer-card__header"><?php echo $title; ?></h3>
+      <div class="fictioneer-card__content">
+        <div class="fictioneer-card__row fictioneer-card__row--capabilities">
+          <?php
+            foreach ( $caps as $cap ) {
+              $role_caps = $role['capabilities'];
+              $set = in_array( $cap, $role_caps ) && ( $role_caps[ $cap ] ?? 0 );
+              $name = str_replace( '_', ' ', $cap );
+              $name = str_replace( 'fcn ', '', $name );
+              $name = ucwords( $name );
 
-							// Special cases
-							$name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
-							$name = str_replace( 'Recommendations', 'Recommend.', $name );
-							$name = str_replace( 'Custom Css', 'Custom CSS', $name );
-							$name = str_replace( 'Seo Meta', 'SEO Meta', $name );
-							$name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
-							$name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
+              // Special cases
+              $name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
+              $name = str_replace( 'Recommendations', 'Recommend.', $name );
+              $name = str_replace( 'Custom Css', 'Custom CSS', $name );
+              $name = str_replace( 'Seo Meta', 'SEO Meta', $name );
+              $name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
+              $name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
 
-							fictioneer_settings_capability_checkbox( $cap, $name, $set );
-						}
-					?>
-				</div>
-			</div>
-		</div>
-	</div>
-	<?php // <--- End HTML
+              fictioneer_settings_capability_checkbox( $cap, $name, $set );
+            }
+          ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php // <--- End HTML
 }
 
 /**
@@ -440,17 +440,17 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  */
 
 function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
-	// Start HTML ---> ?>
-	<label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
-		<input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
-		<div>
-			<span><?php echo FICTIONEER_OPTIONS['booleans'][ $option ]['label']; ?></span>
-			<?php if ( ! empty( $sub_label ) ) : ?>
-				<p class="fictioneer-sub-label"><?php echo $sub_label; ?></p>
-			<?php endif; ?>
-		</div>
-	</label>
-	<?php // <--- End HTML
+  // Start HTML ---> ?>
+  <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
+    <input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
+    <div>
+      <span><?php echo FICTIONEER_OPTIONS['booleans'][ $option ]['label']; ?></span>
+      <?php if ( ! empty( $sub_label ) ) : ?>
+        <p class="fictioneer-sub-label"><?php echo $sub_label; ?></p>
+      <?php endif; ?>
+    </div>
+  </label>
+  <?php // <--- End HTML
 }
 
 /**
@@ -463,12 +463,12 @@ function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
  */
 
 function fictioneer_settings_text_input( $option, $type = 'text' ) {
-	// Start HTML ---> ?>
-	<label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
-		<input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
-		<p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
-	</label>
-	<?php // <--- End HTML
+  // Start HTML ---> ?>
+  <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
+    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
+    <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+  </label>
+  <?php // <--- End HTML
 }
 
 /**
@@ -481,10 +481,10 @@ function fictioneer_settings_text_input( $option, $type = 'text' ) {
  */
 
 function fictioneer_settings_textarea( $option, $height = 'auto' ) {
-	// Start HTML ---> ?>
-	<textarea class="fictioneer-textarea" name="<?php echo $option; ?>" id="<?php echo $option; ?>" rows="4" style="height: <?php echo $height; ?>;"><?php echo get_option( $option ); ?></textarea>
-	<p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
-	<?php // <--- End HTML
+  // Start HTML ---> ?>
+  <textarea class="fictioneer-textarea" name="<?php echo $option; ?>" id="<?php echo $option; ?>" rows="4" style="height: <?php echo $height; ?>;"><?php echo get_option( $option ); ?></textarea>
+  <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+  <?php // <--- End HTML
 }
 
 /**
@@ -496,15 +496,15 @@ function fictioneer_settings_textarea( $option, $height = 'auto' ) {
  */
 
 function fictioneer_settings_page_assignment( $option ) {
-	wp_dropdown_pages(
-		array(
-			'name' => $option,
-			'id' => $option,
-			'option_none_value' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
-			'show_option_no_change' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
-			'selected' => get_option( $option )
-		)
-	);
+  wp_dropdown_pages(
+    array(
+      'name' => $option,
+      'id' => $option,
+      'option_none_value' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
+      'show_option_no_change' => _x( 'None', 'No selection page assignment.', 'fictioneer' ),
+      'selected' => get_option( $option )
+    )
+  );
 
-	echo '<p class="fictioneer-sub-label">' . FICTIONEER_OPTIONS['integers'][ $option ]['label'] . '</p>';
+  echo '<p class="fictioneer-sub-label">' . FICTIONEER_OPTIONS['integers'][ $option ]['label'] . '</p>';
 }

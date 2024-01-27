@@ -5,9 +5,9 @@
 // =============================================================================
 
 define(
-	'FICTIONEER_BASE_CAPABILITIES',
-	array(
-		'fcn_read_others_files',
+  'FICTIONEER_BASE_CAPABILITIES',
+  array(
+    'fcn_read_others_files',
     'fcn_edit_others_files',
     'fcn_delete_others_files',
     'fcn_select_page_template',
@@ -29,12 +29,12 @@ define(
     'fcn_story_pages',
     'fcn_edit_date',
     'fcn_moderate_post_comments'
-	)
+  )
 );
 
 define(
-	'FICTIONEER_TAXONOMY_CAPABILITIES',
-	array(
+  'FICTIONEER_TAXONOMY_CAPABILITIES',
+  array(
     // Categories
     'manage_categories',
     'edit_categories',
@@ -65,7 +65,7 @@ define(
     'edit_fcn_content_warnings',
     'delete_fcn_content_warnings',
     'assign_fcn_content_warnings'
-	)
+  )
 );
 
 /**
@@ -408,7 +408,7 @@ function fictioneer_add_moderator_role() {
   }
 
   // Add
-	return add_role(
+  return add_role(
     'fcn_moderator',
     __( 'Moderator', 'fictioneer' ),
     $caps

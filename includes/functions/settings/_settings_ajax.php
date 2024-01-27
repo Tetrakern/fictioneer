@@ -16,7 +16,7 @@
  */
 
 function fictioneer_validate_settings_ajax() {
-	return is_admin() &&
+  return is_admin() &&
          wp_doing_ajax() &&
          current_user_can( 'manage_options' ) &&
          ! empty( $_POST['nonce'] ) &&
@@ -45,7 +45,7 @@ function fictioneer_ajax_delete_epub() {
     $path = wp_upload_dir()['basedir'] . '/epubs/' . $file_name;
 
     // Delete file from directory
-		wp_delete_file( $path );
+    wp_delete_file( $path );
 
     // Check if deletion was successful
     if ( ! file_exists( $path ) ) {
@@ -99,17 +99,17 @@ add_action( 'wp_ajax_fictioneer_ajax_delete_epub', 'fictioneer_ajax_delete_epub'
  */
 
 function fictioneer_ajax_purge_schema() {
-	if ( fictioneer_validate_settings_ajax() ) {
+  if ( fictioneer_validate_settings_ajax() ) {
     // Abort if...
     if ( empty( $_POST['post_id'] ?? '' ) ) {
       wp_send_json_error( array( 'notice' => __( 'ID missing', 'fictioneer' ) ) );
     }
 
     // Setup
-		$post_id = fictioneer_validate_id( $_POST['post_id'] );
+    $post_id = fictioneer_validate_id( $_POST['post_id'] );
 
     // Delete schema stored in post meta
-		if ( $post_id && delete_post_meta( $post_id, 'fictioneer_schema' ) ) {
+    if ( $post_id && delete_post_meta( $post_id, 'fictioneer_schema' ) ) {
       // Log
       fictioneer_log(
         sprintf(
@@ -137,7 +137,7 @@ function fictioneer_ajax_purge_schema() {
           )
         )
       );
-		} else {
+    } else {
       // Error
       wp_send_json_error(
         array(
@@ -147,8 +147,8 @@ function fictioneer_ajax_purge_schema() {
           )
         )
       );
-		}
-	}
+    }
+  }
 
   // Invalid
   wp_send_json_error( array( 'notice' => __( 'Invalid request.', 'fictioneer' ) ) );

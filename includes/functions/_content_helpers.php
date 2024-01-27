@@ -208,13 +208,13 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <svg id="<?php echo $id; ?>" <?php echo $inserts; ?> class="icon _<?php echo $icon; ?> <?php echo $classes; ?>">
       <use xlink:href="<?php echo get_template_directory_uri(); ?>/img/icon-sprite.svg?ver=<?php echo FICTIONEER_VERSION; ?>#icon-<?php echo $icon; ?>"></use>
     </svg>
-		<?php // <--- End HTML
+    <?php // <--- End HTML
 
-		return ob_get_clean();
+    return ob_get_clean();
   }
 }
 
@@ -412,13 +412,13 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
 
   function fictioneer_get_footer_copyright_note( $args ) {
     ob_start();
-		// Start HTML ---> ?>
-		<span>© <?php echo date( 'Y' ); ?></span>
+    // Start HTML ---> ?>
+    <span>© <?php echo date( 'Y' ); ?></span>
     <span><?php echo get_bloginfo( 'name' ); ?></span>
     <span>|</span>
     <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer"><?php echo fictioneer_get_version(); ?></a>
-		<?php // <--- End HTML
-		return ob_get_clean();
+    <?php // <--- End HTML
+    return ob_get_clean();
   }
 }
 
@@ -487,8 +487,8 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
     $args['breadcrumbs'] = apply_filters( 'fictioneer_filter_breadcrumbs_array', $args['breadcrumbs'], $args );
 
     ob_start();
-		// Start HTML ---> ?>
-		<ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">
+    // Start HTML ---> ?>
+    <ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">
       <?php foreach ( $args['breadcrumbs'] as $key => $value ) : ?>
         <li class="breadcrumbs__item" property="itemListElement" typeof="ListItem">
           <?php if ( $count > $key + 1 ): ?>
@@ -504,8 +504,8 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
         </li>
       <?php endforeach; ?>
     </ol>
-		<?php // <--- End HTML
-		return ob_get_clean();
+    <?php // <--- End HTML
+    return ob_get_clean();
   }
 }
 
@@ -526,23 +526,23 @@ if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
 
   function fictioneer_get_multi_author_nodes( $authors ) {
     // Setup
-		$author_nodes = [];
+    $author_nodes = [];
 
     // If no author was found...
     if ( empty( $authors ) ) {
       return __( 'Unknown', 'No story author(s) were found.', 'fictioneer' );
     }
 
-		// The meta field returns an array of IDs
-		foreach ( $authors as $author ) {
-			$author_nodes[] = fictioneer_get_author_node( $author );
-		}
+    // The meta field returns an array of IDs
+    foreach ( $authors as $author ) {
+      $author_nodes[] = fictioneer_get_author_node( $author );
+    }
 
     // Remove empty items
     $author_nodes = array_filter( $author_nodes );
 
-		// Build and return HTML
-		return implode( ', ', array_unique( $author_nodes ) );
+    // Build and return HTML
+    return implode( ', ', array_unique( $author_nodes ) );
   }
 }
 
@@ -587,26 +587,26 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    */
 
   function fictioneer_get_story_page_cover( $story ) {
-		ob_start();
-		// Start HTML ---> ?>
-		<figure class="story__thumbnail">
-			<a href="<?php the_post_thumbnail_url( 'full' ); ?>" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-				<?php
-					the_post_thumbnail(
-						array( 200, 300 ),
-						array(
-							'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
-							'class' => 'webfeedsFeaturedVisual story__thumbnail-image'
-						)
-					);
-				?>
-				<div id="ribbon-read" class="story__thumbnail-ribbon hidden">
-					<div class="ribbon _read"><?php _ex( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ); ?></div>
-				</div>
-			</a>
-		</figure>
-		<?php // <--- End HTML
-		return ob_get_clean();
+    ob_start();
+    // Start HTML ---> ?>
+    <figure class="story__thumbnail">
+      <a href="<?php the_post_thumbnail_url( 'full' ); ?>" <?php echo fictioneer_get_lightbox_attribute(); ?>>
+        <?php
+          the_post_thumbnail(
+            array( 200, 300 ),
+            array(
+              'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
+              'class' => 'webfeedsFeaturedVisual story__thumbnail-image'
+            )
+          );
+        ?>
+        <div id="ribbon-read" class="story__thumbnail-ribbon hidden">
+          <div class="ribbon _read"><?php _ex( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ); ?></div>
+        </div>
+      </a>
+    </figure>
+    <?php // <--- End HTML
+    return ob_get_clean();
   }
 }
 
@@ -850,8 +850,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
   function fictioneer_get_chapter_author_nodes( $chapter_id ) {
     // Setup
     $all_authors = get_post_meta( $chapter_id, 'fictioneer_chapter_co_authors', true ) ?? [];
-		$all_authors = is_array( $all_authors ) ? $all_authors : [];
-		array_unshift( $all_authors, get_post_field( 'post_author', $chapter_id ) );
+    $all_authors = is_array( $all_authors ) ? $all_authors : [];
+    array_unshift( $all_authors, get_post_field( 'post_author', $chapter_id ) );
 
     // Return author nodes
     return fictioneer_get_multi_author_nodes( $all_authors );
@@ -899,36 +899,36 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     }
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">
       <?php fictioneer_icon( 'font-settings' ); ?>
     </label>
-		<?php // <--- End HTML
-		$micro_menu['formatting'] = ob_get_clean();
+    <?php // <--- End HTML
+    $micro_menu['formatting'] = ob_get_clean();
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <button type="button" title="<?php esc_attr_e( 'Enter fullscreen', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
       <?php fictioneer_icon( 'expand' ); ?>
     </button>
-		<?php // <--- End HTML
-		$micro_menu['open_fullscreen'] = ob_get_clean();
+    <?php // <--- End HTML
+    $micro_menu['open_fullscreen'] = ob_get_clean();
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <button type="button" title="<?php esc_attr_e( 'Exit fullscreen', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
       <?php fictioneer_icon( 'collapse' ); ?>
     </button>
-		<?php // <--- End HTML
-		$micro_menu['close_fullscreen'] = ob_get_clean();
+    <?php // <--- End HTML
+    $micro_menu['close_fullscreen'] = ob_get_clean();
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <button type="button" title="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1">
       <i class="fa-solid fa-bookmark"></i>
     </button>
-		<?php // <--- End HTML
-		$micro_menu['bookmark_jump'] = ob_get_clean();
+    <?php // <--- End HTML
+    $micro_menu['bookmark_jump'] = ob_get_clean();
 
     if ( $args['prev_index'] !== false ) {
       ob_start();
@@ -941,10 +941,10 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     }
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
-		<?php // <--- End HTML
-		$micro_menu['top'] = ob_get_clean();
+    <?php // <--- End HTML
+    $micro_menu['top'] = ob_get_clean();
 
     if ( $args['next_index'] ) {
       ob_start();
@@ -960,12 +960,12 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     $micro_menu = apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args );
 
     ob_start();
-		// Start HTML ---> ?>
+    // Start HTML ---> ?>
     <div id="micro-menu" class="micro-menu">
       <?php echo implode( '', $micro_menu ); ?>
     </div>
-		<?php // <--- End HTML
-		return ob_get_clean();
+    <?php // <--- End HTML
+    return ob_get_clean();
   }
 }
 
@@ -1081,9 +1081,9 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
    */
 
   function fictioneer_get_recommendation_page_cover( $recommendation ) {
-		ob_start();
-		// Start HTML ---> ?>
-		<figure class="recommendation__thumbnail">
+    ob_start();
+    // Start HTML ---> ?>
+    <figure class="recommendation__thumbnail">
       <a href="<?php the_post_thumbnail_url( 'full' ); ?>" <?php echo fictioneer_get_lightbox_attribute(); ?>>
         <?php
           the_post_thumbnail(
@@ -1096,8 +1096,8 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
         ?>
       </a>
     </figure>
-		<?php // <--- End HTML
-		return ob_get_clean();
+    <?php // <--- End HTML
+    return ob_get_clean();
   }
 }
 
@@ -1125,7 +1125,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
       return '';
     }
 
-		ob_start();
+    ob_start();
 
     // Loop over all groups...
     foreach ( $taxonomy_groups as $key => $group ) {
@@ -1145,7 +1145,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
       }
     }
 
-		return ob_get_clean();
+    return ob_get_clean();
   }
 }
 

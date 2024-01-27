@@ -10,9 +10,9 @@
 
 <div class="fictioneer-settings">
 
-	<?php fictioneer_settings_header( 'tools' ); ?>
+  <?php fictioneer_settings_header( 'tools' ); ?>
 
-	<div class="fictioneer-settings__content">
+  <div class="fictioneer-settings__content">
     <div class="fictioneer-columns fictioneer-columns--two-columns">
 
       <div class="fictioneer-card">

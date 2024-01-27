@@ -10,9 +10,9 @@
 
 <div class="fictioneer-settings">
 
-	<?php fictioneer_settings_header( 'logs' ); ?>
+  <?php fictioneer_settings_header( 'logs' ); ?>
 
-	<div class="fictioneer-settings__content">
+  <div class="fictioneer-settings__content">
 
     <div class="fictioneer-card">
       <div class="fictioneer-card__wrapper">

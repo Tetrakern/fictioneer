@@ -77,7 +77,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
           'paged' => $current_page,
           'posts_per_page' => get_option( 'posts_per_page', 8 ),
           'update_post_meta_cache' => false, // Already updated in superset of raw query
-					'update_post_term_cache' => false // Already updated in superset of raw query
+          'update_post_term_cache' => false // Already updated in superset of raw query
         );
 
         // Query featured posts
