@@ -188,7 +188,7 @@ if ( empty( $description ) ) {
         $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $statistics['comment_count'];
 
-        // Filer footer items
+        // Filter footer items
         $footer_items = apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items );
 
         // Implode and render footer items

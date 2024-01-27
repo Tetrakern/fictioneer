@@ -215,7 +215,7 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
         $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
-        // Filer footer items
+        // Filter footer items
         $footer_items = apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story_data, $args );
 
         // Implode and render footer items

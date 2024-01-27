@@ -73,7 +73,7 @@ $comments_number = get_comments_number();
             esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comments_number;
         }
 
-        // Filer footer items
+        // Filter footer items
         $footer_items = apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args );
 
         // Implode and render footer items

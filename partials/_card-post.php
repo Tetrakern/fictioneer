@@ -95,7 +95,7 @@ $categories = wp_get_post_categories( $post->ID );
         $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
           esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
-        // Filer footer items
+        // Filter footer items
         $footer_items = apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args );
 
         // Implode and render footer items

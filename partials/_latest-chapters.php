@@ -229,7 +229,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       fcntr( $story['status'] );
                   }
 
-                  // Filer footer items
+                  // Filter footer items
                   $footer_items = apply_filters(
                     'fictioneer_filter_shortcode_latest_chapters_card_footer',
                     $footer_items,

@@ -202,7 +202,7 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
 
         $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] );
 
-        // Filer footer items
+        // Filter footer items
         $footer_items = apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args );
 
         // Implode and render footer items

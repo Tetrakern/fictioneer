@@ -218,7 +218,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' .
                   fcntr( $story['status'] );
 
-                // Filer footer items
+                // Filter footer items
                 $footer_items = apply_filters(
                   'fictioneer_filter_shortcode_latest_stories_card_footer',
                   $footer_items,
