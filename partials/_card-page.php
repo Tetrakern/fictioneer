@@ -35,6 +35,9 @@ $comments_number = get_comments_number();
     <div class="card__main _grid _large">
 
       <?php
+        // Action hook
+        do_action( 'fictioneer_large_card_body_page', $post, $args );
+
         // Thumbnail
         if ( has_post_thumbnail() ) {
           printf(

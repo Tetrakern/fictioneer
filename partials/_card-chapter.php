@@ -98,6 +98,9 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
     <div class="card__main _grid _large">
 
       <?php
+        // Action hook
+        do_action( 'fictioneer_large_card_body_chapter', $post, $story_data, $args );
+
         // Thumbnail
         if ( has_post_thumbnail() ) {
 

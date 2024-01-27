@@ -75,6 +75,9 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
     <div class="card__main _grid _large">
 
       <?php
+        // Action hook
+        do_action( 'fictioneer_large_card_body_story', $post, $story, $args );
+
         // Thumbnail
         if ( has_post_thumbnail() ) {
           printf(

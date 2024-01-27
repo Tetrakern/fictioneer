@@ -586,6 +586,63 @@ Fires right after opening the inner `<header>` container. Normally includes a ba
 
 ---
 
+### `do_action( 'fictioneer_large_card_body_chapter', $post, $story_data, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-chapter.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the chapter.
+* $story_data (array|null) – Pre-processed data of the story. Unsafe.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
+### `do_action( 'fictioneer_large_card_body_collection', $post, $items, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-collection.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the collection.
+* $items (array) – Array of featured WP_Post objects.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
+### `do_action( 'fictioneer_large_card_body_page', $post, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-page.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the page.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
+### `do_action( 'fictioneer_large_card_body_post', $post, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-post.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the post.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
+### `do_action( 'fictioneer_large_card_body_recommendation', $post, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-recommendation.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the recommendation.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
+### `do_action( 'fictioneer_large_card_body_story', $post, $story_data, $args )`
+Fires before the content of the card grid is rendered in the `partials/_card-story.php` partial. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the story.
+* $story_data (array) – Pre-processed data of the story.
+* $args (array) – Optional arguments passed to the card.
+
+---
+
 ### `do_action( 'fictioneer_main' )`
 Fires after opening the site’s `<main>` container, right after the `.main-observer` element.
 

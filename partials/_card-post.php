@@ -36,6 +36,9 @@ $categories = wp_get_post_categories( $post->ID );
     <div class="card__main _grid _large">
 
       <?php
+        // Action hook
+        do_action( 'fictioneer_large_card_body_post', $post, $args );
+
         // Thumbnail
         if ( has_post_thumbnail() ) {
           printf(

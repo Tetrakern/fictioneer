@@ -90,6 +90,9 @@ if ( empty( $description ) ) {
     <div class="card__main _grid _large">
 
       <?php
+        // Action hook
+        do_action( 'fictioneer_large_card_body_collection', $post, $items, $args );
+
         // Thumbnail
         if ( has_post_thumbnail() ) {
           printf(
