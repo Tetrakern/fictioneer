@@ -169,6 +169,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   //--- Extract arguments ------------------------------------------------------
 
   $args = array(
+    'type' => $attr['type'] ?? 'default',
     'count' => max( -1, intval( $attr['count'] ?? $def_count ) ),
     'offset' => max( 0, intval( $attr['offset'] ?? 0 ) ),
     'order' => $order,

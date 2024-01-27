@@ -8,6 +8,7 @@
  * @subpackage Fictioneer
  * @since 4.0.0
  *
+ * @internal $args['type']              Type argument passed from shortcode ('compact').
  * @internal $args['count']             Number of posts provided by the shortcode.
  * @internal $args['author']            Author provided by the shortcode.
  * @internal $args['order']             Order of posts. Default 'DESC'.

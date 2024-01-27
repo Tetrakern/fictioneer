@@ -9,6 +9,7 @@
  * @since 4.0.0
  * @see fictioneer_clause_sticky_stories()
  *
+ * @internal $args['type']              Type argument passed from shortcode.
  * @internal $args['count']             Number of posts provided by the shortcode.
  * @internal $args['author']            Author provided by the shortcode.
  * @internal $args['order']             Order of posts. Default 'DESC'.
