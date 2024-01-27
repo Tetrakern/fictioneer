@@ -116,6 +116,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             <div class="card__main _grid _small">
 
+              <?php do_action( 'fictioneer_shortcode_latest_recommendations_card_body', $post, $args ); ?>
+
               <?php if ( has_post_thumbnail() ) : ?>
                 <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>>
                   <?php echo get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] ); ?>

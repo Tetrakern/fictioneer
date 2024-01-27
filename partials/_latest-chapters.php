@@ -147,6 +147,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             <div class="card__main _grid _small">
 
+              <?php do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args ); ?>
+
               <?php if ( $thumbnail_full ) : ?>
                 <a href="<?php echo $thumbnail_full; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail_snippet ?></a>
               <?php elseif ( ! empty( $text_icon ) ) : ?>

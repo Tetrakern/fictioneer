@@ -863,6 +863,45 @@ Fires right after opening the article’s no-results `<section>` container in th
 
 ---
 
+### `do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story_data, $args )`
+Fires before the content of the small card grid is rendered in the `partials/_latest-chapters*.php` partials. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the chapter.
+* $story_data (array|null) – Pre-processed data of the story. Unsafe.
+* $args (array) – Optional arguments passed to the shortcode.
+
+---
+
+### `do_action( 'fictioneer_shortcode_latest_recommendations_card_body', $post, $args )`
+Fires before the content of the small card grid is rendered in the `partials/_latest-recommendations*.php` partials. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the recommendation.
+* $args (array) – Optional arguments passed to the shortcode.
+
+---
+
+### `do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story_data, $args )`
+Fires before the content of the small card grid is rendered in the `partials/_latest-stories*.php` partials. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the story.
+* $story_data (array) – Pre-processed data of the story.
+* $args (array) – Optional arguments passed to the shortcode.
+
+---
+
+### `do_action( 'fictioneer_shortcode_latest_updates_card_body', $post, $story_data, $args )`
+Fires before the content of the small card grid is rendered in the `partials/_latest-updates*.php` partials. Does not allow you to change the content of the body, but you can add additional HTML and use CSS to modify the look. If you want to change significantly the cards, better overwrite the partial.
+
+**Parameters:**
+* $post (WP_Post) – Post object of the story.
+* $story_data (array) – Pre-processed data of the story.
+* $args (array) – Optional arguments passed to the shortcode.
+
+---
+
 ### `do_action( 'fictioneer_site', $args )`
 Fires right after opening the `#site` container in the `header.php` template. Includes the navigation bar and site header with background, logo, title, etc.
 
