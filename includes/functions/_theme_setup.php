@@ -32,7 +32,7 @@ add_action( 'admin_init', 'fictioneer_bring_out_legacy_trash' );
 /**
  * Sets up theme defaults and registers support for various WordPress features
  *
- * @since 1.0
+ * @since 1.0.0
  */
 
 function fictioneer_theme_setup() {
@@ -471,8 +471,8 @@ add_filter( 'admin_body_class', 'fictioneer_add_classes_to_admin_body' );
 /**
  * Enqueues stylesheets
  *
- * @since 1.0
- * @since 4.7 Split stylesheets into separate concerns.
+ * @since 1.0.0
+ * @since 4.7.0 - Split stylesheets into separate concerns.
  */
 
 function fictioneer_style_queue() {
@@ -602,7 +602,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_customizer_queue', 999 ); // Make 
 /**
  * Enqueues an "override" stylesheet that supersedes all others
  *
- * @since 2.0
+ * @since 2.0.0
  */
 
 function fictioneer_style_footer_queue() {
@@ -687,8 +687,8 @@ if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
 /**
  * Enqueue scripts
  *
- * @since 1.0
- * @since 4.7 Split scripts and made enqueuing depending on options.
+ * @since 1.0.0
+ * @since 4.7.0 - Split scripts and made enqueuing depending on options.
  */
 
 function fictioneer_add_custom_scripts() {
@@ -940,7 +940,7 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_load_script_translations', 99 );
  *
  * @since 5.0.0
  *
- * @param object $scripts The loaded scripts.
+ * @param object $scripts  The loaded scripts.
  */
 
 function fictioneer_remove_jquery_migrate( $scripts ) {
@@ -972,7 +972,7 @@ if ( ! is_admin() && ! get_option( 'fictioneer_enable_jquery_migrate' ) ) {
  * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
- * @param string $replacetag The original replace tag.
+ * @param string $replacetag  The original replace tag.
  */
 
 function fictioneer_replace_ao_insert_position( $replacetag ) {
@@ -986,7 +986,7 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
  * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
- * @param string $exclude List of default excludes.
+ * @param string $exclude  List of default excludes.
  */
 
 function fictioneer_ao_exclude_scripts( $exclude ) {
@@ -1119,7 +1119,7 @@ add_post_type_support( 'page', 'excerpt' );
  * @since 5.4.0
  * @link https://developer.wordpress.org/reference/functions/paginate_links/
  *
- * @param array $args Optional. Array of arguments for generating the pagination links.
+ * @param array $args  Optional. Array of arguments for generating the pagination links.
  *
  * @return string Modified pagination links HTML.
  */
@@ -1135,5 +1135,36 @@ function fictioneer_paginate_links( $args = [] ) {
     $pagination
   );
 }
+
+// =============================================================================
+// MODIFY ADMINBAR
+// =============================================================================
+
+/**
+ * Adds 'Add Chapter' link to adminbar with pre-assigned chapter story
+ *
+ * @since 5.9.3
+ *
+ * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance, passed by reference.
+ */
+
+function fictioneer_adminbar_add_chapter_link( $wp_admin_bar ) {
+  if ( ( is_single() && get_post_type() === 'fcn_story' ) || ( is_admin() && get_current_screen()->id === 'fcn_story' ) ) {
+    $story_id = get_the_ID();
+    $story_post = get_post( $story_id );
+
+    if ( $story_id && $story_post->post_author == get_current_user_id() ) {
+      $wp_admin_bar->add_node(
+        array(
+          'id' => 'fictioneer-add-chapter',
+          'title' => '<span class="ab-icon dashicons dashicons-text-page" style="top: 4px; font-size: 16px;"></span> ' . __( 'Add Chapter', 'fictioneer' ),
+          'href' => admin_url( 'post-new.php?post_type=fcn_chapter&story_id=' . $story_id ),
+          'meta' => array( 'class' => 'adminbar-add-chapter' )
+        )
+      );
+    }
+  }
+}
+add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_chapter_link', 99 );
 
 ?>

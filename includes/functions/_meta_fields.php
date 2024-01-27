@@ -234,6 +234,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
  * Returns HTML for a select meta field
  *
  * @since 5.7.4
+ * @since 5.9.3 - Added 'query_var' argument.
  *
  * @param WP_Post $post      The post.
  * @param string  $meta_key  The meta key.
@@ -244,6 +245,7 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
  *   @type string $label        Label above the field.
  *   @type string $description  Description below the field.
  *   @type bool   $required     Whether the field is required. Default false.
+ *   @type string $query_var    GET variable for current selection if empty.
  * }
  *
  * @return string The HTML markup for the field.
@@ -252,12 +254,22 @@ function fictioneer_get_metabox_array( $post, $meta_key, $args = [] ) {
 function fictioneer_get_metabox_select( $post, $meta_key, $options, $args = [] ) {
   // Setup
   $selected = get_post_meta( $post->ID, $meta_key, true );
-  $selected = empty( $selected ) ? array_keys( $options )[0] : $selected;
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
   $attributes = implode( ' ', $args['attributes'] ?? [] );
+
+  // Current selection
+  if ( empty( $selected ) ) {
+    $query_var = sanitize_key( $_GET[ $args['query_var'] ?? '' ] ?? '' );
+
+    if ( $query_var && array_key_exists( $query_var, $options ) ) {
+      $selected = $query_var;
+    } else {
+      $selected = empty( $selected ) ? array_keys( $options )[0] : $selected;
+    }
+  }
 
   // Sort alphabetically
   if ( $args['asort'] ?? 0 ) {
@@ -2655,7 +2667,8 @@ function fictioneer_render_chapter_data_metabox( $post ) {
         'data-action="select-story"',
         "data-target='chapter_groups_for_{$post->ID}'"
       ),
-      'asort' => 1
+      'asort' => 1,
+      'query_var' => 'story_id'
     )
   );
 

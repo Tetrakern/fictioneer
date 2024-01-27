@@ -216,6 +216,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | ---: | :--- |
 | `add_meta_boxes` | `fictioneer_add_seo_metabox`, `fictioneer_restrict_classic_metaboxes`, `fictioneer_add_story_meta_metabox`, `fictioneer_add_story_data_metabox`, `fictioneer_add_story_epub_metabox`, `fictioneer_add_chapter_meta_metabox`, `fictioneer_add_chapter_data_metabox`, `fictioneer_add_advanced_metabox`, `fictioneer_add_support_links_metabox`, `fictioneer_add_featured_content_metabox`, `fictioneer_add_collection_data_metabox`, `fictioneer_add_recommendation_data_metabox`
 | `add_meta_boxes_comment` | `fictioneer_add_comment_meta_box`
+| `admin_bar_menu` | `fictioneer_adminbar_add_chapter_link`
 | `admin_enqueue_scripts` | `fictioneer_admin_scripts`, `fictioneer_admin_styles`, `fictioneer_disable_moderator_comment_edit`, `fictioneer_hide_private_data`
 | `admin_footer-post.php` | `fictioneer_classic_editor_js_restrictions`, `fictioneer_hide_permalink_with_js`
 | `admin_footer-post-new.php` | `fictioneer_classic_editor_js_restrictions`
