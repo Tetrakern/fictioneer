@@ -978,11 +978,32 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    * Returns the HTML for chapter list items with icon and link
    *
    * @since 5.0.0
+   * @since 5.9.3 - Added meta field caching.
    *
-   * @return string List of chapter.
+   * @param int   $story_id       ID of the story.
+   * @param array $data           Prepared data of the story.
+   * @param int   $current_index  Index in chapter ID array.
+   *
+   * @return string HTML list of chapters.
    */
 
   function fictioneer_get_chapter_list_items( $story_id, $data, $current_index ) {
+    // Meta-cache?
+    if ( ! fictioneer_caching_active() ) {
+      $last_story_update = get_post_modified_time( 'U', true, $story_id );
+      $cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
+
+      if ( $cache && is_array( $cache ) && array_key_exists( 'html', $cache ) ) {
+        // ... still up-to-date and valid?
+        if (
+          ( $cache['timestamp'] ?? 0 ) == $last_story_update &&
+          ( $cache['valid_until'] ?? 0 ) > time()
+        ) {
+          return $cache['html'];
+        }
+      }
+    }
+
     // Setup
     $chapters = fictioneer_get_story_chapter_posts( $story_id );
     $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) || get_option( 'fictioneer_hide_chapter_icons' );
@@ -1009,17 +1030,12 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
         );
       }
 
-      // CSS classes
-      if ( $current_index == array_search( $chapter->ID, $data['chapter_ids'] ) ) {
-        $classes[] = 'current-chapter';
-      }
-
       if ( ! empty( $chapter->post_password ) ) {
         $classes[] = 'has-password';
       }
 
       // Start HTML ---> ?>
-      <li class="<?php echo implode( ' ', $classes ); ?>">
+      <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $chapter->ID; ?>">
         <a href="<?php echo "{$relative_path}?p={$chapter->ID}"; ?>">
           <?php if ( empty( $text_icon ) && ! $hide_icons ) : ?>
             <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID ); ?>"></i>
@@ -1032,7 +1048,20 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       <?php // <--- End HTML
     }
 
-		return ob_get_clean();
+    // Capture
+    $html = ob_get_clean();
+
+    // Meta-cache for next time
+    if ( ! fictioneer_caching_active() ) {
+      update_post_meta(
+        $story_id,
+        'fictioneer_story_chapter_index_html',
+        array( 'html' => $html, 'timestamp' => $last_story_update, 'valid_until' => time() + HOUR_IN_SECONDS )
+      );
+    }
+
+    // Return
+    return $html;
   }
 }
 

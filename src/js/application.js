@@ -16,14 +16,19 @@ var /** @type {Object} */ fcn_cssVars = getComputedStyle(document.documentElemen
     /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in'),
     /** @type {Number} */ fcn_viewportWidth,
     /** @type {Boolean} */ fcn_mediaMinTablet,
-    /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul')?.cloneNode(true);
+    /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
 
 // Translation functions
 const { __, _x, _n, sprintf } = wp.i18n;
 
-// Remove chapter list from DOM to improve performance (add when needed)
+// =============================================================================
+// CHAPTER INDEX
+// =============================================================================
+
 if (fcn_chapterList) {
-  _$('#story-chapter-list > ul').remove();
+  fcn_chapterList = fcn_chapterList.cloneNode(true);
+  _$$$('story-chapter-list').remove();
+  fcn_chapterList.querySelector(`[data-id="${fcn_chapterList.dataset.currentId}"]`)?.classList.add('current-chapter');
 }
 
 // =============================================================================
