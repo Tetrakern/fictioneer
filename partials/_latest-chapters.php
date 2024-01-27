@@ -123,7 +123,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           $title = fictioneer_get_safe_title( $post->ID );
           $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
-          $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : false; // Does not refresh comment count!
+          $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
 
           // Chapter images
