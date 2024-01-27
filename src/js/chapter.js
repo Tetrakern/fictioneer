@@ -1285,7 +1285,7 @@ function fcn_readingProgress() {
 // Append cloned chapter list once when the popup menu is opened
 _$$('.chapter-list-popup-toggle').forEach(element => {
   element.addEventListener('click', () => {
-    _$('[data-target="popup-chapter-list"]')?.appendChild(fcn_chapterList.cloneNode(true));
+    element.querySelector('[data-target="popup-chapter-list"]')?.appendChild(fcn_chapterList.cloneNode(true));
   }, { once: true });
 });
 
