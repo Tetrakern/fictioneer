@@ -970,7 +970,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
   /**
-   * Wrapper for get_post_meta() with content filers applied
+   * Wrapper for get_post_meta() with content filters applied
    *
    * @since 5.0.0
    *
