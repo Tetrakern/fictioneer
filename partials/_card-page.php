@@ -18,7 +18,6 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $title = fictioneer_get_safe_title( $post->ID );
-$show_type = $args['show_type'] ?? false;
 $comments_number = get_comments_number();
 
 ?>
@@ -27,7 +26,7 @@ $comments_number = get_comments_number();
   <div class="card__body polygon">
 
     <div class="card__header _large">
-      <?php if ( $show_type ) : ?>
+      <?php if ( $args['show_type'] ?? false ) : ?>
         <div class="card__label"><?php _ex( 'Page', 'Blog card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
       <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>

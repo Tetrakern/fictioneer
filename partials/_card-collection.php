@@ -46,7 +46,6 @@ if ( ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) ) {
 }
 
 // Flags
-$show_type = $args['show_type'] ?? false;
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) && ( $fandoms || $characters || $genres || $tags );
 
 // Query featured posts
@@ -80,7 +79,7 @@ if ( empty( $description ) ) {
 
     <div class="card__header _large">
 
-      <?php if ( $show_type ) : ?>
+      <?php if ( $args['show_type'] ?? false ) : ?>
         <div class="card__label"><?php _ex( 'Collection', 'Collection card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
 

@@ -51,7 +51,6 @@ if ( ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) ) {
 // Flags
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) && ( $tags || $fandoms || $characters || $genres );
-$show_type = $args['show_type'] ?? false;
 
 ?>
 
@@ -65,7 +64,7 @@ $show_type = $args['show_type'] ?? false;
 
     <div class="card__header _large">
 
-      <?php if ( $show_type ) : ?>
+      <?php if ( $args['show_type'] ?? false ) : ?>
         <div class="card__label"><?php _ex( 'Chapter', 'Chapter card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
 

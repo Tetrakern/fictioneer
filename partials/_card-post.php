@@ -20,7 +20,6 @@ defined( 'ABSPATH' ) OR exit;
 $title = fictioneer_get_safe_title( $post->ID );
 $tags = get_the_tags();
 $categories = wp_get_post_categories( $post->ID );
-$show_type = $args['show_type'] ?? false;
 
 ?>
 
@@ -28,7 +27,7 @@ $show_type = $args['show_type'] ?? false;
   <div class="card__body polygon">
 
     <div class="card__header _large">
-      <?php if ( $show_type ) : ?>
+      <?php if ( $args['show_type'] ?? false ) : ?>
         <div class="card__label"><?php _ex( 'Blog', 'Blog card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
       <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
