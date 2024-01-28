@@ -596,6 +596,7 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
 * **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
+* **Disable extended story/chapter list meta queries:** Makes list pages and shortcodes load faster, but increases the size of your database. Safe if you do not have *thousands* of posts. Follow the instructions below the setting checkbox.
 
 ### Roles Tab
 
