@@ -1176,7 +1176,7 @@ Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.co
 
 ### Constants
 
-Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
+Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) or access to your **wp-config.php**. Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
 
 ```php
 define( 'CONSTANT_NAME', value );
@@ -1244,4 +1244,13 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_MENU_TRANSIENTS | boolean | Whether to cache nav menus as Transients. Default `true`.
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
+| FICTIONEER_ENABLE_BROWSER_NOTES | boolean | Whether to inform visitors of missing browser features. Default `true`.
+| FICTIONEER_EXTEND_STORY_META_QUERY | boolean | Whether to use the extended meta query for stories. Default `true`.
+| FICTIONEER_EXTEND_CHAPTER_META_QUERY | boolean | Whether to use the extended meta query for chapters. Default `true`.
 | FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.
+
+#### FICTIONEER_EXTEND_STORY_META_QUERY & FICTIONEER_EXTEND_CHAPTER_META_QUERY
+
+These two constants technically make querying **lists** of stories and chapters slower, in exchange for keeping your database smaller. This is a long-lasting grievance with WordPress queries, which exclude posts that lack requested meta fields even if they evaluate to false. Accounting for that is expensive, but saving those otherwise superfluous meta fields can add thousands of rows to your database, slowing down your site as well. This is a tradeoff and if you have proper caching, the impact is negligible.
+
+If you would rather have faster queries but store more rows in your database, you can set these constants to `false`. Once you have done this, head to **Fictioneer > Tools > Database Tools** and add the missing **[Story Hidden]** and **[Chapter Hidden]** fields, otherwise your lists will be empty. Also purge the theme caches. Anything else is taken care of by the theme, like allowing the fields to be stored in the future.

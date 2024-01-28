@@ -40,7 +40,12 @@ $query_args = array(
   'order' => $args['order'],
   'orderby' => $args['orderby'],
   'posts_per_page' => $args['count'],
-  'meta_query' => array(
+  'no_found_rows' => true
+);
+
+// Use extended meta query?
+if ( FICTIONEER_EXTEND_STORY_META_QUERY ) {
+  $query_args['meta_query'] = array(
     'relation' => 'OR',
     array(
       'key' => 'fictioneer_story_hidden',
@@ -50,9 +55,15 @@ $query_args = array(
       'key' => 'fictioneer_story_hidden',
       'compare' => 'NOT EXISTS'
     )
-  ),
-  'no_found_rows' => true
-);
+  );
+} else {
+  $query_args['meta_query'] = array(
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    )
+  );
+}
 
 // Author?
 if ( ! empty( $args['author'] ) ) {

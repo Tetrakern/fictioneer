@@ -33,8 +33,12 @@ $query_args = array(
   'orderby' => $orderby,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ),
-  'meta_query' => array(
+  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
+);
+
+// Use extended meta query?
+if ( FICTIONEER_EXTEND_CHAPTER_META_QUERY ) {
+  $query_args['meta_query'] = array(
     'relation' => 'OR',
     array(
       'key' => 'fictioneer_chapter_hidden',
@@ -44,8 +48,15 @@ $query_args = array(
       'key' => 'fictioneer_chapter_hidden',
       'compare' => 'NOT EXISTS'
     )
-  )
-);
+  );
+} else {
+  $query_args['meta_query'] = array(
+    array(
+      'key' => 'fictioneer_chapter_hidden',
+      'value' => '0'
+    )
+  );
+}
 
 // Append date query (if any)
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );

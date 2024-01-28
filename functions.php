@@ -376,9 +376,19 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CHANGELOG' ) ) {
   define( 'FICTIONEER_ENABLE_STORY_CHANGELOG', true );
 }
 
-// Boolean: Enable tracking of chapter changes in stories
+// Boolean: Enable showing of outdated browsers' missing features
 if ( ! defined( 'FICTIONEER_ENABLE_BROWSER_NOTES' ) ) {
   define( 'FICTIONEER_ENABLE_BROWSER_NOTES', true );
+}
+
+// Boolean: Enable extended story meta query
+if ( ! defined( 'FICTIONEER_EXTEND_STORY_META_QUERY' ) ) {
+  define( 'FICTIONEER_EXTEND_STORY_META_QUERY', true );
+}
+
+// Boolean: Enable extended chapter meta query
+if ( ! defined( 'FICTIONEER_EXTEND_CHAPTER_META_QUERY' ) ) {
+  define( 'FICTIONEER_EXTEND_CHAPTER_META_QUERY', true );
 }
 
 /*

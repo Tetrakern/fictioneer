@@ -34,8 +34,12 @@ $query_args = array (
   'orderby' => $orderby,
   'paged' => $page,
   'posts_per_page' => get_option( 'posts_per_page', 8 ),
-  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ),
-  'meta_query' => array(
+  'update_post_term_cache' => ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' )
+);
+
+// Use extended meta query?
+if ( FICTIONEER_EXTEND_STORY_META_QUERY ) {
+  $query_args['meta_query'] = array(
     'relation' => 'OR',
     array(
       'key' => 'fictioneer_story_hidden',
@@ -45,8 +49,15 @@ $query_args = array (
       'key' => 'fictioneer_story_hidden',
       'compare' => 'NOT EXISTS'
     )
-  )
-);
+  );
+} else {
+  $query_args['meta_query'] = array(
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    )
+  );
+}
 
 // Order by latest chapter update timestamp?
 if ( FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER && $orderby === 'modified' ) {

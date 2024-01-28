@@ -313,4 +313,46 @@ if ( FICTIONEER_ENABLE_STICKY_CARDS ) {
   add_filter( 'posts_clauses', 'fictioneer_clause_sticky_stories', 10, 2 );
 }
 
+// =============================================================================
+// LIST META QUERIES
+// =============================================================================
+
+/**
+ * Adds 'fictioneer_chapter_hidden' to be saved falsy
+ *
+ * @since 5.9.4
+ *
+ * @param array $allowed  Array of allowed falsy meta fields.
+ *
+ * @return array The updated array.
+ */
+
+function fictioneer_allow_falsy_chapter_hidden( $allowed ) {
+  $allowed[] = 'fictioneer_chapter_hidden';
+  return $allowed;
+}
+
+if ( ! FICTIONEER_EXTEND_CHAPTER_META_QUERY ) {
+  add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_chapter_hidden' );
+}
+
+/**
+ * Adds 'fictioneer_story_hidden' to be saved falsy
+ *
+ * @since 5.9.4
+ *
+ * @param array $allowed  Array of allowed falsy meta fields.
+ *
+ * @return array The updated array.
+ */
+
+function fictioneer_allow_falsy_story_hidden( $allowed ) {
+  $allowed[] = 'fictioneer_story_hidden';
+  return $allowed;
+}
+
+if ( ! FICTIONEER_EXTEND_STORY_META_QUERY ) {
+  add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_story_hidden' );
+}
+
 ?>
