@@ -38,12 +38,8 @@ $query_args = array(
 
 // Use extended meta query?
 if ( get_option( 'fictioneer_disable_extended_chapter_list_meta_queries' ) ) {
-  $query_args['meta_query'] = array(
-    array(
-      'key' => 'fictioneer_chapter_hidden',
-      'value' => '0'
-    )
-  );
+  $query_args['meta_key'] = 'fictioneer_chapter_hidden';
+  $query_args['meta_value'] = '0';
 } else {
   $query_args['meta_query'] = array(
     'relation' => 'OR',
