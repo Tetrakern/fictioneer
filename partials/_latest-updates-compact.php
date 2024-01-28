@@ -50,7 +50,14 @@ $query_args = array(
 );
 
 // Use extended meta query?
-if ( FICTIONEER_EXTEND_STORY_META_QUERY ) {
+if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
+  $query_args['meta_query'] = array(
+    array(
+      'key' => 'fictioneer_story_hidden',
+      'value' => '0'
+    )
+  );
+} else {
   $query_args['meta_query'] = array(
     'relation' => 'OR',
     array(
@@ -60,13 +67,6 @@ if ( FICTIONEER_EXTEND_STORY_META_QUERY ) {
     array(
       'key' => 'fictioneer_story_hidden',
       'compare' => 'NOT EXISTS'
-    )
-  );
-} else {
-  $query_args['meta_query'] = array(
-    array(
-      'key' => 'fictioneer_story_hidden',
-      'value' => '0'
     )
   );
 }

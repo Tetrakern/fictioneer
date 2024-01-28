@@ -332,7 +332,7 @@ function fictioneer_allow_falsy_chapter_hidden( $allowed ) {
   return $allowed;
 }
 
-if ( ! FICTIONEER_EXTEND_CHAPTER_META_QUERY ) {
+if ( get_option( 'fictioneer_disable_extended_chapter_list_meta_queries' ) ) {
   add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_chapter_hidden' );
 }
 
@@ -351,7 +351,7 @@ function fictioneer_allow_falsy_story_hidden( $allowed ) {
   return $allowed;
 }
 
-if ( ! FICTIONEER_EXTEND_STORY_META_QUERY ) {
+if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
   add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_story_hidden' );
 }
 

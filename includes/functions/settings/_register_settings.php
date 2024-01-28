@@ -663,6 +663,20 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable age confirmation modal for posts', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_disable_extended_story_list_meta_queries' => array(
+      'name' => 'fictioneer_disable_extended_story_list_meta_queries',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Disable extended story list meta queries', 'fictioneer' ),
+      'default' => 0
+    ),
+    'fictioneer_disable_extended_chapter_list_meta_queries' => array(
+      'name' => 'fictioneer_disable_extended_chapter_list_meta_queries',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Disable extended chapter list meta queries', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(

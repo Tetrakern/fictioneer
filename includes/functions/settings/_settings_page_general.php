@@ -719,6 +719,24 @@
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_extended_story_list_meta_queries',
+                    __( 'Faster, but increases your database. Add <strong>[Story Hidden]</strong> fields under <strong>Tools > Database Tools</strong> afterwards.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_extended_chapter_list_meta_queries',
+                    __( 'Faster, but increases your database. Add <strong>[Chapter Hidden]</strong> fields under <strong>Tools > Database Tools</strong> afterwards.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
             </div>
           </div>
         </div>

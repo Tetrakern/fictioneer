@@ -381,16 +381,6 @@ if ( ! defined( 'FICTIONEER_ENABLE_BROWSER_NOTES' ) ) {
   define( 'FICTIONEER_ENABLE_BROWSER_NOTES', true );
 }
 
-// Boolean: Enable extended story meta query
-if ( ! defined( 'FICTIONEER_EXTEND_STORY_META_QUERY' ) ) {
-  define( 'FICTIONEER_EXTEND_STORY_META_QUERY', true );
-}
-
-// Boolean: Enable extended chapter meta query
-if ( ! defined( 'FICTIONEER_EXTEND_CHAPTER_META_QUERY' ) ) {
-  define( 'FICTIONEER_EXTEND_CHAPTER_META_QUERY', true );
-}
-
 /*
  * Arrays
  */
