@@ -259,11 +259,11 @@ if ( ! defined( 'FICTIONEER_REQUESTS_PER_MINUTE' ) ) {
   define( 'FICTIONEER_REQUESTS_PER_MINUTE', 5 );
 }
 
-// Integer: Maximum of 'post__not_in' query argument to prevent performance degradation.
-// If exceeded, the whole argument will be ignored in certain queries, which account for
-// this case in the view.
-if ( ! defined( 'FICTIONEER_POST_NOT_IN_LIMIT' ) ) {
-  define( 'FICTIONEER_POST_NOT_IN_LIMIT', 100 );
+// Integer: Maximum number of IDs in 'post__in' and 'post__not_in' query arguments
+// to prevent performance degradation. If exceeded, the whole argument will be
+// ignored in certain queries, which account for.
+if ( ! defined( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT' ) ) {
+  define( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT', 100 );
 }
 
 // Integer: After how many seconds after saving is a post considered "old"
