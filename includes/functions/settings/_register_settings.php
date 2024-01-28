@@ -1052,9 +1052,9 @@ function fictioneer_register_settings() {
  * Validates the 'words per minute' setting with fallback
  *
  * @since 4.0.0
- * @see   fictioneer_sanitize_integer()
+ * @see fictioneer_sanitize_integer()
  *
- * @param int $input The input value to sanitize.
+ * @param int $input  The input value to sanitize.
  *
  * @return int The sanitized integer.
  */
@@ -1067,9 +1067,9 @@ function fictioneer_validate_words_per_minute( $input ) {
  * Validates integer to be 1 or more
  *
  * @since 4.6.0
- * @see   fictioneer_sanitize_integer()
+ * @see fictioneer_sanitize_integer()
  *
- * @param int $input The input value to sanitize.
+ * @param int $input  The input value to sanitize.
  *
  * @return int The sanitized integer.
  */
@@ -1083,7 +1083,7 @@ function fictioneer_validate_integer_one_up( $input ) {
  *
  * @since 4.6.0
  *
- * @param int $input The page ID to be sanitized.
+ * @param int $input  The page ID to be sanitized.
  *
  * @return int The sanitized page ID or -1 if not a page.
  */
@@ -1096,9 +1096,9 @@ function fictioneer_validate_page_id( $input ) {
  * Validates an email address
  *
  * @since 4.6.0
- * @see   sanitize_email()
+ * @see sanitize_email()
  *
- * @param int $input The email address to be sanitized.
+ * @param int $input  The email address to be sanitized.
  *
  * @return string The email address if valid or an empty string if not.
  */
@@ -1118,7 +1118,7 @@ function fictioneer_validate_email_address( $input ) {
  * @since 4.6.0
  * @see wp_kses_post()
  *
- * @param int $input The content for the cookie consent banner.
+ * @param int $input  The content for the cookie consent banner.
  *
  * @return string The sanitized content for the cookie consent banner.
  */
@@ -1153,7 +1153,7 @@ function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
  * @since 5.5.3
  * @link https://www.php.net/manual/en/function.filter-var.php
  *
- * @param string|boolean $value The checkbox value to be sanitized.
+ * @param string|boolean $value  The checkbox value to be sanitized.
  *
  * @return boolean True or false.
  */
@@ -1179,7 +1179,7 @@ function fictioneer_sanitize_disable_widget_checkbox( $value ) {
 }
 
 // =============================================================================
-// UPDATED HOOK ACTIONS
+// SANITIZE OPTION FILTERS
 // =============================================================================
 
 add_filter( 'sanitize_option_fictioneer_user_profile_page', function( $new_value ) {
@@ -1237,5 +1237,57 @@ add_filter( 'sanitize_option_fictioneer_404_page', function( $new_value ) {
 
   return $new_value;
 }, 99);
+
+// =============================================================================
+// UPDATED OPTION ACTIONS
+// =============================================================================
+
+/**
+ * Append missing 'fictioneer_story_hidden' if extended meta queries are disabled
+ *
+ * @since 5.9.4
+ *
+ * @param mixed $old_value  The value before the update.
+ * @param mixed $value      The new value;
+ */
+
+function fictioneer_update_option_disable_extended_story_list_meta_queries( $old_value, $value ) {
+  if ( $value && $old_value !== $value ) {
+    // Append 'fictioneer_story_hidden'
+    fictioneer_append_meta_fields( 'fcn_story', 'fictioneer_story_hidden', 0 );
+
+    // Purge cache Transients
+    fictioneer_delete_transients_like( 'fictioneer_' );
+  }
+}
+add_action(
+  'update_option_fictioneer_disable_extended_story_list_meta_queries', 'fictioneer_update_option_disable_extended_story_list_meta_queries',
+  10,
+  2
+);
+
+/**
+ * Append missing 'fictioneer_chapter_hidden' if extended meta queries are disabled
+ *
+ * @since 5.9.4
+ *
+ * @param mixed $old_value  The value before the update.
+ * @param mixed $value      The new value;
+ */
+
+function fictioneer_update_option_disable_extended_chapter_list_meta_queries( $old_value, $value ) {
+  if ( $value && $old_value !== $value ) {
+    // Append 'fictioneer_chapter_hidden'
+    fictioneer_append_meta_fields( 'fcn_chapter', 'fictioneer_chapter_hidden', 0 );
+
+    // Purge cache Transients
+    fictioneer_delete_transients_like( 'fictioneer_' );
+  }
+}
+add_action(
+  'update_option_fictioneer_disable_extended_chapter_list_meta_queries', 'fictioneer_update_option_disable_extended_chapter_list_meta_queries',
+  10,
+  2
+);
 
 ?>

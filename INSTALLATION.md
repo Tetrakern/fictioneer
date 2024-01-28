@@ -584,19 +584,19 @@ The theme’s CSS comes already minified and while additional optimizations such
 
 ### General Tab
 
-Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some additional explanations:
+Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some options of note:
 
 * **System Email Address/Name:** Used for no-reply transactional emails, such as comment reply notifications.
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
 * **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
-* **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications!
+* **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
 * **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
 * **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
-* **Disable extended story/chapter list meta queries:** Makes list pages and shortcodes load faster, but increases the size of your database. Safe if you do not have *thousands* of posts. Follow the instructions below the setting checkbox.
+* **Disable extended story/chapter list meta queries:** Makes list pages and shortcodes faster, but increases the size of your database by one row for each story/chapter. Fine unless you have thousands of posts.
 
 ### Roles Tab
 
