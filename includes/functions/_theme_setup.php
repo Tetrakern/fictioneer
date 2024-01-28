@@ -1145,7 +1145,7 @@ function fictioneer_paginate_links( $args = [] ) {
  *
  * @since 5.9.3
  *
- * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance, passed by reference.
+ * @param WP_Admin_Bar $wp_admin_bar  The WP_Admin_Bar instance, passed by reference.
  */
 
 function fictioneer_adminbar_add_chapter_link( $wp_admin_bar ) {
