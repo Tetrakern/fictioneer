@@ -973,7 +973,7 @@ function fictioneer_tools_legacy_cleanup() {
   $count = 0;
 
   // Sitemap cleanup
-  if ( $last_cleanup < 202401130000 ) {
+  if ( $last_cleanup < 202401300000 ) {
     $old_sitemap = ABSPATH . '/sitemap.xml';
 
     if ( file_exists( $old_sitemap ) ) {
@@ -981,12 +981,9 @@ function fictioneer_tools_legacy_cleanup() {
     }
 
     flush_rewrite_rules();
-    $count++;
-  }
 
-  // Purge theme caches after update
-  if ( $last_cleanup < 202401190000 ) {
-    fictioneer_delete_transients_like( 'fictioneer_' );
+    fictioneer_log( __( 'Legacy cleanup removed old sitemap and flushed the permalinks.', 'fictioneer' ) );
+
     $count++;
   }
 
@@ -1010,10 +1007,12 @@ function fictioneer_tools_legacy_cleanup() {
       WHERE meta_key IN ($placeholders)
     ";
 
-    $meta_exists = $wpdb->get_var( $wpdb->prepare( $sql, $meta_keys ) );
+    $meta_rows = $wpdb->get_var( $wpdb->prepare( $sql, $meta_keys ) );
 
     // If old SEO data exists...
-    if ( $meta_exists > 0 ) {
+    if ( $meta_rows > 0 ) {
+      fictioneer_log( sprintf( __( 'Legacy cleanup removed %s SEO rows.', 'fictioneer' ), $meta_rows ) );
+
       // Query all posts
       $args = array(
         'post_type' => 'any',
@@ -1056,6 +1055,16 @@ function fictioneer_tools_legacy_cleanup() {
 
     $count++;
   }
+
+  // Purge theme caches after update
+  fictioneer_delete_transients_like( 'fictioneer_' );
+
+  $sql = "
+    DELETE FROM {$wpdb->postmeta}
+    WHERE meta_key IN (%s, %s)
+  ";
+
+  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
 
   // Remember cleanup
   update_option( 'fictioneer_last_cleanup', $cutoff );
