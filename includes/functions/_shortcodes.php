@@ -833,6 +833,37 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
 // =============================================================================
 
 /**
+ * Returns empty chapter list
+ *
+ * @since 5.9.4
+ * @see fictioneer_shortcode_chapter_list()
+ *
+ * @param string|null $attr['heading']      Optional. Show <h5> heading above list.
+ *
+ * @return string The captured HTML.
+ */
+
+function fictioneer_shortcode_chapter_list_empty( $attr ) {
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="chapter-group">
+    <?php if ( ! empty( $attr['heading'] ) ) : ?>
+      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
+        <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
+        <span><?php echo $attr['heading']; ?></span>
+      </button>
+    <?php endif; ?>
+    <ol class="chapter-group__list">
+      <li class="chapter-group__list-item _empty"><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></li>
+    </ol>
+  </div>
+  <?php // <--- End HTML
+
+  return fictioneer_minify_html( ob_get_clean() );
+}
+
+/**
  * Shortcode to show chapter list outside of story pages
  *
  * @since 5.0.0
@@ -847,36 +878,16 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * @param string|null $attr['heading']      Optional. Show <h5> heading above list.
  * @param string|null $attr['class']        Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_chapter_list( $attr ) {
   // Sanitize attributes
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  // Aria label
-  $aria_label = __( 'Toggle chapter group: %s', 'fictioneer' );
-
-  // Build empty case
-  ob_start();
-  // Start HTML ---> ?>
-  <div class="chapter-group">
-    <?php if ( ! empty( $attr['heading'] ) ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( $aria_label, $attr['heading'] ) ); ?>" tabindex="0">
-        <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
-        <span><?php echo $attr['heading']; ?></span>
-      </button>
-    <?php endif; ?>
-    <ol class="chapter-group__list">
-      <li class="chapter-group__list-item _empty"><?php _e( 'No chapters published yet.', 'fictioneer' ); ?></li>
-    </ol>
-  </div>
-  <?php // <--- End HTML
-  $empty = fictioneer_minify_html( ob_get_clean() );
-
-  // Abort if...
+  // Return empty case if...
   if ( empty( $attr['story_id'] ) && empty( $attr['chapter_ids'] ) ) {
-    return $empty;
+    return fictioneer_shortcode_chapter_list_empty( $attr );
   }
 
   // Setup
@@ -922,9 +933,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
     $chapters = $count > 0 ? array_slice( $chapters, 0, $count ) : $chapters;
   }
 
-  // Check array for items
+  // Return empty case if...
   if ( empty( $chapters ) ) {
-    return $empty;
+    return fictioneer_shortcode_chapter_list_empty( $attr );
   }
 
   // Query chapters
@@ -954,9 +965,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Query
   $chapter_query = fictioneer_shortcode_query( $query_args );
 
-  // Check query for items
+  // Return empty case if...
   if ( ! $chapter_query->have_posts() ) {
-    return $empty;
+    return fictioneer_shortcode_chapter_list_empty( $attr );
   }
 
   // Buffer
@@ -965,7 +976,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   // Start HTML ---> ?>
   <div class="chapter-group <?php echo $classes; ?>">
     <?php if ( $heading ) : ?>
-      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( $aria_label, $heading ) ); ?>" tabindex="0">
+      <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
         <span><?php echo $heading; ?></span>
       </button>
