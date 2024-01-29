@@ -352,7 +352,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_showcase( $attr ) {
@@ -445,7 +445,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_latest_chapters( $attr ) {
@@ -524,7 +524,7 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_latest_stories( $attr ) {
@@ -595,7 +595,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_latest_story_updates( $attr ) {
@@ -669,7 +669,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_latest_recommendations( $attr ) {
@@ -736,7 +736,7 @@ add_shortcode( 'fictioneer_recommendation_cards', 'fictioneer_shortcode_latest_r
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_latest_posts( $attr ) {
@@ -783,7 +783,7 @@ add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); 
  * @param string|null $attr['count']       Optional. Maximum number of items. Default -1 (all).
  * @param string|null $attr['show_empty']  Optional. Whether to show the "no bookmarks" message. Default false.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_bookmarks( $attr ) {
@@ -818,7 +818,7 @@ add_shortcode( 'fictioneer_bookmarks', 'fictioneer_shortcode_bookmarks' );
  *
  * @since 4.7.0
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_cookie_buttons( $attr ) {
@@ -1106,7 +1106,7 @@ add_shortcode( 'fictioneer_chapter_list', 'fictioneer_shortcode_chapter_list' );
  * @param string|null $attr["check_{$i}"]      Optional. Up to 6 extra checkbox field(s).
  * @param string|null $attr['class']           Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_contact_form( $attr ) {
@@ -1210,7 +1210,7 @@ add_shortcode( 'fictioneer_contact_form', 'fictioneer_shortcode_contact_form' );
  * @param string|null $attr['placeholder']  Optional. Placeholder text.
  * @param string|null $attr['type']         Optional. Default post type to query.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_search( $attr ) {
@@ -1268,7 +1268,7 @@ add_shortcode( 'fictioneer_search', 'fictioneer_shortcode_search' );
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_blog( $attr ) {
@@ -1424,7 +1424,7 @@ add_shortcode( 'fictioneer_blog', 'fictioneer_shortcode_blog' );
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
- * @return string The rendered shortcode HTML.
+ * @return string The captured shortcode HTML.
  */
 
 function fictioneer_shortcode_article_cards( $attr ) {

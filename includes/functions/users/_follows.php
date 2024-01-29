@@ -296,12 +296,12 @@ function fictioneer_ajax_get_follows_notifications() {
   // Last story/chapter update on site
   $last_update = fictioneer_get_last_fiction_update();
 
-  // Check for cached HTML
+  // Meta cache for HTML?
   if ( ! empty( $last_update ) ) {
-    $cache = get_user_meta( $user->ID, 'fictioneer_user_follows_cache', true );
+    $meta_cache = get_user_meta( $user->ID, 'fictioneer_user_follows_cache', true );
 
-    if ( ! empty( $cache ) && array_key_exists( $last_update, $cache ) ) {
-      $html = $cache[ $last_update ] . '<!-- Cached on ' . $cache['timestamp'] . ' -->';
+    if ( ! empty( $meta_cache ) && array_key_exists( $last_update, $meta_cache ) ) {
+      $html = $meta_cache[ $last_update ] . '<!-- Cached on ' . $meta_cache['timestamp'] . ' -->';
 
       wp_send_json_success( array( 'html' => $html ) );
     }
@@ -351,7 +351,7 @@ function fictioneer_ajax_get_follows_notifications() {
 
   $html = fictioneer_minify_html( ob_get_clean() );
 
-  // Cache for next time
+  // Update meta cache
   if ( ! empty( $last_update ) ) {
     update_user_meta(
       $user->ID,

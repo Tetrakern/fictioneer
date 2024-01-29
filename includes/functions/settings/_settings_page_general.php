@@ -723,7 +723,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_extended_story_list_meta_queries',
-                    __( 'Faster, but adds rows to your database, which can slow down your site if you have thousands of posts.', 'fictioneer' )
+                    __( 'Faster, but adds one row per story to your database, which can slow down your site if you have thousands.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -732,7 +732,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_extended_chapter_list_meta_queries',
-                    __( 'Faster, but adds rows to your database, which can slow down your site if you have thousands of posts.', 'fictioneer' )
+                    __( 'Faster, but adds one row per chapter to your database, which can slow down your site if you have thousands.', 'fictioneer' )
                   );
                 ?>
               </div>

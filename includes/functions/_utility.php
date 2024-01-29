@@ -255,34 +255,34 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
   function fictioneer_get_story_data( $story_id, $show_comments = true, $args = [] ) {
     $story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
-    $old_data = false;
+    $meta_cache = null;
 
     if ( empty( $story_id ) ) {
       return false;
     }
 
-    // Check cache
+    // Meta cache?
     if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
-      $old_data = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
+      $meta_cache = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
     }
 
-    if ( ! empty( $old_data ) && $old_data['last_modified'] >= get_the_modified_time( 'U', $story_id ) ) {
+    if ( $meta_cache && ( $meta_cache['last_modified'] ?? 0) >= get_the_modified_time( 'U', $story_id ) ) {
       // Return cached data without refreshing the comment count
       if ( ! $show_comments ) {
-        return $old_data;
+        return $meta_cache;
       }
 
       // Time to refresh comment count?
-      $comment_count_delay = ( $old_data['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
+      $comment_count_delay = ( $meta_cache['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
       $refresh_comments = $comment_count_delay < time() ||
         ( $args['refresh_comment_count'] ?? 0 ) || fictioneer_caching_active();
 
       // Refresh comment count
       if ( $refresh_comments ) {
         // Use old count as fallback
-        $comment_count = $old_data['comment_count'];
+        $comment_count = $meta_cache['comment_count'];
 
-        if ( count( $old_data['chapter_ids'] ) > 0 ) {
+        if ( count( $meta_cache['chapter_ids'] ) > 0 ) {
           // Counting the stored comment count of chapters is typically
           // faster than querying and counting all comments.
           $chapters = fictioneer_get_story_chapter_posts( $story_id );
@@ -296,11 +296,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           }
         }
 
-        $old_data['comment_count'] = $comment_count;
-        $old_data['comment_count_timestamp'] = time();
+        $meta_cache['comment_count'] = $comment_count;
+        $meta_cache['comment_count_timestamp'] = time();
 
         // Update meta cache and purge
-        update_post_meta( $story_id, 'fictioneer_story_data_collection', $old_data );
+        update_post_meta( $story_id, 'fictioneer_story_data_collection', $meta_cache );
 
         if ( function_exists( 'fictioneer_purge_post_cache' ) ) {
           fictioneer_purge_post_cache( $story_id );
@@ -308,7 +308,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       }
 
       // Return cached data
-      return $old_data;
+      return $meta_cache;
     }
 
     // Setup
@@ -323,7 +323,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $chapter_count = 0;
     $word_count = 0;
     $comment_count = 0;
-    $chapter_ids = [];
+    $visible_chapter_ids = [];
 
     // Assign correct icon
     if ( $status != 'Ongoing' ) {
@@ -355,7 +355,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
           }
 
           // ... but they are still listed!
-          $chapter_ids[] = $chapter->ID;
+          $visible_chapter_ids[] = $chapter->ID;
         }
 
         // Count ALL comments
@@ -383,16 +383,18 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'title' => fictioneer_get_safe_title( $story_id ),
       'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
       'rating_letter' => get_post_meta( $story_id, 'fictioneer_story_rating', true )[0],
-      'chapter_ids' => $chapter_ids,
+      'chapter_ids' => $visible_chapter_ids,
       'last_modified' => get_the_modified_time( 'U', $story_id ),
       'comment_count' => $comment_count,
       'comment_count_timestamp' => time()
     );
 
+    // Update meta cache if enabled
     if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
       update_post_meta( $story_id, 'fictioneer_story_data_collection', $result );
     }
 
+    // Done
     return $result;
   }
 }
@@ -530,11 +532,11 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
    */
 
   function fictioneer_get_collection_statistics( $collection_id ) {
-    // Cache?
-    $cache = get_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', true );
+    // Meta cache?
+    $meta_cache = get_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', true );
 
-    if ( ! empty( $cache ) && ( $cache['valid_until'] ?? 0 ) > time() ) {
-      return $cache;
+    if ( ! empty( $meta_cache ) && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
+      return $meta_cache;
     }
 
     // Setup
@@ -617,10 +619,10 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
       'valid_until' => time() + 900 // 15 minutes
     );
 
-    // Set cache
+    // Update meta cache
     update_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', $statistics );
 
-    // Return result
+    // Done
     return $statistics;
   }
 }
@@ -2222,11 +2224,11 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
 
   function fictioneer_get_stories_total_word_count() {
     // Look for cached value
-    $cached_word_count = get_transient( 'fictioneer_stories_total_word_count' );
+    $transient_word_count_cache = get_transient( 'fictioneer_stories_total_word_count' );
 
     // Return cached value if found
-    if ( $cached_word_count ) {
-      return $cached_word_count;
+    if ( $transient_word_count_cache ) {
+      return $transient_word_count_cache;
     }
 
     // Setup
@@ -2251,7 +2253,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     }
 
     // Cache for next time
-    set_transient( 'fictioneer_stories_total_word_count', $word_count );
+    set_transient( 'fictioneer_stories_total_word_count', $word_count, 900 );
 
     // Return newly calculated value
     return $word_count;

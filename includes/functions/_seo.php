@@ -304,11 +304,11 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       return esc_html( _x( 'Archive', 'SEO fallback archive title.', 'fictioneer' ) );
     }
 
-    // Cached title?
-    $cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
+    // Meta cache for title?
+    $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
 
-    if ( ! empty( $cache ) && ! $skip_cache ) {
-      return $cache;
+    if ( ! empty( $meta_cache ) && ! $skip_cache ) {
+      return $meta_cache;
     }
 
     // Start building...
@@ -459,11 +459,11 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), get_bloginfo( 'name' ) ) );
     }
 
-    // Cached description?
-    $cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
+    // Meta cache for description?
+    $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
 
-    if ( ! empty( $cache ) && ! $skip_cache ) {
-      return $cache;
+    if ( ! empty( $meta_cache ) && ! $skip_cache ) {
+      return $meta_cache;
     }
 
     // Start building...
@@ -548,12 +548,12 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
       $image_id = $default_id;
     }
 
-    // Cached image? Except for site default, which can globally change!
+    // Meta cache for image? Except for site default, which can globally change!
     if ( ! $use_default ) {
-      $cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
+      $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
 
-      if ( $cache ) {
-        return $cache;
+      if ( $meta_cache ) {
+        return $meta_cache;
       }
     }
 

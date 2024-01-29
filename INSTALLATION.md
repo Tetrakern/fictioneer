@@ -594,9 +594,9 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
-* **Disable theme comment {…}:** If you want to use different comments. Disables most of the other comment options as well.
+* **Disable theme comment \[…]:** If you want to use different comments. Disables most of the other comment options as well.
 * **Show story changelog button:** Opens modal with timestamped chapter changes; located under the chapter list.
-* **Disable extended story/chapter list meta queries:** Makes list pages and shortcodes faster, but increases the size of your database by one row for each story/chapter. Fine unless you have thousands of posts.
+* **Disable extended \[story|chapter] list meta queries:** Makes list pages and shortcodes faster, but increases the size of your database by one row for each story/chapter. Fine unless you have *thousands* of posts.
 
 ### Roles Tab
 
@@ -1177,7 +1177,7 @@ Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.co
 
 ### Constants
 
-Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) or access to your **wp-config.php**. Just override them in the child theme’s own **function.php**, but only if you know what you are doing!
+Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) or access to your **wp-config.php**. Just override them in the child theme’s own **function.php** or config, but only if you know what you are doing!
 
 ```php
 define( 'CONSTANT_NAME', value );
@@ -1185,8 +1185,8 @@ define( 'CONSTANT_NAME', value );
 
 | Constant | Type | Explanation
 | :--- | :---: | :---
-| CHILD_VERSION | string\|boolean | Version number of the child theme. Default `false`.
-| CHILD_NAME | string\|boolean | Name of the child theme. Default `false`.
+| CHILD_VERSION | string\|null | Version number of the child theme. Default `null`.
+| CHILD_NAME | string\|null | Name of the child theme. Default `null`.
 | FICTIONEER_OAUTH_ENDPOINT | string | URI slug to call the OAuth script. Default `'oauth2'`.
 | FICTIONEER_EPUB_ENDPOINT | string | URI slug to call the ePUB script. Default `'download-epub'`.
 | FICTIONEER_LOGOUT_ENDPOINT | string | URI slug to call the logout script. Default `'fictioneer-logout'`.

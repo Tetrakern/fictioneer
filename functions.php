@@ -37,11 +37,11 @@ define( 'FICTIONEER_MAJOR_VERSION', '5' );
 define( 'FICTIONEER_RELEASE_TAG', 'v5.9.3' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
-  define( 'CHILD_VERSION', false );
+  define( 'CHILD_VERSION', null );
 }
 
 if ( ! defined( 'CHILD_NAME' ) ) {
-  define( 'CHILD_NAME', false );
+  define( 'CHILD_NAME', null );
 }
 
 /*

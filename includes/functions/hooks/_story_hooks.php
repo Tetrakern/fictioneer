@@ -478,8 +478,12 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
  *
  * @since 5.9.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array $args {
+ *   Array of arguments.
+ *
+ *   @type array $story_data  Pre-compiled array of story data.
+ *   @type int   $story_id    ID of the story.
+ * }
  */
 
 function fictioneer_story_chapters( $args ) {
@@ -487,6 +491,15 @@ function fictioneer_story_chapters( $args ) {
 
   // Abort conditions...
   if ( post_password_required() ) {
+    return;
+  }
+
+  // Check for cached chapters output
+  $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ?
+    get_transient( 'fictioneer_story_chapter_list_' . $args['story_id'] ) : null;
+
+  if ( ! empty( $chapters_html ) ) {
+    echo $chapters_html;
     return;
   }
 
@@ -499,14 +512,6 @@ function fictioneer_story_chapters( $args ) {
     ! get_post_meta( $story_id, 'fictioneer_story_disable_groups', true );
   $disable_folding = get_post_meta( $story_id, 'fictioneer_story_disable_collapse', true );
   $collapse_groups = get_option( 'fictioneer_collapse_groups_by_default' );
-
-  // Check for cached chapters output
-  $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ? get_transient( 'fictioneer_story_chapter_list_' . $story_id ) : null;
-
-  if ( ! empty( $chapters_html ) ) {
-    echo $chapters_html;
-    return;
-  }
 
   // Capture output
   ob_start();

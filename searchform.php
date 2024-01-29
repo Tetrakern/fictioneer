@@ -17,9 +17,7 @@
 
 // Setup
 $no_params = empty( array_filter( $_GET ) );
-$simple_mode = $args['simple'] ?? false;
-$cache_mode = $args['cache'] ?? false;
-$show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! $simple_mode;
+$show_advanced = ! get_option( 'fictioneer_disable_theme_search' ) && ! ( $args['simple'] ?? 0 );
 $placeholder = $args['placeholder'] ?? _x( 'Search keywords or phrase', 'Advanced search placeholder.', 'fictioneer' );
 $post_type = sanitize_text_field( $_GET['post_type'] ?? $args['preselect_type'] ?? 'any' );
 
@@ -126,7 +124,7 @@ if ( $show_advanced ) {
   <?php if ( $show_advanced ) : ?>
 
     <div class="search-form__current">
-      <?php if ( $is_advanced_search && ! $cache_mode ) : ?>
+      <?php if ( $is_advanced_search && ! ( $args['cache'] ?? 0 ) ) : ?>
 
         <button
           type="button"

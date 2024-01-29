@@ -303,10 +303,10 @@ if ( ! function_exists( 'fictioneer_api_request_story' ) ) {
 
     // Return cache if still valid
     if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      $cache = get_transient( 'fictioneer_storygraph_story_' . $story_id );
+      $transient_cache = get_transient( 'fictioneer_storygraph_story_' . $story_id );
 
-      if ( ! empty( $cache ) ) {
-        return rest_ensure_response( $cache );
+      if ( ! empty( $transient_cache ) ) {
+        return rest_ensure_response( $transient_cache );
       }
     }
 
@@ -381,10 +381,10 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
 
     // Return cache if still valid
     if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {
-      $cache = get_transient( 'fictioneer_storygraph_stories_' . $page );
+      $transient_cache = get_transient( 'fictioneer_storygraph_stories_' . $page );
 
-      if ( ! empty( $cache ) ) {
-        return rest_ensure_response( $cache );
+      if ( ! empty( $transient_cache ) ) {
+        return rest_ensure_response( $transient_cache );
       }
     }
 

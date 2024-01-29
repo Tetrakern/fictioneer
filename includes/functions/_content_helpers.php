@@ -988,18 +988,18 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    */
 
   function fictioneer_get_chapter_list_items( $story_id, $data, $current_index ) {
-    // Meta-cache?
+    // Meta cache?
     if ( ! fictioneer_caching_active() ) {
       $last_story_update = get_post_modified_time( 'U', true, $story_id );
-      $cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
+      $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
 
-      if ( $cache && is_array( $cache ) && array_key_exists( 'html', $cache ) ) {
+      if ( $meta_cache && is_array( $meta_cache ) && array_key_exists( 'html', $meta_cache ) ) {
         // ... still up-to-date and valid?
         if (
-          ( $cache['timestamp'] ?? 0 ) == $last_story_update &&
-          ( $cache['valid_until'] ?? 0 ) > time()
+          ( $meta_cache['timestamp'] ?? 0 ) == $last_story_update &&
+          ( $meta_cache['valid_until'] ?? 0 ) > time()
         ) {
-          return $cache['html'];
+          return $meta_cache['html'];
         }
       }
     }
