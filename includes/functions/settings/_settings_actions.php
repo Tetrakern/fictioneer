@@ -119,7 +119,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-add-story-hidden' => __( 'The "fictioneer_story_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
-      'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' )
+      'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' ),
+      'fictioneer-legacy-cleanup' => __( 'Performed legacy cleanups: %s.', 'fictioneer' )
     )
   );
 }
@@ -949,6 +950,126 @@ add_action( 'admin_post_fictioneer_rename_role', 'fictioneer_rename_role' );
 // =============================================================================
 
 /**
+ * Legacy cleanup
+ *
+ * @since 5.9.4
+ * @global wpdb $wpdb  WordPress database object.
+ */
+
+function fictioneer_tools_legacy_cleanup() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_tools_legacy_cleanup' );
+
+  global $wpdb;
+
+  $cutoff = 202401292157; // YYYYMMDDHHMM
+  $last_cleanup = absint( get_option( 'fictioneer_last_cleanup' ) );
+  $count = 0;
+
+  // Sitemap cleanup
+  if ( $last_cleanup < 202401130000 ) {
+    $old_sitemap = ABSPATH . '/sitemap.xml';
+
+    if ( file_exists( $old_sitemap ) ) {
+      unlink( $old_sitemap );
+    }
+
+    flush_rewrite_rules();
+    $count++;
+  }
+
+  // Purge theme caches after update
+  if ( $last_cleanup < 202401190000 ) {
+    fictioneer_delete_transients_like( 'fictioneer_' );
+    $count++;
+  }
+
+  // Migrate SEO fields
+  if ( $last_cleanup < 202401300000 ) {
+    // Relevant meta keys
+    $meta_keys = [
+      'fictioneer_seo_title',
+      'fictioneer_seo_description',
+      'fictioneer_seo_og_image',
+      'fictioneer_seo_title_cache',
+      'fictioneer_seo_description_cache',
+      'fictioneer_seo_og_image_cache'
+    ];
+
+    // Look for old SEO data
+    $placeholders = implode( ', ', array_fill( 0, count( $meta_keys ), '%s' ) );
+
+    $sql = "
+      SELECT COUNT(*) FROM {$wpdb->postmeta}
+      WHERE meta_key IN ($placeholders)
+    ";
+
+    $meta_exists = $wpdb->get_var( $wpdb->prepare( $sql, $meta_keys ) );
+
+    // If old SEO data exists...
+    if ( $meta_exists > 0 ) {
+      // Query all posts
+      $args = array(
+        'post_type' => 'any',
+        'posts_per_page' => -1,
+        'update_post_meta_cache' => true,
+        'update_post_term_cache' => false,
+        'no_found_rows' => true
+      );
+
+      $posts = get_posts( $args );
+
+      // Process posts...
+      foreach ( $posts as $post ) {
+        // Get old SEO data
+        $title = get_post_meta( $post->ID, 'fictioneer_seo_title', true );
+        $description = get_post_meta( $post->ID, 'fictioneer_seo_description', true );
+        $og_image = get_post_meta( $post->ID, 'fictioneer_seo_og_image', true );
+
+        // Continue if nothing found
+        if ( ! $title && ! $description && ! $og_image ) {
+          continue;
+        }
+
+        // Build new field array
+        $seo_fields = array(
+          'title' => $title,
+          'description' => $description,
+          'og_image_id' => $og_image
+        );
+
+        // Update new meta fields
+        update_post_meta( $post->ID, 'fictioneer_seo_fields', $seo_fields );
+      }
+
+      // Delete old meta fields
+      foreach ( $meta_keys as $key ) {
+        $wpdb->delete( $wpdb->postmeta, array( 'meta_key' => $key ) );
+      }
+    }
+
+    $count++;
+  }
+
+  // Remember cleanup
+  update_option( 'fictioneer_last_cleanup', $cutoff );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-legacy-cleanup',
+        'data' => $count
+      ),
+      wp_get_referer()
+    )
+  );
+
+  exit();
+}
+add_action( 'admin_post_fictioneer_tools_legacy_cleanup', 'fictioneer_tools_legacy_cleanup' );
+
+/**
  * Optimize database
  *
  * @since 5.7.4
@@ -1029,7 +1150,6 @@ function fictioneer_tools_optimize_database() {
   );
 
   exit();
-
 }
 add_action( 'admin_post_fictioneer_tools_optimize_database', 'fictioneer_tools_optimize_database' );
 
