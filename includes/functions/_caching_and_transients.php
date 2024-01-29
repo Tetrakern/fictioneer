@@ -387,6 +387,7 @@ if ( ! function_exists( 'fictioneer_refresh_post_caches' ) ) {
         $chapters = fictioneer_get_story_chapter_ids( $story_id );
 
         delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+        delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
         fictioneer_purge_post_cache( $story_id );
 
         // ... and associated chapters
@@ -638,7 +639,6 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
       // Refresh cached HTML output
       delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
-      delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
 
       // Delete cached stories total word count
       delete_transient( 'fictioneer_stories_total_word_count' );

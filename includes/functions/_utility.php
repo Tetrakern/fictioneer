@@ -1221,8 +1221,9 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
     // Log changes
     fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );
 
-    // Clear story data cache to ensure it gets refreshed
+    // Clear meta caches to ensure they get refreshed
     delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+    delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
   } else {
     // Nothing to do
     return;

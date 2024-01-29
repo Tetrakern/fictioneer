@@ -326,13 +326,13 @@ function fictioneer_tools_purge_theme_caches() {
 
   global $wpdb;
 
-  // SQL to delete 'fictioneer_story_data_collection' meta (unique to 'fcn_story' type)
+  // SQL to delete story meta caches
   $sql = "
     DELETE FROM {$wpdb->postmeta}
-    WHERE meta_key = %s
+    WHERE meta_key IN (%s, %s)
   ";
 
-  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection' ) );
+  $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
 
   // Transients
   fictioneer_purge_nav_menu_transients();
@@ -1305,8 +1305,9 @@ function fictioneer_tools_append_chapters() {
       update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
       update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
 
-      // Clear story data cache to ensure it gets refreshed
+      // Clear meta caches to ensure they get refreshed
       delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+      delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
 
       // Update story post to fire associated actions
       wp_update_post( array( 'ID' => $story_id ) );

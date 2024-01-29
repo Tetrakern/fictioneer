@@ -311,8 +311,9 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   // Log change
   fictioneer_log_story_chapter_changes( $story_id, $chapters, $previous );
 
-  // Clear story data cache to ensure it gets refreshed
+  // Clear meta caches to ensure they get refreshed
   delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
+  delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
 
   // Update story post to fire associated actions
   wp_update_post( array( 'ID' => $story_id ) );
