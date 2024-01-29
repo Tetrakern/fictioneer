@@ -81,7 +81,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
 
     switch ( $column_name ) {
       case 'title':
-        $image = get_post_meta( $item->ID, 'fictioneer_seo_og_image_cache', true );
+        $image = fictioneer_get_seo_image( $item->ID );
         $image_url = $image ? $image['url'] : get_template_directory_uri() . '/img/no_image_placeholder.svg';
         $link = get_the_permalink( $item->ID );
         $title = fictioneer_truncate( fictioneer_get_seo_title( $item->ID ), 48 );
@@ -193,7 +193,7 @@ $seo_table->prepare_items();
             <div class="fictioneer-card__row">
               <p><?php
                 printf(
-                  __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types or page templates get a schema. You can set a default OG image under Site Identity in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
+                  __( 'This is the generated <a href="%s" target="_blank">Open Graph</a> metadata used in rich objects, such as embeds and search engine results. What is actually displayed is entirely up to the external service. Schemas are created when a post is first visited. Note that not all post types or page templates get a schema. You can set a default OG image under <strong>Site Identity</strong> in the <a href="%s" target="_blank">Customizer</a>.', 'fictioneer' ),
                   'https://ogp.me/',
                   wp_customize_url()
                 );

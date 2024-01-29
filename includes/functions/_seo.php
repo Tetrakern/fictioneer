@@ -48,22 +48,27 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
    * Output HTML for SEO metabox
    *
    * @since 4.0.0
+   * @since 5.9.4 - Refactored meta fields.
    *
    * @param object $post  The post object.
    */
 
   function fictioneer_seo_fields( $post ) {
+    // Data
+    $seo_fields = get_post_meta( $post->ID, 'fictioneer_seo_fields', true );
+    $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+
     // Title
-    $seo_title = get_post_meta( $post->ID, 'fictioneer_seo_title', true );
+    $seo_title = $seo_fields['title'] ?? '';
     $seo_title_placeholder = fictioneer_get_safe_title( $post->ID );
 
     // Description (truncated if necessary)
-    $seo_description = get_post_meta( $post->ID, 'fictioneer_seo_description', true );
+    $seo_description = $seo_fields['description'] ?? '';
     $seo_description_placeholder = wp_strip_all_tags( get_the_excerpt( $post ), true );
     $seo_description_placeholder = fictioneer_truncate( $seo_description_placeholder, 155 );
 
     // Open Graph image...
-    $seo_og_image = get_post_meta( $post->ID, 'fictioneer_seo_og_image', true );
+    $seo_og_image = $seo_fields['og_image_id'] ?? 0;
     $seo_og_image_display = wp_get_attachment_url( $seo_og_image );
     $image_source = '';
 
@@ -153,6 +158,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
  * Save SEO metabox data
  *
  * @since 4.0.0
+ * @since 5.9.4 - Refactored meta fields.
  *
  * @param int $post_id  The post ID.
  */
@@ -170,25 +176,29 @@ function fictioneer_save_seo_metabox( $post_id ) {
     return;
   }
 
-  // Save image
+  // Prepare data
+  $seo_data = array( 'title' => '', 'description' => '', 'og_image' => 0 );
+
+  // Get image
   if ( isset( $_POST['fictioneer_seo_og_image'] ) ) {
-    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_og_image', absint( $_POST['fictioneer_seo_og_image'] ) );
+    $seo_data['og_image'] = absint( $_POST['fictioneer_seo_og_image'] );
   }
 
-  // Save title
+  // Get title
   if ( isset( $_POST['fictioneer_seo_title'] ) ) {
-    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_title', sanitize_text_field( $_POST['fictioneer_seo_title'] ) );
+    $seo_data['title'] = sanitize_text_field( $_POST['fictioneer_seo_title'] );
   }
 
-  // Save description
+  // Get description
   if ( isset( $_POST['fictioneer_seo_description'] ) ) {
-    fictioneer_update_post_meta( $post_id, 'fictioneer_seo_description', sanitize_text_field( $_POST['fictioneer_seo_description'] ) );
+    $seo_data['description'] = sanitize_text_field( $_POST['fictioneer_seo_description'] );
   }
 
-  // Clear caches
-  delete_post_meta( $post_id, 'fictioneer_seo_title_cache' );
-  delete_post_meta( $post_id, 'fictioneer_seo_description_cache' );
-  delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
+  // Save fields
+  fictioneer_update_post_meta( $post_id, 'fictioneer_seo_fields', $seo_data );
+
+  // Purge meta cache
+  delete_post_meta( $post_id, 'fictioneer_seo_cache' );
 }
 
 if (
@@ -208,6 +218,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
    * Get SEO title
    *
    * @since 4.0.0
+   * @since 5.9.4 - Refactored meta caching.
    *
    * @param int   $post_id  Optional. The post ID.
    * @param array $args     Optional. Array of arguments.
@@ -305,15 +316,18 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     }
 
     // Meta cache for title (purged on update)?
-    $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
+    if ( ! $skip_cache ) {
+      $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_cache', true );
 
-    if ( ! empty( $meta_cache ) && ! $skip_cache ) {
-      return $meta_cache;
+      if ( $meta_cache && is_array( $meta_cache ) && ! empty( $meta_cache['title'] ?? '' ) ) {
+        return $meta_cache['title'];
+      }
     }
 
     // Start building...
-    $seo_title = get_post_meta( $post_id, 'fictioneer_seo_title', true );
-    $seo_title = empty( $seo_title ) ? false : $seo_title;
+    $seo_fields = get_post_meta( $post_id, 'fictioneer_seo_fields', true );
+    $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+    $seo_title = $seo_fields['title'] ?? '';
     $title = fictioneer_get_safe_title( $post_id );
     $default = empty( $default ) ? $title : $default;
 
@@ -345,11 +359,19 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     // Finalize
     $seo_title = esc_html( trim( wp_strip_all_tags( $seo_title ) ) );
 
-    // Cache for next time
+    // Update meta cache
     if ( ! $skip_cache ) {
-      update_post_meta( $post_id, 'fictioneer_seo_title_cache', $seo_title );
+      // Ensure data structure
+      if ( ! is_array( $meta_cache ) ) {
+        $meta_cache = array( 'title' => '', 'description' => '', 'og_image' => [] );
+      }
+
+      $meta_cache['title'] = $seo_title;
+
+      update_post_meta( $post_id, 'fictioneer_seo_cache', $meta_cache );
     }
 
+    // Done
     return $seo_title;
   }
 }
@@ -363,6 +385,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
    * Get SEO description
    *
    * @since 4.0.0
+   * @since 5.9.4 - Refactored meta caching.
    *
    * @param int   $post_id  Optional. The post ID.
    * @param array $args     Optional. Array of arguments.
@@ -460,15 +483,18 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     }
 
     // Meta cache for description (purged on update)?
-    $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
+    if ( ! $skip_cache ) {
+      $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_cache', true );
 
-    if ( ! empty( $meta_cache ) && ! $skip_cache ) {
-      return $meta_cache;
+      if ( $meta_cache && is_array( $meta_cache ) && ! empty( $meta_cache['description'] ?? '' ) ) {
+        return $meta_cache['description'];
+      }
     }
 
     // Start building...
-    $seo_description = get_post_meta( $post_id, 'fictioneer_seo_description', true );
-    $seo_description = empty( $seo_description ) ? false : $seo_description;
+    $seo_fields = get_post_meta( $post_id, 'fictioneer_seo_fields', true );
+    $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+    $seo_description = $seo_fields['description'] ?? '';
     $title = fictioneer_get_safe_title( $post_id );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
     $excerpt = fictioneer_truncate( $excerpt, 155 );
@@ -510,11 +536,19 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     // Finalize
     $seo_description = esc_html( trim( wp_strip_all_tags( $seo_description ) ) );
 
-    // Cache for next time
+    // Update meta cache
     if ( ! $skip_cache ) {
-      update_post_meta( $post_id, 'fictioneer_seo_description_cache', $seo_description );
+      // Ensure data structure
+      if ( ! is_array( $meta_cache ) ) {
+        $meta_cache = array( 'title' => '', 'description' => '', 'og_image' => [] );
+      }
+
+      $meta_cache['description'] = $seo_description;
+
+      update_post_meta( $post_id, 'fictioneer_seo_cache', $meta_cache );
     }
 
+    // Done
     return $seo_description;
   }
 }
@@ -528,10 +562,11 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
    * Get SEO image data array
    *
    * @since 4.0.0
+   * @since 5.9.4 - Refactored meta caching.
    *
    * @param int $post_id Optional. The post ID.
    *
-   * @return array|boolean Data of the image or false if none has been found.
+   * @return array|null Data of the image or null if none has been found.
    */
 
   function fictioneer_get_seo_image( $post_id = null ) {
@@ -540,7 +575,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
     $use_default = is_archive() || is_search() || is_author();
     $default_id = get_theme_mod( 'og_image' );
     $image_id = false;
-    $image = false;
+    $image = null;
 
     // Page with site default OG image?
     if ( $use_default ) {
@@ -550,16 +585,23 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
 
     // Meta cache for image (purged on update)? Except for site default, which can globally change!
     if ( ! $use_default ) {
-      $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
+      $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_cache', true );
 
-      if ( $meta_cache ) {
-        return $meta_cache;
+      if (
+        $meta_cache &&
+        is_array( $meta_cache ) &&
+        is_array( $meta_cache['og_image'] ?? 0 ) &&
+        ! empty( $meta_cache['og_image'] ?? [] )
+      ) {
+        return $meta_cache['og_image'];
       }
     }
 
     // Get image ID if not yet set
     if ( ! $image_id ) {
-      $image_id = get_post_meta( $post_id, 'fictioneer_seo_og_image', true );
+      $seo_fields = get_post_meta( $post_id, 'fictioneer_seo_fields', true );
+      $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
+      $image_id = $seo_fields['og_image_id'] ?? '';
       $image_id = wp_attachment_is_image( $image_id ) ? $image_id : false;
     }
 
@@ -598,11 +640,19 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
       }
     }
 
-    // Cache for next time
-    if ( ! $use_default ) {
-      update_post_meta( $post_id, 'fictioneer_seo_og_image_cache', $image );
+    // Update meta cache (if image has been found)
+    if ( $image ) {
+      // Ensure data structure
+      if ( ! is_array( $meta_cache ) ) {
+        $meta_cache = array( 'title' => '', 'description' => '', 'og_image' => [] );
+      }
+
+      $meta_cache['og_image'] = $image;
+
+      update_post_meta( $post_id, 'fictioneer_seo_cache', $meta_cache );
     }
 
+    // Done
     return $image;
   }
 }

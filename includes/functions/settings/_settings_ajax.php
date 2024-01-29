@@ -123,9 +123,7 @@ function fictioneer_ajax_purge_schema() {
       );
 
       // Purge caches
-      delete_post_meta( $post_id, 'fictioneer_seo_title_cache' );
-      delete_post_meta( $post_id, 'fictioneer_seo_description_cache' );
-      delete_post_meta( $post_id, 'fictioneer_seo_og_image_cache' );
+      delete_post_meta( $post_id, 'fictioneer_seo_cache' );
       fictioneer_refresh_post_caches( $post_id );
 
       // Success
@@ -193,9 +191,7 @@ function fictioneer_ajax_purge_all_schemas() {
     $placeholders = implode( ', ', array_fill( 0, count( $query->posts ), '%d' ) );
     $meta_keys = array(
       'fictioneer_schema',
-      'fictioneer_seo_title_cache',
-      'fictioneer_seo_description_cache',
-      'fictioneer_seo_og_image_cache'
+      'fictioneer_seo_cache'
     );
 
     // Execute
