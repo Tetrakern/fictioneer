@@ -962,8 +962,14 @@ function fictioneer_tools_legacy_cleanup() {
 
   global $wpdb;
 
-  $cutoff = 202401292157; // YYYYMMDDHHMM
+  // Get install date from first (existing) user registration date
+  $users = get_users( array( 'orderby' => 'registered', 'order' => 'ASC', 'number' => 1 ) );
+  $install_date = date( 'YmdHi', strtotime( $users[0]->user_registered ) ); // YYYYMMDDHHMM
+
+  // Setup
+  $cutoff = 202401300000; // YYYYMMDDHHMM
   $last_cleanup = absint( get_option( 'fictioneer_last_cleanup' ) );
+  $last_cleanup = $last_cleanup < $install_date ? $install_date : $last_cleanup;
   $count = 0;
 
   // Sitemap cleanup
