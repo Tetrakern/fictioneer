@@ -251,7 +251,7 @@ function fictioneer_browser_notes() {
 
   // Start HTML ---> ?>
   <div id="browser-notes" class="browser-notes">
-    <strong><?php _e( 'Outdated Browser:', 'fictioneer' ); ?></strong>
+    <strong><?php _e( 'Please update your browser:', 'fictioneer' ); ?></strong>
     <?php echo implode( ' ', $notes ); ?></div>
   <?php // <--- End HTML
 }
