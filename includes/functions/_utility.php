@@ -261,7 +261,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       return false;
     }
 
-    // Meta cache?
+    // Meta cache (purged on update)?
     if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
       $meta_cache = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
     }
@@ -275,7 +275,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       // Time to refresh comment count?
       $comment_count_delay = ( $meta_cache['comment_count_timestamp'] ?? 0 ) + FICTIONEER_STORY_COMMENT_COUNT_TIMEOUT;
       $refresh_comments = $comment_count_delay < time() ||
-        ( $args['refresh_comment_count'] ?? 0 ) || fictioneer_caching_active();
+        ( $args['refresh_comment_count'] ?? 0 ) || fictioneer_caching_active( 'story_data_refresh_comment_count' );
 
       // Refresh comment count
       if ( $refresh_comments ) {
@@ -430,11 +430,15 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       return false;
     }
 
-    // Meta cache?
-    $meta_cache = $author->fictioneer_author_statistics;
+    $cache_plugin_active = fictioneer_caching_active( 'author_statistics' );
 
-    if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
-      return $meta_cache;
+    // Meta cache?
+    if ( ! $cache_plugin_active ) {
+      $meta_cache = $author->fictioneer_author_statistics;
+
+      if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
+        return $meta_cache;
+      }
     }
 
     // Get stories
@@ -509,7 +513,9 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     );
 
     // Update meta cache
-    fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
+    if ( ! $cache_plugin_active ) {
+      fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
+    }
 
     // Done
     return $result;
@@ -533,10 +539,14 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
 
   function fictioneer_get_collection_statistics( $collection_id ) {
     // Meta cache?
-    $meta_cache = get_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', true );
+    $cache_plugin_active = fictioneer_caching_active( 'collection_statistics' );
 
-    if ( ! empty( $meta_cache ) && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
-      return $meta_cache;
+    if ( ! $cache_plugin_active ) {
+      $meta_cache = get_post_meta( $collection_id, 'fictioneer_collection_statistics', true );
+
+      if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
+        return $meta_cache;
+      }
     }
 
     // Setup
@@ -620,7 +630,9 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
     );
 
     // Update meta cache
-    update_post_meta( $collection_id, 'fictioneer_collection_statistics_cache', $statistics );
+    if ( ! $cache_plugin_active ) {
+      update_post_meta( $collection_id, 'fictioneer_collection_statistics', $statistics );
+    }
 
     // Done
     return $statistics;

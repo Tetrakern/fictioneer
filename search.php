@@ -114,7 +114,7 @@ $hook_args['is_advanced_search'] = $is_advanced_search;
                 $card_args = array( 'show_type' => true );
 
                 // Cached?
-                if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) {
+                if ( fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active() ) {
                   $card_args['cache'] = true;
                 }
 

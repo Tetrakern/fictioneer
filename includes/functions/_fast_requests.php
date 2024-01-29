@@ -104,7 +104,7 @@ function fictioneer_do_fast_ajax() {
 
   // Skip cache checks
   if ( ! function_exists( 'fictioneer_caching_active' ) ) {
-    function fictioneer_caching_active() { return false; };
+    function fictioneer_caching_active( $context = null ) { return false; };
   }
 
   if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {

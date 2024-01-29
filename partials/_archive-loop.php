@@ -53,17 +53,12 @@ $hook_args = array(
           // Setup
           $type = get_post_type();
           $card_args = array(
-            'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
+            'cache' => fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active(),
             'show_type' => true,
             'order' => $order,
             'orderby' => $orderby,
             'ago' => $ago
           );
-
-          // Cached?
-          if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) {
-            $card_args['cache'] = true;
-          }
 
           // Special conditions for chapters...
           if ( $type == 'fcn_chapter' ) {

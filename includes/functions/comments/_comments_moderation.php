@@ -608,7 +608,7 @@ function fictioneer_ajax_moderate_comment() {
   // Send result
   if ( $result ) {
     // Clear cache if necessary
-    if ( fictioneer_caching_active() ) {
+    if ( fictioneer_caching_active( 'ajax_comment_moderation' ) ) {
       fictioneer_purge_post_cache( $comment->comment_post_ID );
     }
 
@@ -714,7 +714,7 @@ function fictioneer_ajax_report_comment() {
   }
 
   // Purge cache
-  if ( fictioneer_caching_active() ) {
+  if ( fictioneer_caching_active( 'ajax_report_comment' ) ) {
     fictioneer_purge_post_cache( $comment->comment_post_ID );
   }
 

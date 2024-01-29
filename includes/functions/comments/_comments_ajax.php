@@ -405,7 +405,7 @@ function fictioneer_ajax_submit_comment() {
   $html = trim( $html );
 
   // Purge cache if necessary
-  if ( fictioneer_caching_active() && ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
+  if ( fictioneer_caching_active( 'ajax_comment_submit' ) && ! get_option( 'fictioneer_enable_ajax_comments' ) ) {
     fictioneer_purge_post_cache( $post_id );
   }
 

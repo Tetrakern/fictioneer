@@ -284,7 +284,7 @@ function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata )
   }
 
   // Purge cache of post/page the comment is for
-  if ( fictioneer_caching_active() && isset( $commentdata['comment_post_ID'] ) ) {
+  if ( fictioneer_caching_active( 'comment_post' ) && isset( $commentdata['comment_post_ID'] ) ) {
     fictioneer_purge_post_cache( $commentdata['comment_post_ID'] );
   }
 
@@ -529,7 +529,7 @@ if ( ! function_exists( 'fictioneer_unsubscribe_from_comment' ) ) {
 
 function fictioneer_comment_edit( $comment_ID, $data ) {
   // Purge cache of post/page the comment is for
-  if ( fictioneer_caching_active() && isset( $data['comment_post_ID'] ) ) {
+  if ( fictioneer_caching_active( 'comment_edit' ) && isset( $data['comment_post_ID'] ) ) {
     fictioneer_purge_post_cache( $data['comment_post_ID'] );
   }
 }

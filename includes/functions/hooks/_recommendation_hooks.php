@@ -30,7 +30,7 @@ function fictioneer_recommendations_list( $args ) {
         <?php
           // Card arguments
           $card_args = array(
-            'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
+            'cache' => fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active(),
             'order' => $args['order'] ?? 'desc',
             'orderby' => $args['orderby'] ?? 'modified',
             'ago' => $args['ago'] ?? 0

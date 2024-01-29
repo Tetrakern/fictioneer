@@ -33,10 +33,12 @@ if ( ! function_exists( 'fictioneer_caching_active' ) ) {
    *
    * @since 4.0.0
    *
+   * @param string|null $context  Context of the check. Currently unused.
+   *
    * @return boolean Either true (active) or false (inactive or not installed).
    */
 
-  function fictioneer_caching_active() {
+  function fictioneer_caching_active( $context = null ) {
     // Check early
     if ( get_option( 'fictioneer_enable_cache_compatibility' ) ) {
       return true;
@@ -85,7 +87,7 @@ if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
 
 function fictioneer_enable_shortcode_transients() {
   // Check constant and caching status
-  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 && ! fictioneer_caching_active();
+  $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 && ! fictioneer_caching_active( 'shortcodes' );
 
   // Filter
   $bool = apply_filters( 'fictioneer_filter_enable_shortcode_transients', $bool );
@@ -503,7 +505,7 @@ function fictioneer_toggle_refresh_hooks( $add = true ) {
   }
 }
 
-if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active() ) {
+if ( FICTIONEER_CACHE_PURGE_ASSIST && fictioneer_caching_active( 'purge_assist' ) ) {
   fictioneer_toggle_refresh_hooks();
 }
 
@@ -636,6 +638,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
       // Refresh cached HTML output
       delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
+      delete_post_meta( $story_id, 'fictioneer_story_chapter_index_html' );
 
       // Delete cached stories total word count
       delete_transient( 'fictioneer_stories_total_word_count' );

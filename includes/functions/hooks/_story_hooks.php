@@ -106,7 +106,7 @@ function fictioneer_stories_list( $args ) {
         <?php
           // Card arguments
           $card_args = array(
-            'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active(),
+            'cache' => fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active(),
             'order' => $args['order'] ?? 'desc',
             'orderby' => $args['orderby'] ?? 'modified',
             'ago' => $args['ago'] ?? 0
@@ -494,13 +494,16 @@ function fictioneer_story_chapters( $args ) {
     return;
   }
 
-  // Check for cached chapters output
-  $chapters_html = FICTIONEER_CHAPTER_LIST_TRANSIENTS ?
-    get_transient( 'fictioneer_story_chapter_list_' . $args['story_id'] ) : null;
+  $cache_plugin_active = fictioneer_caching_active( 'story_chapter_list' );
 
-  if ( ! empty( $chapters_html ) ) {
-    echo $chapters_html;
-    return;
+  // Check for cached chapters output
+  if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS && ! $cache_plugin_active ) {
+    $transient_cache = get_transient( 'fictioneer_story_chapter_list_' . $args['story_id'] );
+
+    if ( $transient_cache ) {
+      echo $transient_cache;
+      return;
+    }
   }
 
   // Setup
@@ -709,7 +712,7 @@ function fictioneer_story_chapters( $args ) {
   echo $chapters_html;
 
   // Cache for next time (24 hours)
-  if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS ) {
+  if ( FICTIONEER_CHAPTER_LIST_TRANSIENTS && ! $cache_plugin_active ) {
     set_transient( 'fictioneer_story_chapter_list_' . $story_id, $chapters_html, 86400 );
   }
 }

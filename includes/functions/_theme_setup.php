@@ -338,7 +338,7 @@ function fictioneer_root_attributes() {
 
   $conditions = array(
     'data-age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
-    'data-caching-active' => fictioneer_caching_active(),
+    'data-caching-active' => fictioneer_caching_active( 'root_attribute' ),
     'data-ajax-submit' => get_option( 'fictioneer_enable_ajax_comment_submit', false ),
     'data-force-child-theme' => ! FICTIONEER_THEME_SWITCH,
     'data-public-caching' => get_option( 'fictioneer_enable_public_cache_compatibility', false ),
@@ -401,7 +401,7 @@ function fictioneer_add_classes_to_body( $classes ) {
   }
 
   // Browsers
-  if ( ! fictioneer_caching_active() ) {
+  if ( ! fictioneer_caching_active( 'devise_body_classes' ) ) {
     $includes['is-iphone'] = $GLOBALS['is_iphone'];
     $includes['is-chrome'] = $GLOBALS['is_chrome'];
     $includes['is-safari'] = $GLOBALS['is_safari'];

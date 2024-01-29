@@ -261,7 +261,7 @@
               <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_posts' ); ?>"><?php _e( 'Fix Posts', 'fictioneer' ); ?></a>
             </div>
 
-            <?php if ( fictioneer_caching_active() ) : ?>
+            <?php if ( fictioneer_caching_active( 'fictioneer_settings_tab_tools' ) ) : ?>
 
               <hr>
 

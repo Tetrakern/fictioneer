@@ -304,7 +304,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
       return esc_html( _x( 'Archive', 'SEO fallback archive title.', 'fictioneer' ) );
     }
 
-    // Meta cache for title?
+    // Meta cache for title (purged on update)?
     $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_title_cache', true );
 
     if ( ! empty( $meta_cache ) && ! $skip_cache ) {
@@ -459,7 +459,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
       return esc_html( sprintf( __( 'Archived posts on %s.', 'fictioneer' ), get_bloginfo( 'name' ) ) );
     }
 
-    // Meta cache for description?
+    // Meta cache for description (purged on update)?
     $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_description_cache', true );
 
     if ( ! empty( $meta_cache ) && ! $skip_cache ) {
@@ -548,7 +548,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
       $image_id = $default_id;
     }
 
-    // Meta cache for image? Except for site default, which can globally change!
+    // Meta cache for image (purged on update)? Except for site default, which can globally change!
     if ( ! $use_default ) {
       $meta_cache = get_post_meta( $post_id, 'fictioneer_seo_og_image_cache', true );
 

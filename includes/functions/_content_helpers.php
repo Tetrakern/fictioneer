@@ -989,7 +989,9 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
   function fictioneer_get_chapter_list_items( $story_id, $data, $current_index ) {
     // Meta cache?
-    if ( ! fictioneer_caching_active() ) {
+    $cache_plugin_active = fictioneer_caching_active( 'chapter_list_items' );
+
+    if ( ! $cache_plugin_active ) {
       $last_story_update = get_post_modified_time( 'U', true, $story_id );
       $meta_cache = get_post_meta( $story_id, 'fictioneer_story_chapter_index_html', true );
 
@@ -1051,8 +1053,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     // Capture
     $html = ob_get_clean();
 
-    // Meta-cache for next time
-    if ( ! fictioneer_caching_active() ) {
+    // Update meta cache
+    if ( ! $cache_plugin_active ) {
       update_post_meta(
         $story_id,
         'fictioneer_story_chapter_index_html',

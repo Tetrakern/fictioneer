@@ -1139,7 +1139,7 @@ function fictioneer_gate_unpublished_content() {
 
   // 404 if access is not allowed
   if (
-    fictioneer_caching_active() &&
+    fictioneer_caching_active( 'get_unpublished_content' ) &&
     $post->post_status !== 'publish' &&
     ! fictioneer_verify_unpublish_access( $post->ID )
   ) {

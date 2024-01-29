@@ -67,7 +67,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Default card arguments
     $the_card_args = array(
-      'cache' => fictioneer_caching_active() && ! fictioneer_private_caching_active()
+      'cache' => fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active()
     );
 
     // Merge with optional arguments

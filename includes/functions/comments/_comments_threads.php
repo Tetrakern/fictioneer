@@ -368,7 +368,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     $flag_classes = '';
 
     // Flags
-    $is_caching = fictioneer_caching_active();
+    $cache_plugin_active = fictioneer_caching_active( 'theme_comment' );
     $is_owner = ! empty( $comment_user_id ) && $comment_user_id == $current_user->ID;
     $is_approved = $comment->comment_approved;
     $is_offensive = get_comment_meta( $comment->comment_ID, 'fictioneer_marked_offensive', true );
@@ -404,7 +404,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     }
 
     // No individual flags for cached comments unless loaded via AJAX or caches are per user
-    if ( ! wp_doing_ajax() && $is_caching && ! fictioneer_private_caching_active() ) {
+    if ( ! wp_doing_ajax() && $cache_plugin_active && ! fictioneer_private_caching_active() ) {
       $is_flagged_by_current_user = false;
       $flag_classes = '_dubious';
     }
@@ -608,7 +608,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         // COMMENT EDIT
         // =============================================================================
         ?>
-        <?php if ( ( $can_edit && $is_editable ) || ( $is_caching && ! $is_deleted_by_owner) ) : ?>
+        <?php if ( ( $can_edit && $is_editable ) || ( $cache_plugin_active && ! $is_deleted_by_owner) ) : ?>
           <div class="fictioneer-comment__edit" hidden>
             <textarea class="comment-inline-edit-content"><?php echo $comment->comment_content; ?></textarea>
           </div>
@@ -698,7 +698,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           //   caching is active. In either case, the button will be made visible by JS.
           // =============================================================================
           ?>
-          <?php if ( ( $can_edit && $is_editable ) || $is_caching ) : ?>
+          <?php if ( ( $can_edit && $is_editable ) || $cache_plugin_active ) : ?>
             <button
             class="fictioneer-comment__edit-toggle comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
             type="button"
@@ -714,7 +714,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           //   active. In either case, the button will be made visible by JS.
           // =============================================================================
           ?>
-          <?php if ( $is_owner || $is_caching ) : ?>
+          <?php if ( $is_owner || $cache_plugin_active ) : ?>
             <button
               class="fictioneer-comment__delete comment-quick-button hide-on-edit tooltipped hide-if-logged-out hide-on-ajax"
               type="button"

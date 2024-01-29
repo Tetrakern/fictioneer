@@ -91,7 +91,7 @@ function fictioneer_post_featured_list( $post_id ) {
           $card_args = array( 'show_type' => true );
 
           // Cached?
-          if ( fictioneer_caching_active() && ! fictioneer_private_caching_active() ) {
+          if ( fictioneer_caching_active( 'card_args' ) && ! fictioneer_private_caching_active() ) {
             $card_args['cache'] = true;
           }
 
