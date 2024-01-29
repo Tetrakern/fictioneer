@@ -405,6 +405,8 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
   /**
    * Returns an author's statistics
    *
+   * Note: Cached as meta field for an hour.
+   *
    * @since 4.6.0
    *
    * @param int $author_id  User ID of the author.
@@ -426,11 +428,11 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       return false;
     }
 
-    // Cache?
-    $old_data = $author->fictioneer_author_statistics;
+    // Meta cache?
+    $meta_cache = $author->fictioneer_author_statistics;
 
-    if ( $old_data && ( $old_data['valid_until'] ?? 0 ) > time() ) {
-      return $old_data;
+    if ( $meta_cache && ( $meta_cache['valid_until'] ?? 0 ) > time() ) {
+      return $meta_cache;
     }
 
     // Get stories
@@ -485,6 +487,10 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
     $word_count = 0;
     $comment_count = 0;
 
+    foreach ( $stories as $story ) {
+      $word_count += fictioneer_get_word_count( $story->ID );
+    }
+
     foreach ( $chapters as $chapter ) {
       $word_count += fictioneer_get_word_count( $chapter->ID );
       $comment_count += $chapter->comment_count;
@@ -500,10 +506,10 @@ if ( ! function_exists( 'fictioneer_get_author_statistics' ) ) {
       'comment_count' => $comment_count
     );
 
-    // Remember results
+    // Update meta cache
     fictioneer_update_user_meta( $author_id, 'fictioneer_author_statistics', $result );
 
-    // Return results
+    // Done
     return $result;
   }
 }
