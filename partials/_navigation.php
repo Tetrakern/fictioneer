@@ -51,7 +51,7 @@ if ( get_theme_mod( 'mobile_nav_style', 'overflow' ) === 'collapse' ) {
           $menu = null;
 
           if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-            $menu = get_transient( 'fictioneer_main_nav_menu' );
+            $menu = get_transient( 'fictioneer_main_nav_menu_html' );
           }
 
           if ( empty( $menu ) ) {
@@ -73,7 +73,7 @@ if ( get_theme_mod( 'mobile_nav_style', 'overflow' ) === 'collapse' ) {
             }
 
             if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-              set_transient( 'fictioneer_main_nav_menu', $menu );
+              set_transient( 'fictioneer_main_nav_menu_html', $menu );
             }
           }
 

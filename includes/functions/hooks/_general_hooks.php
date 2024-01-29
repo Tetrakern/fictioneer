@@ -82,7 +82,7 @@ function fictioneer_footer_menu_row( $args ) {
         $menu = null;
 
         if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-          $menu = get_transient( 'fictioneer_footer_menu' );
+          $menu = get_transient( 'fictioneer_footer_menu_html' );
         }
 
         if ( empty( $menu ) ) {
@@ -104,7 +104,7 @@ function fictioneer_footer_menu_row( $args ) {
           }
 
           if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-            set_transient( 'fictioneer_footer_menu', $menu );
+            set_transient( 'fictioneer_footer_menu_html', $menu );
           }
         }
 

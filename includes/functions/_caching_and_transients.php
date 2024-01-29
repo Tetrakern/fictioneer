@@ -638,7 +638,7 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
       update_option( 'fictioneer_story_or_chapter_updated_timestamp', time() * 1000 );
 
       // Refresh cached HTML output
-      delete_transient( 'fictioneer_story_chapter_list_' . $story_id );
+      delete_transient( 'fictioneer_story_chapter_list_html' . $story_id );
 
       // Delete cached stories total word count
       delete_transient( 'fictioneer_stories_total_word_count' );
@@ -750,8 +750,8 @@ fictioneer_toggle_transient_purge_hooks();
  */
 
 function fictioneer_purge_nav_menu_transients() {
-  delete_transient( 'fictioneer_main_nav_menu' );
-  delete_transient( 'fictioneer_footer_menu' );
+  delete_transient( 'fictioneer_main_nav_menu_html' );
+  delete_transient( 'fictioneer_footer_menu_html' );
 }
 add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
 ?>
