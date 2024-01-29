@@ -21,38 +21,47 @@
  */
 
 function fictioneer_stories_statistics( $args ) {
-  // Setup
-  $words = fictioneer_get_stories_total_word_count();
-  $statistics = array(
-    'stories' => array(
-      'label' => __( 'Stories', 'fictioneer' ),
-      'content' => number_format_i18n( wp_count_posts( 'fcn_story' )->publish )
-    ),
-    'words' => array(
-      'label' => __( 'Words', 'fictioneer' ),
-      'content' => fictioneer_shorten_number( $words )
-    ),
-    'comments' => array(
-      'label' => __( 'Comments', 'fictioneer' ),
-      'content' => number_format_i18n(
-        get_comments(
-          array(
-            'post_type' => 'fcn_chapter',
-            'status' => 1,
-            'count' => true,
-            'update_comment_meta_cache' => false
+  // Look for cached value
+  $statistics = get_transient( 'fictioneer_stories_statistics' );
+
+  // Compute statistics if necessary
+  if ( ! $statistics ) {
+    $words = fictioneer_get_stories_total_word_count();
+
+    $statistics = array(
+      'stories' => array(
+        'label' => __( 'Stories', 'fictioneer' ),
+        'content' => number_format_i18n( wp_count_posts( 'fcn_story' )->publish )
+      ),
+      'words' => array(
+        'label' => __( 'Words', 'fictioneer' ),
+        'content' => fictioneer_shorten_number( $words )
+      ),
+      'comments' => array(
+        'label' => __( 'Comments', 'fictioneer' ),
+        'content' => number_format_i18n(
+          get_comments(
+            array(
+              'post_type' => 'fcn_chapter',
+              'status' => 1,
+              'count' => true,
+              'update_comment_meta_cache' => false
+            )
           )
         )
-      )
-    ),
-    'reading' => array(
-      'label' => __( 'Reading', 'fictioneer' ),
-      'content' => fictioneer_get_reading_time_nodes( $words )
-    ),
-  );
+      ),
+      'reading' => array(
+        'label' => __( 'Reading', 'fictioneer' ),
+        'content' => fictioneer_get_reading_time_nodes( $words )
+      ),
+    );
 
-  // Apply filter
-  $statistics = apply_filters( 'fictioneer_filter_stories_statistics', $statistics, $args );
+    // Apply filter
+    $statistics = apply_filters( 'fictioneer_filter_stories_statistics', $statistics, $args );
+
+    // Cache for next time
+    set_transient( 'fictioneer_stories_statistics', $statistics, 900 );
+  }
 
   // Start HTML ---> ?>
   <div class="stories__statistics statistics spacing-top">

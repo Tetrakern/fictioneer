@@ -625,6 +625,9 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
     $post_type = get_post_type( $post_id ); // Not all hooks get the $post object!
     $story_id = $post_type == 'fcn_story' ? $post_id : get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
+    // Delete cached statistics for stories
+    delete_transient( 'fictioneer_stories_statistics' );
+
     // If there is a story...
     if ( ! empty( $story_id ) ) {
       // Decides when cached story/chapter data need to be refreshed
