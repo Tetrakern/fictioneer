@@ -192,8 +192,8 @@
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
               <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Scan', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_legacy_cleanup' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'Did you make a database backup?', 'fictioneer' ); ?>"><?php _e( 'Legacy Cleanup', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_legacy_cleanup' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Legacy Cleanup', 'fictioneer' ); ?></a>
             </div>
 
             <hr>
