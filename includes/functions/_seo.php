@@ -194,6 +194,11 @@ function fictioneer_save_seo_metabox( $post_id ) {
     $seo_data['description'] = sanitize_text_field( $_POST['fictioneer_seo_description'] );
   }
 
+  // Let empty fields get deleted
+  if ( empty( $seo_data['og_image'] ) && empty( $seo_data['title'] ) && empty( $seo_data['description'] ) ) {
+    $seo_data = null;
+  }
+
   // Save fields
   fictioneer_update_post_meta( $post_id, 'fictioneer_seo_fields', $seo_data );
 
