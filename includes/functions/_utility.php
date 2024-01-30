@@ -2236,7 +2236,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
    */
 
   function fictioneer_get_stories_total_word_count() {
-    // Look for cached value
+    // Look for cached value (purged after each update, should never be stale)
     $transient_word_count_cache = get_transient( 'fictioneer_stories_total_word_count' );
 
     // Return cached value if found

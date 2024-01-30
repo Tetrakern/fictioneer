@@ -630,18 +630,16 @@ if ( ! function_exists( 'fictioneer_track_chapter_and_story_updates' ) ) {
 
     // Delete cached statistics for stories
     delete_transient( 'fictioneer_stories_statistics' );
+    delete_transient( 'fictioneer_stories_total_word_count' );
 
     // If there is a story...
     if ( ! empty( $story_id ) ) {
-      // Decides when cached story/chapter data need to be refreshed
+      // Decides when cached story/chapter data need to be refreshed (only used for Follows)
       // Beware: This is an option, not a Transient!
       update_option( 'fictioneer_story_or_chapter_updated_timestamp', time() * 1000 );
 
       // Refresh cached HTML output
       delete_transient( 'fictioneer_story_chapter_list_html' . $story_id );
-
-      // Delete cached stories total word count
-      delete_transient( 'fictioneer_stories_total_word_count' );
 
       // Delete cached API response
       if ( FICTIONEER_API_STORYGRAPH_TRANSIENTS ) {

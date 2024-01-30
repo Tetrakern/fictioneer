@@ -21,7 +21,7 @@
  */
 
 function fictioneer_stories_statistics( $args ) {
-  // Look for cached value
+  // Look for cached value (purged after each update, should never be stale)
   $statistics = get_transient( 'fictioneer_stories_statistics' );
 
   // Compute statistics if necessary
