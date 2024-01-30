@@ -377,7 +377,7 @@
   },
   "demonLord": {
     "category": ["Tropes"],
-    "description": "Typically demons (or other supernatural races) with overwhelming power or potential, sometimes literally just the sovereign of their people. They usually stand at least nominally in direct opposition to the heroes and their mere existence has often a negative effect on the world.",
+    "description": "A powerful demon or supernatural being, often ruling their kind and standing in opposition to the heroes. Their presence typically brings negative impacts to the world.",
     "name": "Demon Lord"
   },
   "demons": {
@@ -475,6 +475,11 @@
   "engineering": {
     "category": ["Industriousness"],
     "name": "Engineering"
+  },
+  "erotica": {
+    "category": ["Relationships"],
+    "name": "Erotica",
+    "description": "Explicit sexual and romantic elements intended to arouse, highlighting scenes and themes that focus on the sensual and intimate aspects of sexuality."
   },
   "europeanSetting": {
     "category": ["Settings"],
@@ -712,7 +717,7 @@
   },
   "humanized": {
     "category": ["Races"],
-    "description": "Someone or something has literally become human, either as part of the story or just the general setting, such as animals turned into people. Not to be confused with anthropomorphism.",
+    "description": "Involves previously non-human characters, like animals, literally transforming into humans. Either as part of the story or general setting, distinct from mere anthropomorphic depictions.",
     "name": "Humanized"
   },
   "humanExperimentation": {
@@ -720,7 +725,7 @@
     "name": "Human Experimentation"
   },
   "humor": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Humor"
   },
   "immortality": {
@@ -790,9 +795,13 @@
     "category": ["Tropes"],
     "name": "Level System"
   },
+  "lgb": {
+    "category": ["Themes"],
+    "name": "LGB"
+  },
   "lgbt": {
-    "category": ["Features"],
-    "name": "LGTB+"
+    "category": ["Themes"],
+    "name": "LGBT+"
   },
   "lostTechnology": {
     "category": ["Technology"],
@@ -807,7 +816,7 @@
     "name": "Love Triangle"
   },
   "magic": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Magic"
   },
   "magicalGirls": {
@@ -891,7 +900,7 @@
     "name": "Naval Warfare"
   },
   "necromancy": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Necromancy"
   },
   "nobility": {
@@ -907,7 +916,7 @@
     "name": "Nuclear Option"
   },
   "nudity": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Nudity"
   },
   "obsessiveLove": {
@@ -989,11 +998,11 @@
     "name": "Prostitution"
   },
   "psionics": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Psionics"
   },
   "pyromancy": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Pyromancy"
   },
   "racism": {
@@ -1062,7 +1071,8 @@
   },
   "rivalry": {
     "category": ["Themes"],
-    "name": "Rivalry"
+    "name": "Rivalry",
+    "description": "Competitive relationships often focused on a desire to outdo, outperform, or surpass another individual or group. Can range from friendly competition to intense antagonism."
   },
   "roadTrip": {
     "category": ["Tropes"],
@@ -1106,8 +1116,8 @@
   },
   "sex": {
     "category": ["Relationships"],
-    "description": "Discussions or depictions of sexual intercourse and adjacent topics in decent detail, but not arousing enough to qualify as Erotica and not explicit enough for Smut.",
-    "name": "Sex"
+    "name": "Sex",
+    "description": "Discussions or portrayals of sexual activities, presented in a detailed but discreet manner. Not arousing enough to qualify as Erotica and not graphic enough for Smut."
   },
   "shapeshifters": {
     "category": ["Races"],
@@ -1118,11 +1128,11 @@
     "name": "Sharing a Body"
   },
   "siblingRivalry": {
-    "associations": ["Siblings", "Family", "Brother", "Sister", "Twin", "Heirs"],
+    "association": ["Siblings", "Family", "Brother", "Sister", "Twin", "Heirs"],
     "category": ["Family"],
     "name": "Sibling Rivalry",
     "parent": "Rivalry",
-    "description": "Competition or animosity among siblings, regardless of blood-relation. Reasons may include preferential treatment, the order of succession or inheritance, literal enforced competition, or just petty jealousy."
+    "description": "Intense competition or conflict among siblings, often stemming from jealousy, desire for parental attention, inheritance issues, or differing achievements. Can range from mild rivalry to deep-seated animosity."
   },
   "siblings": {
     "category": ["Family"],
@@ -1142,7 +1152,8 @@
   },
   "smut": {
     "category": ["Relationships"],
-    "name": "Smut"
+    "name": "Smut",
+    "description": "Graphic and detailed sexual scenes, emphasizing physical pleasure over emotional or romantic connections, often catering to various fantasies and desires."
   },
   "socialism": {
     "category": ["Politics"],
@@ -1205,7 +1216,7 @@
     "name": "Technological Advancement"
   },
   "tentacles": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Tentacles"
   },
   "terrorism": {
@@ -1217,7 +1228,7 @@
     "name": "Time Loop"
   },
   "timeSkip": {
-    "category": ["Features"],
+    "category": ["Tropes"],
     "name": "Time Skip"
   },
   "timeTravel": {
@@ -1266,7 +1277,7 @@
     "name": "Transmigration"
   },
   "travel": {
-    "category": ["Features"],
+    "category": ["Themes"],
     "name": "Travel"
   },
   "twins": {

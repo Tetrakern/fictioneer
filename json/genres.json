@@ -27,7 +27,7 @@
   },
   "bisexual": {
     "name": "Bisexual",
-    "parent": "LGBT+"
+    "parent": "LGB"
   },
   "bodyHorror": {
     "name": "Body Horror",
@@ -35,7 +35,7 @@
   },
   "boysLove": {
     "name": "Boys Love",
-    "parent": "LGBT+",
+    "parent": "LGB",
     "aliasOf": "Gay"
   },
   "cassetteFuturism": {
@@ -79,7 +79,8 @@
     "name": "Dungeon"
   },
   "erotica": {
-    "name": "Erotica"
+    "name": "Erotica",
+		"description": "Narratives primarily focused on stimulating sexual arousal and romantic desire. Characterized by explicit sexual scenes and themes, Erotica delves into intimate and sensuous experiences, often with an emphasis on emotional connections."
   },
   "espionage": {
     "name": "Espionage"
@@ -92,11 +93,11 @@
   },
   "gay": {
     "name": "Gay",
-    "parent": "LGBT+"
+    "parent": "LGB"
   },
   "girlslove": {
     "name": "Girls Love",
-    "parent": "LGBT+",
+    "parent": "LGB",
     "aliasOf": "Lesbian"
   },
   "gothic": {
@@ -123,10 +124,14 @@
   },
   "lesbian": {
     "name": "Lesbian",
-    "parent": "LGBT+"
+    "parent": "LGB"
+  },
+	"lgb": {
+    "name": "LGB"
   },
   "lgbt": {
-    "name": "LGBT+"
+    "name": "LGBT+",
+    "parent": "LGB"
   },
   "litRpg": {
     "name": "LitRPG"
@@ -199,7 +204,7 @@
   },
   "sex": {
     "name": "Sex",
-    "description": "Discussions or depictions of sexual intercourse and adjacent topics in decent detail, not exciting enough to qualify as Erotica and certainly not explicit enough for Smut."
+    "description": "Narratives with significant sexual content, balancing between explicitness and subtlety. They explore sexual themes in a detailed but discreet manner, broader than just the act itself."
   },
   "shortStory": {
     "name": "Short Story"
@@ -208,7 +213,8 @@
     "name": "Slice of Life"
   },
   "smut": {
-    "name": "Smut"
+    "name": "Smut",
+		"description": "Heavily centered around explicit sexual content, with a primary focus on physical gratification rather than emotional or romantic development. Typically features detailed, graphic sexual scenes, catering to various fantasies and desires."
   },
   "space": {
     "name": "Space"
