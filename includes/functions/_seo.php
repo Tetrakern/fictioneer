@@ -581,6 +581,7 @@ if ( ! function_exists( 'fictioneer_get_seo_image' ) ) {
     $default_id = get_theme_mod( 'og_image' );
     $image_id = false;
     $image = null;
+    $meta_cache = null;
 
     // Page with site default OG image?
     if ( $use_default ) {
