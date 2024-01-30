@@ -187,7 +187,7 @@
           <div class="fictioneer-card__content">
 
             <div class="fictioneer-card__row">
-              <p><?php _e( '<strong>Optimize and clean up the database to boost performance.</strong> This action removes any superfluous rows added by the theme, such as empty or obsolete values. Core, plugin, and custom rows are not affected. While generally considered safe, you should <em>always make a backup</em> before performing database operations.', 'fictioneer' ); ?></p>
+              <p><?php _e( '<strong>Optimize and clean up the database to boost performance.</strong> This action removes any superfluous rows added by the theme, such as empty or obsolete values. Core, plugin, and custom rows are not affected. While generally considered safe, you should <a href="https://developer.wordpress.org/advanced-administration/security/backup/database/#using-wordpress-database-backup-plugin" target="_blank">always make a backup</a> before performing database operations.', 'fictioneer' ); ?></p>
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
