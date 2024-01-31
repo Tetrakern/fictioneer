@@ -976,8 +976,8 @@ function fcn_updateToggle(value, selector, setting, args = {}) {
   if (args.sensitiveContent) {
     const sensitiveToggle = _$$$('inline-sensitive-content-toggle');
 
-    sensitiveToggle.classList.toggle('hide-sensitive', !checked);
-    sensitiveToggle.setAttribute('aria-checked', !checked);
+    sensitiveToggle?.classList.toggle('hide-sensitive', !checked);
+    sensitiveToggle?.setAttribute('aria-checked', !checked);
   }
 
   // Case: Notes
