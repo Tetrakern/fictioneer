@@ -153,20 +153,35 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
  */
 
 function fcn_evaluateAsBoolean(candidate, fallback = false) {
-  // Is the candidate a boolean?
-  if (typeof candidate === 'boolean') {
-    return candidate;
-  }
-
   // Does the candidate even exist?
   if (typeof candidate === 'undefined') {
     return fallback;
+  }
+
+  // Is the candidate a boolean?
+  if (typeof candidate === 'boolean') {
+    return candidate;
   }
 
   // Is the candidate a checkbox?
   if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'checkbox') {
     return candidate.checked;
   }
+
+  // Is the candidate a label? (not currently used)
+  // if (candidate instanceof HTMLInputElement && candidate.getAttribute('type') === 'label') {
+  //   const innerInput = candidate.querySelector('[type="checkbox"]');
+
+  //   if (innerInput) {
+  //     return innerInput.checked;
+  //   } else if( candidate.getAttribute('for') ) {
+  //     const forTarget = _$(`[type="checkbox"][name="${candidate.getAttribute('for')}"]`);
+
+  //     if (forTarget) {
+  //       return forTarget.checked;
+  //     }
+  //   }
+  // }
 
   // Is the candidate an element with (data-) value?
   if (candidate instanceof HTMLElement) {
