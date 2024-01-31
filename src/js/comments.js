@@ -267,7 +267,6 @@ function fcn_revealCommentFormInputs(area) {
   area.closest('form').querySelectorAll('.fictioneer-respond__form-actions, .fictioneer-respond__form-bottom').forEach(element => {
     element.classList.remove('hidden');
   });
-  area.removeAttribute('onclick');
 }
 
 /**
