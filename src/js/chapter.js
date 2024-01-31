@@ -2,11 +2,11 @@
 // SETUP
 // =============================================================================
 
-const /** @const {Number} */ fcn_letterSpacingDefault = 0.0,
-      /** @const {Number} */ fcn_paragraphSpacingDefault = 1.5,
-      /** @const {Number} */ fcn_lineHeightDefault = 1.7,
-      /** @const {Number} */ fcn_siteWidthDefault = fcn_theRoot.dataset.siteWidthDefault ?? '960',
-      /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
+const /** @const {Number} */ fcn_letterSpacingDefault = 0.0;
+const /** @const {Number} */ fcn_paragraphSpacingDefault = 1.5;
+const /** @const {Number} */ fcn_lineHeightDefault = 1.7;
+const /** @const {Number} */ fcn_siteWidthDefault = fcn_theRoot.dataset.siteWidthDefault ?? '960';
+const /** @const {HTMLElement} */ fcn_chapterFormatting = _$('.chapter-formatting');
 
 // Initialize
 var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
@@ -17,8 +17,8 @@ var /** @type {Object} */ fcn_formatting = fcn_getFormatting();
 
 const /** @const {HTMLElement} */ fcn_paragraphTools = _$$$('paragraph-tools');
 
-var /** @type {Number} */ fcn_lastSelectedParagraphId,
-    /** @type {String} */ fcn_bookmarkColor = 'none';
+var /** @type {Number} */ fcn_lastSelectedParagraphId;
+var /** @type {String} */ fcn_bookmarkColor = 'none';
 
 /**
  * Toggles the paragraph tools on a chapter paragraph.
@@ -125,8 +125,8 @@ function fcn_touchParagraph(e) {
 
   // Evaluate click...
   target.addEventListener('mouseup', () => {
-    const endClick = new Date().getTime(),
-          long = startClick + 300;
+    const endClick = new Date().getTime();
+    const long = startClick + 300;
 
     // Click was short, which probably means the user wants to toggle the tools
     if (endClick <= long) {
@@ -144,21 +144,26 @@ function fcn_touchParagraph(e) {
 
 function fcn_getQuote(e) {
   // Get paragraph text, selection, anchor, and prepare ellipsis
-  const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString()),
-        anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
+  const selection = fcn_cleanTextSelectionFromButtons(window.getSelection().toString());
+  const anchor = `[anchor]${e.target.closest('p[data-paragraph-id]').id}[/anchor]`;
 
-  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText,
-      pre = '[…] ',
-      suf = ' […]';
+  let quote = e.target.closest('p[data-paragraph-id]').querySelector('.paragraph-inner').innerText;
+  let pre = '[…] ';
+  let suf = ' […]';
 
   // Build from text selection and add ellipsis if necessary
   if (quote.length > 16 && selection.replace(/\s/g, '').length) {
-    const fraction = Math.ceil(selection.length * .25),
-          first = quote.substring(0, fraction + 1),
-          last = quote.substring(quote.length - fraction, quote.length);
+    const fraction = Math.ceil(selection.length * .25);
+    const first = quote.substring(0, fraction + 1);
+    const last = quote.substring(quote.length - fraction, quote.length);
 
-    if (selection.startsWith(first)) pre = '';
-    if (selection.endsWith(last)) suf = '';
+    if (selection.startsWith(first)) {
+      pre = '';
+    }
+
+    if (selection.endsWith(last)) {
+      suf = '';
+    }
 
     quote = `${pre}${selection}${suf}`;
   }
@@ -391,9 +396,9 @@ function fcn_setFormatting(value) {
 // CHAPTER FORMATTING: FONT SIZE
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_fontSizeText = _$$$('reader-settings-font-size-text'),
-      /** @const {HTMLInputElement} */ fcn_fontSizeRange = _$$$('reader-settings-font-size-range'),
-      /** @const {HTMLElement} */ fcn_fontSizeReset = _$$$('reader-settings-font-size-reset');
+const /** @const {HTMLInputElement} */ fcn_fontSizeText = _$$$('reader-settings-font-size-text');
+const /** @const {HTMLInputElement} */ fcn_fontSizeRange = _$$$('reader-settings-font-size-range');
+const /** @const {HTMLElement} */ fcn_fontSizeReset = _$$$('reader-settings-font-size-reset');
 
 /**
  * Update font size formatting on chapters.
@@ -472,8 +477,8 @@ fcn_updateFontSize(fcn_formatting['font-size'], false);
 // CHAPTER FORMATTING: FONT COLOR
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_fontColorReset = _$$$('reader-settings-font-color-reset'),
-      /** @const {HTMLElement} */ fcn_fontColorSelect = _$$$('reader-settings-font-color-select');
+const /** @const {HTMLElement} */ fcn_fontColorReset = _$$$('reader-settings-font-color-reset');
+const /** @const {HTMLElement} */ fcn_fontColorSelect = _$$$('reader-settings-font-color-select');
 
 /**
  * Update font color on chapters.
@@ -536,8 +541,8 @@ fcn_updateFontColor(fictioneer_font_colors.findIndex((item) => { return item.css
 // CHAPTER FORMATTING: FONT FAMILY
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_fontFamilyReset = _$$$('reader-settings-font-reset'),
-      /** @const {HTMLElement} */ fcn_fontFamilySelect = _$$$('reader-settings-font-select');
+const /** @const {HTMLElement} */ fcn_fontFamilyReset = _$$$('reader-settings-font-reset');
+const /** @const {HTMLElement} */ fcn_fontFamilySelect = _$$$('reader-settings-font-select');
 
 /**
  * Update font family on chapters.
@@ -616,9 +621,9 @@ fcn_updateFontFamily(fictioneer_fonts.findIndex((item) => { return item.css == f
 // CHAPTER FORMATTING: FONT SATURATION
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_fontSaturationText = _$$$('reader-settings-font-saturation-text'),
-      /** @const {HTMLInputElement} */ fcn_fontSaturationRange = _$$$('reader-settings-font-saturation-range'),
-      /** @const {HTMLElement} */ fcn_fontSaturationReset = _$$$('reader-settings-font-saturation-reset');
+const /** @const {HTMLInputElement} */ fcn_fontSaturationText = _$$$('reader-settings-font-saturation-text');
+const /** @const {HTMLInputElement} */ fcn_fontSaturationRange = _$$$('reader-settings-font-saturation-range');
+const /** @const {HTMLElement} */ fcn_fontSaturationReset = _$$$('reader-settings-font-saturation-reset');
 
 /**
  * Update font saturation formatting on chapters.
@@ -689,9 +694,9 @@ fcn_updateFontSaturation(fcn_formatting['font-saturation'], false);
 // CHAPTER FORMATTING: LETTER SPACING
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_letterSpacingText = _$$$('reader-settings-letter-spacing-text'),
-      /** @const {HTMLInputElement} */ fcn_letterSpacingRange = _$$$('reader-settings-letter-spacing-range'),
-      /** @const {HTMLElement} */ fcn_letterSpacingReset = _$$$('reader-settings-letter-spacing-reset');
+const /** @const {HTMLInputElement} */ fcn_letterSpacingText = _$$$('reader-settings-letter-spacing-text');
+const /** @const {HTMLInputElement} */ fcn_letterSpacingRange = _$$$('reader-settings-letter-spacing-range');
+const /** @const {HTMLElement} */ fcn_letterSpacingReset = _$$$('reader-settings-letter-spacing-reset');
 
 /**
  * Update letter-spacing formatting on chapters.
@@ -749,9 +754,9 @@ fcn_updateLetterSpacing(fcn_formatting['letter-spacing'], false);
 // CHAPTER FORMATTING: PARAGRAPH SPACING
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_paragraphSpacingText = _$$$('reader-settings-paragraph-spacing-text'),
-      /** @const {HTMLInputElement} */ fcn_paragraphSpacingRange = _$$$('reader-settings-paragraph-spacing-range'),
-      /** @const {HTMLElement} */ fcn_paragraphSpacingReset = _$$$('reader-settings-paragraph-spacing-reset');
+const /** @const {HTMLInputElement} */ fcn_paragraphSpacingText = _$$$('reader-settings-paragraph-spacing-text');
+const /** @const {HTMLInputElement} */ fcn_paragraphSpacingRange = _$$$('reader-settings-paragraph-spacing-range');
+const /** @const {HTMLElement} */ fcn_paragraphSpacingReset = _$$$('reader-settings-paragraph-spacing-reset');
 
 /**
  * Update paragraph spacing formatting on chapters.
@@ -809,9 +814,9 @@ fcn_updateParagraphSpacing(fcn_formatting['paragraph-spacing'], false);
 // CHAPTER FORMATTING: LINE HEIGHT
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_lineHeightText = _$$$('reader-settings-line-height-text'),
-      /** @const {HTMLInputElement} */ fcn_lineHeightRange = _$$$('reader-settings-line-height-range'),
-      /** @const {HTMLElement} */ fcn_lineHeightReset = _$$$('reader-settings-line-height-reset');
+const /** @const {HTMLInputElement} */ fcn_lineHeightText = _$$$('reader-settings-line-height-text');
+const /** @const {HTMLInputElement} */ fcn_lineHeightRange = _$$$('reader-settings-line-height-range');
+const /** @const {HTMLElement} */ fcn_lineHeightReset = _$$$('reader-settings-line-height-reset');
 
 /**
  * Update line height formatting on chapters.
@@ -869,9 +874,9 @@ fcn_updateLineHeight(fcn_formatting['line-height'], false);
 // CHAPTER FORMATTING: SITE WIDTH
 // =============================================================================
 
-const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings-site-width-text'),
-      /** @const {HTMLInputElement} */ fcn_siteWidthRange = _$$$('reader-settings-site-width-range'),
-      /** @const {HTMLElement} */ fcn_siteWidthReset = _$$$('reader-settings-site-width-reset');
+const /** @const {HTMLInputElement} */ fcn_siteWidthText = _$$$('reader-settings-site-width-text');
+const /** @const {HTMLInputElement} */ fcn_siteWidthRange = _$$$('reader-settings-site-width-range');
+const /** @const {HTMLElement} */ fcn_siteWidthReset = _$$$('reader-settings-site-width-reset');
 
 /**
  * Update site width formatting on chapters.
@@ -1095,8 +1100,8 @@ _$$('#reader-settings-sensitive-content-toggle').forEach(toggle => {
 // READING PROGRESS BAR
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_progressBar = _$('.progress__bar'),
-      /** @const {HTMLElement} */ fcn_chapterContent = _$$$('chapter-content');
+const /** @const {HTMLElement} */ fcn_progressBar = _$('.progress__bar');
+const /** @const {HTMLElement} */ fcn_chapterContent = _$$$('chapter-content');
 
 var /** @type {Boolean} */ fcn_chapterCheckmarkUpdated = false;
 
