@@ -549,7 +549,10 @@ function fcn_showBookmarkCards() {
 
     // Clone template and get data from JSON
     const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true);
-    const formattedDate = new Date(date).toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' });
+    const formattedDate = new Date(date).toLocaleDateString(
+      navigator.language ?? 'en-US',
+      { year: '2-digit', month: 'short', day: 'numeric' }
+    );
 
     if (image) {
       clone.querySelector('.bookmark-card__image').href = image;
