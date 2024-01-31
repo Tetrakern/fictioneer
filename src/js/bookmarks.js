@@ -44,7 +44,7 @@ function fcn_initializeLocalBookmarks() {
 }
 
 /**
- * Initialize Bookmarks for logged-in users.
+ * Initialize bookmarks for logged-in users.
  *
  * @since 5.7.0
  * @param {Event} event - The fcnUserDataReady event.
@@ -452,6 +452,7 @@ function fcn_showChapterBookmark() {
  * the first time per page load).
  *
  * @since 4.0.0
+ * @since 5.9.4 - Refactored with DocumentFragment.
  * @see fcn_bookmarkDeleteHandler()
  */
 
@@ -459,24 +460,29 @@ function fcn_setMobileMenuBookmarks() {
   // Clear target container of previous entries
   fcn_mobileBookmarkList.innerHTML = '';
 
-  // Check for bookmarks...
-  if (Object.keys(fcn_bookmarks.data).length > 0) {
-    // Bookmarks found! Loop all!
-    Object.entries(fcn_bookmarks.data).forEach((b) => {
-      // Clone template node
+  const bookmarks = Object.entries(fcn_bookmarks.data);
+
+  if (bookmarks.length > 0) {
+    // Use fragment to collect nodes
+    const fragment = document.createDocumentFragment();
+
+    // Append bookmarks to fragment
+    bookmarks.forEach(([id, { color, progress, link, chapter, paragraphId }]) => {
       const clone = fcn_mobileBookmarkTemplate.content.cloneNode(true);
+      const bookmarkElement = clone.querySelector('.mobile-menu__bookmark');
 
-      // Fill cloned node with data
-      clone.querySelector('.mobile-menu__bookmark').classList.add(`bookmark-${b[0]}`);
-      clone.querySelector('.mobile-menu__bookmark').dataset.color = b[1]['color'];
-      clone.querySelector('.mobile-menu__bookmark-progress > div > div').style.width = `${b[1].progress.toFixed(1)}%`;
-      clone.querySelector('.mobile-menu__bookmark a').href = `${b[1].link}#paragraph-${b[1]['paragraph-id']}`;
-      clone.querySelector('.mobile-menu__bookmark a span').innerText = b[1].chapter;
-      clone.querySelector('.mobile-menu-bookmark-delete-button').setAttribute('data-bookmark-id', `${b[0]}`);
+      bookmarkElement.classList.add(`bookmark-${id}`);
+      bookmarkElement.dataset.color = color;
+      clone.querySelector('.mobile-menu__bookmark-progress > div > div').style.width = `${progress.toFixed(1)}%`;
+      clone.querySelector('.mobile-menu__bookmark a').href = `${link}#paragraph-${paragraphId}`;
+      clone.querySelector('.mobile-menu__bookmark a span').innerText = chapter;
+      clone.querySelector('.mobile-menu-bookmark-delete-button').setAttribute('data-bookmark-id', id);
 
-      // Append cloned node
-      fcn_mobileBookmarkList.appendChild(clone);
+      fragment.appendChild(clone);
     });
+
+    // Append fragment to DOM
+    fcn_mobileBookmarkList.appendChild(fragment);
 
     // Register events for delete buttons
     fcn_bookmarkDeleteHandler(_$$('.mobile-menu-bookmark-delete-button'));
@@ -486,7 +492,7 @@ function fcn_setMobileMenuBookmarks() {
 
     // Create text node with notice
     node.classList.add('no-bookmarks');
-    node.appendChild(document.createTextNode(fcn_mobileBookmarkList.dataset.empty));
+    node.textContent = fcn_mobileBookmarkList.dataset.empty;
 
     // Append node
     fcn_mobileBookmarkList.appendChild(node);
@@ -505,6 +511,7 @@ function fcn_setMobileMenuBookmarks() {
  * in the block as data-attribute (or all for -1).
  *
  * @since 4.0.0
+ * @since 5.9.4 - Refactored with DocumentFragment.
  * @see fcn_bookmarkDeleteHandler()
  */
 
@@ -520,53 +527,54 @@ function fcn_showBookmarkCards() {
     return;
   }
 
-  // Make block visible
+  // Make elements visible (if any)
   fcn_bookmarksSmallCardBlock.classList.remove('hidden');
   _$('.bookmarks-block__no-bookmarks')?.remove();
-
-  // Make related elements (if any) visible
-  _$$('.show-if-bookmarks').forEach(element => {
-    element.classList.remove('hidden');
-  });
+  _$$('.show-if-bookmarks').forEach(element => element.classList.remove('hidden'));
 
   // Max number of rendered bookmarks (-1 for all)
-  let count = fcn_bookmarksSmallCardBlock.dataset.count;
+  let count = parseInt(fcn_bookmarksSmallCardBlock.dataset.count);
 
-  // Loop bookmarks
-  Object.entries(fcn_bookmarks.data).forEach(b => {
+  // Use fragment to collect nodes
+  const fragment = document.createDocumentFragment();
+
+  // Append bookmarks to fragment (if any)
+  Object.entries(
+    fcn_bookmarks.data).forEach(([id, { color, progress, link, chapter, paragraphId, date, image, thumb, content }]
+  ) => {
     // Limit rendered bookmarks
     if (count > -1 && count-- < 1) {
       return;
     }
 
     // Clone template and get data from JSON
-    const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true),
-          date = new Date(b[1].date);
+    const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true);
+    const formattedDate = new Date(date).toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' });
 
-    // Only render an image tag if an src URL has been provided
-    if (b[1].image !== '') {
-      clone.querySelector('.bookmark-card__image').href = b[1].image;
-      clone.querySelector('.bookmark-card__image img').src = `${b[1].thumb}`;
+    if (image) {
+      clone.querySelector('.bookmark-card__image').href = image;
+      clone.querySelector('.bookmark-card__image img').src = thumb;
     } else {
       clone.querySelector('.bookmark-card__image').remove();
     }
 
-    // Insert bookmark data into cloned node...
-    clone.querySelector('.bookmark-card__excerpt').innerHTML += b[1].content;
-    clone.querySelector('.bookmark-card').classList.add(`bookmark-${b[0]}`);
-    clone.querySelector('.bookmark-card').dataset.color = b[1]['color'];
-    clone.querySelector('.bookmark-card__title > a').href = `${b[1].link}#paragraph-${b[1]['paragraph-id']}`;
-    clone.querySelector('.bookmark-card__title > a').innerText = b[1].chapter;
-    clone.querySelector('.bookmark-card__percentage').innerText = `${b[1].progress.toFixed(1)} %`;
-    clone.querySelector('.bookmark-card__progress').style.width = `${b[1].progress.toFixed(1)}%`;
-    clone.querySelector('time').innerText = `${date.toLocaleDateString('en-US', { year: '2-digit', month: 'short', day: 'numeric' })}`;
-    clone.querySelector('.button-delete-bookmark').setAttribute('data-bookmark-id', `${b[0]}`);
+    clone.querySelector('.bookmark-card__excerpt').innerHTML += content;
+    clone.querySelector('.bookmark-card').classList.add(`bookmark-${id}`);
+    clone.querySelector('.bookmark-card').dataset.color = color;
+    clone.querySelector('.bookmark-card__title > a').href = `${link}#paragraph-${paragraphId}`;
+    clone.querySelector('.bookmark-card__title > a').innerText = chapter;
+    clone.querySelector('.bookmark-card__percentage').innerText = `${progress.toFixed(1)} %`;
+    clone.querySelector('.bookmark-card__progress').style.width = `${progress.toFixed(1)}%`;
+    clone.querySelector('time').innerText = formattedDate;
+    clone.querySelector('.button-delete-bookmark').setAttribute('data-bookmark-id', id);
 
-    // Append cloned node to bookmarks card block
-    fcn_bookmarksSmallCardBlock.querySelector('ul').appendChild(clone);
+    fragment.appendChild(clone);
   });
 
-  // Register event handlers for deletion buttons
+  // Append fragment to DOM
+  fcn_bookmarksSmallCardBlock.querySelector('ul').appendChild(fragment);
+
+  // Register events for delete buttons
   fcn_bookmarkDeleteHandler(_$$('.button-delete-bookmark'));
 }
 
