@@ -120,7 +120,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
       // Update chapter checkmark in HTML
       if (source) {
         source.classList.remove('marked');
-        source.ariaChecked = false;
+        source.setAttribute('aria-checked', false);
       }
 
       // Not complete anymore
@@ -130,7 +130,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
 
       if (completeCheckmark) {
         completeCheckmark.classList.remove('marked');
-        completeCheckmark.ariaChecked = false;
+        completeCheckmark.setAttribute('aria-checked', false);
       }
     } else {
       // Add chapter checkmark to JSON
@@ -139,7 +139,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
       // Update chapter checkmark in HTML
       if (source) {
         source.classList.add('marked');
-        source.ariaChecked = true;
+        source.setAttribute('aria-checked', true);
       }
     }
   }
@@ -300,7 +300,7 @@ function fcn_updateCheckmarksView() {
     const checked = checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
 
     item.classList.toggle('marked', checked);
-    item.ariaChecked = checked;
+    item.setAttribute('aria-checked', checked);
   });
 
   // Update icon and buttons on cards

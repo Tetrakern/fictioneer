@@ -792,24 +792,6 @@ function fcn_sanitizeHTML(html) {
 }
 
 // =============================================================================
-// ARIA CHECKED
-// =============================================================================
-
-/*
- * Update aria-checked attribute when the state changes.
- */
-
-function fcn_ariaCheckedUpdate(source) {
-  const target = source.closest('[role="checkbox"][aria-checked]');
-
-  if (target) {
-    const checked = fcn_evaluateAsBoolean(source);
-
-    target.setAttribute( 'aria-checked', checked );
-  }
-}
-
-// =============================================================================
 // SCREEN COLLISION DETECTION
 // =============================================================================
 

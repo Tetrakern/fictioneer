@@ -129,7 +129,7 @@ defined( 'ABSPATH' ) OR exit;
           <input type="checkbox" id="reader-settings-justify-toggle" hidden>
           <i class="fa-solid fa-align-justify reader-settings__toggle-icon"></i>
         </label>
-        <label class="reader-settings__toggle toggle" title="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>">
+        <label class="reader-settings__toggle toggle toggle-light-mode" title="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>" tabindex="0" role="checkbox" aria-checked="false" aria-label="<?php esc_attr_e( 'Toggle light mode', 'fictioneer' ); ?>">
           <input type="checkbox" id="reader-settings-lightmode-toggle" class="toggle-light-mode" hidden>
           <i class="fa-solid fa-sun reader-settings__toggle-icon"></i>
         </label>

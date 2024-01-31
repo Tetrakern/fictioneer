@@ -959,7 +959,7 @@ function fcn_updateIndent(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Toggle classes on chapter content
@@ -1003,7 +1003,7 @@ function fcn_updateJustify(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Toggle classes on chapter content
@@ -1047,7 +1047,7 @@ function fcn_updateParagraphTools(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Update local storage
@@ -1089,13 +1089,13 @@ function fcn_updateSensitiveContent(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Update inline toggle
   if (sensitiveToggle) {
     sensitiveToggle.classList.toggle('hide-sensitive', !boolean);
-    sensitiveToggle.ariaChecked = !boolean;
+    sensitiveToggle.setAttribute('aria-checked', !boolean);
   }
 
   // Toggle classes on chapter content
@@ -1139,7 +1139,7 @@ function fcn_updateChapterNotes(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Toggle classes on elements
@@ -1175,7 +1175,7 @@ function fcn_updateCommentSection(value, save = true) {
   // Update associated checkbox
   if (cb) {
     cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
+    cb.closest('label').setAttribute('aria-checked', boolean);
   }
 
   // Toggle classes on elements

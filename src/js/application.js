@@ -345,7 +345,7 @@ fcn_updateViewportVariables();
 window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 1000 / 8));
 
 // =============================================================================
-// HANDLE GLOBAL CLICKS
+// HANDLE GLOBAL CLICK EVENTS
 // =============================================================================
 
 fcn_theBody.addEventListener('click', e => {
@@ -465,6 +465,32 @@ fcn_theBody.addEventListener('click', e => {
       clickTarget.closest('[data-obfuscation-target]').classList.toggle('_obfuscated');
       break;
   }
+});
+
+// =============================================================================
+// HANDLE GLOBAL CHECKBOX CHANGE EVENTS
+// =============================================================================
+
+fcn_theBody.addEventListener('change', e => {
+  const checkbox = e.target.closest('[type="checkbox"]');
+
+  // Abort if not a checkbox
+  if (!checkbox) {
+    return;
+  }
+
+  // Data of interest
+  const name = checkbox.name;
+  const labels = name ? _$$(`label[for="${name}"]`) : [];
+  const checked = checkbox.checked;
+
+  // --- ARIA CHECKED ----------------------------------------------------------
+
+  checkbox.closest('[aria-checked]')?.setAttribute('aria-checked', checked);
+
+  labels.forEach(label => {
+    label.closest('[aria-checked]')?.setAttribute('aria-checked', checked);
+  });
 });
 
 // =============================================================================
@@ -775,8 +801,8 @@ fcn_settingEvents.forEach(setting => {
 function fcn_toggleLightMode() {
   const current =
     localStorage.getItem('fcnLightmode') ?
-    localStorage.getItem('fcnLightmode') == 'true' :
-    fcn_theRoot.dataset.modeDefault == 'light';
+      localStorage.getItem('fcnLightmode') == 'true' :
+      fcn_theRoot.dataset.modeDefault == 'light';
 
     fcn_setLightMode(!current);
 }
@@ -795,16 +821,9 @@ function fcn_setLightMode(boolean, silent = false) {
   localStorage.setItem('fcnLightmode', boolean);
   fcn_theRoot.dataset.mode = boolean ? 'light' : 'dark';
 
-  // Update formatting modal (if present)
-  const cb = _$$$('reader-settings-lightmode-toggle');
-
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').ariaChecked = boolean;
-  }
-
+  // Update aria-checked attributes
   _$$('.toggle-light-mode').forEach(element => {
-    element.ariaChecked = boolean;
+    element.setAttribute('aria-checked', boolean);
   });
 
   // Update theme color meta tag
@@ -815,7 +834,9 @@ function fcn_setLightMode(boolean, silent = false) {
 
 // Initialize (with default from HTML root)
 fcn_setLightMode(
-  localStorage.getItem('fcnLightmode') ? localStorage.getItem('fcnLightmode') == 'true' : fcn_theRoot.dataset.modeDefault == 'light',
+  localStorage.getItem('fcnLightmode') ?
+    localStorage.getItem('fcnLightmode') == 'true' :
+    fcn_theRoot.dataset.modeDefault == 'light',
   true
 );
 
@@ -1705,21 +1726,24 @@ class FCN_KeywordInput {
   }
 
   bindEvents() {
-    if (this.operator) {
-      this.operator.addEventListener(
-        'change',
-        e => {
-          e.currentTarget.closest('label').ariaChecked = e.currentTarget.checked;
-        }
-      );
-    }
+    // Disabled in favor of global handler
+    // if (this.operator) {
+    //   this.operator.addEventListener(
+    //     'change',
+    //     e => {
+    //       e.currentTarget.closest('label')?.setAttribute('aria-checked', e.currentTarget.checked);
+    //     }
+    //   );
+    // }
 
     // Adjust width on input
     this.input.addEventListener(
       'input',
       e => {
         // Check for comma, which indicates end of input
-        if (e.currentTarget.value.includes(',')) this.addNode();
+        if (e.currentTarget.value.includes(',')) {
+          this.addNode();
+        }
 
         // Empty?
         this.block.classList.toggle('_empty', e.currentTarget.value === '');
