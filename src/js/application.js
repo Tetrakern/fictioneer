@@ -823,7 +823,7 @@ function fcn_setLightMode(boolean, silent = false) {
 
   // Update aria-checked attributes
   _$$('.toggle-light-mode').forEach(element => {
-    element.setAttribute('aria-checked', boolean);
+    element.closest('[aria-checked]')?.setAttribute('aria-checked', boolean);
   });
 
   // Update theme color meta tag
