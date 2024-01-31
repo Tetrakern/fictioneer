@@ -188,7 +188,7 @@ get_header( null, $header_args );
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
       <?php if ( comments_open() && ! post_password_required() ) : ?>
-        <section class="chapter__comments comment-section padding-left padding-right padding-bottom">
+        <section class="chapter__comments comment-section padding-left padding-right padding-bottom chapter-comments-hideable">
           <?php comments_template(); ?>
         </section>
       <?php endif; ?>

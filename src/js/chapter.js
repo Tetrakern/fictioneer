@@ -938,263 +938,158 @@ fcn_siteWidthText?.addEventListener('input', fcn_setSiteWidth);
 fcn_updateSiteWidth(fcn_formatting['site-width'], false);
 
 // =============================================================================
-// CHAPTER FORMATTING: TOGGLE INDENT
+// CHAPTER FORMATTING TOGGLES
 // =============================================================================
 
 /**
- * Update indent formatting on chapters.
+ * Update formatting and toggles on chapters.
  *
- * @since 4.0.0
+ * @since 5.9.4
  * @see fcn_evaluateAsBoolean();
  * @see fcn_setFormatting();
  * @param {Any} value - The value that will be evaluated as boolean.
- * @param {Boolean} [save=true] - Optional. Whether to save the change.
+ * @param {String} selector - The selector of the toggle.
+ * @param {String} setting - The name of the setting.
+ * @param {Object} [args={}] - Optional arguments.
  */
 
-function fcn_updateIndent(value, save = true) {
+function fcn_updateToggle(value, selector, setting, args = {}) {
+  // Defaults
+  args = {...{ save: true }, ...args};
+
   // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const cb = _$$$('reader-settings-indent-toggle');
+  const checked = fcn_evaluateAsBoolean(value, true);
+  const cb = _$(selector);
 
   // Update associated checkbox
   if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+    cb.checked = checked;
+    cb.closest('label').setAttribute('aria-checked', checked);
   }
 
   // Toggle classes on chapter content
-  fcn_chapterFormatting.classList.toggle('no-indent', !boolean);
+  if (args.toggleClass) {
+    fcn_chapterFormatting.classList.toggle(args.toggleClass, args.invertClass ? !checked : checked);
+  }
+
+  // Case: Sensitive content
+  if (args.sensitiveContent) {
+    const sensitiveToggle = _$$$('inline-sensitive-content-toggle');
+
+    sensitiveToggle.classList.toggle('hide-sensitive', !checked);
+    sensitiveToggle.setAttribute('aria-checked', !checked);
+  }
+
+  // Case: Notes
+  if (args.notes) {
+    _$$('.chapter-note-hideable').forEach(element => {
+      element.classList.toggle('hidden', !checked);
+    });
+  }
+
+  // Case: Comments
+  if (args.comments) {
+    _$$('.chapter-comments-hideable').forEach(element => {
+      element.classList.toggle('hidden', !checked);
+    });
+  }
 
   // Update local storage
-  fcn_formatting['indent'] = boolean;
+  fcn_formatting[setting] = checked;
 
-  if (save) {
+  if (args.save) {
     fcn_setFormatting(fcn_formatting);
   }
 }
 
-// Listen for click on indent toggle
-_$$$('reader-settings-indent-toggle').onclick = (e) => {
-  fcn_updateIndent(e.currentTarget.checked);
-}
+// --- INDENT ----------------------------------------------------------------
 
-// Initialize
-fcn_updateIndent(fcn_formatting['indent'], false);
+_$$('#reader-settings-indent-toggle').forEach(toggle => {
+  const args = { invertClass: true, toggleClass: 'no-indent' };
+  const setting = 'indent';
 
-// =============================================================================
-// CHAPTER FORMATTING: TOGGLE JUSTIFY
-// =============================================================================
-
-/**
- * Update justify formatting on chapters.
- *
- * @since 4.0.0
- * @see fcn_evaluateAsBoolean();
- * @see fcn_setFormatting();
- * @param {Any} value - The value that will be evaluated as boolean.
- * @param {Boolean} [save=true] - Optional. Whether to save the change.
- */
-
-function fcn_updateJustify(value, save = true) {
-  // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const cb = _$$$('reader-settings-justify-toggle');
-
-  // Update associated checkbox
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting, args);
   }
 
-  // Toggle classes on chapter content
-  fcn_chapterFormatting.classList.toggle('justify', boolean);
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+});
 
-  // Update local storage
-  fcn_formatting['justify'] = boolean;
+// --- JUSTIFY ---------------------------------------------------------------
 
-  if (save) {
-    fcn_setFormatting(fcn_formatting);
-  }
-}
+_$$('#reader-settings-justify-toggle').forEach(toggle => {
+  const args = { toggleClass: 'justify' };
+  const setting = 'justify';
 
-// Listen for click on justify toggle
-_$$$('reader-settings-justify-toggle').onclick = (e) => {
-  fcn_updateJustify(e.currentTarget.checked);
-}
-
-// Initialize
-fcn_updateJustify(fcn_formatting['justify'], false);
-
-// =============================================================================
-// CHAPTER FORMATTING: TOGGLE PARAGRAPH TOOLS
-// =============================================================================
-
-/**
- * Enable or disable paragraph tools on chapters.
- *
- * @since 4.0.0
- * @see fcn_evaluateAsBoolean();
- * @see fcn_setFormatting();
- * @param {Any} value - The value that will be evaluated as boolean.
- * @param {Boolean} [save=true] - Optional. Whether to save the change.
- */
-
-function fcn_updateParagraphTools(value, save = true) {
-  // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const cb = _$$$('reader-settings-paragraph-tools-toggle');
-
-  // Update associated checkbox
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting, args);
   }
 
-  // Update local storage
-  fcn_formatting['show-paragraph-tools'] = boolean;
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+});
 
-  if (save) {
-    fcn_setFormatting(fcn_formatting);
-  }
-}
+// --- PARAGRAPH TOOLS -------------------------------------------------------
 
-// Listen for click on justify toggle
-_$$$('reader-settings-paragraph-tools-toggle').onclick = (e) => {
-  fcn_updateParagraphTools(e.currentTarget.checked);
-}
+_$$('#reader-settings-paragraph-tools-toggle').forEach(toggle => {
+  const setting = 'show-paragraph-tools';
 
-// Initialize
-fcn_updateParagraphTools(fcn_formatting['show-paragraph-tools'], false);
-
-// =============================================================================
-// CHAPTER FORMATTING: TOGGLE SENSITIVE CONTENT
-// =============================================================================
-
-/**
- * Show or hide marked sensitive content on chapters.
- *
- * @since 4.0.0
- * @see fcn_evaluateAsBoolean();
- * @see fcn_setFormatting();
- * @param {Any} value - The value that will be evaluated as boolean.
- * @param {Boolean} [save=true] - Optional. Whether to save the change.
- */
-
-function fcn_updateSensitiveContent(value, save = true) {
-  // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const sensitiveToggle = _$$$('inline-sensitive-content-toggle');
-  const cb = _$$$('reader-settings-sensitive-content-toggle');
-
-  // Update associated checkbox
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting);
   }
 
-  // Update inline toggle
-  if (sensitiveToggle) {
-    sensitiveToggle.classList.toggle('hide-sensitive', !boolean);
-    sensitiveToggle.setAttribute('aria-checked', !boolean);
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, { save: false });
+});
+
+// --- FOREWORD/AFTERWORD/WARNINGS -------------------------------------------
+
+_$$('#reader-settings-chapter-notes-toggle').forEach(toggle => {
+  const args = { notes: true };
+  const setting = 'show-chapter-notes';
+
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting, args);
   }
 
-  // Toggle classes on chapter content
-  fcn_chapterFormatting.classList.toggle('hide-sensitive', !boolean);
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+});
 
-  // Update local storage
-  fcn_formatting['show-sensitive-content'] = boolean;
+// --- COMMENTS --------------------------------------------------------------
 
-  if (save) {
-    fcn_setFormatting(fcn_formatting);
-  }
-}
+_$$('#reader-settings-comments-toggle').forEach(toggle => {
+  const args = { comments: true };
+  const setting = 'show-comments';
 
-// Listen for click on justify toggle
-_$$$('reader-settings-sensitive-content-toggle').onclick = (e) => {
-  fcn_updateSensitiveContent(e.currentTarget.checked);
-}
-
-// Initialize
-fcn_updateSensitiveContent(fcn_formatting['show-sensitive-content'], false);
-
-// =============================================================================
-// CHAPTER FORMATTING: TOGGLE FOREWORD/AFTERWORD/WARNINGS
-// =============================================================================
-
-/**
- * Show or hide chapter foreword, afterword, and warning.
- *
- * @since 4.0.0
- * @see fcn_evaluateAsBoolean();
- * @see fcn_setFormatting();
- * @param {Any} value - The value that will be evaluated as boolean.
- * @param {Boolean} [save=true] - Optional. Whether to save the change.
- */
-
-function fcn_updateChapterNotes(value, save = true) {
-  // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const cb = _$$$('reader-settings-chapter-notes-toggle');
-
-  // Update associated checkbox
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting, args);
   }
 
-  // Toggle classes on elements
-  _$$('.hideable').forEach(element => {
-    element.classList.toggle('hidden', !boolean);
-  });
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+});
 
-  // Update local storage
-  fcn_formatting['show-chapter-notes'] = boolean;
+// --- SENSITIVE CONTENT -----------------------------------------------------
 
-  if (save) {
-    fcn_setFormatting(fcn_formatting);
-  }
-}
+_$$('#reader-settings-sensitive-content-toggle').forEach(toggle => {
+  const args = { toggleClass: 'hide-sensitive', invertClass: true, sensitiveContent: true };
+  const setting = 'show-sensitive-content';
 
-// Listen for click on justify toggle
-_$$$('reader-settings-chapter-notes-toggle').onclick = (e) => {
-  fcn_updateChapterNotes(e.currentTarget.checked);
-}
-
-// Initialize
-fcn_updateChapterNotes(fcn_formatting['show-chapter-notes'], false);
-
-// =============================================================================
-// CHAPTER FORMATTING: TOGGLE COMMENT SECTION
-// =============================================================================
-
-function fcn_updateCommentSection(value, save = true) {
-  // Evaluate
-  const boolean = fcn_evaluateAsBoolean(value, true);
-  const cb = _$$$('reader-settings-comments-toggle');
-
-  // Update associated checkbox
-  if (cb) {
-    cb.checked = boolean;
-    cb.closest('label').setAttribute('aria-checked', boolean);
+  // Listen for click
+  toggle.onclick = (e) => {
+    fcn_updateToggle(e.currentTarget.checked, `#${toggle.id}`, setting, args);
   }
 
-  // Toggle classes on elements
-  _$$('.chapter__comments').forEach(element => {
-    element.classList.toggle('hidden', !boolean);
-  });
-
-  // Update local storage
-  fcn_formatting['show-comments'] = boolean;
-  if (save) fcn_setFormatting(fcn_formatting);
-}
-
-// Listen for click on justify toggle
-_$$$('reader-settings-comments-toggle').onclick = (e) => {
-  fcn_updateCommentSection(e.currentTarget.checked);
-}
-
-// Initialize
-fcn_updateCommentSection(fcn_formatting['show-comments'], false);
+  // Initialize
+  fcn_updateToggle(fcn_formatting[setting], `#${toggle.id}`, setting, {...{ save: false }, ...args});
+});
 
 // =============================================================================
 // READING PROGRESS BAR
