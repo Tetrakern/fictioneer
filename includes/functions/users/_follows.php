@@ -409,6 +409,10 @@ function fictioneer_ajax_get_follows_list() {
     array( 'show_latest' => true )
   );
 
+  if ( ! $list_items ) {
+    wp_send_json_error( array( 'error' => __( 'Card list could not be queried.', 'fictioneer' ) ) );
+  }
+
   // Total number of pages
   $max_pages = $list_items['query']->max_num_pages ?? 1;
 
