@@ -127,8 +127,6 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
 
     // Loop results
     if ( $query && $query->have_posts() ) {
-      $card_partial = 'partials/_card-' . str_replace( 'fcn_', '', $post_type );
-
       while ( $query->have_posts() ) {
         $query->the_post();
         $card_post_id = get_the_ID();
@@ -138,7 +136,7 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             if ( get_post_meta( $card_post_id, 'fictioneer_story_hidden', true ) ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {
-              get_template_part( $card_partial, null, $the_card_args );
+              get_template_part( 'partials/_card-story', null, $the_card_args );
             }
             break;
           case 'fcn_chapter':
@@ -148,11 +146,11 @@ if ( ! function_exists( 'fictioneer_get_card_list' ) ) {
             ) {
               get_template_part( 'partials/_card-hidden', null, $the_card_args );
             } else {
-              get_template_part( $card_partial, null, $the_card_args );
+              get_template_part( 'partials/_card-chapter', null, $the_card_args );
             }
             break;
           default:
-            get_template_part( $card_partial, null, $the_card_args );
+            get_template_part( 'partials/_card-' . str_replace( 'fcn_', '', $post_type ), null, $the_card_args );
         }
       }
 
