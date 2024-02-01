@@ -1,23 +1,28 @@
 {
   "60sSetting": {
-    "category": ["Likenesses"],
-    "name": "60s Setting"
+    "category": ["Likenesses", "Settings"],
+    "name": "60s Setting",
+    "description": "Captures the essence of the 1960s with its psychedelic patterns, mod fashion, evolution of rock music, and pivotal social movements, reflecting the era’s innovative and transformative spirit."
   },
   "70sSetting": {
-    "category": ["Likenesses"],
-    "name": "70s Setting"
+    "category": ["Likenesses", "Settings"],
+    "name": "70s Setting",
+    "description": "Evokes the 1970s through disco culture, bell-bottoms, funk and soul music including the rise of heavy metal, pop art and vibrant colors, representing the era’s flamboyant and dynamic spirit."
   },
   "80sSetting": {
-    "category": ["Likenesses"],
-    "name": "80s Setting"
+    "category": ["Likenesses", "Settings"],
+    "name": "80s Setting",
+    "description": "Channels the 1980s through neon colors, synthesizer-driven pop and rock music, iconic fashion trends like shoulder pads and leg warmers, and the advent of arcade gaming, symbolizing the era’s bold and innovative energy."
   },
   "90sSetting": {
-    "category": ["Likenesses"],
-    "name": "90s Setting"
+    "category": ["Likenesses", "Settings"],
+    "name": "90s Setting",
+    "description": "Reflects the 1990s with its grunge and hip-hop influences, casual and sports-inspired fashion, emergence of digital technology, and a sense of youthful rebellion, conveying the era’s unique blend of cynicism and optimism."
   },
   "abduction": {
     "category": ["Themes"],
-    "name": "Abduction"
+    "name": "Abduction",
+    "description": "Characters are taken against their will by force or cunning. Indicates plots that center around kidnappings, often leading to dramatic, suspenseful, or action-packed sequences."
   },
   "absentParents": {
     "category": ["Family"],
@@ -77,11 +82,13 @@
   },
   "allBoysSchool": {
     "category": ["Settings"],
-    "name": "All-Boys School"
+    "name": "All-Boys School",
+    "parent": "School"
   },
   "allGirlsSchool": {
     "category": ["Settings"],
-    "name": "All-Girls School"
+    "name": "All-Girls School",
+    "parent": "School"
   },
   "alternateWorld": {
     "category": ["Settings"],
@@ -186,7 +193,7 @@
   "bisexuality": {
     "category": ["Relationships"],
     "name": "Bisexuality",
-    "parent": "LGTB+"
+    "parent": "LGB"
   },
   "bisexualProtagonist": {
     "category": ["Protagonist"],
@@ -199,12 +206,14 @@
   },
   "boardingSchool": {
     "category": ["Settings"],
-    "name": "Boarding School"
+    "name": "Boarding School",
+    "parent": "School"
   },
   "boysLove": {
     "aliasOf": "Gay",
     "category": ["Relationships"],
-    "name": "Boys Love"
+    "name": "Boys Love",
+    "parent": "Homosexuality"
   },
   "boysLoveSubplot": {
     "category": ["Relationships"],
@@ -325,7 +334,8 @@
   },
   "crafting": {
     "category": ["Industriousness"],
-    "name": "Crafting"
+    "name": "Crafting",
+    "description": "The creation of items is key. Characters engage in industrious activities to invent and craft tools, weapons, or other objects that aid in their journey or solve problems."
   },
   "criminalOrganizations": {
     "category": ["Society"],
@@ -344,7 +354,7 @@
     "name": "Cyborgs"
   },
   "darkAges": {
-    "category": ["Likenesses"],
+    "category": ["Likenesses", "Settings"],
     "name": "Dark Ages"
   },
   "deathGames": {
@@ -474,7 +484,8 @@
   },
   "engineering": {
     "category": ["Industriousness"],
-    "name": "Engineering"
+    "name": "Engineering",
+    "description": "Creative problem-solving through engineering principles and techniques. Characters apply scientific and mathematical expertise to design, build, or improve structures, machinery, or systems as means to advance the story."
   },
   "erotica": {
     "category": ["Relationships"],
@@ -631,7 +642,8 @@
   "girlsLove": {
     "aliasOf": "Lesbian",
     "category": ["Relationships"],
-    "name": "Girls Love"
+    "name": "Girls Love",
+    "parent": "Homosexuality"
   },
   "girlsLoveSubplot": {
     "category": ["Relationships"],
@@ -655,7 +667,7 @@
     "name": "Gods"
   },
   "goldenTwenties": {
-    "category": ["Likenesses"],
+    "category": ["Likenesses", "Settings"],
     "name": "Golden Twenties"
   },
   "gore": {
@@ -713,7 +725,7 @@
   "homosexuality": {
     "category": ["Relationships"],
     "name": "Homosexuality",
-    "parent": "LGTB+"
+    "parent": "LGB"
   },
   "humanized": {
     "category": ["Races"],
@@ -801,7 +813,8 @@
   },
   "lgbt": {
     "category": ["Themes"],
-    "name": "LGBT+"
+    "name": "LGBT+",
+    "parent": "LGB"
   },
   "lostTechnology": {
     "category": ["Technology"],
@@ -1094,6 +1107,10 @@
     "category": ["Protagonist"],
     "name": "Sarcastic Protagonist"
   },
+  "school": {
+    "category": ["Settings"],
+    "name": "School"
+  },
   "scientists": {
     "category": ["Professions"],
     "name": "Scientists"
@@ -1250,7 +1267,7 @@
   "transgender": {
     "category": ["Characters"],
     "name": "Transgender",
-    "parent": "LGTB+"
+    "parent": "LGBT+"
   },
   "transgenderLoveSubplot": {
     "category": ["Relationships"],
@@ -1301,7 +1318,7 @@
     "name": "Vampires"
   },
   "victorianEra": {
-    "category": ["Likenesses"],
+    "category": ["Likenesses", "Settings"],
     "name": "Victorian Era"
   },
   "villainProtagonist": {
@@ -1377,7 +1394,8 @@
   "yaoi": {
     "aliasOf": "Gay",
     "category": ["Relationships"],
-    "name": "Yaoi"
+    "name": "Yaoi",
+    "parent": "Homosexuality"
   },
   "youngerThanTheyLook": {
     "category": ["Tropes"],
@@ -1386,7 +1404,8 @@
   "yuri": {
     "aliasOf": "Lesbian",
     "category": ["Relationships"],
-    "name": "Yuri"
+    "name": "Yuri",
+    "parent": "Homosexuality"
   },
   "zeroToHero": {
     "category": ["Tropes"],
