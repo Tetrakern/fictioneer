@@ -383,7 +383,7 @@ fcn_theBody.addEventListener('click', e => {
   const spoilerTarget = e.target.closest('.spoiler');
 
   if (spoilerTarget) {
-    if (typeof fct_spoiler === 'function') fct_spoiler(spoilerTarget);
+    spoilerTarget.classList.toggle('_open');
     return;
   }
 
@@ -1337,21 +1337,6 @@ _$$('.chapter-group__name').forEach(element => {
     }
   );
 });
-
-// =============================================================================
-// SPOILER CODES
-// =============================================================================
-
-/**
- * Toggle visibility of a spoiler.
- *
- * @since 4.0.0
- * @param {HTMLElement} target - The spoiler.
- */
-
-function fct_spoiler(target) {
-  target.classList.toggle('_open');
-}
 
 // =============================================================================
 // REVEAL IMAGE ON CLICK ON CONSENT BUTTON
