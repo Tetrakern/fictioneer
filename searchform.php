@@ -106,6 +106,7 @@ if ( $show_advanced ) {
       spellcheck="false"
       autocomplete="off"
       autocorrect="off"
+      data-default=""
     >
 
     <div class="search-form__bar-actions">
@@ -264,7 +265,7 @@ if ( $show_advanced ) {
 
         <div class="search-form__select-wrapper select-wrapper">
           <div class="search-form__select-title"><?php _ex( 'Type', 'Advanced search heading.', 'fictioneer' ); ?></div>
-          <select name="post_type" class="search-form__select" autocomplete="off">
+          <select name="post_type" class="search-form__select" autocomplete="off" data-default="any">
             <option value="any" <?php echo $post_type == 'any' ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="fcn_chapter" <?php echo $post_type == 'fcn_chapter' ? 'selected' : ''; ?>><?php _ex( 'Chapters', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="fcn_story" <?php echo $post_type == 'fcn_story' ? 'selected' : ''; ?>><?php _ex( 'Stories', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -280,7 +281,7 @@ if ( $show_advanced ) {
 
         <div class="search-form__select-wrapper select-wrapper">
           <div class="search-form__select-title"><?php _ex( 'Match', 'Advanced search heading.', 'fictioneer' ); ?></div>
-          <select name="sentence" class="search-form__select" autocomplete="off">
+          <select name="sentence" class="search-form__select" autocomplete="off" data-default="0">
             <option value="0" <?php echo $sentence == '0' ? 'selected' : ''; ?>><?php _ex( 'Keywords', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="1" <?php echo $sentence == '1' ? 'selected' : ''; ?>><?php _ex( 'Phrase', 'Advanced search option.', 'fictioneer' ); ?></option>
           </select>
@@ -288,7 +289,7 @@ if ( $show_advanced ) {
 
         <div class="search-form__select-wrapper select-wrapper">
           <div class="search-form__select-title"><?php _ex( 'Sort', 'Advanced search heading.', 'fictioneer' ); ?></div>
-          <select name="orderby" class="search-form__select" autocomplete="off">
+          <select name="orderby" class="search-form__select" autocomplete="off" data-default="modified">
             <option value="relevance" <?php echo $orderby == 'relevance' ? 'selected' : ''; ?>><?php _ex( 'Relevance', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="date" <?php echo $orderby == 'date' ? 'selected' : ''; ?>><?php _ex( 'Published', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="modified" <?php echo $orderby == 'modified' ? 'selected' : ''; ?>><?php _ex( 'Updated', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -298,7 +299,7 @@ if ( $show_advanced ) {
 
         <div class="search-form__select-wrapper select-wrapper">
           <div class="search-form__select-title"><?php _ex( 'Order', 'Advanced search heading.', 'fictioneer' ); ?></div>
-          <select name="order" class="search-form__select" autocomplete="off">
+          <select name="order" class="search-form__select" autocomplete="off" data-default="desc">
             <option value="desc" <?php echo $order == 'desc' ? 'selected' : ''; ?>><?php _ex( 'Descending', 'Advanced search option.', 'fictioneer' ); ?></option>
             <option value="asc" <?php echo $order == 'asc' ? 'selected' : ''; ?>><?php _ex( 'Ascending', 'Advanced search option.', 'fictioneer' ); ?></option>
           </select>

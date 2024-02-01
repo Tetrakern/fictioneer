@@ -1374,9 +1374,9 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
 
 function fcn_contactFormSubmit(button) {
   // Setup
-  const form = button.closest('form'),
-        formData = new FormData(form),
-        payload = {'action': 'fictioneer_ajax_submit_contact_form'};
+  const form = button.closest('form');
+  const formData = new FormData(form);
+  const payload = {'action': 'fictioneer_ajax_submit_contact_form'};
 
   // Form valid?
   if (!form.reportValidity()) {
@@ -1636,8 +1636,8 @@ class FCN_KeywordInput {
 
   addNode(text = null) {
     // Get and prepare value
-    const name = text ?? this.input.value.replace(',', ''),
-          value = this.allowList[this.encode(name)];
+    const name = text ?? this.input.value.replace(',', '');
+    const value = this.allowList[this.encode(name)];
 
     // Only allowed value and no duplicates
     if (!value || this.keywords.indexOf(value) > -1) {
@@ -1809,16 +1809,40 @@ class FCN_KeywordInput {
   }
 }
 
+/**
+ * Reset search form.
+ *
+ * @since 5.9.4
+ * @param {HTMLElement} button - The reset button clicked.
+ * @param {HTMLElement} form - The form to be reset.
+ * @param {FCN_KeywordInput[]} keywordInputs - Array of keyword input objects.
+ */
+
+function fcn_resetSearchForm(button, form, keywordInputs) {
+  // Reset keyword inputs
+  keywordInputs.forEach(input => input.reset());
+
+  // Reset selects and inputs (even after form submit)
+  form.querySelectorAll('input, select').forEach(element => {
+    element.value = element.dataset.default ?? element.value;
+  });
+
+  // Reset current query info
+  form.querySelector('.search-form__current').innerHTML = '';
+
+  // Notification
+  fcn_showNotification(button.dataset.reset, 2);
+}
+
 // Initialize
 _$$('.search-form').forEach(form => {
-  const keywordInputs = [];
-
   // Skip if simple form
   if (form.classList.contains('_simple')) {
     return;
   }
 
   // Initialize each keyword input in form
+  const keywordInputs = [];
   form.querySelectorAll('.keyword-input__input').forEach(element => { keywordInputs.push(new FCN_KeywordInput(element)) });
 
   // Remove allow list
@@ -1827,11 +1851,11 @@ _$$('.search-form').forEach(form => {
   // Listen for form changes...
   form.addEventListener(
     'change',
-    e => {
+    event => {
       // Empty current query info when form changes
       if (
-        !e.target.classList.contains('search-form__advanced-control') &&
-        !e.target.classList.contains('search-form__string')
+        !event.target.classList.contains('search-form__advanced-control') &&
+        !event.target.classList.contains('search-form__string')
       ) {
         form.querySelector('.search-form__current').innerHTML = '';
       }
@@ -1841,24 +1865,7 @@ _$$('.search-form').forEach(form => {
   // Reset form button
   form.querySelectorAll('.reset').forEach(button => {
     button.addEventListener(
-      'click',
-      e => {
-        // Reset keyword inputs
-        keywordInputs.forEach(input => { input.reset() });
-
-        // Reset selects and inputs
-        form.querySelector('input[name=s]').value = '';
-        form.querySelector('select[name=post_type]').value = 'any';
-        form.querySelector('select[name=sentence]').value = '0';
-        form.querySelector('select[name=orderby]').value = 'modified';
-        form.querySelector('select[name=order]').value = 'desc';
-
-        // Reset current query info
-        form.querySelector('.search-form__current').innerHTML = '';
-
-        // Notification
-        fcn_showNotification(button.dataset.reset, 2);
-      }
+      'click', () => { fcn_resetSearchForm(button, form, keywordInputs); }
     );
   });
 });
