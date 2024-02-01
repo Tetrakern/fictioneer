@@ -1,11 +1,4 @@
 // =============================================================================
-// SETUP
-// =============================================================================
-
-const /** @const {HTMLElement} */ fcn_lightbox = _$$$('fictioneer-lightbox'),
-      /** @const {HTMLElement} */ fcn_lightboxTarget = _$('.lightbox__content');
-
-// =============================================================================
 // SHOW LIGHTBOX
 // =============================================================================
 
@@ -17,11 +10,14 @@ const /** @const {HTMLElement} */ fcn_lightbox = _$$$('fictioneer-lightbox'),
  */
 
 function fcn_showLightbox(target) {
-  let valid = false,
-      img = null;
+  const lightbox = _$$$('fictioneer-lightbox');
+  const lightboxContent = _$('.lightbox__content');
+
+  let valid = false;
+  let img = null;
 
   // Cleanup previous content (if any)
-  fcn_lightboxTarget.innerHTML = '';
+  lightboxContent.innerHTML = '';
 
   // Bookmark source element for later use
   target.classList.add('lightbox-last-trigger');
@@ -39,10 +35,10 @@ function fcn_showLightbox(target) {
   // Show lightbox
   if (valid && img) {
     ['class', 'style', 'height', 'width'].forEach(attr => img.removeAttribute(attr));
-    fcn_lightboxTarget.appendChild(img);
-    fcn_lightbox.classList.add('show');
+    lightboxContent.appendChild(img);
+    lightbox.classList.add('show');
 
-    const close = fcn_lightbox.querySelector('.lightbox__close');
+    const close = lightbox.querySelector('.lightbox__close');
 
     close?.focus();
     close?.blur();
@@ -87,7 +83,7 @@ document.querySelectorAll('.lightbox__close, .lightbox').forEach(element => {
     e => {
       if (e.target.tagName != 'IMG') {
         // Restore default view
-        fcn_lightbox.classList.remove('show');
+        _$$$('fictioneer-lightbox').classList.remove('show');
 
         // Restore last tab focus
         const lastTrigger = _$('.lightbox-last-trigger');
