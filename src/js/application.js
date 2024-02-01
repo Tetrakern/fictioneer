@@ -1288,29 +1288,20 @@ function fcn_jumpPage(source) {
 // WATCH DOM MUTATION TO UPDATE VIEW AND REBIND EVENTS
 // =============================================================================
 
-const /** @const {HTMLElement[]} */ fcn_cardLists = _$$('.card-list:not(._no-mutation-observer)');
-
-var /** @type {MutationObserver} */ fcn_cardListMutationObserver = new MutationObserver((e) => {
-  if (e[0].addedNodes) {
-    // Update view
-    if (typeof fcn_updateFollowsView === 'function') {
-      fcn_updateFollowsView();
+const /** @const {MutationObserver} */ fcn_cardListMutationObserver = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    if (mutation.addedNodes.length > 0) {
+      // Update view
+      fcn_updateFollowsView?.();
+      fcn_updateCheckmarksView?.();
+      fcn_updateRemindersView?.();
     }
-
-    if (typeof fcn_updateCheckmarksView === 'function') {
-      fcn_updateCheckmarksView();
-    }
-
-    if (typeof fcn_updateRemindersView === 'function') {
-      fcn_updateRemindersView();
-    }
-  }
+  });
 });
 
 // Watch for added nodes in card lists
-if (fcn_cardLists.length) {
-  fcn_cardLists.forEach(card => { fcn_cardListMutationObserver.observe(card, { childList: true, subtree: true }); });
-}
+_$$('.card-list:not(._no-mutation-observer)')
+  .forEach(card => fcn_cardListMutationObserver.observe(card, { childList: true, subtree: true }));
 
 // =============================================================================
 // COLLAPSE/EXPAND CHAPTER GROUPS
