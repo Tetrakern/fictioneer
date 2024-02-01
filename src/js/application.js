@@ -59,28 +59,25 @@ if (typeof fcn_removeQueryArgs === 'function') {
  */
 
 function fcn_cleanupWebStorage(keepGuestData = false) {
-  localStorage.removeItem('fcnProfileAvatar');
-  localStorage.removeItem('fcnBookshelfContent');
+  const localItems = ['fcnProfileAvatar', 'fcnBookshelfContent'];
 
   if (!keepGuestData) {
-    localStorage.removeItem('fcnChapterBookmarks');
+    localItems.push('fcnChapterBookmarks');
   }
 
-  // Clean up user data
+  // Remove local data
+  localItems.forEach(item => localStorage.removeItem(item));
+
+  // Remove user data (if any)
+  const userDataKeys = ['loggedIn', 'follows', 'reminders', 'checkmarks', 'bookmarks', 'fingerprint'];
   const userData = fcn_parseJSON(localStorage.getItem('fcnUserData'));
 
   if (userData) {
-    userData['loggedIn'] = false;
-    userData['follows'] = false;
-    userData['reminders'] = false;
-    userData['checkmarks'] = false;
-    userData['bookmarks'] = false;
-    userData['fingerprint'] = false;
-
+    userDataKeys.forEach(key => userData[key] = false);
     localStorage.setItem('fcnUserData', JSON.stringify(userData));
   }
 
-  // Clean up private authentication data
+  // Remove private authentication data
   const auth = fcn_parseJSON(localStorage.getItem('fcnAuth'));
 
   if (auth?.loggedIn) {
@@ -294,22 +291,22 @@ function fcn_setLoggedInState(state) {
 
   // Cleanup view for users
   if (!state.isAdmin) {
-    _$$('.only-admins').forEach(element => { element.remove() });
+    _$$('.only-admins').forEach(el => el.remove());
   }
 
   if (!state.isModerator && !state.isAdmin) {
-    _$$('.only-moderators').forEach(element => { element.remove() });
+    _$$('.only-moderators').forEach(el => el.remove());
   }
 
   if (!state.isAuthor && !state.isAdmin) {
-    _$$('.only-authors').forEach(element => { element.remove() });
+    _$$('.only-authors').forEach(el => el.remove());
   }
 
   if (!state.isModerator && !state.isAdmin) {
-    _$$('.only-editors').forEach(element => { element.remove() });
+    _$$('.only-editors').forEach(el => el.remove());
   }
 
-  _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(element => { element.remove() });
+  _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(el => el.remove());
 
   // Initialize local user
   fcn_getProfileImage();
@@ -566,41 +563,41 @@ fcn_scrollDirection();
 // OBSERVERS
 // =============================================================================
 
-// Main observer
-const /** @const {IntersectionObserver} */ fcn_mainObserver = new IntersectionObserver(
-  ([e]) => {
-    fcn_theBody.classList.toggle('is-inside-main', e.intersectionRatio < 1 && e.boundingClientRect.top <= 0);
-  },
-  { threshold: [1] }
-);
+/**
+ * Create and initialize an IntersectionObserver.
+ *
+ * @param {String} selector - Selector for the element to be observed.
+ * @param {Function} callback - Callback for the IntersectionObserver.
+ * @param {Object} options - Options for the IntersectionObserver.
+ */
+function fcn_observe(selector, callback, options = {}) {
+  const element = _$(selector);
 
-// End of chapter observer
-const /** @const {IntersectionObserver} */ fcn_endOfChapterObserver = new IntersectionObserver(
-  ([e]) => {
-    fcn_theBody.classList.toggle('is-end-of-chapter', e.isIntersecting || e.boundingClientRect.top < 0)
-  }, { root: null, threshold: 0 }
-);
+  if (!element) {
+    return null;
+  }
 
-// Sticky navigation observer
-const /** @const {IntersectionObserver} */ fct_navStickyObserver = new IntersectionObserver(
-  ([e]) => {
-    fcn_mainNavigation.classList.toggle('is-sticky', e.intersectionRatio < 1);
-  }, { threshold: [1] }
-);
+  const observer = new IntersectionObserver(entries => callback(entries[0]), options);
+  observer.observe(element);
+}
 
-// Apply observers
 document.addEventListener('DOMContentLoaded', () => {
-  if (_$('.main-observer')) {
-    fcn_mainObserver.observe(_$('.main-observer'));
-  }
+  const mainObserverCallback = e => {
+    fcn_theBody.classList.toggle('is-inside-main', e.intersectionRatio < 1 && e.boundingClientRect.top <= 0);
+  };
 
-  if (_$('.chapter-end')) {
-    fcn_endOfChapterObserver.observe(_$('.chapter-end'));
-  }
+  const endOfChapterCallback = e => {
+    fcn_theBody.classList.toggle('is-end-of-chapter', e.isIntersecting || e.boundingClientRect.top < 0);
+  };
 
-  if (_$$$('nav-observer-sticky')) {
-    fct_navStickyObserver.observe(_$$$('nav-observer-sticky'));
-  }
+  const navStickyCallback = e => {
+    fcn_mainNavigation.classList.toggle('is-sticky', e.intersectionRatio < 1);
+  };
+
+  // Initialize observers
+  fcn_observe('.main-observer', mainObserverCallback, { threshold: [1] });
+  fcn_observe('.chapter-end', endOfChapterCallback, { root: null, threshold: 0 });
+  fcn_observe('#nav-observer-sticky', navStickyCallback, { threshold: [1] });
 });
 
 // =============================================================================

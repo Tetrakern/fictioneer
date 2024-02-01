@@ -264,7 +264,11 @@ function fcn_readTextStack() {
   // End of stack reached
   if (fcn_ttsStack.length === 0) {
     fcn_ttsInterface.classList.add('ended');
-    if (current) current.classList.remove('current-reading');
+
+    if (current) {
+      current.classList.remove('current-reading');
+    }
+
     fcn_currentReadingId = -1;
     fcn_ttsCurrentText = '';
     return;
@@ -277,7 +281,11 @@ function fcn_readTextStack() {
 
   if (fcn_currentReadingId != item[0]) {
     fcn_currentReadingId = item[0];
-    if (current) current.classList.remove('current-reading');
+
+    if (current) {
+      current.classList.remove('current-reading');
+    }
+
     _$$$(fcn_currentReadingId).classList.add('current-reading');
   }
 

@@ -143,7 +143,7 @@ _$$('.chapter-group__folding-toggle').forEach(element => {
 // =============================================================================
 
 /**
- * Toggles the active story tab
+ * Toggles the active story tab.
  *
  * @since 5.4.0
  *
@@ -152,7 +152,7 @@ _$$('.chapter-group__folding-toggle').forEach(element => {
 
 function fcn_toggleStoryTab(target) {
   // Clear previous tab
-  _$$('.story__article  ._current').forEach(item => {
+  _$$('.story__article ._current').forEach(item => {
     item.classList.remove('_current');
   });
 

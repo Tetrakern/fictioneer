@@ -460,8 +460,8 @@ function fcn_ebookMediaUpload(event) {
   // Open media modal
   var uploader = wp.media({
     multiple: false,
-    library : {
-        type : ['application/pdf', 'text/plain', 'application/rtf', 'application/x-mobipocket-ebook', 'application/epub+zip']
+    library: {
+      type: ['application/pdf', 'text/plain', 'application/rtf', 'application/x-mobipocket-ebook', 'application/epub+zip']
     }
   })
   .open()
@@ -473,10 +473,11 @@ function fcn_ebookMediaUpload(event) {
     metabox.querySelector('[data-target*="size"]').textContent = attachment.filesizeHumanReadable;
     metabox.querySelector('[data-target*="filename"]').textContent = attachment.filename;
     metabox.querySelector('[data-target*="filename"]').href = attachment.url;
+
     metabox.querySelector('[data-target*="upload"]').classList.add('hidden');
-    metabox.querySelector('[data-target*="replace"]').classList.remove('hidden');
-    metabox.querySelector('[data-target*="remove"]').classList.remove('hidden');
-    metabox.querySelector('[data-target*="display"]').classList.remove('hidden');
+
+    metabox.querySelectorAll('[data-target*="replace"], [data-target*="remove"], [data-target*="display"]')
+      .forEach(el => el.classList.remove('hidden'));
   });
 }
 
@@ -503,10 +504,11 @@ function fcn_ebookMediaRemove(event) {
   metabox.querySelector('[data-target*="size"]').textContent = '';
   metabox.querySelector('[data-target*="filename"]').textContent = '';
   metabox.querySelector('[data-target*="filename"]').href = '';
+
   metabox.querySelector('[data-target*="upload"]').classList.remove('hidden');
-  metabox.querySelector('[data-target*="replace"]').classList.add('hidden');
-  metabox.querySelector('[data-target*="remove"]').classList.add('hidden');
-  metabox.querySelector('[data-target*="display"]').classList.add('hidden');
+
+  metabox.querySelectorAll('[data-target*="replace"], [data-target*="remove"], [data-target*="display"]')
+    .forEach(el => el.classList.add('hidden'));
 }
 
 // Listen for clicks on upload and replace
