@@ -61,6 +61,7 @@ function fictioneer_do_fast_ajax() {
   require_once __DIR__ . '/_utility.php';
   require_once __DIR__ . '/_query_helpers.php';
   require_once __DIR__ . '/_caching_and_transients.php';
+  require_once __DIR__ . '/_cpt_and_taxonomies.php';
 
   if ( get_option( 'fictioneer_enable_follows' ) && strpos( $action, '_follow' ) !== false ) {
     require_once __DIR__ . '/_content_helpers.php';
@@ -101,6 +102,9 @@ function fictioneer_do_fast_ajax() {
   if ( strpos( $action, '_avatar' ) !== false ) {
     require_once __DIR__ . '/users/_avatars.php';
   }
+
+  // Register custom post types and taxonomies
+  fictioneer_register_cpt_and_tax();
 
   // Skip cache checks
   if ( ! function_exists( 'fictioneer_caching_active' ) ) {
@@ -198,6 +202,9 @@ function fictioneer_do_fast_comment_ajax() {
     require_once __DIR__ . '/users/_avatars.php'; // Obviously
     require_once __DIR__ . '/comments/_comments_form.php'; // Obviously
     require_once __DIR__ . '/comments/_comments_threads.php'; // Obviously
+
+    // Register custom post types and taxonomies
+    fictioneer_register_cpt_and_tax();
   }
 
   // Function exists?

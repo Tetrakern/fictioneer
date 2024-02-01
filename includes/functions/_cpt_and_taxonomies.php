@@ -556,6 +556,30 @@ function fictioneer_add_content_warning_taxonomy() {
 add_action( 'init', 'fictioneer_add_content_warning_taxonomy', 0 );
 
 // =============================================================================
+// MANUALLY REGISTER
+// =============================================================================
+
+/**
+ * Manually registers custom post types and taxonomies
+ *
+ * Note: This is mainly for the fast AJAX pipeline since
+ * the 'init' hook will not be called.
+ *
+ * @since 5.9.4
+ */
+
+function fictioneer_register_cpt_and_tax() {
+  fictioneer_fcn_story_post_type();
+  fictioneer_fcn_chapter_post_type();
+  fictioneer_fcn_collection_post_type();
+  fictioneer_fcn_recommendation_post_type();
+  fictioneer_add_genre_taxonomy();
+  fictioneer_add_fandom_taxonomy();
+  fictioneer_add_character_taxonomy();
+  fictioneer_add_content_warning_taxonomy();
+}
+
+// =============================================================================
 // MODIFY DEFAULT CATEGORIES AND POST TAGS
 // =============================================================================
 
