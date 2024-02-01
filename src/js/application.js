@@ -1309,33 +1309,33 @@ _$$('.card-list:not(._no-mutation-observer)')
 
 _$$('.chapter-group__name').forEach(element => {
   element.addEventListener('click', event => {
-    var group = event.currentTarget.closest('.chapter-group'),
-        list = group.querySelector('.chapter-group__list'),
-        state = !group.classList.contains('_closed');
+    const group = event.currentTarget.closest('.chapter-group');
+    const list = group.querySelector('.chapter-group__list');
+    const state = !group.classList.contains('_closed');
 
     // Base for transition
     list.style.height = `${list.scrollHeight}px`;
 
-    setTimeout(() => {
-      group.classList.toggle('_closed', state);
-    }, 10); // Delay to allow transition to work
-  });
-
-  element.closest('.chapter-group').querySelector('.chapter-group__list').addEventListener(
-    'transitionend',
-    event => {
-      const group = event.currentTarget.closest('.chapter-group'),
-            list = group.querySelector('.chapter-group__list');
-
-      // Remove inline height once done
-      list.style.height = '';
-
-      // Disable tab navigation into the hidden elements
-      list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
-        element.tabIndex = group.classList.contains('_closed') ? '-1' : '0';
+    // Use requestAnimationFrame for next paint to ensure transition occurs
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        group.classList.toggle('_closed', state);
+        list.style.height = state ? '0' : `${list.scrollHeight}px`;
       });
-    }
-  );
+    });
+  });
+});
+
+_$$('.chapter-group__list').forEach(list => {
+  list.addEventListener('transitionend', event => {
+    // Remove inline height once transition is done
+    list.style.height = '';
+
+    // Adjust tabIndex for accessibility
+    list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
+      element.tabIndex = list.parentElement.classList.contains('_closed') ? '-1' : '0';
+    });
+  });
 });
 
 // =============================================================================
