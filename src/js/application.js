@@ -6,7 +6,6 @@ const /** @const {HTMLElement} */ fcn_theSite = _$$$('site'),
       /** @const {HTMLElement} */ fcn_theBody = _$('body'),
       /** @const {HTMLElement} */ fcn_theRoot = document.documentElement,
       /** @const {HTMLElement} */ fcn_inlineStorage = _$$$('inline-storage').dataset,
-      /** @const {HTMLElement} */ fcn_mainNavigation = _$$$('full-navigation'),
       /** @const {URLSearchParams} */ fcn_urlSearchParams = new URLSearchParams(window.location.search),
       /** @const {Object} */ fcn_urlParams = Object.fromEntries(fcn_urlSearchParams.entries()),
       /** @const {Number} */ fcn_pageLoadTimestamp = Date.now(),
@@ -591,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const navStickyCallback = e => {
-    fcn_mainNavigation.classList.toggle('is-sticky', e.intersectionRatio < 1);
+    _$$$('full-navigation').classList.toggle('is-sticky', e.intersectionRatio < 1);
   };
 
   // Initialize observers
