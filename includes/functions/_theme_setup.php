@@ -1129,6 +1129,10 @@ function fictioneer_paginate_links( $args = [] ) {
   $args['mid_size'] = 1;
   $pagination = paginate_links( $args );
 
+  if ( ! $pagination ) {
+    return '';
+  }
+
   return str_replace(
     'class="page-numbers dots"',
     'class="page-numbers dots" tabindex="0"',
