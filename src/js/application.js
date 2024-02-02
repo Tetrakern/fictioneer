@@ -2,20 +2,18 @@
 // GLOBAL SETUP (FIRST TO BE EXECUTED)
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_theSite = _$$$('site'),
-      /** @const {HTMLElement} */ fcn_theBody = _$('body'),
-      /** @const {HTMLElement} */ fcn_theRoot = document.documentElement,
-      /** @const {HTMLElement} */ fcn_inlineStorage = _$$$('inline-storage').dataset,
-      /** @const {URLSearchParams} */ fcn_urlSearchParams = new URLSearchParams(window.location.search),
-      /** @const {Object} */ fcn_urlParams = Object.fromEntries(fcn_urlSearchParams.entries()),
-      /** @const {Number} */ fcn_pageLoadTimestamp = Date.now(),
-      /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
+const /** @const {HTMLElement} */ fcn_theSite = _$$$('site');
+const /** @const {HTMLElement} */ fcn_theBody = _$('body');
+const /** @const {HTMLElement} */ fcn_theRoot = document.documentElement;
+const /** @const {HTMLElement} */ fcn_inlineStorage = _$$$('inline-storage').dataset;
+const /** @const {Object} */ fcn_urlParams = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
+const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
-var /** @type {Object} */ fcn_cssVars = getComputedStyle(document.documentElement),
-    /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in'),
-    /** @type {Number} */ fcn_viewportWidth,
-    /** @type {Boolean} */ fcn_mediaMinTablet,
-    /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
+var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
+var /** @type {Number} */ fcn_viewportWidth;
+var /** @type {Boolean} */ fcn_mediaMinTablet;
+var /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
 
 // Translation functions
 const { __, _x, _n, sprintf } = wp.i18n;

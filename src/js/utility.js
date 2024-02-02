@@ -308,13 +308,13 @@ function fcn_clamp(min, max, val) {
  */
 
 function fcn_updateThemeColor(color = false) {
-  const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0,
-        saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0,
-        hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0,
-        d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2),
-        s = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+  const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0;
+  const saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0;
+  const hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0;
+  const d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
+  const s = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
 
-  let themeColor = fcn_cssVars.getPropertyValue('--theme-color-base').trim().split(' ');
+  let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' ');
 
   themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * s).toFixed(2)}% ${(parseInt(themeColor[2]) * d).toFixed(2)}%)`;
 
@@ -365,11 +365,11 @@ function fcn_offset(element) {
  */
 
 function fcn_throttle(func, wait, options) {
-  var context,
-      args,
-      result,
-      timeout = null,
-      previous = 0;
+  var context;
+  var args;
+  var result;
+  var timeout = null;
+  var previous = 0;
 
   if (!options) {
     options = {};
