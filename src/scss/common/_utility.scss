@@ -36,7 +36,7 @@ body:not(.is-moderator):not(.is-admin):not(.is-post-author) {
 }
 
 body:not(.is-moderator):not(.is-admin) {
-  :is(.comment-edit-link, .button-ajax-moderate-comment[data-action="trash"]) {
+  :is(.comment-edit-link, [data-action="trash"]) {
     display: none;
   }
 }

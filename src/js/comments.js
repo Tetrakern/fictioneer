@@ -57,8 +57,8 @@ fcn_addJSTrap();
 
 function fcn_moderateComment(id, operation) {
   // Setup
-  const comment = _$$$(`comment-${id}`),
-        menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
+  const comment = _$$$(`comment-${id}`);
+  const menuToggleIcon = comment.querySelector('.mod-menu-toggle-icon');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) {
@@ -137,33 +137,11 @@ function fcn_moderateComment(id, operation) {
     // Remove progress state
     comment.classList.remove('ajax-in-progress');
 
-    // Close menu
-    if ( fcn_lastClicked ) fcn_lastClicked.classList.remove('last-clicked');
+    // Close mod menu
+    fcn_lastClicked?.classList.remove('last-clicked');
     fcn_lastClicked = null;
   });
 }
-
-/**
- * Listen to clicks on moderation action.
- *
- * @since 4.7.0
- */
-
-function fcn_addModerationEvents() {
-  _$$('.button-ajax-moderate-comment').forEach(element => {
-    element.addEventListener(
-      'click',
-      e => {
-        fcn_moderateComment(
-          e.currentTarget.dataset.id,
-          e.currentTarget.dataset.action
-        );
-      }
-    );
-  });
-}
-
-fcn_addModerationEvents();
 
 /**
  * Listen to mouseleave to close the moderation menu.
@@ -175,13 +153,10 @@ function fcn_addCommentMouseleaveEvents() {
   _$$('.fictioneer-comment__container').forEach(element => {
     element.addEventListener(
       'mouseleave',
-      e => {
-        if (fcn_lastClicked) {
-          fcn_lastClicked.classList.remove('last-clicked');
-        }
-
+      event => {
+        fcn_lastClicked?.classList.remove('last-clicked');
         fcn_lastClicked = null;
-        e.stopPropagation();
+        event.stopPropagation();
       }
     );
   });
@@ -296,44 +271,8 @@ fcn_addCommentFormEvents();
 
 function fcn_textareaAdjust(area) {
   area.style.height = 'auto'; // Reset if lines are removed
-  area.style.height = area.scrollHeight + 'px';
+  area.style.height = `${area.scrollHeight}px`;
 }
-
-/**
- * Listen for input on adaptive textareas.
- *
- * @since 4.7.0
- */
-
-function fcn_addTextareaEvents() {
-  _$$('.adaptive-textarea').forEach(element => {
-    element.addEventListener(
-      'input',
-      e => {
-        fcn_textareaAdjust(e.currentTarget);
-      }
-    );
-  });
-}
-
-fcn_addTextareaEvents();
-
-/**
- * Listen for changes of the private toggle.
- *
- * @since 5.0.0
- */
-
-function fcn_addPrivateToggleEvents() {
-  _$$$('fictioneer-private-comment-toggle')?.addEventListener(
-    'change',
-    e => {
-      _$$$('respond')?.classList.toggle('_private', e.currentTarget.checked);
-    }
-  );
-}
-
-fcn_addPrivateToggleEvents();
 
 // =============================================================================
 // THEME COMMENTS FORMATTING BUTTONS
@@ -349,13 +288,13 @@ fcn_addPrivateToggleEvents();
  */
 
 function fcn_wrapInTag(element, tag, options = {}) {
-  const href = options.href ? ' href="' + options.href + '" target="_blank" rel="nofollow noreferrer noopener"' : '',
-        brackets = options.shortcode ? ['[', ']'] : ['<', '>'],
-        start = element.selectionStart,
-        end = element.selectionEnd,
-        open = brackets[0] + tag + href + brackets[1],
-        close = brackets[0] + '/' + tag + brackets[1],
-        text = open + element.value.substring(start, end) + close;
+  const href = options.href ? ' href="' + options.href + '" target="_blank" rel="nofollow noreferrer noopener"' : '';
+  const brackets = options.shortcode ? ['[', ']'] : ['<', '>'];
+  const start = element.selectionStart;
+  const end = element.selectionEnd;
+  const open = brackets[0] + tag + href + brackets[1];
+  const close = brackets[0] + '/' + tag + brackets[1];
+  const text = open + element.value.substring(start, end) + close;
 
   element.value = element.value.substring(0, start) + text + element.value.substring(end, element.value.length);
   element.setSelectionRange((start + open.length), (end + open.length));
@@ -427,22 +366,22 @@ function fcn_bindAJAXCommentSubmit() {
     }
 
     // Get comment form input
-    const form = e.currentTarget,
-          button = _$$$('submit'),
-          content = _$$$('comment'),
-          author = _$$$('author'),
-          email = _$$$('email'),
-          cookie_consent = _$$$('wp-comment-cookies-consent'),
-          privacy_consent = _$$$('fictioneer-privacy-policy-consent'),
-          jsValidator = _$$$('fictioneer-comment-validator'),
-          parentId = _$$$('comment_parent').value,
-          parent = _$$$(`comment-${parentId}`),
-          private_comment = _$$$('fictioneer-private-comment-toggle'),
-          notification = _$$$('fictioneer-comment-notification-toggle');
+    const form = e.currentTarget;
+    const button = _$$$('submit');
+    const content = _$$$('comment');
+    const author = _$$$('author');
+    const email = _$$$('email');
+    const cookie_consent = _$$$('wp-comment-cookies-consent');
+    const privacy_consent = _$$$('fictioneer-privacy-policy-consent');
+    const jsValidator = _$$$('fictioneer-comment-validator');
+    const parentId = _$$$('comment_parent').value;
+    const parent = _$$$(`comment-${parentId}`);
+    const private_comment = _$$$('fictioneer-private-comment-toggle');
+    const notification = _$$$('fictioneer-comment-notification-toggle');
 
-    let emailValidation = true,
-        contentValidation = true,
-        privacyValidation = true;
+    let emailValidation = true;
+    let contentValidation = true;
+    let privacyValidation = true;
 
     // Validate content
     contentValidation = content.value.length > 1;
@@ -580,7 +519,6 @@ function fcn_bindAJAXCommentSubmit() {
         }
 
         // Bind events
-        fcn_addModerationEvents();
         fcn_addCommentMouseleaveEvents();
 
         // Clean-up form
@@ -655,9 +593,9 @@ function fcn_triggerInlineCommentEdit(source) {
 
   // Main comment container found...
   if (red) {
-    const content = red.querySelector('.fictioneer-comment__content'),
-          edit = red.querySelector('.fictioneer-comment__edit'),
-          textarea = red.querySelector('.comment-inline-edit-content');
+    const content = red.querySelector('.fictioneer-comment__content');
+    const edit = red.querySelector('.fictioneer-comment__edit');
+    const textarea = red.querySelector('.comment-inline-edit-content');
 
     // Append buttons
     edit.appendChild(fcn_commentEditActionsTemplate.content.cloneNode(true));
@@ -669,7 +607,7 @@ function fcn_triggerInlineCommentEdit(source) {
     red.classList.add('_editing');
     content.hidden = true;
     edit.hidden = false;
-    textarea.style.height = textarea.scrollHeight + 'px';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 }
 
@@ -682,9 +620,9 @@ function fcn_triggerInlineCommentEdit(source) {
 
 function fcn_submitInlineCommentEdit(source) {
   // Setup
-  const red = source.closest('.fictioneer-comment'), // Red makes it faster!
-        edit = red.querySelector('.fictioneer-comment__edit'),
-        content = red.querySelector('.comment-inline-edit-content').value;
+  const red = source.closest('.fictioneer-comment'); // Red makes it faster!
+  const edit = red.querySelector('.fictioneer-comment__edit');
+  const content = red.querySelector('.comment-inline-edit-content').value;
 
   let editNote = red.querySelector('.fictioneer-comment__edit-note');
 
@@ -987,9 +925,9 @@ function fcn_getCommentForm() {
       temp.innerHTML = response.data.html;
 
       // Get form elements
-      const commentPostId = temp.querySelector('#comment_post_ID'),
-            cancelReplyLink = temp.querySelector('#cancel-comment-reply-link'),
-            logoutLink = temp.querySelector('.logout-link');
+      const commentPostId = temp.querySelector('#comment_post_ID');
+      const cancelReplyLink = temp.querySelector('#cancel-comment-reply-link');
+      const logoutLink = temp.querySelector('.logout-link');
 
       // Fix form elements
       if (commentPostId) {
@@ -1012,9 +950,7 @@ function fcn_getCommentForm() {
       fcn_applyCommentStack();
 
       // Bind events
-      fcn_addTextareaEvents();
       fcn_addCommentFormEvents();
-      fcn_addPrivateToggleEvents()
 
       if (fcn_theRoot.dataset.ajaxSubmit) {
         fcn_bindAJAXCommentSubmit();
@@ -1075,15 +1011,15 @@ function fcn_applyCommentStack(textarea = null) {
 // EVENT DELEGATES
 // =============================================================================
 
+// CLICK
 _$('.fictioneer-comments')?.addEventListener('click', event => {
-  const clickTarget = event.target.closest('[data-click]'),
-        clickAction = clickTarget?.dataset.click;
+  const clickTarget = event.target.closest('[data-click]');
 
-  if (!clickAction) {
+  if (!clickTarget) {
     return;
   }
 
-  switch (clickAction) {
+  switch (clickTarget?.dataset.click) {
     case 'submit-inline-comment-edit':
       fcn_submitInlineCommentEdit(clickTarget);
       break;
@@ -1099,5 +1035,21 @@ _$('.fictioneer-comments')?.addEventListener('click', event => {
     case 'flag-comment':
       fcn_flagComment(clickTarget);
       break;
+    case 'ajax-mod-action':
+      fcn_moderateComment(clickTarget.dataset.id, clickTarget.dataset.action);
+      break;
+  }
+});
+
+// INPUT
+_$('.fictioneer-comments')?.addEventListener('input', event => {
+  // Adaptive textareas
+  if (event.target.matches('.adaptive-textarea')) {
+    fcn_textareaAdjust(event.target);
+  }
+
+  // Private comment toggle
+  if (event.target.closest('#fictioneer-private-comment-toggle')) {
+    _$$$('respond')?.classList.toggle('_private', event.currentTarget.checked);
   }
 });

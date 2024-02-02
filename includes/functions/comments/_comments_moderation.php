@@ -456,12 +456,12 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
       <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
       <div class="popup-menu hide-if-logged-out only-moderators _top _justify-right _fixed-position">
         <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="open"><?php _e( 'Open', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
+          <button data-id="<?php echo $comment_id; ?>" data-click="ajax-mod-action" data-action="open"><?php _e( 'Open', 'fictioneer' ); ?></button>
         <?php else : ?>
           <?php
             echo fictioneer_get_comment_action_link( $comment_id, 'trash', '#comments' );
@@ -474,38 +474,17 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
             }
           ?>
         <?php endif; ?>
-        <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
-          <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
+        <?php
+          if (
+            get_option( 'fictioneer_enable_sticky_comments' ) &&
+            get_option( 'fictioneer_enable_ajax_comment_moderation' )
+          ) :
+        ?>
+          <button data-click="ajax-mod-action" data-id="<?php echo $comment_id; ?>" data-action="sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
+          <button data-click="ajax-mod-action" data-id="<?php echo $comment_id; ?>" data-action="unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
         <?php endif; ?>
         <?php echo fictioneer_get_comment_action_link( $comment_id, 'edit' ); ?>
       </div>
-    </div>
-    <div class="popup-menu hide-if-logged-out only-moderators hidden hide-on-ajax">
-      <?php if ( get_option( 'fictioneer_enable_ajax_comment_moderation' ) ) : ?>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="trash"><?php _e( 'Trash', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="spam"><?php _e( 'Spam', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="unapprove"><?php _e( 'Unapprove', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="approve"><?php _e( 'Approve', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="close"><?php _e( 'Close', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="open"><?php _e( 'Open', 'fictioneer' ); ?></button>
-      <?php else : ?>
-        <?php
-          echo fictioneer_get_comment_action_link( $comment_id, 'trash', '#comments' );
-          echo fictioneer_get_comment_action_link( $comment_id, 'spam', '#comments' );
-
-          if ( $comment->comment_approved == '0' ) {
-            echo fictioneer_get_comment_action_link( $comment_id, 'approve', get_comment_link( $comment_id ) );
-          } else {
-            echo fictioneer_get_comment_action_link( $comment_id, 'unapprove', get_comment_link( $comment_id ) );
-          }
-        ?>
-      <?php endif; ?>
-      <?php if ( get_option( 'fictioneer_enable_sticky_comments' ) ) : ?>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="sticky"><?php _e( 'Sticky', 'fictioneer' ); ?></button>
-        <button class="button-ajax-moderate-comment" data-id="<?php echo $comment_id; ?>" data-action="unsticky"><?php _e( 'Unsticky', 'fictioneer' ); ?></button>
-      <?php endif; ?>
-      <?php echo fictioneer_get_comment_action_link( $comment_id, 'edit' ); ?>
     </div>
     <?php // <--- End HTML
     echo ob_get_clean();

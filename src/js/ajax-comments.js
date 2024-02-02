@@ -105,11 +105,8 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       }
 
       // Bind events
-      fcn_addModerationEvents();
       fcn_addCommentMouseleaveEvents();
-      fcn_addTextareaEvents();
       fcn_addCommentFormEvents();
-      fcn_addPrivateToggleEvents()
       fcn_bindAJAXCommentSubmit();
 
       // JS trap (if active)
@@ -120,8 +117,8 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
       fcn_revealDeleteButton();
 
       // Scroll to top of comment section
-      const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond',
-            scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
+      const scrollTargetSelector = location.hash.includes('#comment') ? location.hash : '.respond';
+      const scrollTarget = document.querySelector(scrollTargetSelector) ?? _$$$('respond');
 
       if (scroll) {
         scrollTarget.scrollIntoView({ behavior: 'smooth' });
