@@ -251,8 +251,8 @@ function fcn_updateCheckmarks(storyId, checkmarks = null) {
 
 function fcn_updateCheckmarksView() {
   // Get current data
-  const currentUserData = fcn_getUserData(),
-        checkmarks = currentUserData.checkmarks;
+  const currentUserData = fcn_getUserData();
+  const checkmarks = currentUserData.checkmarks;
 
   if (!checkmarks) {
     return;
@@ -290,27 +290,26 @@ function fcn_updateCheckmarksView() {
   }
 
   // Update checkmarks on story pages
-  _$$('button.checkmark').forEach(item => {
-    const checkStoryId = parseInt(item.dataset.storyId);
+  _$$('button.checkmark').forEach(button => {
+    const checkStoryId = parseInt(button.dataset.storyId);
 
-    if (!checkmarks.data.hasOwnProperty(checkStoryId)) {
-      return;
+    if (checkmarks.data.hasOwnProperty(checkStoryId)) {
+      const checked = checkmarks.data[checkStoryId].includes(parseInt(button.dataset.id));
+
+      button.classList.toggle('marked', checked);
+      button.setAttribute('aria-checked', checked);
     }
-
-    const checked = checkmarks.data[checkStoryId].includes(parseInt(item.dataset.id));
-
-    item.classList.toggle('marked', checked);
-    item.setAttribute('aria-checked', checked);
   });
 
   // Update icon and buttons on cards
-  _$$('.card').forEach(item => {
-    const cardStoryId = parseInt(item.dataset.storyId),
-          force = checkmarks.data.hasOwnProperty(cardStoryId) &&
-            (
-              checkmarks.data[cardStoryId].includes(parseInt(item.dataset.checkId)) ||
-              checkmarks.data[cardStoryId].includes(cardStoryId)
-            );
-    item.classList.toggle('has-checkmark', force);
+  _$$('.card').forEach(card => {
+    const cardStoryId = parseInt(card.dataset.storyId);
+    const force = checkmarks.data.hasOwnProperty(cardStoryId) &&
+      (
+        checkmarks.data[cardStoryId].includes(parseInt(card.dataset.checkId)) ||
+        checkmarks.data[cardStoryId].includes(cardStoryId)
+      );
+
+    card.classList.toggle('has-checkmark', force);
   });
 }
