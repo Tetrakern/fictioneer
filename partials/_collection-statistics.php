@@ -42,7 +42,7 @@ $statistics = fictioneer_get_collection_statistics( $args['collection_id'] );
       <span><?php echo number_format_i18n( $statistics['chapter_count']); ?></span>
     </div>
     <div class="statistics__inline-stat">
-      <strong><?php _e( 'Words', 'fictioneer' ); ?></strong>
+      <strong><?php _ex( 'Words', 'Word count caption in statistics.', 'fictioneer' ); ?></strong>
       <span><?php echo fictioneer_shorten_number( $statistics['word_count'] ); ?></span>
     </div>
     <div class="statistics__inline-stat">

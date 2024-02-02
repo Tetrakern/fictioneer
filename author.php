@@ -143,7 +143,7 @@ $tabs[ $current_tab ]['classes'][] = '_current';
           <span><?php echo number_format_i18n( $author_statistics['chapter_count'] ); ?></span>
         </div>
         <div class="statistics__inline-stat">
-          <strong><?php _e( 'Words', 'fictioneer' ); ?></strong>
+          <strong><?php _ex( 'Words', 'Word count caption in statistics.', 'fictioneer' ); ?></strong>
           <span><?php echo fictioneer_shorten_number( $author_statistics['word_count'] ); ?></span>
         </div>
         <div class="statistics__inline-stat">

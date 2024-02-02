@@ -1752,13 +1752,13 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
 
       // Start HTML ---> ?>
       <span class="chapter-group__list-item-words" data-number-switch="<?php echo esc_attr( $short_words ); ?>"><?php
-        printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
+        printf( _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ), number_format_i18n( $data['words'] ) );
       ?></span>
       <?php // <--- End HTML
     } else {
       // Start HTML ---> ?>
       <span class="chapter-group__list-item-words"><?php
-        printf( _x( '%s Words', 'Words in chapter list', 'fictioneer' ), number_format_i18n( $data['words'] ) );
+        printf( _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ), number_format_i18n( $data['words'] ) );
       ?></span>
       <?php // <--- End HTML
     }

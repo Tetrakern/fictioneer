@@ -34,7 +34,7 @@ function fictioneer_stories_statistics( $args ) {
         'content' => number_format_i18n( wp_count_posts( 'fcn_story' )->publish )
       ),
       'words' => array(
-        'label' => __( 'Words', 'fictioneer' ),
+        'label' => _x( 'Words', 'Word count caption in statistics.', 'fictioneer' ),
         'content' => fictioneer_shorten_number( $words )
       ),
       'comments' => array(
