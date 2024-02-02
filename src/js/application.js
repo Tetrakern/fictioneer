@@ -11,8 +11,6 @@ const /** @const {Number} */ fcn_pageLoadTimestamp = Date.now();
 const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fictioneer_ajax.ttl); // Default: 60 seconds
 
 var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
-var /** @type {Number} */ fcn_viewportWidth;
-var /** @type {Boolean} */ fcn_mediaMinTablet;
 var /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
 
 // Translation functions
@@ -316,27 +314,6 @@ function fcn_setLoggedInState(state) {
 
 fcn_bindEventToAnimationFrame('scroll', 'scroll.rAF');
 fcn_bindEventToAnimationFrame('resize', 'resize.rAF');
-
-// =============================================================================
-// WATCH VIEWPORT
-// =============================================================================
-
-/**
- * Update viewport variables.
- *
- * @since 4.0.0
- */
-
-function fcn_updateViewportVariables() {
-  fcn_viewportWidth = Math.max(document.documentElement.clientWidth ?? 0, window.innerWidth ?? 0);
-  fcn_mediaMinTablet = fcn_viewportWidth >= 768;
-}
-
-// Initialize
-fcn_updateViewportVariables();
-
-// Listen for window resizing
-window.addEventListener('resize.rAF', fcn_throttle(fcn_updateViewportVariables, 1000 / 8));
 
 // =============================================================================
 // HANDLE GLOBAL CLICK EVENTS
