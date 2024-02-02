@@ -1210,7 +1210,7 @@ _$$('.site-setting-site-theme').forEach(element => {
   _$$$('site-setting-theme-reset').classList.toggle('_modified', element.value != 'default');
 
   // Listen for site theme changes
-  element.addEventListener('change', (e) => { fcn_updateSiteTheme(e.target.value) });
+  element.addEventListener('change', event => { fcn_updateSiteTheme(event.target.value) });
 });
 
 function fcn_resetSiteTheme() {
@@ -1244,8 +1244,8 @@ function fcn_jumpPage(source) {
   const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
 
   if (input > 0) {
-    const url = source.nextElementSibling.getAttribute('href'), // Guaranteed to always have the query parameter
-          pageParams = ['page=', 'paged=', 'comment-page-', 'pg='];
+    const url = source.nextElementSibling.getAttribute('href'); // Guaranteed to always have the query parameter
+    const pageParams = ['page=', 'paged=', 'comment-page-', 'pg='];
 
     for (const param of pageParams) {
       if (url.includes(param)) {
@@ -1405,8 +1405,8 @@ function fcn_contactFormSubmit(button) {
 _$$('.fcn-contact-form').forEach(element => {
   element.querySelector('.fcn-contact-form__submit').addEventListener(
     'click',
-    e => {
-      fcn_contactFormSubmit(e.currentTarget);
+    event => {
+      fcn_contactFormSubmit(event.currentTarget);
     }
   );
 });
@@ -1422,14 +1422,14 @@ _$$('.fcn-contact-form').forEach(element => {
 fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
   element.addEventListener(
     'change',
-    e => {
+    event => {
       // Set current tabIndex into modal container
-      if (e.currentTarget.checked) {
-        const modalElement = e.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
+      if (event.currentTarget.checked) {
+        const modalElement = event.currentTarget.nextElementSibling.querySelector('[tabindex="0"]');
         modalElement?.focus();
         modalElement?.blur();
       } else if (fcn_theBody.classList.contains('user-is-tabbing')) {
-        fcn_theSite.querySelector(`label[for="${e.currentTarget.id}"]`)?.focus();
+        fcn_theSite.querySelector(`label[for="${event.currentTarget.id}"]`)?.focus();
       }
     }
   );
@@ -1567,8 +1567,8 @@ class FCN_KeywordInput {
 
   filterSuggestions() {
     const value = this.input.value.toLowerCase();
-    let count = 0,
-        match = '';
+    let count = 0;
+    let match = '';
 
     // Show suggestions if input is not empty...
     if (value == '') {
@@ -1686,14 +1686,14 @@ class FCN_KeywordInput {
     // Adjust width on input
     this.input.addEventListener(
       'input',
-      e => {
+      event => {
         // Check for comma, which indicates end of input
-        if (e.currentTarget.value.includes(',')) {
+        if (event.currentTarget.value.includes(',')) {
           this.addNode();
         }
 
         // Empty?
-        this.block.classList.toggle('_empty', e.currentTarget.value === '');
+        this.block.classList.toggle('_empty', event.currentTarget.value === '');
 
         // Filter suggestions
         this.filterSuggestions();
@@ -1706,25 +1706,25 @@ class FCN_KeywordInput {
     // Listen for key input
     this.input.addEventListener(
       'keydown',
-      e => {
+      event => {
         // Enter/Tab
-        if (e.keyCode == 9 || e.keyCode == 13) {
+        if (event.keyCode == 9 || event.keyCode == 13) {
           if (this.tabSuggestion.innerText != '') {
-            e.preventDefault(); // Prevent tab navigation and submit
+            event.preventDefault(); // Prevent tab navigation and submit
             this.input.value = this.tabSuggestion.innerText;
             this.addNode();
           }
         }
 
         // Escape
-        if (e.keyCode == 27) {
+        if (event.keyCode == 27) {
           this.input.value = '';
           this.tabSuggestion.innerHTML = '';
           document.activeElement.blur();
         }
 
         // Backspace
-        if (e.keyCode == 8) {
+        if (event.keyCode == 8) {
           if (this.input.value == '' && this.keywords.length > 0) {
             this.removeNodeByValue(this.keywords.slice(-1));
           }
@@ -1761,11 +1761,11 @@ class FCN_KeywordInput {
     // Click anywhere in form...
     this.block.addEventListener(
       'click',
-      e => {
+      event => {
         // Delete node
-        if (e.target.closest('.node-delete')) {
-          e.preventDefault(); // Do not focus input
-          this.removeNodeByValue(e.target.closest('.node').dataset.value);
+        if (event.target.closest('.node-delete')) {
+          event.preventDefault(); // Do not focus input
+          this.removeNodeByValue(event.target.closest('.node').dataset.value);
         }
       }
     );
@@ -1774,9 +1774,9 @@ class FCN_KeywordInput {
     this.block.querySelectorAll('.keyword-button').forEach(element => {
       element.addEventListener(
         'click',
-        e => {
+        event => {
           clearTimeout(this.blurTimeout); // Stop blur event
-          this.addNode(e.currentTarget.innerText);
+          this.addNode(event.currentTarget.innerText);
         }
       );
     });
@@ -1957,8 +1957,8 @@ _$$('.modal-toggle').forEach(element => {
 
 fcn_theBody.addEventListener('click', event => {
   // Setup
-  const trigger = event.target.closest('[href]'),
-        href = trigger?.getAttribute('href');
+  const trigger = event.target.closest('[href]');
+  const href = trigger?.getAttribute('href');
 
   // Phew...
   if (!trigger || !trigger.tagName === 'A' || !href.startsWith('#') || href.length < 2 || href === '#respond') {
@@ -1966,9 +1966,9 @@ fcn_theBody.addEventListener('click', event => {
   }
 
   // More setup
-  const target = href.replace('#', ''),
-        targetElement = _$$(`[name="${target}"], #${target}`)[0],
-        storyComment = trigger.closest('.comment._story-comment');
+  const target = href.replace('#', '');
+  const targetElement = _$$(`[name="${target}"], #${target}`)[0];
+  const storyComment = trigger.closest('.comment._story-comment');
 
   // Story comments need their anchors fixed
   if (storyComment) {
