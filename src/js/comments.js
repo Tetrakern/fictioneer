@@ -104,10 +104,7 @@ function fcn_moderateComment(id, operation) {
         case 'trash':
         case 'spam':
           // Let comment collapse and fade to nothing
-          comment.style.overflow = 'hidden';
-          comment.style.height = '0';
-          comment.style.margin = '0';
-          comment.style.opacity = '0';
+          comment.style.cssText = "overflow: hidden; height: 0; margin: 0; opacity: 0;";
           break;
         }
     } else {
