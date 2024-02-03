@@ -88,7 +88,7 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
 /**
  * Clean-up web storage in preparation of login
  *
- * @since 5.71
+ * @since 5.7.1
  */
 
 function fcn_prepareLogin() {
@@ -337,13 +337,8 @@ fcn_theBody.addEventListener('click', e => {
       e.target.classList.contains('toggle-last-clicked')
     )
   ) {
-    if (typeof fcn_toggleLastClicked === 'function') {
-      fcn_toggleLastClicked(lastClickTarget);
-    }
-
-    if (typeof fcn_popupPosition === 'function') {
-      fcn_popupPosition();
-    }
+    fcn_toggleLastClicked?.(lastClickTarget);
+    fcn_popupPosition?.();
 
     e.stopPropagation();
     return;
@@ -369,18 +364,14 @@ fcn_theBody.addEventListener('click', e => {
 
   // --- LOGIN CLICKS ----------------------------------------------------------
 
-  if (
-    e.target.closest('.oauth-login-link') ||
-    e.target.closest('.subscriber-login') ||
-    e.target.closest('[data-prepare-login]')
-  ) {
+  if (e.target.closest('.oauth-login-link, .subscriber-login, [data-prepare-login]')) {
     fcn_prepareLogin();
   }
 
   // --- DATA CLICK HANDLERS ---------------------------------------------------
 
-  const clickTarget = e.target.closest('[data-click]'),
-        clickAction = clickTarget?.dataset.click;
+  const clickTarget = e.target.closest('[data-click]');
+  const clickAction = clickTarget?.dataset.click;
 
   if (!clickAction) {
     return;
@@ -478,19 +469,19 @@ fcn_theBody.addEventListener('change', e => {
  * Load embedded content by setting the src attribute.
  *
  * @since 4.0.0
- * @param {Event} e - The event.
+ * @param {Event} event - The event.
  */
 
-function fcn_loadEmbed(e) {
-  e.target.parentNode.querySelectorAll('iframe, script')[0].src = e.target.dataset.src;
-  e.target.parentElement.querySelector('.embed-logo')?.remove();
-  e.target.remove();
+function fcn_loadEmbed(event) {
+  event.target.parentNode.querySelectorAll('iframe, script')[0].src = event.target.dataset.src;
+  event.target.parentElement.querySelector('.embed-logo')?.remove();
+  event.target.remove();
 }
 
 // Listen for clicks on embeds
 _$$('.iframe-consent, .twitter-consent').forEach(element => {
-  element.onclick = (e) => {
-    fcn_loadEmbed(e);
+  element.onclick = (event) => {
+    fcn_loadEmbed(event);
   }
 });
 
@@ -592,8 +583,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fcn_dragElement(element) {
   const target = element.querySelector('.drag-anchor') ?? element;
-  let lastX,
-      lastY;
+  let lastX;
+  let lastY;
 
   target.onmousedown = startDrag;
 
@@ -643,8 +634,8 @@ _$$('.modal__header.drag-anchor').forEach(element => {
 
 function fcn_showNotification(message, duration = 3, type = 'base') {
   // Setup
-  const container = _$('#notifications'),
-        node = document.createElement('div');
+  const container = _$('#notifications');
+  const node = document.createElement('div');
 
   // Build notification and set up transition to transparent
   node.innerHTML = message;
@@ -710,28 +701,29 @@ if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !==
 // SITE SETTINGS
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_settingMinimal = _$$$('site-setting-minimal'),
-      /** @const {HTMLElement} */ fcn_settingChapterProgressBar = _$$$('site-setting-chapter-progress-bar'),
-      /** @const {HTMLElement} */ fcn_settingHueRotateRange = _$$$('site-setting-hue-rotate-range'),
-      /** @const {HTMLElement} */ fcn_settingHueRotateText = _$$$('site-setting-hue-rotate-text'),
-      /** @const {HTMLElement} */ fcn_settingHueRotateReset = _$$$('site-setting-hue-rotate-reset'),
-      /** @const {HTMLElement[]} */ fcn_settingDarkenRanges = _$$('.setting-darken-range'),
-      /** @const {HTMLElement[]} */ fcn_settingDarkenTexts = _$$('.setting-darken-text'),
-      /** @const {HTMLElement[]} */ fcn_settingDarkenResets = _$$('.setting-darken-reset'),
-      /** @const {HTMLElement[]} */ fcn_settingSaturationRanges = _$$('.setting-saturation-range'),
-      /** @const {HTMLElement[]} */ fcn_settingSaturationTexts = _$$('.setting-saturation-text'),
-      /** @const {HTMLElement[]} */ fcn_settingSaturationResets = _$$('.setting-saturation-resets'),
-      /** @const {String[]} */ fcn_settingEvents = [
-        'nav-sticky',
-        'background-textures',
-        'polygons',
-        'covers',
-        'text-shadows',
-        'minimal',
-        'chapter-progress-bar'
-      ];
+const /** @const {HTMLElement} */ fcn_settingMinimal = _$$$('site-setting-minimal');
+const /** @const {HTMLElement} */ fcn_settingChapterProgressBar = _$$$('site-setting-chapter-progress-bar');
+const /** @const {HTMLElement} */ fcn_settingHueRotateRange = _$$$('site-setting-hue-rotate-range');
+const /** @const {HTMLElement} */ fcn_settingHueRotateText = _$$$('site-setting-hue-rotate-text');
+const /** @const {HTMLElement} */ fcn_settingHueRotateReset = _$$$('site-setting-hue-rotate-reset');
+const /** @const {HTMLElement[]} */ fcn_settingDarkenRanges = _$$('.setting-darken-range');
+const /** @const {HTMLElement[]} */ fcn_settingDarkenTexts = _$$('.setting-darken-text');
+const /** @const {HTMLElement[]} */ fcn_settingDarkenResets = _$$('.setting-darken-reset');
+const /** @const {HTMLElement[]} */ fcn_settingSaturationRanges = _$$('.setting-saturation-range');
+const /** @const {HTMLElement[]} */ fcn_settingSaturationTexts = _$$('.setting-saturation-text');
+const /** @const {HTMLElement[]} */ fcn_settingSaturationResets = _$$('.setting-saturation-resets');
 
-var /** @const {OBJECT} */ fcn_siteSettings = fcn_getSiteSettings();
+const /** @const {String[]} */ fcn_settingEvents = [
+  'nav-sticky',
+  'background-textures',
+  'polygons',
+  'covers',
+  'text-shadows',
+  'minimal',
+  'chapter-progress-bar'
+];
+
+var /** @var {OBJECT} */ fcn_siteSettings = fcn_getSiteSettings();
 
 // =============================================================================
 // SITE SETTINGS: TOGGLE
@@ -755,8 +747,8 @@ function fcn_updateSiteSetting(target, key, value) {
 
 // Listen for clicks on toggles
 fcn_settingEvents.forEach(setting => {
-  _$$$(`site-setting-${setting}`)?.addEventListener('change', (e) => {
-    fcn_updateSiteSetting(e.currentTarget, setting, e.currentTarget.checked);
+  _$$$(`site-setting-${setting}`)?.addEventListener('change', event => {
+    fcn_updateSiteSetting(event.currentTarget, setting, event.currentTarget.checked);
   });
 });
 
@@ -781,7 +773,7 @@ function fcn_toggleLightMode() {
       localStorage.getItem('fcnLightmode') == 'true' :
       fcn_theRoot.dataset.modeDefault == 'light';
 
-    fcn_setLightMode(!current);
+  fcn_setLightMode(!current);
 }
 
 /**
