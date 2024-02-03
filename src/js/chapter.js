@@ -69,11 +69,6 @@ document.addEventListener('click', event => {
  */
 
 function fcn_touchParagraph(e) {
-  // Do not call paragraph tools when mobile menu is open
-  if (fcn_theSite.classList.contains('transformed-site')) {
-    return;
-  }
-
   // Do not call paragraphs tolls on spoilers
   if (e.target.classList.contains('spoiler')) {
     return;
@@ -85,7 +80,7 @@ function fcn_touchParagraph(e) {
   }
 
   // Ignore paragraphs with special classes
-  if (e.target.closest('.hidden') || e.target.closest('.inside-epub')) {
+  if (e.target.closest('.hidden, .inside-epub')) {
     return;
   }
 
@@ -98,10 +93,7 @@ function fcn_touchParagraph(e) {
   const target = e.target.closest('p[data-paragraph-id]');
 
   // Ignore clicks inside TTS and paragraph tools buttons
-  if (
-    e.target.closest('.tts-interface') ||
-    e.target.closest('.paragraph-tools__actions')
-  ) {
+  if (e.target.closest('.tts-interface, .paragraph-tools__actions')) {
     return;
   }
 

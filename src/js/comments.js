@@ -182,8 +182,8 @@ function fcn_flagComment(source) {
   }
 
   // Setup
-  const comment = source.closest('.fictioneer-comment'),
-        reportButton = comment.querySelector('.fictioneer-report-comment-button');
+  const comment = source.closest('.fictioneer-comment');
+  const reportButton = comment.querySelector('.fictioneer-report-comment-button');
 
   // Abort if another AJAX action is in progress
   if (comment.classList.contains('ajax-in-progress')) {

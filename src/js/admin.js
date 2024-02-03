@@ -333,8 +333,8 @@ _$('#wp-admin-bar-logout a')?.addEventListener('click', () => {
 // =============================================================================
 
 _$('.fictioneer-settings')?.addEventListener('click', event => {
-  const clickTarget = event.target.closest('[data-click]'),
-        clickAction = clickTarget?.dataset.click;
+  const clickTarget = event.target.closest('[data-click]');
+  const clickAction = clickTarget?.dataset.click;
 
   if (!clickAction) {
     return;

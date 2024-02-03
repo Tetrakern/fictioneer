@@ -2,17 +2,17 @@
 // SETUP
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_ttsInterface = _$$$('tts-interface'),
-      /** @const {String[]} */ fcn_ttsAllowedTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+const /** @const {HTMLElement} */ fcn_ttsInterface = _$$$('tts-interface');
+const /** @const {String[]} */ fcn_ttsAllowedTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 
-var /** @type {HTMLElement[]} */ fcn_ttsStack = [],
-    /** @type {Number} */ fcn_currentReadingId = -1,
-    /** @type {Number} */ fcn_ttsPauseTimestamp = -1,
-    /** @type {String} */ fcn_ttsCurrentText = '',
-    /** @type {Object} */ fcn_ttsSettings = fcn_getTTSsettings(),
-    /** @type {SpeechSynthesisVoice[]} */ fcn_voices = [],
-    /** @type {SpeechSynthesisUtterance} */ fcn_utter,
-    /** @type {SpeechSynthesis} */ fcn_synth;
+var /** @type {HTMLElement[]} */ fcn_ttsStack = [];
+var /** @type {Number} */ fcn_currentReadingId = -1;
+var /** @type {Number} */ fcn_ttsPauseTimestamp = -1;
+var /** @type {String} */ fcn_ttsCurrentText = '';
+var /** @type {Object} */ fcn_ttsSettings = fcn_getTTSsettings();
+var /** @type {SpeechSynthesisVoice[]} */ fcn_voices = [];
+var /** @type {SpeechSynthesisUtterance} */ fcn_utter;
+var /** @type {SpeechSynthesis} */ fcn_synth;
 
 // =============================================================================
 // INITIALIZE TTS
@@ -105,8 +105,8 @@ function fcn_getTTSsettings() {
  */
 
 function fcn_setUpVoices() {
-  const systemVoices = fcn_synth.getVoices(),
-        select = _$$$('tts-voice-select');
+  const systemVoices = fcn_synth.getVoices();
+  const select = _$$$('tts-voice-select');
 
   if (!select) {
     return;
@@ -305,10 +305,10 @@ if (typeof speechSynthesis !== 'undefined') {
     fcn_currentReadingId = -1;
 
     // Hide sensitive content?
-    const hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false,
-          sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative',
-          playButton = _$$$('button-tts-play'),
-          regex = new RegExp(fcn_ttsInterface.dataset.regex, 'gm');
+    const hideSensitive = _$('.chapter-formatting')?.classList.contains('hide-sensitive') ?? false;
+    const sensitiveClass = hideSensitive ? 'sensitive-content' : 'sensitive-alternative';
+    const playButton = _$$$('button-tts-play');
+    const regex = new RegExp(fcn_ttsInterface.dataset.regex, 'gm');
 
     // Cancel ongoing reading if any
     if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
@@ -332,9 +332,9 @@ if (typeof speechSynthesis !== 'undefined') {
 
     // Prepare items to read
     fcn_ttsStack = fcn_ttsStack.flatMap(node => {
-      const result = [],
-            inner = node.querySelector('.paragraph-inner'),
-            text = inner ? inner.textContent : node.textContent;
+      const result = [];
+      const inner = node.querySelector('.paragraph-inner');
+      const text = inner ? inner.textContent : node.textContent;
 
       // Split text into array of sentences using a regex pattern
       const sentences = text.replace(regex, '$1|').split('|');
@@ -369,7 +369,9 @@ if (typeof speechSynthesis !== 'undefined') {
     fcn_ttsInterface.classList.remove('playing', 'paused');
     fcn_theBody.classList.remove('tts-open');
 
-    if (current) current.classList.remove('current-reading');
+    if (current) {
+      current.classList.remove('current-reading');
+    }
 
     fcn_ttsStack = [];
     fcn_currentReadingId = -1;
