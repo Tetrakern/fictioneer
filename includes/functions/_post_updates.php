@@ -47,7 +47,7 @@ fictioneer_add_stud_post_actions( 'fictioneer_update_modified_date_on_story_for_
 // =============================================================================
 
 /**
- * Store word count of posts as meta data
+ * Store word count of posts
  *
  * @since 3.0
  * @see update_post_meta()
@@ -72,7 +72,47 @@ function fictioneer_save_word_count( $post_id ) {
   // Remember
   update_post_meta( $post_id, '_word_count', $word_count );
 }
-add_action( 'save_post', 'fictioneer_save_word_count' );
+
+if ( ! get_option( 'fictioneer_count_characters_as_words' ) ) {
+  add_action( 'save_post', 'fictioneer_save_word_count' );
+}
+
+/**
+ * Store character count of posts as word count
+ *
+ * @since 5.9.4
+ * @see update_post_meta()
+ *
+ * @param int $post_id  Post ID.
+ */
+
+function fictioneer_characters_as_word_count( $post_id ) {
+  // Prevent multi-fire
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Prepare
+  $content = get_post_field( 'post_content', $post_id );
+  $content = strip_shortcodes( $content );
+  $content = strip_tags( $content );
+
+  // Count
+  $word_count = 0;
+
+  if ( function_exists( 'mb_strlen' ) ) {
+    $word_count = mb_strlen( $content, 'UTF-8' );
+  } else {
+    $word_count = strlen( $content );
+  }
+
+  // Remember
+  update_post_meta( $post_id, '_word_count', $word_count );
+}
+
+if ( get_option( 'fictioneer_count_characters_as_words' ) ) {
+  add_action( 'save_post', 'fictioneer_characters_as_word_count' );
+}
 
 // =============================================================================
 // STORE ORIGINAL PUBLISH DATE

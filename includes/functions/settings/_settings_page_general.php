@@ -230,6 +230,24 @@
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_count_characters_as_words',
+                    __( 'For logographic writing systems. Use the word count multiplier to better approximate the number.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row fictioneer-card__row--inline-input">
+                <p class="fictioneer-inline-text-input"><?php
+                  printf(
+                    __( '<span>Multiply the displayed word counts with</span> %s<span>.</span>', 'fictioneer' ),
+                    '<input name="fictioneer_word_count_multiplier" type="text" id="fictioneer_word_count_multiplier" value="' . esc_attr( get_option( 'fictioneer_word_count_multiplier', 1.0 ) ) . '" style="text-align: center;" size="4" placeholder="1.0">'
+                  );
+                ?></p>
+              </div>
+
               <div class="fictioneer-card__row fictioneer-card__row--inline-input">
                 <p class="fictioneer-inline-text-input"><?php
                   printf(

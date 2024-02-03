@@ -971,6 +971,7 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
    * Wrapper for get_post_meta() to get word count
    *
    * @since 5.8.2
+   * @since 5.9.4 - Add logic for optional multiplier.
    *
    * @param int $post_id  Optional. The ID of the post the field belongs to.
    *                      Defaults to current post ID.
@@ -982,6 +983,11 @@ if ( ! function_exists( 'fictioneer_get_word_count' ) ) {
     // Setup
     $words = get_post_meta( $post_id ?? get_the_ID(), '_word_count', true );
     $words = (int) $words;
+    $multiplier = floatval( get_option( 'fictioneer_word_count_multiplier', 1.0 ) );
+
+    if ( $multiplier !== 1.0 ) {
+      $words = intval( $words * $multiplier );
+    }
 
     // Always return an integer greater or equal 0
     return $words > 0 ? $words : 0;
@@ -1263,7 +1269,7 @@ if ( ! function_exists( 'fictioneer_get_consent' ) && get_option( 'fictioneer_co
 // =============================================================================
 
 /**
- * Sanitizes an integer with options for default, minimum, and maximum.
+ * Sanitizes an integer with options for default, minimum, and maximum
  *
  * @since 4.0.0
  *
@@ -1295,6 +1301,54 @@ function fictioneer_sanitize_integer( $value, $default = 0, $min = null, $max = 
   }
 
   return $value;
+}
+
+// =============================================================================
+// SANITIZE POSITIVE FLOAT
+// =============================================================================
+
+/**
+ * Sanitizes a float as positive number
+ *
+ * @since 5.9.4
+ *
+ * @param mixed $value    The value to be sanitized.
+ * @param int   $default  Default value if an invalid float is provided. Default 0.0.
+ *
+ * @return float The sanitized float.
+ */
+
+function fictioneer_sanitize_positive_float( $value, $default = 0.0 ) {
+  // Ensure $value is numeric in the first place
+  if ( ! is_numeric( $value ) ) {
+    return $default;
+  }
+
+  // Cast to float
+  $value = (float) $value;
+
+  // Return positive float
+  return $value < 0 ? $default : $value;
+}
+
+/**
+ * Sanitizes the word count modifier
+ *
+ * @since 5.9.4
+ *
+ * @param mixed $value  The value to be sanitized.
+ *
+ * @return float The sanitized float.
+ */
+
+function fictioneer_sanitize_word_count_modifier( $value ) {
+  // Ensure $value is numeric in the first place
+  if ( ! is_numeric( $value ) ) {
+    return 1.0;
+  }
+
+  // Call general sanitizer with params
+  return fictioneer_sanitize_positive_float( $value, 1.0 );
 }
 
 // =============================================================================

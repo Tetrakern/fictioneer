@@ -677,6 +677,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Disable extended chapter list meta queries', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_count_characters_as_words' => array(
+      'name' => 'fictioneer_count_characters_as_words',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Count characters instead of words', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -770,6 +777,15 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'label' => __( '<span>Limit file uploads to</span> %s <span>MB or less for user roles with the "Upload Limit" restriction.</span>', 'fictioneer' ),
       'default' => 5
+    )
+  ),
+  'floats' => array(
+    'fictioneer_word_count_multiplier' => array(
+      'name' => 'fictioneer_word_count_multiplier',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_word_count_modifier',
+      'label' => __( 'Multiplier for displayed word counts.', 'fictioneer' ),
+      'default' => 1.0
     )
   ),
   'strings' => array(
@@ -1005,7 +1021,7 @@ function fictioneer_register_settings() {
       )
     );
 
-    // Ensure option exists in the database
+    // Ensure option exists in the database (use fallback for check)
     if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
       add_option( $setting['name'], $setting['default'] );
     }
@@ -1021,7 +1037,23 @@ function fictioneer_register_settings() {
       )
     );
 
-    // Ensure option exists in the database
+    // Ensure option exists in the database (use fallback for check)
+    if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
+      add_option( $setting['name'], $setting['default'] );
+    }
+  }
+
+  // Floats
+  foreach ( FICTIONEER_OPTIONS['floats'] as $setting ) {
+    register_setting(
+      $setting['group'],
+      $setting['name'],
+      array(
+        'sanitize_callback' => $setting['sanitize_callback']
+      )
+    );
+
+    // Ensure option exists in the database (use fallback for check)
     if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
       add_option( $setting['name'], $setting['default'] );
     }
@@ -1037,7 +1069,7 @@ function fictioneer_register_settings() {
       )
     );
 
-    // Ensure option exists in the database
+    // Ensure option exists in the database (use fallback for check)
     if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
       add_option( $setting['name'], $setting['default'] );
     }
