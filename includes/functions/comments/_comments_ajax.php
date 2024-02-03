@@ -37,6 +37,8 @@ function fictioneer_ajax_get_comment_form() {
   // Setup
   $post_id = absint( $_GET['post_id'] );
   $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
+  $nonce = wp_create_nonce( 'fictioneer_nonce' );
+  $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
 
   // Get buffered form
   ob_start();
@@ -50,7 +52,10 @@ function fictioneer_ajax_get_comment_form() {
   // Get buffer
   $output = ob_get_clean();
 
-  wp_send_json_success( array( 'html' => $output, 'postId' => $post_id, 'mustLogin' => $must_login ) );
+  // Send form
+  wp_send_json_success(
+    array( 'html' => $output, 'postId' => $post_id, 'mustLogin' => $must_login, 'nonceHtml' => $nonce_html )
+  );
 }
 
 if ( get_option( 'fictioneer_enable_ajax_comment_form' ) ) {

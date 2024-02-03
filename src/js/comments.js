@@ -953,6 +953,9 @@ function fcn_getCommentForm() {
         fcn_bindAJAXCommentSubmit();
       }
 
+      // AJAX nonce
+      fcn_addNonceHTML(response.data.nonceHtml);
+
       // JS trap (if active)
       fcn_addJSTrap();
     } else {
