@@ -285,20 +285,26 @@ function fcn_setLoggedInState(state) {
   fcn_theBody.classList.toggle('is-editor', state.isEditor);
 
   // Cleanup view for users
+  const removeSelectors = [];
+
   if (!state.isAdmin) {
-    _$$('.only-admins').forEach(el => el.remove());
+    removeSelectors.push('.only-admins');
   }
 
   if (!state.isModerator && !state.isAdmin) {
-    _$$('.only-moderators').forEach(el => el.remove());
+    removeSelectors.push('.only-moderators');
   }
 
   if (!state.isAuthor && !state.isAdmin) {
-    _$$('.only-authors').forEach(el => el.remove());
+    removeSelectors.push('.only-authors');
   }
 
   if (!state.isModerator && !state.isAdmin) {
-    _$$('.only-editors').forEach(el => el.remove());
+    removeSelectors.push('.only-editors');
+  }
+
+  if (removeSelectors.length > 0) {
+    _$$(removeSelectors.join(', ')).forEach(el => el.remove());
   }
 
   _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(el => el.remove());
