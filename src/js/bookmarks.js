@@ -2,15 +2,14 @@
 // BOOKMARKS
 // =============================================================================
 
-const /** @const {HTMLElement[]} */ fcn_jumpToBookmarkButtons = _$$('.button--bookmark'),
-      /** @const {HTMLElement} */ fcn_mobileBookmarkJump = _$$$('mobile-menu-bookmark-jump'),
-      /** @const {HTMLElement} */ fcn_mobileBookmarkList = _$('.mobile-menu__bookmark-list'),
-      /** @const {HTMLElement} */ fcn_mobileBookmarkTemplate = _$('#mobile-bookmark-template'),
-      /** @const {HTMLElement} */ fcn_bookmarksSmallCardBlock = _$('.bookmarks-block'),
-      /** @const {HTMLElement} */ fcn_bookmarksSmallCardTemplate = _$('.bookmark-small-card-template');
+const /** @const {HTMLElement[]} */ fcn_jumpToBookmarkButtons = _$$('.button--bookmark');
+const /** @const {HTMLElement} */ fcn_mobileBookmarkJump = _$$$('mobile-menu-bookmark-jump');
+const /** @const {HTMLElement} */ fcn_mobileBookmarkList = _$('.mobile-menu__bookmark-list');
+const /** @const {HTMLElement} */ fcn_bookmarksSmallCardBlock = _$('.bookmarks-block');
+const /** @const {HTMLElement} */ fcn_bookmarksSmallCardTemplate = _$('.bookmark-small-card-template');
 
-var /** @type {Object} */ fcn_bookmarks,
-    /** @type {Number} */ fcn_userBookmarksTimeout;
+var /** @type {Object} */ fcn_bookmarks;
+var /** @type {Number} */ fcn_userBookmarksTimeout;
 
 // Initialize
 fcn_initializeLocalBookmarks();
@@ -323,8 +322,8 @@ function fcn_toggleBookmark(id, color = 'none') {
   fcn_bookmarks = fcn_getBookmarks();
 
   // Get article node with chapter data
-  const chapter = _$('.chapter__article'),
-        currentBookmark = _$('.current-bookmark');
+  const chapter = _$('.chapter__article');
+  const currentBookmark = _$('.current-bookmark');
 
   // Check whether an article has been found or abort
   if (!chapter) {
@@ -420,9 +419,9 @@ function fcn_showChapterBookmark() {
   }
 
   // Collect necessary data to show bookmark in chapter
-  const id = fcn_bookmarks.data[chapter.id]['paragraph-id'],
-        p = _$(`[data-paragraph-id="${id}"]`),
-        color = fcn_bookmarks.data[chapter.id]['color'] ?? 'none';
+  const id = fcn_bookmarks.data[chapter.id]['paragraph-id'];
+  const p = _$(`[data-paragraph-id="${id}"]`);
+  const color = fcn_bookmarks.data[chapter.id]['color'] ?? 'none';
 
   // If bookmarked paragraph has been found...
   if (id && p) {
@@ -461,6 +460,7 @@ function fcn_setMobileMenuBookmarks() {
   fcn_mobileBookmarkList.innerHTML = '';
 
   const bookmarks = Object.entries(fcn_bookmarks.data);
+  const template = _$('#mobile-bookmark-template');
 
   if (bookmarks.length > 0) {
     // Use fragment to collect nodes
@@ -468,7 +468,7 @@ function fcn_setMobileMenuBookmarks() {
 
     // Append bookmarks to fragment
     bookmarks.forEach(([id, { color, progress, link, chapter, paragraphId }]) => {
-      const clone = fcn_mobileBookmarkTemplate.content.cloneNode(true);
+      const clone = template.content.cloneNode(true);
       const bookmarkElement = clone.querySelector('.mobile-menu__bookmark');
 
       bookmarkElement.classList.add(`bookmark-${id}`);
@@ -625,8 +625,8 @@ function fcn_bookmarkDeleteHandler(targets) {
 
 function fcn_removeBookmark(id) {
   // Setup
-  const chapter = _$('.chapter__article'),
-        currentBookmark = _$('.current-bookmark');
+  const chapter = _$('.chapter__article');
+  const currentBookmark = _$('.current-bookmark');
 
   // Remove bookmark from JSON
   delete fcn_bookmarks.data[id];

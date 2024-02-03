@@ -161,7 +161,7 @@ function fcn_updateRemindersView() {
 
 // Listen for clicks on any Read Later buttons
 _$$('.button-read-later').forEach(element => {
-  element.addEventListener('click', (e) => {
-    fcn_toggleReminder(e.currentTarget.dataset.storyId);
+  element.addEventListener('click', event => {
+    fcn_toggleReminder(event.currentTarget.dataset.storyId);
   });
 });

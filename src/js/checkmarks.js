@@ -2,8 +2,8 @@
 // SETUP
 // =============================================================================
 
-var /** @type {Object} */ fcn_checkmarks,
-    /** @type {Number} */ fcn_userCheckmarksTimeout;
+var /** @type {Object} */ fcn_checkmarks;
+var /** @type {Number} */ fcn_userCheckmarksTimeout;
 
 // Initialize
 document.addEventListener('fcnUserDataReady', event => {

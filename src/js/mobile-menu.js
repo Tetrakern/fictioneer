@@ -2,11 +2,6 @@
 // MOBILE MENU
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_mobileMenuToggle = _$$$('mobile-menu-toggle'),
-      /** @const {HTMLElement} */ fcn_mobileMenuBottom = _$('.mobile-menu__bottom'),
-      /** @const {HTMLElement} */ fcn_mobileMenuUser = _$$$('mobile-menu-user-panel'),
-      /** @const {HTMLElement} */ fcn_mobileMenuNav = _$$$('mobile-navigation');
-
 /**
  * Delegate toggling of the mobile menu.
  *
@@ -44,7 +39,7 @@ function fcn_toggleSimpleMobileMenu(isOpened) {
     fcn_openMobileFrame('main'); // Reset to main frame
 
     // Reset control checkbox
-    fcn_mobileMenuToggle.checked = false;
+    _$$$('mobile-menu-toggle').checked = false;
   }
 }
 
@@ -61,9 +56,9 @@ function fcn_toggleSimpleMobileMenu(isOpened) {
 
 function fcn_toggleAdvancedMobileMenu(isOpened) {
   // Get and preserve values before DOM changes destroy them
-  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0,
-        windowScrollY = window.scrollY,
-        siteScrollTop = fcn_theSite.scrollTop;
+  const adminBarOffset = _$$$('wpadminbar')?.offsetHeight ?? 0;
+  const windowScrollY = window.scrollY;
+  const siteScrollTop = fcn_theSite.scrollTop;
 
   if (isOpened) {
     // Mobile menu was opened
@@ -86,7 +81,7 @@ function fcn_toggleAdvancedMobileMenu(isOpened) {
     fcn_theRoot.style.scrollBehavior = '';
 
     // Reset control checkbox
-    fcn_mobileMenuToggle.checked = false;
+    _$$$('mobile-menu-toggle').checked = false;
 
     // Restart progress bar
     if (typeof fcn_trackProgress === 'function') {
@@ -116,16 +111,16 @@ fcn_theSite.addEventListener('click', e => {
 
 function fcn_copyNavIntoMobileMenu() {
   const mainMenu = _$('[data-menu-id="main"]');
+  const mobileNav = _$$$('mobile-navigation');
 
-  if (mainMenu && fcn_mobileMenuNav && !_$('#mobile-navigation > ul')) {
+  if (mainMenu && mobileNav && !mobileNav.querySelector('ul')) {
     const clone = mainMenu.cloneNode(true);
 
     clone.id = 'mobile-menu-navigation';
-    clone.classList.remove('main-navigation__list');
-    clone.classList.add('mobile-navigation__list');
+    clone.classList.replace('main-navigation__list', 'mobile-navigation__list');
     clone.dataset.menuId = 'mobile';
 
-    _$$$('mobile-navigation').appendChild(clone);
+    mobileNav.appendChild(clone);
   }
 }
 

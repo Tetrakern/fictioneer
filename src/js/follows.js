@@ -2,12 +2,10 @@
 // SETUP
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_desktopFollowList = _$$$('follow-menu-scroll'),
-      /** @const {HTMLElement} */ fcn_mobileFollowList = _$$$('mobile-menu-follows-list'),
-      /** @const {HTMLElement} */ fcn_followsMenuItem = _$$$('follow-menu-button');
+const /** @const {HTMLElement} */ fcn_followsMenuItem = _$$$('follow-menu-button');
 
-var /** @type {Number} */ fcn_userFollowsTimeout,
-    /** @type {Object} */ fcn_follows;
+var /** @type {Number} */ fcn_userFollowsTimeout;
+var /** @type {Object} */ fcn_follows;
 
 // Initialize
 document.addEventListener('fcnUserDataReady', event => {
@@ -194,8 +192,8 @@ function fcn_setupFollowsHTML() {
   .then(response => {
     // Any Follows HTML retrieved?
     if (response.data.html) {
-      fcn_desktopFollowList.innerHTML = response.data.html;
-      fcn_mobileFollowList.innerHTML = response.data.html;
+      _$$$('follow-menu-scroll').innerHTML = response.data.html;
+      _$$$('mobile-menu-follows-list').innerHTML = response.data.html;
 
       // Use opportunity to fix broken login state
       if (fcn_getUserData().loggedIn === false) {
@@ -213,8 +211,8 @@ function fcn_setupFollowsHTML() {
     }
 
     // Remove broken lists from view
-    fcn_desktopFollowList.remove();
-    fcn_mobileFollowList.remove();
+    _$$$('follow-menu-scroll').remove();
+    _$$$('mobile-menu-follows-list').remove();
   })
   .then(() => {
     // Regardless of success
@@ -285,8 +283,8 @@ _$('.mobile-menu__frame-button[data-frame-target="follows"]')?.addEventListener(
 
 // Listen for clicks on any Follow buttons
 _$$('.button-follow-story').forEach(element => {
-  element.addEventListener('click', (e) => {
-    fcn_toggleFollow(e.currentTarget.dataset.storyId);
+  element.addEventListener('click', event => {
+    fcn_toggleFollow(event.currentTarget.dataset.storyId);
   });
 });
 
