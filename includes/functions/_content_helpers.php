@@ -580,6 +580,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    * Returns the HTML for thumbnail on story pages
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param array $story  Collection of story data.
    *
@@ -587,26 +588,20 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    */
 
   function fictioneer_get_story_page_cover( $story ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <figure class="story__thumbnail">
-      <a href="<?php the_post_thumbnail_url( 'full' ); ?>" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-        <?php
-          the_post_thumbnail(
-            array( 200, 300 ),
-            array(
-              'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
-              'class' => 'webfeedsFeaturedVisual story__thumbnail-image'
-            )
-          );
-        ?>
-        <div id="ribbon-read" class="story__thumbnail-ribbon hidden">
-          <div class="ribbon _read"><?php _ex( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ); ?></div>
-        </div>
-      </a>
-    </figure>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    // Setup
+    $thumbnailImage = get_the_post_thumbnail( null, array( 200, 300 ), array(
+      'alt' => sprintf( __('Cover of %s', 'fictioneer'), esc_attr( $story['title'] ) ),
+      'class' => 'webfeedsFeaturedVisual story__thumbnail-image'
+    ));
+
+    // Return HTML
+    return "<figure class='story__thumbnail'><a href='" .
+      esc_url( get_the_post_thumbnail_url( null, 'full' ) ) .
+      "' " . fictioneer_get_lightbox_attribute() .
+      ">" . $thumbnailImage .
+      "<div id='ribbon-read' class='story__thumbnail-ribbon hidden'><div class='ribbon _read'>" .
+      _x( 'Read', 'Caption of the _read_ ribbon.', 'fictioneer' ) .
+      "</div></div></a></figure>";
   }
 }
 
