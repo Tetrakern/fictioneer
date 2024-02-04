@@ -1148,6 +1148,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
    * Returns the HTML for the user submenu in the navigation bar
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @return string The HTML for the user submenu.
    */
@@ -1157,9 +1158,6 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
     $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
     $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
     $discord_link = get_option( 'fictioneer_discord_invite_link' );
-    $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
-    $can_follows = get_option( 'fictioneer_enable_follows' );
-    $can_reminders = get_option( 'fictioneer_enable_reminders' );
     $profile_link = get_edit_profile_url( 0 ); // Make sure this is always the default link
     $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
     $output = [];
@@ -1168,69 +1166,46 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
       $profile_link = fictioneer_get_assigned_page_link( 'fictioneer_user_profile_page' );
     }
 
-    // Build
+    // Profile link
     if ( ! empty( $profile_link ) && fictioneer_show_auth_content() ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo esc_url( $profile_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'account' ); ?></a>
-      </li>
-      <?php // <--- End HTML
-      $output['account'] = ob_get_clean();
+      $output['account'] = '<li class="menu-item hide-if-logged-out"><a href="' . esc_url( $profile_link ) . '" rel="noopener noreferrer nofollow">' . fcntr( 'account' ) . '</a></li>';
     }
 
-    ob_start();
-    // Start HTML ---> ?>
-    <li class="menu-item">
-      <label for="modal-site-settings-toggle" tabindex="0"><?php echo fcntr( 'site_settings' ); ?></label>
-    </li>
-    <?php // <--- End HTML
-    $output['site_settings'] = ob_get_clean();
+    // Site settings
+    $output['site_settings'] = '<li class="menu-item"><label for="modal-site-settings-toggle" tabindex="0">' . fcntr( 'site_settings' ) . '</label></li>';
 
+    // Discord link
     if ( ! empty( $discord_link ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="menu-item">
-        <a href="<?php echo esc_url( $discord_link ); ?>" rel="noopener noreferrer nofollow"><?php _e( 'Discord', 'fictioneer' ); ?></a>
-      </li>
-      <?php // <--- End HTML
-      $output['discord'] = ob_get_clean();
+      $output['discord'] = '<li class="menu-item"><a href="' . esc_url( $discord_link ) . '" target="_blank" rel="noopener noreferrer nofollow">' . __( 'Discord', 'fictioneer' ) . '</a></li>';
     }
 
-    if ( $bookshelf_link && fictioneer_show_auth_content() && ( $can_checkmarks || $can_follows || $can_reminders ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookshelf' ); ?></a>
-      </li>
-      <?php // <--- End HTML
-      $output['bookshelf'] = ob_get_clean();
+    // Bookshelf
+    if (
+      $bookshelf_link &&
+      fictioneer_show_auth_content() &&
+      (
+        get_option( 'fictioneer_enable_checkmarks' ) ||
+        get_option( 'fictioneer_enable_follows' ) ||
+        get_option( 'fictioneer_enable_reminders' )
+      )
+    ) {
+      $output['bookshelf'] = '<li class="menu-item hide-if-logged-out"><a href="' . esc_url( $bookshelf_link ) . '" rel="noopener noreferrer nofollow">' . fcntr( 'bookshelf' ) . '</a></li>';
     }
 
+    // Bookmarks
     if ( $bookmarks_link && get_option( 'fictioneer_enable_bookmarks' ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="menu-item">
-        <a href="<?php echo esc_url( $bookmarks_link ); ?>" rel="noopener noreferrer nofollow"><?php echo fcntr( 'bookmarks' ); ?></a>
-      </li>
-      <?php // <--- End HTML
-      $output['bookmarks'] = ob_get_clean();
+      $output['bookmarks'] = '<li class="menu-item"><a href="' . esc_url( $bookmarks_link ) . '" rel="noopener noreferrer nofollow">' . fcntr( 'bookmarks' ) . '</a></li>';
     }
 
+    // Logout
     if ( fictioneer_show_auth_content() ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <li class="menu-item hide-if-logged-out">
-        <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow"><?php echo fcntr( 'logout' ); ?></a>
-      </li>
-      <?php // <--- End HTML
-      $output['logout'] = ob_get_clean();
+      $output['logout'] = '<li class="menu-item hide-if-logged-out"><a href="' . fictioneer_get_logout_url() . '" data-click="logout" rel="noopener noreferrer nofollow">' . fcntr( 'logout' ) . '</a></li>';
     }
 
     // Apply filters
     $output = apply_filters( 'fictioneer_filter_user_menu_items', $output );
 
-    // Return
+    // Implode and return HTML
     return implode( '', $output );
   }
 }
