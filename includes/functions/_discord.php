@@ -9,7 +9,7 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
    * Sends a message to a Discord channel
    *
    * @since 4.0.0
-   * @since 5.6.0  Refactored with wp_remote_post()
+   * @since 5.6.0 - Refactored with wp_remote_post()
    *
    * @param string $webhook  The webhook for the Discord channel.
    * @param array  $message  The message to be sent.

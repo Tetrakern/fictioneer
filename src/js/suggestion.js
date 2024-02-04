@@ -48,8 +48,8 @@ class FCN_Suggestion {
   }
 
   getCaretCoordinates() {
-    let x = 0,
-        y = 0;
+    let x = 0;
+    let y = 0;
 
     const isSupported = typeof window.getSelection !== 'undefined';
 
@@ -70,8 +70,8 @@ class FCN_Suggestion {
   }
 
   showTools(top, left) {
-    const offset = document.documentElement.offsetWidth / 2 + this.tools.offsetWidth,
-          adminBar = _$$$('wpadminbar') ? _$$$('wpadminbar').offsetHeight : 0;
+    const offset = document.documentElement.offsetWidth / 2 + this.tools.offsetWidth;
+    const adminBar = _$$$('wpadminbar') ? _$$$('wpadminbar').offsetHeight : 0;
 
     if (left > offset) {
       this.tools.style.transform = 'translate(-100%)';
@@ -154,7 +154,9 @@ class FCN_Suggestion {
 
   showModal(instance) {
     // Close paragraph tools if open
-    if (fcn_lastSelectedParagraphId) fcn_toggleParagraphTools(false);
+    if (fcn_lastSelectedParagraphId) {
+      fcn_toggleParagraphTools(false);
+    }
 
     // Setup modal content
     instance.original = instance.text;
@@ -185,15 +187,15 @@ class FCN_Suggestion {
   }
 
   submitSuggestion(instance) {
-    const defaultEditor = _$$$('comment'),
-          replacements = [
-            ['¶', '&para;\n'],
-            ['<br>', '\n'],
-            ['<ins>', '[ins]'],
-            ['</ins>', '[/ins]'],
-            ['<del>', '[del]'],
-            ['</del>', '[/del]']
-          ];
+    const defaultEditor = _$$$('comment');
+    const replacements = [
+      ['¶', '&para;\n'],
+      ['<br>', '\n'],
+      ['<ins>', '[ins]'],
+      ['</ins>', '[/ins]'],
+      ['<del>', '[del]'],
+      ['</del>', '[/del]']
+    ];
 
     // Perform replacements
     let final = instance.output.innerHTML;

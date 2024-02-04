@@ -104,8 +104,8 @@ fcn_applyStorySettings();
 // Event listener for to toggle chapter order
 _$$$('button-toggle-chapter-order')?.addEventListener(
   'click',
-  e => {
-    fcn_storySettings['order'] = e.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
+  event => {
+    fcn_storySettings['order'] = event.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
     fcn_setStorySettings(fcn_storySettings);
     fcn_applyStorySettings();
   }
@@ -114,8 +114,8 @@ _$$$('button-toggle-chapter-order')?.addEventListener(
 // Event listener for to toggle chapter view
 _$$$('button-toggle-chapter-view')?.addEventListener(
   'click',
-  e => {
-    fcn_storySettings['view'] = e.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
+  event => {
+    fcn_storySettings['view'] = event.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
     fcn_setStorySettings(fcn_storySettings);
     fcn_applyStorySettings();
   }
@@ -128,8 +128,8 @@ _$$$('button-toggle-chapter-view')?.addEventListener(
 _$$('.chapter-group__folding-toggle').forEach(element => {
   element.addEventListener(
     'click',
-    e => {
-      const group = e.currentTarget.closest('.chapter-group[data-folded]');
+    event => {
+      const group = event.currentTarget.closest('.chapter-group[data-folded]');
 
       if (group) {
         group.dataset.folded = group.dataset.folded == 'true' ? 'false' : 'true';

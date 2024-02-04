@@ -2,8 +2,8 @@
 // SETUP
 // =============================================================================
 
-var /** @type {Number} */ fcn_userRemindersTimeout,
-    /** @type {Object} */ fcn_reminders;
+var /** @type {Number} */ fcn_userRemindersTimeout;
+var /** @type {Object} */ fcn_reminders;
 
 // Initialize
 document.addEventListener('fcnUserDataReady', event => {
