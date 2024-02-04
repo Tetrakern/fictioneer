@@ -8,12 +8,13 @@
  * Returns list of allowed orderby parameters for WP_Query
  *
  * @since 5.7.0
+ * @since 5.9.4 - Extended list.
  *
  * @return array List of allowed orderby parameters.
  */
 
 function fictioneer_allowed_orderby() {
-  $defaults = ['modified', 'date', 'title', 'rand'];
+  $defaults = ['modified', 'date', 'title', 'rand', 'name', 'ID', 'comment_count', 'type', 'post__in', 'author'];
 
   return apply_filters( 'fictioneer_filter_allowed_orderby', $defaults );
 }

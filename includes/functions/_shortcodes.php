@@ -157,23 +157,14 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
   $attr = is_array( $attr ) ?
     array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
-  //--- Setup ------------------------------------------------------------------
-
-  $order = [sanitize_key( $attr['order'] ?? 'desc' )];
-  $order = array_intersect( $order, ['desc', 'asc'] );
-  $order = reset( $order ) ?: 'desc';
-  $orderby = [sanitize_key( $attr['orderby'] ?? 'date' )];
-  $orderby = array_intersect( $orderby, fictioneer_allowed_orderby() );
-  $orderby = reset( $orderby ) ?: 'modified';
-
   //--- Extract arguments ------------------------------------------------------
 
   $args = array(
     'type' => $attr['type'] ?? 'default',
     'count' => max( -1, intval( $attr['count'] ?? $def_count ) ),
     'offset' => max( 0, intval( $attr['offset'] ?? 0 ) ),
-    'order' => $order,
-    'orderby' => $orderby,
+    'order' => $attr['order'] ?? '',
+    'orderby' => $attr['orderby'] ?? '',
     'page' => max( 1, get_query_var( 'page' ) ?: get_query_var( 'paged' ) ),
     'posts_per_page' => absint( $attr['per_page'] ?? 0 ) ?: get_option( 'posts_per_page' ),
     'post_ids' => fictioneer_explode_list( $attr['post_ids'] ?? '' ),
