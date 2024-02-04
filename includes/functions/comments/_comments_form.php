@@ -22,20 +22,7 @@ if ( ! function_exists( 'fictioneer_get_comment_toolbar' ) ) {
       return '';
     }
 
-    ob_start();
-    // Start HTML ---> ?>
-    <div class="fictioneer-comment-toolbar">
-      <span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span>
-      <span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span>
-      <span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span>
-      <span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span>
-      <span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span>
-      <span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span>
-      <span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span>
-      <label class="fictioneer-comment-toolbar-help" for="modal-bbcodes-toggle"><i class="fa-solid fa-circle-question"></i></label>
-    </div>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    return '<div class="fictioneer-comment-toolbar"><span class="fictioneer-comment-toolbar-bold" data-bbcode="b"><i class="fa-solid fa-bold"></i></span><span class="fictioneer-comment-toolbar-italic" data-bbcode="i"><i class="fa-solid fa-italic"></i></span><span class="fictioneer-comment-toolbar-strike" data-bbcode="s"><i class="fa-solid fa-strikethrough"></i></span><span class="fictioneer-comment-toolbar-image" data-bbcode="img"><i class="fa-solid fa-image"></i></span><span class="fictioneer-comment-toolbar-link" data-bbcode="link"><i class="fa-solid fa-link"></i></span><span class="fictioneer-comment-toolbar-quote" data-bbcode="quote"><i class="fa-solid fa-quote-left"></i></span><span class="fictioneer-comment-toolbar-spoiler" data-bbcode="spoiler"><i class="fa-solid fa-eye-low-vision"></i></span><label class="fictioneer-comment-toolbar-help" for="modal-bbcodes-toggle"><i class="fa-solid fa-circle-question"></i></label></div>';
   }
 }
 
