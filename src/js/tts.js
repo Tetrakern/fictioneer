@@ -3,7 +3,6 @@
 // =============================================================================
 
 const /** @const {HTMLElement} */ fcn_ttsInterface = _$$$('tts-interface');
-const /** @const {String[]} */ fcn_ttsAllowedTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 
 var /** @type {HTMLElement[]} */ fcn_ttsStack = [];
 var /** @type {Number} */ fcn_currentReadingId = -1;
@@ -24,7 +23,7 @@ if (typeof speechSynthesis !== 'undefined') {
   fcn_utter = new SpeechSynthesisUtterance();
   fcn_utter.lang = fcn_theRoot.lang;
 
-  // Some browsers (e.g. Safari as of 2022/09/09) do not support the  voiceschanged event,
+  // Some browsers do not support the voiceschanged event,
   // so we just wait for two seconds and hope for the best!
   const fcn_ttsSetupTimeout = setTimeout(() => {
     fcn_setupTTS();
@@ -300,7 +299,7 @@ function fcn_readTextStack() {
 
 if (typeof speechSynthesis !== 'undefined') {
   // Paragraph tools button
-  _$$$('button-tts-set').addEventListener('click', (e) => {
+  _$$$('button-tts-set').addEventListener('click', event => {
     fcn_ttsStack = [];
     fcn_currentReadingId = -1;
 
@@ -311,20 +310,23 @@ if (typeof speechSynthesis !== 'undefined') {
     const regex = new RegExp(fcn_ttsInterface.dataset.regex, 'gm');
 
     // Cancel ongoing reading if any
-    if (fcn_synth.speaking) fcn_utter.removeEventListener('end', fcn_readTextStack);
+    if (fcn_synth.speaking) {
+      fcn_utter.removeEventListener('end', fcn_readTextStack);
+    }
+
     fcn_synth.cancel();
 
     // Compile reading stack
-    let node = e.target.closest('p[data-paragraph-id]');
+    const tags = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6']);
+    const excludedClasses = ['skip-tts', 'inside-epub', sensitiveClass];
+    let node = event.target.closest('p[data-paragraph-id]');
 
     fcn_ttsStack.push(node);
 
     while (node = node.nextElementSibling) {
       if (
-        fcn_ttsAllowedTags.includes(node.tagName) &&
-        !node.classList.contains('skip-tts') &&
-        !node.classList.contains('inside-epub') &&
-        !node.classList.contains(sensitiveClass)
+        tags.has(node.tagName) &&
+        !excludedClasses.some(it => node.classList.contains(it))
       ) {
         fcn_ttsStack.push(node);
       }
@@ -362,7 +364,7 @@ if (typeof speechSynthesis !== 'undefined') {
   });
 
   // Stop button
-  _$$$('button-tts-stop')?.addEventListener('click', (e) => {
+  _$$$('button-tts-stop')?.addEventListener('click', () => {
     const current = _$('.current-reading');
 
     fcn_ttsInterface.classList.add('hidden', 'ended');
@@ -380,7 +382,7 @@ if (typeof speechSynthesis !== 'undefined') {
   });
 
   // Play button
-  _$$$('button-tts-play')?.addEventListener('click', (e) => {
+  _$$$('button-tts-play')?.addEventListener('click', () => {
     fcn_synth.resume();
 
     // Fix for frozen reading paused mid-speaking
@@ -397,7 +399,7 @@ if (typeof speechSynthesis !== 'undefined') {
   });
 
   // Pause button
-  _$$$('button-tts-pause')?.addEventListener('click', (e) => {
+  _$$$('button-tts-pause')?.addEventListener('click', () => {
     fcn_synth.pause();
     fcn_ttsPauseTimestamp = Date.now();
     fcn_ttsInterface.classList.remove('playing');
@@ -405,7 +407,7 @@ if (typeof speechSynthesis !== 'undefined') {
   });
 
   // Skip button
-  _$$$('button-tts-skip')?.addEventListener('click', (e) => {
+  _$$$('button-tts-skip')?.addEventListener('click', () => {
     fcn_utter.removeEventListener('end', fcn_readTextStack);
     fcn_synth.cancel();
     fcn_readTextStack();
@@ -422,8 +424,8 @@ if (typeof speechSynthesis !== 'undefined') {
 
   // Volume inputs
   _$$('#tts-volume-range, #tts-volume-text').forEach(element => {
-    element.addEventListener('input', (e) => {
-      fcn_updateVolume(e.target.value);
+    element.addEventListener('input', event => {
+      fcn_updateVolume(event.target.value);
     });
   });
 
@@ -432,8 +434,8 @@ if (typeof speechSynthesis !== 'undefined') {
 
   // Pitch inputs
   _$$('#tts-pitch-range, #tts-pitch-text').forEach(element => {
-    element.addEventListener('input', (e) => {
-      fcn_updatePitch(e.target.value);
+    element.addEventListener('input', event => {
+      fcn_updatePitch(event.target.value);
     });
   });
 
@@ -442,8 +444,8 @@ if (typeof speechSynthesis !== 'undefined') {
 
   // Rate inputs
   _$$('#tts-rate-range, #tts-rate-text').forEach(element => {
-    element.addEventListener('input', (e) => {
-      fcn_updateRate(e.target.value);
+    element.addEventListener('input', event => {
+      fcn_updateRate(event.target.value);
     });
   });
 
