@@ -455,6 +455,7 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
    * Renders a breadcrumbs trail supporting RDFa to be readable by search engines.
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    * @param string $args['post_type']    Optional. Post type of the current page.
@@ -475,37 +476,36 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
       return '';
     }
 
+    // Filter breadcrumbs array
+    $breadcrumbs = apply_filters( 'fictioneer_filter_breadcrumbs_array', $args['breadcrumbs'], $args );
+
     // Setup
-    $count = count( $args['breadcrumbs'] );
+    $count = count( $breadcrumbs );
 
     // Abort if array does not have two or more items
     if ( $count < 2 ) {
       return '';
     }
 
-    // Filter breadcrumbs array
-    $args['breadcrumbs'] = apply_filters( 'fictioneer_filter_breadcrumbs_array', $args['breadcrumbs'], $args );
+    // Build
+    $html = '<ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <ol vocab="https://schema.org/" typeof="BreadcrumbList" class="breadcrumbs">
-      <?php foreach ( $args['breadcrumbs'] as $key => $value ) : ?>
-        <li class="breadcrumbs__item" property="itemListElement" typeof="ListItem">
-          <?php if ( $count > $key + 1 ): ?>
-            <?php if ( $value[1] ): ?>
-              <a property="item" typeof="WebPage" href="<?php echo $value[1]; ?>"><span property="name"><?php echo $value[0]; ?></span></a>
-            <?php else : ?>
-              <span property="name"><?php echo $value[0]; ?></span>
-            <?php endif; ?>
-          <?php else : ?>
-            <span property="name"><?php echo $value[0]; ?></span>
-          <?php endif; ?>
-          <meta property="position" content="<?php echo $key + 1; ?>">
-        </li>
-      <?php endforeach; ?>
-    </ol>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    foreach ( $breadcrumbs as $key => $value ) {
+      $html .= '<li class="breadcrumbs__item" property="itemListElement" typeof="ListItem">';
+
+      if ( $count > $key + 1 && $value[1] ) {
+        $html .= '<a property="item" typeof="WebPage" href="' . esc_url( $value[1] ) . '"><span property="name">' . $value[0] . '</span></a>';
+      } else {
+        $html .= '<span property="name">' . $value[0] . '</span>';
+      }
+
+      $html .= '<meta property="position" content="' . ( $key + 1 ) . '"></li>';
+    }
+
+    $html .= '</ol>';
+
+    // Return HTML
+    return $html;
   }
 }
 
