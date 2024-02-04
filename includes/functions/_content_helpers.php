@@ -1560,6 +1560,7 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
    * Returns HTML for list chapter meta row
    *
    * @since 5.1.2
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array $data  Chapter data for the meta row.
    * @param array $args  Optional arguments.
@@ -1574,76 +1575,60 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
 
     // Password
     if ( ! empty( $data['password'] ) ) {
-      ob_start();
-
-      /*
-      // Start HTML ---> ?>
-      <span class="chapter-group__list-item-password list-view"><?php
-        echo fcntr( 'password' );
-      ?></span>
-      <?php // <--- End HTML
-      */
-
-      // Start HTML ---> ?>
-      <i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>
-      <?php // <--- End HTML
-
-      $output['protected'] = ob_get_clean();
+      $output['protected'] = '<i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>';
     }
 
     // Warning
     if ( ! empty( $data['warning'] ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <span class="chapter-group__list-item-warning list-view"><?php
-        printf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] );
-      ?></span>
-      <?php // <--- End HTML
-      $output['warning'] = ob_get_clean();
+      $output['warning'] = sprintf(
+        '<span class="chapter-group__list-item-warning list-view">%s</span>',
+        sprintf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] )
+      );
     }
 
     // Date
-    ob_start();
     if ( $has_grid_view ) {
-      // Start HTML ---> ?>
-      <time datetime="<?php echo $data['timestamp']; ?>" class="chapter-group__list-item-date">
-        <span class="list-view"><?php echo $data['list_date']; ?></span>
-        <span class="grid-view"><?php echo $data['grid_date']; ?></span>
-      </time>
-      <?php // <--- End HTML
+      $output['date'] = sprintf(
+        '<time datetime="%s" class="chapter-group__list-item-date"><span class="list-view">%s</span><span class="grid-view">%s</span></time>',
+        esc_attr( $data['timestamp'] ),
+        $data['list_date'],
+        $data['grid_date']
+      );
     } else {
-      // Start HTML ---> ?>
-      <time datetime="<?php echo $data['timestamp']; ?>" class="chapter-group__list-item-date"><?php
-        echo $data['list_date'];
-      ?></time>
-      <?php // <--- End HTML
+      $output['date'] = sprintf(
+        '<time datetime="%s" class="chapter-group__list-item-date">%s</time>',
+        esc_attr( $data['timestamp'] ),
+        $data['list_date']
+      );
     }
-    $output['date'] = ob_get_clean();
 
     // Words
-    ob_start();
     if ( $has_grid_view ) {
       $short_words = fictioneer_shorten_number( $data['words'] );
 
-      // Start HTML ---> ?>
-      <span class="chapter-group__list-item-words" data-number-switch="<?php echo esc_attr( $short_words ); ?>"><?php
-        printf( _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ), number_format_i18n( $data['words'] ) );
-      ?></span>
-      <?php // <--- End HTML
+      $output['words'] = sprintf(
+        '<span class="chapter-group__list-item-words" data-number-switch="%s">%s</span>',
+        esc_attr( $short_words ),
+        sprintf(
+          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
+          number_format_i18n( $data['words'] )
+        )
+      );
     } else {
-      // Start HTML ---> ?>
-      <span class="chapter-group__list-item-words"><?php
-        printf( _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ), number_format_i18n( $data['words'] ) );
-      ?></span>
-      <?php // <--- End HTML
+      $output['words'] = sprintf(
+        '<span class="chapter-group__list-item-words">%s</span>',
+        sprintf(
+          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
+          number_format_i18n( $data['words'] )
+        )
+      );
     }
-    $output['words'] = ob_get_clean();
 
     // Apply filters
     $output = apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args );
 
-    // Implode and return
-    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( '', $output ) . '</div>';
+    // Implode and return HTML
+    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( ' ', $output ) . '</div>';
   }
 }
 
