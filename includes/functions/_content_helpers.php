@@ -1189,78 +1189,65 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 
 if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
   /**
-   * Returns the HTML for the post meta row
+   * Returns the HTML for the blog post meta row
    *
    * @since 5.0.0
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array $args  Optional arguments.
    *
-   * @return string The HTML for the post meta row.
+   * @return string The HTML for the blog post meta row.
    */
 
   function fictioneer_get_post_meta_items( $args = [] ) {
     // Setup
-    $no_date = isset( $args['no_date'] ) ? $args['no_date'] : false;
-    $no_author = isset( $args['no_author'] ) ? $args['no_author'] : false;
-    $no_cat = isset( $args['no_cat'] ) ? $args['no_cat'] : false;
-    $no_comments = isset( $args['no_comments'] ) ? $args['no_comments'] : false;
     $comments_number = get_comments_number( get_the_ID() );
     $output = [];
 
     // Date node
-    if ( ! $no_date ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <time datetime="<?php the_time( 'c' ); ?>" class="post__date">
-        <i class="fa-solid fa-clock" title="<?php esc_attr_e( 'Published', 'fictioneer' ); ?>"></i>
-        <?php echo get_the_date(); ?>
-      </time>
-      <?php // <--- End HTML
-      $output['date'] = ob_get_clean();
+    if ( ! ( $args['no_date'] ?? 0 ) ) {
+      $output['date'] = sprintf(
+        '<time datetime="%s" class="post__date"><i class="fa-solid fa-clock" title="%s"></i> %s</time>',
+        esc_attr( get_the_time( 'c' ) ),
+        esc_attr__( 'Published', 'fictioneer' ),
+        get_the_date()
+      );
     }
 
     // Author node
-    if ( ! $no_author && get_option( 'fictioneer_show_authors' ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <div class="post__author">
-        <i class="fa-solid fa-circle-user"></i>
-        <?php fictioneer_the_author_node( get_the_author_meta( 'ID' ) ); ?>
-      </div>
-      <?php // <--- End HTML
-      $output['author'] = ob_get_clean();
+    if ( ! ( $args['no_author'] ?? 0 ) && get_option( 'fictioneer_show_authors' ) ) {
+      $output['author'] = sprintf(
+        '<div class="post__author"><i class="fa-solid fa-circle-user"></i> %s</div>',
+        fictioneer_get_author_node( get_the_author_meta( 'ID' ) )
+      );
     }
 
     // Category node
-    if ( ! $no_cat ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <div class="post__categories">
-        <i class="fa-solid fa-tags"></i>
-        <?php echo the_category( ', ' ); ?>
-      </div>
-      <?php // <--- End HTML
-      $output['category'] = ob_get_clean();
+    if ( ! ( $args['no_cat'] ?? 0 ) ) {
+      $output['category'] = sprintf(
+        '<div class="post__categories"><i class="fa-solid fa-tags"></i> %s</div>',
+        get_the_category_list(', ')
+      );
     }
 
     // Comments node
-    if ( ! $no_comments && $comments_number > 0 ) {
+    if ( ! ( $args['no_comments'] ?? 0 ) && $comments_number > 0 ) {
       $comments_link = is_single() ? '#comments' : get_the_permalink() . '#comments';
 
-      ob_start();
-      // Start HTML ---> ?>
-      <div class="post__comments-number">
-        <i class="fa-solid fa-message"></i>
-        <a href="<?php echo $comments_link; ?>"><?php printf( _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ), number_format_i18n( $comments_number ) ); ?></a>
-      </div>
-      <?php // <--- End HTML
-      $output['comments'] = ob_get_clean();
+      $output['comments'] = sprintf(
+        '<div class="post__comments-number"><i class="fa-solid fa-message"></i> <a href="%s">%s</a></div>',
+        $comments_link,
+        sprintf(
+          _n( '%s Comment', '%s Comments', $comments_number, 'fictioneer' ),
+          number_format_i18n( $comments_number )
+        )
+      );
     }
 
     // Apply filters
     $output = apply_filters( 'fictioneer_filter_post_meta_items', $output, $args );
 
-    // Return
+    // Implode and return HTML
     return implode( '', $output );
   }
 }
