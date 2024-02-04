@@ -402,6 +402,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
    * Returns the HTML for the footer copyright note
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    * @param string $args['post_type']    Optional. Post type of the current page.
@@ -411,14 +412,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
    */
 
   function fictioneer_get_footer_copyright_note( $args ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <span>© <?php echo date( 'Y' ); ?></span>
-    <span><?php echo get_bloginfo( 'name' ); ?></span>
-    <span>|</span>
-    <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer"><?php echo fictioneer_get_version(); ?></a>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    return '<span>© ' . date( 'Y' ) . '</span> <span>' . get_bloginfo( 'name' ) . '</span> <span>|</span> <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer">' . fictioneer_get_version() . '</a>';
   }
 }
 
