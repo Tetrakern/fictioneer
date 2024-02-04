@@ -91,14 +91,14 @@ function fcn_toggleAdvancedMobileMenu(isOpened) {
 }
 
 // Listen for change of mobile menu toggle checkbox
-_$$$('mobile-menu-toggle')?.addEventListener('change', e => {
-  fcn_toggleMobileMenu(e.currentTarget.checked);
+_$$$('mobile-menu-toggle')?.addEventListener('change', event => {
+  fcn_toggleMobileMenu(event.currentTarget.checked);
 });
 
 // Listen for click on the site to close mobile menu
-fcn_theSite.addEventListener('click', e => {
+fcn_theSite.addEventListener('click', event => {
   if (fcn_theBody.classList.contains('mobile-menu-open')) {
-    e.preventDefault();
+    event.preventDefault();
     fcn_toggleMobileMenu(false);
   }
 });
@@ -128,39 +128,34 @@ function fcn_copyNavIntoMobileMenu() {
 // JUMP BUTTONS
 // =============================================================================
 
-// Listen for click on comment jump mobile menu button
-_$$$('mobile-menu-comment-jump')?.addEventListener(
-  'click',
-  () => {
+function fcn_setupMobileJumpButton(selector, callback) {
+  const button = _$(selector);
+
+  if (!button) {
+    return;
+  }
+
+  button.addEventListener('click', () => {
     fcn_toggleMobileMenu(false);
 
     setTimeout(() => {
-      const target = _$$$('comments');
+      const target = callback();
 
       // Scroll to position + offset
       if (target) {
         fcn_scrollTo(target);
       }
     }, 200); // Wait for mobile menu to close
-  }
-);
+  });
+}
 
-// Listen for click on bookmark jump mobile menu button
-_$$$('mobile-menu-bookmark-jump')?.addEventListener(
-  'click',
-  () => {
-    fcn_toggleMobileMenu(false);
+// Setup for comment jump
+fcn_setupMobileJumpButton('#mobile-menu-comment-jump', () => _$$$('comments'));
 
-    setTimeout(() => {
-      const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
-
-      // Scroll to position + offset
-      if (target) {
-        fcn_scrollTo(target);
-      }
-    }, 200); // Wait for mobile menu to close
-  }
-);
+// Setup for bookmark jump
+fcn_setupMobileJumpButton('#mobile-menu-bookmark-jump', () => {
+  return _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
+});
 
 // =============================================================================
 // QUICK BUTTONS
@@ -168,8 +163,8 @@ _$$$('mobile-menu-bookmark-jump')?.addEventListener(
 
 // Listen for clicks on the darken/brighten quick buttons
 _$$('.button-change-lightness').forEach(element => {
-  element.addEventListener('click', (e) => {
-    fcn_updateDarken(fcn_siteSettings['darken'] + parseFloat(e.currentTarget.value));
+  element.addEventListener('click', event => {
+    fcn_updateDarken(fcn_siteSettings['darken'] + parseFloat(event.currentTarget.value));
   });
 });
 
@@ -255,6 +250,6 @@ _$$$('button-mobile-menu-toggle-bookmarks-edit')?.addEventListener('click', even
 });
 
 // Append bookmarks when bookmarks frame is opened, once
-_$('.mobile-menu__frame-button[data-frame-target="bookmarks"]')?.addEventListener('click', (e) => {
+_$('.mobile-menu__frame-button[data-frame-target="bookmarks"]')?.addEventListener('click', () => {
   fcn_setMobileMenuBookmarks();
 }, { once: true });
