@@ -1015,7 +1015,7 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
    * Returns the HTML for taxonomy tags
    *
    * @since 5.0.0
-   * @link https://developer.wordpress.org/reference/classes/wp_term/
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array  $taxonomy_groups  Arrays of WP_Term objects.
    * @param string $context          Optional. The render context or location.
@@ -1026,11 +1026,12 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 
   function fictioneer_get_taxonomy_pills( $taxonomy_groups, $context = '', $classes = '' ) {
     // Abort conditions
-    if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1) {
+    if ( ! is_array( $taxonomy_groups ) || count( $taxonomy_groups ) < 1 ) {
       return '';
     }
 
-    ob_start();
+    // Setup
+    $html = '';
 
     // Loop over all groups...
     foreach ( $taxonomy_groups as $key => $group ) {
@@ -1044,13 +1045,19 @@ if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
 
       // Process group
       foreach ( $group as $taxonomy ) {
-        // Start HTML ---> ?>
-        <a href="<?php echo get_tag_link( $taxonomy ); ?>" class="tag-pill _taxonomy-<?php echo str_replace( 'fcn_', '', $taxonomy->taxonomy ); ?> _taxonomy-slug-<?php echo $taxonomy->slug; ?> <?php echo $classes; ?>"><?php echo $taxonomy->name; ?></a>
-        <?php // <--- End HTML
+        $html .= sprintf(
+          '<a href="%s" class="tag-pill _taxonomy-%s _taxonomy-slug-%s %s">%s</a>',
+          get_tag_link( $taxonomy ),
+          str_replace( 'fcn_', '', $taxonomy->taxonomy ),
+          $taxonomy->slug,
+          $classes,
+          $taxonomy->name
+        );
       }
     }
 
-    return ob_get_clean();
+    // Return HTML
+    return $html;
   }
 }
 
