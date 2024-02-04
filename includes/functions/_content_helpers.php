@@ -602,6 +602,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
    * Returns the HTML for the subscribe buttons
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param int|null    $post_id    The post ID the buttons are for. Defaults to current.
    * @param int|null    $author_id  The author ID the buttons are for. Defaults to current.
@@ -618,8 +619,8 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
     $patreon_link = get_post_meta( $post_id, 'fictioneer_patreon_link', true );
     $kofi_link = get_post_meta( $post_id, 'fictioneer_kofi_link', true );
     $subscribestar_link = get_post_meta( $post_id, 'fictioneer_subscribestar_link', true );
+    $feed = get_option( 'fictioneer_enable_theme_rss' ) ? $feed : null;
     $output = [];
-    $feed = get_option( 'fictioneer_enable_theme_rss' ) ? $feed: null;
 
     // Look for story support links if none provided by post
     if ( ! empty( $story_id ) ) {
@@ -654,59 +655,32 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
       $feed = fictioneer_get_rss_link( get_post_type(), $post_id );
     }
 
-    // Build
+    // Patreon link
     if ( $patreon_link ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo $patreon_link; ?>" target="_blank" rel="noopener" class="_align-left">
-        <i class="fa-brands fa-patreon"></i> <span><?php _e( 'Follow on Patreon', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['patreon'] = ob_get_clean();
+      $output['patreon'] = '<a href="' . esc_url( $patreon_link ) . '" target="_blank" rel="noopener" class="_align-left"><i class="fa-brands fa-patreon"></i> <span>' . __( 'Follow on Patreon', 'fictioneer' ) . '</span></a>';
     }
 
+    // Ko-fi link
     if ( $kofi_link ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo $kofi_link; ?>" target="_blank" rel="noopener" class="_align-left">
-        <?php fictioneer_icon( 'kofi' ); ?> <span><?php _e( 'Follow on Ko-Fi', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['kofi'] = ob_get_clean();
+      $output['kofi'] = '<a href="' . esc_url( $kofi_link ) . '" target="_blank" rel="noopener" class="_align-left">' . fictioneer_get_icon( 'kofi' ) . ' <span>' . __( 'Follow on Ko-Fi', 'fictioneer' ) . '</span></a>';
     }
 
+    // SubscribeStar link
     if ( $subscribestar_link ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo $subscribestar_link; ?>" target="_blank" rel="noopener" class="_align-left">
-        <i class="fa-solid fa-s"></i> <span><?php _e( 'Follow on SubscribeStar', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['subscribestar'] = ob_get_clean();
+      $output['subscribestar'] = '<a href="' . esc_url( $subscribestar_link ) . '" target="_blank" rel="noopener" class="_align-left">' . '<i class="fa-solid fa-s"></i> <span>' . __( 'Follow on SubscribeStar', 'fictioneer' ) . '</span></a>';
     }
 
+    // Feed reader links
     if ( $feed ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="https://feedly.com/i/subscription/feed/<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left" aria-label="<?php esc_attr_e( 'Follow on Feedly', 'fictioneer' ); ?>">
-        <?php fictioneer_icon( 'feedly' ); ?> <span><?php _e( 'Follow on Feedly', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['feedly'] = ob_get_clean();
+      $output['feedly'] = '<a href="https://feedly.com/i/subscription/feed/' . urlencode( $feed ) . '" target="_blank" rel="noopener" class="_align-left" aria-label="' . esc_attr__( 'Follow on Feedly', 'fictioneer' ) . '">' . fictioneer_get_icon( 'feedly' ) . ' <span>' . __( 'Follow on Feedly', 'fictioneer' ) . '</span></a>';
 
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="https://www.inoreader.com/?add_feed=<?php echo urlencode( $feed ); ?>" target="_blank" rel="noopener" class="_align-left" aria-label="<?php esc_attr_e( 'Follow on Inoreader', 'fictioneer' ); ?>">
-        <?php fictioneer_icon( 'inoreader' ); ?> <span><?php _e( 'Follow on Inoreader', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['inoreader'] = ob_get_clean();
+      $output['inoreader'] = '<a href="https://www.inoreader.com/?add_feed=' . urlencode( $feed ) . '" target="_blank" rel="noopener" class="_align-left" aria-label="' . esc_attr__( 'Follow on Inoreader', 'fictioneer' ) . '">' . fictioneer_get_icon( 'inoreader' ) . ' <span>' . __( 'Follow on Inoreader', 'fictioneer' ) . '</span></a>';
     }
 
     // Apply filter
     $output = apply_filters( 'fictioneer_filter_subscribe_buttons', $output, $post_id, $author_id, $feed );
 
-    // Return
+    // Implode and return HTML
     return implode( '', $output );
   }
 }
