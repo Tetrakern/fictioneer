@@ -197,7 +197,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    * busting purposes.
    *
    * @since 4.7.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param string $icon     Name of the icon that matches the svg.
    * @param string $classes  Optional. String of CSS classes.
@@ -396,7 +396,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
    * Returns the HTML for the footer copyright note
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    * @param string $args['post_type']    Optional. Post type of the current page.
@@ -443,7 +443,7 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
    * Renders a breadcrumbs trail supporting RDFa to be readable by search engines.
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array  $args['breadcrumbs']  Breadcrumb tuples with label (0) and link (1).
    * @param string $args['post_type']    Optional. Post type of the current page.
@@ -568,7 +568,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    * Returns the HTML for thumbnail on story pages
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array $story  Collection of story data.
    *
@@ -602,7 +602,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
    * Returns the HTML for the subscribe buttons
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param int|null    $post_id    The post ID the buttons are for. Defaults to current.
    * @param int|null    $author_id  The author ID the buttons are for. Defaults to current.
@@ -694,7 +694,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
    * Returns the HTML for the story buttons
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param array $args['story_data']  Collection of story data.
    * @param int   $args['story_id']    The story post ID.
@@ -819,7 +819,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    * Returns the HTML for the chapter warning section
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
    * @param int          $args['chapter_id']   The chapter ID.
@@ -885,6 +885,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    *
    * @since 5.0.0
    * @since 5.9.3 - Added meta field caching.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param int   $story_id       ID of the story.
    * @param array $data           Prepared data of the story.
@@ -915,8 +916,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
     // Setup
     $chapters = fictioneer_get_story_chapter_posts( $story_id );
     $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) || get_option( 'fictioneer_hide_chapter_icons' );
-
-    ob_start();
+    $html = '';
 
     // Loop chapters...
     foreach ( $chapters as $chapter ) {
@@ -927,7 +927,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       $list_title = trim( wp_strip_all_tags( $list_title ) );
       $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
       $parsed_url = wp_parse_url( home_url() );
-      $relative_path = isset( $parsed_url['path'] ) ? $parsed_url['path'] : '';
+      $icon = '';
 
       // Check for empty title
       if ( empty( $title ) && empty( $list_title ) ) {
@@ -938,26 +938,29 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
         );
       }
 
+      // Mark for password
       if ( ! empty( $chapter->post_password ) ) {
         $classes[] = 'has-password';
       }
 
-      // Start HTML ---> ?>
-      <li class="<?php echo implode( ' ', $classes ); ?>" data-id="<?php echo $chapter->ID; ?>">
-        <a href="<?php echo "{$relative_path}?p={$chapter->ID}"; ?>">
-          <?php if ( empty( $text_icon ) && ! $hide_icons ) : ?>
-            <i class="<?php echo fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter->ID ); ?>"></i>
-          <?php elseif ( ! $hide_icons ) : ?>
-            <span class="text-icon"><?php echo $text_icon; ?></span>
-          <?php endif; ?>
-          <span><?php echo $list_title ?: $title; ?></span>
-        </a>
-      </li>
-      <?php // <--- End HTML
-    }
+      // Chapter icon
+      if ( empty( $text_icon ) && ! $hide_icons ) {
+        $icon = '<i class="' . fictioneer_get_icon_field('fictioneer_chapter_icon', $chapter->ID) . '"></i>';
+      } elseif ( ! $hide_icons ) {
+        $icon = '<span class="text-icon">' . $text_icon . '</span>';
+      }
 
-    // Capture
-    $html = ob_get_clean();
+      // HTML
+      $html .= sprintf(
+        '<li class="%s" data-id="%d"><a href="%s?p=%d">%s<span>%s</span></a></li>',
+        implode( ' ', $classes ),
+        $chapter->ID,
+        isset( $parsed_url['path'] ) ? $parsed_url['path'] : '',
+        $chapter->ID,
+        $icon,
+        $list_title ?: $title
+      );
+    }
 
     // Update meta cache
     if ( ! $cache_plugin_active ) {
@@ -1117,7 +1120,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
    * Returns the HTML for the user submenu in the navigation bar
    *
    * @since 5.0.0
-   * @since 5.9.4 - Remove output buffer.
+   * @since 5.9.4 - Removed output buffer.
    *
    * @return string The HTML for the user submenu.
    */
