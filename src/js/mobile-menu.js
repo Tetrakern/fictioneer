@@ -128,6 +128,14 @@ function fcn_copyNavIntoMobileMenu() {
 // JUMP BUTTONS
 // =============================================================================
 
+/**
+ * Adds event to a mobile menu jump button.
+ *
+ * @since 5.9.4
+ * @param {String} selector - Selector for the button.
+ * @param {Function} callback - Function to query the scroll target.
+ */
+
 function fcn_setupMobileJumpButton(selector, callback) {
   const button = _$(selector);
 
@@ -172,10 +180,23 @@ _$$('.button-change-lightness').forEach(element => {
 // FRAMES
 // =============================================================================
 
+/**
+ * Opens mobile menu frame.
+ *
+ * @since 4.0.0
+ * @param {String} target - Name of the target frame.
+ */
+
 function fcn_openMobileFrame(target) {
   fcn_closeMobileFrames();
   _$(`.mobile-menu__frame[data-frame="${target}"]`)?.classList.add('_active');
 }
+
+/**
+ * Closes all open mobile menu frames.
+ *
+ * @since 4.0.0
+ */
 
 function fcn_closeMobileFrames() {
   // Close all open frames (should only be one)
