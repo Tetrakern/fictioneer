@@ -1261,6 +1261,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
    * Returns the HTML for the card controls
    *
    * @since 5.0.0
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param int $story_id    The story ID.
    * @param int $chapter_id  Optional. The chapter ID (use only for chapters).
@@ -1280,77 +1281,76 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     $icons = [];
     $menu = [];
 
-    // Build icons
+    // Sticky icon
     if ( $is_sticky && ! $chapter_id ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <div class="card__sticky-icon" title="<?php echo esc_attr__( 'Sticky', 'fictioneer' ); ?>"><i class="fa-solid fa-thumbtack"></i></div>
-      <?php // <--- End HTML
-      $icons['sticky'] = ob_get_clean();
+      $icons['sticky'] = sprintf(
+        '<div class="card__sticky-icon" title="%s"><i class="fa-solid fa-thumbtack"></i></div>',
+        esc_attr__( 'Sticky', 'fictioneer' )
+      );
     }
 
+    // Reminder icon
     if ( $can_reminders ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <i
-        class="fa-solid fa-clock card__reminder-icon"
-        title="<?php echo fcntr( 'is_read_later' ); ?>"
-        data-story-id="<?php echo $story_id; ?>"
-      ></i>
-      <?php // <--- End HTML
-      $icons['reminder'] = ob_get_clean();
+      $icons['reminder'] = sprintf(
+        '<i class="fa-solid fa-clock card__reminder-icon" title="%s" data-story-id="%d"></i>',
+        esc_attr( fcntr( 'is_read_later' ) ),
+        $story_id
+      );
     }
 
+    // Follows icon
     if ( $can_follows ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <i
-        class="fa-solid fa-star card__followed-icon"
-        title="<?php echo fcntr( 'is_followed' ); ?>"
-        data-follow-id="<?php echo $story_id; ?>"
-      ></i>
-      <?php // <--- End HTML
-      $icons['follow'] = ob_get_clean();
+      $icons['follow'] = sprintf(
+        '<i class="fa-solid fa-star card__followed-icon" title="%s" data-follow-id="%d"></i>',
+        esc_attr( fcntr( 'is_followed' ) ),
+        $story_id
+      );
     }
 
+    // Checkmark icon
     if ( $can_checkmarks ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <i
-        class="fa-solid fa-<?php echo empty( $chapter_id ) ? 'check-double' : 'check'; ?> card__checkmark-icon"
-        title="<?php echo fcntr( 'is_read' ); ?>"
-        data-story-id="<?php echo $story_id; ?>"
-        data-check-id="<?php echo empty( $chapter_id ) ? $story_id : $chapter_id; ?>"
-      ></i>
-      <?php // <--- End HTML
-      $icons['checkmark'] = ob_get_clean();
+      $icons['checkmark'] = sprintf(
+        '<i class="fa-solid fa-%s card__checkmark-icon" title="%s" data-story-id="%d" data-check-id="%d"></i>',
+        empty( $chapter_id ) ? 'check-double' : 'check',
+        esc_attr( fcntr( 'is_read' ) ),
+        $story_id,
+        empty( $chapter_id ) ? $story_id : $chapter_id
+      );
     }
 
+    // Follows menu item
     if ( $can_follows ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <button class="popup-action-follow" data-click="card-toggle-follow" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'follow' ); ?></button>
-      <button class="popup-action-unfollow" data-click="card-toggle-follow" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'unfollow' ); ?></button>
-      <?php // <--- End HTML
-      $menu['follow'] = ob_get_clean();
+      $menu['follow'] = sprintf(
+        '<button class="popup-action-follow" data-click="card-toggle-follow" data-story-id="%1$s">%2$s</button>' .
+        '<button class="popup-action-unfollow" data-click="card-toggle-follow" data-story-id="%1$s">%3$s</button>',
+        $story_id,
+        fcntr( 'follow' ),
+        fcntr( 'unfollow' )
+      );
     }
 
+    // Reminders menu item
     if ( $can_reminders ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <button class="popup-action-reminder" data-click="card-toggle-reminder" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'read_later' ); ?></button>
-      <button class="popup-action-forget" data-click="card-toggle-reminder" data-story-id="<?php echo $story_id; ?>"><?php echo fcntr( 'forget' ); ?></button>
-      <?php // <--- End HTML
-      $menu['reminder'] = ob_get_clean();
+      $menu['reminder'] = sprintf(
+        '<button class="popup-action-reminder" data-click="card-toggle-reminder" data-story-id="%1$s">%2$s</button>' .
+        '<button class="popup-action-forget" data-click="card-toggle-reminder" data-story-id="%1$s">%3$s</button>',
+        $story_id,
+        fcntr( 'read_later' ),
+        fcntr( 'forget' )
+      );
     }
 
+    // Checkmark menu item
     if ( $can_checkmarks ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <button class="popup-action-mark-read" data-click="card-toggle-checkmarks" data-story-id="<?php echo $story_id; ?>" data-type="<?php echo $type; ?>" data-chapter-id="<?php echo $chapter_id ?: 'null'; ?>" data-mode="set"><?php echo fcntr( 'mark_read' ); ?></button>
-      <button class="popup-action-mark-unread" data-click="card-toggle-checkmarks" data-story-id="<?php echo $story_id; ?>" data-type="<?php echo $type; ?>" data-chapter-id="<?php echo $chapter_id ?: 'null'; ?>" data-mode="unset"><?php echo fcntr( 'mark_unread' ); ?></button>
-      <?php // <--- End HTML
-      $menu['checkmark'] = ob_get_clean();
+      $menu['checkmark'] = sprintf(
+        '<button class="popup-action-mark-read" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="set">%4$s</button>' .
+        '<button class="popup-action-mark-unread" data-click="card-toggle-checkmarks" data-story-id="%1$s" data-type="%2$s" data-chapter-id="%3$s" data-mode="unset">%5$s</button>',
+        $story_id,
+        $type,
+        $chapter_id ?: 'null',
+        fcntr( 'mark_read' ),
+        fcntr( 'mark_unread' )
+      );
     }
 
     // Apply filters
@@ -1362,20 +1362,23 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
       return '';
     }
 
-    ob_start();
-    // Start HTML ---> ?>
-    <div class="card__controls <?php echo count( $menu ) > 0 ? 'popup-menu-toggle toggle-last-clicked' : ''; ?>">
+    // Build menu
+    $menu_html = '';
 
-      <?php if ( count( $icons ) > 0 ) foreach ( $icons as $icon ) echo $icon; ?>
+    if ( count( $menu ) > 0 ) {
+      $menu_html = sprintf(
+        '<i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>' .
+        '<div class="popup-menu _bottom">%s</div>',
+        implode( '', $menu )
+      );
+    }
 
-      <?php if ( count( $menu ) > 0 ) : ?>
-        <i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>
-        <div class="popup-menu _bottom"><?php foreach ( $menu as $item ) echo $item; ?></div>
-      <?php endif; ?>
-
-    </div>
-    <?php // <--- End HTML
-    $output = ob_get_clean();
+    $output = sprintf(
+      '<div class="card__controls %s">%s%s</div>',
+      count( $menu ) > 0 ? 'popup-menu-toggle toggle-last-clicked' : '',
+      implode( '', $icons ),
+      $menu_html
+    );
 
     // Return HTML
     return $output;
