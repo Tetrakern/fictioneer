@@ -694,6 +694,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
    * Returns the HTML for the story buttons
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param array $args['story_data']  Collection of story data.
    * @param int   $args['story_id']    The story post ID.
@@ -711,80 +712,74 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 
     // Flags
     $show_epub_download = $story_data['chapter_count'] > 0 && get_post_meta( $story_id, 'fictioneer_story_epub_preface', true ) && get_option( 'fictioneer_enable_epubs' ) && ! get_post_meta( $story_id, 'fictioneer_story_no_epub', true );
-    $can_follows = get_option( 'fictioneer_enable_follows' );
-    $can_reminders = get_option( 'fictioneer_enable_reminders' );
     $show_login = get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in();
 
-    // Build
+    // Subscribe
     if ( ! empty( $subscribe_buttons ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="<?php echo fcntr( 'subscribe', true ); ?>">
-        <div><i class="fa-solid fa-bell"></i> <?php echo fcntr( 'subscribe' ); ?></div>
-        <div class="popup-menu _bottom _center"><?php echo $subscribe_buttons; ?></div>
-      </div>
-      <?php // <--- End HTML
-      $output['subscribe'] = ob_get_clean();
+      $output['subscribe'] = sprintf(
+        '<div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+        fcntr( 'subscribe', true ),
+        fcntr( 'subscribe' ),
+        $subscribe_buttons
+      );
     }
 
+    // File download
     if ( $show_epub_download && ! $ebook_upload ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo esc_url( home_url( 'download-epub/' . $args['story_id'] ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" data-action="download-epub" data-story-id="<?php echo $args['story_id']; ?>" aria-label="<?php esc_attr_e( 'Download ePUB', 'fictioneer' ); ?>" download>
-        <i class="fa-solid fa-cloud-download-alt"></i>
-        <span class="span-epub hide-below-640"><?php _e( 'ePUB', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['epub'] = ob_get_clean();
+      $output['epub'] = sprintf(
+        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" data-action="download-epub" data-story-id="%d" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
+        esc_url( home_url( 'download-epub/' . $args['story_id'] ) ),
+        $args['story_id'],
+        esc_attr__( 'Download ePUB', 'fictioneer' ),
+        __( 'ePUB', 'fictioneer' )
+      );
     } elseif ( wp_get_attachment_url( $ebook_upload ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo esc_url( wp_get_attachment_url( $ebook_upload ) ); ?>" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="<?php esc_attr_e( 'Download eBook', 'fictioneer' ); ?>" download>
-        <i class="fa-solid fa-cloud-download-alt"></i>
-        <span class="span-epub hide-below-640"><?php _e( 'eBook', 'fictioneer' ); ?></span>
-      </a>
-      <?php // <--- End HTML
-      $output['ebook'] = ob_get_clean();
+      $output['ebook'] = sprintf(
+        '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
+        esc_url( wp_get_attachment_url( $ebook_upload ) ),
+        esc_attr__( 'Download eBook', 'fictioneer' ),
+        __( 'eBook', 'fictioneer' )
+      );
     }
 
-    if ( $can_reminders ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <button class="button _secondary button-read-later hide-if-logged-out" data-story-id="<?php echo $story_id; ?>">
-        <i class="fa-solid fa-clock"></i>
-        <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ); ?></span>
-      </button>
-      <?php if ( $show_login ) : ?>
-        <label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to set Reminders', 'fictioneer' ); ?>">
-          <i class="fa-solid fa-clock"></i>
-          <span class="span-follow hide-below-480"><?php echo fcntr( 'read_later' ); ?></span>
-        </label>
-      <?php endif; ?>
-      <?php // <--- End HTML
-      $output['reminder'] = ob_get_clean();
+    // Reminder
+    if ( get_option( 'fictioneer_enable_reminders' ) ) {
+      $output['reminder'] = sprintf(
+        '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
+        $story_id,
+        fcntr( 'read_later' )
+      );
+
+      if ( $show_login ) {
+        $output['reminder'] .= sprintf(
+          '<label for="modal-login-toggle" class="button _secondary button-read-later-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></label>',
+          esc_attr__( 'Log in to set Reminders', 'fictioneer' ),
+          fcntr( 'read_later' )
+        );
+      }
     }
 
-    if ( $can_follows ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="<?php echo $story_id; ?>">
-        <i class="fa-solid fa-star"></i>
-        <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ); ?></span>
-      </button>
-      <?php if ( $show_login ) : ?>
-        <label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="<?php esc_attr_e( 'Log in to Follow', 'fictioneer' ); ?>">
-          <i class="fa-regular fa-star off"></i>
-          <span class="span-follow hide-below-400"><?php echo fcntr( 'follow' ); ?></span>
-        </label>
-      <?php endif; ?>
-      <?php // <--- End HTML
-      $output['follow'] = ob_get_clean();
+    // Follow
+    if ( get_option( 'fictioneer_enable_follows' ) ) {
+      $output['follow'] = sprintf(
+        '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%s</span></button>',
+        $story_id,
+        fcntr( 'follow' )
+      );
+
+      if ( $show_login ) {
+        $output['follow'] .= sprintf(
+          '<label for="modal-login-toggle" class="button _secondary button-follow-login-notice hide-if-logged-in tooltipped" tabindex="0" data-tooltip="%s"><i class="fa-regular fa-star off"></i><span class="span-follow hide-below-400">%s</span></label>',
+          esc_attr__( 'Log in to Follow', 'fictioneer' ),
+          fcntr( 'follow' )
+        );
+      }
     }
 
     // Apply filter
     $output = apply_filters( 'fictioneer_filter_story_buttons', $output, $args );
 
-    // Return
+    // Implode and return HTML
     return implode( '', $output );
   }
 }
