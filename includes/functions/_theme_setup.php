@@ -980,19 +980,19 @@ function fictioneer_replace_ao_insert_position( $replacetag ) {
 }
 add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_position', 10, 1 );
 
-/**
- * Exclude scripts from Autoptimize (if installed)
- *
- * @since 4.0.0
- * @link https://github.com/wp-plugins/autoptimize
- *
- * @param string $exclude  List of default excludes.
- */
+// /**
+//  * Exclude scripts from Autoptimize (if installed)
+//  *
+//  * @since 4.0.0
+//  * @link https://github.com/wp-plugins/autoptimize
+//  *
+//  * @param string $exclude  List of default excludes.
+//  */
 
-function fictioneer_ao_exclude_scripts( $exclude ) {
-  return $exclude . '';
-}
-add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10, 1 );
+// function fictioneer_ao_exclude_scripts( $exclude ) {
+//   return $exclude . '';
+// }
+// add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10, 1 );
 
 /**
  * Exclude stylesheets from Autoptimize (if installed)
@@ -1000,7 +1000,7 @@ add_filter( 'autoptimize_filter_js_exclude', 'fictioneer_ao_exclude_scripts', 10
  * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
- * @param string $exclude List of default excludes.
+ * @param string $exclude  List of default excludes.
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
