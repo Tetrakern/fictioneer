@@ -981,6 +981,7 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
    * Returns the HTML for thumbnail on recommendation pages
    *
    * @since 5.0.0
+   * @since 5.9.4 - Removed output buffer.
    *
    * @param WP_Post $recommendation  The post object.
    *
@@ -988,23 +989,20 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
    */
 
   function fictioneer_get_recommendation_page_cover( $recommendation ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <figure class="recommendation__thumbnail">
-      <a href="<?php the_post_thumbnail_url( 'full' ); ?>" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-        <?php
-          the_post_thumbnail(
-            array( 200, 300 ),
-            array(
-              'alt' => sprintf( __( '%s Cover', 'fictioneer' ), fictioneer_get_safe_title( $recommendation->ID ) ),
-              'class' => 'webfeedsFeaturedVisual'
-            )
-          );
-        ?>
-      </a>
-    </figure>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    return sprintf(
+      '<figure class="recommendation__thumbnail"><a href="%s" %s>%s</a></figure>',
+      get_the_post_thumbnail_url( $recommendation->ID, 'full' ),
+      fictioneer_get_lightbox_attribute(),
+      get_the_post_thumbnail( $recommendation->ID, array( 200, 300 ), array(
+        'alt' => esc_attr(
+          sprintf(
+            __( '%s Cover', 'fictioneer' ),
+            fictioneer_get_safe_title( $recommendation->ID )
+          )
+        ),
+        'class' => 'webfeedsFeaturedVisual recommendation__thumbnail-image'
+      ))
+    );
   }
 }
 
