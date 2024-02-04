@@ -175,7 +175,7 @@ if ( ! function_exists( 'fictioneer_icon' ) ) {
   /**
    * Outputs the HTML for an inline svg icon
    *
-   * @since  Fictioneer 4.0
+   * @since 4.0.0
    *
    * @param string $icon     Name of the icon that matches the svg.
    * @param string $classes  Optional. String of CSS classes.
@@ -197,6 +197,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    * busting purposes.
    *
    * @since 4.7.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param string $icon     Name of the icon that matches the svg.
    * @param string $classes  Optional. String of CSS classes.
@@ -207,14 +208,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
    */
 
   function fictioneer_get_icon( $icon, $classes = '', $id = '', $inserts = '' ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <svg id="<?php echo $id; ?>" <?php echo $inserts; ?> class="icon _<?php echo $icon; ?> <?php echo $classes; ?>">
-      <use xlink:href="<?php echo get_template_directory_uri(); ?>/img/icon-sprite.svg?ver=<?php echo FICTIONEER_VERSION; ?>#icon-<?php echo $icon; ?>"></use>
-    </svg>
-    <?php // <--- End HTML
-
-    return ob_get_clean();
+    return '<svg id="' . $id . '" ' . $inserts . ' class="icon _' . $icon . ' ' . $classes . '">' . '<use xlink:href="' . esc_url( get_template_directory_uri() ) . '/img/icon-sprite.svg?ver=' . FICTIONEER_VERSION . '#icon-' . $icon . '"></use></svg>';
   }
 }
 
