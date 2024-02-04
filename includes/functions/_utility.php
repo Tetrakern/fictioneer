@@ -705,6 +705,33 @@ if ( ! function_exists( 'fictioneer_validate_id' ) ) {
 }
 
 // =============================================================================
+// VALIDATE NONCE PLAUSIBILITY
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_nonce_plausibility' ) ) {
+  /**
+   * Checks nonce to be plausible
+   *
+   * This helps to evaluate whether a nonce has been malformed, for example
+   * through a dynamic update from a cache plugin not working properly.
+   *
+   * @since 5.9.4
+   *
+   * @param string $nonce  The nonce to check.
+   *
+   * @return boolean Whether the nonce is plausible.
+   */
+
+  function fictioneer_nonce_plausibility( $nonce ) {
+    if ( preg_match( '/^[a-f0-9]{10}$/i', $nonce ) === 1 ) {
+      return true;
+    }
+
+    return false;
+  }
+}
+
+// =============================================================================
 // GET VALIDATED AJAX USER
 // =============================================================================
 

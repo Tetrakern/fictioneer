@@ -375,32 +375,10 @@ function fcn_bindAJAXCommentSubmit() {
     const parent = _$$$(`comment-${parentId}`);
     const private_comment = _$$$('fictioneer-private-comment-toggle');
     const notification = _$$$('fictioneer-comment-notification-toggle');
-    const nonce = fcn_getNonce();
 
     let emailValidation = true;
     let contentValidation = true;
     let privacyValidation = true;
-
-    // Check for nonce issues (can be caused by cache plugins)
-    if (!fcn_checkNoncePlausibility(nonce)) {
-      // Remove any old error
-      _$$$('comment-submit-error-notice')?.remove();
-
-      // Add error message
-      form.insertBefore(
-        fcn_buildErrorNotice(
-          sprintf(
-            __( 'The security token appears to be malformed. Please reload and try again, or contact an administrator if the problem persists. Token: %s', 'fictioneer' ),
-            fcn_sanitizeHTML(nonce)
-          ),
-          'comment-submit-error-notice'
-        ),
-        form.firstChild
-      );
-
-      // Stop submission
-      return;
-    }
 
     // Validate content
     contentValidation = content.value.length > 1;

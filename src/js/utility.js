@@ -656,26 +656,6 @@ function fcn_isValidUrl(url) {
 }
 
 // =============================================================================
-// CHECK NONCE
-// =============================================================================
-
-/**
- * Checks nonce to be plausible.
- *
- * @since 5.9.4
- * @param {String} nonce - The nonce to validate.
- * @return {Boolean} Whether the nonce is plausible.
- */
-
-function fcn_checkNoncePlausibility(nonce) {
-  if (!/^[a-zA-Z0-9]{10,}$/.test(nonce)) {
-    return false;
-  }
-
-  return true;
-}
-
-// =============================================================================
 // GET NONCE
 // =============================================================================
 

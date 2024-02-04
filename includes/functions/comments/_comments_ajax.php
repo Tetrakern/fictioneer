@@ -235,7 +235,19 @@ function fictioneer_ajax_submit_comment() {
     );
   }
 
-  // Nonce
+  // Nonce plausible?
+  if ( ! fictioneer_nonce_plausibility( $_REQUEST['nonce'] ?? 0 ) ) {
+    wp_send_json_error(
+      array(
+        'error' => sprintf(
+          __( 'The security token appears to be malformed. Please reload and try again, or contact an administrator if the problem persists. Token: %s', 'fictioneer' ),
+          sanitize_text_field( $_REQUEST['nonce'] )
+        )
+      )
+    );
+  }
+
+  // Nonce valid?
   if ( ! check_ajax_referer( 'fictioneer_nonce', 'nonce', false ) ) {
     wp_send_json_error(
       array( 'error' => __( 'Security token expired or invalid. Please reload and try again.', 'fictioneer' ) )
