@@ -262,33 +262,19 @@ function fictioneer_ajax_get_finished_checkmarks_list() {
   $navigation = '';
 
   if ( $max_pages > 1 ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <li class="pagination bookshelf-pagination">
-      <?php
-        for ( $i = 1; $i <= $max_pages; $i++ ) {
-          if ( $i == $page ) {
-            ?><span class="page-numbers current" aria-current="page"><?php echo $i; ?></span><?php
-          } else {
-            ?><button class="page-numbers" data-page="<?php echo $i; ?>"><?php echo $i; ?></button><?php
-          }
-        }
-      ?>
-    </li>
-    <?php // <--- End HTML
+    $navigation = '<li class="pagination bookshelf-pagination _checkmarks">';
 
-    // Get buffered navigation
-    $navigation = ob_get_clean();
+    for ( $i = 1; $i <= $max_pages; $i++ ) {
+      if ( $i == $page ) {
+        $navigation .= '<span class="page-numbers current" aria-current="page">' . $i . '</span>';
+      } else {
+        $navigation .= '<button class="page-numbers" data-page="' . $i . '">' . $i . '</button>';
+      }
+    }
+
+    $navigation .= '</li>';
   } elseif ( $page > 1 ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <li class="pagination bookshelf-pagination">
-      <button class="page-numbers" data-page="1"><?php _e( 'First Page', 'fictioneer' ); ?></button>
-    </li>
-    <?php // <--- End HTML
-
-    // Get buffered back button
-    $navigation = ob_get_clean();
+    $navigation = '<li class="pagination bookshelf-pagination _checkmarks"><button class="page-numbers" data-page="1">' . __('First Page', 'fictioneer') . '</button></li>';
   }
 
   // Send result
