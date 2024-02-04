@@ -241,7 +241,7 @@ function fictioneer_ajax_submit_comment() {
       array(
         'error' => sprintf(
           __( 'The security token appears to be malformed. Please reload and try again, or contact an administrator if the problem persists. Token: %s', 'fictioneer' ),
-          sanitize_text_field( $_REQUEST['nonce'] )
+          esc_html( '"' . $_REQUEST['nonce'] . '"' )
         )
       )
     );
