@@ -2080,16 +2080,13 @@ if ( ! function_exists( 'fictioneer_notice' ) ) {
    */
 
   function fictioneer_notice( $message, $type = 'warning', $display = true ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <div class="notice _<?php echo esc_attr( $type ); ?>">
-      <?php if ( $type === 'warning' ) : ?>
-        <i class="fa-solid fa-triangle-exclamation"></i>
-      <?php endif; ?>
-      <div><?php echo $message; ?></div>
-    </div>
-    <?php // <--- End HTML
-    $output =  ob_get_clean();
+    $output = '<div class="notice _' . esc_attr( $type ) . '">';
+
+    if ( $type === 'warning' ) {
+      $output .= '<i class="fa-solid fa-triangle-exclamation"></i>';
+    }
+
+    $output .= "<div>{$message}</div></div>";
 
     if ( $display ) {
       echo $output;
