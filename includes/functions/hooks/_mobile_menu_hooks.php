@@ -75,73 +75,28 @@ function fictioneer_mobile_quick_buttons() {
   $output = [];
 
   // Build
-
-  ob_start();
-  // Start HTML ---> ?>
-  <label for="site-setting-minimal" class="button _quick"><span><?php _e( 'Minimalist', 'fictioneer' ); ?></span></label>
-  <?php // <--- End HTML
-  $output['minimalist'] = ob_get_clean();
+  $output['minimalist'] = '<label for="site-setting-minimal" class="button _quick"><span>' . __( 'Minimalist', 'fictioneer' ) . '</span></label>';
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="button _quick button-change-lightness" value="-0.2"><?php _e( 'Darken', 'fictioneer' ) ;?></button>
-    <?php // <--- End HTML
-    $output['darken'] = ob_get_clean();
+    $output['darken'] = '<button class="button _quick button-change-lightness" value="-0.2">' . __( 'Darken', 'fictioneer' ) . '</button>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="button _quick button-change-lightness" value="0.2"><?php _e( 'Brighten', 'fictioneer' ); ?></button>
-    <?php // <--- End HTML
-    $output['brighten'] = ob_get_clean();
+    $output['brighten'] = '<button class="button _quick button-change-lightness" value="0.2">' . __( 'Brighten', 'fictioneer' ) . '</button>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="reader-settings-justify-toggle" class="button _quick"><span><?php _e( 'Justify', 'fictioneer' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['justify'] = ob_get_clean();
+    $output['justify'] = '<label for="reader-settings-justify-toggle" class="button _quick"><span>' . __( 'Justify', 'fictioneer' ) . '</span></label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="reader-settings-indent-toggle" class="button _quick"><span><?php _e( 'Indent', 'fictioneer' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['indent'] = ob_get_clean();
+    $output['indent'] = '<label for="reader-settings-indent-toggle" class="button _quick"><span>' . __( 'Indent', 'fictioneer' ) . '</span></label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="modal-formatting-toggle" class="button _quick"><span><?php echo fcntr( 'formatting' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['formatting'] = ob_get_clean();
+    $output['formatting'] = '<label for="modal-formatting-toggle" class="button _quick"><span>' . fcntr( 'formatting' ) . '</span></label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="button _quick button-change-font font-stepper" value="-1" id="quick-button-prev-font"><?php _e( 'Prev Font', 'fictioneer' ); ?></button>
-    <?php // <--- End HTML
-    $output['previous_font'] = ob_get_clean();
+    $output['previous_font'] = '<button class="button _quick button-change-font font-stepper" value="-1" id="quick-button-prev-font">' . __( 'Prev Font', 'fictioneer' ) . '</button>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="button _quick button-change-font font-stepper" value="1" id="quick-button-next-font"><?php _e( 'Next Font', 'fictioneer' ); ?></button>
-    <?php // <--- End HTML
-    $output['next_font'] = ob_get_clean();
+    $output['next_font'] = '<button class="button _quick button-change-font font-stepper" value="1" id="quick-button-next-font">' . __( 'Next Font', 'fictioneer' ) . '</button>';
   } else {
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="site-setting-covers" class="button _quick"><span><?php _e( 'Covers', 'fictioneer' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['covers'] = ob_get_clean();
+    $output['covers'] = '<label for="site-setting-covers" class="button _quick"><span>' . __( 'Covers', 'fictioneer' ) . '</span></label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="site-setting-background-textures" class="button _quick"><span><?php _e( 'Textures', 'fictioneer' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['textures'] = ob_get_clean();
+    $output['textures'] = '<label for="site-setting-background-textures" class="button _quick"><span>' . __( 'Textures', 'fictioneer' ) . '</span></label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="site-setting-polygons" class="button _quick"><span><?php _e( 'Polygons', 'fictioneer' ); ?></span></label>
-    <?php // <--- End HTML
-    $output['polygons'] = ob_get_clean();
+    $output['polygons'] = '<label for="site-setting-polygons" class="button _quick"><span>' . __( 'Polygons', 'fictioneer' ) . '</span></label>';
   }
 
   // Apply filter
@@ -293,35 +248,17 @@ function fictioneer_mobile_lists_panel() {
 
   // Chapters?
   if ( $post_type === 'fcn_chapter' && get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true ) && ! is_search() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="mobile-menu__frame-button" data-frame-target="chapters">
-      <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php _e( 'Chapters', 'fictioneer' ); ?>
-    </button>
-    <?php // <--- End HTML
-    $output['chapters'] = ob_get_clean();
+    $output['chapters'] = '<button class="mobile-menu__frame-button" data-frame-target="chapters"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . __( 'Chapters', 'fictioneer' ) . '</button>';
   }
 
   // Bookmarks?
   if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="mobile-menu__frame-button" data-frame-target="bookmarks">
-      <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'bookmarks' ); ?>
-    </button>
-    <?php // <--- End HTML
-    $output['bookmarks'] = ob_get_clean();
+    $output['bookmarks'] = '<button class="mobile-menu__frame-button" data-frame-target="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . fcntr( 'bookmarks' ) . '</button>';
   }
 
   // Follows?
   if ( get_option( 'fictioneer_enable_follows' ) ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows">
-      <i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> <?php echo fcntr( 'follows' ); ?>
-    </button>
-    <?php // <--- End HTML
-    $output['follows'] = ob_get_clean();
+    $output['follows'] = '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . fcntr( 'follows' ) . '</button>';
   }
 
   // Render (if content)
@@ -360,78 +297,29 @@ function fictioneer_mobile_user_menu() {
 
   // Build
   if ( ! empty( $profile_link ) && fictioneer_show_auth_content() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo esc_url( $profile_link ); ?>" class="hide-if-logged-out">
-      <i class="fa-solid fa-circle-user mobile-menu__item-icon"></i>
-      <?php echo fcntr( 'account' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['account'] = ob_get_clean();
+    $output['account'] = '<a href="' . esc_url( $profile_link ) . '" class="hide-if-logged-out"><i class="fa-solid fa-circle-user mobile-menu__item-icon"></i> ' . fcntr( 'account' ) . '</a>';
   }
 
   if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo esc_url( home_url( '/?s=' ) ); ?>">
-      <i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i>
-      <?php _e( 'Search', 'fictioneer' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['search'] = ob_get_clean();
+    $output['search'] = '<a href="' . esc_url( home_url( '/?s=' ) ) . '" class="hide-if-logged-out"><i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i> ' . __( 'Search', 'fictioneer' ) . '</a>';
   }
 
-  ob_start();
-  // Start HTML ---> ?>
-  <label for="modal-site-settings-toggle">
-    <i class="fa-solid fa-tools mobile-menu__item-icon"></i>
-    <?php echo fcntr( 'site_settings' ); ?>
-  </label>
-  <?php // <--- End HTML
-  $output['site_settings'] = ob_get_clean();
+  $output['site_settings'] = '<label for="modal-site-settings-toggle"><i class="fa-solid fa-tools mobile-menu__item-icon"></i> ' . fcntr( 'site_settings' ) . '</label>';
 
   if ( ! empty( $discord_link ) ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo esc_url( $discord_link ); ?>" rel="noopener noreferrer nofollow">
-      <i class="fa-brands fa-discord mobile-menu__item-icon"></i>
-      <?php _e( 'Discord', 'fictioneer' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['discord'] = ob_get_clean();
+    $output['discord'] = '<a href="' . esc_url( $discord_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-brands fa-discord mobile-menu__item-icon"></i> ' . __( 'Discord', 'fictioneer' ) . '</a>';
   }
 
   if ( $bookshelf_link && fictioneer_show_auth_content() && ( $can_checkmarks || $can_follows || $can_reminders ) ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo esc_url( $bookshelf_link ); ?>" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
-      <i class="fa-solid fa-list mobile-menu__item-icon"></i>
-      <?php echo fcntr( 'bookshelf' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['bookshelf'] = ob_get_clean();
+    $output['bookshelf'] = '<a href="' . esc_url( $bookshelf_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> ' . fcntr( 'bookshelf' ) . '</a>';
   }
 
   if ( ! empty( $bookmarks_link ) && get_option( 'fictioneer_enable_bookmarks' ) ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo esc_url( $bookmarks_link ); ?>" rel="noopener noreferrer nofollow">
-      <i class="fa-solid fa-bookmark mobile-menu__item-icon"></i>
-      <?php echo fcntr( 'bookmarks' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['bookmarks'] = ob_get_clean();
+    $output['bookmarks'] = '<a href="' . esc_url( $bookmarks_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> ' . fcntr( 'bookmarks' ) . '</a>';
   }
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="modal-formatting-toggle">
-      <?php fictioneer_icon( 'font-settings', 'mobile-menu__item-icon' ); ?>
-      <?php echo fcntr( 'formatting' ); ?>
-    </label>
-    <?php // <--- End HTML
-    $output['formatting'] = ob_get_clean();
+    $output['formatting'] = '<label for="modal-formatting-toggle">' . fictioneer_get_icon( 'font-settings', 'mobile-menu__item-icon' ) . ' ' . fcntr( 'formatting' ) . '</label>';
   }
 
   if (
@@ -441,14 +329,7 @@ function fictioneer_mobile_user_menu() {
     ! fictioneer_is_commenting_disabled() &&
     ! post_password_required()
   ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow">
-      <i class="fa-solid fa-comments mobile-menu__item-icon"></i>
-      <?php echo fcntr( 'jump_to_comments' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['comment_jump'] = ob_get_clean();
+    $output['comment_jump'] = '<a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> ' . fcntr( 'jump_to_comments' ) . '</a>';
   }
 
   if (
@@ -457,36 +338,15 @@ function fictioneer_mobile_user_menu() {
     get_option( 'fictioneer_enable_bookmarks' ) &&
     ! post_password_required()
   ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden>
-      <i class="fa-solid fa-bookmark mobile-menu__item-icon"></i>
-      <?php echo fcntr( 'jump_to_bookmark' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['bookmark_jump'] = ob_get_clean();
+    $output['bookmark_jump'] = '<a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> ' . fcntr( 'jump_to_bookmark' ) . '</a>';
   }
 
   if ( fictioneer_show_auth_content() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="<?php echo fictioneer_get_logout_url(); ?>" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">
-      <?php fictioneer_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ); ?>
-      <?php echo fcntr( 'logout' ); ?>
-    </a>
-    <?php // <--- End HTML
-    $output['logout'] = ob_get_clean();
+    $output['logout'] = '<a href="' . fictioneer_get_logout_url() . '" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">' . fictioneer_get_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ) . ' ' . fcntr( 'logout' ) . '</a>';
   }
 
   if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">
-      <?php fictioneer_icon( 'fa-login', 'mobile-menu__item-icon' ); ?>
-      <?php echo fcntr( 'login' ); ?>
-    </label>
-    <?php // <--- End HTML
-    $output['login'] = ob_get_clean();
+    $output['login'] = '<label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">' . fictioneer_get_icon( 'fa-login', 'mobile-menu__item-icon' ) . ' ' . fcntr( 'login' ) . '</label>';
   }
 
   // Apply filter
