@@ -850,6 +850,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    * Returns the HTML for the chapter warning section
    *
    * @since 5.0.0
+   * @since 5.9.4 - Remove output buffer.
    *
    * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
    * @param int          $args['chapter_id']   The chapter ID.
@@ -863,92 +864,45 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
   function fictioneer_get_chapter_micro_menu( $args ) {
     $micro_menu = [];
 
+    // Only if there is a story...
     if ( ! empty( $args['story_post'] ) ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__item micro-menu__chapter-list show-below-desktop" tabindex="-1">
-        <i class="fa-solid fa-list"></i>
-      </label>
-      <?php // <--- End HTML
-      $micro_menu['chapter_list'] = ob_get_clean();
+      // Mobile menu chapter list
+      $micro_menu['chapter_list'] = '<label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__item micro-menu__chapter-list show-below-desktop" tabindex="-1"><i class="fa-solid fa-list"></i></label>';
 
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo get_the_permalink( $args['story_post']->ID ) . '#' . $args['story_post']->ID; ?>" title="<?php echo get_the_title( $args['story_post']->ID ); ?>" class="micro-menu__item" tabindex="-1">
-        <i class="fa-solid fa-book"></i>
-      </a>
-      <?php // <--- End HTML
-      $micro_menu['story_link'] = ob_get_clean();
+      // Link to story
+      $micro_menu['story_link'] = '<a href="' . get_the_permalink( $args['story_post']->ID ) . '#' . $args['story_post']->ID . '" title="' . get_the_title( $args['story_post']->ID ) . '" class="micro-menu__item" tabindex="-1"><i class="fa-solid fa-book"></i></a>';
     }
 
-    ob_start();
-    // Start HTML ---> ?>
-    <label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">
-      <?php fictioneer_icon( 'font-settings' ); ?>
-    </label>
-    <?php // <--- End HTML
-    $micro_menu['formatting'] = ob_get_clean();
+    // Open formatting modal
+    $micro_menu['formatting'] = '<label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">' . fictioneer_get_icon( 'font-settings' ) . '</label>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button type="button" title="<?php esc_attr_e( 'Enter fullscreen', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">
-      <?php fictioneer_icon( 'expand' ); ?>
-    </button>
-    <?php // <--- End HTML
-    $micro_menu['open_fullscreen'] = ob_get_clean();
+    // Open fullscreen
+    $micro_menu['open_fullscreen'] = '<button type="button" title="' . esc_attr__( 'Enter fullscreen', 'fictioneer' ) . '" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">' . fictioneer_get_icon( 'expand' ) . '</button>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button type="button" title="<?php esc_attr_e( 'Exit fullscreen', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">
-      <?php fictioneer_icon( 'collapse' ); ?>
-    </button>
-    <?php // <--- End HTML
-    $micro_menu['close_fullscreen'] = ob_get_clean();
+    // Close fullscreen
+    $micro_menu['close_fullscreen'] = '<button type="button" title="' . esc_attr__( 'Exit fullscreen', 'fictioneer' ) . '" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">' . fictioneer_get_icon( 'collapse' ) . '</button>';
 
-    ob_start();
-    // Start HTML ---> ?>
-    <button type="button" title="<?php echo fcntr( 'jump_to_bookmark', true ); ?>" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1">
-      <i class="fa-solid fa-bookmark"></i>
-    </button>
-    <?php // <--- End HTML
-    $micro_menu['bookmark_jump'] = ob_get_clean();
+    // Scroll to bookmark
+    $micro_menu['bookmark_jump'] = '<button type="button" title="' . fcntr( 'jump_to_bookmark', true ) . '" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1"><i class="fa-solid fa-bookmark"></i></button>';
 
-    if ( $args['prev_index'] !== false ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="micro-menu__item micro-menu__previous previous" tabindex="-1">
-        <i class="fa-solid fa-caret-left"></i>
-      </a>
-      <?php // <--- End HTML
-      $micro_menu['previous'] = ob_get_clean();
+    // Navigate to previous chapter
+    if ($args['prev_index'] !== false) {
+      $micro_menu['previous'] = '<a href="' . get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ) . '" title="' . esc_attr( get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ) ) . '" class="micro-menu__item micro-menu__previous previous" tabindex="-1"><i class="fa-solid fa-caret-left"></i></a>';
     }
 
-    ob_start();
-    // Start HTML ---> ?>
-    <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>
-    <?php // <--- End HTML
-    $micro_menu['top'] = ob_get_clean();
+    // Scroll to top
+    $micro_menu['top'] = '<a href="#top" data-block="center" aria-label="' . esc_attr__( 'Scroll to top of the chapter', 'fictioneer' ) . '" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>';
 
-    if ( $args['next_index'] ) {
-      ob_start();
-      // Start HTML ---> ?>
-      <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="micro-menu__item micro-menu__next next" tabindex="-1">
-        <i class="fa-solid fa-caret-right"></i>
-      </a>
-      <?php // <--- End HTML
-      $micro_menu['next'] = ob_get_clean();
+    // Navigate to next chapter
+    if ($args['next_index']) {
+      $micro_menu['next'] = '<a href="' . get_permalink( $args['chapter_ids'][ $args['next_index'] ] ) . '" title="' . esc_attr( get_the_title( $args['chapter_ids'][ $args['next_index'] ] ) ) . '" class="micro-menu__item micro-menu__next next" tabindex="-1"><i class="fa-solid fa-caret-right"></i></a>';
     }
 
     // Filter micro menu array
     $micro_menu = apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args );
 
-    ob_start();
-    // Start HTML ---> ?>
-    <div id="micro-menu" class="micro-menu">
-      <?php echo implode( '', $micro_menu ); ?>
-    </div>
-    <?php // <--- End HTML
-    return ob_get_clean();
+    // Implode and return HTML
+    return '<div id="micro-menu" class="micro-menu">' . implode( '', $micro_menu ) . '</div>';
   }
 }
 
