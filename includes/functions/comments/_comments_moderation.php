@@ -449,8 +449,6 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
       return;
     }
 
-    // Buffer and return
-    ob_start();
     // Start HTML ---> ?>
     <div class="popup-menu-toggle comment-quick-button toggle-last-clicked hide-if-logged-out only-moderators hide-on-ajax" tabindex="0">
       <i class="fa-solid fa-gear mod-menu-toggle-icon"></i>
@@ -487,7 +485,6 @@ if ( ! function_exists( 'fictioneer_comment_mod_menu' ) ) {
       </div>
     </div>
     <?php // <--- End HTML
-    echo ob_get_clean();
   }
 }
 
