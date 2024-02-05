@@ -1801,7 +1801,8 @@ if ( ! function_exists( 'fictioneer_check_comment_disallowed_list' ) ) {
 
       // Skip empty lines.
       if ( empty( $word ) ) {
-        continue; }
+        continue;
+      }
 
       // Do some escaping magic so that '#' chars in the spam words don't break things:
       $word = preg_quote( $word, '#' );

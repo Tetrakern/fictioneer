@@ -329,9 +329,6 @@ function fictioneer_mobile_user_menu() {
   $bookmarks_link = fictioneer_get_assigned_page_link( 'fictioneer_bookmarks_page' );
   $bookshelf_link = fictioneer_get_assigned_page_link( 'fictioneer_bookshelf_page' );
   $discord_link = get_option( 'fictioneer_discord_invite_link' );
-  $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
-  $can_follows = get_option( 'fictioneer_enable_follows' );
-  $can_reminders = get_option( 'fictioneer_enable_reminders' );
   $profile_link = get_edit_profile_url();
   $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
   $output = [];
@@ -370,7 +367,15 @@ function fictioneer_mobile_user_menu() {
     );
   }
 
-  if ( $bookshelf_link && fictioneer_show_auth_content() && ( $can_checkmarks || $can_follows || $can_reminders ) ) {
+  if (
+    $bookshelf_link &&
+    fictioneer_show_auth_content() &&
+    (
+      get_option( 'fictioneer_enable_checkmarks' ) ||
+      get_option( 'fictioneer_enable_follows' ) ||
+      get_option( 'fictioneer_enable_reminders' )
+    )
+  ) {
     $output['bookshelf'] = sprintf(
       '<a href="%s" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> %s</a>',
       esc_url( $bookshelf_link ),

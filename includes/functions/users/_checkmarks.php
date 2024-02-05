@@ -274,7 +274,10 @@ function fictioneer_ajax_get_finished_checkmarks_list() {
 
     $navigation .= '</li>';
   } elseif ( $page > 1 ) {
-    $navigation = '<li class="pagination bookshelf-pagination _checkmarks"><button class="page-numbers" data-page="1">' . __('First Page', 'fictioneer') . '</button></li>';
+    $navigation = sprintf(
+      '<li class="pagination bookshelf-pagination _checkmarks"><button class="page-numbers" data-page="1">%s</button></li>',
+      __( 'First Page', 'fictioneer' )
+    );
   }
 
   // Send result
