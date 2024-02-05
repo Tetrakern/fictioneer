@@ -1056,7 +1056,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <?php fictioneer_output_head_fonts(); ?>
-    <link rel="stylesheet" href="<?php echo $font_link; ?>" media="print" onload="this.media='all';">
+    <link rel="stylesheet" href="<?php echo $font_link; ?>" media="print" onload="this.media='all'; this.onload = null;">
     <noscript><link rel="stylesheet" href="<?php echo $font_link; ?>"></noscript>
     <?php // <--- End HTML
   }
