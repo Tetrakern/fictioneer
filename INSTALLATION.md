@@ -43,6 +43,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Menus](#menus)
   * [Queries](#queries)
   * [Font Awesome](#font-awesome)
+  * [Custom Fonts](#custom-fonts)
   * [Constants](#constants)
 
 ## Choosing a Host
@@ -1174,6 +1175,122 @@ Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.co
 * If you want to include it via plugin (perhaps a Pro Kit) or custom function, disable the theme version under **Fictioneer > General > Compatibility**.
 
 * If you want to change the CDN link and integrity hash, do that by overwriting the `FICTIONEER_FA_CDN` and `FICTIONEER_FA_INTEGRITY` constants in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You can set the integrity to `null` if not needed.
+
+### Custom Fonts
+
+You can add custom fonts with a child theme, which requires a series of not-quite-easy steps. This is less complicated with the Google Fonts CDN — however, that may be a privacy issue. Legally safe is to deliver the fonts from your server, as the theme does by default. Both options are explained here on the example of [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans?noto.query=noto+sans), either as extra or primary/secondary font. Noto has also variants for logographic writing systems if you require that. Mind that not all fonts you find on the Internet are free to use.
+
+#### 1A) Load from the Google Fonts CDN
+
+Scroll down to **Styles** and select what you need, typically everything from 300 to 700 if you plan to replace the primary font. On the right, under **Use on the web**, you will find two options to import the font. Either will work, but let’s go with **\[\<link\>\]** because it supports the preconnect feature.
+
+Time to add some code to your **child theme’s functions.php**.
+
+```php
+/**
+ * Adds links to Google Fonts in the HTML <head>
+ */
+
+function child_add_google_fonts_to_head() {
+  echo '<link rel="preconnect" href="https://fonts.googleapis.com">'; /* Only once! */
+  echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'; /* Only once! */
+  echo '<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">'; /* You can have multiple fonts, but better bundle them into one. */
+}
+add_action( 'wp_head', 'child_add_google_fonts_to_head' );
+```
+
+#### 1B) Load from your server
+
+Go to the [Google Fonts Webhelper](https://gwfh.mranftl.com/fonts/noto-sans) to prepare the font files and styles. Select the charsets depending on your language requirements, then select the styles you need as with the **1A** approach. Before you copy the CSS (for modern browsers), you may want to customize the folder prefix. `../fonts/` assumes you place the files in `/themes/your-child-theme/fonts/`, but if you add more than one font, subfolders like `../fonts/noto-sans/` will make them easier to manage.
+
+Once done, download the files and upload them to the theme folder you specified. Copy the CSS from the helper site to `/themes/your-child-theme/css/child-fonts.css` (for example, you can change the name as long as you do it everywhere).
+
+Time to add some code to your **child theme’s functions.php**.
+
+```php
+/**
+ * Enqueue stylesheet with font definitions
+ */
+
+function child_enqueue_fonts() {
+  wp_enqueue_style(
+    'child-fonts',
+    get_stylesheet_directory_uri() . '/css/child-fonts.css',
+    array( 'fictioneer-application' ),
+    '1.0.0' // The version of your child theme, used for cache busting.
+  );
+}
+add_action( 'wp_enqueue_scripts', 'child_enqueue_fonts', 99 );
+
+/**
+ * Exclude stylesheets from Autoptimize (if installed)
+ *
+ * Note: Autoptimize (and maybe other CSS optimization plugins) will
+ * break the stylesheet, making it necessary to exclude it.
+ *
+ * @param string $exclude  List of current excludes.
+ *
+ * @return string The updated exclusion string.
+ */
+
+function child_ao_exclude_fonts_css( $exclude ) {
+  return $exclude . ', child-fonts.css';
+}
+add_filter( 'autoptimize_filter_css_exclude', 'child_ao_exclude_fonts_css', 10, 1 );
+```
+
+#### 2) Apply to the fonts
+
+With the font loaded, you need to actually apply it. The approach depends on whether you just want an extra font for the chapter formatting options or replace the site fonts (Open Sans). Only do one of them (unless you add several fonts).
+
+Time to add even more code to your **child theme’s functions.php**.
+
+```php
+/**
+ * Add font to chapter formatting options
+ *
+ * @param array $fonts  Currently registered fonts.
+ *
+ * @return array Updated fonts.
+ */
+
+function fictioneer_child_add_custom_fonts( $fonts ) {
+  $fonts[] = array(
+    'css' => 'Noto Sans', // CSS font-family value
+    'name' => 'Noto Sans', // Display name
+    'alt' => 'Open Sans' // Fallback CSS font-family value (optional)
+  );
+
+  /*
+
+  // Repeat this for more fonts.
+
+  $fonts[] = array(
+    'css' => 'Other Font',
+    'name' => 'Other Font',
+    'alt' => 'Open Sans'
+  );
+
+  */
+
+  return $fonts;
+}
+add_filter( 'fictioneer_filter_fonts', 'fictioneer_child_add_custom_fonts' );
+
+/* ===== OR IF YOU WANT TO REPLACE THE PRIMARY SITE FONT ===== */
+
+define( 'FICTIONEER_PRIMARY_FONT_CSS', 'Noto Sans' ); // CSS font-family value
+define( 'FICTIONEER_PRIMARY_FONT_NAME', 'Noto Sans' ); // Display name
+```
+
+Now the font is properly registered and can be used in chapters. However, if you want to replace the primary font for the whole site, you need a bit of additional CSS. You can put that into a stylesheet or in **Appearance > Customize > Additional CSS**. You can also apply fonts conditionally, as explained under [Dark/Light Mode & Media Queries](#darklight-mode--media-queries). You can find all font properties [here](https://github.com/Tetrakern/fictioneer/blob/main/src/scss/common/_properties.scss#L30), but be careful not to remove the fallback fonts.
+
+```scss
+:root {
+  --ff-base: 'Noto Sans', 'Open Sans', var(--ff-system); /* Default font stack */
+  --ff-heading: 'Noto Sans', var(--ff-base); /* Font stack used for headings */
+}
+```
 
 ### Constants
 

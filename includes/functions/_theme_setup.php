@@ -986,7 +986,9 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
 //  * @since 4.0.0
 //  * @link https://github.com/wp-plugins/autoptimize
 //  *
-//  * @param string $exclude  List of default excludes.
+//  * @param string $exclude  List of current excludes.
+//  *
+//  * @return string The updated exclusion string.
 //  */
 
 // function fictioneer_ao_exclude_scripts( $exclude ) {
@@ -1000,7 +1002,9 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
  * @since 4.0.0
  * @link https://github.com/wp-plugins/autoptimize
  *
- * @param string $exclude  List of default excludes.
+ * @param string $exclude  List of current excludes.
+ *
+ * @return string The updated exclusion string.
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
