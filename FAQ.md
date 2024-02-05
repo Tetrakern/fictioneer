@@ -68,6 +68,21 @@ After activating the feature, you need to flush the permalinks. You can do this 
 
 Nobody can stop you from doing that, but it is wrong. Stories do not have the same capabilities as chapters and the theme does not understand the concept. There will be no formatting options, bookmarks, text-to-speech, suggestions, comments, and so forth. SEO data and API responses may also be messed up. If you can live with that, go ahead.
 
-#### Why do chapter permalinks not include the story?
+#### Q: Why do chapter permalinks not include the story?
 
-Because.
+Because. And it is really difficult.
+
+#### Q: Can I use the theme for Japanese, Korean, Chinese, and other logographic writing systems?
+
+Apparently, even though this was never considered during development. WordPress is multi-lingual by default and the theme can be translated, which can be done with certain plugins too. You can change the word count script to count characters instead, with an optional multiplier for approximation. You will most likely need to add a [custom font](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts), though.
+
+Resources:
+* Fictioneer > General > Chapters & Stories > Count characters instead of words
+* Fictioneer > General > Chapters & Stories > Multiply the displayed word counts with \[\_\_\_\]
+* Fictioneer > General > Chapters & Stories > Calculate reading time with \[\_\_\_\] words per minute
+* Example font: [Noto Sans Japanese](https://fonts.google.com/noto/specimen/Noto+Sans+JP)
+* Example font: [Noto Sans Korean](https://fonts.google.com/noto/specimen/Noto+Sans+KR)
+* Example font: [Noto Sans Traditional Chinese](https://fonts.google.com/noto/specimen/Noto+Sans+TC)
+* Example font: [Noto Sans Simplified Chinese](https://fonts.google.com/noto/specimen/Noto+Sans+SC)
+* Example font: [Noto Sans Thai](https://fonts.google.com/noto/specimen/Noto+Sans+Thai)
+* Example font: [Noto Sans Egyptian Hieroglyphs](https://fonts.google.com/noto/specimen/Noto+Sans+Egyptian+Hieroglyphs)
