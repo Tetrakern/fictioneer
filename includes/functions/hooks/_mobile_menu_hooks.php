@@ -67,6 +67,7 @@ add_action( 'fictioneer_mobile_menu_top', 'fictioneer_mobile_user_icon_menu', 10
  * Adds quick buttons to the mobile menu
  *
  * @since 5.0.0
+ * @since 5.9.4 - Removed output buffer.
  */
 
 function fictioneer_mobile_quick_buttons() {
@@ -75,34 +76,67 @@ function fictioneer_mobile_quick_buttons() {
   $output = [];
 
   // Build
-  $output['minimalist'] = '<label for="site-setting-minimal" class="button _quick"><span>' . __( 'Minimalist', 'fictioneer' ) . '</span></label>';
+  $output['minimalist'] = sprintf(
+    '<label for="site-setting-minimal" class="button _quick"><span>%s</span></label>',
+    __( 'Minimalist', 'fictioneer' )
+  );
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
-    $output['darken'] = '<button class="button _quick button-change-lightness" value="-0.2">' . __( 'Darken', 'fictioneer' ) . '</button>';
+    $output['darken'] = sprintf(
+      '<button class="button _quick button-change-lightness" value="-0.2">%s</button>',
+      __( 'Darken', 'fictioneer' )
+    );
 
-    $output['brighten'] = '<button class="button _quick button-change-lightness" value="0.2">' . __( 'Brighten', 'fictioneer' ) . '</button>';
+    $output['brighten'] = sprintf(
+      '<button class="button _quick button-change-lightness" value="0.2">%s</button>',
+      __( 'Brighten', 'fictioneer' )
+    );
 
-    $output['justify'] = '<label for="reader-settings-justify-toggle" class="button _quick"><span>' . __( 'Justify', 'fictioneer' ) . '</span></label>';
+    $output['justify'] = sprintf(
+      '<label for="reader-settings-justify-toggle" class="button _quick"><span>%s</span></label>',
+      __( 'Justify', 'fictioneer' )
+    );
 
-    $output['indent'] = '<label for="reader-settings-indent-toggle" class="button _quick"><span>' . __( 'Indent', 'fictioneer' ) . '</span></label>';
+    $output['indent'] = sprintf(
+      '<label for="reader-settings-indent-toggle" class="button _quick"><span>%s</span></label>',
+      __( 'Indent', 'fictioneer' )
+    );
 
-    $output['formatting'] = '<label for="modal-formatting-toggle" class="button _quick"><span>' . fcntr( 'formatting' ) . '</span></label>';
+    $output['formatting'] = sprintf(
+      '<label for="modal-formatting-toggle" class="button _quick"><span>%s</span></label>',
+      fcntr( 'formatting' )
+    );
 
-    $output['previous_font'] = '<button class="button _quick button-change-font font-stepper" value="-1" id="quick-button-prev-font">' . __( 'Prev Font', 'fictioneer' ) . '</button>';
+    $output['previous_font'] = sprintf(
+      '<button class="button _quick button-change-font font-stepper" value="-1" id="quick-button-prev-font">%s</button>',
+      __( 'Prev Font', 'fictioneer' )
+    );
 
-    $output['next_font'] = '<button class="button _quick button-change-font font-stepper" value="1" id="quick-button-next-font">' . __( 'Next Font', 'fictioneer' ) . '</button>';
+    $output['next_font'] = sprintf(
+      '<button class="button _quick button-change-font font-stepper" value="1" id="quick-button-next-font">%s</button>',
+      __( 'Next Font', 'fictioneer' )
+    );
   } else {
-    $output['covers'] = '<label for="site-setting-covers" class="button _quick"><span>' . __( 'Covers', 'fictioneer' ) . '</span></label>';
+    $output['covers'] = sprintf(
+      '<label for="site-setting-covers" class="button _quick"><span>%s</span></label>',
+      __( 'Covers', 'fictioneer' )
+    );
 
-    $output['textures'] = '<label for="site-setting-background-textures" class="button _quick"><span>' . __( 'Textures', 'fictioneer' ) . '</span></label>';
+    $output['textures'] = sprintf(
+      '<label for="site-setting-background-textures" class="button _quick"><span>%s</span></label>',
+      __( 'Textures', 'fictioneer' )
+    );
 
-    $output['polygons'] = '<label for="site-setting-polygons" class="button _quick"><span>' . __( 'Polygons', 'fictioneer' ) . '</span></label>';
+    $output['polygons'] = sprintf(
+      '<label for="site-setting-polygons" class="button _quick"><span>%s</span></label>',
+      __( 'Polygons', 'fictioneer' )
+    );
   }
 
   // Apply filter
   $output = apply_filters( 'fictioneer_filter_mobile_quick_buttons', $output );
 
-  // Return
+  // Implode and return HTML
   echo implode( '', $output );
 }
 add_action( 'fictioneer_mobile_menu_bottom', 'fictioneer_mobile_quick_buttons', 10 );
@@ -239,6 +273,7 @@ add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_navig
  * Adds the lists panel to the mobile menu
  *
  * @since 5.0.0
+ * @since 5.9.4 - Removed output buffer.
  */
 
 function fictioneer_mobile_lists_panel() {
@@ -248,17 +283,26 @@ function fictioneer_mobile_lists_panel() {
 
   // Chapters?
   if ( $post_type === 'fcn_chapter' && get_post_meta( get_the_ID(), 'fictioneer_chapter_story', true ) && ! is_search() ) {
-    $output['chapters'] = '<button class="mobile-menu__frame-button" data-frame-target="chapters"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . __( 'Chapters', 'fictioneer' ) . '</button>';
+    $output['chapters'] = sprintf(
+      '<button class="mobile-menu__frame-button" data-frame-target="chapters"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      __( 'Chapters', 'fictioneer' )
+    );
   }
 
   // Bookmarks?
   if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
-    $output['bookmarks'] = '<button class="mobile-menu__frame-button" data-frame-target="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . fcntr( 'bookmarks' ) . '</button>';
+    $output['bookmarks'] = sprintf(
+      '<button class="mobile-menu__frame-button" data-frame-target="bookmarks"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      fcntr( 'bookmarks' )
+    );
   }
 
   // Follows?
   if ( get_option( 'fictioneer_enable_follows' ) ) {
-    $output['follows'] = '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> ' . fcntr( 'follows' ) . '</button>';
+    $output['follows'] = sprintf(
+      '<button class="mobile-menu__frame-button hide-if-logged-out follows-alert-number" data-frame-target="follows"><i class="fa-solid fa-caret-right mobile-menu__item-icon"></i> %s</button>',
+      fcntr( 'follows' )
+    );
   }
 
   // Render (if content)
@@ -276,6 +320,7 @@ add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_lists
  * Adds the user menu to the mobile menu
  *
  * @since 5.0.0
+ * @since 5.9.4 - Removed output buffer.
  */
 
 function fictioneer_mobile_user_menu() {
@@ -297,29 +342,56 @@ function fictioneer_mobile_user_menu() {
 
   // Build
   if ( ! empty( $profile_link ) && fictioneer_show_auth_content() ) {
-    $output['account'] = '<a href="' . esc_url( $profile_link ) . '" class="hide-if-logged-out"><i class="fa-solid fa-circle-user mobile-menu__item-icon"></i> ' . fcntr( 'account' ) . '</a>';
+    $output['account'] = sprintf(
+      '<a href="%s" class="hide-if-logged-out"><i class="fa-solid fa-circle-user mobile-menu__item-icon"></i> %s</a>',
+      esc_url( $profile_link ),
+      fcntr( 'account' )
+    );
   }
 
   if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
-    $output['search'] = '<a href="' . esc_url( home_url( '/?s=' ) ) . '" class="hide-if-logged-out"><i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i> ' . __( 'Search', 'fictioneer' ) . '</a>';
+    $output['search'] = sprintf(
+      '<a href="%s" class="hide-if-logged-out"><i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i> %s</a>',
+      esc_url( home_url( '/?s=' ) ),
+      __( 'Search', 'fictioneer' )
+    );
   }
 
-  $output['site_settings'] = '<label for="modal-site-settings-toggle"><i class="fa-solid fa-tools mobile-menu__item-icon"></i> ' . fcntr( 'site_settings' ) . '</label>';
+  $output['site_settings'] = sprintf(
+    '<label for="modal-site-settings-toggle"><i class="fa-solid fa-tools mobile-menu__item-icon"></i> %s</label>',
+    fcntr( 'site_settings' )
+  );
 
   if ( ! empty( $discord_link ) ) {
-    $output['discord'] = '<a href="' . esc_url( $discord_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-brands fa-discord mobile-menu__item-icon"></i> ' . __( 'Discord', 'fictioneer' ) . '</a>';
+    $output['discord'] = sprintf(
+      '<a href="%s" rel="noopener noreferrer nofollow"><i class="fa-brands fa-discord mobile-menu__item-icon"></i> %s</a>',
+      esc_url( $discord_link ),
+      __( 'Discord', 'fictioneer' )
+    );
   }
 
   if ( $bookshelf_link && fictioneer_show_auth_content() && ( $can_checkmarks || $can_follows || $can_reminders ) ) {
-    $output['bookshelf'] = '<a href="' . esc_url( $bookshelf_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> ' . fcntr( 'bookshelf' ) . '</a>';
+    $output['bookshelf'] = sprintf(
+      '<a href="%s" rel="noopener noreferrer nofollow"><i class="fa-solid fa-list mobile-menu__item-icon"></i> %s</a>',
+      esc_url( $bookshelf_link ),
+      fcntr( 'bookshelf' )
+    );
   }
 
   if ( ! empty( $bookmarks_link ) && get_option( 'fictioneer_enable_bookmarks' ) ) {
-    $output['bookmarks'] = '<a href="' . esc_url( $bookmarks_link ) . '" rel="noopener noreferrer nofollow"><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> ' . fcntr( 'bookmarks' ) . '</a>';
+    $output['bookmarks'] = sprintf(
+      '<a href="%s" rel="noopener noreferrer nofollow"><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
+      esc_url( $bookmarks_link ),
+      fcntr( 'bookmarks' )
+    );
   }
 
   if ( $post_type === 'fcn_chapter' && ! is_search() ) {
-    $output['formatting'] = '<label for="modal-formatting-toggle">' . fictioneer_get_icon( 'font-settings', 'mobile-menu__item-icon' ) . ' ' . fcntr( 'formatting' ) . '</label>';
+    $output['formatting'] = sprintf(
+      '<label for="modal-formatting-toggle">%s %s</label>',
+      fictioneer_get_icon( 'font-settings', 'mobile-menu__item-icon' ),
+      fcntr( 'formatting' )
+    );
   }
 
   if (
@@ -329,7 +401,10 @@ function fictioneer_mobile_user_menu() {
     ! fictioneer_is_commenting_disabled() &&
     ! post_password_required()
   ) {
-    $output['comment_jump'] = '<a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> ' . fcntr( 'jump_to_comments' ) . '</a>';
+    $output['comment_jump'] = sprintf(
+      '<a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> %s</a>',
+      fcntr( 'jump_to_comments' )
+    );
   }
 
   if (
@@ -338,15 +413,27 @@ function fictioneer_mobile_user_menu() {
     get_option( 'fictioneer_enable_bookmarks' ) &&
     ! post_password_required()
   ) {
-    $output['bookmark_jump'] = '<a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> ' . fcntr( 'jump_to_bookmark' ) . '</a>';
+    $output['bookmark_jump'] = sprintf(
+      '<a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',
+      fcntr( 'jump_to_bookmark' )
+    );
   }
 
   if ( fictioneer_show_auth_content() ) {
-    $output['logout'] = '<a href="' . fictioneer_get_logout_url() . '" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">' . fictioneer_get_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ) . ' ' . fcntr( 'logout' ) . '</a>';
+    $output['logout'] = sprintf(
+      '<a href="%s" data-click="logout" rel="noopener noreferrer nofollow" class="hide-if-logged-out">%s %s</a>',
+      fictioneer_get_logout_url(),
+      fictioneer_get_icon( 'fa-logout', 'mobile-menu__item-icon', '', 'style="transform: translateY(-1px);"' ),
+      fcntr( 'logout' )
+    );
   }
 
   if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
-    $output['login'] = '<label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">' . fictioneer_get_icon( 'fa-login', 'mobile-menu__item-icon' ) . ' ' . fcntr( 'login' ) . '</label>';
+    $output['login'] = sprintf(
+      '<label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">%s %s</label>',
+      fictioneer_get_icon( 'fa-login', 'mobile-menu__item-icon' ),
+      fcntr( 'login' )
+    );
   }
 
   // Apply filter

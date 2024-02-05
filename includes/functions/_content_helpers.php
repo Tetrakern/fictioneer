@@ -406,7 +406,12 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
    */
 
   function fictioneer_get_footer_copyright_note( $args ) {
-    return '<span>© ' . date( 'Y' ) . '</span> <span>' . get_bloginfo( 'name' ) . '</span> <span>|</span> <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer">' . fictioneer_get_version() . '</a>';
+    return sprintf(
+      '<span>© %s</span> <span>%s</span> <span>|</span> <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer">%s</a>',
+      date( 'Y' ),
+      get_bloginfo( 'name' ),
+      fictioneer_get_version()
+    );
   }
 }
 
@@ -653,24 +658,49 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 
     // Patreon link
     if ( $patreon_link ) {
-      $output['patreon'] = '<a href="' . esc_url( $patreon_link ) . '" target="_blank" rel="noopener" class="_align-left"><i class="fa-brands fa-patreon"></i> <span>' . __( 'Follow on Patreon', 'fictioneer' ) . '</span></a>';
+      $output['patreon'] = sprintf(
+        '<a href="%s" target="_blank" rel="noopener" class="_align-left"><i class="fa-brands fa-patreon"></i> <span>%s</span></a>',
+        esc_url( $patreon_link ),
+        __( 'Follow on Patreon', 'fictioneer' )
+      );
     }
 
     // Ko-fi link
     if ( $kofi_link ) {
-      $output['kofi'] = '<a href="' . esc_url( $kofi_link ) . '" target="_blank" rel="noopener" class="_align-left">' . fictioneer_get_icon( 'kofi' ) . ' <span>' . __( 'Follow on Ko-Fi', 'fictioneer' ) . '</span></a>';
+      $output['kofi'] = sprintf(
+        '<a href="%s" target="_blank" rel="noopener" class="_align-left">%s <span>%s</span></a>',
+        esc_url( $kofi_link ),
+        fictioneer_get_icon( 'kofi' ),
+        __( 'Follow on Ko-Fi', 'fictioneer' )
+      );
     }
 
     // SubscribeStar link
     if ( $subscribestar_link ) {
-      $output['subscribestar'] = '<a href="' . esc_url( $subscribestar_link ) . '" target="_blank" rel="noopener" class="_align-left">' . '<i class="fa-solid fa-s"></i> <span>' . __( 'Follow on SubscribeStar', 'fictioneer' ) . '</span></a>';
+      $output['subscribestar'] = sprintf(
+        '<a href="%s" target="_blank" rel="noopener" class="_align-left"><i class="fa-solid fa-s"></i> <span>%s</span></a>',
+        esc_url( $subscribestar_link ),
+        __( 'Follow on SubscribeStar', 'fictioneer' )
+      );
     }
 
     // Feed reader links
     if ( $feed ) {
-      $output['feedly'] = '<a href="https://feedly.com/i/subscription/feed/' . urlencode( $feed ) . '" target="_blank" rel="noopener" class="_align-left" aria-label="' . esc_attr__( 'Follow on Feedly', 'fictioneer' ) . '">' . fictioneer_get_icon( 'feedly' ) . ' <span>' . __( 'Follow on Feedly', 'fictioneer' ) . '</span></a>';
+      $output['feedly'] = sprintf(
+        '<a href="https://feedly.com/i/subscription/feed/%s" target="_blank" rel="noopener" class="_align-left" aria-label="%s">%s <span>%s</span></a>',
+        urlencode( $feed ),
+        esc_attr__( 'Follow on Feedly', 'fictioneer' ),
+        fictioneer_get_icon( 'feedly' ),
+        __( 'Follow on Feedly', 'fictioneer' )
+      );
 
-      $output['inoreader'] = '<a href="https://www.inoreader.com/?add_feed=' . urlencode( $feed ) . '" target="_blank" rel="noopener" class="_align-left" aria-label="' . esc_attr__( 'Follow on Inoreader', 'fictioneer' ) . '">' . fictioneer_get_icon( 'inoreader' ) . ' <span>' . __( 'Follow on Inoreader', 'fictioneer' ) . '</span></a>';
+      $output['inoreader'] = sprintf(
+        '<a href="https://www.inoreader.com/?add_feed=%s" target="_blank" rel="noopener" class="_align-left" aria-label="%s">%s <span>%s</span></a>',
+        urlencode( $feed ),
+        esc_attr__( 'Follow on Inoreader', 'fictioneer' ),
+        fictioneer_get_icon( 'inoreader' ),
+        __( 'Follow on Inoreader', 'fictioneer' )
+      );
     }
 
     // Apply filter
@@ -835,32 +865,62 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
       $micro_menu['chapter_list'] = '<label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__item micro-menu__chapter-list show-below-desktop" tabindex="-1"><i class="fa-solid fa-list"></i></label>';
 
       // Link to story
-      $micro_menu['story_link'] = '<a href="' . get_the_permalink( $args['story_post']->ID ) . '#' . $args['story_post']->ID . '" title="' . get_the_title( $args['story_post']->ID ) . '" class="micro-menu__item" tabindex="-1"><i class="fa-solid fa-book"></i></a>';
+      $micro_menu['story_link'] = sprintf(
+        '<a href="%s#%d" title="%s" class="micro-menu__item" tabindex="-1"><i class="fa-solid fa-book"></i></a>',
+        get_the_permalink( $args['story_post']->ID ),
+        $args['story_post']->ID,
+        esc_attr( get_the_title( $args['story_post']->ID ) )
+      );
     }
 
     // Open formatting modal
-    $micro_menu['formatting'] = '<label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">' . fictioneer_get_icon( 'font-settings' ) . '</label>';
+    $micro_menu['formatting'] = sprintf(
+      '<label for="modal-formatting-toggle" class="micro-menu__item micro-menu__modal-formatting" tabindex="-1">%s</label>',
+      fictioneer_get_icon( 'font-settings' )
+    );
 
     // Open fullscreen
-    $micro_menu['open_fullscreen'] = '<button type="button" title="' . esc_attr__( 'Enter fullscreen', 'fictioneer' ) . '" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">' . fictioneer_get_icon( 'expand' ) . '</button>';
+    $micro_menu['open_fullscreen'] = sprintf(
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__enter-fullscreen open-fullscreen hide-on-iOS hide-on-fullscreen" tabindex="-1">%s</button>',
+      esc_attr__( 'Enter fullscreen', 'fictioneer' ),
+      fictioneer_get_icon( 'expand' )
+    );
 
     // Close fullscreen
-    $micro_menu['close_fullscreen'] = '<button type="button" title="' . esc_attr__( 'Exit fullscreen', 'fictioneer' ) . '" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">' . fictioneer_get_icon( 'collapse' ) . '</button>';
+    $micro_menu['close_fullscreen'] = sprintf(
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__close-fullscreen close-fullscreen hide-on-iOS show-on-fullscreen hidden" tabindex="-1">%s</button>',
+      esc_attr__( 'Exit fullscreen', 'fictioneer' ),
+      fictioneer_get_icon( 'collapse' )
+    );
 
     // Scroll to bookmark
-    $micro_menu['bookmark_jump'] = '<button type="button" title="' . fcntr( 'jump_to_bookmark', true ) . '" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1"><i class="fa-solid fa-bookmark"></i></button>';
+    $micro_menu['bookmark_jump'] = sprintf(
+      '<button type="button" title="%s" class="micro-menu__item micro-menu__bookmark button--bookmark hidden" tabindex="-1"><i class="fa-solid fa-bookmark"></i></button>',
+      fcntr( 'jump_to_bookmark', true )
+    );
 
     // Navigate to previous chapter
     if ($args['prev_index'] !== false) {
-      $micro_menu['previous'] = '<a href="' . get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ) . '" title="' . esc_attr( get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ) ) . '" class="micro-menu__item micro-menu__previous previous" tabindex="-1"><i class="fa-solid fa-caret-left"></i></a>';
+      $micro_menu['previous'] = sprintf(
+        '<a href="%s" title="%s" class="micro-menu__item micro-menu__previous previous" tabindex="-1"><i class="fa-solid fa-caret-left"></i></a>',
+        get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ),
+        esc_attr( get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ) )
+      );
     }
 
     // Scroll to top
-    $micro_menu['top'] = '<a href="#top" data-block="center" aria-label="' . esc_attr__( 'Scroll to top of the chapter', 'fictioneer' ) . '" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>';
+    $micro_menu['top'] = sprintf(
+      '<a href="#top" data-block="center" aria-label="%s" class="micro-menu__item micro-menu__up up" tabindex="-1"><i class="fa-solid fa-caret-up"></i></a>',
+      esc_attr__( 'Scroll to top of the chapter', 'fictioneer' )
+    );
 
     // Navigate to next chapter
     if ($args['next_index']) {
-      $micro_menu['next'] = '<a href="' . get_permalink( $args['chapter_ids'][ $args['next_index'] ] ) . '" title="' . esc_attr( get_the_title( $args['chapter_ids'][ $args['next_index'] ] ) ) . '" class="micro-menu__item micro-menu__next next" tabindex="-1"><i class="fa-solid fa-caret-right"></i></a>';
+      $micro_menu['next'] = sprintf(
+        '<a href="%s" title="%s" class="micro-menu__item micro-menu__next next" tabindex="-1"><i class="fa-solid fa-caret-right"></i></a>',
+        get_permalink( $args['chapter_ids'][ $args['next_index'] ] ),
+        esc_attr( get_the_title( $args['chapter_ids'][ $args['next_index'] ] ) )
+      );
     }
 
     // Filter micro menu array
