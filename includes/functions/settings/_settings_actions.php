@@ -967,13 +967,13 @@ function fictioneer_tools_legacy_cleanup() {
   $install_date = date( 'YmdHi', strtotime( $users[0]->user_registered ) ); // YYYYMMDDHHMM
 
   // Setup
-  $cutoff = 202401300000; // YYYYMMDDHHMM
-  $last_cleanup = absint( get_option( 'fictioneer_last_cleanup' ) );
+  $cutoff = 202402060000; // YYYYMMDDHHMM
+  $last_cleanup = absint( get_option( 'fictioneer_last_database_cleanup' ) );
   $last_cleanup = $last_cleanup < $install_date ? $install_date : $last_cleanup;
   $count = 0;
 
   // Sitemap cleanup
-  if ( $last_cleanup < 202401300000 ) {
+  if ( $last_cleanup < 202402060000 ) {
     $old_sitemap = ABSPATH . '/sitemap.xml';
 
     if ( file_exists( $old_sitemap ) ) {
@@ -982,13 +982,15 @@ function fictioneer_tools_legacy_cleanup() {
 
     flush_rewrite_rules();
 
+    delete_option( 'fictioneer_database_cleanup' ); // Was previously saved wrongly far into the future
+
     fictioneer_log( __( 'Legacy cleanup removed old sitemap and flushed the permalinks.', 'fictioneer' ) );
 
     $count++;
   }
 
   // Migrate SEO fields
-  if ( $last_cleanup < 202401300000 ) {
+  if ( $last_cleanup < 202402060000 ) {
     // Relevant meta keys
     $meta_keys = [
       'fictioneer_seo_title',
@@ -1016,6 +1018,7 @@ function fictioneer_tools_legacy_cleanup() {
       // Query all posts
       $args = array(
         'post_type' => 'any',
+        'post_status' => ['publish', 'private', 'future'],
         'posts_per_page' => -1,
         'update_post_meta_cache' => true,
         'update_post_term_cache' => false,
@@ -1067,7 +1070,7 @@ function fictioneer_tools_legacy_cleanup() {
   $wpdb->query( $wpdb->prepare( $sql, 'fictioneer_story_data_collection', 'fictioneer_story_chapter_index_html' ) );
 
   // Remember cleanup
-  update_option( 'fictioneer_last_cleanup', $cutoff );
+  update_option( 'fictioneer_last_database_cleanup', $cutoff );
 
   // Redirect
   wp_safe_redirect(
