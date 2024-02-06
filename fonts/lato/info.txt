@@ -1,5 +1,5 @@
 Name: Lato
-CSS: Lato
+Family: Lato
 Type: sans-serif
 Styles: normal, italic
 Weights: 300, 400, 700

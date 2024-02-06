@@ -4,39 +4,14 @@
  *
  * @package WordPress
  * @subpackage Fictioneer
- * @since 5.9.x
+ * @since 5.9.4
  */
 ?>
 
 <?php
 
-$font_dir = get_template_directory() . '/fonts';
-$fonts = [];
-
-if ( is_dir( $font_dir ) ) {
-  $all_font_folders = scandir( $font_dir );
-
-  foreach ( $all_font_folders as $font_folder ) {
-    if ( $font_folder == '.' || $font_folder == '..' ) {
-      continue;
-    }
-
-    $full_path = $font_dir . '/' . $font_folder;
-    $info_file = $full_path . '/info.txt';
-
-    if ( is_dir( $full_path ) && file_exists( $info_file ) ) {
-      $info = [];
-      $lines = file( $info_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
-
-      foreach ( $lines as $line ) {
-        list( $key, $value ) = explode( ':', $line, 2 );
-        $info[ trim( strtolower( $key ) ) ] = trim( $value );
-      }
-
-      $fonts[ $info_file ] = $info;
-    }
-  }
-}
+// Setup
+$fonts = fictioneer_get_fonts();
 
 ?>
 
@@ -63,7 +38,7 @@ if ( is_dir( $font_dir ) ) {
 
         <?php
           $name = $font['name'] ?? $key;
-          $css = $font['css'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
+          $family = $font['family'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $type = $font['type'] ?? '';
           $stub = $font['stub'] ?? false;
           $version = $font['version'] ?? '';
@@ -151,10 +126,10 @@ if ( is_dir( $font_dir ) ) {
 
                 <div class="fictioneer-card__box">
                   <div class="fictioneer-card__box-title"><?php
-                    _ex( 'CSS', 'Settings font card.', 'fictioneer' );
+                    _ex( 'Family', 'Settings font card.', 'fictioneer' );
                   ?></div>
                   <div class="fictioneer-card__box-content"><?php
-                    echo $css;
+                    echo $family;
 
                     if ( ! empty( $type ) ) {
                       echo ", {$type}";

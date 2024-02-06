@@ -1,5 +1,5 @@
 Name: Roboto Serif
-CSS: 'Roboto Serif'
+Family: 'Roboto Serif'
 Type: serif
 Styles: normal, italic
 Weights: 300, 400, 500, 600, 700

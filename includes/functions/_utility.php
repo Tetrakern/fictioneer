@@ -2720,4 +2720,51 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
   }
 }
 
+// =============================================================================
+// GET FONTS
+// =============================================================================
+
+/**
+ * Returns fonts included by the theme
+ *
+ * @since 5.9.4
+ *
+ * @return array Array of font information.
+ */
+
+function fictioneer_get_fonts() {
+  // Setup
+  $font_dir = get_template_directory() . '/fonts';
+  $fonts = [];
+
+  // Look through fonts...
+  if ( is_dir( $font_dir ) ) {
+    $all_font_folders = scandir( $font_dir );
+
+    foreach ( $all_font_folders as $font_folder ) {
+      if ( $font_folder == '.' || $font_folder == '..' ) {
+        continue;
+      }
+
+      $full_path = $font_dir . '/' . $font_folder;
+      $info_file = $full_path . '/info.txt';
+      $css_file =  $full_path . '/font.css';
+
+      if ( is_dir( $full_path ) && file_exists( $info_file ) && file_exists( $css_file ) ) {
+        $info = array( 'css' => $css_file );
+        $lines = file( $info_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+
+        foreach ( $lines as $line ) {
+          list( $key, $value ) = explode( ':', $line, 2 );
+          $info[ trim( strtolower( $key ) ) ] = trim( $value );
+        }
+
+        $fonts[ $info_file ] = $info;
+      }
+    }
+  }
+
+  return $fonts;
+}
+
 ?>

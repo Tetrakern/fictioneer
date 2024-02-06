@@ -1,5 +1,5 @@
 Name: Roboto Mono
-CSS: 'Roboto Mono'
+Family: 'Roboto Mono'
 Type: monospace
 Styles: normal, italic
 Weights: 300, 400, 500, 600, 700

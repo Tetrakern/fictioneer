@@ -1,5 +1,5 @@
 Name: Open Dyslexic 3
-CSS: OpenDyslexic
+Family: OpenDyslexic
 Type: serif
 Styles: normal, italic
 Weights: 400, 700

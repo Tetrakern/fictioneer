@@ -1,5 +1,5 @@
 Name: Crimson Text
-CSS: 'Crimson Text'
+Family: 'Crimson Text'
 Type: serif
 Styles: normal, italic
 Weights: 400, 600, 700

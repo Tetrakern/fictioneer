@@ -1,5 +1,5 @@
 Name: Cormorant Garamond
-CSS: 'Cormorant Garamond'
+Family: 'Cormorant Garamond'
 Type: serif
 Styles: normal, italic
 Weights: 300, 400, 500, 600, 700

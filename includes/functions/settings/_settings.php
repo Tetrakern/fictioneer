@@ -358,7 +358,7 @@ function fictioneer_settings_phrases() {
 /**
  * Callback for fonts settings page
  *
- * @since 4.9.x
+ * @since 4.9.4
  */
 
 function fictioneer_settings_fonts() {
