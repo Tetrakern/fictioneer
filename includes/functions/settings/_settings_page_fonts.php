@@ -98,7 +98,7 @@ if ( is_dir( $font_dir ) ) {
               echo $name;
 
               if ( ! empty( $version ) ) {
-                echo " ({$version})";
+                printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
               }
             ?></h3>
 
