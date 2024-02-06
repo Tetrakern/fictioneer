@@ -47,18 +47,32 @@ if ( is_dir( $font_dir ) ) {
   <div class="fictioneer-settings__content">
     <div class="fictioneer-single-column">
 
+      <div class="fictioneer-card">
+        <div class="fictioneer-card__wrapper">
+          <div class="fictioneer-card__content">
+            <div class="fictioneer-card__row">
+              <p><?php
+                _e( 'Currently, this is only for your information, you cannot actually do anything here yet. Future updates may extend the functionality.', 'fictioneer' );
+              ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <?php foreach ( $fonts as $key => $font ) : ?>
 
         <?php
           $name = $font['name'] ?? $key;
           $css = $font['css'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
-          $version = $font['version'] ?? 'XX';
+          $type = $font['type'] ?? '';
+          $stub = $font['stub'] ?? false;
+          $version = $font['version'] ?? '';
           $charsets = $font['charsets'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $formats = $font['formats'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $about = $font['about'] ?? _x( 'No description provided', 'Settings font card.', 'fictioneer' );
           $weights = $font['weights'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $styles = $font['styles'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
-          $sources = explode( '|||', $font['sources'] ?? '' );
+          $sources = empty( $font['sources'] ?? '' ) ? '' : explode( '|||', $font['sources'] );
           $links = [];
           $note = $font['note'] ?? '';
 
@@ -80,7 +94,13 @@ if ( is_dir( $font_dir ) ) {
 
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
-            <h3 class="fictioneer-card__header"><?php printf( '%s (v%d)', $name, $version ); ?></h3>
+            <h3 class="fictioneer-card__header"><?php
+              echo $name;
+
+              if ( ! empty( $version ) ) {
+                echo " ({$version})";
+              }
+            ?></h3>
 
             <div class="fictioneer-card__content">
 
@@ -133,7 +153,13 @@ if ( is_dir( $font_dir ) ) {
                   <div class="fictioneer-card__box-title"><?php
                     _ex( 'CSS', 'Settings font card.', 'fictioneer' );
                   ?></div>
-                  <div class="fictioneer-card__box-content"><?php echo $css; ?></div>
+                  <div class="fictioneer-card__box-content"><?php
+                    echo $css;
+
+                    if ( ! empty( $type ) ) {
+                      echo ", {$type}";
+                    }
+                  ?></div>
                 </div>
 
                 <div class="fictioneer-card__box" style="flex-grow: 8;">

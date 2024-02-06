@@ -1,5 +1,6 @@
 Name: Open Sans
 CSS: 'Open Sans'
+Type: sans-serif
 Styles: normal, italic
 Weights: 300, 325, 400, 500, 600, 700
 Charsets: Cyrillic (Ext.), Greek (Ext.), Hebrew, Latin (Ext.), Vietnamese
