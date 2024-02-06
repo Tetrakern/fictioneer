@@ -130,10 +130,16 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $chapter_list = [];
           $chapter_excerpt; // Set inside inner loop
           $chapter_title; // Set inside inner loop
+          $extra_classes = [];
 
           // Skip if no chapters
           if ( $story['chapter_count'] < 1 ) {
             continue;
+          }
+
+          // Extra card classes
+          if ( ! empty( $post->post_password ) ) {
+            $extra_classes[] = '_password';
           }
 
           // Search for viable chapters...
@@ -159,7 +165,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card watch-last-clicked _small _info">
+        <li class="card watch-last-clicked _small _info <?php echo implode( ' ', $extra_classes ); ?>">
           <div class="card__body polygon">
 
             <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>

@@ -129,6 +129,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $title = fictioneer_get_safe_title( $post->ID );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
+          $extra_classes = [];
+
+          // Extra card classes
+          if ( ! empty( $post->post_password ) ) {
+            $extra_classes[] = '_password';
+          }
 
           // Chapter images
           $thumbnail_full = get_the_post_thumbnail_url( $post, 'full' );
@@ -146,7 +152,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card watch-last-clicked _small _info">
+        <li class="card watch-last-clicked _small _info <?php echo implode( ' ', $extra_classes ); ?>">
           <div class="card__body polygon">
 
           <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
