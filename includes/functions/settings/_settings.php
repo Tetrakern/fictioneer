@@ -84,6 +84,15 @@ function fictioneer_add_admin_menu() {
     'fictioneer_settings_phrases'
   );
 
+  $fonts_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Fonts', 'fictioneer' ),
+    __( 'Fonts', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_fonts',
+    'fictioneer_settings_fonts'
+  );
+
   $epubs_hook = add_submenu_page(
     'fictioneer',
     __( 'ePUBs', 'fictioneer' ),
@@ -227,6 +236,9 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
     // Phrases tab
     $output['phrases'] = '<a href="?page=fictioneer_phrases" class="fictioneer-settings__nav-tab' . ( $tab == 'phrases' ? ' active' : '' ) . '">' . __( 'Phrases', 'fictioneer' ) . '</a>';
 
+    // Fonts tab
+    $output['fonts'] = '<a href="?page=fictioneer_fonts" class="fictioneer-settings__nav-tab' . ( $tab == 'fonts' ? ' active' : '' ) . '">' . __( 'Fonts', 'fictioneer' ) . '</a>';
+
     // EPubs tab
     $output['epubs'] = '<a href="?page=fictioneer_epubs" class="fictioneer-settings__nav-tab' . ( $tab == 'epubs' ? ' active' : '' ) . '">' . __( 'ePUBs', 'fictioneer' ) . '</a>';
 
@@ -341,6 +353,16 @@ function fictioneer_settings_seo() {
 
 function fictioneer_settings_phrases() {
   get_template_part( 'includes/functions/settings/_settings_page_phrases' );
+}
+
+/**
+ * Callback for fonts settings page
+ *
+ * @since 4.9.x
+ */
+
+function fictioneer_settings_fonts() {
+  get_template_part( 'includes/functions/settings/_settings_page_fonts' );
 }
 
 /**
