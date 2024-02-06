@@ -276,11 +276,12 @@ function fictioneer_exclude_protected_posts( $where = '' ) {
  * Filters sticky stories to the top and accounts for missing meta fields
  *
  * @since 5.7.3
+ * @since 5.9.4 - Check orderby by components, extend allow list.
  *
  * @param array    $clauses   An associative array of WP_Query SQL clauses.
  * @param WP_Query $wp_query  The WP_Query instance.
  *
- * @return string The updated SQL clauses.
+ * @return string The updated or unchanged SQL clauses.
  */
 
 function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
@@ -289,12 +290,14 @@ function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
   // Setup
   $vars = $wp_query->query_vars;
   $allowed_queries = ['stories_list', 'latest_stories', 'latest_stories_compact', 'author_stories'];
-  $allowed_orderby = ['', 'date', 'modified', 'title', 'meta_value', 'meta_value date', 'meta_value modified', 'meta_value title'];
+  $allowed_orderby = ['', 'date', 'modified', 'title', 'meta_value', 'name', 'ID', 'post__in'];
+  $given_orderby = $vars['orderby'] ?? [''];
+  $given_orderby = is_array( $given_orderby ) ? $given_orderby : explode( ' ', $vars['orderby'] );
 
-  // Return if wrong query
+  // Return if query is not allowed
   if (
     ! in_array( $vars['fictioneer_query_name'] ?? 0, $allowed_queries ) ||
-    ! in_array( $vars['orderby'] ?? '', $allowed_orderby )
+    ! empty( array_diff( $given_orderby, $allowed_orderby ) )
   ) {
     return $clauses;
   }
