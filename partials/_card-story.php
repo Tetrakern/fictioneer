@@ -121,18 +121,29 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
             $chapters = new WP_Query( $chapter_query_args );
           ?>
           <?php foreach ( $chapters->posts as $chapter ) : ?>
-            <li class="card__link-list-item">
+            <?php
+              // Chapter title
+              $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
+              $list_title = trim( wp_strip_all_tags( $list_title ) );
+
+              if ( empty( $list_title ) ) {
+                $chapter_title = fictioneer_get_safe_title( $chapter->ID );
+              } else {
+                $chapter_title = $list_title;
+              }
+
+              // Extra classes
+              $list_item_classes = [];
+
+              if ( ! empty( $chapter->post_password ) ) {
+                $list_item_classes[] = '_password';
+              }
+            ?>
+            <li class="card__link-list-item <?php echo implode( ' ', $list_item_classes ); ?>">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
                 <a href="<?php the_permalink( $chapter->ID ); ?>" class="card__link-list-link"><?php
-                  $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
-                  $list_title = trim( wp_strip_all_tags( $list_title ) );
-
-                  if ( empty( $list_title ) ) {
-                    echo fictioneer_get_safe_title( $chapter->ID );
-                  } else {
-                    echo $list_title;
-                  }
+                  echo $chapter_title;
                 ?></a>
               </div>
               <div class="card__right">

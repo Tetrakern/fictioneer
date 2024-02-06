@@ -146,11 +146,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $search_list = array_reverse( $story['chapter_ids'] );
 
           foreach ( $search_list as $chapter_id ) {
+            $chapter_post = get_post( $chapter_id );
+
             if ( get_post_meta( $chapter_id, 'fictioneer_chapter_hidden', true ) ) {
               continue;
             }
 
-            $chapter_list[] = $chapter_id;
+            $chapter_list[] = $chapter_post;
 
             if ( count( $chapter_list ) > 1 ) {
               break; // Max two
@@ -204,27 +206,37 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               </div>
 
               <ol class="card__link-list _small cell-list">
-                <?php foreach ( $chapter_list as $chapter_id ) : ?>
-                  <li class="card__link-list-item">
+                <?php foreach ( $chapter_list as $chapter ) : ?>
+                  <?php
+                    // Chapter title
+                    $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
+                    $list_title = trim( wp_strip_all_tags( $list_title ) );
+
+                    if ( empty( $list_title ) ) {
+                      $chapter_title = fictioneer_get_safe_title( $chapter->ID );
+                    } else {
+                      $chapter_title = $list_title;
+                    }
+
+                    // Extra classes
+                    $list_item_classes = [];
+
+                    if ( ! empty( $chapter->post_password ) ) {
+                      $list_item_classes[] = '_password';
+                    }
+                  ?>
+                  <li class="card__link-list-item <?php echo implode( ' ', $list_item_classes ); ?>">
                     <div class="card__left text-overflow-ellipsis">
                       <i class="fa-solid fa-caret-right"></i>
-                      <a href="<?php the_permalink( $chapter_id ); ?>" class="card__link-list-link"><?php
-                        // Chapter title
-                        $list_title = get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true );
-                        $list_title = trim( wp_strip_all_tags( $list_title ) );
-
-                        if ( empty( $list_title ) ) {
-                          echo fictioneer_get_safe_title( $chapter_id );
-                        } else {
-                          echo $list_title;
-                        }
+                      <a href="<?php the_permalink( $chapter->ID ); ?>" class="card__link-list-link"><?php
+                        echo $chapter_title;
                       ?></a>
                     </div>
                     <div class="card__right">
                       <?php
-                        echo fictioneer_shorten_number( fictioneer_get_word_count( $chapter_id ) );
+                        echo fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) );
                         echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
-                        echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter_id )
+                        echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID )
                       ?>
                     </div>
                   </li>

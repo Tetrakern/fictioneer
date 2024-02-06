@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $title = fictioneer_get_safe_title( $post->ID );
 $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+$story_post = get_post( $story_id );
 $story_unpublished = get_post_status( $story_id ) !== 'publish';
 $story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
 $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
@@ -150,7 +151,15 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
 
       <?php if ( ! empty( $story_id ) && ! empty( $story_data ) ) : ?>
         <ol class="card__link-list cell-list">
-          <li class="card__link-list-item">
+          <?php
+            // Extra classes
+            $list_item_classes = [];
+
+            if ( ! empty( $story_post->post_password ) ) {
+              $list_item_classes[] = '_password';
+            }
+          ?>
+          <li class="card__link-list-item <?php echo implode( ' ', $list_item_classes ); ?>">
             <div class="card__left text-overflow-ellipsis">
               <i class="fa-solid fa-caret-right"></i>
               <a href="<?php the_permalink( $story_id ); ?>" class="card__link-list-link"><?php

@@ -115,7 +115,15 @@ if ( empty( $description ) ) {
       <?php if ( ! empty( $items ) ) : ?>
         <ol class="card__link-list cell-list">
           <?php foreach ( $items as $item ) : ?>
-            <li class="card__link-list-item">
+            <?php
+              // Extra classes
+              $list_item_classes = [];
+
+              if ( ! empty( $item->post_password ) ) {
+                $list_item_classes[] = '_password';
+              }
+            ?>
+            <li class="card__link-list-item <?php echo implode( ' ', $list_item_classes ); ?>">
               <div class="card__left text-overflow-ellipsis">
                 <i class="fa-solid fa-caret-right"></i>
                 <a href="<?php the_permalink( $item->ID ); ?>" class="card__link-list-link"><?php
