@@ -289,7 +289,7 @@ function fictioneer_clause_sticky_stories( $clauses, $wp_query ) {
   // Setup
   $vars = $wp_query->query_vars;
   $allowed_queries = ['stories_list', 'latest_stories', 'latest_stories_compact', 'author_stories'];
-  $allowed_orderby = ['date', 'modified', 'title', 'meta_value', 'meta_value date', 'meta_value modified', 'meta_value title'];
+  $allowed_orderby = ['', 'date', 'modified', 'title', 'meta_value', 'meta_value date', 'meta_value modified', 'meta_value title'];
 
   // Return if wrong query
   if (
