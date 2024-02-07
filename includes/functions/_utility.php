@@ -2721,7 +2721,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 }
 
 // =============================================================================
-// GET FONTS
+// GET FONT DATA
 // =============================================================================
 
 /**
@@ -2766,6 +2766,34 @@ function fictioneer_get_font_data() {
   }
 
   return $fonts;
+}
+
+// =============================================================================
+// BUILD BUNDLED FONT CSS FILE
+// =============================================================================
+
+function fictioneer_build_bundled_fonts() {
+  // Setup
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+  $fonts = fictioneer_get_font_data();
+  $combined_font_css = '';
+
+  // Make sure directory exists
+  if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
+    mkdir( dirname( $bundled_fonts ), 0755, true );
+  }
+
+  // Build
+  foreach ( $fonts as $font ) {
+    if ( $font['skip'] ?? 0 ) {
+      continue;
+    }
+
+    $combined_font_css .= file_get_contents( $font['css_file'] );
+  }
+
+  // Save
+  file_put_contents( $bundled_fonts, $combined_font_css );
 }
 
 ?>

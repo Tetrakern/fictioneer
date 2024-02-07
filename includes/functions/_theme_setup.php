@@ -1067,31 +1067,12 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     // Custom fonts
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
 
-    // Make sure directory exists
-    if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
-      mkdir( dirname( $bundled_fonts ), 0755, true );
-    }
-
     // Create file if it does not exist
     if ( ! file_exists( $bundled_fonts ) ) {
-      // Prepare
-      $fonts = fictioneer_get_font_data();
-      $combined_font_css = '';
-
-      // Build
-      foreach ( $fonts as $font ) {
-        if ( $font['skip'] ?? 0 ) {
-          continue;
-        }
-
-        $combined_font_css .= file_get_contents( $font['css_file'] );
-      }
-
-      // Save
-      file_put_contents( $bundled_fonts, $combined_font_css );
+      fictioneer_build_bundled_fonts();
     }
 
-    if ( file_exists( dirname( $bundled_fonts ) ) ) {
+    if ( file_exists( $bundled_fonts ) ) {
       $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css';
 
       // Start HTML ---> ?>
