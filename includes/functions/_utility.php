@@ -2727,7 +2727,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 /**
  * Returns fonts included by the theme
  *
- * @since 5.9.4
+ * @since 5.10.0
  *
  * @return array Array of font information.
  */
@@ -2771,6 +2771,12 @@ function fictioneer_get_font_data() {
 // =============================================================================
 // BUILD BUNDLED FONT CSS FILE
 // =============================================================================
+
+/**
+ * Build bundled font stylesheet
+ *
+ * @since 5.10.0
+ */
 
 function fictioneer_build_bundled_fonts() {
   // Setup

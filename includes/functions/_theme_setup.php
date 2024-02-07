@@ -1008,7 +1008,7 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
-  return $exclude . ', fonts.css, bundled-fonts.css';
+  return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css';
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
 
@@ -1045,12 +1045,10 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
    * Output HTML <head> meta
    *
    * @since 5.0.0
+   * @since 5.10.0 - Refactor for bundled font stylesheet.
    */
 
   function fictioneer_output_head_meta() {
-    // Setup
-    $base_fonts_href = get_template_directory_uri() . '/css/fonts.css?ver=' . FICTIONEER_VERSION;
-
     // Start HTML ---> ?>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta http-equiv="content-type" content="text/html">
@@ -1060,11 +1058,9 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <?php fictioneer_output_critical_fonts(); ?>
-    <link rel="stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-    <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
     <?php // <--- End HTML
 
-    // Custom fonts
+    // Bundled fonts
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
 
     // Create file if it does not exist
@@ -1072,15 +1068,26 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
       fictioneer_build_bundled_fonts();
     }
 
+    // Output font stylesheets...
     if ( file_exists( $bundled_fonts ) ) {
-      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css';
+      // ... base and custom
+      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
+      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
 
       // Start HTML ---> ?>
+      <link rel="stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
       <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
       <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
       <?php // <--- End HTML
     } else {
-      // TODO
+      // ... all theme fonts if something goes wrong
+      $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
+
+      // Start HTML ---> ?>
+      <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
+      <?php // <--- End HTML
     }
   }
 }
