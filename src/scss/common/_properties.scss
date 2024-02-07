@@ -33,6 +33,7 @@
   --ff-heading: 'Open Sans', var(--ff-base);
   --ff-note: 'Lato', var(--ff-base);
   --ff-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
+  --ff-input: var(--ff-base);
 
   // === HEADER ================================================================
   --layout-header-background-height: #{get_clamp(210, 480, 320, $full-width)}; // Overridden by theme customizer
