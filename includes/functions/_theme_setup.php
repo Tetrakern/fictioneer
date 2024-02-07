@@ -1045,7 +1045,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
    * Output HTML <head> meta
    *
    * @since 5.0.0
-   * @since 5.10.0 - Refactor for font manager.
+   * @since 5.10.0 - Split up for font manager.
    */
 
   function fictioneer_output_head_meta() {
@@ -1057,40 +1057,55 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <?php fictioneer_output_critical_fonts(); ?>
     <?php // <--- End HTML
-
-    // Bundled fonts
-    $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
-
-    // Create file if it does not exist
-    if ( ! file_exists( $bundled_fonts ) ) {
-      fictioneer_build_bundled_fonts();
-    }
-
-    // Output font stylesheets...
-    if ( file_exists( $bundled_fonts ) ) {
-      // ... base and custom
-      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
-      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
-
-      // Start HTML ---> ?>
-      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-      <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
-      <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-      <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
-      <?php // <--- End HTML
-    } else {
-      // ... all theme fonts if something goes wrong
-      $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
-
-      // Start HTML ---> ?>
-      <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-      <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
-      <?php // <--- End HTML
-    }
   }
 }
+
+// =============================================================================
+// OUTPUT HEAD FONTS
+// =============================================================================
+
+/**
+ * Output font stylesheets <head> meta
+ *
+ * @since 5.10.0
+ */
+
+function fictioneer_output_head_fonts() {
+  // Critical path fonts
+  fictioneer_output_critical_fonts();
+
+  // Bundled fonts
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+
+  // Create file if it does not exist
+  if ( ! file_exists( $bundled_fonts ) ) {
+    fictioneer_build_bundled_fonts();
+  }
+
+  // Output font stylesheets...
+  if ( file_exists( $bundled_fonts ) ) {
+    // ... base and custom
+    $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
+    $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
+
+    // Start HTML ---> ?>
+    <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
+    <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
+    <?php // <--- End HTML
+  } else {
+    // ... all theme fonts if something goes wrong
+    $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
+
+    // Start HTML ---> ?>
+    <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
+    <?php // <--- End HTML
+  }
+}
+add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
 // MODIFY ROBOTS META
