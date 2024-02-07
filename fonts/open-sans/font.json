@@ -4,7 +4,7 @@
   "version": "40",
   "key": "open-sans",
   "name": "Open Sans",
-  "family": "'Open Sans'",
+  "family": "Open Sans",
   "type": "sans-serif",
   "styles": ["normal", "italic"],
   "weights": [300, 325, 400, 500, 600, 700],

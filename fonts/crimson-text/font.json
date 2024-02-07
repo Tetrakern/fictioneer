@@ -4,7 +4,7 @@
   "version": "19",
   "key": "crimson-text",
   "name": "Crimson Text",
-  "family": "'Crimson Text'",
+  "family": "Crimson Text",
   "type": "serif",
   "styles": ["normal", "italic"],
   "weights": [400, 600, 700],

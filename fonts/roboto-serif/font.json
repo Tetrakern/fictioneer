@@ -4,7 +4,7 @@
   "version": "13",
   "key": "roboto-serif",
   "name": "Roboto Serif",
-  "family": "'Roboto Serif'",
+  "family": "Roboto Serif",
   "type": "serif",
   "styles": ["normal", "italic"],
   "weights": [300, 400, 500, 600, 700],

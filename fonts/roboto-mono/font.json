@@ -4,7 +4,7 @@
   "version": "23",
   "key": "roboto-mono",
   "name": "Roboto Mono",
-  "family": "'Roboto Mono'",
+  "family": "Roboto Mono",
   "type": "monospace",
   "styles": ["normal", "italic"],
   "weights": [300, 400, 500, 600, 700],
