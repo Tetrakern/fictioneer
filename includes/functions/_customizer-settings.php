@@ -2619,10 +2619,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Primary Font', 'fictioneer' ),
-      'description' => sprintf(
-        __( 'Used for most of the content and as default chapter font. CSS: %s', 'fictioneer' ),
-        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-base)</code>'
-      ),
+      'description' => __( 'Used for most of the content and as default chapter font. Default "Open Sans".', 'fictioneer' ),
       'choices'  => $font_options
     )
   );
@@ -2643,11 +2640,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Secondary Font', 'fictioneer' ),
-      'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows.', 'fictioneer' ),
-      'description' => sprintf(
-        __( 'Used for small cards, tags, alongside icons, and in meta rows. CSS: %s', 'fictioneer' ),
-        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-note)</code>'
-      ),
+      'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows. Default "Lato".', 'fictioneer' ),
       'choices'  => $font_options
     )
   );
@@ -2668,10 +2661,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Heading Font', 'fictioneer' ),
-      'description' => sprintf(
-        __( 'Used for the site title plus articles, chapters, and cards. CSS: %s', 'fictioneer' ),
-        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-heading)</code>'
-      ),
+      'description' => __( 'Used for the site title plus articles, chapters, and cards. Default "Open Sans".', 'fictioneer' ),
       'choices'  => $font_options
     )
   );
