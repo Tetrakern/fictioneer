@@ -12,9 +12,9 @@
 
 // Setup
 $fonts = fictioneer_get_font_data();
-// $primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
-// $secondary_font = get_theme_mod( 'secondary_font_family_value', 'Lato' );
-// $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
+$primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
+$secondary_font = get_theme_mod( 'secondary_font_family_value', 'Lato' );
+$heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
 
 ?>
 
@@ -66,6 +66,18 @@ $fonts = fictioneer_get_font_data();
 
               if ( ! empty( $version ) ) {
                 printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
+              }
+
+              if ( $primary_font === $font['family'] ) {
+                _ex( ' — Primary Font', 'Settings font card.', 'fictioneer' );
+              }
+
+              if ( $secondary_font === $font['family'] ) {
+                _ex( ' — Secondary Font', 'Settings font card.', 'fictioneer' );
+              }
+
+              if ( $heading_font === $font['family'] ) {
+                _ex( ' — Heading Font', 'Settings font card.', 'fictioneer' );
               }
             ?></h3>
 
