@@ -1,0 +1,24 @@
+{
+  "skip": true,
+  "version": "40",
+  "key": "open-sans",
+  "name": "Open Sans",
+  "family": "'Open Sans'",
+  "type": "sans-serif",
+  "styles": ["normal", "italic"],
+  "weights": [300, 325, 400, 500, 600, 700],
+  "charsets": ["cyrillic", "cyrillic-ext", "greek", "greek-ext", "hebrew", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Open Sans is a humanist sans serif typeface designed by Steve Matteson, Type Director of Ascender Corp. This version contains the complete 897 character set, which includes the standard ISO Latin 1, Latin CE, Greek and Cyrillic character sets. Open Sans was designed with an upright stress, open forms and a neutral, yet friendly appearance. It was optimized for print, web, and mobile interfaces, and has excellent legibility characteristics in its letterforms.",
+  "note": "Custom version with 325 font weight. Not used by default.",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/specimen/Open+Sans"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/open-sans?subsets=cyrillic,cyrillic-ext,greek,greek-ext,hebrew,latin,latin-ext,vietnamese"
+    }
+  }
+}

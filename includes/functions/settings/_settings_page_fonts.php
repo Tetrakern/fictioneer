@@ -37,34 +37,19 @@ $fonts = fictioneer_get_font_data();
       <?php foreach ( $fonts as $key => $font ) : ?>
 
         <?php
+          $fallback = _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $name = $font['name'] ?? $key;
-          $family = $font['family'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
+          $family = $font['family'] ?? $fallback;
           $type = $font['type'] ?? '';
           $skip = $font['skip'] ?? false;
           $version = $font['version'] ?? '';
-          $charsets = $font['charsets'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
-          $formats = $font['formats'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
+          $charsets = $font['charsets'] ?? [ $fallback ];
+          $formats = $font['formats'] ?? [ $fallback ];
           $about = $font['about'] ?? _x( 'No description provided', 'Settings font card.', 'fictioneer' );
-          $weights = $font['weights'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
-          $styles = $font['styles'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
-          $sources = empty( $font['sources'] ?? '' ) ? '' : explode( '|||', $font['sources'] );
-          $links = [];
+          $weights = $font['weights'] ?? [ $fallback ];
+          $styles = $font['styles'] ?? [ $fallback ];
+          $sources = $font['sources'] ?? [];
           $note = $font['note'] ?? '';
-
-          if ( ! empty( $sources ) ) {
-            $links = array_map(
-              function( $source ) {
-                $parts = explode( '|', $source );
-
-                if ( count( $parts ) < 2 ) {
-                  $parts = [ _x( 'Link', 'Settings font card.', 'fictioneer' ), $parts[0] ];
-                }
-
-                return sprintf( '<a href="%s" target="_blank">%s</a>', trim( $parts[1] ), trim( $parts[0] ) );
-              },
-              $sources
-            );
-          }
         ?>
 
         <div class="fictioneer-card">
@@ -91,7 +76,9 @@ $fonts = fictioneer_get_font_data();
                     'fictioneer'
                   );
 
-                  echo implode( ', ', $links );
+                  foreach ( $sources as $source ) {
+                    printf( '<a href="%s" target="_blank">%s</a>', $source['url'], $source['name'] );
+                  }
                 }
               ?></div>
 
@@ -107,21 +94,21 @@ $fonts = fictioneer_get_font_data();
                   <div class="fictioneer-card__box-title"><?php
                     _ex( 'Weights', 'Settings font card.', 'fictioneer' );
                   ?></div>
-                  <div class="fictioneer-card__box-content"><?php echo $weights; ?></div>
+                  <div class="fictioneer-card__box-content"><?php echo implode( ', ', $weights ); ?></div>
                 </div>
 
                 <div class="fictioneer-card__box">
                   <div class="fictioneer-card__box-title"><?php
                     _ex( 'Styles', 'Settings font card.', 'fictioneer' );
                   ?></div>
-                  <div class="fictioneer-card__box-content"><?php echo $styles; ?></div>
+                  <div class="fictioneer-card__box-content"><?php echo implode( ', ', $styles ); ?></div>
                 </div>
 
                 <div class="fictioneer-card__box">
                   <div class="fictioneer-card__box-title"><?php
                     _ex( 'Formats', 'Settings font card.', 'fictioneer' );
                   ?></div>
-                  <div class="fictioneer-card__box-content"><?php echo $formats; ?></div>
+                  <div class="fictioneer-card__box-content"><?php echo implode( ', ', $formats ); ?></div>
                 </div>
 
                 <div class="fictioneer-card__box">
@@ -141,7 +128,7 @@ $fonts = fictioneer_get_font_data();
                   <div class="fictioneer-card__box-title"><?php
                     _ex( 'Charsets', 'Settings font card.', 'fictioneer' );
                   ?></div>
-                  <div class="fictioneer-card__box-content"><?php echo $charsets; ?></div>
+                  <div class="fictioneer-card__box-content"><?php echo implode( ', ', $charsets ); ?></div>
                 </div>
 
               </div>

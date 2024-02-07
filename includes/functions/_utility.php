@@ -2747,20 +2747,19 @@ function fictioneer_get_font_data() {
       }
 
       $full_path = "{$font_dir}/{$path}";
-      $info_file = "$full_path/info.txt";
+      $json_file = "$full_path/font.json";
       $css_file = "$full_path/font.css";
 
-      if ( is_dir( $full_path ) && file_exists( $info_file ) && file_exists( $css_file ) ) {
+      if ( is_dir( $full_path ) && file_exists( $json_file ) && file_exists( $css_file ) ) {
         $folder = basename( $path );
-        $info = array( 'css_path' => "/fonts/{$folder}/font.css", 'css_file' => $css_file );
-        $lines = file( $info_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+        $data = @json_decode( file_get_contents( $json_file ), true );
 
-        foreach ( $lines as $line ) {
-          list( $key, $value ) = explode( ':', $line, 2 );
-          $info[ trim( strtolower( $key ) ) ] = trim( $value );
+        if ( $data && json_last_error() === JSON_ERROR_NONE ) {
+          $data['css_path'] = "/fonts/{$folder}/font.css";
+          $data['css_file'] = $css_file;
+
+          $fonts[ $data['key'] ] = $data;
         }
-
-        $fonts[ $folder ] = $info;
       }
     }
   }
