@@ -1067,10 +1067,13 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     // Custom fonts
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
 
+    // Make sure directory exists
     if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
-      // Create bundled font CSS file
       mkdir( dirname( $bundled_fonts ), 0755, true );
+    }
 
+    // Create file if it does not exist
+    if ( ! file_exists( $bundled_fonts ) ) {
       // Prepare
       $fonts = fictioneer_get_font_data();
       $combined_font_css = '';
