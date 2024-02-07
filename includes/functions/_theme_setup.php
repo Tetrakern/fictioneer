@@ -1075,7 +1075,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
       $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
 
       // Start HTML ---> ?>
-      <link rel="stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
       <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
       <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
       <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
