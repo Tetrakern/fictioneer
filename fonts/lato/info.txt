@@ -1,3 +1,4 @@
+Skip: true
 Name: Lato
 Family: Lato
 Type: sans-serif

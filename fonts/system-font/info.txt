@@ -1,6 +1,0 @@
-Stub: stub
-Name: System Font
-Family: var(--ff-system)
-Styles: normal, italic
-Weights: 300, 400, 500, 600, 700
-About: <p>This is the default system font stack: <code>'-apple-system', 'Segoe UI', Roboto, 'Oxygen-Sans', Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;</code></p>

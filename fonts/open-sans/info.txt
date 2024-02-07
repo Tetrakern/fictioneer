@@ -1,3 +1,4 @@
+Skip: true
 Name: Open Sans
 Family: 'Open Sans'
 Type: sans-serif

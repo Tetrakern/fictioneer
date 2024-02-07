@@ -2748,10 +2748,11 @@ function fictioneer_get_font_data() {
 
       $full_path = "{$font_dir}/{$path}";
       $info_file = "$full_path/info.txt";
+      $css_file = "$full_path/font.css";
 
-      if ( is_dir( $full_path ) && file_exists( $info_file ) && file_exists( "$full_path/font.css" ) ) {
+      if ( is_dir( $full_path ) && file_exists( $info_file ) && file_exists( $css_file ) ) {
         $folder = basename( $path );
-        $info = array( 'css' => "/fonts/{$folder}/font.css" );
+        $info = array( 'css_path' => "/fonts/{$folder}/font.css", 'css_file' => $css_file );
         $lines = file( $info_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 
         foreach ( $lines as $line ) {
