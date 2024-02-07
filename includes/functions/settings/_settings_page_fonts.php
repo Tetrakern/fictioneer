@@ -11,7 +11,7 @@
 <?php
 
 // Setup
-$fonts = fictioneer_get_fonts();
+$fonts = fictioneer_get_font_data();
 
 ?>
 
@@ -40,7 +40,7 @@ $fonts = fictioneer_get_fonts();
           $name = $font['name'] ?? $key;
           $family = $font['family'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $type = $font['type'] ?? '';
-          $stub = $font['stub'] ?? false;
+          $skip = $font['skip'] ?? false;
           $version = $font['version'] ?? '';
           $charsets = $font['charsets'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
           $formats = $font['formats'] ?? _x( 'n/a', 'Settings font card.', 'fictioneer' );
