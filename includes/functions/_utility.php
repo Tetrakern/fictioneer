@@ -1960,38 +1960,37 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
    * Returns array of font items
    *
    * @since 5.1.1
+   * @since 5.10.0 - Refactor for font manager.
    *
    * @return array Font items (css, name, and alt).
    */
 
   function fictioneer_get_fonts() {
-    // Make sure 'Open Sans' is always in first or second place
-    if ( FICTIONEER_PRIMARY_FONT_CSS !== 'Open Sans' ) {
-      $fonts = array(
-        ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME],
-        ['css' => 'Open Sans', 'name' => _x( 'Open Sans', 'Font name.', 'fictioneer' )]
-      );
-    } else {
-      $fonts = array(
-        ['css' => FICTIONEER_PRIMARY_FONT_CSS, 'name' => FICTIONEER_PRIMARY_FONT_NAME]
-      );
+    // Make sure fonts are set up!
+    if (
+      ! get_option( 'fictioneer_chapter_fonts' ) ||
+      ! is_array( get_option( 'fictioneer_chapter_fonts' ) )
+    ) {
+      fictioneer_build_bundled_fonts();
     }
 
-    // Setup default fonts
-    $fonts = array_merge(
-      $fonts,
-      array(
-        ['css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' )],
-        ['css' => 'Lato', 'name' => _x( 'Lato', 'Font name.', 'fictioneer' )],
-        ['css' => 'Helvetica Neue', 'name' => _x( 'Helvetica Neue', 'Font name.', 'fictioneer' ), 'alt' => 'Arial'],
-        ['css' => 'Georgia', 'name' => _x( 'Georgia', 'Font name.', 'fictioneer' )],
-        ['css' => 'Roboto Mono', 'name' => _x( 'Roboto Mono', 'Font name.', 'fictioneer' )],
-        ['css' => 'Roboto Serif', 'name' => _x( 'Roboto Serif', 'Font name.', 'fictioneer' )],
-        ['css' => 'Cormorant Garamond', 'name' => _x( 'Cormorant Garamond', 'Font name.', 'fictioneer' ), 'alt' => 'Garamond'],
-        ['css' => 'Crimson Text', 'name' => _x( 'Crimson Text', 'Font name.', 'fictioneer' )],
-        ['css' => 'OpenDyslexic', 'name' => _x( 'Open Dyslexic', 'Font name.', 'fictioneer' )]
-      )
+    // Setup
+    $custom_fonts = get_option( 'fictioneer_chapter_fonts' );
+    $fonts = array(
+      array( 'css' => "'" . FICTIONEER_PRIMARY_FONT_CSS . "'", 'name' => FICTIONEER_PRIMARY_FONT_NAME ),
+      array( 'css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' ) )
     );
+
+    // Build final font array
+    foreach ( $custom_fonts as $custom_font ) {
+      if (
+        ! in_array( $custom_font, $fonts ) &&
+        $custom_font['name'] !== FICTIONEER_PRIMARY_FONT_NAME &&
+        $custom_font['css'] !== FICTIONEER_PRIMARY_FONT_CSS
+      ) {
+        $fonts[] = $custom_font;
+      }
+    }
 
     // Apply filters and return
     return apply_filters( 'fictioneer_filter_fonts', $fonts );
@@ -2782,6 +2781,7 @@ function fictioneer_build_bundled_fonts() {
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
   $fonts = fictioneer_get_font_data();
   $combined_font_css = '';
+  $font_stack = [];
 
   // Make sure directory exists
   if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
@@ -2790,12 +2790,21 @@ function fictioneer_build_bundled_fonts() {
 
   // Build
   foreach ( $fonts as $font ) {
-    if ( $font['skip'] ?? 0 ) {
-      continue;
+    if ( $font['chapter'] ?? 0 ) {
+      $font_stack[ $font['key'] ] = array(
+        'css' => $font['family'] ?? '',
+        'name' => $font['name'] ?? '',
+        'alt' => $font['alt'] ?? ''
+      );
     }
 
-    $combined_font_css .= file_get_contents( $font['css_file'] );
+    if ( ! ( $font['skip'] ?? 0 ) ) {
+      $combined_font_css .= file_get_contents( $font['css_file'] );
+    }
   }
+
+  // Update options
+  update_option( 'fictioneer_chapter_fonts', $font_stack, true );
 
   // Save
   file_put_contents( $bundled_fonts, $combined_font_css );

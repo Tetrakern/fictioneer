@@ -1045,7 +1045,7 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
    * Output HTML <head> meta
    *
    * @since 5.0.0
-   * @since 5.10.0 - Refactor for bundled font stylesheet.
+   * @since 5.10.0 - Refactor for font manager.
    */
 
   function fictioneer_output_head_meta() {

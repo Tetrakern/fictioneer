@@ -1,0 +1,26 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "16",
+  "key": "cormorant-garamond",
+  "name": "Cormorant Garamond",
+  "family": "'Cormorant Garamond'",
+  "alt": "Garamond",
+  "type": "serif",
+  "styles": ["normal", "italic"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["cyrillic", "cyrillic-ext", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Cormorant is a free display type family developed by Christian Thalmann. While this project was heavily inspired by Claude Garamont's immortal legacy, Christian did not use any specific font as a starting point or direct reference for the designs. Most glyphs were drawn from scratch; when he needed guidance on a specific character, he searched for the term Garamond and skimmed through the results for a general impression.",
+  "note": "",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/specimen/Cormorant+Garamond"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/cormorant-garamond?subsets=cyrillic,cyrillic-ext,latin,latin-ext,vietnamese"
+    }
+  }
+}

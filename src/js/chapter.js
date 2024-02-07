@@ -556,11 +556,11 @@ function fcn_setFormatting(value) {
     index = fcn_clamp(0, fictioneer_fonts.length - 1, index);
 
     // Prepare font family
-    let fontFamily = `"${fictioneer_fonts[index].css}"`;
+    let fontFamily = fictioneer_fonts[index].css;
 
     // Add alternative fonts if any
     if (fictioneer_fonts[index].alt) {
-      fontFamily = `${fontFamily}, "${fictioneer_fonts[index].alt}"`;
+      fontFamily = `${fontFamily}, ${fictioneer_fonts[index].alt}`;
     }
 
     // Catch non-indexed values
@@ -575,7 +575,7 @@ function fcn_setFormatting(value) {
 
     // Update inline style
     _$$('.chapter-font-family').forEach(element => {
-      element.style.fontFamily = fontFamily === '""' ? 'var(--ff-system)' : fontFamily + ', var(--ff-system)';
+      element.style.fontFamily = fontFamily === '' ? 'var(--ff-system)' : fontFamily + ', var(--ff-system)';
     });
 
     // Update local storage

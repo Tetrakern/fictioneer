@@ -1,5 +1,6 @@
 {
   "skip": true,
+  "chapter": true,
   "version": "40",
   "key": "open-sans",
   "name": "Open Sans",
