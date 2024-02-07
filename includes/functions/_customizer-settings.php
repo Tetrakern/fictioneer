@@ -2595,6 +2595,87 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Fonts
+  $fonts = fictioneer_get_font_data();
+  $font_options = [];
+
+  foreach ( $fonts as $font ) {
+    $font_options[ $font['family'] ] = $font['name'];
+  }
+
+  $manager->add_setting(
+    'primary_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'primary_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Primary Font', 'fictioneer' ),
+      'description' => sprintf(
+        __( 'Used for most of the content and as default chapter font. CSS: %s', 'fictioneer' ),
+        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-base)</code>'
+      ),
+      'choices'  => $font_options
+    )
+  );
+
+  $manager->add_setting(
+    'secondary_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Lato'
+    )
+  );
+
+  $manager->add_control(
+    'secondary_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Secondary Font', 'fictioneer' ),
+      'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows.', 'fictioneer' ),
+      'description' => sprintf(
+        __( 'Used for small cards, tags, alongside icons, and in meta rows. CSS: %s', 'fictioneer' ),
+        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-note)</code>'
+      ),
+      'choices'  => $font_options
+    )
+  );
+
+  $manager->add_setting(
+    'heading_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'heading_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Heading Font', 'fictioneer' ),
+      'description' => sprintf(
+        __( 'Used for the site title plus articles, chapters, and cards. CSS: %s', 'fictioneer' ),
+        '<code style="font-style: normal; font-size: 0.75em;">var(--ff-heading)</code>'
+      ),
+      'choices'  => $font_options
+    )
+  );
+
   // Dark mode font weight adjustment
   $manager->add_setting(
     'dark_mode_font_weight',

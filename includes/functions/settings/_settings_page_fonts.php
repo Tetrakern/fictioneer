@@ -12,6 +12,9 @@
 
 // Setup
 $fonts = fictioneer_get_font_data();
+// $primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
+// $secondary_font = get_theme_mod( 'secondary_font_family_value', 'Lato' );
+// $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
 
 ?>
 
@@ -27,7 +30,11 @@ $fonts = fictioneer_get_font_data();
           <div class="fictioneer-card__content">
             <div class="fictioneer-card__row">
               <p><?php
-                _e( 'Currently, this is only for your information, you cannot actually do anything here yet. Future updates may extend the functionality.', 'fictioneer' );
+                printf(
+                  __( 'This is an overview of all installed fonts; see <a href="%s" target="_blank">Installation guide</a> on how to add custom fonts yourself. You can assign the primary, secondary, and heading fonts in the <a href="%s">Customizer</a>.', 'fictioneer' ),
+                  'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts',
+                  wp_customize_url()
+                );
               ?></p>
             </div>
           </div>
@@ -122,7 +129,7 @@ $fonts = fictioneer_get_font_data();
                     _ex( 'Family', 'Settings font card.', 'fictioneer' );
                   ?></div>
                   <div class="fictioneer-card__box-content"><?php
-                    echo $family;
+                    echo fictioneer_font_family_value( $family );
 
                     if ( ! empty( $type ) ) {
                       echo ", {$type}";

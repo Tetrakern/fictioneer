@@ -432,13 +432,13 @@ body[class*="fictioneer_page_"] {
         gap: 8px;
       }
 
-       &--boxes {
+      &--boxes {
         align-items: stretch;
 
         > div {
           flex: 1 1 150px;
         }
-       }
+      }
 
       &--buttons,
       &--single-form-submit {
