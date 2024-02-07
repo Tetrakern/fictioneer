@@ -67,7 +67,7 @@ $fonts = fictioneer_get_font_data();
               <div class="fictioneer-card__row"><?php
                 echo $about;
 
-                if ( ! empty( $links ) ) {
+                if ( ! empty( $sources ) ) {
                   echo _nx(
                     ' <strong>Source:</strong> ',
                     ' <strong>Sources:</strong> ',
@@ -76,9 +76,15 @@ $fonts = fictioneer_get_font_data();
                     'fictioneer'
                   );
 
-                  foreach ( $sources as $source ) {
-                    printf( '<a href="%s" target="_blank">%s</a>', $source['url'], $source['name'] );
-                  }
+                  echo implode(
+                    ', ',
+                    array_map(
+                      function( $item ) {
+                        return sprintf( '<a href="%s" target="_blank">%s</a>', $item['url'], $item['name'] );
+                      },
+                      $sources
+                    )
+                  );
                 }
               ?></div>
 
