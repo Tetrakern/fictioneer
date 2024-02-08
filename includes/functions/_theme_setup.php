@@ -1128,6 +1128,7 @@ function fictioneer_output_head_fonts() {
   }
 }
 add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
+add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
 // MODIFY ROBOTS META
