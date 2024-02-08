@@ -2595,102 +2595,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Fonts
-  $fonts = fictioneer_get_font_data();
-  $font_options = array( 'System' => __( 'System Font', 'fictioneer' ) );
-
-  foreach ( $fonts as $font ) {
-    $font_options[ $font['family'] ] = $font['name'];
-  }
-
-  $manager->add_setting(
-    'primary_font_family_value',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'Open Sans'
-    )
-  );
-
-  $manager->add_control(
-    'primary_font_family_value',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Primary Font', 'fictioneer' ),
-      'description' => __( 'Used for most of the content and as default chapter font. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
-    )
-  );
-
-  $manager->add_setting(
-    'secondary_font_family_value',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'Lato'
-    )
-  );
-
-  $manager->add_control(
-    'secondary_font_family_value',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Secondary Font', 'fictioneer' ),
-      'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows. Default "Lato".', 'fictioneer' ),
-      'choices'  => $font_options
-    )
-  );
-
-  $manager->add_setting(
-    'heading_font_family_value',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'Open Sans'
-    )
-  );
-
-  $manager->add_control(
-    'heading_font_family_value',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Heading Font', 'fictioneer' ),
-      'description' => __( 'Used for the site title plus articles, chapters, and cards. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
-    )
-  );
-
-  // Dark mode font weight adjustment
-  $manager->add_setting(
-    'dark_mode_font_weight',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'adjusted'
-    )
-  );
-
-  $manager->add_control(
-    'dark_mode_font_weight',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Dark Mode Font Weight', 'fictioneer' ),
-      'description' => __( 'Fonts are rendered thinner in dark mode to offset text bleeding; you can turn that off.', 'fictioneer' ),
-      'choices'  => array(
-        'adjusted' => _x( 'Adjusted', 'Customizer dark mode font weight option.', 'fictioneer' ),
-        'normal' => _x( 'Normal', 'Customizer dark mode font weight option.', 'fictioneer' )
-      ),
-    )
-  );
-
   // Custom layout toggle
   $manager->add_setting(
     'use_custom_layout',
@@ -2919,6 +2823,124 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 }
 
+/**
+ * Add fonts customizer settings
+ *
+ * @since 5.10.0
+ *
+ * @param WP_Customize_Manager $manager  The customizer instance.
+ */
+
+function fictioneer_add_fonts_customizer_settings( $manager ) {
+  // Setup
+  $fonts = fictioneer_get_font_data();
+  $font_options = array( 'System' => __( 'System Font', 'fictioneer' ) );
+
+  foreach ( $fonts as $font ) {
+    $font_options[ $font['family'] ] = $font['name'];
+  }
+
+  // Add layout section
+  $manager->add_section(
+    'fictioneer_fonts',
+    array(
+      'title' => __( 'Fonts', 'fictioneer' ),
+      'priority' => '81'
+    )
+  );
+
+  // Primary font
+  $manager->add_setting(
+    'primary_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'primary_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Primary Font', 'fictioneer' ),
+      'description' => __( 'Used for most of the content and as default chapter font. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Secondary font
+  $manager->add_setting(
+    'secondary_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Lato'
+    )
+  );
+
+  $manager->add_control(
+    'secondary_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Secondary Font', 'fictioneer' ),
+      'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows. Default "Lato".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Heading font
+  $manager->add_setting(
+    'heading_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'heading_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Heading Font', 'fictioneer' ),
+      'description' => __( 'Used for the site title plus articles, chapters, and cards. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Dark mode font weight adjustment
+  $manager->add_setting(
+    'dark_mode_font_weight',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'adjusted'
+    )
+  );
+
+  $manager->add_control(
+    'dark_mode_font_weight',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Dark Mode Font Weight', 'fictioneer' ),
+      'description' => __( 'Fonts are rendered thinner in dark mode to offset text bleeding; you can turn that off.', 'fictioneer' ),
+      'choices'  => array(
+        'adjusted' => _x( 'Adjusted', 'Customizer dark mode font weight option.', 'fictioneer' ),
+        'normal' => _x( 'Normal', 'Customizer dark mode font weight option.', 'fictioneer' )
+      ),
+    )
+  );
+}
+
 // =============================================================================
 // CUSTOMIZER SETTINGS
 // =============================================================================
@@ -2945,6 +2967,9 @@ function fictioneer_add_customizers( $manager ) {
 
   // Layout
   fictioneer_add_layout_customizer_settings( $manager );
+
+  // Fonts
+  fictioneer_add_fonts_customizer_settings( $manager );
 
   // Open Graph image
   $manager->add_setting(
