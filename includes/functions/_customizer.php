@@ -533,6 +533,18 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $font_heading = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
     $font_heading = $font_heading === 'System' ? 'var(--ff-system)' : "'{$font_heading}', var(--ff-base)";
 
+    $font_site_title = get_theme_mod( 'site_title_font_family_value', 'Open Sans' );
+    $font_site_title = $font_site_title === 'System' ? 'var(--ff-system)' : "'{$font_site_title}', var(--ff-heading)";
+
+    $font_story_title = get_theme_mod( 'story_title_font_family_value', 'Open Sans' );
+    $font_story_title = $font_story_title === 'System' ? 'var(--ff-system)' : "'{$font_story_title}', var(--ff-heading)";
+
+    $font_chapter_title = get_theme_mod( 'chapter_title_font_family_value', 'Open Sans' );
+    $font_chapter_title = $font_chapter_title === 'System' ? 'var(--ff-system)' : "'{$font_chapter_title}', var(--ff-heading)";
+
+    $font_chapter_list_title = get_theme_mod( 'chapter_list_title_font_family_value', 'Open Sans' );
+    $font_chapter_list_title = $font_chapter_list_title === 'System' ? 'var(--ff-system)' : "'{$font_chapter_list_title}', var(--ff-base)";
+
     // Build CSS
     $layout_css = ":root {
       --site-width: " . $site_width . "px;
@@ -548,6 +560,10 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --ff-base: {$font_primary};
       --ff-note: {$font_secondary};
       --ff-heading: {$font_heading};
+      --ff-site-title: {$font_site_title};
+      --ff-story-title: {$font_story_title};
+      --ff-chapter-title: {$font_chapter_title};
+      --ff-chapter-list-title: {$font_chapter_list_title};
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {

@@ -2915,6 +2915,94 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     )
   );
 
+  // Site title font
+  $manager->add_setting(
+    'site_title_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'site_title_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Site Title Font', 'fictioneer' ),
+      'description' => __( 'Used for the site title. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Story title font
+  $manager->add_setting(
+    'story_title_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'story_title_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Story Title Font', 'fictioneer' ),
+      'description' => __( 'Used for the title on story pages. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Chapter title font
+  $manager->add_setting(
+    'chapter_title_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'chapter_title_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Chapter Title Font', 'fictioneer' ),
+      'description' => __( 'Used for the title on chapter pages. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Chapter list title font
+  $manager->add_setting(
+    'chapter_list_title_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'chapter_list_title_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Chapter List Title Font', 'fictioneer' ),
+      'description' => __( 'Used for the title row in chapter lists. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
   // Dark mode font weight adjustment
   $manager->add_setting(
     'dark_mode_font_weight',

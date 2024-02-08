@@ -7,7 +7,7 @@ This guide is mainly written for people who never had their own WordPress site b
 * [Choosing a Host](#choosing-a-host)
 * [Installing WordPress](#installing-wordpress)
   * [Configuring WordPress](#configuring-wordpress)
-  * [Securing WordPress](#securing-wordpress)
+  * [Securing WordPress & Browser Caching](#securing-wordpress--browser-caching)
 * [Legal Considerations](#legal-considerations)
 * [How to Install/Update the Fictioneer Theme](#how-to-installupdate-the-fictioneer-theme)
   * [Updating the Theme](#updating-the-theme)
@@ -76,7 +76,7 @@ Everything installed? Head to **[Settings](https://wordpress.org/support/article
 
 * **Author websites:** Technically not a required setting, but authors may want to fill out the website field in their profile. These are added as Open Graph author meta tags used by search engines and social media embeds. If left blank, the generated author page of the site will be used instead, which might be what you want anyway.
 
-### Securing WordPress
+### Securing WordPress & Browser Caching
 
 You can greatly improve your site security and performance by adding policies to the **.htaccess** file located in the WordPress root directory. Managed hosting plans normally do this for you. Make a backup and add the following lines anywhere before `# BEGIN WordPress` or after `# END WordPress`. If something goes wrong wrong, just remove everything again or restore the backup. You can also use a (cache) plugin. This is just the basics, far more is possible, but please refer to a proper guide.
 
@@ -1180,6 +1180,32 @@ Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.co
 * If you want to change the CDN link and integrity hash, do that by overwriting the `FICTIONEER_FA_CDN` and `FICTIONEER_FA_INTEGRITY` constants in a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/). You can set the integrity to `null` if not needed.
 
 ### Custom Fonts
+
+You can add custom fonts with a child theme, either by uploading a configuration folder to `/themes/your-child-theme/fonts/` or with a CDN like Google Fonts. The latter may cause privacy issues, depending on the legislation in your country. Delivering fonts from your server is legally safer, but can affect performance if you do not [leverage browser caching](#securing-wordpress--browser-caching) or use a cache plugin (which you should).
+
+Following is an explanation of both options on the example of [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans?noto.query=noto+sans). Noto has also variants for logographic writing systems if you require that. Mind that not all fonts you find on the Internet are free to use.
+
+#### 1A) Upload a font configuration folder
+
+This option requires some preparation, but does not need custom code. Take a look at the [open-sans folder](https://github.com/Tetrakern/fictioneer/tree/main/fonts/open-sans); you will find several font files, one CSS file, and one JSON file.
+
+
+You can easily replicate that
+
+
+
+
+
+Go to the [Google Fonts Webhelper](https://gwfh.mranftl.com/fonts/noto-sans) to prepare the font files and styles. Select the charsets depending on your language requirements, then select the styles you need as with the **1A** approach. Before you copy the CSS (for modern browsers), you may want to customize the folder prefix. `../fonts/` assumes you place the files in `/themes/your-child-theme/fonts/`, but if you add more than one font, subfolders like `../fonts/noto-sans/` will make them easier to manage.
+
+Once done, download the files and upload them to the theme folder you specified. Copy the CSS from the helper site to `/themes/your-child-theme/css/child-fonts.css` (for example, you can change the name as long as you do it everywhere).
+
+
+
+
+
+
+
 
 You can add custom fonts with a child theme, which requires a series of not-quite-easy steps. This is less complicated with the Google Fonts CDN — however, that may be a privacy issue. Legally safe is to deliver the fonts from your server, as the theme does by default. Both options are explained here on the example of [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans?noto.query=noto+sans), either as extra or primary/secondary font. Noto has also variants for logographic writing systems if you require that. Mind that not all fonts you find on the Internet are free to use.
 
