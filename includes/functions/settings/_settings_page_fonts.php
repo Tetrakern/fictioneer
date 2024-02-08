@@ -137,6 +137,10 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
                   ?></div>
                 <?php endif; ?>
 
+                <div class="fictioneer-card__row" style="font-family: <?php echo $font['family'] ?? 'inherit'; ?>; font-size: 20px; text-align: center; margin: 24px 0;"><?php
+                  _ex( 'The quick brown fox jumps over the lazy dog.', 'Settings font example sentence.', 'fictioneer' );
+                ?></div>
+
                 <div class="fictioneer-card__row fictioneer-card__row--boxes">
 
                   <div class="fictioneer-card__box" style="flex-grow: 2;">
