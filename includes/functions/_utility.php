@@ -2882,10 +2882,12 @@ function fictioneer_get_font_data() {
           $data = @json_decode( file_get_contents( $json_file ), true );
 
           if ( $data && json_last_error() === JSON_ERROR_NONE ) {
-            $data['css_path'] = "/fonts/{$folder_name}/font.css";
-            $data['css_file'] = $css_file;
+            if ( ! ( $data['remove'] ?? 0 ) ) {
+              $data['css_path'] = "/fonts/{$folder_name}/font.css";
+              $data['css_file'] = $css_file;
 
-            $fonts[ $data['key'] ] = $data;
+              $fonts[ $data['key'] ] = $data;
+            }
           }
         }
       }
