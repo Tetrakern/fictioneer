@@ -13,6 +13,7 @@
  *
  * @since 4.7.0
  * @since 5.7.4 - Updated to use SQL queries.
+ * @since 5.10.0 - Updated for font manager.
  *
  * @global wpdb $wpdb  WordPress database object.
  */
@@ -22,6 +23,13 @@ function fictioneer_theme_deactivation() {
 
   // Delete all theme Transients
   fictioneer_delete_transients_like( 'fictioneer_' );
+
+  // Delete cached files
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+
+  if ( file_exists( $bundled_fonts ) ) {
+    unlink( $bundled_fonts );
+  }
 
   // Only continue if the user wants to delete all options/mods
   if ( get_option( 'fictioneer_delete_theme_options_on_deactivation', false ) ) {
