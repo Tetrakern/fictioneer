@@ -996,6 +996,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Age confirmation modal content for posts.', 'fictioneer' ),
       'default' => __( 'This content is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' ),
       'placeholder' => __( 'This content is intended for an adult audience. Please confirm that you are of legal age (18+) or leave the website.', 'fictioneer' )
+    ),
+    'fictioneer_google_fonts_links' => array(
+      'name' => 'fictioneer_google_fonts_links',
+      'group' => 'fictioneer-settings-fonts-group',
+      'sanitize_callback' => 'fictioneer_sanitize_google_fonts_links',
+      'label' => __( 'List of Google Fonts links', 'fictioneer' ),
+      'default' => '',
+      'placeholder' => __( 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap', 'fictioneer' )
     )
   )
 ));
@@ -1208,6 +1216,36 @@ function fictioneer_sanitize_disable_widget_checkbox( $value ) {
 
   // Return sanitized value for database update
   return filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+}
+
+/**
+ * Sanitizes the textarea input for Google Fonts links
+ *
+ * @since 5.10.0
+ *
+ * @param string $value  The textarea string.
+ *
+ * @return string The sanitized textarea string.
+ */
+
+function fictioneer_sanitize_google_fonts_links( $value ) {
+  $value = sanitize_textarea_field( $value );
+  $lines = explode( "\n", $value );
+  $valid_links = [];
+
+  foreach ( $lines as $line ) {
+    $line = trim( $line );
+
+    if ( preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $line ) === 1 ) {
+      $sanitized_link = filter_var( $line, FILTER_SANITIZE_URL );
+
+      if ( $sanitized_link !== false ) {
+        $valid_links[] = $sanitized_link;
+      }
+    }
+  }
+
+  return implode( "\n", $valid_links );
 }
 
 // =============================================================================

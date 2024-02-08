@@ -2743,6 +2743,93 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 }
 
 // =============================================================================
+// EXTRACT FONT DATA FROM GOOGLE FONTS LINK
+// =============================================================================
+
+/**
+ * Returns fonts data from a Google Fonts link
+ *
+ * @since 5.10.0
+ *
+ * @param string $link  The Google Fonts link.
+ *
+ * @return array|false|null The font data if successful, false if malformed,
+ *                          null if not a valid Google Fonts link.
+ */
+
+function fictioneer_extract_font_from_google_link( $link ) {
+  // Validate
+  if ( preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $link ) !== 1 ) {
+    // Not Google Fonts link
+    return null;
+  }
+
+  // Setup
+  $font = array(
+    'google_link' => $link,
+    'skip' => true,
+    'chapter' => true,
+    'version' => '',
+    'key' => '',
+    'name' => '',
+    'family' => '',
+    'type' => '',
+    'styles' => ['normal'],
+    'weights' => [],
+    'charsets' => [],
+    'formats' => [],
+    'about' => __( 'This font is loaded via the Google Fonts CDN, see source for additional information.', 'fictioneer' ),
+    'note' => '',
+    'sources' => array(
+      'googleFontsCss' => array(
+        'name' => 'Google Fonts CSS File',
+        'url' => $link
+      )
+    )
+  );
+
+  // Name?
+  preg_match( '/family=([^:]+)/', $link, $name_matches );
+
+  if ( ! empty( $name_matches ) ) {
+    $font['name'] = str_replace( '+', ' ', $name_matches[1] );
+    $font['family'] = $font['name'];
+    $font['key'] = sanitize_title( $font['name'] );
+  } else {
+    // Link malformed
+    return false;
+  }
+
+  // Italic? Weights?
+  preg_match( '/ital,wght@([0-9,;]+)/', $link, $ital_weight_matches );
+
+  if ( ! empty( $ital_weight_matches ) ) {
+    $specifications = explode( ';', $ital_weight_matches[1] );
+    $weights = [];
+    $is_italic = false;
+
+    foreach ( $specifications as $spec ) {
+      list( $ital, $weight ) = explode( ',', $spec );
+
+      if ( $ital == '1' ) {
+        $is_italic = true;
+      }
+
+      $weights[ $weight ] = true;
+    }
+
+    if ( $is_italic ) {
+      $font['styles'][] = 'italic';
+    }
+
+    $font['weights'] = array_keys( $weights );
+  }
+
+  // Done
+  return $font;
+}
+
+// =============================================================================
 // GET FONT DATA
 // =============================================================================
 
@@ -2751,7 +2838,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
  *
  * @since 5.10.0
  *
- * @return array Array of font information.
+ * @return array Array of font data.
  */
 
 function fictioneer_get_font_data() {
@@ -2760,6 +2847,7 @@ function fictioneer_get_font_data() {
   $child_font_dir = get_stylesheet_directory() . '/fonts';
   $parent_fonts = [];
   $child_fonts = [];
+  $google_fonts = [];
 
   // Helper function
   $extract_font_data = function( $font_dir, &$fonts ) {
@@ -2796,8 +2884,13 @@ function fictioneer_get_font_data() {
     $extract_font_data( $child_font_dir, $child_fonts );
   }
 
+  // Google Fonts link
+  // $google_fonts = array(
+  //   fictioneer_extract_font_from_google_link( 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap' )
+  // );
+
   // Merge finds
-  $fonts = array_merge( $parent_fonts, $child_fonts );
+  $fonts = array_merge( $parent_fonts, $child_fonts, $google_fonts );
 
   // Return complete font list
   return $fonts;
@@ -2835,7 +2928,7 @@ function fictioneer_build_bundled_fonts() {
       );
     }
 
-    if ( ! ( $font['skip'] ?? 0 ) ) {
+    if ( ! ( $font['skip'] ?? 0 ) && ! ( $font['google_link'] ?? 0 ) ) {
       $combined_font_css .= file_get_contents( $font['css_file'] );
     }
   }
