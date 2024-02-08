@@ -2756,36 +2756,50 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 
 function fictioneer_get_font_data() {
   // Setup
-  $font_dir = get_template_directory() . '/fonts';
-  $fonts = [];
+  $parent_font_dir = get_template_directory() . '/fonts';
+  $child_font_dir = get_stylesheet_directory() . '/fonts';
+  $parent_fonts = [];
+  $child_fonts = [];
 
-  // Look through fonts...
-  if ( is_dir( $font_dir ) ) {
-    $all_paths = scandir( $font_dir );
+  // Helper function
+  $extract_font_data = function( $font_dir, &$fonts ) {
+    if ( is_dir( $font_dir ) ) {
+      $font_folders = array_diff( scandir( $font_dir ), ['..', '.'] );
 
-    foreach ( $all_paths as $path ) {
-      if ( $path == '.' || $path == '..' ) {
-        continue;
-      }
+      foreach ( $font_folders as $folder ) {
+        $full_path = "{$font_dir}/{$folder}";
+        $json_file = "$full_path/font.json";
+        $css_file = "$full_path/font.css";
 
-      $full_path = "{$font_dir}/{$path}";
-      $json_file = "$full_path/font.json";
-      $css_file = "$full_path/font.css";
+        if ( is_dir( $full_path ) && file_exists( $json_file ) && file_exists( $css_file ) ) {
+          $folder_name = basename( $folder );
+          $data = @json_decode( file_get_contents( $json_file ), true );
 
-      if ( is_dir( $full_path ) && file_exists( $json_file ) && file_exists( $css_file ) ) {
-        $folder = basename( $path );
-        $data = @json_decode( file_get_contents( $json_file ), true );
+          if ( $data && json_last_error() === JSON_ERROR_NONE ) {
+            $data['css_path'] = "/fonts/{$folder_name}/font.css";
+            $data['css_file'] = $css_file;
 
-        if ( $data && json_last_error() === JSON_ERROR_NONE ) {
-          $data['css_path'] = "/fonts/{$folder}/font.css";
-          $data['css_file'] = $css_file;
-
-          $fonts[ $data['key'] ] = $data;
+            $fonts[ $data['key'] ] = $data;
+          }
         }
       }
+
+      return $fonts;
     }
+  };
+
+  // Parent theme
+  $extract_font_data( $parent_font_dir, $parent_fonts );
+
+  // Child theme (if any)
+  if ( $parent_font_dir !== $child_font_dir ) {
+    $extract_font_data( $child_font_dir, $child_fonts );
   }
 
+  // Merge finds
+  $fonts = array_merge( $parent_fonts, $child_fonts );
+
+  // Return complete font list
   return $fonts;
 }
 
