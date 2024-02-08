@@ -2884,10 +2884,20 @@ function fictioneer_get_font_data() {
     $extract_font_data( $child_font_dir, $child_fonts );
   }
 
-  // Google Fonts link
-  // $google_fonts = array(
-  //   fictioneer_extract_font_from_google_link( 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap' )
-  // );
+  // Google Fonts links (if any)
+  $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
+
+  if ( $google_fonts_links ) {
+    $google_fonts_links = explode( "\n", $google_fonts_links );
+
+    foreach ( $google_fonts_links as $link ) {
+      $font = fictioneer_extract_font_from_google_link( $link );
+
+      if ( $font ) {
+        $google_fonts[] = $font;
+      }
+    }
+  }
 
   // Merge finds
   $fonts = array_merge( $parent_fonts, $child_fonts, $google_fonts );

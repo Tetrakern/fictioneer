@@ -1229,10 +1229,12 @@ function fictioneer_sanitize_disable_widget_checkbox( $value ) {
  */
 
 function fictioneer_sanitize_google_fonts_links( $value ) {
+  // Setup
   $value = sanitize_textarea_field( $value );
   $lines = explode( "\n", $value );
   $valid_links = [];
 
+  // Validate and sanitize each line
   foreach ( $lines as $line ) {
     $line = trim( $line );
 
@@ -1245,6 +1247,7 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
     }
   }
 
+  // Continue saving process
   return implode( "\n", $valid_links );
 }
 
@@ -1318,7 +1321,7 @@ add_filter( 'sanitize_option_fictioneer_404_page', function( $new_value ) {
  * @since 5.9.4
  *
  * @param mixed $old_value  The value before the update.
- * @param mixed $value      The new value;
+ * @param mixed $value      The new value.
  */
 
 function fictioneer_update_option_disable_extended_story_list_meta_queries( $old_value, $value ) {
@@ -1342,7 +1345,7 @@ add_action(
  * @since 5.9.4
  *
  * @param mixed $old_value  The value before the update.
- * @param mixed $value      The new value;
+ * @param mixed $value      The new value.
  */
 
 function fictioneer_update_option_disable_extended_chapter_list_meta_queries( $old_value, $value ) {
@@ -1359,5 +1362,19 @@ add_action(
   10,
   2
 );
+
+/**
+ * Rebuilds bundled fonts after Google Fonts links update
+ *
+ * @since 5.10.0
+ *
+ * @param mixed $old_value  The value before the update.
+ * @param mixed $value      The new value.
+ */
+
+function fictioneer_updated_google_fonts( $old_value, $value ) {
+  fictioneer_build_bundled_fonts();
+}
+add_action( 'update_option_fictioneer_google_fonts_links', 'fictioneer_updated_google_fonts', 10, 2 );
 
 ?>
