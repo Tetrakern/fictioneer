@@ -54,7 +54,7 @@ get_header( null, $header_args );
         );
       ?>
 
-      <article id="<?php the_ID(); ?>" class="story__article <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
+      <article id="post-<?php the_ID(); ?>" class="story__article <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>" data-id="<?php the_ID(); ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
 
         <?php
           // Render article header
