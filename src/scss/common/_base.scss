@@ -646,6 +646,7 @@ html:not(.logged-in) body:not(.logged-in) {
         --focus-offset: 1px;
         grid-area: 1 / 2 / 2 / 3;
         color: var(--story-link);
+        font-family: var(--ff-chapter-list-title);
         font-size: get_clamp(13, 14, 320, 768);
         line-height: 1.3;
         font-weight: var(--font-weight-medium);
