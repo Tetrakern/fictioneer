@@ -58,7 +58,7 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
           <h1 style="margin-bottom: 12px;"><?php _e( 'Installed Fonts', 'fictioneer' ); ?></h1>
           <p><?php
             printf(
-              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign the primary, secondary, and heading fonts in the <a href="%s">Customizer > Layout</a>.', 'fictioneer' ),
+              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign fonts in the <a href="%s">Customizer</a>.', 'fictioneer' ),
               'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts',
               wp_customize_url()
             );

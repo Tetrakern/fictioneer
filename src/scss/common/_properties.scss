@@ -34,10 +34,12 @@
   --ff-note: 'Lato', var(--ff-base);
   --ff-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
   --ff-input: var(--ff-base);
+  --ff-card-title: var(--ff-heading);
   --ff-site-title: var(--ff-heading);
   --ff-story-title: var(--ff-heading);
   --ff-chapter-title: var(--ff-heading);
   --ff-chapter-list-title: var(--ff-base);
+  --ff-card-list-link: inherit;
 
   // === HEADER ================================================================
   --layout-header-background-height: #{get_clamp(210, 480, 320, $full-width)}; // Overridden by theme customizer

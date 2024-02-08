@@ -3003,6 +3003,50 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     )
   );
 
+  // Card title font
+  $manager->add_setting(
+    'card_title_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'card_title_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Card Title Font', 'fictioneer' ),
+      'description' => __( 'Used for the card titles. Default "Open Sans".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
+  // Card list link font
+  $manager->add_setting(
+    'card_list_link_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Lato'
+    )
+  );
+
+  $manager->add_control(
+    'card_list_link_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Card List Link Font', 'fictioneer' ),
+      'description' => __( 'Used for the links in card lists. Default "Lato".', 'fictioneer' ),
+      'choices'  => $font_options
+    )
+  );
+
   // Dark mode font weight adjustment
   $manager->add_setting(
     'dark_mode_font_weight',

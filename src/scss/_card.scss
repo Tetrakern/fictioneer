@@ -197,8 +197,8 @@
 
   &__title {
     flex: 1 1 auto;
+    font-family: var(--ff-card-title);
     font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
-    font-family: var(--ff-heading); // Redundant for safety
 
     &._with-delete {
       padding-right: 1.75em;
@@ -405,6 +405,7 @@
     }
 
     &-link {
+      font-family: var(--ff-card-list-link);
       padding: 4px 0; // Increase link click target
     }
 
