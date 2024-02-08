@@ -1110,6 +1110,21 @@ function fictioneer_output_head_fonts() {
     <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
     <?php // <--- End HTML
   }
+
+  // Output Google Fonts links (if any)
+  $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
+  $google_fonts_links = explode( "\n", $google_fonts_links );
+
+  if ( ! empty( $google_fonts_links ) ) {
+    // Start HTML ---> ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <?php // <--- End HTML
+
+    foreach ( $google_fonts_links as $link ) {
+      printf( '<link href="%s" rel="stylesheet">', $link );
+    }
+  }
 }
 add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
 
