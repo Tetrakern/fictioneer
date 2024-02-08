@@ -1,0 +1,25 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "18",
+  "key": "special-elite",
+  "name": "Special Elite",
+  "family": "Special Elite",
+  "type": "serif",
+  "styles": ["normal"],
+  "weights": [400],
+  "charsets": ["latin"],
+  "formats": ["woff2"],
+  "about": "Special Elite mimics the Smith Corona Special Elite Type Number NR6 and Remington Noiseless typewriter models. A little bit of inked up grunge and a little old school analog flavor work together to give you a vintage typewriter typeface for your website and designs.",
+  "note": "",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/specimen/Special+Elite"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/special-elite?subsets=latin"
+    }
+  }
+}
