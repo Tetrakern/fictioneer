@@ -1238,7 +1238,7 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
   foreach ( $lines as $line ) {
     $line = trim( $line );
 
-    if ( preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $line ) === 1 ) {
+    if ( fictioneer_validate_google_fonts_link( $line ) ) {
       $sanitized_link = filter_var( $line, FILTER_SANITIZE_URL );
 
       if ( $sanitized_link !== false ) {

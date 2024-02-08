@@ -2743,6 +2743,24 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 }
 
 // =============================================================================
+// VALIDATE GOOGLE FONTS LINK
+// =============================================================================
+
+/**
+ * Validates Google Fonts link
+ *
+ * @since 5.10.0
+ *
+ * @param string $link  The Google Fonts link.
+ *
+ * @return boolean Whether the link is valid or not.
+ */
+
+function fictioneer_validate_google_fonts_link( $link ) {
+  return preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $link ) === 1;
+}
+
+// =============================================================================
 // EXTRACT FONT DATA FROM GOOGLE FONTS LINK
 // =============================================================================
 
@@ -2759,7 +2777,7 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
 
 function fictioneer_extract_font_from_google_link( $link ) {
   // Validate
-  if ( preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $link ) !== 1 ) {
+  if ( ! fictioneer_validate_google_fonts_link( $link ) ) {
     // Not Google Fonts link
     return null;
   }
