@@ -37,7 +37,7 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
               <div class="fictioneer-card__row">
                 <p><?php
                   printf(
-                    __( 'You can install <a href="%s" target="_blank">Google Fonts</a> by adding the embed link below, which you can find in the href attribute provided on the right after selecting the font styles. Several fonts can be combined into one link, but be aware that the more fonts you load, the slower your site will become. Also note that using Google Fonts violates the GDPR.', 'fictioneer' ),
+                    __( 'You can install <a href="%s" target="_blank">Google Fonts</a> by adding the embed link below, which you can find in the href attribute provided on the right after selecting the font styles. Several fonts can be combined into one link, but be aware that the more fonts you load, the slower your site becomes. Also note that using Google Fonts violates the GDPR.', 'fictioneer' ),
                     'https://fonts.google.com/'
                   );
                 ?></p>
