@@ -2597,7 +2597,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
 
   // Fonts
   $fonts = fictioneer_get_font_data();
-  $font_options = [];
+  $font_options = array( 'System' => __( 'System Font', 'fictioneer' ) );
 
   foreach ( $fonts as $font ) {
     $font_options[ $font['family'] ] = $font['name'];

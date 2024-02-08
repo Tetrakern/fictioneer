@@ -524,6 +524,15 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
     $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
 
+    $font_primary = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
+    $font_primary = $font_primary === 'System' ? 'var(--ff-system)' : "'{$font_primary}', var(--ff-system)";
+
+    $font_secondary = get_theme_mod( 'secondary_font_family_value', 'Lato' );
+    $font_secondary = $font_secondary === 'System' ? 'var(--ff-system)' : "'{$font_secondary}', var(--ff-base)";
+
+    $font_heading = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
+    $font_heading = $font_heading === 'System' ? 'var(--ff-system)' : "'{$font_heading}', var(--ff-base)";
+
     // Build CSS
     $layout_css = ":root {
       --site-width: " . $site_width . "px;
@@ -536,9 +545,9 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
       --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
       --grid-columns-min: " . $card_grid_column_min . "px;
-      --ff-base: " . get_theme_mod( 'primary_font_family_value', 'Open Sans' ) . ", var(--ff-system);
-      --ff-note: " . get_theme_mod( 'secondary_font_family_value', 'Lato' ) . ", var(--ff-base);
-      --ff-heading: " . get_theme_mod( 'heading_font_family_value', 'Open Sans' ) . ", var(--ff-base);
+      --ff-base: {$font_primary};
+      --ff-note: {$font_secondary};
+      --ff-heading: {$font_heading};
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {
