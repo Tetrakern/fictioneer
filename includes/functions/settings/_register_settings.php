@@ -1248,7 +1248,7 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
   }
 
   // Continue saving process
-  return implode( "\n", $valid_links );
+  return implode( "\n", array_unique( $valid_links ) );
 }
 
 // =============================================================================
