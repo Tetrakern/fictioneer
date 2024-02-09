@@ -12,9 +12,6 @@
 
 // Setup
 $fonts = fictioneer_get_font_data();
-$primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
-$secondary_font = get_theme_mod( 'secondary_font_family_value', 'Lato' );
-$heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
 
 ?>
 
@@ -58,9 +55,10 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
           <h1 style="margin-bottom: 12px;"><?php _e( 'Installed Fonts', 'fictioneer' ); ?></h1>
           <p><?php
             printf(
-              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign fonts in the <a href="%s">Customizer</a>.', 'fictioneer' ),
+              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign fonts in the <a href="%s">Customizer</a>. If the fonts are listed but not displayed, purge the theme caches under <a href="%s">Tools</a> and force-refresh he page to clear the browser cache as well.', 'fictioneer' ),
               'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts',
-              wp_customize_url()
+              wp_customize_url(),
+              '?page=fictioneer_tools'
             );
           ?></p>
         </div>
@@ -81,6 +79,7 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
             $styles = $font['styles'] ?? [ $fallback ];
             $sources = $font['sources'] ?? [];
             $note = $font['note'] ?? '';
+            $child_font = $font['in_child_theme'] ?? 0;
           ?>
 
           <div class="fictioneer-card">
@@ -92,16 +91,8 @@ $heading_font = get_theme_mod( 'heading_font_family_value', 'Open Sans' );
                   printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
                 }
 
-                if ( $primary_font === $font['family'] ) {
-                  _ex( ' — Primary Font', 'Settings font card.', 'fictioneer' );
-                }
-
-                if ( $secondary_font === $font['family'] ) {
-                  _ex( ' — Secondary Font', 'Settings font card.', 'fictioneer' );
-                }
-
-                if ( $heading_font === $font['family'] ) {
-                  _ex( ' — Heading Font', 'Settings font card.', 'fictioneer' );
+                if ( $child_font ) {
+                  _ex( ' — Child Theme', 'Settings font card.', 'fictioneer' );
                 }
               ?></h3>
 
