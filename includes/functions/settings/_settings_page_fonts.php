@@ -79,7 +79,6 @@ $fonts = fictioneer_get_font_data();
             $styles = $font['styles'] ?? [ $fallback ];
             $sources = $font['sources'] ?? [];
             $note = $font['note'] ?? '';
-            $child_font = $font['in_child_theme'] ?? 0;
           ?>
 
           <div class="fictioneer-card">
@@ -91,8 +90,12 @@ $fonts = fictioneer_get_font_data();
                   printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
                 }
 
-                if ( $child_font ) {
+                if ( $font['in_child_theme'] ?? 0 ) {
                   _ex( ' — Child Theme', 'Settings font card.', 'fictioneer' );
+                }
+
+                if ( $font['google_link'] ?? 0 ) {
+                  _ex( ' — Google Fonts CDN', 'Settings font card.', 'fictioneer' );
                 }
               ?></h3>
 
