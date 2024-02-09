@@ -2934,7 +2934,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Site Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the site title and tagline. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the site title and tagline. Defaults to heading font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -2956,7 +2956,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Navigation Item Font', 'fictioneer' ),
-      'description' => __( 'Used for the items in the navigation bar. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the items in the navigation bar. Defaults to primary font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -2978,7 +2978,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Story Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the title on story pages. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the title on story pages. Defaults to heading font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -3000,7 +3000,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the title on chapter pages. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the title on chapter pages. Defaults to heading font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -3022,7 +3022,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter List Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the title row in chapter lists. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the title row in chapter lists. Defaults to primary font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -3044,7 +3044,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the card titles. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the card titles. Defaults to heading font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -3066,7 +3066,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card Body Font', 'fictioneer' ),
-      'description' => __( 'Used for the card content. Default "Lato".', 'fictioneer' ),
+      'description' => __( 'Used for the card content. Defaults to secondary font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
@@ -3088,7 +3088,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card List Link Font', 'fictioneer' ),
-      'description' => __( 'Used for the links in card lists. Default "Lato".', 'fictioneer' ),
+      'description' => __( 'Used for the links in card lists. Defaults to secondary font.', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
