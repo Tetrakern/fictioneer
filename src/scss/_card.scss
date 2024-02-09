@@ -175,7 +175,7 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--e-2);
-    font-family: var(--ff-note);
+    font-family: var(--ff-card-body);
     padding: var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem));
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
