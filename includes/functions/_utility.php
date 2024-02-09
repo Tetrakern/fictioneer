@@ -2962,7 +2962,7 @@ function fictioneer_build_bundled_fonts() {
     if ( ! ( $font['skip'] ?? 0 ) && ! ( $font['google_link'] ?? 0 ) ) {
       $css = file_get_contents( $font['css_file'] );
 
-      if ( $font['in_child_theme'] ) {
+      if ( $font['in_child_theme'] ?? 0 ) {
         $css = str_replace( '../fonts/', get_stylesheet_directory_uri() . '/fonts/', $css );
       }
 
