@@ -2934,7 +2934,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'fictioneer_fonts',
       'label' => __( 'Site Title Font', 'fictioneer' ),
-      'description' => __( 'Used for the site title. Default "Open Sans".', 'fictioneer' ),
+      'description' => __( 'Used for the site title and tagline. Default "Open Sans".', 'fictioneer' ),
       'choices' => $font_sub_options
     )
   );
