@@ -1,0 +1,26 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "36",
+  "key": "noto-sans-kr",
+  "name": "Noto Sans KR",
+  "family": "Noto Sans KR",
+  "type": "sans-serif",
+  "styles": ["normal"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["cyrillic", "korean", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Noto Sans KR is an unmodulated (“sans serif”) design for the Korean language using Hangul and the Korean Hanja scripts. It also supports Hiragana, Katakana, Latin, Cyrillic and Greek.",
+  "note": "",
+  "preview": "모든 인류 구성원의 천부의 존엄성과 동등하고 양도할 수 없는 권리를 인정하는",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/noto/specimen/Noto+Sans+KR"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/noto-sans-kr?subsets=cyrillic,korean,latin,latin-ext,vietnamese"
+    }
+  }
+}
