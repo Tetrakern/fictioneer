@@ -2868,7 +2868,7 @@ function fictioneer_get_font_data() {
   $google_fonts = [];
 
   // Helper function
-  $extract_font_data = function( $font_dir, &$fonts ) {
+  $extract_font_data = function( $font_dir, &$fonts, $theme = 'parent' ) {
     if ( is_dir( $font_dir ) ) {
       $font_folders = array_diff( scandir( $font_dir ), ['..', '.'] );
 
@@ -2885,6 +2885,7 @@ function fictioneer_get_font_data() {
             if ( ! ( $data['remove'] ?? 0 ) ) {
               $data['css_path'] = "/fonts/{$folder_name}/font.css";
               $data['css_file'] = $css_file;
+              $data['in_child_theme'] = $theme === 'child';
 
               $fonts[ $data['key'] ] = $data;
             }
@@ -2901,7 +2902,7 @@ function fictioneer_get_font_data() {
 
   // Child theme (if any)
   if ( $parent_font_dir !== $child_font_dir ) {
-    $extract_font_data( $child_font_dir, $child_fonts );
+    $extract_font_data( $child_font_dir, $child_fonts, 'child' );
   }
 
   // Google Fonts links (if any)
@@ -2959,7 +2960,13 @@ function fictioneer_build_bundled_fonts() {
     }
 
     if ( ! ( $font['skip'] ?? 0 ) && ! ( $font['google_link'] ?? 0 ) ) {
-      $combined_font_css .= file_get_contents( $font['css_file'] );
+      $css = file_get_contents( $font['css_file'] );
+
+      if ( $font['in_child_theme'] ) {
+        $css = str_replace( '../fonts/', get_stylesheet_directory_uri() . '/fonts/', $css );
+      }
+
+      $combined_font_css .= $css;
     }
   }
 
