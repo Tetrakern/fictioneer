@@ -536,6 +536,9 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $font_site_title = get_theme_mod( 'site_title_font_family_value', 'Open Sans' );
     $font_site_title = $font_site_title === 'System' ? 'var(--ff-system)' : "'{$font_site_title}', var(--ff-heading)";
 
+    $font_nav_item = get_theme_mod( 'nav_item_font_family_value', 'Open Sans' );
+    $font_nav_item = $font_nav_item === 'System' ? 'var(--ff-system)' : "'{$font_nav_item}', var(--ff-base)";
+
     $font_story_title = get_theme_mod( 'story_title_font_family_value', 'Open Sans' );
     $font_story_title = $font_story_title === 'System' ? 'var(--ff-system)' : "'{$font_story_title}', var(--ff-heading)";
 
@@ -572,6 +575,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --ff-chapter-title: {$font_chapter_title};
       --ff-chapter-list-title: {$font_chapter_list_title};
       --ff-card-list-link: {$font_card_list_link};
+      --ff-nav-item: {$font_nav_item};
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {

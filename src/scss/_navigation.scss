@@ -243,6 +243,7 @@
       align-items: center;
       justify-content: space-between;
       color: var(--navigation-text);
+      font-family: var(--ff-nav-item);
       line-height: 1.2;
       letter-spacing: get_relative_clamp(-0.01, 0, 375, 480, 'vw', 'em');
       white-space: nowrap;

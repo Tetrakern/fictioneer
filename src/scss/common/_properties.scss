@@ -40,6 +40,7 @@
   --ff-chapter-title: var(--ff-heading);
   --ff-chapter-list-title: var(--ff-base);
   --ff-card-list-link: inherit;
+  --ff-nav-item: var(--ff-base);
 
   // === HEADER ================================================================
   --layout-header-background-height: #{get_clamp(210, 480, 320, $full-width)}; // Overridden by theme customizer

@@ -2483,7 +2483,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Header Style', 'fictioneer' ),
       'description' => __( 'Choose the style of your header. This may affect or disable other settings.', 'fictioneer' ),
-      'choices'  => array(
+      'choices' => array(
         'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
         'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
         'split' => _x( 'Split', 'Customizer header style option.', 'fictioneer' ),
@@ -2563,7 +2563,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Mobile Navigation Style', 'fictioneer' ),
       'description' => __( 'Choose the style of your mobile navigation.', 'fictioneer' ),
-      'choices'  => array(
+      'choices' => array(
         'overflow' => _x( 'Overflow', 'Customizer mobile navigation style option.', 'fictioneer' ),
         'collapse' => _x( 'Collapse', 'Customizer mobile navigation style option.', 'fictioneer' )
       ),
@@ -2588,7 +2588,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Mobile Menu Style', 'fictioneer' ),
       'description' => __( 'Choose the style of your mobile menu.', 'fictioneer' ),
-      'choices'  => array(
+      'choices' => array(
         'minimize_to_right' => _x( 'Minimize site to right', 'Customizer mobile menu style option.', 'fictioneer' ),
         'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' )
       ),
@@ -2867,7 +2867,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Primary Font', 'fictioneer' ),
       'description' => __( 'Used for most of the content and as default chapter font. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -2889,7 +2889,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Secondary Font', 'fictioneer' ),
       'description' => __( 'Used for small cards, tags, alongside icons, and in meta rows. Default "Lato".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -2911,7 +2911,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Heading Font', 'fictioneer' ),
       'description' => __( 'Used for the site title plus articles, chapters, and cards. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -2933,7 +2933,29 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Site Title Font', 'fictioneer' ),
       'description' => __( 'Used for the site title. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
+    )
+  );
+
+  // Navigation item font
+  $manager->add_setting(
+    'nav_item_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'Open Sans'
+    )
+  );
+
+  $manager->add_control(
+    'nav_item_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Navigation Item Font', 'fictioneer' ),
+      'description' => __( 'Used for the items in the navigation bar. Default "Open Sans".', 'fictioneer' ),
+      'choices' => $font_options
     )
   );
 
@@ -2955,7 +2977,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Story Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title on story pages. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -2977,7 +2999,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title on chapter pages. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -2999,7 +3021,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Chapter List Title Font', 'fictioneer' ),
       'description' => __( 'Used for the title row in chapter lists. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -3021,7 +3043,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card Title Font', 'fictioneer' ),
       'description' => __( 'Used for the card titles. Default "Open Sans".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -3043,7 +3065,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Card List Link Font', 'fictioneer' ),
       'description' => __( 'Used for the links in card lists. Default "Lato".', 'fictioneer' ),
-      'choices'  => $font_options
+      'choices' => $font_options
     )
   );
 
@@ -3065,7 +3087,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
       'section' => 'fictioneer_fonts',
       'label' => __( 'Dark Mode Font Weight', 'fictioneer' ),
       'description' => __( 'Fonts are rendered thinner in dark mode to offset text bleeding; you can turn that off.', 'fictioneer' ),
-      'choices'  => array(
+      'choices' => array(
         'adjusted' => _x( 'Adjusted', 'Customizer dark mode font weight option.', 'fictioneer' ),
         'normal' => _x( 'Normal', 'Customizer dark mode font weight option.', 'fictioneer' )
       ),
