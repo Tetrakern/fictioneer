@@ -1,0 +1,26 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "23",
+  "key": "noto-sans-tc",
+  "name": "Noto Sans TC",
+  "family": "Noto Sans TC",
+  "type": "sans-serif",
+  "styles": ["normal"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["chinese-traditional", "cyrillic", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Noto Sans TC is an unmodulated (“sans serif”) design for languages in Taiwan and Macau that use the Traditional Chinese variant of the Han ideograms. It also supports Hiragana, Katakana, Latin, Cyrillic, Greek and Hangul.",
+  "note": "",
+  "preview": "鑑於人類社會個成員儕有個固有尊嚴脫仔平等個脫仔勿移個權利承認，是世界自由、正義脫仔和平個基礎",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/noto/specimen/Noto+Sans+TC"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/noto-sans-tc?subsets=chinese-traditional,cyrillic,latin,latin-ext,vietnamese"
+    }
+  }
+}

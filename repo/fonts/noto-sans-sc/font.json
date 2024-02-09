@@ -1,0 +1,26 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "44",
+  "key": "noto-sans-sc",
+  "name": "Noto Sans SC",
+  "family": "Noto Sans SC",
+  "type": "sans-serif",
+  "styles": ["normal"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["chinese-simplified", "cyrillic", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Noto Sans SC is an unmodulated (“sans serif”) design for languages in mainland China that use the Simplified Chinese variant of the Han ideograms. It also supports Hiragana, Katakana, Latin, Cyrillic, Greek and Hangul.",
+  "note": "",
+  "preview": "鉴于对人类家庭所有成员的固有尊严及其平等的和不移的权利的承认,乃是世界自由、正义与和平的基础",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/noto/specimen/Noto+Sans+SC"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/noto-sans-sc?subsets=chinese-simplified,cyrillic,latin,latin-ext,vietnamese"
+    }
+  }
+}

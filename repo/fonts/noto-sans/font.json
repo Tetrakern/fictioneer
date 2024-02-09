@@ -1,0 +1,28 @@
+{
+  "skip": false,
+  "remove": false,
+  "chapter": true,
+  "version": "35",
+  "key": "noto-sans",
+  "name": "Noto Sans",
+  "family": "Noto Sans",
+  "alt": "",
+  "type": "sans-serif",
+  "styles": ["normal", "italic"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["cyrillic", "cyrillic-ext", "devanagari", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Noto Sans is an unmodulated (“sans serif”) design for texts in the Latin, Cyrillic and Greek scripts, which is also suitable as the complementary choice for other script-specific Noto Sans fonts.",
+  "note": "",
+  "preview": "The quick brown fox jumps over the lazy dog.",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/noto/specimen/Noto+Sans"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/noto-sans?subsets=cyrillic,cyrillic-ext,devanagari,greek,greek-ext,latin,latin-ext,vietnamese"
+    }
+  }
+}
