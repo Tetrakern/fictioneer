@@ -44,8 +44,8 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Queries](#queries)
   * [Font Awesome](#font-awesome)
   * [Custom Fonts](#custom-fonts)
-    * [A) Upload a font configuration folder](#1a-upload-a-font-configuration-folder)
-    * [B) Load from the Google Fonts CDN](#1b-load-from-the-google-fonts-cdn)
+    * [A) Upload a font configuration folder](#a-upload-a-font-configuration-folder)
+    * [B) Load from the Google Fonts CDN](#b-load-from-the-google-fonts-cdn)
   * [Constants](#constants)
 
 ## Choosing a Host
@@ -1189,7 +1189,7 @@ Following is an explanation of both methods on the example of [Noto Sans](https:
 
 Purge the theme caches under **Fictioneer > Tools** after adding or removing a font. You may have to force-refresh too. Once everything is in order and refreshed, you can see the font listed under **Fictioneer > Fonts**. With that, you can assign the fonts to specific parts of the theme under **Appearance > Customize > Fonts**. More is possible with custom CSS.
 
-#### 1A) Upload a font configuration folder
+#### A) Upload a font configuration folder
 
 This method requires some preparation. Take a look at the [roboto-serif](https://github.com/Tetrakern/fictioneer/tree/main/fonts/roboto-serif) default font folder; you will find several .woff2 files, one .css file, and one .json file. You can replicate that with relative ease using the [Google Fonts Webhelper](https://gwfh.mranftl.com/fonts/noto-sans) and a text editor of your choice. Search for "Noto Sans", select the charsets and styles you need (typically 300-700), then change the folder prefix to `../fonts/noto-sans/`. Copy the provided CSS into a new font.css file, download and unpack the archive, put everything into a "noto-sans" folder. You can rename the files, remove the comments, and minify the CSS if you got the patience. Just make sure everything is still correct.
 
@@ -1262,7 +1262,7 @@ You can find a collection of pre-made font folders under [/repo/fonts/](https://
 * [Special Elite](https://github.com/Tetrakern/fictioneer/tree/main/repo/fonts/special-elite): Typewriter-like font good for headings or special sections.
 * [Verdana](https://github.com/Tetrakern/fictioneer/tree/main/repo/fonts/verdana): Web safe font and example for adding pre-installed device fonts.
 
-#### 1B) Load from the Google Fonts CDN
+#### B) Load from the Google Fonts CDN
 
 Visit [Google Fonts](https://fonts.google.com/) and browse for a font you like. On the **Specimen** tab, scroll down to **Styles** and select what you need, typically everything from 300 to 700 if you want to cover all cases of the theme. If some styles are missing, you can still use the font — just perhaps not as primary one. On the right, under **Use on the web**, choose the **\<link\>** option and copy the link of the href attribute (nothing else). Make sure only one font is selected, because bundled font links are currently not understood by the theme.
 
