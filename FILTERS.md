@@ -410,6 +410,14 @@ Filters the return array of the `fictioneer_get_font_colors()` function, used to
 
 ---
 
+### `apply_filters( 'fictioneer_filter_font_data', $fonts )`
+Filters the font array compiled from all valid font folders and Google Fonts links in both the parent and child theme. Note that the `fictioneer_get_font_data()` function reads the file system, which is potentially slow.
+
+**Parameters:**
+* $fonts (array) – Array of font data.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_header_image', $header_image_url, $post_id )`
 Filters the URL of the header image in the `header.php` template.
 
@@ -602,6 +610,14 @@ Filters the intermediate output array of the `fictioneer_get_post_meta_items()` 
 * $no_author (boolean|null) – Whether to hide the author.
 * $no_cat (boolean|null) – Whether to hide the category.
 * $no_comments (boolean|null) – Whether to hide the comments.
+
+---
+
+### `apply_filters( 'fictioneer_filter_pre_build_bundled_fonts', $fonts )`
+Filters the font array before the bundled-fonts.css stylesheet is built in the `fictioneer_build_bundled_fonts()` function. This allows you to add, remove, or change fonts at the last opportunity. Note that the function reads the file system, which is potentially slow. The result is cached in the `fictioneer_chapter_fonts` option.
+
+**Parameters:**
+* $fonts (array) – Array of font data.
 
 ---
 

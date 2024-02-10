@@ -2923,6 +2923,9 @@ function fictioneer_get_font_data() {
   // Merge finds
   $fonts = array_merge( $parent_fonts, $child_fonts, $google_fonts );
 
+  // Apply filters
+  $fonts = apply_filters( 'fictioneer_filter_font_data', $fonts );
+
   // Return complete font list
   return $fonts;
 }
@@ -2943,6 +2946,9 @@ function fictioneer_build_bundled_fonts() {
   $fonts = fictioneer_get_font_data();
   $combined_font_css = '';
   $font_stack = [];
+
+  // Apply filters
+  $fonts = apply_filters( 'fictioneer_filter_pre_build_bundled_fonts', $fonts );
 
   // Make sure directory exists
   if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
