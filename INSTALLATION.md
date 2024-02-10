@@ -23,6 +23,7 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Plugins Tab](#plugins-tab)
   * [Connections Tab](#connections-tab)
   * [Phrases Tab](#phrases-tab)
+  * [Fonts Tab](#fonts-tab)
   * [ePUBs Tab](#epubs-tab)
   * [SEO Tab](#seo-tab)
   * [Tools Tab](#tools-tab)
