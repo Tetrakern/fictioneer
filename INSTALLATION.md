@@ -670,6 +670,12 @@ The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2
 
 Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin.
 
+### Fonts Tab
+
+![Phrases Settings Preview](repo/assets/settings_fonts_preview.jpg?raw=true)
+
+An overview of all installed fonts, with the options to enable/disable them. You can also include Google Fonts here, but be aware that this violates the GDPR. If you want to install custom fonts, take a look at the [Installation](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts) guide.
+
 ### ePUBs Tab
 
 ![ePUBs Settings Preview](repo/assets/settings_epubs_preview.jpg?raw=true)
