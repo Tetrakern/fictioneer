@@ -2944,6 +2944,8 @@ function fictioneer_build_bundled_fonts() {
   // Setup
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
   $fonts = fictioneer_get_font_data();
+  $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
+  $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
   $combined_font_css = '';
   $font_stack = [];
 
@@ -2956,7 +2958,11 @@ function fictioneer_build_bundled_fonts() {
   }
 
   // Build
-  foreach ( $fonts as $font ) {
+  foreach ( $fonts as $key => $font ) {
+    if ( in_array( $key, $disabled_fonts ) ) {
+      continue;
+    }
+
     if ( $font['chapter'] ?? 0 ) {
       $font_stack[ $font['key'] ] = array(
         'css' => fictioneer_font_family_value( $font['family'] ?? '' ),

@@ -120,7 +120,9 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-add-story-sticky' => __( 'The "fictioneer_story_sticky" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-add-chapter-hidden' => __( 'The "fictioneer_chapter_hidden" meta field has been appended with value 0.', 'fictioneer' ),
       'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' ),
-      'fictioneer-legacy-cleanup' => __( 'Performed legacy cleanups: %s.', 'fictioneer' )
+      'fictioneer-legacy-cleanup' => __( 'Performed legacy cleanups: %s.', 'fictioneer' ),
+      'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
+      'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' )
     )
   );
 }
@@ -289,6 +291,109 @@ function fictioneer_tools_move_story_tags_to_genres() {
   fictioneer_finish_tool_action( 'fictioneer-story-tags-to-genres' );
 }
 add_action( 'admin_post_fictioneer_move_story_tags_to_genres', 'fictioneer_tools_move_story_tags_to_genres' );
+
+// =============================================================================
+// FONT ACTIONS
+// =============================================================================
+
+/**
+ * Disables a font by key
+ *
+ * @since 5.10.0
+ */
+
+function fictioneer_tools_disable_font() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_disable_font' );
+
+  // Setup
+  $font_key = sanitize_key( $_GET['font'] );
+  $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
+  $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
+
+  // Abort if...
+  if ( empty( $font_key ) ) {
+    fictioneer_finish_tool_action( 'fictioneer-font-not-found' );
+  }
+
+  // Disable
+  $disabled_fonts[ $font_key ] = $font_key;
+  $disabled_fonts = array_unique( $disabled_fonts );
+  update_option( 'fictioneer_disabled_fonts', $disabled_fonts );
+
+  // Rebuild stylesheet
+  fictioneer_build_bundled_fonts();
+
+  // Log
+  fictioneer_log(
+    sprintf(
+      __( 'Disabled "%s" font key. Currently disabled keys: %s.', 'fictioneer' ),
+      $font_key,
+      implode( ', ', $disabled_fonts ) ?: __( 'no keys disabled', 'fictioneer' )
+    )
+  );
+
+  // Finish
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-disabled-font',
+        'data' => $font_key
+      ),
+      wp_get_referer()
+    )
+  );
+}
+add_action( 'admin_post_fictioneer_disable_font', 'fictioneer_tools_disable_font' );
+
+/**
+ * Re-enables a font by key
+ *
+ * @since 5.10.0
+ */
+
+function fictioneer_tools_enable_font() {
+  // Verify request
+  fictioneer_verify_tool_action( 'fictioneer_enable_font' );
+
+  // Setup
+  $font_key = sanitize_key( $_GET['font'] );
+  $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
+  $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
+
+  // Abort if...
+  if ( empty( $font_key ) ) {
+    fictioneer_finish_tool_action( 'fictioneer-font-not-found' );
+  }
+
+  // Disable
+  unset( $disabled_fonts[ $font_key ] );
+  update_option( 'fictioneer_disabled_fonts', $disabled_fonts );
+
+  // Rebuild stylesheet
+  fictioneer_build_bundled_fonts();
+
+  // Log
+  fictioneer_log(
+    sprintf(
+      __( 'Enabled "%s" font key. Currently disabled keys: %s.', 'fictioneer' ),
+      $font_key,
+      implode( ', ', $disabled_fonts ) ?: __( 'no keys disabled', 'fictioneer' )
+    )
+  );
+
+  // Finish
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-enabled-font',
+        'data' => $font_key
+      ),
+      wp_get_referer()
+    )
+  );
+}
+add_action( 'admin_post_fictioneer_enable_font', 'fictioneer_tools_enable_font' );
 
 // =============================================================================
 // STORY TOOLS ACTIONS

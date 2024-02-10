@@ -12,6 +12,8 @@
 
 // Setup
 $fonts = fictioneer_get_font_data();
+$disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
+$disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
 
 ?>
 
@@ -79,25 +81,39 @@ $fonts = fictioneer_get_font_data();
             $styles = $font['styles'] ?? [ $fallback ];
             $sources = $font['sources'] ?? [];
             $note = $font['note'] ?? '';
+            $disabled = in_array( $key, $disabled_fonts );
           ?>
 
-          <div class="fictioneer-card">
+          <div class="fictioneer-card <?php echo $disabled ? 'fictioneer-card--disabled' : ''; ?>">
             <div class="fictioneer-card__wrapper">
-              <h3 class="fictioneer-card__header"><?php
-                echo $name;
+              <h3 class="fictioneer-card__header fictioneer-card__header--with-actions" id="font-<?php echo $key; ?>">
+                <div><?php
+                  echo $name;
 
-                if ( ! empty( $version ) ) {
-                  printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
-                }
+                  if ( ! empty( $version ) ) {
+                    printf( _x( ' (v%s)', 'Settings font card.', 'fictioneer' ), $version );
+                  }
 
-                if ( $font['in_child_theme'] ?? 0 ) {
-                  _ex( ' — Child Theme', 'Settings font card.', 'fictioneer' );
-                }
+                  if ( $font['in_child_theme'] ?? 0 ) {
+                    _ex( ' — Child Theme', 'Settings font card.', 'fictioneer' );
+                  }
 
-                if ( $font['google_link'] ?? 0 ) {
-                  _ex( ' — Google Fonts CDN', 'Settings font card.', 'fictioneer' );
-                }
-              ?></h3>
+                  if ( $font['google_link'] ?? 0 ) {
+                    _ex( ' — Google Fonts CDN', 'Settings font card.', 'fictioneer' );
+                  }
+
+                  if ( $disabled ) {
+                    _ex( ' — Disabled', 'Settings font card.', 'fictioneer' );
+                  }
+                ?></div>
+                <div>
+                  <?php if ( $disabled ) : ?>
+                    <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_enable_font' ) ) ); ?>"><?php _e( 'Enable', 'fictioneer' ); ?></a>
+                  <?php else : ?>
+                    <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_disable_font' ) ) ); ?>"><?php _e( 'Disable', 'fictioneer' ); ?></a>
+                  <?php endif; ?>
+                </div>
+              </h3>
 
               <div class="fictioneer-card__content">
 
@@ -131,9 +147,11 @@ $fonts = fictioneer_get_font_data();
                   ?></div>
                 <?php endif; ?>
 
-                <div class="fictioneer-card__row" style="font-family: <?php echo $font['family'] ?? 'inherit'; ?>; font-size: 20px; text-align: center; margin: 24px 0;"><?php
-                  echo $font['preview'] ?? _x( 'The quick brown fox jumps over the lazy dog.', 'Settings font fallback preview sentence.', 'fictioneer' );
-                ?></div>
+                <?php if ( ! $disabled ) : ?>
+                  <div class="fictioneer-card__row" style="font-family: <?php echo $font['family'] ?? 'inherit'; ?>; font-size: 20px; text-align: center; margin: 24px 0;"><?php
+                    echo $font['preview'] ?? _x( 'The quick brown fox jumps over the lazy dog.', 'Settings font fallback preview sentence.', 'fictioneer' );
+                  ?></div>
+                <?php endif; ?>
 
                 <div class="fictioneer-card__row fictioneer-card__row--boxes">
 
