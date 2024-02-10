@@ -557,14 +557,15 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
     $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
     $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
-    $font_site_title = fictioneer_get_custom_font( 'site_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
-    $font_nav_item = fictioneer_get_custom_font( 'nav_item_font_family_value', 'var(--ff-base)', 'Open Sans' );
-    $font_story_title = fictioneer_get_custom_font( 'story_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
-    $font_chapter_title = fictioneer_get_custom_font( 'chapter_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
-    $font_chapter_list_title = fictioneer_get_custom_font( 'chapter_list_title_font_family_value', 'var(--ff-base)', 'Open Sans' );
-    $font_card_title = fictioneer_get_custom_font( 'card_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
-    $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'Lato' );
-    $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'Lato' );
+
+    $font_site_title = fictioneer_get_custom_font( 'site_title_font_family_value', 'var(--ff-heading)', 'default' );
+    $font_nav_item = fictioneer_get_custom_font( 'nav_item_font_family_value', 'var(--ff-base)', 'default' );
+    $font_story_title = fictioneer_get_custom_font( 'story_title_font_family_value', 'var(--ff-heading)', 'default' );
+    $font_chapter_title = fictioneer_get_custom_font( 'chapter_title_font_family_value', 'var(--ff-heading)', 'default' );
+    $font_chapter_list_title = fictioneer_get_custom_font( 'chapter_list_title_font_family_value', 'var(--ff-base)', 'default' );
+    $font_card_title = fictioneer_get_custom_font( 'card_title_font_family_value', 'var(--ff-heading)', 'default' );
+    $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'default' );
+    $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'default' );
 
     // Build CSS
     $layout_css = ":root {
