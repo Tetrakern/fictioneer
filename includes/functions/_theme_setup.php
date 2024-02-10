@@ -1071,59 +1071,63 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
 // OUTPUT HEAD FONTS
 // =============================================================================
 
-/**
- * Output font stylesheets <head> meta
- *
- * @since 5.10.0
- */
+if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
+  /**
+   * Output font stylesheets <head> meta
+   *
+   * Note: This function should be kept pluggable due to legacy reasons.
+   *
+   * @since 5.10.0
+   */
 
-function fictioneer_output_head_fonts() {
-  // Critical path fonts
-  fictioneer_output_critical_fonts();
+  function fictioneer_output_head_fonts() {
+    // Critical path fonts
+    fictioneer_output_critical_fonts();
 
-  // Bundled fonts
-  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+    // Bundled fonts
+    $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
 
-  // Create file if it does not exist
-  if ( ! file_exists( $bundled_fonts ) ) {
-    fictioneer_build_bundled_fonts();
-  }
+    // Create file if it does not exist
+    if ( ! file_exists( $bundled_fonts ) ) {
+      fictioneer_build_bundled_fonts();
+    }
 
-  // Output font stylesheets...
-  if ( file_exists( $bundled_fonts ) ) {
-    // ... base and custom
-    $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
-    $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
+    // Output font stylesheets...
+    if ( file_exists( $bundled_fonts ) ) {
+      // ... base and custom
+      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
+      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
 
-    // Start HTML ---> ?>
-    <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-    <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
-    <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-    <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
-    <?php // <--- End HTML
-  } else {
-    // ... all theme fonts if something goes wrong
-    $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
+      // Start HTML ---> ?>
+      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
+      <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
+      <?php // <--- End HTML
+    } else {
+      // ... all theme fonts if something goes wrong
+      $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
 
-    // Start HTML ---> ?>
-    <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
-    <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
-    <?php // <--- End HTML
-  }
+      // Start HTML ---> ?>
+      <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
+      <?php // <--- End HTML
+    }
 
-  // Output Google Fonts links (if any)
-  $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
+    // Output Google Fonts links (if any)
+    $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
 
-  if ( ! empty( $google_fonts_links ) ) {
-    $google_fonts_links = explode( "\n", $google_fonts_links );
+    if ( ! empty( $google_fonts_links ) ) {
+      $google_fonts_links = explode( "\n", $google_fonts_links );
 
-    // Start HTML ---> ?>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <?php // <--- End HTML
+      // Start HTML ---> ?>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <?php // <--- End HTML
 
-    foreach ( $google_fonts_links as $link ) {
-      printf( '<link href="%s" rel="stylesheet">', $link );
+      foreach ( $google_fonts_links as $link ) {
+        printf( '<link href="%s" rel="stylesheet">', $link );
+      }
     }
   }
 }
