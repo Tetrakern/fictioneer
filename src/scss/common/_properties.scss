@@ -33,13 +33,21 @@
   --ff-heading: 'Open Sans', var(--ff-base);
   --ff-note: 'Lato', var(--ff-base);
   --ff-mono: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier, monospace;
+  --ff-input: var(--ff-base);
+  --ff-card-title: var(--ff-heading);
+  --ff-site-title: var(--ff-heading);
+  --ff-story-title: var(--ff-heading);
+  --ff-chapter-title: var(--ff-heading);
+  --ff-chapter-list-title: var(--ff-base);
+  --ff-card-body: var(--ff-note);
+  --ff-card-list-link: inherit;
+  --ff-nav-item: var(--ff-base);
 
   // === HEADER ================================================================
   --layout-header-background-height: #{get_clamp(210, 480, 320, $full-width)}; // Overridden by theme customizer
   --layout-site-header-height: calc(#{get_clamp(190, 380, 320, $full-width)} - var(--layout-main-inset-top)); // Overridden by theme customizer
   --layout-site-logo-filter: none;
   --layout-site-logo-height: 210px; // Overridden by theme customizer
-  --site-title-font: var(--ff-heading);
   --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)}; // Overridden by theme customizer
   --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)}; // Overridden by theme customizer
   --site-title-heading-color: var(--fg-100); // Overridden by theme customizer

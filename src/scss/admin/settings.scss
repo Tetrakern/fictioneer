@@ -128,6 +128,12 @@ body[class*="fictioneer_page_"] {
     margin: 0;
   }
 
+  &__content h1 {
+    font-size: 23px;
+    font-weight: 400;
+    margin: 0;
+  }
+
   img {
     display: block;
     border-radius: 2px;
@@ -424,11 +430,20 @@ body[class*="fictioneer_page_"] {
         margin-left: 24px;
       }
 
-      &--capabilities {
+      &--capabilities,
+      &--boxes {
         display: flex;
         flex-wrap: wrap;
         align-items: flex-start;
         gap: 8px;
+      }
+
+      &--boxes {
+        align-items: stretch;
+
+        > div {
+          flex: 1 1 150px;
+        }
       }
 
       &--buttons,
@@ -458,6 +473,20 @@ body[class*="fictioneer_page_"] {
       &--disabled {
         pointer-events: none;
         opacity: .5;
+      }
+    }
+
+    &__box {
+      background: #f6f7f7;
+      font-size: 11px;
+      text-align: center;
+      padding: 8px 10px 10px;
+
+      &-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 4px;
       }
     }
 

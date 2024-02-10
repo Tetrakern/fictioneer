@@ -1,0 +1,21 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "3",
+  "key": "open-dyslexic-3",
+  "name": "Open Dyslexic",
+  "family": "OpenDyslexic",
+  "type": "serif",
+  "styles": ["normal", "italic"],
+  "weights": [400, 700],
+  "charsets": ["latin"],
+  "formats": ["ttf"],
+  "about": "OpenDyslexic is a typeface designed against some common symptoms of dyslexia. If you like the way you are able to read this page, and others, then this typeface is for you!",
+  "note": "",
+  "sources": {
+    "openDyslexic": {
+      "name": "OpenDyslexic",
+      "url": "https://opendyslexic.org"
+    }
+  }
+}

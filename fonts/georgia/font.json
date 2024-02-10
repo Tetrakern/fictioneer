@@ -1,0 +1,21 @@
+{
+  "skip": true,
+  "chapter": true,
+  "version": "2.05",
+  "key": "georgia",
+  "name": "Georgia",
+  "family": "Georgia",
+  "type": "serif",
+  "styles": ["normal", "italic"],
+  "weights": [400, 700],
+  "charsets": ["cyrillic", "greek", "latin", "latin-ext"],
+  "formats": ["ttf"],
+  "about": "Although inspired by the need for - and providing - clarity at low resolutions on the screen, Georgia is a typeface resonant with typographic personality. Even at small sizes the face exudes a sense of friendliness; a feeling of intimacy many would argue has been eroded from Times New Roman through overuse. This is as much testament to the skill of the typeface's designer, Matthew Carter, as it is to any intrinsic quality of the face's design, since the small pixel spaces of the screen can be a harrowing canvas for any type designer. In Georgia, Carter has successfully managed to create a typeface family which combines high legibility with character and charm.",
+  "note": "This is a web safe font and provided by the operating system.",
+  "sources": {
+    "microsoft": {
+      "name": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/typography/font-list/georgia"
+    }
+  }
+}

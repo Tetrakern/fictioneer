@@ -8,7 +8,7 @@
   -webkit-appearance: none;
   background-color: transparent;
   color: inherit;
-  font-family: var(--ff-base);
+  font-family: var(--ff-input);
   font-size: inherit;
   font-weight: var(--font-weight-normal);
   line-height: inherit;
@@ -19,7 +19,6 @@
 select {
   --focus-offset: -2px;
   cursor: pointer;
-  font-family: var(--ff-base);
 
   option {
     color: black;
@@ -94,7 +93,7 @@ select {
 
   &::placeholder {
     color: var(--input-placeholder);
-    font-family: var(--ff-base);
+    font-family: var(--ff-input);
     font-weight: var(--font-weight-normal);
     text-shadow: none;
   }
@@ -240,7 +239,7 @@ input[type=radio] {
     place-content: center;
     background: var(--input-background);
     color: var(--fg-900);
-    font-family: var(--ff-base);
+    font-family: var(--ff-input);
     font-size: 11px;
     font-weight: 400;
     line-height: 1;

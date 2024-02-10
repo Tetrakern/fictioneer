@@ -69,12 +69,12 @@ if ( ! defined( 'FICTIONEER_LOGOUT_ENDPOINT' ) ) {
 
 // String: CSS name of the primary font
 if ( ! defined( 'FICTIONEER_PRIMARY_FONT_CSS' ) ) {
-  define( 'FICTIONEER_PRIMARY_FONT_CSS', 'Open Sans' );
+  define( 'FICTIONEER_PRIMARY_FONT_CSS', get_theme_mod( 'primary_font_family_value', 'Open Sans' ) );
 }
 
 // String: Display name of the primary font
 if ( ! defined( 'FICTIONEER_PRIMARY_FONT_NAME' ) ) {
-  define( 'FICTIONEER_PRIMARY_FONT_NAME', 'Open Sans' );
+  define( 'FICTIONEER_PRIMARY_FONT_NAME', get_theme_mod( 'primary_font_family_value', 'Open Sans' ) );
 }
 
 // String: TTS regex (used to split text into sentences)

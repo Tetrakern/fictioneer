@@ -1,0 +1,21 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "2.35",
+  "key": "verdana",
+  "name": "Verdana",
+  "family": "Verdana",
+  "type": "sans-serif",
+  "styles": ["normal", "italic"],
+  "weights": [400, 700],
+  "charsets": ["armenian", "cyrillic", "greek", "latin", "latin-ext"],
+  "formats": ["ttf"],
+  "about": "The Verdana typeface family consists of four TrueType fonts created specifically to address the challenges of on-screen display. Designed by world renowned type designer Matthew Carter, and hand-hinted by leading hinting expert, Agfa Monotype's Tom Rickner, these sans serif fonts are unique examples of type design for the computer screen.",
+  "note": "",
+  "sources": {
+    "microsoft": {
+      "name": "Microsoft",
+      "url": "https://learn.microsoft.com/en-us/typography/font-list/verdana"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "skip": true,
+  "chapter": true,
+  "version": "",
+  "key": "helvetica-neue",
+  "name": "Helvetica Neue",
+  "family": "Helvetica Neue",
+  "alt": "Helvetica, Arial",
+  "type": "sans-serif",
+  "styles": ["normal", "italic"],
+  "weights": [100, 200, 300, 400, 500, 700, 900],
+  "charsets": ["latin"],
+  "formats": ["ttf"],
+  "about": "Helvetica, also known by its original name Neue Haas Grotesk, is a widely used sans-serif typeface developed in 1957 by Swiss typeface designer Max Miedinger and Eduard Hoffmann. Helvetica Neue is a reworking of the typeface with a more structurally unified set of heights and widths. Other changes include improved legibility, heavier punctuation marks, and increased spacing in the numbers.",
+  "note": "This is a font provided by the operating system and not always available.",
+  "sources": {
+    "wikipedia": {
+      "name": "See Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Helvetica"
+    }
+  }
+}

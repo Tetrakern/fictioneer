@@ -271,9 +271,17 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
  */
 
 function fictioneer_watch_for_customer_updates() {
+  // Transient caches
   delete_transient( 'fictioneer_customized_light_mode' );
   delete_transient( 'fictioneer_customized_dark_mode' );
   delete_transient( 'fictioneer_customized_layout' );
+
+  // Files
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+
+  if ( file_exists( $bundled_fonts ) ) {
+    unlink( $bundled_fonts );
+  }
 }
 add_action( 'customize_save_after', 'fictioneer_watch_for_customer_updates' );
 
@@ -476,6 +484,36 @@ if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
 // ADD CUSTOMIZER LAYOUT CSS
 // =============================================================================
 
+/**
+ * Helper that returns a font family value
+ *
+ * @since 5.10.0
+ *
+ * @param string $option        Name of the theme mod.
+ * @param string $font_default  Fallback font.
+ * @param string $mod_default   Default for get_theme_mod().
+ *
+ * @return string Ready to use font family value.
+ */
+
+function fictioneer_get_custom_font( $option, $font_default, $mod_default ) {
+  $selection = get_theme_mod( $option, $mod_default );
+  $family = $font_default;
+
+  switch ( $selection ) {
+    case 'system':
+      $family = 'var(--ff-system)';
+      break;
+    case 'default':
+      $family = $font_default;
+      break;
+    default:
+      $family = "'{$selection}', {$font_default}";
+  }
+
+  return $family;
+}
+
 if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
   /**
    * Add customized layout CSS
@@ -516,6 +554,18 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
     $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
 
+    $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
+    $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
+    $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
+    $font_site_title = fictioneer_get_custom_font( 'site_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
+    $font_nav_item = fictioneer_get_custom_font( 'nav_item_font_family_value', 'var(--ff-base)', 'Open Sans' );
+    $font_story_title = fictioneer_get_custom_font( 'story_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
+    $font_chapter_title = fictioneer_get_custom_font( 'chapter_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
+    $font_chapter_list_title = fictioneer_get_custom_font( 'chapter_list_title_font_family_value', 'var(--ff-base)', 'Open Sans' );
+    $font_card_title = fictioneer_get_custom_font( 'card_title_font_family_value', 'var(--ff-heading)', 'Open Sans' );
+    $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'Lato' );
+    $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'Lato' );
+
     // Build CSS
     $layout_css = ":root {
       --site-width: " . $site_width . "px;
@@ -528,6 +578,17 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
       --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
       --grid-columns-min: " . $card_grid_column_min . "px;
+      --ff-base: {$font_primary};
+      --ff-note: {$font_secondary};
+      --ff-heading: {$font_heading};
+      --ff-site-title: {$font_site_title};
+      --ff-story-title: {$font_story_title};
+      --ff-chapter-title: {$font_chapter_title};
+      --ff-chapter-list-title: {$font_chapter_list_title};
+      --ff-card-title: {$font_card_title};
+      --ff-card-body: {$font_card_body};
+      --ff-card-list-link: {$font_card_list_link};
+      --ff-nav-item: {$font_nav_item};
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {

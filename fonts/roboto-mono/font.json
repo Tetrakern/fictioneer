@@ -1,0 +1,25 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "23",
+  "key": "roboto-mono",
+  "name": "Roboto Mono",
+  "family": "Roboto Mono",
+  "type": "monospace",
+  "styles": ["normal", "italic"],
+  "weights": [300, 400, 500, 600, 700],
+  "charsets": ["cyrillic", "cyrillic-ext", "greek", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Roboto Mono is a monospaced addition to the Roboto type family. Like the other members of the Roboto family, the fonts are optimized for readability on screens across a wide variety of devices and reading environments. While the monospaced version is related to its variable width cousin, it doesn’t hesitate to change forms to better fit the constraints of a monospaced environment.",
+  "note": "",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/specimen/Roboto+Mono"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/roboto-mono?subsets=cyrillic,cyrillic-ext,greek,latin,latin-ext,vietnamese"
+    }
+  }
+}

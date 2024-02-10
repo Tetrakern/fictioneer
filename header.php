@@ -48,7 +48,7 @@ if ( is_archive() || is_search() || is_404() ) {
 
   <head>
     <?php
-      // Includes charset, content type, viewport, fonts, etc...
+      // Includes charset, content type, viewport, etc...
       fictioneer_output_head_meta();
 
       // Prevent indexing if required

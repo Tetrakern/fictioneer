@@ -1008,7 +1008,7 @@ add_filter( 'autoptimize_filter_js_replacetag', 'fictioneer_replace_ao_insert_po
  */
 
 function fictioneer_ao_exclude_css( $exclude ) {
-  return $exclude . ', fonts.css';
+  return $exclude . ', fonts-base.css, fonts-full.css, bundled-fonts.css';
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
 
@@ -1016,9 +1016,9 @@ add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1
 // OUTPUT HEAD FONTS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
+if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
   /**
-   * Output fonts in <head>
+   * Output critical path fonts in <head>
    *
    * Critical fonts that need to be loaded as fast as possible and are
    * therefore inlined in the <head>.
@@ -1026,9 +1026,15 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
    * @since 5.0.0
    */
 
-  function fictioneer_output_head_fonts() {
+  function fictioneer_output_critical_fonts() {
     // Setup
+    $primary_font = get_theme_mod( 'primary_font_family_value', 'Open Sans' );
     $uri = get_template_directory_uri() . '/fonts/';
+
+    // Currently, only Open Sans is supported
+    if ( $primary_font !== 'Open Sans' ) {
+      return;
+    }
 
     // Start HTML ---> ?>
     <style id="inline-fonts" type="text/css">@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:300;src:local("OpenSans-Light"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:300;src:local("OpenSans-LightItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-300italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:400;src:local("OpenSans-Regular"),url("<?php echo $uri; ?>open-sans/open-sans-v40-regular.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:400;src:local("OpenSans-Italic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:500;src:local("OpenSans-Medium"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:500;src:local("OpenSans-MediumItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-500italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:600;src:local("OpenSans-SemiBold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:600;src:local("OpenSans-SemiBoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-600italic.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:normal;font-weight:700;src:local("OpenSans-Bold"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700.woff2") format("woff2")}@font-face{font-display:swap;font-family:"Open Sans";font-style:italic;font-weight:700;src:local("OpenSans-BoldItalic"),url("<?php echo $uri; ?>open-sans/open-sans-v40-700italic.woff2") format("woff2")}</style>
@@ -1045,12 +1051,10 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
    * Output HTML <head> meta
    *
    * @since 5.0.0
+   * @since 5.10.0 - Split up for font manager.
    */
 
   function fictioneer_output_head_meta() {
-    // Setup
-    $font_link = get_template_directory_uri() . '/css/fonts.css?ver=' . FICTIONEER_VERSION;
-
     // Start HTML ---> ?>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
     <meta http-equiv="content-type" content="text/html">
@@ -1059,12 +1063,72 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <?php fictioneer_output_head_fonts(); ?>
-    <link rel="stylesheet" href="<?php echo $font_link; ?>" media="print" onload="this.media='all'; this.onload = null;">
-    <noscript><link rel="stylesheet" href="<?php echo $font_link; ?>"></noscript>
     <?php // <--- End HTML
   }
 }
+
+// =============================================================================
+// OUTPUT HEAD FONTS
+// =============================================================================
+
+/**
+ * Output font stylesheets <head> meta
+ *
+ * @since 5.10.0
+ */
+
+function fictioneer_output_head_fonts() {
+  // Critical path fonts
+  fictioneer_output_critical_fonts();
+
+  // Bundled fonts
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+
+  // Create file if it does not exist
+  if ( ! file_exists( $bundled_fonts ) ) {
+    fictioneer_build_bundled_fonts();
+  }
+
+  // Output font stylesheets...
+  if ( file_exists( $bundled_fonts ) ) {
+    // ... base and custom
+    $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
+    $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
+
+    // Start HTML ---> ?>
+    <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
+    <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
+    <?php // <--- End HTML
+  } else {
+    // ... all theme fonts if something goes wrong
+    $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
+
+    // Start HTML ---> ?>
+    <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+    <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
+    <?php // <--- End HTML
+  }
+
+  // Output Google Fonts links (if any)
+  $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
+
+  if ( ! empty( $google_fonts_links ) ) {
+    $google_fonts_links = explode( "\n", $google_fonts_links );
+
+    // Start HTML ---> ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <?php // <--- End HTML
+
+    foreach ( $google_fonts_links as $link ) {
+      printf( '<link href="%s" rel="stylesheet">', $link );
+    }
+  }
+}
+add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
+add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
 // MODIFY ROBOTS META

@@ -1,0 +1,26 @@
+{
+  "skip": false,
+  "chapter": true,
+  "version": "52",
+  "key": "noto-sans-jp",
+  "name": "Noto Sans JP",
+  "family": "Noto Sans JP",
+  "type": "sans-serif",
+  "styles": ["normal"],
+  "weights": [400],
+  "charsets": ["cyrillic", "japanese", "latin", "latin-ext", "vietnamese"],
+  "formats": ["woff2"],
+  "about": "Noto Sans JP is an unmodulated (“sans serif”) design for the Japanese language and other languages used in Japan. It covers Hiragana, Katakana and Kanji. It also supports Latin, Cyrillic, Greek and Hangul.",
+  "note": "",
+  "preview": "人類社会のすべての構成員の固有の尊厳と平等で譲ることのできない権利とを承認することは",
+  "sources": {
+    "googleFonts": {
+      "name": "Google Fonts",
+      "url": "https://fonts.google.com/noto/specimen/Noto+Sans+JP"
+    },
+    "googleWebfontsHelper": {
+      "name": "Google Webfonts Helper",
+      "url": "https://gwfh.mranftl.com/fonts/noto-sans-jp?subsets=cyrillic,japanese,latin,latin-ext,vietnamese"
+    }
+  }
+}
