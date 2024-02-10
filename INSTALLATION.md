@@ -44,8 +44,8 @@ This guide is mainly written for people who never had their own WordPress site b
   * [Queries](#queries)
   * [Font Awesome](#font-awesome)
   * [Custom Fonts](#custom-fonts)
-    * [1A) Upload a font configuration folder](#1a-upload-a-font-configuration-folder)
-    * [1B) Load from the Google Fonts CDN](#1b-load-from-the-google-fonts-cdn)
+    * [A) Upload a font configuration folder](#1a-upload-a-font-configuration-folder)
+    * [B) Load from the Google Fonts CDN](#1b-load-from-the-google-fonts-cdn)
   * [Constants](#constants)
 
 ## Choosing a Host
