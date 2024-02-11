@@ -885,7 +885,7 @@ if (fcn_ajaxCommentForm) {
  */
 
 function fcn_setupCommentFormObserver() {
-  fct_commentFormObserver = new IntersectionObserver(
+  const fct_commentFormObserver = new IntersectionObserver(
     ([entry]) => {
       if (entry.isIntersecting) {
         fcn_getCommentForm();
