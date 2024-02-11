@@ -2984,6 +2984,7 @@ function fictioneer_build_bundled_fonts() {
 
   // Update options
   update_option( 'fictioneer_chapter_fonts', $font_stack, true );
+  update_option( 'fictioneer_bundled_fonts_timestamp', time(), true );
 
   // Save
   file_put_contents( $bundled_fonts, $combined_font_css );

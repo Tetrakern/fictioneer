@@ -1086,6 +1086,8 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
 
     // Bundled fonts
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+    $last_built_timestamp = get_option( 'fictioneer_bundled_fonts_timestamp', '123456789' );
+    $cache_bust = '?timestamp=' . $last_built_timestamp . '&ver=' . FICTIONEER_VERSION;
 
     // Create file if it does not exist
     if ( ! file_exists( $bundled_fonts ) ) {
@@ -1095,21 +1097,21 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     // Output font stylesheets...
     if ( file_exists( $bundled_fonts ) ) {
       // ... base and custom
-      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css?ver=' . FICTIONEER_VERSION;
-      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css?ver=' . FICTIONEER_VERSION;
+      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css' . $cache_bust;
+      $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css' . $cache_bust;
 
       // Start HTML ---> ?>
-      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" media="print" onload="this.media='all';">
       <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
-      <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" media="print" onload="this.media='all';">
       <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
       <?php // <--- End HTML
     } else {
       // ... all theme fonts if something goes wrong
-      $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css?ver=' . FICTIONEER_VERSION;
+      $full_fonts_href = get_template_directory_uri() . '/css/fonts-full.css' . $cache_bust;
 
       // Start HTML ---> ?>
-      <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all'; this.onload = null;">
+      <link rel="stylesheet" href="<?php echo $full_fonts_href; ?>" media="print" onload="this.media='all';">
       <noscript><link rel="stylesheet" href="<?php echo $full_fonts_href; ?>"></noscript>
       <?php // <--- End HTML
     }
