@@ -86,6 +86,11 @@ if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
  */
 
 function fictioneer_enable_shortcode_transients() {
+  // Disable in Customizer
+  if ( is_customize_preview() ) {
+    return false;
+  }
+
   // Check constant and caching status
   $bool = FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION > -1 && ! fictioneer_caching_active( 'shortcodes' );
 
