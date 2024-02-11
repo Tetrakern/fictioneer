@@ -34,6 +34,7 @@
 }
 
 .card {
+  --padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
@@ -176,7 +177,7 @@
     justify-content: space-between;
     background-color: var(--e-2);
     font-family: var(--ff-card-body);
-    padding: var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem));
+    padding: var(--padding);
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
@@ -242,7 +243,7 @@
     font-size: 14px;
     line-height: 1;
     text-align: center;
-    padding: var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem));
+    padding: var(--padding);
     opacity: .3;
     transition: opacity var(--transition-duration);
 
@@ -319,7 +320,7 @@
 
     &._article {
       aspect-ratio: 3 / 1;
-      margin-bottom: var(--article-card-image-margin-bottom, 2.5cqw);
+      margin-bottom: min(var(--article-card-image-margin-bottom, 3.25cqw), 16px);
     }
   }
 
@@ -534,7 +535,7 @@
 
   &__overlay-infobox {
     position: absolute;
-    inset: var(--card-overlay-inset, 2.5cqw);
+    inset: min(var(--card-overlay-inset, 3cqw), 14px);
     display: none;
     content-visibility: hidden; // Improve performance
     flex-direction: column;
@@ -931,3 +932,52 @@
     opacity: var(--bookmark-progress-opacity);
   }
 }
+
+// .card {
+//   &__body {
+//     padding: 0;
+
+//     &._article {
+//       .card__tag-list._scrolling {
+//         padding: 0 var(--padding);
+//         margin-top: calc(-1 * var(--card-footer-margin-top, 1em));
+//         margin-bottom: 0;
+//       }
+//     }
+//   }
+
+//   &__main {
+//     padding: 0 var(--padding) ;
+//   }
+
+//   &__main:is(._small, ._article) {
+//     padding: var(--padding);
+//   }
+
+//   .card__body > .card__footer {
+//     gap: 0;
+//   }
+
+//   &:is(._small, ._article) .card__body > .card__footer {
+//     margin-top: 0;
+//   }
+
+//   .card__body > .card__footer .card__footer-box {
+//     background: none;
+//     border-top: 2px solid var(--infobox-background);
+
+//     &._left {
+
+//     }
+
+//     &._right {
+//       border-left: 2px solid var(--infobox-background);
+//       min-width: 9cqw;
+//     }
+//   }
+
+//   .card__footer._article .card__footer-box,
+//   :is(.card__body > .card__footer .card__footer-box._left) {
+//     padding: calc(var(--padding) * 0.75) var(--padding);
+//   }
+// }
