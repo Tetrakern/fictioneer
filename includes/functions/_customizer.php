@@ -268,13 +268,13 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
  * Watches for customizer updates to delete Transients
  *
  * @since 4.7.0
+ * @since 5.10.1 - Extend cache purging.
  */
 
 function fictioneer_watch_for_customer_updates() {
   // Transient caches
-  delete_transient( 'fictioneer_customized_light_mode' );
-  delete_transient( 'fictioneer_customized_dark_mode' );
-  delete_transient( 'fictioneer_customized_layout' );
+  fictioneer_delete_transients_like( 'fictioneer_' );
+  fictioneer_purge_nav_menu_transients();
 
   // Files
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
