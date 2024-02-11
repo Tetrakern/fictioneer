@@ -219,6 +219,20 @@ body:not(.is-editor):not(.is-admin) {
   }
 }
 
+.show-below-tablet {
+  @include bp(tablet) {
+    display: none !important;
+    content-visibility: hidden;
+  }
+}
+
+.show-below-640 {
+  @include bp(640px) {
+    display: none !important;
+    content-visibility: hidden;
+  }
+}
+
 .show-below-480 {
   @include bp(480px) {
     display: none !important;
