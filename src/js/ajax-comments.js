@@ -61,7 +61,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
     'action': 'fictioneer_ajax_get_comment_section',
     'post_id': post_id ?? fcn_commentSection.dataset.postId,
     'page': parseInt(page)
-  }
+  };
 
   if (fcn_urlParams.commentcode) {
     payload['commentcode'] = fcn_urlParams.commentcode;

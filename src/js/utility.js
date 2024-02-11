@@ -68,7 +68,7 @@ async function fcn_ajaxPost(data = {}, url = null, headers = {}) {
   let final_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Cache-Control': 'no-cache'
-  }
+  };
 
   // Merge in custom headers (if any)
   final_headers = {...final_headers, ...headers};
@@ -118,7 +118,7 @@ async function fcn_ajaxGet(data = {}, url = null, headers = {}) {
   let final_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Cache-Control': 'no-cache'
-  }
+  };
 
   // Merge in custom headers (if any)
   final_headers = {...final_headers, ...headers};

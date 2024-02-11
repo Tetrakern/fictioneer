@@ -199,7 +199,7 @@ function fcn_ajaxAuth() {
         'isModerator': response.data.isModerator,
         'isAuthor': response.data.isAuthor,
         'isEditor': response.data.isEditor
-      }
+      };
 
       // Fire fcnAuthReady event (if not already done)
       if (!eventFired) {

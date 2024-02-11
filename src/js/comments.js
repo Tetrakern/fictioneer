@@ -418,7 +418,7 @@ function fcn_bindAJAXCommentSubmit() {
       'unfiltered_html': _$$$('_wp_unfiltered_html_comment_disabled')?.value ?? '',
       'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
       'fictioneer_comment_validator': jsValidator?.value ?? 0
-    }
+    };
 
     // Optional payload
     if (parentId) {
