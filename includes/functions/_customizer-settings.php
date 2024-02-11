@@ -2439,32 +2439,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Grid column minimum width
-  $manager->add_setting(
-    'card_grid_column_min',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'absint',
-      'default' => 308
-    )
-  );
-
-  $manager->add_control(
-    'card_grid_column_min',
-    array(
-      'type' => 'number',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Width', 'fictioneer' ),
-      'description' => __( 'Minimum card width in pixels (still limited by space); affects card scale. Default 308.', 'fictioneer' ),
-      'input_attrs' => array(
-        'placeholder' => '308',
-        'min' => 308,
-        'style' => 'width: 80px'
-      )
-    )
-  );
-
   // Header style
   $manager->add_setting(
     'header_style',
@@ -2562,11 +2536,11 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Mobile Navigation Style', 'fictioneer' ),
-      'description' => __( 'Choose the style of your mobile navigation.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your mobile navigation.', 'fictioneer' ),
       'choices' => array(
         'overflow' => _x( 'Overflow', 'Customizer mobile navigation style option.', 'fictioneer' ),
         'collapse' => _x( 'Collapse', 'Customizer mobile navigation style option.', 'fictioneer' )
-      ),
+      )
     )
   );
 
@@ -2587,11 +2561,62 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Mobile Menu Style', 'fictioneer' ),
-      'description' => __( 'Choose the style of your mobile menu.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your mobile menu.', 'fictioneer' ),
       'choices' => array(
         'minimize_to_right' => _x( 'Minimize site to right', 'Customizer mobile menu style option.', 'fictioneer' ),
         'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' )
-      ),
+      )
+    )
+  );
+
+  // Card style
+  $manager->add_setting(
+    'card_style',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $manager->add_control(
+    'card_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Style', 'fictioneer' ),
+      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
+      'choices' => array(
+        'default' => _x( 'Encapsulated', 'Customizer card style option.', 'fictioneer' ),
+        'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' )
+      )
+    )
+  );
+
+  // Grid column minimum width
+  $manager->add_setting(
+    'card_grid_column_min',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 308
+    )
+  );
+
+  $manager->add_control(
+    'card_grid_column_min',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Width', 'fictioneer' ),
+      'description' => __( 'Minimum card width in pixels (still limited by space); affects card scale. Default 308.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '308',
+        'min' => 308,
+        'style' => 'width: 80px'
+      )
     )
   );
 

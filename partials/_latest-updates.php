@@ -130,16 +130,20 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
           $chapter_list = [];
-          $extra_classes = [];
+          $card_classes = [];
 
           // Skip if no chapters
           if ( $story['chapter_count'] < 1 ) {
             continue;
           }
 
-          // Extra card classes
+          // Extra classes
           if ( ! empty( $post->post_password ) ) {
-            $extra_classes[] = '_password';
+            $card_classes[] = '_password';
+          }
+
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
           }
 
           // Search for viable chapters...
@@ -170,7 +174,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card _small _story-update <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card _small _story-update <?php echo implode( ' ', $card_classes ); ?>">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

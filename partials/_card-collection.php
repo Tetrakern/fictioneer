@@ -73,6 +73,11 @@ if ( empty( $description ) ) {
   $description = __( 'No description provided yet.', 'fictioneer' );
 }
 
+// Extra classes
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>">

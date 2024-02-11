@@ -21,6 +21,11 @@ $title = fictioneer_get_safe_title( $post->ID );
 $comments_number = get_comments_number();
 $card_classes = [];
 
+// Extra classes
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li id="post-card-<?php the_ID(); ?>" class="card _large _page <?php echo implode( ' ', $card_classes ); ?>">

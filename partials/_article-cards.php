@@ -131,6 +131,7 @@ $pag_args = array(
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
+          $card_classes = [];
 
           // Thumbnail
           $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
@@ -150,8 +151,13 @@ $pag_args = array(
             $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
           }
 
+          // Extra classes
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
+          }
+
           // Start HTML ---> ?>
-          <li id="article-card-<?php the_ID(); ?>" class="card _article">
+          <li id="article-card-<?php the_ID(); ?>" class="card _article <?php echo implode( ' ', $card_classes ); ?>">
             <article class="card__body _article polygon">
 
               <div class="card__main _article">

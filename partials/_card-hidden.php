@@ -21,6 +21,11 @@ defined( 'ABSPATH' ) OR exit;
 
 // Extra classes
 $card_classes = [];
+
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li class="card _large _hidden-result <?php echo implode( ' ', $card_classes ); ?>">

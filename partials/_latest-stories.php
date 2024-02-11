@@ -118,18 +118,22 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
           $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post->ID, 'fictioneer_story_sticky', true );
-          $extra_classes = [];
+          $card_classes = [];
 
           if ( $is_sticky ) {
-            $extra_classes[] = '_sticky';
+            $card_classes[] = '_sticky';
           }
 
           if ( ! empty( $post->post_password ) ) {
-            $extra_classes[] = '_password';
+            $card_classes[] = '_password';
+          }
+
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
           }
         ?>
 
-        <li class="card _small _story <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card _small _story <?php echo implode( ' ', $card_classes ); ?>">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

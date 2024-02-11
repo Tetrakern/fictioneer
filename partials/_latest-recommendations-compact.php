@@ -105,9 +105,19 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
           $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
+          $card_classes = [];
+
+          // Extra classes
+          if ( $show_taxonomies ) {
+            $card_classes[] = '_info';
+          }
+
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
+          }
         ?>
 
-        <li class="card watch-last-clicked _small _recommendation <?php echo $show_taxonomies ? '_info' : ''; ?>">
+        <li class="card watch-last-clicked _small _recommendation <?php echo implode( ' ', $card_classes ); ?>">
           <div class="card__body polygon">
 
             <?php if ( $show_taxonomies ) : ?>

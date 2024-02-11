@@ -50,6 +50,11 @@ if ( ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' ) ) {
 // Flags
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' ) && ( $tags || $genres || $fandoms || $characters );
 
+// Extra classes
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li id="recommendation-card-<?php the_ID(); ?>" class="card _large _recommendation <?php echo implode( ' ', $card_classes ); ?>">

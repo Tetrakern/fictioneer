@@ -54,6 +54,15 @@ if ( ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) ) {
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) && ( $tags || $fandoms || $characters || $genres );
 
+// Extra classes
+if ( $story_unpublished ) {
+  $card_classes[] = '_story-unpublished';
+}
+
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li

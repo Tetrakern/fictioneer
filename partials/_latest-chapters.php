@@ -131,11 +131,15 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
-          $extra_classes = [];
+          $card_classes = [];
 
           // Extra card classes
           if ( ! empty( $post->post_password ) ) {
-            $extra_classes[] = '_password';
+            $card_classes[] = '_password';
+          }
+
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
           }
 
           // Chapter images
@@ -154,7 +158,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card _small _chapter <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card _small _chapter <?php echo implode( ' ', $card_classes ); ?>">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

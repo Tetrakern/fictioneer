@@ -49,6 +49,11 @@ $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
 if ( $is_sticky ) {
   $card_classes[] = '_sticky';
 }
+
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li

@@ -106,6 +106,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
           $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
+          $card_classes = [];
+
+          // Extra classes
+          if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+            $card_classes[] = '_unfolded';
+          }
 
           // Sources
           $urls = array_merge(
@@ -130,7 +136,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $tuple = array_map( 'trim', $tuple );
         ?>
 
-        <li class="card _small _recommendation">
+        <li class="card _small _recommendation <?php echo implode( ' ', $card_classes ); ?>">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

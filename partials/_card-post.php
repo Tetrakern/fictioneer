@@ -22,6 +22,11 @@ $tags = get_the_tags();
 $categories = wp_get_post_categories( $post->ID );
 $card_classes = [];
 
+// Extra classes
+if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
+  $card_classes[] = '_unfolded';
+}
+
 ?>
 
 <li id="post-card-<?php echo $post->ID; ?>" class="card _large _post <?php echo implode( ' ', $card_classes ); ?>">
