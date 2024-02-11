@@ -19,10 +19,11 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $title = fictioneer_get_safe_title( $post->ID );
 $comments_number = get_comments_number();
+$card_classes = [];
 
 ?>
 
-<li id="post-card-<?php the_ID(); ?>" class="card">
+<li id="post-card-<?php the_ID(); ?>" class="card _large _page <?php echo implode( ' ', $card_classes ); ?>">
   <div class="card__body polygon">
 
     <div class="card__header _large">

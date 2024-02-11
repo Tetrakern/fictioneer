@@ -136,7 +136,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card watch-last-clicked _small <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card watch-last-clicked _small _story <?php echo implode( ' ', $extra_classes ); ?>">
           <div class="card__body polygon">
 
             <?php if ( $show_taxonomies ) : ?>

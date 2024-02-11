@@ -30,6 +30,7 @@ $excerpt = fictioneer_first_paragraph_as_excerpt(
 );
 $excerpt = empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
 $tags = false;
+$card_classes = [];
 
 if (
   get_option( 'fictioneer_show_tags_on_story_cards' ) &&
@@ -44,11 +45,15 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) &
 $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
   get_post_meta( $post->ID, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
+// Extra classes
+if ( $is_sticky ) {
+  $card_classes[] = '_sticky';
+}
 ?>
 
 <li
   id="story-card-<?php echo $post->ID; ?>"
-  class="card <?php echo $is_sticky ? '_sticky' : ''; ?>"
+  class="card _large _story <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $post->ID; ?>"
   data-check-id="<?php echo $post->ID; ?>"
 >

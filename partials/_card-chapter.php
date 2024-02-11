@@ -29,6 +29,7 @@ $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
 $story_thumbnail_url_full = $story_id ? get_the_post_thumbnail_url( $story_id, 'full' ) : null;
 $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
 $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
+$card_classes = [];
 
 // Taxonomies
 $tags = false;
@@ -57,7 +58,7 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' )
 
 <li
   id="chapter-card-<?php echo $post->ID; ?>"
-  class="card <?php echo $story_unpublished ? '_story-unpublished' : ''; ?>"
+  class="card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $story_id; ?>"
   data-check-id="<?php echo $post->ID; ?>"
 >

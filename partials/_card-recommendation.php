@@ -26,6 +26,7 @@ $links = array_merge(
 );
 $excerpt = get_the_excerpt();
 $one_sentence = get_post_meta( $post->ID, 'fictioneer_recommendation_one_sentence', true );
+$card_classes = [];
 
 // Taxonomies
 $tags = false;
@@ -51,7 +52,7 @@ $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_c
 
 ?>
 
-<li id="recommendation-card-<?php the_ID(); ?>" class="card">
+<li id="recommendation-card-<?php the_ID(); ?>" class="card _large _recommendation <?php echo implode( ' ', $card_classes ); ?>">
   <div class="card__body polygon">
 
     <div class="card__header _large">

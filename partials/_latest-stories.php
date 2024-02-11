@@ -129,7 +129,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card _small <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card _small _story <?php echo implode( ' ', $extra_classes ); ?>">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

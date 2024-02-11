@@ -107,7 +107,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
         ?>
 
-        <li class="card watch-last-clicked _small <?php echo $show_taxonomies ? '_info' : ''; ?>">
+        <li class="card watch-last-clicked _small _recommendation <?php echo $show_taxonomies ? '_info' : ''; ?>">
           <div class="card__body polygon">
 
             <?php if ( $show_taxonomies ) : ?>

@@ -19,9 +19,11 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Extra classes
+$card_classes = [];
 ?>
 
-<li class="card _hidden-result">
+<li class="card _large _hidden-result <?php echo implode( ' ', $card_classes ); ?>">
   <div class="card__body polygon">
     <div class="card__main _hidden-result">
       <div class="card__content _hidden-result"><?php echo _x( 'Hidden Result', 'Hidden card.', 'fictioneer' ); ?></div>

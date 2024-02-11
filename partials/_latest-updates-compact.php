@@ -167,7 +167,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="card watch-last-clicked _small _info <?php echo implode( ' ', $extra_classes ); ?>">
+        <li class="card watch-last-clicked _small _info _story-update <?php echo implode( ' ', $extra_classes ); ?>">
           <div class="card__body polygon">
 
             <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>

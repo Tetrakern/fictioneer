@@ -25,6 +25,7 @@ $description = fictioneer_get_content_field( 'fictioneer_collection_description'
 $statistics = fictioneer_get_collection_statistics( $post->ID );
 $items = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
+$card_classes = [];
 
 // Taxonomies
 $tags = false;
@@ -74,7 +75,7 @@ if ( empty( $description ) ) {
 
 ?>
 
-<li id="collection-card-<?php the_ID(); ?>" class="card">
+<li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>">
   <div class="card__body polygon">
 
     <div class="card__header _large">

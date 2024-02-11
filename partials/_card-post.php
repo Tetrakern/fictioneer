@@ -20,10 +20,11 @@ defined( 'ABSPATH' ) OR exit;
 $title = fictioneer_get_safe_title( $post->ID );
 $tags = get_the_tags();
 $categories = wp_get_post_categories( $post->ID );
+$card_classes = [];
 
 ?>
 
-<li id="post-card-<?php echo $post->ID; ?>" class="card">
+<li id="post-card-<?php echo $post->ID; ?>" class="card _large _post <?php echo implode( ' ', $card_classes ); ?>">
   <div class="card__body polygon">
 
     <div class="card__header _large">

@@ -130,7 +130,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $tuple = array_map( 'trim', $tuple );
         ?>
 
-        <li class="card _small">
+        <li class="card _small _recommendation">
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">
