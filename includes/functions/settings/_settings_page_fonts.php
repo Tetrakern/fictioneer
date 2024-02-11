@@ -107,10 +107,12 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
                   }
                 ?></div>
                 <div>
-                  <?php if ( $disabled ) : ?>
-                    <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_enable_font' ) ) ); ?>"><?php _e( 'Enable', 'fictioneer' ); ?></a>
-                  <?php else : ?>
-                    <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_disable_font' ) ) ); ?>"><?php _e( 'Disable', 'fictioneer' ); ?></a>
+                  <?php if ( ! ( $font['google_link'] ?? 0 ) ) : ?>
+                    <?php if ( $disabled ) : ?>
+                      <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_enable_font' ) ) ); ?>"><?php _e( 'Enable', 'fictioneer' ); ?></a>
+                    <?php else : ?>
+                      <a class="button button--secondary" href="<?php echo esc_url( add_query_arg( 'font', $key, fictioneer_tool_action( 'fictioneer_disable_font' ) ) ); ?>"><?php _e( 'Disable', 'fictioneer' ); ?></a>
+                    <?php endif; ?>
                   <?php endif; ?>
                 </div>
               </h3>
