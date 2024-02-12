@@ -2595,7 +2595,32 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Grid column minimum width
+  // Card cover width modifier
+  $manager->add_setting(
+    'card_cover_width_mod',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1.0'
+    )
+  );
+
+  $manager->add_control(
+    'card_cover_width_mod',
+    array(
+      'type' => 'text',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
+      'description' => __( 'Multiply the width of card covers, relative to the base size. Default 1.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '1.0',
+        'style' => 'width: 80px'
+      )
+    )
+  );
+
+  // Card grid column minimum width
   $manager->add_setting(
     'card_grid_column_min',
     array(

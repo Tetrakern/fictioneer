@@ -553,6 +553,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
     $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
+    $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
 
     $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
     $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
@@ -590,6 +591,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --ff-card-body: {$font_card_body};
       --ff-card-list-link: {$font_card_list_link};
       --ff-nav-item: {$font_nav_item};
+      --card-cover-width-mod: {$card_cover_width_mod};
     }";
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {

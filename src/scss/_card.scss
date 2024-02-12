@@ -587,7 +587,7 @@
       grid-area: img;
       // Easy to hide in .minimal compared to column-gap!
       margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
-      width: var(--card-cover-width, 60px);
+      width: calc(var(--card-cover-width, 60px) * var(--card-cover-width-mod, 1));
 
       @container (min-width: 450px) {
         --card-cover-width: 72px;
