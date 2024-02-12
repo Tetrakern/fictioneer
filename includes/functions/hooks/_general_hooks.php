@@ -356,8 +356,15 @@ function fictioneer_inner_header_background( $args ) {
     return;
   }
 
+  // Setup
+  $extra_classes = [];
+
+  if ( absint( get_theme_mod( 'header_image_fading_start', 0 ) ) > 0 ) {
+    $extra_classes[] = '_fading-bottom';
+  }
+
   // Start HTML ---> ?>
-  <div class="header-background hide-on-fullscreen">
+  <div class="header-background hide-on-fullscreen <?php echo implode( ' ', $extra_classes ); ?>">
     <div class="header-background__wrapper">
       <img src="<?php echo $args['header_image_url']; ?>" alt="Header Background Image" class="header-background__image">
     </div>

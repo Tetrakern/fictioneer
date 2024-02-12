@@ -2990,4 +2990,59 @@ function fictioneer_build_bundled_fonts() {
   file_put_contents( $bundled_fonts, $combined_font_css );
 }
 
+// =============================================================================
+// GENERATE LINEAR GRADIENT CSS WITH APPROXIMATED CUBIC-BEZIER
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_fading_gradient' ) ) {
+  /**
+   * Returns an eased fading linear-gradient CSS
+   *
+   * This is an approximated cubic-bezier transition based on a pattern.
+   *
+   * @param float  $start_opacity  The starting opacity of the gradient in percentage.
+   * @param int    $start          The starting point of the gradient in percentage.
+   * @param int    $end            The ending point of the gradient in percentage.
+   * @param int    $direction      The direction of the gradient with unit (e.g. '180deg').
+   * @param string $hsl            The HSL string used as color. Default '0 0% 0%'.
+   *
+   * @return string The linear-gradient CSS.
+   */
+
+  function fictioneer_get_fading_gradient( $start_opacity, $start, $end, $direction, $hsl = '0 0% 0%' ) {
+    // Setup
+    $alpha_values = [0.987, 0.951, 0.896, 0.825, 0.741, 0.648, 0.55, 0.45, 0.352, 0.259, 0.175, 0.104, 0.049, 0.013, 0];
+    $num_stops = count( $alpha_values );
+
+    // Calculate positions
+    $positions = array_map(
+      function( $index ) use ( $start, $end, $num_stops ) {
+        return $start + ( ( $end - $start ) / ( $num_stops - 1 ) * $index );
+      },
+      array_keys( $alpha_values )
+    );
+
+
+    // Open...
+    $gradient = "linear-gradient({$direction}, ";
+
+    // ... add color stops...
+    foreach ( $alpha_values as $index => $alpha ) {
+      $position = round( $positions[ $index ], 2 );
+      $adjusted_alpha = round( $alpha * $start_opacity, 3 );
+      $gradient .= "hsl({$hsl} / {$adjusted_alpha}%) {$position}%";
+
+      if ( $index < $num_stops - 1 ) {
+        $gradient .= ', ';
+      }
+    }
+
+    // ... close
+    $gradient .= ');';
+
+    // Return
+    return $gradient;
+  }
+}
+
 ?>

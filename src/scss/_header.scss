@@ -178,3 +178,8 @@
     }
   }
 }
+
+.header-background._fading-bottom {
+  -webkit-mask-image: var(--header-fading-mask-image);
+  mask-image: var(--header-fading-mask-image);
+}

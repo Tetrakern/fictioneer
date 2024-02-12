@@ -2237,26 +2237,28 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Inset header image
+  // Header image fading
   $manager->add_setting(
-    'inset_header_image',
+    'header_image_fading_start',
     array(
-      'capability' => 'edit_theme_options',
-      'default'=> ''
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 0
     )
   );
 
   $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'inset_header_image',
-      array(
-        'type' => 'checkbox',
-        'priority' => 50,
-        'label' => __( 'Inset header image', 'fictioneer' ),
-        'section' => 'header_image',
-        'settings' => 'inset_header_image',
-        'description' => __( 'Instead of having the header image go from side to side, you can limit it to 1.5 times the site width. Good for smaller images that do not work on widescreens.', 'fictioneer' )
+    'header_image_fading_start',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'header_image',
+      'label' => __( 'Fade Out', 'fictioneer' ),
+      'description' => __( 'If set to above 0, the header image will fade to transparent, with the value in percent as offset from the top (1-99). Default 0.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '0',
+        'min' => 0,
+        'style' => 'width: 80px'
       )
     )
   );
@@ -2275,10 +2277,10 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_image_height_min',
     array(
       'type' => 'number',
-      'priority' => 40,
+      'priority' => 10,
       'section' => 'header_image',
       'label' => __( 'Minimum Height', 'fictioneer' ),
-      'description' => __( 'Minimum height in pixels of the header image on 320px viewports. Default 210.', 'fictioneer' ),
+      'description' => __( 'Min. height in pixels of the header image on 320px viewports. Default 210.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '210',
         'style' => 'width: 80px',
@@ -2301,14 +2303,38 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'header_image_height_max',
     array(
       'type' => 'number',
-      'priority' => 41,
+      'priority' => 10,
       'section' => 'header_image',
       'label' => __( 'Maximum Height', 'fictioneer' ),
-      'description' => __( 'Maximum height in pixels of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),
+      'description' => __( 'Max. height in pixels of the header image on [site-width] viewports. Default 480.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '480',
         'style' => 'width: 80px',
         'min' => 0
+      )
+    )
+  );
+
+  // Inset header image
+  $manager->add_setting(
+    'inset_header_image',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> ''
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'inset_header_image',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Inset header image', 'fictioneer' ),
+        'section' => 'header_image',
+        'settings' => 'inset_header_image',
+        'description' => __( 'Inset the header image with a limit of 1.5 times the site width. For smaller images that do not work on widescreens.', 'fictioneer' )
       )
     )
   );
