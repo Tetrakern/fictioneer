@@ -1359,16 +1359,16 @@ function fictioneer_sanitize_positive_float( $value, $default = 0.0 ) {
 }
 
 /**
- * Sanitizes the word count modifier
+ * Sanitize callback with positive float or default 1.0
  *
- * @since 5.9.4
+ * @since 5.10.1
  *
  * @param mixed $value  The value to be sanitized.
  *
- * @return float The sanitized float.
+ * @return float The sanitized positive float.
  */
 
-function fictioneer_sanitize_word_count_modifier( $value ) {
+function fictioneer_sanitize_float_field( $value ) {
   // Ensure $value is numeric in the first place
   if ( ! is_numeric( $value ) ) {
     return 1.0;
