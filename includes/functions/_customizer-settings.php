@@ -2588,8 +2588,9 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Card Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Encapsulated', 'Customizer card style option.', 'fictioneer' ),
-        'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' )
+        'default' => _x( 'Default', 'Customizer card style option.', 'fictioneer' ),
+        'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
+        'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
       )
     )
   );

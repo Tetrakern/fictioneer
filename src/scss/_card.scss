@@ -937,7 +937,7 @@
 // CARD STYLE: UNFOLDED
 // =============================================================================
 
-.card._unfolded {
+.card:where(._unfolded, ._combined) {
   &:is(._small, ._article) .card__body > .card__footer {
     margin-top: 0;
   }
@@ -989,5 +989,18 @@
   .card__footer._article .card__footer-box,
   .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
     padding: calc(var(--this-padding) * 0.75) var(--this-padding);
+  }
+}
+
+// =============================================================================
+// CARD STYLE: COMBINED
+// =============================================================================
+
+.card._combined {
+  --this-border-width: 0;
+
+  .card__footer._article .card__footer-box,
+  .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
+    padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
   }
 }

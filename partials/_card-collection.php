@@ -74,8 +74,8 @@ if ( empty( $description ) ) {
 }
 
 // Extra classes
-if ( get_theme_mod( 'card_style', 'default' ) === 'unfolded' ) {
-  $card_classes[] = '_unfolded';
+if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
+  $card_classes[] = '_' . get_theme_mod( 'card_style' );
 }
 
 ?>
