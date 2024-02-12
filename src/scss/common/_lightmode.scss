@@ -273,7 +273,27 @@
   --infobox-background: hsl(var(--bg-1000-free) / 5%);
   --infobox-text: var(--fg-600);
   --infobox-background-free: var(--bg-1000-free);
-  --infobox-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%);
+  // --infobox-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%); // Old
+
+  // Derived from: https://larsenwork.com/easing-gradients/
+  --infobox-gradient: linear-gradient(
+    to left,
+    hsl(var(--infobox-background-free) / 0.02961) 48.645%,
+    hsl(var(--infobox-background-free) / 0.02853) 51.975%,
+    hsl(var(--infobox-background-free) / 0.02688) 55.125%,
+    hsl(var(--infobox-background-free) / 0.02475) 58.05%,
+    hsl(var(--infobox-background-free) / 0.02223) 60.885%,
+    hsl(var(--infobox-background-free) / 0.01944) 63.54%,
+    hsl(var(--infobox-background-free) / 0.0165) 66.195%,
+    hsl(var(--infobox-background-free) / 0.0135) 68.805%,
+    hsl(var(--infobox-background-free) / 0.01056) 71.46%,
+    hsl(var(--infobox-background-free) / 0.00777) 74.115%,
+    hsl(var(--infobox-background-free) / 0.00525) 76.95%,
+    hsl(var(--infobox-background-free) / 0.00312) 79.875%,
+    hsl(var(--infobox-background-free) / 0.00147) 83.025%,
+    hsl(var(--infobox-background-free) / 0.00039) 86.355%,
+    hsl(var(--infobox-background-free) / 0) 90%
+  );
 
   // === TOOLTIPS/NOTIFICATIONS ================================================
   --tooltip-background: var(--bg-800);

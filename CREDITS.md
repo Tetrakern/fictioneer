@@ -81,6 +81,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: No license (public domain)<br>
   Source: https://meyerweb.com/eric/tools/css/reset/
 
+* **Easing Gradients**<br>
+  Copyright: Andreas Larsen<br>
+  License: [MIT](https://github.com/larsenwork/postcss-easing-gradients?tab=MIT-1-ov-file#readme)<br>
+  Source: https://larsenwork.com/easing-gradients/
+
 ## JavaScript
 
 * **Diff Match Patch**<br>
