@@ -34,7 +34,7 @@
 }
 
 .card {
-  --padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
+  --this-padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
@@ -177,7 +177,7 @@
     justify-content: space-between;
     background-color: var(--e-2);
     font-family: var(--ff-card-body);
-    padding: var(--padding);
+    padding: var(--this-padding);
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
@@ -243,7 +243,7 @@
     font-size: 14px;
     line-height: 1;
     text-align: center;
-    padding: var(--padding);
+    padding: var(--this-padding);
     opacity: .3;
     transition: opacity var(--transition-duration);
 
@@ -933,6 +933,10 @@
   }
 }
 
+// =============================================================================
+// CARD STYLE: UNFOLDED
+// =============================================================================
+
 .card._unfolded {
   &:is(._small, ._article) .card__body > .card__footer {
     margin-top: 0;
@@ -943,7 +947,7 @@
 
     &._article {
       .card__tag-list._scrolling {
-        padding: 0 var(--padding);
+        padding: 0 var(--this-padding);
         margin-top: calc(-1 * var(--card-footer-margin-top, 1em));
         margin-bottom: 0;
       }
@@ -954,10 +958,10 @@
 
       .card__footer-box {
         background: none;
-        border-top: 2px solid var(--infobox-background);
+        border-top: var(--this-border-width, 2px) solid var(--infobox-background);
 
         &._right {
-          border-left: 2px solid var(--infobox-background);
+          border-left: var(--this-border-width, 2px) solid var(--infobox-background);
           min-width: 9cqw;
         }
       }
@@ -965,25 +969,25 @@
   }
 
   .card__header {
-    padding: var(--padding) var(--padding) 0;
+    padding: var(--this-padding) var(--this-padding) 0;
   }
 
   .card__main {
-    padding: 0 var(--padding);
+    padding: 0 var(--this-padding);
 
     &:is(._small, ._article, ._hidden-result) {
-      padding: var(--padding);
+      padding: var(--this-padding);
     }
   }
 
   &._recommendation {
     .card__main {
-      padding-bottom: var(--padding);
+      padding-bottom: var(--this-padding);
     }
   }
 
   .card__footer._article .card__footer-box,
   .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
-    padding: calc(var(--padding) * 0.75) var(--padding);
+    padding: calc(var(--this-padding) * 0.75) var(--this-padding);
   }
 }
