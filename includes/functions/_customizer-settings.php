@@ -2612,7 +2612,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
-      'description' => __( 'Multiply the width of card covers, relative to the base size. Default 1.', 'fictioneer' ),
+      'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '1.0',
         'style' => 'width: 80px'
