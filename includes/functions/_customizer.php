@@ -333,7 +333,7 @@ if ( ! function_exists( 'fictioneer_add_customized_light_mode_css' ) ) {
       --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_800', '#1f2937' ) ) . ";
       --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#d1d5db' ) ) . ";
+      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
       --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
       --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
       --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";

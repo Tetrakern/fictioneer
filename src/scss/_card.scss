@@ -958,10 +958,10 @@
 
       .card__footer-box {
         background: none;
-        border-top: var(--this-border-width, 2px) solid var(--infobox-background);
+        border-top: var(--this-border-width, 2px) solid var(--secant);
 
         &._right {
-          border-left: var(--this-border-width, 2px) solid var(--infobox-background);
+          border-left: var(--this-border-width, 2px) solid var(--secant);
           min-width: 9cqw;
         }
       }

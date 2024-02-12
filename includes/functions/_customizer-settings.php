@@ -608,7 +608,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#242c38'
+      'default' => '#e5e7eb'
     )
   );
 
