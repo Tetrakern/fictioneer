@@ -959,6 +959,7 @@
       .card__footer-box {
         background: none;
         border-top: var(--this-border-width, 2px) solid var(--secant);
+        border-radius: 0;
 
         &._right {
           border-left: var(--this-border-width, 2px) solid var(--secant);
