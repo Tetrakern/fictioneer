@@ -2237,7 +2237,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Header image fading
+  // Header image fading start
   $manager->add_setting(
     'header_image_fading_start',
     array(
@@ -2253,8 +2253,34 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'type' => 'number',
       'priority' => 10,
       'section' => 'header_image',
-      'label' => __( 'Fade Out', 'fictioneer' ),
+      'label' => __( 'Fade Out - Start', 'fictioneer' ),
       'description' => __( 'If set to above 0, the header image will fade to transparent, with the value in percent as offset from the top (1-99). Default 0.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '0',
+        'min' => 0,
+        'style' => 'width: 80px'
+      )
+    )
+  );
+
+  // Header image fading breakpoint
+  $manager->add_setting(
+    'header_image_fading_breakpoint',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    'header_image_fading_breakpoint',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'header_image',
+      'label' => __( 'Fade Out - Breakpoint', 'fictioneer' ),
+      'description' => __( 'If set to above 320, the fade-out will only be applied to viewports equal to or wider than the value in pixels. Default 0.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '0',
         'min' => 0,

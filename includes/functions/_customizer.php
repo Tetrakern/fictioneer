@@ -555,6 +555,7 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
     $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
     $header_image_fading_start = fictioneer_sanitize_integer( get_theme_mod( 'header_image_fading_start', 0 ), 0, 0, 99 );
+    $header_image_fading_breakpoint = (int) get_theme_mod( 'header_image_fading_breakpoint', 0 );
 
     $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
     $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
@@ -596,9 +597,17 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     }";
 
     if ( $header_image_fading_start > 0 ) {
-      $layout_css .= ":root {
-        --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
-      }";
+      if ( $header_image_fading_breakpoint > 320 ) {
+        $layout_css .= "@media only screen and (min-width: {$header_image_fading_breakpoint}px) {
+          :root {
+            --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+          }
+        }";
+      } else {
+        $layout_css .= ":root {
+          --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+        }";
+      }
     }
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {
