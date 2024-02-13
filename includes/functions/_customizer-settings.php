@@ -2793,6 +2793,32 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Content list item style
+  $manager->add_setting(
+    'content_list_style',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $manager->add_control(
+    'content_list_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Content List Style', 'fictioneer' ),
+      'description' => __( 'Choose the style for your content lists.', 'fictioneer' ),
+      'choices' => array(
+        'default' => _x( 'Default', 'Customizer content list style option.', 'fictioneer' ),
+        'full' => _x( 'Full', 'Customizer content list style option.', 'fictioneer' ),
+        'free' => _x( 'Free', 'Customizer content list style option.', 'fictioneer' )
+      )
+    )
+  );
+
   // Footer style
   $manager->add_setting(
     'footer_style',

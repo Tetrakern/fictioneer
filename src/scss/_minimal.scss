@@ -8,17 +8,13 @@
     --card-image-drop-shadow: none;
     --paragraph-tools-filter: none;
     --layout-main-filter: none;
-    --infobox-gradient: hsl(var(--infobox-background-free) / 40%);
+    --content-list-item-background: var(--content-list-item-background-full);
     --layout-main-mobile-box-shadow: none;
     --embed-box-shadow: var(--minimal-container-box-shadow);
   }
 
   .custom-background {
     background-image: none;
-  }
-
-  &[data-mode=light] body {
-    --infobox-gradient: hsl(var(--infobox-background-free) / 3%);
   }
 
   &.header-style-split .header {

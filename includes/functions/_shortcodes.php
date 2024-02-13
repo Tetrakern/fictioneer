@@ -829,7 +829,7 @@ add_shortcode( 'fictioneer_cookie_buttons', 'fictioneer_shortcode_cookie_buttons
  * @since 5.9.4
  * @see fictioneer_shortcode_chapter_list()
  *
- * @param string|null $attr['heading']      Optional. Show <h5> heading above list.
+ * @param string|null $attr['heading']  Optional. Show <h5> heading above list.
  *
  * @return string The captured HTML.
  */

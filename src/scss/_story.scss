@@ -430,7 +430,7 @@ $header_breakpoint: 640px;
       line-height: 1.5;
 
       &-item {
-        background: var(--infobox-gradient);
+        background: var(--content-list-item-background);
         padding: .5rem 8px .5rem 0;
         border-radius: var(--layout-border-radius-small);
       }

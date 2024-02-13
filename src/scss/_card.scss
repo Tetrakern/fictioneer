@@ -393,7 +393,7 @@
       display: flex;
       justify-content: space-between;
       gap: 0 1.125em;
-      background: var(--infobox-gradient);
+      background: var(--content-list-item-background);
       padding: 0.175em 0.35em 0.175em 0;
       border-radius: var(--layout-border-radius-small);
       min-width: 0; // Fix whitespace nowrap issue

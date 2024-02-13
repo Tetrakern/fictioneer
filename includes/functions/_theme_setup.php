@@ -419,6 +419,11 @@ function fictioneer_add_classes_to_body( $classes ) {
     }
   }
 
+  // Customizations and settings
+  if ( get_theme_mod( 'content_list_style', 'default' ) !== 'default' ) {
+    $classes[] = 'content-list-style-' . get_theme_mod( 'content_list_style' );
+  }
+
   // Continue filter
   return $classes;
 }
