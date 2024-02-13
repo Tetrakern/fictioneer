@@ -39,6 +39,98 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Hue offset
+  $manager->add_setting(
+    'hue_offset_light',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'hue_offset_light',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'light_mode_colors',
+        'settings' => 'hue_offset_light',
+        'label' => __( 'Hue Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 360,
+          'step' => 1,
+          'suffix' => ' °'
+        )
+      )
+    )
+  );
+
+  // Saturation offset
+  $manager->add_setting(
+    'saturation_offset_light',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'saturation_offset_light',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'light_mode_colors',
+        'settings' => 'saturation_offset_light',
+        'label' => __( 'Saturation Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Lightness offset
+  $manager->add_setting(
+    'lightness_offset_light',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'lightness_offset_light',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'light_mode_colors',
+        'settings' => 'lightness_offset_light',
+        'label' => __( 'Lightness Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Header title color
   $manager->add_setting(
     'light_header_title_color',
     array(
@@ -1088,6 +1180,98 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Hue offset
+  $manager->add_setting(
+    'hue_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'hue_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'dark_mode_colors',
+        'settings' => 'hue_offset',
+        'label' => __( 'Hue Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 360,
+          'step' => 1,
+          'suffix' => ' °'
+        )
+      )
+    )
+  );
+
+  // Saturation offset
+  $manager->add_setting(
+    'saturation_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'saturation_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'dark_mode_colors',
+        'settings' => 'saturation_offset',
+        'label' => __( 'Saturation Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Lightness offset
+  $manager->add_setting(
+    'lightness_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'lightness_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'dark_mode_colors',
+        'settings' => 'lightness_offset',
+        'label' => __( 'Lightness Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Header title color
   $manager->add_setting(
     'dark_header_title_color',
     array(
@@ -1109,6 +1293,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Header tagline color
   $manager->add_setting(
     'dark_header_tagline_color',
     array(
@@ -1130,6 +1315,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Header title color
   $manager->add_setting(
     'use_custom_dark_mode',
     array(
@@ -2371,97 +2557,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     array(
       'title' => __( 'Layout', 'fictioneer' ),
       'priority' => '80'
-    )
-  );
-
-  // Hue offset
-  $manager->add_setting(
-    'hue_offset',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'absint',
-      'default' => 0
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'hue_offset',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'hue_offset',
-        'label' => __( 'Hue Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => 0,
-          'max' => 360,
-          'step' => 1,
-          'suffix' => ' °'
-        )
-      )
-    )
-  );
-
-  // Saturation offset
-  $manager->add_setting(
-    'saturation_offset',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'fictioneer_sanitize_integer',
-      'default' => 0
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'saturation_offset',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'saturation_offset',
-        'label' => __( 'Saturation Offset (Dark Mode)', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => -100,
-          'max' => 100,
-          'step' => 1
-        )
-      )
-    )
-  );
-
-  // Lightness offset
-  $manager->add_setting(
-    'lightness_offset',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'fictioneer_sanitize_integer',
-      'default' => 0
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'lightness_offset',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'lightness_offset',
-        'label' => __( 'Lightness Offset (Dark Mode)', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => -100,
-          'max' => 100,
-          'step' => 1
-        )
-      )
     )
   );
 

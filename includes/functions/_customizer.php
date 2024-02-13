@@ -531,9 +531,13 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     }
 
     // Setup
-    $hue_offset = (int) get_theme_mod( 'hue_offset', 0 );
-    $saturation_offset = (int) get_theme_mod( 'saturation_offset', 0 );
-    $lightness_offset = (int) get_theme_mod( 'lightness_offset', 0 );
+    $hue_offset_dark = (int) get_theme_mod( 'hue_offset', 0 );
+    $saturation_offset_dark = (int) get_theme_mod( 'saturation_offset', 0 );
+    $lightness_offset_dark = (int) get_theme_mod( 'lightness_offset', 0 );
+    $hue_offset_light = (int) get_theme_mod( 'hue_offset_light', 0 );
+    $saturation_offset_light = (int) get_theme_mod( 'saturation_offset_light', 0 );
+    $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
+
     $site_width = (int) get_theme_mod( 'site_width', 960 );
     $logo_height = (int) get_theme_mod( 'logo_height', 210 );
     $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
@@ -573,9 +577,9 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     // Build CSS
     $layout_css = ":root {
       --site-width: " . $site_width . "px;
-      --hue-offset: " . $hue_offset . "deg;
-      --saturation-offset: " . $saturation_offset / 100 . ";
-      --lightness-offset: " . $lightness_offset / 100 . ";
+      --hue-offset: " . $hue_offset_dark . "deg;
+      --saturation-offset: " . $saturation_offset_dark / 100 . ";
+      --lightness-offset: " . $lightness_offset_dark / 100 . ";
       --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
       --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
       --layout-site-logo-height: " . $logo_height . "px;
@@ -637,6 +641,14 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       }";
     }
 
+    // Only dark mode
+    $layout_css .= ":root[data-mode=light] {
+      --hue-offset: " . $hue_offset_light . "deg;
+      --saturation-offset: " . $saturation_offset_light / 100 . ";
+      --lightness-offset: " . $lightness_offset_light / 100 . ";
+    }";
+
+    // Minify CSS
     $layout_css = fictioneer_minify_css( $layout_css );
 
     // Remember CSS and add it to site
