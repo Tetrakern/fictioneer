@@ -2814,6 +2814,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'choices' => array(
         'default' => _x( 'Default', 'Customizer content list style option.', 'fictioneer' ),
         'full' => _x( 'Full', 'Customizer content list style option.', 'fictioneer' ),
+        'lines' => _x( 'Lines', 'Customizer content list style option.', 'fictioneer' ),
         'free' => _x( 'Free', 'Customizer content list style option.', 'fictioneer' )
       )
     )

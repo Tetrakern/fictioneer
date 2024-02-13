@@ -274,7 +274,7 @@
   --infobox-background: hsl(var(--bg-1000-free) / 5%);
   --infobox-text: var(--fg-600);
   --infobox-background-free: var(--bg-1000-free);
-  --content-list-item-background-full: hsl(var(--infobox-background-free) / 2.25%); // Assigned in _properties.scss
+  --content-list-item-background-full: hsl(var(--infobox-background-free) / 2%); // Assigned in _properties.scss
   // --content-list-item-background-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%); // Old
 
   // Derived from: https://larsenwork.com/easing-gradients/
