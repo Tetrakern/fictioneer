@@ -458,3 +458,11 @@
 :root[data-font-weight=normal][data-mode=light]:is(html) {
   --font-weight-heading: 700;
 }
+
+// =============================================================================
+// THEME MODS
+// =============================================================================
+
+:root[data-mode=light].page-style-open {
+  --e-0: var(--bg-50);
+}

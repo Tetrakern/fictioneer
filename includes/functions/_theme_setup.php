@@ -324,6 +324,11 @@ function fictioneer_root_attributes() {
     $header_classes[] = 'inset-header-image';
   }
 
+  // Page style
+  if ( get_theme_mod( 'page_style', 'default' ) !== 'default' ) {
+    $header_classes[] = 'page-style-' . get_theme_mod( 'page_style' );
+  }
+
   // Header style
   $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
 

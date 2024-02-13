@@ -2586,6 +2586,31 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Page style
+  $manager->add_setting(
+    'page_style',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $manager->add_control(
+    'page_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Page Style', 'fictioneer' ),
+      'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
+      'choices' => array(
+        'default' => _x( 'Default', 'Customizer page style option.', 'fictioneer' ),
+        'open' => _x( 'Open', 'Customizer page style option.', 'fictioneer' )
+      ),
+    )
+  );
+
   // Header style
   $manager->add_setting(
     'header_style',
@@ -2603,7 +2628,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Header Style', 'fictioneer' ),
-      'description' => __( 'Choose the style of your header. This may affect or disable other settings.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your header. This may affect or disable other settings.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
         'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
