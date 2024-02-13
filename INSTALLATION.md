@@ -35,7 +35,6 @@ This guide is mainly written for people who never had their own WordPress site b
     * [Overwrite Custom Properties](#overwrite-custom-properties)
     * [Top-Header & Navigation Backgrounds](#top-header--navigation-backgrounds)
     * [Background Overlay & Filters](#background-overlay--filters)
-    * [Isolated Footer](#isolated-footer)
     * [Merge Top-Header & Navigation](#merge-top-header--navigation)
     * [Overlay Navigation](#overlay-navigation)
     * [Card Size & Grid Spacing](#card-size--grid-spacing)
@@ -838,30 +837,6 @@ body::before {
   display: block;
   backdrop-filter: blur(3px) sepia(90%) brightness(0.5);
   -webkit-backdrop-filter: blur(3px) sepia(90%) brightness(0.5); /* For Safari. */
-}
-```
-
-#### Isolated Footer
-
-The default footer has no background, which might not be to your liking or clash with background images. Many sites isolate the footer in a separate container for that reason, and you can do the same. The following example also makes use of color transparency for convenience, which is alright for such a small, out-of-the-way element, but can cause performance issues if applied to the whole site. If you choose a semi-transparent background, use solid colors to keep them legible.
-
-```css
-.footer {
-  background-color: var(--bg-1000); /* This is a theme color that works in both light and dark mode. */
-  margin-top: 3rem;
-}
-
-.footer,
-.breadcrumbs {
-  color: rgb(255 255 255 / 40%); /* Convenient, but better used sparingly. */
-}
-
-.footer__wrapper {
-  margin: 2rem auto 1.5rem;
-}
-
-:is(.footer__wrapper, .breadcrumbs) :is(a:hover, a:visited, a:active, a:focus) {
-  color: rgb(255 255 255 / 60%); /* We need to overwrite the default behavior. */
 }
 ```
 

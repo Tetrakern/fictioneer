@@ -38,7 +38,7 @@
 
         &:not(:last-child) {
           &::after {
-            content: "\2002\2022\2002";
+            content: var(--footer-menu-divider, "\2002\2022\2002");
           }
         }
       }
@@ -47,6 +47,22 @@
 
   &__copyright {
     font-weight: 300;
+    letter-spacing: 0;
     -webkit-font-smoothing: auto;
+  }
+}
+
+.footer._footer-isolated {
+  --layout-link-hover: var(--fg-d200);
+  background-color: var(--bg-isolated-footer);
+  color: var(--fg-isolated-footer);
+  margin-top: 3rem;
+
+  .footer__wrapper {
+    margin: 2rem auto;
+  }
+
+  .breadcrumbs {
+    color: var(--fg-isolated-footer);
   }
 }

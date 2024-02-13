@@ -103,6 +103,18 @@
     --fg-900: #{hsl_font_code(223, 10, 52)}; // Contrast ~ 3.3, #787f91
     --fg-1000: #{hsl_font_code(220, 10, 8)}; // Contrast ~ 1.4, #121416
     --fg-tinted: #{hsl_font_code(222, 12, 68)}; // Contrast ~ 5.6, #a4a9b7
+
+    // Colors for dark backgrounds (not changed in light mode)
+    --fg-d100: #{hsl_font_code(220, 10, 88)}; // Contrast ~ 9.9, #dddfe3
+    --fg-d200: #{hsl_font_code(223, 11, 84)}; // Contrast ~ 8.9, #d2d4db
+    --fg-d300: #{hsl_font_code(224, 11, 79)}; // Contrast ~ 7.8, #c4c7cf
+    --fg-d400: #{hsl_font_code(221, 13, 74)}; // Contrast ~ 6.8, #b4bac5
+    --fg-d500: #{hsl_font_code(222, 14, 69)}; // Contrast ~ 5.8, #a5acbb
+    --fg-d600: #{hsl_font_code(222, 13, 65)}; // Contrast ~ 5.1, #9aa1b1
+    --fg-d700: #{hsl_font_code(221, 12, 62)}; // Contrast ~ 4.7, #929aaa
+    --fg-d800: #{hsl_font_code(221, 10, 61)}; // Contrast ~ 4.56, #9298a5
+    --fg-d900: #{hsl_font_code(223, 10, 52)}; // Contrast ~ 3.3, #787f91
+    --fg-d1000: #{hsl_font_code(220, 10, 8)}; // Contrast ~ 1.4, #121416
   }
 
   // === LAYOUT ================================================================
@@ -209,6 +221,10 @@
   --navigation-subitem-active-background: var(--bg-50);
   --navigation-new-follow-background: var(--primary-500);
   --navigation-new-follow-color: black;
+
+  // === FOOTER ================================================================
+  --fg-isolated-footer: var(--fg-d900);
+  --bg-isolated-footer: var(--bg-1000);
 
   // === TABS ==================================================================
   --tab-background-active: var(--fg-600);

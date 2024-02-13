@@ -13,7 +13,7 @@
 
     &:not(:last-child) {
       &::after {
-        content: '/';
+        content: var(--breadcrumb-divider, '/');
         display: inline-block;
         margin: 0 .4rem;
       }

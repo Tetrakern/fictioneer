@@ -2698,6 +2698,31 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Footer style
+  $manager->add_setting(
+    'footer_style',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $manager->add_control(
+    'footer_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Footer Style', 'fictioneer' ),
+      'description' => __( 'Choose the style for your footer.', 'fictioneer' ),
+      'choices' => array(
+        'default' => _x( 'Default', 'Customizer footer style option.', 'fictioneer' ),
+        'isolated' => _x( 'Isolated', 'Customizer footer style option.', 'fictioneer' )
+      )
+    )
+  );
+
   // Custom layout toggle
   $manager->add_setting(
     'use_custom_layout',

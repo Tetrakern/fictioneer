@@ -22,9 +22,11 @@
 
 <?php
 
-// IDs
+// Setup
 $page_id = get_queried_object_id();
+$extra_classes = [];
 
+// Fix wrong post ID
 if ( $page_id != $args['post_id'] ) {
   $args['post_id'] = $page_id;
 }
@@ -34,12 +36,17 @@ if ( is_archive() || is_search() || is_404() ) {
   $args['post_id'] = null;
 }
 
+// Extra classes
+if ( get_theme_mod( 'footer_style' ) === 'isolated' ) {
+  $extra_classes[] = '_footer-isolated';
+}
+
 // Hook after #main closes
 do_action( 'fictioneer_after_main', $args );
 
 ?>
 
-      <footer class="footer layout-links">
+      <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
         <div class="footer__wrapper">
           <?php do_action( 'fictioneer_site_footer', $args ); ?>
         </div>
