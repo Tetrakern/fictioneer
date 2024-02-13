@@ -259,17 +259,19 @@ body:not(.mobile-menu-open) {
 
   &__list {
     font-size: 13px;
+    margin-top: -3px; // Offset list item padding
 
     li {
       position: relative;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: 3px 0;
       width: calc(100% + 2px);
       transform: translate(-2px);
 
       &:not(:last-child) {
-        margin-bottom: 12px;
+        margin-bottom: 4px;
       }
     }
 
@@ -373,21 +375,12 @@ body:not(.mobile-menu-open) {
 
   .current-chapter {
     position: relative;
+    background: var(--mobile-menu-current-chapter-background);
     color: var(--mobile-menu-current-chapter-text);
     border-radius: var(--layout-border-radius-small);
     width: calc(100% + 4px);
 
     > a > span {
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        display: block;
-        background: var(--mobile-menu-current-chapter-background);
-        border-radius: var(--layout-border-radius-small);
-      }
-
       &:not(:first-child)::before {
         left: 24px; // Leave space for icon if any
       }
