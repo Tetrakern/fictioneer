@@ -146,9 +146,8 @@
   --minimal-container-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
 
   // === UNSORTED ==============================================================
-  --theme-color-base: 216 12 17; // 900
-  --secant: var(--bg-900);
   --theme-color-base: 222 15 17; // 900
+  --secant: var(--bg-900);
   --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
   --disabled-embed-background: var(--disabled-pattern);
   --progress-bar-background: var(--navigation-background-sticky);
