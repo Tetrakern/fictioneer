@@ -606,13 +606,17 @@
 // THEME MODS
 // =============================================================================
 
+:root.page-style-borderless,
 :root.page-style-open {
-  --theme-color-base: 222 15 20; // 800
-  --e-0: var(--bg-800);
   --layout-main-mobile-box-shadow: none;
   --layout-main-desktop-box-shadow: none;
   --minimal-main-box-shadow: none;
   --layout-header-background-box-shadow: none;
+}
+
+:root.page-style-open {
+  --theme-color-base: 222 15 20; // 800
+  --e-0: var(--bg-800);
 }
 
 :root.page-style-worn-paper:not(.minimal) .main__background {

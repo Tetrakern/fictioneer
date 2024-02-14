@@ -180,6 +180,7 @@
 }
 
 .header-background._fading-bottom {
+  --layout-header-background-box-shadow: none;
   -webkit-mask-image: var(--header-fading-mask-image);
   mask-image: var(--header-fading-mask-image);
 }
