@@ -2799,7 +2799,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer page style option.', 'fictioneer' ),
         'battered' => _x( 'Battered (polygon)', 'Customizer page style option.', 'fictioneer' ),
-        'ringbook' => _x( 'Ringbook (mask)', 'Customizer page style option.', 'fictioneer' )
+        'ringbook' => _x( 'Ringbook (mask)', 'Customizer page style option.', 'fictioneer' ),
+        'battered-ringbook' => _x( 'Battered Ringbook (polygon + mask)', 'Customizer page style option.', 'fictioneer' )
       ),
     )
   );
