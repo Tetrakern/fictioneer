@@ -62,6 +62,17 @@
     @include bp($full-width + 'px') {
       box-shadow: var(--layout-main-desktop-box-shadow);
     }
+
+    &::before {
+      -webkit-mask-image: var(--mi);
+      -webkit-mask-position: var(--mp);
+      -webkit-mask-repeat: var(--mr, no-repeat);
+      -webkit-mask-size: var(--ms);
+      mask-image: var(--mi);
+      mask-position: var(--mp);
+      mask-repeat: var(--mr, no-repeat);
+      mask-size: var(--ms);
+    }
   }
 
   &__wrapper {
