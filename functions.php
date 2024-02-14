@@ -32,9 +32,9 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.10.0' );
+define( 'FICTIONEER_VERSION', '5.11.0' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.10.0' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.11.0' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', null );
