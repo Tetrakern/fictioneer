@@ -144,7 +144,6 @@
   --layout-top-header-background-color: transparent;
   --layout-header-background-filter: none;
   --layout-header-background-box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
-  --layout-polygon-worn-paper-drop-shadow: drop-shadow(0 -1px 1px rgb(0 0 0 / 15%)) drop-shadow(0 0 2px rgb(0 0 0 / 25%));
 
   // === MINIMAL ===============================================================
   --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
@@ -253,6 +252,7 @@
   --figure-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.12)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.1));
   --caption-overlay-shadow: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
   --embed-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+  --polygon-worn-paper-drop-shadow: drop-shadow(0 -1px 1px rgb(0 0 0 / 15%)) drop-shadow(0 0 2px rgb(0 0 0 / 25%));
 
   // === MOBILE MENU ===========================================================
   --mobile-menu-background: var(--e-1);

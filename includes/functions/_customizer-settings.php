@@ -2423,9 +2423,9 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     )
   );
 
-  // Header image border style
+  // Header image style
   $manager->add_setting(
-    'header_image_border_style',
+    'header_image_style',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_text_field',
@@ -2434,17 +2434,18 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    'header_image_border_style',
+    'header_image_style',
     array(
       'type' => 'select',
       'priority' => 10,
       'section' => 'header_image',
       'label' => __( 'Header Image Borders', 'fictioneer' ),
-      'description' => __( 'Choose the border style for your image.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Shadow (default)', 'Customizer header image style option.', 'fictioneer' ),
-        'borderless' => _x( 'Borderless', 'Customizer header image style option.', 'fictioneer' )
-      ),
+        'borderless' => _x( 'Borderless', 'Customizer header image style option.', 'fictioneer' ),
+        'worn-paper' => _x( 'Worn paper (polygon)', 'Customizer header image style option.', 'fictioneer' )
+      )
     )
   );
 

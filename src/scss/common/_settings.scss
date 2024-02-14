@@ -2,8 +2,19 @@
 // THEME MODS
 // =============================================================================
 
-:root.header-image-border-style-borderless {
+:root.header-image-style-borderless {
   --layout-header-background-box-shadow: none;
+}
+
+:root.header-image-style-worn-paper {
+  .header-background {
+    --layout-header-background-box-shadow: none;
+    filter: var(--polygon-worn-paper-drop-shadow);
+
+    &__wrapper {
+      clip-path: var(--header-image-style-polygon, var(--polygon-worn-paper));
+    }
+  }
 }
 
 :root.page-style-borderless,
@@ -22,7 +33,7 @@
   background: none;
   border-radius: 0;
   box-shadow: none !important;
-  filter: var(--layout-polygon-worn-paper-drop-shadow);
+  filter: var(--polygon-worn-paper-drop-shadow);
 
   &::before {
     content: '';
@@ -30,6 +41,7 @@
     inset: 0;
     background-color: var(--e-1);
     clip-path: var(--polygon-worn-paper);
+    clip-path: var(--page-style-polygon, var(--polygon-worn-paper));
   }
 }
 

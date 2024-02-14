@@ -330,8 +330,8 @@ function fictioneer_root_attributes() {
   }
 
   // Header image border style
-  if ( get_theme_mod( 'header_image_border_style', 'default' ) !== 'default' ) {
-    $header_classes[] = 'header-image-border-style-' . get_theme_mod( 'header_image_border_style' );
+  if ( get_theme_mod( 'header_image_style', 'default' ) !== 'default' ) {
+    $header_classes[] = 'header-image-style-' . get_theme_mod( 'header_image_style' );
   }
 
   // Header style
