@@ -368,8 +368,8 @@ function fictioneer_inner_header_background( $args ) {
   }
 
   // Start HTML ---> ?>
-  <div class="header-background hide-on-fullscreen <?php echo implode( ' ', $extra_classes ); ?>">
-    <div class="header-background__wrapper">
+  <div class="header-background hide-on-fullscreen polygon <?php echo implode( ' ', $extra_classes ); ?>">
+    <div class="header-background__wrapper polygon">
       <img src="<?php echo $args['header_image_url']; ?>" alt="Header Background Image" class="header-background__image">
     </div>
   </div>
