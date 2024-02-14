@@ -40,7 +40,6 @@
     position: absolute;
     inset: 0;
     background-color: var(--e-1);
-    clip-path: var(--polygon-worn-paper);
     clip-path: var(--page-style-polygon, var(--polygon-worn-paper));
   }
 }
