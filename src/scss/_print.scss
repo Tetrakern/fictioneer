@@ -1,7 +1,13 @@
 @media print {
   * {
+    --font-weight-normal: 400;
+    --font-weight-semi-strong: 600;
+    --font-weight-strong: 600;
+    --font-weight-medium: 500;
+    --font-weight-heading: 700;
     background: transparent !important;
     color: #000 !important;
+    letter-spacing: normal !important;
     text-shadow: none !important;
     box-shadow: none !important;
     overflow: visible !important;
