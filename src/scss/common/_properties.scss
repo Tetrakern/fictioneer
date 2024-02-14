@@ -131,8 +131,7 @@
   --layout-color-lineart: var(--fg-800);
   --layout-color-separator: rgb(255 255 255 / 5%);
   --layout-main-filter: none; // Beware! This can cause performance issues!
-  --layout-main-mobile-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
-  --layout-main-desktop-box-shadow: 0 0 3px rgb(0 0 0 / 20%);
+  --layout-main-box-shadow: 0 0 3px rgb(0 0 0 / 20%);
   --layout-main-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 12%)) drop-shadow(0 0 2px rgb(0 0 0 / 18%));
   --layout-main-inset-top: 3rem; // Overridden by theme customizer
   --layout-link: inherit;

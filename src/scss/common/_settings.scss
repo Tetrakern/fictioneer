@@ -11,14 +11,13 @@
     }
 
     &__wrapper {
-      clip-path: var(--header-image-style-polygon, var(--polygon-battered));
+      clip-path: var(--polygon-battered);
     }
   }
 }
 
 :root.no-page-shadow {
-  --layout-main-mobile-box-shadow: none;
-  --layout-main-desktop-box-shadow: none;
+  --layout-main-box-shadow: none;
   --minimal-main-box-shadow: none;
   --layout-main-drop-shadow: none;
 }
@@ -39,15 +38,15 @@
 }
 
 :root.page-style-battered:not(.minimal) .main__background {
-  filter: var(--polygon-battered-drop-shadow, var(--layout-main-drop-shadow));
+  filter: var(--layout-main-drop-shadow);
 
   &::before {
-    clip-path: var(--page-style-polygon-mobile, var(--polygon-battered-mobile));
+    clip-path: var(--polygon-battered-mobile);
 
     @include bp(tablet) {
       left: 4px;
       right: 4px;
-      clip-path: var(--page-style-polygon, var(--polygon-battered));
+      clip-path: var(--polygon-battered);
     }
 
     @include bp(desktop) {
@@ -58,7 +57,7 @@
 }
 
 :root.page-style-ringbook:not(.minimal) .main__background {
-  filter: var(--mask-ringbook-drop-shadow, var(--layout-main-drop-shadow));
+  filter: var(--layout-main-drop-shadow);
 
   @include bp(375px) {
     &::before {

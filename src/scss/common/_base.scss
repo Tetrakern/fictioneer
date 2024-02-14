@@ -53,14 +53,10 @@
     position: absolute;
     inset: var(--layout-main-inset-top) 0 0 0;
     background-color: var(--e-1);
-    box-shadow: var(--layout-main-mobile-box-shadow);
+    box-shadow: var(--layout-main-box-shadow);
 
     @include bp(640px) {
       border-radius: var(--layout-border-radius-large);
-    }
-
-    @include bp($full-width + 'px') {
-      box-shadow: var(--layout-main-desktop-box-shadow);
     }
 
     &::before {
