@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) OR exit;
       </div>
       <div class="site-settings__polygons modal__horizontal-input-group _with-checkbox">
         <input type="checkbox" id="site-setting-polygons" checked>
-        <label for="site-setting-polygons" class="modal__setting-toggle"><?php _e( 'Polygons (irregular borders)', 'fictioneer' ); ?></label>
+        <label for="site-setting-polygons" class="modal__setting-toggle"><?php _e( 'Masks and polygons', 'fictioneer' ); ?></label>
       </div>
       <div class="site-settings__progress-bar modal__horizontal-input-group _with-checkbox">
         <input type="checkbox" id="site-setting-chapter-progress-bar" checked>

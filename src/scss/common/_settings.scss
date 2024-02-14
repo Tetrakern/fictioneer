@@ -6,41 +6,72 @@
   --layout-header-background-box-shadow: none;
 }
 
-:root.header-image-style-worn-paper {
+:root.header-image-style-battered {
   .header-background {
     --layout-header-background-box-shadow: none;
-    filter: var(--polygon-worn-paper-drop-shadow);
+    filter: var(--polygon-battered-drop-shadow);
 
     &__wrapper {
-      clip-path: var(--header-image-style-polygon, var(--polygon-worn-paper));
+      clip-path: var(--header-image-style-polygon, var(--polygon-battered));
     }
   }
 }
 
 :root.page-style-borderless,
-:root.page-style-open {
+:root.page-style-seamless {
   --layout-main-mobile-box-shadow: none;
   --layout-main-desktop-box-shadow: none;
   --minimal-main-box-shadow: none;
 }
 
-:root.page-style-open {
+:root.page-style-seamless {
   --theme-color-base: 222 15 20; // 800
   --e-0: var(--bg-800);
 }
 
-:root.page-style-worn-paper:not(.minimal) .main__background {
+:root[data-mode=light].page-style-seamless {
+  --e-0: var(--bg-50);
+}
+
+:root.has-polygon-or-mask:not(.minimal) .main__background {
   background: none;
   border-radius: 0;
   box-shadow: none !important;
-  filter: var(--polygon-worn-paper-drop-shadow);
+  filter: var(--layout-main-drop-shadow);
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    display: block;
     background-color: var(--e-1);
-    clip-path: var(--page-style-polygon, var(--polygon-worn-paper));
+  }
+}
+
+:root.page-style-battered:not(.minimal) .main__background {
+  filter: var(--polygon-battered-drop-shadow, var(--layout-main-drop-shadow));
+
+  &::before {
+    clip-path: var(--page-style-polygon, var(--polygon-battered));
+  }
+}
+
+:root.page-style-ringbook:not(.minimal) .main__background {
+  filter: var(--mask-ringbook-drop-shadow, var(--layout-main-drop-shadow));
+
+  @include bp(375px) {
+    &::before {
+      --this-left: #{get_clamp(-14, 0, 375, 768)};
+      --this-width: #{get_clamp(22, 26, 375, 768)};
+      --mi: url('../img/mask_ringbook.png'), var(--data-image-2x2-black);
+      --mp: top 0 left var(--this-left), top 0 left calc(var(--this-width) + var(--this-left) - 1px);
+      --ms: var(--this-width) auto, calc(100% - calc(var(--this-width) + var(--this-left) - 1px)) 100%;
+      --mr: repeat-y, no-repeat;
+
+      @include bp(640px) {
+        border-radius: 0 var(--layout-border-radius-large) var(--layout-border-radius-large) 0;
+      }
+    }
   }
 }
 
@@ -62,6 +93,8 @@
   .site .polygon::before,
   .site .polygon::after {
     clip-path: none;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

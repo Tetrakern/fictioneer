@@ -2439,12 +2439,12 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'type' => 'select',
       'priority' => 10,
       'section' => 'header_image',
-      'label' => __( 'Header Image Borders', 'fictioneer' ),
+      'label' => __( 'Header Image Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Shadow (default)', 'Customizer header image style option.', 'fictioneer' ),
         'borderless' => _x( 'Borderless', 'Customizer header image style option.', 'fictioneer' ),
-        'worn-paper' => _x( 'Worn paper (polygon)', 'Customizer header image style option.', 'fictioneer' )
+        'battered' => _x( 'Battered (polygon)', 'Customizer header image style option.', 'fictioneer' )
       )
     )
   );
@@ -2777,8 +2777,9 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer page style option.', 'fictioneer' ),
         'borderless' => _x( 'Borderless', 'Customizer page style option.', 'fictioneer' ),
-        'open' => _x( 'Open', 'Customizer page style option.', 'fictioneer' ),
-        'worn-paper' => _x( 'Worn paper (polygon)', 'Customizer page style option.', 'fictioneer' )
+        'seamless' => _x( 'Seamless', 'Customizer page style option.', 'fictioneer' ),
+        'battered' => _x( 'Battered (polygon)', 'Customizer page style option.', 'fictioneer' ),
+        'ringbook' => _x( 'Ringbook (mask)', 'Customizer page style option.', 'fictioneer' )
       ),
     )
   );

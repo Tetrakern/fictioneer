@@ -134,7 +134,6 @@
 
   // === SHADOWS ===============================================================
   --embed-box-shadow: 0 0 3px rgb(0 0 0 / 30%);
-  --polygon-worn-paper-drop-shadow: drop-shadow(0 -1px 1px rgb(0 0 0 / 11%)) drop-shadow(0 0 2px rgb(0 0 0 / 18%));
 
   // === MOBILE MENU ===========================================================
   --mobile-menu-text-shadow: none;
@@ -458,12 +457,4 @@
 
 :root[data-font-weight=normal][data-mode=light]:is(html) {
   --font-weight-heading: 700;
-}
-
-// =============================================================================
-// THEME MODS
-// =============================================================================
-
-:root[data-mode=light].page-style-open {
-  --e-0: var(--bg-50);
 }
