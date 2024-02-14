@@ -7,8 +7,12 @@
   }
 }
 
-:root.no-polygons .site .polygon {
-  clip-path: none;
+:root.no-polygons {
+  .site .polygon,
+  .site .polygon::before,
+  .site .polygon::after {
+    clip-path: none;
+  }
 }
 
 :root.no-text-shadows {
