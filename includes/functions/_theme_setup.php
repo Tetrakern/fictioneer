@@ -329,6 +329,11 @@ function fictioneer_root_attributes() {
     $header_classes[] = 'page-style-' . get_theme_mod( 'page_style' );
   }
 
+  // Header image border style
+  if ( get_theme_mod( 'header_image_border_style', 'default' ) !== 'default' ) {
+    $header_classes[] = 'header-image-border-style-' . get_theme_mod( 'header_image_border_style' );
+  }
+
   // Header style
   $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
 

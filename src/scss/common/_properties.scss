@@ -605,12 +605,15 @@
 // THEME MODS
 // =============================================================================
 
+:root.header-image-border-style-borderless {
+  --layout-header-background-box-shadow: none;
+}
+
 :root.page-style-borderless,
 :root.page-style-open {
   --layout-main-mobile-box-shadow: none;
   --layout-main-desktop-box-shadow: none;
   --minimal-main-box-shadow: none;
-  --layout-header-background-box-shadow: none;
 }
 
 :root.page-style-open {
