@@ -30,7 +30,8 @@
 
     &__background {
       background: var(--e-fullscreen) !important;
-      box-shadow: none;
+      box-shadow: none !important;
+      filter: none !important;
     }
   }
 

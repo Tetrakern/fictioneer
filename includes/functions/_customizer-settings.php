@@ -2453,7 +2453,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     'header_image_shadow',
     array(
       'capability' => 'edit_theme_options',
-      'default'=> ''
+      'default'=> 1
     )
   );
 
@@ -2464,7 +2464,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       array(
         'type' => 'checkbox',
         'priority' => 10,
-        'label' => __( 'Disable shadow', 'fictioneer' ),
+        'label' => __( 'Show header image shadow', 'fictioneer' ),
         'section' => 'header_image',
         'settings' => 'header_image_shadow'
       )
@@ -2798,11 +2798,32 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer page style option.', 'fictioneer' ),
-        'borderless' => _x( 'Borderless', 'Customizer page style option.', 'fictioneer' ),
-        'seamless' => _x( 'Seamless', 'Customizer page style option.', 'fictioneer' ),
         'battered' => _x( 'Battered (polygon)', 'Customizer page style option.', 'fictioneer' ),
         'ringbook' => _x( 'Ringbook (mask)', 'Customizer page style option.', 'fictioneer' )
       ),
+    )
+  );
+
+  // Page shadow
+  $manager->add_setting(
+    'page_shadow',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 1
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'page_shadow',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Show page shadow', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'page_shadow'
+      )
     )
   );
 

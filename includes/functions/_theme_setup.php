@@ -328,9 +328,14 @@ function fictioneer_root_attributes() {
   if ( get_theme_mod( 'page_style', 'default' ) !== 'default' ) {
     $header_classes[] = 'page-style-' . get_theme_mod( 'page_style' );
 
-    if ( in_array( get_theme_mod( 'page_style' ), ['battered', 'ringbook'] ) ) {
+    if ( in_array( get_theme_mod( 'page_style' ), ['battered', 'ringbook', 'battered-ringbook'] ) ) {
       $header_classes[] = 'has-polygon-or-mask';
     }
+  }
+
+  // Page shadow
+  if ( ! get_theme_mod( 'page_shadow' ) ) {
+    $header_classes[] = 'no-page-shadow';
   }
 
   // Header image style
