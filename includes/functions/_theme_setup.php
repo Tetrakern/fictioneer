@@ -369,7 +369,7 @@ function fictioneer_root_attributes() {
 
   // Output
   foreach ( $output as $key => $value ) {
-    echo "{$key}='{$value}' ";
+    echo "{$key}='" . esc_attr( $value ) . "' ";
   }
 }
 
