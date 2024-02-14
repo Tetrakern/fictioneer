@@ -2606,7 +2606,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Default', 'Customizer page style option.', 'fictioneer' ),
-        'open' => _x( 'Open', 'Customizer page style option.', 'fictioneer' )
+        'open' => _x( 'Open', 'Customizer page style option.', 'fictioneer' ),
+        'worn-paper' => _x( 'Worn Paper (Polygon)', 'Customizer page style option.', 'fictioneer' )
       ),
     )
   );
