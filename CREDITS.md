@@ -74,6 +74,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [MIT](https://github.com/twbs/bootstrap/blob/v4.0.0/LICENSE)<br>
   Source: https://icons.getbootstrap.com/
 
+* **Ripped Ringbook**<br>
+  Copyright: Image by [Freepik](https://www.freepik.com/free-vector/realistic-torn-paper-collection_14594157.htm)
+  License: Free License
+  Source: https://www.freepik.com/free-vector/realistic-torn-paper-collection_14594157.htm
+
 ## CSS
 
 * **Reset CSS 2.0**<br>
