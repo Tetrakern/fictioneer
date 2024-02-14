@@ -2281,18 +2281,18 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
 }
 
 // =============================================================================
-// LAYOUT SETTINGS
+// HEADER SETTINGS
 // =============================================================================
 
 /**
- * Add layout customizer settings
+ * Add header customizer settings
  *
- * @since 4.7.0
+ * @since 5.11.0
  *
  * @param WP_Customize_Manager $manager  The customizer instance.
  */
 
-function fictioneer_add_layout_customizer_settings( $manager ) {
+function fictioneer_add_header_customizer_settings( $manager ) {
   // Logo height (limited by header height)
   $manager->add_setting(
     'logo_height',
@@ -2550,7 +2550,21 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       )
     )
   );
+}
 
+// =============================================================================
+// LAYOUT SETTINGS
+// =============================================================================
+
+/**
+ * Add layout customizer settings
+ *
+ * @since 4.7.0
+ *
+ * @param WP_Customize_Manager $manager  The customizer instance.
+ */
+
+function fictioneer_add_layout_customizer_settings( $manager ) {
   // Add layout section
   $manager->add_section(
     'layout',
@@ -3433,6 +3447,9 @@ function fictioneer_add_customizers( $manager ) {
 
   // Light mode
   fictioneer_add_light_mode_customizer_settings( $manager );
+
+  // Header
+  fictioneer_add_header_customizer_settings( $manager );
 
   // Layout
   fictioneer_add_layout_customizer_settings( $manager );
