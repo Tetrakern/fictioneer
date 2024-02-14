@@ -64,14 +64,14 @@
     }
 
     &::before {
-      -webkit-mask-image: var(--mi);
-      -webkit-mask-position: var(--mp);
-      -webkit-mask-repeat: var(--mr, no-repeat);
-      -webkit-mask-size: var(--ms);
-      mask-image: var(--mi);
-      mask-position: var(--mp);
-      mask-repeat: var(--mr, no-repeat);
-      mask-size: var(--ms);
+      -webkit-mask-image: var(--page-style-mi, var(--mi));
+      -webkit-mask-position: var(--page-style-mp, var(--mp));
+      -webkit-mask-repeat: var(--page-style-mr, var(--mr, no-repeat));
+      -webkit-mask-size: var(--page-style-ms, var(--ms));
+      mask-image: var(--page-style-mi, var(--mi));
+      mask-position: var(--page-style-mp, var(--mp));
+      mask-repeat: var(--page-style-mr, var(--mr, no-repeat));
+      mask-size: var(--page-style-ms, var(--ms));
     }
   }
 
