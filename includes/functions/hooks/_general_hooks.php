@@ -363,6 +363,10 @@ function fictioneer_inner_header_background( $args ) {
     $extra_classes[] = '_fading-bottom';
   }
 
+  if ( ! get_theme_mod( 'header_image_shadow' ) ) {
+    $extra_classes[] = '_shadow';
+  }
+
   // Start HTML ---> ?>
   <div class="header-background hide-on-fullscreen <?php echo implode( ' ', $extra_classes ); ?>">
     <div class="header-background__wrapper">

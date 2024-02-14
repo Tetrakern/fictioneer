@@ -70,8 +70,15 @@
   content-visibility: auto;
   contain: content; // Improve performance
 
-  @include bp(640px) {
-    box-shadow: var(--layout-header-background-box-shadow);
+  &._shadow {
+    @include bp(640px) {
+      box-shadow: var(--layout-header-background-box-shadow);
+    }
+  }
+
+  &._fading-bottom {
+    -webkit-mask-image: var(--header-fading-mask-image);
+    mask-image: var(--header-fading-mask-image);
   }
 
   &__wrapper {
@@ -177,10 +184,4 @@
       text-align: left;
     }
   }
-}
-
-.header-background._fading-bottom {
-  --layout-header-background-box-shadow: none;
-  -webkit-mask-image: var(--header-fading-mask-image);
-  mask-image: var(--header-fading-mask-image);
 }

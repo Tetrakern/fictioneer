@@ -2442,9 +2442,31 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'label' => __( 'Header Image Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Shadow (default)', 'Customizer header image style option.', 'fictioneer' ),
-        'borderless' => _x( 'Borderless', 'Customizer header image style option.', 'fictioneer' ),
+        'default' => _x( 'Plain (default)', 'Customizer header image style option.', 'fictioneer' ),
         'battered' => _x( 'Battered (polygon)', 'Customizer header image style option.', 'fictioneer' )
+      )
+    )
+  );
+
+  // Header image shadow
+  $manager->add_setting(
+    'header_image_shadow',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> ''
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'header_image_shadow',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Disable shadow', 'fictioneer' ),
+        'section' => 'header_image',
+        'settings' => 'header_image_shadow'
       )
     )
   );

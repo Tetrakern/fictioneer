@@ -2,14 +2,13 @@
 // THEME MODS
 // =============================================================================
 
-:root.header-image-style-borderless {
-  --layout-header-background-box-shadow: none;
-}
-
 :root.header-image-style-battered {
   .header-background {
     --layout-header-background-box-shadow: none;
-    filter: var(--polygon-battered-drop-shadow);
+
+    &._shadow {
+      filter: var(--layout-header-background-drop-shadow);
+    }
 
     &__wrapper {
       clip-path: var(--header-image-style-polygon, var(--polygon-battered));
