@@ -2471,6 +2471,30 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     )
   );
 
+  // Inset header image
+  $manager->add_setting(
+    'inset_header_image',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> ''
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'inset_header_image',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Inset header image', 'fictioneer' ),
+        'section' => 'header_image',
+        'settings' => 'inset_header_image',
+        'description' => __( 'Inset the header image with a limit of 1.5 times the site width. For smaller images that do not work on widescreens.', 'fictioneer' )
+      )
+    )
+  );
+
   // Header image fading start
   $manager->add_setting(
     'header_image_fading_start',
@@ -2571,30 +2595,6 @@ function fictioneer_add_header_customizer_settings( $manager ) {
         'placeholder' => '480',
         'style' => 'width: 80px',
         'min' => 0
-      )
-    )
-  );
-
-  // Inset header image
-  $manager->add_setting(
-    'inset_header_image',
-    array(
-      'capability' => 'edit_theme_options',
-      'default'=> ''
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'inset_header_image',
-      array(
-        'type' => 'checkbox',
-        'priority' => 10,
-        'label' => __( 'Inset header image', 'fictioneer' ),
-        'section' => 'header_image',
-        'settings' => 'inset_header_image',
-        'description' => __( 'Inset the header image with a limit of 1.5 times the site width. For smaller images that do not work on widescreens.', 'fictioneer' )
       )
     )
   );

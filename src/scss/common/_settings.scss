@@ -2,6 +2,25 @@
 // THEME MODS
 // =============================================================================
 
+:root.inset-header-image .header-background {
+  left: 50%;
+  right: unset;
+  width: 100%;
+  transform: translate3d(-50%, 0, 0);
+
+  @include bp(desktop) {
+    border-radius: var(--layout-border-radius-large);
+    width: calc(var(--site-width) * 1.5);
+    max-width: min(calc(100vw - 2rem), 1980px);
+  }
+
+  &__wrapper {
+    @include bp(desktop) {
+      border-radius: var(--layout-border-radius-large);
+    }
+  }
+}
+
 :root.header-image-style-battered {
   .header-background {
     --layout-header-background-box-shadow: none;
@@ -13,7 +32,7 @@
 
     &__wrapper {
       border-radius: 0 !important;
-      clip-path: var(--polygon-battered-mobile);
+      clip-path: var(--polygon-battered-half);
 
       @include bp(tablet) {
         margin: 0 4px;
@@ -24,6 +43,13 @@
         margin: 0;
       }
     }
+  }
+}
+
+:root.header-image-style-battered:not(.inset-header-image) {
+  .header-background__wrapper {
+    --polygon-battered: var(--polygon-battered-half);
+    margin: 0;
   }
 }
 
@@ -52,7 +78,7 @@
   filter: var(--layout-main-drop-shadow);
 
   &::before {
-    clip-path: var(--polygon-battered-mobile);
+    clip-path: var(--polygon-battered-half);
 
     @include bp(tablet) {
       left: 4px;

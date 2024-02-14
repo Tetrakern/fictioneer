@@ -319,9 +319,17 @@ function fictioneer_root_attributes() {
     $post_author_id = 0;
   }
 
-  // Add configuration classes
+  // Header inset
   if ( get_theme_mod( 'inset_header_image', false ) ) {
     $header_classes[] = 'inset-header-image';
+  }
+
+  // Header style
+  $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
+
+  // Header image style
+  if ( get_theme_mod( 'header_image_style', 'default' ) !== 'default' ) {
+    $header_classes[] = 'header-image-style-' . get_theme_mod( 'header_image_style' );
   }
 
   // Page style
@@ -342,14 +350,6 @@ function fictioneer_root_attributes() {
   if ( ! get_theme_mod( 'page_shadow' ) ) {
     $header_classes[] = 'no-page-shadow';
   }
-
-  // Header image style
-  if ( get_theme_mod( 'header_image_style', 'default' ) !== 'default' ) {
-    $header_classes[] = 'header-image-style-' . get_theme_mod( 'header_image_style' );
-  }
-
-  // Header style
-  $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
 
   // Prepare
   $output['class'] = implode( ' ', $header_classes );
