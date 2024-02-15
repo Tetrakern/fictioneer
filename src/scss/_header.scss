@@ -59,7 +59,7 @@
 .header-background {
   user-select: none;
   position: absolute;
-  top: 0;
+  top: -6px;
   left: 0;
   right: 0;
   height: var(--layout-header-background-height);
@@ -84,6 +84,8 @@
   &__wrapper {
     height: 100%;
     background: var(--e-body);
+    margin-top: 6px;
+    margin-bottom: 6px;
     overflow: hidden;
     transform: translateZ(0); // Safari fix
   }
@@ -200,12 +202,14 @@
       clip-path: var(--polygon-battered-half);
 
       @include bp(tablet) {
-        margin: 0 4px;
+        margin-left: 4px;
+        margin-right: 4px;
         clip-path: var(--polygon-battered);
       }
 
       @include bp(desktop) {
-        margin: 0;
+        margin-left: 0;
+        margin-right: 0;
       }
     }
   }
@@ -214,6 +218,7 @@
 :root.header-image-style-battered:not(.inset-header-image) {
   .header-background__wrapper {
     --polygon-battered: var(--polygon-battered-half);
-    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
