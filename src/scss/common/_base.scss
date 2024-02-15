@@ -11,12 +11,6 @@
   }
 }
 
-:root.no-page-shadow {
-  --layout-main-box-shadow: none;
-  --minimal-main-box-shadow: none;
-  --layout-main-drop-shadow: none;
-}
-
 .site {
   position: relative;
   left: 0;
@@ -733,44 +727,6 @@ html:not(.logged-in) body:not(.logged-in) {
         padding: .875rem 8px .875rem 2px;
       }
     }
-  }
-}
-
-:root:not(.minimal) .content-list-style-full {
-  --content-list-item-background: var(--content-list-item-background-full);
-
-  .chapter-group__list-item {
-    padding: .5rem 8px .5rem 6px;
-  }
-
-  .story__blog-list-item {
-    padding: .5rem 8px;
-  }
-
-  .card__link-list-item {
-    padding-left: 0.35em;
-  }
-}
-
-:is(:root, :root.minimal) .content-list-style-free {
-  --content-list-item-background: none;
-
-  :is(.chapter-group__list-item, .story__blog-list-item) {
-    border-radius: 0;
-    border-bottom: none;
-  }
-}
-
-:is(:root, :root.minimal) .content-list-style-lines {
-  --content-list-item-background: none;
-
-  :is(.chapter-group__list-item, .story__blog-list-item, .card__link-list-item) {
-    border-radius: 0;
-    border-bottom: 1.5px solid var(--layout-color-separator);
-  }
-
-  .card__link-list-item:last-child {
-    border-bottom: none;
   }
 }
 

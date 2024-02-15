@@ -63,3 +63,85 @@
     --i: 4px;
   }
 }
+
+:root.inset-header-image .header-background {
+  left: 50%;
+  right: unset;
+  width: 100%;
+  transform: translate3d(-50%, 0, 0);
+}
+@media only screen and (min-width: 1024px) {
+  :root.inset-header-image .header-background {
+    border-radius: var(--layout-border-radius-large);
+    width: calc(var(--site-width) * 1.5);
+    max-width: min(100vw - 2rem, 1980px);
+  }
+}
+@media only screen and (min-width: 1024px) {
+  :root.inset-header-image .header-background__wrapper {
+    border-radius: var(--layout-border-radius-large);
+  }
+}
+
+:root.header-image-style-battered .header-background {
+  --layout-header-background-box-shadow: none;
+  border-radius: 0 !important;
+}
+:root.header-image-style-battered .header-background._shadow {
+  filter: var(--layout-header-background-drop-shadow);
+}
+:root.header-image-style-battered .header-background__wrapper {
+  border-radius: 0 !important;
+  clip-path: var(--polygon-battered-half);
+}
+@media only screen and (min-width: 768px) {
+  :root.header-image-style-battered .header-background__wrapper {
+    margin-left: 4px;
+    margin-right: 4px;
+    clip-path: var(--polygon-battered);
+  }
+}
+@media only screen and (min-width: 1024px) {
+  :root.header-image-style-battered .header-background__wrapper {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+:root.header-image-style-battered:not(.inset-header-image) .header-background__wrapper {
+  --polygon-battered: var(--polygon-battered-half);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+:root:not(.minimal) .content-list-style-full {
+  --content-list-item-background: var(--content-list-item-background-full);
+}
+:root:not(.minimal) .content-list-style-full .chapter-group__list-item {
+  padding: 0.5rem 8px 0.5rem 6px;
+}
+:root:not(.minimal) .content-list-style-full .story__blog-list-item {
+  padding: 0.5rem 8px;
+}
+:root:not(.minimal) .content-list-style-full .card__link-list-item {
+  padding-left: 0.35em;
+}
+
+:is(:root, :root.minimal) .content-list-style-free {
+  --content-list-item-background: none;
+}
+:is(:root, :root.minimal) .content-list-style-free :is(.chapter-group__list-item, .story__blog-list-item) {
+  border-radius: 0;
+  border-bottom: none;
+}
+
+:is(:root, :root.minimal) .content-list-style-lines {
+  --content-list-item-background: none;
+}
+:is(:root, :root.minimal) .content-list-style-lines :is(.chapter-group__list-item, .story__blog-list-item, .card__link-list-item) {
+  border-radius: 0;
+  border-bottom: 1.5px solid var(--layout-color-separator);
+}
+:is(:root, :root.minimal) .content-list-style-lines .card__link-list-item:last-child {
+  border-bottom: none;
+}

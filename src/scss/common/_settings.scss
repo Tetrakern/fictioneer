@@ -11,9 +11,9 @@
   .site .polygon,
   .site .polygon::before,
   .site .polygon::after {
-    clip-path: none;
-    -webkit-mask-image: none;
-    mask-image: none;
+    clip-path: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
   }
 }
 
@@ -23,15 +23,7 @@
 
 :root.no-covers .site {
   :is(.card__image, .card__text-icon) {
-    display: none;
-    content-visibility: hidden;
-  }
-
-  .large-card {
-    .ribbon {
-      left: unset;
-      right: 18px;
-      transform: translate(50%,-50%) rotate(45deg);
-    }
+    display: none !important;
+    content-visibility: hidden !important;
   }
 }
