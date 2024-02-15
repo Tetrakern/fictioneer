@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.0.0
+ * @since 5.11.0 - Consider querying for story status.
  */
 ?>
 
@@ -20,6 +21,12 @@ $post_type = sanitize_text_field( $_GET['post_type'] ?? 'any' );
 $sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
 $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
 $orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
+
+$story_status = array_intersect(
+  [ $_GET['story_status'] ?? 0 ],
+  ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+);
+$story_status = reset( $story_status ) ?: 0;
 
 $queried_genres = sanitize_text_field( $_GET['genres'] ?? 0 );
 $queried_fandoms = sanitize_text_field( $_GET['fandoms'] ?? 0 );
@@ -39,6 +46,7 @@ $hook_args = array(
   'sentence' => $sentence,
   'order' => $order,
   'orderby' => $orderby,
+  'story_status' => $story_status,
   'queried_genres' => $queried_genres,
   'queried_fandoms' => $queried_fandoms,
   'queried_characters' => $queried_characters,
@@ -52,7 +60,7 @@ $hook_args = array(
 );
 
 // Advanced search?
-$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings;
+$is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $story_status;
 
 $hook_args['is_advanced_search'] = $is_advanced_search;
 

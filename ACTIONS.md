@@ -847,6 +847,17 @@ Fires right after the search form has been rendered.
 
 ---
 
+### `do_action( 'fictioneer_search_form_filters', $args )`
+Fires after the search form fields for type, match, sort, and order have been rendered. This allows you to render additional fields. Note that any additional fields must also be manually added to the query, see `_search.php` partial.
+
+**Parameters:**
+* $args (array) – Arguments passed to the search form.
+
+**Hooked actions:**
+* `fictioneer_add_search_for_status()` – HTML for story status select. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_search_no_params' )`
 Fires right after opening the article’s no-params `<section>` container in the `search.php` template.
 

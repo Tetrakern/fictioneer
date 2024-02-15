@@ -180,6 +180,7 @@ if ( ! function_exists( 'fcn_keyword_search_authors_input' ) ) {
  * Extend search query with custom input
  *
  * @since 5.0.0
+ * @since 5.11.0 - Added meta query for story status.
  *
  * @param WP_Query $query  The query.
  */
@@ -220,6 +221,12 @@ function fictioneer_extend_search_query( $query ) {
   $ex_characters = empty( $_GET['ex_characters'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_characters'] ) );
   $ex_warnings = empty( $_GET['ex_warnings'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_warnings'] ) );
   $ex_tags = empty( $_GET['ex_tags'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_tags'] ) );
+
+  $story_status = array_intersect(
+    [ $_GET['story_status'] ?? 0 ],
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  );
+  $story_status = reset( $story_status ) ?: 0;
 
   // Exclude pages if necessary
   if ( $is_any_post || empty( $_GET['post_type'] ) ) {
@@ -383,6 +390,19 @@ function fictioneer_extend_search_query( $query ) {
   // Extend with authors (if any)
   if ( ! empty( $authors ) ) {
     $query->set( 'author', implode( ',', $authors ) );
+  }
+
+  // Meta query
+  if ( $story_status ) {
+    $meta_query = array(
+      array(
+        'key' => 'fictioneer_story_status',
+        'value' => $story_status,
+        'compare' => '='
+      )
+    );
+
+    $query->set( 'meta_query', $meta_query );
   }
 }
 

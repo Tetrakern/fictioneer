@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.0.0
+ * @since 5.11.0 - Added 'fictioneer_search_form_filters' action hook.
  *
  * @internal $args['simple']          Optional. Hide advanced options.
  * @internal $args['placeholder']     Optional. Change search placeholder.
@@ -26,6 +27,12 @@ if ( $show_advanced ) {
   $sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
   $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
   $orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
+
+  $story_status = array_intersect(
+    [ $_GET['story_status'] ?? 0 ],
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  );
+  $story_status = reset( $story_status ) ?: 0;
 
   $all_authors = get_users(
     array(
@@ -57,7 +64,7 @@ if ( $show_advanced ) {
   $queried_ex_warnings = sanitize_text_field( $_GET['ex_warnings'] ?? 0 );
   $queried_ex_tags = sanitize_text_field( $_GET['ex_tags'] ?? 0 );
 
-  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name;
+  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status;
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {
@@ -187,6 +194,13 @@ if ( $show_advanced ) {
           );
         ?></span>
 
+        <span class="search-form__current-status"><?php
+          printf(
+            _x( '<b>Status:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
+            $story_status ? fcntr( $story_status ) : _x( 'Any', 'Advanced search option.', 'fictioneer' )
+          );
+        ?></span>
+
         <?php
           // [query string, type, class suffix, summary heading]
           $queried_terms = array(
@@ -305,6 +319,7 @@ if ( $show_advanced ) {
           </select>
         </div>
 
+        <?php do_action( 'fictioneer_search_form_filters', $args ); ?>
       </div>
 
       <?php if ( count( $allow_list ) > 1 ) : ?><hr><?php endif; ?>

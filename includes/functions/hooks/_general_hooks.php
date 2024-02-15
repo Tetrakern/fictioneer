@@ -621,8 +621,39 @@ add_action( 'fictioneer_recommendations_after_content', 'fictioneer_sort_order_f
 add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_interface', 10 );
 
 // =============================================================================
-// SEARCH RESULTS
+// SEARCH FORM & RESULTS
 // =============================================================================
+
+/**
+ * Adds story status select to advanced search form
+ *
+ * @since 5.11.0
+ *
+ * @param array $args Arguments passed to the search form.
+ */
+
+function fictioneer_add_search_for_status( $args ) {
+  $story_status = array_intersect(
+    [ $_GET['story_status'] ?? 0 ],
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  );
+  $story_status = reset( $story_status ) ?: 0;
+
+  // Start HTML ---> ?>
+  <div class="search-form__select-wrapper select-wrapper">
+    <div class="search-form__select-title"><?php _ex( 'Status', 'Advanced search heading.', 'fictioneer' ); ?></div>
+    <select name="story_status" class="search-form__select" autocomplete="off" data-default="Any">
+      <option value="Any" <?php echo ! $story_status ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="Completed" <?php echo $story_status === 'Completed' ? 'selected' : ''; ?>><?php echo fcntr( 'Completed' ); ?></option>
+      <option value="Ongoing" <?php echo $story_status === 'Ongoing' ? 'selected' : ''; ?>><?php echo fcntr( 'Ongoing' ); ?></option>
+      <option value="Oneshot" <?php echo $story_status === 'Oneshot' ? 'selected' : ''; ?>><?php echo fcntr( 'Oneshot' ); ?></option>
+      <option value="Hiatus" <?php echo $story_status === 'Hiatus' ? 'selected' : ''; ?>><?php echo fcntr( 'Hiatus' ); ?></option>
+      <option value="Canceled" <?php echo $story_status === 'Canceled' ? 'selected' : ''; ?>><?php echo fcntr( 'Canceled' ); ?></option>
+    </select>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_status' );
 
 /**
  * Outputs the HTML for no search params
