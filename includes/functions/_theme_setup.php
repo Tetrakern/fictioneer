@@ -613,19 +613,6 @@ function fictioneer_style_queue() {
 }
 add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );
 
-/**
- * Enqueues customizer stylesheets
- *
- * @since 5.0.0
- */
-
-function fictioneer_customizer_queue() {
-  fictioneer_add_customized_layout_css();
-  fictioneer_add_customized_light_mode_css();
-  fictioneer_add_customized_dark_mode_css();
-}
-add_action( 'wp_enqueue_scripts', 'fictioneer_customizer_queue', 999 );
-
 // =============================================================================
 // ENQUEUE CUSTOMIZE CSS
 // =============================================================================

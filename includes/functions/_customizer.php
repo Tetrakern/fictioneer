@@ -261,166 +261,443 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
 }
 
 // =============================================================================
-// WATCH FOR CUSTOMIZER UPDATES
+// VALIDATE GOOGLE FONTS LINK
 // =============================================================================
 
 /**
- * Watches for customizer updates to purge Transients and files
+ * Validates Google Fonts link
  *
- * @since 4.7.0
- * @since 5.10.1 - Extend cache purging.
- * @since 5.11.0 - Purge customize.css file
+ * @since 5.10.0
+ *
+ * @param string $link  The Google Fonts link.
+ *
+ * @return boolean Whether the link is valid or not.
  */
 
-function fictioneer_watch_for_customer_updates() {
-  // Transient caches
-  fictioneer_delete_transients_like( 'fictioneer_' );
-  fictioneer_purge_nav_menu_transients();
+function fictioneer_validate_google_fonts_link( $link ) {
+  return preg_match( '/^https:\/\/fonts\.googleapis\.com\/css2/', $link ) === 1;
+}
 
-  // Rebuild customize stylesheet
-  fictioneer_build_customize_css();
+// =============================================================================
+// EXTRACT FONT DATA FROM GOOGLE FONTS LINK
+// =============================================================================
 
-  // Files
+/**
+ * Returns fonts data from a Google Fonts link
+ *
+ * @since 5.10.0
+ *
+ * @param string $link  The Google Fonts link.
+ *
+ * @return array|false|null The font data if successful, false if malformed,
+ *                          null if not a valid Google Fonts link.
+ */
+
+function fictioneer_extract_font_from_google_link( $link ) {
+  // Validate
+  if ( ! fictioneer_validate_google_fonts_link( $link ) ) {
+    // Not Google Fonts link
+    return null;
+  }
+
+  // Setup
+  $font = array(
+    'google_link' => $link,
+    'skip' => true,
+    'chapter' => true,
+    'version' => '',
+    'key' => '',
+    'name' => '',
+    'family' => '',
+    'type' => '',
+    'styles' => ['normal'],
+    'weights' => [],
+    'charsets' => [],
+    'formats' => [],
+    'about' => __( 'This font is loaded via the Google Fonts CDN, see source for additional information.', 'fictioneer' ),
+    'note' => '',
+    'sources' => array(
+      'googleFontsCss' => array(
+        'name' => 'Google Fonts CSS File',
+        'url' => $link
+      )
+    )
+  );
+
+  // Name?
+  preg_match( '/family=([^:]+)/', $link, $name_matches );
+
+  if ( ! empty( $name_matches ) ) {
+    $font['name'] = str_replace( '+', ' ', $name_matches[1] );
+    $font['family'] = $font['name'];
+    $font['key'] = sanitize_title( $font['name'] );
+  } else {
+    // Link malformed
+    return false;
+  }
+
+  // Italic? Weights?
+  preg_match( '/ital,wght@([0-9,;]+)/', $link, $ital_weight_matches );
+
+  if ( ! empty( $ital_weight_matches ) ) {
+    $specifications = explode( ';', $ital_weight_matches[1] );
+    $weights = [];
+    $is_italic = false;
+
+    foreach ( $specifications as $spec ) {
+      list( $ital, $weight ) = explode( ',', $spec );
+
+      if ( $ital == '1' ) {
+        $is_italic = true;
+      }
+
+      $weights[ $weight ] = true;
+    }
+
+    if ( $is_italic ) {
+      $font['styles'][] = 'italic';
+    }
+
+    $font['weights'] = array_keys( $weights );
+  }
+
+  // Done
+  return $font;
+}
+
+// =============================================================================
+// GET FONT DATA
+// =============================================================================
+
+/**
+ * Returns fonts included by the theme
+ *
+ * @since 5.10.0
+ *
+ * @return array Array of font data.
+ */
+
+function fictioneer_get_font_data() {
+  // Setup
+  $parent_font_dir = get_template_directory() . '/fonts';
+  $child_font_dir = get_stylesheet_directory() . '/fonts';
+  $parent_fonts = [];
+  $child_fonts = [];
+  $google_fonts = [];
+
+  // Helper function
+  $extract_font_data = function( $font_dir, &$fonts, $theme = 'parent' ) {
+    if ( is_dir( $font_dir ) ) {
+      $font_folders = array_diff( scandir( $font_dir ), ['..', '.'] );
+
+      foreach ( $font_folders as $folder ) {
+        $full_path = "{$font_dir}/{$folder}";
+        $json_file = "$full_path/font.json";
+        $css_file = "$full_path/font.css";
+
+        if ( is_dir( $full_path ) && file_exists( $json_file ) && file_exists( $css_file ) ) {
+          $folder_name = basename( $folder );
+          $data = @json_decode( file_get_contents( $json_file ), true );
+
+          if ( $data && json_last_error() === JSON_ERROR_NONE ) {
+            if ( ! ( $data['remove'] ?? 0 ) ) {
+              $data['css_path'] = "/fonts/{$folder_name}/font.css";
+              $data['css_file'] = $css_file;
+              $data['in_child_theme'] = $theme === 'child';
+
+              $fonts[ $data['key'] ] = $data;
+            }
+          }
+        }
+      }
+
+      return $fonts;
+    }
+  };
+
+  // Parent theme
+  $extract_font_data( $parent_font_dir, $parent_fonts );
+
+  // Child theme (if any)
+  if ( $parent_font_dir !== $child_font_dir ) {
+    $extract_font_data( $child_font_dir, $child_fonts, 'child' );
+  }
+
+  // Google Fonts links (if any)
+  $google_fonts_links = get_option( 'fictioneer_google_fonts_links' );
+
+  if ( $google_fonts_links ) {
+    $google_fonts_links = explode( "\n", $google_fonts_links );
+
+    foreach ( $google_fonts_links as $link ) {
+      $font = fictioneer_extract_font_from_google_link( $link );
+
+      if ( $font ) {
+        $google_fonts[] = $font;
+      }
+    }
+  }
+
+  // Merge finds
+  $fonts = array_merge( $parent_fonts, $child_fonts, $google_fonts );
+
+  // Apply filters
+  $fonts = apply_filters( 'fictioneer_filter_font_data', $fonts );
+
+  // Return complete font list
+  return $fonts;
+}
+
+// =============================================================================
+// BUILD BUNDLED FONT CSS FILE
+// =============================================================================
+
+/**
+ * Build bundled font stylesheet
+ *
+ * @since 5.10.0
+ */
+
+function fictioneer_build_bundled_fonts() {
+  // Setup
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+  $fonts = fictioneer_get_font_data();
+  $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
+  $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
+  $combined_font_css = '';
+  $font_stack = [];
 
-  if ( file_exists( $bundled_fonts ) ) {
-    unlink( $bundled_fonts );
+  // Apply filters
+  $fonts = apply_filters( 'fictioneer_filter_pre_build_bundled_fonts', $fonts );
+
+  // Make sure directory exists
+  if ( ! file_exists( dirname( $bundled_fonts ) ) ) {
+    mkdir( dirname( $bundled_fonts ), 0755, true );
   }
-}
-add_action( 'customize_save_after', 'fictioneer_watch_for_customer_updates' );
 
-// =============================================================================
-// ADD CUSTOMIZER LIGHT MODE CSS
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_add_customized_light_mode_css' ) ) {
-  /**
-   * Add customized light mode CSS
-   *
-   * @since 4.7.0
-   */
-
-  function fictioneer_add_customized_light_mode_css() {
-    // Always include these...
-    $light_header_css = ":root[data-mode=light] .header__title {
-      --site-title-heading-color: " . get_theme_mod( 'light_header_title_color', '#fcfcfd' ) . ";
-      --site-title-tagline-color: " . get_theme_mod( 'light_header_tagline_color', '#f3f5f7' ) . ";
-    }";
-    wp_add_inline_style( 'fictioneer-application', $light_header_css );
-
-    // ...but abort if custom light mode colors are not enabled
-    if ( ! get_theme_mod( 'use_custom_light_mode', false ) ) {
-      return;
+  // Build
+  foreach ( $fonts as $key => $font ) {
+    if ( in_array( $key, $disabled_fonts ) ) {
+      continue;
     }
 
-    // Look for pre-compiled CSS in Transients (except when in Customizer)
-    if (
-      ! is_customize_preview() &&
-      $last_update = get_transient( 'fictioneer_customized_light_mode' )
-    ) {
-      wp_add_inline_style( 'fictioneer-application', $last_update );
-      return;
+    if ( $font['chapter'] ?? 0 ) {
+      $font_stack[ $font['key'] ] = array(
+        'css' => fictioneer_font_family_value( $font['family'] ?? '' ),
+        'name' => $font['name'] ?? '',
+        'alt' => $font['alt'] ?? ''
+      );
     }
 
-    // Build CSS
-    $light_css = ":root[data-mode=light] {
-      --bg-200-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_200', '#e5e7eb' ), 'free' ) . ";
-      --bg-1000-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_1000', '#111827' ), 'free' ) . ";
-      --bg-10: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_10', '#fcfcfd' ) ) . ";
-      --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_50', '#f9fafb' ) ) . ";
-      --bg-100: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_100', '#f3f4f6' ) ) . ";
-      --bg-300: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_300', '#d1d5db' ) ) . ";
-      --bg-400: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_400', '#9ca3b0' ) ) . ";
-      --bg-500: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_500', '#6b7280' ) ) . ";
-      --bg-600: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_600', '#4b5563' ) ) . ";
-      --bg-700: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_700', '#384252' ) ) . ";
-      --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_800', '#1f2937' ) ) . ";
-      --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
-      --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
-      --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
-      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
-      --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";
-      --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
-      --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
-      --warning: " . get_theme_mod( 'light_warning_color', '#eb5247' ) . ";
-      --bookmark-color-alpha: " . get_theme_mod( 'light_bookmark_color_alpha', '#9ca3b0' ) . ";
-      --bookmark-color-beta: " . get_theme_mod( 'light_bookmark_color_beta', '#f59e0b' ) . ";
-      --bookmark-color-gamma: " . get_theme_mod( 'light_bookmark_color_gamma', '#77bfa3' ) . ";
-      --bookmark-color-delta: " . get_theme_mod( 'light_bookmark_color_delta', '#dd5960' ) . ";
-      --bookmark-line: " . get_theme_mod( 'light_bookmark_line_color', '#3c83f6' ) . ";
-      --ins-background: " . get_theme_mod( 'light_ins_background', '#7ec945' ) . ";
-      --del-background: " . get_theme_mod( 'light_del_background', '#e96c63' ) . ";
-      --vote-down: " . get_theme_mod( 'light_vote_down', '#dc2626' ) . ";
-      --vote-up: " . get_theme_mod( 'light_vote_up', '#16a34a' ) . ";
-      --badge-generic-background: " . get_theme_mod( 'light_badge_generic_background', '#9ca3b0' ) . ";
-      --badge-moderator-background: " . get_theme_mod( 'light_badge_moderator_background', '#5369ac' ) . ";
-      --badge-admin-background: " . get_theme_mod( 'light_badge_admin_background', '#384252' ) . ";
-      --badge-author-background: " . get_theme_mod( 'light_badge_author_background', '#384252' ) . ";
-      --badge-supporter-background: " . get_theme_mod( 'light_badge_supporter_background', '#ed5e76' ) . ";
-      --badge-override-background: " . get_theme_mod( 'light_badge_override_background', '#9ca3b0' ) . ";
+    if ( ! ( $font['skip'] ?? 0 ) && ! ( $font['google_link'] ?? 0 ) ) {
+      $css = file_get_contents( $font['css_file'] );
+
+      if ( $font['in_child_theme'] ?? 0 ) {
+        $css = str_replace( '../fonts/', get_stylesheet_directory_uri() . '/fonts/', $css );
+      }
+
+      $combined_font_css .= $css;
     }
-    :root[data-mode=light],
-    :root[data-mode=light] .chapter-formatting {
-      --fg-100: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_100', '#010204' ) ) . ";
-      --fg-200: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_200', '#04060b' ) ) . ";
-      --fg-300: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_300', '#0a0f1a' ) ) . ";
-      --fg-400: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_400', '#111827' ) ) . ";
-      --fg-500: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_500', '#1f2937' ) ) . ";
-      --fg-600: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_600', '#384252' ) ) . ";
-      --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_700', '#4b5563' ) ) . ";
-      --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_800', '#6b7280' ) ) . ";
-      --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_900', '#9ca3b0' ) ) . ";
-      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_1000', '#f3f5f7' ) ) . ";
-      --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_tinted', '#2b3546' ) ) . ";
-    }";
-
-    $light_css = fictioneer_minify_css( $light_css );
-
-    // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) {
-      set_transient( 'fictioneer_customized_light_mode', $light_css );
-    }
-
-    wp_add_inline_style( 'fictioneer-application', $light_css );
   }
+
+  // Update options
+  update_option( 'fictioneer_chapter_fonts', $font_stack, true );
+  update_option( 'fictioneer_bundled_fonts_timestamp', time(), true );
+
+  // Save
+  file_put_contents( $bundled_fonts, $combined_font_css );
 }
 
 // =============================================================================
-// ADD CUSTOMIZER DARK MODE CSS
+// GET CUSTOM FONT CSS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
-  /**
-   * Add customized dark mode CSS
-   *
-   * @since 4.7.0
-   */
+/**
+ * Helper that returns a font family value
+ *
+ * @since 5.10.0
+ *
+ * @param string $option        Name of the theme mod.
+ * @param string $font_default  Fallback font.
+ * @param string $mod_default   Default for get_theme_mod().
+ *
+ * @return string Ready to use font family value.
+ */
 
-  function fictioneer_add_customized_dark_mode_css() {
-    // Always include these...
-    $dark_header_css = ".header__title {
-      --site-title-heading-color: " . get_theme_mod( 'dark_header_title_color', '#eaeef6' ) . ";
-      --site-title-tagline-color: " . get_theme_mod( 'dark_header_tagline_color', '#eaeef6' ) . ";
+function fictioneer_get_custom_font( $option, $font_default, $mod_default ) {
+  $selection = get_theme_mod( $option, $mod_default );
+  $family = $font_default;
+
+  switch ( $selection ) {
+    case 'system':
+      $family = 'var(--ff-system)';
+      break;
+    case 'default':
+      $family = $font_default;
+      break;
+    default:
+      $family = "'{$selection}', {$font_default}";
+  }
+
+  return $family;
+}
+
+// =============================================================================
+// BUILD BUNDLED CUSTOMIZE CSS FILE
+// =============================================================================
+
+/**
+ * Builds customization stylesheet
+ *
+ * @since 5.11.0
+ *
+ * @param string|null $content  Optional. In which context the stylesheet created,
+ *                              for example 'preview' for the Customizer.
+ */
+
+function fictioneer_build_customize_css( $content = null ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
+  $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $css = '';
+
+  if ( $content === 'preview' ) {
+    $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
+  }
+
+  // --- Fading header image ---------------------------------------------------
+
+  $header_image_fading_start = fictioneer_sanitize_integer( get_theme_mod( 'header_image_fading_start', 0 ), 0, 0, 99 );
+  $header_image_fading_breakpoint = (int) get_theme_mod( 'header_image_fading_breakpoint', 0 );
+
+  if ( $header_image_fading_start > 0 ) {
+    if ( $header_image_fading_breakpoint > 320 ) {
+      $css .= "@media only screen and (min-width: {$header_image_fading_breakpoint}px) {
+        :root {
+          --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+        }
+      }";
+    } else {
+      $css .= ":root {
+        --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+      }";
+    }
+  }
+
+  // --- Base layout -----------------------------------------------------------
+
+  $hue_offset_dark = (int) get_theme_mod( 'hue_offset', 0 );
+  $saturation_offset_dark = (int) get_theme_mod( 'saturation_offset', 0 );
+  $lightness_offset_dark = (int) get_theme_mod( 'lightness_offset', 0 );
+  $hue_offset_light = (int) get_theme_mod( 'hue_offset_light', 0 );
+  $saturation_offset_light = (int) get_theme_mod( 'saturation_offset_light', 0 );
+  $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
+  $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $logo_height = (int) get_theme_mod( 'logo_height', 210 );
+  $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
+  $title_max = (int) get_theme_mod( 'site_title_font_size_max', 60 );
+  $tagline_min = (int) get_theme_mod( 'site_tagline_font_size_min', 13 );
+  $tagline_max = (int) get_theme_mod( 'site_tagline_font_size_max', 18 );
+  $header_image_min = (int) get_theme_mod( 'header_image_height_min', 210 );
+  $header_image_max = (int) get_theme_mod( 'header_image_height_max', 480 );
+  $header_min = (int) get_theme_mod( 'header_height_min', 190 );
+  $header_max = (int) get_theme_mod( 'header_height_max', 380 );
+  $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
+  $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
+  $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
+  $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
+  $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
+  $font_site_title = fictioneer_get_custom_font( 'site_title_font_family_value', 'var(--ff-heading)', 'default' );
+  $font_nav_item = fictioneer_get_custom_font( 'nav_item_font_family_value', 'var(--ff-base)', 'default' );
+  $font_story_title = fictioneer_get_custom_font( 'story_title_font_family_value', 'var(--ff-heading)', 'default' );
+  $font_chapter_title = fictioneer_get_custom_font( 'chapter_title_font_family_value', 'var(--ff-heading)', 'default' );
+  $font_chapter_list_title = fictioneer_get_custom_font( 'chapter_list_title_font_family_value', 'var(--ff-base)', 'default' );
+  $font_card_title = fictioneer_get_custom_font( 'card_title_font_family_value', 'var(--ff-heading)', 'default' );
+  $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'default' );
+  $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'default' );
+
+  $css .= ":root {
+    --site-width: " . $site_width . "px;
+    --hue-offset: " . $hue_offset_dark . "deg;
+    --saturation-offset: " . $saturation_offset_dark / 100 . ";
+    --lightness-offset: " . $lightness_offset_dark / 100 . ";
+    --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
+    --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
+    --layout-site-logo-height: " . $logo_height . "px;
+    --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
+    --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
+    --grid-columns-min: " . $card_grid_column_min . "px;
+    --ff-base: {$font_primary};
+    --ff-note: {$font_secondary};
+    --ff-heading: {$font_heading};
+    --ff-site-title: {$font_site_title};
+    --ff-story-title: {$font_story_title};
+    --ff-chapter-title: {$font_chapter_title};
+    --ff-chapter-list-title: {$font_chapter_list_title};
+    --ff-card-title: {$font_card_title};
+    --ff-card-body: {$font_card_body};
+    --ff-card-list-link: {$font_card_list_link};
+    --ff-nav-item: {$font_nav_item};
+    --card-cover-width-mod: {$card_cover_width_mod};
+  }";
+
+  // Only light mode
+  $css .= ":root[data-mode=light] {
+    --hue-offset: " . $hue_offset_light . "deg;
+    --saturation-offset: " . $saturation_offset_light / 100 . ";
+    --lightness-offset: " . $lightness_offset_light / 100 . ";
+  }";
+
+  // --- Custom layout ---------------------------------------------------------
+
+  if ( get_theme_mod( 'use_custom_layout', false ) ) {
+    $vertical_min = (int) get_theme_mod( 'vertical_spacing_min', 24 );
+    $vertical_max = (int) get_theme_mod( 'vertical_spacing_max', 48 );
+    $horizontal_min = (int) get_theme_mod( 'horizontal_spacing_min', 20 );
+    $horizontal_max = (int) get_theme_mod( 'horizontal_spacing_max', 80 );
+    $horizontal_small_min = (int) get_theme_mod( 'horizontal_spacing_small_min', 10 );
+    $horizontal_small_max = (int) get_theme_mod( 'horizontal_spacing_small_max', 20 );
+    $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
+    $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
+
+    $css .= ":root, :root[data-theme=base] {
+      --layout-spacing-vertical: " . fictioneer_get_css_clamp( $vertical_min, $vertical_max, 480, $site_width ) . ";
+      --layout-spacing-horizontal: " . fictioneer_get_css_clamp( $horizontal_min, $horizontal_max, 480, $site_width, '%' ) . ";
+      --layout-spacing-horizontal-small: " . fictioneer_get_css_clamp( $horizontal_small_min, $horizontal_small_max, 320, 400, '%' ) . ";
+      --layout-border-radius-large: " . $large_border_radius . "px;
+      --layout-border-radius-small: " . $small_border_radius . "px;
     }";
-    wp_add_inline_style( 'fictioneer-application', $dark_header_css );
+  }
 
-    // ...but abort if custom light mode colors are not enabled
-    if ( ! get_theme_mod( 'use_custom_dark_mode', false ) ) {
-      return;
-    }
+  // --- Dark mode font weight adjustment --------------------------------------
 
-    // Look for pre-compiled CSS in Transients (except when in Customizer)
-    if (
-      ! is_customize_preview() &&
-      $last_update = get_transient( 'fictioneer_customized_dark_mode' )
-    ) {
-      wp_add_inline_style( 'fictioneer-application', $last_update );
-      return;
-    }
+  if ( get_theme_mod( 'dark_mode_font_weight', 'adjusted' ) === 'normal' ) {
+    $css .= ":root[data-font-weight=default]:is(html) {
+      --font-smoothing-webkit: subpixel-antialiased;
+      --font-smoothing-moz: auto;
+      --font-weight-normal: 400;
+      --font-weight-semi-strong: 600;
+      --font-weight-strong: 600;
+      --font-weight-medium: 500;
+      --font-weight-heading: 700;
+      --font-weight-badge: 600;
+      --font-weight-post-meta: 400;
+      --font-weight-ribbon: 700;
+      --font-weight-navigation: 400;
+      --font-letter-spacing-base: 0em;
+    }";
+  }
 
-    // Build CSS
-    $dark_css = ":root, :root[data-theme=base] {
+  // --- Dark mode colors ------------------------------------------------------
+
+  $css .= ":root {
+    --site-title-heading-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_title_color', '#dadde2' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_tagline_color', '#dadde2' ) ) . ";
+  }";
+
+  if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {
+    $css .= ":root, :root[data-theme=base] {
       --bg-900-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_900', '#252932' ), 'free' ) . ";
       --bg-1000-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_1000', '#121317' ), 'free' ) . ";
       --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_50', '#4b505d' ) ) . ";
@@ -472,179 +749,165 @@ if ( ! function_exists( 'fictioneer_add_customized_dark_mode_css' ) ) {
       --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_1000', '#121416' ) ) . ";
       --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_tinted', '#a4a9b7' ) ) . ";
     }";
+  }
 
-    $dark_css = fictioneer_minify_css( $dark_css );
+  // --- Light mode colors -----------------------------------------------------
 
-    // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) {
-      set_transient( 'fictioneer_customized_dark_mode', $dark_css );
+  $title_color_light = get_theme_mod( 'light_header_title_color', '#fcfcfd' );
+  $tag_color_light = get_theme_mod( 'light_header_tagline_color', '#f3f5f7' );
+
+  if ( in_array( get_theme_mod( 'header_style', 'default' ), ['default', 'overlay'] ) ) {
+    $css .= ":root {
+      --site-title-heading-color: " . fictioneer_hsl_code( $title_color_light ) . ";
+      --site-title-tagline-color: " . fictioneer_hsl_code( $tag_color_light ) . ";
+    }";
+  } else {
+    if ( $title_color_light !== '#fcfcfd' ) {
+      $css .= ":root[data-mode=light] {
+        --site-title-heading-color: " . fictioneer_hsl_code( $title_color_light ) . ";
+      }";
+    } else {
+      $css .= ":root[data-mode=light] {
+        --site-title-heading-color: var(--fg-400);
+      }";
     }
 
-    wp_add_inline_style( 'fictioneer-application', $dark_css );
+    if ( $tag_color_light !== '#f3f5f7' ) {
+      $css .= ":root[data-mode=light] {
+        --site-title-tagline-color: " . fictioneer_hsl_code( $tag_color_light ) . ";
+      }";
+    } else {
+      $css .= ":root[data-mode=light] {
+        --site-title-tagline-color: var(--fg-400);
+      }";
+    }
   }
+
+  if ( get_theme_mod( 'use_custom_light_mode', false ) ) {
+    $css .= ":root[data-mode=light] {
+      --bg-200-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_200', '#e5e7eb' ), 'free' ) . ";
+      --bg-1000-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_1000', '#111827' ), 'free' ) . ";
+      --bg-10: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_10', '#fcfcfd' ) ) . ";
+      --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_50', '#f9fafb' ) ) . ";
+      --bg-100: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_100', '#f3f4f6' ) ) . ";
+      --bg-300: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_300', '#d1d5db' ) ) . ";
+      --bg-400: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_400', '#9ca3b0' ) ) . ";
+      --bg-500: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_500', '#6b7280' ) ) . ";
+      --bg-600: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_600', '#4b5563' ) ) . ";
+      --bg-700: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_700', '#384252' ) ) . ";
+      --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_800', '#1f2937' ) ) . ";
+      --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
+      --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
+      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
+      --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
+      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
+      --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";
+      --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
+      --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
+      --warning: " . get_theme_mod( 'light_warning_color', '#eb5247' ) . ";
+      --bookmark-color-alpha: " . get_theme_mod( 'light_bookmark_color_alpha', '#9ca3b0' ) . ";
+      --bookmark-color-beta: " . get_theme_mod( 'light_bookmark_color_beta', '#f59e0b' ) . ";
+      --bookmark-color-gamma: " . get_theme_mod( 'light_bookmark_color_gamma', '#77bfa3' ) . ";
+      --bookmark-color-delta: " . get_theme_mod( 'light_bookmark_color_delta', '#dd5960' ) . ";
+      --bookmark-line: " . get_theme_mod( 'light_bookmark_line_color', '#3c83f6' ) . ";
+      --ins-background: " . get_theme_mod( 'light_ins_background', '#7ec945' ) . ";
+      --del-background: " . get_theme_mod( 'light_del_background', '#e96c63' ) . ";
+      --vote-down: " . get_theme_mod( 'light_vote_down', '#dc2626' ) . ";
+      --vote-up: " . get_theme_mod( 'light_vote_up', '#16a34a' ) . ";
+      --badge-generic-background: " . get_theme_mod( 'light_badge_generic_background', '#9ca3b0' ) . ";
+      --badge-moderator-background: " . get_theme_mod( 'light_badge_moderator_background', '#5369ac' ) . ";
+      --badge-admin-background: " . get_theme_mod( 'light_badge_admin_background', '#384252' ) . ";
+      --badge-author-background: " . get_theme_mod( 'light_badge_author_background', '#384252' ) . ";
+      --badge-supporter-background: " . get_theme_mod( 'light_badge_supporter_background', '#ed5e76' ) . ";
+      --badge-override-background: " . get_theme_mod( 'light_badge_override_background', '#9ca3b0' ) . ";
+    }
+    :root[data-mode=light],
+    :root[data-mode=light] .chapter-formatting {
+      --fg-100: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_100', '#010204' ) ) . ";
+      --fg-200: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_200', '#04060b' ) ) . ";
+      --fg-300: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_300', '#0a0f1a' ) ) . ";
+      --fg-400: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_400', '#111827' ) ) . ";
+      --fg-500: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_500', '#1f2937' ) ) . ";
+      --fg-600: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_600', '#384252' ) ) . ";
+      --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_700', '#4b5563' ) ) . ";
+      --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_800', '#6b7280' ) ) . ";
+      --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_900', '#9ca3b0' ) ) . ";
+      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_1000', '#f3f5f7' ) ) . ";
+      --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_tinted', '#2b3546' ) ) . ";
+    }";
+  }
+
+  // --- Filters ---------------------------------------------------------------
+
+  $css = apply_filters( 'fictioneer_filter_customize_css', $css );
+
+  // --- Minify ----------------------------------------------------------------
+
+  $css = fictioneer_minify_css( $css );
+
+  // --- Update options --------------------------------------------------------
+
+  if ( $content !== 'preview' ) {
+    update_option( 'fictioneer_customize_css_timestamp', time(), true );
+  }
+
+  // --- Save ------------------------------------------------------------------
+
+  file_put_contents( $file_path, $css );
 }
 
 // =============================================================================
-// ADD CUSTOMIZER LAYOUT CSS
+// GENERATE LINEAR GRADIENT CSS WITH APPROXIMATED CUBIC-BEZIER
 // =============================================================================
 
-/**
- * Helper that returns a font family value
- *
- * @since 5.10.0
- *
- * @param string $option        Name of the theme mod.
- * @param string $font_default  Fallback font.
- * @param string $mod_default   Default for get_theme_mod().
- *
- * @return string Ready to use font family value.
- */
-
-function fictioneer_get_custom_font( $option, $font_default, $mod_default ) {
-  $selection = get_theme_mod( $option, $mod_default );
-  $family = $font_default;
-
-  switch ( $selection ) {
-    case 'system':
-      $family = 'var(--ff-system)';
-      break;
-    case 'default':
-      $family = $font_default;
-      break;
-    default:
-      $family = "'{$selection}', {$font_default}";
-  }
-
-  return $family;
-}
-
-if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
+if ( ! function_exists( 'fictioneer_get_fading_gradient' ) ) {
   /**
-   * Add customized layout CSS
+   * Returns an eased fading linear-gradient CSS
    *
-   * @since 4.7.0
+   * This is an approximated cubic-bezier transition based on a pattern.
+   *
+   * @param float  $start_opacity  The starting opacity of the gradient in percentage.
+   * @param int    $start          The starting point of the gradient in percentage.
+   * @param int    $end            The ending point of the gradient in percentage.
+   * @param int    $direction      The direction of the gradient with unit (e.g. '180deg').
+   * @param string $hsl            The HSL string used as color. Default '0 0% 0%'.
+   *
+   * @return string The linear-gradient CSS.
    */
 
-  function fictioneer_add_customized_layout_css() {
-    // Look for pre-compiled CSS in Transients (except when in Customizer)
-    $last_update = get_transient( 'fictioneer_customized_layout' );
-
-    if ( ! is_customize_preview() && $last_update ) {
-      wp_add_inline_style( 'fictioneer-application', $last_update );
-      return;
-    }
-
+  function fictioneer_get_fading_gradient( $start_opacity, $start, $end, $direction, $hsl = '0 0% 0%' ) {
     // Setup
-    $hue_offset_dark = (int) get_theme_mod( 'hue_offset', 0 );
-    $saturation_offset_dark = (int) get_theme_mod( 'saturation_offset', 0 );
-    $lightness_offset_dark = (int) get_theme_mod( 'lightness_offset', 0 );
-    $hue_offset_light = (int) get_theme_mod( 'hue_offset_light', 0 );
-    $saturation_offset_light = (int) get_theme_mod( 'saturation_offset_light', 0 );
-    $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
+    $alpha_values = [0.987, 0.951, 0.896, 0.825, 0.741, 0.648, 0.55, 0.45, 0.352, 0.259, 0.175, 0.104, 0.049, 0.013, 0];
+    $num_stops = count( $alpha_values );
 
-    $site_width = (int) get_theme_mod( 'site_width', 960 );
-    $logo_height = (int) get_theme_mod( 'logo_height', 210 );
-    $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
-    $title_max = (int) get_theme_mod( 'site_title_font_size_max', 60 );
-    $tagline_min = (int) get_theme_mod( 'site_tagline_font_size_min', 13 );
-    $tagline_max = (int) get_theme_mod( 'site_tagline_font_size_max', 18 );
-    $header_image_min = (int) get_theme_mod( 'header_image_height_min', 210 );
-    $header_image_max = (int) get_theme_mod( 'header_image_height_max', 480 );
-    $header_min = (int) get_theme_mod( 'header_height_min', 190 );
-    $header_max = (int) get_theme_mod( 'header_height_max', 380 );
-    $vertical_min = (int) get_theme_mod( 'vertical_spacing_min', 24 );
-    $vertical_max = (int) get_theme_mod( 'vertical_spacing_max', 48 );
-    $horizontal_min = (int) get_theme_mod( 'horizontal_spacing_min', 20 );
-    $horizontal_max = (int) get_theme_mod( 'horizontal_spacing_max', 80 );
-    $horizontal_small_min = (int) get_theme_mod( 'horizontal_spacing_small_min', 10 );
-    $horizontal_small_max = (int) get_theme_mod( 'horizontal_spacing_small_max', 20 );
-    $large_border_radius = (int) get_theme_mod( 'large_border_radius', 4 );
-    $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
-    $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
-    $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
+    // Calculate positions
+    $positions = array_map(
+      function( $index ) use ( $start, $end, $num_stops ) {
+        return $start + ( ( $end - $start ) / ( $num_stops - 1 ) * $index );
+      },
+      array_keys( $alpha_values )
+    );
 
-    $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
-    $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
-    $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
 
-    $font_site_title = fictioneer_get_custom_font( 'site_title_font_family_value', 'var(--ff-heading)', 'default' );
-    $font_nav_item = fictioneer_get_custom_font( 'nav_item_font_family_value', 'var(--ff-base)', 'default' );
-    $font_story_title = fictioneer_get_custom_font( 'story_title_font_family_value', 'var(--ff-heading)', 'default' );
-    $font_chapter_title = fictioneer_get_custom_font( 'chapter_title_font_family_value', 'var(--ff-heading)', 'default' );
-    $font_chapter_list_title = fictioneer_get_custom_font( 'chapter_list_title_font_family_value', 'var(--ff-base)', 'default' );
-    $font_card_title = fictioneer_get_custom_font( 'card_title_font_family_value', 'var(--ff-heading)', 'default' );
-    $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'default' );
-    $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'default' );
+    // Open...
+    $gradient = "linear-gradient({$direction}, ";
 
-    // Build CSS
-    $layout_css = ":root {
-      --site-width: " . $site_width . "px;
-      --hue-offset: " . $hue_offset_dark . "deg;
-      --saturation-offset: " . $saturation_offset_dark / 100 . ";
-      --lightness-offset: " . $lightness_offset_dark / 100 . ";
-      --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
-      --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
-      --layout-site-logo-height: " . $logo_height . "px;
-      --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
-      --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
-      --grid-columns-min: " . $card_grid_column_min . "px;
-      --ff-base: {$font_primary};
-      --ff-note: {$font_secondary};
-      --ff-heading: {$font_heading};
-      --ff-site-title: {$font_site_title};
-      --ff-story-title: {$font_story_title};
-      --ff-chapter-title: {$font_chapter_title};
-      --ff-chapter-list-title: {$font_chapter_list_title};
-      --ff-card-title: {$font_card_title};
-      --ff-card-body: {$font_card_body};
-      --ff-card-list-link: {$font_card_list_link};
-      --ff-nav-item: {$font_nav_item};
-      --card-cover-width-mod: {$card_cover_width_mod};
-    }";
+    // ... add color stops...
+    foreach ( $alpha_values as $index => $alpha ) {
+      $position = round( $positions[ $index ], 2 );
+      $adjusted_alpha = round( $alpha * $start_opacity, 3 );
+      $gradient .= "hsl({$hsl} / {$adjusted_alpha}%) {$position}%";
 
-    if ( get_theme_mod( 'use_custom_layout', false ) ) {
-      $layout_css .= ":root, :root[data-theme=base] {
-        --layout-spacing-vertical: " . fictioneer_get_css_clamp( $vertical_min, $vertical_max, 480, $site_width ) . ";
-        --layout-spacing-horizontal: " . fictioneer_get_css_clamp( $horizontal_min, $horizontal_max, 480, $site_width, '%' ) . ";
-        --layout-spacing-horizontal-small: " . fictioneer_get_css_clamp( $horizontal_small_min, $horizontal_small_max, 320, 400, '%' ) . ";
-        --layout-border-radius-large: " . $large_border_radius . "px;
-        --layout-border-radius-small: " . $small_border_radius . "px;
-      }";
+      if ( $index < $num_stops - 1 ) {
+        $gradient .= ', ';
+      }
     }
 
-    if ( get_theme_mod( 'dark_mode_font_weight', 'adjusted' ) === 'normal' ) {
-      $layout_css .= ":root[data-font-weight=default]:is(html) {
-        --font-smoothing-webkit: subpixel-antialiased;
-        --font-smoothing-moz: auto;
-        --font-weight-normal: 400;
-        --font-weight-semi-strong: 600;
-        --font-weight-strong: 600;
-        --font-weight-medium: 500;
-        --font-weight-heading: 700;
-        --font-weight-badge: 600;
-        --font-weight-post-meta: 400;
-        --font-weight-ribbon: 700;
-        --font-weight-navigation: 400;
-        --font-letter-spacing-base: 0em;
-      }";
-    }
+    // ... close
+    $gradient .= ');';
 
-    // Only dark mode
-    $layout_css .= ":root[data-mode=light] {
-      --hue-offset: " . $hue_offset_light . "deg;
-      --saturation-offset: " . $saturation_offset_light / 100 . ";
-      --lightness-offset: " . $lightness_offset_light / 100 . ";
-    }";
-
-    // Minify CSS
-    $layout_css = fictioneer_minify_css( $layout_css );
-
-    // Remember CSS and add it to site
-    if ( ! is_customize_preview() ) {
-      set_transient( 'fictioneer_customized_layout', $layout_css );
-    }
-
-    wp_add_inline_style( 'fictioneer-application', $layout_css );
+    // Return
+    return $gradient;
   }
 }
 

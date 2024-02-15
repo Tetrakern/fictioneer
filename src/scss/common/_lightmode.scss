@@ -99,6 +99,10 @@
   --e-2: var(--bg-10);
   --e-overlay: var(--bg-1000);
 
+  // === HEADER ================================================================
+  --site-title-heading-color: var(--fg-1000);
+  --site-title-tagline-color: var(--fg-1000);
+
   // === NAVIGATION ============================================================
   --navigation-background-sticky: var(--e-2);
   --navigation-text: var(--fg-200);
@@ -412,11 +416,6 @@
     --ribbon-background-read: var(--e-2);
     --ribbon-text-read: var(--fg-500);
     --ribbon-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
-  }
-
-  .header__title {
-    --site-title-heading-color: var(--fg-1000);
-    --site-title-tagline-color: var(--fg-1000);
   }
 
   .iframe-consent {

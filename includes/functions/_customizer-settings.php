@@ -1,6 +1,35 @@
 <?php
 
 // =============================================================================
+// WATCH FOR CUSTOMIZER UPDATES
+// =============================================================================
+
+/**
+ * Watches for customizer updates to purge Transients and files
+ *
+ * @since 4.7.0
+ * @since 5.10.1 - Extend cache purging.
+ * @since 5.11.0 - Purge customize.css file
+ */
+
+function fictioneer_watch_for_customer_updates() {
+  // Transient caches
+  fictioneer_delete_transients_like( 'fictioneer_' );
+  fictioneer_purge_nav_menu_transients();
+
+  // Rebuild customize stylesheet
+  fictioneer_build_customize_css();
+
+  // Files
+  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+
+  if ( file_exists( $bundled_fonts ) ) {
+    unlink( $bundled_fonts );
+  }
+}
+add_action( 'customize_save_after', 'fictioneer_watch_for_customer_updates' );
+
+// =============================================================================
 // ADD CUSTOMIZER RANGE VALUE CONTROL
 // =============================================================================
 
