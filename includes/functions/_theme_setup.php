@@ -341,7 +341,7 @@ function fictioneer_root_attributes() {
       $header_classes[] = 'page-style-' . get_theme_mod( 'page_style' );
     }
 
-    $poly_and_masks = ['battered', 'ringbook', 'battered-ringbook', 'interface-a'];
+    $poly_and_masks = ['battered', 'ringbook', 'battered-ringbook', 'chamfered', 'interface-a'];
 
     if ( in_array( get_theme_mod( 'page_style' ), $poly_and_masks ) ) {
       $header_classes[] = 'has-polygon-or-mask';

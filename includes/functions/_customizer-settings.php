@@ -2801,7 +2801,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
         'ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
         'battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
-        'interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' ),
+        'chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
+        'interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' )
       ),
     )
   );
