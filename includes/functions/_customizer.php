@@ -265,16 +265,20 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
 // =============================================================================
 
 /**
- * Watches for customizer updates to delete Transients
+ * Watches for customizer updates to purge Transients and files
  *
  * @since 4.7.0
  * @since 5.10.1 - Extend cache purging.
+ * @since 5.11.0 - Purge customize.css file
  */
 
 function fictioneer_watch_for_customer_updates() {
   // Transient caches
   fictioneer_delete_transients_like( 'fictioneer_' );
   fictioneer_purge_nav_menu_transients();
+
+  // Rebuild customize stylesheet
+  fictioneer_build_customize_css();
 
   // Files
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
@@ -558,8 +562,6 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
     $small_border_radius = (int) get_theme_mod( 'small_border_radius', 2 );
     $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
     $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
-    $header_image_fading_start = fictioneer_sanitize_integer( get_theme_mod( 'header_image_fading_start', 0 ), 0, 0, 99 );
-    $header_image_fading_breakpoint = (int) get_theme_mod( 'header_image_fading_breakpoint', 0 );
 
     $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
     $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
@@ -599,20 +601,6 @@ if ( ! function_exists( 'fictioneer_add_customized_layout_css' ) ) {
       --ff-nav-item: {$font_nav_item};
       --card-cover-width-mod: {$card_cover_width_mod};
     }";
-
-    if ( $header_image_fading_start > 0 ) {
-      if ( $header_image_fading_breakpoint > 320 ) {
-        $layout_css .= "@media only screen and (min-width: {$header_image_fading_breakpoint}px) {
-          :root {
-            --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
-          }
-        }";
-      } else {
-        $layout_css .= ":root {
-          --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
-        }";
-      }
-    }
 
     if ( get_theme_mod( 'use_custom_layout', false ) ) {
       $layout_css .= ":root, :root[data-theme=base] {

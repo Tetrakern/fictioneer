@@ -2991,6 +2991,67 @@ function fictioneer_build_bundled_fonts() {
 }
 
 // =============================================================================
+// BUILD BUNDLED CUSTOMIZE CSS FILE
+// =============================================================================
+
+/**
+ * Build bundled font stylesheet
+ *
+ * @since 5.11.0
+ *
+ * @param string|null $content  Optional. In which context the stylesheet created,
+ *                              for example 'preview' for the Customizer.
+ */
+
+function fictioneer_build_customize_css( $content = null ) {
+  // --- Setup -----------------------------------------------------------------
+
+  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
+  $css = '';
+
+  if ( $content === 'preview' ) {
+    $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
+  }
+
+  // --- Fading header image ---------------------------------------------------
+
+  $header_image_fading_start = fictioneer_sanitize_integer( get_theme_mod( 'header_image_fading_start', 0 ), 0, 0, 99 );
+  $header_image_fading_breakpoint = (int) get_theme_mod( 'header_image_fading_breakpoint', 0 );
+
+  if ( $header_image_fading_start > 0 ) {
+    if ( $header_image_fading_breakpoint > 320 ) {
+      $css .= "@media only screen and (min-width: {$header_image_fading_breakpoint}px) {
+        :root {
+          --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+        }
+      }";
+    } else {
+      $css .= ":root {
+        --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
+      }";
+    }
+  }
+
+  // --- Filters ---------------------------------------------------------------
+
+  $css = apply_filters( 'fictioneer_filter_customize_css', $css );
+
+  // --- Minify ----------------------------------------------------------------
+
+  $css = fictioneer_minify_css( $css );
+
+  // --- Update options --------------------------------------------------------
+
+  if ( $content !== 'preview' ) {
+    update_option( 'fictioneer_customize_css_timestamp', time(), true );
+  }
+
+  // --- Save ------------------------------------------------------------------
+
+  file_put_contents( $file_path, $css );
+}
+
+// =============================================================================
 // GENERATE LINEAR GRADIENT CSS WITH APPROXIMATED CUBIC-BEZIER
 // =============================================================================
 

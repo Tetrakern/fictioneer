@@ -3,4 +3,4 @@
 *.codekit3
 .vscode
 wp-cli.phar
-bundled-fonts.css
+/cache

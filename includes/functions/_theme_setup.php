@@ -624,7 +624,70 @@ function fictioneer_customizer_queue() {
   fictioneer_add_customized_light_mode_css();
   fictioneer_add_customized_dark_mode_css();
 }
-add_action( 'wp_enqueue_scripts', 'fictioneer_customizer_queue', 999 ); // Make sure this is added last!
+add_action( 'wp_enqueue_scripts', 'fictioneer_customizer_queue', 999 );
+
+// =============================================================================
+// ENQUEUE CUSTOMIZE CSS
+// =============================================================================
+
+/**
+ * Enqueues customize stylesheets <head> meta
+ *
+ * @since 5.11.0
+ */
+
+function fictioneer_output_customize_css() {
+  // Setup
+  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
+  $last_built_timestamp = get_option( 'fictioneer_customize_css_timestamp', '123456789' );
+
+  // Create file if it does not exist
+  if ( ! file_exists( $file_path ) ) {
+    fictioneer_build_customize_css();
+  }
+
+  // Output customize stylesheet...
+  if ( file_exists( $file_path ) ) {
+    wp_enqueue_style(
+      'fictioneer-customize',
+      get_template_directory_uri() . "/cache/customize.css?timestamp={$last_built_timestamp}",
+      ['fictioneer-application'],
+      FICTIONEER_VERSION
+    );
+  }
+}
+
+if ( ! is_customize_preview() ) {
+  add_action( 'wp_enqueue_scripts', 'fictioneer_output_customize_css', 9999 );
+}
+
+/**
+ * Enqueues preview customize stylesheets <head> meta
+ *
+ * @since 5.11.0
+ */
+
+function fictioneer_output_customize_preview_css() {
+  // Setup
+  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
+
+  // Create file if it does not exist
+  fictioneer_build_customize_css( 'preview' );
+
+  // Output customize stylesheet...
+  if ( file_exists( $file_path ) ) {
+    wp_enqueue_style(
+      'fictioneer-customize',
+      get_template_directory_uri() . "/cache/customize-preview.css?timestamp=" . time(),
+      ['fictioneer-application'],
+      FICTIONEER_VERSION
+    );
+  }
+}
+
+if ( is_customize_preview() ) {
+  add_action( 'wp_enqueue_scripts', 'fictioneer_output_customize_preview_css', 9999 );
+}
 
 // =============================================================================
 // ENQUEUE OVERRIDE STYLESHEETS
