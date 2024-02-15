@@ -2472,7 +2472,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer header image style option.', 'fictioneer' ),
-        'battered' => _x( 'Battered (polygon)', 'Customizer header image style option.', 'fictioneer' )
+        'battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' )
       )
     )
   );

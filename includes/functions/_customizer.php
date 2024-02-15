@@ -560,10 +560,25 @@ function fictioneer_build_customize_css( $content = null ) {
 
   $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
   $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $header_image_style = get_theme_mod( 'header_image_style', 'default' );
+  $header_style = get_theme_mod( 'header_style', 'default' );
+  $page_style = get_theme_mod( 'page_style', 'default' );
   $css = '';
 
   if ( $content === 'preview' ) {
     $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
+  }
+
+  // --- Assets ----------------------------------------------------------------
+
+  if (
+    $header_image_style === 'battered' ||
+    in_array( $page_style, ['battered', 'battered-ringbook'] )
+  ) {
+    $css .= ":root {
+      --polygon-battered: polygon(8px 3px, 12px 2px, 16px 0, 10% 2px, 10.5% 0px, 11% 1px, 11.5% 0px, 18% 1.5px, 21% 0, 28% 1px, 30% 4px, 30.5% 1px, 31% 2px, 31.5% 1px, 33% 3px, 34% 0, 35.5% 1px, 36.5% 2px, 38% 0.5px, 48% 0, 49% 4px, 50% 1.5px, 57% 1px, 59% 0, 61% 1.5px, 63% 0, 67% 1px, 70% 0, 70.5% 4px, 71% 1px, 71.5% 2px, 72% 0, 72.5% 3px, 75% 0, 78% 2px, 85% 3px, 93% 1px, 96% 0, calc(100% - 8px) 0, calc(100% - 4px) 2px, calc(100% - 3px) 10px, 100% 14px, calc(100% - 1px) 15%, calc(100% - 2px) 16.5%, 100% 17%, calc(100% - 1px) 17.5%, 100% 18%, calc(100% - 1px) 21%, 100% 22%, calc(100% - 4px) 23%, calc(100% - 1px) 23.5%, calc(100% - 3px) 24%, calc(100% - 2px) 24.5%, 100% 25%, calc(100% - 1px) 25.5%, 100% 26%, calc(100% - 2px) 26.5%, calc(100% - 1px) 27%, calc(100% - 1.5px) 28%, 100% 29%, calc(100% - 1px) 45%, calc(100% - 3px) 45.5%, calc(100% - 2px) 46%, 100% 47%, calc(100% - 1px) 48%, 100% 49%, calc(100% - 2px) 49.5%, calc(100% - 1px) 50%, calc(100% - 1.5px) 50.5%, 100% 51%, calc(100% - 3px) 53%, 100% 53.5%, calc(100% - 2px) 55%, calc(100% - 1px) 56%, 100% 57%, 100% 65%, calc(100% - 4px) 66%, calc(100% - 2px) 67%, 100% 69%, calc(100% - 2px) 78%, calc(100% - 1.5px) 85%, calc(100% - 3px) 85.5%, calc(100% - 8px) 86%, calc(100% - 2px) 86.5%, 100% 100%, 98% calc(100% - 2px), 97% calc(100% - 4px), 96% calc(100% - 1px), 93% 100%, 92.5% calc(100% - 3px), 91% 100%, 87% calc(100% - 1px), 80% 100%, 79.5% calc(100% - 6px), 79.2% calc(100% - 3px), 78.5% 100%, 70% calc(100% - 1px), 69.5% 100%, 69% calc(100% - 5px), 68.5% 100%, 68% calc(100% - 3px), 67.5% calc(100% - 2px), 67% 100%, 66.5% calc(100% - 2px), 66% 100%, 65.6% calc(100% - 2px), 65.3% 100%, 65% calc(100% - 1px), 64.7% 100%, 64.4% calc(100% - 1px), 64% 100%, 60% calc(100% - 1px), 52% 100%, 45% calc(100% - 3px), 40% calc(100% - 2px), 39% calc(100% - 3px), 38% calc(100% - 4px), 37% calc(100% - 2px), 36% calc(100% - 4px), 35% calc(100% - 1px), 19% 100%, 13% 100%, 12.8% calc(100% - 4px), 12.5% calc(100% - 6px), 12% calc(100% - 3px), 11.5% calc(100% - 4px), 11% calc(100% - 3px), 10.5% calc(100% - 5px), 10% calc(100% - 3px), 9.5% calc(100% - 2px), 9% calc(100% - 3px), 8.5% calc(100% - 6px), 5% calc(100% - 2px), 8px calc(100% - 2px), 6px calc(100% - 3px), 4px calc(100% - 4px), 0 calc(100% - 3px), 0 89%, 2px 87%, 4px 86%, 0 85%, 0 77%, 1px 76%, 2px 75%, 0 73.5%, 3px 73%, 0 71%, 1.5px 70.5%, 1px 70%, 2px 69.5%, 0 69%, 1px 68%, 0 67%, 2px 66%, 3px 65.5%, 1px 65%, 0 64%, 1px 50%, 5px 49.5%, 7px 49%, 0 48.5%, 3px 38%, 0 20%, 1px 16%, 3px 15.5%, 4px 14%, 2.5px 12%, 1px 11%, 0 10%, 1px 5%, 0 6px, 2px 4px);
+      --polygon-battered-half: polygon(8px 3px, 12px 2px, 16px 0, 10% 2px, 10.5% 0px, 11% 1px, 11.5% 0px, 18% 1.5px, 21% 0, 28% 1px, 30% 4px, 30.5% 1px, 31% 2px, 31.5% 1px, 33% 3px, 34% 0, 35.5% 1px, 36.5% 2px, 38% 0.5px, 48% 0, 49% 4px, 50% 1.5px, 57% 1px, 59% 0, 61% 1.5px, 63% 0, 67% 1px, 70% 0, 70.5% 4px, 71% 1px, 71.5% 2px, 72% 0, 72.5% 3px, 75% 0, 78% 2px, 85% 3px, 93% 1px, 96% 0, calc(100% - 8px) 0, 100% 0, 100% 100%, 98% calc(100% - 2px), 97% calc(100% - 4px), 96% calc(100% - 1px), 93% 100%, 92.5% calc(100% - 3px), 91% 100%, 87% calc(100% - 1px), 80% 100%, 79.5% calc(100% - 6px), 79.2% calc(100% - 3px), 78.5% 100%, 70% calc(100% - 1px), 69.5% 100%, 69% calc(100% - 5px), 68.5% 100%, 68% calc(100% - 3px), 67.5% calc(100% - 2px), 67% 100%, 66.5% calc(100% - 2px), 66% 100%, 65.6% calc(100% - 2px), 65.3% 100%, 65% calc(100% - 1px), 64.7% 100%, 64.4% calc(100% - 1px), 64% 100%, 60% calc(100% - 1px), 52% 100%, 45% calc(100% - 3px), 40% calc(100% - 2px), 39% calc(100% - 3px), 38% calc(100% - 4px), 37% calc(100% - 2px), 36% calc(100% - 4px), 35% calc(100% - 1px), 19% 100%, 13% 100%, 12.8% calc(100% - 4px), 12.5% calc(100% - 6px), 12% calc(100% - 3px), 11.5% calc(100% - 4px), 11% calc(100% - 3px), 10.5% calc(100% - 5px), 10% calc(100% - 3px), 9.5% calc(100% - 2px), 9% calc(100% - 3px), 8.5% calc(100% - 6px), 5% calc(100% - 2px), 8px calc(100% - 2px), 6px calc(100% - 3px), 4px calc(100% - 4px), 0 calc(100% - 3px), 0 6px, 2px 4px);
+    }";
   }
 
   // --- Fading header image ---------------------------------------------------
@@ -835,6 +850,82 @@ function fictioneer_build_customize_css( $content = null ) {
       --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_1000', '#f3f5f7' ) ) . ";
       --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_tinted', '#2b3546' ) ) . ";
     }";
+  }
+
+  // --- Page styles -----------------------------------------------------------
+
+  if ( $page_style === 'battered' ) {
+    $css .= ':root.page-style-battered:not(.minimal) .main__background {
+      filter: var(--layout-main-drop-shadow);
+    }
+    :root.page-style-battered:not(.minimal) .main__background::before {
+      clip-path: var(--polygon-battered-half);
+    }
+    @media only screen and (min-width: 768px) {
+      :root.page-style-battered:not(.minimal) .main__background::before {
+        left: 4px;
+        right: 4px;
+        clip-path: var(--polygon-battered);
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      :root.page-style-battered:not(.minimal) .main__background::before {
+        left: 0;
+        right: 0;
+      }
+    }';
+  }
+
+  if ( $page_style === 'battered-ringbook' ) {
+    $css .= ':root.page-style-ringbook:not(.minimal) .main__background {
+      filter: var(--layout-main-drop-shadow);
+    }
+    @media only screen and (min-width: 375px) {
+      :root.page-style-ringbook:not(.minimal) .main__background::before {
+        --this-left: clamp(-14px, 3.5623409669vw - 27.358778626px, 0px);
+        --this-width: clamp(22px, 1.0178117048vw + 18.1832061069px, 26px);
+        --mi: url("../img/mask_ringbook.png"), var(--data-image-2x2-black);
+        --mp: top 0 left var(--this-left), top 0 left calc(var(--this-width) + var(--this-left) - 1px);
+        --ms: var(--this-width) auto, calc(100% - calc(var(--this-width) + var(--this-left) - 1px)) 100%;
+        --mr: repeat-y, no-repeat;
+        left: 0 !important;
+      }
+    }
+    @media only screen and (min-width: 375px) and (min-width: 640px) {
+      :root.page-style-ringbook:not(.minimal) .main__background::before {
+        border-radius: 0 var(--layout-border-radius-large) var(--layout-border-radius-large) 1.5rem;
+      }
+    }';
+  }
+
+  if ( $page_style === 'chamfered' ) {
+    $css .= ':root.page-style-chamfered:not(.minimal) .main__background {
+      filter: var(--layout-main-drop-shadow);
+    }
+    :root.page-style-chamfered:not(.minimal) .main__background::before {
+      --m: clamp(6px, 1.3392857143vw + 1.7142857143px, 12px);
+      clip-path: polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m)));
+    }';
+  }
+
+  if ( $page_style === 'interface-a' ) {
+    $css .= ':root.page-style-interface-a:not(.minimal) .main__background {
+      filter: var(--layout-main-drop-shadow);
+    }
+    :root.page-style-interface-a:not(.minimal) .main__background::before {
+      --o: clamp(0px, 1.2326656394vw - 4.6224961479px, 8px);
+      --m: clamp(6px, 0.4464285714vw + 4.5714285714px, 8px);
+      --g: calc(100% - clamp(140px, 40.1785714286vw + 11.4285714286px, 320px));
+      --s: clamp(0px, 7.1428571429vw - 22.8571428571px, 32px);
+      --p: clamp(92px, 30.8035714286vw - 6.5714285714px, 230px);
+      --i: 0px;
+      clip-path: polygon(0% calc(var(--o) + var(--m)), var(--o) var(--m), calc(var(--s)) var(--m), calc(var(--m) + var(--s)) 0%, calc(var(--m) + var(--s) + var(--p)) 0%, calc(2 * var(--m) + var(--s) + var(--p)) var(--m), calc(50% - 48px) var(--m), calc(50% - 44px) calc(var(--m) + var(--i)), calc(50% - 36px) calc(var(--m) + var(--i)), calc(50% - 32px) var(--m), calc(50% - 16px) var(--m), calc(50% - 12px) calc(var(--m) + var(--i)), calc(50% - 4px) calc(var(--m) + var(--i)), 50% var(--m), calc(50% + 16px) var(--m), calc(50% + 20px) calc(var(--m) + var(--i)), calc(50% + 28px) calc(var(--m) + var(--i)), calc(50% + 32px) var(--m), var(--g) var(--m), calc(var(--g) + 1 * var(--m)) 0%, calc(var(--g) + 3 * var(--m)) 0%, calc(var(--g) + 2 * var(--m)) var(--m), calc(var(--g) + 2.5 * var(--m)) var(--m), calc(var(--g) + 3.5 * var(--m)) 0%, calc(var(--g) + 5.5 * var(--m)) 0%, calc(var(--g) + 4.5 * var(--m)) var(--m), calc(var(--g) + 5 * var(--m)) var(--m), calc(var(--g) + 6 * var(--m)) 0%, calc(var(--g) + 8 * var(--m)) 0%, calc(var(--g) + 7 * var(--m)) var(--m), calc(var(--g) + 7.5 * var(--m)) var(--m), calc(var(--g) + 8.5 * var(--m)) 0%, calc(var(--g) + 11 * var(--m)) 0%, calc(var(--g) + 11.5 * var(--m)) calc(0.5 * var(--m)), calc(100% - 5.5 * var(--m)) calc(0.5 * var(--m)), calc(100% - 5 * var(--m)) 0%, calc(100% - 1 * var(--m)) 0%, 100% var(--m), 100% calc(100% - 1 * var(--m)), calc(100% - 1 * var(--m)) 100%, var(--m) 100%, 0% calc(100% - 1 * var(--m)));
+    }
+    @media only screen and (min-width: 1024px) {
+      :root.page-style-interface-a:not(.minimal) .main__background::before {
+        --i: 4px;
+      }
+    }';
   }
 
   // --- Filters ---------------------------------------------------------------
