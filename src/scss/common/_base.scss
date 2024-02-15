@@ -152,6 +152,58 @@
   }
 }
 
+:root.page-style-interface-a:not(.minimal) .main__background {
+  filter: var(--layout-main-drop-shadow);
+
+  &::before {
+    --o: #{get_clamp(0, 8, 375, 1024)};
+    --m: #{get_clamp(6, 8, 320, 768)};
+    --g: calc(100% - #{get_clamp(160, 320, 320, 768)});
+    --s: #{get_clamp(0, 32, 320, 768)};
+    --p: #{get_clamp(92, 230, 320, 768)};
+
+    clip-path: polygon(
+      var(--o) calc(1 * var(--m)),
+
+      calc(var(--s)) calc(1 * var(--m)),
+      calc(var(--m) + var(--s)) 0%,
+      calc(var(--m) + var(--s) + var(--p)) 0%,
+      calc(2 * var(--m) + var(--s) + var(--p)) calc(1 * var(--m)),
+
+      var(--g) calc(1 * var(--m)),
+      calc(var(--g) + 1 * var(--m)) 0%,
+
+      calc(var(--g) + 3 * var(--m)) 0%,
+      calc(var(--g) + 2 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 2.5 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 3.5 * var(--m)) 0%,
+
+      calc(var(--g) + 5.5 * var(--m)) 0%,
+      calc(var(--g) + 4.5 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 5 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 6 * var(--m)) 0%,
+
+      calc(var(--g) + 8 * var(--m)) 0%,
+      calc(var(--g) + 7 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 7.5 * var(--m)) calc(1 * var(--m)),
+      calc(var(--g) + 8.5 * var(--m)) 0%,
+
+      calc(var(--g) + 11 * var(--m)) 0%,
+      calc(var(--g) + 11.5 * var(--m)) calc(0.5 * var(--m)),
+      calc(100% - 5.5 * var(--m)) calc(0.5 * var(--m)),
+      calc(100% - 5 * var(--m)) 0%,
+
+      calc(100% - 1 * var(--m)) 0%,
+      100% calc(1 * var(--m)),
+      100% calc(100% - 1 * var(--m)),
+      calc(100% - 1 * var(--m)) 100%,
+      calc(1 * var(--m)) 100%,
+      0% calc(100% - 1 * var(--m)),
+      0% calc(var(--o) + var(--m))
+    );
+  }
+}
+
 %button {
   cursor: pointer;
   user-select: none;
