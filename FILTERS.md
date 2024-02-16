@@ -404,6 +404,13 @@ Filters the form fields of the `fictioneer_contact_form` shortcode.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_customizer_{theme_option}', $choices )`
+Filters the choices arrays of select theme options. Combined with the `fictioneer_filter_pre_build_customize_css` filter, you can append own options and the requires styles. Available options: `header_image_style`, `header_style`, `page_style`, `card_style`, `content_list_style`, and `footer_style`.
+
+Refer to `/includes/functions/_customizer-settings.php` to see the default choices.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed )`
 Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, false, []) instead of being deleted when updated via theme functions. Applies to post, comment, and user meta fields. This does not affect the core update functions. See `fictioneer_update_user_meta(…)`, `fictioneer_update_comment_meta(…)`, and `fictioneer_update_post_meta(…)`.
 

@@ -2462,6 +2462,15 @@ function fictioneer_add_header_customizer_settings( $manager ) {
     )
   );
 
+  $header_image_styles = array(
+    'default' => _x( 'Plain (Default)', 'Customizer header image style option.', 'fictioneer' ),
+    'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' ),
+    'polygon-chamfered' => _x( 'Chamfered', 'Customizer header image style option.', 'fictioneer' ),
+    'mask-grunge-frame-a-small' => _x( 'Grunge Frame (Small)', 'Customizer header image style option.', 'fictioneer' ),
+    'mask-grunge-frame-a-large' => _x( 'Grunge Frame (Large)', 'Customizer header image style option.', 'fictioneer' ),
+    'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer header image style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'header_image_style',
     array(
@@ -2470,14 +2479,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'section' => 'header_image',
       'label' => __( 'Header Image Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Plain (Default)', 'Customizer header image style option.', 'fictioneer' ),
-        'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' ),
-        'polygon-chamfered' => _x( 'Chamfered', 'Customizer header image style option.', 'fictioneer' ),
-        'mask-grunge-frame-a-small' => _x( 'Grunge Frame (Small)', 'Customizer header image style option.', 'fictioneer' ),
-        'mask-grunge-frame-a-large' => _x( 'Grunge Frame (Large)', 'Customizer header image style option.', 'fictioneer' ),
-        'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer header image style option.', 'fictioneer' )
-      )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_header_image_style', $header_image_styles )
     )
   );
 
@@ -2691,6 +2693,14 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  $header_styles = array(
+    'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
+    'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
+    'split' => _x( 'Split', 'Customizer header style option.', 'fictioneer' ),
+    'overlay' => _x( 'Overlay', 'Customizer header style option.', 'fictioneer' ),
+    'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'header_style',
     array(
@@ -2699,13 +2709,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Header Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header. This may affect or disable other settings.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
-        'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
-        'split' => _x( 'Split', 'Customizer header style option.', 'fictioneer' ),
-        'overlay' => _x( 'Overlay', 'Customizer header style option.', 'fictioneer' ),
-        'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
-      ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_header_style', $header_styles )
     )
   );
 
@@ -2821,6 +2825,20 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  $page_styles = array(
+    'default' => _x( 'Plain (Default)', 'Customizer page style option.', 'fictioneer' ),
+    'polygon-battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
+    'mask-image-ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
+    'polygon-mask-image-battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
+    'polygon-chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
+    'polygon-interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' ),
+    'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' ),
+    'mask-image-layered-steps-a' => _x( 'Layered Steps', 'Customizer page style option.', 'fictioneer' ),
+    'mask-image-layered-peaks-a' => _x( 'Layered Peaks', 'Customizer page style option.', 'fictioneer' ),
+    'mask-image-grunge-a' => _x( 'Grunge', 'Customizer page style option.', 'fictioneer' ),
+    'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'page_style',
     array(
@@ -2829,19 +2847,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Page Style', 'fictioneer' ),
       'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Plain (Default)', 'Customizer page style option.', 'fictioneer' ),
-        'polygon-battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
-        'polygon-mask-image-battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
-        'polygon-chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
-        'polygon-interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-layered-steps-a' => _x( 'Layered Steps', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-layered-peaks-a' => _x( 'Layered Peaks', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-grunge-a' => _x( 'Grunge', 'Customizer page style option.', 'fictioneer' ),
-        'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' )
-      )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_page_style', $page_styles )
     )
   );
 
@@ -2878,6 +2884,12 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  $card_styles = array(
+    'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
+    'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
+    'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'card_style',
     array(
@@ -2886,11 +2898,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Card Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
-        'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
-        'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
-      )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
     )
   );
 
@@ -2955,6 +2963,13 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  $content_list_styles = array(
+    'default' => _x( 'Gradient (Default)', 'Customizer content list style option.', 'fictioneer' ),
+    'full' => _x( 'Full', 'Customizer content list style option.', 'fictioneer' ),
+    'lines' => _x( 'Lines', 'Customizer content list style option.', 'fictioneer' ),
+    'free' => _x( 'Free', 'Customizer content list style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'content_list_style',
     array(
@@ -2963,12 +2978,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Content List Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your content lists.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Gradient (Default)', 'Customizer content list style option.', 'fictioneer' ),
-        'full' => _x( 'Full', 'Customizer content list style option.', 'fictioneer' ),
-        'lines' => _x( 'Lines', 'Customizer content list style option.', 'fictioneer' ),
-        'free' => _x( 'Free', 'Customizer content list style option.', 'fictioneer' )
-      )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_content_list_style', $content_list_styles )
     )
   );
 
@@ -2982,6 +2992,11 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  $footer_styles = array(
+    'default' => _x( 'Floating (Default)', 'Customizer footer style option.', 'fictioneer' ),
+    'isolated' => _x( 'Isolated', 'Customizer footer style option.', 'fictioneer' )
+  );
+
   $manager->add_control(
     'footer_style',
     array(
@@ -2990,10 +3005,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Footer Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your footer.', 'fictioneer' ),
-      'choices' => array(
-        'default' => _x( 'Floating (Default)', 'Customizer footer style option.', 'fictioneer' ),
-        'isolated' => _x( 'Isolated', 'Customizer footer style option.', 'fictioneer' )
-      )
+      'choices' =>
+      apply_filters( 'fictioneer_filter_customizer_footer_style', $footer_styles )
     )
   );
 
