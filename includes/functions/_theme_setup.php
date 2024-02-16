@@ -362,6 +362,29 @@ function fictioneer_root_attributes() {
   $output['data-font-weight'] = 'default';
   $output['data-primary-font'] = FICTIONEER_PRIMARY_FONT_CSS;
 
+  if ( get_post_type( $post ) === 'fcn_chapter' ) {
+    // Also set on the frontend, this is only for customization.
+    $formatting = array(
+      // 'font-saturation' => 0,
+      // 'font-size' => 100,
+      // 'letter-spacing' => 0,
+      // 'line-height' => 1.7,
+      // 'paragraph-spacing' => 1.5,
+      // 'indent' => false,
+      // 'show-sensitive-content' => true,
+      // 'show-chapter-notes' => true,
+      // 'justify' => false,
+      // 'show-comments' => true,
+      // 'show-paragraph-tools' => true
+    );
+
+    $formatting = apply_filters( 'fictioneer_filter_chapter_default_formatting', $formatting );
+
+    if ( ! empty( $formatting ) ) {
+      $output['data-default-formatting'] = json_encode( $formatting );
+    }
+  }
+
   $conditions = array(
     'data-age-confirmation' => get_option( 'fictioneer_enable_site_age_confirmation' ),
     'data-caching-active' => fictioneer_caching_active( 'root_attribute' ),

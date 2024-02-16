@@ -137,6 +137,24 @@ Filters the intermediate output array in the `_card-chapter.php` partial before 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_default_formatting', $formatting )`
+Filters the default chapter formatting settings. The passed array is empty because the default values are also set on the frontend. You only need this filter if you want to change that. Note that the values for font-color, font-name, and site-width should not be overridden.
+
+**$formatting:**
+* $formatting\['font-saturation'] (int) – Start value of the font saturation. Default 0.
+* $formatting\['font-size'] (int) – Start value of the font size. Default 100.
+* $formatting\['letter-spacing'] (float) – Start value of the letter spacing. Default 0.
+* $formatting\['line-height'] (float) – Start value of the line height. Default 1.7.
+* $formatting\['paragraph-spacing'] (float) – Start value of the paragraph spacing. Default 1.5.
+* $formatting\['indent'] (boolean) – Whether the text has an indent. Default true.
+* $formatting\['justify'] (boolean) – Whether the text is justified. Default false.
+* $formatting\['show-chapter-notes'] (boolean) – Whether chapter notes are shown. Default true.
+* $formatting\['show-paragraph-tools'] (boolean) – Whether the paragraph tools can be toggled. Default true.
+* $formatting\['show-comments'] (boolean) – Whether the comment section is shown. Default true.
+* $formatting\['show-sensitive-content'] (boolean) – Whether sensitive content is shown. Default true.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_identity', $output, $args )`
 Filters the intermediate output array in the `_chapter_-header.php` partial before it is imploded and rendered. Contains the HTML for the story link, chapter title (safe), and author meta nodes (see `fictioneer_get_chapter_author_nodes()`). Any of these items may be missing depending on the chapter’s configuration.
 

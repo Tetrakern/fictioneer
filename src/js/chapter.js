@@ -337,21 +337,24 @@ function fcn_getFormatting() {
 
 function fcn_defaultFormatting() {
   return {
-    'font-saturation': 0,
-    'font-color': fictioneer_font_colors[0].css, // Set with wp_localize_script()
-    'font-name': fictioneer_fonts[0].css, // Set with wp_localize_script()
-    'font-size': 100,
-    'letter-spacing': 0.0,
-    'line-height': 1.7,
-    'paragraph-spacing': 1.5,
-    'site-width': fcn_theRoot.dataset.siteWidthDefault ?? '960',
-    'indent': true,
-    'show-sensitive-content': true,
-    'show-chapter-notes': true,
-    'justify': false,
-    'show-comments': true,
-    'show-paragraph-tools': true,
-    'timestamp': 1664797604825 // Used to force resets on script updates
+    ...{
+      'font-saturation': 0,
+      'font-color': fictioneer_font_colors[0].css, // Set with wp_localize_script()
+      'font-name': fictioneer_fonts[0].css, // Set with wp_localize_script()
+      'font-size': 100,
+      'letter-spacing': 0.0,
+      'line-height': 1.7,
+      'paragraph-spacing': 1.5,
+      'site-width': fcn_theRoot.dataset.siteWidthDefault ?? '960',
+      'indent': true,
+      'show-sensitive-content': true,
+      'show-chapter-notes': true,
+      'justify': false,
+      'show-comments': true,
+      'show-paragraph-tools': true,
+      'timestamp': 1664797604825 // Used to force resets on script updates
+    },
+    ...JSON.parse(fcn_theRoot.dataset.defaultFormatting ?? '{}')
   };
 }
 
