@@ -154,12 +154,7 @@
 
 :root.header-image-style-polygon-battered {
   .header-background {
-    --layout-header-background-box-shadow: none;
     border-radius: 0 !important;
-
-    &._shadow {
-      filter: var(--layout-header-background-drop-shadow);
-    }
 
     &__wrapper {
       border-radius: 0 !important;
@@ -255,5 +250,59 @@
     --ms: 100% #{get_clamp(16, 24, 375, 768)}, 100% calc(100% - #{get_clamp(15, 23, 375, 768)});
     --mr: repeat-x, no-repeat;
     --mi: url("data:image/svg+xml,%3Csvg id='visual' viewBox='0 0 900 24' width='900' height='24' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1'%3E%3Cpath d='M0 6L39 0L78 0L117 17L157 3L196 14L235 9L274 19L313 14L352 12L391 3L430 6L470 19L509 3L548 12L587 19L626 7L665 12L704 2L743 8L783 17L822 5L861 9L900 1L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z' fill='rgba(0,0,0,0.5)'%3E%3C/path%3E%3Cpath d='M0 8L39 17L78 20L117 6L157 13L196 17L235 17L274 7L313 17L352 18L391 21L430 19L470 14L509 15L548 17L587 11L626 18L665 8L704 19L743 17L783 13L822 7L861 6L900 9L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z' fill='rgba(0,0,0,0.75)'%3E%3C/path%3E%3Cpath d='M0 12L39 14L78 17L117 14L157 16L196 17L235 19L274 20L313 20L352 16L391 16L430 12L470 22L509 22L548 17L587 13L626 11L665 18L704 13L743 23L783 21L822 16L861 17L900 21L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z' fill='%23000000'%3E%3C/path%3E%3C/svg%3E%0A"), var(--data-image-2x2-black);
+  }
+}
+
+:root.header-image-style-mask-grunge-frame-a-small {
+  .header-background {
+    border-radius: 0 !important;
+
+    &__wrapper {
+      --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
+      --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
+      --mp: top left, bottom left, top 31px left 0;
+      border-radius: 0 !important;
+
+      @include bp(desktop) {
+        --mi: url('../img/grunge-frame-a/top-left.png'), url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/top-right.png'), url('../img/grunge-frame-a/right.png'), url('../img/grunge-frame-a/bottom-right.png'), url('../img/grunge-frame-a/bottom.png'), url('../img/grunge-frame-a/bottom-left.png'), url('../img/grunge-frame-a/left.png'), var(--data-image-2x2-black);
+        --ms: 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), calc(100% - 62px) calc(100% - 62px);
+        --mp: top left, top 0 left 31px, top right, top 31px right 0, bottom right, bottom 0 right 31px, bottom left, top 31px left 0, top 31px left 31px;
+      }
+    }
+  }
+}
+:root.header-image-style-mask-grunge-frame-a-small:not(.inset-header-image) {
+  .header-background__wrapper {
+    --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
+    --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
+    --mp: top left, bottom left, top 31px left 0;
+  }
+}
+
+:root.header-image-style-mask-grunge-frame-a-large {
+  .header-background {
+    border-radius: 0 !important;
+
+    &__wrapper {
+      --f: #{get_clamp(48, 64, 375, 768)};
+      --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
+      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
+      --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
+      border-radius: 0 !important;
+
+      @include bp(desktop) {
+        --mi: url('../img/grunge-frame-a/top-left.png'), url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/top-right.png'), url('../img/grunge-frame-a/right.png'), url('../img/grunge-frame-a/bottom-right.png'), url('../img/grunge-frame-a/bottom.png'), url('../img/grunge-frame-a/bottom-left.png'), url('../img/grunge-frame-a/left.png'), var(--data-image-2x2-black);
+        --ms: var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), calc(100% - calc(var(--f) * 2 - 2px)) calc(100% - calc(var(--f) * 2 - 2px));
+        --mp: top left, top 0 left calc(var(--f) - 1px), top right, top calc(var(--f) - 1px) right 0, bottom right, bottom 0 right calc(var(--f) - 1px), bottom left, top calc(var(--f) - 1px) left 0, top calc(var(--f) - 1px) left calc(var(--f) - 1px);
+      }
+    }
+  }
+}
+
+:root.header-image-style-mask-grunge-frame-a-large:not(.inset-header-image) {
+  .header-background__wrapper {
+    --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
+    --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
+    --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
   }
 }

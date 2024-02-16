@@ -83,9 +83,19 @@ The following list credits all third-party resources used in the Fictioneer them
   Source: https://icons.getbootstrap.com/
 
 * **Ripped Ringbook**<br>
-  Copyright: Image by [Freepik](https://www.freepik.com/free-vector/realistic-torn-paper-collection_14594157.htm)
+  Copyright: Image by [Freepik](https://www.freepik.com/author/freepik)
   License: Free License
   Source: https://www.freepik.com/free-vector/realistic-torn-paper-collection_14594157.htm
+
+* **Paint frames collection**<br>
+  Copyright: Image by [milano83](https://www.freepik.com/author/milano83)
+  License: Free License
+  Source: https://www.freepik.com/free-vector/paint-frames-collection_1168917.htm
+
+* **Rectangle brushes**<br>
+  Copyright: Image by [juicy_fish](https://www.freepik.com/author/juicy-fish)
+  License: Free License
+  Source: https://www.freepik.com/free-vector/rectangle-brushes_34294919.htm
 
 ## CSS
 

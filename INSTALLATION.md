@@ -1023,12 +1023,7 @@ A good starting point for masks is [haikai](https://app.haikei.app/), but add `p
 /* Example: Battered header image style */
 
 :root.header-image-style-polygon-battered .header-background {
-  --layout-header-background-box-shadow: none;
   border-radius: 0 !important;
-}
-
-:root.header-image-style-polygon-battered .header-background._shadow {
-  filter: var(--layout-header-background-drop-shadow);
 }
 
 :root.header-image-style-polygon-battered .header-background__wrapper {

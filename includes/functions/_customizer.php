@@ -586,11 +586,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   if ( $header_image_style === 'polygon-battered' ) {
     $css .= ':root.header-image-style-polygon-battered .header-background {
-      --layout-header-background-box-shadow: none;
       border-radius: 0 !important;
-    }
-    :root.header-image-style-polygon-battered .header-background._shadow {
-      filter: var(--layout-header-background-drop-shadow);
     }
     :root.header-image-style-polygon-battered .header-background__wrapper {
       border-radius: 0 !important;
@@ -607,6 +603,55 @@ function fictioneer_build_customize_css( $content = null ) {
       --polygon-battered: var(--polygon-battered-half);
       margin-left: 0;
       margin-right: 0;
+    }';
+  }
+
+  if ( $header_image_style === 'mask-grunge-frame-a-large' ) {
+    $css .= ':root.header-image-style-mask-grunge-frame-a-large .header-background {
+      border-radius: 0 !important;
+    }
+    :root.header-image-style-mask-grunge-frame-a-large .header-background__wrapper {
+      --f: clamp(48px, 4.0712468193vw + 32.7328244275px, 64px);
+      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
+      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
+      --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
+      border-radius: 0 !important;
+    }
+    @media only screen and (min-width: 1024px) {
+      :root.header-image-style-mask-grunge-frame-a-large .header-background__wrapper {
+        --mi: url("../img/grunge-frame-a/top-left.png"), url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/top-right.png"), url("../img/grunge-frame-a/right.png"), url("../img/grunge-frame-a/bottom-right.png"), url("../img/grunge-frame-a/bottom.png"), url("../img/grunge-frame-a/bottom-left.png"), url("../img/grunge-frame-a/left.png"), var(--data-image-2x2-black);
+        --ms: var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), calc(100% - calc(var(--f) * 2 - 2px)) calc(100% - calc(var(--f) * 2 - 2px));
+        --mp: top left, top 0 left calc(var(--f) - 1px), top right, top calc(var(--f) - 1px) right 0, bottom right, bottom 0 right calc(var(--f) - 1px), bottom left, top calc(var(--f) - 1px) left 0, top calc(var(--f) - 1px) left calc(var(--f) - 1px);
+      }
+    }
+    :root.header-image-style-mask-grunge-frame-a-large:not(.inset-header-image) .header-background__wrapper {
+      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
+      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
+      --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
+    }';
+  }
+
+  if ( $header_image_style === 'mask-grunge-frame-a-small' ) {
+    $css .= ':root.header-image-style-mask-grunge-frame-a-small .header-background {
+      border-radius: 0 !important;
+    }
+    :root.header-image-style-mask-grunge-frame-a-small .header-background__wrapper {
+      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
+      --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
+      --mp: top left, bottom left, top 31px left 0;
+      border-radius: 0 !important;
+    }
+    @media only screen and (min-width: 1024px) {
+      :root.header-image-style-mask-grunge-frame-a-small .header-background__wrapper {
+        --mi: url("../img/grunge-frame-a/top-left.png"), url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/top-right.png"), url("../img/grunge-frame-a/right.png"), url("../img/grunge-frame-a/bottom-right.png"), url("../img/grunge-frame-a/bottom.png"), url("../img/grunge-frame-a/bottom-left.png"), url("../img/grunge-frame-a/left.png"), var(--data-image-2x2-black);
+        --ms: 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), calc(100% - 62px) calc(100% - 62px);
+        --mp: top left, top 0 left 31px, top right, top 31px right 0, bottom right, bottom 0 right 31px, bottom left, top 31px left 0, top 31px left 31px;
+      }
+    }
+    :root.header-image-style-mask-grunge-frame-a-small:not(.inset-header-image) .header-background__wrapper {
+      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
+      --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
+      --mp: top left, bottom left, top 31px left 0;
     }';
   }
 
