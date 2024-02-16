@@ -38,6 +38,7 @@ This guide is mainly written for people who never had their own WordPress site b
     * [Merge Top-Header & Navigation](#merge-top-header--navigation)
     * [Overlay Navigation](#overlay-navigation)
     * [Card Size & Grid Spacing](#card-size--grid-spacing)
+    * [Custom Header/Page Style](#custom-headerpage-style)
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
   * [Menus](#menus)
@@ -980,6 +981,73 @@ If you want to have a grid on the list page templates as well, for example Stori
     --card-list-row-gap: 2rem;
     --card-list-col-gap: 2rem;
   }
+}
+```
+
+#### Custom Header/Page Style
+
+Both the header and page style can be set to "Custom CSS", but you will notice there is no interface appearing. That’s because the CSS is supposed to be in the **Additional CSS** section. The option only applies the necessary root classes for the styles to work in the first place. There are many ways to modify the shape of a container, but it usually boils down to a [polygon](https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polygon), [mask image](https://developer.mozilla.org/en-US/docs/Web/CSS/mask-image), or both. Note that this is **not** easy.
+
+A good starting point for masks is [haikai](https://app.haikei.app/), but add `preserveAspectRatio="none"` after the viewBox or the SVG won’t stretch properly. Make sure that your style looks good on both desktop and mobile viewports, which can be difficult to achieve. The following examples use [clamp()](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp) and [calc()](https://developer.mozilla.org/en-US/docs/Web/CSS/calc) functions, but media queries or a fits-all approach work too.
+
+```css
+/* Example: Wave page style */
+
+:root.page-style-mask-image-wave-a:not(.minimal) .main__background {
+  filter: var(--layout-main-drop-shadow);
+}
+
+:root.page-style-mask-image-wave-a:not(.minimal) .main__background::before {
+  --mp: top calc(-1 * clamp(5px, 0.7633587786vw + 2.1374045802px, 8px)) left 0, top clamp(22px, 2.2900763359vw + 13.4122137405px, 31px) left 0; /* mask-position */
+  --ms: 100% clamp(28px, 3.3078880407vw + 15.5954198473px, 41px), 100% calc(100% - clamp(22px, 2.2900763359vw + 13.4122137405px, 31px)); /* mask-size */
+  --mr: repeat-x, no-repeat; /* mask-repeat */
+  --mi: url('data:image/svg+xml,%3Csvg width="100%25" height="100%25" id="svg" viewBox="0 0 1440 690" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"%3E%3Cpath d="M 0,700 L 0,262 C 85.6267942583732,192.2488038277512 171.2535885167464,122.49760765550238 260,138 C 348.7464114832536,153.50239234449762 440.6124401913876,254.25837320574163 541,315 C 641.3875598086124,375.74162679425837 750.2966507177035,396.46889952153106 854,374 C 957.7033492822965,351.53110047846894 1056.200956937799,285.86602870813397 1153,260 C 1249.799043062201,234.133971291866 1344.8995215311006,248.06698564593302 1440,262 L 1440,700 L 0,700 Z" stroke="none" stroke-width="0" fill="%23000000" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-0"%3E%3C/path%3E%3C/svg%3E'), var(--data-image-2x2-black); /* mask-image */
+  border-radius: 56px / clamp(6px, 1.5267175573vw + 0.2748091603px, 12px);
+}
+```
+
+```css
+/* Example: Battered page style */
+
+:root.page-style-polygon-chamfered:not(.minimal) .main__background {
+  filter: var(--layout-main-drop-shadow);
+}
+
+:root.page-style-polygon-chamfered:not(.minimal) .main__background::before {
+  --m: clamp(6px, 1.3392857143vw + 1.7142857143px, 12px);
+  clip-path: polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m))); /* List of dynamically calculated X/Y points. */
+}
+```
+
+```css
+/* Example: Battered header image style */
+
+:root.header-image-style-polygon-battered .header-background {
+  --layout-header-background-box-shadow: none;
+  border-radius: 0 !important;
+}
+
+:root.header-image-style-polygon-battered .header-background._shadow {
+  filter: var(--layout-header-background-drop-shadow);
+}
+
+:root.header-image-style-polygon-battered .header-background__wrapper {
+  border-radius: 0 !important;
+  clip-path: var(--polygon-battered-half);
+}
+
+@media only screen and (min-width: 768px) {
+  :root.header-image-style-polygon-battered .header-background__wrapper {
+    margin-left: 4px; /* Space for shadow that would be cut off. */
+    margin-right: 4px; /* Space for shadow that would be cut off. */
+    clip-path: var(--polygon-battered);
+  }
+}
+
+:root.header-image-style-polygon-battered:not(.inset-header-image) .header-background__wrapper {
+  --polygon-battered: var(--polygon-battered-half);
+  margin-left: 0;
+  margin-right: 0;
 }
 ```
 
