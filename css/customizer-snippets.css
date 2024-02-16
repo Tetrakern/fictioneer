@@ -219,3 +219,11 @@
   --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
   --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
 }
+
+.main__background::before {
+  --c: clamp(17px, 2.0356234097vw + 9.3664122137px, 25px);
+  --d: clamp(20px, 2.0356234097vw + 12.3664122137px, 28px);
+  --mi: url("../img/grunge-top-a.svg"), var(--data-image-2x2-black), url("../img/flipped-grunge-top-a.svg");
+  --ms: 100% var(--d), 100% calc(100% - var(--c) * 2), 100% var(--d);
+  --mp: top calc(-1 * clamp(0px, 0.5089058524vw - 1.9083969466px, 2px)) left 0, top var(--c) left 0, bottom left;
+}

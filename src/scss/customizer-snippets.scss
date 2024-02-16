@@ -306,3 +306,13 @@
     --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
   }
 }
+
+.main__background {
+  &::before {
+    --c: #{get_clamp(17, 25, 375, 768)};
+    --d: #{get_clamp(20, 28, 375, 768)};
+    --mi: url('../img/grunge-top-a.svg'), var(--data-image-2x2-black), url("../img/flipped-grunge-top-a.svg");
+    --ms: 100% var(--d), 100% calc(100% - var(--c) * 2), 100% var(--d);
+    --mp: top calc(-1 * #{get_clamp(0, 2, 375, 768)}) left 0, top var(--c) left 0, bottom left;
+  }
+}

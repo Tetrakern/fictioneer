@@ -2475,7 +2475,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
         'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' ),
         'mask-grunge-frame-a-small' => _x( 'Grunge Frame (Small)', 'Customizer header image style option.', 'fictioneer' ),
         'mask-grunge-frame-a-large' => _x( 'Grunge Frame (Large)', 'Customizer header image style option.', 'fictioneer' ),
-        'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' )
+        'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer header image style option.', 'fictioneer' )
       )
     )
   );
@@ -2838,6 +2838,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' ),
         'mask-image-layered-steps-a' => _x( 'Layered Steps', 'Customizer page style option.', 'fictioneer' ),
         'mask-image-layered-peaks-a' => _x( 'Layered Peaks', 'Customizer page style option.', 'fictioneer' ),
+        'mask-image-grunge-a' => _x( 'Grunge', 'Customizer page style option.', 'fictioneer' ),
         'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' )
       )
     )
