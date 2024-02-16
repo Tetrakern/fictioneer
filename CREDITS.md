@@ -16,6 +16,14 @@ The following list credits all third-party resources used in the Fictioneer them
 * **[Greet the Final Battle Alone by liuzishan](https://www.freepik.com/free-photo/study-halls-biology-digital-illustrations_14541125.htm)** on Freepik
 * **[Nuclear Blast in City by liuzishan](https://www.freepik.com/free-photo/moment-city-was-hit-by-nuclear-bomb-digital-painting_15174526.htm)** on Freepik
 
+## Tools
+
+* **SVGWave**<br>
+  URL: [www.svgwave.in](https://svgwave.in/)
+
+* **Haikei**<br>
+  URL: [haikai](https://app.haikei.app/)
+
 ## Graphics
 
 * **Font Awesome**<br>

@@ -2471,7 +2471,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'label' => __( 'Header Image Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Plain (default)', 'Customizer header image style option.', 'fictioneer' ),
+        'default' => _x( 'Plain (Default)', 'Customizer header image style option.', 'fictioneer' ),
         'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' )
       )
     )
@@ -2776,7 +2776,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Mobile Navigation Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your mobile navigation.', 'fictioneer' ),
       'choices' => array(
-        'overflow' => _x( 'Overflow (default)', 'Customizer mobile navigation style option.', 'fictioneer' ),
+        'overflow' => _x( 'Overflow (Default)', 'Customizer mobile navigation style option.', 'fictioneer' ),
         'collapse' => _x( 'Collapse', 'Customizer mobile navigation style option.', 'fictioneer' )
       )
     )
@@ -2801,7 +2801,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Mobile Menu Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your mobile menu.', 'fictioneer' ),
       'choices' => array(
-        'minimize_to_right' => _x( 'Minimize site to right (default)', 'Customizer mobile menu style option.', 'fictioneer' ),
+        'minimize_to_right' => _x( 'Minimize site to right (Default)', 'Customizer mobile menu style option.', 'fictioneer' ),
         'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' )
       )
     )
@@ -2826,13 +2826,15 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Page Style', 'fictioneer' ),
       'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Plain (default)', 'Customizer page style option.', 'fictioneer' ),
+        'default' => _x( 'Plain (Default)', 'Customizer page style option.', 'fictioneer' ),
         'polygon-battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
         'mask-image-ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
         'polygon-mask-image-battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
         'polygon-chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
         'polygon-interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' ),
-        'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' )
+        'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' ),
+        'mask-image-layered-steps-a' => _x( 'Layered Steps', 'Customizer page style option.', 'fictioneer' ),
+        'mask-image-layered-peaks-a' => _x( 'Layered Peaks', 'Customizer page style option.', 'fictioneer' )
       )
     )
   );
@@ -2879,7 +2881,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Card Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Enclosed (default)', 'Customizer card style option.', 'fictioneer' ),
+        'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
         'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
         'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
       )
@@ -2956,7 +2958,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Content List Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your content lists.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Gradient (default)', 'Customizer content list style option.', 'fictioneer' ),
+        'default' => _x( 'Gradient (Default)', 'Customizer content list style option.', 'fictioneer' ),
         'full' => _x( 'Full', 'Customizer content list style option.', 'fictioneer' ),
         'lines' => _x( 'Lines', 'Customizer content list style option.', 'fictioneer' ),
         'free' => _x( 'Free', 'Customizer content list style option.', 'fictioneer' )
@@ -2983,7 +2985,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Footer Style', 'fictioneer' ),
       'description' => __( 'Choose the style for your footer.', 'fictioneer' ),
       'choices' => array(
-        'default' => _x( 'Floating (default)', 'Customizer footer style option.', 'fictioneer' ),
+        'default' => _x( 'Floating (Default)', 'Customizer footer style option.', 'fictioneer' ),
         'isolated' => _x( 'Isolated', 'Customizer footer style option.', 'fictioneer' )
       )
     )
