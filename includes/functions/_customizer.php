@@ -1032,7 +1032,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Filters ---------------------------------------------------------------
 
-  $css = apply_filters( 'fictioneer_filter_customize_css', $css );
+  $css = apply_filters( 'fictioneer_filter_pre_build_customize_css', $css );
 
   // --- Minify ----------------------------------------------------------------
 
