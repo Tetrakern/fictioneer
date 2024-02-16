@@ -2472,7 +2472,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'description' => __( 'Choose the style for your header image.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer header image style option.', 'fictioneer' ),
-        'battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' )
+        'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' )
       )
     )
   );
@@ -2827,12 +2827,13 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
       'choices' => array(
         'default' => _x( 'Plain (default)', 'Customizer page style option.', 'fictioneer' ),
-        'battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
-        'ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
-        'battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
-        'chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
-        'interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' )
-      ),
+        'polygon-battered' => _x( 'Battered', 'Customizer page style option.', 'fictioneer' ),
+        'mask-image-ringbook' => _x( 'Ringbook', 'Customizer page style option.', 'fictioneer' ),
+        'polygon-mask-image-battered-ringbook' => _x( 'Battered Ringbook', 'Customizer page style option.', 'fictioneer' ),
+        'polygon-chamfered' => _x( 'Chamfered', 'Customizer page style option.', 'fictioneer' ),
+        'polygon-interface-a' => _x( 'Interface', 'Customizer page style option.', 'fictioneer' ),
+        'mask-image-wave-a' => _x( 'Wave', 'Customizer page style option.', 'fictioneer' )
+      )
     )
   );
 

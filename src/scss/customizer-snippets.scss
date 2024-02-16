@@ -1,7 +1,7 @@
 @import 'common/_functions';
 @import 'common/_mixins';
 
-:root.page-style-ringbook:not(.minimal) .main__background {
+:root.page-style-mask-image-ringbook:not(.minimal) .main__background {
   filter: var(--layout-main-drop-shadow);
 
   @include bp(375px) {
@@ -21,7 +21,7 @@
   }
 }
 
-:root.page-style-battered:not(.minimal) .main__background {
+:root.page-style-polygon-battered:not(.minimal) .main__background {
   filter: var(--layout-main-drop-shadow);
 
   &::before {
@@ -40,7 +40,7 @@
   }
 }
 
-:root.page-style-chamfered:not(.minimal) .main__background {
+:root.page-style-polygon-chamfered:not(.minimal) .main__background {
   filter: var(--layout-main-drop-shadow);
 
   &::before {
@@ -59,7 +59,7 @@
   }
 }
 
-:root.page-style-interface-a:not(.minimal) .main__background {
+:root.page-style-polygon-interface-a:not(.minimal) .main__background {
   filter: var(--layout-main-drop-shadow);
 
   &::before {
@@ -152,7 +152,7 @@
   }
 }
 
-:root.header-image-style-battered {
+:root.header-image-style-polygon-battered {
   .header-background {
     --layout-header-background-box-shadow: none;
     border-radius: 0 !important;
@@ -178,7 +178,7 @@
     }
   }
 }
-:root.header-image-style-battered:not(.inset-header-image) {
+:root.header-image-style-polygon-battered:not(.inset-header-image) {
   .header-background__wrapper {
     --polygon-battered: var(--polygon-battered-half);
     margin-left: 0;

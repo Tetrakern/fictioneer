@@ -313,7 +313,7 @@ function fictioneer_root_attributes() {
   // Setup
   $post_author_id = ( $post instanceof WP_Post ) ? $post->post_author : 0;
   $output = [];
-  $header_classes = [];
+  $classes = [];
 
   if ( is_archive() || is_search() || is_404() ) {
     $post_author_id = 0;
@@ -321,40 +321,40 @@ function fictioneer_root_attributes() {
 
   // Header inset
   if ( get_theme_mod( 'inset_header_image', false ) ) {
-    $header_classes[] = 'inset-header-image';
+    $classes[] = 'inset-header-image';
   }
 
   // Header style
-  $header_classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
+  $classes[] = 'header-style-' . get_theme_mod( 'header_style', 'default' );
 
   // Header image style
   if ( get_theme_mod( 'header_image_style', 'default' ) !== 'default' ) {
-    $header_classes[] = 'header-image-style-' . get_theme_mod( 'header_image_style' );
+    $classes[] = 'header-image-style-' . get_theme_mod( 'header_image_style' );
   }
 
   // Page style
-  if ( get_theme_mod( 'page_style', 'default' ) !== 'default' ) {
-    if ( get_theme_mod( 'page_style' ) === 'battered-ringbook' ) {
-      $header_classes[] = 'page-style-battered';
-      $header_classes[] = 'page-style-ringbook';
+  $page_style = get_theme_mod( 'page_style', 'default' );
+
+  if ( $page_style !== 'default' ) {
+    if ( $page_style === 'polygon-mask-image-battered-ringbook' ) {
+      $classes[] = 'page-style-polygon-battered';
+      $classes[] = 'page-style-mask-image-ringbook';
     } else {
-      $header_classes[] = 'page-style-' . get_theme_mod( 'page_style' );
+      $classes[] = 'page-style-' . $page_style;
     }
 
-    $poly_and_masks = ['battered', 'ringbook', 'battered-ringbook', 'chamfered', 'interface-a'];
-
-    if ( in_array( get_theme_mod( 'page_style' ), $poly_and_masks ) ) {
-      $header_classes[] = 'has-polygon-or-mask';
+    if ( strpos( $page_style, 'polygon-' ) !== false || strpos( $page_style, 'mask-image-' ) !== false ) {
+      $classes[] = 'has-polygon-or-mask';
     }
   }
 
   // Page shadow
   if ( ! get_theme_mod( 'page_shadow' ) ) {
-    $header_classes[] = 'no-page-shadow';
+    $classes[] = 'no-page-shadow';
   }
 
   // Prepare
-  $output['class'] = implode( ' ', $header_classes );
+  $output['class'] = implode( ' ', $classes );
   $output['data-mode-default'] = get_option( 'fictioneer_light_mode_as_default', false ) ? 'light' : 'dark';
   $output['data-site-width-default'] = get_theme_mod( 'site_width', 960 );
   $output['data-theme'] = 'default';
