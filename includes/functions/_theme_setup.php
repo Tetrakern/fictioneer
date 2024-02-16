@@ -370,7 +370,7 @@ function fictioneer_root_attributes() {
       // 'letter-spacing' => 0,
       // 'line-height' => 1.7,
       // 'paragraph-spacing' => 1.5,
-      // 'indent' => false,
+      // 'indent' => true,
       // 'show-sensitive-content' => true,
       // 'show-chapter-notes' => true,
       // 'justify' => false,
