@@ -603,12 +603,6 @@ function fictioneer_build_customize_css( $content = null ) {
         clip-path: var(--polygon-battered);
       }
     }
-    @media only screen and (min-width: 1024px) {
-      :root.header-image-style-battered .header-background__wrapper {
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
     :root.header-image-style-battered:not(.inset-header-image) .header-background__wrapper {
       --polygon-battered: var(--polygon-battered-half);
       margin-left: 0;
@@ -912,7 +906,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Page styles -----------------------------------------------------------
 
-  if ( $page_style === 'battered' ) {
+  if ( $page_style === 'battered-ringbook' || $page_style === 'battered' ) {
     $css .= ':root.page-style-battered:not(.minimal) .main__background {
       filter: var(--layout-main-drop-shadow);
     }
@@ -934,7 +928,7 @@ function fictioneer_build_customize_css( $content = null ) {
     }';
   }
 
-  if ( $page_style === 'battered-ringbook' ) {
+  if ( $page_style === 'battered-ringbook' || $page_style === 'ringbook' ) {
     $css .= ':root.page-style-ringbook:not(.minimal) .main__background {
       filter: var(--layout-main-drop-shadow);
     }
