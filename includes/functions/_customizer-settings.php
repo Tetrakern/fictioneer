@@ -2473,6 +2473,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
       'choices' => array(
         'default' => _x( 'Plain (Default)', 'Customizer header image style option.', 'fictioneer' ),
         'polygon-battered' => _x( 'Battered', 'Customizer header image style option.', 'fictioneer' ),
+        'polygon-chamfered' => _x( 'Chamfered', 'Customizer header image style option.', 'fictioneer' ),
         'mask-grunge-frame-a-small' => _x( 'Grunge Frame (Small)', 'Customizer header image style option.', 'fictioneer' ),
         'mask-grunge-frame-a-large' => _x( 'Grunge Frame (Large)', 'Customizer header image style option.', 'fictioneer' ),
         'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer header image style option.', 'fictioneer' )

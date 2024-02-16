@@ -606,6 +606,17 @@ function fictioneer_build_customize_css( $content = null ) {
     }';
   }
 
+  if ( $header_image_style === 'polygon-chamfered' ) {
+    $css .= ':root.header-image-style-polygon-chamfered .header-background {
+      border-radius: 0 !important;
+    }
+    :root.header-image-style-polygon-chamfered .header-background__wrapper {
+      --m: clamp(6px, 1.3392857143vw + 1.7142857143px, 12px);
+      border-radius: 0 !important;
+      clip-path: polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m)));
+    }';
+  }
+
   if ( $header_image_style === 'mask-grunge-frame-a-large' ) {
     $css .= ':root.header-image-style-mask-grunge-frame-a-large .header-background {
       border-radius: 0 !important;

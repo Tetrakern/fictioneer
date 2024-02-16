@@ -316,3 +316,24 @@
     --mp: top calc(-1 * #{get_clamp(0, 2, 375, 768)}) left 0, top var(--c) left 0, bottom left;
   }
 }
+
+:root.header-image-style-polygon-chamfered {
+  .header-background {
+    border-radius: 0 !important;
+
+    &__wrapper {
+      --m: #{get_clamp(6, 12, 320, 768)};
+      border-radius: 0 !important;
+      clip-path: polygon(
+        0% var(--m),
+        var(--m) 0%,
+        calc(100% - var(--m)) 0%,
+        100% var(--m),
+        100% calc(100% - var(--m)),
+        calc(100% - var(--m)) 100%,
+        var(--m) 100%,
+        0% calc(100% - var(--m))
+      );
+    }
+  }
+}
