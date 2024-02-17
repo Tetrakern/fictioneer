@@ -177,9 +177,10 @@
   border-radius: 0 !important;
 }
 :root.header-image-style-mask-grunge-frame-a-small .header-background__wrapper {
+  --g: clamp(-8px, 2.0356234097vw - 15.6335877863px, 0px);
   --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-  --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
-  --mp: top left, bottom left, top 31px left 0;
+  --ms: 100% 32px, 100% 32px, 100% calc(100% - var(--g) - 62px);
+  --mp: top var(--g) left 0, bottom left, top calc(31px + var(--g)) left 0;
   border-radius: 0 !important;
 }
 @media only screen and (min-width: 1024px) {
@@ -201,9 +202,10 @@
 }
 :root.header-image-style-mask-grunge-frame-a-large .header-background__wrapper {
   --f: clamp(48px, 4.0712468193vw + 32.7328244275px, 64px);
+  --g: clamp(-12px, 3.0534351145vw - 23.4503816794px, 0px);
   --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-  --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
-  --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
+  --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 + var(--g) - 2px));
+  --mp: top var(--g) left 0, bottom left, top calc(var(--f) + var(--g) - 1px) left 0;
   border-radius: 0 !important;
 }
 @media only screen and (min-width: 1024px) {

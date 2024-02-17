@@ -258,9 +258,10 @@
     border-radius: 0 !important;
 
     &__wrapper {
+      --g: #{get_clamp(-8, 0, 375, 768)};
       --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
-      --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
-      --mp: top left, bottom left, top 31px left 0;
+      --ms: 100% 32px, 100% 32px, 100% calc(100% - var(--g) - 62px);
+      --mp: top var(--g) left 0, bottom left, top calc(31px + var(--g)) left 0;
       border-radius: 0 !important;
 
       @include bp(desktop) {
@@ -285,9 +286,10 @@
 
     &__wrapper {
       --f: #{get_clamp(48, 64, 375, 768)};
+      --g: #{get_clamp(-12, 0, 375, 768)};
       --mi: url('../img/grunge-frame-a/top.png'), url('../img/grunge-frame-a/bottom.png'), var(--data-image-2x2-black);
-      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
-      --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
+      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 + var(--g) - 2px));
+      --mp: top var(--g) left 0, bottom left, top calc(var(--f) + var(--g) - 1px) left 0;
       border-radius: 0 !important;
 
       @include bp(desktop) {
