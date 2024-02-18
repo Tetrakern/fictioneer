@@ -444,11 +444,14 @@ function fictioneer_tools_purge_theme_caches() {
   fictioneer_purge_nav_menu_transients();
   fictioneer_delete_transients_like( 'fictioneer_' );
 
-  // Files
-  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+  // Delete cached files
+  $cache_dir = WP_CONTENT_DIR . '/themes/fictioneer/cache/';
+  $files = glob( $cache_dir . '*' );
 
-  if ( file_exists( $bundled_fonts ) ) {
-    unlink( $bundled_fonts );
+  foreach ( $files as $file ) {
+    if ( is_file( $file ) ) {
+      unlink( $file );
+    }
   }
 
   // Log
