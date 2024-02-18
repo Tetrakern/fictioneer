@@ -14,6 +14,7 @@
  * @since 4.7.0
  * @since 5.7.4 - Updated to use SQL queries.
  * @since 5.10.0 - Updated for font manager.
+ * @since 5.11.0 - Updated for all cached files.
  *
  * @global wpdb $wpdb  WordPress database object.
  */
@@ -25,10 +26,13 @@ function fictioneer_theme_deactivation() {
   fictioneer_delete_transients_like( 'fictioneer_' );
 
   // Delete cached files
-  $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
+  $cache_dir = WP_CONTENT_DIR . '/themes/fictioneer/cache/';
+  $files = glob( $cache_dir . '*' );
 
-  if ( file_exists( $bundled_fonts ) ) {
-    unlink( $bundled_fonts );
+  foreach ( $files as $file ) {
+    if ( is_file( $file ) ) {
+      unlink( $file );
+    }
   }
 
   // Only continue if the user wants to delete all options/mods
