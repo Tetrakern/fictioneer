@@ -1087,7 +1087,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Page shadow -----------------------------------------------------------
 
-  if ( ! get_theme_mod( 'page_shadow' ) ) {
+  if ( ! get_theme_mod( 'page_shadow', true ) ) {
     $css .= ':root.no-page-shadow {
       --layout-main-box-shadow: none;
       --minimal-main-box-shadow: none;

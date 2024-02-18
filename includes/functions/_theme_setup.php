@@ -349,7 +349,7 @@ function fictioneer_root_attributes() {
   }
 
   // Page shadow
-  if ( ! get_theme_mod( 'page_shadow' ) ) {
+  if ( ! get_theme_mod( 'page_shadow', true ) ) {
     $classes[] = 'no-page-shadow';
   }
 

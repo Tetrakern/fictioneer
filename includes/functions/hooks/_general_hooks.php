@@ -363,7 +363,7 @@ function fictioneer_inner_header_background( $args ) {
     $extra_classes[] = '_fading-bottom';
   }
 
-  if ( get_theme_mod( 'header_image_shadow' ) ) {
+  if ( get_theme_mod( 'header_image_shadow', true ) ) {
     $extra_classes[] = '_shadow';
   }
 
