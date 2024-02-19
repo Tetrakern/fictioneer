@@ -962,6 +962,70 @@ function fictioneer_build_customize_css( $content = null ) {
     }";
   }
 
+  // --- Header styles ---------------------------------------------------------
+
+  if ( in_array( $header_style, ['top', 'split'] ) ) {
+    $css .= '.top-header {
+      background: var(--layout-top-header-background-color);
+      width: 100%;
+      contain: style layout;
+    }
+    .top-header__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem 1rem 0.5rem;
+      margin: 0 auto;
+      max-width: var(--site-width);
+    }
+    @media only screen and (min-width: 1024px) {
+      .top-header__content {
+        justify-content: flex-start;
+        padding-bottom: 0.25rem;
+      }
+    }
+    .top-header .custom-logo-link {
+      flex: 0 0 auto;
+    }
+    .top-header .custom-logo {
+      display: block;
+      height: var(--layout-site-logo-height);
+      max-height: calc(var(--site-title-font-size) + var(--site-title-tagline-font-size) + 1rem);
+      width: auto;
+      object-fit: contain;
+    }
+    .top-header._no-tagline .custom-logo {
+      max-height: calc(var(--site-title-font-size) + 0.75rem);
+    }
+    .top-header._no-title .custom-logo {
+      max-height: unset;
+    }
+    .top-header__title {
+      flex: 0 1 auto;
+    }
+    .top-header__heading {
+      font: 700 var(--site-title-font-size)/1.3 var(--ff-site-title);
+      letter-spacing: 0;
+    }
+    .top-header__heading a {
+      color: var(--site-title-heading-color);
+    }
+    .top-header__tagline {
+      color: var(--site-title-tagline-color);
+      font: 400 var(--site-title-tagline-font-size)/1.3 var(--ff-site-title);
+      letter-spacing: 0;
+    }
+    .top-header._no-logo {
+      text-align: center;
+    }
+    @media only screen and (min-width: 1024px) {
+      .top-header._no-logo {
+        text-align: left;
+      }
+    }';
+  }
+
   // --- Page styles -----------------------------------------------------------
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'polygon-battered' ) {
