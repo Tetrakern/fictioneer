@@ -564,6 +564,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $header_style = get_theme_mod( 'header_style', 'default' );
   $content_list_style = get_theme_mod( 'content_list_style', 'default' );
   $page_style = get_theme_mod( 'page_style', 'default' );
+  $card_style = get_theme_mod( 'card_style', 'default' );
   $footer_style = get_theme_mod( 'footer_style', 'default' );
   $css = '';
 
@@ -1157,6 +1158,64 @@ function fictioneer_build_customize_css( $content = null ) {
       --layout-main-box-shadow: none;
       --minimal-main-box-shadow: none;
       --layout-main-drop-shadow: none;
+    }';
+  }
+
+  // --- Card styles -----------------------------------------------------------
+
+  if ( in_array( $card_style, ['unfolded', 'combined'] ) ) {
+    $css .= '.card:where(._unfolded, ._combined):is(._small, ._article) .card__body > .card__footer {
+      margin-top: 0;
+    }
+    .card:where(._unfolded, ._combined) .card__body {
+      padding: 0;
+    }
+    .card:where(._unfolded, ._combined) .card__body._article .card__tag-list._scrolling {
+      padding: 0 var(--this-padding);
+      margin-top: calc(-1 * var(--card-footer-margin-top, 1em));
+      margin-bottom: 0;
+    }
+    .card:where(._unfolded, ._combined) .card__body > .card__footer {
+      gap: 0;
+    }
+    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box {
+      background: none;
+      border-top: var(--this-border-width, 1.5px) solid var(--secant);
+      border-radius: 0;
+    }
+    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box._right {
+      border-left: var(--this-border-width, 1.5px) solid var(--secant);
+      min-width: 9cqw;
+    }
+    .card:where(._unfolded, ._combined) .card__header {
+      padding: var(--this-padding) var(--this-padding) 0;
+    }
+    .card:where(._unfolded, ._combined) .card__main {
+      padding: 0 var(--this-padding);
+    }
+    .card:where(._unfolded, ._combined) .card__main:is(._small, ._article, ._hidden-result) {
+      padding: var(--this-padding);
+    }
+    .card:where(._unfolded, ._combined)._recommendation .card__main {
+      padding-bottom: var(--this-padding);
+    }
+    .card:where(._unfolded, ._combined) .card__footer._article .card__footer-box,
+    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
+      padding: calc(var(--this-padding) * 0.75) var(--this-padding);
+    }';
+  }
+
+  if ( $card_style === 'combined' ) {
+    $css .= '.card._combined {
+      --this-border-width: 0;
+    }
+    .card._combined .card__footer._article .card__footer-box,
+    .card._combined .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
+      padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
+    }
+    .card._combined .rating-letter-label {
+      font-weight: 700;
+      opacity: 0.5;
     }';
   }
 
