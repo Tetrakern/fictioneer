@@ -52,17 +52,18 @@
   }
 }
 
-.footer._footer-isolated {
-  --layout-link-hover: var(--fg-d200);
-  background-color: var(--bg-isolated-footer);
-  color: var(--fg-isolated-footer);
-  margin-top: 3rem;
+// Moved to _customizer.php
+// .footer._footer-isolated {
+//   --layout-link-hover: var(--fg-d200);
+//   background-color: var(--bg-isolated-footer);
+//   color: var(--fg-isolated-footer);
+//   margin-top: 3rem;
 
-  .footer__wrapper {
-    margin: 2rem auto;
-  }
+//   .footer__wrapper {
+//     margin: 2rem auto;
+//   }
 
-  .breadcrumbs {
-    color: var(--fg-isolated-footer);
-  }
-}
+//   .breadcrumbs {
+//     color: var(--fg-isolated-footer);
+//   }
+// }

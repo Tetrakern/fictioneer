@@ -564,6 +564,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $header_style = get_theme_mod( 'header_style', 'default' );
   $content_list_style = get_theme_mod( 'content_list_style', 'default' );
   $page_style = get_theme_mod( 'page_style', 'default' );
+  $footer_style = get_theme_mod( 'footer_style', 'default' );
   $css = '';
 
   if ( $content === 'preview' ) {
@@ -1196,6 +1197,23 @@ function fictioneer_build_customize_css( $content = null ) {
     }
     :is(:root, :root.minimal) .content-list-style-lines .card__link-list-item:last-child {
       border-bottom: none;
+    }';
+  }
+
+  // --- Footer style ----------------------------------------------------------
+
+  if ( $footer_style === 'isolated' ) {
+    $css .= '.footer._footer-isolated {
+      --layout-link-hover: var(--fg-d200);
+      background-color: var(--bg-isolated-footer);
+      color: var(--fg-isolated-footer);
+      margin-top: 3rem;
+    }
+    .footer._footer-isolated .footer__wrapper {
+      margin: 2rem auto;
+    }
+    .footer._footer-isolated .breadcrumbs {
+      color: var(--fg-isolated-footer);
     }';
   }
 
