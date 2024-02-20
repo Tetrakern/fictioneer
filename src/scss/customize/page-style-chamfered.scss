@@ -1,0 +1,21 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+:root.page-style-polygon-chamfered:not(.minimal) .main__background {
+  filter: var(--layout-main-drop-shadow);
+
+  &::before {
+    --m: #{get_clamp(6, 12, 320, 768)};
+
+    clip-path: polygon(
+      0% var(--m),
+      var(--m) 0%,
+      calc(100% - var(--m)) 0%,
+      100% var(--m),
+      100% calc(100% - var(--m)),
+      calc(100% - var(--m)) 100%,
+      var(--m) 100%,
+      0% calc(100% - var(--m))
+    );
+  }
+}

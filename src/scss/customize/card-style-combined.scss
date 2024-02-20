@@ -1,0 +1,16 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+.card._combined {
+  --this-border-width: 0;
+
+  .card__footer._article .card__footer-box,
+  .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
+    padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
+  }
+
+  .rating-letter-label {
+    font-weight: 700;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,17 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+.footer._footer-isolated {
+  --layout-link-hover: var(--fg-d200);
+  background-color: var(--bg-isolated-footer);
+  color: var(--fg-isolated-footer);
+  margin-top: 3rem;
+
+  .footer__wrapper {
+    margin: 2rem auto;
+  }
+
+  .breadcrumbs {
+    color: var(--fg-isolated-footer);
+  }
+}

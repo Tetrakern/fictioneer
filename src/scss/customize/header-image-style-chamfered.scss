@@ -1,0 +1,35 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+:root.header-image-style-polygon-chamfered {
+  .header-background {
+    border-radius: 0 !important;
+
+    &__wrapper {
+      --m: #{get_clamp(6, 12, 320, 768)};
+      border-radius: 0 !important;
+      clip-path: polygon(
+        0% var(--m),
+        var(--m) 0%,
+        calc(100% - var(--m)) 0%,
+        100% var(--m),
+        100% calc(100% - var(--m)),
+        calc(100% - var(--m)) 100%,
+        var(--m) 100%,
+        0% calc(100% - var(--m))
+      );
+
+      @include bp(tablet) {
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
+:root.header-image-style-polygon-chamfered:not(.inset-header-image) {
+  .header-background__wrapper {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

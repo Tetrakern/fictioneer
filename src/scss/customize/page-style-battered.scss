@@ -1,0 +1,21 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+:root.page-style-polygon-battered:not(.minimal) .main__background {
+  filter: var(--layout-main-drop-shadow);
+
+  &::before {
+    clip-path: var(--polygon-battered-half);
+
+    @include bp(tablet) {
+      left: 4px;
+      right: 4px;
+      clip-path: var(--polygon-battered);
+    }
+
+    @include bp(desktop) {
+      left: 0;
+      right: 0;
+    }
+  }
+}

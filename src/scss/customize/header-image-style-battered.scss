@@ -1,0 +1,27 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+:root.header-image-style-polygon-battered {
+  .header-background {
+    border-radius: 0 !important;
+
+    &__wrapper {
+      border-radius: 0 !important;
+      clip-path: var(--polygon-battered-half);
+
+      @include bp(tablet) {
+        margin-left: 4px;
+        margin-right: 4px;
+        clip-path: var(--polygon-battered);
+      }
+    }
+  }
+}
+
+:root.header-image-style-polygon-battered:not(.inset-header-image) {
+  .header-background__wrapper {
+    --polygon-battered: var(--polygon-battered-half);
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

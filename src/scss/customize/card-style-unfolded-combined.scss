@@ -1,0 +1,58 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+.card:where(._unfolded, ._combined) {
+  &:is(._small, ._article) .card__body > .card__footer {
+    margin-top: 0;
+  }
+
+  .card__body {
+    padding: 0;
+
+    &._article {
+      .card__tag-list._scrolling {
+        padding: 0 var(--this-padding);
+        margin-top: calc(-1 * var(--card-footer-margin-top, 1em));
+        margin-bottom: 0;
+      }
+    }
+
+    > .card__footer {
+      gap: 0;
+
+      .card__footer-box {
+        background: none;
+        border-top: var(--this-border-width, 1.5px) solid var(--secant);
+        border-radius: 0;
+
+        &._right {
+          border-left: var(--this-border-width, 1.5px) solid var(--secant);
+          min-width: 9cqw;
+        }
+      }
+    }
+  }
+
+  .card__header {
+    padding: var(--this-padding) var(--this-padding) 0;
+  }
+
+  .card__main {
+    padding: 0 var(--this-padding);
+
+    &:is(._small, ._article, ._hidden-result) {
+      padding: var(--this-padding);
+    }
+  }
+
+  &._recommendation {
+    .card__main {
+      padding-bottom: var(--this-padding);
+    }
+  }
+
+  .card__footer._article .card__footer-box,
+  .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
+    padding: calc(var(--this-padding) * 0.75) var(--this-padding);
+  }
+}

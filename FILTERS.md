@@ -411,6 +411,13 @@ Refer to `/includes/functions/_customizer-settings.php` to see the default choic
 
 ---
 
+### `apply_filters( 'fictioneer_filter_css_snippet_{snippet}', $css )`
+Filters the CSS snippet for certain theme options before they are appended to the customize.css building string.
+
+Refer to `/includes/functions/_customizer.php` to see all snippets.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed )`
 Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, false, []) instead of being deleted when updated via theme functions. Applies to post, comment, and user meta fields. This does not affect the core update functions. See `fictioneer_update_user_meta(…)`, `fictioneer_update_comment_meta(…)`, and `fictioneer_update_post_meta(…)`.
 

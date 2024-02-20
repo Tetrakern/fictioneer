@@ -547,6 +547,35 @@ function fictioneer_get_custom_font( $option, $font_default, $mod_default ) {
 // =============================================================================
 
 /**
+ * Returns the CSS loaded from a snippet file
+ *
+ * @since 5.11.1
+ *
+ * @param string $snippet  Name of the snippet file without file ending.
+ * @param string|null $filter  Optional. Part of the generated filter, defaulting
+ *                             to the snippet name (lower case, underscores).
+ *
+ * @return string The CSS string from the file.
+ */
+
+function fictioneer_get_css_snippet( $snippet, $filter = null ) {
+  // Setup
+  $snippets_file_path = WP_CONTENT_DIR . '/themes/fictioneer/css/customize/';
+  $filter = $filter ? $filter : strtolower( str_replace( '-', '_', $snippet ) );
+  $css = file_get_contents( $snippets_file_path . $snippet . '.css' );
+
+  // Get file contents
+  if ( $css !== false ) {
+    return apply_filters( "fictioneer_filter_css_snippet_{$filter}", $css );
+  } else {
+    error_log( 'File not found: ' . $snippets_file_path . $snippet . '.css' );
+  }
+
+  // Graceful error
+  return '';
+}
+
+/**
  * Builds customization stylesheet
  *
  * @since 5.11.0
@@ -578,96 +607,25 @@ function fictioneer_build_customize_css( $content = null ) {
     $header_image_style === 'polygon-battered' ||
     in_array( $page_style, ['polygon-battered', 'polygon-mask-image-battered-ringbook'] )
   ) {
-    $css .= ":root {
-      --polygon-battered: polygon(8px 3px, 12px 2px, 16px 0, 10% 2px, 10.5% 0px, 11% 1px, 11.5% 0px, 18% 1.5px, 21% 0, 28% 1px, 30% 4px, 30.5% 1px, 31% 2px, 31.5% 1px, 33% 3px, 34% 0, 35.5% 1px, 36.5% 2px, 38% 0.5px, 48% 0, 49% 4px, 50% 1.5px, 57% 1px, 59% 0, 61% 1.5px, 63% 0, 67% 1px, 70% 0, 70.5% 4px, 71% 1px, 71.5% 2px, 72% 0, 72.5% 3px, 75% 0, 78% 2px, 85% 3px, 93% 1px, 96% 0, calc(100% - 8px) 0, calc(100% - 4px) 2px, calc(100% - 3px) 10px, 100% 14px, calc(100% - 1px) 15%, calc(100% - 2px) 16.5%, 100% 17%, calc(100% - 1px) 17.5%, 100% 18%, calc(100% - 1px) 21%, 100% 22%, calc(100% - 4px) 23%, calc(100% - 1px) 23.5%, calc(100% - 3px) 24%, calc(100% - 2px) 24.5%, 100% 25%, calc(100% - 1px) 25.5%, 100% 26%, calc(100% - 2px) 26.5%, calc(100% - 1px) 27%, calc(100% - 1.5px) 28%, 100% 29%, calc(100% - 1px) 45%, calc(100% - 3px) 45.5%, calc(100% - 2px) 46%, 100% 47%, calc(100% - 1px) 48%, 100% 49%, calc(100% - 2px) 49.5%, calc(100% - 1px) 50%, calc(100% - 1.5px) 50.5%, 100% 51%, calc(100% - 3px) 53%, 100% 53.5%, calc(100% - 2px) 55%, calc(100% - 1px) 56%, 100% 57%, 100% 65%, calc(100% - 4px) 66%, calc(100% - 2px) 67%, 100% 69%, calc(100% - 2px) 78%, calc(100% - 1.5px) 85%, calc(100% - 3px) 85.5%, calc(100% - 8px) 86%, calc(100% - 2px) 86.5%, 100% 100%, 98% calc(100% - 2px), 97% calc(100% - 4px), 96% calc(100% - 1px), 93% 100%, 92.5% calc(100% - 3px), 91% 100%, 87% calc(100% - 1px), 80% 100%, 79.5% calc(100% - 6px), 79.2% calc(100% - 3px), 78.5% 100%, 70% calc(100% - 1px), 69.5% 100%, 69% calc(100% - 5px), 68.5% 100%, 68% calc(100% - 3px), 67.5% calc(100% - 2px), 67% 100%, 66.5% calc(100% - 2px), 66% 100%, 65.6% calc(100% - 2px), 65.3% 100%, 65% calc(100% - 1px), 64.7% 100%, 64.4% calc(100% - 1px), 64% 100%, 60% calc(100% - 1px), 52% 100%, 45% calc(100% - 3px), 40% calc(100% - 2px), 39% calc(100% - 3px), 38% calc(100% - 4px), 37% calc(100% - 2px), 36% calc(100% - 4px), 35% calc(100% - 1px), 19% 100%, 13% 100%, 12.8% calc(100% - 4px), 12.5% calc(100% - 6px), 12% calc(100% - 3px), 11.5% calc(100% - 4px), 11% calc(100% - 3px), 10.5% calc(100% - 5px), 10% calc(100% - 3px), 9.5% calc(100% - 2px), 9% calc(100% - 3px), 8.5% calc(100% - 6px), 5% calc(100% - 2px), 8px calc(100% - 2px), 6px calc(100% - 3px), 4px calc(100% - 4px), 0 calc(100% - 3px), 0 89%, 2px 87%, 4px 86%, 0 85%, 0 77%, 1px 76%, 2px 75%, 0 73.5%, 3px 73%, 0 71%, 1.5px 70.5%, 1px 70%, 2px 69.5%, 0 69%, 1px 68%, 0 67%, 2px 66%, 3px 65.5%, 1px 65%, 0 64%, 1px 50%, 5px 49.5%, 7px 49%, 0 48.5%, 3px 38%, 0 20%, 1px 16%, 3px 15.5%, 4px 14%, 2.5px 12%, 1px 11%, 0 10%, 1px 5%, 0 6px, 2px 4px);
-      --polygon-battered-half: polygon(8px 3px, 12px 2px, 16px 0, 10% 2px, 10.5% 0px, 11% 1px, 11.5% 0px, 18% 1.5px, 21% 0, 28% 1px, 30% 4px, 30.5% 1px, 31% 2px, 31.5% 1px, 33% 3px, 34% 0, 35.5% 1px, 36.5% 2px, 38% 0.5px, 48% 0, 49% 4px, 50% 1.5px, 57% 1px, 59% 0, 61% 1.5px, 63% 0, 67% 1px, 70% 0, 70.5% 4px, 71% 1px, 71.5% 2px, 72% 0, 72.5% 3px, 75% 0, 78% 2px, 85% 3px, 93% 1px, 96% 0, calc(100% - 8px) 0, 100% 0, 100% 100%, 98% calc(100% - 2px), 97% calc(100% - 4px), 96% calc(100% - 1px), 93% 100%, 92.5% calc(100% - 3px), 91% 100%, 87% calc(100% - 1px), 80% 100%, 79.5% calc(100% - 6px), 79.2% calc(100% - 3px), 78.5% 100%, 70% calc(100% - 1px), 69.5% 100%, 69% calc(100% - 5px), 68.5% 100%, 68% calc(100% - 3px), 67.5% calc(100% - 2px), 67% 100%, 66.5% calc(100% - 2px), 66% 100%, 65.6% calc(100% - 2px), 65.3% 100%, 65% calc(100% - 1px), 64.7% 100%, 64.4% calc(100% - 1px), 64% 100%, 60% calc(100% - 1px), 52% 100%, 45% calc(100% - 3px), 40% calc(100% - 2px), 39% calc(100% - 3px), 38% calc(100% - 4px), 37% calc(100% - 2px), 36% calc(100% - 4px), 35% calc(100% - 1px), 19% 100%, 13% 100%, 12.8% calc(100% - 4px), 12.5% calc(100% - 6px), 12% calc(100% - 3px), 11.5% calc(100% - 4px), 11% calc(100% - 3px), 10.5% calc(100% - 5px), 10% calc(100% - 3px), 9.5% calc(100% - 2px), 9% calc(100% - 3px), 8.5% calc(100% - 6px), 5% calc(100% - 2px), 8px calc(100% - 2px), 6px calc(100% - 3px), 4px calc(100% - 4px), 0 calc(100% - 3px), 0 6px, 2px 4px);
-    }";
+    $css .= fictioneer_get_css_snippet( 'polygon-battered' );
   }
 
   // --- Header image style ----------------------------------------------------
 
   if ( $header_image_style === 'polygon-battered' ) {
-    $css .= ':root.header-image-style-polygon-battered .header-background {
-      border-radius: 0 !important;
-    }
-    :root.header-image-style-polygon-battered .header-background__wrapper {
-      border-radius: 0 !important;
-      clip-path: var(--polygon-battered-half);
-    }
-    @media only screen and (min-width: 768px) {
-      :root.header-image-style-polygon-battered .header-background__wrapper {
-        margin-left: 4px;
-        margin-right: 4px;
-        clip-path: var(--polygon-battered);
-      }
-    }
-    :root.header-image-style-polygon-battered:not(.inset-header-image) .header-background__wrapper {
-      --polygon-battered: var(--polygon-battered-half);
-      margin-left: 0;
-      margin-right: 0;
-    }';
+    $css .= fictioneer_get_css_snippet( 'header-image-style-battered' );
   }
 
   if ( $header_image_style === 'polygon-chamfered' ) {
-    $css .= ':root.header-image-style-polygon-chamfered .header-background {
-      border-radius: 0 !important;
-    }
-    :root.header-image-style-polygon-chamfered .header-background__wrapper {
-      --m: clamp(6px, 1.3392857143vw + 1.7142857143px, 12px);
-      border-radius: 0 !important;
-      clip-path: polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m)));
-    }';
+    $css .= fictioneer_get_css_snippet( 'header-image-style-chamfered' );
   }
 
   if ( $header_image_style === 'mask-grunge-frame-a-large' ) {
-    $css .= ':root.header-image-style-mask-grunge-frame-a-large .header-background {
-      border-radius: 0 !important;
-    }
-    :root.header-image-style-mask-grunge-frame-a-large .header-background__wrapper {
-      --f: clamp(48px, 4.0712468193vw + 32.7328244275px, 64px);
-      --g: clamp(-12px, 3.0534351145vw - 23.4503816794px, 0px);
-      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 + var(--g) - 2px));
-      --mp: top var(--g) left 0, bottom left, top calc(var(--f) + var(--g) - 1px) left 0;
-      border-radius: 0 !important;
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.header-image-style-mask-grunge-frame-a-large .header-background__wrapper {
-        --mi: url("../img/grunge-frame-a/top-left.png"), url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/top-right.png"), url("../img/grunge-frame-a/right.png"), url("../img/grunge-frame-a/bottom-right.png"), url("../img/grunge-frame-a/bottom.png"), url("../img/grunge-frame-a/bottom-left.png"), url("../img/grunge-frame-a/left.png"), var(--data-image-2x2-black);
-        --ms: var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), var(--f) var(--f), calc(100% - calc(var(--f) * 2 - 2px)) var(--f), var(--f) var(--f), var(--f) calc(100% - calc(var(--f) * 2 - 2px)), calc(100% - calc(var(--f) * 2 - 2px)) calc(100% - calc(var(--f) * 2 - 2px));
-        --mp: top left, top 0 left calc(var(--f) - 1px), top right, top calc(var(--f) - 1px) right 0, bottom right, bottom 0 right calc(var(--f) - 1px), bottom left, top calc(var(--f) - 1px) left 0, top calc(var(--f) - 1px) left calc(var(--f) - 1px);
-      }
-    }
-    :root.header-image-style-mask-grunge-frame-a-large:not(.inset-header-image) .header-background__wrapper {
-      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-      --ms: 100% var(--f), 100% var(--f), 100% calc(100% - calc(var(--f) * 2 - 2px));
-      --mp: top left, bottom left, top calc(var(--f) - 1px) left 0;
-    }';
+    $css .= fictioneer_get_css_snippet( 'header-image-style-grunge-frame-a-large' );
   }
 
   if ( $header_image_style === 'mask-grunge-frame-a-small' ) {
-    $css .= ':root.header-image-style-mask-grunge-frame-a-small .header-background {
-      border-radius: 0 !important;
-    }
-    :root.header-image-style-mask-grunge-frame-a-small .header-background__wrapper {
-      --g: clamp(-8px, 2.0356234097vw - 15.6335877863px, 0px);
-      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-      --ms: 100% 32px, 100% 32px, 100% calc(100% - var(--g) - 62px);
-      --mp: top var(--g) left 0, bottom left, top calc(31px + var(--g)) left 0;
-      border-radius: 0 !important;
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.header-image-style-mask-grunge-frame-a-small .header-background__wrapper {
-        --mi: url("../img/grunge-frame-a/top-left.png"), url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/top-right.png"), url("../img/grunge-frame-a/right.png"), url("../img/grunge-frame-a/bottom-right.png"), url("../img/grunge-frame-a/bottom.png"), url("../img/grunge-frame-a/bottom-left.png"), url("../img/grunge-frame-a/left.png"), var(--data-image-2x2-black);
-        --ms: 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), 32px 32px, calc(100% - 62px) 32px, 32px 32px, 32px calc(100% - 62px), calc(100% - 62px) calc(100% - 62px);
-        --mp: top left, top 0 left 31px, top right, top 31px right 0, bottom right, bottom 0 right 31px, bottom left, top 31px left 0, top 31px left 31px;
-      }
-    }
-    :root.header-image-style-mask-grunge-frame-a-small:not(.inset-header-image) .header-background__wrapper {
-      --mi: url("../img/grunge-frame-a/top.png"), url("../img/grunge-frame-a/bottom.png"), var(--data-image-2x2-black);
-      --ms: 100% 32px, 100% 32px, 100% calc(100% - 62px);
-      --mp: top left, bottom left, top 31px left 0;
-    }';
+    $css .= fictioneer_get_css_snippet( 'header-image-style-grunge-frame-a-small' );
   }
 
   // --- Fading header image ---------------------------------------------------
@@ -692,24 +650,7 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Inset header image ----------------------------------------------------
 
   if ( get_theme_mod( 'inset_header_image' ) ) {
-    $css .= ':root.inset-header-image .header-background {
-      left: 50%;
-      right: unset;
-      width: 100%;
-      transform: translate3d(-50%, 0, 0);
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.inset-header-image .header-background {
-        border-radius: var(--layout-border-radius-large);
-        width: calc(var(--site-width) * 1.5);
-        max-width: min(100vw - 2rem, 1980px);
-      }
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.inset-header-image .header-background__wrapper {
-        border-radius: var(--layout-border-radius-large);
-      }
-    }';
+    $css .= fictioneer_get_css_snippet( 'inset-header-image' );
   }
 
   // --- Base layout -----------------------------------------------------------
@@ -967,188 +908,41 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Header styles ---------------------------------------------------------
 
   if ( in_array( $header_style, ['top', 'split'] ) ) {
-    $css .= '.top-header {
-      background: var(--layout-top-header-background-color);
-      width: 100%;
-      contain: style layout;
-    }
-    .top-header__content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1rem 1rem 0.5rem;
-      margin: 0 auto;
-      max-width: var(--site-width);
-    }
-    @media only screen and (min-width: 1024px) {
-      .top-header__content {
-        justify-content: flex-start;
-        padding-bottom: 0.25rem;
-      }
-    }
-    .top-header .custom-logo-link {
-      flex: 0 0 auto;
-    }
-    .top-header .custom-logo {
-      display: block;
-      height: var(--layout-site-logo-height);
-      max-height: calc(var(--site-title-font-size) + var(--site-title-tagline-font-size) + 1rem);
-      width: auto;
-      object-fit: contain;
-    }
-    .top-header._no-tagline .custom-logo {
-      max-height: calc(var(--site-title-font-size) + 0.75rem);
-    }
-    .top-header._no-title .custom-logo {
-      max-height: unset;
-    }
-    .top-header__title {
-      flex: 0 1 auto;
-    }
-    .top-header__heading {
-      font: 700 var(--site-title-font-size)/1.3 var(--ff-site-title);
-      letter-spacing: 0;
-    }
-    .top-header__heading a {
-      color: var(--site-title-heading-color);
-    }
-    .top-header__tagline {
-      color: var(--site-title-tagline-color);
-      font: 400 var(--site-title-tagline-font-size)/1.3 var(--ff-site-title);
-      letter-spacing: 0;
-    }
-    .top-header._no-logo {
-      text-align: center;
-    }
-    @media only screen and (min-width: 1024px) {
-      .top-header._no-logo {
-        text-align: left;
-      }
-    }';
+    $css .= fictioneer_get_css_snippet( 'header-style-top-split' );
   }
 
   // --- Page styles -----------------------------------------------------------
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'polygon-battered' ) {
-    $css .= ':root.page-style-polygon-battered:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-polygon-battered:not(.minimal) .main__background::before {
-      clip-path: var(--polygon-battered-half);
-    }
-    @media only screen and (min-width: 768px) {
-      :root.page-style-polygon-battered:not(.minimal) .main__background::before {
-        left: 4px;
-        right: 4px;
-        clip-path: var(--polygon-battered);
-      }
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.page-style-polygon-battered:not(.minimal) .main__background::before {
-        left: 0;
-        right: 0;
-      }
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-battered' );
   }
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'mask-image-ringbook' ) {
-    $css .= ':root.page-style-mask-image-ringbook:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    @media only screen and (min-width: 375px) {
-      :root.page-style-mask-image-ringbook:not(.minimal) .main__background::before {
-        --this-left: clamp(-14px, 3.5623409669vw - 27.358778626px, 0px);
-        --this-width: clamp(22px, 1.0178117048vw + 18.1832061069px, 26px);
-        --mi: url("../img/mask_ringbook.png"), var(--data-image-2x2-black);
-        --mp: top 0 left var(--this-left), top 0 left calc(var(--this-width) + var(--this-left) - 1px);
-        --ms: var(--this-width) auto, calc(100% - calc(var(--this-width) + var(--this-left) - 1px)) 100%;
-        --mr: repeat-y, no-repeat;
-        left: 0 !important;
-      }
-    }
-    @media only screen and (min-width: 375px) and (min-width: 640px) {
-      :root.page-style-mask-image-ringbook:not(.minimal) .main__background::before {
-        border-radius: 0 var(--layout-border-radius-large) var(--layout-border-radius-large) 1.5rem;
-      }
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-ringbook' );
   }
 
   if ( $page_style === 'polygon-chamfered' ) {
-    $css .= ':root.page-style-polygon-chamfered:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-polygon-chamfered:not(.minimal) .main__background::before {
-      --m: clamp(6px, 1.3392857143vw + 1.7142857143px, 12px);
-      clip-path: polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m)));
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-chamfered' );
   }
 
   if ( $page_style === 'polygon-interface-a' ) {
-    $css .= ':root.page-style-polygon-interface-a:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-polygon-interface-a:not(.minimal) .main__background::before {
-      --o: clamp(0px, 1.2326656394vw - 4.6224961479px, 8px);
-      --m: clamp(6px, 0.4464285714vw + 4.5714285714px, 8px);
-      --g: calc(100% - clamp(140px, 40.1785714286vw + 11.4285714286px, 320px));
-      --s: clamp(0px, 7.1428571429vw - 22.8571428571px, 32px);
-      --p: clamp(92px, 30.8035714286vw - 6.5714285714px, 230px);
-      --i: 0px;
-      clip-path: polygon(0% calc(var(--o) + var(--m)), var(--o) var(--m), calc(var(--s)) var(--m), calc(var(--m) + var(--s)) 0%, calc(var(--m) + var(--s) + var(--p)) 0%, calc(2 * var(--m) + var(--s) + var(--p)) var(--m), calc(50% - 48px) var(--m), calc(50% - 44px) calc(var(--m) + var(--i)), calc(50% - 36px) calc(var(--m) + var(--i)), calc(50% - 32px) var(--m), calc(50% - 16px) var(--m), calc(50% - 12px) calc(var(--m) + var(--i)), calc(50% - 4px) calc(var(--m) + var(--i)), 50% var(--m), calc(50% + 16px) var(--m), calc(50% + 20px) calc(var(--m) + var(--i)), calc(50% + 28px) calc(var(--m) + var(--i)), calc(50% + 32px) var(--m), var(--g) var(--m), calc(var(--g) + 1 * var(--m)) 0%, calc(var(--g) + 3 * var(--m)) 0%, calc(var(--g) + 2 * var(--m)) var(--m), calc(var(--g) + 2.5 * var(--m)) var(--m), calc(var(--g) + 3.5 * var(--m)) 0%, calc(var(--g) + 5.5 * var(--m)) 0%, calc(var(--g) + 4.5 * var(--m)) var(--m), calc(var(--g) + 5 * var(--m)) var(--m), calc(var(--g) + 6 * var(--m)) 0%, calc(var(--g) + 8 * var(--m)) 0%, calc(var(--g) + 7 * var(--m)) var(--m), calc(var(--g) + 7.5 * var(--m)) var(--m), calc(var(--g) + 8.5 * var(--m)) 0%, calc(var(--g) + 11 * var(--m)) 0%, calc(var(--g) + 11.5 * var(--m)) calc(0.5 * var(--m)), calc(100% - 5.5 * var(--m)) calc(0.5 * var(--m)), calc(100% - 5 * var(--m)) 0%, calc(100% - 1 * var(--m)) 0%, 100% var(--m), 100% calc(100% - 1 * var(--m)), calc(100% - 1 * var(--m)) 100%, var(--m) 100%, 0% calc(100% - 1 * var(--m)));
-    }
-    @media only screen and (min-width: 1024px) {
-      :root.page-style-polygon-interface-a:not(.minimal) .main__background::before {
-        --i: 4px;
-      }
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-interface-a' );
   }
 
   if ( $page_style === 'mask-image-wave-a' ) {
-    $css .= ':root.page-style-mask-image-wave-a:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-mask-image-wave-a:not(.minimal) .main__background::before {
-      --mp: top calc(-1 * clamp(5px, 0.7633587786vw + 2.1374045802px, 8px)) left 0, top clamp(22px, 2.2900763359vw + 13.4122137405px, 31px) left 0;
-      --ms: 100% clamp(28px, 3.3078880407vw + 15.5954198473px, 41px), 100% calc(100% - clamp(22px, 2.2900763359vw + 13.4122137405px, 31px));
-      --mr: repeat-x, no-repeat;
-      --mi: url(\'data:image/svg+xml,%3Csvg width="100%25" height="100%25" id="svg" viewBox="0 0 1440 690" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"%3E%3Cpath d="M 0,700 L 0,262 C 85.6267942583732,192.2488038277512 171.2535885167464,122.49760765550238 260,138 C 348.7464114832536,153.50239234449762 440.6124401913876,254.25837320574163 541,315 C 641.3875598086124,375.74162679425837 750.2966507177035,396.46889952153106 854,374 C 957.7033492822965,351.53110047846894 1056.200956937799,285.86602870813397 1153,260 C 1249.799043062201,234.133971291866 1344.8995215311006,248.06698564593302 1440,262 L 1440,700 L 0,700 Z" stroke="none" stroke-width="0" fill="%23000000" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-0"%3E%3C/path%3E%3C/svg%3E\'), var(--data-image-2x2-black);
-      border-radius: 56px/clamp(6px, 1.5267175573vw + 0.2748091603px, 12px);
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-wave-a' );
   }
 
   if ( $page_style === 'mask-image-layered-steps-a' ) {
-    $css .= ':root.page-style-mask-image-layered-steps-a:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-mask-image-layered-steps-a:not(.minimal) .main__background::before {
-      --mp: top left, top clamp(15px, 2.0356234097vw + 7.3664122137px, 23px) left 0;
-      --ms: 100% clamp(16px, 2.0356234097vw + 8.3664122137px, 24px), 100% calc(100% - clamp(15px, 2.0356234097vw + 7.3664122137px, 23px));
-      --mr: repeat-x, no-repeat;
-      --mi: url(\'data:image/svg+xml,%3Csvg id="visual" viewBox="0 0 900 24" width="900" height="24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"%3E%3Cpath d="M0 12L39 12L39 4L78 4L78 2L117 2L117 8L157 8L157 9L196 9L196 17L235 17L235 7L274 7L274 15L313 15L313 13L352 13L352 7L391 7L391 19L430 19L430 11L470 11L470 13L509 13L509 19L548 19L548 14L587 14L587 10L626 10L626 6L665 6L665 17L704 17L704 11L743 11L743 2L783 2L783 19L822 19L822 19L861 19L861 2L900 2L900 6L900 25L900 25L861 25L861 25L822 25L822 25L783 25L783 25L743 25L743 25L704 25L704 25L665 25L665 25L626 25L626 25L587 25L587 25L548 25L548 25L509 25L509 25L470 25L470 25L430 25L430 25L391 25L391 25L352 25L352 25L313 25L313 25L274 25L274 25L235 25L235 25L196 25L196 25L157 25L157 25L117 25L117 25L78 25L78 25L39 25L39 25L0 25Z" fill="rgba(0,0,0,0.5)"%3E%3C/path%3E%3Cpath d="M0 10L39 10L39 11L78 11L78 12L117 12L117 16L157 16L157 13L196 13L196 20L235 20L235 16L274 16L274 7L313 7L313 16L352 16L352 12L391 12L391 8L430 8L430 9L470 9L470 12L509 12L509 10L548 10L548 20L587 20L587 12L626 12L626 12L665 12L665 9L704 9L704 11L743 11L743 14L783 14L783 8L822 8L822 13L861 13L861 20L900 20L900 14L900 25L900 25L861 25L861 25L822 25L822 25L783 25L783 25L743 25L743 25L704 25L704 25L665 25L665 25L626 25L626 25L587 25L587 25L548 25L548 25L509 25L509 25L470 25L470 25L430 25L430 25L391 25L391 25L352 25L352 25L313 25L313 25L274 25L274 25L235 25L235 25L196 25L196 25L157 25L157 25L117 25L117 25L78 25L78 25L39 25L39 25L0 25Z" fill="rgba(0,0,0,0.75)"%3E%3C/path%3E%3Cpath d="M0 14L39 14L39 18L78 18L78 20L117 20L117 20L157 20L157 19L196 19L196 15L235 15L235 18L274 18L274 18L313 18L313 15L352 15L352 21L391 21L391 13L430 13L430 20L470 20L470 21L509 21L509 17L548 17L548 18L587 18L587 12L626 12L626 14L665 14L665 21L704 21L704 17L743 17L743 18L783 18L783 14L822 14L822 17L861 17L861 15L900 15L900 16L900 25L900 25L861 25L861 25L822 25L822 25L783 25L783 25L743 25L743 25L704 25L704 25L665 25L665 25L626 25L626 25L587 25L587 25L548 25L548 25L509 25L509 25L470 25L470 25L430 25L430 25L391 25L391 25L352 25L352 25L313 25L313 25L274 25L274 25L235 25L235 25L196 25L196 25L157 25L157 25L117 25L117 25L78 25L78 25L39 25L39 25L0 25Z" fill="%23000000"%3E%3C/path%3E%3C/svg%3E%0A\'), var(--data-image-2x2-black);
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-layered-steps-a' );
   }
 
   if ( $page_style === 'mask-image-layered-peaks-a' ) {
-    $css .= ':root.page-style-mask-image-layered-peaks-a:not(.minimal) .main__background {
-      filter: var(--layout-main-drop-shadow);
-    }
-    :root.page-style-mask-image-layered-peaks-a:not(.minimal) .main__background::before {
-      --mp: top left, top clamp(15px, 2.0356234097vw + 7.3664122137px, 23px) left 0;
-      --ms: 100% clamp(16px, 2.0356234097vw + 8.3664122137px, 24px), 100% calc(100% - clamp(15px, 2.0356234097vw + 7.3664122137px, 23px));
-      --mr: repeat-x, no-repeat;
-      --mi: url(\'data:image/svg+xml,%3Csvg id="visual" viewBox="0 0 900 24" width="900" height="24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"%3E%3Cpath d="M0 6L39 0L78 0L117 17L157 3L196 14L235 9L274 19L313 14L352 12L391 3L430 6L470 19L509 3L548 12L587 19L626 7L665 12L704 2L743 8L783 17L822 5L861 9L900 1L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z" fill="rgba(0,0,0,0.5)"%3E%3C/path%3E%3Cpath d="M0 8L39 17L78 20L117 6L157 13L196 17L235 17L274 7L313 17L352 18L391 21L430 19L470 14L509 15L548 17L587 11L626 18L665 8L704 19L743 17L783 13L822 7L861 6L900 9L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z" fill="rgba(0,0,0,0.75)"%3E%3C/path%3E%3Cpath d="M0 12L39 14L78 17L117 14L157 16L196 17L235 19L274 20L313 20L352 16L391 16L430 12L470 22L509 22L548 17L587 13L626 11L665 18L704 13L743 23L783 21L822 16L861 17L900 21L900 25L861 25L822 25L783 25L743 25L704 25L665 25L626 25L587 25L548 25L509 25L470 25L430 25L391 25L352 25L313 25L274 25L235 25L196 25L157 25L117 25L78 25L39 25L0 25Z" fill="%23000000"%3E%3C/path%3E%3C/svg%3E%0A\'), var(--data-image-2x2-black);
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-layered-peaks-a' );
   }
 
   if ( $page_style === 'mask-image-grunge-a' ) {
-    $css .= '.main__background::before {
-      --c: clamp(17px, 2.0356234097vw + 9.3664122137px, 25px);
-      --d: clamp(20px, 2.0356234097vw + 12.3664122137px, 28px);
-      --mi: url("../img/grunge-top-a.svg"), var(--data-image-2x2-black), url("../img/flipped-grunge-top-a.svg");
-      --ms: 100% var(--d), 100% calc(100% - var(--c) * 2), 100% var(--d);
-      --mp: top calc(-1 * clamp(0px, 0.5089058524vw - 1.9083969466px, 2px)) left 0, top var(--c) left 0, bottom left;
-    }';
+    $css .= fictioneer_get_css_snippet( 'page-style-grunge-a' );
   }
 
   // --- Page shadow -----------------------------------------------------------
@@ -1164,116 +958,31 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Card styles -----------------------------------------------------------
 
   if ( in_array( $card_style, ['unfolded', 'combined'] ) ) {
-    $css .= '.card:where(._unfolded, ._combined):is(._small, ._article) .card__body > .card__footer {
-      margin-top: 0;
-    }
-    .card:where(._unfolded, ._combined) .card__body {
-      padding: 0;
-    }
-    .card:where(._unfolded, ._combined) .card__body._article .card__tag-list._scrolling {
-      padding: 0 var(--this-padding);
-      margin-top: calc(-1 * var(--card-footer-margin-top, 1em));
-      margin-bottom: 0;
-    }
-    .card:where(._unfolded, ._combined) .card__body > .card__footer {
-      gap: 0;
-    }
-    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box {
-      background: none;
-      border-top: var(--this-border-width, 1.5px) solid var(--secant);
-      border-radius: 0;
-    }
-    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box._right {
-      border-left: var(--this-border-width, 1.5px) solid var(--secant);
-      min-width: 9cqw;
-    }
-    .card:where(._unfolded, ._combined) .card__header {
-      padding: var(--this-padding) var(--this-padding) 0;
-    }
-    .card:where(._unfolded, ._combined) .card__main {
-      padding: 0 var(--this-padding);
-    }
-    .card:where(._unfolded, ._combined) .card__main:is(._small, ._article, ._hidden-result) {
-      padding: var(--this-padding);
-    }
-    .card:where(._unfolded, ._combined)._recommendation .card__main {
-      padding-bottom: var(--this-padding);
-    }
-    .card:where(._unfolded, ._combined) .card__footer._article .card__footer-box,
-    .card:where(._unfolded, ._combined) .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
-      padding: calc(var(--this-padding) * 0.75) var(--this-padding);
-    }';
+    $css .= fictioneer_get_css_snippet( 'card-style-unfolded-combined' );
   }
 
   if ( $card_style === 'combined' ) {
-    $css .= '.card._combined {
-      --this-border-width: 0;
-    }
-    .card._combined .card__footer._article .card__footer-box,
-    .card._combined .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
-      padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
-    }
-    .card._combined .rating-letter-label {
-      font-weight: 700;
-      opacity: 0.5;
-    }';
+    $css .= fictioneer_get_css_snippet( 'card-style-combined' );
   }
 
   // --- Content list style ----------------------------------------------------
 
   if ( $content_list_style === 'full' ) {
-    $css .= ':root:not(.minimal) .content-list-style-full {
-      --content-list-item-background: var(--content-list-item-background-full);
-    }
-    :root:not(.minimal) .content-list-style-full .chapter-group__list-item {
-      padding: 0.5rem 8px 0.5rem 6px;
-    }
-    :root:not(.minimal) .content-list-style-full .story__blog-list-item {
-      padding: 0.5rem 8px;
-    }
-    :root:not(.minimal) .content-list-style-full .card__link-list-item {
-      padding-left: 0.35em;
-    }';
+    $css .= fictioneer_get_css_snippet( 'content-list-style-full' );
   }
 
   if ( $content_list_style === 'free' ) {
-    $css .= ':is(:root, :root.minimal) .content-list-style-free {
-      --content-list-item-background: none;
-    }
-    :is(:root, :root.minimal) .content-list-style-free :is(.chapter-group__list-item, .story__blog-list-item) {
-      border-radius: 0;
-      border-bottom: none;
-    }';
+    $css .= fictioneer_get_css_snippet( 'content-list-style-free' );
   }
 
   if ( $content_list_style === 'lines' ) {
-    $css .= ':is(:root, :root.minimal) .content-list-style-lines {
-      --content-list-item-background: none;
-    }
-    :is(:root, :root.minimal) .content-list-style-lines :is(.chapter-group__list-item, .story__blog-list-item, .card__link-list-item) {
-      border-radius: 0;
-      border-bottom: 1.5px solid var(--layout-color-separator);
-    }
-    :is(:root, :root.minimal) .content-list-style-lines .card__link-list-item:last-child {
-      border-bottom: none;
-    }';
+    $css .= fictioneer_get_css_snippet( 'content-list-style-lines' );
   }
 
   // --- Footer style ----------------------------------------------------------
 
   if ( $footer_style === 'isolated' ) {
-    $css .= '.footer._footer-isolated {
-      --layout-link-hover: var(--fg-d200);
-      background-color: var(--bg-isolated-footer);
-      color: var(--fg-isolated-footer);
-      margin-top: 3rem;
-    }
-    .footer._footer-isolated .footer__wrapper {
-      margin: 2rem auto;
-    }
-    .footer._footer-isolated .breadcrumbs {
-      color: var(--fg-isolated-footer);
-    }';
+    $css .= fictioneer_get_css_snippet( 'footer-style-isolated' );
   }
 
   // --- Filters ---------------------------------------------------------------
