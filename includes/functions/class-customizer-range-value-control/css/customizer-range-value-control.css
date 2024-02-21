@@ -38,14 +38,14 @@
 }
 
 .range-slider__value {
-  width: 60px;
-  color: #fff;
+  flex: 0 0 auto;
   line-height: 20px;
   text-align: center;
   border-radius: 3px;
-  background: #2271b1;
-  padding: 5px 10px;
-  margin-left: 8px;
+  background: #dcdcde;
+  padding: 3px 0;
+  margin: 2px 0 2px 8px;
+  width: 64px;
 }
 
 ::-moz-range-track {
