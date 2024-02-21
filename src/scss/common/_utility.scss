@@ -56,11 +56,15 @@ body:not(.is-editor):not(.is-admin) {
 .grid-columns {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
-  gap: var(--grid-columns-row-gap, max(3cqw, 1.5rem)) var(--grid-columns-row-col, max(3cqw, 1.5rem));
+  gap:
+    calc(var(--grid-columns-row-gap, max(3cqw, 1.5rem)) * var(--grid-columns-row-gap-multiplier, 1))
+    calc(var(--grid-columns-row-col, max(3cqw, 1.5rem)) * var(--grid-columns-row-col-multiplier, 1));
 
   // Fallback
   @supports not (width: 1cqw) {
-    gap: var(--grid-columns-row-gap, 1.5rem) var(--grid-columns-row-col, 1.5rem);
+    gap:
+      calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1))
+      calc(var(--grid-columns-row-col, 1.5rem) * var(--grid-columns-row-col-multiplier, 1));
   }
 
   &._collapse-on-mobile {
@@ -68,10 +72,10 @@ body:not(.is-editor):not(.is-admin) {
       display: block;
 
       > :not(:last-child) {
-        margin-bottom: var(--grid-columns-row-gap, max(3cqw, 1.5rem));
+        margin-bottom: calc(var(--grid-columns-row-gap, max(3cqw, 1.5rem)) * var(--grid-columns-row-gap-multiplier, 1));
 
         @supports not (width: 1cqw) {
-          margin-bottom: var(--grid-columns-row-gap, 1.5rem);
+          margin-bottom: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1));
         }
       }
     }
