@@ -551,14 +551,14 @@ function fictioneer_get_custom_font( $option, $font_default, $mod_default ) {
  *
  * @since 5.11.1
  *
- * @param string $snippet  Name of the snippet file without file ending.
+ * @param string $snippet      Name of the snippet file without file ending.
  * @param string|null $filter  Optional. Part of the generated filter, defaulting
  *                             to the snippet name (lower case, underscores).
  *
  * @return string The CSS string from the file.
  */
 
-function fictioneer_get_css_snippet( $snippet, $filter = null ) {
+function fictioneer_get_customizer_css_snippet( $snippet, $filter = null ) {
   // Setup
   $snippets_file_path = WP_CONTENT_DIR . '/themes/fictioneer/css/customize/';
   $filter = $filter ? $filter : strtolower( str_replace( '-', '_', $snippet ) );
@@ -607,25 +607,25 @@ function fictioneer_build_customize_css( $content = null ) {
     $header_image_style === 'polygon-battered' ||
     in_array( $page_style, ['polygon-battered', 'polygon-mask-image-battered-ringbook'] )
   ) {
-    $css .= fictioneer_get_css_snippet( 'polygon-battered' );
+    $css .= fictioneer_get_customizer_css_snippet( 'polygon-battered' );
   }
 
   // --- Header image style ----------------------------------------------------
 
   if ( $header_image_style === 'polygon-battered' ) {
-    $css .= fictioneer_get_css_snippet( 'header-image-style-battered' );
+    $css .= fictioneer_get_customizer_css_snippet( 'header-image-style-battered' );
   }
 
   if ( $header_image_style === 'polygon-chamfered' ) {
-    $css .= fictioneer_get_css_snippet( 'header-image-style-chamfered' );
+    $css .= fictioneer_get_customizer_css_snippet( 'header-image-style-chamfered' );
   }
 
   if ( $header_image_style === 'mask-grunge-frame-a-large' ) {
-    $css .= fictioneer_get_css_snippet( 'header-image-style-grunge-frame-a-large' );
+    $css .= fictioneer_get_customizer_css_snippet( 'header-image-style-grunge-frame-a-large' );
   }
 
   if ( $header_image_style === 'mask-grunge-frame-a-small' ) {
-    $css .= fictioneer_get_css_snippet( 'header-image-style-grunge-frame-a-small' );
+    $css .= fictioneer_get_customizer_css_snippet( 'header-image-style-grunge-frame-a-small' );
   }
 
   // --- Fading header image ---------------------------------------------------
@@ -657,7 +657,7 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Inset header image ----------------------------------------------------
 
   if ( get_theme_mod( 'inset_header_image' ) ) {
-    $css .= fictioneer_get_css_snippet( 'inset-header-image' );
+    $css .= fictioneer_get_customizer_css_snippet( 'inset-header-image' );
   }
 
   // --- Base layout -----------------------------------------------------------
@@ -915,41 +915,41 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Header styles ---------------------------------------------------------
 
   if ( in_array( $header_style, ['top', 'split'] ) ) {
-    $css .= fictioneer_get_css_snippet( 'header-style-top-split' );
+    $css .= fictioneer_get_customizer_css_snippet( 'header-style-top-split' );
   }
 
   // --- Page styles -----------------------------------------------------------
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'polygon-battered' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-battered' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-battered' );
   }
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'mask-image-ringbook' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-ringbook' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-ringbook' );
   }
 
   if ( $page_style === 'polygon-chamfered' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-chamfered' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-chamfered' );
   }
 
   if ( $page_style === 'polygon-interface-a' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-interface-a' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-interface-a' );
   }
 
   if ( $page_style === 'mask-image-wave-a' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-wave-a' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-wave-a' );
   }
 
   if ( $page_style === 'mask-image-layered-steps-a' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-layered-steps-a' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-layered-steps-a' );
   }
 
   if ( $page_style === 'mask-image-layered-peaks-a' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-layered-peaks-a' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-layered-peaks-a' );
   }
 
   if ( $page_style === 'mask-image-grunge-a' ) {
-    $css .= fictioneer_get_css_snippet( 'page-style-grunge-a' );
+    $css .= fictioneer_get_customizer_css_snippet( 'page-style-grunge-a' );
   }
 
   // --- Page shadow -----------------------------------------------------------
@@ -965,31 +965,31 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Card styles -----------------------------------------------------------
 
   if ( in_array( $card_style, ['unfolded', 'combined'] ) ) {
-    $css .= fictioneer_get_css_snippet( 'card-style-unfolded-combined' );
+    $css .= fictioneer_get_customizer_css_snippet( 'card-style-unfolded-combined' );
   }
 
   if ( $card_style === 'combined' ) {
-    $css .= fictioneer_get_css_snippet( 'card-style-combined' );
+    $css .= fictioneer_get_customizer_css_snippet( 'card-style-combined' );
   }
 
   // --- Content list style ----------------------------------------------------
 
   if ( $content_list_style === 'full' ) {
-    $css .= fictioneer_get_css_snippet( 'content-list-style-full' );
+    $css .= fictioneer_get_customizer_css_snippet( 'content-list-style-full' );
   }
 
   if ( $content_list_style === 'free' ) {
-    $css .= fictioneer_get_css_snippet( 'content-list-style-free' );
+    $css .= fictioneer_get_customizer_css_snippet( 'content-list-style-free' );
   }
 
   if ( $content_list_style === 'lines' ) {
-    $css .= fictioneer_get_css_snippet( 'content-list-style-lines' );
+    $css .= fictioneer_get_customizer_css_snippet( 'content-list-style-lines' );
   }
 
   // --- Footer style ----------------------------------------------------------
 
   if ( $footer_style === 'isolated' ) {
-    $css .= fictioneer_get_css_snippet( 'footer-style-isolated' );
+    $css .= fictioneer_get_customizer_css_snippet( 'footer-style-isolated' );
   }
 
   // --- Filters ---------------------------------------------------------------
