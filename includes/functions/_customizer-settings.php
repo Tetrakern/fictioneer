@@ -257,7 +257,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_50',
       array(
         'label' => __( 'Light Background 50', 'fictioneer' ),
-        'description' => __( 'Used for page and modal backgrounds.', 'fictioneer' ),
+        'description' => __( 'Used for the page and modal backgrounds.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_50'
       )
@@ -301,7 +301,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_200',
       array(
         'label' => __( 'Light Background 200', 'fictioneer' ),
-        'description' => __( 'Used for submenus, chapter progress, tabs, pagination buttons, secondary hovers, and dividing lines.', 'fictioneer' ),
+        'description' => __( 'Used for navigation items and menus, tabs, pagination buttons, chapter progress, lines, and secondary button hovers.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_200'
       )
@@ -323,7 +323,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_300',
       array(
         'label' => __( 'Light Background 300', 'fictioneer' ),
-        'description' => __( 'Used for the body background, placeholders, primary tag backgrounds, secondary button and tag borders, pagination buttons, tab and submenu hovers.', 'fictioneer'),
+        'description' => __( 'Used for the body background, placeholders, primary tags, pagination buttons, secondary button and tag borders, tab and navigation menu hovers.', 'fictioneer'),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_300'
       )
@@ -345,7 +345,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_400',
       array(
         'label' => __( 'Light Background 400', 'fictioneer' ),
-        'description' => __( 'Used for disabled button, input tokens and placeholders, and generic badges.', 'fictioneer' ),
+        'description' => __( 'Used for disabled buttons, input tokens, and placeholder texts.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_400'
       )
@@ -367,7 +367,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_500',
       array(
         'label' => __( 'Light Background 500', 'fictioneer' ),
-        'description' => __( 'Used for input backgrounds, range thumbs, and quick button hovers.', 'fictioneer' ),
+        'description' => __( 'Used for primary buttons, range thumbs, and mobile menu quick button hovers.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_500'
       )
@@ -389,7 +389,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_600',
       array(
         'label' => __( 'Light Background 600', 'fictioneer' ),
-        'description' => __( 'Used for the text selection, active buttons and tabs, and layout borders.', 'fictioneer' ),
+        'description' => __( 'Used for text selection background, active buttons and tabs, and layout borders.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_600'
       )
@@ -477,7 +477,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'light_bg_1000',
       array(
         'label' => __( 'Light Background 1000', 'fictioneer' ),
-        'description' => __( 'Used to calculate semi-transparent colors, like info boxes and content list gradients.', 'fictioneer' ),
+        'description' => __( 'Used as part of semi-transparent colors, like input backgrounds and content list gradients.', 'fictioneer' ),
         'section' => 'light_mode_colors',
         'settings' => 'light_bg_1000'
       )
