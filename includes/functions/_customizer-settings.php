@@ -2902,31 +2902,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Card cover width modifier
-  $manager->add_setting(
-    'card_cover_width_mod',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
-      'default' => '1.0'
-    )
-  );
-
-  $manager->add_control(
-    'card_cover_width_mod',
-    array(
-      'type' => 'text',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
-      'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
-      'input_attrs' => array(
-        'placeholder' => '1.0',
-        'style' => 'width: 80px'
-      )
-    )
-  );
-
   // Card grid column minimum width
   $manager->add_setting(
     'card_grid_column_min',
@@ -2949,6 +2924,99 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'placeholder' => '308',
         'min' => 308,
         'style' => 'width: 80px'
+      )
+    )
+  );
+
+  // Card cover width modifier
+  $manager->add_setting(
+    'card_cover_width_mod',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_cover_width_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'layout',
+        'settings' => 'card_cover_width_mod',
+        'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 5,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
+      )
+    )
+  );
+
+  // Card row gap modifier
+  $manager->add_setting(
+    'card_grid_row_gap_mod',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_grid_row_gap_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'layout',
+        'settings' => 'card_grid_row_gap_mod',
+        'label' => __( 'Card Row Gap Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the grid row gap. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 10,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
+      )
+    )
+  );
+
+  // Card column gap modifier
+  $manager->add_setting(
+    'card_grid_column_gap_mod',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_grid_column_gap_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'layout',
+        'settings' => 'card_grid_column_gap_mod',
+        'label' => __( 'Card Column Gap Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the grid column gap. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 10,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
       )
     )
   );

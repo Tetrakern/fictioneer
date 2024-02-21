@@ -680,6 +680,8 @@ function fictioneer_build_customize_css( $content = null ) {
   $header_max = (int) get_theme_mod( 'header_height_max', 380 );
   $card_grid_column_min = (int) get_theme_mod( 'card_grid_column_min', 308 );
   $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
+  $card_grid_column_gap_mod = get_theme_mod( 'card_grid_column_gap_mod', 1 );
+  $card_grid_row_gap_mod = get_theme_mod( 'card_grid_row_gap_mod', 1 );
   $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
   $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
   $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
@@ -703,6 +705,8 @@ function fictioneer_build_customize_css( $content = null ) {
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
     --grid-columns-min: " . $card_grid_column_min . "px;
+    --grid-columns-row-gap-multiplier: " . $card_grid_row_gap_mod . ";
+    --grid-columns-col-gap-multiplier: " . $card_grid_column_gap_mod . ";
     --ff-base: {$font_primary};
     --ff-note: {$font_secondary};
     --ff-heading: {$font_heading};

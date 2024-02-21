@@ -37,7 +37,7 @@ This guide is mainly written for people who never had their own WordPress site b
     * [Background Overlay & Filters](#background-overlay--filters)
     * [Merge Top-Header & Navigation](#merge-top-header--navigation)
     * [Overlay Navigation](#overlay-navigation)
-    * [Card Size & Grid Spacing](#card-size--grid-spacing)
+    * [Card Grids](#card-grids)
     * [Custom Header/Page Style](#custom-headerpage-style)
   * [Move the Title/Logo](#move-the-titlelogo)
   * [Minimum/Maximum Values](#minimummaximum-values)
@@ -944,28 +944,9 @@ You want the navigation on top of the header image? Just go to **Appearance > Cu
 }
 ```
 
-#### Card Size & Grid Spacing
+#### Card Grids
 
-You can change the minimum width of cards under **Appearance > Customize > Layout**, usually in combination with an increased site width. The cards will scale up if there is enough space available. If you want to change the spacing between the cards, however, you need to overwrite one or two custom properties.
-
-The default is `max(3cqw, 1.5rem)` (22.5px to 30px), which is relative to the section width or dynamic root font size, whichever is larger. If you want to apply changes only to specific grids, you need to scope them to a fitting selector, such as `.latest-updates` for the Latest Updates shortcode.
-
-```css
-:root {
-  --grid-columns-row-gap: max(3cqw, 1.5rem); /* Vertical spacing. */
-  --grid-columns-col-gap: max(3cqw, 1.5rem); /* Horizontal spacing. */
-}
-
-/* Fallback for older browsers that do not support container queries. */
-@supports (width: 1cqw) {
-  .root {
-    --grid-columns-row-gap: 1.5rem; /* Vertical spacing. */
-    --grid-columns-col-gap: 1.5rem; /* Horizontal spacing. */
-  }
-}
-```
-
-If you want to have a grid on the list page templates as well, for example Stories and Chapters, you need to apply more verbose CSS. Be aware that targeting the `.card-list` class may be convenient to convert all card lists to grids, but can have unintended side effects since the class is used in many places. Better be specific.
+You can change the minimum width of cards and gap spacing under **Appearance > Customize > Layout**, usually in combination with an increased site width. But if you want to have a grid on the list page templates as well, for example Stories and Chapters, you need some custom CSS. Be aware that targeting the `.card-list` class may be convenient to convert all card lists to grids, but can have unintended side effects since the class is used in many places. Better be specific.
 
 ```css
 /* Targeting the unique IDs of the lists is safe. */
