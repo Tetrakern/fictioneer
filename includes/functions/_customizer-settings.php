@@ -1348,6 +1348,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'dark_bg_50',
       array(
         'label' => __( 'Dark Background 50', 'fictioneer' ),
+        'description' => __( 'Used as hover for primary and pagination buttons, navigation menus, and tabs.', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_bg_50'
       )
@@ -1369,6 +1370,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'dark_bg_100',
       array(
         'label' => __( 'Dark Background 100', 'fictioneer' ),
+        'description' => __( 'Used for placeholder texts and tag hovers.', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_bg_100'
       )
@@ -1390,6 +1392,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'dark_bg_200',
       array(
         'label' => __( 'Dark Background 200', 'fictioneer' ),
+        'description' => __( 'Used for primary buttons and secondary tag borders.', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_bg_200'
       )
@@ -1411,6 +1414,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'dark_bg_300',
       array(
         'label' => __( 'Dark Background 300', 'fictioneer' ),
+        'description' => __( 'Used for mobile menu quick button hovers, navigation items and menus.', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_bg_300'
       )
