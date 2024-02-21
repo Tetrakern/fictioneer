@@ -2,7 +2,7 @@
 @import '../common/_mixins';
 
 .card._combined {
-  --this-border-width: 0;
+  --card-style-secant-width: 0;
 
   .card__footer._article .card__footer-box,
   .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
