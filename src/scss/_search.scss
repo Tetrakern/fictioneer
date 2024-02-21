@@ -116,8 +116,9 @@
       place-content: center;
       flex: 0 0 auto;
       background: var(--input-background);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
       white-space: nowrap;
       padding: 0 8px;
       border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
