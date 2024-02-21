@@ -803,8 +803,6 @@ function fictioneer_build_customize_css( $content = null ) {
       --bookmark-line: " . get_theme_mod( 'dark_bookmark_line_color', '#f4d171' ) . ";
       --ins-background: " . get_theme_mod( 'dark_ins_background', '#7ebb4e' ) . ";
       --del-background: " . get_theme_mod( 'dark_del_background', '#f66055' ) . ";
-      --vote-down: " . get_theme_mod( 'dark_vote_down', '#f66055' ) . ";
-      --vote-up: " . get_theme_mod( 'dark_vote_up', '#7ebb4e' ) . ";
       --badge-generic-background: " . get_theme_mod( 'dark_badge_generic_background', '#3a3f4b' ) . ";
       --badge-moderator-background: " . get_theme_mod( 'dark_badge_moderator_background', '#4d628f' ) . ";
       --badge-admin-background: " . get_theme_mod( 'dark_badge_admin_background', '#505062' ) . ";
@@ -891,8 +889,6 @@ function fictioneer_build_customize_css( $content = null ) {
       --bookmark-line: " . get_theme_mod( 'light_bookmark_line_color', '#3c83f6' ) . ";
       --ins-background: " . get_theme_mod( 'light_ins_background', '#7ec945' ) . ";
       --del-background: " . get_theme_mod( 'light_del_background', '#e96c63' ) . ";
-      --vote-down: " . get_theme_mod( 'light_vote_down', '#dc2626' ) . ";
-      --vote-up: " . get_theme_mod( 'light_vote_up', '#16a34a' ) . ";
       --badge-generic-background: " . get_theme_mod( 'light_badge_generic_background', '#9ca3b0' ) . ";
       --badge-moderator-background: " . get_theme_mod( 'light_badge_moderator_background', '#5369ac' ) . ";
       --badge-admin-background: " . get_theme_mod( 'light_badge_admin_background', '#384252' ) . ";

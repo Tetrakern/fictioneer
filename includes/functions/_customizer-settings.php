@@ -1019,48 +1019,6 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_vote_down',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dc2626'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_vote_down',
-      array(
-        'label' => __( 'Light Vote Down', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_vote_down'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_vote_up',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#16a34a'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_vote_up',
-      array(
-        'label' => __( 'Light Vote Up', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_vote_up'
-      )
-    )
-  );
-
-  $manager->add_setting(
     'light_badge_generic_background',
     array(
       'capability' => 'manage_options',
@@ -2136,48 +2094,6 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'label' => __( 'Dark &ltdel>', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_del_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'dark_vote_down',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f66055'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'dark_vote_down',
-      array(
-        'label' => __( 'Dark Vote Down', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'dark_vote_down'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'dark_vote_up',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#7ebb4e'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'dark_vote_up',
-      array(
-        'label' => __( 'Dark Vote Up', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'dark_vote_up'
       )
     )
   );
