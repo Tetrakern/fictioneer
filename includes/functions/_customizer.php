@@ -645,6 +645,13 @@ function fictioneer_build_customize_css( $content = null ) {
         --header-fading-mask-image: " . fictioneer_get_fading_gradient( 100, $header_image_fading_start, 100, 'var(--header-fading-mask-image-rotation, 180deg)' ) . ";
       }";
     }
+
+    $css .= '@media only screen and (min-width: 1024px) {
+      .header-background._style-default._fading-bottom._shadow .header-background__wrapper {
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+    }';
   }
 
   // --- Inset header image ----------------------------------------------------
