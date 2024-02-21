@@ -931,3 +931,64 @@
     opacity: var(--bookmark-progress-opacity);
   }
 }
+
+
+:root {
+  --card-frame-border-color: var(--bg-900);
+}
+
+:root[data-mode=light] {
+  --card-frame-border-color: var(--bg-200);
+}
+
+// 0 0 0 var(--card-frame-border-thickness, 2.5px) var(--card-frame-border-color), 0 0 6px 2px rgb(0 0 0/24%)
+
+// Solid borders thin
+// .card {
+//   --card-style-secant-width: 1px;
+//   box-shadow: 0 0 0 var(--card-frame-border-thickness, 1px) var(--card-frame-border-color);
+// }
+
+// Solid borders normal
+// .card {
+//   --card-style-secant-width: 2px;
+//   box-shadow: 0 0 0 var(--card-frame-border-thickness, 2px) var(--card-frame-border-color);
+// }
+
+// Stacked shadow
+.card {
+  --card-style-secant-width: 2px;
+  box-shadow: 0 0 0 var(--card-frame-border-thickness, 2.5px) var(--card-frame-border-color);
+
+  &::before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    display: block;
+    background: var(--card-frame-border-color);
+    border-radius: var(--card-frame-border-radius, var(--layout-border-radius-small));
+    height: var(--card-frame-height, calc(100% + 6px));
+    width: var(--card-frame-width, calc(100% + 6px));
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, 2deg));
+
+    @container (min-width: 450px) {
+      transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, 1.75deg));
+    }
+
+    @container (min-width: 600px) {
+      transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, 1.5deg));
+    }
+
+    @container (min-width: 750px) {
+      transform: translate(-50%, -50%) rotate(var(--card-frame-rotation, 1.25deg));
+    }
+  }
+
+  .card__body {
+    border-radius: var(--card-frame-border-radius, var(--layout-border-radius-small));
+  }
+}
