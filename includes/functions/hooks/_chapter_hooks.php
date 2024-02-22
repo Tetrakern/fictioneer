@@ -424,6 +424,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
  * Outputs the HTML for the chapter support links
  *
  * @since 5.0.0
+ * @since 5.11.1
  *
  * @param WP_User      $args['author']      Author of the post.
  * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
@@ -432,10 +433,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
 
 function fictioneer_chapter_support_links( $args ) {
   // Abort conditions
-  if (
-    post_password_required() ||
-    get_post_meta( $args['chapter_id'], 'fictioneer_chapter_hide_support_links', true )
-  ) {
+  if ( get_post_meta( $args['chapter_id'], 'fictioneer_chapter_hide_support_links', true ) ) {
     return;
   }
 
