@@ -1243,6 +1243,7 @@ The font.json file may seem a bit challenging, but is actually mostly informativ
 | note | string | Special note about the font for the admin page. Default empty.
 | preview | string | Changes the example sentence displayed on the admin page. Default empty.
 | sources | object | Collection of sub-objects listing sources for the font. Default empty.
+
 \* Required key-value pairs.
 
 </details><br>
