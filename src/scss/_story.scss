@@ -60,9 +60,9 @@ $header_breakpoint: 640px;
   }
 
   &__header {
-    --img-height: #{get_clamp(145, 165, 400, $full-width)};
-    --img-width: #{get_clamp(96, 110, 400, $full-width)};
-    grid-template-columns: var(--img-width) 1fr;
+    --this-img-height: #{get_clamp(145, 165, 400, $full-width)};
+    --this-img-width: #{get_clamp(96, 110, 400, $full-width)};
+    grid-template-columns: var(--this-img-width) 1fr;
     grid-template-rows: var(--page-inset-top) auto auto;
     gap: 0 get_clamp(10, 18, 320, 375);
     margin-bottom: 1.75rem;
@@ -72,8 +72,8 @@ $header_breakpoint: 640px;
     }
 
     @include bp($header_breakpoint) {
-      --img-height: #{get_clamp(197, 225, 400, $full-width)};
-      --img-width: #{get_clamp(131, 150, 400, $full-width)};
+      --this-img-height: #{get_clamp(197, 225, 400, $full-width)};
+      --this-img-width: #{get_clamp(131, 150, 400, $full-width)};
       margin-bottom: 2.5rem;
     }
 
@@ -126,8 +126,8 @@ $header_breakpoint: 640px;
       }
 
       @include bp($header_breakpoint) {
-        --img-height: #{get_clamp(145, 165, 400, $full-width)};
-        --img-width: #{get_clamp(96, 110, 400, $full-width)};
+        --this-img-height: #{get_clamp(145, 165, 400, $full-width)};
+        --this-img-width: #{get_clamp(96, 110, 400, $full-width)};
       }
     }
 
@@ -145,7 +145,7 @@ $header_breakpoint: 640px;
     --focus-offset: 2px;
     grid-area: 1 / 1 / 4 / 2;
     position: relative;
-    height: var(--img-height);
+    height: var(--this-img-height);
 
     @include bp($header_breakpoint) {
       grid-area: 1 / 1 / 4 / 2;
@@ -162,10 +162,10 @@ $header_breakpoint: 640px;
     &-image {
       cursor: zoom-in;
       display: block;
-      background: var(--placeholder-no-cover);
+      background: var(--story-cover-placeholder, var(--placeholder-background));
       border-radius: var(--layout-border-radius-small);
       height: 100%;
-      max-height: var(--img-height);
+      max-height: var(--this-img-height);
       object-fit: cover;
       filter: var(--figure-drop-shadow);
       content-visibility: auto;
@@ -430,7 +430,7 @@ $header_breakpoint: 640px;
       line-height: 1.5;
 
       &-item {
-        background: var(--content-list-item-background);
+        background: var(--story-blog-li-background, var(--content-li-background));
         padding: .5rem 8px .5rem 0;
         border-radius: var(--layout-border-radius-small);
       }

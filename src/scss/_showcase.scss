@@ -17,7 +17,7 @@
     transition: transform var(--transition-duration);
 
     &._no-cover {
-      background: var(--placeholder-no-cover);
+      background: var(--showcase-cover-placeholder, var(--placeholder-background));
     }
   }
 

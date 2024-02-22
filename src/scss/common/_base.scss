@@ -446,7 +446,7 @@ button[type=submit]:where(:not(._inline)) {
   position: absolute;
   z-index: 10;
   background: var(--popup-menu-background);
-  color: var(--popup-menu-text);
+  color: var(--popup-menu-color);
   font-size: 14px;
   line-height: 22px;
   text-shadow: none;
@@ -512,7 +512,7 @@ button[type=submit]:where(:not(._inline)) {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    color: var(--popup-menu-text);
+    color: var(--popup-menu-color);
     font-size: inherit;
     font-weight: 400;
     line-height: 22px;
@@ -532,7 +532,7 @@ button[type=submit]:where(:not(._inline)) {
 
     &:hover {
       background: var(--popup-menu-background-hover);
-      color: var(--popup-menu-text-hover);
+      color: var(--popup-menu-color-hover);
     }
 
     :is(i, .icon, .text-icon) {
@@ -629,7 +629,7 @@ html:not(.logged-in) body:not(.logged-in) {
     overflow: hidden;
 
     &-item {
-      background: var(--content-list-item-background);
+      background: var(--chapter-li-background, var(--content-li-background));
       display: grid;
       grid-template-columns: 1.5rem 1fr auto;
       grid-template-rows: minmax(18px, 1fr) auto;

@@ -232,10 +232,10 @@
 
   // === INPUTS - GENERAL ======================================================
   --input-shadow: inset 0 0 1px rgb(0 0 0 / 5%);
-  --input-placeholder: var(--bg-400);
+  --input-placeholder-color: var(--bg-400);
   --input-fill: var(--bg-500);
-  --input-node-background: var(--bg-400);
-  --input-node-text: var(--fg-1000);
+  --input-token-background: var(--bg-400);
+  --input-token-color: var(--fg-1000);
 
   // === INPUTS - RANGE ========================================================
   --input-range-thumb: var(--bg-500);
@@ -249,8 +249,8 @@
   --popup-menu-background: var(--bg-800);
   --popup-menu-background-hover: var(--bg-600);
   --popup-menu-background-selected: var(--bg-700);
-  --popup-menu-text: var(--fg-1000);
-  --popup-menu-text-hover: var(--fg-1000);
+  --popup-menu-color: var(--fg-1000);
+  --popup-menu-color-hover: var(--fg-1000);
 
   // === PAGINATION ============================================================
   --pagination-background: var(--bg-200);
@@ -264,11 +264,11 @@
   --infobox-background: hsl(var(--bg-1000-free) / 5%);
   --infobox-text: var(--fg-600);
   --infobox-background-free: var(--bg-1000-free);
-  --content-list-item-background-full: hsl(var(--infobox-background-free) / 2%); // Assigned in _properties.scss
-  // --content-list-item-background-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%); // Old
+  --content-li-background-full: hsl(var(--infobox-background-free) / 2%); // Assigned in _properties.scss
+  // --content-li-background-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%); // Old
 
   // Derived from: https://larsenwork.com/easing-gradients/
-  --content-list-item-background-gradient: linear-gradient(
+  --content-li-background-gradient: linear-gradient(
     to left,
     hsl(var(--infobox-background-free) / 0.02961) 48.645%,
     hsl(var(--infobox-background-free) / 0.02853) 51.975%,

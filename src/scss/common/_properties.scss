@@ -80,6 +80,33 @@
   --paragraph-spacing: 1.5rem;
   --placeholder-background: var(--bg-950);
 
+  // === CONTENT LISTS =========================================================
+
+  --content-li-background: var(--content-li-background-gradient); // Base assignment
+  --content-li-background-full: var(--bg-800);
+  --content-li-background-gradient: linear-gradient(to left, var(--bg-800) 0%, var(--bg-800) 55%, transparent 90%);
+
+  // Derived from: https://larsenwork.com/easing-gradients/
+  // --content-li-background-gradient: linear-gradient(
+  //   to left,
+  //   var(--bg-800) 0%,
+  //   hsl(var(--bg-800-free) / 0.395) 48.645%,
+  //   hsl(var(--bg-800-free) / 0.380) 51.975%,
+  //   hsl(var(--bg-800-free) / 0.358) 55.125%,
+  //   hsl(var(--bg-800-free) / 0.33) 58.05%,
+  //   hsl(var(--bg-800-free) / 0.296) 60.885%,
+  //   hsl(var(--bg-800-free) / 0.259) 63.54%,
+  //   hsl(var(--bg-800-free) / 0.22) 66.195%,
+  //   hsl(var(--bg-800-free) / 0.18) 68.805%,
+  //   hsl(var(--bg-800-free) / 0.141) 71.46%,
+  //   hsl(var(--bg-800-free) / 0.104) 74.115%,
+  //   hsl(var(--bg-800-free) / 0.07) 76.95%,
+  //   hsl(var(--bg-800-free) / 0.042) 79.875%,
+  //   hsl(var(--bg-800-free) / 0.02) 83.025%,
+  //   hsl(var(--bg-800-free) / 0.0052) 86.355%,
+  //   hsl(var(--bg-800-free) / 0) 90%
+  // );
+
   // === PRIMARY ===============================================================
 
   --primary-400: hsl(46deg 87% 75%);
@@ -87,49 +114,35 @@
   --primary-600: hsl(34deg 82% 70%);
 
   // === BACKGROUNDS ===========================================================
-  // --bg-900-free: #{hsl_code_free(222, 15, 17)}; // #252932
-  // --bg-1000-free: #{hsl_code_free(222, 13, 8)}; // #121317
 
-  // --bg-50: #{hsl_code(222, 11, 33)}; // #4b505d
-  // --bg-100: #{hsl_code(222, 11, 31)}; // #464c58
-  // --bg-200: #{hsl_code(222, 12, 30)}; // #434956
-  // --bg-300: #{hsl_code(222, 12, 29)}; // #414653
-  // --bg-400: #{hsl_code(222, 13, 28)}; // #3e4451
-  // --bg-500: #{hsl_code(222, 13, 27)}; // #3c414e
-  // --bg-600: #{hsl_code(222, 14, 25)}; // #373c49
-  // --bg-700: #{hsl_code(222, 14, 23)}; // #323743
-  // --bg-800: #{hsl_code(222, 15, 20)}; // #2b303b
-  // --bg-900: hsl(var(--bg-900-free));
-  // --bg-1000: hsl(var(--bg-1000-free));
+  // --bg-50-free: #{hsl_code_free(222, 12, 80)};
+  // --bg-100-free: #{hsl_code_free(222, 12, 66)};
+  // --bg-200-free: #{hsl_code_free(222, 12, 50)};
 
-  // --bg-50: #{hsl_code(222, 10, 80)}; // popup menu background
-  // --bg-100: #{hsl_code(222, 11, 75)}; //
-  // --bg-200: #{hsl_code(222, 10, 70)}; //
-  // --bg-300: #{hsl_code(222, 11, 62)}; //
-  // --bg-400: #{hsl_code(222, 12, 38)}; // primary button hover
-  // --bg-500: #{hsl_code(222, 13, 30)}; // primary button background
-  // --bg-600: #{hsl_code(222, 14, 23.5)}; // card background
-  // --bg-700: #{hsl_code(221, 16, 20)}; // page background, card content list item background
-  // --bg-800: #{hsl_code(221, 16, 18.5)}; // content list item background
-  // --bg-900: #{hsl_code(219, 15, 17)}; // site background, card footer background, card overlay background
-  // --bg-950: #{hsl_code(222, 15, 8)}; // body background, placeholder background
+  --bg-50-free: #{hsl_code_free(222, 12, 80)};
+  --bg-100-free: #{hsl_code_free(222, 12, 68)};
+  --bg-200-free: #{hsl_code_free(222, 12, 54)};
 
+  --bg-300-free: #{hsl_code_free(222, 12, 38)};
+  --bg-400-free: #{hsl_code_free(222, 13, 31)};
+  --bg-500-free: #{hsl_code_free(222, 13, 26.5)};
+  --bg-600-free: #{hsl_code_free(222, 14, 23.5)};
+  --bg-700-free: #{hsl_code_free(221, 16, 20)};
+  --bg-800-free: #{hsl_code_free(221, 16, 18.5)};
+  --bg-900-free: #{hsl_code_free(219, 15, 17)};
+  --bg-950-free: #{hsl_code_free(222, 15, 8)};
 
-  --bg-50: #{hsl_code(222, 10, 80)}; // popup menu
-  --bg-100: #{hsl_code(222, 12, 64)}; // button active
-  --bg-200: #{hsl_code(222, 12, 50)}; // secondary button border hover
-  --bg-300: #{hsl_code(222, 12, 38)}; // primary button hover, secondary button border, navigation item hover
-  --bg-400: #{hsl_code(222, 13, 31)}; // primary button, navigation item, navigation menus
-  --bg-500: #{hsl_code(222, 13, 26.5)}; // primary button disabled, secondary button hover
-  --bg-600: #{hsl_code(222, 14, 23.5)}; // card
-  --bg-700: #{hsl_code(221, 16, 20)}; // page, card content list item, navigation item divider
-  --bg-800: #{hsl_code(221, 16, 18.5)}; // content list item
-  --bg-900: #{hsl_code(219, 15, 17)}; // site, card footer, card overlay
-  --bg-950: #{hsl_code(222, 15, 8)}; // body, placeholder
-
-
-
-  --popup-menu-background: var(--bg-50);
+  --bg-50: hsl(var(--bg-50-free)); // popup menu
+  --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected
+  --bg-200: hsl(var(--bg-200-free)); // secondary button border hover
+  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover
+  --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus
+  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover
+  --bg-600: hsl(var(--bg-600-free)); // card
+  --bg-700: hsl(var(--bg-700-free)); // page, card content list item, navigation item divider
+  --bg-800: hsl(var(--bg-800-free)); // content list item
+  --bg-900: hsl(var(--bg-900-free)); // site, card footer, card overlay
+  --bg-950: hsl(var(--bg-950-free)); // body, placeholder
 
 
 
@@ -137,19 +150,8 @@
 
 
 
-  --button-secondary-background: transparent;
-  --button-secondary-background-hover: var(--bg-500);
-
-  --button-secondary-color: var(--fg-500);
-  --button-secondary-color-hover: var(--fg-400);
-
-  --button-secondary-border: 1px solid var(--bg-300);
-  --button-secondary-border-hover: 1px solid var(--bg-200);
 
 
-  // --button-secondary-color-disabled: var(--fg-900);
-  // --button-secondary-background-disabled: rgb(255 255 255 / 2%) repeating-linear-gradient(-45deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 4%) 2px, transparent 2px, transparent 5px);
-  // --button-secondary-border-disabled: .5px solid var(--fg-900);
 
 
 
@@ -224,8 +226,9 @@
   // --layout-collection-text: var(--fg-200);
 
   // === MINIMAL ===============================================================
-  --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
-  --minimal-container-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
+
+  // --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
+  // --minimal-container-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
 
   // === HEADER ================================================================
 
@@ -247,8 +250,8 @@
   --card-content-li-background-full: var(--bg-700);
   --card-content-li-background-gradient: linear-gradient(to left, var(--bg-700) 50%, transparent 90%);
   --card-label-font-weight: 600;
-  // --card-label-color: var(--fg-1000);
-  // --card-label-background: var(--fg-500);
+  --card-label-color: var(--fg-inverted);
+  --card-label-background: var(--fg-500);
   --card-unavailable-filter: grayscale(0.5);
 
   // === UNSORTED ==============================================================
@@ -271,7 +274,6 @@
   // --del-color: var(--fg-1000);
   // --skeleton-shape-color: var(--fg-800);
   // --skeleton-cutout-color: var(--e-1);
-  // --placeholder-no-cover: var(--e-body);
   // --icon-text-font: inherit;
   // --code-background: var(--bg-900);
   // --code-background-inline: rgb(0 0 0 / 15%);
@@ -451,14 +453,16 @@
   --button-primary-filter-disabled: saturate(.7) opacity(.3) brightness(1.4);
 
   // === BUTTONS - SECONDARY ===================================================
-  // --button-secondary-color: var(--fg-700);
-  // --button-secondary-color-hover: var(--fg-300);
-  // --button-secondary-color-disabled: var(--fg-900);
-  // --button-secondary-background: transparent;
-  // --button-secondary-background-hover: rgb(255 255 255 / 5%);
-  // --button-secondary-background-disabled: rgb(255 255 255 / 2%) repeating-linear-gradient(-45deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 4%) 2px, transparent 2px, transparent 5px);
-  // --button-secondary-border: .5px solid var(--fg-900);
-  // --button-secondary-border-disabled: .5px solid var(--fg-900);
+
+  --button-secondary-background: transparent;
+  --button-secondary-background-hover: var(--bg-500);
+  --button-secondary-background-disabled: repeating-linear-gradient(-45deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 6%) 2px, transparent 2px, transparent 4px);
+  --button-secondary-color: var(--fg-500);
+  --button-secondary-color-hover: var(--fg-400);
+  --button-secondary-color-disabled: var(--fg-800);
+  --button-secondary-border: 1px solid var(--bg-300);
+  --button-secondary-border-hover: 1px solid var(--bg-200);
+  --button-secondary-border-disabled: 1px solid var(--bg-300);
 
   // === BUTTONS - QUICK =======================================================
   // --button-quick-background: var(--bg-500);
@@ -480,24 +484,26 @@
   // --post-password-submit-color: var(--e-2);
 
   // === INPUTS ================================================================
-  // --input-placeholder: var(--bg-100);
-  // --input-fill: var(--fg-800);
-  // --input-node-background: var(--bg-600);
-  // --input-node-text: var(--fg-400);
 
+  --input-placeholder-color: var(--fg-900);
   --input-background: rgb(0 0 0 / 30%);
-
-  // --input-range-thumb: var(--fg-700);
-  // --input-range-thumb-hover: var(--fg-400);
+  --input-color: var(--fg-500);
+  --input-color-disabled: var(--fg-800);
+  --input-fill: var(--fg-700);
+  --input-range-thumb: var(--fg-700);
+  --input-range-thumb-hover: var(--fg-300);
+  --input-token-background: var(--bg-500);
+  --input-token-color: var(--fg-400);
 
   // --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
 
   // === POPUP MENU ============================================================
-  // --popup-menu-background: var(--fg-300);
-  // --popup-menu-background-hover: var(--fg-500);
-  // --popup-menu-background-selected: var(--fg-400);
-  // --popup-menu-text: var(--fg-1000);
-  // --popup-menu-text-hover: var(--fg-1000);
+
+  --popup-menu-background: var(--bg-50);
+  --popup-menu-background-hover: var(--bg-100);
+  --popup-menu-background-selected: var(--bg-100);
+  --popup-menu-color: var(--fg-inverted);
+  --popup-menu-color-hover: var(--fg-inverted);
 
   // === PAGINATION ============================================================
   // --pagination-background: var(--bg-500);
@@ -511,29 +517,6 @@
   // --infobox-background: var(--bg-900);
   // --infobox-text: var(--fg-600);
   // --infobox-background-free: var(--bg-900-free);
-  // --content-list-item-background: var(--content-list-item-background-gradient); // Base assignment
-  // --content-list-item-background-full: hsl(var(--infobox-background-free) / 40%);
-  // --content-list-item-background-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 40%) 0%, hsl(var(--infobox-background-free) / 40%) 55%, transparent 90%); // Old
-
-  // Derived from: https://larsenwork.com/easing-gradients/
-  // --content-list-item-background-gradient: linear-gradient(
-  //   to left,
-  //   hsl(var(--infobox-background-free) / 0.395) 48.645%,
-  //   hsl(var(--infobox-background-free) / 0.380) 51.975%,
-  //   hsl(var(--infobox-background-free) / 0.358) 55.125%,
-  //   hsl(var(--infobox-background-free) / 0.33) 58.05%,
-  //   hsl(var(--infobox-background-free) / 0.296) 60.885%,
-  //   hsl(var(--infobox-background-free) / 0.259) 63.54%,
-  //   hsl(var(--infobox-background-free) / 0.22) 66.195%,
-  //   hsl(var(--infobox-background-free) / 0.18) 68.805%,
-  //   hsl(var(--infobox-background-free) / 0.141) 71.46%,
-  //   hsl(var(--infobox-background-free) / 0.104) 74.115%,
-  //   hsl(var(--infobox-background-free) / 0.07) 76.95%,
-  //   hsl(var(--infobox-background-free) / 0.042) 79.875%,
-  //   hsl(var(--infobox-background-free) / 0.02) 83.025%,
-  //   hsl(var(--infobox-background-free) / 0.0052) 86.355%,
-  //   hsl(var(--infobox-background-free) / 0) 90%
-  // );
 
   // === TOOLTIPS/NOTIFICATIONS ================================================
   // --tooltip-background: var(--fg-300);

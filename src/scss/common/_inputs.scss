@@ -75,7 +75,7 @@ textarea,
 select {
   font-size: var(--fs-xs);
   background: var(--input-background);
-  color: var(--fg-500);
+  color: var(--input-color);
   border: none;
   border-radius: var(--layout-border-radius-small);
   box-shadow: var(--input-shadow);
@@ -88,11 +88,11 @@ select {
   &[disabled] {
     cursor: not-allowed;
     background: var(--input-background-disabled);
-    color: var(--fg-800);
+    color: var(--input-color-disabled);
   }
 
   &::placeholder {
-    color: var(--input-placeholder);
+    color: var(--input-placeholder-color);
     font-family: var(--ff-input);
     font-weight: var(--font-weight-normal);
     text-shadow: none;
@@ -282,8 +282,8 @@ input[type=radio] {
 
   .node {
     position: relative;
-    background: var(--input-node-background);
-    color: var(--input-node-text);
+    background: var(--input-token-background);
+    color: var(--input-token-color);
     font-size: 12px;
     line-height: 1;
     text-shadow: none;
