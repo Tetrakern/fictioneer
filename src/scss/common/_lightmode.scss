@@ -39,7 +39,6 @@
   }
 
   // === LAYOUT ================================================================
-  --layout-background-texture-main: none;
   --layout-link: inherit;
   --layout-link-hover: var(--fg-200);
   --layout-collection-text: var(--fg-1000);
@@ -101,17 +100,16 @@
   --site-title-tagline-color: var(--fg-1000);
 
   // === NAVIGATION ============================================================
-  --navigation-background-sticky: var(--e-2);
-  --navigation-text: var(--fg-200);
-  --navigation-text-hover: var(--fg-200);
+  --navigation-background: var(--e-2);
+  --navigation-color: var(--fg-200);
+  --navigation-color-hover: var(--fg-200);
   --navigation-actions-text: var(--fg-600);
   --navigation-actions-text-hover: var(--fg-400);
-  --navigation-text-shadow: none;
   --navigation-drop-shadow: drop-shadow(0 2px 1px rgba(0, 0, 0, 17%));
-  --navigation-item-active-background: var(--bg-200);
-  --navigation-item-active-submenu-background: var(--bg-200);
-  --navigation-item-active-submenu-secant: var(--bg-100);
-  --navigation-subitem-active-background: var(--bg-300);
+  --navigation-item-background-hover: var(--bg-200);
+  --navigation-submenu-background: var(--bg-200);
+  --navigation-subitem-divider: var(--bg-100);
+  --navigation-subitem-background-hover: var(--bg-300);
   --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
   --navigation-new-follow-background: var(--primary-500);
   --navigation-new-follow-color: white;
@@ -180,8 +178,8 @@
   --story-link-hover: var(--fg-600);
 
   // === COLORS - CARDS ========================================================
-  --card-label-type-text: var(--fg-1000);
-  --card-label-type-background: var(--bg-800);
+  --card-label-color: var(--fg-1000);
+  --card-label-background: var(--bg-800);
 
   // === COLORS - BOOKMARKS ====================================================
   --bookmark-color-alpha: var(--bg-400);
@@ -206,16 +204,16 @@
   --button-box-shadow: none;
 
   // === BUTTONS - SECONDARY ===================================================
-  --button-secondary-text: var(--fg-700);
-  --button-secondary-text-hover: var(--fg-200);
-  --button-secondary-text-active: var(--fg-1000);
-  --button-secondary-text-disabled: var(--fg-600);
+  --button-secondary-color: var(--fg-700);
+  --button-secondary-color-hover: var(--fg-200);
+  --button-color-active: var(--fg-1000);
+  --button-secondary-color-disabled: var(--fg-600);
   --button-secondary-background: transparent;
   --button-secondary-background-hover: var(--bg-200);
-  --button-secondary-background-active: var(--bg-600);
+  --button-background-active: var(--bg-600);
   --button-secondary-background-disabled: var(--disabled-pattern);
   --button-secondary-border: 1px solid var(--bg-300);
-  --button-secondary-border-active: 1px solid var(--bg-600);
+  --button-border-active: 1px solid var(--bg-600);
   --button-secondary-border-disabled: 1px solid var(--bg-300);
 
   // === BUTTONS - QUICK =======================================================
@@ -232,10 +230,6 @@
   --button-file-block-background: var(--bg-500);
   --button-file-block-background-hover: var(--bg-700);
 
-  // === BUTTONS - OTHER =======================================================
-  --button-selection-background: var(--primary-500);
-  --button-selection-text-color: var(--fg-1000);
-
   // === INPUTS - GENERAL ======================================================
   --input-shadow: inset 0 0 1px rgb(0 0 0 / 5%);
   --input-placeholder: var(--bg-400);
@@ -248,11 +242,6 @@
   --input-range-thumb-hover: var(--bg-700);
 
   // === INPUTS - TEXT =========================================================
-  --input-border-color: transparent;
-  --input-border-color-hover: transparent;
-  --input-border-color-focus: transparent;
-  --input-border-color-active: transparent;
-  --input-border-color-disabled: transparent;
   --input-background: hsl(var(--bg-1000-free) / 7%);
   --input-background-disabled: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(-45deg, var(--input-background), var(--input-background) 2px, transparent 2px, transparent 5px);
 

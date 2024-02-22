@@ -699,9 +699,9 @@ function fictioneer_build_customize_css( $content = null ) {
     --hue-offset: " . $hue_offset_dark . "deg;
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";
-    --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
-    --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
-    --layout-site-logo-height: " . $logo_height . "px;
+    --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
+    --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top));
+    --header-logo-height: " . $logo_height . "px;
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
     --grid-columns-min: " . $card_grid_column_min . "px;
@@ -791,7 +791,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'dark_theme_color_base', '#252932' ), 'values' ) . ";
       --secant: " . fictioneer_hsl_code( get_theme_mod( 'dark_secant', '#252932' ) ) . ";
       --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'dark_elevation_overlay', '#121317' ) ) . ";
-      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'dark_navigation_background_sticky', '#121317' ) ) . ";
+      --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'dark_navigation_background_sticky', '#121317' ) ) . ";
       --primary-400: " . get_theme_mod( 'dark_primary_400', '#f7dd88' ) . ";
       --primary-500: " . get_theme_mod( 'dark_primary_500', '#f4d171' ) . ";
       --primary-600: " . get_theme_mod( 'dark_primary_600', '#f1bb74' ) . ";
@@ -877,7 +877,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
       --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
       --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
-      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
+      --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
       --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";
       --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
       --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
@@ -956,9 +956,9 @@ function fictioneer_build_customize_css( $content = null ) {
 
   if ( ! get_theme_mod( 'page_shadow', true ) ) {
     $css .= ':root.no-page-shadow {
-      --layout-main-box-shadow: none;
+      --page-box-shadow: none;
       --minimal-main-box-shadow: none;
-      --layout-main-drop-shadow: none;
+      --page-drop-shadow: none;
     }';
   }
 

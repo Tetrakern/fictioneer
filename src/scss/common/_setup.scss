@@ -42,8 +42,8 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
 }
 
 body {
-  background-color: var(--e-body);
-  color: var(--fg-500);
+  background-color: var(--body-bg-color);
+  color: var(--fg-500); // CHECK
   font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--ff-base);
   letter-spacing: var(--font-letter-spacing-base);
   -webkit-font-smoothing: var(--font-smoothing-webkit);
@@ -74,7 +74,7 @@ article {
 
 a {
   cursor: pointer;
-  color: var(--layout-link);
+  color: var(--layout-link-color);
   text-decoration: none;
 
   &:where(:not(.wp-element-button)):is(a) {
@@ -82,21 +82,15 @@ a {
   }
 
   &:hover {
-    color: var(--layout-link-hover);
-  }
-
-  &.more-link {
-    &:not(:hover) {
-      color: var(--fg-800);
-    }
+    color: var(--layout-link-color-hover);
   }
 }
 
 hr {
   overflow: hidden;
   border: 0;
-  border-bottom: 2px solid var(--layout-color-separator);
-  margin: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)") auto;
+  border-bottom: var(--layout-hr-border);
+  margin: max(2.5rem, var(--paragraph-spacing) + 1rem) auto;
 }
 
 :where(ins, del) {

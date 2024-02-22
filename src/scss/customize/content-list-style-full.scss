@@ -2,6 +2,7 @@
 @import '../common/_mixins';
 
 :root:not(.minimal) .content-list-style-full {
+  --card-content-li-background: var(--card-content-li-background-full);
   --content-list-item-background: var(--content-list-item-background-full);
 
   .chapter-group__list-item {

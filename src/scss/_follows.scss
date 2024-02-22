@@ -86,7 +86,7 @@
 .follow-notifications {
   position: absolute;
   right: -107px;
-  background: var(--navigation-item-active-submenu-background);
+  background: var(--navigation-submenu-background);
   border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
   width: 320px;
   box-shadow: var(--navigation-submenu-box-shadow);
@@ -105,7 +105,7 @@
     --focus-offset: -6px;
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--navigation-item-active-submenu-secant);
+      border-bottom: var(--navigation-subitem-divider);
     }
 
     &:not(._new) {
@@ -117,12 +117,12 @@
   }
 
   .follow-wrapper {
-    background: var(--navigation-item-active-submenu-background);
+    background: var(--navigation-submenu-background);
     font-size: var(--fs-xs);
     padding: .35rem .75rem .45rem;
 
     &:hover {
-      background: var(--navigation-subitem-active-background);
+      background: var(--navigation-subitem-background-hover);
     }
   }
 

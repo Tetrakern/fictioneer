@@ -30,8 +30,8 @@
     }
 
     .on {
-        display: none;
-      }
+      display: none;
+    }
   }
 
   &[aria-checked="true"] {
@@ -84,9 +84,8 @@
 
     &-comment {
       background: var(--input-background);
-      border: 1px solid var(--input-border-color);
       border-radius: var(--layout-border-radius-small);
-      transition: filter var(--transition-duration);
+      transition: filter var(--transition-duration); // AJAX
       box-shadow: var(--input-shadow);
     }
 

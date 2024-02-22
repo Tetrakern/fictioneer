@@ -2,9 +2,9 @@ $header_breakpoint: 640px;
 
 .button-follow-story._followed,
 .button-read-later._remembered {
-  background: var(--button-secondary-background-active) !important;
-  color: var(--button-secondary-text-active) !important;
-  border: var(--button-secondary-border-active) !important;
+  background: var(--button-background-active) !important;
+  color: var(--button-color-active) !important;
+  border: var(--button-border-active) !important;
 }
 
 :root.no-covers .story {
@@ -23,10 +23,10 @@ $header_breakpoint: 640px;
 
   .story__header {
     display: block;
-    padding-top: var(--layout-main-inset-top);
+    padding-top: var(--page-inset-top);
 
     &:not(._no-thumbnail) {
-      padding-top: calc(var(--layout-main-inset-top) + var(--layout-spacing-vertical));
+      padding-top: calc(var(--page-inset-top) + var(--layout-spacing-vertical));
     }
   }
 
@@ -63,7 +63,7 @@ $header_breakpoint: 640px;
     --img-height: #{get_clamp(145, 165, 400, $full-width)};
     --img-width: #{get_clamp(96, 110, 400, $full-width)};
     grid-template-columns: var(--img-width) 1fr;
-    grid-template-rows: var(--layout-main-inset-top) auto auto;
+    grid-template-rows: var(--page-inset-top) auto auto;
     gap: 0 get_clamp(10, 18, 320, 375);
     margin-bottom: 1.75rem;
 
@@ -118,7 +118,7 @@ $header_breakpoint: 640px;
     }
 
     &._no-tax {
-      grid-template-rows: var(--layout-main-inset-top) auto auto;
+      grid-template-rows: var(--page-inset-top) auto auto;
 
       .story__identity {
         grid-area: 2 / 2 / 4 / 3;
@@ -132,7 +132,7 @@ $header_breakpoint: 640px;
     }
 
     &._no-thumbnail {
-      margin-top: var(--layout-main-inset-top);
+      margin-top: var(--page-inset-top);
       margin-bottom: 1.75rem;
 
       .story__taxonomies {

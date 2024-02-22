@@ -64,7 +64,7 @@
     top: 50%;
     left: 50%;
     z-index: 1;
-    background: var(--modal-background);
+    background-color: var(--modal-bg-color);
     border-radius: var(--layout-border-radius-large);
     max-height: calc(100% - 20px);
     width: var(--modal-width);
@@ -134,7 +134,7 @@
         display: grid;
         place-content: center;
         background: var(--button-primary-background);
-        color: var(--button-primary-text);
+        color: var(--button-primary-color);
         font-size: 14px;
         padding: 2.5px 0;
         border-radius: var(--layout-border-radius-small);
@@ -145,7 +145,7 @@
 
         &:hover {
           background: var(--button-primary-background-hover);
-          color: var(--button-primary-text-hover);
+          color: var(--button-primary-color-hover);
         }
       }
     }

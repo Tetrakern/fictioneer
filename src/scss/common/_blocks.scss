@@ -852,11 +852,11 @@ figure {
   &.is-style-outline {
     .wp-element-button {
       background: var(--button-secondary-background);
-      color: var(--button-secondary-text);
+      color: var(--button-secondary-color);
       border: var(--button-secondary-border);
 
       &:not([disabled]):hover {
-        color: var(--button-secondary-text-hover);
+        color: var(--button-secondary-color-hover);
         background: var(--button-secondary-background-hover);
       }
     }

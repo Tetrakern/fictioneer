@@ -1,9 +1,3 @@
-:root:not(.no-background-textures, .minimal) body .chapter__background {
-  background: {
-    image: var(--layout-background-texture-chapter);
-  }
-}
-
 .main {
   &:is(._below-768, ._640-and-below) {
     .chapter {

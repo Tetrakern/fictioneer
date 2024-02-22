@@ -18,14 +18,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--e-0);
+  background-color: var(--site-bg-color);
   text-shadow: var(--text-shadow);
   min-height: 101vh;
   transform-origin: top left;
-
-  @include bp(desktop) {
-    background-image: var(--layout-background-texture-body);
-  }
 }
 
 :root:not(.minimal) .custom-background .site {
@@ -44,16 +40,12 @@
   max-width: var(--site-width);
   width: 100%;
 
-  @include bp($full-width + 'px') {
-    filter: var(--layout-main-filter);
-  }
-
   // Allows for semi-transparent and clipped backgrounds without affecting the content
   &__background {
     position: absolute;
-    inset: var(--layout-main-inset-top) 0 0 0;
-    background-color: var(--e-1);
-    box-shadow: var(--layout-main-box-shadow);
+    inset: var(--page-inset-top) 0 0 0;
+    background-color: var(--page-bg-color);
+    box-shadow: var(--page-box-shadow);
 
     @include bp(640px) {
       border-radius: var(--layout-border-radius-large);
@@ -74,7 +66,7 @@
   &__wrapper {
     position: relative;
     z-index: 1;
-    padding-top: var(--layout-main-inset-top);
+    padding-top: var(--page-inset-top);
 
     &._no-padding {
       padding-top: 0;
@@ -86,17 +78,11 @@
   }
 }
 
-:root:not(.no-background-textures, .minimal) body .main__background:not(.chapter__background) {
-  background: {
-    image: var(--layout-background-texture-main);
-  }
-}
-
 :root.has-polygon-or-mask:not(.minimal) .main__background {
   background: none;
   border-radius: 0;
   box-shadow: none !important;
-  filter: var(--layout-main-drop-shadow);
+  filter: var(--page-drop-shadow);
 
   &::before {
     content: '';
@@ -117,12 +103,13 @@
   align-items: center;
   justify-content: center;
   background: var(--button-primary-background);
-  color: var(--button-primary-text);
+  // background-clip: padding-box !important;
+  color: var(--button-primary-color);
   font: var(--button-font-weight) 12px/1 var(--ff-base);
   letter-spacing: get_relative_clamp(0.02, 0.04, 375, 480, 'vw', 'em');
   white-space: nowrap;
   text-shadow: none;
-  border: var(--button-primary-border);
+  border: var(--button-primary-border, 1px solid transparent);
   border-radius: var(--layout-border-radius-small);
   padding: 0 get_clamp(6, 8, 375, 480);
   height: get_clamp(26, 32, 320, 375);
@@ -133,16 +120,16 @@
   transition-duration: var(--transition-duration);
 
   &:not(.current, .ajax-in-progress, [disabled]):hover {
-    color: var(--button-primary-text-hover);
+    color: var(--button-primary-color-hover);
     background: var(--button-primary-background-hover);
   }
 
   &[disabled] {
     cursor: not-allowed;
     background: var(--button-primary-background-disabled);
-    color: var(--button-primary-text-disabled);
-    border: var(--button-primary-border);
-    opacity: .7;
+    color: var(--button-primary-color-disabled);
+    border: var(--button-primary-border-disabled, 1px solid transparent);
+    filter: var(--button-primary-filter-disabled);
   }
 }
 
@@ -161,7 +148,7 @@ button[type=submit]:where(:not(._inline)) {
 
   &._secondary {
     background: var(--button-secondary-background);
-    color: var(--button-secondary-text);
+    color: var(--button-secondary-color);
     border: var(--button-secondary-border);
 
     &:focus-visible {
@@ -169,13 +156,14 @@ button[type=submit]:where(:not(._inline)) {
     }
 
     &:not(.current, .ajax-in-progress, [disabled]):hover {
-      color: var(--button-secondary-text-hover);
       background: var(--button-secondary-background-hover);
+      color: var(--button-secondary-color-hover);
+      border: var(--button-secondary-border-hover);
     }
 
     &[disabled] {
       background: var(--button-secondary-background-disabled);
-      color: var(--button-secondary-text-disabled);
+      color: var(--button-secondary-color-disabled);
       border: var(--button-secondary-border-disabled);
     }
 
@@ -235,7 +223,7 @@ button[type=submit]:where(:not(._inline)) {
 
 .load-more-comments-button {
   --button-primary-background-hover: var(--comment-background-sticky);
-  --button-primary-text-hover: var(--fg-500);
+  --button-primary-color-hover: var(--fg-500);
   @extend %button;
   background: var(--comment-background);
   color: var(--fg-700);
