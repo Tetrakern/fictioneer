@@ -1980,6 +1980,16 @@ function fictioneer_render_story_data_metabox( $post ) {
     );
   }
 
+  // Global note
+  $output['fictioneer_story_global_note'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_global_note',
+    array(
+      'label' => _x( 'Global Note', 'Story global note meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed in a box above all chapters; include "[!password]" to hide in protected chapters. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
   // Password note
   $output['fictioneer_story_password_note'] = fictioneer_get_metabox_editor(
     $post,
@@ -2312,6 +2322,12 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
       $fields['fictioneer_story_custom_pages'] = array_map( 'strval', $pages_query->posts );
     }
+  }
+
+  // Global note
+  if ( isset( $_POST['fictioneer_story_global_note'] ) ) {
+    $fields['fictioneer_story_global_note'] =
+      fictioneer_sanitize_editor( $_POST['fictioneer_story_global_note'] );
   }
 
   // Password note

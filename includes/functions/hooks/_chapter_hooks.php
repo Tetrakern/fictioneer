@@ -84,6 +84,45 @@ function fictioneer_chapters_list( $args ) {
 add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 );
 
 // =============================================================================
+// CHAPTER GLOBAL NOTE
+// =============================================================================
+
+/**
+ * Outputs the HTML for the chapter foreword section
+ *
+ * @since 5.11.1
+ *
+ * @param WP_Post|null $args['story_post']  The story post object.
+ */
+
+function fictioneer_chapter_global_note( $args ) {
+  // Guard
+  if ( ! ( $args['story_post'] ?? 0 ) ) {
+    return;
+  }
+
+  // Setup
+  $note = fictioneer_get_content_field( 'fictioneer_story_global_note', $args['story_post']->ID );
+
+  // Abort conditions
+  if (
+    empty( $note ) ||
+    ( strpos( $note, '[!password]' ) !== false && post_password_required() )
+  ) {
+    return;
+  }
+
+  $note = str_replace( '[!password]', '', $note );
+
+  // Start HTML ---> ?>
+  <section id="chapter-global-note" class="chapter__global-note infobox polygon clearfix chapter-note-hideable"><?php
+    echo trim( $note );
+  ?></section>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_global_note', 5 );
+
+// =============================================================================
 // CHAPTER FOREWORD
 // =============================================================================
 
@@ -101,7 +140,7 @@ function fictioneer_chapter_foreword( $args ) {
 
   // Abort conditions
   if ( empty( $foreword ) || post_password_required() ) {
-    return '';
+    return;
   }
 
   // Start HTML ---> ?>
@@ -424,6 +463,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
  * Outputs the HTML for the chapter support links
  *
  * @since 5.0.0
+ * @since 5.11.1
  *
  * @param WP_User      $args['author']      Author of the post.
  * @param WP_Post|null $args['story_post']  Optional. Post object of the story.
@@ -432,10 +472,7 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 
 
 function fictioneer_chapter_support_links( $args ) {
   // Abort conditions
-  if (
-    post_password_required() ||
-    get_post_meta( $args['chapter_id'], 'fictioneer_chapter_hide_support_links', true )
-  ) {
+  if ( get_post_meta( $args['chapter_id'], 'fictioneer_chapter_hide_support_links', true ) ) {
     return;
   }
 

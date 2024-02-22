@@ -408,6 +408,7 @@ Fires between the top actions sections and chapter header (title and authors) in
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked actions:**
+* `fictioneer_chapter_global_note( $args )` – Story-wide note if provided. Priority 5.
 * `fictioneer_chapter_foreword( $args )` – Chapter foreword if provided. Priority 10.
 * `fictioneer_chapter_warnings( $args )` – Chapter warnings if provided. Priority 20.
 
