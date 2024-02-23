@@ -45,7 +45,7 @@ function fcn_getBookshelfContent() {
 
 function fcn_updateBookshelfView(action = null, page = null, order = null, scroll = false) {
   // Setup
-  let fcn_bookshelfStorage = fcn_getBookshelfContent();
+  let storage = fcn_getBookshelfContent();
 
   action = action ?? fcn_bookshelfTarget.dataset.action,
   page = page ?? fcn_bookshelfTarget.dataset.page,
@@ -55,24 +55,24 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
 
   // Storage item valid for 60 seconds
   if (
-    ! fcn_bookshelfStorage.hasOwnProperty('timestamp') ||
-    fcn_bookshelfStorage['timestamp'] + 60000 < Date.now()
+    ! storage.hasOwnProperty('timestamp') ||
+    storage['timestamp'] + 60000 < Date.now()
   ) {
     localStorage.removeItem('fcnBookshelfContent');
-    fcn_bookshelfStorage = { html: {}, count: {} };
+    storage = { html: {}, count: {} };
     fcn_fetchBookshelfPart(action, page, order, scroll);
     return;
   }
 
   // Check if content already cached
   if (
-    fcn_bookshelfStorage.hasOwnProperty('html') &&
-    fcn_bookshelfStorage['html'].hasOwnProperty(htmlKey)
+    storage.hasOwnProperty('html') &&
+    storage['html'].hasOwnProperty(htmlKey)
   ) {
-    fcn_bookshelfTarget.innerHTML = fcn_bookshelfStorage['html'][htmlKey];
+    fcn_bookshelfTarget.innerHTML = storage['html'][htmlKey];
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
     fcn_bookshelfTarget.dataset.page = page;
-    _$('.item-number').innerHTML = `(${fcn_bookshelfStorage['count'][action]})`;
+    _$('.item-number').innerHTML = `(${storage['count'][action]})`;
 
     if (scroll) {
       _$$$('main').scrollIntoView({ behavior: 'smooth' });
@@ -128,8 +128,8 @@ function fcn_browseBookshelfPage(page) {
 
 function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
   // Setup
-  const htmlKey = action + page + order,
-        fcn_bookshelfStorage = fcn_getBookshelfContent();
+  const htmlKey = action + page + order;
+  const storage = fcn_getBookshelfContent();
 
   // Request
   fcn_ajaxGet({
@@ -142,10 +142,10 @@ function fcn_fetchBookshelfPart(action, page, order, scroll = false) {
     // Check for success
     if (response.success) {
       // Temporary remember in web storage
-      fcn_bookshelfStorage['timestamp'] = Date.now();
-      fcn_bookshelfStorage['html'][htmlKey] = response.data.html;
-      fcn_bookshelfStorage['count'][action] = response.data.count;
-      localStorage.setItem('fcnBookshelfContent', JSON.stringify(fcn_bookshelfStorage));
+      storage['timestamp'] = Date.now();
+      storage['html'][htmlKey] = response.data.html;
+      storage['count'][action] = response.data.count;
+      localStorage.setItem('fcnBookshelfContent', JSON.stringify(storage));
 
       // Render in view
       fcn_bookshelfTarget.innerHTML = response.data.html;
