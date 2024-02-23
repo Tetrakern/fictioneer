@@ -13,12 +13,12 @@ body {
   }
 
   --red: #dc2626;
-  --litrpg-bg: white;
-  --litrpg-fg: currentColor;
+  --litrpg-background: white;
+  --litrpg-color: currentColor;
   --litrpg-ins: #1d3eaa;
   --litrpg-del: #be123c;
   --litrpg-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
-  --lit-rpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+  --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
 
   :is(.is-root-container, .edit-post-visual-editor__post-title-wrapper) {
     margin-left: auto;
@@ -529,7 +529,7 @@ body {
         position: absolute;
         left: 50% !important;
         bottom: 0 !important;
-        background: var(--caption-overlay-shadow);
+        background: var(--caption-overlay-background);
         color: #fff;
         font: 400 var(--fs-caption)/1.2 var(--ff-note);
         letter-spacing: 0;
@@ -661,7 +661,7 @@ body {
   // =============================================================================
 
   .litrpg-box {
-    color: var(--litrpg-fg);
+    color: var(--litrpg-color);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,Cantarell, "Helvetica Neue", sans-serif;
     font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');
     font-weight: 400;
@@ -790,8 +790,8 @@ body {
   }
 
   .litrpg-frame {
-    background: var(--litrpg-bg);
-    clip-path: var(--lit-rpg-polygon);
+    background: var(--litrpg-background);
+    clip-path: var(--litrpg-polygon);
     margin: 0 2px;
   }
 

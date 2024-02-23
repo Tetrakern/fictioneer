@@ -69,7 +69,7 @@
     max-height: calc(100% - 20px);
     width: var(--modal-width);
     max-width: calc(100vw - 20px);
-    box-shadow: var(--floating-shadow);
+    box-shadow: var(--modal-box-shadow, var(--box-shadow-xl));
     overflow: auto;
     transform: translate(-50%, -50%);
 

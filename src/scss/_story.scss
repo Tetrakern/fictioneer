@@ -167,7 +167,7 @@ $header_breakpoint: 640px;
       height: 100%;
       max-height: var(--this-img-height);
       object-fit: cover;
-      filter: var(--figure-drop-shadow);
+      box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
       content-visibility: auto;
     }
   }
@@ -498,7 +498,7 @@ $header_breakpoint: 640px;
         padding: .5rem;
         border: none !important; // Accounts for minimalist mode
         border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
-        box-shadow: var(--chapter-grid-item-box-shadow, var(--card-box-shadow));
+        box-shadow: var(--chapter-grid-item-box-shadow, var(--card-box-shadow, var(--box-shadow-m)));
 
         &-icon {
           display: none;

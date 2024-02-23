@@ -7,7 +7,7 @@
 }
 
 .text-icon {
-  font-family: var(--icon-text-font);
+  font-family: var(--icon-text-font, inherit);
 }
 
 .icon {

@@ -36,7 +36,7 @@
     --focus-offset: 2px;
     position: relative;
     border-radius: var(--layout-border-radius-small);
-    box-shadow: var(--container-box-shadow);
+    box-shadow: var(--showcase-box-shadow, var(--box-shadow-m));
     overflow: hidden;
     max-width: max(420px, 100%);
     height: max(64px, #{get_clamp(64, 96, 375, 768)});
@@ -44,7 +44,7 @@
 
     @include bp(mobile-l) {
       &:first-child:last-child {
-        width: unquote('max(360px, 50%)');
+        width: max(360px, 50%);
         margin: 0 auto;
       }
     }
@@ -70,8 +70,8 @@
     inset: 0;
     top: unset;
     display: block;
-    background: var(--caption-overlay-shadow);
-    color: var(--layout-collection-text);
+    background: var(--caption-overlay-background);
+    color: var(--caption-overlay-color);
     font: 500 var(--fs-dxs)/1.2 var(--ff-heading);
     letter-spacing: 0;
     text-align: center;

@@ -41,7 +41,7 @@
   // === LAYOUT ================================================================
   --layout-link: inherit;
   --layout-link-hover: var(--fg-200);
-  --layout-collection-text: var(--fg-1000);
+  --caption-overlay-color: var(--fg-1000);
   --layout-color-lineart: var(--bg-600);
   --layout-color-separator: rgb(0 0 0 / 8%);
 
@@ -52,12 +52,10 @@
   // === UNSORTED ==============================================================
   --theme-color-base: 220 13 91;
   --disabled-pattern: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(-45deg, hsl(var(--bg-1000-free) / 5%), hsl(var(--bg-1000-free) / 5%) 2px, transparent 2px, transparent 5px);
-  --disabled-embed-background: var(--disabled-pattern);
+  --embed-background: var(--disabled-pattern);
   --progress-bar-background: var(--bg-900);
   --progress-bar-color: var(--bg-200);
   --checkmark-not-checked: var(--bg-300);
-  --media-button-color: var(--fg-600);
-  --media-button-color-hover: var(--fg-600);
   --spoiler-background: var(--fg-500);
   --spoiler-color-visible: var(--fg-1000);
   --ins-background: #7ec945;
@@ -74,9 +72,8 @@
   --success: #16a34a;
   --success-caption: white;
   --invert-filter: invert(1);
-  --red: #dc2626;
-  --litrpg-bg: var(--bg-10);
-  --litrpg-fg: var(--fg-500);
+  --litrpg-background: var(--bg-10);
+  --litrpg-color: var(--fg-500);
   --litrpg-ins: #16c79a;
   --litrpg-del: #be123c;
   --card-unavailable-filter: grayscale(0.75) brightness(0.85);
@@ -85,16 +82,15 @@
   --read-ribbon-color: var(--fg-500);
 
   // === FOCUS =================================================================
+
   --focus-box-shadow: inset 0 0 0px 3px rgb(255 255 255 / 75%);
-  --focus-box-shadow-small: inset 0 0 0px 2px rgb(255 255 255 / 75%);
 
   // === ELEVATIONS ============================================================
   --e-body: var(--bg-300);
-  --e-fullscreen: var(--e-1);
+  --fullscreen-background: var(--e-1);
   --e-0: var(--bg-100);
   --e-1: var(--bg-50);
   --e-2: var(--bg-10);
-  --e-overlay: var(--bg-1000);
 
   // === HEADER ================================================================
   --site-title-heading-color: var(--fg-1000);
@@ -388,7 +384,7 @@
     --tag-secondary-border-hover: 1px solid transparent;
     --tag-warning-text-hover: var(--fg-1000);
     --tag-warning-background: rgb(246 96 85 / 5%);
-    --tag-warning-background-hover: var(--warning-600);
+    --tag-warning-background-hover: var(--red-600);
   }
 
   .iframe-consent {

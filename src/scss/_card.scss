@@ -30,7 +30,7 @@
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
-  box-shadow: var(--card-box-shadow);
+  box-shadow: var(--card-box-shadow, var(--box-shadow-m));
   clear: both;
   contain: style layout; // Improve performance
   container-type: inline-size; // Enable container query units

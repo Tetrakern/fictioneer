@@ -6,7 +6,7 @@
     --focus-offset: 1px;
     cursor: pointer;
     display: block;
-    color: var(--media-button-color);
+    color: (--media-button-color, var(--fg-600));
     font-size: get_clamp(22, 24, 320, 480);
     line-height: 1;
     opacity: .3;
@@ -15,7 +15,6 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--media-button-color-hover);
       opacity: 1;
     }
 

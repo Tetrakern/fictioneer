@@ -289,15 +289,15 @@ p a,
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--disabled-embed-background);
+  background: var(--embed-background);
   border-radius: var(--layout-border-radius-small);
-  box-shadow: 0 0 3px rgb(0 0 0 / 30%);
   height: 100%;
   width: get_clamp(280, 500, 320, 550);
+  box-shadow: var(--embed-box-shadow);
 }
 
 .litrpg-box {
-  color: var(--litrpg-fg);
+  color: var(--litrpg-color);
   font-size: 87.5%; // Fallback
   font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');
   font-weight: 400;
@@ -426,8 +426,8 @@ p a,
 }
 
 .litrpg-frame {
-  background: var(--litrpg-bg);
-  clip-path: var(--lit-rpg-polygon);
+  background: var(--litrpg-background);
+  clip-path: var(--litrpg-polygon);
 }
 
 .litrpg-body {

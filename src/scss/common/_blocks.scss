@@ -357,7 +357,7 @@ figure {
       transition-delay: .3s;
 
       &:not([src]) {
-        background: var(--disabled-embed-background);
+        background: var(--embed-background);
         box-shadow: var(--embed-box-shadow);
       }
     }
@@ -636,8 +636,8 @@ figure {
       position: absolute;
       left: 50%;
       bottom: 0;
-      background: var(--caption-overlay-shadow);
-      color: #fff;
+      background: var(--caption-overlay-background);
+      color: var(--caption-overlay-color);
       font: 400 var(--fs-caption)/1.2 var(--ff-note);
       letter-spacing: 0;
       overflow-wrap: break-word;
