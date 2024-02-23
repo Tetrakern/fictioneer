@@ -467,7 +467,7 @@ function fcn_setMobileMenuBookmarks() {
     const fragment = document.createDocumentFragment();
 
     // Append bookmarks to fragment
-    bookmarks.forEach(([id, { color, progress, link, chapter, paragraphId }]) => {
+    bookmarks.forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId }]) => {
       const clone = template.content.cloneNode(true);
       const bookmarkElement = clone.querySelector('.mobile-menu__bookmark');
 
@@ -540,7 +540,7 @@ function fcn_showBookmarkCards() {
 
   // Append bookmarks to fragment (if any)
   Object.entries(
-    fcn_bookmarks.data).forEach(([id, { color, progress, link, chapter, paragraphId, date, image, thumb, content }]
+    fcn_bookmarks.data).forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId, date, image, thumb, content }]
   ) => {
     // Limit rendered bookmarks
     if (count > -1 && count-- < 1) {
