@@ -130,21 +130,29 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_global_note'
  * Outputs the HTML for the chapter foreword section
  *
  * @since 5.0.0
+ * @since 5.11.1 - Show if started with "[!show]".
  *
  * @param int $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_foreword( $args ) {
   // Setup
-  $foreword = fictioneer_get_content_field( 'fictioneer_chapter_foreword', $args['chapter_id'] );
+  $note = fictioneer_get_content_field( 'fictioneer_chapter_foreword', $args['chapter_id'] );
 
   // Abort conditions
-  if ( empty( $foreword ) || post_password_required() ) {
+  if (
+    empty( $note ) ||
+    ( strpos( $note, '[!show]' ) === false && post_password_required() )
+  ) {
     return;
   }
 
+  $note = str_replace( '[!show]', '', $note );
+
   // Start HTML ---> ?>
-  <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix chapter-note-hideable"><?php echo $foreword; ?></section>
+  <section id="chapter-foreword" class="chapter__foreword infobox polygon clearfix chapter-note-hideable"><?php
+    echo trim( $note );
+  ?></section>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 10 );
@@ -436,21 +444,29 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
  * Outputs the HTML for the chapter afterword
  *
  * @since 5.0.0
+ * @since 5.11.1 - Show if started with "[!show]".
  *
  * @param int $args['chapter_id']  The chapter ID.
  */
 
 function fictioneer_chapter_afterword( $args ) {
   // Setup
-  $afterword = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] );
+  $note = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] );
 
   // Abort conditions
-  if ( empty( $afterword ) || post_password_required() ) {
-    return '';
+  if (
+    empty( $note ) ||
+    ( strpos( $note, '[!show]' ) === false && post_password_required() )
+  ) {
+    return;
   }
 
+  $note = str_replace( '[!show]', '', $note );
+
   // Start HTML ---> ?>
-  <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix chapter-note-hideable"><?php echo $afterword; ?></section>
+  <section id="chapter-afterword" class="chapter__afterword infobox polygon clearfix chapter-note-hideable"><?php
+    echo trim( $note );
+  ?></section>
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_afterword', 10 );

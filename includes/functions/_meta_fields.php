@@ -1986,7 +1986,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     'fictioneer_story_global_note',
     array(
       'label' => _x( 'Global Note', 'Story global note meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed in a box above all chapters; include "[!password]" to hide in protected chapters. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed in a box above all chapters; start with "[!password]" to hide in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
 
@@ -2717,7 +2717,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     'fictioneer_chapter_foreword',
     array(
       'label' => _x( 'Foreword', 'Chapter foreword meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed in a box above the chapter. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed in a box above the chapter; start with "[!show]" to show in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
 
@@ -2727,7 +2727,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     'fictioneer_chapter_afterword',
     array(
       'label' => _x( 'Afterword', 'Chapter afterword meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed in a box below the chapter. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed in a box below the chapter; start with "[!show]" to show in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
 
