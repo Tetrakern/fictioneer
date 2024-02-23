@@ -2,6 +2,14 @@
   "version": 2,
   "settings": {
     "appearanceTools": true,
+    "color": {
+			"duotone": [],
+      "customDuotone": false,
+      "defaultDuotone": false,
+      "gradients": [],
+			"customGradient": false,
+			"defaultGradients": false
+		},
     "typography": {
       "dropCap": false,
       "customFontSize": false,
