@@ -30,13 +30,14 @@
   transition: top var(--transition-duration);
 
   &__message {
-    background: var(--tooltip-background);
-    color: var(--tooltip-text);
+    cursor: default;
+    background: var(--notice-default-background);
+    color: var(--notice-default-color);
     padding: .75rem 1rem;
     border-radius: var(--layout-border-radius-small);
     transition: opacity var(--transition-duration);
     max-width: min(375px, calc(100vw - 32px));
-    box-shadow: var(--container-box-shadow);
+    box-shadow: var(--notice-box-shadow);
 
     a {
       &:hover {
@@ -45,13 +46,13 @@
     }
 
     &._warning {
-      background: var(--warning);
-      color: var(--warning-caption);
+      background: var(--notice-warning-background);
+      color: var(--notice-warning-color);
     }
 
     &._success {
-      background: var(--success);
-      color: var(--success-caption);
+      background: var(--notice-success-background);
+      color: var(--notice-success-color);
     }
   }
 }

@@ -37,10 +37,10 @@ article {
 
   :is(h1, h2, h3, h4, h5, h6) {
     a {
-      color: var(--heading-link);
+      color: var(--heading-link-color);
 
       &:hover {
-        color: var(--heading-link-hover);
+        color: var(--heading-link-color-hover);
       }
     }
   }
@@ -64,19 +64,19 @@ img {
 
 p a,
 .content-section table a,
-.content-section > :is(ul, ol):not(.esc-link) li:not(.esc-link) a:not(.esc-link),
+.content-section > :where(ul, ol):not(.esc-link) li:not(.esc-link) a:not(.esc-link),
 .link {
-  color: var(--inline-link);
-  border-bottom: var(--inline-link-border);
+  color: var(--inline-link-color);
+  border-bottom: var(--inline-link-color-border);
   transition: border-color var(--transition-duration);
 
   &:hover {
-    color: var(--inline-link-hover);
-    border-bottom: var(--inline-link-border-hover);
+    color: var(--inline-link-color-hover);
+    border-bottom: var(--inline-link-color-border-hover);
   }
 
   &:visited {
-    color: var(--inline-link-visited);
+    color: var(--inline-link-color-visited);
   }
 
   &:is(.comment-anchor, .comment-image-link) {
@@ -121,7 +121,7 @@ p a,
   cursor: pointer;
   display: inline;
   background: var(--spoiler-background) !important;
-  color: transparent !important;
+  color: var(--spoiler-color, transparent) !important;
   text-shadow: none;
   border-radius: 2px;
   padding: 0 .25em;
@@ -156,7 +156,7 @@ p a,
 
   &._open {
     user-select: unset;
-    color: var(--spoiler-text-visible) !important;
+    color: var(--spoiler-color-visible) !important;
   }
 }
 

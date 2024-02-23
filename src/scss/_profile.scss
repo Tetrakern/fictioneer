@@ -9,7 +9,7 @@
     font-size: var(--fs-xs);
 
     &--alert {
-      color: var(--warning);
+      color: var(--warning-400);
     }
   }
 
@@ -283,7 +283,7 @@
 
     .warning,
     .warning > i {
-      color: var(--warning);
+      color: var(--warning-400);
     }
 
     li {

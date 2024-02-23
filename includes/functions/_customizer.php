@@ -762,7 +762,8 @@ function fictioneer_build_customize_css( $content = null ) {
       --font-weight-heading: 700;
       --font-weight-badge: 600;
       --font-weight-post-meta: 400;
-      --font-weight-ribbon: 700;
+      --font-weight-read-ribbon: 700;
+      --font-weight-card-label: 600;
       --font-weight-navigation: 400;
       --font-letter-spacing-base: 0em;
     }";
@@ -822,7 +823,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_700', '#929aaa' ) ) . ";
       --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_800', '#9298a5' ) ) . ";
       --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_900', '#787f91' ) ) . ";
-      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_1000', '#121416' ) ) . ";
+      --fg-950: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_950', '#121416' ) ) . ";
       --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_tinted', '#a4a9b7' ) ) . ";
     }";
   }
@@ -905,7 +906,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_700', '#4b5563' ) ) . ";
       --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_800', '#6b7280' ) ) . ";
       --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_900', '#9ca3b0' ) ) . ";
-      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_1000', '#f3f5f7' ) ) . ";
+      --fg-950: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_950', '#f3f5f7' ) ) . ";
       --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_tinted', '#2b3546' ) ) . ";
     }";
   }

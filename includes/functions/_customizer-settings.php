@@ -463,7 +463,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_bg_1000',
+    'light_bg_950',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
@@ -474,12 +474,12 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'light_bg_1000',
+      'light_bg_950',
       array(
-        'label' => __( 'Light Background 1000', 'fictioneer' ),
+        'label' => __( 'Light Background 950', 'fictioneer' ),
         'description' => __( 'Used as part of semi-transparent colors, like input backgrounds and content list gradients.', 'fictioneer' ),
         'section' => 'light_mode_colors',
-        'settings' => 'light_bg_1000'
+        'settings' => 'light_bg_950'
       )
     )
   );
@@ -674,7 +674,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_fg_1000',
+    'light_fg_950',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
@@ -685,11 +685,11 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'light_fg_1000',
+      'light_fg_950',
       array(
-        'label' => __( 'Light Foreground 1000', 'fictioneer' ),
+        'label' => __( 'Light Foreground 950', 'fictioneer' ),
         'section' => 'light_mode_colors',
-        'settings' => 'light_fg_1000'
+        'settings' => 'light_fg_950'
       )
     )
   );
@@ -1527,7 +1527,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'dark_bg_1000',
+    'dark_bg_950',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
@@ -1538,11 +1538,11 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'dark_bg_1000',
+      'dark_bg_950',
       array(
-        'label' => __( 'Dark Background 1000', 'fictioneer' ),
+        'label' => __( 'Dark Background 950', 'fictioneer' ),
         'section' => 'dark_mode_colors',
-        'settings' => 'dark_bg_1000'
+        'settings' => 'dark_bg_950'
       )
     )
   );
@@ -1737,7 +1737,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'dark_fg_1000',
+    'dark_fg_950',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
@@ -1748,11 +1748,11 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'dark_fg_1000',
+      'dark_fg_950',
       array(
-        'label' => __( 'Dark Foreground 1000', 'fictioneer' ),
+        'label' => __( 'Dark Foreground 950', 'fictioneer' ),
         'section' => 'dark_mode_colors',
-        'settings' => 'dark_fg_1000'
+        'settings' => 'dark_fg_950'
       )
     )
   );

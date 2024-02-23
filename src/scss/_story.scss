@@ -486,7 +486,7 @@ $header_breakpoint: 640px;
   .chapter-group {
     &__list {
       display: grid;
-      gap: get_clamp(12, 16, 320, 480);
+      gap: var(--chapter-grid-gap, get_clamp(12, 16, 320, 480));
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 136px), 1fr));
 
       @include bp(phablet) {
@@ -494,11 +494,11 @@ $header_breakpoint: 640px;
       }
 
       &-item {
-        background: var(--card-bg-color);
+        background: var(--chapter-grid-item-background, var(--card-bg-color));
         padding: .5rem;
         border: none !important; // Accounts for minimalist mode
         border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
-        box-shadow: var(--container-box-shadow);
+        box-shadow: var(--chapter-grid-item-box-shadow, var(--card-box-shadow));
 
         &-icon {
           display: none;

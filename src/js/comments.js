@@ -110,7 +110,7 @@ function fcn_moderateComment(id, operation) {
     } else {
       // Server action failed, mark comment with alert
       menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
-      menuToggleIcon.style.color = 'var(--warning)';
+      menuToggleIcon.style.color = 'var(--notice-warning-background)';
       comment.querySelector('.popup-menu-toggle').style.opacity = '1';
 
       if (response.data.error) {
@@ -121,7 +121,7 @@ function fcn_moderateComment(id, operation) {
   .catch(error => {
     // Server action failed, mark comment with alert
     menuToggleIcon.classList = 'fa-solid fa-triangle-exclamation mod-menu-toggle-icon';
-    menuToggleIcon.style.color = 'var(--warning)';
+    menuToggleIcon.style.color = 'var(--notice-warning-background)';
     comment.querySelector('.popup-menu-toggle').style.opacity = '1';
 
     if (error.status && error.statusText) {

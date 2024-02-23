@@ -173,12 +173,12 @@ button[type=submit]:where(:not(._inline)) {
   }
 
   &._danger {
-    background: var(--warning);
-    color: var(--warning-caption);
+    background: var(--button-warning-background);
+    color: var(--button-warning-color);
 
     &:not(.current, [disabled]):hover {
-      background: var(--warning);
-      color: var(--warning-caption);
+      background: var(--button-warning-background-hover);
+      color: var(--button-warning-color-hover);
     }
   }
 
@@ -340,25 +340,17 @@ button[type=submit]:where(:not(._inline)) {
 
 .ribbon {
   pointer-events: none;
-  user-select: none;
   position: absolute;
   top: 18px;
   left: 18px;
   z-index: 1;
-  background: var(--ribbon-background);
-  color: var(--ribbon-text);
-  font-size: 10px;
-  font-weight: var(--font-weight-ribbon);
-  line-height: 1;
+  background: var(--read-ribbon-background);
+  color: var(--read-ribbon-color);
+  font: var(--font-weight-read-ribbon) 10px/1 var(--read-ribbon-ff, var(--ff-base));
   text-shadow: none;
   padding: 4px 32px 5px;
-  box-shadow: var(--ribbon-box-shadow);
+  box-shadow: var(--read-ribbon-box-shadow);
   transform: translate(-50%, -50%) rotate(-45deg);
-
-  &._read {
-    background: var(--ribbon-background-read);
-    color: var(--ribbon-text-read);
-  }
 }
 
 .card-list {
@@ -655,7 +647,7 @@ html:not(.logged-in) body:not(.logged-in) {
       &-link {
         --focus-offset: 1px;
         grid-area: 1 / 2 / 2 / 3;
-        color: var(--story-link);
+        color: var(--chapter-list-link-color, var(--heading-link-color));
         font-family: var(--ff-chapter-list-title);
         font-size: get_clamp(13, 14, 320, 768);
         line-height: 1.3;
@@ -663,7 +655,7 @@ html:not(.logged-in) body:not(.logged-in) {
         width: fit-content;
 
         &:hover {
-          color: var(--story-link-hover);
+          color: var(--chapter-list-link-color-hover, var(--heading-link-color-hover));
         }
       }
 
@@ -689,7 +681,7 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       &-warning {
-        color: var(--warning);
+        color: var(--warning-400);
       }
 
       .checkmark {
@@ -751,8 +743,8 @@ html:not(.logged-in) body:not(.logged-in) {
   }
 
   &._warning {
-    color: var(--warning-caption);
-    background: var(--warning);
+    background: var(--notice-warning-background);
+    color: var(--notice-warning-color);
   }
 }
 

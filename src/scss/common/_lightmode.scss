@@ -59,7 +59,7 @@
   --media-button-color: var(--fg-600);
   --media-button-color-hover: var(--fg-600);
   --spoiler-background: var(--fg-500);
-  --spoiler-text-visible: var(--fg-1000);
+  --spoiler-color-visible: var(--fg-1000);
   --ins-background: #7ec945;
   --ins-color: inherit;
   --del-background: #e96c63;
@@ -81,6 +81,8 @@
   --litrpg-del: #be123c;
   --card-unavailable-filter: grayscale(0.75) brightness(0.85);
   --button-barberpole: var(--bg-200);
+  --read-ribbon-background: var(--e-2);
+  --read-ribbon-color: var(--fg-500);
 
   // === FOCUS =================================================================
   --focus-box-shadow: inset 0 0 0px 3px rgb(255 255 255 / 75%);
@@ -158,23 +160,20 @@
   --font-weight-heading: 700;
   --font-weight-badge: 600;
   --font-weight-post-meta: 400;
-  --font-weight-ribbon: 700;
+  --font-weight-read-ribbon: 700;
+  --font-weight-card-label: 600;
   --font-weight-navigation: 400;
   --font-line-height-base: 1.7;
   --font-letter-spacing-base: 0em; // Unit is required!
 
   // === COLORS - HEADING LINKS ================================================
-  --heading-link: var(--fg-400);
-  --heading-link-hover: var(--fg-600);
+  --heading-link-color: var(--fg-400);
+  --heading-link-color-hover: var(--fg-600);
 
   // === COLORS - INLINE LINKS =================================================
-  --inline-link: var(--primary-500);
-  --inline-link-hover: var(--primary-400);
-  --inline-link-visited: var(--primary-600);
-
-  // === COLORS - STORY LINKS ==================================================
-  --story-link: var(--fg-400);
-  --story-link-hover: var(--fg-600);
+  --inline-link-color: var(--primary-500);
+  --inline-link-color-hover: var(--primary-400);
+  --inline-link-color-visited: var(--primary-600);
 
   // === COLORS - CARDS ========================================================
   --card-label-color: var(--fg-1000);
@@ -250,6 +249,13 @@
   --popup-menu-background-selected: var(--bg-700);
   --popup-menu-color: var(--fg-1000);
   --popup-menu-color-hover: var(--fg-1000);
+
+  // === MICRO MENU ============================================================
+
+  --micro-menu-background: var(--e-overlay);
+  --micro-menu-color: var(--fg-1000);
+  --micro-menu-color-hover: var(--fg-1000);
+  --micro-menu-box-shadow: 0 0 5px 2px rgb(0 0 0 / 18%);
 
   // === PAGINATION ============================================================
   --pagination-background: var(--bg-200);
@@ -333,13 +339,6 @@
     }
   }
 
-  .micro-menu {
-    --micro-menu-background: var(--e-overlay);
-    --micro-menu-text: var(--fg-1000);
-    --micro-menu-text-hover: var(--fg-1000);
-    --micro-menu-box-shadow: 0 0 5px 2px rgb(0 0 0 / 18%);
-  }
-
   .selected-paragraph {
     --paragraph-selection-background: rgb(0 0 0 / 10%);
     --paragraph-tools-filter: drop-shadow(0 -3px 6px rgb(0 0 0 / 5%));
@@ -389,15 +388,7 @@
     --tag-secondary-border-hover: 1px solid transparent;
     --tag-warning-text-hover: var(--fg-1000);
     --tag-warning-background: rgb(246 96 85 / 5%);
-    --tag-warning-background-hover: var(--warning);
-  }
-
-  .ribbon {
-    --ribbon-background: var(--e-2);
-    --ribbon-text: var(--fg-500);
-    --ribbon-background-read: var(--e-2);
-    --ribbon-text-read: var(--fg-500);
-    --ribbon-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+    --tag-warning-background-hover: var(--warning-600);
   }
 
   .iframe-consent {

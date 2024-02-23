@@ -30,7 +30,7 @@
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
-  box-shadow: var(--container-box-shadow); // Drop-shadow filter can cause scroll lag in Chromium
+  box-shadow: var(--card-box-shadow);
   clear: both;
   contain: style layout; // Improve performance
   container-type: inline-size; // Enable container query units
@@ -204,11 +204,11 @@
 
     a {
       --focus-offset: 1px;
-      color: var(--story-link);
+      color: var(--card-heading-link, var(--heading-link-color));
       width: fit-content;
 
       &:hover {
-        color: var(--story-link-hover);
+        color: var(--card-heading-link-hover, var(--heading-link-color-hover));
       }
     }
 
@@ -249,7 +249,7 @@
     cursor: default;
     background: var(--card-label-background);
     color: var(--card-label-color);
-    font: var(--card-label-font-weight) 62.5%/1 var(--ff-base);
+    font: var(--font-weight-card-label) 62.5%/1 var(--ff-base);
     text-shadow: none;
     text-transform: uppercase;
     padding: .35em .55em;

@@ -127,12 +127,12 @@
   }
 
   :is(.follow-placeholder, .follow-meta) {
-    color: var(--follow-meta-color);
+    color: var(--follow-meta-color, var(--fg-700)); // Done
     font-family: var(--ff-note);
   }
 
   .follow-title-link {
-    color: var(--follow-title-color);
+    color: var(--follow-title-link-color, var(--fg-300)); // Done
   }
 
   .follow-meta {
