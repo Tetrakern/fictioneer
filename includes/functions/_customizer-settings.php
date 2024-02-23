@@ -737,27 +737,6 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_secant',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#e5e7eb'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_secant',
-      array(
-        'label' => __( 'Light Secant', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_secant'
-      )
-    )
-  );
-
-  $manager->add_setting(
     'light_elevation_overlay',
     array(
       'capability' => 'manage_options',
@@ -1816,27 +1795,6 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'label' => __( 'Dark Theme Color Meta', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_theme_color_base'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'dark_secant',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#252932'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'dark_secant',
-      array(
-        'label' => __( 'Dark Secant', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'dark_secant'
       )
     )
   );

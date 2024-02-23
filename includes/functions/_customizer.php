@@ -789,7 +789,6 @@ function fictioneer_build_customize_css( $content = null ) {
       --bg-700: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_700', '#323743' ) ) . ";
       --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_800', '#2b303b' ) ) . ";
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'dark_theme_color_base', '#252932' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'dark_secant', '#252932' ) ) . ";
       --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'dark_elevation_overlay', '#121317' ) ) . ";
       --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'dark_navigation_background_sticky', '#121317' ) ) . ";
       --primary-400: " . get_theme_mod( 'dark_primary_400', '#f7dd88' ) . ";
@@ -875,7 +874,6 @@ function fictioneer_build_customize_css( $content = null ) {
       --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_800', '#1f2937' ) ) . ";
       --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
       --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
       --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
       --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";

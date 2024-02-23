@@ -174,14 +174,14 @@ abbr {
 
 kbd {
   display: inline-block;
-  background: var(--infobox-background);
+  background: var(--kbd-background);
   font-family: var(--ff-mono);
   font-size: .75em;
   font-weight: 700;
   letter-spacing: 0;
   white-space: nowrap;
   padding: 0 0.375em;
-  border-radius: 3px;
+  border-radius: 2px;
   box-shadow: 0 0 1px var(--fg-500), 0 1px 1px rgb(0 0 0 / 20%);
   transform: translateY(-1px);
 }

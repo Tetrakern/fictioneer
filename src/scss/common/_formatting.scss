@@ -203,6 +203,10 @@ p a,
     text-align: center;
     border-radius: 0;
     width: 242px;
+
+    &::placeholder {
+      color: var(--post-password-placeholder-color, var(--input-placeholder-color));
+    }
   }
 
   input[type=submit] {

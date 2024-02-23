@@ -97,13 +97,13 @@
   cursor: pointer;
   user-select: none;
   -webkit-appearance: none;
+  appearance: none;
   display: flex;
   gap: 0 6px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   background: var(--button-primary-background);
-  // background-clip: padding-box !important;
   color: var(--button-primary-color);
   font: var(--button-font-weight) 12px/1 var(--ff-base);
   letter-spacing: get_relative_clamp(0.02, 0.04, 375, 480, 'vw', 'em');
@@ -200,11 +200,11 @@ button[type=submit]:where(:not(._inline)) {
     background-size: 25px 25px;
     background-image: linear-gradient(
       -45deg,
-      var(--barberpole) 25%,
+      var(--button-barberpole) 25%,
       transparent 25%,
       transparent 50%,
-      var(--barberpole) 50%,
-      var(--barberpole) 75%,
+      var(--button-barberpole) 50%,
+      var(--button-barberpole) 75%,
       transparent 75%,
       transparent
     );
@@ -222,11 +222,11 @@ button[type=submit]:where(:not(._inline)) {
 }
 
 .load-more-comments-button {
-  --button-primary-background-hover: var(--comment-background-sticky);
-  --button-primary-color-hover: var(--fg-500);
   @extend %button;
-  background: var(--comment-background);
-  color: var(--fg-700);
+  --button-primary-background: var(--load-comments-background);
+  --button-primary-color: var(--load-comments-color);
+  --button-primary-background-hover: var(--load-comments-background-hover);
+  --button-primary-color-hover: var(--load-comments-color-hover);
   text-align: center;
   border: 0;
   width: 100%;
@@ -259,7 +259,7 @@ button[type=submit]:where(:not(._inline)) {
 
 .infobox {
   background: var(--infobox-background);
-  color: var(--infobox-text);
+  color: var(--fg-600);
   border-radius: var(--layout-border-radius-small);
   padding: 1rem;
 }

@@ -79,6 +79,8 @@
   --site-bg-color: var(--bg-900);
   --paragraph-spacing: 1.5rem;
   --placeholder-background: var(--bg-950);
+  --kbd-background: var(--bg-900);
+  --infobox-background: var(--bg-900);
 
   // === CONTENT LISTS =========================================================
 
@@ -132,18 +134,17 @@
   --bg-900-free: #{hsl_code_free(219, 15, 17)};
   --bg-950-free: #{hsl_code_free(222, 15, 8)};
 
-  --bg-50: hsl(var(--bg-50-free)); // popup menu
+  --bg-50: hsl(var(--bg-50-free)); // popup menu, tooltip
   --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected
-  --bg-200: hsl(var(--bg-200-free)); // secondary button border hover
-  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover
-  --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus
-  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover
-  --bg-600: hsl(var(--bg-600-free)); // card
-  --bg-700: hsl(var(--bg-700-free)); // page, card content list item, navigation item divider
+  --bg-200: hsl(var(--bg-200-free)); // secondary button border hover, pagination active
+  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover, input placeholder color, horizontal lines
+  --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus, pagination hover
+  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover, password submit color, pagination
+  --bg-600: hsl(var(--bg-600-free)); // card, modal
+  --bg-700: hsl(var(--bg-700-free)); // page, card content list item, navigation item divider, password form cutout
   --bg-800: hsl(var(--bg-800-free)); // content list item
-  --bg-900: hsl(var(--bg-900-free)); // site, card footer, card overlay
+  --bg-900: hsl(var(--bg-900-free)); // site, card footer, card overlay, input color-mix
   --bg-950: hsl(var(--bg-950-free)); // body, placeholder
-
 
 
 
@@ -217,7 +218,7 @@
   --layout-border-radius-small: 2px;
   --layout-link-color: inherit;
   --layout-link-color-hover: inherit;
-  --layout-hr-border: 2px solid rgb(255 255 255 / 12%);
+  --layout-hr-border: 2px solid var(--bg-300);
 
 
 
@@ -256,7 +257,6 @@
 
   // === UNSORTED ==============================================================
   // --theme-color-base: 222 15 17; // 900
-  // --secant: var(--bg-900);
   // --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
   // --disabled-embed-background: var(--disabled-pattern);
   // --progress-bar-background: var(--navigation-background);
@@ -291,8 +291,6 @@
   // --litrpg-drop-shadow: var(--container-drop-shadow);
   // --lit-rpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
 
-  // --barberpole: var(--bg-600);
-
   // === FOCUS =================================================================
 
   --focus-border-color: #ef4d4d;
@@ -301,11 +299,9 @@
   // --focus-box-shadow-small: inset 0 0 0px 2px rgb(0 0 0 / 75%);
 
   // === ELEVATIONS ============================================================
-  // --e-body: var(--bg-1000);
   // --e-fullscreen: var(--e-1);
-  // --e-0: var(--bg-900);
+
   // --e-1: var(--bg-800);
-  // --e-2: var(--bg-700);
   // --e-overlay: var(--bg-1000);
 
   // === NAVIGATION ============================================================
@@ -324,24 +320,30 @@
   --navigation-new-follow-background: var(--primary-500);
   --navigation-new-follow-color: var(--fg-inverted);
 
+  // === TABS ==================================================================
+
+  --tab-background: var(--bg-500);
+  --tab-background-hover: var(--bg-400);
+  --tab-background-active: var(--bg-100);
+  --tab-color: var(--fg-600);
+  --tab-color-hover: var(--fg-500);
+  --tab-color-active: var(--fg-inverted);
+  --tab-text-shadow: 0 0 1px var(--bg-900);
+
+  // === PAGINATION ============================================================
+
+  --pagination-background: var(--bg-500);
+  --pagination-background-hover: var(--bg-400);
+  --pagination-background-current: var(--bg-200);
+  --pagination-color: var(--fg-600);
+  --pagination-color-hover: var(--fg-500);
+  --pagination-color-current: var(--fg-inverted);
+
   // === FOOTER ================================================================
   // --fg-isolated-footer: var(--fg-d900);
   // --bg-isolated-footer: var(--bg-1000);
 
-  // === TABS ==================================================================
-  // --tab-background-active: var(--fg-600);
-  // --tab-background-inactive: var(--bg-500);
-  // --tab-background-hover: var(--bg-50);
-  // --tab-text-shadow-active: none;
-  // --tab-text-shadow-inactive: 0 0 1px var(--bg-800);
-  // --tab-text-active: var(--fg-1000);
-  // --tab-text-hover: var(--fg-500);
-  // --tab-text-inactive: var(--fg-800);
-
   // === MODALS ================================================================
-
-  // --modal-icon: var(--fg-600);
-  // --modal-icon-hover: var(--fg-300);
 
   --modal-overlay: rgb(0 0 0 / 35%);
   --modal-bg-color: var(--bg-600);
@@ -441,6 +443,7 @@
   --button-color-active: var(--fg-inverted);
   --button-background-active: var(--bg-100);
   --button-border-active: 1px solid transparent;
+  --button-barberpole: var(--bg-500);
 
   // === BUTTONS - PRIMARY =====================================================
 
@@ -479,14 +482,17 @@
   // --button-file-block-background-hover: var(--fg-400);
 
   // === PASSWORD FORM =========================================================
-  // --post-password-background: var(--infobox-background);
-  // --post-password-cutout: var(--e-1);
-  // --post-password-submit-color: var(--e-2);
+
+  --post-password-background: var(--input-background);
+  --post-password-cutout: var(--bg-700);
+  --post-password-submit-color: var(--bg-500);
 
   // === INPUTS ================================================================
 
-  --input-placeholder-color: var(--fg-900);
-  --input-background: rgb(0 0 0 / 30%);
+  --input-placeholder-color: var(--bg-300);
+  --input-background: rgb(0 0 0 / 30%); // Fallback
+  --input-background: color-mix(in srgb, var(--bg-900), black 19%);
+  --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
   --input-color: var(--fg-500);
   --input-color-disabled: var(--fg-800);
   --input-fill: var(--fg-700);
@@ -494,8 +500,6 @@
   --input-range-thumb-hover: var(--fg-300);
   --input-token-background: var(--bg-500);
   --input-token-color: var(--fg-400);
-
-  // --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
 
   // === POPUP MENU ============================================================
 
@@ -505,22 +509,10 @@
   --popup-menu-color: var(--fg-inverted);
   --popup-menu-color-hover: var(--fg-inverted);
 
-  // === PAGINATION ============================================================
-  // --pagination-background: var(--bg-500);
-  // --pagination-background-hover: var(--bg-50);
-  // --pagination-text: var(--fg-600);
-  // --pagination-text-hover: var(--fg-500);
-  // --pagination-current-text: var(--fg-1000);
-  // --pagination-current-background: var(--fg-600);
-
-  // === INFO BOXES (FIX TO COUNTER DARKEN) ====================================
-  // --infobox-background: var(--bg-900);
-  // --infobox-text: var(--fg-600);
-  // --infobox-background-free: var(--bg-900-free);
-
   // === TOOLTIPS/NOTIFICATIONS ================================================
-  // --tooltip-background: var(--fg-300);
-  // --tooltip-text: var(--fg-1000);
+
+  --tooltip-background: var(--bg-50);
+  --tooltip-text: var(--fg-inverted);
 
   // === COMMENTS ==============================================================
 
@@ -531,11 +523,15 @@
   --comment-background-sticky: rgb(0 0 0 / 20%);
   --comment-border-sticky: 1px dashed rgb(255 255 255 / 20%);
 
+  --load-comments-background: rgb(0 0 0 / 15%);
+  --load-comments-background-hover: rgb(0 0 0 / 25%);
+  --load-comments-color: var(--fg-600);
+  --load-comments-color-hover: var(--fg-700);
+
   // === SYSTEM ================================================================
   --transition-duration: .2s;
   // --text-selection-background: rgb(255 255 255 / 20%);
   // --text-selection-color: var(--fg-200);
-  // --placeholder-background: var(--e-body);
 
   // === SCROLL BARS ===========================================================
   // --scrollbar-background: rgb(0 0 0 / 20%);

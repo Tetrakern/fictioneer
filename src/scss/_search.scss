@@ -149,14 +149,11 @@
   }
 
   &__advanced {
-    background: var(--infobox-background);
-    padding: 1rem;
     margin-top: .75rem;
-    border-radius: var(--layout-border-radius-small);
 
     hr {
-      margin: 1rem 0;
-      border-bottom: 2px dashed var(--layout-color-separator);
+      margin: 1.5rem 0;
+      border-style: dashed;
     }
 
     &-toggle {

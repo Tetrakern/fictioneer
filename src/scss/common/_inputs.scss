@@ -6,6 +6,7 @@
 
 :where(input, textarea, button, select) {
   -webkit-appearance: none;
+  appearance: none;
   background-color: transparent;
   color: inherit;
   font-family: var(--ff-input);
@@ -94,6 +95,7 @@ select {
   &::placeholder {
     color: var(--input-placeholder-color);
     font-family: var(--ff-input);
+    font-size: 13px;
     font-weight: var(--font-weight-normal);
     text-shadow: none;
   }

@@ -51,7 +51,6 @@
 
   // === UNSORTED ==============================================================
   --theme-color-base: 220 13 91;
-  --secant: var(--bg-200);
   --disabled-pattern: hsl(var(--bg-1000-free) / 3%) repeating-linear-gradient(-45deg, hsl(var(--bg-1000-free) / 5%), hsl(var(--bg-1000-free) / 5%) 2px, transparent 2px, transparent 5px);
   --disabled-embed-background: var(--disabled-pattern);
   --progress-bar-background: var(--bg-900);
@@ -81,7 +80,7 @@
   --litrpg-ins: #16c79a;
   --litrpg-del: #be123c;
   --card-unavailable-filter: grayscale(0.75) brightness(0.85);
-  --barberpole: var(--bg-200);
+  --button-barberpole: var(--bg-200);
 
   // === FOCUS =================================================================
   --focus-box-shadow: inset 0 0 0px 3px rgb(255 255 255 / 75%);
@@ -120,13 +119,13 @@
 
   // === TABS ===================================================================
   --tab-background-active: var(--bg-600);
-  --tab-background-inactive: var(--bg-200);
+  --tab-background: var(--bg-200);
   --tab-background-hover: var(--bg-300);
   --tab-text-shadow-active: none;
-  --tab-text-shadow-inactive: none;
-  --tab-text-active: var(--fg-1000);
-  --tab-text-hover: var(--fg-300);
-  --tab-text-inactive: var(--fg-800);
+  --tab-text-shadow: none;
+  --tab-color-active: var(--fg-1000);
+  --tab-color-hover: var(--fg-300);
+  --tab-color: var(--fg-800);
 
   // === MODALS ================================================================
   --modal-background: var(--bg-50);
@@ -255,15 +254,13 @@
   // === PAGINATION ============================================================
   --pagination-background: var(--bg-200);
   --pagination-background-hover: var(--bg-300);
-  --pagination-text: var(--fg-400);
-  --pagination-text-hover: var(--fg-300);
-  --pagination-current-text: var(--fg-1000);
-  --pagination-current-background: var(--bg-600);
+  --pagination-color: var(--fg-400);
+  --pagination-color-hover: var(--fg-300);
+  --pagination-color-current: var(--fg-1000);
+  --pagination-background-current: var(--bg-600);
 
   // === INFO BOXES (FIX TO COUNTER DARKEN) ====================================
   --infobox-background: hsl(var(--bg-1000-free) / 5%);
-  --infobox-text: var(--fg-600);
-  --infobox-background-free: var(--bg-1000-free);
   --content-li-background-full: hsl(var(--infobox-background-free) / 2%); // Assigned in _properties.scss
   // --content-li-background-gradient: linear-gradient(-90deg, hsl(var(--infobox-background-free) / 3%) 0%, hsl(var(--infobox-background-free) / 3%) 55%, transparent 90%); // Old
 

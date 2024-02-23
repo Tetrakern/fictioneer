@@ -494,7 +494,7 @@ $header_breakpoint: 640px;
       }
 
       &-item {
-        background: var(--e-2);
+        background: var(--card-bg-color);
         padding: .5rem;
         border: none !important; // Accounts for minimalist mode
         border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode

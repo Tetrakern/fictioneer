@@ -9,7 +9,7 @@
     --focus-offset: -2px;
     @extend %button;
     background: var(--pagination-background);
-    color: var(--pagination-text);
+    color: var(--pagination-color);
     border-radius: 0;
 
     &:first-child {
@@ -22,14 +22,14 @@
 
     &:not(.current, [disabled]):hover {
       background: var(--pagination-background-hover);
-      color: var(--pagination-text-hover);
+      color: var(--pagination-color-hover);
     }
   }
 
   .current {
     cursor: default;
-    background: var(--pagination-current-background);
-    color: var(--pagination-current-text);
+    background: var(--pagination-background-current);
+    color: var(--pagination-color-current);
     text-shadow: none;
   }
 
