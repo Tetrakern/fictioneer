@@ -3,13 +3,13 @@
   "settings": {
     "appearanceTools": true,
     "color": {
-			"duotone": [],
+      "duotone": [],
       "customDuotone": false,
       "defaultDuotone": false,
       "gradients": [],
-			"customGradient": false,
-			"defaultGradients": false
-		},
+      "customGradient": false,
+      "defaultGradients": false
+    },
     "typography": {
       "dropCap": false,
       "customFontSize": false,
