@@ -3,6 +3,7 @@
 @import 'common/_variables';
 @import 'common/_properties';
 
+// Automatically becomes .editor-styles-wrapper
 body {
   --editor-max-width: 840px;
   --editor-padding: 8px;
@@ -85,7 +86,7 @@ body {
   // =============================================================================
 
   .wp-block {
-    margin: 28px auto;
+    margin: calc(28px + var(--spacing-offset, 0px)) auto;
     max-width: var(--editor-max-width);
 
     figcaption {
@@ -187,11 +188,18 @@ body {
     }
   }
 
+  .wp-block-gallery {
+    &.has-background {
+      padding: max(var(--wp--style--unstable-gallery-gap, 1em), 8px);
+    }
+  }
+
   // =============================================================================
   // CODE BLOCK
   // =============================================================================
 
   .wp-block-code {
+    clear: both;
     padding: 1rem;
     border-radius: var(--layout-border-radius-small);
     overflow: auto;
@@ -218,98 +226,235 @@ body {
       color: #444;
     }
   }
-}
 
-// =============================================================================
-// TABLES
-// =============================================================================
+  // =============================================================================
+  // BLOCKQUOTE
+  // =============================================================================
 
-.wp-block-table {
-  float: none !important;
-  overflow-x: auto;
-
-  &.alignright {
+  .wp-block-quote {
+    --spacing-offset: 12px;
+    font-size: 87.5%;
+    position: relative;
+    font-style: italic;
     margin-left: auto;
-    margin-right: calc((100% - min(100%, var(--editor-max-width))) / 2);
-  }
+    margin-right: auto;
+    max-width: max(85%, 260px);
+    width: max-content;
 
-  &.alignleft {
-    margin-left: calc((100% - min(100%, var(--editor-max-width))) / 2);
-    margin-right: calc((100% - min(100%, var(--editor-max-width))) / 2);
-  }
+    &.has-background {
+      --spacing-offset: 8px;
+      --this-vertical-offset: -8px;
+      --this-horizontal-offset: -8px;
+      padding: 8px;
+    }
 
-  &:where(.min-480, .min-640, .min-768) {
-    min-width: unset; // Delegate to table child
-  }
+    p {
+      text-indent: 0 !important;
+      margin: 0 !important;
+      overflow-wrap: break-word;
 
-  &.min-480 table {
-    min-width: 480px;
-  }
+      &.has-background {
+        padding: 0;
+      }
+    }
 
-  &.min-640 table {
-    min-width: 640px;
-  }
-
-  &.min-768 table {
-    min-width: 768px;
-  }
-
-  table {
-    font-size: 75%; // Scales with custom formatting
-    border-style: solid;
-    border-color: rgb(0 0 0 / 30%);
-    border-collapse: collapse;
-
-    @include bp(480px) {
+    cite {
+      display: block;
+      color: rgb(0 0 0 / 70%);
       font-size: 87.5%; // Scales with custom formatting
+      font-style: italic;
+      text-align: right;
+
+      &::before {
+        content: '~ ';
+      }
+    }
+
+    em {
+      font-style: normal;
+    }
+
+    &:not(.is-style-plain)::before,
+    &:not(.is-style-plain)::after {
+      content: '';
+      position: absolute;
+      top: var(--this-vertical-offset, -12px);
+      left: var(--this-horizontal-offset, -16px);
+      display: block;
+      border: 5px solid rgb(0 0 0 / 30%);
+      border-width: 3px 0 0 3px;
+      height: 16px;
+      width: 16px;
+    }
+
+    &:not(.is-style-plain)::after {
+      inset: inherit;
+      bottom: var(--this-vertical-offset, -12px);
+      right: var(--this-horizontal-offset, -16px);
+      border-width: 0 3px 3px 0;
     }
   }
 
-  :is(thead, tbody, tfoot, tr, td, th) {
-    border-style: inherit;
-    border-color: inherit;
-    overflow-wrap: break-word;
+  // =============================================================================
+  // PULLQUOTE
+  // =============================================================================
+
+  figure.wp-block-pullquote {
+    --spacing-offset: 8px;
+    clear: both;
+    font-size: 1.25em;
+    font-style: italic;
+    text-align: center;
+    padding: 0;
+    max-width: max(85%, 260px);
+    width: max-content;
+
+    blockquote {
+      border: 2px solid rgb(0 0 0 / 30%);
+      border-width: 2px 0;
+      padding: 1rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1em; // Scales with custom formatting
+      margin: 0 !important;
+    }
+
+    em {
+      font-style: normal;
+    }
+
+    cite {
+      display: block;
+      color: rgb(0 0 0 / 70%);
+      font-size: 75%; // Scales with custom formatting
+      font-style: italic;
+      margin-top: .75rem;
+
+      &::before {
+        content: '~ ';
+      }
+
+      &::after {
+        content: ' ~';
+      }
+    }
   }
 
-  :is(th, td) {
-    padding: .5em .75em;
-  }
+  // =============================================================================
+  // TABLES
+  // =============================================================================
 
-  thead {
-    border-bottom-width: 0;
-  }
+  .wp-block-table {
+    clear: both;
+    float: none !important;
+    overflow-x: auto;
 
-  tfoot {
-    font-weight: 700;
-    vertical-align: top;
-    border-top-width: 3px;
-  }
+    &.alignright {
+      margin-left: auto;
+      margin-right: calc((100% - min(100%, var(--editor-max-width))) / 2);
+    }
 
-  th {
-    font-weight: 700;
-    vertical-align: bottom;
-  }
+    &.alignleft {
+      margin-left: calc((100% - min(100%, var(--editor-max-width))) / 2);
+      margin-right: calc((100% - min(100%, var(--editor-max-width))) / 2);
+    }
 
-  figcaption {
-    padding-bottom: .5rem; // Place for scrollbar on mobile
-  }
+    &:where(.min-480, .min-640, .min-768) {
+      min-width: unset; // Delegate to table child
+    }
 
-  &.is-style-stripes {
-    border-bottom: none;
+    &.min-480 table {
+      min-width: 480px;
+    }
+
+    &.min-640 table {
+      min-width: 640px;
+    }
+
+    &.min-768 table {
+      min-width: 768px;
+    }
+
+    table {
+      font-size: 75%; // Scales with custom formatting
+      border-style: solid;
+      border-color: rgb(0 0 0 / 30%);
+      border-collapse: collapse;
+
+      @include bp(480px) {
+        font-size: 87.5%; // Scales with custom formatting
+      }
+    }
+
+    :is(thead, tbody, tfoot, tr, td, th) {
+      border-style: inherit;
+      border-color: inherit;
+      overflow-wrap: break-word;
+    }
+
+    :is(th, td) {
+      padding: .5em .75em;
+    }
+
+    thead {
+      border-bottom-width: 0;
+    }
 
     tfoot {
-      border-top-color: rgb(0 0 0 / 50%);
+      font-weight: 700;
+      vertical-align: top;
+      border-top-width: 3px;
     }
 
-    tbody {
-      tr {
-        &:nth-child(odd) {
-          background: rgb(0 0 0 / 15%);
+    th {
+      font-weight: 700;
+      vertical-align: bottom;
+    }
+
+    figcaption {
+      padding-bottom: .5rem; // Place for scrollbar on mobile
+    }
+
+    &.is-style-stripes {
+      border-bottom: none;
+
+      tfoot {
+        border-top-color: rgb(0 0 0 / 50%);
+      }
+
+      tbody {
+        tr {
+          &:nth-child(odd) {
+            background: rgb(0 0 0 / 15%);
+          }
         }
       }
     }
   }
+
+  // =============================================================================
+  // EMBEDS
+  // =============================================================================
+
+  .wp-block-embed {
+    clear: both !important;
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 500px !important;
+
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+
 }
+
+
 
 
 
@@ -474,196 +619,9 @@ body {
 //     }
 //   }
 
-//   // =============================================================================
-//   // BLOCKQUOTE
-//   // =============================================================================
 
-//   .wp-block-quote {
-//     font-size: 87.5%;
-//     position: relative;
-//     font-style: italic;
-//     margin-left: auto;
-//     margin-right: auto;
-//     max-width: max(85%, 260px);
-//     width: max-content;
 
-//     p {
-//       text-indent: 0 !important;
-//       margin: 0 !important;
-//       overflow-wrap: break-word;
-//     }
 
-//     p.has-background {
-//       padding: 0;
-//     }
-
-//     cite {
-//       display: block;
-//       color: #919191;
-//       font-size: 85%; // Scales with custom formatting
-//       font-style: italic;
-//       text-align: right;
-
-//       &::before {
-//         content: '~ ';
-//       }
-//     }
-
-//     em {
-//       font-style: normal;
-//     }
-
-//     &::before,
-//     &::after {
-//       content: '';
-//       position: absolute;
-//       display: block;
-//       border: 5px solid #a0a0a0;
-//       height: 16px;
-//       width: 16px;
-//     }
-
-//     &::before {
-//       top: -12px;
-//       left: -16px;
-//       border-width: 3px 0 0 3px;
-//     }
-
-//     &::after {
-//       bottom: -12px;
-//       right: -16px;
-//       border-width: 0 3px 3px 0;
-//     }
-//   }
-
-//   // =============================================================================
-//   // PULLQUOTE
-//   // =============================================================================
-
-//   .wp-block-pullquote {
-//     &:is(figure) {
-//       font-size: 1.25em;
-//       font-style: italic;
-//       text-align: center;
-//       padding: 0;
-//       margin-left: auto;
-//       margin-right: auto;
-//       max-width: max(85%, 260px);
-//       width: max-content;
-//     }
-
-//     blockquote {
-//       border: 2px solid #a0a0a0;
-//       border-width: 2px 0;
-//       padding: 1rem;
-//     }
-
-//     p {
-//       font-size: 1em; // Scales with custom formatting
-//       margin: 0 !important;
-//     }
-
-//     em {
-//       font-style: normal;
-//     }
-
-//     cite {
-//       display: block;
-//       color: #a0a0a0;
-//       font-size: 75%; // Scales with custom formatting
-//       font-style: italic;
-//       margin-top: .75rem;
-
-//       &::before {
-//         content: '~ ';
-//       }
-
-//       &::after {
-//         content: ' ~';
-//       }
-//     }
-//   }
-
-//   // =============================================================================
-//   // TABLES
-//   // =============================================================================
-
-//   .wp-block-table {
-//     overflow-x: auto;
-//     overflow-wrap: break-word;
-
-//     table {
-//       font-size: 87.5%; // Scales with custom formatting
-//       border-collapse: collapse;
-//       border-spacing: 0;
-//       border: 1px solid transparent;
-//       width: auto;
-//       margin: 0 auto;
-//     }
-
-//     :is(thead, tbody, tfoot, tr, td, th) {
-//       border-width: inherit;
-//       border-style: solid;
-//       border-color: inherit;
-//     }
-
-//     th {
-//       font-weight: 600;
-//       vertical-align: bottom;
-//     }
-
-//     :is(th, td) {
-//       text-align: left;
-
-//       &.has-text-align-right {
-//         text-align: right;
-//       }
-
-//       &.has-text-align-center {
-//         text-align: center;
-//       }
-//     }
-
-//     tfoot {
-//       td {
-//         font-size: 87.5%;
-//         font-weight: 600;
-//         vertical-align: top;
-//       }
-//     }
-
-//     &.is-style-regular {
-//       table {
-//         border-color: black;
-//       }
-
-//       :is(th, td) {
-//         padding: 8px 12px;
-//       }
-//     }
-
-//     &.is-style-stripes {
-//       border-bottom: none;
-
-//       :is(th, td) {
-//         padding: 10px 16px;
-//       }
-
-//       tbody {
-//         tr {
-//           &:nth-child(odd) {
-//             background: rgb(0 0 0 / 5%);
-//           }
-//         }
-//       }
-
-//       tfoot {
-//         td {
-//           padding: 6px 16px;
-//         }
-//       }
-//     }
-//   }
 
 //   // =============================================================================
 //   // GALLERY
@@ -786,12 +744,6 @@ body {
 //       --fs-caption: 11px;
 //     }
 //   }
-
-//   // =============================================================================
-//   // CODE BLOCK
-//   // =============================================================================
-
-
 
 //   // =============================================================================
 //   // PREFORMATTED BLOCK

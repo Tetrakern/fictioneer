@@ -91,6 +91,14 @@
           "enabled": false,
           "allowEditing": false
         }
+      },
+      "core/gallery": {
+        "spacing": {
+          "blockGap": true,
+          "margin": false,
+          "padding": false,
+          "units": ["px", "em", "rem"]
+        }
       }
     }
   }
