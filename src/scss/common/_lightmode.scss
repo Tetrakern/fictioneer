@@ -133,7 +133,7 @@
   --mobile-menu-text-shadow: none;
   --mobile-menu-bookmark-text-shadow: none;
   --mobile-menu-bookmark-progress-background: hsl(var(--bg-1000-free) / 10%);
-  --mobile-menu-current-chapter-text: var(--fg-300);
+  --mobile-menu-current-chapter-color: var(--fg-300);
   --mobile-menu-current-chapter-background: rgb(0 0 0 / 10%);
 
   // === CONTENT ===============================================================
@@ -211,10 +211,8 @@
   // === BUTTONS - QUICK =======================================================
   --button-quick-background: var(--bg-100);
   --button-quick-background-hover: var(--bg-500);
-  --button-quick-text: var(--fg-700);
-  --button-quick-text-hover: var(--fg-1000);
-  --button-quick-border: none;
-  --button-quick-border-hover: none;
+  --button-quick-color: var(--fg-700);
+  --button-quick-color-hover: var(--fg-1000);
 
   // === BUTTONS - FILE BLOCK ==================================================
   --button-file-block-color: var(--fg-1000);

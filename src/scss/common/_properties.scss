@@ -197,9 +197,9 @@
   --bg-50: hsl(var(--bg-50-free)); // popup menu, tooltip
   --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected
   --bg-200: hsl(var(--bg-200-free)); // secondary button border hover, pagination active
-  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover, input placeholder color, horizontal lines
+  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover, input placeholder color, horizontal lines, mobile menu quick button hover
   --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus, pagination hover
-  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover, password submit color, pagination
+  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover, password submit color, pagination, mobile menu quick button
   --bg-600: hsl(var(--bg-600-free)); // card, modal
   --bg-700: hsl(var(--bg-700-free)); // page, card content list item, navigation item divider, password form cutout
   --bg-800: hsl(var(--bg-800-free)); // content list item
@@ -341,15 +341,15 @@
   --drop-shadow-xl: drop-shadow(0 3px 8px rgb(0 0 0 / 9%)) drop-shadow(0 3px 12px rgb(0 0 0 / 17%));
 
   // === MOBILE MENU ===========================================================
-  // --mobile-menu-background: var(--e-1);
-  // --mobile-menu-advanced-background: var(--e-body);
-  // --mobile-menu-site-box-shadow: 2px 0 3px rgb(0 0 0 / 30%);
-  // --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
-  // --mobile-menu-overlay: rgb(0 0 0 / 20%);
-  // --mobile-menu-text-shadow: var(--text-shadow);
-  // --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);
-  // --mobile-menu-current-chapter-text: var(--fg-400);
-  // --mobile-menu-current-chapter-background: rgb(0 0 0 / 25%);
+
+  --mobile-menu-background: var(--bg-700);
+  --mobile-menu-advanced-background: color-mix(in srgb, var(--bg-950), white 3%);
+  --mobile-menu-box-shadow: 2px 0 3px rgb(0 0 0 / 30%);
+  --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
+  --mobile-menu-overlay: rgb(0 0 0 / 50%);
+  --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);
+  --mobile-menu-current-chapter-color: var(--fg-400);
+  --mobile-menu-current-chapter-background: rgb(0 0 0 / 25%);
 
   // === FONT SETTINGS =========================================================
 
@@ -458,12 +458,10 @@
 
   // === BUTTONS - QUICK =======================================================
 
-  // --button-quick-background: var(--bg-500);
-  // --button-quick-background-hover: var(--bg-300);
-  // --button-quick-text: var(--fg-600);
-  // --button-quick-text-hover: var(--fg-400);
-  // --button-quick-border: none;
-  // --button-quick-border-hover: none;
+  --button-quick-background: var(--bg-500);
+  --button-quick-background-hover: var(--bg-300);
+  --button-quick-color: var(--fg-600);
+  --button-quick-color-hover: var(--fg-400);
 
   // === BUTTONS - FILE BLOCK ==================================================
 

@@ -180,13 +180,11 @@ button[type=submit]:where(:not(._inline)) {
 
   &._quick {
     background: var(--button-quick-background);
-    color: var(--button-quick-text);
-    border: var(--button-quick-border);
+    color: var(--button-quick-color);
 
     &:not(.current, [disabled]):hover {
       background: var(--button-quick-background-hover);
-      color: var(--button-quick-text-hover);
-      border: var(--button-quick-border-hover);
+      color: var(--button-quick-color-hover);
     }
   }
 
