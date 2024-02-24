@@ -245,7 +245,7 @@ p a,
 
   :where(.list, ul:not([class])) {
     li::marker {
-      color: var(--fg-700);
+      color: var(--list-marker-color, var(--fg-700)); // Done
     }
   }
 
@@ -297,6 +297,7 @@ p a,
 }
 
 .litrpg-box {
+  --list-marker-color: currentColor;
   color: var(--litrpg-color);
   font-size: 87.5%; // Fallback
   font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');

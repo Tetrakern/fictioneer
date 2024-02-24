@@ -9,7 +9,7 @@
     flex: 1 0 100%;
     padding-bottom: .75rem;
     margin-bottom: .25rem;
-    border-bottom: 2px dashed var(--layout-color-lineart);
+    border-bottom: var(--layout-hr-border-dashed);
   }
 
   &__current {

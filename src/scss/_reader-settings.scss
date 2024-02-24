@@ -48,12 +48,12 @@
     &[aria-checked="true"] {
       .reader-settings__toggle-icon {
         background: var(--toggle-background-checked);
-        color: var(--toggle-text-checked);
+        color: var(--toggle-color-checked);
         border-color: var(--toggle-border-checked);
 
         &:hover {
           background: var(--toggle-background-hover);
-          color: var(--toggle-text-checked-hover);
+          color: var(--toggle-color-checked-hover);
           border-color: var(--toggle-border-hover);
         }
       }
@@ -65,7 +65,7 @@
     display: grid;
     place-content: center;
     background: var(--toggle-background);
-    color: var(--toggle-text);
+    color: var(--toggle-color);
     font-size: 12px;
     line-height: 1;
     text-shadow: none;
@@ -78,7 +78,7 @@
                 color var(--transition-duration);
 
     &:hover {
-      color: var(--toggle-text-hover);
+      color: var(--toggle-color-hover);
       border-color: var(--toggle-border-hover);
     }
   }

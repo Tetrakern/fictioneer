@@ -42,12 +42,10 @@
   --layout-link: inherit;
   --layout-link-hover: var(--fg-200);
   --caption-overlay-color: var(--fg-1000);
-  --layout-color-lineart: var(--bg-600);
-  --layout-color-separator: rgb(0 0 0 / 8%);
 
   // === MINIMAL ===============================================================
-  --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
-  --minimal-container-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
+  --minimal-page-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
+  --minimal-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
 
   // === UNSORTED ==============================================================
   --theme-color-base: 220 13 91;
@@ -219,8 +217,8 @@
   --button-quick-border-hover: none;
 
   // === BUTTONS - FILE BLOCK ==================================================
-  --button-file-block-text: var(--fg-1000);
-  --button-file-block-text-hover: var(--fg-1000);
+  --button-file-block-color: var(--fg-1000);
+  --button-file-block-color-hover: var(--fg-1000);
   --button-file-block-background: var(--bg-500);
   --button-file-block-background-hover: var(--bg-700);
 
@@ -308,17 +306,17 @@
   --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
 
   // === BADGES ================================================================
-  --badge-generic-text: var(--fg-1000);
+  --badge-generic-color: var(--fg-1000);
   --badge-generic-background: var(--bg-400);
-  --badge-supporter-text: var(--fg-1000);
+  --badge-supporter-color: var(--fg-1000);
   --badge-supporter-background: #ed5e76;
-  --badge-moderator-text: var(--fg-1000);
+  --badge-moderator-color: var(--fg-1000);
   --badge-moderator-background: #5369ac;
-  --badge-admin-text: var(--fg-1000);
+  --badge-admin-color: var(--fg-1000);
   --badge-admin-background: var(--bg-700);
-  --badge-author-text: var(--fg-1000);
+  --badge-author-color: var(--fg-1000);
   --badge-author-background: var(--bg-700);
-  --badge-override-text: var(--fg-1000);
+  --badge-override-color: var(--fg-1000);
   --badge-override-background: var(--bg-400);
 
   // === SCOPES ================================================================
@@ -352,10 +350,10 @@
   }
 
   .toggle {
-    --toggle-text: var(--button-primary-background);
-    --toggle-text-hover: var(--button-primary-background-hover);
-    --toggle-text-checked: var(--fg-1000);
-    --toggle-text-checked-hover: var(--fg-1000);
+    --toggle-color: var(--button-primary-background);
+    --toggle-color-hover: var(--button-primary-background-hover);
+    --toggle-color-checked: var(--fg-1000);
+    --toggle-color-checked-hover: var(--fg-1000);
     --toggle-background: transparent;
     --toggle-background-checked: var(--button-primary-background);
     --toggle-background-hover: var(--button-primary-background-hover);
@@ -365,24 +363,24 @@
   }
 
   .suggestion-tools {
-    --button-suggestion-text: var(--fg-1000);
-    --button-suggestion-text-hover: var(--fg-1000);
+    --button-suggestion-color: var(--fg-1000);
+    --button-suggestion-color-hover: var(--fg-1000);
     --button-suggestion-background: var(--bg-500);
     --button-suggestion-background-hover: var(--bg-700);
   }
 
   .tag-pill {
-    --tag-text: var(--fg-600);
-    --tag-text-hover: var(--fg-1000);
+    --tag-color: var(--fg-600);
+    --tag-color-hover: var(--fg-1000);
     --tag-background: var(--bg-300);
     --tag-background-hover: var(--bg-700);
-    --tag-secondary-text: var(--fg-900);
-    --tag-secondary-text-hover: var(--fg-1000);
+    --tag-secondary-color: var(--fg-900);
+    --tag-secondary-color-hover: var(--fg-1000);
     --tag-secondary-background: transparent;
     --tag-secondary-background-hover: var(--bg-700);
     --tag-secondary-border: 1px solid var(--bg-300);
     --tag-secondary-border-hover: 1px solid transparent;
-    --tag-warning-text-hover: var(--fg-1000);
+    --tag-warning-color-hover: var(--fg-1000);
     --tag-warning-background: rgb(246 96 85 / 5%);
     --tag-warning-background-hover: var(--red-600);
   }

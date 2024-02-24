@@ -1234,7 +1234,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dadde2'
+      'default' => '#dbdde1'
     )
   );
 
@@ -1256,7 +1256,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dadde2'
+      'default' => '#dbdde1'
     )
   );
 

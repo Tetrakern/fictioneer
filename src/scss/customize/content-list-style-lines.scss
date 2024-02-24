@@ -7,7 +7,7 @@
 
   :is(.chapter-group__list-item, .story__blog-list-item, .card__link-list-item) {
     border-radius: 0;
-    border-bottom: 1.5px solid var(--layout-color-separator);
+    border-bottom: var(--content-li-hr-border);
   }
 
   .card__link-list-item:last-child {

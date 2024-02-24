@@ -18,7 +18,7 @@
 
     &:not(:first-child) {
       .post__header {
-        border-top: 2px solid var(--layout-color-separator);
+        border-top: var(--layout-hr-border);
         padding-top: var(--layout-spacing-vertical);
       }
     }

@@ -52,11 +52,11 @@
   --header-height: calc(#{get_clamp(190, 380, 320, $full-width)} - var(--page-inset-top));
   --header-logo-height: 210px;
 
-  // --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)};
-  // --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)};
-  // --site-title-heading-color: var(--fg-100);
-  // --site-title-tagline-color: var(--fg-100);
-  // --site-title-text-shadow: 0 0 4px rgb(0 0 0 / 80%), 0 0 2px rgb(0 0 0 / 60%);
+  --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)};
+  --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)};
+  --site-title-heading-color: var(--fg-300);
+  --site-title-tagline-color: var(--fg-300);
+  --site-title-text-shadow: 0 0 4px rgb(0 0 0 / 80%), 0 0 2px rgb(0 0 0 / 60%);
 
   // === ASSETS ================================================================
 
@@ -109,6 +109,9 @@
   --embed-background: var(--disabled-pattern);
   --embed-box-shadow: var(--box-shadow-m);
 
+  --table-border-color: var(--fg-900);
+  --table-stripe-background: rgb(0 0 0 / 15%);
+
   --paragraph-spacing: 1.5rem;
   --blockquote-background: rgb(0 0 0 / 15%);
   --placeholder-background: var(--bg-950);
@@ -124,8 +127,8 @@
 
   --litrpg-background: var(--bg-50);
   --litrpg-color: var(--fg-inverted);
-  --litrpg-ins: var(--green-700);
-  --litrpg-del: var(--red-700);
+  --litrpg-ins: #607a3e;
+  --litrpg-del: #c14444;
   --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
   --litrpg-drop-shadow: var(--drop-shadow-m);
 
@@ -134,6 +137,7 @@
   --content-li-background: var(--content-li-background-gradient); // Base assignment
   --content-li-background-full: var(--bg-800);
   --content-li-background-gradient: linear-gradient(to left, var(--bg-800) 0%, var(--bg-800) 55%, transparent 90%);
+  --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
 
   // Derived from: https://larsenwork.com/easing-gradients/
   // --content-li-background-gradient: linear-gradient(
@@ -162,59 +166,18 @@
   --primary-500: hsl(44deg 86% 70%);
   --primary-600: hsl(34deg 82% 70%);
 
-  --yellow-100: #fee399;
-  --yellow-200: #fedc80;
-  --yellow-300: #fdd566;
-  --yellow-400: #fdce4d;
-  --yellow-500: #fdc733;
-  --yellow-600: #fcc01a;
-  --yellow-700: #fcb900;
-  --yellow-800: #e3a700;
-  --yellow-900: #ca9400;
-
-  --green-100: #aec294;
-  --green-200: #a1b882;
-  --green-300: #93ad71;
   --green-400: #86a35f;
   --green-500: #78994d;
   --green-600: #6c8a45;
-  --green-700: #607a3e;
-  --green-800: #546b36;
-  --green-900: #485c2e;
 
-  --red-100: #f79999;
-  --red-200: #f58888;
-  --red-300: #f47777;
   --red-400: #f26666;
   --red-500: #f15555;
   --red-600: #d94d4d;
-  --red-700: #c14444;
-  --red-800: #a93b3b;
-  --red-900: #913333;
-
-  --blue-100: #6ec9f2;
-  --blue-200: #56c0f0;
-  --blue-300: #3eb7ed;
-  --blue-400: #26aeeb;
-  --blue-500: #0ea5e9;
-  --blue-600: #0d95d2;
-  --blue-700: #0b84ba;
-  --blue-800: #0a73a3;
-  --blue-900: #08638c;
 
   body {
-    --wp--preset--color--black: var(--fg-inverted);
-    // --wp--preset--color--cyan-bluish-gray: #abb8c3;
-    --wp--preset--color--white: var(--fg-100);
-    // --wp--preset--color--pale-pink: #f78da7;
-    --wp--preset--color--vivid-red: var(--red-400);
-    // --wp--preset--color--luminous-vivid-orange: #ff6900;
-    --wp--preset--color--luminous-vivid-amber: var(--yellow-400);
-    --wp--preset--color--light-green-cyan: var(--green-400);
-    // --wp--preset--color--vivid-green-cyan: #00d084;
-    // --wp--preset--color--pale-cyan-blue: #8ed1fc;
-    --wp--preset--color--vivid-cyan-blue: var(--blue-400);
-    // --wp--preset--color--vivid-purple: #9b51e0;
+    --wp--preset--color--vivid-red: var(--red-400); // Change for dark mode
+    --wp--preset--color--vivid-cyan-blue: #26aeeb; // Change for dark mode
+    --wp--preset--color--vivid-purple: #c792fc; // Change for dark mode
   }
 
   // === BACKGROUNDS ===========================================================
@@ -262,18 +225,6 @@
     --fg-950: #{hsl_font_code(222, 9, 49)}; // Contrast ratio vs bg-700 ~ 3
     --fg-tinted: #{hsl_font_code(222, 20, 74)}; // Contrast ratio vs bg-700 ~ 6.6
     --fg-inverted: #{hsl_font_code(222, 20, 5)}; // Contrast ratio vs bg-200 ~ 4.51
-
-    // Colors for dark backgrounds (not changed in light mode)
-    // --fg-d100: #{hsl_font_code(220, 10, 88)}; // Contrast ~ 9.9, #dddfe3
-    // --fg-d200: #{hsl_font_code(223, 11, 84)}; // Contrast ~ 8.9, #d2d4db
-    // --fg-d300: #{hsl_font_code(224, 11, 79)}; // Contrast ~ 7.8, #c4c7cf
-    // --fg-d400: #{hsl_font_code(221, 13, 74)}; // Contrast ~ 6.8, #b4bac5
-    // --fg-d500: #{hsl_font_code(222, 14, 69)}; // Contrast ~ 5.8, #a5acbb
-    // --fg-d600: #{hsl_font_code(222, 13, 65)}; // Contrast ~ 5.1, #9aa1b1
-    // --fg-d700: #{hsl_font_code(221, 12, 62)}; // Contrast ~ 4.7, #929aaa
-    // --fg-d800: #{hsl_font_code(221, 10, 61)}; // Contrast ~ 4.56, #9298a5
-    // --fg-d900: #{hsl_font_code(223, 10, 52)}; // Contrast ~ 3.3, #787f91
-    // --fg-d1000: #{hsl_font_code(220, 10, 8)}; // Contrast ~ 1.4, #121416
   }
 
   // === CUSTOMIZER (FOR REFERENCE) ============================================
@@ -289,18 +240,15 @@
   --layout-border-radius-small: 2px;
   --layout-link-color: inherit;
   --layout-link-color-hover: inherit;
-  --layout-hr-border: 2px solid var(--bg-300);
-
-
-
-  // --layout-color-lineart: var(--fg-800);
-
-
+  --layout-hr-border: 2px solid var(--hr-border-color, var(--bg-300));
+  --layout-hr-border-dashed: 2px dashed var(--hr-border-color, var(--bg-200));
 
   // === MINIMAL ===============================================================
 
-  // --minimal-main-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
-  // --minimal-container-box-shadow: 0 0 1px rgb(0 0 0 / 50%);
+  --minimal-page-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
+  --minimal-page-drop-shadow: drop-shadow(0 0 1px rgb(0 0 0 / 40%));
+  --minimal-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
+  --minimal-drop-shadow: drop-shadow(0 0 1px rgb(0 0 0 / 40%));
 
   // === HEADER ================================================================
 
@@ -367,8 +315,9 @@
   --pagination-color-current: var(--fg-inverted);
 
   // === FOOTER ================================================================
-  // --fg-isolated-footer: var(--fg-d900);
-  // --bg-isolated-footer: var(--bg-1000);
+
+  --fg-isolated-footer: var(--fg-700);
+  --bg-isolated-footer: var(--bg-950);
 
   // === MODALS ================================================================
 
@@ -402,10 +351,6 @@
   // --mobile-menu-current-chapter-text: var(--fg-400);
   // --mobile-menu-current-chapter-background: rgb(0 0 0 / 25%);
 
-  // === TABLES ================================================================
-  // --table-border-color: var(--fg-900);
-  // --table-stripe-background: hsl(var(--bg-1000-free) / 15%);
-
   // === FONT SETTINGS =========================================================
 
   --font-smoothing-webkit: subpixel-antialiased; // Default
@@ -424,6 +369,7 @@
   --font-letter-spacing-base: 0.01em;
 
   // === FONT SIZES ============================================================
+
   --fs-xxxs: .625rem; // 10px
   --fs-xxs: .75rem; // 12px
   --fs-xs: .875rem; // 14px
@@ -440,12 +386,10 @@
   --fs-dxs: #{get_clamp(12, 13, 400, 768)};
   --fs-ds: #{get_clamp(13, 14, 400, 768)};
 
-  // === COLORS - HEADING LINKS ================================================
+  // === COLORS LINKS ==========================================================
 
   --heading-link-color: var(--fg-400);
   --heading-link-color-hover: var(--fg-200);
-
-  // === COLORS - INLINE LINKS =================================================
 
   --inline-link-color: var(--primary-500);
   --inline-link-color-hover: var(--primary-400);
@@ -505,7 +449,15 @@
   --button-warning-color: #fff;
   --button-warning-color-hover: #fff;
 
+  // === BUTTONS - SUGGESTION ===================================================
+
+  --button-suggestion-color: var(--fg-inverted);
+  --button-suggestion-color-hover: var(--fg-inverted);
+  --button-suggestion-background: var(--bg-100);
+  --button-suggestion-background-hover: var(--bg-50);
+
   // === BUTTONS - QUICK =======================================================
+
   // --button-quick-background: var(--bg-500);
   // --button-quick-background-hover: var(--bg-300);
   // --button-quick-text: var(--fg-600);
@@ -514,10 +466,11 @@
   // --button-quick-border-hover: none;
 
   // === BUTTONS - FILE BLOCK ==================================================
-  // --button-file-block-text: var(--fg-1000);
-  // --button-file-block-text-hover: var(--fg-1000);
-  // --button-file-block-background: var(--fg-600);
-  // --button-file-block-background-hover: var(--fg-400);
+
+  --button-file-block-color: var(--fg-inverted);
+  --button-file-block-color-hover: var(--fg-inverted);
+  --button-file-block-background: var(--bg-100);
+  --button-file-block-background-hover: var(--bg-50);
 
   // === PASSWORD FORM =========================================================
 
@@ -588,23 +541,25 @@
   --text-selection-color: var(--fg-100);
 
   // === SCROLL BARS ===========================================================
-  // --scrollbar-background: rgb(0 0 0 / 20%);
-  // --scrollbar-thumb: var(--fg-900);
-  // --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
+
+  --scrollbar-background: rgb(0 0 0 / 20%);
+  --scrollbar-thumb: var(--fg-950);
+  --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
 
   // === BADGES ================================================================
-  // --badge-generic-text: var(--fg-400);
-  // --badge-generic-background: var(--bg-300);
-  // --badge-supporter-text: var(--fg-100);
-  // --badge-supporter-background: hsl(350deg 75% 60%);
-  // --badge-moderator-text: var(--fg-200);
-  // --badge-moderator-background: #4d628f;
-  // --badge-admin-text: var(--fg-200);
-  // --badge-admin-background: #505062;
-  // --badge-author-text: var(--fg-200);
-  // --badge-author-background: #505062;
-  // --badge-override-text: var(--fg-400);
-  // --badge-override-background: var(--bg-300);
+
+  --badge-generic-color: var(--fg-400);
+  --badge-generic-background: #505062;
+  --badge-supporter-color: var(--fg-100);
+  --badge-supporter-background: #e4445e;
+  --badge-moderator-color: var(--fg-200);
+  --badge-moderator-background: #4d628f;
+  --badge-admin-color: var(--fg-inverted);
+  --badge-admin-background: var(--bg-50);
+  --badge-author-color: var(--fg-200);
+  --badge-author-background: #b1355a;
+  --badge-override-color: var(--fg-300);
+  --badge-override-background: #5a5a7f;
 
   // === SCOPES ================================================================
 
@@ -630,48 +585,50 @@
   }
 
   .toggle {
-    // --toggle-text: var(--fg-600);
-    // --toggle-text-hover: var(--fg-400);
-    // --toggle-text-checked: var(--fg-1000);
-    // --toggle-text-checked-hover: var(--fg-1000);
-    // --toggle-background: transparent;
-    // --toggle-background-checked: var(--fg-600);
-    // --toggle-background-hover: var(--fg-400);
-    // --toggle-border: var(--fg-600);
-    // --toggle-border-checked: var(--fg-600);
-    // --toggle-border-hover: var(--fg-400);
-  }
+    --toggle-background: transparent;
+    --toggle-background-checked: var(--bg-100);
+    --toggle-background-hover: var(--bg-50);
 
-  .suggestion-tools {
-    // --button-suggestion-text: var(--fg-1000);
-    // --button-suggestion-text-hover: var(--fg-1000);
-    // --button-suggestion-background: var(--fg-300);
-    // --button-suggestion-background-hover: var(--fg-200);
+    --toggle-color: var(--fg-600);
+    --toggle-color-hover: var(--fg-300);
+    --toggle-color-checked: var(--fg-inverted);
+    --toggle-color-checked-hover: var(--fg-inverted);
+
+    --toggle-border: var(--fg-600);
+    --toggle-border-checked: var(--fg-600);
+    --toggle-border-hover: var(--fg-300);
   }
 
   .tag-pill {
-    // --tag-text: var(--fg-400);
-    // --tag-text-hover: var(--fg-300);
-    // --tag-background: var(--bg-500);
-    // --tag-background-hover: var(--bg-100);
-    // --tag-secondary-text: var(--fg-900);
-    // --tag-secondary-text-hover: var(--fg-300);
-    // --tag-secondary-background: transparent;
-    // --tag-secondary-background-hover: var(--bg-100);
-    // --tag-secondary-border: .5px solid var(--bg-200);
-    // --tag-secondary-border-hover: .5px solid transparent; // Uses background
-    // --tag-warning-text-hover: var(--fg-100);
-    // --tag-warning-background: rgb(246 96 85 / 5%);
-    // --tag-warning-background-hover: rgb(246 96 85 / 50%);
+    --tag-background: var(--bg-400);
+    --tag-background-hover: var(--bg-300);
+    --tag-color: var(--fg-400);
+    --tag-color-hover: var(--fg-200);
+
+    --tag-secondary-background: transparent;
+    --tag-secondary-background-hover: var(--bg-400);
+    --tag-secondary-color: var(--fg-800);
+    --tag-secondary-color-hover: var(--fg-200);
+    --tag-secondary-border: .5px solid var(--bg-300);
+    --tag-secondary-border-hover: .5px solid transparent; // Uses background
+
+    --tag-warning-background: rgb(246 96 85 / 5%); // Fallback
+    --tag-warning-background: color-mix(in srgb, var(--red-500), transparent 90%);
+    --tag-warning-background-hover: rgb(246 96 85 / 50%); // Fallback
+    --tag-warning-background-hover: color-mix(in srgb, var(--red-500), transparent 35%);
+    --tag-warning-color: var(--fg-800);
+    --tag-warning-color-hover: var(--fg-100);
+    --tag-warning-border: .5px solid var(--bg-300);
+    --tag-warning-border-hover: .5px solid transparent; // Uses background
   }
 }
 
 :root.minimal,
 :root[data-theme=base].minimal {
   .header__title {
-    // --site-title-heading-color: var(--fg-200);
-    // --site-title-tagline-color: var(--fg-500);
-    // --site-title-text-shadow: none;
+    --site-title-heading-color: var(--fg-300);
+    --site-title-tagline-color: var(--fg-300);
+    --site-title-text-shadow: none;
   }
 }
 

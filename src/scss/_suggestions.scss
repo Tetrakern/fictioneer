@@ -100,11 +100,11 @@
 
   button {
     background: var(--button-suggestion-background);
-    color: var(--button-suggestion-text);
+    color: var(--button-suggestion-color);
 
     &:not(.current, [disabled]):hover {
       background: var(--button-suggestion-background-hover);
-      color: var(--button-suggestion-text-hover);
+      color: var(--button-suggestion-color-hover);
     }
   }
 }

@@ -571,12 +571,12 @@ figure {
 
   &:hover :is(a, a.wp-block-file__button) {
     background: var(--button-file-block-background-hover);
-    color: var(--button-file-block-text-hover) !important;
+    color: var(--button-file-block-color-hover) !important;
     opacity: 1;
   }
 
   a {
-    color: var(--button-file-block-text);
+    color: var(--button-file-block-color);
     padding: .5rem;
     transition: background-color var(--transition-duration);
 
@@ -589,7 +589,7 @@ figure {
 
   .wp-block-file__button:is(a) {
     background: var(--button-file-block-background);
-    color: var(--button-file-block-text) !important;
+    color: var(--button-file-block-color) !important;
     font-size: var(--fs-dxs);
     font-weight: var(--button-font-weight);
     border-radius: 0;

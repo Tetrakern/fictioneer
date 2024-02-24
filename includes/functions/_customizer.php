@@ -772,8 +772,8 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Dark mode colors ------------------------------------------------------
 
   $css .= ":root {
-    --site-title-heading-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_title_color', '#dadde2' ) ) . ";
-    --site-title-tagline-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_tagline_color', '#dadde2' ) ) . ";
+    --site-title-heading-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_title_color', '#dbdde1' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_tagline_color', '#dbdde1' ) ) . ";
   }";
 
   if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {
@@ -953,8 +953,8 @@ function fictioneer_build_customize_css( $content = null ) {
 
   if ( ! get_theme_mod( 'page_shadow', true ) ) {
     $css .= ':root.no-page-shadow {
+      --minimal-page-box-shadow: none;
       --page-box-shadow: none;
-      --minimal-main-box-shadow: none;
       --page-drop-shadow: none;
     }';
   }

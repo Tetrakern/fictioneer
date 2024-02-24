@@ -218,7 +218,7 @@
       display: inline-flex;
       align-items: center;
       background: var(--badge-generic-background);
-      color: var(--badge-generic-text);
+      color: var(--badge-generic-color);
       font: var(--font-weight-badge) 10px/1 var(--ff-base);
       letter-spacing: -0.03em;
       text-shadow: none;
@@ -230,27 +230,27 @@
 
       &.badge-override {
         background: var(--badge-override-background);
-        color: var(--badge-override-text);
+        color: var(--badge-override-color);
       }
 
       &.is-moderator {
         background: var(--badge-moderator-background);
-        color: var(--badge-moderator-text);
+        color: var(--badge-moderator-color);
       }
 
       &.is-admin {
         background: var(--badge-admin-background);
-        color: var(--badge-admin-text);
+        color: var(--badge-admin-color);
       }
 
       &.is-author {
         background: var(--badge-author-background);
-        color: var(--badge-author-text);
+        color: var(--badge-author-color);
       }
 
       &.is-supporter {
         background: var(--badge-supporter-background);
-        color: var(--badge-supporter-text);
+        color: var(--badge-supporter-color);
       }
     }
 
