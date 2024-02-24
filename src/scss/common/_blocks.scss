@@ -1,3 +1,42 @@
+// =============================================================================
+// GENERAL
+// =============================================================================
+
+[class*="wp-block-"]:not(p, h1, h2, h3, h4, h5, h6, .wp-block-separator, .wp-block-spacer, .wp-block-image:where(.alignright, .alignleft)) {
+  clear: both;
+
+  &:not(:first-child) {
+    margin-top: max(2.5rem, var(--paragraph-spacing) + 1rem);
+  }
+
+  &:not(:last-child) {
+    margin-bottom: max(2.5rem, var(--paragraph-spacing) + 1rem);
+  }
+
+  &.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.alignright {
+    margin-left: auto;
+  }
+}
+
+// =============================================================================
+// INLINE
+// =============================================================================
+
+sup[data-fn] {
+  display: inline-block;
+  font-weight: 500;
+  padding-left: .15em;
+}
+
+// =============================================================================
+// SEPARATOR
+// =============================================================================
+
 .wp-block-separator {
   border: 0;
   border-bottom: var(--layout-hr-border);
@@ -22,17 +61,9 @@
   }
 }
 
-[class*="wp-block-"]:not(p, .wp-block-separator, .wp-block-image:where(.alignright, .alignleft)) {
-  clear: both;
-
-  &:not(:first-child) {
-    margin-top: max(2.5rem, var(--paragraph-spacing) + 1rem);
-  }
-
-  &:not(:last-child) {
-    margin-bottom: max(2.5rem, var(--paragraph-spacing) + 1rem);
-  }
-}
+// =============================================================================
+// IMAGES
+// =============================================================================
 
 .wp-block-image {
   &.alignright {
@@ -45,6 +76,11 @@
     margin: .5em 1.5em .5em 0;
   }
 
+  &.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   &:where(.alignright, .alignleft) {
     max-width: min(calc(45vw - 2 * var(--layout-spacing-horizontal-small)), 50%);
   }
@@ -53,6 +89,10 @@
     border-radius: 2px;
   }
 }
+
+// =============================================================================
+// (FIG-) CAPTIONS
+// =============================================================================
 
 [class*="wp-block-"] {
   figcaption {
@@ -66,93 +106,148 @@
   }
 }
 
+// =============================================================================
+// PARAGRAPHS
+// =============================================================================
+
 p.has-drop-cap::first-letter {
   font-size: 3.75em !important;
   padding-right: .05em;
 }
 
+// =============================================================================
+// CODE BLOCK
+// =============================================================================
 
-// // =============================================================================
-// // GENERAL - TEXT ALIGN
-// // =============================================================================
+.wp-block-code {
+  letter-spacing: 0;
+  border-style: solid;
+  border-radius: var(--layout-border-radius-small);
+  overflow: auto;
 
-// .has-text-align-right {
-//   text-align: right;
-// }
+  code {
+    display: block;
+    font-family: var(--ff-mono);
+    line-height: 1.7;
+    white-space: pre;
+    border-radius: var(--layout-border-radius-small);
+  }
 
-// .has-text-align-center {
-//   text-align: center;
-// }
+  &:not([style*=padding]) {
+    code {
+      padding: 1rem;
+      overflow: auto;
+    }
+  }
 
-// .has-text-align-left {
-//   text-align: left;
-// }
+  &:not([class*=font-size]) {
+    code {
+      font-size: var(--fs-xxs);
+    }
+  }
 
-// // =============================================================================
-// // GENERAL (LEGACY) - BLOCK ALIGN
-// // =============================================================================
+  &:not([class*=background-color]) {
+    code {
+      background: var(--code-background);
+    }
+  }
 
-// figure {
-//   &.aligncenter {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//   }
+  &:not([class*=text-color]) {
+    color: var(--code-color);
+  }
+}
 
-//   &.alignright {
-//     float: right;
-//     margin-left: 2rem;
-//   }
+// =============================================================================
+// TABLES
+// =============================================================================
 
-//   &.alignleft {
-//     float: left;
-//     margin-right: 2rem;
-//   }
-// }
+.wp-block-table {
+  float: none;
+  overflow-x: auto;
 
-// // =============================================================================
-// // GENERAL - BORDER RADIUS
-// // =============================================================================
+  &:where(.min-480, .min-640, .min-768) {
+    min-width: unset; // Delegate to table child
+  }
 
-// :is(.wp-block-image, .wp-block-gallery) {
-//   img {
-//     border-radius: var(--layout-border-radius-small);
-//   }
-// }
+  &.min-480 table {
+    min-width: 480px;
+  }
 
-// // =============================================================================
-// // GENERAL - FIGCAPTIONS
-// // =============================================================================
+  &.min-640 table {
+    min-width: 640px;
+  }
 
-// :is(.wp-block-image, .wp-block-embed, .wp-block-audio, .wp-block-video, .wp-block-table, .wp-block-quote, .wp-block-pullquote, .wp-block-gallery) {
-//   margin: 0;
+  &.min-768 table {
+    min-width: 768px;
+  }
 
-//   figcaption {
-//     color: var(--fg-800);
-//     font-family: var(--ff-note);
-//     font-size: 75%; // Scales with custom formatting
-//     line-height: 1.3;
-//     text-align: center;
-//     padding: .5rem 1rem 0;
-//     margin: 0;
-//   }
-// }
+  table {
+    font-size: 75%; // Scales with custom formatting
+    border-style: solid;
+    border-color: var(--table-border-color);
+    border-collapse: collapse;
 
-// // =============================================================================
-// // GENERAL - SPACING
-// // =============================================================================
+    @include bp(480px) {
+      font-size: 87.5%; // Scales with custom formatting
+    }
+  }
 
-// :is(.wp-block-embed, .wp-block-audio, .wp-block-video, .wp-block-table, .wp-block-quote, .wp-block-pullquote, .wp-block-gallery, .wp-block-code, .wp-block-preformatted) {
-//   clear: both;
+  :is(thead, tbody, tfoot, tr, td, th) {
+    border-style: inherit;
+    border-color: inherit;
+    overflow-wrap: break-word;
+  }
 
-//   &:not(:first-child) {
-//     margin-top: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)");
-//   }
+  :is(th, td) {
+    padding: .5em .75em;
+  }
 
-//   &:not(:last-child) {
-//     margin-bottom: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)");
-//   }
-// }
+  thead {
+    border-bottom-width: 0;
+  }
+
+  tfoot {
+    font-weight: var(--font-weight-strong);
+    vertical-align: top;
+    border-top-width: 3px;
+  }
+
+  th {
+    font-weight: var(--font-weight-strong);
+    vertical-align: bottom;
+  }
+
+  figcaption {
+    padding-bottom: .5rem; // Place for scrollbar on mobile
+  }
+
+  &.is-style-stripes {
+    border-bottom: none;
+
+    tfoot {
+      border-top-color: var(--table-border-color-striped);
+    }
+
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: var(--table-background-striped);
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // // =============================================================================
 // // BLOCKQUOTE
@@ -301,90 +396,6 @@ p.has-drop-cap::first-letter {
 // }
 
 // // =============================================================================
-// // SEPARATOR
-// // =============================================================================
-
-// .wp-block-separator {
-//   border-top: none;
-
-//   &:not(.is-style-wide, .is-style-dots) {
-//     width: 128px;
-//     max-width: 75%;
-//   }
-
-//   &.is-style-dots {
-//     text-align: center;
-//     line-height: 1;
-//     border: none;
-
-//     &::before {
-//       content: '···';
-//       color: var(--fg-900);
-//       font-size: 1.5em;
-//       letter-spacing: 2em;
-//       padding-left: 2em;
-//       font-family: serif;
-//     }
-//   }
-// }
-
-// // =============================================================================
-// // IMAGE
-// // =============================================================================
-
-// .wp-block-image {
-//   flex-wrap: wrap;
-
-//   figcaption {
-//     flex-basis: 100%;
-//   }
-
-//   img {
-//     display: block;
-//     height: auto;
-//     border-style: solid;
-//     border-color: currentColor;
-//   }
-
-//   &.aligncenter {
-//     display: flex;
-//     justify-content: center;
-//   }
-
-//   &:is(.alignright, .alignleft) {
-//     margin-top: .25rem;
-//     margin-bottom: 1rem;
-//     max-width: 30%;
-//   }
-
-//   &:not(.alignright, .alignleft) {
-//     &:not(:first-child) {
-//       margin-top: 2rem;
-//     }
-
-//     &:not(:last-child) {
-//       margin-bottom: 2rem;
-//     }
-//   }
-
-//   &.alignright {
-//     float: right;
-//     margin-left: 2rem;
-//   }
-
-//   &.alignleft {
-//     float: left;
-//     margin-right: 2rem;
-//   }
-
-//   &.is-style-rounded {
-//     img {
-//       border-radius: 9999px;
-//     }
-//   }
-// }
-
-// // =============================================================================
 // // VIDEO
 // // =============================================================================
 
@@ -503,113 +514,6 @@ p.has-drop-cap::first-letter {
 //     div.twitter-tweet {
 //       margin: 0 !important;
 //     }
-//   }
-// }
-
-// // =============================================================================
-// // TABLES
-// // =============================================================================
-
-// .wp-block-table {
-//   overflow-x: auto;
-
-//   &.min-480 {
-//     min-width: unset;
-
-//     table {
-//       min-width: 480px;
-//     }
-//   }
-
-//   &.min-640 {
-//     min-width: unset;
-
-//     table {
-//       min-width: 640px;
-//     }
-//   }
-
-//   &.min-768 {
-//     min-width: unset;
-
-//     table {
-//       min-width: 768px;
-//     }
-//   }
-
-//   table {
-//     font-size: 80%; // Scales with custom formatting
-//     border-collapse: collapse;
-//     border-spacing: 0;
-//     border: 1px solid transparent;
-//     width: auto;
-//     margin: 0 auto;
-
-//     @include bp(480px) {
-//       font-size: 87.5%; // Scales with custom formatting
-//     }
-//   }
-
-//   :is(thead, tbody, tfoot, tr, td, th) {
-//     border-width: inherit;
-//     border-style: solid;
-//     border-color: inherit;
-//     overflow-wrap: break-word;
-//   }
-
-//   th {
-//     font-weight: var(--font-weight-strong);
-//     vertical-align: bottom;
-//   }
-
-//   :is(th, td) {
-//     padding: .5em .75em;
-
-//     @include bp(480px) {
-//       padding: .5rem .75rem;
-//     }
-//   }
-
-//   tfoot {
-//     td {
-//       font-size: 87.5%; // Scales with custom formatting
-//       font-weight: var(--font-weight-strong);
-//       vertical-align: top;
-//     }
-//   }
-
-//   &.is-style-regular {
-//     table {
-//       border-color: var(--table-border-color);
-//     }
-//   }
-
-//   &.is-style-stripes {
-//     :is(th, td) {
-//       padding: .675em 1em;
-
-//       @include bp(480px) {
-//       padding: .675rem 1rem;
-//     }
-//     }
-
-//     tbody {
-//       tr {
-//         &:nth-child(odd) {
-//           background: var(--table-stripe-background);
-//         }
-//       }
-//     }
-
-//     tfoot {
-//       td {
-//         padding: .375rem 1rem;
-//       }
-//     }
-//   }
-
-//   figcaption {
-//     padding-bottom: .5rem; // Place for scrollbar on mobile
 //   }
 // }
 
@@ -785,46 +689,7 @@ p.has-drop-cap::first-letter {
 //   }
 // }
 
-// // =============================================================================
-// // CODE BLOCk
-// // =============================================================================
 
-// .wp-block-code {
-//   letter-spacing: 0;
-//   border-radius: var(--layout-border-radius-small);
-//   overflow: auto;
-
-//   code {
-//     display: block;
-//     font-family: var(--ff-mono);
-//     line-height: 1.7;
-//     white-space: pre;
-//     border-radius: var(--layout-border-radius-small);
-//   }
-
-//   &:not([style*=padding]) {
-//     code {
-//       padding: 1rem;
-//       overflow: auto;
-//     }
-//   }
-
-//   &:not([class*=font-size]) {
-//     code {
-//       font-size: var(--fs-xxs);
-//     }
-//   }
-
-//   &:not([class*=background-color]) {
-//     code {
-//       background: var(--code-background);
-//     }
-//   }
-
-//   &:not([class*=text-color]) {
-//     color: var(--code-color);
-//   }
-// }
 
 // // =============================================================================
 // // PRE BLOCK

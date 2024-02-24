@@ -4,6 +4,8 @@
   "settings": {
     "appearanceTools": true,
     "color": {
+      "link": false,
+      "custom": false,
       "duotone": [],
       "customDuotone": false,
       "defaultDuotone": false,
@@ -11,59 +13,74 @@
       "customGradient": false,
       "defaultGradients": false
     },
+    "dimensions": {
+			"minHeight": false
+		},
+    "layout": {
+			"contentSize": "840px",
+			"wideSize": "840px"
+		},
+    "position": {
+			"sticky": false
+		},
+    "spacing": {
+			"blockGap": null,
+			"margin": false,
+			"padding": false,
+			"units": ["px", "em", "rem"],
+			"spacingScale": {}
+		},
+    "shadow": {
+			"defaultPresets": false
+		},
+    "useRootPaddingAwareAlignments": false,
     "typography": {
       "dropCap": true,
       "lineHeight": false,
       "textTransform": false,
       "letterSpacing": false,
       "customFontSize": false,
+      "fluid": false,
+      "fontFamilies": [],
       "fontSizes": [
         {
           "size": "var(--fs-xxs)",
           "name": "Extra Small",
-          "shortName": "XXS",
           "slug": "extra-small"
         },
         {
           "size": "var(--fs-xs)",
           "name": "Small",
-          "shortName": "XS",
           "slug": "small"
         },
         {
           "size": "var(--fs-s)",
           "name": "Normal",
-          "shortName": "S",
           "slug": "normal"
         },
         {
           "size": "var(--fs-m)",
           "name": "Medium",
-          "shortName": "M",
           "slug": "medium"
         },
         {
           "size": "var(--fs-l)",
           "name": "Large",
-          "shortName": "L",
           "slug": "large"
         },
         {
           "size": "var(--fs-xl)",
           "name": "Extra Large",
-          "shortName": "XL",
           "slug": "extra-large"
         },
         {
           "size": "var(--fs-xxl)",
           "name": "Huge",
-          "shortName": "XXL",
           "slug": "huge"
         },
         {
           "size": "var(--fs-xxxl)",
           "name": "Gigantic",
-          "shortName": "XXXL",
           "slug": "gigantic"
         }
       ]
