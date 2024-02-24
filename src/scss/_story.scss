@@ -35,12 +35,6 @@ $header_breakpoint: 640px;
   }
 }
 
-:root.minimal {
-  .story__blog-list-item {
-    padding: .5rem 8px;
-  }
-}
-
 .story {
   &__article {
     &._no-checkmarks {

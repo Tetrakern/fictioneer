@@ -629,9 +629,9 @@ function fictioneer_style_queue() {
 
   // Remove Gutenberg default styles
   if ( ! get_option( 'fictioneer_enable_all_block_styles' ) ) {
-    wp_dequeue_style( 'wp-block-library' );
-    wp_dequeue_style( 'wp-block-library-theme' );
-    wp_dequeue_style( 'wc-blocks-style' );
+    // wp_dequeue_style( 'wp-block-library' );
+    // wp_dequeue_style( 'wp-block-library-theme' );
+    // wp_dequeue_style( 'wc-blocks-style' );
   }
 }
 add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );

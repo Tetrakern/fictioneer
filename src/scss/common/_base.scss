@@ -707,22 +707,6 @@ html:not(.logged-in) body:not(.logged-in) {
   }
 }
 
-:root.minimal {
-  .chapter-group__list-item-link {
-    grid-area: 1 / 1 / 2 / 3;
-    padding-left: 8px;
-  }
-
-  .chapter-group__list-item-subrow {
-    grid-area: 2 / 1 / 3 / 3;
-    padding-left: 8px;
-  }
-
-  .chapter-group__list-item-icon {
-    display: none;
-  }
-}
-
 .notice {
   display: flex;
   align-items: flex-start;

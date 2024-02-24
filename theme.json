@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
   "settings": {
     "appearanceTools": true,
@@ -11,7 +12,10 @@
       "defaultGradients": false
     },
     "typography": {
-      "dropCap": false,
+      "dropCap": true,
+      "lineHeight": false,
+      "textTransform": false,
+      "letterSpacing": false,
       "customFontSize": false,
       "fontSizes": [
         {
@@ -69,79 +73,6 @@
         "lightbox": {
           "enabled": false,
           "allowEditing": false
-        }
-      },
-      "core/table": {
-        "color": {
-          "custom": false,
-          "background": false,
-          "customDuotone": false,
-          "customGradient": false,
-          "defaultGradients": false,
-          "defaultDuotone": false,
-          "defaultPalette": false,
-          "palette": [],
-          "gradients": [],
-          "duotone": []
-        },
-        "spacing": {
-          "margin": false
-        }
-      },
-      "core/buttons": {
-        "typography": {
-          "dropCap": false,
-          "fontSizes": [],
-          "customFontSize": false,
-          "fontStyle": false,
-          "fontWeight": false,
-          "fluid": false,
-          "letterSpacing": false,
-          "lineHeight": false,
-          "textDecoration": false,
-          "textTransform": false,
-          "letterCase": false
-        },
-        "spacing": {
-          "padding": false,
-          "margin": false
-        }
-      },
-      "core/button": {
-        "color": {
-          "custom": false,
-          "background": false,
-          "customDuotone": false,
-          "customGradient": false,
-          "defaultGradients": false,
-          "defaultDuotone": false,
-          "defaultPalette": false,
-          "palette": [],
-          "gradients": [],
-          "duotone": []
-        },
-        "border": {
-          "color": false,
-          "radius": false,
-          "style": false,
-          "width": false
-        },
-        "typography": {
-          "dropCap": false,
-          "fontSizes": [],
-          "customFontSize": false,
-          "fontStyle": false,
-          "fontWeight": false,
-          "fluid": false,
-          "letterSpacing": false,
-          "lineHeight": false,
-          "textDecoration": false,
-          "textTransform": false,
-          "letterCase": false
-        },
-        "spacing": {
-          "padding": false,
-          "margin": false
         }
       }
     }

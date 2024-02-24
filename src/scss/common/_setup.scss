@@ -133,6 +133,7 @@ em {
 
 strong {
   font-weight: var(--font-weight-strong);
+  filter: var(--strong-filter);
 }
 
 b {
