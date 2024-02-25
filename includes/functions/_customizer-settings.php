@@ -1416,7 +1416,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#4b505d'
+      'default' => '#c7c9d2'
     )
   );
 
@@ -1438,7 +1438,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#464c58'
+      'default' => '#a4a9b7'
     )
   );
 
@@ -1460,7 +1460,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#434956'
+      'default' => '#7b8498'
     )
   );
 
@@ -1482,7 +1482,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#414653'
+      'default' => '#565c6c'
     )
   );
 
@@ -1504,7 +1504,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3e4451'
+      'default' => '#454b59'
     )
   );
 
@@ -1525,7 +1525,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3c414e'
+      'default' => '#3b404c'
     )
   );
 
@@ -1546,7 +1546,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#373c49'
+      'default' => '#333844'
     )
   );
 
@@ -1567,7 +1567,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#323743'
+      'default' => '#2b303b'
     )
   );
 
@@ -1588,7 +1588,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#2b303b'
+      'default' => '#282c37'
     )
   );
 
@@ -1630,7 +1630,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#121317'
+      'default' => '#10121a'
     )
   );
 
@@ -1651,7 +1651,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dddfe3'
+      'default' => '#e6eaf4'
     )
   );
 
@@ -1672,7 +1672,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#d2d4db'
+      'default' => '#dbe0ea'
     )
   );
 
@@ -1693,7 +1693,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#c4c7cf'
+      'default' => '#d1d5e0'
     )
   );
 
@@ -1714,7 +1714,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#b4bac5'
+      'default' => '#c4cad6'
     )
   );
 
@@ -1735,7 +1735,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#a5acbb'
+      'default' => '#b7bdcc'
     )
   );
 
@@ -1756,7 +1756,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9aa1b1'
+      'default' => '#a8afc3'
     )
   );
 
@@ -1777,7 +1777,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#929aaa'
+      'default' => '#989fb4'
     )
   );
 
@@ -1798,7 +1798,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9298a5'
+      'default' => '#9097a7'
     )
   );
 
@@ -1819,7 +1819,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#787f91'
+      'default' => '#7d8497'
     )
   );
 
@@ -1840,7 +1840,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#121416'
+      'default' => '#727888'
     )
   );
 
@@ -1861,7 +1861,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#a4a9b7'
+      'default' => '#b0b7ca'
     )
   );
 
@@ -1903,7 +1903,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#13151b'
+      'default' => '#10121a'
     )
   );
 
@@ -1987,7 +1987,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f66055'
+      'default' => '#f15555'
     )
   );
 
@@ -2029,7 +2029,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#767d8f'
+      'default' => '#7d8497'
     )
   );
 
@@ -2113,7 +2113,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#7ebb4e'
+      'default' => '#86a35f'
     )
   );
 
@@ -2134,7 +2134,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f66055'
+      'default' => '#f26666'
     )
   );
 
@@ -2155,7 +2155,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3a3f4b'
+      'default' => '#505062'
     )
   );
 
@@ -2197,7 +2197,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#505062'
+      'default' => '#c7c9d2'
     )
   );
 
@@ -2218,7 +2218,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#505062'
+      'default' => '#b1355a'
     )
   );
 
@@ -2239,7 +2239,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#e64c66'
+      'default' => '#e4445e'
     )
   );
 
@@ -2260,7 +2260,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3a3f4b'
+      'default' => '#5a5a7f'
     )
   );
 
