@@ -142,7 +142,7 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
  */
 
 --fg-500: #{hsl_font_code(222, 18, 76)}; // SCSS
---fg-500: hsl(calc(222deg + var(--hue-rotate)) max(calc(18% * (var(--font-saturation) + var(--saturation) - 1)), 0%) 76%); // CSS
+--fg-500: hsl(calc(222deg + var(--hue-rotate)) max(calc(18% * (var(--font-saturation) + var(--saturation) - 1)), 0%) clamp(0%, 76%, 100%)); // CSS
 ```
 
 ## JavaScript

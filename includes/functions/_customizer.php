@@ -254,7 +254,7 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
 
     $deg = 'calc(' . $hsl_array[0] . 'deg + var(--hue-rotate))';
     $saturation = 'max(calc(' . $hsl_array[1] . '% * (var(--font-saturation) + var(--saturation) - 1)), 0%)';
-    $lightness = $hsl_array[2] . '%';
+    $lightness = 'clamp(0%, calc(' . $hsl_array[2] . '% * var(--font-lightness, 1)), 100%)';
 
     return "hsl($deg $saturation $lightness)";
   }
