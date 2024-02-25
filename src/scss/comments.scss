@@ -46,7 +46,7 @@
   margin: 16px 0 24px;
 
   &__must-login {
-    color: var(--fg-900);
+    color: var(--fg-800); // Done
     font-size: var(--fs-xs);
     text-align: center;
 
@@ -55,7 +55,7 @@
       transition: color var(--transition-duration);
 
       &:hover {
-        color: var(--fg-800);
+        color: var(--fg-400); // Done
       }
     }
   }
@@ -105,7 +105,7 @@
         flex-grow: 1;
         display: flex;
         align-items: center;
-        color: var(--fg-900);
+        color: var(--fg-800); // Done
         font-size: 13px;
         height: 32px;
       }
@@ -113,7 +113,7 @@
       .right {
         display: flex;
         flex-shrink: 0;
-        color: var(--fg-800);
+        color: var(--fg-800); // Done
         font-size: 14px;
         margin: 0 -4px;
       }
@@ -123,6 +123,10 @@
         place-content: center;
         height: 32px;
         width: 32px;
+
+        &:hover {
+          color: var(--fg-400); // Done
+        }
       }
     }
 
@@ -191,14 +195,14 @@
   }
 
   .private-comment-notice {
-    color: var(--fg-800);
+    color: var(--fg-700); // Done
   }
 
   &__checkbox-label-pair {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--fg-700);
+    color: var(--fg-600); // Done
     font-size: 13px;
     line-height: 1.3;
     height: 32px;
@@ -253,7 +257,6 @@
   }
 
   &__title {
-    color: var(--fg-600);
     font-size: var(--fs-m);
     line-height: 1;
     text-transform: uppercase;
@@ -262,13 +265,13 @@
   }
 
   &__notice {
-    color: var(--fg-900);
+    color: var(--fg-800); // Done
     font-size: 13px;
     padding-top: 8px;
   }
 
   &__disabled {
-    color: var(--fg-900);
+    color: var(--fg-800); // Done
     font-size: 13px;
     text-align: center;
     margin-top: 40px;
@@ -351,7 +354,7 @@
   }
 
   &._unapproved > .fictioneer-comment__container {
-    color: var(--fg-700);
+    color: var(--fg-800); // Done
 
     :is([data-action=unapprove], .fictioneer-comment__actions) {
       display: none;
@@ -386,7 +389,7 @@
       position: absolute;
       top: -7px;
       right: 6px;
-      color: var(--fg-700);
+      color: var(--fg-600); // Done
       transform: rotate(30deg);
     }
   }
@@ -503,7 +506,7 @@
   }
 
   &__info {
-    color: var(--fg-700);
+    color: var(--fg-700); // Done
     font-size: 11px;
     font-style: italic;
     line-height: 1.3;
@@ -513,16 +516,16 @@
 
   &__in-moderation,
   &__hidden-notice {
-    color: var(--fg-900);
+    color: var(--fg-900); // Done
     font-size: var(--fs-xs);
     font-style: italic;
   }
 
   &__in-moderation {
-    color: var(--fg-700);
+    color: var(--fg-700); // Done
 
     :is(i, .icon) {
-      color: var(--fg-800);
+      color: var(--fg-800); // Done
     }
   }
 
@@ -547,7 +550,7 @@
   }
 
   &__edit-note {
-    color: var(--fg-700);
+    color: var(--fg-900); // Done
     font-size: var(--fs-xxs);
     font-style: italic;
     margin-top: 16px;
@@ -623,7 +626,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    color: var(--fg-700);
+    color: var(--fg-700); // Done
     font-size: var(--fs-xs);
     line-height: 18px;
     margin-top: 1rem;
@@ -665,11 +668,12 @@
   }
 
   .comment-quick-button {
+    color: var(--fg-600); // Done
     padding: 0 2px;
     transition: opacity var(--transition-duration);
 
     &:not(:hover, :focus-visible, .fictioneer-report-comment-button, .popup-menu-toggle) {
-      opacity: .2;
+      opacity: .3;
     }
   }
 
@@ -688,11 +692,11 @@
 
   .fictioneer-report-comment-button {
     &:not(:hover, :focus-visible, .on) {
-      opacity: .2;
+      opacity: .3;
     }
 
     &.on {
-      color: var(--red-400);
+      color: var(--red-400); // Done
     }
   }
 
@@ -706,6 +710,12 @@
   }
 
   .comment-reply-link {
+    color: var(--fg-700); // Done
+
+    &:hover {
+      color: var(--fg-400); // Done
+    }
+
     i {
       transform: translateY(-1px) scale(-1);
     }
@@ -736,12 +746,6 @@
     display: block;
     margin: 0 0 .25rem;
   }
-}
-
-.comment-ajax-error {
-  color: var(--fg-800);
-  font-size: var(--fs-xs);
-  text-align: center;
 }
 
 .comments-skeleton {

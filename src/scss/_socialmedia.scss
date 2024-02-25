@@ -6,7 +6,7 @@
     --focus-offset: 1px;
     cursor: pointer;
     display: block;
-    color: (--media-button-color, var(--fg-600));
+    color: (--media-button-color, var(--fg-600)); // Done
     font-size: get_clamp(22, 24, 320, 480);
     line-height: 1;
     opacity: .3;

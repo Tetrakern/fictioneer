@@ -120,6 +120,7 @@
   --kbd-background: var(--bg-900);
   --infobox-background: var(--bg-900);
   --text-shadow: -1px -1px 1px rgb(0 0 0 / 12%);
+  --checkmark-checked: var(--fg-600);
   --checkmark-not-checked: var(--bg-950);
   --tax-cloud-current: var(--primary-500);
   --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
@@ -320,6 +321,7 @@
   // === FOOTER ================================================================
 
   --fg-isolated-footer: var(--fg-700);
+  --fg-isolated-footer-hover: var(--fg-300);
   --bg-isolated-footer: var(--bg-950);
 
   // === MODALS ================================================================
@@ -481,7 +483,7 @@
 
   // === INPUTS ================================================================
 
-  --input-placeholder-color: var(--bg-300);
+  --input-placeholder-color: var(--fg-950);
   --input-background: rgb(0 0 0 / 30%); // Fallback
   --input-background: color-mix(in srgb, var(--bg-900), black 19%);
   --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
@@ -612,6 +614,9 @@
     --tag-secondary-color-hover: var(--fg-200);
     --tag-secondary-border: .5px solid var(--bg-300);
     --tag-secondary-border-hover: .5px solid transparent; // Uses background
+
+    --tag-inline-color: var(--fg-700);
+    --tag-inline-color-hover: var(--fg-400);
 
     --tag-warning-background: rgb(246 96 85 / 5%); // Fallback
     --tag-warning-background: color-mix(in srgb, var(--red-500), transparent 90%);

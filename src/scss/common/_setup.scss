@@ -43,7 +43,7 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
 
 body {
   background-color: var(--body-bg-color);
-  color: var(--fg-500); // CHECK
+  color: var(--fg-500); // Done
   font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--ff-base);
   letter-spacing: var(--font-letter-spacing-base);
   -webkit-font-smoothing: var(--font-smoothing-webkit);
@@ -169,7 +169,7 @@ video {
 acronym,
 abbr {
   cursor: help;
-  text-decoration: underline var(--fg-900) dotted 1px;
+  text-decoration: underline var(--fg-900) dotted 1px; // Done
   text-underline-offset: 0.125em;
 }
 
@@ -183,7 +183,7 @@ kbd {
   white-space: nowrap;
   padding: 0 0.375em;
   border-radius: 2px;
-  box-shadow: 0 0 1px var(--fg-500), 0 1px 1px rgb(0 0 0 / 20%);
+  box-shadow: 0 0 1px var(--fg-500), 0 1px 1px rgb(0 0 0 / 20%); // Done
   transform: translateY(-1px);
 }
 
