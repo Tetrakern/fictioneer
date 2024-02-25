@@ -132,7 +132,11 @@
   }
 
   .follow-title-link {
-    color: var(--follow-title-link-color, var(--fg-300)); // Done
+    color: var(--follow-title-link-color, var(--fg-400)); // Done
+
+    &:hover {
+      color: var(--follow-title-link-color-hover, var(--fg-200)); // Done
+    }
   }
 
   .follow-meta {
@@ -167,7 +171,7 @@
   }
 
   .follow-meta {
-    color: var(--fg-600);
+    color: var(--fg-700); // Done
     font-size: 11px;
   }
 

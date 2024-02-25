@@ -274,7 +274,7 @@
   --card-content-li-background-gradient: linear-gradient(to left, var(--bg-700) 50%, transparent 90%);
   --card-label-color: var(--fg-inverted);
   --card-label-background: var(--fg-500);
-  --card-unavailable-filter: grayscale(0.5);
+  --card-unavailable-filter: grayscale(0.3) brightness(0.95);
 
   // === FOCUS =================================================================
 

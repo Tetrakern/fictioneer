@@ -104,13 +104,13 @@
     padding-bottom: 2.5rem;
 
     > a {
-      color: var(--fg-600);
+      color: var(--fg-700); // Done
       font-size: var(--fs-s);
       font-weight: var(--font-weight-medium);
       line-height: 1;
 
       &:hover {
-        color: var(--fg-400);
+        color: var(--fg-400); // Done
       }
     }
 
@@ -124,9 +124,13 @@
 
   &__author {
     display: block;
-    color: var(--fg-600);
+    color: var(--fg-700); // Done
     font-size: var(--fs-xs);
     margin-top: .5rem;
+
+    a:hover {
+      color: var(--fg-400); // Done
+    }
   }
 
   &__password-note {
@@ -156,7 +160,7 @@
 
     .chapter-formatting {
       --paragraph-spacing: 1.5em;
-      --text-chapter: var(--fg-tinted);
+      --text-chapter: var(--fg-tinted); // Done
       letter-spacing: .01em;
 
       p:not(:last-child, [class*=wp-block-]) {
@@ -196,7 +200,7 @@
   }
 
   &__support {
-    color: var(--fg-500);
+    color: var(--fg-400); // Done
     font-size: var(--fs-xs);
     font-weight: var(--font-weight-strong);
     text-align: center;
@@ -205,7 +209,7 @@
 
     &-message {
       text-transform: uppercase;
-      opacity: .45;
+      opacity: .5;
     }
 
     &-links {
@@ -216,7 +220,7 @@
       margin: 8px -8px 0;
 
       :is(i, .icon) {
-        color: var(--fg-600);
+        color: var(--fg-500); // Done
         margin-right: 2px;
       }
 
@@ -227,22 +231,18 @@
     }
 
     a {
-      color: var(--fg-500);
+      color: var(--fg-400); // Done
       font-size: var(--fs-xs);
       line-height: 32px;
       padding: 0 8px;
       border-radius: var(--layout-border-radius-small);
       height: 32px;
-      opacity: .45;
+      opacity: .5;
 
       &:hover,
       &:focus-visible {
         background: var(--button-secondary-background-hover);
         opacity: 1;
-
-        i {
-          color: inherit;
-        }
       }
     }
 
@@ -260,7 +260,7 @@
   }
 
   &__warning.infobox {
-    color: var(--red-400);
+    color: var(--red-400); // Done
     font-weight: var(--font-weight-medium);
 
     p {

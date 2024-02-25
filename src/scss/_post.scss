@@ -28,7 +28,7 @@
 .post {
   &._empty {
     text-align: center;
-    color: var(--fg-900);
+    color: var(--fg-900); // Done
   }
 
   &__title:is(h1):not(:last-child) {
@@ -53,12 +53,12 @@
     display: flex;
     gap: .5rem 1.5rem;
     flex-wrap: wrap;
-    color: var(--fg-800);
+    color: var(--fg-800); // Done
     font: var(--font-weight-post-meta) var(--fs-dxs)/1.7 var(--ff-note);
     margin: .75rem 0 1.5rem;
 
     :is(i, .icon) {
-      color: var(--fg-900);
+      color: var(--fg-900); // Done
       margin-right: .25rem;
     }
   }

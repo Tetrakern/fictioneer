@@ -14,11 +14,6 @@ $max-mobile-menu-width: 320px;
     height: 134vh; // Fallback
     height: 134dvh;
   }
-
-  @include bp(1024px) {
-    height: 100vh; // Fallback
-    height: 100dvh;
-  }
 }
 
 .transformed-site {
@@ -31,12 +26,6 @@ $max-mobile-menu-width: 320px;
 
   @include bp(640px) {
     transform: translate3d(min(75vw, #{$max-mobile-menu-width}), 0, 0) scale(.75);
-  }
-
-  @include bp(1024px) {
-    position: relative;
-    left: max(50% - (var(--site-width) - #{$max-mobile-menu-width}) / 2, #{$max-mobile-menu-width});
-    transform: translate3d(0, 0, 0);
   }
 
   > :is(nav, header, main, footer, div) {
@@ -81,11 +70,6 @@ body:not(.mobile-menu-open) {
 
   &.advanced-mobile-menu {
     overflow: hidden;
-
-    @include bp(desktop) {
-      left: max(50% - var(--site-width) / 2, (min(75vw, #{$max-mobile-menu-width}) / 2));
-      transform: translate3d(-50%, 0, 0);
-    }
 
     #wpadminbar {
       opacity: 0;
@@ -171,13 +155,13 @@ body:not(.mobile-menu-open) {
 
   .current-menu-item {
     > a {
-      color: var(--fg-300);
+      color: var(--fg-300); // Done
       font-weight: var(--font-weight-strong);
     }
   }
 
   .mobile-content-is-loading {
-    color: var(--fg-700);
+    color: var(--fg-700); // Done
     text-align: center;
     overflow: hidden;
   }
@@ -219,7 +203,7 @@ body:not(.mobile-menu-open) {
 
   &__item-icon {
     display: inline-block;
-    color: var(--fg-600);
+    color: var(--fg-600); // Done
     font-size: 13px;
     text-align: center;
     margin: 0 6px 0 -2px;
@@ -278,7 +262,7 @@ body:not(.mobile-menu-open) {
     &._chapters {
       :is(i, .icon, .text-icon) {
         display: inline-block;
-        color: var(--fg-600);
+        color: var(--fg-600); // Done
         font-size: 13px;
         text-align: center;
         margin: 0 6px 0 -2px;
@@ -399,7 +383,7 @@ body:not(.mobile-menu-open) {
     &::after {
       content: unicode("f0d8");
       display: inline-block;
-      color: var(--fg-700);
+      color: var(--fg-800); // Done
       font-family: 'Font Awesome 6 Free';
       font-size: 75%;
       font-weight: 900;
