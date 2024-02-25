@@ -196,7 +196,7 @@
   --bg-700-free: #{hsl_code_free(221, 16, 20)};
   --bg-800-free: #{hsl_code_free(221, 16, 18.5)};
   --bg-900-free: #{hsl_code_free(219, 15, 17)};
-  --bg-950-free: #{hsl_code_free(222, 15, 8)};
+  --bg-950-free: #{hsl_code_free(222, 25, 8)};
 
   --bg-50: hsl(var(--bg-50-free)); // popup menu, tooltip
   --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected
@@ -216,14 +216,13 @@
   .chapter-formatting {
     // Needs to be repeated to force recalculation in chapters
     // Contrast vs bg-700
-
-    --fg-100: #{hsl_font_code(220, 39, 93)}; // Contrast ratio vs bg-700 ~ 11
-    --fg-200: #{hsl_font_code(223, 20, 89)}; // Contrast ratio vs bg-700 ~ 10.06
-    --fg-300: #{hsl_font_code(224, 20, 85)}; // Contrast ratio vs bg-700 ~ 9.05
-    --fg-400: #{hsl_font_code(221, 20, 81)}; // Contrast ratio vs bg-700 ~ 8.1
-    --fg-500: #{hsl_font_code(222, 20, 76)}; // Contrast ratio vs bg-700 ~ 7.03
-    --fg-600: #{hsl_font_code(222, 18, 71)}; // Contrast ratio vs bg-700 ~ 6.08
-    --fg-700: #{hsl_font_code(221, 14, 65)}; // Contrast ratio vs bg-700 ~ 5.1
+    --fg-100: #{hsl_font_code(222, 40, 93)}; // Contrast ratio vs bg-700 ~ 11
+    --fg-200: #{hsl_font_code(222, 26, 89)}; // Contrast ratio vs bg-700 ~ 10
+    --fg-300: #{hsl_font_code(224, 20, 85)}; // Contrast ratio vs bg-700 ~ 9.02
+    --fg-400: #{hsl_font_code(222, 18, 80.5)}; // Contrast ratio vs bg-700 ~ 8.02
+    --fg-500: #{hsl_font_code(222, 18, 76)}; // Contrast ratio vs bg-700 ~ 7.05
+    --fg-600: #{hsl_font_code(224, 18, 71)}; // Contrast ratio vs bg-700 ~ 6.01
+    --fg-700: #{hsl_font_code(224, 16, 65)}; // Contrast ratio vs bg-700 ~ 5
     --fg-800: #{hsl_font_code(222, 12, 61)}; // Contrast ratio vs bg-700 ~ 4.5
     --fg-900: #{hsl_font_code(222, 11, 54)}; // Contrast ratio vs bg-700 ~ 3.55
     --fg-950: #{hsl_font_code(222, 9, 49)}; // Contrast ratio vs bg-700 ~ 3
