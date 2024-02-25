@@ -25,7 +25,7 @@
             case 'font-saturation':
               temp = settings['font-saturation'];
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--font-saturation', modifier)
+              root.style.setProperty('--font-saturation', `(${modifier} * var(--font-saturation-offset))`)
               break;
             case 'hue-rotate':
               modifier = Number.isInteger(settings['hue-rotate']) ? settings['hue-rotate'] : 0;
