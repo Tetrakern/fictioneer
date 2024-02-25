@@ -38,6 +38,7 @@
 }
 
 .range-slider__value {
+  cursor: not-allowed;
   flex: 0 0 auto;
   line-height: 20px;
   text-align: center;
