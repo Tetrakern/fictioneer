@@ -2,9 +2,9 @@
 @import '../common/_mixins';
 
 .footer._footer-isolated {
-  --layout-link-color-hover: var(--fg-isolated-footer-hover); // Done
+  --layout-link-color-hover: var(--fg-isolated-footer-hover);
   background-color: var(--bg-isolated-footer);
-  color: var(--fg-isolated-footer); // Done
+  color: var(--fg-isolated-footer);
   margin-top: 3rem;
 
   .footer__wrapper {
@@ -12,6 +12,6 @@
   }
 
   .breadcrumbs {
-    color: var(--fg-isolated-footer); // Done
+    color: var(--fg-isolated-footer);
   }
 }

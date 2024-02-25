@@ -6,10 +6,10 @@
 
 .search-form[data-advanced="true"] {
   .search-form__bar .search-form__advanced-toggle {
-    color: var(--fg-500); // Done
+    color: var(--fg-500);
 
     &:hover {
-      color: var(--fg-300); // Done
+      color: var(--fg-300);
     }
   }
 
@@ -43,7 +43,7 @@
   }
 
   &__current {
-    color: var(--fg-800); // Done
+    color: var(--fg-800);
     font-size: 11px;
     line-height: 1.5;
     padding: 6px 2px 0;
@@ -56,14 +56,14 @@
       transition: color var(--transition-duration);
 
       &:hover {
-        color: var(--fg-400); // Done
+        color: var(--fg-400);
       }
     }
 
     > :not(:last-child) {
       &::after {
         content: "\2022";
-        color: var(--fg-900); // Done
+        color: var(--fg-900);
         padding: 0 2px 0 6px;
       }
     }
@@ -72,8 +72,8 @@
   &__submit:is(button) {
     --button-primary-background: transparent;
     --button-primary-background-hover: transparent;
-    --button-primary-color: var(--fg-900); // Done
-    --button-primary-color-hover: var(--fg-400); // Done
+    --button-primary-color: var(--fg-900);
+    --button-primary-color-hover: var(--fg-400);
     display: grid;
     place-content: center;
     width: 32px;
@@ -157,13 +157,13 @@
     &-toggle {
       display: grid;
       place-content: center;
-      color: var(--fg-700); // Done
+      color: var(--fg-700);
       font-size: 11px;
       height: 32px;
       transition: color var(--transition-duration);
 
       &:hover {
-        color: var(--fg-400); // Done
+        color: var(--fg-400);
       }
     }
 
@@ -195,7 +195,7 @@
     margin-top: 2rem;
 
     &:is(._no-results, ._no-params) {
-      color: var(--fg-950); // Done
+      color: var(--fg-950);
       font: var(--font-weight-strong) var(--fs-ds)/1.5 var(--ff-note);
       text-align: center;
       overflow-wrap: break-word;

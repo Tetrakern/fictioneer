@@ -40,7 +40,7 @@
 
     &::before {
       z-index: 1;
-      border: 1px dashed var(--fg-900); // Done
+      border: 1px dashed var(--fg-900);
     }
   }
 
@@ -73,7 +73,7 @@
   }
 
   &__text {
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     padding: 8px;
     border-radius: 2px;
     white-space: pre-wrap;

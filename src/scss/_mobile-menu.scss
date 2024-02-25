@@ -155,13 +155,13 @@ body:not(.mobile-menu-open) {
 
   .current-menu-item {
     > a {
-      color: var(--fg-300); // Done
+      color: var(--fg-300);
       font-weight: var(--font-weight-strong);
     }
   }
 
   .mobile-content-is-loading {
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     text-align: center;
     overflow: hidden;
   }
@@ -203,7 +203,7 @@ body:not(.mobile-menu-open) {
 
   &__item-icon {
     display: inline-block;
-    color: var(--fg-600); // Done
+    color: var(--fg-600);
     font-size: 13px;
     text-align: center;
     margin: 0 6px 0 -2px;
@@ -262,7 +262,7 @@ body:not(.mobile-menu-open) {
     &._chapters {
       :is(i, .icon, .text-icon) {
         display: inline-block;
-        color: var(--fg-600); // Done
+        color: var(--fg-600);
         font-size: 13px;
         text-align: center;
         margin: 0 6px 0 -2px;
@@ -383,7 +383,7 @@ body:not(.mobile-menu-open) {
     &::after {
       content: unicode("f0d8");
       display: inline-block;
-      color: var(--fg-800); // Done
+      color: var(--fg-800);
       font-family: 'Font Awesome 6 Free';
       font-size: 75%;
       font-weight: 900;

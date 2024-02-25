@@ -102,7 +102,7 @@ sup[data-fn] {
 
 [class*="wp-block-"] {
   figcaption {
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     font-family: var(--ff-note);
     font-size: 75%; // Scales with custom formatting
     line-height: 1.3;
@@ -264,7 +264,7 @@ p.has-drop-cap::first-letter {
 
 .wp-block-quote,
 .comment-section blockquote {
-  color: var(--fg-500); // Done
+  color: var(--fg-500);
   font-size: 87.5%; // Scales with custom formatting
 
   p {
@@ -274,7 +274,7 @@ p.has-drop-cap::first-letter {
 
   cite {
     display: block;
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     font-size: 87.5%; // Scales with custom formatting
     font-style: italic;
     text-align: right;
@@ -323,7 +323,7 @@ p.has-drop-cap::first-letter {
     top: var(--this-vertical-offset, -0.75rem);
     left: var(--this-horizontal-offset, -1rem);
     display: block;
-    border: 5px solid var(--fg-950); // Done
+    border: 5px solid var(--fg-950);
     border-width: 3px 0 0 3px;
     height: 16px;
     width: 16px;
@@ -339,7 +339,7 @@ p.has-drop-cap::first-letter {
 
 .comment-section blockquote {
   background: var(--blockquote-background);
-  border-left: 2px solid var(--fg-800); // Done
+  border-left: 2px solid var(--fg-800);
   border-radius: var(--layout-border-radius-small);
   padding: .75em 1.5em;
 
@@ -370,7 +370,7 @@ p.has-drop-cap::first-letter {
 figure.wp-block-pullquote {
   --paragraph-spacing-offset: .5rem;
   clear: both;
-  color: var(--fg-500); // Done
+  color: var(--fg-500);
   font-size: 1.25em;
   font-style: italic;
   text-align: center;
@@ -381,7 +381,7 @@ figure.wp-block-pullquote {
   width: max-content;
 
   blockquote {
-    border: 2px solid var(--fg-950); // Done
+    border: 2px solid var(--fg-950);
     border-width: 2px 0;
     padding: 1rem;
   }
@@ -397,7 +397,7 @@ figure.wp-block-pullquote {
 
   cite {
     display: block;
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     font-size: 75%; // Scales with custom formatting
     font-style: italic;
     margin-top: .75rem;

@@ -38,7 +38,7 @@
     top: 0;
     right: 0;
     display: block;
-    color: var(--fg-950); // Done
+    color: var(--fg-950);
     font-size: 20px;
     line-height: 1;
     padding: 9px 12px 8px 16px;
@@ -46,7 +46,7 @@
     transition: color var(--transition-duration);
 
     &:hover {
-      color: var(--fg-300); // Done
+      color: var(--fg-300);
     }
   }
 
@@ -96,7 +96,7 @@
   }
 
   &__header:is(h4) {
-    color: var(--fg-400); // Done
+    color: var(--fg-400);
     font-size: 16px;
     line-height: 1;
     text-transform: uppercase;
@@ -108,7 +108,7 @@
   &__horizontal-input-group {
     > :is(i, .icon) {
       flex-shrink: 0;
-      color: var(--fg-600); // Done
+      color: var(--fg-600);
       text-align: center;
       min-width: 26px;
     }
@@ -205,7 +205,7 @@
 
       blockquote {
         background: var(--blockquote-background);
-        border-left: 2px solid var(--fg-600); // Done
+        border-left: 2px solid var(--fg-600);
         border-radius: var(--layout-border-radius-small);
         padding: .34rem .5em;
         margin-bottom: .5rem;

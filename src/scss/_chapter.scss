@@ -104,13 +104,13 @@
     padding-bottom: 2.5rem;
 
     > a {
-      color: var(--fg-700); // Done
+      color: var(--fg-700);
       font-size: var(--fs-s);
       font-weight: var(--font-weight-medium);
       line-height: 1;
 
       &:hover {
-        color: var(--fg-400); // Done
+        color: var(--fg-400);
       }
     }
 
@@ -124,12 +124,12 @@
 
   &__author {
     display: block;
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     font-size: var(--fs-xs);
     margin-top: .5rem;
 
     a:hover {
-      color: var(--fg-400); // Done
+      color: var(--fg-400);
     }
   }
 
@@ -160,7 +160,7 @@
 
     .chapter-formatting {
       --paragraph-spacing: 1.5em;
-      --text-chapter: var(--fg-tinted); // Done
+      --text-chapter: var(--fg-tinted);
       letter-spacing: .01em;
 
       p:not(:last-child, [class*=wp-block-]) {
@@ -200,7 +200,7 @@
   }
 
   &__support {
-    color: var(--fg-400); // Done
+    color: var(--fg-400);
     font-size: var(--fs-xs);
     font-weight: var(--font-weight-strong);
     text-align: center;
@@ -220,7 +220,7 @@
       margin: 8px -8px 0;
 
       :is(i, .icon) {
-        color: var(--fg-500); // Done
+        color: var(--fg-500);
         margin-right: 2px;
       }
 
@@ -231,7 +231,7 @@
     }
 
     a {
-      color: var(--fg-400); // Done
+      color: var(--fg-400);
       font-size: var(--fs-xs);
       line-height: 32px;
       padding: 0 8px;
@@ -260,7 +260,7 @@
   }
 
   &__warning.infobox {
-    color: var(--red-400); // Done
+    color: var(--red-400);
     font-weight: var(--font-weight-medium);
 
     p {

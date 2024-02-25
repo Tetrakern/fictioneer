@@ -127,15 +127,15 @@
   }
 
   :is(.follow-placeholder, .follow-meta) {
-    color: var(--follow-meta-color, var(--fg-700)); // Done
+    color: var(--follow-meta-color, var(--fg-700));
     font-family: var(--ff-note);
   }
 
   .follow-title-link {
-    color: var(--follow-title-link-color, var(--fg-400)); // Done
+    color: var(--follow-title-link-color, var(--fg-400));
 
     &:hover {
-      color: var(--follow-title-link-color-hover, var(--fg-200)); // Done
+      color: var(--follow-title-link-color-hover, var(--fg-200));
     }
   }
 
@@ -171,7 +171,7 @@
   }
 
   .follow-meta {
-    color: var(--fg-700); // Done
+    color: var(--fg-700);
     font-size: 11px;
   }
 
