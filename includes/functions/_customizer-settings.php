@@ -119,7 +119,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'saturation_offset_light',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -149,7 +149,37 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'lightness_offset_light',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Font saturation offset
+  $manager->add_setting(
+    'font_saturation_offset_light',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'font_saturation_offset_light',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'light_mode_colors',
+        'settings' => 'font_saturation_offset_light',
+        'label' => __( 'Font Saturation Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -1188,7 +1218,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'saturation_offset',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the saturation, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -1218,7 +1248,37 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'lightness_offset',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the lightness, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -100,
+          'max' => 100,
+          'step' => 1
+        )
+      )
+    )
+  );
+
+  // Font saturation offset
+  $manager->add_setting(
+    'font_saturation_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'font_saturation_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'dark_mode_colors',
+        'settings' => 'font_saturation_offset',
+        'label' => __( 'Font Saturation Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,

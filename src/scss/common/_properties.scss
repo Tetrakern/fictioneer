@@ -17,8 +17,8 @@
   --darken: (1 + var(--lightness-offset));
   --saturation-offset: 0; // Overridden by theme customizer
   --saturation: (1 + var(--saturation-offset));
-  --font-saturation-offset: 1;
-  --font-saturation: (1 * var(--font-saturation-offset));
+  --font-saturation-offset: 0;
+  --font-saturation: (1 + var(--font-saturation-offset));
   --hue-offset: 0deg; // Overridden by theme customizer
   --hue-rotate: 0deg + var(--hue-offset);
   --wp--style--block-gap: 1.5rem;

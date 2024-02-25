@@ -652,7 +652,7 @@ function fcn_setFormatting(value) {
     // Update font saturation property (squared for smooth progression)
     fcn_chapterFormatting.style.setProperty(
       '--font-saturation',
-      `(${value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2)} * var(--font-saturation-offset))`
+      `(${value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2)} + var(--font-saturation-offset))`
     );
 
     // Update local storage

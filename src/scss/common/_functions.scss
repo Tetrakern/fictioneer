@@ -46,7 +46,7 @@
 }
 
 @function hsl_font_code($deg, $s, $l) {
-  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) calc(#{$s}% * (var(--font-saturation) + var(--saturation) - 1)) #{$l}%)";
+  @return "hsl(calc(#{$deg}deg + var(--hue-rotate)) max(calc(#{$s}% * (var(--font-saturation) + var(--saturation) - 1)), 0%) #{$l}%)";
 }
 
 @function unicode($str) {
