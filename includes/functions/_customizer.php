@@ -666,10 +666,12 @@ function fictioneer_build_customize_css( $content = null ) {
   $saturation_offset_dark = (int) get_theme_mod( 'saturation_offset', 0 );
   $lightness_offset_dark = (int) get_theme_mod( 'lightness_offset', 0 );
   $font_saturation_offset_dark = (int) get_theme_mod( 'font_saturation_offset', 0 );
+  $font_lightness_offset_dark = (int) get_theme_mod( 'font_lightness_offset', 0 );
   $hue_offset_light = (int) get_theme_mod( 'hue_offset_light', 0 );
   $saturation_offset_light = (int) get_theme_mod( 'saturation_offset_light', 0 );
   $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
   $font_saturation_offset_light = (int) get_theme_mod( 'font_saturation_offset_light', 0 );
+  $font_lightness_offset_light = (int) get_theme_mod( 'font_lightness_offset_light', 0 );
   $site_width = (int) get_theme_mod( 'site_width', 960 );
   $logo_height = (int) get_theme_mod( 'logo_height', 210 );
   $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
@@ -702,6 +704,7 @@ function fictioneer_build_customize_css( $content = null ) {
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";
     --font-saturation-offset: " . $font_saturation_offset_dark / 100 . ";
+    --font-lightness-offset: " . $font_lightness_offset_dark / 100 . ";
     --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
     --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top));
     --header-logo-height: " . $logo_height . "px;
@@ -730,6 +733,7 @@ function fictioneer_build_customize_css( $content = null ) {
     --saturation-offset: " . $saturation_offset_light / 100 . ";
     --lightness-offset: " . $lightness_offset_light / 100 . ";
     --font-saturation-offset: " . $font_saturation_offset_light / 100 . ";
+    --font-lightness-offset: " . $font_lightness_offset_light / 100 . ";
   }";
 
   // --- Custom layout ---------------------------------------------------------

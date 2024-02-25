@@ -189,6 +189,36 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Font lightness offset
+  $manager->add_setting(
+    'font_lightness_offset_light',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'font_lightness_offset_light',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'light_mode_colors',
+        'settings' => 'font_lightness_offset_light',
+        'label' => __( 'Font Lightness Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -40,
+          'max' => 40,
+          'step' => 0.5
+        )
+      )
+    )
+  );
+
   // Header title color
   $manager->add_setting(
     'light_header_title_color',
@@ -1283,6 +1313,36 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
           'min' => -100,
           'max' => 100,
           'step' => 1
+        )
+      )
+    )
+  );
+
+  // Font lightness offset
+  $manager->add_setting(
+    'font_lightness_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'font_lightness_offset',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'dark_mode_colors',
+        'settings' => 'font_lightness_offset',
+        'label' => __( 'Font Lightness Offset', 'fictioneer' ),
+        'description' => __( 'Adds an offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -40,
+          'max' => 40,
+          'step' => 0.5
         )
       )
     )
