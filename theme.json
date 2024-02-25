@@ -24,7 +24,6 @@
 			"sticky": false
 		},
     "spacing": {
-			"blockGap": null,
 			"margin": false,
 			"padding": false,
 			"units": ["px", "em", "rem"],
@@ -98,6 +97,28 @@
           "margin": false,
           "padding": false,
           "units": ["px", "em", "rem"]
+        }
+      },
+      "core/buttons": {
+        "spacing": {
+          "blockGap": true,
+          "padding": true,
+          "units": ["px", "em", "rem"]
+        }
+      },
+      "core/button": {
+        "color": {
+          "link": true
+        },
+        "spacing": {
+          "padding": true,
+          "margin": true,
+          "units": ["px", "em", "rem"]
+        }
+      },
+      "core/file": {
+        "color": {
+          "background": false
         }
       }
     }

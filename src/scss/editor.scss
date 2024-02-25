@@ -13,7 +13,7 @@ body {
   --wp--preset--font-size--medium: var(--fs-m);
   --wp--preset--font-size--large: var(--fs-l);
   --wp--preset--font-size--x-large: var(--fs-xl);
-  --wp--style--block-gap: 2em;
+  --wp--style--block-gap: 1.5em;
 
   font-family: var(--wp--preset--font-family--system-fonts);
   font-size: var(--fs-s);
@@ -52,6 +52,13 @@ body {
     transform: translateY(-1px);
   }
 
+  acronym,
+  abbr {
+    cursor: help;
+    text-decoration: underline rgb(0 0 0 / 50%) dotted 1px;
+    text-underline-offset: 0.125em;
+  }
+
   sup[data-fn] {
     display: inline-block;
     font-weight: 700;
@@ -78,6 +85,14 @@ body {
       display: inline-block;
       height: auto;
       transform: translateY(0.1em);
+    }
+  }
+
+  :is(ul, ol) {
+    padding-left: 28px;
+
+    > li {
+      --spacing-offset: -16px;
     }
   }
 
@@ -435,14 +450,10 @@ body {
   }
 
   // =============================================================================
-  // EMBEDS
+  // EMBEDS/VIDEO/AUDIO
   // =============================================================================
 
   .wp-block-embed {
-    clear: both !important;
-    float: none !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
     max-width: 500px !important;
 
     &__wrapper {
@@ -451,458 +462,236 @@ body {
     }
   }
 
+  :is(.wp-block-video, .wp-block-audio, .wp-block-embed) {
+    clear: both !important;
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 
+  // =============================================================================
+  // PREFORMATTED BLOCK
+  // =============================================================================
+
+  .wp-block-preformatted {
+    font-family: var(--ff-mono);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    border-radius: var(--layout-border-radius-small);
+    overflow: auto;
+
+    &.has-background {
+      padding: 1em;
+    }
+  }
+
+  // =============================================================================
+  // LITRPG BOX
+  // =============================================================================
+
+  .litrpg-box {
+    --litrpg-background: white;
+    --litrpg-color: currentColor;
+    --litrpg-ins: green;
+    --litrpg-del: red;
+    --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
+    color: var(--litrpg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,Cantarell, "Helvetica Neue", sans-serif;
+    font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');
+    font-weight: 400;
+    text-align: center;
+    margin: 1rem auto !important;
+    max-width: 480px;
+    filter: var(--litrpg-drop-shadow);
+
+    * {
+      color: currentColor;
+      letter-spacing: 0;
+      line-height: 1.5;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      font-size: 105%;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 !important;
+    }
+
+    a {
+      color: currentColor;
+      text-decoration: none;
+
+      a:hover {
+        color: currentColor;
+      }
+    }
+
+    small {
+      font-size: 75%;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    b {
+      font-weight: 500;
+    }
+
+    figcaption {
+      font-size: 105%;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    table {
+      margin: 0 auto -0.25rem;
+    }
+
+    td {
+      padding: 0 get_relative_clamp(0.5, 0.75, 320, 480) .25rem;
+    }
+
+    hr {
+      border: none;
+      border-bottom: 1px solid currentColor;
+      margin: 0;
+      opacity: .25;
+    }
+
+    p {
+      margin: 0 !important;
+    }
+
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      display: inline;
+      font-weight: 600;
+    }
+
+    dd {
+      display: inline;
+      margin: 0;
+    }
+
+    :is(ins, del) {
+      display: inline-block;
+      background: transparent;
+      font-size: 80%;
+      font-weight: 900;
+      transform: translateY(-0.2em);
+      text-decoration: none;
+      vertical-align: baseline;
+    }
+
+    ins {
+      color: var(--litrpg-ins);
+    }
+
+    del {
+      color: var(--litrpg-del);
+    }
+
+    :is(sub, sup) {
+      display: inline-block;
+      font-size: 70%;
+      vertical-align: baseline;
+    }
+
+    sup {
+      transform: translateY(-0.5em);
+    }
+
+    sub {
+      transform: translateY(0.3em);
+    }
+
+    :is(ul, ol) {
+      text-align: left;
+      padding-left: 28px;
+      margin: 0 !important;
+    }
+
+    li {
+      &:not(:last-child) {
+        margin-bottom: .25em !important;
+      }
+    }
+  }
+
+  .litrpg-frame {
+    background: var(--litrpg-background);
+    clip-path: var(--litrpg-polygon);
+    margin: 0 2px;
+  }
+
+  .litrpg-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: .75rem 0;
+    margin: 0 .75rem;
+    overflow: auto;
+  }
+
+  // =============================================================================
+  // UTILITY
+  // =============================================================================
+
+  .hidden {
+    display: inherit !important;
+    border: 1px dotted #999;
+  }
+
+  .full-width {
+    flex-basis: 100% !important;
+    width: 100% !important;
+
+    > * {
+      width: 100% !important;
+    }
+  }
+
+  .no-wrap {
+    white-space: nowrap;
+  }
+
+  :is(.sensitive-content, .sensitive-alternative) {
+    position: relative;
+
+    &::before {
+      pointer-events: none;
+      content: '';
+      position: absolute;
+      inset: -2px 0 -2px 0;
+      display: block;
+      border-radius: 2px;
+      opacity: .3;
+    }
+  }
+
+  .sensitive-content {
+    &::before {
+      background: #eb5247;
+    }
+  }
+
+  .sensitive-alternative {
+    &::before {
+      background: #77BFA3;
+    }
+  }
+
+  .spoiler {
+    background: #1d2327 !important;
+    color: #e6e6e6;
+    border-radius: 2px;
+    padding: 0 .25em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// Automatically becomes .editor-styles-wrapper
-// body {
-//   font-family: var(--wp--preset--font-family--system-fonts);
-//   line-height: 1.5;
-
-//   &.block-editor-writing-flow {
-//     padding-bottom: 24px;
-//   }
-
-//   --red: #dc2626;
-//   --litrpg-background: white;
-//   --litrpg-color: currentColor;
-//   --litrpg-ins: #1d3eaa;
-//   --litrpg-del: #be123c;
-//   --litrpg-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
-//   --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
-
-//   :is(.is-root-container, .edit-post-visual-editor__post-title-wrapper) {
-//     margin-left: auto;
-//     margin-right: auto;
-//     max-width: min(calc(100% - 16px), calc(var(--site-width) - 2 * var(--layout-spacing-horizontal)));
-//   }
-
-
-
-
-
-
-
-//   :is(ul, ol) {
-//     padding-left: 28px;
-
-//     > li {
-//       &:not(:last-child) {
-//         margin-bottom: 12px;
-//       }
-
-//       > :is(ul, ol) {
-//         margin: 12px 0 4px;
-//       }
-//     }
-//   }
-
-
-
-//   acronym,
-//   abbr {
-//     cursor: help;
-//     text-decoration: underline rgb(0 0 0 / 50%) dotted 1px;
-//     text-underline-offset: 0.125em;
-//   }
-
-
-
-//   :is(.wp-block-embed, .wp-block-audio, .wp-block-video, .wp-block-table, .wp-block-quote, .wp-block-pullquote, .wp-block-gallery, .wp-block-code, .wp-block-preformatted) {
-//     clear: both;
-//   }
-
-//   // =============================================================================
-//   // UTILITY
-//   // =============================================================================
-
-//   .hidden {
-//     display: inherit !important;
-//     border: 1px dotted #999;
-//   }
-
-//   .full-width {
-//     flex-basis: 100% !important;
-//     width: 100% !important;
-
-//     > * {
-//       width: 100% !important;
-//     }
-//   }
-
-//   .no-wrap {
-//     white-space: nowrap;
-//   }
-
-//   :is(.sensitive-content, .sensitive-alternative) {
-//     position: relative;
-
-//     &::before {
-//       pointer-events: none;
-//       content: '';
-//       position: absolute;
-//       inset: -2px 0 -2px 0;
-//       display: block;
-//       border-radius: 2px;
-//       opacity: .3;
-//     }
-//   }
-
-//   .sensitive-content {
-//     &::before {
-//       background: #eb5247;
-//     }
-//   }
-
-//   .sensitive-alternative {
-//     &::before {
-//       background: #77BFA3;
-//     }
-//   }
-
-//   .spoiler {
-//     background: #1d2327 !important;
-//     color: #e6e6e6;
-//     border-radius: 2px;
-//     padding: 0 .25em;
-//     -webkit-box-decoration-break: clone;
-//     box-decoration-break: clone;
-//   }
-
-//   // =============================================================================
-//   // BUTTONS BLOCK
-//   // =============================================================================
-
-//   .wp-block-button {
-//     .wp-element-button {
-//       cursor: pointer;
-//       user-select: none;
-//       -webkit-appearance: none;
-//       appearance: none;
-//       display: flex;
-//       gap: 0 6px;
-//       flex-shrink: 0;
-//       align-items: center;
-//       justify-content: center;
-//       background: #32373c;
-//       color: #fff;
-//       font-size: 12px;
-//       font-weight: 400;
-//       line-height: 1;
-//       letter-spacing: 0.04em;
-//       white-space: nowrap;
-//       border: none;
-//       border-radius: 2px;
-//       padding: 0 8px;
-//       height: 32px;
-//       width: fit-content;
-//       min-width: 32px;
-//     }
-
-//     &.is-style-outline {
-//       .wp-element-button {
-//         background: transparent;
-//         color: #1d2327;
-//         border: .5px solid #32373c;
-//       }
-//     }
-//   }
-
-
-
-
-
-//   // =============================================================================
-//   // GALLERY
-//   // =============================================================================
-
-//   .wp-block-gallery {
-//     --min: max(128px, (100% - 3 * 16px) / 4); // Assume 4 columns as default
-//     --fs-caption: 13px;
-//     display: grid !important; // Override WP
-//     align-items: unset !important; // Override WP
-//     grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
-//     gap: 16px !important; // Override WP
-//     margin-left: 0;
-//     margin-right: 0;
-
-//     > :is(figure, figcaption, div, img, a) {
-//       margin-top: 0 !important;
-//       margin-bottom: 0 !important;
-//     }
-
-//     figure {
-//       position: relative;
-//       width: 100% !important;
-//     }
-
-//     .blocks-gallery-caption {
-//       grid-column: 1 / -1;
-//       padding-top: 0;
-//     }
-
-//     img {
-//       height: 100% !important;
-//       width: 100% !important;
-//       object-fit: cover;
-//     }
-
-//     .wp-block-image {
-//       figcaption {
-//         position: absolute;
-//         left: 50% !important;
-//         bottom: 0 !important;
-//         background: var(--caption-overlay-background);
-//         color: #fff;
-//         font: 400 var(--fs-caption)/1.2 var(--ff-note);
-//         letter-spacing: 0;
-//         overflow-wrap: break-word;
-//         padding: 2rem .5rem .5rem !important;
-//         border-radius: 2px;
-//         width: 100%;
-//         max-width: 100%;
-//         transform: translate(-50%);
-//       }
-
-//       a {
-//         color: currentColor;
-//         text-decoration: underline;
-//         text-decoration-color: rgb(255 255 255 / 50%);
-//         transition: text-decoration-color var(--transition-duration);
-
-//         &:hover {
-//           text-decoration-color: rgb(255 255 255 / 80%);
-//         }
-//       }
-
-//       &:not(.is-style-rounded, .has-custom-border) img {
-//         border-radius: 2px;
-//       }
-
-//       &:is(.is-style-rounded, .has-custom-border) {
-//         figcaption {
-//           position: absolute !important;
-//           bottom: 4px !important;
-//           background: linear-gradient(0deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .3) 70%, transparent) !important;
-//           color: #fff !important;
-//           padding: 12px 8px 8px !important;
-//           border-radius: 2px;
-//           width: max-content;
-//           max-width: 75%;
-//         }
-//       }
-
-//       &.is-style-rounded:not(.has-custom-border) {
-//         figcaption {
-//           bottom: 16px !important;
-//           border-radius: 2px 2px 24px 24px;
-//           padding: 12px 8px 8px !important;
-//         }
-//       }
-//     }
-
-//     &.columns-2 {
-//       --min: max(128px, (100% - 16px) / 2);
-//     }
-
-//     &.columns-3 {
-//       --min: max(128px, (100% - 2 * 16px) / 3);
-//     }
-
-//     &.columns-4 {
-//       --min: max(128px, (100% - 3 * 16px) / 4);
-//     }
-
-//     &.columns-5 {
-//       --min: max(128px, (100% - 4 * 16px) / 5);
-//       --fs-caption: 12px;
-//     }
-
-//     &.columns-6 {
-//       --min: max(104px, (100% - 5 * 16px) / 6);
-//       --fs-caption: 12px;
-//     }
-
-//     &.columns-7 {
-//       --min: max(80px, (100% - 6 * 16px) / 7);
-//       --fs-caption: 11px;
-//     }
-
-//     &.columns-8 {
-//       --min: max(76px, (100% - 7 * 16px) / 8);
-//       --fs-caption: 11px;
-//     }
-//   }
-
-//   // =============================================================================
-//   // PREFORMATTED BLOCK
-//   // =============================================================================
-
-//   .wp-block-preformatted {
-//     font-family: var(--ff-mono);
-//     line-height: 1.7;
-//     white-space: pre;
-//     border-radius: var(--layout-border-radius-small);
-//     padding: 1rem;
-//     overflow: auto;
-//   }
-
-//   // =============================================================================
-//   // LITRPG BOX
-//   // =============================================================================
-
-//   .litrpg-box {
-//     color: var(--litrpg-color);
-//     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,Cantarell, "Helvetica Neue", sans-serif;
-//     font-size: get_relative_clamp(0.75, 0.875, 320, 480, 'vw', 'em');
-//     font-weight: 400;
-//     text-align: center;
-//     margin: 1rem auto !important;
-//     max-width: 480px;
-//     filter: var(--litrpg-drop-shadow);
-
-//     * {
-//       color: currentColor;
-//       letter-spacing: 0;
-//       line-height: 1.5;
-//     }
-
-//     :is(h1, h2, h3, h4, h5, h6) {
-//       font-size: 105%;
-//       font-weight: 700;
-//       text-align: center;
-//       text-transform: uppercase;
-//       margin: 0 !important;
-//     }
-
-//     a {
-//       color: currentColor;
-//       text-decoration: none;
-
-//       a:hover {
-//         color: currentColor;
-//       }
-//     }
-
-//     small {
-//       font-size: 75%;
-//     }
-
-//     strong {
-//       font-weight: 600;
-//     }
-
-//     b {
-//       font-weight: 500;
-//     }
-
-//     figcaption {
-//       font-size: 105%;
-//       font-weight: 700;
-//       text-transform: uppercase;
-//     }
-
-//     table {
-//       margin: 0 auto -0.25rem;
-//     }
-
-//     td {
-//       padding: 0 get_relative_clamp(0.5, 0.75, 320, 480) .25rem;
-//     }
-
-//     hr {
-//       border: none;
-//       border-bottom: 1px solid currentColor;
-//       margin: 0;
-//       opacity: .25;
-//     }
-
-//     p {
-//       margin: 0 !important;
-//     }
-
-//     dl {
-//       margin: 0;
-//     }
-
-//     dt {
-//       display: inline;
-//       font-weight: 600;
-//     }
-
-//     dd {
-//       display: inline;
-//       margin: 0;
-//     }
-
-//     :is(ins, del) {
-//       display: inline-block;
-//       background: transparent;
-//       font-size: 80%;
-//       font-weight: 900;
-//       transform: translateY(-0.2em);
-//       text-decoration: none;
-//       vertical-align: baseline;
-//     }
-
-//     ins {
-//       color: var(--litrpg-ins);
-//     }
-
-//     del {
-//       color: var(--litrpg-del);
-//     }
-
-//     :is(sub, sup) {
-//       display: inline-block;
-//       font-size: 70%;
-//       vertical-align: baseline;
-//     }
-
-//     sup {
-//       transform: translateY(-0.5em);
-//     }
-
-//     sub {
-//       transform: translateY(0.3em);
-//     }
-
-//     :is(ul, ol) {
-//       text-align: left;
-//       padding-left: 28px;
-//       margin: 0 !important;
-//     }
-
-//     li {
-//       &:not(:last-child) {
-//         margin-bottom: .25em !important;
-//       }
-//     }
-//   }
-
-//   .litrpg-frame {
-//     background: var(--litrpg-background);
-//     clip-path: var(--litrpg-polygon);
-//     margin: 0 2px;
-//   }
-
-//   .litrpg-body {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 1rem;
-//     padding: .75rem 0;
-//     margin: 0 .75rem;
-//     overflow: auto;
-//   }
-// }

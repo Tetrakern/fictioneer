@@ -223,7 +223,7 @@ p a,
 }
 
 .content-section {
-  :where(.list, :is(ul, ol):not([class])) {
+  :where(.list, :is(ul, ol):not(.chapter-group__list, .grid-columns)) {
     list-style: initial;
     padding-left: 1.75rem;
     margin: 1.5rem 0 0;
@@ -243,21 +243,21 @@ p a,
     }
   }
 
-  :where(.list, ul:not([class])) {
+  :where(.list, ul:not(.chapter-group__list, .grid-columns)) {
     li::marker {
       color: var(--list-marker-color, var(--fg-700)); // Done
     }
   }
 
-  :where(ul, .list) > li > ul:not([class]) {
+  :where(ul, .list) > li > ul:not(.chapter-group__list, .grid-columns) {
     list-style: circle;
   }
 
-  :where(ul, .list) > li > ul > li > ul:not([class]) {
+  :where(ul, .list) > li > ul > li > ul:not(.chapter-group__list, .grid-columns) {
     list-style: square;
   }
 
-  :where(.list, ol:not([class])) {
+  :where(.list, ol:not(.chapter-group__list, .grid-columns)) {
     list-style: ordered-list;
   }
 }
