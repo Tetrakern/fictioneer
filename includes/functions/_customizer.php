@@ -780,8 +780,8 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Dark mode colors ------------------------------------------------------
 
   $css .= ":root {
-    --site-title-heading-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_title_color', '#d1d5e0' ) ) . ";
-    --site-title-tagline-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_tagline_color', '#d1d5e0' ) ) . ";
+    --site-title-heading-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_title_color', '#c4cad6' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_tagline_color', '#c4cad6' ) ) . ";
   }";
 
   if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {

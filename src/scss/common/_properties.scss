@@ -58,8 +58,8 @@
 
   --site-title-font-size: #{get_clamp(32, 60, 320, $full-width)};
   --site-title-tagline-font-size: #{get_clamp(13, 18, 320, $full-width)};
-  --site-title-heading-color: var(--fg-300);
-  --site-title-tagline-color: var(--fg-300);
+  --site-title-heading-color: var(--fg-400);
+  --site-title-tagline-color: var(--fg-400);
   --site-title-text-shadow: 0 0 4px rgb(0 0 0 / 80%), 0 0 2px rgb(0 0 0 / 60%);
 
   // === ASSETS ================================================================
