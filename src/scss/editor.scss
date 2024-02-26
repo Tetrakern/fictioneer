@@ -395,7 +395,7 @@ body {
     table {
       font-size: 75%; // Scales with custom formatting
       border-style: solid;
-      border-color: #979797;
+      border-color: #b3b3b3;
       border-collapse: collapse;
 
       @include bp(480px) {
@@ -423,7 +423,7 @@ body {
     }
 
     table:not([style*="border-width"]) tfoot {
-      border-top-width: 3px;
+      border-top-width: 3px !important;
     }
 
     th {
@@ -438,14 +438,24 @@ body {
     &.is-style-stripes {
       border-bottom: none;
 
-      table:not(.has-border-color) tfoot {
-        border-top-color: #6c6c6c;
+      table:not(.has-border-color) {
+        tfoot {
+          border-top-color: #b3b3b3;
+        }
+      }
+
+      table:not([style*="border-width"]) {
+        border-width: 0;
+
+        :is(thead, tfoot, tbody, tr, th, td) {
+          border-width: 0;
+        }
       }
 
       tbody {
         tr {
           &:nth-child(odd) {
-            background: rgb(0 0 0 / 15%);
+            background: rgb(0 0 0 / 10%);
           }
         }
       }
