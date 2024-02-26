@@ -395,7 +395,7 @@ body {
     table {
       font-size: 75%; // Scales with custom formatting
       border-style: solid;
-      border-color: rgb(0 0 0 / 30%);
+      border-color: #979797;
       border-collapse: collapse;
 
       @include bp(480px) {
@@ -420,6 +420,9 @@ body {
     tfoot {
       font-weight: 700;
       vertical-align: top;
+    }
+
+    table:not([style*="border-width"]) tfoot {
       border-top-width: 3px;
     }
 
@@ -435,8 +438,8 @@ body {
     &.is-style-stripes {
       border-bottom: none;
 
-      tfoot {
-        border-top-color: rgb(0 0 0 / 50%);
+      table:not(.has-border-color) tfoot {
+        border-top-color: #6c6c6c;
       }
 
       tbody {
