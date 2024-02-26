@@ -430,6 +430,7 @@
     line-height: 1.6;
     border: 1px solid transparent; // Preserve spacing if sticky or other borders apply
     border-radius: var(--layout-border-radius-small);
+    background-origin: border-box !important; // Prevent inverted gradients on border
     padding: .75rem;
 
     &:not(:hover, :focus-within) {
@@ -516,7 +517,7 @@
 
   &__in-moderation,
   &__hidden-notice {
-    color: var(--fg-900);
+    color: var(--comment-color-hidden, var(--fg-900));
     font-size: var(--fs-xs);
     font-style: italic;
   }
@@ -596,7 +597,6 @@
     padding: .75rem;
     border-radius: 2px;
     margin: .5rem 0 .75rem;
-    box-shadow: 0 0 0 1px var(--page-bg-color);
   }
 
   > :is(ol, ul) {

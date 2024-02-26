@@ -92,7 +92,7 @@
   --code-background-inline: rgb(0 0 0 / 25%);
   --code-color: var(--fg-700);
 
-  --spoiler-background: var(--fg-700);
+  --spoiler-background: var(--bg-100);
   --spoiler-color-visible: var(--fg-inverted);
 
   --ins-background: var(--green-400);
@@ -128,7 +128,7 @@
   --tax-cloud-current: var(--primary-500);
   --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
   --strong-filter: brightness(1.05);
-  --invert-filter: invert(0);
+  --invert-filter: invert(0); // Checkbox check
 
   // === LITRPG ================================================================
 
@@ -202,7 +202,7 @@
   --bg-950-free: #{hsl_code_free(222, 25, 8)};
 
   --bg-50: hsl(var(--bg-50-free)); // popup menu, tooltip
-  --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected
+  --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected, spoiler
   --bg-200: hsl(var(--bg-200-free)); // secondary button border hover, pagination active
   --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover, input placeholder color, horizontal lines, mobile menu quick button hover
   --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus, pagination hover
@@ -536,8 +536,8 @@
 
   --load-comments-background: rgb(0 0 0 / 15%);
   --load-comments-background-hover: rgb(0 0 0 / 25%);
-  --load-comments-color: var(--fg-600);
-  --load-comments-color-hover: var(--fg-700);
+  --load-comments-color: var(--fg-700);
+  --load-comments-color-hover: var(--fg-600);
 
   // === SYSTEM ================================================================
 
