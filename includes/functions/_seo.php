@@ -164,8 +164,13 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
  */
 
 function fictioneer_save_seo_metabox( $post_id ) {
+  // Always purge meta cache
+  delete_post_meta( $post_id, 'fictioneer_seo_cache' );
+
+
   // Validations
   if (
+    ! current_user_can( 'fcn_seo_meta' ) ||
     ! isset( $_POST['fictioneer_metabox_seo_nonce'] ) ||
     ! wp_verify_nonce( $_POST['fictioneer_metabox_seo_nonce'], 'fictioneer-metabox-seo-save' ) ||
     ! current_user_can( 'edit_post', $post_id ) ||
@@ -206,11 +211,7 @@ function fictioneer_save_seo_metabox( $post_id ) {
   delete_post_meta( $post_id, 'fictioneer_seo_cache' );
 }
 
-if (
-  get_option( 'fictioneer_enable_seo' ) &&
-  ! fictioneer_seo_plugin_active() &&
-  current_user_can( 'fcn_seo_meta' )
-) {
+if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
   add_action( 'save_post', 'fictioneer_save_seo_metabox', 10 );
 }
 
