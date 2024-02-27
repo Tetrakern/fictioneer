@@ -802,7 +802,12 @@ function fictioneer_build_customize_css( $content = null ) {
       --primary-400: " . get_theme_mod( 'dark_primary_400', '#f7dd88' ) . ";
       --primary-500: " . get_theme_mod( 'dark_primary_500', '#f4d171' ) . ";
       --primary-600: " . get_theme_mod( 'dark_primary_600', '#f1bb74' ) . ";
-      --notice-warning-background: " . get_theme_mod( 'dark_warning_color', '#f15555' ) . ";
+      --red-400: " . get_theme_mod( 'dark_red_400', '#f26666' ) . ";
+      --red-500: " . get_theme_mod( 'dark_red_500', '#f15555' ) . ";
+      --red-600: " . get_theme_mod( 'dark_red_600', '#d94d4d' ) . ";
+      --green-400: " . get_theme_mod( 'dark_green_400', '#86a35f' ) . ";
+      --green-500: " . get_theme_mod( 'dark_green_500', '#78994d' ) . ";
+      --green-600: " . get_theme_mod( 'dark_green_600', '#6c8a45' ) . ";
       --bookmark-color-alpha: " . get_theme_mod( 'dark_bookmark_color_alpha', '#7d8497' ) . ";
       --bookmark-color-beta: " . get_theme_mod( 'dark_bookmark_color_beta', '#e06552' ) . ";
       --bookmark-color-gamma: " . get_theme_mod( 'dark_bookmark_color_gamma', '#77BFA3' ) . ";
@@ -886,7 +891,12 @@ function fictioneer_build_customize_css( $content = null ) {
       --primary-400: " . get_theme_mod( 'light_primary_400', '#75a4f0' ) . ";
       --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
       --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
-      --warning: " . get_theme_mod( 'light_warning_color', '#eb5247' ) . ";
+      --red-400: " . get_theme_mod( 'light_red_400', '#f98686' ) . ";
+      --red-500: " . get_theme_mod( 'light_red_500', '#f15b5b' ) . ";
+      --red-600: " . get_theme_mod( 'light_red_600', '#dd3c3c' ) . ";
+      --green-400: " . get_theme_mod( 'light_green_400', '#a4db8a' ) . ";
+      --green-500: " . get_theme_mod( 'light_green_500', '#72bd51' ) . ";
+      --green-600: " . get_theme_mod( 'light_green_600', '#5cac39' ) . ";
       --bookmark-color-alpha: " . get_theme_mod( 'light_bookmark_color_alpha', '#9ca3b0' ) . ";
       --bookmark-color-beta: " . get_theme_mod( 'light_bookmark_color_beta', '#f59e0b' ) . ";
       --bookmark-color-gamma: " . get_theme_mod( 'light_bookmark_color_gamma', '#77bfa3' ) . ";
