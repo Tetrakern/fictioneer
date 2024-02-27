@@ -1,6 +1,16 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
+:root, :root[data-theme=base] {
+  --card-footer-color: var(--fg-700);
+  --card-footer-icon-color: var(--fg-900);
+}
+
+:root[data-mode=light] {
+  --card-footer-color: var(--fg-700);
+  --card-footer-icon-color: var(--fg-800);
+}
+
 .card._combined {
   --card-style-border-width: 0;
 

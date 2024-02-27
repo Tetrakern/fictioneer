@@ -109,8 +109,9 @@
   --del-background: var(--red-400);
   --del-color: var(--fg-inverted);
 
-  --caption-overlay-background: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
-  --caption-overlay-color: var(--fg-200);
+  --caption-overlay-background: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 40%) 70%, transparent);
+  --caption-overlay-color: #fff;
+  --caption-padding: .3rem .5rem .5rem;
 
   --progress-bar-background: var(--navigation-background);
   --progress-bar-color: var(--bg-200);

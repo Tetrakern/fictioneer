@@ -94,6 +94,14 @@ sup[data-fn] {
   &.has-background {
     padding: max(var(--wp--style--unstable-gallery-gap, 1rem), 0.5rem);
   }
+
+  &.has-nested-images figure.wp-block-image figcaption {
+    background: var(--caption-overlay-background);
+    color: var(--caption-overlay-color);
+    font: 400 var(--fs-dxs)/1.2 var(--ff-heading);
+    letter-spacing: 0;
+    padding: var(--caption-padding);
+  }
 }
 
 // =============================================================================
@@ -111,14 +119,14 @@ sup[data-fn] {
     margin: 0;
 
     a {
-      color: var(--inline-link-color);
+      color: var(--inline-link-color) !important; // Override WP defaults
 
       &:hover {
-        color: var(--inline-link-color-hover);
+        color: var(--inline-link-color-hover) !important; // Override WP defaults
       }
 
       &:visited {
-        color: var(--inline-link-color-visited);
+        color: var(--inline-link-color-visited) !important; // Override WP defaults
       }
     }
   }

@@ -1,6 +1,16 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
+:root, :root[data-theme=base] {
+  --card-footer-color: var(--fg-600);
+  --card-footer-icon-color: var(--fg-800);
+}
+
+:root[data-mode=light] {
+  --card-footer-icon-color: var(--fg-700);
+  --card-style-border-color: var(--bg-400);
+}
+
 .card:where(._unfolded, ._combined) {
   &:is(._small, ._article) .card__body > .card__footer {
     margin-top: 0;

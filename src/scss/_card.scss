@@ -461,7 +461,7 @@
   &__footer {
     display: flex;
     gap: 3px;
-    color: var(--fg-700);
+    color: var(--card-footer-color, var(--fg-700));
     font-size: var(--card-footer-font-size, clamp(12px, 2.25cqw, 13px));
     line-height: 1;
     margin-top: var(--card-footer-margin-top, 1em);
@@ -471,7 +471,7 @@
     }
 
     .card-footer-icon {
-      color: var(--fg-800);
+      color: var(--card-footer-icon-color, var(--fg-900));
       margin-right: .3em;
 
       &:not(:first-child) {
@@ -484,7 +484,7 @@
       flex: 0 0 auto;
       display: grid;
       place-content: center;
-      color: var(--fg-700);
+      color: var(--card-footer-rating-color, var(--fg-700));
       font-family: var(--ff-heading);
       font-weight: 600;
       padding: 0 .5rem;

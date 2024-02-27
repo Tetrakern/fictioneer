@@ -20,14 +20,11 @@
   --del-background: var(--red-400);
   --del-color: inherit;
 
-  // --caption-overlay-background: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
-  // --caption-overlay-color: var(--fg-200);
+  --caption-overlay-color: #fff;
 
-  // --progress-bar-background: var(--navigation-background);
-  // --progress-bar-color: var(--bg-200);
+  --progress-bar-background: var(--bg-900);
 
-  // --skeleton-shape-color: var(--bg-300);
-  // --skeleton-cutout-color: var(--page-bg-color);
+  --skeleton-shape-color: var(--bg-400);
 
   --embed-box-shadow: 0 0 1px rgb(0 0 0 / 35%);
 
@@ -55,7 +52,7 @@
 
   --content-li-background-full: var(--bg-250);
   --content-li-background-gradient: linear-gradient(to left, var(--bg-250) 0%, var(--bg-250) 55%, transparent 90%);
-  // --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
+  --content-li-hr-border: 2px solid rgb(0 0 0 / 4%);
 
   // === COLORS ================================================================
 
@@ -146,10 +143,6 @@
   // --minimal-box-shadow: 0 0 1px rgb(0 0 0 / 40%);
   // --minimal-drop-shadow: drop-shadow(0 0 1px rgb(0 0 0 / 40%));
 
-  // === HEADER ================================================================
-
-  // --header-image-drop-shadow: drop-shadow(0 0 2px rgb(0 0 0 / 40%));
-
   // === PAGE ==================================================================
 
   --page-bg-color: var(--bg-100);
@@ -163,9 +156,9 @@
   --card-overlay-bg-color: var(--bg-300);
   --card-content-li-background-full: var(--bg-200);
   --card-content-li-background-gradient: linear-gradient(to left, var(--bg-200) 50%, transparent 90%);
-  // --card-label-color: var(--fg-inverted);
-  // --card-label-background: var(--fg-500);
   // --card-unavailable-filter: grayscale(0.3) brightness(0.95);
+  --card-footer-color: var(--fg-600);
+  --card-footer-icon-color: var(--fg-700);
 
   // === FOCUS =================================================================
 
@@ -216,22 +209,6 @@
 
   --modal-bg-color: var(--bg-50);
 
-  // === SHADOWS ===============================================================
-
-  --box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 10%);
-  --box-shadow-s: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px -1px rgb(0 0 0 / 10%);
-  --box-shadow: 0 3px 6px -1px rgb(0 0 0 / 9%), 0 -1px 4px -2px rgb(0 0 0 / 10%);
-  --box-shadow-m: rgb(0 0 0 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
-  --box-shadow-l: rgb(0 0 0 / 10%) 0px 6px 12px -2px, rgb(0 0 0 / 15%) 0px 3px 7px -3px;
-  --box-shadow-xl: 0 3px 8px -1px rgb(0 0 0 / 9%), 0 3px 12px -1px rgb(0 0 0 / 17%);
-
-  // --drop-shadow-xs: drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
-  // --drop-shadow-s: drop-shadow(0 1px 3px rgb(0 0 0 / 12%)) drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
-  // --drop-shadow: drop-shadow(0 2px 6px rgb(0 0 0 / 9%)) drop-shadow(0 -1px 3px rgb(0 0 0 / 10%));
-  // --drop-shadow-m: drop-shadow(0 2px 5px rgb(0 0 0 / 15%)) drop-shadow(0 1px 1px rgb(0 0 0 / 5%));
-  // --drop-shadow-l: drop-shadow(0 5px 11px rgb(0 0 0 / 10%)) drop-shadow(0 2px 6px rgb(0 0 0 / 15%));
-  // --drop-shadow-xl: drop-shadow(0 3px 8px rgb(0 0 0 / 9%)) drop-shadow(0 3px 12px rgb(0 0 0 / 17%));
-
   // === MOBILE MENU ===========================================================
 
   // --mobile-menu-background: var(--bg-700);
@@ -262,14 +239,7 @@
 
   // === COLORS LINKS ==========================================================
 
-  // --heading-link-color: var(--fg-400);
-  // --heading-link-color-hover: var(--fg-200);
-
-  // --inline-link-color: var(--primary-500);
-  // --inline-link-color-hover: var(--primary-400);
-  // --inline-link-color-visited: var(--primary-600);
-  // --inline-link-color-border: 1px solid transparent;
-  // --inline-link-color-border-hover: 1px solid currentColor;
+  --heading-link-color-hover: var(--fg-500);
 
   // === COLORS - BOOKMARKS ====================================================
 

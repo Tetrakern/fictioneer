@@ -72,11 +72,11 @@
     display: block;
     background: var(--caption-overlay-background);
     color: var(--caption-overlay-color);
-    font: 500 var(--fs-dxs)/1.2 var(--ff-heading);
+    font: 400 var(--fs-dxs)/1.2 var(--ff-heading);
     letter-spacing: 0;
     text-align: center;
     white-space: nowrap;
-    padding: .6rem .5rem .3rem;
+    padding: var(--caption-padding);
     overflow: hidden;
     text-overflow: ellipsis;
   }
