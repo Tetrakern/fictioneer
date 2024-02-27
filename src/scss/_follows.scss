@@ -102,7 +102,7 @@
   }
 
   .follow-item {
-    --focus-offset: -6px;
+    --focus-offset: -2px;
 
     &:not(:last-child) {
       border-bottom: var(--navigation-subitem-divider);
@@ -132,6 +132,7 @@
   }
 
   .follow-title-link {
+    --focus-outline: none;
     color: var(--follow-title-link-color, var(--fg-400));
 
     &:hover {
