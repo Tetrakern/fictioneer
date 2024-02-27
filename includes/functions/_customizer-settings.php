@@ -369,6 +369,28 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
+    'light_bg_250',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#f1f2f4'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_bg_250',
+      array(
+        'label' => __( 'Light Background 250', 'fictioneer' ),
+        'description' => __( 'TODO', 'fictioneer'),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_bg_250'
+      )
+    )
+  );
+
+  $manager->add_setting(
     'light_bg_300',
     array(
       'capability' => 'manage_options',
@@ -1448,7 +1470,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'dark_bg_100',
       array(
         'label' => __( 'Dark Background 100', 'fictioneer' ),
-        'description' => __( 'Used for placeholder texts and tag hovers.', 'fictioneer' ),
+        'description' => __( '<small>Part of active buttons, popup menu hovers, popup menu selections, and spoiler codes.</small>', 'fictioneer' ),
         'section' => 'dark_mode_colors',
         'settings' => 'dark_bg_100'
       )

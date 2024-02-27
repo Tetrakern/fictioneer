@@ -874,6 +874,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --bg-10: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_10', '#fcfcfd' ) ) . ";
       --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_50', '#f9fafb' ) ) . ";
       --bg-100: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_100', '#f3f4f6' ) ) . ";
+      --bg-250-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_250', '#f1f2f4' ), 'free' ) . ";
       --bg-300: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_300', '#d1d5db' ) ) . ";
       --bg-400: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_400', '#9ca3b0' ) ) . ";
       --bg-500: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_500', '#6b7280' ) ) . ";

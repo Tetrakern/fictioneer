@@ -5,9 +5,8 @@
   --body-bg-color: var(--bg-400);
   --site-bg-color: var(--bg-200);
 
-  // --read-ribbon-background: var(--bg-50);
-  // --read-ribbon-color: var(--fg-inverted);
-  // --read-ribbon-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
+  --read-ribbon-background: var(--bg-100);
+  --read-ribbon-color: var(--fg-400);
 
   --code-background: hsl(var(--bg-950-free) / 7%);
   --code-background-inline: hsl(var(--bg-950-free) / 7%);
@@ -15,11 +14,11 @@
 
   --spoiler-background: var(--bg-900);
 
-  // --ins-background: var(--green-400);
-  // --ins-color: var(--fg-inverted);
+  --ins-background: var(--green-400);
+  --ins-color: inherit;
 
-  // --del-background: var(--red-400);
-  // --del-color: var(--fg-inverted);
+  --del-background: var(--red-400);
+  --del-color: inherit;
 
   // --caption-overlay-background: linear-gradient(0deg, rgb(0 0 0 / 70%), rgb(0 0 0 / 30%) 70%, transparent);
   // --caption-overlay-color: var(--fg-200);
@@ -30,13 +29,12 @@
   // --skeleton-shape-color: var(--bg-300);
   // --skeleton-cutout-color: var(--page-bg-color);
 
-  // --embed-box-shadow: var(--box-shadow-m);
+  --embed-box-shadow: 0 0 1px rgb(0 0 0 / 35%);
 
   --table-background-striped: hsl(var(--bg-950-free) / 6%);
 
   --blockquote-background: hsl(var(--bg-950-free) / 8%);
-  // --placeholder-background: var(--bg-950);
-  // --kbd-background: var(--bg-900);
+  --kbd-background: var(--bg-300);
   --infobox-background: var(--bg-300);
   --text-shadow: -1px -1px 1px rgb(0 0 0 / 2%);
   --checkmark-not-checked: var(--bg-400);
@@ -55,8 +53,8 @@
 
   // === CONTENT LISTS =========================================================
 
-  --content-li-background-full: hsl(var(--bg-300-free) / 65%);
-  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-300-free) / 65%) 0%, hsl(var(--bg-300-free) / 65%) 55%, transparent 90%);
+  --content-li-background-full: var(--bg-250);
+  --content-li-background-gradient: linear-gradient(to left, var(--bg-250) 0%, var(--bg-250) 55%, transparent 90%);
   // --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
 
   // === COLORS ================================================================
@@ -65,20 +63,21 @@
   --primary-500: hsl(217deg 91% 60%);
   --primary-600: hsl(226deg 71% 40%);
 
-  // --green-400: #86a35f;
-  // --green-500: #78994d;
-  // --green-600: #6c8a45;
+  --green-400: hsl(101, 53%, 70%);
+  --green-500: hsl(102, 45%, 53%);
+  --green-600: hsl(102, 50%, 45%);
 
-  // --red-400: #f26666;
-  // --red-500: #f15555;
-  // --red-600: #d94d4d;
+  --red-400: hsl(0deg 90% 75%);
+  --red-500: hsl(0deg 84% 65%);
+  --red-600: hsl(0deg 70% 55%);
 
   // === BACKGROUNDS ===========================================================
 
   --bg-50-free: #{hsl_code_free(240, 20, 99)}; // #fcfcfd
   --bg-100-free: #{hsl_code_free(210, 20, 98)}; // #f9fafb
   --bg-200-free: #{hsl_code_free(210, 10, 96)}; // #f4f5f6
-  --bg-300-free: #{hsl_code_free(210, 13, 92)}; // #eef0f2
+  --bg-250-free: #{hsl_code_free(210, 13, 95)}; // #f1f2f4 // card footers, chapter list backgrounds
+  --bg-300-free: #{hsl_code_free(210, 13, 91)}; // #e5e8eb
   --bg-400-free: #{hsl_code_free(220, 11, 84)}; // #d2d5db
   --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
 
@@ -99,6 +98,8 @@
   --bg-800-free: #{hsl_code_free(217, 16, 31)}; // #xxxxxx (Tailwind Gray 700 -3S +4L)
   --bg-900-free: #{hsl_code_free(215, 22, 21)}; // #xxxxxx (Tailwind Gray 800 -6S +4L)
   --bg-950-free: #{hsl_code_free(221, 20, 15)}; // #xxxxxx (Tailwind Gray 900 -12S +4L)
+
+  --bg-250: hsl(var(--bg-250-free));
 
   // === FOREGROUNDS ===========================================================
 
@@ -158,7 +159,7 @@
   // === CARDS =================================================================
 
   --card-bg-color: var(--bg-50);
-  --card-footer-bg-color: hsl(var(--bg-300-free) / 65%);
+  --card-footer-bg-color: var(--bg-250);
   --card-overlay-bg-color: var(--bg-300);
   --card-content-li-background-full: var(--bg-200);
   --card-content-li-background-gradient: linear-gradient(to left, var(--bg-200) 50%, transparent 90%);
@@ -217,12 +218,12 @@
 
   // === SHADOWS ===============================================================
 
-  // --box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 10%);
-  // --box-shadow-s: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px -1px rgb(0 0 0 / 10%);
-  // --box-shadow: 0 3px 6px -1px rgb(0 0 0 / 9%), 0 -1px 4px -2px rgb(0 0 0 / 10%);
-  // --box-shadow-m: rgb(0 0 0 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
-  // --box-shadow-l: rgb(0 0 0 / 10%) 0px 6px 12px -2px, rgb(0 0 0 / 15%) 0px 3px 7px -3px;
-  // --box-shadow-xl: 0 3px 8px -1px rgb(0 0 0 / 9%), 0 3px 12px -1px rgb(0 0 0 / 17%);
+  --box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 10%);
+  --box-shadow-s: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --box-shadow: 0 3px 6px -1px rgb(0 0 0 / 9%), 0 -1px 4px -2px rgb(0 0 0 / 10%);
+  --box-shadow-m: rgb(0 0 0 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
+  --box-shadow-l: rgb(0 0 0 / 10%) 0px 6px 12px -2px, rgb(0 0 0 / 15%) 0px 3px 7px -3px;
+  --box-shadow-xl: 0 3px 8px -1px rgb(0 0 0 / 9%), 0 3px 12px -1px rgb(0 0 0 / 17%);
 
   // --drop-shadow-xs: drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
   // --drop-shadow-s: drop-shadow(0 1px 3px rgb(0 0 0 / 12%)) drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
@@ -371,22 +372,16 @@
 
   // === MICRO MENU ============================================================
 
-  // --micro-menu-background: var(--bg-950);
-  // --micro-menu-color: var(--fg-400);
-  // --micro-menu-color-hover: var(--fg-200);
-  // --micro-menu-box-shadow: var(--box-shadow-l);
+  --micro-menu-background: var(--bg-900);
+  --micro-menu-color: var(--fg-inverted);
+  --micro-menu-color-hover: var(--fg-inverted);
 
   // === TOOLTIPS/NOTIFICATIONS ================================================
 
   --tooltip-background: var(--bg-900);
 
-  // --notice-default-background: var(--bg-50);
-  // --notice-default-color: var(--fg-inverted);
-  // --notice-warning-background: var(--red-500);
-  // --notice-warning-color: #fff;
-  // --notice-success-background: var(--green-500);
-  // --notice-success-color: #fff;
-  // --notice-box-shadow: var(--box-shadow-l);
+  --notice-default-background: var(--bg-900);
+  --notice-default-color: #fff;
 
   // === COMMENTS ==============================================================
 
