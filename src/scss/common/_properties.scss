@@ -611,6 +611,10 @@
     --toggle-border: var(--fg-600);
     --toggle-border-checked: var(--fg-600);
     --toggle-border-hover: var(--fg-300);
+
+    --toggle-border: var(--bg-100);
+    --toggle-border-checked: var(--bg-100);
+    --toggle-border-hover: var(--bg-50);
   }
 
   .tag-pill {

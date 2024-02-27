@@ -822,7 +822,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#4287f5'
+      'default' => '#75a4f0'
     )
   );
 

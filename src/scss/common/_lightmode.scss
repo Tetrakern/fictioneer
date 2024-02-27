@@ -57,9 +57,9 @@
 
   // === COLORS ================================================================
 
-  --primary-400: hsl(217deg 90% 61%);
-  --primary-500: hsl(217deg 91% 60%);
-  --primary-600: hsl(226deg 71% 40%);
+  --primary-400: hsl(217deg 90% 61%); // #75a4f0
+  --primary-500: hsl(217deg 91% 60%); // #3c83f6
+  --primary-600: hsl(226deg 71% 40%); // #1e3fae
 
   --green-400: hsl(101, 53%, 70%);
   --green-500: hsl(102, 45%, 53%);
@@ -84,17 +84,11 @@
   // --bg-900-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
   // --bg-950-free: #{hsl_code_free(221, 39, 11)}; // #111827 (Tailwind Gray 900)
 
-  // --bg-600-free: #{hsl_code_free(220, 9, 50)}; // #6b7280 (Tailwind Gray 500 +4L)
-  // --bg-700-free: #{hsl_code_free(215, 13, 38)}; // #4b5563 (Tailwind Gray 600 -1S +4L)
-  // --bg-800-free: #{hsl_code_free(217, 17, 31)}; // #374151 (Tailwind Gray 700 -2S +4L)
-  // --bg-900-free: #{hsl_code_free(215, 25, 21)}; // #1f2937 (Tailwind Gray 800 -3S +4L)
-  // --bg-950-free: #{hsl_code_free(221, 35, 14)}; // #111827 (Tailwind Gray 900 -4S +4L)
-
-  --bg-600-free: #{hsl_code_free(220, 9, 50)}; // #xxxxxx (Tailwind Gray 500 +4L)
-  --bg-700-free: #{hsl_code_free(215, 13, 38)}; // #xxxxxx (Tailwind Gray 600 -1S +4L)
-  --bg-800-free: #{hsl_code_free(217, 16, 31)}; // #xxxxxx (Tailwind Gray 700 -3S +4L)
-  --bg-900-free: #{hsl_code_free(215, 22, 21)}; // #xxxxxx (Tailwind Gray 800 -6S +4L)
-  --bg-950-free: #{hsl_code_free(221, 20, 15)}; // #xxxxxx (Tailwind Gray 900 -12S +4L)
+  --bg-600-free: #{hsl_code_free(220, 9, 47)}; // #xxxxxx (Tailwind Gray 500 +1L)
+  --bg-700-free: #{hsl_code_free(215, 13, 36)}; // #xxxxxx (Tailwind Gray 600 -1S +2L)
+  --bg-800-free: #{hsl_code_free(217, 17, 29)}; // #xxxxxx (Tailwind Gray 700 -2S +2L)
+  --bg-900-free: #{hsl_code_free(215, 24, 19)}; // #xxxxxx (Tailwind Gray 800 -4S +2L)
+  --bg-950-free: #{hsl_code_free(221, 31, 13)}; // #xxxxxx (Tailwind Gray 900 -8S +2L)
 
   // === FOREGROUNDS ===========================================================
 
@@ -113,7 +107,6 @@
     // --fg-900: #{hsl_font_code(218, 11, 65)}; // 400
     // --fg-950: #{hsl_font_code(210, 20, 96)};
     // --fg-tinted: #{hsl_font_code(216, 24, 22)};
-
 
     --fg-100: #{hsl_font_code(225, 80, 2)}; // #010309 | Contrast ratio vs bg-100 ~ 19.72
     --fg-200: #{hsl_font_code(224, 71, 4)}; // #030712 (Tailwind Gray 950) | Contrast ratio vs bg-100 ~ 19.28
@@ -155,6 +148,7 @@
   // --card-unavailable-filter: grayscale(0.3) brightness(0.95);
   --card-footer-color: var(--fg-600);
   --card-footer-icon-color: var(--fg-700);
+  --card-text-icon-color: var(--fg-600);
 
   // === FOCUS =================================================================
 
@@ -167,6 +161,7 @@
   --navigation-submenu-background: var(--bg-300);
   --navigation-item-background-hover: var(--bg-300);
   --navigation-subitem-background-hover: var(--bg-400);
+  --navigation-color: var(--fg-500);
   --navigation-color-hover: var(--fg-100);
   --navigation-subitem-divider: 1px solid var(--bg-500);
   --navigation-drop-shadow: drop-shadow(0 2px 1px rgba(0, 0, 0, 17%));
@@ -286,10 +281,10 @@
 
   // === BUTTONS - FILE BLOCK ==================================================
 
-  // --button-file-block-color: var(--fg-inverted);
-  // --button-file-block-color-hover: var(--fg-inverted);
-  // --button-file-block-background: var(--bg-100);
-  // --button-file-block-background-hover: var(--bg-50);
+  --button-file-block-color: var(--fg-inverted);
+  --button-file-block-color-hover: var(--fg-inverted);
+  --button-file-block-background: var(--bg-600);
+  --button-file-block-background-hover: var(--bg-700);
 
   // === PASSWORD FORM =========================================================
 
@@ -298,16 +293,13 @@
 
   // === INPUTS ================================================================
 
-  // --input-placeholder-color: var(--fg-950);
   --input-background: hsl(var(--bg-950-free) / 7%);
-  // --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
-  // --input-color: var(--fg-500);
-  // --input-color-disabled: var(--fg-800);
-  // --input-fill: var(--fg-700);
-  // --input-range-thumb: var(--fg-700);
-  // --input-range-thumb-hover: var(--fg-300);
-  // --input-token-background: var(--bg-500);
-  // --input-token-color: var(--fg-400);
+  --input-background-disabled: var(--disabled-pattern);
+  --input-fill: var(--fg-800);
+  --input-range-thumb: var(--fg-800);
+  --input-range-thumb-hover: var(--fg-600);
+  --input-token-background: var(--bg-600);
+  --input-token-color: var(--fg-inverted);
 
   // === POPUP MENU ============================================================
 
@@ -341,7 +333,6 @@
   --load-comments-background: hsl(var(--bg-950-free) / 6%);
   --load-comments-background-hover: hsl(var(--bg-950-free) / 12%);
 
-
   // === SCROLL BARS ===========================================================
 
   --scrollbar-background: rgb(0 0 0 / 20%);
@@ -366,8 +357,14 @@
   // === SCOPES ================================================================
 
   .consent-banner {
-    // --consent-banner-text: var(--fg-600);
-    // --consent-banner-background: var(--bg-950);
+    --inline-link-color: var(--primary-400);
+    --inline-link-color-visited: var(--primary-400);
+    --consent-banner-text: var(--fg-inverted);
+    --consent-banner-background: var(--bg-950);
+    --button-primary-color: var(--fg-500);
+    --button-primary-color-hover: var(--fg-500);
+    --button-primary-background: var(--fg-inverted);
+    --button-primary-background-hover: var(--fg-inverted);
   }
 
   .selected-paragraph {
@@ -380,18 +377,16 @@
   }
 
   .toggle {
-    // --toggle-background: transparent;
-    // --toggle-background-checked: var(--bg-100);
-    // --toggle-background-hover: var(--bg-50);
+    --toggle-background: transparent;
+    --toggle-background-checked: var(--bg-600);
+    --toggle-background-hover: var(--bg-700);
 
-    // --toggle-color: var(--fg-600);
-    // --toggle-color-hover: var(--fg-300);
-    // --toggle-color-checked: var(--fg-inverted);
-    // --toggle-color-checked-hover: var(--fg-inverted);
+    --toggle-color: var(--fg-700);
+    --toggle-color-hover: var(--fg-400);
 
-    // --toggle-border: var(--fg-600);
-    // --toggle-border-checked: var(--fg-600);
-    // --toggle-border-hover: var(--fg-300);
+    --toggle-border: var(--bg-600);
+    --toggle-border-checked: var(--bg-600);
+    --toggle-border-hover: var(--bg-700);
   }
 
   .tag-pill {

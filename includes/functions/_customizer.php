@@ -883,7 +883,7 @@ function fictioneer_build_customize_css( $content = null ) {
       --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
       --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
       --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
-      --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";
+      --primary-400: " . get_theme_mod( 'light_primary_400', '#75a4f0' ) . ";
       --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
       --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
       --warning: " . get_theme_mod( 'light_warning_color', '#eb5247' ) . ";

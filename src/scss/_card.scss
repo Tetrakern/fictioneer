@@ -310,7 +310,7 @@
     text-align: center;
 
     .text-icon {
-      color: var(--fg-700); // Overrides hover
+      color: var(--card-text-icon-color, var(--fg-700)); // Overrides hover
     }
   }
 
