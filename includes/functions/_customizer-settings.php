@@ -881,22 +881,127 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_warning_color',
+    'light_red_400',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#eb5247'
+      'default' => '#f98686'
     )
   );
 
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'light_warning_color',
+      'light_red_400',
       array(
-        'label' => __( 'Light Warning', 'fictioneer' ),
+        'label' => __( 'Light Red 400', 'fictioneer' ),
         'section' => 'light_mode_colors',
-        'settings' => 'light_warning_color'
+        'settings' => 'light_red_400'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'light_red_500',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#f15b5b'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_red_500',
+      array(
+        'label' => __( 'Light Red 500', 'fictioneer' ),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_red_500'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'light_red_600',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#dd3c3c'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_red_600',
+      array(
+        'label' => __( 'Light Red 600', 'fictioneer' ),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_red_600'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'light_green_400',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#a4db8a'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_green_400',
+      array(
+        'label' => __( 'Light Green 400', 'fictioneer' ),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_green_400'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'light_green_500',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#72bd51'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_green_500',
+      array(
+        'label' => __( 'Light Green 500', 'fictioneer' ),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_green_500'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'light_green_600',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#5cac39'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'light_green_600',
+      array(
+        'label' => __( 'Light Green 600', 'fictioneer' ),
+        'section' => 'light_mode_colors',
+        'settings' => 'light_green_600'
       )
     )
   );
@@ -1983,7 +2088,28 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'dark_warning_color',
+    'dark_red_400',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#f26666'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'dark_red_400',
+      array(
+        'label' => __( 'Dark Red 400', 'fictioneer' ),
+        'section' => 'dark_mode_colors',
+        'settings' => 'dark_red_400'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'dark_red_500',
     array(
       'capability' => 'manage_options',
       'sanitize_callback' => 'sanitize_hex_color',
@@ -1994,11 +2120,95 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_control(
     new WP_Customize_Color_Control(
       $manager,
-      'dark_warning_color',
+      'dark_red_500',
       array(
-        'label' => __( 'Dark Warning', 'fictioneer' ),
+        'label' => __( 'Dark Red 500', 'fictioneer' ),
         'section' => 'dark_mode_colors',
-        'settings' => 'dark_warning_color'
+        'settings' => 'dark_red_500'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'dark_red_600',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#d94d4d'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'dark_red_600',
+      array(
+        'label' => __( 'Dark Red 600', 'fictioneer' ),
+        'section' => 'dark_mode_colors',
+        'settings' => 'dark_red_600'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'dark_green_400',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#86a35f'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'dark_green_400',
+      array(
+        'label' => __( 'Dark Green 400', 'fictioneer' ),
+        'section' => 'dark_mode_colors',
+        'settings' => 'dark_green_400'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'dark_green_500',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#78994d'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'dark_green_500',
+      array(
+        'label' => __( 'Dark Green 500', 'fictioneer' ),
+        'section' => 'dark_mode_colors',
+        'settings' => 'dark_green_500'
+      )
+    )
+  );
+
+  $manager->add_setting(
+    'dark_green_600',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_hex_color',
+      'default' => '#6c8a45'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'dark_green_600',
+      array(
+        'label' => __( 'Dark Green 600', 'fictioneer' ),
+        'section' => 'dark_mode_colors',
+        'settings' => 'dark_green_600'
       )
     )
   );
