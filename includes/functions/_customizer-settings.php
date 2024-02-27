@@ -369,28 +369,6 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_setting(
-    'light_bg_250',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f1f2f4'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_250',
-      array(
-        'label' => __( 'Light Background 250', 'fictioneer' ),
-        'description' => __( 'TODO', 'fictioneer'),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_250'
-      )
-    )
-  );
-
-  $manager->add_setting(
     'light_bg_300',
     array(
       'capability' => 'manage_options',

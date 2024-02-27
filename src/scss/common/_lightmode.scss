@@ -32,10 +32,11 @@
 
   --blockquote-background: hsl(var(--bg-950-free) / 8%);
   --kbd-background: var(--bg-300);
-  --infobox-background: var(--bg-300);
+  --infobox-background: hsl(var(--bg-950-free) / 5%);
   --text-shadow: -1px -1px 1px rgb(0 0 0 / 2%);
   --checkmark-not-checked: var(--bg-400);
   --disabled-pattern: hsl(var(--bg-950-free) / 3%) repeating-linear-gradient(-45deg, hsl(var(--bg-950-free) / 6%), hsl(var(--bg-950-free) / 6%) 2px, transparent 2px, transparent 5px);
+  --chapter-list-warning-color: var(--red-600);
   --strong-filter: none;
   --invert-filter: invert(1); // Checkbox check
 
@@ -50,8 +51,8 @@
 
   // === CONTENT LISTS =========================================================
 
-  --content-li-background-full: var(--bg-250);
-  --content-li-background-gradient: linear-gradient(to left, var(--bg-250) 0%, var(--bg-250) 55%, transparent 90%);
+  --content-li-background-full: hsl(var(--bg-950-free) / 3%);
+  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 4%) 0%, hsl(var(--bg-950-free) / 4%) 55%, transparent 90%);
   --content-li-hr-border: 2px solid rgb(0 0 0 / 4%);
 
   // === COLORS ================================================================
@@ -73,7 +74,6 @@
   --bg-50-free: #{hsl_code_free(240, 20, 99)}; // #fcfcfd
   --bg-100-free: #{hsl_code_free(210, 20, 98)}; // #f9fafb
   --bg-200-free: #{hsl_code_free(210, 10, 96)}; // #f4f5f6
-  --bg-250-free: #{hsl_code_free(210, 13, 95)}; // #f1f2f4 // card footers, chapter list backgrounds
   --bg-300-free: #{hsl_code_free(210, 13, 91)}; // #e5e8eb
   --bg-400-free: #{hsl_code_free(220, 11, 84)}; // #d2d5db
   --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
@@ -95,8 +95,6 @@
   --bg-800-free: #{hsl_code_free(217, 16, 31)}; // #xxxxxx (Tailwind Gray 700 -3S +4L)
   --bg-900-free: #{hsl_code_free(215, 22, 21)}; // #xxxxxx (Tailwind Gray 800 -6S +4L)
   --bg-950-free: #{hsl_code_free(221, 20, 15)}; // #xxxxxx (Tailwind Gray 900 -12S +4L)
-
-  --bg-250: hsl(var(--bg-250-free));
 
   // === FOREGROUNDS ===========================================================
 
@@ -152,19 +150,18 @@
   // === CARDS =================================================================
 
   --card-bg-color: var(--bg-50);
-  --card-footer-bg-color: var(--bg-250);
+  --card-footer-bg-color: hsl(var(--bg-950-free) / 5%);
   --card-overlay-bg-color: var(--bg-300);
-  --card-content-li-background-full: var(--bg-200);
-  --card-content-li-background-gradient: linear-gradient(to left, var(--bg-200) 50%, transparent 90%);
+  --card-content-li-background-full: hsl(var(--bg-950-free) / 4%);
+  --card-content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 4%) 50%, transparent 90%);
   // --card-unavailable-filter: grayscale(0.3) brightness(0.95);
   --card-footer-color: var(--fg-600);
   --card-footer-icon-color: var(--fg-700);
 
   // === FOCUS =================================================================
 
-  // --focus-border-color: #ef4d4d;
-  // --focus-outline: 2px solid var(--focus-border-color);
-  // --focus-box-shadow: inset 0 0 0 2px rgb(0 0 0 / 75%);
+  --focus-border-color: var(--red-500);
+  --focus-box-shadow: inset 0 0 0 2px rgb(255 255 255 / 75%);
 
   // === NAVIGATION ============================================================
 
@@ -172,13 +169,9 @@
   --navigation-submenu-background: var(--bg-300);
   --navigation-item-background-hover: var(--bg-300);
   --navigation-subitem-background-hover: var(--bg-400);
-  // --navigation-color: var(--fg-400);
-  // --navigation-color-hover: var(--fg-300);
-  // --navigation-subitem-divider: 1px solid var(--bg-700);
-  // --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
-  // --navigation-drop-shadow: drop-shadow(0 3px 2px rgb(0 0 0 / 20%));
-  // --navigation-new-follow-background: var(--primary-500);
-  // --navigation-new-follow-color: var(--fg-inverted);
+  --navigation-color-hover: var(--fg-100);
+  --navigation-subitem-divider: 1px solid var(--bg-500);
+  --navigation-drop-shadow: drop-shadow(0 2px 1px rgba(0, 0, 0, 17%));
 
   // === TABS ==================================================================
 
@@ -257,12 +250,9 @@
 
   // === BUTTONS - GENERAL =====================================================
 
-  // --button-font-weight: 500;
-  // --button-box-shadow: none;
   --button-color-active: var(--fg-inverted);
   --button-background-active: var(--bg-700);
-  // --button-border-active: 1px solid transparent;
-  // --button-barberpole: var(--bg-500);
+  --button-barberpole: var(--bg-300);
 
   // === BUTTONS - PRIMARY =====================================================
 
@@ -276,22 +266,11 @@
 
   // === BUTTONS - SECONDARY ===================================================
 
-  // --button-secondary-background: transparent;
-  // --button-secondary-background-hover: var(--bg-500);
-  // --button-secondary-background-disabled: repeating-linear-gradient(-45deg, rgb(255 255 255 / 6%), rgb(255 255 255 / 6%) 2px, transparent 2px, transparent 4px);
-  // --button-secondary-color: var(--fg-500);
-  // --button-secondary-color-hover: var(--fg-400);
-  // --button-secondary-color-disabled: var(--fg-800);
-  // --button-secondary-border: 1px solid var(--bg-300);
-  // --button-secondary-border-hover: 1px solid var(--bg-200);
-  // --button-secondary-border-disabled: 1px solid var(--bg-300);
-
-  // === BUTTONS - WARNING ======================================================
-
-  // --button-warning-background: var(--red-500);
-  // --button-warning-background-hover: var(--red-600);
-  // --button-warning-color: #fff;
-  // --button-warning-color-hover: #fff;
+  --button-secondary-background-hover: var(--bg-300);
+  --button-secondary-background-disabled: repeating-linear-gradient(-45deg, hsl(var(--bg-950-free) / 6%), hsl(var(--bg-950-free) / 6%) 2px, transparent 2px, transparent 4px);
+  --button-secondary-border: 1px solid var(--bg-400);
+  --button-secondary-border-hover: 1px solid var(--bg-400);
+  --button-secondary-border-disabled: 1px solid var(--bg-400);
 
   // === BUTTONS - SUGGESTION ===================================================
 
@@ -316,15 +295,13 @@
 
   // === PASSWORD FORM =========================================================
 
-  // --post-password-background: var(--input-background);
-  // --post-password-cutout: var(--bg-700);
-  // --post-password-submit-color: var(--bg-500);
+  --post-password-cutout: var(--bg-100);
+  --post-password-submit-color: var(--bg-100);
 
   // === INPUTS ================================================================
 
   // --input-placeholder-color: var(--fg-950);
-  // --input-background: rgb(0 0 0 / 30%); // Fallback
-  // --input-background: color-mix(in srgb, var(--bg-900), black 19%);
+  --input-background: hsl(var(--bg-950-free) / 7%);
   // --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
   // --input-color: var(--fg-500);
   // --input-color-disabled: var(--fg-800);

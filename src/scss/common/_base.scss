@@ -593,7 +593,7 @@ html:not(.logged-in) body:not(.logged-in) {
     align-items: flex-start;
     gap: 12px;
     background: none;
-    color: var(--fg-700);
+    color: var(--chapter-group-name-color, var(--fg-800));
     font-size: var(--fs-dxs);
     font-weight: var(--font-weight-semi-strong);
     letter-spacing: calc(0.02em + var(--font-letter-spacing-base));
@@ -659,19 +659,19 @@ html:not(.logged-in) body:not(.logged-in) {
 
       &-subrow {
         grid-area: 2 / 2 / 3 / 3;
-        color: var(--fg-600);
+        color: var(--chapter-list-subrow-color, var(--fg-600));
         font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--ff-note);
 
         > :is(span, time):not(:last-child)::after {
           content: " •";
-          color: var(--fg-800);
+          color: var(--chapter-list-subrow-divider-color, var(--fg-800));
           font-family: var(--ff-base);
           margin: 0 0.125em;
         }
       }
 
       &-protected {
-        color: var(--fg-800);
+        color: var(--chapter-list-subrow-icon-color, var(--fg-800));
         font-size: 0.8em;
         margin-right: 0.5em;
         transform: translateY(-0.125em);
@@ -679,7 +679,7 @@ html:not(.logged-in) body:not(.logged-in) {
       }
 
       &-warning {
-        color: var(--red-400);
+        color: var(--chapter-list-warning-color, var(--red-400));
       }
 
       .checkmark {
@@ -700,7 +700,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
       &._empty {
         display: block;
-        color: var(--fg-900);
+        color: var(--chapter-list-empty-color, var(--fg-900));
         text-align: center;
         padding: .875rem 8px .875rem 2px;
       }
