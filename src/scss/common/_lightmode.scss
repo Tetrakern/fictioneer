@@ -144,8 +144,6 @@
   // === PAGE ==================================================================
 
   --page-bg-color: var(--bg-100);
-  // --page-box-shadow: 0 0 3px rgb(0 0 0 / 20%);
-  // --page-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 14%)) drop-shadow(0 0 2px rgb(0 0 0 / 22%));
 
   // === CARDS =================================================================
 
@@ -185,12 +183,12 @@
 
   // === PAGINATION ============================================================
 
-  // --pagination-background: var(--bg-500);
-  // --pagination-background-hover: var(--bg-400);
-  // --pagination-background-current: var(--bg-200);
-  // --pagination-color: var(--fg-600);
-  // --pagination-color-hover: var(--fg-500);
-  // --pagination-color-current: var(--fg-inverted);
+  --pagination-background: var(--bg-300);
+  --pagination-background-hover: var(--bg-400);
+  --pagination-background-current: var(--bg-700);
+  --pagination-color: var(--fg-500);
+  --pagination-color-hover: var(--fg-300);
+  --pagination-color-current: var(--fg-inverted);
 
   // === FOOTER ================================================================
 
@@ -343,16 +341,12 @@
   --load-comments-background: hsl(var(--bg-950-free) / 6%);
   --load-comments-background-hover: hsl(var(--bg-950-free) / 12%);
 
-  // === SYSTEM ================================================================
-
-  // --text-selection-background: rgb(255 255 255 / 20%);
-  // --text-selection-color: var(--fg-100);
 
   // === SCROLL BARS ===========================================================
 
-  // --scrollbar-background: rgb(0 0 0 / 20%);
-  // --scrollbar-thumb: var(--fg-950);
-  // --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
+  --scrollbar-background: rgb(0 0 0 / 20%);
+  --scrollbar-thumb: var(--fg-950);
+  --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
 
   // === BADGES ================================================================
 
@@ -377,19 +371,12 @@
   }
 
   .selected-paragraph {
-    // --paragraph-selection-background: rgb(255 255 255 / 10%);
-    // --paragraph-tools-filter: drop-shadow(0 1px 4px rgb(0 0 0 / 33%));
-    // --button-bookmark-background-active: var(--primary-500);
-  }
-
-  .tts-interface {
-    // --tts-background: var(--bg-950);
-    // --tts-button-active-background: var(--primary-500);
-    // --tts-button-active-text: var(--fg-inverted);
+    --paragraph-selection-background: hsl(var(--bg-950-free) / 10%);
+    --paragraph-tools-filter: drop-shadow(0 -3px 6px rgb(0 0 0/8%));
   }
 
   .current-reading {
-    // --tts-current-reading-background: rgb(255 255 255 / 5%);
+    --tts-current-reading-background: hsl(var(--bg-950-free) / 5%);
   }
 
   .toggle {

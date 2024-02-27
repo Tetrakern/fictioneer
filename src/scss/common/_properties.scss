@@ -81,6 +81,12 @@
     --wp--preset--color--vivid-red: var(--red-400); // Change for dark mode
     --wp--preset--color--vivid-cyan-blue: #26aeeb; // Change for dark mode
     --wp--preset--color--vivid-purple: #c792fc; // Change for dark mode
+
+    ::selection {
+      background-color: var(--text-selection-background);
+      color: var(--text-selection-color);
+      text-shadow: none;
+    }
   }
 }
 
