@@ -76,6 +76,14 @@
 // in the child theme can be overridden unless preventive measures are taken.
 // =============================================================================
 
+:root[data-mode=dark] {
+  body {
+    --wp--preset--color--vivid-red: var(--red-400); // Change for dark mode
+    --wp--preset--color--vivid-cyan-blue: #26aeeb; // Change for dark mode
+    --wp--preset--color--vivid-purple: #c792fc; // Change for dark mode
+  }
+}
+
 :root, :root[data-theme=base] {
   // === UNSORTED ==============================================================
 
@@ -113,8 +121,8 @@
   --embed-background: var(--disabled-pattern);
   --embed-box-shadow: var(--box-shadow-m);
 
-  --table-border-color: var(--fg-900);
-  --table-border-color-striped: rgb(0 0 0 / 30%);
+  --table-border-color: var(--fg-950);
+  --table-border-color-striped: var(--fg-950);
   --table-background-striped: rgb(0 0 0 / 15%);
 
   --paragraph-spacing: 1.5rem;
@@ -180,12 +188,6 @@
   --red-400: #f26666;
   --red-500: #f15555;
   --red-600: #d94d4d;
-
-  body {
-    --wp--preset--color--vivid-red: var(--red-400); // Change for dark mode
-    --wp--preset--color--vivid-cyan-blue: #26aeeb; // Change for dark mode
-    --wp--preset--color--vivid-purple: #c792fc; // Change for dark mode
-  }
 
   // === BACKGROUNDS ===========================================================
 

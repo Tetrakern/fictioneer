@@ -9,12 +9,11 @@
   // --read-ribbon-color: var(--fg-inverted);
   // --read-ribbon-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
 
-  // --code-background: rgb(0 0 0 / 25%);
-  // --code-background-inline: rgb(0 0 0 / 25%);
-  // --code-color: var(--fg-700);
+  --code-background: hsl(var(--bg-950-free) / 7%);
+  --code-background-inline: hsl(var(--bg-950-free) / 7%);
+  --code-color: var(--fg-600);
 
   --spoiler-background: var(--bg-900);
-  // --spoiler-color-visible: var(--fg-inverted);
 
   // --ins-background: var(--green-400);
   // --ins-color: var(--fg-inverted);
@@ -31,23 +30,17 @@
   // --skeleton-shape-color: var(--bg-300);
   // --skeleton-cutout-color: var(--page-bg-color);
 
-  // --embed-background: var(--disabled-pattern);
   // --embed-box-shadow: var(--box-shadow-m);
 
-  // --table-border-color: var(--fg-900);
-  // --table-border-color-striped: rgb(0 0 0 / 30%);
-  // --table-background-striped: rgb(0 0 0 / 15%);
+  --table-background-striped: hsl(var(--bg-950-free) / 6%);
 
-  // --paragraph-spacing: 1.5rem;
-  // --blockquote-background: rgb(0 0 0 / 15%);
+  --blockquote-background: hsl(var(--bg-950-free) / 8%);
   // --placeholder-background: var(--bg-950);
   // --kbd-background: var(--bg-900);
   --infobox-background: var(--bg-300);
-  // --text-shadow: -1px -1px 1px rgb(0 0 0 / 12%);
-  // --checkmark-checked: var(--fg-600);
-  // --checkmark-not-checked: var(--bg-950);
-  // --tax-cloud-current: var(--primary-500);
-  // --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
+  --text-shadow: -1px -1px 1px rgb(0 0 0 / 2%);
+  --checkmark-not-checked: var(--bg-400);
+  --disabled-pattern: hsl(var(--bg-950-free) / 3%) repeating-linear-gradient(-45deg, hsl(var(--bg-950-free) / 6%), hsl(var(--bg-950-free) / 6%) 2px, transparent 2px, transparent 5px);
   --strong-filter: none;
   --invert-filter: invert(1); // Checkbox check
 
@@ -62,8 +55,8 @@
 
   // === CONTENT LISTS =========================================================
 
-  --content-li-background-full: var(--bg-300);
-  --content-li-background-gradient: linear-gradient(to left, var(--bg-300) 0%, var(--bg-300) 55%, transparent 90%);
+  --content-li-background-full: hsl(var(--bg-300-free) / 65%);
+  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-300-free) / 65%) 0%, hsl(var(--bg-300-free) / 65%) 55%, transparent 90%);
   // --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
 
   // === COLORS ================================================================
@@ -80,18 +73,12 @@
   // --red-500: #f15555;
   // --red-600: #d94d4d;
 
-  body {
-    // --wp--preset--color--vivid-red: var(--red-400); // Change for dark mode
-    // --wp--preset--color--vivid-cyan-blue: #26aeeb; // Change for dark mode
-    // --wp--preset--color--vivid-purple: #c792fc; // Change for dark mode
-  }
-
   // === BACKGROUNDS ===========================================================
 
   --bg-50-free: #{hsl_code_free(240, 20, 99)}; // #fcfcfd
   --bg-100-free: #{hsl_code_free(210, 20, 98)}; // #f9fafb
   --bg-200-free: #{hsl_code_free(210, 10, 96)}; // #f4f5f6
-  --bg-300-free: #{hsl_code_free(210, 13, 94)}; // #eef0f2
+  --bg-300-free: #{hsl_code_free(210, 13, 92)}; // #eef0f2
   --bg-400-free: #{hsl_code_free(220, 11, 84)}; // #d2d5db
   --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
 
@@ -148,10 +135,8 @@
 
   // === LAYOUT ================================================================
 
-  // --layout-link-color: inherit;
-  // --layout-link-color-hover: inherit;
-  // --layout-hr-border: 2px solid var(--hr-border-color, var(--bg-300));
-  // --layout-hr-border-dashed: 2px dashed var(--hr-border-color, var(--bg-200));
+  --layout-hr-border: 2px solid var(--hr-border-color, var(--bg-400));
+  --layout-hr-border-dashed: 2px dashed var(--hr-border-color, var(--bg-700));
 
   // === MINIMAL ===============================================================
 
@@ -173,7 +158,7 @@
   // === CARDS =================================================================
 
   --card-bg-color: var(--bg-50);
-  --card-footer-bg-color: var(--bg-300);
+  --card-footer-bg-color: hsl(var(--bg-300-free) / 65%);
   --card-overlay-bg-color: var(--bg-300);
   --card-content-li-background-full: var(--bg-200);
   --card-content-li-background-gradient: linear-gradient(to left, var(--bg-200) 50%, transparent 90%);
@@ -190,9 +175,9 @@
   // === NAVIGATION ============================================================
 
   --navigation-background: var(--bg-50);
-  // --navigation-submenu-background: var(--bg-400);
-  // --navigation-item-background-hover: var(--bg-400);
-  // --navigation-subitem-background-hover: var(--bg-300);
+  --navigation-submenu-background: var(--bg-300);
+  --navigation-item-background-hover: var(--bg-300);
+  --navigation-subitem-background-hover: var(--bg-400);
   // --navigation-color: var(--fg-400);
   // --navigation-color-hover: var(--fg-300);
   // --navigation-subitem-divider: 1px solid var(--bg-700);
