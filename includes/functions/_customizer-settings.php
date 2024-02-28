@@ -1506,46 +1506,22 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   // Header title color
-  $manager->add_setting(
-    'dark_header_title_color',
+  fictioneer_add_color_theme_option(
+    $manager,
     array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#c4cad6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'dark_header_title_color',
-      array(
-        'label' => __( 'Dark Header Title', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'dark_header_title_color'
-      )
+      'section' => 'dark_mode_colors',
+      'setting' => 'dark_header_title_color',
+      'label' => __( 'Dark Header Title', 'fictioneer' )
     )
   );
 
   // Header tagline color
-  $manager->add_setting(
-    'dark_header_tagline_color',
+  fictioneer_add_color_theme_option(
+    $manager,
     array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#c4cad6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'dark_header_tagline_color',
-      array(
-        'label' => __( 'Dark Header Tagline', 'fictioneer' ),
-        'section' => 'dark_mode_colors',
-        'settings' => 'dark_header_tagline_color'
-      )
+      'section' => 'dark_mode_colors',
+      'setting' => 'dark_header_tagline_color',
+      'label' => __( 'Dark Header Tagline', 'fictioneer' )
     )
   );
 

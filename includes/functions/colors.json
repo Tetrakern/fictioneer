@@ -1,4 +1,12 @@
 {
+  "dark_header_title_color": {
+    "hex": "#c4cad6",
+    "hsl": [220, 18, 80]
+  },
+  "dark_header_tagline_color": {
+    "hex": "#c4cad6",
+    "hsl": [220, 18, 80]
+  },
   "dark_bg_50": {
     "hex": "#c7c9d2",
     "hsl": [222, 12, 80]
