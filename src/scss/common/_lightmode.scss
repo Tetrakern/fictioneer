@@ -77,18 +77,11 @@
   --bg-300-free: #{hsl_code_free(210, 13, 91)}; // #e5e8eb
   --bg-400-free: #{hsl_code_free(220, 11, 84)}; // #d2d5db
   --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
-
-  // --bg-600-free: #{hsl_code_free(220, 9, 46)}; // #6b7280 (Tailwind Gray 500)
-  // --bg-700-free: #{hsl_code_free(215, 14, 34)}; // #4b5563 (Tailwind Gray 600)
-  // --bg-800-free: #{hsl_code_free(217, 19, 27)}; // #374151 (Tailwind Gray 700)
-  // --bg-900-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
-  // --bg-950-free: #{hsl_code_free(221, 39, 11)}; // #111827 (Tailwind Gray 900)
-
-  --bg-600-free: #{hsl_code_free(220, 9, 47)}; // #xxxxxx (Tailwind Gray 500 +1L)
-  --bg-700-free: #{hsl_code_free(215, 13, 36)}; // #xxxxxx (Tailwind Gray 600 -1S +2L)
-  --bg-800-free: #{hsl_code_free(217, 17, 29)}; // #xxxxxx (Tailwind Gray 700 -2S +2L)
-  --bg-900-free: #{hsl_code_free(215, 24, 19)}; // #xxxxxx (Tailwind Gray 800 -4S +2L)
-  --bg-950-free: #{hsl_code_free(221, 31, 13)}; // #xxxxxx (Tailwind Gray 900 -8S +2L)
+  --bg-600-free: #{hsl_code_free(220, 9, 46)}; // #6b7280 (Tailwind Gray 500)
+  --bg-700-free: #{hsl_code_free(215, 14, 34)}; // #4b5563 (Tailwind Gray 600)
+  --bg-800-free: #{hsl_code_free(217, 19, 27)}; // #374151 (Tailwind Gray 700)
+  --bg-900-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
+  --bg-950-free: #{hsl_code_free(221, 39, 11)}; // #111827 (Tailwind Gray 900)
 
   // === FOREGROUNDS ===========================================================
 
