@@ -70,6 +70,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   class="card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $story_id; ?>"
   data-check-id="<?php echo $post->ID; ?>"
+  data-unavailable="<?php esc_attr_e( 'Unavailable', 'fictioneer' ); ?>"
 >
   <div class="card__body polygon">
 
@@ -146,7 +147,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
 
         // Content
         printf(
-          '<div class="card__content cell-desc"><div class="truncate _cq-4-5">%1$s<span>%2$s</span>%3$s</div></div>',
+          '<div class="card__content cell-desc"><div class="truncate _cq-4-5">%1$s<span>%2$s</span></div></div>',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author cq-show-below-640">%s</span> ',
             sprintf(
@@ -154,8 +155,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
               fictioneer_get_author_node()
             )
           ),
-          empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt,
-          $story_unpublished ? '<div class="card__unavailable">' . __( 'Unavailable', 'fictioneer' ) . '</div>' : ''
+          empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt
         );
       ?>
 
