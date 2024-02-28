@@ -1544,30 +1544,31 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     )
   );
 
+  // Optional colors
   $colors = array(
     'dark_bg_50' => array(
       'label' => __( 'Dark Background 50', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for suggestion and file button hovers, popup menus, tooltips, default notices, formatting toggle hovers, read ribbons, and the LitRPG container.', 'fictioneer' )
     ),
     'dark_bg_100' => array(
       'label' => __( 'Dark Background 100', 'fictioneer' ),
-      'description' => __( 'Part of active buttons, popup menu hovers, popup menu selections, and spoiler codes.', 'fictioneer' )
+      'description' => __( 'Used for active buttons and tabs, suggestion and file buttons, checked formatting toggles, popup menu hovers, popup menu selections, and spoiler codes.', 'fictioneer' )
     ),
     'dark_bg_200' => array(
       'label' => __( 'Dark Background 200', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for the chapter progress bar, dashed horizontal lines, the current pagination number, and secondary button border hovers.', 'fictioneer' )
     ),
     'dark_bg_300' => array(
       'label' => __( 'Dark Background 300', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for loading shapes, solid horizontal lines, navigation subitem hovers, primary button hovers, secondary button borders, mobile menu button hovers, tag hovers, and secondary tag borders.', 'fictioneer' )
     ),
     'dark_bg_400' => array(
       'label' => __( 'Dark Background 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for primary buttons, navigation item hovers, navigation submenus, tags, secondary tag hovers, tab hovers, and pagination number hovers.', 'fictioneer' )
     ),
     'dark_bg_500' => array(
       'label' => __( 'Dark Background 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for tabs, pagination numbers, disabled primary buttons, barber pole animations, secondary button hovers, mobile menu buttons, password submit label, and input tokens.', 'fictioneer' )
     ),
     'dark_bg_600' => array(
       'label' => __( 'Dark Background 600', 'fictioneer' ),
