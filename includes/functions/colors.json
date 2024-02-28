@@ -167,13 +167,13 @@
     "hex": "#505062",
     "hsl": [240, 10, 35]
   },
+  "dark_badge_admin_background": {
+    "hex": "#79518d",
+    "hsl": [280, 27, 44]
+  },
   "dark_badge_moderator_background": {
     "hex": "#4d628f",
     "hsl": [221, 30, 43]
-  },
-  "dark_badge_admin_background": {
-    "hex": "#c7c9d2",
-    "hsl": [229, 11, 80]
   },
   "dark_badge_author_background": {
     "hex": "#b1355a",
