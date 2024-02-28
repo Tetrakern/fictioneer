@@ -32,10 +32,13 @@
   &__title {
     position: relative;
     top: 40%;
-    text-shadow: var(--site-title-text-shadow);
     padding: 16px var(--layout-spacing-horizontal);
     transform: translateY(-50%);
     content-visibility: auto;
+
+    &:not(._no-text-shadow) {
+      text-shadow: var(--site-title-text-shadow);
+    }
 
     &-heading {
       font: 700 var(--site-title-font-size)/1.3 var(--ff-site-title);

@@ -41,6 +41,10 @@
     max-height: unset;
   }
 
+  &:not(._no-text-shadow) .top-header__title {
+    text-shadow: var(--site-title-text-shadow);
+  }
+
   &__title {
     flex: 0 1 auto;
   }

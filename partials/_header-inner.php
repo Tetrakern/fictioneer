@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $header_style = get_theme_mod( 'header_style', 'default' );
+$show_title_shadow = get_theme_mod( 'title_text_shadow', true );
 $tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
 
 ?>
@@ -38,7 +39,7 @@ $tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
       <?php endif; ?>
 
       <?php if ( display_header_text() ) : ?>
-        <div class="header__title">
+        <div class="header__title <?php if ( ! $show_title_shadow ) echo '_no-text-shadow'; ?>">
           <h1 class="header__title-heading"><a href="<?php echo esc_url( home_url() ); ?>" class="header__title-link" rel="home"><?php echo get_bloginfo( 'name' ); ?></a></h1>
           <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
             <div class="header__title-tagline"><?php echo get_bloginfo( 'description' ); ?></div>

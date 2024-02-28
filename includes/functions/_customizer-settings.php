@@ -2153,6 +2153,29 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Title shadow
+  $manager->add_setting(
+    'title_text_shadow',
+    array(
+      'capability' => 'edit_theme_options',
+      'default'=> 1
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Color_Control(
+      $manager,
+      'title_text_shadow',
+      array(
+        'type' => 'checkbox',
+        'priority' => 10,
+        'label' => __( 'Show title text shadow', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'title_text_shadow'
+      )
+    )
+  );
+
   // Clamp minimum for header height
   $manager->add_setting(
     'header_height_min',
