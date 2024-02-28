@@ -161,27 +161,6 @@
   --content-li-background-gradient: linear-gradient(to left, var(--bg-800) 0%, var(--bg-800) 55%, transparent 90%);
   --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
 
-  // Derived from: https://larsenwork.com/easing-gradients/
-  // --content-li-background-gradient: linear-gradient(
-  //   to left,
-  //   var(--bg-800) 0%,
-  //   hsl(var(--bg-800-free) / 0.395) 48.645%,
-  //   hsl(var(--bg-800-free) / 0.380) 51.975%,
-  //   hsl(var(--bg-800-free) / 0.358) 55.125%,
-  //   hsl(var(--bg-800-free) / 0.33) 58.05%,
-  //   hsl(var(--bg-800-free) / 0.296) 60.885%,
-  //   hsl(var(--bg-800-free) / 0.259) 63.54%,
-  //   hsl(var(--bg-800-free) / 0.22) 66.195%,
-  //   hsl(var(--bg-800-free) / 0.18) 68.805%,
-  //   hsl(var(--bg-800-free) / 0.141) 71.46%,
-  //   hsl(var(--bg-800-free) / 0.104) 74.115%,
-  //   hsl(var(--bg-800-free) / 0.07) 76.95%,
-  //   hsl(var(--bg-800-free) / 0.042) 79.875%,
-  //   hsl(var(--bg-800-free) / 0.02) 83.025%,
-  //   hsl(var(--bg-800-free) / 0.0052) 86.355%,
-  //   hsl(var(--bg-800-free) / 0) 90%
-  // );
-
   // === COLORS ================================================================
 
   --primary-400: hsl(46deg 87% 75%);
@@ -210,17 +189,17 @@
   --bg-900-free: #{hsl_code_free(219, 15, 17)};
   --bg-950-free: #{hsl_code_free(222, 25, 8)};
 
-  --bg-50: hsl(var(--bg-50-free)); // popup menu, tooltip
-  --bg-100: hsl(var(--bg-100-free)); // button active, popup menu hover/selected, spoiler
-  --bg-200: hsl(var(--bg-200-free)); // secondary button border hover, pagination active
-  --bg-300: hsl(var(--bg-300-free)); // primary button hover, secondary button border, navigation item hover, input placeholder color, horizontal lines, mobile menu quick button hover
-  --bg-400: hsl(var(--bg-400-free)); // primary button, navigation item, navigation menus, pagination hover
-  --bg-500: hsl(var(--bg-500-free)); // primary button disabled, secondary button hover, password submit color, pagination, mobile menu quick button
-  --bg-600: hsl(var(--bg-600-free)); // card, modal
-  --bg-700: hsl(var(--bg-700-free)); // page, card content list item, navigation item divider, password form cutout
-  --bg-800: hsl(var(--bg-800-free)); // content list item
-  --bg-900: hsl(var(--bg-900-free)); // site, card footer, card overlay, input color-mix
-  --bg-950: hsl(var(--bg-950-free)); // body, placeholder
+  --bg-50: hsl(var(--bg-50-free));
+  --bg-100: hsl(var(--bg-100-free));
+  --bg-200: hsl(var(--bg-200-free));
+  --bg-300: hsl(var(--bg-300-free));
+  --bg-400: hsl(var(--bg-400-free));
+  --bg-500: hsl(var(--bg-500-free));
+  --bg-600: hsl(var(--bg-600-free));
+  --bg-700: hsl(var(--bg-700-free));
+  --bg-800: hsl(var(--bg-800-free));
+  --bg-900: hsl(var(--bg-900-free));
+  --bg-950: hsl(var(--bg-950-free));
 
   // === FOREGROUNDS ===========================================================
 
@@ -304,7 +283,7 @@
   --navigation-subitem-background-hover: var(--bg-300);
   --navigation-color: var(--fg-400);
   --navigation-color-hover: var(--fg-300);
-  --navigation-subitem-divider: 1px solid var(--bg-700);
+  --navigation-subitem-divider: 1px solid var(--bg-800);
   --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
   --navigation-drop-shadow: drop-shadow(0 3px 2px rgb(0 0 0 / 20%));
   --navigation-new-follow-background: var(--primary-500);
