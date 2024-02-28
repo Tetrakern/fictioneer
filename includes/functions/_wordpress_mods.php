@@ -1228,4 +1228,23 @@ function fictioneer_add_class_to_list_blocks( $block_content, $block ) {
 }
 add_filter( 'render_block', 'fictioneer_add_class_to_list_blocks', 10, 2 );
 
+// =============================================================================
+// ADD WRAPPER TO READ MORE LINKS
+// =============================================================================
+
+/**
+ * Add wrapper with class to read more link
+ *
+ * @since 5.12.0
+ *
+ * @param string $link  The HTML read more link.
+ *
+ * @return string The wrapped read more link.
+ */
+
+function fictioneer_wrap_read_more_link( $link ) {
+  return "<div class='more-link-wrapper'>{$link}</div>";
+}
+add_filter( 'the_content_more_link', 'fictioneer_wrap_read_more_link' );
+
 ?>

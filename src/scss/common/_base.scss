@@ -227,6 +227,15 @@ button[type=submit]:where(:not(._inline)) {
   box-shadow: none;
 }
 
+.more-link {
+  color: var(--more-link-color, var(--fg-700));
+  transition: color var(--transition-duration);
+
+  &:hover {
+    color: var(--more-link-color-hover, var(--fg-300));
+  }
+}
+
 .padding-left {
   padding-left: var(--layout-spacing-horizontal-small);
 

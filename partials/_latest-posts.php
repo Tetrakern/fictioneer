@@ -102,7 +102,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           ! get_option( 'fictioneer_show_full_post_content' ) &&
           ! strpos( $post->post_content, '<!--more-->' )
         ) {
-          $content = '<p>' . fictioneer_get_excerpt() . '</p><a class="more-link" href="' . get_permalink() . '" title="' . $label . '" aria-label="' . $label . '">' . fcntr( 'read_more' ) . '</a>';
+          $content = '<p>' . fictioneer_get_excerpt() . '</p><div class="more-link-wrapper"><a class="more-link" href="' . get_permalink() . '" title="' . $label . '" aria-label="' . $label . '">' . fcntr( 'read_more' ) . '</a></div>';
         } else {
           $content = apply_filters( 'the_content', get_the_content( fcntr( 'read_more' ) ) );
         }

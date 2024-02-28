@@ -317,6 +317,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity`
 | `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
 | `the_password_form` | `fictioneer_password_form`
+| `the_content_more_link` | `fictioneer_wrap_read_more_link`
 | `theme_templates` | `fictioneer_disallow_page_template_select`
 | `update_post_metadata` | `fictioneer_prevent_page_template_update`
 | `upload_size_limit` | `fictioneer_upload_size_limit`
