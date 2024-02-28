@@ -65,7 +65,7 @@
       pointer-events: none;
 
       textarea {
-        filter: blur(1px);
+        filter: var(--ajax-in-progress-filter, blur(1px));
       }
     }
 
@@ -242,7 +242,7 @@
 
 .fictioneer-comments {
   &.ajax-in-progress .commentlist {
-    filter: blur(1px); // Indicate progress
+    filter: var(--ajax-in-progress-filter, blur(1px));
     transition: filter var(--transition-duration);
   }
 
@@ -338,7 +338,7 @@
   &.ajax-in-progress {
     > .fictioneer-comment__container {
       pointer-events: none;
-      filter: blur(1px); // Indicate progress
+      filter: var(--ajax-in-progress-filter, blur(1px));
       transition: filter var(--transition-duration);
 
       .fictioneer-comment__footer-right {
@@ -568,7 +568,7 @@
       pointer-events: none;
 
       textarea {
-        filter: blur(1px); // Indicate progress
+        filter: var(--ajax-in-progress-filter, blur(1px));
         transition: filter var(--transition-duration);
       }
     }

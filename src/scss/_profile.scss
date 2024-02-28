@@ -147,7 +147,7 @@
 
       &.ajax-in-progress {
         pointer-events: none;
-        filter: blur(1px);
+        filter: var(--ajax-in-progress-filter, blur(1px));
       }
 
       button {

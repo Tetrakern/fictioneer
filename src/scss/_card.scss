@@ -68,11 +68,12 @@
       z-index: 100;
       display: grid;
       place-content: center;
-      background: var(--card-bg-color);
-      color: var(--fg-900);
+      background: var(--card-unavailable-background, var(--card-bg-color));
+      color: var(--card-unavailable-color, var(--bg-400));
       font: 700 max(2.5rem, 8cqw)/1 var(--ff-heading);
       text-transform: uppercase;
       padding-bottom: 2rem;
+      border-radius: var(--layout-border-radius-small);
       opacity: .9;
     }
 
@@ -84,7 +85,7 @@
   }
 
   &.ajax-in-progress > div {
-    filter: blur(1px);
+    filter: var(--ajax-in-progress-filter, blur(1px));
   }
 
   &.has-last-clicked {

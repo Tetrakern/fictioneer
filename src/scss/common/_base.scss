@@ -370,7 +370,7 @@ button[type=submit]:where(:not(._inline)) {
   }
 
   &.ajax-in-progress {
-    filter: blur(1px); // Indicate progress
+    filter: var(--ajax-in-progress-filter, blur(1px));
     transition: filter var(--transition-duration);
   }
 }
