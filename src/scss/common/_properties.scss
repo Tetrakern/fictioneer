@@ -238,7 +238,7 @@
     --fg-800: #{hsl_font_code(222, 12, 61)}; // Contrast ratio vs bg-700 ~ 4.5
     --fg-900: #{hsl_font_code(222, 11, 54)}; // Contrast ratio vs bg-700 ~ 3.55
     --fg-950: #{hsl_font_code(222, 9, 49)}; // Contrast ratio vs bg-700 ~ 3
-    --fg-tinted: #{hsl_font_code(222, 20, 74)}; // Contrast ratio vs bg-700 ~ 6.6
+    --fg-tinted: #{hsl_font_code(224, 20, 74)}; // Contrast ratio vs bg-700 ~ 6.6
     --fg-inverted: #{hsl_font_code(222, 20, 5)}; // Contrast ratio vs bg-200 ~ 4.51
   }
 
@@ -318,7 +318,7 @@
   --tab-color: var(--fg-600);
   --tab-color-hover: var(--fg-500);
   --tab-color-active: var(--fg-inverted);
-  --tab-text-shadow: 0 0 1px var(--bg-900);
+  --tab-text-shadow: 0 0 1px rgb(0 0 0 / 70%);
 
   // === PAGINATION ============================================================
 

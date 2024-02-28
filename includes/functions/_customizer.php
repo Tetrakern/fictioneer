@@ -576,6 +576,35 @@ function fictioneer_get_customizer_css_snippet( $snippet, $filter = null ) {
 }
 
 /**
+ * Helper to get theme color mod with default fallback
+ *
+ * @since 5.12.0
+ * @global array $fictioneer_colors  Default colors read from JSON file.
+ *
+ * @param string $mod           The requested theme color.
+ * @param string|null $default  Optional. Default color code.
+ *
+ * @return string The requested color code or 'tomato' if not found.
+ */
+
+function fictioneer_get_theme_color( $mod, $default = null ) {
+  global $fictioneer_colors;
+
+  if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
+    $json_path = get_template_directory() . '/includes/functions/colors.json';
+    $fictioneer_colors = @json_decode( file_get_contents( $json_path ), true );
+
+    if ( ! is_array( $fictioneer_colors ) ) {
+      $fictioneer_colors = [];
+    }
+  }
+
+  $default = $default ?? $fictioneer_colors[ $mod ]['hex'] ?? 'tomato';
+
+  return get_theme_mod( $mod, $default );
+}
+
+/**
  * Builds customization stylesheet
  *
  * @since 5.11.0
@@ -785,59 +814,44 @@ function fictioneer_build_customize_css( $content = null ) {
   }";
 
   if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {
-    $css .= ":root, :root[data-theme=base] {
-      --bg-50-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_50', '#c7c9d2' ), 'free' ) . ";
-      --bg-100-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_100', '#a4a9b7' ), 'free' ) . ";
-      --bg-200-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_200', '#7b8498' ), 'free' ) . ";
-      --bg-300-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_300', '#565c6c' ), 'free' ) . ";
-      --bg-400-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_400', '#454b59' ), 'free' ) . ";
-      --bg-500-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_500', '#3b404c' ), 'free' ) . ";
-      --bg-600-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_600', '#333844' ), 'free' ) . ";
-      --bg-700-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_700', '#2b303b' ), 'free' ) . ";
-      --bg-800-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_800', '#282c37' ), 'free' ) . ";
-      --bg-900-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_900', '#252932' ), 'free' ) . ";
-      --bg-950-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_950', '#10121a' ), 'free' ) . ";
-      --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'dark_theme_color_base', '#252932' ), 'values' ) . ";
-      --navigation-background: " . fictioneer_hsl_code( get_theme_mod( 'dark_navigation_background_sticky', '#10121a' ) ) . ";
-      --primary-400: " . get_theme_mod( 'dark_primary_400', '#f7dd88' ) . ";
-      --primary-500: " . get_theme_mod( 'dark_primary_500', '#f4d171' ) . ";
-      --primary-600: " . get_theme_mod( 'dark_primary_600', '#f1bb74' ) . ";
-      --red-400: " . get_theme_mod( 'dark_red_400', '#f26666' ) . ";
-      --red-500: " . get_theme_mod( 'dark_red_500', '#f15555' ) . ";
-      --red-600: " . get_theme_mod( 'dark_red_600', '#d94d4d' ) . ";
-      --green-400: " . get_theme_mod( 'dark_green_400', '#86a35f' ) . ";
-      --green-500: " . get_theme_mod( 'dark_green_500', '#78994d' ) . ";
-      --green-600: " . get_theme_mod( 'dark_green_600', '#6c8a45' ) . ";
-      --bookmark-color-alpha: " . get_theme_mod( 'dark_bookmark_color_alpha', '#7d8497' ) . ";
-      --bookmark-color-beta: " . get_theme_mod( 'dark_bookmark_color_beta', '#e06552' ) . ";
-      --bookmark-color-gamma: " . get_theme_mod( 'dark_bookmark_color_gamma', '#77BFA3' ) . ";
-      --bookmark-color-delta: " . get_theme_mod( 'dark_bookmark_color_delta', '#3C91E6' ) . ";
-      --bookmark-line: " . get_theme_mod( 'dark_bookmark_line_color', '#f4d171' ) . ";
-      --ins-background: " . get_theme_mod( 'dark_ins_background', '#86a35f' ) . ";
-      --del-background: " . get_theme_mod( 'dark_del_background', '#f26666' ) . ";
-      --badge-generic-background: " . get_theme_mod( 'dark_badge_generic_background', '#505062' ) . ";
-      --badge-moderator-background: " . get_theme_mod( 'dark_badge_moderator_background', '#4d628f' ) . ";
-      --badge-admin-background: " . get_theme_mod( 'dark_badge_admin_background', '#c7c9d2' ) . ";
-      --badge-author-background: " . get_theme_mod( 'dark_badge_author_background', '#b1355a' ) . ";
-      --badge-supporter-background: " . get_theme_mod( 'dark_badge_supporter_background', '#e4445e' ) . ";
-      --badge-override-background: " . get_theme_mod( 'dark_badge_override_background', '#5a5a7f' ) . ";
-    }
-    :root,
-    :root[data-theme=base],
-    :root .chapter-formatting,
-    :root[data-theme=base] .chapter-formatting {
-      --fg-100: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_100', '#e6eaf4' ) ) . ";
-      --fg-200: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_200', '#dbe0ea' ) ) . ";
-      --fg-300: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_300', '#d1d5e0' ) ) . ";
-      --fg-400: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_400', '#c4cad6' ) ) . ";
-      --fg-500: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_500', '#b7bdcc' ) ) . ";
-      --fg-600: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_600', '#a8afc3' ) ) . ";
-      --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_700', '#989fb4' ) ) . ";
-      --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_800', '#9097a7' ) ) . ";
-      --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_900', '#7d8497' ) ) . ";
-      --fg-950: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_950', '#727888' ) ) . ";
-      --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_tinted', '#b0b7ca' ) ) . ";
-    }";
+    $css .= ":root, :root[data-theme=base] {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--bg-{$prop}-free: " . fictioneer_hsl_code( fictioneer_get_theme_color( "dark_bg_{$prop}" ), 'free' ) . ';';
+      }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
+      .
+      "
+      --primary-400: " . fictioneer_get_theme_color( 'dark_primary_400' ) . ";
+      --primary-500: " . fictioneer_get_theme_color( 'dark_primary_500' ) . ";
+      --primary-600: " . fictioneer_get_theme_color( 'dark_primary_600' ) . ";
+      --red-400: " . fictioneer_get_theme_color( 'dark_red_400' ) . ";
+      --red-500: " . fictioneer_get_theme_color( 'dark_red_500' ) . ";
+      --red-600: " . fictioneer_get_theme_color( 'dark_red_600' ) . ";
+      --green-400: " . fictioneer_get_theme_color( 'dark_green_400' ) . ";
+      --green-500: " . fictioneer_get_theme_color( 'dark_green_500' ) . ";
+      --green-600: " . fictioneer_get_theme_color( 'dark_green_600' ) . ";
+      --theme-color-base: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'dark_theme_color_base' ), 'values' ) . ";
+      --navigation-background: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'dark_navigation_background_sticky' ) ) . ";
+      --bookmark-color-alpha: " . fictioneer_get_theme_color( 'dark_bookmark_color_alpha' ) . ";
+      --bookmark-color-beta: " . fictioneer_get_theme_color( 'dark_bookmark_color_beta' ) . ";
+      --bookmark-color-gamma: " . fictioneer_get_theme_color( 'dark_bookmark_color_gamma' ) . ";
+      --bookmark-color-delta: " . fictioneer_get_theme_color( 'dark_bookmark_color_delta' ) . ";
+      --bookmark-line: " . fictioneer_get_theme_color( 'dark_bookmark_line_color' ) . ";
+      --ins-background: " . fictioneer_get_theme_color( 'dark_ins_background' ) . ";
+      --del-background: " . fictioneer_get_theme_color( 'dark_del_background' ) . ";"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--badge-{$prop}-background: " . fictioneer_get_theme_color( "dark_badge_{$prop}_background" ) . ';';
+      }, ['generic', 'moderator', 'admin', 'author', 'supporter', 'override'] ) )
+      .
+    "}
+    :root, :root[data-theme=base], :root .chapter-formatting, :root[data-theme=base] .chapter-formatting {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--fg-{$prop}: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( "dark_fg_{$prop}" ) ) . ';';
+      }, ['100', '200', '300', '400', '500', '600', '700', '800', '900', '950', 'tinted', 'inverted'] ) )
+      .
+    "}";
   }
 
   // --- Light mode colors -----------------------------------------------------
