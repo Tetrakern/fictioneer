@@ -149,8 +149,8 @@
 
   --litrpg-background: var(--bg-50);
   --litrpg-color: var(--fg-inverted);
-  --litrpg-ins: #607a3e;
-  --litrpg-del: #c14444;
+  --litrpg-ins: var(--green-600);
+  --litrpg-del: var(--red-600);
   --litrpg-polygon: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
   --litrpg-drop-shadow: var(--drop-shadow-m);
 
@@ -321,17 +321,17 @@
 
   // === SHADOWS ===============================================================
 
-  --box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 10%);
-  --box-shadow-s: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px -1px rgb(0 0 0 / 10%);
-  --box-shadow: 0 3px 6px -1px rgb(0 0 0 / 9%), 0 -1px 4px -2px rgb(0 0 0 / 10%);
-  --box-shadow-m: rgb(0 0 0 / 15%) 0px 2px 5px 0px, rgb(0 0 0 / 5%) 0px 1px 1px 0px;
-  --box-shadow-l: rgb(0 0 0 / 10%) 0px 6px 12px -2px, rgb(0 0 0 / 15%) 0px 3px 7px -3px;
+  --box-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 12%);
+  --box-shadow-s: 0 1px 3px 0 rgb(0 0 0 / 11%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --box-shadow: 0 3px 6px -1px rgb(0 0 0 / 12%), 0 -1px 4px -2px rgb(0 0 0 / 15%);
+  --box-shadow-m: rgb(0 0 0 / 14%) 0 2px 5px 0, rgb(0 0 0 / 5%) 0 1px 1px 0;
+  --box-shadow-l: rgb(0 0 0 / 10%) 0 6px 12px -2px, rgb(0 0 0 / 15%) 0 3px 7px -3px;
   --box-shadow-xl: 0 3px 8px -1px rgb(0 0 0 / 9%), 0 3px 12px -1px rgb(0 0 0 / 17%);
 
-  --drop-shadow-xs: drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
-  --drop-shadow-s: drop-shadow(0 1px 3px rgb(0 0 0 / 12%)) drop-shadow(0 1px 2px rgb(0 0 0 / 10%));
-  --drop-shadow: drop-shadow(0 2px 6px rgb(0 0 0 / 9%)) drop-shadow(0 -1px 3px rgb(0 0 0 / 10%));
-  --drop-shadow-m: drop-shadow(0 2px 5px rgb(0 0 0 / 15%)) drop-shadow(0 1px 1px rgb(0 0 0 / 5%));
+  --drop-shadow-xs: drop-shadow(0 1px 2px rgb(0 0 0 / 12%));
+  --drop-shadow-s: drop-shadow(0 1px 3px rgb(0 0 0 / 9%)) drop-shadow(0 1px 2px rgb(0 0 0 / 7%));
+  --drop-shadow: drop-shadow(0 2px 4px rgb(0 0 0 / 10%)) drop-shadow(0 -1px 3px rgb(0 0 0 / 5%));
+  --drop-shadow-m: drop-shadow(0 2px 5px rgb(0 0 0 / 14%)) drop-shadow(0 1px 1px rgb(0 0 0 / 5%));
   --drop-shadow-l: drop-shadow(0 5px 11px rgb(0 0 0 / 10%)) drop-shadow(0 2px 6px rgb(0 0 0 / 15%));
   --drop-shadow-xl: drop-shadow(0 3px 8px rgb(0 0 0 / 9%)) drop-shadow(0 3px 12px rgb(0 0 0 / 17%));
 

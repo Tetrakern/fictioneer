@@ -223,7 +223,7 @@ p a,
 }
 
 .content-section {
-  :where(.list, .block-list) {
+  :where(.list, .block-list, .litrpg-body :where(ul, ol)) {
     list-style: initial;
     padding-left: 1.75rem;
     margin: 1.5rem 0 0;
@@ -243,7 +243,7 @@ p a,
     }
   }
 
-  :where(.list, ul.block-list) {
+  :where(.list, ul.block-list, .litrpg-body ul) {
     li::marker {
       color: var(--list-marker-color, var(--fg-600));
     }
@@ -257,7 +257,7 @@ p a,
     list-style: square;
   }
 
-  :where(.list, ol.block-list) {
+  :where(.list, ol.block-list, .litrpg-body ol) {
     list-style: ordered-list;
   }
 }
