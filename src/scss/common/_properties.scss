@@ -625,11 +625,9 @@
 
 :root.minimal,
 :root[data-theme=base].minimal {
-  .header__title {
-    --site-title-heading-color: var(--fg-300);
-    --site-title-tagline-color: var(--fg-300);
-    --site-title-text-shadow: none;
-  }
+  --site-title-heading-color: var(--fg-300);
+  --site-title-tagline-color: var(--fg-300);
+  --site-title-text-shadow: none;
 }
 
 // =============================================================================

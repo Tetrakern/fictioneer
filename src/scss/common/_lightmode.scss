@@ -177,14 +177,13 @@
 
   // === MOBILE MENU ===========================================================
 
-  // --mobile-menu-background: var(--bg-700);
+  --mobile-menu-background: var(--bg-100);
   // --mobile-menu-advanced-background: color-mix(in srgb, var(--bg-950), white 3%);
   // --mobile-menu-box-shadow: 2px 0 3px rgb(0 0 0 / 30%);
   // --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
-  // --mobile-menu-overlay: rgb(0 0 0 / 50%);
-  // --mobile-menu-bookmark-progress-background: rgb(0 0 0 / 40%);
-  // --mobile-menu-current-chapter-color: var(--fg-400);
-  // --mobile-menu-current-chapter-background: rgb(0 0 0 / 25%);
+  --mobile-menu-overlay: rgb(0 0 0 / 35%);
+  --mobile-menu-bookmark-progress-background: hsl(var(--bg-950-free) / 10%);
+  --mobile-menu-current-chapter-background: hsl(var(--bg-950-free) / 10%);
 
   // === FONT SETTINGS =========================================================
 
@@ -247,10 +246,8 @@
 
   // === BUTTONS - SUGGESTION ===================================================
 
-  // --button-suggestion-color: var(--fg-inverted);
-  // --button-suggestion-color-hover: var(--fg-inverted);
-  // --button-suggestion-background: var(--bg-100);
-  // --button-suggestion-background-hover: var(--bg-50);
+  --button-suggestion-background: var(--bg-600);
+  --button-suggestion-background-hover: var(--bg-700);
 
   // === BUTTONS - QUICK =======================================================
 
@@ -389,10 +386,8 @@
 }
 
 :root[data-mode=light].minimal {
-  .header__title {
-    // --site-title-heading-color: var(--fg-200);
-    // --site-title-tagline-color: var(--fg-500);
-  }
+  --site-title-heading-color: var(--fg-400);
+  --site-title-tagline-color: var(--fg-400);
 }
 
 // =============================================================================
