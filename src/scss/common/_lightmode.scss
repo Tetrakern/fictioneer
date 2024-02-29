@@ -321,32 +321,18 @@
 
   // === BADGES ================================================================
 
-  // --badge-generic-color: var(--fg-400);
-  // --badge-generic-background: #505062;
-  // --badge-supporter-color: var(--fg-100);
-  // --badge-supporter-background: #e4445e;
-  // --badge-moderator-color: var(--fg-200);
-  // --badge-moderator-background: #4d628f;
-  // --badge-admin-color: var(--fg-inverted);
-  // --badge-admin-background: var(--bg-50);
-  // --badge-author-color: var(--fg-200);
-  // --badge-author-background: #b1355a;
-  // --badge-override-color: var(--fg-300);
-  // --badge-override-background: #5a5a7f;
-
-
-  // --badge-generic-color: var(--fg-1000);
-  // --badge-generic-background: var(--bg-400);
-  // --badge-supporter-color: var(--fg-1000);
-  // --badge-supporter-background: #ed5e76;
-  // --badge-moderator-color: var(--fg-1000);
-  // --badge-moderator-background: #5369ac;
-  // --badge-admin-color: var(--fg-1000);
-  // --badge-admin-background: var(--bg-700);
-  // --badge-author-color: var(--fg-1000);
-  // --badge-author-background: var(--bg-700);
-  // --badge-override-color: var(--fg-1000);
-  // --badge-override-background: var(--bg-400);
+  --badge-generic-color: var(--fg-inverted);
+  --badge-generic-background: #71717a;
+  --badge-admin-color: var(--fg-inverted);
+  --badge-admin-background: #7c3aed;
+  --badge-moderator-color: var(--fg-inverted);
+  --badge-moderator-background: #576eb2;
+  --badge-author-color: var(--fg-inverted);
+  --badge-author-background: #f59e0b;
+  --badge-supporter-color: var(--fg-inverted);
+  --badge-supporter-background: #ed5e76;
+  --badge-override-color: var(--fg-inverted);
+  --badge-override-background: #64748b;
 
   // === SCOPES ================================================================
 
@@ -406,7 +392,6 @@
   .header__title {
     // --site-title-heading-color: var(--fg-200);
     // --site-title-tagline-color: var(--fg-500);
-    // --site-title-text-shadow: none;
   }
 }
 
