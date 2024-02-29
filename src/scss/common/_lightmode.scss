@@ -1,7 +1,7 @@
 :root[data-mode=light] {
   // === UNSORTED ==============================================================
 
-  // --theme-color-base: 219 15 17; // 900
+  --theme-color-base: 220 13 91;
   --body-bg-color: var(--bg-400);
   --site-bg-color: var(--bg-200);
 
@@ -208,17 +208,16 @@
 
   // === COLORS - BOOKMARKS ====================================================
 
-  // --bookmark-color-alpha: var(--fg-900);
-  // --bookmark-color-beta: #e06552;
-  // --bookmark-color-gamma: #77BFA3;
-  // --bookmark-color-delta: #3C91E6;
-  // --bookmark-line: var(--primary-500);
-  // --bookmark-button-text-active-alpha: var(--fg-inverted);
-  // --bookmark-button-text-active-beta: var(--fg-inverted);
-  // --bookmark-button-text-active-gamma: var(--fg-inverted);
-  // --bookmark-button-text-active-delta: var(--fg-inverted);
-  // --bookmark-progress-opacity: .15;
-  // --bookmark-progress-mobile-opacity: .75;
+  --bookmark-color-alpha: var(--bg-500);
+  --bookmark-color-beta: #f59e0b;
+  --bookmark-color-gamma: #77BFA3;
+  --bookmark-color-delta: #dd5960;
+  --bookmark-button-color-active-alpha: var(--fg-inverted);
+  --bookmark-button-color-active-beta: var(--fg-300);
+  --bookmark-button-color-active-gamma: var(--fg-300);
+  --bookmark-button-color-active-delta: var(--fg-300);
+  --bookmark-progress-opacity: .25;
+  --bookmark-progress-mobile-opacity: 1;
 
   // === BUTTONS - GENERAL =====================================================
 
@@ -251,10 +250,10 @@
 
   // === BUTTONS - QUICK =======================================================
 
-  // --button-quick-background: var(--bg-500);
-  // --button-quick-background-hover: var(--bg-300);
-  // --button-quick-color: var(--fg-600);
-  // --button-quick-color-hover: var(--fg-400);
+  --button-quick-background: var(--bg-600);
+  --button-quick-background-hover: var(--bg-700);
+  --button-quick-color: var(--fg-inverted);
+  --button-quick-color-hover: var(--fg-inverted);
 
   // === BUTTONS - FILE BLOCK ==================================================
 

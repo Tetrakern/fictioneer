@@ -323,7 +323,7 @@
   &[data-bookmark-color=beta] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-beta);
+      color: var(--bookmark-button-color-active-beta);
       background: var(--bookmark-color-beta);
     }
   }
@@ -331,7 +331,7 @@
   &[data-bookmark-color=gamma] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-gamma);
+      color: var(--bookmark-button-color-active-gamma);
       background: var(--bookmark-color-gamma);
     }
   }
@@ -339,14 +339,14 @@
   &[data-bookmark-color=delta] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-delta);
+      color: var(--bookmark-button-color-active-delta);
       background: var(--bookmark-color-delta);
     }
   }
 
   #button-set-bookmark {
     background: var(--button-bookmark-background-active);
-    color: var(--bookmark-button-text-active-alpha);
+    color: var(--bookmark-button-color-active-alpha);
   }
 }
 
