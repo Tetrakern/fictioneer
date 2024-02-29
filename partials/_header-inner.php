@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $header_style = get_theme_mod( 'header_style', 'default' );
-$show_title_shadow = get_theme_mod( 'title_text_shadow', true );
+$show_title_shadow = get_theme_mod( 'title_text_shadow', false );
 $tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
 
 ?>

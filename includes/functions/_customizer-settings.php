@@ -2158,7 +2158,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'title_text_shadow',
     array(
       'capability' => 'edit_theme_options',
-      'default'=> 1
+      'default'=> 0
     )
   );
 
