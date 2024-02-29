@@ -628,6 +628,28 @@
   --site-title-heading-color: var(--fg-300);
   --site-title-tagline-color: var(--fg-300);
   --site-title-text-shadow: none;
+  --text-shadow: none;
+  --mobile-menu-text-shadow: none;
+  --paragraph-tools-filter: none;
+  --content-li-background: var(--content-li-background-full);
+  --story-blog-li-background: var(--content-li-background-full);
+  --chapter-li-background: var(--content-li-background-full);
+  --card-content-li-background: var(--card-content-li-background-full);
+  --embed-box-shadow: var(--minimal-box-shadow);
+  --box-shadow-xs: var(--minimal-box-shadow);
+  --box-shadow-s: var(--minimal-box-shadow);
+  --box-shadow: var(--minimal-box-shadow);
+  --box-shadow-m: var(--minimal-box-shadow);
+  --box-shadow-l: var(--minimal-box-shadow);
+  --box-shadow-xl: var(--minimal-box-shadow);
+  --drop-shadow-xs: var(--minimal-drop-shadow);
+  --drop-shadow-s: var(--minimal-drop-shadow);
+  --drop-shadow: var(--minimal-drop-shadow);
+  --drop-shadow-m: var(--minimal-drop-shadow);
+  --drop-shadow-l: var(--minimal-drop-shadow);
+  --drop-shadow-xl: var(--minimal-drop-shadow);
+  --page-box-shadow: var(--minimal-page-box-shadow);
+  --page-drop-shadow: var(--minimal-page-drop-shadow);
 }
 
 // =============================================================================

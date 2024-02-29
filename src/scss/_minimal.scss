@@ -1,25 +1,24 @@
 :root.minimal {
-  body {
-    --text-shadow: none;
-    --mobile-menu-text-shadow: none;
-    --paragraph-tools-filter: none;
-    --content-li-background: var(--content-li-background-full);
-    --story-blog-li-background: var(--content-li-background-full);
-    --chapter-li-background: var(--content-li-background-full);
-    --card-content-li-background: var(--card-content-li-background-full);
-    --embed-box-shadow: none;
-    --box-shadow-xs: none;
-    --box-shadow-s: none;
-    --box-shadow: none;
-    --box-shadow-m: none;
-    --box-shadow-l: none;
-    --box-shadow-xl: none;
-    --drop-shadow-xs: none;
-    --drop-shadow-s: none;
-    --drop-shadow: none;
-    --drop-shadow-m: none;
-    --drop-shadow-l: none;
-    --drop-shadow-xl: none;
+  --layout-spacing-horizontal-minimal: 10px;
+  --layout-spacing-vertical-minimal: 10px;
+
+  @include bp(375px) {
+    --layout-spacing-horizontal-minimal: 20px;
+    --layout-spacing-vertical-minimal: 20px;
+  }
+
+  @include bp(phablet) {
+    --layout-spacing-horizontal-minimal: 32px;
+  }
+
+  @include bp(tablet) {
+    --layout-spacing-horizontal-minimal: 48px;
+    --layout-spacing-vertical-minimal: 32px;
+  }
+
+  @include bp(desktop) {
+    --layout-spacing-horizontal-minimal: 80px;
+    --layout-spacing-vertical-minimal: 48px;
   }
 
   .custom-background {
@@ -31,13 +30,8 @@
     content-visibility: hidden;
   }
 
-  :is(.card, .showcase__list-item, .story__thumbnail-image, .modal__wrapper, .cookies__list, .litrpg-frame) {
+  :is(.showcase__list-item, .story__thumbnail-image) {
     box-shadow: none;
-  }
-
-  &:not(:fullscreen, :-webkit-full-screen) .main__background {
-    --page-box-shadow: none;
-    --page-drop-shadow: none;
   }
 
   @include bp(640px) {
@@ -105,74 +99,18 @@
   }
 
   .padding-left {
-    padding-left: 10px;
-
-    @include bp(375px) {
-      padding-left: 20px;
-    }
-
-    @include bp(phablet) {
-      padding-left: 32px;
-    }
-
-    @include bp(tablet) {
-      padding-left: 48px;
-    }
-
-    @include bp(desktop) {
-      padding-left: 80px;
-    }
+    padding-left: var(--layout-spacing-horizontal-minimal);
   }
 
   .padding-right {
-    padding-right: 10px;
-
-    @include bp(375px) {
-      padding-right: 20px;
-    }
-
-    @include bp(phablet) {
-      padding-right: 32px;
-    }
-
-    @include bp(tablet) {
-      padding-right: 48px;
-    }
-
-    @include bp(desktop) {
-      padding-right: 80px;
-    }
+    padding-right: var(--layout-spacing-horizontal-minimal);
   }
 
   .padding-top {
-    padding-top: 10px;
-
-    @include bp(375px) {
-      padding-top: 20px;
-    }
-
-    @include bp(tablet) {
-      padding-top: 32px;
-    }
-
-    @include bp(desktop) {
-      padding-top: 48px;
-    }
+    padding-top: var(--layout-spacing-vertical-minimal);
   }
 
   .padding-bottom {
-    padding-bottom: 10px;
-
-    @include bp(375px) {
-      padding-bottom: 20px;
-    }
-
-    @include bp(tablet) {
-      padding-bottom: 32px;
-    }
-
-    @include bp(desktop) {
-      padding-bottom: 48px;
-    }
+    padding-bottom: var(--layout-spacing-vertical-minimal);
   }
 }
