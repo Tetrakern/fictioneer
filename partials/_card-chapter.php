@@ -20,7 +20,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID );
+$title = fictioneer_get_safe_title( $post->ID, 'card-chapter' );
 $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 $story_post = get_post( $story_id );
 $story_unpublished = get_post_status( $story_id ) !== 'publish';

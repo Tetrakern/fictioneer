@@ -566,7 +566,7 @@ function fictioneer_story_chapters( $args ) {
             'icon' => fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id ),
             'text_icon' => get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true ),
             'prefix' => get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true ),
-            'title' => fictioneer_get_safe_title( $chapter_id ),
+            'title' => fictioneer_get_safe_title( $chapter_id, 'story-chapter-list' ),
             'list_title' => get_post_meta( $chapter_id, 'fictioneer_chapter_list_title', true ),
             'words' => fictioneer_get_word_count( $chapter_id ),
             'warning' => get_post_meta( $chapter_id, 'fictioneer_chapter_warning', true )

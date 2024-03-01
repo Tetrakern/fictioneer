@@ -127,7 +127,7 @@ if ( ! function_exists( 'fictioneer_build_story_schema' ) ) {
         'name' => _x( 'Chapters', 'SEO schema story chapters list node name.', 'fictioneer' ),
         'description' => sprintf(
           _x( 'Chapters of %s.', 'SEO schema story chapters list node description.', 'fictioneer' ),
-          fictioneer_get_safe_title( $post_id )
+          fictioneer_get_safe_title( $post_id, 'seo-schema-story-chapter-list-node' )
         ),
         'mainEntityOfPage' => ['@id' => '#article'],
         'itemListElement' => []

@@ -381,7 +381,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
       }
 
       // Setup
-      $title = fictioneer_get_safe_title( $post->ID );
+      $title = fictioneer_get_safe_title( $post->ID, 'epub-chapter' );
       $content = apply_filters( 'the_content', $post->post_content );
       $processed = false;
       $index++;

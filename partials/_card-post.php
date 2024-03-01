@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID );
+$title = fictioneer_get_safe_title( $post->ID, 'card-post' );
 $tags = get_the_tags();
 $categories = wp_get_post_categories( $post->ID );
 $card_classes = [];

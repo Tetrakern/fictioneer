@@ -738,12 +738,14 @@ Filters the RSS link returned by the `fictioneer_get_rss_link( $post_type, $post
 
 ---
 
-### `apply_filters( 'fictioneer_filter_safe_title', $title, $post_id )`
+### `apply_filters( 'fictioneer_filter_safe_title', $title, $post_id, $context, $args )`
 Filters the string returned by the `fictioneer_get_safe_title( $post_id )` function, after all tags and line breaks have been stripped. No further sanitization is applied here, so you can add HTML again.
 
 **Parameters:**
 * $title (string) – The sanitized title of the post.
 * $post_id (int) – The post ID.
+* $context (string|null) - Context regarding where or how the title is used. Unsafe.
+* $args (array) - Optional additional arguments.
 
 **Hooked Filters:**
 * `fictioneer_prefix_sticky_safe_title( $comments )` – Prepends icon to sticky blog posts.

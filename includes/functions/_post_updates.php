@@ -218,7 +218,7 @@ function fictioneer_log_story_chapter_changes( $story_id, $current, $previous, $
         _x( '#%s %s: %s.', 'Story changelog chapter added.', 'fictioneer' ),
         $post_id,
         $verb ? $verb : _x( 'added', 'Story changelog verb.', 'fictioneer' ),
-        fictioneer_get_safe_title( $post_id )
+        fictioneer_get_safe_title( $post_id, 'admin-log-added-story-chapter' )
       )
     );
   }
@@ -230,7 +230,7 @@ function fictioneer_log_story_chapter_changes( $story_id, $current, $previous, $
         _x( '#%s %s: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
         $post_id,
         $verb ? $verb : _x( 'removed', 'Story changelog verb.', 'fictioneer' ),
-        fictioneer_get_safe_title( $post_id )
+        fictioneer_get_safe_title( $post_id, 'admin-log-removed-story-chapter' )
       )
     );
   }
@@ -280,7 +280,7 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
       sprintf(
         _x( '#%s privated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
         $post->ID,
-        fictioneer_get_safe_title( $post->ID, true )
+        fictioneer_get_safe_title( $post->ID, true, 'admin-log-status-change-publish_to_private' )
       )
     );
 
@@ -294,7 +294,7 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
       sprintf(
         _x( '#%s unprivated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
         $post->ID,
-        fictioneer_get_safe_title( $post->ID, true )
+        fictioneer_get_safe_title( $post->ID, true, 'admin-log-status-change-private_to_publish' )
       )
     );
 

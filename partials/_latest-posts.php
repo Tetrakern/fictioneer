@@ -95,7 +95,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( $post->ID );
+        $title = fictioneer_get_safe_title( $post->ID, 'shortcode-latest-posts' );
         $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 
         if (

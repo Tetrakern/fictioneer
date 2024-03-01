@@ -127,7 +127,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             continue;
           }
 
-          $title = fictioneer_get_safe_title( $post->ID );
+          $title = fictioneer_get_safe_title( $post->ID, 'shortcode-latest-chapters' );
           $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
@@ -194,7 +194,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       printf(
                         _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
                         get_permalink( $story_id ),
-                        fictioneer_truncate( fictioneer_get_safe_title( $story_id ), 24 )
+                        fictioneer_truncate( fictioneer_get_safe_title( $story_id, 'shortcode-latest-chapters' ), 24 )
                       );
                     }
 

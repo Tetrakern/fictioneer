@@ -380,7 +380,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'fandoms' => $fandoms,
       'warnings' => $warnings,
       'genres' => $genres,
-      'title' => fictioneer_get_safe_title( $story_id ),
+      'title' => fictioneer_get_safe_title( $story_id, 'utility-get-story-data' ),
       'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
       'rating_letter' => get_post_meta( $story_id, 'fictioneer_story_rating', true )[0],
       'chapter_ids' => $visible_chapter_ids,

@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID );
+$title = fictioneer_get_safe_title( $post->ID, 'card-recommendation' );
 $links = array_merge(
   fictioneer_url_list_to_array( get_post_meta( $post->ID, 'fictioneer_recommendation_urls', true ) ),
   fictioneer_url_list_to_array( get_post_meta( $post->ID, 'fictioneer_recommendation_support', true ) )

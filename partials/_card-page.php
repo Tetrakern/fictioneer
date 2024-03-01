@@ -17,7 +17,7 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID );
+$title = fictioneer_get_safe_title( $post->ID, 'card-page' );
 $comments_number = get_comments_number();
 $card_classes = [];
 

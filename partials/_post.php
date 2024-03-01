@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $post_id = get_the_ID();
-$title = fictioneer_get_safe_title( $post_id );
+$title = fictioneer_get_safe_title( $post_id, 'post' );
 $label = esc_attr( sprintf( _x( 'Continue reading %s', 'Read more link aria label', 'fictioneer' ), $title ) );
 $nested = $args['nested'] ?? false;
 

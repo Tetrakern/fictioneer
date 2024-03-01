@@ -362,7 +362,7 @@ if ( ! function_exists( 'fictioneer_comment_notification' ) ) {
       array(
         '[[post_id]]' => $parent->comment_post_ID,
         '[[post_url]]' => get_permalink( $parent->comment_post_ID ),
-        '[[post_title]]' => fictioneer_get_safe_title( $parent->comment_post_ID ),
+        '[[post_title]]' => fictioneer_get_safe_title( $parent->comment_post_ID, 'comment-notification' ),
         '[[comment_id]]' => $parent->comment_ID,
         '[[comment_name]]' => $comment_author,
         '[[comment_excerpt]]' => get_comment_excerpt( $parent->comment_ID ),

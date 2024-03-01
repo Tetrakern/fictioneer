@@ -221,15 +221,17 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    * Returns the sanitized title and accounts for empty strings
    *
    * @since 4.7.0
+   * @since 5.12.0 - Added $context and $args parameters.
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
    * @param int|WP_Post $post        The post or post ID to get the title for.
-   * @param boolean     $no_filters  Optional. Whether to ignore filters. Default false.
+   * @param string|null $context     Optional. Context regarding where and how the title is used.
+   * @param array       $args        Optional. Additional parameters.
    *
    * @return string The title, never empty.
    */
 
-  function fictioneer_get_safe_title( $post, $no_filters = false ) {
+  function fictioneer_get_safe_title( $post, $context = null, $args = [] ) {
     // Setup
     $post_id = ( $post instanceof WP_Post ) ? $post->ID : $post;
 
@@ -246,8 +248,8 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
     }
 
     // Apply filters
-    if ( ! $no_filters ) {
-      $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id );
+    if ( ! ( $args['no_filters'] ?? 0 ) ) {
+      $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id, $context, $args );
     }
 
     return $title;

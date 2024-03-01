@@ -1012,7 +1012,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id );
           $text_icon = get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true );
           $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
-          $title = fictioneer_get_safe_title( $chapter_id );
+          $title = fictioneer_get_safe_title( $chapter_id, 'shortcode-chapter-list' );
           $has_password = ! empty( $post->post_password );
 
           // Start HTML ---> ?>

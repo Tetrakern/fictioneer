@@ -123,7 +123,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                 // Prepare titles
                 $list_title = trim( wp_strip_all_tags( $list_title ) );
-                $title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
+                $title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID, 'shortcode-showcase' ) : $list_title;
 
                 // Prepare image arguments
                 $image_args = array(
