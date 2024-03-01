@@ -12,7 +12,7 @@
   --code-background-inline: hsl(var(--bg-950-free) / 7%);
   --code-color: var(--fg-600);
 
-  --spoiler-background: var(--bg-900);
+  --spoiler-background: var(--bg-800);
 
   --ins-background: var(--green-400);
   --ins-color: inherit;
@@ -22,7 +22,7 @@
 
   --caption-overlay-color: #fff;
 
-  --progress-bar-background: var(--bg-900);
+  --progress-bar-background: var(--bg-800);
 
   --skeleton-shape-color: var(--bg-400);
 
@@ -76,9 +76,9 @@
   --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
   --bg-600-free: #{hsl_code_free(220, 9, 46)}; // #6b7280 (Tailwind Gray 500)
   --bg-700-free: #{hsl_code_free(215, 14, 34)}; // #4b5563 (Tailwind Gray 600)
-  --bg-800-free: #{hsl_code_free(217, 19, 27)}; // #374151 (Tailwind Gray 700)
-  --bg-900-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
-  --bg-950-free: #{hsl_code_free(221, 39, 11)}; // #111827 (Tailwind Gray 900)
+  --bg-800-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
+  --bg-900-free: #{hsl_code_free(221, 39, 11)}; // #111827 (Tailwind Gray 900)
+  --bg-950-free: #{hsl_code_free(224, 71, 4)}; // #030712 (Tailwind Gray 950)
 
   // === FOREGROUNDS ===========================================================
 
@@ -159,7 +159,6 @@
 
   --fg-isolated-footer: var(--fg-950);
   --fg-isolated-footer-hover: var(--fg-inverted);
-  --bg-isolated-footer: var(--bg-950);
 
   // === MODALS ================================================================
 
@@ -268,21 +267,21 @@
 
   // === POPUP MENU ============================================================
 
-  --popup-menu-background: var(--bg-900);
+  --popup-menu-background: var(--bg-800);
   --popup-menu-background-hover: var(--bg-700);
-  --popup-menu-background-selected: var(--bg-800);
+  --popup-menu-background-selected: var(--bg-700);
 
   // === MICRO MENU ============================================================
 
-  --micro-menu-background: var(--bg-900);
+  --micro-menu-background: var(--bg-800);
   --micro-menu-color: var(--fg-inverted);
   --micro-menu-color-hover: var(--fg-inverted);
 
   // === TOOLTIPS/NOTIFICATIONS ================================================
 
-  --tooltip-background: var(--bg-900);
+  --tooltip-background: var(--bg-800);
 
-  --notice-default-background: var(--bg-900);
+  --notice-default-background: var(--bg-800);
   --notice-default-color: #fff;
 
   // === COMMENTS ==============================================================
@@ -324,8 +323,7 @@
   .consent-banner {
     --inline-link-color: var(--primary-400);
     --inline-link-color-visited: var(--primary-400);
-    --consent-banner-text: var(--fg-inverted);
-    --consent-banner-background: var(--bg-950);
+    --consent-banner-color: var(--fg-inverted);
     --button-primary-color: var(--fg-500);
     --button-primary-color-hover: var(--fg-500);
     --button-primary-background: var(--fg-inverted);

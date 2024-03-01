@@ -758,19 +758,19 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_700' => array(
       'label' => __( 'Dark Background 700', 'fictioneer' ),
-      'description' => __( 'Used for the page, slide-in mobile menu, password cutouts, and card content lists (and gradients).', 'fictioneer' )
+      'description' => __( 'Used for the page, slide-in mobile menu, password cutouts, and navigation subitem dividers.', 'fictioneer' )
     ),
     'dark_bg_800' => array(
       'label' => __( 'Dark Background 800', 'fictioneer' ),
-      'description' => __( 'Used for content lists (and gradients) and navigation subitem dividers.', 'fictioneer' )
+      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, content lists (and gradients), and mixed into input fields (with 19% black).', 'fictioneer' )
     ),
     'dark_bg_900' => array(
       'label' => __( 'Dark Background 900', 'fictioneer' ),
-      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, and mixed into input fields (with 19% black).', 'fictioneer' )
+      'description' => __( 'Used for the &ltbody>, unset checkmarks, navigation, isolated footer, chapter micro menu, TTS interface, image placeholders, consent banner, and mixed into the default mobile menu (with 3% white).', 'fictioneer' )
     ),
     'dark_bg_950' => array(
       'label' => __( 'Dark Background 950', 'fictioneer' ),
-      'description' => __( 'Used for the &ltbody>, unset checkmarks, navigation, isolated footer, chapter micro menu, TTS interface, image placeholders, consent banner, and mixed into the default mobile menu (with 3% white).', 'fictioneer' )
+      'description' => __( 'Currently not used.', 'fictioneer' )
     ),
     'dark_fg_100' => array(
       'label' => __( 'Dark Foreground 100', 'fictioneer' ),

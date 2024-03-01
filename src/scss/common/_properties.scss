@@ -93,9 +93,9 @@
 :root, :root[data-theme=base] {
   // === UNSORTED ==============================================================
 
-  --theme-color-base: 219 15 17; // 900
-  --body-bg-color: var(--bg-950);
-  --site-bg-color: var(--bg-900);
+  --theme-color-base: 219 15 17; // 800
+  --body-bg-color: var(--bg-900);
+  --site-bg-color: var(--bg-800);
   --fullscreen-background: var(--page-bg-color);
 
   --read-ribbon-background: var(--bg-50);
@@ -134,12 +134,12 @@
 
   --paragraph-spacing: 1.5rem;
   --blockquote-background: rgb(0 0 0 / 15%);
-  --placeholder-background: var(--bg-950);
-  --kbd-background: var(--bg-900);
-  --infobox-background: var(--bg-900);
+  --placeholder-background: var(--bg-900);
+  --kbd-background: var(--bg-800);
+  --infobox-background: var(--bg-800);
   --text-shadow: -1px -1px 1px rgb(0 0 0 / 12%);
   --checkmark-checked: var(--fg-600);
-  --checkmark-not-checked: var(--bg-950);
+  --checkmark-not-checked: var(--bg-900);
   --tax-cloud-current: var(--primary-500);
   --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
   --strong-filter: brightness(1.05);
@@ -157,8 +157,8 @@
   // === CONTENT LISTS =========================================================
 
   --content-li-background: var(--content-li-background-gradient); // Base assignment
-  --content-li-background-full: var(--bg-800);
-  --content-li-background-gradient: linear-gradient(to left, var(--bg-800) 0%, var(--bg-800) 55%, transparent 90%);
+  --content-li-background-full: hsl(var(--bg-900-free) / 12%);
+  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-900-free) / 12%) 0%, hsl(var(--bg-900-free) / 12%) 55%, transparent 90%);
   --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
 
   // === COLORS ================================================================
@@ -185,9 +185,9 @@
   --bg-500-free: #{hsl_code_free(222, 13, 26.5)};
   --bg-600-free: #{hsl_code_free(222, 14, 23.5)};
   --bg-700-free: #{hsl_code_free(221, 16, 20)};
-  --bg-800-free: #{hsl_code_free(221, 16, 18.5)};
-  --bg-900-free: #{hsl_code_free(219, 15, 17)};
-  --bg-950-free: #{hsl_code_free(222, 25, 8)};
+  --bg-800-free: #{hsl_code_free(219, 15, 17)};
+  --bg-900-free: #{hsl_code_free(222, 25, 8)};
+  --bg-950-free: #{hsl_code_free(222, 60, 4)};
 
   --bg-50: hsl(var(--bg-50-free));
   --bg-100: hsl(var(--bg-100-free));
@@ -258,11 +258,11 @@
   // === CARDS =================================================================
 
   --card-bg-color: var(--bg-600);
-  --card-footer-bg-color: var(--bg-900);
-  --card-overlay-bg-color: var(--bg-900);
+  --card-footer-bg-color: var(--bg-800);
+  --card-overlay-bg-color: var(--bg-800);
   --card-content-li-background: var(--card-content-li-background-gradient);
-  --card-content-li-background-full: var(--bg-700);
-  --card-content-li-background-gradient: linear-gradient(to left, var(--bg-700) 50%, transparent 90%);
+  --card-content-li-background-full: hsl(var(--bg-900-free) / 20%);
+  --card-content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-900-free) / 20%) 0%, hsl(var(--bg-900-free) / 20%) 55%, transparent 90%);
   --card-label-color: var(--fg-inverted);
   --card-label-background: var(--fg-500);
   --card-unavailable-filter: grayscale(0.5) blur(1.5px);
@@ -275,7 +275,7 @@
 
   // === NAVIGATION ============================================================
 
-  --navigation-background: var(--bg-950);
+  --navigation-background: var(--bg-900);
   --navigation-background-start-opacity: 0;
   --navigation-background-end-opacity: 1;
   --navigation-submenu-background: var(--bg-400);
@@ -283,7 +283,7 @@
   --navigation-subitem-background-hover: var(--bg-300);
   --navigation-color: var(--fg-400);
   --navigation-color-hover: var(--fg-300);
-  --navigation-subitem-divider: 1px solid var(--bg-800);
+  --navigation-subitem-divider: 1px solid var(--bg-700);
   --navigation-submenu-box-shadow: 0 4px 3px -2px rgb(0 0 0 / 30%);
   --navigation-drop-shadow: drop-shadow(0 3px 2px rgb(0 0 0 / 20%));
   --navigation-new-follow-background: var(--primary-500);
@@ -312,7 +312,7 @@
 
   --fg-isolated-footer: var(--fg-700);
   --fg-isolated-footer-hover: var(--fg-300);
-  --bg-isolated-footer: var(--bg-950);
+  --bg-isolated-footer: var(--bg-900);
 
   // === MODALS ================================================================
 
@@ -338,7 +338,7 @@
   // === MOBILE MENU ===========================================================
 
   --mobile-menu-background: var(--bg-700);
-  --mobile-menu-advanced-background: color-mix(in srgb, var(--bg-950), white 3%);
+  --mobile-menu-advanced-background: color-mix(in srgb, var(--bg-900), white 3%);
   --mobile-menu-box-shadow: 2px 0 3px rgb(0 0 0 / 30%);
   --mobile-advanced-menu-site-box-shadow: inset -5px 0 3px -4px rgb(0 0 0 / 30%);
   --mobile-menu-overlay: rgb(0 0 0 / 50%);
@@ -475,7 +475,7 @@
 
   --input-placeholder-color: var(--fg-950);
   --input-background: rgb(0 0 0 / 30%); // Fallback
-  --input-background: color-mix(in srgb, var(--bg-900), black 19%);
+  --input-background: color-mix(in srgb, var(--bg-800), black 19%);
   --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
   --input-color: var(--fg-500);
   --input-color-disabled: var(--fg-800);
@@ -495,7 +495,7 @@
 
   // === MICRO MENU ============================================================
 
-  --micro-menu-background: var(--bg-950);
+  --micro-menu-background: var(--bg-900);
   --micro-menu-color: var(--fg-400);
   --micro-menu-color-hover: var(--fg-200);
   --micro-menu-box-shadow: var(--box-shadow-l);
@@ -557,8 +557,8 @@
   // === SCOPES ================================================================
 
   .consent-banner {
-    --consent-banner-text: var(--fg-600);
-    --consent-banner-background: var(--bg-950);
+    --consent-banner-color: var(--fg-600);
+    --consent-banner-background: var(--bg-900);
   }
 
   .selected-paragraph {
@@ -568,7 +568,7 @@
   }
 
   .tts-interface {
-    --tts-background: var(--bg-950);
+    --tts-background: var(--bg-900);
     --tts-button-active-background: var(--primary-500);
     --tts-button-active-text: var(--fg-inverted);
   }
