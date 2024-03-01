@@ -762,7 +762,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_800' => array(
       'label' => __( 'Dark Background 800', 'fictioneer' ),
-      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, content lists (and gradients), and mixed into input fields (with 19% black).', 'fictioneer' )
+      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, and mixed into input fields (with 19% black).', 'fictioneer' )
     ),
     'dark_bg_900' => array(
       'label' => __( 'Dark Background 900', 'fictioneer' ),
@@ -770,7 +770,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_950' => array(
       'label' => __( 'Dark Background 950', 'fictioneer' ),
-      'description' => __( 'Currently not used.', 'fictioneer' )
+      'description' => __( 'Used for content lists and gradients with varying opacity (10-16%).', 'fictioneer' )
     ),
     'dark_fg_100' => array(
       'label' => __( 'Dark Foreground 100', 'fictioneer' ),
