@@ -830,43 +830,43 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_primary_400' => array(
       'label' => __( 'Dark Primary 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter primary accent and content link hover color.', 'fictioneer' )
     ),
     'dark_primary_500' => array(
       'label' => __( 'Dark Primary 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base primary accent and content link color.', 'fictioneer' )
     ),
     'dark_primary_600' => array(
       'label' => __( 'Dark Primary 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker primary accent and content link visited color.', 'fictioneer' )
     ),
     'dark_red_400' => array(
       'label' => __( 'Dark Red 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter alert and warning color.', 'fictioneer' )
     ),
     'dark_red_500' => array(
       'label' => __( 'Dark Red 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base alert and warning color.', 'fictioneer' )
     ),
     'dark_red_600' => array(
       'label' => __( 'Dark Red 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker alert and warning color.', 'fictioneer' )
     ),
     'dark_green_400' => array(
       'label' => __( 'Dark Green 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter success and confirmation color.', 'fictioneer' )
     ),
     'dark_green_500' => array(
       'label' => __( 'Dark Green 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base success and confirmation color.', 'fictioneer' )
     ),
     'dark_green_600' => array(
       'label' => __( 'Dark Green 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker success and confirmation color.', 'fictioneer' )
     ),
     'dark_bookmark_line_color' => array(
       'label' => __( 'Dark Bookmark Line', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Color of the alpha bookmark line and button. Based on Primary-500 by default.', 'fictioneer' )
     ),
     'dark_bookmark_color_alpha' => array(
       'label' => __( 'Dark Bookmark Alpha', 'fictioneer' ),
