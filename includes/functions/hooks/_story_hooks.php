@@ -648,19 +648,24 @@ function fictioneer_story_chapters( $args ) {
                   <a
                     href="<?php echo $chapter['link']; ?>"
                     class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
-                  >
-                    <?php
-                      if ( ! empty( $chapter['prefix'] ) ) {
-                        echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] );
-                      }
-                    ?>
-                    <?php if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) : ?>
-                      <span class="chapter-group__list-item-title list-view"><?php echo $chapter['title']; ?></span>
-                      <span class="grid-view"><?php echo wp_strip_all_tags( $chapter['list_title'] ); ?></span>
-                    <?php else : ?>
-                      <?php echo $chapter['title']; ?>
-                    <?php endif; ?>
-                  </a>
+                  ><?php
+
+                    if ( ! empty( $chapter['prefix'] ) ) {
+                      // Mind space between prefix and title
+                      echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $chapter['prefix'] ) . ' ';
+                    }
+
+                    if ( ! empty( $chapter['list_title'] ) && $chapter['title'] !== $chapter['list_title'] ) {
+                      printf(
+                        ' <span class="chapter-group__list-item-title list-view">%s</span><span class="grid-view">%s</span>',
+                        $chapter['title'],
+                        wp_strip_all_tags( $chapter['list_title'] )
+                      );
+                    } else {
+                      echo $chapter['title'];
+                    }
+
+                  ?></a>
 
                   <?php if ( $chapter['password'] ) : ?>
                     <i class="fa-solid fa-lock icon-password grid-view"></i>
