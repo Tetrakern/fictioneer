@@ -413,43 +413,43 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_primary_400' => array(
       'label' => __( 'Light Primary 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter primary accent and content link hover color.', 'fictioneer' )
     ),
     'light_primary_500' => array(
       'label' => __( 'Light Primary 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base primary accent and content link color.', 'fictioneer' )
     ),
     'light_primary_600' => array(
       'label' => __( 'Light Primary 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker primary accent and content link visited color.', 'fictioneer' )
     ),
     'light_red_400' => array(
       'label' => __( 'Light Red 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter alert and warning color.', 'fictioneer' )
     ),
     'light_red_500' => array(
       'label' => __( 'Light Red 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base alert and warning color.', 'fictioneer' )
     ),
     'light_red_600' => array(
       'label' => __( 'Light Red 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker alert and warning color.', 'fictioneer' )
     ),
     'light_green_400' => array(
       'label' => __( 'Light Green 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Lighter success and confirmation color.', 'fictioneer' )
     ),
     'light_green_500' => array(
       'label' => __( 'Light Green 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Base success and confirmation color.', 'fictioneer' )
     ),
     'light_green_600' => array(
       'label' => __( 'Light Green 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Darker success and confirmation color.', 'fictioneer' )
     ),
     'light_bookmark_line_color' => array(
       'label' => __( 'Light Bookmark Line', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Color of the "alpha" bookmark line and button. Based on Primary-500 by default.', 'fictioneer' )
     ),
     'light_bookmark_color_alpha' => array(
       'label' => __( 'Light Bookmark Alpha', 'fictioneer' ),
@@ -866,7 +866,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bookmark_line_color' => array(
       'label' => __( 'Dark Bookmark Line', 'fictioneer' ),
-      'description' => __( 'Color of the alpha bookmark line and button. Based on Primary-500 by default.', 'fictioneer' )
+      'description' => __( 'Color of the "alpha" bookmark line and button. Based on Primary-500 by default.', 'fictioneer' )
     ),
     'dark_bookmark_color_alpha' => array(
       'label' => __( 'Dark Bookmark Alpha', 'fictioneer' ),
