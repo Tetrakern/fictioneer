@@ -2461,7 +2461,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
       'fictioneer_chapter_short_title',
       array(
         'label' => _x( 'Short Title', 'Chapter short title meta field label.', 'fictioneer' ),
-        'description' => __( 'Shorter title, such as "Arc 15, Ch. 17".', 'fictioneer' )
+        'description' => __( 'Shorter title, such as "Arc 15, Ch. 17". Not used by default, intended for child themes.', 'fictioneer' )
       )
     );
   }
