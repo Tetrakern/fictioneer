@@ -313,7 +313,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $colors = array(
     'light_bg_50' => array(
       'label' => __( 'Light Background 50', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for cards, modals, navigation, the LitRPG container, and other high elevations.', 'fictioneer' )
     ),
     'light_bg_100' => array(
       'label' => __( 'Light Background 100', 'fictioneer' ),
@@ -357,59 +357,59 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_fg_100' => array(
       'label' => __( 'Light Foreground 100', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Highest text color for contrast and hovers.', 'fictioneer' )
     ),
     'light_fg_200' => array(
       'label' => __( 'Light Foreground 200', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Higher text color for contrast and hovers.', 'fictioneer' )
     ),
     'light_fg_300' => array(
       'label' => __( 'Light Foreground 300', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'High text color for contrast and hovers.', 'fictioneer' )
     ),
     'light_fg_400' => array(
       'label' => __( 'Light Foreground 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary heavy text color for page content.', 'fictioneer' )
     ),
     'light_fg_500' => array(
       'label' => __( 'Light Foreground 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary base text color for page content.', 'fictioneer' )
     ),
     'light_fg_600' => array(
       'label' => __( 'Light Foreground 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary faded text color for page content.', 'fictioneer' )
     ),
     'light_fg_700' => array(
       'label' => __( 'Light Foreground 700', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Secondary text color for complementary items.', 'fictioneer' )
     ),
     'light_fg_800' => array(
       'label' => __( 'Light Foreground 800', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Tertiary text color for related complementary items.', 'fictioneer' )
     ),
     'light_fg_900' => array(
       'label' => __( 'Light Foreground 900', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Faded color for background, decorative, and disabled items.', 'fictioneer' )
     ),
     'light_fg_950' => array(
       'label' => __( 'Light Foreground 950', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Strongly faded color for background, decorative, and disabled items.', 'fictioneer' )
     ),
     'light_fg_tinted' => array(
       'label' => __( 'Light Foreground Tinted', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Default color in chapters; slightly lighter and more saturated than the base text color.', 'fictioneer' )
     ),
     'light_fg_inverted' => array(
       'label' => __( 'Light Foreground Inverted', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Light text color for dark backgrounds. Default contrast ~17.3:1 on BG-900.', 'fictioneer' )
     ),
     'light_theme_color_base' => array(
       'label' => __( 'Light Theme Color Meta', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used by some browsers for the interface background color. Based on BG-300 by default.', 'fictioneer' )
     ),
     'light_navigation_background_sticky' => array(
       'label' => __( 'Light Navigation Background (Sticky)', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Background color for the navigation bar. Based on BG-50 by default.', 'fictioneer' )
     ),
     'light_primary_400' => array(
       'label' => __( 'Light Primary 400', 'fictioneer' ),
@@ -794,7 +794,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_fg_600' => array(
       'label' => __( 'Dark Foreground 600', 'fictioneer' ),
-      'description' => __( 'Primary fading text color for page content. Default contrast ~6:1 on BG-700.', 'fictioneer' )
+      'description' => __( 'Primary faded text color for page content. Default contrast ~6:1 on BG-700.', 'fictioneer' )
     ),
     'dark_fg_700' => array(
       'label' => __( 'Dark Foreground 700', 'fictioneer' ),
@@ -806,11 +806,11 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_fg_900' => array(
       'label' => __( 'Dark Foreground 900', 'fictioneer' ),
-      'description' => __( 'Dark color for background, decorative, and disabled items. Default contrast ~3.5:1 on BG-700.', 'fictioneer' )
+      'description' => __( 'Faded color for background, decorative, and disabled items. Default contrast ~3.5:1 on BG-700.', 'fictioneer' )
     ),
     'dark_fg_950' => array(
       'label' => __( 'Dark Foreground 950', 'fictioneer' ),
-      'description' => __( 'Darkest color for background, decorative, and disabled items. Default contrast ~3:1 on BG-700.', 'fictioneer' )
+      'description' => __( 'Strongly faded color for background, decorative, and disabled items. Default contrast ~3:1 on BG-700.', 'fictioneer' )
     ),
     'dark_fg_tinted' => array(
       'label' => __( 'Dark Foreground Tinted', 'fictioneer' ),
