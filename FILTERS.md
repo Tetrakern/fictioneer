@@ -156,7 +156,7 @@ Filters the default chapter formatting settings. The passed array is empty becau
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_identity', $output, $args )`
-Filters the intermediate output array in the `_chapter_-header.php` partial before it is imploded and rendered. Contains the HTML for the story link, chapter title (safe), and author meta nodes (see `fictioneer_get_chapter_author_nodes()`). Any of these items may be missing depending on the chapter’s configuration.
+Filters the intermediate output array in the `_chapter-header.php` partial before it is imploded and rendered. Contains the HTML for the story link, chapter title (safe), and author meta nodes (see `fictioneer_get_chapter_author_nodes()`). Any of these items may be missing depending on the chapter’s configuration.
 
 **$output:**
 * $link (string) – HTML for the story back link. Unsafe.
