@@ -1,4 +1,200 @@
 {
+  "light_header_title_color": {
+    "hex": "#111827",
+    "hsl": [221, 39, 11]
+  },
+  "light_header_tagline_color": {
+    "hex": "#111827",
+    "hsl": [221, 39, 11]
+  },
+  "light_bg_50": {
+    "hex": "#fcfcfd",
+    "hsl": [240, 20, 99]
+  },
+  "light_bg_100": {
+    "hex": "#f9fafb",
+    "hsl": [210, 20, 98]
+  },
+  "light_bg_200": {
+    "hex": "#f4f5f6",
+    "hsl": [210, 10, 96]
+  },
+  "light_bg_300": {
+    "hex": "#e5e8eb",
+    "hsl": [210, 13, 91]
+  },
+  "light_bg_400": {
+    "hex": "#d2d5db",
+    "hsl": [220, 11, 84]
+  },
+  "light_bg_500": {
+    "hex": "#9ca3b0",
+    "hsl": [219, 11, 65]
+  },
+  "light_bg_600": {
+    "hex": "#6b7280",
+    "hsl": [220, 9, 46]
+  },
+  "light_bg_700": {
+    "hex": "#4b5563",
+    "hsl": [215, 14, 34]
+  },
+  "light_bg_800": {
+    "hex": "#374151",
+    "hsl": [217, 19, 27]
+  },
+  "light_bg_900": {
+    "hex": "#1f2937",
+    "hsl": [215, 28, 17]
+  },
+  "light_bg_950": {
+    "hex": "#111827",
+    "hsl": [221, 39, 11]
+  },
+  "light_fg_100": {
+    "hex": "#010309",
+    "hsl": [225, 80, 2]
+  },
+  "light_fg_200": {
+    "hex": "#030712",
+    "hsl": [224, 71, 4]
+  },
+  "light_fg_300": {
+    "hex": "#080f1c",
+    "hsl": [220, 55, 7]
+  },
+  "light_fg_400": {
+    "hex": "#111827",
+    "hsl": [221, 39, 11]
+  },
+  "light_fg_500": {
+    "hex": "#1e2333",
+    "hsl": [225, 26, 16]
+  },
+  "light_fg_600": {
+    "hex": "#374151",
+    "hsl": [217, 19, 27]
+  },
+  "light_fg_700": {
+    "hex": "#595f6e",
+    "hsl": [223, 11, 39]
+  },
+  "light_fg_800": {
+    "hex": "#6b7280",
+    "hsl": [220, 9, 46]
+  },
+  "light_fg_900": {
+    "hex": "#8891a0",
+    "hsl": [218, 11, 58]
+  },
+  "light_fg_950": {
+    "hex": "#9ca3af",
+    "hsl": [218, 11, 65]
+  },
+  "light_fg_tinted": {
+    "hex": "#1e293b",
+    "hsl": [217, 33, 17]
+  },
+  "light_fg_inverted": {
+    "hex": "#fcfcfd",
+    "hsl": [210, 20, 99]
+  },
+  "light_primary_400": {
+    "hex": "#6ea2f7",
+    "hsl": [217, 90, 70]
+  },
+  "light_primary_500": {
+    "hex": "#3c83f6",
+    "hsl": [217, 91, 60]
+  },
+  "light_primary_600": {
+    "hex": "#1e3fae",
+    "hsl": [226, 71, 40]
+  },
+  "light_green_400": {
+    "hex": "#a4db8a",
+    "hsl": [101, 53, 70]
+  },
+  "light_green_500": {
+    "hex": "#72bd51",
+    "hsl": [102, 45, 53]
+  },
+  "light_green_600": {
+    "hex": "#5cac39",
+    "hsl": [102, 50, 45]
+  },
+  "light_red_400": {
+    "hex": "#f98686",
+    "hsl": [0, 91, 75]
+  },
+  "light_red_500": {
+    "hex": "#f15b5b",
+    "hsl": [0, 84, 65]
+  },
+  "light_red_600": {
+    "hex": "#dd3c3c",
+    "hsl": [0, 70, 55]
+  },
+  "light_theme_color_base": {
+    "hex": "#e5e8eb",
+    "hsl": [210, 13, 91]
+  },
+  "light_navigation_background_sticky": {
+    "hex": "#fcfcfd",
+    "hsl": [240, 20, 99]
+  },
+  "light_bookmark_color_alpha": {
+    "hex": "#9ca3b0",
+    "hsl": [219, 11, 65]
+  },
+  "light_bookmark_color_beta": {
+    "hex": "#f59e0b",
+    "hsl": [38, 92, 50]
+  },
+  "light_bookmark_color_gamma": {
+    "hex": "#77BFA3",
+    "hsl": [157, 36, 61]
+  },
+  "light_bookmark_color_delta": {
+    "hex": "#dd5960",
+    "hsl": [357, 66, 61]
+  },
+  "light_bookmark_line_color": {
+    "hex": "#3c83f6",
+    "hsl": [217, 91, 60]
+  },
+  "light_ins_background": {
+    "hex": "#a4db8a",
+    "hsl": [101, 53, 70]
+  },
+  "light_del_background": {
+    "hex": "#f98686",
+    "hsl": [0, 91, 75]
+  },
+  "light_badge_generic_background": {
+    "hex": "#71717a",
+    "hsl": [240, 4, 46]
+  },
+  "light_badge_admin_background": {
+    "hex": "#7c3aed",
+    "hsl": [262, 83, 58]
+  },
+  "light_badge_moderator_background": {
+    "hex": "#576eb2",
+    "hsl": [225, 37, 52]
+  },
+  "light_badge_author_background": {
+    "hex": "#f59e0b",
+    "hsl": [38, 92, 50]
+  },
+  "light_badge_supporter_background": {
+    "hex": "#ed5e76",
+    "hsl": [350, 80, 65]
+  },
+  "light_badge_override_background": {
+    "hex": "#64748b",
+    "hsl": [215, 16, 47]
+  },
   "dark_header_title_color": {
     "hex": "#c4cad6",
     "hsl": [220, 18, 80]

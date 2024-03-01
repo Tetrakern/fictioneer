@@ -1,7 +1,7 @@
 :root[data-mode=light] {
   // === UNSORTED ==============================================================
 
-  --theme-color-base: 220 13 91;
+  --theme-color-base: 210 13 91; // #e5e8eb
   --body-bg-color: var(--bg-400);
   --site-bg-color: var(--bg-200);
 
@@ -54,7 +54,7 @@
 
   // === COLORS ================================================================
 
-  --primary-400: hsl(217deg 90% 61%); // #75a4f0
+  --primary-400: hsl(217deg 90% 70%); // #6ea2f7
   --primary-500: hsl(217deg 91% 60%); // #3c83f6
   --primary-600: hsl(226deg 71% 40%); // #1e3fae
 

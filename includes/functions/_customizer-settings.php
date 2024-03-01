@@ -272,45 +272,22 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   // Header title color
-  $manager->add_setting(
-    'light_header_title_color',
+  fictioneer_add_color_theme_option(
+    $manager,
     array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#fcfcfd'
+      'section' => 'light_mode_colors',
+      'setting' => 'light_header_title_color',
+      'label' => __( 'Light Header Title', 'fictioneer' )
     )
   );
 
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_header_title_color',
-      array(
-        'label' => __( 'Light Header Title', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_header_title_color'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_header_tagline_color',
+  // Header tagline color
+  fictioneer_add_color_theme_option(
+    $manager,
     array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f3f5f7'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_header_tagline_color',
-      array(
-        'label' => __( 'Light Header Tagline', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_header_tagline_color'
-      )
+      'section' => 'light_mode_colors',
+      'setting' => 'light_header_tagline_color',
+      'label' => __( 'Light Header Tagline', 'fictioneer' )
     )
   );
 
@@ -332,1004 +309,209 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     )
   );
 
-  $manager->add_setting(
-    'light_bg_10',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#fcfcfd'
+  // Optional colors
+  $colors = array(
+    'light_bg_50' => array(
+      'label' => __( 'Light Background 50', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_100' => array(
+      'label' => __( 'Light Background 100', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_200' => array(
+      'label' => __( 'Light Background 200', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_300' => array(
+      'label' => __( 'Light Background 300', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_400' => array(
+      'label' => __( 'Light Background 400', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_500' => array(
+      'label' => __( 'Light Background 500', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_600' => array(
+      'label' => __( 'Light Background 600', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_700' => array(
+      'label' => __( 'Light Background 700', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_800' => array(
+      'label' => __( 'Light Background 800', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_900' => array(
+      'label' => __( 'Light Background 900', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bg_950' => array(
+      'label' => __( 'Light Background 950', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_100' => array(
+      'label' => __( 'Light Foreground 100', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_200' => array(
+      'label' => __( 'Light Foreground 200', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_300' => array(
+      'label' => __( 'Light Foreground 300', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_400' => array(
+      'label' => __( 'Light Foreground 400', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_500' => array(
+      'label' => __( 'Light Foreground 500', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_600' => array(
+      'label' => __( 'Light Foreground 600', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_700' => array(
+      'label' => __( 'Light Foreground 700', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_800' => array(
+      'label' => __( 'Light Foreground 800', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_900' => array(
+      'label' => __( 'Light Foreground 900', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_950' => array(
+      'label' => __( 'Light Foreground 950', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_tinted' => array(
+      'label' => __( 'Light Foreground Tinted', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_fg_inverted' => array(
+      'label' => __( 'Light Foreground Inverted', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_theme_color_base' => array(
+      'label' => __( 'Light Theme Color Meta', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_navigation_background_sticky' => array(
+      'label' => __( 'Light Navigation Background (Sticky)', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_primary_400' => array(
+      'label' => __( 'Light Primary 400', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_primary_500' => array(
+      'label' => __( 'Light Primary 500', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_primary_600' => array(
+      'label' => __( 'Light Primary 600', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_red_400' => array(
+      'label' => __( 'Light Red 400', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_red_500' => array(
+      'label' => __( 'Light Red 500', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_red_600' => array(
+      'label' => __( 'Light Red 600', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_green_400' => array(
+      'label' => __( 'Light Green 400', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_green_500' => array(
+      'label' => __( 'Light Green 500', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_green_600' => array(
+      'label' => __( 'Light Green 600', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bookmark_line_color' => array(
+      'label' => __( 'Light Bookmark Line', 'fictioneer' ),
+      'description' => __( 'TODO', 'fictioneer' )
+    ),
+    'light_bookmark_color_alpha' => array(
+      'label' => __( 'Light Bookmark Alpha', 'fictioneer' ),
+      'description' => __( 'Multi-purpose color of the "alpha" bookmark.', 'fictioneer' )
+    ),
+    'light_bookmark_color_beta' => array(
+      'label' => __( 'Light Bookmark Beta', 'fictioneer' ),
+      'description' => __( 'Multi-purpose color of the "beta" bookmark.', 'fictioneer' )
+    ),
+    'light_bookmark_color_gamma' => array(
+      'label' => __( 'Light Bookmark Gamma', 'fictioneer' ),
+      'description' => __( 'Multi-purpose color of the "gamma" bookmark.', 'fictioneer' )
+    ),
+    'light_bookmark_color_delta' => array(
+      'label' => __( 'Light Bookmark Delta', 'fictioneer' ),
+      'description' => __( 'Multi-purpose color of the "delta" bookmark.', 'fictioneer' )
+    ),
+    'light_ins_background' => array(
+      'label' => __( 'Light &ltins>', 'fictioneer' ),
+      'description' => __( 'Used for the "inserted" highlight in suggestions.', 'fictioneer' )
+    ),
+    'light_del_background' => array(
+      'label' => __( 'Light &ltdel>', 'fictioneer' ),
+      'description' => __( 'Used for the "deleted" highlight in suggestions.', 'fictioneer' )
+    ),
+    'light_badge_generic_background' => array(
+      'label' => __( 'Light Generic Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the generic comment badge.', 'fictioneer' )
+    ),
+    'light_badge_admin_background' => array(
+      'label' => __( 'Light Admin Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the admin comment badge.', 'fictioneer' )
+    ),
+    'light_badge_moderator_background' => array(
+      'label' => __( 'Light Moderator Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the moderator comment badge.', 'fictioneer' )
+    ),
+    'light_badge_author_background' => array(
+      'label' => __( 'Light Author Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the author comment badge.', 'fictioneer' )
+    ),
+    'light_badge_supporter_background' => array(
+      'label' => __( 'Light Supporter Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the supporter comment badge.', 'fictioneer' )
+    ),
+    'light_badge_override_background' => array(
+      'label' => __( 'Light Override Badge', 'fictioneer' ),
+      'description' => __( 'Background color of the override comment badge.', 'fictioneer' )
     )
   );
 
-  $manager->add_control(
-    new WP_Customize_Color_Control(
+  foreach ( $colors as $key => $color ) {
+    fictioneer_add_color_theme_option(
       $manager,
-      'light_bg_10',
       array(
-        'label' => __( 'Light Background 10', 'fictioneer' ),
-        'description' => __( 'Used for card backgrounds.', 'fictioneer' ),
         'section' => 'light_mode_colors',
-        'settings' => 'light_bg_10'
+        'setting' => $key,
+        'label' => $color['label'],
+        'description' => $color['description']
       )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_50',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f9fafb'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_50',
-      array(
-        'label' => __( 'Light Background 50', 'fictioneer' ),
-        'description' => __( 'Used for the page and modal backgrounds.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_50'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_100',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f3f4f6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_100',
-      array(
-        'label' => __( 'Light Background 100', 'fictioneer' ),
-        'description' => __( 'Used for the site background and mobile menu quick buttons.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_100'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_200',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#e5e7eb'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_200',
-      array(
-        'label' => __( 'Light Background 200', 'fictioneer' ),
-        'description' => __( 'Used for navigation items and menus, tabs, pagination buttons, chapter progress, lines, and secondary button hovers.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_200'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_300',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#d1d5db'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_300',
-      array(
-        'label' => __( 'Light Background 300', 'fictioneer' ),
-        'description' => __( 'Used for the body background, placeholders, primary tags, pagination buttons, secondary button and tag borders, tab and navigation menu hovers.', 'fictioneer'),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_300'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_400',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9ca3b0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_400',
-      array(
-        'label' => __( 'Light Background 400', 'fictioneer' ),
-        'description' => __( 'Used for disabled buttons, input tokens, and placeholder texts.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_400'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_500',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#6b7280'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_500',
-      array(
-        'label' => __( 'Light Background 500', 'fictioneer' ),
-        'description' => __( 'Used for primary buttons, range thumbs, and mobile menu quick button hovers.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_500'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_600',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#4b5563'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_600',
-      array(
-        'label' => __( 'Light Background 600', 'fictioneer' ),
-        'description' => __( 'Used for text selection background, active buttons and tabs, and layout borders.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_600'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_700',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#384252'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_700',
-      array(
-        'label' => __( 'Light Background 700', 'fictioneer' ),
-        'description' => __( 'Used as hover for primary buttons, range thumbs, and tags.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_700'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_800',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#1f2937'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_800',
-      array(
-        'label' => __( 'Light Background 800', 'fictioneer' ),
-        'description' => __( 'Used for popup menus, tooltips, card labels, and the isolated footer.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_800'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_900',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#111827'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_900',
-      array(
-        'label' => __( 'Light Background 900', 'fictioneer' ),
-        'description' => __( 'Used for the chapter progress background.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_900'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bg_950',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#111827'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bg_950',
-      array(
-        'label' => __( 'Light Background 950', 'fictioneer' ),
-        'description' => __( 'Used as part of semi-transparent colors, like input backgrounds and content list gradients.', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bg_950'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_100',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#010204'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_100',
-      array(
-        'label' => __( 'Light Foreground 100', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_100'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_200',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#04060b'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_200',
-      array(
-        'label' => __( 'Light Foreground 200', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_200'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_300',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#0a0f1a'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_300',
-      array(
-        'label' => __( 'Light Foreground 300', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_300'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_400',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#111827'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_400',
-      array(
-        'label' => __( 'Light Foreground 400', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_400'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_500',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#1f2937'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_500',
-      array(
-        'label' => __( 'Light Foreground 500', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_500'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_600',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#384252'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_600',
-      array(
-        'label' => __( 'Light Foreground 600', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_600'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_700',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#4b5563'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_700',
-      array(
-        'label' => __( 'Light Foreground 700', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_700'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_800',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#6b7280'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_800',
-      array(
-        'label' => __( 'Light Foreground 800', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_800'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_900',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9ca3b0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_900',
-      array(
-        'label' => __( 'Light Foreground 900', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_900'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_950',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f3f5f7'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_950',
-      array(
-        'label' => __( 'Light Foreground 950', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_950'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_fg_tinted',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#2b3546'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_fg_tinted',
-      array(
-        'label' => __( 'Light Foreground Tinted', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_fg_tinted'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_theme_color_base',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f3f4f6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_theme_color_base',
-      array(
-        'label' => __( 'Light Theme Color Meta', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_theme_color_base'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_navigation_background_sticky',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#fcfcfd'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_navigation_background_sticky',
-      array(
-        'label' => __( 'Light Navigation', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_navigation_background_sticky'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_primary_400',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#75a4f0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_primary_400',
-      array(
-        'label' => __( 'Light Primary 400', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_primary_400'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_primary_500',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3c83f6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_primary_500',
-      array(
-        'label' => __( 'Light Primary 500', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_primary_500'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_primary_600',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#1e3fae'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_primary_600',
-      array(
-        'label' => __( 'Light Primary 600', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_primary_600'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_red_400',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f98686'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_red_400',
-      array(
-        'label' => __( 'Light Red 400', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_red_400'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_red_500',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f15b5b'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_red_500',
-      array(
-        'label' => __( 'Light Red 500', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_red_500'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_red_600',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dd3c3c'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_red_600',
-      array(
-        'label' => __( 'Light Red 600', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_red_600'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_green_400',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#a4db8a'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_green_400',
-      array(
-        'label' => __( 'Light Green 400', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_green_400'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_green_500',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#72bd51'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_green_500',
-      array(
-        'label' => __( 'Light Green 500', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_green_500'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_green_600',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#5cac39'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_green_600',
-      array(
-        'label' => __( 'Light Green 600', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_green_600'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bookmark_line_color',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#3c83f6'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bookmark_line_color',
-      array(
-        'label' => __( 'Light Bookmark Line', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bookmark_line_color'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bookmark_color_alpha',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9ca3b0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bookmark_color_alpha',
-      array(
-        'label' => __( 'Light Bookmark Alpha', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bookmark_color_alpha'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bookmark_color_beta',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#f59e0b'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bookmark_color_beta',
-      array(
-        'label' => __( 'Light Bookmark Beta', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bookmark_color_beta'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bookmark_color_gamma',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#77bfa3'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bookmark_color_gamma',
-      array(
-        'label' => __( 'Light Bookmark Gamma', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bookmark_color_gamma'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_bookmark_color_delta',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#dd5960'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_bookmark_color_delta',
-      array(
-        'label' => __( 'Light Bookmark Delta', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_bookmark_color_delta'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_ins_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#7ec945'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_ins_background',
-      array(
-        'label' => __( 'Light &ltins>', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_ins_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_del_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#e96c63'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_del_background',
-      array(
-        'label' => __( 'Light &ltdel>', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_del_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_generic_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9ca3b0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_generic_background',
-      array(
-        'label' => __( 'Light Generic Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_generic_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_moderator_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#5369ac'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_moderator_background',
-      array(
-        'label' => __( 'Light Moderator Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_moderator_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_admin_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#384252'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_admin_background',
-      array(
-        'label' => __( 'Light Admin Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_admin_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_author_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#384252'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_author_background',
-      array(
-        'label' => __( 'Light Author Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_author_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_supporter_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#ed5e76'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_supporter_background',
-      array(
-        'label' => __( 'Light Supporter Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_supporter_background'
-      )
-    )
-  );
-
-  $manager->add_setting(
-    'light_badge_override_background',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_hex_color',
-      'default' => '#9ca3b0'
-    )
-  );
-
-  $manager->add_control(
-    new WP_Customize_Color_Control(
-      $manager,
-      'light_badge_override_background',
-      array(
-        'label' => __( 'Light Override Badge', 'fictioneer' ),
-        'section' => 'light_mode_colors',
-        'settings' => 'light_badge_override_background'
-      )
-    )
-  );
+    );
+  }
 }
 
 // =============================================================================
@@ -1604,23 +786,23 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_fg_400' => array(
       'label' => __( 'Dark Foreground 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary heavy text color.', 'fictioneer' )
     ),
     'dark_fg_500' => array(
       'label' => __( 'Dark Foreground 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary base text color.', 'fictioneer' )
     ),
     'dark_fg_600' => array(
       'label' => __( 'Dark Foreground 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Primary light text color.', 'fictioneer' )
     ),
     'dark_fg_700' => array(
       'label' => __( 'Dark Foreground 700', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Secondary text color.', 'fictioneer' )
     ),
     'dark_fg_800' => array(
       'label' => __( 'Dark Foreground 800', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Tertiary text color.', 'fictioneer' )
     ),
     'dark_fg_900' => array(
       'label' => __( 'Dark Foreground 900', 'fictioneer' ),
