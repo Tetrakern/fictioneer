@@ -164,13 +164,26 @@ body {
     border-color: rgb(0 0 0 / 30%);
 
     &.is-style-wide {
-      border-bottom-width: 4px;
+      width: 100%;
+    }
+
+    &:not(.is-style-wide) {
+      width: max(25%, 128px);
+    }
+
+    &.has-background {
+      border-color: currentColor;
+
+      &::before {
+        color: currentColor !important;
+      }
     }
 
     &.is-style-dots {
       text-align: center;
       line-height: 1;
       border: none;
+      width: 100%;
 
       &::before {
         content: '···';

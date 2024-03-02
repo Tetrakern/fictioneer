@@ -42,13 +42,23 @@ sup[data-fn] {
   border-bottom: var(--layout-hr-border);
 
   &.is-style-wide {
-    border-bottom-width: 4px;
+    width: 100%;
+  }
+
+  &:not(.is-style-wide) {
+    width: max(25%, 128px);
+  }
+
+  &.has-background {
+    --hr-dots-color: currentColor;
+    border-color: currentColor;
   }
 
   &.is-style-dots {
     text-align: center;
     line-height: 1;
     border: 0;
+    width: 100%;
 
     &::before {
       content: '···';
