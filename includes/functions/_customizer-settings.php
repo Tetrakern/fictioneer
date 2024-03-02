@@ -341,19 +341,19 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_bg_700' => array(
       'label' => __( 'Light Background 700', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for active primary buttons and tabs, formatting toggle hovers, suggestion and file button hovers, mobile menu button hovers, current pagination number, and popup menu hovers/selected.', 'fictioneer' )
     ),
     'light_bg_800' => array(
       'label' => __( 'Light Background 800', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for popup menus, chapter micro menu, spoiler codes, tooltips, default notices, chapter progress bar, and input components.', 'fictioneer' )
     ),
     'light_bg_900' => array(
       'label' => __( 'Light Background 900', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for the isolated footer, TTS interface, image placeholders, and consent banner.', 'fictioneer' )
     ),
     'light_bg_950' => array(
       'label' => __( 'Light Background 950', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for content lists and gradients, info boxes, overlays, stripes, borders, inputs, comments, and selection highlights with varying opacity (3-40%).', 'fictioneer' )
     ),
     'light_fg_100' => array(
       'label' => __( 'Light Foreground 100', 'fictioneer' ),
@@ -734,11 +734,11 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_100' => array(
       'label' => __( 'Dark Background 100', 'fictioneer' ),
-      'description' => __( 'Used for active buttons and tabs, suggestion and file buttons, checked formatting toggles, popup menu hovers, popup menu selections, and spoiler codes.', 'fictioneer' )
+      'description' => __( 'Used for active buttons and tabs, suggestion and file buttons, checked formatting toggles, popup menu hovers/selected, and spoiler codes.', 'fictioneer' )
     ),
     'dark_bg_200' => array(
       'label' => __( 'Dark Background 200', 'fictioneer' ),
-      'description' => __( 'Used for the chapter progress bar, dashed horizontal lines, the current pagination number, and secondary button border hovers.', 'fictioneer' )
+      'description' => __( 'Used for the chapter progress fill, dashed horizontal lines, the current pagination number, and secondary button border hovers.', 'fictioneer' )
     ),
     'dark_bg_300' => array(
       'label' => __( 'Dark Background 300', 'fictioneer' ),
