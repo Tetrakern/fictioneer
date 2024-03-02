@@ -815,8 +815,8 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Dark mode colors ------------------------------------------------------
 
   $css .= ":root {
-    --site-title-heading-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_title_color', '#c4cad6' ) ) . ";
-    --site-title-tagline-color: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_header_tagline_color', '#c4cad6' ) ) . ";
+    --site-title-heading-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'dark_header_title_color' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'dark_header_tagline_color' ) ) . ";
   }";
 
   if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {
@@ -863,35 +863,10 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Light mode colors -----------------------------------------------------
 
-  $title_color_light = get_theme_mod( 'light_header_title_color', '#fcfcfd' );
-  $tag_color_light = get_theme_mod( 'light_header_tagline_color', '#f3f5f7' );
-
-  if ( in_array( $header_style, ['default', 'overlay'] ) ) {
-    $css .= ":root {
-      --site-title-heading-color: " . fictioneer_hsl_font_code( $title_color_light ) . ";
-      --site-title-tagline-color: " . fictioneer_hsl_font_code( $tag_color_light ) . ";
-    }";
-  } else {
-    if ( $title_color_light !== '#fcfcfd' ) {
-      $css .= ":root[data-mode=light] {
-        --site-title-heading-color: " . fictioneer_hsl_font_code( $title_color_light ) . ";
-      }";
-    } else {
-      $css .= ":root[data-mode=light] {
-        --site-title-heading-color: var(--fg-400);
-      }";
-    }
-
-    if ( $tag_color_light !== '#f3f5f7' ) {
-      $css .= ":root[data-mode=light] {
-        --site-title-tagline-color: " . fictioneer_hsl_font_code( $tag_color_light ) . ";
-      }";
-    } else {
-      $css .= ":root[data-mode=light] {
-        --site-title-tagline-color: var(--fg-400);
-      }";
-    }
-  }
+  $css .= ":root[data-mode=light] {
+    --site-title-heading-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'light_header_title_color' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'light_header_tagline_color' ) ) . ";
+  }";
 
   if ( get_theme_mod( 'use_custom_light_mode', false ) ) {
     $css .= ":root[data-mode=light] {"
