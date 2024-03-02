@@ -216,7 +216,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                     if ( empty( $list_title ) ) {
-                      $chapter_title = fictioneer_get_safe_title( $chapter->ID );
+                      $chapter_title = fictioneer_get_safe_title( $chapter->ID, 'shortcode-latest-updates-compact' );
                     } else {
                       $chapter_title = $list_title;
                     }

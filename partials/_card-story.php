@@ -137,7 +137,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
               $list_title = trim( wp_strip_all_tags( $list_title ) );
 
               if ( empty( $list_title ) ) {
-                $chapter_title = fictioneer_get_safe_title( $chapter->ID );
+                $chapter_title = fictioneer_get_safe_title( $chapter->ID, 'card-story-chapter-list' );
               } else {
                 $chapter_title = $list_title;
               }

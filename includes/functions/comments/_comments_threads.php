@@ -474,7 +474,7 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
       ! $is_approved &&
       ! $is_report_hidden &&
       ! $commentcode &&
-      ! current_user_can( 'moderate_comments' ) &&
+      ! fictioneer_user_can_moderate( $comment ) &&
       ( $unapproved_comment_email != $comment->comment_author_email || empty( $unapproved_comment_email ) ) &&
       ! $is_new
     ) {

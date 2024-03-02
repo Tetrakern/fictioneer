@@ -127,22 +127,22 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
  * hsl_code(hue, saturation, lightness) returns a dynamic HSL code.
  */
 
---bg-500: #{hsl_code(222, 13, 27)}; // SCSS
---bg-500: hsl(calc(220deg + var(--hue-rotate)) calc(9% * var(--saturation)) clamp(23%, 46% * var(--darken), 73%)); // CSS
+--bg-500: #{hsl_code(222, 13, 26.5)}; // SCSS
+--bg-500: hsl(calc(222deg + var(--hue-rotate)) calc(13% * var(--saturation)) clamp(13.25%, 26.5% * var(--darken), 53%)); // CSS
 
 /*
  * hsl_code_free(hue, saturation, lightness) returns a dynamic HSL code but without the HSL wrapper.
  */
 
---bg-900-free: #{hsl_code_free(222, 15, 17)}; // SCSS
---bg-900-free: calc(222deg + var(--hue-rotate)) calc(15% * var(--saturation)) clamp(8.5%, 17% * var(--darken), 58.5%) // CSS
+--bg-900-free: #{hsl_code_free(219, 15, 17)}; // SCSS
+--bg-900-free: calc(219deg + var(--hue-rotate)) calc(15% * var(--saturation)) clamp(8.5%, 17% * var(--darken), 58.5%) // CSS
 
 /*
  * hsl_font_code(hue, saturation, lightness) returns a dynamic HSL font code.
  */
 
---fg-500: #{hsl_font_code(222, 14, 69)}; // SCSS
---fg-500: hsl(calc(215deg + var(--hue-rotate)) calc(28% * (var(--font-saturation) + var(--saturation) - 1)) 17%); // CSS
+--fg-500: #{hsl_font_code(222, 18, 76)}; // SCSS
+--fg-500: hsl(calc(222deg + var(--hue-rotate)) max(calc(18% * (var(--font-saturation) + var(--saturation) - 1)), 0%) clamp(0%, 76%, 100%)); // CSS
 ```
 
 ## JavaScript
@@ -317,6 +317,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity`
 | `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
 | `the_password_form` | `fictioneer_password_form`
+| `the_content_more_link` | `fictioneer_wrap_read_more_link`
 | `theme_templates` | `fictioneer_disallow_page_template_select`
 | `update_post_metadata` | `fictioneer_prevent_page_template_update`
 | `upload_size_limit` | `fictioneer_upload_size_limit`

@@ -1012,7 +1012,8 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $icon = fictioneer_get_icon_field( 'fictioneer_chapter_icon', $chapter_id );
           $text_icon = get_post_meta( $chapter_id, 'fictioneer_chapter_text_icon', true );
           $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
-          $title = fictioneer_get_safe_title( $chapter_id );
+          $title = fictioneer_get_safe_title( $chapter_id, 'shortcode-chapter-list' );
+          $has_password = ! empty( $post->post_password );
 
           // Start HTML ---> ?>
           <li class="chapter-group__list-item<?php echo $warning ? ' _warning' : ''; ?>" data-post-id="<?php echo $chapter_id; ?>">
@@ -1022,21 +1023,26 @@ function fictioneer_shortcode_chapter_list( $attr ) {
               <i class="<?php echo empty( $icon ) ? 'fa-solid fa-book' : $icon; ?> chapter-group__list-item-icon"></i>
             <?php endif; ?>
 
-            <a href="<?php the_permalink( $chapter_id ); ?>" class="chapter-group__list-item-link truncate _1-1">
-              <?php
-                if ( ! empty( $prefix ) ) {
-                  echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix ) . ' ';
-                }
-                echo $title;
-              ?>
-            </a>
+            <a
+              href="<?php the_permalink( $chapter_id ); ?>"
+              class="chapter-group__list-item-link truncate _1-1 <?php echo $has_password ? '_password' : ''; ?>"
+            ><?php
+
+              if ( ! empty( $prefix ) ) {
+                // Mind space between prefix and title
+                echo apply_filters( 'fictioneer_filter_list_chapter_prefix', $prefix ) . ' ';
+              }
+
+              echo $title;
+
+            ?></a>
 
             <?php
               // Chapter subrow
               $chapter_data = [];
               $chapter_data['id'] = $chapter_id;
               $chapter_data['warning'] = $warning;
-              $chapter_data['password'] = ! empty( $post->post_password );
+              $chapter_data['password'] = $has_password;
               $chapter_data['timestamp'] = get_the_time( 'c' );
               $chapter_data['list_date'] = get_the_date( '' );
               $chapter_data['words'] = fictioneer_get_word_count( $chapter_id );

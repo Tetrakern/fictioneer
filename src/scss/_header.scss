@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  height: var(--layout-site-header-height);
+  height: var(--header-height);
   width: 100%;
   contain: style size; // Improves performance
 
@@ -15,7 +15,6 @@
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
-    filter: var(--layout-site-logo-filter);
     content-visibility: auto;
   }
 
@@ -24,8 +23,8 @@
   }
 
   .custom-logo {
-    height: var(--layout-site-logo-height);
-    max-height: calc(var(--layout-site-header-height) - 2rem);
+    height: var(--header-logo-height);
+    max-height: calc(var(--header-height) - 2rem);
     width: fit-content;
     object-fit: contain;
   }
@@ -33,10 +32,13 @@
   &__title {
     position: relative;
     top: 40%;
-    text-shadow: var(--site-title-text-shadow);
     padding: 16px var(--layout-spacing-horizontal);
     transform: translateY(-50%);
     content-visibility: auto;
+
+    &:not(._no-text-shadow) {
+      text-shadow: var(--site-title-text-shadow);
+    }
 
     &-heading {
       font: 700 var(--site-title-font-size)/1.3 var(--ff-site-title);
@@ -62,16 +64,15 @@
   top: -6px;
   left: 0;
   right: 0;
-  height: calc(var(--layout-header-background-height) + 6px); // Offset wrapper margin
+  height: calc(var(--header-image-height) + 6px); // Offset wrapper margin
   width: 100%;
-  filter: var(--layout-header-background-filter);
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   content-visibility: auto;
   contain: content; // Improve performance
 
   &._shadow {
-    filter: var(--layout-header-background-drop-shadow);
+    filter: var(--header-image-drop-shadow);
   }
 
   &._fading-bottom {
@@ -81,7 +82,7 @@
 
   &__wrapper {
     height: calc(100% - 6px); // Offset margin
-    background: var(--e-body);
+    background: var(--placeholder-background);
     margin-top: 6px;
     overflow: hidden;
     transform: translateZ(0); // Safari fix

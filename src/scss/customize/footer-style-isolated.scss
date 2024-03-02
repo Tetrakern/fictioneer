@@ -2,8 +2,8 @@
 @import '../common/_mixins';
 
 .footer._footer-isolated {
-  --layout-link-hover: var(--fg-d200);
-  background-color: var(--bg-isolated-footer);
+  --layout-link-color-hover: var(--fg-isolated-footer-hover);
+  background: var(--bg-isolated-footer);
   color: var(--fg-isolated-footer);
   margin-top: 3rem;
 

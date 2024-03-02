@@ -9,7 +9,7 @@
     flex: 1 0 100%;
     padding-bottom: .75rem;
     margin-bottom: .25rem;
-    border-bottom: 2px dashed var(--layout-color-lineart);
+    border-bottom: var(--layout-hr-border-dashed);
   }
 
   &__current {
@@ -23,7 +23,7 @@
   }
 
   &__tax-description {
-    color: var(--fg-800);
+    color: var(--fg-700);
     font-size: var(--fs-xxs);
     font-style: italic;
     line-height: 1.5;

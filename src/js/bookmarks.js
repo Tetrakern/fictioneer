@@ -538,14 +538,17 @@ function fcn_showBookmarkCards() {
   // Use fragment to collect nodes
   const fragment = document.createDocumentFragment();
 
+  // Sort bookmarks by date, newest to oldest
+  const sorted = Object.entries(fcn_bookmarks.data).sort((a, b) => new Date(b[1].date) - new Date(a[1].date));
+
   // Append bookmarks to fragment (if any)
-  Object.entries(
-    fcn_bookmarks.data).forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId, date, image, thumb, content }]
-  ) => {
+  sorted.forEach(([id, { color, progress, link, chapter, 'paragraph-id': paragraphId, date, image, thumb, content }]) => {
     // Limit rendered bookmarks
-    if (count > -1 && count-- < 1) {
+    if (count == 0) {
       return;
     }
+
+    count--;
 
     // Clone template and get data from JSON
     const clone = fcn_bookmarksSmallCardTemplate.content.cloneNode(true);

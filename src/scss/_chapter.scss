@@ -1,9 +1,3 @@
-:root:not(.no-background-textures, .minimal) body .chapter__background {
-  background: {
-    image: var(--layout-background-texture-chapter);
-  }
-}
-
 .main {
   &:is(._below-768, ._640-and-below) {
     .chapter {
@@ -110,7 +104,7 @@
     padding-bottom: 2.5rem;
 
     > a {
-      color: var(--fg-600);
+      color: var(--fg-700);
       font-size: var(--fs-s);
       font-weight: var(--font-weight-medium);
       line-height: 1;
@@ -130,9 +124,13 @@
 
   &__author {
     display: block;
-    color: var(--fg-600);
+    color: var(--fg-700);
     font-size: var(--fs-xs);
     margin-top: .5rem;
+
+    a:hover {
+      color: var(--fg-400);
+    }
   }
 
   &__password-note {
@@ -202,7 +200,7 @@
   }
 
   &__support {
-    color: var(--fg-500);
+    color: var(--fg-400);
     font-size: var(--fs-xs);
     font-weight: var(--font-weight-strong);
     text-align: center;
@@ -211,7 +209,7 @@
 
     &-message {
       text-transform: uppercase;
-      opacity: .45;
+      opacity: .5;
     }
 
     &-links {
@@ -222,7 +220,7 @@
       margin: 8px -8px 0;
 
       :is(i, .icon) {
-        color: var(--fg-600);
+        color: var(--fg-500);
         margin-right: 2px;
       }
 
@@ -233,22 +231,18 @@
     }
 
     a {
-      color: var(--fg-500);
+      color: var(--fg-400);
       font-size: var(--fs-xs);
       line-height: 32px;
       padding: 0 8px;
       border-radius: var(--layout-border-radius-small);
       height: 32px;
-      opacity: .45;
+      opacity: .5;
 
       &:hover,
       &:focus-visible {
         background: var(--button-secondary-background-hover);
         opacity: 1;
-
-        i {
-          color: inherit;
-        }
       }
     }
 
@@ -266,7 +260,7 @@
   }
 
   &__warning.infobox {
-    color: var(--warning);
+    color: var(--red-400);
     font-weight: var(--font-weight-medium);
 
     p {
@@ -329,7 +323,7 @@
   &[data-bookmark-color=beta] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-beta);
+      color: var(--bookmark-button-color-active-beta);
       background: var(--bookmark-color-beta);
     }
   }
@@ -337,7 +331,7 @@
   &[data-bookmark-color=gamma] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-gamma);
+      color: var(--bookmark-button-color-active-gamma);
       background: var(--bookmark-color-gamma);
     }
   }
@@ -345,14 +339,14 @@
   &[data-bookmark-color=delta] {
     &::before,
     #button-set-bookmark {
-      color: var(--bookmark-button-text-active-delta);
+      color: var(--bookmark-button-color-active-delta);
       background: var(--bookmark-color-delta);
     }
   }
 
   #button-set-bookmark {
     background: var(--button-bookmark-background-active);
-    color: var(--bookmark-button-text-active-alpha);
+    color: var(--bookmark-button-color-active-alpha);
   }
 }
 

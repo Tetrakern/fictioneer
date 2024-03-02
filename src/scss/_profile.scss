@@ -5,14 +5,6 @@
     }
   }
 
-  &__notice {
-    font-size: var(--fs-xs);
-
-    &--alert {
-      color: var(--warning);
-    }
-  }
-
   &__description {
     font-size: var(--fs-xs);
   }
@@ -50,7 +42,7 @@
         top: 8px;
         right: 8px;
         z-index: 1;
-        color: var(--fg-700);
+        color: var(--fg-800);
       }
     }
 
@@ -61,7 +53,7 @@
     &-label {
       display: flex;
       align-items: flex-end;
-      color: var(--fg-600);
+      color: var(--fg-500);
       font-size: var(--fs-xs);
       font-weight: var(--font-weight-medium);
       padding: 0 0 2px;
@@ -122,7 +114,7 @@
       text-align: center;
       line-height: 1.1;
       padding: 1rem;
-      border: 1px dashed var(--button-secondary-text);
+      border: 1px dashed var(--button-secondary-color);
       border-radius: var(--layout-border-radius-small);
       height: 5rem;
       width: 5rem;
@@ -140,22 +132,22 @@
       &._disconnected {
         &:hover {
           background: var(--button-secondary-background-hover);
-          color: var(--button-secondary-text-hover);
-          border-color: var(--button-secondary-text-hover);
+          color: var(--button-secondary-color-hover);
+          border-color: var(--button-secondary-color-hover);
         }
       }
 
       &._connected {
         cursor: default;
-        background: var(--tooltip-background);
-        color: var(--tooltip-text);
+        background: var(--button-oauth-connected, var(--bg-50));
+        color: var(--fg-inverted);
         text-shadow: none;
         border: none;
       }
 
       &.ajax-in-progress {
         pointer-events: none;
-        filter: blur(1px);
+        filter: var(--ajax-in-progress-filter, blur(1px));
       }
 
       button {
@@ -175,104 +167,8 @@
     }
   }
 
-  .comment {
-    background: var(--comment-background);
-    border-radius: 2px;
-    padding: .7rem .75rem .5rem;
-    margin-top: 2rem;
-
-    &:not(:last-child) {
-      margin-bottom: 2rem;
-    }
-
-    p {
-      &:not(:last-child) {
-        margin-bottom: .5rem;
-      }
-    }
-
-    &__header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      line-height: 1;
-      margin-bottom: .5rem;
-
-      img {
-        border-radius: 2px;
-      }
-    }
-
-    &__author {
-      font-size: 13px;
-      line-height: 1.2;
-      padding-top: 1px;
-      margin-bottom: 2px;
-
-      > :is(span, a) {
-        font-weight: var(--font-weight-medium);
-      }
-    }
-
-    .fictioneer-comment__badge {
-      display: inline-flex;
-      align-items: center;
-      background: var(--badge-generic-background);
-      color: var(--badge-generic-text);
-      font: var(--font-weight-badge) 10px/1 var(--ff-base);
-      letter-spacing: -0.03em;
-      text-shadow: none;
-      border-radius: 2px;
-      padding: 0 4px;
-      margin-left: 4px;
-      height: 16px;
-      transform: translateY(-1px);
-
-      &.badge-override {
-        background: var(--badge-override-background);
-        color: var(--badge-override-text);
-      }
-
-      &.is-moderator {
-        background: var(--badge-moderator-background);
-        color: var(--badge-moderator-text);
-      }
-
-      &.is-admin {
-        background: var(--badge-admin-background);
-        color: var(--badge-admin-text);
-      }
-
-      &.is-author {
-        background: var(--badge-author-background);
-        color: var(--badge-author-text);
-      }
-
-      &.is-supporter {
-        background: var(--badge-supporter-background);
-        color: var(--badge-supporter-text);
-      }
-    }
-
-    &__date-and-link {
-      color: var(--fg-700);
-      font-size: 11px;
-      line-height: 1.3;
-
-      a {
-        font-weight: var(--font-weight-medium);
-      }
-    }
-
-    &__body {
-      color: var(--fg-600);
-      font-size: var(--fs-xs);
-      overflow-wrap: break-word;
-    }
-  }
-
   &__admin-notes {
-    color: var(--fg-600);
+    color: var(--fg-700);
     font-size: var(--fs-xs);
     font-style: italic;
     line-height: 1.3;
@@ -283,7 +179,7 @@
 
     .warning,
     .warning > i {
-      color: var(--warning);
+      color: var(--red-400);
     }
 
     li {
@@ -295,7 +191,7 @@
       }
 
       i {
-        color: var(--fg-800);
+        color: var(--fg-900);
         flex-shrink: 0;
         padding-left: 2px;
         width: 24px;

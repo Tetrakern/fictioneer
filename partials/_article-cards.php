@@ -124,7 +124,7 @@ $pag_args = array(
 
           // Setup
           $story_id = ( $post->post_type === 'fcn_story' ) ? $post->ID : null;
-          $title = fictioneer_get_safe_title( $post->ID );
+          $title = fictioneer_get_safe_title( $post->ID, 'card-article' );
           $permalink = get_permalink();
           $categories = wp_get_post_categories( $post->ID );
           $tags = get_the_tags();

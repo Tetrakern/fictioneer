@@ -2,7 +2,7 @@
 @import '../common/_mixins';
 
 .top-header {
-  background: var(--layout-top-header-background-color);
+  background: var(--top-header-background);
   width: 100%;
   contain: style layout; // Improves performance
 
@@ -27,7 +27,7 @@
 
   .custom-logo {
     display: block;
-    height: var(--layout-site-logo-height);
+    height: var(--header-logo-height);
     max-height: calc(var(--site-title-font-size) + var(--site-title-tagline-font-size) + 1rem);
     width: auto;
     object-fit: contain;
@@ -39,6 +39,10 @@
 
   &._no-title .custom-logo {
     max-height: unset;
+  }
+
+  &:not(._no-text-shadow) .top-header__title {
+    text-shadow: var(--site-title-text-shadow);
   }
 
   &__title {

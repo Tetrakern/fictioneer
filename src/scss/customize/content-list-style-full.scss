@@ -2,7 +2,8 @@
 @import '../common/_mixins';
 
 :root:not(.minimal) .content-list-style-full {
-  --content-list-item-background: var(--content-list-item-background-full);
+  --card-content-li-background: var(--card-content-li-background-full);
+  --content-li-background: var(--content-li-background-full);
 
   .chapter-group__list-item {
     padding: .5rem 8px .5rem 6px;

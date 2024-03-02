@@ -46,7 +46,7 @@
 // Case above or equal to 1024px
 :root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky {
   .main-navigation__background {
-    opacity: var(--navigation-background-sticky-end-opacity);
+    opacity: var(--navigation-background-end-opacity);
   }
 
   .main-navigation__list > :is(.menu-item, .page_item) {
@@ -58,7 +58,7 @@
 :root:not(.no-nav-sticky, .header-style-overlay) .main-navigation.is-sticky {
   .main-navigation__background {
     @media only screen and (max-width: 1023px) {
-      opacity: var(--navigation-background-sticky-end-opacity);
+      opacity: var(--navigation-background-end-opacity);
     }
   }
 }
@@ -73,7 +73,7 @@
 // Overlay nav
 .header-style-overlay {
   --navigation-height: 48px;
-  --navigation-background-sticky-start-opacity: 1;
+  --navigation-background-start-opacity: 1;
 
   .main-navigation {
     margin: 0 0 calc(-1 * var(--navigation-height));
@@ -98,10 +98,9 @@
   --focus-offset: -2px;
   top: calc(-0.1px - var(--nav-observer-offset, 0px));
   z-index: 1000;
-  color: var(--navigation-text);
+  color: var(--navigation-color);
   font-size: get_clamp(14, 16, 375, 768);
   font-weight: var(--font-weight-navigation);
-  text-shadow: var(--navigation-text-shadow);
   padding: 0;
   margin: 12px 0;
   width: 100%;
@@ -114,9 +113,9 @@
     inset: 0;
     z-index: -1;
     display: block;
-    background: var(--navigation-background-sticky);
+    background: var(--navigation-background);
     box-shadow: 0 0 1px transparent; // Safari fix to show drop-shadow
-    opacity: var(--navigation-background-sticky-start-opacity);
+    opacity: var(--navigation-background-start-opacity);
     filter: var(--navigation-drop-shadow);
     contain: strict; // Improve performance
   }
@@ -195,7 +194,7 @@
           border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
 
           &:hover {
-            background: var(--navigation-item-active-submenu-background);
+            background: var(--navigation-submenu-background);
           }
         }
       }
@@ -223,7 +222,7 @@
     }
 
     &:hover {
-      background: var(--navigation-item-active-background);
+      background: var(--navigation-item-background-hover);
     }
 
     &.menu-item-has-children {
@@ -242,7 +241,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--navigation-text);
       font-family: var(--ff-nav-item);
       line-height: 1.2;
       letter-spacing: get_relative_clamp(-0.01, 0, 375, 480, 'vw', 'em');
@@ -251,7 +249,7 @@
       padding: 0 1rem;
 
       &:hover {
-        color: var(--navigation-text-hover);
+        color: var(--navigation-color-hover);
       }
     }
   }
@@ -274,7 +272,7 @@
     }
 
     .menu-item {
-      background: var(--navigation-item-active-submenu-background);
+      background: var(--navigation-submenu-background);
 
       &:last-child {
         border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
@@ -293,7 +291,7 @@
       }
 
       &:hover {
-        background: var(--navigation-subitem-active-background);
+        background: var(--navigation-subitem-background-hover);
       }
     }
 
@@ -353,11 +351,13 @@
   .main-navigation {
     :is(.menu-item, .page_item) {
       &:focus-within {
-        background: var(--navigation-item-active-background);
+        background: var(--navigation-item-background-hover);
 
         > .sub-menu {
           pointer-events: initial;
           opacity: 1;
+          content-visibility: visible;
+          transform: scale(1);
         }
       }
     }

@@ -21,7 +21,7 @@
 
     &-image {
       width: inherit;
-      filter: var(--figure-drop-shadow);
+      box-shadow: var(--recommendation-cover-box-shadow, var(--box-shadow-xl));
 
       @media (max-width: 768px) {
         height: auto;

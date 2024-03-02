@@ -886,7 +886,7 @@ function fcn_updateHueRotate(value) {
   fcn_settingHueRotateReset.classList.toggle('_modified', value != 0);
 
   // Update hue-rotate property
-  fcn_theRoot.style.setProperty('--hue-rotate', `${value}deg + var(--hue-offset)`);
+  fcn_theRoot.style.setProperty('--hue-rotate', `(${value}deg + var(--hue-offset))`);
 
   // Update local storage
   fcn_siteSettings['hue-rotate'] = value;

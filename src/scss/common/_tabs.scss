@@ -9,21 +9,22 @@
 
   &__item {
     --focus-offset: -2px;
-    background: var(--tab-background-inactive);
-    color: var(--tab-text-inactive);
+    background: var(--tab-background);
+    color: var(--tab-color);
     font-size: var(--fs-dxs);
     font-weight: var(--font-weight-medium);
     line-height: 1;
     letter-spacing: .02em;
     white-space: nowrap;
-    text-shadow: var(--tab-text-shadow-inactive);
+    text-shadow: var(--tab-text-shadow);
     padding: 6px 8px;
     transition: color, background-color, border-color, opacity;
     transition-duration: var(--transition-duration);
 
     &:hover:not(._current) {
       background: var(--tab-background-hover);
-      color: var(--tab-text-hover);
+      color: var(--tab-color-hover);
+      text-shadow: var(--tab-text-shadow-hover, var(--tab-text-shadow));
     }
 
     &:focus-visible {
@@ -32,7 +33,7 @@
 
     &._current {
       background: var(--tab-background-active);
-      color: var(--tab-text-active);
+      color: var(--tab-color-active);
       text-shadow: var(--tab-text-shadow-active);
     }
 

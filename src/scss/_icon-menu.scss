@@ -4,13 +4,13 @@
   &__item {
     display: flex;
     align-items: center;
-    color: var(--navigation-actions-text);
+    color: var(--navigation-color);
     font-size: inherit;
     padding: 0 10px;
     height: var(--navigation-height);
 
     &:hover {
-      color: var(--fg-200);
+      color: var(--navigation-color-hover);
     }
   }
 
@@ -88,15 +88,14 @@
       }
 
       &:hover {
-        color: var(--navigation-actions-text-hover);
-        background: var(--navigation-item-active-background);
+        background: var(--navigation-item-background-hover);
       }
     }
 
     &__menu {
       &:hover {
         > :first-child {
-          background: var(--navigation-item-active-submenu-background);
+          background: var(--navigation-submenu-background);
         }
 
         .sub-menu {
@@ -126,21 +125,22 @@
     .icon-menu {
       &__item {
         &:focus-visible {
-          color: var(--navigation-actions-text-hover);
-          background: var(--navigation-item-active-background);
+          color: var(--navigation-color-hover);
+          background: var(--navigation-item-background-hover);
         }
       }
 
       &__menu {
         &:focus-within {
           > :first-child {
-            background: var(--navigation-item-active-submenu-background);
+            background: var(--navigation-submenu-background);
           }
 
           > .sub-menu {
             pointer-events: initial;
             opacity: 1;
             content-visibility: visible;
+            transform: scale(1);
           }
         }
       }

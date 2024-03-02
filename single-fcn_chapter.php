@@ -43,7 +43,7 @@ get_header( null, $header_args );
         // Setup
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
-        $title = fictioneer_get_safe_title( $post->ID );
+        $title = fictioneer_get_safe_title( $post->ID, 'single-chapter' );
         $age_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 

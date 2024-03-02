@@ -953,15 +953,6 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_all_block_styles',
-                    __( 'This might interfere with theme styles.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_advanced_meta_fields',
                     __( 'Additional options you most likely do not need.', 'fictioneer' )
                   );

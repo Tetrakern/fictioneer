@@ -117,7 +117,7 @@ function fictioneer_log_post_update( $post_id, $action ) {
     $post_type_name,
     $post_id,
     $action,
-    fictioneer_get_safe_title( $post_id )
+    fictioneer_get_safe_title( $post_id, 'admin-log-post-update' )
   );
 
   // Log

@@ -60,7 +60,7 @@ if ( ! function_exists( 'fictioneer_seo_fields' ) ) {
 
     // Title
     $seo_title = $seo_fields['title'] ?? '';
-    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID );
+    $seo_title_placeholder = fictioneer_get_safe_title( $post->ID, 'seo-title-placeholder' );
 
     // Description (truncated if necessary)
     $seo_description = $seo_fields['description'] ?? '';
@@ -334,7 +334,7 @@ if ( ! function_exists( 'fictioneer_get_seo_title' ) ) {
     $seo_fields = get_post_meta( $post_id, 'fictioneer_seo_fields', true );
     $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
     $seo_title = $seo_fields['title'] ?? '';
-    $title = fictioneer_get_safe_title( $post_id );
+    $title = fictioneer_get_safe_title( $post_id, 'seo-title' );
     $default = empty( $default ) ? $title : $default;
 
     // Special Case: Frontpage
@@ -501,7 +501,7 @@ if ( ! function_exists( 'fictioneer_get_seo_description' ) ) {
     $seo_fields = get_post_meta( $post_id, 'fictioneer_seo_fields', true );
     $seo_fields = is_array( $seo_fields ) ? $seo_fields : array( 'title' => '', 'description' => '', 'og_image_id' => 0 );
     $seo_description = $seo_fields['description'] ?? '';
-    $title = fictioneer_get_safe_title( $post_id );
+    $title = fictioneer_get_safe_title( $post_id, 'seo-title-in_description' );
     $excerpt = wp_strip_all_tags( get_the_excerpt( $post_id ), true );
     $excerpt = fictioneer_truncate( $excerpt, 155 );
     $default = empty( $default ) ? $excerpt : $default;
