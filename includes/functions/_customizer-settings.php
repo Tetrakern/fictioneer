@@ -1576,7 +1576,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Card Shadow', 'fictioneer' ),
       'description' => __( 'Choose the shadow for your cards.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_shadows', $card_shadows )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_shadow', $card_shadows )
     )
   );
 
