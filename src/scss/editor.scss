@@ -101,6 +101,7 @@ body {
   // =============================================================================
 
   .wp-block {
+    box-sizing: border-box;
     margin: calc(28px + var(--spacing-offset, 0px)) auto;
     max-width: var(--editor-max-width);
 
