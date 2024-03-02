@@ -333,7 +333,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_bg_500' => array(
       'label' => __( 'Light Background 500', 'fictioneer' ),
-      'description' => __( 'Used for navigation subitem dividers.', 'fictioneer' )
+      'description' => __( 'Used for navigation subitem dividers and secondary button border hovers.', 'fictioneer' )
     ),
     'light_bg_600' => array(
       'label' => __( 'Light Background 600', 'fictioneer' ),

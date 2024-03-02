@@ -91,7 +91,7 @@
   --bg-200-free: #{hsl_code_free(210, 10, 96)}; // #f4f5f6
   --bg-300-free: #{hsl_code_free(210, 13, 91)}; // #e5e8eb
   --bg-400-free: #{hsl_code_free(220, 11, 84)}; // #d2d5db
-  --bg-500-free: #{hsl_code_free(219, 11, 65)}; // #9ca3b0
+  --bg-500-free: #{hsl_code_free(219, 11, 75)}; // #b8bdc6
   --bg-600-free: #{hsl_code_free(220, 9, 46)}; // #6b7280 (Tailwind Gray 500)
   --bg-700-free: #{hsl_code_free(215, 14, 34)}; // #4b5563 (Tailwind Gray 600)
   --bg-800-free: #{hsl_code_free(215, 28, 17)}; // #1f2937 (Tailwind Gray 800)
@@ -314,7 +314,7 @@
   // --button-secondary-color-hover: var(--fg-400);
   // --button-secondary-color-disabled: var(--fg-800);
   --button-secondary-border: 1px solid var(--bg-400);
-  --button-secondary-border-hover: 1px solid var(--bg-400);
+  --button-secondary-border-hover: 1px solid var(--bg-500);
   --button-secondary-border-disabled: 1px solid var(--bg-400);
 
   // === BUTTONS - WARNING ======================================================
