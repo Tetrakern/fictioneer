@@ -728,6 +728,9 @@ function fictioneer_build_customize_css( $content = null ) {
   $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'default' );
   $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'default' );
 
+  $dark_shade = fictioneer_hex_to_rgb( get_theme_mod( 'dark_shade', '000000' ) );
+  $dark_shade = is_array( $dark_shade ) ? $dark_shade : [0, 0, 0];
+
   $css .= ":root {
     --site-width: " . $site_width . "px;
     --hue-offset: " . $hue_offset_dark . "deg;
@@ -824,6 +827,7 @@ function fictioneer_build_customize_css( $content = null ) {
       }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
       .
       "
+      --dark-shade-rgb:" . implode( ' ', $dark_shade ) . ";
       --primary-400: " . fictioneer_get_theme_color( 'dark_primary_400' ) . ";
       --primary-500: " . fictioneer_get_theme_color( 'dark_primary_500' ) . ";
       --primary-600: " . fictioneer_get_theme_color( 'dark_primary_600' ) . ";

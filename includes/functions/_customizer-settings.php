@@ -772,6 +772,10 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'label' => __( 'Dark Background 950', 'fictioneer' ),
       'description' => __( 'Used for content lists and gradients with varying opacity (10-16%).', 'fictioneer' )
     ),
+    'dark_shade' => array(
+      'label' => __( 'Dark Shade', 'fictioneer' ),
+      'description' => __( 'Used for semi-transparent overlays with varying opacity, including inputs, comments, blockquotes, table stripes, code blocks, and scroll bars.', 'fictioneer' )
+    ),
     'dark_fg_100' => array(
       'label' => __( 'Dark Foreground 100', 'fictioneer' ),
       'description' => __( 'Highest text color for contrast and hovers. Default contrast ~11:1 on BG-700.', 'fictioneer' )
