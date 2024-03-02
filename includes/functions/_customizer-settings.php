@@ -99,6 +99,43 @@ function fictioneer_add_color_theme_option( $manager, $args ) {
 }
 
 // =============================================================================
+// RESETS
+// =============================================================================
+
+/**
+ * Add section with reset options
+ *
+ * @since 5.12.0
+ *
+ * @param WP_Customize_Manager $manager  The customizer instance.
+ */
+
+function fictioneer_add_reset_options( $manager ) {
+  $manager->add_section(
+    'reset',
+    array(
+      'title' => __( 'Reset Options', 'fictioneer' ),
+      'description' => __( 'This allows you to quickly reset options to their default. However, this is irreversible!', 'fictioneer' ),
+      'priority' => 160,
+    )
+  );
+
+  $manager->add_control(
+    'reset_all_colors',
+    array(
+      'type' => 'button',
+      'settings' => [],
+      'priority' => 10,
+      'section' => 'reset',
+      'input_attrs' => array(
+        'value' => __( 'Reset Colors', 'fictioneer' ),
+        'class' => 'button button-primary'
+      )
+    )
+  );
+}
+
+// =============================================================================
 // LIGHT MODE SETTINGS
 // =============================================================================
 
@@ -2330,6 +2367,9 @@ function fictioneer_add_customizers( $manager ) {
 
   // Fonts
   fictioneer_add_fonts_customizer_settings( $manager );
+
+  // Resets
+  fictioneer_add_reset_options( $manager );
 
   // Open Graph image
   $manager->add_setting(

@@ -1000,6 +1000,44 @@ function fictioneer_enqueue_block_editor_scripts() {
 }
 add_action( 'enqueue_block_editor_assets', 'fictioneer_enqueue_block_editor_scripts' );
 
+/**
+ * Enqueue customizer scripts
+ *
+ * @since 5.12.0
+ */
+
+function fictioneer_enqueue_customizer_scripts() {
+  wp_enqueue_script(
+    'fictioneer-customizer-scripts',
+    get_template_directory_uri() . '/js/customizer.min.js',
+    ['jquery', 'customize-preview'],
+    FICTIONEER_VERSION,
+    true
+  );
+
+  wp_localize_script( 'fictioneer-customizer-scripts', 'fictioneerData', array(
+    'confirmationDialog' => __( 'Are you sure?', 'fictioneer' )
+  ));
+}
+add_action( 'customize_controls_enqueue_scripts', 'fictioneer_enqueue_customizer_scripts' );
+
+/**
+ * Add nonce for Customizer actions
+ *
+ * @since 5.12.0
+ *
+ * @param array $nonces  Array of refreshed nonces for save and preview actions.
+ *
+ * @return array Updated array of nonces.
+ */
+
+function fictioneer_add_customizer_refresh_nonces( $nonces ) {
+  $nonces['fictioneer-reset-colors'] = wp_create_nonce( 'fictioneer-reset-colors' );
+
+  return $nonces;
+}
+add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonces' );
+
 // =============================================================================
 // ADD SCRIPTS TO LOGIN HEAD
 // =============================================================================

@@ -231,6 +231,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `after_setup_theme` | `fictioneer_theme_setup`
 | `comment_post` | `fictioneer_comment_post`, `fictioneer_post_comment_to_discord`
 | `current_screen` | `fictioneer_restrict_admin_only_pages`, `fictioneer_restrict_comment_edit`
+| `customize_controls_enqueue_scripts` | `fictioneer_enqueue_customizer_scripts`
 | `customize_register` | `fictioneer_add_customizers`
 | `customize_save_after` | `fictioneer_watch_for_customer_updates`
 | `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
@@ -259,7 +260,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `trashed_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`, `fictioneer_remove_chapter_from_story`
 | `untrash_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `update_option_*` | `fictioneer_update_option_disable_extended_chapter_list_meta_queries`, `fictioneer_update_option_disable_extended_story_list_meta_queries`
-| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_finished_checkmarks_list`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_ajax_get_user_data`, `fictioneer_ajax_get_auth`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_purge_all_schemas`
+| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_finished_checkmarks_list`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_ajax_get_user_data`, `fictioneer_ajax_get_auth`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_purge_all_schemas`, `fictioneer_ajax_reset_theme_colors`
 | `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_get_auth`
 | `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links`, `fictioneer_remove_dashboard_from_admin_bar`, `fictioneer_remove_comments_from_admin_bar`
 | `wp_dashboard_setup` | `fictioneer_remove_dashboard_widgets`
@@ -285,6 +286,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `comment_row_actions` | `fictioneer_remove_quick_edit`
 | `comment_text` | `fictioneer_bbcodes`
+| `customize_refresh_nonces` | `fictioneer_add_customizer_refresh_nonces`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
 | `excerpt_more` | `fictioneer_excerpt_ellipsis`
 | `get_avatar` | `fictioneer_avatar_fallback`
