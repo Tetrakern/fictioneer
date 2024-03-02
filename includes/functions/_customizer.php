@@ -715,6 +715,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
   $card_grid_column_gap_mod = get_theme_mod( 'card_grid_column_gap_mod', 1 );
   $card_grid_row_gap_mod = get_theme_mod( 'card_grid_row_gap_mod', 1 );
+  $card_box_shadow = get_theme_mod( 'card_shadow', 'var(--box-shadow-m)' );
   $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
   $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
   $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
@@ -754,6 +755,8 @@ function fictioneer_build_customize_css( $content = null ) {
     --ff-card-list-link: {$font_card_list_link};
     --ff-nav-item: {$font_nav_item};
     --card-cover-width-mod: {$card_cover_width_mod};
+    --card-box-shadow: {$card_box_shadow};
+    --card-drop-shadow: " . str_replace( 'box-', 'drop-', $card_box_shadow ) . ";
   }";
 
   // Only light mode
