@@ -157,7 +157,7 @@
 
   // === CONTENT LISTS =========================================================
 
-  --content-li-background: var(--content-li-background-gradient); // Base assignment
+  --content-li-background: var(--content-li-background-gradient);
   --content-li-background-full: hsl(var(--bg-950-free) / 10%);
   --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 10%) 0%, hsl(var(--bg-950-free) / 10%) 55%, transparent 90%);
   --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
@@ -384,7 +384,7 @@
   --fs-dxs: #{get_clamp(12, 13, 400, 768)};
   --fs-ds: #{get_clamp(13, 14, 400, 768)};
 
-  // === COLORS LINKS ==========================================================
+  // === COLORS - LINKS ========================================================
 
   --heading-link-color: var(--fg-400);
   --heading-link-color-hover: var(--fg-200);
@@ -397,7 +397,7 @@
 
   // === COLORS - BOOKMARKS ====================================================
 
-  --bookmark-color-alpha: var(--fg-900);
+  --bookmark-color-alpha: #7d8497; // FG-900
   --bookmark-color-beta: #e06552;
   --bookmark-color-gamma: #77BFA3;
   --bookmark-color-delta: #3C91E6;
@@ -589,10 +589,6 @@
     --toggle-color-hover: var(--fg-300);
     --toggle-color-checked: var(--fg-inverted);
     --toggle-color-checked-hover: var(--fg-inverted);
-
-    --toggle-border: var(--fg-600);
-    --toggle-border-checked: var(--fg-600);
-    --toggle-border-hover: var(--fg-300);
 
     --toggle-border: var(--bg-100);
     --toggle-border-checked: var(--bg-100);
