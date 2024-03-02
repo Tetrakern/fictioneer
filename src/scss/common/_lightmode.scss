@@ -332,7 +332,7 @@
 
   .selected-paragraph {
     --paragraph-selection-background: hsl(var(--bg-950-free) / 10%);
-    --paragraph-tools-filter: drop-shadow(0 -3px 6px rgb(0 0 0/8%));
+    --paragraph-tools-filter: drop-shadow(0 -3px 6px rgb(0 0 0 / 8%));
   }
 
   .current-reading {

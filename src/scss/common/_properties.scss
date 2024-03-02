@@ -97,13 +97,14 @@
   --body-bg-color: var(--bg-900);
   --site-bg-color: var(--bg-800);
   --fullscreen-background: var(--page-bg-color);
+  --dark-shade-rgb: 0 0 0;
 
   --read-ribbon-background: var(--bg-50);
   --read-ribbon-color: var(--fg-inverted);
   --read-ribbon-box-shadow: 0 0 2px rgb(0 0 0 / 30%);
 
-  --code-background: rgb(0 0 0 / 25%);
-  --code-background-inline: rgb(0 0 0 / 25%);
+  --code-background: rgb(var(--dark-shade-rgb) / 25%);
+  --code-background-inline: rgb(var(--dark-shade-rgb) / 25%);
   --code-color: var(--fg-700);
 
   --spoiler-background: var(--bg-100);
@@ -126,14 +127,14 @@
   --skeleton-cutout-color: var(--page-bg-color);
 
   --embed-background: var(--disabled-pattern);
-  --embed-box-shadow: 0 0 1px rgb(0 0 0 / 70%);
+  --embed-box-shadow: 0 0 1px rgb(var(--dark-shade-rgb) / 70%);
 
   --table-border-color: var(--fg-950);
   --table-border-color-striped: var(--fg-950);
-  --table-background-striped: rgb(0 0 0 / 15%);
+  --table-background-striped: rgb(var(--dark-shade-rgb) / 15%);
 
   --paragraph-spacing: 1.5rem;
-  --blockquote-background: rgb(0 0 0 / 15%);
+  --blockquote-background: rgb(var(--dark-shade-rgb) / 15%);
   --placeholder-background: var(--bg-900);
   --kbd-background: var(--bg-800);
   --infobox-background: var(--bg-800);
@@ -141,7 +142,7 @@
   --checkmark-checked: var(--fg-600);
   --checkmark-not-checked: var(--bg-900);
   --tax-cloud-current: var(--primary-500);
-  --disabled-pattern: rgb(0 0 0 / 8%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 8%), rgb(0 0 0 / 8%) 2px, transparent 2px, transparent 5px);
+  --disabled-pattern: rgb(var(--dark-shade-rgb) / 8%) repeating-linear-gradient(-45deg, rgb(var(--dark-shade-rgb) / 8%), rgb(var(--dark-shade-rgb) / 8%) 2px, transparent 2px, transparent 5px);
   --strong-filter: brightness(1.05);
   --invert-filter: invert(0); // Checkbox check
 
@@ -474,9 +475,9 @@
   // === INPUTS ================================================================
 
   --input-placeholder-color: var(--fg-950);
-  --input-background: rgb(0 0 0 / 30%); // Fallback
+  --input-background: rgb(var(--dark-shade-rgb) / 30%); // Fallback
   --input-background: color-mix(in srgb, var(--bg-800), black 19%);
-  --input-background-disabled: rgb(0 0 0 / 15%) repeating-linear-gradient(-45deg, rgb(0 0 0 / 15%), rgb(0 0 0 / 15%) 2px, transparent 2px, transparent 5px);
+  --input-background-disabled: rgb(var(--dark-shade-rgb) / 15%) repeating-linear-gradient(-45deg, rgb(var(--dark-shade-rgb) / 15%), rgb(var(--dark-shade-rgb) / 15%) 2px, transparent 2px, transparent 5px);
   --input-color: var(--fg-500);
   --input-color-disabled: var(--fg-800);
   --input-fill: var(--fg-700);
@@ -515,15 +516,15 @@
 
   // === COMMENTS ==============================================================
 
-  --comment-background: rgb(0 0 0 / 15%);
+  --comment-background: rgb(var(--dark-shade-rgb) / 15%);
   --comment-background-private: var(--comment-background) repeating-linear-gradient(-45deg, rgb(0 0 0 / 10%), rgb(0 0 0 / 10%) 3px, transparent 3px, transparent 6px);
   --comment-background-deleted: var(--comment-background) repeating-linear-gradient(-45deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 3%) 3px, transparent 3px, transparent 6px);
   --comment-background-offensive: var(--comment-background) repeating-linear-gradient(45deg, rgb(255 255 255 / 3%), rgb(255 255 255 / 3%) 3px, transparent 3px, transparent 6px);
-  --comment-background-sticky: rgb(0 0 0 / 20%);
+  --comment-background-sticky: rgb(var(--dark-shade-rgb) / 20%);
   --comment-border-sticky: 1px dashed rgb(255 255 255 / 20%);
 
-  --load-comments-background: rgb(0 0 0 / 15%);
-  --load-comments-background-hover: rgb(0 0 0 / 25%);
+  --load-comments-background: rgb(var(--dark-shade-rgb) / 15%);
+  --load-comments-background-hover: rgb(var(--dark-shade-rgb) / 25%);
   --load-comments-color: var(--fg-700);
   --load-comments-color-hover: var(--fg-600);
 
@@ -535,7 +536,7 @@
 
   // === SCROLL BARS ===========================================================
 
-  --scrollbar-background: rgb(0 0 0 / 20%);
+  --scrollbar-background: rgb(var(--dark-shade-rgb) / 20%);
   --scrollbar-thumb: var(--fg-950);
   --scrollbar-box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
 
