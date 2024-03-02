@@ -477,8 +477,7 @@
   // === INPUTS ================================================================
 
   --input-placeholder-color: var(--fg-950);
-  --input-background: rgb(var(--dark-shade-rgb) / 30%); // Fallback
-  --input-background: color-mix(in srgb, var(--bg-800), black 19%);
+  --input-background: rgb(var(--dark-shade-rgb) / 32%);
   --input-background-disabled: rgb(var(--dark-shade-rgb) / 15%) repeating-linear-gradient(-45deg, rgb(var(--dark-shade-rgb) / 15%), rgb(var(--dark-shade-rgb) / 15%) 2px, transparent 2px, transparent 5px);
   --input-color: var(--fg-500);
   --input-color-disabled: var(--fg-800);
