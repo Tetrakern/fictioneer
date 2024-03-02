@@ -317,27 +317,27 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_bg_100' => array(
       'label' => __( 'Light Background 100', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for the page, slide-in mobile menu, password cutouts and submit label, and read ribbon.', 'fictioneer' )
     ),
     'light_bg_200' => array(
       'label' => __( 'Light Background 200', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for the site.', 'fictioneer' )
     ),
     'light_bg_300' => array(
       'label' => __( 'Light Background 300', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for tabs, pagination numbers, navigation item hovers, navigation submenus, overlays, secondary button hovers, &ltkbd> elements, and barber pole animations.', 'fictioneer' )
     ),
     'light_bg_400' => array(
       'label' => __( 'Light Background 400', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for the &ltbody>, unset checkmarks, tab hovers, tags, loading shapes, disabled primary buttons, any secondary button borders, secondary and warning tag borders, navigation subitem hovers, pagination number hovers, and the default mobile menu.', 'fictioneer' )
     ),
     'light_bg_500' => array(
       'label' => __( 'Light Background 500', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for navigation subitem dividers.', 'fictioneer' )
     ),
     'light_bg_600' => array(
       'label' => __( 'Light Background 600', 'fictioneer' ),
-      'description' => __( 'TODO', 'fictioneer' )
+      'description' => __( 'Used for primary buttons, mobile menu buttons, file and suggestion buttons, checked formatting toggles, tag hovers, secondary tag hovers, and input tokens.', 'fictioneer' )
     ),
     'light_bg_700' => array(
       'label' => __( 'Light Background 700', 'fictioneer' ),
