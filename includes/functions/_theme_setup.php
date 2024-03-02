@@ -16,7 +16,7 @@ function fictioneer_bring_out_legacy_trash() {
   $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_comment_form_selector', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles'];
 
   // Check for most recent obsolete option...
-  if ( isset( $options['fictioneer_flush_object_cache'] ) ) {
+  if ( isset( $options['fictioneer_enable_all_block_styles'] ) ) {
     // Looping everything is not great but it only happens once!
     foreach ( $obsolete as $trash ) {
       delete_option( $trash );
