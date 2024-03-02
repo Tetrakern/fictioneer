@@ -49,7 +49,7 @@
   // === CONTENT LISTS =========================================================
 
   --content-li-background-full: hsl(var(--bg-950-free) / 3%);
-  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 4%) 0%, hsl(var(--bg-950-free) / 4%) 55%, transparent 90%);
+  --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 3%) 0%, hsl(var(--bg-950-free) / 3%) 55%, transparent 90%);
   --content-li-hr-border: 2px solid rgb(0 0 0 / 4%);
 
   // === COLORS ================================================================
@@ -114,8 +114,8 @@
   --card-bg-color: var(--bg-50);
   --card-footer-bg-color: hsl(var(--bg-950-free) / 5%);
   --card-overlay-bg-color: var(--bg-300);
-  --card-content-li-background-full: hsl(var(--bg-950-free) / 4%);
-  --card-content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 4%) 50%, transparent 90%);
+  --card-content-li-background-full: hsl(var(--bg-950-free) / 3%);
+  --card-content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 3%) 50%, transparent 90%);
   --card-footer-color: var(--fg-600);
   --card-footer-icon-color: var(--fg-700);
   --card-text-icon-color: var(--fg-600);
