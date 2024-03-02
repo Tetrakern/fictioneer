@@ -1,4 +1,5 @@
 .footer {
+  --layout-link-color-hover: var(--footer-link-color-hover, var(--fg-300));
   position: relative;
   color: var(--fg-700);
   font-size: 12px;

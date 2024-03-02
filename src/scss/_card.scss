@@ -18,6 +18,7 @@
 }
 
 .card {
+  --layout-link-color-hover: var(--card-link-color-hover, var(--fg-300));
   --this-padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
   position: relative;
   border-radius: var(--layout-border-radius-small);
@@ -337,12 +338,6 @@
     color: var(--fg-600);
     font-style: italic;
     letter-spacing: 0.03em;
-
-    a {
-      &:hover {
-        color: var(--layout-link-hover);
-      }
-    }
   }
 
   &__link-list {

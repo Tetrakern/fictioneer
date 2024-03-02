@@ -3,6 +3,7 @@
 @import 'common/_variables';
 
 .comment-section {
+  --layout-link-color-hover: var(--comment-link-color-hover, var(--fg-300));
   margin-top: 40px;
 
   blockquote a[href^="#paragraph-"] {
@@ -604,21 +605,6 @@
 
     @include bp(mobile-l) {
       margin-left: 1.5rem;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    align-items: center;
-    gap: 6px; // Accounts for bullet separator
-
-    button {
-      color: inherit;
-      font-size: inherit;
-
-      &:hover {
-        color: var(--layout-link-hover);
-      }
     }
   }
 
