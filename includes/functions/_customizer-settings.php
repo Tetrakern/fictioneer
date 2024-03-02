@@ -1547,6 +1547,39 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Card shadow
+  $manager->add_setting(
+    'card_shadow',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'var(--box-shadow-m)'
+    )
+  );
+
+  $card_shadows = array(
+    'none' => _x( 'No Shadow', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-border)' => _x( 'Border Shadow', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xs)' => _x( 'Shadow Thin', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-s)' => _x( 'Shadow Small', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow)' => _x( 'Shadow Normal', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-m)' => _x( 'Shadow Medium (Default)', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-l)' => _x( 'Shadow Large', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xl)' => _x( 'Shadow Huge', 'Customizer card shadow option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_shadow',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Shadow', 'fictioneer' ),
+      'description' => __( 'Choose the shadow for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_shadows', $card_shadows )
+    )
+  );
+
   // Card grid column minimum width
   $manager->add_setting(
     'card_grid_column_min',
