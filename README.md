@@ -27,7 +27,7 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Customization & Child Themes
 
-[Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here. For starters, look at the [base child theme](https://github.com/Tetrakern/fictioneer-child-theme) and the [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal). The installation guide also offers some [customization tutorials](INSTALLATION.md#css-snippets).
+[Child themes](https://developer.wordpress.org/themes/advanced-topics/child-themes/) are the best way to customize Fictioneer if the provided options prove insufficient. You do not even need much programming experience for this since there are many guides and code snippets to adjust WordPress to your needs. But note that Fictioneer is not a page builder, so changing the whole layout does require expertise. Plugins may or may not work here. For starters, look at the [base child theme](https://github.com/Tetrakern/fictioneer-child-theme). The installation guide also offers some [customization tutorials](INSTALLATION.md#css-snippets).
 
 You can find some example action and filter functions [here](https://github.com/Tetrakern/fictioneer-child-theme#action--filter-examples).
 
@@ -44,7 +44,3 @@ Fictioneer (up to 5.9) has been developed by one author, barring [credited](CRED
 <p align="center">Base Theme Parts</p>
 
 ![Screenshot Collage](repo/assets/screenshots.jpg?raw=true)
-
-<p align="center"><a href="https://github.com/Tetrakern/fictioneer-liminal" target="_blank">Fictioneer Liminal Child Theme (Light/Dark)</a></p>
-
-![Liminal Child Theme](repo/assets/liminal_child_theme_preview.jpg?raw=true)
