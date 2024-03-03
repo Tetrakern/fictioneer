@@ -50,7 +50,7 @@ sup[data-fn] {
   }
 
   &.has-background {
-    --hr-dots-color: currentColor;
+    --layout-hr-dots-color: currentColor;
     border-color: currentColor;
   }
 
@@ -62,7 +62,7 @@ sup[data-fn] {
 
     &::before {
       content: '···';
-      color: var(--hr-dots-color, var(--bg-200));
+      color: var(--layout-hr-dots-color);
       font-size: 1.5em;
       letter-spacing: 2em;
       padding-left: 2em;
