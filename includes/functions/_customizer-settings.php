@@ -115,7 +115,7 @@ function fictioneer_add_reset_options( $manager ) {
     'reset',
     array(
       'title' => __( 'Reset Options', 'fictioneer' ),
-      'description' => __( 'This allows you to quickly reset options to their default. However, this is irreversible!', 'fictioneer' ),
+      'description' => __( 'This allows you to quickly reset options to their default. However, this is irreversible! Save changes before doing this since the Customizer needs to be reloaded.', 'fictioneer' ),
       'priority' => 160,
     )
   );
