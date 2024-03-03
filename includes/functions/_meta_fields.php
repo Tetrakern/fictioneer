@@ -1996,7 +1996,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     'fictioneer_story_password_note',
     array(
       'label' => _x( 'Password Note', 'Story password note meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed for password protected content. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed for password protected content; start with "[!global]" to show on all protected chapters without note. Limited HTML allowed.', 'fictioneer' )
     )
   );
 

@@ -153,6 +153,16 @@ get_header( null, $header_args );
 
           // Password note
           $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post->ID );
+
+          if ( post_password_required() && empty( $password_note ) ) {
+            $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
+
+            if ( ! empty( $password_note ) && strpos( $password_note, '[!global]' ) !== false ) {
+              $password_note = str_replace( '[!global]', '', $password_note );
+            } else {
+              $password_note = '';
+            }
+          }
         ?>
 
         <section id="chapter-content" class="chapter__content content-section">
