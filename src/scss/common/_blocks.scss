@@ -341,7 +341,7 @@ p.has-drop-cap::first-letter {
     top: var(--this-vertical-offset, -0.75rem);
     left: var(--this-horizontal-offset, -1rem);
     display: block;
-    border: 5px solid var(--fg-950);
+    border: 5px solid var(--layout-lineart-color);
     border-width: 3px 0 0 3px;
     height: 16px;
     width: 16px;
@@ -388,7 +388,7 @@ p.has-drop-cap::first-letter {
 figure.wp-block-pullquote {
   --paragraph-spacing-offset: .5rem;
   clear: both;
-  color: var(--fg-500);
+  color: var(--fg-600);
   font-size: 1.25em;
   font-style: italic;
   text-align: center;
@@ -399,7 +399,7 @@ figure.wp-block-pullquote {
   width: max-content;
 
   blockquote {
-    border: 2px solid var(--fg-950);
+    border: 2px solid var(--layout-lineart-color);
     border-width: 2px 0;
     padding: 1rem;
   }
