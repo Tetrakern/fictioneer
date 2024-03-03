@@ -260,7 +260,7 @@
   }
 
   &__warning.infobox {
-    color: var(--red-400);
+    color: var(--chapter-infobox-warning-color, var(--red-400));
     font-weight: var(--font-weight-medium);
 
     p {
