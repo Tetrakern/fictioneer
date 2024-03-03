@@ -139,7 +139,7 @@
 
       &._connected {
         cursor: default;
-        background: var(--button-oauth-connected, var(--bg-50));
+        background: var(--button-oauth-connected);
         color: var(--fg-inverted);
         text-shadow: none;
         border: none;
