@@ -580,9 +580,17 @@ figure.wp-block-pullquote {
       gap: 6px;
       text-align: center;
       white-space: normal;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      min-height: calc(var(--this-height) - 2px); // Subtract default border
+      margin: -1px; // Account for wrapping button border
+      min-height: var(--this-height);
+      width: calc(100% + 2px); // Account for margin offset
+
+      &:not([style*="padding-top"]) {
+        padding-top: 0 !important;
+      }
+
+      &:not([style*="padding-bottom"]) {
+        padding-bottom: 0 !important;
+      }
 
       &:not([style*="padding-left"]) {
         padding-left: var(--this-padding-horizontal);
