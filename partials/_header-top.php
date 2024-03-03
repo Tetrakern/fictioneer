@@ -35,6 +35,10 @@ if ( ! has_custom_logo() ) {
   $classes[] = '_no-logo';
 }
 
+if ( ! get_theme_mod( 'title_text_shadow', false ) ) {
+  $classes[] = '_no-text-shadow';
+}
+
 ?>
 
 <header class="top-header <?php echo implode( ' ', $classes ); ?> hide-on-fullscreen">

@@ -503,13 +503,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Enable all Gutenberg blocks', 'fictioneer' ),
       'default' => 0
     ),
-    'fictioneer_enable_all_block_styles' => array(
-      'name' => 'fictioneer_enable_all_block_styles',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable all Gutenberg block styles', 'fictioneer' ),
-      'default' => 0
-    ),
     'fictioneer_enable_ajax_authentication' => array(
       'name' => 'fictioneer_enable_ajax_authentication',
       'group' => 'fictioneer-settings-general-group',

@@ -30,7 +30,7 @@ get_header();
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( $post_id );
+        $title = fictioneer_get_safe_title( $post_id, 'singular-titleless' );
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 

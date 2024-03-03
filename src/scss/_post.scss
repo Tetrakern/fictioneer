@@ -18,7 +18,7 @@
 
     &:not(:first-child) {
       .post__header {
-        border-top: 2px solid var(--layout-color-separator);
+        border-top: var(--layout-hr-border);
         padding-top: var(--layout-spacing-vertical);
       }
     }
@@ -50,6 +50,7 @@
   }
 
   &__meta {
+    --layout-link-color-hover: var(--post-meta-link-color-hover, var(--fg-300));
     display: flex;
     gap: .5rem 1.5rem;
     flex-wrap: wrap;

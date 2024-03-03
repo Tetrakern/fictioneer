@@ -1,8 +1,18 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
+:root, :root[data-theme=base] {
+  --card-footer-color: var(--fg-700);
+  --card-footer-icon-color: var(--fg-900);
+}
+
+:root[data-mode=light] {
+  --card-footer-color: var(--fg-700);
+  --card-footer-icon-color: var(--fg-800);
+}
+
 .card._combined {
-  --card-style-secant-width: 0;
+  --card-style-border-width: 0;
 
   .card__footer._article .card__footer-box,
   .card__body > .card__footer .card__footer-box:is(._left, :last-child) {

@@ -771,17 +771,17 @@ Quite often, you need to apply specific styles depending on the theme mode or sc
 ```css
 /* Make the *sticky* navigation background 10% transparent (always). */
 :root {
-  --navigation-background-sticky-end-opacity: 0.9;
+  --navigation-background-end-opacity: 0.9;
 }
 
 /* Make the *sticky* navigation background 10% transparent (only in dark mode). */
 :root[data-mode="dark"] {
-  --navigation-background-sticky-end-opacity: 0.9;
+  --navigation-background-end-opacity: 0.9;
 }
 
 /* Make the navigation background always visible. */
 :root {
-  --navigation-background-sticky-start-opacity: 1;
+  --navigation-background-start-opacity: 1;
 }
 ```
 
@@ -791,8 +791,8 @@ Assuming you have set the **Header Style** to **top** or **split**, the followin
 
 ```css
 :root {
-  --layout-top-header-background-color: hsl(calc(221deg + var(--hue-rotate)) calc(16% * var(--saturation)) clamp(10%, 20% * var(--darken), 60%) / 70%); /* Example dynamic HSL color with 70% opacity; rgb(43 48 59 / 70%). */
-  --navigation-background-sticky-start-opacity: 1;
+  --top-header-background: hsl(calc(221deg + var(--hue-rotate)) calc(16% * var(--saturation)) clamp(10%, 20% * var(--darken), 60%) / 70%); /* Example dynamic HSL color with 70% opacity; rgb(43 48 59 / 70%). */
+  --navigation-background-start-opacity: 1;
 }
 
 .top-header {
@@ -915,8 +915,8 @@ You want the navigation on top of the header image? Just go to **Appearance > Cu
 ```css
 /* Semi-transparent navigation bar. */
 .header-style-overlay .main-navigation {
-  --navigation-background-sticky-start-opacity: .72;
-  --navigation-background-sticky-end-opacity: .9;
+  --navigation-background-start-opacity: .72;
+  --navigation-background-end-opacity: .9;
   backdrop-filter: blur(4px); /* Blurs everything behind the bar; can decrease render performance. */
   -webkit-backdrop-filter: blur(4px); /* ... same but works in Safari. */
 }
@@ -975,7 +975,7 @@ A good starting point for masks is [haikai](https://app.haikei.app/), but add `p
 /* Example: Wave page style */
 
 :root.page-style-mask-image-wave-a:not(.minimal) .main__background {
-  filter: var(--layout-main-drop-shadow);
+  filter: var(--page-drop-shadow);
 }
 
 :root.page-style-mask-image-wave-a:not(.minimal) .main__background::before {
@@ -991,7 +991,7 @@ A good starting point for masks is [haikai](https://app.haikei.app/), but add `p
 /* Example: Battered page style */
 
 :root.page-style-polygon-chamfered:not(.minimal) .main__background {
-  filter: var(--layout-main-drop-shadow);
+  filter: var(--page-drop-shadow);
 }
 
 :root.page-style-polygon-chamfered:not(.minimal) .main__background::before {
@@ -1243,6 +1243,7 @@ The font.json file may seem a bit challenging, but is actually mostly informativ
 | note | string | Special note about the font for the admin page. Default empty.
 | preview | string | Changes the example sentence displayed on the admin page. Default empty.
 | sources | object | Collection of sub-objects listing sources for the font. Default empty.
+
 \* Required key-value pairs.
 
 </details><br>

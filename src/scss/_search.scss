@@ -6,7 +6,11 @@
 
 .search-form[data-advanced="true"] {
   .search-form__bar .search-form__advanced-toggle {
-    color: var(--fg-600);
+    color: var(--fg-500);
+
+    &:hover {
+      color: var(--fg-300);
+    }
   }
 
   .search-form__current {
@@ -39,14 +43,10 @@
   }
 
   &__current {
-    color: var(--fg-900);
+    color: var(--fg-800);
     font-size: 11px;
     line-height: 1.5;
     padding: 6px 2px 0;
-
-    &:not(:has(button)) {
-      display: none;
-    }
 
     button {
       color: currentColor;
@@ -56,7 +56,7 @@
       transition: color var(--transition-duration);
 
       &:hover {
-        color: var(--fg-500);
+        color: var(--fg-400);
       }
     }
 
@@ -70,15 +70,13 @@
   }
 
   &__submit:is(button) {
+    --button-primary-background: transparent;
+    --button-primary-background-hover: transparent;
+    --button-primary-color: var(--fg-900);
+    --button-primary-color-hover: var(--fg-400);
     display: grid;
     place-content: center;
-    background: transparent !important;
-    color: var(--fg-900) !important;
     width: 32px;
-
-    &:hover {
-      color: var(--fg-500) !important;
-    }
   }
 
   &__select-group {
@@ -149,26 +147,23 @@
   }
 
   &__advanced {
-    background: var(--infobox-background);
-    padding: 1rem;
     margin-top: .75rem;
-    border-radius: var(--layout-border-radius-small);
 
     hr {
-      margin: 1rem 0;
-      border-bottom: 2px dashed var(--layout-color-separator);
+      margin: 1.5rem 0;
+      border-style: dashed;
     }
 
     &-toggle {
       display: grid;
       place-content: center;
-      color: var(--fg-900);
+      color: var(--fg-700);
       font-size: 11px;
       height: 32px;
       transition: color var(--transition-duration);
 
       &:hover {
-        color: var(--fg-600);
+        color: var(--fg-400);
       }
     }
 
@@ -188,7 +183,7 @@
   &__header {
     padding-bottom: 0.75rem;
     margin-bottom: 1rem;
-    border-bottom: 2px dashed var(--layout-color-lineart);
+    border-bottom: var(--layout-hr-border-dashed);
   }
 
   &__title {
@@ -200,10 +195,10 @@
     margin-top: 2rem;
 
     &:is(._no-results, ._no-params) {
+      color: var(--fg-950);
       font: var(--font-weight-strong) var(--fs-ds)/1.5 var(--ff-note);
       text-align: center;
       overflow-wrap: break-word;
-      opacity: 0.25;
     }
   }
 }

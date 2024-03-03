@@ -42,7 +42,7 @@
     display: grid;
     place-content: center;
     background: none;
-    color: var(--micro-menu-text);
+    color: var(--micro-menu-color);
     font-size: 16px;
     line-height: 1;
     border: none;
@@ -52,7 +52,7 @@
 
     &:hover {
       background: inherit;
-      color: var(--micro-menu-text-hover);
+      color: var(--micro-menu-color-hover);
     }
   }
 

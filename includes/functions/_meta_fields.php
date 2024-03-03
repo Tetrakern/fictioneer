@@ -972,7 +972,7 @@ function fictioneer_callback_relationship_chapters( $selected, $meta_key, $args 
 
   // Build HTML
   foreach ( $selected as $chapter ) {
-    $title = fictioneer_get_safe_title( $chapter );
+    $title = fictioneer_get_safe_title( $chapter, 'admin-callback-relationship-chapters' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
     if ( get_post_meta( $chapter->ID, 'fictioneer_chapter_hidden', true ) ) {
@@ -1060,7 +1060,7 @@ function fictioneer_ajax_get_relationship_chapters( $post_id, $meta_key ) {
   // Build HTML for items
   foreach ( $query->posts as $chapter ) {
     // Chapter setup
-    $title = fictioneer_get_safe_title( $chapter );
+    $title = fictioneer_get_safe_title( $chapter, 'admin-ajax-get-relationship-chapters' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Update title if necessary
@@ -1206,7 +1206,7 @@ function fictioneer_get_relationship_chapter_details( $chapter ) {
 function fictioneer_callback_relationship_story_pages( $selected, $meta_key, $args = [] ) {
   // Build HTML
   foreach ( $selected as $page ) {
-    $title = fictioneer_get_safe_title( $page );
+    $title = fictioneer_get_safe_title( $page, 'admin-callback-relationship-story-pages' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
     // Start HTML ---> ?>
@@ -1290,7 +1290,7 @@ function fictioneer_ajax_get_relationship_story_pages( $post_id, $meta_key ) {
   // Build HTML for items
   foreach ( $query->posts as $item ) {
     // Chapter setup
-    $title = fictioneer_get_safe_title( $item );
+    $title = fictioneer_get_safe_title( $item, 'admin-ajax-get-relationship-story-pages' );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
     // Build and append item
@@ -1354,7 +1354,7 @@ function fictioneer_callback_relationship_collection( $selected, $meta_key, $arg
 
   // Build HTML
   foreach ( $selected as $item ) {
-    $title = fictioneer_get_safe_title( $item );
+    $title = fictioneer_get_safe_title( $item, 'admin-callback-relationship-collection' );
     $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
@@ -1453,7 +1453,7 @@ function fictioneer_ajax_get_relationship_collection( $post_id, $meta_key ) {
   // Build HTML for items
   foreach ( $query->posts as $item ) {
     // Chapter setup
-    $title = fictioneer_get_safe_title( $item );
+    $title = fictioneer_get_safe_title( $item, 'admin-ajax-get-relationship-collection' );
     $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
@@ -1517,7 +1517,7 @@ function fictioneer_callback_relationship_featured( $selected, $meta_key, $args 
 
   // Build HTML
   foreach ( $selected as $item ) {
-    $title = fictioneer_get_safe_title( $item );
+    $title = fictioneer_get_safe_title( $item, 'admin-callback-relationship-featured' );
     $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-values-item'];
 
@@ -1599,7 +1599,7 @@ function fictioneer_ajax_get_relationship_featured( $post_id, $meta_key ) {
   // Build HTML for items
   foreach ( $query->posts as $item ) {
     // Chapter setup
-    $title = fictioneer_get_safe_title( $item );
+    $title = fictioneer_get_safe_title( $item, 'admin-ajax-get-relationship-featured' );
     $label = esc_html( $post_type_labels[ $item->post_type ] ?? _x( '?', 'Relationship item label.', 'fictioneer' ) );
     $classes = ['fictioneer-meta-field__relationships-item', 'fictioneer-meta-field__relationships-source-item'];
 
@@ -1980,13 +1980,23 @@ function fictioneer_render_story_data_metabox( $post ) {
     );
   }
 
+  // Global note
+  $output['fictioneer_story_global_note'] = fictioneer_get_metabox_editor(
+    $post,
+    'fictioneer_story_global_note',
+    array(
+      'label' => _x( 'Global Note', 'Story global note meta field label.', 'fictioneer' ),
+      'description' => __( 'Displayed in a box above all chapters; start with "[!password]" to hide in protected chapters. Limited HTML allowed.', 'fictioneer' )
+    )
+  );
+
   // Password note
   $output['fictioneer_story_password_note'] = fictioneer_get_metabox_editor(
     $post,
     'fictioneer_story_password_note',
     array(
       'label' => _x( 'Password Note', 'Story password note meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed for password protected content. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed for password protected content; start with "[!global]" to show on all protected chapters without note. Limited HTML allowed.', 'fictioneer' )
     )
   );
 
@@ -2314,6 +2324,12 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     }
   }
 
+  // Global note
+  if ( isset( $_POST['fictioneer_story_global_note'] ) ) {
+    $fields['fictioneer_story_global_note'] =
+      fictioneer_sanitize_editor( $_POST['fictioneer_story_global_note'] );
+  }
+
   // Password note
   if ( isset( $_POST['fictioneer_story_password_note'] ) ) {
     $fields['fictioneer_story_password_note'] =
@@ -2445,7 +2461,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
       'fictioneer_chapter_short_title',
       array(
         'label' => _x( 'Short Title', 'Chapter short title meta field label.', 'fictioneer' ),
-        'description' => __( 'Shorter title, such as "Arc 15, Ch. 17".', 'fictioneer' )
+        'description' => __( 'Shorter title, such as "Arc 15, Ch. 17". Not used by default, intended for child themes.', 'fictioneer' )
       )
     );
   }
@@ -2610,11 +2626,11 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
         $stories[ $story->ID ] = sprintf(
           _x( '%s (%s)', 'Chapter story meta field option with status label.', 'fictioneer' ),
-          fictioneer_get_safe_title( $story->ID ),
+          fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable-suffix' ),
           $status_label
         );
       } else {
-        $stories[ $story->ID ] = fictioneer_get_safe_title( $story->ID );
+        $stories[ $story->ID ] = fictioneer_get_safe_title( $story->ID, 'admin-render-chapter-data-metabox-selectable' );
       }
     }
   }
@@ -2646,7 +2662,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
 
       $stories[ $current_story_id ] = sprintf(
         _x( '%s %s', 'Chapter story meta field mismatched option with author and/or status label.', 'fictioneer' ),
-        fictioneer_get_safe_title( $current_story_id ),
+        fictioneer_get_safe_title( $current_story_id, 'admin-render-chapter-data-metabox-current-suffix' ),
         $suffix
       );
     }
@@ -2701,7 +2717,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     'fictioneer_chapter_foreword',
     array(
       'label' => _x( 'Foreword', 'Chapter foreword meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed in a box above the chapter. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed in a box above the chapter; start with "[!show]" to show in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
 
@@ -2711,7 +2727,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
     'fictioneer_chapter_afterword',
     array(
       'label' => _x( 'Afterword', 'Chapter afterword meta field label.', 'fictioneer' ),
-      'description' => __( 'Displayed in a box below the chapter. Limited HTML allowed.', 'fictioneer' )
+      'description' => __( 'Displayed in a box below the chapter; start with "[!show]" to show in protected chapters. Limited HTML allowed.', 'fictioneer' )
     )
   );
 

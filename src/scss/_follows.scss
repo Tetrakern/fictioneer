@@ -86,7 +86,7 @@
 .follow-notifications {
   position: absolute;
   right: -107px;
-  background: var(--navigation-item-active-submenu-background);
+  background: var(--navigation-submenu-background);
   border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
   width: 320px;
   box-shadow: var(--navigation-submenu-box-shadow);
@@ -102,10 +102,10 @@
   }
 
   .follow-item {
-    --focus-offset: -6px;
+    --focus-offset: -2px;
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--navigation-item-active-submenu-secant);
+      border-bottom: var(--navigation-subitem-divider);
     }
 
     &:not(._new) {
@@ -117,22 +117,27 @@
   }
 
   .follow-wrapper {
-    background: var(--navigation-item-active-submenu-background);
+    background: var(--navigation-submenu-background);
     font-size: var(--fs-xs);
     padding: .35rem .75rem .45rem;
 
     &:hover {
-      background: var(--navigation-subitem-active-background);
+      background: var(--navigation-subitem-background-hover);
     }
   }
 
   :is(.follow-placeholder, .follow-meta) {
-    color: var(--follow-meta-color);
+    color: var(--follow-meta-color, var(--fg-700));
     font-family: var(--ff-note);
   }
 
   .follow-title-link {
-    color: var(--follow-title-color);
+    --focus-outline: none;
+    color: var(--follow-title-link-color, var(--fg-400));
+
+    &:hover {
+      color: var(--follow-title-link-color-hover, var(--fg-200));
+    }
   }
 
   .follow-meta {
@@ -167,7 +172,7 @@
   }
 
   .follow-meta {
-    color: var(--fg-600);
+    color: var(--fg-700);
     font-size: 11px;
   }
 

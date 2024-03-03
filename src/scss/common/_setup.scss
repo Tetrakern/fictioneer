@@ -42,7 +42,7 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
 }
 
 body {
-  background-color: var(--e-body);
+  background-color: var(--body-bg-color);
   color: var(--fg-500);
   font: var(--font-weight-normal) var(--fs-s)/var(--font-line-height-base) var(--ff-base);
   letter-spacing: var(--font-letter-spacing-base);
@@ -74,7 +74,7 @@ article {
 
 a {
   cursor: pointer;
-  color: var(--layout-link);
+  color: var(--layout-link-color);
   text-decoration: none;
 
   &:where(:not(.wp-element-button)):is(a) {
@@ -82,21 +82,15 @@ a {
   }
 
   &:hover {
-    color: var(--layout-link-hover);
-  }
-
-  &.more-link {
-    &:not(:hover) {
-      color: var(--fg-800);
-    }
+    color: var(--layout-link-color-hover);
   }
 }
 
 hr {
   overflow: hidden;
   border: 0;
-  border-bottom: 2px solid var(--layout-color-separator);
-  margin: unquote("max(2.5rem, var(--paragraph-spacing) + 1rem)") auto;
+  border-bottom: var(--layout-hr-border);
+  margin: max(2.5rem, var(--paragraph-spacing) + 1rem) auto;
 }
 
 :where(ins, del) {
@@ -139,6 +133,7 @@ em {
 
 strong {
   font-weight: var(--font-weight-strong);
+  filter: var(--strong-filter);
 }
 
 b {
@@ -150,8 +145,8 @@ details {
     cursor: pointer;
   }
 
-  > :not([class], summary) {
-    margin-top: 2px;
+  &[open] summary {
+    margin-bottom: .375em;
   }
 }
 
@@ -180,14 +175,14 @@ abbr {
 
 kbd {
   display: inline-block;
-  background: var(--infobox-background);
+  background: var(--kbd-background);
   font-family: var(--ff-mono);
   font-size: .75em;
   font-weight: 700;
   letter-spacing: 0;
   white-space: nowrap;
   padding: 0 0.375em;
-  border-radius: 3px;
+  border-radius: 2px;
   box-shadow: 0 0 1px var(--fg-500), 0 1px 1px rgb(0 0 0 / 20%);
   transform: translateY(-1px);
 }

@@ -273,6 +273,8 @@ function fictioneer_allowed_block_types() {
     'core/html',
     'core/separator',
     'core/spacer',
+    'core/footnotes',
+    'core/details',
     'core/more',
     'core/buttons',
     'core/button',
@@ -546,5 +548,51 @@ function fictioneer_ajax_get_chapter_groups() {
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
+
+// =============================================================================
+// AJAX: RESET THEME COLORS
+// =============================================================================
+
+/**
+ * AJAX: Reset custom theme colors
+ *
+ * @since 5.12.0
+ */
+
+function fictioneer_ajax_reset_theme_colors() {
+  // Validate
+  check_ajax_referer( 'fictioneer-reset-colors', 'fictioneer_nonce' );
+
+  if ( ! current_user_can( 'edit_theme_options' ) ) {
+    wp_send_json_error( array( 'failure' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $mods = get_theme_mods();
+  $theme = get_option( 'stylesheet' );
+  $json_path = get_template_directory() . '/includes/functions/colors.json';
+  $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
+
+  // Abort if...
+  if ( ! is_array( $fictioneer_colors ) || empty( $fictioneer_colors ) ) {
+    wp_send_json_error( array( 'failure' => __( 'Error: Colors not found.', 'fictioneer' ) ) );
+  }
+
+  // Unset colors to reset them to default
+  foreach ( array_keys( $fictioneer_colors ) as $mod ) {
+    unset( $mods[ $mod ] );
+  }
+
+  // Save to database
+  update_option( "theme_mods_{$theme}", $mods );
+
+  // Refresh custom CSS files
+  fictioneer_build_customize_css();
+  fictioneer_build_customize_css( 'preview' );
+
+  // Finish
+  wp_send_json_success( array( 'success' => true ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_reset_theme_colors', 'fictioneer_ajax_reset_theme_colors' );
 
 ?>

@@ -2,7 +2,7 @@
 @import '../common/_mixins';
 
 :root.page-style-mask-image-wave-a:not(.minimal) .main__background {
-  filter: var(--layout-main-drop-shadow);
+  filter: var(--page-drop-shadow);
 
   &::before {
     --mp: top calc(-1 * #{get_clamp(5, 8, 375, 768)}) left 0, top #{get_clamp(22, 31, 375, 768)} left 0;

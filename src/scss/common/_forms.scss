@@ -8,7 +8,7 @@
     pointer-events: none;
 
     :is(textarea, input, select, label) {
-      filter: blur(1px);
+      filter: var(--ajax-in-progress-filter, blur(1px));
     }
   }
 

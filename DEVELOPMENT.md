@@ -24,7 +24,6 @@ This is a quick guide to get you started if you want to contribute to the theme,
 * [Theme action hooks](ACTIONS.md)
 * [Theme filter hooks](FILTERS.md)
 * [Child theme example](https://github.com/Tetrakern/fictioneer-child-theme)
-* [Liminal child theme](https://github.com/Tetrakern/fictioneer-liminal)
 * [Plugin example](https://github.com/Tetrakern/fictioneer-base-plugin)
 
 ## Coding Standards & Documentation
@@ -127,22 +126,22 @@ font-size: clamp(1.35em, 1vw + 18.4px, 1.75em); // CSS
  * hsl_code(hue, saturation, lightness) returns a dynamic HSL code.
  */
 
---bg-500: #{hsl_code(222, 13, 27)}; // SCSS
---bg-500: hsl(calc(220deg + var(--hue-rotate)) calc(9% * var(--saturation)) clamp(23%, 46% * var(--darken), 73%)); // CSS
+--bg-500: #{hsl_code(222, 13, 26.5)}; // SCSS
+--bg-500: hsl(calc(222deg + var(--hue-rotate)) calc(13% * var(--saturation)) clamp(13.25%, 26.5% * var(--darken), 53%)); // CSS
 
 /*
  * hsl_code_free(hue, saturation, lightness) returns a dynamic HSL code but without the HSL wrapper.
  */
 
---bg-900-free: #{hsl_code_free(222, 15, 17)}; // SCSS
---bg-900-free: calc(222deg + var(--hue-rotate)) calc(15% * var(--saturation)) clamp(8.5%, 17% * var(--darken), 58.5%) // CSS
+--bg-900-free: #{hsl_code_free(219, 15, 17)}; // SCSS
+--bg-900-free: calc(219deg + var(--hue-rotate)) calc(15% * var(--saturation)) clamp(8.5%, 17% * var(--darken), 58.5%) // CSS
 
 /*
  * hsl_font_code(hue, saturation, lightness) returns a dynamic HSL font code.
  */
 
---fg-500: #{hsl_font_code(222, 14, 69)}; // SCSS
---fg-500: hsl(calc(215deg + var(--hue-rotate)) calc(28% * (var(--font-saturation) + var(--saturation) - 1)) 17%); // CSS
+--fg-500: #{hsl_font_code(222, 18, 76)}; // SCSS
+--fg-500: hsl(calc(222deg + var(--hue-rotate)) max(calc(18% * (var(--font-saturation) + var(--saturation) - 1)), 0%) clamp(0%, 76%, 100%)); // CSS
 ```
 
 ## JavaScript
@@ -231,6 +230,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `after_setup_theme` | `fictioneer_theme_setup`
 | `comment_post` | `fictioneer_comment_post`, `fictioneer_post_comment_to_discord`
 | `current_screen` | `fictioneer_restrict_admin_only_pages`, `fictioneer_restrict_comment_edit`
+| `customize_controls_enqueue_scripts` | `fictioneer_enqueue_customizer_scripts`
 | `customize_register` | `fictioneer_add_customizers`
 | `customize_save_after` | `fictioneer_watch_for_customer_updates`
 | `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
@@ -259,7 +259,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `trashed_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`, `fictioneer_remove_chapter_from_story`
 | `untrash_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `update_option_*` | `fictioneer_update_option_disable_extended_chapter_list_meta_queries`, `fictioneer_update_option_disable_extended_story_list_meta_queries`
-| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_finished_checkmarks_list`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_ajax_get_user_data`, `fictioneer_ajax_get_auth`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_purge_all_schemas`
+| `wp_ajax_*` | `fictioneer_ajax_clear_my_checkmarks`, `fictioneer_ajax_clear_my_comments`, `fictioneer_ajax_clear_my_comment_subscriptions`, `fictioneer_ajax_clear_my_follows`, `fictioneer_ajax_clear_my_reminders`, `fictioneer_ajax_delete_epub`, `fictioneer_ajax_delete_my_account`, `fictioneer_ajax_delete_my_comment`, `fictioneer_ajax_edit_comment`, `fictioneer_ajax_get_avatar`, `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_get_finished_checkmarks_list`, `fictioneer_ajax_get_follows_list`, `fictioneer_ajax_get_follows_notifications`, `fictioneer_ajax_get_reminders_list`, `fictioneer_ajax_mark_follows_read`, `fictioneer_ajax_moderate_comment`, `fictioneer_ajax_report_comment`, `fictioneer_ajax_save_bookmarks`, `fictioneer_ajax_set_checkmark`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_toggle_follow`, `fictioneer_ajax_toggle_reminder`, `fictioneer_ajax_unset_my_oauth`, `fictioneer_ajax_get_user_data`, `fictioneer_ajax_get_auth`, `fictioneer_ajax_purge_schema`, `fictioneer_ajax_purge_all_schemas`, `fictioneer_ajax_reset_theme_colors`
 | `wp_ajax_nopriv_*` | `fictioneer_ajax_get_comment_form`, `fictioneer_ajax_get_comment_section`, `fictioneer_ajax_submit_comment`, `fictioneer_ajax_get_auth`
 | `wp_before_admin_bar_render` | `fictioneer_remove_admin_bar_links`, `fictioneer_remove_dashboard_from_admin_bar`, `fictioneer_remove_comments_from_admin_bar`
 | `wp_dashboard_setup` | `fictioneer_remove_dashboard_widgets`
@@ -285,6 +285,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `comment_reply_link` | `fictioneer_comment_login_to_reply`
 | `comment_row_actions` | `fictioneer_remove_quick_edit`
 | `comment_text` | `fictioneer_bbcodes`
+| `customize_refresh_nonces` | `fictioneer_add_customizer_refresh_nonces`
 | `excerpt_length` | `fictioneer_custom_excerpt_length`
 | `excerpt_more` | `fictioneer_excerpt_ellipsis`
 | `get_avatar` | `fictioneer_avatar_fallback`
@@ -317,6 +318,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `style_loader_tag` | `fictioneer_add_font_awesome_integrity`
 | `the_content` | `fictioneer_embed_consent_wrappers`, `fictioneer_add_lightbox_to_post_images`, `fictioneer_add_chapter_paragraph_id`
 | `the_password_form` | `fictioneer_password_form`
+| `the_content_more_link` | `fictioneer_wrap_read_more_link`
 | `theme_templates` | `fictioneer_disallow_page_template_select`
 | `update_post_metadata` | `fictioneer_prevent_page_template_update`
 | `upload_size_limit` | `fictioneer_upload_size_limit`

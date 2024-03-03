@@ -43,7 +43,7 @@ get_header( null, $header_args );
         // Setup
         $chapter_ids = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
-        $title = fictioneer_get_safe_title( $post->ID );
+        $title = fictioneer_get_safe_title( $post->ID, 'single-chapter' );
         $age_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 
@@ -153,6 +153,16 @@ get_header( null, $header_args );
 
           // Password note
           $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post->ID );
+
+          if ( $story_post && post_password_required() && empty( $password_note ) ) {
+            $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
+
+            if ( ! empty( $password_note ) && strpos( $password_note, '[!global]' ) !== false ) {
+              $password_note = str_replace( '[!global]', '', $password_note );
+            } else {
+              $password_note = '';
+            }
+          }
         ?>
 
         <section id="chapter-content" class="chapter__content content-section">

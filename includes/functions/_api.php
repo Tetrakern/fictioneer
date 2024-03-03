@@ -174,7 +174,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
             $chapter['prefix'] = $prefix;
           }
 
-          $chapter['title'] = fictioneer_get_safe_title( $chapter_id );
+          $chapter['title'] = fictioneer_get_safe_title( $chapter_id, 'api-chapter' );
 
           if ( ! empty( $group ) ) {
             $chapter['group'] = $group;

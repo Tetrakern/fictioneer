@@ -1,5 +1,5 @@
 :is(:fullscreen, :-webkit-full-screen) {
-  --layout-main-inset-top: 0;
+  --page-inset-top: 0;
 
   .background-texture {
     background: {
@@ -8,7 +8,7 @@
   }
 
   .site {
-    background: var(--e-fullscreen) !important;
+    background: var(--fullscreen-background) !important;
   }
 
   .progress {
@@ -29,9 +29,13 @@
     filter: none;
 
     &__background {
-      background: var(--e-fullscreen) !important;
+      background: var(--fullscreen-background) !important;
       box-shadow: none !important;
       filter: none !important;
+
+      &::before {
+        content: none !important;
+      }
     }
   }
 

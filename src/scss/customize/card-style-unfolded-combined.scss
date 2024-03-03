@@ -1,6 +1,16 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
+:root, :root[data-theme=base] {
+  --card-footer-color: var(--fg-600);
+  --card-footer-icon-color: var(--fg-800);
+}
+
+:root[data-mode=light] {
+  --card-footer-icon-color: var(--fg-700);
+  --card-style-border-color: var(--bg-400);
+}
+
 .card:where(._unfolded, ._combined) {
   &:is(._small, ._article) .card__body > .card__footer {
     margin-top: 0;
@@ -22,11 +32,11 @@
 
       .card__footer-box {
         background: none;
-        border-top: var(--card-style-secant-width, 1.5px) solid var(--secant);
+        border-top: var(--card-style-border-width, 1.5px) solid var(--card-style-border-color, var(--bg-900));
         border-radius: 0;
 
         &._right {
-          border-left: var(--card-style-secant-width, 1.5px) solid var(--secant);
+          border-left: var(--card-style-border-width, 1.5px) solid var(--card-style-border-color, var(--bg-900));
           min-width: 9cqw;
         }
       }

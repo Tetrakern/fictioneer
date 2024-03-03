@@ -2,7 +2,7 @@
 @import '../common/_mixins';
 
 :root.page-style-polygon-interface-a:not(.minimal) .main__background {
-  filter: var(--layout-main-drop-shadow);
+  filter: var(--page-drop-shadow);
 
   &::before {
     --o: #{get_clamp(0, 8, 375, 1024)};

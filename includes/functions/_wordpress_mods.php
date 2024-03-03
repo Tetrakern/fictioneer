@@ -8,10 +8,11 @@
  * Toggle maintenance mode from settings with message
  *
  * @since 5.0.0
+ * @since 5.12.0 - Exclude Customizer preview.
  */
 
 function fictioneer_maintenance_mode() {
-  if ( get_option( 'fictioneer_enable_maintenance_mode' ) ) {
+  if ( get_option( 'fictioneer_enable_maintenance_mode' ) && ! is_customize_preview() ) {
     if ( ! current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
       $note = get_option( 'fictioneer_phrase_maintenance' );
       $note = ! empty( $note ) ? $note : __( 'Website under planned maintenance. Please check back later.', 'fictioneer' );
@@ -1186,5 +1187,65 @@ function fictioneer_prevent_track_and_ping_updates( $data ) {
   return $data;
 }
 add_filter( 'wp_insert_post_data', 'fictioneer_prevent_track_and_ping_updates', 1 );
+
+// =============================================================================
+// ADD CLASSES TO BLOCKS
+// =============================================================================
+
+/**
+ * Add default class to list blocks
+ *
+ * @since 5.12.0
+ *
+ * @param string $block_content  HTML content of the block being rendered.
+ * @param array  $block          The full block array.
+ *
+ * @return string The modified block content.
+ */
+
+function fictioneer_add_class_to_list_blocks( $block_content, $block ) {
+  if ( $block['blockName'] === 'core/list' ) {
+    $pattern = '/<(ul|ol)([^>]*)>/i';
+
+    $block_content = preg_replace_callback( $pattern, function ( $matches ) {
+      $current_attributes = $matches[2];
+      $new_class = 'block-list';
+
+      if ( strpos( $current_attributes, 'class="' ) !== false ) {
+        $modified_tag = preg_replace(
+          '/class="([^"]*)"/i',
+          'class="$1 ' . $new_class . '"',
+          $current_attributes
+        );
+      } else {
+        $modified_tag = $current_attributes . ' class="' . $new_class . '"';
+      }
+
+      return '<' . $matches[1] . $modified_tag . '>';
+    }, $block_content );
+  }
+
+  return $block_content;
+}
+add_filter( 'render_block', 'fictioneer_add_class_to_list_blocks', 10, 2 );
+
+// =============================================================================
+// ADD WRAPPER TO READ MORE LINKS
+// =============================================================================
+
+/**
+ * Add wrapper with class to read more link
+ *
+ * @since 5.12.0
+ *
+ * @param string $link  The HTML read more link.
+ *
+ * @return string The wrapped read more link.
+ */
+
+function fictioneer_wrap_read_more_link( $link ) {
+  return "<div class='more-link-wrapper'>{$link}</div>";
+}
+add_filter( 'the_content_more_link', 'fictioneer_wrap_read_more_link' );
 
 ?>

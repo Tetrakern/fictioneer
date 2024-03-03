@@ -14,11 +14,6 @@ $max-mobile-menu-width: 320px;
     height: 134vh; // Fallback
     height: 134dvh;
   }
-
-  @include bp(1024px) {
-    height: 100vh; // Fallback
-    height: 100dvh;
-  }
 }
 
 .transformed-site {
@@ -31,12 +26,6 @@ $max-mobile-menu-width: 320px;
 
   @include bp(640px) {
     transform: translate3d(min(75vw, #{$max-mobile-menu-width}), 0, 0) scale(.75);
-  }
-
-  @include bp(1024px) {
-    position: relative;
-    left: max(50% - (var(--site-width) - #{$max-mobile-menu-width}) / 2, #{$max-mobile-menu-width});
-    transform: translate3d(0, 0, 0);
   }
 
   > :is(nav, header, main, footer, div) {
@@ -64,7 +53,7 @@ body:not(.mobile-menu-open) {
     inset: 0 100% -128px 0;
     z-index: 100000; // Above adminbar
     display: block;
-    background: #000;
+    background: var(--mobile-menu-overlay);
     opacity: 0;
     transition: opacity 0.3s, right 0s;
     transition-delay: 0s, 0.3s; // Delay instant movement of overlay until fade is done
@@ -82,11 +71,6 @@ body:not(.mobile-menu-open) {
   &.advanced-mobile-menu {
     overflow: hidden;
 
-    @include bp(desktop) {
-      left: max(50% - var(--site-width) / 2, (min(75vw, #{$max-mobile-menu-width}) / 2));
-      transform: translate3d(-50%, 0, 0);
-    }
-
     #wpadminbar {
       opacity: 0;
     }
@@ -102,7 +86,7 @@ body:not(.mobile-menu-open) {
     #site {
       &::before {
         inset: 0 0 -128px;
-        opacity: 0.5;
+        opacity: 1;
         transition: opacity 0.3s; // Override transition of overlay position
       }
     }
@@ -133,12 +117,12 @@ body:not(.mobile-menu-open) {
   background-color: var(--mobile-menu-background);
   font-size: 15px;
   line-height: 1.66; // ~ 25px @ 15px
-  text-shadow: var(--mobile-menu-text-shadow);
+  text-shadow: var(--mobile-menu-text-shadow, var(--text-shadow));
   padding: 16px 16px 144px;
   width: 100%;
   max-width: min(75vw, #{$max-mobile-menu-width});
   overflow: auto;
-  box-shadow: var(--mobile-menu-site-box-shadow);
+  box-shadow: var(--mobile-menu-box-shadow);
   opacity: 0;
   transition: left 0.3s, opacity 0.3s;
 
@@ -240,7 +224,7 @@ body:not(.mobile-menu-open) {
     max-width: min(calc(75vw - 32px), #{$max-mobile-menu-width - 32px});
 
     &:not(:last-child) {
-      border-bottom: 1px solid var(--layout-color-lineart);
+      border-bottom: var(--mobile-menu-panel-border, var(--layout-hr-border));
     }
 
     &-header {
@@ -248,7 +232,7 @@ body:not(.mobile-menu-open) {
       align-items: center;
       justify-content: space-between;
       padding-bottom: 8px;
-      border-bottom: 1px dashed var(--layout-color-lineart);
+      border-bottom: var(--mobile-menu-panel-header-border, var(--layout-hr-border-dashed));
     }
 
     .icon._font-settings {
@@ -376,7 +360,7 @@ body:not(.mobile-menu-open) {
   .current-chapter {
     position: relative;
     background: var(--mobile-menu-current-chapter-background);
-    color: var(--mobile-menu-current-chapter-text);
+    color: var(--mobile-menu-current-chapter-color);
     border-radius: var(--layout-border-radius-small);
     width: calc(100% + 4px);
 
@@ -399,7 +383,7 @@ body:not(.mobile-menu-open) {
     &::after {
       content: unicode("f0d8");
       display: inline-block;
-      color: var(--fg-700);
+      color: var(--fg-800);
       font-family: 'Font Awesome 6 Free';
       font-size: 75%;
       font-weight: 900;

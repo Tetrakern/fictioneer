@@ -26,7 +26,7 @@ get_header();
 
       <?php
         // Setup
-        $title = fictioneer_get_safe_title( $post->ID );
+        $title = fictioneer_get_safe_title( $post->ID, 'single-post' );
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 

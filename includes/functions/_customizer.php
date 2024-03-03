@@ -253,8 +253,8 @@ if ( ! function_exists( 'fictioneer_hsl_font_code' ) ) {
     $hsl_array = fictioneer_rgb_to_hsl( fictioneer_hex_to_rgb( $hex ), 2 );
 
     $deg = 'calc(' . $hsl_array[0] . 'deg + var(--hue-rotate))';
-    $saturation = 'calc(' . $hsl_array[1] . '% * (var(--font-saturation) + var(--saturation) - 1))';
-    $lightness = $hsl_array[2] . '%';
+    $saturation = 'max(calc(' . $hsl_array[1] . '% * (var(--font-saturation) + var(--saturation) - 1)), 0%)';
+    $lightness = 'clamp(0%, calc(' . $hsl_array[2] . '% * var(--font-lightness, 1)), 100%)';
 
     return "hsl($deg $saturation $lightness)";
   }
@@ -576,15 +576,44 @@ function fictioneer_get_customizer_css_snippet( $snippet, $filter = null ) {
 }
 
 /**
+ * Helper to get theme color mod with default fallback
+ *
+ * @since 5.12.0
+ * @global array $fictioneer_colors  Default colors read from JSON file.
+ *
+ * @param string $mod           The requested theme color.
+ * @param string|null $default  Optional. Default color code.
+ *
+ * @return string The requested color code or '#ff6347' (tomato) if not found.
+ */
+
+function fictioneer_get_theme_color( $mod, $default = null ) {
+  global $fictioneer_colors;
+
+  if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
+    $json_path = get_template_directory() . '/includes/functions/colors.json';
+    $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
+
+    if ( ! is_array( $fictioneer_colors ) ) {
+      $fictioneer_colors = [];
+    }
+  }
+
+  $default = $default ?? $fictioneer_colors[ $mod ]['hex'] ?? '#ff6347'; // Tomato
+
+  return get_theme_mod( $mod, $default );
+}
+
+/**
  * Builds customization stylesheet
  *
  * @since 5.11.0
  *
- * @param string|null $content  Optional. In which context the stylesheet created,
+ * @param string|null $context  Optional. In which context the stylesheet created,
  *                              for example 'preview' for the Customizer.
  */
 
-function fictioneer_build_customize_css( $content = null ) {
+function fictioneer_build_customize_css( $context = null ) {
   // --- Setup -----------------------------------------------------------------
 
   $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
@@ -597,7 +626,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $footer_style = get_theme_mod( 'footer_style', 'default' );
   $css = '';
 
-  if ( $content === 'preview' ) {
+  if ( $context === 'preview' ) {
     $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
   }
 
@@ -665,9 +694,13 @@ function fictioneer_build_customize_css( $content = null ) {
   $hue_offset_dark = (int) get_theme_mod( 'hue_offset', 0 );
   $saturation_offset_dark = (int) get_theme_mod( 'saturation_offset', 0 );
   $lightness_offset_dark = (int) get_theme_mod( 'lightness_offset', 0 );
+  $font_saturation_offset_dark = (int) get_theme_mod( 'font_saturation_offset', 0 );
+  $font_lightness_offset_dark = (int) get_theme_mod( 'font_lightness_offset', 0 );
   $hue_offset_light = (int) get_theme_mod( 'hue_offset_light', 0 );
   $saturation_offset_light = (int) get_theme_mod( 'saturation_offset_light', 0 );
   $lightness_offset_light = (int) get_theme_mod( 'lightness_offset_light', 0 );
+  $font_saturation_offset_light = (int) get_theme_mod( 'font_saturation_offset_light', 0 );
+  $font_lightness_offset_light = (int) get_theme_mod( 'font_lightness_offset_light', 0 );
   $site_width = (int) get_theme_mod( 'site_width', 960 );
   $logo_height = (int) get_theme_mod( 'logo_height', 210 );
   $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
@@ -682,6 +715,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
   $card_grid_column_gap_mod = get_theme_mod( 'card_grid_column_gap_mod', 1 );
   $card_grid_row_gap_mod = get_theme_mod( 'card_grid_row_gap_mod', 1 );
+  $card_box_shadow = get_theme_mod( 'card_shadow', 'var(--box-shadow-m)' );
   $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
   $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
   $font_heading = fictioneer_get_custom_font( 'heading_font_family_value', 'var(--ff-base)', 'Open Sans' );
@@ -694,14 +728,19 @@ function fictioneer_build_customize_css( $content = null ) {
   $font_card_body = fictioneer_get_custom_font( 'card_body_font_family_value', 'var(--ff-note)', 'default' );
   $font_card_list_link = fictioneer_get_custom_font( 'card_list_link_font_family_value', 'var(--ff-note)', 'default' );
 
+  $dark_shade = fictioneer_hex_to_rgb( get_theme_mod( 'dark_shade', '000000' ) );
+  $dark_shade = is_array( $dark_shade ) ? $dark_shade : [0, 0, 0];
+
   $css .= ":root {
     --site-width: " . $site_width . "px;
     --hue-offset: " . $hue_offset_dark . "deg;
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";
-    --layout-header-background-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
-    --layout-site-header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--layout-main-inset-top));
-    --layout-site-logo-height: " . $logo_height . "px;
+    --font-saturation-offset: " . $font_saturation_offset_dark / 100 . ";
+    --font-lightness-offset: " . $font_lightness_offset_dark / 100 . ";
+    --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
+    --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top));
+    --header-logo-height: " . $logo_height . "px;
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
     --grid-columns-min: " . $card_grid_column_min . "px;
@@ -719,6 +758,8 @@ function fictioneer_build_customize_css( $content = null ) {
     --ff-card-list-link: {$font_card_list_link};
     --ff-nav-item: {$font_nav_item};
     --card-cover-width-mod: {$card_cover_width_mod};
+    --card-box-shadow: {$card_box_shadow};
+    --card-drop-shadow: " . str_replace( 'box-', 'drop-', $card_box_shadow ) . ";
   }";
 
   // Only light mode
@@ -726,6 +767,8 @@ function fictioneer_build_customize_css( $content = null ) {
     --hue-offset: " . $hue_offset_light . "deg;
     --saturation-offset: " . $saturation_offset_light / 100 . ";
     --lightness-offset: " . $lightness_offset_light / 100 . ";
+    --font-saturation-offset: " . $font_saturation_offset_light / 100 . ";
+    --font-lightness-offset: " . $font_lightness_offset_light / 100 . ";
   }";
 
   // --- Custom layout ---------------------------------------------------------
@@ -762,7 +805,8 @@ function fictioneer_build_customize_css( $content = null ) {
       --font-weight-heading: 700;
       --font-weight-badge: 600;
       --font-weight-post-meta: 400;
-      --font-weight-ribbon: 700;
+      --font-weight-read-ribbon: 700;
+      --font-weight-card-label: 600;
       --font-weight-navigation: 400;
       --font-letter-spacing-base: 0em;
     }";
@@ -771,145 +815,98 @@ function fictioneer_build_customize_css( $content = null ) {
   // --- Dark mode colors ------------------------------------------------------
 
   $css .= ":root {
-    --site-title-heading-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_title_color', '#dadde2' ) ) . ";
-    --site-title-tagline-color: " . fictioneer_hsl_code( get_theme_mod( 'dark_header_tagline_color', '#dadde2' ) ) . ";
+    --site-title-heading-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'dark_header_title_color' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'dark_header_tagline_color' ) ) . ";
   }";
 
   if ( get_theme_mod( 'use_custom_dark_mode', false ) ) {
-    $css .= ":root, :root[data-theme=base] {
-      --bg-900-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_900', '#252932' ), 'free' ) . ";
-      --bg-1000-free: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_1000', '#121317' ), 'free' ) . ";
-      --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_50', '#4b505d' ) ) . ";
-      --bg-100: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_100', '#464c58' ) ) . ";
-      --bg-200: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_200', '#434956' ) ) . ";
-      --bg-300: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_300', '#414653' ) ) . ";
-      --bg-400: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_400', '#3e4451' ) ) . ";
-      --bg-500: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_500', '#3c414e' ) ) . ";
-      --bg-600: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_600', '#373c49' ) ) . ";
-      --bg-700: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_700', '#323743' ) ) . ";
-      --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'dark_bg_800', '#2b303b' ) ) . ";
-      --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'dark_theme_color_base', '#252932' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'dark_secant', '#252932' ) ) . ";
-      --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'dark_elevation_overlay', '#121317' ) ) . ";
-      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'dark_navigation_background_sticky', '#121317' ) ) . ";
-      --primary-400: " . get_theme_mod( 'dark_primary_400', '#f7dd88' ) . ";
-      --primary-500: " . get_theme_mod( 'dark_primary_500', '#f4d171' ) . ";
-      --primary-600: " . get_theme_mod( 'dark_primary_600', '#f1bb74' ) . ";
-      --warning: " . get_theme_mod( 'dark_warning_color', '#f66055' ) . ";
-      --bookmark-color-alpha: " . get_theme_mod( 'dark_bookmark_color_alpha', '#767d8f' ) . ";
-      --bookmark-color-beta: " . get_theme_mod( 'dark_bookmark_color_beta', '#e06552' ) . ";
-      --bookmark-color-gamma: " . get_theme_mod( 'dark_bookmark_color_gamma', '#77BFA3' ) . ";
-      --bookmark-color-delta: " . get_theme_mod( 'dark_bookmark_color_delta', '#3C91E6' ) . ";
-      --bookmark-line: " . get_theme_mod( 'dark_bookmark_line_color', '#f4d171' ) . ";
-      --ins-background: " . get_theme_mod( 'dark_ins_background', '#7ebb4e' ) . ";
-      --del-background: " . get_theme_mod( 'dark_del_background', '#f66055' ) . ";
-      --badge-generic-background: " . get_theme_mod( 'dark_badge_generic_background', '#3a3f4b' ) . ";
-      --badge-moderator-background: " . get_theme_mod( 'dark_badge_moderator_background', '#4d628f' ) . ";
-      --badge-admin-background: " . get_theme_mod( 'dark_badge_admin_background', '#505062' ) . ";
-      --badge-author-background: " . get_theme_mod( 'dark_badge_author_background', '#505062' ) . ";
-      --badge-supporter-background: " . get_theme_mod( 'dark_badge_supporter_background', '#e64c66' ) . ";
-      --badge-override-background: " . get_theme_mod( 'dark_badge_override_background', '#3a3f4b' ) . ";
-    }
-    :root,
-    :root[data-theme=base],
-    :root .chapter-formatting,
-    :root[data-theme=base] .chapter-formatting {
-      --fg-100: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_100', '#dddfe3' ) ) . ";
-      --fg-200: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_200', '#d2d4db' ) ) . ";
-      --fg-300: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_300', '#c4c7cf' ) ) . ";
-      --fg-400: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_400', '#b4bac5' ) ) . ";
-      --fg-500: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_500', '#a5acbb' ) ) . ";
-      --fg-600: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_600', '#9aa1b1' ) ) . ";
-      --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_700', '#929aaa' ) ) . ";
-      --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_800', '#9298a5' ) ) . ";
-      --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_900', '#787f91' ) ) . ";
-      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_1000', '#121416' ) ) . ";
-      --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'dark_fg_tinted', '#a4a9b7' ) ) . ";
-    }";
+    $css .= ":root, :root[data-theme=base] {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--bg-{$prop}-free: " . fictioneer_hsl_code( fictioneer_get_theme_color( "dark_bg_{$prop}" ), 'free' ) . ';';
+      }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
+      .
+      "
+      --dark-shade-rgb:" . implode( ' ', $dark_shade ) . ";
+      --primary-400: " . fictioneer_get_theme_color( 'dark_primary_400' ) . ";
+      --primary-500: " . fictioneer_get_theme_color( 'dark_primary_500' ) . ";
+      --primary-600: " . fictioneer_get_theme_color( 'dark_primary_600' ) . ";
+      --red-400: " . fictioneer_get_theme_color( 'dark_red_400' ) . ";
+      --red-500: " . fictioneer_get_theme_color( 'dark_red_500' ) . ";
+      --red-600: " . fictioneer_get_theme_color( 'dark_red_600' ) . ";
+      --green-400: " . fictioneer_get_theme_color( 'dark_green_400' ) . ";
+      --green-500: " . fictioneer_get_theme_color( 'dark_green_500' ) . ";
+      --green-600: " . fictioneer_get_theme_color( 'dark_green_600' ) . ";
+      --theme-color-base: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'dark_theme_color_base' ), 'values' ) . ";
+      --navigation-background: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'dark_navigation_background_sticky' ) ) . ";
+      --bookmark-color-alpha: " . fictioneer_get_theme_color( 'dark_bookmark_color_alpha' ) . ";
+      --bookmark-color-beta: " . fictioneer_get_theme_color( 'dark_bookmark_color_beta' ) . ";
+      --bookmark-color-gamma: " . fictioneer_get_theme_color( 'dark_bookmark_color_gamma' ) . ";
+      --bookmark-color-delta: " . fictioneer_get_theme_color( 'dark_bookmark_color_delta' ) . ";
+      --bookmark-line: " . fictioneer_get_theme_color( 'dark_bookmark_line_color' ) . ";
+      --ins-background: " . fictioneer_get_theme_color( 'dark_ins_background' ) . ";
+      --del-background: " . fictioneer_get_theme_color( 'dark_del_background' ) . ";"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--badge-{$prop}-background: " . fictioneer_get_theme_color( "dark_badge_{$prop}_background" ) . ';';
+      }, ['generic', 'moderator', 'admin', 'author', 'supporter', 'override'] ) )
+      .
+    "}
+    :root, :root[data-theme=base], :root .chapter-formatting, :root[data-theme=base] .chapter-formatting {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--fg-{$prop}: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( "dark_fg_{$prop}" ) ) . ';';
+      }, ['100', '200', '300', '400', '500', '600', '700', '800', '900', '950', 'tinted', 'inverted'] ) )
+      .
+    "}";
   }
 
   // --- Light mode colors -----------------------------------------------------
 
-  $title_color_light = get_theme_mod( 'light_header_title_color', '#fcfcfd' );
-  $tag_color_light = get_theme_mod( 'light_header_tagline_color', '#f3f5f7' );
-
-  if ( in_array( $header_style, ['default', 'overlay'] ) ) {
-    $css .= ":root {
-      --site-title-heading-color: " . fictioneer_hsl_code( $title_color_light ) . ";
-      --site-title-tagline-color: " . fictioneer_hsl_code( $tag_color_light ) . ";
-    }";
-  } else {
-    if ( $title_color_light !== '#fcfcfd' ) {
-      $css .= ":root[data-mode=light] {
-        --site-title-heading-color: " . fictioneer_hsl_code( $title_color_light ) . ";
-      }";
-    } else {
-      $css .= ":root[data-mode=light] {
-        --site-title-heading-color: var(--fg-400);
-      }";
-    }
-
-    if ( $tag_color_light !== '#f3f5f7' ) {
-      $css .= ":root[data-mode=light] {
-        --site-title-tagline-color: " . fictioneer_hsl_code( $tag_color_light ) . ";
-      }";
-    } else {
-      $css .= ":root[data-mode=light] {
-        --site-title-tagline-color: var(--fg-400);
-      }";
-    }
-  }
+  $css .= ":root[data-mode=light] {
+    --site-title-heading-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'light_header_title_color' ) ) . ";
+    --site-title-tagline-color: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( 'light_header_tagline_color' ) ) . ";
+  }";
 
   if ( get_theme_mod( 'use_custom_light_mode', false ) ) {
-    $css .= ":root[data-mode=light] {
-      --bg-200-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_200', '#e5e7eb' ), 'free' ) . ";
-      --bg-1000-free: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_1000', '#111827' ), 'free' ) . ";
-      --bg-10: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_10', '#fcfcfd' ) ) . ";
-      --bg-50: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_50', '#f9fafb' ) ) . ";
-      --bg-100: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_100', '#f3f4f6' ) ) . ";
-      --bg-300: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_300', '#d1d5db' ) ) . ";
-      --bg-400: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_400', '#9ca3b0' ) ) . ";
-      --bg-500: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_500', '#6b7280' ) ) . ";
-      --bg-600: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_600', '#4b5563' ) ) . ";
-      --bg-700: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_700', '#384252' ) ) . ";
-      --bg-800: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_800', '#1f2937' ) ) . ";
-      --bg-900: " . fictioneer_hsl_code( get_theme_mod( 'light_bg_900', '#111827' ) ) . ";
-      --theme-color-base: " . fictioneer_hsl_code( get_theme_mod( 'light_theme_color_base', '#f3f4f6' ), 'values' ) . ";
-      --secant: " . fictioneer_hsl_code( get_theme_mod( 'light_secant', '#e5e7eb' ) ) . ";
-      --e-overlay: " . fictioneer_hsl_code( get_theme_mod( 'light_elevation_overlay', '#191b1f' ) ) . ";
-      --navigation-background-sticky: " . fictioneer_hsl_code( get_theme_mod( 'light_navigation_background_sticky', '#fcfcfd' ) ) . ";
-      --primary-400: " . get_theme_mod( 'light_primary_400', '#4287f5' ) . ";
-      --primary-500: " . get_theme_mod( 'light_primary_500', '#3c83f6' ) . ";
-      --primary-600: " . get_theme_mod( 'light_primary_600', '#1e3fae' ) . ";
-      --warning: " . get_theme_mod( 'light_warning_color', '#eb5247' ) . ";
-      --bookmark-color-alpha: " . get_theme_mod( 'light_bookmark_color_alpha', '#9ca3b0' ) . ";
-      --bookmark-color-beta: " . get_theme_mod( 'light_bookmark_color_beta', '#f59e0b' ) . ";
-      --bookmark-color-gamma: " . get_theme_mod( 'light_bookmark_color_gamma', '#77bfa3' ) . ";
-      --bookmark-color-delta: " . get_theme_mod( 'light_bookmark_color_delta', '#dd5960' ) . ";
-      --bookmark-line: " . get_theme_mod( 'light_bookmark_line_color', '#3c83f6' ) . ";
-      --ins-background: " . get_theme_mod( 'light_ins_background', '#7ec945' ) . ";
-      --del-background: " . get_theme_mod( 'light_del_background', '#e96c63' ) . ";
-      --badge-generic-background: " . get_theme_mod( 'light_badge_generic_background', '#9ca3b0' ) . ";
-      --badge-moderator-background: " . get_theme_mod( 'light_badge_moderator_background', '#5369ac' ) . ";
-      --badge-admin-background: " . get_theme_mod( 'light_badge_admin_background', '#384252' ) . ";
-      --badge-author-background: " . get_theme_mod( 'light_badge_author_background', '#384252' ) . ";
-      --badge-supporter-background: " . get_theme_mod( 'light_badge_supporter_background', '#ed5e76' ) . ";
-      --badge-override-background: " . get_theme_mod( 'light_badge_override_background', '#9ca3b0' ) . ";
-    }
-    :root[data-mode=light],
-    :root[data-mode=light] .chapter-formatting {
-      --fg-100: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_100', '#010204' ) ) . ";
-      --fg-200: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_200', '#04060b' ) ) . ";
-      --fg-300: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_300', '#0a0f1a' ) ) . ";
-      --fg-400: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_400', '#111827' ) ) . ";
-      --fg-500: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_500', '#1f2937' ) ) . ";
-      --fg-600: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_600', '#384252' ) ) . ";
-      --fg-700: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_700', '#4b5563' ) ) . ";
-      --fg-800: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_800', '#6b7280' ) ) . ";
-      --fg-900: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_900', '#9ca3b0' ) ) . ";
-      --fg-1000: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_1000', '#f3f5f7' ) ) . ";
-      --fg-tinted: " . fictioneer_hsl_font_code( get_theme_mod( 'light_fg_tinted', '#2b3546' ) ) . ";
-    }";
+    $css .= ":root[data-mode=light] {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--bg-{$prop}-free: " . fictioneer_hsl_code( fictioneer_get_theme_color( "light_bg_{$prop}" ), 'free' ) . ';';
+      }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
+      .
+      "
+      --primary-400: " . fictioneer_get_theme_color( 'light_primary_400' ) . ";
+      --primary-500: " . fictioneer_get_theme_color( 'light_primary_500' ) . ";
+      --primary-600: " . fictioneer_get_theme_color( 'light_primary_600' ) . ";
+      --red-400: " . fictioneer_get_theme_color( 'light_red_400' ) . ";
+      --red-500: " . fictioneer_get_theme_color( 'light_red_500' ) . ";
+      --red-600: " . fictioneer_get_theme_color( 'light_red_600' ) . ";
+      --green-400: " . fictioneer_get_theme_color( 'light_green_400' ) . ";
+      --green-500: " . fictioneer_get_theme_color( 'light_green_500' ) . ";
+      --green-600: " . fictioneer_get_theme_color( 'light_green_600' ) . ";
+      --theme-color-base: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'light_theme_color_base' ), 'values' ) . ";
+      --navigation-background: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'light_navigation_background_sticky' ) ) . ";
+      --bookmark-color-alpha: " . fictioneer_get_theme_color( 'light_bookmark_color_alpha' ) . ";
+      --bookmark-color-beta: " . fictioneer_get_theme_color( 'light_bookmark_color_beta' ) . ";
+      --bookmark-color-gamma: " . fictioneer_get_theme_color( 'light_bookmark_color_gamma' ) . ";
+      --bookmark-color-delta: " . fictioneer_get_theme_color( 'light_bookmark_color_delta' ) . ";
+      --bookmark-line: " . fictioneer_get_theme_color( 'light_bookmark_line_color' ) . ";
+      --ins-background: " . fictioneer_get_theme_color( 'light_ins_background' ) . ";
+      --del-background: " . fictioneer_get_theme_color( 'light_del_background' ) . ";"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--badge-{$prop}-background: " . fictioneer_get_theme_color( "light_badge_{$prop}_background" ) . ';';
+      }, ['generic', 'moderator', 'admin', 'author', 'supporter', 'override'] ) )
+      .
+    "}
+    :root[data-mode=light], :root[data-mode=light] .chapter-formatting {"
+      .
+      implode( '', array_map( function( $prop ) {
+        return "--fg-{$prop}: " . fictioneer_hsl_font_code( fictioneer_get_theme_color( "light_fg_{$prop}" ) ) . ';';
+      }, ['100', '200', '300', '400', '500', '600', '700', '800', '900', '950', 'tinted', 'inverted'] ) )
+      .
+    "}";
   }
 
   // --- Header styles ---------------------------------------------------------
@@ -956,9 +953,9 @@ function fictioneer_build_customize_css( $content = null ) {
 
   if ( ! get_theme_mod( 'page_shadow', true ) ) {
     $css .= ':root.no-page-shadow {
-      --layout-main-box-shadow: none;
-      --minimal-main-box-shadow: none;
-      --layout-main-drop-shadow: none;
+      --minimal-page-box-shadow: none;
+      --page-box-shadow: none;
+      --page-drop-shadow: none;
     }';
   }
 
@@ -1002,7 +999,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Update options --------------------------------------------------------
 
-  if ( $content !== 'preview' ) {
+  if ( $context !== 'preview' ) {
     update_option( 'fictioneer_customize_css_timestamp', time(), true );
   }
 

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $list_title = trim( get_post_meta( $post->ID, 'fictioneer_collection_list_title', true ) );
-$title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID ) : $list_title;
+$title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID, 'card-collection' ) : $list_title;
 $description = fictioneer_get_content_field( 'fictioneer_collection_description', $post->ID );
 $statistics = fictioneer_get_collection_statistics( $post->ID );
 $items = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
@@ -139,7 +139,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
                   if ( $list_title ) {
                     echo wp_strip_all_tags( $list_title );
                   } else {
-                    echo fictioneer_get_safe_title( $item->ID );
+                    echo fictioneer_get_safe_title( $item->ID, 'card-collection-list' );
                   }
                 ?></a>
               </div>

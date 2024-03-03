@@ -15,21 +15,21 @@
             case 'darken':
               temp = settings['darken'];
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--darken', modifier)
+              root.style.setProperty('--darken', `(${modifier} + var(--lightness-offset))`)
               break;
             case 'saturation':
               temp = settings['saturation'];
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--saturation', modifier)
+              root.style.setProperty('--saturation', `(${modifier} + var(--saturation-offset))`)
               break;
             case 'font-saturation':
               temp = settings['font-saturation'];
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--font-saturation', modifier)
+              root.style.setProperty('--font-saturation', `(${modifier} + var(--font-saturation-offset))`)
               break;
             case 'hue-rotate':
               modifier = Number.isInteger(settings['hue-rotate']) ? settings['hue-rotate'] : 0;
-              root.style.setProperty('--hue-rotate', `${modifier}deg`);
+              root.style.setProperty('--hue-rotate', `(${modifier}deg + var(--hue-offset))`);
               break;
             default:
               root.classList.toggle(`no-${entry[0]}`, !entry[1])
@@ -39,12 +39,14 @@
         root.dataset.fontWeight = settings.hasOwnProperty('font-weight') ? settings['font-weight'] : 'default';
         root.dataset.theme = settings.hasOwnProperty('site-theme') && ! root.dataset.forceChildTheme ? settings['site-theme'] : 'default';
 
-        let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' '),
-            darken = settings['darken'] ? settings['darken'] : 0,
-            saturation = settings['saturation'] ? settings['saturation'] : 0,
-            hueRotate = settings['hue-rotate'] ? settings['hue-rotate'] : 0,
-            _d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
-            settings = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+        let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' ');
+
+        const darken = settings['darken'] ? settings['darken'] : 0;
+        const saturation = settings['saturation'] ? settings['saturation'] : 0;
+        const hueRotate = settings['hue-rotate'] ? settings['hue-rotate'] : 0;
+        const _d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
+
+        settings = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
 
         themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * settings).toFixed(2)}% ${(parseInt(themeColor[2]) * _d).toFixed(2)}%)`;
 

@@ -215,7 +215,7 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
     $article_node = array(
       '@type' => $type,
       '@id' => "#article",
-      'headline' => fictioneer_get_safe_title( $post->ID ),
+      'headline' => fictioneer_get_safe_title( $post->ID, 'seo-schema-article-node' ),
       'description' => $description,
       'url' => get_the_permalink( $post->ID ),
       'author' => array(

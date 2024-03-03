@@ -273,7 +273,7 @@ if ( $show_advanced ) {
       <?php endif; ?>
     </div>
 
-    <div class="search-form__advanced">
+    <div class="search-form__advanced infobox">
 
       <div class="search-form__select-group">
 

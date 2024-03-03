@@ -92,33 +92,37 @@ $badge = fictioneer_get_comment_badge( $current_user, null );
 
 </ul>
 
-<div class="comment">
+<div class="fictioneer-comment">
+  <div class="fictioneer-comment__container">
 
-  <div class="comment__header">
+    <div class="fictioneer-comment__header">
 
-    <?php if ( $avatar ) echo $avatar; ?>
+      <?php if ( $avatar ) echo $avatar; ?>
 
-    <div class="comment__meta">
-      <div class="comment__author">
-        <span><?php echo $current_user->display_name; ?></span>
-        <?php if ( $badge ) echo $badge; ?>
+      <div class="fictioneer-comment__meta">
+        <div class="fictioneer-comment__author truncate _1-1">
+          <span><?php echo $current_user->display_name; ?></span>
+          <?php if ( $badge ) echo $badge; ?>
+        </div>
+        <div class="fictioneer-comment__info truncate _1-1">
+          <div class="fictioneer-comment__date"><?php
+            echo date_format(
+              date_create(),
+              sprintf(
+                _x( '%1$s \a\t %2$s', 'Comment time format string.', 'fictioneer' ),
+                get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y",
+                get_option( 'time_format' )
+              )
+            );
+          ?></div>
+        </div>
       </div>
-      <div class="comment__date-and-link"><?php
-        echo date_format(
-          date_create(),
-          sprintf(
-            _x( '%1$s \a\t %2$s', 'Comment time format string.', 'fictioneer' ),
-            get_option( 'fictioneer_subitem_date_format', "M j, 'y" ) ?: "M j, 'y",
-            get_option( 'time_format' )
-          )
-        );
-      ?></div>
+
+    </div>
+
+    <div class="fictioneer-comment__body clearfix">
+      <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus.', 'fictioneer' ); ?></p>
     </div>
 
   </div>
-
-  <div class="comment__body clearfix">
-    <p><?php _e( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis eu lectus eu pellentesque. Fusce ornare erat tellus, nec aliquet lacus sodales ut. Duis auctor vulputate dolor nec bibendum. Maecenas dapibus nibh at quam dictum porta at eu felis. Interdum et malesuada fames ac ante ipsum primis in faucibus.', 'fictioneer' ); ?></p>
-  </div>
-
 </div>

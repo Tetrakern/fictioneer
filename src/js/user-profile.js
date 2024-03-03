@@ -53,13 +53,13 @@ function fcn_unsetOauth(nonce, channel, id) {
       fcn_showNotification(connection.dataset.unset);
     } else {
       // Failed to unset
-      connection.style.background = 'var(--warning)';
+      connection.style.background = 'var(--notice-warning-background)';
       fcn_showNotification(response.data.error, 5, 'warning');
     }
   })
   .catch(error => {
     if (error.status && error.statusText) {
-      connection.style.background = 'var(--warning)';
+      connection.style.background = 'var(--notice-warning-background)';
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
   })

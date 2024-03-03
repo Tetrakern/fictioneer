@@ -100,7 +100,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
         <?php
           // Setup
-          $title = fictioneer_get_safe_title( $post->ID );
+          $title = fictioneer_get_safe_title( $post->ID, 'shortcode-latest-recommendations' );
           $one_sentence = get_post_meta( $post->ID, 'fictioneer_recommendation_one_sentence', true );
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );

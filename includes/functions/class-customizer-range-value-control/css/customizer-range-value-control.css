@@ -38,13 +38,14 @@
 }
 
 .range-slider__value {
+  cursor: not-allowed;
   flex: 0 0 auto;
   line-height: 20px;
   text-align: center;
   border-radius: 3px;
-  background: #dcdcde;
   padding: 3px 0;
   margin: 2px 0 2px 8px;
+  border: 1.5px dashed #dcdcde;
   width: 64px;
 }
 

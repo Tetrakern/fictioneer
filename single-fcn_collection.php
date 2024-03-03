@@ -35,7 +35,7 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
         // Setup
         $featured_list = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
         $featured_list = is_array( $featured_list ) ? $featured_list : [];
-        $title = fictioneer_get_safe_title( $post->ID );
+        $title = fictioneer_get_safe_title( $post->ID, 'single-collection' );
         $this_breadcrumb = [$title, get_the_permalink()];
         $current_page = max( 1, get_query_var( 'pg', 1 ) ?: 1 ); // Paged not available
 
