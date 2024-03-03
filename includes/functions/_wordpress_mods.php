@@ -8,10 +8,11 @@
  * Toggle maintenance mode from settings with message
  *
  * @since 5.0.0
+ * @since 5.12.0 - Exclude Customizer preview.
  */
 
 function fictioneer_maintenance_mode() {
-  if ( get_option( 'fictioneer_enable_maintenance_mode' ) ) {
+  if ( get_option( 'fictioneer_enable_maintenance_mode' ) && ! is_customize_preview() ) {
     if ( ! current_user_can( 'edit_themes' ) || ! is_user_logged_in() ) {
       $note = get_option( 'fictioneer_phrase_maintenance' );
       $note = ! empty( $note ) ? $note : __( 'Website under planned maintenance. Please check back later.', 'fictioneer' );
