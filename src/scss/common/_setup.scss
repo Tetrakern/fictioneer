@@ -145,8 +145,8 @@ details {
     cursor: pointer;
   }
 
-  > :not([class], summary) {
-    margin-top: 2px;
+  &[open] summary {
+    margin-bottom: .375em;
   }
 }
 

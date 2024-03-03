@@ -274,6 +274,7 @@ function fictioneer_allowed_block_types() {
     'core/separator',
     'core/spacer',
     'core/footnotes',
+    'core/details',
     'core/more',
     'core/buttons',
     'core/button',
