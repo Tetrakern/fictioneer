@@ -102,8 +102,12 @@ body {
 
   .wp-block {
     box-sizing: border-box;
-    margin: calc(28px + var(--spacing-offset, 0px)) auto;
+    margin: 0 auto calc(28px + var(--spacing-offset, 0px));
     max-width: var(--editor-max-width);
+
+    &:not(p) {
+      margin: calc(28px + var(--spacing-offset, 0px)) auto;
+    }
 
     figcaption {
       color: rgb(0 0 0 / 70%);
