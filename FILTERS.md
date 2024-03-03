@@ -58,9 +58,15 @@ Filters the array of allowed orderby arguments for WP_Query.
 
 **$defaults:**
 * $0 (string) – `modified`
-* $0 (string) – `date`
-* $0 (string) – `title`
-* $0 (string) – `rand`
+* $1 (string) – `date`
+* $2 (string) – `title`
+* $3 (string) – `rand`
+* $4 (string) – `name`
+* $5 (string) – `ID`
+* $6 (string) – `comment_count`
+* $7 (string) – `type`
+* $8 (string) – `post__in`
+* $9 (string) – `author`
 
 ---
 
