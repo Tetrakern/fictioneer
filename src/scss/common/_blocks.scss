@@ -669,3 +669,15 @@ figure.wp-block-pullquote {
     max-width: unset;
   }
 }
+
+// =============================================================================
+// FOOTNOTES
+// =============================================================================
+
+.wp-block-footnotes {
+  border-style: solid;
+
+  li:not(:last-child) {
+    margin-bottom: 0;
+  }
+}

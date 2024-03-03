@@ -223,7 +223,7 @@ p a,
 }
 
 .content-section {
-  :where(.list, .block-list, .litrpg-body :where(ul, ol)) {
+  :where(.list, .block-list, .wp-block-footnotes, .litrpg-body :where(ul, ol)) {
     list-style: initial;
     padding-left: 1.75rem;
     margin: 1.5rem 0 0;
@@ -257,7 +257,7 @@ p a,
     list-style: square;
   }
 
-  :where(.list, ol.block-list, .litrpg-body ol) {
+  :where(.list, ol.block-list, ol.wp-block-footnotes, .litrpg-body ol) {
     list-style: ordered-list;
   }
 }
