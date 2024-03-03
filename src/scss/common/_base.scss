@@ -94,6 +94,8 @@
 }
 
 %button {
+  --this-padding-horizontal: #{get_clamp(6, 8, 375, 480)};
+  --this-height: #{get_clamp(26, 32, 320, 375)};
   cursor: pointer;
   user-select: none;
   -webkit-appearance: none;
@@ -111,8 +113,8 @@
   text-shadow: none;
   border: var(--button-primary-border, 1px solid transparent);
   border-radius: var(--layout-border-radius-small);
-  padding: 0 get_clamp(6, 8, 375, 480);
-  height: get_clamp(26, 32, 320, 375);
+  padding: 0 var(--this-padding-horizontal);
+  height: var(--this-height);
   width: fit-content;
   min-width: get_clamp(26, 32, 320, 375);
   box-shadow: var(--button-box-shadow);

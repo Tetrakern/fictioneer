@@ -568,9 +568,29 @@ figure.wp-block-pullquote {
   // Theme button style applied
   &.button {
     display: inline-flex;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    height: auto;
 
     a {
-      padding: 0 !important;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      white-space: normal;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      min-height: calc(var(--this-height) - 2px); // Subtract default border
+
+      &:not([style*="padding-left"]) {
+        padding-left: var(--this-padding-horizontal);
+      }
+
+      &:not([style*="padding-right"]) {
+        padding-right: var(--this-padding-horizontal);
+      }
     }
   }
 }
