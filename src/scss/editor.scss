@@ -202,6 +202,64 @@ body {
   }
 
   // =============================================================================
+  // BUTTONS
+  // =============================================================================
+
+  .wp-block-button {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    &.button {
+      background: #32373c;
+      color: white;
+      border: 1px solid transparent;
+
+      &:hover {
+        background: #464c53;
+      }
+
+      .wp-block-button__link {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        margin: -1px;
+        line-height: 1;
+        min-height: 32px;
+        width: calc(100% + 2px);
+
+        &:not([style*="padding-top"]) {
+          padding-top: 0 !important;
+        }
+
+        &:not([style*="padding-bottom"]) {
+          padding-bottom: 0 !important;
+        }
+
+        &:not([style*="padding-left"]) {
+          padding-left: 8px;
+        }
+
+        &:not([style*="padding-right"]) {
+          padding-right: 8px;
+        }
+      }
+
+      &._secondary {
+        background: rgb(0 0 0 / 4%);
+        color: currentColor;
+        border: 1px solid #32373c;
+
+        &:hover {
+          background: rgb(0 0 0 / 6%);
+          color: currentColor;
+          border: 1px solid #464c53;
+        }
+      }
+    }
+  }
+
+  // =============================================================================
   // IMAGES
   // =============================================================================
 
