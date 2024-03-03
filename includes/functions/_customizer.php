@@ -609,11 +609,11 @@ function fictioneer_get_theme_color( $mod, $default = null ) {
  *
  * @since 5.11.0
  *
- * @param string|null $content  Optional. In which context the stylesheet created,
+ * @param string|null $context  Optional. In which context the stylesheet created,
  *                              for example 'preview' for the Customizer.
  */
 
-function fictioneer_build_customize_css( $content = null ) {
+function fictioneer_build_customize_css( $context = null ) {
   // --- Setup -----------------------------------------------------------------
 
   $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
@@ -626,7 +626,7 @@ function fictioneer_build_customize_css( $content = null ) {
   $footer_style = get_theme_mod( 'footer_style', 'default' );
   $css = '';
 
-  if ( $content === 'preview' ) {
+  if ( $context === 'preview' ) {
     $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
   }
 
@@ -999,7 +999,7 @@ function fictioneer_build_customize_css( $content = null ) {
 
   // --- Update options --------------------------------------------------------
 
-  if ( $content !== 'preview' ) {
+  if ( $context !== 'preview' ) {
     update_option( 'fictioneer_customize_css_timestamp', time(), true );
   }
 
