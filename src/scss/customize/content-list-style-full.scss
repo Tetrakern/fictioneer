@@ -5,7 +5,7 @@
   --card-content-li-background: var(--card-content-li-background-full);
   --content-li-background: var(--content-li-background-full);
 
-  .chapter-group__list-item {
+  [data-view=list] .chapter-group__list-item {
     padding: .5rem 8px .5rem 6px;
   }
 
@@ -13,7 +13,7 @@
     padding: .5rem 8px;
   }
 
-  .card__link-list-item {
+  [data-view=list] .card__link-list-item {
     padding-left: 0.35em;
   }
 }

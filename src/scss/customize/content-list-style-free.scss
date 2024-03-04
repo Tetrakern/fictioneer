@@ -5,7 +5,7 @@
   --content-li-background: none;
   --card-content-li-background: none;
 
-  :is(.chapter-group__list-item, .story__blog-list-item) {
+  [data-view=list] :is(.chapter-group__list-item, .story__blog-list-item) {
     border-radius: 0;
     border-bottom: none;
   }
