@@ -595,7 +595,8 @@ html:not(.logged-in) body:not(.logged-in) {
     }
 
     .chapter-group__list {
-      height: 3px !important; // Override element style set by JS
+      pointer-events: none;
+      height: 8px !important; // Override element style set by JS
     }
   }
 
@@ -624,8 +625,8 @@ html:not(.logged-in) body:not(.logged-in) {
     flex-direction: column;
     gap: 3px;
     font-size: var(--fs-xs);
-    padding: 12px; // Space for grid-view shadows due to overflow: hidden
-    margin: -12px; // Space for grid-view shadows due to overflow: hidden
+    padding: 4px; // Space for small shadows due to overflow: hidden
+    margin: -4px; // Space for small shadows due to overflow: hidden
     transition: height var(--transition-duration);
     overflow: hidden;
 

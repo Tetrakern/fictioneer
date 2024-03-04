@@ -484,11 +484,11 @@ $header_breakpoint: 640px;
       }
 
       &-item {
-        background: var(--chapter-grid-item-background, var(--card-bg-color));
+        background: var(--chapter-grid-item-background, var(--content-li-background));
         padding: .5rem;
         border: none !important; // Accounts for minimalist mode
         border-radius: var(--layout-border-radius-small); // Accounts for minimalist mode
-        box-shadow: var(--chapter-grid-item-box-shadow, var(--card-box-shadow, var(--box-shadow-m)));
+        box-shadow: var(--chapter-grid-item-box-shadow);
 
         &-icon {
           display: none;
