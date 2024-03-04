@@ -2028,7 +2028,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Large Border Radius', 'fictioneer' ),
-      'description' => __( 'Border radius of large containers, such as the main content section. Default 4.', 'fictioneer' ),
+      'description' => __( 'Border radius of large containers in pixels, such as the main content section. Default 4.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '4',
         'style' => 'width: 80px',
@@ -2054,9 +2054,35 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Small Border Radius', 'fictioneer' ),
-      'description' => __( 'Border radius of small containers, such as story cards and inputs. Default 2.', 'fictioneer' ),
+      'description' => __( 'Border radius of small containers in pixels, such as story cards and inputs. Default 2.', 'fictioneer' ),
       'input_attrs' => array(
         'placeholder' => '2',
+        'style' => 'width: 80px',
+        'min' => 0
+      )
+    )
+  );
+
+  // Chapter list gap
+  $manager->add_setting(
+    'chapter_list_gap',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'absint',
+      'default' => 4
+    )
+  );
+
+  $manager->add_control(
+    'chapter_list_gap',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Chapter List Gap', 'fictioneer' ),
+      'description' => __( 'The gap between chapter list items in pixels (not grid view). Default 4.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '4',
         'style' => 'width: 80px',
         'min' => 0
       )
