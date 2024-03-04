@@ -99,6 +99,10 @@
     "hex": "#fcfcfd",
     "hsl": [210, 20, 99]
   },
+  "light_card_frame": {
+    "hex": "#e5e8eb",
+    "hsl": [210, 13, 91]
+  },
   "light_primary_400": {
     "hex": "#6ea2f7",
     "hsl": [217, 90, 70]
@@ -298,6 +302,10 @@
   "dark_fg_inverted": {
     "hex": "#0a0c0f",
     "hsl": [222, 20, 5]
+  },
+  "dark_card_frame": {
+    "hex": "#252932",
+    "hsl": [219, 15, 17]
   },
   "dark_primary_400": {
     "hex": "#f7dd88",

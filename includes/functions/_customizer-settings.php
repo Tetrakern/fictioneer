@@ -153,7 +153,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     array(
       'title' => __( 'Light Mode Colors', 'fictioneer' ),
       'description' => __( 'Color scheme for the light mode. If you want to add custom CSS, this needs to be under <code>:root[data-mode="light"]</code>.', 'fictioneer' ),
-      'priority' => '84'
+      'priority' => '83'
     )
   );
 
@@ -362,7 +362,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     ),
     'light_bg_300' => array(
       'label' => __( 'Light Background 300', 'fictioneer' ),
-      'description' => __( 'Used for tabs, pagination numbers, navigation item hovers, navigation submenus, overlays, secondary button hovers, &ltkbd> elements, and barber pole animations.', 'fictioneer' )
+      'description' => __( 'Used for tabs, pagination numbers, navigation item hovers, navigation submenus, overlays, secondary button hovers, &ltkbd> elements, card frame borders, and barber pole animations.', 'fictioneer' )
     ),
     'light_bg_400' => array(
       'label' => __( 'Light Background 400', 'fictioneer' ),
@@ -439,6 +439,10 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     'light_fg_inverted' => array(
       'label' => __( 'Light Foreground Inverted', 'fictioneer' ),
       'description' => __( 'Light text color for dark backgrounds. Default contrast ~17.3:1 on BG-900.', 'fictioneer' )
+    ),
+    'light_card_frame' => array(
+      'label' => __( 'Light Card Frame', 'fictioneer' ),
+      'description' => __( 'Color for some card frame borders and divider lines. Based on BG-300 by default.', 'fictioneer' )
     ),
     'light_theme_color_base' => array(
       'label' => __( 'Light Theme Color Meta', 'fictioneer' ),
@@ -569,7 +573,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'title' => __( 'Dark Mode Colors', 'fictioneer' ),
       'description' => __( 'Color scheme for the dark mode. <b>Warning:</b> Looking at light text on dark background for a prolonged period of time causes immense eye strain! Try to keep the main text contrast between 5:1 and 7:1 to alleviate the issue.', 'fictioneer' ),
-      'priority' => '83'
+      'priority' => '84'
     )
   );
 
@@ -799,7 +803,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_800' => array(
       'label' => __( 'Dark Background 800', 'fictioneer' ),
-      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, and info boxes.', 'fictioneer' )
+      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, and card frame borders.', 'fictioneer' )
     ),
     'dark_bg_900' => array(
       'label' => __( 'Dark Background 900', 'fictioneer' ),
@@ -860,6 +864,10 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     'dark_fg_inverted' => array(
       'label' => __( 'Dark Foreground Inverted', 'fictioneer' ),
       'description' => __( 'Dark text color for bright backgrounds. Default contrast ~4.5:1 on BG-200.', 'fictioneer' )
+    ),
+    'dark_card_frame' => array(
+      'label' => __( 'Dark Card Frame', 'fictioneer' ),
+      'description' => __( 'Color for some card frame borders and divider lines. Based on BG-800 by default.', 'fictioneer' )
     ),
     'dark_theme_color_base' => array(
       'label' => __( 'Dark Theme Color Meta', 'fictioneer' ),
@@ -1614,7 +1622,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Card Frame', 'fictioneer' ),
-      'description' => __( 'Choose the frame for your cards.', 'fictioneer' ),
+      'description' => __( 'Choose the frame for your cards. Turn off the card shadow if borders get blurry.', 'fictioneer' ),
       'choices' => apply_filters( 'fictioneer_filter_customizer_card_frame', $card_frames )
     )
   );

@@ -828,6 +828,7 @@ function fictioneer_build_customize_css( $context = null ) {
       }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
       .
       "
+      --card-frame-border-color: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'dark_card_frame' ) ) . ";
       --dark-shade-rgb:" . implode( ' ', $dark_shade ) . ";
       --primary-400: " . fictioneer_get_theme_color( 'dark_primary_400' ) . ";
       --primary-500: " . fictioneer_get_theme_color( 'dark_primary_500' ) . ";
@@ -877,6 +878,7 @@ function fictioneer_build_customize_css( $context = null ) {
       }, ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] ) )
       .
       "
+      --card-frame-border-color: " . fictioneer_hsl_code( fictioneer_get_theme_color( 'light_card_frame' ) ) . ";
       --primary-400: " . fictioneer_get_theme_color( 'light_primary_400' ) . ";
       --primary-500: " . fictioneer_get_theme_color( 'light_primary_500' ) . ";
       --primary-600: " . fictioneer_get_theme_color( 'light_primary_600' ) . ";
@@ -971,6 +973,10 @@ function fictioneer_build_customize_css( $context = null ) {
   }
 
   // --- Card frames -----------------------------------------------------------
+
+  if ( $card_frame !== 'default' ) {
+    $css .= '.card{filter:var(--card-drop-shadow);}';
+  }
 
   if ( in_array( $card_frame, ['stacked_right', 'stacked_left', 'stacked_random'] ) ) {
     $css .= fictioneer_get_customizer_css_snippet( 'card-frame-stacked' );
