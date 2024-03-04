@@ -156,8 +156,16 @@ $pag_args = array(
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          // Card attributes
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-article-cards' );
+          $card_attributes = '';
+
+          foreach ( $attributes as $key => $value ) {
+            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+          }
+
           // Start HTML ---> ?>
-          <li id="article-card-<?php the_ID(); ?>" class="card _article <?php echo implode( ' ', $card_classes ); ?>">
+          <li id="article-card-<?php the_ID(); ?>" class="card _article <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
             <article class="card__body _article polygon">
 
               <div class="card__main _article">

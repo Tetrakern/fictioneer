@@ -169,9 +169,17 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           if ( ++$card_counter > $args['count'] ) {
             break;
           }
+
+          // Card attributes
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-updates-compact' );
+          $card_attributes = '';
+
+          foreach ( $attributes as $key => $value ) {
+            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+          }
         ?>
 
-        <li class="card watch-last-clicked _small _info _story-update <?php echo implode( ' ', $card_classes ); ?>">
+        <li class="card watch-last-clicked _small _info _story-update <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>

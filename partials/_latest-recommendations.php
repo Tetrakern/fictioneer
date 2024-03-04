@@ -134,9 +134,17 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $url = $urls[0];
           $tuple = explode( '|', $url );
           $tuple = array_map( 'trim', $tuple );
+
+          // Card attributes
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-recommendations' );
+          $card_attributes = '';
+
+          foreach ( $attributes as $key => $value ) {
+            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+          }
         ?>
 
-        <li class="card _small _recommendation <?php echo implode( ' ', $card_classes ); ?>">
+        <li class="card _small _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

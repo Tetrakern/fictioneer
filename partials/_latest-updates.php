@@ -172,9 +172,17 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           if ( ++$card_counter > $args['count'] ) {
             break;
           }
+
+          // Card attributes
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-updates' );
+          $card_attributes = '';
+
+          foreach ( $attributes as $key => $value ) {
+            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+          }
         ?>
 
-        <li class="card _small _story-update <?php echo implode( ' ', $card_classes ); ?>">
+        <li class="card _small _story-update <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <div class="card__main _grid _small">

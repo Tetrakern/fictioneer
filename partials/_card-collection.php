@@ -78,9 +78,17 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_style' );
 }
 
+// Card attributes
+$attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'card-collection' );
+$card_attributes = '';
+
+foreach ( $attributes as $key => $value ) {
+  $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+}
+
 ?>
 
-<li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>">
+<li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__header _large">

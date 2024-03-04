@@ -115,9 +115,17 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
+
+          // Card attributes
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-recommendations-compact' );
+          $card_attributes = '';
+
+          foreach ( $attributes as $key => $value ) {
+            $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+          }
         ?>
 
-        <li class="card watch-last-clicked _small _recommendation <?php echo implode( ' ', $card_classes ); ?>">
+        <li class="card watch-last-clicked _small _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <?php if ( $show_taxonomies ) : ?>

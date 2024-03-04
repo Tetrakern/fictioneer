@@ -63,6 +63,14 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_style' );
 }
 
+// Card attributes
+$attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'card-chapter' );
+$card_attributes = '';
+
+foreach ( $attributes as $key => $value ) {
+  $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
+}
+
 ?>
 
 <li
@@ -71,6 +79,7 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   data-story-id="<?php echo $story_id; ?>"
   data-check-id="<?php echo $post->ID; ?>"
   data-unavailable="<?php esc_attr_e( 'Unavailable', 'fictioneer' ); ?>"
+  <?php echo $card_attributes; ?>
 >
   <div class="card__body polygon">
 

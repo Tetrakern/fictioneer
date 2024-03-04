@@ -97,6 +97,15 @@ Filters the array of breadcrumb tuples inside the `fictioneer_get_breadcrumbs( $
 
 ---
 
+### `apply_filters( 'fictioneer_filter_card_attributes', $post, $context )`
+Filters the intermediate output array of HTML attributes inside the `.card` element before they are rendered. The keys are used as attribute names. Make sure to account for already existing attributes.
+
+**Parameters:**
+* $post (WP_Post) – The current post object.
+* $context (string|null) - Context regarding where or how the card is rendered. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_card_control_icons', $icons, $story_id, $chapter_id )`
 Filters the intermediate output array of the card control icons inside the `fictioneer_get_card_controls( $story_id, $chapter_id )` function before being rendered. Note that card controls will not be rendered without a story ID.
 
