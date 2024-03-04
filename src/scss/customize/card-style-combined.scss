@@ -12,11 +12,10 @@
 }
 
 .card._combined {
-  --card-style-border-width: 0;
-
   .card__footer._article .card__footer-box,
   .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
     padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
+    border: none !important;
   }
 
   .rating-letter-label {

@@ -975,7 +975,7 @@ function fictioneer_build_customize_css( $context = null ) {
   // --- Card frames -----------------------------------------------------------
 
   if ( $card_frame !== 'default' ) {
-    $css .= '.card{filter:var(--card-drop-shadow);}';
+    $css .= ':root:not(.minimal) .card{filter:var(--card-drop-shadow);}';
   }
 
   if ( in_array( $card_frame, ['stacked_right', 'stacked_left', 'stacked_random'] ) ) {
@@ -987,11 +987,11 @@ function fictioneer_build_customize_css( $context = null ) {
   }
 
   if ( $card_frame === 'border_2px' ) {
-    $css .= '.card{--card-style-border-color: var(--card-frame-border-color);--card-style-border-width: 2px;box-shadow: 0 0 0 var(--card-frame-border-thickness, 2px) var(--card-frame-border-color);}';
+    $css .= ':root:not(.minimal) .card{--card-style-border-width: 2px;box-shadow: 0 0 0 var(--card-frame-border-thickness, 2px) var(--card-frame-border-color);}';
   }
 
   if ( $card_frame === 'border_3px' ) {
-    $css .= '.card{--card-style-border-color: var(--card-frame-border-color);--card-style-border-width: 3px;box-shadow: 0 0 0 var(--card-frame-border-thickness, 3px) var(--card-frame-border-color);}';
+    $css .= ':root:not(.minimal) .card{--card-style-border-width: 3px;box-shadow: 0 0 0 var(--card-frame-border-thickness, 3px) var(--card-frame-border-color);}';
   }
 
   // --- Content list style ----------------------------------------------------

@@ -8,7 +8,6 @@
 
 :root[data-mode=light] {
   --card-footer-icon-color: var(--fg-700);
-  --card-style-border-color: var(--bg-400);
 }
 
 .card:where(._unfolded, ._combined) {
@@ -32,11 +31,11 @@
 
       .card__footer-box {
         background: none;
-        border-top: var(--card-style-border-width, 1.5px) solid var(--card-style-border-color, var(--bg-900));
+        border-top: var(--card-style-border-width, 1.5px) solid var(--card-frame-border-color, var(--bg-800));
         border-radius: 0;
 
         &._right {
-          border-left: var(--card-style-border-width, 1.5px) solid var(--card-style-border-color, var(--bg-900));
+          border-left: var(--card-style-border-width, 1.5px) solid var(--card-frame-border-color, var(--bg-800));
           min-width: 9cqw;
         }
       }
