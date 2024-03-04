@@ -623,7 +623,7 @@ html:not(.logged-in) body:not(.logged-in) {
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--chapter-list-gap, 4px);
     font-size: var(--fs-xs);
     padding: 4px; // Space for small shadows due to overflow: hidden
     margin: -4px; // Space for small shadows due to overflow: hidden
