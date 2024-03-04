@@ -1588,6 +1588,35 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Card frame
+  $manager->add_setting(
+    'card_frame',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_frames = array(
+    'default' => _x( 'None (Default)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_right' => _x( 'Stacked (Right)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_frame',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Frame', 'fictioneer' ),
+      'description' => __( 'Choose the frame for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_frame', $card_frames )
+    )
+  );
+
   // Card shadow
   $manager->add_setting(
     'card_shadow',

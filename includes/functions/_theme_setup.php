@@ -1381,4 +1381,29 @@ function fictioneer_adminbar_add_chapter_link( $wp_admin_bar ) {
 }
 add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_chapter_link', 99 );
 
+// =============================================================================
+// CUSTOMIZATION
+// =============================================================================
+
+/**
+ * Adds '--this-flip' (0|1) to card style attribute
+ *
+ * @since 5.12.1
+ *
+ * @param array $attributes  Card attributes to be rendered.
+ *
+ * @return array Updated attributes.
+ */
+
+function fictioneer_add_flip_property_to_cards( $attributes ) {
+  $attributes['style'] = isset( $attributes['style'] ) ? $attributes['style'] : '';
+  $attributes['style'] .= ' --this-flip: ' . rand( 0, 1 ) * 2 - 1 . ';';
+
+  return $attributes;
+}
+
+if ( get_theme_mod( 'card_frame', 'default' ) === 'stacked_random' ) {
+  add_filter( 'fictioneer_filter_card_attributes', 'fictioneer_add_flip_property_to_cards' );
+}
+
 ?>

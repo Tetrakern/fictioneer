@@ -623,6 +623,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $content_list_style = get_theme_mod( 'content_list_style', 'default' );
   $page_style = get_theme_mod( 'page_style', 'default' );
   $card_style = get_theme_mod( 'card_style', 'default' );
+  $card_frame = get_theme_mod( 'card_frame', 'default' );
   $footer_style = get_theme_mod( 'footer_style', 'default' );
   $css = '';
 
@@ -967,6 +968,16 @@ function fictioneer_build_customize_css( $context = null ) {
 
   if ( $card_style === 'combined' ) {
     $css .= fictioneer_get_customizer_css_snippet( 'card-style-combined' );
+  }
+
+  // --- Card frames -----------------------------------------------------------
+
+  if ( in_array( $card_frame, ['stacked_right', 'stacked_left', 'stacked_random'] ) ) {
+    $css .= fictioneer_get_customizer_css_snippet( 'card-frame-stacked' );
+
+    if ( $card_frame === 'stacked_left' ) {
+      $css .= '.card{--this-rotation-mod:-1;}';
+    }
   }
 
   // --- Content list style ----------------------------------------------------
