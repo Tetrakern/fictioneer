@@ -1,15 +1,6 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
-:root body {
-  --card-frame-border-color: var(--bg-800);
-  --card-style-border-color: var(--card-frame-border-color);
-}
-
-:root[data-mode=light] body {
-  --card-frame-border-color: var(--bg-300);
-}
-
 .card {
   --card-style-border-width: 2px;
   --this-rotation: calc(2deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));

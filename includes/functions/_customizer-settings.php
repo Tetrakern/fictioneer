@@ -1602,7 +1602,9 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'default' => _x( 'None (Default)', 'Customizer card frame option.', 'fictioneer' ),
     'stacked_right' => _x( 'Stacked (Right)', 'Customizer card frame option.', 'fictioneer' ),
     'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
-    'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' )
+    'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
+    'border_2px' => _x( 'Border (2px)', 'Customizer card frame option.', 'fictioneer' ),
+    'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' )
   );
 
   $manager->add_control(

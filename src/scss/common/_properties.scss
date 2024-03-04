@@ -269,6 +269,8 @@
   --card-label-color: var(--fg-inverted);
   --card-label-background: var(--fg-500);
   --card-unavailable-filter: grayscale(0.5) blur(1.5px);
+  --card-frame-border-color: var(--bg-800);
+  --card-style-border-color: var(--card-frame-border-color);
 
   // === FOCUS =================================================================
 
