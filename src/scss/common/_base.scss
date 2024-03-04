@@ -624,8 +624,8 @@ html:not(.logged-in) body:not(.logged-in) {
     flex-direction: column;
     gap: 3px;
     font-size: var(--fs-xs);
-    padding: 4px; // Space for grid-view shadows due to overflow: hidden
-    margin: -4px; // Space for grid-view shadows due to overflow: hidden
+    padding: 12px; // Space for grid-view shadows due to overflow: hidden
+    margin: -12px; // Space for grid-view shadows due to overflow: hidden
     transition: height var(--transition-duration);
     overflow: hidden;
 
