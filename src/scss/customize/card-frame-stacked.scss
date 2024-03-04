@@ -1,7 +1,7 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
-.card {
+:root:not(.minimal) .card {
   --card-style-border-color: var(--card-frame-border-color);
   --card-style-border-width: 2px;
   --this-rotation: calc(2deg * var(--this-rotation-mod, 1) * var(--this-flip, 1));

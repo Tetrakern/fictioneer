@@ -652,6 +652,9 @@
   --drop-shadow-xl: var(--minimal-drop-shadow);
   --page-box-shadow: var(--minimal-page-box-shadow);
   --page-drop-shadow: var(--minimal-page-drop-shadow);
+  --card-box-shadow: var(--minimal-box-shadow);
+  --card-drop-shadow: var(--minimal-page-box-shadow);
+  --card-style-border-width: 1px;
 }
 
 // =============================================================================
