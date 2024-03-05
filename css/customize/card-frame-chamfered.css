@@ -1,0 +1,1 @@
+:root:not(.minimal) .card{box-shadow:none}:root:not(.minimal) .card__body{--m: 8px;border-radius:0 !important;clip-path:polygon(0% var(--m), var(--m) 0%, calc(100% - var(--m)) 0%, 100% var(--m), 100% calc(100% - var(--m)), calc(100% - var(--m)) 100%, var(--m) 100%, 0% calc(100% - var(--m)))}

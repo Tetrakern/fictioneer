@@ -1,0 +1,21 @@
+@import '../common/_functions';
+@import '../common/_mixins';
+
+:root:not(.minimal) .card {
+  box-shadow: none;
+
+  &__body {
+    --m: 8px;
+    border-radius: 0 !important;
+    clip-path: polygon(
+      0% var(--m),
+      var(--m) 0%,
+      calc(100% - var(--m)) 0%,
+      100% var(--m),
+      100% calc(100% - var(--m)),
+      calc(100% - var(--m)) 100%,
+      var(--m) 100%,
+      0% calc(100% - var(--m))
+    );
+  }
+}

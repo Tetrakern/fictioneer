@@ -996,6 +996,10 @@ function fictioneer_build_customize_css( $context = null ) {
     $css .= ':root:not(.minimal) .card{--card-style-border-width: 3px;box-shadow: 0 0 0 var(--card-frame-border-thickness, 3px) var(--card-frame-border-color);}';
   }
 
+  if ( $card_frame === 'chamfered' ) {
+    $css .= fictioneer_get_customizer_css_snippet( 'card-frame-chamfered' );
+  }
+
   // --- Content list style ----------------------------------------------------
 
   if ( $content_list_style === 'full' ) {
