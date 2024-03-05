@@ -1014,9 +1014,18 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           $prefix = get_post_meta( $chapter_id, 'fictioneer_chapter_prefix', true );
           $title = fictioneer_get_safe_title( $chapter_id, 'shortcode-chapter-list' );
           $has_password = ! empty( $post->post_password );
+          $extra_classes = '_shortcode';
+
+          if ( $warning ) {
+            $extra_classes .= ' _warning';
+          }
+
+          if ( $has_password ) {
+            $extra_classes .= ' _password';
+          }
 
           // Start HTML ---> ?>
-          <li class="chapter-group__list-item<?php echo $warning ? ' _warning' : ''; ?>" data-post-id="<?php echo $chapter_id; ?>">
+          <li class="chapter-group__list-item <?php echo $extra_classes; ?>" data-post-id="<?php echo $chapter_id; ?>">
             <?php if ( ! empty( $text_icon ) && ! $hide_icons ) : ?>
               <span class="chapter-group__list-item-icon _text text-icon"><?php echo $text_icon; ?></span>
             <?php elseif ( ! $hide_icons ) : ?>

@@ -612,12 +612,21 @@ function fictioneer_story_chapters( $args ) {
 
             <ol class="chapter-group__list">
               <?php foreach ( $group['data'] as $chapter ) : ?>
-                <?php $index++; ?>
-
                 <?php
+                  $index++;
+                  $extra_classes = '';
+
                   // Must account for extra toggle row and start at 1
                   $is_folded = $chapter_folding && $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
                     $index < ( $group_chapter_count + 2 - FICTIONEER_CHAPTER_FOLDING_THRESHOLD );
+
+                  if ( $is_folded ) {
+                    $extra_classes .= ' _foldable';
+                  }
+
+                  if ( $chapter['password'] ) {
+                    $extra_classes .= ' _password';
+                  }
                 ?>
 
                 <?php if ( $chapter_folding && $index == FICTIONEER_CHAPTER_FOLDING_THRESHOLD + 1 ) : ?>
@@ -635,7 +644,7 @@ function fictioneer_story_chapters( $args ) {
                 <?php endif; ?>
 
                 <li
-                  class="chapter-group__list-item <?php echo $is_folded ? '_foldable' : ''; ?>"
+                  class="chapter-group__list-item <?php echo $extra_classes; ?>"
                   style="order: <?php echo $reverse_order - $index; ?>"
                 >
 
