@@ -633,10 +633,10 @@
   --text-shadow: none;
   --mobile-menu-text-shadow: none;
   --paragraph-tools-filter: none;
-  --content-li-background: var(--content-li-background-full);
-  --story-blog-li-background: var(--content-li-background-full);
-  --chapter-li-background: var(--content-li-background-full);
-  --card-content-li-background: var(--card-content-li-background-full);
+  --content-li-background: var(--minimal-content-li-background, var(--content-li-background-full));
+  --story-blog-li-background: var(--minimal-content-li-background, var(--content-li-background-full));
+  --chapter-li-background: var(--minimal-content-li-background, var(--content-li-background-full));
+  --card-content-li-background: var(--minimal-card-content-li-background, var(--card-content-li-background-full));
   --embed-box-shadow: var(--minimal-box-shadow);
   --box-shadow-xs: var(--minimal-box-shadow);
   --box-shadow-s: var(--minimal-box-shadow);

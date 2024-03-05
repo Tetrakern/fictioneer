@@ -1,1 +1,1 @@
-:root:not(.minimal) .content-list-style-free{--content-li-background: none;--card-content-li-background: none}:root:not(.minimal) .content-list-style-free [data-view=list] :is(.chapter-group__list-item,.story__blog-list-item){border-radius:0;border-bottom:none}
+:root .content-list-style-free{--content-li-background: none;--card-content-li-background: none;--story-blog-li-background: none;--chapter-li-background: none}:root .content-list-style-free [data-view=list] :is(.chapter-group__list-item,.story__blog-list-item){border-radius:0;border-bottom:none}
