@@ -192,7 +192,6 @@ th {
 }
 
 code {
-  display: inline-block;
   background: var(--code-background-inline);
   font-family: var(--ff-mono);
   font-size: .75em;
@@ -200,7 +199,6 @@ code {
   word-wrap: break-word;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  padding: .125em .25em;
+  padding: .375em .25em;
   border-radius: 2px;
-  transform: translateY(-1px);
 }
