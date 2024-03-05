@@ -13,6 +13,11 @@
     border-bottom: var(--content-li-hr-border);
   }
 
+  .card__link-list-item {
+    border-bottom: var(--card-content-li-hr-border, var(--content-li-hr-border));
+    border-bottom-width: 1px;
+  }
+
   .card__link-list-item:last-child {
     border-bottom: none;
   }
