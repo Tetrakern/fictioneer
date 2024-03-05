@@ -35,6 +35,19 @@ $header_breakpoint: 640px;
   }
 }
 
+// Catches one case of a lone subscribe button; not all, but one.
+body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
+  border-radius: var(--layout-border-radius-small);
+
+  .popup-menu {
+    &:last-child {
+      --translateX: translateX(0);
+      right: 0;
+      left: unset;
+    }
+  }
+}
+
 .story {
   &__article {
     &._no-checkmarks {

@@ -745,7 +745,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     // Subscribe
     if ( ! empty( $subscribe_buttons ) ) {
       $output['subscribe'] = sprintf(
-        '<div class="toggle-last-clicked button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+        '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
         fcntr( 'subscribe', true ),
         fcntr( 'subscribe' ),
         $subscribe_buttons
