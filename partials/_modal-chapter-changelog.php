@@ -24,7 +24,7 @@ foreach ( $changelog as $entry ) {
 
 ?>
 
-<div id="chapter-changelog-modal" class="chapter-changelog modal">
+<div id="chapter-changelog-modal" class="chapter-changelog modal" data-nosnippet hidden>
   <label for="modal-chapter-changelog-toggle" class="background-close"></label>
   <div class="modal__wrapper">
     <label class="close" for="modal-chapter-changelog-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">

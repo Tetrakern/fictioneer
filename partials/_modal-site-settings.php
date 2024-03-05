@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="site-settings-modal" class="site-settings modal">
+<div id="site-settings-modal" class="site-settings modal" data-nosnippet hidden>
   <label for="modal-site-settings-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">
     <label class="close" for="modal-site-settings-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">

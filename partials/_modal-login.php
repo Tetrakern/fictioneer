@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="login-modal" class="login modal">
+<div id="login-modal" class="login modal" data-nosnippet hidden>
   <label for="modal-login-toggle" class="background-close"></label>
   <div class="modal__wrapper">
     <label class="close" for="modal-login-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">

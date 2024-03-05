@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="tts-settings-modal" class="tts-settings modal">
+<div id="tts-settings-modal" class="tts-settings modal" data-nosnippet hidden>
   <label for="modal-tts-settings-toggle" class="background-close"></label>
   <div class="modal__wrapper narrow-inputs">
     <label

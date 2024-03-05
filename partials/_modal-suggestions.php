@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="suggestions-modal" class="suggestions modal">
+<div id="suggestions-modal" class="suggestions modal" data-nosnippet hidden>
 
   <label for="suggestions-modal-toggle" class="background-close"></label>
 

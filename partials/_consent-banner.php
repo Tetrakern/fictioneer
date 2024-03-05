@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="consent-banner" class="consent-banner hidden" role="banner">
+<div id="consent-banner" class="consent-banner hidden" role="banner" hidden data-nosnippet>
   <div class="consent-banner__wrapper">
     <?php
       $info = fictioneer_replace_key_value(

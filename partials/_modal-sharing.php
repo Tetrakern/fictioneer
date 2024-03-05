@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) OR exit;
 
 ?>
 
-<div id="sharing-modal" class="sharing modal">
+<div id="sharing-modal" class="sharing modal" data-nosnippet hidden>
   <label for="modal-sharing-toggle" class="background-close"></label>
   <div class="modal__wrapper">
     <label class="close" for="modal-sharing-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">

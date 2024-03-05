@@ -1941,6 +1941,7 @@ _$$('.modal-toggle').forEach(element => {
 
     // Toggle class
     target.classList.toggle('_open', event.currentTarget.checked);
+    target.hidden = !event.currentTarget.checked;
 
     // Set focus inside modal
     const close = target.querySelector('.close');
