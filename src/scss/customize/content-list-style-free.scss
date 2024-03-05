@@ -1,7 +1,7 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
-:is(:root, :root.minimal) .content-list-style-free {
+:root:not(.minimal) .content-list-style-free {
   --content-li-background: none;
   --card-content-li-background: none;
 
