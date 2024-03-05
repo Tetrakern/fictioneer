@@ -160,7 +160,7 @@
   --content-li-background: var(--content-li-background-gradient);
   --content-li-background-full: hsl(var(--bg-950-free) / 10%);
   --content-li-background-gradient: linear-gradient(to left, hsl(var(--bg-950-free) / 10%) 0%, hsl(var(--bg-950-free) / 10%) 55%, transparent 90%);
-  --content-li-hr-border: 2px solid rgb(255 255 255 / 4%);
+  --content-li-hr-border: 1.5px solid var(--hr-border-color, var(--layout-lineart-color));
 
   // === COLORS ================================================================
 

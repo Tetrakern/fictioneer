@@ -637,7 +637,7 @@ html:not(.logged-in) body:not(.logged-in) {
       grid-template-rows: minmax(18px, 1fr) auto;
       gap: 3px 8px;
       align-items: center;
-      padding: .5rem 8px .5rem 0;
+      padding: .5rem 8px calc(.5rem + var(--chapter-li-padding-bottom-offset, 0px)) 0;
       border-radius: var(--layout-border-radius-small);
       contain: content; // Improve performance
 
