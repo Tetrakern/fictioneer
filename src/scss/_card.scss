@@ -370,6 +370,7 @@
 
     .card__left {
       flex: 1 1 auto;
+      line-height: var(--card-list-left-line-height, 1.45);
     }
 
     :is(i, .icon) {
