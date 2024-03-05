@@ -1540,7 +1540,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Page Style', 'fictioneer' ),
-      'description' => __( 'Choose the general style for your pages.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your pages.', 'fictioneer' ),
       'choices' => apply_filters( 'fictioneer_filter_customizer_page_style', $page_styles )
     )
   );
@@ -1612,7 +1612,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
     'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
     'border_2px' => _x( 'Border (2px)', 'Customizer card frame option.', 'fictioneer' ),
-    'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' )
+    'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' ),
+    'chamfered' => _x( 'Chamfered', 'Customizer card frame option.', 'fictioneer' )
   );
 
   $manager->add_control(
