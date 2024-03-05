@@ -59,12 +59,12 @@
     }
   }
 
-  [data-view=list] .chapter-group__list-item-link {
+  :is([data-view=list], .chapter-list) .chapter-group__list-item-link {
     grid-area: 1 / 1 / 2 / 3;
     padding-left: 8px;
   }
 
-  [data-view=list] .chapter-group__list-item-subrow {
+  :is([data-view=list], .chapter-list) .chapter-group__list-item-subrow {
     grid-area: 2 / 1 / 3 / 3;
     padding-left: 8px;
   }

@@ -838,7 +838,7 @@ function fictioneer_shortcode_chapter_list_empty( $attr ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="chapter-group">
+  <div class="chapter-group chapter-list _standalone _empty">
     <?php if ( ! empty( $attr['heading'] ) ) : ?>
       <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $attr['heading'] ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
@@ -965,7 +965,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="chapter-group <?php echo $classes; ?>">
+  <div class="chapter-group chapter-list _standalone <?php echo $classes; ?>">
     <?php if ( $heading ) : ?>
       <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
