@@ -494,6 +494,8 @@ function fictioneer_build_bundled_fonts() {
 
       if ( $font['in_child_theme'] ?? 0 ) {
         $css = str_replace( '../fonts/', get_stylesheet_directory_uri() . '/fonts/', $css );
+      } else {
+        $css = str_replace( '../fonts/', get_template_directory_uri() . '/fonts/', $css );
       }
 
       $combined_font_css .= $css;
