@@ -22,6 +22,11 @@
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
               root.style.setProperty('--saturation', `(${modifier} + var(--saturation-offset))`)
               break;
+            case 'font-lightness':
+              temp = settings['font-lightness'];
+              modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
+              root.style.setProperty('--font-lightness', `(${modifier} + var(--font-lightness-offset))`)
+              break;
             case 'font-saturation':
               temp = settings['font-saturation'];
               modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);

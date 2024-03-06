@@ -712,6 +712,9 @@ const /** @const {HTMLElement[]} */ fcn_settingDarkenResets = _$$('.setting-dark
 const /** @const {HTMLElement[]} */ fcn_settingSaturationRanges = _$$('.setting-saturation-range');
 const /** @const {HTMLElement[]} */ fcn_settingSaturationTexts = _$$('.setting-saturation-text');
 const /** @const {HTMLElement[]} */ fcn_settingSaturationResets = _$$('.setting-saturation-resets');
+const /** @const {HTMLElement[]} */ fcn_settingFontLightnessRanges = _$$('.setting-font-lightness-range');
+const /** @const {HTMLElement[]} */ fcn_settingFontLightnessTexts = _$$('.setting-font-lightness-text');
+const /** @const {HTMLElement[]} */ fcn_settingFontLightnessResets = _$$('.setting-font-lightness-resets');
 
 const /** @const {String[]} */ fcn_settingEvents = [
   'nav-sticky',
@@ -1061,6 +1064,78 @@ fcn_settingSaturationTexts.forEach(element => {
 });
 
 // =============================================================================
+// SITE SETTINGS: FONT LIGHTNESS
+// =============================================================================
+
+/**
+ * Update font lightness setting.
+ *
+ * @since 5.12.2
+ */
+
+function fcn_updateFontLightness(value = null) {
+  // Evaluate
+  value = fcn_clamp(-1, 1, value ?? fcn_siteSettings['font-lightness'] ?? 1);
+
+  // Update associated elements
+  fcn_settingFontLightnessResets.forEach(element => { element.classList.toggle('_modified', value != 0); });
+  fcn_settingFontLightnessRanges.forEach(element => { element.value = value; });
+  fcn_settingFontLightnessTexts.forEach(element => { element.value = parseInt(value * 100); });
+
+  // Calculate property
+  const s = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+
+  // Update property in DOM
+  fcn_theRoot.style.setProperty('--font-lightness', `(${s} + var(--font-lightness-offset))`);
+
+  // Update local storage
+  fcn_siteSettings['font-lightness'] = value;
+  fcn_setSiteSettings();
+
+  // Update theme color
+  fcn_updateThemeColor();
+}
+
+/**
+ * Helper to call fcn_updateFontLightness() with range input value.
+ *
+ * @since 5.12.2
+ */
+
+function fcn_setFontLightnessFromRange() {
+  fcn_updateFontLightness(this.value);
+}
+
+/**
+ * Helper to call fcn_updateFontLightness() with text input value.
+ *
+ * @since 5.12.2
+ */
+
+function fcn_setFontLightnessFromText() {
+  if (this.value == '-' || this.value == '') {
+    return;
+  }
+
+  fcn_updateFontLightness((parseInt(this.value) ?? 0) / 100);
+}
+
+// Listen for clicks saturation reset buttons
+fcn_settingFontLightnessResets.forEach(element => {
+  element.addEventListener('click', () => { fcn_updateFontLightness(0) });
+});
+
+// Listen for darken range inputs
+fcn_settingFontLightnessRanges.forEach(element => {
+  element.addEventListener('input', fcn_throttle(fcn_setFontLightnessFromRange, 1000 / 24));
+});
+
+// Listen for darken text inputs
+fcn_settingFontLightnessTexts.forEach(element => {
+  element.addEventListener('input', fcn_setFontLightnessFromText);
+});
+
+// =============================================================================
 // SITE SETTINGS: GET/SET/APPLY
 // > also done in <head> to avoid flickering
 // =============================================================================
@@ -1086,6 +1161,7 @@ function fcn_defaultSiteSettings() {
     'darken': 0,
     'saturation': 0,
     'font-saturation': 0,
+    'font-lightness': 0,
     'hue-rotate': 0
   };
 }
@@ -1164,6 +1240,9 @@ function fcn_applySiteSettings(value) {
         fcn_updateSaturation();
         break;
       case 'font-saturation':
+        break;
+      case 'font-lightness':
+        fcn_updateFontLightness();
         break;
       case 'hue-rotate':
         fcn_updateHueRotate(setting[1]);
