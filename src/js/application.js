@@ -711,10 +711,10 @@ const /** @const {HTMLElement[]} */ fcn_settingDarkenTexts = _$$('.setting-darke
 const /** @const {HTMLElement[]} */ fcn_settingDarkenResets = _$$('.setting-darken-reset');
 const /** @const {HTMLElement[]} */ fcn_settingSaturationRanges = _$$('.setting-saturation-range');
 const /** @const {HTMLElement[]} */ fcn_settingSaturationTexts = _$$('.setting-saturation-text');
-const /** @const {HTMLElement[]} */ fcn_settingSaturationResets = _$$('.setting-saturation-resets');
+const /** @const {HTMLElement[]} */ fcn_settingSaturationResets = _$$('.setting-saturation-reset');
 const /** @const {HTMLElement[]} */ fcn_settingFontLightnessRanges = _$$('.setting-font-lightness-range');
 const /** @const {HTMLElement[]} */ fcn_settingFontLightnessTexts = _$$('.setting-font-lightness-text');
-const /** @const {HTMLElement[]} */ fcn_settingFontLightnessResets = _$$('.setting-font-lightness-resets');
+const /** @const {HTMLElement[]} */ fcn_settingFontLightnessResets = _$$('.setting-font-lightness-reset');
 
 const /** @const {String[]} */ fcn_settingEvents = [
   'nav-sticky',

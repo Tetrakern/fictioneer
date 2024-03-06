@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) OR exit;
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
-      <i class="fa-solid fa-droplet reset setting-saturation-resets" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
+      <i class="fa-solid fa-droplet reset setting-saturation-reset" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
       <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range">
       <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text">
     </div>
@@ -69,6 +69,12 @@ defined( 'ABSPATH' ) OR exit;
       <i class="fa-solid fa-pen-nib reset" title="<?php esc_attr_e( 'Font Saturation', 'fictioneer' ); ?>" id="reader-settings-font-saturation-reset"></i>
       <input type="range" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-range">
       <input type="number" value="0" min="-1" max="1" step=".01" id="reader-settings-font-saturation-text">
+    </div>
+
+    <div class="modal__row reader-settings__row _vertical-shrink-spacing">
+      <i class="fa-solid fa-bolt-lightning reset setting-font-lightness-reset" title="<?php esc_attr_e( 'Font Lightness', 'fictioneer' ); ?>" id="reader-settings-font-lightness-reset"></i>
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-font-lightness-range" id="reader-settings-font-lightness-range">
+      <input type="number" value="0" min="-1" max="1" step=".01" class="setting-font-lightness-text" id="reader-settings-font-lightness-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">

@@ -90,12 +90,12 @@ defined( 'ABSPATH' ) OR exit;
         <input type="number" value="0" min="-100" max="100" class="setting-darken-text" id="site-setting-darken-text">
       </div>
       <div class="site-settings__saturation modal__horizontal-input-group">
-        <i class="fa-solid fa-droplet reset setting-saturation-resets"></i>
+        <i class="fa-solid fa-droplet reset setting-saturation-reset"></i>
         <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="site-setting-saturation-range">
         <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="site-setting-saturation-text">
       </div>
       <div class="site-settings__font-lightness modal__horizontal-input-group">
-        <i class="fa-solid fa-bolt-lightning reset setting-font-lightness-resets"></i>
+        <i class="fa-solid fa-bolt-lightning reset setting-font-lightness-reset"></i>
         <input type="range" value="0" min="-1" max="1" step=".01" class="setting-font-lightness-range" id="site-setting-font-lightness-range">
         <input type="number" value="0" min="-100" max="100" class="setting-font-lightness-text" id="site-setting-font-lightness-text">
       </div>
