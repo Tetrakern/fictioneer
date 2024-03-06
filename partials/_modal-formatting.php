@@ -25,14 +25,14 @@ defined( 'ABSPATH' ) OR exit;
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-adjust reset setting-darken-reset" title="<?php esc_attr_e( 'Darken Background', 'fictioneer' ); ?>"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-darken-range">
-      <input type="number" value="0" min="-100" max="100" class="setting-darken-text">
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-darken-range" id="reader-settings-darken-range">
+      <input type="number" value="0" min="-100" max="100" class="setting-darken-text" id="reader-settings-darken-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-droplet reset setting-saturation-resets" title="<?php esc_attr_e( 'Saturate Background', 'fictioneer' ); ?>"></i>
-      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range">
-      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text">
+      <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="reader-settings-saturation-range">
+      <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="reader-settings-saturation-text">
     </div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing hide-below-640">

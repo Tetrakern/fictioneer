@@ -86,13 +86,13 @@ defined( 'ABSPATH' ) OR exit;
       </div>
       <div class="site-settings__darken modal__horizontal-input-group">
         <i class="fa-solid fa-adjust reset setting-darken-reset" style="transform: scale(-1);"></i>
-        <input type="range" value="0" min="-1" max="1" step=".01" class="setting-darken-range">
-        <input type="number" value="0" min="-100" max="100" class="setting-darken-text">
+        <input type="range" value="0" min="-1" max="1" step=".01" class="setting-darken-range" id="site-setting-darken-range">
+        <input type="number" value="0" min="-100" max="100" class="setting-darken-text" id="site-setting-darken-text">
       </div>
       <div class="site-settings__saturation modal__horizontal-input-group">
         <i class="fa-solid fa-droplet reset setting-saturation-resets"></i>
-        <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range">
-        <input type="number" value="0" min="-100" max="100" class="setting-saturation-text">
+        <input type="range" value="0" min="-1" max="1" step=".01" class="setting-saturation-range" id="site-setting-saturation-range">
+        <input type="number" value="0" min="-100" max="100" class="setting-saturation-text" id="site-setting-saturation-text">
       </div>
     </div>
   </div>
