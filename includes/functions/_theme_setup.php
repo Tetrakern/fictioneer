@@ -793,7 +793,8 @@ if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
 function fictioneer_add_custom_scripts() {
   // Setup
   $post_type = get_post_type();
-  $strategy = fictioneer_compare_wp_version( '6.3' ) ? array( 'strategy'  => 'defer' ) : true; // Defer or load in footer
+  $strategy = fictioneer_compare_wp_version( '6.3' ) && FICTIONEER_DEFER_SCRIPTS
+    ? array( 'strategy'  => 'defer' ) : true; // Defer or load in footer
 
   // Utility
   wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', [], FICTIONEER_VERSION, $strategy );

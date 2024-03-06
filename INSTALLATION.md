@@ -1368,4 +1368,5 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER | boolean | Whether to order updated stories based on the latest chapter added, excluding stories without chapters. Default `false`.
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
 | FICTIONEER_ENABLE_BROWSER_NOTES | boolean | Whether to inform visitors of missing browser features. Default `true`.
+| FICTIONEER_DEFER_SCRIPTS | boolean | Whether to defer scripts or load them in the footer. Default `true`.
 | FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.

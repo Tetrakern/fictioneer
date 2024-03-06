@@ -381,6 +381,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_BROWSER_NOTES' ) ) {
   define( 'FICTIONEER_ENABLE_BROWSER_NOTES', true );
 }
 
+// Boolean: Defer scripts
+if ( ! defined( 'FICTIONEER_DEFER_SCRIPTS' ) ) {
+  define( 'FICTIONEER_DEFER_SCRIPTS', true );
+}
+
 /*
  * Arrays
  */
