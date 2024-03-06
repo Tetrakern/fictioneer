@@ -813,8 +813,11 @@ function fictioneer_add_custom_scripts() {
   // Chapter
   wp_register_script( 'fictioneer-chapter-scripts', get_template_directory_uri() . '/js/chapter.min.js', [ 'fictioneer-application-scripts'], FICTIONEER_VERSION, true );
 
+  // Diff-Match-Patch
+  wp_register_script( 'fictioneer-dmp', get_template_directory_uri() . '/js/diff-match-patch.js', [ 'fictioneer-chapter-scripts'], null, true );
+
   // Suggestions
-  wp_register_script( 'fictioneer-suggestion-scripts', get_template_directory_uri() . '/js/suggestion.min.js', [ 'fictioneer-chapter-scripts'], FICTIONEER_VERSION, true );
+  wp_register_script( 'fictioneer-suggestion-scripts', get_template_directory_uri() . '/js/suggestion.min.js', [ 'fictioneer-chapter-scripts', 'fictioneer-dmp'], FICTIONEER_VERSION, true );
 
   // Text-To-Speech
   wp_register_script( 'fictioneer-tts-scripts', get_template_directory_uri() . '/js/tts.min.js', [ 'fictioneer-chapter-scripts'], FICTIONEER_VERSION, true );
@@ -902,7 +905,7 @@ function fictioneer_add_custom_scripts() {
     ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) &&
     comments_open()
   ) {
-    wp_enqueue_script( 'dmp', get_template_directory_uri() . '/js/diff-match-patch.js', array(), null, true );
+    wp_enqueue_script( 'fictioneer-dmp' );
     wp_enqueue_script( 'fictioneer-suggestion-scripts' );
   }
 
