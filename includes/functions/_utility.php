@@ -2742,4 +2742,26 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
   }
 }
 
+// =============================================================================
+// COMPARE WORDPRESS VERSION
+// =============================================================================
+
+/**
+ * Compare installed WordPress version against version string
+ *
+ * @since 5.12.2
+ * @global wpdb $wp_version  Current WordPress version string.
+ *
+ * @param string $version   The version string to test against.
+ * @param string $operator  Optional. How to compare. Default '>='.
+ *
+ * @return boolean True or false.
+ */
+
+function fictioneer_compare_wp_version( $version, $operator = '>=' ) {
+  global $wp_version;
+
+  return version_compare( $wp_version, $version, $operator );
+}
+
 ?>

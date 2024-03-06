@@ -53,7 +53,7 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_styles' );
  *
  * @since 4.0.0
  *
- * @param string $hook_suffix The current admin page.
+ * @param string $hook_suffix  The current admin page.
  */
 
 function fictioneer_admin_scripts( $hook_suffix ) {
