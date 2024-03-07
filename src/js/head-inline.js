@@ -3,41 +3,31 @@
 (function() {
   if (typeof localStorage !== 'undefined') {
     const lightMode = localStorage.getItem('fcnLightmode'), root = document.documentElement;
-    let temp, modifier, settings = localStorage.getItem('fcnSiteSettings');
+    let modifier, settings = localStorage.getItem('fcnSiteSettings');
 
     if (settings && (settings = JSON.parse(settings))) {
       if (null !== settings && 'object' == typeof settings) {
-        Object.entries(settings).forEach(entry => {
-          switch (entry[0]) {
+        Object.entries(settings).forEach(([key, value]) => {
+          switch (key) {
             case 'minimal':
-              root.classList.toggle('minimal', entry[1]);
+              root.classList.toggle('minimal', value);
               break;
             case 'darken':
-              temp = settings['darken'];
-              modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--darken', `(${modifier} + var(--lightness-offset))`)
+              modifier = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
+              root.style.setProperty('--darken', `(${modifier} + var(--lightness-offset))`); // Beware darken and lightness!
               break;
             case 'saturation':
-              temp = settings['saturation'];
-              modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--saturation', `(${modifier} + var(--saturation-offset))`)
-              break;
             case 'font-lightness':
-              temp = settings['font-lightness'];
-              modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--font-lightness', `(${modifier} + var(--font-lightness-offset))`)
-              break;
             case 'font-saturation':
-              temp = settings['font-saturation'];
-              modifier = temp >= 0 ? 1 + Math.pow(temp, 2) : 1 - Math.pow(temp, 2);
-              root.style.setProperty('--font-saturation', `(${modifier} + var(--font-saturation-offset))`)
+              modifier = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
+              root.style.setProperty(`--${key}`, `(${modifier} + var(--${key}-offset))`);
               break;
             case 'hue-rotate':
               modifier = Number.isInteger(settings['hue-rotate']) ? settings['hue-rotate'] : 0;
               root.style.setProperty('--hue-rotate', `(${modifier}deg + var(--hue-offset))`);
               break;
             default:
-              root.classList.toggle(`no-${entry[0]}`, !entry[1])
+              root.classList.toggle(`no-${key}`, !value)
           }
         });
 
@@ -49,9 +39,9 @@
         const darken = settings['darken'] ? settings['darken'] : 0;
         const saturation = settings['saturation'] ? settings['saturation'] : 0;
         const hueRotate = settings['hue-rotate'] ? settings['hue-rotate'] : 0;
-        const _d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
+        const _d = darken >= 0 ? 1 + darken ** 2 : 1 - darken ** 2;
 
-        settings = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+        settings = saturation >= 0 ? 1 + saturation ** 2 : 1 - saturation ** 2;
 
         themeColor = `hsl(${(parseInt(themeColor[0]) + hueRotate) % 360}deg ${(parseInt(themeColor[1]) * settings).toFixed(2)}% ${(parseInt(themeColor[2]) * _d).toFixed(2)}%)`;
 
