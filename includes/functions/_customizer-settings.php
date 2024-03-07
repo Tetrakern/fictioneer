@@ -806,7 +806,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_bg_800' => array(
       'label' => __( 'Dark Background 800', 'fictioneer' ),
-      'description' => __( 'Used for the site, &ltkbd> elements, card footers and overlays, info boxes, and card frame borders.', 'fictioneer' )
+      'description' => __( 'Used for the site, card footers, card overlays, and card frame borders.', 'fictioneer' )
     ),
     'dark_bg_900' => array(
       'label' => __( 'Dark Background 900', 'fictioneer' ),
@@ -818,7 +818,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_shade' => array(
       'label' => __( 'Dark Shade', 'fictioneer' ),
-      'description' => __( 'Used for semi-transparent overlays with varying opacity, including inputs, comments, blockquotes, table stripes, code blocks, and scroll bars.', 'fictioneer' )
+      'description' => __( 'Used for semi-transparent overlays with varying opacity, including inputs, info boxes, comments, blockquotes, table stripes, code blocks, &ltkbd> elements, and scroll bars.', 'fictioneer' )
     ),
     'dark_fg_100' => array(
       'label' => __( 'Dark Foreground 100', 'fictioneer' ),
