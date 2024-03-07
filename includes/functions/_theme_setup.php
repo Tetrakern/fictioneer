@@ -783,11 +783,66 @@ if ( ! function_exists( 'fictioneer_add_font_awesome' ) ) {
 // =============================================================================
 
 /**
+ * Build dynamic script file
+ *
+ * @since 5.12.2
+ */
+
+function fictioneer_build_dynamic_scripts() {
+  // --- Setup -----------------------------------------------------------------
+
+  $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/dynamic-scripts.js';
+  $last_version = get_transient( 'fictioneer_dynamic_scripts_version' );
+  $scripts = '';
+
+  // Rebuild necessary?
+  if ( file_exists( $file_path ) && $last_version === FICTIONEER_VERSION ) {
+    return;
+  }
+
+  // Make sure directory exists
+  if ( ! file_exists( dirname( $file_path ) ) ) {
+    mkdir( dirname( $file_path ), 0755, true );
+  }
+
+  // --- Settings --------------------------------------------------------------
+
+  $scripts .= "var fictioneer_ajax = " . json_encode( array(
+    'ajax_url' => admin_url( 'admin-ajax.php' ),
+    'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
+    'ttl' => FICTIONEER_AJAX_TTL,
+    'login_ttl' => FICTIONEER_AJAX_LOGIN_TTL,
+    'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE
+  )) . ";";
+
+  // --- Removable query args --------------------------------------------------
+
+  $removable_query_args = ['success', 'failure', 'fictioneer_nonce', 'fictioneer-notice'];
+  $removable_query_args = apply_filters( 'fictioneer_filter_removable_query_args', $removable_query_args );
+
+  $scripts .=
+    "function fcn_removeQueryArgs(){history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[?&](" . implode( '|', $removable_query_args ) . ")=[^&]+/g, '').replace(/^[?&]/, '?') + location.hash);}";
+
+  // --- Fonts -----------------------------------------------------------------
+
+  $scripts .= "var fictioneer_fonts = " . json_encode( fictioneer_get_fonts() ) . ";";
+
+  // --- Colors ----------------------------------------------------------------
+
+  $scripts .= "var fictioneer_font_colors = " . json_encode( fictioneer_get_font_colors() ) . ";";
+
+  // --- Save ------------------------------------------------------------------
+
+  set_transient( 'fictioneer_dynamic_scripts_version', FICTIONEER_VERSION );
+  file_put_contents( $file_path, $scripts );
+}
+
+/**
  * Enqueue scripts
  *
  * @since 1.0.0
  * @since 4.7.0 - Split scripts and made enqueuing depending on options.
- * @since 5.12.2 - Add defer loading strategy.
+ * @since 5.12.2 - Added defer loading strategy; added dynamic script file.
  */
 
 function fictioneer_add_custom_scripts() {
@@ -796,11 +851,16 @@ function fictioneer_add_custom_scripts() {
   $strategy = fictioneer_compare_wp_version( '6.3' ) && FICTIONEER_DEFER_SCRIPTS
     ? array( 'strategy'  => 'defer' ) : true; // Defer or load in footer
 
+  // Dynamic scripts
+  fictioneer_build_dynamic_scripts();
+
+  wp_register_script( 'fictioneer-dynamic-scripts', get_template_directory_uri() . '/cache/dynamic-scripts.js', [], FICTIONEER_VERSION, $strategy );
+
   // Utility
-  wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', [], FICTIONEER_VERSION, $strategy );
+  wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', ['fictioneer-dynamic-scripts'], FICTIONEER_VERSION, $strategy );
 
   // Application
-  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'wp-i18n'], FICTIONEER_VERSION, $strategy );
+  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'fictioneer-dynamic-scripts', 'wp-i18n'], FICTIONEER_VERSION, $strategy );
 
   // Lightbox
   if ( get_option( 'fictioneer_enable_lightbox' ) ) {
@@ -860,30 +920,6 @@ function fictioneer_add_custom_scripts() {
 
   // Enqueue application
   wp_enqueue_script( 'fictioneer-application-scripts' );
-
-  // Localize application
-  wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_ajax', array(
-    'ajax_url' => admin_url( 'admin-ajax.php' ),
-    'rest_url' => get_rest_url( null, 'fictioneer/v1/' ),
-    'ttl' => FICTIONEER_AJAX_TTL,
-    'login_ttl' => FICTIONEER_AJAX_LOGIN_TTL,
-    'post_debounce_rate' => FICTIONEER_AJAX_POST_DEBOUNCE_RATE
-  ));
-  wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_fonts', fictioneer_get_fonts() );
-  wp_localize_script( 'fictioneer-application-scripts', 'fictioneer_font_colors', fictioneer_get_font_colors() );
-
-  // Append JS snippets
-  $removable_query_args = ['success', 'failure', 'fictioneer_nonce', 'fictioneer-notice'];
-  $removable_query_args = apply_filters( 'fictioneer_filter_removable_query_args', $removable_query_args );
-
-  $extra_scripts = "
-    function fcn_removeQueryArgs() {
-      history.replaceState && history.replaceState(null, '', location.pathname + location.search.replace(/[?&](" . implode( '|', $removable_query_args ) . ")=[^&]+/g, '').replace(/^[?&]/, '?') + location.hash);
-    }
-  ";
-
-  // Localize the script
-  wp_add_inline_script( 'fictioneer-application-scripts', $extra_scripts, 'before' );
 
   // Enqueue mobile menu
   wp_enqueue_script( 'fictioneer-mobile-menu-scripts' );

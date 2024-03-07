@@ -36,7 +36,7 @@ if (!fcn_isLoggedIn && !fcn_theRoot.dataset.ajaxAuth) {
   fcn_cleanupGuestView();
 }
 
-// Remove query args (defined in _theme_setup.php)
+// Remove query args (defined in dynamic-scripts.js)
 if (typeof fcn_removeQueryArgs === 'function') {
   fcn_removeQueryArgs();
 }

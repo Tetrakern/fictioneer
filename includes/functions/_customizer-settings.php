@@ -20,6 +20,9 @@ function fictioneer_watch_for_customer_updates() {
   // Rebuild customize stylesheet
   fictioneer_build_customize_css();
 
+  // Rebuild dynamic scripts
+  fictioneer_build_dynamic_scripts();
+
   // Files
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
 

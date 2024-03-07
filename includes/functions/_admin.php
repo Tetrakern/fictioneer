@@ -586,9 +586,10 @@ function fictioneer_ajax_reset_theme_colors() {
   // Save to database
   update_option( "theme_mods_{$theme}", $mods );
 
-  // Refresh custom CSS files
+  // Refresh custom files
   fictioneer_build_customize_css();
   fictioneer_build_customize_css( 'preview' );
+  fictioneer_build_dynamic_scripts();
 
   // Finish
   wp_send_json_success( array( 'success' => true ) );
