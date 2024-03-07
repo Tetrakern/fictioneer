@@ -633,6 +633,11 @@ function fictioneer_build_customize_css( $context = null ) {
     $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize-preview.css';
   }
 
+  // Make sure directory exists
+  if ( ! file_exists( dirname( $file_path ) ) ) {
+    mkdir( dirname( $file_path ), 0755, true );
+  }
+
   // --- Assets ----------------------------------------------------------------
 
   if (
