@@ -939,7 +939,7 @@ function fcn_updateDarken(value = null) {
   fcn_settingDarkenTexts.forEach(element => { element.value = parseInt(value * 100); });
 
   // Calculate property
-  const d = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+  const d = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
   fcn_theRoot.style.setProperty('--darken', `(${d} + var(--lightness-offset))`);
@@ -1011,7 +1011,7 @@ function fcn_updateSaturation(value = null) {
   fcn_settingSaturationTexts.forEach(element => { element.value = parseInt(value * 100); });
 
   // Calculate property
-  const s = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+  const s = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
   fcn_theRoot.style.setProperty('--saturation', `(${s} + var(--saturation-offset))`);
@@ -1083,10 +1083,10 @@ function fcn_updateFontLightness(value = null) {
   fcn_settingFontLightnessTexts.forEach(element => { element.value = parseInt(value * 100); });
 
   // Calculate property
-  const s = value >= 0 ? 1 + Math.pow(value, 2) : 1 - Math.pow(value, 2);
+  const l = value >= 0 ? 1 + value ** 2 : 1 - value ** 2;
 
   // Update property in DOM
-  fcn_theRoot.style.setProperty('--font-lightness', `(${s} + var(--font-lightness-offset))`);
+  fcn_theRoot.style.setProperty('--font-lightness', `(${l} + var(--font-lightness-offset))`);
 
   // Update local storage
   fcn_siteSettings['font-lightness'] = value;

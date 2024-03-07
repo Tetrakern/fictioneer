@@ -311,8 +311,8 @@ function fcn_updateThemeColor(color = false) {
   const darken = fcn_siteSettings['darken'] ? fcn_siteSettings['darken'] : 0;
   const saturation = fcn_siteSettings['saturation'] ? fcn_siteSettings['saturation'] : 0;
   const hueRotate = fcn_siteSettings['hue-rotate'] ? fcn_siteSettings['hue-rotate'] : 0;
-  const d = darken >= 0 ? 1 + Math.pow(darken, 2) : 1 - Math.pow(darken, 2);
-  const s = saturation >= 0 ? 1 + Math.pow(saturation, 2) : 1 - Math.pow(saturation, 2);
+  const d = darken >= 0 ? 1 + darken ** 2 : 1 - darken ** 2;
+  const s = saturation >= 0 ? 1 + saturation ** 2 : 1 - saturation ** 2;
 
   let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color-base').trim().split(' ');
 
