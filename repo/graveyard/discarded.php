@@ -743,4 +743,35 @@ function fictioneer_remove_unlisted_from_search( $query ) {
 }
 add_action( 'pre_get_posts', 'fictioneer_remove_unlisted_from_search', 10 );
 
+// =============================================================================
+// DEFER CSS
+// =============================================================================
+
+/**
+ * Defer selected enqueued CSS file
+ *
+ * @since 5.12.2
+ *
+ * @param string $html    The link tag for the enqueued style.
+ * @param string $handle  The style’s registered handle.
+ * @param string $href    The stylesheet’s source URL.
+ *
+ * @return string The updated or unchanged link tag.
+ */
+
+function fictioneer_defer_css( $html, $handle, $href ) {
+  if ( $handle === 'fictioneer-deferred-application' && ! is_customize_preview() ) {
+    $loading_pattern = fictioneer_get_async_css_loading_pattern();
+    $original = $html;
+    $html = "<link rel='stylesheet' id='{$handle}-css' href='{$href}' {$loading_pattern}>";
+    $html .= "<noscript>{$original}</noscript>";
+  }
+
+  return $html;
+}
+
+// if ( FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN ) {
+//   add_filter( 'style_loader_tag', 'fictioneer_defer_css', 10, 3 );
+// }
+
 ?>
