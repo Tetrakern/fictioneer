@@ -102,3 +102,67 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 ```
 
 ![Secondary Chapter Title](repo/assets/secondary_chapter_list_title.png?raw=true)
+
+## How to only show a specific advanced meta field?
+
+Maybe you want only one specific advanced meta field. You can achieve this by manually adding the desired field and saving procedure, similar to how it is done in the [_meta_fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_meta_fields.php). The following example adds the Co-Authors field to stories, which can be adapted for chapters as well. Just make sure to change the {dynamic_parts} and the meta keys.
+
+**References**
+* Filter: [fictioneer_filter_metabox_{meta_box}](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_metabox_meta_box-output-post-)
+* Filter: [fictioneer_filter_metabox_updates_{type}](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_metabox_updates_type-fields-post_id-)
+* Include: [_meta_fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_meta_fields.php)
+
+```php
+/**
+ * Adds the Co-Authors meta field to stories
+ *
+ * @since x.x.x
+ *
+ * @param array   $output  Captured HTML of meta fields to be rendered.
+ * @param WP_Post $post    The post object.
+ *
+ * @return array Updated output.
+ */
+
+function child_add_co_authors_to_story( $output, $post ) {
+  // Append field to output
+  $output['fictioneer_story_co_authors'] = fictioneer_get_metabox_array(
+    $post,
+    'fictioneer_story_co_authors', // Meta key
+    array(
+      'label' => _x( 'Co-Authors', 'Story co-authors meta field label.', 'fictioneer' ),
+      'description' => __( 'Comma-separated list of author IDs.', 'fictioneer' )
+    )
+  );
+
+  // Continue filter
+  return $output;
+}
+add_filter( 'fictioneer_filter_metabox_story_meta', 'child_add_co_authors_to_story', 10, 2 );
+
+/**
+ * Adds Co-Authors to fields to be saved
+ *
+ * @since x.x.x
+ *
+ * @param array $fields  Meta fields to be saved.
+ *
+ * @return array Updated fields.
+ */
+
+function child_save_co_authors_of_story( $fields ) {
+  // Append sanitized field content for saving (if any)
+  if ( isset( $_POST['fictioneer_story_co_authors'] ) ){
+    $co_authors = fictioneer_explode_list( $_POST['fictioneer_story_co_authors'] ); // Array from comma separated list
+    $co_authors = array_map( 'absint', $co_authors ); // Only positive integers are allowed
+    $co_authors = array_filter( $co_authors, function( $user_id ) {
+      return get_userdata( $user_id ) !== false; // Filter out user IDs that do not exist
+    });
+    $fields['fictioneer_story_co_authors'] = array_unique( $co_authors ); // Queue for saving (duplicated removed)
+  }
+
+  // Continue filter
+  return $fields;
+}
+add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of_story', 10 );
+```
