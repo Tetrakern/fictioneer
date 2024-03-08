@@ -2764,4 +2764,26 @@ function fictioneer_compare_wp_version( $version, $operator = '>=' ) {
   return version_compare( $wp_version, $version, $operator );
 }
 
+// =============================================================================
+// CSS LOADING PATTERN
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_async_css_loading_pattern' ) ) {
+  /**
+   * Returns the media attribute and loading strategy for stylesheets
+   *
+   * @since 5.12.2
+   *
+   * @return string Media attribute script for stylesheet links.
+   */
+
+  function fictioneer_get_async_css_loading_pattern() {
+    if ( FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN ) {
+      return 'media="print" onload="this.media=\'all\'; this.onload=null;"';
+    }
+
+    return 'media="all"';
+  }
+}
+
 ?>

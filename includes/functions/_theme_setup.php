@@ -1266,11 +1266,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
     $last_built_timestamp = get_option( 'fictioneer_bundled_fonts_timestamp', '123456789' );
     $cache_bust = "?timestamp={$last_built_timestamp}";
-    $loading_pattern = '';
-
-    if ( FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN ) {
-      $loading_pattern = 'media="print" onload="this.media=\'all\'; this.onload=null;"';
-    }
+    $loading_pattern = fictioneer_get_async_css_loading_pattern();
 
     // Create file if it does not exist
     if ( ! file_exists( $bundled_fonts ) ) {
