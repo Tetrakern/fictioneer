@@ -565,7 +565,7 @@ Filters the intermediate output array for meta box fields before it is imploded 
 Filters the sanitized POST meta box fields before they are saved, see `_meta_fields.php`. The dynamic part of the hook can be `story`, `chapter`, `advanced`, `support_links`, `post`, `collection`, and `recommendation`.
 
 **Parameters:**
-* $output (array) – Captured HTML of meta fields to be rendered.
+* $fields (array) – Meta fields to be saved.
 * $post_id (int) – The post ID.
 
 ---
