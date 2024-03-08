@@ -386,6 +386,11 @@ if ( ! defined( 'FICTIONEER_DEFER_SCRIPTS' ) ) {
   define( 'FICTIONEER_DEFER_SCRIPTS', true );
 }
 
+// Boolean: Asynchronous loading via onload pattern
+if ( ! defined( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN' ) ) {
+  define( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN', true );
+}
+
 /*
  * Arrays
  */
