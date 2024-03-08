@@ -683,7 +683,7 @@ function fictioneer_output_head_seo() {
   $post_type = get_post_type(); // In archives and search, this is the first post
   $post_author = $post->post_author ?? 0;
   $chapter_story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-  $canonical_url = wp_get_canonical_url(); // Unreliable on aggregated pages
+  $canonical_url = wp_get_canonical_url(); // Only on singular pages
 
   // Flags
   $is_page = is_page() || is_front_page() || is_home();
@@ -790,6 +790,7 @@ function fictioneer_output_head_seo() {
 }
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
+  remove_action( 'wp_head', 'rel_canonical' ); // Re-added in the new action
   add_action( 'wp_head', 'fictioneer_output_head_seo', 5 );
 }
 
