@@ -81,7 +81,7 @@ Everything installed? Head to **[Settings](https://wordpress.org/support/article
 
 ### Securing WordPress & Browser Caching
 
-You can greatly improve your site security and performance by adding policies to the **.htaccess** file located in the WordPress root directory. Managed hosting plans normally do this for you. Make a backup and add the following lines anywhere before `# BEGIN WordPress` or after `# END WordPress`. If something goes wrong wrong, just remove everything again or restore the backup. You can also use a (cache) plugin. This is just the basics, far more is possible, but please refer to a proper guide.
+You can greatly improve your site security and performance by adding policies to the **.htaccess** file located in the WordPress root directory. Managed hosting plans normally do this for you (if you ask). Make a backup and add the following lines anywhere before `# BEGIN WordPress` or after `# END WordPress`. If something goes wrong wrong, just remove everything again or restore the backup. You can also use a (cache) plugin to do it for you. This is just the basics, far more is possible, but please refer to a proper guide.
 
   <details>
     <summary>Example Policies</summary><br>
@@ -216,7 +216,7 @@ Note that any changes made to the theme files will be undone — which you shoul
 
 ### Optional: Additional Plugins
 
-The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and often confusing. There are plugins for almost everything, in variants, free or premium or "freemium". You often find articles about "must-have" plugins — you are well advised to question those. Too many plugins can slow down your site, open vulnerabilities, or conflict with the theme. Fictioneer is designed as standalone solution and technically works without additional plugins. However, nothing is ever complete, so here are a few recommendations anyway.
+The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and often confusing. There are plugins for almost everything, in variants, free or premium or "freemium". You often find articles about "must-have" plugins — you are well advised to question those. Too many plugins can slow down your site, open vulnerabilities, or conflict with the theme. Fictioneer is designed as standalone solution and technically works without additional plugins. However, nothing is ever complete, so here are a few plugins of note anyway.
 
 * [Autoptimize](https://wordpress.org/plugins/autoptimize/): Optimization plugin to speed up your site. Best used for its aggregation and deferment of static resources, such as styles and scripts, solving browser cache issues along the way. The other options are nice if not already covered elsewhere.
 
