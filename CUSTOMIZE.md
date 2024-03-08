@@ -141,7 +141,7 @@ function child_add_co_authors_to_story( $output, $post ) {
 add_filter( 'fictioneer_filter_metabox_story_meta', 'child_add_co_authors_to_story', 10, 2 );
 
 /**
- * Adds Co-Authors to fields to be saved
+ * Adds Co-Authors to fields to be saved for stories
  *
  * @since x.x.x
  *
@@ -165,4 +165,41 @@ function child_save_co_authors_of_story( $fields ) {
   return $fields;
 }
 add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of_story', 10 );
+```
+
+## How to limit tags to 10?
+
+Or any other positive number for that matter. To prevent authors from entering a whole thesis of tags like a lunatic. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. Maybe that will teach them a lesson. But anything else needs to interfere with the Gutenberg editor and is difficult to achieve.
+
+**References**
+* Action: [save_post](https://developer.wordpress.org/reference/hooks/save_post/)
+
+```php
+/**
+ * Limit post tags to a maximum of 10
+ *
+ * @since x.x.x
+ *
+ * @param int $post_id  The post ID.
+ */
+
+function child_limit_tags_per_post( $post_id ) {
+  // Ignore auto saves, multi-fire, etc.
+  if ( fictioneer_multi_save_guard( $post_id ) ) {
+    return;
+  }
+
+  // Get current tags (already saved at this point)
+  $tags = wp_get_post_tags( $post_id );
+
+  // Check if there are more than 10 (or your number)
+  if ( count( $tags ) > 10 ) {
+    // Only keep the first 10
+    $tags = array_slice( $tags, 0, 10 );
+
+    // Update the tags in the database and watch your authors cry
+    wp_set_post_tags( $post_id, $tags, false );
+  }
+}
+add_action( 'save_post', 'child_limit_tags_per_post', 99 ); // Executed late
 ```
