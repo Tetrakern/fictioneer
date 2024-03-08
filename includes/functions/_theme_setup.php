@@ -1265,7 +1265,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     // Bundled fonts
     $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
     $last_built_timestamp = get_option( 'fictioneer_bundled_fonts_timestamp', '123456789' );
-    $cache_bust = '?timestamp=' . $last_built_timestamp . '&ver=' . FICTIONEER_VERSION;
+    $cache_bust = "?timestamp={$last_built_timestamp}";
 
     // Create file if it does not exist
     if ( ! file_exists( $bundled_fonts ) ) {
