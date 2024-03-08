@@ -123,7 +123,7 @@ get_header( null, $header_args );
           data-link="<?php the_permalink(); ?>"
           data-title="<?php echo esc_attr( $bookmark_title ); ?>"
           data-story-title="<?php echo esc_attr( $bookmark_story_title ); ?>"
-          hidden>
+          hidden data-nosnippet>
         </div>
       <?php endif; ?>
 

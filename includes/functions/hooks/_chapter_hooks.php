@@ -615,7 +615,7 @@ function fictioneer_chapter_paragraph_tools() {
   $can_comment = ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) && comments_open();
 
   // Start HTML ---> ?>
-  <div id="paragraph-tools" class="paragraph-tools">
+  <div id="paragraph-tools" class="paragraph-tools" data-nosnippet>
     <div class="paragraph-tools__actions">
       <?php if ( get_option( 'fictioneer_enable_bookmarks' ) ) : ?>
         <button id="button-set-bookmark" type="button" class="button">
@@ -677,7 +677,7 @@ function fictioneer_chapter_suggestion_tools() {
   }
 
   // Start HTML ---> ?>
-  <div id="selection-tools" class="invisible suggestion-tools">
+  <div id="selection-tools" class="invisible suggestion-tools" data-nosnippet>
     <button id="button-add-suggestion" type="button" class="button button--suggestion">
       <i class="fa-solid fa-highlighter"></i>
       <span><?php _e( 'Add Suggestion', 'fictioneer' ); ?></span>

@@ -231,9 +231,9 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
   // Build arguments
   $class_container = 'comment-respond fictioneer-respond';
   $class_form = 'comment-form fictioneer-respond__form' . ( empty( $toolbar ) ? '' : ' _toolbar' );
-  $comment_notes_before = empty( $oauth_links ) ? '' : '<div class="fictioneer-respond__form-before-form"><div class="left">' . fcntr( 'log_in_with' ) . '</div><div class="right">' . $oauth_links . '</div></div>';
+  $comment_notes_before = empty( $oauth_links ) ? '' : '<div class="fictioneer-respond__form-before-form" data-nosnippet><div class="left">' . fcntr( 'log_in_with' ) . '</div><div class="right">' . $oauth_links . '</div></div>';
   $logged_in_as = sprintf(
-    '<div class="logged-in-as fictioneer-respond__form-before-form"><div class="left">%s</div></div>',
+    '<div class="logged-in-as fictioneer-respond__form-before-form" data-nosnippet><div class="left">%s</div></div>',
     sprintf(
       fcntr( 'logged_in_as' ),
       $profile_link,
