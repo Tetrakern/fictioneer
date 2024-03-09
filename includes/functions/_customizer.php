@@ -460,6 +460,7 @@ function fictioneer_get_font_data() {
 
 function fictioneer_build_bundled_fonts() {
   // Setup
+  $base_fonts = WP_CONTENT_DIR . '/themes/fictioneer/css/fonts-base.css';
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';
   $fonts = fictioneer_get_font_data();
   $disabled_fonts = get_option( 'fictioneer_disabled_fonts', [] );
@@ -476,6 +477,13 @@ function fictioneer_build_bundled_fonts() {
   }
 
   // Build
+  if ( file_exists( $base_fonts ) ) {
+    $css = file_get_contents( $base_fonts );
+    $css = str_replace( '../fonts/', get_template_directory_uri() . '/fonts/', $css );
+
+    $combined_font_css .= $css;
+  }
+
   foreach ( $fonts as $key => $font ) {
     if ( in_array( $key, $disabled_fonts ) ) {
       continue;

@@ -1312,12 +1312,9 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
     // Output font stylesheets...
     if ( file_exists( $bundled_fonts ) ) {
       // ... base and custom
-      $base_fonts_href = get_template_directory_uri() . '/css/fonts-base.css' . $cache_bust;
       $custom_fonts_href = get_template_directory_uri() . '/cache/bundled-fonts.css' . $cache_bust;
 
       // Start HTML ---> ?>
-      <link rel="stylesheet" id="base-fonts-stylesheet" href="<?php echo $base_fonts_href; ?>" data-no-optimize="1" data-no-minify="1" <?php echo $loading_pattern; ?>>
-      <noscript><link rel="stylesheet" href="<?php echo $base_fonts_href; ?>"></noscript>
       <link rel="stylesheet" id="bundled-fonts-stylesheet" href="<?php echo $custom_fonts_href; ?>" data-no-optimize="1" data-no-minify="1" <?php echo $loading_pattern; ?>>
       <noscript><link rel="stylesheet" href="<?php echo $custom_fonts_href; ?>"></noscript>
       <?php // <--- End HTML
