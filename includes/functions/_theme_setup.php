@@ -1235,8 +1235,6 @@ if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
   function fictioneer_output_head_meta() {
     // Start HTML ---> ?>
     <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
-    <meta http-equiv="content-type" content="text/html">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
