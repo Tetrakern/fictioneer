@@ -84,8 +84,6 @@ do_action( 'fictioneer_after_main', $args );
       // WordPress footer hook (includes modals)
       wp_footer();
     ?>
-
-    <injectjs /> <!-- Autoptimize insert position -->
   </body>
 </html>
 
