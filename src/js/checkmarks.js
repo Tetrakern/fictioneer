@@ -90,7 +90,7 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
     JSON.stringify(fcn_checkmarks.data[storyId]) !== JSON.stringify(currentUserData.checkmarks.data[storyId])
   ) {
     fcn_checkmarks = currentUserData.checkmarks;
-    fcn_showNotification(__('Checkmarks re-synchronized.', 'fictioneer'));
+    fcn_showNotification(fictioneer_tl.notification.checkmarksResynchronized);
     fcn_updateCheckmarksView();
 
     return;

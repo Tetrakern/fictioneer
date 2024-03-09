@@ -73,7 +73,7 @@ function fcn_toggleReminder(storyId) {
   // Re-synchronize if data has diverged
   if (JSON.stringify(fcn_reminders.data[storyId]) !== JSON.stringify(currentUserData.reminders.data[storyId])) {
     fcn_reminders = currentUserData.reminders;
-    fcn_showNotification(__('Reminders re-synchronized.', 'fictioneer'));
+    fcn_showNotification(fictioneer_tl.notification.remindersResynchronized);
     fcn_updateRemindersView();
 
     return;
@@ -112,7 +112,7 @@ function fcn_toggleReminder(storyId) {
     })
     .catch(error => {
       if (error.status === 429) {
-        fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
+        fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
       } else if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }

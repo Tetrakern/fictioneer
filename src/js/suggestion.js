@@ -219,10 +219,8 @@ class FCN_Suggestion {
     instance.toggle.click();
     instance.toggle.checked = false;
 
-    // Inform user
-    fcn_showNotification(
-      __('Suggestion appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer')
-    );
+    // Show notification
+    fcn_showNotification(fictioneer_tl.notification.suggestionAppendedToComment);
   }
 
   bindEvents() {

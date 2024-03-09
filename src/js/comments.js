@@ -444,7 +444,7 @@ function fcn_bindAJAXCommentSubmit() {
         // Add error message
         form.insertBefore(
           fcn_buildErrorNotice(
-            response.data?.error ?? __('Error', 'fictioneer'),
+            response.data?.error ?? fictioneer_tl.notification.error,
             'comment-submit-error-notice',
             false
           ),

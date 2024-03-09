@@ -13,9 +13,6 @@ const /** @const {Number} */ fcn_ajaxLimitThreshold = Date.now() - parseInt(fict
 var /** @type {Boolean} */ fcn_isLoggedIn = fcn_theBody.classList.contains('logged-in');
 var /** @type {HTMLElement} */ fcn_chapterList = _$('#story-chapter-list > ul');
 
-// Translation functions
-const { __, _x, _n, sprintf } = wp.i18n;
-
 // =============================================================================
 // CHAPTER INDEX
 // =============================================================================
@@ -656,33 +653,22 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
 
 // Show OAuth 2.0 registration error notice (if any)
 if (fcn_urlParams['failure'] === 'oauth_email_taken') {
-  fcn_showNotification(
-    __('The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer'),
-    5,
-    'warning'
-  );
+  fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
 }
 
 // Show OAuth 2.0 link error notice (if any)
 if (fcn_urlParams['failure'] === 'oauth_already_linked') {
-  fcn_showNotification(
-    __('Account already linked to another profile.', 'fictioneer'),
-    5,
-    'warning'
-  );
+  fcn_showNotification(fictioneer_tl.notification.oauthAccountAlreadyLinked, 5, 'warning');
 }
 
 // Show new subscriber notice (if any)
 if (fcn_urlParams['success'] === 'oauth_new') {
-  fcn_showNotification(
-    __('Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer'),
-    10
-  );
+  fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
 }
 
 // Show OAuth 2.0 account merge notice (if any)
 if (fcn_urlParams['success']?.includes('oauth_merged_')) {
-  fcn_showNotification(__('Account has been successfully linked.', 'fictioneer'), 3, 'success');
+  fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
 }
 
 // Generic messages
@@ -690,11 +676,7 @@ if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !==
   let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
   type = fcn_urlParams['success'] === '1' ? 'success' : type;
 
-  fcn_showNotification(
-    __(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 'fictioneer'),
-    3,
-    type
-  );
+  fcn_showNotification(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 3, type);
 }
 
 // =============================================================================
@@ -1318,7 +1300,7 @@ function fcn_jumpPage(source) {
     return;
   }
 
-  const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
+  const input = parseInt(window.prompt(fictioneer_tl.notification.enterPageNumber));
 
   if (input > 0) {
     const url = source.nextElementSibling.getAttribute('href'); // Guaranteed to always have the query parameter

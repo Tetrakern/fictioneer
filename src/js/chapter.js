@@ -162,9 +162,7 @@ function fcn_getQuote(e) {
   fcn_addQuoteToStack(quote);
 
   // Show notification
-  fcn_showNotification(
-    __( 'Quote appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' )
-  );
+  fcn_showNotification(fictioneer_tl.notification.quoteAppendedToComment);
 }
 
 /**
@@ -198,7 +196,7 @@ if (fcn_paragraphTools) {
   _$$$('button-get-link').onclick = (e) => {
     fcn_copyToClipboard(
       `${location.host}${location.pathname}#${e.target.closest('p[data-paragraph-id]').id}`,
-      __('Link copied to clipboard!', 'fictioneer')
+      fictioneer_tl.notification.linkCopiedToClipboard
     );
   }
 

@@ -221,7 +221,7 @@ function fcn_evaluateAsBoolean(candidate, fallback = false) {
  */
 
 function fcn_copyToClipboard(text, message = false) {
-  message = message ? message : __('Copied to clipboard!', 'fictioneer');
+  message = message ? message : fictioneer_tl.notification.copiedToClipboard;
 
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text);

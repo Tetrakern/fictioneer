@@ -898,7 +898,7 @@ function fictioneer_add_custom_scripts() {
   wp_register_script( 'fictioneer-utility-scripts', get_template_directory_uri() . '/js/utility.min.js', ['fictioneer-dynamic-scripts'], FICTIONEER_VERSION, $strategy );
 
   // Application
-  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'fictioneer-dynamic-scripts', 'wp-i18n'], FICTIONEER_VERSION, $strategy );
+  wp_register_script( 'fictioneer-application-scripts', get_template_directory_uri() . '/js/application.min.js', [ 'fictioneer-utility-scripts', 'fictioneer-dynamic-scripts'], FICTIONEER_VERSION, $strategy );
 
   // Lightbox
   if ( get_option( 'fictioneer_enable_lightbox' ) ) {
@@ -1130,22 +1130,9 @@ add_filter( 'customize_refresh_nonces', 'fictioneer_add_customizer_refresh_nonce
 
 function fictioneer_wp_login_scripts() {
   // Clear web storage in preparation of login
-  echo "<script type='text/javascript'  data-no-optimize='1' data-no-defer='1' data-no-minify='1'>localStorage.removeItem('fcnUserData'); localStorage.removeItem('fcnAuth');</script>";
+  echo "<script type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>localStorage.removeItem('fcnUserData'); localStorage.removeItem('fcnAuth');</script>";
 }
 add_action( 'login_head', 'fictioneer_wp_login_scripts' );
-
-// =============================================================================
-// LOAD TRANSLATIONS FOR JAVASCRIPT
-// =============================================================================
-
-function fictioneer_load_script_translations() {
-  wp_set_script_translations(
-    'fictioneer-application-scripts',
-    'fictioneer',
-    get_template_directory() . '/languages'
-  );
-}
-add_action( 'wp_enqueue_scripts', 'fictioneer_load_script_translations', 99 );
 
 // =============================================================================
 // DISABLE JQUERY MIGRATE
@@ -1465,5 +1452,49 @@ function fictioneer_add_flip_property_to_cards( $attributes ) {
 if ( get_theme_mod( 'card_frame', 'default' ) === 'stacked_random' ) {
   add_filter( 'fictioneer_filter_card_attributes', 'fictioneer_add_flip_property_to_cards' );
 }
+
+// =============================================================================
+// SCRIPT TRANSLATIONS
+// =============================================================================
+
+/**
+ * Returns array with translations to be used as JSON
+ *
+ * @since 5.12.2
+ *
+ * @return array Updated attributes.
+ */
+
+function fictioneer_get_js_translations() {
+  return array(
+    'notification' => array(
+      'enterPageNumber' => _x( 'Enter page number:', 'Pagination jump prompt.', 'fictioneer' ),
+      'slowDown' => _x( 'Slow down.', 'Rate limit reached notification.', 'fictioneer' ),
+      'error' => _x( 'Error', 'Generic error notification.', 'fictioneer' ),
+      'checkmarksResynchronized' => __( 'Checkmarks re-synchronized.', 'fictioneer' ),
+      'remindersResynchronized' => __( 'Reminders re-synchronized.', 'fictioneer' ),
+      'followsResynchronized' => __( 'Follows re-synchronized.', 'fictioneer' ),
+      'suggestionAppendedToComment' => __( 'Suggestion appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
+      'quoteAppendedToComment' => __( 'Quote appended to comment!<br><a style="font-weight: 700;" href="#comments">Go to comment section.</a>', 'fictioneer' ),
+      'linkCopiedToClipboard' => __( 'Link copied to clipboard!', 'fictioneer' ),
+      'copiedToClipboard' => __( 'Copied to clipboard!', 'fictioneer' ),
+      'oauthEmailTaken' => __( 'The associated email address is already taken. You can link additional accounts in your profile.', 'fictioneer' ),
+      'oauthAccountAlreadyLinked' => __( 'Account already linked to another profile.', 'fictioneer' ),
+      'oauthNew' => __( 'Your account has been successfully linked. <strong>Hint:</strong> You can change your display name in your profile and link additional accounts.', 'fictioneer' ),
+      'oauthAccountLinked' => __( 'Account has been successfully linked.', 'fictioneer' )
+    )
+  );
+}
+
+/**
+ * Outputs JSON with translation into the <head>
+ *
+ * @since 5.12.2
+ */
+
+function fictioneer_output_head_translations() {
+  echo "<script id='fictioneer-translations' type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>const fictioneer_tl = " . json_encode( fictioneer_get_js_translations() ) . ";</script>";
+}
+add_action( 'wp_head', 'fictioneer_output_head_translations' );
 
 ?>

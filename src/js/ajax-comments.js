@@ -174,7 +174,7 @@ function fcn_reloadCommentsPage(page = null) {
 
 function fcn_jumpToCommentPage() {
   // Prompt user to enter desired page number
-  const input = parseInt(window.prompt(_x('Enter page number:', 'Pagination jump prompt.', 'fictioneer')));
+  const input = parseInt(window.prompt(fictioneer_tl.notification.enterPageNumber));
 
   // Reload comments on entered page
   if (input > 0) {

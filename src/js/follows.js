@@ -75,7 +75,7 @@ function fcn_toggleFollow(storyId) {
   // Re-synchronize if data has diverged
   if (JSON.stringify(fcn_follows.data[storyId]) !== JSON.stringify(currentUserData.follows.data[storyId])) {
     fcn_follows = currentUserData.follows;
-    fcn_showNotification(__('Follows re-synchronized.', 'fictioneer'));
+    fcn_showNotification(fictioneer_tl.notification.followsResynchronized);
     fcn_updateFollowsView();
 
     return;
@@ -114,7 +114,7 @@ function fcn_toggleFollow(storyId) {
     })
     .catch(error => {
       if (error.status === 429) {
-        fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
+        fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
       } else if (error.status && error.statusText) {
         fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
       }
@@ -205,7 +205,7 @@ function fcn_setupFollowsHTML() {
   .catch(error => {
     // Show server error
     if (error.status === 429) {
-      fcn_showNotification(__( 'Slow down.', 'fictioneer' ), 3, 'warning');
+      fcn_showNotification(fictioneer_tl.notification.slowDown, 3, 'warning');
     } else if (error.status && error.statusText) {
       fcn_showNotification(`${error.status}: ${error.statusText}`, 5, 'warning');
     }
