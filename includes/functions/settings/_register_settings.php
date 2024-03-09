@@ -300,6 +300,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Bundle CSS files into one', 'fictioneer' ),
       'default' => 0
     ),
+    'fictioneer_bundle_scripts' => array(
+      'name' => 'fictioneer_bundle_scripts',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Bundle JavaScript files into one', 'fictioneer' ),
+      'default' => 0
+    ),
     'fictioneer_do_not_save_comment_ip' => array(
       'name' => 'fictioneer_do_not_save_comment_ip',
       'group' => 'fictioneer-settings-general-group',

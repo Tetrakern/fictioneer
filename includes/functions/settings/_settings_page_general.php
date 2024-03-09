@@ -740,6 +740,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_bundle_scripts',
+                    __( 'Deferred script file that should be ignored by aggregation plugins to avoid errors (fictioneer/js/complete.min.js and fictioneer/cache/dynamic-scripts.js).', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_extended_story_list_meta_queries',
                     __( 'Faster, but adds one row per story to your database, which can slow down your site if you have thousands.', 'fictioneer' )
                   );
