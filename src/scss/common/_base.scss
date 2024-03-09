@@ -640,6 +640,7 @@ html:not(.logged-in) body:not(.logged-in) {
       padding: .5rem 8px calc(.5rem + var(--chapter-li-padding-bottom-offset, 0px)) 0;
       border-radius: var(--layout-border-radius-small);
       contain: content; // Improve performance
+      container-type: inline-size; // Enable container query units
 
       &-icon {
         grid-area: 1 / 1 / 3 / 2;
@@ -659,9 +660,10 @@ html:not(.logged-in) body:not(.logged-in) {
         grid-area: 1 / 2 / 2 / 3;
         color: var(--chapter-list-link-color, var(--heading-link-color));
         font-family: var(--ff-chapter-list-title);
-        font-size: get_clamp(13, 14, 320, 768);
-        line-height: 1.3;
+        font-size: get_clamp(13, 14, 320, 768); // Fallback
+        font-size: var(--chapter-list-link-font-size, clamp(13px, 2.35cqw, 14px));
         font-weight: var(--font-weight-medium);
+        line-height: 1.3;
         width: fit-content;
 
         &:hover {
@@ -672,7 +674,11 @@ html:not(.logged-in) body:not(.logged-in) {
       &-subrow {
         grid-area: 2 / 2 / 3 / 3;
         color: var(--chapter-list-subrow-color, var(--fg-600));
-        font: var(--font-weight-normal) var(--fs-xxs)/1.2 var(--ff-note);
+        font-family: var(--ff-note);
+        font-size: var(--chapter-list-subrow-font-size, var(--fs-xxs)); // Fallback
+        font-size: var(--chapter-list-subrow-font-size, clamp(11.25px, 2.1cqw, 12.25px));
+        font-weight: var(--font-weight-normal);
+        line-height: 1.3;
 
         > :is(span, time):not(:last-child)::after {
           content: " •";

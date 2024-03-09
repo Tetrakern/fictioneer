@@ -509,7 +509,6 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 
         &-link {
           grid-area: 1/1/2/4;
-          font-size: var(--fs-dxs);
 
           &._password {
             grid-area: 1/1/2/3;
