@@ -11,28 +11,17 @@
  * validated server-side as well.
  *
  * @since 4.5.0
- * @param {String} none - Nonce for the action.
- * @param {String} channel - The OAuth channel to delete.
- * @param {Number} id - The ID of the user.
+ * @param {HTMLElement} button - The clicked button.
  */
 
-function fcn_unsetOauth(nonce, channel, id) {
-  // Confirm deletion request using localized string
-  const confirm = prompt(
-    sprintf(
-      _x('Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'Unset OAuth prompt.', 'fictioneer'),
-      _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
-    )
-  );
+function fcn_unsetOauth(button) {
+  const confirm = prompt(button.dataset.warning);
 
-  if (
-    !confirm ||
-    confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
-  ) {
+  if (!confirm || confirm.toLowerCase() != button.dataset.confirm.toLowerCase()) {
     return;
   }
 
-  const connection = _$$$(`oauth-${channel}`);
+  const connection = _$$$(`oauth-${button.dataset.channel}`);
 
   // Mark as in-progress
   connection.classList.add('ajax-in-progress');
@@ -40,9 +29,9 @@ function fcn_unsetOauth(nonce, channel, id) {
   // Request
   fcn_ajaxPost(payload = {
     'action': 'fictioneer_ajax_unset_my_oauth',
-    'nonce': nonce,
-    'channel': channel,
-    'id': id
+    'nonce': button.dataset.nonce,
+    'channel': button.dataset.channel,
+    'id': button.dataset.id
   })
   .then(response => {
     if (response.success) {
@@ -74,11 +63,7 @@ _$$('.button-unset-oauth').forEach(element => {
   element.addEventListener(
     'click',
     e => {
-      fcn_unsetOauth(
-        e.currentTarget.dataset.nonce,
-        e.currentTarget.dataset.channel,
-        e.currentTarget.dataset.id
-      );
+      fcn_unsetOauth(e.currentTarget);
     }
   );
 });
@@ -105,17 +90,9 @@ function fcn_deleteMyAccount(button) {
     return;
   }
 
-  const confirm = prompt(
-    sprintf(
-      button.dataset.warning,
-      _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
-    )
-  );
+  const confirm = prompt(button.dataset.warning);
 
-  if (
-    !confirm ||
-    confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
-  ) {
+  if (!confirm || confirm.toLowerCase() != button.dataset.confirm.toLowerCase()) {
     return;
   }
 
@@ -169,17 +146,11 @@ const /** @const {DOMStringMap} */ fcn_profileDataTranslations = _$$$('profile-d
  */
 
 function fcn_dataDeletionPrompt(button) {
-  const confirm = prompt(
-    sprintf(
-      button.dataset.warning,
-      _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toUpperCase()
-    )
-  );
+  const confirm = prompt(button.dataset.warning);
 
-  if (
-    !confirm ||
-    confirm.toLowerCase() != _x('delete', 'Prompt deletion confirmation string.', 'fictioneer').toLowerCase()
-  ) return false;
+  if (!confirm || confirm.toLowerCase() != button.dataset.confirm.toLowerCase()) {
+    return false;
+  }
 
   return true;
 }

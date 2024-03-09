@@ -71,6 +71,33 @@ if ( $can_checkmarks ) {
   $args['checkmarks'] = $checkmarks;
 }
 
+// Prompts
+$confirmation = _x( 'DELETE', 'Prompt deletion confirmation string.', 'fictioneer' );
+$delete_comments_prompt = sprintf(
+  __( 'Are you sure? Comments will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+$delete_comment_subscriptions_prompt = sprintf(
+  __( 'Are you sure? Comment subscriptions will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+$delete_follows_prompt = sprintf(
+  __( 'Are you sure? Follows will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+$delete_reminders_prompt = sprintf(
+  __( 'Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+$delete_checkmarks_prompt = sprintf(
+  __( 'Are you sure? Checkmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+$delete_bookmarks_prompt = sprintf(
+  __( 'Are you sure? Bookmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
+
 ?>
 
 <div id="profile-data-translations" data-cleared-success="<?php esc_attr_e( 'Data has been cleared.', 'fictioneer' ); ?>" data-cleared-error="<?php esc_attr_e( 'Error. Data could not be cleared.', 'fictioneer' ); ?>" hidden></div>
@@ -105,7 +132,7 @@ if ( $can_checkmarks ) {
               ?>
             </div>
           </div>
-          <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comments will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-comments" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comments' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comments_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -127,7 +154,7 @@ if ( $can_checkmarks ) {
               ?>
             </div>
           </div>
-          <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Comment subscriptions will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-comment-subscriptions" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_comment_subscriptions' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_comment_subscriptions_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>
@@ -158,7 +185,7 @@ if ( $can_checkmarks ) {
             </div>
           </div>
           <?php if ( $follows_count > 0 ) : ?>
-            <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Follows will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-follows" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_follows' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_follows_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -190,7 +217,7 @@ if ( $can_checkmarks ) {
             </div>
           </div>
           <?php if ( $reminders_count > 0 ) : ?>
-            <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Reminders will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-reminders" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_reminders' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_reminders_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -227,7 +254,7 @@ if ( $can_checkmarks ) {
             </div>
           </div>
           <?php if ( $stories_count > 0 || $chapters_count > 0 ) : ?>
-            <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-warning="<?php esc_attr_e( 'Are you sure? Checkmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="card__delete button-clear-checkmarks" data-nonce="<?php echo wp_create_nonce( 'fictioneer_clear_checkmarks' ); ?>" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_checkmarks_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
           <?php endif; ?>
         </div>
       </li>
@@ -250,7 +277,7 @@ if ( $can_checkmarks ) {
               <?php _e( 'You have currently <b>%s bookmark(s)</b> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
             </div>
           </div>
-          <button class="card__delete button-clear-bookmarks" data-warning="<?php esc_attr_e( 'Are you sure? Bookmarks will be irrevocably deleted. Enter %s to confirm.', 'fictioneer' ); ?>"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="card__delete button-clear-bookmarks" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_bookmarks_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>
         </div>
       </li>
     <?php endif; ?>

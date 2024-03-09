@@ -35,7 +35,14 @@ $oauth_providers = [
   ['google', 'Google'],
   ['patreon', 'Patreon']
 ];
-$unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
+$unset_notification = __( '%s connection successfully unset.', 'fictioneer' );
+
+// Prompts
+$confirmation = _x( 'DELETE', 'Prompt deletion confirmation string.', 'fictioneer' );
+$unset_oauth_prompt = sprintf(
+  __( 'Are you sure? Note that if you disconnect all accounts, you may no longer be able to log back in once you log out. Enter %s to confirm.', 'fictioneer' ),
+  $confirmation
+);
 
 ?>
 
@@ -104,6 +111,8 @@ $unset_notification = __( '%s connection successfully unset.', 'fictioneer' )
                 data-nonce="<?php echo wp_create_nonce( 'fictioneer_unset_oauth' ); ?>"
                 data-id="<?php echo $current_user->ID; ?>"
                 data-channel="<?php echo $provider[0]; ?>"
+                data-confirm="<?php echo $confirmation; ?>"
+                data-warning="<?php echo esc_attr( $unset_oauth_prompt ); ?>"
               ><?php fictioneer_icon( 'fa-xmark' ); ?></button>
             </div>
           <?php
