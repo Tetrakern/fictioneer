@@ -118,8 +118,46 @@ function fictioneer_theme_setup() {
 
   // Add new size for cover snippets used in cards
   add_image_size( 'snippet', 0, 200 );
+
+  // After update actions
+  $theme_status = get_option( 'fictioneer_theme_status' );
+
+  if ( empty( $theme_status ) || ( $theme_status['version'] ?? 0 ) !== FICTIONEER_VERSION ) {
+    $theme_status = is_array( $theme_status ) ? $theme_status : [];
+    $theme_status['version'] = FICTIONEER_VERSION;
+
+    update_option( 'fictioneer_theme_status', $theme_status );
+
+    do_action( 'fictioneer_after_update' );
+  }
 }
 add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
+
+// =============================================================================
+// AFTER UPDATE
+// =============================================================================
+
+/**
+ * Purges selected caches and Transients after update
+ *
+ * @since 5.12.2
+ */
+
+function fictioneer_purge_caches_after_update() {
+  // Transients
+  fictioneer_delete_transients_like( 'fictioneer_' );
+
+  // Delete cached files
+  $cache_dir = WP_CONTENT_DIR . '/themes/fictioneer/cache/';
+  $files = glob( $cache_dir . '*' );
+
+  foreach ( $files as $file ) {
+    if ( is_file( $file ) ) {
+      unlink( $file );
+    }
+  }
+}
+add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 
 // =============================================================================
 // PROTECT META FIELDS

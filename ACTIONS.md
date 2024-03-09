@@ -125,6 +125,14 @@ Fires after an user has been successfully created or logged-in via the OAuth 2.0
 
 ---
 
+### `do_action( 'fictioneer_after_update' )`
+Fires after the theme has been updated, once per version change.
+
+**Hooked actions:**
+* `fictioneer_purge_caches_after_update()` – Purges selected caches and Transients. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_archive_loop_after', $args )`
 Archive template hook. Fires right after the result loop section in any archive template.
 
