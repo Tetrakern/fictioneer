@@ -897,3 +897,31 @@ function fcn_splitList(list, separator = ',') {
 
   return array;
 }
+
+// =============================================================================
+// CHECK FOR SEARCH CRAWLER
+// =============================================================================
+
+/**
+ * Checks if the user is a crawler (if JS is enabled)
+ *
+ * @returns {Boolean} - True or false.
+ */
+
+function fcn_isSearchEngineCrawler() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const crawlers = [
+    'googlebot', // Google
+    'bingbot', // Bing
+    'slurp', // Yahoo
+    'duckduckbot', // DuckDuckGo
+    'baiduspider', // Baidu
+    'yandexbot', // Yandex
+    'sogou', // Sogou
+    'exabot', // Exalead
+    'facebot', // Facebook
+    'ia_archiver' // Alexa Internet
+  ];
+
+  return crawlers.some(crawler => userAgent.includes(crawler));
+}

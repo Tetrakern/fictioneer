@@ -348,7 +348,7 @@ function fictioneer_mobile_user_menu() {
 
   if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) {
     $output['search'] = sprintf(
-      '<a href="%s" class="hide-if-logged-out"><i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i> %s</a>',
+      '<a href="%s" class="hide-if-logged-out" rel="nofollow"><i class="fa-solid fa-magnifying-glass mobile-menu__item-icon"></i> %s</a>',
       esc_url( home_url( '/?s=' ) ),
       __( 'Search', 'fictioneer' )
     );

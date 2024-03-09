@@ -944,6 +944,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    * @since 5.0.0
    * @since 5.9.3 - Added meta field caching.
    * @since 5.9.4 - Removed output buffer.
+   * @since 5.12.2 - Use permalinks instead of page ID.
    *
    * @param int   $story_id       ID of the story.
    * @param array $data           Prepared data of the story.
@@ -984,7 +985,6 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
       $list_title = trim( wp_strip_all_tags( $list_title ) );
       $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
-      $parsed_url = wp_parse_url( home_url() );
       $icon = '';
 
       // Check for empty title
@@ -1010,11 +1010,10 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
       // HTML
       $html .= sprintf(
-        '<li class="%s" data-id="%d"><a href="%s?p=%d">%s<span>%s</span></a></li>',
+        '<li class="%s" data-id="%d"><a href="%s">%s<span>%s</span></a></li>',
         implode( ' ', $classes ),
         $chapter->ID,
-        isset( $parsed_url['path'] ) ? $parsed_url['path'] : '',
-        $chapter->ID,
+        get_the_permalink( $chapter->ID ),
         $icon,
         $list_title ?: $title
       );

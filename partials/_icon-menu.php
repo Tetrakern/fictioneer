@@ -104,7 +104,7 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
       href="<?php echo esc_url( home_url( '/?s=' ) ); ?>"
       title="<?php esc_attr_e( 'Search Page', 'fictioneer' ); ?>"
       class="icon-menu__item hide-in-mobile-menu"
-      rel="noopener noreferrer nofollow"
+      rel="nofollow"
       aria-label="<?php esc_attr_e( 'Link to search page', 'fictioneer' ); ?>"
     ><i class="fa-solid fa-magnifying-glass"></i></a>
   <?php endif; ?>

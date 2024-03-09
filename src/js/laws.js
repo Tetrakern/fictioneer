@@ -5,11 +5,11 @@
 const /** @const {HTMLElement} */ fcn_consentBanner = _$$$('consent-banner');
 
 // Show consent banner if no consent has been set, remove otherwise;
-if (fcn_consentBanner && (fcn_getCookie('fcn_cookie_consent') ?? '') === '') {
+if (fcn_consentBanner && (fcn_getCookie('fcn_cookie_consent') ?? '') === '' && !fcn_isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_loadConsentBanner();
-  }, 2000);
+  }, 4000);
 } else {
   fcn_consentBanner.remove();
 }

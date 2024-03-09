@@ -2083,11 +2083,11 @@ fcn_markCurrentMenuItem();
 // AGE CONFIRMATION
 // =============================================================================
 
-if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1') {
+if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation') !== '1' && !fcn_isSearchEngineCrawler()) {
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_showAgeConfirmationModal();
-  }, 2000);
+  }, 4000);
 } else {
   _$$$('age-confirmation-modal')?.remove();
 }
