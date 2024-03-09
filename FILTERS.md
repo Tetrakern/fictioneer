@@ -716,9 +716,10 @@ Filters the arguments to query the recommendations in the `recommendations.php` 
 Filters the array of query args to be removed after being parsed on page load.
 
 **$query_args:**
-* 0 – `'success'`
-* 1 – `'failure'`
-* 3 – `'fictioneer_nonce'`
+* $0 – `'success'`
+* $1 – `'failure'`
+* $3 – `'fictioneer_nonce'`
+* $4 – `'fictioneer-notice'`
 
 ---
 
