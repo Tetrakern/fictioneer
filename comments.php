@@ -22,10 +22,11 @@ $post_id = get_the_ID();
 $user = wp_get_current_user();
 $comments_count = get_comments_number();
 $logout_url = fictioneer_get_logout_url( get_permalink() );
+$is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
 ?>
 
-<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>">
+<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>" <?php echo $is_ajax_comments ? 'data-ajax-comments' : ''; ?>>
 
   <?php
 

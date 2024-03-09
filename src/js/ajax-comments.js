@@ -2,7 +2,7 @@
 // SETUP
 // =============================================================================
 
-const /** @const {HTMLElement} */ fcn_commentSection = _$$$('comments');
+const /** @const {HTMLElement} */ fcn_commentSection = _$('#comments[data-ajax-comments]');
 
 // =============================================================================
 // REQUEST COMMENTS FORM VIA AJAX
@@ -29,9 +29,9 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   }
 
   // Setup
-  let commentText = '',
-      commentTextarea = _$$$('comment'),
-      errorNote;
+  let commentText = '';
+  let commentTextarea = _$$$('comment');
+  let errorNote;
 
   // Preserve comment text (in case of pagination)
   if (commentTextarea) {

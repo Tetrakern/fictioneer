@@ -391,6 +391,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-font-size-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-size-reset');
 
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
+
   /**
    * Update font size formatting on chapters.
    *
@@ -475,6 +480,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-color-reset');
   const /** @const {HTMLElement} */ select = _$$$('reader-settings-font-color-select');
 
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
+
   /**
    * Update font color on chapters.
    *
@@ -542,6 +552,11 @@ function fcn_setFormatting(value) {
 
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-reset');
   const /** @const {HTMLElement} */ select = _$$$('reader-settings-font-select');
+
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
 
   /**
    * Update font family on chapters.
@@ -628,6 +643,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-font-saturation-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-font-saturation-reset');
 
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
+
   /**
    * Update font saturation formatting on chapters.
    *
@@ -706,6 +726,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-letter-spacing-reset');
   const /** @const {Number} */ _default = fcn_defaultFormatting()['letter-spacing'];
 
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
+
   /**
    * Update letter-spacing formatting on chapters.
    *
@@ -770,6 +795,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-paragraph-spacing-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-paragraph-spacing-reset');
   const /** @const {Number} */ _default = fcn_defaultFormatting()['paragraph-spacing'];
+
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
 
   /**
    * Update paragraph spacing formatting on chapters.
@@ -836,6 +866,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-line-height-reset');
   const /** @const {Number} */ _default = fcn_defaultFormatting()['line-height'];
 
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
+
   /**
    * Update line height formatting on chapters.
    *
@@ -900,6 +935,11 @@ function fcn_setFormatting(value) {
   const /** @const {HTMLInputElement} */ range = _$$$('reader-settings-site-width-range');
   const /** @const {HTMLElement} */ reset = _$$$('reader-settings-site-width-reset');
   const /** @const {Number} */ _default = fcn_defaultFormatting()['site-width'];
+
+  // Abort if nothing to do
+  if (!reset) {
+    return;
+  }
 
   /**
    * Update site width formatting on chapters.

@@ -18,7 +18,7 @@ var /** @type {SpeechSynthesis} */ fcn_synth;
 // =============================================================================
 
 // Check whether the feature is supported...
-if (typeof speechSynthesis !== 'undefined') {
+if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   fcn_synth = window.speechSynthesis;
   fcn_utter = new SpeechSynthesisUtterance();
   fcn_utter.lang = fcn_theRoot.lang;
@@ -297,7 +297,7 @@ function fcn_readTextStack() {
 // EVENT LISTENERS
 // =============================================================================
 
-if (typeof speechSynthesis !== 'undefined') {
+if (typeof speechSynthesis !== 'undefined' && fcn_ttsInterface) {
   // Paragraph tools button
   _$$$('button-tts-set').addEventListener('click', event => {
     fcn_ttsStack = [];
