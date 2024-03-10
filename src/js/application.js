@@ -1495,14 +1495,14 @@ fcn_theBody.querySelectorAll('.modal-toggle').forEach(element => {
 });
 
 // Open dialog modal
-_$$('[data-click-action="open-dialog-modal"]').forEach(element => {
+_$$('[data-click-action*="open-dialog-modal"]').forEach(element => {
   element.addEventListener('click', event => {
     document.querySelector(event.currentTarget.dataset.clickTarget).showModal();
   });
 });
 
 // Close dialog modal
-_$$('[data-click-action="close-dialog-modal"]').forEach(element => {
+_$$('[data-click-action*="close-dialog-modal"]').forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault();
     event.target.closest('dialog').close();
