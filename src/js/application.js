@@ -1512,8 +1512,10 @@ _$$('[data-click-action="close-dialog-modal"]').forEach(element => {
 // Close dialog modal on click outside
 _$$('dialog').forEach(element => {
   element.addEventListener('click', event => {
-    event.preventDefault();
-    event.target.tagName.toLowerCase() === 'dialog' && event.target.close();
+    if (event.target.tagName.toLowerCase() === 'dialog') {
+      event.preventDefault();
+      event.target.close();
+    }
   });
 });
 
