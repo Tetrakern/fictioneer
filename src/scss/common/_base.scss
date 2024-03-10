@@ -517,6 +517,7 @@ button[type=submit]:where(:not(._inline)) {
     font-size: inherit;
     font-weight: 400;
     line-height: 22px;
+    letter-spacing: 0;
     text-align: center;
     padding: 5px 12px;
     width: 100%;
