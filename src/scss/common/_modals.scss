@@ -1,6 +1,7 @@
 .dialog-modal,
 .modal {
   --modal-width: 300px;
+  color: var(--fg-500); // For dialog
   line-height: 1.3;
 
   input:where([type=text], [type=email]) {
