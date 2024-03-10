@@ -3,7 +3,7 @@
   --modal-width: 300px;
   line-height: 1.3;
 
-  input[type=text] {
+  input:where([type=text], [type=email]) {
     width: 100%;
   }
 
@@ -41,6 +41,10 @@
 
   &__row {
     padding: 12px;
+
+    &._no-top {
+      padding-top: 0;
+    }
 
     &._vertical-shrink-spacing {
       padding: #{get_clamp(6, 8, 320, 480)} 12px;
