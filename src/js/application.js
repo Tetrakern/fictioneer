@@ -1511,7 +1511,7 @@ _$$('[data-click-action*="close-dialog-modal"]').forEach(element => {
 
 // Close dialog modal on click outside
 _$$('dialog').forEach(element => {
-  element.addEventListener('click', event => {
+  element.addEventListener('mousedown', event => {
     if (event.target.tagName.toLowerCase() === 'dialog') {
       event.preventDefault();
       event.target.close();
