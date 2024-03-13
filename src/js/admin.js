@@ -965,7 +965,7 @@ function fcn_queryRelationshipPosts(payload, container, append = true) {
 
   fcn_ajaxPost(payload)
   .then(response => {
-    // Remove spinner (if any)
+    // Remove observer (if any)
     container.querySelector('[data-target="fcn-relationships-observer"]')?.remove();
 
     // Pass on response
