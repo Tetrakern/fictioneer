@@ -25,7 +25,7 @@ $site_modal = get_option( 'fictioneer_enable_site_age_confirmation' );
 
   <div class="modal__wrapper">
 
-    <h4 class="modal__header"><?php _e( 'Age Confirmation', 'fictioneer' ); ?></h4>
+    <div class="modal__header"><?php _e( 'Age Confirmation', 'fictioneer' ); ?></div>
 
     <?php if ( $site_modal ) : ?>
       <div class="modal__row modal__description _large"><?php

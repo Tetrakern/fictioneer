@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) OR exit;
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
 
-    <h4 class="modal__header drag-anchor"><?php _ex( 'Suggestion', 'Suggestion modal heading.', 'fictioneer' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php _ex( 'Suggestion', 'Suggestion modal heading.', 'fictioneer' ); ?></div>
 
     <div class="modal__row suggestions__display">
       <div class="suggestions__original">

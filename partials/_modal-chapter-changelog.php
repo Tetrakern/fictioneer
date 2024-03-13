@@ -30,7 +30,7 @@ foreach ( $changelog as $entry ) {
     <label class="close" for="modal-chapter-changelog-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
-    <h4 class="modal__header drag-anchor"><?php _e( 'Changelog', 'fictioneer' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php _e( 'Changelog', 'fictioneer' ); ?></div>
 
     <div class="modal__row _textarea">
       <textarea class="modal__textarea _changelog" readonly><?php echo $output; ?></textarea>

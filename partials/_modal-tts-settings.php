@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) OR exit;
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
 
-    <h4 class="modal__header drag-anchor"><?php _ex( 'TTS Settings', 'TTS modal heading.', 'fictioneer' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php _ex( 'TTS Settings', 'TTS modal heading.', 'fictioneer' ); ?></div>
 
     <div class="modal__description modal__row">
       <p><?php _e( 'The text-to-speech engine is an experimental browser feature. It might not always work as intended. On Android, you need the following app permissions for this to work: ', 'fictioneer' ); ?></p>

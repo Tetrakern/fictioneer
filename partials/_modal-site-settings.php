@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
     <label class="close" for="modal-site-settings-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
-    <h4 class="modal__header drag-anchor"><?php echo fcntr( 'site_settings' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php echo fcntr( 'site_settings' ); ?></div>
     <div class="modal__description modal__row site-settings__description site-settings__row">
       <p><?php _e( 'You can toggle selected features and styles per device/browser to boost performance. Some options may not be available.', 'fictioneer' ); ?></p>
     </div>

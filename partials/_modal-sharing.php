@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
     <label class="close" for="modal-sharing-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
-    <h4 class="modal__header drag-anchor"><?php _ex( 'Share', 'Share modal heading.', 'fictioneer' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php _ex( 'Share', 'Share modal heading.', 'fictioneer' ); ?></div>
 
     <div class="modal__row media-buttons _modal">
       <?php if ( ! get_option( 'fictioneer_disable_facebook_share' ) ) : ?>

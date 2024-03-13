@@ -21,10 +21,9 @@
     border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
   }
 
-  &__header:is(h4) {
+  &__header {
     color: var(--fg-400);
-    font-size: 16px;
-    line-height: 1;
+    font: var(--font-weight-heading) 16px/1 var(--ff-heading);
     text-transform: uppercase;
     padding: 12px 40px 12px 12px;
     margin: 0;

@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
     <label class="close" for="modal-login-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
-    <h4 class="modal__header drag-anchor"><?php echo fcntr( 'login_modal' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php echo fcntr( 'login_modal' ); ?></div>
 
     <?php
       $info = fictioneer_replace_key_value(

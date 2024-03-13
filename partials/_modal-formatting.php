@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) OR exit;
     <label class="close" for="modal-formatting-toggle" tabindex="0" aria-label="<?php esc_attr_e( 'Close modal', 'fictioneer' ); ?>">
       <?php fictioneer_icon( 'fa-xmark' ); ?>
     </label>
-    <h4 class="modal__header drag-anchor"><?php echo fcntr( 'formatting_modal' ); ?></h4>
+    <div class="modal__header drag-anchor"><?php echo fcntr( 'formatting_modal' ); ?></div>
 
     <div class="modal__row reader-settings__row _vertical-shrink-spacing">
       <i class="fa-solid fa-adjust reset setting-darken-reset" title="<?php esc_attr_e( 'Darken Background', 'fictioneer' ); ?>"></i>
