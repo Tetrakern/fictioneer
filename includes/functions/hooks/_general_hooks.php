@@ -562,7 +562,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
         foreach( $post_type_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}'>{$tuple['label']}</a>";
+          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }
 
         echo '</div>';
@@ -577,7 +577,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
         foreach( $orderby_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}'>{$tuple['label']}</a>";
+          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }
 
         echo '</div>';
@@ -601,14 +601,14 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
         foreach( $date_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
-          echo "<a href='{$url}'>{$tuple['label']}</a>";
+          echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }
 
         echo '</div>';
       ?></div>
     <?php endif; ?>
 
-    <a class="list-button _order  <?php echo $args['order'] === 'desc' ? '_on' : '_off'; ?>" href="<?php echo $order_link; ?>" aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
+    <a class="list-button _order  <?php echo $args['order'] === 'desc' ? '_on' : '_off'; ?>" href="<?php echo $order_link; ?>" rel='nofollow' aria-label="<?php esc_attr_e( 'Toggle between ascending and descending order', 'fictioneer' ); ?>">
       <i class="fa-solid fa-arrow-up-short-wide _off"></i><i class="fa-solid fa-arrow-down-wide-short _on"></i>
     </a>
 
