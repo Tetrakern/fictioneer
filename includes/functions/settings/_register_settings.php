@@ -13,11 +13,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'Enable maintenance mode', 'fictioneer' ),
       'default' => 0
     ),
-    'fictioneer_light_mode_as_default' => array(
-      'name' => 'fictioneer_light_mode_as_default',
+    'fictioneer_dark_mode_as_default' => array(
+      'name' => 'fictioneer_dark_mode_as_default',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable light mode as default', 'fictioneer' ),
+      'label' => __( 'Enable dark mode as default', 'fictioneer' ),
       'default' => 0
     ),
     'fictioneer_show_authors' => array(

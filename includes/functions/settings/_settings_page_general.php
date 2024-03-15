@@ -56,7 +56,7 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_light_mode_as_default',
+                    'fictioneer_dark_mode_as_default',
                     __( 'Overridden by personal site settings.', 'fictioneer' )
                   );
                 ?>
