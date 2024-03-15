@@ -224,9 +224,9 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
    * @since 5.12.0 - Added $context and $args parameters.
    * @link https://developer.wordpress.org/reference/functions/wp_strip_all_tags/
    *
-   * @param int|WP_Post $post        The post or post ID to get the title for.
-   * @param string|null $context     Optional. Context regarding where and how the title is used.
-   * @param array       $args        Optional. Additional parameters.
+   * @param int|WP_Post $post     The post or post ID to get the title for.
+   * @param string|null $context  Optional. Context regarding where and how the title is used.
+   * @param array       $args     Optional. Additional parameters.
    *
    * @return string The title, never empty.
    */
