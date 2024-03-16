@@ -46,7 +46,7 @@ do_action( 'fictioneer_after_main', $args );
 
 ?>
 
-      <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>" data-nosnippet>
+      <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
         <div class="footer__wrapper">
           <?php do_action( 'fictioneer_site_footer', $args ); ?>
         </div>
