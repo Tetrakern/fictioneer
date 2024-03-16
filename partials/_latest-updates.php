@@ -180,6 +180,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           foreach ( $attributes as $key => $value ) {
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
+
+          // Thumbnail attributes
+          $thumbnail_args = array(
+            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
+            'class' => 'no-auto-lightbox'
+          );
         ?>
 
         <li class="card _small _story-update <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -190,7 +196,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <?php do_action( 'fictioneer_shortcode_latest_updates_card_body', $post, $story, $args ); ?>
 
               <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] ); ?></a>
+                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo get_the_post_thumbnail( $post, 'snippet', $thumbnail_args ); ?></a>
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php

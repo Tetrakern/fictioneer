@@ -62,6 +62,12 @@ foreach ( $attributes as $key => $value ) {
   $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
 }
 
+// Thumbnail attributes
+$thumbnail_args = array(
+  'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
+  'class' => 'no-auto-lightbox'
+);
+
 ?>
 
 <li
@@ -104,7 +110,7 @@ foreach ( $attributes as $key => $value ) {
             get_the_post_thumbnail_url( null, 'full' ),
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ),
             fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( null, 'cover' )
+            get_the_post_thumbnail( null, 'cover', $thumbnail_args )
           );
         }
 

@@ -131,6 +131,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
           $card_classes = [];
 
+          // Thumbnail attributes
+          $thumbnail_args = array(
+            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
+            'class' => 'no-auto-lightbox'
+          );
+
           // Extra card classes
           if ( ! empty( $post->post_password ) ) {
             $card_classes[] = '_password';
@@ -142,12 +148,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
           // Chapter images
           $thumbnail_full = get_the_post_thumbnail_url( $post, 'full' );
-          $thumbnail_snippet = get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] );
+          $thumbnail_snippet = get_the_post_thumbnail( $post, 'snippet', $thumbnail_args );
 
           // Story images
           if ( ! $thumbnail_full && $story ) {
             $thumbnail_full = get_the_post_thumbnail_url( $story_id, 'full' );
-            $thumbnail_snippet = get_the_post_thumbnail( $story_id, 'snippet', ['class' => 'no-auto-lightbox']);
+            $thumbnail_snippet = get_the_post_thumbnail( $story_id, 'snippet', $thumbnail_args );
           }
 
           // Count actually rendered cards to account for buffer

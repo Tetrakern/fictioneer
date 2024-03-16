@@ -86,6 +86,12 @@ foreach ( $attributes as $key => $value ) {
   $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
 }
 
+// Thumbnail attributes
+$thumbnail_args = array(
+  'alt' => sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+  'class' => 'no-auto-lightbox'
+);
+
 ?>
 
 <li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -114,7 +120,7 @@ foreach ( $attributes as $key => $value ) {
             get_the_post_thumbnail_url( null, 'full' ),
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
             fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( null, 'cover' )
+            get_the_post_thumbnail( null, 'cover', $thumbnail_args )
           );
         }
 

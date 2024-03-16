@@ -71,6 +71,12 @@ foreach ( $attributes as $key => $value ) {
   $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
 }
 
+// Thumbnail attributes
+$thumbnail_args = array(
+  'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
+  'class' => 'no-auto-lightbox'
+);
+
 ?>
 
 <li
@@ -130,7 +136,7 @@ foreach ( $attributes as $key => $value ) {
             get_the_post_thumbnail_url( null, 'full' ),
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
             fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( null, 'cover' )
+            get_the_post_thumbnail( null, 'cover', $thumbnail_args )
           );
 
         } elseif ( ! empty( $story_thumbnail_url_full ) ) {
@@ -140,7 +146,7 @@ foreach ( $attributes as $key => $value ) {
             $story_thumbnail_url_full,
             sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
             fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( $story_id, 'cover' )
+            get_the_post_thumbnail( $story_id, 'cover', $thumbnail_args )
           );
 
         } elseif ( ! empty( $text_icon ) ) {

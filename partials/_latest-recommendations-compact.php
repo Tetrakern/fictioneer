@@ -123,6 +123,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           foreach ( $attributes as $key => $value ) {
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
+
+          // Thumbnail attributes
+          $thumbnail_args = array(
+            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
+            'class' => 'no-auto-lightbox'
+          );
         ?>
 
         <li class="card watch-last-clicked _small _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -138,7 +144,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <?php if ( has_post_thumbnail() ) : ?>
                 <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-                  <?php echo get_the_post_thumbnail( $post, 'snippet', ['class' => 'no-auto-lightbox'] ); ?>
+                  <?php echo get_the_post_thumbnail( $post, 'snippet', $thumbnail_args ); ?>
                 </a>
               <?php endif; ?>
 
