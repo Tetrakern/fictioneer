@@ -21,6 +21,8 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
+$title_tag = is_front_page() ? 'h1' : 'div';
+$logo_tag = ( display_header_text() || ! is_front_page() ) ? 'div' : 'h1';
 $classes = [];
 
 if ( ! display_header_text() ) {
@@ -48,16 +50,16 @@ if ( ! get_theme_mod( 'title_text_shadow', false ) ) {
   <div class="top-header__content">
 
     <?php if ( has_custom_logo() ) : ?>
-      <?php the_custom_logo(); ?>
+      <<?php echo $logo_tag; ?> class="top-header__logo"><?php the_custom_logo(); ?></<?php echo $logo_tag; ?>>
     <?php endif; ?>
 
     <?php if ( display_header_text() ) : ?>
       <div class="top-header__title">
-        <h1 class="top-header__heading">
+        <<?php echo $title_tag; ?> class="top-header__heading">
           <a href="<?php echo esc_url( home_url() ); ?>" class="top-header__link" rel="home"><?php
             echo get_bloginfo( 'name' );
           ?></a>
-        </h1>
+        </<?php echo $title_tag; ?>>
         <?php if ( ! empty( get_bloginfo( 'description' ) ) ) : ?>
           <div class="top-header__tagline"><?php echo get_bloginfo( 'description' ); ?></div>
         <?php endif; ?>
