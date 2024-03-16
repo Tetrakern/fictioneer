@@ -1045,11 +1045,13 @@ What you are interested in are the `position`, `transform`, and/or `text-align` 
 
 ```html
 <header class="header hide-on-fullscreen">
-  <div class="header__title">
-    <h1 class="header__title-heading">
-      <a href="#" class="header__title-link" rel="home">Title</a>
-    </h1>
-    <div class="header__title-tagline">Tagline</div>
+  <div class="header__content">
+    <div class="header__title">
+      <div class="header__title-heading">
+        <a href="#" class="header__title-link" rel="home">Title</a>
+      </div>
+      <div class="header__title-tagline">Tagline</div>
+    </div>
   </div>
 </header>
 ```
