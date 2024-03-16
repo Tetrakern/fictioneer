@@ -24,6 +24,7 @@ defined( 'ABSPATH' ) OR exit;
 $header_style = get_theme_mod( 'header_style', 'default' );
 $show_title_shadow = get_theme_mod( 'title_text_shadow', false );
 $tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
+$logo_tag = display_header_text() ? 'div' : 'h1';
 
 ?>
 
@@ -35,7 +36,7 @@ $tag = in_array( $header_style, ['default', 'overlay'] ) ? 'header' : 'div';
     <div class="header__content">
 
       <?php if ( has_custom_logo() ) : ?>
-        <div class="header__logo"><?php the_custom_logo(); ?></div>
+        <<?php echo $logo_tag; ?> class="header__logo"><?php the_custom_logo(); ?></<?php echo $logo_tag; ?>>
       <?php endif; ?>
 
       <?php if ( display_header_text() ) : ?>
