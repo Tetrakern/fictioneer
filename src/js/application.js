@@ -1346,6 +1346,9 @@ _$$('.chapter-group__name').forEach(element => {
     const list = group.querySelector('.chapter-group__list');
     const state = !group.classList.contains('_closed');
 
+    // Apply will-change: transform
+    _$('.main__background')?.classList.add('will-change');
+
     // Base for transition
     list.style.height = `${list.scrollHeight}px`;
 
@@ -1364,10 +1367,13 @@ _$$('.chapter-group__list').forEach(list => {
     // Remove inline height once transition is done
     list.style.height = '';
 
-    // Adjust tabIndex for accessibility
+    // Adjust tabindex for accessibility
     list.querySelectorAll('a, button, label, input:not([hidden])').forEach(element => {
       element.tabIndex = list.parentElement.classList.contains('_closed') ? '-1' : '0';
     });
+
+    // Remove will-change: transform
+    _$('.main__background')?.classList.remove('will-change');
   });
 });
 

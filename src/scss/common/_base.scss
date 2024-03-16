@@ -91,6 +91,10 @@
     display: block;
     background-color: var(--page-bg-color);
   }
+
+  &.will-change::before {
+    will-change: transform;
+  }
 }
 
 %button {
