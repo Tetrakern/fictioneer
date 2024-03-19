@@ -1098,7 +1098,7 @@ function fictioneer_admin_danger_zone( $profile_user ) {
   <?php // <--- End HTML
 }
 
-if ( current_user_can( 'fcn_allow_self_delete' ) ) {
+if ( current_user_can( 'fcn_allow_self_delete' ) && ! current_user_can( 'manage_options' ) ) {
   add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_danger_zone', 9999 );
 }
 

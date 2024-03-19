@@ -2395,7 +2395,8 @@ function fictioneer_delete_my_account() {
     ! $current_user ||
     $current_user->ID === 1 ||
     in_array( 'administrator', $current_user->roles ) ||
-    ! current_user_can( 'fcn_allow_self_delete' )
+    ! current_user_can( 'fcn_allow_self_delete' ) ||
+    current_user_can( 'manage_options' )
   ) {
     return false;
   }
