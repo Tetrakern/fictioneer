@@ -28,7 +28,12 @@ define(
     'fcn_all_blocks',
     'fcn_story_pages',
     'fcn_edit_date',
-    'fcn_moderate_post_comments'
+    'fcn_moderate_post_comments',
+    'fcn_ignore_post_passwords',
+    'fcn_ignore_page_passwords',
+    'fcn_ignore_fcn_story_passwords',
+    'fcn_ignore_fcn_chapter_passwords',
+    'fcn_ignore_fcn_collection_passwords'
   )
 );
 
@@ -439,6 +444,25 @@ function fictioneer_bypass_password( $required, $post ) {
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
     return false;
+  }
+
+  // Check capability per post type...
+  switch ( $post->post_type ) {
+    case 'post':
+      $required = current_user_can( 'fcn_ignore_post_passwords' ) ? false : $required;
+      break;
+    case 'page':
+      $required = current_user_can( 'fcn_ignore_page_passwords' ) ? false : $required;
+      break;
+    case 'fcn_story':
+      $required = current_user_can( 'fcn_ignore_fcn_story_passwords' ) ? false : $required;
+      break;
+    case 'fcn_chapter':
+      $required = current_user_can( 'fcn_ignore_fcn_chapter_passwords' ) ? false : $required;
+      break;
+    case 'fcn_collection':
+      $required = current_user_can( 'fcn_ignore_fcn_collection_passwords' ) ? false : $required;
+      break;
   }
 
   // Continue filter

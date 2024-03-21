@@ -120,7 +120,8 @@ $post_caps = array(
   'delete_others_posts',
   'read_private_posts',
   'edit_private_posts',
-  'delete_private_posts'
+  'delete_private_posts',
+  'fcn_ignore_post_passwords'
 );
 
 $page_caps = array(
@@ -133,7 +134,8 @@ $page_caps = array(
   'delete_others_pages',
   'read_private_pages',
   'edit_private_pages',
-  'delete_private_pages'
+  'delete_private_pages',
+  'fcn_ignore_page_passwords'
 );
 
 $story_caps = array(
@@ -146,7 +148,8 @@ $story_caps = array(
   'delete_others_fcn_stories',
   'read_private_fcn_stories',
   'edit_private_fcn_stories',
-  'delete_private_fcn_stories'
+  'delete_private_fcn_stories',
+  'fcn_ignore_fcn_story_passwords'
 );
 
 $chapter_caps = array(
@@ -159,7 +162,8 @@ $chapter_caps = array(
   'delete_others_fcn_chapters',
   'read_private_fcn_chapters',
   'edit_private_fcn_chapters',
-  'delete_private_fcn_chapters'
+  'delete_private_fcn_chapters',
+  'fcn_ignore_fcn_chapter_passwords'
 );
 
 $collection_caps = array(
@@ -172,7 +176,8 @@ $collection_caps = array(
   'delete_others_fcn_collections',
   'read_private_fcn_collections',
   'edit_private_fcn_collections',
-  'delete_private_fcn_collections'
+  'delete_private_fcn_collections',
+  'fcn_ignore_fcn_collection_passwords'
 );
 
 $recommendation_caps = array(
