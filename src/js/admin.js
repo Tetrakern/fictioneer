@@ -354,14 +354,14 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 // DIALOGS
 // =============================================================================
 
-_$$('[data-dialog-target]').forEach(element => {
+_$$('.fictioneer-settings [data-dialog-target]').forEach(element => {
   element.addEventListener('click', event => {
     _$$$(event.currentTarget.dataset.dialogTarget)?.showModal();
   });
 });
 
 // Close regardless of required fields
-_$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
+_$$('.fictioneer-settings button[formmethod="dialog"][value="cancel"]').forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault();
     event.currentTarget.closest('dialog').close();
@@ -369,7 +369,7 @@ _$$('button[formmethod="dialog"][value="cancel"]').forEach(element => {
 });
 
 // Close dialog on click outside
-_$$('dialog').forEach(element => {
+_$$('.fictioneer-dialog').forEach(element => {
   element.addEventListener('mousedown', event => {
     event.target.tagName.toLowerCase() === 'dialog' && event.target.close();
   });
