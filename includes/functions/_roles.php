@@ -424,6 +424,28 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
   define( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES', [] );
 }
 
+/**
+ * Exceptions for post passwords
+ *
+ * @since 5.12.3
+ *
+ * @param bool    $required  Whether the user needs to supply a password.
+ * @param WP_Post $post      Post object.
+ *
+ * @return bool True or false.
+ */
+
+function fictioneer_bypass_password( $required, $post ) {
+  // Always allow admins
+  if ( current_user_can( 'manage_options' ) ) {
+    return false;
+  }
+
+  // Continue filter
+  return $required;
+}
+add_filter( 'post_password_required', 'fictioneer_bypass_password', 10, 2 );
+
 // No restriction can be applied to administrators
 if ( ! current_user_can( 'manage_options' ) ) {
   $post_types = ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'page', 'fcn_recommendation'];
