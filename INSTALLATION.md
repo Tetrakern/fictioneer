@@ -608,6 +608,8 @@ Most of the theme’s configuration is found here, the options being largely sel
 
 The integrated role manager to add and, edit, and remove roles. Not the most sophisticated compared to dedicated plugins, but it comes with custom capabilities tailored to the theme. Because Fictioneer offers some powerful options and tools you may want to keep away from certain user groups. If the roles have not been properly initialized when you activated the theme, you can do that under the **Tools** tab. For reference, look at the default [WordPress capabilities](https://wordpress.org/documentation/article/roles-and-capabilities/).
 
+**Note:** The "read" capability is what grants access to the admin user profile and dashboard, which is not obvious just going by the name.
+
 <details>
   <summary>New Capabilities</summary><br>
 
@@ -641,6 +643,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Assign {Taxonomy}:** Lets you assign the taxonomy to your posts.
   * **Edit {Taxonomy}:** Lets you create and edit taxonomies of this type.
   * **Delete {Taxonomy}:** Lets you delete taxonomies of this type.
+  * **Ignore {Post Type} Passwords:** You bypass passwords for this post type.
 
 </details>
 
