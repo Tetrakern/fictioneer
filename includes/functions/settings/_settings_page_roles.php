@@ -58,7 +58,8 @@ $advanced_caps = array(
   'upload_files',
   'edit_files',
   'fcn_moderate_post_comments',
-  'fcn_allow_self_delete'
+  'fcn_allow_self_delete',
+  'read'
 );
 
 $admin_caps = array(
