@@ -97,9 +97,15 @@ do_action( 'rss_tag_pre', 'rss2' );
     <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
     <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 
-    <?php if ( $cover ) : ?>
-      <webfeeds:cover image="<?php echo wp_get_attachment_image_src( $cover, 'full' )[0]; ?>" />
-    <?php endif; ?>
+    <?php
+      if ( $cover ) {
+        $cover_src = wp_get_attachment_image_src( $cover, 'full' );
+
+        if ( $cover_src ) {
+          echo '<webfeeds:cover image="' . esc_url( $cover_src[0] ) . '" />';
+        }
+      }
+    ?>
 
     <?php if ( has_site_icon() ) : ?>
       <webfeeds:icon><?php echo get_site_icon_url(); ?></webfeeds:icon>
@@ -118,7 +124,6 @@ do_action( 'rss_tag_pre', 'rss2' );
     <?php
       foreach ( $posts as $post ) {
         // Setup
-        // $posts->the_post();
         setup_postdata( $post );
 
         // Data
@@ -137,9 +142,9 @@ do_action( 'rss_tag_pre', 'rss2' );
 
           <?php if ( $og_image ) : ?>
             <webfeeds:featuredImage
-              url="<?php echo $og_image['url']; ?>"
-              width="<?php echo $og_image['width']; ?>"
-              height="<?php echo $og_image['height']; ?>"
+              url="<?php echo esc_url( $og_image['url'] ); ?>"
+              width="<?php echo esc_attr( $og_image['width'] ); ?>"
+              height="<?php echo esc_attr( $og_image['height'] ); ?>"
             />
           <?php endif; ?>
 

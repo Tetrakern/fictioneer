@@ -80,7 +80,7 @@ do_action( 'rss_tag_pre', 'rss2' );
     <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 
     <?php if ( $cover && is_array( $cover ) ) : ?>
-      <webfeeds:cover image="<?php echo $cover['url']; ?>" />
+      <webfeeds:cover image="<?php echo esc_url( $cover['url'] ); ?>" />
     <?php endif; ?>
 
     <?php if ( has_site_icon() ) : ?>
@@ -177,9 +177,9 @@ do_action( 'rss_tag_pre', 'rss2' );
 
             <?php if ( $og_image ) : ?>
               <webfeeds:featuredImage
-                url="<?php echo $og_image['url']; ?>"
-                width="<?php echo $og_image['width']; ?>"
-                height="<?php echo $og_image['height']; ?>"
+                url="<?php echo esc_url( $og_image['url'] ); ?>"
+                width="<?php echo esc_attr( $og_image['width'] ); ?>"
+                height="<?php echo esc_attr( $og_image['height'] ); ?>"
               />
             <?php endif; ?>
 
