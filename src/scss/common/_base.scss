@@ -47,6 +47,7 @@
     z-index: 0;
     background-color: var(--page-bg-color);
     box-shadow: var(--page-box-shadow);
+    contain: layout style;
 
     @-moz-document url-prefix() {
       transform: translateZ(0); // Improves render performance in FF, causes stutter in Chromium
@@ -65,6 +66,7 @@
       mask-position: var(--page-style-mp, var(--mp));
       mask-repeat: var(--page-style-mr, var(--mr, no-repeat));
       mask-size: var(--page-style-ms, var(--ms));
+      contain: paint; // Cuts off drop-shadows in Safari if used on parent
     }
   }
 
