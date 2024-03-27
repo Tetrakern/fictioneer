@@ -129,7 +129,7 @@ get_header( null, $header_args );
 
       <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo post_password_required() ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
-        <div class="chapter__actions chapter__actions--top">
+        <div class="chapter__actions chapter__actions--top" data-nosnippet>
           <div class="chapter__actions-container chapter__actions-left"><?php
             do_action( 'fictioneer_chapter_actions_top_left', $hook_args, 'top' );
           ?></div>
@@ -179,7 +179,7 @@ get_header( null, $header_args );
           do_action( 'fictioneer_chapter_after_content', $hook_args );
         ?>
 
-        <footer class="chapter__footer chapter__actions chapter__actions--bottom padding-bottom chapter-end">
+        <footer class="chapter__footer chapter__actions chapter__actions--bottom padding-bottom chapter-end" data-nosnippet>
           <div class="chapter__actions-container chapter__actions-left"><?php
             do_action( 'fictioneer_chapter_actions_bottom_left', $hook_args, 'bottom' );
           ?></div>
