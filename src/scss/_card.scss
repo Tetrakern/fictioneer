@@ -152,6 +152,7 @@
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
+    contain: paint;
   }
 
   &__header {

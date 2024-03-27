@@ -59,6 +59,7 @@ body:not(.is-editor):not(.is-admin) {
   gap:
     calc(var(--grid-columns-row-gap, max(3cqw, 1.5rem)) * var(--grid-columns-row-gap-multiplier, 1))
     calc(var(--grid-columns-col-gap, max(3cqw, 1.5rem)) * var(--grid-columns-col-gap-multiplier, 1));
+  contain: style layout;
 
   // Fallback
   @supports not (width: 1cqw) {
