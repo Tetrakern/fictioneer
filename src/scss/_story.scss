@@ -255,6 +255,7 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
     display: flex;
     flex-direction: column-reverse;
     margin-top: -24px; // Compensate groups
+    contain: style layout;
 
     &[data-order="asc"] {
       flex-direction: column;

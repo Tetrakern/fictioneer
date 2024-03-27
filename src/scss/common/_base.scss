@@ -74,6 +74,7 @@
     position: relative;
     z-index: 1;
     padding-top: var(--page-inset-top);
+    contain: style;
 
     &._no-padding {
       padding-top: 0;
