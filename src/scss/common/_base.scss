@@ -47,7 +47,10 @@
     z-index: 0;
     background-color: var(--page-bg-color);
     box-shadow: var(--page-box-shadow);
-    transform: translateZ(0); // Improve render performance
+
+    @-moz-document url-prefix() {
+      transform: translateZ(0); // Improves render performance in FF, causes stutter in Chromium
+    }
 
     @include bp(640px) {
       border-radius: var(--layout-border-radius-large);
