@@ -1214,6 +1214,8 @@ Fictioneer loads the free version of [Font Awesome 6.4.2](https://fontawesome.co
 
 ### Custom Fonts
 
+**Note:** The Font Library introduced in WP 6.5 has been disabled due to incompatibilities with the theme, specifically the chapter formatting system allowing to choose fonts. This may change in the future, but for now it should be avoided.
+
 You can add custom fonts, either by uploading a configuration folder to `/themes/your-child-theme/fonts/` or with a CDN like Google Fonts. The latter is far more convenient, though it also violates the GDPR and is therefore not recommended except for testing. Delivering fonts from your server is legally safe, but can affect performance if you do not [leverage browser caching](#securing-wordpress--browser-caching) or use a cache plugin (which you should).
 
 Following is an explanation of both methods on the example of [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans?noto.query=noto+sans), which has also great variants for logographic writing systems if you require that. Mind that not all fonts you find on the Internet are free to use.
