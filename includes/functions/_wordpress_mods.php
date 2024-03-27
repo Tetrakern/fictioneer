@@ -1248,4 +1248,25 @@ function fictioneer_wrap_read_more_link( $link ) {
 }
 add_filter( 'the_content_more_link', 'fictioneer_wrap_read_more_link' );
 
+// =============================================================================
+// WP FONT LIBRARY
+// =============================================================================
+
+/**
+ * Disabled the WordPress font library
+ *
+ * @since 5.12.4
+ *
+ * @param array $link  Default editor settings.
+ *
+ * @return array Updated editor settings.
+ */
+
+function fictioneer_disable_font_library( $editor_settings ) {
+	$editor_settings['fontLibraryEnabled'] = false;
+
+	return $editor_settings;
+}
+add_filter( 'block_editor_settings_all', 'fictioneer_disable_font_library' );
+
 ?>
