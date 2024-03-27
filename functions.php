@@ -378,7 +378,7 @@ if ( ! defined( 'FICTIONEER_ENABLE_STORY_CHANGELOG' ) ) {
 
 // Boolean: Enable showing of outdated browsers' missing features
 if ( ! defined( 'FICTIONEER_ENABLE_BROWSER_NOTES' ) ) {
-  define( 'FICTIONEER_ENABLE_BROWSER_NOTES', true );
+  define( 'FICTIONEER_ENABLE_BROWSER_NOTES', false );
 }
 
 // Boolean: Defer scripts
