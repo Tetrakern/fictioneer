@@ -667,7 +667,9 @@ function fcn_isValidUrl(url) {
  */
 
 function fcn_getNonce() {
-  return _$$$('fictioneer-ajax-nonce')?.value ?? _$('[name="fictioneer_nonce"]')?.value ?? 0;
+  return _$$$('fictioneer-ajax-nonce')?.value ??
+    _$$$('general-fictioneer-nonce')?.value ??
+    _$('[name="fictioneer_nonce"]')?.value ?? 0;
 }
 
 // =============================================================================

@@ -70,7 +70,7 @@ do_action( 'fictioneer_after_main', $args );
     ?>
 
     <?php /* Adding the AJAX nonce this way allows caching plugins to update it dynamically. */ ?>
-    <input name="fictioneer_nonce" type="hidden" value="<?php echo wp_create_nonce( 'fictioneer_nonce' ); ?>">
+    <input id="general-fictioneer-nonce" name="fictioneer_nonce" type="hidden" value="<?php echo wp_create_nonce( 'fictioneer_nonce' ); ?>">
 
     <?php
       // Lightbox container
