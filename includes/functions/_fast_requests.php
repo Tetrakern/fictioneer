@@ -34,7 +34,8 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_fcnen_search_content',
       'fictioneer_ajax_fcnen_get_form_content',
       'fictioneer_ajax_fcnen_subscribe_or_update',
-      'fictioneer_ajax_fcnen_unsubscribe'
+      'fictioneer_ajax_fcnen_unsubscribe',
+      'fictioneer_ajax_fcnen_process_email_queue'
     )
   );
 }
