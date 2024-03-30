@@ -5,9 +5,9 @@
 /**
  * Benchmark AJAX request response times
  *
- * Default: benchmarkAjax(20, {'action': '...'});
+ * Default: fcn_benchmarkAjax(20, {'action': '...'});
  *
- * Fast: benchmarkAjax(20, {'fcn_fast_ajax': 1, 'action': '...'});
+ * Fast: fcn_benchmarkAjax(20, {'fcn_fast_ajax': 1, 'action': '...'});
  *
  * @param {number} n - The number of times the AJAX request should be made.
  * @param {Object} data - The payload for the AJAX request.

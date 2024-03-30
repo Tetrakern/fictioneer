@@ -592,7 +592,7 @@ require_once __DIR__ . '/includes/functions/_content_helpers.php';
 require_once __DIR__ . '/includes/functions/_query_helpers.php';
 
 /**
- * Add content helper functions.
+ * Add role functions.
  */
 
 require_once __DIR__ . '/includes/functions/_roles.php';
