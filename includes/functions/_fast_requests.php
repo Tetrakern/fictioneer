@@ -195,6 +195,8 @@ function fictioneer_do_fast_comment_ajax() {
 
   // Include required files
   require_once __DIR__ . '/_utility.php'; // Obviously
+  require_once __DIR__ . '/_wordpress_mods.php'; // Depends
+  require_once __DIR__ . '/_roles.php'; // Depends
   require_once __DIR__ . '/_caching_and_transients.php'; // Maybe?
   require_once __DIR__ . '/_content_helpers.php'; // Safe title
   require_once __DIR__ . '/comments/_comments_controller.php'; // Obviously
@@ -203,7 +205,6 @@ function fictioneer_do_fast_comment_ajax() {
 
   // Moderating needs less, otherwise include everything related to comments
   if ( strpos( $action, '_moderate_comment' ) === false ) {
-    require_once __DIR__ . '/_wordpress_mods.php'; // Obviously
     require_once __DIR__ . '/_discord.php'; // Notifications
     require_once __DIR__ . '/_cpt_and_taxonomies.php'; // Depends
     require_once __DIR__ . '/_oauth.php'; // Login buttons
@@ -248,6 +249,8 @@ if (
 ) {
   // Include required files
   require_once __DIR__ . '/_utility.php';
+  require_once __DIR__ . '/_wordpress_mods.php';
+  require_once __DIR__ . '/_roles.php';
   require_once __DIR__ . '/users/_user_data.php';
   require_once __DIR__ . '/users/_avatars.php';
   require_once __DIR__ . '/comments/_comments_controller.php';
