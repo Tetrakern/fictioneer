@@ -4,6 +4,7 @@
 :root, :root[data-theme=base] {
   --card-footer-color: var(--fg-700);
   --card-footer-icon-color: var(--fg-900);
+  --card-footer-rating-color: var(--fg-900);
 }
 
 :root[data-mode=light] {
@@ -20,6 +21,5 @@
 
   .rating-letter-label {
     font-weight: 700;
-    opacity: 0.5;
   }
 }
