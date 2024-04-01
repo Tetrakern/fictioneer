@@ -778,6 +778,10 @@ function fictioneer_build_customize_css( $context = null ) {
     --card-drop-shadow: " . str_replace( 'box-', 'drop-', $card_box_shadow ) . ";
   }";
 
+  if ( $card_box_shadow === 'none' ) {
+    $css .= ".card{box-shadow:none!important;}";
+  }
+
   // Only light mode
   $css .= ":root[data-mode=light] {
     --hue-offset: " . $hue_offset_light . "deg;
