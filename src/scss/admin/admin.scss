@@ -950,6 +950,7 @@ td.comment {
 
 #editor {
   .edit-post-layout__metaboxes {
+    z-index: 1;
     border-top: 1px solid #ddd;
   }
 
