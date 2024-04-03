@@ -179,7 +179,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <blockquote>
       <sup>Assume missing options are off, empty, or left to default.</sup><br>
-      <strong>[JS, CSS & HTML] JavaScript Options:</strong>
+      <strong style="display: block;">[JS, CSS & HTML] JavaScript Options:</strong>
       <ul>
         <li>- [x] Optimize JavaScript code?</li>
         <li>- [x] Aggregate JS-files?</li>
