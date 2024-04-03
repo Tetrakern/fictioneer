@@ -211,23 +211,23 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <p>Follow the <a href="https://cloudinary.com/documentation/wordpress_integration">official guide</a> to set up your Cloudinary account and the plugin. You do not need to "register" the CND with other optimization or cache plugins — it will just work.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      Assume missing options are off, empty, or left to default.<br><br>
       <strong>[General settings] Media Library Sync Settings:</strong>
       <ul>
         <li>- [x] Sync method: Auto sync</li>
-      </ul>
+      </ul><br>
       <strong>[General settings] Cloudinary folder path:</strong><br>
       &numsp;To keep things orderly, use a folder name that relates to your site.<br>
       <strong>[General settings] Storage:</strong>
       <ul>
         <li>- [x] Cloudinary and WordPress</li>
-      </ul>
+      </ul><br>
       <strong>[Image settings] Image optimization:</strong>
       <ul>
         <li>- [x] Optimize images on my site.</li>
         <li>- [x] Image format: Auto</li>
         <li>- [x] Image quality: Auto</li>
-      </ul>
+      </ul><br>
       <strong>[Lazy loading] Lazy loading:</strong>
       <ul>
         <li>- [x] Enable lazy loading</li>
@@ -236,12 +236,12 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Pre-loader animation: You decide!</li>
         <li>- [x] Placeholder generation type: You decide!</li>
         <li>- [x] DPR settings: Auto (2x)</li>
-      </ul>
+      </ul><br>
       <strong>[Responsive images] Breakpoints:</strong>
       <ul>
         <li>- [ ] Enable responsive images (OFF - this increases usage)</li>
       </ul>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 * [Cloudflare](https://wordpress.org/plugins/cloudflare/): Global content delivery network designed to make your site secure, private, fast, and reliable. Can be used for caching or to enhance a cache plugin further. Unfortunately, the setup is not trivial and you should refer to specific guides or ask for help.
@@ -258,27 +258,27 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Search Pages (is_search)</li>
         <li>- [x] Ajax Requests</li>
         <li>- [x] WP JSON endpoints</li>
-      </ul>
+      </ul><br>
       <strong>[Plugin: Cache] Prevent the following URIs to be cached:</strong><br>
-      &numsp;<sup>Append to defaults. The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
+      &numsp;Append to defaults. The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).<br>
       &numsp;<code>/oauth2*</code><br>
       &numsp;<code>/download-epub*</code><br>
       &numsp;<code>/account*</code><br>
       &numsp;<code>/bookshelf*</code><br>
-      &numsp;<code>/*commentcode=*</code><br>
+      &numsp;<code>/*commentcode=*</code><br><br>
       <strong>[Fictioneer: General] Page Assignments:</strong>
       <ul>
         <li>- [ ] Account: None (default dashboard profile)</li>
         <li>- [x] Bookshelf: Page with the Bookshelf AJAX template (if you need this)</li>
-      </ul>
+      </ul><br>
       <strong>[Fictioneer: General] Comments:</strong>
       <ul>
         <li>- [x] Enable AJAX comment submission</li>
-      </ul>
+      </ul><br>
       <strong>[Fictioneer: General] Security & Privacy:</strong>
       <ul>
         <li>- [ ] Block admin panel access for subscribers (OFF)</li>
-      </ul>
+      </ul><br>
       <strong>[Fictioneer: General] Compatibility:</strong>
       <ul>
         <li>- [x] Enable cache compatibility mode</li>
@@ -286,14 +286,14 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Enable AJAX comment form (best performance) ... or ... comment section (best compatibility)</li>
       </ul>
     </blockquote>
-    <p>Optional: Install <a href="https://wordpress.org/plugins/wp-super-cache/">WP Super Cache</a> with the extreme settings. Cannot wrongly cache dynamic pages if there are none!</p><br>
+    <p>Optional: Install <a href="https://wordpress.org/plugins/wp-super-cache/">WP Super Cache</a> with the extreme settings. Cannot wrongly cache dynamic pages if there are none!</p>
   </details>
 
 * [WPS Limit Login](https://wordpress.org/plugins/wps-limit-login/): Protects you from brute-force attacks by limiting the number of login attempts within a certain period of time. The sibling plugin [WPS Hide Login](https://wordpress.org/plugins/wps-hide-login/) moves the whole login page to a new URL, if you want to go one step further.
 
   <details>
     <summary>User authentication</summary><br>
-    <p>Fictioneer does not have a frontend login form and the login page is not recommended for subscribers, so hiding it serves as additional security layer. Note that the optional OAuth 2.0 authentication system via Discord, Google, etc. is not affected by these plugins.</p><br>
+    <p>Fictioneer does not have a frontend login form and the login page is not recommended for subscribers, so hiding it serves as additional security layer. Note that the optional OAuth 2.0 authentication system via Discord, Google, etc. is not affected by these plugins.</p>
   </details>
 
 * [Sucuri Security - Auditing, Malware Scanner and Hardening](https://wordpress.org/plugins/sucuri-scanner/): The free version is meant to complement your security posture and comes with hardening, malware scanner, core file integrity checking, event logging, email alerts for important issues, and more.
@@ -305,14 +305,14 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
       <strong>Typical false positives:</strong><br>
       &numsp;<code>error_log-* (potentially any log from any plugin)</code><br>
       &numsp;<code>.htaccess.bk (generated backup of .htaccess)</code><br>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 * [UpdraftPlus](https://wordpress.org/plugins/updraftplus/): One of the most popular and convenient backup plugins. If your host does not offer backups or you want to stay in control, this is a good choice to keep your site safe in the event of a disaster.
 
   <details>
     <summary>Why you want backups</summary><br>
-    <p>To quote the plugin’s own premonition: "The day may come when you get hacked, when something goes wrong with an update, your server crashes or your hosting company goes bust — without good backups, you lose everything." The free version is perfectly adequate, allowing you to schedule daily backups saved directly to a remote destination of your choice.</p><br>
+    <p>To quote the plugin’s own premonition: "The day may come when you get hacked, when something goes wrong with an update, your server crashes or your hosting company goes bust — without good backups, you lose everything." The free version is perfectly adequate, allowing you to schedule daily backups saved directly to a remote destination of your choice.</p>
   </details>
 
 * [EWWW Image Optimizer](https://wordpress.org/plugins/ewww-image-optimizer/): An optimization plugin to properly scale, compress, and (optionally) convert your images. Large file sizes reduce your website’s speed and search rank. Redundant if you use an image CDN like Cloudinary, but they can work together.
@@ -321,7 +321,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <p>As a matter of fact, you do not need this kind of plugin at all if you pay a modicum of attention to the images you upload. One of the most common yet easy to fix mistakes is uploading over-sized images. Obviously, if your header image is 20 MB, your loading time will go down the drain. Your site will be even faster without the overhead of this plugin if you just pre-optimize your images.</p>
     <blockquote>
-      <sup>Follow the initial setup guide, then head to <strong>Settings > EWWW Image Optimizer</strong> to review the settings. Also take a look at the <a href="https://docs.ewww.io/article/4-getting-started">official documentation</a>. Assume missing options are off, empty, or left to default.</sup><br>
+      Follow the initial setup guide, then head to <strong>Settings > EWWW Image Optimizer</strong> to review the settings. Also take a look at the <a href="https://docs.ewww.io/article/4-getting-started">official documentation</a>. Assume missing options are off, empty, or left to default.<br><br>
       <strong>Basic settings:</strong>
       <ul>
         <li>- [x] Stick with free mode for now</li>
@@ -332,7 +332,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [ ] Lazy Load: Automatic Scaling (OFF)</li>
         <li>- [ ] WebP Conversion (OFF - smaller but unreliable in quality)</li>
       </ul>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 ### Optional: Caching
@@ -353,54 +353,54 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Recommended settings</summary><br>
     <p>This is the "safest" advanced setup in the regard that you do not need to mess with server files. Expert mode is a tick faster and not actually complicated, but if the terms ".htaccess" and "mod_rewrite" make you feel queasy, you are perfectly fine with simple mode.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      Assume missing options are off, empty, or left to default.<br><br>
       <strong>[Advanced] Caching:</strong>
       <ul>
         <li>- [x] Enable Caching</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Cache Delivery Method:</strong>
       <ul>
         <li>- [x] Simple</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Miscellaneous:</strong>
       <ul>
         <li>- [x] Cache Restrictions: Disable caching for logged in visitors</li>
         <li>- [x] Don’t cache pages with GET parameters.</li>
         <li>- [x] Compress pages so they’re served more quickly to visitors.</li>
         <li>- [x] Cache rebuild. Serve a supercache file to anonymous users while a new file is being generated.</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Advanced:</strong>
       <ul>
         <li>- [x] Extra homepage checks.</li>
         <li>- [x] Only refresh current page when comments made.</li>
         <li>- [x] List the newest cached pages on this page.</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Expiry Time & Garbage Collection:</strong>
       <ul>
         <li>- [x] Cache Timeout: 7200</li>
         <li>- [x] Timer: 600</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Accepted Filenames & Rejected URIs:</strong>
       <ul>
         <li>- [x] Feeds</li>
         <li>- [x] Search Pages</li>
-      </ul>
+      </ul><br>
       <strong>[Advanced] Rejected URL Strings:</strong><br>
-      &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
+      &numsp;The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).<br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
       &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code>
-    </blockquote><br>
+    </blockquote>
   </details>
 
   <details>
     <summary>Extreme settings</summary><br>
     <p>This is the most "aggressive" setup meant to carry membership sites on cheaper hosts, e.g. sites with many simultaneous requests by logged-in visitors who would normally not be served supercached files. Generating individual pages in large numbers within a short amount of time can overwhelm a server, leading to timeout errors. An issue you are unlikely to encounter as long as you do not have thousands of daily visitors. But in that case, just extend the recommended settings with the following ones.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      Assume missing options are off, empty, or left to default.<br><br>
       <strong>[Advanced] Miscellaneous:</strong>
       <ul>
         <li>- [x] Cache Restrictions: Enable caching for all visitors</li>
@@ -412,18 +412,18 @@ Technically just another plugin, but one that will make your site significantly 
       <ul>
         <li>- [ ] Account: None (default dashboard profile)</li>
         <li>- [x] Bookshelf: Page with the Bookshelf AJAX template (if you need this)</li>
-      </ul>
+      </ul><br>
       <strong>[General] Security & Privacy:</strong>
       <ul>
         <li>- [ ] Block admin panel access for subscribers (OFF)</li>
-      </ul>
+      </ul><br>
       <strong>[General] Compatibility:</strong>
       <ul>
         <li>- [x] Enable public cache compatibility mode</li>
         <li>- [x] Enable AJAX user authentication</li>
         <li>- [x] Enable AJAX comment form (best performance) ... or ... comment section (best compatibility)</li>
       </ul>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 * [W3 Total Cache](https://wordpress.org/plugins/w3-total-cache/): Comprehensive suite of caching and performance features with great compatibility regardless of host. But a rather involved setup and requires a subscription to make the most of it. Please refer to a guide for installation.
@@ -433,14 +433,14 @@ Technically just another plugin, but one that will make your site significantly 
     <p>As long as you only serve cached pages to unauthenticated users, you can hardly do wrong. To make absolutely sure everything works, please add the following exceptions under <strong>Performance > Page Cache</strong>.</p>
     <blockquote>
       <strong>[Page Cache] Never cache the following pages:</strong><br>
-      &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
+      &numsp;The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).<br>
       &numsp;<code>/oauth2*</code><br>
       &numsp;<code>/download-epub*</code><br>
       &numsp;<code>/account*</code><br>
       &numsp;<code>/bookshelf*</code><br>
       &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 * [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/): The most powerful of the listed cache plugins and also completely free — if you can get it running. As server-side cache, your host must support [LiteSpeed](https://docs.litespeedtech.com/lscache/), which is usually a prominent selling point so you would know.
@@ -449,7 +449,7 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Example settings</summary><br>
     <p>LiteSpeed Cache offers you far more than what is covered here, so please refer to more comprehensive guides if you want to take advantage of that. However, combined with the other recommended plugins, you can do without.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      Assume missing options are off, empty, or left to default.<br><br>
       <strong>[1 - Cache] Cache Control Settings:</strong>
       <ul>
         <li>- [x] Enable Cache</li>
@@ -460,7 +460,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Cache favicon.ico</li>
         <li>- [x] Cache PHP Resources</li>
         <li>- [ ] Cache Mobile (OFF)</li>
-      </ul>
+      </ul><br>
       <strong>[2 - TTL] TTL:</strong>
       <ul>
         <li>- [x] Default Public Cache TTL: 28800</li>
@@ -468,21 +468,21 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Default Front Page TTL: 604800</li>
         <li>- [x] Default Feed TTL: 604800</li>
         <li>- [x] Default REST TTL: 28800</li>
-      </ul>
+      </ul><br>
       <strong>[3 - Purge] Purge Settings:</strong>
       <ul>
         <li>- [x] Purge All On Upgrade</li>
         <li>- [x] Auto Purge Rules For Publish/Update: All pages</li>
         <li>- [ ] Serve Stale (OFF)</li>
-      </ul>
+      </ul><br>
       <strong>[4 - Excludes] Do Not Cache URIs:</strong><br>
-      &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
+      &numsp;The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).<br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
       &numsp;<code>/account</code><br>
       &numsp;<code>/bookshelf</code><br>
       &numsp;<code>/wp-json/storygraph</code><br>
-      &numsp;<code>/wp-json/fictioneer</code><br>
+      &numsp;<code>/wp-json/fictioneer</code><br><br>
       <strong>[4 - Excludes] Do Not Cache Query Strings:</strong><br>
       &numsp;<code>commentcode</code><br>
       <strong>[4 - Excludes] Do Not Cache Roles:</strong>
@@ -491,17 +491,17 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Moderator</li>
         <li>- [x] Editor</li>
         <li>- [x] Author</li>
-      </ul>
+      </ul><br>
       <strong>[5 - ESI] ESI Settings:</strong>
       <ul>
         <li>- [x] Enable ESI</li>
         <li>- [x] Cache Admin Bar</li>
         <li>- [x] Cache Comment Form</li>
-      </ul>
+      </ul><br>
       <strong>[5 - ESI] ESI Nonces:</strong><br>
       &numsp;<code>oauth_nonce</code><br>
       &numsp;<code>fictioneer_nonce</code><br>
-      &numsp;<code>fictioneer-ajax-nonce</code><br>
+      &numsp;<code>fictioneer-ajax-nonce</code><br><br>
       <strong>[5 - ESI] Vary Group:</strong>
       <ul>
         <li>- [x] Administrator: 99</li>
@@ -510,13 +510,13 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Author: 30</li>
         <li>- [x] Contributor: 20</li>
         <li>- [x] Subscriber: 0</li>
-      </ul>
+      </ul><br>
       <strong>[7 - Browser] Browser Cache Settings:</strong>
       <ul>
         <li>- [x] Browser Cache</li>
         <li>- [x] Browser Cache TTL: 31557600</li>
       </ul>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 ### Recommended: Must-Use Plugins
