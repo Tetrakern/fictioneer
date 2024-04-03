@@ -178,31 +178,31 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
   <details>
     <summary>Example settings</summary><br>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      Assume missing options are off, empty, or left to default.<br><br>
       <strong>[JS, CSS & HTML] JavaScript Options:</strong>
       <ul>
         <li>- [x] Optimize JavaScript code?</li>
         <li>- [x] Aggregate JS-files?</li>
-      </ul>
+      </ul><br>
       <strong>[JS, CSS & HTML] CSS Options:</strong>
       <ul>
         <li>- [x] Optimize CSS Code?</li>
         <li>- [x] Aggregate CSS-files?</li>
         <li>- [x] Generate data: URIs for images?</li>
-      </ul>
+      </ul><br>
       <strong>[JS, CSS & HTML] Misc Options:</strong>
       <ul>
         <li>- [x] Save aggregated script/css as static files?</li>
         <li>- [x] Enable 404 fallbacks?</li>
         <li>- [x] Also optimize for logged in editors/administrators?</li>
         <li>- [x] Disable extra compatibility logic?</li>
-      </ul>
+      </ul><br>
       <strong>[Extra] Extra Auto-Optimizations:</strong>
       <ul>
         <li>- [x] Google Fonts: Leave as is</li>
         <li>- [x] Remove emojis</li>
       </ul>
-    </blockquote><br>
+    </blockquote>
   </details>
 
 * [Cloudinary](https://wordpress.org/plugins/cloudinary-image-management-and-manipulation-in-the-cloud-cdn/): Great "plug-and-play" image CDN and optimizer with generous free plan. Offloading your images to a content delivery network improves performance and loading times. Also, your images will be properly sized and compressed.
