@@ -217,7 +217,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Sync method: Auto sync</li>
       </ul><br>
       <strong>[General settings] Cloudinary folder path:</strong><br>
-      &numsp;To keep things orderly, use a folder name that relates to your site.<br>
+      &numsp;To keep things orderly, use a folder name that relates to your site.<br><br>
       <strong>[General settings] Storage:</strong>
       <ul>
         <li>- [x] Cloudinary and WordPress</li>
@@ -484,7 +484,7 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code><br><br>
       <strong>[4 - Excludes] Do Not Cache Query Strings:</strong><br>
-      &numsp;<code>commentcode</code><br>
+      &numsp;<code>commentcode</code><br><br>
       <strong>[4 - Excludes] Do Not Cache Roles:</strong>
       <ul>
         <li>- [x] Administrator</li>
