@@ -402,9 +402,9 @@ The custom HTML block is the best way to add special elements to the content, su
 
 ## Shortcodes
 
-[Shortcodes](https://wordpress.org/support/article/shortcode-block/) are bracket-enclosed keywords placed within the content that WordPress automatically interprets into code, adding features or objects without the need for programming. This should be done inside a _shortcode_ block. Since most elements created by shortcodes have no margins, the _spacer_ block can be a good addition before and/or after.
+[Shortcodes](https://wordpress.org/support/article/shortcode-block/) are bracket-enclosed keywords placed within the content that WordPress automatically interprets into code, adding features or objects without the need for programming. This should be done inside a _shortcode_ block, although it would work outside too. Since most elements created by shortcodes have no margins, the _spacer_ block can be a good addition before and/or after.
 
-**Attention!** Shortcode queries are cached as [Transients](https://developer.wordpress.org/apis/transients/) to reduce their performance impact, especially if you have more than one per page. By default, the Transients expire after 300 seconds (5 minutes), which can be changed via the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant in a child theme. You can disable the Transients by setting the constant to `-1`.
+**Attention!** Shortcode queries are cached as [Transients](https://developer.wordpress.org/apis/transients/) to reduce their performance impact, especially if you have more than one per page. This means they will not update immediately (except if you have a cache plugin active, which disabled this feature). By default, the Transients expire after 300 seconds (5 minutes), which can be changed via the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant in a child theme. You can disable the Transients by setting the constant to `-1`.
 
 ### Article Cards
 
