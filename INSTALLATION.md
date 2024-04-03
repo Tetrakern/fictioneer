@@ -2,52 +2,7 @@
 
 This guide is mainly written for people who never had their own WordPress site before and may not have the skills to figure this out by themselves. Feel free to skip ahead. That being said, there are still some parts of interest for veterans in regards to the theme.
 
-### Table of Contents
-
-* [Choosing a Host](#choosing-a-host)
-* [Installing WordPress](#installing-wordpress)
-  * [Configuring WordPress](#configuring-wordpress)
-  * [Securing WordPress & Browser Caching](#securing-wordpress--browser-caching)
-* [Legal Considerations](#legal-considerations)
-* [How to Install/Update the Fictioneer Theme](#how-to-installupdate-the-fictioneer-theme)
-  * [Updating the Theme](#updating-the-theme)
-  * [Optional: Install Plugin Dependencies](#optional-install-plugin-dependencies)
-  * [Optional: Additional Plugins](#optional-additional-plugins)
-  * [Optional: Caching](#optional-caching)
-  * [Recommended: Must-Use Plugins](#recommended-must-use-plugins)
-  * [Warning: SEO Plugins](#warning-seo-plugins)
-  * [Warning: CSS Minification/Combination](#warning-css-minificationcombination)
-* [How to Configure the Fictioneer Theme](#how-to-configure-the-fictioneer-theme)
-  * [General Tab](#general-tab)
-  * [Roles Tab](#roles-tab)
-  * [Plugins Tab](#plugins-tab)
-  * [Connections Tab](#connections-tab)
-  * [Phrases Tab](#phrases-tab)
-  * [Fonts Tab](#fonts-tab)
-  * [ePUBs Tab](#epubs-tab)
-  * [SEO Tab](#seo-tab)
-  * [Tools Tab](#tools-tab)
-  * [Log Tab](#log)
-* [How to Customize the Fictioneer Theme](#how-to-customize-the-fictioneer-theme)
-  * [Header Style](#header-style)
-  * [CSS Snippets](#css-snippets)
-    * [Dark/Light Mode & Media Queries](#darklight-mode--media-queries)
-    * [Overwrite Custom Properties](#overwrite-custom-properties)
-    * [Top-Header & Navigation Backgrounds](#top-header--navigation-backgrounds)
-    * [Background Overlay & Filters](#background-overlay--filters)
-    * [Merge Top-Header & Navigation](#merge-top-header--navigation)
-    * [Overlay Navigation](#overlay-navigation)
-    * [Card Grids](#card-grids)
-    * [Custom Header/Page Style](#custom-headerpage-style)
-  * [Move the Title/Logo](#move-the-titlelogo)
-  * [Minimum/Maximum Values](#minimummaximum-values)
-  * [Menus](#menus)
-  * [Queries](#queries)
-  * [Font Awesome](#font-awesome)
-  * [Custom Fonts](#custom-fonts)
-    * [A) Upload a font configuration folder](#a-upload-a-font-configuration-folder)
-    * [B) Load from the Google Fonts CDN](#b-load-from-the-google-fonts-cdn)
-  * [Constants](#constants)
+Click the outline toggle in the top-right corner to see the table of contents.
 
 ## Choosing a Host
 
@@ -223,26 +178,26 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
   <details>
     <summary>Example settings</summary><br>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup>
-      <h4>[JS, CSS & HTML] JavaScript Options:</h4>
+      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>[JS, CSS & HTML] JavaScript Options:</strong>
       <ul>
         <li>- [x] Optimize JavaScript code?</li>
         <li>- [x] Aggregate JS-files?</li>
       </ul>
-      <h4>[JS, CSS & HTML] CSS Options:</h4>
+      <strong>[JS, CSS & HTML] CSS Options:</strong>
       <ul>
         <li>- [x] Optimize CSS Code?</li>
         <li>- [x] Aggregate CSS-files?</li>
         <li>- [x] Generate data: URIs for images?</li>
       </ul>
-      <h4>[JS, CSS & HTML] Misc Options:</h4>
+      <strong>[JS, CSS & HTML] Misc Options:</strong>
       <ul>
         <li>- [x] Save aggregated script/css as static files?</li>
         <li>- [x] Enable 404 fallbacks?</li>
         <li>- [x] Also optimize for logged in editors/administrators?</li>
         <li>- [x] Disable extra compatibility logic?</li>
       </ul>
-      <h4>[Extra] Extra Auto-Optimizations:</h4>
+      <strong>[Extra] Extra Auto-Optimizations:</strong>
       <ul>
         <li>- [x] Google Fonts: Leave as is</li>
         <li>- [x] Remove emojis</li>
@@ -256,24 +211,24 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <p>Follow the <a href="https://cloudinary.com/documentation/wordpress_integration">official guide</a> to set up your Cloudinary account and the plugin. You do not need to "register" the CND with other optimization or cache plugins — it will just work.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup>
-      <h4>[General settings] Media Library Sync Settings:</h4>
+      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>[General settings] Media Library Sync Settings:</strong>
       <ul>
         <li>- [x] Sync method: Auto sync</li>
       </ul>
-      <h4>[General settings] Cloudinary folder path:</h4>
+      <strong>[General settings] Cloudinary folder path:</strong>
       <p>&numsp;To keep things orderly, use a folder name that relates to your site.</p>
-      <h4>[General settings] Storage:</h4>
+      <strong>[General settings] Storage:</strong>
       <ul>
         <li>- [x] Cloudinary and WordPress</li>
       </ul>
-      <h4>[Image settings] Image optimization:</h4>
+      <strong>[Image settings] Image optimization:</strong>
       <ul>
         <li>- [x] Optimize images on my site.</li>
         <li>- [x] Image format: Auto</li>
         <li>- [x] Image quality: Auto</li>
       </ul>
-      <h4>[Lazy loading] Lazy loading:</h4>
+      <strong>[Lazy loading] Lazy loading:</strong>
       <ul>
         <li>- [x] Enable lazy loading</li>
         <li>- [x] Lazy loading threshold: 100px</li>
@@ -282,7 +237,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Placeholder generation type: You decide!</li>
         <li>- [x] DPR settings: Auto (2x)</li>
       </ul>
-      <h4>[Responsive images] Breakpoints:</h4>
+      <strong>[Responsive images] Breakpoints:</strong>
       <ul>
         <li>- [ ] Enable responsive images (OFF - this increases usage)</li>
       </ul>
@@ -296,7 +251,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <p>Cloudflare can be problematic if you want to capitalize on the "Cache Everything" option because without a paid plan, you cannot make exceptions for logged-in users. This means visitors might see personalized content of the first user to populate the cache — not good! Imagine your account details being leaked like that. It also does not easily cooperate with on-site caching solutions.</p>
     <p>That being said, the free tier can be persuaded! Ditch the official plugin and install <a href="https://wordpress.org/plugins/wp-cloudflare-page-cache/">Super Page Cache for Cloudflare</a> instead. Same as before, refer to proper guides. Make sure you have the following settings and be prepared that it might still not work! Test this!</p>
     <blockquote>
-      <h4>[Plugin: Cache] Don't cache the following dynamic contents:</h4>
+      <strong>[Plugin: Cache] Don't cache the following dynamic contents:</strong>
       <ul>
         <li>- [x] Page 404 (is_404)</li>
         <li>- [x] Feeds (is_feed)</li>
@@ -304,27 +259,27 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
         <li>- [x] Ajax Requests</li>
         <li>- [x] WP JSON endpoints</li>
       </ul>
-      <h4>[Plugin: Cache] Prevent the following URIs to be cached:</h4>
+      <strong>[Plugin: Cache] Prevent the following URIs to be cached:</strong><br>
       &numsp;<sup>Append to defaults. The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
       &numsp;<code>/oauth2*</code><br>
       &numsp;<code>/download-epub*</code><br>
       &numsp;<code>/account*</code><br>
       &numsp;<code>/bookshelf*</code><br>
-      &numsp;<code>/*commentcode=*</code>
-      <h4>[Fictioneer: General] Page Assignments:</h4>
+      &numsp;<code>/*commentcode=*</code><br>
+      <strong>[Fictioneer: General] Page Assignments:</strong>
       <ul>
         <li>- [ ] Account: None (default dashboard profile)</li>
         <li>- [x] Bookshelf: Page with the Bookshelf AJAX template (if you need this)</li>
       </ul>
-      <h4>[Fictioneer: General] Comments:</h4>
+      <strong>[Fictioneer: General] Comments:</strong>
       <ul>
         <li>- [x] Enable AJAX comment submission</li>
       </ul>
-      <h4>[Fictioneer: General] Security & Privacy:</h4>
+      <strong>[Fictioneer: General] Security & Privacy:</strong>
       <ul>
         <li>- [ ] Block admin panel access for subscribers (OFF)</li>
       </ul>
-      <h4>[Fictioneer: General] Compatibility:</h4>
+      <strong>[Fictioneer: General] Compatibility:</strong>
       <ul>
         <li>- [x] Enable cache compatibility mode</li>
         <li>- [x] Enable AJAX user authentication</li>
@@ -678,7 +633,7 @@ Allows for some minor translations and changes, such as the cookie notice banner
 
 ![Phrases Settings Preview](repo/assets/settings_fonts_preview.jpg?raw=true)
 
-An overview of all installed fonts, with the options to enable/disable them. You can also include Google Fonts here, but be aware that this violates the GDPR. If you want to install custom fonts, take a look at the [Installation](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts) guide.
+An overview of all installed fonts, with the options to enable/disable them. You can also include Google Fonts here, but be aware that this violates the GDPR. If you want to install custom fonts, take a look at the [Custom Fonts](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts) section further down.
 
 ### ePUBs Tab
 
