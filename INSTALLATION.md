@@ -179,7 +179,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <blockquote>
       <sup>Assume missing options are off, empty, or left to default.</sup><br>
-      <strong style="display: block;">[JS, CSS & HTML] JavaScript Options:</strong>
+      <strong>[JS, CSS & HTML] JavaScript Options:</strong>
       <ul>
         <li>- [x] Optimize JavaScript code?</li>
         <li>- [x] Aggregate JS-files?</li>
@@ -302,7 +302,7 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Notes</summary><br>
     <p>There is not much to screw up, but you should refer to a proper guide for your own peace of mind. Because Sucuri has a tendency to be overzealous with scary warnings and until you set up a whitelist, you will see many false positives. Better safe than sorry.</p>
     <blockquote>
-      <h4>Typical false positives:</h4>
+      <strong>Typical false positives:</strong><br>
       &numsp;<code>error_log-* (potentially any log from any plugin)</code><br>
       &numsp;<code>.htaccess.bk (generated backup of .htaccess)</code><br>
     </blockquote><br>
@@ -321,8 +321,8 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     <summary>Example settings</summary><br>
     <p>As a matter of fact, you do not need this kind of plugin at all if you pay a modicum of attention to the images you upload. One of the most common yet easy to fix mistakes is uploading over-sized images. Obviously, if your header image is 20 MB, your loading time will go down the drain. Your site will be even faster without the overhead of this plugin if you just pre-optimize your images.</p>
     <blockquote>
-      <sup>Follow the initial setup guide, then head to <strong>Settings > EWWW Image Optimizer</strong> to review the settings. Also take a look at the <a href="https://docs.ewww.io/article/4-getting-started">official documentation</a>. Assume missing options are off, empty, or left to default.</sup>
-      <h4>Basic settings:</h4>
+      <sup>Follow the initial setup guide, then head to <strong>Settings > EWWW Image Optimizer</strong> to review the settings. Also take a look at the <a href="https://docs.ewww.io/article/4-getting-started">official documentation</a>. Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>Basic settings:</strong>
       <ul>
         <li>- [x] Stick with free mode for now</li>
         <li>- [x] Remove Metadata</li>
@@ -353,39 +353,39 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Recommended settings</summary><br>
     <p>This is the "safest" advanced setup in the regard that you do not need to mess with server files. Expert mode is a tick faster and not actually complicated, but if the terms ".htaccess" and "mod_rewrite" make you feel queasy, you are perfectly fine with simple mode.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup>
-      <h4>[Advanced] Caching:</h4>
+      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>[Advanced] Caching:</strong>
       <ul>
         <li>- [x] Enable Caching</li>
       </ul>
-      <h4>[Advanced] Cache Delivery Method:</h4>
+      <strong>[Advanced] Cache Delivery Method:</strong>
       <ul>
         <li>- [x] Simple</li>
       </ul>
-      <h4>[Advanced] Miscellaneous:</h4>
+      <strong>[Advanced] Miscellaneous:</strong>
       <ul>
         <li>- [x] Cache Restrictions: Disable caching for logged in visitors</li>
         <li>- [x] Don’t cache pages with GET parameters.</li>
         <li>- [x] Compress pages so they’re served more quickly to visitors.</li>
         <li>- [x] Cache rebuild. Serve a supercache file to anonymous users while a new file is being generated.</li>
       </ul>
-      <h4>[Advanced] Advanced:</h4>
+      <strong>[Advanced] Advanced:</strong>
       <ul>
         <li>- [x] Extra homepage checks.</li>
         <li>- [x] Only refresh current page when comments made.</li>
         <li>- [x] List the newest cached pages on this page.</li>
       </ul>
-      <h4>[Advanced] Expiry Time & Garbage Collection:</h4>
+      <strong>[Advanced] Expiry Time & Garbage Collection:</strong>
       <ul>
         <li>- [x] Cache Timeout: 7200</li>
         <li>- [x] Timer: 600</li>
       </ul>
-      <h4>[Advanced] Accepted Filenames & Rejected URIs:</h4>
+      <strong>[Advanced] Accepted Filenames & Rejected URIs:</strong>
       <ul>
         <li>- [x] Feeds</li>
         <li>- [x] Search Pages</li>
       </ul>
-      <h4>[Advanced] Rejected URL Strings:</h4>
+      <strong>[Advanced] Rejected URL Strings:</strong>
       &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
@@ -400,24 +400,24 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Extreme settings</summary><br>
     <p>This is the most "aggressive" setup meant to carry membership sites on cheaper hosts, e.g. sites with many simultaneous requests by logged-in visitors who would normally not be served supercached files. Generating individual pages in large numbers within a short amount of time can overwhelm a server, leading to timeout errors. An issue you are unlikely to encounter as long as you do not have thousands of daily visitors. But in that case, just extend the recommended settings with the following ones.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup>
-      <h4>[Advanced] Miscellaneous:</h4>
+      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>[Advanced] Miscellaneous:</strong>
       <ul>
         <li>- [x] Cache Restrictions: Enable caching for all visitors</li>
         <li>- [x] Make known users anonymous so they’re served supercached static files.</li>
       </ul>
       <hr>
       Great, now your site is broken for logged-in users! Or rather, they are treated like guests and cannot see their personal content or post comments anymore. To resolve this, head to the <a href="#general-tab">Fictioneer general settings</a> and activate the following options. Clear the cache afterwards. Yes, the admin bar is now gone. Yes, you can still get into the admin with the <code>…/wp-admin</code> link. No, password protected posts no longer work.<br>
-      <h4>[General] Page Assignments:</h4>
+      <strong>[General] Page Assignments:</strong>
       <ul>
         <li>- [ ] Account: None (default dashboard profile)</li>
         <li>- [x] Bookshelf: Page with the Bookshelf AJAX template (if you need this)</li>
       </ul>
-      <h4>[General] Security & Privacy:</h4>
+      <strong>[General] Security & Privacy:</strong>
       <ul>
         <li>- [ ] Block admin panel access for subscribers (OFF)</li>
       </ul>
-      <h4>[General] Compatibility:</h4>
+      <strong>[General] Compatibility:</strong>
       <ul>
         <li>- [x] Enable public cache compatibility mode</li>
         <li>- [x] Enable AJAX user authentication</li>
@@ -432,7 +432,7 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Cache exceptions</summary><br>
     <p>As long as you only serve cached pages to unauthenticated users, you can hardly do wrong. To make absolutely sure everything works, please add the following exceptions under <strong>Performance > Page Cache</strong>.</p>
     <blockquote>
-      <h4>[Page Cache] Never cache the following pages:</h4>
+      <strong>[Page Cache] Never cache the following pages:</strong><br>
       &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
       &numsp;<code>/oauth2*</code><br>
       &numsp;<code>/download-epub*</code><br>
@@ -449,8 +449,8 @@ Technically just another plugin, but one that will make your site significantly 
     <summary>Example settings</summary><br>
     <p>LiteSpeed Cache offers you far more than what is covered here, so please refer to more comprehensive guides if you want to take advantage of that. However, combined with the other recommended plugins, you can do without.</p>
     <blockquote>
-      <sup>Assume missing options are off, empty, or left to default.</sup>
-      <h4>[1 - Cache] Cache Control Settings:</h4>
+      <sup>Assume missing options are off, empty, or left to default.</sup><br>
+      <strong>[1 - Cache] Cache Control Settings:</strong>
       <ul>
         <li>- [x] Enable Cache</li>
         <li>- [ ] Cache Logged-in Users (OFF)</li>
@@ -461,7 +461,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Cache PHP Resources</li>
         <li>- [ ] Cache Mobile (OFF)</li>
       </ul>
-      <h4>[2 - TTL] TTL:</h4>
+      <strong>[2 - TTL] TTL:</strong>
       <ul>
         <li>- [x] Default Public Cache TTL: 28800</li>
         <li>- [x] Default Private Cache TTL: 1800</li>
@@ -469,13 +469,13 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Default Feed TTL: 604800</li>
         <li>- [x] Default REST TTL: 28800</li>
       </ul>
-      <h4>[3 - Purge] Purge Settings:</h4>
+      <strong>[3 - Purge] Purge Settings:</strong>
       <ul>
         <li>- [x] Purge All On Upgrade</li>
         <li>- [x] Auto Purge Rules For Publish/Update: All pages</li>
         <li>- [ ] Serve Stale (OFF)</li>
       </ul>
-      <h4>[4 - Excludes] Do Not Cache URIs:</h4>
+      <strong>[4 - Excludes] Do Not Cache URIs:</strong><br>
       &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
@@ -483,26 +483,26 @@ Technically just another plugin, but one that will make your site significantly 
       &numsp;<code>/bookshelf</code><br>
       &numsp;<code>/wp-json/storygraph</code><br>
       &numsp;<code>/wp-json/fictioneer</code><br>
-      <h4>[4 - Excludes] Do Not Cache Query Strings:</h4>
+      <strong>[4 - Excludes] Do Not Cache Query Strings:</strong><br>
       &numsp;<code>commentcode</code><br>
-      <h4>[4 - Excludes] Do Not Cache Roles:</h4>
+      <strong>[4 - Excludes] Do Not Cache Roles:</strong>
       <ul>
         <li>- [x] Administrator</li>
         <li>- [x] Moderator</li>
         <li>- [x] Editor</li>
         <li>- [x] Author</li>
       </ul>
-      <h4>[5 - ESI] ESI Settings:</h4>
+      <strong>[5 - ESI] ESI Settings:</strong>
       <ul>
         <li>- [x] Enable ESI</li>
         <li>- [x] Cache Admin Bar</li>
         <li>- [x] Cache Comment Form</li>
       </ul>
-      <h4>[5 - ESI] ESI Nonces:</h4>
+      <strong>[5 - ESI] ESI Nonces:</strong><br>
       &numsp;<code>oauth_nonce</code><br>
       &numsp;<code>fictioneer_nonce</code><br>
       &numsp;<code>fictioneer-ajax-nonce</code><br>
-      <h4>[5 - ESI] Vary Group:</h4>
+      <strong>[5 - ESI] Vary Group:</strong>
       <ul>
         <li>- [x] Administrator: 99</li>
         <li>- [x] Moderator: 50</li>
@@ -511,7 +511,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Contributor: 20</li>
         <li>- [x] Subscriber: 0</li>
       </ul>
-      <h4>[7 - Browser] Browser Cache Settings:</h4>
+      <strong>[7 - Browser] Browser Cache Settings:</strong>
       <ul>
         <li>- [x] Browser Cache</li>
         <li>- [x] Browser Cache TTL: 31557600</li>
