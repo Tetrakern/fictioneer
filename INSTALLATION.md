@@ -385,7 +385,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Feeds</li>
         <li>- [x] Search Pages</li>
       </ul>
-      <strong>[Advanced] Rejected URL Strings:</strong>
+      <strong>[Advanced] Rejected URL Strings:</strong><br>
       &numsp;<sup>The "account" and "bookshelf" URI fragments may differ on your site (since you can name them).</sup><br>
       &numsp;<code>/oauth2</code><br>
       &numsp;<code>/download-epub</code><br>
@@ -407,7 +407,7 @@ Technically just another plugin, but one that will make your site significantly 
         <li>- [x] Make known users anonymous so they’re served supercached static files.</li>
       </ul>
       <hr>
-      Great, now your site is broken for logged-in users! Or rather, they are treated like guests and cannot see their personal content or post comments anymore. To resolve this, head to the <a href="#general-tab">Fictioneer general settings</a> and activate the following options. Clear the cache afterwards. Yes, the admin bar is now gone. Yes, you can still get into the admin with the <code>…/wp-admin</code> link. No, password protected posts no longer work.<br>
+      Great, now your site is broken for logged-in users! Or rather, they are treated like guests and cannot see their personal content or post comments anymore. To resolve this, head to the <a href="#general-tab">Fictioneer general settings</a> and activate the following options. Clear the cache afterwards. Yes, the admin bar is now gone. Yes, you can still get into the admin with the <code>…/wp-admin</code> link. No, password protected posts no longer work.<br><br>
       <strong>[General] Page Assignments:</strong>
       <ul>
         <li>- [ ] Account: None (default dashboard profile)</li>
