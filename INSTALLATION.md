@@ -216,8 +216,8 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
       <ul>
         <li>- [x] Sync method: Auto sync</li>
       </ul>
-      <strong>[General settings] Cloudinary folder path:</strong>
-      <p>&numsp;To keep things orderly, use a folder name that relates to your site.</p>
+      <strong>[General settings] Cloudinary folder path:</strong><br>
+      &numsp;To keep things orderly, use a folder name that relates to your site.<br>
       <strong>[General settings] Storage:</strong>
       <ul>
         <li>- [x] Cloudinary and WordPress</li>
