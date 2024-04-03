@@ -2,24 +2,7 @@
 
 This is a quick guide to get you started if you want to contribute to the theme, fork off your own version, or create a child theme. Nothing too comprehensive, but enough to introduce the core concepts and practices.
 
-### Table of Contents
-
-* [Coding Standards & Documentation](#coding-standards--documentation)
-* [Build Pipeline](#build-pipeline)
-* [CSS/SCSS](#cssscss)
-  * [CSS Custom Properties (Variables)](#css-custom-properties-variables)
-  * [Functions](#functions)
-* [JavaScript](#javascript)
-  * [Libraries](#libraries)
-  * [Shorthands](#shorthands)
-  * [Custom Events](#custom-events)
-  * [AJAX Requests](#ajax-requests)
-* [Hooked Actions & Filters](#hooked-actions--filters)
-* [Caching](#caching)
-  * [References](#references)
-  * [Functions](#functions-1)
-
-### Additional Resources
+## Additional Resources
 
 * [Theme action hooks](ACTIONS.md)
 * [Theme filter hooks](FILTERS.md)

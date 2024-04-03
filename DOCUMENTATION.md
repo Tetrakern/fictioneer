@@ -2,48 +2,7 @@
 
 This documentation is about the Fictioneer theme. If you need help with WordPress in general, take a look at the [official documentation](https://wordpress.org/support/category/basic-usage/) or search the Internet for one of the many tutorials. For the installation, look [here](INSTALLATION.md) first and then come back once you are done.
 
-### Table of Contents
-
-* [Stories](#stories)
-  * [Meta Fields](#meta-fields)
-  * [eBooks/ePUBs](#ebooksepubs)
-* [Chapters](#chapters)
-  * [Meta Fields](#meta-fields-1)
-  * [Text-To-Speech Engine](#text-to-speech-engine)
-* [Collections](#collections)
-  * [Meta Fields](#meta-fields-2)
-* [Recommendations](#recommendations)
-  * [Meta Fields](#meta-fields-3)
-  * [Example Sentences](#example-sentences)
-* [Shared Options](#shared-options)
-  * [SEO & Meta Tags](#seo--meta-tags)
-  * [Landscape Image](#landscape-image)
-  * [Page Layout](#page-layout)
-  * [Comments](#comments)
-  * [Additional CSS Classes](#additional-css-classes)
-  * [HTML Block / litRPG Box](#html-block)
-* [Shortcodes](#shortcodes)
-  * [Article Cards](#article-cards)
-  * [Blog](#blog)
-  * [Bookmarks](#bookmarks)
-  * [Contact Form](#contact-form)
-  * [Cookie Buttons](#cookie-buttons)
-  * [Latest Chapters](#latest-chapters)
-  * [Latest Posts](#latest-posts)
-  * [Latest Stories](#latest-stories)
-  * [Latest Recommendations](#latest-recommendations)
-  * [Latest Updates](#latest-updates)
-  * [Chapter List](#chapter-list)
-  * [Search Form](#search-form)
-  * [Showcase](#showcase)
-* [Images & Media](#images--media)
-* [Users & OAuth](#users--oauth)
-* [Checkmarks, Follows & Reminders](#checkmarks-follows--reminders)
-* [Bookmarks](#bookmarks)
-* [User Profile](#user-profile)
-* [Common Problems](#common-problems)
-  * [Missing Blocks](#missing-blocks)
-  * [Reserved URL Slugs](#reserved-url-slugs)
+Click the outline toggle in the top-right corner to see the table of contents.
 
 ## Stories
 

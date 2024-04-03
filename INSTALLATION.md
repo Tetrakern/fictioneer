@@ -671,6 +671,73 @@ There are two ways to customize the theme. The obvious one is the Customizer of 
 
 The second way is to directly modify the templates, styles, and scripts. This is indefinitely more powerful but requires some developer skills — and you can easily break your site. The theme’s files can be modified under **Appearance > Theme File Editor**, although you should never actually do this. Always create a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) because any code changes you make, regardless of quality, will be overwritten again when you update the theme.
 
+### Demo Layout
+
+As per popular demand, here is a small guide on how to mimic the demo site. Please be aware that the demo is more for showing off features than being a production example. But you can layout your site as you like. Make sure to look at the available [shortcodes](DOCUMENTATION.md#shortcodes) and their possible configurations. If you are new to WordPress, better read a guide about using the CMS first since the basics will not be covered here.
+
+First, create two new pages with the "No Title Page" template, one called "Home" and the other "Posts" (or whatever you like). Then go to **Settings > Reading > Your homepage displays** and set it to "A static page". Assign the pages you created. Now you can add blocks and shortcodes to your "Home" page; leave the "Posts" page empty.
+
+For simplicity, here is the copied content of the demo home page (minus the site-specific things). Put that into the Code editor view and adjust it as needed.
+
+<details>
+  <summary>Editor content</summary><br>
+
+```html
+<!-- wp:shortcode -->
+[fictioneer_latest_posts count="1"]
+<!-- /wp:shortcode -->
+
+<!-- wp:spacer {"height":"24px"} -->
+<div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:shortcode -->
+[fictioneer_article_cards per_page="2" ignore_sticky="1"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Stories</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_stories count="10"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Updates</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_updates count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Chapters</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_chapter_cards count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Recommendations</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_recommendations count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading {"className":"show-if-bookmarks hidden"} -->
+<h2 class="wp-block-heading show-if-bookmarks hidden">Bookmarks</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_bookmarks count="10"]
+<!-- /wp:shortcode -->
+```
+
+</details>
+
 ### Header Style
 
 ![Customizer HSL Sliders](repo/assets/customizer_header_style_preview.jpg?raw=true)
