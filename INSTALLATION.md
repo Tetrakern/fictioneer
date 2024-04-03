@@ -675,9 +675,9 @@ The second way is to directly modify the templates, styles, and scripts. This is
 
 As per popular demand, here is a small guide on how to mimic the demo site. Please be aware that the demo is more for showing off features than being a production example. Make sure to look at the available [shortcodes](DOCUMENTATION.md#shortcodes) and their possible configurations. If you are new to WordPress, better read a guide about using the CMS first because the basics are not be covered here.
 
-First, create two new pages with the "No Title Page" template, one called "Home" and the other "Posts" (or whatever you like). Then go to **Settings > Reading > Your homepage displays** and set it to "A static page". Assign the pages you created. Now you can add blocks and shortcodes to your "Home" page; leave the "Posts" page empty. Similar, you can add list pages for Stories, Chapters, etc. with the corresponding template and assign them under **Fictioneer > General > Page Assignments**. You do not need all of them.
+First, create two new pages with the "No Title Page" template, one called "Home" and the other "Posts" (or whatever you like). Then go to **Settings > Reading > Your homepage displays** and set it to "A static page". Assign the pages you created. Now you can add blocks and shortcodes to your "Home" page; leave the "Posts" page empty. Similar, you can add list pages for Stories, Chapters, etc. with the corresponding templates and assign them under **Fictioneer > General > Page Assignments**. You do not need all of them.
 
-For simplicity, here is the copied content of the demo home page (minus some the site-specific things). Put that into the code editor view and adjust it as needed. When you switch back to the visual editor, everything will be properly formatted as blocks.
+For simplicity, here is the copied content of the demo home page (minus some site-specific things). Put that into the code editor view and adjust it as needed. When you switch back to the visual editor, everything will be properly formatted as blocks.
 
 <details>
   <summary>Editor content</summary><br>
