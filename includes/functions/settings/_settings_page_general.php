@@ -162,6 +162,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_show_protected_excerpt',
+                    __( 'This may be beneficial for search engines.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_hide_chapter_icons',
                     __( 'Hides the icons on story pages and in the mobile menu.', 'fictioneer' )
                   );

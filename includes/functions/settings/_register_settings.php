@@ -684,6 +684,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Count characters instead of words', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_show_protected_excerpt' => array(
+      'name' => 'fictioneer_show_protected_excerpt',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Show excerpt on password-protected posts', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(

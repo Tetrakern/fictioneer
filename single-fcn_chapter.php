@@ -166,8 +166,15 @@ get_header( null, $header_args );
         ?>
 
         <section id="chapter-content" class="chapter__content content-section">
-          <?php if ( post_password_required() && $password_note ) : ?>
-            <div class="chapter__password-note infobox"><?php echo $password_note; ?></div>
+          <?php if ( post_password_required() ) : ?>
+            <?php if ( $password_note ) : ?>
+              <div class="chapter__password-note infobox"><?php echo $password_note; ?></div>
+            <?php endif; ?>
+            <?php if ( get_option( 'fictioneer_show_protected_excerpt' ) ) : ?>
+              <div class="resize-font chapter-formatting chapter-font-color chapter-font-family">
+                <?php echo fictioneer_get_forced_excerpt( $post->ID, 512 ); ?>
+              </div>
+            <?php endif; ?>
           <?php endif; ?>
           <div class="resize-font chapter-formatting chapter-font-color chapter-font-family">
             <?php the_content(); ?>
