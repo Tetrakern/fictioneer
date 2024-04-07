@@ -238,4 +238,5 @@ function child_update_chapter_formatting_defaults( $formatting ) {
   // Merge changes with defaults and continue filter
   return array_merge( $formatting, $changes );
 }
+add_filter( 'fictioneer_filter_chapter_default_formatting', 'child_update_chapter_formatting_defaults' );
 ```
