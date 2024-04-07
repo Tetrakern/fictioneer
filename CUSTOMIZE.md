@@ -206,7 +206,7 @@ add_action( 'save_post', 'child_limit_tags_per_post', 99 ); // Executed late
 
 ## Change chapter formatting defaults
 
-The formatting in chapters is left to the reader, as it should be. Tailoring the formatting to your preferences and perhaps needs enhances the reading experience. However, you can alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
+The formatting of chapters is left to the reader, as it should be. Customizing the formatting to your preferences and needs can greatly enhance the reading experience. However, you can alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
 
 ```php
 /**
