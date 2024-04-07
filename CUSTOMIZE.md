@@ -4,7 +4,7 @@ This is a collection of code snippets for previously solved customization issues
 
 For general information on theme and style customization, please refer to the [installation guide](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#how-to-customize-the-fictioneer-theme).
 
-## How to add a secondary chapter title?
+## Add a secondary chapter title
 
 Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/23). Maybe you need a secondary chapter title to fulfill some arbitrary naming scheme; you do you. While not encouraged since this adds at least one new database row per chapter (plus another for each revision if you have not turned that off), which can eventually slow down your site, this can be achieved by making use of an already existing meta field. Of course, you could also add a new one with more custom code.
 
@@ -103,7 +103,7 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 
 ![Secondary Chapter Title](repo/assets/secondary_chapter_list_title.png?raw=true)
 
-## How to only show a specific advanced meta field?
+## Only show a specific advanced meta field
 
 Maybe you want only one specific advanced meta field. You can achieve this by manually adding the desired field and saving procedure, similar to how it is done in the [_meta_fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_meta_fields.php). The following example adds the Co-Authors field to stories, which can be adapted for chapters as well. Just make sure to change the {dynamic_parts} and the meta keys.
 
@@ -167,7 +167,7 @@ function child_save_co_authors_of_story( $fields ) {
 add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of_story', 10 );
 ```
 
-## How to limit tags to 10?
+## Limit tags to 10
 
 Or any other positive number for that matter. To prevent authors from entering a whole thesis of tags like a lunatic. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. Maybe that will teach them a lesson. But anything else needs to interfere with the Gutenberg editor and is difficult to achieve.
 
@@ -202,4 +202,40 @@ function child_limit_tags_per_post( $post_id ) {
   }
 }
 add_action( 'save_post', 'child_limit_tags_per_post', 99 ); // Executed late
+```
+
+## Change chapter formatting defaults
+
+The formatting in chapters is left to the reader, as it should be. Tailoring the formatting to your preferences and perhaps needs enhances the reading experience. However, you can alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
+
+```php
+/**
+ * Change default formatting
+ *
+ * @since x.x.x
+ *
+ * @param array $formatting  The formatting defaults.
+ *
+ * @return array The updated formatting defaults.
+ */
+
+function child_update_chapter_formatting_defaults( $formatting ) {
+  // Changes (uncomment and update what you need)
+  $changes = array(
+    // 'font-saturation' => 0,
+    // 'font-size' => 100,
+    // 'letter-spacing' => 0,
+    // 'line-height' => 1.7,
+    // 'paragraph-spacing' => 1.5,
+    // 'indent' => true,
+    // 'show-sensitive-content' => true,
+    // 'show-chapter-notes' => true,
+    // 'justify' => false,
+    // 'show-comments' => true,
+    // 'show-paragraph-tools' => true
+  );
+
+  // Merge changes with defaults and continue filter
+  return array_merge( $formatting, $changes );
+}
 ```
