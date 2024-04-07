@@ -208,6 +208,10 @@ add_action( 'save_post', 'child_limit_tags_per_post', 99 ); // Executed late
 
 The formatting of chapters is left to the reader, as it should be. Customizing the formatting to your preferences and needs can greatly enhance the reading experience. However, you can alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
 
+**References**
+* Filter: [fictioneer_filter_chapter_default_formatting](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-)
+* Include: [_theme_setup.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_theme_setup.php)
+
 ```php
 /**
  * Change default formatting
