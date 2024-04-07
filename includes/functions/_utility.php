@@ -191,6 +191,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
     // as long as the ID array is not too large.
     $chapter_query = new WP_Query(
       array(
+        'fictioneer_query_name' => 'get_story_chapter_posts_by_post__in',
         'post_type' => 'fcn_chapter',
         'post_status' => 'publish',
         'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
@@ -208,6 +209,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
   // Query
   $chapter_query = new WP_Query(
     array(
+      'fictioneer_query_name' => 'get_story_chapter_posts_by_meta',
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
       'meta_key' => 'fictioneer_chapter_story',
