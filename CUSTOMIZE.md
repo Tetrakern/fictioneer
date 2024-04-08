@@ -350,7 +350,13 @@ Add this to your CSS file or in **Appearance > Customize > Additional CSS**.
 
 .story__thumbnail {
   float: right;
-  margin-right: var(--layout-spacing-horizontal);
-  margin-left: 1rem;
+  margin: 0 var(--layout-spacing-horizontal-small) 1rem 1rem;
+  max-width: min(100%, 25vw);
+}
+
+@media only screen and (min-width: 400px) {
+  .story__thumbnail {
+    margin: 0 var(--layout-spacing-horizontal) 1rem 1rem;
+  }
 }
 ```
