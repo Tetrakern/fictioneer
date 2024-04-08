@@ -1295,6 +1295,22 @@ Filters the statistics for all stories rendered by the `fictioneer_stories_stati
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_buttons', $output, $args )`
+Filters the intermediate output array of the `fictioneer_get_story_buttons( $args )` function before it is imploded and returned. Used inside `fictioneer_story_actions( $args )` and rendered via the `fictioneer_story_after_content` hook.
+
+**$output:**
+* $subscribe (string|null) – Optional. HTML of the subscribe button and popup menu.
+* $epub (string|null) – Optional. HTML for the ePUB (generated) download button.
+* $ebook (string|null) – Optional. HTML for the ebook (uploaded) download button.
+* $reminder (string|null) – Optional. HTML for the Read Later button.
+* $follow (string|null) – Optional. HTML for the Follow button.
+
+**$args:**
+* $story_data (array) – Collection of story data.
+* $story_id (int) – Current story (post) ID.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-story.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, publishing date, comments, and so forth.
 
@@ -1314,19 +1330,20 @@ Filters the intermediate output array in the `_card-story.php` partial before it
 
 ---
 
-### `apply_filters( 'fictioneer_filter_story_buttons', $output, $args )`
-Filters the intermediate output array of the `fictioneer_get_story_buttons( $args )` function before it is imploded and returned. Used inside `fictioneer_story_actions( $args )` and rendered via the `fictioneer_story_after_content` hook.
+### `apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args )`
+Filters the query arguments for the story chapter posts query, an utility function called in various places. You can use this to include scheduled posts in the story chapter list, for example.
 
-**$output:**
-* $subscribe (string|null) – Optional. HTML of the subscribe button and popup menu.
-* $epub (string|null) – Optional. HTML for the ePUB (generated) download button.
-* $ebook (string|null) – Optional. HTML for the ebook (uploaded) download button.
-* $reminder (string|null) – Optional. HTML for the Read Later button.
-* $follow (string|null) – Optional. HTML for the Follow button.
-
-**$args:**
-* $story_data (array) – Collection of story data.
-* $story_id (int) – Current story (post) ID.
+**$query_args:**
+* $post_type (string) - Which post types to query. Default `'fcn_chapter'`.
+* $post_status (string) - Which post status to query. Default `'publish'`.
+* $post__in (array|null) - Array chapter IDs. Only used if query ID limit is not exceeded.
+* $orderby (string) - Only used with `'post__in'`. Default `'post__in'`.
+* $meta_key (string) - Only used if query ID limit is exceeded. Default `'fictioneer_chapter_story'`.
+* $meta_value (int) - Only used with `'meta_key'`. Default story ID.
+* $ignore_sticky_posts (boolean) - Whether to ignore sticky (blog) posts. Default `true`.
+* $posts_per_page (int) - How many posts to query. Default `-1` (all).
+* $no_found_rows (boolean) - Do not return number of rows. Default `true`.
+* $update_post_term_cache (boolean) - Do not update posts terms cache. Default `true`.
 
 ---
 

@@ -189,37 +189,41 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
   if ( count( $chapter_ids ) <= FICTIONEER_QUERY_ID_ARRAY_LIMIT ) {
     // Query with post__in, which should be faster than meta query
     // as long as the ID array is not too large.
-    $chapter_query = new WP_Query(
-      array(
-        'fictioneer_query_name' => 'get_story_chapter_posts_by_post__in',
-        'post_type' => 'fcn_chapter',
-        'post_status' => 'publish',
-        'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
-        'orderby' => 'post__in',
-        'ignore_sticky_posts' => true,
-        'posts_per_page' => -1,
-        'no_found_rows' => true, // Improve performance
-        'update_post_term_cache' => false // Improve performance
-      )
+    $query_args = array(
+      'fictioneer_query_name' => 'get_story_chapter_posts_by_post__in',
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+      'orderby' => 'post__in',
+      'ignore_sticky_posts' => true,
+      'posts_per_page' => -1,
+      'no_found_rows' => true, // Improve performance
+      'update_post_term_cache' => false // Improve performance
     );
+
+    $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args );
+
+    $chapter_query = new WP_Query( $query_args );
 
     return $chapter_query->posts;
   }
 
   // Query
-  $chapter_query = new WP_Query(
-    array(
-      'fictioneer_query_name' => 'get_story_chapter_posts_by_meta',
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'meta_key' => 'fictioneer_chapter_story',
-      'meta_value' => $story_id,
-      'ignore_sticky_posts' => true,
-      'posts_per_page' => -1, // Get all chapters (this can be hundreds)
-      'no_found_rows' => true, // Improve performance
-      'update_post_term_cache' => false // Improve performance
-    )
+  $query_args = array(
+    'fictioneer_query_name' => 'get_story_chapter_posts_by_meta',
+    'post_type' => 'fcn_chapter',
+    'post_status' => 'publish',
+    'meta_key' => 'fictioneer_chapter_story',
+    'meta_value' => $story_id,
+    'ignore_sticky_posts' => true,
+    'posts_per_page' => -1, // Get all chapters (this can be hundreds)
+    'no_found_rows' => true, // Improve performance
+    'update_post_term_cache' => false // Improve performance
   );
+
+  $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args );
+
+  $chapter_query = new WP_Query( $query_args );
 
   // Filter out chapters not included in chapter ID array
   $filtered_chapters = array_filter( $chapter_query->posts, function( $post ) use ( $chapter_ids ) {
