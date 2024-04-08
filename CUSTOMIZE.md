@@ -244,3 +244,42 @@ function child_update_chapter_formatting_defaults( $formatting ) {
 }
 add_filter( 'fictioneer_filter_chapter_default_formatting', 'child_update_chapter_formatting_defaults' );
 ```
+
+## Show scheduled chapters on story pages
+
+If the "Next Chapter" note above the chapter list is not enough and you want to show scheduled (future) chapters in the list as well, you can alter the query via filter. You can also include other post statuses, although the sense of that is dubious. Note that this will not alter the [API responses](https://github.com/Tetrakern/fictioneer/blob/main/API.md), because they needs to be uniform across all sites.
+
+**References**
+* Filter: [fictioneer_filter_story_chapter_posts_query](FILTERS.md#apply_filters-fictioneer_filter_story_chapter_posts_query-query_args-story_id-chapter_ids-)
+
+```php
+/**
+ * Show scheduled (future) chapter in story chapter list
+ *
+ * @since x.x.x
+ *
+ * @param array $query_args  Chapter list query arguments.
+ *
+ * @return array The updated chapter list query arguments.
+ */
+
+function child_show_scheduled_chapters( $query_args ) {
+  $query_args['post_status'] = ['publish', 'future'];
+
+  return $query_args;
+}
+add_filter( 'fictioneer_filter_story_chapter_posts_query', 'child_show_scheduled_chapters' );
+
+// If you want to remove the "Next Chapter" note above the list:
+
+/**
+ * Remove "Next Chapter" note above list
+ *
+ * @since x.x.x
+ */
+
+function child_remove_scheduled_chapter() {
+  remove_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapter', 41 );
+}
+add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added late, so you need to be even later
+```

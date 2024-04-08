@@ -558,6 +558,7 @@ function fictioneer_story_chapters( $args ) {
 
           $chapter_groups[ $group_key ]['data'][] = array(
             'id' => $chapter_id,
+            'status' => $post->post_status,
             'link' => get_permalink(),
             'timestamp' => get_the_time( 'c' ),
             'password' => ! empty( $post->post_password ),
@@ -614,7 +615,7 @@ function fictioneer_story_chapters( $args ) {
               <?php foreach ( $group['data'] as $chapter ) : ?>
                 <?php
                   $index++;
-                  $extra_classes = '';
+                  $extra_classes = "_{$chapter['status']} ";
 
                   // Must account for extra toggle row and start at 1
                   $is_folded = $chapter_folding && $index > FICTIONEER_CHAPTER_FOLDING_THRESHOLD &&
@@ -658,6 +659,11 @@ function fictioneer_story_chapters( $args ) {
                     href="<?php echo $chapter['link']; ?>"
                     class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
                   ><?php
+
+                    // Non-published chapter prefixes
+                    if ( in_array( $chapter['status'], ['future', 'trash', 'private'] ) ) {
+                      echo '<span class="chapter-group__list-item-status">' . fcntr( "{$chapter['status']}_prefix" ) . '</span> ';
+                    }
 
                     if ( ! empty( $chapter['prefix'] ) ) {
                       // Mind space between prefix and title
