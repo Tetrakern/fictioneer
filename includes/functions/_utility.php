@@ -201,7 +201,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
       'update_post_term_cache' => false // Improve performance
     );
 
-    $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args );
+    $query_args = apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids );
 
     $chapter_query = new WP_Query( $query_args );
 

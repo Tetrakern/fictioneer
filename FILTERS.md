@@ -1330,7 +1330,7 @@ Filters the intermediate output array in the `_card-story.php` partial before it
 
 ---
 
-### `apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args )`
+### `apply_filters( 'fictioneer_filter_story_chapter_posts_query', $query_args, $story_id, $chapter_ids )`
 Filters the arguments for the story chapter posts query, an utility function called in various places. There are two variants depending on whether the `FICTIONEER_QUERY_ID_ARRAY_LIMIT` is exceeded or not.
 
 **$query_args:**
@@ -1344,6 +1344,10 @@ Filters the arguments for the story chapter posts query, an utility function cal
 * $posts_per_page (int) - How many posts to query. Default `-1` (all).
 * $no_found_rows (boolean) - Do not return number of rows. Default `true`.
 * $update_post_term_cache (boolean) - Do not update posts terms cache. Default `true`.
+
+**Parameters:**
+* $story_id (int) – The story ID.
+* $chapter_ids (array) – Array with chapter IDs assigned to the story.
 
 ---
 
