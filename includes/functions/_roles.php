@@ -447,7 +447,7 @@ function fictioneer_bypass_password( $required, $post ) {
   }
 
   // Check capability per post type...
-  switch ( $post->post_type ) {
+  switch ( $post->post_type ?? 0 ) {
     case 'post':
       $required = current_user_can( 'fcn_ignore_post_passwords' ) ? false : $required;
       break;
