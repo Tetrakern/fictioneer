@@ -283,3 +283,70 @@ function child_remove_scheduled_chapter() {
 }
 add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added late, so you need to be even later
 ```
+
+## Story page cover image on the right side
+
+If you would rather have the story page cover image floating on the right, as demonstrated in the screenshot. Note that this solution disables the option to hide cover images on story pages globally. You can only choose not to have none.
+
+![Floating Cover Image Example](repo/assets/example_floating_cover_image.jpg?raw=true)
+
+```php
+/**
+ * Adds cover image above the content row
+ *
+ * @since x.x.x
+ *
+ * @param array $hook_args  Contains story ID and data.
+ */
+
+function child_add_floating_story_cover( $hook_args ) {
+  if ( has_post_thumbnail( $hook_args['story_id'] ) ) {
+    echo fictioneer_get_story_page_cover( $hook_args['story_data'] );
+  }
+}
+add_action( 'fictioneer_story_after_header', 'child_add_floating_story_cover', 9 );
+
+/**
+ * Disables the default cover image in the article header
+ *
+ * Note: Alternatively, you could hide the cover image on the story. But
+ * you would need to do this for every story.
+ *
+ * @since x.x.x
+ * @link https://developer.wordpress.org/reference/hooks/get_meta_type_metadata/
+ *
+ * @param mixed  $value      The value to return, either a single metadata value or
+ *                           an array of values depending on the value of $single.
+ *                           Default null.
+ * @param int    $object_id  ID of the object metadata is for.
+ * @param string $meta_key   Metadata key.
+ *
+ * @return mixed The updated meta value.
+ */
+
+function child_disable_story_page_cover( $value, $object_id, $meta_key ) {
+  // Disable 'fictioneer_story_no_thumbnail' meta field
+  if ( $meta_key === 'fictioneer_story_no_thumbnail' ) {
+    return true;
+  }
+
+  // Continue filter
+  return $value;
+}
+add_filter( 'get_post_metadata', 'child_disable_story_page_cover', 10, 3 );
+```
+
+Add this to your CSS file or in **Appearance > Customize > Additional CSS**.
+
+```css
+.story__tags-and-warnings,
+.story__after-summary {
+  clear: both;
+}
+
+.story__thumbnail {
+  float: right;
+  margin-right: var(--layout-spacing-horizontal);
+  margin-left: 1rem;
+}
+```
