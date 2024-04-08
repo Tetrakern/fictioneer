@@ -288,6 +288,10 @@ add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added
 
 If you would rather have the story page cover image floating on the right, as demonstrated in the screenshot. Note that this solution disables the option to hide cover images on story pages globally. You can only choose not to have none.
 
+**References**
+* Action: [fictioneer_story_after_header](ACTIONS.md#do_action-fictioneer_story_after_header-args-)
+* Filter: [get_post_metadata](https://developer.wordpress.org/reference/hooks/get_meta_type_metadata/)
+
 ![Floating Cover Image Example](repo/assets/example_floating_cover_image.jpg?raw=true)
 
 ```php
