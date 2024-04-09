@@ -165,21 +165,23 @@ get_header( null, $header_args );
           }
         ?>
 
-        <section id="chapter-content" class="chapter__content content-section">
-          <?php if ( post_password_required() ) : ?>
-            <?php if ( $password_note ) : ?>
-              <div class="chapter__password-note infobox"><?php echo $password_note; ?></div>
-            <?php endif; ?>
-            <?php if ( get_option( 'fictioneer_show_protected_excerpt' ) ) : ?>
-              <div class="resize-font chapter-formatting chapter-font-color chapter-font-family">
-                <?php echo fictioneer_get_forced_excerpt( $post->ID, 512 ); ?>
-              </div>
-            <?php endif; ?>
-          <?php endif; ?>
-          <div class="resize-font chapter-formatting chapter-font-color chapter-font-family">
-            <?php the_content(); ?>
-          </div>
-        </section>
+        <section id="chapter-content" class="chapter__content content-section"><?php
+          if ( post_password_required() ) {
+            if ( $password_note ) {
+              echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
+            }
+          }
+
+          echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family">';
+
+          if ( post_password_required() && get_option( 'fictioneer_show_protected_excerpt' ) ) {
+            echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
+          }
+
+          the_content();
+
+          echo '</div>';
+        ?></section>
 
         <?php
           // After chapter content; includes the afterword and support box

@@ -28,6 +28,10 @@
     padding-top: var(--layout-spacing-vertical);
   }
 
+  &__password-note {
+    margin-bottom: 1.5rem;
+  }
+
   &__actions {
     display: flex;
     align-items: center;

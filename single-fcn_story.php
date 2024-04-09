@@ -64,17 +64,19 @@ get_header( null, $header_args );
           do_action( 'fictioneer_story_after_header', $hook_args );
         ?>
 
-        <section class="story__summary padding-left padding-right">
-          <?php if ( post_password_required() ) : ?>
-            <?php if ( $password_note ) : ?>
-              <div class="story__password-note infobox"><?php echo $password_note; ?></div>
-            <?php endif; ?>
-            <?php if ( get_option( 'fictioneer_show_protected_excerpt' ) ) : ?>
-              <?php echo fictioneer_get_forced_excerpt( $post->ID, 512 ); ?>
-            <?php endif; ?>
-          <?php endif; ?>
-          <?php the_content(); ?>
-        </section>
+        <section class="story__summary padding-left padding-right"><?php
+          if ( post_password_required() ) {
+            if ( $password_note ) {
+              echo '<div class="story__password-note infobox">' . $password_note . '</div>';
+            }
+
+            if ( get_option( 'fictioneer_show_protected_excerpt' ) ) {
+              echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
+            }
+          }
+
+          the_content();
+        ?></section>
 
         <?php
           // Renders copyright notice, tags, actions, and chapters
