@@ -272,8 +272,8 @@
     "hsl": [222, 18, 80.5]
   },
   "dark_fg_500": {
-    "hex": "#b7bdcc",
-    "hsl": [222, 18, 76]
+    "hex": "#bac0cf",
+    "hsl": [222, 18, 77]
   },
   "dark_fg_600": {
     "hex": "#a8afc3",
@@ -296,8 +296,8 @@
     "hsl": [222, 9, 49]
   },
   "dark_fg_tinted": {
-    "hex": "#b0b7ca",
-    "hsl": [224, 20, 74]
+    "hex": "#b4bccf",
+    "hsl": [224, 22, 76]
   },
   "dark_fg_inverted": {
     "hex": "#0a0c0f",

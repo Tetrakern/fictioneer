@@ -838,7 +838,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_fg_500' => array(
       'label' => __( 'Dark Foreground 500', 'fictioneer' ),
-      'description' => __( 'Primary base text color for page content. Default contrast ~7:1 on BG-700.', 'fictioneer' )
+      'description' => __( 'Primary base text color for page content. Default contrast ~7:3 on BG-700.', 'fictioneer' )
     ),
     'dark_fg_600' => array(
       'label' => __( 'Dark Foreground 600', 'fictioneer' ),
@@ -862,7 +862,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     ),
     'dark_fg_tinted' => array(
       'label' => __( 'Dark Foreground Tinted', 'fictioneer' ),
-      'description' => __( 'Default color in chapters; slightly darker and more saturated than the base text color to reduce eye strain. Default contrast ~6.6:1 on BG-700.', 'fictioneer' )
+      'description' => __( 'Default color in chapters; slightly darker and more saturated than the base text color to reduce eye strain. Default contrast ~6.9:1 on BG-700.', 'fictioneer' )
     ),
     'dark_fg_inverted' => array(
       'label' => __( 'Dark Foreground Inverted', 'fictioneer' ),
