@@ -691,6 +691,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Show excerpt on password-protected posts', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_hide_large_card_chapter_list' => array(
+      'name' => 'fictioneer_hide_large_card_chapter_list',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(

@@ -129,7 +129,7 @@ $thumbnail_args = array(
         );
       ?>
 
-      <?php if ( $chapter_count > 0 ): ?>
+      <?php if ( $chapter_count > 0 && ! get_option( 'fictioneer_hide_large_card_chapter_list' ) ) : ?>
         <ol class="card__link-list cell-list">
           <?php
             // Prepare

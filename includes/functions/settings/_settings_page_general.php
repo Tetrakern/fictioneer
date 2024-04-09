@@ -242,6 +242,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_large_card_chapter_list',
+                    __( 'Less informative but also less cluttered.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_count_characters_as_words',
                     __( 'For logographic writing systems. Use the word count multiplier to better approximate the number.', 'fictioneer' )
                   );
