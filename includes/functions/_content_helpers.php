@@ -348,7 +348,7 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
     $short = '';
 
     if ( $t / 86400 >= 1 ) {
-      $d = floor( ( $t ) / 86400 );
+      $d = floor( $t / 86400 );
       $h = floor( ( $t%86400 ) / 3600 );
 
       $long = sprintf(
