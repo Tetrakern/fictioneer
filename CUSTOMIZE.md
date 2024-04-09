@@ -1,12 +1,12 @@
 # Customization Snippets
 
-This is a collection of code snippets for previously solved customization issues. They are supposed to go into your child theme’s **functions.php** or a subsequently included file (replace "child_" and "x.x.x" with your child theme prefix and version respectively). Putting them into the main theme will cause them to be deleted when you update. Also assume each snippet requires the latest version of Fictioneer.
+This is a collection of code snippets for previously solved customization issues. They are supposed to go into your child theme’s **functions.php** or a subsequently included file (replace "child_" and "x.x.x" with your child theme prefix and version respectively). Putting them into the main theme would work, but will cause them to be deleted when you update. Also assume each snippet requires the latest version of Fictioneer.
 
 For general information on theme and style customization, please refer to the [installation guide](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#how-to-customize-the-fictioneer-theme).
 
 ## Add a secondary chapter title
 
-Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/23). Maybe you need a secondary chapter title to fulfill some arbitrary naming scheme; you do you. While not encouraged since this adds at least one new database row per chapter (plus another for each revision if you have not turned that off), which can eventually slow down your site, this can be achieved by making use of an already existing meta field. Of course, you could also add a new one with more custom code.
+Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/23). Maybe you need a secondary chapter title to fulfill some arbitrary naming scheme; you do you. While not encouraged since this adds at least one new database row per chapter (plus another for each revision if you have not turned that off), which bears the danger of slowing down your site, this can be achieved by making use of an already existing meta field. Of course, you could also add a new one with more custom code.
 
 First, check the **Enabled advanced meta fields** option under **Fictioneer > General > Compatibility**. This will, among other things, reveal the **Short Title** meta field in the chapter sidebar. This field is not actually used by the theme and only for customizations, such as this one. Just ignore the name if it does not fit, or go through the trouble of changing it.
 
@@ -169,7 +169,7 @@ add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of
 
 ## Limit tags to 10
 
-Or any other positive number for that matter. To prevent authors from entering a whole thesis of tags like a lunatic. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. Maybe that will teach them a lesson. But anything else needs to interfere with the Gutenberg editor and is difficult to achieve.
+Or any other positive number for that matter. To prevent authors from entering a whole f\*\*\*ucking thesis of tags. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. But maybe that will teach them a lesson. Anything better needs to interfere with the Gutenberg editor and is difficult to achieve.
 
 **References**
 * Action: [save_post](https://developer.wordpress.org/reference/hooks/save_post/)
@@ -206,7 +206,7 @@ add_action( 'save_post', 'child_limit_tags_per_post', 99 ); // Executed late
 
 ## Change chapter formatting defaults
 
-The formatting of chapters is left to the reader, as it should be. Customizing the formatting to your preferences and needs can greatly enhance the reading experience. However, you can alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
+The formatting of chapters is left to the visitor. Because customizing the formatting to your preferences and needs can greatly enhance the reading experience. However, you can at least alter the defaults via a [filter](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-).
 
 **References**
 * Filter: [fictioneer_filter_chapter_default_formatting](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-)
@@ -247,7 +247,7 @@ add_filter( 'fictioneer_filter_chapter_default_formatting', 'child_update_chapte
 
 ## Show scheduled chapters on story pages
 
-If the "Next Chapter" note above the chapter list is not enough and you want to show scheduled (future) chapters in the list as well, you can alter the query via filter. You can also include other post statuses, although the sense of that is dubious. Note that this will not alter the [API responses](https://github.com/Tetrakern/fictioneer/blob/main/API.md), because they needs to be uniform across all sites.
+If the "Next Chapter" note above the chapter list is not enough and you want to show scheduled (future) chapters in the list as well, you can alter the query via filter. You can also include other post statuses, although the sense of that is dubious. Note that this will not alter the [API responses](https://github.com/Tetrakern/fictioneer/blob/main/API.md), because they must be uniform across all sites.
 
 **References**
 * Filter: [fictioneer_filter_story_chapter_posts_query](FILTERS.md#apply_filters-fictioneer_filter_story_chapter_posts_query-query_args-story_id-chapter_ids-)
@@ -284,9 +284,9 @@ function child_remove_scheduled_chapter() {
 add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added late, so you need to be even later
 ```
 
-## Story page cover image on the right side
+## Floating story page cover on the right
 
-If you would rather have the story page cover image floating on the right, as demonstrated in the screenshot. Note that this solution disables the option to hide cover images on story pages globally. You can only choose not to have none.
+If you would rather have the story page cover image floating on the right, as demonstrated in the screenshot. Note that this solution disables the option to hide cover images on story pages. You can only choose to have none.
 
 **References**
 * Action: [fictioneer_story_after_header](ACTIONS.md#do_action-fictioneer_story_after_header-args-)
@@ -340,7 +340,7 @@ function child_disable_story_page_cover( $value, $object_id, $meta_key ) {
 add_filter( 'get_post_metadata', 'child_disable_story_page_cover', 10, 3 );
 ```
 
-Add this to your CSS file or in **Appearance > Customize > Additional CSS**.
+Add this to your CSS file or in **Appearance > Customize > Additional CSS**. Adjust as needed.
 
 ```css
 .story__tags-and-warnings,
