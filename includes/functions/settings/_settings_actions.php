@@ -454,6 +454,9 @@ function fictioneer_tools_purge_theme_caches() {
     }
   }
 
+  // Cache busting string
+  fictioneer_regenerate_cache_bust();
+
   // Log
   fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );
 
