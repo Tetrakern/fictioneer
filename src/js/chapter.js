@@ -1227,18 +1227,18 @@ function fcn_readingProgress() {
 
   // If end of chapter has been reached and the user is logged in...
   if (p >= 100 && !fcn_chapterCheckmarkUpdated && fcn_isLoggedIn) {
-    const chapterList = _$$$('story-chapter-list');
+    const storyId = _$$$('inline-storage')?.dataset.storyId;
 
     // Only do this once per page load
     fcn_chapterCheckmarkUpdated = true;
 
     // Make sure necessary data is available
-    if (!chapterList || typeof fcn_toggleCheckmark != 'function') {
+    if (!storyId || typeof fcn_toggleCheckmark != 'function') {
       return;
     }
 
     // Mark chapter as read
-    fcn_toggleCheckmark(chapterList.dataset.storyId, 'progress', parseInt(fcn_inlineStorage.postId), null, 'set');
+    fcn_toggleCheckmark(storyId, 'progress', parseInt(fcn_inlineStorage.postId), null, 'set');
   }
 }
 
