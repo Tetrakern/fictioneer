@@ -1972,8 +1972,12 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
   /**
    * Returns array of font items
    *
+   * Note: The css string can contain quotes in case of multiple words,
+   * such as "Roboto Mono".
+   *
    * @since 5.1.1
    * @since 5.10.0 - Refactor for font manager.
+   * @since 5.12.5 - Add theme mod for chapter body font.
    *
    * @return array Font items (css, name, and alt).
    */
@@ -1989,6 +1993,7 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
 
     // Setup
     $custom_fonts = get_option( 'fictioneer_chapter_fonts' );
+    $primary_chapter_font = get_theme_mod( 'chapter_chapter_body_font_family_value', 'default' );
     $fonts = array(
       array( 'css' => fictioneer_font_family_value( FICTIONEER_PRIMARY_FONT_CSS ), 'name' => FICTIONEER_PRIMARY_FONT_NAME ),
       array( 'css' => '', 'name' => _x( 'System Font', 'Font name.', 'fictioneer' ) )
@@ -2001,7 +2006,14 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
         $custom_font['name'] !== FICTIONEER_PRIMARY_FONT_NAME &&
         $custom_font['css'] !== FICTIONEER_PRIMARY_FONT_CSS
       ) {
-        $fonts[] = $custom_font;
+        if (
+          $primary_chapter_font !== 'default' &&
+          strpos( $custom_font['css'], $primary_chapter_font )
+        ) {
+          array_unshift( $fonts, $custom_font );
+        } else {
+          $fonts[] = $custom_font;
+        }
       }
     }
 

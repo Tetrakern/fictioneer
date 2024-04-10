@@ -2312,6 +2312,28 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
     )
   );
 
+  // Chapter body font
+  $manager->add_setting(
+    'chapter_chapter_body_font_family_value',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $manager->add_control(
+    'chapter_chapter_body_font_family_value',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'fictioneer_fonts',
+      'label' => __( 'Chapter Body Font', 'fictioneer' ),
+      'description' => __( 'Pre-selected font used in chapters. Defaults to primary font.', 'fictioneer' ),
+      'choices' => $font_sub_options
+    )
+  );
+
   // Card title font
   $manager->add_setting(
     'card_title_font_family_value',
