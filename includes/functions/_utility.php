@@ -272,7 +272,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       $meta_cache = get_post_meta( $story_id, 'fictioneer_story_data_collection', true );
     }
 
-    if ( $meta_cache && ( $meta_cache['last_modified'] ?? 0) >= get_the_modified_time( 'U', $story_id ) ) {
+    if ( $meta_cache && ( $meta_cache['last_modified'] ?? 0 ) >= get_the_modified_time( 'U', $story_id ) ) {
       // Return cached data without refreshing the comment count
       if ( ! $show_comments ) {
         return $meta_cache;
@@ -399,6 +399,9 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     if ( FICTIONEER_ENABLE_STORY_DATA_META_CACHE ) {
       update_post_meta( $story_id, 'fictioneer_story_data_collection', $result );
     }
+
+    // Update story total word count
+    update_post_meta( $story_id, 'fictioneer_story_total_word_count', $word_count );
 
     // Done
     return $result;
