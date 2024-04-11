@@ -488,18 +488,25 @@ function fictioneer_sort_order_filter_interface( $args ) {
   // Order menu options
   $orderby_menu = array(
     'modified' => array(
-      'label' => __( 'Updated', 'fictioneer' ),
+      'label' => _x( 'Updated', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'modified' ), $current_url ) . '#sof'
     ),
     'date' => array(
-      'label' => __( 'Published', 'fictioneer' ),
+      'label' => _x( 'Published', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'date' ), $current_url ) . '#sof'
     ),
     'title' => array(
-      'label' => __( 'By Title', 'fictioneer' ),
+      'label' => _x( 'Title', 'Sort and filter option.', 'fictioneer' ),
       'url' => add_query_arg( array( 'orderby' => 'title' ), $current_url ) . '#sof'
     )
   );
+
+  if ( ! is_archive() ) {
+    $orderby_menu['words'] = array(
+      'label' => _x( 'Words', 'Sort and filter option.', 'fictioneer' ),
+      'url' => add_query_arg( array( 'orderby' => 'words' ), $current_url ) . '#sof'
+    );
+  }
 
   // Filter orderby options
   $orderby_menu = apply_filters( 'fictioneer_filter_sof_orderby_options', $orderby_menu, $current_url, $args );

@@ -71,6 +71,12 @@ foreach ( $meta_query_stack as $part ) {
   $query_args['meta_query'][] = $part;
 }
 
+// Order by words?
+if ( $orderby === 'words' ) {
+  $query_args['orderby'] = 'meta_value_num modified';
+  $query_args['meta_key'] = 'fictioneer_story_total_word_count';
+}
+
 // Order by latest chapter update timestamp?
 if ( FICTIONEER_ORDER_STORIES_BY_LATEST_CHAPTER && $orderby === 'modified' ) {
   $query_args['orderby'] = 'meta_value modified';

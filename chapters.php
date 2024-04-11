@@ -70,6 +70,12 @@ foreach ( $meta_query_stack as $part ) {
   $query_args['meta_query'][] = $part;
 }
 
+// Order by words?
+if ( $orderby === 'words' ) {
+  $query_args['orderby'] = 'meta_value_num modified';
+  $query_args['meta_key'] = '_word_count';
+}
+
 // Append date query (if any)
 $query_args = fictioneer_append_date_query( $query_args, $ago, $orderby );
 

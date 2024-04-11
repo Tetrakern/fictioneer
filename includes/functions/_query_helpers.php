@@ -14,7 +14,7 @@
  */
 
 function fictioneer_allowed_orderby() {
-  $defaults = ['modified', 'date', 'title', 'rand', 'name', 'ID', 'comment_count', 'type', 'post__in', 'author'];
+  $defaults = ['modified', 'date', 'title', 'rand', 'name', 'ID', 'comment_count', 'type', 'post__in', 'author', 'words'];
 
   return apply_filters( 'fictioneer_filter_allowed_orderby', $defaults );
 }
