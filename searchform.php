@@ -34,6 +34,12 @@ if ( $show_advanced ) {
   );
   $story_status = reset( $story_status ) ?: 0;
 
+  $age_rating = array_intersect(
+    [ $_GET['age_rating'] ?? 0 ],
+    ['Everyone', 'Teen', 'Mature', 'Adult']
+  );
+  $age_rating = reset( $age_rating ) ?: 0;
+
   $all_authors = get_users(
     array(
       'has_published_posts' => ['fcn_story', 'fcn_chapter', 'fcn_recommendation', 'post']
@@ -64,7 +70,7 @@ if ( $show_advanced ) {
   $queried_ex_warnings = sanitize_text_field( $_GET['ex_warnings'] ?? 0 );
   $queried_ex_tags = sanitize_text_field( $_GET['ex_tags'] ?? 0 );
 
-  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status;
+  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status || $age_rating;
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {
@@ -191,6 +197,13 @@ if ( $show_advanced ) {
           printf(
             _x( '<b>Order:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
             $translations[ $order ] ?? __( 'Invalid Value', 'fictioneer' )
+          );
+        ?></span>
+
+        <span class="search-form__current-status"><?php
+          printf(
+            _x( '<b>Age Rating:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
+            $age_rating ? fcntr( $age_rating ) : _x( 'Any', 'Advanced search option.', 'fictioneer' )
           );
         ?></span>
 

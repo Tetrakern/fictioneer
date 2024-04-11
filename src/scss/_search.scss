@@ -97,16 +97,7 @@
       display: flex;
       align-items: flex-start;
       gap: 1px;
-      flex: 1 0 100%;
-
-      @include bp(480px) {
-        flex: 1 1 40%;
-      }
-
-      @include bp(640px) {
-        flex: 0 1 auto;
-        width: fit-content;
-      }
+      flex: 1 1 200px;
     }
 
     &-title {

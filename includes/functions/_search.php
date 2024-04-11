@@ -228,6 +228,12 @@ function fictioneer_extend_search_query( $query ) {
   );
   $story_status = reset( $story_status ) ?: 0;
 
+  $age_rating = array_intersect(
+    [ $_GET['age_rating'] ?? 0 ],
+    ['Everyone', 'Teen', 'Mature', 'Adult']
+  );
+  $age_rating = reset( $age_rating ) ?: 0;
+
   // Exclude pages if necessary
   if ( $is_any_post || empty( $_GET['post_type'] ) ) {
     $query->set( 'post_type', ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] );
@@ -400,6 +406,22 @@ function fictioneer_extend_search_query( $query ) {
       array(
         'key' => 'fictioneer_story_status',
         'value' => $story_status,
+        'compare' => '='
+      )
+    );
+  }
+
+  if ( $age_rating ) {
+    $meta_query_stack[] = array(
+      'relation' => 'OR',
+      array(
+        'key' => 'fictioneer_story_rating',
+        'value' => $age_rating,
+        'compare' => '='
+      ),
+      array(
+        'key' => 'fictioneer_chapter_rating',
+        'value' => $age_rating,
         'compare' => '='
       )
     );

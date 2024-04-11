@@ -633,11 +633,41 @@ add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_inte
 // =============================================================================
 
 /**
+ * Adds age rating select to advanced search form
+ *
+ * @since 5.12.5
+ *
+ * @param array $args  Arguments passed to the search form.
+ */
+
+function fictioneer_add_search_for_age_rating( $args ) {
+  $age_rating = array_intersect(
+    [ $_GET['age_rating'] ?? 0 ],
+    ['Everyone', 'Teen', 'Mature', 'Adult']
+  );
+  $age_rating = reset( $age_rating ) ?: 0;
+
+  // Start HTML ---> ?>
+  <div class="search-form__select-wrapper select-wrapper">
+    <div class="search-form__select-title"><?php _ex( 'Age Rating', 'Advanced search heading.', 'fictioneer' ); ?></div>
+    <select name="age_rating" class="search-form__select" autocomplete="off" data-default="Any">
+      <option value="Any" <?php echo ! $age_rating ? 'selected' : ''; ?>><?php _ex( 'Any', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="Everyone" <?php echo $age_rating === 'Everyone' ? 'selected' : ''; ?>><?php echo fcntr( 'Everyone' ); ?></option>
+      <option value="Teen" <?php echo $age_rating === 'Teen' ? 'selected' : ''; ?>><?php echo fcntr( 'Teen' ); ?></option>
+      <option value="Mature" <?php echo $age_rating === 'Mature' ? 'selected' : ''; ?>><?php echo fcntr( 'Mature' ); ?></option>
+      <option value="Adult" <?php echo $age_rating === 'Adult' ? 'selected' : ''; ?>><?php echo fcntr( 'Adult' ); ?></option>
+    </select>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_age_rating' );
+
+/**
  * Adds story status select to advanced search form
  *
  * @since 5.11.0
  *
- * @param array $args Arguments passed to the search form.
+ * @param array $args  Arguments passed to the search form.
  */
 
 function fictioneer_add_search_for_status( $args ) {
