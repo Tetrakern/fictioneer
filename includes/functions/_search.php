@@ -393,14 +393,28 @@ function fictioneer_extend_search_query( $query ) {
   }
 
   // Meta query
+  $meta_query_stack = [];
+
   if ( $story_status ) {
-    $meta_query = array(
+    $meta_query_stack[] = array(
       array(
         'key' => 'fictioneer_story_status',
         'value' => $story_status,
         'compare' => '='
       )
     );
+  }
+
+  if ( $meta_query_stack ) {
+    $meta_query = [];
+
+    if ( count( $meta_query_stack ) > 1 ) {
+      $meta_query['relation'] = 'AND';
+    }
+
+    foreach ( $meta_query_stack as $part ) {
+      $meta_query[] = $part;
+    }
 
     $query->set( 'meta_query', $meta_query );
   }
