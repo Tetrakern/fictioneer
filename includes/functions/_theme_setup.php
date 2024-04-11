@@ -559,7 +559,6 @@ function fictioneer_add_classes_to_admin_body( $classes ) {
 }
 add_filter( 'admin_body_class', 'fictioneer_add_classes_to_admin_body' );
 
-
 // =============================================================================
 // CACHE BUSTING
 // =============================================================================
