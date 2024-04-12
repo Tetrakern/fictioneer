@@ -192,8 +192,17 @@ function fcn_setupFollowsHTML() {
   .then(response => {
     // Any Follows HTML retrieved?
     if (response.data.html) {
-      _$$$('follow-menu-scroll').innerHTML = response.data.html;
-      _$$$('mobile-menu-follows-list').innerHTML = response.data.html;
+      const menuTarget = _$$$('follow-menu-scroll');
+
+      if (menuTarget) {
+        menuTarget.innerHTML = response.data.html;
+      }
+
+      const mobileMenuTarget = _$$$('mobile-menu-follows-list');
+
+      if (mobileMenuTarget) {
+        mobileMenuTarget.innerHTML = response.data.html;
+      }
 
       // Use opportunity to fix broken login state
       if (fcn_getUserData().loggedIn === false) {
@@ -211,8 +220,8 @@ function fcn_setupFollowsHTML() {
     }
 
     // Remove broken lists from view
-    _$$$('follow-menu-scroll').remove();
-    _$$$('mobile-menu-follows-list').remove();
+    _$$$('follow-menu-scroll')?.remove();
+    _$$$('mobile-menu-follows-list')?.remove();
   })
   .then(() => {
     // Regardless of success
