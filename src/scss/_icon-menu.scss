@@ -30,6 +30,18 @@
     }
   }
 
+  > .menu-item {
+    @include bp(desktop) {
+      border-radius: var(--layout-border-radius-small);
+    }
+
+    &.menu-item-has-children {
+      @include bp(desktop) {
+        border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
+      }
+    }
+  }
+
   .user-profile-image {
     border-radius: 50%;
     height: 1.2em;
