@@ -225,7 +225,7 @@
       background: var(--navigation-item-background-hover);
     }
 
-    &.menu-item-has-children {
+    &.menu-item-has-children:not(.menu-item-icon) {
       @include bp(desktop) {
         > a {
           &::after {
@@ -236,7 +236,7 @@
       }
     }
 
-    :is(a, label) {
+    :where(a, label):not(._no-menu-item-style) {
       position: relative;
       display: flex;
       align-items: center;

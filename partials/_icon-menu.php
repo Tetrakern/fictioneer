@@ -30,23 +30,24 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
 
 ?>
 
-<div class="icon-menu">
+<div class="icon-menu" data-nosnippet>
   <?php if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) : ?>
-    <label
-      for="modal-login-toggle"
-      title="<?php esc_attr_e( 'Login', 'fictioneer' ); ?>"
-      class="subscriber-login icon-menu__item hide-if-logged-in"
-      tabindex="0"
-      aria-label="<?php esc_attr_e( 'Open login modal', 'fictioneer' ); ?>"
-    ><?php fictioneer_icon( 'fa-login' ); ?></label>
+    <div class="menu-item menu-item-icon subscriber-login hide-if-logged-in">
+      <label
+        for="modal-login-toggle"
+        title="<?php esc_attr_e( 'Login', 'fictioneer' ); ?>"
+        tabindex="0"
+        aria-label="<?php esc_attr_e( 'Open login modal', 'fictioneer' ); ?>"
+      ><?php fictioneer_icon( 'fa-login' ); ?></label>
+    </div>
   <?php endif; ?>
 
   <?php if ( fictioneer_show_auth_content() ) : ?>
-    <div class="icon-menu__menu hide-if-logged-out">
+    <div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out">
       <a
         href="<?php echo esc_url( $profile_link ); ?>"
         title="<?php esc_attr_e( 'User Profile', 'fictioneer' ); ?>"
-        class="subscriber-profile icon-menu__item _with-submenu"
+        class="subscriber-profile"
         rel="noopener noreferrer nofollow"
         aria-label="<?php esc_attr_e( 'Link to user profile', 'fictioneer' ); ?>"
       ><i class="fa-solid fa-circle-user user-icon"></i></a>
@@ -55,27 +56,29 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
   <?php endif; ?>
 
   <?php if ( ! empty( $bookmarks_link ) ) : ?>
-    <a
-      href="<?php echo esc_url( $bookmarks_link ); ?>"
-      title="<?php esc_attr_e( 'Bookmarks Page', 'fictioneer' ); ?>"
-      aria-label="<?php esc_attr_e( 'Link to bookmarks page', 'fictioneer' ); ?>"
-      class="icon-menu__item hide-if-logged-in hidden icon-menu-bookmarks"
-      rel="noopener noreferrer nofollow"
-    ><i class="fa-solid fa-bookmark"></i></a>
+    <div class="menu-item menu-item-icon icon-menu-bookmarks hidden hide-if-logged-in">
+      <a
+        href="<?php echo esc_url( $bookmarks_link ); ?>"
+        title="<?php esc_attr_e( 'Bookmarks Page', 'fictioneer' ); ?>"
+        aria-label="<?php esc_attr_e( 'Link to bookmarks page', 'fictioneer' ); ?>"
+        rel="noopener noreferrer nofollow"
+      ><i class="fa-solid fa-bookmark"></i></a>
+    </div>
   <?php endif; ?>
 
   <?php if ( ! empty( $discord_invite_link ) ) : ?>
-    <a
-      href="<?php echo esc_url( $discord_invite_link ); ?>"
-      title="<?php esc_attr_e( 'Join Discord', 'fictioneer' ); ?>"
-      aria-label="<?php esc_attr_e( 'Discord invite link', 'fictioneer' ); ?>"
-      class="icon-menu__item icon-menu__item--discord hide-if-logged-in"
-      rel="noopener noreferrer nofollow"
-    ><i class="fa-brands fa-discord"></i></a>
+    <div class="menu-item menu-item-icon icon-menu-discord hide-if-logged-in">
+      <a
+        href="<?php echo esc_url( $discord_invite_link ); ?>"
+        title="<?php esc_attr_e( 'Join Discord', 'fictioneer' ); ?>"
+        aria-label="<?php esc_attr_e( 'Discord invite link', 'fictioneer' ); ?>"
+        rel="noopener noreferrer nofollow"
+      ><i class="fa-brands fa-discord"></i></a>
+    </div>
   <?php endif; ?>
 
   <?php if ( $args['location'] == 'in-navigation' && get_option( 'fictioneer_enable_follows' ) && fictioneer_show_auth_content() ) : ?>
-    <div class="icon-menu__menu hide-if-logged-out">
+    <div class="menu-item menu-item-icon menu-item-has-children hide-if-logged-out">
 
       <button
         id="follow-menu-button"
@@ -100,48 +103,53 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
   <?php endif; ?>
 
   <?php if ( FICTIONEER_SHOW_SEARCH_IN_MENUS ) : ?>
-    <a
-      href="<?php echo esc_url( home_url( '/?s=' ) ); ?>"
-      title="<?php esc_attr_e( 'Search Page', 'fictioneer' ); ?>"
-      class="icon-menu__item hide-in-mobile-menu"
-      rel="nofollow"
-      aria-label="<?php esc_attr_e( 'Link to search page', 'fictioneer' ); ?>"
-    ><i class="fa-solid fa-magnifying-glass"></i></a>
+    <div class="menu-item menu-item-icon hide-in-mobile-menu">
+      <a
+        href="<?php echo esc_url( home_url( '/?s=' ) ); ?>"
+        title="<?php esc_attr_e( 'Search Page', 'fictioneer' ); ?>"
+        rel="nofollow"
+        aria-label="<?php esc_attr_e( 'Link to search page', 'fictioneer' ); ?>"
+      ><i class="fa-solid fa-magnifying-glass"></i></a>
+    </div>
   <?php endif; ?>
 
-  <button
-    class="icon-menu__item toggle-light-mode"
-    title="<?php esc_attr_e( 'Toggle Dark/Light Mode', 'fictioneer' ); ?>"
-    role="checkbox"
-    aria-checked="false"
-    aria-label="<?php esc_attr_e( 'Toggle between dark mode and light mode', 'fictioneer' ); ?>"
-  ><?php fictioneer_icon( 'fa-sun', 'only-darkmode' ); fictioneer_icon( 'fa-moon', 'only-lightmode' ); ?></button>
+  <div class="menu-item menu-item-icon toggle-light-mode">
+    <button
+      title="<?php esc_attr_e( 'Toggle Dark/Light Mode', 'fictioneer' ); ?>"
+      role="checkbox"
+      aria-checked="false"
+      aria-label="<?php esc_attr_e( 'Toggle between dark mode and light mode', 'fictioneer' ); ?>"
+    ><?php fictioneer_icon( 'fa-sun', 'only-darkmode' ); fictioneer_icon( 'fa-moon', 'only-lightmode' ); ?></button>
+  </div>
 
-  <label
-    for="modal-site-settings-toggle"
-    title="<?php esc_attr_e( 'Site Settings', 'fictioneer' ); ?>"
-    class="site-settings icon-menu__item"
-    tabindex="0"
-    aria-label="<?php esc_attr_e( 'Open site settings modal', 'fictioneer' ); ?>"
-  ><?php fictioneer_icon( 'fa-tools' ); ?></label>
+  <div class="menu-item menu-item-icon site-setting">
+    <label
+      for="modal-site-settings-toggle"
+      title="<?php esc_attr_e( 'Site Settings', 'fictioneer' ); ?>"
+      tabindex="0"
+      aria-label="<?php esc_attr_e( 'Open site settings modal', 'fictioneer' ); ?>"
+    ><?php fictioneer_icon( 'fa-tools' ); ?></label>
+  </div>
 
   <?php if ( get_option( 'fictioneer_enable_theme_rss' ) ) : ?>
-    <a
-      href="<?php echo esc_url( home_url( 'feed' ) ); ?>"
-      title="<?php esc_attr_e( 'Site RSS', 'fictioneer' ); ?>"
-      class="rss-main-link icon-menu__item"
-      aria-label="<?php esc_attr_e( 'Link to site RSS feed', 'fictioneer' ); ?>"
-    ><?php fictioneer_icon( 'fa-rss' ); ?></a>
+    <div class="menu-item menu-item-icon rss-main-link">
+      <a
+        href="<?php echo esc_url( home_url( 'feed' ) ); ?>"
+        title="<?php esc_attr_e( 'Site RSS', 'fictioneer' ); ?>"
+        aria-label="<?php esc_attr_e( 'Link to site RSS feed', 'fictioneer' ); ?>"
+      ><?php fictioneer_icon( 'fa-rss' ); ?></a>
+    </div>
   <?php endif; ?>
 
   <?php if ( fictioneer_show_auth_content() ) : ?>
-    <a
-      href="<?php echo fictioneer_get_logout_url(); ?>"
-      title="<?php esc_attr_e( 'Logout', 'fictioneer' ); ?>"
-      data-click="logout"
-      class="icon-menu__item button--logout hide-if-logged-out"
-      rel="noopener noreferrer nofollow"
-      aria-label="<?php esc_attr_e( 'Click to log out', 'fictioneer' ); ?>"
-    ><?php fictioneer_icon( 'fa-logout' ); ?></a>
+    <div class="menu-item menu-item-icon hide-if-logged-out">
+      <a
+        href="<?php echo fictioneer_get_logout_url(); ?>"
+        title="<?php esc_attr_e( 'Logout', 'fictioneer' ); ?>"
+        data-click="logout"
+        rel="noopener noreferrer nofollow"
+        aria-label="<?php esc_attr_e( 'Click to log out', 'fictioneer' ); ?>"
+      ><?php fictioneer_icon( 'fa-logout' ); ?></a>
+    </div>
   <?php endif; ?>
 </div>

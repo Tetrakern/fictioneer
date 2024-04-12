@@ -147,7 +147,7 @@ body:not(.mobile-menu-open) {
     flex-wrap: wrap;
     margin: -12px 0 0 -8px;
 
-    &__item {
+    .menu-item :is(a, label, button) {
       font-size: 16px;
       padding: 10px;
     }
