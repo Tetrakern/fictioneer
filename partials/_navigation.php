@@ -28,7 +28,7 @@ $mobile_nav_style = get_theme_mod( 'mobile_nav_style', 'overflow' );
 $tag = $args['tag'] ?? 'div';
 $classes = [];
 
-if ( $mobile_nav_style === 'overflow' || $header_style === 'wide' ) {
+if ( $mobile_nav_style === 'collapse' || $header_style === 'wide' ) {
   $classes[] = '_collapse-on-mobile';
 }
 
