@@ -1067,6 +1067,18 @@ Instead of just uppercasing the string, which would make it uppercase everywhere
 
 ```
 
+#### Dynamic Main Container Offset
+
+You can add an offset to the main container in the Customizer, but that one is static. Maybe you need one that changes with the width of the site or something? There are many ways to achieve this, but you probably want to go with a `clamp()` function. To spare you the high school math, you can use an [online tool to calculate it](https://utopia.fyi/clamp/calculator/). Assign the result to the `--main-offset` custom property in a deeper scope than the root.
+
+```css
+/* Example: This interpolates from 32px at 375px width and 48px at 768px width. */
+
+body {
+  --main-offset: clamp(32px, 16.7328px + 4.0712vi, 48px);
+}
+```
+
 #### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
