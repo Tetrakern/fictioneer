@@ -11,7 +11,7 @@
     --focus-offset: 2px;
     float: right;
     max-width: get_clamp(100, 200, 375, 768);
-    margin: 0 0 get_clamp(10, 48, 375, $full-width) get_clamp(24, 48, 375, $full-width);
+    margin: 0 0 get_clamp(10, 48, 375, 768) get_clamp(24, 48, 375, 768);
 
     :is(a, img) {
       display: block;

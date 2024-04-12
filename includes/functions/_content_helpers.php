@@ -578,13 +578,18 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    * @since 5.9.4 - Removed output buffer.
    *
    * @param array $story  Collection of story data.
+   * @param array $args   Optional. Additional arguments.
    *
    * @return string HTML for the thumbnail.
    */
 
-  function fictioneer_get_story_page_cover( $story ) {
+  function fictioneer_get_story_page_cover( $story, $args = [] ) {
+    // Setup
+    $classes = $args['classes'] ?? '';
+
+    // Build and return
     return sprintf(
-      '<figure class="story__thumbnail"><a href="%s" %s>%s<div id="ribbon-read" class="story__thumbnail-ribbon hidden"><div class="ribbon">%s</div></div></a></figure>',
+      '<figure class="story__thumbnail ' . $classes . '"><a href="%s" %s>%s<div id="ribbon-read" class="story__thumbnail-ribbon hidden"><div class="ribbon">%s</div></div></a></figure>',
       get_the_post_thumbnail_url( $story['id'], 'full' ),
       fictioneer_get_lightbox_attribute(),
       get_the_post_thumbnail( $story['id'], array( 200, 300 ), array(

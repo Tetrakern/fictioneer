@@ -142,12 +142,29 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 
   &__thumbnail {
     --focus-offset: 2px;
-    grid-area: 1 / 1 / 4 / 2;
-    position: relative;
-    height: var(--this-img-height);
 
-    @include bp($header_breakpoint) {
+    &:not(._in-content) {
       grid-area: 1 / 1 / 4 / 2;
+      position: relative;
+      height: var(--this-img-height);
+
+      @include bp($header_breakpoint) {
+        grid-area: 1 / 1 / 4 / 2;
+      }
+    }
+
+    &._in-content {
+      max-width: get_clamp(100, 200, 375, 768);
+    }
+
+    &._float-right {
+      float: right;
+      margin: 0 0 get_clamp(10, 48, 375, 768) get_clamp(24, 48, 375, 768);
+    }
+
+    &._float-left {
+      float: left;
+      margin: 0 get_clamp(24, 48, 375, 768) get_clamp(10, 48, 375, 768) 0;
     }
 
     &-ribbon {
@@ -210,10 +227,12 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
   }
 
   &__tags-and-warnings {
+    clear: both;
     margin-top: 2rem;
   }
 
   &__after-summary {
+    clear: both;
     display: flex;
     gap: 0 24px;
     align-items: center;
@@ -247,6 +266,7 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
   }
 
   &__tabs {
+    clear: both;
     margin: 3rem 0 1.5rem;
 
     &:not([data-current="chapters"]) .story__toggle {

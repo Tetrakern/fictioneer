@@ -43,6 +43,7 @@ get_header( null, $header_args );
         $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
         $this_breadcrumb = [ $story['title'], get_the_permalink() ];
         $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post->ID );
+        $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
         // Flags
         $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
@@ -54,7 +55,7 @@ get_header( null, $header_args );
         );
       ?>
 
-      <article id="post-<?php the_ID(); ?>" class="story__article <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>" data-id="<?php the_ID(); ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
+      <article id="post-<?php echo $story_id; ?>" class="story__article <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>" data-id="<?php echo $story_id; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
 
         <?php
           // Render article header
@@ -73,6 +74,17 @@ get_header( null, $header_args );
             if ( get_option( 'fictioneer_show_protected_excerpt' ) ) {
               echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
             }
+          }
+
+          if (
+            ! in_array( $cover_position, ['top-left-overflow', 'hide'] ) &&
+            has_post_thumbnail( $story_id ) &&
+            ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true )
+          ) {
+            echo fictioneer_get_story_page_cover(
+              $hook_args['story_data'],
+              array( 'classes' => '_in-content _' . $cover_position )
+            );
           }
 
           the_content();
