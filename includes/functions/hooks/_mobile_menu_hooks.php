@@ -28,6 +28,10 @@ function fictioneer_output_mobile_menu( $args ) {
     $classes[] = '_advanced-mobile-menu';
   }
 
+  if ( $style === 'right_slide_in' ) {
+    $classes[] = '_open-right';
+  }
+
   // Start HTML ---> ?>
   <input id="mobile-menu-toggle" type="checkbox" autocomplete="off" tabindex="-1" hidden>
   <div class="mobile-menu <?php echo implode( ' ', $classes ); ?>">
@@ -55,7 +59,7 @@ add_action( 'fictioneer_body', 'fictioneer_output_mobile_menu', 20 );
  */
 
 function fictioneer_mobile_user_icon_menu() {
-  get_template_part( 'partials/_icon-menu', null, ['location' => 'in-mobile-menu'] );
+  get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-mobile-menu' ) );
 }
 add_action( 'fictioneer_mobile_menu_top', 'fictioneer_mobile_user_icon_menu', 10 );
 

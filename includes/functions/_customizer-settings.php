@@ -1533,7 +1533,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'description' => __( 'Choose the style for your mobile menu.', 'fictioneer' ),
       'choices' => array(
         'minimize_to_right' => _x( 'Minimize site to right (Default)', 'Customizer mobile menu style option.', 'fictioneer' ),
-        'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' )
+        'left_slide_in' => _x( 'Slide in from left', 'Customizer mobile menu style option.', 'fictioneer' ),
+        'right_slide_in' => _x( 'Slide in from right', 'Customizer mobile menu style option.', 'fictioneer' )
       )
     )
   );

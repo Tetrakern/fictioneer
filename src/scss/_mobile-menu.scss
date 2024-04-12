@@ -83,6 +83,11 @@ body:not(.mobile-menu-open) {
   }
 
   &:not(.advanced-mobile-menu) {
+    :is(.mobile-menu._open-right) {
+      right: 0;
+      left: unset;
+    }
+
     #site {
       &::before {
         inset: 0 0 -128px;
@@ -124,7 +129,7 @@ body:not(.mobile-menu-open) {
   overflow: auto;
   box-shadow: var(--mobile-menu-box-shadow);
   opacity: 0;
-  transition: left 0.3s, opacity 0.3s;
+  transition: left 0.3s, right 0.3s, opacity 0.3s;
 
   @media (hover: hover) and (pointer: fine) {
     scrollbar-width: none; // FF
@@ -141,6 +146,11 @@ body:not(.mobile-menu-open) {
     opacity: 1;
     box-shadow: var(--mobile-advanced-menu-site-box-shadow);
     transition: none;
+  }
+
+  &._open-right:not(._advanced-mobile-menu) {
+    right: -100%;
+    left: unset;
   }
 
   .icon-menu {
