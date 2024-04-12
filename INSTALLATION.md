@@ -1052,7 +1052,22 @@ A good starting point for masks is [haikai](https://app.haikei.app/), but add `p
 }
 ```
 
-### Move the Title/Logo
+#### Uppercase the Site Title
+
+Instead of just uppercasing the string, which would make it uppercase everywhere including search engine results, you can use a little bit of CSS to achieve this clean and proper. You will have to inspect your site to find the right selector, but it should be either of those: `header__title-link`, `top-header__link`, or `wide-header-identity__title-link`.
+
+```css
+/* Or use all three like a lazy person. */
+
+.header__title-link,
+.top-header__link,
+.wide-header-identity__title-link {
+  text-transform: uppercase;
+}
+
+```
+
+#### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
 
