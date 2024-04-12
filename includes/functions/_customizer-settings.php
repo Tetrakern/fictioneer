@@ -1368,10 +1368,11 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   );
 
   $header_styles = array(
-    'default' => _x( 'Default', 'Customizer header style option.', 'fictioneer' ),
+    'default' => _x( 'Default (Image)', 'Customizer header style option.', 'fictioneer' ),
+    'split' => _x( 'Split (Image)', 'Customizer header style option.', 'fictioneer' ),
+    'overlay' => _x( 'Overlay (Image)', 'Customizer header style option.', 'fictioneer' ),
     'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
-    'split' => _x( 'Split', 'Customizer header style option.', 'fictioneer' ),
-    'overlay' => _x( 'Overlay', 'Customizer header style option.', 'fictioneer' ),
+    'wide' => _x( 'Wide', 'Customizer header style option.', 'fictioneer' ),
     'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
   );
 
@@ -1382,7 +1383,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Header Style', 'fictioneer' ),
-      'description' => __( 'Choose the style for your header. This may affect or disable other settings.', 'fictioneer' ),
+      'description' => __( 'Choose the style for your header. This can affect or disable other settings.', 'fictioneer' ),
       'choices' => apply_filters( 'fictioneer_filter_customizer_header_style', $header_styles )
     )
   );

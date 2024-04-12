@@ -939,6 +939,10 @@ function fictioneer_build_customize_css( $context = null ) {
     $css .= fictioneer_get_customizer_css_snippet( 'header-style-top-split' );
   }
 
+  if ( $header_style === 'wide' ) {
+    $css .= fictioneer_get_customizer_css_snippet( 'header-style-wide' );
+  }
+
   // --- Page styles -----------------------------------------------------------
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'polygon-battered' ) {

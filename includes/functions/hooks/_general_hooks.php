@@ -276,9 +276,65 @@ if ( FICTIONEER_ENABLE_BROWSER_NOTES ) {
  */
 
 function fictioneer_navigation_bar( $args ) {
+  // Change tag if header style 'wide'
+  if ( get_theme_mod( 'header_style', 'default' ) === 'wide' ) {
+    $args['tag'] = 'header';
+  }
+
+  // Render partial
   get_template_part( 'partials/_navigation', null, $args );
 }
 add_action( 'fictioneer_site', 'fictioneer_navigation_bar', 10 );
+
+// =============================================================================
+// OUTPUT WIDE HEADER
+// =============================================================================
+
+/**
+ * Outputs site identity HTML for wide header
+ *
+ * @since 5.12.5
+ *
+ * @param int|null       $args['post_id']           Optional. Current post ID.
+ * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+ * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ */
+
+function fictioneer_wide_header_identity( $args ) {
+  // Abort if...
+  if ( get_theme_mod( 'header_style', 'default' ) !== 'wide' ) {
+    return;
+  }
+
+  // Setup
+  $title_tag = is_front_page() ? 'h1' : 'div';
+  $logo_tag = ( display_header_text() || ! is_front_page() ) ? 'div' : 'h1';
+
+  // Logo
+  if ( has_custom_logo() ) {
+    echo '<' . $logo_tag . ' class="wide-header-logo">' . get_custom_logo() . '</' . $logo_tag . '>';
+  }
+
+  // Title and tagline (if any)
+  if ( ! display_header_text() ) {
+    return;
+  }
+
+  $text_shadow = get_theme_mod( 'title_text_shadow', false ) ? '' : '_no-text-shadow';
+  $url = esc_url( home_url() );
+  $name = get_bloginfo( 'name' );
+  $tagline = get_bloginfo( 'description' );
+
+  echo "<div class='wide-header-identity {$text_shadow}'><{$title_tag} class='wide-header-identity__title'><a href='{$url}' class='wide-header-identity__title-link' rel='home'>{$name}</{$title_tag}></a>";
+
+  if ( $tagline ) {
+    echo "<div class='wide-header-identity__tagline'>{$tagline}</div>";
+  }
+
+  echo "</div>";
+}
+add_action( 'fictioneer_navigation_wrapper_start', 'fictioneer_wide_header_identity' );
 
 // =============================================================================
 // OUTPUT TOP HEADER

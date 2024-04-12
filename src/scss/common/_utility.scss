@@ -320,6 +320,7 @@ body:not(.is-editor):not(.is-admin) {
 html:not(.logged-in) body.logged-in .hide-if-logged-in,
 html:not(.logged-in) body:not(.logged-in) .hide-if-logged-out,
 .mobile-menu .hide-in-mobile-menu,
+.site .hide-outside-mobile-menu,
 .hidden,
 .inside-epub {
   display: none !important;

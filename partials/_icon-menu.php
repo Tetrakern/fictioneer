@@ -142,7 +142,7 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
   <?php endif; ?>
 
   <?php if ( fictioneer_show_auth_content() ) : ?>
-    <div class="menu-item menu-item-icon hide-if-logged-out">
+    <div class="menu-item menu-item-icon hide-if-logged-out hide-outside-mobile-menu">
       <a
         href="<?php echo fictioneer_get_logout_url(); ?>"
         title="<?php esc_attr_e( 'Logout', 'fictioneer' ); ?>"

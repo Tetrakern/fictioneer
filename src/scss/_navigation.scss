@@ -55,7 +55,7 @@
 }
 
 // Case below 1024px
-:root:not(.no-nav-sticky, .header-style-overlay) .main-navigation.is-sticky {
+:root:not(.no-nav-sticky, .header-style-overlay, .header-style-wide) .main-navigation.is-sticky {
   .main-navigation__background {
     @media only screen and (max-width: 1023px) {
       opacity: var(--navigation-background-end-opacity);
@@ -151,13 +151,23 @@
       }
     }
 
-    .mobile-menu-button {
+    &:not(._wide) .mobile-menu-button {
       &__label {
         display: block;
 
         @include bp(640px) {
           display: none;
         }
+      }
+    }
+  }
+
+  // Customizer: Wide header
+  &._wide {
+    @media only screen and (max-width: 1023px) {
+      :is(.main-navigation__left, .main-navigation__right) {
+        display: none;
+        content-visibility: visible;
       }
     }
   }
