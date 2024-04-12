@@ -164,7 +164,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'hue_offset_light',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 0
     )
@@ -195,7 +195,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'saturation_offset_light',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -225,7 +225,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'lightness_offset_light',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -255,7 +255,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'font_saturation_offset_light',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -285,7 +285,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'font_lightness_offset_light',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -334,7 +334,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'use_custom_light_mode',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'default'=> ''
     )
   );
@@ -584,7 +584,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'hue_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 0
     )
@@ -615,7 +615,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'saturation_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -645,7 +645,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'lightness_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -675,7 +675,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'font_saturation_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -705,7 +705,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'font_lightness_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -755,7 +755,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   $manager->add_setting(
     'use_custom_dark_mode',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'default'=> ''
     )
   );
@@ -1000,7 +1000,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'logo_height',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 210
     )
@@ -1026,7 +1026,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_title_font_size_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 32
     )
@@ -1052,7 +1052,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_title_font_size_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 60
     )
@@ -1078,7 +1078,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_tagline_font_size_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 13
     )
@@ -1104,7 +1104,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_tagline_font_size_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 18
     )
@@ -1130,7 +1130,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_image_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1208,7 +1208,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_image_fading_start',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 0
     )
@@ -1234,7 +1234,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_image_fading_breakpoint',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 0
     )
@@ -1260,7 +1260,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_image_height_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 210
     )
@@ -1286,7 +1286,7 @@ function fictioneer_add_header_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_image_height_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 480
     )
@@ -1335,7 +1335,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_width',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 960
     )
@@ -1361,7 +1361,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'main_offset',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 0
     )
@@ -1386,7 +1386,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1440,7 +1440,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_height_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 190
     )
@@ -1466,7 +1466,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'header_height_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 380
     )
@@ -1492,7 +1492,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'mobile_nav_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'overflow'
     )
@@ -1517,7 +1517,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'mobile_menu_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'minimize_to_right'
     )
@@ -1543,7 +1543,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'page_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1602,7 +1602,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'story_cover_position',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'top-left-overflow'
     )
@@ -1632,7 +1632,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1660,7 +1660,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_frame',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1692,7 +1692,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_shadow',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'var(--box-shadow-m)'
     )
@@ -1725,7 +1725,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_grid_column_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 308
     )
@@ -1751,7 +1751,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_cover_width_mod',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_float_field',
       'default' => '1'
     )
@@ -1782,7 +1782,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_grid_row_gap_mod',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_float_field',
       'default' => '1'
     )
@@ -1813,7 +1813,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_grid_column_gap_mod',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'fictioneer_sanitize_float_field',
       'default' => '1'
     )
@@ -1844,7 +1844,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'content_list_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1873,7 +1873,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'footer_style',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -1901,7 +1901,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'use_custom_layout',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'default'=> ''
     )
   );
@@ -1920,7 +1920,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'vertical_spacing_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 24
     )
@@ -1946,7 +1946,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'vertical_spacing_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 48
     )
@@ -1972,7 +1972,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'horizontal_spacing_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 20
     )
@@ -1998,7 +1998,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'horizontal_spacing_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 80
     )
@@ -2024,7 +2024,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'horizontal_spacing_small_min',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 10
     )
@@ -2050,7 +2050,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'horizontal_spacing_small_max',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 20
     )
@@ -2076,7 +2076,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'large_border_radius',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 4
     )
@@ -2102,7 +2102,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'small_border_radius',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 2
     )
@@ -2128,7 +2128,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
   $manager->add_setting(
     'chapter_list_gap',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'absint',
       'default' => 4
     )
@@ -2197,7 +2197,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'primary_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'Open Sans'
     )
@@ -2219,7 +2219,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'secondary_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'Lato'
     )
@@ -2241,7 +2241,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'heading_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'Open Sans'
     )
@@ -2263,7 +2263,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'site_title_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2285,7 +2285,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'nav_item_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2307,7 +2307,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'story_title_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2329,7 +2329,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'chapter_title_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2351,7 +2351,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'chapter_list_title_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2373,7 +2373,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'chapter_chapter_body_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2395,7 +2395,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_title_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2417,7 +2417,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_body_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2439,7 +2439,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'card_list_link_font_family_value',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'default'
     )
@@ -2461,7 +2461,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
   $manager->add_setting(
     'dark_mode_font_weight',
     array(
-      'capability' => 'manage_options',
+      'capability' => 'edit_theme_options',
       'sanitize_callback' => 'sanitize_text_field',
       'default' => 'adjusted'
     )
