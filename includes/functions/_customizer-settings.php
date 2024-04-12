@@ -1598,6 +1598,36 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Story cover position
+  $manager->add_setting(
+    'story_cover_position',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'top-left-overflow'
+    )
+  );
+
+  $story_cover_positions = array(
+    'top-left-overflow' => _x( 'Top-Left Overflow (Default)', 'Customizer story cover position option.', 'fictioneer' ),
+    'float-left' => _x( 'Floating Left', 'Customizer story cover position option.', 'fictioneer' ),
+    'float-right' => _x( 'Floating Right', 'Customizer story cover position option.', 'fictioneer' ),
+    'hide' => _x( 'Hide', 'Customizer story cover position option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'story_cover_position',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Story Page Cover Position', 'fictioneer' ),
+      'description' => __( 'Choose where to display the cover.', 'fictioneer' ),
+      'choices' =>
+      apply_filters( 'fictioneer_filter_customizer_story_cover_position', $story_cover_positions )
+    )
+  );
+
   // Card style
   $manager->add_setting(
     'card_style',
@@ -1864,36 +1894,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'description' => __( 'Choose the style for your footer.', 'fictioneer' ),
       'choices' =>
       apply_filters( 'fictioneer_filter_customizer_footer_style', $footer_styles )
-    )
-  );
-
-  // Story cover position
-  $manager->add_setting(
-    'story_cover_position',
-    array(
-      'capability' => 'manage_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'top-left-overflow'
-    )
-  );
-
-  $story_cover_positions = array(
-    'top-left-overflow' => _x( 'Top-Left Overflow (Default)', 'Customizer story cover position option.', 'fictioneer' ),
-    'float-left' => _x( 'Floating Left', 'Customizer story cover position option.', 'fictioneer' ),
-    'float-right' => _x( 'Floating Right', 'Customizer story cover position option.', 'fictioneer' ),
-    'hide' => _x( 'Hide', 'Customizer story cover position option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'story_cover_position',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Story Page Cover Position', 'fictioneer' ),
-      'description' => __( 'Choose where to display the cover.', 'fictioneer' ),
-      'choices' =>
-      apply_filters( 'fictioneer_filter_customizer_story_cover_position', $story_cover_positions )
     )
   );
 
