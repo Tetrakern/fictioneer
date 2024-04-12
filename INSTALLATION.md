@@ -1093,6 +1093,28 @@ WordPress automatically adds a class with the ID to the body, like `.page-id-334
 }
 ```
 
+#### Border Under Navigation
+
+You can remove the drop-shadow from the navigation bar and add a border instead. Mind that the navigation bar gains a background color when you scroll down, which you may want to customize or disable as well. Additional padding might also be necessary for this to look good. If you want the border to only appear when the navigation is sticky, add it to the `.main-navigation__background` instead.
+
+```css
+/* Example: Semi-transparent border in black (light mode) and white (dark mode). */
+
+.main-navigation__background {
+  filter: none;
+  box-shadow: none;
+}
+
+.main-navigation {
+  border-bottom: 1px solid rgb(0 0 0 / 7%);
+}
+
+:root[data-mode="dark"] .main-navigation {
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+}
+```
+
+
 #### Move the Title/Logo
 
 ![Customizer HSL Sliders](repo/assets/customizer_move_title_logo.jpg?raw=true)
