@@ -1052,9 +1052,9 @@ A good starting point for masks is [haikai](https://app.haikei.app/), but add `p
 }
 ```
 
-#### Uppercase the Site Title
+#### Uppercase Site Title
 
-Instead of just uppercasing the string, which would make it uppercase everywhere including search engine results, you can use a little bit of CSS to achieve this clean and proper. You will have to inspect your site to find the right selector, but it should be either of those: `header__title-link`, `top-header__link`, or `wide-header-identity__title-link`.
+Instead of just uppercasing the string, which would make it uppercase everywhere including search engine results, you can use a little bit of CSS to achieve this clean and proper. You will have to inspect your site to find the right selector, but it should be either one of those: `header__title-link`, `top-header__link`, or `wide-header-identity__title-link`.
 
 ```css
 /* Or use all three like a lazy person. */
@@ -1083,12 +1083,12 @@ body {
 
 Perhaps you want to make your landing page wider, to show off more or larger cards? But without changing the global site width, because that would look silly for chapters? All you need for that is the ID of your page, which you can find in the address bar of your browser on the edit screen, and the `--site-width` custom property. We will scope the changes to that ID and that ID only; you can repeat the process for other IDs, of course.
 
-WordPress automatically adds a class with the ID to the body, like `.page-id-334`. Using that as scope, you can affect the whole site only for this one instance. However, you may want to limit it to the `.main` container class. Otherwise, you site might display extreme layout flickers when the user visits another page. Obviously, you can do more than just increase the width.
+WordPress automatically adds a class with the ID to the body, like `.page-id-69`. Using that as scope, you can affect the whole site only for this one instance. However, you may want to limit it to the `.main` container class. Otherwise, you site might display extreme layout flickers when the user visits another page. Obviously, you can do more than just increase the width.
 
 ```css
-/* Example: Increase the width of the main container on the page with ID 334. */
+/* Example: Increase the width of the main container on the page with ID 69. */
 
-.page-id-334 .main {
+.page-id-69 .main {
   --site-width: 1300px;
 }
 ```
