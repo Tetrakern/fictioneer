@@ -718,6 +718,7 @@ function fictioneer_build_customize_css( $context = null ) {
   $font_saturation_offset_light = (int) get_theme_mod( 'font_saturation_offset_light', 0 );
   $font_lightness_offset_light = (int) get_theme_mod( 'font_lightness_offset_light', 0 );
   $site_width = (int) get_theme_mod( 'site_width', 960 );
+  $main_offset = (int) get_theme_mod( 'main_offset', 0 );
   $logo_height = (int) get_theme_mod( 'logo_height', 210 );
   $title_min = (int) get_theme_mod( 'site_title_font_size_min', 32 );
   $title_max = (int) get_theme_mod( 'site_title_font_size_max', 60 );
@@ -749,6 +750,7 @@ function fictioneer_build_customize_css( $context = null ) {
 
   $css .= ":root {
     --site-width: " . $site_width . "px;
+    --main-offset: " . $main_offset . "px;
     --hue-offset: " . $hue_offset_dark . "deg;
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";

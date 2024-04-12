@@ -1357,6 +1357,31 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Main offset
+  $manager->add_setting(
+    'main_offset',
+    array(
+      'capability' => 'manage_options',
+      'sanitize_callback' => 'fictioneer_sanitize_integer',
+      'default' => 0
+    )
+  );
+
+  $manager->add_control(
+    'main_offset',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Main Offset', 'fictioneer' ),
+      'description' => __( 'Add an offset in pixels to the main container, positive or negative. Default 0.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '0',
+        'style' => 'width: 80px'
+      )
+    )
+  );
+
   // Header style
   $manager->add_setting(
     'header_style',
