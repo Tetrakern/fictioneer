@@ -23,20 +23,12 @@ defined( 'ABSPATH' ) OR exit;
     </label>
     <div class="modal__header drag-anchor"><?php echo fcntr( 'bbcodes_modal' ); ?></div>
 
-    <?php
-      $preview_image = '';
-
-      if ( has_site_icon() ) {
-        $preview_image = '<img src="' . get_site_icon_url( 13 ) . '">';
-      }
-    ?>
-
     <div class="modal__row modal__description _bbcodes">
       <div><?php echo fcntr( 'bbcode_b' ); ?></div>
       <div><?php echo fcntr( 'bbcode_i' ); ?></div>
       <div><?php echo fcntr( 'bbcode_s' ); ?></div>
       <div><?php echo fcntr( 'bbcode_li' ); ?></div>
-      <div><?php printf( fcntr( 'bbcode_img' ), $preview_image ); ?></div>
+      <div><?php printf( fcntr( 'bbcode_img' ), '' ); ?></div>
       <div><?php echo fcntr( 'bbcode_link' ); ?></div>
       <div><?php echo fcntr( 'bbcode_link_name' ); ?></div>
       <?php echo fcntr( 'bbcode_quote' ); ?>
