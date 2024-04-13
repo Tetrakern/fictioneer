@@ -2011,7 +2011,7 @@ if ( ! function_exists( 'fictioneer_get_fonts' ) ) {
       ) {
         if (
           $primary_chapter_font !== 'default' &&
-          strpos( $custom_font['css'], $primary_chapter_font )
+          strpos( $custom_font['css'], $primary_chapter_font ) !== false
         ) {
           array_unshift( $fonts, $custom_font );
         } else {
