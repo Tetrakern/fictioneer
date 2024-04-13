@@ -1565,84 +1565,57 @@ if ( ! function_exists( 'fictioneer_echo_card' ) ) {
 // GET SUPPORT LINKS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
-  /**
-   * Returns support links for the post or author
-   *
-   * @since 5.0.19
-   *
-   * @param int|null $post_id    The post ID. Defaults to global post.
-   * @param int|null $parent_id  The parent ID. Default null.
-   * @param int|null $author_id  The author ID. Defaults to post author ID.
-   *
-   * @return array Array of support links.
-   */
+/**
+ * Returns support links for the post or author
+ *
+ * @since 5.0.19
+ * @since 5.13.1 - Improved and simplified.
+ *
+ * @param int|null $post_id    The post ID. Defaults to global post.
+ * @param int|null $parent_id  The parent ID. Default null.
+ * @param int|null $author_id  The author ID. Defaults to post author ID.
+ *
+ * @return array Array of support links.
+ */
 
-  function fictioneer_get_support_links( $post_id = null, $parent_id = null, $author_id = null ) {
-    global $post;
+function fictioneer_get_support_links( $post_id = null, $parent_id = null, $author_id = null ) {
+  global $post;
 
-    // Setup
-    $post_id = $post_id ?? $post->ID;
-    $author_id = $author_id ?? get_post_field( 'post_author', $post_id );
-    $links = [];
-
-    // Get story ID if chapter and parent ID not given
-    if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
-      $parent_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
-    }
-
-    // Post level (e.g. chapter)
-    $links['topwebfiction'] = get_post_meta( $post_id, 'fictioneer_story_topwebfiction_link', true );
-    $links['patreon'] = get_post_meta( $post_id, 'fictioneer_patreon_link', true );
-    $links['kofi'] = get_post_meta( $post_id, 'fictioneer_kofi_link', true );
-    $links['subscribestar'] = get_post_meta( $post_id, 'fictioneer_subscribestar_link', true );
-    $links['paypal'] = get_post_meta( $post_id, 'fictioneer_paypal_link', true );
-    $links['donation'] = get_post_meta( $post_id, 'fictioneer_donation_link', true );
-
-    // Parent level (e.g. story)
-    if ( ! empty( $parent_id ) ) {
-      if ( empty( $links['topwebfiction'] ) ) {
-        $links['topwebfiction'] = get_post_meta( $parent_id, 'fictioneer_story_topwebfiction_link', true );
-      }
-      if ( empty( $links['patreon'] ) ) {
-        $links['patreon'] = get_post_meta( $parent_id, 'fictioneer_patreon_link', true );
-      }
-      if ( empty( $links['kofi'] ) ) {
-        $links['kofi'] = get_post_meta( $parent_id, 'fictioneer_kofi_link', true );
-      }
-      if ( empty( $links['subscribestar'] ) ) {
-        $links['subscribestar'] = get_post_meta( $parent_id, 'fictioneer_subscribestar_link', true );
-      }
-      if ( empty( $links['paypal'] ) ) {
-        $links['paypal'] = get_post_meta( $parent_id, 'fictioneer_paypal_link', true );
-      }
-      if ( empty( $links['donation'] ) ) {
-        $links['donation'] = get_post_meta( $parent_id, 'fictioneer_donation_link', true );
-      }
-    }
-
-    // Author level
-    if ( $author_id ) {
-      if ( empty( $links['patreon'] ) ) {
-        $links['patreon'] = get_the_author_meta( 'fictioneer_user_patreon_link', $author_id );
-      }
-      if ( empty( $links['kofi'] ) ) {
-        $links['kofi'] = get_the_author_meta( 'fictioneer_user_kofi_link', $author_id );
-      }
-      if ( empty( $links['subscribestar'] ) ) {
-        $links['subscribestar'] = get_the_author_meta( 'fictioneer_user_subscribestar_link', $author_id );
-      }
-      if ( empty( $links['paypal'] ) ) {
-        $links['paypal'] = get_the_author_meta( 'fictioneer_user_paypal_link', $author_id );
-      }
-      if ( empty( $links['donation'] ) ) {
-        $links['donation'] = get_the_author_meta( 'fictioneer_user_donation_link', $author_id );
-      }
-    }
-
-    // Remove empty strings and return
-    return array_filter( $links, 'strlen' );
+  // Return early if post ID not available
+  if ( ! $post_id && empty( $post ) ) {
+    return [];
   }
+
+  // Setup
+  $post_id = $post_id ?? $post->ID;
+  $author_id = $author_id ?? get_post_field( 'post_author', $post_id );
+  $meta_keys = ['topwebfiction', 'patreon', 'kofi', 'subscribestar', 'paypal', 'donation'];
+  $links = [];
+
+  // Get story ID if chapter and parent ID not given
+  if ( $parent_id === null && get_post_type( $post_id ) == 'fcn_chapter' ) {
+    $parent_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  }
+
+  // Iterate over keys of interest
+  foreach ( $meta_keys as $key ) {
+    // Try chapter meta...
+    $meta = get_post_meta( $post_id, "fictioneer_{$key}_link", true );
+
+    // ... if empty, try story meta (if any)...
+    $meta = $meta ?: ( $parent_id ? get_post_meta( $parent_id, "fictioneer_{$key}_link", true ) : '' );
+
+    // ... if empty, try author meta...
+    $meta = $meta ?: ( $author_id ? get_the_author_meta( "fictioneer_user_{$key}_link", $author_id ) : '' );
+
+    // ... add if a non-empty value was found
+    if ( ! empty( $meta ) ) {
+      $links[ $key ] = $meta;
+    }
+  }
+
+  // Apply filters and return links
+  return apply_filters( 'fictioneer_filter_get_support_links', $links, $post_id, $parent_id, $author_id );
 }
 
 // =============================================================================

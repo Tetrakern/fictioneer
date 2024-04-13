@@ -236,6 +236,24 @@ Filters the intermediate output array of the chapter support links in the `ficti
 
 ---
 
+### `apply_filters( 'fictioneer_filter_get_support_links', $links, $post_id, $parent_id, $author_id )`
+Filters the array of support links returned for the current post (or post ID if provided). First it checks the post meta, then the parent post meta (if any), and finally the author meta if still empty. The first non-empty value is added to the array.
+
+**$links:**
+* $topwebfiction (string|null) – Link to www.topwebfiction.com. Unsafe.
+* $patreon (string|null) – Link to the author’s Patreon page. Unsafe.
+* $kofi (string|null) – Link to the author’s Ko-fi page. Unsafe.
+* $subscribestar (string|null) – Link to the author’s SubscribeStar page. Unsafe.
+* $paypal (string|null) – Donation link to the author’s PayPal. Unsafe.
+* $donation (string|null) – Generic donation link. Unsafe.
+
+**Parameters:**
+* $post_id (int|null) – Post ID. Unsafe.
+* $parent_id (int|null) – Parent (story) post ID. Unsafe.
+* $author_id (int|null) – Author ID. Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapters_card_args', $card_args, $args )`
 Filters the arguments passed to the `partials/_card-chapter` template part in the `fictioneer_chapters_list( $args )` function, normally added via the `fictioneer_chapters_after_content` hook.
 
