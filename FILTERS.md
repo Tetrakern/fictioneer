@@ -215,12 +215,12 @@ Filters the intermediate output array of the chapter micro menu in the `fictione
 Filters the intermediate output array of the chapter support links in the `fictioneer_chapter_support_links( $args )` function before it is looped and rendered. Each item is another array with `'label'`, `'icon'` markup, and `'link'`.
 
 **$support_links:**
-* $topwebfiction (string|null) – Link to www.topwebfiction.com for the story. Unsafe.
-* $patreon (string|null) – Link to the author’s Patreon page. Unsafe.
-* $kofi (string|null) – Link to the author’s Ko-Fi page. Unsafe.
-* $subscribestar (string|null) – Link to the author’s SubscribeStar page. Unsafe.
-* $paypal (string|null) – Donation link to the author’s PayPal. Unsafe.
-* $donation (string|null) – Generic donation link. Unsafe.
+* $topwebfiction (array|null) – Data for www.topwebfiction.com. Unsafe.
+* $patreon (array|null) – Data for the author’s Patreon page. Unsafe.
+* $kofi (array|null) – Data for the author’s Ko-fi page. Unsafe.
+* $subscribestar (array|null) – Data for the author’s SubscribeStar page. Unsafe.
+* $paypal (array|null) – Data for the author’s PayPal. Unsafe.
+* $donation (array|null) – Data for a generic donation link. Unsafe.
 
 **$args:**
 * $author (WP_User) – Author of the chapter.
