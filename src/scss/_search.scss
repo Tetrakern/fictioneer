@@ -80,9 +80,9 @@
   }
 
   &__select-group {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   }
 
   &__select {
@@ -112,11 +112,7 @@
       padding: 0 8px;
       border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
       height: 32px;
-      width: 56px;
-
-      @include bp(640px) {
-        width: auto;
-      }
+      min-width: 56px;
     }
   }
 
