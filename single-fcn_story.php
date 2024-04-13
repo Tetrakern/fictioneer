@@ -14,7 +14,8 @@
 
 <?php
 
-// Header
+// Setup
+$can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
 $header_args = array(
   'type' => 'fcn_story'
 );
@@ -27,7 +28,7 @@ get_header( null, $header_args );
 
 ?>
 
-<main id="main" class="main story">
+<main id="main" class="main story <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>">
   <div class="observer main-observer"></div>
   <?php do_action( 'fictioneer_main' ); ?>
   <div class="main__background polygon polygon--main background-texture"></div>
@@ -45,9 +46,6 @@ get_header( null, $header_args );
         $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post->ID );
         $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
-        // Flags
-        $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
-
         // Arguments for hooks and templates/etc.
         $hook_args = array(
           'story_data' => $story,
@@ -55,7 +53,7 @@ get_header( null, $header_args );
         );
       ?>
 
-      <article id="post-<?php echo $story_id; ?>" class="story__article <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>" data-id="<?php echo $story_id; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
+      <article id="post-<?php echo $story_id; ?>" class="story__article" data-id="<?php echo $story_id; ?>" data-age-rating="<?php echo strtolower( $story['rating'] ); ?>">
 
         <?php
           // Render article header

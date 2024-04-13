@@ -49,12 +49,10 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 }
 
 .story {
-  &__article {
-    &._no-checkmarks {
-      .checkmark {
-        display: none;
-        content-visibility: hidden;
-      }
+  &._no-checkmarks {
+    .checkmark {
+      display: none;
+      content-visibility: hidden;
     }
   }
 
