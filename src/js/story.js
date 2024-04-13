@@ -152,7 +152,7 @@ _$$('.chapter-group__folding-toggle').forEach(element => {
 
 function fcn_toggleStoryTab(target) {
   // Clear previous tab
-  _$$('.story__article ._current').forEach(item => {
+  _$$('.story__tab-target._current, .story__tabs ._current').forEach(item => {
     item.classList.remove('_current');
   });
 
