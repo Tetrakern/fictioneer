@@ -1118,5 +1118,3 @@ if ( ! function_exists( 'fictioneer_get_fading_gradient' ) ) {
     return $gradient;
   }
 }
-
-?>

@@ -151,41 +151,6 @@ add_action( 'save_post', 'fictioneer_store_original_publish_date', 10, 2 );
 // =============================================================================
 
 /**
- * Returns story changelog
- *
- * @since 5.7.5
- *
- * @param int $story_id  The story post ID.
- *
- * @return array Array with logged chapter changes since initialization.
- */
-
-function fictioneer_get_story_changelog( $story_id ) {
-  $story_id = absint( $story_id );
-
-  if ( empty( $story_id ) ) {
-    return [];
-  }
-
-  // Setup
-  $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
-  $changelog = is_array( $changelog ) ? $changelog : [];
-
-  // Initialize
-  if ( empty( $changelog ) ) {
-    $changelog[] = array(
-      time(),
-      _x( 'Initialized.', 'Story changelog initialized.', 'fictioneer' )
-    );
-
-    update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
-  }
-
-  // Return
-  return $changelog;
-}
-
-/**
  * Logs changes to story chapters
  *
  * @since 5.7.5
@@ -374,16 +339,14 @@ function fictioneer_chapter_to_draft( $post ) {
     return;
   }
 
-  // Remove filter
+  // Temporarily remove filter
   remove_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title' );
 
   // Remove chapter from story
   fictioneer_remove_chapter_from_story( $post->ID );
 
-  // Add filter
+  // Re-add filter
   add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title', 10, 2 );
 }
 add_action( 'publish_to_draft', 'fictioneer_chapter_to_draft' );
 add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
-
-?>

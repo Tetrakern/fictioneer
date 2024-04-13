@@ -883,7 +883,7 @@ Fires right after the search form has been rendered.
 ---
 
 ### `do_action( 'fictioneer_search_form_filters', $args )`
-Fires after the search form fields for type, match, sort, and order have been rendered. This allows you to render additional fields. Note that any additional fields must also be manually added to the query, see `_search.php` partial.
+Fires after the search form fields for type, match, sort, and order have been rendered. This allows you to render additional fields. Note that any additional fields must also be manually added to the query, see `_module-search.php` partial.
 
 **Parameters:**
 * $args (array) – Arguments passed to the search form.

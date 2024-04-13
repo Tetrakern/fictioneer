@@ -757,4 +757,3 @@ function fictioneer_purge_nav_menu_transients() {
   delete_transient( 'fictioneer_footer_menu_html' );
 }
 add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
-?>

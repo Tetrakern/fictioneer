@@ -445,5 +445,3 @@ function fictioneer_extend_search_query( $query ) {
 if ( ! get_option( 'fictioneer_disable_theme_search' ) ) {
   add_action( 'pre_get_posts' ,'fictioneer_extend_search_query', 11 );
 }
-
-?>

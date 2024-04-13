@@ -143,7 +143,7 @@ function fictioneer_fcn_story_post_type() {
     'label'               => __( 'Story', 'fictioneer' ),
     'description'         => __( 'Holds stories and details about them.', 'fictioneer' ),
     'labels'              => $labels,
-    'menu_icon'            => 'dashicons-book',
+    'menu_icon'           => 'dashicons-book',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'revisions'],
     'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
     'hierarchical'        => false,
@@ -160,8 +160,8 @@ function fictioneer_fcn_story_post_type() {
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'capability_type'     => ['fcn_story', 'fcn_stories'],
-    'capabilities'         => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_STORY_CAPABILITIES ),
-    'map_meta_cap'         => true
+    'capabilities'        => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_STORY_CAPABILITIES ),
+    'map_meta_cap'        => true
   );
 
   register_post_type( 'fcn_story', $args );
@@ -212,7 +212,7 @@ function fictioneer_fcn_chapter_post_type() {
     'label'               => __( 'Chapter', 'fictioneer' ),
     'description'         => __( 'Holds chapters and details about them.', 'fictioneer' ),
     'labels'              => $labels,
-    'menu_icon'            => 'dashicons-text-page',
+    'menu_icon'           => 'dashicons-text-page',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions'],
     'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
     'hierarchical'        => false,
@@ -229,8 +229,8 @@ function fictioneer_fcn_chapter_post_type() {
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'capability_type'     => ['fcn_chapter', 'fcn_chapters'],
-    'capabilities'         => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_CHAPTER_CAPABILITIES ),
-    'map_meta_cap'         => true
+    'capabilities'        => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_CHAPTER_CAPABILITIES ),
+    'map_meta_cap'        => true
   );
 
   register_post_type( 'fcn_chapter', $args );
@@ -281,7 +281,7 @@ function fictioneer_fcn_collection_post_type() {
     'label'               => __( 'Collection', 'fictioneer' ),
     'description'         => __( 'Collections of stories, chapters, and recommendations.', 'fictioneer' ),
     'labels'              => $labels,
-    'menu_icon'            => 'dashicons-category',
+    'menu_icon'           => 'dashicons-category',
     'supports'            => ['title', 'author', 'editor', 'thumbnail'],
     'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
     'hierarchical'        => false,
@@ -298,8 +298,8 @@ function fictioneer_fcn_collection_post_type() {
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'capability_type'     => ['fcn_collection', 'fcn_collections'],
-    'capabilities'         => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_COLLECTION_CAPABILITIES ),
-    'map_meta_cap'         => true
+    'capabilities'        => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_COLLECTION_CAPABILITIES ),
+    'map_meta_cap'        => true
   );
 
   register_post_type( 'fcn_collection', $args );
@@ -350,7 +350,7 @@ function fictioneer_fcn_recommendation_post_type() {
     'label'               => __( 'Recommendation', 'fictioneer' ),
     'description'         => __( 'Recommendations for external stories.', 'fictioneer' ),
     'labels'              => $labels,
-    'menu_icon'            => 'dashicons-star-filled',
+    'menu_icon'           => 'dashicons-star-filled',
     'supports'            => ['title', 'author', 'editor', 'excerpt', 'thumbnail'],
     'taxonomies'          => ['category', 'post_tag', 'fcn_fandom', 'fcn_character', 'fcn_genre', 'fcn_content_warning'],
     'hierarchical'        => false,
@@ -367,8 +367,8 @@ function fictioneer_fcn_recommendation_post_type() {
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'capability_type'     => ['fcn_recommendation', 'fcn_recommendations'],
-    'capabilities'         => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_RECOMMENDATION_CAPABILITIES ),
-    'map_meta_cap'         => true
+    'capabilities'        => array_combine( FICTIONEER_WP_CAPABILITIES, FICTIONEER_RECOMMENDATION_CAPABILITIES ),
+    'map_meta_cap'        => true
   );
 
   register_post_type( 'fcn_recommendation', $args );
@@ -409,10 +409,10 @@ function fictioneer_add_genre_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'genre' ),
     'capabilities'      => array(
-      'manage_terms'     => 'manage_fcn_genres',
-      'edit_terms'       => 'edit_fcn_genres',
-      'delete_terms'     => 'delete_fcn_genres',
-      'assign_terms'     => 'assign_fcn_genres'
+      'manage_terms'    => 'manage_fcn_genres',
+      'edit_terms'      => 'edit_fcn_genres',
+      'delete_terms'    => 'delete_fcn_genres',
+      'assign_terms'    => 'assign_fcn_genres'
     )
   );
 
@@ -454,10 +454,10 @@ function fictioneer_add_fandom_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'fandom' ),
     'capabilities'      => array(
-      'manage_terms'     => 'manage_fcn_fandoms',
-      'edit_terms'       => 'edit_fcn_fandoms',
-      'delete_terms'     => 'delete_fcn_fandoms',
-      'assign_terms'     => 'assign_fcn_fandoms'
+      'manage_terms'    => 'manage_fcn_fandoms',
+      'edit_terms'      => 'edit_fcn_fandoms',
+      'delete_terms'    => 'delete_fcn_fandoms',
+      'assign_terms'    => 'assign_fcn_fandoms'
     )
   );
 
@@ -499,10 +499,10 @@ function fictioneer_add_character_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'character' ),
     'capabilities'      => array(
-      'manage_terms'     => 'manage_fcn_characters',
-      'edit_terms'       => 'edit_fcn_characters',
-      'delete_terms'     => 'delete_fcn_characters',
-      'assign_terms'     => 'assign_fcn_characters'
+      'manage_terms'    => 'manage_fcn_characters',
+      'edit_terms'      => 'edit_fcn_characters',
+      'delete_terms'    => 'delete_fcn_characters',
+      'assign_terms'    => 'assign_fcn_characters'
     )
   );
 
@@ -544,10 +544,10 @@ function fictioneer_add_content_warning_taxonomy() {
     'query_var'         => true,
     'rewrite'           => array( 'slug' => 'content-warning' ),
     'capabilities'      => array(
-      'manage_terms'     => 'manage_fcn_content_warnings',
-      'edit_terms'       => 'edit_fcn_content_warnings',
-      'delete_terms'     => 'delete_fcn_content_warnings',
-      'assign_terms'     => 'assign_fcn_content_warnings'
+      'manage_terms'    => 'manage_fcn_content_warnings',
+      'edit_terms'      => 'edit_fcn_content_warnings',
+      'delete_terms'    => 'delete_fcn_content_warnings',
+      'assign_terms'    => 'assign_fcn_content_warnings'
     )
   );
 
@@ -799,5 +799,3 @@ function fictioneer_filter_chapters_by_story( $query ) {
 if ( is_admin() ) {
   add_action( 'pre_get_posts', 'fictioneer_filter_chapters_by_story' );
 }
-
-?>

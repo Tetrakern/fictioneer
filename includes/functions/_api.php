@@ -464,5 +464,3 @@ if ( ! function_exists( 'fictioneer_api_request_stories' ) ) {
     return rest_ensure_response( $graph );
   }
 }
-
-?>

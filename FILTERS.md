@@ -553,7 +553,7 @@ Filters the intermediate output array in the `fictioneer_get_list_chapter_meta_r
 ---
 
 ### `apply_filters( 'fictioneer_filter_metabox_{meta_box}', $output, $post )`
-Filters the intermediate output array for meta box fields before it is imploded and rendered, see `_meta_fields.php`. The dynamic part of the hook can be `story_meta`, `story_data`, `story_epub`, `chapter_meta`, `chapter_data`, `advanced`, `support_links`, `post_data`, `collection_data`, and `recommendation_data`.
+Filters the intermediate output array for meta box fields before it is imploded and rendered, see `_setup-meta-fields.php`. The dynamic part of the hook can be `story_meta`, `story_data`, `story_epub`, `chapter_meta`, `chapter_data`, `advanced`, `support_links`, `post_data`, `collection_data`, and `recommendation_data`.
 
 **Parameters:**
 * $output (array) – Captured HTML of meta fields to be rendered.
@@ -562,7 +562,7 @@ Filters the intermediate output array for meta box fields before it is imploded 
 ---
 
 ### `apply_filters( 'fictioneer_filter_metabox_updates_{type}', $fields, $post_id )`
-Filters the sanitized POST meta box fields before they are saved, see `_meta_fields.php`. The dynamic part of the hook can be `story`, `chapter`, `advanced`, `support_links`, `post`, `collection`, and `recommendation`.
+Filters the sanitized POST meta box fields before they are saved, see `_setup-meta-fields.php`. The dynamic part of the hook can be `story`, `chapter`, `advanced`, `support_links`, `post`, `collection`, and `recommendation`.
 
 **Parameters:**
 * $fields (array) – Meta fields to be saved.

@@ -4010,5 +4010,3 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
   }
 }
 add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
-
-?>

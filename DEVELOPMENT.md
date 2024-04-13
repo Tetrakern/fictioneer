@@ -325,7 +325,7 @@ Fictioneer is cache aware. This means the theme provides an interface to aid cac
 *"There are only two hard things in Computer Science: cache invalidation and naming things" — Phil Karlton.*
 
 ### References
-* See [_caching_and_transients.php](includes/functions/_caching_and_transients.php)
+* See [_service-caching.php](includes/functions/_service-caching.php)
 * [Cache Purge All Hook](ACTIONS.md#do_action-fictioneer_cache_purge_all-): `fictioneer_cache_purge_all`
 * [Cache Purge Post Hook](ACTIONS.md#do_action-fictioneer_cache_purge_post-post_id-): `fictioneer_cache_purge_post`
 

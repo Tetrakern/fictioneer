@@ -1222,5 +1222,3 @@ if ( get_option( 'fictioneer_enable_epubs' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_download_epub', 'fictioneer_ajax_download_epub' );
   add_action( 'wp_ajax_nopriv_fictioneer_ajax_download_epub', 'fictioneer_ajax_download_epub' );
 }
-
-?>

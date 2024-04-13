@@ -1532,5 +1532,3 @@ function fictioneer_output_head_translations() {
   echo "<script id='fictioneer-translations' type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>const fictioneer_tl = " . json_encode( fictioneer_get_js_translations() ) . ";</script>";
 }
 add_action( 'wp_head', 'fictioneer_output_head_translations' );
-
-?>

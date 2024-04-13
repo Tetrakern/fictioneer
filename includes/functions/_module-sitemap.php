@@ -272,5 +272,3 @@ function fictioneer_create_sitemap() {
   fwrite( $file_path, $sitemap );
   fclose( $file_path );
 }
-
-?>

@@ -65,22 +65,22 @@ function fictioneer_do_fast_ajax() {
 
   // Include required files
   require_once __DIR__ . '/_utility.php';
-  require_once __DIR__ . '/_query_helpers.php';
-  require_once __DIR__ . '/_caching_and_transients.php';
-  require_once __DIR__ . '/_cpt_and_taxonomies.php';
+  require_once __DIR__ . '/_helpers-query.php';
+  require_once __DIR__ . '/_service-caching.php';
+  require_once __DIR__ . '/_setup-types-and-terms.php';
 
   if ( get_option( 'fictioneer_enable_follows' ) && strpos( $action, '_follow' ) !== false ) {
-    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_helpers-templates.php';
     require_once __DIR__ . '/users/_follows.php';
   }
 
   if ( get_option( 'fictioneer_enable_reminders' ) && strpos( $action, '_reminder' ) !== false ) {
-    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_helpers-templates.php';
     require_once __DIR__ . '/users/_reminders.php';
   }
 
   if ( get_option( 'fictioneer_enable_checkmarks' ) && strpos( $action, '_checkmark' ) !== false ) {
-    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_helpers-templates.php';
     require_once __DIR__ . '/users/_checkmarks.php';
   }
 
@@ -94,11 +94,11 @@ function fictioneer_do_fast_ajax() {
     require_once __DIR__ . '/users/_reminders.php';
     require_once __DIR__ . '/users/_checkmarks.php';
     require_once __DIR__ . '/users/_bookmarks.php';
-    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_helpers-templates.php';
   }
 
   if ( strpos( $action, '_list' ) !== false ) {
-    require_once __DIR__ . '/_wordpress_mods.php';
+    require_once __DIR__ . '/_setup-wordpress.php';
   }
 
   if ( strpos( $action, '_fingerprint' ) !== false ) {
@@ -127,12 +127,12 @@ function fictioneer_do_fast_ajax() {
   }
 
   if ( $action === 'fictioneer_ajax_query_relationship_posts' ) {
-    require_once __DIR__ . '/_content_helpers.php';
-    require_once __DIR__ . '/_admin.php';
+    require_once __DIR__ . '/_helpers-templates.php';
+    require_once __DIR__ . '/_setup-admin.php';
   }
 
   if ( $action === 'fictioneer_ajax_fcnen_search_content' ) {
-    require_once __DIR__ . '/_content_helpers.php';
+    require_once __DIR__ . '/_helpers-templates.php';
   }
 
   // Function exists?
@@ -196,19 +196,19 @@ function fictioneer_do_fast_comment_ajax() {
 
   // Include required files
   require_once __DIR__ . '/_utility.php'; // Obviously
-  require_once __DIR__ . '/_wordpress_mods.php'; // Depends
-  require_once __DIR__ . '/_roles.php'; // Depends
-  require_once __DIR__ . '/_caching_and_transients.php'; // Maybe?
-  require_once __DIR__ . '/_content_helpers.php'; // Safe title
+  require_once __DIR__ . '/_setup-wordpress.php'; // Depends
+  require_once __DIR__ . '/_setup-roles.php'; // Depends
+  require_once __DIR__ . '/_service-caching.php'; // Maybe?
+  require_once __DIR__ . '/_helpers-templates.php'; // Safe title
   require_once __DIR__ . '/comments/_comments_controller.php'; // Obviously
   require_once __DIR__ . '/comments/_comments_moderation.php'; // Obviously
   require_once __DIR__ . '/comments/_comments_ajax.php'; // Obviously
 
   // Moderating needs less, otherwise include everything related to comments
   if ( strpos( $action, '_moderate_comment' ) === false ) {
-    require_once __DIR__ . '/_discord.php'; // Notifications
-    require_once __DIR__ . '/_cpt_and_taxonomies.php'; // Depends
-    require_once __DIR__ . '/_oauth.php'; // Login buttons
+    require_once __DIR__ . '/_module-discord.php'; // Notifications
+    require_once __DIR__ . '/_setup-types-and-terms.php'; // Depends
+    require_once __DIR__ . '/_module-oauth.php'; // Login buttons
     require_once __DIR__ . '/users/_user_data.php'; // Obviously
     require_once __DIR__ . '/users/_avatars.php'; // Obviously
     require_once __DIR__ . '/comments/_comments_form.php'; // Obviously
@@ -250,8 +250,8 @@ if (
 ) {
   // Include required files
   require_once __DIR__ . '/_utility.php';
-  require_once __DIR__ . '/_wordpress_mods.php';
-  require_once __DIR__ . '/_roles.php';
+  require_once __DIR__ . '/_setup-wordpress.php';
+  require_once __DIR__ . '/_setup-roles.php';
   require_once __DIR__ . '/users/_user_data.php';
   require_once __DIR__ . '/users/_avatars.php';
   require_once __DIR__ . '/comments/_comments_controller.php';
@@ -272,5 +272,3 @@ if (
   // Terminate in case something goes wrong
   die();
 }
-
-?>

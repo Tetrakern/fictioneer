@@ -1,7 +1,7 @@
 <?php
 
 // =============================================================================
-// GET LONG EXCERPT
+// GET EXCERPTS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
@@ -21,23 +21,6 @@ if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
     return $excerpt;
   }
 }
-
-/**
- * Replace excerpt ellipsis
- *
- * @since 5.2.5
- *
- * @return string The ellipsis (…).
- */
-
-function fictioneer_excerpt_ellipsis() {
-  return '…';
-}
-add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
-
-// =============================================================================
-// GET EXCERPT WITH MAXIMUM LENGTH (CHARACTERS)
-// =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_limited_excerpt' ) ) {
   /**
@@ -64,10 +47,6 @@ if ( ! function_exists( 'fictioneer_get_limited_excerpt' ) ) {
   }
 }
 
-// =============================================================================
-// GET FIRST PARAGRAPH AS EXCERPT
-// =============================================================================
-
 if ( ! function_exists( 'fictioneer_first_paragraph_as_excerpt' ) ) {
   /**
    * Returns the first paragraph of the content as excerpt
@@ -82,13 +61,10 @@ if ( ! function_exists( 'fictioneer_first_paragraph_as_excerpt' ) ) {
   function fictioneer_first_paragraph_as_excerpt( $content ) {
     $excerpt = strip_shortcodes( $content );
     $excerpt = substr( $excerpt, 0, strpos( $excerpt, '</p>' ) + 4 );
+
     return wp_strip_all_tags( $excerpt, true );
   }
 }
-
-// =============================================================================
-// GET FORCED EXCERPT EVEN IF POST IS PROTECTED
-// =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
   /**
@@ -124,7 +100,7 @@ if ( ! function_exists( 'fictioneer_get_forced_excerpt' ) ) {
 }
 
 // =============================================================================
-// AUTHOR NODE
+// GET AUTHOR NODE(S)
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
@@ -149,6 +125,82 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
     }
 
     return "<a href='{$author_url}' class='author {$classes}'>{$author_name}</a>";
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
+  /**
+   * Returns the HTML for the authors
+   *
+   * @since 5.0.0
+   *
+   * @param array $authors  Array of authors to process.
+   *
+   * @return string HTML for the author nodes.
+   */
+
+  function fictioneer_get_multi_author_nodes( $authors ) {
+    // Setup
+    $author_nodes = [];
+
+    // If no author was found...
+    if ( empty( $authors ) ) {
+      return __( 'Unknown', 'No story author(s) were found.', 'fictioneer' );
+    }
+
+    // The meta field returns an array of IDs
+    foreach ( $authors as $author ) {
+      $author_nodes[] = fictioneer_get_author_node( $author );
+    }
+
+    // Remove empty items
+    $author_nodes = array_filter( $author_nodes );
+
+    // Build and return HTML
+    return implode( ', ', array_unique( $author_nodes ) );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
+  /**
+   * Returns the HTML for the authors on story pages
+   *
+   * @since 5.0.0
+   *
+   * @param int $story_id  The story ID.
+   *
+   * @return string HTML for the author nodes.
+   */
+
+  function fictioneer_get_story_author_nodes( $story_id ) {
+    // Setup
+    $all_authors = fictioneer_get_post_author_ids( $story_id );
+    $all_authors = is_array( $all_authors ) ? $all_authors : [];
+
+    // Return author nodes
+    return fictioneer_get_multi_author_nodes( $all_authors );
+  }
+}
+
+if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
+  /**
+   * Returns the HTML for the authors on chapter pages
+   *
+   * @since 5.0.0
+   *
+   * @param int $chapter_id  The chapter ID.
+   *
+   * @return string HTML for the author nodes.
+   */
+
+  function fictioneer_get_chapter_author_nodes( $chapter_id ) {
+    // Setup
+    $all_authors = get_post_meta( $chapter_id, 'fictioneer_chapter_co_authors', true ) ?? [];
+    $all_authors = is_array( $all_authors ) ? $all_authors : [];
+    array_unshift( $all_authors, get_post_field( 'post_author', $chapter_id ) );
+
+    // Return author nodes
+    return fictioneer_get_multi_author_nodes( $all_authors );
   }
 }
 
@@ -198,7 +250,7 @@ if ( ! function_exists( 'fictioneer_get_icon' ) ) {
 }
 
 // =============================================================================
-// GET TITLE AND ACCOUNT FOR EMPTY
+// GET SAFE TITLE
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
@@ -237,6 +289,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
       $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id, $context, $args );
     }
 
+    // Return final title
     return $title;
   }
 }
@@ -299,7 +352,7 @@ add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_protected_safe_ti
 function fictioneer_prefix_draft_safe_title( $title, $id ) {
   // Prepend icon to titles of drafts
   if ( get_post_status( $id ) === 'draft' ) {
-    return 'Draft: ' . $title;
+    return sprintf( _x( 'Draft: %s', 'Safe title prefix.', 'fictioneer' ), $title );
   }
 
   // Continue filter
@@ -308,7 +361,7 @@ function fictioneer_prefix_draft_safe_title( $title, $id ) {
 add_filter( 'fictioneer_filter_safe_title', 'fictioneer_prefix_draft_safe_title', 10, 2 );
 
 // =============================================================================
-// GET READING TIME NODES HTML
+// GET READING TIME NODES
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
@@ -375,7 +428,7 @@ if ( ! function_exists( 'fictioneer_get_reading_time_nodes' ) ) {
 }
 
 // =============================================================================
-// GET FOOTER COPYRIGHT NOTE HTML
+// GET FOOTER COPYRIGHT NOTE
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
@@ -425,7 +478,7 @@ function fictioneer_get_version() {
 }
 
 // =============================================================================
-// GET BREADCRUMBS HTML
+// GET BREADCRUMBS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
@@ -490,74 +543,12 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
 }
 
 // =============================================================================
-// GET AUTHORS HTML
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_multi_author_nodes' ) ) {
-  /**
-   * Returns the HTML for the authors
-   *
-   * @since 5.0.0
-   *
-   * @param array $authors  Array of authors to process.
-   *
-   * @return string HTML for the author nodes.
-   */
-
-  function fictioneer_get_multi_author_nodes( $authors ) {
-    // Setup
-    $author_nodes = [];
-
-    // If no author was found...
-    if ( empty( $authors ) ) {
-      return __( 'Unknown', 'No story author(s) were found.', 'fictioneer' );
-    }
-
-    // The meta field returns an array of IDs
-    foreach ( $authors as $author ) {
-      $author_nodes[] = fictioneer_get_author_node( $author );
-    }
-
-    // Remove empty items
-    $author_nodes = array_filter( $author_nodes );
-
-    // Build and return HTML
-    return implode( ', ', array_unique( $author_nodes ) );
-  }
-}
-
-// =============================================================================
-// GET STORY AUTHORS HTML
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_story_author_nodes' ) ) {
-  /**
-   * Returns the HTML for the authors on story pages
-   *
-   * @since 5.0.0
-   *
-   * @param int $story_id  The story ID.
-   *
-   * @return string HTML for the author nodes.
-   */
-
-  function fictioneer_get_story_author_nodes( $story_id ) {
-    // Setup
-    $all_authors = fictioneer_get_post_author_ids( $story_id );
-    $all_authors = is_array( $all_authors ) ? $all_authors : [];
-
-    // Return author nodes
-    return fictioneer_get_multi_author_nodes( $all_authors );
-  }
-}
-
-// =============================================================================
-// GET STORY PAGE THUMBNAIL HTML
+// GET COVERS (THUMBNAIL)
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
   /**
-   * Returns the HTML for thumbnail on story pages
+   * Returns the HTML for cover image on story pages
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
@@ -565,7 +556,7 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
    * @param array $story  Collection of story data.
    * @param array $args   Optional. Additional arguments.
    *
-   * @return string HTML for the thumbnail.
+   * @return string HTML for the cover image.
    */
 
   function fictioneer_get_story_page_cover( $story, $args = [] ) {
@@ -586,22 +577,52 @@ if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
   }
 }
 
-// =============================================================================
-// GET SUBSCRIBE BUTTONS HTML
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
+if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
   /**
-   * Returns the HTML for the subscribe buttons
+   * Returns the HTML for cover image on recommendation pages
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
    *
-   * @param int|null    $post_id    The post ID the buttons are for. Defaults to current.
-   * @param int|null    $author_id  The author ID the buttons are for. Defaults to current.
+   * @param WP_Post $recommendation  The post object.
+   *
+   * @return string HTML for the cover image.
+   */
+
+  function fictioneer_get_recommendation_page_cover( $recommendation ) {
+    return sprintf(
+      '<figure class="recommendation__thumbnail"><a href="%s" %s>%s</a></figure>',
+      get_the_post_thumbnail_url( $recommendation->ID, 'full' ),
+      fictioneer_get_lightbox_attribute(),
+      get_the_post_thumbnail( $recommendation->ID, array( 200, 300 ), array(
+        'alt' => esc_attr(
+          sprintf(
+            __( '%s Cover', 'fictioneer' ),
+            fictioneer_get_safe_title( $recommendation->ID )
+          )
+        ),
+        'class' => 'webfeedsFeaturedVisual recommendation__thumbnail-image'
+      ))
+    );
+  }
+}
+
+// =============================================================================
+// GET SUBSCRIBE BUTTONS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
+  /**
+   * Returns the HTML for the subscribe options (links)
+   *
+   * @since 5.0.0
+   * @since 5.9.4 - Removed output buffer.
+   *
+   * @param int|null    $post_id    The post ID the links are for. Defaults to current.
+   * @param int|null    $author_id  The author ID the links are for. Defaults to current.
    * @param string|null $feed       RSS feed link. Default determined by post type.
    *
-   * @return string HTML for subscribe buttons.
+   * @return string HTML for subscribe links.
    */
 
   function fictioneer_get_subscribe_options( $post_id = null, $author_id = null, $feed = null ) {
@@ -704,7 +725,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 }
 
 // =============================================================================
-// GET STORY BUTTONS HTML
+// GET STORY BUTTONS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
@@ -803,33 +824,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 }
 
 // =============================================================================
-// GET CHAPTER AUTHORS HTML
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_chapter_author_nodes' ) ) {
-  /**
-   * Returns the HTML for the authors on chapter pages
-   *
-   * @since 5.0.0
-   *
-   * @param int $chapter_id  The chapter ID.
-   *
-   * @return string HTML for the author nodes.
-   */
-
-  function fictioneer_get_chapter_author_nodes( $chapter_id ) {
-    // Setup
-    $all_authors = get_post_meta( $chapter_id, 'fictioneer_chapter_co_authors', true ) ?? [];
-    $all_authors = is_array( $all_authors ) ? $all_authors : [];
-    array_unshift( $all_authors, get_post_field( 'post_author', $chapter_id ) );
-
-    // Return author nodes
-    return fictioneer_get_multi_author_nodes( $all_authors );
-  }
-}
-
-// =============================================================================
-// GET CHAPTER MICRO MENU HTML
+// GET CHAPTER MICRO MENU
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
@@ -849,6 +844,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    */
 
   function fictioneer_get_chapter_micro_menu( $args ) {
+    // Setup
     $micro_menu = [];
 
     // Only if there is a story...
@@ -924,7 +920,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
 }
 
 // =============================================================================
-// GET SIMPLE CHAPTER LIST HTML
+// GET SIMPLE CHAPTER LIST
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
@@ -1024,41 +1020,88 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 }
 
 // =============================================================================
-// GET RECOMMENDATION PAGE THUMBNAIL HTML
+// GET CHAPTER LIST META ROW
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
+if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
   /**
-   * Returns the HTML for thumbnail on recommendation pages
+   * Returns HTML for list chapter meta row
    *
-   * @since 5.0.0
+   * @since 5.1.2
    * @since 5.9.4 - Removed output buffer.
    *
-   * @param WP_Post $recommendation  The post object.
+   * @param array $data  Chapter data for the meta row.
+   * @param array $args  Optional arguments.
    *
-   * @return string HTML for the thumbnail.
+   * @return string HTML of the list chapter meta row.
    */
 
-  function fictioneer_get_recommendation_page_cover( $recommendation ) {
-    return sprintf(
-      '<figure class="recommendation__thumbnail"><a href="%s" %s>%s</a></figure>',
-      get_the_post_thumbnail_url( $recommendation->ID, 'full' ),
-      fictioneer_get_lightbox_attribute(),
-      get_the_post_thumbnail( $recommendation->ID, array( 200, 300 ), array(
-        'alt' => esc_attr(
-          sprintf(
-            __( '%s Cover', 'fictioneer' ),
-            fictioneer_get_safe_title( $recommendation->ID )
-          )
-        ),
-        'class' => 'webfeedsFeaturedVisual recommendation__thumbnail-image'
-      ))
-    );
+  function fictioneer_get_list_chapter_meta_row( $data, $args = [] ) {
+    // Setup
+    $output = [];
+    $has_grid_view = ! empty( $args['grid'] );
+
+    // Password
+    if ( ! empty( $data['password'] ) ) {
+      $output['protected'] = '<i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>';
+    }
+
+    // Warning
+    if ( ! empty( $data['warning'] ) ) {
+      $output['warning'] = sprintf(
+        '<span class="chapter-group__list-item-warning list-view">%s</span>',
+        sprintf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] )
+      );
+    }
+
+    // Date
+    if ( $has_grid_view ) {
+      $output['date'] = sprintf(
+        '<time datetime="%s" class="chapter-group__list-item-date"><span class="list-view">%s</span><span class="grid-view">%s</span></time>',
+        esc_attr( $data['timestamp'] ),
+        $data['list_date'],
+        $data['grid_date']
+      );
+    } else {
+      $output['date'] = sprintf(
+        '<time datetime="%s" class="chapter-group__list-item-date">%s</time>',
+        esc_attr( $data['timestamp'] ),
+        $data['list_date']
+      );
+    }
+
+    // Words
+    if ( $has_grid_view ) {
+      $short_words = fictioneer_shorten_number( $data['words'] );
+
+      $output['words'] = sprintf(
+        '<span class="chapter-group__list-item-words" data-number-switch="%s">%s</span>',
+        esc_attr( $short_words ),
+        sprintf(
+          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
+          number_format_i18n( $data['words'] )
+        )
+      );
+    } else {
+      $output['words'] = sprintf(
+        '<span class="chapter-group__list-item-words">%s</span>',
+        sprintf(
+          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
+          number_format_i18n( $data['words'] )
+        )
+      );
+    }
+
+    // Apply filters
+    $output = apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args );
+
+    // Implode and return HTML
+    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( ' ', $output ) . '</div>';
   }
 }
 
 // =============================================================================
-// GET TAXONOMY PILLS HTML
+// GET TAXONOMY PILLS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_taxonomy_pills' ) ) {
@@ -1164,7 +1207,7 @@ if ( ! function_exists( 'fictioneer_get_rss_link' ) ) {
 }
 
 // =============================================================================
-// GET USER SUBMENU ITEMS HTML
+// GET USER SUBMENU ITEMS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
@@ -1235,7 +1278,7 @@ if ( ! function_exists( 'fictioneer_user_menu_items' ) ) {
 }
 
 // =============================================================================
-// GET POST META ITEMS HTML
+// GET POST META ITEMS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
@@ -1304,7 +1347,7 @@ if ( ! function_exists( 'fictioneer_get_post_meta_items' ) ) {
 }
 
 // =============================================================================
-// GET CARD CONTROLS HTML
+// GET CARD CONTROLS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
@@ -1603,87 +1646,6 @@ if ( ! function_exists( 'fictioneer_get_support_links' ) ) {
 }
 
 // =============================================================================
-// GET CHAPTER LIST SUBROW HTML
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
-  /**
-   * Returns HTML for list chapter meta row
-   *
-   * @since 5.1.2
-   * @since 5.9.4 - Removed output buffer.
-   *
-   * @param array $data  Chapter data for the meta row.
-   * @param array $args  Optional arguments.
-   *
-   * @return string HTML of the list chapter meta row.
-   */
-
-  function fictioneer_get_list_chapter_meta_row( $data, $args = [] ) {
-    // Setup
-    $output = [];
-    $has_grid_view = ! empty( $args['grid'] );
-
-    // Password
-    if ( ! empty( $data['password'] ) ) {
-      $output['protected'] = '<i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>';
-    }
-
-    // Warning
-    if ( ! empty( $data['warning'] ) ) {
-      $output['warning'] = sprintf(
-        '<span class="chapter-group__list-item-warning list-view">%s</span>',
-        sprintf( __( '<b>Warning:</b> %s', 'fictioneer' ), $data['warning'] )
-      );
-    }
-
-    // Date
-    if ( $has_grid_view ) {
-      $output['date'] = sprintf(
-        '<time datetime="%s" class="chapter-group__list-item-date"><span class="list-view">%s</span><span class="grid-view">%s</span></time>',
-        esc_attr( $data['timestamp'] ),
-        $data['list_date'],
-        $data['grid_date']
-      );
-    } else {
-      $output['date'] = sprintf(
-        '<time datetime="%s" class="chapter-group__list-item-date">%s</time>',
-        esc_attr( $data['timestamp'] ),
-        $data['list_date']
-      );
-    }
-
-    // Words
-    if ( $has_grid_view ) {
-      $short_words = fictioneer_shorten_number( $data['words'] );
-
-      $output['words'] = sprintf(
-        '<span class="chapter-group__list-item-words" data-number-switch="%s">%s</span>',
-        esc_attr( $short_words ),
-        sprintf(
-          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
-          number_format_i18n( $data['words'] )
-        )
-      );
-    } else {
-      $output['words'] = sprintf(
-        '<span class="chapter-group__list-item-words">%s</span>',
-        sprintf(
-          _x( '%s Words', 'Word count in chapter list.', 'fictioneer' ),
-          number_format_i18n( $data['words'] )
-        )
-      );
-    }
-
-    // Apply filters
-    $output = apply_filters( 'fictioneer_filter_list_chapter_meta_row', $output, $data, $args );
-
-    // Implode and return HTML
-    return '<div class="chapter-group__list-item-subrow truncate _1-1">' . implode( ' ', $output ) . '</div>';
-  }
-}
-
-// =============================================================================
 // GET STORY BLOG POSTS
 // =============================================================================
 
@@ -1766,4 +1728,41 @@ if ( ! function_exists( 'fictioneer_get_story_blog_posts' ) ) {
   }
 }
 
-?>
+// =============================================================================
+// GET STORY CHANGELOG
+// =============================================================================
+
+/**
+ * Returns story changelog
+ *
+ * @since 5.7.5
+ *
+ * @param int $story_id  The story post ID.
+ *
+ * @return array Array with logged chapter changes since initialization.
+ */
+
+function fictioneer_get_story_changelog( $story_id ) {
+  $story_id = absint( $story_id );
+
+  if ( empty( $story_id ) ) {
+    return [];
+  }
+
+  // Setup
+  $changelog = get_post_meta( $story_id, 'fictioneer_story_changelog', true );
+  $changelog = is_array( $changelog ) ? $changelog : [];
+
+  // Initialize
+  if ( empty( $changelog ) ) {
+    $changelog[] = array(
+      time(),
+      _x( 'Initialized.', 'Story changelog initialized.', 'fictioneer' )
+    );
+
+    update_post_meta( $story_id, 'fictioneer_story_changelog', $changelog );
+  }
+
+  // Return
+  return $changelog;
+}

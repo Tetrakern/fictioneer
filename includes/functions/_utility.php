@@ -2814,5 +2814,3 @@ if ( ! function_exists( 'fictioneer_get_async_css_loading_pattern' ) ) {
     return 'media="all"';
   }
 }
-
-?>

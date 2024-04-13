@@ -793,5 +793,3 @@ if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() )
   remove_action( 'wp_head', 'rel_canonical' ); // Re-added in the new action
   add_action( 'wp_head', 'fictioneer_output_head_seo', 5 );
 }
-
-?>

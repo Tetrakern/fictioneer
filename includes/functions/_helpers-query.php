@@ -356,5 +356,3 @@ function fictioneer_allow_falsy_story_hidden( $allowed ) {
 if ( get_option( 'fictioneer_disable_extended_story_list_meta_queries' ) ) {
   add_filter( 'fictioneer_filter_falsy_meta_allow_list', 'fictioneer_allow_falsy_story_hidden' );
 }
-
-?>

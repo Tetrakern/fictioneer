@@ -2552,5 +2552,3 @@ function fictioneer_add_customizers( $manager ) {
   );
 }
 add_action( 'customize_register', 'fictioneer_add_customizers', 20 );
-
-?>

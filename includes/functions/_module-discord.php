@@ -373,5 +373,3 @@ if ( ! empty( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) ) {
 //   // Send to Discord
 //   fictioneer_discord_send_message( $webhook, $message );
 // }
-
-?>

@@ -53,7 +53,7 @@ if ( get_option( 'fictioneer_enable_sitemap' ) && ! fictioneer_seo_plugin_active
 }
 
 // =============================================================================
-// CUSTOM EXCERPT LENGTH
+// CUSTOMIZE EXCERPTS
 // =============================================================================
 
 /**
@@ -68,6 +68,19 @@ function fictioneer_custom_excerpt_length( $length ) {
   return 64;
 }
 add_filter( 'excerpt_length', 'fictioneer_custom_excerpt_length' );
+
+/**
+ * Replace excerpt ellipsis
+ *
+ * @since 5.2.5
+ *
+ * @return string The ellipsis (…).
+ */
+
+function fictioneer_excerpt_ellipsis() {
+  return '…';
+}
+add_filter( 'excerpt_more', 'fictioneer_excerpt_ellipsis' );
 
 // =============================================================================
 // CUSTOMIZE ADMIN BAR
@@ -1268,5 +1281,3 @@ function fictioneer_disable_font_library( $editor_settings ) {
 	return $editor_settings;
 }
 add_filter( 'block_editor_settings_all', 'fictioneer_disable_font_library' );
-
-?>

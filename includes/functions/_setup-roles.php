@@ -1485,5 +1485,3 @@ if ( ! current_user_can( 'manage_options' ) ) {
     add_action( 'admin_footer-post-new.php', 'fictioneer_classic_editor_js_restrictions' );
   }
 }
-
-?>

@@ -372,5 +372,3 @@ function fictioneer_output_schemas( $post_id = null ) {
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
   add_action( 'wp_head', 'fictioneer_output_schemas' );
 }
-
-?>

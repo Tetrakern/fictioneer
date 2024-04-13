@@ -416,7 +416,7 @@ if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
 // cannot use any actions and filters not loaded at this point.
 // =============================================================================
 
-require_once __DIR__ . '/includes/functions/_fast_requests.php';
+require_once __DIR__ . '/includes/functions/_fast-requests.php';
 
 // =============================================================================
 // GLOBAL
@@ -432,13 +432,13 @@ require_once __DIR__ . '/includes/functions/_utility.php';
  * Modify WordPress functions via hooks.
  */
 
-require_once __DIR__ . '/includes/functions/_wordpress_mods.php';
+require_once __DIR__ . '/includes/functions/_setup-wordpress.php';
 
 /**
  * Actions whenever a post is created or updated.
  */
 
-require_once __DIR__ . '/includes/functions/_post_updates.php';
+require_once __DIR__ . '/includes/functions/_service-posts.php';
 
 /**
  * Set up the theme customizer.
@@ -454,57 +454,57 @@ if ( is_customize_preview() ) {
  * Set up the theme.
  */
 
-require_once __DIR__ . '/includes/functions/_theme_setup.php';
+require_once __DIR__ . '/includes/functions/_setup-theme.php';
 
 /**
  * Add custom post types.
  */
 
-require_once __DIR__ . '/includes/functions/_cpt_and_taxonomies.php';
+require_once __DIR__ . '/includes/functions/_setup-types-and-terms.php';
 
 /**
- * Caches and Transients.
+ * Cache plugins and Transients.
  */
 
-require_once __DIR__ . '/includes/functions/_caching_and_transients.php';
+require_once __DIR__ . '/includes/functions/_service-caching.php';
 
 /**
  * Add custom shortcodes.
  */
 
-require_once __DIR__ . '/includes/functions/_shortcodes.php';
+require_once __DIR__ . '/includes/functions/_setup-shortcodes.php';
 
 /**
  * Generate sitemap.
  */
 
-require_once __DIR__ . '/includes/functions/_sitemap.php';
+require_once __DIR__ . '/includes/functions/_module-sitemap.php';
 
 /**
  * Add SEO features to the site.
  */
 
-require_once __DIR__ . '/includes/functions/_seo.php';
+require_once __DIR__ . '/includes/functions/_module-seo.php';
 
 /**
  * Communicate with the Discord API.
  */
 
-require_once __DIR__ . '/includes/functions/_discord.php';
+require_once __DIR__ . '/includes/functions/_module-discord.php';
 
 /**
  * Generate ePUBs for stories.
  */
 
 if ( get_option( 'fictioneer_enable_epubs' ) ) {
-  require_once __DIR__ . '/includes/functions/_epub.php';
+  require_once __DIR__ . '/includes/functions/_module-epub.php';
 }
 
 /**
  * Log-in and register subscribers via OAuth 2.0.
  */
 
-require_once __DIR__ . '/includes/functions/_oauth.php';
+require_once __DIR__ . '/includes/functions/_module-oauth.php';
 
 /**
  * Handle comments.
@@ -583,25 +583,25 @@ if ( get_option( 'fictioneer_enable_bookmarks' ) && is_admin() ) {
  * Add content helper functions.
  */
 
-require_once __DIR__ . '/includes/functions/_content_helpers.php';
+require_once __DIR__ . '/includes/functions/_helpers-templates.php';
 
 /**
  * Add content query functions.
  */
 
-require_once __DIR__ . '/includes/functions/_query_helpers.php';
+require_once __DIR__ . '/includes/functions/_helpers-query.php';
 
 /**
  * Add role functions.
  */
 
-require_once __DIR__ . '/includes/functions/_roles.php';
+require_once __DIR__ . '/includes/functions/_setup-roles.php';
 
 /**
  * Add forms.
  */
 
-require_once __DIR__ . '/includes/functions/_forms.php';
+require_once __DIR__ . '/includes/functions/_module-forms.php';
 
 /**
  * Add API.
@@ -615,14 +615,14 @@ if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
  * Add search.
  */
 
-require_once __DIR__ . '/includes/functions/_search.php';
+require_once __DIR__ . '/includes/functions/_module-search.php';
 
 /**
  * Generate SEO schema graphs.
  */
 
 if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() ) {
-  require_once __DIR__ . '/includes/functions/_schemas.php';
+  require_once __DIR__ . '/includes/functions/_module-schemas.php';
 }
 
 // =============================================================================
@@ -635,7 +635,7 @@ if ( is_admin() ) {
    * Functions only required in the admin panel.
    */
 
-  require_once __DIR__ . '/includes/functions/_admin.php';
+  require_once __DIR__ . '/includes/functions/_setup-admin.php';
 
 }
 

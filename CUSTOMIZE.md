@@ -16,7 +16,7 @@ The assumption here is that you want the normal title to be short, like "WTF 1",
 * Filter: [fictioneer_filter_chapter_identity](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_chapter_identity-output-args-)
 * Filter: [fictioneer_filter_safe_title](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_safe_title-title-post_id-context-args-)
 * Include: [_story_hooks.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/hooks/_story_hooks.php)
-* Include: [_shortcodes.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_shortcodes.php)
+* Include: [_setup-shortcodes.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-shortcodes.php)
 * Partial: [_chapter-header.php](https://github.com/Tetrakern/fictioneer/blob/main/partials/_chapter-header.php)
 
 ```php
@@ -105,12 +105,12 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 
 ## Only show a specific advanced meta field
 
-Maybe you want only one specific advanced meta field. You can achieve this by manually adding the desired field and saving procedure, similar to how it is done in the [_meta_fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_meta_fields.php). The following example adds the Co-Authors field to stories, which can be adapted for chapters as well. Just make sure to change the {dynamic_parts} and the meta keys.
+Maybe you want only one specific advanced meta field. You can achieve this by manually adding the desired field and saving procedure, similar to how it is done in the [_setup-meta-fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-meta-fields.php). The following example adds the Co-Authors field to stories, which can be adapted for chapters as well. Just make sure to change the {dynamic_parts} and the meta keys.
 
 **References**
 * Filter: [fictioneer_filter_metabox_{meta_box}](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_metabox_meta_box-output-post-)
 * Filter: [fictioneer_filter_metabox_updates_{type}](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_metabox_updates_type-fields-post_id-)
-* Include: [_meta_fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_meta_fields.php)
+* Include: [_setup-meta-fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-meta-fields.php)
 
 ```php
 /**
@@ -210,7 +210,7 @@ The formatting of chapters is left to the visitor. Because customizing the forma
 
 **References**
 * Filter: [fictioneer_filter_chapter_default_formatting](FILTERS.md#apply_filters-fictioneer_filter_chapter_default_formatting-formatting-)
-* Include: [_theme_setup.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_theme_setup.php)
+* Include: [_setup-theme.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-theme.php)
 
 ```php
 /**

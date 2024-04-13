@@ -1500,5 +1500,3 @@ function fictioneer_shortcode_article_cards( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' );
-
-?>

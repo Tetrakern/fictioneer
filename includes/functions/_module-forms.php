@@ -5,7 +5,7 @@
 // =============================================================================
 
 /**
- * Submit comment form via AJAX
+ * Submit contact form via AJAX
  *
  * @since 5.0.0
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
@@ -226,5 +226,3 @@ function fictioneer_ajax_submit_contact_form() {
 }
 add_action( 'wp_ajax_fictioneer_ajax_submit_contact_form', 'fictioneer_ajax_submit_contact_form' );
 add_action( 'wp_ajax_nopriv_fictioneer_ajax_submit_contact_form', 'fictioneer_ajax_submit_contact_form' );
-
-?>

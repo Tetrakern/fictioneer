@@ -1084,5 +1084,3 @@ if ( ! function_exists( 'fictioneer_delete_expired_oauth_transients' ) ) {
     }
   }
 }
-
-?>
