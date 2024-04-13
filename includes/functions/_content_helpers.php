@@ -152,21 +152,6 @@ if ( ! function_exists( 'fictioneer_get_author_node' ) ) {
   }
 }
 
-if ( ! function_exists( 'fictioneer_the_author_node' ) ) {
-  /**
-   * Outputs the author node
-   *
-   * @since 4.0.0
-   *
-   * @param int    $author_id  The author's user ID. Defaults to current post author.
-   * @param string $classes    Optional. String of CSS classes.
-   */
-
-  function fictioneer_the_author_node( $author_id = null, $classes = '' ) {
-    echo fictioneer_get_author_node( $author_id, $classes );
-  }
-}
-
 // =============================================================================
 // GET ICON HTML
 // =============================================================================
