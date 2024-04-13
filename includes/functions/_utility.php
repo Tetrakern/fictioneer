@@ -2064,17 +2064,17 @@ if ( ! function_exists( 'fictioneer_get_font_colors' ) ) {
   function fictioneer_get_font_colors() {
     // Setup default font colors
     $colors = array(
-      ['css' => 'var(--fg-tinted)', 'name' => _x( 'Tinted', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-500)', 'name' => _x( 'Baseline', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-600)', 'name' => _x( 'Low', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-700)', 'name' => _x( 'Lower', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-800)', 'name' => _x( 'Lowest', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-400)', 'name' => _x( 'High', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-300)', 'name' => _x( 'Higher', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => 'var(--fg-200)', 'name' => _x( 'Highest', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => '#fff', 'name' => _x( 'White', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => '#999', 'name' => _x( 'Gray', 'Chapter font color name.', 'fictioneer' )],
-      ['css' => '#000', 'name' => _x( 'Black', 'Chapter font color name.', 'fictioneer' )]
+      array( 'css' => 'var(--fg-tinted)', 'name' => _x( 'Tinted', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-500)', 'name' => _x( 'Baseline', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-600)', 'name' => _x( 'Low', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-700)', 'name' => _x( 'Lower', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-800)', 'name' => _x( 'Lowest', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-400)', 'name' => _x( 'High', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-300)', 'name' => _x( 'Higher', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => 'var(--fg-200)', 'name' => _x( 'Highest', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => '#fff', 'name' => _x( 'White', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => '#999', 'name' => _x( 'Gray', 'Chapter font color name.', 'fictioneer' ) ),
+      array( 'css' => '#000', 'name' => _x( 'Black', 'Chapter font color name.', 'fictioneer' ) )
     );
 
     // Apply filters and return
