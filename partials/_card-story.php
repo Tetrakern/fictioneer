@@ -22,6 +22,7 @@ defined( 'ABSPATH' ) OR exit;
 
 // Setup
 $story = fictioneer_get_story_data( $post->ID );
+$story_link = ( $story['redirect'] ?? 0 ) ?: get_permalink( $post->ID );
 $latest = $args['show_latest'] ?? false;
 $chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
 $chapter_count = count( $chapter_ids );
@@ -85,7 +86,7 @@ $thumbnail_args = array(
         <div class="card__label"><?php _ex( 'Story', 'Story card label.', 'fictioneer' ); ?></div>
       <?php endif; ?>
 
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+      <h3 class="card__title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php
         if ( ! empty( $post->post_password ) ) {
           echo '<i class="fa-solid fa-lock protected-icon"></i> ';
         }

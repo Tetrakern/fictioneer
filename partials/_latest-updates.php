@@ -131,6 +131,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <?php
           // Setup
           $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
+          $story_link = get_post_meta( $post->ID, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $post->ID );
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $chapter_list = [];
@@ -234,11 +235,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <?php elseif ( $args['vertical'] ) : ?>
 
-                <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
+                <a href="<?php echo $story_link; ?>" class='card__image cell-img _default'></a>
 
               <?php endif; ?>
 
-              <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+              <h3 class="card__title _small cell-title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php
                 if ( ! empty( $post->post_password ) ) {
                   echo '<i class="fa-solid fa-lock protected-icon"></i> ';
                 }

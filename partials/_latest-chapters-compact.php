@@ -227,9 +227,12 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php endif; ?>
                   <?php
                     if ( $story && $args['source'] ) {
+                      $story_link = get_post_meta( $story_id, 'fictioneer_story_redirect_link', true )
+                        ?: get_permalink( $story_id );
+
                       printf(
                         _x( 'in <a href="%1$s" class="bold-link">%2$s</a>', 'Small card: in {Link to Story}.', 'fictioneer' ),
-                        get_permalink( $story_id ),
+                        $story_link,
                         fictioneer_truncate( fictioneer_get_safe_title( $story_id, 'shortcode-latest-chapters-compact' ), 24 )
                       );
                     }
