@@ -295,7 +295,7 @@ function fictioneer_story_tabs( $args ) {
   }
 
   // Start HTML ---> ?>
-  <section id="tabs" class="story__tabs tabs-wrapper padding-left padding-right" data-current="chapters" data-order="asc" data-view="list">
+  <section id="tabs-<?php echo $story_id; ?>" class="story__tabs tabs-wrapper padding-left padding-right" data-current="chapters" data-order="asc" data-view="list">
 
     <div class="tabs">
       <button class="tabs__item _current" data-target="chapters" tabindex="0"><?php

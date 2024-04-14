@@ -151,17 +151,19 @@ _$$('.chapter-group__folding-toggle').forEach(element => {
  */
 
 function fcn_toggleStoryTab(target) {
+  const container = target.closest('.story');
+
   // Clear previous tab
-  _$$('.story__tab-target._current, .story__tabs ._current').forEach(item => {
+  container.querySelectorAll('.story__tab-target._current, .story__tabs ._current').forEach(item => {
     item.classList.remove('_current');
   });
 
   // Set new tab
-  _$$(`[data-finder="${target.dataset.target}"]`).forEach(element => {
+  container.querySelectorAll(`[data-finder="${target.dataset.target}"]`).forEach(element => {
     element.classList.add('_current');
   });
 
-  _$$$('tabs').dataset.current = target.dataset.target;
+  container.querySelector('.story__tabs').dataset.current = target.dataset.target;
   target.classList.add('_current');
 }
 
