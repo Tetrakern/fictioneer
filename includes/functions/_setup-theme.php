@@ -660,7 +660,7 @@ function fictioneer_style_queue() {
       }
 
       // Story
-      if ( $post_type == 'fcn_story' ) {
+      if ( $post_type == 'fcn_story' || is_page_template( 'singular-story.php' ) ) {
         wp_enqueue_style(
           'fictioneer-story',
           get_template_directory_uri() . '/css/story.css',
@@ -1044,7 +1044,7 @@ function fictioneer_add_custom_scripts() {
     }
 
     // Enqueue story
-    if ( $post_type == 'fcn_story' && ! is_archive() && ! is_search() ) {
+    if ( ( $post_type == 'fcn_story' || is_page_template( 'singular-story.php' ) ) && ! is_archive() && ! is_search() ) {
       wp_enqueue_script( 'fictioneer-story-scripts' );
     }
 

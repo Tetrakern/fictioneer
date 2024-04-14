@@ -656,7 +656,7 @@ if ( ! is_admin() ) {
    */
 
   function fictioneer_conditional_require_frontend_hooks() {
-    if ( is_page_template( 'stories.php' ) || is_singular( 'fcn_story' ) ) {
+    if ( is_page_template( 'stories.php' ) || is_page_template( 'singular-story.php' ) || is_singular( 'fcn_story' ) ) {
       require_once __DIR__ . '/includes/functions/hooks/_story_hooks.php';
     }
 
