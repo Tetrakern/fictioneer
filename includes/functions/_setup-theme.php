@@ -1532,3 +1532,31 @@ function fictioneer_output_head_translations() {
   echo "<script id='fictioneer-translations' type='text/javascript' data-no-optimize='1' data-no-defer='1' data-no-minify='1'>const fictioneer_tl = " . json_encode( fictioneer_get_js_translations() ) . ";</script>";
 }
 add_action( 'wp_head', 'fictioneer_output_head_translations' );
+
+// =============================================================================
+// STORY REDIRECT
+// =============================================================================
+
+/**
+ * Directs story if a redirect link is set
+ *
+ * @since 5.14.0
+ */
+
+function fictioneer_redirect_story() {
+  global $post;
+
+  // Abort if...
+  if ( ! is_single() || get_post_type( $post ) !== 'fcn_story' ) {
+    return;
+  }
+
+  // Setup
+  $redirect = get_post_meta( $post->ID ?? 0, 'fictioneer_story_redirect_link', true );
+
+  if ( $redirect ) {
+    wp_redirect( $redirect, 301 );
+    exit;
+  }
+}
+add_action( 'template_redirect', 'fictioneer_redirect_story' );
