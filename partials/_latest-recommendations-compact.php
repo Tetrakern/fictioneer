@@ -21,6 +21,9 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['vertical']          Whether to show the vertical variant.
+ * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
+ * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
@@ -105,6 +108,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
           $tags = get_option( 'fictioneer_show_tags_on_recommendation_cards' ) ? get_the_tags( $post ) : false;
+          $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
           // Extra classes
@@ -116,18 +120,41 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          if ( $args['vertical'] ) {
+            $card_classes[] = '_vertical';
+          }
+
+          if ( $args['vertical'] && $args['seamless'] ) {
+            $card_classes[] = '_seamless';
+          }
+
+          // Truncate factor
+          $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
+
           // Card attributes
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-recommendations-compact' );
+          $attributes = [];
+
+          if ( $args['aspect_ratio'] ) {
+            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+          }
+
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-recommendations-compact' );
+
           $card_attributes = '';
 
           foreach ( $attributes as $key => $value ) {
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
 
-          // Thumbnail attributes
-          $thumbnail_args = array(
-            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
-            'class' => 'no-auto-lightbox'
+          // Thumbnail
+          $thumbnails = fictioneer_get_small_card_thumbnail(
+            $post->ID,
+            array(
+              'title' => $title,
+              'vertical' => $args['vertical'],
+              'seamless' => $args['seamless'],
+              'aspect_ratio' => $args['aspect_ratio']
+            )
           );
         ?>
 
@@ -138,20 +165,24 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
-            <div class="card__main _grid _small">
+            <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
               <?php do_action( 'fictioneer_shortcode_latest_recommendations_card_body', $post, $args ); ?>
 
-              <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-                  <?php echo get_the_post_thumbnail( $post, 'snippet', $thumbnail_args ); ?>
-                </a>
+              <?php if ( $thumbnails['thumbnail'] ) : ?>
+
+                <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail']; ?></a>
+
+              <?php elseif ( $args['vertical'] ) : ?>
+
+                <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
+
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _cq-3-4">
+                <div class="truncate <?php echo $truncate_factor; ?>">
                   <span class="card__by-author"><?php
                     printf(
                       _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
