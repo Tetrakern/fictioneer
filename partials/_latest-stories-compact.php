@@ -22,6 +22,9 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
+ * @internal $args['simple']            Whether to show the simple variant.
+ * @internal $args['vertical']          Whether to show the vertical variant.
+ * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
@@ -121,6 +124,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
           $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post->ID, 'fictioneer_story_sticky', true );
+          $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
           // Extra classes
@@ -140,19 +144,51 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          if ( $args['vertical'] ) {
+            $card_classes[] = '_vertical';
+          }
+
+          if ( $args['vertical'] && $args['seamless'] ) {
+            $card_classes[] = '_seamless';
+          }
+
+          // Truncate factor
+          $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
+
           // Card attributes
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-stories-compact' );
+          $attributes = [];
+
+          if ( $args['aspect_ratio'] ) {
+            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+          }
+
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-stories-compact' );
+
           $card_attributes = '';
 
           foreach ( $attributes as $key => $value ) {
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
 
-          // Thumbnail attributes
+          // Thumbnail
+          $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
           $thumbnail_args = array(
             'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
             'class' => 'no-auto-lightbox'
           );
+          $thumbnail_size = $args['vertical'] ? 'large' : 'snippet';
+
+          if ( $landscape_image_id && $args['aspect_ratio'] ) {
+            $ratios = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] );
+
+            if ( $ratios[0] - $ratios[1] > 1 ) {
+              $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
+            } else {
+              $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
+            }
+          } else {
+            $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
+          }
         ?>
 
         <li class="card watch-last-clicked _small _story <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -162,14 +198,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
             <?php endif; ?>
 
-            <div class="card__main _grid _small">
+            <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
               <?php do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story, $args ); ?>
 
-              <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>>
-                  <?php echo get_the_post_thumbnail( $post, 'snippet', $thumbnail_args ); ?>
-                </a>
+              <?php if ( ! empty( $thumbnail ) ) : ?>
+                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail; ?></a>
+              <?php elseif ( $args['vertical'] ) : ?>
+                <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
@@ -181,7 +217,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _cq-3-4">
+                <div class="truncate <?php echo $truncate_factor; ?>">
                   <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
