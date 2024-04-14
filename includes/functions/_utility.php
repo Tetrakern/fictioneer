@@ -392,7 +392,8 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'chapter_ids' => $visible_chapter_ids,
       'last_modified' => get_the_modified_time( 'U', $story_id ),
       'comment_count' => $comment_count,
-      'comment_count_timestamp' => time()
+      'comment_count_timestamp' => time(),
+      'redirect' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true )
     );
 
     // Update meta cache if enabled

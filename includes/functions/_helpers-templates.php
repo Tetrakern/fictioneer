@@ -932,11 +932,14 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
       // Mobile menu chapter list
       $micro_menu['chapter_list'] = '<label id="micro-menu-label-open-chapter-list" for="mobile-menu-toggle" class="micro-menu__item micro-menu__chapter-list show-below-desktop" tabindex="-1"><i class="fa-solid fa-list"></i></label>';
 
+      // Story link
+      $story_link = get_post_meta( $args['story_post']->ID ?? 0, 'fictioneer_story_redirect_link', true )
+        ?: get_permalink( $args['story_post'] );
+
       // Link to story
       $micro_menu['story_link'] = sprintf(
-        '<a href="%s#%d" title="%s" class="micro-menu__item" tabindex="-1"><i class="fa-solid fa-book"></i></a>',
-        get_the_permalink( $args['story_post']->ID ),
-        $args['story_post']->ID,
+        '<a href="%s" title="%s" class="micro-menu__item" tabindex="-1"><i class="fa-solid fa-book"></i></a>',
+        $story_link,
         esc_attr( get_the_title( $args['story_post']->ID ) )
       );
     }

@@ -31,10 +31,12 @@ $story_visible = $args['story_post'] &&
 
 <header class="chapter__headline layout-links"><?php
   $password_class = empty( $args['chapter_password'] ) ? '' : ' _password';
+  $redirect = $args['story_data']['redirect'] ?? 0;
   $identity = [];
 
   if ( $story_visible ) {
-    $identity['link'] = '<a href="' . get_permalink( $args['story_post']->ID ) . '" class="chapter__story-link">' . $args['story_data']['title'] . '</a>';
+    $link = $redirect ?: get_permalink( $args['story_post']->ID );
+    $identity['link'] = '<a href="' . $link . '" class="chapter__story-link">' . $args['story_data']['title'] . '</a>';
   }
 
   if ( ! get_post_meta( $post->ID, 'fictioneer_chapter_hide_title', true ) ) {
