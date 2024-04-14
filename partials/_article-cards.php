@@ -156,8 +156,19 @@ $pag_args = array(
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          if ( $args['seamless'] ) {
+            $card_classes[] = '_seamless';
+          }
+
           // Card attributes
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-article-cards' );
+          $attributes = [];
+
+          if ( $args['aspect_ratio'] ) {
+            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+          }
+
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-article-cards' );
+
           $card_attributes = '';
 
           foreach ( $attributes as $key => $value ) {
