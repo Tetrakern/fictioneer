@@ -561,9 +561,12 @@
       }
     }
 
+    &:not(._seamless) .card__info-toggle {
+      padding: calc(1.625 * var(--this-padding));
+    }
+
     .card__info-toggle {
       color: var(--fg-inverted);
-      padding: calc(1.625 * var(--this-padding));
       opacity: .5;
 
       &:hover {
