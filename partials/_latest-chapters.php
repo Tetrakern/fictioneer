@@ -24,6 +24,9 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['simple']            Whether to show the simple variant.
+ * @internal $args['vertical']          Whether to show the vertical variant.
+ * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
+ * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
@@ -131,13 +134,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
+          $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
-
-          // Thumbnail attributes
-          $thumbnail_args = array(
-            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $title ),
-            'class' => 'no-auto-lightbox'
-          );
 
           // Extra card classes
           if ( ! empty( $post->post_password ) ) {
@@ -148,15 +146,27 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
-          // Chapter images
-          $thumbnail_full = get_the_post_thumbnail_url( $post, 'full' );
-          $thumbnail_snippet = get_the_post_thumbnail( $post, 'snippet', $thumbnail_args );
-
-          // Story images
-          if ( ! $thumbnail_full && $story ) {
-            $thumbnail_full = get_the_post_thumbnail_url( $story_id, 'full' );
-            $thumbnail_snippet = get_the_post_thumbnail( $story_id, 'snippet', $thumbnail_args );
+          if ( $args['vertical'] ) {
+            $card_classes[] = '_vertical';
           }
+
+          if ( $args['vertical'] && $args['seamless'] ) {
+            $card_classes[] = '_seamless';
+          }
+
+          // Truncate factor
+          $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
+
+          // Thumbnail
+          $thumbnails = fictioneer_get_small_card_thumbnail(
+            $post->ID,
+            array(
+              'title' => $title,
+              'vertical' => $args['vertical'] ?? 0,
+              'seamless' => $args['seamless'] ?? 0,
+              'aspect_ratio' => $args['aspect_ratio'] ?? 0
+            )
+          );
 
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
@@ -164,7 +174,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
 
           // Card attributes
-          $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'shortcode-latest-chapters' );
+          $attributes = [];
+
+          if ( $args['aspect_ratio'] ) {
+            $attributes['style'] = '--card-image-aspect-ratio: ' . $args['aspect_ratio'];
+          }
+
+          $attributes = apply_filters( 'fictioneer_filter_card_attributes', $attributes, $post, 'shortcode-latest-chapters' );
+
           $card_attributes = '';
 
           foreach ( $attributes as $key => $value ) {
@@ -175,14 +192,22 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="card _small _chapter <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <div class="card__main _grid _small">
+            <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
               <?php do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args ); ?>
 
-              <?php if ( $thumbnail_full ) : ?>
-                <a href="<?php echo $thumbnail_full; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail_snippet ?></a>
+              <?php if ( $thumbnails['thumbnail'] ) : ?>
+
+                <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail'] ?></a>
+
+              <?php elseif ( $args['vertical'] ) : ?>
+
+                <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
+
               <?php elseif ( ! empty( $text_icon ) ) : ?>
+
                 <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ); ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
+
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
@@ -197,7 +222,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate _cq-3-4 <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>" data-obfuscation-target>
+                <div class="truncate <?php echo $truncate_factor; ?> <?php if ( ! $args['spoiler'] ) echo '_obfuscated'; ?>" data-obfuscation-target>
                   <?php if ( get_option( 'fictioneer_show_authors' ) && $args['source'] ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s', 'Small card: by {Author}.', 'fictioneer' ), fictioneer_get_author_node() );
