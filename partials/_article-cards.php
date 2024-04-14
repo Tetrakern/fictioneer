@@ -134,17 +134,14 @@ $pag_args = array(
           $card_classes = [];
 
           // Thumbnail
-          $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
-          $thumbnail = null;
-
-          $image_args = array(
-            'alt' => sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
-            'class' => 'no-auto-lightbox'
+          $thumbnails = fictioneer_get_small_card_thumbnail(
+            $post->ID,
+            array(
+              'title' => $title,
+              'seamless' => $args['seamless'],
+              'aspect_ratio' => $args['aspect_ratio']
+            )
           );
-
-          if ( empty( $landscape_image_id ) ) {
-            $thumbnail = get_the_post_thumbnail( $post, 'medium', $image_args );
-          }
 
           // Chapter story?
           if ( $post->post_type === 'fcn_chapter' ) {
@@ -182,17 +179,8 @@ $pag_args = array(
               <div class="card__main _article">
 
                 <?php
-                  // Try parent thumbnail (if any)
-                  if ( ! $landscape_image_id && ! $thumbnail && $story_id ) {
-                    $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
-                    $thumbnail = get_the_post_thumbnail( $story_id, 'large', $image_args );
-                  }
-
-                  if ( ! empty( $landscape_image_id ) ) {
-                    $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $image_args );
-                    echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
-                  } elseif ( ! empty( $thumbnail ) ) {
-                    echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
+                  if ( $thumbnails['thumbnail'] ) {
+                    echo "<a href='{$thumbnails['thumbnail_full_url']}' class='card__image _article cell-img _default'>{$thumbnails['thumbnail']}</a>";
                   } else {
                     echo "<a href='{$permalink}' class='card__image _article cell-img _default'></a>";
                   }

@@ -201,24 +201,15 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
 
           // Thumbnail
-          $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
-          $thumbnail_args = array(
-            'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
-            'class' => 'no-auto-lightbox'
+          $thumbnails = fictioneer_get_small_card_thumbnail(
+            $post->ID,
+            array(
+              'title' => $story['title'],
+              'vertical' => $args['vertical'],
+              'seamless' => $args['seamless'],
+              'aspect_ratio' => $args['aspect_ratio']
+            )
           );
-          $thumbnail_size = $args['vertical'] ? 'large' : 'snippet';
-
-          if ( $landscape_image_id && $args['aspect_ratio'] ) {
-            $ratios = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] );
-
-            if ( $ratios[0] - $ratios[1] > 1 ) {
-              $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
-            } else {
-              $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
-            }
-          } else {
-            $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
-          }
         ?>
 
         <li class="card watch-last-clicked _small _info _story-update <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -230,8 +221,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <?php do_action( 'fictioneer_shortcode_latest_updates_card_body', $post, $story, $args ); ?>
 
-              <?php if ( ! empty( $thumbnail ) ) : ?>
-                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail; ?></a>
+              <?php if ( $thumbnails['thumbnail'] ) : ?>
+                <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail']; ?></a>
               <?php elseif ( $args['vertical'] ) : ?>
                 <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
               <?php endif; ?>
