@@ -285,7 +285,7 @@
     }
 
     &._article {
-      aspect-ratio: 3 / 1;
+      aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
       margin-bottom: min(var(--article-card-image-margin-bottom, 3.25cqw), 16px);
     }
   }
@@ -541,6 +541,17 @@
     }
   }
 
+  &._seamless {
+    .cell-img {
+      --negative-margin: calc(-1 * var(--this-padding));
+      margin-top: var(--negative-margin);
+      margin-left: var(--negative-margin);
+      margin-right: var(--negative-margin);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
   ._grid {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
@@ -620,7 +631,9 @@
       'img desc'
       'img list'
       'tax tax';
+  }
 
+  ._small {
     .cell-title {
       margin: var(--small-card-title-margin, 0 0 .4em);
     }
@@ -631,6 +644,20 @@
 
     .cell-list {
       margin-top: var(--small-card-list-margin-top, 0.6em);
+    }
+  }
+
+  ._vertical {
+    .cell-img {
+      display: block;
+      aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
+      margin-bottom: min(var(--small-card-image-margin-bottom, 3.25cqw), 16px);
+
+      img {
+        aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
+        position: static;
+        height: auto;
+      }
     }
   }
 
