@@ -177,6 +177,9 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'relation' => strtolower( $attr['rel'] ?? 'and' ) === 'or' ? 'OR' : 'AND',
     'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'vertical' => filter_var( $attr['vertical'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'seamless' => filter_var( $attr['seamless'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'aspect_ratio' => sanitize_css_aspect_ratio( $attr['aspect_ratio'] ?? '' ),
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
 
@@ -184,7 +187,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
 
   // Update count if limited to post IDs
   if ( ! empty( $args['post_ids'] ) ) {
-    $args['count']= count( $args['post_ids'] );
+    $args['count'] = count( $args['post_ids'] );
   }
 
   //--- Finish -----------------------------------------------------------------
