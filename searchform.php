@@ -27,6 +27,8 @@ if ( $show_advanced ) {
   $sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
   $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
   $orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
+  $min_words = absint( $_GET['min_words'] ?? 0 );
+  $max_words = absint( $_GET['max_words'] ?? 0 );
 
   $story_status = array_intersect(
     [ $_GET['story_status'] ?? 0 ],
@@ -70,7 +72,7 @@ if ( $show_advanced ) {
   $queried_ex_warnings = sanitize_text_field( $_GET['ex_warnings'] ?? 0 );
   $queried_ex_tags = sanitize_text_field( $_GET['ex_tags'] ?? 0 );
 
-  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status || $age_rating;
+  $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc' || $orderby != 'modified' || $queried_tags || $queried_genres || $queried_fandoms || $queried_characters || $queried_warnings || $queried_ex_tags || $queried_ex_genres || $queried_ex_fandoms || $queried_ex_characters || $queried_ex_warnings || $queried_authors_in || $queried_authors_out || $author_name || $story_status || $age_rating || $min_words || $max_words;
 
   // Prime author cache
   if ( function_exists( 'update_post_author_caches' ) ) {
@@ -213,6 +215,24 @@ if ( $show_advanced ) {
             $story_status ? fcntr( $story_status ) : _x( 'Any', 'Advanced search option.', 'fictioneer' )
           );
         ?></span>
+
+        <?php if ( $min_words ) : ?>
+          <span class="search-form__current-status"><?php
+            printf(
+              _x( '<b>Min Words:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
+              $min_words ? $min_words : _x( 'Any', 'Advanced search option.', 'fictioneer' )
+            );
+          ?></span>
+        <?php endif; ?>
+
+        <?php if ( $max_words ) : ?>
+          <span class="search-form__current-status"><?php
+            printf(
+              _x( '<b>Max Words:</b> <span>%s</span>', 'Advanced search summary.', 'fictioneer' ),
+              $max_words ? $max_words : _x( 'Any', 'Advanced search option.', 'fictioneer' )
+            );
+          ?></span>
+        <?php endif; ?>
 
         <?php
           // [query string, type, class suffix, summary heading]

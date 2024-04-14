@@ -750,6 +750,68 @@ function fictioneer_add_search_for_status( $args ) {
 add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_status' );
 
 /**
+ * Adds min words select to advanced search form
+ *
+ * @since 5.13.1
+ *
+ * @param array $args  Arguments passed to the search form.
+ */
+
+function fictioneer_add_search_for_min_words( $args ) {
+  $words = absint( $_GET['min_words'] ?? 0 );
+
+  // Start HTML ---> ?>
+  <div class="search-form__select-wrapper select-wrapper">
+    <div class="search-form__select-title"><?php _ex( 'Min Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
+    <select name="min_words" class="search-form__select" autocomplete="off" data-default="0">
+      <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Minimum', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="1000" <?php echo $words == 1000 ? 'selected' : ''; ?>><?php _ex( '1,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="5000" <?php echo $words == 5000 ? 'selected' : ''; ?>><?php _ex( '5,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="10000" <?php echo $words == 10000 ? 'selected' : ''; ?>><?php _ex( '10,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="25000" <?php echo $words == 25000 ? 'selected' : ''; ?>><?php _ex( '25,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="50000" <?php echo $words == 50000 ? 'selected' : ''; ?>><?php _ex( '50,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="100000" <?php echo $words == 100000 ? 'selected' : ''; ?>><?php _ex( '100,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="250000" <?php echo $words == 250000 ? 'selected' : ''; ?>><?php _ex( '250,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="500000" <?php echo $words == 500000 ? 'selected' : ''; ?>><?php _ex( '500,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="1000000" <?php echo $words == 1000000 ? 'selected' : ''; ?>><?php _ex( '1,000,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+    </select>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_min_words' );
+
+/**
+ * Adds max words select to advanced search form
+ *
+ * @since 5.13.1
+ *
+ * @param array $args  Arguments passed to the search form.
+ */
+
+function fictioneer_add_search_for_max_words( $args ) {
+  $words = absint( $_GET['max_words'] ?? 0 );
+
+  // Start HTML ---> ?>
+  <div class="search-form__select-wrapper select-wrapper">
+    <div class="search-form__select-title"><?php _ex( 'Max Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
+    <select name="max_words" class="search-form__select" autocomplete="off" data-default="0">
+      <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Maximum', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="1000" <?php echo $words == 1000 ? 'selected' : ''; ?>><?php _ex( '1,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="5000" <?php echo $words == 5000 ? 'selected' : ''; ?>><?php _ex( '5,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="10000" <?php echo $words == 10000 ? 'selected' : ''; ?>><?php _ex( '10,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="25000" <?php echo $words == 25000 ? 'selected' : ''; ?>><?php _ex( '25,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="50000" <?php echo $words == 50000 ? 'selected' : ''; ?>><?php _ex( '50,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="100000" <?php echo $words == 100000 ? 'selected' : ''; ?>><?php _ex( '100,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="250000" <?php echo $words == 250000 ? 'selected' : ''; ?>><?php _ex( '250,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="500000" <?php echo $words == 500000 ? 'selected' : ''; ?>><?php _ex( '500,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+      <option value="1000000" <?php echo $words == 1000000 ? 'selected' : ''; ?>><?php _ex( '1,000,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
+    </select>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_max_words' );
+
+/**
  * Outputs the HTML for no search params
  *
  * @since 5.5.2
