@@ -139,7 +139,7 @@ $pag_args = array(
             array(
               'title' => $title,
               'seamless' => $args['seamless'],
-              'aspect_ratio' => $args['aspect_ratio']
+              'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'
             )
           );
 

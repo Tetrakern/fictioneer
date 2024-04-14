@@ -638,13 +638,18 @@ function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
     'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $args['title'] ?? '' ),
     'class' => 'no-auto-lightbox'
   );
+  $aspect_ratio = $args['aspect_ratio'] ?? 0;
   $thumbnail = null;
   $thumbnail_url = null;
   $thumbnail_full_url = null;
 
+  if ( ! $aspect_ratio && ( $args['vertical'] ?? 0 ) ) {
+    $aspect_ratio = '3/1';
+  }
+
   // Landscape thumbnail?
-  if ( $landscape_image_id && $args['aspect_ratio'] ?? 0 ) {
-    $ratio = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] );
+  if ( $landscape_image_id && $aspect_ratio ) {
+    $ratio = fictioneer_get_split_aspect_ratio( $aspect_ratio );
 
     if ( $ratio[0] - $ratio[1] > 1 ) {
       $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
@@ -665,6 +670,13 @@ function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
     unset( $args['parent_id'] ); // Prevent infinite loop
 
     return fictioneer_get_small_card_thumbnail( $parent_id, $args );
+  }
+
+  // Landscape thumbnail fallback?
+  if ( ! $thumbnail && $landscape_image_id ) {
+    $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
+    $thumbnail_url = wp_get_attachment_url( $landscape_image_id, 'large', false, $thumbnail_args );
+    $thumbnail_full_url = wp_get_attachment_url( $landscape_image_id, 'full', false, $thumbnail_args );
   }
 
   // Return result
