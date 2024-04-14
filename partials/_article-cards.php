@@ -183,7 +183,7 @@ $pag_args = array(
                   } elseif ( ! empty( $thumbnail ) ) {
                     echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
                   } else {
-                    echo "<a href='{$permalink}'  class='card__image _article cell-img _default'></a>";
+                    echo "<a href='{$permalink}' class='card__image _article cell-img _default'></a>";
                   }
                 ?>
 
