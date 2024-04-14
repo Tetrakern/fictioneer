@@ -194,9 +194,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <?php do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story, $args ); ?>
 
               <?php if ( $thumbnails['thumbnail'] ) : ?>
+
                 <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail']; ?></a>
+
               <?php elseif ( $args['vertical'] ) : ?>
+
                 <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
+
               <?php endif; ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
