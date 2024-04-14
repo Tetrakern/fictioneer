@@ -1500,3 +1500,116 @@ function fictioneer_shortcode_article_cards( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' );
+
+// =============================================================================
+// STORY SECTION SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show story section
+ *
+ * @since 5.14.0
+ *
+ * @param string      $attr['story_id']   Either/Or. The ID of the story the chapters belong to.
+ * @param string|null $attr['tabs']       Optional. Whether to show the tabs above chapters. Default false.
+ * @param string|null $attr['blog']       Optional. Whether to show the blog tab. Default false.
+ * @param string|null $attr['pages']      Optional. Whether to show the custom page tabs. Default false.
+ * @param string|null $attr['scheduled']  Optional. Whether to show the scheduled chapter note. Default false.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_story_section( $attr ) {
+  // Setup
+  $story_id = absint( $attr['story_id'] ?? 0 );
+  $story_data = fictioneer_get_story_data( $story_id );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $show_tabs = filter_var( $attr['tabs'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $show_pages = filter_var( $attr['pages'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $show_blog = filter_var( $attr['blog'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $show_scheduled = filter_var( $attr['scheduled'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $hook_args = array( 'story_id' => $story_id, 'story_data' => $story_data );
+
+  // Abort if...
+  if ( ! $story_data ) {
+    return;
+  }
+
+  if ( ! is_page_template( 'singular-story.php' ) ) {
+    return fictioneer_notice(
+      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
+      'warning',
+      false
+    );
+  }
+
+  // Prepare classes
+  if ( ! get_option( 'fictioneer_enable_checkmarks' ) ) {
+    $classes .= ' _no-checkmarks';
+  }
+
+  if ( ! $show_pages || ! $show_tabs ) {
+    $classes .= ' _no-pages';
+  }
+
+  if ( ! $show_blog || ! $show_tabs ) {
+    $classes .= ' _no-blog';
+  }
+
+  // Require functions (necessary in post editor for some reason)
+  require_once __DIR__ . '/hooks/_story_hooks.php';
+
+  // Transient?
+  // if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  //   $base = serialize( $attr ) . $classes;
+  //   $transient_key = "fictioneer_shortcode_chapter_section_html_" . md5( $base );
+  //   $transient = get_transient( $transient_key );
+
+  //   if ( ! empty( $transient ) ) {
+  //     return $transient;
+  //   }
+  // }
+
+  // Setup post data
+  setup_postdata( $story_id );
+
+  // Buffer
+  ob_start();
+
+  echo '<div class="story _shortcode ' . esc_attr( $classes ) . '">';
+
+  if ( $show_tabs ) {
+    fictioneer_story_tabs( $hook_args );
+  }
+
+  if ( $show_scheduled ) {
+    fictioneer_story_scheduled_chapter( $hook_args );
+  }
+
+  if ( $show_tabs && $show_pages ) {
+    fictioneer_story_pages( $hook_args );
+  }
+
+  fictioneer_story_chapters( $hook_args );
+
+  if ( $show_tabs && $show_blog ) {
+    fictioneer_story_blog( $hook_args );
+  }
+
+  echo '</div>';
+
+  // Store buffer
+  $html = fictioneer_minify_html( ob_get_clean() );
+
+  // Reset post data
+  wp_reset_postdata();
+
+  // if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+  //   set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
+  // }
+
+  // Return minified buffer
+  return $html;
+}
+add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' );

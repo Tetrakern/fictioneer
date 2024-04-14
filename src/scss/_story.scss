@@ -501,6 +501,41 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
   }
 }
 
+.story._shortcode {
+  :is(.chapter-group, .story__scheduled-chapter, .story__blog) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  :is(.story__tabs, .story__tab-target:not(.story__scheduled-chapter)) {
+    padding: 0;
+  }
+
+  &._no-pages {
+    [data-target*="tab-page-"] {
+      display: none;
+    }
+
+    [data-target="blog"] {
+      border-top-right-radius: var(--layout-border-radius-small);
+      border-bottom-right-radius: var(--layout-border-radius-small);
+    }
+  }
+
+  &._no-blog {
+    [data-target="blog"] {
+      display: none;
+    }
+  }
+
+  &._no-pages._no-blog {
+    [data-target="chapters"] {
+      border-top-right-radius: var(--layout-border-radius-small);
+      border-bottom-right-radius: var(--layout-border-radius-small);
+    }
+  }
+}
+
 .story__chapters[data-view="grid"] {
   margin-top: -24px; // Compensate groups
 
