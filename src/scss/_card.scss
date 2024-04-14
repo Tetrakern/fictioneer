@@ -159,14 +159,14 @@
     display: flex;
     align-items: center;
     gap: .5em;
-    font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
+    font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
     margin-bottom: 0.75em; // Based on font-size
   }
 
   &__title {
     flex: 1 1 auto;
     font-family: var(--ff-card-title);
-    font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
+    font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
 
     &._with-delete {
       padding-right: 1.75em;
@@ -174,7 +174,7 @@
 
     &._article {
       flex: 0 0 auto;
-      margin: var(--article-card-title-margin, 0 0 .4em);
+      margin: var(--article-card-title-margin, 0 0 .5em);
     }
 
     a {
@@ -631,11 +631,16 @@
       'img desc'
       'img list'
       'tax tax';
+
+    .cell-title {
+      font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
+      margin: var(--small-card-title-margin, 0 0 .4em);
+    }
   }
 
   ._small {
     .cell-title {
-      margin: var(--small-card-title-margin, 0 0 .4em);
+      margin: var(--small-card-title-margin, 0 0 .5em);
     }
 
     .cell-meta {
