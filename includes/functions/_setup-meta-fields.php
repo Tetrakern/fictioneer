@@ -1859,6 +1859,17 @@ function fictioneer_render_story_meta_metabox( $post ) {
     );
   }
 
+  if ( current_user_can( 'manage_options' ) ) {
+    $output['fictioneer_story_redirect_link'] = fictioneer_get_metabox_url(
+      $post,
+      'fictioneer_story_redirect_link',
+      array(
+        'label' => _x( 'Redirect Link (Beware!)', 'Story redirect link meta field label.', 'fictioneer' ),
+        'description' => __( 'URL to redirect to when story is opened.', 'fictioneer' )
+      )
+    );
+  }
+
   // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_metabox_story_meta', $output, $post );
@@ -2166,6 +2177,12 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $twf_url = filter_var( $twf_url, FILTER_VALIDATE_URL ) ? $twf_url : '';
     $twf_url = strpos( $twf_url, 'https://topwebfiction.com/') === 0 ? $twf_url : '';
     $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
+  }
+
+  if ( current_user_can( 'manage_options' ) && isset( $_POST['fictioneer_story_redirect_link'] ) ) {
+    $redirect_url = sanitize_url( $_POST['fictioneer_story_redirect_link'] );
+    $redirect_url = filter_var( $redirect_url, FILTER_VALIDATE_URL ) ? $redirect_url : '';
+    $fields['fictioneer_story_redirect_link'] = $redirect_url;
   }
 
   // Co-Authors
