@@ -815,8 +815,12 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
    *
-   * @param array $args['story_data']  Collection of story data.
-   * @param int   $args['story_id']    The story post ID.
+   * @param array     $args['story_data']  Collection of story data.
+   * @param int       $args['story_id']    The story post ID.
+   * @param bool|null $args['follow']      Optional. Whether to show the Follow button if enabled. Default true.
+   * @param bool|null $args['reminder']    Optional. Whether to show the Reminder button if enabled. Default true.
+   * @param bool|null $args['subscribe']   Optional. Whether to show the Subscribe button if enabled. Default true.
+   * @param bool|null $args['download']    Optional. Whether to show the Download button if enabled. Default true.
    *
    * @return string HTML for the story buttons.
    */
@@ -827,14 +831,18 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     $story_id = $args['story_id'];
     $ebook_upload = get_post_meta( $story_id, 'fictioneer_story_ebook_upload_one', true ); // Attachment ID
     $subscribe_buttons = fictioneer_get_subscribe_options();
+    $follow = $args['follow'] ?? 1;
+    $reminder = $args['reminder'] ?? 1;
+    $subscribe = $args['subscribe'] ?? 1;
+    $download = $args['download'] ?? 1;
     $output = [];
 
     // Flags
-    $show_epub_download = $story_data['chapter_count'] > 0 && get_post_meta( $story_id, 'fictioneer_story_epub_preface', true ) && get_option( 'fictioneer_enable_epubs' ) && ! get_post_meta( $story_id, 'fictioneer_story_no_epub', true );
+    $show_epub_download = $story_data['chapter_count'] > 0 && get_post_meta( $story_id, 'fictioneer_story_epub_preface', true ) && get_option( 'fictioneer_enable_epubs' ) && ! get_post_meta( $story_id, 'fictioneer_story_no_epub', true ) && $download;
     $show_login = get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in();
 
     // Subscribe
-    if ( ! empty( $subscribe_buttons ) ) {
+    if ( $subscribe && ! empty( $subscribe_buttons ) ) {
       $output['subscribe'] = sprintf(
         '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
         fcntr( 'subscribe', true ),
@@ -852,7 +860,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
         esc_attr__( 'Download ePUB', 'fictioneer' ),
         __( 'ePUB', 'fictioneer' )
       );
-    } elseif ( wp_get_attachment_url( $ebook_upload ) ) {
+    } elseif ( $download && wp_get_attachment_url( $ebook_upload ) ) {
       $output['ebook'] = sprintf(
         '<a href="%s" class="button _secondary" rel="noreferrer noopener nofollow" aria-label="%s" download><i class="fa-solid fa-cloud-download-alt"></i><span class="span-epub hide-below-640">%s</span></a>',
         esc_url( wp_get_attachment_url( $ebook_upload ) ),
@@ -862,7 +870,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     }
 
     // Reminder
-    if ( get_option( 'fictioneer_enable_reminders' ) ) {
+    if ( $reminder && get_option( 'fictioneer_enable_reminders' ) ) {
       $output['reminder'] = sprintf(
         '<button class="button _secondary button-read-later hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-clock"></i><span class="span-follow hide-below-480">%s</span></button>',
         $story_id,
@@ -879,7 +887,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     }
 
     // Follow
-    if ( get_option( 'fictioneer_enable_follows' ) ) {
+    if ( $follow && get_option( 'fictioneer_enable_follows' ) ) {
       $output['follow'] = sprintf(
         '<button class="button _secondary button-follow-story hide-if-logged-out" data-story-id="%d"><i class="fa-solid fa-star"></i><span class="span-follow hide-below-400">%s</span></button>',
         $story_id,

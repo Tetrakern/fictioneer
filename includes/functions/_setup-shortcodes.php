@@ -1623,3 +1623,97 @@ function fictioneer_shortcode_story_section( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' );
+
+// =============================================================================
+// STORY ACTIONS SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show story actions
+ *
+ * @since 5.14.0
+ *
+ * @param string      $attr['story_id']   The ID of the story.
+ * @param string|null $attr['class']      Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['follow']     Optional. Whether to show the Follow button if enabled. Default true.
+ * @param string|null $attr['reminder']   Optional. Whether to show the Reminder button if enabled. Default true.
+ * @param string|null $attr['subscribe']  Optional. Whether to show the Subscribe button if enabled. Default true.
+ * @param string|null $attr['download']   Optional. Whether to show the Download button if enabled. Default true.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_story_actions( $attr ) {
+  global $post;
+
+  // Setup
+  $story_id = absint( $attr['story_id'] ?? 0 );
+  $post = get_post( $story_id );
+  $story_data = fictioneer_get_story_data( $story_id );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $follow = filter_var( $attr['follow'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $reminder = filter_var( $attr['reminder'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $subscribe = filter_var( $attr['subscribe'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $download = filter_var( $attr['download'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+
+  $hook_args = array(
+    'story_id' => $story_id,
+    'story_data' => $story_data,
+    'follow' => $follow,
+    'reminder' => $reminder,
+    'subscribe' => $subscribe,
+    'download' => $download
+  );
+
+  // Abort if...
+  if ( ! $story_data ) {
+    return;
+  }
+
+  if ( ! is_page_template( 'singular-story.php' ) ) {
+    return fictioneer_notice(
+      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
+      'warning',
+      false
+    );
+  }
+
+  // Transient?
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    $base = serialize( $attr ) . $classes;
+    $transient_key = "fictioneer_shortcode_story_actions_html_" . md5( $base );
+    $transient = get_transient( $transient_key );
+
+    if ( ! empty( $transient ) ) {
+      return $transient;
+    }
+  }
+
+  // Buffer
+  ob_start();
+
+  // Setup post data
+  setup_postdata( $post );
+
+  // Start HTML ---> ?>
+  <section class="story__after-summary <?php echo esc_attr( $classes ); ?>">
+    <?php get_template_part( 'partials/_share-buttons' ); ?>
+    <div class="story__actions"><?php echo fictioneer_get_story_buttons( $hook_args ); ?></div>
+  </section>
+  <?php // <--- End HTML
+
+  // Store buffer
+  $html = fictioneer_minify_html( ob_get_clean() );
+
+  // Reset post data
+  wp_reset_postdata();
+
+  // Cache in Transient
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
+  }
+
+  // Return minified buffer
+  return $html;
+}
+add_shortcode( 'fictioneer_story_actions', 'fictioneer_shortcode_story_actions' );
