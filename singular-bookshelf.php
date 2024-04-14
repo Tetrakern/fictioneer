@@ -87,10 +87,15 @@ $tabs[ $current_tab ]['classes'][] = '_current';
 <?php get_header(); ?>
 
 <main id="main" class="main singular bookshelf">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <?php while ( have_posts() ) : the_post(); ?>
@@ -194,7 +199,9 @@ $tabs[ $current_tab ]['classes'][] = '_current';
       </article>
 
     <?php endwhile; ?>
+
   </div>
+
 </main>
 
 <?php

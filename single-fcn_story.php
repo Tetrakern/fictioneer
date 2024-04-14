@@ -29,10 +29,15 @@ get_header( null, $header_args );
 ?>
 
 <main id="main" class="main story <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper _no-padding">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <?php while ( have_posts() ) : the_post(); ?>
@@ -101,7 +106,9 @@ get_header( null, $header_args );
       <?php do_action( 'fictioneer_story_after_article', $hook_args ); ?>
 
     <?php endwhile; ?>
+
   </div>
+
 </main>
 
 <?php

@@ -19,10 +19,15 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
 ?>
 
 <main id="main" class="main recommendation">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <?php while ( have_posts() ) : the_post(); ?>
@@ -70,7 +75,9 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
       </article>
 
     <?php endwhile; ?>
+
   </div>
+
 </main>
 
 <?php

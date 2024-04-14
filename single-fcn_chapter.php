@@ -31,10 +31,15 @@ get_header( null, $header_args );
 </div>
 
 <main id="main" class="main chapter">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background chapter__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -213,7 +218,9 @@ get_header( null, $header_args );
       <?php endif; ?>
 
     <?php endwhile; endif; ?>
+
   </div>
+
 </main>
 
 <?php

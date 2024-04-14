@@ -20,10 +20,15 @@ get_header();
 ?>
 
 <main id="main" class="main singular">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <?php while ( have_posts() ) : the_post(); ?>
@@ -55,7 +60,9 @@ get_header();
       <?php endif; ?>
 
     <?php endwhile; ?>
+
   </div>
+
 </main>
 
 <?php

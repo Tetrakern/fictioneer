@@ -12,10 +12,15 @@
 <?php get_header(); ?>
 
 <main id="main" class="main archive character-archive">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
+
   <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <article class="archive__article padding-left padding-right padding-top padding-bottom">
@@ -75,8 +80,11 @@
       </header>
 
       <?php get_template_part( 'partials/_archive-loop' ); ?>
+
     </article>
+
   </div>
+
 </main>
 
 <?php
