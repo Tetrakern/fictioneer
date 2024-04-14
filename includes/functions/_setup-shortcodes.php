@@ -587,6 +587,9 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['genres']              Optional. Limit posts to specific genre names.
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
+ * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['class']               Optional. Additional CSS classes, separated by whitespace.
  *
  * @return string The captured shortcode HTML.

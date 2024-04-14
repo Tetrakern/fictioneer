@@ -150,6 +150,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          if ( $args['vertical'] ) {
+            $card_classes[] = '_vertical';
+          }
+
           if ( $args['vertical'] && $args['seamless'] ) {
             $card_classes[] = '_seamless';
           }
@@ -181,6 +185,15 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             break;
           }
 
+          // Truncate factor
+          $truncate_factor = '_1-1';
+
+          if ( $args['vertical'] ) {
+            $truncate_factor = count( $chapter_list ) > 1 ? '_2-2' : '_3-3';
+          } else {
+            $truncate_factor = count( $chapter_list ) > 1 ? '_1-1' : '_2-2';
+          }
+
           // Card attributes
           $attributes = [];
 
@@ -196,11 +209,25 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
 
-          // Thumbnail attributes
+          // Thumbnail
+          $landscape_image_id = get_post_meta( $post->ID, 'fictioneer_landscape_image', true );
           $thumbnail_args = array(
             'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $story['title'] ),
             'class' => 'no-auto-lightbox'
           );
+          $thumbnail_size = $args['vertical'] ? 'large' : 'snippet';
+
+          if ( $landscape_image_id && $args['aspect_ratio'] ) {
+            $ratios = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] );
+
+            if ( $ratios[0] - $ratios[1] > 1 ) {
+              $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
+            } else {
+              $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
+            }
+          } else {
+            $thumbnail = get_the_post_thumbnail( $post, $thumbnail_size, $thumbnail_args );
+          }
         ?>
 
         <li class="card _small _story-update <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -210,8 +237,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
               <?php do_action( 'fictioneer_shortcode_latest_updates_card_body', $post, $story, $args ); ?>
 
-              <?php if ( has_post_thumbnail() ) : ?>
-                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo get_the_post_thumbnail( $post, 'snippet', $thumbnail_args ); ?></a>
+              <?php if ( ! empty( $thumbnail ) ) : ?>
+                <a href="<?php the_post_thumbnail_url( 'full' ); ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnail; ?></a>
               <?php elseif ( $args['vertical'] ) : ?>
                 <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
               <?php endif; ?>
@@ -225,7 +252,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?></a></h3>
 
               <div class="card__content _small cell-desc">
-                <div class="truncate <?php echo count( $chapter_list ) > 1 ? '_1-1' : '_2-2'; ?>">
+                <div class="truncate <?php echo $truncate_factor; ?>">
                   <?php if ( get_option( 'fictioneer_show_authors' ) ) : ?>
                     <span class="card__by-author"><?php
                       printf( _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ), fictioneer_get_author_node() );
