@@ -22,9 +22,9 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['simple']            Whether to show the simple variant.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
+ * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
