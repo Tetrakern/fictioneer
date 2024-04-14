@@ -174,11 +174,11 @@ $pag_args = array(
                   // Try parent thumbnail (if any)
                   if ( ! $landscape_image_id && ! $thumbnail && $story_id ) {
                     $landscape_image_id = get_post_meta( $story_id, 'fictioneer_landscape_image', true );
-                    $thumbnail = get_the_post_thumbnail( $story_id, 'medium', $image_args );
+                    $thumbnail = get_the_post_thumbnail( $story_id, 'large', $image_args );
                   }
 
                   if ( ! empty( $landscape_image_id ) ) {
-                    $thumbnail = wp_get_attachment_image( $landscape_image_id, 'medium', false, $image_args );
+                    $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $image_args );
                     echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
                   } elseif ( ! empty( $thumbnail ) ) {
                     echo "<a href='{$permalink}' class='card__image _article cell-img'>{$thumbnail}</a>";
