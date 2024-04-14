@@ -1516,7 +1516,7 @@ add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' 
  *
  * @since 5.14.0
  *
- * @param string      $attr['story_id']   Either/Or. The ID of the story the chapters belong to.
+ * @param string      $attr['story_id']   The ID of the story.
  * @param string|null $attr['tabs']       Optional. Whether to show the tabs above chapters. Default false.
  * @param string|null $attr['blog']       Optional. Whether to show the blog tab. Default false.
  * @param string|null $attr['pages']      Optional. Whether to show the custom page tabs. Default false.
@@ -1527,8 +1527,11 @@ add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' 
  */
 
 function fictioneer_shortcode_story_section( $attr ) {
+  global $post;
+
   // Setup
   $story_id = absint( $attr['story_id'] ?? 0 );
+  $post = get_post( $story_id );
   $story_data = fictioneer_get_story_data( $story_id );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $show_tabs = filter_var( $attr['tabs'] ?? 0, FILTER_VALIDATE_BOOLEAN );
@@ -1563,9 +1566,6 @@ function fictioneer_shortcode_story_section( $attr ) {
     $classes .= ' _no-blog';
   }
 
-  // Require functions (necessary in post editor for some reason)
-  require_once __DIR__ . '/hooks/_story_hooks.php';
-
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     $base = serialize( $attr ) . $classes;
@@ -1577,8 +1577,11 @@ function fictioneer_shortcode_story_section( $attr ) {
     }
   }
 
+  // Require functions (necessary in post editor for some reason)
+  require_once __DIR__ . '/hooks/_story_hooks.php';
+
   // Setup post data
-  setup_postdata( $story_id );
+  setup_postdata( $post );
 
   // Buffer
   ob_start();
