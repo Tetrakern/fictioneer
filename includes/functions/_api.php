@@ -35,9 +35,9 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     // Identity
     $node['id'] = $story_id;
     $node['guid'] = get_the_guid( $story_id );
-    $node['url'] = get_permalink( $story_id );
     $node['language'] = empty( $language ) ? get_bloginfo( 'language' ) : $language;
     $node['title'] = $data['title'];
+    $node['url'] = get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id );
 
     // Author
     if ( ! empty( $author_id ) ) {
