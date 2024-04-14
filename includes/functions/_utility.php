@@ -1494,7 +1494,7 @@ function fictioneer_sanitize_css( $css ) {
 }
 
 // =============================================================================
-// SANITIZE ASPECT RATIO CSS
+// ASPECT RATIO CSS
 // =============================================================================
 
 /**
@@ -1527,6 +1527,24 @@ function sanitize_css_aspect_ratio( $css, $default = false ) {
 
   // Default if invalid
   return $default;
+}
+
+/**
+ * Returns aspect ratio values as tuple
+ *
+ * @since 5.14.0
+ *
+ * @param string $css  The aspect-ratio CSS value.
+ *
+ * @return array Tuple of aspect-ratio values.
+ */
+
+function fictioneer_get_split_aspect_ratio( $css ) {
+  // Split based on the slash '/'
+  list( $numerator, $denominator ) = explode( '/', $css, 2 );
+
+  // Return tuple
+  return array( (int) ( $numerator ?? 1 ), (int) ( $denominator ?? 1 ) );
 }
 
 // =============================================================================
