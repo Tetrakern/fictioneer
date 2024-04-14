@@ -138,6 +138,10 @@
     }
   }
 
+  &._large .card__title {
+    flex: 1 1 auto;
+  }
+
   &._info .card__title {
     padding-right: 1.75em;
   }
@@ -164,7 +168,6 @@
   }
 
   &__title {
-    flex: 1 1 auto;
     font-family: var(--ff-card-title);
     font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
 
@@ -310,9 +313,13 @@
       z-index: 1;
     }
 
-    &._article {
+    &:is(._article, ._vertical) {
       display: flex;
       flex-direction: column;
+    }
+
+    &._vertical .cell-desc {
+      flex: 1 1 auto;
     }
   }
 
