@@ -581,6 +581,9 @@
       margin-top: var(--negative-margin);
       margin-left: var(--negative-margin);
       margin-right: var(--negative-margin);
+    }
+
+    :is(.cell-img, .wp-post-image) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
