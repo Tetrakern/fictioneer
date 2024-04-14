@@ -607,6 +607,74 @@ if ( ! function_exists( 'fictioneer_get_recommendation_page_cover' ) ) {
   }
 }
 
+/**
+ * Returns the small card thumbnails
+ *
+ * Checks for the normal thumbnail and landscape image. If not found,
+ * it will recursively try the parent post if there is one.
+ *
+ * @since 5.14.0
+ *
+ * @param int   $post_id  The post ID.
+ * @param array $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type int|null     $parent_id  ID of a parent post, usually a story.
+ *   @type string|null  $title  Title of the post.
+ *   @type string|null  $aspect_ratio  Aspect ratio CSS value.
+ *   @type bool|null    $vertical  Whether the card is rendered vertical.
+ *   @type bool|null    $seamless  Whether the card is rendered seamless (if vertical).
+ * }
+ *
+ * @return array The thumbnail HTML, the thumbnail URL, and the full thumbnail URL.
+ */
+
+function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
+  // Setup
+  $parent_id = $args['parent_id'] ?? get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $landscape_image_id = get_post_meta( $post_id, 'fictioneer_landscape_image', true );
+  $thumbnail_size = ( $args['vertical'] ?? 0 ) ? 'large' : 'snippet';
+  $thumbnail_args = array(
+    'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $args['title'] ?? '' ),
+    'class' => 'no-auto-lightbox'
+  );
+  $thumbnail = null;
+  $thumbnail_url = null;
+  $thumbnail_full_url = null;
+
+  // Landscape thumbnail?
+  if ( $landscape_image_id && $args['aspect_ratio'] ?? 0 ) {
+    $ratio = fictioneer_get_split_aspect_ratio( $args['aspect_ratio'] );
+
+    if ( $ratio[0] - $ratio[1] > 1 ) {
+      $thumbnail = wp_get_attachment_image( $landscape_image_id, 'large', false, $thumbnail_args );
+      $thumbnail_url = wp_get_attachment_url( $landscape_image_id, 'large', false, $thumbnail_args );
+      $thumbnail_full_url = wp_get_attachment_url( $landscape_image_id, 'full', false, $thumbnail_args );
+    }
+  }
+
+  // Normal thumbnail?
+  if ( ! $thumbnail ) {
+    $thumbnail = get_the_post_thumbnail( $post_id, $thumbnail_size, $thumbnail_args );
+    $thumbnail_url = get_the_post_thumbnail_url( $landscape_image_id, $thumbnail_size, false, $thumbnail_args );
+    $thumbnail_full_url = get_the_post_thumbnail_url( $post_id, 'full' );
+  }
+
+  // Parent thumbnail?
+  if ( ! $thumbnail && $parent_id )  {
+    unset( $args['parent_id'] ); // Prevent infinite loop
+
+    return fictioneer_get_small_card_thumbnail( $parent_id, $args );
+  }
+
+  // Return result
+  return array(
+    'thumbnail' => $thumbnail,
+    'thumbnail_url' => $thumbnail_url,
+    'thumbnail_full_url' => $thumbnail_full_url
+  );
+}
+
 // =============================================================================
 // GET SUBSCRIBE BUTTONS
 // =============================================================================
