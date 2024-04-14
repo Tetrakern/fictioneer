@@ -1561,15 +1561,15 @@ function fictioneer_shortcode_story_section( $attr ) {
   require_once __DIR__ . '/hooks/_story_hooks.php';
 
   // Transient?
-  // if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-  //   $base = serialize( $attr ) . $classes;
-  //   $transient_key = "fictioneer_shortcode_chapter_section_html_" . md5( $base );
-  //   $transient = get_transient( $transient_key );
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    $base = serialize( $attr ) . $classes;
+    $transient_key = "fictioneer_shortcode_story_section_html_" . md5( $base );
+    $transient = get_transient( $transient_key );
 
-  //   if ( ! empty( $transient ) ) {
-  //     return $transient;
-  //   }
-  // }
+    if ( ! empty( $transient ) ) {
+      return $transient;
+    }
+  }
 
   // Setup post data
   setup_postdata( $story_id );
@@ -1605,9 +1605,10 @@ function fictioneer_shortcode_story_section( $attr ) {
   // Reset post data
   wp_reset_postdata();
 
-  // if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
-  //   set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
-  // }
+  // Cache in Transient
+  if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
+    set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
+  }
 
   // Return minified buffer
   return $html;
