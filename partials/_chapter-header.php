@@ -34,7 +34,7 @@ $story_visible = $args['story_post'] &&
   $identity = [];
 
   if ( $story_visible ) {
-    $identity['link'] = '<a href="' . get_permalink( $args['story_post']->ID ) . '">' . $args['story_data']['title'] . '</a>';
+    $identity['link'] = '<a href="' . get_permalink( $args['story_post']->ID ) . '" class="chapter__story-link">' . $args['story_data']['title'] . '</a>';
   }
 
   if ( ! get_post_meta( $post->ID, 'fictioneer_chapter_hide_title', true ) ) {
