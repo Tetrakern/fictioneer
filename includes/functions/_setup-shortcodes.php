@@ -1639,6 +1639,8 @@ add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' 
  * @param string|null $attr['reminder']   Optional. Whether to show the Reminder button if enabled. Default true.
  * @param string|null $attr['subscribe']  Optional. Whether to show the Subscribe button if enabled. Default true.
  * @param string|null $attr['download']   Optional. Whether to show the Download button if enabled. Default true.
+ * @param string|null $attr['rss']        Optional. Whether to show the RSS links if enabled. Default true.
+ * @param string|null $attr['share']      Optional. Whether to show the Share buttons if enabled. Default true.
  *
  * @return string The captured shortcode HTML.
  */
@@ -1655,6 +1657,8 @@ function fictioneer_shortcode_story_actions( $attr ) {
   $reminder = filter_var( $attr['reminder'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $subscribe = filter_var( $attr['subscribe'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $download = filter_var( $attr['download'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $rss = filter_var( $attr['rss'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $share = filter_var( $attr['share'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
   $hook_args = array(
     'story_id' => $story_id,
@@ -1662,7 +1666,9 @@ function fictioneer_shortcode_story_actions( $attr ) {
     'follow' => $follow,
     'reminder' => $reminder,
     'subscribe' => $subscribe,
-    'download' => $download
+    'download' => $download,
+    'rss' => $rss,
+    'share' => $share
   );
 
   // Abort if...
@@ -1697,7 +1703,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
 
   // Start HTML ---> ?>
   <section class="story__after-summary <?php echo esc_attr( $classes ); ?>">
-    <?php get_template_part( 'partials/_share-buttons' ); ?>
+    <?php get_template_part( 'partials/_share-buttons', null, $hook_args ); ?>
     <div class="story__actions"><?php echo fictioneer_get_story_buttons( $hook_args ); ?></div>
   </section>
   <?php // <--- End HTML
