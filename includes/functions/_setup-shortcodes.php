@@ -1695,6 +1695,9 @@ function fictioneer_shortcode_story_actions( $attr ) {
     }
   }
 
+  // Add filter for buttons
+  add_filter( 'fictioneer_filter_story_buttons', 'fictioneer_shortcode_remove_story_buttons', 99, 2 );
+
   // Buffer
   ob_start();
 
@@ -1711,6 +1714,9 @@ function fictioneer_shortcode_story_actions( $attr ) {
   // Store buffer
   $html = fictioneer_minify_html( ob_get_clean() );
 
+  // Remove filter for buttons
+  remove_filter( 'fictioneer_shortcode_remove_story_buttons', 99, 2 );
+
   // Reset post data
   wp_reset_postdata();
 
@@ -1723,3 +1729,38 @@ function fictioneer_shortcode_story_actions( $attr ) {
   return $html;
 }
 add_shortcode( 'fictioneer_story_actions', 'fictioneer_shortcode_story_actions' );
+
+/**
+ * Removes buttons for the [fictioneer_story_actions] shortcode
+ *
+ * This function only works if boolean arguments are provided for
+ * 'follow', 'reminder', 'subscribe', and/or 'download'.
+ *
+ * @since 5.14.0
+ *
+ * @param array $output  Associative array with HTML for buttons to be rendered.
+ * @param array $args    Arguments passed to filter.
+ *
+ * @return array The filtered output.
+ */
+
+function fictioneer_shortcode_remove_story_buttons( $output, $args ) {
+  if ( ! ( $args['follow'] ?? 1 ) ) {
+    unset( $output['follow'] );
+  }
+
+  if ( ! ( $args['reminder'] ?? 1 ) ) {
+    unset( $output['reminder'] );
+  }
+
+  if ( ! ( $args['subscribe'] ?? 1 ) ) {
+    unset( $output['subscribe'] );
+  }
+
+  if ( ! ( $args['download'] ?? 1 ) ) {
+    unset( $output['epub'] );
+    unset( $output['ebook'] );
+  }
+
+  return $output;
+};
