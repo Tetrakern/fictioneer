@@ -1719,6 +1719,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( "story_meta_data_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
+  $advanced = get_option( 'fictioneer_enable_advanced_meta_fields' );
   $output = [];
 
   // --- Add fields ------------------------------------------------------------
@@ -1756,7 +1757,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
     )
   );
 
-  if ( get_option( 'fictioneer_enable_advanced_meta_fields' ) ) {
+  if ( $advanced ) {
     $output['fictioneer_story_co_authors'] = fictioneer_get_metabox_array(
       $post,
       'fictioneer_story_co_authors',
@@ -1859,7 +1860,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
     );
   }
 
-  if ( current_user_can( 'manage_options' ) ) {
+  if ( $advanced && current_user_can( 'manage_options' ) ) {
     $output['fictioneer_story_redirect_link'] = fictioneer_get_metabox_url(
       $post,
       'fictioneer_story_redirect_link',
@@ -3043,6 +3044,17 @@ function fictioneer_render_advanced_metabox( $post ) {
         )
       );
     }
+
+    if ( current_user_can( 'manage_options' ) ) {
+      $output['fictioneer_template_story_id'] = fictioneer_get_metabox_text(
+        $post,
+        'fictioneer_template_story_id',
+        array(
+          'label' => _x( 'Story Id', 'Page story ID meta field label.', 'fictioneer' ),
+          'description' => __( 'Used only by the "Story Page" template.', 'fictioneer' )
+        )
+      );
+    }
   }
 
   // Story Blogs
@@ -3175,6 +3187,15 @@ function fictioneer_save_advanced_metabox( $post_id ) {
   if ( isset( $_POST['fictioneer_filter_and_search_id'] ) && $post_type === 'page' ) {
     if ( current_user_can( 'install_plugins' ) ) {
       $fields['fictioneer_filter_and_search_id'] = absint( $_POST['fictioneer_filter_and_search_id'] );
+    }
+  }
+
+  // Story ID
+  if ( isset( $_POST['fictioneer_template_story_id'] ) && $post_type === 'page' ) {
+    $template_story_id = absint( $_POST['fictioneer_template_story_id'] );
+
+    if ( current_user_can( 'manage_options' ) && fictioneer_validate_id( $template_story_id, 'fcn_story' ) ) {
+      $fields['fictioneer_template_story_id'] = $template_story_id;
     }
   }
 
