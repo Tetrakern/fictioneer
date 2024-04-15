@@ -1,5 +1,5 @@
 # Actions
-The following [action hooks](https://developer.wordpress.org/reference/functions/do_action/) can be used to customize templates without the need to duplicate the template files, greatly reducing the risk of them becoming outdated due to updates in the future. Actions can be easily added or overwritten in child themes or plugins. See `includes/functions/hooks/`.
+The following [action hooks](https://developer.wordpress.org/reference/functions/do_action/) can be used to customize templates without the need to duplicate template files, greatly reducing the risk of them becoming outdated due to updates in the future. Actions can be easily added or overwritten in child themes or plugins. This list is probably incomplete. See `includes/functions/hooks/`.
 
 ### Example: Add Discord invite link to chapter top actions
 This is an example of how to add a Discord invite link to the chapter top actions via the the `fictioneer_chapter_actions_top_center` hook. The link will feature a [Font Awesome Discord icon](https://fontawesome.com/icons/discord?f=brands) and be located between the formatting modal toggle (priority: 10) and fullscreen buttons (priority: 20). Note that no arguments of the hook are used because we do not need any of them here.
