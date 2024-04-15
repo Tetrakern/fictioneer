@@ -28,8 +28,6 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 
 ### Meta Fields
 
-Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
-
 | Field | Type | Explanation
 | :-- | :-: | :--
 | Short Description | Content | The short description is used in the story list cards.
@@ -52,14 +50,13 @@ Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta
 | Hide tags on story page | Check | Hide *all* taxonomies except warnings on the page but not in lists.
 | Hide chapter icons | Check | Hide chapter icons.
 | Disable collapsing of chapters | Check | Disable collapsing of long chapter lists (13+ as 5\|n\|5 per group).
+| Disable chapter groups | Check | Disable chapter groups for the story altogether.
 | Disable ePUB download | Check | Disable ePUB downloads for the story everywhere.
-| Hide chapter icons | Check | Hide chapter icons.
-| Disable chapter groups | Check | Ignore chapter groups.
 | Custom Story CSS | Text | Inject custom styles for the story and chapters. For advanced users.
-| Custom Header Image | Image | Override the default header image for the story and chapters.
-| Custom CSS | Text | Inject custom styles into the story page (but not chapters).
+| Redirect Link (A) | URL | Redirect to a different URL when the post is accessed. Make sure you know what you are doing.
 | Support Links (Various) | URL | Links to subscription campaigns. Falls back to the author’s profile if left blank.
-| Disable new comments | Check | Disable new comments but keep the current ones visible.
+
+**(A):** For Advanced; these meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
 
 ### eBooks/ePUBs
 
@@ -101,8 +98,6 @@ This notice appears above the title if you add a chapter warning, not to be conf
 
 ### Meta Fields
 
-Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
-
 | Field | Type | Explanation
 | :-- | :-: | :--
 | Story | Select | The story the chapter belongs to. Required if you want it listed.
@@ -114,18 +109,20 @@ Some meta fields are hidden **(A)**   unless you check the "Enable advanced meta
 | Taxonomies (Various) | List | Genres, fandoms, characters, warnings, tags, and categories (include story name).
 | Chapter Cover Image | Image | Cropped to an aspect ration of 2:3 from the center. Defaults to the story cover.
 | Excerpt | Text | Chapter excerpt used in cards. If empty, part of the content will be used.
-| Chapter Icon | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
-| Chapter Text Icon (A) | String | Overrides icon with a text string, good for combining with symbol fonts.
-| Chapter Short Title (A) | String | Optional short chapter title, not currently used by the base theme.
-| Chapter Prefix (A) | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
+| Icon | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
+| Text Icon (A) | String | Overrides icon with a text string, good for combining with symbol fonts.
+| Short Title (A) | String | Optional short chapter title, intended to be used in child themes.
+| Prefix (A) | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
 | Co-Authors (A) | List | List of co-authors. They must be registered users, but dummies will do.
+| Age Rating | Select | Choose between everyone, teen, mature, and adult.
+| Warning | String | _Short_ warning displayed in chapter lists and above the chapter title.
+| Warning Notes | Text | Additional warning notes rendered above the chapter title.
 | Unlisted (but accessible with link) | Check | Hide the chapter in all lists, but keep it accessible with the link.
 | Do not count as chapter | Check | Exclude the chapter from chapter counts.
 | Hide title in chapter | Check | Hide the title and author on chapter pages.
 | Hide support links | Check | Hide support links at the end of the chapter.
-| Age Rating | Select | Choose between everyone, teen, mature, and adult.
-| Warning | String | _Short_ warning displayed in chapter lists and above the chapter title.
-| Warning Notes | Text | Additional warning notes rendered above the chapter title.
+
+**(A):** For Advanced; these meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
 
 ### Text-To-Speech Engine
 
@@ -208,10 +205,20 @@ Pages work the same as always in WordPress, just with some additional fields and
 | :-- | :-: | :--
 | Short Name | String | Shortened name of the page required for custom tabs in stories.
 | Filter & Search ID | String | Custom identifier to be used with plugin. Does nothing on its own.
+| Story ID | String | ID of a story post. Only used by the "Story Page" page template.
 
 ## Shared Options
 
 These fields and options are available in most post types, which does not mean they make sense everywhere.
+
+### Extra Meta Fields
+
+| Field | Type | Explanation
+| :-- | :-: | :--
+| Landscape Image | Image | Alternative image for when the rendered width is greater than the height.
+| Header Image | Image | Overrides the default header image, passed down to by chapters in the case of stories.
+| Custom Page CSS | Text | Inject custom styles into the page (not passed down to chapters).
+| Disable new comments | Check | Disable new comments but keep the current ones visible.
 
 ### SEO & Meta Tags
 
@@ -219,31 +226,13 @@ Metadata for search engine results, schema graphs, and social media embeds. If l
 
 ![SEO Appearance](repo/assets/seo_appearance.jpg?raw=true)
 
-### Landscape Image
-
-Allows you to choose an alternate featured/cover image that is used for thumbnails which are wider than high, such as with the _showcase_ shortcode. The aspect ratio is between 2:1 and 3:1 depending on the viewport, cropped from the center and fit to cover. Chapters default to their parent story as usual.
-
-**Supports:** Posts, Pages, Stories, Chapters, Collections, Recommendations
-
-### Page Layout
-
-Allows you to choose an alternate header image instead of the site default and inject custom CSS into the \<head>, affecting the look of the whole page. Chapters inherit these changes from their parent story or use their own. You can use this to give each story or chapter an individual touch, but be careful with the CSS.
-
-**Supports:** Pages, Stories, Chapters, Collections, Recommendations
-
 ### Support Links
 
 A collection of optional support links: Patreon, Ko-fi, SubscribeStar, PayPal, and a generic donation link for anything else. They are displayed in several places, such as under each chapter unless disabled. You can set different links per chapter and story, defaulting to the parent or author profile if left empty.
 
 **Supports:** Posts, Stories, Chapters
 
-### Comments
-
-Option to disable commenting on the page. Unlike the "allow comments" option, this will only disable the comment form but still show the current comments.
-
-**Supports:** Posts, Pages, Stories, Chapters
-
-### Additional CSS Classes
+## Additional CSS Classes
 
 You can add additional CSS classes to paragraphs and other blocks for extra styles and functions. Just select a block in the editor and scroll down to the **Advanced** section in the [block settings](https://wordpress.org/support/article/working-with-blocks/#block-settings) panel. This can be your own or classes provided by the theme, which are highlighted in the editor as shown in the image.
 
