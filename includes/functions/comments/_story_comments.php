@@ -265,7 +265,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
 
       // Start HTML ---> ?>
       <li class="load-more-list-item">
-        <button class="load-more-comments-button"><?php
+        <button class="load-more-comments-button" data-story-id="<?php echo $story_id; ?>"><?php
           printf(
             _n(
               'Load next comment (may contain spoilers)',

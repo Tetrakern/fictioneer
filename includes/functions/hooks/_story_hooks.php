@@ -828,7 +828,7 @@ function fictioneer_story_comments( $args ) {
     <div class="fictioneer-comments__list">
       <ul>
         <li class="load-more-list-item">
-          <button class="load-more-comments-button"><?php
+          <button class="load-more-comments-button" data-story-id="<?php echo $args['story_id']; ?>"><?php
             $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ?
               $story['comment_count'] : get_option( 'comments_per_page' );
 

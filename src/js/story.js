@@ -187,7 +187,7 @@ _$$('.tabs__item').forEach(element => {
  * @since 4.0.0
  */
 
-function fcn_loadStoryComments() {
+function fcn_loadStoryComments(button) {
   // Setup
   let errorNote;
 
@@ -198,7 +198,7 @@ function fcn_loadStoryComments() {
   // REST request
   fcn_ajaxGet(
     {
-      'post_id': fcn_inlineStorage.postId,
+      'post_id': button.dataset.storyId ?? fcn_inlineStorage.postId,
       'page': fcn_storyCommentPage
     },
     'get_story_comments'
@@ -229,7 +229,7 @@ function fcn_loadStoryComments() {
 // Listen for clicks to load more comments...
 _$('.comment-section')?.addEventListener('click', event => {
   if (event.target?.classList.contains('load-more-comments-button')) {
-    fcn_loadStoryComments();
+    fcn_loadStoryComments(event.target);
   }
 });
 
