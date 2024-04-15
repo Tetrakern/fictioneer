@@ -708,6 +708,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
   function fictioneer_get_subscribe_options( $post_id = null, $author_id = null, $feed = null ) {
     // Setup
     $post_id = $post_id ? $post_id : get_the_ID();
+    $post_type = get_post_type( $post_id );
     $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
     $author_id = $author_id ? $author_id : get_the_author_meta( 'ID' );
     $patreon_link = get_post_meta( $post_id, 'fictioneer_patreon_link', true );
@@ -746,7 +747,7 @@ if ( ! function_exists( 'fictioneer_get_subscribe_options' ) ) {
 
     // Get right RSS link if not provided
     if ( ! $feed && get_option( 'fictioneer_enable_theme_rss' ) ) {
-      $feed = fictioneer_get_rss_link( get_post_type(), $post_id );
+      $feed = fictioneer_get_rss_link( $post_type, $post_id );
     }
 
     // Patreon link
@@ -830,7 +831,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
     $story_data = $args['story_data'];
     $story_id = $args['story_id'];
     $ebook_upload = get_post_meta( $story_id, 'fictioneer_story_ebook_upload_one', true ); // Attachment ID
-    $subscribe_buttons = fictioneer_get_subscribe_options();
+    $subscribe_buttons = fictioneer_get_subscribe_options( $story_id );
     $output = [];
 
     // Flags
