@@ -1678,7 +1678,7 @@ add_filter( 'postbox_classes_fcn_collection_fictioneer-collection-data', 'fictio
 add_filter( 'postbox_classes_fcn_recommendation_fictioneer-recommendation-data', 'fictioneer_append_metabox_classes' );
 
 foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'] as $type ) {
-  add_filter( "postbox_classes_{$type}_fictioneer-advanced", 'fictioneer_append_metabox_classes' );
+  add_filter( "postbox_classes_{$type}_fictioneer-extra", 'fictioneer_append_metabox_classes' );
 }
 
 foreach ( ['post', 'fcn_story', 'fcn_chapter'] as $type ) {
@@ -2954,22 +2954,22 @@ add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 // =============================================================================
 
 /**
- * Adds advanced metabox
+ * Adds extra metabox
  *
  * @since 5.7.4
  */
 
-function fictioneer_add_advanced_metabox() {
+function fictioneer_add_extra_metabox() {
   add_meta_box(
-    'fictioneer-advanced',
-    __( 'Advanced', 'fictioneer' ),
-    'fictioneer_render_advanced_metabox',
+    'fictioneer-extra',
+    __( 'Extra Meta', 'fictioneer' ),
+    'fictioneer_render_extra_metabox',
     ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_recommendation', 'fcn_collection'],
     'side',
     'default'
   );
 }
-add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
+add_action( 'add_meta_boxes', 'fictioneer_add_extra_metabox' );
 
 /**
  * Render advanced metabox
@@ -2979,7 +2979,7 @@ add_action( 'add_meta_boxes', 'fictioneer_add_advanced_metabox' );
  * @param WP_Post $post  The current post object.
  */
 
-function fictioneer_render_advanced_metabox( $post ) {
+function fictioneer_render_extra_metabox( $post ) {
   // --- Setup -----------------------------------------------------------------
 
   $nonce = wp_create_nonce( "advanced_meta_{$post->ID}" ); // Accounts for manual wp_update_post() calls!
@@ -3123,7 +3123,7 @@ function fictioneer_render_advanced_metabox( $post ) {
  * @param int $post_id  The post ID.
  */
 
-function fictioneer_save_advanced_metabox( $post_id ) {
+function fictioneer_save_extra_metabox( $post_id ) {
   $post_type = get_post_type( $post_id );
 
   // --- Verify ------------------------------------------------------------------
@@ -3247,7 +3247,7 @@ function fictioneer_save_advanced_metabox( $post_id ) {
     fictioneer_update_post_meta( $post_id, $key, $value ?? 0 ); // Add, update, or delete (if falsy)
   }
 }
-add_action( 'save_post', 'fictioneer_save_advanced_metabox' );
+add_action( 'save_post', 'fictioneer_save_extra_metabox' );
 
 // =============================================================================
 // SUPPORT LINKS META FIELDS
