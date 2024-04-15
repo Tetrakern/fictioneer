@@ -124,8 +124,8 @@ function fictioneer_post_media_buttons() {
     return;
   }
 
-  // Render template
-  get_template_part( 'partials/_share-buttons' );
+  // Render media buttons
+  echo fictioneer_get_media_buttons();
 }
 add_action( 'fictioneer_post_footer_left', 'fictioneer_post_media_buttons', 10 );
 

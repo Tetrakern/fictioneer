@@ -436,7 +436,8 @@ function fictioneer_chapter_media_buttons() {
     return;
   }
 
-  get_template_part( 'partials/_share-buttons' );
+  // Render media buttons
+  echo fictioneer_get_media_buttons();
 }
 add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_buttons', 10 );
 

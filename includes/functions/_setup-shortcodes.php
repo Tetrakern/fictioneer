@@ -1646,11 +1646,8 @@ add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' 
  */
 
 function fictioneer_shortcode_story_actions( $attr ) {
-  global $post;
-
   // Setup
   $story_id = absint( $attr['story_id'] ?? 0 );
-  $post = get_post( $story_id );
   $story_data = fictioneer_get_story_data( $story_id );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $follow = filter_var( $attr['follow'] ?? 1, FILTER_VALIDATE_BOOLEAN );
@@ -1661,6 +1658,8 @@ function fictioneer_shortcode_story_actions( $attr ) {
   $share = filter_var( $attr['share'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
   $hook_args = array(
+    'post_id' => $story_id,
+    'post_type' => 'fcn_story',
     'story_id' => $story_id,
     'story_data' => $story_data,
     'follow' => $follow,
@@ -1698,34 +1697,23 @@ function fictioneer_shortcode_story_actions( $attr ) {
   // Add filter for buttons
   add_filter( 'fictioneer_filter_story_buttons', 'fictioneer_shortcode_remove_story_buttons', 99, 2 );
 
-  // Buffer
-  ob_start();
-
-  // Setup post data
-  setup_postdata( $post );
-
-  // Start HTML ---> ?>
-  <section class="story__after-summary <?php echo esc_attr( $classes ); ?>">
-    <?php get_template_part( 'partials/_share-buttons', null, $hook_args ); ?>
-    <div class="story__actions"><?php echo fictioneer_get_story_buttons( $hook_args ); ?></div>
-  </section>
-  <?php // <--- End HTML
-
-  // Store buffer
-  $html = fictioneer_minify_html( ob_get_clean() );
+  // Build HTML
+  $html = '<section class="story__after-summary ' . esc_attr( $classes ) . '">';
+  $html .= fictioneer_get_media_buttons( $hook_args );
+  $html .= '<div class="story__actions">' . fictioneer_get_story_buttons( $hook_args ) . '</div></section>';
 
   // Remove filter for buttons
   remove_filter( 'fictioneer_shortcode_remove_story_buttons', 99, 2 );
 
-  // Reset post data
-  wp_reset_postdata();
+  // Minify HTML
+  $html = fictioneer_minify_html( $html );
 
   // Cache in Transient
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
     set_transient( $transient_key, $html, FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION );
   }
 
-  // Return minified buffer
+  // Return minified HTML
   return $html;
 }
 add_shortcode( 'fictioneer_story_actions', 'fictioneer_shortcode_story_actions' );

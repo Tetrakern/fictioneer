@@ -253,7 +253,7 @@ function fictioneer_story_actions( $args ) {
 
   // Start HTML ---> ?>
   <section class="story__after-summary padding-left padding-right">
-    <?php get_template_part( 'partials/_share-buttons' ); ?>
+    <?php echo fictioneer_get_media_buttons(); ?>
     <div class="story__actions"><?php echo fictioneer_get_story_buttons( $args ); ?></div>
   </section>
   <?php // <--- End HTML
