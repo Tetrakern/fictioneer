@@ -899,12 +899,67 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
       }
     }
 
-    // Apply filter
+    // Apply filters
     $output = apply_filters( 'fictioneer_filter_story_buttons', $output, $args );
 
     // Implode and return HTML
     return implode( '', $output );
   }
+}
+
+// =============================================================================
+// GET MEDIA BUTTONS
+// =============================================================================
+
+/**
+ * Returns the HTML for the media buttons
+ *
+ * @since 5.14.0
+ * @see fictioneer_get_rss_link()
+ *
+ * @param int|null    $args['post_id']    Optional. The post ID to use. Defaults to current post ID.
+ * @param string|null $args['post_type']  Optional. The post type to use. Defaults to current post type.
+ * @param bool|null   $args['share']      Optional. Whether to show the share modal button. Default true.
+ * @param bool|null   $args['rss']        Optional. Whether to show the RSS feed buttons. Default true.
+ *
+ * @return string HTML for the media buttons.
+ */
+
+function fictioneer_get_media_buttons( $args = [] ) {
+  // Setup
+  $post_type = ( $args['post_type'] ?? '' ) ?: get_post_type();
+  $post_id = ( $args['post_id'] ?? 0 ) ?: get_the_ID();
+  $feed = fictioneer_get_rss_link( $post_type, $post_id );
+  $show_feed = $post_type !== 'fcn_story' ||
+    ( $post_type === 'fcn_story' && get_post_meta( $post_id, 'fictioneer_story_status', true ) !== 'Oneshot' );
+  $output = [];
+
+  // Share modal button
+  if ( $args['share'] ?? 1 ) {
+    $output['share'] = '<label for="modal-sharing-toggle" class="tooltipped media-buttons__item" data-tooltip="' . esc_attr__( 'Share', 'fictioneer' ) . '" tabindex="0"><i class="fa-solid fa-share-nodes"></i></label>';
+  }
+
+  // Feed buttons
+  if ( $feed && $show_feed && ( $args['rss'] ?? 1 ) ) {
+    $feed_url = urlencode( $feed );
+
+    // Post feed
+    if ( $post_type === 'fcn_story' && ! get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
+      $output['post_rss'] = '<a href="' . $feed . '" class="rss-link tooltipped media-buttons__item" target="_blank" rel="noopener" data-tooltip="' . esc_attr__( 'Story RSS Feed', 'fictioneer' ) . '" aria-label="' . esc_attr__( 'Story RSS Feed', 'fictioneer' ) . '">' . fictioneer_get_icon( 'fa-rss' ) . '</a>';
+    }
+
+    // Feedly
+    $output['feedly'] = '<a href="https://feedly.com/i/subscription/feed/' . $feed_url . '" class="feedly tooltipped hide-below-640 media-buttons__item" target="_blank" rel="noopener" data-tooltip="' . esc_attr__( 'Follow on Feedly', 'fictioneer' ) . '" aria-label="' . esc_attr__( 'Follow on Feedly', 'fictioneer' ) . '">' . fictioneer_get_icon( 'feedly' ) . '</a>';
+
+    // Inoreader
+    $output['inoreader'] = '<a href="https://www.inoreader.com/?add_feed=' . $feed_url . '" class="inoreader tooltipped hide-below-640 media-buttons__item" target="_blank" rel="noopener" data-tooltip="' . esc_attr__( 'Follow on Inoreader', 'fictioneer' ) . '" aria-label="' . esc_attr__( 'Follow on Inoreader', 'fictioneer' ) . '">' . fictioneer_get_icon( 'inoreader' ) . '</a>';
+  }
+
+  // Apply filters
+  $output = apply_filters( 'fictioneer_filter_media_buttons', $output, $args );
+
+  // Implode and return HTML
+  return '<div class="media-buttons">' . implode( '', $output ) . '</div>';
 }
 
 // =============================================================================

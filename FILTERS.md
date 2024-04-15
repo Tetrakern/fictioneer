@@ -1314,7 +1314,7 @@ Filters the statistics for all stories rendered by the `fictioneer_stories_stati
 ---
 
 ### `apply_filters( 'fictioneer_filter_story_buttons', $output, $args )`
-Filters the intermediate output array of the `fictioneer_get_story_buttons( $args )` function before it is imploded and returned. Used inside `fictioneer_story_actions( $args )` and rendered via the `fictioneer_story_after_content` hook.
+Filters the intermediate output array of the `fictioneer_get_story_buttons( $args )` function before it is imploded and returned. Used inside `fictioneer_story_actions()` and rendered via the `fictioneer_story_after_content` hook.
 
 **$output:**
 * $subscribe (string|null) – Optional. HTML of the subscribe button and popup menu.
@@ -1326,6 +1326,23 @@ Filters the intermediate output array of the `fictioneer_get_story_buttons( $arg
 **$args:**
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
+
+---
+
+### `apply_filters( 'fictioneer_filter_media_buttons', $output, $args )`
+Filters the intermediate output array of the `fictioneer_filter_media_buttons( $args )` function before it is imploded and returned. Used in chapter, posts, and stories.
+
+**$output:**
+* $share (string|null) – Optional. HTML for share modal button.
+* $post_rss (string|null) – Optional. HTML for the post RSS feed (if any).
+* $feedly (string|null) – Optional. HTML for the Feedly link.
+* $inoreader (string|null) – Optional. HTML for the Inoreader link.
+
+**$args:**
+* $post_id (int|null) – Optional. The post ID to use. Defaults to current post ID. Unsafe.
+* $post_type (string|null) – Optional. The post type to use. Defaults to current post type. Unsafe.
+* $share (bool|null) – Optional. Whether to show the share modal button. Default true. Unsafe.
+* $rss (bool|null) – Optional. Whether to show the RSS feed buttons. Default true. Unsafe.
 
 ---
 
