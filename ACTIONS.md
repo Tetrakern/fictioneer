@@ -1029,7 +1029,7 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 * $story_id (int) – Current story (post) ID.
 
 **Hooked actions:**
-* `fictioneer_story_comment( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
+* `fictioneer_story_comments( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
 
 ---
 
@@ -1064,7 +1064,7 @@ Fires right after the article header (cover, title, fandom, genres, and characte
 ---
 
 ### `do_action( 'fictioneer_story_before_comments_list', $args )`
-Fires right between the comments list and heading in the `_story-comments.php` partial.
+Fires right between the comments list and heading in the `fictioneer_story_comments()` function.
 
 **$args:**
 * $story_data (array) – Collection of story data.

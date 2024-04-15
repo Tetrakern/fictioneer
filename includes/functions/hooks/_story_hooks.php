@@ -796,20 +796,59 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
  * Outputs the HTML for the story page comments
  *
  * @since 5.0.0
+ * @since 5.14.0 - Merged partial into function.
  *
  * @param array $args['story_data']  Collection of story data.
  * @param int   $args['story_id']    The story post ID.
  */
 
-function fictioneer_story_comment( $args ) {
+function fictioneer_story_comments( $args ) {
+  // Setup
+  $story = $args['story_data'];
+
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( post_password_required() || $story['comment_count'] < 1 ) {
     return;
   }
 
-  // Render partial
-  get_template_part( 'partials/_story-comments', null, $args );
+  // Start HTML ---> ?>
+  <section class="comment-section fictioneer-comments padding-left padding-right padding-bottom">
+    <h2 class="fictioneer-comments__title"><?php
+      printf(
+        _n(
+          '<span>%s</span> <span>Comment</span>',
+          '<span>%s</span> <span>Comments</span>',
+          $story['comment_count'],
+          'fictioneer'
+        ),
+        $story['comment_count']
+      );
+    ?></h2>
+    <?php do_action( 'fictioneer_story_before_comments_list', $args ); ?>
+    <div class="fictioneer-comments__list">
+      <ul>
+        <li class="load-more-list-item">
+          <button class="load-more-comments-button"><?php
+            $load_n = $story['comment_count'] < get_option( 'comments_per_page' ) ?
+              $story['comment_count'] : get_option( 'comments_per_page' );
+
+            printf(
+              _n(
+                'Load latest comment (may contain spoilers)',
+                'Load latest %s comments (may contain spoilers)',
+                $load_n,
+                'fictioneer'
+              ),
+              $load_n
+            );
+          ?></button>
+        </li>
+        <div class="comments-loading-placeholder hidden"><i class="fa-solid fa-spinner spinner"></i></div>
+      </ul>
+    </div>
+  </section>
+  <?php // <--- End HTML
 }
-add_action( 'fictioneer_story_after_article', 'fictioneer_story_comment', 10 );
+add_action( 'fictioneer_story_after_article', 'fictioneer_story_comments', 10 );
 
 ?>
