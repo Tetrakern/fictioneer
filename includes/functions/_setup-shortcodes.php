@@ -1752,3 +1752,45 @@ function fictioneer_shortcode_remove_story_buttons( $output, $args ) {
 
   return $output;
 };
+
+// =============================================================================
+// STORY ACTIONS SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show subscribe button
+ *
+ * @since 5.14.0
+ *
+ * @param string|null $attr['post_id']   Optional. Post ID to subscribe to (for plugins). Defaults to current ID.
+ * @param string|null $attr['story_id']  Optional. Story ID to subscribe to (for plugins). Defaults to current ID.
+ * @param string|null $attr['inline']    Optional. Whether the button should be wrapped in a block. Default true.
+ * @param string|null $attr['class']     Optional. Additional CSS classes, separated by whitespace.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_subscribe_button( $attr ) {
+  // Setup
+  $post_id = absint( $attr['post_id'] ?? $attr['story_id'] ?? get_the_ID() );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $subscribe_buttons = fictioneer_get_subscribe_options( $post_id );
+
+  if ( $attr['inline'] ?? 0 ) {
+    $classes .= ' _inline';
+  }
+
+  // Build and return button
+  if ( ! empty( $subscribe_buttons ) ) {
+    return sprintf(
+      '<div class="toggle-last-clicked subscribe-menu-toggle button _secondary popup-menu-toggle _popup-right-if-last ' . esc_attr( $classes ) . '" tabindex="0" role="button" aria-label="%s"><div><i class="fa-solid fa-bell"></i> %s</div><div class="popup-menu _bottom _center">%s</div></div>',
+      fcntr( 'subscribe', true ),
+      fcntr( 'subscribe' ),
+      $subscribe_buttons
+    );
+  }
+
+  // Return nothing if empty
+  return '';
+}
+add_shortcode( 'fictioneer_subscribe_button', 'fictioneer_shortcode_subscribe_button' );

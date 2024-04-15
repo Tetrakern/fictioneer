@@ -146,6 +146,10 @@
     border: var(--button-primary-border-disabled, 1px solid transparent);
     filter: var(--button-primary-filter-disabled);
   }
+
+  &._inline {
+    display: inline-flex;
+  }
 }
 
 .post-password-form input[type=submit],
