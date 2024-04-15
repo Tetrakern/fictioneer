@@ -62,38 +62,18 @@
     }
   }
 
-  &._story-unpublished {
-    &::before {
-      content: attr(data-unavailable);
-      position: absolute;
-      inset: 0;
-      z-index: 100;
-      display: grid;
-      place-content: center;
-      background: var(--card-unavailable-background, var(--card-bg-color));
-      color: var(--card-unavailable-color, var(--bg-400));
-      font: 700 max(2.5rem, 8cqw)/1 var(--ff-heading);
-      text-transform: uppercase;
-      padding-bottom: 2rem;
-      border-radius: var(--layout-border-radius-small);
-      opacity: .9;
-    }
-
-    .card__body {
-      user-select: none;
-      pointer-events: none;
-      filter: var(--card-unavailable-filter);
-    }
-  }
-
   &.ajax-in-progress > div {
     filter: var(--ajax-in-progress-filter, blur(1px));
   }
 
   &.has-last-clicked {
-    :is(.card__info-toggle, .card__main) {
+    .card__main {
       pointer-events: none;
-      visibility: hidden;
+      opacity: .6;
+    }
+
+    .card__info-toggle {
+      display: none;
     }
 
     .card__overlay-infobox {
@@ -136,14 +116,6 @@
     :is(.popup-action-mark-unread, .card__checkmark-icon) {
       display: none;
     }
-  }
-
-  &._large .card__title {
-    flex: 1 1 auto;
-  }
-
-  &._info .card__title {
-    padding-right: 1.75em;
   }
 
   &__body {
@@ -514,6 +486,10 @@
     line-height: 1.33;
     border-radius: var(--layout-border-radius-small);
 
+    &._excerpt > .card__excerpt {
+      line-height: 1.5;
+    }
+
     > :first-child {
       padding: 0;
       margin: 0.625em;
@@ -536,16 +512,38 @@
         border-left: 3px solid var(--card-bg-color);
       }
     }
+  }
 
-    &._excerpt {
-      > :first-child {
-        position: absolute;
-        inset: 0.625em;
-        line-height: 1.5;
-        margin: 0;
-        height: unset;
-      }
+  &._story-unpublished {
+    &::before {
+      content: attr(data-unavailable);
+      position: absolute;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-content: center;
+      background: var(--card-unavailable-background, var(--card-bg-color));
+      color: var(--card-unavailable-color, var(--bg-400));
+      font: 700 max(2.5rem, 8cqw)/1 var(--ff-heading);
+      text-transform: uppercase;
+      padding-bottom: 2rem;
+      border-radius: var(--layout-border-radius-small);
+      opacity: .9;
     }
+
+    .card__body {
+      user-select: none;
+      pointer-events: none;
+      filter: var(--card-unavailable-filter);
+    }
+  }
+
+  &._large .card__title {
+    flex: 1 1 auto;
+  }
+
+  &._info .card__title {
+    padding-right: 1.75em;
   }
 
   &._vertical {
