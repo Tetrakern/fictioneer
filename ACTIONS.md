@@ -28,7 +28,7 @@ Fires within `<article>` content section in the `user-profile.php` template. Nor
 * $is_moderator (boolean) – True if the user is a moderator (by capabilities).
 * $is_editor (boolean) – True if the user is an editor.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_account_moderation_message( $args )` – Moderation message section. Priority 5.
 * `fictioneer_account_profile( $args )` – Account profile section. Priority 10.
 * `fictioneer_account_oauth( $args )` – OAuth 2.0 account bindings section. Priority 20.
@@ -83,7 +83,7 @@ Fires within the Fictioneer user profile section in the WordPress `wp-admin/prof
 **Parameters:**
 * $profile_user (WP_User) – The owner of the currently edited profile.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_admin_profile_fields_fingerprint( $profile_user )` – User fingerprint field. Priority 5.
 * `fictioneer_admin_profile_fields_flags( $profile_user )` – User flags. Priority 6.
 * `fictioneer_admin_profile_fields_oauth( $profile_user )` – User OAuth connections. Priority 7.
@@ -128,7 +128,7 @@ Fires after an user has been successfully created or logged-in via the OAuth 2.0
 ### `do_action( 'fictioneer_after_update' )`
 Fires after the theme has been updated, once per version change.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_purge_caches_after_update()` – Purges selected caches and Transients. Priority 10.
 
 ---
@@ -153,7 +153,7 @@ Archive template hook. Fires right before the result loop section in any archive
 * $orderby (string) – Current orderby query argument. Default 'date'.
 * $ago (int|string) – Current value for the date query. Default 0.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 10.
 
 ---
@@ -172,7 +172,7 @@ Fires after `wp_body_open()` in the `<body>` right before the inline storage ele
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_output_mobile_menu()` – HTML for the mobile menu. Priority 20.
 
 ---
@@ -216,7 +216,7 @@ Fires in the second column of top action section in the `single-fcn_chapter.php`
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_formatting_button()` – Toggle to open the chapter formatting modal. Priority 10.
 * `fictioneer_chapter_fullscreen_buttons()` – Buttons to open/close the fullscreen view. Priority 20.
 * `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
@@ -241,7 +241,7 @@ Fires in the first column of the top action section in the `single-fcn_chapter.p
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_resize_buttons()` – Buttons to decrease, reset, and increase the chapter font size. Priority 10.
 
 ---
@@ -264,7 +264,7 @@ Fires in the third column of the top action section in the `single-fcn_chapter.p
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'top'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_nav_buttons( $args, 'top' )` – Links to the previous/next chapter, anchor to end of chapter. Priority 10.
 
 ---
@@ -287,7 +287,7 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_subscribe_button()` – Subscription popup menu. Priority 10.
 * `fictioneer_chapter_index_popup_menu()` – Index popup menu with story and chapter links. Priority 20.
 * `fictioneer_chapter_bookmark_jump_button()` – Button to scroll to chapter bookmark (if set). Priority 30.
@@ -312,7 +312,7 @@ Fires in the first column of the bottom action section in the `single-fcn_chapte
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_media_buttons()` – Buttons for social media sharing and feeds. Priority 10.
 
 ---
@@ -335,7 +335,7 @@ Fires in the third column of the bottom action section in the `single-fcn_chapte
 **Parameters:**
 * $location (string) – Location on the chapter page, here `'bottom'`.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_nav_buttons( $args, 'bottom' )` – Links to the previous/next chapter, anchor to start of chapter. Priority 10.
 
 ---
@@ -372,7 +372,7 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_afterword( $args )` – Chapter afterword. Priority 10.
 * `fictioneer_chapter_support_links( $args )` – Support links set for the chapter/story/author. Priority 20.
 
@@ -393,7 +393,7 @@ Fires right after the `<main>` container is closed in the `single-fcn_chapter.ph
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_micro_menu( $args )` – Add the HTML for the chapter micro menu. Priority 10.
 * `fictioneer_chapter_paragraph_tools()` – Add the HTML for the chapter paragraph tools. Priority 10.
 * `fictioneer_chapter_suggestion_tools()` – Add the HTML for the chapter suggestion tools. Priority 10.
@@ -415,7 +415,7 @@ Fires between the top actions sections and chapter header (title and authors) in
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_chapter_global_note( $args )` – Story-wide note if provided. Priority 5.
 * `fictioneer_chapter_foreword( $args )` – Chapter foreword if provided. Priority 10.
 * `fictioneer_chapter_warnings( $args )` – Chapter warnings if provided. Priority 20.
@@ -452,7 +452,7 @@ List page template hook. Fires right after the content section in the `chapters.
 * $orderby (string) – Current orderby query argument. Default 'modified'.
 * $ago (int|string) – Current value for the date query. Default 0.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_chapters_list( $args )` – Paginated card list of all visible chapters. Priority 30.
 
@@ -492,7 +492,7 @@ Fires right after the collection content section in the `single-fcn_collection.p
 * $featured_list (array) – IDs of featured items in the collection.
 * $featured_query (WP_Query) – Paginated query of featured items.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_collection_tags_and_warnings( $args )` – Tags and content warnings. Priority 10.
 * `fictioneer_collection_statistics( $args )` – Collection statistics. Priority 20.
 * `fictioneer_collection_featured_list( $args )` – Paginated items featured in the collection. Priority 30.
@@ -526,7 +526,7 @@ List page template hook. Fires right after the content section in the `collectio
 * $orderby (string) – Current orderby query argument. Default 'modified'.
 * $ago (int|string) – Current value for the date query. Default 0.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_collections_list( $args )` – Paginated card list of all visible collections. Priority 30.
 
@@ -576,7 +576,7 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 * $post_type (string|null) – Current post type. Unsafe.
 * $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_output_modals( $args )` – Render modals based on login status and page type. Priority 10.
 
 ---
@@ -590,7 +590,7 @@ Fires right after opening the inner `<header>` container. Normally includes a ba
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_header_inner_background( $args )` – Header background image. Priority 10.
 
 ---
@@ -665,7 +665,7 @@ Fires right after opening the site’s `.main__wrapper` container, outside the l
 ### `do_action( 'fictioneer_mobile_menu_bottom' )`
 Fires right after opening the `.mobile-menu__bottom` container in the `partials/_mobile-menu.php` partial, the last element in the mobile menu. Normally reserved for the quick buttons.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_mobile_quick_buttons()` – Quick buttons for the mobile menu. Priority 10.
 
 ---
@@ -673,7 +673,7 @@ Fires right after opening the `.mobile-menu__bottom` container in the `partials/
 ### `do_action( 'fictioneer_mobile_menu_center' )`
 Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` partial, which holds most of the panels. Primarily used to output additional frames.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_mobile_follows_frame()` – Frame for mobile updates (Follows). Priority 10.
 * `fictioneer_mobile_bookmarks_frame()` – Frame for mobile bookmarks. Priority 20.
 * `fictioneer_mobile_chapters_frame()` – Frame for the mobile chapter list. Priority 30.
@@ -683,7 +683,7 @@ Fires right after the main mobile menu frame in the `partials/_mobile-menu.php` 
 ### `do_action( 'fictioneer_mobile_menu_main_frame_panels' )`
 Fires right after opening the main mobile menu frame in the `partials/_mobile-menu.php` partial. Most panels of the mobile menu are enqueued here.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_mobile_navigation_panel()` – Navigation menu folded out. Priority 10.
 * `fictioneer_mobile_lists_panel()` – Frame buttons for bookmarks, chapters, and Follows. Priority 20.
 * `fictioneer_mobile_user_menu()` – Mobile variant of the user menu. Priority 30.
@@ -693,7 +693,7 @@ Fires right after opening the main mobile menu frame in the `partials/_mobile-me
 ### `do_action( 'fictioneer_mobile_menu_top' )`
 Fires right after opening the `.mobile-menu__top` container in the `partials/_mobile-menu.php` partial. Normally reserved for the mobile version of the icon menu, called with the `'in-mobile-menu'` `$location` parameter.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_mobile_user_icon_menu()` – Mobile variant of the icon menu. Priority 10.
 
 ---
@@ -755,6 +755,9 @@ Fires after opening the `.main-navigation__wrapper` container in the `_navigatio
 * $header_args (array) – Arguments passed to the header.php partial.
 * $tag (string|null) – Override wrapping tag of the navigation row. Unsafe.
 
+**Hooked Actions:**
+* `fictioneer_wide_header_identity( $args )` – HTML for logo, site title, and tagline. Priority 10.
+
 ---
 
 ### `do_action( 'fictioneer_post_after_content', $post_id )`
@@ -763,7 +766,7 @@ Fires between the article content and featured list (if any) in the `single-post
 **Parameters:**
 * $post_id (int) – Current post ID.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_post_tags( $post_id )` – Tags of the post. Priority 10.
 * `fictioneer_post_featured_list( $post_id )` – Items featured in the post. Priority 20.
 
@@ -775,7 +778,7 @@ Fires inside the `.post__footer-left` container within the article footer in the
 **Parameters:**
 * $post_id (int) – Current post ID.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_post_media_buttons()` – Buttons for sharing and webfeeds. Priority 10.
 
 ---
@@ -786,7 +789,7 @@ Fires inside the `.post__footer-right` container within the article footer in th
 **Parameters:**
 * $post_id (int) – Current post ID.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_post_subscribe_button()` – Subscription popup menu. Priority 10.
 
 ---
@@ -809,7 +812,7 @@ Fires right after the content section in the `single-fcn_recommendation.php` tem
 * $recommendation_id (int) – Post ID of the recommendation.
 * $title (string) – Safe title of the recommendation.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_recommendation_tags( $args )` – Tags of the recommendation. Priority 10.
 * `fictioneer_recommendation_links( $args )` – External links to read the recommendation. Priority 20.
 * `fictioneer_recommendation_support_links( $args )` – Support links for the recommendation author. Priority 30.
@@ -839,7 +842,7 @@ List page template hook. Fires right after the content section in the `recommend
 * $orderby (string) – Current orderby query argument. Default 'modified'.
 * $ago (int|string) – Current value for the date query. Default 0.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_recommendations_list( $args )` – Paginated card list of all visible recommendations. Priority 30.
 
@@ -888,15 +891,18 @@ Fires after the search form fields for type, match, sort, and order have been re
 **Parameters:**
 * $args (array) – Arguments passed to the search form.
 
-**Hooked actions:**
-* `fictioneer_add_search_for_status()` – HTML for story status select. Priority 10.
+**Hooked Actions:**
+* `fictioneer_add_search_for_age_rating( $args )` – HTML for age rating select. Priority 10.
+* `fictioneer_add_search_for_status( $args )` – HTML for story status select. Priority 10.
+* `fictioneer_add_search_for_min_words( $args )` – HTML for minimum words select. Priority 10.
+* `fictioneer_add_search_for_max_words( $args )` – HTML for maximum words select. Priority 10.
 
 ---
 
 ### `do_action( 'fictioneer_search_no_params' )`
 Fires right after opening the article’s no-params `<section>` container in the `search.php` template.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_no_search_params()` – HTML for no search params. Priority 10.
 
 ---
@@ -904,7 +910,7 @@ Fires right after opening the article’s no-params `<section>` container in the
 ### `do_action( 'fictioneer_search_no_results' )`
 Fires right after opening the article’s no-results `<section>` container in the `search.php` template.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_no_search_results()` – HTML for no search results. Priority 10.
 
 ---
@@ -957,7 +963,7 @@ Fires right after opening the `#site` container in the `header.php` template. In
 * $header_image_url (string|boolean) – URL of the filtered header image or false.
 * $header_args (array) – Arguments passed to the header.php partial.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_browser_notes()` – HTML for the browser compatibility notes. Priority 1.
 * `fictioneer_top_header( $args )` – HTML for the top header. Priority 9.
 * `fictioneer_navigation_bar( $args )` – HTML for the navigation bar. Priority 10.
@@ -973,7 +979,7 @@ Fires first inside the site’s `<footer>` container. Normally includes the brea
 * $post_id (int|null) – Current post ID. Unsafe.
 * $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_breadcrumbs( $args )` – Breadcrumbs. Priority 10.
 * `fictioneer_footer_menu_row( $args )` – Footer menu and theme copyright notice. Priority 20.
 
@@ -992,7 +998,7 @@ List page template hook. Fires right after the content section in the `stories.p
 * $orderby (string) – Current orderby query argument. Default 'modified'.
 * $ago (int|string) – Current value for the date query. Default 0.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_stories_statistics( $args )` – Compiled statistics of all stories. Priority 10.
 * `fictioneer_sort_order_filter_interface( $args )` – Interface to sort, order, and filter. Priority 20.
 * `fictioneer_stories_list( $args )` – Paginated card list of all visible stories. Priority 30.
@@ -1028,7 +1034,7 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_story_comments( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
 
 ---
@@ -1040,7 +1046,7 @@ Fires right after the content section in the `single-fcn_story.php` template, in
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
 
-**Hooked actions:**
+**Hooked Actions:**
 * `fictioneer_story_copyright_notice( $args )` – Copyright notice. Priority 10.
 * `fictioneer_story_tags_and_warnings( $args )` – Tags and content warnings. Priority 20.
 * `fictioneer_story_actions( $args )` – Row with story actions. Priority 30.
