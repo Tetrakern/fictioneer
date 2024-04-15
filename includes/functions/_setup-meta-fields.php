@@ -3196,6 +3196,8 @@ function fictioneer_save_extra_metabox( $post_id ) {
 
     if ( current_user_can( 'manage_options' ) && fictioneer_validate_id( $template_story_id, 'fcn_story' ) ) {
       $fields['fictioneer_template_story_id'] = $template_story_id;
+    } else {
+      $fields['fictioneer_template_story_id'] = '';
     }
   }
 
