@@ -1331,6 +1331,35 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
+  // Placeholder image
+  $manager->add_setting(
+    'placeholder_image',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint'
+    )
+  );
+
+  $manager->add_control(
+    new WP_Customize_Cropped_Image_Control(
+      $manager,
+      'placeholder_image',
+      array(
+        'label' => __( 'Placeholder Image', 'fictioneer' ),
+        'description' => __( 'Fallback if no image has been provided, for example on cards.', 'fictioneer' ),
+        'section' => 'layout',
+        'settings' => 'placeholder_image',
+        'flex_width' => true,
+        'flex_height' => true,
+        'button_labels' => array(
+          'select' => __( 'Select Placeholder image', 'fictioneer' ),
+          'remove' => __( 'Remove', 'fictioneer' ),
+          'change' => __( 'Change Placeholder image', 'fictioneer' )
+        )
+      )
+    )
+  );
+
   // Site width
   $manager->add_setting(
     'site_width',
