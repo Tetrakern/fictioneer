@@ -1754,7 +1754,7 @@ function fictioneer_shortcode_remove_story_buttons( $output, $args ) {
 };
 
 // =============================================================================
-// STORY ACTIONS SHORTCODE
+// SUBSCRIBE BUTTON SHORTCODE
 // =============================================================================
 
 /**
@@ -1776,7 +1776,7 @@ function fictioneer_shortcode_subscribe_button( $attr ) {
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $subscribe_buttons = fictioneer_get_subscribe_options( $post_id );
 
-  if ( $attr['inline'] ?? 0 ) {
+  if ( filter_var( $args['inline'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
     $classes .= ' _inline';
   }
 
