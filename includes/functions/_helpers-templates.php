@@ -687,6 +687,51 @@ function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
   );
 }
 
+/**
+ * Returns the global placeholder image
+ *
+ * @since 5.14.0
+ *
+ * @param array $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string|null  $title  Title of the post. Defaults to site name.
+ * }
+ *
+ * @return array The image HTML, the image URL, the full image URL, and whether it's an SVG.
+ */
+
+function fictioneer_get_placeholder_image( $args = [] ) {
+  // Setup
+  $image_id = get_theme_mod( 'placeholder_image' );
+  $image_large = wp_get_attachment_image_src( $image_id, 'large' );
+  $image_full = wp_get_attachment_image_src( $image_id, 'full' );
+  $image_args = array(
+    'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $args['title'] ?? get_bloginfo( 'name' ) ),
+    'class' => 'no-auto-lightbox'
+  );
+
+  // SVG fallback
+  if ( empty( $image_large ) || empty( $image_full ) ) {
+    $svg = fictioneer_get_svg_rect( '#111', 400, 600 );
+
+    return array(
+      'thumbnail' => '<img src="' . $svg . '" class="no-auto-lightbox" alt="' . $image_args['alt'] . '">',
+      'thumbnail_url' => $svg,
+      'thumbnail_full_url' => $svg,
+      'svg' => true
+    );
+  }
+
+  // Return result
+  return array(
+    'thumbnail' => wp_get_attachment_image( $image_id, 'large', false, $image_args ),
+    'thumbnail_url' => $image_large[0],
+    'thumbnail_full_url' => $image_full[0],
+    'svg' => false
+  );
+}
+
 // =============================================================================
 // GET SUBSCRIBE BUTTONS
 // =============================================================================
