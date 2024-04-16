@@ -1346,7 +1346,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'placeholder_image',
       array(
         'label' => __( 'Placeholder Image', 'fictioneer' ),
-        'description' => __( 'Fallback if no image has been provided, for example on cards.', 'fictioneer' ),
+        'description' => __( 'Fallback if no thumbnail has been provided, for example on vertical cards.', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'placeholder_image',
         'flex_width' => true,
