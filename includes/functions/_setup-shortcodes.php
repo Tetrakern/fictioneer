@@ -1776,7 +1776,7 @@ function fictioneer_shortcode_subscribe_button( $attr ) {
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $subscribe_buttons = fictioneer_get_subscribe_options( $post_id );
 
-  if ( filter_var( $args['inline'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
+  if ( filter_var( $attr['inline'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
     $classes .= ' _inline';
   }
 
