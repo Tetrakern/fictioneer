@@ -2869,3 +2869,31 @@ if ( ! function_exists( 'fictioneer_get_async_css_loading_pattern' ) ) {
     return 'media="all"';
   }
 }
+
+// =============================================================================
+// CSS SVG RECT
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_svg_rect' ) ) {
+  /**
+   * Returns generated SVG rectangle as base64 data URI
+   *
+   * @since 5.14.0
+   *
+   * @param string $color   Optional. Color code of the rectangle. Default '#111'.
+   * @param int    $width   Optional. Width of the rectangle. Default 200.
+   * @param int    $height  Optional. Height of the rectangle. Default 300.
+   *
+   * @return string SVG as data URI.
+   */
+
+  function fictioneer_get_svg_rect( $color = '#111', $width = 200, $height = 300 ) {
+    // Build
+    $svg = '<?xml version="1.0" encoding="UTF-8"?>';
+    $svg .= '<svg xmlns="http://www.w3.org/2000/svg" width="' . $width . '" height="' . $height . '" viewBox="0 0 ' . $width . ' ' . $height . '">';
+    $svg .= '<rect width="100%" height="100%" fill="' . htmlspecialchars( $color ) . '" /></svg>';
+
+    // Return as data URI
+    return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+  }
+}
