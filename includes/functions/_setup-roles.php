@@ -869,11 +869,15 @@ if ( ! current_user_can( 'manage_options' ) ) {
       return $data;
     }
 
+    // Exempt certain shortcodes
+    add_filter( 'strip_shortcodes_tagnames', 'fictioneer_exempt_shortcodes_from_removal' );
+
     // Strip the shortcodes
     $data['post_content'] = strip_shortcodes( $data['post_content'] );
 
     // Only do this for the trigger post or bad things can happen!
     remove_filter( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
+    remove_filter( 'strip_shortcodes_tagnames', 'fictioneer_exempt_shortcodes_from_removal' );
 
     // Continue filter
     return $data;
@@ -881,6 +885,27 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   if ( ! current_user_can( 'fcn_shortcodes' ) ) {
     add_filter( 'wp_insert_post_data', 'fictioneer_strip_shortcodes_on_save', 1 );
+  }
+
+  /**
+   * Exempts shortcodes from being removed by strip_shortcodes()
+   *
+   * @since 5.14.0
+   *
+   * @param array $tags_to_remove  Tags to be removed.
+   *
+   * @return array Updated tags to be removed.
+   */
+
+
+  function fictioneer_exempt_shortcodes_from_removal( $tags_to_remove ) {
+    // Remove shortcodes from tags
+    if ( ( $key = array_search( 'fictioneer_fa', $tags_to_remove ) ) !== false ) {
+      unset( $tags_to_remove[ $key ] );
+    }
+
+    // Continue filter
+    return $tags_to_remove;
   }
 
   // === FCN_EDIT_OTHERS_{POST_TYPE} ===========================================
