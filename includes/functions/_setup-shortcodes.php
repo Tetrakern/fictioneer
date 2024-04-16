@@ -1794,3 +1794,61 @@ function fictioneer_shortcode_subscribe_button( $attr ) {
   return '';
 }
 add_shortcode( 'fictioneer_subscribe_button', 'fictioneer_shortcode_subscribe_button' );
+
+// =============================================================================
+// STORY COMMENTS SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show story comments
+ *
+ * @since 5.14.0
+ *
+ * @param string|null $attr['story_id']  Optional. Story ID to get comments for. Defaults to current ID.
+ * @param string|null $attr['header']    Optional. Whether to show the heading with count. Default true.
+ * @param string|null $attr['class']     Optional. Additional CSS classes, separated by whitespace.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_story_comments( $attr ) {
+  // Abort if...
+  if ( ! is_page_template( 'singular-story.php' ) ) {
+    return fictioneer_notice(
+      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
+      'warning',
+      false
+    );
+  }
+
+  // Setup
+  $story_id = fictioneer_validate_id( $attr['story_id'] ?? get_the_ID(), 'fcn_story' );
+  $story_data = fictioneer_get_story_data( $story_id ?: 0 );
+  $header = filter_var( $attr['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+
+  if ( ! $story_data ) {
+    return '';
+  }
+
+  // Require functions (necessary in post editor for some reason)
+  require_once __DIR__ . '/hooks/_story_hooks.php';
+
+  // Buffer
+  ob_start();
+
+  // Output story comment section
+  fictioneer_story_comments(
+    array(
+      'story_id' => $story_id,
+      'story_data' => $story_data,
+      'shortcode' => 1,
+      'classes' => $classes,
+      'header' => $header
+    )
+  );
+
+  // Capture and return buffer
+  return fictioneer_minify_html( ob_get_clean() );
+}
+add_shortcode( 'fictioneer_story_comments', 'fictioneer_shortcode_story_comments' );

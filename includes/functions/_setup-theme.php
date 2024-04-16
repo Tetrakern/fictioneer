@@ -680,7 +680,12 @@ function fictioneer_style_queue() {
       }
 
       // Comments
-      if ( $post_type == 'fcn_story' || $template_slug === 'user-profile.php' || comments_open() ) {
+      if (
+        $post_type == 'fcn_story' ||
+        $template_slug === 'user-profile.php' ||
+        comments_open() ||
+        is_page_template( 'singular-story.php' )
+      ) {
         wp_enqueue_style(
           'fictioneer-comments',
           get_template_directory_uri() . '/css/comments.css',

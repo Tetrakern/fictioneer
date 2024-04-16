@@ -798,32 +798,45 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_blog', 44 );
  * @since 5.0.0
  * @since 5.14.0 - Merged partial into function.
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array  $args['story_data']  Collection of story data.
+ * @param int    $args['story_id']    The story post ID.
+ * @param string $args['classes']     Optional. Additional CSS classes, separated by whitespace.
+ * @param bool   $args['header']      Optional. Whether to show the heading with count. Default true.
+ * @param bool   $args['shortcode']   Optional. Whether the render context is a shortcode. Default false.
  */
 
 function fictioneer_story_comments( $args ) {
   // Setup
   $story = $args['story_data'];
+  $shortcode = filter_var( $args['shortcode'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $header = filter_var( $args['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
+  $classes = $args['classes'] ?? '';
 
   // Abort conditions...
   if ( post_password_required() || $story['comment_count'] < 1 ) {
     return;
   }
 
+  // Add extra classes
+  if ( ! $shortcode ) {
+    $classes .= ' padding-left padding-right padding-bottom';
+  }
+
   // Start HTML ---> ?>
-  <section class="comment-section fictioneer-comments padding-left padding-right padding-bottom">
-    <h2 class="fictioneer-comments__title"><?php
-      printf(
-        _n(
-          '<span>%s</span> <span>Comment</span>',
-          '<span>%s</span> <span>Comments</span>',
-          $story['comment_count'],
-          'fictioneer'
-        ),
-        $story['comment_count']
-      );
-    ?></h2>
+  <section class="comment-section fictioneer-comments <?php echo esc_attr( $classes ); ?>">
+    <?php if ( $header ) : ?>
+      <h2 class="fictioneer-comments__title"><?php
+        printf(
+          _n(
+            '<span>%s</span> <span>Comment</span>',
+            '<span>%s</span> <span>Comments</span>',
+            $story['comment_count'],
+            'fictioneer'
+          ),
+          $story['comment_count']
+        );
+      ?></h2>
+    <?php endif; ?>
     <?php do_action( 'fictioneer_story_before_comments_list', $args ); ?>
     <div class="fictioneer-comments__list">
       <ul>
