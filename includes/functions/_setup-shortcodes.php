@@ -1876,6 +1876,11 @@ add_shortcode( 'fictioneer_story_comments', 'fictioneer_shortcode_story_comments
 /**
  * Shortcode to show selected story data
  *
+ * Data: id, word_count, chapter_count, icon, age_rating, rating_letter, comment_count,
+ * datetime, date, time, categories, tags, genres, fandoms, characters, or warnings.
+ *
+ * Format: default, raw, or short. Not all of them apply to all data.
+ *
  * @since 5.14.0
  *
  * @param string|null $attr['data']         The requested data, one at a time. See description.
