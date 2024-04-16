@@ -1895,7 +1895,7 @@ add_shortcode( 'fictioneer_story_comments', 'fictioneer_shortcode_story_comments
  * @param string|null $attr['style']        Optional. Inline style applied to wrapper element.
  * @param string|null $attr['inner_style']  Optional. Inline style applied to nested items.
  *
- * @return string The captured shortcode HTML.
+ * @return string The shortcode HTML.
  */
 
 function fictioneer_shortcode_story_data( $attr ) {
@@ -1978,3 +1978,30 @@ function fictioneer_shortcode_story_data( $attr ) {
   return $output ? "<{$tag} class='{$classes}' style='{$style}'>{$output}</{$tag}>" : '';
 }
 add_shortcode( 'fictioneer_story_data', 'fictioneer_shortcode_story_data' );
+
+// =============================================================================
+// FONT AWESOME SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show a Font Awesome icon
+ *
+ * @since 5.14.0
+ *
+ * @param string|null $attr['class']  The icon classes, separated by whitespace.
+ *
+ * @return string The shortcode HTML.
+ */
+
+function fictioneer_shortcode_font_awesome( $attr ) {
+  // Setup
+  $classes = esc_attr( trim( wp_strip_all_tags( $attr['class'] ?? '' ) ) );
+
+  if ( empty( $classes ) ) {
+    return '';
+  }
+
+  // Build and return output
+  return "<i class='{$classes}'></i>";
+}
+add_shortcode( 'fictioneer_fa', 'fictioneer_shortcode_font_awesome' );
