@@ -51,6 +51,9 @@ if ( ! function_exists( 'fictioneer_shortcode_query' ) ) {
  * Register relationships for posts with certain shortcodes
  *
  * @since 5.0.0
+ *
+ * @param int     $post_id  The ID of the saved post.
+ * @param WP_Post $post     The saved post object.
  */
 
 function fictioneer_update_shortcode_relationships( $post_id, $post ) {
@@ -64,6 +67,19 @@ function fictioneer_update_shortcode_relationships( $post_id, $post ) {
 
   // Look for blog shortcode
   if ( str_contains( $post->post_content, 'fictioneer_blog' ) ) {
+    $registry['always'][ $post_id ] = 'shortcode';
+  } else {
+    unset( $registry['always'][ $post_id ] );
+  }
+
+  // Look for story data shortcode
+  if (
+    str_contains( $post->post_content, 'fictioneer_story_data' ) ||
+    str_contains( $post->post_content, 'fictioneer_story_comments' ) ||
+    str_contains( $post->post_content, 'fictioneer_story_actions' ) ||
+    str_contains( $post->post_content, 'fictioneer_story_section' ) ||
+    str_contains( $post->post_content, 'fictioneer_subscribe_button' )
+  ) {
     $registry['always'][ $post_id ] = 'shortcode';
   } else {
     unset( $registry['always'][ $post_id ] );
