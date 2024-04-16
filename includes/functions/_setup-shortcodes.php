@@ -1852,3 +1852,108 @@ function fictioneer_shortcode_story_comments( $attr ) {
   return fictioneer_minify_html( ob_get_clean() );
 }
 add_shortcode( 'fictioneer_story_comments', 'fictioneer_shortcode_story_comments' );
+
+// =============================================================================
+// STORY DATA SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show selected story data
+ *
+ * @since 5.14.0
+ *
+ * @param string|null $attr['data']         The requested data, one at a time. See description.
+ * @param string|null $attr['story_id']     Optional. Story ID to get comments for. Defaults to current ID.
+ * @param string|null $attr['format']       Optional. Special formatting for selected data. See description.
+ * @param string|null $attr['date_format']  Optional. Format for date string. Defaults to WP settings.
+ * @param string|null $attr['time_format']  Optional. Format for time string. Defaults to WP settings.
+ * @param string|null $attr['separator']    Optional. Separator string for tags, genres, fandoms, etc.
+ * @param string|null $attr['tag']          Optional. The wrapper HTML tag. Defaults to 'span'.
+ * @param string|null $attr['class']        Optional. Additional CSS classes, separated by whitespace.
+ * @param string|null $attr['inner_class']  Optional. Additional CSS classes for nested items, separated by whitespace.
+ * @param string|null $attr['style']        Optional. Inline style applied to wrapper element.
+ * @param string|null $attr['inner_style']  Optional. Inline style applied to nested items.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_story_data( $attr ) {
+  // Setup
+  $story_id = fictioneer_validate_id( $attr['story_id'] ?? get_the_ID(), 'fcn_story' );
+  $story_data = fictioneer_get_story_data( $story_id ?: 0 );
+  $data = $attr['data'] ?? '';
+  $format = $attr['format'] ?? '';
+  $separator = wp_strip_all_tags( $attr['separator'] ?? '' ) ?: ', ';
+  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
+  $inner_classes = esc_attr( wp_strip_all_tags( $attr['inner_class'] ?? '' ) );
+  $style = esc_attr( wp_strip_all_tags( $attr['style'] ?? '' ) );
+  $inner_style = esc_attr( wp_strip_all_tags( $attr['inner_style'] ?? '' ) );
+  $tag = wp_strip_all_tags( $attr['tag'] ?? 'span' );
+  $output = '';
+
+  if ( ! $story_data ) {
+    return '';
+  }
+
+  // Get requested data
+  switch ( $data ) {
+    case 'word_count':
+      $output = $story_data['word_count'] ?? 0;
+      $output = $format !== 'short' ? $output : fictioneer_shorten_number( $output );
+      $output = ( $format === 'raw' || $format === 'short' ) ? $output : number_format_i18n( $output );
+      break;
+    case 'chapter_count':
+      $output = $story_data['chapter_count'] ?? 0;
+      $output = $format === 'raw' ? $output : number_format_i18n( $output );
+      break;
+    case 'status':
+      $output = $story_data['status'] ?? '';
+      break;
+    case 'icon':
+      $output = esc_attr( $story_data['icon'] ?? '' );
+      $output = $output ? "<i class='{$output}'></i>" : '';
+      break;
+    case 'age_rating':
+      $output = $story_data['rating'] ?? '';
+      break;
+    case 'rating_letter':
+      $output = $story_data['rating_letter'] ?? '';
+      break;
+    case 'comment_count':
+      $output = $story_data['comment_count'] ?? 0;
+      $output = $format === 'raw' ? $output : number_format_i18n( $output );
+      break;
+    case 'id':
+      $output = $story_data['id'] ?? '';
+      break;
+    case 'datetime':
+      $date = get_the_date( $attr['date_format'] ?? '', $story_id );
+      $time = get_the_time( $attr['time_format'] ?? '', $story_id );
+      $output = sprintf( $format ? $format : '%s at %s', $date, $time );
+      break;
+    case 'date':
+      $output = get_the_date( $attr['date_format'] ?? '', $story_id );
+      break;
+    case 'time':
+      $output = get_the_time( $attr['time_format'] ?? '', $story_id );
+      break;
+  }
+
+  // Get requested terms
+  if ( in_array( $data, ['categories', 'tags', 'genres', 'fandoms', 'characters', 'warnings'] ) ) {
+    $terms = $data === 'categories' ? get_the_category( $story_id ) : ( $story_data[ $data ] ?? [] );
+    $terms = is_array( $terms ) ? $terms : [];
+    $output = [];
+
+    foreach ( $terms as $term ) {
+      $link = get_tag_link( $term );
+      $output[] = "<a href='{$link}' class='story-page-terms _{$data} {$inner_classes}' style='{$inner_style}'>{$term->name}</a>";
+    }
+
+    $output = implode( $separator, $output );
+  }
+
+  // Build and return output
+  return $output ? "<{$tag} class='{$classes}' style='{$style}'>{$output}</{$tag}>" : '';
+}
+add_shortcode( 'fictioneer_story_data', 'fictioneer_shortcode_story_data' );
