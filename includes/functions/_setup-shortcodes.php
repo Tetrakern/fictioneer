@@ -1842,6 +1842,7 @@ function fictioneer_shortcode_story_comments( $attr ) {
   $story_data = fictioneer_get_story_data( $story_id ?: 0 );
   $header = filter_var( $attr['header'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
+  $style = esc_attr( wp_strip_all_tags( $attr['style'] ?? '' ) );
 
   if ( ! $story_data ) {
     return '';
@@ -1860,7 +1861,8 @@ function fictioneer_shortcode_story_comments( $attr ) {
       'story_data' => $story_data,
       'shortcode' => 1,
       'classes' => $classes,
-      'header' => $header
+      'header' => $header,
+      'style' => $style
     )
   );
 
