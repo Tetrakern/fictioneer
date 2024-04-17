@@ -102,24 +102,28 @@ fcn_applyStorySettings();
 // =============================================================================
 
 // Event listener for to toggle chapter order
-_$$$('button-toggle-chapter-order')?.addEventListener(
-  'click',
-  event => {
-    fcn_storySettings['order'] = event.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
-    fcn_setStorySettings(fcn_storySettings);
-    fcn_applyStorySettings();
-  }
-);
+_$$('[data-click-action*="toggle-chapter-order"]').forEach(button => {
+  button.addEventListener(
+    'click',
+    event => {
+      fcn_storySettings['order'] = event.currentTarget.dataset.order === 'asc' ? 'desc' : 'asc';
+      fcn_setStorySettings(fcn_storySettings);
+      fcn_applyStorySettings();
+    }
+  );
+});
 
 // Event listener for to toggle chapter view
-_$$$('button-toggle-chapter-view')?.addEventListener(
-  'click',
-  event => {
-    fcn_storySettings['view'] = event.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
-    fcn_setStorySettings(fcn_storySettings);
-    fcn_applyStorySettings();
-  }
-);
+_$$('[data-click-action*="toggle-chapter-view"]').forEach(button => {
+  button.addEventListener(
+    'click',
+    event => {
+      fcn_storySettings['view'] = event.currentTarget.dataset.view === 'list' ? 'grid' : 'list';
+      fcn_setStorySettings(fcn_storySettings);
+      fcn_applyStorySettings();
+    }
+  );
+});
 
 // =============================================================================
 // CHAPTER FOLDING
