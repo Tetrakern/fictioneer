@@ -133,16 +133,6 @@ $pag_args = array(
           $genres = get_the_terms( $post, 'fcn_genre' );
           $card_classes = [];
 
-          // Thumbnail
-          $thumbnails = fictioneer_get_small_card_thumbnail(
-            $post->ID,
-            array(
-              'title' => $title,
-              'seamless' => $args['seamless'],
-              'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'
-            )
-          );
-
           // Chapter story?
           if ( $post->post_type === 'fcn_chapter' ) {
             $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
@@ -179,11 +169,16 @@ $pag_args = array(
               <div class="card__main _article">
 
                 <?php
-                  if ( $thumbnails['thumbnail'] ) {
-                    echo "<a href='{$thumbnails['thumbnail_full_url']}' class='card__image _article cell-img _default'>{$thumbnails['thumbnail']}</a>";
-                  } else {
-                    echo "<a href='{$permalink}' class='card__image _article cell-img _default'></a>";
-                  }
+                  fictioneer_output_small_card_thumbnail(
+                    array(
+                      'post_id' => $post->ID,
+                      'classes' => 'card__image _article cell-img',
+                      'permalink' => $permalink,
+                      'vertical' => 1,
+                      'seamless' => $args['seamless'],
+                      'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'
+                    )
+                  );
                 ?>
 
                 <h3 class="card__title _article _small"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
