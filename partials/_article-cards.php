@@ -172,6 +172,7 @@ $pag_args = array(
                   fictioneer_output_small_card_thumbnail(
                     array(
                       'post_id' => $post->ID,
+                      'title' => $title,
                       'classes' => 'card__image _article cell-img',
                       'permalink' => $permalink,
                       'vertical' => 1,
