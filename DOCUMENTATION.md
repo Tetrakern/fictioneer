@@ -393,6 +393,10 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 [fictioneer_article_cards post_type="story, chapter" count="8" ignore_protected="1"]
 ```
 
+```
+[fictioneer_article_cards post_type="story, chapter" seamless="1" aspect_ratio="4/1"]
+```
+
 ![Article Cards](repo/assets/shortcode_example_article_cards.jpg?raw=true)
 ![Article Cards](repo/assets/shortcode_example_article_cards_2.png?raw=true)
 
@@ -546,6 +550,10 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 [fictioneer_latest_chapters count="10" type="compact" author="Tetrakern" order="asc" orderby="modified" spoiler="true" source="false" chapters="1,2,3,5,8,13,21,34"]
 ```
 
+```
+[fictioneer_latest_chapters source="false" vertical="1" seamless="1" aspect_ratio="5/1"]
+```
+
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters.jpg?raw=true)
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters_2.png?raw=true)
 
@@ -618,6 +626,10 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 [fictioneer_latest_recommendations count="10" type="compact" author="Tetrakern" order="asc" orderby="rand" recommendations="1,2,3,5,8,13,21,34"]
 ```
 
+```
+[fictioneer_latest_recommendations vertical="1" seamless="1"]
+```
+
 ![Latest Recommendations](repo/assets/shortcode_example_latest_recommendations.jpg?raw=true)
 ![Latest Recommendations](repo/assets/shortcode_example_latest_recommendations_2.png?raw=true)
 
@@ -659,6 +671,10 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 [fictioneer_latest_stories count="10" type="compact" author="Tetrakern" order="asc" orderby="modified" stories="1,2,3,5,8,13,21,34"]
 ```
 
+```
+[fictioneer_latest_stories type="compact" vertical="1" aspect_ratio="3/2"]
+```
+
 ![Latest Stories](repo/assets/shortcode_example_latest_stories.jpg?raw=true)
 ![Latest Stories](repo/assets/shortcode_example_latest_stories_2.png?raw=true)
 
@@ -697,6 +713,10 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 
 ```
 [fictioneer_latest_updates count="10" type="simple" author="Tetrakern" order="asc" stories="1,2,3,5,8,13,21,34"]
+```
+
+```
+[fictioneer_latest_updates type="compact" vertical="1" seamless="1"]
 ```
 
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)
