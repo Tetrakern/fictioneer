@@ -263,6 +263,11 @@
       aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
       margin-bottom: min(var(--article-card-image-margin-bottom, 3.25cqw), 16px);
     }
+
+    &._placeholder {
+      background-size: cover;
+      background-position: center;
+    }
   }
 
   &__text-icon {

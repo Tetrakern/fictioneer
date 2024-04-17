@@ -543,7 +543,7 @@ if ( ! function_exists( 'fictioneer_get_breadcrumbs' ) ) {
 }
 
 // =============================================================================
-// GET COVERS (THUMBNAIL)
+// GET COVERS & THUMBNAILS
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_story_page_cover' ) ) {
@@ -687,49 +687,79 @@ function fictioneer_get_small_card_thumbnail( $post_id, $args = [] ) {
   );
 }
 
-/**
- * Returns the global placeholder image
- *
- * @since 5.14.0
- *
- * @param array $args {
- *   Optional. An array of additional arguments.
- *
- *   @type string|null  $title  Title of the post. Defaults to site name.
- * }
- *
- * @return array The image HTML, the image URL, the full image URL, and whether it's an SVG.
- */
+if ( ! function_exists( 'fictioneer_get_placeholder_image' ) ) {
+  /**
+   * Returns the global placeholder image
+   *
+   * @since 5.14.0
+   *
+   * @param array $args {
+   *   Optional. An array of additional arguments.
+   *
+   *   @type string|null  $class  Additional classes, separated by whitespace.
+   *   @type string|null  $size   Thumbnail size. Defaults to 'large'.
+   *   @type string|null  $alt    Alt attribute. Defaults to '{Site Name} Placeholder Image'.
+   *   @type array|null   $args   Passed to wp_get_attachment_image().
+   * }
+   *
+   * @return array Associative array of image data. Use 'thumbnail' for the <img>,
+   * 'thumbnail_url' for the sized thumbnail, 'thumbnail_full_url' for the full
+   * thumbnail, and 'generated' to check whether it's a generated fallback if
+   * the requested image is not available.
+   */
 
-function fictioneer_get_placeholder_image( $args = [] ) {
-  // Setup
-  $image_id = get_theme_mod( 'placeholder_image' );
-  $image_large = wp_get_attachment_image_src( $image_id, 'large' );
-  $image_full = wp_get_attachment_image_src( $image_id, 'full' );
-  $image_args = array(
-    'alt' => sprintf( __( '%s Cover', 'fictioneer' ), $args['title'] ?? get_bloginfo( 'name' ) ),
-    'class' => 'no-auto-lightbox'
-  );
+  function fictioneer_get_placeholder_image( $args = [] ) {
+    // Static variable cache
+    static $cache = [];
 
-  // SVG fallback
-  if ( empty( $image_large ) || empty( $image_full ) ) {
-    $svg = fictioneer_get_svg_rect( '#111', 400, 600 );
+    $cache_key = md5( json_encode( $args ) );
 
-    return array(
-      'thumbnail' => '<img src="' . $svg . '" class="no-auto-lightbox" alt="' . $image_args['alt'] . '">',
-      'thumbnail_url' => $svg,
-      'thumbnail_full_url' => $svg,
-      'svg' => true
+    if ( isset( $cache[ $cache_key] ) ) {
+      return $cache[ $cache_key ];
+    }
+
+    // Setup
+    $image_id = get_theme_mod( 'placeholder_image' );
+    $image_size = $args['size'] ?? 'large';
+    $image_alt = $args['alt'] ?? sprintf( __( '%s Placeholder Image', 'fictioneer' ), get_bloginfo( 'name' ) );
+    $image_class = $args['class'] ?? 'no-auto-lightbox';
+
+    // Get image URLs
+    $image_large = wp_get_attachment_image_src( $image_id, $image_size );
+    $image_full = wp_get_attachment_image_src( $image_id, 'full' );
+
+    // Custom image args
+    $image_args = array(
+      'alt' => $image_alt,
+      'class' => $image_class
     );
-  }
 
-  // Return result
-  return array(
-    'thumbnail' => wp_get_attachment_image( $image_id, 'large', false, $image_args ),
-    'thumbnail_url' => $image_large[0],
-    'thumbnail_full_url' => $image_full[0],
-    'svg' => false
-  );
+    $image_args = array_merge( $image_args, $args['args'] ?? [] );
+
+    // Fallback
+    if ( empty( $image_large ) || empty( $image_full ) ) {
+      $svg = fictioneer_get_svg_rect( '#111', 400, 600 );
+
+      $cache[ $cache_key ] = array(
+        'thumbnail' => '<img src="' . $svg . '" class="' . $image_class . '" alt="' . $image_args['alt'] . '">',
+        'thumbnail_url' => $svg,
+        'thumbnail_full_url' => $svg,
+        'generated' => true
+      );
+
+      return $cache[ $cache_key ];
+    }
+
+    // Cache and return result
+    $cache[ $cache_key ] = array(
+      'thumbnail' => wp_get_attachment_image( $image_id, $image_size, false, $image_args ),
+      'thumbnail_url' => $image_large[0] ?? 0,
+      'thumbnail_full_url' => $image_full[0] ?? 0,
+      'generated' => false
+    );
+
+    return $cache[ $cache_key ];
+  }
 }
 
 // =============================================================================
