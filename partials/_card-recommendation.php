@@ -71,7 +71,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="recommendation-card-<?php the_ID(); ?>" class="card _large _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="recommendation-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__header _large">

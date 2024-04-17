@@ -163,7 +163,7 @@ $pag_args = array(
           }
 
           // Start HTML ---> ?>
-          <li id="article-card-<?php the_ID(); ?>" class="card _article <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+          <li class="post-<?php echo $post->ID; ?> card _article <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
             <article class="card__body _article polygon">
 
               <div class="card__main _article">

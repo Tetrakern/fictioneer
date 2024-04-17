@@ -42,7 +42,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="post-card-<?php the_ID(); ?>" class="card _large _page <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="post-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _page <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__header _large">

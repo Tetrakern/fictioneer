@@ -81,7 +81,7 @@ $thumbnail_args = array(
 
 <li
   id="chapter-card-<?php echo $post->ID; ?>"
-  class="card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
+  class="post-<?php echo $post->ID; ?> card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $story_id; ?>"
   data-check-id="<?php echo $post->ID; ?>"
   data-unavailable="<?php esc_attr_e( 'Unavailable', 'fictioneer' ); ?>"

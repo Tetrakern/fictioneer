@@ -94,7 +94,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="collection-card-<?php the_ID(); ?>" class="card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="collection-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__header _large">

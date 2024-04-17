@@ -73,7 +73,7 @@ $thumbnail_args = array(
 
 <li
   id="story-card-<?php echo $post->ID; ?>"
-  class="card _large _story <?php echo implode( ' ', $card_classes ); ?>"
+  class="post-<?php echo $post->ID; ?> card _large _story <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $post->ID; ?>"
   data-check-id="<?php echo $post->ID; ?>"
   <?php echo $card_attributes; ?>
