@@ -152,17 +152,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
-          // Thumbnail
-          $thumbnails = fictioneer_get_small_card_thumbnail(
-            $post->ID,
-            array(
-              'title' => $title,
-              'vertical' => $args['vertical'] ?? 0,
-              'seamless' => $args['seamless'] ?? 0,
-              'aspect_ratio' => $args['aspect_ratio'] ?? 0
-            )
-          );
-
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
             break;
@@ -191,21 +180,22 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
-              <?php do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args ); ?>
+              <?php
+                do_action( 'fictioneer_shortcode_latest_chapters_card_body', $post, $story, $args );
 
-              <?php if ( $thumbnails['thumbnail'] ) : ?>
-
-                <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail'] ?></a>
-
-              <?php elseif ( $args['vertical'] ) : ?>
-
-                <a href="<?php the_permalink(); ?>" class='card__image cell-img _default'></a>
-
-              <?php elseif ( ! empty( $text_icon ) ) : ?>
-
-                <a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $title ); ?>" class="card__text-icon _small cell-img"><span class="text-icon"><?php echo $text_icon; ?></span></a>
-
-              <?php endif; ?>
+                fictioneer_output_small_card_thumbnail(
+                  array(
+                    'post_id' => $post->ID,
+                    'title' => $title,
+                    'classes' => 'card__image cell-img',
+                    'permalink' => get_permalink(),
+                    'vertical' => $args['vertical'],
+                    'seamless' => $args['seamless'],
+                    'aspect_ratio' => $args['aspect_ratio'],
+                    'text_icon' => $text_icon
+                  )
+                );
+              ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
                 $list_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
