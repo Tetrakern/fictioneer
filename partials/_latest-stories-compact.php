@@ -170,17 +170,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           foreach ( $attributes as $key => $value ) {
             $card_attributes .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
           }
-
-          // Thumbnail
-          $thumbnails = fictioneer_get_small_card_thumbnail(
-            $post->ID,
-            array(
-              'title' => $story['title'],
-              'vertical' => $args['vertical'],
-              'seamless' => $args['seamless'],
-              'aspect_ratio' => $args['aspect_ratio']
-            )
-          );
         ?>
 
         <li class="card watch-last-clicked _small _story <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
@@ -192,17 +181,21 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
-              <?php do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story, $args ); ?>
+              <?php
+                do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story, $args );
 
-              <?php if ( $thumbnails['thumbnail'] ) : ?>
-
-                <a href="<?php echo $thumbnails['thumbnail_full_url']; ?>" title="<?php echo esc_attr( sprintf( __( '%s Thumbnail', 'fictioneer' ), $story['title'] ) ); ?>" class="card__image cell-img" <?php echo fictioneer_get_lightbox_attribute(); ?>><?php echo $thumbnails['thumbnail']; ?></a>
-
-              <?php elseif ( $args['vertical'] ) : ?>
-
-                <a href="<?php echo $story_link; ?>" class='card__image cell-img _default'></a>
-
-              <?php endif; ?>
+                fictioneer_output_small_card_thumbnail(
+                  array(
+                    'post_id' => $post->ID,
+                    'title' => $story['title'],
+                    'classes' => 'card__image cell-img',
+                    'permalink' => $story_link,
+                    'vertical' => $args['vertical'],
+                    'seamless' => $args['seamless'],
+                    'aspect_ratio' => $args['aspect_ratio']
+                  )
+                );
+              ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php
                 if ( ! empty( $post->post_password ) ) {
