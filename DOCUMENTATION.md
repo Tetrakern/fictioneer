@@ -356,7 +356,7 @@ The custom HTML block is the best way to add special elements to the content, su
 
 ### Article Cards
 
-Renders a multi-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** (if available) or **Cover Image**, with chapters defaulting to the parent story.
+Renders a multi-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** or **Cover Image**, depending on the aspect ratio and availability, with chapters defaulting to the parent story.
 
 * **post_type:** Comma-separated list of post types to query. Default `post`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
@@ -377,6 +377,8 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **seamless:** Whether to remove the gap between the image and frame. Default false.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -392,10 +394,11 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 ```
 
 ![Article Cards](repo/assets/shortcode_example_article_cards.jpg?raw=true)
+![Article Cards](repo/assets/shortcode_example_article_cards_2.png?raw=true)
 
 ### Blog
 
-Renders paginated blog posts akin to the default blog page, but with options. Only add this once per page since it uses the main query page argument.
+Renders paginated blog posts akin to the main blog page, but with options. Only add this once per page since it uses the main query page argument, avoid combining it with the Article Cards shortcode.
 
 * **per_page:** Number of posts per page. Defaults to theme settings.
 * **ignore_sticky:** Whether sticky posts should be ignored or not. Default `false`.
@@ -441,7 +444,7 @@ Renders a multi-column grid of small bookmark cards, ordered by date of creation
 
 ### Chapter List
 
-Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter.
+Renders a list of chapters identical to those on story pages, ordered by sequence in the source. Must have either the **story_id** or **chapter_ids** parameter, but not both.
 
 * **story_id:** ID of a single story. You need either this or **chapters**.
 * **chapter_ids:** Comma-separated list of chapter IDs. You need either this or **story**.
@@ -526,6 +529,9 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **vertical:** Whether to render the cards with the image on top. Default `false`.
+* **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -541,6 +547,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 ```
 
 ![Latest Chapters](repo/assets/shortcode_example_latest_chapters.jpg?raw=true)
+![Latest Chapters](repo/assets/shortcode_example_latest_chapters_2.png?raw=true)
 
 ### Latest Posts
 
@@ -594,6 +601,9 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **vertical:** Whether to render the cards with the image on top. Default `false`.
+* **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -609,6 +619,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 ```
 
 ![Latest Recommendations](repo/assets/shortcode_example_latest_recommendations.jpg?raw=true)
+![Latest Recommendations](repo/assets/shortcode_example_latest_recommendations_2.png?raw=true)
 
 ### Latest Stories
 
@@ -631,6 +642,9 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **vertical:** Whether to render the cards with the image on top. Default `false`.
+* **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -646,6 +660,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 ```
 
 ![Latest Stories](repo/assets/shortcode_example_latest_stories.jpg?raw=true)
+![Latest Stories](repo/assets/shortcode_example_latest_stories_2.png?raw=true)
 
 ### Latest Updates
 
@@ -667,6 +682,9 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
+* **vertical:** Whether to render the cards with the image on top. Default `false`.
+* **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
 ```
@@ -682,6 +700,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 ```
 
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)
+![Latest Updates](repo/assets/shortcode_example_latest_updates_2.png?raw=true)
 
 ### Search Form
 
