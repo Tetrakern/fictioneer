@@ -762,6 +762,67 @@ if ( ! function_exists( 'fictioneer_get_placeholder_image' ) ) {
   }
 }
 
+if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
+  /**
+   * Output small card thumbnail
+   *
+   * @since 5.14.0
+   *
+   * @param array $args {
+   *   An array of arguments.
+   *
+   *   @type int|null     $post_id       Optional. Defaults to current post ID.
+   *   @type string|null  $title         The title of the post or image.
+   *   @type string|null  $classes       Optional. Additional CSS classes, separated by whitespace.
+   *   @type string|null  $permalink     Optional. Defaults to current permalink.
+   *   @type array|null   $thumbnails    Optional. Array of thumbnail data.
+   *   @type bool|null    $vertical      Optional. Whether the card is rendered vertical. Default false.
+   *   @type bool|null    $seamless      Optional. Whether the card is rendered seamless (if vertical). Default false.
+   *   @type string|null  $aspect_ratio  Optional. Aspect ratio CSS value.
+   * }
+   */
+
+  function fictioneer_output_small_card_thumbnail( $args ) {
+    // Setup
+    $post_id = $args['post_id'] ?? get_the_ID();
+    $lightbox_attribute = fictioneer_get_lightbox_attribute();
+    $title = esc_attr( wp_strip_all_tags( $args['title'] ?? __( 'Thumbnail', 'fictioneer' ) ) );
+    $classes = $args['classes'] ?? '';
+    $permalink = $args['permalink'] ?? get_permalink( $post_id );
+    $vertical = $args['vertical'] ?? 0;
+
+    $thumbnails = $args['thumbnails'] ?? fictioneer_get_small_card_thumbnail(
+      $post_id,
+      array(
+        'title' => $title,
+        'vertical' => $vertical,
+        'seamless' => $args['seamless'] ?? 0,
+        'aspect_ratio' => $args['aspect_ratio'] ?? 0
+      )
+    );
+
+    // Build
+    if ( $thumbnails['thumbnail'] ?? 0 ) {
+      // Link (lightbox) with image tag
+      echo "<a href='{$thumbnails['thumbnail_full_url']}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
+    } elseif ( $vertical ) {
+      // Placeholder image or generated SVG
+      $placeholder = fictioneer_get_placeholder_image();
+      $url = $placeholder['thumbnail_full_url'];
+      $classes .= ' _placeholder';
+
+      if ( $placeholder['generated'] ?? 0 ) {
+        $url = $permalink;
+        $classes .= ' _generated';
+        $lightbox_attribute = '';
+        $title = esc_attr( sprintf( _x( 'Link to %s', 'Thumbnail link title', 'fictioneer' ), $title ) );
+      }
+
+      echo "<a href='{$url}' class='{$classes}' style='background-image: url({$placeholder['thumbnail_url']});' title='{$title}' {$lightbox_attribute}></a>";
+    }
+  }
+}
+
 // =============================================================================
 // GET SUBSCRIBE BUTTONS
 // =============================================================================
