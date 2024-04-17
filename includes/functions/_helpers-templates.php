@@ -826,7 +826,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
         $title = esc_attr( sprintf( _x( 'Link to %s', 'Thumbnail link title', 'fictioneer' ), $title ) );
       }
 
-      echo "<a href='{$url}' class='{$classes}' style='background-image: url({$placeholder['thumbnail_url']});' title='{$title}' {$lightbox_attribute}></a>";
+      echo "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$placeholder['thumbnail']}</a>";
     } elseif ( $text_icon ) {
       echo "<a href='{$permalink}' title='{$title}' class='card__text-icon _small cell-img'><span class='text-icon'>{$text_icon}</span></a>";
     }
