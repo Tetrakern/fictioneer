@@ -354,6 +354,111 @@ The custom HTML block is the best way to add special elements to the content, su
 
 **Attention!** Shortcode queries are cached as [Transients](https://developer.wordpress.org/apis/transients/) to reduce their performance impact, especially if you have more than one per page. This means they will not update immediately (except if you have a cache plugin active, which disabled this feature). By default, the Transients expire after 300 seconds (5 minutes), which can be changed via the `FICTIONEER_SHORTCODE_TRANSIENT_EXPIRATION` constant in a child theme. You can disable the Transients by setting the constant to `-1`.
 
+### Story Actions Shortcode
+
+Renders the action row of the specified story. All buttons and links will work as if on the story post, aside from the sharing modal which always refers to the current page. This only works on pages with the "Story Page" template set and is intended to create a single-story-centric front page.
+
+* **story_id:** The ID of the story.
+* **class:** Additional CSS classes, separated by whitespace.
+* **follow:** Whether to render the Follow button (if enabled). Default `true`.
+* **reminder:** Whether to render the Reminder button (if enabled). Default `true`.
+* **subscribe:** Whether to render the Subscribe button (if enabled). Default `true`.
+* **download:** Whether to render the ePUB/eBook download button (if enabled). Default `true`.
+* **rss:** Whether to render the RSS link (if enabled). Default `true`.
+* **share:** Whether to render the Share modal button (if enabled). Default `true`.
+
+```
+[fictioneer_story_actions story_id="106"]
+```
+
+```
+[fictioneer_story_actions story_id="182" follow="0" reminder="0" share="0"]
+```
+
+### Story Section Shortcode
+
+Renders the chapters, groups, and tabs of the specified story. It will look just as if on the story post. This only works on pages with the "Story Page" template set and is intended to create a single-story-centric front page.
+
+* **story_id:** The ID of the story.
+* **class:** Additional CSS classes, separated by whitespace.
+* **tabs:** Whether to render the tabs (if any). Default `false`.
+* **blog:** Whether to render the blog tab. Default `false`.
+* **pages:** Whether to render the custom page tabs. Default `false`.
+* **scheduled:** Whether to render the scheduled chapter note. Default `false`.
+
+```
+[fictioneer_story_section story_id="106"]
+```
+
+```
+[fictioneer_story_section story_id="182" tabs="1" pages="1"]
+```
+
+### Story Comments Shortcode
+
+Renders the button to load the collective comments made on chapters in the story. Not to be confused with the comments you can make on the page, which are completely separate. This only works on pages with the "Story Page" template set and is intended to create a single-story-centric front page.
+
+* **story_id:** The ID of the story.
+* **class:** Additional CSS classes, separated by whitespace.
+* **header:** Whether to render the heading with count. Default `true`.
+
+```
+[fictioneer_story_comments story_id="13"]
+```
+
+```
+[fictioneer_story_comments story_id="13" header="0"]
+```
+
+### Story Data Shortcode
+
+Renders a single datum from the specified story, such as the **word count** or **age rating**. You can use this to show your own self-updating statistics. Just omit the shortcode block and write it directly into the text.
+
+* **data:** The requested data, singular. Choose between `word_count`, `chapter_count`, `status`, `icon` (status), `age_rating`, `rating_letter`, `comment_count`, `id`, `date`, `time`, `datetime`, `categories`, `tags`, `genres`, `fandoms`, `characters`, and `warnings`.
+* **story_id:** The ID of the story. Defaults to current post ID.
+* **format:** Special formatting for some data. Mostly used for counts, use `short` or `raw`.
+* **date_format:** Formatting string for the date. Defaults to your WordPress settings.
+* **time_format:** Formatting string for the time. Defaults to your WordPress settings.
+* **separator:** String between list items, such as tags. Defaults to `", "` (comma + whitespace).
+* **tag:** Wrapping HTML tag. Defaults to `span`.
+* **class:** Additional CSS classes, separated by whitespace.
+* **inner_class:** Additional CSS classes for nested elements (if any), separated by whitespace.
+* **style:** Inline CSS style applied to the wrapping element.
+* **inner_style:** Inline CSS style applied to nested elements (if any).
+
+```
+The example story Katalepsis has [fictioneer_story_data story_id="13" data="chapter_count"] chapters featured on this site, containing a total of [fictioneer_story_data story_id="13" data="word_count"] words.
+```
+
+```
+You can format the word count with "raw" ([fictioneer_story_data story_id="13" data="word_count" format="raw"]) or "short" ([fictioneer_story_data story_id="13" data="word_count" format="short"]).
+```
+
+```
+Katalepsis has the following tags: [fictioneer_story_data story_id="13" data="tags" separator=" | " inner_style="color: var(--red-500);"].
+```
+
+### Subscribe Button Shortcode
+
+Renders a subscribe button for the specified story.
+
+* **story_id:** The ID of the story the button is for.
+* **class:** Additional CSS classes, separated by whitespace.
+
+```
+[fictioneer_subscribe_button story_id="228"]
+```
+
+### Font Awesome Shortcode
+
+Renders a *free* [Font Awesome](https://fontawesome.com/) icon, which you could technically do manually in the code editor as well. Somewhat more convenient, I guess? Just omit the shortcode block and write it directly into the text.
+
+* **class:** Font Awesome CSS classes, separated by whitespace. You can custom ones, too.
+
+```
+Have some [fictioneer_fa class="fa-solid fa-mug-hot"]
+```
+
 ### Article Cards
 
 Renders a multi-column grid of paginated medium cards ordered by publishing date, descending. Unless you provide the **count** parameter, only add this once per page since it uses the main query page argument. The thumbnail is either the **Landscape Image** or **Cover Image**, depending on the aspect ratio and availability, with chapters defaulting to the parent story.
