@@ -1558,7 +1558,7 @@ function fictioneer_shortcode_story_section( $attr ) {
 
   // Abort if...
   if ( ! $story_data ) {
-    return;
+    return '';
   }
 
   if ( ! is_page_template( 'singular-story.php' ) ) {
@@ -1688,7 +1688,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
 
   // Abort if...
   if ( ! $story_data ) {
-    return;
+    return '';
   }
 
   if ( ! is_page_template( 'singular-story.php' ) ) {
