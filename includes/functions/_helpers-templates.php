@@ -741,12 +741,13 @@ if ( ! function_exists( 'fictioneer_get_placeholder_image' ) ) {
 
     // Fallback
     if ( empty( $image_large ) || empty( $image_full ) ) {
-      $svg = fictioneer_get_svg_rect( '#111', 400, 600 );
+      $generated = fictioneer_generate_placeholder( $args );
 
       $cache[ $cache_key ] = array(
-        'thumbnail' => '<img src="' . $svg . '" class="' . $image_class . '" alt="' . $image_args['alt'] . '">',
-        'thumbnail_url' => $svg,
-        'thumbnail_full_url' => $svg,
+        'thumbnail' => $generated ?
+          '<img src="' . $generated . '" class="' . $image_class . '" alt="' . $image_args['alt'] . '">' : '',
+        'thumbnail_url' => $generated,
+        'thumbnail_full_url' => $generated,
         'generated' => true
       );
 
@@ -814,7 +815,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
       // Link (lightbox) with image tag
       echo "<a href='{$thumbnails['thumbnail_full_url']}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
     } elseif ( $vertical ) {
-      // Placeholder image or generated SVG
+      // Placeholder image
       $placeholder = fictioneer_get_placeholder_image();
       $url = $placeholder['thumbnail_full_url'];
       $classes .= ' _placeholder';
