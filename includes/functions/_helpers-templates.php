@@ -783,6 +783,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
    *   @type bool|null    $vertical      Optional. Whether the card is rendered vertical. Default false.
    *   @type bool|null    $seamless      Optional. Whether the card is rendered seamless (if vertical). Default false.
    *   @type string|null  $aspect_ratio  Optional. Aspect ratio CSS value.
+   *   @type string|null  $text_icon     Optional. Use text-icon as fallback (unless vertical).
    * }
    */
 
@@ -792,6 +793,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
     $lightbox_attribute = fictioneer_get_lightbox_attribute();
     $title = esc_attr( wp_strip_all_tags( $args['title'] ?? __( 'Thumbnail', 'fictioneer' ) ) );
     $classes = $args['classes'] ?? '';
+    $text_icon = $args['text_icon'] ?? '';
     $permalink = $args['permalink'] ?? get_permalink( $post_id );
     $vertical = $args['vertical'] ?? 0;
 
@@ -825,6 +827,8 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
       }
 
       echo "<a href='{$url}' class='{$classes}' style='background-image: url({$placeholder['thumbnail_url']});' title='{$title}' {$lightbox_attribute}></a>";
+    } elseif ( $text_icon ) {
+      echo "<a href='{$permalink}' title='{$title}' class='card__text-icon _small cell-img'><span class='text-icon'>{$text_icon}</span></a>";
     }
   }
 }
