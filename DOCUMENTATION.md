@@ -449,7 +449,7 @@ Renders a subscribe button for the specified story.
 
 ### Font Awesome Shortcode
 
-Renders a *free* [Font Awesome](https://fontawesome.com/) icon, which you could technically do manually in the code editor as well. Somewhat more convenient, I guess? Just omit the shortcode block and write it directly into the text.
+Renders a *free* [Font Awesome](https://fontawesome.com/) icon, which you could technically do manually in the code editor as well. Somewhat more convenient, I guess? Just omit the shortcode block and write it directly into the text. This shortcode will also work if the user role lacks the shortcode capability.
 
 * **class:** Font Awesome CSS classes, separated by whitespace. You can custom ones, too.
 
