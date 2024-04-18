@@ -482,7 +482,8 @@ Renders a multi-column grid of paginated medium cards ordered by publishing date
 * **genres:** Comma-separated list of genre names (case-insensitive), if you want to pick from a curated pool.
 * **characters:** Comma-separated list of character names (case-insensitive), if you want to pick from a curated pool.
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
-* **seamless:** Whether to remove the gap between the image and frame. Default false.
+* **seamless:** Whether to remove the gap between the image and frame. Default `false`.
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -640,6 +641,7 @@ Renders a multi-column grid of small cards, showing the latest four chapters ord
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -716,6 +718,7 @@ Renders a multi-column grid of small cards, showing the latest four recommendati
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -761,6 +764,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
@@ -805,6 +809,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 * **rel:** Relationship between different taxonomies, either `AND` or `OR`. Default `AND`.
 * **vertical:** Whether to render the cards with the image on top. Default `false`.
 * **seamless:** Whether to remove the gap between the image and frame (X/Y; vertical only). Default `false`.
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true`.
 * **aspect_ratio:** CSS [aspect-ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) value for the image (X/Y; vertical only). Default `3/1`.
 * **class:** Additional CSS classes, separated by whitespace.
 
