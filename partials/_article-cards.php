@@ -169,17 +169,19 @@ $pag_args = array(
               <div class="card__main _article">
 
                 <?php
-                  fictioneer_output_small_card_thumbnail(
-                    array(
-                      'post_id' => $post->ID,
-                      'title' => $title,
-                      'classes' => 'card__image _article cell-img',
-                      'permalink' => $permalink,
-                      'vertical' => 1,
-                      'seamless' => $args['seamless'],
-                      'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'
-                    )
-                  );
+                  if ( $args['thumbnail'] ) {
+                    fictioneer_output_small_card_thumbnail(
+                      array(
+                        'post_id' => $post->ID,
+                        'title' => $title,
+                        'classes' => 'card__image _article cell-img',
+                        'permalink' => $permalink,
+                        'vertical' => 1,
+                        'seamless' => $args['seamless'],
+                        'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'
+                      )
+                    );
+                  }
                 ?>
 
                 <h3 class="card__title _article _small"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>

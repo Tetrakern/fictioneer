@@ -184,17 +184,19 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               <?php
                 do_action( 'fictioneer_shortcode_latest_stories_card_body', $post, $story, $args );
 
-                fictioneer_output_small_card_thumbnail(
-                  array(
-                    'post_id' => $post->ID,
-                    'title' => $story['title'],
-                    'classes' => 'card__image cell-img',
-                    'permalink' => $story_link,
-                    'vertical' => $args['vertical'],
-                    'seamless' => $args['seamless'],
-                    'aspect_ratio' => $args['aspect_ratio']
-                  )
-                );
+                if ( $args['thumbnail'] ) {
+                  fictioneer_output_small_card_thumbnail(
+                    array(
+                      'post_id' => $post->ID,
+                      'title' => $story['title'],
+                      'classes' => 'card__image cell-img',
+                      'permalink' => $story_link,
+                      'vertical' => $args['vertical'],
+                      'seamless' => $args['seamless'],
+                      'aspect_ratio' => $args['aspect_ratio']
+                    )
+                  );
+                }
               ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php

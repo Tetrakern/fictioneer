@@ -196,6 +196,7 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'vertical' => filter_var( $attr['vertical'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'seamless' => filter_var( $attr['seamless'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'aspect_ratio' => sanitize_css_aspect_ratio( $attr['aspect_ratio'] ?? '' ),
+    'thumbnail' => filter_var( $attr['thumbnail'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
 
