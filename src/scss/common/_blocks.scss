@@ -553,18 +553,6 @@ figure.wp-block-pullquote {
 .wp-block-button {
   border-style: solid;
 
-  .wp-element-button,
-  a.wp-block-button__link {
-    background-color: var(--button-primary-background);
-    color: var(--button-primary-color);
-    border-style: solid;
-
-    &:hover {
-      background-color: var(--button-primary-background-hover);
-      color: var(--button-primary-color-hover);
-    }
-  }
-
   // Theme button style applied
   &.button {
     display: inline-flex;
