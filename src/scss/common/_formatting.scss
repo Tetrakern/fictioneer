@@ -102,7 +102,7 @@ p a,
     }
 
     &:not(:last-child, .cell-title, .card__title, .post__title) {
-      margin-bottom: unquote('max(1.25rem, var(--paragraph-spacing) - 0.25rem)');
+      margin-bottom: var(--heading-margin-bottom, unquote('max(1.25rem, var(--paragraph-spacing) - 0.25rem)'));
     }
   }
 
