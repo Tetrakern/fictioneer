@@ -912,7 +912,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
   $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' ) && ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) );
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $chapter_ids = [];
   $chapters = [];
 
@@ -988,7 +988,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   ob_start();
 
   // Start HTML ---> ?>
-  <div class="chapter-group chapter-list _standalone <?php echo $classes; ?>">
+  <div class="chapter-group chapter-list _standalone <?php echo esc_attr( $classes ); ?>">
     <?php if ( $heading ) : ?>
       <button class="chapter-group__name" aria-label="<?php echo esc_attr( sprintf( __( 'Toggle chapter group: %s', 'fictioneer' ), $heading ) ); ?>" tabindex="0">
         <i class="fa-solid fa-chevron-down chapter-group__heading-icon"></i>
@@ -1149,7 +1149,7 @@ function fictioneer_shortcode_contact_form( $attr ) {
   $required = isset( $attr['required'] ) ? 'required' : '';
   $email = $attr['email'] ?? '';
   $name = $attr['name'] ?? '';
-  $classes = esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) );
+  $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $fields = [];
 
   // HTML snippets
@@ -1201,7 +1201,7 @@ function fictioneer_shortcode_contact_form( $attr ) {
    */
 
   // Start HTML ---> ?>
-  <form class="fcn-contact-form <?php echo $classes; ?>">
+  <form class="fcn-contact-form <?php echo esc_attr( $classes ); ?>">
     <div class="fcn-contact-form__message">
       <textarea class="fcn-contact-form__textarea adaptive-textarea" style="opacity: 0;" name="message" maxlength="65525" placeholder="<?php _e( 'Please enter your message.', 'fictioneer' ); ?>" required></textarea>
     </div>
