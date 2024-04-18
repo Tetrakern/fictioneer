@@ -464,8 +464,8 @@ function fictioneer_shortcode_latest_chapters( $attr ) {
 
   // Specifics
   $args['simple'] = false;
-  $args['spoiler'] = ( $attr['spoiler'] ?? false ) == 'true';
-  $args['source'] = ( $attr['source'] ?? 'true' ) == 'true';
+  $args['spoiler'] = filter_var( $attr['spoiler'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $args['source'] = filter_var( $attr['source'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );
