@@ -56,7 +56,7 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | Redirect Link (A) | URL | Redirect to a different URL when the post is accessed. Make sure you know what you are doing.
 | Support Links (Various) | URL | Links to subscription campaigns. Falls back to the author’s profile if left blank.
 
-**(A):** For Advanced; these meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
+<small>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</small>
 
 ### eBooks/ePUBs
 
@@ -122,11 +122,11 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Hide title in chapter | Check | Hide the title and author on chapter pages.
 | Hide support links | Check | Hide support links at the end of the chapter.
 
-**(A):** For Advanced; these meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.
+<small>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</small>
 
 ### Text-To-Speech Engine
 
-Must be enabled in the settings and is started from the paragraph tools. Makes use of the free [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) that all modern browsers support, which can be wonky at times but produces surprisingly decent results. Primarily meant as accessibility feature for the reading-impaired. Absolutely _not_ fail-proof and depends on the browser and operating system; additional permissions may be necessary.
+Must be enabled in the settings and is started from the paragraph tools. Makes use of the free [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) that all modern browsers support, which can be wonky at times but produces surprisingly decent results. Primarily meant as accessibility feature for the reading-impaired. Absolutely _not_ fail-proof and depends on the browser and operating system; additional permissions may be necessary on the playback device (this is outside your control).
 
 **Supported:** Only first level children of the content container are read, and only paragraphs and headings. If you want tables, quotes, and more to be read, add the desired output as paragraph with the `hidden` CSS class.
 
@@ -229,8 +229,6 @@ Metadata for search engine results, schema graphs, and social media embeds. If l
 ### Support Links
 
 A collection of optional support links: Patreon, Ko-fi, SubscribeStar, PayPal, and a generic donation link for anything else. They are displayed in several places, such as under each chapter unless disabled. You can set different links per chapter and story, defaulting to the parent or author profile if left empty.
-
-**Supports:** Posts, Stories, Chapters
 
 ## Additional CSS Classes
 
@@ -893,6 +891,8 @@ Fictioneer offers the option to enable user authentication via the OAuth 2.0 pro
 This automatically creates and connects a subscriber account, which makes commenting convenient and allows subscribers to track their progress with Checkmarks, Follows, and Reminders. You also most likely do not need any of that or the potential headache that comes with user management. Unless you host dozens to hundreds of stories, perhaps from several authors, you are better off without. Even then, be aware that a community site requires more server resources, which translates to either bad performance or higher cost.
 
 **Note:** Make sure you have a proper [Privacy Policy](PRIVACY.md) set up before you allow registrations. Fictioneer does not collect undue data and this is an informed, deliberate action. However, privacy is always an issue. This is why subscribers should have the option to self-delete their data and accounts at any time, sparing you a lot of potential trouble (i.e. "the right of erasure").
+
+If everything is set up and the link does not work, flush your permalink structure under **Settings > Permalinks** (just save, you do not need to change anything).
 
 ## Checkmarks, Follows & Reminders
 
