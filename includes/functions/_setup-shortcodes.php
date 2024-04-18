@@ -1603,7 +1603,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   // Buffer
   ob_start();
 
-  echo '<div class="story _shortcode ' . esc_attr( $classes ) . '">';
+  echo '<div class="story-section-shortcode story _shortcode ' . esc_attr( $classes ) . '">';
 
   if ( $show_tabs ) {
     fictioneer_story_tabs( $hook_args );
@@ -1715,7 +1715,7 @@ function fictioneer_shortcode_story_actions( $attr ) {
   add_filter( 'fictioneer_filter_story_buttons', 'fictioneer_shortcode_remove_story_buttons', 99, 2 );
 
   // Build HTML
-  $html = '<section class="story__after-summary ' . esc_attr( $classes ) . '">';
+  $html = '<section class="story-actions story__after-summary ' . esc_attr( $classes ) . '">';
   $html .= fictioneer_get_media_buttons( $hook_args );
   $html .= '<div class="story__actions">' . fictioneer_get_story_buttons( $hook_args ) . '</div></section>';
 
@@ -1978,7 +1978,7 @@ function fictioneer_shortcode_story_data( $attr ) {
   }
 
   // Build and return output
-  return $output ? "<{$tag} class='{$classes}' style='{$style}'>{$output}</{$tag}>" : '';
+  return $output ? "<{$tag} class='story-data {$classes}' style='{$style}'>{$output}</{$tag}>" : '';
 }
 add_shortcode( 'fictioneer_story_data', 'fictioneer_shortcode_story_data' );
 
