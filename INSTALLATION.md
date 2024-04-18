@@ -22,7 +22,7 @@ Fictioneer is best used on a fresh install due to its complexity and possible co
 
 Everything installed? Head to **[Settings](https://wordpress.org/support/article/administration-screens/#general)** in the admin panel to configure your site. You can follow a guide, but this should all be fairly obvious. For the purpose of working with the theme, you are most interested in the **Reading**, **Discussion**, and **Permalinks** submenus.
 
-* **Reading:** If you want a static page like in the demo, you can set this here. Of course, you need to [create the pages](https://wordpress.org/support/article/pages/) for blog and front page first. Best use the “No Title Page” template. Keep the number of blog posts and feed items somewhere between 8 and 20.
+* **Reading:** If you want a static page like in the demo, you can set this here. Of course, you need to [create the pages](https://wordpress.org/support/article/pages/) for blog and front page first. Best use the "No Title Page" or "Story Page" (for single-story sites) template. Keep the number of blog posts and feed items somewhere between 8 and 20.
 
 * **Discussion:** Most of this is up to you, but the number and order of comments does not necessarily behave as you would expect. Comments are always nested in the theme, regardless of the checkbox, but the depth is honored and should be anywhere up to 5. Break comments into pages with 8 to 50 comments each, the first page being displayed by default, and newer comments at the top. The theme really does not work well with anything else but you are welcome to try.
 
