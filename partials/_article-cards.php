@@ -176,6 +176,7 @@ $pag_args = array(
                         'title' => $title,
                         'classes' => 'card__image _article cell-img',
                         'permalink' => $permalink,
+                        'lightbox' => $args['lightbox'],
                         'vertical' => 1,
                         'seamless' => $args['seamless'],
                         'aspect_ratio' => $args['aspect_ratio'] ?: '3/1'

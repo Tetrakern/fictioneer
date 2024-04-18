@@ -219,6 +219,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       'title' => $story['title'],
                       'classes' => 'card__image cell-img',
                       'permalink' => $story_link,
+                      'lightbox' => $args['lightbox'],
                       'vertical' => $args['vertical'],
                       'seamless' => $args['seamless'],
                       'aspect_ratio' => $args['aspect_ratio']

@@ -791,12 +791,13 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
   function fictioneer_output_small_card_thumbnail( $args ) {
     // Setup
     $post_id = $args['post_id'] ?? get_the_ID();
-    $lightbox_attribute = fictioneer_get_lightbox_attribute();
     $title = esc_attr( wp_strip_all_tags( $args['title'] ?? __( 'Thumbnail', 'fictioneer' ) ) );
     $classes = $args['classes'] ?? '';
     $text_icon = $args['text_icon'] ?? '';
     $permalink = $args['permalink'] ?? get_permalink( $post_id );
     $vertical = $args['vertical'] ?? 0;
+    $lightbox = $args['lightbox'] ?? 1;
+    $lightbox_attribute = $lightbox ? fictioneer_get_lightbox_attribute() : '';
 
     // Get sized thumbnail, full thumbnail, and img tag
     $thumbnails = $args['thumbnails'] ?? fictioneer_get_small_card_thumbnail(
@@ -813,11 +814,13 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
     // Build
     if ( $thumbnails['thumbnail'] ?? 0 ) {
       // Link (lightbox) with image tag
-      echo "<a href='{$thumbnails['thumbnail_full_url']}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
+      $url = $lightbox ? $thumbnails['thumbnail_full_url'] : $permalink;
+
+      echo "<a href='{$url}' class='{$classes}' title='{$title}' {$lightbox_attribute}>{$thumbnails['thumbnail']}</a>";
     } elseif ( $vertical ) {
       // Placeholder image
       $placeholder = fictioneer_get_placeholder_image();
-      $url = $placeholder['thumbnail_full_url'];
+      $url = $lightbox ? $placeholder['thumbnail_full_url'] : $permalink;
       $classes .= ' _placeholder';
 
       if ( $placeholder['generated'] ?? 0 ) {
