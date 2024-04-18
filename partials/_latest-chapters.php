@@ -157,17 +157,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           // Truncate factor
           $truncate_factor = $args['vertical'] ? '_4-4' : '_cq-3-4';
 
-          // Thumbnail
-          // $thumbnails = fictioneer_get_small_card_thumbnail(
-          //   $post->ID,
-          //   array(
-          //     'title' => $title,
-          //     'vertical' => $args['vertical'] ?? 0,
-          //     'seamless' => $args['seamless'] ?? 0,
-          //     'aspect_ratio' => $args['aspect_ratio'] ?? 0
-          //   )
-          // );
-
           // Count actually rendered cards to account for buffer
           if ( ++$card_counter > $args['count'] ) {
             break;
