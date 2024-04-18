@@ -56,7 +56,7 @@ Story cards are used in the Stories [page template](https://wordpress.org/suppor
 | Redirect Link (A) | URL | Redirect to a different URL when the post is accessed. Make sure you know what you are doing.
 | Support Links (Various) | URL | Links to subscription campaigns. Falls back to the author’s profile if left blank.
 
-<small>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</small>
+<sup>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</sup>
 
 ### eBooks/ePUBs
 
@@ -122,7 +122,7 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Hide title in chapter | Check | Hide the title and author on chapter pages.
 | Hide support links | Check | Hide support links at the end of the chapter.
 
-<small>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</small>
+<sup>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</sup>
 
 ### Text-To-Speech Engine
 
