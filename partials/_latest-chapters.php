@@ -250,10 +250,16 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php if ( ! $args['spoiler'] ) : ?>
                     <span data-click="toggle-obfuscation" tabindex="0">
                       <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
-                      <span class="clean">— <?php echo $excerpt; ?></span>
+                      <span class="clean"><?php
+                        echo $args['source'] ? '— ' : '';
+                        echo $excerpt;
+                      ?></span>
                     </span>
                   <?php else : ?>
-                    <span><span class="clean">— <?php echo $excerpt; ?></span></span>
+                    <span><span class="clean"><?php
+                      echo $args['source'] ? '— ' : '';
+                      echo $excerpt;
+                    ?></span></span>
                   <?php endif; ?>
                 </div>
               </div>
