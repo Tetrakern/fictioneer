@@ -1547,8 +1547,17 @@ add_shortcode( 'fictioneer_article_cards', 'fictioneer_shortcode_article_cards' 
 function fictioneer_shortcode_story_section( $attr ) {
   global $post;
 
+  // Abort if...
+  if ( ! is_page_template( 'singular-story.php' ) ) {
+    return fictioneer_notice(
+      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
+      'warning',
+      false
+    );
+  }
+
   // Setup
-  $story_id = absint( $attr['story_id'] ?? 0 );
+  $story_id = fictioneer_validate_id( $attr['story_id'] ?? 0, 'fcn_story' );
   $post = get_post( $story_id );
   $story_data = fictioneer_get_story_data( $story_id );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
@@ -1561,14 +1570,6 @@ function fictioneer_shortcode_story_section( $attr ) {
   // Abort if...
   if ( ! $story_data ) {
     return '';
-  }
-
-  if ( ! is_page_template( 'singular-story.php' ) ) {
-    return fictioneer_notice(
-      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
-      'warning',
-      false
-    );
   }
 
   // Prepare classes
@@ -1664,8 +1665,17 @@ add_shortcode( 'fictioneer_story_section', 'fictioneer_shortcode_story_section' 
  */
 
 function fictioneer_shortcode_story_actions( $attr ) {
+  // Abort if...
+  if ( ! is_page_template( 'singular-story.php' ) ) {
+    return fictioneer_notice(
+      __( 'The [fictioneer_story_actions] shortcode requires the "Story Page" template.' ),
+      'warning',
+      false
+    );
+  }
+
   // Setup
-  $story_id = absint( $attr['story_id'] ?? 0 );
+  $story_id = fictioneer_validate_id( $attr['story_id'] ?? 0, 'fcn_story' );
   $story_data = fictioneer_get_story_data( $story_id );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
   $follow = filter_var( $attr['follow'] ?? 1, FILTER_VALIDATE_BOOLEAN );
@@ -1675,6 +1685,12 @@ function fictioneer_shortcode_story_actions( $attr ) {
   $rss = filter_var( $attr['rss'] ?? 1, FILTER_VALIDATE_BOOLEAN );
   $share = filter_var( $attr['share'] ?? 1, FILTER_VALIDATE_BOOLEAN );
 
+  // Abort if...
+  if ( ! $story_data ) {
+    return '';
+  }
+
+  // Prepare hook arguments
   $hook_args = array(
     'post_id' => $story_id,
     'post_type' => 'fcn_story',
@@ -1687,19 +1703,6 @@ function fictioneer_shortcode_story_actions( $attr ) {
     'rss' => $rss,
     'share' => $share
   );
-
-  // Abort if...
-  if ( ! $story_data ) {
-    return '';
-  }
-
-  if ( ! is_page_template( 'singular-story.php' ) ) {
-    return fictioneer_notice(
-      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
-      'warning',
-      false
-    );
-  }
 
   // Transient?
   if ( FICTIONEER_SHORTCODE_TRANSIENTS_ENABLED ) {
@@ -1833,7 +1836,7 @@ function fictioneer_shortcode_story_comments( $attr ) {
   // Abort if...
   if ( ! is_page_template( 'singular-story.php' ) ) {
     return fictioneer_notice(
-      __( 'The [fictioneer_story_section] shortcode requires the "Story Page" template.' ),
+      __( 'The [fictioneer_story_comments] shortcode requires the "Story Page" template.' ),
       'warning',
       false
     );
