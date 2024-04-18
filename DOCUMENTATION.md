@@ -936,7 +936,7 @@ The default WordPress user profile has been extended with a new Fictioneer secti
 
 ## Color Variables
 
-You may wonder what the numbers 50-950 in the Customizer color sections are about. These refer to the variable names that hold the respective color, such as `var(--red-500)` or `var(--fg-500)`. Each color is actually a function that adapts to the user’s own settings on the frontend (saturation, lightness, etc.). So using these colors recommended, because a simple hex code does not care for the user’s preferences.
+You may wonder what the numbers 50-950 in the Customizer color sections are about. These refer to the variable names that hold the respective color, such as `var(--red-500)` or `var(--fg-500)`. Each color is actually a function that adapts to the user’s own settings on the frontend (saturation, lightness, etc.). So using these colors is recommended, because a simple hex code does not care for the user’s preferences.
 
 If you ever want to apply colors with CSS, you can do it like this: `color: var(--fg-500);` or `background-color: var(--bg-700);`. The color options in the post editor are already accounted for, so you do not need to worry there. The most common prefixes are `--bg-#` for background, `--fg-#` for foreground (text), `--primary-#` for links, as well as `--red-#` and `--green-#`. More can be found in the [_properties.scss](src/scss/common/_properties.scss).
 
