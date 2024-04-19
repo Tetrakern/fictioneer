@@ -53,3 +53,40 @@
     }
   }
 }
+
+.index-wrapper {
+  column-gap: 2rem;
+
+  @include bp(640px) {
+    columns: 2;
+  }
+}
+
+.index-group {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+
+  &__header {
+    --heading-margin-bottom: .5rem;
+  }
+
+  &__item {
+    font-size: var(--fs-dxs);
+    line-height: 1.3;
+  }
+
+  &__title {
+    color: var(--heading-link-color);
+    font-weight: var(--font-weight-heading);
+
+    &:hover {
+      color: var(--heading-link-color-hover);
+    }
+  }
+
+  &__meta {
+    color: var(--fg-700);
+    margin-top: 0.25rem;
+  }
+}
