@@ -57,6 +57,12 @@
     &-description {
       color: var(--fg-700);
     }
+
+    a {
+      &:hover {
+        color: var(--primary-500);
+      }
+    }
   }
 }
 
