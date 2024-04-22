@@ -69,6 +69,11 @@ if ( $stories->have_posts() ) {
   ksort( $sorted_stories );
 }
 
+// Last key
+end( $sorted_stories );
+$last_key = key( $sorted_stories );
+reset( $sorted_stories );
+
 ?>
 
 <main id="main" class="main singular index">
@@ -102,6 +107,9 @@ if ( $stories->have_posts() ) {
         <section class="index-letters">
           <?php foreach ( $sorted_stories as $index => $stories ) : ?>
             <a href="<?php echo esc_attr( "#letter-{$index}" ); ?>" class="index-letters__letter"><?php echo strtoupper( $index ); ?></a>
+            <?php if ( $last_key !== $index ) : ?>
+              <span class="index-letters__separator">&bull;</span>
+            <?php endif; ?>
           <?php endforeach; ?>
         </section>
 

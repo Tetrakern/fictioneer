@@ -5,8 +5,8 @@
 }
 
 .glossary {
-  &:not(:last-child) {
-    margin-bottom: 3rem;
+  &:not(:first-child) {
+    margin-top: 3rem;
   }
 
   h2 {
@@ -61,24 +61,22 @@
 
 .index-letters {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: .5rem;
-  padding: .5rem 0;
   margin-bottom: 3rem;
-  border: 1px solid var(--hr-border-color, var(--layout-lineart-color));
-  border-width: 1px 0;
 
   &__letter {
     display: grid;
     place-content: center;
-    font-size: var(--fs-xxs);
-    font-weight: var(--font-weight-strong);
+    font-size: var(--fs-l);
+    font-size: get_clamp(16, 24, 375, 768);
+    font-weight: 900;
     line-height: 1;
     border-radius: var(--layout-border-radius-small);
-    height: 2rem;
-    width: 2rem;
+    height: max(2rem, 1.5em);
+    width: max(2rem, 1.5em);
     transition: color, background-color;
     transition-duration: var(--transition-duration);
 
