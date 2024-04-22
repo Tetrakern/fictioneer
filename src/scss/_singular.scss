@@ -20,6 +20,8 @@
   }
 
   &__entry {
+    display: grid;
+    gap: .25rem;
     font-size: var(--fs-dxs);
     line-height: 1.3;
 
@@ -28,7 +30,6 @@
       justify-content: space-between;
       gap: 1rem;
       font-family: var(--ff-heading);
-      margin-bottom: 0.25rem;
     }
 
     &-name {

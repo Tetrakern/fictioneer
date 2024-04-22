@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Index
+ * Template Name: Index (Advanced)
  *
  * @package WordPress
  * @subpackage Fictioneer
@@ -57,7 +57,11 @@ if ( $stories->have_posts() ) {
     $sorted_stories[ $first_char ][] = array(
       'id' => $story->ID,
       'title' => $title,
-      'link' => get_post_meta( $story->ID, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story->ID )
+      'link' => get_post_meta( $story->ID, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story->ID ),
+      'date' => get_the_date( $story->ID ),
+      'total_words' => absint( get_post_meta( $story->ID, 'fictioneer_story_total_word_count', true ) ?? 0 ),
+      'rating' => get_post_meta( $story->ID, 'fictioneer_story_rating', true ),
+      'status' => get_post_meta( $story->ID, 'fictioneer_story_status', true )
     );
   }
 
@@ -122,6 +126,13 @@ reset( $sorted_stories );
                     <a href="<?php echo $story['link']; ?>" class="glossary__entry-name _full"><?php
                       echo $story['title'];
                     ?></a>
+                  </div>
+                  <div class="glossary__entry-body">
+                    <div class="glossary__entry-description">
+                      <span class="glossary__entry-meta-item"><?php echo $story['status']; ?></span>
+                      <span class="glossary__entry-meta-item"><?php printf( __( '%s Words', 'Index item.', 'fictioneer' ), number_format_i18n( $story['total_words'] ) ); ?></span>
+                      <span class="glossary__entry-meta-item"><?php echo $story['rating']; ?></span>
+                    </div>
                   </div>
                 </div>
               <?php endforeach; ?>
