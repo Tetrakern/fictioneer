@@ -39,12 +39,6 @@
         text-overflow: ellipsis;
         overflow: hidden;
       }
-
-      &:is(a) {
-        &:hover {
-          color: var(--inline-link-color-hover);
-        }
-      }
     }
 
     &-meta-item {
