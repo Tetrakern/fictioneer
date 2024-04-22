@@ -93,16 +93,22 @@ if ( $stories->have_posts() ) {
 
       <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
 
-        <header class="singular__header">
+        <header class="singular__header hidden">
           <h1 class="singular__title"><?php echo $title; ?></h1>
         </header>
 
         <section class="singular__content content-section"><?php the_content(); ?></section>
 
+        <section class="index-letters">
+          <?php foreach ( $sorted_stories as $index => $stories ) : ?>
+            <a href="<?php echo esc_attr( "#letter-{$index}" ); ?>" class="index-letters__letter"><?php echo strtoupper( $index ); ?></a>
+          <?php endforeach; ?>
+        </section>
+
         <?php foreach ( $sorted_stories as $index => $stories ) : ?>
           <section class="glossary">
 
-            <h2 id="letter-<?php echo $index; ?>"><?php echo strtoupper( $index ); ?></h2>
+            <h2 id="<?php echo esc_attr( "letter-{$index}" ); ?>"><?php echo strtoupper( $index ); ?></h2>
 
             <div class="glossary__columns">
 
