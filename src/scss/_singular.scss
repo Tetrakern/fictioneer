@@ -5,8 +5,8 @@
 }
 
 .glossary {
-  &:not(:first-child) {
-    margin-top: 3rem;
+  &:not(:last-child) {
+    margin-bottom: 3rem;
   }
 
   h2 {
@@ -33,19 +33,30 @@
 
     &-name {
       font-weight: var(--font-weight-heading);
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+
+      &:not(._full) {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      &:is(a) {
+        &:hover {
+          color: var(--inline-link-color-hover);
+        }
+      }
+    }
+
+    &-meta-item {
+      &:not(:last-child)::after {
+        content: ' • ';
+      }
     }
 
     &-count {
       flex-shrink: 0;
       color: var(--fg-800);
       font-weight: var(--font-weight-medium);
-    }
-
-    &-body {
-      font-family: var(--ff-note);
     }
 
     &-description {

@@ -42,7 +42,7 @@ if ( $stories->have_posts() ) {
 
     // Relevant data
     $title = trim( fictioneer_get_safe_title( $story->ID, 'story_index' ) );
-    $first_char = mb_substr( $title, 0, 1, 'UTF-8' );
+    $first_char = strtolower( mb_substr( $title, 0, 1, 'UTF-8' ) );
 
     // Normalize for numbers and other non-alphabetical characters
     if ( is_numeric( $first_char ) ) {
@@ -97,29 +97,36 @@ if ( $stories->have_posts() ) {
           <h1 class="singular__title"><?php echo $title; ?></h1>
         </header>
 
-        <section class="singular__content content-section"><?php
-          the_content();
+        <section class="singular__content content-section"><?php the_content(); ?></section>
 
-          echo '<div class="index-wrapper">';
+        <?php foreach ( $sorted_stories as $index => $stories ) : ?>
+          <section class="glossary">
 
-          foreach ( $sorted_stories as $index => $stories ) {
-            echo "<div class='index-group'><h2 class='index-group__header'>{$index}</h2>";
+            <h2 id="letter-<?php echo $index; ?>"><?php echo strtoupper( $index ); ?></h2>
 
-            foreach ( $stories as $story ) {
-              $words = sprintf(
-                __( '%s Words', 'Index item.', 'fictioneer' ),
-                number_format_i18n( $story['total_words'] )
-              );
+            <div class="glossary__columns">
 
-              echo "<div class='index-group__item post-{$story['id']}'><a href='{$story['link']}' class='index-group__title'>{$story['title']}</a>";
-              echo "<div class='index-group__meta'>{$story['status']} &bull; {$words} &bull; {$story['rating']}</div></div>";
-            }
+              <?php foreach ( $stories as $story ) : ?>
+                <div class="glossary__entry">
+                  <div class="glossary__entry-head">
+                    <a href="<?php echo $story['link']; ?>" class="glossary__entry-name _full"><?php
+                      echo $story['title'];
+                    ?></a>
+                  </div>
+                  <div class="glossary__entry-body">
+                    <div class="glossary__entry-description">
+                      <span class="glossary__entry-meta-item"><?php echo $story['status']; ?></span>
+                      <span class="glossary__entry-meta-item"><?php printf( __( '%s Words', 'Index item.', 'fictioneer' ), number_format_i18n( $story['total_words'] ) ); ?></span>
+                      <span class="glossary__entry-meta-item"><?php echo $story['rating']; ?></span>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
 
-            echo '</div>';
-          }
+            </div>
 
-          echo '</div>';
-        ?></section>
+          </section>
+        <?php endforeach; ?>
 
         <footer class="singular__footer"><?php do_action( 'fictioneer_singular_footer' ); ?></footer>
 
