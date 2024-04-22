@@ -80,7 +80,7 @@ $terms = array(
 
       <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
 
-        <header class="singular__header">
+        <header class="singular__header hidden">
           <h1 class="singular__title"><?php echo $title; ?></h1>
         </header>
 
