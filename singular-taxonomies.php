@@ -80,6 +80,10 @@ $terms = array(
 
       <article id="singular-<?php the_ID(); ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
 
+        <header class="singular__header">
+          <h1 class="singular__title"><?php echo $title; ?></h1>
+        </header>
+
         <?php if ( get_the_content() ) : ?>
           <section class="singular__content content-section">
             <?php the_content(); ?>
