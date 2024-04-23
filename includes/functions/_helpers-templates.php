@@ -1258,6 +1258,11 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
     // Loop chapters...
     foreach ( $chapters as $chapter ) {
+      // Skip unpublished (in case of filtered query params)
+      if ( $chapter->post_status !== 'publish' ) {
+        continue;
+      }
+
       // Prepare
       $classes = [];
       $title = trim( $chapter->post_title );
