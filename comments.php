@@ -21,12 +21,14 @@ if ( post_password_required() ) {
 $post_id = get_the_ID();
 $user = wp_get_current_user();
 $comments_count = get_comments_number();
+$order = array_intersect( [ strtolower( $_GET['comments-order'] ?? 0 ) ], ['desc', 'asc'] );
+$order = reset( $order ) ?: get_option( 'comment_order' ); // Sanitized
 $logout_url = fictioneer_get_logout_url( get_permalink() );
 $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
 
 ?>
 
-<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>" <?php echo $is_ajax_comments ? 'data-ajax-comments' : ''; ?>>
+<div id="comments" class="fictioneer-comments scroll-margin-top" data-post-id="<?php echo $post_id; ?>" data-order="<?php echo $order; ?>" data-logout-url="<?php echo esc_url( $logout_url ); ?>" <?php echo $is_ajax_comments ? 'data-ajax-comments' : ''; ?>>
 
   <?php
 
@@ -34,11 +36,13 @@ $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
       fictioneer_comments_ajax_skeleton( $comments_count ); // AJAX loading skeleton
     } else {
       // Query arguments
-      $query_args = array( 'post_id' => $post_id );
+      $query_args = array(
+        'post_id' => $post_id,
+        'order' => $order
+      );
 
       if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
         $query_args['type'] = ['comment', 'private'];
-        $query_args['order'] = get_option( 'comment_order' );
       } else {
         $query_args['type'] = ['comment'];
       }

@@ -98,6 +98,8 @@ function fictioneer_ajax_get_comment_section() {
   $post_id = absint( $_GET['post_id'] );
   $post = get_post( $post_id ); // Called later anyway; no performance loss
   $page = absint( $_GET['page'] ?? 1 ) ?: 1;
+  $order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
+  $order = reset( $order ) ?: get_option( 'comment_order' ); // Sanitized
   $commentcode = ( $_GET['commentcode'] ?? 0 ) ?: false;
   $must_login = get_option( 'comment_registration' ) && ! is_user_logged_in();
 
@@ -121,7 +123,7 @@ function fictioneer_ajax_get_comment_section() {
 
   if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
     $query_args['type'] = ['comment', 'private'];
-    $query_args['order'] = get_option( 'comment_order' );
+    $query_args['order'] = $order;
   } else {
     // Still hide private comments but do not limit the types preemptively
     $query_args = array( 'type__not_in' => 'private' );
@@ -166,7 +168,8 @@ function fictioneer_ajax_get_comment_section() {
     array(
       'commentcode' => $commentcode,
       'post_author_id' => $post->post_author,
-      'post_id' => $post_id
+      'post_id' => $post_id,
+      'order' => $order
     )
   );
 

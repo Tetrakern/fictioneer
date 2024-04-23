@@ -20,9 +20,11 @@ const /** @const {HTMLElement} */ fcn_commentSection = _$('#comments[data-ajax-c
  * @since 5.0.0
  * @param {Number=} post_id - The current post ID.
  * @param {Number=} page - The requested page number.
+ * @param {String=} order - Order of the comments.
+ * @param {Boolean=} scroll - Whether to scroll comments into view. Default false.
  */
 
-function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
+function fcn_getCommentSection(post_id = null, page = null, order = null, scroll = false) {
   //Abort conditions...
   if (!fcn_commentSection) {
     return;
@@ -60,7 +62,8 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
   const payload = {
     'action': 'fictioneer_ajax_get_comment_section',
     'post_id': post_id ?? fcn_commentSection.dataset.postId,
-    'page': parseInt(page)
+    'page': parseInt(page),
+    'order': order ?? fcn_commentSection.dataset.order ?? 0
   };
 
   if (fcn_urlParams.commentcode) {
@@ -169,7 +172,7 @@ function fcn_getCommentSection(post_id = null, page = null, scroll = false) {
  */
 
 function fcn_reloadCommentsPage(page = null) {
-  fcn_getCommentSection(null, page, true);
+  fcn_getCommentSection(null, page, null, true);
 }
 
 function fcn_jumpToCommentPage() {

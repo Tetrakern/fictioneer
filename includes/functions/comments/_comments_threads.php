@@ -209,7 +209,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
     if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
       $list_args['page'] = $page;
       $list_args['reverse_top_level'] = false;
-      $list_args['reverse_children'] = true;
+      $list_args['reverse_children'] = ( $args['order'] ?? 0 ) === 'desc';
     }
 
     if ( ! get_option( 'fictioneer_disable_comment_callback' ) ) {
@@ -240,6 +240,8 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
 function fictioneer_comment_list_args( $parsed_args ) {
   // Setup
   $page = get_query_var( 'cpage', 1 );
+  $order = array_intersect( [ strtolower( $_GET['comments-order'] ?? 0 ) ], ['desc', 'asc'] );
+  $order = reset( $order ) ?: get_option( 'comment_order' ); // Sanitized
 
   // Build arguments
   $list_args = array(
@@ -255,7 +257,7 @@ function fictioneer_comment_list_args( $parsed_args ) {
   if ( ! get_option( 'fictioneer_disable_comment_query' ) ) {
     $list_args['page'] = $page;
     $list_args['reverse_top_level'] = false;
-    $list_args['reverse_children'] = true;
+    $list_args['reverse_children'] = $order === 'desc';
   }
 
   if ( ! get_option( 'fictioneer_disable_comment_callback' ) ) {
