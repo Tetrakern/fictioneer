@@ -47,6 +47,7 @@ get_header( null, $header_args );
       <?php
         // Setup
         $chapter_ids = [];
+        $indexed_chapters = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
         $title = fictioneer_get_safe_title( $post->ID, 'single-chapter' );
         $age_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
@@ -64,6 +65,7 @@ get_header( null, $header_args );
         if ( $story_post ) {
           $story_data = fictioneer_get_story_data( $story_id, false ); // Does not refresh comment count!
           $chapter_ids = $story_data['chapter_ids'];
+          $indexed_chapters = $story_data['indexed_chapter_ids'] ?? $chapter_ids;
 
           if ( empty( $age_rating ) ) {
             $age_rating = $story_data['rating'];
@@ -71,7 +73,7 @@ get_header( null, $header_args );
         }
 
         // Chapter navigation
-        $current_index = array_search( $post->ID, $chapter_ids );
+        $current_index = array_search( $post->ID, $indexed_chapters );
         $prev_index = $current_index - 1;
         $next_index = $current_index + 1;
 
@@ -84,13 +86,14 @@ get_header( null, $header_args );
           'chapter_title' => $title,
           'chapter_password' => $post->post_password,
           'chapter_ids' => $chapter_ids,
+          'indexed_chapter_ids' => $indexed_chapters,
           'current_index' => $current_index,
           'prev_index' => $prev_index >= 0 ? $prev_index : false,
-          'next_index' => isset( $chapter_ids[ $next_index ] ) ? $next_index : false
+          'next_index' => isset( $indexed_chapters[ $next_index ] ) ? $next_index : false
         );
       ?>
 
-      <?php if ( $story_post && $chapter_ids ): ?>
+      <?php if ( $story_post && $indexed_chapters ): ?>
         <div id="story-chapter-list" class="hidden" data-story-id="<?php echo $story_id; ?>">
           <ul data-current-id="<?php echo $post->ID; ?>"><?php
             echo fictioneer_get_chapter_list_items( $story_id, $story_data, $current_index );

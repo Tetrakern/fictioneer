@@ -330,6 +330,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
     $word_count = 0;
     $comment_count = 0;
     $visible_chapter_ids = [];
+    $indexed_chapter_ids = [];
 
     // Assign correct icon
     if ( $status != 'Ongoing' ) {
@@ -362,6 +363,11 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
 
           // ... but they are still listed!
           $visible_chapter_ids[] = $chapter->ID;
+
+          // Indexed chapters (accounts for custom filers)
+          if ( $chapter->post_status === 'publish' ) {
+            $indexed_chapter_ids[] = $chapter->ID;
+          }
         }
 
         // Count ALL comments
@@ -390,6 +396,7 @@ if ( ! function_exists( 'fictioneer_get_story_data' ) ) {
       'rating' => get_post_meta( $story_id, 'fictioneer_story_rating', true ),
       'rating_letter' => get_post_meta( $story_id, 'fictioneer_story_rating', true )[0],
       'chapter_ids' => $visible_chapter_ids,
+      'indexed_chapter_ids' => $indexed_chapter_ids,
       'last_modified' => get_the_modified_time( 'U', $story_id ),
       'comment_count' => $comment_count,
       'comment_count_timestamp' => time(),

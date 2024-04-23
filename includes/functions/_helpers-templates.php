@@ -1123,12 +1123,14 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
    *
    * @since 5.0.0
    * @since 5.9.4 - Removed output buffer.
+   * @since 5.14.0 - Added indexed chapter IDs.
    *
-   * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
-   * @param int          $args['chapter_id']   The chapter ID.
-   * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
-   * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
-   * @param int|boolean  $args['next_index']   Index of next chapter or false if outside bounds.
+   * @param WP_Post|null $args['story_post']           Optional. Post object of the story.
+   * @param int          $args['chapter_id']           The chapter ID.
+   * @param array        $args['chapter_ids']          IDs of visible chapters in the same story or empty array.
+   * @param array        $args['indexed_chapter_ids']  IDs of accessible chapters in the same story or empty array.
+   * @param int|boolean  $args['prev_index']           Index of previous chapter or false if outside bounds.
+   * @param int|boolean  $args['next_index']           Index of next chapter or false if outside bounds.
    *
    * @return string The chapter micro menu HTML.
    */
@@ -1184,8 +1186,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     if ($args['prev_index'] !== false) {
       $micro_menu['previous'] = sprintf(
         '<a href="%s" title="%s" class="micro-menu__item micro-menu__previous previous" tabindex="-1"><i class="fa-solid fa-caret-left"></i></a>',
-        get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ),
-        esc_attr( get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ) )
+        get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ),
+        esc_attr( get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ) )
       );
     }
 
@@ -1199,8 +1201,8 @@ if ( ! function_exists( 'fictioneer_get_chapter_micro_menu' ) ) {
     if ($args['next_index']) {
       $micro_menu['next'] = sprintf(
         '<a href="%s" title="%s" class="micro-menu__item micro-menu__next next" tabindex="-1"><i class="fa-solid fa-caret-right"></i></a>',
-        get_permalink( $args['chapter_ids'][ $args['next_index'] ] ),
-        esc_attr( get_the_title( $args['chapter_ids'][ $args['next_index'] ] ) )
+        get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ),
+        esc_attr( get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ) )
       );
     }
 

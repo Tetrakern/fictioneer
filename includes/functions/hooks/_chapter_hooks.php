@@ -240,11 +240,13 @@ add_action( 'fictioneer_chapter_actions_top_left', 'fictioneer_chapter_resize_bu
  * Outputs the HTML for the chapter navigation buttons
  *
  * @since 5.0.0
+ * @since 5.14.0 - Added indexed chapter IDs.
  *
- * @param array       $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
- * @param int|boolean $args['prev_index']   Index of previous chapter or false if outside bounds.
- * @param int|boolean $args['next_index']   Index of next chapter or false if outside bounds.
- * @param string      $location             Either 'top' or 'bottom'.
+ * @param array       $args['chapter_ids']          IDs of visible chapters in the same story or empty array.
+ * @param array       $args['indexed_chapter_ids']  IDs of accessible chapters in the same story or empty array.
+ * @param int|boolean $args['prev_index']           Index of previous chapter or false if outside bounds.
+ * @param int|boolean $args['next_index']           Index of next chapter or false if outside bounds.
+ * @param string      $location                     Either 'top' or 'bottom'.
  */
 
 function fictioneer_chapter_nav_buttons( $args, $location ) {
@@ -257,7 +259,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
 
   // Start HTML ---> ?>
   <?php if ( $args['prev_index'] !== false ) : ?>
-    <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
+    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['prev_index'] ] ); ?>" class="button _secondary _navigation _prev"><?php echo fcntr( 'previous' ); ?></a>
   <?php endif; ?>
   <?php if ( $location === 'top' ) : ?>
     <a href="#bottom" data-block="center" aria-label="<?php _e( 'Scroll to bottom of the chapter', 'fictioneer' ); ?>" name="top" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to bottom', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-down"></i></a>
@@ -265,7 +267,7 @@ function fictioneer_chapter_nav_buttons( $args, $location ) {
     <a href="#top" data-block="center" aria-label="<?php _e( 'Scroll to top of the chapter', 'fictioneer' ); ?>" name="bottom" class="anchor button _secondary tooltipped" data-tooltip="<?php esc_attr_e( 'Scroll to top', 'fictioneer' ); ?>"><i class="fa-solid fa-caret-up"></i></a>
   <?php endif; ?>
   <?php if ( $args['next_index'] ) : ?>
-    <a href="<?php echo get_permalink( $args['chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
+    <a href="<?php echo get_permalink( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" title="<?php echo get_the_title( $args['indexed_chapter_ids'][ $args['next_index'] ] ); ?>" class="button _secondary _navigation _next"><?php echo fcntr( 'next' ); ?></a>
   <?php endif; ?>
   <?php // <--- End HTML
 }
@@ -593,11 +595,12 @@ add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_support_link
  *
  * @since 5.0.0
  *
- * @param WP_Post|null $args['story_post']   Optional. Post object of the story.
- * @param int          $args['chapter_id']   The chapter ID.
- * @param array        $args['chapter_ids']  IDs of visible chapters in the same story or empty array.
- * @param int|boolean  $args['prev_index']   Index of previous chapter or false if outside bounds.
- * @param int|boolean  $args['next_index']   Index of next chapter or false if outside bounds.
+ * @param WP_Post|null $args['story_post']           Optional. Post object of the story.
+ * @param int          $args['chapter_id']           The chapter ID.
+ * @param array        $args['chapter_ids']          IDs of visible chapters in the same story or empty array.
+ * @param array        $args['indexed_chapter_ids']  IDs of accessible chapters in the same story or empty array.
+ * @param int|boolean  $args['prev_index']           Index of previous chapter or false if outside bounds.
+ * @param int|boolean  $args['next_index']           Index of next chapter or false if outside bounds.
  */
 
 function fictioneer_chapter_micro_menu( $args ) {
