@@ -267,8 +267,10 @@ fcn_addCommentFormEvents();
  */
 
 function fcn_textareaAdjust(area) {
-  area.style.height = 'auto'; // Reset if lines are removed
-  area.style.height = `${area.scrollHeight}px`;
+  if (area) {
+    area.style.height = 'auto'; // Reset if lines are removed
+    area.style.height = `${area.scrollHeight}px`;
+  }
 }
 
 // =============================================================================
