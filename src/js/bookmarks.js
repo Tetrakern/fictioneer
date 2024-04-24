@@ -664,7 +664,9 @@ fcn_jumpToBookmarkButtons.forEach(button => {
   button.addEventListener(
     'click',
     () => {
-      fcn_scrollTo(_$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`));
+      const target = _$(`[data-paragraph-id="${fcn_bookmarks.data[_$('article').id]['paragraph-id']}"]`);
+
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   );
 });
