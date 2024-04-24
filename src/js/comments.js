@@ -248,7 +248,7 @@ function fcn_revealCommentFormInputs(area) {
  */
 
 function fcn_addCommentFormEvents() {
-  _$$$('comment')?.addEventListener(
+  _$(fictioneer_comments.form_selector ?? '#comment')?.addEventListener(
     'focus',
     event => {
       fcn_revealCommentFormInputs(event.currentTarget);
@@ -303,7 +303,7 @@ _$('.comment-section')?.addEventListener('click', event => {
   const formattingButton = event.target.closest('[data-bbcode]');
 
   if (formattingButton) {
-    fcn_wrapInTag(_$$$('comment'), formattingButton.dataset.bbcode, {'shortcode': true});
+    fcn_wrapInTag(_$(fictioneer_comments.form_selector ?? '#comment'), formattingButton.dataset.bbcode, {'shortcode': true});
   }
 });
 
@@ -365,7 +365,7 @@ function fcn_bindAJAXCommentSubmit() {
     // Get comment form input
     const form = e.currentTarget;
     const button = _$$$('submit');
-    const content = _$$$('comment');
+    const content = _$(fictioneer_comments.form_selector ?? '#comment');
     const author = _$$$('author');
     const email = _$$$('email');
     const cookie_consent = _$$$('wp-comment-cookies-consent');
@@ -991,7 +991,7 @@ var /** @type {String[]} */ fcn_commentStack = [];
  */
 
 function fcn_applyCommentStack(textarea = null) {
-  textarea = textarea ?? _$$$('comment');
+  textarea = textarea ?? _$(fictioneer_comments.form_selector ?? '#comment');
 
   if (textarea) {
     // Append stack content to comment

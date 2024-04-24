@@ -891,7 +891,7 @@ function fictioneer_build_dynamic_scripts() {
     mkdir( dirname( $file_path ), 0755, true );
   }
 
-  // --- Settings --------------------------------------------------------------
+  // --- AJAX Settings ---------------------------------------------------------
 
   $scripts .= "var fictioneer_ajax = " . json_encode( array(
     'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -916,6 +916,12 @@ function fictioneer_build_dynamic_scripts() {
   // --- Colors ----------------------------------------------------------------
 
   $scripts .= "var fictioneer_font_colors = " . json_encode( fictioneer_get_font_colors() ) . ";";
+
+  // --- Comments --------------------------------------------------------------
+
+  $scripts .= "var fictioneer_comments = " . json_encode( array(
+    'form_selector' => get_option( 'fictioneer_comment_form_selector', '#comment' ) ?: '#comment'
+  )) . ";";
 
   // --- Save ------------------------------------------------------------------
 

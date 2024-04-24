@@ -187,7 +187,7 @@ class FCN_Suggestion {
   }
 
   submitSuggestion(instance) {
-    const defaultEditor = _$$$('comment');
+    const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
     const replacements = [
       ['¶', '&para;\n'],
       ['<br>', '\n'],

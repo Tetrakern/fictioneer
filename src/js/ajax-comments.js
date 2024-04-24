@@ -32,7 +32,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
   // Setup
   let commentText = '';
-  let commentTextarea = _$$$('comment');
+  let commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment');
   let errorNote;
 
   // Preserve comment text (in case of pagination)
@@ -106,7 +106,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
       // Append stored content (in case of pagination)
       if (!response.data.disabled) {
-        commentTextarea = _$$$('comment');
+        commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment');
         commentTextarea.value = commentText;
 
         // Append stack contents (if any)
@@ -256,7 +256,7 @@ function fcn_loadCommentEarly() {
   // Check URL whether there is a comment anchor
   if (fcn_commentSection && location.hash.includes('#comment')) {
     // Start loading comments via AJAX if not done already
-    if (!_$$$('comment')) {
+    if (!_$(fictioneer_comments.form_selector ?? '#comment')) {
       fct_commentSectionObserver.disconnect();
       fcn_reloadCommentsPage();
     }

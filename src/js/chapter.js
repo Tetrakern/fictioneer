@@ -174,7 +174,7 @@ function fcn_getQuote(e) {
 
 function fcn_addQuoteToStack(quote) {
   // Get comment form
-  const defaultEditor = _$$$('comment');
+  const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
 
   // Add quote
   if (defaultEditor) {
