@@ -166,6 +166,11 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 
 </details>
 
+**Story Page Shortcodes:**
+* [Story Actions](#story-actions-shortcode)
+* [Story Section](#story-section-shortcode)
+* [Story Comments](#story-comments-shortcode)
+* [Story Data](#story-data-shortcode)
 
 ## Stories
 
