@@ -1023,7 +1023,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_comment_form_selector',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'CSS selector for the comment form. Attempts to make scripts work with third-party comment plugin. No guarantee.', 'fictioneer' ),
+      'label' => __( 'CSS selector for the comment form. Attempts to make scripts work with comment plugin. Clear theme cache after updating.', 'fictioneer' ),
       'default' => '',
       'placeholder' => '#comment'
     )
