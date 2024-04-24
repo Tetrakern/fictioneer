@@ -8,9 +8,9 @@ Click the outline toggle in the top-right corner to see the table of contents.
 
 You may want to set up a front page like the demo site or make it a landing page in case of a single-story site. Both can be achieved with blocks, shortcodes, and some custom CSS or HTML if necessary. Obviously, you can always add a custom page template in your child theme if you have the skill for that, which can look like pretty much anything.
 
-Under **Settings > Reading**, set **Your homepage displays** to "A static page" and assign your **Homepage** and **Posts page**. Create new pages if you did not already, give them sensible names. For your **Homepage**, choose the "No Title Page" or "Story Page" page template. The latter is for single-story sites and has more shortcode options.
+Under **Settings > Reading**, set **Your homepage displays** to "A static page" and assign your **Homepage** and **Posts page**. Create new pages if you did not already, give them sensible names. For your **Homepage**, choose the "No Title Page" or "Story Page" page template. The latter is for single-story sites and has more shortcode options, plus a meta field for a story ID that is only used with this template.
 
-For simplicity, here is the copied content of the [demo homepage](https://fictioneer-theme.com/) and [demo story page](https://fictioneer-theme.com/story-page/). Put that into the code editor view and adjust it as needed. When you switch back to the visual editor, everything should be properly formatted as blocks.
+For simplicity, here is the copied content of the [demo homepage](https://fictioneer-theme.com/) and [demo story page](https://fictioneer-theme.com/story-page/). Put that into the code editor view and adjust it as needed (the IDs will be obviously different for you). When you switch back to the visual editor, everything should be properly formatted as blocks.
 
 <details>
   <summary>Demo Homepage</summary><br>
