@@ -543,13 +543,13 @@ The theme’s CSS comes already minified and while additional optimizations such
 
 ### General Tab
 
-Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some options of note:
+Most of the theme’s configuration is found here, the options being largely self-explanatory. Please note that you will probably not need all the features available, such as Checkmarks or Follows. These are for sites with many authors or stories; publishing a weekly serial is better off saving the server resources. Some changes require you to purge the theme caches after updating under **Fictioneer > Tools**. Options of note:
 
 * **System Email Address/Name:** Used for no-reply transactional emails, such as comment reply notifications.
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
-* **Comment Form CSS Selector:** If you are using a third-party comments plugin, several scripts interacting with the comment form might stop working. You can try changing the selector here. For example, wpDiscuz would need `.wpd-field-comment .ql-editor` (rich editor) or `.wpd-field-comment .wc_comment` (textarea).
+* **Comment Form CSS Selector:** If you are using a third-party comments plugin, several scripts interacting with the comment form might stop working. You can try changing the selector here. For example, wpDiscuz would need `.wpd-field-comment .ql-editor` (rich editor) or `.wpd-field-comment .wc_comment` (textarea). Purge the theme caches after updating.
 * **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
 * **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
