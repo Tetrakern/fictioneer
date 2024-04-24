@@ -43,6 +43,7 @@ class FCN_Suggestion {
     this.text = '';
     this.original = '';
     this.latest = '';
+    this.paragraph = null;
     this.dmp = new diff_match_patch();
     this.bindEvents();
   }
@@ -67,6 +68,16 @@ class FCN_Suggestion {
     }
 
     return { x, y };
+  }
+
+  getClosestParagraph() {
+    const selection = window.getSelection();
+
+    if (!selection.rangeCount) {
+      return null;
+    }
+
+    return selection.getRangeAt(0).startContainer.parentNode.closest('p');
   }
 
   showTools(top, left) {
@@ -163,6 +174,7 @@ class FCN_Suggestion {
     instance.current.innerHTML = instance.text.replaceAll('\n', '<br>');
     instance.input.value = instance.text;
     instance.output.innerHTML = instance.getDiff(instance.original, instance.text);
+    instance.paragraph = instance.getClosestParagraph();
 
     // Open modal
     instance.toggle.click();
@@ -188,6 +200,7 @@ class FCN_Suggestion {
 
   submitSuggestion(instance) {
     const defaultEditor = _$(fictioneer_comments.form_selector ?? '#comment');
+    const paragraphID = instance.paragraph?.id ?? null;
     const replacements = [
       ['¶', '&para;\n'],
       ['<br>', '\n'],
@@ -205,7 +218,7 @@ class FCN_Suggestion {
     });
 
     // Output
-    instance.latest = `\n[quote]${final}[/quote]\n`;
+    instance.latest = `\n[quote]${final} [anchor]${paragraphID}[/anchor][/quote]\n`;
 
     // Send to comment form or remember for later
     if (defaultEditor) {
