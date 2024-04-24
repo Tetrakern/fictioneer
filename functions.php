@@ -32,9 +32,9 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.13.0' );
+define( 'FICTIONEER_VERSION', '5.14.0' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.13.0' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.14.0' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', null );
@@ -688,5 +688,3 @@ if ( ! is_admin() ) {
 
   require_once __DIR__ . '/includes/functions/hooks/_mobile_menu_hooks.php';
 }
-
-?>
