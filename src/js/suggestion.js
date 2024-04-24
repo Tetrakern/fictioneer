@@ -135,7 +135,7 @@ class FCN_Suggestion {
     }
 
     setTimeout(() => {
-      instance.text = instance.textSelection().replace('Add Suggestion', '').replaceAll('\n\n', '\n');
+      instance.text = instance.textSelection().replaceAll('\n\n', '\n');
 
       if (instance.text !== '') {
         const pos = instance.getCaretCoordinates();
