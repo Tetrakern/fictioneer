@@ -992,24 +992,33 @@ var /** @type {String[]} */ fcn_commentStack = [];
  * Append comment stack content to comment (if any)
  *
  * @since 5.7.0
- * @param {HTMLElement=} textarea - Optional. The targeted textarea.
+ * @param {HTMLElement=} editor - Optional. The targeted editor element.
  */
 
-function fcn_applyCommentStack(textarea = null) {
-  textarea = textarea ?? _$(fictioneer_comments.form_selector ?? '#comment');
+function fcn_applyCommentStack(editor = null) {
+  editor = editor ?? _$(fictioneer_comments.form_selector ?? '#comment');
 
-  if (textarea) {
-    // Append stack content to comment
+  // Abort
+  if (!editor) {
+    return;
+  }
+
+  // Append stack content to comment
+  if (editor.tagName == 'TEXTAREA') {
     fcn_commentStack.forEach(node => {
-      textarea.value += node;
+      editor.value += node;
     });
 
-    // Empty stack
-    fcn_commentStack = [];
-
-    // Resize textarea if necessary
+    // Resize editor if necessary
     fcn_textareaAdjust(textarea);
+  } else if (editor.tagName == 'DIV') {
+    fcn_commentStack.forEach(node => {
+      editor.innerHTML += node;
+    });
   }
+
+  // Empty stack
+  fcn_commentStack = [];
 }
 
 // =============================================================================

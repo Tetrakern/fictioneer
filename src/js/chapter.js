@@ -178,8 +178,12 @@ function fcn_addQuoteToStack(quote) {
 
   // Add quote
   if (defaultEditor) {
-    defaultEditor.value += `\n[quote]${quote}[/quote]\n`;
-    fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
+    if (defaultEditor.tagName == 'TEXTAREA') {
+      defaultEditor.value += `\n[quote]${quote}[/quote]\n`;
+      fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
+    } else if (defaultEditor.tagName == 'DIV') {
+      defaultEditor.innerHTML += `\n[quote]${quote}[/quote]\n`;
+    }
   } else {
     fcn_commentStack?.push(`\n[quote]${quote}[/quote]\n`); // AJAX comment form or section
   }

@@ -209,8 +209,12 @@ class FCN_Suggestion {
 
     // Send to comment form or remember for later
     if (defaultEditor) {
-      defaultEditor.value += instance.latest;
-      fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
+      if (defaultEditor.tagName == 'TEXTAREA') {
+        defaultEditor.value += instance.latest;
+        fcn_textareaAdjust(_$('textarea#comment')); // Adjust height of textarea if necessary
+      } else if ( defaultEditor.tagName == 'DIV' ) {
+        defaultEditor.innerHTML += instance.latest;
+      }
     } else {
       fcn_commentStack?.push(instance.latest); // AJAX comment form or section
     }
