@@ -149,6 +149,8 @@
     }
 
     p {
+      scroll-margin-top: 48px;
+
       &:not(:last-of-type, [class*=wp-block-]) {
         margin-bottom: 1.5em;
       }
