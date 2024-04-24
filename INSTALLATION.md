@@ -549,6 +549,7 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Contact Form Receivers:** Submitted contact forms are sent to those email addresses. One per line.
 * **Add consent wrappers to embedded content:** Required to be GDPR compliant if you use embeds.
 * **Page Assignments:** Only set what you actually need. Used for breadcrumbs and menu items.
+* **Comment Form CSS Selector:** If you are using a third-party comments plugin, several scripts interacting with the comment form might stop working. You can try changing the selector here. For example, wpDiscuz would need `.wpd-field-comment .ql-editor` (rich editor) or `.wpd-field-comment .wc_comment` (textarea).
 * **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
 * **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
