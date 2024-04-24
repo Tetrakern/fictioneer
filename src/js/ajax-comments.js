@@ -53,6 +53,11 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
     page = fcn_urlParams.pg ?? 1;
   }
 
+  // Get order
+  if (!order) {
+    order = order ?? fcn_commentSection.dataset.order ?? 'desc';
+  }
+
   // Abort if Fictioneer comment section not found
   if (!fcn_commentSection) {
     return;
@@ -63,7 +68,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
     'action': 'fictioneer_ajax_get_comment_section',
     'post_id': post_id ?? fcn_commentSection.dataset.postId,
     'page': parseInt(page),
-    'corder': order ?? fcn_commentSection.dataset.order ?? 0
+    'corder': order
   };
 
   if (fcn_urlParams.commentcode) {
@@ -77,6 +82,7 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
     if (response.success) {
       // Update page
       page = response.data.page;
+      fcn_commentSection.dataset.page = page;
 
       // Get HTML
       const temp = document.createElement('div');
@@ -137,6 +143,10 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
 
       if (page > 1) {
         urlPart += urlPart.length > 1 ? `&pg=${page}` : `?pg=${page}`;
+      }
+
+      if (order != 'desc') {
+        urlPart += urlPart.length > 1 ? `&corder=${order}` : `?corder=${order}`;
       }
 
       window.history.pushState({ path: refresh }, '', refresh + urlPart + location.hash);
@@ -254,21 +264,51 @@ function fcn_loadCommentEarly() {
 }
 
 // =============================================================================
+// TOGGLE ORDER
+// =============================================================================
+
+/**
+ * Toggle order of comments and reload list.
+ *
+ * @since 5.14.0
+ * @param {HTMLButtonElement} button - The clicked toggle button.
+ */
+
+function fcn_toggleCommentOrder(button) {
+  const section = button.closest('.fictioneer-comments');
+  const isDesc = section.dataset.order == 'desc';
+
+  section.dataset.order = isDesc ? 'asc' : 'desc';
+  button.classList.toggle('_on', !isDesc);
+  button.classList.toggle('_off', isDesc);
+
+  fcn_reloadCommentsPage(section.dataset.page);
+}
+
+// =============================================================================
 // COMMENTS EVENT DELEGATES
 // =============================================================================
 
 _$('.fictioneer-comments')?.addEventListener('click', event => {
   // Handle page number jump
-  if (event.target.closest('[data-page-jump]')) {
+  if (event.target.closest('button[data-page-jump]')) {
     fcn_jumpToCommentPage();
     return;
   }
 
   // Handle page number
-  const pageButton = event.target.closest('[data-page]');
+  const pageButton = event.target.closest('button[data-page]');
 
   if (pageButton) {
     fcn_reloadCommentsPage(pageButton.dataset.page);
+    return;
+  }
+
+  // Handle order toggle
+  const orderButton = event.target.closest('button[data-toggle-order]');
+
+  if (orderButton) {
+    fcn_toggleCommentOrder(orderButton);
     return;
   }
 });

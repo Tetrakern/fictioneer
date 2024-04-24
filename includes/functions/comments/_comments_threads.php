@@ -220,6 +220,11 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
     $list_args = apply_filters( 'fictioneer_filter_comment_list_args', $list_args );
 
     // Start HTML ---> ?>
+    <div id="sof" class="sort-order-filter _comments">
+      <button class="list-button _order <?php echo ( $args['order'] ?? 0 ) === 'desc' ? '_on' : '_off'; ?>" type="button" data-toggle-order aria-label="<?php esc_attr_e( 'Toggle comments between ascending and descending order', 'fictioneer' ); ?>">
+        <i class="fa-solid fa-arrow-up-short-wide _off"></i><i class="fa-solid fa-arrow-down-wide-short _on"></i>
+      </button>
+    </div>
     <ol class="fictioneer-comments__list commentlist">
       <?php wp_list_comments( $list_args, $comments ); ?>
     </ol>
