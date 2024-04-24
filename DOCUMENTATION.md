@@ -4,6 +4,171 @@ This documentation is about the Fictioneer theme. If you need help with WordPres
 
 Click the outline toggle in the top-right corner to see the table of contents.
 
+## Front Page
+
+You may want to set up a front page like the demo site or make it a landing page in case of a single-story site. Both can be achieved with blocks, shortcodes, and some custom CSS or HTML if necessary. Obviously, you can always add a custom page template in your child theme if you have the skill for that, which can look like pretty much anything.
+
+Under **Settings > Reading**, set **Your homepage displays** to "A static page" and assign your **Homepage** and **Posts page**. Create new pages if you did not already, give them sensible names. For your **Homepage**, choose the "No Title Page" or "Story Page" page template. The latter is for single-story sites and has more shortcode options.
+
+For simplicity, here is the copied content of the [demo homepage](https://fictioneer-theme.com/) and [demo story page](https://fictioneer-theme.com/story-page/). Put that into the code editor view and adjust it as needed. When you switch back to the visual editor, everything should be properly formatted as blocks.
+
+<details>
+  <summary>Demo Homepage</summary><br>
+
+```html
+<!-- wp:shortcode -->
+[fictioneer_latest_posts count="1"]
+<!-- /wp:shortcode -->
+
+<!-- wp:spacer {"height":"24px"} -->
+<div style="height:24px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:shortcode -->
+[fictioneer_article_cards per_page="2" ignore_sticky="1"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Stories</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_stories count="10"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Updates</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_updates count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Chapters</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_chapter_cards count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Latest Recommendations</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_recommendations count="6"]
+<!-- /wp:shortcode -->
+
+<!-- wp:heading {"className":"show-if-bookmarks hidden"} -->
+<h2 class="wp-block-heading show-if-bookmarks hidden">Bookmarks</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_bookmarks count="10"]
+<!-- /wp:shortcode -->
+```
+
+</details>
+
+<br>
+
+<details>
+  <summary>Demo Story Page</summary><br>
+
+```html
+<!-- wp:image {"id":24,"width":"300px","sizeSlug":"large","linkDestination":"none","align":"right","style":{"border":{"width":"0px","style":"none"}},"className":"is-style-default"} -->
+<figure class="wp-block-image alignright size-large is-resized has-custom-border is-style-default"><img src="https://res.cloudinary.com/dmhr3ab5n/images/w_640,h_1024,c_scale/v1674220342/fictioneer-demo/katalepsis_cover/katalepsis_cover.jpg?_i=AA" alt="Katalepsis Cover" class="wp-image-24" style="border-style:none;border-width:0px;width:300px"/></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Nightmares and hallucinations have plagued Heather Morell all her life, relics of schizophrenia and childhood bereavement.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Until she meets Raine and Evelyn, that is — self-proclaimed bodyguard and bad-tempered magician — and learns she’s not insane at all. The spirits and monsters she sees are all too real, the god-thing in her nightmares is teaching her how to surpass human limits, and her twin sister who supposedly never existed could still be alive, somewhere Outside, beyond the walls of reality.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Heather plunges into a world of eldritch magic and fanatic cultists, trying to stay alive, stay sane, and deal with her own blossoming attraction to dangerous women. But being ‘In The Know’ isn’t all terror and danger. Sometimes the monsters wear nice dresses and stick around for afternoon tea. Sometimes you find you have more in common with them than you think. Perhaps this is Heather’s chance to be something more than the defeated husk she’d grown up as, to find real friendship and meaning among things like herself – and perhaps, out there on the rim of the possible, to bring her twin sister back from the dead.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator {"className":"is-style-default"} -->
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-default"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>Katalepsis is an Ancient Greek word which means ‘comprehension’, or perhaps more accurately, ‘insight’.<br><br>Katalepsis is a serial web novel about cosmic horror and human fragility, urban fantasy and lesbian romance, set in a sleepy English university town.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>New chapters are currently posted once a week, on Saturdays.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If you just finished the official ebook or audiobook of Volume I, the story resumes&nbsp;<a href="https://katalepsis.net/2019/09/07/no-nook-of-english-ground-5-1/">here</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If you are enjoying the story and want to see more, please consider&nbsp;<a href="https://www.patreon.com/hazelyoung">donating via the Patreon page!</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Front cover art by&nbsp;<a href="https://noctilia.artstation.com/">Noctilia</a>, header art by&nbsp;<a href="https://www.deviantart.com/yivels">Yivel</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>Disclaimer/warning: Please note that Katalepsis is intended for a mature audience. This is a horror story, after all. For more information, see the FAQ&nbsp;<a href="https://katalepsis.net/faq/">here</a>.</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[fictioneer_story_actions story_id="13" follow="0" reminder="0"]
+<!-- /wp:shortcode -->
+
+<!-- wp:spacer {"height":"2rem"} -->
+<div style="height:2rem" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">First &amp; Latest Chapter</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_latest_chapters count="2" post_ids="29,92" orderby="post__in" spoiler="true" vertical="1" seamless="1" aspect_ratio="4/1" type="simple" source="0" lightbox="0"]
+<!-- /wp:shortcode -->
+
+<!-- wp:spacer {"height":"1rem"} -->
+<div style="height:1rem" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">[fictioneer_story_data story_id="13" data="chapter_count"] Chapters</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+[fictioneer_chapter_list story_id="13" group="mind; correlating" heading="mind; correlating"]
+<!-- /wp:shortcode -->
+
+<!-- wp:spacer {"height":"1.5rem"} -->
+<div style="height:1.5rem" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+
+<!-- wp:shortcode -->
+[fictioneer_chapter_list story_id="13" group="providence or atoms" heading="providence or atoms"]
+<!-- /wp:shortcode -->
+
+<!-- wp:html -->
+<div style="margin-top: 1.5rem;"><a href="/katalepsis-table-of-contents/" class="button" style="width: 100%; background: var(--chapter-li-background, var(--content-li-background)); color: var(--fg-700); padding: 1.25rem; display: grid; place-content: center; border: none;">More Chapters</a></div>
+<!-- /wp:html -->
+
+<!-- wp:shortcode -->
+[fictioneer_story_comments story_id="13" header="1"]
+<!-- /wp:shortcode -->
+```
+
+</details>
+
+
 ## Stories
 
 Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags. Also note that stories are not supposed to be used like chapters, for example as oneshot, because they lack all chapter features, including comments.
