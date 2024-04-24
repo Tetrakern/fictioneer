@@ -240,7 +240,7 @@ if ( ! function_exists( 'fictioneer_ajax_list_comments' ) ) {
 function fictioneer_comment_list_args( $parsed_args ) {
   // Setup
   $page = get_query_var( 'cpage', 1 );
-  $order = array_intersect( [ strtolower( $_GET['comments-order'] ?? 0 ) ], ['desc', 'asc'] );
+  $order = array_intersect( [ strtolower( $_GET['corder'] ?? 0 ) ], ['desc', 'asc'] );
   $order = reset( $order ) ?: get_option( 'comment_order' ); // Sanitized
 
   // Build arguments

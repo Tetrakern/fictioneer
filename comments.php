@@ -21,7 +21,7 @@ if ( post_password_required() ) {
 $post_id = get_the_ID();
 $user = wp_get_current_user();
 $comments_count = get_comments_number();
-$order = array_intersect( [ strtolower( $_GET['comments-order'] ?? 0 ) ], ['desc', 'asc'] );
+$order = array_intersect( [ strtolower( $_GET['corder'] ?? 0 ) ], ['desc', 'asc'] );
 $order = reset( $order ) ?: get_option( 'comment_order' ); // Sanitized
 $logout_url = fictioneer_get_logout_url( get_permalink() );
 $is_ajax_comments = get_option( 'fictioneer_enable_ajax_comments' );
