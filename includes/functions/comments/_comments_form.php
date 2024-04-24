@@ -120,6 +120,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
 
   // Setup
   $post_id = get_the_ID();
+  $order = fictioneer_sanitize_query_var( $_REQUEST['corder'] ?? 0, ['desc', 'asc'], get_option( 'comment_order' ) );
   $close_bottom_container = is_user_logged_in() ? '' : '</div>';
   $is_ajax = get_option( 'fictioneer_enable_ajax_comment_form' ) || get_option( 'fictioneer_enable_ajax_comments' );
   $hidden = FICTIONEER_COLLAPSE_COMMENT_FORM ? 'hidden' : '';
@@ -163,6 +164,9 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
   // Hidden comment post ID field (fixed via JS)
   $comment_post_id = '<input type="hidden" name="comment_post_ID" value="0" id="comment_post_ID">';
 
+  // Hidden order field
+  $order_field = '<input type="hidden" name="corder" value="' . $order . '">';
+
   // Private comment notice for guests
   $private_notice = '';
 
@@ -184,7 +188,7 @@ function fictioneer_change_submit_field( $submit_field, $args ) {
   return sprintf(
     $close_bottom_container . '<div class="form-submit fictioneer-respond__form-actions ' . $hidden . '"><div class="fictioneer-respond__form-actions-wrapper">' . $private_toggle . $notification_toggle . '%1$s %2$s</div>%3$s</div><div class="fictioneer-respond__notices">' . $private_notice . '</div>',
     $submit_button,
-    $post_id ? get_comment_id_fields( $post_id ) : ( $parent_field . $comment_post_id ),
+    ( $post_id ? get_comment_id_fields( $post_id ) : ( $parent_field . $comment_post_id ) ) . $order_field,
     preg_replace( '/<a/', '<a class="button _secondary"', get_cancel_comment_reply_link( 'Cancel' ) )
   );
 }

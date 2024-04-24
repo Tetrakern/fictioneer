@@ -26,12 +26,26 @@ function fictioneer_redirect_comment( $location, $commentdata ) {
     return $location;
   }
 
+  // Setup
+  $order = fictioneer_sanitize_query_var( $_REQUEST['corder'] ?? 0, ['desc', 'asc'], get_option( 'comment_order' ) );
   $visibility_code = get_comment_meta(
     $commentdata->comment_ID,
     'fictioneer_visibility_code',
     true
   );
 
+  // Redirect to last page
+  if ( $order === 'asc' && ! $commentdata->comment_parent ) {
+    return add_query_arg(
+      array(
+        'corder' => $order,
+        'commentcode' => $visibility_code['code']
+      ),
+      $location
+    );
+  }
+
+  // Redirect to current page
   if ( wp_get_referer() ) {
     if ( $visibility_code && ! $commentdata->comment_approved ) {
       return add_query_arg(
@@ -44,6 +58,7 @@ function fictioneer_redirect_comment( $location, $commentdata ) {
     }
   }
 
+  // Default
   return $location;
 }
 
