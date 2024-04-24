@@ -30,17 +30,19 @@ if ( $show_advanced ) {
   $min_words = absint( $_GET['min_words'] ?? 0 );
   $max_words = absint( $_GET['max_words'] ?? 0 );
 
-  $story_status = array_intersect(
-    [ $_GET['story_status'] ?? 0 ],
-    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  $story_status = fictioneer_sanitize_query_var(
+    $_GET['story_status'] ?? 0,
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $story_status = reset( $story_status ) ?: 0;
 
-  $age_rating = array_intersect(
-    [ $_GET['age_rating'] ?? 0 ],
-    ['Everyone', 'Teen', 'Mature', 'Adult']
+  $age_rating = fictioneer_sanitize_query_var(
+    $_GET['age_rating'] ?? 0,
+    ['Everyone', 'Teen', 'Mature', 'Adult'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $age_rating = reset( $age_rating ) ?: 0;
 
   $all_authors = get_users(
     array(

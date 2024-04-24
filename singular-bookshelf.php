@@ -23,8 +23,7 @@ if ( ! is_user_logged_in() || get_option( 'fictioneer_enable_public_cache_compat
 // Setup
 $user = wp_get_current_user();
 $current_tab = sanitize_key( $_GET['tab'] ?? '' );
-$order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
-$order = reset( $order ) ?: 'desc';
+$order = fictioneer_sanitize_query_var( $_GET['order'] ?? 0, ['desc', 'asc'], 'desc' );
 $current_page = get_query_var( 'pg', 1 ) ?: 1;
 $max_pages = 1;
 $tabs = [];

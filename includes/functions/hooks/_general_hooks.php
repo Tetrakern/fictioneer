@@ -463,11 +463,10 @@ function fictioneer_sort_order_filter_interface( $args ) {
 
   // Archive?
   if ( is_archive() ) {
-    $post_type = array_intersect(
-      [ sanitize_key( $_GET['post_type'] ?? '' ) ],
+    $post_type = fictioneer_sanitize_query_var(
+      sanitize_key( $_GET['post_type'] ?? '' ),
       ['any', 'post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
     );
-    $post_type = reset( $post_type ) ?: null;
   }
 
   // Post type?
@@ -697,11 +696,13 @@ add_action( 'fictioneer_archive_loop_before', 'fictioneer_sort_order_filter_inte
  */
 
 function fictioneer_add_search_for_age_rating( $args ) {
-  $age_rating = array_intersect(
-    [ $_GET['age_rating'] ?? 0 ],
-    ['Everyone', 'Teen', 'Mature', 'Adult']
+  // Setup
+  $age_rating = fictioneer_sanitize_query_var(
+    $_GET['age_rating'] ?? 0,
+    ['Everyone', 'Teen', 'Mature', 'Adult'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $age_rating = reset( $age_rating ) ?: 0;
 
   // Start HTML ---> ?>
   <div class="search-form__select-wrapper select-wrapper">
@@ -727,11 +728,13 @@ add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_age_rat
  */
 
 function fictioneer_add_search_for_status( $args ) {
-  $story_status = array_intersect(
-    [ $_GET['story_status'] ?? 0 ],
-    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  // Setup
+  $story_status = fictioneer_sanitize_query_var(
+    $_GET['story_status'] ?? 0,
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $story_status = reset( $story_status ) ?: 0;
 
   // Start HTML ---> ?>
   <div class="search-form__select-wrapper select-wrapper">

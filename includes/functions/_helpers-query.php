@@ -197,8 +197,7 @@ if ( ! function_exists( 'fictioneer_append_date_query' ) ) {
 
     // Orderby?
     if ( empty( $orderby ) ) {
-      $orderby = array_intersect( [ strtolower( $_GET['orderby'] ?? 0 ) ], fictioneer_allowed_orderby() );
-      $orderby = reset( $orderby ) ?: 'modified';
+      $orderby = fictioneer_sanitize_query_var( $_GET['orderby'] ?? 0, fictioneer_allowed_orderby(), 'modified' );
     }
 
     // Validate ago argument

@@ -1502,6 +1502,38 @@ function fictioneer_sanitize_css( $css ) {
 }
 
 // =============================================================================
+// SANITIZE QUERY VARIABLE
+// =============================================================================
+
+/**
+ * Sanitizes a query variable
+ *
+ * @since 5.14.0
+ *
+ * @param string      $var      Query variable to sanitize.
+ * @param array       $allowed  Array of allowed string (lowercase).
+ * @param string|null $default  Optional default value.
+ * @param array       $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type bool $keep_case  Whether to transform the variable to lowercase. Default false.
+ * }
+ *
+ *
+ * @return string The sanitized (lowercase) query variable.
+ */
+
+function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args = [] ) {
+  if ( $args['keep_case'] ?? 0 ) {
+    $sanitized = array_intersect( [ $var ?? 0 ], $allowed );
+  } else {
+    $sanitized = array_intersect( [ strtolower( $var ?? 0 ) ], $allowed );
+  }
+
+  return reset( $sanitized ) ?: $default;
+}
+
+// =============================================================================
 // ASPECT RATIO CSS
 // =============================================================================
 

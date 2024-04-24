@@ -224,17 +224,19 @@ function fictioneer_extend_search_query( $query ) {
   $ex_warnings = empty( $_GET['ex_warnings'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_warnings'] ) );
   $ex_tags = empty( $_GET['ex_tags'] ) ? [] : array_map( 'absint', explode( ',', $_GET['ex_tags'] ) );
 
-  $story_status = array_intersect(
-    [ $_GET['story_status'] ?? 0 ],
-    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+  $story_status = fictioneer_sanitize_query_var(
+    $_GET['story_status'] ?? 0,
+    ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $story_status = reset( $story_status ) ?: 0;
 
-  $age_rating = array_intersect(
-    [ $_GET['age_rating'] ?? 0 ],
-    ['Everyone', 'Teen', 'Mature', 'Adult']
+  $age_rating = fictioneer_sanitize_query_var(
+    $_GET['age_rating'] ?? 0,
+    ['Everyone', 'Teen', 'Mature', 'Adult'],
+    0,
+    array( 'keep_case' => 1 )
   );
-  $age_rating = reset( $age_rating ) ?: 0;
 
   // Exclude pages if necessary
   if ( $is_any_post || empty( $_GET['post_type'] ) ) {

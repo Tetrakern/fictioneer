@@ -22,11 +22,11 @@ $sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
 $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
 $orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
 
-$story_status = array_intersect(
-  [ $_GET['story_status'] ?? 0 ],
-  ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled']
+$story_status = fictioneer_sanitize_query_var(
+  $_GET['story_status'] ?? 0,
+  ['Completed', 'Ongoing', 'Oneshot', 'Hiatus', 'Canceled'],
+  0
 );
-$story_status = reset( $story_status ) ?: 0;
 
 $queried_genres = sanitize_text_field( $_GET['genres'] ?? 0 );
 $queried_fandoms = sanitize_text_field( $_GET['fandoms'] ?? 0 );

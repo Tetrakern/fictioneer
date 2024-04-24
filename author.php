@@ -28,8 +28,7 @@ if (
 $current_url = get_author_posts_url( $author_id );
 $current_tab = sanitize_key( $_GET['tab'] ?? '' );
 $current_page = get_query_var( 'pg', 1 ) ?: 1;
-$order = array_intersect( [ strtolower( $_GET['order'] ?? 0 ) ], ['desc', 'asc'] );
-$order = reset( $order ) ?: 'desc'; // Sanitized
+$order = fictioneer_sanitize_query_var( $_GET['order'] ?? 0, ['desc', 'asc'], 'desc' );
 $author_page = get_the_author_meta( 'fictioneer_author_page', $author_id );
 $author_page = $author_page > 0 ? $author_page : false;
 $author_statistics = fictioneer_get_author_statistics( $author_id );
