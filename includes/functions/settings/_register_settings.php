@@ -1018,6 +1018,14 @@ define( 'FICTIONEER_OPTIONS', array(
       'label' => __( 'List of Google Fonts links', 'fictioneer' ),
       'default' => '',
       'placeholder' => __( 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap', 'fictioneer' )
+    ),
+    'fictioneer_comment_form_selector' => array(
+      'name' => 'fictioneer_comment_form_selector',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'sanitize_text_field',
+      'label' => __( 'CSS selector for the comment form. Attempts to make scripts work with third-party comment plugin. No guarantee.', 'fictioneer' ),
+      'default' => '',
+      'placeholder' => '#comment'
     )
   )
 ));

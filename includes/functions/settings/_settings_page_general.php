@@ -532,6 +532,10 @@
               </div>
 
               <div class="fictioneer-card__row">
+                <?php fictioneer_settings_text_input( 'fictioneer_comment_form_selector' ); ?>
+              </div>
+
+              <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_commenting',
