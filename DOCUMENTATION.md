@@ -71,8 +71,6 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 
 </details>
 
-<br>
-
 <details>
   <summary>Demo Story Page</summary><br>
 
