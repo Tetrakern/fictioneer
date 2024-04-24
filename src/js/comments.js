@@ -1012,7 +1012,7 @@ function fcn_applyCommentStack(editor = null) {
     });
 
     // Resize editor if necessary
-    fcn_textareaAdjust(textarea);
+    fcn_textareaAdjust(editor);
   } else if (editor.tagName == 'DIV') {
     fcn_commentStack.forEach(node => {
       editor.innerHTML += node;
