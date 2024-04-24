@@ -30,7 +30,7 @@ function fcn_addJSTrap() {
   // Add validation field to form
   if (red) {
     red.appendChild(fcn_html`
-      <input type="hidden" id="fictioneer-comment-validator" name="fictioneer_comment_validator" value="299792458">
+      <input type="hidden" name="fictioneer_comment_validator" value="299792458">
     `);
   }
 }
@@ -364,17 +364,17 @@ function fcn_bindAJAXCommentSubmit() {
 
     // Get comment form input
     const form = e.currentTarget;
-    const button = _$$$('submit');
+    const button = form.querySelector('[name="submit"]');
     const content = _$(fictioneer_comments.form_selector ?? '#comment');
-    const author = _$$$('author');
-    const email = _$$$('email');
-    const cookie_consent = _$$$('wp-comment-cookies-consent');
-    const privacy_consent = _$$$('fictioneer-privacy-policy-consent');
-    const jsValidator = _$$$('fictioneer-comment-validator');
-    const parentId = _$$$('comment_parent').value;
+    const author = form.querySelector('[name="author"]');
+    const email = form.querySelector('[name="email"]');
+    const cookie_consent = form.querySelector('[name="wp-comment-cookies-consent"]');
+    const privacy_consent = form.querySelector('[name="fictioneer-privacy-policy-consent"]');
+    const jsValidator = form.querySelector('[name="fictioneer_comment_validator"]');
+    const parentId = form.querySelector('[name="comment_parent"]')?.value;
     const parent = _$$$(`comment-${parentId}`);
-    const private_comment = _$$$('fictioneer-private-comment-toggle');
-    const notification = _$$$('fictioneer-comment-notification-toggle');
+    const private_comment = form.querySelector('[name="fictioneer-private-comment-toggle"]');
+    const notification = form.querySelector('[name="fictioneer-comment-notification-toggle"]');
     const order = form.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
 
     let emailValidation = true;
@@ -1054,7 +1054,7 @@ _$('.fictioneer-comments')?.addEventListener('input', event => {
   }
 
   // Private comment toggle
-  if (event.target.closest('#fictioneer-private-comment-toggle')) {
+  if (event.target.closest('[name="fictioneer-private-comment-toggle"]')) {
     _$$$('respond')?.classList.toggle('_private', event.currentTarget.checked);
   }
 });
