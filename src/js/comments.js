@@ -375,6 +375,7 @@ function fcn_bindAJAXCommentSubmit() {
     const parent = _$$$(`comment-${parentId}`);
     const private_comment = _$$$('fictioneer-private-comment-toggle');
     const notification = _$$$('fictioneer-comment-notification-toggle');
+    const order = form.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
 
     let emailValidation = true;
     let contentValidation = true;
@@ -532,6 +533,10 @@ function fcn_bindAJAXCommentSubmit() {
 
         if (response.data.commentcode) {
           urlPart += `?commentcode=${response.data.commentcode}`;
+        }
+
+        if (order != 'desc') {
+          urlPart += urlPart.length > 1 ? `&corder=${order}` : `?corder=${order}`;
         }
 
         history.pushState({ path: refresh }, '', refresh + urlPart + `#comment-${response.data.comment_id}`);
