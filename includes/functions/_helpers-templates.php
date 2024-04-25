@@ -796,7 +796,7 @@ if ( ! function_exists( 'fictioneer_output_small_card_thumbnail' ) ) {
     $text_icon = $args['text_icon'] ?? '';
     $permalink = $args['permalink'] ?? get_permalink( $post_id );
     $vertical = $args['vertical'] ?? 0;
-    $lightbox = $args['lightbox'] ?? 1;
+    $lightbox = ( $args['lightbox'] ?? 1 ) && get_option( 'fictioneer_enable_lightbox' );
     $lightbox_attribute = $lightbox ? fictioneer_get_lightbox_attribute() : '';
 
     // Get sized thumbnail, full thumbnail, and img tag
