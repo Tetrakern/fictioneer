@@ -26,6 +26,7 @@
  * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']         Whether the image is rendered. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>

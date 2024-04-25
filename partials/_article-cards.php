@@ -24,6 +24,7 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies. Default 'AND'.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
+ * @internal $args['thumbnail']         Whether the image is rendered. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
