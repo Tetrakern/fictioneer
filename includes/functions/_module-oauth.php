@@ -534,7 +534,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
   function fictioneer_process_oauth_patreon( string $url, string $access_token ) {
     // Build params
     $params = '?fields' . urlencode('[user]') . '=email,first_name,image_url,is_email_verified';
-    $params .= '&fields' . urlencode('[tier]') . '=title';
+    $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
     $params .= '&include=memberships.currently_entitled_tiers';
 
     // Retrieve user data from Patreon
@@ -578,6 +578,9 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
         if ( isset( $node->type ) && $node->type == 'tier' && isset( $node->attributes->title ) ) {
           $tiers[] = array(
             'tier' => sanitize_text_field( $node->attributes->title ),
+            'description' => wp_kses_post( $node->attributes->description ?? '' ),
+            'published' => filter_var( $node->attributes->published ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ),
+            'amount_cents' => absint( $node->attributes->amount_cents ?? 0 ),
             'timestamp' => time(),
             'id' => $node->id
           );
