@@ -84,12 +84,10 @@
 
 // Desktop
 .follow-notifications {
-  position: absolute;
   right: -107px;
   background: var(--navigation-submenu-background);
-  border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
   width: 320px;
-  box-shadow: var(--navigation-submenu-box-shadow);
+  overflow: hidden;
 
   &__scroll {
     max-height: 200px; // Ensures cut-off to indicate scroll option
