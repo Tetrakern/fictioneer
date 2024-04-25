@@ -441,6 +441,11 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  */
 
 function fictioneer_bypass_password( $required, $post ) {
+  // Already passed
+  if ( ! $required ) {
+    return $required;
+  }
+
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
     return false;
