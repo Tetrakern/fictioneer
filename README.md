@@ -19,7 +19,7 @@ Fictioneer was originally developed for a closed group of authors and not intend
 
 The theme is intended for individuals and small collectives.
 
-Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Patreon](https://www.patreon.com/tetrakern), [Ko-fi](https://ko-fi.com/tetrakern) or donate via [NowPayments](https://nowpayments.io/donation/fictioneer).
+Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Patreon](https://www.patreon.com/tetrakern), [Ko-fi](https://ko-fi.com/tetrakern), or donate via [crypto donation](https://nowpayments.io/donation/fictioneer).
 
 ## Key Features
 
