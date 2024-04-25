@@ -23,6 +23,7 @@
  * @internal $args['excluded_tags']     Array of tag IDs to exclude. Default empty.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies. Default 'AND'.
+ * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
