@@ -85,8 +85,13 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
 
     // Setup
     $list = get_posts( $query_args );
+    $post = get_post( $post_id );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
+
+    if ( ! $post ) {
+      return '';
+    }
 
     // Filter out invalid chapters (faster than meta query)
     $list = array_filter( $list, function ( $post ) {
@@ -131,7 +136,7 @@ if ( ! function_exists( 'fictioneer_build_chapters_schema' ) ) {
 
     // Article node
     $schema['@graph'][] = fictioneer_get_schema_node_article(
-      'Article', $page_description, get_post( $post_id ), $image_data
+      'Article', $page_description, $post, $image_data
     );
 
     // List node

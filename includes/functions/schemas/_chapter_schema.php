@@ -62,12 +62,17 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
     }
 
     // Setup
+    $post = get_post( $post_id );
     $schema = fictioneer_get_schema_node_root();
     $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $word_count = fictioneer_get_word_count( $post_id );
     $page_description = fictioneer_get_seo_description( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
+
+    if ( ! $post ) {
+      return '';
+    }
 
     // Website node
     $schema['@graph'][] = fictioneer_get_schema_node_website();
@@ -84,7 +89,7 @@ if ( ! function_exists( 'fictioneer_build_chapter_schema' ) ) {
 
     // Article node
     $article_node = fictioneer_get_schema_node_article(
-      'Article', $page_description, get_post( $post_id ), $image_data, true
+      'Article', $page_description, $post, $image_data, true
     );
 
     if ( $word_count > 0 ) {

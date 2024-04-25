@@ -54,10 +54,15 @@ if ( ! function_exists( 'fictioneer_build_post_schema' ) ) {
     }
 
     // Setup
+    $post = get_post( $post_id );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $page_description = fictioneer_get_seo_description( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
+
+    if ( ! $post ) {
+      return '';
+    }
 
     // Website node
     $schema['@graph'][] = fictioneer_get_schema_node_website();
@@ -74,7 +79,7 @@ if ( ! function_exists( 'fictioneer_build_post_schema' ) ) {
 
     // Article node
     $schema['@graph'][] = fictioneer_get_schema_node_article(
-      ['Article', 'BlogPosting'], $page_description, get_post( $post_id ), $image_data, true
+      ['Article', 'BlogPosting'], $page_description, $post, $image_data, true
     );
 
     // Prepare and cache for next time

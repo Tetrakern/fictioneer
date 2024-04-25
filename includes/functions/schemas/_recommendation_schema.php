@@ -54,10 +54,15 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
     }
 
     // Setup
+    $post = get_post( $post_id );
     $schema = fictioneer_get_schema_node_root();
     $image_data = fictioneer_get_schema_primary_image( $post_id );
     $page_title = fictioneer_get_seo_title( $post_id, array( 'skip_cache' => true ) );
     $default_description = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
+
+    if ( ! $post ) {
+      return '';
+    }
 
     $page_description = fictioneer_get_seo_description(
       $post_id,
@@ -79,7 +84,7 @@ if ( ! function_exists( 'fictioneer_build_recommendation_schema' ) ) {
 
     // Article node
     $article_node = fictioneer_get_schema_node_article(
-      'Article', $page_description, get_post( $post_id ), $image_data, true
+      'Article', $page_description, $post, $image_data, true
     );
 
     // Override author node
