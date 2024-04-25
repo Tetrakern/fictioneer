@@ -96,12 +96,12 @@ p a,
 .content-section {
   overflow-wrap: break-word;
 
-  :is(h1, h2, h3, h4, h5, h6) {
-    &:not(:first-child, .cell-title, .card__title, .post__title) {
+  :where(h1, h2, h3, h4, h5, h6) {
+    &:where(:not(:first-child, .cell-title, .card__title, .post__title)) {
       margin-top: 2rem;
     }
 
-    &:not(:last-child, .cell-title, .card__title, .post__title) {
+    &:where(:not(:last-child, .cell-title, .card__title, .post__title)) {
       margin-bottom: var(--heading-margin-bottom, unquote('max(1.25rem, var(--paragraph-spacing) - 0.25rem)'));
     }
   }
