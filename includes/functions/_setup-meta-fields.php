@@ -536,6 +536,7 @@ function fictioneer_get_metabox_ebook( $post, $meta_key, $args = [] ) {
  *
  *   @type string $label        Label above the field.
  *   @type string $description  Description below the field.
+ *   @type string $names        Names for the values (instead of post titles).
  * }
  *
  * @return string The HTML markup for the field.
@@ -569,7 +570,11 @@ function fictioneer_get_metabox_tokens( $post, $meta_key, $options, $args = [] )
       <div class="fictioneer-meta-field__token-track" data-target="fcn-meta-field-tokens-track">
         <?php
           foreach ( $array as $token ) {
-            $name = get_the_title( $token ) ?: __( 'n/a', 'fictioneer' );
+            if ( $args['names'] ?? 0 ) {
+              $name = $args['names'][ $token ] ?? $token;
+            } else {
+              $name = get_the_title( $token ) ?: $token;
+            }
 
             echo "<span class='fictioneer-meta-field__token' data-id='{$token}'><span class='fictioneer-meta-field__token-name'>{$name}</span><button type='button' class='fictioneer-meta-field__token-button' data-id='{$token}'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' aria-hidden='true' focusable='false'><path d='M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z'></path></svg></button></span>";
           }
