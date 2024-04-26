@@ -166,7 +166,7 @@ For simplicity, here is the copied content of the [demo homepage](https://fictio
 
 </details>
 
-The demo uses some [custom page CSS](#extra-meta-fields) to change the page background. You can also do this globally under **Appearance > Customize**, but this is one way to modify individual pages.
+The demo story page uses some [custom page CSS](#extra-meta-fields) to change the page background. You can also do this globally under **Appearance > Customize**, but this is one way to modify individual pages.
 
 ```css
 .main__background {
