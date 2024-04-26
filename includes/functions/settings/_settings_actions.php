@@ -136,7 +136,9 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-chapters-appended' => __( '%s chapters have been appended.', 'fictioneer' ),
       'fictioneer-legacy-cleanup' => __( 'Performed legacy cleanups: %s.', 'fictioneer' ),
       'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
-      'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' )
+      'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' ),
+      'fictioneer-patreon-not-connected' => __( 'OAuth 2.0 authentication not enabled or Patreon client not set up.', 'fictioneer' ),
+      'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers successfully pulled.', 'fictioneer' )
     )
   );
 }
@@ -1614,7 +1616,16 @@ function fictioneer_connection_get_patreon_tiers() {
 
   // OAuth working?
   if ( ! get_option( 'fictioneer_enable_oauth' ) || ! $client_id || ! $client_secret ) {
-    wp_die( __( 'OAuth feature not enabled or not properly set up.', 'fictioneer' ) );
+    wp_safe_redirect(
+      add_query_arg(
+        array(
+          'failure' => 'fictioneer-patreon-not-connected'
+        ),
+        admin_url( 'admin.php?page=fictioneer_connections' )
+      )
+    );
+
+    exit;
   }
 
   // Prepare query params

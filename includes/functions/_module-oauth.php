@@ -434,7 +434,14 @@ function fictioneer_handle_get_patreon_tiers_oauth() {
   fictioneer_delete_expired_oauth_transients();
 
   // Redirect
-  wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_connections' ) );
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-patreon-tiers-pulled'
+      ),
+      admin_url( 'admin.php?page=fictioneer_connections' )
+    )
+  );
 
   exit;
 }
