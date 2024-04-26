@@ -1594,3 +1594,55 @@ function fictioneer_tools_append_chapters() {
 }
 add_action( 'admin_post_fictioneer_tools_append_chapters', 'fictioneer_tools_append_chapters' );
 
+// =============================================================================
+// CONNECTION ACTIONS
+// =============================================================================
+
+/**
+ * Get tiers from Patreon via OAuth
+ *
+ * @since 5.15.0
+ */
+
+function fictioneer_connection_get_patreon_tiers() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_connection_get_patreon_tiers' );
+
+  // Setup
+  $client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
+  $client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+
+  // OAuth working?
+  if ( ! get_option( 'fictioneer_enable_oauth' ) || ! $client_id || ! $client_secret ) {
+    wp_die( __( 'OAuth feature not enabled or not properly set up.', 'fictioneer' ) );
+  }
+
+  // Prepare query params
+  $params = array(
+    'response_type' => 'code',
+    'client_id' => $client_id,
+    'state' => hash( 'sha256', microtime( TRUE ) . random_bytes( 15 ) . $_SERVER['REMOTE_ADDR'] ),
+    'scope' => urlencode( 'campaigns' ),
+    'redirect_uri' => get_site_url( null, FICTIONEER_OAUTH_ENDPOINT ),
+    'force_verify' => 'true',
+    'prompt' => 'consent',
+    'access_type' => 'offline'
+  );
+
+  // Transient
+  $transient = array(
+    'state' => $params['state'],
+    'action' => 'fictioneer_connection_get_patreon_tiers'
+  );
+
+  set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 60 ); // Expires after 1 minute
+
+  // Redirect
+  wp_redirect( add_query_arg( $params, 'https://www.patreon.com/oauth2/authorize' ) );
+
+  exit();
+}
+
+if ( get_option( 'fictioneer_enable_oauth' ) ) {
+  add_action( 'admin_post_fictioneer_connection_get_patreon_tiers', 'fictioneer_connection_get_patreon_tiers' );
+}

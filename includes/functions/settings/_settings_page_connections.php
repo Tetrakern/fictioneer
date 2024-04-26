@@ -105,6 +105,8 @@
                 <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_secret' ); ?>
               </div>
 
+              <div class="fictioneer-card__row"><a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_get_patreon_tiers' ); ?>">Get Tiers</a></div>
+
             </div>
           </div>
         </div>
