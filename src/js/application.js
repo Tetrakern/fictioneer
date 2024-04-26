@@ -1739,7 +1739,7 @@ class FCN_KeywordInput {
     this.block.querySelector(`[data-value="${value}"]`)?.remove();
 
     // Remove from keywords
-    this.keywords.splice(this.keywords.indexOf(value), 1);
+    this.keywords = this.keywords.filter(item => item != value);
 
     // Update hidden collection input
     this.updateCollection();
