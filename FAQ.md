@@ -50,7 +50,7 @@ There are not. Emails are highly problematic, even simple transactional emails a
 
 ### Q: Does the Patreon plugin work with the theme?
 
-This has not been tested but most likely not.
+Apparently, yes. The design leaves to be desired, though.
 
 ### Q: Does the Jetpack plugin work with the theme?
 
