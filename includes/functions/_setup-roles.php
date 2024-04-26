@@ -470,6 +470,35 @@ function fictioneer_bypass_password( $required, $post ) {
       break;
   }
 
+  // Check Patreon tiers
+  $user = wp_get_current_user();
+
+  if ( $user && $required ) {
+    $patreon_lock_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
+    $patreon_lock_tiers = is_array( $patreon_lock_tiers ) ? $patreon_lock_tiers : [];
+    $patreon_lock_amount = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
+
+    if ( $patreon_lock_tiers || $patreon_lock_amount ) {
+      $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+      $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+
+      foreach ( $patreon_tiers as $tier ) {
+        if ( ! $tier['published'] ?? 0 ) {
+          continue;
+        }
+
+        $required = ! (
+          in_array( $tier['id'], $patreon_lock_tiers ) ||
+          $patreon_lock_amount >= ( $tier['amount_cents'] ?? 0 )
+        );
+
+        if ( ! $required ) {
+          break;
+        }
+      }
+    }
+  }
+
   // Continue filter
   return $required;
 }
