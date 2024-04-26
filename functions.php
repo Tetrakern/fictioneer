@@ -216,7 +216,7 @@ if ( ! defined( 'FICTIONEER_AJAX_POST_DEBOUNCE_RATE' ) ) {
 
 // Integer: Author search keyword limit (use simple text input if exceeded)
 if ( ! defined( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT' ) ) {
-  define( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT', 100 );
+  define( 'FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT', 200 );
 }
 
 // Integer: Update check timeout
