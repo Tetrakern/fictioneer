@@ -2988,7 +2988,7 @@ function fictioneer_render_extra_metabox( $post ) {
 
   // --- Add fields ------------------------------------------------------------
 
-  // Landscape Image
+  // Landscape image
   $output['fictioneer_landscape_image'] = fictioneer_get_metabox_image(
     $post,
     'fictioneer_landscape_image',
@@ -2999,6 +2999,7 @@ function fictioneer_render_extra_metabox( $post ) {
     )
   );
 
+  // Custom page header
   if ( current_user_can( 'fcn_custom_page_header', $post->ID ) ) {
     $output['fictioneer_custom_header_image'] = fictioneer_get_metabox_image(
       $post,
@@ -3011,6 +3012,7 @@ function fictioneer_render_extra_metabox( $post ) {
     );
   }
 
+  // Custom page CSS
   if ( current_user_can( 'fcn_custom_page_css', $post->ID ) ) {
     $output['fictioneer_custom_css'] = fictioneer_get_metabox_textarea(
       $post,
@@ -3025,6 +3027,7 @@ function fictioneer_render_extra_metabox( $post ) {
   }
 
   if ( $post->post_type === 'page' ) {
+    // Short name
     $output['fictioneer_short_name'] = fictioneer_get_metabox_text(
       $post,
       'fictioneer_short_name',
@@ -3034,6 +3037,7 @@ function fictioneer_render_extra_metabox( $post ) {
       )
     );
 
+    // Filter & Search ID
     if ( current_user_can( 'install_plugins' ) ) {
       $output['fictioneer_filter_and_search_id'] = fictioneer_get_metabox_text(
         $post,
@@ -3045,6 +3049,7 @@ function fictioneer_render_extra_metabox( $post ) {
       );
     }
 
+    // Story ID
     if ( current_user_can( 'manage_options' ) ) {
       $output['fictioneer_template_story_id'] = fictioneer_get_metabox_text(
         $post,
@@ -3057,7 +3062,7 @@ function fictioneer_render_extra_metabox( $post ) {
     }
   }
 
-  // Story Blogs
+  // Story blogs
   if ( $post->post_type === 'post' ) {
     $user_stories = get_posts(
       array(
@@ -3159,22 +3164,22 @@ function fictioneer_save_extra_metabox( $post_id ) {
   $post_author_id = get_post_field( 'post_author', $post_id );
   $fields = [];
 
-  // Landscape Image
+  // Landscape image
   if ( isset( $_POST['fictioneer_landscape_image'] ) ) {
     $fields['fictioneer_landscape_image'] = absint( $_POST['fictioneer_landscape_image'] );
   }
 
-  // Custom Page Header
+  // Custom page header
   if ( isset( $_POST['fictioneer_custom_header_image'] ) && current_user_can( 'fcn_custom_page_header', $post_id ) ) {
     $fields['fictioneer_custom_header_image'] = absint( $_POST['fictioneer_custom_header_image'] );
   }
 
-  // Custom Page CSS
+  // Custom page CSS
   if ( isset( $_POST['fictioneer_custom_css'] ) && current_user_can( 'fcn_custom_page_css', $post_id ) ) {
     $fields['fictioneer_custom_css'] = fictioneer_sanitize_css( $_POST['fictioneer_custom_css'] );
   }
 
-  // Short Name
+  // Short name
   if ( isset( $_POST['fictioneer_short_name'] ) && $post_type === 'page' ) {
     $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] );
 
@@ -3201,7 +3206,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
     }
   }
 
-  // Story Blogs
+  // Story blogs
   if ( isset( $_POST['fictioneer_post_story_blogs'] ) && $post_type === 'post' ) {
     $story_blogs = fictioneer_explode_list( $_POST['fictioneer_post_story_blogs'] );
 
