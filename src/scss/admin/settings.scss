@@ -149,6 +149,20 @@ body[class*="fictioneer_page_"] {
     }
   }
 
+  ul {
+    list-style: disc;
+    padding-left: 16px;
+    margin: 0;
+
+    li {
+      margin: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 6px;
+      }
+    }
+  }
+
   hr {
     border-top: 1px solid var(--hr-color);
     border-bottom: 0;
