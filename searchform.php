@@ -91,7 +91,9 @@ if ( $show_advanced ) {
 
   if ( ! $skip_author_keywords ) {
     foreach ( $all_authors as $author ) {
-      $allow_list[ rawurlencode( strtolower( $author->display_name ) ) ] = $author->ID;
+      $author_key = rawurlencode( strtolower( $author->display_name ) );
+
+      $allow_list[ $author_key . '_' . $author->ID ] = $author->ID;
     }
   }
 }

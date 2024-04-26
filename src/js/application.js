@@ -1698,10 +1698,15 @@ class FCN_KeywordInput {
     this.noHint.hidden = !(value != '' && count < 1);
   }
 
-  addNode(text = null) {
+  addNode(text = null, trigger = null) {
     // Get and prepare value
     const name = text ?? this.input.value.replace(',', '');
-    const value = this.allowList[this.encode(name)];
+    let value = this.allowList[this.encode(name)];
+
+    // Author names can be duplicates
+    if (this.collection.name == 'authors' && trigger) {
+      value = this.allowList[this.encode(name) + '_' + trigger.value];
+    }
 
     // Only allowed value and no duplicates
     if (!value || this.keywords.indexOf(value) > -1) {
@@ -1866,7 +1871,7 @@ class FCN_KeywordInput {
         'click',
         event => {
           clearTimeout(this.blurTimeout); // Stop blur event
-          this.addNode(event.currentTarget.innerText);
+          this.addNode(event.currentTarget.innerText, event.currentTarget);
         }
       );
     });
