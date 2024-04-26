@@ -25,7 +25,7 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_add_moderator_role' ); ?>"><?php _e( 'Add Moderator Role', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_add_moderator_role' ); ?>"><?php _e( 'Add Moderator Role', 'fictioneer' ); ?></a>
             </div>
 
             <hr>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-initialize-roles" href="<?php echo fictioneer_tool_action( 'fictioneer_initialize_roles' ); ?>"><?php _e( 'Initialize Roles', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-initialize-roles" href="<?php echo fictioneer_admin_action( 'fictioneer_initialize_roles' ); ?>"><?php _e( 'Initialize Roles', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -52,8 +52,8 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_move_story_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_duplicate_story_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_move_story_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_duplicate_story_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -70,8 +70,8 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_move_chapter_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_duplicate_chapter_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-move-tags-to-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_move_chapter_tags_to_genres' ); ?>"><?php _e( 'Tags &rarr; Genres', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-duplicate-tags-to-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_duplicate_chapter_tags_to_genres' ); ?>"><?php _e( 'Duplicate Tags &rarr; Genres', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -122,7 +122,7 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-append-default-genres" href="<?php echo fictioneer_tool_action( 'fictioneer_append_default_genres' ); ?>"><?php _e( 'Add Genres', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-append-default-genres" href="<?php echo fictioneer_admin_action( 'fictioneer_append_default_genres' ); ?>"><?php _e( 'Add Genres', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -173,8 +173,8 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="button-append-default-tags" href="<?php echo fictioneer_tool_action( 'fictioneer_append_default_tags' ); ?>"><?php _e( 'Add Tags', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" id="button-remove-unused-tags" href="<?php echo fictioneer_tool_action( 'fictioneer_remove_unused_tags' ); ?>"><?php _e( 'Remove Unused Tags', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-append-default-tags" href="<?php echo fictioneer_admin_action( 'fictioneer_append_default_tags' ); ?>"><?php _e( 'Add Tags', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="button-remove-unused-tags" href="<?php echo fictioneer_admin_action( 'fictioneer_remove_unused_tags' ); ?>"><?php _e( 'Remove Unused Tags', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -191,9 +191,9 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Scan', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_legacy_cleanup' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Legacy Cleanup', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_optimize_database_preview' ); ?>"><?php _e( 'Scan', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_optimize_database' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Optimize', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_legacy_cleanup' ); ?>" data-click="warning-dialog" data-dialog="<?php _e( 'This operation is safe, but making a database backup is still recommended to account for the unexpected.', 'fictioneer' ); ?>"><?php _e( 'Legacy Cleanup', 'fictioneer' ); ?></a>
             </div>
 
             <hr>
@@ -203,9 +203,9 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_sticky_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_sticky" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Sticky', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_story_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_hidden" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Hidden', 'fictioneer' ); ?></a>
-              <a class="button button--secondary" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_add_chapter_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_chapter_hidden" (0) meta field to every chapter. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Chapter Hidden', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_add_story_sticky_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_sticky" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Sticky', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_add_story_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_story_hidden" (0) meta field to every story. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Story Hidden', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_add_chapter_hidden_fields' ); ?>" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'You are about to append the "fictioneer_chapter_hidden" (0) meta field to every chapter. Are you sure you want that?', 'fictioneer' ); ?>"><?php _e( 'Chapter Hidden', 'fictioneer' ); ?></a>
             </div>
 
             <hr>
@@ -215,7 +215,7 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary" id="purge-theme-caches" href="<?php echo fictioneer_tool_action( 'fictioneer_tools_purge_theme_caches' ); ?>"><?php _e( 'Purge Theme Caches', 'fictioneer' ); ?></a>
+              <a class="button button--secondary" id="purge-theme-caches" href="<?php echo fictioneer_admin_action( 'fictioneer_tools_purge_theme_caches' ); ?>"><?php _e( 'Purge Theme Caches', 'fictioneer' ); ?></a>
             </div>
 
           </div>
@@ -253,13 +253,13 @@
             </div>
 
             <div class="fictioneer-card__row fictioneer-card__row--buttons">
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_users' ); ?>"><?php _e( 'Fix Users', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_stories' ); ?>"><?php _e( 'Fix Stories', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_chapters' ); ?>"><?php _e( 'Fix Chapters', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_recommendations' ); ?>"><?php _e( 'Fix Recommendations', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_collections' ); ?>"><?php _e( 'Fix Collections', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_pages' ); ?>"><?php _e( 'Fix Pages', 'fictioneer' ); ?></a>
-              <a class="button button--secondary disabled" href="<?php echo fictioneer_tool_action( 'fictioneer_fix_posts' ); ?>"><?php _e( 'Fix Posts', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_users' ); ?>"><?php _e( 'Fix Users', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_stories' ); ?>"><?php _e( 'Fix Stories', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_chapters' ); ?>"><?php _e( 'Fix Chapters', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_recommendations' ); ?>"><?php _e( 'Fix Recommendations', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_collections' ); ?>"><?php _e( 'Fix Collections', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_pages' ); ?>"><?php _e( 'Fix Pages', 'fictioneer' ); ?></a>
+              <a class="button button--secondary disabled" href="<?php echo fictioneer_admin_action( 'fictioneer_fix_posts' ); ?>"><?php _e( 'Fix Posts', 'fictioneer' ); ?></a>
             </div>
 
             <?php if ( fictioneer_caching_active( 'fictioneer_settings_tab_tools' ) ) : ?>
@@ -280,7 +280,7 @@
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--buttons">
-                <a class="button button--secondary" id="reset-post-relationship-registry" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ); ?>" href="<?php echo fictioneer_tool_action( 'fictioneer_reset_post_relationship_registry' ); ?>"><?php _e( 'Reset Registry', 'fictioneer' ); ?></a>
+                <a class="button button--secondary" id="reset-post-relationship-registry" data-click="warning-dialog" data-dialog="<?php esc_attr_e( 'Are you sure? Repopulating the registry requires re-saving every single post or page you want to be covered. Manually.', 'fictioneer' ); ?>" href="<?php echo fictioneer_admin_action( 'fictioneer_reset_post_relationship_registry' ); ?>"><?php _e( 'Reset Registry', 'fictioneer' ); ?></a>
               </div>
 
             <?php endif; ?>
