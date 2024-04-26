@@ -110,16 +110,18 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_secret' ); ?>
               </div>
 
+              <hr>
+
               <div class="fictioneer-card__row">
                 <?php _e( 'Once you have connected your Patreon client, you can pull your tiers into the theme and assign them to password-protected posts. Eligible users logged-in via Patreon can then simply access the posts. You still need to set a password and changes to tiers on Patreon are not automatically synchronized, but you can always pull them again.', 'fictioneer' ); ?>
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--buttons">
-                <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_get_patreon_tiers' ); ?>"><?php _e( 'Get Tiers', 'fictioneer' ); ?></a>
+                <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_get_patreon_tiers' ); ?>"><?php _e( 'Pull Tiers', 'fictioneer' ); ?></a>
+                <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_delete_patreon_tiers' ); ?>"><?php _e( 'Delete Tiers', 'fictioneer' ); ?></a>
               </div>
 
               <?php if ( $patreon_tiers ) : ?>
-                <hr>
                 <div class="fictioneer-card__row">
                   <p><strong><?php _e( 'Patreon Tiers', 'fictioneer' ); ?></strong></p>
                   <ul><?php

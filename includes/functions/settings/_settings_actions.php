@@ -138,7 +138,8 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
       'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' ),
       'fictioneer-patreon-not-connected' => __( 'OAuth 2.0 authentication not enabled or Patreon client not set up.', 'fictioneer' ),
-      'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers successfully pulled.', 'fictioneer' )
+      'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers have been successfully pulled.', 'fictioneer' ),
+      'fictioneer-patreon-tiers-deleted' => __( 'Patreon tiers have been deleted.', 'fictioneer' )
     )
   );
 }
@@ -1657,3 +1658,30 @@ function fictioneer_connection_get_patreon_tiers() {
 if ( get_option( 'fictioneer_enable_oauth' ) ) {
   add_action( 'admin_post_fictioneer_connection_get_patreon_tiers', 'fictioneer_connection_get_patreon_tiers' );
 }
+
+/**
+ * Delete Patreon tiers
+ *
+ * @since 5.15.0
+ */
+
+function fictioneer_connection_delete_patreon_tiers() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_connection_delete_patreon_tiers' );
+
+  // Delete option
+  delete_option( 'fictioneer_connection_patreon_tiers' );
+
+  // Redirect
+  wp_safe_redirect(
+    add_query_arg(
+      array(
+        'success' => 'fictioneer-patreon-tiers-deleted'
+      ),
+      admin_url( 'admin.php?page=fictioneer_connections' )
+    )
+  );
+
+  exit;
+}
+add_action( 'admin_post_fictioneer_connection_delete_patreon_tiers', 'fictioneer_connection_delete_patreon_tiers' );
