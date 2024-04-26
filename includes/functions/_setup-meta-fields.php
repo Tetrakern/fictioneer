@@ -3276,22 +3276,26 @@ function fictioneer_save_extra_metabox( $post_id ) {
   // Patreon tiers
   $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
   $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
   if (
     isset( $_POST['fictioneer_patreon_lock_tiers'] ) &&
     get_option( 'fictioneer_enable_oauth' ) &&
     $patreon_client_id &&
-    $patreon_client_secret
+    $patreon_client_secret &&
+    ! empty( $patreon_tiers )
   ) {
-    $patreon_tiers = fictioneer_explode_list( $_POST['fictioneer_patreon_lock_tiers'] );
+    $selected_patreon_tiers = fictioneer_explode_list( $_POST['fictioneer_patreon_lock_tiers'] );
 
     if ( ! empty( $patreon_tiers ) ) {
-      $patreon_tiers = array_map( 'absint', $patreon_tiers );
-      $patreon_tiers = array_unique( $patreon_tiers );
-      $patreon_tiers = array_map( 'strval', $patreon_tiers ); // Safer to match with LIKE in SQL
+      $selected_patreon_tiers = array_intersect( $selected_patreon_tiers, array_keys( $patreon_tiers ) );
+      $selected_patreon_tiers = array_map( 'absint', $selected_patreon_tiers );
+      $selected_patreon_tiers = array_unique( $selected_patreon_tiers );
+      $selected_patreon_tiers = array_map( 'strval', $selected_patreon_tiers ); // Safer to match with LIKE in SQL
     }
 
-    $fields['fictioneer_patreon_lock_tiers'] = $patreon_tiers;
+    $fields['fictioneer_patreon_lock_tiers'] = $selected_patreon_tiers;
   }
 
   // Checkbox: Disable new comments
