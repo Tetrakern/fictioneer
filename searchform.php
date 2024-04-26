@@ -54,7 +54,7 @@ if ( $show_advanced ) {
 
   $queried_authors_in = sanitize_text_field( $_GET['authors'] ?? 0 );
   $queried_authors_out = sanitize_text_field( $_GET['ex_authors'] ?? 0 );
-  $author_name = sanitize_text_field( $_GET['author_name'] ?? 0 ); // Simple text field
+  $author_name = sanitize_text_field( $_GET['author_name'] ?? '' ); // Simple text field
 
   $all_tags = get_tags();
   $all_genres = get_tags( array( 'taxonomy' => 'fcn_genre' ) );
