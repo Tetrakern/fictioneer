@@ -23,7 +23,7 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
     $and = sanitize_key( $_GET[ $and_var ] ?? 0, true );
     $query_list = sanitize_text_field( wp_strip_all_tags( $_GET[ $query_var ] ?? '', true ) );
     $examples = array_rand( $taxonomies, min( 5, count( $taxonomies ) ) );
-    $examples = is_array( $examples ) ? $examples : [$examples];
+    $examples = is_array( $examples ) ? $examples : [ $examples ];
 
     // Start HTML ---> ?>
     <div class="keyword-input <?php if ( empty( $query_list ) ) echo '_empty'; ?>">
@@ -205,6 +205,7 @@ function fictioneer_extend_search_query( $query ) {
   // Setup
   $tax_array = [];
   $authors = [];
+  $author_name = sanitize_text_field( $_GET['author_name'] ?? '' );
   $min_words = absint( $_GET['min_words'] ?? 0 );
   $max_words = absint( $_GET['max_words'] ?? 0 );
 
@@ -400,6 +401,15 @@ function fictioneer_extend_search_query( $query ) {
   // Extend with authors (if any)
   if ( ! empty( $authors ) ) {
     $query->set( 'author', implode( ',', $authors ) );
+  }
+
+  // Find username by display name (if any)
+  if ( ! empty( $author_name ) ) {
+    $searched_author = fictioneer_find_user_by_display_name( $author_name );
+
+    if ( $searched_author ) {
+      $query->set( 'author_name', $searched_author->user_login );
+    }
   }
 
   // Meta query
