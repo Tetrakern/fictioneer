@@ -2928,3 +2928,36 @@ if ( ! function_exists( 'fictioneer_generate_placeholder' ) ) {
     return '';
   }
 }
+
+// =============================================================================
+// FIND USER(S)
+// =============================================================================
+
+/**
+ * Find (first) user by display name
+ *
+ * @since 5.14.1
+ *
+ * @param string $display_name  The display name to search for.
+ *
+ * @return WP_User|null The first matching user or null if not found.
+ */
+
+function fictioneer_find_user_by_display_name( $display_name ) {
+  // No choice but to query all because the display name is not unique
+  $users = get_users(
+    array(
+      'search' => sanitize_user( $display_name ),
+      'search_columns' => ['display_name'],
+      'number' => 1
+    )
+  );
+
+  // If found, return first
+  if ( ! empty( $users ) ) {
+    return $users[0];
+  }
+
+  // Not found
+  return null;
+}
