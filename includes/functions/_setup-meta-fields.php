@@ -152,7 +152,7 @@ function fictioneer_get_metabox_number( $post, $meta_key, $args = [] ) {
   $args['type'] = 'number';
 
   // Call parent function
-  fictioneer_get_metabox_text( $post, $meta_key, $args );
+  return fictioneer_get_metabox_text( $post, $meta_key, $args );
 }
 
 /**
