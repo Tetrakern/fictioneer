@@ -28,6 +28,7 @@ define(
     'fcn_all_blocks',
     'fcn_story_pages',
     'fcn_edit_date',
+    'fcn_assign_patreon_tiers',
     'fcn_moderate_post_comments',
     'fcn_ignore_post_passwords',
     'fcn_ignore_page_passwords',
