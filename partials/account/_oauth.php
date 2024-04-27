@@ -69,7 +69,7 @@ $unset_oauth_prompt = sprintf(
           <span>
             <?php
               printf(
-                _x( '<b>Patreon:</b> %1$s', 'Pattern form "Patreon: {Tier}"', 'fictioneer' ),
+                _x( '<b>Patreon:</b> %s', 'Frontend Patreon tier list item.', 'fictioneer' ),
                 $tier['tier']
               );
             ?>
