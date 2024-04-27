@@ -1446,3 +1446,13 @@ Filters the intermediate output array of the `fictioneer_user_menu_items()` func
 * $bookmarks (string|null) – Optional. List item with link to the user’s bookmarks.
 * $discord (string|null) – Optional. List item with link to the site’s Discord server.
 * $logout (string) – List item with link to log out of the site.
+
+---
+
+### `apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user, $patreon_tiers )`
+Filters the check result of whether the user’s Patreon data is still valid. Because there is no continuous connection to Patreon, the data expires after a set amount of time, one week in seconds by default (defined as `FICTIONEER_PATREON_EXPIRATION_TIME`).
+
+**Parameters:**
+* $valid (boolean) – Result of the check. True if valid, false if expired.
+* $user (WP_User) – The user the check is for. Invalid if not logged in.
+* $patreon_tiers (array) – The user’s Patreon tiers. Can be empty.

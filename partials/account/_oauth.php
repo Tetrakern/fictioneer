@@ -27,8 +27,7 @@ if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
 // Setup
 $current_user = $args['user'];
 $patreon_tiers = get_user_meta( $current_user->ID, 'fictioneer_patreon_tiers', true );
-$patreon_timestamp = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
-$patreon_expired = $patreon_timestamp + FICTIONEER_PATREON_EXPIRATION_TIME < time();
+$patreon_expired = ! fictioneer_patreon_tiers_valid( $current_user );
 $oauth_providers = [
   ['discord', 'Discord'],
   ['twitch', 'Twitch'],

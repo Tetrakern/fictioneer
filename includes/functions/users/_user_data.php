@@ -709,18 +709,46 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
       return $default;
     }
 
-    // Setup
-    $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
-    $last_updated = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
-
     // Check if still valid if not empty
-    if ( time() <= $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME ) {
+    if ( fictioneer_patreon_tiers_valid( $user ) ) {
       $label = get_option( 'fictioneer_patreon_label' );
+
       return empty( $label ) ? _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' ) : $label;
     }
 
     return $default;
   }
+}
+
+/**
+ * Checks whether the user's Patreon data still valid
+ *
+ * Note: Patreon data expires after a set amount of time, one week
+ * by default defined as FICTIONEER_PATREON_EXPIRATION_TIME.
+ *
+ * @since 5.15.0
+ *
+ * @param WP_User $user  The user.
+ *
+ * @return boolean True if still valid, false if expired.
+ */
+
+function fictioneer_patreon_tiers_valid( $user ) {
+  // Abort conditions...
+  if ( ! $user ) {
+    return apply_filters( 'fictioneer_filter_user_patreon_validation', false, $user, [] );
+  }
+
+  // Setup
+  $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+  $last_updated = empty( $patreon_tiers ) ? 0 : ( $patreon_tiers[0]['timestamp'] ?? 0 );
+
+  // Check
+  $valid = time() <= $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME;
+
+  // Filter and return
+  return apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user, $patreon_tiers );
 }
 
 // =============================================================================
