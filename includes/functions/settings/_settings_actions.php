@@ -151,6 +151,11 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
  */
 
 function fictioneer_admin_settings_notices() {
+  // Abort if normal form submit
+  if ( $_GET['settings-updated'] ?? 0 ) {
+    return;
+  }
+
   // Get query vars
   $success = sanitize_text_field( $_GET['success'] ?? '' );
   $failure = sanitize_text_field( $_GET['failure'] ?? '' );
