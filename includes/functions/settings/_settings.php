@@ -487,7 +487,7 @@ function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
 function fictioneer_settings_text_input( $option, $type = 'text' ) {
   // Start HTML ---> ?>
   <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
-    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
+    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder'] ?? ''; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
     <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
   </label>
   <?php // <--- End HTML
@@ -509,7 +509,7 @@ function fictioneer_settings_array_input( $option ) {
 
   // Start HTML ---> ?>
   <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
-    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="text" id="<?php echo $option; ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off">
+    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder'] ?? ''; ?>" type="text" id="<?php echo $option; ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off">
     <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
   </label>
   <?php // <--- End HTML

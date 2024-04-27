@@ -847,7 +847,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_email',
       'label' => __( 'System email address', 'fictioneer' ),
-      'default' => '',
       'placeholder' => 'noreply@example.com'
     ),
     'fictioneer_system_email_name' => array(
@@ -855,7 +854,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
       'label' => __( 'System email name', 'fictioneer' ),
-      'default' => '',
       'placeholder' => 'Site Name'
     ),
     'fictioneer_patreon_label' => array(
@@ -863,152 +861,115 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
       'label' => __( 'Patreon badge label', 'fictioneer' ),
-      'default' => '',
       'placeholder' => _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' )
     ),
     'fictioneer_comments_notice' => array(
       'name' => 'fictioneer_comments_notice',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'wp_kses_post',
-      'label' => __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' )
     ),
     'fictioneer_discord_client_id' => array(
       'name' => 'fictioneer_discord_client_id',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Client ID', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord Client ID', 'fictioneer' )
     ),
     'fictioneer_discord_client_secret' => array(
       'name' => 'fictioneer_discord_client_secret',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord Client Secret', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord Client Secret', 'fictioneer' )
     ),
     'fictioneer_discord_channel_comments_webhook' => array(
       'name' => 'fictioneer_discord_channel_comments_webhook',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord comment channel webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord comment channel webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' )
     ),
     'fictioneer_discord_channel_stories_webhook' => array(
       'name' => 'fictioneer_discord_channel_stories_webhook',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord story channel webhook', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord story channel webhook', 'fictioneer' )
     ),
     'fictioneer_discord_channel_chapters_webhook' => array(
       'name' => 'fictioneer_discord_channel_chapters_webhook',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord chapter channel webhook', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord chapter channel webhook', 'fictioneer' )
     ),
     'fictioneer_discord_invite_link' => array(
       'name' => 'fictioneer_discord_invite_link',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Discord invite link', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Discord invite link', 'fictioneer' )
     ),
     'fictioneer_twitch_client_id' => array(
       'name' => 'fictioneer_twitch_client_id',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Twitch Client ID', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Twitch Client ID', 'fictioneer' )
     ),
     'fictioneer_twitch_client_secret' => array(
       'name' => 'fictioneer_twitch_client_secret',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Twitch Client Secret', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Twitch Client Secret', 'fictioneer' )
     ),
     'fictioneer_google_client_id' => array(
       'name' => 'fictioneer_google_client_id',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Google Client ID', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Google Client ID', 'fictioneer' )
     ),
     'fictioneer_google_client_secret' => array(
       'name' => 'fictioneer_google_client_secret',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Google Client Secret', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Google Client Secret', 'fictioneer' )
     ),
     'fictioneer_patreon_client_id' => array(
       'name' => 'fictioneer_patreon_client_id',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Patreon Client ID', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Patreon Client ID', 'fictioneer' )
     ),
     'fictioneer_patreon_client_secret' => array(
       'name' => 'fictioneer_patreon_client_secret',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Patreon Client Secret', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Patreon Client Secret', 'fictioneer' )
     ),
     'fictioneer_patreon_global_lock_tiers' => array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_list_into_unique_array',
-      'label' => __( 'Global tiers to unlock posts (comma-separated list of IDs)', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Global tiers to unlock posts (comma-separated list of IDs)', 'fictioneer' )
     ),
     'fictioneer_patreon_global_lock_amount' => array(
       'name' => 'fictioneer_patreon_global_lock_amount',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'absint',
-      'label' => __( 'Global pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Global pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' )
     ),
     'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Subitem long date format', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Subitem long date format', 'fictioneer' )
     ),
     'fictioneer_subitem_short_date_format' => array(
       'name' => 'fictioneer_subitem_short_date_format',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
-      'label' => __( 'Subitem short date format', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Subitem short date format', 'fictioneer' )
     ),
     'fictioneer_contact_email_addresses' => array(
       'name' => 'fictioneer_contact_email_addresses',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_textarea_field',
-      'label' => __( 'Contact form receivers (one email address per line)', 'fictioneer' ),
-      'default' => '',
-      'placeholder' => ''
+      'label' => __( 'Contact form receivers (one email address per line)', 'fictioneer' )
     ),
     'fictioneer_upload_mime_types' => array(
       'name' => 'fictioneer_upload_mime_types',
@@ -1039,7 +1000,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-fonts-group',
       'sanitize_callback' => 'fictioneer_sanitize_google_fonts_links',
       'label' => __( 'List of Google Fonts links', 'fictioneer' ),
-      'default' => '',
       'placeholder' => __( 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap', 'fictioneer' )
     ),
     'fictioneer_comment_form_selector' => array(
@@ -1047,7 +1007,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field',
       'label' => __( 'CSS selector for the comment form. Attempts to make scripts work with comment plugin. Clear theme cache after updating.', 'fictioneer' ),
-      'default' => '',
       'placeholder' => '#comment'
     )
   )
@@ -1124,7 +1083,7 @@ function fictioneer_register_settings() {
 
     // Ensure option exists in the database (use fallback for check)
     if ( get_option( $setting['name'], '_not_set' ) === '_not_set' ) {
-      add_option( $setting['name'], $setting['default'] );
+      add_option( $setting['name'], $setting['default'] ?? '' );
     }
   }
 }

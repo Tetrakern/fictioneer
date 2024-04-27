@@ -43,7 +43,7 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
               </div>
 
               <div class="fictioneer-card__row">
-                <textarea name="fictioneer_google_fonts_links" id="fictioneer_google_fonts_links" rows="4" placeholder="<?php echo FICTIONEER_OPTIONS['strings']['fictioneer_google_fonts_links']['placeholder']; ?>"><?php echo get_option( 'fictioneer_google_fonts_links' ); ?></textarea>
+                <textarea name="fictioneer_google_fonts_links" id="fictioneer_google_fonts_links" rows="4" placeholder="<?php echo FICTIONEER_OPTIONS['strings']['fictioneer_google_fonts_links']['placeholder'] ?? ''; ?>"><?php echo get_option( 'fictioneer_google_fonts_links' ); ?></textarea>
                 <p class="fictioneer-sub-label"><?php _e( 'Only one font per link per line.', 'fictioneer' ); ?></p>
               </div>
 
