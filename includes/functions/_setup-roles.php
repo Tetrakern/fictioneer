@@ -489,7 +489,7 @@ function fictioneer_bypass_password( $required, $post ) {
 
         $required = ! (
           in_array( $tier['id'], $patreon_lock_tiers ) ||
-          ( $patreon_lock_amount > 0 && $patreon_lock_amount <= ( $tier['amount_cents'] ?? 0 ) )
+          ( $patreon_lock_amount > 0 && ( $tier['amount_cents'] ?? 0 ) >= $patreon_lock_amount )
         );
 
         if ( ! $required ) {
