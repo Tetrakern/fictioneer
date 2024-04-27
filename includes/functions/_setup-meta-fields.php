@@ -3134,50 +3134,52 @@ function fictioneer_render_extra_metabox( $post ) {
     }
   }
 
-  // Patreon
-  $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
-  $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+  // Patreon (admin only)
+  if ( current_user_can( 'manage_options' ) ) {
+    $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
+    $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
 
-  if ( get_option( 'fictioneer_enable_oauth' ) && $patreon_client_id && $patreon_client_secret ) {
-    $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
-    $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+    if ( get_option( 'fictioneer_enable_oauth' ) && $patreon_client_id && $patreon_client_secret ) {
+      $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+      $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
-    if ( ! empty( $patreon_tiers ) ) {
-      $tier_options = array( '0' => __( '— Tier —', 'fictioneer' ) );
+      if ( ! empty( $patreon_tiers ) ) {
+        $tier_options = array( '0' => __( '— Tier —', 'fictioneer' ) );
 
-      foreach ( $patreon_tiers as $tier ) {
-        $tier_options[ $tier['id'] ] = sprintf(
-          _x( '%s (%s)', 'Patreon tier meta field token (title and amount_cents).', 'fictioneer' ),
-          $tier['title'],
-          $tier['amount_cents']
+        foreach ( $patreon_tiers as $tier ) {
+          $tier_options[ $tier['id'] ] = sprintf(
+            _x( '%s (%s)', 'Patreon tier meta field token (title and amount_cents).', 'fictioneer' ),
+            $tier['title'],
+            $tier['amount_cents']
+          );
+        }
+
+        // Tiers
+        $output['fictioneer_patreon_lock_tiers'] = fictioneer_get_metabox_tokens(
+          $post,
+          'fictioneer_patreon_lock_tiers',
+          $tier_options,
+          array(
+            'label' => _x( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' ),
+            'description' => __( 'Select which tiers ignore the password.', 'fictioneer' ),
+            'names' => $tier_options
+          )
+        );
+
+        // Threshold
+        $output['fictioneer_patreon_lock_amount'] = fictioneer_get_metabox_number(
+          $post,
+          'fictioneer_patreon_lock_amount',
+          array(
+            'label' => _x( 'Patreon Amount Cents', 'Patreon amount cents meta field label.', 'fictioneer' ),
+            'description' => __( 'Monetary threshold to ignore password.', 'fictioneer' ),
+            'placeholder' => '0',
+            'attributes' => array(
+              'min="0"'
+            )
+          )
         );
       }
-
-      // Tiers
-      $output['fictioneer_patreon_lock_tiers'] = fictioneer_get_metabox_tokens(
-        $post,
-        'fictioneer_patreon_lock_tiers',
-        $tier_options,
-        array(
-          'label' => _x( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' ),
-          'description' => __( 'Select which tiers ignore the password.', 'fictioneer' ),
-          'names' => $tier_options
-        )
-      );
-
-      // Threshold
-      $output['fictioneer_patreon_lock_amount'] = fictioneer_get_metabox_number(
-        $post,
-        'fictioneer_patreon_lock_amount',
-        array(
-          'label' => _x( 'Patreon Amount Cents', 'Patreon amount cents meta field label.', 'fictioneer' ),
-          'description' => __( 'Monetary threshold to ignore password.', 'fictioneer' ),
-          'placeholder' => '0',
-          'attributes' => array(
-            'min="0"'
-          )
-        )
-      );
     }
   }
 
@@ -3322,30 +3324,32 @@ function fictioneer_save_extra_metabox( $post_id ) {
     $fields['fictioneer_post_story_blogs'] = $story_blogs;
   }
 
-  // Patreon
-  $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
-  $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
-  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
-  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+  // Patreon (admin only)
+  if ( current_user_can( 'manage_options' ) ) {
+    $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
+    $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+    $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+    $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
-  if ( get_option( 'fictioneer_enable_oauth' ) && $patreon_client_id && $patreon_client_secret && $patreon_tiers ) {
-    // Tiers
-    if ( isset( $_POST['fictioneer_patreon_lock_tiers'] ) ) {
-      $selected_patreon_tiers = fictioneer_explode_list( $_POST['fictioneer_patreon_lock_tiers'] );
+    if ( get_option( 'fictioneer_enable_oauth' ) && $patreon_client_id && $patreon_client_secret && $patreon_tiers ) {
+      // Tiers
+      if ( isset( $_POST['fictioneer_patreon_lock_tiers'] ) ) {
+        $selected_patreon_tiers = fictioneer_explode_list( $_POST['fictioneer_patreon_lock_tiers'] );
 
-      if ( ! empty( $patreon_tiers ) ) {
-        $selected_patreon_tiers = array_intersect( $selected_patreon_tiers, array_keys( $patreon_tiers ) );
-        $selected_patreon_tiers = array_map( 'absint', $selected_patreon_tiers );
-        $selected_patreon_tiers = array_unique( $selected_patreon_tiers );
-        $selected_patreon_tiers = array_map( 'strval', $selected_patreon_tiers ); // Safer to match with LIKE in SQL
+        if ( ! empty( $patreon_tiers ) ) {
+          $selected_patreon_tiers = array_intersect( $selected_patreon_tiers, array_keys( $patreon_tiers ) );
+          $selected_patreon_tiers = array_map( 'absint', $selected_patreon_tiers );
+          $selected_patreon_tiers = array_unique( $selected_patreon_tiers );
+          $selected_patreon_tiers = array_map( 'strval', $selected_patreon_tiers ); // Safer to match with LIKE in SQL
+        }
+
+        $fields['fictioneer_patreon_lock_tiers'] = $selected_patreon_tiers;
       }
 
-      $fields['fictioneer_patreon_lock_tiers'] = $selected_patreon_tiers;
-    }
-
-    // Threshold
-    if ( isset( $_POST['fictioneer_patreon_lock_amount'] ) ) {
-      $fields['fictioneer_patreon_lock_amount'] = absint( $_POST['fictioneer_patreon_lock_amount'] );
+      // Threshold
+      if ( isset( $_POST['fictioneer_patreon_lock_amount'] ) ) {
+        $fields['fictioneer_patreon_lock_amount'] = absint( $_POST['fictioneer_patreon_lock_amount'] );
+      }
     }
   }
 
