@@ -433,6 +433,7 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  * Exceptions for post passwords
  *
  * @since 5.12.3
+ * @since 5.15.0 - Add Patreon checks.
  *
  * @param bool    $required  Whether the user needs to supply a password.
  * @param WP_Post $post      Post object.
@@ -450,6 +451,9 @@ function fictioneer_bypass_password( $required, $post ) {
   if ( current_user_can( 'manage_options' ) ) {
     return false;
   }
+
+  // Setup
+  $user = wp_get_current_user();
 
   // Check capability per post type...
   switch ( $post->post_type ?? 0 ) {
@@ -471,17 +475,20 @@ function fictioneer_bypass_password( $required, $post ) {
   }
 
   // Check Patreon tiers
-  $user = wp_get_current_user();
-
-  if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) ) {
+  if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) && fictioneer_patreon_tiers_valid( $user ) ) {
+    $patreon_global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
+    $patreon_global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
     $patreon_post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
     $patreon_post_tiers = is_array( $patreon_post_tiers ) ? $patreon_post_tiers : [];
     $patreon_post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
 
-    if (
-      ( $patreon_post_tiers || $patreon_post_amount_cents ) &&
-      fictioneer_patreon_tiers_valid( $user )
-    ) {
+    $patreon_check_tiers = array_merge( $patreon_global_tiers, $patreon_post_tiers );
+    $patreon_check_amount_cents = max( $patreon_global_amount_cents, $patreon_post_amount_cents, 0 );
+
+    // If there is anything to check...
+    if ( $patreon_check_tiers || $patreon_check_amount_cents > 0 ) {
+      $patreon_check_amount_cents = $patreon_check_amount_cents < 1 ? 999999999999 : $patreon_check_amount_cents;
+
       $patreon_user_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
       $patreon_user_tiers = is_array( $patreon_user_tiers ) ? $patreon_user_tiers : [];
 
@@ -491,8 +498,8 @@ function fictioneer_bypass_password( $required, $post ) {
         }
 
         $required = ! (
-          in_array( $tier['id'], $patreon_post_tiers ) ||
-          ( $patreon_post_amount_cents > 0 && ( $tier['amount_cents'] ?? 0 ) >= $patreon_post_amount_cents )
+          in_array( $tier['id'], $patreon_check_tiers ) ||
+          ( $tier['amount_cents'] ?? 0 ) >= $patreon_check_amount_cents
         );
 
         if ( ! $required ) {
