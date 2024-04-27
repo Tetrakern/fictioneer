@@ -1280,6 +1280,50 @@ function fictioneer_sanitize_google_fonts_links( $value ) {
   return implode( "\n", array_unique( $valid_links ) );
 }
 
+/**
+ * Sanitizes a comme-separated list into array
+ *
+ * @since 5.15.0
+ *
+ * @param string $input  The comma-separated list.
+ * @param array $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type bool $unique  Run array through array_unique(). Default false.
+ *   @type bool $absint  Run all elements through absint(). Default false.
+ * }
+ *
+ * @return array The comma-separated list turned array.
+ */
+
+function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
+  $input = fictioneer_explode_list( sanitize_textarea_field( $input ) );
+
+  if ( $args['absint'] ?? 0 ) {
+    $input = array_filter( $input, 'absint' );
+  }
+
+  if ( $args['unique'] ?? 0 ) {
+    $input = array_unique( $input );
+  }
+
+  return $input;
+}
+
+/**
+ * Sanitizes a comme-separated list into unique array
+ *
+ * @since 5.15.0
+ *
+ * @param string $input  The comma-separated list.
+ *
+ * @return array The comma-separated list turned array (unique items).
+ */
+
+function fictioneer_sanitize_list_into_unique_array( $input ) {
+  return fictioneer_sanitize_list_into_array( $input, array( 'unique' => 1 ) );
+}
+
 // =============================================================================
 // SANITIZE OPTION FILTERS
 // =============================================================================
