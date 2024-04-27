@@ -711,77 +711,77 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_user_profile_page' => array(
       'name' => 'fictioneer_user_profile_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Account page (Template: User Profile) &bull; Do not cache!', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_bookmarks_page' => array(
       'name' => 'fictioneer_bookmarks_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Bookmarks page (Template: Bookmarks)', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_stories_page' => array(
       'name' => 'fictioneer_stories_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Stories page (Template: Stories)', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_chapters_page' => array(
       'name' => 'fictioneer_chapters_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Chapters page (Template: Chapters)', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_recommendations_page' => array(
       'name' => 'fictioneer_recommendations_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Recommendations page (Template: Recommendations)', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_collections_page' => array(
       'name' => 'fictioneer_collections_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Collections page (Template: Collections)', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_bookshelf_page' => array(
       'name' => 'fictioneer_bookshelf_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( 'Bookshelf page (Template: Bookshelf) &bull; Do not cache!', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_404_page' => array(
       'name' => 'fictioneer_404_page',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_page_id',
+      'sanitize_callback' => 'fictioneer_sanitize_page_id',
       'label' => __( '404 page &bull; Add content to your 404 page, make it useful!', 'fictioneer' ),
       'default' => -1
     ),
     'fictioneer_comment_report_threshold' => array(
       'name' => 'fictioneer_comment_report_threshold',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_integer_one_up',
+      'sanitize_callback' => 'fictioneer_sanitize_integer_one_up',
       'label' => __( 'Automatic moderation report threshold.', 'fictioneer' ),
       'default' => 10
     ),
     'fictioneer_comment_link_limit_threshold' => array(
       'name' => 'fictioneer_comment_link_limit_threshold',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_integer_one_up',
+      'sanitize_callback' => 'fictioneer_sanitize_integer_one_up',
       'label' => __( 'Comment link limit.', 'fictioneer' ),
       'default' => 5
     ),
     'fictioneer_words_per_minute' => array(
       'name' => 'fictioneer_words_per_minute',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_words_per_minute',
+      'sanitize_callback' => 'fictioneer_sanitize_words_per_minute',
       'label' => __( 'Calculate reading time with [n] words per minute.', 'fictioneer' ),
       'default' => 200
     ),
@@ -829,7 +829,7 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_phrase_cookie_consent_banner' => array(
       'name' => 'fictioneer_phrase_cookie_consent_banner',
       'group' => 'fictioneer-settings-phrases-group',
-      'sanitize_callback' => 'fictioneer_validate_phrase_cookie_consent_banner',
+      'sanitize_callback' => 'fictioneer_sanitize_phrase_cookie_consent_banner',
       'label' => __( 'Cookie consent banner', 'fictioneer' ),
       'default' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' ),
       'placeholder' => __( 'We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. Some features are not available without, but you can limit the site to strictly necessary cookies only. See <a href="[[privacy_policy_url]]" target="_blank" tabindex="1">Privacy Policy</a>.', 'fictioneer' )
@@ -845,7 +845,7 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_system_email_address' => array(
       'name' => 'fictioneer_system_email_address',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_validate_email_address',
+      'sanitize_callback' => 'sanitize_email',
       'label' => __( 'System email address', 'fictioneer' ),
       'default' => '',
       'placeholder' => 'noreply@example.com'
@@ -1134,7 +1134,7 @@ function fictioneer_register_settings() {
 // =============================================================================
 
 /**
- * Validates the 'words per minute' setting with fallback
+ * Sanitizes the 'words per minute' setting with fallback
  *
  * @since 4.0.0
  * @see fictioneer_sanitize_integer()
@@ -1144,12 +1144,12 @@ function fictioneer_register_settings() {
  * @return int The sanitized integer.
  */
 
-function fictioneer_validate_words_per_minute( $input ) {
+function fictioneer_sanitize_words_per_minute( $input ) {
   return fictioneer_sanitize_integer( $input, 200 );
 }
 
 /**
- * Validates integer to be 1 or more
+ * Sanitizes integer to be 1 or more
  *
  * @since 4.6.0
  * @see fictioneer_sanitize_integer()
@@ -1159,12 +1159,12 @@ function fictioneer_validate_words_per_minute( $input ) {
  * @return int The sanitized integer.
  */
 
-function fictioneer_validate_integer_one_up( $input ) {
+function fictioneer_sanitize_integer_one_up( $input ) {
   return fictioneer_sanitize_integer( $input, 1, 1 );
 }
 
 /**
- * Checks whether an ID is a valid page ID
+ * Sanitizes a page ID and checks whether it is valid
  *
  * @since 4.6.0
  *
@@ -1173,28 +1173,12 @@ function fictioneer_validate_integer_one_up( $input ) {
  * @return int The sanitized page ID or -1 if not a page.
  */
 
-function fictioneer_validate_page_id( $input ) {
+function fictioneer_sanitize_page_id( $input ) {
   return get_post_type( intval( $input ) ) == 'page' ? intval( $input ) : -1;
 }
 
 /**
- * Validates an email address
- *
- * @since 4.6.0
- * @see sanitize_email()
- *
- * @param int $input  The email address to be sanitized.
- *
- * @return string The email address if valid or an empty string if not.
- */
-
-function fictioneer_validate_email_address( $input ) {
-  $email = sanitize_email( $input );
-  return $email ? $email : '';
-}
-
-/**
- * Validates the phrase for the cookie consent banner
+ * Sanitizes the phrase for the cookie consent banner
  *
  * Checks whether the input is a string and has at least 32 characters,
  * otherwise a default is returned. The content is also cleaned of any
@@ -1208,7 +1192,7 @@ function fictioneer_validate_email_address( $input ) {
  * @return string The sanitized content for the cookie consent banner.
  */
 
-function fictioneer_validate_phrase_cookie_consent_banner( $input ) {
+function fictioneer_sanitize_phrase_cookie_consent_banner( $input ) {
   global $allowedtags;
 
   // Setup
