@@ -1677,6 +1677,9 @@ function fictioneer_connection_delete_patreon_tiers() {
   // Delete option
   delete_option( 'fictioneer_connection_patreon_tiers' );
 
+  // Log
+  fictioneer_log( __( 'Deleted global Patreon tiers.', 'fictioneer' ) );
+
   // Redirect
   wp_safe_redirect(
     add_query_arg(

@@ -412,7 +412,9 @@ define(
     'fictioneer_google_client_id',
     'fictioneer_google_client_secret',
     'fictioneer_patreon_client_id',
-    'fictioneer_patreon_client_secret'
+    'fictioneer_patreon_client_secret',
+    'fictioneer_patreon_global_lock_tiers',
+    'fictioneer_patreon_global_lock_amount'
   )
 );
 
