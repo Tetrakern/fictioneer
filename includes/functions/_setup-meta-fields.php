@@ -127,6 +127,35 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
 }
 
 /**
+ * Returns HTML for a number input meta field
+ *
+ * @since 5.15.0
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type string $placeholder  Placeholder text.
+ *   @type string $maxlength    Maxlength attribute.
+ *   @type bool   $required     Whether the field is required. Default false.
+ *   @type array  $attributes   Additional attributes.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_number( $post, $meta_key, $args = [] ) {
+  // Set type
+  $args['type'] = 'number';
+
+  // Call parent function
+  fictioneer_get_metabox_text( $post, $meta_key, $args );
+}
+
+/**
  * Returns HTML for a URL meta field
  *
  * @since 5.7.4
