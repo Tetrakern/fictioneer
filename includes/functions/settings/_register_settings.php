@@ -970,6 +970,22 @@ define( 'FICTIONEER_OPTIONS', array(
       'default' => '',
       'placeholder' => ''
     ),
+    'fictioneer_patreon_global_lock_tiers' => array(
+      'name' => 'fictioneer_patreon_global_lock_tiers',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_list_into_unique_array',
+      'label' => __( 'Global tiers to unlock posts (comma-separated list of IDs)', 'fictioneer' ),
+      'default' => '',
+      'placeholder' => ''
+    ),
+    'fictioneer_patreon_global_lock_amount' => array(
+      'name' => 'fictioneer_patreon_global_lock_amount',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'absint',
+      'label' => __( 'Global pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' ),
+      'default' => '',
+      'placeholder' => ''
+    ),
     'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
       'group' => 'fictioneer-settings-general-group',

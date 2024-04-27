@@ -116,6 +116,14 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 <?php _e( 'You can pull your tiers into the theme and assign them to posts, allowing eligible users to ignore passwords. Pledge thresholds work too. You still ned to set a password, changes on Patreon are <b>not</b> automatically pulled, and this only works for one campaign.', 'fictioneer' ); ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php fictioneer_settings_array_input( 'fictioneer_patreon_global_lock_tiers' ); ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_global_lock_amount' ); ?>
+              </div>
+
               <div class="fictioneer-card__row fictioneer-card__row--buttons">
                 <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_get_patreon_tiers' ); ?>"><?php _e( 'Pull Tiers', 'fictioneer' ); ?></a>
                 <a class="button button--secondary" href="<?php echo fictioneer_admin_action( 'fictioneer_connection_delete_patreon_tiers' ); ?>"><?php _e( 'Delete Tiers', 'fictioneer' ); ?></a>
