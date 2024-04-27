@@ -649,6 +649,7 @@ body[class*="fictioneer_page_"] {
     overflow: scroll;
 
     &__item {
+      list-style: none;
       white-space: nowrap;
       margin-bottom: 4px;
     }
