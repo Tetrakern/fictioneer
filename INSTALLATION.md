@@ -1441,6 +1441,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_REQUESTS_PER_MINUTE | integer | Maximum requests per minute and action if the rate limit is enabled. Default `5`.
 | FICTIONEER_QUERY_ID_ARRAY_LIMIT | integer | Maximum allowed IDs in 'post__{not}_in' query arguments. Default `100`.
 | FICTIONEER_OLD_POST_THRESHOLD | integer | Age of published post that is considered "old" in seconds. Default `30`.
+| FICTIONEER_PATREON_EXPIRATION_TIME | integer | Time until a user’s Patreon data expires in seconds. Default `WEEK_IN_SECONDS`.
 | FICTIONEER_CACHE_PURGE_ASSIST | boolean | Whether to call the cache purge assist function on post updates. Default `true`.
 | FICTIONEER_RELATIONSHIP_PURGE_ASSIST | boolean | Whether to purge related post caches. Default `true`.
 | FICTIONEER_CHAPTER_LIST_TRANSIENTS | boolean | Whether to cache chapter lists on story pages as Transients. Default `true`.

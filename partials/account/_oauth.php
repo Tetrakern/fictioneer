@@ -28,7 +28,7 @@ if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
 $current_user = $args['user'];
 $patreon_tiers = get_user_meta( $current_user->ID, 'fictioneer_patreon_tiers', true );
 $patreon_timestamp = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
-$patreon_expired = $patreon_timestamp + WEEK_IN_SECONDS * 2 < time();
+$patreon_expired = $patreon_timestamp + FICTIONEER_PATREON_EXPIRATION_TIME < time();
 $oauth_providers = [
   ['discord', 'Discord'],
   ['twitch', 'Twitch'],
@@ -56,7 +56,7 @@ $unset_oauth_prompt = sprintf(
     <ul class="profile__admin-notes">
       <li>
         <i class="fa-solid fa-hourglass-end"></i>
-        <span><?php _e( '<b>Patreon:</b> Data expires after two weeks. Log in with Patreon again to refresh.', 'fictioneer' ); ?></span>
+        <span><?php _e( '<b>Patreon:</b> Data expired. Log in with Patreon again to refresh.', 'fictioneer' ); ?></span>
       </li>
     </ul>
   <?php endif; ?>

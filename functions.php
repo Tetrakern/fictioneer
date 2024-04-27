@@ -271,6 +271,11 @@ if ( ! defined( 'FICTIONEER_OLD_POST_THRESHOLD' ) ) {
   define( 'FICTIONEER_OLD_POST_THRESHOLD', 30 );
 }
 
+// Integer: Time until a user's Patreon data expires in seconds
+if ( ! defined( 'FICTIONEER_PATREON_EXPIRATION_TIME' ) ) {
+  define( 'FICTIONEER_PATREON_EXPIRATION_TIME', WEEK_IN_SECONDS );
+}
+
 /*
  * Booleans
  */

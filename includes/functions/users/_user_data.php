@@ -713,8 +713,8 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
     $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
     $last_updated = is_array( $patreon_tiers ) ? ( $patreon_tiers[0]['timestamp'] ?? 0 ) : 0;
 
-    // Check if still valid (two weeks since last login) if not empty
-    if ( time() <= $last_updated + WEEK_IN_SECONDS * 2 ) {
+    // Check if still valid if not empty
+    if ( time() <= $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME ) {
       $label = get_option( 'fictioneer_patreon_label' );
       return empty( $label ) ? _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' ) : $label;
     }
