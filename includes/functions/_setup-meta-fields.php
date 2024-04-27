@@ -67,9 +67,10 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
 }
 
 /**
- * Returns HTML for a text meta field
+ * Returns HTML for a text input meta field
  *
  * @since 5.7.4
+ * @since 5.15.0 - Added additional optional arguments.
  *
  * @param WP_Post $post      The post.
  * @param string  $meta_key  The meta key.
@@ -79,7 +80,10 @@ function fictioneer_get_metabox_checkbox( $post, $meta_key, $label, $args = [] )
  *   @type string $label        Label above the field.
  *   @type string $description  Description below the field.
  *   @type string $placeholder  Placeholder text.
+ *   @type string $type         Type of the input. Default 'text'.
+ *   @type string $maxlength    Maxlength attribute.
  *   @type bool   $required     Whether the field is required. Default false.
+ *   @type array  $attributes   Additional attributes.
  * }
  *
  * @return string The HTML markup for the field.
@@ -91,6 +95,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
   $label = strval( $args['label'] ?? '' );
   $description = strval( $args['description'] ?? '' );
   $placeholder = strval( $args['placeholder'] ?? '' );
+  $type = $args['type'] ?? 'text';
   $required = ( $args['required'] ?? 0 ) ? 'required' : '';
   $data_required = $required ? 'data-required="true"' : '';
   $maxlength = isset( $args['maxlength'] ) ? 'maxlength="' . $args['maxlength'] . '"' : '';
@@ -108,7 +113,7 @@ function fictioneer_get_metabox_text( $post, $meta_key, $args = [] ) {
     <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
 
     <div class="fictioneer-meta-field__wrapper">
-      <input type="text" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $attributes; ?> <?php echo $required; ?>>
+      <input type="<?php echo $type; ?>" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" placeholder="<?php echo $placeholder; ?>" autocomplete="off" <?php echo $maxlength; ?> <?php echo $attributes; ?> <?php echo $required; ?>>
     </div>
 
     <?php if ( $description ) : ?>
