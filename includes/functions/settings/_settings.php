@@ -494,6 +494,28 @@ function fictioneer_settings_text_input( $option, $type = 'text' ) {
 }
 
 /**
+ * Renders a label-wrapped setting text field for comma-separated values
+ *
+ * @since 5.15.0
+ *
+ * @param string $option  The name of the setting option.
+ */
+
+function fictioneer_settings_array_input( $option ) {
+  // Setup
+  $value = get_option( $option, [] ) ?: [];
+  $value = is_array( $value ) ? $value : [];
+  $value = implode( ', ', $value );
+
+  // Start HTML ---> ?>
+  <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
+    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder']; ?>" type="text" id="<?php echo $option; ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off">
+    <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+  </label>
+  <?php // <--- End HTML
+}
+
+/**
  * Renders a setting textarea
  *
  * @since 5.7.2
