@@ -138,7 +138,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
       'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' ),
       'fictioneer-patreon-not-connected' => __( 'OAuth 2.0 authentication not enabled or Patreon client not set up.', 'fictioneer' ),
-      'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers have been successfully pulled.', 'fictioneer' ),
+      'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers have been pulled successfully.', 'fictioneer' ),
       'fictioneer-patreon-tiers-deleted' => __( 'Patreon tiers have been deleted.', 'fictioneer' )
     )
   );

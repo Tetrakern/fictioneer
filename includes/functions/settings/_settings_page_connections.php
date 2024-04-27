@@ -113,7 +113,7 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
               <hr>
 
               <div class="fictioneer-card__row">
-                <?php _e( 'Once you have connected your Patreon client, you can pull your tiers into the theme and assign them to password-protected posts. Eligible users logged-in via Patreon can then simply access the posts. You still need to set a password and changes to tiers on Patreon are not automatically synchronized, but you can always pull them again.', 'fictioneer' ); ?>
+                <?php _e( 'You can pull your tiers into the theme and assign them to posts, allowing eligible users to ignore passwords. Pledge thresholds work too. You still ned to set a password, changes on Patreon are <b>not</b> automatically pulled, and this only works for one campaign.', 'fictioneer' ); ?>
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--buttons">

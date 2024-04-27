@@ -478,6 +478,7 @@ function fictioneer_bypass_password( $required, $post ) {
   if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) && fictioneer_patreon_tiers_valid( $user ) ) {
     $patreon_global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
     $patreon_global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
+
     $patreon_post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
     $patreon_post_tiers = is_array( $patreon_post_tiers ) ? $patreon_post_tiers : [];
     $patreon_post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
