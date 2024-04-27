@@ -3135,7 +3135,7 @@ function fictioneer_render_extra_metabox( $post ) {
   }
 
   // Patreon (admin only)
-  if ( current_user_can( 'manage_options' ) ) {
+  if ( current_user_can( 'manage_options' ) && get_option( 'fictioneer_enable_patreon_locks' ) ) {
     $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
     $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
 
@@ -3325,7 +3325,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
   }
 
   // Patreon (admin only)
-  if ( current_user_can( 'manage_options' ) ) {
+  if ( current_user_can( 'manage_options' ) && get_option( 'fictioneer_enable_patreon_locks' ) ) {
     $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
     $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
     $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );

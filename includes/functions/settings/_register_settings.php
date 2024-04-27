@@ -698,6 +698,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_enable_patreon_locks' => array(
+      'name' => 'fictioneer_enable_patreon_locks',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Enable Patreon tiers to unlock protected posts', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(

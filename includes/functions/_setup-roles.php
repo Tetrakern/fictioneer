@@ -473,7 +473,7 @@ function fictioneer_bypass_password( $required, $post ) {
   // Check Patreon tiers
   $user = wp_get_current_user();
 
-  if ( $user && $required ) {
+  if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) ) {
     $patreon_lock_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
     $patreon_lock_tiers = is_array( $patreon_lock_tiers ) ? $patreon_lock_tiers : [];
     $patreon_lock_amount = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );

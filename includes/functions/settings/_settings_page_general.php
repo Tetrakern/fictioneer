@@ -422,6 +422,15 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_patreon_locks',
+                    __( 'Requires OAuth 2.0 application for Patreon. Allows eligible logged-in supporters to ignore post passwords.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_lightbox',
                     __( 'Enlarge images in floating container on click.', 'fictioneer' )
                   );
