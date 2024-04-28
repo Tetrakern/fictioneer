@@ -703,7 +703,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_enable_patreon_locks',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Enable Patreon tiers to unlock protected posts', 'fictioneer' ),
+      'label' => __( 'Enable Patreon content gate', 'fictioneer' ),
       'default' => 0
     ),
     'fictioneer_hide_password_form_with_patreon' => array(
