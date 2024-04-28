@@ -3035,6 +3035,7 @@ function fictioneer_get_patreon_data( $post = null ) {
   $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
   $post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
   $check_tiers = array_merge( $global_tiers, $post_tiers );
+  $check_tiers = array_unique( $check_tiers );
   $check_amount_cents = $post_amount_cents > 0 ? $post_amount_cents : $global_amount_cents;
   $check_amount_cents = $post_amount_cents > 0 && $global_amount_cents > 0
     ? min( $post_amount_cents, $global_amount_cents ) : $check_amount_cents;
