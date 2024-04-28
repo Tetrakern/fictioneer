@@ -3029,19 +3029,22 @@ function fictioneer_get_patreon_data( $post = null ) {
   }
 
   // Setup
-  $patreon_global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
-  $patreon_global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
-  $patreon_post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
-  $patreon_post_tiers = is_array( $patreon_post_tiers ) ? $patreon_post_tiers : [];
-  $patreon_post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
-  $patreon_check_tiers = array_merge( $patreon_global_tiers, $patreon_post_tiers );
-  $patreon_check_amount_cents = max( min( $patreon_global_amount_cents, $patreon_post_amount_cents ), 0 );
+  $global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
+  $global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
+  $post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
+  $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
+  $post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
+  $check_tiers = array_merge( $global_tiers, $post_tiers );
+  $check_amount_cents = $post_amount_cents > 0 ? $post_amount_cents : $global_amount_cents;
+  $check_amount_cents = $post_amount_cents > 0 && $global_amount_cents > 0
+    ? min( $post_amount_cents, $global_amount_cents ) : $check_amount_cents;
+  $check_amount_cents = max( $check_amount_cents, 0 );
 
   // Compile
   $data = array(
-    'gated' => $patreon_check_tiers || $patreon_check_amount_cents > 0,
-    'gate_tiers' => $patreon_check_tiers,
-    'gate_cents' => $patreon_check_amount_cents,
+    'gated' => $check_tiers || $check_amount_cents > 0,
+    'gate_tiers' => $check_tiers,
+    'gate_cents' => $check_amount_cents,
   );
 
   // Cache
