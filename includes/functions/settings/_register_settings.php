@@ -705,6 +705,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'label' => __( 'Enable Patreon tiers to unlock protected posts', 'fictioneer' ),
       'default' => 0
+    ),
+    'fictioneer_hide_password_form_with_patreon' => array(
+      'name' => 'fictioneer_hide_password_form_with_patreon',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'label' => __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
+      'default' => 0
     )
   ),
   'integers' => array(

@@ -473,10 +473,23 @@ add_filter( 'render_block', 'fictioneer_download_block_wrapper', 10, 2 );
 function fictioneer_password_form() {
   global $post;
 
+  // Return empty if...
+  if ( get_option( 'fictioneer_hide_password_form_with_patreon' ) ) {
+    $patreon_post_data = fictioneer_get_patreon_data( $post );
+
+    if ( $patreon_post_data['gated'] ) {
+      return '';
+    }
+  }
+
+  // Setup
   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID . '-' . rand() );
 
+  // Default password form
   $form = '<form class="post-password-form" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post"><div><i class="fa-solid fa-lock icon-password-form"></i><div class="password-wrapper"><input name="post_password" id="' . $label . '" type="password" required size="20" placeholder="' . esc_attr__( 'Password', 'fictioneer' ) . '"></div><div class="password-submit"><input type="submit" name="Submit" value="' . esc_attr__( 'Unlock' ) . '" /><input type="hidden" name="_wp_http_referer" value="' . esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ) . '"></div></div></form>';
 
+  // Continue filter
+  return $form;
   return $form;
 }
 add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
