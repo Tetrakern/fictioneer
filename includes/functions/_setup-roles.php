@@ -487,10 +487,6 @@ function fictioneer_bypass_password( $required, $post ) {
       $patreon_user_tiers = is_array( $patreon_user_tiers ) ? $patreon_user_tiers : [];
 
       foreach ( $patreon_user_tiers as $tier ) {
-        if ( ! $tier['published'] ?? 0 ) {
-          continue;
-        }
-
         $required = ! (
           in_array( $tier['id'], $patreon_post_data['gate_tiers'] ) ||
           ( $tier['amount_cents'] ?? 0 ) >= $patreon_check_amount_cents
