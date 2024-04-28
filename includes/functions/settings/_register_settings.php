@@ -951,7 +951,7 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_list_into_unique_array',
-      'label' => __( 'Global tiers to unlock posts (comma-separated list of IDs)', 'fictioneer' )
+      'label' => __( 'Global tiers to unlock posts (comma-separated list of tier IDs)', 'fictioneer' )
     ),
     'fictioneer_patreon_global_lock_amount' => array(
       'name' => 'fictioneer_patreon_global_lock_amount',
