@@ -647,6 +647,16 @@ Filters the intermediate output array in the `_card-page.php` partial before it 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_patreon_dollars', $dollar, $amount_cents_raw, $post )`
+Filters the pledge threshold amount of the Patreon gate for protected posts (if any). Patreon stores tier prices in cents, so $2.50 would be 250 raw. The theme turns that back into the Dollar format, which you can intercept here. Note that Patreon has specific [rules for converting currencies](https://support.patreon.com/hc/en-us/articles/360044469871--How-tiers-are-converted-into-other-currencies).
+
+**Parameters:**
+* $dollar (string) – The pledge threshold as "$0.00".
+* $amount_cents_raw (int) – The threshold in cents.
+* $post (WP_Post) – The gated post.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args )`
 Filters the intermediate output array in the `_card-post.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
 

@@ -539,7 +539,7 @@ function fictioneer_unlock_with_patreon( $form ) {
 
       $options[] = sprintf(
         _x( 'with any %s pledge', 'Unlock with Patreon pledge amount', 'fictioneer' ),
-        apply_filters( 'fictioneer_filter_patreon_dollars', $dollar, $patreon_post_data['gate_cents'] )
+        apply_filters( 'fictioneer_filter_patreon_dollars', $dollar, $patreon_post_data['gate_cents'], $post )
       );
     }
 
