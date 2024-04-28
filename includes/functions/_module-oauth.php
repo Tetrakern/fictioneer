@@ -676,6 +676,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     // Build params
     $params = '?fields' . urlencode('[user]') . '=email,first_name,image_url,is_email_verified';
     $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
+    $params .= '&fields' . urlencode('[member]') . '=lifetime_support_cents,is_follower';
     $params .= '&include=memberships.currently_entitled_tiers';
 
     // Retrieve user data from Patreon
@@ -711,24 +712,54 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
       fictioneer_oauth_die( 'Email not verified.' );
     }
 
-    // Find Patreon tiers if any
+    // Extract membership data
     $tiers = [];
+    $tier_ids = [];
+    $membership = array(
+      'is_follower' => null,
+      'lifetime_support_cents' => null
+    );
+
+    // wp_die( json_encode( $user->included ) );
 
     if ( isset( $user->included ) ) {
+      // Tiers data
       foreach( $user->included as $node ) {
-        if ( isset( $node->type ) && $node->type == 'tier' && isset( $node->attributes->title ) ) {
+        if ( isset( $node->type ) && $node->type === 'tier' ) {
           $tiers[] = array(
             'tier' => sanitize_text_field( $node->attributes->title ),
+            'title' => sanitize_text_field( $node->attributes->title ),
             'description' => wp_kses_post( $node->attributes->description ?? '' ),
             'published' => filter_var( $node->attributes->published ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ),
             'amount_cents' => absint( $node->attributes->amount_cents ?? 0 ),
             'timestamp' => time(),
             'id' => $node->id
           );
+          $tier_ids[] = $node->id;
+        }
+      }
+
+      // Membership data
+      foreach( $user->included as $node ) {
+        if (
+          isset( $node->type ) &&
+          $node->type === 'member' &&
+          isset( $node->attributes ) &&
+          isset( $node->attributes->lifetime_support_cents ) &&
+          isset( $node->relationships->currently_entitled_tiers->data ) &&
+          in_array( $node->relationships->currently_entitled_tiers->data[0]->id, $tier_ids )
+        ) {
+          $membership['is_follower'] = filter_var(
+            $node->attributes->is_follower ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE
+          );
+          $membership['lifetime_support_cents'] = $node->attributes->lifetime_support_cents ?? 0;
+
+          break;
         }
       }
     }
 
+    // User parameters
     $args = array(
       'uid' => $user->data->id,
       'avatar' => esc_url_raw( $user->data->attributes->image_url ?? '' ),
@@ -736,7 +767,8 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
       'email' => $user->data->attributes->email,
       'username' => $user->data->attributes->first_name,
       'nickname' => $user->data->attributes->first_name,
-      'tiers' => $tiers
+      'tiers' => $tiers,
+      'membership' => $membership
     );
 
     /* Patreon does not have a function to revoke a token (2022/07/29). */
@@ -847,8 +879,12 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
         fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_external_avatar_url', $avatar );
       }
 
-      if ( isset( $args['tiers'] ) && count( $args['tiers'] ) > 0 ) {
+      if ( $args['channel'] === 'patreon' && isset( $args['tiers'] ) && count( $args['tiers'] ) > 0 ) {
         fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers', $args['tiers'] );
+      }
+
+      if ( $args['channel'] === 'patreon' && isset( $args['membership'] ) ) {
+        fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_membership', $args['membership'] );
       }
 
       // Login
