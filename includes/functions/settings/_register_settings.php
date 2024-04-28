@@ -941,6 +941,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'sanitize_text_field',
       'label' => __( 'Patreon Client Secret', 'fictioneer' )
     ),
+    'fictioneer_patreon_campaign_link' => array(
+      'name' => 'fictioneer_patreon_campaign_link',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_patreon_url',
+      'label' => __( 'Patreon campaign link', 'fictioneer' )
+    ),
     'fictioneer_patreon_global_lock_tiers' => array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',
@@ -1281,6 +1287,24 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
 
 function fictioneer_sanitize_list_into_unique_array( $input ) {
   return fictioneer_sanitize_list_into_array( $input, array( 'unique' => 1 ) );
+}
+
+/**
+ * Sanitizes a Patreon URL
+ *
+ * @since 5.15.0
+ *
+ * @param string $url  The URL entered.
+ *
+ * @return array The sanitized URL or an empty string if invalid.
+ */
+
+function fictioneer_sanitize_patreon_url( $url ) {
+  $url = sanitize_url( $url );
+  $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
+  $url = strpos( $url, 'https://www.patreon.com/') === 0 ? $url : '';
+
+  return $url;
 }
 
 // =============================================================================
