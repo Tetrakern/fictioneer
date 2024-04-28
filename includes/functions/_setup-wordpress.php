@@ -490,9 +490,84 @@ function fictioneer_password_form() {
 
   // Continue filter
   return $form;
-  return $form;
 }
 add_filter( 'the_password_form', 'fictioneer_password_form', 10, 1 );
+
+/**
+ * Append Patreon unlock info after password form
+ *
+ * @since 5.15.0
+ *
+ * @global string $form  The password form HTML.
+ *
+ * @return string The extended password form HTML.
+ */
+
+function fictioneer_unlock_with_patreon( $form ) {
+  global $post;
+
+  // Setup
+  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+  $campaign_link = get_option( 'fictioneer_patreon_campaign_link' );
+
+  // Abort if...
+  if (
+    ! get_option( 'fictioneer_enable_patreon_locks' ) ||
+    ! $campaign_link ||
+    ! is_array( $patreon_tiers ) ||
+    empty( $patreon_tiers )
+  ) {
+    return $form;
+  }
+
+  // Patreon data for post
+  $patreon_post_data = fictioneer_get_patreon_data( $post );
+
+  // Any tiers or amounts set up?
+  if ( $patreon_post_data['gated'] ) {
+    $options = [];
+    $patreon_message = '';
+
+    foreach ( $patreon_post_data['gate_tiers'] as $tier_id ) {
+      if ( isset( $patreon_tiers[ $tier_id ] ) ) {
+        $options[] = $patreon_tiers[ $tier_id ]['title'] ?? $tier_id;
+      }
+    }
+
+    if ( $patreon_post_data['gate_cents'] > 0 ) {
+      $dollar = '$' . number_format( (float) $patreon_post_data['gate_cents'] / 100, 2 ) . '+';
+
+      $options[] = sprintf(
+        _x( 'with any %s pledge', 'Unlock with Patreon pledge amount', 'fictioneer' ),
+        apply_filters( 'fictioneer_filter_patreon_dollars', $dollar, $patreon_post_data['gate_cents'] )
+      );
+    }
+
+    if ( empty( $options ) ) {
+      return $form;
+    }
+
+    if ( count( $options ) < 2 && $patreon_post_data['gate_cents'] > 0 ) {
+      $patreon_message = sprintf(
+        _x( '… %s.', 'Unlock with Patreon monetary threshold only wrapper.', 'fictioneer' ),
+        fictioneer_get_human_readable_list( $options )
+      );
+    } else {
+      $patreon_message = sprintf(
+        _x( '… as %s.', 'Unlock with Patreon tier options wrapper.', 'fictioneer' ),
+        fictioneer_get_human_readable_list( $options )
+      );
+    }
+
+    $tooltip = __( 'You can unlock this content by supporting me on Patreon. If you are already a member and not see anything, log out and log in again to refresh your membership information.', 'fictioneer' );
+
+    $form .= '<div class="unlock-with-patreon"><a href="" target="_blank" rel="noopener" class="unlock-with-patreon__link"><i class="fa-brands fa-patreon"></i><span>' . __( 'Unlock with Patreon', 'fictioneer' ) . '</span></a><div class="unlock-with-patreon__note tooltipped" data-tooltip="' . esc_attr( $tooltip ) . '">' . $patreon_message . '</div></div>';
+  }
+
+  // Continue filter
+  return $form;
+}
+add_filter( 'the_password_form', 'fictioneer_unlock_with_patreon', 20, 1 );
 
 // =============================================================================
 // ADD ID TO CONTENT PARAGRAPHS IN CHAPTERS

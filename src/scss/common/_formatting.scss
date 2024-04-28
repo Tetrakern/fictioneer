@@ -221,6 +221,51 @@ p a,
   }
 }
 
+.unlock-with-patreon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: .75rem;
+  text-align: center;
+  margin: 4rem auto;
+  max-width: 400px;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #F96854;
+    color: #fff;
+    font-family: 'Libre Franklin Extra Bold', Helvetica, Arial;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    white-space: nowrap;
+    text-transform: uppercase;
+    padding: 1rem;
+    border-radius: 2px;
+
+    &:hover {
+      background: #FA7664;
+      color: #fff;
+    }
+  }
+
+  p {
+    display: none;
+  }
+
+  &__note {
+    cursor: help;
+    color: var(--fg-700);
+  }
+
+  .tooltipped:before {
+    max-width: 250px;
+  }
+}
+
 .content-section {
   :where(.list, .block-list, .wp-block-footnotes, .litrpg-body :where(ul, ol)) {
     list-style: initial;
