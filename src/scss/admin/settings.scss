@@ -319,7 +319,7 @@ body[class*="fictioneer_page_"] {
     }
   }
 
-  .column-description {
+  .column-description:is(td) {
     font-size: 12px;
   }
 
@@ -445,6 +445,7 @@ body[class*="fictioneer_page_"] {
 
     &__row {
       padding: 0 12px;
+      overflow: auto;
 
       &:not(:last-child) {
         margin-bottom: 12px;
@@ -526,6 +527,25 @@ body[class*="fictioneer_page_"] {
 
     &__footer {
       padding: 12px;
+    }
+
+    &__table {
+      border-spacing: 0;
+      max-width: 100%;
+      width: 100%;
+
+      th {
+        font-size: 13px;
+      }
+
+      :is(th, td) {
+        text-align: left;
+        padding: 8px 16px;
+      }
+
+      tbody tr:nth-child(odd) {
+        background: #f6f7f7;
+      }
     }
   }
 

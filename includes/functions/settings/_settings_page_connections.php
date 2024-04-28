@@ -139,17 +139,26 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
               <?php if ( $patreon_tiers ) : ?>
                 <div class="fictioneer-card__row">
-                  <p><strong><?php _e( 'Patreon Tiers', 'fictioneer' ); ?></strong></p>
-                  <ul><?php
-                    foreach ( $patreon_tiers as $tier ) {
-                      printf(
-                        _x( '<li>%s (ID: %s | Amount Cents: %s)</li>', 'List of Patreon tiers.', 'fictioneer' ),
-                        $tier['title'],
-                        $tier['id'],
-                        $tier['amount_cents']
-                      );
-                    }
-                  ?></ul>
+                  <table class="fictioneer-card__table">
+                    <thead>
+                      <tr>
+                        <th><?php _ex( 'Tier', 'Patreon connection tier table.', 'fictioneer' ); ?></th>
+                        <th><?php _ex( 'ID', 'Patreon connection tier table.', 'fictioneer' ); ?></th>
+                        <th><?php _ex( 'Amount Cents', 'Patreon connection tier table.', 'fictioneer' ); ?></th>
+                        <th><?php _ex( 'Published', 'Patreon connection tier table.', 'fictioneer' ); ?></th>
+                      </tr>
+                    </thead>
+                    <tbody><?php
+                      foreach ( $patreon_tiers as $tier ) {
+                        echo '<tr>';
+                        echo "<td>{$tier['title']}</td>";
+                        echo "<td>{$tier['id']}</td>";
+                        echo "<td>{$tier['amount_cents']}</td>";
+                        echo '<td>' . ( $tier['published'] ? __( 'Yes', 'fictioneer' ) : __( 'No', 'fictioneer' ) ) . '</td>';
+                        echo '</tr>';
+                      }
+                    ?></tbody>
+                  </table>
                 </div>
               <?php endif; ?>
 
