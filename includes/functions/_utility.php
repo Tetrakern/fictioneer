@@ -2996,3 +2996,57 @@ if ( ! function_exists( 'fictioneer_get_human_readable_list' ) ) {
     return implode( $comma , $array );
   }
 }
+
+// =============================================================================
+// PATREON UTILITIES
+// =============================================================================
+
+/**
+ * Get Patreon data in regards to a post
+ *
+ * @since 5.15.0
+ *
+ * @param WP_Post|null $post  The post to check. Default to global $post.
+ *
+ * @return array|null Array with 'gated' (bool), 'gate_tiers' (array), and
+ *                    'gate_cents' (int). Null if the post could not be found.
+ */
+
+function fictioneer_get_patreon_data( $post = null ) {
+  // Static cache
+  static $cache = [];
+
+  // Post?
+  $post = $post ?? get_post();
+
+  if ( ! $post ) {
+    return null;
+  }
+
+  // Check cache
+  if ( isset( $cache[ $post->ID ] ) ) {
+    return $cache[ $post->ID ];
+  }
+
+  // Setup
+  $patreon_global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
+  $patreon_global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
+  $patreon_post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
+  $patreon_post_tiers = is_array( $patreon_post_tiers ) ? $patreon_post_tiers : [];
+  $patreon_post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
+  $patreon_check_tiers = array_merge( $patreon_global_tiers, $patreon_post_tiers );
+  $patreon_check_amount_cents = max( min( $patreon_global_amount_cents, $patreon_post_amount_cents ), 0 );
+
+  // Compile
+  $data = array(
+    'gated' => $patreon_check_tiers || $patreon_check_amount_cents > 0,
+    'gate_tiers' => $patreon_check_tiers,
+    'gate_cents' => $patreon_check_amount_cents,
+  );
+
+  // Cache
+  $cache[ $post->ID ] = $data;
+
+  // Return
+  return $data;
+}
