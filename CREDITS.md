@@ -202,6 +202,11 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
   Source: https://stackoverflow.com/a/4914807/17140970
 
+* **Human readable list from array**<br>
+  Copyright: Derk-Jan Karrenbeld<br>
+  License: No license information provided (assumed public domain)<br>
+  Source: https://gist.github.com/SleeplessByte/4514697
+
 ## Fonts
 
 * **Open Dyslexic 3**<br>

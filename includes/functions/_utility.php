@@ -2961,3 +2961,38 @@ function fictioneer_find_user_by_display_name( $display_name ) {
   // Not found
   return null;
 }
+
+// =============================================================================
+// JOIN ARRAYS IN SPECIAL WAYS
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_get_human_readable_list' ) ) {
+  /**
+   * Join string in an array as human readable list.
+   *
+   * @since 5.15.0
+   * @link https://gist.github.com/SleeplessByte/4514697
+   *
+   * @param array $array  Array of strings.
+   *
+   * @return string The human readable list.
+   */
+
+  function fictioneer_get_human_readable_list( $array ) {
+    // Setup
+    $comma = _x( ', ', 'Human readable list joining three or more items except the last two.', 'fictioneer' );
+    $double = _x( ' or ', 'Human readable list joining two items.', 'fictioneer' );
+    $final = _x( ', or ', 'Human readable list joining the last two of three or more items.', 'fictioneer' );
+
+    // One or two items
+    if ( count( $array ) < 3 ) {
+      return implode( $double, $array );
+    }
+
+    // Three or more items
+    array_splice( $array, -2, 2, implode( $final, array_slice( $array, -2, 2 ) ) );
+
+    // Finish
+    return implode( $comma , $array );
+  }
+}
