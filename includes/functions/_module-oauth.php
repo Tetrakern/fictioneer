@@ -720,8 +720,6 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
       'lifetime_support_cents' => null
     );
 
-    // wp_die( json_encode( $user->included ) );
-
     if ( isset( $user->included ) ) {
       // Tiers data
       foreach( $user->included as $node ) {
