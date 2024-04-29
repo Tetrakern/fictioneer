@@ -511,8 +511,6 @@ add_filter( 'post_password_required', 'fictioneer_bypass_password', 10, 2 );
 
 // No restriction can be applied to administrators
 if ( ! current_user_can( 'manage_options' ) ) {
-  $post_types = ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'page', 'fcn_recommendation'];
-
   // === FCN_ADMINBAR_ACCESS ===================================================
 
   /**
