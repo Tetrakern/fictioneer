@@ -391,7 +391,7 @@ Pages work the same as always in WordPress, just with some additional fields and
 
 ## Shared Options
 
-These fields and options are available in most post types, which does not mean they make sense everywhere.
+These fields and options are available in most post types, which does not mean they make sense everywhere. Some require certain feature to be enabled and set up, such as the Patreon integration.
 
 ### Extra Meta Fields
 
@@ -400,6 +400,8 @@ These fields and options are available in most post types, which does not mean t
 | Landscape Image | Image | Alternative image for when the rendered width is greater than the height.
 | Header Image | Image | Overrides the default header image, passed down to by chapters in the case of stories.
 | Custom Page CSS | Text | Inject custom styles into the page (not passed down to chapters).
+| Patreon Tiers | List | Patreon tiers that ignore the password protection (if set up).
+| Patreon Amount Cents | Number | Patreon pledge threshold to ignore the password protection (if set up).
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
 
 ### SEO & Meta Tags
