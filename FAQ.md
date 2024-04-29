@@ -50,7 +50,7 @@ There are not. Emails are highly problematic, even simple transactional emails a
 
 ### Q: Does the Patreon plugin work with the theme?
 
-Apparently, yes. The design leaves to be desired, though.
+Apparently, yes. However, there are some factors to consider before using the plugin. The integration with the theme’s design leaves to be desired, although you could fix that with some custom CSS. More concerning is the impact on site speed, which has been reported to be severe in the past. This might have been fixed, there are no benchmarks on the matter. Unclear whether it works with cache plugins. Lastly, it is not compatible with the theme’s authentication system, instead using it’s own.
 
 ### Q: Does the Jetpack plugin work with the theme?
 
