@@ -30,7 +30,7 @@ No. Fictioneer was developed as standalone solution and to work out of the box, 
 
 ### Q: Is the theme available in other languages?
 
-The theme is translation-ready but at the point of writing, only English is available. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the **languages** folder under the `fictioneer` text-domain or use a plugin.
+The theme is translation-ready but at the point of writing, only English is available. Feel free to [add your own translation](https://developer.wordpress.org/apis/internationalization/localization/) to the **languages** folder under the `fictioneer` text-domain or use a plugin. There is a .POT template file available.
 
 ### Q: Why is the ePUB download button not showing up?
 
@@ -50,7 +50,7 @@ There are not. Emails are highly problematic, even simple transactional emails a
 
 ### Q: Does the Patreon plugin work with the theme?
 
-Apparently, yes. However, there are some factors to consider before using the plugin. The integration with the theme’s design leaves to be desired, although you could fix that with some custom CSS. More concerning is the impact on site speed, which has been reported to be severe in the past. This might have been fixed, there are no benchmarks on the matter. Unclear whether it works with cache plugins. Lastly, it is not compatible with the theme’s authentication system, instead using it’s own.
+Apparently, yes. However, there are some factors to consider before using the plugin. The integration into the theme’s style leaves to be desired, although you could fix that with some custom CSS. More concerning is the impact on site speed, which has been reported to be severe in the past. This might have been fixed, there are no benchmarks on the matter. Unclear whether it works with cache plugins. Lastly, it is not compatible with the theme’s authentication system, instead using it’s own.
 
 ### Q: Does the Jetpack plugin work with the theme?
 
