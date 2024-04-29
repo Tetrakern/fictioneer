@@ -715,14 +715,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     // Extract membership data
     $tiers = [];
     $tier_ids = [];
-    $membership = array(
-      'is_follower' => null,
-      'lifetime_support_cents' => null,
-      'last_charge_date' => null,
-      'last_charge_status' => null,
-      'next_charge_date' => null,
-      'patron_status' => null
-    );
+    $membership = [];
 
     if ( isset( $user->included ) ) {
       // Tiers data
@@ -885,12 +878,18 @@ if ( ! function_exists( 'fictioneer_make_oauth_user' ) ) {
         fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_external_avatar_url', $avatar );
       }
 
-      if ( $args['channel'] === 'patreon' && isset( $args['tiers'] ) && count( $args['tiers'] ) > 0 ) {
-        fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers', $args['tiers'] );
-      }
+      if ( $args['channel'] === 'patreon' ) {
+        if ( isset( $args['tiers'] ) && count( $args['tiers'] ) > 0 ) {
+          fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers', $args['tiers'] );
+        } else {
+          delete_user_meta( $wp_user->ID, 'fictioneer_patreon_tiers' );
+        }
 
-      if ( $args['channel'] === 'patreon' && isset( $args['membership'] ) ) {
-        fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_membership', $args['membership'] );
+        if ( isset( $args['membership'] ) && ! empty( $args['membership'] ) ) {
+          fictioneer_update_user_meta( $wp_user->ID, 'fictioneer_patreon_membership', $args['membership'] );
+        } else {
+          delete_user_meta( $wp_user->ID, 'fictioneer_patreon_membership' );
+        }
       }
 
       // Login
