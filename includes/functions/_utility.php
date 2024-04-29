@@ -3008,8 +3008,8 @@ if ( ! function_exists( 'fictioneer_get_human_readable_list' ) ) {
  *
  * @param WP_Post|null $post  The post to check. Default to global $post.
  *
- * @return array|null Array with 'gated' (bool), 'gate_tiers' (array), and
- *                    'gate_cents' (int). Null if the post could not be found.
+ * @return array|null Array with 'gated' (bool), 'gate_tiers' (array), 'gate_cents' (int),
+ *                    and 'gate_lifetime_cents' (int). Null if the post could not be found.
  */
 
 function fictioneer_get_patreon_data( $post = null ) {
