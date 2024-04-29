@@ -676,7 +676,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     // Build params
     $params = '?fields' . urlencode('[user]') . '=email,first_name,image_url,is_email_verified';
     $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
-    $params .= '&fields' . urlencode('[member]') . '=lifetime_support_cents,is_follower';
+    $params .= '&fields' . urlencode('[member]') . '=lifetime_support_cents,is_follower,last_charge_date,last_charge_status,next_charge_date,patron_status';
     $params .= '&include=memberships.currently_entitled_tiers';
 
     // Retrieve user data from Patreon
@@ -717,7 +717,11 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
     $tier_ids = [];
     $membership = array(
       'is_follower' => null,
-      'lifetime_support_cents' => null
+      'lifetime_support_cents' => null,
+      'last_charge_date' => null,
+      'last_charge_status' => null,
+      'next_charge_date' => null,
+      'patron_status' => null
     );
 
     if ( isset( $user->included ) ) {
@@ -751,6 +755,10 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
             $node->attributes->is_follower ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE
           );
           $membership['lifetime_support_cents'] = $node->attributes->lifetime_support_cents ?? 0;
+          $membership['last_charge_date'] = $node->attributes->last_charge_date ?? null;
+          $membership['last_charge_status'] = $node->attributes->last_charge_status ?? null;
+          $membership['next_charge_date'] = $node->attributes->next_charge_date ?? null;
+          $membership['patron_status'] = $node->attributes->patron_status ?? null;
 
           break;
         }
