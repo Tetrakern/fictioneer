@@ -687,6 +687,8 @@ Membership data is valid for one week by default, per user, refreshed whenever t
 
 You can increase or reduce the expiration time with the `FICTIONEER_PATREON_EXPIRATION_TIME` constant in a child theme, but it should not be less than three days (which is the maximum login time before you are automatically logged out).
 
+![Patreon Gate Settings](repo/assets/connection_settings_patreon_gate.png?raw=true)
+
 ## How to Customize the Fictioneer Theme
 
 ![Customizer HSL Sliders](repo/assets/customizer_hsl_sliders_demo.gif?raw=true)
