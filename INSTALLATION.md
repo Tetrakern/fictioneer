@@ -624,6 +624,8 @@ If you enter a [Discord webhook](https://support.discord.com/hc/en-us/articles/2
 
 The OAuth request redirect URI should be akin to `https://your-domain.com/oauth2`, the important part being the `/oauth2` endpoint. Note that the service providers can be picky, such as rejecting an URI that includes "www" if that is not actually part of your website’s address. Use the _exact_ string you see in your browser’s address bar. If the redirect returns 404, you usually need to flush your permalinks under **Settings > Permalinks** (just save).
 
+For more details on Patreon, see [Patreon Integration](#patreon-integration) further down.
+
 ### Phrases Tab
 
 ![Phrases Settings Preview](repo/assets/settings_phrases_preview.png?raw=true)
@@ -663,6 +665,27 @@ If the user roles lack permissions, such as authors not being able to add storie
 ### Log
 
 A log of administrative actions performed which concern the theme.
+
+## Patreon Integration
+
+You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. This requires you to enable and set up the OAuth 2.0 authentication for Patreon, allowing users to log in with their account and import their membership data. The official Patreon plugin for Wordpress would also work, but the integration with the theme is not seamless.
+
+**Fictioneer > General > Feature:**
+* Enable OAuth 2.0 authentication
+* Enable Patreon content gate
+
+After setting up the [OAuth 2.0 connection](#connections-tab), add a campaign link and import your tiers. This is a unique request limited to administrators and only works for the campaign of your client. No, you cannot have different campaigns for different authors. Changes to tiers on Patreon are **not** automatically synchronized, you have to pull them yourself (but this should rarely be necessary).
+
+Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 for $3.50) to individual posts or set them globally. Posts always use the lowest requirements if you do both. Note that you still need to set a post password, because this system hijacks the WordPress password check. Removing a password will also suspend the Patreon gate. This is compatible with cache plugins as well.
+
+**Options:**
+* **Tiers (Post/Global):** Comma-separated list of tier IDs, which you can see after pulling them.
+* **Threshold (Post/Global):** Pledge amount in cents (e.g. 350 for $3.50) independent of tiers.
+* **Lifetime Threshold (Global):** Use the total of all paid pledges, regardless of current status.
+
+Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keep a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
+
+You can increase or reduce the expiration time with the `FICTIONEER_PATREON_EXPIRATION_TIME` constant in a child theme, but it should not be less than three days (which is the maximum login time before you are automatically logged out).
 
 ## How to Customize the Fictioneer Theme
 
