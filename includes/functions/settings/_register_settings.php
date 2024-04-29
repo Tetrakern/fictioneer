@@ -966,6 +966,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'absint',
       'label' => __( 'Global pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' )
     ),
+    'fictioneer_patreon_global_lock_lifetime_amount' => array(
+      'name' => 'fictioneer_patreon_global_lock_lifetime_amount',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'absint',
+      'label' => __( 'Global lifetime pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' )
+    ),
     'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
       'group' => 'fictioneer-settings-general-group',

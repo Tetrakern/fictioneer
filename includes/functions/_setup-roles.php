@@ -478,10 +478,14 @@ function fictioneer_bypass_password( $required, $post ) {
   // Check Patreon tiers
   if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) && fictioneer_patreon_tiers_valid( $user ) ) {
     $patreon_post_data = fictioneer_get_patreon_data( $post );
+    $patreon_user_membership = get_user_meta( $user->ID, 'fictioneer_patreon_membership', true );
+    $patreon_user_membership = is_array( $patreon_user_membership ) ? $patreon_user_membership : [];
 
     // If there is anything to check...
     if ( $patreon_post_data['gated'] ) {
       $patreon_check_amount_cents = $patreon_post_data['gate_cents'] < 1 ? 999999999999 : $patreon_post_data['gate_cents'];
+      $patreon_check_lifetime_amount_cents = $patreon_post_data['gate_lifetime_cents'] < 1 ?
+        999999999999 : $patreon_post_data['gate_lifetime_cents'];
 
       $patreon_user_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
       $patreon_user_tiers = is_array( $patreon_user_tiers ) ? $patreon_user_tiers : [];
@@ -489,7 +493,8 @@ function fictioneer_bypass_password( $required, $post ) {
       foreach ( $patreon_user_tiers as $tier ) {
         $required = ! (
           in_array( $tier['id'], $patreon_post_data['gate_tiers'] ) ||
-          ( $tier['amount_cents'] ?? 0 ) >= $patreon_check_amount_cents
+          ( $tier['amount_cents'] ?? -1 ) >= $patreon_check_amount_cents ||
+          ( $patreon_user_membership['lifetime_support_cents'] ?? -1 ) >= $patreon_check_lifetime_amount_cents
         );
 
         if ( ! $required ) {

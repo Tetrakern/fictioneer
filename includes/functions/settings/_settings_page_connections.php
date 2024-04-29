@@ -129,6 +129,10 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
               </div>
 
               <div class="fictioneer-card__row">
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_global_lock_lifetime_amount' ); ?>
+              </div>
+
+              <div class="fictioneer-card__row">
                 <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_password_form_with_patreon' ); ?>
               </div>
 

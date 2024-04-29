@@ -3031,6 +3031,7 @@ function fictioneer_get_patreon_data( $post = null ) {
   // Setup
   $global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
   $global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
+  $global_lifetime_amount_cents = get_option( 'fictioneer_patreon_global_lock_lifetime_amount', 0 ) ?: 0;
   $post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
   $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
   $post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
@@ -3046,6 +3047,7 @@ function fictioneer_get_patreon_data( $post = null ) {
     'gated' => $check_tiers || $check_amount_cents > 0,
     'gate_tiers' => $check_tiers,
     'gate_cents' => $check_amount_cents,
+    'gate_lifetime_cents' => $global_lifetime_amount_cents
   );
 
   // Cache
