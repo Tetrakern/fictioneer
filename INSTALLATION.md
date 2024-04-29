@@ -668,7 +668,7 @@ A log of administrative actions performed which concern the theme.
 
 ## Patreon Integration
 
-You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. This requires you to enable and set up the OAuth 2.0 authentication for Patreon, allowing users to log in with their account and import their membership data. The official Patreon plugin for Wordpress would also work, but the integration with the theme is not seamless.
+You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. This requires you to enable and set up the OAuth 2.0 authentication for Patreon, allowing users to log in with their Patreon account and import their membership data. The official Patreon plugin for WordPress works too, but the integration with the theme is not seamless (different registration process, compatibility with caching and performance impact unknown).
 
 **Fictioneer > General > Feature:**
 * Enable OAuth 2.0 authentication
