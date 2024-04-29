@@ -561,7 +561,7 @@ function fictioneer_unlock_with_patreon( $form ) {
 
     $tooltip = __( 'You can unlock this content by supporting me on Patreon. If you are already a member and not see anything, log out and log in again to refresh your membership information.', 'fictioneer' );
 
-    $form .= '<div class="unlock-with-patreon"><a href="" target="_blank" rel="noopener" class="unlock-with-patreon__link"><i class="fa-brands fa-patreon"></i><span>' . __( 'Unlock with Patreon', 'fictioneer' ) . '</span></a><div class="unlock-with-patreon__note tooltipped" data-tooltip="' . esc_attr( $tooltip ) . '">' . $patreon_message . '</div></div>';
+    $form .= '<div class="unlock-with-patreon"><a href="' . esc_url( $campaign_link ) . '" target="_blank" rel="noopener" class="unlock-with-patreon__link"><i class="fa-brands fa-patreon"></i><span>' . __( 'Unlock with Patreon', 'fictioneer' ) . '</span></a><div class="unlock-with-patreon__note tooltipped" data-tooltip="' . esc_attr( $tooltip ) . '">' . $patreon_message . '</div></div>';
   }
 
   // Continue filter
