@@ -744,9 +744,7 @@ if ( ! function_exists( 'fictioneer_process_oauth_patreon' ) ) {
           isset( $node->relationships->currently_entitled_tiers->data ) &&
           in_array( $node->relationships->currently_entitled_tiers->data[0]->id, $tier_ids )
         ) {
-          $membership['is_follower'] = filter_var(
-            $node->attributes->is_follower ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE
-          );
+          $membership['is_follower'] = $node->attributes->is_follower ?? 0;
           $membership['lifetime_support_cents'] = $node->attributes->lifetime_support_cents ?? 0;
           $membership['last_charge_date'] = $node->attributes->last_charge_date ?? null;
           $membership['last_charge_status'] = $node->attributes->last_charge_status ?? null;
