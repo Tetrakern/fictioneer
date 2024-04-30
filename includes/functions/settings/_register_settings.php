@@ -963,14 +963,14 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_patreon_global_lock_amount' => array(
       'name' => 'fictioneer_patreon_global_lock_amount',
       'group' => 'fictioneer-settings-connections-group',
-      'sanitize_callback' => 'absint',
-      'label' => __( 'Global pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' )
+      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string',
+      'label' => __( 'Global pledge threshold in cents to unlock posts (leave empty to disable)', 'fictioneer' )
     ),
     'fictioneer_patreon_global_lock_lifetime_amount' => array(
       'name' => 'fictioneer_patreon_global_lock_lifetime_amount',
       'group' => 'fictioneer-settings-connections-group',
-      'sanitize_callback' => 'absint',
-      'label' => __( 'Global lifetime pledge threshold in cents to unlock posts (disable with 0)', 'fictioneer' )
+      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string',
+      'label' => __( 'Global lifetime pledge threshold in cents to unlock posts (leave empty to disable)', 'fictioneer' )
     ),
     'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
@@ -1117,7 +1117,7 @@ function fictioneer_register_settings() {
  * @since 4.0.0
  * @see fictioneer_sanitize_integer()
  *
- * @param int $input  The input value to sanitize.
+ * @param mixed $input  The input value to sanitize.
  *
  * @return int The sanitized integer.
  */
@@ -1132,7 +1132,7 @@ function fictioneer_sanitize_words_per_minute( $input ) {
  * @since 4.6.0
  * @see fictioneer_sanitize_integer()
  *
- * @param int $input  The input value to sanitize.
+ * @param mixed $input  The input value to sanitize.
  *
  * @return int The sanitized integer.
  */
@@ -1146,13 +1146,31 @@ function fictioneer_sanitize_integer_one_up( $input ) {
  *
  * @since 4.6.0
  *
- * @param int $input  The page ID to be sanitized.
+ * @param mixed $input  The page ID to be sanitized.
  *
  * @return int The sanitized page ID or -1 if not a page.
  */
 
 function fictioneer_sanitize_page_id( $input ) {
   return get_post_type( intval( $input ) ) == 'page' ? intval( $input ) : -1;
+}
+
+/**
+ * Sanitizes with absint() unless it is an empty string
+ *
+ * @since 5.15.0
+ *
+ * @param mixed $input  The input value to sanitize.
+ *
+ * @return mixed The sanitized integer or an empty string.
+ */
+
+function fictioneer_sanitize_absint_or_empty_string( $input ) {
+  if ( $input === '' ) {
+    return '';
+  } else {
+    return absint( $input );
+  }
 }
 
 /**
@@ -1165,7 +1183,7 @@ function fictioneer_sanitize_page_id( $input ) {
  * @since 4.6.0
  * @see wp_kses_post()
  *
- * @param int $input  The content for the cookie consent banner.
+ * @param mixed $input  The content for the cookie consent banner.
  *
  * @return string The sanitized content for the cookie consent banner.
  */
@@ -1200,7 +1218,7 @@ function fictioneer_sanitize_phrase_cookie_consent_banner( $input ) {
  * @since 5.5.3
  * @link https://www.php.net/manual/en/function.filter-var.php
  *
- * @param string|boolean $value  The checkbox value to be sanitized.
+ * @param mixed $value  The checkbox value to be sanitized.
  *
  * @return boolean True or false.
  */
