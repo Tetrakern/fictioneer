@@ -530,6 +530,10 @@ The custom HTML block is the best way to add special elements to the content, su
 
 ![LITRPG Box](repo/assets/litrpg_boxes.jpg?raw=true)
 
+### Patreon Gate
+
+You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. See [installation guide](INSTALLATION.md#patreon-integration) for more details. Prices are stored in **cents** (¢100 to $1), independent of your campaign currency. You still need to set a password for the post and stories **do not** pass down gates to chapters due to technical reasons.
+
 ## Shortcodes
 
 [Shortcodes](https://wordpress.org/support/article/shortcode-block/) are bracket-enclosed keywords placed within the content that WordPress automatically interprets into code, adding features or objects without the need for programming. This should be done inside a _shortcode_ block, although it would work outside too. Since most elements created by shortcodes have no margins, the _spacer_ block can be a good addition before and/or after.
