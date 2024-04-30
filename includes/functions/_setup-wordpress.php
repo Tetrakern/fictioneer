@@ -530,7 +530,9 @@ function fictioneer_unlock_with_patreon( $form ) {
 
     foreach ( $patreon_post_data['gate_tiers'] as $tier_id ) {
       if ( isset( $patreon_tiers[ $tier_id ] ) ) {
-        $options[] = $patreon_tiers[ $tier_id ]['title'] ?? $tier_id;
+        $title = $patreon_tiers[ $tier_id ]['title'] ?? $tier_id;
+
+        $options[] = $title === 'Free' ? fcntr( 'free_patreon_tier' ) : $title;
       }
     }
 
