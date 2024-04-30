@@ -683,7 +683,7 @@ Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 
 * **Threshold (Post/Global):** Pledge amount in cents (e.g. 350 for $3.50) independent of tiers.
 * **Lifetime Threshold (Global):** Use the total of all paid pledges, regardless of current status.
 
-Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keep a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
+Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keeping a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
 
 You can increase or reduce the expiration time with the `FICTIONEER_PATREON_EXPIRATION_TIME` constant in a child theme, but it should not be less than three days (which is the maximum login time before you are automatically logged out).
 
