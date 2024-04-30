@@ -676,7 +676,7 @@ You can grant logged-in users access to password-protected content via Patreon m
 
 After setting up the [OAuth 2.0 connection](#connections-tab), add a campaign link and import your tiers. This is a unique request limited to administrators and only works for the campaign of your client. No, you cannot have different campaigns for different authors. Changes to tiers on Patreon are **not** automatically synchronized, you have to pull them yourself (but this should rarely be necessary).
 
-Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 for $3.50) to individual posts or set them globally. Posts always use the lowest requirements if you do both. Note that you still need to set a post password, because this system hijacks the WordPress password check. Removing a password will also suspend the Patreon gate. This is compatible with cache plugins as well.
+Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 for $3.50) to individual posts or set them globally. Posts always use the lowest requirements if you do both. Note that you still need to set a post password, because this system hijacks the WordPress password check. Removing a password will also suspend the Patreon gate. To keep this compatible with cache plugins, the gate is not passed down from stories to chapters.
 
 **Options:**
 * **Tiers (Post/Global):** Comma-separated list of tier IDs, which you can see after pulling them.
