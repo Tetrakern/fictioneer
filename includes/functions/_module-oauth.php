@@ -410,7 +410,7 @@ function fictioneer_handle_get_patreon_tiers_oauth() {
   $tiers = [];
 
   foreach ( $body->included as $item ) {
-    if ( $item->type !== 'tier' || ! isset( $item->attributes ) || $item->attributes->title === 'Free' ) {
+    if ( $item->type !== 'tier' || ! isset( $item->attributes ) ) {
       continue;
     }
 
