@@ -954,6 +954,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_patreon_url',
       'label' => __( 'Patreon campaign link', 'fictioneer' )
     ),
+    'fictioneer_patreon_unlock_message' => array(
+      'name' => 'fictioneer_patreon_unlock_message',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'wp_kses_post',
+      'label' => __( 'Patreon gate message override (leave empty for default)', 'fictioneer' )
+    ),
     'fictioneer_patreon_global_lock_tiers' => array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',

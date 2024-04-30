@@ -526,7 +526,7 @@ function fictioneer_unlock_with_patreon( $form ) {
   // Any tiers or amounts set up?
   if ( $patreon_post_data['gated'] ) {
     $options = [];
-    $patreon_message = '';
+    $patreon_message = get_option( 'fictioneer_patreon_unlock_message' );
 
     foreach ( $patreon_post_data['gate_tiers'] as $tier_id ) {
       if ( isset( $patreon_tiers[ $tier_id ] ) ) {
@@ -549,16 +549,18 @@ function fictioneer_unlock_with_patreon( $form ) {
       return $form;
     }
 
-    if ( count( $options ) < 2 && $patreon_post_data['gate_cents'] > 0 ) {
-      $patreon_message = sprintf(
-        _x( '… %s.', 'Unlock with Patreon monetary threshold only wrapper.', 'fictioneer' ),
-        fictioneer_get_human_readable_list( $options )
-      );
-    } else {
-      $patreon_message = sprintf(
-        _x( '… as %s.', 'Unlock with Patreon tier options wrapper.', 'fictioneer' ),
-        fictioneer_get_human_readable_list( $options )
-      );
+    if ( empty( $patreon_message ) ) {
+      if ( count( $options ) < 2 && $patreon_post_data['gate_cents'] > 0 ) {
+        $patreon_message = sprintf(
+          _x( '… %s.', 'Unlock with Patreon monetary threshold only wrapper.', 'fictioneer' ),
+          fictioneer_get_human_readable_list( $options )
+        );
+      } else {
+        $patreon_message = sprintf(
+          _x( '… as %s.', 'Unlock with Patreon tier options wrapper.', 'fictioneer' ),
+          fictioneer_get_human_readable_list( $options )
+        );
+      }
     }
 
     $tooltip = __( 'You can unlock this content by supporting me on Patreon. If you are already a member and not see anything, log out and log in again to refresh your membership information.', 'fictioneer' );

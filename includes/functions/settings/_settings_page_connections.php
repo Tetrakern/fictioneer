@@ -114,6 +114,10 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 <?php fictioneer_settings_text_input( 'fictioneer_patreon_campaign_link' ); ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php fictioneer_settings_text_input( 'fictioneer_patreon_unlock_message' ); ?>
+              </div>
+
               <hr>
 
               <div class="fictioneer-card__row">
