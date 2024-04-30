@@ -26,6 +26,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     }
 
     // Setup
+    $story_post = get_post( $story_id );
     $author_id = get_post_field( 'post_author', $story_id );
     $author_url = get_the_author_meta( 'user_url', $author_id );
     $co_author_ids = get_post_meta( $story_id, 'fictioneer_story_co_authors', true );
@@ -76,7 +77,14 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     }
 
     // Content
-    $content = get_the_content( null, false, $story_id );
+    $content = '';
+
+    if ( $data['status'] === 'Oneshot' && empty( $data['chapter_ids'] ) ) {
+      $content = get_the_excerpt( $story_id ); // Story likely misused as chapter
+    } else {
+      $content = get_the_content( null, false, $story_id );
+    }
+
     $description = get_post_meta( $story_id, 'fictioneer_story_short_description', true );
     $node['content'] = $content;
     $node['description'] = strip_shortcodes( $description );
@@ -88,7 +96,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
     $node['chapterCount'] = intval( $data['chapter_count'] );
     $node['published'] = get_post_time( 'U', true, $story_id );
     $node['modified'] = get_post_modified_time( 'U', true, $story_id );
-    $node['protected'] = post_password_required( $story_id );
+    $node['protected'] = $story_post->post_password ? true : false;
 
     // Image
     if ( FICTIONEER_API_STORYGRAPH_IMAGES ) {

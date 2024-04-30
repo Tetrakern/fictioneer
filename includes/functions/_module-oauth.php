@@ -1213,7 +1213,7 @@ if ( ! function_exists( 'fictioneer_get_oauth_code' ) ) {
       'cookie' => hash( 'sha256', microtime( TRUE ) . random_bytes( 15 ) . $_SERVER['REMOTE_ADDR'] )
     );
 
-    set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 300 ); // Expires after 5 minute
+    set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 300 ); // Expires after 5 minutes
 
     // Cookie
     setcookie(
