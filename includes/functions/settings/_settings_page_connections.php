@@ -154,8 +154,10 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                     </thead>
                     <tbody><?php
                       foreach ( $patreon_tiers as $tier ) {
+                        $title = $tier['title'] === 'Free' ? fcntr( 'free_patreon_tier' ) : $tier['title'];
+
                         echo '<tr>';
-                        echo "<td>{$tier['title']}</td>";
+                        echo "<td>{$title}</td>";
                         echo "<td>{$tier['id']}</td>";
                         echo "<td>{$tier['amount_cents']}</td>";
                         echo '<td>' . ( $tier['published'] ? __( 'Yes', 'fictioneer' ) : __( 'No', 'fictioneer' ) ) . '</td>';
