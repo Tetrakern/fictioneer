@@ -462,7 +462,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `hide-if-logged-in` | Hide element if the user is logged in.
 | `hide-if-logged-out` | Hide element if the user is not logged in.
 
-### HTML Block
+## HTML Block
 
 The custom HTML block is the best way to add special elements to the content, such as status screens in [litRPGs](https://en.wikipedia.org/wiki/LitRPG). The preview option in the editor helps if you are just dabbling. This can be further enhanced with inline styles or custom CSS classes, but you need to account for the dark/light mode and generated ePUBs as well. The following example is baked into the theme and sure to work, just change the content or remove what you do not need.
 
