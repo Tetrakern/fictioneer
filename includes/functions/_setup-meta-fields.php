@@ -3169,12 +3169,15 @@ function fictioneer_render_extra_metabox( $post ) {
         );
 
         // Threshold
-        $output['fictioneer_patreon_lock_amount'] = fictioneer_get_metabox_text(
+        $output['fictioneer_patreon_lock_amount'] = fictioneer_get_metabox_number(
           $post,
           'fictioneer_patreon_lock_amount',
           array(
             'label' => _x( 'Patreon Amount Cents', 'Patreon amount cents meta field label.', 'fictioneer' ),
-            'description' => __( 'Pledge threshold to ignore the password.', 'fictioneer' )
+            'description' => __( 'Pledge threshold to ignore the password.', 'fictioneer' ),
+            'attributes' => array(
+              'min="0"'
+            )
           )
         );
       }
