@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 18:19+0000\n"
+"POT-Creation-Date: 2024-04-30 16:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -172,12 +172,12 @@ msgstr ""
 msgid "<b>Warning:</b> %s"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1190
+#: includes/functions/_setup-wordpress.php:1192
 #, php-format
 msgid "<br><fieldset><legend>Potential JavaScript</legend>%s</fieldset>"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1176
+#: includes/functions/_setup-wordpress.php:1178
 #, php-format
 msgid "<br><fieldset><legend>Sender</legend>%s</fieldset>"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "<h1>Under Maintenance</h1><br>"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1136
+#: includes/functions/_setup-wordpress.php:1138
 msgid ""
 "<h3>Potentially Malicious Code Warning</h3><p>There has been a post with "
 "suspicious strings in the content or title, please review the results below. "
@@ -501,8 +501,8 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
-#: includes/functions/_setup-roles.php:731
-#: includes/functions/_setup-roles.php:861
+#: includes/functions/_setup-roles.php:729
+#: includes/functions/_setup-roles.php:859
 #: includes/functions/users/_user_data.php:370
 msgid "Access denied."
 msgstr ""
@@ -1223,7 +1223,7 @@ msgid "Also disables cross-posting as guest author."
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2754
-#: includes/functions/_setup-meta-fields.php:3823
+#: includes/functions/_setup-meta-fields.php:3822
 msgid ""
 "Alternative title used in cards and lists. Useful for long titles that get "
 "truncated on small screens."
@@ -1896,57 +1896,57 @@ msgstr ""
 msgid "Chapter Data"
 msgstr ""
 
-#: includes/functions/_utility.php:2162
+#: includes/functions/_utility.php:2163
 msgctxt "Chapter font color name."
 msgid "Baseline"
 msgstr ""
 
-#: includes/functions/_utility.php:2171
+#: includes/functions/_utility.php:2172
 msgctxt "Chapter font color name."
 msgid "Black"
 msgstr ""
 
-#: includes/functions/_utility.php:2170
+#: includes/functions/_utility.php:2171
 msgctxt "Chapter font color name."
 msgid "Gray"
 msgstr ""
 
-#: includes/functions/_utility.php:2166
+#: includes/functions/_utility.php:2167
 msgctxt "Chapter font color name."
 msgid "High"
 msgstr ""
 
-#: includes/functions/_utility.php:2167
+#: includes/functions/_utility.php:2168
 msgctxt "Chapter font color name."
 msgid "Higher"
 msgstr ""
 
-#: includes/functions/_utility.php:2168
+#: includes/functions/_utility.php:2169
 msgctxt "Chapter font color name."
 msgid "Highest"
 msgstr ""
 
-#: includes/functions/_utility.php:2163
+#: includes/functions/_utility.php:2164
 msgctxt "Chapter font color name."
 msgid "Low"
 msgstr ""
 
-#: includes/functions/_utility.php:2164
+#: includes/functions/_utility.php:2165
 msgctxt "Chapter font color name."
 msgid "Lower"
 msgstr ""
 
-#: includes/functions/_utility.php:2165
+#: includes/functions/_utility.php:2166
 msgctxt "Chapter font color name."
 msgid "Lowest"
 msgstr ""
 
-#: includes/functions/_utility.php:2161
+#: includes/functions/_utility.php:2162
 msgctxt "Chapter font color name."
 msgid "Tinted"
 msgstr ""
 
-#: includes/functions/_utility.php:2169
+#: includes/functions/_utility.php:2170
 msgctxt "Chapter font color name."
 msgid "White"
 msgstr ""
@@ -2214,9 +2214,9 @@ msgstr ""
 msgid "Clear Cookies"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:819
-#: includes/functions/_setup-wordpress.php:841
-#: includes/functions/_setup-wordpress.php:858
+#: includes/functions/_setup-wordpress.php:821
+#: includes/functions/_setup-wordpress.php:843
+#: includes/functions/_setup-wordpress.php:860
 #, php-format
 msgid "Click to load %s with third-party consent."
 msgstr ""
@@ -2275,7 +2275,7 @@ msgctxt "Collection card label."
 msgid "Collection"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3822
+#: includes/functions/_setup-meta-fields.php:3821
 msgctxt "Collection card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
@@ -2284,16 +2284,16 @@ msgstr ""
 msgid "Collection Cover Image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3792
+#: includes/functions/_setup-meta-fields.php:3791
 msgid "Collection Data"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3860
+#: includes/functions/_setup-meta-fields.php:3859
 msgctxt "Collection Items meta field label."
 msgid "Collection Items"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3832
+#: includes/functions/_setup-meta-fields.php:3831
 msgctxt "Collection short description meta field label."
 msgid "Short Description"
 msgstr ""
@@ -2471,7 +2471,7 @@ msgstr ""
 msgid "Comment has been marked as private."
 msgstr ""
 
-#: includes/functions/_utility.php:2002 includes/functions/_utility.php:2003
+#: includes/functions/_utility.php:2003 includes/functions/_utility.php:2004
 msgctxt "Comment image consent wrapper button."
 msgid "<i class=\"fa-solid fa-image\"></i> Show Image"
 msgstr ""
@@ -3654,7 +3654,7 @@ msgstr ""
 msgid "Disable Mastodon share button"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3196
+#: includes/functions/_setup-meta-fields.php:3195
 msgid "Disable new comments"
 msgstr ""
 
@@ -3937,7 +3937,7 @@ msgstr ""
 msgid "Donation"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3454
+#: includes/functions/_setup-meta-fields.php:3453
 msgctxt "Donation link meta field label."
 msgid "Donation Link"
 msgstr ""
@@ -4000,7 +4000,7 @@ msgstr ""
 msgid "Editor capabilities have been updated."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4032
+#: includes/functions/_setup-meta-fields.php:4031
 msgid ""
 "Elevator pitch with 150 characters are less. For example: \"Rebellious "
 "corporate heiress and her genius friend commit high-tech heists in a doomed "
@@ -4402,7 +4402,7 @@ msgid ""
 "your site if you have thousands."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3581
+#: includes/functions/_setup-meta-fields.php:3580
 msgid "Featured Content"
 msgstr ""
 
@@ -4566,7 +4566,7 @@ msgstr ""
 msgid "Font Lightness Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:2096
+#: includes/functions/_utility.php:2097
 msgctxt "Font name."
 msgid "System Font"
 msgstr ""
@@ -4679,6 +4679,11 @@ msgctxt "Formatting modal font weight selection."
 msgid "Thinner Font Weight"
 msgstr ""
 
+#: includes/functions/_utility.php:1755
+msgctxt "Free Patreon tier (follower)."
+msgid "Follower (free)"
+msgstr ""
+
 #: includes/functions/_module-epub.php:773
 msgid "Front Matter"
 msgstr ""
@@ -4723,11 +4728,13 @@ msgstr ""
 
 #: includes/functions/settings/_register_settings.php:973
 msgid ""
-"Global lifetime pledge threshold in cents to unlock posts (disable with 0)"
+"Global lifetime pledge threshold in cents to unlock posts (leave empty to "
+"disable)"
 msgstr ""
 
 #: includes/functions/settings/_register_settings.php:967
-msgid "Global pledge threshold in cents to unlock posts (disable with 0)"
+msgid ""
+"Global pledge threshold in cents to unlock posts (leave empty to disable)"
 msgstr ""
 
 #: includes/functions/settings/_register_settings.php:961
@@ -4997,17 +5004,17 @@ msgstr ""
 msgid "Hue Offset"
 msgstr ""
 
-#: includes/functions/_utility.php:2985
+#: includes/functions/_utility.php:2986
 msgctxt "Human readable list joining the last two of three or more items."
 msgid ", or "
 msgstr ""
 
-#: includes/functions/_utility.php:2983
+#: includes/functions/_utility.php:2984
 msgctxt "Human readable list joining three or more items except the last two."
 msgid ", "
 msgstr ""
 
-#: includes/functions/_utility.php:2984
+#: includes/functions/_utility.php:2985
 msgctxt "Human readable list joining two items."
 msgid " or "
 msgstr ""
@@ -5222,7 +5229,7 @@ msgstr ""
 msgid "Ko-Fi link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3430
+#: includes/functions/_setup-meta-fields.php:3429
 msgctxt "Ko-fi link meta field label."
 msgid "Ko-fi Link"
 msgstr ""
@@ -5543,7 +5550,7 @@ msgstr ""
 msgid "Link to site RSS feed"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4075
+#: includes/functions/_setup-meta-fields.php:4074
 msgid ""
 "Link to the author's Patreon, Ko-Fi, etc. One link per line and mind the "
 "whitespaces. Format: \"Link Name | https://www.address.abc\" (without quotes)"
@@ -5554,7 +5561,7 @@ msgstr ""
 msgid "Link to user profile"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4065
+#: includes/functions/_setup-meta-fields.php:4064
 msgid ""
 "Links to the story, one link per line and mind the whitespaces. Format: "
 "\"Link Name | https://www.address.abc\" (without quotes)."
@@ -5800,7 +5807,7 @@ msgctxt "Meta box file size label."
 msgid "Size:"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3191
+#: includes/functions/_setup-meta-fields.php:3190
 msgctxt "Metabox checkbox heading."
 msgid "Flags"
 msgstr ""
@@ -6148,8 +6155,8 @@ msgstr ""
 #: partials/_card-story.php:32 partials/_card-collection.php:73
 #: partials/_card-chapter.php:173
 #: includes/functions/_setup-meta-fields.php:2297
-#: includes/functions/_setup-meta-fields.php:3925
-#: includes/functions/_setup-meta-fields.php:4129
+#: includes/functions/_setup-meta-fields.php:3924
+#: includes/functions/_setup-meta-fields.php:4128
 msgid "No description provided yet."
 msgstr ""
 
@@ -6623,7 +6630,7 @@ msgstr ""
 msgid "Patreon link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3422
+#: includes/functions/_setup-meta-fields.php:3421
 msgctxt "Patreon link meta field label."
 msgid "Patreon Link"
 msgstr ""
@@ -6707,7 +6714,7 @@ msgstr ""
 msgid "PayPal link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3446
+#: includes/functions/_setup-meta-fields.php:3445
 msgctxt "Paypal link meta field label."
 msgid "Paypal Link"
 msgstr ""
@@ -6762,7 +6769,7 @@ msgid "Please update your browser:"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3177
-msgid "Pledge to ignore password. Disable with 0."
+msgid "Pledge threshold to ignore the password."
 msgstr ""
 
 #: includes/functions/settings/_settings.php:61
@@ -6938,7 +6945,7 @@ msgid ""
 "Primary heavy text color for page content. Default contrast ~8:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4054
+#: includes/functions/_setup-meta-fields.php:4053
 msgid "Primary link to the recommendation or author's website."
 msgstr ""
 
@@ -7104,7 +7111,7 @@ msgstr ""
 msgid "Recommendation"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4064
+#: includes/functions/_setup-meta-fields.php:4063
 msgctxt "Recommendation additional links meta field label."
 msgid "Additional Links"
 msgstr ""
@@ -7117,7 +7124,7 @@ msgstr ""
 msgid "Recommendation Attributes"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4042
+#: includes/functions/_setup-meta-fields.php:4041
 msgctxt "Recommendation author meta field label."
 msgid "Author"
 msgstr ""
@@ -7135,21 +7142,21 @@ msgstr ""
 msgid "Recommendation Cover Image"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4001
+#: includes/functions/_setup-meta-fields.php:4000
 msgid "Recommendation Data"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4031
+#: includes/functions/_setup-meta-fields.php:4030
 msgctxt "Recommendation one sentence meta field label."
 msgid "One Sentence"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4053
+#: includes/functions/_setup-meta-fields.php:4052
 msgctxt "Recommendation primary link meta field label."
 msgid "Primary Link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4074
+#: includes/functions/_setup-meta-fields.php:4073
 msgctxt "Recommendation support meta field label."
 msgid "Support"
 msgstr ""
@@ -7661,11 +7668,11 @@ msgstr ""
 msgid "Select post type"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3628
+#: includes/functions/_setup-meta-fields.php:3627
 msgid "Select posts to be shown as cards below the content."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3861
+#: includes/functions/_setup-meta-fields.php:3860
 msgid ""
 "Select the posts you want to be featured. If you add a story, <strong>do "
 "not</strong> add its chapters separately."
@@ -8632,7 +8639,7 @@ msgstr ""
 msgid "SubscribeStar link"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3438
+#: includes/functions/_setup-meta-fields.php:3437
 msgctxt "SubscribeStar link meta field label."
 msgid "SubscribeStar Link"
 msgstr ""
@@ -8664,7 +8671,7 @@ msgctxt "Support _author_"
 msgid "Support <em>%s</em>"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3393
+#: includes/functions/_setup-meta-fields.php:3392
 #: includes/functions/users/_admin_profile.php:904
 msgid "Support Links"
 msgstr ""
@@ -8677,7 +8684,7 @@ msgstr ""
 msgid "Support Message"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1199
+#: includes/functions/_setup-wordpress.php:1201
 #, php-format
 msgid "Suspicious content on %s"
 msgstr ""
@@ -8844,7 +8851,7 @@ msgid ""
 "The gap between chapter list items in pixels (not grid view). Default 4."
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4043
+#: includes/functions/_setup-meta-fields.php:4042
 msgid "The name of the author. Separate multiple authors with commas."
 msgstr ""
 
@@ -8855,7 +8862,7 @@ msgid ""
 "contact an administrator if the problem persists. Token: %s"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:3833
+#: includes/functions/_setup-meta-fields.php:3832
 msgid ""
 "The short description is used on cards, so best keep it under 100 words or "
 "400 characters."
@@ -9131,8 +9138,8 @@ msgstr ""
 msgid "Twitch ID Hash"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:842
-#: includes/functions/_setup-wordpress.php:859
+#: includes/functions/_setup-wordpress.php:844
+#: includes/functions/_setup-wordpress.php:861
 msgid "Twitter"
 msgstr ""
 
@@ -9148,7 +9155,7 @@ msgstr ""
 msgid "Unavailable"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:4140
+#: includes/functions/_setup-meta-fields.php:4139
 msgctxt "Undefined recommendation author."
 msgid "Undefined"
 msgstr ""
@@ -9166,23 +9173,23 @@ msgstr ""
 msgid "Unlisted (but accessible with link)"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:564
+#: includes/functions/_setup-wordpress.php:566
 msgid "Unlock with Patreon"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:552
+#: includes/functions/_setup-wordpress.php:554
 #, php-format
 msgctxt "Unlock with Patreon monetary threshold only wrapper."
 msgid "… %s."
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:541
+#: includes/functions/_setup-wordpress.php:543
 #, php-format
 msgctxt "Unlock with Patreon pledge amount"
 msgid "with any %s pledge"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:557
+#: includes/functions/_setup-wordpress.php:559
 #, php-format
 msgctxt "Unlock with Patreon tier options wrapper."
 msgid "… as %s."
@@ -9622,7 +9629,7 @@ msgstr ""
 #: partials/_consent-banner.php:26
 #: includes/functions/settings/_register_settings.php:841
 #: includes/functions/settings/_register_settings.php:842
-#: includes/functions/settings/_register_settings.php:1177
+#: includes/functions/settings/_register_settings.php:1195
 #: includes/functions/settings/_settings_page_phrases.php:94
 msgid ""
 "We use cookies to enhance your browsing experience, serve personalized "
@@ -9696,7 +9703,7 @@ msgid ""
 "notification for each direct reply."
 msgstr ""
 
-#: includes/functions/_setup-roles.php:1284
+#: includes/functions/_setup-roles.php:1282
 msgid "You are not allowed to upload files of this type."
 msgstr ""
 
@@ -9756,7 +9763,7 @@ msgid ""
 "performance. Some options may not be available."
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:562
+#: includes/functions/_setup-wordpress.php:564
 msgid ""
 "You can unlock this content by supporting me on Patreon. If you are already "
 "a member and not see anything, log out and log in again to refresh your "
