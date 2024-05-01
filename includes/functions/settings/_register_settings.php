@@ -963,7 +963,7 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_patreon_global_lock_tiers' => array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',
-      'sanitize_callback' => 'fictioneer_sanitize_list_into_unique_array',
+      'sanitize_callback' => 'fictioneer_sanitize_global_patreon_tiers',
       'label' => __( 'Global tiers to unlock posts (comma-separated list of tier IDs)', 'fictioneer' )
     ),
     'fictioneer_patreon_global_lock_amount' => array(
@@ -1313,7 +1313,7 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
 }
 
 /**
- * Sanitizes a comme-separated list into unique array
+ * Sanitizes a comme-separated Patreon ID list into a unique array
  *
  * @since 5.15.0
  *
@@ -1322,8 +1322,11 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
  * @return array The comma-separated list turned array (unique items).
  */
 
-function fictioneer_sanitize_list_into_unique_array( $input ) {
-  return fictioneer_sanitize_list_into_array( $input, array( 'unique' => 1 ) );
+function fictioneer_sanitize_global_patreon_tiers( $input ) {
+  $ids = fictioneer_sanitize_list_into_array( $input, array( 'absint' => 1, 'unique' => 1 ) );
+
+  // Remove falsy values and return
+  return array_filter( $ids );
 }
 
 /**
