@@ -1302,7 +1302,7 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
   $input = fictioneer_explode_list( sanitize_textarea_field( $input ) );
 
   if ( $args['absint'] ?? 0 ) {
-    $input = array_filter( $input, 'absint' );
+    $input = array_map( 'absint', $input );
   }
 
   if ( $args['unique'] ?? 0 ) {
