@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-01 00:55+0000\n"
+"POT-Creation-Date: 2024-05-01 10:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -7404,7 +7404,7 @@ msgstr ""
 #: includes/functions/settings/_settings_page_general.php:426
 msgid ""
 "Requires OAuth 2.0 application for Patreon. Allows eligible logged-in "
-"supporters to ignore post passwords."
+"members to ignore post passwords."
 msgstr ""
 
 #: partials/_modal-suggestions.php:49
