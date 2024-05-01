@@ -530,19 +530,30 @@ if ( ! current_user_can( 'manage_options' ) ) {
    */
 
   function fictioneer_restrict_admin_panel() {
+    // Allow all AJAX requests
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+      return;
+    }
+
+    // Allow all admin_post actions
+    if (
+      isset( $_REQUEST['action'] ) &&
+      ( $_SERVER['PHP_SELF'] == '/wp-admin/admin-post.php' || $_SERVER['PHP_SELF'] == '/wp-admin/admin-ajax.php' )
+    ) {
+      return;
+    }
+
     // Redirect back to Home
     if (
       is_admin() &&
-      ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+      // ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+      ! current_user_can( 'fcn_admin_panel_access' )
     ) {
       wp_redirect( home_url() );
       exit;
     }
   }
-
-  if ( ! current_user_can( 'fcn_admin_panel_access' ) && is_user_logged_in() ) {
-    add_filter( 'init', 'fictioneer_restrict_admin_panel' );
-  }
+  add_filter( 'init', 'fictioneer_restrict_admin_panel' );
 
   // === FCN_DASHBOARD_ACCESS ==================================================
 
