@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-30 16:07+0000\n"
+"POT-Creation-Date: 2024-05-01 00:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -172,12 +172,12 @@ msgstr ""
 msgid "<b>Warning:</b> %s"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1192
+#: includes/functions/_setup-wordpress.php:1194
 #, php-format
 msgid "<br><fieldset><legend>Potential JavaScript</legend>%s</fieldset>"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1178
+#: includes/functions/_setup-wordpress.php:1180
 #, php-format
 msgid "<br><fieldset><legend>Sender</legend>%s</fieldset>"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "<h1>Under Maintenance</h1><br>"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1138
+#: includes/functions/_setup-wordpress.php:1140
 msgid ""
 "<h3>Potentially Malicious Code Warning</h3><p>There has been a post with "
 "suspicious strings in the content or title, please review the results below. "
@@ -1087,11 +1087,11 @@ msgctxt "Age confirmation modal button."
 msgid "Leave"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1013
+#: includes/functions/settings/_register_settings.php:1019
 msgid "Age confirmation modal content for posts."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1005
+#: includes/functions/settings/_register_settings.php:1011
 msgid "Age confirmation modal content for the site."
 msgstr ""
 
@@ -2214,9 +2214,9 @@ msgstr ""
 msgid "Clear Cookies"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:821
-#: includes/functions/_setup-wordpress.php:843
-#: includes/functions/_setup-wordpress.php:860
+#: includes/functions/_setup-wordpress.php:823
+#: includes/functions/_setup-wordpress.php:845
+#: includes/functions/_setup-wordpress.php:862
 #, php-format
 msgid "Click to load %s with third-party consent."
 msgstr ""
@@ -2358,7 +2358,7 @@ msgid ""
 "to be under <code>:root[data-mode=\"light\"]</code>."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:997
+#: includes/functions/settings/_register_settings.php:1003
 #, php-format
 msgid ""
 "Comma-separated list of allowed <a href=\"%s\" target=\"_blank\" "
@@ -2656,7 +2656,7 @@ msgstr ""
 msgid "Connections"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:991
+#: includes/functions/settings/_register_settings.php:997
 msgid "Contact form receivers (one email address per line)"
 msgstr ""
 
@@ -2783,7 +2783,7 @@ msgstr ""
 msgid "Covers"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1028
+#: includes/functions/settings/_register_settings.php:1034
 msgid ""
 "CSS selector for the comment form. Attempts to make scripts work with "
 "comment plugin. Clear theme cache after updating."
@@ -3522,7 +3522,7 @@ msgstr ""
 msgid "Delete all settings and theme mods on deactivation"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:141
+#: includes/functions/settings/_settings_page_connections.php:145
 msgid "Delete Tiers"
 msgstr ""
 
@@ -4726,18 +4726,18 @@ msgstr ""
 msgid "Genres"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:973
+#: includes/functions/settings/_register_settings.php:979
 msgid ""
 "Global lifetime pledge threshold in cents to unlock posts (leave empty to "
 "disable)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:967
+#: includes/functions/settings/_register_settings.php:973
 msgid ""
 "Global pledge threshold in cents to unlock posts (leave empty to disable)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:961
+#: includes/functions/settings/_register_settings.php:967
 msgid "Global tiers to unlock posts (comma-separated list of tier IDs)"
 msgstr ""
 
@@ -4989,7 +4989,7 @@ msgstr ""
 msgid "HTML allowed. <code>[[privacy_policy_url]]</code>"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1022
+#: includes/functions/settings/_register_settings.php:1028
 msgid ""
 "https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,"
 "500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
@@ -5572,7 +5572,7 @@ msgctxt "List of followed stories."
 msgid "Follows"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1021
+#: includes/functions/settings/_register_settings.php:1027
 msgid "List of Google Fonts links"
 msgstr ""
 
@@ -6111,7 +6111,7 @@ msgstr ""
 msgid "Nickname"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:161
+#: includes/functions/settings/_settings_page_connections.php:167
 msgid "No"
 msgstr ""
 
@@ -6602,24 +6602,28 @@ msgstr ""
 msgid "Patreon connection successfully removed."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:151
+#: includes/functions/settings/_settings_page_connections.php:155
 msgctxt "Patreon connection tier table."
 msgid "Amount Cents"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:150
+#: includes/functions/settings/_settings_page_connections.php:154
 msgctxt "Patreon connection tier table."
 msgid "ID"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:152
+#: includes/functions/settings/_settings_page_connections.php:156
 msgctxt "Patreon connection tier table."
 msgid "Published"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:149
+#: includes/functions/settings/_settings_page_connections.php:153
 msgctxt "Patreon connection tier table."
 msgid "Tier"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:961
+msgid "Patreon gate message override (leave empty for default)"
 msgstr ""
 
 #: includes/functions/users/_admin_profile.php:965
@@ -7015,7 +7019,7 @@ msgstr ""
 msgid "published"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:140
+#: includes/functions/settings/_settings_page_connections.php:144
 msgid "Pull Tiers"
 msgstr ""
 
@@ -8602,11 +8606,11 @@ msgid ""
 "contrast ~3:1 on BG-700."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:979
+#: includes/functions/settings/_register_settings.php:985
 msgid "Subitem long date format"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:985
+#: includes/functions/settings/_register_settings.php:991
 msgid "Subitem short date format"
 msgstr ""
 
@@ -8684,7 +8688,7 @@ msgstr ""
 msgid "Support Message"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:1201
+#: includes/functions/_setup-wordpress.php:1203
 #, php-format
 msgid "Suspicious content on %s"
 msgstr ""
@@ -8911,8 +8915,8 @@ msgid ""
 msgstr ""
 
 #: partials/_modal-age.php:36
-#: includes/functions/settings/_register_settings.php:1014
-#: includes/functions/settings/_register_settings.php:1015
+#: includes/functions/settings/_register_settings.php:1020
+#: includes/functions/settings/_register_settings.php:1021
 #: includes/functions/settings/_settings_page_phrases.php:138
 msgid ""
 "This content is intended for an adult audience. Please confirm that you are "
@@ -8976,8 +8980,8 @@ msgid "This role cannot be renamed."
 msgstr ""
 
 #: partials/_modal-age.php:32
-#: includes/functions/settings/_register_settings.php:1006
-#: includes/functions/settings/_register_settings.php:1007
+#: includes/functions/settings/_register_settings.php:1012
+#: includes/functions/settings/_register_settings.php:1013
 #: includes/functions/settings/_settings_page_phrases.php:116
 msgid ""
 "This website is intended for an adult audience. Please confirm that you are "
@@ -9138,8 +9142,8 @@ msgstr ""
 msgid "Twitch ID Hash"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:844
-#: includes/functions/_setup-wordpress.php:861
+#: includes/functions/_setup-wordpress.php:846
+#: includes/functions/_setup-wordpress.php:863
 msgid "Twitter"
 msgstr ""
 
@@ -9173,11 +9177,11 @@ msgstr ""
 msgid "Unlisted (but accessible with link)"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:566
+#: includes/functions/_setup-wordpress.php:568
 msgid "Unlock with Patreon"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:554
+#: includes/functions/_setup-wordpress.php:555
 #, php-format
 msgctxt "Unlock with Patreon monetary threshold only wrapper."
 msgid "… %s."
@@ -9189,7 +9193,7 @@ msgctxt "Unlock with Patreon pledge amount"
 msgid "with any %s pledge"
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:559
+#: includes/functions/_setup-wordpress.php:560
 #, php-format
 msgctxt "Unlock with Patreon tier options wrapper."
 msgid "… as %s."
@@ -9629,7 +9633,7 @@ msgstr ""
 #: partials/_consent-banner.php:26
 #: includes/functions/settings/_register_settings.php:841
 #: includes/functions/settings/_register_settings.php:842
-#: includes/functions/settings/_register_settings.php:1195
+#: includes/functions/settings/_register_settings.php:1201
 #: includes/functions/settings/_settings_page_phrases.php:94
 msgid ""
 "We use cookies to enhance your browsing experience, serve personalized "
@@ -9669,7 +9673,7 @@ msgstr ""
 msgid "Words"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:161
+#: includes/functions/settings/_settings_page_connections.php:167
 msgid "Yes"
 msgstr ""
 
@@ -9731,7 +9735,7 @@ msgid ""
 "using Google Fonts violates the GDPR."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:120
+#: includes/functions/settings/_settings_page_connections.php:124
 msgid ""
 "You can pull your tiers into the theme and assign them to posts, allowing "
 "eligible users to ignore passwords. Pledge thresholds work too. You still "
@@ -9763,7 +9767,7 @@ msgid ""
 "performance. Some options may not be available."
 msgstr ""
 
-#: includes/functions/_setup-wordpress.php:564
+#: includes/functions/_setup-wordpress.php:566
 msgid ""
 "You can unlock this content by supporting me on Patreon. If you are already "
 "a member and not see anything, log out and log in again to refresh your "
