@@ -1788,6 +1788,9 @@ function fcntr( $key, $escape = false ) {
       'private_prefix' => _x( 'Private:', 'Chapter list status prefix.', 'fictioneer' ),
       'free_patreon_tier' => _x( 'Follower (free)', 'Free Patreon tier (follower).', 'fictioneer' )
     );
+
+    // Filter static translations
+    $strings = apply_filters( 'fictioneer_filter_translations_static', $strings );
   }
 
   // Filter translations

@@ -630,7 +630,7 @@ For more details on Patreon, see [Patreon Integration](#patreon-integration) fur
 
 ![Phrases Settings Preview](repo/assets/settings_phrases_preview.png?raw=true)
 
-Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin.
+Allows for some minor translations and changes, such as the cookie notice banner or comment reply notification email. More customization can be achieved with the theme’s [translation filter](FILTERS.md#apply_filters-fictioneer_filter_translations_static-strings-). But if you want to translate the theme into a new language, you will need to include the proper [translation files](https://developer.wordpress.org/plugins/internationalization/localization/) or use a plugin. You can find a .POT template file in the languages folder.
 
 ### Fonts Tab
 

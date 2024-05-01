@@ -1193,7 +1193,7 @@ Filters the exclusion array of page templates for the custom theme sitemap. By d
 ---
 
 ### `apply_filters( 'fictioneer_filter_sof_date_options', $options, $current_url, $args )`
-Filters the option array of URL/label tuples for the date popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Can be any positive integer (days) or [strtotime](https://www.php.net/manual/en/function.strtotime.php) compatible string. See `fictioneer_append_date_query(...)`. Includes '0', '1', '3', '1 week ago', '1 month ago', '3 months ago', '6 months ago', and '1 year ago'.
+Filters the option array of URL/label tuples for the date popup menu in the `fictioneer_sort_order_filter_interface( $args )` function before it is rendered. Can be any positive integer (days) or [strtotime](https://www.php.net/manual/en/function.strtotime.php) compatible string. See `fictioneer_append_date_query()`. Includes '0', '1', '3', '1 week ago', '1 month ago', '3 months ago', '6 months ago', and '1 year ago'.
 
 **$options:**
 * '0' (array) – Tuple of $label (Any Date) and unescaped $url (`...ago=0&...#sof`).
@@ -1427,9 +1427,7 @@ Filters the intermediate output array of the `fictioneer_get_subscribe_options( 
 ---
 
 ### `apply_filters( 'fictioneer_filter_taxonomy_pills_group', $group, $key, $context )`
-Filters the groups passed to `fictioneer_get_taxonomy_pills(...)` before they are looped and rendered, allowing you to limit the number of taxonomies or randomize the order, for example.
-
-Filters the source array of selected translation strings used in the theme, see `fcntr( $key, $escape )` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
+Filters the groups passed to `fictioneer_get_taxonomy_pills()` before they are looped and rendered, allowing you to limit the number of taxonomies or randomize the order, for example.
 
 **Parameters:**
 * $group (array) – Array of WP_Term objects.
@@ -1439,10 +1437,15 @@ Filters the source array of selected translation strings used in the theme, see 
 ---
 
 ### `apply_filters( 'fictioneer_filter_translations', $strings )`
-Filters the source array of selected translation strings used in the theme, see `fcntr( $key, $escape )` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
+Filters the source array of selected translation strings used in the theme, see `fcntr()` function in `includes/functions/_utility.php`. You cannot translate the whole theme with this, but give it a personal touch.
 
 **Parameters:**
 * $strings (array) – Associative array of translation keys and values.
+
+---
+
+### `apply_filters( 'fictioneer_filter_translations_static', $strings )`
+Same as the `fictioneer_filter_translations` filter, but only applied once when the `fcntr()` function is first called and cached in a static variable to save system resources. Using this is recommended if possible.
 
 ---
 
