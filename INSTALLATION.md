@@ -581,6 +581,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **All Blocks:** Your block options are quite limited without this, for *sanity* reasons.
   * **Story Pages:** Allows you to attach up to four pages to your stories as extra tabs.
   * **Edit Date:** Makes it possible to change the publishing date *after* publishing.
+  * **Assign Patreon Tiers:** Allows you to set Patreon tiers and pledge thresholds for posts.
   * **Reduced Profile:** Removes clutter from the admin profile page, like the color schemes.
   * **Only Moderate Comments:** Limits moderators to only editing comments, not all posts.
   * **Upload Limit:** Enforce the file size limit from the General Settings.
