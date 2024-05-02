@@ -387,17 +387,17 @@ add_action( 'init', 'fictioneer_fcn_recommendation_post_type', 0 );
 
 function fictioneer_add_genre_taxonomy() {
   $labels = array(
-    'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
-    'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
-    'menu_name'         => __( 'Genres', 'text_domain' ),
-    'search_items'      => __( 'Search Genres', 'textdomain' ),
-    'all_items'         => __( 'All Genres', 'textdomain' ),
-    'parent_item'       => __( 'Parent Genre', 'textdomain' ),
-    'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
-    'edit_item'         => __( 'Edit Genre', 'textdomain' ),
-    'update_item'       => __( 'Update Genre', 'textdomain' ),
-    'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
-    'new_item_name'     => __( 'New Genre Name', 'textdomain' )
+    'name'              => _x( 'Genres', 'Taxonomy general name.', 'fictioneer' ),
+    'singular_name'     => _x( 'Genre', 'Taxonomy singular name.', 'fictioneer' ),
+    'menu_name'         => __( 'Genres', 'fictioneer' ),
+    'search_items'      => __( 'Search Genres', 'fictioneer' ),
+    'all_items'         => __( 'All Genres', 'fictioneer' ),
+    'parent_item'       => __( 'Parent Genre', 'fictioneer' ),
+    'parent_item_colon' => __( 'Parent Genre:', 'fictioneer' ),
+    'edit_item'         => __( 'Edit Genre', 'fictioneer' ),
+    'update_item'       => __( 'Update Genre', 'fictioneer' ),
+    'add_new_item'      => __( 'Add New Genre', 'fictioneer' ),
+    'new_item_name'     => __( 'New Genre Name', 'fictioneer' )
   );
 
   $args = array(
@@ -432,17 +432,17 @@ add_action( 'init', 'fictioneer_add_genre_taxonomy', 0 );
 
 function fictioneer_add_fandom_taxonomy() {
   $labels = array(
-    'name'              => _x( 'Fandoms', 'taxonomy general name', 'textdomain' ),
-    'singular_name'     => _x( 'Fandom', 'taxonomy singular name', 'textdomain' ),
-    'menu_name'         => __( 'Fandoms', 'text_domain' ),
-    'search_items'      => __( 'Search Fandoms', 'textdomain' ),
-    'all_items'         => __( 'All Fandoms', 'textdomain' ),
-    'parent_item'       => __( 'Parent Fandom', 'textdomain' ),
-    'parent_item_colon' => __( 'Parent Fandom:', 'textdomain' ),
-    'edit_item'         => __( 'Edit Fandom', 'textdomain' ),
-    'update_item'       => __( 'Update Fandom', 'textdomain' ),
-    'add_new_item'      => __( 'Add New Fandom', 'textdomain' ),
-    'new_item_name'     => __( 'New Fandom Name', 'textdomain' )
+    'name'              => _x( 'Fandoms', 'Taxonomy general name.', 'fictioneer' ),
+    'singular_name'     => _x( 'Fandom', 'Taxonomy singular name.', 'fictioneer' ),
+    'menu_name'         => __( 'Fandoms', 'fictioneer' ),
+    'search_items'      => __( 'Search Fandoms', 'fictioneer' ),
+    'all_items'         => __( 'All Fandoms', 'fictioneer' ),
+    'parent_item'       => __( 'Parent Fandom', 'fictioneer' ),
+    'parent_item_colon' => __( 'Parent Fandom:', 'fictioneer' ),
+    'edit_item'         => __( 'Edit Fandom', 'fictioneer' ),
+    'update_item'       => __( 'Update Fandom', 'fictioneer' ),
+    'add_new_item'      => __( 'Add New Fandom', 'fictioneer' ),
+    'new_item_name'     => __( 'New Fandom Name', 'fictioneer' )
   );
 
   $args = array(
@@ -477,17 +477,17 @@ add_action( 'init', 'fictioneer_add_fandom_taxonomy', 0 );
 
 function fictioneer_add_character_taxonomy() {
   $labels = array(
-    'name'              => _x( 'Characters', 'taxonomy general name', 'textdomain' ),
-    'singular_name'     => _x( 'Character', 'taxonomy singular name', 'textdomain' ),
-    'menu_name'         => __( 'Characters', 'text_domain' ),
-    'search_items'      => __( 'Search Characters', 'textdomain' ),
-    'all_items'         => __( 'All Characters', 'textdomain' ),
-    'parent_item'       => __( 'Parent Character', 'textdomain' ),
-    'parent_item_colon' => __( 'Parent Character:', 'textdomain' ),
-    'edit_item'         => __( 'Edit Character', 'textdomain' ),
-    'update_item'       => __( 'Update Character', 'textdomain' ),
-    'add_new_item'      => __( 'Add New Character', 'textdomain' ),
-    'new_item_name'     => __( 'New Character Name', 'textdomain' )
+    'name'              => _x( 'Characters', 'Taxonomy general name.', 'fictioneer' ),
+    'singular_name'     => _x( 'Character', 'Taxonomy singular name.', 'fictioneer' ),
+    'menu_name'         => __( 'Characters', 'fictioneer' ),
+    'search_items'      => __( 'Search Characters', 'fictioneer' ),
+    'all_items'         => __( 'All Characters', 'fictioneer' ),
+    'parent_item'       => __( 'Parent Character', 'fictioneer' ),
+    'parent_item_colon' => __( 'Parent Character:', 'fictioneer' ),
+    'edit_item'         => __( 'Edit Character', 'fictioneer' ),
+    'update_item'       => __( 'Update Character', 'fictioneer' ),
+    'add_new_item'      => __( 'Add New Character', 'fictioneer' ),
+    'new_item_name'     => __( 'New Character Name', 'fictioneer' )
   );
 
   $args = array(
@@ -522,17 +522,17 @@ add_action( 'init', 'fictioneer_add_character_taxonomy', 0 );
 
 function fictioneer_add_content_warning_taxonomy() {
   $labels = array(
-    'name'              => _x( 'Content Warnings', 'taxonomy general name', 'textdomain' ),
-    'singular_name'     => _x( 'Content Warning', 'taxonomy singular name', 'textdomain' ),
-    'menu_name'         => __( 'Content Warnings', 'text_domain' ),
-    'search_items'      => __( 'Search Content Warnings', 'textdomain' ),
-    'all_items'         => __( 'All Content Warnings', 'textdomain' ),
-    'parent_item'       => __( 'Parent Content Warning', 'textdomain' ),
-    'parent_item_colon' => __( 'Parent Content Warning:', 'textdomain' ),
-    'edit_item'         => __( 'Edit Content Warning', 'textdomain' ),
-    'update_item'       => __( 'Update Content Warning', 'textdomain' ),
-    'add_new_item'      => __( 'Add New Content Warning', 'textdomain' ),
-    'new_item_name'     => __( 'New Content Warning Name', 'textdomain' )
+    'name'              => _x( 'Content Warnings', 'Taxonomy general name.', 'fictioneer' ),
+    'singular_name'     => _x( 'Content Warning', 'Taxonomy singular name.', 'fictioneer' ),
+    'menu_name'         => __( 'Content Warnings', 'fictioneer' ),
+    'search_items'      => __( 'Search Content Warnings', 'fictioneer' ),
+    'all_items'         => __( 'All Content Warnings', 'fictioneer' ),
+    'parent_item'       => __( 'Parent Content Warning', 'fictioneer' ),
+    'parent_item_colon' => __( 'Parent Content Warning:', 'fictioneer' ),
+    'edit_item'         => __( 'Edit Content Warning', 'fictioneer' ),
+    'update_item'       => __( 'Update Content Warning', 'fictioneer' ),
+    'add_new_item'      => __( 'Add New Content Warning', 'fictioneer' ),
+    'new_item_name'     => __( 'New Content Warning Name', 'fictioneer' )
   );
 
   $args = array(
