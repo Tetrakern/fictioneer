@@ -97,11 +97,11 @@ function fcn_toggleCheckmark(storyId, type, chapter = null, source = null, mode 
   }
 
   // Initialize if story is not yet tracked
-  if (!fcn_checkmarks.data.hasOwnProperty(storyId)) {
+  if (!fcn_checkmarks.data[storyId]) {
     fcn_checkmarks.data[storyId] = [];
   }
 
-  if (!currentUserData.checkmarks.data.hasOwnProperty(storyId)) {
+  if (!currentUserData.checkmarks.data[storyId]) {
     currentUserData.checkmarks.data[storyId] = [];
   }
 
@@ -262,8 +262,7 @@ function fcn_updateCheckmarksView() {
   const storyId = parseInt(fcn_inlineStorage.storyId);
 
   if (storyId) {
-    const completed = checkmarks.data.hasOwnProperty(storyId) &&
-      checkmarks.data[storyId].includes(storyId);
+    const completed = checkmarks.data[storyId] && checkmarks.data[storyId].includes(storyId);
 
     // Add missing checkmarks
     if (completed) {
@@ -293,7 +292,7 @@ function fcn_updateCheckmarksView() {
   _$$('button.checkmark').forEach(button => {
     const checkStoryId = parseInt(button.dataset.storyId);
 
-    if (checkmarks.data.hasOwnProperty(checkStoryId)) {
+    if (checkmarks.data[checkStoryId]) {
       const checked = checkmarks.data[checkStoryId].includes(parseInt(button.dataset.id));
 
       button.classList.toggle('marked', checked);
@@ -304,7 +303,7 @@ function fcn_updateCheckmarksView() {
   // Update icon and buttons on cards
   _$$('.card').forEach(card => {
     const cardStoryId = parseInt(card.dataset.storyId);
-    const force = checkmarks.data.hasOwnProperty(cardStoryId) &&
+    const force = checkmarks.data[cardStoryId] &&
       (
         checkmarks.data[cardStoryId].includes(parseInt(card.dataset.checkId)) ||
         checkmarks.data[cardStoryId].includes(cardStoryId)
