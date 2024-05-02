@@ -169,7 +169,7 @@ add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of
 
 ## Limit tags to 10
 
-Or any other positive number for that matter. To prevent authors from entering a whole f\*\*\*ucking thesis of tags. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. But maybe that will teach them a lesson. Anything better needs to interfere with the Gutenberg editor and is difficult to achieve.
+Or any other positive number for that matter. To prevent authors from entering a whole f\*\*\*ing thesis of tags. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. But maybe that will teach them a lesson. Anything better needs to interfere with the Gutenberg editor and is difficult to achieve.
 
 **References**
 * Action: [save_post](https://developer.wordpress.org/reference/hooks/save_post/)
