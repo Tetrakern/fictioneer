@@ -544,11 +544,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
 
     // Redirect back to Home
-    if (
-      is_admin() &&
-      // ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-      ! current_user_can( 'fcn_admin_panel_access' )
-    ) {
+    if ( is_admin() && ! current_user_can( 'fcn_admin_panel_access' ) ) {
       wp_redirect( home_url() );
       exit;
     }
