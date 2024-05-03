@@ -63,6 +63,9 @@ function fictioneer_do_fast_ajax() {
     return;
   }
 
+  // Translations
+  load_theme_textdomain( 'fictioneer', get_template_directory() . '/languages' );
+
   // Include required files
   require_once __DIR__ . '/_utility.php';
   require_once __DIR__ . '/_helpers-query.php';
@@ -194,6 +197,9 @@ function fictioneer_do_fast_comment_ajax() {
     return;
   }
 
+  // Translations
+  load_theme_textdomain( 'fictioneer', get_template_directory() . '/languages' );
+
   // Include required files
   require_once __DIR__ . '/_utility.php'; // Obviously
   require_once __DIR__ . '/_setup-wordpress.php'; // Depends
@@ -248,6 +254,9 @@ if (
   get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
   strpos( $_SERVER['REQUEST_URI'], 'wp-json/fictioneer/v1/get_story_comments' ) !== false
 ) {
+  // Translations
+  load_theme_textdomain( 'fictioneer', get_template_directory() . '/languages' );
+
   // Include required files
   require_once __DIR__ . '/_utility.php';
   require_once __DIR__ . '/_setup-wordpress.php';
