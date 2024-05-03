@@ -51,7 +51,7 @@
               ?>
 
               <div class="fictioneer-card__row">
-                <textarea name="fictioneer_phrase_comment_reply_notification" id="fictioneer_phrase_comment_reply_notification" rows="8" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_comment_reply_notification' ) ); ?></textarea>
+                <textarea class="fictioneer-textarea" name="fictioneer_phrase_comment_reply_notification" rows="8" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_comment_reply_notification' ) ); ?></textarea>
                 <p class="fictioneer-sub-label"><?php _e( 'HTML allowed, but note that many email clients do not support modern markup or styles. Better stick to 10+ years old HTML and very simple inline CSS. Also always include an unsubscribe link. <code>[[post_title]]</code> <code>[[post_url]]</code> <code>[[comment_id]]</code> <code>[[comment_name]]</code> <code>[[comment_excerpt]]</code> <code>[[reply_id]]</code> <code>[[reply_name]]</code> <code>[[reply_date]]</code> <code>[[reply_excerpt]]</code> <code>[[reply_content]]</code> <code>[[site_title]]</code> <code>[[site_url]]</code> <code>[[unsubscribe_url]]</code>', 'fictioneer' ); ?></p>
               </div>
 

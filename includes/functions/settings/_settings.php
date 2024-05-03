@@ -457,18 +457,19 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  *
  * @since 5.7.2
  *
- * @param string $option     The name of the setting option.
- * @param string $sub_label  Optional. The description below the label.
+ * @param string $option       The name of the setting option.
+ * @param string $label        Label of the setting.
+ * @param string $description  Optional. The description below the label.
  */
 
-function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
+function fictioneer_settings_label_checkbox( $option, $label, $description = null ) {
   // Start HTML ---> ?>
   <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
     <input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
     <div>
-      <span><?php echo FICTIONEER_OPTIONS['booleans'][ $option ]['label']; ?></span>
-      <?php if ( ! empty( $sub_label ) ) : ?>
-        <p class="fictioneer-sub-label"><?php echo $sub_label; ?></p>
+      <span><?php echo $label; ?></span>
+      <?php if ( ! empty( $description ) ) : ?>
+        <p class="fictioneer-sub-label"><?php echo $description; ?></p>
       <?php endif; ?>
     </div>
   </label>
@@ -480,15 +481,17 @@ function fictioneer_settings_label_checkbox( $option, $sub_label = null ) {
  *
  * @since 5.7.2
  *
- * @param string $option  The name of the setting option.
- * @param string $type    Optional. The field type, default 'text'.
+ * @param string $option       The name of the setting option.
+ * @param string $label        Label of the setting.
+ * @param string $placeholder  Optional. Placeholder of the input, default empty.
+ * @param string $type         Optional. The field type, default 'text'.
  */
 
-function fictioneer_settings_text_input( $option, $type = 'text' ) {
+function fictioneer_settings_text_input( $option, $label, $placeholder = '', $type = 'text' ) {
   // Start HTML ---> ?>
   <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
-    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder'] ?? ''; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
-    <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+    <input name="<?php echo $option; ?>" placeholder="<?php echo $placeholder; ?>" type="<?php echo $type; ?>" id="<?php echo $option; ?>" value="<?php echo esc_attr( get_option( $option ) ); ?>" autocomplete="off">
+    <p class="fictioneer-sub-label"><?php echo $label; ?></p>
   </label>
   <?php // <--- End HTML
 }
@@ -498,10 +501,12 @@ function fictioneer_settings_text_input( $option, $type = 'text' ) {
  *
  * @since 5.15.0
  *
- * @param string $option  The name of the setting option.
+ * @param string $option       The name of the setting option.
+ * @param string $label        Label of the setting.
+ * @param string $placeholder  Optional. Placeholder of the input, default empty.
  */
 
-function fictioneer_settings_array_input( $option ) {
+function fictioneer_settings_array_input( $option, $label, $placeholder = '' ) {
   // Setup
   $value = get_option( $option, [] ) ?: [];
   $value = is_array( $value ) ? $value : [];
@@ -509,8 +514,8 @@ function fictioneer_settings_array_input( $option ) {
 
   // Start HTML ---> ?>
   <label class="fictioneer-label-textfield" for="<?php echo $option; ?>">
-    <input name="<?php echo $option; ?>" placeholder="<?php echo FICTIONEER_OPTIONS['strings'][ $option ]['placeholder'] ?? ''; ?>" type="text" id="<?php echo $option; ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off">
-    <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+    <input name="<?php echo $option; ?>" placeholder="<?php echo $placeholder; ?>" type="text" id="<?php echo $option; ?>" value="<?php echo esc_attr( $value ); ?>" autocomplete="off">
+    <p class="fictioneer-sub-label"><?php echo $label; ?></p>
   </label>
   <?php // <--- End HTML
 }
@@ -521,13 +526,14 @@ function fictioneer_settings_array_input( $option ) {
  * @since 5.7.2
  *
  * @param string $option  The name of the setting option.
+ * @param string $label   Label of the setting.
  * @param string $height  Optional. The height with unit, default 'auto'.
  */
 
-function fictioneer_settings_textarea( $option, $height = 'auto' ) {
+function fictioneer_settings_textarea( $option, $label, $height = 'auto' ) {
   // Start HTML ---> ?>
   <textarea class="fictioneer-textarea" name="<?php echo $option; ?>" id="<?php echo $option; ?>" rows="4" style="height: <?php echo $height; ?>;"><?php echo get_option( $option ); ?></textarea>
-  <p class="fictioneer-sub-label"><?php echo FICTIONEER_OPTIONS['strings'][ $option ]['label']; ?></p>
+  <p class="fictioneer-sub-label"><?php echo $label; ?></p>
   <?php // <--- End HTML
 }
 
@@ -537,9 +543,10 @@ function fictioneer_settings_textarea( $option, $height = 'auto' ) {
  * @since 5.7.2
  *
  * @param string $option  The name of the setting option.
+ * @param string $label   Label of the setting.
  */
 
-function fictioneer_settings_page_assignment( $option ) {
+function fictioneer_settings_page_assignment( $option, $label ) {
   wp_dropdown_pages(
     array(
       'name' => $option,
@@ -550,5 +557,5 @@ function fictioneer_settings_page_assignment( $option ) {
     )
   );
 
-  echo '<p class="fictioneer-sub-label">' . FICTIONEER_OPTIONS['integers'][ $option ]['label'] . '</p>';
+  echo '<p class="fictioneer-sub-label">' . $label . '</p>';
 }
