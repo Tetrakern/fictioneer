@@ -741,7 +741,7 @@ function fictioneer_output_customize_css() {
     wp_enqueue_style(
       'fictioneer-customize',
       get_template_directory_uri() . "/cache/customize.css?timestamp={$last_built_timestamp}",
-      ['fictioneer-application'],
+      get_option( 'fictioneer_bundle_stylesheets' ) ? ['fictioneer-complete'] : ['fictioneer-application'],
       fictioneer_get_cache_bust()
     );
   }
