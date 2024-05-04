@@ -216,6 +216,7 @@ define(
     'fictioneer_stories_page',
     'fictioneer_chapters_page',
     'fictioneer_recommendations_page',
+    'fictioneer_collections_page',
     'fictioneer_bookshelf_page',
     'fictioneer_404_page'
   )
