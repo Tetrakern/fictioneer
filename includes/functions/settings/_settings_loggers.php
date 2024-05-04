@@ -113,7 +113,7 @@ function fictioneer_log_post_update( $post_id, $action ) {
 
   // Build message
   $message = sprintf(
-    _x( '%1$s #%2$s %3$s: %4$s', 'Pattern for post/page in logs: "{Type} #{ID} {Action}: {Title}".', 'fictioneer' ),
+    _x( '%1$s #%2$s %3$s: %4$s', 'Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}.', 'fictioneer' ),
     $post_type_name,
     $post_id,
     $action,
@@ -146,7 +146,7 @@ function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
 
   // Build message
   $update = sprintf(
-    _x( '%1$s: %2$s', 'Pattern for checkbox option in logs: "{Checked} {Option}".', 'fictioneer' ),
+    _x( '%1$s: %2$s', 'Pattern for checkbox option in logs.', 'fictioneer' ),
     $value ? _x( 'Checked', 'State of checkbox option in logs.', 'fictioneer' ) : _x( 'Unchecked', 'State of checkbox option in logs.', 'fictioneer' ),
     $option
   );
@@ -336,8 +336,8 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
   // Build message
   $message = sprintf(
     _x(
-      'Phrase for the %1$s changed to \'%2$s\'',
-      'Pattern for phrase updates in logs: "Phrase for the {Option} changed to: \'{New String}\'".',
+      'Phrase for the %1$s changed to "%2$s"',
+      'Pattern for phrase updates in logs.',
       'fictioneer'
     ),
     $option,
@@ -439,7 +439,7 @@ function fictioneer_log_connection_update( $connection, $old_value, $value ) {
   $message = sprintf(
     _x(
       '%s updated.',
-      'Pattern for connection updates in logs: "{Option} updated".',
+      'Pattern for connection updates in logs.',
       'fictioneer'
     ),
     $connection
