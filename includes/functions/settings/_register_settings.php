@@ -991,8 +991,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_hide_large_card_chapter_list' => __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
       'fictioneer_enable_patreon_locks' => __( 'Enable Patreon content gate', 'fictioneer' ),
       'fictioneer_hide_password_form_with_patreon' => __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
-      'fictioneer_enable_maintenance_mode' => __( 'Enable maintenance mode', 'fictioneer' ),
-      'fictioneer_dark_mode_as_default' => __( 'Enable dark mode as default', 'fictioneer' ),
       'fictioneer_user_profile_page' => __( 'Account page assignment', 'fictioneer' ),
       'fictioneer_bookmarks_page' => __( 'Bookmarks page assignment', 'fictioneer' ),
       'fictioneer_stories_page' => __( 'Stories page assignment', 'fictioneer' ),
@@ -1011,6 +1009,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_phrase_login_modal' => __( 'Login modal', 'fictioneer' ),
       'fictioneer_phrase_cookie_consent_banner' => __( 'Cookie consent banner', 'fictioneer' ),
       'fictioneer_phrase_comment_reply_notification' => __( 'Comment reply notification email', 'fictioneer' ),
+      'fictioneer_phrase_site_age_confirmation' => __( 'Age confirmation modal content for the site', 'fictioneer' ),
+      'fictioneer_phrase_post_age_confirmation' => __( 'Age confirmation modal content for posts', 'fictioneer' ),
       'fictioneer_system_email_address' => __( 'System email address', 'fictioneer' ),
       'fictioneer_system_email_name' => __( 'System email name', 'fictioneer' ),
       'fictioneer_patreon_label' => __( 'Patreon badge label', 'fictioneer' ),
@@ -1036,8 +1036,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_subitem_short_date_format' => __( 'Subitem short date format', 'fictioneer' ),
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),
       'fictioneer_upload_mime_types' => __( 'List of allowed file upload mime types', 'fictioneer' ),
-      'fictioneer_phrase_site_age_confirmation' => __( 'Age confirmation modal content for the site', 'fictioneer' ),
-      'fictioneer_phrase_post_age_confirmation' => __( 'Age confirmation modal content for posts', 'fictioneer' ),
       'fictioneer_google_fonts_links' => __( 'List of Google Fonts links', 'fictioneer' ),
       'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' )
     );

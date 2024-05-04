@@ -313,7 +313,9 @@ define(
     'fictioneer_phrase_maintenance',
     'fictioneer_phrase_login_modal',
     'fictioneer_phrase_cookie_consent_banner',
-    'fictioneer_phrase_comment_reply_notification'
+    'fictioneer_phrase_comment_reply_notification',
+    'fictioneer_phrase_site_age_confirmation',
+    'fictioneer_phrase_post_age_confirmation'
   )
 );
 
@@ -336,7 +338,7 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
   // Build message
   $message = sprintf(
     _x(
-      'Phrase for the %1$s changed to "%2$s"',
+      '%1$s phrase changed to "%2$s"',
       'Pattern for phrase updates in logs.',
       'fictioneer'
     ),
