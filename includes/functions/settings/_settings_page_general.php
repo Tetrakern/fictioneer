@@ -1002,7 +1002,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_restrict_rest_api',
-                    __( 'Restrict Default REST API', 'fictioneer' ),
+                    __( 'Restrict default REST API', 'fictioneer' ),
                     __( 'Disables API for guests and low-permission users.', 'fictioneer' )
                   );
                 ?>

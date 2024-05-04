@@ -972,7 +972,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_theme_search' => __( 'Disable advanced search', 'fictioneer' ),
       'fictioneer_disable_contact_forms' => __( 'Disable theme contact forms', 'fictioneer' ),
       'fictioneer_enable_storygraph_api' => __( 'Enable Storygraph API', 'fictioneer' ),
-      'fictioneer_restrict_rest_api' => __( 'Restrict Default REST API', 'fictioneer' ),
+      'fictioneer_restrict_rest_api' => __( 'Restrict default REST API', 'fictioneer' ),
       'fictioneer_enable_chapter_appending' => __( 'Append new chapters to story', 'fictioneer' ),
       'fictioneer_limit_chapter_stories_by_author' => __( 'Restrict chapter stories by author', 'fictioneer' ),
       'fictioneer_disable_all_widgets' => __( 'Disable all widgets', 'fictioneer' ),
@@ -1000,7 +1000,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_bookshelf_page' => __( 'Bookshelf page assignment', 'fictioneer' ),
       'fictioneer_404_page' => __( '404 page assignment', 'fictioneer' ),
       'fictioneer_comment_report_threshold' => __( 'Automatic moderation report threshold', 'fictioneer' ),
-      'fictioneer_comment_link_limit_threshold' => __( 'Comment link limit', 'fictioneer' ),
+      'fictioneer_comment_link_limit_threshold' => __( 'Allowed number of links in comment', 'fictioneer' ),
       'fictioneer_words_per_minute' => __( 'Words per minute', 'fictioneer' ),
       'fictioneer_user_comment_edit_time' => __( 'Minutes a comment can be edited', 'fictioneer' ),
       'fictioneer_upload_size_limit' => __( 'Size limit for file uploads', 'fictioneer' ),
@@ -1035,8 +1035,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_subitem_date_format' => __( 'Subitem long date format', 'fictioneer' ),
       'fictioneer_subitem_short_date_format' => __( 'Subitem short date format', 'fictioneer' ),
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),
-      'fictioneer_upload_mime_types' => __( 'List of allowed file upload mime types', 'fictioneer' ),
-      'fictioneer_google_fonts_links' => __( 'List of Google Fonts links', 'fictioneer' ),
+      'fictioneer_upload_mime_types' => __( 'Allowed file upload mime types', 'fictioneer' ),
+      'fictioneer_google_fonts_links' => __( ' Google Fonts links', 'fictioneer' ),
       'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' )
     );
   }
