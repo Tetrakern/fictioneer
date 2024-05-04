@@ -692,6 +692,16 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_integer',
       'default' => 5
+    ),
+    'fictioneer_patreon_global_lock_amount' => array(
+      'name' => 'fictioneer_patreon_global_lock_amount',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
+    ),
+    'fictioneer_patreon_global_lock_lifetime_amount' => array(
+      'name' => 'fictioneer_patreon_global_lock_lifetime_amount',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
     )
   ),
   'floats' => array(
@@ -817,16 +827,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_patreon_global_lock_tiers',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_global_patreon_tiers'
-    ),
-    'fictioneer_patreon_global_lock_amount' => array(
-      'name' => 'fictioneer_patreon_global_lock_amount',
-      'group' => 'fictioneer-settings-connections-group',
-      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
-    ),
-    'fictioneer_patreon_global_lock_lifetime_amount' => array(
-      'name' => 'fictioneer_patreon_global_lock_lifetime_amount',
-      'group' => 'fictioneer-settings-connections-group',
-      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
     ),
     'fictioneer_subitem_date_format' => array(
       'name' => 'fictioneer_subitem_date_format',
