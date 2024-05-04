@@ -610,7 +610,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_hide_password_form_with_patreon',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'label' => __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
       'default' => 0
     )
   ),

@@ -172,7 +172,7 @@ function fictioneer_settings_checkbox_added( $option, $value ) {
 
   // Relay
   fictioneer_log_checkbox_update(
-    FICTIONEER_OPTIONS['booleans'][ $option ]['label'],
+    FICTIONEER_OPTIONS['booleans'][ $option ]['label'] ?? FICTIONEER_OPTIONS['booleans'][ $option ]['name'],
     null,
     $value
   );
@@ -197,7 +197,7 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
 
   // Relay
   fictioneer_log_checkbox_update(
-    FICTIONEER_OPTIONS['booleans'][ $option ]['label'],
+    FICTIONEER_OPTIONS['booleans'][ $option ]['label'] ?? FICTIONEER_OPTIONS['booleans'][ $option ]['name'],
     $old_value,
     $value
   );
@@ -270,7 +270,7 @@ function fictioneer_settings_page_assignment_added( $option, $value ) {
 
   // Relay
   fictioneer_log_page_assignment_update(
-    FICTIONEER_OPTIONS['integers'][ $option ]['label'],
+    FICTIONEER_OPTIONS['integers'][ $option ]['label'] ?? FICTIONEER_OPTIONS['integers'][ $option ]['name'],
     null,
     $value
   );
@@ -295,7 +295,7 @@ function fictioneer_settings_page_assignment_updated( $option, $old_value, $valu
 
   // Relay
   fictioneer_log_page_assignment_update(
-    FICTIONEER_OPTIONS['integers'][ $option ]['label'],
+    FICTIONEER_OPTIONS['integers'][ $option ]['label'] ?? FICTIONEER_OPTIONS['integers'][ $option ]['name'],
     $old_value,
     $value
   );
@@ -364,7 +364,7 @@ function fictioneer_settings_phrase_added( $option, $value ) {
 
   // Relay
   fictioneer_log_phrase_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    FICTIONEER_OPTIONS['strings'][ $option ]['label'] ?? FICTIONEER_OPTIONS['strings'][ $option ]['name'],
     null,
     $value
   );
@@ -389,7 +389,7 @@ function fictioneer_settings_phrase_updated( $option, $old_value, $value ) {
 
   // Replay
   fictioneer_log_phrase_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    FICTIONEER_OPTIONS['strings'][ $option ]['label'] ?? FICTIONEER_OPTIONS['strings'][ $option ]['name'],
     $old_value,
     $value
   );
@@ -465,7 +465,7 @@ function fictioneer_settings_connection_added( $option, $value ) {
 
   // Relay
   fictioneer_log_connection_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    FICTIONEER_OPTIONS['strings'][ $option ]['label'] ?? FICTIONEER_OPTIONS['strings'][ $option ]['name'],
     null,
     $value
   );
@@ -490,7 +490,7 @@ function fictioneer_settings_connection_updated( $option, $old_value, $value ) {
 
   // Relay
   fictioneer_log_connection_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    FICTIONEER_OPTIONS['strings'][ $option ]['label'] ?? FICTIONEER_OPTIONS['strings'][ $option ]['name'],
     $old_value,
     $value
   );
