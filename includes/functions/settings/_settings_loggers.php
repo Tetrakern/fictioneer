@@ -241,8 +241,8 @@ function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
   // Build message
   $message = sprintf(
     _x(
-      '%1$s page assignment changed from #%2$s to #%3$s',
-      'Pattern for page assignment updates in logs: "{Option} page assignment changed from {Old ID} to {New ID}.".',
+      '%1$s changed from "%2$s" to "%3$s"',
+      'Pattern for page assignment updates in logs.',
       'fictioneer'
     ),
     $option,

@@ -874,6 +874,9 @@ define( 'FICTIONEER_OPTIONS', array(
 /**
  * Return label of setting if defined
  *
+ * Note: These labels can differ from the ones used on the
+ * settings page, which can also include instructions.
+ *
  * @since 5.15.3
  *
  * @param string $option  The name of the option.
@@ -990,14 +993,14 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_hide_password_form_with_patreon' => __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
       'fictioneer_enable_maintenance_mode' => __( 'Enable maintenance mode', 'fictioneer' ),
       'fictioneer_dark_mode_as_default' => __( 'Enable dark mode as default', 'fictioneer' ),
-      'fictioneer_user_profile_page' => __( 'Account page', 'fictioneer' ),
-      'fictioneer_bookmarks_page' => __( 'Bookmarks page', 'fictioneer' ),
-      'fictioneer_stories_page' => __( 'Stories page', 'fictioneer' ),
-      'fictioneer_chapters_page' => __( 'Chapters page', 'fictioneer' ),
-      'fictioneer_recommendations_page' => __( 'Recommendations page', 'fictioneer' ),
-      'fictioneer_collections_page' => __( 'Collections page', 'fictioneer' ),
-      'fictioneer_bookshelf_page' => __( 'Bookshelf page', 'fictioneer' ),
-      'fictioneer_404_page' => __( '404 page', 'fictioneer' ),
+      'fictioneer_user_profile_page' => __( 'Account page assignment', 'fictioneer' ),
+      'fictioneer_bookmarks_page' => __( 'Bookmarks page assignment', 'fictioneer' ),
+      'fictioneer_stories_page' => __( 'Stories page assignment', 'fictioneer' ),
+      'fictioneer_chapters_page' => __( 'Chapters page assignment', 'fictioneer' ),
+      'fictioneer_recommendations_page' => __( 'Recommendations page assignment', 'fictioneer' ),
+      'fictioneer_collections_page' => __( 'Collections page assignment', 'fictioneer' ),
+      'fictioneer_bookshelf_page' => __( 'Bookshelf page assignment', 'fictioneer' ),
+      'fictioneer_404_page' => __( '404 page assignment', 'fictioneer' ),
       'fictioneer_comment_report_threshold' => __( 'Automatic moderation report threshold', 'fictioneer' ),
       'fictioneer_comment_link_limit_threshold' => __( 'Comment link limit', 'fictioneer' ),
       'fictioneer_words_per_minute' => __( 'Words per minute', 'fictioneer' ),
