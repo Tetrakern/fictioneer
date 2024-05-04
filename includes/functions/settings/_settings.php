@@ -457,15 +457,12 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  *
  * @since 5.7.2
  *
- * @param string      $option       The name of the setting option.
- * @param string|null $description  Optional. The description below the label.
- * @param string|null $label        Optional. Override label of the setting.
+ * @param string $option       The name of the setting option.
+ * @param string $label        Label of the setting.
+ * @param string $description  Optional. The description below the label.
  */
 
-function fictioneer_settings_label_checkbox( $option, $description = null, $label = null ) {
-  // Setup
-  $label = $label ?? fictioneer_get_option_label( $option );
-
+function fictioneer_settings_label_checkbox( $option, $label, $description = null ) {
   // Start HTML ---> ?>
   <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
     <input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
