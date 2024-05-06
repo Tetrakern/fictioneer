@@ -50,6 +50,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
  * config.php (which is bad practice).
  *
  * @since 5.6.3
+ * @since 5.15.3 - Load theme textdomain.
  */
 
 function fictioneer_do_fast_ajax() {
@@ -187,6 +188,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_COMMENT_FUNCTIONS' ) ) {
  * config.php (which is bad practice).
  *
  * @since 5.6.3
+ * @since 5.15.3 - Load theme textdomain.
  */
 
 function fictioneer_do_fast_comment_ajax() {
