@@ -756,7 +756,7 @@
                     'fictioneer_enable_fast_ajax_comments',
                     __( 'Enable fast AJAX for comments', 'fictioneer' ),
                     sprintf(
-                      __( 'Accelerate comments by skipping plugins. Requires the <a href="%s" target="_blank">Fast Requests</a> must-use plugin to be installed.', 'fictioneer' ),
+                      __( 'Accelerate comments by skipping most plugins. Requires the <a href="%s" target="_blank">Fast Requests</a> mu-plugin to be installed.', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins'
                     )
                   );
