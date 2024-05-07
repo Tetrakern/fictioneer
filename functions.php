@@ -414,16 +414,6 @@ if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
 }
 
 // =============================================================================
-// FAST REQUESTS
-//
-// This is significantly faster than even the REST API because it skips most of
-// the theme initialization and the init() action. However, this also means you
-// cannot use any actions and filters not loaded at this point.
-// =============================================================================
-
-require_once __DIR__ . '/includes/functions/_fast-requests.php';
-
-// =============================================================================
 // GLOBAL
 // =============================================================================
 

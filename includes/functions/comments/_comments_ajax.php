@@ -594,7 +594,7 @@ if ( get_option( 'fictioneer_enable_user_comment_editing' ) ) {
  */
 
 function fictioneer_ajax_delete_my_comment() {
-  // Enabled for fast AJAX?
+  // Enabled?
   if ( get_option( 'fictioneer_disable_comment_callback' ) ) {
     wp_send_json_error(
       array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
