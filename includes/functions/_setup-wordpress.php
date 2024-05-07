@@ -1441,12 +1441,6 @@ function fictioneer_fast_ajax() {
   }
 }
 
-if (
-  FICTIONEER_FAST_REQUESTS &&
-  (
-    isset( $_REQUEST['fcn_fast_ajax'] ) ||
-    isset( $_REQUEST['fcn_fast_comment_ajax'] )
-  )
-) {
+if ( isset( $_REQUEST['fcn_fast_ajax'] ) || isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
   add_action( 'init', 'fictioneer_fast_ajax', 99999 );
 }
