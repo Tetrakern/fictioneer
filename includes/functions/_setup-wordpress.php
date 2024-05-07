@@ -1372,3 +1372,71 @@ function fictioneer_disable_font_library( $editor_settings ) {
 	return $editor_settings;
 }
 add_filter( 'block_editor_settings_all', 'fictioneer_disable_font_library' );
+
+// =============================================================================
+// FAST AJAX REQUESTS
+// =============================================================================
+
+/**
+ * Accelerate AJAX requests by exiting early
+ *
+ * @since 5.15.3
+ */
+
+function fictioneer_fast_ajax() {
+  $action = sanitize_key( $_REQUEST['action'] ?? '' );
+
+  if ( ! $action ) {
+    return;
+  }
+
+  $functions = array(
+    // Bookmarks
+    'fictioneer_ajax_save_bookmarks',
+    // Follows
+    'fictioneer_ajax_toggle_follow',
+    'fictioneer_ajax_clear_my_follows',
+    'fictioneer_ajax_mark_follows_read',
+    'fictioneer_ajax_get_follows_notifications',
+    'fictioneer_ajax_get_follows_list',
+    // Reminders
+    'fictioneer_ajax_toggle_reminder',
+    'fictioneer_ajax_clear_my_reminders',
+    'fictioneer_ajax_get_reminders_list',
+    // Checkmarks
+    'fictioneer_ajax_set_checkmark',
+    'fictioneer_ajax_clear_my_checkmarks',
+    'fictioneer_ajax_get_finished_checkmarks_list',
+    // User
+    'fictioneer_ajax_get_auth',
+    'fictioneer_ajax_get_user_data',
+    'fictioneer_ajax_get_avatar',
+    // Admin
+    'fictioneer_ajax_query_relationship_posts'
+  );
+
+  if ( get_option( 'fictioneer_enable_fast_ajax_comments' ) && isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
+    $functions = array_merge(
+      $functions,
+      array(
+        // Comments
+        'fictioneer_ajax_delete_my_comment',
+        'fictioneer_ajax_moderate_comment',
+        'fictioneer_ajax_report_comment',
+        'fictioneer_ajax_get_comment_form',
+        'fictioneer_ajax_get_comment_section',
+        'fictioneer_ajax_submit_comment',
+        'fictioneer_ajax_edit_comment'
+      )
+    );
+  }
+
+  if ( in_array( $action, $functions ) && function_exists( $action ) ) {
+    call_user_func( $action );
+    exit;
+  }
+}
+
+if ( isset( $_REQUEST['fcn_fast_ajax'] ) || isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
+  add_action( 'init', 'fictioneer_fast_ajax', 99999 );
+}
