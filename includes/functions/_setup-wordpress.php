@@ -1380,6 +1380,10 @@ add_filter( 'block_editor_settings_all', 'fictioneer_disable_font_library' );
 /**
  * Accelerate AJAX requests by exiting early
  *
+ * Note: Requests are validated with fictioneer_get_validated_ajax_user(),
+ * making sure that AJAX functions without "_nopriv" are not executed for
+ * unauthenticated users.
+ *
  * @since 5.15.3
  */
 
@@ -1437,6 +1441,12 @@ function fictioneer_fast_ajax() {
   }
 }
 
-if ( isset( $_REQUEST['fcn_fast_ajax'] ) || isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
+if (
+  FICTIONEER_FAST_REQUESTS &&
+  (
+    isset( $_REQUEST['fcn_fast_ajax'] ) ||
+    isset( $_REQUEST['fcn_fast_comment_ajax'] )
+  )
+) {
   add_action( 'init', 'fictioneer_fast_ajax', 99999 );
 }

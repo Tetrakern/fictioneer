@@ -396,6 +396,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN' ) ) {
   define( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN', true );
 }
 
+// Boolean: Asynchronous loading via onload pattern
+if ( ! defined( 'FICTIONEER_FAST_REQUESTS' ) ) {
+  define( 'FICTIONEER_FAST_REQUESTS', true );
+}
+
 /*
  * Arrays
  */

@@ -1490,4 +1490,5 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_BROWSER_NOTES | boolean | Whether to inform visitors of missing browser features. Default `false`.
 | FICTIONEER_DEFER_SCRIPTS | boolean | Whether to defer scripts or load them in the footer. Default `true`.
 | FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN | boolean | Whether the [onload pattern](https://www.filamentgroup.com/lab/load-css-simpler/) for asynchronous CSS loading is used. Default `true`.
+| FICTIONEER_FAST_REQUESTS | boolean | Whether to enable exiting early for fast AJAX request. Default `true`.
 | FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.
