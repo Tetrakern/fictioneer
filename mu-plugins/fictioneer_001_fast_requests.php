@@ -26,7 +26,6 @@ if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
  * Filters the list of active plugins
  *
  * @since 1.0.0
- * @since 1.1.0 - Made more generic.
  *
  * @param array $plugins  An array of active plugin paths.
  *
@@ -36,11 +35,18 @@ if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
 function fictioneer_exclude_plugins( $plugins ) {
   // Setup
   $allow_list = array(
-    'advanced-database-cleaner/advanced-db-cleaner.php' // Example!
+    // 'plugin-name/plugin-name.php' // Example!
   );
 
-  // Filter and continue
-  return array_intersect( $plugins, $allow_list );
+  // Remove not allowed plugins, but allow all Fictioneer ones
+  foreach ( $plugins as $index => $plugin ) {
+    if ( ! in_array( $plugin, $allow_list ) && strpos( $plugin, 'fictioneer' ) === false ) {
+      unset( $plugins[ $index ] );
+    }
+  }
+
+  // Continue filter
+  return $plugins;
 }
 
 // Check if AJAX comment request
