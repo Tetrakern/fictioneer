@@ -29,13 +29,7 @@ if ( ! defined( 'FICTIONEER_FAST_AJAX_FUNCTIONS' ) ) {
       'fictioneer_ajax_get_user_data',
       'fictioneer_ajax_get_avatar',
       // Admin
-      'fictioneer_ajax_query_relationship_posts',
-      // Plugins
-      'fictioneer_ajax_fcnen_search_content',
-      'fictioneer_ajax_fcnen_get_form_content',
-      'fictioneer_ajax_fcnen_subscribe_or_update',
-      'fictioneer_ajax_fcnen_unsubscribe',
-      'fictioneer_ajax_fcnen_process_email_queue'
+      'fictioneer_ajax_query_relationship_posts'
     )
   );
 }
