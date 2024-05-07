@@ -77,7 +77,8 @@ function fcn_moderateComment(id, operation) {
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_moderate_comment',
     'operation': operation,
-    'id': id
+    'id': id,
+    'fcn_fast_comment_ajax': 1
   })
   .then(response => {
     if (response.success) {
@@ -194,7 +195,8 @@ function fcn_flagComment(source) {
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_report_comment',
     'id': comment.dataset.id,
-    'dubious': reportButton.classList.contains('_dubious')
+    'dubious': reportButton.classList.contains('_dubious'),
+    'fcn_fast_comment_ajax': 1
   })
   .then(response => {
     // Comment successfully reported?
@@ -420,7 +422,8 @@ function fcn_bindAJAXCommentSubmit() {
       'privacy_consent': privacy_consent?.checked ?? 0,
       'unfiltered_html': _$$$('_wp_unfiltered_html_comment_disabled')?.value ?? '',
       'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
-      'fictioneer_comment_validator': jsValidator?.value ?? 0
+      'fictioneer_comment_validator': jsValidator?.value ?? 0,
+      'fcn_fast_comment_ajax': 1
     };
 
     // Optional payload
@@ -647,7 +650,8 @@ function fcn_submitInlineCommentEdit(source) {
     fcn_ajaxPost({
       'action': 'fictioneer_ajax_edit_comment',
       'comment_id': red.id.replace('comment-', ''),
-      'content': content
+      'content': content,
+      'fcn_fast_comment_ajax': 1
     })
     .then(response => {
       // Comment successfully updated?
@@ -843,7 +847,8 @@ function fcn_deleteMyComment(button) {
   // Request
   fcn_ajaxPost({
     'action': 'fictioneer_ajax_delete_my_comment',
-    'comment_id': comment.dataset.id
+    'comment_id': comment.dataset.id,
+    'fcn_fast_comment_ajax': 1
   })
   .then(response => {
     if (response.success) {
@@ -919,7 +924,8 @@ function fcn_getCommentForm() {
   // Request
   fcn_ajaxGet({
     'action': 'fictioneer_ajax_get_comment_form',
-    'post_id': _$$$('comments').dataset.postId
+    'post_id': _$$$('comments').dataset.postId,
+    'fcn_fast_comment_ajax': 1
   })
   .then(response => {
     if (response.success) {
