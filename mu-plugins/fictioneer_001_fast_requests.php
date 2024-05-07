@@ -50,7 +50,11 @@ function fictioneer_exclude_plugins( $plugins ) {
 }
 
 // Check if AJAX comment request
-if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
+if (
+  get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
+  defined( 'DOING_AJAX' ) && DOING_AJAX &&
+  isset( $_REQUEST['fcn_fast_comment_ajax'] )
+) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins_while_commenting' );
 }
 
