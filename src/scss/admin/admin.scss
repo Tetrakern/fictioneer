@@ -1012,3 +1012,72 @@ td.comment {
     }
   }
 }
+
+.unlock-posts {
+  &__unlocked-posts,
+  &__search-results {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &:not(:empty) {
+      margin-top: 15px;
+    }
+  }
+
+  &__search-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 5px;
+    margin-top: 15px;
+  }
+
+  &__item {
+    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #ddd;
+    font-size: 12px;
+    line-height: 1.2;
+    padding-left: 9px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+
+    &:hover {
+      background: #d6d6d6;
+    }
+
+    &._searched {
+      cursor: pointer;
+      background: transparent;
+      padding: 7px;
+      border: 1px dashed #ccc;
+
+      &:hover {
+        background: rgb(0 0 0 / 3%);
+      }
+    }
+
+    > span:first-of-type {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 160px;
+      overflow: hidden;
+    }
+  }
+
+  &__delete {
+    cursor: pointer;
+    appearance: none;
+    background: transparent;
+    padding: 4px;
+    border: none;
+  }
+
+  &:not(.ajax-in-progress) .fa-spinner {
+    display: none;
+  }
+}

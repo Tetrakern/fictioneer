@@ -73,6 +73,7 @@ $admin_caps = array(
   'create_users',
   'edit_users',
   'remove_users',
+  'fcn_unlock_posts',
   'switch_themes',
   'edit_theme_options',
   'edit_themes',

@@ -733,6 +733,140 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_data_nodes', 8 );
 
 // =============================================================================
+// SHOW UNLOCKS SECTION
+// =============================================================================
+
+/**
+ * Unlock password-protected posts for user
+ *
+ * @since 5.16.0
+ *
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
+ */
+
+function fictioneer_admin_profile_post_unlocks( $profile_user ) {
+  // Check permissions
+  if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'fcn_unlock_posts' ) ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_users' ) ) {
+    return;
+  }
+
+  // Setup
+  $unlocks = get_user_meta( $profile_user->ID, 'fictioneer_post_unlocks', true ) ?: [];
+  $unlocks = is_array( $unlocks ) ? $unlocks : [];
+
+  // Post data
+  $posts = [];
+  $post_type_labels = array(
+    'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
+    'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
+    'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
+    'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
+    'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
+    'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
+  );
+
+  if ( $unlocks ) {
+    $query = new WP_Query(
+      array(
+        'post_type'=> 'any',
+        'post_status'=> 'any',
+        'posts_per_page' => -1,
+        'post__in' => $unlocks,
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
+
+    $posts = $query->posts;
+
+    // Prime author cache
+    if ( function_exists( 'update_post_author_caches' ) ) {
+      update_post_author_caches( $posts );
+    }
+  }
+
+  // Start HTML ---> ?>
+  <tr class="user-unlock-posts-wrap">
+
+    <th><?php _e( 'Unlock Posts', 'fictioneer' ); ?></th>
+
+    <td class="unlock-posts" data-controller="fcn-unlock-posts">
+      <fieldset>
+
+        <?php wp_nonce_field( 'search_posts', 'unlock_posts_nonce' ); ?>
+
+        <template data-target="fcn-unlock-posts-item-template">
+          <div class="unlock-posts__item" title="" data-target="fcn-unlock-posts-item" data-post-id="0">
+            <input type="hidden" name="fictioneer_post_unlocks[]" value="">
+            <span class="unlock-posts__item-title"></span>
+            <span class="unlock-posts__item-meta"></span>
+            <button type="button" class="unlock-posts__delete" data-target="fcn-unlock-posts-delete"><span class="dashicons dashicons-no-alt"></span></button>
+          </div>
+        </template>
+
+        <p>
+          <?php _e( 'Allow the user to ignore the password of selected posts. Chapters inherit the unlock from the story.', 'fictioneer' ); ?>
+        </p>
+
+        <div class="unlock-posts__search">
+
+          <div class="unlock-posts__search-form">
+            <input type="search" class="unlock-posts__search-input regular-text" name="unlock_search" data-target="fcn-unlock-posts-search" placeholder="<?php _e( 'Search posts to unlock…', 'fictioneer' ); ?>">
+            <select class="unlock-posts__search-select" name="unlock_select_type" data-target="fcn-unlock-posts-select" >
+              <option value="0" selected><?php _e( 'Any', 'fictioneer' ); ?></option>
+              <option value="post"><?php _e( 'Post', 'fictioneer' ); ?></option>
+              <option value="page"><?php _e( 'Page', 'fictioneer' ); ?></option>
+              <option value="fcn_story"><?php _e( 'Story', 'fictioneer' ); ?></option>
+              <option value="fcn_chapter"><?php _e( 'Chapter', 'fictioneer' ); ?></option>
+              <option value="fcn_collection"><?php _e( 'Collection', 'fictioneer' ); ?></option>
+              <option value="fcn_recommendation"><?php _e( 'Recommendation', 'fictioneer' ); ?></option>
+            </select>
+            <i class="fa-solid fa-spinner fa-spin" style="--fa-animation-duration: .8s;"></i>
+          </div>
+
+          <div class="unlock-posts__search-results" data-target="fcn-unlock-posts-search-results"></div>
+
+        </div>
+
+        <div class="unlock-posts__unlocked-posts" data-target="fcn-unlock-posts-selected">
+
+          <input type="hidden" name="fictioneer_post_unlocks" value="0">
+
+          <?php foreach ( $posts as $post ) : ?>
+            <?php
+              $type = $post_type_labels[ $post->post_type ] ?? '';
+              $title = fictioneer_get_safe_title( $post->ID );
+              $item_title = sprintf(
+                _x( 'Author: %s | Title: %s', 'Unlock post item.', 'fictioneer' ),
+                get_the_author_meta( 'display_name', $post->post_author ) ?: __( 'n/a', 'fictioneer' ),
+                $title
+              );
+            ?>
+            <div class="unlock-posts__item" title="<?php echo esc_attr( $item_title ); ?>" data-target="fcn-unlock-posts-item" data-post-id="<?php echo $post->ID; ?>">
+              <input type="hidden" name="fictioneer_post_unlocks[]" value="<?php echo $post->ID; ?>">
+              <span class="unlock-posts__item-title"><?php echo $title; ?></span>
+              <span class="unlock-posts__item-meta"><?php printf( _x( '(%s | %s)', 'Unlock post item meta: Type | ID.', 'fictioneer' ), $type, $post->ID ); ?></span>
+              <button type="button" class="unlock-posts__delete" data-target="fcn-unlock-posts-delete"><span class="dashicons dashicons-no-alt"></span></button>
+            </div>
+          <?php endforeach; ?>
+
+        </div>
+
+      </fieldset>
+    </td>
+
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_post_unlocks', 9 );
+
+// =============================================================================
 // SHOW MODERATION SECTION
 // =============================================================================
 

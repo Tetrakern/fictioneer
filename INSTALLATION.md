@@ -596,6 +596,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Read Others Files:** Allows you to see uploaded files from *other* users.
   * **Edit Others Files:** Allows you to edit uploaded files from *other* users.
   * **Delete Others Files:** Allows you to delete uploaded files from *other* users.
+  * **Unlock Posts:** Allows you to unlock selected password-protected posts for users.
   * **Manage {Taxonomy}:** Lets you see the overview list table of the taxonomy.
   * **Assign {Taxonomy}:** Lets you assign the taxonomy to your posts.
   * **Edit {Taxonomy}:** Lets you create and edit taxonomies of this type.
