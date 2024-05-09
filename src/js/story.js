@@ -26,7 +26,7 @@ function fcn_getStorySettings() {
   let settings = fcn_parseJSON(localStorage.getItem('fcnStorySettings')) ?? fcn_defaultStorySettings();
 
   // Timestamp allows to force resets after script updates (may annoy users)
-  if (!settings.hasOwnProperty('timestamp') || settings['timestamp'] < 1674770712849) {
+  if (settings['timestamp'] < 1674770712849) {
     settings = fcn_defaultStorySettings();
     settings['timestamp'] = Date.now();
   }

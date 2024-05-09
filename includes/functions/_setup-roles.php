@@ -34,7 +34,8 @@ define(
     'fcn_ignore_page_passwords',
     'fcn_ignore_fcn_story_passwords',
     'fcn_ignore_fcn_chapter_passwords',
-    'fcn_ignore_fcn_collection_passwords'
+    'fcn_ignore_fcn_collection_passwords',
+    'fcn_unlock_posts'
   )
 );
 
@@ -95,9 +96,10 @@ function fictioneer_initialize_roles( $force = false ) {
   }
 
   // If this capability is missing, the roles need to be updated
-  if ( $administrator && ! in_array( 'fcn_custom_epub_upload', array_keys( $administrator->capabilities ) ) ) {
+  if ( $administrator && ! in_array( 'fcn_unlock_posts', array_keys( $administrator->capabilities ) ) ) {
     get_role( 'administrator' )->add_cap( 'fcn_custom_page_header' );
     get_role( 'administrator' )->add_cap( 'fcn_custom_epub_upload' );
+    get_role( 'administrator' )->add_cap( 'fcn_unlock_posts' );
 
     if ( $editor = get_role( 'editor' ) ) {
       $editor->add_cap( 'fcn_custom_page_header' );
@@ -435,6 +437,7 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  *
  * @since 5.12.3
  * @since 5.15.0 - Add Patreon checks.
+ * @since 5.16.0 - Add Patreon unlock checks and static variable cache.
  *
  * @param bool    $required  Whether the user needs to supply a password.
  * @param WP_Post $post      Post object.
@@ -443,13 +446,26 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  */
 
 function fictioneer_bypass_password( $required, $post ) {
+  // Static variable cache
+  static $cache = [];
+
+  $cache_key = $post->ID . '_' . (int) $required;
+
+  if ( isset( $cache[ $cache_key ] ) ) {
+    return $cache[ $cache_key ];
+  }
+
   // Already passed
   if ( ! $required ) {
+    $cache[ $cache_key ] = $required;
+
     return $required;
   }
 
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
+    $cache[ $cache_key ] = false;
+
     return false;
   }
 
@@ -504,6 +520,35 @@ function fictioneer_bypass_password( $required, $post ) {
     }
   }
 
+  // Check unlocked posts
+  if ( $user && $required ) {
+    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $unlocks = get_user_meta( $user->ID, 'fictioneer_post_unlocks', true ) ?: [];
+    $unlocks = is_array( $unlocks ) ? $unlocks : [];
+    $patreon_gate_amount = get_option( 'fictioneer_patreon_global_lock_unlock_amount', 0 ) ?: 0;
+    $allow_unlocks = ! ( get_option( 'fictioneer_enable_patreon_locks' ) && $patreon_gate_amount );
+
+    // Check Patreon unlock gate
+    if ( ! $allow_unlocks ) {
+      $patreon_user_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+      $patreon_user_tiers = is_array( $patreon_user_tiers ) ? $patreon_user_tiers : [];
+
+      foreach ( $patreon_user_tiers as $tier ) {
+        if ( ( $tier['amount_cents'] ?? -1 ) >= $patreon_gate_amount ) {
+          $allow_unlocks = true;
+          break;
+        }
+      }
+    }
+
+    if ( $allow_unlocks && $unlocks && array_intersect( [ $post->ID, $story_id ], $unlocks ) ) {
+      $required = false;
+    }
+  }
+
+  // Cache
+  $cache[ $cache_key ] = $required;
+
   // Continue filter
   return $required;
 }
@@ -544,11 +589,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
     }
 
     // Redirect back to Home
-    if (
-      is_admin() &&
-      // ! ( defined( 'DOING_AJAX' ) && DOING_AJAX )
-      ! current_user_can( 'fcn_admin_panel_access' )
-    ) {
+    if ( is_admin() && ! current_user_can( 'fcn_admin_panel_access' ) ) {
       wp_redirect( home_url() );
       exit;
     }

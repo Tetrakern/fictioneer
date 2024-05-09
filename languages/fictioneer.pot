@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-02 23:26+0000\n"
+"POT-Creation-Date: 2024-05-09 15:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -21,6 +21,10 @@ msgctxt " As in hide sensitive content by clicking here."
 msgid "by clicking here"
 msgstr ""
 
+#: includes/functions/settings/_register_settings.php:1045
+msgid " Google Fonts links"
+msgstr ""
+
 #: includes/functions/_module-forms.php:188
 #: includes/functions/comments/_comments_ajax.php:347
 #: includes/functions/comments/_comments_ajax.php:533
@@ -32,7 +36,7 @@ msgstr ""
 msgid "%s chapters have been appended."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1635
+#: includes/functions/_helpers-templates.php:1639
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
@@ -150,7 +154,7 @@ msgstr[1] ""
 msgid ".selector { ... }"
 msgstr ""
 
-#: includes/functions/_setup-types-and-terms.php:739
+#: includes/functions/_setup-types-and-terms.php:715
 msgid "200 MOST RECENTLY UPDATED"
 msgstr ""
 
@@ -159,15 +163,19 @@ msgctxt "404 breadcrumb for the 404 page."
 msgid "404"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:771
+#: includes/functions/settings/_settings_page_general.php:514
 msgid "404 page &bull; Add content to your 404 page, make it useful!"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1006
+msgid "404 page assignment"
 msgstr ""
 
 #: partials/account/_oauth.php:58
 msgid "<b>Patreon:</b> Data expired. Log in with Patreon again to refresh."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1353
+#: includes/functions/_helpers-templates.php:1357
 #, php-format
 msgid "<b>Warning:</b> %s"
 msgstr ""
@@ -213,8 +221,6 @@ msgid ""
 msgstr ""
 
 #: partials/_modal-login.php:32
-#: includes/functions/settings/_register_settings.php:833
-#: includes/functions/settings/_register_settings.php:834
 #: includes/functions/settings/_settings_page_phrases.php:72
 msgid ""
 "<p>Log in with a social media account to set up a profile. You can change "
@@ -276,7 +282,7 @@ msgid_plural "<span>%s</span> <span>Comments</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/settings/_settings_page_general.php:698
+#: includes/functions/settings/_settings_page_general.php:867
 #, php-format
 msgid ""
 "<span>Automatically moderate comments with</span> %s <span>reports</span>. "
@@ -284,42 +290,42 @@ msgid ""
 "to ignore reports."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:272
+#: includes/functions/settings/_settings_page_general.php:308
 #, php-format
 msgid ""
 "<span>Calculate reading time with</span> %s <span>words per minute.</span>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:686
+#: includes/functions/settings/_settings_page_general.php:855
 #, php-format
 msgid "<span>Enable comment editing for</span> %s <span>minute(s)</span>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:571
+#: includes/functions/settings/_settings_page_general.php:724
 #, php-format
 msgid "<span>Limit comments to</span> %s <span>link(s) or less</span>"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:806
+#: includes/functions/settings/_settings_page_general.php:1086
 #, php-format
 msgid ""
 "<span>Limit file uploads to</span> %s <span>MB or less for user roles with "
 "the \"Upload Limit\" restriction.</span>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:263
+#: includes/functions/settings/_settings_page_general.php:299
 #, php-format
 msgid "<span>Multiply the displayed word counts with</span> %s<span>.</span>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:113
+#: includes/functions/settings/_settings_page_general.php:119
 #, php-format
 msgid ""
 "<span>Use</span> %s <span>for long date formats (<code>M j, 'y</code>)."
 "</span>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:122
+#: includes/functions/settings/_settings_page_general.php:128
 #, php-format
 msgid ""
 "<span>Use</span> %s <span>for short date formats (<code>M j</code>).</span>"
@@ -411,7 +417,7 @@ msgid ""
 "related capabilities, not undo anything else done by other plugins."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:389
+#: includes/functions/settings/_settings_page_general.php:520
 msgid ""
 "<strong>Note:</strong> Some of these pages are highly dynamic, such as the "
 "account and bookshelf templates. The former must never be cached. The latter "
@@ -467,12 +473,6 @@ msgctxt "@mention in comment replies."
 msgid "@%s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1279
-#, php-format
-msgctxt "[Date] — [Time] if chapter title is missing."
-msgid "%1$s — %2$s"
-msgstr ""
-
 #: includes/functions/_helpers-templates.php:281
 #, php-format
 msgctxt "[Date] — [Time] if post title is missing."
@@ -485,12 +485,11 @@ msgctxt "[Site] Feed"
 msgid "%s Feed"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:603
+#: includes/functions/settings/_settings_page_general.php:759
 #, php-format
 msgid ""
-"Accelerate AJAX comment requests by skipping plugins and theme "
-"initialization. Actions and filters will be ignored unless applied by core "
-"or a <a href=\"%s\" target=\"_blank\">must-use plugin</a>."
+"Accelerate comments by skipping most plugins. Requires the <a href=\"%s\" "
+"target=\"_blank\">Fast Requests</a> mu-plugin to be installed."
 msgstr ""
 
 #: partials/_consent-banner.php:31
@@ -501,8 +500,8 @@ msgstr ""
 msgid "Access Denied"
 msgstr ""
 
-#: includes/functions/_setup-roles.php:740
-#: includes/functions/_setup-roles.php:870
+#: includes/functions/_setup-roles.php:781
+#: includes/functions/_setup-roles.php:911
 #: includes/functions/users/_user_data.php:370
 msgid "Access denied."
 msgstr ""
@@ -517,7 +516,7 @@ msgid "Account already linked to another profile."
 msgstr ""
 
 #: partials/account/_oauth.php:48
-#: includes/functions/users/_admin_profile.php:952
+#: includes/functions/users/_admin_profile.php:1086
 msgid "Account Bindings"
 msgstr ""
 
@@ -525,11 +524,15 @@ msgstr ""
 msgid "Account has been successfully linked."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:722
+#: includes/functions/settings/_settings_page_general.php:451
 msgid "Account page (Template: User Profile) &bull; Do not cache!"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:331
+#: includes/functions/settings/_register_settings.php:999
+msgid "Account page assignment"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_roles.php:332
 msgid "Add"
 msgstr ""
 
@@ -543,7 +546,8 @@ msgstr ""
 msgid "Add Chapter"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:335
+#: includes/functions/settings/_register_settings.php:944
+#: includes/functions/settings/_settings_page_general.php:1048
 msgid "Add consent wrappers to embedded content"
 msgstr ""
 
@@ -594,7 +598,7 @@ msgstr ""
 msgid "Add New Story"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:317
+#: includes/functions/settings/_settings_page_roles.php:318
 msgid "Add Role"
 msgstr ""
 
@@ -626,7 +630,7 @@ msgstr ""
 msgid "Added default tags."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:997
+#: includes/functions/settings/_settings_page_general.php:1198
 msgid "Additional options you most likely do not need."
 msgstr ""
 
@@ -663,11 +667,11 @@ msgid ""
 "Default 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:202
+#: includes/functions/settings/_settings_page_roles.php:203
 msgid "Admin Capabilities (Danger)"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:201
+#: includes/functions/settings/_settings_page_roles.php:202
 msgid "Advanced Capabilities"
 msgstr ""
 
@@ -1103,12 +1107,12 @@ msgctxt "Age confirmation modal button."
 msgid "Leave"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1019
-msgid "Age confirmation modal content for posts."
+#: includes/functions/settings/_register_settings.php:1018
+msgid "Age confirmation modal content for posts"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1011
-msgid "Age confirmation modal content for the site."
+#: includes/functions/settings/_register_settings.php:1017
+msgid "Age confirmation modal content for the site"
 msgstr ""
 
 #: includes/functions/settings/_settings_page_phrases.php:134
@@ -1230,7 +1234,7 @@ msgid "All Recommend."
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:120
-#: includes/functions/_setup-types-and-terms.php:735
+#: includes/functions/_setup-types-and-terms.php:711
 msgid "All Stories"
 msgstr ""
 
@@ -1246,11 +1250,25 @@ msgstr ""
 msgid "All unused tags have been removed."
 msgstr ""
 
+#: includes/functions/users/_admin_profile.php:814
+msgid ""
+"Allow the user to ignore the password of selected posts. Chapters inherit "
+"the unlock from the story."
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1044
+msgid "Allowed file upload mime types"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1008
+msgid "Allowed number of links in comment"
+msgstr ""
+
 #: includes/functions/comments/_comments_controller.php:503
 msgid "Already unsubscribed!"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:220
+#: includes/functions/settings/_settings_page_general.php:253
 msgid "Also disables cross-posting as guest author."
 msgstr ""
 
@@ -1271,11 +1289,11 @@ msgid ""
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:246
-#: includes/functions/users/_admin_profile.php:816
+#: includes/functions/users/_admin_profile.php:950
 msgid "Always hold comments for moderation"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:657
+#: includes/functions/settings/_settings_page_general.php:824
 msgid "Always on top of the first page."
 msgstr ""
 
@@ -1297,11 +1315,16 @@ msgstr ""
 msgid "Anonymous Guest"
 msgstr ""
 
+#: includes/functions/users/_admin_profile.php:822
+msgid "Any"
+msgstr ""
+
 #: includes/functions/hooks/_general_hooks.php:572
 msgid "Any Date"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:594
+#: includes/functions/settings/_register_settings.php:981
+#: includes/functions/settings/_settings_page_general.php:242
 msgid "Append new chapters to story"
 msgstr ""
 
@@ -1442,14 +1465,14 @@ msgid ""
 msgstr ""
 
 #: partials/account/_danger-zone.php:33
-#: includes/functions/users/_admin_profile.php:1070
+#: includes/functions/users/_admin_profile.php:1204
 #, php-format
 msgid ""
 "Are you sure? Your account will be irrevocably deleted, although this will "
 "not remove your comments. Enter %s to confirm."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:623
+#: includes/functions/settings/_settings_page_general.php:781
 msgid "Assign custom badges (but users can disable them)."
 msgstr ""
 
@@ -1461,15 +1484,15 @@ msgstr ""
 msgid "Author capabilities have been updated."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:872
+#: includes/functions/users/_admin_profile.php:1006
 msgid "Author Page"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:778
-msgid "Automatic moderation report threshold."
+#: includes/functions/settings/_register_settings.php:1007
+msgid "Automatic moderation report threshold"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:525
+#: includes/functions/settings/_settings_page_general.php:670
 msgid ""
 "Automatically generated ePUBs. Can take a while and may fail due to non-"
 "conform content or excessive size. You can alternatively upload manually "
@@ -1536,7 +1559,7 @@ msgstr ""
 msgid "Background textures"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:1000
+#: includes/functions/users/_admin_profile.php:1134
 msgid "Badge Override"
 msgstr ""
 
@@ -1628,7 +1651,7 @@ msgstr ""
 msgid "Bookmark"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:444
+#: includes/functions/settings/_settings_page_general.php:580
 msgid "Bookmark paragraphs in chapters. No account needed."
 msgstr ""
 
@@ -1645,8 +1668,12 @@ msgstr ""
 msgid "Bookmarks Page"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:729
+#: includes/functions/settings/_settings_page_general.php:460
 msgid "Bookmarks page (Template: Bookmarks)"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1000
+msgid "Bookmarks page assignment"
 msgstr ""
 
 #: includes/functions/users/_admin_profile.php:206
@@ -1664,8 +1691,12 @@ msgstr ""
 msgid "Bookshelf AJAX"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:764
+#: includes/functions/settings/_settings_page_general.php:505
 msgid "Bookshelf page (Template: Bookshelf) &bull; Do not cache!"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1005
+msgid "Bookshelf page assignment"
 msgstr ""
 
 #: singular-bookshelf.php:137
@@ -1690,20 +1721,18 @@ msgstr ""
 msgid "Brighten"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:300
+#: includes/functions/settings/_register_settings.php:939
+#: includes/functions/settings/_settings_page_general.php:946
 msgid "Bundle CSS files into one"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:307
+#: includes/functions/settings/_register_settings.php:940
+#: includes/functions/settings/_settings_page_general.php:956
 msgid "Bundle JavaScript files into one"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:792
-msgid "Calculate reading time with [n] words per minute."
-msgstr ""
-
-#: includes/functions/settings/_settings_page_roles.php:330
-#: includes/functions/settings/_settings_page_roles.php:359
+#: includes/functions/settings/_settings_page_roles.php:331
+#: includes/functions/settings/_settings_page_roles.php:360
 msgid "Cancel"
 msgstr ""
 
@@ -1796,6 +1825,7 @@ msgstr ""
 #: includes/functions/_setup-types-and-terms.php:212
 #: includes/functions/settings/_settings_actions.php:1530
 #: includes/functions/hooks/_story_hooks.php:308
+#: includes/functions/users/_admin_profile.php:826
 msgid "Chapter"
 msgstr ""
 
@@ -1895,7 +1925,7 @@ msgstr ""
 msgid "Chapter Body Font"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:207
+#: includes/functions/settings/_settings_page_roles.php:208
 msgid "Chapter Capabilities"
 msgstr ""
 
@@ -1998,7 +2028,7 @@ msgctxt "Chapter group meta field label."
 msgid "Group"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:193
+#: includes/functions/settings/_settings_page_general.php:223
 msgid "Chapter groups (if used) are collapsed on page load."
 msgstr ""
 
@@ -2134,7 +2164,7 @@ msgstr ""
 msgid "Chapters"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:146
+#: includes/functions/settings/_settings_page_general.php:171
 msgid "Chapters & Stories"
 msgstr ""
 
@@ -2151,15 +2181,19 @@ msgctxt "Chapters not assigned to group."
 msgid "Unassigned"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:743
+#: includes/functions/settings/_settings_page_general.php:478
 msgid "Chapters page (Template: Chapters)"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1002
+msgid "Chapters page assignment"
 msgstr ""
 
 #: singular-taxonomies.php:54 includes/functions/_setup-types-and-terms.php:482
 msgid "Characters"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1033
+#: includes/functions/settings/_settings_page_general.php:1238
 msgid ""
 "Check for user login state after the page has been loaded to get around "
 "anonymizing caching strategies."
@@ -2281,12 +2315,14 @@ msgstr ""
 msgid "Closed comments cannot be edited."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:489
+#: includes/functions/settings/_register_settings.php:966
+#: includes/functions/settings/_settings_page_general.php:222
 msgid "Collapse chapter groups by default"
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:255
 #: includes/functions/_setup-types-and-terms.php:281
+#: includes/functions/users/_admin_profile.php:827
 msgid "Collection"
 msgstr ""
 
@@ -2298,7 +2334,7 @@ msgstr ""
 msgid "Collection Attributes"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:208
+#: includes/functions/settings/_settings_page_roles.php:209
 msgid "Collection Capabilities"
 msgstr ""
 
@@ -2349,8 +2385,12 @@ msgstr ""
 msgid "Collections of stories, chapters, and recommendations."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:757
+#: includes/functions/settings/_settings_page_general.php:496
 msgid "Collections page (Template: Collections)"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1004
+msgid "Collections page assignment"
 msgstr ""
 
 #: partials/_modal-formatting.php:99
@@ -2390,7 +2430,7 @@ msgid ""
 "to be under <code>:root[data-mode=\"light\"]</code>."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1003
+#: includes/functions/settings/_settings_page_general.php:1099
 #, php-format
 msgid ""
 "Comma-separated list of allowed <a href=\"%s\" target=\"_blank\" "
@@ -2453,6 +2493,10 @@ msgstr ""
 #: includes/functions/_utility.php:1785
 msgctxt "Comment form cookie checkbox."
 msgid "Save in cookie for next time."
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1046
+msgid "Comment form CSS selector"
 msgstr ""
 
 #: includes/functions/comments/_comments_form.php:156
@@ -2536,10 +2580,6 @@ msgctxt "Comment last edited by user on {datetime}{end}"
 msgid "Last edited on %s%s"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:785
-msgid "Comment link limit."
-msgstr ""
-
 #: includes/functions/comments/_story_comments.php:52
 #, php-format
 msgctxt "Comment meta: [Date] &bull; [Chapter]"
@@ -2580,7 +2620,7 @@ msgstr ""
 msgid "Comment Reply Notification Email"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:848
+#: includes/functions/settings/_register_settings.php:1016
 msgid "Comment reply notification email"
 msgstr ""
 
@@ -2636,7 +2676,7 @@ msgstr ""
 #: partials/_card-collection.php:217 partials/_collection-statistics.php:49
 #: partials/_card-post.php:116 partials/_latest-chapters.php:286
 #: partials/_card-chapter.php:250 partials/account/_data.php:121
-#: includes/functions/settings/_settings_page_general.php:536
+#: includes/functions/settings/_settings_page_general.php:681
 #: includes/functions/hooks/_story_hooks.php:41
 msgid "Comments"
 msgstr ""
@@ -2665,7 +2705,7 @@ msgstr ""
 msgid "Comments successfully cleared."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:104
+#: includes/functions/settings/_settings_page_general.php:110
 #, php-format
 msgid ""
 "Compact <a href=\"%s\" target=\"_blank\">date formats</a>. Some page items, "
@@ -2673,7 +2713,7 @@ msgid ""
 "of WordPress. Space is an issue here."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:918
+#: includes/functions/settings/_settings_page_general.php:1110
 msgid "Compatibility"
 msgstr ""
 
@@ -2688,7 +2728,11 @@ msgstr ""
 msgid "Connections"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:997
+#: includes/functions/settings/_register_settings.php:1043
+msgid "Contact form email receivers"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_general.php:159
 msgid "Contact form receivers (one email address per line)"
 msgstr ""
 
@@ -2784,7 +2828,7 @@ msgstr ""
 msgid "Cookie Consent Banner"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:840
+#: includes/functions/settings/_register_settings.php:1015
 msgid "Cookie consent banner"
 msgstr ""
 
@@ -2798,7 +2842,8 @@ msgstr ""
 msgid "Copied to clipboard!"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:685
+#: includes/functions/settings/_register_settings.php:994
+#: includes/functions/settings/_settings_page_general.php:290
 msgid "Count characters instead of words"
 msgstr ""
 
@@ -2819,7 +2864,7 @@ msgstr ""
 msgid "Covers"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1034
+#: includes/functions/settings/_settings_page_general.php:692
 msgid ""
 "CSS selector for the comment form. Attempts to make scripts work with "
 "comment plugin. Clear theme cache after updating."
@@ -2838,7 +2883,7 @@ msgstr ""
 msgid "Custom badge \"<b>%s</b>\" assigned."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:826
+#: includes/functions/users/_admin_profile.php:960
 msgid "Custom message in the user profile, which may be a nice thing as well."
 msgstr ""
 
@@ -2850,7 +2895,7 @@ msgstr ""
 msgid "Custom Story CSS"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:507
+#: includes/functions/settings/_settings_page_general.php:650
 msgid ""
 "Customized sitemap for search engines to crawl. Respects unlisted flags and "
 "custom post types. Can be slow."
@@ -3482,7 +3527,7 @@ msgctxt "Date in Follows update list."
 msgid "%1$s \\a\\t %2$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1137
+#: includes/functions/settings/_settings_page_general.php:1383
 msgid "Deactivation (DANGER ZONE)"
 msgstr ""
 
@@ -3515,7 +3560,7 @@ msgctxt "Default name in logs."
 msgid "System"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:871
+#: includes/functions/settings/_settings_page_general.php:804
 #: includes/functions/users/_user_data.php:716
 msgctxt "Default Patreon supporter badge label."
 msgid "Patron"
@@ -3525,7 +3570,7 @@ msgstr ""
 msgid "Default tags have been added to the list."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:775
+#: includes/functions/settings/_settings_page_general.php:957
 msgid ""
 "Deferred script file that should be ignored by aggregation plugins to avoid "
 "errors (fictioneer/js/complete.min.js and fictioneer/cache/dynamic-scripts."
@@ -3545,8 +3590,8 @@ msgid "Delete"
 msgstr ""
 
 #: partials/account/_danger-zone.php:44
-#: includes/functions/users/_admin_profile.php:1081
-#: includes/functions/users/_admin_profile.php:1093
+#: includes/functions/users/_admin_profile.php:1215
+#: includes/functions/users/_admin_profile.php:1227
 msgid "Delete Account"
 msgstr ""
 
@@ -3554,11 +3599,12 @@ msgstr ""
 msgid "Delete All"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:447
+#: includes/functions/settings/_register_settings.php:960
+#: includes/functions/settings/_settings_page_general.php:1390
 msgid "Delete all settings and theme mods on deactivation"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:145
+#: includes/functions/settings/_settings_page_connections.php:244
 msgid "Delete Tiers"
 msgstr ""
 
@@ -3566,7 +3612,7 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:612
+#: includes/functions/settings/_settings_loggers.php:616
 msgid "deleted"
 msgstr ""
 
@@ -3605,15 +3651,18 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:566
+#: includes/functions/settings/_register_settings.php:977
+#: includes/functions/settings/_settings_page_general.php:1247
 msgid "Disable advanced search"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:608
+#: includes/functions/settings/_register_settings.php:983
+#: includes/functions/settings/_settings_page_general.php:936
 msgid "Disable all widgets"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:524
+#: includes/functions/settings/_register_settings.php:971
+#: includes/functions/settings/_settings_page_general.php:1028
 msgid "Disable application passwords"
 msgstr ""
 
@@ -3627,30 +3676,33 @@ msgid "Disable chapter groups"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1869
-#: includes/functions/settings/_register_settings.php:482
+#: includes/functions/settings/_register_settings.php:965
+#: includes/functions/settings/_settings_page_general.php:232
 msgid "Disable collapsing of chapters"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:230
+#: includes/functions/settings/_register_settings.php:929
+#: includes/functions/settings/_settings_page_general.php:1257
 msgid "Disable comment BBCodes"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:234
-#: includes/functions/users/_admin_profile.php:795
+#: includes/functions/users/_admin_profile.php:929
 msgid "Disable comment editing capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:240
-#: includes/functions/users/_admin_profile.php:809
+#: includes/functions/users/_admin_profile.php:943
 msgid "Disable comment reply notifications"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:552
+#: includes/functions/settings/_register_settings.php:975
+#: includes/functions/settings/_settings_page_general.php:702
 msgid "Disable commenting across the site"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:228
-#: includes/functions/users/_admin_profile.php:788
+#: includes/functions/users/_admin_profile.php:922
 msgid "Disable commenting capability"
 msgstr ""
 
@@ -3662,31 +3714,38 @@ msgstr ""
 msgid "Disable ePUB download"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:678
+#: includes/functions/settings/_register_settings.php:993
+#: includes/functions/settings/_settings_page_general.php:976
 msgid "Disable extended chapter list meta queries"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:671
+#: includes/functions/settings/_register_settings.php:992
+#: includes/functions/settings/_settings_page_general.php:966
 msgid "Disable extended story list meta queries"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:398
+#: includes/functions/settings/_register_settings.php:953
+#: includes/functions/settings/_settings_page_general.php:1316
 msgid "Disable Facebook share button"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:468
+#: includes/functions/settings/_register_settings.php:963
+#: includes/functions/settings/_settings_page_general.php:1117
 msgid "Disable Fictioneer CSS properties"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:650
+#: includes/functions/settings/_register_settings.php:989
+#: includes/functions/settings/_settings_page_general.php:1127
 msgid "Disable Font Awesome integration"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:279
+#: includes/functions/settings/_register_settings.php:936
+#: includes/functions/settings/_settings_page_general.php:896
 msgid "Disable Heartbeat API"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:426
+#: includes/functions/settings/_register_settings.php:957
+#: includes/functions/settings/_settings_page_general.php:1352
 msgid "Disable Mastodon share button"
 msgstr ""
 
@@ -3694,66 +3753,77 @@ msgstr ""
 msgid "Disable new comments"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:802
+#: includes/functions/users/_admin_profile.php:936
 msgid "Disable post comment moderation capability"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:419
+#: includes/functions/settings/_register_settings.php:956
+#: includes/functions/settings/_settings_page_general.php:1343
 msgid "Disable Reddit share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:222
-#: includes/functions/users/_admin_profile.php:781
+#: includes/functions/users/_admin_profile.php:915
 msgid "Disable renaming capability"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:216
-#: includes/functions/users/_admin_profile.php:774
+#: includes/functions/users/_admin_profile.php:908
 msgid "Disable reporting capability"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:433
+#: includes/functions/settings/_register_settings.php:958
+#: includes/functions/settings/_settings_page_general.php:1361
 msgid "Disable Telegram share button"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:384
+#: includes/functions/settings/_register_settings.php:951
+#: includes/functions/settings/_settings_page_general.php:1287
 msgid "Disable theme comment form"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:391
+#: includes/functions/settings/_register_settings.php:952
+#: includes/functions/settings/_settings_page_general.php:1297
 msgid "Disable theme comment pagination"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:377
+#: includes/functions/settings/_register_settings.php:950
+#: includes/functions/settings/_settings_page_general.php:1277
 msgid "Disable theme comment query"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:370
+#: includes/functions/settings/_register_settings.php:949
+#: includes/functions/settings/_settings_page_general.php:1267
 msgid "Disable theme comment style (callback)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:573
+#: includes/functions/settings/_register_settings.php:978
+#: includes/functions/settings/_settings_page_general.php:101
 msgid "Disable theme contact forms"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:328
+#: includes/functions/settings/_register_settings.php:943
+#: includes/functions/settings/_settings_page_general.php:1207
 msgid "Disable theme logout without nonce"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:412
+#: includes/functions/settings/_register_settings.php:955
+#: includes/functions/settings/_settings_page_general.php:1334
 msgid "Disable Tumblr share button"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:405
+#: includes/functions/settings/_register_settings.php:954
+#: includes/functions/settings/_settings_page_general.php:1325
 msgid "Disable Twitter share button"
 msgstr ""
 
 #: includes/functions/comments/_comments_moderation.php:210
-#: includes/functions/users/_admin_profile.php:767
+#: includes/functions/users/_admin_profile.php:901
 msgid "Disable user avatar"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:440
+#: includes/functions/settings/_register_settings.php:959
+#: includes/functions/settings/_settings_page_general.php:1370
 msgid "Disable Whatsapp share button"
 msgstr ""
 
@@ -3773,7 +3843,7 @@ msgstr ""
 msgid "Disabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:820
+#: includes/functions/settings/_settings_page_general.php:1006
 msgid "Disables API for guests and low-permission users."
 msgstr ""
 
@@ -3787,8 +3857,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1546
-#: includes/functions/_module-oauth.php:125
+#: includes/functions/_helpers-templates.php:1550
+#: includes/functions/_module-oauth.php:122
 #: includes/functions/settings/_settings_page_connections.php:29
 #: includes/functions/hooks/_mobile_menu_hooks.php:370
 msgid "Discord"
@@ -3798,19 +3868,26 @@ msgstr ""
 msgid "Discord account successfully linked"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:907
+#: includes/functions/settings/_register_settings.php:1027
+#: includes/functions/settings/_settings_page_connections.php:87
 msgid "Discord chapter channel webhook"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:883
+#: includes/functions/settings/_register_settings.php:1023
+#: includes/functions/settings/_settings_page_connections.php:36
 msgid "Discord Client ID"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:889
+#: includes/functions/settings/_register_settings.php:1024
+#: includes/functions/settings/_settings_page_connections.php:45
 msgid "Discord Client Secret"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:895
+#: includes/functions/settings/_register_settings.php:1025
+msgid "Discord comment channel webhook"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:69
 msgid ""
 "Discord comment channel webhook &bull; Shows excerpts of (private) comments!"
 msgstr ""
@@ -3819,12 +3896,13 @@ msgstr ""
 msgid "Discord connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:956
+#: includes/functions/users/_admin_profile.php:1090
 msgid "Discord ID Hash"
 msgstr ""
 
 #: partials/_icon-menu.php:74
-#: includes/functions/settings/_register_settings.php:913
+#: includes/functions/settings/_register_settings.php:1028
+#: includes/functions/settings/_settings_page_connections.php:54
 msgid "Discord invite link"
 msgstr ""
 
@@ -3891,7 +3969,8 @@ msgctxt "Discord message story footer note."
 msgid "Story: %s"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:901
+#: includes/functions/settings/_register_settings.php:1026
+#: includes/functions/settings/_settings_page_connections.php:78
 msgid "Discord story channel webhook"
 msgstr ""
 
@@ -3899,15 +3978,17 @@ msgstr ""
 msgid "Discussions"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:27
+#: includes/functions/settings/_register_settings.php:900
+#: includes/functions/settings/_settings_page_general.php:71
 msgid "Display authors on cards and posts"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:184
+#: includes/functions/settings/_settings_page_general.php:213
 msgid "Display chapters in groups on story pages (if set)."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:503
+#: includes/functions/settings/_register_settings.php:968
+#: includes/functions/settings/_settings_page_general.php:81
 msgid "Display full posts instead of excerpts"
 msgstr ""
 
@@ -3939,7 +4020,7 @@ msgid ""
 "protected chapters. Limited HTML allowed."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:202
+#: includes/functions/settings/_settings_page_general.php:233
 msgid "Do not collapse long chapter lists."
 msgstr ""
 
@@ -3947,7 +4028,8 @@ msgstr ""
 msgid "Do not count as chapter"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:314
+#: includes/functions/settings/_register_settings.php:941
+#: includes/functions/settings/_settings_page_general.php:995
 msgid "Do not save comment IP addresses"
 msgstr ""
 
@@ -3965,7 +4047,7 @@ msgstr ""
 msgid "Documentation on Github"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:584
+#: includes/functions/settings/_settings_page_general.php:738
 msgid "Does not reload the page on submit."
 msgstr ""
 
@@ -4044,7 +4126,7 @@ msgstr ""
 msgid "Editing time has expired."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:199
+#: includes/functions/settings/_settings_page_roles.php:200
 msgid "Editor Capabilities"
 msgstr ""
 
@@ -4075,7 +4157,7 @@ msgstr ""
 msgid "Email change cancelled."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:96
+#: includes/functions/settings/_settings_page_general.php:102
 msgid "Emergency stop with an error notice."
 msgstr ""
 
@@ -4083,167 +4165,207 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:636
+#: includes/functions/settings/_register_settings.php:987
+#: includes/functions/settings/_settings_page_general.php:1197
 msgid "Enable advanced meta fields"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:664
+#: includes/functions/settings/_register_settings.php:991
+#: includes/functions/settings/_settings_page_general.php:182
 msgid "Enable age confirmation modal for posts"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:657
+#: includes/functions/settings/_register_settings.php:990
+#: includes/functions/settings/_settings_page_general.php:91
 msgid "Enable age confirmation modal for site"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:538
+#: includes/functions/settings/_register_settings.php:973
+#: includes/functions/settings/_settings_page_general.php:1217
 msgid "Enable AJAX comment form"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:237
+#: includes/functions/settings/_register_settings.php:930
+#: includes/functions/settings/_settings_page_general.php:747
 msgid "Enable AJAX comment moderation"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:363
+#: includes/functions/settings/_register_settings.php:948
+#: includes/functions/settings/_settings_page_general.php:1227
 msgid "Enable AJAX comment section"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:209
+#: includes/functions/settings/_register_settings.php:926
+#: includes/functions/settings/_settings_page_general.php:737
 msgid "Enable AJAX comment submission"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:517
+#: includes/functions/settings/_register_settings.php:970
+#: includes/functions/settings/_settings_page_general.php:1237
 msgid "Enable AJAX user authentication"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:510
+#: includes/functions/settings/_register_settings.php:969
+#: includes/functions/settings/_settings_page_general.php:1187
 msgid "Enable all Gutenberg blocks"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:139
+#: includes/functions/settings/_register_settings.php:916
+#: includes/functions/settings/_settings_page_general.php:579
 msgid "Enable Bookmarks"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:349
+#: includes/functions/settings/_register_settings.php:946
+#: includes/functions/settings/_settings_page_general.php:1157
 msgid "Enable cache compatibility mode"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:475
+#: includes/functions/settings/_register_settings.php:964
+#: includes/functions/settings/_settings_page_general.php:212
 msgid "Enable chapter groups"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:153
+#: includes/functions/settings/_register_settings.php:918
+#: includes/functions/settings/_settings_page_general.php:599
 msgid "Enable Checkmarks (requires account)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:531
+#: includes/functions/settings/_register_settings.php:972
 msgid "Enable comment editing"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:265
+#: includes/functions/settings/_register_settings.php:934
+#: includes/functions/settings/_settings_page_general.php:813
 msgid "Enable comment reply notifications"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:272
+#: includes/functions/settings/_register_settings.php:935
+#: includes/functions/settings/_settings_page_general.php:843
 msgid "Enable comment reporting"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:223
+#: includes/functions/settings/_register_settings.php:928
+#: includes/functions/settings/_settings_page_general.php:770
 msgid "Enable comment toolbar"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:342
+#: includes/functions/settings/_register_settings.php:945
+#: includes/functions/settings/_settings_page_general.php:1068
 msgid "Enable cookie banner and consent function"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:244
+#: includes/functions/settings/_register_settings.php:931
+#: includes/functions/settings/_settings_page_general.php:780
 msgid "Enable custom badges"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:20
+#: includes/functions/settings/_register_settings.php:899
+#: includes/functions/settings/_settings_page_general.php:61
 msgid "Enable dark mode as default"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:195
+#: includes/functions/settings/_register_settings.php:924
+#: includes/functions/settings/_settings_page_general.php:669
 msgid "Enable ePUB converter (experimental)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:622
+#: includes/functions/settings/_register_settings.php:985
+#: includes/functions/settings/_settings_page_general.php:757
 msgid "Enable fast AJAX for comments"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:146
+#: includes/functions/settings/_register_settings.php:917
+#: includes/functions/settings/_settings_page_general.php:589
 msgid "Enable Follows (requires account)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:461
+#: includes/functions/settings/_register_settings.php:962
+#: includes/functions/settings/_settings_page_general.php:1137
 msgid "Enable jQuery migrate script"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:132
+#: includes/functions/settings/_register_settings.php:915
+#: includes/functions/settings/_settings_page_general.php:569
 msgid "Enable lightbox"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:13
+#: includes/functions/settings/_register_settings.php:898
+#: includes/functions/settings/_settings_page_general.php:51
 msgid "Enable maintenance mode"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:125
+#: includes/functions/settings/_register_settings.php:914
+#: includes/functions/settings/_settings_page_general.php:546
 msgid "Enable OAuth 2.0 authentication"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:251
+#: includes/functions/settings/_register_settings.php:932
+#: includes/functions/settings/_settings_page_general.php:790
 msgid "Enable Patreon badges"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:706
+#: includes/functions/settings/_register_settings.php:997
+#: includes/functions/settings/_settings_page_general.php:559
 msgid "Enable Patreon content gate"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:356
+#: includes/functions/settings/_register_settings.php:947
+#: includes/functions/settings/_settings_page_general.php:1177
 msgid "Enable private cache compatibility mode"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:258
+#: includes/functions/settings/_register_settings.php:933
+#: includes/functions/settings/_settings_page_general.php:833
 msgid "Enable private commenting"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:496
+#: includes/functions/settings/_register_settings.php:967
+#: includes/functions/settings/_settings_page_general.php:1167
 msgid "Enable public cache compatibility mode"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:629
+#: includes/functions/settings/_register_settings.php:986
+#: includes/functions/settings/_settings_page_general.php:1015
 msgid "Enable rate limiting for AJAX requests"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:160
+#: includes/functions/settings/_register_settings.php:919
+#: includes/functions/settings/_settings_page_general.php:609
 msgid "Enable Reminders (requires account)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:181
+#: includes/functions/settings/_register_settings.php:922
+#: includes/functions/settings/_settings_page_general.php:639
 msgid "Enable SEO features"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:545
+#: includes/functions/settings/_register_settings.php:974
+#: includes/functions/settings/_settings_page_general.php:823
 msgid "Enable sticky comments"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:580
+#: includes/functions/settings/_register_settings.php:979
+#: includes/functions/settings/_settings_page_general.php:536
 msgid "Enable Storygraph API"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:167
+#: includes/functions/settings/_register_settings.php:920
+#: includes/functions/settings/_settings_page_general.php:619
 msgid "Enable Suggestions"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:174
+#: includes/functions/settings/_register_settings.php:921
+#: includes/functions/settings/_settings_page_general.php:659
 msgid "Enable Text-To-Speech (experimental)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:118
+#: includes/functions/settings/_register_settings.php:913
+#: includes/functions/settings/_settings_page_general.php:629
 msgid "Enable theme RSS feeds and buttons"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:188
+#: includes/functions/settings/_register_settings.php:923
+#: includes/functions/settings/_settings_page_general.php:649
 msgid "Enable theme sitemap generation"
 msgstr ""
 
@@ -4257,7 +4379,7 @@ msgstr ""
 msgid "Enabled font key \"%s\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:435
+#: includes/functions/settings/_settings_page_general.php:570
 msgid "Enlarge images in floating container on click."
 msgstr ""
 
@@ -4266,11 +4388,11 @@ msgstr ""
 msgid "Enter fullscreen"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:326
+#: includes/functions/settings/_settings_page_roles.php:327
 msgid "Enter the name of the new role."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:349
+#: includes/functions/settings/_settings_page_roles.php:350
 msgid "Enter the new name for the role."
 msgstr ""
 
@@ -4383,11 +4505,11 @@ msgstr ""
 msgid "Exit fullscreen"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:1034
+#: includes/functions/users/_admin_profile.php:1168
 msgid "External Avatar URL"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:859
+#: includes/functions/settings/_settings_page_general.php:1049
 msgid "External content not loaded until deliberately clicked."
 msgstr ""
 
@@ -4436,19 +4558,19 @@ msgstr ""
 msgid "Fandoms"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:766
+#: includes/functions/settings/_settings_page_general.php:947
 msgid ""
 "Faster if HTTP/2 (+) is not available to load multiple smaller files in "
 "parallel, but increases the initial payload."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:793
+#: includes/functions/settings/_settings_page_general.php:977
 msgid ""
 "Faster, but adds one row per chapter to your database, which can slow down "
 "your site if you have thousands."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:784
+#: includes/functions/settings/_settings_page_general.php:967
 msgid ""
 "Faster, but adds one row per story to your database, which can slow down "
 "your site if you have thousands."
@@ -4458,7 +4580,7 @@ msgstr ""
 msgid "Featured Content"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:398
+#: includes/functions/settings/_settings_page_general.php:529
 msgid "Features"
 msgstr ""
 
@@ -4491,7 +4613,7 @@ msgstr ""
 msgid "File not found or not readable."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:888
+#: includes/functions/settings/_settings_page_general.php:1080
 msgid "File Uploads"
 msgstr ""
 
@@ -4585,7 +4707,7 @@ msgstr ""
 msgid "Follow on SubscribeStar"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:453
+#: includes/functions/settings/_settings_page_general.php:590
 msgid "Follow stories and get on-site alerts for updates."
 msgstr ""
 
@@ -4693,19 +4815,19 @@ msgstr ""
 msgid "Footer Style"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:255
+#: includes/functions/settings/_settings_page_general.php:291
 msgid ""
 "For logographic writing systems. Use the word count multiplier to better "
 "approximate the number."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:979
+#: includes/functions/settings/_settings_page_general.php:1178
 msgid ""
 "For serving private caches to logged-in users. Also useful if you do not "
 "serve caches to logged-in users at all."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:970
+#: includes/functions/settings/_settings_page_general.php:1168
 msgid ""
 "For serving public caches to logged-in users. Exceptions for administrators "
 "and moderators are recommended."
@@ -4761,7 +4883,7 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:920
+#: includes/functions/users/_admin_profile.php:1054
 msgid "Generic donation link"
 msgstr ""
 
@@ -4778,23 +4900,45 @@ msgstr ""
 msgid "Genres"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:979
+#: includes/functions/settings/_register_settings.php:1039
+msgid "Global lifetime pledge threshold in cents"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:219
 msgid ""
 "Global lifetime pledge threshold in cents to unlock posts (leave empty to "
 "disable)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:973
+#: includes/functions/settings/_register_settings.php:1038
+msgid "Global pledge threshold in cents"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:228
+msgid ""
+"Global pledge threshold in cents to gate regular post unlocks (leave empty "
+"to disable)"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:210
 msgid ""
 "Global pledge threshold in cents to unlock posts (leave empty to disable)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:967
+#: includes/functions/settings/_register_settings.php:1037
+msgid "Global tiers to unlock post"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:201
 msgid "Global tiers to unlock posts (comma-separated list of tier IDs)"
 msgstr ""
 
-#: includes/functions/_module-oauth.php:127
-#: includes/functions/settings/_settings_page_connections.php:85
+#: includes/functions/settings/_register_settings.php:1040
+msgid "Global unlock gate pledge threshold in cents"
+msgstr ""
+
+#: includes/functions/_module-oauth.php:124
+#: includes/functions/settings/_settings_page_connections.php:125
 msgid "Google"
 msgstr ""
 
@@ -4802,11 +4946,13 @@ msgstr ""
 msgid "Google account successfully linked."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:931
+#: includes/functions/settings/_register_settings.php:1031
+#: includes/functions/settings/_settings_page_connections.php:132
 msgid "Google Client ID"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:937
+#: includes/functions/settings/_register_settings.php:1032
+#: includes/functions/settings/_settings_page_connections.php:141
 msgid "Google Client Secret"
 msgstr ""
 
@@ -4818,7 +4964,7 @@ msgstr ""
 msgid "Google Fonts"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:962
+#: includes/functions/users/_admin_profile.php:1096
 msgid "Google ID Hash"
 msgstr ""
 
@@ -4866,8 +5012,6 @@ msgid ""
 "Default 210. Further adjustments require custom CSS."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:849
-#: includes/functions/settings/_register_settings.php:850
 #: includes/functions/settings/_settings_page_phrases.php:50
 #: includes/functions/comments/_comments_controller.php:404
 msgid ""
@@ -4898,19 +5042,23 @@ msgid "Hide badge"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1861
-#: includes/functions/settings/_register_settings.php:34
+#: includes/functions/settings/_register_settings.php:901
+#: includes/functions/settings/_settings_page_general.php:202
 msgid "Hide chapter icons"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:111
+#: includes/functions/settings/_register_settings.php:912
+#: includes/functions/settings/_settings_page_general.php:429
 msgid "Hide content warnings on pages"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:699
+#: includes/functions/settings/_register_settings.php:996
+#: includes/functions/settings/_settings_page_general.php:280
 msgid "Hide latest chapter list on large story cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:713
+#: includes/functions/settings/_register_settings.php:998
+#: includes/functions/settings/_settings_page_connections.php:237
 msgid "Hide password form on Patreon-gated posts"
 msgstr ""
 
@@ -4922,7 +5070,8 @@ msgstr ""
 msgid "Hide support links"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:104
+#: includes/functions/settings/_register_settings.php:911
+#: includes/functions/settings/_settings_page_general.php:420
 msgid "Hide tags on pages"
 msgstr ""
 
@@ -4930,23 +5079,28 @@ msgstr ""
 msgid "Hide tags on story page"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:48
+#: includes/functions/settings/_register_settings.php:903
+#: includes/functions/settings/_settings_page_general.php:340
 msgid "Hide taxonomies on chapter cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:62
+#: includes/functions/settings/_register_settings.php:905
+#: includes/functions/settings/_settings_page_general.php:358
 msgid "Hide taxonomies on collection cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:97
+#: includes/functions/settings/_register_settings.php:910
+#: includes/functions/settings/_settings_page_general.php:411
 msgid "Hide taxonomies on pages"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:55
+#: includes/functions/settings/_register_settings.php:904
+#: includes/functions/settings/_settings_page_general.php:349
 msgid "Hide taxonomies on recommendation cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:41
+#: includes/functions/settings/_register_settings.php:902
+#: includes/functions/settings/_settings_page_general.php:331
 msgid "Hide taxonomies on story cards"
 msgstr ""
 
@@ -4966,7 +5120,7 @@ msgstr ""
 msgid "Hide your badge on comments."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:175
+#: includes/functions/settings/_settings_page_general.php:203
 msgid "Hides the icons on story pages and in the mobile menu."
 msgstr ""
 
@@ -5041,12 +5195,6 @@ msgstr ""
 msgid "HTML allowed. <code>[[privacy_policy_url]]</code>"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1028
-msgid ""
-"https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,"
-"500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-msgstr ""
-
 #. Author URI of the theme
 msgid "https://github.com/Tetrakern"
 msgstr ""
@@ -5083,7 +5231,7 @@ msgstr ""
 msgid "ID missing"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:739
+#: includes/functions/settings/_settings_page_general.php:917
 msgid ""
 "If not used, these are just clutter in the &#60;body&#62;. This will prevent "
 "duotone filters from working."
@@ -5101,7 +5249,7 @@ msgid ""
 "or wider than the value in pixels. Default 0."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:841
+#: includes/functions/settings/_settings_page_general.php:1029
 msgid "If you do not need them, you should disable them."
 msgstr ""
 
@@ -5145,7 +5293,7 @@ msgstr ""
 msgid "Index (Advanced)"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:952
+#: includes/functions/settings/_settings_page_general.php:1148
 msgid "Inefficient but makes sure everything is up-to-date."
 msgstr ""
 
@@ -5207,6 +5355,7 @@ msgstr ""
 #: includes/functions/users/_admin_profile.php:71
 #: includes/functions/users/_admin_profile.php:109
 #: includes/functions/users/_admin_profile.php:114
+#: includes/functions/users/_user_data.php:1189
 msgid "Insufficient permissions."
 msgstr ""
 
@@ -5253,7 +5402,7 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:811
+#: includes/functions/settings/_settings_page_general.php:996
 msgid "IP addresses are personal data."
 msgstr ""
 
@@ -5277,7 +5426,7 @@ msgstr ""
 msgid "Ko-Fi"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:911
+#: includes/functions/users/_admin_profile.php:1045
 msgid "Ko-Fi link"
 msgstr ""
 
@@ -5337,15 +5486,15 @@ msgstr ""
 msgid "Legacy cleanup removed old sitemap and flushed the permalinks."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:246
+#: includes/functions/settings/_settings_page_general.php:281
 msgid "Less informative but also less cluttered."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:748
+#: includes/functions/settings/_settings_page_general.php:927
 msgid "Less menu items, links, and icons in the admin bar."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:730
+#: includes/functions/settings/_settings_page_general.php:907
 msgid "Less meta tags, scripts, and styles in the &#60;head&#62;."
 msgstr ""
 
@@ -5582,7 +5731,7 @@ msgstr ""
 msgid "Lightness Offset"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:216
+#: includes/functions/settings/_register_settings.php:927
 msgid "Limit comments to [n] link(s) or less"
 msgstr ""
 
@@ -5624,10 +5773,6 @@ msgctxt "List of followed stories."
 msgid "Follows"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:1027
-msgid "List of Google Fonts links"
-msgstr ""
-
 #: includes/functions/_utility.php:1751
 msgctxt "List of stories to read later."
 msgid "Reminders"
@@ -5647,11 +5792,11 @@ msgid_plural "Load next %s comments (may contain spoilers)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/settings/_settings_page_general.php:1015
+#: includes/functions/settings/_settings_page_general.php:1218
 msgid "Load the comment form via AJAX to circumvent caching."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1024
+#: includes/functions/settings/_settings_page_general.php:1228
 msgid ""
 "Load the comment section and form via AJAX. More server work but circumvents "
 "caching."
@@ -5662,7 +5807,7 @@ msgstr ""
 msgid "Lock avatar"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:51
+#: includes/functions/settings/_settings_page_general.php:52
 msgid "Locks down the site with a maintenance notice."
 msgstr ""
 
@@ -5674,13 +5819,13 @@ msgstr ""
 msgid "Log in to set Reminders"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:690
+#: includes/functions/settings/_settings_page_general.php:859
 msgid ""
 "Logged-in users can edit their comments for a number of minutes; enter -1 "
 "for no time limit."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:675
+#: includes/functions/settings/_settings_page_general.php:844
 msgid "Logged-in users can report comments via flag button."
 msgstr ""
 
@@ -5692,7 +5837,7 @@ msgstr ""
 msgid "Login Modal"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:832
+#: includes/functions/settings/_register_settings.php:1014
 msgid "Login modal"
 msgstr ""
 
@@ -5709,7 +5854,8 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:321
+#: includes/functions/settings/_register_settings.php:942
+#: includes/functions/settings/_settings_page_general.php:1038
 msgid "Logout redirects Home"
 msgstr ""
 
@@ -5756,11 +5902,11 @@ msgstr ""
 msgid "Maintenance Note"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:824
+#: includes/functions/settings/_register_settings.php:1013
 msgid "Maintenance note"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:961
+#: includes/functions/settings/_settings_page_general.php:1158
 msgid "Make the theme aware of unknown caching plugins."
 msgstr ""
 
@@ -5769,7 +5915,7 @@ msgctxt "Mark as read button."
 msgid "Read"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:462
+#: includes/functions/settings/_settings_page_general.php:600
 msgid "Mark chapters and stories as \"read\"."
 msgstr ""
 
@@ -5971,8 +6117,8 @@ msgid ""
 "24."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:799
-msgid "Minutes a comment can be edited. -1 for no limit."
+#: includes/functions/settings/_register_settings.php:1010
+msgid "Minutes a comment can be edited"
 msgstr ""
 
 #: includes/functions/hooks/_general_hooks.php:233
@@ -6033,19 +6179,19 @@ msgstr ""
 msgid "Mobile Navigation Style"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:593
+#: includes/functions/settings/_settings_page_general.php:748
 msgid "Moderation actions directly in the comment section."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:760
+#: includes/functions/users/_admin_profile.php:894
 msgid "Moderation Flags"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:823
+#: includes/functions/users/_admin_profile.php:957
 msgid "Moderation Message"
 msgstr ""
 
-#: includes/functions/_setup-roles.php:419
+#: includes/functions/_setup-roles.php:421
 msgid "Moderator"
 msgstr ""
 
@@ -6073,7 +6219,8 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:615
+#: includes/functions/settings/_register_settings.php:984
+#: includes/functions/settings/_settings_page_general.php:1058
 msgid "Monitor posts for suspicious content"
 msgstr ""
 
@@ -6097,8 +6244,8 @@ msgstr ""
 msgid "Multi-purpose color of the \"gamma\" bookmark."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:815
-msgid "Multiplier for displayed word counts."
+#: includes/functions/settings/_register_settings.php:1012
+msgid "Multiplier for displayed word counts"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1799
@@ -6115,6 +6262,8 @@ msgstr ""
 
 #: includes/functions/_module-discord.php:103
 #: includes/functions/_module-discord.php:146
+#: includes/functions/users/_admin_profile.php:847
+#: includes/functions/users/_user_data.php:1241
 msgid "n/a"
 msgstr ""
 
@@ -6179,7 +6328,7 @@ msgstr ""
 msgid "Nickname"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:167
+#: includes/functions/settings/_settings_page_connections.php:266
 msgid "No"
 msgstr ""
 
@@ -6237,7 +6386,7 @@ msgstr ""
 msgid "No groups found."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:988
+#: includes/functions/settings/_settings_page_general.php:1188
 msgid "No guarantee these blocks work with the theme."
 msgstr ""
 
@@ -6250,7 +6399,7 @@ msgstr ""
 msgid "No matching posts found."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:721
+#: includes/functions/settings/_settings_page_general.php:897
 msgid ""
 "No more continuous requests for near real-time updates and autosaves, which "
 "can strain the server."
@@ -6285,8 +6434,8 @@ msgstr ""
 msgid "No results."
 msgstr ""
 
-#: includes/functions/settings/_settings.php:547
-#: includes/functions/settings/_settings.php:548
+#: includes/functions/settings/_settings.php:554
+#: includes/functions/settings/_settings.php:555
 msgctxt "No selection page assignment."
 msgid "None"
 msgstr ""
@@ -6326,8 +6475,8 @@ msgstr ""
 msgid "Nonce verification failed. Please try again."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:880
-#: includes/functions/users/_admin_profile.php:881
+#: includes/functions/users/_admin_profile.php:1014
+#: includes/functions/users/_admin_profile.php:1015
 msgid "None"
 msgstr ""
 
@@ -6365,11 +6514,15 @@ msgstr ""
 msgid "Nothing to show."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:877
+#: includes/functions/settings/_register_settings.php:1022
+msgid "Notice above comments"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_general.php:877
 msgid "Notice above comments. Leave empty to hide. HTML allowed."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:648
+#: includes/functions/settings/_settings_page_general.php:814
 msgid "Notify commenters about replies via email (if provided)."
 msgstr ""
 
@@ -6412,15 +6565,15 @@ msgstr ""
 msgid "Only applied to the page."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:925
+#: includes/functions/settings/_settings_page_general.php:1118
 msgid "Only do this if you define everything yourself."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:934
+#: includes/functions/settings/_settings_page_general.php:1128
 msgid "Only do this if you integrate it yourself."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:211
+#: includes/functions/settings/_settings_page_general.php:243
 msgid "Only once when the chapter is first saved."
 msgstr ""
 
@@ -6444,7 +6597,7 @@ msgstr ""
 msgid "Open Graph Image"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:498
+#: includes/functions/settings/_settings_page_general.php:640
 msgid ""
 "Open Graph images, chat embeds, meta tags, and schema graphs for rich "
 "snippets. Incompatible with SEO plugins."
@@ -6465,7 +6618,7 @@ msgstr ""
 msgid "Open site settings modal"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:237
+#: includes/functions/settings/_settings_page_general.php:271
 msgid "Opens modal with timestamped chapter changes."
 msgstr ""
 
@@ -6506,7 +6659,7 @@ msgstr ""
 msgid "Original Content Copyright © %s. All rights reserved."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:60
+#: includes/functions/settings/_settings_page_general.php:62
 msgid "Overridden by personal site settings."
 msgstr ""
 
@@ -6515,15 +6668,19 @@ msgstr ""
 msgid "Override assigned badge"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:1003
+#: includes/functions/users/_admin_profile.php:1137
 msgid "Override the user’s badge."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:349
+#: includes/functions/users/_admin_profile.php:824
+msgid "Page"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_general.php:440
 msgid "Page Assignments"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:205
+#: includes/functions/settings/_settings_page_roles.php:206
 msgid "Page Capabilities"
 msgstr ""
 
@@ -6667,8 +6824,8 @@ msgstr ""
 msgid "Past Year"
 msgstr ""
 
-#: includes/functions/_module-oauth.php:128
-#: includes/functions/settings/_settings_page_connections.php:102
+#: includes/functions/_module-oauth.php:125
+#: includes/functions/settings/_settings_page_connections.php:152
 #: includes/functions/hooks/_chapter_hooks.php:520
 msgid "Patreon"
 msgstr ""
@@ -6682,19 +6839,23 @@ msgctxt "Patreon amount cents meta field label."
 msgid "Patreon Amount Cents"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:870
+#: includes/functions/settings/_register_settings.php:1021
+#: includes/functions/settings/_settings_page_general.php:803
 msgid "Patreon badge label"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:955
+#: includes/functions/settings/_register_settings.php:1035
+#: includes/functions/settings/_settings_page_connections.php:177
 msgid "Patreon campaign link"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:943
+#: includes/functions/settings/_register_settings.php:1033
+#: includes/functions/settings/_settings_page_connections.php:159
 msgid "Patreon Client ID"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:949
+#: includes/functions/settings/_register_settings.php:1034
+#: includes/functions/settings/_settings_page_connections.php:168
 msgid "Patreon Client Secret"
 msgstr ""
 
@@ -6702,35 +6863,39 @@ msgstr ""
 msgid "Patreon connection successfully removed."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:155
+#: includes/functions/settings/_settings_page_connections.php:254
 msgctxt "Patreon connection tier table."
 msgid "Amount Cents"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:154
+#: includes/functions/settings/_settings_page_connections.php:253
 msgctxt "Patreon connection tier table."
 msgid "ID"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:156
+#: includes/functions/settings/_settings_page_connections.php:255
 msgctxt "Patreon connection tier table."
 msgid "Published"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:153
+#: includes/functions/settings/_settings_page_connections.php:252
 msgctxt "Patreon connection tier table."
 msgid "Tier"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:961
+#: includes/functions/settings/_register_settings.php:1036
+msgid "Patreon gate message override"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:186
 msgid "Patreon gate message override (leave empty for default)"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:965
+#: includes/functions/users/_admin_profile.php:1099
 msgid "Patreon ID Hash"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:908
+#: includes/functions/users/_admin_profile.php:1042
 msgid "Patreon link"
 msgstr ""
 
@@ -6760,13 +6925,13 @@ msgstr ""
 
 #: includes/functions/settings/_settings_loggers.php:149
 #, php-format
-msgctxt "Pattern for checkbox option in logs: \"{Checked} {Option}\"."
+msgctxt "Pattern for checkbox option in logs."
 msgid "%1$s: %2$s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:439
+#: includes/functions/settings/_settings_loggers.php:443
 #, php-format
-msgctxt "Pattern for connection updates in logs: \"{Option} updated\"."
+msgctxt "Pattern for connection updates in logs."
 msgid "%s updated."
 msgstr ""
 
@@ -6777,25 +6942,21 @@ msgctxt ""
 msgid "Deleted file from server: %s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:242
+#: includes/functions/settings/_settings_loggers.php:243
 #, php-format
-msgctxt ""
-"Pattern for page assignment updates in logs: \"{Option} page assignment "
-"changed from {Old ID} to {New ID}.\"."
-msgid "%1$s page assignment changed from #%2$s to #%3$s"
+msgctxt "Pattern for page assignment updates in logs."
+msgid "%1$s changed from \"%2$s\" to \"%3$s\""
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:337
+#: includes/functions/settings/_settings_loggers.php:340
 #, php-format
-msgctxt ""
-"Pattern for phrase updates in logs: \"Phrase for the {Option} changed to: "
-"'{New String}'\"."
-msgid "Phrase for the %1$s changed to '%2$s'"
+msgctxt "Pattern for phrase updates in logs."
+msgid "%1$s phrase changed to \"%2$s\""
 msgstr ""
 
 #: includes/functions/settings/_settings_loggers.php:116
 #, php-format
-msgctxt "Pattern for post/page in logs: \"{Type} #{ID} {Action}: {Title}\"."
+msgctxt "Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}."
 msgid "%1$s #%2$s %3$s: %4$s"
 msgstr ""
 
@@ -6814,7 +6975,7 @@ msgstr ""
 msgid "PayPal"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:917
+#: includes/functions/users/_admin_profile.php:1051
 msgid "PayPal link"
 msgstr ""
 
@@ -6823,7 +6984,7 @@ msgctxt "Paypal link meta field label."
 msgid "Paypal Link"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:714
+#: includes/functions/settings/_settings_page_general.php:889
 msgid "Performance"
 msgstr ""
 
@@ -6886,7 +7047,11 @@ msgstr ""
 msgid "Polygons"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:204
+#: includes/functions/users/_admin_profile.php:823
+msgid "Post"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_roles.php:205
 msgid "Post Capabilities"
 msgstr ""
 
@@ -6923,6 +7088,8 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1436
 #: includes/functions/_setup-meta-fields.php:1552
 #: includes/functions/_setup-meta-fields.php:1598
+#: includes/functions/users/_admin_profile.php:768
+#: includes/functions/users/_user_data.php:1231
 msgctxt "Post type label."
 msgid "Chapter"
 msgstr ""
@@ -6931,12 +7098,16 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1437
 #: includes/functions/_setup-meta-fields.php:1553
 #: includes/functions/_setup-meta-fields.php:1599
+#: includes/functions/users/_admin_profile.php:769
+#: includes/functions/users/_user_data.php:1232
 msgctxt "Post type label."
 msgid "Collection"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1387
 #: includes/functions/_setup-meta-fields.php:1434
+#: includes/functions/users/_admin_profile.php:766
+#: includes/functions/users/_user_data.php:1229
 msgctxt "Post type label."
 msgid "Page"
 msgstr ""
@@ -6945,6 +7116,8 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1433
 #: includes/functions/_setup-meta-fields.php:1550
 #: includes/functions/_setup-meta-fields.php:1596
+#: includes/functions/users/_admin_profile.php:765
+#: includes/functions/users/_user_data.php:1228
 msgctxt "Post type label."
 msgid "Post"
 msgstr ""
@@ -6953,6 +7126,8 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1438
 #: includes/functions/_setup-meta-fields.php:1554
 #: includes/functions/_setup-meta-fields.php:1600
+#: includes/functions/users/_admin_profile.php:770
+#: includes/functions/users/_user_data.php:1233
 msgctxt "Post type label."
 msgid "Rec"
 msgstr ""
@@ -6961,6 +7136,8 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1435
 #: includes/functions/_setup-meta-fields.php:1551
 #: includes/functions/_setup-meta-fields.php:1597
+#: includes/functions/users/_admin_profile.php:767
+#: includes/functions/users/_user_data.php:1230
 msgctxt "Post type label."
 msgid "Story"
 msgstr ""
@@ -7002,7 +7179,7 @@ msgid ""
 "Prevent avatar from being overwritten with the latest OAuth account login."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:850
+#: includes/functions/settings/_settings_page_general.php:1039
 msgid "Prevents users from ending up on the login page."
 msgstr ""
 
@@ -7057,7 +7234,7 @@ msgstr ""
 msgid "Private comment"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:666
+#: includes/functions/settings/_settings_page_general.php:834
 msgid "Private comments are invisible to the public."
 msgstr ""
 
@@ -7086,7 +7263,7 @@ msgstr ""
 #: includes/functions/comments/_comments_threads.php:733
 #: includes/functions/users/_admin_profile.php:495
 #: includes/functions/users/_admin_profile.php:603
-#: includes/functions/users/_admin_profile.php:1068
+#: includes/functions/users/_admin_profile.php:1202
 msgctxt "Prompt confirm deletion string."
 msgid "delete"
 msgstr ""
@@ -7111,15 +7288,15 @@ msgstr ""
 #: partials/_card-page.php:89 partials/_article-cards.php:259
 #: partials/_card-collection.php:208 partials/_card-post.php:113
 #: partials/_latest-chapters.php:281 partials/_card-chapter.php:238
-#: includes/functions/_helpers-templates.php:1606
+#: includes/functions/_helpers-templates.php:1610
 msgid "Published"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:535
+#: includes/functions/settings/_settings_loggers.php:539
 msgid "published"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:144
+#: includes/functions/settings/_settings_page_connections.php:243
 msgid "Pull Tiers"
 msgstr ""
 
@@ -7131,7 +7308,8 @@ msgstr ""
 msgid "Purge All"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:559
+#: includes/functions/settings/_register_settings.php:976
+#: includes/functions/settings/_settings_page_general.php:1147
 msgid "Purge all caches on content updates"
 msgstr ""
 
@@ -7151,7 +7329,7 @@ msgstr ""
 msgid "Purging…"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:614
+#: includes/functions/settings/_settings_page_general.php:771
 msgid "Quick buttons to wrap text selection in BBCodes."
 msgstr ""
 
@@ -7175,7 +7353,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:405
+#: includes/functions/settings/_settings_page_general.php:537
 msgid ""
 "Reach a larger audience by allowing external services to index and search "
 "your stories (meta data only)."
@@ -7212,6 +7390,7 @@ msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:324
 #: includes/functions/_setup-types-and-terms.php:350
+#: includes/functions/users/_admin_profile.php:828
 msgid "Recommendation"
 msgstr ""
 
@@ -7233,7 +7412,7 @@ msgctxt "Recommendation author meta field label."
 msgid "Author"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:209
+#: includes/functions/settings/_settings_page_roles.php:210
 msgid "Recommendation Capabilities"
 msgstr ""
 
@@ -7284,15 +7463,20 @@ msgstr ""
 msgid "Recommendations list navigation"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:750
+#: includes/functions/settings/_settings_page_general.php:487
 msgid "Recommendations page (Template: Recommendations)"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:293
+#: includes/functions/settings/_register_settings.php:1003
+msgid "Recommendations page assignment"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:938
+#: includes/functions/settings/_settings_page_general.php:926
 msgid "Reduce admin bar items"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:415
+#: includes/functions/settings/_settings_page_general.php:548
 #, php-format
 msgid ""
 "Register/Login with social media accounts. This requires you to <a "
@@ -7317,7 +7501,7 @@ msgctxt "Relationship meta field search placeholder."
 msgid "Search…"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:575
+#: includes/functions/settings/_settings_page_general.php:728
 msgid "Reliable spam protection but can lead to false positives."
 msgstr ""
 
@@ -7326,7 +7510,7 @@ msgctxt "Remember a story to be read later."
 msgid "Read Later"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:471
+#: includes/functions/settings/_settings_page_general.php:610
 msgid "Remember stories to be \"read later\"."
 msgstr ""
 
@@ -7348,7 +7532,8 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:286
+#: includes/functions/settings/_register_settings.php:937
+#: includes/functions/settings/_settings_page_general.php:906
 msgid "Remove clutter from HTML head"
 msgstr ""
 
@@ -7359,7 +7544,8 @@ msgstr ""
 msgid "Remove cover image"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:454
+#: includes/functions/settings/_register_settings.php:961
+#: includes/functions/settings/_settings_page_general.php:916
 msgid "Remove global WordPress SVG filters"
 msgstr ""
 
@@ -7367,7 +7553,7 @@ msgstr ""
 msgid "Remove Unused Tags"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:304
+#: includes/functions/settings/_settings_page_roles.php:305
 #, php-format
 msgctxt "Remove {Role}"
 msgid "Remove %s"
@@ -7382,16 +7568,16 @@ msgstr ""
 msgid "Removed unused tags."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:360
+#: includes/functions/settings/_settings_page_roles.php:361
 msgid "Rename"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:339
+#: includes/functions/settings/_settings_page_roles.php:340
 #, php-format
 msgid "Rename %s Role"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:281
+#: includes/functions/settings/_settings_page_roles.php:282
 msgctxt "Rename role"
 msgid "Rename"
 msgstr ""
@@ -7400,13 +7586,13 @@ msgstr ""
 msgid "Renaming capability disabled."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:900
+#: includes/functions/users/_admin_profile.php:1034
 msgid ""
 "Rendered at the bottom of your chapters. This will override \"You can "
 "support the author on\"."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:892
+#: includes/functions/users/_admin_profile.php:1026
 msgid ""
 "Rendered inside your public author profile. This will override your "
 "biographical info."
@@ -7416,7 +7602,7 @@ msgstr ""
 msgid "Repair Tools"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:489
+#: includes/functions/settings/_settings_page_general.php:630
 msgid ""
 "Replace the default WordPress RSS feeds with theme feeds built for "
 "publishing your stories and chapters."
@@ -7467,6 +7653,7 @@ msgstr ""
 #: includes/functions/users/_user_data.php:951
 #: includes/functions/users/_user_data.php:1019
 #: includes/functions/users/_user_data.php:1103
+#: includes/functions/users/_user_data.php:1185
 #: includes/functions/users/_avatars.php:161
 #: includes/functions/users/_bookmarks.php:32
 #: includes/functions/users/_checkmarks.php:130
@@ -7478,15 +7665,16 @@ msgstr ""
 msgid "Request did not pass validation."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:157
+#: includes/functions/settings/_settings_page_general.php:183
 msgid "Require age confirmation for <b>adult-rated</b> content."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:87
+#: includes/functions/settings/_settings_page_general.php:92
 msgid "Require age confirmation for the whole site."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:202
+#: includes/functions/settings/_register_settings.php:925
+#: includes/functions/settings/_settings_page_general.php:712
 msgid "Require JavaScript to comment"
 msgstr ""
 
@@ -7501,7 +7689,7 @@ msgstr ""
 msgid "Required for the tab view in stories."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:426
+#: includes/functions/settings/_settings_page_general.php:560
 msgid ""
 "Requires OAuth 2.0 application for Patreon. Allows eligible logged-in "
 "members to ignore post passwords."
@@ -7531,19 +7719,21 @@ msgstr ""
 msgid "Reset Registry"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:511
+#: includes/functions/settings/_settings_loggers.php:515
 msgid "restored"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:601
+#: includes/functions/settings/_register_settings.php:982
+#: includes/functions/settings/_settings_page_general.php:252
 msgid "Restrict chapter stories by author"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:587
-msgid "Restrict Default REST API"
+#: includes/functions/settings/_register_settings.php:980
+#: includes/functions/settings/_settings_page_general.php:1005
+msgid "Restrict default REST API"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:200
+#: includes/functions/settings/_settings_page_roles.php:201
 msgid "Restricted Capabilities"
 msgstr ""
 
@@ -7577,27 +7767,27 @@ msgstr ""
 msgid "Results for Tag \"%s\""
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1042
+#: includes/functions/settings/_settings_page_general.php:1248
 msgid "Return to the default search query and form."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1078
+#: includes/functions/settings/_settings_page_general.php:1288
 msgid "Return to the default WordPress form."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1006
+#: includes/functions/settings/_settings_page_general.php:1208
 msgid "Return to the default WordPress logout with nonce."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1060
+#: includes/functions/settings/_settings_page_general.php:1268
 msgid "Return to the default WordPress markup."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1087
+#: includes/functions/settings/_settings_page_general.php:1298
 msgid "Return to the default WordPress pagination (no-AJAX)."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1069
+#: includes/functions/settings/_settings_page_general.php:1278
 msgid "Return to the default WordPress query."
 msgstr ""
 
@@ -7724,6 +7914,10 @@ msgctxt "Search page SEO description."
 msgid "Search results on %s."
 msgstr ""
 
+#: includes/functions/users/_admin_profile.php:820
+msgid "Search posts to unlock…"
+msgstr ""
+
 #: includes/functions/_setup-types-and-terms.php:335
 msgid "Search Recommendations"
 msgstr ""
@@ -7750,7 +7944,7 @@ msgid ""
 "700."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:804
+#: includes/functions/settings/_settings_page_general.php:988
 msgid "Security & Privacy"
 msgstr ""
 
@@ -7821,7 +8015,7 @@ msgstr ""
 msgid "Sending…"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:868
+#: includes/functions/settings/_settings_page_general.php:1059
 msgid ""
 "Sends an admin email if suspicious strings are found, which could be an "
 "attempted attack or <strong>false positive.</strong>"
@@ -8123,7 +8317,8 @@ msgstr ""
 msgid "Show %s more"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:692
+#: includes/functions/settings/_register_settings.php:995
+#: includes/functions/settings/_settings_page_general.php:192
 msgid "Show excerpt on password-protected posts"
 msgstr ""
 
@@ -8139,11 +8334,12 @@ msgstr ""
 msgid "Show registry array"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:643
+#: includes/functions/settings/_register_settings.php:988
+#: includes/functions/settings/_settings_page_general.php:270
 msgid "Show story changelog button"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:633
+#: includes/functions/settings/_settings_page_general.php:792
 #, php-format
 msgid ""
 "Show supporter badge for the <a href=\"%s\">linked Patreon client</a>. This "
@@ -8151,19 +8347,23 @@ msgid ""
 "individual authors."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:76
+#: includes/functions/settings/_register_settings.php:907
+#: includes/functions/settings/_settings_page_general.php:380
 msgid "Show tags on chapter cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:90
+#: includes/functions/settings/_register_settings.php:909
+#: includes/functions/settings/_settings_page_general.php:398
 msgid "Show tags on collection cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:83
+#: includes/functions/settings/_register_settings.php:908
+#: includes/functions/settings/_settings_page_general.php:389
 msgid "Show tags on recommendation cards"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:69
+#: includes/functions/settings/_register_settings.php:906
+#: includes/functions/settings/_settings_page_general.php:371
 msgid "Show tags on story cards"
 msgstr ""
 
@@ -8171,18 +8371,18 @@ msgstr ""
 msgid "Show title text shadow"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:877
+#: includes/functions/settings/_settings_page_general.php:1069
 msgid ""
 "Shows a generic cookie consent banner and activates the <code>"
 "fictioneer_get_consent()</code> theme function that returns either false, "
 "\"necessary\", or \"full\"."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:560
+#: includes/functions/settings/_settings_page_general.php:713
 msgid "Simple but effective spam protection."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:830
+#: includes/functions/settings/_settings_page_general.php:1017
 #, php-format
 msgid ""
 "Simple session-based rate limiting, allowing %s requests per minute for "
@@ -8242,11 +8442,15 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+#: includes/functions/settings/_register_settings.php:1011
+msgid "Size limit for file uploads"
+msgstr ""
+
 #: partials/_tts-interface.php:35
 msgid "Skip"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:355
+#: includes/functions/settings/_settings_page_roles.php:356
 msgid "Slug of the role. Must not be changed."
 msgstr ""
 
@@ -8295,17 +8499,17 @@ msgstr ""
 msgid "Small Horizontal Spacing - Minimum"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:540
+#: includes/functions/settings/_settings_page_general.php:685
 msgid ""
 "Some of these options will only work properly with the theme comment system "
 "enabled."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:943
+#: includes/functions/settings/_settings_page_general.php:1138
 msgid "Some older plugins might require this."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:516
+#: includes/functions/settings/_settings_page_general.php:660
 msgid ""
 "Sometimes wonky browser-based text-to-speech engine. Extend and availability "
 "depends on the browser and OS."
@@ -8371,7 +8575,7 @@ msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1682
+#: includes/functions/_helpers-templates.php:1686
 #: includes/functions/comments/_comments_moderation.php:183
 #: includes/functions/comments/_comments_moderation.php:481
 msgid "Sticky"
@@ -8381,7 +8585,7 @@ msgstr ""
 msgid "Sticky in lists"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:551
+#: includes/functions/settings/_settings_page_general.php:703
 msgid "Still shows the current comments."
 msgstr ""
 
@@ -8412,13 +8616,18 @@ msgstr ""
 msgid "Stories list navigation"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:736
+#: includes/functions/settings/_settings_page_general.php:469
 msgid "Stories page (Template: Stories)"
+msgstr ""
+
+#: includes/functions/settings/_register_settings.php:1001
+msgid "Stories page assignment"
 msgstr ""
 
 #: includes/functions/_setup-types-and-terms.php:117
 #: includes/functions/_setup-types-and-terms.php:143
 #: includes/functions/settings/_settings_page_epubs.php:83
+#: includes/functions/users/_admin_profile.php:825
 msgid "Story"
 msgstr ""
 
@@ -8467,7 +8676,7 @@ msgctxt "Story blogs meta field label."
 msgid "Story Blogs"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:206
+#: includes/functions/settings/_settings_page_roles.php:207
 msgid "Story Capabilities"
 msgstr ""
 
@@ -8500,7 +8709,7 @@ msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2033
+#: includes/functions/_helpers-templates.php:2037
 msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
@@ -8722,11 +8931,11 @@ msgid ""
 "contrast ~3:1 on BG-700."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:985
+#: includes/functions/settings/_register_settings.php:1041
 msgid "Subitem long date format"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:991
+#: includes/functions/settings/_register_settings.php:1042
 msgid "Subitem short date format"
 msgstr ""
 
@@ -8738,7 +8947,7 @@ msgstr ""
 msgid "Submit search request"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:570
+#: includes/functions/settings/_settings_loggers.php:574
 msgid "submitted for review"
 msgstr ""
 
@@ -8755,7 +8964,7 @@ msgstr ""
 msgid "SubscribeStar"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:914
+#: includes/functions/users/_admin_profile.php:1048
 msgid "SubscribeStar link"
 msgstr ""
 
@@ -8770,7 +8979,7 @@ msgid ""
 "Successfully unsubscribed from comment #%1$s in <a href=\"%2$s\">%3$s</a>!"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:480
+#: includes/functions/settings/_settings_page_general.php:620
 msgid "Suggest color-coded text changes in the comments."
 msgstr ""
 
@@ -8792,7 +9001,7 @@ msgid "Support <em>%s</em>"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3392
-#: includes/functions/users/_admin_profile.php:904
+#: includes/functions/users/_admin_profile.php:1038
 msgid "Support Links"
 msgstr ""
 
@@ -8800,7 +9009,7 @@ msgstr ""
 msgid "Support me on Ko-fi"
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:897
+#: includes/functions/users/_admin_profile.php:1031
 msgid "Support Message"
 msgstr ""
 
@@ -8809,11 +9018,13 @@ msgstr ""
 msgid "Suspicious content on %s"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:856
+#: includes/functions/settings/_register_settings.php:1019
+#: includes/functions/settings/_settings_page_general.php:138
 msgid "System email address"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:863
+#: includes/functions/settings/_register_settings.php:1020
+#: includes/functions/settings/_settings_page_general.php:149
 msgid "System email name"
 msgstr ""
 
@@ -8848,7 +9059,7 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:284
+#: includes/functions/settings/_settings_page_general.php:320
 msgid "Tags & Taxonomies"
 msgstr ""
 
@@ -8857,7 +9068,7 @@ msgstr ""
 msgid "Tags &rarr; Genres"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:308
+#: includes/functions/settings/_settings_page_general.php:364
 msgid ""
 "Tags are normally not shown on cards since they tend to be numerous, making "
 "the cards unsightly. But this is up to you."
@@ -8868,19 +9079,19 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:288
+#: includes/functions/settings/_settings_page_general.php:324
 msgid ""
 "Taxonomies on cards include fandoms, genres, tags (if shown), and characters "
 "in that order."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:328
+#: includes/functions/settings/_settings_page_general.php:404
 msgid ""
 "Taxonomies on pages are displayed above the title, tags and content warnings "
 "get their own rows below the description."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:203
+#: includes/functions/settings/_settings_page_roles.php:204
 msgid "Taxonomy Capabilities"
 msgstr ""
 
@@ -9035,13 +9246,13 @@ msgid ""
 "for this to work: "
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:757
+#: includes/functions/settings/_settings_page_general.php:937
 msgid ""
 "The theme does not use widgets by default and removing them slightly boosts "
 "performance."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:353
+#: includes/functions/settings/_settings_page_general.php:444
 msgid ""
 "The theme expects certain pages to exist. Just create a normal page, assign "
 "the specified page template, and select it here. Clear caches afterwards."
@@ -9059,7 +9270,7 @@ msgstr ""
 msgid "There are no valid chapters with comments."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:1037
+#: includes/functions/users/_admin_profile.php:1171
 msgid "There is no guarantee this URL remains valid!"
 msgstr ""
 
@@ -9071,8 +9282,6 @@ msgid ""
 msgstr ""
 
 #: partials/_modal-age.php:36
-#: includes/functions/settings/_register_settings.php:1020
-#: includes/functions/settings/_register_settings.php:1021
 #: includes/functions/settings/_settings_page_phrases.php:138
 msgid ""
 "This content is intended for an adult audience. Please confirm that you are "
@@ -9116,7 +9325,7 @@ msgid ""
 "."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:166
+#: includes/functions/settings/_settings_page_general.php:193
 msgid "This may be beneficial for search engines."
 msgstr ""
 
@@ -9136,22 +9345,20 @@ msgid "This role cannot be renamed."
 msgstr ""
 
 #: partials/_modal-age.php:32
-#: includes/functions/settings/_register_settings.php:1012
-#: includes/functions/settings/_register_settings.php:1013
 #: includes/functions/settings/_settings_page_phrases.php:116
 msgid ""
 "This website is intended for an adult audience. Please confirm that you are "
 "of legal age (18+) or leave the website."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1144
+#: includes/functions/settings/_settings_page_general.php:1391
 msgid ""
 "This will also remove all theme-related comment and user meta data, such as "
 "bookmarks or follows. Stories, chapters, collections, and recommendations "
 "remain, but you will need to register their custom post types to access them."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:1051
+#: includes/functions/settings/_settings_page_general.php:1258
 msgid "This will disable the comment toolbar as well."
 msgstr ""
 
@@ -9260,7 +9467,7 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:506
+#: includes/functions/settings/_settings_loggers.php:510
 msgid "trashed"
 msgstr ""
 
@@ -9273,8 +9480,8 @@ msgctxt "TTS modal heading."
 msgid "TTS Settings"
 msgstr ""
 
-#: includes/functions/_module-oauth.php:126
-#: includes/functions/settings/_settings_page_connections.php:68
+#: includes/functions/_module-oauth.php:123
+#: includes/functions/settings/_settings_page_connections.php:98
 msgid "Twitch"
 msgstr ""
 
@@ -9282,11 +9489,13 @@ msgstr ""
 msgid "Twitch account successfully linked."
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:919
+#: includes/functions/settings/_register_settings.php:1029
+#: includes/functions/settings/_settings_page_connections.php:105
 msgid "Twitch Client ID"
 msgstr ""
 
-#: includes/functions/settings/_register_settings.php:925
+#: includes/functions/settings/_register_settings.php:1030
+#: includes/functions/settings/_settings_page_connections.php:114
 msgid "Twitch Client Secret"
 msgstr ""
 
@@ -9294,7 +9503,7 @@ msgstr ""
 msgid "Twitch connection successfully removed."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:959
+#: includes/functions/users/_admin_profile.php:1093
 msgid "Twitch ID Hash"
 msgstr ""
 
@@ -9331,6 +9540,24 @@ msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:2589
 msgid "Unlisted (but accessible with link)"
+msgstr ""
+
+#: includes/functions/users/_admin_profile.php:854
+#: includes/functions/users/_user_data.php:1245
+#, php-format
+msgctxt "Unlock post item meta: Type | ID."
+msgid "(%s | %s)"
+msgstr ""
+
+#: includes/functions/users/_admin_profile.php:846
+#: includes/functions/users/_user_data.php:1240
+#, php-format
+msgctxt "Unlock post item."
+msgid "Author: %s | Title: %s"
+msgstr ""
+
+#: includes/functions/users/_admin_profile.php:797
+msgid "Unlock Posts"
 msgstr ""
 
 #: includes/functions/_setup-wordpress.php:568
@@ -9406,13 +9633,13 @@ msgid ""
 "address to confirm. <a href=\"%2$s\">Cancel.</a>"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_roles.php:277
+#: includes/functions/settings/_settings_page_roles.php:278
 #, php-format
 msgctxt "Update {Role}"
 msgid "Update %s"
 msgstr ""
 
-#: includes/functions/settings/_settings_loggers.php:537
+#: includes/functions/settings/_settings_loggers.php:541
 msgid "updated"
 msgstr ""
 
@@ -9421,7 +9648,7 @@ msgstr ""
 msgid "Updated \"%s\" role."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:150
+#: includes/functions/settings/_settings_page_general.php:175
 msgid ""
 "Updating these settings may require the theme caches to be purged. You can "
 "do that under Tools."
@@ -9803,9 +10030,7 @@ msgid "Warning shown in chapter lists."
 msgstr ""
 
 #: partials/_consent-banner.php:26
-#: includes/functions/settings/_register_settings.php:841
-#: includes/functions/settings/_register_settings.php:842
-#: includes/functions/settings/_register_settings.php:1201
+#: includes/functions/settings/_register_settings.php:1215
 #: includes/functions/settings/_settings_page_phrases.php:94
 msgid ""
 "We use cookies to enhance your browsing experience, serve personalized "
@@ -9816,13 +10041,11 @@ msgid ""
 msgstr ""
 
 #: includes/functions/_setup-wordpress.php:18
-#: includes/functions/settings/_register_settings.php:825
-#: includes/functions/settings/_register_settings.php:826
 #: includes/functions/settings/_settings_page_phrases.php:28
 msgid "Website under planned maintenance. Please check back later."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:69
+#: includes/functions/settings/_settings_page_general.php:72
 msgid "When you have multiple publishing authors."
 msgstr ""
 
@@ -9832,8 +10055,8 @@ msgctxt "Word count caption in statistics."
 msgid "Words"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1381
-#: includes/functions/_helpers-templates.php:1389
+#: includes/functions/_helpers-templates.php:1385
+#: includes/functions/_helpers-templates.php:1393
 #, php-format
 msgctxt "Word count in chapter list."
 msgid "%s Words"
@@ -9845,7 +10068,11 @@ msgstr ""
 msgid "Words"
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:167
+#: includes/functions/settings/_register_settings.php:1009
+msgid "Words per minute"
+msgstr ""
+
+#: includes/functions/settings/_settings_page_connections.php:266
 msgid "Yes"
 msgstr ""
 
@@ -9879,7 +10106,7 @@ msgid ""
 "notification for each direct reply."
 msgstr ""
 
-#: includes/functions/_setup-roles.php:1293
+#: includes/functions/_setup-roles.php:1334
 msgid "You are not allowed to upload files of this type."
 msgstr ""
 
@@ -9889,7 +10116,7 @@ msgid "You are not following any stories."
 msgstr ""
 
 #: partials/account/_danger-zone.php:41
-#: includes/functions/users/_admin_profile.php:1083
+#: includes/functions/users/_admin_profile.php:1217
 msgid ""
 "You can delete your account and associated data with it. Submitted <em>"
 "content</em> such as comments will remain under the “Deleted User” name "
@@ -9907,7 +10134,7 @@ msgid ""
 "using Google Fonts violates the GDPR."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:124
+#: includes/functions/settings/_settings_page_connections.php:194
 msgid ""
 "You can pull your tiers into the theme and assign them to posts, allowing "
 "eligible users to ignore passwords. Pledge thresholds work too. You still "
@@ -9915,7 +10142,7 @@ msgid ""
 "pulled, and this only works for one campaign."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_connections.php:47
+#: includes/functions/settings/_settings_page_connections.php:62
 #, php-format
 msgid ""
 "You can set up <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener "
@@ -9925,7 +10152,7 @@ msgid ""
 "which can be disabled in Discord."
 msgstr ""
 
-#: includes/functions/settings/_settings_page_general.php:78
+#: includes/functions/settings/_settings_page_general.php:82
 msgid "You can still use the [More] block for shortened previews."
 msgstr ""
 
@@ -10004,7 +10231,7 @@ msgid ""
 "Last modified on %5$s."
 msgstr ""
 
-#: includes/functions/users/_admin_profile.php:889
+#: includes/functions/users/_admin_profile.php:1023
 msgid "You have no published pages yet."
 msgstr ""
 

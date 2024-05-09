@@ -1069,3 +1069,133 @@ function fcn_addRelationship(source, destination) {
   // Disable
   source.classList.add('disabled');
 }
+
+// =============================================================================
+// UNLOCK POSTS
+// =============================================================================
+
+var /** @type {timeoutID} */ fcn_unlockPostsTimer;
+
+_$('[data-controller="fcn-unlock-posts"]')?.addEventListener('click', event => {
+  // Evaluate clicks on the interface
+  fcn_unlockPostsHandleClicks(event.target.closest('[data-target]'));
+});
+
+_$('[data-target="fcn-unlock-posts-search"]')?.addEventListener('input', () => {
+  // Clear previous timer (if any)
+  clearTimeout(fcn_unlockPostsTimer);
+
+  // Trigger search after delay
+  fcn_unlockPostsTimer = setTimeout(() => {
+    fcn_unlockPostsSearch();
+  }, 800);
+});
+
+_$('[data-target="fcn-unlock-posts-select"]')?.addEventListener('input', () => {
+  // Clear previous timer (if any)
+  clearTimeout(fcn_unlockPostsTimer);
+
+  // Start search
+  fcn_unlockPostsSearch();
+});
+
+/**
+ * Handle clicks on the Unlock Posts interface.
+ *
+ * @since 5.16.0
+ * @param {HTMLElement} target - The element that was clicked.
+ */
+
+function fcn_unlockPostsHandleClicks(target) {
+  if (!target) {
+    return;
+  }
+
+  // Delegate or perform action...
+  switch (target.dataset.target) {
+    case 'fcn-unlock-posts-delete':
+      target.closest('[data-target="fcn-unlock-posts-item"').remove();
+      break;
+    case 'fcn-unlock-posts-search-item':
+      fcn_unlockPostsAdd(target);
+      break;
+  }
+}
+
+/**
+ * Search posts to unlock.
+ *
+ * @since 5.16.0
+ */
+
+function fcn_unlockPostsSearch() {
+  // Setup
+  const container = _$('.unlock-posts');
+  const search = _$('[data-target="fcn-unlock-posts-search"]');
+  const results = _$('[data-target="fcn-unlock-posts-search-results"]');
+  const selected = _$('[data-target="fcn-unlock-posts-selected"]');
+
+  // Abort if...
+  if (!container || !search || (!search.value && !_$('[data-target="fcn-unlock-posts-search-item"]'))) {
+    return;
+  }
+
+  // Payload
+  const payload = {
+    'action': 'fictioneer_ajax_search_posts_to_unlock',
+    'search': search.value,
+    'type': _$('[data-target="fcn-unlock-posts-select"]')?.value || 'any',
+    'nonce': container.querySelector('[name="unlock_posts_nonce"]').value
+  };
+
+  // Indicate process
+  container.classList.add('ajax-in-progress');
+
+  // Request
+  fcn_ajaxPost(payload)
+  .then(response => {
+    if (response.success) {
+      results.innerHTML = response.data.html;
+    } else {
+      results.innerHTML = response.data.error;
+    }
+  })
+  .catch(error => {
+    results.innerHTML = error;
+  })
+  .then(() => {
+    container.classList.remove('ajax-in-progress');
+
+    results.querySelectorAll('[data-target="fcn-unlock-posts-search-item"]').forEach(item => {
+      if (selected.querySelector(`[data-post-id="${item.dataset.postId}"]`)) {
+        item.remove();
+      }
+    });
+  });
+}
+
+/**
+ * Add post items to the Unlock Posts selection.
+ *
+ * @since 5.16.0
+ * @param {HTMLElement} target - The element that was clicked.
+ */
+
+function fcn_unlockPostsAdd(target) {
+  // Setup
+  const template = _$('[data-target="fcn-unlock-posts-item-template"]').content.cloneNode(true);
+  const item = template.querySelector('.unlock-posts__item');
+
+  // Build node
+  item.dataset.postId = target.dataset.postId;
+  item.title = target.title;
+  item.querySelector('input[type="hidden"]').value = target.dataset.postId;
+  item.querySelector('.unlock-posts__item-title').innerText = target.querySelector('.unlock-posts__item-title').innerText;
+  item.querySelector('.unlock-posts__item-meta').innerText = target.querySelector('.unlock-posts__item-meta').innerText;
+
+  // Append
+  _$('[data-target="fcn-unlock-posts-selected"]').appendChild(template);
+
+  // Remove search node
+  target.remove();
+}

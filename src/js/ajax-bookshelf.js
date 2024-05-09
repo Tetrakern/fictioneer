@@ -57,7 +57,7 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
 
   // Storage item valid for 60 seconds
   if (
-    ! storage.hasOwnProperty('timestamp') ||
+    ! storage['timestamp'] ||
     storage['timestamp'] + 60000 < Date.now()
   ) {
     localStorage.removeItem('fcnBookshelfContent');
@@ -67,10 +67,7 @@ function fcn_updateBookshelfView(action = null, page = null, order = null, scrol
   }
 
   // Check if content already cached
-  if (
-    storage.hasOwnProperty('html') &&
-    storage['html'].hasOwnProperty(htmlKey)
-  ) {
+  if (storage['html'] && storage['html'][htmlKey]) {
     fcn_bookshelfTarget.innerHTML = storage['html'][htmlKey];
     fcn_bookshelfTarget.classList.remove('ajax-in-progress');
     fcn_bookshelfTarget.dataset.page = page;

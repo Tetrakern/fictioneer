@@ -288,7 +288,7 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Excerpt | Text | Chapter excerpt used in cards. If empty, part of the content will be used.
 | Icon | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
 | Text Icon (A) | String | Overrides icon with a text string, good for combining with symbol fonts.
-| Short Title (A) | String | Optional short chapter title, intended to be used in child themes.
+| Short Title (A) | String | Optional short chapter title, not used by default (intended for child themes).
 | Prefix (A) | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
 | Co-Authors (A) | List | List of co-authors. They must be registered users, but dummies will do.
 | Age Rating | Select | Choose between everyone, teen, mature, and adult.
@@ -300,6 +300,16 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Hide support links | Check | Hide support links at the end of the chapter.
 
 <sup>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</sup>
+
+### Chapter Titles
+
+As you can take away from the meta fields, there are several optional chapter titles and title-related fields. This can be confusing, so here is where and how these fields are actually used. Blank fields are obviously not rendered.
+
+* **Small Cards (Shortcodes):** List Title *or* Title
+* **Large Chapter Cards (List Templates):** Title *and* List Title (on mobile)
+* **Large Story Cards (List Templates):** List Title *or* Title
+* **Chapter Index (Popup/Mobile):** List Title *or* Title
+* **Chapter Lists (Story/Shortcode):** Prefix + Title
 
 ### Text-To-Speech Engine
 
@@ -535,6 +545,14 @@ The custom HTML block is the best way to add special elements to the content, su
 You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. See [installation guide](INSTALLATION.md#patreon-integration) for more details. Prices are stored in **cents** (¢100 to $1), independent of your campaign currency. You still need to set a password for the post and stories **do not** pass down gates to chapters due to technical reasons.
 
 **Free Tier:** If you want to gate content behind the free tier (only following, not paying), you can just add the tier alongside the others. If that is too inconvenient because you got too many tiers, you can use the pledge threshold to include any tier equal to or above a certain amount in cents (e.g. 300 for $3.00), either globally or post by post.
+
+## Unlock Posts
+
+You can grant logged-in users access to password-protected content by unlocking specific posts. Just open the admin profile page of the user, search for the posts you want to unlock, add them and save. Chapters inherit the unlock of the story. Roles other than administrators require both the **Edit Users** and **Unlock Posts** capabilities to unlock posts, which can be assigned in the role manager.
+
+**Patreon Gate:** Post unlocks are normally independent of Patreon, but you can gate them behind a global pledge threshold in cents to limit the feature to paying patrons only. This is in addition to any other Patreon gates.
+
+![Unlock Posts](repo/assets/user_unlock_posts.jpg?raw=true)
 
 ## Shortcodes
 

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fictioneer Fast Requests
  * Description: Skips plugins for faster requests.
- * Version: 1.0
+ * Version: 1.1.0
  * Author: Tetrakern
  * Author URI: https://github.com/Tetrakern
  * Donate link: https://ko-fi.com/tetrakern
@@ -11,12 +11,7 @@
  */
 
 // Check if AJAX request
-if (
-  ( defined( 'DOING_AJAX' ) && DOING_AJAX ) &&
-  isset( $_REQUEST['fcn_fast_ajax'] ) &&
-  strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0 &&
-  strpos( $_REQUEST['action'] ?? '', '_comment' ) === false
-) {
+if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['fcn_fast_ajax'] ) ) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins' );
 }
 
@@ -40,10 +35,10 @@ if ( strpos( $request_uri, 'wp-json/fictioneer/' ) !== false ) {
 function fictioneer_exclude_plugins( $plugins ) {
   // Setup
   $allow_list = array(
-    'plugin-name/plugin-name.php' // Example!
+    // 'plugin-name/plugin-name.php' // Example!
   );
 
-  // Remove not allowed plugins
+  // Remove not allowed plugins, but allow all Fictioneer ones
   foreach ( $plugins as $index => $plugin ) {
     if ( ! in_array( $plugin, $allow_list ) && strpos( $plugin, 'fictioneer' ) === false ) {
       unset( $plugins[ $index ] );
@@ -57,9 +52,8 @@ function fictioneer_exclude_plugins( $plugins ) {
 // Check if AJAX comment request
 if (
   get_option( 'fictioneer_enable_fast_ajax_comments' ) &&
-  ( defined( 'DOING_AJAX' ) && DOING_AJAX ) &&
-  strpos( $_REQUEST['action'] ?? '', 'fictioneer_ajax' ) === 0 &&
-  strpos( $_REQUEST['action'] ?? '', '_comment' ) !== false
+  defined( 'DOING_AJAX' ) && DOING_AJAX &&
+  isset( $_REQUEST['fcn_fast_comment_ajax'] )
 ) {
   add_filter( 'option_active_plugins', 'fictioneer_exclude_plugins_while_commenting' );
 }
@@ -93,5 +87,3 @@ function fictioneer_exclude_plugins_while_commenting( $plugins ) {
   // Filter and continue
   return array_intersect( $plugins, $allow_list );
 }
-
-?>

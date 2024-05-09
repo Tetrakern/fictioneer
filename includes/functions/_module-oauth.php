@@ -51,10 +51,7 @@ define(
 function fictioneer_add_oauth2_endpoint() {
   add_rewrite_endpoint( FICTIONEER_OAUTH_ENDPOINT, EP_ROOT );
 }
-
-if ( get_option( 'fictioneer_enable_oauth' ) ) {
-  add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
-}
+add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
 
 // =============================================================================
 // GET OAUTH LOGIN LINK

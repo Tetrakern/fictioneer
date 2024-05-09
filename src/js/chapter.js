@@ -319,7 +319,7 @@ function fcn_getFormatting() {
   }
 
   // Timestamp allows to force resets after script updates (may annoy users)
-  if (!formatting.hasOwnProperty('timestamp') || formatting['timestamp'] < 1651164557584) {
+  if (formatting['timestamp'] < 1651164557584) {
     formatting = fcn_defaultFormatting();
     formatting['timestamp'] = Date.now();
   }

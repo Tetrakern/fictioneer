@@ -82,7 +82,7 @@ function fcn_toggleFollow(storyId) {
   }
 
   // Set/Unset follow
-  if (fcn_follows.data.hasOwnProperty(storyId)) {
+  if (fcn_follows.data[storyId]) {
     delete fcn_follows.data[storyId];
   } else {
     fcn_follows.data[storyId] = { 'story_id': parseInt(storyId), 'timestamp': Date.now() };
@@ -105,7 +105,7 @@ function fcn_toggleFollow(storyId) {
       'action': 'fictioneer_ajax_toggle_follow',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
-      'set': fcn_follows.data.hasOwnProperty(storyId)
+      'set': fcn_follows.data[storyId] ? true : false // This must be this verbose!
     })
     .then(response => {
       if (response.data.error) {
@@ -144,7 +144,7 @@ function fcn_updateFollowsView() {
   _$$('.button-follow-story').forEach(element => {
     element.classList.toggle(
       '_followed',
-      fcn_follows?.data.hasOwnProperty(element.dataset.storyId)
+      fcn_follows?.data[element.dataset.storyId] ? true : false
     );
   });
 
@@ -152,7 +152,7 @@ function fcn_updateFollowsView() {
   _$$('.card').forEach(element => {
     element.classList.toggle(
       'has-follow',
-      fcn_follows?.data.hasOwnProperty(element.dataset.storyId)
+      fcn_follows?.data[element.dataset.storyId] ? true : false
     );
   });
 

@@ -1263,7 +1263,7 @@ function fcn_updateSiteTheme(theme) {
 
 _$$('.site-setting-site-theme').forEach(element => {
   // Initialize site theme select elements
-  element.value = fcn_siteSettings.hasOwnProperty('site-theme') ? fcn_siteSettings['site-theme'] : 'default';
+  element.value = fcn_siteSettings['site-theme'] ? fcn_siteSettings['site-theme'] : 'default';
 
   // Modified?
   _$$$('site-setting-theme-reset').classList.toggle('_modified', element.value != 'default');

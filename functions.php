@@ -32,9 +32,9 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 // =============================================================================
 
 // Version
-define( 'FICTIONEER_VERSION', '5.15.2' );
+define( 'FICTIONEER_VERSION', '5.16.0' );
 define( 'FICTIONEER_MAJOR_VERSION', '5' );
-define( 'FICTIONEER_RELEASE_TAG', 'v5.15.2' );
+define( 'FICTIONEER_RELEASE_TAG', 'v5.16.0' );
 
 if ( ! defined( 'CHILD_VERSION' ) ) {
   define( 'CHILD_VERSION', null );
@@ -412,16 +412,6 @@ if ( ! defined( 'FICTIONEER_EXAMPLE_CHAPTER_ICONS' ) ) {
     'fa-solid fa-scroll', 'fa-solid fa-spa', 'fa-solid fa-skull']
   );
 }
-
-// =============================================================================
-// FAST REQUESTS
-//
-// This is significantly faster than even the REST API because it skips most of
-// the theme initialization and the init() action. However, this also means you
-// cannot use any actions and filters not loaded at this point.
-// =============================================================================
-
-require_once __DIR__ . '/includes/functions/_fast-requests.php';
 
 // =============================================================================
 // GLOBAL

@@ -596,6 +596,7 @@ The integrated role manager to add and, edit, and remove roles. Not the most sop
   * **Read Others Files:** Allows you to see uploaded files from *other* users.
   * **Edit Others Files:** Allows you to edit uploaded files from *other* users.
   * **Delete Others Files:** Allows you to delete uploaded files from *other* users.
+  * **Unlock Posts:** Allows you to unlock selected password-protected posts for users.
   * **Manage {Taxonomy}:** Lets you see the overview list table of the taxonomy.
   * **Assign {Taxonomy}:** Lets you assign the taxonomy to your posts.
   * **Edit {Taxonomy}:** Lets you create and edit taxonomies of this type.
@@ -683,6 +684,7 @@ Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 
 * **Tiers (Post/Global):** Comma-separated list of tier IDs, which you can see after pulling them.
 * **Threshold (Post/Global):** Pledge amount in cents (e.g. 350 for $3.50) independent of tiers.
 * **Lifetime Threshold (Global):** Use the total of all paid pledges, regardless of current status.
+* **Unlock Threshold (Global):** Gate regular user post unlocks behind a pledge amount in cents.
 
 Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keeping a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
 

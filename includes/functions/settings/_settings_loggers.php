@@ -113,7 +113,7 @@ function fictioneer_log_post_update( $post_id, $action ) {
 
   // Build message
   $message = sprintf(
-    _x( '%1$s #%2$s %3$s: %4$s', 'Pattern for post/page in logs: "{Type} #{ID} {Action}: {Title}".', 'fictioneer' ),
+    _x( '%1$s #%2$s %3$s: %4$s', 'Pattern for post/page in logs: {Type} #{ID} {Action}: {Title}.', 'fictioneer' ),
     $post_type_name,
     $post_id,
     $action,
@@ -146,7 +146,7 @@ function fictioneer_log_checkbox_update( $option, $old_value, $value ) {
 
   // Build message
   $update = sprintf(
-    _x( '%1$s: %2$s', 'Pattern for checkbox option in logs: "{Checked} {Option}".', 'fictioneer' ),
+    _x( '%1$s: %2$s', 'Pattern for checkbox option in logs.', 'fictioneer' ),
     $value ? _x( 'Checked', 'State of checkbox option in logs.', 'fictioneer' ) : _x( 'Unchecked', 'State of checkbox option in logs.', 'fictioneer' ),
     $option
   );
@@ -172,7 +172,7 @@ function fictioneer_settings_checkbox_added( $option, $value ) {
 
   // Relay
   fictioneer_log_checkbox_update(
-    FICTIONEER_OPTIONS['booleans'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     null,
     $value
   );
@@ -197,7 +197,7 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
 
   // Relay
   fictioneer_log_checkbox_update(
-    FICTIONEER_OPTIONS['booleans'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     $old_value,
     $value
   );
@@ -216,6 +216,7 @@ define(
     'fictioneer_stories_page',
     'fictioneer_chapters_page',
     'fictioneer_recommendations_page',
+    'fictioneer_collections_page',
     'fictioneer_bookshelf_page',
     'fictioneer_404_page'
   )
@@ -240,8 +241,8 @@ function fictioneer_log_page_assignment_update( $option, $old_value, $value ) {
   // Build message
   $message = sprintf(
     _x(
-      '%1$s page assignment changed from #%2$s to #%3$s',
-      'Pattern for page assignment updates in logs: "{Option} page assignment changed from {Old ID} to {New ID}.".',
+      '%1$s changed from "%2$s" to "%3$s"',
+      'Pattern for page assignment updates in logs.',
       'fictioneer'
     ),
     $option,
@@ -270,7 +271,7 @@ function fictioneer_settings_page_assignment_added( $option, $value ) {
 
   // Relay
   fictioneer_log_page_assignment_update(
-    FICTIONEER_OPTIONS['integers'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     null,
     $value
   );
@@ -295,7 +296,7 @@ function fictioneer_settings_page_assignment_updated( $option, $old_value, $valu
 
   // Relay
   fictioneer_log_page_assignment_update(
-    FICTIONEER_OPTIONS['integers'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     $old_value,
     $value
   );
@@ -312,7 +313,9 @@ define(
     'fictioneer_phrase_maintenance',
     'fictioneer_phrase_login_modal',
     'fictioneer_phrase_cookie_consent_banner',
-    'fictioneer_phrase_comment_reply_notification'
+    'fictioneer_phrase_comment_reply_notification',
+    'fictioneer_phrase_site_age_confirmation',
+    'fictioneer_phrase_post_age_confirmation'
   )
 );
 
@@ -335,8 +338,8 @@ function fictioneer_log_phrase_update( $option, $old_value, $value ) {
   // Build message
   $message = sprintf(
     _x(
-      'Phrase for the %1$s changed to \'%2$s\'',
-      'Pattern for phrase updates in logs: "Phrase for the {Option} changed to: \'{New String}\'".',
+      '%1$s phrase changed to "%2$s"',
+      'Pattern for phrase updates in logs.',
       'fictioneer'
     ),
     $option,
@@ -364,7 +367,7 @@ function fictioneer_settings_phrase_added( $option, $value ) {
 
   // Relay
   fictioneer_log_phrase_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     null,
     $value
   );
@@ -389,7 +392,7 @@ function fictioneer_settings_phrase_updated( $option, $old_value, $value ) {
 
   // Replay
   fictioneer_log_phrase_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     $old_value,
     $value
   );
@@ -414,7 +417,8 @@ define(
     'fictioneer_patreon_client_id',
     'fictioneer_patreon_client_secret',
     'fictioneer_patreon_global_lock_tiers',
-    'fictioneer_patreon_global_lock_amount'
+    'fictioneer_patreon_global_lock_amount',
+    'fictioneer_patreon_global_lock_unlock_amount'
   )
 );
 
@@ -438,7 +442,7 @@ function fictioneer_log_connection_update( $connection, $old_value, $value ) {
   $message = sprintf(
     _x(
       '%s updated.',
-      'Pattern for connection updates in logs: "{Option} updated".',
+      'Pattern for connection updates in logs.',
       'fictioneer'
     ),
     $connection
@@ -465,7 +469,7 @@ function fictioneer_settings_connection_added( $option, $value ) {
 
   // Relay
   fictioneer_log_connection_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     null,
     $value
   );
@@ -490,7 +494,7 @@ function fictioneer_settings_connection_updated( $option, $old_value, $value ) {
 
   // Relay
   fictioneer_log_connection_update(
-    FICTIONEER_OPTIONS['strings'][ $option ]['label'],
+    fictioneer_get_option_label( $option ),
     $old_value,
     $value
   );

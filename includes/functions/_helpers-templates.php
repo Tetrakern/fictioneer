@@ -1226,6 +1226,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    * @since 5.9.3 - Added meta field caching.
    * @since 5.9.4 - Removed output buffer.
    * @since 5.12.2 - Use permalinks instead of page ID.
+   * @since 5.16.0 - Clean up and add filter.
    *
    * @param int   $story_id       ID of the story.
    * @param array $data           Prepared data of the story.
@@ -1267,20 +1268,11 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
 
       // Prepare
       $classes = [];
-      $title = trim( $chapter->post_title );
+      $title = fictioneer_get_safe_title( $chapter->ID, 'get_chapter_list_items' );
       $list_title = get_post_meta( $chapter->ID, 'fictioneer_chapter_list_title', true );
       $list_title = trim( wp_strip_all_tags( $list_title ) );
       $text_icon = get_post_meta( $chapter->ID, 'fictioneer_chapter_text_icon', true );
       $icon = '';
-
-      // Check for empty title
-      if ( empty( $title ) && empty( $list_title ) ) {
-        $title = sprintf(
-          _x( '%1$s — %2$s', '[Date] — [Time] if chapter title is missing.', 'fictioneer' ),
-          get_the_date( '', $chapter->ID ),
-          get_the_time( '', $chapter->ID )
-        );
-      }
 
       // Mark for password
       if ( ! empty( $chapter->post_password ) ) {
@@ -1295,13 +1287,25 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
       }
 
       // HTML
-      $html .= sprintf(
-        '<li class="%s" data-id="%d"><a href="%s">%s<span>%s</span></a></li>',
+      $item = sprintf(
+        '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s</span></a></li>',
         implode( ' ', $classes ),
         $chapter->ID,
         get_the_permalink( $chapter->ID ),
         $icon,
         $list_title ?: $title
+      );
+
+      $html .= apply_filters(
+        'fictioneer_filter_chapter_list_item',
+        $item,
+        $chapter,
+        array(
+          'title' => $title,
+          'list_title' => $list_title,
+          'icon' => $icon,
+          'classes' => $classes
+        )
       );
     }
 

@@ -103,6 +103,48 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 
 ![Secondary Chapter Title](repo/assets/secondary_chapter_list_title.png?raw=true)
 
+### Add prefix to chapter index list titles
+
+Or change them completely, if you want even depending on the chapter or associated story. Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/31). Using a filter, you can rebuild the list item HTML to your liking. In the following example, the chapter prefix has been prepended (if there is one).
+
+**References**
+* Filter: [fictioneer_filter_chapter_list_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_chapter_list_item-item-post-args-)
+* Include: [_helpers-templates.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_helpers-templates.php)
+
+```php
+/**
+ * Overwrites the chapter list item string with a prefixed title
+ *
+ * Note: Warning, this replaces the complete string and should be
+ * executed early in case there are more, less extreme filters.
+ *
+ * @since x.x.x
+ *
+ * @param string  $item  Original HTML string
+ * @param WP_Post $post  Chapter post object.
+ * @param array   $args  Array of chapter data.
+ *
+ * @return string New HTML list of list item.
+ */
+
+function child_prefix_chapter_index_items( $item, $post, $args ) {
+  $prefix = get_post_meta( $post->ID, 'fictioneer_chapter_prefix', true );
+
+  return sprintf(
+    '<li class="%1$s" data-id="%2$s"><a href="%3$s">%4$s<span>%5$s%6$s</span></a></li>',
+    implode( ' ', $args['classes'] ),
+    $post->ID,
+    get_the_permalink( $post->ID ),
+    $args['icon'],
+    $prefix ? $prefix . ' ' : '',
+    $args['list_title'] ?: $args['title']
+  );
+}
+
+// Priority 1 to execute the filter early
+add_filter( 'fictioneer_filter_chapter_list_item', 'child_prefix_chapter_index_items', 1, 3 );
+```
+
 ## Only show a specific advanced meta field
 
 Maybe you want only one specific advanced meta field. You can achieve this by manually adding the desired field and saving procedure, similar to how it is done in the [_setup-meta-fields.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/_setup-meta-fields.php). The following example adds the Co-Authors field to stories, which can be adapted for chapters as well. Just make sure to change the {dynamic_parts} and the meta keys.
@@ -169,7 +211,7 @@ add_filter( 'fictioneer_filter_metabox_updates_story', 'child_save_co_authors_of
 
 ## Limit tags to 10
 
-Or any other positive number for that matter. To prevent authors from entering a whole f\*\*\*ucking thesis of tags. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. But maybe that will teach them a lesson. Anything better needs to interfere with the Gutenberg editor and is difficult to achieve.
+Or any other positive number for that matter. To prevent authors from entering a whole f\*\*\*ing thesis of tags. This is not the best way, because it will just remove any tags exceeding the limit with no feedback for the author. But maybe that will teach them a lesson. Anything better needs to interfere with the Gutenberg editor and is difficult to achieve.
 
 **References**
 * Action: [save_post](https://developer.wordpress.org/reference/hooks/save_post/)

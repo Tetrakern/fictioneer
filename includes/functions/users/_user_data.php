@@ -1167,4 +1167,135 @@ function fictioneer_ajax_get_user_data() {
 }
 add_action( 'wp_ajax_fictioneer_ajax_get_user_data', 'fictioneer_ajax_get_user_data' );
 
-?>
+// =============================================================================
+// UNLOCK POSTS - AJAX
+// =============================================================================
+
+/**
+ * Searches for posts to unlock via AJAX
+ *
+ * @since 5.16.0
+ */
+
+function fictioneer_ajax_search_posts_to_unlock() {
+  // Validations
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'search_posts' );
+
+  if ( ! $user ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'fcn_unlock_posts' ) ) {
+    wp_send_json_error( array( 'error' => __( 'Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $search = sanitize_text_field( $_REQUEST['search'] ?? '' );
+  $type = sanitize_key( $_REQUEST['type'] ?? '' );
+  $output = [];
+
+  // Empty?
+  if ( empty( $search ) ) {
+    wp_send_json_success( array( 'html' => '' ) );
+  }
+
+  // Query
+  $posts = new WP_Query(
+    array(
+      'post_type' => $type ?: ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+      'post_status' => 'any',
+      'orderby' => 'date',
+      'order' => 'desc',
+      'posts_per_page' => 20,
+      's' => $search,
+      'update_post_meta_cache' => false, // Improve performance
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    )
+  );
+
+  // Prime author cache
+  if ( function_exists( 'update_post_author_caches' ) ) {
+    update_post_author_caches( $posts->posts );
+  }
+
+  // Search result
+  if ( ! $posts->posts ) {
+    wp_send_json_success( array( 'html' => '' ) );
+  } else {
+    // Labels
+    $post_type_labels = array(
+      'post' => _x( 'Post', 'Post type label.', 'fictioneer' ),
+      'page' => _x( 'Page', 'Post type label.', 'fictioneer' ),
+      'fcn_story' => _x( 'Story', 'Post type label.', 'fictioneer' ),
+      'fcn_chapter' => _x( 'Chapter', 'Post type label.', 'fictioneer' ),
+      'fcn_collection' => _x( 'Collection', 'Post type label.', 'fictioneer' ),
+      'fcn_recommendation' => _x( 'Rec', 'Post type label.', 'fictioneer' )
+    );
+
+    foreach ( $posts->posts as $post ) {
+      $type = $post_type_labels[ $post->post_type ] ?? '';
+      $title = fictioneer_get_safe_title( $post->ID );
+      $item_title = sprintf(
+        _x( 'Author: %s | Title: %s', 'Unlock post item.', 'fictioneer' ),
+        get_the_author_meta( 'display_name', $post->post_author ) ?: __( 'n/a', 'fictioneer' ),
+        $title
+      );
+
+      $output[] = '<div class="unlock-posts__item _searched" title="' . esc_attr( $item_title ) . '" data-target="fcn-unlock-posts-search-item" data-post-id="' . $post->ID . '"><span class="unlock-posts__item-title">' . $title . '</span> <span class="unlock-posts__item-meta">' . sprintf( _x( '(%s | %s)', 'Unlock post item meta: Type | ID.', 'fictioneer' ), $type, $post->ID ) . '</span></div>';
+    }
+  }
+
+  // Response
+  wp_send_json_success( array( 'html' => implode( '', $output ) ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_search_posts_to_unlock', 'fictioneer_ajax_search_posts_to_unlock' );
+
+/**
+ * Update unlocked posts for user
+ *
+ * @since 5.16.0
+ *
+ * @param int $updated_user_id  The ID of the updated user.
+ */
+
+function fictioneer_update_admin_unlocked_posts( $updated_user_id ) {
+  // Check permissions
+  if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'fcn_unlock_posts' ) ) {
+    return;
+  }
+
+  if ( ! current_user_can( 'edit_users' ) ) {
+    return;
+  }
+
+  // Setup
+  $admin_protection = fictioneer_is_admin( $updated_user_id ) && get_current_user_id() !== $updated_user_id;
+
+  // Check if protected, sanitize, validate, and update...
+  if ( ! $admin_protection && isset( $_POST['fictioneer_post_unlocks'] )  ) {
+    $post_ids = $_POST['fictioneer_post_unlocks'];
+    $post_ids = is_array( $post_ids ) ? $post_ids : [];
+    $post_ids = array_map( 'absint', $post_ids );
+    $post_ids = array_unique( $post_ids );
+
+    $query = new WP_Query(
+      array(
+        'post_type'=> ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
+        'post_status'=> 'any',
+        'posts_per_page' => -1,
+        'post__in' => $post_ids ?: [0],
+        'fields' => 'ids',
+        'update_post_meta_cache' => false, // Improve performance
+        'update_post_term_cache' => false, // Improve performance
+        'no_found_rows' => true // Improve performance
+      )
+    );
+
+    $post_ids = array_map( 'strval', $query->posts );
+
+    fictioneer_update_user_meta( $updated_user_id, 'fictioneer_post_unlocks', $post_ids );
+  }
+}
+add_action( 'personal_options_update', 'fictioneer_update_admin_unlocked_posts' );
+add_action( 'edit_user_profile_update', 'fictioneer_update_admin_unlocked_posts' );

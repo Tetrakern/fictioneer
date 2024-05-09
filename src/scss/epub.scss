@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $block-spacing: 32px;
 
 // =============================================================================
@@ -258,7 +260,7 @@ span.underline {
 ul,
 ol {
   padding-left: 28px;
-  margin: $block-spacing / 2 0;
+  margin: math.div($block-spacing, 2) 0;
 
   ul,
   ol {

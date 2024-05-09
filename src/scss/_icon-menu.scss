@@ -70,7 +70,7 @@
 
 .main-navigation {
   &.is-sticky {
-    :is(.icon-menu__item, .icon-menu__item.follow-menu-item) {
+    .menu-item {
       border-radius: 0;
     }
   }

@@ -30,15 +30,30 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_client_id' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_client_id',
+                    __( 'Discord Client ID', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_client_secret' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_client_secret',
+                    __( 'Discord Client Secret', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_invite_link' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_invite_link',
+                    __( 'Discord invite link', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <hr>
@@ -48,15 +63,30 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_comments_webhook' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_channel_comments_webhook',
+                    __( 'Discord comment channel webhook &bull; Shows excerpts of (private) comments!', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_stories_webhook' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_channel_stories_webhook',
+                    __( 'Discord story channel webhook', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_discord_channel_chapters_webhook' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_discord_channel_chapters_webhook',
+                    __( 'Discord chapter channel webhook', 'fictioneer' )
+                  );
+                ?>
               </div>
 
             </div>
@@ -69,11 +99,21 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_twitch_client_id' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_twitch_client_id',
+                    __( 'Twitch Client ID', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_twitch_client_secret' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_twitch_client_secret',
+                    __( 'Twitch Client Secret', 'fictioneer' )
+                  );
+                ?>
               </div>
 
             </div>
@@ -86,11 +126,21 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_google_client_id' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_google_client_id',
+                    __( 'Google Client ID', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_google_client_secret' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_google_client_secret',
+                    __( 'Google Client Secret', 'fictioneer' )
+                  );
+                ?>
               </div>
 
             </div>
@@ -103,19 +153,39 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
             <div class="fictioneer-card__content">
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_id' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_client_id',
+                    __( 'Patreon Client ID', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_client_secret' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_client_secret',
+                    __( 'Patreon Client Secret', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_campaign_link' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_campaign_link',
+                    __( 'Patreon campaign link', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_unlock_message' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_unlock_message',
+                    __( 'Patreon gate message override (leave empty for default)', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <hr>
@@ -125,19 +195,48 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_array_input( 'fictioneer_patreon_global_lock_tiers' ); ?>
+                <?php
+                  fictioneer_settings_array_input(
+                    'fictioneer_patreon_global_lock_tiers',
+                    __( 'Global tiers to unlock posts (comma-separated list of tier IDs)', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_global_lock_amount' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_global_lock_amount',
+                    __( 'Global pledge threshold in cents to unlock posts (leave empty to disable)', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_text_input( 'fictioneer_patreon_global_lock_lifetime_amount' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_global_lock_lifetime_amount',
+                    __( 'Global lifetime pledge threshold in cents to unlock posts (leave empty to disable)', 'fictioneer' )
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">
-                <?php fictioneer_settings_label_checkbox( 'fictioneer_hide_password_form_with_patreon' ); ?>
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_global_lock_unlock_amount',
+                    __( 'Global pledge threshold in cents to gate regular post unlocks (leave empty to disable)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_hide_password_form_with_patreon',
+                    __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row fictioneer-card__row--buttons">
