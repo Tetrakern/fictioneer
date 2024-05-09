@@ -437,6 +437,7 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  *
  * @since 5.12.3
  * @since 5.15.0 - Add Patreon checks.
+ * @since 5.16.0 - Add Patreon unlock checks.
  *
  * @param bool    $required  Whether the user needs to supply a password.
  * @param WP_Post $post      Post object.
@@ -477,17 +478,6 @@ function fictioneer_bypass_password( $required, $post ) {
       break;
   }
 
-  // Check user unlocks
-  if ( $user && $required ) {
-    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
-    $unlocks = get_user_meta( $user->ID, 'fictioneer_post_unlocks', true ) ?: [];
-    $unlocks = is_array( $unlocks ) ? $unlocks : [];
-
-    if ( $unlocks && array_intersect( [ $post->ID, $story_id ], $unlocks ) ) {
-      $required = false;
-    }
-  }
-
   // Check Patreon tiers
   if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) && fictioneer_patreon_tiers_valid( $user ) ) {
     $patreon_post_data = fictioneer_get_patreon_data( $post );
@@ -514,6 +504,32 @@ function fictioneer_bypass_password( $required, $post ) {
           break;
         }
       }
+    }
+  }
+
+  // Check unlocked posts
+  if ( $user && $required ) {
+    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+    $unlocks = get_user_meta( $user->ID, 'fictioneer_post_unlocks', true ) ?: [];
+    $unlocks = is_array( $unlocks ) ? $unlocks : [];
+    $patreon_gate_amount = get_option( 'fictioneer_patreon_global_lock_unlock_amount', 0 ) ?: 0;
+    $allow_unlocks = ! ( get_option( 'fictioneer_enable_patreon_locks' ) && $patreon_gate_amount );
+
+    // Check Patreon unlock gate
+    if ( ! $allow_unlocks ) {
+      $patreon_user_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+      $patreon_user_tiers = is_array( $patreon_user_tiers ) ? $patreon_user_tiers : [];
+
+      foreach ( $patreon_user_tiers as $tier ) {
+        if ( ( $tier['amount_cents'] ?? -1 ) >= $patreon_gate_amount ) {
+          $allow_unlocks = true;
+          break;
+        }
+      }
+    }
+
+    if ( $allow_unlocks && $unlocks && array_intersect( [ $post->ID, $story_id ], $unlocks ) ) {
+      $required = false;
     }
   }
 

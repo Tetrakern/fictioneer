@@ -701,6 +701,11 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_patreon_global_lock_lifetime_amount',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
+    ),
+    'fictioneer_patreon_global_lock_unlock_amount' => array(
+      'name' => 'fictioneer_patreon_global_lock_unlock_amount',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'fictioneer_sanitize_absint_or_empty_string'
     )
   ),
   'floats' => array(
@@ -1032,6 +1037,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_patreon_global_lock_tiers' => __( 'Global tiers to unlock post', 'fictioneer' ),
       'fictioneer_patreon_global_lock_amount' => __( 'Global pledge threshold in cents', 'fictioneer' ),
       'fictioneer_patreon_global_lock_lifetime_amount' => __( 'Global lifetime pledge threshold in cents', 'fictioneer' ),
+      'fictioneer_patreon_global_lock_unlock_amount' => __( 'Global unlock gate pledge threshold in cents', 'fictioneer' ),
       'fictioneer_subitem_date_format' => __( 'Subitem long date format', 'fictioneer' ),
       'fictioneer_subitem_short_date_format' => __( 'Subitem short date format', 'fictioneer' ),
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),

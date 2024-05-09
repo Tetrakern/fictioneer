@@ -223,6 +223,15 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
               <div class="fictioneer-card__row">
                 <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_global_lock_unlock_amount',
+                    __( 'Global pledge threshold in cents to gate regular post unlocks (leave empty to disable)', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_hide_password_form_with_patreon',
                     __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
