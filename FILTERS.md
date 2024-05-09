@@ -183,6 +183,21 @@ Filters the intermediate output array in the `_chapter-header.php` partial befor
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_list_item', $item, $post, $args )`
+Filters each list item HTML string used in the chapter index popup and mobile menu section (only visible on chapter pages), build inside the `fictioneer_get_chapter_list_items()` function. Not to be confused with the chapter list shown on story pages. You can either modify the string or build a new one from the given parameters.
+
+**Parameters:**
+* $item (string) – HTML for the list item with icon, ID, link, and title.
+* $post (WP_Post) - The chapter post object.
+
+**$args:**
+* $title (string) – HTML for the regular title.
+* $list_title (string) – HTML for the list title or empty.
+* $icon (string) – HTML for the (text) icon or empty.
+* $classes (array) – Array of CSS classes or empty.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_micro_menu', $micro_menu, $args )`
 Filters the intermediate output array of the chapter micro menu in the `fictioneer_get_chapter_micro_menu( $args )` function before it is imploded and rendered.
 
