@@ -618,6 +618,11 @@ td.comment {
     padding-left: 24px;
   }
 
+  &__input[type="datetime-local"] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   &__select:is(select) {
     box-sizing: border-box;
     display: block;

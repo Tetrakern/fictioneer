@@ -350,3 +350,51 @@ function fictioneer_chapter_to_draft( $post ) {
 }
 add_action( 'publish_to_draft', 'fictioneer_chapter_to_draft' );
 add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
+
+// =============================================================================
+// POST PASSWORD EXPIRATION
+// =============================================================================
+
+/**
+ * Expire post password
+ *
+ * Note: This just hijacks the password check to remove the password.
+ * The actual password requirement is not affected.
+ *
+ * @since 5.17.0
+ *
+ * @param bool    $required  Whether the user needs to supply a password.
+ * @param WP_Post $post      Post object.
+ *
+ * @return bool True or false.
+ */
+
+function fictioneer_expire_post_password( $required, $post ) {
+  // Static variable cache
+  static $cache = [];
+
+  $cache_key = $post->ID . '_' . (int) $required;
+
+  if ( isset( $cache[ $cache_key ] ) ) {
+    return $cache[ $cache_key ];
+  }
+
+  // Setup
+  $password_expiration_date_utc = get_post_meta( $post->ID, 'fictioneer_post_password_expiration_date', true );
+
+  if ( $password_expiration_date_utc ) {
+    $current_date_utc = current_time( 'mysql', true );
+
+    if ( strtotime( $current_date_utc ) > strtotime( $password_expiration_date_utc ) ) {
+      delete_post_meta( $post->ID, 'fictioneer_post_password_expiration_date' );
+      wp_update_post( array( 'ID' => $post->ID, 'post_password' => '' ) );
+    }
+  }
+
+  // Cache
+  $cache[ $cache_key ] = $required;
+
+  // Continue filter
+  return $required;
+}
+add_filter( 'post_password_required', 'fictioneer_expire_post_password', 11, 2 );

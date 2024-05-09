@@ -156,6 +156,63 @@ function fictioneer_get_metabox_number( $post, $meta_key, $args = [] ) {
 }
 
 /**
+ * Returns HTML for a datetime-local input meta field
+ *
+ * @since 5.17.0
+ *
+ * @param WP_Post $post      The post.
+ * @param string  $meta_key  The meta key.
+ * @param array   $args {
+ *   Optional. An array of additional arguments.
+ *
+ *   @type string $label        Label above the field.
+ *   @type string $description  Description below the field.
+ *   @type array  $attributes   Additional attributes.
+ * }
+ *
+ * @return string The HTML markup for the field.
+ */
+
+function fictioneer_get_metabox_datetime( $post, $meta_key, $args = [] ) {
+  // Setup
+  $meta_value = esc_attr( get_post_meta( $post->ID, $meta_key, true ) );
+  $label = strval( $args['label'] ?? '' );
+  $description = strval( $args['description'] ?? '' );
+  $attributes = implode( ' ', $args['attributes'] ?? [] );
+
+  if ( $meta_value ) {
+    $utc_datetime = new DateTime( $meta_value, new DateTimeZone( 'UTC' ) );
+    $utc_datetime->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+
+    $meta_value = $utc_datetime->format( 'Y-m-d\TH:i:s' );
+  }
+
+  ob_start();
+
+  // Start HTML ---> ?>
+  <div class="fictioneer-meta-field fictioneer-meta-field--datetime">
+
+    <?php if ( $label ) : ?>
+      <label class="fictioneer-meta-field__label" for="<?php echo $meta_key; ?>"><?php echo $label; ?></label>
+    <?php endif; ?>
+
+    <input type="hidden" name="<?php echo $meta_key; ?>" value="0" autocomplete="off">
+
+    <div class="fictioneer-meta-field__wrapper">
+      <input type="datetime-local" id="<?php echo $meta_key; ?>" class="fictioneer-meta-field__input" name="<?php echo $meta_key; ?>" value="<?php echo $meta_value; ?>" autocomplete="off" <?php echo $attributes; ?>>
+    </div>
+
+    <?php if ( $description ) : ?>
+      <div class="fictioneer-meta-field__description"><?php echo $description; ?></div>
+    <?php endif; ?>
+
+  </div>
+  <?php // <--- End HTML
+
+  return ob_get_clean();
+}
+
+/**
  * Returns HTML for a URL meta field
  *
  * @since 5.7.4
@@ -3193,6 +3250,16 @@ function fictioneer_render_extra_metabox( $post ) {
     }
   }
 
+  // Password expiration datetime
+  $output['fictioneer_post_password_expiration_date'] = fictioneer_get_metabox_datetime(
+    $post,
+    'fictioneer_post_password_expiration_date',
+    array(
+      'label' => _x( 'Expire Post Password', 'Password expiration meta field label.', 'fictioneer' ),
+      'description' => __( 'Removes the password after the date.', 'fictioneer' ),
+    )
+  );
+
   // Checkbox: Disable new comments
   if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
     $output['flags_heading'] = '<div class="fictioneer-meta-field-heading">' .
@@ -3372,6 +3439,20 @@ function fictioneer_save_extra_metabox( $post_id ) {
       if ( isset( $_POST['fictioneer_patreon_lock_amount'] ) ) {
         $fields['fictioneer_patreon_lock_amount'] = absint( $_POST['fictioneer_patreon_lock_amount'] );
       }
+    }
+  }
+
+  // Password expiration datetime
+  if ( isset( $_POST['fictioneer_post_password_expiration_date'] ) ) {
+    $expiration_date = $_POST['fictioneer_post_password_expiration_date'];
+
+    if ( ! empty( $expiration_date ) ) {
+      $local_datetime = new DateTime( $expiration_date, new DateTimeZone( get_option( 'timezone_string' ) ) );
+      $local_datetime->setTimezone( new DateTimeZone( 'UTC' ) );
+
+      $fields['fictioneer_post_password_expiration_date'] = $local_datetime->format( 'Y-m-d H:i:s' );
+    } else {
+      $fields['fictioneer_post_password_expiration_date'] = 0;
     }
   }
 
