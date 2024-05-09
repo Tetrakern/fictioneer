@@ -105,7 +105,7 @@ add_filter( 'fictioneer_filter_safe_title', 'child_modify_chapter_list_title', 1
 
 ### Add prefix to chapter index list titles
 
-Or change them completely, if you want even depending on the chapter or associated story. Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/31). Using a filter, you can rebuild the list item HTML to your liking, in this case just added the prefix if there is one.
+Or change them completely, if you want even depending on the chapter or associated story. Related to [this issue](https://github.com/Tetrakern/fictioneer/issues/31). Using a filter, you can rebuild the list item HTML to your liking. In the following example, the string has been rebuilt with the chapter prefix prepended (if there is one).
 
 **References**
 * Filter: [fictioneer_filter_chapter_list_item](https://github.com/Tetrakern/fictioneer/blob/main/FILTERS.md#apply_filters-fictioneer_filter_chapter_list_item-item-post-args-)
