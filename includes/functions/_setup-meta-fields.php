@@ -2989,7 +2989,7 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 add_action( 'save_post', 'fictioneer_save_chapter_metaboxes' );
 
 // =============================================================================
-// ADVANCED META FIELDS
+// EXTRA META FIELDS
 // =============================================================================
 
 /**
@@ -3011,7 +3011,7 @@ function fictioneer_add_extra_metabox() {
 add_action( 'add_meta_boxes', 'fictioneer_add_extra_metabox' );
 
 /**
- * Render advanced metabox
+ * Render extra metabox
  *
  * @since 5.7.4
  *
@@ -3095,8 +3095,17 @@ function fictioneer_render_extra_metabox( $post ) {
         'fictioneer_template_story_id',
         array(
           'label' => _x( 'Story Id', 'Page story ID meta field label.', 'fictioneer' ),
-          'description' => __( 'Used only by the "Story Page" template.', 'fictioneer' )
+          'description' => __( 'Used by the "Story Page/Mirror" templates.', 'fictioneer' )
         )
+      );
+    }
+
+    // Checkbox: Show story template header
+    if ( current_user_can( 'manage_options' ) ) {
+      $output['fictioneer_template_show_story_header'] = fictioneer_get_metabox_checkbox(
+        $post,
+        'fictioneer_template_show_story_header',
+        __( 'Show story template header', 'fictioneer' )
       );
     }
   }
@@ -3293,6 +3302,16 @@ function fictioneer_save_extra_metabox( $post_id ) {
     } else {
       $fields['fictioneer_template_story_id'] = '';
     }
+  }
+
+  // Checkbox: Show story template header
+  if (
+    isset( $_POST['fictioneer_template_show_story_header'] ) &&
+    $post_type === 'page' &&
+    current_user_can( 'manage_options' )
+  ) {
+    $fields['fictioneer_template_show_story_header'] =
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_template_show_story_header'] );
   }
 
   // Story blogs

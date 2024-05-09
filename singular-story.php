@@ -13,6 +13,13 @@
 
 // Setup
 $post_id = get_the_ID();
+$story_id = get_post_meta( $post_id, 'fictioneer_template_story_id', true );
+$story_id = fictioneer_validate_id( $story_id, 'fcn_story' );
+$render_story_header = get_post_meta( $post_id, 'fictioneer_template_show_story_header', true );
+
+if ( ! $story_id ) {
+  $render_story_header = false;
+}
 
 // Header
 get_header();
@@ -27,7 +34,7 @@ get_header();
 
   <div class="main__background polygon polygon--main background-texture"></div>
 
-  <div class="main__wrapper">
+  <div class="main__wrapper <?php echo $render_story_header ? '_no-padding' : ''; ?>">
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
@@ -39,7 +46,22 @@ get_header();
         $this_breadcrumb = [ $title, get_the_permalink() ];
       ?>
 
-      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-<?php echo $post_id; ?>" class="singular__article padding-left padding-right padding-bottom <?php echo $render_story_header ? '' : 'padding-top'; ?>">
+
+        <?php
+          // Render story header
+          if ( $render_story_header ) {
+            get_template_part(
+              'partials/_story-header',
+              null,
+              array(
+                'story_data' => fictioneer_get_story_data( $story_id ),
+                'story_id' => $story_id,
+                'context' => 'shortcode'
+              )
+            );
+          }
+        ?>
 
         <section class="singular__content content-section"><?php the_content(); ?></section>
 
