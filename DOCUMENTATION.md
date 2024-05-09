@@ -288,7 +288,7 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Excerpt | Text | Chapter excerpt used in cards. If empty, part of the content will be used.
 | Icon | String | Free [Font Awesome](https://fontawesome.com/search) class string. Defaults to `fa-solid fa-book`.
 | Text Icon (A) | String | Overrides icon with a text string, good for combining with symbol fonts.
-| Short Title (A) | String | Optional short chapter title, intended to be used in child themes.
+| Short Title (A) | String | Optional short chapter title, not used by default (intended for child themes).
 | Prefix (A) | String | Prepended to the title in chapter lists. Not used in generated ePUBs.
 | Co-Authors (A) | List | List of co-authors. They must be registered users, but dummies will do.
 | Age Rating | Select | Choose between everyone, teen, mature, and adult.
@@ -300,6 +300,16 @@ This notice appears above the title if you add a chapter warning, not to be conf
 | Hide support links | Check | Hide support links at the end of the chapter.
 
 <sup>**(A)** for Advanced: These meta fields are hidden unless you check the "Enable advanced meta fields" option under **Fictioneer > General > Compatibility.** Most sites just do not need these.</sup>
+
+### Chapter Titles
+
+As you can take away from the meta fields, there are several optional chapter titles and title-related fields. This can be confusing, so here is where and how these fields are actually used. Blank fields are obviously not rendered.
+
+* **Small Cards (Shortcodes):** List Title *or* Title
+* **Large Chapter Cards (List Templates):** Title *and* List Title (on mobile)
+* **Large Story Cards (List Templates):** List Title *or* Title
+* **Chapter Index (Popup/Mobile):** List Title *or* Title
+* **Chapter Lists (Story/Shortcode):** Prefix + Title
 
 ### Text-To-Speech Engine
 
