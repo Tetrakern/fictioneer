@@ -12,6 +12,7 @@
  *
  * @internal $args['story_data']  Story data from fictioneer_get_story_data().
  * @internal $args['story_id']    Current story and post ID.
+ * @internal $args['context']     Render context. Default null.
  */
 ?>
 
@@ -23,7 +24,7 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $story = $args['story_data'];
 $story_id = $args['story_id'];
-$thumbnail_shown = has_post_thumbnail() &&
+$thumbnail_shown = has_post_thumbnail( $story_id ) &&
   ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true ) &&
   get_theme_mod( 'story_cover_position', 'top-left-overflow' ) === 'top-left-overflow';
 $tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) &&
@@ -42,9 +43,14 @@ if ( ! $thumbnail_shown ) {
   $header_classes[] = 'padding-top';
 }
 
+if ( ( $args['context'] ?? 0 ) !== 'shortcode' ) {
+  $header_classes[] = 'padding-left';
+  $header_classes[] = 'padding-right';
+}
+
 ?>
 
-<header class="story__header padding-left padding-right <?php echo implode( ' ', $header_classes ); ?>">
+<header class="story__header <?php echo implode( ' ', $header_classes ); ?>">
 
   <?php if ( $thumbnail_shown ) echo fictioneer_get_story_page_cover( $story ); ?>
 
