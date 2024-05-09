@@ -2043,6 +2043,14 @@
       "oAP" : "\/singular-index.php",
       "oF" : 1
     },
+    "\/singular-mirror-story.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-mirror-story.php",
+      "oF" : 1
+    },
     "\/singular-story.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -2213,8 +2221,8 @@
       "ma" : 0,
       "mi" : 1,
       "oA" : 0,
-      "oAP" : "\/js\/diff-match-patch.min.js",
-      "oF" : 1,
+      "oAP" : "\/js\/diff-match-patch.js",
+      "oF" : 3,
       "sC" : 3,
       "tS" : 0
     },
