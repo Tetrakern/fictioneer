@@ -1416,7 +1416,8 @@ function fictioneer_fast_ajax() {
     'fictioneer_ajax_get_user_data',
     'fictioneer_ajax_get_avatar',
     // Admin
-    'fictioneer_ajax_query_relationship_posts'
+    'fictioneer_ajax_query_relationship_posts',
+    'fictioneer_ajax_search_posts_to_unlock'
   );
 
   if ( get_option( 'fictioneer_enable_fast_ajax_comments' ) && isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
