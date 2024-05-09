@@ -193,13 +193,17 @@ function fictioneer_admin_update_notice() {
   }
 
   // Render notice
-  $message = sprintf(
-    __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
-    get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
-    'https://github.com/Tetrakern/fictioneer/releases'
+  wp_admin_notice(
+    sprintf(
+      __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
+      get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
+      'https://github.com/Tetrakern/fictioneer/releases'
+    ),
+    array(
+      'type' => 'warning',
+      'dismissible' => true
+    )
   );
-
-  echo "<div class='notice notice-warning is-dismissible'><p>$message</p></div>";
 
   // Remember notice
   update_option( 'fictioneer_update_notice_timestamp', time() );

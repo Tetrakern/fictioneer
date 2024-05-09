@@ -166,26 +166,35 @@ function fictioneer_admin_settings_notices() {
 
   // Has success notice?
   if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ] ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . vsprintf(
-      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ],
-      $data
-    ) . '</p></div>';
+    wp_admin_notice(
+      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $success ], $data ),
+      array(
+        'type' => 'success',
+        'dismissible' => true
+      )
+    );
   }
 
   // Has failure notice?
   if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ] ) ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . vsprintf(
-      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ],
-      $data
-    ) . '</p></div>';
+    wp_admin_notice(
+      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $failure ], $data ),
+      array(
+        'type' => 'error',
+        'dismissible' => true
+      )
+    );
   }
 
   // Has info notice?
   if ( ! empty( $info ) && isset( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ] ) ) {
-    echo '<div class="notice notice-info is-dismissible"><p>' . vsprintf(
-      FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ],
-      $data
-    ) . '</p></div>';
+    wp_admin_notice(
+      vsprintf( FICTIONEER_ADMIN_SETTINGS_NOTICES[ $info ], $data ),
+      array(
+        'type' => 'info',
+        'dismissible' => true
+      )
+    );
   }
 }
 add_action( 'admin_notices', 'fictioneer_admin_settings_notices' );

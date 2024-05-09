@@ -227,12 +227,24 @@ function fictioneer_admin_profile_notices() {
 
   // Has success notice?
   if ( ! empty( $success ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] ) ) {
-    echo '<div class="notice notice-success is-dismissible"><p>' . FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ] . '</p></div>';
+    wp_admin_notice(
+      FICTIONEER_ADMIN_PROFILE_NOTICES[ $success ],
+      array(
+        'type' => 'success',
+        'dismissible' => true
+      )
+    );
   }
 
   // Has failure notice?
   if ( ! empty( $failure ) && isset( FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ] ) ) {
-    echo '<div class="notice notice-error is-dismissible"><p>' . FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ] . '</p></div>';
+    wp_admin_notice(
+      FICTIONEER_ADMIN_PROFILE_NOTICES[ $failure ],
+      array(
+        'type' => 'error',
+        'dismissible' => true
+      )
+    );
   }
 }
 add_action( 'admin_notices', 'fictioneer_admin_profile_notices' );
