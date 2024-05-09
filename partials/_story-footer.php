@@ -32,6 +32,7 @@ if ( post_password_required() ) {
 // Setup
 $story_id = $args['story_id'];
 $story = $args['story_data'];
+$post = get_post( $story_id );
 $show_log = $story['chapter_count'] > 0 && FICTIONEER_ENABLE_STORY_CHANGELOG && get_option( 'fictioneer_show_story_changelog' );
 
 ?>

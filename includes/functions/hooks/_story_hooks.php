@@ -487,8 +487,6 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
  */
 
 function fictioneer_story_chapters( $args ) {
-  global $post;
-
   // Abort conditions...
   if ( post_password_required() ) {
     return;
@@ -865,5 +863,3 @@ function fictioneer_story_comments( $args ) {
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_story_after_article', 'fictioneer_story_comments', 10 );
-
-?>
