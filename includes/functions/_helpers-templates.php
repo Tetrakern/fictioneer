@@ -1226,6 +1226,7 @@ if ( ! function_exists( 'fictioneer_get_chapter_list_items' ) ) {
    * @since 5.9.3 - Added meta field caching.
    * @since 5.9.4 - Removed output buffer.
    * @since 5.12.2 - Use permalinks instead of page ID.
+   * @since 5.16.0 - Clean up and add filter.
    *
    * @param int   $story_id       ID of the story.
    * @param array $data           Prepared data of the story.
