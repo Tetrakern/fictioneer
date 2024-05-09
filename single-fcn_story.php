@@ -45,10 +45,10 @@ get_header( null, $header_args );
       <?php
         // Setup
         $story_id = $post->ID;
-        $story = fictioneer_get_story_data( $post->ID );
+        $story = fictioneer_get_story_data( $story_id );
         $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
         $this_breadcrumb = [ $story['title'], get_the_permalink() ];
-        $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $post->ID );
+        $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
         $cover_position = get_theme_mod( 'story_cover_position', 'top-left-overflow' );
 
         // Arguments for hooks and templates/etc.
@@ -75,7 +75,7 @@ get_header( null, $header_args );
             }
 
             if ( get_option( 'fictioneer_show_protected_excerpt' ) ) {
-              echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
+              echo '<p class="story__forced-excerpt">' . fictioneer_get_forced_excerpt( $story_id, 512 ) . '</p>';
             }
           }
 
