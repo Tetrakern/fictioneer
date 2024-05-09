@@ -115,6 +115,9 @@ Or change them completely, if you want even depending on the chapter or associat
 /**
  * Overwrites the chapter list item string with a prefixed title
  *
+ * Note: Warning, this replaces the complete string and should be
+ * executed early in case there are more, less extreme filters.
+ *
  * @since x.x.x
  *
  * @param string  $item  Original HTML string
@@ -137,6 +140,8 @@ function child_prefix_chapter_index_items( $item, $post, $args ) {
     $args['list_title'] ?: $args['title']
   );
 }
+
+// Priority 1 to execute the filter early
 add_filter( 'fictioneer_filter_chapter_list_item', 'child_prefix_chapter_index_items', 1, 3 );
 ```
 
