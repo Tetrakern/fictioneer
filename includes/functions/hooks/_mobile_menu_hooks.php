@@ -335,6 +335,7 @@ function fictioneer_mobile_user_menu() {
   $discord_link = get_option( 'fictioneer_discord_invite_link' );
   $profile_link = get_edit_profile_url();
   $profile_page_id = intval( get_option( 'fictioneer_user_profile_page', -1 ) ?: -1 );
+  $password_required = post_password_required();
   $output = [];
 
   if ( $profile_page_id && $profile_page_id > 0 ) {
@@ -408,7 +409,7 @@ function fictioneer_mobile_user_menu() {
     ! is_search() &&
     comments_open() &&
     ! fictioneer_is_commenting_disabled() &&
-    ! post_password_required()
+    ! $password_required
   ) {
     $output['comment_jump'] = sprintf(
       '<a id="mobile-menu-comment-jump" class="comments-toggle" rel="noopener noreferrer nofollow"><i class="fa-solid fa-comments mobile-menu__item-icon"></i> %s</a>',
@@ -420,7 +421,7 @@ function fictioneer_mobile_user_menu() {
     $post_type === 'fcn_chapter' &&
     ! is_search() &&
     get_option( 'fictioneer_enable_bookmarks' ) &&
-    ! post_password_required()
+    ! $password_required
   ) {
     $output['bookmark_jump'] = sprintf(
       '<a id="mobile-menu-bookmark-jump" rel="noopener noreferrer nofollow" hidden><i class="fa-solid fa-bookmark mobile-menu__item-icon"></i> %s</a>',

@@ -10,6 +10,9 @@
 
 <?php
 
+// Setup
+$password_required = post_password_required();
+
 // Header
 get_header();
 
@@ -46,7 +49,7 @@ get_header();
 
         <?php do_action( 'fictioneer_post_after_content', $post->ID ); ?>
 
-        <?php if ( ! post_password_required() && ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) ) : ?>
+        <?php if ( ! $password_required && ( has_action( 'fictioneer_post_footer_left' ) || has_action( 'fictioneer_post_footer_right' ) ) ) : ?>
           <footer class="post__footer">
             <div class="post__footer-box post__footer-left">
               <?php do_action( 'fictioneer_post_footer_left', $post->ID ); ?>
@@ -61,7 +64,7 @@ get_header();
 
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
-      <?php if ( comments_open() && ! post_password_required() ) : ?>
+      <?php if ( comments_open() && ! $password_required ) : ?>
         <section class="post__comments comment-section padding-left padding-right padding-bottom">
           <?php comments_template(); ?>
         </section>

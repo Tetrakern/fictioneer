@@ -13,16 +13,17 @@
 
 <?php
 
+// Setup
+$password_required = post_password_required();
+
 // Header
-$header_args = array(
-  'type' => 'fcn_chapter'
+get_header(
+  null,
+  array(
+    'type' => 'fcn_chapter',
+    'no_index' => get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ? 1 : 0
+  )
 );
-
-if ( get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ) {
-  $header_args['no_index'] = true;
-}
-
-get_header( null, $header_args );
 
 ?>
 
@@ -42,7 +43,7 @@ get_header( null, $header_args );
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
-    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+    <?php while ( have_posts() ) : the_post(); ?>
 
       <?php
         // Setup
@@ -85,6 +86,7 @@ get_header( null, $header_args );
           'chapter_id' => $post->ID,
           'chapter_title' => $title,
           'chapter_password' => $post->post_password,
+          'password_required' => $password_required,
           'chapter_ids' => $chapter_ids,
           'indexed_chapter_ids' => $indexed_chapters,
           'current_index' => $current_index,
@@ -135,7 +137,7 @@ get_header( null, $header_args );
         </div>
       <?php endif; ?>
 
-      <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo post_password_required() ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
+      <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
         <div class="chapter__actions chapter__actions--top" data-nosnippet>
           <div class="chapter__actions-container chapter__actions-left"><?php
@@ -162,7 +164,7 @@ get_header( null, $header_args );
           // Password note
           $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post->ID );
 
-          if ( $story_post && post_password_required() && empty( $password_note ) ) {
+          if ( $story_post && $password_required && empty( $password_note ) ) {
             $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
 
             if ( ! empty( $password_note ) && strpos( $password_note, '[!global]' ) !== false ) {
@@ -174,15 +176,13 @@ get_header( null, $header_args );
         ?>
 
         <section id="chapter-content" class="chapter__content content-section"><?php
-          if ( post_password_required() ) {
-            if ( $password_note ) {
-              echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
-            }
+          if ( $password_required && $password_note ) {
+            echo '<div class="chapter__password-note infobox">' . $password_note . '</div>';
           }
 
           echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family">';
 
-          if ( post_password_required() && get_option( 'fictioneer_show_protected_excerpt' ) ) {
+          if ( $password_required && get_option( 'fictioneer_show_protected_excerpt' ) ) {
             echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
           }
 
@@ -214,13 +214,13 @@ get_header( null, $header_args );
 
       <?php do_action( 'fictioneer_before_comments' ); ?>
 
-      <?php if ( comments_open() && ! post_password_required() ) : ?>
+      <?php if ( comments_open() && ! $password_required ) : ?>
         <section class="chapter__comments comment-section padding-left padding-right padding-bottom chapter-comments-hideable">
           <?php comments_template(); ?>
         </section>
       <?php endif; ?>
 
-    <?php endwhile; endif; ?>
+    <?php endwhile; ?>
 
   </div>
 
@@ -228,7 +228,7 @@ get_header( null, $header_args );
 
 <?php
   // After chapter main; includes the micro menu, paragraph tools, and suggestion tools
-  if ( ! post_password_required() ) {
+  if ( ! $password_required ) {
     do_action( 'fictioneer_chapter_after_main', $hook_args );
   }
 ?>

@@ -941,6 +941,7 @@ function fictioneer_add_custom_scripts() {
   // Setup
   $post_type = get_post_type();
   $cache_bust = fictioneer_get_cache_bust();
+  $password_required = post_password_required();
   $strategy = fictioneer_compare_wp_version( '6.3' ) && FICTIONEER_DEFER_SCRIPTS
     ? array( 'strategy'  => 'defer' ) : true; // Defer or load in footer
 
@@ -1035,7 +1036,7 @@ function fictioneer_add_custom_scripts() {
       get_option( 'fictioneer_enable_suggestions' ) &&
       ! is_archive() &&
       ! is_search() &&
-      ! post_password_required() &&
+      ! $password_required &&
       ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) &&
       comments_open()
     ) {
@@ -1049,7 +1050,7 @@ function fictioneer_add_custom_scripts() {
       get_option( 'fictioneer_enable_tts' ) &&
       ! is_archive() &&
       ! is_search() &&
-      ! post_password_required()
+      ! $password_required
     ) {
       wp_enqueue_script( 'fictioneer-tts-scripts' );
     }

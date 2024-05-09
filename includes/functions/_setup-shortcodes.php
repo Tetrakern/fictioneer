@@ -1591,7 +1591,7 @@ function fictioneer_shortcode_story_section( $attr ) {
   $show_pages = filter_var( $attr['pages'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $show_blog = filter_var( $attr['blog'] ?? 0, FILTER_VALIDATE_BOOLEAN );
   $show_scheduled = filter_var( $attr['scheduled'] ?? 0, FILTER_VALIDATE_BOOLEAN );
-  $hook_args = array( 'story_id' => $story_id, 'story_data' => $story_data );
+  $hook_args = array( 'story_id' => $story_id, 'story_data' => $story_data, 'password_required' => post_password_required() );
 
   // Abort if...
   if ( ! $story_data ) {

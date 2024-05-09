@@ -92,7 +92,8 @@ add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 
  *
  * @since 5.11.1
  *
- * @param WP_Post|null $args['story_post']  The story post object.
+ * @param WP_Post|null $args['story_post']         The story post object.
+ * @param bool|null    $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_chapter_global_note( $args ) {
@@ -103,11 +104,12 @@ function fictioneer_chapter_global_note( $args ) {
 
   // Setup
   $note = fictioneer_get_content_field( 'fictioneer_story_global_note', $args['story_post']->ID );
+  $password_required = $args['password_required'] ?? post_password_required();
 
   // Abort conditions
   if (
     empty( $note ) ||
-    ( strpos( $note, '[!password]' ) !== false && post_password_required() )
+    ( strpos( $note, '[!password]' ) !== false && $password_required )
   ) {
     return;
   }
@@ -132,17 +134,19 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_global_note'
  * @since 5.0.0
  * @since 5.11.1 - Show if started with "[!show]".
  *
- * @param int $args['chapter_id']  The chapter ID.
+ * @param int       $args['chapter_id']         The chapter ID.
+ * @param bool|null $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_chapter_foreword( $args ) {
   // Setup
   $note = fictioneer_get_content_field( 'fictioneer_chapter_foreword', $args['chapter_id'] );
+  $password_required = $args['password_required'] ?? post_password_required();
 
   // Abort conditions
   if (
     empty( $note ) ||
-    ( strpos( $note, '[!show]' ) === false && post_password_required() )
+    ( strpos( $note, '[!show]' ) === false && $password_required )
   ) {
     return;
   }
@@ -166,16 +170,18 @@ add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_foreword', 1
  *
  * @since 5.0.0
  *
- * @param int $args['chapter_id']  The chapter ID.
+ * @param int       $args['chapter_id']         The chapter ID.
+ * @param bool|null $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_chapter_warnings( $args ) {
   // Setup
   $warning = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning', true );
   $warning_notes = get_post_meta( $args['chapter_id'], 'fictioneer_chapter_warning_notes', true );
+  $password_required = $args['password_required'] ?? post_password_required();
 
   // Abort conditions
-  if ( ( ! $warning && ! $warning_notes ) || post_password_required() ) {
+  if ( ( ! $warning && ! $warning_notes ) || $password_required ) {
     return '';
   }
 
@@ -453,17 +459,19 @@ add_action( 'fictioneer_chapter_actions_bottom_left', 'fictioneer_chapter_media_
  * @since 5.0.0
  * @since 5.11.1 - Show if started with "[!show]".
  *
- * @param int $args['chapter_id']  The chapter ID.
+ * @param int       $args['chapter_id']         The chapter ID.
+ * @param bool|null $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_chapter_afterword( $args ) {
   // Setup
   $note = fictioneer_get_content_field( 'fictioneer_chapter_afterword', $args['chapter_id'] );
+  $password_required = $args['password_required'] ?? post_password_required();
 
   // Abort conditions
   if (
     empty( $note ) ||
-    ( strpos( $note, '[!show]' ) === false && post_password_required() )
+    ( strpos( $note, '[!show]' ) === false && $password_required )
   ) {
     return;
   }

@@ -209,6 +209,7 @@ Fires in the second column of top action section in the `single-fcn_chapter.php`
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -234,6 +235,7 @@ Fires in the first column of the top action section in the `single-fcn_chapter.p
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -257,6 +259,7 @@ Fires in the third column of the top action section in the `single-fcn_chapter.p
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -280,6 +283,7 @@ Fires in the second column of the bottom action section in the `single-fcn_chapt
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -305,6 +309,7 @@ Fires in the first column of the bottom action section in the `single-fcn_chapte
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -328,6 +333,7 @@ Fires in the third column of the bottom action section in the `single-fcn_chapte
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -351,6 +357,7 @@ Fires right after the article header (with story, title, and authors) in the `si
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -368,6 +375,7 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -389,6 +397,7 @@ Fires right after the `<main>` container is closed in the `single-fcn_chapter.ph
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -411,6 +420,7 @@ Fires between the top actions sections and chapter header (title and authors) in
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -433,6 +443,7 @@ Fires just before the comments section in the `single-fcn_chapter.php` template 
 * $chapter_id (int) – The chapter ID.
 * $chapter_title (string) – Safe chapter title.
 * $chapter_password (string) – Chapter password or empty string.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 * $chapter_ids (array) – IDs of visible chapters in the same story or empty array.
 * $current_index (int) – Current index in the chapters_id array.
 * $prev_index (int|boolean) – Index of previous chapter or false if outside bounds.
@@ -1034,6 +1045,7 @@ Fires right after the `<article>` container in the `single-fcn_story.php` templa
 **$args:**
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 **Hooked Actions:**
 * `fictioneer_story_comments( $args )` – AJAX-loaded list of all comments for story chapters. Priority 10.
@@ -1046,6 +1058,7 @@ Fires right after the content section in the `single-fcn_story.php` template, in
 **$args:**
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 **Hooked Actions:**
 * `fictioneer_story_copyright_notice( $args )` – Copyright notice. Priority 10.
@@ -1067,6 +1080,7 @@ Fires right after the article header (cover, title, fandom, genres, and characte
 **$args:**
 * $story_data (array) – Collection of story data.
 * $story_id (int) – Current story (post) ID.
+* $password_required (boolean|null) – Whether the post is unlocked or not. Unsafe.
 
 ---
 

@@ -241,13 +241,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tags_and_warning
  *
  * @since 5.0.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_actions( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 
@@ -269,13 +270,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_actions', 30 );
  *
  * @since 5.9.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_tabs( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 
@@ -362,13 +364,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_tabs', 40 );
  *
  * @since 5.9.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_scheduled_chapter( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 
@@ -421,13 +424,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_scheduled_chapte
  *
  * @since 5.9.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_pages( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 
@@ -478,17 +482,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
  *
  * @since 5.9.0
  *
- * @param array $args {
- *   Array of arguments.
- *
- *   @type array $story_data  Pre-compiled array of story data.
- *   @type int   $story_id    ID of the story.
- * }
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_chapters( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 
@@ -745,13 +746,14 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_chapters', 43 );
  *
  * @since 5.9.0
  *
- * @param array $args['story_data']  Collection of story data.
- * @param int   $args['story_id']    The story post ID.
+ * @param array      $args['story_data']         Collection of story data.
+ * @param int        $args['story_id']           The story post ID.
+ * @param bool|null  $args['password_required']  Whether the post is unlocked or not.
  */
 
 function fictioneer_story_blog( $args ) {
   // Abort conditions...
-  if ( post_password_required() ) {
+  if ( $args['password_required'] ?? post_password_required() ) {
     return;
   }
 

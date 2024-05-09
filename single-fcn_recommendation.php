@@ -13,6 +13,9 @@
 
 <?php
 
+// Setup
+$password_required = post_password_required();
+
 // Header
 get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
@@ -52,19 +55,19 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
           get_template_part( 'partials/_recommendation-header', null, $hook_args );
 
           // Hook after header
-          if ( ! post_password_required() ) {
+          if ( ! $password_required ) {
             do_action( 'fictioneer_recommendation_after_header', $hook_args );
           }
 
           // Thumbnail
-          if ( has_post_thumbnail() && ! post_password_required() ) {
+          if ( has_post_thumbnail() && ! $password_required ) {
             echo fictioneer_get_recommendation_page_cover( $post );
           }
         ?>
 
         <section class="recommendation__content content-section"><?php the_content(); ?></section>
 
-        <?php if ( ! post_password_required() ) : ?>
+        <?php if ( ! $password_required ) : ?>
 
           <?php do_action( 'fictioneer_recommendation_after_content', $hook_args ); ?>
 

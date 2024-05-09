@@ -17,20 +17,19 @@
 // Setup
 $post_id = $args['post_id'] ?? get_the_ID();
 $post = get_post( $post_id );
-$can_checkmarks = get_option( 'fictioneer_enable_checkmarks' );
-$header_args = array(
-  'type' => 'fcn_story'
+$password_required = post_password_required();
+
+get_header(
+  null,
+  array(
+    'type' => 'fcn_story',
+    'no_index' => get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ? 1 : 0
+  )
 );
-
-if ( get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
-  $header_args['no_index'] = true;
-}
-
-get_header( null, $header_args );
 
 ?>
 
-<main id="main" class="main story <?php if ( ! $can_checkmarks ) echo '_no-checkmarks'; ?>">
+<main id="main" class="main story <?php echo get_option( 'fictioneer_enable_checkmarks' ) ? '' : '_no-checkmarks'; ?>">
 
   <div class="observer main-observer"></div>
 
@@ -54,7 +53,8 @@ get_header( null, $header_args );
       // Arguments for hooks and templates/etc.
       $hook_args = array(
         'story_data' => $story,
-        'story_id' => $story_id
+        'story_id' => $story_id,
+        'password_required' => $password_required
       );
     ?>
 
@@ -69,7 +69,7 @@ get_header( null, $header_args );
       ?>
 
       <section class="story__summary padding-left padding-right"><?php
-        if ( post_password_required() ) {
+        if ( $password_required ) {
           if ( $password_note ) {
             echo '<div class="story__password-note infobox">' . $password_note . '</div>';
           }
