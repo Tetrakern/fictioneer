@@ -1166,11 +1166,11 @@ function fictioneer_see_some_evil( $data, $postarr, $unsanitized_postarr ) {
 
     $sender['post'] = "<strong>Post:</strong> <a href='{$post_link}'>{$data['post_title']}</a>";
 
-    $sender['ip_address'] = '<strong>IP:</strong> ' . $_SERVER['REMOTE_ADDR'] ?? 'n/a';
-    $sender['user_agent'] = '<strong>User Agent:</strong> ' . $_SERVER['HTTP_USER_AGENT'] ?? 'n/a';
-    $sender['method'] = '<strong>Method:</strong> ' . $_SERVER['REQUEST_METHOD'] ?? 'n/a';
-    $sender['request_uri'] = '<strong>Request URI:</strong> ' . $_SERVER['REQUEST_URI'] ?? 'n/a';
-    $sender['referer'] = '<strong>Referer:</strong> ' . $_SERVER['HTTP_REFERER'] ?? 'n/a';
+    $sender['ip_address'] = '<strong>IP:</strong> ' . ( $_SERVER['REMOTE_ADDR'] ?? 'n/a' );
+    $sender['user_agent'] = '<strong>User Agent:</strong> ' . ( $_SERVER['HTTP_USER_AGENT'] ?? 'n/a' );
+    $sender['method'] = '<strong>Method:</strong> ' . ( $_SERVER['REQUEST_METHOD'] ?? 'n/a' );
+    $sender['request_uri'] = '<strong>Request URI:</strong> ' . ( $_SERVER['REQUEST_URI'] ?? 'n/a' );
+    $sender['referer'] = '<strong>Referer:</strong> ' . ( $_SERVER['HTTP_REFERER'] ?? 'n/a' );
 
     foreach ( $sender as $item ) {
       $output .= '<p>' . $item . '</p>';
