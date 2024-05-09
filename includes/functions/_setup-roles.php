@@ -437,7 +437,7 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  *
  * @since 5.12.3
  * @since 5.15.0 - Add Patreon checks.
- * @since 5.16.0 - Add Patreon unlock checks.
+ * @since 5.16.0 - Add Patreon unlock checks and static variable cache.
  *
  * @param bool    $required  Whether the user needs to supply a password.
  * @param WP_Post $post      Post object.
@@ -446,13 +446,26 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  */
 
 function fictioneer_bypass_password( $required, $post ) {
+  // Static variable cache
+  static $cache = [];
+
+  $cache_key = $post->ID . '_' . (int) $required;
+
+  if ( isset( $cache[ $cache_key ] ) ) {
+    return $cache[ $cache_key ];
+  }
+
   // Already passed
   if ( ! $required ) {
+    $cache[ $cache_key ] = $required;
+
     return $required;
   }
 
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
+    $cache[ $cache_key ] = false;
+
     return false;
   }
 
@@ -532,6 +545,9 @@ function fictioneer_bypass_password( $required, $post ) {
       $required = false;
     }
   }
+
+  // Cache
+  $cache[ $cache_key ] = $required;
 
   // Continue filter
   return $required;
