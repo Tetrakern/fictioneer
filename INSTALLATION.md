@@ -1146,6 +1146,19 @@ You can remove the drop-shadow from the navigation bar and add a border instead.
 }
 ```
 
+#### Dark/Light Variants for the Logo/Header Image
+
+You cannot set different logo/header image variants for light or dark mode. This has been removed in a far earlier version of the theme *because it was a mess*, with every image field being doubled. Anyway, you can achieve this with some CSS just as well — or JavaScript, but that becomes complicated. The two easiest options are either to replace the image or apply a [filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter), the latter being preferable if you can make it work.
+
+```css
+:root[data-mode="dark"] .custom-logo {
+  content: url("https..."); /* Override the img src. */
+}
+
+:root[data-mode="dark"] .header-background__image {
+  filter: invert(1); /* Invert the image, if that still looks good. */
+}
+```
 
 #### Move the Title/Logo
 
