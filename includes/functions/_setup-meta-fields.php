@@ -4344,17 +4344,17 @@ foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_re
 }
 
 /**
- * Hide Patreon columns in list table views
+ * Hide Patreon columns in list table views by default
  *
  * @since 5.17.0
  *
- * @param array     $hidden  Array of IDs of hidden columns.
+ * @param array     $hidden  Array of IDs of columns hidden by default.
  * @param WP_Screen $screen  WP_Screen object of the current screen.
  *
- * @return array Updated array of IDs of hidden columns.
+ * @return array Updated array of IDs.
  */
 
-function fictioneer_hide_patreon_posts_columns( $hidden, $screen ) {
+function fictioneer_default_hide_patreon_posts_columns( $hidden, $screen ) {
   if (
     in_array(
       $screen->post_type,
@@ -4367,5 +4367,5 @@ function fictioneer_hide_patreon_posts_columns( $hidden, $screen ) {
 
   return $hidden;
 }
-add_filter( 'hidden_columns', 'fictioneer_hide_patreon_posts_columns', 10, 2 );
+add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_columns', 10, 2 );
 
