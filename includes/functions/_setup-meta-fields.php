@@ -4291,13 +4291,13 @@ add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
  */
 
 function fictioneer_add_patreon_posts_columns( $post_columns ) {
-	$post_columns[ 'fictioneer_patreon_lock_tiers' ] =
+  $post_columns[ 'fictioneer_patreon_lock_tiers' ] =
     _x( 'Patreon Tiers', 'Patreon tiers list table column title.', 'fictioneer' );
 
-	$post_columns[ 'fictioneer_patreon_lock_amount' ] =
+  $post_columns[ 'fictioneer_patreon_lock_amount' ] =
     _x( 'Patreon Cents', 'Patreon amount cents list table column title.', 'fictioneer' );
 
-	return $post_columns;
+  return $post_columns;
 }
 
 /**
@@ -4310,15 +4310,10 @@ function fictioneer_add_patreon_posts_columns( $post_columns ) {
  */
 
 function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
-	switch( $column_name ) {
-		case 'fictioneer_patreon_lock_tiers':
-			$tiers = get_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', true ) ?: [];
-      $tiers = is_array( $tiers ) ? $tiers : [];
-			echo $tiers ? implode( ', ', $tiers ) : '—';
 			break;
     case 'fictioneer_patreon_lock_amount':
-			echo get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) ?: '—';
-			break;
+      echo get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) ?: '—';
+      break;
   }
 }
 

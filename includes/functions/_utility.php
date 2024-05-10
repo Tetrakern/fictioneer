@@ -1786,7 +1786,7 @@ function fcntr( $key, $escape = false ) {
       'future_prefix' => _x( 'Scheduled:', 'Chapter list status prefix.', 'fictioneer' ),
       'trashed_prefix' => _x( 'Trashed:', 'Chapter list status prefix.', 'fictioneer' ),
       'private_prefix' => _x( 'Private:', 'Chapter list status prefix.', 'fictioneer' ),
-      'free_patreon_tier' => _x( 'Follower (free)', 'Free Patreon tier (follower).', 'fictioneer' )
+      'free_patreon_tier' => _x( 'Follower (Free)', 'Free Patreon tier (follower).', 'fictioneer' )
     );
 
     // Filter static translations
