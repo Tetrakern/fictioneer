@@ -488,6 +488,8 @@ add_action( 'fictioneer_story_after_content', 'fictioneer_story_pages', 42 );
  */
 
 function fictioneer_story_chapters( $args ) {
+  global $post;
+
   // Abort conditions...
   if ( $args['password_required'] ?? post_password_required() ) {
     return;
