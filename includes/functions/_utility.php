@@ -1203,11 +1203,7 @@ if ( ! function_exists( 'fictioneer_update_post_meta' ) ) {
  */
 
 function fictioneer_get_falsy_meta_allow_list() {
-  $allowed = [];
-
-  $allowed = apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed );
-
-  return $allowed;
+  return apply_filters( 'fictioneer_filter_falsy_meta_allow_list', [] );
 }
 
 // =============================================================================
