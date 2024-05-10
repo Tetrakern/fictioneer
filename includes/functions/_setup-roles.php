@@ -446,6 +446,11 @@ if ( ! defined( 'FICTIONEER_ALLOWED_PAGE_TEMPLATES' ) ) {
  */
 
 function fictioneer_bypass_password( $required, $post ) {
+  // Already unlocked
+  if ( ! $required ) {
+    return $required;
+  }
+
   // Static variable cache
   static $cache = [];
 
@@ -453,13 +458,6 @@ function fictioneer_bypass_password( $required, $post ) {
 
   if ( isset( $cache[ $cache_key ] ) ) {
     return $cache[ $cache_key ];
-  }
-
-  // Already passed
-  if ( ! $required ) {
-    $cache[ $cache_key ] = $required;
-
-    return $required;
   }
 
   // Always allow admins

@@ -370,6 +370,11 @@ add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
  */
 
 function fictioneer_expire_post_password( $required, $post ) {
+  // Already unlocked
+  if ( ! $required ) {
+    return $required;
+  }
+
   // Static variable cache
   static $cache = [];
 
