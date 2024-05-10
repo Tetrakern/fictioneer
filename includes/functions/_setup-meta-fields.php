@@ -4416,7 +4416,7 @@ function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
     <div class="inline-edit-patreon-tiers-wrap">
 
       <span class="bulk-edit-title title"><?php
-        _ex( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' );
+        _ex( 'Patreon Tiers (Override)', 'Patreon tiers bulk edit label.', 'fictioneer' );
       ?></span>
 
       <div class="bulk-edit-box">
@@ -4462,21 +4462,16 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
     return;
   }
 
-  // Setup
-  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
-  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
-
   // Start HTML ---> ?>
   <fieldset class="inline-edit-col-left">
     <div class="inline-edit-patreon-amount-cents-wrap">
 
       <span class="bulk-edit-title title"><?php
-        _ex( 'Patreon Amount Cents', 'Patreon amount cents meta field label.', 'fictioneer' );
+        _ex( 'Patreon Amount Cents (Override)', 'Patreon amount cents bulk edit label.', 'fictioneer' );
       ?></span>
 
       <div>
-        <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
-        <input type="number" name="fictioneer_patreon_lock_tiers_bulk" value="" autocomplete="off" min="0">
+        <input type="number" name="fictioneer_patreon_lock_amount_bulk" autocomplete="off" min="0">
       </div>
 
     </div>
@@ -4495,34 +4490,43 @@ function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
 function fictioneer_save_patreon_bulk_edit( $post_id ){
 	// Abort if...
 	if (
-    ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-posts' ) ||
-    ! isset( $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] ) ||
-    $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] === 'no_change'
-  ) {
-		return;
-	}
-
-  // Valid type?
-  if (
+    ! wp_verify_nonce( $_REQUEST['_wpnonce'] ?? 0, 'bulk-posts' ) ||
     ! in_array(
       get_post_type( $post_id ),
       ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
     )
   ) {
-    return;
-  }
-
-  // Remove?
-  if ( $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] === 'remove' ) {
-
-    return;
-  }
+		return;
+	}
 
   // Setup
-  $tier_ids = $_REQUEST['fictioneer_patreon_lock_tiers_bulk'];
+  $tiers = $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] ?? 0;
+  $amount = $_REQUEST['fictioneer_patreon_lock_amount_bulk'] ?? '';
 
+  // Patreon tiers
+  if ( $tiers !== 'no_change' ) {
+    // Remove or update...
+    if ( $tiers === 'remove' ) {
+      fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', 0 );
+    } else {
+      $allowed_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+      $allowed_tiers = is_array( $allowed_tiers ) ? $allowed_tiers : [];
 
+      if ( ! empty( $allowed_tiers ) ) {
+        $tiers = array_intersect( $tiers, array_keys( $allowed_tiers ) );
+        $tiers = array_map( 'absint', $tiers );
+        $tiers = array_unique( $tiers );
+        $tiers = array_map( 'strval', $tiers ); // Safer to match with LIKE in SQL
 
+        fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', $tiers );
+      }
+    }
+  }
+
+  // Patreon amount cents
+  if ( $amount !== '' ) {
+    fictioneer_update_post_meta( $post_id, 'fictioneer_patreon_lock_amount', absint( $amount ) );
+  }
 }
 
 if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
