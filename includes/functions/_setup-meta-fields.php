@@ -4374,7 +4374,7 @@ function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
 }
 
 /**
- * Add Patreon fields to bulk edit
+ * Add Patreon tiers to bulk edit
  *
  * @since 5.17.0
  *
@@ -4382,7 +4382,7 @@ function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
  * @param string $post_type    The post type slug.
  */
 
-function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
+function fictioneer_add_patreon_bulk_edit_tiers( $column_name, $post_type ) {
   // Check column and post type
   if (
     $column_name !== 'fictioneer_patreon_lock_tiers' ||
@@ -4413,31 +4413,73 @@ function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
 
   // Start HTML ---> ?>
   <fieldset class="inline-edit-col-left">
+    <div class="inline-edit-patreon-tiers-wrap">
 
-    <span class="bulk-edit-title title"><?php
-      _ex( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' );
-    ?></span>
+      <span class="bulk-edit-title title"><?php
+        _ex( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' );
+      ?></span>
 
-    <div class="bulk-edit-wrapper">
+      <div class="bulk-edit-box">
 
-      <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
-
-      <label class="bulk-edit-checkbox-label-pair">
-        <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk" value="remove">
-        <span><?php _e( 'Remove Tiers', 'fictioneer' ); ?></span>
-      </label>
-
-      <?php foreach ( $tier_options as $key => $tier ) : ?>
+        <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
 
         <label class="bulk-edit-checkbox-label-pair">
-          <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk[]" value="<?php echo $key; ?>">
-          <span><?php echo $tier; ?></span>
+          <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk" value="remove">
+          <span><?php _e( 'Remove Tiers', 'fictioneer' ); ?></span>
         </label>
 
-      <?php endforeach; ?>
+        <?php foreach ( $tier_options as $key => $tier ) : ?>
+
+          <label class="bulk-edit-checkbox-label-pair">
+            <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk[]" value="<?php echo $key; ?>">
+            <span><?php echo $tier; ?></span>
+          </label>
+
+        <?php endforeach; ?>
+
+      </div>
 
     </div>
+  </fieldset>
+  <?php // <--- End HTML
+}
 
+/**
+ * Add Patreon amount_cents to bulk edit
+ *
+ * @since 5.17.0
+ *
+ * @param string $column_name  Name of the column to edit.
+ * @param string $post_type    The post type slug.
+ */
+
+function fictioneer_add_patreon_bulk_edit_amount( $column_name, $post_type ) {
+  // Check column and post type
+  if (
+    $column_name !== 'fictioneer_patreon_lock_amount' ||
+    ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] )
+  ) {
+    return;
+  }
+
+  // Setup
+  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+
+  // Start HTML ---> ?>
+  <fieldset class="inline-edit-col-left">
+    <div class="inline-edit-patreon-amount-cents-wrap">
+
+      <span class="bulk-edit-title title"><?php
+        _ex( 'Patreon Amount Cents', 'Patreon amount cents meta field label.', 'fictioneer' );
+      ?></span>
+
+      <div>
+        <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
+        <input type="number" name="fictioneer_patreon_lock_tiers_bulk" value="" autocomplete="off" min="0">
+      </div>
+
+    </div>
   </fieldset>
   <?php // <--- End HTML
 }
@@ -4485,10 +4527,12 @@ function fictioneer_save_patreon_bulk_edit( $post_id ){
 
 if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
   foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
-    add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
+    add_filter( "manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns' );
     add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
   }
 
-  add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_fields', 10, 2 );
+  add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_tiers', 10, 2 );
+  add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_amount', 10, 2 );
+
   add_action( 'save_post', 'fictioneer_save_patreon_bulk_edit' );
 }
