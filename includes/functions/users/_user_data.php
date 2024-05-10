@@ -846,7 +846,7 @@ if ( ! function_exists( 'fictioneer_get_override_badge' ) ) {
 }
 
 // =============================================================================
-// GET PATREON BADGE
+// PATREON
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
@@ -886,19 +886,23 @@ if ( ! function_exists( 'fictioneer_get_patreon_badge' ) ) {
  *
  * @since 5.15.0
  *
- * @param WP_User $user  The user.
+ * @param int|WP_User|null $user  The user object or user ID. Defaults to current user.
  *
  * @return boolean True if still valid, false if expired.
  */
 
-function fictioneer_patreon_tiers_valid( $user ) {
+function fictioneer_patreon_tiers_valid( $user = null ) {
+  // Setup
+  $user = $user ?? wp_get_current_user();
+  $user_id = is_numeric( $user ) ? $user : $user->ID;
+
   // Abort conditions...
-  if ( ! $user ) {
-    return apply_filters( 'fictioneer_filter_user_patreon_validation', false, $user, [] );
+  if ( ! $user_id ) {
+    return apply_filters( 'fictioneer_filter_user_patreon_validation', false, $user_id, [] );
   }
 
   // Setup
-  $patreon_tiers = get_user_meta( $user->ID, 'fictioneer_patreon_tiers', true );
+  $patreon_tiers = get_user_meta( $user_id, 'fictioneer_patreon_tiers', true );
   $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
   $last_updated = empty( $patreon_tiers ) ? 0 : ( $patreon_tiers[0]['timestamp'] ?? 0 );
 
@@ -906,7 +910,7 @@ function fictioneer_patreon_tiers_valid( $user ) {
   $valid = time() <= $last_updated + FICTIONEER_PATREON_EXPIRATION_TIME;
 
   // Filter and return
-  return apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user, $patreon_tiers );
+  return apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user_id, $patreon_tiers );
 }
 
 // =============================================================================
