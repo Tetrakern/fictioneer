@@ -4310,7 +4310,28 @@ function fictioneer_add_patreon_posts_columns( $post_columns ) {
  */
 
 function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
-			break;
+  switch( $column_name ) {
+    case 'fictioneer_patreon_lock_tiers':
+      static $patreon_tiers = null;
+
+      if ( ! $patreon_tiers ) {
+        $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+        $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
+      }
+
+      $post_tiers = get_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', true ) ?: [];
+      $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
+
+      foreach ( $post_tiers as $key => $tier ) {
+        $tier_data = $patreon_tiers[ $tier ] ?? 0;
+
+        if ( $tier_data ) {
+          $post_tiers[ $key ] = $tier_data['title'] === 'Free' ? fcntr( 'free_patreon_tier' ) : $tier_data['title'];
+        }
+      }
+
+      echo $post_tiers ? implode( ', ', $post_tiers ) : '—';
+      break;
     case 'fictioneer_patreon_lock_amount':
       echo get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) ?: '—';
       break;
