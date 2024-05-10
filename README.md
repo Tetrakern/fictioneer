@@ -1,7 +1,7 @@
 <p align="center"><img src="./repo/assets/fictioneer_logo.svg?raw=true" alt="Fictioneer"></p>
 
 <p align="center">
-  <a href="https://github.com/Tetrakern/fictioneer"><img alt="Theme: 5.16" src="https://img.shields.io/badge/theme-5.16-blue?style=flat" /></a>
+  <a href="https://github.com/Tetrakern/fictioneer"><img alt="Theme: 5.17" src="https://img.shields.io/badge/theme-5.17-blue?style=flat" /></a>
   <a href="LICENSE.md"><img alt="License: GPL v3" src="https://img.shields.io/badge/license-GPL%20v3-blue?style=flat" /></a>
   <a href="https://wordpress.org/download/"><img alt="WordPress 6.1+" src="https://img.shields.io/badge/WordPress-%3E%3D6.1-blue?style=flat" /></a>
   <a href="https://www.php.net/"><img alt="PHP: 7.4+" src="https://img.shields.io/badge/php-%3E%3D7.4-blue?logoColor=white&style=flat" /></a>
@@ -23,7 +23,7 @@ Fictioneer is open source and completely free. However, maintaining and developi
 
 ## Key Features
 
-stories, chapters, collections, and recommendations &bull; customizable web reader &bull; shortcodes &bull; text-to-speech &bull; bookmarks &bull; progress tracker &bull; lightbox &bull; dark/light mode &bull; ePUB converter &bull; advanced search form &bull; OAuth 2.0 logins (Discord, Google, Twitch, and Patreon) &bull; Patreon content gate &bull; responsive layout &bull; cache aware &bull; custom comment system &bull; AJAX comments &bull; private comments &bull; comment reply subscriptions &bull; send notifications to Discord &bull; search engine optimization &bull; GDPR compliant &bull; hue, saturation, and lightness sliders &bull; role manager &bull; translation ready
+stories, chapters, collections, and recommendations &bull; customizable web reader &bull; shortcodes &bull; text-to-speech &bull; bookmarks &bull; progress tracker &bull; lightbox &bull; dark/light mode &bull; ePUB converter &bull; advanced search form &bull; OAuth 2.0 logins (Discord, Google, Twitch, and Patreon) &bull; Patreon content gate &bull; post password expiration &bull; gate content for users and roles &bull; responsive layout &bull; cache aware &bull; custom comment system &bull; AJAX comments &bull; private comments &bull; comment reply subscriptions &bull; send notifications to Discord &bull; search engine optimization &bull; GDPR compliant &bull; hue, saturation, and lightness sliders &bull; role manager &bull; translation ready
 
 ## Customization & Child Themes
 
@@ -35,7 +35,7 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Support the Development
 
-Fictioneer (up to 5.16) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
+Fictioneer (up to 5.17) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
 
 ## Screenshots
 
