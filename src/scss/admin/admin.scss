@@ -98,6 +98,13 @@ td.comment {
   background-image: repeating-linear-gradient(-45deg, rgb(0 0 0 / 3%), rgb(0 0 0 / 3%) 2px, transparent 2px, transparent 5px);
 }
 
+td.fictioneer_patreon_lock_tiers,
+td.fictioneer_patreon_lock_amount {
+  .no-password {
+    opacity: .5;
+  }
+}
+
 // =============================================================================
 // CUSTOMIZER
 // =============================================================================

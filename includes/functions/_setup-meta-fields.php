@@ -4336,6 +4336,11 @@ function fictioneer_add_patreon_posts_columns( $post_columns ) {
  */
 
 function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
+  // Setup
+  $post = get_post( $post_id );
+  $class = $post->post_password ? 'has-password' : 'no-password';
+
+  // Output
   switch( $column_name ) {
     case 'fictioneer_patreon_lock_tiers':
       static $patreon_tiers = null;
@@ -4356,18 +4361,15 @@ function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
         }
       }
 
-      echo $post_tiers ? implode( ', ', $post_tiers ) : '—';
+      echo $post_tiers ? '<span class="' . $class . '">' . implode( ', ', $post_tiers ) . '</span>' : '—';
+
       break;
     case 'fictioneer_patreon_lock_amount':
-      echo get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) ?: '—';
-      break;
-  }
-}
+      $amount = get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true );
 
-if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
-  foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
-    add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
-    add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+      echo $amount ? '<span class="' . $class . '">' . $amount . '</span>' : '—';
+
+      break;
   }
 }
 
@@ -4400,7 +4402,6 @@ function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
 
   // Prepare options
   $tier_options = [];
-  $tier_options = array( 'remove' => __( 'Remove Tiers', 'fictioneer' ) );
 
   foreach ( $patreon_tiers as $tier ) {
     $tier_options[ $tier['id'] ] = sprintf(
@@ -4421,6 +4422,11 @@ function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
 
       <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
 
+      <label class="bulk-edit-checkbox-label-pair">
+        <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk" value="remove">
+        <span><?php _e( 'Remove Tiers', 'fictioneer' ); ?></span>
+      </label>
+
       <?php foreach ( $tier_options as $key => $tier ) : ?>
 
         <label class="bulk-edit-checkbox-label-pair">
@@ -4436,6 +4442,53 @@ function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
   <?php // <--- End HTML
 }
 
+/**
+ * Save Patreon bulk edit fields
+ *
+ * @since 5.17.0
+ *
+ * @param int $post_id  ID of the updated post.
+ */
+
+function fictioneer_save_patreon_bulk_edit( $post_id ){
+	// Abort if...
+	if (
+    ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bulk-posts' ) ||
+    ! isset( $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] ) ||
+    $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] === 'no_change'
+  ) {
+		return;
+	}
+
+  // Valid type?
+  if (
+    ! in_array(
+      get_post_type( $post_id ),
+      ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
+    )
+  ) {
+    return;
+  }
+
+  // Remove?
+  if ( $_REQUEST['fictioneer_patreon_lock_tiers_bulk'] === 'remove' ) {
+
+    return;
+  }
+
+  // Setup
+  $tier_ids = $_REQUEST['fictioneer_patreon_lock_tiers_bulk'];
+
+
+
+}
+
 if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
+  foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
+    add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
+    add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+  }
+
   add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_fields', 10, 2 );
+  add_action( 'save_post', 'fictioneer_save_patreon_bulk_edit' );
 }
