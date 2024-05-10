@@ -4275,3 +4275,81 @@ function fictioneer_save_recommendation_metaboxes( $post_id ) {
   }
 }
 add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
+
+// =============================================================================
+// ADD META FIELDS TO BULK EDIT
+// =============================================================================
+
+/**
+ * Add Patreon columns to list table views
+ *
+ * @since 5.17.0
+ *
+ * @param array $post_columns  An associative array of column headings.
+ *
+ * @return array Updated associative array of column headings.
+ */
+
+function fictioneer_add_patreon_posts_columns( $post_columns ) {
+	$post_columns[ 'fictioneer_patreon_lock_tiers' ] =
+    _x( 'Patreon Tiers', 'Patreon tiers list table column title.', 'fictioneer' );
+
+	$post_columns[ 'fictioneer_patreon_lock_amount' ] =
+    _x( 'Patreon Cents', 'Patreon amount cents list table column title.', 'fictioneer' );
+
+	return $post_columns;
+}
+
+/**
+ * Output Patreon values in list table views
+ *
+ * @since 5.17.0
+ *
+ * @param string $column_name  The name of the column to display.
+ * @param int    $post_id      The current post ID.
+ */
+
+function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
+	switch( $column_name ) {
+		case 'fictioneer_patreon_lock_tiers':
+			$tiers = get_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', true ) ?: [];
+      $tiers = is_array( $tiers ) ? $tiers : [];
+			echo $tiers ? implode( ', ', $tiers ) : '—';
+			break;
+    case 'fictioneer_patreon_lock_amount':
+			echo get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) ?: '—';
+			break;
+  }
+}
+
+foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
+  add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
+  add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+}
+
+/**
+ * Hide Patreon columns in list table views
+ *
+ * @since 5.17.0
+ *
+ * @param array     $hidden  Array of IDs of hidden columns.
+ * @param WP_Screen $screen  WP_Screen object of the current screen.
+ *
+ * @return array Updated array of IDs of hidden columns.
+ */
+
+function fictioneer_hide_patreon_posts_columns( $hidden, $screen ) {
+  if (
+    in_array(
+      $screen->post_type,
+      ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
+    )
+  ) {
+    $hidden[] = 'fictioneer_patreon_lock_tiers';
+    $hidden[] = 'fictioneer_patreon_lock_amount';
+  }
+
+  return $hidden;
+}
+add_filter( 'hidden_columns', 'fictioneer_hide_patreon_posts_columns', 10, 2 );
+
