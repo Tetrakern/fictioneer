@@ -475,7 +475,7 @@ function fictioneer_password_form() {
 
   // Return empty if...
   if ( get_option( 'fictioneer_hide_password_form_with_patreon' ) ) {
-    $patreon_post_data = fictioneer_get_patreon_data( $post );
+    $patreon_post_data = fictioneer_get_post_patreon_data( $post );
 
     if ( $patreon_post_data['gated'] ) {
       return '';
@@ -521,7 +521,7 @@ function fictioneer_unlock_with_patreon( $form ) {
   }
 
   // Patreon data for post
-  $patreon_post_data = fictioneer_get_patreon_data( $post );
+  $patreon_post_data = fictioneer_get_post_patreon_data( $post );
 
   // Any tiers or amounts set up?
   if ( $patreon_post_data['gated'] ) {

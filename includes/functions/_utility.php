@@ -3040,7 +3040,9 @@ if ( ! function_exists( 'fictioneer_get_human_readable_list' ) ) {
 // =============================================================================
 
 /**
- * Get Patreon data in regards to a post
+ * Get Patreon data for a post
+ *
+ * Note: Considers both the post meta and global settings.
  *
  * @since 5.15.0
  *
@@ -3050,7 +3052,7 @@ if ( ! function_exists( 'fictioneer_get_human_readable_list' ) ) {
  *                    and 'gate_lifetime_cents' (int). Null if the post could not be found.
  */
 
-function fictioneer_get_patreon_data( $post = null ) {
+function fictioneer_get_post_patreon_data( $post = null ) {
   // Static cache
   static $cache = [];
 

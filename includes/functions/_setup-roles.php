@@ -492,7 +492,7 @@ function fictioneer_bypass_password( $required, $post ) {
 
   // Check Patreon tiers
   if ( $user && $required && get_option( 'fictioneer_enable_patreon_locks' ) && ( $patreon_user_data['valid'] ?? 0 ) ) {
-    $patreon_post_data = fictioneer_get_patreon_data( $post );
+    $patreon_post_data = fictioneer_get_post_patreon_data( $post );
 
     // If there is anything to check...
     if ( $patreon_post_data['gated'] ) {
