@@ -26,8 +26,7 @@ if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
 
 // Setup
 $current_user = $args['user'];
-$patreon_tiers = get_user_meta( $current_user->ID, 'fictioneer_patreon_tiers', true );
-$patreon_expired = ! fictioneer_patreon_tiers_valid( $current_user );
+$patreon_user_data = fictioneer_get_user_patreon_data( $current_user->ID );
 $oauth_providers = [
   ['discord', 'Discord'],
   ['twitch', 'Twitch'],
@@ -49,9 +48,9 @@ $unset_oauth_prompt = sprintf(
 
 <p class="profile__description"><?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?></p>
 
-<?php if ( is_array( $patreon_tiers ) && ! empty( $patreon_tiers ) ) : ?>
+<?php if ( $patreon_user_data['tiers'] ?? 0 ) : ?>
 
-  <?php if ( $patreon_expired ) : ?>
+  <?php if ( ! ( $patreon_user_data['valid'] ?? 0 ) ) : ?>
     <ul class="profile__admin-notes">
       <li>
         <i class="fa-solid fa-hourglass-end"></i>
@@ -60,9 +59,9 @@ $unset_oauth_prompt = sprintf(
     </ul>
   <?php endif; ?>
 
-  <?php if ( ! $patreon_expired ) : ?>
+  <?php if ( $patreon_user_data['valid'] ?? 0 ) : ?>
     <ul class="profile__admin-notes">
-      <?php foreach ( $patreon_tiers as $tier ) : ?>
+      <?php foreach ( $patreon_user_data['tiers'] as $tier ) : ?>
         <li>
           <i class="fa-solid fa-ribbon"></i>
           <span>
