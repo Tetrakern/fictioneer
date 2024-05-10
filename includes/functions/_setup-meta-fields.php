@@ -4281,6 +4281,32 @@ add_action( 'save_post', 'fictioneer_save_recommendation_metaboxes' );
 // =============================================================================
 
 /**
+ * Hide Patreon columns in list table views by default
+ *
+ * @since 5.17.0
+ *
+ * @param array     $hidden  Array of IDs of columns hidden by default.
+ * @param WP_Screen $screen  WP_Screen object of the current screen.
+ *
+ * @return array Updated array of IDs.
+ */
+
+function fictioneer_default_hide_patreon_posts_columns( $hidden, $screen ) {
+  if (
+    in_array(
+      $screen->post_type,
+      ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
+    )
+  ) {
+    $hidden[] = 'fictioneer_patreon_lock_tiers';
+    $hidden[] = 'fictioneer_patreon_lock_amount';
+  }
+
+  return $hidden;
+}
+add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_columns', 10, 2 );
+
+/**
  * Add Patreon columns to list table views
  *
  * @since 5.17.0
@@ -4338,34 +4364,78 @@ function fictioneer_manage_posts_custom_column( $column_name, $post_id ) {
   }
 }
 
-foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
-  add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
-  add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
+  foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
+    add_filter("manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns');
+    add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
+  }
 }
 
 /**
- * Hide Patreon columns in list table views by default
+ * Add Patreon fields to bulk edit
  *
  * @since 5.17.0
  *
- * @param array     $hidden  Array of IDs of columns hidden by default.
- * @param WP_Screen $screen  WP_Screen object of the current screen.
- *
- * @return array Updated array of IDs.
+ * @param string $column_name  Name of the column to edit.
+ * @param string $post_type    The post type slug.
  */
 
-function fictioneer_default_hide_patreon_posts_columns( $hidden, $screen ) {
+function fictioneer_add_patreon_bulk_edit_fields( $column_name, $post_type ) {
+  // Check column and post type
   if (
-    in_array(
-      $screen->post_type,
-      ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
-    )
+    $column_name !== 'fictioneer_patreon_lock_tiers' ||
+    ! in_array( $post_type, ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] )
   ) {
-    $hidden[] = 'fictioneer_patreon_lock_tiers';
-    $hidden[] = 'fictioneer_patreon_lock_amount';
+    return;
   }
 
-  return $hidden;
-}
-add_filter( 'default_hidden_columns', 'fictioneer_default_hide_patreon_posts_columns', 10, 2 );
+  // Setup
+  $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
+  $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
+  // Tiers?
+  if ( ! $patreon_tiers ) {
+    return;
+  }
+
+  // Prepare options
+  $tier_options = [];
+  $tier_options = array( 'remove' => __( 'Remove Tiers', 'fictioneer' ) );
+
+  foreach ( $patreon_tiers as $tier ) {
+    $tier_options[ $tier['id'] ] = sprintf(
+      _x( '%s (%s)', 'Patreon tier meta field token (title and amount_cents).', 'fictioneer' ),
+      $tier['title'],
+      $tier['amount_cents']
+    );
+  }
+
+  // Start HTML ---> ?>
+  <fieldset class="inline-edit-col-left">
+
+    <span class="bulk-edit-title title"><?php
+      _ex( 'Patreon Tiers', 'Patreon tiers meta field label.', 'fictioneer' );
+    ?></span>
+
+    <div class="bulk-edit-wrapper">
+
+      <input type="hidden" name="fictioneer_patreon_lock_tiers_bulk" value="no_change">
+
+      <?php foreach ( $tier_options as $key => $tier ) : ?>
+
+        <label class="bulk-edit-checkbox-label-pair">
+          <input type="checkbox" name="fictioneer_patreon_lock_tiers_bulk[]" value="<?php echo $key; ?>">
+          <span><?php echo $tier; ?></span>
+        </label>
+
+      <?php endforeach; ?>
+
+    </div>
+
+  </fieldset>
+  <?php // <--- End HTML
+}
+
+if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
+  add_action( 'bulk_edit_custom_box',  'fictioneer_add_patreon_bulk_edit_fields', 10, 2 );
+}

@@ -1086,3 +1086,39 @@ td.comment {
     display: none;
   }
 }
+
+// =============================================================================
+// BULK EDIT
+// =============================================================================
+
+.bulk-edit-title {
+  display: block;
+  line-height: 2.5;
+  margin: .2em 0;
+}
+
+.bulk-edit-wrapper {
+  padding: 4px 8px;
+  margin-bottom: .8em;
+  border: 1px solid #ddd;
+}
+
+.bulk-edit-checkbox-label-pair {
+  color: #2c3338;
+  font-size: 16px;
+  line-height: 28px !important;
+  padding: 3px 0 !important;
+  margin: 0 0 5px !important;
+  width: fit-content;
+
+  input[type="checkbox"] {
+    margin-top: -1px;
+    margin-right: 0;
+  }
+
+  @include bp(783px) {
+    font-size: 13px;
+    line-height: 20px !important;
+    margin: 0 !important;
+  }
+}
