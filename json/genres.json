@@ -80,7 +80,7 @@
   },
   "erotica": {
     "name": "Erotica",
-		"description": "Narratives primarily focused on stimulating sexual arousal and romantic desire. Characterized by explicit sexual scenes and themes, Erotica delves into intimate and sensuous experiences, often with an emphasis on emotional connections."
+    "description": "Narratives primarily focused on stimulating sexual arousal and romantic desire. Characterized by explicit sexual scenes and themes, Erotica delves into intimate and sensuous experiences, often with an emphasis on emotional connections."
   },
   "espionage": {
     "name": "Espionage"
@@ -126,7 +126,7 @@
     "name": "Lesbian",
     "parent": "LGB"
   },
-	"lgb": {
+  "lgb": {
     "name": "LGB"
   },
   "lgbt": {
@@ -214,7 +214,7 @@
   },
   "smut": {
     "name": "Smut",
-		"description": "Heavily centered around explicit sexual content, with a primary focus on physical gratification rather than emotional or romantic development. Typically features detailed, graphic sexual scenes, catering to various fantasies and desires."
+    "description": "Heavily centered around explicit sexual content, with a primary focus on physical gratification rather than emotional or romantic development. Typically features detailed, graphic sexual scenes, catering to various fantasies and desires."
   },
   "space": {
     "name": "Space"
