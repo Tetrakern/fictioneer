@@ -678,15 +678,18 @@ You can grant logged-in users access to password-protected content via Patreon m
 
 After setting up the [OAuth 2.0 connection](#connections-tab), add a campaign link and import your tiers. This is a unique request limited to administrators and only works for the campaign of your client. No, you cannot have different campaigns for different authors. Changes to tiers on Patreon are **not** automatically synchronized, you have to pull them yourself (but this should rarely be necessary).
 
-Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 for $3.50) to individual posts or set them globally. Posts always use the lowest requirements if you do both. Note that you still need to set a post password, because this system hijacks the WordPress password check. Removing a password will also suspend the Patreon gate. To keep this compatible with cache plugins, the gate is not passed down from stories to chapters.
+Once you are done, you can apply tiers and pledge thresholds in cents (e.g. 350 for $3.50) to individual posts or set them globally. **Posts always use the lowest** requirements if you do both. Note that you still need to set a post password, because this feature only hijacks the WordPress password check. Removing a password will also suspend the Patreon gate. To keep this compatible with cache plugins, the gate is not passed down from stories to chapters.
 
 **Options:**
+* **Campaign Link (Global):** Link to your campaign, required for the link button to show up.
+* **Gate Message Override (Global):** Replaces the message below the Patreon link on locked posts.
 * **Tiers (Post/Global):** Comma-separated list of tier IDs, which you can see after pulling them.
 * **Threshold (Post/Global):** Pledge amount in cents (e.g. 350 for $3.50) independent of tiers.
 * **Lifetime Threshold (Global):** Use the total of all paid pledges, regardless of current status.
 * **Unlock Threshold (Global):** Gate regular user post unlocks behind a pledge amount in cents.
+* **Hide Password Forms (Global):** Hides the normal password form on gated posts.
 
-Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keeping a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
+Membership data is valid for one week by default, per user, refreshed whenever they log in with Patreon. They can log in with other accounts in the meantime. This can cause users to retain access rights for longer than their membership status allows (up to six days), which is a consequence of the theme not keeping a continuous connection to Patreon for security reasons — but if you get hacked, their Patreon accounts will be safe in turn. Security is rarely convenient.
 
 You can increase or reduce the expiration time with the `FICTIONEER_PATREON_EXPIRATION_TIME` constant in a child theme, but it should not be less than three days (which is the maximum login time before you are automatically logged out).
 

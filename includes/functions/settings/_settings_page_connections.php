@@ -183,7 +183,7 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 <?php
                   fictioneer_settings_text_input(
                     'fictioneer_patreon_unlock_message',
-                    __( 'Patreon gate message override (leave empty for default)', 'fictioneer' )
+                    __( 'Patreon gate message override (below link, leave empty for default)', 'fictioneer' )
                   );
                 ?>
               </div>
