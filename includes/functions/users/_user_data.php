@@ -913,6 +913,39 @@ function fictioneer_patreon_tiers_valid( $user = null ) {
   return apply_filters( 'fictioneer_filter_user_patreon_validation', $valid, $user_id, $patreon_tiers );
 }
 
+/**
+ * Returns Patreon data of the user
+ *
+ * @since 5.17.0
+ *
+ * @param int|WP_User|null $user  The user object or user ID. Defaults to current user.
+ *
+ * @return array Empty array if not a patron, associative array otherwise. Includes the
+ *               keys 'valid', 'is_follower', 'lifetime_support_cents', 'last_charge_date',
+ *               'last_charge_status', 'next_charge_date', 'patron_status', and 'tiers'.
+ *               Tiers is an array of tiers with the keys 'id', 'title', 'description',
+ *               'published', 'amount_cents', and 'timestamp'.
+ */
+
+function fictioneer_get_user_patreon_data( $user = null ) {
+  // Setup
+  $user = $user ?? wp_get_current_user();
+  $user_id = is_numeric( $user ) ? $user : $user->ID;
+
+  // Get meta data
+  $membership = get_user_meta( $user_id, 'fictioneer_patreon_membership', true );
+  $membership = is_array( $membership ) ? $membership : [];
+
+  if ( $membership ) {
+    $tiers = get_user_meta( $user_id, 'fictioneer_patreon_tiers', true );
+    $membership['tiers'] = is_array( $tiers ) ? $tiers : [];
+    $membership['valid'] = fictioneer_patreon_tiers_valid( $user_id );
+  }
+
+  // Return
+  return $membership;
+}
+
 // =============================================================================
 // GET UNIQUE USER FINGERPRINT
 // =============================================================================
