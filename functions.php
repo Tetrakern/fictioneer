@@ -536,12 +536,6 @@ add_action( 'wp', 'fictioneer_conditional_require_comments' );
 require_once __DIR__ . '/includes/functions/users/_user_data.php';
 
 /**
- * Add functions to handle avatars.
- */
-
-require_once __DIR__ . '/includes/functions/users/_avatars.php';
-
-/**
  * Add the follow feature.
  */
 
