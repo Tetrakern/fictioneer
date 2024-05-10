@@ -293,7 +293,7 @@ add_action( 'edit_user_profile', 'fictioneer_custom_profile_fields', 20 );
 // =============================================================================
 
 /**
- * Render user ID in admin profile
+ * Renders HTML for the user ID in the wp-admin user profile
  *
  * @since 5.7.4
  *
@@ -325,7 +325,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_u
 // =============================================================================
 
 /**
- * Render fingerprint in admin profile
+ * Renders HTML for the fingerprint in the wp-admin user profile
  *
  * @since 5.2.5
  *
@@ -360,7 +360,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_f
 // =============================================================================
 
 /**
- * Render profile flags in admin profile
+ * Renders HTML for the Profile Flags section in the wp-admin user profile
  *
  * @since 5.2.5
  *
@@ -487,7 +487,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_f
 // =============================================================================
 
 /**
- * Render OAuth connections in admin profile
+ * Renders HTML for the OAuth Connections section in the wp-admin user profile
  *
  * @since 5.2.5
  *
@@ -592,7 +592,7 @@ if ( get_option( 'fictioneer_enable_oauth' ) ) {
 // =============================================================================
 
 /**
- * Render data nodes in admin profile
+ * Renders HTML for the Data Nodes section in the wp-admin user profile
  *
  * @since 5.2.5
  *
@@ -749,7 +749,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_fields_d
 // =============================================================================
 
 /**
- * Unlock password-protected posts for user
+ * Renders HTML for the Unlock Posts section in the wp-admin user profile
  *
  * @since 5.16.0
  *
@@ -879,11 +879,138 @@ function fictioneer_admin_profile_post_unlocks( $profile_user ) {
 add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_post_unlocks', 9 );
 
 // =============================================================================
+// SHOW PATREON SECTION
+// =============================================================================
+
+/**
+ * Renders HTML for the Patreon section in the wp-admin user profile
+ *
+ * @since 5.17.0
+ *
+ * @param WP_User $profile_user  The profile user object. Not necessarily the one
+ *                               currently editing the profile!
+ */
+
+function fictioneer_admin_profile_patreon( $profile_user ) {
+  // Setup
+  $editing_user_is_owner = $profile_user->ID === get_current_user_id();
+  $editing_user_is_admin = fictioneer_is_admin( get_current_user_id() );
+  $data = fictioneer_get_user_patreon_data( $profile_user );
+
+  // Abort conditions...
+  if ( ! $editing_user_is_admin && ! $editing_user_is_owner ) {
+    return;
+  }
+
+  if ( ! $data ) {
+    return;
+  }
+
+  // Values
+  $yes = _x( 'Yes', 'Admin profile Patreon section.', 'fictioneer' );
+  $valid = ( $data['valid'] ?? 0 ) ?
+    $yes : _x( 'Expired (reauthenticate with Patreon)', 'Admin profile Patreon section.', 'fictioneer' );
+  $active = ( $data['patron_status'] ?? 0 ) ? $yes : _x( 'No', 'Admin profile Patreon section.', 'fictioneer' );
+  $lifetime_cents = $data['lifetime_support_cents'] ?? 0;
+  $last_charge = _x( 'Never', 'Admin profile Patreon section.', 'fictioneer' );
+  $last_charge_status = $data['last_charge_status'] ?? __( 'n/a', 'fictioneer' );
+  $next_charge = _x( 'Never', 'Admin profile Patreon section.', 'fictioneer' );
+
+  if ( $data['last_charge_date'] ?? 0 ) {
+    $last_charge = new DateTime( $data['last_charge_date'], new DateTimeZone( 'UTC' ) );
+    $last_charge->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+    $last_charge = $last_charge->format( 'Y-m-d H:i:s' );
+  }
+
+  if ( $data['next_charge_date'] ?? 0 ) {
+    $next_charge = new DateTime( $data['next_charge_date'], new DateTimeZone( 'UTC' ) );
+    $next_charge->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+    $next_charge = $next_charge->format( 'Y-m-d H:i:s' );
+  }
+
+  // Start HTML ---> ?>
+  <tr class="user-patreon-wrap">
+    <th><?php _e( 'Patreon Membership', 'fictioneer' ); ?></th>
+
+    <td class="">
+      <fieldset>
+
+        <p><?php
+          printf(
+            _x( '<strong>Data Valid:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+            $valid
+          );
+        ?></p>
+
+        <p><?php
+          printf(
+            _x( '<strong>Active Patron:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+            $active
+          );
+        ?></p>
+
+        <?php if ( current_user_can( 'manage_options' ) ) : ?>
+
+          <p><?php
+            printf(
+              _x( '<strong>Lifetime Support Cents:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+              $lifetime_cents
+            );
+          ?></p>
+
+          <p><?php
+            printf(
+              _x( '<strong>Last Charge Date:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+              $last_charge
+            );
+          ?></p>
+
+          <p><?php
+            printf(
+              _x( '<strong>Last Charge Status:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+              $last_charge_status
+            );
+          ?></p>
+
+          <p><?php
+            printf(
+              _x( '<strong>Next Charge Date:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+              $next_charge
+            );
+          ?></p>
+
+        <?php endif; ?>
+
+        <p><?php
+          $tiers = [];
+
+          foreach ( ( $data['tiers'] ?? [] ) as $tier ) {
+            $tiers[] = sprintf(
+              _x( '%s (%s)', 'Patreon tier meta field token (title and amount_cents).', 'fictioneer' ),
+              $tier['title'],
+              $tier['amount_cents']
+            );
+          }
+
+          printf(
+            _x( '<strong>Tier:</strong> %s', 'Admin profile Patreon section.', 'fictioneer' ),
+            implode( ', ', $tiers ) ?: __( 'n/a', 'fictioneer' )
+          )
+        ?></p>
+
+      </fieldset>
+    </td>
+  </tr>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_patreon', 10 );
+
+// =============================================================================
 // SHOW MODERATION SECTION
 // =============================================================================
 
 /**
- * Adds HTML for the moderation section to the wp-admin user profile
+ * Renders HTML for the moderation section in the wp-admin user profile
  *
  * @since 5.0.0
  *
@@ -981,7 +1108,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_moderati
 // =============================================================================
 
 /**
- * Adds HTML for the author section to the wp-admin user profile
+ * Renders HTML for the author section in the wp-admin user profile
  *
  * @since 5.0.0
  *
@@ -1076,7 +1203,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_author',
 // =============================================================================
 
 /**
- * Adds HTML for the OAuth section to the wp-admin user profile
+ * Renders HTML for the OAuth section in the wp-admin user profile
  *
  * @since 5.0.0
  *
@@ -1124,7 +1251,7 @@ if ( FICTIONEER_SHOW_OAUTH_HASHES ) {
 // =============================================================================
 
 /**
- * Adds HTML for the badge section to the wp-admin user profile
+ * Renders HTML for the badge section in the wp-admin user profile
  *
  * @since 5.0.0
  *
@@ -1158,7 +1285,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_badge', 
 // =============================================================================
 
 /**
- * Adds HTML for the external avatar section to the wp-admin user profile
+ * Renders HTML for the external avatar section in the wp-admin user profile
  *
  * @since 5.0.0
  *
@@ -1192,7 +1319,7 @@ add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_profile_external
 // =============================================================================
 
 /**
- * Adds HTML for the danger zone section to the wp-admin user profile
+ * Renders HTML for the danger zone section in the wp-admin user profile
  *
  * @since 5.6.0
  *
@@ -1247,5 +1374,3 @@ function fictioneer_admin_danger_zone( $profile_user ) {
 if ( current_user_can( 'fcn_allow_self_delete' ) && ! current_user_can( 'manage_options' ) ) {
   add_action( 'fictioneer_admin_user_sections', 'fictioneer_admin_danger_zone', 9999 );
 }
-
-?>

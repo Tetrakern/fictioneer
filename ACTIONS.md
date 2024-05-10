@@ -89,6 +89,7 @@ Fires within the Fictioneer user profile section in the WordPress `wp-admin/prof
 * `fictioneer_admin_profile_fields_oauth( $profile_user )` – User OAuth connections. Priority 7.
 * `fictioneer_admin_profile_fields_data_nodes( $profile_user )` – User data nodes. Priority 8.
 * `fictioneer_admin_profile_post_unlocks( $profile_user )` - Unlock password-protected posts. Priority 9.
+* `fictioneer_admin_profile_patreon( $profile_user )` – User Patreon membership data (if any). Priority 10.
 * `fictioneer_admin_profile_moderation( $profile_user )` – Moderation flags and message. Priority 10.
 * `fictioneer_admin_profile_author( $profile_user )` – Author page select, support message, and support links. Priority 20.
 * `fictioneer_admin_profile_oauth( $profile_user )` – OAuth 2.0 account binding IDs. Priority 30.
