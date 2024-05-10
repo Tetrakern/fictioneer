@@ -392,7 +392,10 @@ function fictioneer_expire_post_password( $required, $post ) {
 
     if ( strtotime( $current_date_utc ) > strtotime( $password_expiration_date_utc ) ) {
       delete_post_meta( $post->ID, 'fictioneer_post_password_expiration_date' );
+      fictioneer_refresh_post_caches( $post->ID );
       wp_update_post( array( 'ID' => $post->ID, 'post_password' => '' ) );
+
+      $required = false;
     }
   }
 
