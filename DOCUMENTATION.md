@@ -400,6 +400,7 @@ Pages work the same as always in WordPress, just with some additional fields and
 | Short Name | String | Shortened name of the page required for custom tabs in stories.
 | Filter & Search ID | String | Custom identifier to be used with plugin. Does nothing on its own.
 | Story ID | String | ID of a story post. Only used by the "Story Page/Mirror" page templates.
+| Show story header | Check | Renders the story header for the given story ID. "Story Page" template only.
 
 ## Shared Options
 

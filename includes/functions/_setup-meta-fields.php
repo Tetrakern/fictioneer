@@ -3157,12 +3157,12 @@ function fictioneer_render_extra_metabox( $post ) {
       );
     }
 
-    // Checkbox: Show story template header
+    // Checkbox: Show story header
     if ( current_user_can( 'manage_options' ) ) {
       $output['fictioneer_template_show_story_header'] = fictioneer_get_metabox_checkbox(
         $post,
         'fictioneer_template_show_story_header',
-        __( 'Show story template header', 'fictioneer' )
+        __( 'Show story header', 'fictioneer' )
       );
     }
   }
