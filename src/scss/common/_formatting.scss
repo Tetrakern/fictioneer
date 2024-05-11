@@ -257,12 +257,24 @@ p a,
   }
 
   &__note {
-    cursor: help;
     color: var(--fg-700);
   }
 
-  .tooltipped:before {
-    max-width: 250px;
+  &__already-member {
+    color: var(--fg-700);
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+
+      &:hover {
+        color: var(--fg-500);
+      }
+    }
+
+    summary::-webkit-details-marker {
+      list-style: none
+    }
   }
 }
 

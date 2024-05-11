@@ -520,13 +520,15 @@ function fictioneer_unlock_with_patreon( $form ) {
     return $form;
   }
 
-  // Patreon data for post
+  // Patreon data
   $patreon_post_data = fictioneer_get_post_patreon_data( $post );
+  $patreon_user_data = fictioneer_get_user_patreon_data();
 
   // Any tiers or amounts set up?
   if ( $patreon_post_data['gated'] ) {
     $options = [];
     $patreon_message = get_option( 'fictioneer_patreon_unlock_message' );
+    $auth_reminder = '';
 
     foreach ( $patreon_post_data['gate_tiers'] as $tier_id ) {
       if ( isset( $patreon_tiers[ $tier_id ] ) ) {
@@ -563,9 +565,11 @@ function fictioneer_unlock_with_patreon( $form ) {
       }
     }
 
-    $tooltip = __( 'You can unlock this content by supporting me on Patreon. If you are already a member and not see anything, log out and log in again to refresh your membership information.', 'fictioneer' );
+    if ( ! empty( $patreon_user_data ) ) {
+      $auth_reminder = '<details class="unlock-with-patreon__already-member"><summary>' . _x( 'Already a member?', 'Unlock with Patreon help.',  'fictioneer' ) . '</summary><div>' . _x( 'If you are already a member but still do not see anything, log out and log in with Patreon again to refresh your membership information.', 'Unlock with Patreon help.', 'fictioneer' ) . '</div></details>';
+    }
 
-    $form .= '<div class="unlock-with-patreon"><a href="' . esc_url( $campaign_link ) . '" target="_blank" rel="noopener" class="unlock-with-patreon__link"><i class="fa-brands fa-patreon"></i><span>' . __( 'Unlock with Patreon', 'fictioneer' ) . '</span></a><div class="unlock-with-patreon__note tooltipped" data-tooltip="' . esc_attr( $tooltip ) . '">' . $patreon_message . '</div></div>';
+    $form .= '<div class="unlock-with-patreon"><a href="' . esc_url( $campaign_link ) . '" target="_blank" rel="noopener" class="unlock-with-patreon__link"><i class="fa-brands fa-patreon"></i><span>' . __( 'Unlock with Patreon', 'fictioneer' ) . '</span></a><div class="unlock-with-patreon__note">' . $patreon_message . '</div>' . $auth_reminder . '</div>';
   }
 
   // Continue filter
