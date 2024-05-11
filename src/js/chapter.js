@@ -1261,7 +1261,8 @@ _$$('.chapter-list-popup-toggle').forEach(element => {
 // KEYBOARD NAVIGATION
 // =============================================================================
 
-document.addEventListener('keydown', event => {
+// Keep removable reference
+const fcn_chapterKeyboardNavigation = event => {
   const editableTags = ['INPUT', 'TEXTAREA', 'SELECT', 'OPTION'];
 
   // Abort if inside input...
@@ -1282,7 +1283,9 @@ document.addEventListener('keydown', event => {
   if (link && link.href) {
     window.location.href = link + '#start';
   }
-});
+}
+
+document.addEventListener('keydown', fcn_chapterKeyboardNavigation);
 
 // =============================================================================
 // SCROLL TO START OG CHAPTER
