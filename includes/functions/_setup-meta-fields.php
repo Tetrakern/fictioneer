@@ -4498,7 +4498,8 @@ function fictioneer_save_patreon_bulk_edit( $post_id ){
     ! in_array(
       get_post_type( $post_id ),
       ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation']
-    )
+    ) ||
+    ! ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_assign_patreon_tiers' ) )
   ) {
 		return;
 	}
@@ -4533,7 +4534,10 @@ function fictioneer_save_patreon_bulk_edit( $post_id ){
   }
 }
 
-if ( get_option( 'fictioneer_enable_patreon_locks' ) ) {
+if (
+  get_option( 'fictioneer_enable_patreon_locks' ) &&
+  ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_assign_patreon_tiers' ) )
+) {
   foreach ( ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'] as $type ) {
     add_filter( "manage_{$type}_posts_columns", 'fictioneer_add_patreon_posts_columns' );
     add_action( "manage_{$type}_posts_custom_column", 'fictioneer_manage_posts_custom_column', 10, 2 );
