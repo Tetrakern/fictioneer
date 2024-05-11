@@ -1,5 +1,5 @@
 ---
-name: Issue
+name: Anything & Everything
 about: Any issue you might have
 title: ''
 labels: ''
