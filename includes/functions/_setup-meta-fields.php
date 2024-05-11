@@ -3351,7 +3351,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
     $fields['fictioneer_short_name'] = sanitize_text_field( $_POST['fictioneer_short_name'] );
 
     if ( empty( $fields['fictioneer_short_name'] ) ) {
-      $fields['fictioneer_short_name'] = fictioneer_truncate( get_the_title( $post_id ), 16 );
+      $fields['fictioneer_short_name'] = fictioneer_truncate( get_the_title( $post_id ), 24 );
     }
   }
 
