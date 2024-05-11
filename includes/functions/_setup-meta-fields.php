@@ -3251,14 +3251,16 @@ function fictioneer_render_extra_metabox( $post ) {
   }
 
   // Password expiration datetime
-  $output['fictioneer_post_password_expiration_date'] = fictioneer_get_metabox_datetime(
-    $post,
-    'fictioneer_post_password_expiration_date',
-    array(
-      'label' => _x( 'Expire Post Password', 'Password expiration meta field label.', 'fictioneer' ),
-      'description' => __( 'Removes the password after the date.', 'fictioneer' ),
-    )
-  );
+  if ( current_user_can( 'manage_options' ) || current_user_can( 'fcn_expire_passwords' ) ) {
+    $output['fictioneer_post_password_expiration_date'] = fictioneer_get_metabox_datetime(
+      $post,
+      'fictioneer_post_password_expiration_date',
+      array(
+        'label' => _x( 'Expire Post Password', 'Password expiration meta field label.', 'fictioneer' ),
+        'description' => __( 'Removes the password after the date.', 'fictioneer' ),
+      )
+    );
+  }
 
   // Checkbox: Disable new comments
   if ( in_array( $post->post_type, ['post', 'page', 'fcn_story', 'fcn_chapter'] ) ) {
@@ -3443,7 +3445,9 @@ function fictioneer_save_extra_metabox( $post_id ) {
   }
 
   // Password expiration datetime
-  if ( isset( $_POST['fictioneer_post_password_expiration_date'] ) ) {
+  $can_expire_passwords = current_user_can( 'manage_options' ) || current_user_can( 'fcn_expire_passwords' );
+
+  if ( $can_expire_passwords && isset( $_POST['fictioneer_post_password_expiration_date'] ) ) {
     $expiration_date = $_POST['fictioneer_post_password_expiration_date'];
 
     if ( ! empty( $expiration_date ) ) {

@@ -35,7 +35,8 @@ define(
     'fcn_ignore_fcn_story_passwords',
     'fcn_ignore_fcn_chapter_passwords',
     'fcn_ignore_fcn_collection_passwords',
-    'fcn_unlock_posts'
+    'fcn_unlock_posts',
+    'fcn_expire_passwords'
   )
 );
 
@@ -96,10 +97,11 @@ function fictioneer_initialize_roles( $force = false ) {
   }
 
   // If this capability is missing, the roles need to be updated
-  if ( $administrator && ! in_array( 'fcn_unlock_posts', array_keys( $administrator->capabilities ) ) ) {
+  if ( $administrator && ! in_array( 'fcn_expire_passwords', array_keys( $administrator->capabilities ) ) ) {
     get_role( 'administrator' )->add_cap( 'fcn_custom_page_header' );
     get_role( 'administrator' )->add_cap( 'fcn_custom_epub_upload' );
     get_role( 'administrator' )->add_cap( 'fcn_unlock_posts' );
+    get_role( 'administrator' )->add_cap( 'fcn_expire_passwords' );
 
     if ( $editor = get_role( 'editor' ) ) {
       $editor->add_cap( 'fcn_custom_page_header' );
