@@ -33,11 +33,13 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 * [CSS snippets](INSTALLATION.md#css-snippets)
 * [PHP action & filter snippets](CUSTOMIZE.md)
 
+## Commissions
+
+I do take commissions for customizations and new features, *within reason.* Just write me in Discord and we can figure out what is feasible. But keep in mind that any feature you pay for will be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.
+
 ## Support the Development
 
 Fictioneer (up to 5.17) has been developed by one author, barring [credited](CREDITS.md) code snippets. This was an exhausting effort and is not sustainable, so any help going forward is appreciated. If you are interested, or want to fork your own version, take a look at the [development](DEVELOPMENT.md) guidelines, [action](ACTIONS.md) hooks, and [filter](FILTERS.md) hooks. A theme-related base plugin can be found [here](https://github.com/Tetrakern/fictioneer-base-plugin). You can also join the [Discord](https://discord.gg/tVfDB7EbaP).
-
-**Commissions:** I do take commissions for customizations and new features, *within reason.* Just write me in Discord and we can figure out what is feasible. But keep in mind that any feature you pay for will be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.
 
 ## Screenshots
 
