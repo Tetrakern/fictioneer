@@ -10,7 +10,7 @@ You may want to set up a front page like the demo site or make it a landing page
 
 Under **Settings > Reading**, set **Your homepage displays** to "A static page" and assign your **Homepage** and **Posts page**. Create new pages if you did not already, give them sensible names. For your **Homepage**, choose the "No Title Page" or "Story Page" page template.
 
-The "Story Page" template is for single-story sites and has more shortcode options, plus meta fields for the story ID and header. Alternatively, you can choose the "Story Mirror" template, which will mirror the story post of the specified story ID. If you want to treat your Homepage as singular page and not show the actual story post, you can set a redirect in the story to your base address.
+The "Story Page" template is for single-story sites and has more shortcode options, plus meta fields for the story ID and header. Alternatively, you can choose the "Story Mirror" template, which will mirror the story post of the specified story ID. If you want to treat your Homepage as singular page and not show the actual story post, you can set a redirect in the story to your base address (enable the advanced meta fields in the settings).
 
 For simplicity, here is the copied content of the [demo homepage](https://fictioneer-theme.com/) and [demo story page](https://fictioneer-theme.com/story-page/). Put that into the code editor view and adjust it as needed (the IDs will be obviously different for you). When you switch back to the visual editor, everything should be properly formatted as blocks.
 
