@@ -338,9 +338,13 @@
       justify-content: space-between;
       gap: 0 1.125em;
       background: var(--card-content-li-background);
-      padding: 0.175em 0.35em 0.175em 0;
+      padding: 0.3em 0.35em 0.3em 0;
       border-radius: var(--layout-border-radius-small);
       min-width: 0; // Fix whitespace nowrap issue
+
+      @include bp(desktop) {
+        padding: 0.175em 0.35em 0.175em 0;
+      }
 
       @supports selector(:has(:focus-visible)) {
         a:focus-visible {
@@ -351,7 +355,11 @@
 
     &-link {
       font-family: var(--ff-card-list-link);
-      padding: 4px 0; // Increase link click target
+      padding: 7px 0; // Increase link click target
+
+      @include bp(desktop) {
+        padding: 4px 0; // Increase link click target
+      }
     }
 
     .card__left {
