@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Things are broken and you want them not to be
-title: ''
+title: "[BUG] Your bug report"
 labels: bug
 assignees: ''
 
