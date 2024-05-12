@@ -1411,6 +1411,22 @@ Filters the arguments for the story chapter posts query, an utility function cal
 
 ---
 
+### `apply_filters( 'fictioneer_filter_story_footer_meta', $meta_output, $args, $post )`
+Filters the intermediate output array of story meta data in the `_story-footer.php` partial before it is imploded and rendered. Contains the status, publish date, word count, age rating, and checkmark (if enabled).
+
+**meta_output:**
+* $status (string) – HTML snippet for the status.
+* $date (string) – HTML snippet for the date.
+* $words (string) – HTML snippet for the word count.
+* $rating (string) – HTML snippet for the age rating.
+* $checkmark (string) – HTML snippet for the checkmark.
+
+**Parameters:**
+* $args (array) – Relevant story data: 'story_id' (int) and 'story_data' (array).
+* $post (WP_Post) – The post object of the story.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_identity', $output, $story_id, $story )`
 Filters the intermediate output array in the `_story-header.php` partial before it is imploded and rendered. Contains the HTML for the story title (safe) and author meta nodes (see `fictioneer_get_story_author_nodes()`).
 
