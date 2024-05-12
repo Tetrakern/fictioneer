@@ -552,7 +552,7 @@ You can grant logged-in users access to password-protected content via Patreon m
 
 ## Unlock Posts
 
-You can grant logged-in users access to password-protected content by unlocking specific posts. Just open the admin profile page of the user, search for the posts you want to unlock, add them and save. Chapters inherit the unlock of the story. Roles other than administrators require both the **Edit Users** and **Unlock Posts** capabilities to unlock posts, which can be assigned in the role manager.
+You can grant logged-in users access to password-protected content by unlocking specific posts. Just open the admin profile page of the user, search for the posts you want to unlock, add them and save. Chapters inherit the unlock of the story. Roles other than administrators require both the **Edit Users** and **Unlock Posts** capabilities to assign unlocked posts to users, which can be assigned in the role manager.
 
 **Patreon Gate:** Post unlocks are normally independent of Patreon, but you can gate them behind a global pledge threshold in cents to limit the feature to paying patrons only. This is in addition to any other Patreon gates.
 
