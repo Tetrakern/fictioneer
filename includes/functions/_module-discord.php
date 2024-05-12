@@ -18,6 +18,10 @@ if ( ! function_exists( 'fictioneer_discord_send_message' ) ) {
    */
 
   function fictioneer_discord_send_message( $webhook, $message ) {
+    if ( empty( $message ) ) {
+      return;
+    }
+
     return wp_remote_post(
       $webhook,
       array(
