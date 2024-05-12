@@ -155,6 +155,9 @@ function fictioneer_post_comment_to_discord( $comment_id, $comment_approved ) {
     'inline' => true
   );
 
+  // Filter
+  $message = apply_filters( 'fictioneer_filter_discord_comment_message', $message, $comment, $post, $user );
+
   // Send to Discord
   fictioneer_discord_send_message( get_option( 'fictioneer_discord_channel_comments_webhook' ), $message );
 }
@@ -239,6 +242,9 @@ function fictioneer_post_story_to_discord( $post_id ) {
       'url' => $thumbnail_url
     );
   }
+
+  // Filter
+  $message = apply_filters( 'fictioneer_filter_discord_story_message', $message, $post );
 
   // Send to Discord
   fictioneer_discord_send_message( get_option( 'fictioneer_discord_channel_stories_webhook' ), $message );
@@ -343,6 +349,9 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
       'url' => $thumbnail_url
     );
   }
+
+  // Filter
+  $message = apply_filters( 'fictioneer_filter_discord_chapter_message', $message, $post, $story_id );
 
   // Send to Discord
   fictioneer_discord_send_message( get_option( 'fictioneer_discord_channel_chapters_webhook' ), $message );
