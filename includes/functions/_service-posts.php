@@ -378,7 +378,7 @@ function fictioneer_expire_post_password( $required, $post ) {
   // Static variable cache
   static $cache = [];
 
-  $cache_key = $post->ID . '_' . (int) $required;
+  $cache_key = $post->ID . '_' . get_current_user_id() . '_' . (int) $required;
 
   if ( isset( $cache[ $cache_key ] ) ) {
     return $cache[ $cache_key ];
@@ -405,4 +405,4 @@ function fictioneer_expire_post_password( $required, $post ) {
   // Continue filter
   return $required;
 }
-add_filter( 'post_password_required', 'fictioneer_expire_post_password', 11, 2 );
+add_filter( 'post_password_required', 'fictioneer_expire_post_password', 5, 2 );

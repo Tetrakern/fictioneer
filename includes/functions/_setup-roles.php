@@ -456,11 +456,16 @@ function fictioneer_bypass_password( $required, $post ) {
   // Static variable cache
   static $cache = [];
 
-  $cache_key = $post->ID . '_' . (int) $required;
+  $cache_key = $post->ID . '_' . get_current_user_id() . '_' . (int) $required;
 
   if ( isset( $cache[ $cache_key ] ) ) {
     return $cache[ $cache_key ];
   }
+
+  // Default (make sure the cookie is set up properly)
+  remove_filter( 'post_password_required', 'fictioneer_bypass_password' );
+  $required = post_password_required( $post );
+  add_filter( 'post_password_required', 'fictioneer_bypass_password', 10, 2 );
 
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
