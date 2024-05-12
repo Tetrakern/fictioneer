@@ -148,6 +148,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
 
+          if ( $args['simple'] ) {
+            $card_classes[] = '_no-footer';
+          }
+
           if ( $args['vertical'] ) {
             $card_classes[] = '_vertical';
           }

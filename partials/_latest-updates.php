@@ -149,6 +149,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_password';
           }
 
+          if ( $args['simple'] ) {
+            $card_classes[] = '_no-footer';
+          }
+
           if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
             $card_classes[] = '_' . get_theme_mod( 'card_style' );
           }
