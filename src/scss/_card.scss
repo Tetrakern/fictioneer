@@ -18,9 +18,9 @@
 }
 
 .card {
-  list-style: none;
   --layout-link-color-hover: var(--card-link-color-hover, var(--fg-300));
   --this-padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
+  list-style: none;
   position: relative;
   border-radius: var(--layout-border-radius-small);
   max-width: calc(100vw - 20px);
@@ -124,7 +124,9 @@
     justify-content: space-between;
     background-color: var(--card-bg-color);
     font-family: var(--ff-card-body);
-    padding: var(--this-padding);
+    padding-top: var(--this-padding);
+    padding-bottom: var(--this-padding);
+    // padding: var(--this-padding);
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
@@ -136,6 +138,8 @@
     align-items: center;
     gap: .5em;
     font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
+    margin-left: var(--this-padding);
+    margin-right: var(--this-padding);
     margin-bottom: 0.75em; // Based on font-size
   }
 
@@ -434,12 +438,15 @@
   }
 
   &__footer {
+    grid-area: foot;
     display: flex;
     gap: 3px;
     color: var(--card-footer-color, var(--fg-700));
     font-size: var(--card-footer-font-size, clamp(12px, 2.75cqw, 13px));
     line-height: 1;
     margin-top: var(--card-footer-margin-top, 1em);
+    margin-left: var(--this-padding);
+    margin-right: var(--this-padding);
 
     &-box {
       background-color: var(--card-footer-bg-color);
@@ -527,6 +534,30 @@
     }
   }
 
+  :where(.cell-title, .cell-footer) {
+    // margin-top: var(--this-padding);
+    margin-left: var(--this-padding);
+    margin-right: var(--this-padding);
+  }
+
+  :where(.cell-meta, .cell-desc, .cell-list, .cell-tax) {
+    margin-left: var(--this-padding);
+    margin-right: var(--this-padding);
+  }
+
+  // :where(.cell-desc, .cell-list, .cell-tax):last-child {
+  //   margin-bottom: var(--this-padding);
+  // }
+
+  .cell-img {
+    // margin-top: var(--this-padding);
+    margin-left: var(--this-padding);
+  }
+
+  .cell-footer {
+    // margin-bottom: var(--this-padding);
+  }
+
   &._story-unpublished {
     &::before {
       content: attr(data-unavailable);
@@ -607,7 +638,7 @@
     .cell-img {
       grid-area: img;
       // Easy to hide in .minimal compared to column-gap!
-      margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
+      // margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
       width: calc(var(--card-cover-width, 60px) * var(--card-cover-width-mod, 1));
 
       @container (min-width: 450px) {
@@ -637,7 +668,7 @@
     }
 
     .cell-tax {
-      grid-area: tax;
+      grid-area: foot;
       margin-top: var(--card-tags-margin-top, 1em);
     }
   }
@@ -647,13 +678,13 @@
     grid-template-areas:
       'img desc'
       'list list'
-      'tax tax';
+      'foot foot';
 
     @container (min-width: 560px) {
       grid-template-areas:
         'img desc'
         'img list'
-        'tax tax';
+        'foot foot';
     }
 
     .cell-img {
@@ -678,21 +709,21 @@
       'img meta'
       'img desc'
       'img list'
-      'tax tax';
+      'foot foot';
 
     .cell-title {
       font-size: var(--card-title-font-size, clamp(15px, 3.065cqw, 18px));
-      margin: var(--small-card-title-margin, 0 0 .4em);
+      margin-bottom: var(--small-card-title-margin-bottom, .4em);
     }
   }
 
   ._small {
     .cell-title {
-      margin: var(--small-card-title-margin, 0 0 .5em);
+      margin-bottom: var(--small-card-title-margin-bottom, .5em);
     }
 
     .cell-meta {
-      margin: var(--small-card-meta-margin, 0 0 .4em);
+      margin-bottom: var(--small-card-meta-margin-bottom, .4em);
     }
 
     .cell-list {
@@ -965,3 +996,23 @@
     opacity: var(--bookmark-progress-opacity);
   }
 }
+
+// .card._small:not(._vertical) {
+//   .card__image {
+//     margin-top: calc(-1 * var(--this-padding)) !important;
+//     margin-bottom: calc(-1 * var(--this-padding)) !important;
+//     margin-left: calc(-1 * var(--this-padding)) !important;
+//     border-top-right-radius: 0 !important;
+//     border-bottom-right-radius: 0 !important;
+//     width: calc((var(--card-cover-width, 60px) + var(--this-padding)) * var(--card-cover-width-mod, 1)) !important;
+//   }
+
+//   ._grid._small {
+//     grid-template-areas:
+//       "img title"
+//       "img meta"
+//       "img desc"
+//       "img list"
+//       "img foot";
+//   }
+// }
