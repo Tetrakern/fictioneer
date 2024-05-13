@@ -187,7 +187,7 @@ $pag_args = array(
                   }
                 ?>
 
-                <h3 class="card__title _article _small"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
+                <h3 class="card__title cell-title _article _small"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
 
                 <?php if ( post_password_required() ) : ?>
                   <div class="card__content _small _article cell-desc truncate _5-5"><span><?php echo $obfuscation; ?></span></div>
@@ -195,79 +195,79 @@ $pag_args = array(
                   <div class="card__content _small _article cell-desc truncate _5-5"><span><?php the_excerpt(); ?></span></div>
                 <?php endif; ?>
 
-              </div>
+                <?php if ( $categories || $tags || $genres || $fandoms || $characters ) : ?>
+                  <div class="card__tag-list cell-tax _small _scrolling">
+                    <div class="card__h-scroll">
+                      <?php
+                        $output = [];
 
-              <?php if ( $categories || $tags || $genres || $fandoms || $characters ) : ?>
-                <div class="card__tag-list _small _scrolling cell-tax">
-                  <div class="card__h-scroll">
-                    <?php
-                      $output = [];
-
-                      if ( $categories ) {
-                        foreach ( $categories as $cat ) {
-                          $output[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
+                        if ( $categories ) {
+                          foreach ( $categories as $cat ) {
+                            $output[] = '<a href="' . get_category_link( $cat ) . '" class="tag-pill _inline _category">' . get_category( $cat )->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $fandoms ) {
-                        foreach ( $fandoms as $fandom ) {
-                          $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                        if ( $fandoms ) {
+                          foreach ( $fandoms as $fandom ) {
+                            $output[] = '<a href="' . get_tag_link( $fandom ) . '" class="tag-pill _inline _fandom">' . $fandom->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $genres ) {
-                        foreach ( $genres as $genre ) {
-                          $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                        if ( $genres ) {
+                          foreach ( $genres as $genre ) {
+                            $output[] = '<a href="' . get_tag_link( $genre ) . '" class="tag-pill _inline _genre">' . $genre->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $tags ) {
-                        foreach ( $tags as $tag ) {
-                          $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                        if ( $tags ) {
+                          foreach ( $tags as $tag ) {
+                            $output[] = '<a href="' . get_tag_link( $tag ) . '" class="tag-pill _inline">' . $tag->name . '</a>';
+                          }
                         }
-                      }
 
-                      if ( $characters ) {
-                        foreach ( $characters as $character ) {
-                          $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                        if ( $characters ) {
+                          foreach ( $characters as $character ) {
+                            $output[] = '<a href="' . get_tag_link( $character ) . '" class="tag-pill _inline _character">' . $character->name . '</a>';
+                          }
                         }
-                      }
 
-                      // Implode with three-per-em spaces around a bullet
-                      echo implode( '&#8196;&bull;&#8196;', $output );
-                    ?>
+                        // Implode with three-per-em spaces around a bullet
+                        echo implode( '&#8196;&bull;&#8196;', $output );
+                      ?>
+                    </div>
                   </div>
+                <?php endif; ?>
+
+                <div class="card__footer cell-footer _article _small">
+                  <div class="card__footer-box text-overflow-ellipsis"><?php
+                    // Build footer items
+                    $footer_items = [];
+
+                    if ( get_option( 'fictioneer_show_authors' ) ) {
+                      $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
+                        fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
+                    }
+
+                    if ( $args['orderby'] == 'modified' ) {
+                      $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
+                        esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
+                        get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post );
+                    } else {
+                      $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+                        esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE );
+                    }
+
+                    $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
+                      esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
+
+                    // Filter footer items
+                    $footer_items = apply_filters( 'fictioneer_filter_article_card_footer', $footer_items, $post );
+
+                    // Implode and render footer items
+                    echo implode( ' ', $footer_items );
+                  ?></div>
                 </div>
-              <?php endif; ?>
 
-              <div class="card__footer _article _small">
-                <div class="card__footer-box text-overflow-ellipsis"><?php
-                  // Build footer items
-                  $footer_items = [];
-
-                  if ( get_option( 'fictioneer_show_authors' ) ) {
-                    $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
-                      fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
-                  }
-
-                  if ( $args['orderby'] == 'modified' ) {
-                    $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-                      esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
-                      get_the_modified_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE, $post );
-                  } else {
-                    $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-                      esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_ARTICLE_FOOTER_DATE );
-                  }
-
-                  $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-                    esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
-
-                  // Filter footer items
-                  $footer_items = apply_filters( 'fictioneer_filter_article_card_footer', $footer_items, $post );
-
-                  // Implode and render footer items
-                  echo implode( ' ', $footer_items );
-                ?></div>
               </div>
 
             </article>

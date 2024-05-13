@@ -2,24 +2,20 @@
 @import '../common/_mixins';
 
 :root, :root[data-theme=base] {
-  --card-footer-color: var(--fg-700);
-  --card-footer-icon-color: var(--fg-900);
   --card-footer-rating-color: var(--fg-900);
 }
 
-:root[data-mode=light] {
-  --card-footer-color: var(--fg-700);
-  --card-footer-icon-color: var(--fg-800);
-}
-
 .card._combined {
-  .card__footer._article .card__footer-box,
-  .card__body > .card__footer .card__footer-box:is(._left, :last-child) {
-    padding: calc(var(--this-padding) * 0.5) var(--this-padding) var(--this-padding);
-    border: none !important;
+  .card__main > .card__footer .card__footer-box {
+    padding: calc(var(--this-padding) * 0.75) var(--this-padding) var(--this-padding);
   }
 
   .rating-letter-label {
     font-weight: 700;
+  }
+
+  .card__main > .card__footer,
+  .card__footer-box._right {
+    border: none !important;
   }
 }

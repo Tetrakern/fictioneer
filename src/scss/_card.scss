@@ -124,9 +124,6 @@
     justify-content: space-between;
     background-color: var(--card-bg-color);
     font-family: var(--ff-card-body);
-    padding-top: var(--this-padding);
-    padding-bottom: var(--this-padding);
-    // padding: var(--this-padding);
     border-radius: var(--layout-border-radius-small);
     height: 100%; // Fill to align with siblings
     transition: filter var(--transition-duration);
@@ -153,7 +150,7 @@
 
     &._article {
       flex: 0 0 auto;
-      margin: var(--article-card-title-margin, 0 0 .5em);
+      margin-bottom: var(--article-card-title-margin-bottom, .5em);
     }
 
     a {
@@ -249,6 +246,7 @@
   &__image {
     --focus-offset: 2px;
     position: relative;
+    display: block;
     background: var(--card-image-placeholder, var(--placeholder-background));
     border-radius: var(--layout-border-radius-small);
     overflow: hidden;
@@ -289,18 +287,41 @@
   &__main {
     flex: 1 1 auto;
 
+    :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer) {
+      margin-left: var(--this-padding);
+      margin-right: var(--this-padding);
+    }
+
+    .cell-title {
+      margin-top: var(--this-padding);
+    }
+
+    .cell-img {
+      margin-top: var(--this-padding);
+      margin-left: var(--this-padding);
+    }
+
+    .cell-footer {
+      margin-bottom: var(--this-padding);
+    }
+
     &._relative-z1 {
       position: relative;
       z-index: 1;
     }
 
-    &:is(._article, ._vertical) {
-      display: flex;
+    &:where(._article, ._vertical) {
+      display: flex; // Overrides grid
       flex-direction: column;
-    }
 
-    &._vertical .cell-desc {
-      flex: 1 1 auto;
+      .cell-desc {
+        flex: 1 1 auto; // Fill out empty space
+      }
+
+      .cell-img {
+        margin-right: var(--this-padding);
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -404,8 +425,11 @@
     &._scrolling {
       --card-tags-margin-top: 0;
       position: relative;
-      margin-bottom: calc(-1 * var(--card-footer-margin-top, 1em)); // Offset inner wrapper padding + extra for baseline
       max-width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: calc(-1 * var(--card-footer-margin-top, 1em)); // Offset inner wrapper padding + extra for baseline
+      }
 
       &::after {
         content: '';
@@ -445,8 +469,6 @@
     font-size: var(--card-footer-font-size, clamp(12px, 2.75cqw, 13px));
     line-height: 1;
     margin-top: var(--card-footer-margin-top, 1em);
-    margin-left: var(--this-padding);
-    margin-right: var(--this-padding);
 
     &-box {
       background-color: var(--card-footer-bg-color);
@@ -534,30 +556,6 @@
     }
   }
 
-  :where(.cell-title, .cell-footer) {
-    // margin-top: var(--this-padding);
-    margin-left: var(--this-padding);
-    margin-right: var(--this-padding);
-  }
-
-  :where(.cell-meta, .cell-desc, .cell-list, .cell-tax) {
-    margin-left: var(--this-padding);
-    margin-right: var(--this-padding);
-  }
-
-  // :where(.cell-desc, .cell-list, .cell-tax):last-child {
-  //   margin-bottom: var(--this-padding);
-  // }
-
-  .cell-img {
-    // margin-top: var(--this-padding);
-    margin-left: var(--this-padding);
-  }
-
-  .cell-footer {
-    // margin-bottom: var(--this-padding);
-  }
-
   &._story-unpublished {
     &::before {
       content: attr(data-unavailable);
@@ -590,21 +588,29 @@
     padding-right: 1.75em;
   }
 
+  &._no-footer .card__main {
+    :where(.cell-img, :where(.cell-desc, .cell-list):last-child) {
+      margin-bottom: var(--this-padding);
+    }
+  }
+
+  &._recommendation:not(._compact) {
+    .cell-img {
+      margin-bottom: 0;
+    }
+  }
+
   &._vertical {
     .cell-img {
       display: block;
       aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
-      margin-bottom: min(var(--small-card-image-margin-bottom, 3.25cqw), 16px);
+      margin-right: var(--this-padding);
 
       img {
         aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
         position: static;
         height: auto;
       }
-    }
-
-    &:not(._seamless) .card__info-toggle {
-      padding: calc(1.625 * var(--this-padding));
     }
 
     .card__info-toggle {
@@ -619,10 +625,7 @@
 
   &._seamless {
     .cell-img {
-      --negative-margin: calc(-1 * var(--this-padding));
-      margin-top: var(--negative-margin);
-      margin-left: var(--negative-margin);
-      margin-right: var(--negative-margin);
+      margin: 0;
     }
 
     :is(.cell-img, .wp-post-image) {
@@ -638,7 +641,6 @@
     .cell-img {
       grid-area: img;
       // Easy to hide in .minimal compared to column-gap!
-      // margin: var(--card-cover-margin, 0 clamp(0.75rem, 3.25cqw, 1.25rem) 0 0);
       width: calc(var(--card-cover-width, 60px) * var(--card-cover-width-mod, 1));
 
       @container (min-width: 450px) {
@@ -668,7 +670,7 @@
     }
 
     .cell-tax {
-      grid-area: foot;
+      grid-area: tax;
       margin-top: var(--card-tags-margin-top, 1em);
     }
   }
@@ -678,12 +680,14 @@
     grid-template-areas:
       'img desc'
       'list list'
+      'tax tax'
       'foot foot';
 
     @container (min-width: 560px) {
       grid-template-areas:
         'img desc'
         'img list'
+        'tax tax'
         'foot foot';
     }
 
@@ -709,6 +713,7 @@
       'img meta'
       'img desc'
       'img list'
+      'tax tax'
       'foot foot';
 
     .cell-title {
