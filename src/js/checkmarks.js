@@ -309,6 +309,6 @@ function fcn_updateCheckmarksView() {
         checkmarks.data[cardStoryId].includes(cardStoryId)
       );
 
-    card.classList.toggle('has-checkmark', force);
+    card.classList.toggle('has-checkmark', force == true); // Must be boolean, not undefined!
   });
 }

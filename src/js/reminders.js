@@ -103,7 +103,7 @@ function fcn_toggleReminder(storyId) {
       'action': 'fictioneer_ajax_toggle_reminder',
       'fcn_fast_ajax': 1,
       'story_id': storyId,
-      'set': fcn_reminders.data[storyId] ? true : false // This must be this verbose!
+      'set': fcn_reminders.data[storyId] ? true : false // Must be boolean, not undefined!
     })
     .then(response => {
       if (response.data.error) {
@@ -142,7 +142,7 @@ function fcn_updateRemindersView() {
   _$$('.button-read-later').forEach(element => {
     element.classList.toggle(
       '_remembered',
-      fcn_reminders.data[element.dataset.storyId] ? true : false
+      fcn_reminders.data[element.dataset.storyId] ? true : false // Must be boolean, not undefined!
     );
   });
 
@@ -150,7 +150,7 @@ function fcn_updateRemindersView() {
   _$$('.card').forEach(element => {
     element.classList.toggle(
       'has-reminder',
-      fcn_reminders.data[element.dataset.storyId] ? true : false
+      fcn_reminders.data[element.dataset.storyId] ? true : false // Must be boolean, not undefined!
     );
   });
 }
