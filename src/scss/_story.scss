@@ -182,7 +182,6 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
       max-height: var(--this-img-height);
       object-fit: cover;
       box-shadow: var(--story-cover-box-shadow, var(--box-shadow-xl));
-      content-visibility: auto;
     }
   }
 

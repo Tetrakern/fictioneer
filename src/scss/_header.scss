@@ -15,7 +15,6 @@
     top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
-    content-visibility: auto;
   }
 
   :is(.custom-logo-link, .custom-logo) {
@@ -34,7 +33,6 @@
     top: 40%;
     padding: 16px var(--layout-spacing-horizontal);
     transform: translateY(-50%);
-    content-visibility: auto;
 
     &:not(._no-text-shadow) {
       text-shadow: var(--site-title-text-shadow);
@@ -68,7 +66,6 @@
   width: 100%;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  content-visibility: auto;
   contain: content; // Improve performance
 
   &._shadow {

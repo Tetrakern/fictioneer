@@ -665,7 +665,6 @@ html:not(.logged-in) body:not(.logged-in) {
         color: var(--fg-600);
         font-size: var(--fs-s);
         text-align: center;
-        content-visibility: auto;
 
         &._text {
           height: auto;
