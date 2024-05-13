@@ -71,7 +71,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="recommendation-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _recommendation <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="recommendation-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _recommendation _large _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__header _large">
@@ -100,7 +100,8 @@ $thumbnail_args = array(
 
         // Content
         printf(
-          '<div class="card__content cell-desc"><div class="truncate _4-4"><span class="card__by-author">%1$s</span> <span>%2$s</span></div></div>',
+          '<div class="card__content cell-desc"><div class="truncate %s"><span class="card__by-author">%s</span> <span>%s</span></div></div>',
+          count( $links ) > 3 ? '_3-4' : '_4-4',
           sprintf(
             _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
             get_post_meta( $post->ID, 'fictioneer_recommendation_author', true )

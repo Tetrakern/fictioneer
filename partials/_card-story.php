@@ -118,7 +118,7 @@ $thumbnail_args = array(
         // Content
         printf(
           '<div class="card__content cell-desc"><div class="truncate %1$s">%2$s<span>%3$s</span></div></div>',
-          '_4-4',
+          $chapter_count > 2 ? '_3-4' : '_4-4',
           $hide_author ? '' : sprintf(
             '<span class="card__by-author cq-show-below-640">%s</span> ',
             sprintf(
@@ -204,51 +204,51 @@ $thumbnail_args = array(
         </div>
       <?php endif; ?>
 
-    </div>
+      <div class="card__footer cell-footer">
 
-    <div class="card__footer">
+        <div class="card__footer-box _left text-overflow-ellipsis"><?php
+          // Build footer items
+          $footer_items = [];
 
-      <div class="card__footer-box _left text-overflow-ellipsis"><?php
-        // Build footer items
-        $footer_items = [];
+          if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
+            $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
+              esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
+          }
 
-        if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
-          $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
-            esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
-        }
+          $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+            esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
 
-        $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-          esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+          if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
+            $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+              esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_STORY_FOOTER_DATE );
+          } else {
+            $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
+              esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE );
+          }
 
-        if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-            esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_STORY_FOOTER_DATE );
-        } else {
-          $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-            esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_STORY_FOOTER_DATE );
-        }
+          if ( ! $hide_author ) {
+            $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
+              fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
+          }
 
-        if ( ! $hide_author ) {
-          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
-            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
-        }
+          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message cq-hide-below-460" title="' .
+            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="cq-hide-below-460" title="' .
+            esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span>';
 
-        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message cq-hide-below-460" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> <span class="cq-hide-below-460" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '">' . $story['comment_count'] . '</span>';
+          $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] );
 
-        $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] );
+          // Filter footer items
+          $footer_items = apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args );
 
-        // Filter footer items
-        $footer_items = apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args );
+          // Implode and render footer items
+          echo implode( ' ', $footer_items );
+        ?></div>
 
-        // Implode and render footer items
-        echo implode( ' ', $footer_items );
-      ?></div>
+        <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
+          <span class="cq-hide-below-460"><?php echo fcntr( $story['rating'] ); ?></span>
+          <span class="cq-show-below-460"><?php echo fcntr( $story['rating_letter'] ); ?></span>
+        </div>
 
-      <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $story['rating'], true ); ?>">
-        <span class="cq-hide-below-460"><?php echo fcntr( $story['rating'] ); ?></span>
-        <span class="cq-show-below-460"><?php echo fcntr( $story['rating_letter'] ); ?></span>
       </div>
 
     </div>

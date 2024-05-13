@@ -72,33 +72,33 @@ $thumbnail_args = array(
 
       <div class="card__content cell-desc"><div class="truncate _4-4"><span><?php the_excerpt(); ?></span></div></div>
 
-    </div>
+      <div class="card__footer cell-footer">
 
-    <div class="card__footer">
+        <div class="card__footer-box text-overflow-ellipsis"><?php
+          // Build footer items
+          $footer_items = [];
 
-      <div class="card__footer-box text-overflow-ellipsis"><?php
-        // Build footer items
-        $footer_items = [];
+          if ( get_option( 'fictioneer_show_authors' ) ) {
+            $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
+              fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
+          }
 
-        if ( get_option( 'fictioneer_show_authors' ) ) {
-          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
-            fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
-        }
+          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+            esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_PAGE_FOOTER_DATE );
 
-        $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-          esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_PAGE_FOOTER_DATE );
+          if ( $comments_number > 0 ) {
+            $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
+              esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comments_number;
+          }
 
-        if ( $comments_number > 0 ) {
-          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $comments_number;
-        }
+          // Filter footer items
+          $footer_items = apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args );
 
-        // Filter footer items
-        $footer_items = apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args );
+          // Implode and render footer items
+          echo implode( ' ', $footer_items );
+        ?></div>
 
-        // Implode and render footer items
-        echo implode( ' ', $footer_items );
-      ?></div>
+      </div>
 
     </div>
 

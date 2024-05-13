@@ -187,41 +187,41 @@ $thumbnail_args = array(
         </div>
       <?php endif; ?>
 
-    </div>
+      <div class="card__footer cell-footer">
+        <div class="card__footer-box text-overflow-ellipsis"><?php
+          // Build footer items
+          $footer_items = [];
 
-    <div class="card__footer">
-      <div class="card__footer-box text-overflow-ellipsis"><?php
-        // Build footer items
-        $footer_items = [];
+          $footer_items['stories'] = '<i class="card-footer-icon fa-solid fa-book" title="' .
+            esc_attr__( 'Stories', 'fictioneer' ) . '"></i> ' . $statistics['story_count'];
 
-        $footer_items['stories'] = '<i class="card-footer-icon fa-solid fa-book" title="' .
-          esc_attr__( 'Stories', 'fictioneer' ) . '"></i> ' . $statistics['story_count'];
+          $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
+            esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $statistics['chapter_count'];
 
-        $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
-          esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $statistics['chapter_count'];
+          $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+            esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $statistics['word_count'] );
 
-        $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-          esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $statistics['word_count'] );
+          if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
+            $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+              esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' .
+              get_the_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
+          } else {
+            $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
+              esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' .
+              get_the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
+          }
 
-        if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-            esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' .
-            get_the_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
-        } else {
-          $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-            esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' .
-            get_the_modified_date( FICTIONEER_CARD_COLLECTION_FOOTER_DATE );
-        }
+          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
+            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $statistics['comment_count'];
 
-        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . $statistics['comment_count'];
+          // Filter footer items
+          $footer_items = apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items );
 
-        // Filter footer items
-        $footer_items = apply_filters( 'fictioneer_filter_collection_card_footer', $footer_items, $post, $args, $items );
+          // Implode and render footer items
+          echo implode( ' ', $footer_items );
+        ?></div>
+      </div>
 
-        // Implode and render footer items
-        echo implode( ' ', $footer_items );
-      ?></div>
     </div>
 
   </div>

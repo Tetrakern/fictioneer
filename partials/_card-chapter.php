@@ -221,47 +221,47 @@ $thumbnail_args = array(
         </div>
       <?php endif; ?>
 
-    </div>
+      <div class="card__footer cell-footer">
 
-    <div class="card__footer">
+        <div class="card__footer-box _left text-overflow-ellipsis"><?php
+          // Build footer items
+          $footer_items = [];
 
-      <div class="card__footer-box _left text-overflow-ellipsis"><?php
-        // Build footer items
-        $footer_items = [];
+          $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+            esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
+            fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) );
 
-        $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-          esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-          fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) );
+          if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
+            $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
+              esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
+          } else {
+            $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
+              esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
+          }
 
-        if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-            esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
-        } else {
-          $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-            esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
-        }
+          if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) {
+            $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
+              fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
+          }
 
-        if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) {
-          $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
-            fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
-        }
+          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
+            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
 
-        $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-          esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
+          // Filter footer items
+          $footer_items = apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story_data, $args );
 
-        // Filter footer items
-        $footer_items = apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story_data, $args );
+          // Implode and render footer items
+          echo implode( ' ', $footer_items );
+        ?></div>
 
-        // Implode and render footer items
-        echo implode( ' ', $footer_items );
-      ?></div>
+        <?php if ( ! empty( $chapter_rating ) ) : ?>
+          <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
+            <span class="cq-hide-below-460"><?php echo fcntr( $chapter_rating ); ?></span>
+            <span class="cq-show-below-460"><?php echo fcntr( $chapter_rating[0] ); ?></span>
+          </div>
+        <?php endif; ?>
 
-      <?php if ( ! empty( $chapter_rating ) ) : ?>
-        <div class="card__footer-box _right rating-letter-label _large tooltipped" data-tooltip="<?php echo fcntr( $chapter_rating, true ); ?>">
-          <span class="cq-hide-below-460"><?php echo fcntr( $chapter_rating ); ?></span>
-          <span class="cq-show-below-460"><?php echo fcntr( $chapter_rating[0] ); ?></span>
-        </div>
-      <?php endif; ?>
+      </div>
 
     </div>
 
