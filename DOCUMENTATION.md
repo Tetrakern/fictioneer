@@ -416,6 +416,7 @@ These fields and options are available in most post types, which does not mean t
 | Custom Page CSS | Text | Inject custom styles into the page (not passed down to chapters).
 | Patreon Tiers | List | Patreon tiers that ignore the password protection (if set up).
 | Patreon Amount Cents | Number | Patreon pledge threshold to ignore the password protection (if set up).
+| Expire Post Password | Date | Choose a date and time to automatically remove the post password.
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
 
 ### SEO & Meta Tags
@@ -548,11 +549,15 @@ The custom HTML block is the best way to add special elements to the content, su
 
 You can grant logged-in users access to password-protected content via Patreon membership, either by selected tiers or pledge thresholds or both. See [installation guide](INSTALLATION.md#patreon-integration) for more details. Prices are stored in **cents** (¢100 to $1), independent of your campaign currency. You still need to set a password for the post and stories **do not** pass down gates to chapters due to technical reasons.
 
+**Caching:** If you use a cache plugin, make sure that password-protected posts are not cached or this might not work properly. The LiteSpeed Cache plugin should be fine, but anything else might need additional configuration.
+
 **Free Tier:** If you want to gate content behind the free tier (only following, not paying), you can just add the tier alongside the others. If that is too inconvenient because you got too many tiers, you can use the pledge threshold to include any tier equal to or above a certain amount in cents (e.g. 300 for $3.00), either globally or post by post.
 
 ## Unlock Posts
 
-You can grant logged-in users access to password-protected content by unlocking specific posts. Just open the admin profile page of the user, search for the posts you want to unlock, add them and save. Chapters inherit the unlock of the story. Roles other than administrators require both the **Edit Users** and **Unlock Posts** capabilities to unlock posts, which can be assigned in the role manager.
+You can grant logged-in users access to password-protected content by unlocking specific posts. Just open the admin profile page of the user, search for the posts you want to unlock, add them and save. Chapters inherit the unlock of the story. Roles other than administrators require both the **Edit Users** and **Unlock Posts** capabilities to assign unlocked posts to users, which can be assigned in the role manager.
+
+**Caching:** If you use a cache plugin, make sure that password-protected posts are not cached or this might not work properly. The LiteSpeed Cache plugin should be fine, but anything else might need additional configuration.
 
 **Patreon Gate:** Post unlocks are normally independent of Patreon, but you can gate them behind a global pledge threshold in cents to limit the feature to paying patrons only. This is in addition to any other Patreon gates.
 

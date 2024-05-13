@@ -466,6 +466,36 @@ Refer to `/includes/functions/_customizer.php` to see all snippets.
 
 ---
 
+### `apply_filters( 'fictioneer_filter_discord_chapter_message', $message, $post, $story_id )`
+Filters the chapter message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
+
+**Parameters:**
+* $message (array) – The message and fields posted to the Discord webhook.
+* $post (WP_Post) – The new chapter being published.
+* $story_id (int|null) – The ID of the associated story if set. Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_discord_comment_message', $message, $comment, $post, $user )`
+Filters the comment message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
+
+**Parameters:**
+* $message (array) – The message and fields posted to the Discord webhook.
+* $comment (WP_Comment) – The comment that triggered the webhook.
+* $post (WP_Post) – The post the comment is for.
+* $user (WP_User) – The user of the comment (invalid if a guest).
+
+---
+
+### `apply_filters( 'fictioneer_filter_discord_story_message', $message, $post )`
+Filters the story message array passed to `fictioneer_discord_send_message()` in `_module-discord.php` before it is encoded as JSON. Allows you to customize the webhook message. If made falsy, the message will not be sent.
+
+**Parameters:**
+* $message (array) – The message and fields posted to the Discord webhook.
+* $post (WP_Post) – The new story being published.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed )`
 Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, false, []) instead of being deleted when updated via theme functions. Applies to post, comment, and user meta fields. This does not affect the core update functions. See `fictioneer_update_user_meta(…)`, `fictioneer_update_comment_meta(…)`, and `fictioneer_update_post_meta(…)`.
 
