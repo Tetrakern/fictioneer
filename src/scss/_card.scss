@@ -135,9 +135,7 @@
     align-items: center;
     gap: .5em;
     font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
-    margin-left: var(--this-padding);
-    margin-right: var(--this-padding);
-    margin-bottom: 0.75em; // Based on font-size
+    margin: var(--this-padding) var(--this-padding) .75em var(--this-padding); // Based on font-size
   }
 
   &__title {
@@ -346,14 +344,15 @@
     &._hidden-result {
       font-weight: var(--font-weight-strong);
       text-align: center;
-      opacity: 0.25;
+      margin: var(--this-padding);
+      opacity: .25;
     }
   }
 
   &__by-author {
     color: var(--fg-600);
     font-style: italic;
-    letter-spacing: 0.03em;
+    letter-spacing: .03em;
   }
 
   &__link-list {
@@ -433,7 +432,8 @@
       max-width: 100%;
 
       &:not(:last-child) {
-        margin-bottom: calc(-1 * var(--card-footer-margin-top, 1em)); // Offset inner wrapper padding + extra for baseline
+        // Offset inner wrapper padding + extra for baseline
+        margin-bottom: calc(-1 * var(--card-footer-margin-top, var(--this-padding)));
       }
 
       &::after {
@@ -471,9 +471,9 @@
     display: flex;
     gap: 3px;
     color: var(--card-footer-color, var(--fg-700));
-    font-size: var(--card-footer-font-size, clamp(12px, 2.75cqw, 13px));
+    font-size: var(--card-footer-font-size, clamp(11.5px, 3cqw, 13px));
     line-height: 1;
-    margin-top: var(--card-footer-margin-top, 1em);
+    margin-top: var(--card-footer-margin-top, var(--this-padding));
 
     &-box {
       background-color: var(--card-footer-bg-color);
@@ -599,6 +599,10 @@
     }
   }
 
+  &._large._recommendation .card__main {
+    padding-bottom: var(--this-padding);
+  }
+
   &._recommendation:not(._compact) {
     .cell-img {
       margin-bottom: 0;
@@ -698,6 +702,8 @@
     }
 
     .cell-img {
+      margin-top: 0;
+
       @container (min-width: 450px) {
         --card-cover-width: 60px;
       }
