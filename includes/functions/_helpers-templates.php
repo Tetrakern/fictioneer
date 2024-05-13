@@ -1766,7 +1766,7 @@ if ( ! function_exists( 'fictioneer_get_card_controls' ) ) {
     if ( count( $menu ) > 0 ) {
       $menu_html = sprintf(
         '<i class="fa-solid fa-ellipsis-vertical card__popup-menu-toggle" tabindex="0"></i>' .
-        '<div class="popup-menu _bottom">%s</div>',
+        '<div class="popup-menu _fixed-position _bottom">%s</div>',
         implode( '', $menu )
       );
     }
