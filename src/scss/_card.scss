@@ -573,7 +573,7 @@
       color: var(--card-unavailable-color, var(--bg-400));
       font: 700 max(2.5rem, 8cqw)/1 var(--ff-heading);
       text-transform: uppercase;
-      padding-bottom: 2rem;
+      padding-bottom: 1rem; // Lift up text so it does not appear to "fall down"
       border-radius: var(--layout-border-radius-small);
       opacity: .9;
     }
