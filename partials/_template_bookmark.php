@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) OR exit;
 ?>
 
 <template class="bookmark-small-card-template">
-  <li class="card _small bookmark-card" data-color>
+  <li class="card _small bookmark-card _no-footer" data-color>
     <div class="card__body polygon">
       <div class="bookmark-card__progress"></div>
       <div class="card__main _grid _small _relative-z1">

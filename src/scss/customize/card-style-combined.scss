@@ -10,12 +10,12 @@
     padding: calc(var(--this-padding) * 0.75) var(--this-padding) var(--this-padding);
   }
 
-  .rating-letter-label {
+  .card__main > .card__footer .rating-letter-label {
     font-weight: 700;
   }
 
   .card__main > .card__footer,
-  .card__footer-box._right {
+  .card__main > .card__footer .card__footer-box._right {
     border: none !important;
   }
 }

@@ -196,6 +196,11 @@
     }
   }
 
+  &._vertical:not(._seamless) .card__info-toggle {
+    padding-top: calc(2 * var(--this-padding));
+    padding-right: calc(2 * var(--this-padding));
+  }
+
   &__label {
     cursor: default;
     background: var(--card-label-background);
@@ -605,6 +610,7 @@
       display: block;
       aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
       margin-right: var(--this-padding);
+      margin-bottom: 0;
 
       img {
         aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
