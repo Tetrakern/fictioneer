@@ -7,7 +7,7 @@
 
 .card._combined {
   .card__main > .card__footer .card__footer-box {
-    padding: calc(var(--this-padding) * 0.75) var(--this-padding) var(--this-padding);
+    padding: calc(var(--this-spacing) * 0.75) var(--this-spacing) var(--this-spacing);
   }
 
   .card__main > .card__footer .rating-letter-label {

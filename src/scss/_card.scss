@@ -19,7 +19,7 @@
 
 .card {
   --layout-link-color-hover: var(--card-link-color-hover, var(--fg-300));
-  --this-padding: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
+  --this-spacing: min(var(--card-body-container-padding, clamp(0.75rem, 3.25cqw, 1.25rem)), 16px);
   list-style: none;
   position: relative;
   border-radius: var(--layout-border-radius-small);
@@ -135,7 +135,7 @@
     align-items: center;
     gap: .5em;
     font-size: var(--card-title-font-size, clamp(15px, 4.1cqw, 18px));
-    margin: var(--this-padding) var(--this-padding) .75em var(--this-padding); // Based on font-size
+    margin: var(--this-spacing) var(--this-spacing) .75em var(--this-spacing); // Based on font-size
   }
 
   &__title {
@@ -184,7 +184,7 @@
     font-size: 14px;
     line-height: 1;
     text-align: center;
-    padding: var(--this-padding);
+    padding: var(--this-spacing);
     opacity: .3;
     transition: opacity var(--transition-duration);
 
@@ -195,8 +195,8 @@
   }
 
   &._vertical:not(._seamless) .card__info-toggle {
-    padding-top: calc(2 * var(--this-padding));
-    padding-right: calc(2 * var(--this-padding));
+    padding-top: calc(2 * var(--this-spacing));
+    padding-right: calc(2 * var(--this-spacing));
   }
 
   &__label {
@@ -291,21 +291,21 @@
     flex: 1 1 auto;
 
     :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer) {
-      margin-left: var(--this-padding);
-      margin-right: var(--this-padding);
+      margin-left: var(--this-spacing);
+      margin-right: var(--this-spacing);
     }
 
     .cell-title {
-      margin-top: var(--this-padding);
+      margin-top: var(--this-spacing);
     }
 
     .cell-img {
-      margin-top: var(--this-padding);
-      margin-left: var(--this-padding);
+      margin-top: var(--this-spacing);
+      margin-left: var(--this-spacing);
     }
 
     .cell-footer {
-      margin-bottom: var(--this-padding);
+      margin-bottom: var(--this-spacing);
     }
 
     &._relative-z1 {
@@ -322,7 +322,7 @@
       }
 
       .cell-img {
-        margin-right: var(--this-padding);
+        margin-right: var(--this-spacing);
         margin-bottom: 0;
       }
     }
@@ -344,7 +344,7 @@
     &._hidden-result {
       font-weight: var(--font-weight-strong);
       text-align: center;
-      margin: var(--this-padding);
+      margin: var(--this-spacing);
       opacity: .25;
     }
   }
@@ -433,7 +433,7 @@
 
       &:not(:last-child) {
         // Offset inner wrapper padding + extra for baseline
-        margin-bottom: calc(-1 * var(--card-footer-margin-top, var(--this-padding)));
+        margin-bottom: calc(-1 * var(--card-footer-margin-top, var(--this-spacing)));
       }
 
       &::after {
@@ -473,7 +473,7 @@
     color: var(--card-footer-color, var(--fg-700));
     font-size: var(--card-footer-font-size, clamp(11.5px, 3cqw, 13px));
     line-height: 1;
-    margin-top: var(--card-footer-margin-top, var(--this-padding));
+    margin-top: var(--card-footer-margin-top, var(--this-spacing));
 
     &-box {
       background-color: var(--card-footer-bg-color);
@@ -595,12 +595,12 @@
 
   &._no-footer .card__main {
     :where(.cell-img, :where(.cell-desc, .cell-list):last-child) {
-      margin-bottom: var(--this-padding);
+      margin-bottom: var(--this-spacing);
     }
   }
 
   &._large._recommendation .card__main {
-    padding-bottom: var(--this-padding);
+    padding-bottom: var(--this-spacing);
   }
 
   &._recommendation:not(._compact) {
@@ -613,7 +613,7 @@
     .cell-img {
       display: block;
       aspect-ratio: var(--card-image-aspect-ratio, 3 / 1);
-      margin-right: var(--this-padding);
+      margin-right: var(--this-spacing);
       margin-bottom: 0;
 
       img {
@@ -1016,12 +1016,12 @@
 
 // .card._small:not(._vertical) {
 //   .card__image {
-//     margin-top: calc(-1 * var(--this-padding)) !important;
-//     margin-bottom: calc(-1 * var(--this-padding)) !important;
-//     margin-left: calc(-1 * var(--this-padding)) !important;
+//     margin-top: calc(-1 * var(--this-spacing)) !important;
+//     margin-bottom: calc(-1 * var(--this-spacing)) !important;
+//     margin-left: calc(-1 * var(--this-spacing)) !important;
 //     border-top-right-radius: 0 !important;
 //     border-bottom-right-radius: 0 !important;
-//     width: calc((var(--card-cover-width, 60px) + var(--this-padding)) * var(--card-cover-width-mod, 1)) !important;
+//     width: calc((var(--card-cover-width, 60px) + var(--this-spacing)) * var(--card-cover-width-mod, 1)) !important;
 //   }
 
 //   ._grid._small {

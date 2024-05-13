@@ -15,7 +15,7 @@
 
     .card__footer-box {
       background: none;
-      padding: calc(var(--this-padding) * 0.75) var(--this-padding);
+      padding: calc(var(--this-spacing) * 0.75) var(--this-spacing);
       border-radius: 0;
 
       &._right {
