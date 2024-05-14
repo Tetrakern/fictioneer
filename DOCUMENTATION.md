@@ -416,7 +416,7 @@ These fields and options are available in most post types, which does not mean t
 | Custom Page CSS | Text | Inject custom styles into the page (not passed down to chapters).
 | Patreon Tiers | List | Patreon tiers that ignore the password protection (if set up).
 | Patreon Amount Cents | Number | Patreon pledge threshold to ignore the password protection (if set up).
-| Expire Post Password | Date | Choose a date and time to automatically remove the post password.
+| Expire Post Password | Date | Choose a date and time to automatically remove the post password (set your time zone).
 | Disable new comments | Check | Disable new comments but keep the current ones visible.
 
 ### SEO & Meta Tags
