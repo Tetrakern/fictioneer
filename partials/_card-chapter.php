@@ -89,40 +89,40 @@ $thumbnail_args = array(
 >
   <div class="card__body polygon">
 
-    <div class="card__header _large">
-
-      <?php if ( $args['show_type'] ?? false ) : ?>
-        <div class="card__label"><?php _ex( 'Chapter', 'Chapter card label.', 'fictioneer' ); ?></div>
-      <?php endif; ?>
-
-      <h3 class="card__title">
-        <a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
-          $list_title = wp_strip_all_tags( get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true ) );
-          $list_title = trim( $list_title );
-
-          if ( ! empty( $post->post_password ) ) {
-            echo '<i class="fa-solid fa-lock protected-icon"></i> ';
-          }
-
-          // Make sure there are no whitespaces in-between!
-          if ( $list_title ) {
-            echo "<span class='cq-show-below-460'>{$list_title}</span>";
-            echo "<span class='cq-hide-below-460'>{$title}</span>";
-          } else {
-            echo $title;
-          }
-        ?></a>
-      </h3>
-
-      <?php
-        if ( ! empty( $story_id ) && ! empty( $story_data ) ) {
-          echo fictioneer_get_card_controls( $story_id, $post->ID );
-        }
-      ?>
-
-    </div>
-
     <div class="card__main _grid _large">
+
+      <div class="card__header _large">
+
+        <?php if ( $args['show_type'] ?? false ) : ?>
+          <div class="card__label"><?php _ex( 'Chapter', 'Chapter card label.', 'fictioneer' ); ?></div>
+        <?php endif; ?>
+
+        <h3 class="card__title">
+          <a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
+            $list_title = wp_strip_all_tags( get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true ) );
+            $list_title = trim( $list_title );
+
+            if ( ! empty( $post->post_password ) ) {
+              echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+            }
+
+            // Make sure there are no whitespaces in-between!
+            if ( $list_title ) {
+              echo "<span class='cq-show-below-460'>{$list_title}</span>";
+              echo "<span class='cq-hide-below-460'>{$title}</span>";
+            } else {
+              echo $title;
+            }
+          ?></a>
+        </h3>
+
+        <?php
+          if ( ! empty( $story_id ) && ! empty( $story_data ) ) {
+            echo fictioneer_get_card_controls( $story_id, $post->ID );
+          }
+        ?>
+
+      </div>
 
       <?php
         // Action hook

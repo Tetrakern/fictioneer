@@ -74,14 +74,14 @@ $thumbnail_args = array(
 <li id="recommendation-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _recommendation _large _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
-    <div class="card__header _large">
-      <?php if ( $args['show_type'] ?? false ) : ?>
-        <div class="card__label"><?php _ex( 'Recommendation', 'Recommendation card label.', 'fictioneer' ); ?></div>
-      <?php endif; ?>
-      <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
-    </div>
-
     <div class="card__main _grid _large">
+
+      <div class="card__header _large">
+        <?php if ( $args['show_type'] ?? false ) : ?>
+          <div class="card__label"><?php _ex( 'Recommendation', 'Recommendation card label.', 'fictioneer' ); ?></div>
+        <?php endif; ?>
+        <h3 class="card__title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php echo $title; ?></a></h3>
+      </div>
 
       <?php
         // Action hook

@@ -80,25 +80,25 @@ $thumbnail_args = array(
 >
   <div class="card__body polygon">
 
-    <div class="card__header _large">
-
-      <?php if ( $args['show_type'] ?? false ) : ?>
-        <div class="card__label"><?php _ex( 'Story', 'Story card label.', 'fictioneer' ); ?></div>
-      <?php endif; ?>
-
-      <h3 class="card__title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php
-        if ( ! empty( $post->post_password ) ) {
-          echo '<i class="fa-solid fa-lock protected-icon"></i> ';
-        }
-
-        echo $story['title'];
-      ?></a></h3>
-
-      <?php echo fictioneer_get_card_controls( $post->ID ); ?>
-
-    </div>
-
     <div class="card__main _grid _large">
+
+      <div class="card__header _large">
+
+        <?php if ( $args['show_type'] ?? false ) : ?>
+          <div class="card__label"><?php _ex( 'Story', 'Story card label.', 'fictioneer' ); ?></div>
+        <?php endif; ?>
+
+        <h3 class="card__title"><a href="<?php echo $story_link; ?>" class="truncate _1-1"><?php
+          if ( ! empty( $post->post_password ) ) {
+            echo '<i class="fa-solid fa-lock protected-icon"></i> ';
+          }
+
+          echo $story['title'];
+        ?></a></h3>
+
+        <?php echo fictioneer_get_card_controls( $post->ID ); ?>
+
+      </div>
 
       <?php
         // Action hook

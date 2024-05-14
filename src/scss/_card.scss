@@ -131,6 +131,7 @@
   }
 
   &__header {
+    grid-area: head;
     display: flex;
     align-items: center;
     gap: .5em;
@@ -687,6 +688,7 @@
   ._grid._large {
     grid-template-rows: 1fr auto auto;
     grid-template-areas:
+      'head head'
       'img desc'
       'list list'
       'tax tax'
@@ -694,6 +696,7 @@
 
     @container (min-width: 560px) {
       grid-template-areas:
+        'head head'
         'img desc'
         'img list'
         'tax tax'
