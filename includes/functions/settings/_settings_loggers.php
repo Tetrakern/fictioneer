@@ -616,5 +616,3 @@ function fictioneer_log_deleted_posts( $post_id ) {
   fictioneer_log_post_update( $post_id, __( 'deleted', 'fictioneer' ) );
 }
 add_action( 'before_delete_post', 'fictioneer_log_deleted_posts' );
-
-?>

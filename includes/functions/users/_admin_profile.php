@@ -516,7 +516,7 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
     <th><?php _e( 'OAuth 2.0 Connections', 'fictioneer' ); ?></th>
     <td>
       <p style="margin: 0.35em 0 1em !important;">
-        <?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts will lock you out with no means of access.', 'fictioneer' ); ?>
+        <?php _e( 'Your profile can be linked to one or more external accounts, such as Discord or Google. You may add or remove these accounts at your own volition, but be aware that removing all accounts can lock you out with no means of access.', 'fictioneer' ); ?>
       </p>
       <fieldset>
         <?php

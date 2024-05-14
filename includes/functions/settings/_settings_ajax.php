@@ -234,5 +234,3 @@ function fictioneer_ajax_purge_all_schemas() {
   }
 }
 add_action( 'wp_ajax_fictioneer_ajax_purge_all_schemas', 'fictioneer_ajax_purge_all_schemas' );
-
-?>

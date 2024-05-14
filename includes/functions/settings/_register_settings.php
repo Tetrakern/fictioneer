@@ -611,6 +611,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_show_wp_login_link' => array(
+      'name' => 'fictioneer_show_wp_login_link',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(

@@ -158,5 +158,3 @@ function fictioneer_post_subscribe_button() {
   }
 }
 add_action( 'fictioneer_post_footer_right', 'fictioneer_post_subscribe_button', 10 );
-
-?>

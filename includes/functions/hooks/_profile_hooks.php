@@ -57,6 +57,26 @@ function fictioneer_account_profile( $args ) {
 add_action( 'fictioneer_account_content', 'fictioneer_account_profile', 10 );
 
 // =============================================================================
+// ACCOUNT PASSWORD SECTION
+// =============================================================================
+
+function fictioneer_account_password( $args ) {
+  // Start HTML ---> ?>
+  <h3 id="password" class="profile__password-headline"><?php
+    _ex( 'Password', 'Frontend profile headline.', 'fictioneer' );
+  ?></h3>
+  <div class="profile__password profile__segment">
+    <p class="profile__description"><?php _e( 'You can change your password in your WordPress profile.', 'fictioneer' ); ?></p>
+    <a class="button _secondary" href="<?php echo get_edit_profile_url(); ?>" rel="noopener"><?php _e( 'Change Password', 'fictioneer' ); ?></a>
+  </div>
+  <?php // <--- End HTML
+}
+
+if ( ! current_user_can( 'fcn_reduced_profile' ) ) {
+  add_action( 'fictioneer_account_content', 'fictioneer_account_password', 11 );
+}
+
+// =============================================================================
 // ACCOUNT OAUTH BINDINGS SECTION
 // =============================================================================
 
@@ -142,5 +162,3 @@ function fictioneer_account_danger_zone( $args ) {
 if ( current_user_can( 'fcn_allow_self_delete' ) ) {
   add_action( 'fictioneer_account_content', 'fictioneer_account_danger_zone', 100 );
 }
-
-?>

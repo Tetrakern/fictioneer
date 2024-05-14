@@ -211,6 +211,3 @@ function fictioneer_recommendation_support_links( $args ) {
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_recommendation_after_content', 'fictioneer_recommendation_support_links', 30 );
-
-
-?>

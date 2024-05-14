@@ -722,6 +722,15 @@ Fires right after the default modals have been included in the `fictioneer_outpu
 
 ---
 
+### `do_action( 'fictioneer_modal_login_option' )`
+Fires inside the login modal, in the `login__options` row.
+
+**Hooked Actions:**
+* `fictioneer_render_oauth_login_options()` – Renders the OAuth login links. Priority 10.
+* `fictioneer_render_wp_login_option()` – Renders the normal WordPress login link. Priority 20.
+
+---
+
 ### `do_action( 'fictioneer_navigation_bottom', $args )`
 Fires within the `#full-navigation` container in the `_navigation.php` partial, right after the main navigation wrapper is rendered.
 

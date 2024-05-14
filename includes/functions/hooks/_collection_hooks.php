@@ -230,6 +230,3 @@ function fictioneer_collection_featured_list( $args ) {
   <?php // <--- End HTML
 }
 add_action( 'fictioneer_collection_after_content', 'fictioneer_collection_featured_list', 30 );
-
-
-?>

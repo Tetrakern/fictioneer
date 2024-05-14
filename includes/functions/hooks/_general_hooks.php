@@ -836,4 +836,38 @@ function fictioneer_no_search_results() {
 }
 add_action( 'fictioneer_search_no_results', 'fictioneer_no_search_results' );
 
-?>
+// =============================================================================
+// OUTPUT MODAL LOGIN OPTIONS
+// =============================================================================
+
+/**
+ * Outputs the HTML for the OAuth 2.0 login links
+ *
+ * @since 5.18.0
+ */
+
+function fictioneer_render_oauth_login_options() {
+  echo fictioneer_get_oauth_links( fcntr( 'login_with' ), 'button _secondary' );
+}
+add_action( 'fictioneer_modal_login_option', 'fictioneer_render_oauth_login_options' );
+
+/**
+ * Outputs the HTML for the wp-admin login link
+ *
+ * @since 5.18.0
+ */
+
+function fictioneer_render_wp_login_option() {
+  // Setup
+  global $wp;
+
+  // Start HTML ---> ?>
+  <a href="<?php echo esc_url( wp_login_url( home_url( $wp->request ) ) ); ?>" rel="noopener noreferrer nofollow" class="button _secondary _wp-login">
+    <span><i class="fa-solid fa-right-to-bracket"></i> <?php _e( 'Login/Register', 'fictioneer' ); ?></span>
+  </a>
+  <?php // <--- End HTML
+}
+
+if ( get_option( 'fictioneer_show_wp_login_link' ) ) {
+  add_action( 'fictioneer_modal_login_option', 'fictioneer_render_wp_login_option', 20 );
+}

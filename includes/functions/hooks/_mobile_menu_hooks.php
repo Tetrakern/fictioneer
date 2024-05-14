@@ -453,5 +453,3 @@ function fictioneer_mobile_user_menu() {
   echo '<div id="mobile-menu-user-panel" class="mobile-menu__panel">' . implode( '', $output ) . '</div>';
 }
 add_action( 'fictioneer_mobile_menu_main_frame_panels', 'fictioneer_mobile_user_menu', 30 );
-
-?>

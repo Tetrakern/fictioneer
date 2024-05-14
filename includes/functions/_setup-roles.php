@@ -1250,10 +1250,14 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
   function fictioneer_remove_profile_blocks() {
     // Add CSS to hide blocks...
-    echo '<style type="text/css">.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, .user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
+    echo '<style type="text/css">.user-url-wrap, .user-description-wrap, .user-first-name-wrap, .user-last-name-wrap, .user-language-wrap, .user-admin-bar-front-wrap, #contextual-help-link-wrap, #your-profile > h2:first-of-type { display: none; }</style>';
 
-    // Add JS to remove blocks...
-    echo '<script>document.addEventListener("DOMContentLoaded", () => {document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {element.remove();});});</script>';
+    // Remove password options
+    if ( ! get_option( 'fictioneer_show_wp_login_link' ) ) {
+      echo '<style type="text/css">.user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap { display: none; }</style>';
+
+      echo '<script>document.addEventListener("DOMContentLoaded", () => {document.querySelectorAll(".user-pass1-wrap, .user-pass2-wrap, .pw-weak, .user-generate-reset-link-wrap").forEach(element => {element.remove();});});</script>';
+    }
   }
 
   if ( current_user_can( 'fcn_reduced_profile' ) ) {

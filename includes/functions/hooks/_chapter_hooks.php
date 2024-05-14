@@ -705,5 +705,3 @@ function fictioneer_chapter_suggestion_tools() {
 if ( get_option( 'fictioneer_enable_suggestions' ) ) {
   add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_suggestion_tools', 10 );
 }
-
-?>

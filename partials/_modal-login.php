@@ -35,8 +35,6 @@ defined( 'ABSPATH' ) OR exit;
 
     <div class="modal__row modal__description"><?php echo $info; ?></div>
 
-    <div class="modal__row login__options">
-      <?php echo fictioneer_get_oauth_links( fcntr( 'login_with' ), 'button _secondary' ); ?>
-    </div>
+    <div class="modal__row login__options"><?php do_action( 'fictioneer_modal_login_option' ); ?></div>
   </div>
 </div>
