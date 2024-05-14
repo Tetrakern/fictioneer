@@ -557,11 +557,11 @@ function fcn_showBookmarkCards() {
       { year: '2-digit', month: 'short', day: 'numeric' }
     );
 
-    if (image) {
+    if (image && clone.querySelector('.bookmark-card__image')) {
       clone.querySelector('.bookmark-card__image').href = image;
       clone.querySelector('.bookmark-card__image img').src = thumb;
     } else {
-      clone.querySelector('.bookmark-card__image').remove();
+      clone.querySelector('.bookmark-card__image')?.remove();
     }
 
     clone.querySelector('.bookmark-card__excerpt').innerHTML += content;

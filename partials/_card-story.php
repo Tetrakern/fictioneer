@@ -55,6 +55,10 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_style' );
 }
 
+if ( get_theme_mod( 'card_image_style', 'default' ) !== 'default' ) {
+  $card_classes[] = '_' . get_theme_mod( 'card_image_style' );
+}
+
 // Card attributes
 $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'card-story' );
 $card_attributes = '';
@@ -105,7 +109,7 @@ $thumbnail_args = array(
         do_action( 'fictioneer_large_card_body_story', $post, $story, $args );
 
         // Thumbnail
-        if ( has_post_thumbnail() ) {
+        if ( has_post_thumbnail() && get_theme_mod( 'card_image_style', 'default' ) !== 'none' ) {
           printf(
             '<a href="%1$s" title="%2$s" class="card__image cell-img" %3$s>%4$s</a>',
             get_the_post_thumbnail_url( null, 'full' ),

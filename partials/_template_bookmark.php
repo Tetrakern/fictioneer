@@ -13,14 +13,26 @@
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
 
+// Setup
+$card_image_style = get_theme_mod( 'card_image_style', 'default' );
+
+// Extra classes
+$card_classes = [];
+
+if ( $card_image_style !== 'default' ) {
+  $card_classes[] = '_' . $card_image_style;
+}
+
 ?>
 
 <template class="bookmark-small-card-template">
-  <li class="card _small bookmark-card _no-footer" data-color>
+  <li class="card _small bookmark-card _no-footer <?php echo implode( ' ', $card_classes ); ?>" data-color>
     <div class="card__body polygon">
       <div class="bookmark-card__progress"></div>
       <div class="card__main _grid _small _relative-z1">
-        <a href="" class="card__image cell-img bookmark-card__image" <?php echo fictioneer_get_lightbox_attribute(); ?>><img src="" class="no-auto-lightbox"></a>
+        <?php if ( $card_image_style !== 'none' ) : ?>
+          <a href="" class="card__image cell-img bookmark-card__image" <?php echo fictioneer_get_lightbox_attribute(); ?>><img src="" class="no-auto-lightbox"></a>
+        <?php endif; ?>
         <h3 class="card__title _with-delete _small cell-title bookmark-card__title"><a href="" class="truncate _1-1"></a></h3>
         <div class="card__content bookmark-card__meta _small cell-meta">
           <i class="fa-solid fa-bookmark"></i>

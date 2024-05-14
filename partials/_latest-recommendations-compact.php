@@ -22,7 +22,7 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless. Only with vertical.
+ * @internal $args['seamless']          Whether to render the image seamless.
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true.
@@ -126,7 +126,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_vertical';
           }
 
-          if ( $args['vertical'] && $args['seamless'] ) {
+          if ( $args['seamless'] ) {
             $card_classes[] = '_seamless';
           }
 

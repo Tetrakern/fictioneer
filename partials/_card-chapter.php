@@ -63,6 +63,10 @@ if ( get_theme_mod( 'card_style', 'default' ) !== 'default' ) {
   $card_classes[] = '_' . get_theme_mod( 'card_style' );
 }
 
+if ( get_theme_mod( 'card_image_style', 'default' ) !== 'default' ) {
+  $card_classes[] = '_' . get_theme_mod( 'card_image_style' );
+}
+
 // Card attributes
 $attributes = apply_filters( 'fictioneer_filter_card_attributes', [], $post, 'card-chapter' );
 $card_attributes = '';
@@ -129,35 +133,37 @@ $thumbnail_args = array(
         do_action( 'fictioneer_large_card_body_chapter', $post, $story_data, $args );
 
         // Thumbnail
-        if ( has_post_thumbnail() ) {
+        if ( get_theme_mod( 'card_image_style', 'default' ) !== 'none' ) {
+          if ( has_post_thumbnail() ) {
 
-          printf(
-            '<a href="%1$s" title="%2$s" class="card__image _chapter _chapter-image cell-img" %3$s>%4$s</a>',
-            get_the_post_thumbnail_url( null, 'full' ),
-            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
-            fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( null, 'cover', $thumbnail_args )
-          );
+            printf(
+              '<a href="%1$s" title="%2$s" class="card__image _chapter _chapter-image cell-img" %3$s>%4$s</a>',
+              get_the_post_thumbnail_url( null, 'full' ),
+              sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+              fictioneer_get_lightbox_attribute(),
+              get_the_post_thumbnail( null, 'cover', $thumbnail_args )
+            );
 
-        } elseif ( ! empty( $story_thumbnail_url_full ) ) {
+          } elseif ( ! empty( $story_thumbnail_url_full ) ) {
 
-          printf(
-            '<a href="%1$s" title="%2$s" class="card__image _chapter _story-image cell-img" %3$s>%4$s</a>',
-            $story_thumbnail_url_full,
-            sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
-            fictioneer_get_lightbox_attribute(),
-            get_the_post_thumbnail( $story_id, 'cover', $thumbnail_args )
-          );
+            printf(
+              '<a href="%1$s" title="%2$s" class="card__image _chapter _story-image cell-img" %3$s>%4$s</a>',
+              $story_thumbnail_url_full,
+              sprintf( __( '%s Thumbnail', 'fictioneer' ), $title ),
+              fictioneer_get_lightbox_attribute(),
+              get_the_post_thumbnail( $story_id, 'cover', $thumbnail_args )
+            );
 
-        } elseif ( ! empty( $text_icon ) ) {
+          } elseif ( ! empty( $text_icon ) ) {
 
-          printf(
-            '<a href="%1$s" title="%2$s" class="card__text-icon cell-img"><span class="text-icon">%3$s</span></a>',
-            get_permalink(),
-            esc_attr( $title ),
-            get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true )
-          );
+            printf(
+              '<a href="%1$s" title="%2$s" class="card__text-icon cell-img"><span class="text-icon">%3$s</span></a>',
+              get_permalink(),
+              esc_attr( $title ),
+              get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true )
+            );
 
+          }
         }
 
         // Content

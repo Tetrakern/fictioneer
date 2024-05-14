@@ -175,6 +175,9 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
 
   //--- Extract arguments ------------------------------------------------------
 
+  $seamless_default = get_theme_mod( 'card_image_style', 'default' ) === 'seamless';
+  $thumbnail_default = get_theme_mod( 'card_image_style', 'default' ) !== 'none';
+
   $args = array(
     'type' => $attr['type'] ?? 'default',
     'count' => max( -1, intval( $attr['count'] ?? $def_count ) ),
@@ -194,9 +197,9 @@ function fictioneer_get_default_shortcode_args( $attr, $def_count = -1 ) {
     'ignore_sticky' => filter_var( $attr['ignore_sticky'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'ignore_protected' => filter_var( $attr['ignore_protected'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
     'vertical' => filter_var( $attr['vertical'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
-    'seamless' => filter_var( $attr['seamless'] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+    'seamless' => filter_var( $attr['seamless'] ?? $seamless_default, FILTER_VALIDATE_BOOLEAN ),
     'aspect_ratio' => sanitize_css_aspect_ratio( $attr['aspect_ratio'] ?? '' ),
-    'thumbnail' => filter_var( $attr['thumbnail'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
+    'thumbnail' => filter_var( $attr['thumbnail'] ?? $thumbnail_default, FILTER_VALIDATE_BOOLEAN ),
     'lightbox' => filter_var( $attr['lightbox'] ?? 1, FILTER_VALIDATE_BOOLEAN ),
     'classes' => esc_attr( wp_strip_all_tags( $attr['class'] ?? '' ) )
   );
@@ -363,7 +366,7 @@ function fictioneer_get_shortcode_tax_query( $args ) {
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
- * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless.
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true.
@@ -461,7 +464,7 @@ add_shortcode( 'fictioneer_showcase', 'fictioneer_shortcode_showcase' );
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
- * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless.
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true.
@@ -545,7 +548,7 @@ add_shortcode( 'fictioneer_chapter_cards', 'fictioneer_shortcode_latest_chapters
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
- * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless.
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true.
@@ -621,7 +624,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
- * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless.
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true.
@@ -700,7 +703,7 @@ add_shortcode( 'fictioneer_update_cards', 'fictioneer_shortcode_latest_story_upd
  * @param string|null $attr['characters']          Optional. Limit posts to specific character names.
  * @param string|null $attr['rel']                 Optional. Relationship between taxonomies. Default 'AND'.
  * @param string|null $attr['vertical']            Optional. Whether to show the vertical variant.
- * @param string|null $attr['seamless']            Optional. Whether to render the image seamless. Only with vertical.
+ * @param string|null $attr['seamless']            Optional. Whether to render the image seamless.
  * @param string|null $attr['aspect_ratio']        Optional. Aspect ratio for the image. Only with vertical.
  * @param string|null $attr['lightbox']            Optional. Whether the thumbnail is opened in the lightbox. Default true.
  * @param string|null $attr['thumbnail']           Optional. Whether to show the thumbnail. Default true.

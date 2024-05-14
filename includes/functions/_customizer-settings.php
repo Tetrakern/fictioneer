@@ -1657,34 +1657,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Card style
-  $manager->add_setting(
-    'card_style',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
-    )
-  );
-
-  $card_styles = array(
-    'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
-    'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
-    'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'card_style',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Style', 'fictioneer' ),
-      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
-    )
-  );
-
   // Card frame
   $manager->add_setting(
     'card_frame',
@@ -1714,6 +1686,62 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'label' => __( 'Card Frame', 'fictioneer' ),
       'description' => __( 'Choose the frame for your cards. Turn off the card shadow if borders get blurry.', 'fictioneer' ),
       'choices' => apply_filters( 'fictioneer_filter_customizer_card_frame', $card_frames )
+    )
+  );
+
+  // Card image style
+  $manager->add_setting(
+    'card_image_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_image_styles = array(
+    'default' => _x( 'Embedded (Default)', 'Customizer card image option.', 'fictioneer' ),
+    'seamless' => _x( 'Seamless', 'Customizer card image option.', 'fictioneer' ),
+    'none' => _x( 'None', 'Customizer card image option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_image_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Image Style', 'fictioneer' ),
+      'description' => __( 'Choose the image style for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_image_style', $card_image_styles )
+    )
+  );
+
+  // Card footer style (called card_style due to legacy reasons)
+  $manager->add_setting(
+    'card_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_styles = array(
+    'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
+    'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
+    'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Card Footer Style', 'fictioneer' ),
+      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
     )
   );
 
