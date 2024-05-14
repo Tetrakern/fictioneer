@@ -121,10 +121,10 @@ $delete_bookmarks_prompt = sprintf(
             <h3 class="card__title _with-delete _small"><?php _e( 'Comments', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small">
+            <div class="card__content cell-data _small">
               <?php
                 printf(
-                  __( 'You have written <b>%1$s %2$s</b>. Last comment written on %3$s.', 'fictioneer' ),
+                  __( 'You have written <strong>%1$s %2$s</strong>. Last comment written on %3$s.', 'fictioneer' ),
                   $comments_count,
                   _n( 'comment', 'comments', $comments_count, 'fictioneer' ),
                   wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), date_format( date_create( $last_comment->comment_date ), 'U' ) )
@@ -144,10 +144,10 @@ $delete_bookmarks_prompt = sprintf(
             <h3 class="card__title _with-delete _small"><?php _e( 'Comment Subscriptions', 'fictioneer' ); ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small">
+            <div class="card__content cell-data _small">
               <?php
                 printf(
-                  __( 'You are currently subscribed to <b>%1$s %2$s</b>. You will get an email notification for each direct reply.', 'fictioneer' ),
+                  __( 'You are currently subscribed to <strong>%1$s %2$s</strong>. You will get an email notification for each direct reply.', 'fictioneer' ),
                   $comment_subscriptions_count,
                   _n( 'comment', 'comments', $comment_subscriptions_count, 'fictioneer' )
                 );
@@ -173,10 +173,10 @@ $delete_bookmarks_prompt = sprintf(
             ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small">
+            <div class="card__content cell-data _small">
               <?php
                 printf(
-                  __( 'You are currently following <b>%1$s %2$s</b>. Last modified on %3$s.', 'fictioneer' ),
+                  __( 'You are currently following <strong>%1$s %2$s</strong>. Last modified on %3$s.', 'fictioneer' ),
                   $follows_count,
                   _n( 'story', 'stories', $follows_count, 'fictioneer' ),
                   wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $follows['updated'] / 1000 )
@@ -205,10 +205,10 @@ $delete_bookmarks_prompt = sprintf(
             ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small">
+            <div class="card__content cell-data _small">
               <?php
                 printf(
-                  __( 'You have <b>%1$s %2$s</b> marked to be read later. Last modified on %3$s.', 'fictioneer' ),
+                  __( 'You have <strong>%1$s %2$s</strong> marked to be read later. Last modified on %3$s.', 'fictioneer' ),
                   $reminders_count,
                   _n( 'story', 'stories', $reminders_count, 'fictioneer' ),
                   wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $reminders['updated'] / 1000 )
@@ -240,10 +240,10 @@ $delete_bookmarks_prompt = sprintf(
             ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small">
+            <div class="card__content cell-data _small">
               <?php
                 printf(
-                  __( 'You have marked <b>%1$s %2$s</b> as finished and <b>%3$s %4$s</b> as read. Last modified on %5$s.', 'fictioneer' ),
+                  __( 'You have marked <strong>%1$s %2$s</strong> as finished and <strong>%3$s %4$s</strong> as read. Last modified on %5$s.', 'fictioneer' ),
                   $stories_count,
                   _n( 'story', 'stories', $stories_count, 'fictioneer' ),
                   $chapters_count,
@@ -273,8 +273,8 @@ $delete_bookmarks_prompt = sprintf(
             ?></h3>
           </div>
           <div class="card__main _small">
-            <div class="card__content _small profile-bookmarks-stats">
-              <?php _e( 'You have currently <b>%s bookmark(s)</b> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
+            <div class="card__content cell-data _small profile-bookmarks-stats">
+              <?php _e( 'You have currently <strong>%s bookmark(s)</strong> set. Bookmarks are only processed in your browser.', 'fictioneer' ); ?>
             </div>
           </div>
           <button class="card__delete button-clear-bookmarks" data-confirm="<?php echo $confirmation; ?>" data-warning="<?php echo esc_attr( $delete_bookmarks_prompt ); ?>"><i class="fa-solid fa-trash-can"></i></button>

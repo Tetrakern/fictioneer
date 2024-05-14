@@ -290,7 +290,7 @@
   &__main {
     flex: 1 1 auto;
 
-    :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer) {
+    :where(.cell-title, .cell-meta, .cell-desc, .cell-list, .cell-tax, .cell-footer, .cell-data) {
       margin-left: var(--this-spacing);
       margin-right: var(--this-spacing);
     }
@@ -304,7 +304,7 @@
       margin-left: var(--this-spacing);
     }
 
-    .cell-footer {
+    :where(.cell-footer, .cell-data) {
       margin-bottom: var(--this-spacing);
     }
 
