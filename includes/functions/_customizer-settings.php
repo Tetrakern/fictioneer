@@ -1712,7 +1712,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Card Image Style', 'fictioneer' ),
-      'description' => __( 'Choose the image style for your cards.', 'fictioneer' ),
+      'description' => __( 'Choose the image style for your cards. Can be overridden in shortcodes.', 'fictioneer' ),
       'choices' => apply_filters( 'fictioneer_filter_customizer_card_image_style', $card_image_styles )
     )
   );
