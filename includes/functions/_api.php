@@ -134,7 +134,7 @@ if ( ! function_exists( 'fictioneer_api_get_story_node' ) ) {
         array(
           'post_type' => 'fcn_chapter',
           'post_status' => 'publish',
-          'post__in' => fictioneer_rescue_array_zero( $data['chapter_ids'] ),
+          'post__in' => $data['chapter_ids'] ?: [0], // Must not be empty!
           'ignore_sticky_posts' => true,
           'orderby' => 'post__in',
           'posts_per_page' => -1,

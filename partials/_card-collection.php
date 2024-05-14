@@ -55,7 +55,7 @@ if ( ! empty( $items ) ) {
     array(
       'post_type' => 'any',
       'post_status' => 'publish',
-      'post__in' => fictioneer_rescue_array_zero( $items ),
+      'post__in' => $items ?: [0], // Must not be empty!
       'ignore_sticky_posts' => true,
       'orderby' => 'modified',
       'posts_per_page' => 3,

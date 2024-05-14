@@ -193,7 +193,7 @@ function fictioneer_get_story_chapter_posts( $story_id ) {
       'fictioneer_query_name' => 'get_story_chapter_posts_by_post__in',
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
-      'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+      'post__in' => $chapter_ids ?: [0], // Must not be empty!
       'orderby' => 'post__in',
       'ignore_sticky_posts' => true,
       'posts_per_page' => -1,
@@ -615,7 +615,7 @@ if ( ! function_exists( 'fictioneer_get_collection_statistics' ) ) {
     $chapter_query_args = array(
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
-      'post__in' => fictioneer_rescue_array_zero( $query_chapter_ids ),
+      'post__in' => $query_chapter_ids ?: [0], // Must not be empty!
       'posts_per_page' => -1,
       'update_post_term_cache' => false, // Improve performance
       'no_found_rows' => true // Improve performance
@@ -2589,27 +2589,6 @@ function fictioneer_delete_my_account() {
 
   // Failure
   return false;
-}
-
-// =============================================================================
-// RESCUE EMPTY ARRAY AS [0]
-// =============================================================================
-
-/**
- * Returns the given array or an array with a single 0 if empty
- *
- * Prevents an array from being empty, which is useful for 'post__in' query
- * arguments that cannot deal with empty arrays.
- *
- * @since 5.6.0
- *
- * @param array $array  The input array to check.
- *
- * @return array The original array or [0].
- */
-
-function fictioneer_rescue_array_zero( $array ) {
-  return empty( $array ) ? [0] : $array;
 }
 
 // =============================================================================

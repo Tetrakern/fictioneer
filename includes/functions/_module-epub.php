@@ -360,7 +360,7 @@ if ( ! function_exists( 'fictioneer_add_epub_chapters' ) ) {
     $query_args = array(
       'post_type' => 'fcn_chapter',
       'post_status' => 'publish',
-      'post__in' => fictioneer_rescue_array_zero( $chapters ),
+      'post__in' => $chapters ?: [0], // Must not be empty!
       'orderby' => 'post__in',
       'posts_per_page' => -1,
       'update_post_term_cache' => false, // Improve performance

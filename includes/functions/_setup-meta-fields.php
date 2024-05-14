@@ -2032,7 +2032,7 @@ function fictioneer_render_story_data_metabox( $post ) {
     array(
       'post_type' => 'fcn_chapter',
       'post_status' => 'any',
-      'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+      'post__in' => $chapter_ids ?: [0], // Must not be empty!
       'orderby' => 'post__in',
       'posts_per_page' => -1,
       'meta_key' => 'fictioneer_chapter_story',
@@ -2063,7 +2063,7 @@ function fictioneer_render_story_data_metabox( $post ) {
       array(
         'post_type' => 'page',
         'post_status' => 'any',
-        'post__in' => fictioneer_rescue_array_zero( $page_ids ),
+        'post__in' => $page_ids ?: [0], // Must not be empty!
         'orderby' => 'post__in',
         'posts_per_page' => -1,
         'author' => get_post_field( 'post_author', $post->ID ),
@@ -2371,7 +2371,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       // Make sure only allowed posts are in
       $chapter_query_args = array(
         'post_type' => 'fcn_chapter',
-        'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+        'post__in' => $chapter_ids ?: [0], // Must not be empty!
         'orderby' => 'post__in',
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -2423,7 +2423,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       $pages_query = new WP_Query(
         array(
           'post_type' => 'page',
-          'post__in' => fictioneer_rescue_array_zero( $page_ids ),
+          'post__in' => $page_ids ?: [0], // Must not be empty!
           'author' => $post_author_id, // Only allow author's pages
           'orderby' => 'post__in',
           'fields' => 'ids',
@@ -3397,7 +3397,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
           'author' => $post_author_id,
           'post_type' => 'fcn_story',
           'post_status' => ['publish', 'private'],
-          'post__in' => fictioneer_rescue_array_zero( $story_blogs ),
+          'post__in' => $story_blogs ?: [0], // Must not be empty!
           'fields' => 'ids',
           'posts_per_page'=> -1,
           'update_post_meta_cache' => false, // Improve performance
@@ -3713,7 +3713,7 @@ function fictioneer_render_featured_content_metabox( $post ) {
     array(
       'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
       'post_status' => 'any',
-      'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+      'post__in' => $item_ids ?: [0], // Must not be empty!
       'orderby' => 'post__in',
       'posts_per_page' => -1,
       'update_post_meta_cache' => false, // Improve performance
@@ -3796,7 +3796,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
         array(
           'post_type' => ['post', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
           'post_status' => 'publish',
-          'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+          'post__in' => $item_ids ?: [0], // Must not be empty!
           'orderby' => 'post__in',
           'fields' => 'ids',
           'posts_per_page' => -1,
@@ -3945,7 +3945,7 @@ function fictioneer_render_collection_data_metabox( $post ) {
     array(
       'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
       'post_status' => 'any',
-      'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+      'post__in' => $item_ids ?: [0], // Must not be empty!
       'orderby' => 'post__in',
       'posts_per_page' => -1,
       'update_post_meta_cache' => false, // Improve performance
@@ -4062,7 +4062,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
         array(
           'post_type' => ['post', 'page', 'fcn_story', 'fcn_chapter', 'fcn_collection', 'fcn_recommendation'],
           'post_status' => 'publish',
-          'post__in' => fictioneer_rescue_array_zero( $item_ids ),
+          'post__in' => $item_ids ?: [0], // Must not be empty!
           'orderby' => 'post__in',
           'fields' => 'ids',
           'posts_per_page' => -1,

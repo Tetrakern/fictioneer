@@ -193,7 +193,7 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
     array(
       'status' => 'approve',
       'post_type' => ['fcn_chapter'],
-      'post__in' => fictioneer_rescue_array_zero( $chapter_ids ),
+      'post__in' => $chapter_ids ?: [0], // Must not be empty!
       'number' => $comments_per_page,
       'paged' => $page,
       'meta_query' => array(
