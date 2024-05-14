@@ -182,7 +182,7 @@ function fictioneer_get_metabox_datetime( $post, $meta_key, $args = [] ) {
 
   if ( $meta_value ) {
     $utc_datetime = new DateTime( $meta_value, new DateTimeZone( 'UTC' ) );
-    $utc_datetime->setTimezone( new DateTimeZone( get_option( 'timezone_string' ) ) );
+    $utc_datetime->setTimezone( wp_timezone() );
 
     $meta_value = $utc_datetime->format( 'Y-m-d\TH:i:s' );
   }
@@ -3451,7 +3451,7 @@ function fictioneer_save_extra_metabox( $post_id ) {
     $expiration_date = $_POST['fictioneer_post_password_expiration_date'];
 
     if ( ! empty( $expiration_date ) ) {
-      $local_datetime = new DateTime( $expiration_date, new DateTimeZone( get_option( 'timezone_string' ) ) );
+      $local_datetime = new DateTime( $expiration_date, wp_timezone() );
       $local_datetime->setTimezone( new DateTimeZone( 'UTC' ) );
 
       $fields['fictioneer_post_password_expiration_date'] = $local_datetime->format( 'Y-m-d H:i:s' );
