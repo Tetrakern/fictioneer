@@ -570,7 +570,7 @@ function fcn_showBookmarkCards() {
     clone.querySelector('.bookmark-card__title > a').href = `${link}#paragraph-${paragraphId}`;
     clone.querySelector('.bookmark-card__title > a').innerText = chapter;
     clone.querySelector('.bookmark-card__percentage').innerText = `${progress.toFixed(1)} %`;
-    clone.querySelector('.bookmark-card__progress').style.width = `${progress.toFixed(1)}%`;
+    clone.querySelector('.bookmark-card__progress').style.width = `calc(${progress.toFixed(1)}% - var(--bookmark-progress-offset, 0px))`;
     clone.querySelector('time').innerText = formattedDate;
     clone.querySelector('.button-delete-bookmark').setAttribute('data-bookmark-id', id);
 

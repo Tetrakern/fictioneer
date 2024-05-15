@@ -10,6 +10,8 @@
  *
  * @internal $args['show_empty']  Whether to render a note when empty or nothing at all.
  * @internal $args['count']       Maximum number of bookmarks to render.
+ * @internal $args['seamless']    Whether to render the image seamless. Default false (Customizer).
+ * @internal $args['thumbnail']   Whether the image is rendered. Default true (Customizer).
  */
 ?>
 
@@ -22,7 +24,7 @@ defined( 'ABSPATH' ) OR exit;
 $show_empty = isset( $args['show_empty'] ) && $args['show_empty'];
 $count = isset( $args['count'] ) ? intval( $args['count'] ) : -1;
 
-get_template_part( 'partials/_template_bookmark' );
+get_template_part( 'partials/_template_bookmark', null, $args );
 
 ?>
 

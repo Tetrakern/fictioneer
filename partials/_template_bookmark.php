@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.4.5
+ * @since 5.18.0 - Added 'seamless' and 'thumbnail' params.
  */
 ?>
 
@@ -23,6 +24,10 @@ if ( $card_image_style !== 'default' ) {
   $card_classes[] = '_' . $card_image_style;
 }
 
+if ( $args['seamless'] ?? 0 ) {
+  $card_classes[] = '_seamless';
+}
+
 ?>
 
 <template class="bookmark-small-card-template">
@@ -30,7 +35,7 @@ if ( $card_image_style !== 'default' ) {
     <div class="card__body polygon">
       <div class="bookmark-card__progress"></div>
       <div class="card__main _grid _small _relative-z1">
-        <?php if ( $card_image_style !== 'none' ) : ?>
+        <?php if ( $args['thumbnail'] ?? 1 ) : ?>
           <a href="" class="card__image cell-img bookmark-card__image" <?php echo fictioneer_get_lightbox_attribute(); ?>><img src="" class="no-auto-lightbox"></a>
         <?php endif; ?>
         <h3 class="card__title _with-delete _small cell-title bookmark-card__title"><a href="" class="truncate _1-1"></a></h3>

@@ -1011,31 +1011,34 @@
     pointer-events: none;
     position: absolute;
     top: 0;
-    left: 0;
+    left: var(--bookmark-progress-offset, 0px);
     height: 100%;
     opacity: var(--bookmark-progress-opacity);
   }
 }
 
 .card:not(._article, ._vertical)._seamless {
+  --card-cover-max-width: 15vw;
+  --bookmark-progress-offset: min(var(--card-cover-max-width), calc(var(--card-cover-width, 60px) * var(--card-cover-width-mod, 1)));
+
+  @include bp(480px) {
+    --card-cover-max-width: 18vw;
+  }
+
+  @include bp(640px) {
+    --card-cover-max-width: 20vw;
+  }
+
+  @include bp(768px) {
+    --card-cover-max-width: 100%;
+  }
+
   .cell-img {
     margin: 0;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     width: calc((var(--card-cover-width, 60px) + var(--this-spacing)) * var(--card-cover-width-mod, 1)) !important;
-    max-width: var(--card-cover-max-width-smallest, 15vw);
-
-    @include bp(480px) {
-      max-width: var(--card-cover-max-width-small, 18vw);
-    }
-
-    @include bp(640px) {
-      max-width: var(--card-cover-max-width-medium, 20vw);
-    }
-
-    @include bp(768px) {
-      max-width: var(--card-cover-max-width-large, unset);
-    }
+    max-width: var(--card-cover-max-width);
   }
 
   ._grid {

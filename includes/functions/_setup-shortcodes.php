@@ -822,6 +822,8 @@ add_shortcode( 'fictioneer_latest_post', 'fictioneer_shortcode_latest_posts' ); 
  *
  * @param string|null $attr['count']       Optional. Maximum number of items. Default -1 (all).
  * @param string|null $attr['show_empty']  Optional. Whether to show the "no bookmarks" message. Default false.
+ * @param string|null $attr['seamless']    Optional. Whether to render the image seamless. Default false (Customizer).
+ * @param string|null $attr['thumbnail']   Optional. Whether to show the thumbnail. Default true (Customizer).
  *
  * @return string The captured shortcode HTML.
  */
@@ -831,15 +833,17 @@ function fictioneer_shortcode_bookmarks( $attr ) {
   $attr = is_array( $attr ) ? array_map( 'sanitize_text_field', $attr ) : sanitize_text_field( $attr );
 
   // Setup
-  $count = max( -1, intval( $attr['count'] ?? -1 ) );
-  $show_empty = $attr['show_empty'] ?? false;
+  $seamless_default = get_theme_mod( 'card_image_style', 'default' ) === 'seamless';
+  $thumbnail_default = get_theme_mod( 'card_image_style', 'default' ) !== 'none';
 
   // Buffer
   ob_start();
 
   get_template_part( 'partials/_bookmarks', null, array(
-    'count' => $count,
-    'show_empty' => $show_empty
+    'count' => max( -1, intval( $attr['count'] ?? -1 ) ),
+    'show_empty' => $attr['show_empty'] ?? false,
+    'seamless' => filter_var( $attr['seamless'] ?? $seamless_default, FILTER_VALIDATE_BOOLEAN ),
+    'thumbnail' => filter_var( $attr['thumbnail'] ?? $thumbnail_default, FILTER_VALIDATE_BOOLEAN )
   ));
 
   // Return minified buffer
