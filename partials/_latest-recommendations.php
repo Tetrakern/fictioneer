@@ -22,10 +22,10 @@
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['vertical']          Whether to show the vertical variant.
- * @internal $args['seamless']          Whether to render the image seamless.
+ * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
- * @internal $args['thumbnail']         Whether the image is rendered. Default true.
+ * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 ?>
