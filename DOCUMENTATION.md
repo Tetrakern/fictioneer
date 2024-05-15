@@ -1006,10 +1006,15 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 ```
 
 ```
+[fictioneer_latest_stories count="2" author="Hungry" seamless="1"]
+```
+
+```
 [fictioneer_latest_stories type="compact" vertical="1" aspect_ratio="3/2"]
 ```
 
 ![Latest Stories](repo/assets/shortcode_example_latest_stories.jpg?raw=true)
+![Latest Stories](repo/assets/shortcode_example_latest_stories_3.png?raw=true)
 ![Latest Stories](repo/assets/shortcode_example_latest_stories_2.png?raw=true)
 
 ### Latest Updates
@@ -1052,10 +1057,15 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 ```
 
 ```
+[fictioneer_latest_updates type="compact" order="asc" post_ids="13,106" seamless="1"]
+```
+
+```
 [fictioneer_latest_updates type="compact" vertical="1" seamless="1"]
 ```
 
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)
+![Latest Updates](repo/assets/shortcode_example_latest_updates_3.png?raw=true)
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_2.png?raw=true)
 
 ### Search Form
