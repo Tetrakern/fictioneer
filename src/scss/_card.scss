@@ -634,12 +634,12 @@
     }
   }
 
-  &._seamless {
+  &._seamless:where(._article, ._vertical) {
     .cell-img {
       margin: 0;
     }
 
-    :is(.cell-img, .wp-post-image) {
+    :is(.cell-img, .cell-img img) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -1035,10 +1035,13 @@
 
   .cell-img {
     margin: 0;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
     width: calc((var(--card-cover-width, 60px) + var(--this-spacing)) * var(--card-cover-width-mod, 1)) !important;
     max-width: var(--card-cover-max-width);
+  }
+
+  :where(.cell-img, .cell-img img) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
 
   ._grid {
