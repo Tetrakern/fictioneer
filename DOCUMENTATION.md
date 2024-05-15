@@ -757,6 +757,8 @@ Renders a multi-column grid of small bookmark cards, ordered by date of creation
 
 * **count:** Limit bookmarks to any positive number. Default `-1` (all).
 * **show_empty:** Whether to show a "no bookmarks" note or nothing if empty. Default `false`.
+* **seamless:** Whether to remove the gap between the image and frame. Default `false` (Customizer setting).
+* **thumbnail:** Whether to show the thumbnail/cover image. Default `true` (Customizer setting).
 
 ```
 [fictioneer_bookmarks]
@@ -764,6 +766,10 @@ Renders a multi-column grid of small bookmark cards, ordered by date of creation
 
 ```
 [fictioneer_bookmarks count="8" show_empty="true"]
+```
+
+```
+[fictioneer_bookmarks count="8" seamless="1" thumbnail="0"]
 ```
 
 ![Bookmarks](repo/assets/shortcode_example_bookmarks.jpg?raw=true)
