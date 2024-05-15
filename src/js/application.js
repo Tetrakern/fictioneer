@@ -1995,6 +1995,7 @@ window.addEventListener('keydown', fcn_handleTabInput);
  * Positions the popup menus based on screen collision detection.
  *
  * @since 5.2.5
+ * @since 5.18.0 - Add horizontal collisions.
  */
 
 function fcn_popupPosition() {
@@ -2020,6 +2021,17 @@ function fcn_popupPosition() {
     } else if(collision.includes('bottom')) {
       element.classList.remove('_bottom');
       element.classList.add('_top');
+    }
+
+    // Left/Right?
+    if (collision.includes('left')) {
+      element.classList.remove('_center');
+      element.classList.remove('_justify-right');
+      element.classList.add('_justify-left');
+    } else if(collision.includes('right')) {
+      element.classList.remove('_center');
+      element.classList.remove('_justify-left');
+      element.classList.add('_justify-right');
     }
   });
 }

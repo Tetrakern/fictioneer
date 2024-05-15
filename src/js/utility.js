@@ -798,29 +798,37 @@ function fcn_sanitizeHTML(html) {
 // =============================================================================
 
 /**
- * Detects if an element is about to leave the visible screen (vertical)
- * and returns the collision directions.
+ * Detects if an element is about to leave the visible screen
+ * and returns the collision directions. Threshold: 50px.
  *
  * @since 5.2.5
+ * @since 5.18.0 - Add horizontal collisions.
  * @param {HTMLElement} element - The element to check for collision.
- * @returns {Array} - Array of collision directions ('top', 'bottom').
+ * @returns {Array} - Array of collision directions ('top', 'bottom', 'left', 'right').
  */
 
 function fcn_detectScreenCollision(element) {
-  const rect = element.getBoundingClientRect(),
-        viewportHeight = window.innerHeight ?? document.documentElement.clientHeight,
-        threshold = 50,
-        offset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16,
-        bottomSpacing = viewportHeight - rect.bottom - element.clientHeight,
-        topSpacing = rect.top - element.clientHeight,
-        result = [];
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight ?? document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth ?? document.documentElement.clientWidth;
+  const verticalOffset = (element.closest('.popup-menu-toggle')?.clientHeight ?? 32) + 16;
+  const bottomSpacing = viewportHeight - rect.bottom;
+  const result = [];
 
-  if (rect.top <= threshold && bottomSpacing > threshold + offset) {
+  if (rect.top <= 50 && bottomSpacing > 50 + verticalOffset) {
     result.push('top');
   }
 
-  if (rect.bottom >= viewportHeight - threshold && topSpacing > threshold + offset) {
+  if (rect.bottom >= viewportHeight - 50 && rect.top > 50 + verticalOffset) {
     result.push('bottom');
+  }
+
+  if (rect.left <= 50) {
+    result.push('left');
+  }
+
+  if (rect.right >= viewportWidth - 50) {
+    result.push('right');
   }
 
   return result;

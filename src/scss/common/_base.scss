@@ -494,6 +494,10 @@ button[type=submit]:where(:not(._inline)) {
     --translateX: translateX(-50%);
   }
 
+  &._justify-left {
+    left: 0;
+  }
+
   &._justify-right {
     right: 0;
   }
