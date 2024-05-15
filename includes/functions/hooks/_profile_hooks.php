@@ -60,6 +60,18 @@ add_action( 'fictioneer_account_content', 'fictioneer_account_profile', 10 );
 // ACCOUNT PASSWORD SECTION
 // =============================================================================
 
+/**
+ * Outputs the HTML password section
+ *
+ * @since 5.18.0
+ *
+ * @param WP_User $args['user']          Current user.
+ * @param boolean $args['is_admin']      True if the user is an administrator.
+ * @param boolean $args['is_author']     True if the user is an author (by capabilities).
+ * @param boolean $args['is_editor']     True if the user is an editor.
+ * @param boolean $args['is_moderator']  True if the user is a moderator (by capabilities).
+ */
+
 function fictioneer_account_password( $args ) {
   // Start HTML ---> ?>
   <h3 id="password" class="profile__password-headline"><?php
@@ -72,7 +84,7 @@ function fictioneer_account_password( $args ) {
   <?php // <--- End HTML
 }
 
-if ( ! current_user_can( 'fcn_reduced_profile' ) ) {
+if ( current_user_can( 'fcn_admin_panel_access' ) && get_option( 'fictioneer_show_wp_login_link' ) ) {
   add_action( 'fictioneer_account_content', 'fictioneer_account_password', 11 );
 }
 
