@@ -104,7 +104,7 @@ if ( is_archive() || is_search() || is_404() ) {
         'post_id' => $post_id,
         'story_id' => $story_id,
         'header_image_url' => $header_image_url,
-        'header_args' => $args
+        'header_args' => $args ?? []
       );
 
       // Includes mobile menu
