@@ -106,6 +106,9 @@ Fires between the site’s `<main>` and `<footer>` blocks. This is the empty spa
 * $post_id (int|null) – Current post ID. Unsafe.
 * $breadcrumbs (array) – Array of breadcrumb tuples with label (0) and link (1).
 
+**Hooked Actions:**
+* `fictioneer_wp_signup_end( $args )` – End of the wrapper HTML for the wp-signup page. Priority 999.
+
 ---
 
 ### `do_action( 'fictioneer_after_oauth_user', $user, $args )`
@@ -591,6 +594,7 @@ Fires outside the `#site` container and before the `wp_footer` hook, near the en
 
 **Hooked Actions:**
 * `fictioneer_output_modals( $args )` – Render modals based on login status and page type. Priority 10.
+* `fictioneer_wp_signup_start( $args )` – Start of the wrapper HTML for the wp-signup page. Priority 999.
 
 ---
 

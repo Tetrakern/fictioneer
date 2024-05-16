@@ -52,7 +52,7 @@ if ( is_archive() || is_search() || is_404() ) {
       fictioneer_output_head_meta();
 
       // Prevent indexing if required
-      if ( $args['no_index'] ?? 0 ) {
+      if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_IS_WP_SIGNUP ) {
         add_filter( 'wp_robots', 'fictioneer_add_noindex_to_robots' );
       }
 

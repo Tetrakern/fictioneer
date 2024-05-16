@@ -45,6 +45,14 @@ if ( ! defined( 'CHILD_NAME' ) ) {
 }
 
 /*
+ * Locations
+ */
+
+if ( ! defined( 'FICTIONEER_IS_WP_SIGNUP' ) ) {
+  define( 'FICTIONEER_IS_WP_SIGNUP', strpos( $_SERVER['REQUEST_URI'], 'wp-signup.php' ) !== false );
+}
+
+/*
  * Endpoints
  */
 

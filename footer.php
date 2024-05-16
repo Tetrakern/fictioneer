@@ -26,6 +26,11 @@
 $page_id = get_queried_object_id();
 $extra_classes = [];
 
+// Catch calls without arguments
+$args['post_id'] = $args['post_id'] ?? $page_id;
+$args['post_type'] = $args['post_type'] ?? 'none';
+$args['breadcrumbs'] = $args['breadcrumbs'] ?? [];
+
 // Fix wrong post ID
 if ( $page_id != $args['post_id'] ) {
   $args['post_id'] = $page_id;

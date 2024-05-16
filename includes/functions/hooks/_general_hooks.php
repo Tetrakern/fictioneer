@@ -871,3 +871,57 @@ function fictioneer_render_wp_login_option() {
 if ( get_option( 'fictioneer_show_wp_login_link' ) ) {
   add_action( 'fictioneer_modal_login_option', 'fictioneer_render_wp_login_option', 20 );
 }
+
+// =============================================================================
+// OUTPUT WP-SIGNUP "PAGE"
+// =============================================================================
+
+/**
+ * Outputs the start of the page wrapper HTML for wp-signup on multi-sites
+ *
+ * @since 5.18.1
+ *
+ * @param int|null       $args['post_id']           Optional. Current post ID.
+ * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+ * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ */
+
+function fictioneer_wp_signup_start( $args ) {
+  // Start HTML ---> ?>
+  <main id="main" class="main singular wp-signup">
+    <div class="observer main-observer"></div>
+    <?php do_action( 'fictioneer_main' ); ?>
+    <div class="main__background polygon polygon--main background-texture"></div>
+    <div class="main__wrapper">
+      <?php do_action( 'fictioneer_main_wrapper' ); ?>
+      <article id="singular-wp-signup" class="singular__article padding-left padding-right padding-top padding-bottom">
+        <section class="singular__content content-section">
+  <?php // <--- End HTML
+}
+
+if ( FICTIONEER_IS_WP_SIGNUP ) {
+  add_action( 'fictioneer_site', 'fictioneer_wp_signup_start', 999 );
+}
+
+/**
+ * Outputs the end of the page wrapper HTML for wp-signup on multi-sites
+ *
+ * @since 5.18.1
+ *
+ * @param int|null $args['post_id']  Optional. Current post ID.
+ */
+
+function fictioneer_wp_signup_end( $args ) {
+  // Start HTML ---> ?>
+        </section>
+        <footer class="singular__footer"><?php do_action( 'fictioneer_singular_footer' ); ?></footer>
+      </article>
+    </div>
+  </main>
+  <?php // <--- End HTML
+}
+
+if ( FICTIONEER_IS_WP_SIGNUP ) {
+  add_action( 'fictioneer_after_main', 'fictioneer_wp_signup_end', 999 );
+}
