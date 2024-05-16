@@ -873,11 +873,11 @@ if ( get_option( 'fictioneer_show_wp_login_link' ) ) {
 }
 
 // =============================================================================
-// OUTPUT WP-SIGNUP "PAGE"
+// OUTPUT WP-SIGNUP AND WP-ACTIVE "PAGE"
 // =============================================================================
 
 /**
- * Outputs the start of the page wrapper HTML for wp-signup on multi-sites
+ * Outputs the start of the page wrapper HTML for the wp-signup.php and wp-activate.php
  *
  * @since 5.18.1
  *
@@ -887,32 +887,32 @@ if ( get_option( 'fictioneer_show_wp_login_link' ) ) {
  * @param array          $args['header_args']       Arguments passed to the header.php partial.
  */
 
-function fictioneer_wp_signup_start( $args ) {
+function fictioneer_mu_registration_start( $args ) {
   // Start HTML ---> ?>
-  <main id="main" class="main singular wp-signup">
+  <main id="main" class="main singular wp-registration">
     <div class="observer main-observer"></div>
     <?php do_action( 'fictioneer_main' ); ?>
     <div class="main__background polygon polygon--main background-texture"></div>
     <div class="main__wrapper">
       <?php do_action( 'fictioneer_main_wrapper' ); ?>
-      <article id="singular-wp-signup" class="singular__article padding-left padding-right padding-top padding-bottom">
+      <article id="singular-wp-registration" class="singular__article padding-left padding-right padding-top padding-bottom">
         <section class="singular__content content-section">
   <?php // <--- End HTML
 }
 
-if ( FICTIONEER_IS_WP_SIGNUP ) {
-  add_action( 'fictioneer_site', 'fictioneer_wp_signup_start', 999 );
+if ( FICTIONEER_MU_REGISTRATION ) {
+  add_action( 'fictioneer_site', 'fictioneer_mu_registration_start', 999 );
 }
 
 /**
- * Outputs the end of the page wrapper HTML for wp-signup on multi-sites
+ * Outputs the end of the page wrapper HTML for the wp-signup.php and wp-activate.php
  *
  * @since 5.18.1
  *
  * @param int|null $args['post_id']  Optional. Current post ID.
  */
 
-function fictioneer_wp_signup_end( $args ) {
+function fictioneer_mu_registration_end( $args ) {
   // Start HTML ---> ?>
         </section>
         <footer class="singular__footer"><?php do_action( 'fictioneer_singular_footer' ); ?></footer>
@@ -922,6 +922,6 @@ function fictioneer_wp_signup_end( $args ) {
   <?php // <--- End HTML
 }
 
-if ( FICTIONEER_IS_WP_SIGNUP ) {
-  add_action( 'fictioneer_after_main', 'fictioneer_wp_signup_end', 999 );
+if ( FICTIONEER_MU_REGISTRATION ) {
+  add_action( 'fictioneer_after_main', 'fictioneer_mu_registration_end', 999 );
 }

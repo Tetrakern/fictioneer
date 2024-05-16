@@ -1574,46 +1574,50 @@ function fictioneer_redirect_story() {
 add_action( 'template_redirect', 'fictioneer_redirect_story' );
 
 // =============================================================================
-// WP-SIGNUP STYLE
+// WP-SIGNUP AND WP-ACTIVATE
 // =============================================================================
 
 /**
- * Remove default style of wp-signup.php
+ * Remove default styles of wp-signup.php and wp-activate.php
  *
  * @since 5.18.1
  */
 
-function fictioneer_remove_wp_signup_style() {
+function fictioneer_remove_mu_registration_styles() {
   remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
+  remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
 }
 
 /**
- * Output styles for wo-signup.php
+ * Output styles for wp-signup.php and wp-activate.php
  *
  * @since 5.18.1
  */
 
-function fictioneer_output_signup_style() {
+function fictioneer_output_mu_registration_style() {
   // Start HTML ---> ?>
   <style type="text/css">
-    .wp-signup-container label[for] {
+    :is(.wp-signup-container, .wp-activate-container) label[for] {
       display: block;
       color: var(--fg-500);
       font-size: var(--fs-xs);
       font-weight: var(--font-weight-medium);
       padding: 0 0 2px;
     }
-    .wp-signup-container :where(input[type="text"], input[type="email"], input[type="password"], input[type="tel"]) {
+    :is(.wp-signup-container, .wp-activate-container) :where(input[type="text"], input[type="email"], input[type="password"], input[type="tel"]) {
       display: block;
       width: 100%;
     }
-    .wp-signup-container p[id*="-description"] {
+    :is(.wp-signup-container, .wp-activate-container) p {
+      margin-bottom: 1.5rem;
+    }
+    :is(.wp-signup-container, .wp-activate-container) p[id*="-description"] {
       color: var(--fg-900);
       font-size: var(--fs-xxs);
       line-height: 1.3;
       padding: .5rem 2px 0;
     }
-    .wp-signup-container p[id*="-error"] {
+    :is(.wp-signup-container, .wp-activate-container) p[id*="-error"] {
       display: flex;
       align-items: flex-start;
       gap: .5rem;
@@ -1631,7 +1635,7 @@ function fictioneer_output_signup_style() {
   <?php // <--- End HTML
 }
 
-if ( FICTIONEER_IS_WP_SIGNUP ) {
-  add_action( 'wp_head', 'fictioneer_remove_wp_signup_style', 1 );
-  add_action( 'wp_head', 'fictioneer_output_signup_style' );
+if ( FICTIONEER_MU_REGISTRATION ) {
+  add_action( 'wp_head', 'fictioneer_remove_mu_registration_styles', 1 );
+  add_action( 'wp_head', 'fictioneer_output_mu_registration_style' );
 }
