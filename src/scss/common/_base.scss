@@ -153,7 +153,8 @@
 }
 
 .post-password-form input[type=submit],
-button[type=submit]:where(:not(._inline)) {
+button[type=submit]:where(:not(._inline)),
+.wp-signup-container input[type=submit] {
   @extend %button;
 }
 

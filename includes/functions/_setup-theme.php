@@ -1572,3 +1572,66 @@ function fictioneer_redirect_story() {
   }
 }
 add_action( 'template_redirect', 'fictioneer_redirect_story' );
+
+// =============================================================================
+// WP-SIGNUP STYLE
+// =============================================================================
+
+/**
+ * Remove default style of wp-signup.php
+ *
+ * @since 5.18.1
+ */
+
+function fictioneer_remove_wp_signup_style() {
+  remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
+}
+
+/**
+ * Output styles for wo-signup.php
+ *
+ * @since 5.18.1
+ */
+
+function fictioneer_output_signup_style() {
+  // Start HTML ---> ?>
+  <style type="text/css">
+    .wp-signup-container label[for] {
+      display: block;
+      color: var(--fg-500);
+      font-size: var(--fs-xs);
+      font-weight: var(--font-weight-medium);
+      padding: 0 0 2px;
+    }
+    .wp-signup-container :where(input[type="text"], input[type="email"], input[type="password"], input[type="tel"]) {
+      display: block;
+      width: 100%;
+    }
+    .wp-signup-container p[id*="-description"] {
+      color: var(--fg-900);
+      font-size: var(--fs-xxs);
+      line-height: 1.3;
+      padding: .5rem 2px 0;
+    }
+    .wp-signup-container p[id*="-error"] {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      background: var(--notice-warning-background);
+      color: var(--notice-warning-color);
+      font-size: var(--fs-xs);
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: 0;
+      padding: .5rem;
+      margin: .5rem 0 1rem;
+      border-radius: var(--layout-border-radius-small);
+    }
+  </style>
+  <?php // <--- End HTML
+}
+
+if ( FICTIONEER_IS_WP_SIGNUP ) {
+  add_action( 'wp_head', 'fictioneer_remove_wp_signup_style', 1 );
+  add_action( 'wp_head', 'fictioneer_output_signup_style' );
+}
