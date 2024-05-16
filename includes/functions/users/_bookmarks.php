@@ -68,5 +68,3 @@ function fictioneer_ajax_save_bookmarks() {
 if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_save_bookmarks', 'fictioneer_ajax_save_bookmarks' );
 }
-
-?>

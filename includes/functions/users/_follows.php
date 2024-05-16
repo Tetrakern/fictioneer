@@ -451,5 +451,3 @@ function fictioneer_ajax_get_follows_list() {
 if ( get_option( 'fictioneer_enable_follows' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_follows_list', 'fictioneer_ajax_get_follows_list' );
 }
-
-?>

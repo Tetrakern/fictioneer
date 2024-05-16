@@ -1462,5 +1462,3 @@ function fictioneer_updated_google_fonts( $old_value, $value ) {
   fictioneer_build_bundled_fonts();
 }
 add_action( 'update_option_fictioneer_google_fonts_links', 'fictioneer_updated_google_fonts', 10, 2 );
-
-?>

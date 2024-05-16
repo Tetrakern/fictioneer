@@ -219,5 +219,3 @@ function fictioneer_ajax_get_reminders_list() {
 if ( get_option( 'fictioneer_enable_reminders' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_reminders_list', 'fictioneer_ajax_get_reminders_list' );
 }
-
-?>

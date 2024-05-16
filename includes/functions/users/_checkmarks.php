@@ -293,5 +293,3 @@ function fictioneer_ajax_get_finished_checkmarks_list() {
 if ( get_option( 'fictioneer_enable_checkmarks' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_finished_checkmarks_list', 'fictioneer_ajax_get_finished_checkmarks_list' );
 }
-
-?>
