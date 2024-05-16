@@ -1618,6 +1618,26 @@ function fictioneer_get_split_aspect_ratio( $css ) {
 }
 
 // =============================================================================
+// SHOW LOGIN
+// =============================================================================
+
+/**
+ * Checks whether the login should be rendered
+ *
+ * @since 5.18.1
+ *
+ * @return boolean True or false.
+ */
+
+function fictioneer_show_login() {
+  return
+  (
+    get_option( 'fictioneer_enable_oauth' ) || get_option( 'fictioneer_show_wp_login_link' )
+  ) &&
+  ! is_user_logged_in();
+}
+
+// =============================================================================
 // SHOW NON-PUBLIC CONTENT
 // =============================================================================
 

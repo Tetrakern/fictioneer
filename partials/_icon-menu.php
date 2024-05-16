@@ -31,7 +31,7 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
 ?>
 
 <div class="icon-menu" data-nosnippet>
-  <?php if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) : ?>
+  <?php if ( fictioneer_show_login() ) : ?>
     <div class="menu-item menu-item-icon subscriber-login hide-if-logged-in">
       <label
         for="modal-login-toggle"

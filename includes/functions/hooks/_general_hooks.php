@@ -152,8 +152,8 @@ function fictioneer_output_modals( $args ) {
     }
   }
 
-  // OAuth2 login
-  if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
+  // Login
+  if ( fictioneer_show_login() ) {
     ?><input id="modal-login-toggle" data-target="login-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
     get_template_part( 'partials/_modal-login' );
   }

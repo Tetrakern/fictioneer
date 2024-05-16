@@ -438,7 +438,7 @@ function fictioneer_mobile_user_menu() {
     );
   }
 
-  if ( get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in() ) {
+  if ( fictioneer_show_login() ) {
     $output['login'] = sprintf(
       '<label for="modal-login-toggle" class="hide-if-logged-in subscriber-login">%s %s</label>',
       fictioneer_get_icon( 'fa-login', 'mobile-menu__item-icon' ),

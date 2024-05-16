@@ -986,7 +986,7 @@ if ( ! function_exists( 'fictioneer_get_story_buttons' ) ) {
 
     // Flags
     $show_epub_download = $story_data['chapter_count'] > 0 && get_post_meta( $story_id, 'fictioneer_story_epub_preface', true ) && get_option( 'fictioneer_enable_epubs' ) && ! get_post_meta( $story_id, 'fictioneer_story_no_epub', true );
-    $show_login = get_option( 'fictioneer_enable_oauth' ) && ! is_user_logged_in();
+    $show_login = fictioneer_show_login();
 
     // Subscribe
     if ( ! empty( $subscribe_buttons ) ) {
