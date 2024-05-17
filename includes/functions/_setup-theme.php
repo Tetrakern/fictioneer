@@ -1368,23 +1368,6 @@ add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
 add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
-// MODIFY ROBOTS META
-// =============================================================================
-
-/**
- * Adds noindex to robots meta.
- *
- * This is called in the header.php template.
- *
- * @since 5.0.0
- */
-
-function fictioneer_add_noindex_to_robots( $robots ) {
-  $robots['noindex'] = true;
-  return $robots;
-}
-
-// =============================================================================
 // OUTPUT HEAD CRITICAL SCRIPTS
 // =============================================================================
 

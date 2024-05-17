@@ -315,7 +315,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `wp_handle_upload_prefilter` | `fictioneer_upload_restrictions`
 | `wp_insert_post_data` | `fictioneer_remove_restricted_block_content`, `fictioneer_strip_shortcodes_on_save`, `fictioneer_see_some_evil`, `fictioneer_enforce_permalink`, `fictioneer_prevent_publish_date_update`, `fictioneer_prevent_parent_and_order_update`, `fictioneer_prevent_track_and_ping_updates`
 | `wp_is_application_passwords_available` | `__return_false`
-| `wp_robots` | `fictioneer_add_noindex_to_robots`
+| `wp_robots` | `wp_robots_no_robots`
 | `wp_sitemaps_enabled` | `__return_false`
 | `wp_unique_post_slug` | `fictioneer_protect_reserved_post_slugs`
 
