@@ -69,7 +69,7 @@
   &.has-last-clicked {
     .card__main {
       pointer-events: none;
-      opacity: .6;
+      opacity: .5;
     }
 
     .card__info-toggle {
@@ -548,7 +548,7 @@
 
     .card__footer {
       gap: 0;
-      border-top: 3px solid var(--card-bg-color);
+      border-top: 1px solid var(--card-bg-color);
       margin-top: 0;
 
       > .card__footer-box {
@@ -556,7 +556,7 @@
       }
 
       .card__footer-box._right {
-        border-left: 3px solid var(--card-bg-color);
+        border-left: 1px solid var(--card-bg-color);
       }
     }
   }
