@@ -3067,12 +3067,13 @@ function fictioneer_get_post_patreon_data( $post = null ) {
  * @see get_template_part()
  *
  * @param string      $slug        The slug name for the generic template.
+ * @param string      $identifier  Optional. Additional identifier string for the file. Default empty string.
  * @param int|null    $expiration  Optional. Seconds until the cache expires. Default 24 hours in seconds.
  * @param string|null $name        Optional. The name of the specialized template.
  * @param array       $args        Optional. Additional arguments passed to the template.
  */
 
-function fictioneer_get_static_template_part( $slug, $expiration = null, $name = null, $args = [] ) {
+function fictioneer_get_static_template_part( $slug, $identifier = '', $expiration = null, $name = null, $args = [] ) {
   // Use default function if...
   if (
     ! get_option( 'fictioneer_enable_static_partials' ) ||
@@ -3085,7 +3086,7 @@ function fictioneer_get_static_template_part( $slug, $expiration = null, $name =
   }
 
   // Setup
-  $args_hash = md5( serialize( $args ) );
+  $args_hash = md5( serialize( $args ) . $identifier );
   $static_file = $slug . ( $name ? "-{$name}" : '' ) . "-{$args_hash}.html";
   $path = get_template_directory() . '/cache/html/' . $static_file;
 
