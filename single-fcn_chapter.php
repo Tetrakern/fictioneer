@@ -13,13 +13,14 @@
 
 // Setup
 $password_required = post_password_required();
+$post_id = get_the_ID();
 
 // Header
 get_header(
   null,
   array(
     'type' => 'fcn_chapter',
-    'no_index' => get_post_meta( get_the_ID(), 'fictioneer_chapter_hidden', true ) ? 1 : 0
+    'no_index' => get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ? 1 : 0
   )
 );
 
@@ -48,11 +49,11 @@ get_header(
         $chapter_ids = [];
         $indexed_chapters = [];
         $password_class = ! empty( $post->post_password ) ? 'password' : '';
-        $title = fictioneer_get_safe_title( $post->ID, 'single-chapter' );
-        $age_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
+        $title = fictioneer_get_safe_title( $post_id, 'single-chapter' );
+        $age_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
         $this_breadcrumb = [ $title, get_the_permalink() ];
 
-        $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+        $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
         $story_data = null;
         $story_post = null;
 
@@ -72,7 +73,7 @@ get_header(
         }
 
         // Chapter navigation
-        $current_index = array_search( $post->ID, $indexed_chapters );
+        $current_index = array_search( $post_id, $indexed_chapters );
         $prev_index = $current_index - 1;
         $next_index = $current_index + 1;
 
@@ -81,7 +82,7 @@ get_header(
           'author' => get_userdata( $post->post_author ),
           'story_post' => $story_post,
           'story_data' => $story_data,
-          'chapter_id' => $post->ID,
+          'chapter_id' => $post_id,
           'chapter_title' => $title,
           'chapter_password' => $post->post_password,
           'password_required' => $password_required,
@@ -95,7 +96,7 @@ get_header(
 
       <?php if ( $story_post && $indexed_chapters ): ?>
         <div id="story-chapter-list" class="hidden" data-story-id="<?php echo $story_id; ?>">
-          <ul data-current-id="<?php echo $post->ID; ?>"><?php
+          <ul data-current-id="<?php echo $post_id; ?>"><?php
             echo fictioneer_get_chapter_list_items( $story_id, $story_data, $current_index );
           ?></ul>
         </div>
@@ -105,7 +106,7 @@ get_header(
         if ( get_option( 'fictioneer_enable_bookmarks' ) ) {
           // Bookmark data
           $bookmark_story_title = '';
-          $bookmark_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
+          $bookmark_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
           $bookmark_title = trim( wp_strip_all_tags( $bookmark_title ) );
           $bookmark_title = $bookmark_title ?: $title;
           $bookmark_thumbnail = get_the_post_thumbnail_url( null, 'snippet' );
@@ -135,7 +136,7 @@ get_header(
         </div>
       <?php endif; ?>
 
-      <article id="ch-<?php the_ID(); ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
+      <article id="ch-<?php echo $post_id; ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
         <div class="chapter__actions chapter__actions--top" data-nosnippet>
           <div class="chapter__actions-container chapter__actions-left"><?php
@@ -160,7 +161,7 @@ get_header(
           do_action( 'fictioneer_chapter_after_header', $hook_args );
 
           // Password note
-          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post->ID );
+          $password_note = fictioneer_get_content_field( 'fictioneer_chapter_password_note', $post_id );
 
           if ( $story_post && $password_required && empty( $password_note ) ) {
             $password_note = fictioneer_get_content_field( 'fictioneer_story_password_note', $story_id );
@@ -181,7 +182,7 @@ get_header(
           echo '<div class="resize-font chapter-formatting chapter-font-color chapter-font-family">';
 
           if ( $password_required && get_option( 'fictioneer_show_protected_excerpt' ) ) {
-            echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post->ID, 512 ) . '</p>';
+            echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
           }
 
           the_content();
@@ -208,9 +209,10 @@ get_header(
 
       </article>
 
-      <?php do_action( 'fictioneer_chapter_before_comments', $hook_args ); ?>
-
-      <?php do_action( 'fictioneer_before_comments' ); ?>
+      <?php
+        do_action( 'fictioneer_chapter_before_comments', $hook_args );
+        do_action( 'fictioneer_before_comments' );
+      ?>
 
       <?php if ( comments_open() && ! $password_required ) : ?>
         <section class="chapter__comments comment-section padding-left padding-right padding-bottom chapter-comments-hideable">
@@ -229,13 +231,11 @@ get_header(
   if ( ! $password_required ) {
     do_action( 'fictioneer_chapter_after_main', $hook_args );
   }
-?>
 
-<?php
   // Footer arguments
   $footer_args = array(
     'post_type' => 'fcn_chapter',
-    'post_id' => $post->ID,
+    'post_id' => $post_id,
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()]
     )
