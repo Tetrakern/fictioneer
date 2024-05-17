@@ -26,9 +26,7 @@
  * @internal $args['relation']          Relationship between taxonomies.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

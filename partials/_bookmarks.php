@@ -13,9 +13,7 @@
  * @internal $args['seamless']    Whether to render the image seamless. Default false (Customizer).
  * @internal $args['thumbnail']   Whether the image is rendered. Default true (Customizer).
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

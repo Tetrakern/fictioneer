@@ -12,9 +12,7 @@
  *
  * @internal $args['nested']  Whether the post is nested inside another query. Default null.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

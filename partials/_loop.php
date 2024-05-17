@@ -10,9 +10,7 @@
  * @since 3.0
  * @see partials/_post.php
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

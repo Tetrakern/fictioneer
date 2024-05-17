@@ -12,9 +12,7 @@
  * @internal $args['is_editor']     True if the user is an editor.
  * @internal $args['is_moderator']  True if the user is a moderator (by capabilities).
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

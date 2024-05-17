@@ -9,9 +9,7 @@
  * @internal $args['show_type']  Whether to show the post type label. Unsafe.
  * @internal $args['cache']      Whether to account for active caching. Unsafe.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

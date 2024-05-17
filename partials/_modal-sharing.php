@@ -7,9 +7,7 @@
  * @since 4.0.0
  * @since 5.14.0 - Account for redirect link in story.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

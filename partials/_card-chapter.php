@@ -12,9 +12,7 @@
  * @internal $args['order']        Current order. Default 'desc'. Unsafe.
  * @internal $args['orderby']      Current orderby. Default 'modified'. Unsafe.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

@@ -14,9 +14,7 @@
  * @internal $args['story_id']    Current story and post ID.
  * @internal $args['context']     Render context. Default null.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

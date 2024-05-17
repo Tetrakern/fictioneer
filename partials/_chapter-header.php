@@ -16,9 +16,7 @@
  * @internal $args['chapter_title']     Safe chapter title.
  * @internal $args['chapter_password']  Chapter password or empty string.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

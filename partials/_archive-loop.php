@@ -14,9 +14,7 @@
  * @see taxonomy-fcn_fandom.php
  * @see taxonomy-fcn_genre.php
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

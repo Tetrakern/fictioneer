@@ -14,9 +14,7 @@
  * @internal $args['recommendation_id']  Recommendation post ID.
  * @internal $args['title']              Safe recommendation title.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

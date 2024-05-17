@@ -13,9 +13,7 @@
  * @internal $args['header_image_url']  URL of the filtered header image or false.
  * @internal $args['header_args']       Arguments passed to the header.php partial.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

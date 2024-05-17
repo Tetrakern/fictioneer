@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 5.7.5
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

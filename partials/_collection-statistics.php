@@ -19,9 +19,7 @@
  * @internal $args['featured_list']   IDs of featured items in the collection. Already cleaned.
  * @internal $args['featured_query']  Paginated query of featured items. Already cleaned.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

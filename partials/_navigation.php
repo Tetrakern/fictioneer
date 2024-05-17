@@ -15,9 +15,7 @@
  * @internal $args['header_args']       Arguments passed to the header.php partial.
  * @internal $args['tag']               Optional. Wrapping tag.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

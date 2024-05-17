@@ -11,9 +11,7 @@
  *
  * @internal $args['location']  Either 'in-navigation' or 'in-mobile-menu'.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

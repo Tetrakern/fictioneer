@@ -28,9 +28,7 @@
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

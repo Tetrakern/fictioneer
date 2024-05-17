@@ -7,9 +7,7 @@
  * @since 5.4.5
  * @since 5.18.0 - Added 'seamless' and 'thumbnail' params.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

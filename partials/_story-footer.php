@@ -15,9 +15,7 @@
  * @internal $args['story_data']  Story data from fictioneer_get_story_data().
  * @internal $args['story_id']    Current story and post ID.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;

@@ -9,9 +9,7 @@
  * @internal $args['post_id']    The current post ID.
  * @internal $args['post_type']  The current post type.
  */
-?>
 
-<?php
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
