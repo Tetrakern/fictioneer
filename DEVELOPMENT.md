@@ -215,7 +215,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `current_screen` | `fictioneer_restrict_admin_only_pages`, `fictioneer_restrict_comment_edit`
 | `customize_controls_enqueue_scripts` | `fictioneer_enqueue_customizer_scripts`
 | `customize_register` | `fictioneer_add_customizers`
-| `customize_save_after` | `fictioneer_watch_for_customer_updates`
+| `customize_save_after` | `fictioneer_watch_for_customizer_updates`
 | `delete_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `do_feed_rss2` | `fictioneer_main_rss_template`
 | `do_meta_boxes` | `fictioneer_remove_custom_fields_meta_boxes`

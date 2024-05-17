@@ -12,7 +12,7 @@
  * @since 5.11.0 - Purge customize.css file
  */
 
-function fictioneer_watch_for_customer_updates() {
+function fictioneer_watch_for_customizer_updates() {
   // Transient caches
   fictioneer_delete_transients_like( 'fictioneer_' );
   fictioneer_purge_nav_menu_transients();
@@ -30,7 +30,7 @@ function fictioneer_watch_for_customer_updates() {
     unlink( $bundled_fonts );
   }
 }
-add_action( 'customize_save_after', 'fictioneer_watch_for_customer_updates' );
+add_action( 'customize_save_after', 'fictioneer_watch_for_customizer_updates' );
 
 // =============================================================================
 // ADD CUSTOMIZER RANGE VALUE CONTROL
