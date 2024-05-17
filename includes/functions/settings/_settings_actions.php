@@ -471,6 +471,8 @@ function fictioneer_tools_purge_theme_caches() {
     }
   }
 
+  fictioneer_clear_cached_html();
+
   // Cache busting string
   fictioneer_regenerate_cache_bust();
 

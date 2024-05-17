@@ -3055,3 +3055,93 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   // Return
   return $data;
 }
+
+// =============================================================================
+// GET STATIC TEMPLATE PARTS
+// =============================================================================
+
+/**
+ * Get template part from static cache if available
+ *
+ * @since 5.18.1
+ * @see get_template_part()
+ *
+ * @param string      $slug  The slug name for the generic template.
+ * @param string|null $name  Optional. The name of the specialized template.
+ * @param array       $args  Optional. Additional arguments passed to the template.
+ */
+
+function fictioneer_get_static_template_part( $slug, $name = null, $args = [] ) {
+  // Use default function if...
+  if (
+    fictioneer_caching_active( "get_template_part_for_{$slug}" ) ||
+    get_option( 'fictioneer_disable_static_partials' )
+  ) {
+    get_template_part( $slug, $name, $args );
+
+    return;
+  }
+
+  // Setup
+  $static_file = $slug . ( $name ? "-{$name}" : '' ) . '.html';
+  $path = get_template_directory() . '/cache/html/' . $static_file;
+
+  // Make sure directory exists and handle failure
+  if ( ! file_exists( dirname( $path ) ) ) {
+    if ( ! mkdir( dirname( $path ), 0755, true ) && ! is_dir( dirname( $path ) ) ) {
+      get_template_part( $slug, $name, $args );
+      return;
+    }
+  }
+
+  // Get static file if not expired
+  if ( file_exists( $path ) ) {
+    $filemtime = filemtime( $path );
+
+    if ( time() - $filemtime < DAY_IN_SECONDS ) {
+      echo file_get_contents( $path );
+      return;
+    }
+  }
+
+  // Generate and cache the new file
+  ob_start();
+  get_template_part( $slug, $name, $args );
+  $html = ob_get_clean();
+
+  if ( file_put_contents( $path, $html ) === false ) {
+    get_template_part( $slug, $name, $args );
+  } else {
+    echo $html;
+  }
+}
+
+/**
+ * Clear cached static files
+ *
+ * @since 5.18.1
+ */
+
+function fictioneer_clear_cached_html() {
+  // Setup
+  $cache_dir = get_template_directory() . '/cache/html/';
+
+  // Ensure the directory exists
+  if ( ! file_exists( $cache_dir ) ) {
+    return;
+  }
+
+  // Recursively delete files and subdirectories
+  $files = new RecursiveIteratorIterator(
+    new RecursiveDirectoryIterator( $cache_dir, RecursiveDirectoryIterator::SKIP_DOTS ),
+    RecursiveIteratorIterator::CHILD_FIRST
+  );
+
+  foreach ( $files as $fileinfo ) {
+    $todo = ( $fileinfo->isDir() ? 'rmdir' : 'unlink' );
+
+    if ( ! $todo( $fileinfo->getRealPath() ) ) {
+      error_log( "Failed to delete " . $fileinfo->getRealPath() );
+    }
+  }
+}
