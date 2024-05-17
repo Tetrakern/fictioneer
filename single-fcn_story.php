@@ -37,11 +37,11 @@ get_header(
 
   <div class="main__wrapper _no-padding">
 
-    <?php do_action( 'fictioneer_main_wrapper' ); ?>
-
     <?php
+      do_action( 'fictioneer_main_wrapper' );
+
       // Setup
-      $story_id = $post->ID;
+      $story_id = $post_id;
       $story = fictioneer_get_story_data( $story_id );
       $epub_name = sanitize_file_name( strtolower( get_the_title() ) );
       $this_breadcrumb = [ $story['title'], get_the_permalink() ];
