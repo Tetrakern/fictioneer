@@ -617,6 +617,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_enable_static_partials' => array(
+      'name' => 'fictioneer_enable_static_partials',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(

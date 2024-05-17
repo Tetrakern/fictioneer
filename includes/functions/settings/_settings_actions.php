@@ -341,6 +341,9 @@ function fictioneer_tools_disable_font() {
   // Rebuild stylesheet
   fictioneer_build_bundled_fonts();
 
+  // Clear cached HTML for good measure
+  fictioneer_clear_cached_html();
+
   // Log
   fictioneer_log(
     sprintf(
@@ -389,6 +392,9 @@ function fictioneer_tools_enable_font() {
 
   // Rebuild stylesheet
   fictioneer_build_bundled_fonts();
+
+  // Clear cached HTML for good measure
+  fictioneer_clear_cached_html();
 
   // Log
   fictioneer_log(

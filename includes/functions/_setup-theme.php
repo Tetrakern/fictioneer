@@ -159,6 +159,8 @@ function fictioneer_purge_caches_after_update() {
       unlink( $file );
     }
   }
+
+  fictioneer_clear_cached_html();
 }
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 

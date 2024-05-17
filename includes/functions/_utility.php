@@ -3063,7 +3063,7 @@ function fictioneer_get_post_patreon_data( $post = null ) {
 /**
  * Get template part from static cache if available
  *
- * @since 5.18.1
+ * @since 5.19.0
  * @see get_template_part()
  *
  * @param string      $slug  The slug name for the generic template.
@@ -3074,8 +3074,8 @@ function fictioneer_get_post_patreon_data( $post = null ) {
 function fictioneer_get_static_template_part( $slug, $name = null, $args = [] ) {
   // Use default function if...
   if (
-    fictioneer_caching_active( "get_template_part_for_{$slug}" ) ||
-    get_option( 'fictioneer_disable_static_partials' )
+    ! get_option( 'fictioneer_enable_static_partials' ) ||
+    fictioneer_caching_active( "get_template_part_for_{$slug}" )
   ) {
     get_template_part( $slug, $name, $args );
 
@@ -3119,7 +3119,7 @@ function fictioneer_get_static_template_part( $slug, $name = null, $args = [] ) 
 /**
  * Clear cached static files
  *
- * @since 5.18.1
+ * @since 5.19.0
  */
 
 function fictioneer_clear_cached_html() {

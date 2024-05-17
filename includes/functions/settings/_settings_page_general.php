@@ -672,6 +672,16 @@
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_static_partials',
+                    __( 'Enable caching of static partials', 'fictioneer' ),
+                    __( 'Caches static partials as HTML files to accelerate rendering. Do not use this together with a cache plugin.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
             </div>
           </div>
         </div>

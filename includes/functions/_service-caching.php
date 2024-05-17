@@ -179,6 +179,9 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     // NitroPack
     // Insufficient or hard-to-find documentation and if the
     // developer cannot be bothered, neither can I.
+
+    // Cached HTML by theme
+    fictioneer_clear_cached_html();
   }
 }
 
