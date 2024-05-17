@@ -6,16 +6,15 @@
  * @subpackage Fictioneer
  * @since 4.7.0
  */
-?>
 
-<?php
 
 // Setup
 $custom_404 = intval( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main singular the-404">
 

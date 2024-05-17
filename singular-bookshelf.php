@@ -10,9 +10,7 @@
  * @subpackage Fictioneer
  * @since 5.0.0
  */
-?>
 
-<?php
 
 // Only for logged-in users...
 if ( ! is_user_logged_in() || get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
@@ -81,9 +79,10 @@ if ( ! array_key_exists( $current_tab, $tabs ) ) {
 // Select tab
 $tabs[ $current_tab ]['classes'][] = '_current';
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main singular bookshelf">
 

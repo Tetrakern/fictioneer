@@ -9,9 +9,7 @@
  * @since 4.0.0
  * @see partials/_recommendation-header.php
  */
-?>
 
-<?php
 
 // Setup
 $password_required = post_password_required();

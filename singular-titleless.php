@@ -7,9 +7,7 @@
  * @since 1.0
  * @see comments.php
  */
-?>
 
-<?php
 
 // Setup
 $post_id = get_the_ID();

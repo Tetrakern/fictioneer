@@ -10,9 +10,7 @@
  * @subpackage Fictioneer
  * @since 5.0.0
  */
-?>
 
-<?php
 
 // Setup
 $post_id = get_the_ID();
@@ -48,9 +46,10 @@ if ( function_exists( 'update_post_author_caches' ) ) {
   update_post_author_caches( $list_of_collections->posts );
 }
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main singular collections">
 

@@ -7,9 +7,7 @@
  * @since 5.0.0
  * @since 5.11.0 - Consider querying for story status.
  */
-?>
 
-<?php
 
 global $wp_query;
 
@@ -64,9 +62,10 @@ $is_advanced_search = $post_type != 'any' || $sentence != '0' || $order != 'desc
 
 $hook_args['is_advanced_search'] = $is_advanced_search;
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main search-results">
   <div class="observer main-observer"></div>

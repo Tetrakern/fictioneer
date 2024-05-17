@@ -18,9 +18,7 @@
  * @internal $args['post_type']    Optional. Current post type.
  * @internal $args['breadcrumbs']  Array of breadcrumb tuples with label (0) and link (1).
  */
-?>
 
-<?php
 
 // Setup
 $page_id = get_queried_object_id();

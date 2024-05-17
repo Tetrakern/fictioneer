@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 5.14.0
  */
-?>
 
-<?php
 
 // Setup
 $post_id = get_the_ID();

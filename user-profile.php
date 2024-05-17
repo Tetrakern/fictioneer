@@ -10,9 +10,7 @@
  * @subpackage Fictioneer
  * @since 4.5.0
  */
-?>
 
-<?php
 
 // Only for logged-in users...
 if ( ! is_user_logged_in() && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
@@ -57,9 +55,10 @@ $hook_args = array(
   'is_moderator' => $is_moderator
 );
 
-?>
+// Header
+get_header( null, array( 'type' => 'user-profile' ) );
 
-<?php get_header( null, array( 'type' => 'user-profile' ) ); ?>
+?>
 
 <main id="main" class="main singular profile">
 

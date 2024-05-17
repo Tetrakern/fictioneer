@@ -13,9 +13,7 @@
  * @see partials/_collection-header.php
  * @see partials/_collection-statistics.php
  */
-?>
 
-<?php
 
 // Header
 get_header( null, array( 'type' => 'fcn_collection' ) );

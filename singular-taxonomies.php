@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 5.0.0
  */
-?>
 
-<?php
 
 // Queries
 $tags = get_terms(
@@ -54,9 +52,10 @@ $terms = array(
   'characters' => [__( 'Characters', 'fictioneer' ), $characters]
 );
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main singular">
 

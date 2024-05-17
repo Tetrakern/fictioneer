@@ -7,9 +7,7 @@
  * @since 4.6.0
  * @see fictioneer_clause_sticky_stories()
  */
-?>
 
-<?php
 
 // Get queried author
 $author_id = get_queried_object_id();
@@ -88,9 +86,10 @@ if ( ! array_key_exists( $current_tab, $tabs ) ) {
 // Select tab
 $tabs[ $current_tab ]['classes'][] = '_current';
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main author-page singular">
 

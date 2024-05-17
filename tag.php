@@ -8,9 +8,12 @@
  * @see wp_tag_cloud()
  * @see partials/_archive-loop.php
  */
-?>
 
-<?php get_header(); ?>
+
+// Header
+get_header();
+
+?>
 
 <main id="main" class="main archive tag-archive">
 

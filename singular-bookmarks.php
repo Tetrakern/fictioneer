@@ -11,9 +11,7 @@
  * @subpackage Fictioneer
  * @since 4.6.0
  */
-?>
 
-<?php
 
 // Return home if bookmarks are disabled
 if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
@@ -21,9 +19,10 @@ if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
   exit();
 }
 
-?>
+// Header
+get_header();
 
-<?php get_header(); ?>
+?>
 
 <main id="main" class="main singular bookmarks-page">
 

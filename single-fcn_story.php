@@ -10,9 +10,7 @@
  * @see partials/_story-header.php
  * @see partials/_story-footer.php
  */
-?>
 
-<?php
 
 // Setup
 $post_id = $args['post_id'] ?? get_the_ID();

@@ -9,9 +9,7 @@
  * @since 1.0
  * @see comments.php
  */
-?>
 
-<?php
 
 // Setup
 $password_required = post_password_required();

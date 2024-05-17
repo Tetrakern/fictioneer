@@ -12,9 +12,7 @@
  * @internal $args['preselect_type']  Optional. Default post type to query.
  * @internal $args['cache']           Whether to account for active caching.
  */
-?>
 
-<?php
 
 // Setup
 $no_params = empty( array_filter( $_GET ) );

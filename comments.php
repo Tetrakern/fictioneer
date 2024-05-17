@@ -8,9 +8,7 @@
  * @subpackage Fictioneer
  * @since 4.7.0
  */
-?>
 
-<?php
 
 // Don't show the comments if the password has not been entered
 if ( post_password_required() ) {

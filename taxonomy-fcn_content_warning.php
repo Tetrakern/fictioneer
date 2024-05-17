@@ -7,9 +7,12 @@
  * @since 4.6.0
  * @see partials/_archive-loop.php
  */
-?>
 
-<?php get_header(); ?>
+
+// Header
+get_header();
+
+?>
 
 <main id="main" class="main archive content-warning-archive">
 

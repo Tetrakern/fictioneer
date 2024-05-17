@@ -8,9 +8,7 @@
  * @see partials/_story-header.php
  * @see partials/_story-footer.php
  */
-?>
 
-<?php
 
 // Setup
 $post_id = get_post_meta( get_the_ID(), 'fictioneer_template_story_id', true );
@@ -23,3 +21,5 @@ if ( ! $post_id ) {
 $post = get_post( $post_id );
 
 get_template_part( 'single-fcn_story', null, array( 'post_id' => $post_id ) );
+
+?>

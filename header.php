@@ -17,9 +17,7 @@
  *
  * @internal $args  Array of arguments passed to the template.
  */
-?>
 
-<?php
 
 if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
   global $fictioneer_render_start_time;

@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 1.0
  */
-?>
 
-<?php
 
 // Setup
 $password_required = post_password_required();
