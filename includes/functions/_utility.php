@@ -3076,6 +3076,7 @@ function fictioneer_get_static_template_part( $slug, $expiration = null, $name =
   // Use default function if...
   if (
     ! get_option( 'fictioneer_enable_static_partials' ) ||
+    is_customize_preview() ||
     fictioneer_caching_active( "get_template_part_for_{$slug}" )
   ) {
     get_template_part( $slug, $name, $args );
