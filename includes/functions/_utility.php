@@ -3084,7 +3084,8 @@ function fictioneer_get_static_template_part( $slug, $expiration = null, $name =
   }
 
   // Setup
-  $static_file = $slug . ( $name ? "-{$name}" : '' ) . '.html';
+  $args_hash = md5( serialize( $args ) );
+  $static_file = $slug . ( $name ? "-{$name}" : '' ) . "-{$args_hash}.html";
   $path = get_template_directory() . '/cache/html/' . $static_file;
 
   // Make sure directory exists and handle failure
