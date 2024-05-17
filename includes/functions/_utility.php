@@ -3120,10 +3120,22 @@ function fictioneer_get_static_template_part( $slug, $expiration = null, $name =
 /**
  * Clear cached static files
  *
+ * Note: Only executed once per request to reduce overhead.
+ * Can therefore be used with impunity.
+ *
  * @since 5.19.0
  */
 
 function fictioneer_clear_cached_html() {
+  // Only run this once per request
+  static $done = false;
+
+  if ( $done || ! get_option( 'fictioneer_enable_static_partials' ) ) {
+    return;
+  }
+
+  $done = true;
+
   // Setup
   $cache_dir = get_template_directory() . '/cache/html/';
 
