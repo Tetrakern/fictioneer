@@ -1809,7 +1809,6 @@ function fcntr( $key, $escape = false ) {
 
 function fictioneer_balance_pagination_array( $pages, $current, $keep = 2, $ellipses = '…' ) {
   // Setup
-  $keep = 2;
   $max_pages = is_array( $pages ) ? count( $pages ) : $pages;
   $steps = is_array( $pages ) ? $pages : [];
 
@@ -2226,7 +2225,7 @@ function fictioneer_explode_list( $string ) {
 }
 
 // =============================================================================
-// BUILD FRONTEND PROFILE NOTICE
+// BUILD FRONTEND NOTICE
 // =============================================================================
 
 if ( ! function_exists( 'fictioneer_notice' ) ) {
