@@ -170,6 +170,9 @@ function fictioneer_settings_checkbox_added( $option, $value ) {
     return;
   }
 
+  // Clear cached files
+  fictioneer_clear_cached_html();
+
   // Relay
   fictioneer_log_checkbox_update(
     fictioneer_get_option_label( $option ),
@@ -194,6 +197,9 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
   if ( ! in_array( $option, array_keys( FICTIONEER_OPTIONS['booleans'] ) ) ) {
     return;
   }
+
+  // Clear cached files
+  fictioneer_clear_cached_html();
 
   // Relay
   fictioneer_log_checkbox_update(
@@ -365,6 +371,9 @@ function fictioneer_settings_phrase_added( $option, $value ) {
     return;
   }
 
+  // Clear cached files
+  fictioneer_clear_cached_html();
+
   // Relay
   fictioneer_log_phrase_update(
     fictioneer_get_option_label( $option ),
@@ -389,6 +398,9 @@ function fictioneer_settings_phrase_updated( $option, $old_value, $value ) {
   if ( ! in_array( $option, FICTIONEER_PHRASES ) ) {
     return;
   }
+
+  // Clear cached files
+  fictioneer_clear_cached_html();
 
   // Replay
   fictioneer_log_phrase_update(

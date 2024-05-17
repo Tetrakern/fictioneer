@@ -192,7 +192,7 @@ if ( get_option( 'fictioneer_enable_follows' ) ) {
  */
 
 function fictioneer_mobile_bookmarks_frame() {
-  get_template_part( 'partials/_template_mobile_bookmark' );
+  fictioneer_get_static_template_part( 'partials/_template_mobile_bookmark' );
 
   // Start HTML ---> ?>
   <div class="mobile-menu__frame" data-frame="bookmarks">

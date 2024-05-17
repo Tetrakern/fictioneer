@@ -3063,7 +3063,7 @@ function fictioneer_get_post_patreon_data( $post = null ) {
 /**
  * Get template part from static cache if available
  *
- * @since 5.19.0
+ * @since 5.18.1
  * @see get_template_part()
  *
  * @param string      $slug        The slug name for the generic template.
@@ -3125,7 +3125,7 @@ function fictioneer_get_static_template_part( $slug, $expiration = null, $name =
  * Note: Only executed once per request to reduce overhead.
  * Can therefore be used with impunity.
  *
- * @since 5.19.0
+ * @since 5.18.1
  */
 
 function fictioneer_clear_cached_html() {
