@@ -3016,23 +3016,24 @@ function fictioneer_get_post_patreon_data( $post = null ) {
 
   // Post?
   $post = $post ?? get_post();
+  $post_id = $post->ID;
 
   if ( ! $post ) {
     return null;
   }
 
   // Check cache
-  if ( isset( $cache[ $post->ID ] ) ) {
-    return $cache[ $post->ID ];
+  if ( isset( $cache[ $post_id ] ) ) {
+    return $cache[ $post_id ];
   }
 
   // Setup
   $global_tiers = get_option( 'fictioneer_patreon_global_lock_tiers', [] ) ?: [];
   $global_amount_cents = get_option( 'fictioneer_patreon_global_lock_amount', 0 ) ?: 0;
   $global_lifetime_amount_cents = get_option( 'fictioneer_patreon_global_lock_lifetime_amount', 0 ) ?: 0;
-  $post_tiers = get_post_meta( $post->ID, 'fictioneer_patreon_lock_tiers', true );
+  $post_tiers = get_post_meta( $post_id, 'fictioneer_patreon_lock_tiers', true );
   $post_tiers = is_array( $post_tiers ) ? $post_tiers : [];
-  $post_amount_cents = absint( get_post_meta( $post->ID, 'fictioneer_patreon_lock_amount', true ) );
+  $post_amount_cents = absint( get_post_meta( $post_id, 'fictioneer_patreon_lock_amount', true ) );
   $check_tiers = array_merge( $global_tiers, $post_tiers );
   $check_tiers = array_unique( $check_tiers );
   $check_amount_cents = $post_amount_cents > 0 ? $post_amount_cents : $global_amount_cents;
@@ -3049,7 +3050,7 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   );
 
   // Cache
-  $cache[ $post->ID ] = $data;
+  $cache[ $post_id ] = $data;
 
   // Return
   return $data;

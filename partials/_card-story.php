@@ -19,13 +19,14 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$story = fictioneer_get_story_data( $post->ID );
-$story_link = ( $story['redirect'] ?? 0 ) ?: get_permalink( $post->ID );
+$post_id = $post->ID;
+$story = fictioneer_get_story_data( $post_id );
+$story_link = ( $story['redirect'] ?? 0 ) ?: get_permalink( $post_id );
 $latest = $args['show_latest'] ?? false;
 $chapter_ids = array_slice( $story['chapter_ids'], $latest ? -3 : 0, 3, true ); // Does not include hidden or non-chapters
 $chapter_count = count( $chapter_ids );
 $excerpt = fictioneer_first_paragraph_as_excerpt(
-  fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
+  fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
 );
 $excerpt = empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
 $tags = false;
@@ -42,7 +43,7 @@ if (
 $hide_author = $args['hide_author'] ?? false && ! get_option( 'fictioneer_show_authors' );
 $show_taxonomies = ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ( $story['has_taxonomies'] || $tags );
 $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS &&
-  get_post_meta( $post->ID, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
+  get_post_meta( $post_id, 'fictioneer_story_sticky', true ) && ! is_search() && ! is_archive();
 
 // Extra classes
 if ( $is_sticky ) {
@@ -74,10 +75,10 @@ $thumbnail_args = array(
 ?>
 
 <li
-  id="story-card-<?php echo $post->ID; ?>"
-  class="post-<?php echo $post->ID; ?> card _large _story <?php echo implode( ' ', $card_classes ); ?>"
-  data-story-id="<?php echo $post->ID; ?>"
-  data-check-id="<?php echo $post->ID; ?>"
+  id="story-card-<?php echo $post_id; ?>"
+  class="post-<?php echo $post_id; ?> card _large _story <?php echo implode( ' ', $card_classes ); ?>"
+  data-story-id="<?php echo $post_id; ?>"
+  data-check-id="<?php echo $post_id; ?>"
   <?php echo $card_attributes; ?>
 >
   <div class="card__body polygon">
@@ -98,7 +99,7 @@ $thumbnail_args = array(
           echo $story['title'];
         ?></a></h3>
 
-        <?php echo fictioneer_get_card_controls( $post->ID ); ?>
+        <?php echo fictioneer_get_card_controls( $post_id ); ?>
 
       </div>
 

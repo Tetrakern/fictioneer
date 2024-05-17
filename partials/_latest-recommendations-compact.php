@@ -102,8 +102,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
         <?php
           // Setup
-          $title = fictioneer_get_safe_title( $post->ID, 'shortcode-latest-recommendations-compact' );
-          $one_sentence = get_post_meta( $post->ID, 'fictioneer_recommendation_one_sentence', true );
+          $post_id = $post->ID;
+          $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-recommendations-compact' );
+          $one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
           $genres = get_the_terms( $post, 'fcn_genre' );
@@ -147,7 +148,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="post-<?php echo $post->ID; ?> card watch-last-clicked _small _recommendation _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+        <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _recommendation _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <?php if ( $show_taxonomies ) : ?>
@@ -162,7 +163,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 if ( $args['thumbnail'] ) {
                   fictioneer_output_small_card_thumbnail(
                     array(
-                      'post_id' => $post->ID,
+                      'post_id' => $post_id,
                       'title' => $title,
                       'classes' => 'card__image cell-img',
                       'permalink' => get_permalink(),
@@ -182,7 +183,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <span class="card__by-author"><?php
                     printf(
                       _x( 'by %s —', 'Small card: by {Author} —.', 'fictioneer' ),
-                      '<span class="author">' . get_post_meta( $post->ID, 'fictioneer_recommendation_author', true ) . '</span>'
+                      '<span class="author">' . get_post_meta( $post_id, 'fictioneer_recommendation_author', true ) . '</span>'
                     );
                   ?></span>
                   <span><?php

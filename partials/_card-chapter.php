@@ -18,14 +18,15 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID, 'card-chapter' );
-$story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+$post_id = $post->ID;
+$title = fictioneer_get_safe_title( $post_id, 'card-chapter' );
+$story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 $story_post = get_post( $story_id );
 $story_unpublished = get_post_status( $story_id ) !== 'publish';
 $story_data = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
-$chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
+$chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
 $story_thumbnail_url_full = $story_id ? get_the_post_thumbnail_url( $story_id, 'full' ) : null;
-$text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
+$text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
 $excerpt = fictioneer_get_forced_excerpt( $post, 512, true );
 $card_classes = [];
 
@@ -43,9 +44,9 @@ if (
 }
 
 if ( ! get_option( 'fictioneer_hide_taxonomies_on_chapter_cards' ) ) {
-  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-  $characters = get_the_terms( $post->ID, 'fcn_character' );
-  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+  $fandoms = get_the_terms( $post_id, 'fcn_fandom' );
+  $characters = get_the_terms( $post_id, 'fcn_character' );
+  $genres = get_the_terms( $post_id, 'fcn_genre' );
 }
 
 // Flags
@@ -82,10 +83,10 @@ $thumbnail_args = array(
 ?>
 
 <li
-  id="chapter-card-<?php echo $post->ID; ?>"
-  class="post-<?php echo $post->ID; ?> card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
+  id="chapter-card-<?php echo $post_id; ?>"
+  class="post-<?php echo $post_id; ?> card _large _chapter <?php echo implode( ' ', $card_classes ); ?>"
   data-story-id="<?php echo $story_id; ?>"
-  data-check-id="<?php echo $post->ID; ?>"
+  data-check-id="<?php echo $post_id; ?>"
   data-unavailable="<?php esc_attr_e( 'Unavailable', 'fictioneer' ); ?>"
   <?php echo $card_attributes; ?>
 >
@@ -101,7 +102,7 @@ $thumbnail_args = array(
 
         <h3 class="card__title">
           <a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
-            $list_title = wp_strip_all_tags( get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true ) );
+            $list_title = wp_strip_all_tags( get_post_meta( $post_id, 'fictioneer_chapter_list_title', true ) );
             $list_title = trim( $list_title );
 
             if ( ! empty( $post->post_password ) ) {
@@ -120,7 +121,7 @@ $thumbnail_args = array(
 
         <?php
           if ( ! empty( $story_id ) && ! empty( $story_data ) ) {
-            echo fictioneer_get_card_controls( $story_id, $post->ID );
+            echo fictioneer_get_card_controls( $story_id, $post_id );
           }
         ?>
 
@@ -158,7 +159,7 @@ $thumbnail_args = array(
               '<a href="%1$s" title="%2$s" class="card__text-icon cell-img"><span class="text-icon">%3$s</span></a>',
               get_permalink(),
               esc_attr( $title ),
-              get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true )
+              get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true )
             );
 
           }
@@ -233,7 +234,7 @@ $thumbnail_args = array(
 
           $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
             esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-            fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) );
+            fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
             $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .

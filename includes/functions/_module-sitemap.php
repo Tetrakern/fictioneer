@@ -147,7 +147,8 @@ function fictioneer_create_sitemap() {
   );
 
   foreach( $pages as $post ) {
-    $template = get_page_template_slug( $post->ID );
+    $post_id = $post->ID;
+    $template = get_page_template_slug( $post_id );
     $template_excludes = ['user-profile.php', 'singular-bookmarks.php', 'singular-bookshelf.php', 'singular-bookshelf-ajax.php'];
     $template_excludes = apply_filters( 'fictioneer_filter_sitemap_page_template_excludes', $template_excludes );
 
@@ -155,8 +156,8 @@ function fictioneer_create_sitemap() {
       continue;
     }
 
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
+    $lastmod = get_the_modified_date( 'c', $post_id );
+    $sitemap .= fictioneer_url_node( get_permalink( $post_id ), $lastmod, 'monthly' );
   }
 
   // Blogs
@@ -212,14 +213,16 @@ function fictioneer_create_sitemap() {
   );
 
   foreach ( $stories as $post ) {
-    if ( get_post_meta( $post->ID, 'fictioneer_story_hidden', true ) ) {
+    $post_id = $post->ID;
+
+    if ( get_post_meta( $post_id, 'fictioneer_story_hidden', true ) ) {
       continue;
     }
 
-    $lastmod = get_the_modified_date( 'c', $post->ID );
-    $status = get_post_meta( $post->ID, 'fictioneer_story_status', true );
+    $lastmod = get_the_modified_date( 'c', $post_id );
+    $status = get_post_meta( $post_id, 'fictioneer_story_status', true );
     $frequency = $status == 'Ongoing' ? 'weekly' : 'monthly';
-    $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, $frequency );
+    $sitemap .= fictioneer_url_node( get_permalink( $post_id ), $lastmod, $frequency );
   }
 
   // Chapters

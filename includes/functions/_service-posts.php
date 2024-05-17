@@ -226,7 +226,8 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
   }
 
   // Story?
-  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+  $post_id = $post->ID;
+  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
   if ( empty( $story_id ) ) {
     return;
@@ -244,8 +245,8 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
       time(),
       sprintf(
         _x( '#%s privated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
-        $post->ID,
-        fictioneer_get_safe_title( $post->ID, true, 'admin-log-status-change-publish_to_private' )
+        $post_id,
+        fictioneer_get_safe_title( $post_id, true, 'admin-log-status-change-publish_to_private' )
       )
     );
 
@@ -258,8 +259,8 @@ function fictioneer_log_story_chapter_status_changes( $new_status, $old_status, 
       time(),
       sprintf(
         _x( '#%s unprivated: %s.', 'Story changelog chapter removed.', 'fictioneer' ),
-        $post->ID,
-        fictioneer_get_safe_title( $post->ID, true, 'admin-log-status-change-private_to_publish' )
+        $post_id,
+        fictioneer_get_safe_title( $post_id, true, 'admin-log-status-change-private_to_publish' )
       )
     );
 

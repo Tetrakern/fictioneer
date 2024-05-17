@@ -15,9 +15,10 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID, 'card-post' );
+$post_id = $post->ID;
+$title = fictioneer_get_safe_title( $post_id, 'card-post' );
 $tags = get_the_tags();
-$categories = wp_get_post_categories( $post->ID );
+$categories = wp_get_post_categories( $post_id );
 $card_classes = [];
 
 // Extra classes
@@ -45,7 +46,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="post-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _post <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="post-card-<?php echo $post_id; ?>" class="post-<?php echo $post_id; ?> card _large _post <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__main _grid _large">

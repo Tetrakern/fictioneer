@@ -147,6 +147,7 @@ do_action( 'rss_tag_pre', 'rss2' );
         foreach ( $chapter_query->posts as $post ) {
           // Setup
           setup_postdata( $post );
+          $post_id = $post->ID;
 
           // Terminate?
           if ( $terminator < 1 ) {
@@ -154,7 +155,7 @@ do_action( 'rss_tag_pre', 'rss2' );
           }
 
           // Skip invisible chapters
-          if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
+          if ( get_post_meta( $post_id, 'fictioneer_chapter_hidden', true ) ) {
             continue;
           }
 
@@ -163,7 +164,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 
           // Data
           $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
-          $og_image = fictioneer_get_seo_image( $post->ID );
+          $og_image = fictioneer_get_seo_image( $post_id );
 
           // <-- Start HTML
           ?>
@@ -184,25 +185,25 @@ do_action( 'rss_tag_pre', 'rss2' );
             <?php endif; ?>
 
             <?php
-              if ( $chapter_fandoms = get_the_terms( $post->ID, 'fcn_fandom' ) ) {
+              if ( $chapter_fandoms = get_the_terms( $post_id, 'fcn_fandom' ) ) {
                 foreach ( $chapter_fandoms as $fandom ) {
                   echo '<category>' . $fandom->name . '</category>';
                 }
               }
 
-              if ( $chapter_genres = get_the_terms( $post->ID, 'fcn_genre' ) ) {
+              if ( $chapter_genres = get_the_terms( $post_id, 'fcn_genre' ) ) {
                 foreach ( $chapter_genres as $genre ) {
                   echo '<category>' . $genre->name . '</category>';
                 }
               }
 
-              if ( $chapter_characters = get_the_terms( $post->ID, 'fcn_character' ) ) {
+              if ( $chapter_characters = get_the_terms( $post_id, 'fcn_character' ) ) {
                 foreach ( $chapter_characters as $character ) {
                   echo '<category>' . $character->name . '</category>';
                 }
               }
 
-              if ( $chapter_tags = get_the_tags( $post->ID ) ) {
+              if ( $chapter_tags = get_the_tags( $post_id ) ) {
                 foreach ( $chapter_tags as $tag ) {
                   echo '<category>' . $tag->name . '</category>';
                 }

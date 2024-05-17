@@ -123,10 +123,11 @@ $pag_args = array(
           $query->the_post();
 
           // Setup
-          $story_id = ( $post->post_type === 'fcn_story' ) ? $post->ID : null;
-          $title = fictioneer_get_safe_title( $post->ID, 'card-article' );
+          $post_id = $post->ID;
+          $story_id = ( $post->post_type === 'fcn_story' ) ? $post_id : null;
+          $title = fictioneer_get_safe_title( $post_id, 'card-article' );
           $permalink = get_permalink();
-          $categories = wp_get_post_categories( $post->ID );
+          $categories = wp_get_post_categories( $post_id );
           $tags = get_the_tags();
           $fandoms = get_the_terms( $post, 'fcn_fandom' );
           $characters = get_the_terms( $post, 'fcn_character' );
@@ -135,7 +136,7 @@ $pag_args = array(
 
           // Chapter story?
           if ( $post->post_type === 'fcn_chapter' ) {
-            $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+            $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
           }
 
           // Extra classes
@@ -163,7 +164,7 @@ $pag_args = array(
           }
 
           // Start HTML ---> ?>
-          <li class="post-<?php echo $post->ID; ?> card _article <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+          <li class="post-<?php echo $post_id; ?> card _article <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
             <article class="card__body _article polygon">
 
               <div class="card__main _article">
@@ -172,7 +173,7 @@ $pag_args = array(
                   if ( $args['thumbnail'] ) {
                     fictioneer_output_small_card_thumbnail(
                       array(
-                        'post_id' => $post->ID,
+                        'post_id' => $post_id,
                         'title' => $title,
                         'classes' => 'card__image _article cell-img',
                         'permalink' => $permalink,

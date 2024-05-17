@@ -124,16 +124,17 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
         <?php
           // Setup
-          $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+          $post_id = $post->ID;
+          $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
 
           if ( get_post_status( $story_id ) !== 'publish' ) {
             continue;
           }
 
-          $title = fictioneer_get_safe_title( $post->ID, 'shortcode-latest-chapters' );
-          $chapter_rating = get_post_meta( $post->ID, 'fictioneer_chapter_rating', true );
+          $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters' );
+          $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
-          $text_icon = get_post_meta( $post->ID, 'fictioneer_chapter_text_icon', true );
+          $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -182,7 +183,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="post-<?php echo $post->ID; ?> card _small _chapter <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+        <li class="post-<?php echo $post_id; ?> card _small _chapter <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
@@ -193,7 +194,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 if ( $args['thumbnail'] ) {
                   fictioneer_output_small_card_thumbnail(
                     array(
-                      'post_id' => $post->ID,
+                      'post_id' => $post_id,
                       'title' => $title,
                       'classes' => 'card__image cell-img',
                       'permalink' => get_permalink(),
@@ -208,7 +209,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
               ?>
 
               <h3 class="card__title _small cell-title"><a href="<?php the_permalink(); ?>" class="truncate _1-1"><?php
-                $list_title = get_post_meta( $post->ID, 'fictioneer_chapter_list_title', true );
+                $list_title = get_post_meta( $post_id, 'fictioneer_chapter_list_title', true );
                 $list_title = trim( wp_strip_all_tags( $list_title ) );
 
                 if ( ! empty( $post->post_password ) ) {
@@ -270,7 +271,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
                     $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
                       esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-                      fictioneer_shorten_number( fictioneer_get_word_count( $post->ID ) );
+                      fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
 
                     if ( $args['orderby'] == 'modified' ) {
                       $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .

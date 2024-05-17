@@ -17,11 +17,12 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$list_title = trim( get_post_meta( $post->ID, 'fictioneer_collection_list_title', true ) );
-$title = empty( $list_title ) ? fictioneer_get_safe_title( $post->ID, 'card-collection' ) : $list_title;
-$description = fictioneer_get_content_field( 'fictioneer_collection_description', $post->ID );
-$statistics = fictioneer_get_collection_statistics( $post->ID );
-$items = get_post_meta( $post->ID, 'fictioneer_collection_items', true );
+$post_id = $post->ID;
+$list_title = trim( get_post_meta( $post_id, 'fictioneer_collection_list_title', true ) );
+$title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'card-collection' ) : $list_title;
+$description = fictioneer_get_content_field( 'fictioneer_collection_description', $post_id );
+$statistics = fictioneer_get_collection_statistics( $post_id );
+$items = get_post_meta( $post_id, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
 $card_classes = [];
 
@@ -39,9 +40,9 @@ if (
 }
 
 if ( ! get_option( 'fictioneer_hide_taxonomies_on_collection_cards' ) ) {
-  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-  $characters = get_the_terms( $post->ID, 'fcn_character' );
-  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+  $fandoms = get_the_terms( $post_id, 'fcn_fandom' );
+  $characters = get_the_terms( $post_id, 'fcn_character' );
+  $genres = get_the_terms( $post_id, 'fcn_genre' );
 }
 
 // Flags
@@ -96,7 +97,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="collection-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="collection-card-<?php echo $post_id; ?>" class="post-<?php echo $post_id; ?> card _large _collection <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__main _grid _large">

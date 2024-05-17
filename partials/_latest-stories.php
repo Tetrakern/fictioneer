@@ -118,10 +118,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
         <?php
           // Setup
-          $story = fictioneer_get_story_data( $post->ID, false ); // Does not refresh comment count!
-          $story_link = get_post_meta( $post->ID, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $post->ID );
+          $post_id = $post->ID;
+          $story = fictioneer_get_story_data( $post_id, false ); // Does not refresh comment count!
+          $story_link = get_post_meta( $post_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $post_id );
           $tags = get_option( 'fictioneer_show_tags_on_story_cards' ) ? get_the_tags( $post ) : false;
-          $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post->ID, 'fictioneer_story_sticky', true );
+          $is_sticky = FICTIONEER_ENABLE_STICKY_CARDS && get_post_meta( $post_id, 'fictioneer_story_sticky', true );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -164,7 +165,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           }
         ?>
 
-        <li class="post-<?php echo $post->ID; ?> card _small _story <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+        <li class="post-<?php echo $post_id; ?> card _small _story <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
@@ -175,7 +176,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 if ( $args['thumbnail'] ) {
                   fictioneer_output_small_card_thumbnail(
                     array(
-                      'post_id' => $post->ID,
+                      'post_id' => $post_id,
                       'title' => $story['title'],
                       'classes' => 'card__image cell-img',
                       'permalink' => $story_link,
@@ -205,7 +206,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   <?php endif; ?>
                   <span><?php
                     $short_description = fictioneer_first_paragraph_as_excerpt(
-                      fictioneer_get_content_field( 'fictioneer_story_short_description', $post->ID )
+                      fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
                     );
                     echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
                   ?></span>

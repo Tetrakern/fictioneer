@@ -198,9 +198,10 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
   function fictioneer_get_schema_node_article( $type, $description, $post = null, $image_data = null, $no_cat = false ) {
     // Setup
     $post = empty( $post ) ? get_queried_object() : $post;
+    $post_id = $post->ID;
     $author = get_the_author_meta( 'display_name', $post->post_author );
-    $tags = get_the_tags( $post->ID );
-    $categories = $no_cat ? [] : get_the_category( $post->ID );
+    $tags = get_the_tags( $post_id );
+    $categories = $no_cat ? [] : get_the_category( $post_id );
     $taxonomies = is_array( $tags ) ? array_merge( $categories, $tags ) : $categories;
     $keywords = [];
 
@@ -215,9 +216,9 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
     $article_node = array(
       '@type' => $type,
       '@id' => "#article",
-      'headline' => fictioneer_get_safe_title( $post->ID, 'seo-schema-article-node' ),
+      'headline' => fictioneer_get_safe_title( $post_id, 'seo-schema-article-node' ),
       'description' => $description,
-      'url' => get_the_permalink( $post->ID ),
+      'url' => get_the_permalink( $post_id ),
       'author' => array(
         '@type' => 'Person',
         'url' => get_site_url( null, '', 'https' ),
@@ -226,8 +227,8 @@ if ( ! function_exists( 'fictioneer_get_schema_node_article' ) ) {
       'isPartOf' => array( '@id' => "#webpage" ),
       'mainEntityOfPage' => array( '@id' => "#webpage" ),
       'inLanguage' => get_bloginfo( 'language' ),
-      'datePublished' => get_the_date( 'c', $post->ID ),
-      'dateModified' => get_the_modified_date( 'c', $post->ID )
+      'datePublished' => get_the_date( 'c', $post_id ),
+      'dateModified' => get_the_modified_date( 'c', $post_id )
     );
 
     // Account for primary image (if any)

@@ -17,13 +17,14 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID, 'card-recommendation' );
+$post_id = $post->ID;
+$title = fictioneer_get_safe_title( $post_id, 'card-recommendation' );
 $links = array_merge(
-  fictioneer_url_list_to_array( get_post_meta( $post->ID, 'fictioneer_recommendation_urls', true ) ),
-  fictioneer_url_list_to_array( get_post_meta( $post->ID, 'fictioneer_recommendation_support', true ) )
+  fictioneer_url_list_to_array( get_post_meta( $post_id, 'fictioneer_recommendation_urls', true ) ),
+  fictioneer_url_list_to_array( get_post_meta( $post_id, 'fictioneer_recommendation_support', true ) )
 );
 $excerpt = get_the_excerpt();
-$one_sentence = get_post_meta( $post->ID, 'fictioneer_recommendation_one_sentence', true );
+$one_sentence = get_post_meta( $post_id, 'fictioneer_recommendation_one_sentence', true );
 $card_classes = [];
 
 // Taxonomies
@@ -40,9 +41,9 @@ if (
 }
 
 if ( ! get_option( 'fictioneer_hide_taxonomies_on_recommendation_cards' ) ) {
-  $fandoms = get_the_terms( $post->ID, 'fcn_fandom' );
-  $characters = get_the_terms( $post->ID, 'fcn_character' );
-  $genres = get_the_terms( $post->ID, 'fcn_genre' );
+  $fandoms = get_the_terms( $post_id, 'fcn_fandom' );
+  $characters = get_the_terms( $post_id, 'fcn_character' );
+  $genres = get_the_terms( $post_id, 'fcn_genre' );
 }
 
 // Flags
@@ -77,7 +78,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="recommendation-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _recommendation _large _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="recommendation-card-<?php echo $post_id; ?>" class="post-<?php echo $post_id; ?> card _recommendation _large _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__main _grid _large">
@@ -110,7 +111,7 @@ $thumbnail_args = array(
           count( $links ) > 3 ? '_3-4' : '_4-4',
           sprintf(
             _x( 'by %s —', 'Large card: by {Author} —.', 'fictioneer' ),
-            get_post_meta( $post->ID, 'fictioneer_recommendation_author', true )
+            get_post_meta( $post_id, 'fictioneer_recommendation_author', true )
           ),
           strlen( $one_sentence ) < strlen( $excerpt ) ? $excerpt : wp_strip_all_tags( $one_sentence, true )
         );

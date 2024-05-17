@@ -15,7 +15,8 @@
 defined( 'ABSPATH' ) OR exit;
 
 // Setup
-$title = fictioneer_get_safe_title( $post->ID, 'card-page' );
+$post_id = $post->ID;
+$title = fictioneer_get_safe_title( $post_id, 'card-page' );
 $comments_number = get_comments_number();
 $card_classes = [];
 
@@ -44,7 +45,7 @@ $thumbnail_args = array(
 
 ?>
 
-<li id="post-card-<?php echo $post->ID; ?>" class="post-<?php echo $post->ID; ?> card _large _page <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
+<li id="post-card-<?php echo $post_id; ?>" class="post-<?php echo $post_id; ?> card _large _page <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
   <div class="card__body polygon">
 
     <div class="card__main _grid _large">
