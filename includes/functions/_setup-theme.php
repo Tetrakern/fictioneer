@@ -1281,24 +1281,24 @@ if ( ! function_exists( 'fictioneer_output_critical_fonts' ) ) {
 // OUTPUT HEAD META
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_head_meta' ) ) {
-  /**
-   * Output HTML <head> meta
-   *
-   * @since 5.0.0
-   * @since 5.10.0 - Split up for font manager.
-   */
+/**
+ * Output HTML <head> meta
+ *
+ * @since 5.0.0
+ * @since 5.10.0 - Split up for font manager.
+ * @since 5.18.1 - No longer pluggable, hooked into wp_head
+ */
 
-  function fictioneer_output_head_meta() {
-    // Start HTML ---> ?>
-    <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <?php // <--- End HTML
-  }
+function fictioneer_output_head_meta() {
+  // Start HTML ---> ?>
+  <meta charset="<?php echo get_bloginfo( 'charset' ); ?>">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="<?php echo '#' . get_background_color(); ?>">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <?php // <--- End HTML
 }
+add_action( 'wp_head', 'fictioneer_output_head_meta', 1 );
 
 // =============================================================================
 // OUTPUT HEAD FONTS
@@ -1371,25 +1371,25 @@ add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
 // OUTPUT HEAD CRITICAL SCRIPTS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_output_head_critical_scripts' ) ) {
-  /**
-   * Output critical path scripts in <head>
-   *
-   * Critical path scripts executed in the <head> before the rest of the DOM
-   * is loaded. This is necessary for the light/dark switch and site settings
-   * to work without causing color flickering or layout shifts. This is achieved
-   * by adding configuration classes directly into the <html> root node, which
-   * is the only one available at this point.
-   *
-   * @since 5.0.0
-   */
+/**
+ * Output critical path scripts in <head>
+ *
+ * Critical path scripts executed in the <head> before the rest of the DOM
+ * is loaded. This is necessary for the light/dark switch and site settings
+ * to work without causing color flickering or layout shifts. This is achieved
+ * by adding configuration classes directly into the <html> root node, which
+ * is the only one available at this point.
+ *
+ * @since 5.0.0
+ * @since 5.18.1 - No longer pluggable, hooked into wp_head
+ */
 
-  function fictioneer_output_head_critical_scripts() {
-    // Start HTML ---> ?>
-    <script id="fictioneer-critical-scripts" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,r])=>{switch(e){case"minimal":t.classList.toggle("minimal",r);break;case"darken":a=r>=0?1+r**2:1-r**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=r>=0?1+r**2:1-r**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!r)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const r=o.darken?o.darken:0,s=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=r>=0?1+r**2:1-r**2;o=s>=0?1+s**2:1-s**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}();</script>
-    <?php // <--- End HTML
-  }
+function fictioneer_output_head_critical_scripts() {
+  // Start HTML ---> ?>
+  <script id="fictioneer-critical-scripts" data-no-optimize="1" data-no-defer="1" data-no-minify="1">!function(){if("undefined"!=typeof localStorage){const e=localStorage.getItem("fcnLightmode"),t=document.documentElement;let a,o=localStorage.getItem("fcnSiteSettings");if(o&&(o=JSON.parse(o))&&null!==o&&"object"==typeof o){Object.entries(o).forEach((([e,r])=>{switch(e){case"minimal":t.classList.toggle("minimal",r);break;case"darken":a=r>=0?1+r**2:1-r**2,t.style.setProperty("--darken",`(${a} + var(--lightness-offset))`);break;case"saturation":case"font-lightness":case"font-saturation":a=r>=0?1+r**2:1-r**2,t.style.setProperty(`--${e}`,`(${a} + var(--${e}-offset))`);break;case"hue-rotate":a=Number.isInteger(o["hue-rotate"])?o["hue-rotate"]:0,t.style.setProperty("--hue-rotate",`(${a}deg + var(--hue-offset))`);break;default:t.classList.toggle(`no-${e}`,!r)}})),t.dataset.fontWeight=o["font-weight"]?o["font-weight"]:"default",t.dataset.theme=o["site-theme"]&&!t.dataset.forceChildTheme?o["site-theme"]:"default";let e=getComputedStyle(document.documentElement).getPropertyValue("--theme-color-base").trim().split(" ");const r=o.darken?o.darken:0,s=o.saturation?o.saturation:0,n=o["hue-rotate"]?o["hue-rotate"]:0,l=r>=0?1+r**2:1-r**2;o=s>=0?1+s**2:1-s**2,e=`hsl(${(parseInt(e[0])+n)%360}deg ${(parseInt(e[1])*o).toFixed(2)}% ${(parseInt(e[2])*l).toFixed(2)}%)`,document.querySelector("meta[name=theme-color]").setAttribute("content",e)}e&&(t.dataset.mode="true"==e?"light":"dark")}}();</script>
+  <?php // <--- End HTML
 }
+add_action( 'wp_head', 'fictioneer_output_head_critical_scripts', 9999 );
 
 // =============================================================================
 // ADD EXCERPTS TO PAGES

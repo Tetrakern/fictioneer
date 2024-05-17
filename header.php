@@ -26,9 +26,9 @@ if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
   $fictioneer_render_start_time = microtime( true );
 }
 
+// IDs
 global $post;
 
-// IDs
 $page_id = get_queried_object_id();
 $post_id = $post ? $post->ID : null;
 
@@ -51,19 +51,7 @@ if ( ( $args['no_index'] ?? 0 ) || FICTIONEER_MU_REGISTRATION ) {
 
 <html <?php language_attributes(); ?> <?php fictioneer_root_attributes(); ?>>
 
-  <head>
-    <?php
-      // Includes charset, content type, viewport, etc...
-      fictioneer_output_head_meta();
-
-
-      // WordPress <head> hook
-      wp_head();
-
-      // Includes critical path scripts that must be executed before the rest
-      fictioneer_output_head_critical_scripts();
-    ?>
-  </head>
+  <head><?php wp_head(); ?></head>
 
   <body <?php body_class( 'site-bg scrolled-to-top' ); ?> data-post-id="<?php echo $post_id ?: -1; ?>">
     <?php wp_body_open(); ?>
