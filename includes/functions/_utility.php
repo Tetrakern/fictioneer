@@ -95,11 +95,9 @@ if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {
    */
 
   function fictioneer_seo_plugin_active() {
-    $bool = fictioneer_is_plugin_active( 'wordpress-seo/wp-seo.php' ) ||
+    return fictioneer_is_plugin_active( 'wordpress-seo/wp-seo.php' ) ||
       fictioneer_is_plugin_active( 'wordpress-seo-premium/wp-seo-premium.php' ) ||
       function_exists( 'aioseo' );
-
-    return $bool;
   }
 }
 
@@ -1433,40 +1431,6 @@ function fictioneer_sanitize_selection( $value, $allowed_options, $default = nul
   $value = is_numeric( $value ) ? intval( $value ) : $value;
 
   return in_array( $value, $allowed_options ) ? $value : $default;
-}
-
-// =============================================================================
-// SANITIZE ARGUMENTS
-// =============================================================================
-
-/**
- * Sanitizes an array of arguments
- *
- * @since 5.7.3
- *
- * @param array $args  Array of arguments to be sanitized.
- *
- * @return array The sanitized arguments.
- */
-
-function fictioneer_sanitize_args( $args ) {
-  $sanitized_args = [];
-
-  foreach ( $args as $key => $value ) {
-    if ( is_string( $value ) ) {
-      $sanitized_args[ $key ] = sanitize_text_field( $value );
-    } elseif ( is_numeric( $value ) ) {
-      $sanitized_args[ $key ] = intval( $value );
-    } elseif ( is_bool( $value ) ) {
-      $sanitized_args[ $key ] = filter_var( $value, FILTER_VALIDATE_BOOLEAN );
-    } elseif ( is_array( $value ) ) {
-      $sanitized_args[ $key ] = fictioneer_sanitize_args( $value );
-    } else {
-      $sanitized_args[ $key ] = $value;
-    }
-  }
-
-  return $sanitized_args;
 }
 
 // =============================================================================
