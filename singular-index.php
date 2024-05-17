@@ -33,13 +33,15 @@ $sorted_stories = [];
 if ( $stories->have_posts() ) {
   // Loop through posts...
   foreach ( $stories->posts as $story ) {
+    $story_id = $story->ID;
+
     // Skip hidden
-    if ( get_post_meta( $story->ID, 'fictioneer_story_hidden', true ) ) {
+    if ( get_post_meta( $story_id, 'fictioneer_story_hidden', true ) ) {
       continue;
     }
 
     // Relevant data
-    $title = trim( fictioneer_get_safe_title( $story->ID, 'story_index' ) );
+    $title = trim( fictioneer_get_safe_title( $story_id, 'story_index' ) );
     $first_char = strtolower( mb_substr( $title, 0, 1, 'UTF-8' ) );
 
     // Normalize for numbers and other non-alphabetical characters
@@ -53,9 +55,9 @@ if ( $stories->have_posts() ) {
     }
 
     $sorted_stories[ $first_char ][] = array(
-      'id' => $story->ID,
+      'id' => $story_id,
       'title' => $title,
-      'link' => get_post_meta( $story->ID, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story->ID )
+      'link' => get_post_meta( $story_id, 'fictioneer_story_redirect_link', true ) ?: get_permalink( $story_id )
     );
   }
 
