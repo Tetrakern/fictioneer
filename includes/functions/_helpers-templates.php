@@ -285,7 +285,7 @@ if ( ! function_exists( 'fictioneer_get_safe_title' ) ) {
     }
 
     // Apply filters
-    if ( ! ( $args['no_filters'] ?? 0 ) ) {
+    if ( ! isset( $args['no_filters'] ) ) {
       $title = apply_filters( 'fictioneer_filter_safe_title', $title, $post_id, $context, $args );
     }
 

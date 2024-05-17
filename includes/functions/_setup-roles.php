@@ -479,7 +479,7 @@ function fictioneer_bypass_password( $required, $post ) {
   $patreon_user_data = fictioneer_get_user_patreon_data( $user->ID ); // Can be an empty array
 
   // Check capability per post type...
-  switch ( $post->post_type ?? 0 ) {
+  switch ( $post->post_type ) {
     case 'post':
       $required = current_user_can( 'fcn_ignore_post_passwords' ) ? false : $required;
       break;

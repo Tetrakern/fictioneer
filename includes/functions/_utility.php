@@ -1518,7 +1518,7 @@ function fictioneer_sanitize_list_into_array( $input, $args = [] ) {
  */
 
 function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args = [] ) {
-  if ( $args['keep_case'] ?? 0 ) {
+  if ( isset( $args['keep_case'] ) ) {
     $sanitized = array_intersect( [ $var ?? 0 ], $allowed );
   } else {
     $sanitized = array_intersect( [ strtolower( $var ?? 0 ) ], $allowed );
