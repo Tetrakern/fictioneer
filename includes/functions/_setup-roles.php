@@ -462,10 +462,27 @@ function fictioneer_bypass_password( $required, $post ) {
     return $cache[ $cache_key ];
   }
 
-  // Default (make sure the cookie is set up properly)
+  // Default
   remove_filter( 'post_password_required', 'fictioneer_bypass_password' );
   $required = post_password_required( $post );
   add_filter( 'post_password_required', 'fictioneer_bypass_password', 10, 2 );
+
+  // Notify cache plugins to NOT cache the page regardless of access
+  if ( $required ) {
+    // LiteSpeed Cache
+    do_action( 'litespeed_control_set_nocache', 'nocache due to password protection bypass.' );
+
+    // WP Super Cache, W3 Total Cache, Hummingbird, and probably more
+    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+      define( 'DONOTCACHEPAGE', true );
+    }
+
+    // Cache Enabler
+    add_filter( 'cache_enabler_bypass_cache', '__return_true' );
+
+    // WP Rocket
+    add_filter( 'do_rocket_generate_caching_files', '__return_false' );
+  }
 
   // Always allow admins
   if ( current_user_can( 'manage_options' ) ) {
