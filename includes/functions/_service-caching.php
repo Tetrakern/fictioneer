@@ -766,6 +766,38 @@ add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
 // =============================================================================
 
 /**
+ * Generate random salt for cache-related hashes
+ *
+ * Note: Saves the salt to the option 'fictioneer_cache_salt'.
+ *
+ * @since 5.18.3
+ *
+ * @return string The generated salt.
+ */
+
+function fictioneer_generate_cache_salt() {
+  $salt = bin2hex( random_bytes( 32 / 2 ) );
+
+  update_option( 'fictioneer_cache_salt', $salt );
+
+  return $salt;
+}
+
+/**
+ * Get salt for cache-related hashes
+ *
+ * Note: Regenerated if no salt exists.
+ *
+ * @since 5.18.3
+ *
+ * @return string The salt.
+ */
+
+function fictioneer_get_cache_salt() {
+  return get_option( 'fictioneer_cache_salt' ) ?: fictioneer_generate_cache_salt();
+}
+
+/**
  * Get static HTML of cached template partial
  *
  * @since 5.18.3
@@ -815,7 +847,7 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
   }
 
   // Setup
-  $args_hash = md5( serialize( $args ) . $identifier );
+  $args_hash = md5( serialize( $args ) . $identifier . fictioneer_get_cache_salt() );
   $static_file = $slug . ( $name ? "-{$name}" : '' ) . "-{$args_hash}.html";
   $path = get_template_directory() . '/cache/html/' . $static_file;
 
@@ -868,6 +900,9 @@ function fictioneer_clear_all_cached_partials() {
 
   // Setup
   $cache_dir = get_template_directory() . '/cache/html/';
+
+  // Regenerate cache salt
+  fictioneer_generate_cache_salt();
 
   // Ensure the directory exists
   if ( ! file_exists( $cache_dir ) ) {
