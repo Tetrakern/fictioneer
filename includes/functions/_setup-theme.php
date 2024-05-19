@@ -160,7 +160,7 @@ function fictioneer_purge_caches_after_update() {
     }
   }
 
-  fictioneer_clear_cached_html();
+  fictioneer_clear_all_cached_partials();
 }
 add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 

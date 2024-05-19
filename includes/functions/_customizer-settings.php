@@ -24,7 +24,7 @@ function fictioneer_watch_for_customizer_updates() {
   fictioneer_build_dynamic_scripts();
 
   // Clear cached HTML
-  fictioneer_clear_cached_html();
+  fictioneer_clear_all_cached_partials();
 
   // Files
   $bundled_fonts = WP_CONTENT_DIR . '/themes/fictioneer/cache/bundled-fonts.css';

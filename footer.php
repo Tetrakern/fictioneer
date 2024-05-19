@@ -63,12 +63,12 @@ do_action( 'fictioneer_after_main', $args );
         $args['post_type'] == 'fcn_chapter' &&
         ! post_password_required()
       ) {
-        fictioneer_get_static_template_part( 'partials/_tts-interface' );
+        fictioneer_get_cached_partial( 'partials/_tts-interface' );
       }
 
       // Render cookie banner HTML if required
       if ( get_option( 'fictioneer_cookie_banner' ) ) {
-        fictioneer_get_static_template_part( 'partials/_consent-banner' );
+        fictioneer_get_cached_partial( 'partials/_consent-banner' );
       }
     ?>
 

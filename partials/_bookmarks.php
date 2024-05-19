@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) OR exit;
 $show_empty = isset( $args['show_empty'] ) && $args['show_empty'];
 $count = isset( $args['count'] ) ? intval( $args['count'] ) : -1;
 
-fictioneer_get_static_template_part( 'partials/_template_bookmark', '', null, null, $args );
+fictioneer_get_cached_partial( 'partials/_template_bookmark', '', null, null, $args );
 
 ?>
 

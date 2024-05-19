@@ -137,10 +137,10 @@ function fictioneer_output_modals( $args ) {
   // Formatting and suggestions
   if ( ! $is_archive && $args['post_type'] == 'fcn_chapter' ) {
     ?><input id="modal-formatting-toggle" data-target="formatting-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
-    fictioneer_get_static_template_part( 'partials/_modal-formatting' );
+    fictioneer_get_cached_partial( 'partials/_modal-formatting' );
 
     ?><input id="modal-tts-settings-toggle" data-target="tts-settings-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
-    fictioneer_get_static_template_part( 'partials/_modal-tts-settings' );
+    fictioneer_get_cached_partial( 'partials/_modal-tts-settings' );
 
     if (
       get_option( 'fictioneer_enable_suggestions' ) &&
@@ -148,7 +148,7 @@ function fictioneer_output_modals( $args ) {
       comments_open()
     ) {
       ?><input id="suggestions-modal-toggle" data-target="suggestions-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
-      fictioneer_get_static_template_part( 'partials/_modal-suggestions' );
+      fictioneer_get_cached_partial( 'partials/_modal-suggestions' );
     }
   }
 
@@ -164,7 +164,7 @@ function fictioneer_output_modals( $args ) {
 
   // Site settings
   ?><input id="modal-site-settings-toggle" data-target="site-settings-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
-  fictioneer_get_static_template_part( 'partials/_modal-site-settings' );
+  fictioneer_get_cached_partial( 'partials/_modal-site-settings' );
 
   // BBCodes tutorial
   if (
@@ -174,7 +174,7 @@ function fictioneer_output_modals( $args ) {
     ! fictioneer_is_commenting_disabled( $args['post_id'] )
   ) {
     ?><input id="modal-bbcodes-toggle" data-target="bbcodes-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php
-    fictioneer_get_static_template_part( 'partials/_modal-bbcodes' );
+    fictioneer_get_cached_partial( 'partials/_modal-bbcodes' );
   }
 
   // Story chapter changelog

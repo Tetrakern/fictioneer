@@ -181,7 +181,7 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     // developer cannot be bothered, neither can I.
 
     // Cached HTML by theme
-    fictioneer_clear_cached_html();
+    fictioneer_clear_all_cached_partials();
   }
 }
 
@@ -760,3 +760,109 @@ function fictioneer_purge_nav_menu_transients() {
   delete_transient( 'fictioneer_footer_menu_html' );
 }
 add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
+
+// =============================================================================
+// PARTIAL CACHING (THEME)
+// =============================================================================
+
+/**
+ * Get static HTML of cached template partial
+ *
+ * @since 5.18.1
+ * @see get_template_part()
+ *
+ * @param string      $slug        The slug name for the generic template.
+ * @param string      $identifier  Optional. Additional identifier string for the file. Default empty string.
+ * @param int|null    $expiration  Optional. Seconds until the cache expires. Default 24 hours in seconds.
+ * @param string|null $name        Optional. The name of the specialized template.
+ * @param array       $args        Optional. Additional arguments passed to the template.
+ */
+
+function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = null, $name = null, $args = [] ) {
+  // Use default function if...
+  if (
+    ! get_option( 'fictioneer_enable_static_partials' ) ||
+    is_customize_preview() ||
+    fictioneer_caching_active( "get_template_part_for_{$slug}" )
+  ) {
+    get_template_part( $slug, $name, $args );
+
+    return;
+  }
+
+  // Setup
+  $args_hash = md5( serialize( $args ) . $identifier );
+  $static_file = $slug . ( $name ? "-{$name}" : '' ) . "-{$args_hash}.html";
+  $path = get_template_directory() . '/cache/html/' . $static_file;
+
+  // Make sure directory exists and handle failure
+  if ( ! file_exists( dirname( $path ) ) ) {
+    if ( ! mkdir( dirname( $path ), 0755, true ) && ! is_dir( dirname( $path ) ) ) {
+      get_template_part( $slug, $name, $args );
+      return;
+    }
+  }
+
+  // Get static file if not expired
+  if ( file_exists( $path ) ) {
+    $filemtime = filemtime( $path );
+
+    if ( time() - $filemtime < ( $expiration ?? DAY_IN_SECONDS ) ) {
+      echo file_get_contents( $path );
+      return;
+    }
+  }
+
+  // Generate and cache the new file
+  ob_start();
+  get_template_part( $slug, $name, $args );
+  $html = ob_get_clean();
+
+  if ( file_put_contents( $path, $html ) === false ) {
+    get_template_part( $slug, $name, $args );
+  } else {
+    echo $html;
+  }
+}
+
+/**
+ * Clear static HTML of all cached partials
+ *
+ * Note: Only executed once per request to reduce overhead.
+ * Can therefore be used with impunity.
+ *
+ * @since 5.18.1
+ */
+
+function fictioneer_clear_all_cached_partials() {
+  // Only run this once per request
+  static $done = false;
+
+  if ( $done || ! get_option( 'fictioneer_enable_static_partials' ) ) {
+    return;
+  }
+
+  $done = true;
+
+  // Setup
+  $cache_dir = get_template_directory() . '/cache/html/';
+
+  // Ensure the directory exists
+  if ( ! file_exists( $cache_dir ) ) {
+    return;
+  }
+
+  // Recursively delete files and subdirectories
+  $files = new RecursiveIteratorIterator(
+    new RecursiveDirectoryIterator( $cache_dir, RecursiveDirectoryIterator::SKIP_DOTS ),
+    RecursiveIteratorIterator::CHILD_FIRST
+  );
+
+  foreach ( $files as $fileinfo ) {
+    $todo = ( $fileinfo->isDir() ? 'rmdir' : 'unlink' );
+
+    if ( ! $todo( $fileinfo->getRealPath() ) ) {
+      error_log( 'Failed to delete ' . $fileinfo->getRealPath() );
+    }
+  }
+}

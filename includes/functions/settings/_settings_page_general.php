@@ -676,8 +676,8 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_static_partials',
-                    __( 'Enable caching of static partials', 'fictioneer' ),
-                    __( 'Caches static partials as HTML files to accelerate rendering. Do not use this together with a cache plugin.', 'fictioneer' )
+                    __( 'Enable caching of partials', 'fictioneer' ),
+                    __( 'Caches parts of the page as static HTML files to accelerate rendering. Do not use this together with a cache plugin.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -885,7 +885,7 @@
                   fictioneer_settings_textarea(
                     'fictioneer_comments_notice',
                     __( 'Notice above comments. Leave empty to hide. HTML allowed.', 'fictioneer' ),
-                    '214px'
+                    '152px'
                   );
                 ?>
               </div>

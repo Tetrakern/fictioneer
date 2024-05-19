@@ -342,7 +342,7 @@ function fictioneer_tools_disable_font() {
   fictioneer_build_bundled_fonts();
 
   // Clear cached HTML for good measure
-  fictioneer_clear_cached_html();
+  fictioneer_clear_all_cached_partials();
 
   // Log
   fictioneer_log(
@@ -394,7 +394,7 @@ function fictioneer_tools_enable_font() {
   fictioneer_build_bundled_fonts();
 
   // Clear cached HTML for good measure
-  fictioneer_clear_cached_html();
+  fictioneer_clear_all_cached_partials();
 
   // Log
   fictioneer_log(
@@ -477,7 +477,7 @@ function fictioneer_tools_purge_theme_caches() {
     }
   }
 
-  fictioneer_clear_cached_html();
+  fictioneer_clear_all_cached_partials();
 
   // Cache busting string
   fictioneer_regenerate_cache_bust();
