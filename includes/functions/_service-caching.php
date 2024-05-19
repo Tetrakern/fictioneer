@@ -893,7 +893,7 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
   if ( file_exists( $path ) ) {
     $filemtime = filemtime( $path );
 
-    if ( time() - $filemtime < ( $expiration ?? DAY_IN_SECONDS ) ) {
+    if ( time() - $filemtime < ( $expiration ?? FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME ) ) {
       echo file_get_contents( $path );
       return;
     }

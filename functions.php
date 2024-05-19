@@ -288,6 +288,11 @@ if ( ! defined( 'FICTIONEER_PATREON_EXPIRATION_TIME' ) ) {
   define( 'FICTIONEER_PATREON_EXPIRATION_TIME', WEEK_IN_SECONDS );
 }
 
+// Integer: Time until a cached partial expired
+if ( ! defined( 'FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME' ) ) {
+  define( 'FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME', 4 * HOUR_IN_SECONDS );
+}
+
 /*
  * Booleans
  */
