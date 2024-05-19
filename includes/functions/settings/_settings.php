@@ -462,12 +462,16 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
  * @param string|null $description  Optional. The description below the label.
  */
 
-function fictioneer_settings_label_checkbox( $option, $label, $description = null ) {
+function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null ) {
+  // Setup
+  $help = ! is_string( $help ) ? '' :
+    '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $help ) . '" data-dialog-target="fcn-help-modal"></i>';
+
   // Start HTML ---> ?>
   <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">
     <input name="<?php echo $option; ?>" type="checkbox" id="<?php echo $option; ?>" <?php echo checked( 1, get_option( $option ), false ); ?> value="1" autocomplete="off">
     <div>
-      <span><?php echo $label; ?></span>
+      <span><?php echo "{$label} {$help}"; ?></span>
       <?php if ( ! empty( $description ) ) : ?>
         <p class="fictioneer-sub-label"><?php echo $description; ?></p>
       <?php endif; ?>

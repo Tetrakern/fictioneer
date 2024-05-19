@@ -1199,3 +1199,27 @@ function fcn_unlockPostsAdd(target) {
   // Remove search node
   target.remove();
 }
+
+// =============================================================================
+// SHOW HELP MODAL
+// =============================================================================
+
+_$('.fictioneer-settings')?.addEventListener('click', event => {
+  const target = event.target.closest('.fcn-help');
+
+  // Help icon clicked?
+  if (!target) {
+    return;
+  }
+
+  // Stop event from bubbling up
+  event.preventDefault();
+
+  // Fill modal
+  const modal = _$$$(target.dataset.dialogTarget);
+
+  if (modal) {
+    modal.querySelector('[data-target="fcn-help-modal-header"]').textContent = target.dataset.label;
+    modal.querySelector('[data-target="fcn-help-modal-content"]').innerHTML = target.dataset.help;
+  }
+});

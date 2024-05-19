@@ -111,7 +111,7 @@ body[class*="fictioneer_page_"] {
     font-size: 14px;
 
     &:not(:last-child) {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.75em;
     }
   }
 
@@ -704,6 +704,14 @@ body[class*="fictioneer_page_"] {
     }
   }
 
+  .fcn-help {
+    cursor: pointer;
+
+    &:not(:hover) {
+      opacity: .3;
+    }
+  }
+
   // =============================================================================
   // FICTIONEER DIALOG MODALS
   // =============================================================================
@@ -756,5 +764,11 @@ body[class*="fictioneer_page_"] {
 
   textarea[data-target="schema-content"] {
     font-size: 10px;
+  }
+}
+
+#fcn-help-modal {
+  p {
+    font-size: 13px;
   }
 }

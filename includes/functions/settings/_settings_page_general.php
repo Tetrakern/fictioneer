@@ -677,7 +677,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_static_partials',
                     __( 'Enable caching of partials', 'fictioneer' ),
-                    __( 'Caches parts of the page as static HTML files to accelerate rendering. Do not use this together with a cache plugin.', 'fictioneer' )
+                    __( 'Caches parts of the page as static HTML files to speed up loading. Do not use this together with a cache plugin.', 'fictioneer' ),
+                    __( '<p>Caches parts of the page that never change as static HTML files, pulling them up on subsequent requests to save resources. Unlike full caching, this only affects some modals, menus, and chapter contents. Use this only if cache plugins are not an option.</p><p>Plugins that change the content of chapters may not work without further adjustments. If you need to apply dynamic content to chapters, which are only refreshed on update or when the cache expires, you can still do so with the <code>fictioneer_get_static_content</code> filter.</p><p>Administrators can disable the content caching per chapter.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -1423,4 +1424,18 @@
 
     </form>
   </div>
+
+  <dialog class="fictioneer-dialog" id="fcn-help-modal">
+    <div class="fictioneer-dialog__header">
+      <span data-target="fcn-help-modal-header"><?php _e( 'Help', 'fictioneer' ); ?></span>
+    </div>
+    <div class="fictioneer-dialog__content">
+      <form>
+        <div class="fictioneer-dialog__row" data-target="fcn-help-modal-content"></div>
+        <div class="fictioneer-dialog__actions">
+          <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Close', 'fictioneer' ); ?></button>
+        </div>
+      </form>
+    </div>
+  </dialog>
 </div>
