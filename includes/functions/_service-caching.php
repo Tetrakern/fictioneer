@@ -820,9 +820,8 @@ function fictioneer_get_cache_salt() {
 
 function fictioneer_create_html_cache_directory( $dir = null ) {
   // Setup
-  $dir = $dir ?? ( get_template_directory() . '/cache/html/' );
-  $index_file = $dir . '/index.php';
-  $htaccess_file = $dir . '/.htaccess';
+  $default_dir = get_template_directory() . '/cache/html/';
+  $dir = $dir ?? $default_dir;
   $result = true;
 
   // Create cache directories if missing
@@ -831,14 +830,25 @@ function fictioneer_create_html_cache_directory( $dir = null ) {
   }
 
   // Hide files from index
-  if ( $result && ! file_exists( $index_file ) ) {
-    file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+  if ( $result && ! file_exists( $dir . '/index.php' ) ) {
+    file_put_contents( $dir . '/index.php', "<?php\n// Silence is golden.\n" );
+  }
+
+  if ( $result && ! file_exists( $default_dir . '/index.php' ) ) {
+    file_put_contents( $default_dir . '/index.php', "<?php\n// Silence is golden.\n" );
   }
 
   // Add .htaccess to limit access
-  if ( $result && ! file_exists( $htaccess_file ) ) {
+  if ( $result && ! file_exists( $dir . '/.htaccess' ) ) {
     file_put_contents(
-      $htaccess_file,
+      $dir . '/.htaccess',
+      "<Files *>\n    Order Allow,Deny\n    Deny from all\n</Files>\n"
+    );
+  }
+
+  if ( $result && ! file_exists( $default_dir . '/.htaccess' ) ) {
+    file_put_contents(
+      $default_dir . '/.htaccess',
       "<Files *>\n    Order Allow,Deny\n    Deny from all\n</Files>\n"
     );
   }
