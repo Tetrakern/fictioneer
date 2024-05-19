@@ -139,7 +139,7 @@ if ( ! function_exists( 'fictioneer_get_user_by_id_or_email' ) ) {
 // GET LAST CHAPTER/STORY UPDATE
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_get_last_story_or_chapter_update' ) ) {
+if ( ! function_exists( 'fictioneer_get_last_fiction_update' ) ) {
   /**
    * Get Unix timestamp for last story or chapter update
    *
