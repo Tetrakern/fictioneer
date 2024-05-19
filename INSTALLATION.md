@@ -552,6 +552,7 @@ Most of the theme’s configuration is found here, the options being largely sel
 * **Comment Form CSS Selector:** If you are using a third-party comments plugin, several scripts interacting with the comment form might stop working. You can try changing the selector here. For example, wpDiscuz would need `.wpd-field-comment .ql-editor` (rich editor) or `.wpd-field-comment .wc_comment` (textarea). Purge the theme caches after updating.
 * **Enable Storygraph API:** Allows external services to index and search your site to reach a larger audience. Recommended.
 * **Enable OAuth 2.0 authentication:** Allows visitors to register with social media accounts, but be aware of the implications! You will need to flush your permalinks after enabling.
+* **Enabled caching of partials:** Caches parts of the page as static HTML files, saving server resources on subsequent requests. Accelerates rendering of chapters and reduces RAM consumption. Not compatible with dynamic content, but admins can disable the partial caching per chapter. Only use this if you have no cache plugin running.
 * **Enable AJAX comment form/section:** If you have trouble with caching. Try the form first to save resources.
 * **Enable AJAX user authentication:** If you have trouble with [Nonces](https://developer.wordpress.org/apis/security/nonces/) and/or users not being properly logged-in. Use this as *last resort* to bypass the cache.
 * **Disable theme comment \[…]:** If you want to use different comments. Disables most of the other comment options as well.
