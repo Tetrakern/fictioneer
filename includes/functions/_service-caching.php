@@ -768,6 +768,30 @@ add_action( 'wp_update_nav_menu', 'fictioneer_purge_nav_menu_transients' );
 /**
  * Get static HTML of cached template partial
  *
+ * @since 5.18.3
+ * @see get_template_directory()
+ *
+ * @param string|null $dir  Optional. Directory path to override the default.
+ *
+ * @return bool True if the directory exists or has been created, false on failure.
+ */
+
+function fictioneer_create_html_cache_directory( $dir = null ) {
+  // Setup
+  $dir = $dir ?? ( get_template_directory() . '/cache/html/' );
+
+  // Create cache directories if missing
+  if ( ! is_dir( $dir ) ) {
+    return mkdir( $dir, 0755, true );
+  }
+
+  // Already exists
+  return true;
+}
+
+/**
+ * Get static HTML of cached template partial
+ *
  * @since 5.18.1
  * @see get_template_part()
  *
@@ -796,11 +820,9 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
   $path = get_template_directory() . '/cache/html/' . $static_file;
 
   // Make sure directory exists and handle failure
-  if ( ! file_exists( dirname( $path ) ) ) {
-    if ( ! mkdir( dirname( $path ), 0755, true ) && ! is_dir( dirname( $path ) ) ) {
-      get_template_part( $slug, $name, $args );
-      return;
-    }
+  if ( ! fictioneer_create_html_cache_directory( dirname( $path ) ) ) {
+    get_template_part( $slug, $name, $args );
+    return;
   }
 
   // Get static file if not expired
