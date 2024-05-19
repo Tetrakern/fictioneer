@@ -190,7 +190,7 @@ if ( ! function_exists( 'fictioneer_purge_all_caches' ) ) {
     // Insufficient or hard-to-find documentation and if the
     // developer cannot be bothered, neither can I.
 
-    // Cached HTML by theme
+    // Cached HTML partials
     fictioneer_clear_all_cached_partials();
   }
 }
@@ -276,6 +276,11 @@ if ( ! function_exists( 'fictioneer_purge_post_cache' ) ) {
     // NitroPack
     // Insufficient or hard-to-find documentation and if the
     // developer cannot be bothered, neither can I.
+
+    // Cached HTML partial
+    if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
+      fictioneer_clear_cached_content( $post_id );
+    }
   }
 }
 
@@ -912,7 +917,7 @@ function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = n
 }
 
 /**
- * Clear static HTML of all cached partials
+ * Clears static HTML of all cached partials
  *
  * Note: Only executed once per request to reduce overhead.
  * Can therefore be used with impunity.
@@ -953,5 +958,115 @@ function fictioneer_clear_all_cached_partials() {
     if ( ! $todo( $fileinfo->getRealPath() ) ) {
       error_log( 'Failed to delete ' . $fileinfo->getRealPath() );
     }
+  }
+}
+
+/**
+ * Returns post content from cached HTML file
+ *
+ * @since 5.19.0
+ * @link https://developer.wordpress.org/reference/functions/the_content/
+ * @global WP_Post $post
+ *
+ * @param string|null $more_link_text  Optional. Content for when there is more text.
+ * @param bool        $strip_teaser    Optional. Strip teaser content before the more text.
+ *
+ * @return string The post content.
+ */
+
+function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser = \false ) {
+  global $post;
+
+  // Use default function if...
+  if (
+    ! FICTIONEER_ENABLE_PARTIAL_CACHING ||
+    ! empty( $post->post_password ) ||
+    get_post_meta( $post->ID, 'fictioneer_chapter_disable_partial_caching', true )
+  ) {
+    $content = get_the_content( $more_link_text, $strip_teaser );
+    $content = apply_filters( 'the_content', $content );
+	  $content = str_replace( ']]>', ']]&gt;', $content );
+
+    return apply_filters( 'fictioneer_get_static_content', $content );
+  }
+
+  // Setup
+  $hash = md5( $post->ID . fictioneer_get_cache_salt() );
+  $dir = get_template_directory() . '/cache/html/' . substr( $hash, 0, 2 );
+  $path = "{$dir}/{$hash}_{$post->ID}.html";
+
+  // Make sure directory exists and handle failure
+  if ( ! fictioneer_create_html_cache_directory( $dir ) ) {
+    $content = get_the_content( $more_link_text, $strip_teaser );
+    $content = apply_filters( 'the_content', $content );
+	  $content = str_replace( ']]>', ']]&gt;', $content );
+
+    return apply_filters( 'fictioneer_get_static_content', $content );
+  }
+
+  // Get static file if not expired
+  if ( file_exists( $path ) ) {
+    $filemtime = filemtime( $path );
+
+    if ( time() - $filemtime < FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME ) {
+      return apply_filters( 'fictioneer_get_static_content', file_get_contents( $path ) );
+    }
+  }
+
+  // Get content and apply filters
+  $content = get_the_content( $more_link_text, $strip_teaser );
+  $content = apply_filters( 'the_content', $content );
+  $content = str_replace( ']]>', ']]&gt;', $content );
+
+  // Cache as static file
+  file_put_contents( $path, $content );
+
+  // Return content
+  return apply_filters( 'fictioneer_get_static_content', $content );
+}
+
+/**
+ * Renders post content from cached HTML file
+ *
+ * @since 5.19.0
+ *
+ * @param string|null $more_link_text  Optional. Content for when there is more text.
+ * @param bool        $strip_teaser    Optional. Strip teaser content before the more text.
+ */
+
+function fictioneer_the_static_content( $more_link_text = \null, $strip_teaser = \false ) {
+  echo fictioneer_get_static_content( $more_link_text, $strip_teaser );
+}
+
+/**
+ * Clears static content HTML of post
+ *
+ * @since 5.19.0
+ *
+ * @param int $post_id  ID of the post to clear the cache for.
+ *
+ * @return bool True if the cache file has been deleted, false if not found.
+ */
+
+function fictioneer_clear_cached_content( $post_id ) {
+  // Setup
+  $hash = md5( $post_id . fictioneer_get_cache_salt() );
+  $dir = get_template_directory() . '/cache/html/' . substr( $hash, 0, 2 );
+  $path = "{$dir}/{$hash}_{$post_id}.html";
+
+  // Delete file
+  if ( file_exists( $path ) ) {
+    unlink( $path );
+
+    return true;
+  }
+
+  // File not found
+  return false;
+}
+
+if ( FICTIONEER_ENABLE_PARTIAL_CACHING ) {
+  foreach ( ['save_post', 'untrash_post', 'trashed_post', 'delete_post'] as $hook ) {
+    add_action( $hook, 'fictioneer_clear_cached_content' );
   }
 }

@@ -2681,6 +2681,14 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
     __( 'Hide support links', 'fictioneer' )
   );
 
+  if ( FICTIONEER_ENABLE_PARTIAL_CACHING && current_user_can( 'manage_options' ) ) {
+    $output['fictioneer_chapter_disable_partial_caching'] = fictioneer_get_metabox_checkbox(
+    $post,
+      'fictioneer_chapter_disable_partial_caching',
+      __( 'Disable partial caching of content', 'fictioneer' )
+    );
+  }
+
   // --- Filters ---------------------------------------------------------------
 
   $output = apply_filters( 'fictioneer_filter_metabox_chapter_meta', $output, $post );
@@ -2936,6 +2944,16 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
   if ( isset( $_POST['fictioneer_chapter_hide_support_links'] ) ) {
     $fields['fictioneer_chapter_hide_support_links'] =
       fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_hide_support_links'] );
+  }
+
+  // Disable partial caching flag
+  if (
+    FICTIONEER_ENABLE_PARTIAL_CACHING &&
+    isset( $_POST['fictioneer_chapter_disable_partial_caching'] ) &&
+    current_user_can( 'manage_options' )
+  ) {
+    $fields['fictioneer_chapter_disable_partial_caching'] =
+      fictioneer_sanitize_checkbox( $_POST['fictioneer_chapter_disable_partial_caching'] );
   }
 
   // Rating

@@ -185,7 +185,7 @@ get_header(
             echo '<p class="chapter__forced-excerpt">' . fictioneer_get_forced_excerpt( $post_id, 512 ) . '</p>';
           }
 
-          the_content();
+          fictioneer_the_static_content();
 
           echo '</div>';
         ?></section>
