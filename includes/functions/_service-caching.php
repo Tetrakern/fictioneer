@@ -811,14 +811,21 @@ function fictioneer_get_cache_salt() {
 function fictioneer_create_html_cache_directory( $dir = null ) {
   // Setup
   $dir = $dir ?? ( get_template_directory() . '/cache/html/' );
+  $index_file = $dir . '/index.php';
+  $result = true;
 
   // Create cache directories if missing
   if ( ! is_dir( $dir ) ) {
-    return mkdir( $dir, 0755, true );
+    $result = mkdir( $dir, 0755, true );
   }
 
-  // Already exists
-  return true;
+  // Hide files from index
+  if ( $result && ! file_exists( $index_file ) ) {
+    file_put_contents( $index_file, "<?php\n// Silence is golden.\n" );
+  }
+
+  // Success or failure
+  return $result;
 }
 
 /**
