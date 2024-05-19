@@ -73,6 +73,16 @@ if ( ! function_exists( 'fictioneer_private_caching_active' ) ) {
   }
 }
 
+// Boolean: Partial caching enabled?
+if ( ! defined( 'FICTIONEER_ENABLE_PARTIAL_CACHING' ) ) {
+  define(
+    'FICTIONEER_ENABLE_PARTIAL_CACHING',
+    get_option( 'fictioneer_enable_static_partials' ) &&
+    ! is_customize_preview() &&
+    ! fictioneer_caching_active( 'enable_partial_caching' )
+  );
+}
+
 // =============================================================================
 // ENABLE SHORTCODE TRANSIENTS?
 // =============================================================================
@@ -852,11 +862,7 @@ function fictioneer_create_html_cache_directory( $dir = null ) {
 
 function fictioneer_get_cached_partial( $slug, $identifier = '', $expiration = null, $name = null, $args = [] ) {
   // Use default function if...
-  if (
-    ! get_option( 'fictioneer_enable_static_partials' ) ||
-    is_customize_preview() ||
-    fictioneer_caching_active( "get_template_part_for_{$slug}" )
-  ) {
+  if ( ! FICTIONEER_ENABLE_PARTIAL_CACHING ) {
     get_template_part( $slug, $name, $args );
 
     return;
