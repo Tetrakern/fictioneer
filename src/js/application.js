@@ -2115,7 +2115,7 @@ if (_$$$('age-confirmation-modal') && localStorage.getItem('fcnAgeConfirmation')
   // Delay to avoid impacting web vitals
   setTimeout(() => {
     fcn_showAgeConfirmationModal();
-  }, 4000);
+  }, 2500);
 } else {
   _$$$('age-confirmation-modal')?.remove();
 }
