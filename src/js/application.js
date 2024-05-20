@@ -651,32 +651,35 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
   setTimeout(() => { node.style.opacity = 0; }, 100);
 }
 
-// Show OAuth 2.0 registration error notice (if any)
-if (fcn_urlParams['failure'] === 'oauth_email_taken') {
-  fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
-}
+// Show notices based on URL params (if any)
+if (fcn_urlParams) {
+  // Show OAuth 2.0 registration error notice (if any)
+  if (fcn_urlParams['failure'] === 'oauth_email_taken') {
+    fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
+  }
 
-// Show OAuth 2.0 link error notice (if any)
-if (fcn_urlParams['failure'] === 'oauth_already_linked') {
-  fcn_showNotification(fictioneer_tl.notification.oauthAccountAlreadyLinked, 5, 'warning');
-}
+  // Show OAuth 2.0 link error notice (if any)
+  if (fcn_urlParams['failure'] === 'oauth_already_linked') {
+    fcn_showNotification(fictioneer_tl.notification.oauthAccountAlreadyLinked, 5, 'warning');
+  }
 
-// Show new subscriber notice (if any)
-if (fcn_urlParams['success'] === 'oauth_new') {
-  fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
-}
+  // Show new subscriber notice (if any)
+  if (fcn_urlParams['success'] === 'oauth_new') {
+    fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
+  }
 
-// Show OAuth 2.0 account merge notice (if any)
-if (fcn_urlParams['success']?.includes('oauth_merged_')) {
-  fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
-}
+  // Show OAuth 2.0 account merge notice (if any)
+  if (fcn_urlParams['success']?.includes('oauth_merged_')) {
+    fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
+  }
 
-// Generic messages
-if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !== '') {
-  let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
-  type = fcn_urlParams['success'] === '1' ? 'success' : type;
+  // Generic messages
+  if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !== '') {
+    let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
+    type = fcn_urlParams['success'] === '1' ? 'success' : type;
 
-  fcn_showNotification(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 3, type);
+    fcn_showNotification(fcn_sanitizeHTML(fcn_urlParams['fictioneer-notice']), 3, type);
+  }
 }
 
 // =============================================================================
