@@ -549,8 +549,12 @@
                     'fictioneer_enable_oauth',
                     __( 'Enable OAuth 2.0 authentication', 'fictioneer' ),
                     sprintf(
-                      __( 'Register/Login with social media accounts. This requires you to <a href="%s" target="_blank">set up an application</a> for each service provider.', 'fictioneer' ),
+                      __( 'Register/Login with an external account. This requires you to <a href="%s" target="_blank">set up an application</a> with the respective service providers.', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#users--oauth'
+                    ),
+                    sprintf(
+                      __( '<p>Allows users to register and log in with an external account, like Google or Discord, bypassing the vulnerable WordPress forms. This method is fast, secure, convenient, and enables other features such as the Patreon gate. Users can still change their email and nickname.</p><p>You need to <a href="%s" target="_blank">set up an application</a> with the respective providers, which is normally easy. Remember to flush your permalinks when you toggle this setting to avoid 404 errors.</p>', 'fictioneer' ),
+                      'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#connections-tab'
                     )
                   );
                 ?>
