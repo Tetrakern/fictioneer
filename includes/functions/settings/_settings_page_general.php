@@ -950,7 +950,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_bundle_stylesheets',
                     __( 'Bundle CSS files into one', 'fictioneer' ),
-                    __( 'Faster if HTTP/2 (+) is not available to load multiple smaller files in parallel, but increases the initial payload.', 'fictioneer' )
+                    __( 'Faster if HTTP/2 (+) is not available to load multiple smaller files in parallel, but increases the initial payload.', 'fictioneer' ),
+                    __( 'Modern browsers and servers can handle multiple stylesheets in parallel, eliminating the need to bundle them into one large file. This allows the theme to selectively load styles as needed. Unless you are sure of what you are doing, it is best to leave this setting off.', 'fictioneer' )
                   );
                 ?>
               </div>
