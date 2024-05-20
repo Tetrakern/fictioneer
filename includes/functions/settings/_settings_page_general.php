@@ -906,7 +906,11 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_heartbeat',
                     __( 'Disable Heartbeat API', 'fictioneer' ),
-                    __( 'No more continuous requests for near real-time updates and autosaves, which can strain the server.', 'fictioneer' )
+                    __( 'No more continuous requests for near real-time updates and autosaves, which can strain the server.', 'fictioneer' ),
+                    sprintf(
+                      __( 'The <a href="%s" target="_blank" rel="noopener noreferrer">Heartbeat API</a> polls the server every 15-120 seconds for updates, increasing CPU usage and impacting performance. Fictioneer does not use it by default, but some plugins do. When enabled, it allows for near real-time notifications, periodic auto-saves, user activity tracking, eCommerce sales updates, and more.', 'fictioneer' ),
+                      'https://developer.wordpress.org/plugins/javascript/heartbeat-api/'
+                    )
                   );
                 ?>
               </div>
