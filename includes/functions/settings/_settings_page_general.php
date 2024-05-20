@@ -920,7 +920,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_remove_head_clutter',
                     __( 'Remove clutter from HTML head', 'fictioneer' ),
-                    __( 'Less meta tags, scripts, and styles in the &#60;head&#62;.', 'fictioneer' )
+                    __( 'Less meta tags, scripts, and styles in the &#60;head&#62;.', 'fictioneer' ),
+                    __( 'By default, WordPress adds many tags of dubious utility to the site’s head. Not only does this needlessly impact performance, but it may also leave your site vulnerable to attacks. This setting removes the RSD link (for blog clients), the wlwmanifest.xml (for Windows Live Writer), and the generator tag (version number).', 'fictioneer' )
                   );
                 ?>
               </div>
