@@ -534,7 +534,7 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_storygraph_api',
                     __( 'Enable Storygraph API', 'fictioneer' ),
-                    __( 'Reach a larger audience by allowing external services to index and search your stories (meta data only).', 'fictioneer' ),
+                    __( 'Reach a larger audience by allowing external services to index and search your stories (metadata only).', 'fictioneer' ),
                     sprintf(
                       __( 'The <a href="%s" target="_blank">Storygraph API</a> provides request endpoints to query excerpts and metadata of your stories and chapters, but not their full content. This allows third parties to create aggregated indexes for filtering and searching across multiple sites, similar to community archives, while you remain in control. However, it requires someone to use the API.', 'fictioneer' ),
                       'https://github.com/Tetrakern/fictioneer/blob/main/API.md'
@@ -1418,7 +1418,7 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_delete_theme_options_on_deactivation',
                     __( 'Delete all settings and theme mods on deactivation', 'fictioneer' ),
-                    __( 'This will also remove all theme-related comment and user meta data, such as bookmarks or follows. Stories, chapters, collections, and recommendations remain, but you will need to register their custom post types to access them.', 'fictioneer' )
+                    __( 'This will also remove all theme-related comment and user metadata, such as bookmarks or follows. Stories, chapters, collections, and recommendations remain, but you will need to register their custom post types to access them.', 'fictioneer' )
                   );
                 ?>
               </div>
