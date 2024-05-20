@@ -384,12 +384,6 @@ define( 'FICTIONEER_OPTIONS', array(
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
     ),
-    'fictioneer_remove_wp_svg_filters' => array(
-      'name' => 'fictioneer_remove_wp_svg_filters',
-      'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
-    ),
     'fictioneer_enable_jquery_migrate' => array(
       'name' => 'fictioneer_enable_jquery_migrate',
       'group' => 'fictioneer-settings-general-group',
@@ -970,7 +964,6 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_telegram_share' => __( 'Disable Telegram share button', 'fictioneer' ),
       'fictioneer_disable_whatsapp_share' => __( 'Disable Whatsapp share button', 'fictioneer' ),
       'fictioneer_delete_theme_options_on_deactivation' => __( 'Delete all settings and theme mods on deactivation', 'fictioneer' ),
-      'fictioneer_remove_wp_svg_filters' => __( 'Remove global WordPress SVG filters', 'fictioneer' ),
       'fictioneer_enable_jquery_migrate' => __( 'Enable jQuery migrate script', 'fictioneer' ),
       'fictioneer_disable_properties' => __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
       'fictioneer_enable_chapter_groups' => __( 'Enable chapter groups', 'fictioneer' ),

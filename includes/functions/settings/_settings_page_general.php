@@ -928,16 +928,6 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_remove_wp_svg_filters',
-                    __( 'Remove global WordPress SVG filters', 'fictioneer' ),
-                    __( 'If not used, these are just clutter in the &#60;body&#62;. This will prevent duotone filters from working.', 'fictioneer' )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_reduce_admin_bar',
                     __( 'Reduce admin bar items', 'fictioneer' ),
                     __( 'Less menu items, links, and icons in the admin bar.', 'fictioneer' )

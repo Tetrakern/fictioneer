@@ -765,14 +765,6 @@ if ( get_option( 'fictioneer_disable_heartbeat' ) ) {
 }
 
 // =============================================================================
-// REMOVE GLOBAL SVG FILTERS
-// =============================================================================
-
-if ( get_option( 'fictioneer_remove_wp_svg_filters' ) ) {
-  remove_filter( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
-}
-
-// =============================================================================
 // ADD CONSENT WRAPPER TO EMBEDS
 // =============================================================================
 
