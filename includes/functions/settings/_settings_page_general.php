@@ -534,7 +534,11 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_storygraph_api',
                     __( 'Enable Storygraph API', 'fictioneer' ),
-                    __( 'Reach a larger audience by allowing external services to index and search your stories (meta data only).', 'fictioneer' )
+                    __( 'Reach a larger audience by allowing external services to index and search your stories (meta data only).', 'fictioneer' ),
+                    sprintf(
+                      __( 'The <a href="%s" target="_blank">Storygraph API</a> provides request endpoints to query excerpts and metadata of your stories and chapters, but not their full content. This allows third parties to create aggregated indexes for filtering and searching across multiple sites, similar to community archives, while you remain in control. However, it requires someone to use the API.', 'fictioneer' ),
+                      'https://github.com/Tetrakern/fictioneer/blob/main/API.md'
+                    )
                   );
                 ?>
               </div>
