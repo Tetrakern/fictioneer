@@ -3055,3 +3055,59 @@ function fictioneer_get_post_patreon_data( $post = null ) {
   // Return
   return $data;
 }
+
+// =============================================================================
+// ENCRYPTION/DECRYPTION
+// =============================================================================
+
+/**
+ * Encrypt data
+ *
+ * @since 5.19.0
+ *
+ * @param mixed $data  The data to encrypt.
+ *
+ * @return string|false The encrypted data or false on failure.
+ */
+
+function fictioneer_encrypt( $data ) {
+  $key = wp_salt();
+
+  $encrypted = openssl_encrypt(
+    json_encode( $data ),
+    'aes-256-cbc',
+    $key,
+    0,
+    substr( hash( 'sha256', $key ), 0, 16 )
+  );
+
+  if ( $encrypted === false ) {
+    return false;
+  }
+
+  return base64_encode( $encrypted );
+}
+
+/**
+ * Decrypt data
+ *
+ * @since 5.19.0
+ *
+ * @param string $data  The data to decrypt.
+ *
+ * @return mixed The decrypted data.
+ */
+
+function fictioneer_decrypt( $data ) {
+  $key = wp_salt();
+
+  $decrypted = openssl_decrypt(
+    base64_decode( $data ),
+    'aes-256-cbc',
+    $key,
+    0,
+    substr( hash( 'sha256', $key ), 0, 16 )
+  );
+
+  return json_decode( $decrypted, true );
+}
