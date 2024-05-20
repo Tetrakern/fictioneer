@@ -557,7 +557,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_patreon_locks',
                     __( 'Enable Patreon content gate', 'fictioneer' ),
-                    __( 'Requires OAuth 2.0 application for Patreon. Allows eligible logged-in members to ignore post passwords.', 'fictioneer' )
+                    __( 'Requires OAuth 2.0 application for Patreon. Allows patrons to ignore passwords for selected posts.', 'fictioneer' ),
+                    __( '<p>Allows users with a linked Patreon account to access password-protected posts. Just assign the tiers or pledge thresholds, per post or globally. This is in addition to regular unlocks per user, which can be combined to target only paying patrons while working outside of tiers.</p><p>Requires an OAuth 2.0 connection to Patreon. Users retain their access for a week by default, after which they need to re-authenticate to refresh their membership data. They can log in by other means during that time.</p>', 'fictioneer' )
                   );
                 ?>
               </div>
