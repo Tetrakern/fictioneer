@@ -961,7 +961,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_bundle_scripts',
                     __( 'Bundle JavaScript files into one', 'fictioneer' ),
-                    __( 'Deferred script file that should be ignored by aggregation plugins to avoid errors (fictioneer/js/complete.min.js and fictioneer/cache/dynamic-scripts.js).', 'fictioneer' )
+                    __( 'Deferred script file that should be ignored by aggregation plugins to avoid errors (fictioneer/js/complete.min.js and fictioneer/cache/dynamic-scripts.js).', 'fictioneer' ),
+                    __( 'Modern browsers and servers can handle multiple scripts in parallel, eliminating the need to bundle them into one large file. This allows the theme to selectively load scripts as needed. Unless you are sure of what you are doing, it is best to leave this setting off.', 'fictioneer' )
                   );
                 ?>
               </div>
