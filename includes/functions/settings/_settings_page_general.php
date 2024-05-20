@@ -973,7 +973,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_extended_story_list_meta_queries',
                     __( 'Disable extended story list meta queries', 'fictioneer' ),
-                    __( 'Faster, but adds one row per story to your database, which can slow down your site if you have thousands.', 'fictioneer' )
+                    __( 'Faster, but adds one row per story to your database, which can slow down your site if you have thousands.', 'fictioneer' ),
+                    __( 'Unless you are a developer customizing the theme, leave this setting off. Extended meta queries check not only for the value of meta fields but also their existence, as Fictioneer does not keep "falsy" values in the database. If you disable this, all stories will have the missing meta fields added and exempted from cleanup.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -983,7 +984,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_extended_chapter_list_meta_queries',
                     __( 'Disable extended chapter list meta queries', 'fictioneer' ),
-                    __( 'Faster, but adds one row per chapter to your database, which can slow down your site if you have thousands.', 'fictioneer' )
+                    __( 'Faster, but adds one row per chapter to your database, which can slow down your site if you have thousands.', 'fictioneer' ),
+                    __( 'Unless you are a developer customizing the theme, leave this setting off. Extended meta queries check not only for the value of meta fields but also their existence, as Fictioneer does not keep "falsy" values in the database. If you disable this, all chapters will have the missing meta fields added and exempted from cleanup.', 'fictioneer' )
                   );
                 ?>
               </div>
