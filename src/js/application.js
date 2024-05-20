@@ -653,6 +653,11 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
 
 // Show notices based on URL params (if any)
 if (fcn_urlParams) {
+  // Print errors in console
+  if (fcn_urlParams['failure']) {
+    console.error('Failure:', fcn_urlParams['failure']);
+  }
+
   // Show OAuth 2.0 registration error notice (if any)
   if (fcn_urlParams['failure'] === 'oauth_email_taken') {
     fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
