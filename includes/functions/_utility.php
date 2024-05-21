@@ -3115,14 +3115,14 @@ function fictioneer_decrypt( $data ) {
 // =============================================================================
 
 /**
- * Returns randomized username
+ * Returns array of adjectives for randomized username generation
  *
  * @since 5.19.0
  *
- * @return string Random username.
+ * @return array Array of nouns.
  */
 
-function fictioneer_get_random_username() {
+function fictioneer_get_username_adjectives() {
   $adjectives = array(
     'Radical', 'Tubular', 'Gnarly', 'Epic', 'Electric', 'Neon', 'Bodacious', 'Rad',
     'Totally', 'Funky', 'Wicked', 'Fresh', 'Chill', 'Groovy', 'Vibrant', 'Flashy',
@@ -3140,8 +3140,19 @@ function fictioneer_get_random_username() {
     'Chaotic', 'Wacky', 'Twisted', 'Manic', 'Crystal', 'Infernal', 'Ruthless', 'Grim',
     'Mortal', 'Forsaken', 'Heretical', 'Cursed', 'Blighted', 'Scarlet', 'Delightful'
   );
-  $adjectives = apply_filters( 'fictioneer_random_username_adjectives', $adjectives );
 
+  return apply_filters( 'fictioneer_random_username_adjectives', $adjectives );
+}
+
+/**
+ * Returns array of nouns for randomized username generation
+ *
+ * @since 5.19.0
+ *
+ * @return array Array of nouns.
+ */
+
+function fictioneer_get_username_nouns() {
   $nouns = array(
     'Avatar', 'Cassette', 'Rubiks', 'Gizmo', 'Synthwave', 'Tron', 'Replicant', 'Warrior',
     'Hacker', 'Samurai', 'Cyborg', 'Runner', 'Mercenary', 'Shogun', 'Maverick', 'Glitch',
@@ -3161,16 +3172,35 @@ function fictioneer_get_random_username() {
     'Heretic', 'Armageddon', 'Obliteration', 'Inferno', 'Torment', 'Carnage', 'Purgatory',
     'Chastity', 'Angel', 'Raven', 'Star', 'Trinity', 'Idol', 'Eidolon', 'Havoc'
   );
-  $nouns = apply_filters( 'fictioneer_random_username_nouns', $nouns );
+
+  return apply_filters( 'fictioneer_random_username_nouns', $nouns );
+}
+
+/**
+ * Returns randomized username
+ *
+ * @since 5.19.0
+ *
+ * @param bool $unique  Optional. Whether the username must be unique. Default true.
+ *
+ * @return string Sanitized random username.
+ */
+
+function fictioneer_get_random_username( $unique = true ) {
+  // Setup
+  $adjectives = fictioneer_get_username_adjectives();
+  $nouns = fictioneer_get_username_nouns();
 
   // Shuffle the arrays to ensure more randomness
   shuffle( $adjectives );
   shuffle( $nouns );
 
+  // Build username
   do {
     $username = $adjectives[ array_rand( $adjectives ) ] . $nouns[ array_rand( $nouns ) ] . rand( 1000, 9999 );
     $username = sanitize_user( $username, true );
-  } while ( username_exists( $username ) );
+  } while ( username_exists( $username ) && $unique );
 
+  // Return username
   return $username;
 }
