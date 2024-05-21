@@ -847,7 +847,7 @@ add_action( 'fictioneer_search_no_results', 'fictioneer_no_search_results' );
  */
 
 function fictioneer_render_oauth_login_options() {
-  echo fictioneer_get_oauth_links( fcntr( 'login_with' ), 'button _secondary' );
+  echo fictioneer_get_oauth2_login_links( fcntr( 'login_with' ), 'button _secondary' );
 }
 add_action( 'fictioneer_modal_login_option', 'fictioneer_render_oauth_login_options' );
 

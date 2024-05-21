@@ -86,12 +86,14 @@ $unset_oauth_prompt = sprintf(
 
       if ( $client_id && $client_secret ) {
         if ( empty( $id_hash )) {
-          echo fictioneer_get_oauth_login_link(
+          echo fictioneer_get_oauth2_login_link(
             $provider[0],
             "<i class='fa-brands fa-{$provider[0]}'></i> <span>{$provider[1]}</span>",
-            false,
-            true,
-            '_disconnected'
+            array(
+              'classes' => '_disconnected',
+              'anchor' => 'oauth-connections',
+              'merge' => 1
+            )
           );
         } else {
           ?>

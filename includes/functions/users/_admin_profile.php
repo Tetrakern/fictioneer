@@ -534,15 +534,15 @@ function fictioneer_admin_profile_fields_oauth( $profile_user ) {
               // Start HTML ---> ?>
               <div class="oauth-connection">
                 <?php
-                  echo fictioneer_get_oauth_login_link(
+                  echo fictioneer_get_oauth2_login_link(
                     $provider[0],
                     "<i class='fa-brands fa-{$provider[0]}'></i> <span>{$provider[1]}</span>",
-                    false,
-                    true,
-                    '_disconnected button',
-                    0,
-                    get_edit_profile_url( $profile_user->ID )
-                  )
+                    array(
+                      'classes' => '_disconnected button',
+                      'merge' => 1,
+                      'return_url' => get_edit_profile_url( $profile_user->ID )
+                    )
+                  );
                 ?>
               </div>
               <?php // <--- End HTML
