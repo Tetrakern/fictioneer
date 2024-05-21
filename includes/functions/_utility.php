@@ -1594,11 +1594,9 @@ function fictioneer_get_split_aspect_ratio( $css ) {
  */
 
 function fictioneer_show_login() {
-  return
-  (
-    get_option( 'fictioneer_enable_oauth' ) || get_option( 'fictioneer_show_wp_login_link' )
-  ) &&
-  ! is_user_logged_in();
+  $enabled = get_option( 'fictioneer_enable_oauth' ) || get_option( 'fictioneer_show_wp_login_link' );
+
+  return ( $enabled && ! is_user_logged_in() ) || get_option( 'fictioneer_enable_public_cache_compatibility' );
 }
 
 // =============================================================================
