@@ -35,7 +35,9 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 
 ## Commissions
 
-I do take commissions for customizations and new features, *within reason.* Just write me in Discord and we can figure out what is feasible. But keep in mind that any feature you pay for will be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.
+I do take commissions for customizations and new features, *within reason.* Just write me on Discord, and we can figure out what is feasible. However, keep in mind that any feature you pay for may be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.<sup>*</sup>
+
+<sup>* As long as that makes sense and is not detrimental.</sup>
 
 ## Support the Development
 
