@@ -1401,6 +1401,24 @@ Filters the intermediate output array of the `fictioneer_filter_media_buttons( $
 
 ---
 
+### `apply_filters( 'fictioneer_filter_static_content', $content, $post )`
+Filters the HTML returned by `fictioneer_get_static_content()`. Allows you to customize the cached content itself, the result not being cached. The filter is also applied if the static cache is disabled for the post, so this can be used in place for the `the_content` filter. Relies on the global post and currently only used in chapters.
+
+**Parameters:**
+* $content (string) – The post content as HTML, all normal filters applied.
+* $post (WP_Post) – The global post object.
+
+---
+
+### `apply_filters( 'fictioneer_filter_static_content_true', $force, $post )`
+Filters the last guard clause for returning the cached content, default `true`. Allows you to exclude posts based on broader conditions. Relies on the global post and currently only used in chapters.
+
+**Parameters:**
+* $force (boolean) – Whether to return the cached HTML. Default `true`.
+* $post (WP_Post) – The global post object.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_story_card_footer', $footer_items, $post, $story, $args )`
 Filters the intermediate output array in the `_card-story.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, publishing date, comments, and so forth.
 

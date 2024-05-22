@@ -981,13 +981,14 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
   if (
     ! FICTIONEER_ENABLE_PARTIAL_CACHING ||
     ! empty( $post->post_password ) ||
-    get_post_meta( $post->ID, 'fictioneer_chapter_disable_partial_caching', true )
+    get_post_meta( $post->ID, 'fictioneer_chapter_disable_partial_caching', true ) ||
+    ! apply_filters( 'fictioneer_filter_static_content_true', true, $post )
   ) {
     $content = get_the_content( $more_link_text, $strip_teaser );
     $content = apply_filters( 'the_content', $content );
 	  $content = str_replace( ']]>', ']]&gt;', $content );
 
-    return apply_filters( 'fictioneer_get_static_content', $content );
+    return apply_filters( 'fictioneer_filter_static_content', $content, $post );
   }
 
   // Setup
@@ -1001,7 +1002,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
     $content = apply_filters( 'the_content', $content );
 	  $content = str_replace( ']]>', ']]&gt;', $content );
 
-    return apply_filters( 'fictioneer_get_static_content', $content );
+    return apply_filters( 'fictioneer_filter_static_content', $content, $post );
   }
 
   // Get static file if not expired
@@ -1009,7 +1010,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
     $filemtime = filemtime( $path );
 
     if ( time() - $filemtime < FICTIONEER_PARTIAL_CACHE_EXPIRATION_TIME ) {
-      return apply_filters( 'fictioneer_get_static_content', file_get_contents( $path ) );
+      return apply_filters( 'fictioneer_filter_static_content', file_get_contents( $path ), $post );
     }
   }
 
@@ -1022,7 +1023,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
   file_put_contents( $path, $content );
 
   // Return content
-  return apply_filters( 'fictioneer_get_static_content', $content );
+  return apply_filters( 'fictioneer_filter_static_content', $content, $post );
 }
 
 /**
