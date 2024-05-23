@@ -1048,7 +1048,9 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_contact_email_addresses' => __( 'Contact form email receivers', 'fictioneer' ),
       'fictioneer_upload_mime_types' => __( 'Allowed file upload mime types', 'fictioneer' ),
       'fictioneer_google_fonts_links' => __( ' Google Fonts links', 'fictioneer' ),
-      'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' )
+      'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' ),
+      'fictioneer_show_wp_login_link' => __( 'Show default WordPress login in modal', 'fictioneer' ),
+      'fictioneer_enable_static_partials' => __( 'Enable caching of partials', 'fictioneer' ),
     );
   }
 
