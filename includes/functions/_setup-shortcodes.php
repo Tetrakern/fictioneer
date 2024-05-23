@@ -1080,11 +1080,19 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
           // Start HTML ---> ?>
           <li class="chapter-group__list-item <?php echo $extra_classes; ?>" data-post-id="<?php echo $chapter_id; ?>">
-            <?php if ( ! empty( $text_icon ) && ! $hide_icons ) : ?>
-              <span class="chapter-group__list-item-icon _text text-icon"><?php echo $text_icon; ?></span>
-            <?php elseif ( ! $hide_icons ) : ?>
-              <i class="<?php echo empty( $icon ) ? 'fa-solid fa-book' : $icon; ?> chapter-group__list-item-icon"></i>
-            <?php endif; ?>
+            <?php
+              if ( ! $hide_icons ) {
+                // Text icon overrides normal icon
+                if ( $text_icon ) {
+                  $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$text_icon}</span>";
+                } else {
+                  $icon = $icon ?: 'fa-solid fa-book';
+                  $icon = "<i class='{$icon} chapter-group__list-item-icon'></i>";
+                }
+
+                echo apply_filters( 'fictioneer_filter_chapter_icon', $icon, $chapter_id, $story_id );
+              }
+            ?>
 
             <a
               href="<?php the_permalink( $chapter_id ); ?>"

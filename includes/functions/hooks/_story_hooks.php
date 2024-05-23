@@ -651,11 +651,19 @@ function fictioneer_story_chapters( $args ) {
                   style="order: <?php echo $reverse_order - $index; ?>"
                 >
 
-                  <?php if ( ! empty( $chapter['text_icon'] ) && ! $hide_icons ) : ?>
-                    <span class="chapter-group__list-item-icon _text text-icon"><?php echo $chapter['text_icon']; ?></span>
-                  <?php elseif ( ! $hide_icons ) : ?>
-                    <i class="<?php echo empty( $chapter['icon'] ) ? 'fa-solid fa-book' : $chapter['icon']; ?> chapter-group__list-item-icon"></i>
-                  <?php endif; ?>
+                  <?php
+                    if ( ! $hide_icons ) {
+                      // Text icon overrides normal icon
+                      if ( $chapter['text_icon'] ) {
+                        $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$chapter['text_icon']}</span>";
+                      } else {
+                        $icon = $chapter['icon'] ?: 'fa-solid fa-book';
+                        $icon = "<i class='{$icon} chapter-group__list-item-icon'></i>";
+                      }
+
+                      echo apply_filters( 'fictioneer_filter_chapter_icon', $icon, $chapter['id'], $story_id );
+                    }
+                  ?>
 
                   <a
                     <?php echo $chapter['link'] ? "href='{$chapter['link']}'" : ''; ?>

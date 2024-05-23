@@ -170,6 +170,16 @@ Filters the default chapter formatting settings. The passed array is empty becau
 
 ---
 
+### `apply_filters( 'fictioneer_filter_chapter_icon', $icon_html, $chapter_id, $story_id )`
+Filters the HTML of the chapter icon before it is rendered.
+
+**Parameters:**
+* $icon_html (string) – HTML for the chapter icon.
+* $chapter_id (int) – Post ID of the chapter.
+* $story_id (int|null) – Post ID of the story (if any). Unsafe.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_chapter_identity', $output, $args )`
 Filters the intermediate output array in the `_chapter-header.php` partial before it is imploded and rendered. Contains the HTML for the story link, chapter title (safe), and author meta nodes (see `fictioneer_get_chapter_author_nodes()`). Any of these items may be missing depending on the chapter’s configuration.
 
