@@ -130,6 +130,11 @@ if ( ! defined( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT' ) ) {
   define( 'FICTIONEER_AGE_CONFIRMATION_REDIRECT', 'https://search.brave.com/' );
 }
 
+// String: Default chapter icon Font Awesome classes
+if ( ! defined( 'FICTIONEER_DEFAULT_CHAPTER_ICON' ) ) {
+  define( 'FICTIONEER_DEFAULT_CHAPTER_ICON', 'fa-solid fa-book' );
+}
+
 /*
  * Date Strings
  */

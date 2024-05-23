@@ -2570,7 +2570,7 @@ function fictioneer_render_chapter_meta_metabox( $post ) {
           __( 'You can use all <em>free</em> <a href="%s" target="_blank">Font Awesome</a> icons.', 'fictioneer' ),
           'https://fontawesome.com/search'
         ),
-        'placeholder' => 'fa-solid fa-book'
+        'placeholder' => FICTIONEER_DEFAULT_CHAPTER_ICON
       )
     );
   }
@@ -2970,11 +2970,11 @@ function fictioneer_save_chapter_metaboxes( $post_id ) {
 
     // Valid?
     if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {
-      $icon = 'fa-solid fa-book';
+      $icon = FICTIONEER_DEFAULT_CHAPTER_ICON;
     }
 
     if ( $icon_object && ( ! property_exists( $icon_object, 'style' ) || ! property_exists( $icon_object, 'id' ) ) ) {
-      $icon = 'fa-solid fa-book';
+      $icon = FICTIONEER_DEFAULT_CHAPTER_ICON;
     }
 
     $fields['fictioneer_chapter_icon'] = $icon;

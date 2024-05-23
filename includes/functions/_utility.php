@@ -1085,11 +1085,11 @@ if ( ! function_exists( 'fictioneer_get_icon_field' ) ) {
 
     // Valid?
     if ( ! $icon_object && ( empty( $icon ) || strpos( $icon, 'fa-' ) !== 0 ) ) {
-      return 'fa-solid fa-book';
+      return FICTIONEER_DEFAULT_CHAPTER_ICON;
     }
 
     if ( $icon_object && ( ! property_exists( $icon_object, 'style' ) || ! property_exists( $icon_object, 'id' ) ) ) {
-      return 'fa-solid fa-book';
+      return FICTIONEER_DEFAULT_CHAPTER_ICON;
     }
 
     // Return

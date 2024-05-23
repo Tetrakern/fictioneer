@@ -657,7 +657,7 @@ function fictioneer_story_chapters( $args ) {
                       if ( $chapter['text_icon'] ) {
                         $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$chapter['text_icon']}</span>";
                       } else {
-                        $icon = $chapter['icon'] ?: 'fa-solid fa-book';
+                        $icon = $chapter['icon'] ?: FICTIONEER_DEFAULT_CHAPTER_ICON;
                         $icon = "<i class='{$icon} chapter-group__list-item-icon'></i>";
                       }
 

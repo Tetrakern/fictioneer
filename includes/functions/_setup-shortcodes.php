@@ -1086,7 +1086,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
                 if ( $text_icon ) {
                   $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$text_icon}</span>";
                 } else {
-                  $icon = $icon ?: 'fa-solid fa-book';
+                  $icon = $icon ?: FICTIONEER_DEFAULT_CHAPTER_ICON;
                   $icon = "<i class='{$icon} chapter-group__list-item-icon'></i>";
                 }
 
