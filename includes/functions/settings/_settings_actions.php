@@ -1634,8 +1634,8 @@ function fictioneer_connection_get_patreon_tiers() {
   fictioneer_verify_admin_action( 'fictioneer_connection_get_patreon_tiers' );
 
   // Setup
-  $client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
-  $client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+  $client_id = get_option( 'fictioneer_patreon_client_id' );
+  $client_secret = get_option( 'fictioneer_patreon_client_secret' );
 
   // OAuth working?
   if ( ! get_option( 'fictioneer_enable_oauth' ) || ! $client_id || ! $client_secret ) {

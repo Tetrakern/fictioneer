@@ -3239,8 +3239,8 @@ function fictioneer_render_extra_metabox( $post ) {
   $can_patreon = current_user_can( 'fcn_assign_patreon_tiers' ) || current_user_can( 'manage_options' );
 
   if ( $can_patreon && get_option( 'fictioneer_enable_patreon_locks' ) ) {
-    $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
-    $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+    $patreon_client_id = get_option( 'fictioneer_patreon_client_id' );
+    $patreon_client_secret = get_option( 'fictioneer_patreon_client_secret' );
 
     if ( get_option( 'fictioneer_enable_oauth' ) && $patreon_client_id && $patreon_client_secret ) {
       $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
@@ -3452,8 +3452,8 @@ function fictioneer_save_extra_metabox( $post_id ) {
   $can_patreon = current_user_can( 'fcn_assign_patreon_tiers' ) || current_user_can( 'manage_options' );
 
   if ( $can_patreon && get_option( 'fictioneer_enable_patreon_locks' ) ) {
-    $patreon_client_id = fictioneer_get_oauth_client_credentials( 'patreon' );
-    $patreon_client_secret = fictioneer_get_oauth_client_credentials( 'patreon', 'secret' );
+    $patreon_client_id = get_option( 'fictioneer_patreon_client_id' );
+    $patreon_client_secret = get_option( 'fictioneer_patreon_client_secret' );
     $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
     $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
 
