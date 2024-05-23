@@ -363,6 +363,12 @@ function fictioneer_oauth2_make_user( $user_data, $cookie ) {
   $new = false;
   $merged = false;
 
+  // Randomize username?
+  if ( get_option( 'fictioneer_randomize_oauth_usernames' ) ) {
+    $username = fictioneer_get_random_username();
+    $nickname = $username;
+  }
+
   // Look for existing user...
   $wp_user = get_users( array( 'meta_key' => $meta_key, 'meta_value' => $channel_id, 'number' => 1 ) );
   $wp_user = reset( $wp_user );

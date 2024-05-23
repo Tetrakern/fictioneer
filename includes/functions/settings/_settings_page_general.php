@@ -1020,6 +1020,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_randomize_oauth_usernames',
+                    __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
+                    __( 'Some providers use real names. Default for Google.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_do_not_save_comment_ip',
                     __( 'Do not save comment IP addresses', 'fictioneer' ),
                     __( 'IP addresses are personal data.', 'fictioneer' )
