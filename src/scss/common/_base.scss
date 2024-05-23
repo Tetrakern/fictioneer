@@ -698,7 +698,6 @@ html:not(.logged-in) body:not(.logged-in) {
 
         &:not([href]) {
           cursor: default;
-          color: var(--fg-700);
         }
       }
 

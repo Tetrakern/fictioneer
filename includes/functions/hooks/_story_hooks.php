@@ -526,6 +526,7 @@ function fictioneer_story_chapters( $args ) {
       $chapters = fictioneer_get_story_chapter_posts( $story_id );
       $chapter_groups = [];
       $group_classes = [];
+      $allowed_permalinks = ['publish'];
 
       if ( $hide_icons ) {
         $group_classes[] = '_no-icons';
@@ -544,9 +545,6 @@ function fictioneer_story_chapters( $args ) {
             continue;
           }
 
-          // Link
-          $link = $post->post_status === 'publish' ? get_permalink() : '';
-
           // Data
           $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
           $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
@@ -563,7 +561,7 @@ function fictioneer_story_chapters( $args ) {
           $chapter_groups[ $group_key ]['data'][] = array(
             'id' => $chapter_id,
             'status' => $post->post_status,
-            'link' => $link,
+            'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink() : '',
             'timestamp' => get_the_time( 'c' ),
             'password' => ! empty( $post->post_password ),
             'list_date' => get_the_date( '', $post ),
