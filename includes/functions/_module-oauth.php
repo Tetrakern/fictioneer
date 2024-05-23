@@ -176,6 +176,133 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
 // =============================================================================
 
 /**
+ * Handle OAuth 2.0 requests to get campaign tiers
+ *
+ * @since 5.15.0
+ * @since 5.19.0 - Refactored
+ */
+
+function fictioneer_oauth2_get_campaign_tiers() {
+  // Abort if not on the /oauth2 route...
+  if ( is_null( get_query_var( FICTIONEER_OAUTH_ENDPOINT, null ) ) ) {
+    return;
+  }
+
+  // Setup
+  $cookie = fictioneer_oauth2_get_cookie();
+  $state = sanitize_key( $_GET['state'] ?? '' );
+  $code = sanitize_text_field( $_GET['code'] ?? '' ); // Do not use sanitize_key()
+
+  // Validate!
+  if (
+    ! current_user_can( 'manage_options' ) ||
+    ( $cookie['action'] ?? 0 ) !== 'fictioneer_connection_get_patreon_tiers' ||
+    ( $cookie['state'] ?? 0 ) !== $state
+  ) {
+    return;
+  }
+
+  // Delete cookie
+  fictioneer_oauth2_delete_cookie();
+
+  // Get access token
+  $token_response = fictioneer_oauth2_get_token(
+    FCN_OAUTH2_API_ENDPOINTS['patreon']['token'],
+    array(
+      'grant_type' => 'authorization_code',
+      'client_id' => get_option( 'fictioneer_patreon_client_id' ),
+      'client_secret' => get_option( 'fictioneer_patreon_client_secret' ),
+      'redirect_uri' => get_site_url( null, FICTIONEER_OAUTH_ENDPOINT ),
+      'code' => $code,
+      'scope' => urlencode( 'campaigns' )
+    )
+  );
+
+  // Token successfully retrieved?
+  if ( is_wp_error( $token_response ) ) {
+    fictioneer_oauth_die( $token_response->get_error_message() );
+  }
+
+  // Extract token
+  $access_token = isset( $token_response->access_token ) ? $token_response->access_token : null;
+
+  if ( ! $access_token ) {
+    fictioneer_oauth2_terminate(
+      admin_url( 'admin.php?page=fictioneer_connections' ),
+      array( 'failure' => 'fictioneer-patreon-token-missing' )
+    );
+  }
+
+  // Build params
+  $params = '?fields' . urlencode('[campaign]') . '=created_at';
+  $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
+  $params .= '&include=tiers';
+
+  // Retrieve campaign data from Patreon
+  $campaign_response = wp_remote_get(
+    'https://www.patreon.com/api/oauth2/v2/campaigns' . $params,
+    array(
+      'headers' => array(
+        'Authorization' => 'Bearer ' . $access_token
+      )
+    )
+  );
+
+  // Request successful?
+  if ( is_wp_error( $campaign_response ) ) {
+    fictioneer_oauth_die( $campaign_response->get_error_message() );
+  } else {
+    $body = json_decode( wp_remote_retrieve_body( $campaign_response ) );
+  }
+
+  // Data successfully retrieved?
+  if ( empty( $body ) || json_last_error() !== JSON_ERROR_NONE ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $campaign_response ) );
+  }
+
+  // Data?
+  if ( ! isset( $body->data ) ) {
+    fictioneer_oauth_die( 'Data node not found.' );
+  }
+
+  // Includes?
+  if ( ! isset( $body->included ) ) {
+    fictioneer_oauth_die( 'Includes node not found.' );
+  }
+
+  // Extract tiers
+  $tiers = [];
+
+  foreach ( $body->included as $item ) {
+    if ( $item->type !== 'tier' || ! isset( $item->attributes ) ) {
+      continue;
+    }
+
+    $tiers[ $item->id ] = array(
+      'id' => absint( $item->id ),
+      'title' => sanitize_text_field( $item->attributes->title ?? '' ),
+      'description' => wp_kses_post( $item->attributes->description ?? '' ),
+      'amount_cents' => absint( $item->attributes->amount_cents ?? 0 ),
+      'published' => filter_var( $item->attributes->published ?? 0, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE ),
+    );
+  }
+
+  // Save as autoload option
+  update_option( 'fictioneer_connection_patreon_tiers', $tiers );
+
+  // Finish
+  wp_safe_redirect(
+    add_query_arg(
+      array( 'success' => 'fictioneer-patreon-tiers-pulled' ),
+      admin_url( 'admin.php?page=fictioneer_connections' )
+    )
+  );
+
+  exit;
+}
+add_action( 'template_redirect', 'fictioneer_oauth2_get_campaign_tiers', 5 );
+
+/**
  * Process any OAuth 2.0 request
  *
  * @since 5.19.0

@@ -138,6 +138,7 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-disabled-font' => __( 'Disabled font key "%s".', 'fictioneer' ),
       'fictioneer-enabled-font' => __( 'Enabled font key "%s".', 'fictioneer' ),
       'fictioneer-patreon-not-connected' => __( 'OAuth 2.0 authentication not enabled or Patreon client not set up.', 'fictioneer' ),
+      'fictioneer-patreon-token-missing' => __( 'The Patreon access token could not be retrieved.', 'fictioneer' ),
       'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers have been pulled successfully.', 'fictioneer' ),
       'fictioneer-patreon-tiers-deleted' => __( 'Patreon tiers have been deleted.', 'fictioneer' )
     )
@@ -1641,9 +1642,7 @@ function fictioneer_connection_get_patreon_tiers() {
   if ( ! get_option( 'fictioneer_enable_oauth' ) || ! $client_id || ! $client_secret ) {
     wp_safe_redirect(
       add_query_arg(
-        array(
-          'failure' => 'fictioneer-patreon-not-connected'
-        ),
+        array( 'failure' => 'fictioneer-patreon-not-connected' ),
         admin_url( 'admin.php?page=fictioneer_connections' )
       )
     );
@@ -1651,7 +1650,7 @@ function fictioneer_connection_get_patreon_tiers() {
     exit;
   }
 
-  // Prepare query params
+  // Prepare request
   $params = array(
     'response_type' => 'code',
     'client_id' => $client_id,
@@ -1663,17 +1662,31 @@ function fictioneer_connection_get_patreon_tiers() {
     'access_type' => 'offline'
   );
 
-  // Transient
-  $transient = array(
-    'state' => $params['state'],
-    'action' => 'fictioneer_connection_get_patreon_tiers'
+  // Set cookie
+  $value = fictioneer_encrypt(
+    array(
+      'state' => $params['state'],
+      'action' => 'fictioneer_connection_get_patreon_tiers'
+    )
   );
 
-  set_transient( 'fictioneer_oauth2_state_' . $params['state'], $transient, 60 ); // Expires after 1 minute
+  if ( $value ) {
+    setcookie(
+      'fictioneer_oauth',
+      $value,
+      array(
+        'expires' => time() + 300,
+        'path' => '/',
+        'domain' => '',
+        'secure' => is_ssl(),
+        'httponly' => true,
+        'samesite' => 'Lax' // Necessary because of redirects
+      )
+    );
+  }
 
-  // Redirect
+  // Finish
   wp_redirect( add_query_arg( $params, 'https://www.patreon.com/oauth2/authorize' ) );
-
   exit();
 }
 
