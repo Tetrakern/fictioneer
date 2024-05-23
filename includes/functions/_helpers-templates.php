@@ -447,7 +447,7 @@ if ( ! function_exists( 'fictioneer_get_footer_copyright_note' ) ) {
 
   function fictioneer_get_footer_copyright_note( $args ) {
     return sprintf(
-      '<span>© %s</span> <span>%s</span> <span>|</span> <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noreferrer">%s</a>',
+      '<span>© %s</span> <span>%s</span> <span>|</span> <a href="https://github.com/Tetrakern/fictioneer" target="_blank" rel="noopener">%s</a>',
       date( 'Y' ),
       get_bloginfo( 'name' ),
       fictioneer_get_version()
