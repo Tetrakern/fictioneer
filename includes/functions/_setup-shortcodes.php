@@ -984,6 +984,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
   // Query chapters
   $query_args = array(
+    'fictioneer_query_name' => 'fictioneer_shortcode_chapter_list',
     'post_type' => 'fcn_chapter',
     'post_status' => 'publish',
     'post__in' => $chapters, // Cannot be empty!
