@@ -544,6 +544,9 @@ function fictioneer_story_chapters( $args ) {
             continue;
           }
 
+          // Link
+          $link = $post->post_status === 'publish' ? get_permalink() : '';
+
           // Data
           $group = get_post_meta( $chapter_id, 'fictioneer_chapter_group', true );
           $group = empty( $group ) ? fcntr( 'unassigned_group' ) : $group;
@@ -560,7 +563,7 @@ function fictioneer_story_chapters( $args ) {
           $chapter_groups[ $group_key ]['data'][] = array(
             'id' => $chapter_id,
             'status' => $post->post_status,
-            'link' => get_permalink(),
+            'link' => $link,
             'timestamp' => get_the_time( 'c' ),
             'password' => ! empty( $post->post_password ),
             'list_date' => get_the_date( '', $post ),
@@ -657,7 +660,7 @@ function fictioneer_story_chapters( $args ) {
                   <?php endif; ?>
 
                   <a
-                    href="<?php echo $chapter['link']; ?>"
+                    <?php echo $chapter['link'] ? "href='{$chapter['link']}'" : ''; ?>
                     class="chapter-group__list-item-link truncate _1-1 <?php echo $chapter['password'] ? '_password' : ''; ?>"
                   ><?php
 

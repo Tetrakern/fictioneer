@@ -695,6 +695,11 @@ html:not(.logged-in) body:not(.logged-in) {
         &:hover {
           color: var(--chapter-list-link-color-hover, var(--heading-link-color-hover));
         }
+
+        &:not([href]) {
+          cursor: default;
+          color: var(--fg-700);
+        }
       }
 
       &-subrow {
