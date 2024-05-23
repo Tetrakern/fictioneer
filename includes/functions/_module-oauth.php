@@ -677,7 +677,7 @@ function fictioneer_oauth2_get_code( $args ) {
  * @param array  $body     Post body.
  * @param array  $headers  Optional. Array of additional header arguments.
  *
- * @return array|WP_Error Decoded JSON result or WP_Error on failure.
+ * @return object|WP_Error Decoded JSON result or WP_Error on failure.
  */
 
 function fictioneer_oauth2_get_token( $url, $body, $headers = [] ) {
