@@ -663,8 +663,11 @@ function fictioneer_story_chapters( $args ) {
 
                     // Non-published chapter prefixes
                     if ( in_array( $chapter['status'], ['future', 'trash', 'private'] ) ) {
-                      echo '<span class="chapter-group__list-item-status">' .
-                        fcntr( "{$chapter['status']}_prefix" ) . '</span> '; // Mind the space after
+                      $status_prefix = fcntr( "{$chapter['status']}_prefix" );
+
+                      if ( $status_prefix ) {
+                        echo '<span class="chapter-group__list-item-status">' . $status_prefix . '</span> '; // Mind the space
+                      }
                     }
 
                     if ( ! empty( $chapter['prefix'] ) ) {
