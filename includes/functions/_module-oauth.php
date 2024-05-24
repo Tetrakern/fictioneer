@@ -897,7 +897,7 @@ function fictioneer_oauth_patreon( $token_response, $cookie ) {
 
   // Check retrieved user response
   if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( $user_response->get_error_message() );
+    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
   } else {
     $user = json_decode( wp_remote_retrieve_body( $user_response ) );
   }
@@ -905,6 +905,13 @@ function fictioneer_oauth_patreon( $token_response, $cookie ) {
   // User data successfully retrieved?
   if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
     fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
+  }
+
+  // Error?
+  $response_code = wp_remote_retrieve_response_code( $user_response );
+
+  if ( $response_code < 200 || $response_code >= 300 ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
   }
 
   if ( ! isset( $user->data ) ) {
@@ -1006,7 +1013,7 @@ function fictioneer_oauth_discord( $token_response, $cookie ) {
 
   // Check retrieved user response
   if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( $user_response->get_error_message() );
+    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
   } else {
     $user = json_decode( wp_remote_retrieve_body( $user_response ) );
   }
@@ -1014,6 +1021,13 @@ function fictioneer_oauth_discord( $token_response, $cookie ) {
   // User data successfully retrieved?
   if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
     fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
+  }
+
+  // Error?
+  $response_code = wp_remote_retrieve_response_code( $user_response );
+
+  if ( $response_code < 200 || $response_code >= 300 ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
   }
 
   // Account verified?
@@ -1071,7 +1085,7 @@ function fictioneer_oauth_google( $token_response, $cookie ) {
 
   // Check retrieved user response
   if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( $user_response->get_error_message() );
+    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
   } else {
     $user = json_decode( wp_remote_retrieve_body( $user_response ) );
   }
@@ -1079,6 +1093,13 @@ function fictioneer_oauth_google( $token_response, $cookie ) {
   // User data successfully retrieved?
   if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
     fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
+  }
+
+  // Error?
+  $response_code = wp_remote_retrieve_response_code( $user_response );
+
+  if ( $response_code < 200 || $response_code >= 300 ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
   }
 
   // Account verified?
@@ -1136,7 +1157,7 @@ function fictioneer_oauth_twitch( $token_response, $cookie ) {
 
   // Check retrieved user response
   if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( $user_response->get_error_message() );
+    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
   } else {
     $user = json_decode( wp_remote_retrieve_body( $user_response ) );
   }
@@ -1144,6 +1165,13 @@ function fictioneer_oauth_twitch( $token_response, $cookie ) {
   // User data successfully retrieved?
   if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
     fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
+  }
+
+  // Error?
+  $response_code = wp_remote_retrieve_response_code( $user_response );
+
+  if ( $response_code < 200 || $response_code >= 300 ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
   }
 
   // Revoke token since it's not needed anymore
