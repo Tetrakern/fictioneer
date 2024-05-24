@@ -423,16 +423,16 @@ function fictioneer_oauth2_process() {
   // Delegate to respective channel
   switch ( $cookie['channel'] ) {
     case 'discord':
-      $result = fictioneer_oauth_discord( $token_response, $cookie );
+      $result = fictioneer_oauth2_discord( $token_response, $cookie );
       break;
     case 'patreon':
-      $result = fictioneer_oauth_patreon( $token_response, $cookie );
+      $result = fictioneer_oauth2_patreon( $token_response, $cookie );
       break;
     case 'google':
-      $result = fictioneer_oauth_google( $token_response, $cookie );
+      $result = fictioneer_oauth2_google( $token_response, $cookie );
       break;
     case 'twitch':
-      $result = fictioneer_oauth_twitch( $token_response, $cookie );
+      $result = fictioneer_oauth2_twitch( $token_response, $cookie );
       break;
     // case 'subscribestar':
     //   $result = fictioneer_oauth_subscribestar( $token_response, $cookie );
@@ -863,6 +863,40 @@ function fictioneer_oauth2_revoke_token( $url, $body ) {
   return wp_remote_retrieve_response_code( $response );
 }
 
+/**
+ * Retrieve and decode user data response
+ *
+ * @since 5.19.0
+ *
+ * @param object $response  API response.
+ *
+ * @return object User data object.
+ */
+
+function fictioneer_oauth2_retrieve_user_body( $response ) {
+  // Check retrieved response
+  if ( is_wp_error( $response ) ) {
+    fictioneer_oauth_die( implode( '<br>', $response->get_error_messages() ) );
+  } else {
+    $user = json_decode( wp_remote_retrieve_body( $response ) );
+  }
+
+  // User data successfully retrieved?
+  if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $response ) );
+  }
+
+  // Error?
+  $response_code = wp_remote_retrieve_response_code( $response );
+
+  if ( $response_code < 200 || $response_code >= 300 ) {
+    fictioneer_oauth_die( wp_remote_retrieve_body( $response ), 'Error ' . $response );
+  }
+
+  // All clear
+  return $user;
+}
+
 // =============================================================================
 // PROVIDERS
 // =============================================================================
@@ -878,7 +912,7 @@ function fictioneer_oauth2_revoke_token( $url, $body ) {
  * @return string Result code from fictioneer_oauth2_make_user().
  */
 
-function fictioneer_oauth_patreon( $token_response, $cookie ) {
+function fictioneer_oauth2_patreon( $token_response, $cookie ) {
   // Build params
   $params = '?fields' . urlencode('[user]') . '=email,first_name,image_url,is_email_verified';
   $params .= '&fields' . urlencode('[tier]') . '=title,amount_cents,published,description';
@@ -896,23 +930,7 @@ function fictioneer_oauth_patreon( $token_response, $cookie ) {
   );
 
   // Check retrieved user response
-  if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
-  } else {
-    $user = json_decode( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // User data successfully retrieved?
-  if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // Error?
-  $response_code = wp_remote_retrieve_response_code( $user_response );
-
-  if ( $response_code < 200 || $response_code >= 300 ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
-  }
+  $user = fictioneer_oauth2_retrieve_user_body( $user_response );
 
   if ( ! isset( $user->data ) ) {
     fictioneer_oauth_die( 'Data node not found.' );
@@ -999,7 +1017,7 @@ function fictioneer_oauth_patreon( $token_response, $cookie ) {
  * @return string Result code from fictioneer_oauth2_make_user().
  */
 
-function fictioneer_oauth_discord( $token_response, $cookie ) {
+function fictioneer_oauth2_discord( $token_response, $cookie ) {
   // Get user data
   $user_response = wp_remote_get(
     FCN_OAUTH2_API_ENDPOINTS['discord']['user'],
@@ -1012,23 +1030,7 @@ function fictioneer_oauth_discord( $token_response, $cookie ) {
   );
 
   // Check retrieved user response
-  if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
-  } else {
-    $user = json_decode( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // User data successfully retrieved?
-  if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // Error?
-  $response_code = wp_remote_retrieve_response_code( $user_response );
-
-  if ( $response_code < 200 || $response_code >= 300 ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
-  }
+  $user = fictioneer_oauth2_retrieve_user_body( $user_response );
 
   // Account verified?
   if ( ! isset( $user->verified ) || ! $user->verified ) {
@@ -1071,7 +1073,7 @@ function fictioneer_oauth_discord( $token_response, $cookie ) {
  * @return string Result code from fictioneer_oauth2_make_user().
  */
 
-function fictioneer_oauth_google( $token_response, $cookie ) {
+function fictioneer_oauth2_google( $token_response, $cookie ) {
   // Retrieve user data from Google
   $user_response = wp_remote_get(
     FCN_OAUTH2_API_ENDPOINTS['google']['user'],
@@ -1084,23 +1086,7 @@ function fictioneer_oauth_google( $token_response, $cookie ) {
   );
 
   // Check retrieved user response
-  if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
-  } else {
-    $user = json_decode( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // User data successfully retrieved?
-  if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // Error?
-  $response_code = wp_remote_retrieve_response_code( $user_response );
-
-  if ( $response_code < 200 || $response_code >= 300 ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
-  }
+  $user = fictioneer_oauth2_retrieve_user_body( $user_response );
 
   // Account verified?
   if ( ! isset( $user->verified_email ) || ! $user->verified_email ) {
@@ -1143,7 +1129,7 @@ function fictioneer_oauth_google( $token_response, $cookie ) {
  * @return string Result code from fictioneer_oauth2_make_user().
  */
 
-function fictioneer_oauth_twitch( $token_response, $cookie ) {
+function fictioneer_oauth2_twitch( $token_response, $cookie ) {
   // Retrieve user data from Twitch
   $user_response = wp_remote_get(
     FCN_OAUTH2_API_ENDPOINTS['twitch']['user'],
@@ -1156,23 +1142,7 @@ function fictioneer_oauth_twitch( $token_response, $cookie ) {
   );
 
   // Check retrieved user response
-  if ( is_wp_error( $user_response ) ) {
-    fictioneer_oauth_die( implode( '<br>', $user_response->get_error_messages() ) );
-  } else {
-    $user = json_decode( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // User data successfully retrieved?
-  if ( empty( $user ) || json_last_error() !== JSON_ERROR_NONE ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ) );
-  }
-
-  // Error?
-  $response_code = wp_remote_retrieve_response_code( $user_response );
-
-  if ( $response_code < 200 || $response_code >= 300 ) {
-    fictioneer_oauth_die( wp_remote_retrieve_body( $user_response ), 'Error ' . $response_code );
-  }
+  $user = fictioneer_oauth2_retrieve_user_body( $user_response );
 
   // Revoke token since it's not needed anymore
   fictioneer_oauth2_revoke_token(
