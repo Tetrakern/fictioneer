@@ -6,11 +6,17 @@
  * @subpackage Fictioneer
  * @since 5.0.0
  * @since 5.11.0 - Added 'fictioneer_search_form_filters' action hook.
+ * @since 5.19.0 - Added taxonomy preselect arguments.
  *
- * @internal $args['simple']          Optional. Hide advanced options.
- * @internal $args['placeholder']     Optional. Change search placeholder.
- * @internal $args['preselect_type']  Optional. Default post type to query.
- * @internal $args['cache']           Whether to account for active caching.
+ * @internal $args['simple']                Optional. Hide advanced options.
+ * @internal $args['placeholder']           Optional. Change search placeholder.
+ * @internal $args['preselect_type']        Optional. Default post type to query.
+ * @internal $args['preselect_tags']        Optional. Default tag IDs to query.
+ * @internal $args['preselect_genres']      Optional. Default genre IDs to query.
+ * @internal $args['preselect_fandoms']     Optional. Default fandom IDs to query.
+ * @internal $args['preselect_characters']  Optional. Default character IDs to query.
+ * @internal $args['preselect_warnings']    Optional. Default warning IDs to query.
+ * @internal $args['cache']                 Whether to account for active caching.
  */
 
 
@@ -361,27 +367,27 @@ if ( $show_advanced ) {
 
       <?php if ( ! empty( $all_genres ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Genres', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'genres', 'genres_and', 'genre', 'genres' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_genres, 'genres', 'genres_and', 'genre', 'genres', array( 'preselected' => $args['preselect_genres'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_fandoms ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Fandoms', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'fandoms', 'fandoms_and', 'fandom', 'fandoms' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_fandoms, 'fandoms', 'fandoms_and', 'fandom', 'fandoms', array( 'preselected' => $args['preselect_fandoms'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_characters ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Characters', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'characters', 'characters_and', 'character', 'characters' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_characters, 'characters', 'characters_and', 'character', 'characters', array( 'preselected' => $args['preselect_characters'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_tags ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Tags', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'tags', 'tags_and', 'tag', 'tags' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_tags, 'tags', 'tags_and', 'tag', 'tags', array( 'preselected' => $args['preselect_tags'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( ! empty( $all_warnings ) ) : ?>
         <h6 class="search-form__option-headline"><?php _ex( 'Warnings', 'Advanced search heading.', 'fictioneer' ); ?></h6>
-        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'warnings', 'warnings_and', 'warning', 'warnings' ); ?>
+        <?php fcn_keyword_search_taxonomies_input( $all_warnings, 'warnings', 'warnings_and', 'warning', 'warnings', array( 'preselected' => $args['preselect_warnings'] ?? null ) ); ?>
       <?php endif; ?>
 
       <?php if ( count( $all_authors ) > 1 ) : ?>

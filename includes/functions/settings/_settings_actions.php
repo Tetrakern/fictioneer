@@ -1713,9 +1713,7 @@ function fictioneer_connection_delete_patreon_tiers() {
   // Redirect
   wp_safe_redirect(
     add_query_arg(
-      array(
-        'success' => 'fictioneer-patreon-tiers-deleted'
-      ),
+      array( 'success' => 'fictioneer-patreon-tiers-deleted' ),
       admin_url( 'admin.php?page=fictioneer_connections' )
     )
   );
