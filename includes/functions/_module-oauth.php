@@ -34,6 +34,13 @@ define(
       'user' => 'https://www.patreon.com/api/oauth2/v2/identity',
       'revoke' => '',
       'scope' => urlencode('identity identity[email]')
+    ),
+    'subscribestar' => array(
+      'login' => 'https://www.subscribestar.com/oauth2/authorize',
+      'token' => 'https://www.subscribestar.com/oauth2/token',
+      'api' => 'https://www.subscribestar.com/api/graphql/v1',
+      'revoke' => '',
+      'scope' => 'subscriber.read+subscriber.payments.read+user.read+user.email.read'
     )
   )
 );
@@ -143,7 +150,8 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
     ['discord', __( 'Discord', 'fictioneer' )],
     ['twitch', __( 'Twitch', 'fictioneer' )],
     ['google', __( 'Google', 'fictioneer' )],
-    ['patreon', __( 'Patreon', 'fictioneer' )]
+    ['patreon', __( 'Patreon', 'fictioneer' )],
+    ['subscribestar', __( 'SubscribeStar', 'fictioneer' )]
   );
   $output = '';
 
@@ -434,9 +442,9 @@ function fictioneer_oauth2_process() {
     case 'twitch':
       $result = fictioneer_oauth2_twitch( $token_response, $cookie );
       break;
-    // case 'subscribestar':
-    //   $result = fictioneer_oauth_subscribestar( $token_response, $cookie );
-    //   break;
+    case 'subscribestar':
+      $result = fictioneer_oauth2_subscribestar( $token_response, $cookie );
+      break;
     default:
       $result = 'oauth_invalid_channel';
   }
@@ -1179,6 +1187,25 @@ function fictioneer_oauth2_twitch( $token_response, $cookie ) {
  * @return string Result code from fictioneer_oauth2_make_user().
  */
 
-function fictioneer_oauth_subscribestar( $token_response, $cookie ) {
-  // Placeholder
+function fictioneer_oauth2_subscribestar( $token_response, $cookie ) {
+  // GraphQL query
+  $query = "{ user { id name email email_verified avatar_url } subscriber { subscription { price } } }";
+
+  // Retrieve user data from SubscribeStar
+  $user_response = wp_remote_post(
+    FCN_OAUTH2_API_ENDPOINTS['subscribestar']['api'],
+    array(
+      'headers' => array(
+        'Accept' => 'application/json',
+        'Authorization' => 'Bearer ' . $token_response->access_token
+      ),
+      'body' => array( 'query' => $query ),
+      'blocking' => true,
+      'reject_unsafe_urls' => true,
+      'data_format' => 'body'
+    )
+  );
+
+  fictioneer_oauth2_delete_cookie();
+  wp_die( json_encode( $user_response ) );
 }

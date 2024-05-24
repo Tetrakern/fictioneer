@@ -884,6 +884,16 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_comment_form_selector',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'sanitize_text_field'
+    ),
+    'fictioneer_subscribestar_client_id' => array(
+      'name' => 'fictioneer_subscribestar_client_id',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'sanitize_text_field'
+    ),
+    'fictioneer_subscribestar_client_secret' => array(
+      'name' => 'fictioneer_subscribestar_client_secret',
+      'group' => 'fictioneer-settings-connections-group',
+      'sanitize_callback' => 'sanitize_text_field'
     )
   )
 ));

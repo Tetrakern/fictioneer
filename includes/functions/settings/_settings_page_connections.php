@@ -275,6 +275,33 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
           </div>
         </div>
 
+        <div class="fictioneer-card">
+          <div class="fictioneer-card__wrapper">
+            <h3 class="fictioneer-card__header"><?php _e( 'SubScribeStar', 'fictioneer' ); ?></h3>
+            <div class="fictioneer-card__content">
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_subscribestar_client_id',
+                    __( 'SubscribeStar Client ID', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_subscribestar_client_secret',
+                    __( 'SubscribeStar Client Secret', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <?php do_action( 'fictioneer_admin_settings_connections' ); ?>
 
       </div>
