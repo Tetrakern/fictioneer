@@ -565,6 +565,8 @@ function fictioneer_unlock_with_patreon( $form ) {
       }
     }
 
+    $patreon_message = apply_filters( 'fictioneer_filter_patreon_gate_message', $patreon_message, $options, $post );
+
     if ( ! empty( $patreon_user_data ) ) {
       $auth_reminder = '<details class="unlock-with-patreon__already-member"><summary>' . _x( 'Already a member?', 'Unlock with Patreon help.',  'fictioneer' ) . '</summary><div>' . _x( 'If you are already a member but still do not see anything, log out and log in with Patreon again to refresh your membership information.', 'Unlock with Patreon help.', 'fictioneer' ) . '</div></details>';
     }

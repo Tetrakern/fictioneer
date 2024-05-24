@@ -712,6 +712,16 @@ Filters the pledge threshold amount of the Patreon gate for protected posts (if 
 
 ---
 
+### `apply_filters( 'fictioneer_filter_patreon_gate_message', $message, $options, $post )`
+Filters the HTML of the message displayed below the Patreon unlock button. The message normally includes which tiers or pledge you need to unlock a post, but it can be overwritten in the settings and be completely custom.
+
+**Parameters:**
+* $message (string) – HTML for the message.
+* $options (array) – HTML snippets of the unlock options, prepared for rendering.
+* $post (WP_Post) – Post object of the locked post.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args )`
 Filters the intermediate output array in the `_card-post.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
 
