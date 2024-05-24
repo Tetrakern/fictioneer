@@ -25,6 +25,11 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
     $examples = array_rand( $taxonomies, min( 5, count( $taxonomies ) ) );
     $examples = is_array( $examples ) ? $examples : [ $examples ];
 
+    if ( $args['preselected'] ?? 0 ) {
+      $query_list = $query_list ?
+        "{$query_list}," . implode( ',', $args['preselected'] ) : implode( ',', $args['preselected'] );
+    }
+
     // Start HTML ---> ?>
     <div class="keyword-input <?php if ( empty( $query_list ) ) echo '_empty'; ?>">
       <?php if ( ! ( $args['no_operator'] ?? 0 ) ) : ?>
@@ -46,8 +51,8 @@ if ( ! function_exists( 'fcn_keyword_search_taxonomies_input' ) ) {
         data-hint="<?php _e( 'Start typing for suggestions…', 'fictioneer' ); ?>"
       >
         <?php
-          if ( ! empty( $query_list ) ) {
-            $nodes = explode( ',', $query_list );
+          if ( $query_list ) {
+            $nodes = array_unique( explode( ',', $query_list ) );
             $x_mark = fictioneer_get_icon( 'fa-xmark' );
 
             foreach ( $taxonomies as $term ) {

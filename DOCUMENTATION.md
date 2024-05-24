@@ -1075,6 +1075,11 @@ Renders the search form with advanced options (if not disabled in the settings).
 * **simple:** Set `true` to hide the advanced search options. Default `false`.
 * **placeholder:** Change the placeholder text.
 * **type:** Preselect either "any", "story", "chapter", "recommendation", "collection", or "post".
+* **tags:** Preselect tags as comma-separated list of term IDs.
+* **genres:** Preselect genres as comma-separated list of term IDs.
+* **fandoms:** Preselect fandoms as comma-separated list of term IDs.
+* **characters:** Preselect characters as comma-separated list of term IDs.
+* **warnings:** Preselect warnings as comma-separated list of term IDs.
 
 ```
 [fictioneer_search]
@@ -1082,6 +1087,10 @@ Renders the search form with advanced options (if not disabled in the settings).
 
 ```
 [fictioneer_search simple="true" placeholder="What are you looking for?"]
+```
+
+```
+[fictioneer_search tags="569" fandoms="200,199"]
 ```
 
 ![Contact Form](repo/assets/shortcode_example_search_1.jpg?raw=true)

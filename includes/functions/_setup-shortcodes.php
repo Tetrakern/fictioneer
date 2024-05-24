@@ -1290,6 +1290,11 @@ function fictioneer_shortcode_search( $attr ) {
   $simple = isset( $attr['simple'] ) ? $attr['simple'] == 'true' || $attr['simple'] == '1' : false;
   $placeholder = $attr['placeholder'] ?? false;
   $type = $attr['type'] ?? false;
+  $pre_tags = fictioneer_explode_list( $attr['tags'] ?? '' );
+  $pre_genres = fictioneer_explode_list( $attr['genres'] ?? '' );
+  $pre_fandoms = fictioneer_explode_list( $attr['fandoms'] ?? '' );
+  $pre_characters = fictioneer_explode_list( $attr['characters'] ?? '' );
+  $pre_warnings = fictioneer_explode_list( $attr['warnings'] ?? '' );
 
   // Prepare arguments
   if ( $simple ) {
@@ -1302,6 +1307,26 @@ function fictioneer_shortcode_search( $attr ) {
 
   if ( $type && in_array( $type, ['any', 'story', 'chapter', 'recommendation', 'collection', 'post'] ) ) {
     $args['preselect_type'] = in_array( $type, ['story', 'chapter', 'recommendation', 'collection'] ) ? "fcn_{$type}" : $type;
+  }
+
+  if ( $pre_tags ) {
+    $args['preselect_tags'] = array_map( 'absint', $pre_tags );
+  }
+
+  if ( $pre_genres ) {
+    $args['preselect_genres'] = array_map( 'absint', $pre_genres );
+  }
+
+  if ( $pre_fandoms ) {
+    $args['preselect_fandoms'] = array_map( 'absint', $pre_fandoms );
+  }
+
+  if ( $pre_characters ) {
+    $args['preselect_characters'] = array_map( 'absint', $pre_characters );
+  }
+
+  if ( $pre_warnings ) {
+    $args['preselect_warnings'] = array_map( 'absint', $pre_warnings );
   }
 
   // Buffer
