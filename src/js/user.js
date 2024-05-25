@@ -273,8 +273,14 @@ function fcn_fetchUserData() {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  if (fcn_isLoggedIn && !fcn_theRoot.dataset.ajaxAuth) {
+if (fcn_theRoot.dataset.ajaxAuth) {
+  document.addEventListener('fcnAuthReady', () => {
     fcn_fetchUserData();
-  }
-});
+  });
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (fcn_isLoggedIn) {
+      fcn_fetchUserData();
+    }
+  });
+}
