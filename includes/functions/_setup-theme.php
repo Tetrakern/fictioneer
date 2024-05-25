@@ -731,7 +731,6 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_style_queue' );
 function fictioneer_output_customize_css() {
   // Setup
   $file_path = WP_CONTENT_DIR . '/themes/fictioneer/cache/customize.css';
-  $last_built_timestamp = get_option( 'fictioneer_customize_css_timestamp', '123456789' );
 
   // Create file if it does not exist
   if ( ! file_exists( $file_path ) ) {
@@ -742,7 +741,7 @@ function fictioneer_output_customize_css() {
   if ( file_exists( $file_path ) ) {
     wp_enqueue_style(
       'fictioneer-customize',
-      get_template_directory_uri() . "/cache/customize.css?timestamp={$last_built_timestamp}",
+      get_template_directory_uri() . "/cache/customize.css",
       get_option( 'fictioneer_bundle_stylesheets' ) ? ['fictioneer-complete'] : ['fictioneer-application'],
       fictioneer_get_cache_bust()
     );
@@ -770,9 +769,9 @@ function fictioneer_output_customize_preview_css() {
   if ( file_exists( $file_path ) ) {
     wp_enqueue_style(
       'fictioneer-customize',
-      get_template_directory_uri() . "/cache/customize-preview.css?timestamp=" . time(),
+      get_template_directory_uri() . "/cache/customize-preview.css",
       ['fictioneer-application'],
-      fictioneer_get_cache_bust()
+      time() // Prevents caching in preview
     );
   }
 }
