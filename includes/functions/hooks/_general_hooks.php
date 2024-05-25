@@ -761,12 +761,12 @@ add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_status'
  */
 
 function fictioneer_add_search_for_min_words( $args ) {
-  $words = absint( $_GET['min_words'] ?? 0 );
+  $words = absint( $_GET['miw'] ?? 0 );
 
   // Start HTML ---> ?>
   <div class="search-form__select-wrapper select-wrapper">
     <div class="search-form__select-title"><?php _ex( 'Min Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
-    <select name="min_words" class="search-form__select" autocomplete="off" data-default="0">
+    <select name="miw" class="search-form__select" autocomplete="off" data-default="0">
       <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Minimum', 'Advanced search option.', 'fictioneer' ); ?></option>
       <option value="1000" <?php echo $words == 1000 ? 'selected' : ''; ?>><?php _ex( '1,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
       <option value="5000" <?php echo $words == 5000 ? 'selected' : ''; ?>><?php _ex( '5,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
@@ -792,12 +792,12 @@ add_action( 'fictioneer_search_form_filters', 'fictioneer_add_search_for_min_wor
  */
 
 function fictioneer_add_search_for_max_words( $args ) {
-  $words = absint( $_GET['max_words'] ?? 0 );
+  $words = absint( $_GET['maw'] ?? 0 );
 
   // Start HTML ---> ?>
   <div class="search-form__select-wrapper select-wrapper">
     <div class="search-form__select-title"><?php _ex( 'Max Words', 'Advanced search heading.', 'fictioneer' ); ?></div>
-    <select name="max_words" class="search-form__select" autocomplete="off" data-default="0">
+    <select name="maw" class="search-form__select" autocomplete="off" data-default="0">
       <option value="0" <?php echo ! $words ? 'selected' : ''; ?>><?php _ex( 'Maximum', 'Advanced search option.', 'fictioneer' ); ?></option>
       <option value="1000" <?php echo $words == 1000 ? 'selected' : ''; ?>><?php _ex( '1,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>
       <option value="5000" <?php echo $words == 5000 ? 'selected' : ''; ?>><?php _ex( '5,000 Words', 'Advanced search option.', 'fictioneer' ); ?></option>

@@ -211,8 +211,8 @@ function fictioneer_extend_search_query( $query ) {
   $tax_array = [];
   $authors = [];
   $author_name = sanitize_text_field( $_GET['author_name'] ?? '' );
-  $min_words = absint( $_GET['min_words'] ?? 0 );
-  $max_words = absint( $_GET['max_words'] ?? 0 );
+  $min_words = absint( $_GET['miw'] ?? 0 );
+  $max_words = absint( $_GET['maw'] ?? 0 );
 
   $is_any_post = isset( $_GET['post_type'] ) && ( $_GET['post_type'] === 'any' ) ? 1 : 0;
   $authors_in = empty( $_GET['authors'] ) ? [] : array_map( 'absint', explode( ',', $_GET['authors'] ) );

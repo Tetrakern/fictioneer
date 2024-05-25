@@ -31,8 +31,8 @@ if ( $show_advanced ) {
   $sentence = sanitize_text_field( $_GET['sentence'] ?? 0 );
   $order = sanitize_text_field( $_GET['order'] ?? 'desc' );
   $orderby = sanitize_text_field( $_GET['orderby'] ?? 'modified' );
-  $min_words = absint( $_GET['min_words'] ?? 0 );
-  $max_words = absint( $_GET['max_words'] ?? 0 );
+  $min_words = absint( $_GET['miw'] ?? 0 );
+  $max_words = absint( $_GET['maw'] ?? 0 );
 
   $story_status = fictioneer_sanitize_query_var(
     $_GET['story_status'] ?? 0,
