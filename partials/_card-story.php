@@ -181,7 +181,7 @@ $thumbnail_args = array(
                     '%1$s<span class="cq-hide-below-460"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
                     fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ),
                     __( 'Words', 'fictioneer' ),
-                    strtotime( '-1 days' ) < strtotime( get_the_date( '', $chapter->ID ) ) ?
+                    current_time( 'timestamp' ) - get_post_time( 'U', false, $chapter->ID ) < DAY_IN_SECONDS ?
                       __( 'New', 'fictioneer' ) : get_the_time( FICTIONEER_CARD_STORY_LI_DATE, $chapter->ID )
                   );
                 ?>
