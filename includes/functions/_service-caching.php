@@ -981,6 +981,7 @@ function fictioneer_get_static_content( $more_link_text = \null, $strip_teaser =
   if (
     ! FICTIONEER_ENABLE_PARTIAL_CACHING ||
     ! empty( $post->post_password ) ||
+    $post->post_status !== 'publish' ||
     get_post_meta( $post->ID, 'fictioneer_chapter_disable_partial_caching', true ) ||
     ! apply_filters( 'fictioneer_filter_static_content_true', true, $post )
   ) {
