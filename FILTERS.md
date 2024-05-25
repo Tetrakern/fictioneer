@@ -888,7 +888,7 @@ Filters the HTML for the search title before it is rendered in the `search.php` 
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_article_cards_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_article_cards` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_article_cards` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'article_cards'`
@@ -930,7 +930,7 @@ Filters the query arguments in the `fictioneer_article_cards` shortcode. The opt
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_blog_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_blog` shortcode.
+Filters the WP_Query arguments in the `fictioneer_blog` shortcode.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'blog_shortcode'`
@@ -978,7 +978,7 @@ Filters the intermediate output array in the `_latest-chapters.php` partial befo
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_chapters_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_latest_chapters` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'latest_chapters'` or `'latest_chapters_compact'`
@@ -1018,7 +1018,7 @@ Filters the query arguments in the `fictioneer_latest_chapters` shortcode. The o
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_posts_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_latest_posts` shortcode. The optional taxonomy arrays can include categories and tags.
+Filters the WP_Query arguments in the `fictioneer_latest_posts` shortcode. The optional taxonomy arrays can include categories and tags.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'latest_posts'`
@@ -1051,7 +1051,7 @@ Filters the query arguments in the `fictioneer_latest_posts` shortcode. The opti
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_recommendations_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_latest_recommendations` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_latest_recommendations` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'latest_recommendations'` or `'latest_recommendations_compact'`
@@ -1102,7 +1102,7 @@ Filters the intermediate output arrays in the `_latest-stories.php` and `_latest
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_stories_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_latest_stories` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_latest_stories` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'latest_stories'` or `'latest_stories_compact'`
@@ -1162,7 +1162,7 @@ Filters the intermediate output array in the `_latest-updates.php` partial befor
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_latest_updates_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_latest_updates` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'latest_updates'` or `'latest_updates_compact'`
@@ -1205,7 +1205,7 @@ Filters the query arguments in the `fictioneer_latest_updates` shortcode. The op
 ---
 
 ### `apply_filters( 'fictioneer_filter_shortcode_showcase_query_args', $query_args, $args )`
-Filters the query arguments in the `fictioneer_showcase` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
+Filters the WP_Query arguments in the `fictioneer_showcase` shortcode. The optional taxonomy arrays can include categories, tags, fandoms, genres, and characters.
 
 **$query_args:**
 * $fictioneer_query_name (string) – `'showcase'`
@@ -1277,7 +1277,7 @@ Filters the option array of URL/label tuples for the date popup menu in the `fic
 * $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
-* $query_args (array) – Query arguments used.
+* $query_args (array) – WP_Query arguments used.
 * $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
@@ -1298,7 +1298,7 @@ Filters the option array of URL/label tuples for the orderby popup menu in the `
 * $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
-* $query_args (array) – Query arguments used.
+* $query_args (array) – WP_Query arguments used.
 * $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
@@ -1322,7 +1322,7 @@ Filters the option array of URL/label tuples for the post type popup menu in the
 * $current_page (int) – Current page if paginated or `1`.
 * $post_id (int) – Current post ID.
 * $queried_type (string) – Queried post type.
-* $query_args (array) – Query arguments used.
+* $query_args (array) – WP_Query arguments used.
 * $order (string) – Current order. Defaults to `'DESC'`.
 * $orderby (string) – Current orderby. Defaults to `'modified'` in list templates and `'date'` in archives.
 
