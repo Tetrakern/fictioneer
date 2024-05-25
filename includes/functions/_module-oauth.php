@@ -151,7 +151,7 @@ function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anch
     ['twitch', __( 'Twitch', 'fictioneer' )],
     ['google', __( 'Google', 'fictioneer' )],
     ['patreon', __( 'Patreon', 'fictioneer' )],
-    ['subscribestar', __( 'SubscribeStar', 'fictioneer' )]
+    // ['subscribestar', __( 'SubscribeStar', 'fictioneer' )]
   );
   $output = '';
 
@@ -442,9 +442,9 @@ function fictioneer_oauth2_process() {
     case 'twitch':
       $result = fictioneer_oauth2_twitch( $token_response, $cookie );
       break;
-    case 'subscribestar':
-      $result = fictioneer_oauth2_subscribestar( $token_response, $cookie );
-      break;
+    // case 'subscribestar':
+    //   $result = fictioneer_oauth2_subscribestar( $token_response, $cookie );
+    //   break;
     default:
       $result = 'oauth_invalid_channel';
   }

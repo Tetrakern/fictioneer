@@ -275,6 +275,7 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
           </div>
         </div>
 
+        <?php /*
         <div class="fictioneer-card">
           <div class="fictioneer-card__wrapper">
             <h3 class="fictioneer-card__header"><?php _e( 'SubScribeStar', 'fictioneer' ); ?></h3>
@@ -301,6 +302,7 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
             </div>
           </div>
         </div>
+        */ ?>
 
         <?php do_action( 'fictioneer_admin_settings_connections' ); ?>
 
