@@ -1275,7 +1275,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_ajax_authentication',
                     __( 'Enable AJAX user authentication', 'fictioneer' ),
-                    __( 'Check for user login state after the page has been loaded to get around anonymizing caching strategies.', 'fictioneer' )
+                    __( 'Check for user login state after the page has been loaded to get around anonymizing caching strategies.', 'fictioneer' ),
+                    __( 'This is a <em>last-resort measure</em> for aggressive caching strategies, such as options to serve public caches to logged-in users. It queries for the user’s login state after the page has loaded. This requires more server resources, but can help when everything else fails.', 'fictioneer' )
                   );
                 ?>
               </div>
