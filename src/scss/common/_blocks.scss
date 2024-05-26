@@ -2,7 +2,7 @@
 // GENERAL
 // =============================================================================
 
-[class*="wp-block-"]:not(p, h1, h2, h3, h4, h5, h6, .wp-block-separator, .wp-block-spacer, .wp-block-image:where(.alignright, .alignleft), [class*="__wrapper"], .wp-block-file__button) {
+:where(.wp-block-quote, .wp-block-table, .wp-block-image:not(.alignright, .alignleft), .wp-block-code, .wp-block-details, .wp-block-footnotes, .wp-block-embed, .wp-block-gallery, .wp-block-preformatted, .wp-block-buttons, .wp-block-file-wrapper, .wp-block-pullquote):not(.no-theme-spacing) {
   clear: both;
 
   &:not(:first-child) {

@@ -100,11 +100,14 @@ body {
 
   .wp-block {
     box-sizing: border-box;
-    margin: 0 auto calc(28px + var(--spacing-offset, 0px));
     max-width: var(--editor-max-width);
 
-    &:not(p) {
-      margin: calc(28px + var(--spacing-offset, 0px)) auto;
+    &:where(:not(.no-theme-spacing)) {
+      margin: 0 auto calc(28px + var(--spacing-offset, 0px));
+
+      &:not(p) {
+        margin: calc(28px + var(--spacing-offset, 0px)) auto;
+      }
     }
 
     figcaption {
