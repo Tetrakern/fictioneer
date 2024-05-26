@@ -447,13 +447,10 @@ add_action( 'admin_post_fictioneer_duplicate_story_tags_to_genres', 'fictioneer_
 /**
  * Purge theme caches
  *
- * @since 5.2.5
+ * @since 5.19.0
  */
 
-function fictioneer_tools_purge_theme_caches() {
-  // Verify request
-  fictioneer_verify_admin_action( 'fictioneer_tools_purge_theme_caches' );
-
+function fictioneer_purge_theme_caches() {
   global $wpdb;
 
   // SQL to delete story meta caches
@@ -485,6 +482,21 @@ function fictioneer_tools_purge_theme_caches() {
 
   // Log
   fictioneer_log( __( 'Purged theme caches.', 'fictioneer' ) );
+}
+
+/**
+ * Action wrapper to purge theme caches
+ *
+ * @since 5.2.5
+ * @since 5.19.0 - Split up into two functions.
+ */
+
+function fictioneer_tools_purge_theme_caches() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_tools_purge_theme_caches' );
+
+  // Purge and log
+  fictioneer_purge_theme_caches();
 
   // Finish
   fictioneer_finish_admin_action( 'fictioneer-purge-theme-caches' );
