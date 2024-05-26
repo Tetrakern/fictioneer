@@ -476,6 +476,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `show-below-375` | Only show element below viewport widths of less than 375px.
 | `hide-if-logged-in` | Hide element if the user is logged in.
 | `hide-if-logged-out` | Hide element if the user is not logged in.
+| `no-theme-spacing` | Removes the top and bottom spacing applied by the theme.
 
 ## HTML Block
 
