@@ -201,6 +201,20 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
   // Clear cached files
   fictioneer_clear_all_cached_partials();
 
+  // Purge theme caches
+  static $purged = null;
+
+  if ( ! $purged ) {
+    $cache_purge_options = ['fictioneer_hide_chapter_icons', 'fictioneer_enable_chapter_groups',
+      'fictioneer_collapse_groups_by_default', 'fictioneer_disable_chapter_collapsing',
+      'fictioneer_count_characters_as_words'];
+
+    if ( in_array( $option, $cache_purge_options ) ) {
+      fictioneer_purge_theme_caches();
+      $purged = true;
+    }
+  }
+
   // Relay
   fictioneer_log_checkbox_update(
     fictioneer_get_option_label( $option ),
