@@ -644,8 +644,14 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
   container.prepend(node);
 
   // Remove element once the notification has vanished
-  node.addEventListener('transitionend', e => { container.removeChild(e.target); });
-  node.addEventListener('click', e => { container.removeChild(e.currentTarget); });
+  node.addEventListener('transitionend', event => {
+    if (event.propertyName === 'opacity') {
+      container.removeChild(event.target);
+    }
+  });
+
+  // Remove element when the user clicks on it
+  node.addEventListener('click', event => { container.removeChild(event.currentTarget); });
 
   // Wait for the element to become visible, otherwise it will never show up
   setTimeout(() => { node.style.opacity = 0; }, 100);
@@ -653,33 +659,38 @@ function fcn_showNotification(message, duration = 3, type = 'base') {
 
 // Show notices based on URL params (if any)
 if (fcn_urlParams) {
-  // Print errors in console
+  // Print all failures in console
   if (fcn_urlParams['failure']) {
     console.error('Failure:', fcn_urlParams['failure']);
   }
 
-  // Show OAuth 2.0 registration error notice (if any)
-  if (fcn_urlParams['failure'] === 'oauth_email_taken') {
-    fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
+  // Failure cases
+  switch (fcn_urlParams['failure']) {
+    case 'oauth_email_taken':
+      // Show OAuth 2.0 registration error notice (if any)
+      fcn_showNotification(fictioneer_tl.notification.oauthEmailTaken, 5, 'warning');
+      break;
+    case 'oauth_already_linked':
+      // Show OAuth 2.0 link error notice (if any)
+      fcn_showNotification(fictioneer_tl.notification.oauthAccountAlreadyLinked, 5, 'warning');
+      break;
   }
 
-  // Show OAuth 2.0 link error notice (if any)
-  if (fcn_urlParams['failure'] === 'oauth_already_linked') {
-    fcn_showNotification(fictioneer_tl.notification.oauthAccountAlreadyLinked, 5, 'warning');
-  }
-
-  // Show new subscriber notice (if any)
-  if (fcn_urlParams['success'] === 'oauth_new') {
-    fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
-  }
-
-  // Show OAuth 2.0 account merge notice (if any)
-  if (fcn_urlParams['success']?.includes('oauth_merged_')) {
-    fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
+  // Success cases
+  switch (fcn_urlParams['success']) {
+    case 'oauth_new':
+      // Show new subscriber notice (if any)
+      fcn_showNotification(fictioneer_tl.notification.oauthNew, 10);
+      break;
+    default:
+      // Show OAuth 2.0 account merge notice (if any)
+      if (fcn_urlParams['success']?.startsWith('oauth_merged_')) {
+        fcn_showNotification(fictioneer_tl.notification.oauthAccountLinked, 3, 'success');
+      }
   }
 
   // Generic messages
-  if (fcn_urlParams['fictioneer-notice'] && fcn_urlParams['fictioneer-notice'] !== '') {
+  if (fcn_urlParams['fictioneer-notice']) {
     let type = fcn_urlParams['failure'] === '1' ? 'warning' : 'base';
     type = fcn_urlParams['success'] === '1' ? 'success' : type;
 
