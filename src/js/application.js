@@ -282,29 +282,25 @@ function fcn_setLoggedInState(state) {
   fcn_theBody.classList.toggle('is-editor', state.isEditor);
 
   // Cleanup view for users
-  const removeSelectors = [];
+  const removeSelectors = ['label[for="modal-login-toggle"]', '#modal-login-toggle', '#login-modal'];
 
   if (!state.isAdmin) {
     removeSelectors.push('.only-admins');
+
+    if (!state.isModerator) {
+      removeSelectors.push('.only-moderators');
+    }
+
+    if (!state.isAuthor) {
+      removeSelectors.push('.only-authors');
+    }
+
+    if (!state.isEditor) {
+      removeSelectors.push('.only-editors');
+    }
   }
 
-  if (!state.isModerator && !state.isAdmin) {
-    removeSelectors.push('.only-moderators');
-  }
-
-  if (!state.isAuthor && !state.isAdmin) {
-    removeSelectors.push('.only-authors');
-  }
-
-  if (!state.isModerator && !state.isAdmin) {
-    removeSelectors.push('.only-editors');
-  }
-
-  if (removeSelectors.length > 0) {
-    _$$(removeSelectors.join(', ')).forEach(el => el.remove());
-  }
-
-  _$$('label[for="modal-login-toggle"], #modal-login-toggle, #login-modal').forEach(el => el.remove());
+  _$$(removeSelectors.join(', ')).forEach(element => element.remove());
 
   // Initialize local user
   fcn_getProfileImage();
