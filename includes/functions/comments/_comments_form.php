@@ -265,17 +265,17 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
 
   // Must be logged in to comment?
   if ( get_option( 'comment_registration' ) ) {
-    $must_login_oauth = '<div class="fictioneer-respond__must-login">' . __( 'You must be <label for="modal-login-toggle">logged in</label> to comment.', 'fictioneer' ) . '</div>';
-
-    $must_login_default = sprintf(
-      '<div class="fictioneer-respond__must-login">%s</div>',
-      sprintf(
-        __( 'You must be <a href="%s">logged in</a> to post a comment.' ),
-        wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
-      )
-    );
-
-    $args['must_log_in'] = empty( $oauth_links ) ? $must_login_default : $must_login_oauth;
+    if ( ! get_option( 'fictioneer_show_wp_login_link' ) && empty( $oauth_links ) ) {
+      $args['must_log_in'] = sprintf(
+        '<div class="fictioneer-respond__must-login">%s</div>',
+        sprintf(
+          __( 'You must be <a href="%s">logged in</a> to post a comment.' ),
+          wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ), $post_id ) )
+        )
+      );
+    } else {
+      $args['must_log_in'] = '<div class="fictioneer-respond__must-login">' . __( 'You must be <label for="modal-login-toggle">logged in</label> to comment.', 'fictioneer' ) . '</div>';
+    }
   }
 
   // Return arguments which will be merged with missing defaults
