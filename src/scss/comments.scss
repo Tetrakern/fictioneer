@@ -636,6 +636,13 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   &__fingerprint {
     cursor: help;
 

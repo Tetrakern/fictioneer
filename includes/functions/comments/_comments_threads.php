@@ -665,22 +665,44 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
           // (PRIVATE) REPLY BUTTON
           // =============================================================================
           ?>
-          <?php if ( $can_comment && ! $is_offensive && ! ( $is_report_hidden && ! $is_ignoring_reports ) ) : ?>
+          <?php if ( ! ( $is_report_hidden && ! $is_ignoring_reports ) ) : ?>
             <div class="fictioneer-comment__actions"><?php
-              $caption = $comment->comment_type === 'private' || $is_child_of_private ? __( 'Private Reply', 'fictioneer' ) : __( 'Reply', 'fictioneer' );
+              $actions = [];
 
-              comment_reply_link(
+              if ( ! $is_offensive && $can_comment ) {
+                $caption = $comment->comment_type === 'private' || $is_child_of_private ?
+                  __( 'Private Reply', 'fictioneer' ) : __( 'Reply', 'fictioneer' );
+
+                $actions['reply'] = get_comment_reply_link(
+                  array_merge(
+                    $args,
+                    array(
+                      'reply_text' => '<i class="fa-solid fa-reply"></i> ' . $caption,
+                      'add_below' => 'div-comment', // Important for position of reply form
+                      'depth' => $depth,
+                      'max_depth' => $args['max_depth']
+                    )
+                  ),
+                  $comment
+                );
+              }
+
+              $actions = apply_filters(
+                'fictioneer_filter_comment_actions',
+                $actions,
+                $comment,
                 array_merge(
                   $args,
                   array(
-                    'reply_text' => '<i class="fa-solid fa-reply"></i> ' . $caption,
-                    'add_below' => 'div-comment', // Important for position of reply form
-                    'depth' => $depth,
-                    'max_depth' => $args['max_depth']
+                    'has_private_ancestor' => $is_child_of_private,
+                    'has_closed_ancestor' => $closed_ancestor,
+                    'sticky' => $is_sticky
                   )
                 ),
-                $comment
+                $depth
               );
+
+              echo implode( '', $actions );
             ?></div>
           <?php endif; ?>
           <?php

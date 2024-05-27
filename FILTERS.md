@@ -389,6 +389,17 @@ Filters the queried comments in the `comments.php` template and `fictioneer_ajax
 
 ---
 
+### `apply_filters( 'fictioneer_filter_comment_actions', $output, $comment, $args, $depth )`
+Filters the intermediate output array of comment actions before it is imploded and rendered. The `$args` parameter also includes the keys `'has_private_ancestor'` (bool), `'has_closed_ancestor'` (bool), and `'sticky'` (bool).
+
+**Parameters:**
+* $output (array) - HTML snippets of actions. Normally just `'reply'` (if allowed). Can be empty.
+* $comment (WP_Comment) – The comment object.
+* $args (array) – Arguments passed to `fictioneer_theme_comment()` plus extension.
+* $depth (int) – Depth of the comment.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_comment_badge', $output, $user, $args )`
 Filters the HTML of the `fictioneer_get_comment_badge( $user, $comment, $post_author_id )` function before it is returned for rendering. The badge class and label are inserted into `<div class="fictioneer-comment__badge CLASS"><span>LABEL</span></div>`. Possible label classes are `is-author`, `is-admin`, `is-moderator`, `is-supporter`, and `badge-override`.
 
