@@ -178,7 +178,7 @@ $thumbnail_args = array(
               <div class="card__right">
                 <?php
                   printf(
-                    '%1$s<span class="cq-hide-below-460"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                    '<span class="words">%1$s<span class="cq-hide-below-460"> %2$s</span></span><span class="separator-dot">&#8196;&bull;&#8196;</span><span class="date">%3$s</span>',
                     fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ),
                     __( 'Words', 'fictioneer' ),
                     current_time( 'timestamp' ) - get_post_time( 'U', false, $chapter->ID ) < DAY_IN_SECONDS ?

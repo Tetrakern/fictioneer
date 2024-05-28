@@ -199,7 +199,7 @@ $thumbnail_args = array(
             <div class="card__right">
               <?php
                 printf(
-                  '%1$s<span class="cq-hide-below-460"> %2$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span>%3$s',
+                  '<span class="words">%1$s<span class="cq-hide-below-460"> %2$s</span></span><span class="separator-dot">&#8196;&bull;&#8196;</span><span class="status">%3$s</span>',
                   $story_data['word_count_short'],
                   __( 'Words', 'fictioneer' ),
                   $story_data['status']

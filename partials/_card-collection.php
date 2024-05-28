@@ -163,7 +163,7 @@ $thumbnail_args = array(
               <div class="card__right">
                 <?php
                   printf(
-                    '%1$s<span class="separator-dot">&#8196;&bull;&#8196;</span>%2$s',
+                    '<span class="type">%1$s</span><span class="separator-dot">&#8196;&bull;&#8196;</span><span class="date">%2$s</span>',
                     get_post_type_object( $item->post_type )->labels->singular_name,
                     get_the_modified_date( FICTIONEER_CARD_COLLECTION_LI_DATE, $item->ID )
                   );
