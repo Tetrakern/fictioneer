@@ -28,6 +28,8 @@
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
  * @internal $args['lightbox']          Whether the image is opened in the lightbox. Default true.
  * @internal $args['thumbnail']         Whether the image is rendered. Default true (Customizer).
+ * @internal $args['words']             Whether to show the word count of chapter items. Default true.
+ * @internal $args['date']              Whether to show the date of chapter items. Default true.
  * @internal $args['classes']           String of additional CSS classes. Default empty.
  */
 
@@ -160,6 +162,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_seamless';
           }
 
+          if ( ! $args['words'] ) {
+            $card_classes[] = '_no-chapter-words';
+          }
+
+          if ( ! $args['date'] ) {
+            $card_classes[] = '_no-chapter-dates';
+          }
+
           // Search for viable chapters...
           $search_list = array_reverse( $story['chapter_ids'] );
 
@@ -285,9 +295,19 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     </div>
                     <div class="card__right">
                       <?php
-                        echo fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) );
-                        echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
-                        echo get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID )
+                        if ( $args['words'] ) {
+                          echo '<span class="words">' .
+                            fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ) . '</span>';
+                        }
+
+                        if ( $args['words'] && $args['date'] ) {
+                          echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
+                        }
+
+                        if ( $args['date'] ) {
+                          echo '<span class="date">' .
+                            get_the_date( FICTIONEER_LATEST_UPDATES_LI_DATE, $chapter->ID ) . '</span>';
+                        }
                       ?>
                     </div>
                   </li>
