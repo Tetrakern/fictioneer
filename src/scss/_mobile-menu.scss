@@ -14,6 +14,10 @@ $max-mobile-menu-width: 320px;
     height: 134vh; // Fallback
     height: 134dvh;
   }
+
+  .main-navigation {
+    position: static !important;
+  }
 }
 
 .transformed-site {

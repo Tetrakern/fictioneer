@@ -62,7 +62,7 @@ function fcn_toggleAdvancedMobileMenu(isOpened) {
 
   if (isOpened) {
     // Mobile menu was opened
-    fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down');
+    fcn_theBody.classList.add('mobile-menu-open', 'scrolling-down', 'scrolled-to-top');
     fcn_theBody.classList.remove('scrolling-up');
     fcn_theSite.classList.add('transformed-scroll', 'transformed-site');
     fcn_theSite.scrollTop = windowScrollY - adminBarOffset;

@@ -497,17 +497,17 @@ var /** @const {Number} */ fcn_lastScrollTop = 0;
  */
 
 function fcn_scrollDirection() {
+  // Stop if the mobile menu is open
+  if (fcn_theSite.classList.contains('transformed-scroll')) {
+    return;
+  }
+
   // Get current scroll offset
   const root_overflow = window.getComputedStyle(document.documentElement).overflow !== 'hidden';
   const newScrollTop = root_overflow ? (window.scrollY ?? document.documentElement.scrollTop) : (fcn_theBody.scrollTop ?? 1);
 
   // Scrolled to top?
   fcn_theBody.classList.toggle('scrolled-to-top', newScrollTop === 0);
-
-  // Stop if the mobile menu is open
-  if (fcn_theSite.classList.contains('transformed-scroll')) {
-    return;
-  }
 
   // Check whether the difference between old and new offset exceeds the threshold
   if (Math.abs(fcn_lastScrollTop - newScrollTop) >= 25) {
