@@ -144,7 +144,7 @@ function fictioneer_output_modals( $args ) {
 
     if (
       get_option( 'fictioneer_enable_suggestions' ) &&
-      ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) &&
+      ! fictioneer_is_commenting_disabled( get_the_ID() ) &&
       comments_open()
     ) {
       ?><input id="suggestions-modal-toggle" data-target="suggestions-modal" type="checkbox" tabindex="-1" class="modal-toggle" autocomplete="off" hidden><?php

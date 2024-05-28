@@ -628,7 +628,7 @@ add_action( 'fictioneer_chapter_after_main', 'fictioneer_chapter_micro_menu', 10
 
 function fictioneer_chapter_paragraph_tools() {
   // Setup
-  $can_comment = ! get_post_meta( get_the_ID(), 'fictioneer_disable_commenting', true ) && comments_open();
+  $can_comment = ! fictioneer_is_commenting_disabled( get_the_ID() ) && comments_open();
 
   // Start HTML ---> ?>
   <div id="paragraph-tools" class="paragraph-tools" data-nosnippet>
