@@ -3,4 +3,3 @@
 .vscode
 wp-cli.phar
 /cache
-stubs.php
