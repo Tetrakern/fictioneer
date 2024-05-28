@@ -979,6 +979,10 @@ function fictioneer_build_customize_css( $context = null ) {
     $css .= fictioneer_get_customizer_css_snippet( 'page-style-grunge-a' );
   }
 
+  if ( $page_style === 'none' ) {
+    $css .= '.main__background { display:none !important; }';
+  }
+
   // --- Page shadow -----------------------------------------------------------
 
   if ( ! get_theme_mod( 'page_shadow', true ) ) {

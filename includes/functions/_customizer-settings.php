@@ -1592,7 +1592,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'mask-image-layered-steps-a' => _x( 'Layered Steps', 'Customizer page style option.', 'fictioneer' ),
     'mask-image-layered-peaks-a' => _x( 'Layered Peaks', 'Customizer page style option.', 'fictioneer' ),
     'mask-image-grunge-a' => _x( 'Grunge', 'Customizer page style option.', 'fictioneer' ),
-    'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' )
+    'polygon-mask-image-custom-css' => _x( 'Custom CSS', 'Customizer page style option.', 'fictioneer' ),
+    'none' => _x( 'None (Hide)', 'Customizer page style option.', 'fictioneer' )
   );
 
   $manager->add_control(
