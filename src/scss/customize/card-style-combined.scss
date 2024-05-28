@@ -12,6 +12,8 @@
 
   .card__main > .card__footer .rating-letter-label {
     font-weight: 700;
+    place-content: center right;
+    text-align: right;
   }
 
   .card__main > .card__footer,
