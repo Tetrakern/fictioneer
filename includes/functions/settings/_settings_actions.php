@@ -1551,13 +1551,13 @@ function fictioneer_tools_append_chapters() {
     $previews = [];
     $story_data = fictioneer_get_story_data( $story_id, false );
     $description = sprintf(
-      "<p>The chapters to be appended to <strong>%s</strong> (#%s), in order of publication. Only chapters not already in list will be appended. Beware that chapter and story ownership restrictions are ignored.</p><p style='margin-top: -10px;'>%s</p>",
+      "<p>The chapters considered for appending to <strong>%s</strong> (#%s), in order of publication. Chapters which are already listed will be skipped. Beware that all post ownership restrictions will be ignored.</p><p style='margin-top: -10px;'>%s</p>",
       $story_data['title'],
       $story_id,
       $back_link
     );
     $thead = '<tr><th style="padding-right: 24px;">' . __( 'ID', 'fictioneer' ) . '</th><th style="padding-right: 24px;">'
-      . __( 'Date', 'fictioneer' ) . '</th><th>' . __( 'Chapter', 'fictioneer' ) . '</th></tr>';
+      . __( 'Datetime', 'fictioneer' ) . '</th><th>' . __( 'Chapter', 'fictioneer' ) . '</th></tr>';
 
     foreach ( $chapters_to_append->posts as $chapter ) {
       $previews[] = "<tr><td style='padding-right: 24px;'>{$chapter->ID}</td><td style='padding-right: 24px;'>{$chapter->post_date}</td><td>{$chapter->post_title}</td></tr>";
