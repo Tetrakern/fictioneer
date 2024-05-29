@@ -57,7 +57,7 @@ $disabled_fonts = is_array( $disabled_fonts ) ? $disabled_fonts : [];
           <h1 style="margin-bottom: 12px;"><?php _e( 'Installed Fonts', 'fictioneer' ); ?></h1>
           <p><?php
             printf(
-              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign fonts in the <a href="%s">Customizer</a>. If the fonts are listed but not displayed, purge the theme caches under <a href="%s">Tools</a> and force-refresh he page to clear the browser cache as well.', 'fictioneer' ),
+              __( 'See <a href="%s" target="_blank">installation guide</a> on how to add custom fonts yourself. You can assign fonts in the <a href="%s">Customizer</a>. If the fonts are listed but not displayed, purge the theme caches under <a href="%s">Tools</a> and force-refresh the page to clear the browser cache as well.', 'fictioneer' ),
               'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts',
               wp_customize_url(),
               '?page=fictioneer_tools'
