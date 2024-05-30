@@ -1379,7 +1379,7 @@ function fictioneer_sanitize_positive_float( $value, $default = 0.0 ) {
  * @return float The sanitized positive float.
  */
 
-function fictioneer_sanitize_float_field( $value ) {
+function fictioneer_sanitize_positive_float_def1( $value ) {
   // Ensure $value is numeric in the first place
   if ( ! is_numeric( $value ) ) {
     return 1.0;

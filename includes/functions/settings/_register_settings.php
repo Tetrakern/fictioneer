@@ -724,7 +724,7 @@ define( 'FICTIONEER_OPTIONS', array(
     'fictioneer_word_count_multiplier' => array(
       'name' => 'fictioneer_word_count_multiplier',
       'group' => 'fictioneer-settings-general-group',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'sanitize_callback' => 'fictioneer_sanitize_positive_float_def1',
       'default' => 1.0
     )
   ),

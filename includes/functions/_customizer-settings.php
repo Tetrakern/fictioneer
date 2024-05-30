@@ -2146,7 +2146,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_cover_width_mod',
     array(
       'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'sanitize_callback' => 'fictioneer_sanitize_positive_float_def1',
       'default' => '1'
     )
   );
@@ -2177,7 +2177,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_grid_row_gap_mod',
     array(
       'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'sanitize_callback' => 'fictioneer_sanitize_positive_float_def1',
       'default' => '1'
     )
   );
@@ -2208,7 +2208,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'card_grid_column_gap_mod',
     array(
       'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'sanitize_callback' => 'fictioneer_sanitize_positive_float_def1',
       'default' => '1'
     )
   );
