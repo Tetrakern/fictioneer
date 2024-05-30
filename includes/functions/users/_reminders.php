@@ -97,6 +97,7 @@ function fictioneer_ajax_toggle_reminder() {
 
   // Update database & response
   if ( update_user_meta( $user->ID, 'fictioneer_user_reminders', $user_reminders ) ) {
+    do_action( 'fictioneer_toggled_reminder', $story_id, $set );
     wp_send_json_success();
   } {
     wp_send_json_error( array( 'error' => __( 'Database error. Reminders could not be updated.', 'fictioneer' ) ) );

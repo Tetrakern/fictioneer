@@ -1107,6 +1107,24 @@ Fires right between the comments list and heading in the `fictioneer_story_comme
 
 ---
 
+### `do_action( 'fictioneer_toggled_follow', $story_id, $force )`
+Fires after a Follow has been successfully toggled and right before the JSON response is sent.
+
+**$args:**
+* $story_id (int) – ID of the story.
+* $force (bool) – Whether the Follow was toggled on (true) or off (false).
+
+---
+
+### `do_action( 'fictioneer_toggled_reminder', $story_id, $force )`
+Fires after a Reminder has been successfully toggled and right before the JSON response is sent.
+
+**$args:**
+* $story_id (int) – ID of the story.
+* $force (bool) – Whether the Reminder was toggled on (true) or off (false).
+
+---
+
 ### `do_action( 'fictioneer_top_header', $args )`
 Fires right after opening the top-aligned `<header>` container.
 

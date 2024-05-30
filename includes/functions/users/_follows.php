@@ -104,6 +104,7 @@ function fictioneer_ajax_toggle_follow() {
   delete_user_meta( $user->ID, 'fictioneer_user_follows_cache' );
 
   if ( update_user_meta( $user->ID, 'fictioneer_user_follows', $user_follows ) ) {
+    do_action( 'fictioneer_toggled_follow', $story_id, $set );
     wp_send_json_success();
   } else {
     wp_send_json_error( array( 'error' => __( 'Database error. Follows could not be updated.', 'fictioneer' ) ) );
