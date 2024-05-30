@@ -686,7 +686,7 @@ function fictioneer_admin_profile_fields_data_nodes( $profile_user ) {
   <tr class="user-fictioneer-data-wrap">
     <th><?php _e( 'Data', 'fictioneer' ); ?></th>
     <td>
-      <p style="margin: 0.35em 0 1em !important;">
+      <p style="margin-bottom: 1em !important;">
         <?php _e( 'The following items represent data nodes stored in your account. Anything submitted by yourself, such as comments. You can clear these nodes here, but be aware that this is irreversible.', 'fictioneer' ); ?>
       </p>
       <fieldset>
