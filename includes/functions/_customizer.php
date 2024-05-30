@@ -749,21 +749,21 @@ function fictioneer_build_customize_css( $context = null ) {
   $dark_shade = is_array( $dark_shade ) ? $dark_shade : [0, 0, 0];
 
   $css .= ":root {
-    --site-width: " . $site_width . "px;
-    --main-offset: " . $main_offset . "px;
-    --hue-offset: " . $hue_offset_dark . "deg;
+    --site-width: {$site_width}px;
+    --main-offset: {$main_offset}px;
+    --hue-offset: {$hue_offset_dark}deg;
     --saturation-offset: " . $saturation_offset_dark / 100 . ";
     --lightness-offset: " . $lightness_offset_dark / 100 . ";
     --font-saturation-offset: " . $font_saturation_offset_dark / 100 . ";
     --font-lightness-offset: " . $font_lightness_offset_dark / 100 . ";
     --header-image-height: " . fictioneer_get_css_clamp( $header_image_min, $header_image_max, 320, $site_width ) . ";
     --header-height: calc(" . fictioneer_get_css_clamp( $header_min, $header_max, 320, $site_width ) . " - var(--page-inset-top));
-    --header-logo-height: " . $logo_height . "px;
+    --header-logo-height: {$logo_height}px;
     --site-title-font-size: " . fictioneer_get_css_clamp( $title_min, $title_max, 320, $site_width ) . ";
     --site-title-tagline-font-size: " . fictioneer_get_css_clamp( $tagline_min, $tagline_max, 320, $site_width ) . ";
-    --grid-columns-min: " . $card_grid_column_min . "px;
-    --grid-columns-row-gap-multiplier: " . $card_grid_row_gap_mod . ";
-    --grid-columns-col-gap-multiplier: " . $card_grid_column_gap_mod . ";
+    --grid-columns-min: {$card_grid_column_min}px;
+    --grid-columns-row-gap-multiplier: {$card_grid_row_gap_mod};
+    --grid-columns-col-gap-multiplier: {$card_grid_column_gap_mod};
     --ff-base: {$font_primary};
     --ff-note: {$font_secondary};
     --ff-heading: {$font_heading};
@@ -786,7 +786,7 @@ function fictioneer_build_customize_css( $context = null ) {
 
   // Only light mode
   $css .= ":root[data-mode=light] {
-    --hue-offset: " . $hue_offset_light . "deg;
+    --hue-offset: {$hue_offset_light}deg;
     --saturation-offset: " . $saturation_offset_light / 100 . ";
     --lightness-offset: " . $lightness_offset_light / 100 . ";
     --font-saturation-offset: " . $font_saturation_offset_light / 100 . ";
