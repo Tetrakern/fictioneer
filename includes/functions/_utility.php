@@ -1389,6 +1389,26 @@ function fictioneer_sanitize_positive_float_def1( $value ) {
   return fictioneer_sanitize_positive_float( $value, 1.0 );
 }
 
+/**
+ * Sanitize callback with float or default 0
+ *
+ * @since 5.19.0
+ *
+ * @param mixed $value  The value to be sanitized.
+ *
+ * @return float The sanitized float.
+ */
+
+function fictioneer_sanitize_float( $value ) {
+  // Ensure $value is numeric in the first place
+  if ( ! is_numeric( $value ) ) {
+    return 0.0;
+  }
+
+  // Cast to float
+  return (float) $value;
+}
+
 // =============================================================================
 // SANITIZE CHECKBOX
 // =============================================================================
