@@ -732,6 +732,9 @@ function fictioneer_build_customize_css( $context = null ) {
   $card_cover_width_mod = get_theme_mod( 'card_cover_width_mod', 1 );
   $card_grid_column_gap_mod = get_theme_mod( 'card_grid_column_gap_mod', 1 );
   $card_grid_row_gap_mod = get_theme_mod( 'card_grid_row_gap_mod', 1 );
+  $card_font_size_min_mod = get_theme_mod( 'card_font_size_min_mod', 0 );
+  $card_font_size_grow_mod = get_theme_mod( 'card_font_size_grow_mod', 0 );
+  $card_font_size_max_mod = get_theme_mod( 'card_font_size_max_mod', 0 );
   $card_box_shadow = get_theme_mod( 'card_shadow', 'var(--box-shadow-m)' );
   $font_primary = fictioneer_get_custom_font( 'primary_font_family_value', 'var(--ff-system)', 'Open Sans' );
   $font_secondary = fictioneer_get_custom_font( 'secondary_font_family_value', 'var(--ff-base)', 'Lato' );
@@ -764,6 +767,9 @@ function fictioneer_build_customize_css( $context = null ) {
     --grid-columns-min: {$card_grid_column_min}px;
     --grid-columns-row-gap-multiplier: {$card_grid_row_gap_mod};
     --grid-columns-col-gap-multiplier: {$card_grid_column_gap_mod};
+    --card-font-size-min-mod: {$card_font_size_min_mod}px;
+    --card-font-size-grow-mod: {$card_font_size_grow_mod}px;
+    --card-font-size-max-mod: {$card_font_size_max_mod}px;
     --ff-base: {$font_primary};
     --ff-note: {$font_secondary};
     --ff-heading: {$font_heading};

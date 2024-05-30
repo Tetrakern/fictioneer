@@ -2233,6 +2233,99 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       )
     )
   );
+
+  // Card font size min modifier
+  $manager->add_setting(
+    'card_font_size_min_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float',
+      'default' => '0'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_font_size_min_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_font_size_min_mod',
+        'label' => __( 'Card Font Size Minimum Offset', 'fictioneer' ),
+        'description' => __( 'Modifies the lower end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -4,
+          'max' => 4,
+          'step' => 0.1,
+          'suffix' => 'px'
+        )
+      )
+    )
+  );
+
+  // Card font size grow modifier
+  $manager->add_setting(
+    'card_font_size_grow_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float',
+      'default' => '0'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_font_size_grow_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_font_size_grow_mod',
+        'label' => __( 'Card Font Size Grow Offset', 'fictioneer' ),
+        'description' => __( 'Modifies the calculation of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -4,
+          'max' => 4,
+          'step' => 0.1,
+          'suffix' => 'px'
+        )
+      )
+    )
+  );
+
+  // Card font size max modifier
+  $manager->add_setting(
+    'card_font_size_max_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float',
+      'default' => '0'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_font_size_max_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_font_size_max_mod',
+        'label' => __( 'Card Font Size Maximum Offset', 'fictioneer' ),
+        'description' => __( 'Modifies the upper end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => -4,
+          'max' => 4,
+          'step' => 0.1,
+          'suffix' => 'px'
+        )
+      )
+    )
+  );
 }
 
 // =============================================================================
