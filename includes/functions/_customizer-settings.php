@@ -1661,246 +1661,6 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 
-  // Card frame
-  $manager->add_setting(
-    'card_frame',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
-    )
-  );
-
-  $card_frames = array(
-    'default' => _x( 'None (Default)', 'Customizer card frame option.', 'fictioneer' ),
-    'stacked_right' => _x( 'Stacked (Right)', 'Customizer card frame option.', 'fictioneer' ),
-    'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
-    'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
-    'border_2px' => _x( 'Border (2px)', 'Customizer card frame option.', 'fictioneer' ),
-    'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' ),
-    'chamfered' => _x( 'Chamfered', 'Customizer card frame option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'card_frame',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Frame', 'fictioneer' ),
-      'description' => __( 'Choose the frame for your cards. Turn off the card shadow if borders get blurry.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_frame', $card_frames )
-    )
-  );
-
-  // Card image style
-  $manager->add_setting(
-    'card_image_style',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
-    )
-  );
-
-  $card_image_styles = array(
-    'default' => _x( 'Embedded (Default)', 'Customizer card image option.', 'fictioneer' ),
-    'seamless' => _x( 'Seamless', 'Customizer card image option.', 'fictioneer' ),
-    'none' => _x( 'None', 'Customizer card image option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'card_image_style',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Image Style', 'fictioneer' ),
-      'description' => __( 'Choose the image style for your cards. Can be overridden in shortcodes.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_image_style', $card_image_styles )
-    )
-  );
-
-  // Card footer style (called card_style due to legacy reasons)
-  $manager->add_setting(
-    'card_style',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'default'
-    )
-  );
-
-  $card_styles = array(
-    'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
-    'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
-    'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'card_style',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Footer Style', 'fictioneer' ),
-      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
-    )
-  );
-
-  // Card shadow
-  $manager->add_setting(
-    'card_shadow',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'sanitize_text_field',
-      'default' => 'var(--box-shadow-m)'
-    )
-  );
-
-  $card_shadows = array(
-    'none' => _x( 'No Shadow', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-border)' => _x( 'Border Shadow', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-xs)' => _x( 'Shadow Thin', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-s)' => _x( 'Shadow Small', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow)' => _x( 'Shadow Normal', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-m)' => _x( 'Shadow Medium (Default)', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-l)' => _x( 'Shadow Large', 'Customizer card shadow option.', 'fictioneer' ),
-    'var(--box-shadow-xl)' => _x( 'Shadow Huge', 'Customizer card shadow option.', 'fictioneer' )
-  );
-
-  $manager->add_control(
-    'card_shadow',
-    array(
-      'type' => 'select',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Shadow', 'fictioneer' ),
-      'description' => __( 'Choose the shadow for your cards.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_shadow', $card_shadows )
-    )
-  );
-
-  // Card grid column minimum width
-  $manager->add_setting(
-    'card_grid_column_min',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'absint',
-      'default' => 308
-    )
-  );
-
-  $manager->add_control(
-    'card_grid_column_min',
-    array(
-      'type' => 'number',
-      'priority' => 10,
-      'section' => 'layout',
-      'label' => __( 'Card Width', 'fictioneer' ),
-      'description' => __( 'Minimum card width in pixels (still limited by space); affects card scale. Default 308.', 'fictioneer' ),
-      'input_attrs' => array(
-        'placeholder' => '308',
-        'min' => 308,
-        'style' => 'width: 80px'
-      )
-    )
-  );
-
-  // Card cover width modifier
-  $manager->add_setting(
-    'card_cover_width_mod',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
-      'default' => '1'
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'card_cover_width_mod',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'card_cover_width_mod',
-        'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => 0,
-          'max' => 5,
-          'step' => 0.05,
-          'suffix' => ' x'
-        )
-      )
-    )
-  );
-
-  // Card row gap modifier
-  $manager->add_setting(
-    'card_grid_row_gap_mod',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
-      'default' => '1'
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'card_grid_row_gap_mod',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'card_grid_row_gap_mod',
-        'label' => __( 'Card Row Gap Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the grid row gap. Default 1.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => 0,
-          'max' => 10,
-          'step' => 0.05,
-          'suffix' => ' x'
-        )
-      )
-    )
-  );
-
-  // Card column gap modifier
-  $manager->add_setting(
-    'card_grid_column_gap_mod',
-    array(
-      'capability' => 'edit_theme_options',
-      'sanitize_callback' => 'fictioneer_sanitize_float_field',
-      'default' => '1'
-    )
-  );
-
-  $manager->add_control(
-    new Customizer_Range_Value_Control(
-      $manager,
-      'card_grid_column_gap_mod',
-      array(
-        'type' => 'range-value',
-        'priority' => 10,
-        'section' => 'layout',
-        'settings' => 'card_grid_column_gap_mod',
-        'label' => __( 'Card Column Gap Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the grid column gap. Default 1.', 'fictioneer' ),
-        'input_attrs' => array(
-          'min' => 0,
-          'max' => 10,
-          'step' => 0.05,
-          'suffix' => ' x'
-        )
-      )
-    )
-  );
-
   // Content list item style
   $manager->add_setting(
     'content_list_style',
@@ -2211,6 +1971,273 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     )
   );
 }
+
+// =============================================================================
+// CARD SETTINGS
+// =============================================================================
+
+/**
+ * Add card customizer settings
+ *
+ * @since 5.19.0
+ *
+ * @param WP_Customize_Manager $manager  The customizer instance.
+ */
+
+function fictioneer_add_card_customizer_settings( $manager ) {
+  // Add cards section
+  $manager->add_section(
+    'cards',
+    array(
+      'title' => __( 'Cards', 'fictioneer' ),
+      'priority' => '80'
+    )
+  );
+
+  // Card frame
+  $manager->add_setting(
+    'card_frame',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_frames = array(
+    'default' => _x( 'None (Default)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_right' => _x( 'Stacked (Right)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_left' => _x( 'Stacked (Left)', 'Customizer card frame option.', 'fictioneer' ),
+    'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
+    'border_2px' => _x( 'Border (2px)', 'Customizer card frame option.', 'fictioneer' ),
+    'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' ),
+    'chamfered' => _x( 'Chamfered', 'Customizer card frame option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_frame',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'cards',
+      'label' => __( 'Card Frame', 'fictioneer' ),
+      'description' => __( 'Choose the frame for your cards. Turn off the card shadow if borders get blurry.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_frame', $card_frames )
+    )
+  );
+
+  // Card image style
+  $manager->add_setting(
+    'card_image_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_image_styles = array(
+    'default' => _x( 'Embedded (Default)', 'Customizer card image option.', 'fictioneer' ),
+    'seamless' => _x( 'Seamless', 'Customizer card image option.', 'fictioneer' ),
+    'none' => _x( 'None', 'Customizer card image option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_image_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'cards',
+      'label' => __( 'Card Image Style', 'fictioneer' ),
+      'description' => __( 'Choose the image style for your cards. Can be overridden in shortcodes.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_image_style', $card_image_styles )
+    )
+  );
+
+  // Card footer style (called card_style due to legacy reasons)
+  $manager->add_setting(
+    'card_style',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'default'
+    )
+  );
+
+  $card_styles = array(
+    'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
+    'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
+    'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_style',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'cards',
+      'label' => __( 'Card Footer Style', 'fictioneer' ),
+      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
+    )
+  );
+
+  // Card shadow
+  $manager->add_setting(
+    'card_shadow',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => 'var(--box-shadow-m)'
+    )
+  );
+
+  $card_shadows = array(
+    'none' => _x( 'No Shadow', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-border)' => _x( 'Border Shadow', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xs)' => _x( 'Shadow Thin', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-s)' => _x( 'Shadow Small', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow)' => _x( 'Shadow Normal', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-m)' => _x( 'Shadow Medium (Default)', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-l)' => _x( 'Shadow Large', 'Customizer card shadow option.', 'fictioneer' ),
+    'var(--box-shadow-xl)' => _x( 'Shadow Huge', 'Customizer card shadow option.', 'fictioneer' )
+  );
+
+  $manager->add_control(
+    'card_shadow',
+    array(
+      'type' => 'select',
+      'priority' => 10,
+      'section' => 'cards',
+      'label' => __( 'Card Shadow', 'fictioneer' ),
+      'description' => __( 'Choose the shadow for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_shadow', $card_shadows )
+    )
+  );
+
+  // Card grid column minimum width
+  $manager->add_setting(
+    'card_grid_column_min',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint',
+      'default' => 308
+    )
+  );
+
+  $manager->add_control(
+    'card_grid_column_min',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'cards',
+      'label' => __( 'Card Width', 'fictioneer' ),
+      'description' => __( 'Minimum card width in pixels (still limited by space); affects card scale. Default 308.', 'fictioneer' ),
+      'input_attrs' => array(
+        'placeholder' => '308',
+        'min' => 308,
+        'style' => 'width: 80px'
+      )
+    )
+  );
+
+  // Card cover width modifier
+  $manager->add_setting(
+    'card_cover_width_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_cover_width_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_cover_width_mod',
+        'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 5,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
+      )
+    )
+  );
+
+  // Card row gap modifier
+  $manager->add_setting(
+    'card_grid_row_gap_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_grid_row_gap_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_grid_row_gap_mod',
+        'label' => __( 'Card Row Gap Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the grid row gap. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 10,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
+      )
+    )
+  );
+
+  // Card column gap modifier
+  $manager->add_setting(
+    'card_grid_column_gap_mod',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'fictioneer_sanitize_float_field',
+      'default' => '1'
+    )
+  );
+
+  $manager->add_control(
+    new Customizer_Range_Value_Control(
+      $manager,
+      'card_grid_column_gap_mod',
+      array(
+        'type' => 'range-value',
+        'priority' => 10,
+        'section' => 'cards',
+        'settings' => 'card_grid_column_gap_mod',
+        'label' => __( 'Card Column Gap Multiplier', 'fictioneer' ),
+        'description' => __( 'Multiplier for the grid column gap. Default 1.', 'fictioneer' ),
+        'input_attrs' => array(
+          'min' => 0,
+          'max' => 10,
+          'step' => 0.05,
+          'suffix' => ' x'
+        )
+      )
+    )
+  );
+}
+
+// =============================================================================
+// FONT SETTINGS
+// =============================================================================
 
 /**
  * Add fonts customizer settings
@@ -2545,7 +2572,7 @@ function fictioneer_add_fonts_customizer_settings( $manager ) {
 }
 
 // =============================================================================
-// CUSTOMIZER SETTINGS
+// CUSTOMIZER SETTINGS SETUP
 // =============================================================================
 
 /**
@@ -2573,6 +2600,9 @@ function fictioneer_add_customizers( $manager ) {
 
   // Layout
   fictioneer_add_layout_customizer_settings( $manager );
+
+  // Cards
+  fictioneer_add_card_customizer_settings( $manager );
 
   // Fonts
   fictioneer_add_fonts_customizer_settings( $manager );
