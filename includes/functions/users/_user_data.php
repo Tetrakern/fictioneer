@@ -196,6 +196,11 @@ add_action( 'wp_ajax_fictioneer_ajax_get_avatar', 'fictioneer_ajax_get_avatar' )
  */
 
 function fictioneer_update_admin_user_profile( $updated_user_id ) {
+  // Guard
+  if ( ! check_admin_referer( 'update-user_' . $updated_user_id ) ) {
+    return;
+  }
+
   // Setup
   $sender_is_moderator = fictioneer_is_moderator( get_current_user_id() );
   $sender_is_admin = fictioneer_is_admin( get_current_user_id() );
@@ -353,6 +358,11 @@ add_action( 'edit_user_profile_update', 'fictioneer_update_admin_user_profile' )
  */
 
 function fictioneer_update_my_user_profile( $updated_user_id ) {
+  // Guard
+  if ( ! check_admin_referer( 'update-user_' . $updated_user_id ) ) {
+    return;
+  }
+
   // Setup
   $sender_id = get_current_user_id();
   $sender_is_admin = fictioneer_is_admin( $sender_id );
@@ -1455,6 +1465,11 @@ add_action( 'wp_ajax_fictioneer_ajax_search_posts_to_unlock', 'fictioneer_ajax_s
  */
 
 function fictioneer_update_admin_unlocked_posts( $updated_user_id ) {
+  // Guard
+  if ( ! check_admin_referer( 'update-user_' . $updated_user_id ) ) {
+    return;
+  }
+
   // Check permissions
   if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'fcn_unlock_posts' ) ) {
     return;
