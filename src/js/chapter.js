@@ -70,7 +70,7 @@ document.addEventListener('click', event => {
 
 function fcn_touchParagraph(e) {
   // Do not call paragraphs tolls on spoilers
-  if (e.target.classList.contains('spoiler')) {
+  if (e.target.classList.contains('spoiler') || e.target.closest('.popup-menu-toggle')) {
     return;
   }
 
