@@ -446,6 +446,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `outside-epub` | Hides a block inside ePUBs. Combine with `inside-epub` to have two variants.
 | `inside-epub` | Hides a block outside ePUBs. Combine with `outside-epub` to have two variants.
 | `skip-tts` | Blocks with this class will be ignored by the text-to-speech engine. Does not work on spans.
+| `skip-tools` | Prevents the paragraph tools from being toggled. Can be used on the paragraph or a span inside.
 | `show-if-bookmarks` | Must be used together with `hidden`, which is removed if bookmark cards are present (via shortcode).
 | `no-indent` | Suppresses text indentation regardless of settings.
 | `list` | Applies list styles if missing.

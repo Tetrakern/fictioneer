@@ -69,8 +69,11 @@ document.addEventListener('click', event => {
  */
 
 function fcn_touchParagraph(e) {
-  // Do not call paragraphs tools on spoilers or popup menus
-  if (e.target.classList.contains('spoiler') || e.target.closest('.popup-menu-toggle')) {
+  // Do not call paragraphs tools on spoilers, popup menus, or escape class
+  if (
+    e.target.classList.contains('spoiler') ||
+    e.target.closest('.popup-menu-toggle, .skip-tools')
+  ) {
     return;
   }
 
