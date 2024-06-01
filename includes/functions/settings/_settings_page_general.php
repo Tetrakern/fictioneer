@@ -1154,7 +1154,8 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_properties',
                     __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
-                    __( 'Only do this if you define everything yourself.', 'fictioneer' )
+                    __( 'Only do this if you define everything yourself.', 'fictioneer' ),
+                    __( 'If you do not understand what this option does, you have no business enabling it. This is generally a poor life choice.', 'fictioneer' )
                   );
                 ?>
               </div>
