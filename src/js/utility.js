@@ -823,11 +823,11 @@ function fcn_detectScreenCollision(element) {
     result.push('bottom');
   }
 
-  if (rect.left <= 50) {
+  if (rect.left <= 10) {
     result.push('left');
   }
 
-  if (rect.right >= viewportWidth - 50) {
+  if (rect.right >= viewportWidth - 10) {
     result.push('right');
   }
 

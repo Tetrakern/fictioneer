@@ -2039,12 +2039,14 @@ function fcn_popupPosition() {
     }
 
     // Left/Right?
-    if (collision.includes('left')) {
-      element.classList.remove('_center', '_justify-right');
-      element.classList.add('_justify-left');
-    } else if(collision.includes('right')) {
-      element.classList.remove('_center', '_justify-left');
-      element.classList.add('_justify-right');
+    if (!element.closest('._fixed-horizontal')) {
+      if (collision.includes('left')) {
+        element.classList.remove('_center', '_justify-right');
+        element.classList.add('_justify-left');
+      } else if(collision.includes('right')) {
+        element.classList.remove('_center', '_justify-left');
+        element.classList.add('_justify-right');
+      }
     }
   });
 }
