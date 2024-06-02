@@ -705,7 +705,11 @@ body[class*="fictioneer_page_"] {
   }
 
   .fcn-help {
+    position: relative;
+    z-index: 1;
     cursor: pointer;
+    padding: 10px; // Increase click area
+    margin: -10px; // Reset required space
 
     &:not(:hover) {
       opacity: .3;
