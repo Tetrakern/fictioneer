@@ -1152,6 +1152,17 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_rewrite_chapter_permalinks',
+                    __( 'Rewrite chapter permalinks to include story', 'fictioneer' ),
+                    __( 'Becomes <code>/story/story-slug/chapter-slug[-n]</code>. You must flush your permalinks and purge the theme caches.', 'fictioneer' ),
+                    __( 'Changes the permalinks of chapters to include the story. This allows for more readable and descriptive URLs. Chapter slugs are still kept globally unique — meaning multiple "Chapter N" titles will end up as "chapter-n-x" slugs — and the post editor will continue to display the default permalink structure for technical reasons.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_disable_properties',
                     __( 'Disable Fictioneer CSS properties', 'fictioneer' ),
                     __( 'Only do this if you define everything yourself.', 'fictioneer' ),

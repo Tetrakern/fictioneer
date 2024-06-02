@@ -233,9 +233,86 @@ function fictioneer_fcn_chapter_post_type() {
     'map_meta_cap'        => true
   );
 
+  if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
+    $args['rewrite'] = array( 'slug' => 'story/%story_slug%', 'with_front' => false );
+  }
+
   register_post_type( 'fcn_chapter', $args );
 }
 add_action( 'init', 'fictioneer_fcn_chapter_post_type', 0 );
+
+/**
+ * Adds chapter rewrite tags
+ *
+ * @since 5.19.1
+ */
+
+function fictioneer_add_chapter_rewrite_tags() {
+  add_rewrite_tag( '%story_slug%', '([^/]+)', 'story_slug=' );
+}
+
+if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
+  add_action( 'init', 'fictioneer_add_chapter_rewrite_tags' );
+}
+
+/**
+ * Adds chapter rewrite rules
+ *
+ * @since 5.19.1
+ */
+
+function fictioneer_add_chapter_rewrite_rules() {
+  // Rule for chapters with story
+  add_rewrite_rule(
+    '^story/([^/]+)/([^/]+)/?$',
+    'index.php?post_type=fcn_chapter&name=$matches[2]',
+    'top'
+  );
+
+  // Rule for standalone chapters
+  add_rewrite_rule(
+    '^chapter/([^/]+)/?$',
+    'index.php?post_type=fcn_chapter&name=$matches[1]',
+    'top'
+  );
+}
+
+if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
+  add_action( 'init', 'fictioneer_add_chapter_rewrite_rules' );
+}
+
+/**
+ * Adds chapter rewrite rules
+ *
+ * @since 5.19.1
+ *
+ * @param string  $post_link  The post’s permalink.
+ * @param WP_Post $post       The post in question.
+ *
+ * @return string The modified permalink.
+ */
+
+function fictioneer_rewrite_chapter_permalink( $post_link, $post ) {
+  // Only for chapters...
+  if ( $post->post_type === 'fcn_chapter' ) {
+    $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+
+    if ( $story_id ) {
+      // Chapter with story
+      $post_link = str_replace( '%story_slug%', get_post_field( 'post_name', $story_id ), $post_link );
+    } else {
+      // Standalone chapter
+      $post_link = str_replace( 'story/%story_slug%', 'chapter', $post_link );
+    }
+  }
+
+  // Continue filter
+  return $post_link;
+}
+
+if ( get_option( 'fictioneer_rewrite_chapter_permalinks' ) ) {
+  add_filter( 'post_type_link', 'fictioneer_rewrite_chapter_permalink', 10, 2 );
+}
 
 // =============================================================================
 // CUSTOM POST TYPE: FCN_COLLECTION
