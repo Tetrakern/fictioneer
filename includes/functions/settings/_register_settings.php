@@ -629,6 +629,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_enable_xmlrpc' => array(
+      'name' => 'fictioneer_enable_xmlrpc',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(

@@ -1194,6 +1194,17 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_xmlrpc',
+                    __( 'Enable XML-RPC', 'fictioneer' ),
+                    __( 'Security risk. Only enable this if you actually need it.', 'fictioneer' ),
+                    __( 'XML-RPC allows remote applications to interact with your site but can be a security risk, enabling brute-force and DDoS attacks. This is why it is disabled by default.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_purge_all_caches',
                     __( 'Purge all caches on content updates', 'fictioneer' ),
                     __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )

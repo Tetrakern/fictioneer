@@ -38,7 +38,9 @@ if ( get_option( 'fictioneer_remove_head_clutter' ) ) {
 }
 
 // Nobody needs that (or just override this filter in a child theme)
-add_filter( 'xmlrpc_enabled', '__return_false' );
+if ( ! get_option( 'fictioneer_enable_xmlrpc' ) ) {
+  add_filter( 'xmlrpc_enabled', '__return_false' );
+}
 
 // =============================================================================
 // SITEMAPS
