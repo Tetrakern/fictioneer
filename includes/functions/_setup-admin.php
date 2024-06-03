@@ -220,6 +220,44 @@ if ( current_user_can( 'install_themes' ) ) {
   add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
 }
 
+/**
+ * Extracts the release notes from the update message
+ *
+ * @since 5.19.1
+ *
+ * @param string $message  Update message received.
+ *
+ * @return string The release notes or original message if not found.
+ */
+
+function fictioneer_prepare_release_notes( $message ) {
+  $pos = strpos( $message, '### Release Notes' );
+
+  if ( $pos !== false ) {
+    $message = trim( substr( $message, $pos + strlen( '### Release Notes' ) ) );
+    $lines = explode( "\n", $message );
+    $notes = '';
+
+    foreach ( $lines as $line ) {
+      $line = trim( $line );
+
+      if ( strpos( $line, '* ' ) === 0 ) {
+        $notes .= '<li>' . substr( $line, 2 ) . '</li>';
+      } else {
+        $notes .= $line;
+      }
+    }
+
+    if ( strpos( $notes, '<li>' ) !== false ) {
+      return "<ul>{$notes}</ul>";
+    } else {
+      return "<p>{$notes}</p>";
+    }
+  }
+
+  return "<p>{$message}</p>";
+}
+
 // =============================================================================
 // ADD REMOVABLE QUERY ARGS
 // =============================================================================
