@@ -194,6 +194,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             break;
           }
 
+          // Chapter excerpt
+          $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter_list[0]->ID, 768 );
+          $show_excerpt = strlen( str_replace( '…', '', $chapter_excerpt ) ) > 2;
+
           // Truncate factor
           $truncate_factor = $args['vertical'] ? '_2-2' : '_cq-1-2';
 
@@ -216,7 +220,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _story-update _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-            <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+            <?php if ( $show_excerpt ) :  ?>
+              <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+            <?php endif; ?>
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
@@ -282,9 +288,6 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     if ( ! empty( $chapter->post_password ) ) {
                       $list_item_classes[] = '_password';
                     }
-
-                    // Chapter excerpt
-                    $chapter_excerpt = fictioneer_get_forced_excerpt( $chapter->ID, 768 );
                   ?>
                   <li class="card__link-list-item <?php echo implode( ' ', $list_item_classes ); ?>">
                     <div class="card__left text-overflow-ellipsis">
@@ -295,12 +298,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     </div>
                     <div class="card__right">
                       <?php
-                        if ( $args['words'] ) {
-                          echo '<span class="words">' .
-                            fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ) . '</span>';
+                        $words = $args['words'] ? fictioneer_get_word_count( $chapter->ID ) : 0;
+
+                        if ( $words ) {
+                          echo '<span class="words _words-' . $words . '">' . fictioneer_shorten_number( $words ) . '</span>';
                         }
 
-                        if ( $args['words'] && $args['date'] ) {
+                        if ( $words && $args['date'] ) {
                           echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
                         }
 
@@ -316,9 +320,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             </div>
 
-            <div class="card__overlay-infobox _excerpt escape-last-click">
-              <div class="card__excerpt"><strong><?php echo $chapter_title; ?>:</strong> <?php echo $chapter_excerpt; ?></div>
-            </div>
+            <?php if ( $show_excerpt ) :  ?>
+              <div class="card__overlay-infobox _excerpt escape-last-click">
+                <div class="card__excerpt"><strong><?php echo $chapter_title; ?>:</strong> <?php echo $chapter_excerpt; ?></div>
+              </div>
+            <?php endif; ?>
 
           </div>
         </li>

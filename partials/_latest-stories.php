@@ -266,8 +266,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
                   }
 
-                  $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-                    esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+                  if ( $story['word_count'] > 0 ) {
+                    $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+                      esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+                  }
 
                   if ( $args['orderby'] == 'modified' ) {
                     $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .

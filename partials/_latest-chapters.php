@@ -135,6 +135,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $chapter_rating = get_post_meta( $post_id, 'fictioneer_chapter_rating', true );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
+          $words = fictioneer_get_word_count( $post_id );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -244,19 +245,21 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     );
                     $spoiler_note = apply_filters( 'fictioneer_filter_obfuscation_string', $spoiler_note, $post );
                   ?>
-                  <?php if ( ! $args['spoiler'] ) : ?>
-                    <span data-click="toggle-obfuscation" tabindex="0">
-                      <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
-                      <span class="clean"><?php
+                  <?php if ( strlen( str_replace( '…', '', $excerpt ) ) > 2 ) : ?>
+                    <?php if ( ! $args['spoiler'] ) : ?>
+                      <span data-click="toggle-obfuscation" tabindex="0">
+                        <span class="obfuscated">&nbsp;<?php echo $spoiler_note; ?></span>
+                        <span class="clean"><?php
+                          echo $args['source'] ? '— ' : '';
+                          echo $excerpt;
+                        ?></span>
+                      </span>
+                    <?php else : ?>
+                      <span><span class="clean"><?php
                         echo $args['source'] ? '— ' : '';
                         echo $excerpt;
-                      ?></span>
-                    </span>
-                  <?php else : ?>
-                    <span><span class="clean"><?php
-                      echo $args['source'] ? '— ' : '';
-                      echo $excerpt;
-                    ?></span></span>
+                      ?></span></span>
+                    <?php endif; ?>
                   <?php endif; ?>
                 </div>
               </div>
@@ -269,9 +272,11 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     // Build footer items
                     $footer_items = [];
 
-                    $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-                      esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-                      fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
+                    if ( $words > 0 ) {
+                      $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+                        esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
+                        fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
+                    }
 
                     if ( $args['orderby'] == 'modified' ) {
                       $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .

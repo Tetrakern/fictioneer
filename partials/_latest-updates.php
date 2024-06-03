@@ -304,12 +304,13 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     <?php if ( $args['words'] || $args['date'] ) : ?>
                       <div class="card__right">
                         <?php
-                          if ( $args['words'] ) {
-                            echo '<span class="words">' .
-                              fictioneer_shorten_number( fictioneer_get_word_count( $chapter->ID ) ) . '</span>';
+                          $words = $args['words'] ? fictioneer_get_word_count( $chapter->ID ) : 0;
+
+                          if ( $words ) {
+                            echo '<span class="words _words-' . $words . '">' . fictioneer_shorten_number( $words ) . '</span>';
                           }
 
-                          if ( $args['words'] && $args['date'] ) {
+                          if ( $words && $args['date'] ) {
                             echo '<span class="separator-dot">&#8196;&bull;&#8196;</span>';
                           }
 
@@ -376,8 +377,10 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
                       esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
 
-                    $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-                      esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+                    if ( $story['word_count'] > 0 ) {
+                      $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+                        esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+                    }
 
                     $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
                       esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .

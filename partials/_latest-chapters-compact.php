@@ -133,6 +133,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
           $title = fictioneer_get_safe_title( $post_id, 'shortcode-latest-chapters-compact' );
           $story = $story_id ? fictioneer_get_story_data( $story_id, false ) : null; // Does not refresh comment count!
           $text_icon = get_post_meta( $post_id, 'fictioneer_chapter_text_icon', true );
+          $words = fictioneer_get_word_count( $post_id );
           $grid_or_vertical = $args['vertical'] ? '_vertical' : '_grid';
           $card_classes = [];
 
@@ -177,7 +178,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
         <li class="post-<?php echo $post_id; ?> card watch-last-clicked _small _info _chapter _compact _no-footer <?php echo implode( ' ', $card_classes ); ?>" <?php echo $card_attributes; ?>>
           <div class="card__body polygon">
 
-          <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+            <?php if ( $words > 0 ) : ?>
+              <button class="card__info-toggle toggle-last-clicked" aria-label="<?php esc_attr_e( 'Open info box', 'fictioneer' ); ?>"><i class="fa-solid fa-chevron-down"></i></button>
+            <?php endif; ?>
 
             <div class="card__main <?php echo $grid_or_vertical; ?> _small">
 
@@ -232,24 +235,30 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     }
                   ?>
                 </div>
-                <div class="text-overflow-ellipsis">
+                <div class="card__words-on-date text-overflow-ellipsis">
                   <?php
-                    printf(
-                      _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
-                      fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
-                      get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
-                    );
+                    if ( $words > 0 ) {
+                      printf(
+                        _x( '%1$s Words on %2$s', 'Small card: {n} Words on {Date}.', 'fictioneer' ),
+                        fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ),
+                        get_the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE )
+                      );
+                    } else {
+                      the_time( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE );
+                    }
                   ?>
                 </div>
               </div>
 
             </div>
 
-            <div class="card__overlay-infobox _excerpt escape-last-click">
-              <div class="card__excerpt"><?php
-                echo fictioneer_get_forced_excerpt( $post, $args['vertical'] ? 512 : 256 );
-              ?></div>
-            </div>
+            <?php if ( $words > 0 ) : ?>
+              <div class="card__overlay-infobox _excerpt escape-last-click">
+                <div class="card__excerpt"><?php
+                  echo fictioneer_get_forced_excerpt( $post, $args['vertical'] ? 512 : 256 );
+                ?></div>
+              </div>
+            <?php endif; ?>
 
           </div>
         </li>

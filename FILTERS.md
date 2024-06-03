@@ -975,7 +975,7 @@ Filters the WP_Query arguments in the `fictioneer_blog` shortcode.
 Filters the intermediate output array in the `_latest-chapters.php` partial before it is imploded and rendered. Contains statistics with icons such as the number of chapters, words, dates, and so forth.
 
 **$footer_items:**
-* $words (string) – HTML for the total word count.
+* $words (string|null) – HTML for the total word count (if more than 0).
 * $publish_date (string) – Conditional. HTML for the publish date.
 * $modified_date (string) – Conditional. HTML for the modified date.
 * $comments (string) – HTML for the number of comments.
@@ -1100,7 +1100,7 @@ Filters the intermediate output arrays in the `_latest-stories.php` and `_latest
 
 **$footer_items:**
 * $chapters (string) – HTML for the number of chapters.
-* $words (string) – HTML for the total word count.
+* $words (string|null) – HTML for the total word count (if more than 0).
 * $publish_date (string) – Conditional. HTML for the publish date.
 * $modified_date (string) – Conditional. HTML for the modified date.
 * $status (string) – HTML for the status.
@@ -1161,7 +1161,7 @@ Filters the intermediate output array in the `_latest-updates.php` partial befor
 
 **$footer_items:**
 * $chapters (string) – HTML for the number of chapters.
-* $words (string) – HTML for the total word count.
+* $words (string|null) – HTML for the total word count (if more than 0).
 * $modified_date (string) – Conditional. HTML for the modified date.
 * $status (string) – HTML for the status.
 
