@@ -1045,6 +1045,7 @@
   }
 
   ._grid {
+    grid-template-rows: auto auto auto 1fr auto auto;
     grid-template-areas:
       'img head'
       'img title'
