@@ -145,7 +145,13 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
     // Request to repository
     $response = wp_remote_get(
       'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest',
-      array( 'headers' => array( 'User-Agent' => 'FICTIONEER' ) )
+      array(
+        'headers' => array(
+          'User-Agent' => 'FICTIONEER',
+          'Accept' => 'application/vnd.github+json',
+          'X-GitHub-Api-Version' => '2022-11-28'
+        )
+      )
     );
 
     // Abort if request failed or is not a 2xx success status code
