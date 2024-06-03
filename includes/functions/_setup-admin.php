@@ -161,17 +161,18 @@ if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
 
     // Decode JSON to array
     $release = json_decode( wp_remote_retrieve_body( $response ), true );
+    $release_tag = sanitize_text_field( $release['tag_name'] ?? '' );
 
     // Abort if request did not return expected data
-    if ( ! isset( $release['tag_name'] ) ) {
+    if ( ! $release_tag ) {
       return false;
     }
 
     // Remember latest version
-    update_option( 'fictioneer_latest_version', $release['tag_name'] );
+    update_option( 'fictioneer_latest_version', $release_tag );
 
     // Compare with currently installed version
-    return version_compare( $release['tag_name'], FICTIONEER_RELEASE_TAG, '>' );
+    return version_compare( $release_tag, FICTIONEER_RELEASE_TAG, '>' );
   }
 }
 
