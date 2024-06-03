@@ -195,11 +195,6 @@
     }
   }
 
-  &._vertical:not(._seamless) .card__info-toggle {
-    padding-top: calc(2 * var(--this-spacing));
-    padding-right: calc(2 * var(--this-spacing));
-  }
-
   &__label {
     cursor: default;
     background: var(--card-label-background);
@@ -968,6 +963,11 @@
       }
     }
   }
+}
+
+:root:not(.no-covers) .card._vertical:not(._seamless) .card__info-toggle {
+  padding-top: calc(2 * var(--this-spacing));
+  padding-right: calc(2 * var(--this-spacing));
 }
 
 :root.no-covers .card ._grid._large .cell-desc {
