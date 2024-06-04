@@ -134,8 +134,8 @@ Fires after an user has been successfully created or logged-in via the OAuth 2.0
 Fires after the theme has been updated, once per version change.
 
 **Parameters:**
-* $new_version (string) – The new version tag (e.g. v5.19.1).
-* $previous_version (string) – The previous version tag (e.g. v5.19.0).
+* $new_version (string) – Tag of the newly installed version (e.g. v5.19.1).
+* $previous_version (string) – Tag of the previously installed version (e.g. v5.19.0).
 
 **Hooked Actions:**
 * `fictioneer_purge_caches_after_update()` – Purges selected caches and Transients. Priority 10.
