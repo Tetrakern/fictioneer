@@ -1479,7 +1479,7 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_AJAX_LOGIN_TTL | integer | How long to cache AJAX authentications locally in _milliseconds_. Default `15000`.
 | FICTIONEER_AJAX_POST_DEBOUNCE_RATE | integer | How long to debounce AJAX requests of the same type in _milliseconds_. Default `700`.
 | FICTIONEER_AUTHOR_KEYWORD_SEARCH_LIMIT | integer | Maximum number of authors in the advanced search suggestions. Default `100`.
-| FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `3600`.
+| FICTIONEER_UPDATE_CHECK_TIMEOUT | integer | Timeout between checks for theme updates in _seconds_. Default `43200`.
 | FICTIONEER_API_STORYGRAPH_CACHE_TTL | integer | How long Storygraph responses are cached in _seconds_. Default `3600`.
 | FICTIONEER_API_STORYGRAPH_STORIES_PER_PAGE | integer | How many items the Storygraph `/stories` endpoint returns. Default 10.
 | FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY | integer | Maximum number of story custom pages. Default `4`.

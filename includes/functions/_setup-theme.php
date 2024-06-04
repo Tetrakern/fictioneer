@@ -13,10 +13,10 @@
 function fictioneer_bring_out_legacy_trash() {
   // Setup
   $options = wp_cache_get( 'alloptions', 'options' );
-  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters'];
+  $obsolete = ['fictioneer_disable_html_in_comments', 'fictioneer_block_subscribers_from_admin', 'fictioneer_admin_restrict_menus', 'fictioneer_admin_restrict_private_data', 'fictioneer_admin_reduce_subscriber_profile', 'fictioneer_enable_subscriber_self_delete', 'fictioneer_strip_shortcodes_for_non_administrators', 'fictioneer_restrict_media_access', 'fictioneer_subscription_enabled', 'fictioneer_patreon_badge_map', 'fictioneer_patreon_tier_as_badge', 'fictioneer_patreon_campaign_ids', 'fictioneer_patreon_campaign_id', 'fictioneer_mount_wpdiscuz_theme_styles', 'fictioneer_base_site_width', 'fictioneer_featherlight_enabled', 'fictioneer_tts_enabled', 'fictioneer_log', 'fictioneer_enable_ajax_nonce', 'fictioneer_flush_object_cache', 'fictioneer_enable_all_block_styles', 'fictioneer_light_mode_as_default', 'fictioneer_remove_wp_svg_filters', 'fictioneer_update_check_timestamp', 'fictioneer_latest_version', 'fictioneer_update_notice_timestamp', 'fictioneer_theme_status'];
 
   // Check for most recent obsolete option...
-  if ( isset( $options['fictioneer_remove_wp_svg_filters'] ) ) {
+  if ( isset( $options['fictioneer_theme_status'] ) ) {
     // Looping everything is not great but it only happens once!
     foreach ( $obsolete as $trash ) {
       delete_option( $trash );
@@ -120,18 +120,61 @@ function fictioneer_theme_setup() {
   add_image_size( 'snippet', 0, 200 );
 
   // After update actions
-  $theme_status = get_option( 'fictioneer_theme_status' );
+  $theme_info = fictioneer_get_theme_info();
 
-  if ( empty( $theme_status ) || ( $theme_status['version'] ?? 0 ) !== FICTIONEER_VERSION ) {
-    $theme_status = is_array( $theme_status ) ? $theme_status : [];
-    $theme_status['version'] = FICTIONEER_VERSION;
+  if ( ( $theme_info['version'] ?? 0 ) !== FICTIONEER_VERSION ) {
+    $previous_version = $theme_info['version'];
+    $theme_info['version'] = FICTIONEER_VERSION;
 
-    update_option( 'fictioneer_theme_status', $theme_status );
+    update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
 
-    do_action( 'fictioneer_after_update' );
+    do_action( 'fictioneer_after_update', $theme_info['version'], $previous_version );
   }
 }
 add_action( 'after_setup_theme', 'fictioneer_theme_setup' );
+
+/**
+ * Get basic theme info
+ *
+ * @since 5.19.1
+ *
+ * @return array Associative array with theme info.
+ */
+
+function fictioneer_get_theme_info() {
+  // Setup
+  $info = get_option( 'fictioneer_theme_info' ) ?: [];
+
+  // Set up if missing
+  if ( ! $info || ! is_array( $info ) ) {
+    $info = array(
+      'last_update_check' => current_time( 'mysql', 1 ),
+      'last_update_version' => '',
+      'last_update_nag' => current_time( 'mysql', 1 ),
+      'last_update_notes' => '',
+      'last_version_download_url' => '',
+      'version' => FICTIONEER_VERSION
+    );
+
+    update_option( 'fictioneer_theme_info', $info, 'yes' );
+  }
+
+  // Merge with defaults (in case of incomplete data)
+  $info = array_merge(
+    array(
+      'last_update_check' => current_time( 'mysql', 1 ),
+      'last_update_version' => '',
+      'last_update_nag' => '',
+      'last_update_notes' => '',
+      'last_version_download_url' => '',
+      'version' => FICTIONEER_VERSION
+    ),
+    $info
+  );
+
+  // Return info
+  return $info;
+}
 
 // =============================================================================
 // AFTER UPDATE

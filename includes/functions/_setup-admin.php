@@ -111,114 +111,130 @@ add_action( 'admin_enqueue_scripts', 'fictioneer_admin_scripts' );
 // CHECK FOR UPDATES
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_check_for_updates' ) ) {
-  /**
-   * Check Github repository for a new release
-   *
-   * Makes a remote request to the Github API to check the latest release and,
-   * if a newer version tag than what is installed is returned, updates the
-   * 'fictioneer_latest_version' option. Only one request is made every 12 hours
-   * unless you are on the updates page.
-   *
-   * @since 5.0.0
-   * @since 5.7.5 - Refactored.
-   *
-   * @return boolean True if there is a newer version, false if not.
-   */
+/**
+ * Check Github repository for a new release
+ *
+ * @since 5.0.0
+ * @since 5.7.5 - Refactored.
+ * @since 5.19.1 - Refactored again.
+ *
+ * @return boolean True if there is a newer version, false if not.
+ */
 
-  function fictioneer_check_for_updates() {
-    global $pagenow;
+function fictioneer_check_for_updates() {
+  global $pagenow;
 
-    // Setup
-    $last_check = (int) get_option( 'fictioneer_update_check_timestamp', 0 );
-    $latest_version = get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG );
-    $is_updates_page = $pagenow === 'update-core.php';
+  // Setup
+  $theme_info = fictioneer_get_theme_info();
+  $last_check_timestamp = strtotime( $theme_info['last_update_check'] ?? 0 );
+  $remote_version = $theme_info['last_update_version'];
+  $is_updates_page = $pagenow === 'update-core.php';
 
-    // Only call API every n seconds, otherwise check database
-    if ( ! empty( $latest_version ) && time() < $last_check + FICTIONEER_UPDATE_CHECK_TIMEOUT && ! $is_updates_page ) {
-      return version_compare( $latest_version, FICTIONEER_RELEASE_TAG, '>' );
-    }
-
-    // Remember this check
-    update_option( 'fictioneer_update_check_timestamp', time() );
-
-    // Request to repository
-    $response = wp_remote_get(
-      'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest',
-      array(
-        'headers' => array(
-          'User-Agent' => 'FICTIONEER',
-          'Accept' => 'application/vnd.github+json',
-          'X-GitHub-Api-Version' => '2022-11-28'
-        )
-      )
-    );
-
-    // Abort if request failed or is not a 2xx success status code
-    if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) >= 300 ) {
-      return false;
-    }
-
-    // Decode JSON to array
-    $release = json_decode( wp_remote_retrieve_body( $response ), true );
-    $release_tag = sanitize_text_field( $release['tag_name'] ?? '' );
-
-    // Abort if request did not return expected data
-    if ( ! $release_tag ) {
-      return false;
-    }
-
-    // Remember latest version
-    update_option( 'fictioneer_latest_version', $release_tag );
-
-    // Compare with currently installed version
-    return version_compare( $release_tag, FICTIONEER_RELEASE_TAG, '>' );
+  // Only call API every n seconds, otherwise check database
+  if (
+    $remote_version &&
+    ! $is_updates_page &&
+    current_time( 'timestamp', true ) < $last_check_timestamp + FICTIONEER_UPDATE_CHECK_TIMEOUT
+  ) {
+    return version_compare( $remote_version, FICTIONEER_RELEASE_TAG, '>' );
   }
+
+  // Remember this check
+  $theme_info['last_update_check'] = current_time( 'mysql', 1 );
+
+  // Request to repository
+  $response = wp_remote_get(
+    'https://api.github.com/repos/Tetrakern/fictioneer/releases/latest',
+    array(
+      'headers' => array(
+        'User-Agent' => 'FICTIONEER',
+        'Accept' => 'application/vnd.github+json',
+        'X-GitHub-Api-Version' => '2022-11-28'
+      )
+    )
+  );
+
+  // Abort if request failed or is not a 2xx success status code
+  if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) >= 300 ) {
+    return false;
+  }
+
+  // Decode JSON to array
+  $release = json_decode( wp_remote_retrieve_body( $response ), true );
+  $release_tag = sanitize_text_field( $release['tag_name'] ?? '' );
+
+  // Abort if request did not return expected data
+  if ( ! $release_tag ) {
+    return false;
+  }
+
+  // Add to theme info
+  $theme_info['last_update_version'] = $release_tag;
+  $theme_info['last_update_notes'] = sanitize_textarea_field( $release['body'] ?? '' );
+  $theme_info['last_update_nag'] = ''; // Reset
+
+  if ( $release['assets'] ?? 0 ) {
+    $theme_info['last_version_download_url'] = sanitize_url( $release['assets'][0]['browser_download_url'] ?? '' );
+  } else {
+    $theme_info['last_version_download_url'] = '';
+  }
+
+  // Update info in database
+  update_option( 'fictioneer_theme_info', $theme_info );
+
+  // Compare with currently installed version
+  return version_compare( $release_tag, FICTIONEER_RELEASE_TAG, '>' );
 }
 
 /**
  * Show notice when a newer version is available
  *
  * @since 5.0.0
+ * @since 5.19.1 - Refactored.
  */
 
 function fictioneer_admin_update_notice() {
-  global $pagenow;
-
-  // Setup
-  $last_notice = (int) get_option( 'fictioneer_update_notice_timestamp', 0 );
-  $is_updates_page = $pagenow == 'update-core.php';
-
-  // Show only once every n seconds
-  if ( $last_notice + FICTIONEER_UPDATE_CHECK_TIMEOUT > time() && ! $is_updates_page ) {
+  // Guard
+  if ( ! current_user_can( 'install_themes' ) || ! fictioneer_check_for_updates() ) {
     return;
   }
 
-  // Update?
-  if ( ! fictioneer_check_for_updates() ) {
+  global $pagenow;
+
+  // Setup
+  $theme_info = fictioneer_get_theme_info();
+  $last_update_nag = strtotime( $theme_info['last_update_nag'] ?? 0 );
+  $is_updates_page = $pagenow == 'update-core.php';
+
+  // Show only once every n seconds
+  if ( ! $is_updates_page && current_time( 'timestamp', true ) < $last_update_nag + 60 ) {
     return;
   }
 
   // Render notice
+  $notes = fictioneer_prepare_release_notes( $theme_info['last_update_notes'] ?? '' );
+
   wp_admin_notice(
     sprintf(
-      __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
-      get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
-      'https://github.com/Tetrakern/fictioneer/releases'
+      __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.%3$s', 'fictioneer' ),
+      $theme_info['last_update_version'],
+      'https://github.com/Tetrakern/fictioneer/releases',
+      $notes ? '<br><details><summary>' . __( 'Release Notes', 'fictioneer' ) . '</summary>' . $notes . '</details>' : ''
     ),
     array(
       'type' => 'warning',
-      'dismissible' => true
+      'dismissible' => true,
+      'additional_classes' => ['fictioneer-update-notice']
     )
   );
 
   // Remember notice
-  update_option( 'fictioneer_update_notice_timestamp', time() );
-}
+  $theme_info['last_update_nag'] = current_time( 'mysql', 1 );
 
-if ( current_user_can( 'install_themes' ) ) {
-  add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
+  // Update info in database
+  update_option( 'fictioneer_theme_info', $theme_info );
 }
+add_action( 'admin_notices', 'fictioneer_admin_update_notice' );
 
 /**
  * Extracts the release notes from the update message

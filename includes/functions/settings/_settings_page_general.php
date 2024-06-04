@@ -26,9 +26,11 @@
 
                 <div class="fictioneer-card__row">
                   <p><?php
+                    $theme_info = fictioneer_get_theme_info();
+
                     printf(
                       __( '<strong>Fictioneer %1$s</strong> is available. Please <a href="%2$s" target="_blank">download</a> and install the latest version at your next convenience.', 'fictioneer' ),
-                      get_option( 'fictioneer_latest_version', FICTIONEER_RELEASE_TAG ),
+                      $theme_info['last_update_version'],
                       'https://github.com/Tetrakern/fictioneer/releases'
                     );
                   ?></p>
