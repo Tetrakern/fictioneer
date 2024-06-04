@@ -231,10 +231,13 @@ $thumbnail_args = array(
         <div class="card__footer-box _left text-overflow-ellipsis"><?php
           // Build footer items
           $footer_items = [];
+          $words = fictioneer_get_word_count( $post_id );
 
-          $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-            esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-            fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
+          if ( $words ) {
+            $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+              esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
+              fictioneer_shorten_number( $words );
+          }
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
             $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
