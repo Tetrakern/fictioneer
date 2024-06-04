@@ -1,5 +1,5 @@
 .nav-observer {
-  top: calc(0 + var(--nav-observer-offset, 0px));
+  top: calc(-1px + var(--nav-observer-offset, 0px));
 }
 
 // Observer must account for large admin bar
@@ -95,7 +95,7 @@
 
 .main-navigation {
   --focus-offset: -2px;
-  top: calc(-0.1px - var(--nav-observer-offset, 0px));
+  top: calc(-0.1px - var(--nav-observer-offset, 0px)); // -0.1px to prevent hairline gaps
   z-index: 1000;
   color: var(--navigation-color);
   font-size: get_clamp(14, 16, 375, 768);
