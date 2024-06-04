@@ -280,7 +280,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                       esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
                   }
 
-                  if ( $story['word_count'] > 0 ) {
+                  if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
                     $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
                       esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
                   }

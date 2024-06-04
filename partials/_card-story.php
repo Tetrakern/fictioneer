@@ -218,8 +218,10 @@ $thumbnail_args = array(
               esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
           }
 
-          $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-            esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+          if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
+            $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
+              esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+          }
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
             $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
