@@ -68,10 +68,6 @@
   }
 }
 
-:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky .menu-item {
-  border-radius: 0;
-}
-
 .main-navigation {
   .icon-menu {
     display: none;

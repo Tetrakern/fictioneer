@@ -479,6 +479,22 @@ _$$('.iframe-consent, .twitter-consent').forEach(element => {
 });
 
 // =============================================================================
+// NAVIGATION SETUP
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  const menuItem = _$('#menu-navigation > .menu-item');
+  const nav = _$$$('full-navigation');
+
+  if (menuItem && nav) {
+    // If the navigation is larger than its items in height, preserve the border-radii
+    if (menuItem.offsetHeight < nav.offsetHeight) {
+      nav.classList.add('_oversized-navigation');
+    }
+  }
+});
+
+// =============================================================================
 // DETECT SCROLL DIRECTION
 // =============================================================================
 

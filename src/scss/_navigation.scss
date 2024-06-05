@@ -47,10 +47,6 @@
   .main-navigation__background {
     opacity: var(--navigation-background-end-opacity);
   }
-
-  .main-navigation__list > :is(.menu-item, .page_item) {
-    border-radius: 0;
-  }
 }
 
 // Case below 1024px
@@ -60,6 +56,10 @@
       opacity: var(--navigation-background-end-opacity);
     }
   }
+}
+
+:root:not(.no-nav-sticky) body:not(.scrolled-to-top) .main-navigation.is-sticky:not(._oversized-navigation) :where(.main-navigation__list, .icon-menu) > :is(.menu-item, .page_item) {
+  border-radius: 0;
 }
 
 // Extra spacing if header image is missing
@@ -76,6 +76,10 @@
 
   .main-navigation {
     margin: 0 0 calc(-1 * var(--navigation-height));
+
+    &:not(._oversized-navigation) :where(.main-navigation__list, .icon-menu) > :is(.menu-item, .page_item) {
+      border-radius: 0;
+    }
 
     &__background {
       transition: opacity .3s;
