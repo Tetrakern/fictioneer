@@ -758,6 +758,15 @@ body[class*="fictioneer_page_"] {
       }
     }
 
+    &__link-list {
+      list-style: none;
+      padding: 0;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
     &__actions {
       display: flex;
       align-items: flex-start;

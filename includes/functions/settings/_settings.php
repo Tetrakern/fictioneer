@@ -257,6 +257,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
     $output = apply_filters( 'fictioneer_filter_admin_settings_navigation', $output );
 
     // Start HTML ---> ?>
+
     <header class="fictioneer-settings__header">
       <div>
         <h1><?php _e( 'Fictioneer', 'fictioneer' ); ?></h1>
@@ -264,10 +265,10 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
           <a href="https://github.com/Tetrakern/fictioneer/releases" target="_blank"><?php echo FICTIONEER_VERSION; ?></a>
           &bull;
           <a href="https://github.com/Tetrakern/fictioneer#readme" target="_blank"><?php
-            _e( 'Documentation on Github', 'fictioneer' );
+            _e( 'Documentation on GitHub', 'fictioneer' );
           ?></a>
           &bull;
-          <a href="https://ko-fi.com/tetrakern" target="_blank"><?php _e( 'Support me on Ko-fi', 'fictioneer' ); ?></a>
+          <a data-dialog-target="fcn-sponsor-modal"><?php _e( 'Support the Development', 'fictioneer' ); ?></a>
         </div>
         <?php if ( CHILD_VERSION && CHILD_NAME ) : ?>
           <div class="fictioneer-settings__header-links">
@@ -277,6 +278,30 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
       </div>
       <nav class="fictioneer-settings__nav"><?php echo implode( '', $output ); ?></nav>
     </header>
+
+    <dialog class="fictioneer-dialog" id="fcn-sponsor-modal">
+      <div class="fictioneer-dialog__header">
+        <?php _e( 'Support the Development', 'fictioneer' ); ?>
+      </div>
+      <div class="fictioneer-dialog__content">
+        <form>
+          <div class="fictioneer-dialog__row"><?php
+            _e( 'If you like the theme, please consider supporting the development with a donation or as sponsor. You do not have to and there are no gated premium features, but any help is appreciated!', 'fictioneer' );
+          ?></div>
+          <div class="fictioneer-dialog__row">
+            <ul class="fictioneer-dialog__link-list">
+              <li><a href="https://ko-fi.com/tetrakern" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Buy me a coffee on <strong>Ko-fi</strong>', 'fictioneer' ); ?></a></li>
+              <li><a href="https://www.patreon.com/tetrakern/" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Support me on <strong>Patreon</strong>', 'fictioneer' ); ?></a></li>
+              <li><a href="https://nowpayments.io/donation/fictioneer" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Donate coins of any kind', 'fictioneer' ); ?></a></li>
+            </ul>
+          </div>
+          <div class="fictioneer-dialog__actions">
+            <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Close', 'fictioneer' ); ?></button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
     <?php // <--- End HTML
   }
 }
