@@ -146,7 +146,7 @@ add_action( 'admin_menu', 'fictioneer_add_admin_menu' );
 function fictioneer_settings_epubs_screen_options() {
   // Add pagination option
   $args = array(
-    'label' => __( 'ePUBs per page', 'fcnes' ),
+    'label' => __( 'ePUBs per page', 'fictioneer' ),
     'default' => 25,
     'option' => 'fictioneer_epubs_per_page'
   );
@@ -162,7 +162,7 @@ function fictioneer_settings_epubs_screen_options() {
 function fictioneer_settings_seo_screen_options() {
   // Add pagination option
   $args = array(
-    'label' => __( 'Items per page', 'fcnes' ),
+    'label' => __( 'Items per page', 'fictioneer' ),
     'default' => 25,
     'option' => 'fictioneer_seo_items_per_page'
   );
