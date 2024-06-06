@@ -137,7 +137,7 @@ _$$('[data-action-purge-all-schemas]').forEach(element => {
 });
 
 // Listen to click on schema dialog buttons
-_$$('[data-dialog-target="schema-dialog"]').forEach(element => {
+_$$('[data-fcn-dialog-target="schema-dialog"]').forEach(element => {
   element.addEventListener('click', event => {
     const target = _$('[data-target="schema-content"]');
     target.value = event.currentTarget.closest('tr').querySelector('[data-schema-id]').textContent;
@@ -354,14 +354,14 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
 // DIALOGS
 // =============================================================================
 
-_$$('.fictioneer-settings [data-dialog-target]').forEach(element => {
+_$$('[data-fcn-dialog-target]').forEach(element => {
   element.addEventListener('click', event => {
-    _$$$(event.currentTarget.dataset.dialogTarget)?.showModal();
+    _$$$(event.currentTarget.dataset.fcnDialogTarget)?.showModal();
   });
 });
 
 // Close regardless of required fields
-_$$('.fictioneer-settings button[formmethod="dialog"][value="cancel"]').forEach(element => {
+_$$('.fictioneer-dialog button[formmethod="dialog"][value="cancel"]').forEach(element => {
   element.addEventListener('click', event => {
     event.preventDefault();
     event.currentTarget.closest('dialog').close();
@@ -1216,7 +1216,7 @@ _$('.fictioneer-settings')?.addEventListener('click', event => {
   event.preventDefault();
 
   // Fill modal
-  const modal = _$$$(target.dataset.dialogTarget);
+  const modal = _$$$(target.dataset.fcnDialogTarget);
 
   if (modal) {
     modal.querySelector('[data-target="fcn-help-modal-header"]').textContent = target.dataset.label;

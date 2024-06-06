@@ -267,7 +267,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
             _e( 'Documentation on GitHub', 'fictioneer' );
           ?></a>
           &bull;
-          <a data-dialog-target="fcn-sponsor-modal"><?php _e( 'Support the Development', 'fictioneer' ); ?></a>
+          <a data-fcn-dialog-target="fcn-sponsor-modal"><?php _e( 'Support the Development', 'fictioneer' ); ?></a>
         </div>
         <?php if ( CHILD_VERSION && CHILD_NAME ) : ?>
           <div class="fictioneer-settings__header-links">
@@ -465,7 +465,7 @@ function fictioneer_settings_capability_checkbox( $cap, $name, $set ) {
 function fictioneer_settings_label_checkbox( $option, $label, $description = null, $help = null ) {
   // Setup
   $help = ! is_string( $help ) ? '' :
-    '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $help ) . '" data-dialog-target="fcn-help-modal"></i>';
+    '<i class="fa-regular fa-circle-question fcn-help" data-action="fcn-show-help" data-label="' . esc_attr( $label ) . '" data-help="' . esc_attr( $help ) . '" data-fcn-dialog-target="fcn-help-modal"></i>';
 
   // Start HTML ---> ?>
   <label class="fictioneer-label-checkbox" for="<?php echo $option; ?>">

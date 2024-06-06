@@ -91,7 +91,7 @@ class Fictioneer_Seo_Table extends WP_List_Table {
         );
 
         if ( $schema ) {
-          $actions['schema'] = '<a data-dialog-target="schema-dialog">' . __( 'Schema', 'fcnl' ) . '</a>';
+          $actions['schema'] = '<a data-fcn-dialog-target="schema-dialog">' . __( 'Schema', 'fcnl' ) . '</a>';
           $actions['trash'] = "<a href='#' data-purge-schema data-id='{$item->ID}'>" . __( 'Purge', 'fictioneer' ) . '</a>';
         }
 

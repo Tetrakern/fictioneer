@@ -115,10 +115,6 @@ body[class*="fictioneer_page_"] {
     }
   }
 
-  a[data-dialog-target] {
-    cursor: pointer;
-  }
-
   a.disabled {
     pointer-events: none;
   }
@@ -715,72 +711,4 @@ body[class*="fictioneer_page_"] {
       opacity: .3;
     }
   }
-}
-
-// ==============================================================================
-// FICTIONEER DIALOG MODALS
-// ==============================================================================
-
-.fictioneer-dialog {
-  top: 50%;
-  left: 50%;
-  background: #fff;
-  padding: 0;
-  margin: 0;
-  border: none;
-  width: 100%;
-  max-width: min(480px, calc(100vw - 40px));
-  transform: translate(-50%, -50%);
-
-  &::backdrop {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #1d2327;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.2;
-    padding: 0 16px;
-    height: 50px;
-  }
-
-  &__content {
-    font-size: 14px;
-    padding: 0 16px 16px;
-  }
-
-  &__row {
-    &:not(:first-child) {
-      margin-top: 12px;
-    }
-  }
-
-  &__link-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    a {
-      text-decoration: none;
-    }
-
-    li:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-top: 16px;
-  }
-}
-
-textarea[data-target="schema-content"] {
-  font-size: 10px;
 }

@@ -255,7 +255,7 @@ $current_role = $roles[ $current_role_slug ];
         echo '<a href="' . $link . '" ' . $class . '>' . $role['name'] . '</a>';
       }
     ?>
-    <button type="button" class="" data-dialog-target="add-role-dialog"><span class="dashicons dashicons-plus"></span></button>
+    <button type="button" class="" data-fcn-dialog-target="add-role-dialog"><span class="dashicons dashicons-plus"></span></button>
   </ul>
 
   <div class="fictioneer-settings__content">
@@ -279,7 +279,7 @@ $current_role = $roles[ $current_role_slug ];
             <?php printf( _x( 'Update %s', 'Update {Role}', 'fictioneer' ), $current_role['name'] ); ?>
           </button>
           <?php if ( ! in_array( $current_role_slug, $protected_roles ) ) : ?>
-            <button type="button" class="button" data-dialog-target="rename-role-dialog">
+            <button type="button" class="button" data-fcn-dialog-target="rename-role-dialog">
               <?php _ex( 'Rename', 'Rename role', 'fictioneer' ); ?>
             </button>
           <?php endif; ?>
