@@ -709,3 +709,41 @@ function fictioneer_theme_deactivation() {
   }
 }
 add_action( 'switch_theme', 'fictioneer_theme_deactivation' );
+
+// =============================================================================
+// MODALS
+// =============================================================================
+
+/**
+ * Adds HTML for the sponsor modal
+ *
+ * @since 5.19.1
+ */
+
+function fictioneer_add_sponsor_modal() {
+  // Start HTML ---> ?>
+  <dialog class="fictioneer-dialog" id="fcn-sponsor-modal">
+    <div class="fictioneer-dialog__header">
+      <?php _e( 'Support the Development', 'fictioneer' ); ?>
+    </div>
+    <div class="fictioneer-dialog__content">
+      <form>
+        <div class="fictioneer-dialog__row"><?php
+          _e( 'If you like Fictioneer, please consider supporting the development with a donation or as sponsor. You do not have to and there are no gated premium features, but any help is appreciated!', 'fictioneer' );
+        ?></div>
+        <div class="fictioneer-dialog__row">
+          <ul class="fictioneer-dialog__link-list">
+            <li><a href="https://ko-fi.com/tetrakern" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Buy me a coffee on <strong>Ko-fi</strong>', 'fictioneer' ); ?></a></li>
+            <li><a href="https://www.patreon.com/tetrakern/" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Support me on <strong>Patreon</strong>', 'fictioneer' ); ?></a></li>
+            <li><a href="https://nowpayments.io/donation/fictioneer" target="_blank" rel="noopener"><i class="fa-solid fa-link"></i> <?php _e( 'Donate coins of any kind', 'fictioneer' ); ?></a></li>
+          </ul>
+        </div>
+        <div class="fictioneer-dialog__actions">
+          <button value="cancel" formmethod="dialog" class="button"><?php _e( 'Close', 'fictioneer' ); ?></button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  <?php // <--- End HTML
+}
+add_action( 'admin_footer', 'fictioneer_add_sponsor_modal' );
