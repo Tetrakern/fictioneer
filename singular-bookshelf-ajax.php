@@ -64,7 +64,7 @@ if ( ! array_key_exists( $current_tab, $tabs ) ) {
 $tabs[ $current_tab ]['classes'][] = '_current';
 
 // Header
-get_header();
+get_header( null, array( 'no_index' => 1 ) );
 
 ?>
 

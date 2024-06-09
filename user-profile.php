@@ -56,7 +56,7 @@ $hook_args = array(
 );
 
 // Header
-get_header( null, array( 'type' => 'user-profile' ) );
+get_header( null, array( 'type' => 'user-profile', 'no_index' => 1 ) );
 
 ?>
 

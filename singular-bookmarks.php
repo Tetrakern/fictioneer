@@ -20,7 +20,7 @@ if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
 }
 
 // Header
-get_header();
+get_header( null, array( 'no_index' => 1 ) );
 
 ?>
 

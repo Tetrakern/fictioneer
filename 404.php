@@ -12,7 +12,7 @@
 $custom_404 = intval( get_option( 'fictioneer_404_page', -1 ) ?: -1 );
 
 // Header
-get_header();
+get_header( null, array( 'no_index' => 1 ) );
 
 ?>
 
