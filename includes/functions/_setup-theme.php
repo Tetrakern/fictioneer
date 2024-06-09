@@ -1666,3 +1666,30 @@ if ( FICTIONEER_MU_REGISTRATION ) {
   add_action( 'wp_head', 'fictioneer_remove_mu_registration_styles', 1 );
   add_action( 'wp_head', 'fictioneer_output_mu_registration_style' );
 }
+
+// =============================================================================
+// ADD LINK TO THEME SETTINGS IN ADMIN BAR
+// =============================================================================
+
+/**
+ * Add theme settings link to admin bar
+ *
+ * @since 5.19.1
+ *
+ * @param WP_Admin_Bar $wp_admin_bar  The WP_Admin_Bar instance, passed by reference.
+ */
+
+function fictioneer_adminbar_add_theme_settings_link( $wp_admin_bar ) {
+  $args = array(
+    'id' => 'fictioneer_theme_settings',
+    'parent' => 'site-name',
+    'title' => __( 'Theme Settings', 'fictioneer' ),
+    'href' => esc_url( admin_url( 'admin.php?page=fictioneer' ) ),
+    'meta' => array(
+      'title' => 'Fictioneer Theme Settings'
+    )
+  );
+
+  $wp_admin_bar->add_node( $args );
+}
+add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_theme_settings_link', 999 );
