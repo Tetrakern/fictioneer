@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-09 23:41+0000\n"
+"POT-Creation-Date: 2024-06-09 23:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -5474,6 +5474,10 @@ msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
 msgstr ""
 
+#: includes/functions/_setup-theme.php:1689
+msgid "Fictioneer Theme Settings"
+msgstr ""
+
 #: includes/functions/settings/_settings_ajax.php:40
 msgid "File name missing."
 msgstr ""
@@ -10344,6 +10348,10 @@ msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:123
 msgid "Theme roles initialized."
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1686
+msgid "Theme Settings"
 msgstr ""
 
 #: includes/functions/comments/_story_comments.php:178
