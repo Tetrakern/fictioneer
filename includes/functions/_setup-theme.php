@@ -1686,7 +1686,7 @@ function fictioneer_adminbar_add_theme_settings_link( $wp_admin_bar ) {
     'title' => __( 'Theme Settings', 'fictioneer' ),
     'href' => esc_url( admin_url( 'admin.php?page=fictioneer' ) ),
     'meta' => array(
-      'title' => 'Fictioneer Theme Settings'
+      'title' => __( 'Fictioneer Theme Settings', 'fictioneer' )
     )
   );
 
