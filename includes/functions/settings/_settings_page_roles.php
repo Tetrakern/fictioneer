@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 5.6.0
  */
-?>
 
-<?php
 
 global $pagenow;
 

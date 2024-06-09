@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 5.9.4
  */
-?>
 
-<?php
 
 // Setup
 $fonts = fictioneer_get_font_data();

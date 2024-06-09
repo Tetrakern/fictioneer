@@ -7,6 +7,7 @@
  * @since 4.7.0
  */
 
+
 // Setup
 $patreon_tiers = get_option( 'fictioneer_connection_patreon_tiers' );
 $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];

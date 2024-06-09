@@ -6,9 +6,7 @@
  * @subpackage Fictioneer
  * @since 4.7.0
  */
-?>
 
-<?php
 
 class Fictioneer_Seo_Table extends WP_List_Table {
   public $page = 1;
