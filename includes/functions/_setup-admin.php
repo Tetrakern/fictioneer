@@ -750,3 +750,175 @@ function fictioneer_add_sponsor_modal() {
   <?php // <--- End HTML
 }
 add_action( 'admin_footer', 'fictioneer_add_sponsor_modal' );
+
+// =============================================================================
+// TRANSLATIONS
+// =============================================================================
+
+/**
+ * Returns selected admin translations
+ *
+ * @since 5.19.1
+ *
+ * @param string  $key     Key for requested translation.
+ * @param boolean $escape  Optional. Escape the string for safe use in
+ *                         attributes. Default false.
+ *
+ * @return string The translation or an empty string if not found.
+ */
+
+function fcntr_admin( $key, $escape = false ) {
+  static $strings = null;
+
+  // Define default translations
+  if ( $strings === null ) {
+    $strings = array(
+      'Administrator' => _x( 'Administrator', 'Role translation', 'fictioneer' ),
+      'Editor' => _x( 'Editor', 'Role translation', 'fictioneer' ),
+      'Moderator' => _x( 'Moderator', 'Role translation', 'fictioneer' ),
+      'Author' => _x( 'Author', 'Role translation', 'fictioneer' ),
+      'Contributor' => _x( 'Contributor', 'Role translation', 'fictioneer' ),
+      'Subscriber' => _x( 'Subscriber', 'Role translation', 'fictioneer' ),
+      'Translator' => _x( 'Translator', 'Role translation', 'fictioneer' ),
+      'fcn_shortcodes' => _x( 'Shortcodes', 'Capability translation', 'fictioneer' ),
+      'fcn_select_page_template' => _x( 'Select Page Templates', 'Capability translation', 'fictioneer' ),
+      'fcn_custom_page_css' => _x( 'Custom Page CSS', 'Capability translation', 'fictioneer' ),
+      'fcn_custom_epub_css' => _x( 'Custom ePUB CSS', 'Capability translation', 'fictioneer' ),
+      'fcn_custom_epub_upload' => _x( 'Custom ePUB Upload', 'Capability translation', 'fictioneer' ),
+      'fcn_custom_page_header' => _x( 'Custom Page Header', 'Capability translation', 'fictioneer' ),
+      'fcn_seo_meta' => _x( 'SEO Meta', 'Capability translation', 'fictioneer' ),
+      'fcn_make_sticky' => _x( 'Make Sticky', 'Capability translation', 'fictioneer' ),
+      'fcn_edit_permalink' => _x( 'Edit Permalink', 'Capability translation', 'fictioneer' ),
+      'fcn_all_blocks' => _x( 'All Blocks', 'Capability translation', 'fictioneer' ),
+      'fcn_story_pages' => _x( 'Story Pages', 'Capability translation', 'fictioneer' ),
+      'fcn_edit_date' => _x( 'Edit Date', 'Capability translation', 'fictioneer' ),
+      'fcn_assign_patreon_tiers' => _x( 'Assign Patreon Tiers', 'Capability translation', 'fictioneer' ),
+      'fcn_expire_passwords' => _x( 'Expire Passwords', 'Capability translation', 'fictioneer' ),
+      'fcn_reduced_profile' => _x( 'Reduced Profile', 'Capability translation', 'fictioneer' ),
+      'fcn_only_moderate_comments' => _x( 'Only Moderate Comments', 'Capability translation', 'fictioneer' ),
+      'fcn_upload_limit' => _x( 'Upload Limit', 'Capability translation', 'fictioneer' ),
+      'fcn_upload_restrictions' => _x( 'Upload Restrictions', 'Capability translation', 'fictioneer' ),
+      'fcn_classic_editor' => _x( 'Classic Editor', 'Capability translation', 'fictioneer' ),
+      'fcn_adminbar_access' => _x( 'Adminbar Access', 'Capability translation', 'fictioneer' ),
+      'fcn_admin_panel_access' => _x( 'Admin Panel Access', 'Capability translation', 'fictioneer' ),
+      'fcn_dashboard_access' => _x( 'Dashboard Access', 'Capability translation', 'fictioneer' ),
+      'fcn_show_badge' => _x( 'Show Badge', 'Capability translation', 'fictioneer' ),
+      'upload_files' => _x( 'Upload Files', 'Capability translation', 'fictioneer' ),
+      'edit_files' => _x( 'Edit Files', 'Capability translation', 'fictioneer' ),
+      'fcn_moderate_post_comments' => _x( 'Moderate Post Comments', 'Capability translation', 'fictioneer' ),
+      'fcn_allow_self_delete' => _x( 'Allow Self Delete', 'Capability translation', 'fictioneer' ),
+      'read' => _x( 'Read', 'Capability translation', 'fictioneer' ),
+      'moderate_comments' => _x( 'Moderate Comments', 'Capability translation', 'fictioneer' ),
+      'fcn_privacy_clearance' => _x( 'Privacy Clearance', 'Capability translation', 'fictioneer' ),
+      'fcn_read_others_files' => _x( 'Read Others Files', 'Capability translation', 'fictioneer' ),
+      'fcn_edit_others_files' => _x( 'Edit Others Files', 'Capability translation', 'fictioneer' ),
+      'fcn_delete_others_files' => _x( 'Delete Others Files', 'Capability translation', 'fictioneer' ),
+      'list_users' => _x( 'List Users', 'Capability translation', 'fictioneer' ),
+      'create_users' => _x( 'Create Users', 'Capability translation', 'fictioneer' ),
+      'edit_users' => _x( 'Edit Users', 'Capability translation', 'fictioneer' ),
+      'remove_users' => _x( 'Remove Users', 'Capability translation', 'fictioneer' ),
+      'fcn_unlock_posts' => _x( 'Unlock Posts', 'Capability translation', 'fictioneer' ),
+      'switch_themes' => _x( 'Switch Themes', 'Capability translation', 'fictioneer' ),
+      'edit_theme_options' => _x( 'Edit Theme Options', 'Capability translation', 'fictioneer' ),
+      'edit_themes' => _x( 'Edit Themes', 'Capability translation', 'fictioneer' ),
+      'unfiltered_html' => _x( 'Unfiltered HTML', 'Capability translation', 'fictioneer' ),
+      'manage_categories' => _x( 'Manage Categories', 'Capability translation', 'fictioneer' ),
+      'assign_categories' => _x( 'Assign Categories', 'Capability translation', 'fictioneer' ),
+      'edit_categories' => _x( 'Edit Categories', 'Capability translation', 'fictioneer' ),
+      'delete_categories' => _x( 'Delete Categories', 'Capability translation', 'fictioneer' ),
+      'manage_post_tags' => _x( 'Manage Post Tags', 'Capability translation', 'fictioneer' ),
+      'assign_post_tags' => _x( 'Assign Post Tags', 'Capability translation', 'fictioneer' ),
+      'edit_post_tags' => _x( 'Edit Post Tags', 'Capability translation', 'fictioneer' ),
+      'delete_post_tags' => _x( 'Delete Post Tags', 'Capability translation', 'fictioneer' ),
+      'manage_fcn_genres' => _x( 'Manage Genres', 'Capability translation', 'fictioneer' ),
+      'assign_fcn_genres' => _x( 'Assign Genres', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_genres' => _x( 'Edit Genres', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_genres' => _x( 'Delete Genres', 'Capability translation', 'fictioneer' ),
+      'manage_fcn_fandoms' => _x( 'Manage Fandoms', 'Capability translation', 'fictioneer' ),
+      'assign_fcn_fandoms' => _x( 'Assign Fandoms', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_fandoms' => _x( 'Edit Fandoms', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_fandoms' => _x( 'Delete Fandoms', 'Capability translation', 'fictioneer' ),
+      'manage_fcn_characters' => _x( 'Manage Characters', 'Capability translation', 'fictioneer' ),
+      'assign_fcn_characters' => _x( 'Assign Characters', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_characters' => _x( 'Edit Characters', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_characters' => _x( 'Delete Characters', 'Capability translation', 'fictioneer' ),
+      'manage_fcn_content_warnings' => _x( 'Manage Content Warnings', 'Capability translation', 'fictioneer' ),
+      'assign_fcn_content_warnings' => _x( 'Assign Content Warnings', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_content_warnings' => _x( 'Edit Content Warnings', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_content_warnings' => _x( 'Delete Content Warnings', 'Capability translation', 'fictioneer' ),
+      'publish_posts' => _x( 'Publish Posts', 'Capability translation', 'fictioneer' ),
+      'edit_posts' => _x( 'Edit Posts', 'Capability translation', 'fictioneer' ),
+      'delete_posts' => _x( 'Delete Posts', 'Capability translation', 'fictioneer' ),
+      'edit_published_posts' => _x( 'Edit Published Posts', 'Capability translation', 'fictioneer' ),
+      'delete_published_posts' => _x( 'Delete Published Posts', 'Capability translation', 'fictioneer' ),
+      'edit_others_posts' => _x( 'Edit Others Posts', 'Capability translation', 'fictioneer' ),
+      'delete_others_posts' => _x( 'Delete Others Posts', 'Capability translation', 'fictioneer' ),
+      'read_private_posts' => _x( 'Read Private Posts', 'Capability translation', 'fictioneer' ),
+      'edit_private_posts' => _x( 'Edit Private Posts', 'Capability translation', 'fictioneer' ),
+      'delete_private_posts' => _x( 'Delete Private Posts', 'Capability translation', 'fictioneer' ),
+      'fcn_ignore_post_passwords' => _x( 'Ignore Post Passwords', 'Capability translation', 'fictioneer' ),
+      'publish_pages' => _x( 'Publish Pages', 'Capability translation', 'fictioneer' ),
+      'edit_pages' => _x( 'Edit Pages', 'Capability translation', 'fictioneer' ),
+      'delete_pages' => _x( 'Delete Pages', 'Capability translation', 'fictioneer' ),
+      'edit_published_pages' => _x( 'Edit Published Pages', 'Capability translation', 'fictioneer' ),
+      'delete_published_pages' => _x( 'Delete Published Pages', 'Capability translation', 'fictioneer' ),
+      'edit_others_pages' => _x( 'Edit Others Pages', 'Capability translation', 'fictioneer' ),
+      'delete_others_pages' => _x( 'Delete Others Pages', 'Capability translation', 'fictioneer' ),
+      'read_private_pages' => _x( 'Read Private Pages', 'Capability translation', 'fictioneer' ),
+      'edit_private_pages' => _x( 'Edit Private Pages', 'Capability translation', 'fictioneer' ),
+      'delete_private_pages' => _x( 'Delete Private Pages', 'Capability translation', 'fictioneer' ),
+      'fcn_ignore_page_passwords' => _x( 'Ignore Page Passwords', 'Capability translation', 'fictioneer' ),
+      'publish_fcn_stories' => _x( 'Publish Stories', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_stories' => _x( 'Edit Stories', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_stories' => _x( 'Delete Stories', 'Capability translation', 'fictioneer' ),
+      'edit_published_fcn_stories' => _x( 'Edit Published Stories', 'Capability translation', 'fictioneer' ),
+      'delete_published_fcn_stories' => _x( 'Delete Published Stories', 'Capability translation', 'fictioneer' ),
+      'edit_others_fcn_stories' => _x( 'Edit Others Stories', 'Capability translation', 'fictioneer' ),
+      'delete_others_fcn_stories' => _x( 'Delete Others Stories', 'Capability translation', 'fictioneer' ),
+      'read_private_fcn_stories' => _x( 'Read Private Stories', 'Capability translation', 'fictioneer' ),
+      'edit_private_fcn_stories' => _x( 'Edit Private Stories', 'Capability translation', 'fictioneer' ),
+      'delete_private_fcn_stories' => _x( 'Delete Private Stories', 'Capability translation', 'fictioneer' ),
+      'fcn_ignore_fcn_story_passwords' => _x( 'Ignore Story Passwords', 'Capability translation', 'fictioneer' ),
+      'publish_fcn_chapters' => _x( 'Publish Chapters', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_chapters' => _x( 'Edit Chapters', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_chapters' => _x( 'Delete Chapters', 'Capability translation', 'fictioneer' ),
+      'edit_published_fcn_chapters' => _x( 'Edit Published Chapters', 'Capability translation', 'fictioneer' ),
+      'delete_published_fcn_chapters' => _x( 'Delete Published Chapters', 'Capability translation', 'fictioneer' ),
+      'edit_others_fcn_chapters' => _x( 'Edit Others Chapters', 'Capability translation', 'fictioneer' ),
+      'delete_others_fcn_chapters' => _x( 'Delete Others Chapters', 'Capability translation', 'fictioneer' ),
+      'read_private_fcn_chapters' => _x( 'Read Private Chapters', 'Capability translation', 'fictioneer' ),
+      'edit_private_fcn_chapters' => _x( 'Edit Private Chapters', 'Capability translation', 'fictioneer' ),
+      'delete_private_fcn_chapters' => _x( 'Delete Private Chapters', 'Capability translation', 'fictioneer' ),
+      'fcn_ignore_fcn_chapter_passwords' => _x( 'Ignore Chapter Passwords', 'Capability translation', 'fictioneer' ),
+      'publish_fcn_collections' => _x( 'Publish Collections', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_collections' => _x( 'Edit Collections', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_collections' => _x( 'Delete Collections', 'Capability translation', 'fictioneer' ),
+      'edit_published_fcn_collections' => _x( 'Edit Published Collections', 'Capability translation', 'fictioneer' ),
+      'delete_published_fcn_collections' => _x( 'Delete Published Collections', 'Capability translation', 'fictioneer' ),
+      'edit_others_fcn_collections' => _x( 'Edit Others Collections', 'Capability translation', 'fictioneer' ),
+      'delete_others_fcn_collections' => _x( 'Delete Others Collections', 'Capability translation', 'fictioneer' ),
+      'read_private_fcn_collections' => _x( 'Read Private Collections', 'Capability translation', 'fictioneer' ),
+      'edit_private_fcn_collections' => _x( 'Edit Private Collections', 'Capability translation', 'fictioneer' ),
+      'delete_private_fcn_collections' => _x( 'Delete Private Collections', 'Capability translation', 'fictioneer' ),
+      'fcn_ignore_fcn_collection_passwords' => _x( 'Ignore Collection Passwords', 'Capability translation', 'fictioneer' ),
+      'publish_fcn_recommendations' => _x( 'Publish Recommendations', 'Capability translation', 'fictioneer' ),
+      'edit_fcn_recommendations' => _x( 'Edit Recommendations', 'Capability translation', 'fictioneer' ),
+      'delete_fcn_recommendations' => _x( 'Delete Recommendations', 'Capability translation', 'fictioneer' ),
+      'edit_published_fcn_recommendations' => _x( 'Edit Published Recommendations', 'Capability translation', 'fictioneer' ),
+      'delete_published_fcn_recommendations' => _x( 'Delete Published Recommendations', 'Capability translation', 'fictioneer' ),
+      'edit_others_fcn_recommendations' => _x( 'Edit Others Recommendations', 'Capability translation', 'fictioneer' ),
+      'delete_others_fcn_recommendations' => _x( 'Delete Others Recommendations', 'Capability translation', 'fictioneer' ),
+      'read_private_fcn_recommendations' => _x( 'Read Private Recommendations', 'Capability translation', 'fictioneer' ),
+      'edit_private_fcn_recommendations' => _x( 'Edit Private Recommendations', 'Capability translation', 'fictioneer' ),
+      'delete_private_fcn_recommendations' => _x( 'Delete Private Recommendations', 'Capability translation', 'fictioneer' )
+    );
+  }
+
+  // Return requested translation if defined...
+  if ( array_key_exists( $key, $strings ) ) {
+    return $escape ? esc_attr( $strings[ $key ] ) : $strings[ $key ];
+  }
+
+  // ... otherwise return empty string
+  return '';
+}

@@ -410,17 +410,22 @@ function fictioneer_settings_capability_card( $title, $caps, $role ) {
             foreach ( $caps as $cap ) {
               $role_caps = $role['capabilities'];
               $set = in_array( $cap, $role_caps ) && ( $role_caps[ $cap ] ?? 0 );
-              $name = str_replace( '_', ' ', $cap );
-              $name = str_replace( 'fcn ', '', $name );
-              $name = ucwords( $name );
+              $name = fcntr_admin( $cap );
 
-              // Special cases
-              $name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
-              $name = str_replace( 'Recommendations', 'Recommend.', $name );
-              $name = str_replace( 'Custom Css', 'Custom CSS', $name );
-              $name = str_replace( 'Seo Meta', 'SEO Meta', $name );
-              $name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
-              $name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
+              if ( empty( $name ) ) {
+                $name = str_replace( '_', ' ', $cap );
+                $name = str_replace( 'fcn ', '', $name );
+                $name = ucwords( $name );
+
+                // Special cases
+                $name = $name == 'Unfiltered Html' ? 'Unfiltered HTML' : $name;
+                $name = str_replace( 'Recommendations', 'Recommend.', $name );
+                $name = str_replace( 'Custom Css', 'Custom CSS', $name );
+                $name = str_replace( 'Seo Meta', 'SEO Meta', $name );
+                $name = str_replace( 'Custom Page Css', 'Custom Page CSS', $name );
+                $name = str_replace( 'Custom Epub Css', 'Custom ePUB CSS', $name );
+                $name = str_replace( 'Custom Epub Upload', 'Custom ePUB Upload', $name );
+              }
 
               fictioneer_settings_capability_checkbox( $cap, $name, $set );
             }
