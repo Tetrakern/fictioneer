@@ -1541,6 +1541,26 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
 }
 
 // =============================================================================
+// SANITIZE URL
+// =============================================================================
+
+/**
+ * Sanitizes an URL
+ *
+ * @since 5.19.1
+ *
+ * @param string $url  The URL entered.
+ *
+ * @return string The sanitized URL or an empty string if invalid.
+ */
+
+function fictioneer_sanitize_url( $url ) {
+  $url = sanitize_url( $url );
+
+  return filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
+}
+
+// =============================================================================
 // ASPECT RATIO CSS
 // =============================================================================
 

@@ -1353,18 +1353,17 @@ function fictioneer_sanitize_global_patreon_tiers( $input ) {
  * Sanitizes a Patreon URL
  *
  * @since 5.15.0
+ * @since 5.19.1 - Split up into two functions.
  *
  * @param string $url  The URL entered.
  *
- * @return array The sanitized URL or an empty string if invalid.
+ * @return string The sanitized URL or an empty string if invalid.
  */
 
 function fictioneer_sanitize_patreon_url( $url ) {
-  $url = sanitize_url( $url );
-  $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
-  $url = strpos( $url, 'https://www.patreon.com/') === 0 ? $url : '';
+  $url = fictioneer_sanitize_url( $url );
 
-  return $url;
+  return strpos( $url, 'https://www.patreon.com/') === 0 ? $url : '';
 }
 
 // =============================================================================
