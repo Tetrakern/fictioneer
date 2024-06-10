@@ -2767,7 +2767,7 @@ function fictioneer_url_list_to_array( $list ) {
 
     $urls[] = array(
       'name' => wp_strip_all_tags( $tuple[0] ),
-      'url' => sanitize_url( $tuple[1] )
+      'url' => fictioneer_sanitize_url( $tuple[1] )
     );
   }
 

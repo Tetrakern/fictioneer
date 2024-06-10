@@ -177,7 +177,7 @@ function fictioneer_check_for_updates() {
   $theme_info['last_update_nag'] = ''; // Reset
 
   if ( $release['assets'] ?? 0 ) {
-    $theme_info['last_version_download_url'] = sanitize_url( $release['assets'][0]['browser_download_url'] ?? '' );
+    $theme_info['last_version_download_url'] = fictioneer_sanitize_url( $release['assets'][0]['browser_download_url'] ?? '' );
   } else {
     $theme_info['last_version_download_url'] = '';
   }

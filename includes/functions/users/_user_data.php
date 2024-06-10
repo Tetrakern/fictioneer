@@ -306,7 +306,7 @@ function fictioneer_update_admin_user_profile( $updated_user_id ) {
     fictioneer_update_user_meta(
       $updated_user_id,
       'fictioneer_external_avatar_url',
-      sanitize_url( $_POST['fictioneer_external_avatar_url'] ?? '' )
+      fictioneer_sanitize_url( $_POST['fictioneer_external_avatar_url'] ?? '' )
     );
 
     if ( FICTIONEER_SHOW_OAUTH_HASHES ) {
@@ -458,7 +458,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_patreon_link',
-        sanitize_url( $_POST['fictioneer_user_patreon_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_patreon_link'] ?? '' )
       );
     }
 
@@ -467,7 +467,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_kofi_link',
-        sanitize_url( $_POST['fictioneer_user_kofi_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_kofi_link'] ?? '' )
       );
     }
 
@@ -476,7 +476,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_subscribestar_link',
-        sanitize_url( $_POST['fictioneer_user_subscribestar_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_subscribestar_link'] ?? '' )
       );
     }
 
@@ -485,7 +485,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_paypal_link',
-        sanitize_url( $_POST['fictioneer_user_paypal_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_paypal_link'] ?? '' )
       );
     }
 
@@ -494,7 +494,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_donation_link',
-        sanitize_url( $_POST['fictioneer_user_donation_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_donation_link'] ?? '' )
       );
     }
 
