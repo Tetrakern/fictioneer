@@ -1549,15 +1549,26 @@ function fictioneer_sanitize_query_var( $var, $allowed, $default = null, $args =
  *
  * @since 5.19.1
  *
- * @param string $url  The URL entered.
+ * @param string      $url         The URL entered.
+ * @param string|null $match       Optional. URL must start with this string.
+ * @param string|null $preg_match  Optional. String for a preg_match() test.
  *
  * @return string The sanitized URL or an empty string if invalid.
  */
 
-function fictioneer_sanitize_url( $url ) {
+function fictioneer_sanitize_url( $url, $match = null, $preg_match = null ) {
   $url = sanitize_url( $url );
+  $url = filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
 
-  return filter_var( $url, FILTER_VALIDATE_URL ) ? $url : '';
+  if ( $match && is_string( $match ) ) {
+    $url = strpos( $url, $match ) === 0 ? $url : '';
+  }
+
+  if ( $preg_match && is_string( $preg_match ) ) {
+    $url = preg_match( $preg_match, $url ) ? $url : '';
+  }
+
+  return $url;
 }
 
 // =============================================================================

@@ -1361,9 +1361,7 @@ function fictioneer_sanitize_global_patreon_tiers( $input ) {
  */
 
 function fictioneer_sanitize_patreon_url( $url ) {
-  $url = fictioneer_sanitize_url( $url );
-
-  return strpos( $url, 'https://www.patreon.com/') === 0 ? $url : '';
+  return fictioneer_sanitize_url( $url, null, '#^https://(www\.)?patreon\.#' );
 }
 
 // =============================================================================

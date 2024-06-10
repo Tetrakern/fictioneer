@@ -1895,7 +1895,8 @@ function fictioneer_render_story_meta_metabox( $post ) {
     'fictioneer_story_topwebfiction_link',
     array(
       'label' => _x( 'Top Web Fiction Link', 'Story top web fiction link meta field label.', 'fictioneer' ),
-      'description' => __( 'URL to Top Web Fiction page.', 'fictioneer' )
+      'description' => __( 'URL to Top Web Fiction page.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -1979,7 +1980,8 @@ function fictioneer_render_story_meta_metabox( $post ) {
       'fictioneer_story_redirect_link',
       array(
         'label' => _x( 'Redirect Link (Beware!)', 'Story redirect link meta field label.', 'fictioneer' ),
-        'description' => __( 'URL to redirect to when story is opened.', 'fictioneer' )
+        'description' => __( 'URL to redirect to when story is opened.', 'fictioneer' ),
+        'placeholder' => 'https://...'
       )
     );
   }
@@ -2287,8 +2289,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
   // Top Web Fiction
   if ( isset( $_POST['fictioneer_story_topwebfiction_link'] ) ) {
-    $twf_url = fictioneer_sanitize_url( $_POST['fictioneer_story_topwebfiction_link'] );
-    $twf_url = strpos( $twf_url, 'https://topwebfiction.com/') === 0 ? $twf_url : '';
+    $twf_url = fictioneer_sanitize_url( $_POST['fictioneer_story_topwebfiction_link'], 'https://topwebfiction.com/' );
     $fields['fictioneer_story_topwebfiction_link'] = $twf_url;
   }
 
@@ -3555,7 +3556,8 @@ function fictioneer_render_support_links_metabox( $post ) {
     $post,
     'fictioneer_patreon_link',
     array(
-      'label' => _x( 'Patreon Link', 'Patreon link meta field label.', 'fictioneer' )
+      'label' => _x( 'Patreon Link', 'Patreon link meta field label.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -3563,7 +3565,8 @@ function fictioneer_render_support_links_metabox( $post ) {
     $post,
     'fictioneer_kofi_link',
     array(
-      'label' => _x( 'Ko-fi Link', 'Ko-fi link meta field label.', 'fictioneer' )
+      'label' => _x( 'Ko-fi Link', 'Ko-fi link meta field label.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -3571,7 +3574,8 @@ function fictioneer_render_support_links_metabox( $post ) {
     $post,
     'fictioneer_subscribestar_link',
     array(
-      'label' => _x( 'SubscribeStar Link', 'SubscribeStar link meta field label.', 'fictioneer' )
+      'label' => _x( 'SubscribeStar Link', 'SubscribeStar link meta field label.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -3579,7 +3583,8 @@ function fictioneer_render_support_links_metabox( $post ) {
     $post,
     'fictioneer_paypal_link',
     array(
-      'label' => _x( 'Paypal Link', 'Paypal link meta field label.', 'fictioneer' )
+      'label' => _x( 'Paypal Link', 'Paypal link meta field label.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -3587,7 +3592,8 @@ function fictioneer_render_support_links_metabox( $post ) {
     $post,
     'fictioneer_donation_link',
     array(
-      'label' => _x( 'Donation Link', 'Donation link meta field label.', 'fictioneer' )
+      'label' => _x( 'Donation Link', 'Donation link meta field label.', 'fictioneer' ),
+      'placeholder' => 'https://...'
     )
   );
 
@@ -3646,41 +3652,31 @@ function fictioneer_save_support_links_metabox( $post_id ) {
 
   // Patreon link
   if ( isset( $_POST['fictioneer_patreon_link'] ) ) {
-    $patreon = fictioneer_sanitize_url( $_POST['fictioneer_patreon_link'] );
-    $patreon = preg_match( '#^https://(www\.)?patreon#', $patreon ) ? $patreon : '';
-
+    $patreon = fictioneer_sanitize_url( $_POST['fictioneer_patreon_link'], null, '#^https://(www\.)?patreon\.#' );
     $fields['fictioneer_patreon_link'] = $patreon;
   }
 
   // Ko-fi link
   if ( isset( $_POST['fictioneer_kofi_link'] ) ) {
-    $kofi = fictioneer_sanitize_url( $_POST['fictioneer_kofi_link'] );
-    $kofi = preg_match( '#^https://(www\.)?ko-fi#', $kofi ) ? $kofi : '';
-
+    $kofi = fictioneer_sanitize_url( $_POST['fictioneer_kofi_link'], null, '#^https://(www\.)?ko-fi\.#' );
     $fields['fictioneer_kofi_link'] = $kofi;
   }
 
   // SubscribeStar link
   if ( isset( $_POST['fictioneer_subscribestar_link'] ) ) {
-    $subscribe_star = fictioneer_sanitize_url( $_POST['fictioneer_subscribestar_link'] );
-    $subscribe_star = preg_match( '#^https://(www\.)?subscribestar#', $subscribe_star ) ? $subscribe_star : '';
-
+    $subscribe_star = fictioneer_sanitize_url( $_POST['fictioneer_subscribestar_link'], null, '#^https://(www\.)?subscribestar\.#' );
     $fields['fictioneer_subscribestar_link'] = $subscribe_star;
   }
 
   // Paypal link
   if ( isset( $_POST['fictioneer_paypal_link'] ) ) {
-    $paypal = fictioneer_sanitize_url( $_POST['fictioneer_paypal_link'] );
-    $paypal = preg_match( '#^https://(www\.)?paypal#', $paypal ) ? $paypal : '';
-
+    $paypal = fictioneer_sanitize_url( $_POST['fictioneer_paypal_link'], null, '#^https://(www\.)?paypal\.#' );
     $fields['fictioneer_paypal_link'] = $paypal;
   }
 
   // Donation link
   if ( isset( $_POST['fictioneer_donation_link'] ) ) {
-    $donation = fictioneer_sanitize_url( $_POST['fictioneer_donation_link'] );
-    $donation = strpos( $donation, 'https://' ) === 0 ? $donation : '';
-
+    $donation = fictioneer_sanitize_url( $_POST['fictioneer_donation_link'], 'https://' );
     $fields['fictioneer_donation_link'] = $donation;
   }
 

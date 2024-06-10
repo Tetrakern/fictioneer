@@ -458,7 +458,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_patreon_link',
-        fictioneer_sanitize_url( $_POST['fictioneer_user_patreon_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_patreon_link'] ?? '', null, '#^https://(www\.)?patreon\.#' )
       );
     }
 
@@ -467,7 +467,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_kofi_link',
-        fictioneer_sanitize_url( $_POST['fictioneer_user_kofi_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_kofi_link'] ?? '', null, '#^https://(www\.)?ko-fi\.#' )
       );
     }
 
@@ -476,7 +476,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_subscribestar_link',
-        fictioneer_sanitize_url( $_POST['fictioneer_user_subscribestar_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_subscribestar_link'] ?? '', null, '#^https://(www\.)?subscribestar\.#' )
       );
     }
 
@@ -485,7 +485,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_paypal_link',
-        fictioneer_sanitize_url( $_POST['fictioneer_user_paypal_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_paypal_link'] ?? '', null, '#^https://(www\.)?paypal\.#' )
       );
     }
 
@@ -494,7 +494,7 @@ function fictioneer_update_my_user_profile( $updated_user_id ) {
       fictioneer_update_user_meta(
         $updated_user_id,
         'fictioneer_user_donation_link',
-        fictioneer_sanitize_url( $_POST['fictioneer_user_donation_link'] ?? '' )
+        fictioneer_sanitize_url( $_POST['fictioneer_user_donation_link'] ?? '', 'https://' )
       );
     }
 
