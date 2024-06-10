@@ -1680,7 +1680,7 @@ if ( FICTIONEER_MU_REGISTRATION ) {
  */
 
 function fictioneer_adminbar_add_theme_settings_link( $wp_admin_bar ) {
-  if ( ! current_user_can( 'manage_options' ) ) {
+  if ( ! current_user_can( 'manage_options' ) || is_admin() ) {
     return;
   }
 
