@@ -132,10 +132,13 @@ function fictioneer_check_for_updates() {
 
   // Only call API every n seconds, otherwise check database
   if (
-    $remote_version &&
     ! $is_updates_page &&
     current_time( 'timestamp', true ) < $last_check_timestamp + FICTIONEER_UPDATE_CHECK_TIMEOUT
   ) {
+    if ( ! $remote_version ) {
+      return false;
+    }
+
     return version_compare( $remote_version, FICTIONEER_RELEASE_TAG, '>' );
   }
 
