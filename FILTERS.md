@@ -517,6 +517,33 @@ Filters the story message array passed to `fictioneer_discord_send_message()` in
 
 ---
 
+### `apply_filters( 'fictioneer_filter_discord_chapter_webhook', $post, $story_id )`
+Filters the webhook used for the Discord notification about a new chapters.
+
+**Parameters:**
+* $post (WP_Post) - The chapter post.
+* $story_id (int|null) - The ID of the story post (if any). Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_discord_comment_webhook', $comment, $post, $user )`
+Filters the webhook used for the Discord notification about a new comment.
+
+**Parameters:**
+* $comment (WP_Comment) - The comment in question.
+* $post (WP_Post) - The post the comment is for.
+* $user (WP_User|null) - The user who wrote comment (if registered). Unsafe.
+
+---
+
+### `apply_filters( 'fictioneer_filter_discord_story_webhook', $post )`
+Filters the webhook used for the Discord notification about a new stories.
+
+**Parameters:**
+* $post (WP_Post) - The story post.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_falsy_meta_allow_list', $allowed )`
 Filters the array of meta keys allowed to be saved as "falsy" ("", 0, null, false, []) instead of being deleted when updated via theme functions. Applies to post, comment, and user meta fields. This does not affect the core update functions. See `fictioneer_update_user_meta(…)`, `fictioneer_update_comment_meta(…)`, and `fictioneer_update_post_meta(…)`.
 
