@@ -1214,6 +1214,7 @@ function fictioneer_get_falsy_meta_allow_list() {
  * @since 5.4.9
  * @since 5.7.4 - Updated
  * @since 5.8.6 - Added $force param and moved function.
+ * @since 5.19.1 - Always append chapter to story.
  *
  * @param int  $post_id   The chapter post ID.
  * @param int  $story_id  The story post ID.
@@ -1221,14 +1222,6 @@ function fictioneer_get_falsy_meta_allow_list() {
  */
 
 function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false ) {
-  // Abort if older than n (30) seconds
-  $publishing_time = get_post_time( 'U', true, $post_id );
-  $current_time = current_time( 'timestamp', true );
-
-  if ( $current_time - $publishing_time > FICTIONEER_OLD_POST_THRESHOLD && ! $force ) {
-    return;
-  }
-
   // Setup
   $story = get_post( $story_id );
 

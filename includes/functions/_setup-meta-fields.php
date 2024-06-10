@@ -2808,7 +2808,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   }
 
   if ( get_option( 'fictioneer_enable_chapter_appending' ) ) {
-    $description = __( 'Select the story this chapter belongs to; new <em>published</em> chapters are automatically appended to the story.', 'fictioneer' );
+    $description = __( 'Select the story this chapter belongs to; chapters are automatically appended to the story (but not removed).', 'fictioneer' );
   }
 
   $output['fictioneer_chapter_story'] = fictioneer_get_metabox_select(
