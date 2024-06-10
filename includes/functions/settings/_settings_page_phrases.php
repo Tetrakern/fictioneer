@@ -122,6 +122,17 @@
               </div>
 
               <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_age_confirmation_redirect_site',
+                    __( 'Redirect to URL on negative response. Purge all caches after change.', 'fictioneer' ),
+                    FICTIONEER_AGE_CONFIRMATION_REDIRECT,
+                    'url'
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
                 <code><?php echo $default; ?></code>
               </div>
 
@@ -141,6 +152,17 @@
               <div class="fictioneer-card__row">
                 <textarea class="fictioneer-textarea" name="fictioneer_phrase_post_age_confirmation" rows="4" placeholder="<?php echo $default; ?>"><?php echo esc_attr( get_option( 'fictioneer_phrase_post_age_confirmation' ) ); ?></textarea>
                 <p class="fictioneer-sub-label"><?php _e( 'HTML allowed.', 'fictioneer' ); ?></p>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_age_confirmation_redirect_post',
+                    __( 'Redirect to URL on negative response. Purge all caches after change.', 'fictioneer' ),
+                    FICTIONEER_AGE_CONFIRMATION_REDIRECT,
+                    'url'
+                  );
+                ?>
               </div>
 
               <div class="fictioneer-card__row">

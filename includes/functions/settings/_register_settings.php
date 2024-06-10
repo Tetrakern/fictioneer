@@ -906,6 +906,16 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_subscribestar_client_secret',
       'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field'
+    ),
+    'fictioneer_age_confirmation_redirect_site' => array(
+      'name' => 'fictioneer_age_confirmation_redirect_site',
+      'group' => 'fictioneer-settings-phrases-group',
+      'sanitize_callback' => 'fictioneer_sanitize_url'
+    ),
+    'fictioneer_age_confirmation_redirect_post' => array(
+      'name' => 'fictioneer_age_confirmation_redirect_post',
+      'group' => 'fictioneer-settings-phrases-group',
+      'sanitize_callback' => 'fictioneer_sanitize_url'
     )
   )
 ));

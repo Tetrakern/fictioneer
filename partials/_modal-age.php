@@ -17,6 +17,13 @@ defined( 'ABSPATH' ) OR exit;
 // Setup
 $site_modal = get_option( 'fictioneer_enable_site_age_confirmation' );
 
+$redirect_url = ! $site_modal ?
+  get_option( 'fictioneer_age_confirmation_redirect_site' ) : get_option( 'fictioneer_age_confirmation_redirect_post' );
+
+if ( empty( $redirect_url ) ) {
+  $redirect_url = FICTIONEER_AGE_CONFIRMATION_REDIRECT;
+}
+
 ?>
 
 <div id="age-confirmation-modal" class="modal age-confirmation">
@@ -36,7 +43,7 @@ $site_modal = get_option( 'fictioneer_enable_site_age_confirmation' );
     <?php endif; ?>
 
     <div class="modal__actions _age-confirmation">
-      <button type="reset" id="age-confirmation-leave" data-redirect="<?php esc_attr_e( FICTIONEER_AGE_CONFIRMATION_REDIRECT ); ?>" class="button"><?php _ex( 'Leave', 'Age confirmation modal button.', 'fictioneer' ); ?></button>
+      <button type="reset" id="age-confirmation-leave" data-redirect="<?php echo esc_url( $redirect_url ); ?>" class="button"><?php _ex( 'Leave', 'Age confirmation modal button.', 'fictioneer' ); ?></button>
       <button type="submit" id="age-confirmation-confirm" class="button"><?php _ex( 'Confirm', 'Age confirmation modal button.', 'fictioneer' ); ?></button>
     </div>
 
