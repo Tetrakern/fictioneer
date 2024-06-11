@@ -49,11 +49,15 @@ do_action( 'fictioneer_after_main', $args );
 
 ?>
 
-      <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
-        <div class="footer__wrapper">
-          <?php do_action( 'fictioneer_site_footer', $args ); ?>
-        </div>
-      </footer>
+      <?php if ( ! ( $args['blank'] ?? 0 ) ) :
+        if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) :
+      ?>
+        <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
+          <div class="footer__wrapper">
+            <?php do_action( 'fictioneer_site_footer', $args ); ?>
+          </div>
+        </footer>
+      <?php endif; endif; ?>
     </div> <!-- #site -->
 
     <?php

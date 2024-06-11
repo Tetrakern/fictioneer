@@ -59,3 +59,11 @@ function random_bytes( int $length ) {}
  */
 
 function wp_admin_notice( string $message, array $args = array() ) {}
+
+/**
+ * Render Elementor template
+ *
+ * @param string $location  Template location.
+ */
+
+function elementor_theme_do_location( $location ) {}

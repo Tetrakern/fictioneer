@@ -33,13 +33,17 @@
   flex: 0 0 auto;
 }
 
-.main {
+.main,
+.canvas {
   position: relative;
   flex: 1 1 auto;
   color: var(--fg-500);
+  width: 100%;
+}
+
+.main {
   margin-top: var(--main-offset, 0);
   max-width: var(--site-width);
-  width: 100%;
 
   // Allows for semi-transparent and clipped backgrounds without affecting the content
   &__background {

@@ -220,6 +220,18 @@
       "oF" : 1,
       "pg" : 0
     },
+    "\/css\/customize\/card-frame-battered.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/customize\/card-frame-battered-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/css\/customize\/card-frame-chamfered.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -2025,6 +2037,30 @@
       "hM" : 0,
       "oA" : 1,
       "oAP" : "\/singular-bookshelf.php",
+      "oF" : 1
+    },
+    "\/singular-canvas-main.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-canvas-main.php",
+      "oF" : 1
+    },
+    "\/singular-canvas-page.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-canvas-page.php",
+      "oF" : 1
+    },
+    "\/singular-canvas-site.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/singular-canvas-site.php",
       "oF" : 1
     },
     "\/singular-index-advanced.php" : {

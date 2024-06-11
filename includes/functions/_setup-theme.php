@@ -1718,3 +1718,120 @@ function fictioneer_adminbar_add_theme_settings_link( $wp_admin_bar ) {
   $wp_admin_bar->add_node( $args );
 }
 add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_theme_settings_link', 999 );
+
+// =============================================================================
+// ELEMENTOR (IF YOU ABSOLUTELY HAVE TO)
+// =============================================================================
+
+/**
+ * Register Elementor locations
+ *
+ * @since 5.20.0
+ *
+ * @param object $elementor_theme_manager  The Elementor manager object.
+ */
+
+function fictioneer_register_elementor_locations( $elementor_theme_manager ) {
+	$elementor_theme_manager->register_location( 'header' );
+	$elementor_theme_manager->register_location( 'footer' );
+}
+
+function fictioneer_override_elementor_styles() {
+  // Dummy style
+  wp_register_style( 'fictioneer-elementor-override', false );
+  wp_enqueue_style( 'fictioneer-elementor-override', false );
+
+  // Setup
+  $kit_id = get_option( 'elementor_active_kit' );
+  $css = ".elementor-kit-{$kit_id} {
+    --e-global-color-primary: var(--primary-500);
+    --e-global-color-secondary: var(--fg-300);
+    --e-global-color-text: var(--fg-500);
+    --e-global-color-accent: var(--fg-700);
+  }";
+
+  // Output
+  wp_add_inline_style( 'fictioneer-elementor-override', fictioneer_minify_css( $css ) );
+}
+
+add_action(
+  'wp',
+  function() {
+    if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+      add_action( 'elementor/theme/register_locations', 'fictioneer_register_elementor_locations' );
+      add_action( 'wp_enqueue_scripts', 'fictioneer_override_elementor_styles', 9999 );
+    }
+  }
+);
+
+function fictioneer_override_elementor_editor_styles() {
+  // Dummy style
+  wp_register_style( 'fictioneer-elementor-editor-override', false );
+  wp_enqueue_style( 'fictioneer-elementor-editor-override', false );
+
+  // Setup
+  $css = '
+    body {
+      --primary-500: ' . fictioneer_get_theme_color( 'light_primary_500' ) . ';
+      --fg-300: ' . fictioneer_get_theme_color( 'light_fg_300' ) . ';
+      --fg-500: ' . fictioneer_get_theme_color( 'light_fg_500' ) . ';
+      --fg-700: ' . fictioneer_get_theme_color( 'light_fg_700' ) . ';
+    }
+
+    .e-global__color[data-global-id="primary"] .e-global__color-preview-color {
+      background-color: var(--primary-500) !important;
+    }
+
+    .e-global__color[data-global-id="primary"] .e-global__color-title::after {
+      content: " ' . _x( '(--primary-500)', 'Elementor color override hint.', 'fictioneer' ) . '";
+    }
+
+    .e-global__popover-toggle--active + .pickr .pcr-button[style="--pcr-color: rgba(110, 193, 228, 1);"]::after {
+      background: var(--primary-500) !important;
+    }
+
+    .e-global__color[data-global-id="secondary"] .e-global__color-preview-color {
+      background-color: var(--fg-300) !important;
+    }
+
+    .e-global__color[data-global-id="secondary"] .e-global__color-title::after {
+      content: " ' . _x( '(--fg-300)', 'Elementor color override hint.', 'fictioneer' ) . '";
+    }
+
+    .e-global__popover-toggle--active + .pickr .pcr-button[style="--pcr-color: rgba(84, 89, 95, 1);"]::after {
+      background: var(--fg-300) !important;
+    }
+
+    .e-global__color[data-global-id="text"] .e-global__color-preview-color {
+      background-color: var(--fg-500) !important;
+    }
+
+    .e-global__color[data-global-id="text"] .e-global__color-title::after {
+      content: " ' . _x( '(--fg-500)', 'Elementor color override hint.', 'fictioneer' ) . '";
+    }
+
+    .e-global__popover-toggle--active + .pickr .pcr-button[style="--pcr-color: rgba(122, 122, 122, 1);"]::after {
+      background: var(--fg-500) !important;
+    }
+
+    .e-global__color[data-global-id="accent"] .e-global__color-preview-color {
+      background-color: var(--fg-700) !important;
+    }
+
+    .e-global__color[data-global-id="accent"] .e-global__color-title::after {
+      content: " ' . _x( '(--fg-700)', 'Elementor color override hint.', 'fictioneer' ) . '";
+    }
+
+    .e-global__popover-toggle--active + .pickr .pcr-button[style="--pcr-color: rgba(97, 206, 112, 1);"]::after {
+      background: var(--fg-700) !important;
+    }
+
+    .e-global__color .e-global__color-hex {
+      display: none;
+    }
+  ';
+
+  // Output
+  wp_add_inline_style( 'fictioneer-elementor-editor-override', fictioneer_minify_css( $css ) );
+}
+add_action( 'elementor/editor/after_enqueue_styles', 'fictioneer_override_elementor_editor_styles', 9999 );

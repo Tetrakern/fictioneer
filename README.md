@@ -23,7 +23,7 @@ Fictioneer is open source and completely free. However, maintaining and developi
 
 ## Key Features
 
-stories, chapters, collections, and recommendations &bull; customizable web reader &bull; shortcodes &bull; text-to-speech &bull; bookmarks &bull; progress tracker &bull; lightbox &bull; dark/light mode &bull; ePUB converter &bull; advanced search form &bull; OAuth 2.0 logins (Discord, Google, Twitch, and Patreon) &bull; Patreon content gate &bull; post password expiration &bull; gate content for users and roles &bull; role manager &bull; responsive layout &bull; cache aware &bull; custom comment system &bull; AJAX comments &bull; private comments &bull; comment reply subscriptions &bull; send notifications to Discord &bull; search engine optimization &bull; GDPR compliant &bull; hue, saturation, and lightness sliders &bull; translation ready
+stories, chapters, collections, and recommendations &bull; customizable web reader &bull; shortcodes &bull; text-to-speech &bull; bookmarks &bull; progress tracker &bull; lightbox &bull; dark/light mode &bull; ePUB converter &bull; advanced search form &bull; OAuth 2.0 logins (Discord, Google, Twitch, and Patreon) &bull; Patreon content gate &bull; post password expiration &bull; gate content for users and roles &bull; role manager &bull; responsive layout &bull; cache aware &bull; custom comment system &bull; AJAX comments &bull; private comments &bull; comment reply subscriptions &bull; send notifications to Discord &bull; search engine optimization &bull; GDPR compliant &bull; hue, saturation, and lightness sliders &bull; translation ready &bull; compatible with Elementor
 
 ## Customization & Child Themes
 

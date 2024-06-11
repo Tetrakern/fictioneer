@@ -393,6 +393,9 @@ Pages work the same as always in WordPress, just with some additional fields and
 * **Index (Advanced):** The same as the Index page template, but with additional meta data.
 * **Taxonomies:** Shows details about all taxonomies used on the site, with count and definition (if provided).
 * **User Profile:** Frontend account profile to keep users out of the admin. Must never be cached!
+* **Canvas (Main):** Renders the main container without page or bounds. Meant to be used with the Elementor plugin.
+* **Canvas (Page):** Renders the page container without bounds or comments. Meant to be used with the Elementor plugin.
+* **Canvas (Site):** Renders a completely blank site. Meant to be used with the Elementor plugin.
 
 ### Meta Fields
 

@@ -218,6 +218,7 @@ add_action( 'fictioneer_footer', 'fictioneer_output_modals' );
  */
 
 function fictioneer_browser_notes() {
+  // Setup
   $notes = [];
 
   // Catch IE and other garbage!
@@ -276,6 +277,11 @@ if ( FICTIONEER_ENABLE_BROWSER_NOTES ) {
  */
 
 function fictioneer_navigation_bar( $args ) {
+  // Return early if...
+  if ( $args['header_args']['blank'] ?? 0 ) {
+    return;
+  }
+
   // Change tag if header style 'wide'
   if ( get_theme_mod( 'header_style', 'default' ) === 'wide' ) {
     $args['tag'] = 'header';
@@ -352,12 +358,20 @@ add_action( 'fictioneer_navigation_wrapper_start', 'fictioneer_wide_header_ident
  */
 
 function fictioneer_top_header( $args ) {
+  // Return early if...
+  if ( $args['header_args']['blank'] ?? 0 ) {
+    return;
+  }
+
   // Abort if...
   if ( ! in_array( get_theme_mod( 'header_style', 'default' ), ['top', 'split'] ) ) {
     return;
   }
 
-  get_template_part( 'partials/_header-top', null, $args );
+  // Render Elementor or theme template
+  if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) {
+    get_template_part( 'partials/_header-top', null, $args );
+  }
 }
 add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
 
@@ -377,16 +391,25 @@ add_action( 'fictioneer_site', 'fictioneer_top_header', 9 );
  */
 
 function fictioneer_inner_header( $args ) {
-  $theme_mod = get_theme_mod( 'header_style', 'default' );
-
-  // Abort if...
-  if ( ! in_array( $theme_mod, ['default', 'split', 'overlay'] ) ) {
+  // Return early if...
+  if ( $args['header_args']['blank'] ?? 0 ) {
     return;
   }
 
-  switch ( $theme_mod ) {
-    default:
-      get_template_part( 'partials/_header-inner', null, $args );
+  // Setup
+  $theme_mod = get_theme_mod( 'header_style', 'default' );
+
+  // Abort if...
+  if ( ! in_array( $theme_mod, ['default', 'split', 'overlay'] ) || ( $args['header_args']['no_header'] ?? 0 ) ) {
+    return;
+  }
+
+  // Render Elementor or theme template
+  if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) {
+    switch ( $theme_mod ) {
+      default:
+        get_template_part( 'partials/_header-inner', null, $args );
+    }
   }
 }
 add_action( 'fictioneer_site', 'fictioneer_inner_header', 20 );
@@ -408,7 +431,7 @@ add_action( 'fictioneer_site', 'fictioneer_inner_header', 20 );
 
 function fictioneer_inner_header_background( $args ) {
   // Abort if...
-  if ( ! ( $args['header_image_url'] ?? 0 ) ) {
+  if ( ! ( $args['header_image_url'] ?? 0 ) || ( $args['header_args']['no_header'] ?? 0 ) ) {
     return;
   }
 
@@ -888,6 +911,11 @@ if ( get_option( 'fictioneer_show_wp_login_link' ) ) {
  */
 
 function fictioneer_mu_registration_start( $args ) {
+  // Return early if...
+  if ( $args['header_args']['blank'] ?? 0 ) {
+    return;
+  }
+
   // Start HTML ---> ?>
   <main id="main" class="main singular wp-registration">
     <div class="observer main-observer"></div>
