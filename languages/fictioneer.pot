@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 10:26+0000\n"
+"POT-Creation-Date: 2024-06-11 11:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -443,7 +443,7 @@ msgid ""
 "convenience."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:222
+#: includes/functions/_setup-admin.php:225
 #, php-format
 msgid ""
 "<strong>Fictioneer %1$s</strong> is available. Please <a href=\"%2$s\" "
@@ -1843,7 +1843,7 @@ msgstr ""
 msgid "Bundle JavaScript files into one"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:739
+#: includes/functions/_setup-admin.php:742
 msgid "Buy me a coffee on <strong>Ko-fi</strong>"
 msgstr ""
 
@@ -1872,657 +1872,657 @@ msgctxt "Canceled story status"
 msgid "Canceled"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:803
+#: includes/functions/_setup-admin.php:806
 msgctxt "Capability translation"
 msgid "Admin Panel Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:802
+#: includes/functions/_setup-admin.php:805
 msgctxt "Capability translation"
 msgid "Adminbar Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:792
+#: includes/functions/_setup-admin.php:795
 msgctxt "Capability translation"
 msgid "All Blocks"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:809
+#: includes/functions/_setup-admin.php:812
 msgctxt "Capability translation"
 msgid "Allow Self Delete"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:826
+#: includes/functions/_setup-admin.php:829
 msgctxt "Capability translation"
 msgid "Assign Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:842
+#: includes/functions/_setup-admin.php:845
 msgctxt "Capability translation"
 msgid "Assign Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:846
+#: includes/functions/_setup-admin.php:849
 msgctxt "Capability translation"
 msgid "Assign Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:838
+#: includes/functions/_setup-admin.php:841
 msgctxt "Capability translation"
 msgid "Assign Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:834
+#: includes/functions/_setup-admin.php:837
 msgctxt "Capability translation"
 msgid "Assign Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:795
+#: includes/functions/_setup-admin.php:798
 msgctxt "Capability translation"
 msgid "Assign Patreon Tiers"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:830
+#: includes/functions/_setup-admin.php:833
 msgctxt "Capability translation"
 msgid "Assign Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:801
+#: includes/functions/_setup-admin.php:804
 msgctxt "Capability translation"
 msgid "Classic Editor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:817
+#: includes/functions/_setup-admin.php:820
 msgctxt "Capability translation"
 msgid "Create Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:786
+#: includes/functions/_setup-admin.php:789
 msgctxt "Capability translation"
 msgid "Custom ePUB CSS"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:787
+#: includes/functions/_setup-admin.php:790
 msgctxt "Capability translation"
 msgid "Custom ePUB Upload"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:785
+#: includes/functions/_setup-admin.php:788
 msgctxt "Capability translation"
 msgid "Custom Page CSS"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:788
+#: includes/functions/_setup-admin.php:791
 msgctxt "Capability translation"
 msgid "Custom Page Header"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:804
+#: includes/functions/_setup-admin.php:807
 msgctxt "Capability translation"
 msgid "Dashboard Access"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:828
+#: includes/functions/_setup-admin.php:831
 msgctxt "Capability translation"
 msgid "Delete Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:884
+#: includes/functions/_setup-admin.php:887
 msgctxt "Capability translation"
 msgid "Delete Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:844
+#: includes/functions/_setup-admin.php:847
 msgctxt "Capability translation"
 msgid "Delete Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:895
+#: includes/functions/_setup-admin.php:898
 msgctxt "Capability translation"
 msgid "Delete Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:848
+#: includes/functions/_setup-admin.php:851
 msgctxt "Capability translation"
 msgid "Delete Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:840
+#: includes/functions/_setup-admin.php:843
 msgctxt "Capability translation"
 msgid "Delete Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:836
+#: includes/functions/_setup-admin.php:839
 msgctxt "Capability translation"
 msgid "Delete Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:888
+#: includes/functions/_setup-admin.php:891
 msgctxt "Capability translation"
 msgid "Delete Others Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:899
+#: includes/functions/_setup-admin.php:902
 msgctxt "Capability translation"
 msgid "Delete Others Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:815
+#: includes/functions/_setup-admin.php:818
 msgctxt "Capability translation"
 msgid "Delete Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:866
+#: includes/functions/_setup-admin.php:869
 msgctxt "Capability translation"
 msgid "Delete Others Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:855
+#: includes/functions/_setup-admin.php:858
 msgctxt "Capability translation"
 msgid "Delete Others Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:910
+#: includes/functions/_setup-admin.php:913
 msgctxt "Capability translation"
 msgid "Delete Others Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:877
+#: includes/functions/_setup-admin.php:880
 msgctxt "Capability translation"
 msgid "Delete Others Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:862
+#: includes/functions/_setup-admin.php:865
 msgctxt "Capability translation"
 msgid "Delete Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:832
+#: includes/functions/_setup-admin.php:835
 msgctxt "Capability translation"
 msgid "Delete Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:851
+#: includes/functions/_setup-admin.php:854
 msgctxt "Capability translation"
 msgid "Delete Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:891
+#: includes/functions/_setup-admin.php:894
 msgctxt "Capability translation"
 msgid "Delete Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:902
+#: includes/functions/_setup-admin.php:905
 msgctxt "Capability translation"
 msgid "Delete Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:869
+#: includes/functions/_setup-admin.php:872
 msgctxt "Capability translation"
 msgid "Delete Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:858
+#: includes/functions/_setup-admin.php:861
 msgctxt "Capability translation"
 msgid "Delete Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:913
+#: includes/functions/_setup-admin.php:916
 msgctxt "Capability translation"
 msgid "Delete Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:880
+#: includes/functions/_setup-admin.php:883
 msgctxt "Capability translation"
 msgid "Delete Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:886
+#: includes/functions/_setup-admin.php:889
 msgctxt "Capability translation"
 msgid "Delete Published Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:897
+#: includes/functions/_setup-admin.php:900
 msgctxt "Capability translation"
 msgid "Delete Published Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:864
+#: includes/functions/_setup-admin.php:867
 msgctxt "Capability translation"
 msgid "Delete Published Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:853
+#: includes/functions/_setup-admin.php:856
 msgctxt "Capability translation"
 msgid "Delete Published Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:908
+#: includes/functions/_setup-admin.php:911
 msgctxt "Capability translation"
 msgid "Delete Published Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:875
+#: includes/functions/_setup-admin.php:878
 msgctxt "Capability translation"
 msgid "Delete Published Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:906
+#: includes/functions/_setup-admin.php:909
 msgctxt "Capability translation"
 msgid "Delete Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:873
+#: includes/functions/_setup-admin.php:876
 msgctxt "Capability translation"
 msgid "Delete Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:827
+#: includes/functions/_setup-admin.php:830
 msgctxt "Capability translation"
 msgid "Edit Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:883
+#: includes/functions/_setup-admin.php:886
 msgctxt "Capability translation"
 msgid "Edit Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:843
+#: includes/functions/_setup-admin.php:846
 msgctxt "Capability translation"
 msgid "Edit Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:894
+#: includes/functions/_setup-admin.php:897
 msgctxt "Capability translation"
 msgid "Edit Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:847
+#: includes/functions/_setup-admin.php:850
 msgctxt "Capability translation"
 msgid "Edit Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:794
+#: includes/functions/_setup-admin.php:797
 msgctxt "Capability translation"
 msgid "Edit Date"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:839
+#: includes/functions/_setup-admin.php:842
 msgctxt "Capability translation"
 msgid "Edit Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:807
+#: includes/functions/_setup-admin.php:810
 msgctxt "Capability translation"
 msgid "Edit Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:835
+#: includes/functions/_setup-admin.php:838
 msgctxt "Capability translation"
 msgid "Edit Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:887
+#: includes/functions/_setup-admin.php:890
 msgctxt "Capability translation"
 msgid "Edit Others Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:898
+#: includes/functions/_setup-admin.php:901
 msgctxt "Capability translation"
 msgid "Edit Others Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:814
+#: includes/functions/_setup-admin.php:817
 msgctxt "Capability translation"
 msgid "Edit Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:865
+#: includes/functions/_setup-admin.php:868
 msgctxt "Capability translation"
 msgid "Edit Others Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:854
+#: includes/functions/_setup-admin.php:857
 msgctxt "Capability translation"
 msgid "Edit Others Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:909
+#: includes/functions/_setup-admin.php:912
 msgctxt "Capability translation"
 msgid "Edit Others Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:876
+#: includes/functions/_setup-admin.php:879
 msgctxt "Capability translation"
 msgid "Edit Others Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:861
+#: includes/functions/_setup-admin.php:864
 msgctxt "Capability translation"
 msgid "Edit Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:791
+#: includes/functions/_setup-admin.php:794
 msgctxt "Capability translation"
 msgid "Edit Permalink"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:831
+#: includes/functions/_setup-admin.php:834
 msgctxt "Capability translation"
 msgid "Edit Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:850
+#: includes/functions/_setup-admin.php:853
 msgctxt "Capability translation"
 msgid "Edit Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:890
+#: includes/functions/_setup-admin.php:893
 msgctxt "Capability translation"
 msgid "Edit Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:901
+#: includes/functions/_setup-admin.php:904
 msgctxt "Capability translation"
 msgid "Edit Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:868
+#: includes/functions/_setup-admin.php:871
 msgctxt "Capability translation"
 msgid "Edit Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:857
+#: includes/functions/_setup-admin.php:860
 msgctxt "Capability translation"
 msgid "Edit Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:912
+#: includes/functions/_setup-admin.php:915
 msgctxt "Capability translation"
 msgid "Edit Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:879
+#: includes/functions/_setup-admin.php:882
 msgctxt "Capability translation"
 msgid "Edit Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:885
+#: includes/functions/_setup-admin.php:888
 msgctxt "Capability translation"
 msgid "Edit Published Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:896
+#: includes/functions/_setup-admin.php:899
 msgctxt "Capability translation"
 msgid "Edit Published Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:863
+#: includes/functions/_setup-admin.php:866
 msgctxt "Capability translation"
 msgid "Edit Published Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:852
+#: includes/functions/_setup-admin.php:855
 msgctxt "Capability translation"
 msgid "Edit Published Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:907
+#: includes/functions/_setup-admin.php:910
 msgctxt "Capability translation"
 msgid "Edit Published Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:874
+#: includes/functions/_setup-admin.php:877
 msgctxt "Capability translation"
 msgid "Edit Published Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:905
+#: includes/functions/_setup-admin.php:908
 msgctxt "Capability translation"
 msgid "Edit Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:872
+#: includes/functions/_setup-admin.php:875
 msgctxt "Capability translation"
 msgid "Edit Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:822
+#: includes/functions/_setup-admin.php:825
 msgctxt "Capability translation"
 msgid "Edit Theme Options"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:823
+#: includes/functions/_setup-admin.php:826
 msgctxt "Capability translation"
 msgid "Edit Themes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:818
+#: includes/functions/_setup-admin.php:821
 msgctxt "Capability translation"
 msgid "Edit Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:796
+#: includes/functions/_setup-admin.php:799
 msgctxt "Capability translation"
 msgid "Expire Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:892
+#: includes/functions/_setup-admin.php:895
 msgctxt "Capability translation"
 msgid "Ignore Chapter Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:903
+#: includes/functions/_setup-admin.php:906
 msgctxt "Capability translation"
 msgid "Ignore Collection Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:870
+#: includes/functions/_setup-admin.php:873
 msgctxt "Capability translation"
 msgid "Ignore Page Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:859
+#: includes/functions/_setup-admin.php:862
 msgctxt "Capability translation"
 msgid "Ignore Post Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:881
+#: includes/functions/_setup-admin.php:884
 msgctxt "Capability translation"
 msgid "Ignore Story Passwords"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:816
+#: includes/functions/_setup-admin.php:819
 msgctxt "Capability translation"
 msgid "List Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:790
+#: includes/functions/_setup-admin.php:793
 msgctxt "Capability translation"
 msgid "Make Sticky"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:825
+#: includes/functions/_setup-admin.php:828
 msgctxt "Capability translation"
 msgid "Manage Categories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:841
+#: includes/functions/_setup-admin.php:844
 msgctxt "Capability translation"
 msgid "Manage Characters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:845
+#: includes/functions/_setup-admin.php:848
 msgctxt "Capability translation"
 msgid "Manage Content Warnings"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:837
+#: includes/functions/_setup-admin.php:840
 msgctxt "Capability translation"
 msgid "Manage Fandoms"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:833
+#: includes/functions/_setup-admin.php:836
 msgctxt "Capability translation"
 msgid "Manage Genres"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:829
+#: includes/functions/_setup-admin.php:832
 msgctxt "Capability translation"
 msgid "Manage Post Tags"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:811
+#: includes/functions/_setup-admin.php:814
 msgctxt "Capability translation"
 msgid "Moderate Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:808
+#: includes/functions/_setup-admin.php:811
 msgctxt "Capability translation"
 msgid "Moderate Post Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:798
+#: includes/functions/_setup-admin.php:801
 msgctxt "Capability translation"
 msgid "Only Moderate Comments"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:812
+#: includes/functions/_setup-admin.php:815
 msgctxt "Capability translation"
 msgid "Privacy Clearance"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:882
+#: includes/functions/_setup-admin.php:885
 msgctxt "Capability translation"
 msgid "Publish Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:893
+#: includes/functions/_setup-admin.php:896
 msgctxt "Capability translation"
 msgid "Publish Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:860
+#: includes/functions/_setup-admin.php:863
 msgctxt "Capability translation"
 msgid "Publish Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:849
+#: includes/functions/_setup-admin.php:852
 msgctxt "Capability translation"
 msgid "Publish Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:904
+#: includes/functions/_setup-admin.php:907
 msgctxt "Capability translation"
 msgid "Publish Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:871
+#: includes/functions/_setup-admin.php:874
 msgctxt "Capability translation"
 msgid "Publish Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:810
+#: includes/functions/_setup-admin.php:813
 msgctxt "Capability translation"
 msgid "Read"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:813
+#: includes/functions/_setup-admin.php:816
 msgctxt "Capability translation"
 msgid "Read Others Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:889
+#: includes/functions/_setup-admin.php:892
 msgctxt "Capability translation"
 msgid "Read Private Chapters"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:900
+#: includes/functions/_setup-admin.php:903
 msgctxt "Capability translation"
 msgid "Read Private Collections"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:867
+#: includes/functions/_setup-admin.php:870
 msgctxt "Capability translation"
 msgid "Read Private Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:856
+#: includes/functions/_setup-admin.php:859
 msgctxt "Capability translation"
 msgid "Read Private Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:911
+#: includes/functions/_setup-admin.php:914
 msgctxt "Capability translation"
 msgid "Read Private Recommendations"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:878
+#: includes/functions/_setup-admin.php:881
 msgctxt "Capability translation"
 msgid "Read Private Stories"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:797
+#: includes/functions/_setup-admin.php:800
 msgctxt "Capability translation"
 msgid "Reduced Profile"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:819
+#: includes/functions/_setup-admin.php:822
 msgctxt "Capability translation"
 msgid "Remove Users"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:784
+#: includes/functions/_setup-admin.php:787
 msgctxt "Capability translation"
 msgid "Select Page Templates"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:789
+#: includes/functions/_setup-admin.php:792
 msgctxt "Capability translation"
 msgid "SEO Meta"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:783
+#: includes/functions/_setup-admin.php:786
 msgctxt "Capability translation"
 msgid "Shortcodes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:805
+#: includes/functions/_setup-admin.php:808
 msgctxt "Capability translation"
 msgid "Show Badge"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:793
+#: includes/functions/_setup-admin.php:796
 msgctxt "Capability translation"
 msgid "Story Pages"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:821
+#: includes/functions/_setup-admin.php:824
 msgctxt "Capability translation"
 msgid "Switch Themes"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:824
+#: includes/functions/_setup-admin.php:827
 msgctxt "Capability translation"
 msgid "Unfiltered HTML"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:820
+#: includes/functions/_setup-admin.php:823
 msgctxt "Capability translation"
 msgid "Unlock Posts"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:806
+#: includes/functions/_setup-admin.php:809
 msgctxt "Capability translation"
 msgid "Upload Files"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:799
+#: includes/functions/_setup-admin.php:802
 msgctxt "Capability translation"
 msgid "Upload Limit"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:800
+#: includes/functions/_setup-admin.php:803
 msgctxt "Capability translation"
 msgid "Upload Restrictions"
 msgstr ""
@@ -2547,39 +2547,39 @@ msgctxt "Caption of the _read_ ribbon."
 msgid "Read"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2613
+#: includes/functions/_customizer-settings.php:2614
 msgid "Card Body Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2225
+#: includes/functions/_customizer-settings.php:2226
 msgid "Card Column Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2163
+#: includes/functions/_customizer-settings.php:2164
 msgid "Card Cover Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2287
+#: includes/functions/_customizer-settings.php:2288
 msgid "Card Font Size Grow Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2318
+#: includes/functions/_customizer-settings.php:2319
 msgid "Card Font Size Maximum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2256
+#: includes/functions/_customizer-settings.php:2257
 msgid "Card Font Size Minimum Offset"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2079
+#: includes/functions/_customizer-settings.php:2080
 msgid "Card Footer Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2023
+#: includes/functions/_customizer-settings.php:2024
 msgid "Card Frame"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2051
+#: includes/functions/_customizer-settings.php:2052
 msgid "Card Image Style"
 msgstr ""
 
@@ -2587,23 +2587,23 @@ msgstr ""
 msgid "Card list could not be queried."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2635
+#: includes/functions/_customizer-settings.php:2636
 msgid "Card List Link Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2194
+#: includes/functions/_customizer-settings.php:2195
 msgid "Card Row Gap Multiplier"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2112
+#: includes/functions/_customizer-settings.php:2113
 msgid "Card Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2591
+#: includes/functions/_customizer-settings.php:2592
 msgid "Card Title Font"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2134
+#: includes/functions/_customizer-settings.php:2135
 msgid "Card Width"
 msgstr ""
 
@@ -2611,7 +2611,7 @@ msgstr ""
 msgid "Cards"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2732
+#: includes/functions/_customizer-settings.php:2733
 msgid "Change Open Graph image"
 msgstr ""
 
@@ -2740,7 +2740,7 @@ msgstr ""
 msgid "Chapter Attributes"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2569
+#: includes/functions/_customizer-settings.php:2570
 msgid "Chapter Body Font"
 msgstr ""
 
@@ -2879,7 +2879,7 @@ msgctxt "Chapter list status prefix."
 msgid "Trashed:"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2547
+#: includes/functions/_customizer-settings.php:2548
 msgid "Chapter List Title Font"
 msgstr ""
 
@@ -2948,7 +2948,7 @@ msgctxt "Chapter text icon meta field label."
 msgid "Text Icon"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2525
+#: includes/functions/_customizer-settings.php:2526
 msgid "Chapter Title Font"
 msgstr ""
 
@@ -3038,22 +3038,22 @@ msgstr ""
 msgid "Child comments cannot be sticky."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2024
+#: includes/functions/_customizer-settings.php:2081
+msgid "Choose the footer style for your cards."
+msgstr ""
+
+#: includes/functions/_customizer-settings.php:2025
 msgid ""
 "Choose the frame for your cards. Turn off the card shadow if borders get "
 "blurry."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2052
+#: includes/functions/_customizer-settings.php:2053
 msgid "Choose the image style for your cards. Can be overridden in shortcodes."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2113
+#: includes/functions/_customizer-settings.php:2114
 msgid "Choose the shadow for your cards."
-msgstr ""
-
-#: includes/functions/_customizer-settings.php:2080
-msgid "Choose the style for your cards."
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1688
@@ -3114,7 +3114,7 @@ msgstr ""
 msgid "Click to log out"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:745
+#: includes/functions/_setup-admin.php:748
 #: includes/functions/settings/_settings_page_general.php:1481
 #: includes/functions/settings/_settings_page_seo.php:221
 #: includes/functions/comments/_comments_moderation.php:461
@@ -3726,6 +3726,11 @@ msgid ""
 "custom post types. Can be slow."
 msgstr ""
 
+#: includes/functions/_customizer-settings.php:2015
+msgctxt "Customizer card frame option."
+msgid "Battered"
+msgstr ""
+
 #: includes/functions/_customizer-settings.php:2012
 msgctxt "Customizer card frame option."
 msgid "Border (2px)"
@@ -3761,72 +3766,72 @@ msgctxt "Customizer card frame option."
 msgid "Stacked (Right)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2040
+#: includes/functions/_customizer-settings.php:2041
 msgctxt "Customizer card image option."
 msgid "Embedded (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2042
+#: includes/functions/_customizer-settings.php:2043
 msgctxt "Customizer card image option."
 msgid "None"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2041
+#: includes/functions/_customizer-settings.php:2042
 msgctxt "Customizer card image option."
 msgid "Seamless"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2097
+#: includes/functions/_customizer-settings.php:2098
 msgctxt "Customizer card shadow option."
 msgid "Border Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2096
+#: includes/functions/_customizer-settings.php:2097
 msgctxt "Customizer card shadow option."
 msgid "No Shadow"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2103
+#: includes/functions/_customizer-settings.php:2104
 msgctxt "Customizer card shadow option."
 msgid "Shadow Huge"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2102
+#: includes/functions/_customizer-settings.php:2103
 msgctxt "Customizer card shadow option."
 msgid "Shadow Large"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2101
+#: includes/functions/_customizer-settings.php:2102
 msgctxt "Customizer card shadow option."
 msgid "Shadow Medium (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2100
+#: includes/functions/_customizer-settings.php:2101
 msgctxt "Customizer card shadow option."
 msgid "Shadow Normal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2099
+#: includes/functions/_customizer-settings.php:2100
 msgctxt "Customizer card shadow option."
 msgid "Shadow Small"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2098
+#: includes/functions/_customizer-settings.php:2099
 msgctxt "Customizer card shadow option."
 msgid "Shadow Thin"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2070
+#: includes/functions/_customizer-settings.php:2071
 msgctxt "Customizer card style option."
 msgid "Combined"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2068
+#: includes/functions/_customizer-settings.php:2069
 msgctxt "Customizer card style option."
 msgid "Embedded (Default)"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2069
+#: includes/functions/_customizer-settings.php:2070
 msgctxt "Customizer card style option."
 msgid "Unfolded"
 msgstr ""
@@ -3851,12 +3856,12 @@ msgctxt "Customizer content list style option."
 msgid "Lines"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2660
+#: includes/functions/_customizer-settings.php:2661
 msgctxt "Customizer dark mode font weight option."
 msgid "Adjusted"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2661
+#: includes/functions/_customizer-settings.php:2662
 msgctxt "Customizer dark mode font weight option."
 msgid "Normal"
 msgstr ""
@@ -4200,7 +4205,7 @@ msgstr ""
 msgid "Dark Mode Colors"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2657
+#: includes/functions/_customizer-settings.php:2658
 msgid "Dark Mode Font Weight"
 msgstr ""
 
@@ -4383,7 +4388,7 @@ msgstr ""
 msgid "Decrease font size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2364
+#: includes/functions/_customizer-settings.php:2365
 msgid "Default"
 msgstr ""
 
@@ -4684,7 +4689,7 @@ msgstr ""
 msgid "Disabled \"%s\" font key. Currently disabled keys: %s."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2355
+#: includes/functions/_customizer-settings.php:2356
 #, php-format
 msgctxt "Disabled Customizer font option."
 msgid "%s — Disabled"
@@ -4791,7 +4796,7 @@ msgctxt "Discord message comment \"Type\" field."
 msgid "Type"
 msgstr ""
 
-#: includes/functions/_module-discord.php:333
+#: includes/functions/_module-discord.php:345
 #, php-format
 msgctxt "Discord message for new chapter."
 msgid ""
@@ -4799,14 +4804,14 @@ msgid ""
 "_ _"
 msgstr ""
 
-#: includes/functions/_module-discord.php:308
+#: includes/functions/_module-discord.php:320
 msgctxt "Discord message for new chapter."
 msgid ""
 "New chapter published!\n"
 "_ _"
 msgstr ""
 
-#: includes/functions/_module-discord.php:222
+#: includes/functions/_module-discord.php:229
 #, php-format
 msgctxt "Discord message for new story."
 msgid ""
@@ -4815,7 +4820,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions/_module-discord.php:118
-#: includes/functions/_module-discord.php:341
+#: includes/functions/_module-discord.php:353
 #, php-format
 msgctxt "Discord message story footer note."
 msgid "Story: %s"
@@ -4903,7 +4908,7 @@ msgstr ""
 msgid "Does not reload the page on submit."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:741
+#: includes/functions/_setup-admin.php:744
 msgid "Donate coins of any kind"
 msgstr ""
 
@@ -5328,7 +5333,7 @@ msgstr ""
 msgid "Error: Action parameter missing."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:640
+#: includes/functions/_setup-admin.php:643
 msgid "Error: Colors not found."
 msgstr ""
 
@@ -5336,7 +5341,7 @@ msgstr ""
 #: includes/functions/_setup-meta-fields.php:1364
 #: includes/functions/_setup-meta-fields.php:1543
 #: includes/functions/_setup-meta-fields.php:1690
-#: includes/functions/_setup-admin.php:629
+#: includes/functions/_setup-admin.php:632
 msgid "Error: Insufficient permissions."
 msgstr ""
 
@@ -5672,14 +5677,14 @@ msgctxt "Font size name"
 msgid "Small"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2372
+#: includes/functions/_customizer-settings.php:2373
 #: includes/functions/settings/_settings.php:89
 #: includes/functions/settings/_settings.php:90
 #: includes/functions/settings/_settings.php:240
 msgid "Fonts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2658
+#: includes/functions/_customizer-settings.php:2659
 msgid ""
 "Fonts are rendered thinner in dark mode to offset text bleeding; you can "
 "turn that off."
@@ -5871,7 +5876,7 @@ msgstr ""
 msgid "Header Style"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2437
+#: includes/functions/_customizer-settings.php:2438
 msgid "Heading Font"
 msgstr ""
 
@@ -6143,7 +6148,7 @@ msgid ""
 "<strong>pdf</strong>, <strong>rtf</strong>, and <strong>txt</strong>."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:735
+#: includes/functions/_setup-admin.php:738
 msgid ""
 "If you like Fictioneer, please consider supporting the development with a "
 "donation or as sponsor. You do not have to and there are no gated premium "
@@ -6984,7 +6989,7 @@ msgstr ""
 msgid "Minimalist mode"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2135
+#: includes/functions/_customizer-settings.php:2136
 msgid ""
 "Minimum card width in pixels (still limited by space); affects card scale. "
 "Default 308."
@@ -7145,19 +7150,19 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2288
+#: includes/functions/_customizer-settings.php:2289
 msgid ""
 "Modifies the calculation of the dynamic card font sizes in fractions of "
 "pixels. Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2257
+#: includes/functions/_customizer-settings.php:2258
 msgid ""
 "Modifies the lower end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2319
+#: includes/functions/_customizer-settings.php:2320
 msgid ""
 "Modifies the upper end of the dynamic card font sizes in fractions of pixels."
 " Default 0."
@@ -7192,15 +7197,15 @@ msgstr ""
 msgid "Multiplier for displayed word counts"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2164
+#: includes/functions/_customizer-settings.php:2165
 msgid "Multiplier for the card cover width. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2226
+#: includes/functions/_customizer-settings.php:2227
 msgid "Multiplier for the grid column gap. Default 1."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2195
+#: includes/functions/_customizer-settings.php:2196
 msgid "Multiplier for the grid row gap. Default 1."
 msgstr ""
 
@@ -7226,7 +7231,7 @@ msgstr ""
 msgid "Name *"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2481
+#: includes/functions/_customizer-settings.php:2482
 msgid "Navigation Item Font"
 msgstr ""
 
@@ -7328,7 +7333,7 @@ msgstr ""
 msgid "No description yet."
 msgstr ""
 
-#: includes/functions/_setup-admin.php:607
+#: includes/functions/_setup-admin.php:610
 msgid "No groups found."
 msgstr ""
 
@@ -7535,7 +7540,7 @@ msgstr ""
 msgid "Open chapter formatting modal"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2720
+#: includes/functions/_customizer-settings.php:2721
 msgid "Open Graph Default Image"
 msgstr ""
 
@@ -8139,7 +8144,7 @@ msgctxt "Post type singular name"
 msgid "Story"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2570
+#: includes/functions/_customizer-settings.php:2571
 msgid "Pre-selected font used in chapters. Defaults to primary font."
 msgstr ""
 
@@ -8190,7 +8195,7 @@ msgid ""
 "Primary faded text color for page content. Default contrast ~6:1 on BG-700."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2393
+#: includes/functions/_customizer-settings.php:2394
 msgid "Primary Font"
 msgstr ""
 
@@ -8488,7 +8493,7 @@ msgctxt "Relationship meta field search placeholder."
 msgid "Search…"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:225
+#: includes/functions/_setup-admin.php:228
 msgid "Release Notes"
 msgstr ""
 
@@ -8518,7 +8523,7 @@ msgid "Reminders successfully cleared."
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1359
-#: includes/functions/_customizer-settings.php:2731
+#: includes/functions/_customizer-settings.php:2732
 #: includes/functions/_module-seo.php:133
 msgid "Remove"
 msgstr ""
@@ -8634,7 +8639,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:555
+#: includes/functions/_setup-admin.php:558
 #: includes/functions/comments/_comments_moderation.php:516
 #: includes/functions/comments/_comments_moderation.php:629
 #: includes/functions/comments/_comments_ajax.php:474
@@ -8809,37 +8814,37 @@ msgstr ""
 msgid "Role Tools"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:776
+#: includes/functions/_setup-admin.php:779
 msgctxt "Role translation"
 msgid "Administrator"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:779
+#: includes/functions/_setup-admin.php:782
 msgctxt "Role translation"
 msgid "Author"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:780
+#: includes/functions/_setup-admin.php:783
 msgctxt "Role translation"
 msgid "Contributor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:777
+#: includes/functions/_setup-admin.php:780
 msgctxt "Role translation"
 msgid "Editor"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:778
+#: includes/functions/_setup-admin.php:781
 msgctxt "Role translation"
 msgid "Moderator"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:781
+#: includes/functions/_setup-admin.php:784
 msgctxt "Role translation"
 msgid "Subscriber"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:782
+#: includes/functions/_setup-admin.php:785
 msgctxt "Role translation"
 msgid "Translator"
 msgstr ""
@@ -8963,7 +8968,7 @@ msgstr ""
 msgid "Search Stories"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2415
+#: includes/functions/_customizer-settings.php:2416
 msgid "Secondary Font"
 msgstr ""
 
@@ -9007,7 +9012,7 @@ msgstr ""
 msgid "Select and order chapters assigned to the story (set in the chapter)."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2730
+#: includes/functions/_customizer-settings.php:2731
 msgid "Select Open Graph image"
 msgstr ""
 
@@ -9476,7 +9481,7 @@ msgstr ""
 msgid "Site Title - Minimum Size"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2459
+#: includes/functions/_customizer-settings.php:2460
 msgid "Site Title Font"
 msgstr ""
 
@@ -9854,7 +9859,7 @@ msgstr ""
 msgid "Story ID"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:563
+#: includes/functions/_setup-admin.php:566
 msgid "Story ID did not pass validation."
 msgstr ""
 
@@ -9963,7 +9968,7 @@ msgstr ""
 msgid "Story tags duplicated as genres."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2503
+#: includes/functions/_customizer-settings.php:2504
 msgid "Story Title Font"
 msgstr ""
 
@@ -10060,7 +10065,7 @@ msgstr ""
 msgid "Support Links"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:740
+#: includes/functions/_setup-admin.php:743
 msgid "Support me on <strong>Patreon</strong>"
 msgstr ""
 
@@ -10068,7 +10073,7 @@ msgstr ""
 msgid "Support Message"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:730
+#: includes/functions/_setup-admin.php:733
 #: includes/functions/settings/_settings.php:270
 msgid "Support the Development"
 msgstr ""
@@ -10088,7 +10093,7 @@ msgstr ""
 msgid "System email name"
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2346
+#: includes/functions/_customizer-settings.php:2347
 msgid "System Font"
 msgstr ""
 
@@ -10885,7 +10890,7 @@ msgid ""
 "tag hovers, and secondary tag borders."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2394
+#: includes/functions/_customizer-settings.php:2395
 msgid ""
 "Used for most of the content and as default chapter font. Default \"Open "
 "Sans\"."
@@ -10922,7 +10927,7 @@ msgid ""
 "elements, and scroll bars."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2416
+#: includes/functions/_customizer-settings.php:2417
 msgid ""
 "Used for small cards, tags, alongside icons, and in meta rows. Default "
 "\"Lato\"."
@@ -10973,11 +10978,11 @@ msgid ""
 "and the default mobile menu."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2614
+#: includes/functions/_customizer-settings.php:2615
 msgid "Used for the card content. Defaults to secondary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2592
+#: includes/functions/_customizer-settings.php:2593
 msgid "Used for the card titles. Defaults to heading font."
 msgstr ""
 
@@ -10993,11 +10998,11 @@ msgid ""
 "banner."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2482
+#: includes/functions/_customizer-settings.php:2483
 msgid "Used for the items in the navigation bar. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2636
+#: includes/functions/_customizer-settings.php:2637
 msgid "Used for the links in card lists. Defaults to secondary font."
 msgstr ""
 
@@ -11013,11 +11018,11 @@ msgid ""
 "subitem dividers."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2460
+#: includes/functions/_customizer-settings.php:2461
 msgid "Used for the site title and tagline. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2438
+#: includes/functions/_customizer-settings.php:2439
 msgid ""
 "Used for the site title plus articles, chapters, and cards. Default \"Open "
 "Sans\"."
@@ -11031,19 +11036,19 @@ msgstr ""
 msgid "Used for the site."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2526
+#: includes/functions/_customizer-settings.php:2527
 msgid "Used for the title on chapter pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2504
+#: includes/functions/_customizer-settings.php:2505
 msgid "Used for the title on story pages. Defaults to heading font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2548
+#: includes/functions/_customizer-settings.php:2549
 msgid "Used for the title row in chapter lists. Defaults to primary font."
 msgstr ""
 
-#: includes/functions/_customizer-settings.php:2721
+#: includes/functions/_customizer-settings.php:2722
 msgid ""
 "Used in rich snippets. Don’t forget to purge all SEO schemas after updating."
 msgstr ""
@@ -11060,7 +11065,7 @@ msgstr ""
 msgid "User Agent"
 msgstr ""
 
-#: includes/functions/_setup-admin.php:559
+#: includes/functions/_setup-admin.php:562
 msgid "User did not pass validation."
 msgstr ""
 
