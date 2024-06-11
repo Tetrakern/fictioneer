@@ -335,6 +335,8 @@ The [plugin ecosystem](https://wordpress.org/plugins/) of WordPress is vast and 
     </blockquote>
   </details>
 
+* [Plugin Load Filter](https://wordpress.org/plugins/plugin-load-filter/): This plugin allows you to disable other plugins based on specific conditions, such as the post type. This is useful if you have many plugins that you only need for selected pages, helping to avoid degrading your site performance with unnecessary overhead.
+
 ### Optional: Caching
 
 Technically just another plugin, but one that will make your site significantly faster. [Caching](https://wordpress.org/support/article/optimization-caching/) saves your posts and pages as static files to be served later instead of rendering them anew on each request. Guests see the same content anyway, so why waste resources? Only logged-in users can have individual content that must not be cached, such as their account profile. Following are a few cache plugins that have proven to work well with the theme. Do this after you configured your site.
@@ -523,9 +525,11 @@ Technically just another plugin, but one that will make your site significantly 
 
 [Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be manually copied into the **wp-content/mu-plugins** folder (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme folder, you will find an mu-plugins subfolder with a must-use plugin ready to be copied over.
 
+If problems arise, you can just delete the plugin files.
+
 **Fictioneer 001 Fast Requests** accelerates AJAX and REST requests by disabling non-allow-listed plugins during selected theme actions. Depending on the number of plugins you have installed, this can boost your request performance significantly. However, it will prevent the plugins from working during these requests, although that has no effect on the theme’s default functionality. Be not afraid to edit the file and extend the allow list, it will not be overwritten when you update the theme. Or add your own plugin files. This is one of the best speed optimizations you can make.
 
-If problems arise, you can just delete the plugin file.
+**Fictioneer 002 Elementor Control** disables the Elementor plugin on all pages except those with Canvas templates. Elementor unfortunately consumes a significant amount of server resources, so limiting its use to necessary pages is ideal for maintaining a faster site. This assumes you do not need Elementor elsewhere; if you do, this approach won’t work for you. Alternatively, you can use the [Plugin Load Filter](https://wordpress.org/plugins/plugin-load-filter/) plugin for more precise control, though it requires more configuration.
 
 ### Warning: SEO Plugins
 
