@@ -2011,7 +2011,8 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     'stacked_random' => _x( 'Stacked (Random)', 'Customizer card frame option.', 'fictioneer' ),
     'border_2px' => _x( 'Border (2px)', 'Customizer card frame option.', 'fictioneer' ),
     'border_3px' => _x( 'Border (3px)', 'Customizer card frame option.', 'fictioneer' ),
-    'chamfered' => _x( 'Chamfered', 'Customizer card frame option.', 'fictioneer' )
+    'chamfered' => _x( 'Chamfered', 'Customizer card frame option.', 'fictioneer' ),
+    'battered' => _x( 'Battered', 'Customizer card frame option.', 'fictioneer' )
   );
 
   $manager->add_control(

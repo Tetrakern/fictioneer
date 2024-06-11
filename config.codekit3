@@ -3273,6 +3273,21 @@
       "pg" : 0,
       "sct" : 0
     },
+    "\/src\/scss\/customize\/card-frame-battered.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/customize\/card-frame-battered.css",
+      "oF" : 2,
+      "oS" : 3,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/src\/scss\/customize\/card-frame-chamfered.scss" : {
       "aP" : 0,
       "bl" : 0,

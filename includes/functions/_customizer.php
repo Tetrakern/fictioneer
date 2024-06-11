@@ -1035,6 +1035,10 @@ function fictioneer_build_customize_css( $context = null ) {
     $css .= fictioneer_get_customizer_css_snippet( 'card-frame-chamfered' );
   }
 
+  if ( $card_frame === 'battered' ) {
+    $css .= fictioneer_get_customizer_css_snippet( 'card-frame-battered' );
+  }
+
   // --- Content list style ----------------------------------------------------
 
   if ( $content_list_style === 'full' ) {
