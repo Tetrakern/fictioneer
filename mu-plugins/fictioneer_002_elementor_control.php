@@ -22,6 +22,11 @@ function fictioneer_mu_002_get_post_id() {
   // Setup
   $current_url_path = $_SERVER['REQUEST_URI'];
 
+  // Check for frontpage...
+  if ( trim( $current_url_path, '/' ) === '' ) {
+    return $wpdb->get_var( "SELECT option_value FROM $wpdb->options WHERE option_name = 'page_on_front'" );
+  }
+
   // Look for ID...
   if ( preg_match( '/\/(\d+)/', $current_url_path, $matches ) ) {
     // Numeric ID in URL (lucky)
