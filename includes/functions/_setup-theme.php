@@ -1291,6 +1291,27 @@ function fictioneer_ao_exclude_css( $exclude ) {
 }
 add_filter( 'autoptimize_filter_css_exclude', 'fictioneer_ao_exclude_css', 10, 1 );
 
+/**
+ * Turn off script optimization for admins and editors
+ *
+ * @since 5.20.0
+ * @link https://developer.wordpress.org/reference/hooks/pre_option_option/
+ *
+ * @param mixed  $pre_option  The value to return instead of the option value
+ * @param string $option      Option name.
+ *
+ * @return mixed The updated or original option value.
+ */
+
+function fictioneer_override_autoptimize_optimize_logged_option( $value, $option ) {
+  if ( $option === 'autoptimize_optimize_logged' ) {
+    return '';
+  }
+
+  return $value;
+}
+add_filter( 'pre_option_autoptimize_optimize_logged', 'fictioneer_override_autoptimize_optimize_logged_option', 10, 2 );
+
 // =============================================================================
 // OUTPUT HEAD FONTS
 // =============================================================================
