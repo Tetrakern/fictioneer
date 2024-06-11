@@ -474,7 +474,7 @@ Filters the form fields of the `fictioneer_contact_form` shortcode.
 ---
 
 ### `apply_filters( 'fictioneer_filter_customizer_{theme_option}', $choices )`
-Filters the choices arrays of select theme options. Combined with the `fictioneer_filter_pre_build_customize_css` filter, you can append own options and the requires styles. Available options: `header_image_style`, `header_style`, `page_style`, `card_style`, `content_list_style`, and `footer_style`.
+Filters the choices arrays of select theme options. Combined with the `fictioneer_filter_pre_build_customize_css` filter, you can append own options and the requires styles. Available options: `header_image_style`, `header_style`, `page_style`, `story_cover_position`, `card_frame`, `card_image_style`, `card_style` (actually card footer), `card_shadow`, `content_list_style`, and `footer_style`.
 
 Refer to `/includes/functions/_customizer-settings.php` to see the default choices.
 
