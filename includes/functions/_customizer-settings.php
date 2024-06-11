@@ -2065,7 +2065,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
     )
   );
 
-  $card_styles = array(
+  $card_footer_styles = array(
     'default' => _x( 'Embedded (Default)', 'Customizer card style option.', 'fictioneer' ),
     'unfolded' => _x( 'Unfolded', 'Customizer card style option.', 'fictioneer' ),
     'combined' => _x( 'Combined', 'Customizer card style option.', 'fictioneer' )
@@ -2078,8 +2078,8 @@ function fictioneer_add_card_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'cards',
       'label' => __( 'Card Footer Style', 'fictioneer' ),
-      'description' => __( 'Choose the style for your cards.', 'fictioneer' ),
-      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_styles )
+      'description' => __( 'Choose the footer style for your cards.', 'fictioneer' ),
+      'choices' => apply_filters( 'fictioneer_filter_customizer_card_style', $card_footer_styles )
     )
   );
 
