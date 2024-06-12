@@ -8,6 +8,7 @@
  * @subpackage Fictioneer
  * @since 5.0.0
  * @since 5.12.5 - Added wrapper actions and support for wide header.
+ * @since 5.20.0 - Added Elementor support.
  *
  * @internal $args['post_id']           Optional. Current post ID.
  * @internal $args['story_id']          Optional. Current story ID (if chapter).
@@ -46,56 +47,62 @@ if ( $header_style === 'wide' ) {
 
   <div class="main-navigation__wrapper">
 
-    <?php do_action( 'fictioneer_navigation_wrapper_start', $args ); ?>
+    <?php if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'nav_bar' ) ) : ?>
 
-    <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number">
-      <?php
-        fictioneer_icon( 'fa-bars', 'off' );
-        fictioneer_icon( 'fa-xmark', 'on' );
-      ?>
-      <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer'); ?></span>
-    </label>
+      <?php do_action( 'fictioneer_navigation_wrapper_start', $args ); ?>
 
-    <nav class="main-navigation__left" aria-label="<?php echo esc_attr__( 'Main Navigation', 'fictioneer' ); ?>">
-      <?php
-        if ( has_nav_menu( 'nav_menu' ) ) {
-          $menu = null;
+      <label for="mobile-menu-toggle" class="mobile-menu-button follows-alert-number">
+        <?php
+          fictioneer_icon( 'fa-bars', 'off' );
+          fictioneer_icon( 'fa-xmark', 'on' );
+        ?>
+        <span class="mobile-menu-button__label"><?php _ex( 'Menu' , 'Mobile menu label', 'fictioneer'); ?></span>
+      </label>
 
-          if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-            $menu = get_transient( 'fictioneer_main_nav_menu_html' );
-          }
+      <nav class="main-navigation__left" aria-label="<?php echo esc_attr__( 'Main Navigation', 'fictioneer' ); ?>">
+        <?php
+          if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'nav_menu' ) ) {
+            if ( has_nav_menu( 'nav_menu' ) ) {
+              $menu = null;
 
-          if ( empty( $menu ) ) {
-            $menu = wp_nav_menu(
-              array(
-                'theme_location' => 'nav_menu',
-                'menu_class' => 'main-navigation__list',
-                'container' => '',
-                'menu_id' => 'menu-navigation',
-                'items_wrap' => '<ul id="%1$s" data-menu-id="main" class="%2$s">%3$s</ul>',
-                'echo' => false
-              )
-            );
+              if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+                $menu = get_transient( 'fictioneer_main_nav_menu_html' );
+              }
 
-            if ( $menu !== false ) {
-              $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
+              if ( empty( $menu ) ) {
+                $menu = wp_nav_menu(
+                  array(
+                    'theme_location' => 'nav_menu',
+                    'menu_class' => 'main-navigation__list',
+                    'container' => '',
+                    'menu_id' => 'menu-navigation',
+                    'items_wrap' => '<ul id="%1$s" data-menu-id="main" class="%2$s">%3$s</ul>',
+                    'echo' => false
+                  )
+                );
+
+                if ( $menu !== false ) {
+                  $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
+                }
+
+                if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+                  set_transient( 'fictioneer_main_nav_menu_html', $menu );
+                }
+              }
+
+              echo $menu;
             }
-
-            if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
-              set_transient( 'fictioneer_main_nav_menu_html', $menu );
-            }
           }
+        ?>
+      </nav>
 
-          echo $menu;
-        }
-      ?>
-    </nav>
+      <div class="main-navigation__right">
+        <?php get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-navigation' ) ); ?>
+      </div>
 
-    <div class="main-navigation__right">
-      <?php get_template_part( 'partials/_icon-menu', null, array( 'location' => 'in-navigation' ) ); ?>
-    </div>
+      <?php do_action( 'fictioneer_navigation_wrapper_end', $args ); ?>
 
-    <?php do_action( 'fictioneer_navigation_wrapper_end', $args ); ?>
+    <?php endif; ?>
 
   </div>
 

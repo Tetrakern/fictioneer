@@ -8,6 +8,7 @@
  * @package WordPress
  * @subpackage Fictioneer
  * @since 5.0.0
+ * @since 5.20.0 - Added Elementor support.
  * @see single-fcn_story.php
  *
  * @internal $args['story_data']  Story data from fictioneer_get_story_data().
@@ -18,6 +19,11 @@
 
 // No direct access!
 defined( 'ABSPATH' ) OR exit;
+
+// Elementor?
+if ( function_exists( 'elementor_theme_do_location' ) && elementor_theme_do_location( 'story_header' ) ) {
+  return;
+}
 
 // Setup
 $story = $args['story_data'];

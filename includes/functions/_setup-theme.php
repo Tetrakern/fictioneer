@@ -1732,8 +1732,44 @@ add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_theme_settings_link', 999
  */
 
 function fictioneer_register_elementor_locations( $elementor_theme_manager ) {
-	$elementor_theme_manager->register_location( 'header' );
-	$elementor_theme_manager->register_location( 'footer' );
+  $elementor_theme_manager->register_location( 'header' );
+  $elementor_theme_manager->register_location( 'footer' );
+
+  $elementor_theme_manager->register_location(
+    'nav_bar',
+    array(
+      'label' => esc_html__( 'Navigation Bar', 'fictioneer' ),
+      'multiple' => false,
+      'edit_in_content' => true
+    )
+  );
+
+  $elementor_theme_manager->register_location(
+    'nav_menu',
+    array(
+      'label' => esc_html__( 'Navigation Menu', 'fictioneer' ),
+      'multiple' => false,
+      'edit_in_content' => true
+    )
+  );
+
+  $elementor_theme_manager->register_location(
+    'mobile_nav_menu',
+    array(
+      'label' => esc_html__( 'Mobile Navigation Menu', 'fictioneer' ),
+      'multiple' => false,
+      'edit_in_content' => true
+    )
+  );
+
+  $elementor_theme_manager->register_location(
+    'story_header',
+    array(
+      'label' => esc_html__( 'Story Header', 'fictioneer' ),
+      'multiple' => false,
+      'edit_in_content' => true
+    )
+  );
 }
 
 function fictioneer_override_elementor_styles() {
