@@ -32,7 +32,7 @@ get_header();
 
   <div class="main__background polygon polygon--main background-texture"></div>
 
-  <div class="main__wrapper <?php echo $render_story_header ? '_no-padding' : ''; ?>">
+  <div class="main__wrapper <?php echo $render_story_header ? '_no-padding-top' : ''; ?>">
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
