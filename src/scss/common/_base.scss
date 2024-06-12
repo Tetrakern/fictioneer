@@ -858,6 +858,10 @@ html:not(.logged-in) body:not(.logged-in) {
   }
 }
 
+.widget {
+  list-style: none;
+}
+
 .browser-notes {
   font-size: 10px;
   text-align: center;

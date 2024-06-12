@@ -176,6 +176,30 @@ function fictioneer_get_theme_info() {
   return $info;
 }
 
+/**
+ * Registers (dummy) sidebar
+ *
+ * @since 5.20.0
+ */
+
+function fictioneer_register_sidebar() {
+  register_sidebar(
+    array(
+      'name' => __( 'Fictioneer Sidebar', 'fictioneer' ),
+      'id' => 'fictioneer-sidebar',
+      'description' => __( 'For custom templates. Not used by the default theme.', 'fictioneer' ),
+      'before_widget' => '<li id="%1$s" class="widget %2$s">',
+      'after_widget' => '</li>',
+      'before_title' => '<h2 class="widgettitle">',
+      'after_title' => '</h2>'
+    )
+  );
+}
+
+if ( ! get_option( 'fictioneer_disable_all_widgets' ) ) {
+  add_action( 'widgets_init', 'fictioneer_register_sidebar' );
+}
+
 // =============================================================================
 // AFTER UPDATE
 // =============================================================================
