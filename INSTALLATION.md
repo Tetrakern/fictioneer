@@ -1447,13 +1447,17 @@ If you have the Elementor plugin installed, consider using the [Fictioneer 002 E
 
 **Notes:**
 
-* The `nav_bar` location also overrides the `nav_menu` location.
-* The default page padding uses the `padding[-top|-right|-bottom|-left]` CSS classes.
-* The position and expected content of the header depend on the Customizer option.
+* The `nav_bar` location also overwrites the `nav_menu` location.
+* Trying to overwrite the default navigation is generally a poor life choice.
+* Use the `padding-[top|right|bottom|left]` CSS classes to apply theme page padding.
+* Use the `bg-[50|100|200|...|800|900|950]` CSS classes to force theme background colors.
+* Use the `fg-[100|200|...|800|900|950]` CSS classes to force theme text colors.
+* Some of the [content utility CSS classes](https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#additional-css-classes) will also work for Elementor.
 * You can toggle the mobile menu with a label targeting the `mobile-menu-toggle` ID.
-* The default site with is available in the `--site-width` custom CSS property.
-* The default global Elementor text colors have been overwritten with theme colors.
-* Elementor does not understand the theme’s display modes, colors, or custom HSL settings.
+* The position and expected content of the header depend on your Customizer choices.
+* The default site with is stored in the `--site-width` custom CSS property.
+* The global Elementor text colors have been overwritten with theme colors.
+* Elementor does not understand the theme’s display modes, colors, or HSL settings.
 * Elementor makes your site slower unless you have a good cache plugin.
 * Use the Canvas-type page templates if you want to drastically customize a page.
 * Fictioneer is not meant for site editors; there are many limitations.

@@ -466,21 +466,24 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `only-authors` | Makes element only visible to authors or higher.
 | `overflow-x` | Adds horizontal scrolling if a block is too wide. Not necessary on tables.
 | `no-auto-lightbox` | Prevents the lightbox script from being applied if added to an `<img>` element.
-| `hide-below-desktop` | Hide element below viewport widths of less than 1024px.
-| `hide-below-tablet` | Hide element below viewport widths of less than 768px.
-| `hide-below-640` | Hide element below viewport widths of less than 640px.
-| `hide-below-480` | Hide element below viewport widths of less than 480px.
-| `hide-below-400` | Hide element below viewport widths of less than 400px.
-| `hide-below-375` | Hide element below viewport widths of less than 375px.
+| `hide-below-desktop` | Hides element below viewport widths of less than 1024px.
+| `hide-below-tablet` | Hides element below viewport widths of less than 768px.
+| `hide-below-640` | Hides element below viewport widths of less than 640px.
+| `hide-below-480` | Hides element below viewport widths of less than 480px.
+| `hide-below-400` | Hides element below viewport widths of less than 400px.
+| `hide-below-375` | Hides element below viewport widths of less than 375px.
 | `show-below-desktop` | Only show element below viewport widths of less than 1024px.
 | `show-below-tablet` | Only show element below viewport widths of less than 768px.
 | `show-below-640` | Only show element below viewport widths of less than 640px.
 | `show-below-480` | Only show element below viewport widths of less than 480px.
 | `show-below-400` | Only show element below viewport widths of less than 400px.
 | `show-below-375` | Only show element below viewport widths of less than 375px.
-| `hide-if-logged-in` | Hide element if the user is logged in.
-| `hide-if-logged-out` | Hide element if the user is not logged in.
+| `hide-if-logged-in` | Hides element if the user is logged in.
+| `hide-if-logged-out` | Hides element if the user is not logged in.
 | `no-theme-spacing` | Removes the top and bottom spacing applied by the theme.
+| `padding-[top\|right\|bottom\|left]` | Applies directional theme page padding.
+| `bg-[50\|100\|200\|...\|800\|900\|950]` | Forces the respective theme background color.
+| `fg-[100\|200\|...\|800\|900\|950]` | Forces the respective theme text color.
 
 ## HTML Block
 

@@ -354,3 +354,37 @@ html:not(.logged-in) body:not(.logged-in) .hide-if-logged-out,
 .container-inline-size {
   container-type: inline-size;
 }
+
+.bg-50 {
+  background-color: var(--bg-50) !important;
+}
+
+@for $i from 1 through 9 {
+  $value: 100 * $i;
+  .bg-#{$value} {
+    background-color: var(--bg-#{$value}) !important;
+  }
+}
+
+.bg-950 {
+  background-color: var(--bg-950) !important;
+}
+
+@for $i from 1 through 9 {
+  $value: 100 * $i;
+  .fg-#{$value} {
+    color: var(--fg-#{$value}) !important;
+  }
+}
+
+.fg-950 {
+  color: var(--fg-950) !important;
+}
+
+.fg-tinted {
+  color: var(--fg-tinted) !important;
+}
+
+.fg-inverted {
+  color: var(--fg-inverted) !important;
+}
