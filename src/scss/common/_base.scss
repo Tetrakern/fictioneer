@@ -260,7 +260,7 @@ button[type=submit]:where(:not(._inline)),
   }
 }
 
-.padding-left {
+:root .padding-left {
   padding-left: var(--layout-spacing-horizontal-small);
 
   @include bp(400px) {
@@ -268,7 +268,7 @@ button[type=submit]:where(:not(._inline)),
   }
 }
 
-.padding-right {
+:root .padding-right {
   padding-right: var(--layout-spacing-horizontal-small);
 
   @include bp(400px) {
@@ -276,11 +276,11 @@ button[type=submit]:where(:not(._inline)),
   }
 }
 
-.padding-top {
+:root .padding-top {
   padding-top: var(--layout-spacing-vertical);
 }
 
-.padding-bottom {
+:root .padding-bottom {
   padding-bottom: var(--layout-spacing-vertical);
 }
 
