@@ -167,7 +167,7 @@ button[type=submit]:where(:not(._inline)),
   @extend %button;
 
   &:focus-visible {
-    box-shadow: var(--focus-box-shadow);
+    box-shadow: var(--in-focus-box-shadow);
   }
 
   &._secondary {
@@ -318,7 +318,7 @@ button[type=submit]:where(:not(._inline)),
     contain: layout paint style; // Improve performance
 
     &:focus-visible {
-      box-shadow: var(--focus-box-shadow);
+      box-shadow: var(--in-focus-box-shadow);
     }
   }
 

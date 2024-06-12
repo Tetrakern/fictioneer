@@ -70,7 +70,7 @@
     }
 
     &:focus-visible {
-      box-shadow: var(--focus-box-shadow);
+      box-shadow: var(--in-focus-box-shadow);
     }
 
     &:hover {
@@ -83,7 +83,7 @@
       color: var(--header-nav-item-color-active);
 
       &:focus-visible {
-        box-shadow: var(--focus-box-shadow);
+        box-shadow: var(--in-focus-box-shadow);
       }
     }
   }
@@ -130,7 +130,7 @@
     }
 
     &:focus-visible {
-      box-shadow: var(--focus-box-shadow);
+      box-shadow: var(--in-focus-box-shadow);
       outline: none;
     }
   }
@@ -160,7 +160,7 @@
     }
 
     &:focus-visible {
-      box-shadow: var(--focus-box-shadow);
+      box-shadow: var(--in-focus-box-shadow);
       outline: none;
     }
 
@@ -175,7 +175,7 @@
       border-bottom-color: var(--subnav-item-border-color-active);
 
       &:focus-visible {
-        box-shadow: var(--focus-box-shadow);
+        box-shadow: var(--in-focus-box-shadow);
       }
     }
   }

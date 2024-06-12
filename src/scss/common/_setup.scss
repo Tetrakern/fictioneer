@@ -21,7 +21,7 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
 .story__thumbnail a:focus-visible img,
 .user-is-tabbing .showcase li:focus-within,
 .comment-respond-option-toggle:focus-visible {
-  outline: var(--focus-outline);
+  outline: var(--in-focus-outline);
   outline-offset: var(--focus-offset, 0);
 }
 
@@ -31,7 +31,7 @@ input:is([type=checkbox], [type=radio], [type=range], [type=submit]):focus-visib
   .card__link-list li:has(a:focus-visible),
   .oauth-login-link:has(:focus-visible),
   .follow-item:has(:focus-visible)  {
-    outline: var(--focus-outline);
+    outline: var(--in-focus-outline);
     outline-offset: var(--focus-offset, 0);
   }
 

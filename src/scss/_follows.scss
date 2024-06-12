@@ -130,7 +130,7 @@
   }
 
   .follow-title-link {
-    --focus-outline: none;
+    --in-focus-outline: none;
     color: var(--follow-title-link-color, var(--fg-400));
 
     &:hover {
