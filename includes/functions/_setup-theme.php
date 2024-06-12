@@ -56,8 +56,8 @@ function fictioneer_theme_setup() {
   );
 
   // Register navigation menus
-  register_nav_menu( 'nav_menu', __( 'Navigation' ) );
-  register_nav_menu( 'footer_menu', __( 'Footer Menu' ) );
+  register_nav_menu( 'nav_menu', __( 'Navigation', 'fictioneer' ) );
+  register_nav_menu( 'footer_menu', __( 'Footer Menu', 'fictioneer' ) );
 
   // Switch core markup to valid HTML5 (except 'comment-form' because WP adds novalidate for some reason)
   add_theme_support(
