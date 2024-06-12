@@ -388,3 +388,7 @@ html:not(.logged-in) body:not(.logged-in) .hide-if-logged-out,
 .fg-inverted {
   color: var(--fg-inverted) !important;
 }
+
+.max-site-width {
+  max-width: var(--site-width) !important;
+}
