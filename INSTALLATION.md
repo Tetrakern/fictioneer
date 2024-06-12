@@ -1441,6 +1441,23 @@ Visit [Google Fonts](https://fonts.google.com/) and browse for a font you like. 
 https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap
 ```
 
+### Elementor
+
+If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version, this may not be an option, but you can customize the theme using the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, and `story_header`.
+
+**Notes:**
+
+* The `nav_bar` location also overrides the `nav_menu` location.
+* The default page padding uses the `padding[-top|-right|-bottom|-left]` CSS classes.
+* The position and expected content of the header depend on the Customizer option.
+* You can toggle the mobile menu with a label targeting the `mobile-menu-toggle` ID.
+* The default site with is available in the `--site-width` custom CSS property.
+* The default global Elementor text colors have been overwritten with theme colors.
+* Elementor does not understand the theme’s display modes, colors, or custom HSL settings.
+* Elementor makes your site slower unless you have a good cache plugin.
+* Use the Canvas-type page templates if you want to drastically customize a page.
+* Fictioneer is not meant for site editors; there are many limitations.
+
 ### Constants
 
 Some options are not available in the settings because tempering with them can break the theme or result in unexpected behavior. Those options are defined via constants in the **function.php**. If you want to change them, you need a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) or access to your **wp-config.php**. Just override them in the child theme’s own **function.php** or config, but only if you know what you are doing!
