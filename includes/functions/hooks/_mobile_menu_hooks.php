@@ -257,13 +257,38 @@ add_action( 'fictioneer_mobile_menu_center', 'fictioneer_mobile_chapters_frame',
  */
 
 function fictioneer_mobile_navigation_panel() {
-  if ( ! has_nav_menu( 'nav_menu' ) ) {
-    return;
-  }
-
   // Start HTML ---> ?>
   <nav id="mobile-navigation" class="mobile-navigation mobile-menu__panel"><?php
-    // Cloned from the main navigation via JS
+    if ( has_nav_menu( 'nav_menu' ) ) {
+      $menu = null;
+
+      if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+        $menu = get_transient( 'fictioneer_mobile_nav_menu_html' );
+      }
+
+      if ( empty( $menu ) ) {
+        $menu = wp_nav_menu(
+          array(
+            'theme_location' => 'nav_menu',
+            'menu_class' => 'mobile-navigation__list',
+            'container' => '',
+            'menu_id' => 'mobile-menu-navigation',
+            'items_wrap' => '<ul id="%1$s" data-menu-id="mobile" class="%2$s">%3$s</ul>',
+            'echo' => false
+          )
+        );
+
+        if ( $menu !== false ) {
+          $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
+        }
+
+        if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
+          set_transient( 'fictioneer_mobile_nav_menu_html', $menu );
+        }
+      }
+
+      echo $menu;
+    }
   ?></nav>
   <?php // <--- End HTML
 }

@@ -11,7 +11,6 @@
 
 function fcn_toggleMobileMenu(isOpened) {
   // Clone main navigation into mobile menu
-  fcn_copyNavIntoMobileMenu();
 
   if (_$('.mobile-menu._advanced-mobile-menu')) {
     fcn_toggleAdvancedMobileMenu(isOpened);
@@ -102,27 +101,6 @@ fcn_theSite.addEventListener('click', event => {
     fcn_toggleMobileMenu(false);
   }
 });
-
-/**
- * Copy and adjust navigation to mobile menu.
- *
- * @since 5.4.2
- */
-
-function fcn_copyNavIntoMobileMenu() {
-  const mainMenu = _$('[data-menu-id="main"]');
-  const mobileNav = _$$$('mobile-navigation');
-
-  if (mainMenu && mobileNav && !mobileNav.querySelector('ul')) {
-    const clone = mainMenu.cloneNode(true);
-
-    clone.id = 'mobile-menu-navigation';
-    clone.classList.replace('main-navigation__list', 'mobile-navigation__list');
-    clone.dataset.menuId = 'mobile';
-
-    mobileNav.appendChild(clone);
-  }
-}
 
 // =============================================================================
 // JUMP BUTTONS

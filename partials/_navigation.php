@@ -71,16 +71,14 @@ if ( $header_style === 'wide' ) {
                 'theme_location' => 'nav_menu',
                 'menu_class' => 'main-navigation__list',
                 'container' => '',
-                'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                'menu_id' => 'menu-navigation',
+                'items_wrap' => '<ul id="%1$s" data-menu-id="main" class="%2$s">%3$s</ul>',
                 'echo' => false
               )
             );
 
             if ( $menu !== false ) {
-              $menu = str_replace( 'class="', 'data-menu-id="main" class="', $menu );
-              $menu = str_replace( 'current_page_item', '', $menu );
-              $menu = str_replace( 'current-menu-item', '', $menu );
-              $menu = str_replace( 'aria-current="page"', '', $menu );
+              $menu = str_replace( ['current_page_item', 'current-menu-item', 'aria-current="page"'], '', $menu );
             }
 
             if ( FICTIONEER_ENABLE_MENU_TRANSIENTS ) {
