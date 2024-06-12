@@ -208,60 +208,6 @@ function fictioneer_output_modals( $args ) {
 add_action( 'fictioneer_footer', 'fictioneer_output_modals' );
 
 // =============================================================================
-// OUTPUT BROWSER NOTES
-// =============================================================================
-
-/**
- * Outputs the HTML for the browser notes
- *
- * @since 5.9.1
- */
-
-function fictioneer_browser_notes() {
-  // Setup
-  $notes = [];
-
-  // Catch IE and other garbage!
-  $notes['garbage'] = __( 'Your browser is obsolete, you need to update or switch!', 'fictioneer' );
-
-  // Support for custom properties?
-  $notes['var'] = __( 'Missing var() support!', 'fictioneer' );
-
-  // Support for grid?
-  $notes['grid'] = __( 'Missing grid support!', 'fictioneer' );
-
-  // Support for gap?
-  $notes['gap'] = __( 'Missing (flex-) gap support!', 'fictioneer' );
-
-  // Support for aspect-ratio?
-  $notes['aspect-ratio'] = __( 'Missing aspect-ratio support!', 'fictioneer' );
-
-  // Support for container queries?
-  $notes['container-queries'] = __( 'Missing container query support!', 'fictioneer' );
-
-  // Support for clamp?
-  $notes['clamp'] = __( 'Missing clamp() support!', 'fictioneer' );
-
-  // Support for -webkit-line-clamp?
-  $notes['line-clamp'] = __( 'Missing -webkit-line-clamp support!', 'fictioneer' );
-
-  // Format output
-  array_walk( $notes, function( &$value, $key ) {
-    $value = '<span class="browser-notes__note browser-notes__' . $key . '">' . $value . '</span>';
-  });
-
-  // Start HTML ---> ?>
-  <div id="browser-notes" class="browser-notes">
-    <strong><?php _e( 'Please update your browser:', 'fictioneer' ); ?></strong>
-    <?php echo implode( ' ', $notes ); ?></div>
-  <?php // <--- End HTML
-}
-
-if ( FICTIONEER_ENABLE_BROWSER_NOTES ) {
-  add_action( 'fictioneer_site', 'fictioneer_browser_notes', 1 );
-}
-
-// =============================================================================
 // OUTPUT NAVIGATION BAR
 // =============================================================================
 
