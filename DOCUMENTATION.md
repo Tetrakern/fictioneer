@@ -1133,6 +1133,27 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 
 ![Showcase](repo/assets/shortcode_example_showcase.jpg?raw=true)
 
+## Elementor
+
+If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version, this may not be an option, but you can customize the theme using the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, and `story_header`.
+
+**Notes:**
+
+* The `nav_bar` location also overwrites the `nav_menu` location.
+* Trying to overwrite the default navigation is generally a poor life choice.
+* Use the `padding-[top|right|bottom|left]` CSS classes to apply theme page padding.
+* Use the `bg-[50|100|200|...|800|900|950]` CSS classes to force theme background colors.
+* Use the `fg-[100|200|...|800|900|950]` CSS classes to force theme text colors.
+* Some of the [content utility CSS classes](#additional-css-classes) will also work for Elementor.
+* You can toggle the mobile menu with a label targeting the `mobile-menu-toggle` ID.
+* The position and expected content of the header depend on your Customizer choices.
+* The default site with is stored in the `--site-width` custom CSS property.
+* The global Elementor text colors have been overwritten with theme colors.
+* Elementor does not understand the theme’s display modes, colors, or HSL settings.
+* Elementor makes your site slower unless you have a good cache plugin.
+* Use the Canvas-type page templates if you want to drastically customize a page.
+* Fictioneer is not meant for site editors; there are many limitations.
+
 ## Images & Media
 
 You can upload images and other media either in the Media Library or directly via drag-and-drop into the editor, as explained in the [official documentation](https://wordpress.org/support/article/media-library-screen/). Make sure to scale and compress your images, because 20 MB of header art will slow down your site to a crawl. There is not much else to add except for one vital concept many new website owners are unaware of: **never hotlink images** unless you have explicit permission. Normal links that need to be clicked are fine.
