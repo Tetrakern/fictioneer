@@ -1,21 +1,25 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
-:root.page-style-polygon-chamfered:not(.minimal) .main__background {
-  filter: var(--page-drop-shadow);
+:root.page-style-polygon-chamfered:not(.minimal) {
+  --m: #{get_clamp(6, 12, 320, 768)};
+  --page-polygon: polygon(
+    0% var(--m),
+    var(--m) 0%,
+    calc(100% - var(--m)) 0%,
+    100% var(--m),
+    100% calc(100% - var(--m)),
+    calc(100% - var(--m)) 100%,
+    var(--m) 100%,
+    0% calc(100% - var(--m))
+  );
 
-  &::before {
-    --m: #{get_clamp(6, 12, 320, 768)};
+  .main__background {
+    filter: var(--page-drop-shadow);
 
-    clip-path: polygon(
-      0% var(--m),
-      var(--m) 0%,
-      calc(100% - var(--m)) 0%,
-      100% var(--m),
-      100% calc(100% - var(--m)),
-      calc(100% - var(--m)) 100%,
-      var(--m) 100%,
-      0% calc(100% - var(--m))
-    );
+    &::before {
+      clip-path: var(--page-polygon);
+    }
   }
+
 }

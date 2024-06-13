@@ -1154,13 +1154,17 @@ If you have the Elementor plugin installed, consider using the [Fictioneer 002 E
 **Notes:**
 
 * The `nav_bar` location also overwrites the `nav_menu` location.
-* Trying to overwrite the default navigation is generally a poor life choice.
+* Trying to overwrite the default navigation is generally a poor life choice, but you do you.
 * Use the `padding-[top|right|bottom|left]` CSS classes to apply theme page padding.
 * Use the `bg-[50|100|200|...|800|900|950]` CSS classes to force theme background colors.
 * Use the `fg-[100|200|...|800|900|950]` CSS classes to force theme text colors.
 * Use the `max-site-width` CSS classes to apply the theme’s max site width.
+* Use the `page-polygon` CSS class to apply the page clip-path chosen in the Customizer.
+* Use the `header-polygon` CSS class to apply the header clip-path chosen in the Customizer.
+* Both `page-polygon` and `header-polygon` do not work for mask styles (grunge, ringbook, etc.).
 * Some of the [content utility CSS classes](#additional-css-classes) will also work for Elementor.
 * You can toggle the mobile menu with a label targeting the `mobile-menu-toggle` ID.
+* You can select the theme fonts in Elementor, grouped under "Fictioneer".
 * The position and expected content of the header depend on your Customizer choices.
 * The global Elementor text colors have been overwritten with theme colors.
 * Elementor does not understand the theme’s display modes, colors, or HSL settings.

@@ -392,3 +392,11 @@ html:not(.logged-in) body:not(.logged-in) .hide-if-logged-out,
 .max-site-width {
   max-width: var(--site-width) !important;
 }
+
+.page-polygon {
+  clip-path: var(--page-polygon);
+}
+
+.header-polygon {
+  clip-path: var(--header-polygon);
+}

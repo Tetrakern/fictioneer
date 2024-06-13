@@ -2,22 +2,24 @@
 @import '../common/_mixins';
 
 :root.header-image-style-polygon-chamfered {
+  --m: #{get_clamp(6, 12, 320, 768)};
+  --header-polygon: polygon(
+    0% var(--m),
+    var(--m) 0%,
+    calc(100% - var(--m)) 0%,
+    100% var(--m),
+    100% calc(100% - var(--m)),
+    calc(100% - var(--m)) 100%,
+    var(--m) 100%,
+    0% calc(100% - var(--m))
+  );
+
   .header-background {
     border-radius: 0 !important;
 
     &__wrapper {
-      --m: #{get_clamp(6, 12, 320, 768)};
       border-radius: 0 !important;
-      clip-path: polygon(
-        0% var(--m),
-        var(--m) 0%,
-        calc(100% - var(--m)) 0%,
-        100% var(--m),
-        100% calc(100% - var(--m)),
-        calc(100% - var(--m)) 100%,
-        var(--m) 100%,
-        0% calc(100% - var(--m))
-      );
+      clip-path: var(--header-polygon);
 
       @include bp(tablet) {
         margin-left: 4px;

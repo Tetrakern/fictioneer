@@ -1,21 +1,28 @@
 @import '../common/_functions';
 @import '../common/_mixins';
 
-:root.page-style-polygon-battered:not(.minimal) .main__background {
-  filter: var(--page-drop-shadow);
+:root.page-style-polygon-battered:not(.minimal) {
+  --page-polygon: var(--polygon-battered-half);
 
-  &::before {
-    clip-path: var(--polygon-battered-half);
+  @include bp(tablet) {
+    --page-polygon: var(--polygon-battered);
+  }
 
-    @include bp(tablet) {
-      left: 4px;
-      right: 4px;
-      clip-path: var(--polygon-battered);
-    }
+  .main__background {
+    filter: var(--page-drop-shadow);
 
-    @include bp(desktop) {
-      left: 0;
-      right: 0;
+    &::before {
+      clip-path: var(--page-polygon);
+
+      @include bp(tablet) {
+        left: 4px;
+        right: 4px;
+      }
+
+      @include bp(desktop) {
+        left: 0;
+        right: 0;
+      }
     }
   }
 }
