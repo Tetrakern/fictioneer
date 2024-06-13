@@ -859,7 +859,7 @@ html:not(.logged-in) body:not(.logged-in) {
 }
 
 // Specific style resets
-.sidebar {
+:is(.sidebar, .elementor) {
   :where(ul, ol) {
     list-style: initial;
   }
