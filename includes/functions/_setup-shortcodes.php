@@ -2083,3 +2083,32 @@ function fictioneer_shortcode_font_awesome( $attr ) {
   return "<i class='{$classes}'></i>";
 }
 add_shortcode( 'fictioneer_fa', 'fictioneer_shortcode_font_awesome' );
+
+// =============================================================================
+// SIDEBAR SHORTCODE
+// =============================================================================
+
+/**
+ * Shortcode to show sidebar
+ *
+ * @since 5.20.0
+ *
+ * @param string|null $attr['name']  Optional. Name of the sidebar. Default 'fictioneer_sidebar'.
+ *
+ * @return string The captured shortcode HTML.
+ */
+
+function fictioneer_shortcode_sidebar( $attr ) {
+  // Setup
+  $name = sanitize_text_field( $attr['name'] ?? '' ) ?: 'fictioneer-sidebar';
+
+  // Buffer
+  ob_start();
+
+  // Output sidebar
+  get_sidebar( $name );
+
+  // Capture and return buffer
+  return ob_get_clean();
+}
+add_shortcode( 'fictioneer_sidebar', 'fictioneer_shortcode_sidebar' );

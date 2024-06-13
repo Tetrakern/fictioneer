@@ -177,7 +177,7 @@ function fictioneer_get_theme_info() {
 }
 
 /**
- * Registers (dummy) sidebar
+ * Registers sidebar
  *
  * @since 5.20.0
  */
@@ -187,9 +187,9 @@ function fictioneer_register_sidebar() {
     array(
       'name' => __( 'Fictioneer Sidebar', 'fictioneer' ),
       'id' => 'fictioneer-sidebar',
-      'description' => __( 'For custom templates. Not used by the default theme.', 'fictioneer' ),
-      'before_widget' => '<li id="%1$s" class="widget %2$s">',
-      'after_widget' => '</li>',
+      'description' => __( 'This sidebar is not rendered by default and has no styles. It is meant to be inserted with the <code>[fictioneer_sidebar]</code> shortcode or a custom call. It can also be rendered with the Elementor plugin.', 'fictioneer' ),
+      'before_widget' => '<div id="%1$s" class="widget %2$s">',
+      'after_widget' => '</div>',
       'before_title' => '<h2 class="widgettitle">',
       'after_title' => '</h2>'
     )
