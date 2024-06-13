@@ -1135,7 +1135,7 @@ Renders dynamic grid of thumbnails with title, showing the latest eight posts of
 
 ### Sidebar
 
-Renders the theme sidebar (not displayed anywhere by default). Requires the "Disable all widgets" theme setting to be off.
+Renders the theme sidebar (not displayed anywhere by default). Requires the "Disable all widgets" theme setting to be off. Note that the sidebar has next to no styling.
 
 * **name:** Name of the sidebar in case you add some. Default `fictioneer-sidebar`.
 
