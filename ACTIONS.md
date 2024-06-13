@@ -676,6 +676,9 @@ Fires before the content of the card grid is rendered in the `partials/_card-sto
 ### `do_action( 'fictioneer_main' )`
 Fires after opening the site’s `<main>` container, right after the `.main-observer` element.
 
+**Hooked Actions:**
+* `fictioneer_page_background()` – Renders the page background. Priority 10.
+
 ---
 
 ### `do_action( 'fictioneer_main_wrapper' )`

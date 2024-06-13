@@ -68,10 +68,13 @@ get_header();
 ?>
 
 <main id="main" class="main search-results">
+
   <div class="observer main-observer"></div>
+
   <?php do_action( 'fictioneer_main' ); ?>
-  <div class="main__background polygon polygon--main background-texture"></div>
+
   <div class="main__wrapper">
+
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
 
     <article id="search-results" class="search-results__article padding-left padding-right padding-top padding-bottom">

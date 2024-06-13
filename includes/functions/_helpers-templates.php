@@ -2043,3 +2043,24 @@ function fictioneer_get_story_changelog( $story_id ) {
   // Return
   return $changelog;
 }
+
+// =============================================================================
+// PAGE BACKGROUND
+// =============================================================================
+
+/**
+ * Render the page background element
+ *
+ * Note: The page background is a separate element, absolute positioned under the
+ * actual content. This allows for quite some CSS shenanigans and can improve the
+ * render performance in certain scenarios. Hooked to 'fictioneer_main' action.
+ *
+ * @since 5.20.0
+ */
+
+function fictioneer_page_background() {
+  $background = '<div class="main__background polygon polygon--main background-texture"></div>';
+
+  echo apply_filters( 'fictioneer_filter_page_background', $background );
+}
+add_action( 'fictioneer_main', 'fictioneer_page_background' );

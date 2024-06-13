@@ -726,6 +726,14 @@ Filters the obfuscation string generated for chapter spoilers and protected post
 
 ---
 
+### `apply_filters( 'fictioneer_filter_page_background', $html )`
+Filters the HTML of the page background element, which is absolute positioned under the actual content.
+
+**Parameters:**
+* $html (string) – The HTML element of the page background.
+
+---
+
 ### `apply_filters( 'fictioneer_filter_page_card_footer', $footer_items, $post, $args )`
 Filters the intermediate output array in the `_card-page.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing date, and comments.
 

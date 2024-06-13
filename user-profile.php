@@ -66,8 +66,6 @@ get_header( null, array( 'type' => 'user-profile', 'no_index' => 1 ) );
 
   <?php do_action( 'fictioneer_main' ); ?>
 
-  <div class="main__background polygon polygon--main background-texture"></div>
-
   <div class="main__wrapper">
 
     <?php do_action( 'fictioneer_main_wrapper' ); ?>
