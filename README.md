@@ -33,6 +33,8 @@ stories, chapters, collections, and recommendations &bull; customizable web read
 * [CSS snippets](INSTALLATION.md#css-snippets)
 * [PHP action & filter snippets](CUSTOMIZE.md)
 
+Since 5.20.0, the theme is compatible with the [Elementor](https://elementor.com/) page/site builder plugin. This allows you to customize parts of the theme without programming skills, although a bit knowledge about HTML and CSS is recommended. Read more about the Elementor implementation in the [documentation](https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md#elementor).
+
 ## Commissions
 
 I do take commissions for customizations and new features, *within reason.* Just write me on Discord, and we can figure out what is feasible. However, keep in mind that any feature you pay for may be added to the theme for everyone to enjoy. Several features have already been sponsored this way. Sharing is caring.<sup>*</sup>
