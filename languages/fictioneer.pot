@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-11 11:45+0000\n"
+"POT-Creation-Date: 2024-06-13 18:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -553,7 +553,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1557
+#: includes/functions/_setup-theme.php:1608
 #: includes/functions/users/_admin_profile.php:207
 msgid "Account already linked to another profile."
 msgstr ""
@@ -563,7 +563,7 @@ msgstr ""
 msgid "Account Bindings"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1559
+#: includes/functions/_setup-theme.php:1610
 msgid "Account has been successfully linked."
 msgstr ""
 
@@ -585,7 +585,7 @@ msgid ""
 "0."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1496
+#: includes/functions/_setup-theme.php:1547
 msgid "Add Chapter"
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr ""
 msgid "Advanced Capabilities"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:709
+#: includes/functions/hooks/_general_hooks.php:678
 msgctxt "Advanced search heading."
 msgid "Age Rating"
 msgstr ""
@@ -846,12 +846,12 @@ msgctxt "Advanced search heading."
 msgid "Match"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:799
+#: includes/functions/hooks/_general_hooks.php:768
 msgctxt "Advanced search heading."
 msgid "Max Words"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:768
+#: includes/functions/hooks/_general_hooks.php:737
 msgctxt "Advanced search heading."
 msgid "Min Words"
 msgstr ""
@@ -866,7 +866,7 @@ msgctxt "Advanced search heading."
 msgid "Sort"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:741
+#: includes/functions/hooks/_general_hooks.php:710
 msgctxt "Advanced search heading."
 msgid "Status"
 msgstr ""
@@ -903,64 +903,64 @@ msgctxt "Advanced search operator."
 msgid "OR"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:740
 #: includes/functions/hooks/_general_hooks.php:771
-#: includes/functions/hooks/_general_hooks.php:802
 msgctxt "Advanced search option."
 msgid "1,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:748
 #: includes/functions/hooks/_general_hooks.php:779
-#: includes/functions/hooks/_general_hooks.php:810
 msgctxt "Advanced search option."
 msgid "1,000,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:742
 #: includes/functions/hooks/_general_hooks.php:773
-#: includes/functions/hooks/_general_hooks.php:804
 msgctxt "Advanced search option."
 msgid "10,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:745
 #: includes/functions/hooks/_general_hooks.php:776
-#: includes/functions/hooks/_general_hooks.php:807
 msgctxt "Advanced search option."
 msgid "100,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:743
 #: includes/functions/hooks/_general_hooks.php:774
-#: includes/functions/hooks/_general_hooks.php:805
 msgctxt "Advanced search option."
 msgid "25,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:746
 #: includes/functions/hooks/_general_hooks.php:777
-#: includes/functions/hooks/_general_hooks.php:808
 msgctxt "Advanced search option."
 msgid "250,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:741
 #: includes/functions/hooks/_general_hooks.php:772
-#: includes/functions/hooks/_general_hooks.php:803
 msgctxt "Advanced search option."
 msgid "5,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:744
 #: includes/functions/hooks/_general_hooks.php:775
-#: includes/functions/hooks/_general_hooks.php:806
 msgctxt "Advanced search option."
 msgid "50,000 Words"
 msgstr ""
 
+#: includes/functions/hooks/_general_hooks.php:747
 #: includes/functions/hooks/_general_hooks.php:778
-#: includes/functions/hooks/_general_hooks.php:809
 msgctxt "Advanced search option."
 msgid "500,000 Words"
 msgstr ""
 
 #: searchform.php:161 searchform.php:216 searchform.php:223 searchform.php:231
 #: searchform.php:240 searchform.php:324
-#: includes/functions/hooks/_general_hooks.php:711
-#: includes/functions/hooks/_general_hooks.php:743
+#: includes/functions/hooks/_general_hooks.php:680
+#: includes/functions/hooks/_general_hooks.php:712
 msgctxt "Advanced search option."
 msgid "Any"
 msgstr ""
@@ -990,12 +990,12 @@ msgctxt "Advanced search option."
 msgid "Keywords"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:801
+#: includes/functions/hooks/_general_hooks.php:770
 msgctxt "Advanced search option."
 msgid "Maximum"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:770
+#: includes/functions/hooks/_general_hooks.php:739
 msgctxt "Advanced search option."
 msgid "Minimum"
 msgstr ""
@@ -1331,7 +1331,7 @@ msgstr ""
 msgid "All Genres"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:515
+#: includes/functions/hooks/_general_hooks.php:484
 msgid "All Posts"
 msgstr ""
 
@@ -1425,7 +1425,7 @@ msgstr ""
 msgid "Any"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:572
+#: includes/functions/hooks/_general_hooks.php:541
 msgid "Any Date"
 msgstr ""
 
@@ -1516,7 +1516,7 @@ msgid ""
 "Subscribers. Enter %s to confirm."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1205
+#: includes/functions/_setup-theme.php:1234
 msgid "Are you sure?"
 msgstr ""
 
@@ -1750,7 +1750,7 @@ msgctxt "Blog page name, mainly used in breadcrumbs."
 msgid "Blog"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:519
+#: includes/functions/hooks/_general_hooks.php:488
 msgid "Blog Posts"
 msgstr ""
 
@@ -1870,6 +1870,21 @@ msgstr ""
 #: includes/functions/_utility.php:1791
 msgctxt "Canceled story status"
 msgid "Canceled"
+msgstr ""
+
+#. Name of the template
+#: singular-canvas-main.php:2
+msgid "Canvas (Main)"
+msgstr ""
+
+#. Name of the template
+#: singular-canvas-page.php:2
+msgid "Canvas (Page)"
+msgstr ""
+
+#. Name of the template
+#: singular-canvas-site.php:2
+msgid "Canvas (Site)"
 msgstr ""
 
 #: includes/functions/_setup-admin.php:806
@@ -2978,8 +2993,8 @@ msgstr ""
 #: partials/_latest-updates.php:378 partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:185
 #: includes/functions/settings/_settings_page_epubs.php:82
-#: includes/functions/hooks/_mobile_menu_hooks.php:292
-#: includes/functions/hooks/_general_hooks.php:527
+#: includes/functions/hooks/_mobile_menu_hooks.php:320
+#: includes/functions/hooks/_general_hooks.php:496
 msgid "Chapters"
 msgstr ""
 
@@ -3026,7 +3041,7 @@ msgstr ""
 msgid "Checkmarks could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1549
+#: includes/functions/_setup-theme.php:1600
 msgid "Checkmarks re-synchronized."
 msgstr ""
 
@@ -3121,7 +3136,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: footer.php:81
+#: footer.php:85
 msgid "Close lightbox"
 msgstr ""
 
@@ -3194,7 +3209,7 @@ msgstr ""
 #. Name of the template
 #: collections.php:2 collections.php:71
 #: includes/functions/_setup-types-and-terms.php:331
-#: includes/functions/hooks/_general_hooks.php:531
+#: includes/functions/hooks/_general_hooks.php:500
 msgid "Collections"
 msgstr ""
 
@@ -3663,7 +3678,7 @@ msgid ""
 "leave the site."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1555
+#: includes/functions/_setup-theme.php:1606
 msgid "Copied to clipboard!"
 msgstr ""
 
@@ -3699,7 +3714,7 @@ msgstr ""
 msgid "Current status of the story."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:636
+#: includes/functions/hooks/_general_hooks.php:605
 msgid "Custom"
 msgstr ""
 
@@ -4717,7 +4732,7 @@ msgstr ""
 #: includes/functions/_helpers-templates.php:1550
 #: includes/functions/_module-oauth.php:150
 #: includes/functions/settings/_settings_page_connections.php:30
-#: includes/functions/hooks/_mobile_menu_hooks.php:371
+#: includes/functions/hooks/_mobile_menu_hooks.php:399
 msgid "Discord"
 msgstr ""
 
@@ -4993,6 +5008,26 @@ msgstr ""
 
 #: includes/functions/settings/_settings_actions.php:118
 msgid "Editor capabilities have been updated."
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1876
+msgctxt "Elementor color override hint."
+msgid "(--fg-300)"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1888
+msgctxt "Elementor color override hint."
+msgid "(--fg-500)"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1900
+msgctxt "Elementor color override hint."
+msgid "(--fg-700)"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1864
+msgctxt "Elementor color override hint."
+msgid "(--primary-500)"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:4159
@@ -5459,7 +5494,8 @@ msgid "Features"
 msgstr ""
 
 #. Name of the theme
-#: includes/functions/_setup-theme.php:1690
+#: includes/functions/_setup-theme.php:1741
+#: includes/functions/_setup-theme.php:1929
 #: includes/functions/settings/_settings.php:32
 #: includes/functions/settings/_settings.php:262
 #: includes/functions/users/_admin_profile.php:270
@@ -5474,13 +5510,17 @@ msgstr ""
 msgid "Fictioneer Settings"
 msgstr ""
 
+#: includes/functions/_setup-theme.php:188
+msgid "Fictioneer Sidebar"
+msgstr ""
+
 #: includes/functions/_helpers-templates.php:475
 #, php-format
 msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1693
+#: includes/functions/_setup-theme.php:1744
 msgid "Fictioneer Theme Settings"
 msgstr ""
 
@@ -5598,7 +5638,7 @@ msgstr ""
 msgid "Follows could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1551
+#: includes/functions/_setup-theme.php:1602
 msgid "Follows re-synchronized."
 msgstr ""
 
@@ -5690,6 +5730,10 @@ msgid ""
 "turn that off."
 msgstr ""
 
+#: includes/functions/_setup-theme.php:60
+msgid "Footer Menu"
+msgstr ""
+
 #: includes/functions/_customizer-settings.php:1714
 msgid "Footer Style"
 msgstr ""
@@ -5771,7 +5815,7 @@ msgstr ""
 msgid "Generic donation link"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1548
+#: includes/functions/_setup-theme.php:1599
 msgctxt "Generic error notification."
 msgid "Error"
 msgstr ""
@@ -6638,7 +6682,7 @@ msgstr ""
 msgid "Limit comments to [n] link(s) or less"
 msgstr ""
 
-#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1554
+#: partials/_modal-sharing.php:73 includes/functions/_setup-theme.php:1605
 msgid "Link copied to clipboard!"
 msgstr ""
 
@@ -6749,7 +6793,7 @@ msgctxt "Login modal heading."
 msgid "Login"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:866
+#: includes/functions/hooks/_general_hooks.php:835
 msgid "Login/Register"
 msgstr ""
 
@@ -6797,7 +6841,7 @@ msgid ""
 "in faucibus."
 msgstr ""
 
-#: partials/_navigation.php:59
+#: partials/_navigation.php:62
 msgid "Main Navigation"
 msgstr ""
 
@@ -7036,14 +7080,6 @@ msgstr ""
 msgid "Minutes a comment can be edited"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:233
-msgid "Missing (flex-) gap support!"
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:245
-msgid "Missing -webkit-line-clamp support!"
-msgstr ""
-
 #: includes/functions/comments/_comments_moderation.php:522
 #: includes/functions/comments/_comments_moderation.php:633
 #: includes/functions/users/_follows.php:73
@@ -7051,22 +7087,6 @@ msgstr ""
 #: includes/functions/users/_checkmarks.php:134
 #: includes/functions/users/_reminders.php:68
 msgid "Missing arguments."
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:236
-msgid "Missing aspect-ratio support!"
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:242
-msgid "Missing clamp() support!"
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:239
-msgid "Missing container query support!"
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:230
-msgid "Missing grid support!"
 msgstr ""
 
 #: includes/functions/comments/_comments_ajax.php:34
@@ -7077,17 +7097,17 @@ msgstr ""
 msgid "Missing or invalid ID. Comments could not be loaded."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:227
-msgid "Missing var() support!"
-msgstr ""
-
-#: partials/_navigation.php:56
+#: partials/_navigation.php:59
 msgctxt "Mobile menu label"
 msgid "Menu"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1564
 msgid "Mobile Menu Style"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1789
+msgid "Mobile Navigation Menu"
 msgstr ""
 
 #: includes/functions/_customizer-settings.php:1539
@@ -7231,8 +7251,20 @@ msgstr ""
 msgid "Name *"
 msgstr ""
 
+#: includes/functions/_setup-theme.php:59
+msgid "Navigation"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1771
+msgid "Navigation Bar"
+msgstr ""
+
 #: includes/functions/_customizer-settings.php:2482
 msgid "Navigation Item Font"
+msgstr ""
+
+#: includes/functions/_setup-theme.php:1780
+msgid "Navigation Menu"
 msgstr ""
 
 #: partials/_card-story.php:185
@@ -7381,7 +7413,7 @@ msgid "No recommendations published yet."
 msgstr ""
 
 #: includes/functions/_helpers-query.php:44
-#: includes/functions/hooks/_general_hooks.php:835
+#: includes/functions/hooks/_general_hooks.php:804
 msgid "No results."
 msgstr ""
 
@@ -7594,7 +7626,7 @@ msgstr ""
 msgid "Optional, leave empty to hide."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:638
+#: includes/functions/hooks/_general_hooks.php:607
 msgid "Order By"
 msgstr ""
 
@@ -7654,7 +7686,7 @@ msgstr ""
 msgid "Page Style"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1546
+#: includes/functions/_setup-theme.php:1597
 msgctxt "Pagination jump prompt."
 msgid "Enter page number:"
 msgstr ""
@@ -7747,36 +7779,36 @@ msgstr ""
 msgid "Password required. Comments could not be loaded."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:655
+#: includes/functions/hooks/_general_hooks.php:624
 #, php-format
 msgid "Past %s Days"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:576
+#: includes/functions/hooks/_general_hooks.php:545
 msgid "Past 24 Hours"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:580
+#: includes/functions/hooks/_general_hooks.php:549
 msgid "Past 3 Days"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:592
+#: includes/functions/hooks/_general_hooks.php:561
 msgid "Past 3 Months"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:596
+#: includes/functions/hooks/_general_hooks.php:565
 msgid "Past 6 Months"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:588
+#: includes/functions/hooks/_general_hooks.php:557
 msgid "Past Month"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:584
+#: includes/functions/hooks/_general_hooks.php:553
 msgid "Past Week"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:600
+#: includes/functions/hooks/_general_hooks.php:569
 msgid "Past Year"
 msgstr ""
 
@@ -8003,16 +8035,12 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:824
+#: includes/functions/hooks/_general_hooks.php:793
 msgid "Please enter search parameters."
 msgstr ""
 
 #: includes/functions/_setup-shortcodes.php:1249
 msgid "Please enter your message."
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:254
-msgid "Please update your browser:"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:3277
@@ -8042,7 +8070,7 @@ msgstr ""
 msgid "Post relationship registry reset."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:623
+#: includes/functions/hooks/_general_hooks.php:592
 msgid "Post Type"
 msgstr ""
 
@@ -8315,7 +8343,7 @@ msgstr ""
 msgid "Quick buttons to wrap text selection in BBCodes."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1553
+#: includes/functions/_setup-theme.php:1604
 msgid ""
 "Quote appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -8331,7 +8359,7 @@ msgctxt "Rate for text-to-speech voice."
 msgid "Rate"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1547
+#: includes/functions/_setup-theme.php:1598
 msgctxt "Rate limit reached notification."
 msgid "Slow down."
 msgstr ""
@@ -8434,7 +8462,7 @@ msgstr ""
 #. Name of the template
 #: recommendations.php:2 recommendations.php:71 author.php:68
 #: single-fcn_recommendation.php:99
-#: includes/functions/hooks/_general_hooks.php:535
+#: includes/functions/hooks/_general_hooks.php:504
 msgid "Recommendations"
 msgstr ""
 
@@ -8514,7 +8542,7 @@ msgstr ""
 msgid "Reminders could not be cleared."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1550
+#: includes/functions/_setup-theme.php:1601
 msgid "Reminders re-synchronized."
 msgstr ""
 
@@ -8914,7 +8942,7 @@ msgstr ""
 msgid "Scrolling (sticky) navigation bar"
 msgstr ""
 
-#: search.php:93 includes/functions/hooks/_mobile_menu_hooks.php:358
+#: search.php:93 includes/functions/hooks/_mobile_menu_hooks.php:386
 msgid "Search"
 msgstr ""
 
@@ -9570,22 +9598,22 @@ msgid ""
 "depends on the browser and OS."
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:550
+#: includes/functions/hooks/_general_hooks.php:519
 msgctxt "Sort and filter option."
 msgid "Published"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:554
+#: includes/functions/hooks/_general_hooks.php:523
 msgctxt "Sort and filter option."
 msgid "Title"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:546
+#: includes/functions/hooks/_general_hooks.php:515
 msgctxt "Sort and filter option."
 msgid "Updated"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:561
+#: includes/functions/hooks/_general_hooks.php:530
 msgctxt "Sort and filter option."
 msgid "Words"
 msgstr ""
@@ -9658,7 +9686,7 @@ msgstr ""
 #: stories.php:118 author.php:38 author.php:141 single-fcn_chapter.php:249
 #: partials/_card-collection.php:199 partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:116
-#: includes/functions/hooks/_general_hooks.php:523
+#: includes/functions/hooks/_general_hooks.php:492
 #: includes/functions/hooks/_story_hooks.php:33
 msgid "Stories"
 msgstr ""
@@ -9851,6 +9879,10 @@ msgctxt "Story global note meta field label."
 msgid "Global Note"
 msgstr ""
 
+#: includes/functions/_setup-theme.php:1798
+msgid "Story Header"
+msgstr ""
+
 #: includes/functions/settings/_settings_page_tools.php:207
 msgid "Story Hidden"
 msgstr ""
@@ -9896,7 +9928,7 @@ msgstr ""
 msgid "Story Page Cover Position"
 msgstr ""
 
-#: partials/_story-header.php:74
+#: partials/_story-header.php:80
 #, php-format
 msgctxt "Story page: by {Author(s)}"
 msgid "by %s"
@@ -10043,7 +10075,7 @@ msgstr ""
 msgid "Suggest color-coded text changes in the comments."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1552
+#: includes/functions/_setup-theme.php:1603
 msgid ""
 "Suggestion appended to comment!<br><a style=\"font-weight: 700;\" "
 "href=\"#comments\">Go to comment section.</a>"
@@ -10282,7 +10314,7 @@ msgid ""
 "The full short description is passed to the Storygraph API."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1556
+#: includes/functions/_setup-theme.php:1607
 msgid ""
 "The associated email address is already taken. You can link additional "
 "accounts in your profile."
@@ -10447,6 +10479,13 @@ msgstr ""
 msgid "This role cannot be renamed."
 msgstr ""
 
+#: includes/functions/_setup-theme.php:190
+msgid ""
+"This sidebar is not rendered by default and has no styles. It is meant to be "
+"inserted with the <code>[fictioneer_sidebar]</code> shortcode or a custom "
+"call. It can also be rendered with the Elementor plugin."
+msgstr ""
+
 #: partials/_modal-age.php:37
 #: includes/functions/settings/_settings_page_phrases.php:116
 msgid ""
@@ -10475,7 +10514,7 @@ msgctxt "Thumbnail link title"
 msgid "Link to %s"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:662
+#: includes/functions/hooks/_general_hooks.php:631
 msgid "Time Range"
 msgstr ""
 
@@ -10484,7 +10523,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:673
+#: includes/functions/hooks/_general_hooks.php:642
 #: includes/functions/hooks/_story_hooks.php:346
 msgid "Toggle between ascending and descending order"
 msgstr ""
@@ -10632,7 +10671,7 @@ msgctxt "Undefined recommendation author."
 msgid "Undefined"
 msgstr ""
 
-#: includes/functions/hooks/_general_hooks.php:621
+#: includes/functions/hooks/_general_hooks.php:590
 msgid "Unknown"
 msgstr ""
 
@@ -11394,14 +11433,10 @@ msgid ""
 "You must be <label for=\"modal-login-toggle\">logged in</label> to comment."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1558
+#: includes/functions/_setup-theme.php:1609
 msgid ""
 "Your account has been successfully linked. <strong>Hint:</strong> You can "
 "change your display name in your profile and link additional accounts."
-msgstr ""
-
-#: includes/functions/hooks/_general_hooks.php:224
-msgid "Your browser is obsolete, you need to update or switch!"
 msgstr ""
 
 #: partials/account/_profile.php:83
