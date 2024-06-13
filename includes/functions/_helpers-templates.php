@@ -2056,11 +2056,20 @@ function fictioneer_get_story_changelog( $story_id ) {
  * render performance in certain scenarios. Hooked to 'fictioneer_main' action.
  *
  * @since 5.20.0
+ *
+ * @param string|null $context  Optional. Context of the function call.
  */
 
-function fictioneer_page_background() {
+function fictioneer_page_background( $context = null ) {
+  // Setup
   $background = '<div class="main__background polygon polygon--main background-texture"></div>';
 
+  // Chapter?
+  if ( $context === 'chapter' ) {
+    $background = '<div class="main__background chapter__background polygon polygon--main background-texture"></div>';
+  }
+
+  // Render
   echo apply_filters( 'fictioneer_filter_page_background', $background );
 }
 add_action( 'fictioneer_main', 'fictioneer_page_background' );

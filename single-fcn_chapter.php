@@ -34,9 +34,7 @@ get_header(
 
   <div class="observer main-observer"></div>
 
-  <?php do_action( 'fictioneer_main' ); ?>
-
-  <div class="main__background chapter__background polygon polygon--main background-texture"></div>
+  <?php do_action( 'fictioneer_main', 'chapter' ); ?>
 
   <div class="main__wrapper">
 

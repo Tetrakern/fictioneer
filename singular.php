@@ -21,7 +21,7 @@ get_header();
 
   <div class="observer main-observer"></div>
 
-  <?php do_action( 'fictioneer_main' ); ?>
+  <?php do_action( 'fictioneer_main', 'singular' ); ?>
 
   <div class="main__wrapper">
 

@@ -80,7 +80,7 @@ reset( $sorted_stories );
 
   <div class="observer main-observer"></div>
 
-  <?php do_action( 'fictioneer_main' ); ?>
+  <?php do_action( 'fictioneer_main', 'singular-index-advanced' ); ?>
 
   <div class="main__wrapper">
 

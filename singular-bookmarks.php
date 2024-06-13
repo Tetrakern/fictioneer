@@ -28,7 +28,7 @@ get_header( null, array( 'no_index' => 1 ) );
 
   <div class="observer main-observer"></div>
 
-  <?php do_action( 'fictioneer_main' ); ?>
+  <?php do_action( 'fictioneer_main', 'singular-bookmarks' ); ?>
 
   <div class="main__wrapper">
 
