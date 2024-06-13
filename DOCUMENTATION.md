@@ -1158,12 +1158,12 @@ If you have the Elementor plugin installed, consider using the [Fictioneer 002 E
 * Use the `padding-[top|right|bottom|left]` CSS classes to apply theme page padding.
 * Use the `bg-[50|100|200|...|800|900|950]` CSS classes to force theme background colors.
 * Use the `fg-[100|200|...|800|900|950]` CSS classes to force theme text colors.
-* Use the `max-site-width` CSS classes to apply the theme’s max site width.
-* Use the `page-polygon` CSS class to apply the page clip-path chosen in the Customizer.
-* Use the `header-polygon` CSS class to apply the header clip-path chosen in the Customizer.
-* Both `page-polygon` and `header-polygon` do not work for mask styles (grunge, ringbook, etc.).
+* Use the `max-site-width` CSS class to apply the theme’s max site width.
+* Use the `page-polygon` CSS class to apply the page clip-path chosen in the Customizer (if any).
+* Use the `header-polygon` CSS class to apply the header clip-path chosen in the Customizer (if any).
+* The grunge, layered peaks/steps, ringbook, and wave header/page masks have no utility class.
 * Some of the [content utility CSS classes](#additional-css-classes) will also work for Elementor.
-* You can toggle the mobile menu with a label targeting the `mobile-menu-toggle` ID.
+* You can toggle the mobile menu with a label element targeting the `mobile-menu-toggle` ID.
 * You can select the theme fonts in Elementor, grouped under "Fictioneer".
 * The position and expected content of the header depend on your Customizer choices.
 * The global Elementor text colors have been overwritten with theme colors.
