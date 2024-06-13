@@ -860,7 +860,7 @@ html:not(.logged-in) body:not(.logged-in) {
 
 // Specific style resets
 :is(.sidebar, .elementor) {
-  :where(ul, ol) {
+  :where(ul, ol):where([class*="wp-block-"]) {
     list-style: initial;
     padding-left: 1.75rem;
   }
