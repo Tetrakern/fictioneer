@@ -1455,6 +1455,7 @@ if ( ! function_exists( 'fictioneer_output_head_fonts' ) ) {
 }
 add_action( 'wp_head', 'fictioneer_output_head_fonts', 5 );
 add_action( 'admin_head', 'fictioneer_output_head_fonts', 5 );
+add_action( 'elementor/editor/after_enqueue_scripts', 'fictioneer_output_head_fonts', 5 );
 
 // =============================================================================
 // OUTPUT HEAD CRITICAL SCRIPTS
@@ -1755,7 +1756,7 @@ add_action( 'admin_bar_menu', 'fictioneer_adminbar_add_theme_settings_link', 999
  * @param object $elementor_theme_manager  The Elementor manager object.
  */
 
-function fictioneer_register_elementor_locations( $elementor_theme_manager ) {
+function fictioneer_elementor_register_locations( $elementor_theme_manager ) {
   $elementor_theme_manager->register_location( 'header' );
   $elementor_theme_manager->register_location( 'footer' );
 
@@ -1796,7 +1797,13 @@ function fictioneer_register_elementor_locations( $elementor_theme_manager ) {
   );
 }
 
-function fictioneer_override_elementor_styles() {
+/**
+ * Adds override frontend styles for Elementor
+ *
+ * @since 5.20.0
+ */
+
+function fictioneer_elementor_override_styles() {
   // Dummy style
   wp_register_style( 'fictioneer-elementor-override', false );
   wp_enqueue_style( 'fictioneer-elementor-override', false );
@@ -1818,11 +1825,17 @@ add_action(
   'wp',
   function() {
     if ( is_plugin_active( 'elementor/elementor.php' ) ) {
-      add_action( 'elementor/theme/register_locations', 'fictioneer_register_elementor_locations' );
-      add_action( 'wp_enqueue_scripts', 'fictioneer_override_elementor_styles', 9999 );
+      add_action( 'elementor/theme/register_locations', '  fictioneer_elementor_register_locations' );
+      add_action( 'wp_enqueue_scripts', 'fictioneer_elementor_override_styles', 9999 );
     }
   }
 );
+
+/**
+ * Adds override editor styles for Elementor
+ *
+ * @since 5.20.0
+ */
 
 function fictioneer_override_elementor_editor_styles() {
   // Dummy style
@@ -1895,3 +1908,45 @@ function fictioneer_override_elementor_editor_styles() {
   wp_add_inline_style( 'fictioneer-elementor-editor-override', fictioneer_minify_css( $css ) );
 }
 add_action( 'elementor/editor/after_enqueue_styles', 'fictioneer_override_elementor_editor_styles', 9999 );
+
+/**
+ * Adds Fictioneer font group
+ *
+ * @since 5.20.0
+ *
+ * @param array $groups  Array of font groups.
+ *
+ * @return array Updated font groups.
+ */
+
+function fictioneer_elementor_add_font_group( $groups ) {
+  $new_groups = array(
+    'fictioneer' => __( 'Fictioneer', 'fictioneer' )
+  );
+
+  return array_merge( $new_groups, $groups );
+}
+add_filter( 'elementor/fonts/groups', 'fictioneer_elementor_add_font_group' );
+
+/**
+ * Adds Fictioneer fonts to font group
+ *
+ * @since 5.20.0
+ *
+ * @param array $fonts  Array of fonts.
+ *
+ * @return array Updated fonts.
+ */
+
+function fictioneer_elementor_add_additional_fonts( $fonts ) {
+  $theme_fonts = fictioneer_get_font_data();
+
+  foreach ( $theme_fonts as $font ) {
+    if ( $font['family'] ?? 0 ) {
+      $fonts[ $font['family'] ] = 'fictioneer';
+    }
+  }
+
+  return $fonts;
+}
+add_filter( 'elementor/fonts/additional_fonts', 'fictioneer_elementor_add_additional_fonts' );
