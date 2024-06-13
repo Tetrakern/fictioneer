@@ -1161,10 +1161,12 @@ If you have the Elementor plugin installed, consider using the [Fictioneer 002 E
 * Use the `max-site-width` CSS class to apply the theme’s max site width.
 * Use the `page-polygon` CSS class to apply the page clip-path chosen in the Customizer (if any).
 * Use the `header-polygon` CSS class to apply the header clip-path chosen in the Customizer (if any).
-* The grunge, layered peaks/steps, ringbook, and wave header/page masks have no utility class.
-* Some of the [content utility CSS classes](#additional-css-classes) will also work for Elementor.
+* The grunge, layered peaks/steps, ringbook, and wave header/page masks have no utility classes.
+* Some of the [content utility CSS classes](#additional-css-classes) will also work in Elementor.
 * You can toggle the mobile menu with a label element targeting the `mobile-menu-toggle` ID.
 * You can select the theme fonts in Elementor, grouped under "Fictioneer".
+* You can use the theme shortcodes in the shortcode widget.
+* WordPress widgets have next to no styling because the theme does not use them.
 * The position and expected content of the header depend on your Customizer choices.
 * The global Elementor text colors have been overwritten with theme colors.
 * Elementor does not understand the theme’s display modes, colors, or HSL settings.
