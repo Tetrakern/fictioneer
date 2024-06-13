@@ -1170,7 +1170,7 @@ If you have the Elementor plugin installed, consider using the [Fictioneer 002 E
 * Elementor does not understand the theme’s display modes, colors, or HSL settings.
 * Elementor makes your site slower unless you have a good cache plugin.
 * Use the Canvas-type page templates if you want to drastically customize a page.
-* Fictioneer is not meant for site editors; there are many limitations.
+* Fictioneer is not meant for site editors; there are limitations you have to live with.
 
 ## Images & Media
 
