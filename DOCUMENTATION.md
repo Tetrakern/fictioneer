@@ -1149,7 +1149,7 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 
 ## Elementor
 
-If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version, this may not be an option, but you can customize the theme using the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, and `story_header`.
+If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version and want to use the theme builder, this may not be an option, but you can customize the theme using the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, and `story_header`.
 
 **Notes:**
 
