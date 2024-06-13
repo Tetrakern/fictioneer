@@ -2062,11 +2062,13 @@ function fictioneer_get_story_changelog( $story_id ) {
 
 function fictioneer_page_background( $context = null ) {
   // Setup
-  $background = '<div class="main__background polygon polygon--main background-texture"></div>';
-
-  // Chapter?
-  if ( $context === 'chapter' ) {
-    $background = '<div class="main__background chapter__background polygon polygon--main background-texture"></div>';
+  switch ( $context ) {
+    case 'chapter':
+      $background = '<div class="main__background chapter__background polygon polygon--main background-texture"></div>';
+      break;
+    default:
+      $background = '<div class="main__background polygon polygon--main background-texture"></div>';
+      break;
   }
 
   // Render
