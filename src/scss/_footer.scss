@@ -51,5 +51,13 @@
     font-weight: 300;
     letter-spacing: 0;
     -webkit-font-smoothing: auto;
+
+    > a:is(a)[href]:not(.i-take-offense-if-you-remove-this) {
+      position: static !important;
+      display: inline !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
   }
 }
