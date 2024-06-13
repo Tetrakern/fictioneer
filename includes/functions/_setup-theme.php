@@ -1192,21 +1192,26 @@ add_action( 'wp_enqueue_scripts', 'fictioneer_add_custom_scripts' );
  */
 
 function fictioneer_enqueue_block_editor_scripts() {
-  $current_user = wp_get_current_user();
+  // Setup
+  $current_screen = get_current_screen();
 
-  wp_register_script(
-    'fictioneer-block-editor-scripts',
-    get_template_directory_uri() . '/js/block-editor.min.js',
-    ['wp-dom-ready', 'wp-edit-post', 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
-    fictioneer_get_cache_bust(),
-    true
-  );
+  if ( $current_screen->base === 'post' ) {
+    $current_user = wp_get_current_user();
 
-  wp_enqueue_script( 'fictioneer-block-editor-scripts' );
+    wp_register_script(
+      'fictioneer-block-editor-scripts',
+      get_template_directory_uri() . '/js/block-editor.min.js',
+      ['wp-dom-ready', 'wp-edit-post', 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor', 'wp-data', 'jquery'],
+      fictioneer_get_cache_bust(),
+      true
+    );
 
-  wp_localize_script( 'fictioneer-block-editor-scripts', 'fictioneerData', array(
-    'userCapabilities' => $current_user->allcaps
-  ));
+    wp_enqueue_script( 'fictioneer-block-editor-scripts' );
+
+    wp_localize_script( 'fictioneer-block-editor-scripts', 'fictioneerData', array(
+      'userCapabilities' => $current_user->allcaps
+    ));
+  }
 }
 add_action( 'enqueue_block_editor_assets', 'fictioneer_enqueue_block_editor_scripts' );
 
