@@ -22,8 +22,6 @@ get_header( null, array( 'type' => 'fcn_collection' ) );
 
 <main id="main" class="main collection">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'collection' ); ?>
 
   <div class="main__wrapper">

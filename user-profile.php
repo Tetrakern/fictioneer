@@ -62,8 +62,6 @@ get_header( null, array( 'type' => 'user-profile', 'no_index' => 1 ) );
 
 <main id="main" class="main singular profile">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'user-profile' ); ?>
 
   <div class="main__wrapper">

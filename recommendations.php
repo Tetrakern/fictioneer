@@ -53,8 +53,6 @@ get_header();
 
 <main id="main" class="main singular recommendations">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'recommendations' ); ?>
 
   <div class="main__wrapper">

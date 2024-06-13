@@ -53,8 +53,6 @@ get_header();
 
 <main id="main" class="main singular collections">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'collections' ); ?>
 
   <div class="main__wrapper">

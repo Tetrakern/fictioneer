@@ -69,8 +69,6 @@ get_header();
 
 <main id="main" class="main search-results">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'search' ); ?>
 
   <div class="main__wrapper">

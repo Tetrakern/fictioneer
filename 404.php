@@ -18,8 +18,6 @@ get_header( null, array( 'no_index' => 1 ) );
 
 <main id="main" class="main singular the-404">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', '404' ); ?>
 
   <div class="main__wrapper">

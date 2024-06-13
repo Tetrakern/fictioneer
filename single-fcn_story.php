@@ -29,8 +29,6 @@ get_header(
 
 <main id="main" class="main story <?php echo get_option( 'fictioneer_enable_checkmarks' ) ? '' : '_no-checkmarks'; ?>">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'story' ); ?>
 
   <div class="main__wrapper _no-padding-top">

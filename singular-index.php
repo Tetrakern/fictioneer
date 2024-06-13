@@ -74,8 +74,6 @@ reset( $sorted_stories );
 
 <main id="main" class="main singular index">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'singular-index' ); ?>
 
   <div class="main__wrapper">

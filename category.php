@@ -16,8 +16,6 @@ get_header();
 
 <main id="main" class="main archive category-archive">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'category-archive' ); ?>
 
   <div class="main__wrapper">

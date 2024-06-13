@@ -18,8 +18,6 @@ get_header();
 
 <main id="main" class="main canvas">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'singular-canas-page' ); ?>
 
   <div class="main__wrapper">

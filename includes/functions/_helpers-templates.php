@@ -2049,7 +2049,20 @@ function fictioneer_get_story_changelog( $story_id ) {
 // =============================================================================
 
 /**
- * Render the page background element
+ * Renders the main observer element
+ *
+ * @since 5.20.0
+ *
+ * @param string|null $context  Optional. Context of the function call.
+ */
+
+function fictioneer_main_observer( $context = null ) {
+  echo '<div class="observer main-observer"></div>';
+}
+add_action( 'fictioneer_main', 'fictioneer_main_observer', 1 );
+
+/**
+ * Renders the page background element
  *
  * Note: The page background is a separate element, absolute positioned under the
  * actual content. This allows for quite some CSS shenanigans and can improve the

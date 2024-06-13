@@ -100,8 +100,6 @@ get_header();
 
 <main id="main" class="main singular stories">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'stories' ); ?>
 
   <div class="main__wrapper">

@@ -16,8 +16,6 @@ get_header();
 
 <main id="main" class="main archive character-archive">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'character-archive' ); ?>
 
   <div class="main__wrapper">

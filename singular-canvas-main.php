@@ -18,8 +18,6 @@ get_header();
 
 <main id="main" class="canvas">
 
-  <div class="observer main-observer"></div>
-
   <?php
     while ( have_posts() ) {
       the_post();

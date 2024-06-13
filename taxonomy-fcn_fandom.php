@@ -16,8 +16,6 @@ get_header();
 
 <main id="main" class="main archive fandom-archive">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'fandom-archive' ); ?>
 
   <div class="main__wrapper">

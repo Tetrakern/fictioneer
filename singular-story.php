@@ -26,8 +26,6 @@ get_header();
 
 <main id="main" class="main singular">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'singular-story' ); ?>
 
   <div class="main__wrapper <?php echo $render_story_header ? '_no-padding-top' : ''; ?>">

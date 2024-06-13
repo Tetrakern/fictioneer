@@ -93,8 +93,6 @@ get_header();
 
 <main id="main" class="main author-page singular">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'author' ); ?>
 
   <div class="main__wrapper">

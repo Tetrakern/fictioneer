@@ -21,8 +21,6 @@ get_header( null, array( 'type' => 'fcn_recommendation' ) );
 
 <main id="main" class="main recommendation">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'recommendation' ); ?>
 
   <div class="main__wrapper">

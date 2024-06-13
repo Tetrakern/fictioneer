@@ -70,8 +70,6 @@ get_header( null, array( 'no_index' => 1 ) );
 
 <main id="main" class="main singular bookshelf">
 
-  <div class="observer main-observer"></div>
-
   <?php do_action( 'fictioneer_main', 'singular-bookmarks-ajax' ); ?>
 
   <div class="main__wrapper">

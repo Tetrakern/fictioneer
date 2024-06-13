@@ -674,12 +674,13 @@ Fires before the content of the card grid is rendered in the `partials/_card-sto
 ---
 
 ### `do_action( 'fictioneer_main', $context )`
-Fires after opening the site’s `<main>` container, right after the `.main-observer` element.
+Fires after opening the site’s `<main>` container.
 
 **Parameters:**
-* $context (string|null) – Context of the action call. Unsafe.
+* $context (string|null) – Context of the action call, typically related to the template. Unsafe.
 
 **Hooked Actions:**
+* `fictioneer_main_observer()` – Renders the main observer element. Priority 1.
 * `fictioneer_page_background()` – Renders the page background. Priority 10.
 
 ---
