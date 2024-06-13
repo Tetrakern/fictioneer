@@ -25,7 +25,7 @@ get_header();
       the_post();
 
       // Setup
-      $title = fictioneer_get_safe_title( $post_id, 'singular-canvas' );
+      $title = fictioneer_get_safe_title( $post_id, 'singular-canvas-main' );
       $this_breadcrumb = [ $title, get_the_permalink() ];
 
       the_content();
