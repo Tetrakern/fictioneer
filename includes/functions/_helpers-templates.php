@@ -2045,7 +2045,7 @@ function fictioneer_get_story_changelog( $story_id ) {
 }
 
 // =============================================================================
-// PAGE BACKGROUND
+// MAIN OBSERVER
 // =============================================================================
 
 /**
@@ -2060,6 +2060,10 @@ function fictioneer_main_observer( $context = null ) {
   echo '<div class="observer main-observer"></div>';
 }
 add_action( 'fictioneer_main', 'fictioneer_main_observer', 1 );
+
+// =============================================================================
+// PAGE BACKGROUND
+// =============================================================================
 
 /**
  * Renders the page background element
