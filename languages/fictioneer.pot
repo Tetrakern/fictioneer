@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-13 18:26+0000\n"
+"POT-Creation-Date: 2024-06-14 11:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -158,7 +158,7 @@ msgstr ""
 msgid "200 MOST RECENTLY UPDATED"
 msgstr ""
 
-#: 404.php:55
+#: 404.php:51
 msgctxt "404 breadcrumb for the 404 page."
 msgid "404"
 msgstr ""
@@ -282,14 +282,14 @@ msgid ""
 "caret-right\"></i></span>"
 msgstr ""
 
-#: search.php:84
+#: search.php:85
 #, php-format
 msgid "<span class=\"search-results__number\">%s</span> Search Result"
 msgid_plural "<span class=\"search-results__number\">%s</span> Search Results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: category.php:43
+#: category.php:39
 #, php-format
 msgid ""
 "<span class=\"tax-cloud__number\">%1$s</span> Result in the <em>\"%2$s\"</em>"
@@ -300,7 +300,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: tag.php:44
+#: tag.php:40
 #, php-format
 msgid ""
 "<span class=\"tax-cloud__number\">%1$s</span> Result with the <em>"
@@ -429,8 +429,8 @@ msgid ""
 "genres but also keep the originals."
 msgstr ""
 
-#: taxonomy-fcn_character.php:60 taxonomy-fcn_content_warning.php:60 tag.php:59
-#: taxonomy-fcn_genre.php:60 taxonomy-fcn_fandom.php:60
+#: taxonomy-fcn_character.php:56 taxonomy-fcn_content_warning.php:56 tag.php:55
+#: taxonomy-fcn_genre.php:56 taxonomy-fcn_fandom.php:56
 #, php-format
 msgid "<strong>Definition:</strong> %s"
 msgstr ""
@@ -1582,7 +1582,7 @@ msgstr ""
 msgid "Assign custom badges (but users can disable them)."
 msgstr ""
 
-#: author.php:233
+#: author.php:229
 msgid "Author"
 msgstr ""
 
@@ -1793,8 +1793,8 @@ msgid "Bookmarks successfully cleared."
 msgstr ""
 
 #. Name of the template
-#: singular-bookshelf.php:2 singular-bookshelf.php:104
-#: singular-bookshelf-ajax.php:88 includes/functions/_utility.php:1739
+#: singular-bookshelf.php:2 singular-bookshelf.php:100
+#: singular-bookshelf-ajax.php:84 includes/functions/_utility.php:1739
 msgid "Bookshelf"
 msgstr ""
 
@@ -1811,7 +1811,7 @@ msgstr ""
 msgid "Bookshelf page assignment"
 msgstr ""
 
-#: singular-bookshelf.php:136
+#: singular-bookshelf.php:132
 #, php-format
 msgctxt "Bookshelf tab name pattern: {Tab} ({Count})"
 msgid "%s (%s)"
@@ -2987,7 +2987,7 @@ msgid "Warning"
 msgstr ""
 
 #. Name of the template
-#: chapters.php:2 chapters.php:111 author.php:53 author.php:145
+#: chapters.php:2 chapters.php:107 author.php:53 author.php:141
 #: partials/_card-story.php:218 partials/_latest-stories.php:266
 #: partials/_latest-stories-compact.php:280 partials/_card-collection.php:202
 #: partials/_latest-updates.php:378 partials/_collection-statistics.php:39
@@ -3136,7 +3136,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: footer.php:85
+#: footer.php:87
 msgid "Close lightbox"
 msgstr ""
 
@@ -3207,7 +3207,7 @@ msgid "Short Description"
 msgstr ""
 
 #. Name of the template
-#: collections.php:2 collections.php:71
+#: collections.php:2 collections.php:67
 #: includes/functions/_setup-types-and-terms.php:331
 #: includes/functions/hooks/_general_hooks.php:500
 msgid "Collections"
@@ -3511,7 +3511,7 @@ msgstr ""
 msgid "Commenting is disabled."
 msgstr ""
 
-#: author.php:153 partials/_card-story.php:240 partials/_card-story.php:241
+#: author.php:149 partials/_card-story.php:240 partials/_card-story.php:241
 #: partials/_card-page.php:94 partials/_article-cards.php:260
 #: partials/_card-collection.php:218 partials/_collection-statistics.php:47
 #: partials/_card-post.php:117 partials/_latest-chapters.php:292
@@ -4445,7 +4445,7 @@ msgid ""
 "js)."
 msgstr ""
 
-#: category.php:55
+#: category.php:51
 msgid "Definition:"
 msgstr ""
 
@@ -5010,22 +5010,22 @@ msgstr ""
 msgid "Editor capabilities have been updated."
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1876
+#: includes/functions/_setup-theme.php:1885
 msgctxt "Elementor color override hint."
 msgid "(--fg-300)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1888
+#: includes/functions/_setup-theme.php:1897
 msgctxt "Elementor color override hint."
 msgid "(--fg-500)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1900
+#: includes/functions/_setup-theme.php:1909
 msgctxt "Elementor color override hint."
 msgid "(--fg-700)"
 msgstr ""
 
-#: includes/functions/_setup-theme.php:1864
+#: includes/functions/_setup-theme.php:1873
 msgctxt "Elementor color override hint."
 msgid "(--primary-500)"
 msgstr ""
@@ -5495,7 +5495,7 @@ msgstr ""
 
 #. Name of the theme
 #: includes/functions/_setup-theme.php:1741
-#: includes/functions/_setup-theme.php:1929
+#: includes/functions/_setup-theme.php:1938
 #: includes/functions/settings/_settings.php:32
 #: includes/functions/settings/_settings.php:262
 #: includes/functions/users/_admin_profile.php:270
@@ -5929,7 +5929,7 @@ msgctxt "Heading for BBCodes tutorial modal."
 msgid "BBCodes"
 msgstr ""
 
-#: 404.php:37
+#: 404.php:33
 msgctxt "Heading for the 404 page."
 msgid "404"
 msgstr ""
@@ -7663,6 +7663,10 @@ msgstr ""
 msgid "Page Assignments"
 msgstr ""
 
+#: includes/functions/_setup-theme.php:1807
+msgid "Page Background"
+msgstr ""
+
 #: includes/functions/settings/_settings_page_roles.php:205
 msgid "Page Capabilities"
 msgstr ""
@@ -8389,7 +8393,7 @@ msgstr ""
 msgid "Read on"
 msgstr ""
 
-#: author.php:157 partials/_collection-statistics.php:53
+#: author.php:153 partials/_collection-statistics.php:53
 #: includes/functions/hooks/_story_hooks.php:54
 msgid "Reading"
 msgstr ""
@@ -8460,8 +8464,8 @@ msgid "Support"
 msgstr ""
 
 #. Name of the template
-#: recommendations.php:2 recommendations.php:71 author.php:68
-#: single-fcn_recommendation.php:99
+#: recommendations.php:2 recommendations.php:67 author.php:68
+#: single-fcn_recommendation.php:95
 #: includes/functions/hooks/_general_hooks.php:504
 msgid "Recommendations"
 msgstr ""
@@ -8764,32 +8768,32 @@ msgstr ""
 msgid "Restricted Capabilities"
 msgstr ""
 
-#: category.php:92
+#: category.php:88
 #, php-format
 msgid "Results for Category \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_character.php:101
+#: taxonomy-fcn_character.php:97
 #, php-format
 msgid "Results for Character \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_content_warning.php:101
+#: taxonomy-fcn_content_warning.php:97
 #, php-format
 msgid "Results for Content Warning \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_fandom.php:101
+#: taxonomy-fcn_fandom.php:97
 #, php-format
 msgid "Results for Fandom \"%s\""
 msgstr ""
 
-#: taxonomy-fcn_genre.php:101
+#: taxonomy-fcn_genre.php:97
 #, php-format
 msgid "Results for Genre \"%s\""
 msgstr ""
 
-#: tag.php:100
+#: tag.php:96
 #, php-format
 msgid "Results for Tag \"%s\""
 msgstr ""
@@ -8942,7 +8946,7 @@ msgstr ""
 msgid "Scrolling (sticky) navigation bar"
 msgstr ""
 
-#: search.php:93 includes/functions/hooks/_mobile_menu_hooks.php:386
+#: search.php:94 includes/functions/hooks/_mobile_menu_hooks.php:386
 msgid "Search"
 msgstr ""
 
@@ -8988,7 +8992,7 @@ msgstr ""
 msgid "Search Recommendations"
 msgstr ""
 
-#: search.php:163
+#: search.php:164
 msgid "Search Results"
 msgstr ""
 
@@ -9682,8 +9686,8 @@ msgid "Unfollow"
 msgstr ""
 
 #. Name of the template
-#: single-fcn_story.php:125 single-fcn_collection.php:149 stories.php:2
-#: stories.php:118 author.php:38 author.php:141 single-fcn_chapter.php:249
+#: single-fcn_story.php:121 single-fcn_collection.php:145 stories.php:2
+#: stories.php:114 author.php:38 author.php:137 single-fcn_chapter.php:245
 #: partials/_card-collection.php:199 partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:116
 #: includes/functions/hooks/_general_hooks.php:492
@@ -10172,7 +10176,7 @@ msgid ""
 msgstr ""
 
 #. Name of the template
-#: singular-taxonomies.php:2 singular-taxonomies.php:76
+#: singular-taxonomies.php:2 singular-taxonomies.php:72
 msgid "Taxonomies"
 msgstr ""
 
@@ -10212,7 +10216,7 @@ msgctxt "Taxonomy general name."
 msgid "Genres"
 msgstr ""
 
-#: singular-taxonomies.php:99
+#: singular-taxonomies.php:95
 #, php-format
 msgctxt "Taxonomy glossary entry count."
 msgid "%s Entry"
@@ -11221,7 +11225,7 @@ msgstr ""
 msgid "When you have multiple publishing authors."
 msgstr ""
 
-#: author.php:149 partials/_collection-statistics.php:43
+#: author.php:145 partials/_collection-statistics.php:43
 #: includes/functions/hooks/_story_hooks.php:37
 msgctxt "Word count caption in statistics."
 msgid "Words"
