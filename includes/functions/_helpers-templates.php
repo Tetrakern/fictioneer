@@ -2078,10 +2078,13 @@ add_action( 'fictioneer_main', 'fictioneer_main_observer', 1 );
  */
 
 function fictioneer_page_background( $context = null ) {
-  // Setup
-  $background = '<div class="main__background polygon polygon--main background-texture"></div>';
+  // Elementor?
+  if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'page_background' ) ) {
+    // Setup
+    $background = '<div class="main__background polygon polygon--main background-texture"></div>';
 
-  // Render
-  echo apply_filters( 'fictioneer_filter_page_background', $background );
+    // Render
+    echo apply_filters( 'fictioneer_filter_page_background', $background );
+  }
 }
 add_action( 'fictioneer_main', 'fictioneer_page_background' );

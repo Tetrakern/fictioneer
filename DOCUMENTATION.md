@@ -1149,9 +1149,26 @@ Renders the theme sidebar (not displayed anywhere by default). Requires the "Dis
 
 ## Elementor
 
-If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version and want to use the theme builder, this may not be an option, but you can customize the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, and `story_header`.
+If you have the Elementor plugin installed, consider using the [Fictioneer 002 Elementor Control](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#recommended-must-use-plugins) plugin if you only need it for the Canvas page templates. If you have the Pro version and want to use the theme builder, this may not be an option, but you can customize the following locations: `header`, `footer`, `nav_bar`, `nav_menu`, `mobile_nav_menu`, `story_header`, and `page_background`.
 
-**Notes:**
+**Page Background**
+
+This location can be confusing. The page background is actually a separate element in the theme, positioned under the content container and made inaccessible. This allows for various styling shenanigans without ever affecting the content, such as clip-paths and masks applied to an inner `::before` pseudo-element. The page styles from the Customizer make heavy use of this. If you overwrite this location, you must ensure to properly move it to the background. The base default CSS is as follows:
+
+```css
+.main__background {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  inset: var(--page-inset-top) 0 0 0;
+  z-index: 0;
+  background-color: var(--page-bg-color);
+  box-shadow: var(--page-box-shadow);
+  contain: layout style;
+}
+```
+
+**Hints:**
 
 * The `nav_bar` location also overwrites the `nav_menu` location.
 * Trying to overwrite the default navigation is generally a poor life choice, but you do you.

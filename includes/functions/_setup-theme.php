@@ -1800,6 +1800,15 @@ function fictioneer_elementor_register_locations( $elementor_theme_manager ) {
       'edit_in_content' => true
     )
   );
+
+  $elementor_theme_manager->register_location(
+    'page_background',
+    array(
+      'label' => esc_html__( 'Page Background', 'fictioneer' ),
+      'multiple' => false,
+      'edit_in_content' => false
+    )
+  );
 }
 
 /**
