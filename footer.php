@@ -47,17 +47,20 @@ if ( get_theme_mod( 'footer_style' ) === 'isolated' ) {
 // Hook after #main closes
 do_action( 'fictioneer_after_main', $args );
 
+// Render footer
+if ( ! ( $args['blank'] ?? 0 ) ) {
+  // Elementor?
+  if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) {
+    // Start HTML ---> ?>
+    <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
+      <div class="footer__wrapper"><?php do_action( 'fictioneer_site_footer', $args ); ?></div>
+    </footer>
+    <?php // <--- End HTML
+  }
+}
+
 ?>
 
-      <?php if ( ! ( $args['blank'] ?? 0 ) ) :
-        if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'footer' ) ) :
-      ?>
-        <footer class="footer layout-links <?php echo implode( ' ', $extra_classes ); ?>">
-          <div class="footer__wrapper">
-            <?php do_action( 'fictioneer_site_footer', $args ); ?>
-          </div>
-        </footer>
-      <?php endif; endif; ?>
     </div> <!-- #site -->
 
     <?php
@@ -76,7 +79,6 @@ do_action( 'fictioneer_after_main', $args );
       }
     ?>
 
-    <?php /* Adding the AJAX nonce this way allows caching plugins to update it dynamically. */ ?>
     <input id="general-fictioneer-nonce" name="fictioneer_nonce" type="hidden" value="<?php echo wp_create_nonce( 'fictioneer_nonce' ); ?>">
 
     <?php
