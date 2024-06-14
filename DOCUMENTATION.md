@@ -484,6 +484,9 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `padding-[top\|right\|bottom\|left]` | Applies directional theme page padding.
 | `bg-[50\|100\|200\|...\|800\|900\|950]` | Forces the respective theme background color.
 | `fg-[100\|200\|...\|800\|900\|950]` | Forces the respective theme text color.
+| `max-site-width` | Applies the theme’s max site width (mainly useful for page builders).
+| `header-polygon` | Applies the header clip-path chosen in the Customizer (if any). Does not work for masks.
+| `page-polygon` | Applies the page clip-path chosen in the Customizer (if any). Does not work for masks.
 
 ## HTML Block
 
