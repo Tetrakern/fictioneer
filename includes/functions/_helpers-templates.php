@@ -2079,14 +2079,7 @@ add_action( 'fictioneer_main', 'fictioneer_main_observer', 1 );
 
 function fictioneer_page_background( $context = null ) {
   // Setup
-  switch ( $context ) {
-    case 'chapter':
-      $background = '<div class="main__background chapter__background polygon polygon--main background-texture"></div>';
-      break;
-    default:
-      $background = '<div class="main__background polygon polygon--main background-texture"></div>';
-      break;
-  }
+  $background = '<div class="main__background polygon polygon--main background-texture"></div>';
 
   // Render
   echo apply_filters( 'fictioneer_filter_page_background', $background );
