@@ -683,18 +683,8 @@ add_action( 'wp_ajax_fictioneer_ajax_reset_theme_colors', 'fictioneer_ajax_reset
 function fictioneer_theme_deactivation() {
   global $wpdb;
 
-  // Delete all theme Transients
-  fictioneer_delete_transients_like( 'fictioneer_' );
-
-  // Delete cached files
-  $cache_dir = WP_CONTENT_DIR . '/themes/fictioneer/cache/';
-  $files = glob( $cache_dir . '*' );
-
-  foreach ( $files as $file ) {
-    if ( is_file( $file ) ) {
-      unlink( $file );
-    }
-  }
+  // Purge theme caches
+  fictioneer_purge_theme_caches();
 
   // Only continue if the user wants to delete all options/mods
   if ( get_option( 'fictioneer_delete_theme_options_on_deactivation', false ) ) {
