@@ -154,7 +154,7 @@ function fictioneer_recommendation_links( $args ) {
   // Prepare
   $output = [];
 
-  foreach( $links as $link ) {
+  foreach ( $links as $link ) {
     $output[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $link['url'] ) . '" class="link" rel="noopener" target="_blank">' . $link['name'] . '</a></li>';
   }
 
@@ -194,7 +194,7 @@ function fictioneer_recommendation_support_links( $args ) {
   // Prepare
   $output = [];
 
-  foreach( $links as $link ) {
+  foreach ( $links as $link ) {
     $output[] = '<li class="recommendation__list-item"><i class="fa-solid fa-external-link-square-alt"></i><a href="' . esc_url( $link['url'] ) . '" class="link" rel="noopener" target="_blank">' . $link['name'] . '</a></li>';
   }
 

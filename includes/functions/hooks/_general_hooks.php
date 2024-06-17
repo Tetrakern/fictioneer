@@ -591,7 +591,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
         echo '<div class="popup-menu _bottom _center">';
         echo '<div class="popup-heading">' . __( 'Post Type', 'fictioneer' ) . '</div>';
 
-        foreach( $post_type_menu as $tuple ) {
+        foreach ( $post_type_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
           echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }
@@ -606,7 +606,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
         echo '<div class="popup-menu _bottom _center">';
         echo '<div class="popup-heading">' . __( 'Order By', 'fictioneer' ) . '</div>';
 
-        foreach( $orderby_menu as $tuple ) {
+        foreach ( $orderby_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
           echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }
@@ -630,7 +630,7 @@ function fictioneer_sort_order_filter_interface( $args ) {
         echo '<div class="popup-menu _bottom _center">';
         echo '<div class="popup-heading">' . __( 'Time Range', 'fictioneer' ) . '</div>';
 
-        foreach( $date_menu as $tuple ) {
+        foreach ( $date_menu as $tuple ) {
           $url = esc_url( $tuple['url'] );
           echo "<a href='{$url}' rel='nofollow'>{$tuple['label']}</a>";
         }

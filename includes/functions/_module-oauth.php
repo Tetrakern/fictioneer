@@ -959,7 +959,7 @@ function fictioneer_oauth2_patreon( $token_response, $cookie ) {
 
   if ( isset( $user->included ) ) {
     // Tiers data
-    foreach( $user->included as $node ) {
+    foreach ( $user->included as $node ) {
       if ( isset( $node->type ) && $node->type === 'tier' ) {
         $tiers[] = array(
           'tier' => sanitize_text_field( $node->attributes->title ),
@@ -975,7 +975,7 @@ function fictioneer_oauth2_patreon( $token_response, $cookie ) {
     }
 
     // Membership data
-    foreach( $user->included as $node ) {
+    foreach ( $user->included as $node ) {
       if (
         isset( $node->type ) &&
         $node->type === 'member' &&

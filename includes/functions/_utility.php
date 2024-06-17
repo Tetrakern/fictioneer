@@ -2542,7 +2542,7 @@ if ( ! function_exists( 'fictioneer_get_stories_total_word_count' ) ) {
     );
 
     // Sum of all word counts
-    foreach( $stories as $story ) {
+    foreach ( $stories as $story ) {
       $story_data = fictioneer_get_story_data( $story->ID, false ); // Does not refresh comment count!
       $word_count += $story_data['word_count'];
     }

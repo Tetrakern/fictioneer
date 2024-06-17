@@ -519,11 +519,11 @@ function fictioneer_toggle_refresh_hooks( $add = true ) {
   $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
 
   if ( $add ) {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       add_action( $hook, 'fictioneer_refresh_post_caches', 20 );
     }
   } else {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       remove_action( $hook, 'fictioneer_refresh_post_caches', 20 );
     }
   }
@@ -691,11 +691,11 @@ function fictioneer_toggle_update_tracker_hooks( $add = true ) {
   $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
 
   if ( $add ) {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       add_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
     }
   } else {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       remove_action( $hook, 'fictioneer_track_chapter_and_story_updates', 10 );
     }
   }
@@ -752,11 +752,11 @@ function fictioneer_toggle_transient_purge_hooks( $add = true ) {
   $hooks = ['save_post', 'untrash_post', 'trashed_post', 'delete_post'];
 
   if ( $add ) {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       add_action( $hook, 'fictioneer_purge_transients' );
     }
   } else {
-    foreach( $hooks as $hook ) {
+    foreach ( $hooks as $hook ) {
       remove_action( $hook, 'fictioneer_purge_transients' );
     }
   }

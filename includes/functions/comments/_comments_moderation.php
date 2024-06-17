@@ -148,7 +148,7 @@ function fictioneer_comment_meta_box ( $comment ) {
     <?php if ( ! empty( $edit_stack ) ) : ?>
       <div style="margin-top: 12px;">
         <div><strong><?php _ex( 'Edit History (Previous Versions):', 'Comment edit history.', 'fictioneer' ); ?></strong></div>
-        <?php foreach( $edit_stack as $edit ) : ?>
+        <?php foreach ( $edit_stack as $edit ) : ?>
           <details style="margin-top: 6px;">
             <summary><?php
               $edit_user = get_user_by( 'ID', $edit['user_id'] ?? 0 );

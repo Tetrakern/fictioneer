@@ -758,7 +758,7 @@ function fictioneer_get_metabox_icons( $post, $meta_key, $args = [] ) {
 
     <div class="fictioneer-meta-field__button-grid hidden">
       <?php
-        foreach( FICTIONEER_EXAMPLE_CHAPTER_ICONS as $icon ) {
+        foreach ( FICTIONEER_EXAMPLE_CHAPTER_ICONS as $icon ) {
           echo "<button type='button' class='fictioneer-meta-field__icon-button' data-value='{$icon}'><i class='{$icon}'></i></button>";
         }
       ?>
@@ -2757,7 +2757,7 @@ function fictioneer_render_chapter_data_metabox( $post ) {
   $selectable_stories = new WP_Query( $selectable_stories_args );
 
   if ( $selectable_stories->have_posts() ) {
-    foreach( $selectable_stories->posts as $story ) {
+    foreach ( $selectable_stories->posts as $story ) {
       if ( $story->post_status !== 'publish' ) {
         $status_object = get_post_status_object( $story->post_status );
         $status_label = $status_object ? $status_object->label : $story->post_status;

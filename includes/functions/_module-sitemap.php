@@ -146,7 +146,7 @@ function fictioneer_create_sitemap() {
     )
   );
 
-  foreach( $pages as $post ) {
+  foreach ( $pages as $post ) {
     $post_id = $post->ID;
     $template = get_page_template_slug( $post_id );
     $template_excludes = ['user-profile.php', 'singular-bookmarks.php', 'singular-bookshelf.php', 'singular-bookshelf-ajax.php'];
@@ -174,7 +174,7 @@ function fictioneer_create_sitemap() {
     )
   );
 
-  foreach( $blogs as $post ) {
+  foreach ( $blogs as $post ) {
     $lastmod = get_the_modified_date( 'c', $post->ID );
     $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'never' );
   }
@@ -193,7 +193,7 @@ function fictioneer_create_sitemap() {
     )
   );
 
-  foreach( $collections as $post ) {
+  foreach ( $collections as $post ) {
     $lastmod = get_the_modified_date( 'c', $post->ID );
     $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
   }
@@ -239,7 +239,7 @@ function fictioneer_create_sitemap() {
     )
   );
 
-  foreach( $chapters as $post ) {
+  foreach ( $chapters as $post ) {
     if ( get_post_meta( $post->ID, 'fictioneer_chapter_hidden', true ) ) {
       continue;
     }
@@ -262,7 +262,7 @@ function fictioneer_create_sitemap() {
     )
   );
 
-  foreach( $recommendations as $post ) {
+  foreach ( $recommendations as $post ) {
     $lastmod = get_the_modified_date( 'c', $post->ID );
     $sitemap .= fictioneer_url_node( get_permalink( $post->ID ), $lastmod, 'monthly' );
   }

@@ -221,7 +221,7 @@ if ( ! function_exists( 'fictioneer_prepare_build_directory' ) ) {
       $iterator = new RecursiveDirectoryIterator( $epub_dir, RecursiveDirectoryIterator::SKIP_DOTS );
       $files = new RecursiveIteratorIterator( $iterator, RecursiveIteratorIterator::CHILD_FIRST );
 
-      foreach( $files as $file ) {
+      foreach ( $files as $file ) {
         if ( $file->isDir() ){
           rmdir( $file->getRealPath() );
         } else {
@@ -1171,7 +1171,7 @@ function fictioneer_generate_epub() {
     $iterator = new RecursiveDirectoryIterator( $uploads_dir . $folder, RecursiveDirectoryIterator::SKIP_DOTS );
     $files = new RecursiveIteratorIterator( $iterator, RecursiveIteratorIterator::CHILD_FIRST );
 
-    foreach( $files as $file ) {
+    foreach ( $files as $file ) {
       if ( $file->isDir() ){
         rmdir( $file->getRealPath() );
       } else {

@@ -1250,7 +1250,7 @@ function fictioneer_shortcode_contact_form( $attr ) {
     </div>
     <?php if ( ! empty( $fields ) ) : ?>
       <div class="fcn-contact-form__fields">
-        <?php foreach( $fields as $field ) : ?>
+        <?php foreach ( $fields as $field ) : ?>
           <div class="fcn-contact-form__field"><?php echo $field; ?></div>
         <?php endforeach; ?>
       </div>
