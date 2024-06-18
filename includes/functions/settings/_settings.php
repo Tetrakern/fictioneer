@@ -55,16 +55,14 @@ function fictioneer_add_admin_menu() {
     'fictioneer_settings_roles'
   );
 
-  if ( ! empty( $fictioneer_plugins ) ) {
-    $plugins_hook = add_submenu_page(
-      'fictioneer',
-      __( 'Plugins', 'fictioneer' ),
-      __( 'Plugins', 'fictioneer' ),
-      'manage_options',
-      'fictioneer_plugins',
-      'fictioneer_settings_plugins'
-    );
-  }
+  $plugins_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Plugins', 'fictioneer' ),
+    __( 'Plugins', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_plugins',
+    'fictioneer_settings_plugins'
+  );
 
   $connections_hook = add_submenu_page(
     'fictioneer',
@@ -212,12 +210,6 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
   function fictioneer_settings_header( $tab = 'general' ) {
     // Setup
     $output = [];
-    $fictioneer_plugins = array_filter(
-      get_option( 'active_plugins' ) ?: [],
-      function( $plugin ) {
-        return strpos( $plugin, 'fictioneer' ) !== false;
-      }
-    );
 
     // General tab
     $output['general'] = '<a href="?page=fictioneer" class="fictioneer-settings__nav-tab' . ( $tab == 'general' ? ' active' : '' ) . '">' . __( 'General', 'fictioneer' ) . '</a>';
@@ -226,9 +218,7 @@ if ( ! function_exists( 'fictioneer_settings_header' ) ) {
     $output['roles'] = '<a href="?page=fictioneer_roles" class="fictioneer-settings__nav-tab' . ( $tab == 'roles' ? ' active' : '' ) . '">' . __( 'Roles', 'fictioneer' ) . '</a>';
 
     // Plugins tab
-    if ( ! empty( $fictioneer_plugins ) ) {
-      $output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
-    }
+    $output['plugins'] = '<a href="?page=fictioneer_plugins" class="fictioneer-settings__nav-tab' . ( $tab == 'plugins' ? ' active' : '' ) . '">' . __( 'Plugins', 'fictioneer' ) . '</a>';
 
     // Connections tab
     $output['connections'] = '<a href="?page=fictioneer_connections" class="fictioneer-settings__nav-tab' . ( $tab == 'connections' ? ' active' : '' ) . '">' . __( 'Connections', 'fictioneer' ) . '</a>';
