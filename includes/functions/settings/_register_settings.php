@@ -1089,7 +1089,9 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_comment_form_selector' => __( 'Comment form CSS selector', 'fictioneer' ),
       'fictioneer_show_wp_login_link' => __( 'Show default WordPress login in modal', 'fictioneer' ),
       'fictioneer_enable_static_partials' => __( 'Enable caching of partials', 'fictioneer' ),
-      'fictioneer_randomize_oauth_usernames' => __( 'Randomize OAuth 2.0 usernames', 'fictioneer' )
+      'fictioneer_randomize_oauth_usernames' => __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
+      'fictioneer_rewrite_chapter_permalinks' => __( 'Rewrite chapter permalinks to include story ', 'fictioneer' ),
+      'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' )
     );
   }
 
