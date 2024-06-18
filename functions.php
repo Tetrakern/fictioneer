@@ -479,7 +479,7 @@ if ( get_option( 'fictioneer_enable_sitemap' ) ) {
 require_once __DIR__ . '/includes/functions/_module-seo.php';
 
 /**
- * Generate ePUBs for stories.
+ * Generate ePUBs for stories (only in ePUB context).
  */
 
 if ( get_option( 'fictioneer_enable_epubs' ) ) {
@@ -547,7 +547,7 @@ add_action( 'wp', 'fictioneer_conditional_require_comments' );
 require_once __DIR__ . '/includes/functions/_helpers-users.php';
 
 /**
- * Add functions for logged-in users.
+ * Add AJAX functions for users.
  */
 
 add_action(
@@ -612,7 +612,7 @@ require_once __DIR__ . '/includes/functions/_helpers-query.php';
 require_once __DIR__ . '/includes/functions/_setup-roles.php';
 
 /**
- * Add API.
+ * Add API (only for REST requests).
  */
 
 if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
@@ -628,7 +628,7 @@ if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
 }
 
 /**
- * Add search.
+ * Add search (only in search context).
  */
 
 add_action(
@@ -656,7 +656,7 @@ if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() )
 if ( is_admin() ) {
 
   /**
-   * Functions only required in the admin panel.
+   * Functions only required in admin context.
    */
 
   require_once __DIR__ . '/includes/functions/_setup-admin.php';
