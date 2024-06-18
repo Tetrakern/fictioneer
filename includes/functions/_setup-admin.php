@@ -17,7 +17,7 @@ require_once __DIR__ . '/settings/_settings.php';
 require_once __DIR__ . '/_setup-meta-fields.php';
 
 /**
- * Extend user profile in admin panel.
+ * Extend user profile.
  */
 
 require_once __DIR__ . '/users/_admin-profile.php';
@@ -295,14 +295,16 @@ function fictioneer_prepare_release_notes( $message ) {
  */
 
 function fictioneer_removable_args( $args ) {
-  $args[] = 'success';
-  $args[] = 'failure';
-  $args[] = 'info';
-  $args[] = 'data';
-  $args[] = 'fictioneer_nonce';
-  $args[] = 'fictioneer-notice';
+  $new_args = array(
+    'success',
+    'failure',
+    'info',
+    'data',
+    'fictioneer_nonce',
+    'fictioneer-notice'
+  );
 
-  return $args;
+  return array_merge( $args, $new_args );
 }
 add_filter( 'removable_query_args', 'fictioneer_removable_args' );
 
