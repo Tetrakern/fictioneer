@@ -48,6 +48,17 @@ if ( ! defined( 'FICTIONEER_LOGOUT_ENDPOINT' ) ) {
   define( 'FICTIONEER_LOGOUT_ENDPOINT', 'fictioneer-logout' );
 }
 
+/**
+ * Adds route to OAuth 2.0 script
+ *
+ * @since 4.0.0
+ */
+
+function fictioneer_add_oauth2_endpoint() {
+  add_rewrite_endpoint( FICTIONEER_OAUTH_ENDPOINT, EP_ROOT );
+}
+add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
+
 /*
  * Strings
  */
@@ -469,10 +480,18 @@ if ( get_option( 'fictioneer_enable_epubs' ) ) {
 }
 
 /**
- * Log-in and register subscribers via OAuth 2.0.
+ * Log-in and register via OAuth 2.0.
  */
 
-require_once __DIR__ . '/includes/functions/_module-oauth.php';
+add_action(
+  'template_redirect',
+  function () {
+    if ( ! is_null( get_query_var( FICTIONEER_OAUTH_ENDPOINT, null ) ) ) {
+      require_once __DIR__ . '/includes/functions/_module-oauth.php';
+    }
+  },
+  1
+);
 
 /**
  * Handle comments.

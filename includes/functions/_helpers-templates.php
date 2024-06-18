@@ -2088,3 +2088,122 @@ function fictioneer_page_background( $context = null ) {
   }
 }
 add_action( 'fictioneer_main', 'fictioneer_page_background' );
+
+// =============================================================================
+// GET LOGIN LINKS
+// =============================================================================
+
+/**
+ * Returns an OAuth 2.0 login link for the given channel
+ *
+ * @since 4.7.0
+ * @since 5.19.0 - Refactored.
+ *
+ * @param string $channel   The channel.
+ * @param string $content   Content of the link.
+ * @param array  $args {
+ *   Array of optional arguments.
+ *
+ *   @type string $return_url  Optional. Return URL. Defaults to home address.
+ *   @type string $classes     Optional. Additional CSS classes for the link.
+ *   @type int    $post_id     Optional. Current post ID.
+ *   @type string $action      Optional. The action to perform. Defaults to 'login'.
+ *   @type bool   $merge       Optional. Whether this is a merge request.
+ *   @type string $anchor      Optional. Anchor for the return URL.
+ * }
+ *
+ * @return string OAuth 2.0 login link or empty string if disabled.
+ */
+
+function fictioneer_get_oauth2_login_link( $channel, $content, $args = [] ) {
+  // Return empty string if...
+  if (
+    ! get_option( 'fictioneer_enable_oauth' ) ||
+    ! get_option( "fictioneer_{$channel}_client_id" ) ||
+    ! get_option( "fictioneer_{$channel}_client_secret" )
+  ) {
+    return '';
+  }
+
+  // Setup
+  $return_url = isset( $args['return_url'] ) ? $args['return_url'] : get_permalink( $args['post_id'] ?? 0 );
+  $classes = $args['classes'] ?? '';
+
+  // Build URL
+  $url = add_query_arg(
+    array(
+      'action' => $args['action'] ?? 'login',
+      'return_url' => $return_url,
+      'channel' => $channel
+    ),
+    wp_nonce_url( get_site_url( null, FICTIONEER_OAUTH_ENDPOINT ), 'authenticate', 'oauth_nonce' )
+  );
+
+  if ( $args['merge'] ?? 0 ) {
+    $url = add_query_arg( 'merge', $args['merge'], $url );
+  }
+
+  if ( $args['anchor'] ?? 0 ) {
+    $url = add_query_arg( 'anchor', $args['anchor'], $url );
+  }
+
+  $url = esc_url( $url );
+
+  // Return HTML link
+  return "<a href='{$url}' class='oauth-login-link _{$channel} {$classes}' rel='noopener noreferrer nofollow'>{$content}</a>";
+}
+
+/**
+ * Returns OAuth 2.0 login links for all channels
+ *
+ * @since 4.7.0
+ * @since 5.19.0 - Refactored.
+ *
+ * @param boolean|string $label    Optional. Whether to show the channel as
+ *                                 label and the text before that (if any).
+ *                                 Can be false, true, or any string.
+ * @param string         $classes  Optional. Additional CSS classes.
+ * @param boolean|string $anchor   Optional. Anchor to append to the URL.
+ *
+ * @return string Sequence of links or empty string if OAuth 2.0 is disabled.
+ */
+
+function fictioneer_get_oauth2_login_links( $label = false, $classes = '', $anchor = false, $post_id = null ) {
+  // Abort if...
+  if ( ! get_option( 'fictioneer_enable_oauth' ) ) {
+    return '';
+  }
+
+  // Setup
+  $channels = array(
+    ['discord', __( 'Discord', 'fictioneer' )],
+    ['twitch', __( 'Twitch', 'fictioneer' )],
+    ['google', __( 'Google', 'fictioneer' )],
+    ['patreon', __( 'Patreon', 'fictioneer' )],
+    // ['subscribestar', __( 'SubscribeStar', 'fictioneer' )]
+  );
+  $output = '';
+
+  // Build link for each channel
+  foreach ( $channels as $channel ) {
+    // Prefix (if any)
+    $prefix = is_string( $label ) ?  "{$label} " : '';
+
+    // Label after the icon (if any)
+    $oauth_label = $label ? "<span>{$prefix}{$channel[1]}</span>" : '';
+
+    // Build link
+    $output .= fictioneer_get_oauth2_login_link(
+      $channel[0],
+      '<i class="fa-brands fa-' . $channel[0] . '"></i>' . $oauth_label,
+      array(
+        'classes' => $classes,
+        'anchor' => $anchor ?: '',
+        'post_id' => $post_id
+      )
+    );
+  }
+
+  // Return link sequence as HTML
+  return $output;
+}
