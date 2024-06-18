@@ -466,12 +466,6 @@ require_once __DIR__ . '/includes/functions/_module-sitemap.php';
 require_once __DIR__ . '/includes/functions/_module-seo.php';
 
 /**
- * Communicate with the Discord API.
- */
-
-require_once __DIR__ . '/includes/functions/_module-discord.php';
-
-/**
  * Generate ePUBs for stories.
  */
 
@@ -625,6 +619,12 @@ if ( is_admin() ) {
    */
 
   require_once __DIR__ . '/includes/functions/_module-forms.php';
+
+  /**
+   * Communicate with the Discord API.
+   */
+
+  require_once __DIR__ . '/includes/functions/_module-discord.php';
 
 }
 
