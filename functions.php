@@ -579,12 +579,6 @@ require_once __DIR__ . '/includes/functions/_helpers-query.php';
 require_once __DIR__ . '/includes/functions/_setup-roles.php';
 
 /**
- * Add forms.
- */
-
-require_once __DIR__ . '/includes/functions/_module-forms.php';
-
-/**
  * Add API.
  */
 
@@ -617,6 +611,12 @@ if ( is_admin() ) {
    */
 
   require_once __DIR__ . '/includes/functions/_setup-admin.php';
+
+  /**
+   * Process AJAX form submits.
+   */
+
+  require_once __DIR__ . '/includes/functions/_module-forms.php';
 
 }
 
