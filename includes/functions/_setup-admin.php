@@ -20,7 +20,7 @@ require_once __DIR__ . '/_setup-meta-fields.php';
  * Extend user profile in admin panel.
  */
 
-require_once __DIR__ . '/users/_admin_profile.php';
+require_once __DIR__ . '/users/_admin-profile.php';
 
 // =============================================================================
 // ENQUEUE ADMIN STYLESHEETS

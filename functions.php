@@ -541,10 +541,24 @@ function fictioneer_conditional_require_comments() {
 add_action( 'wp', 'fictioneer_conditional_require_comments' );
 
 /**
- * Add functions for users.
+ * Add helpers for users.
  */
 
-require_once __DIR__ . '/includes/functions/users/_user_data.php';
+require_once __DIR__ . '/includes/functions/_helpers-users.php';
+
+/**
+ * Add functions for logged-in users.
+ */
+
+add_action(
+  'init',
+  function() {
+    if ( wp_doing_ajax() ) {
+      require_once __DIR__ . '/includes/functions/users/_user-ajax.php';
+    }
+  },
+  1
+);
 
 /**
  * Add the follow feature.
