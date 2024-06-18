@@ -140,7 +140,11 @@ if ( ! defined( 'FICTIONEER_ADMIN_SETTINGS_NOTICES' ) ) {
       'fictioneer-patreon-not-connected' => __( 'OAuth 2.0 authentication not enabled or Patreon client not set up.', 'fictioneer' ),
       'fictioneer-patreon-token-missing' => __( 'The Patreon access token could not be retrieved.', 'fictioneer' ),
       'fictioneer-patreon-tiers-pulled' => __( 'Patreon tiers have been pulled successfully.', 'fictioneer' ),
-      'fictioneer-patreon-tiers-deleted' => __( 'Patreon tiers have been deleted.', 'fictioneer' )
+      'fictioneer-patreon-tiers-deleted' => __( 'Patreon tiers have been deleted.', 'fictioneer' ),
+      'fictioneer-mu-plugin-copy-success' => __( 'MU-Plugin enabled successfully.', 'fictioneer' ),
+      'fictioneer-mu-plugin-copy-failure' => __( 'Error. MU-Plugin could not be enabled.', 'fictioneer' ),
+      'fictioneer-mu-plugin-delete-success' => __( 'MU-Plugin disabled successfully.', 'fictioneer' ),
+      'fictioneer-mu-plugin-delete-failure' => __( 'Error. MU-Plugin could not be disabled..', 'fictioneer' )
     )
   );
 }
@@ -1733,3 +1737,86 @@ function fictioneer_connection_delete_patreon_tiers() {
   exit;
 }
 add_action( 'admin_post_fictioneer_connection_delete_patreon_tiers', 'fictioneer_connection_delete_patreon_tiers' );
+
+// =============================================================================
+// PLUGINS ACTIONS
+// =============================================================================
+
+/**
+ * Adds mu-plugin
+ *
+ * @since 5.20.1
+ */
+
+function fictioneer_enable_mu_plugin() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_enable_mu_plugin' );
+
+  // Make sure directory exists
+  fictioneer_initialize_mu_plugins();
+
+  // Setup
+  $source = get_template_directory() . '/mu-plugins/';
+  $plugin = sanitize_text_field( $_GET['mu_plugin'] ?? 0 );
+  $source_path = $source . $plugin;
+  $destination_path = WPMU_PLUGIN_DIR . "/$plugin";
+
+  // Source?
+  if ( ! is_dir( $source ) ) {
+    wp_die( __( 'The mu-plugins subdirectory is missing in the theme directory.', 'fictioneer' ) );
+  }
+
+  // File?
+  if ( ! $plugin || ! file_exists( $source_path ) ) {
+    wp_die( __( 'File not found.', 'fictioneer' ) );
+  }
+
+  // Copy file
+  if ( copy( $source_path, $destination_path ) ) {
+    $result = array( 'success' => 'fictioneer-mu-plugin-copy-success' );
+  } else {
+    $result = array( 'failure' => 'fictioneer-mu-plugin-copy-failure' );
+  }
+
+  // Redirect
+  wp_safe_redirect( add_query_arg( $result, admin_url( 'admin.php?page=fictioneer_plugins' ) ) );
+
+  exit;
+}
+add_action( 'admin_post_fictioneer_enable_mu_plugin', 'fictioneer_enable_mu_plugin' );
+
+/**
+ * Deletes mu-plugin
+ *
+ * @since 5.20.1
+ */
+
+function fictioneer_disable_mu_plugin() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_disable_mu_plugin' );
+
+  // Make sure directory exists
+  fictioneer_initialize_mu_plugins();
+
+  // Setup
+  $plugin = sanitize_text_field( $_GET['mu_plugin'] ?? 0 );
+  $plugin_path = WPMU_PLUGIN_DIR . "/$plugin";
+
+  // File?
+  if ( ! $plugin || ! file_exists( $plugin_path ) ) {
+    wp_die( __( 'File not found.', 'fictioneer' ) );
+  }
+
+  // Delete file
+  if ( unlink( $plugin_path ) ) {
+    $result = array( 'success' => 'fictioneer-mu-plugin-delete-success' );
+  } else {
+    $result = array( 'failure' => 'fictioneer-mu-plugin-delete-failure' );
+  }
+
+  // Redirect
+  wp_safe_redirect( add_query_arg( $result, admin_url( 'admin.php?page=fictioneer_plugins' ) ) );
+
+  exit;
+}
+add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_plugin' );
