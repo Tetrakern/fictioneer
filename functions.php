@@ -583,7 +583,15 @@ require_once __DIR__ . '/includes/functions/_setup-roles.php';
  */
 
 if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
-  require_once __DIR__ . '/includes/functions/_api.php';
+  add_action(
+    'rest_api_init',
+    function () {
+      if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+        require_once __DIR__ . '/includes/functions/_api.php';
+      }
+    },
+    1
+  );
 }
 
 /**
