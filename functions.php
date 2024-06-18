@@ -468,7 +468,9 @@ require_once __DIR__ . '/includes/functions/_setup-shortcodes.php';
  * Generate sitemap.
  */
 
-require_once __DIR__ . '/includes/functions/_module-sitemap.php';
+if ( get_option( 'fictioneer_enable_sitemap' ) ) {
+  require_once __DIR__ . '/includes/functions/_module-sitemap.php';
+}
 
 /**
  * Add SEO features to the site.
