@@ -1,29 +1,6 @@
 <?php
 
 // =============================================================================
-// AFTER LOGOUT CLEANUP
-// =============================================================================
-
-/**
- * Make sure local storage is cleared on logout
- *
- * @since 5.0.0
- */
-
-function fictioneer_after_logout_cleanup() {
-  // Start HTML ---> ?>
-  <script>
-    localStorage.removeItem('fcnProfileAvatar');
-    localStorage.removeItem('fcnUserData');
-    localStorage.removeItem('fcnAuth');
-    localStorage.removeItem('fcnBookshelfContent');
-    localStorage.removeItem('fcnChapterBookmarks');
-  </script>
-  <?php // <--- End HTML
-}
-add_action( 'login_form', 'fictioneer_after_logout_cleanup' );
-
-// =============================================================================
 // CUSTOM AVATAR
 // =============================================================================
 
