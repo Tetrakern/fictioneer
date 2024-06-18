@@ -59,6 +59,17 @@ function fictioneer_add_oauth2_endpoint() {
 }
 add_action( 'init', 'fictioneer_add_oauth2_endpoint', 10 );
 
+/**
+ * Adds route to ePUB script
+ *
+ * @since 4.0.0
+ */
+
+function fictioneer_add_epub_download_endpoint() {
+  add_rewrite_endpoint( FICTIONEER_EPUB_ENDPOINT, EP_ROOT );
+}
+add_action( 'init', 'fictioneer_add_epub_download_endpoint', 10 );
+
 /*
  * Strings
  */
@@ -470,7 +481,19 @@ require_once __DIR__ . '/includes/functions/_module-seo.php';
  */
 
 if ( get_option( 'fictioneer_enable_epubs' ) ) {
-  require_once __DIR__ . '/includes/functions/_module-epub.php';
+  if ( wp_doing_ajax() && ( $_GET['action'] ?? 0 ) === 'fictioneer_ajax_download_epub' ) {
+    require_once __DIR__ . '/includes/functions/_module-epub.php';
+  } else {
+    add_action(
+      'template_redirect',
+      function () {
+        if ( ! is_null( get_query_var( FICTIONEER_EPUB_ENDPOINT, null ) ) ) {
+          require_once __DIR__ . '/includes/functions/_module-epub.php';
+        }
+      },
+      1
+    );
+  }
 }
 
 /**

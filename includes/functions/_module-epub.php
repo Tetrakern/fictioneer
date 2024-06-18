@@ -1,21 +1,6 @@
 <?php
 
 // =============================================================================
-// ADD ROUTE
-// =============================================================================
-
-/**
- * Add route to ePUB script
- *
- * @since 4.0.0
- */
-
-function fictioneer_add_epub_download_endpoint() {
-  add_rewrite_endpoint( FICTIONEER_EPUB_ENDPOINT, EP_ROOT );
-}
-add_action( 'init', 'fictioneer_add_epub_download_endpoint', 10 );
-
-// =============================================================================
 // DOWNLOAD
 // =============================================================================
 
