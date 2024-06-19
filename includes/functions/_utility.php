@@ -64,20 +64,45 @@ if ( ! function_exists( 'fictioneer_is_valid_json' ) ) {
 // CHECK FOR ACTIVE PLUGINS
 // =============================================================================
 
-if ( ! function_exists( 'fictioneer_is_plugin_active' ) ) {
-  /**
-   * Checks whether a plugin is active
-   *
-   * @since 4.0.0
-   *
-   * @param string $path  Relative path to the plugin.
-   *
-   * @return boolean True if the plugin is active, otherwise false.
-   */
+/**
+ * Checks whether a plugin is active for the entire network
+ *
+ * @since 5.20.2
+ * @link https://developer.wordpress.org/reference/functions/is_plugin_active_for_network/
+ *
+ * @param string $path  Relative path to the plugin.
+ *
+ * @return boolean True if the plugin is active, otherwise false.
+ */
 
-  function fictioneer_is_plugin_active( $path ) {
-    return in_array( $path, apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) );
+function fictioneer_is_network_plugin_active( $path ) {
+  if ( ! is_multisite() ) {
+    return false;
   }
+
+  $plugins = get_site_option( 'active_sitewide_plugins' );
+
+  if ( isset( $plugins[ $path ] ) ) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Checks whether a plugin is active
+ *
+ * @since 4.0.0
+ * @since 5.20.2 - Changed to copy of is_plugin_active().
+ * @link https://developer.wordpress.org/reference/functions/is_plugin_active/
+ *
+ * @param string $path  Relative path to the plugin.
+ *
+ * @return boolean True if the plugin is active, otherwise false.
+ */
+
+function fictioneer_is_plugin_active( $path ) {
+  return in_array( $path, (array) get_option( 'active_plugins', [] ), true ) || fictioneer_is_network_plugin_active( $path );
 }
 
 if ( ! function_exists( 'fictioneer_seo_plugin_active' ) ) {

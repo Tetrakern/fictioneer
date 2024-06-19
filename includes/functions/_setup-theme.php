@@ -1838,7 +1838,7 @@ function fictioneer_elementor_override_styles() {
 add_action(
   'wp',
   function() {
-    if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+    if ( fictioneer_is_plugin_active( 'elementor/elementor.php' ) ) {
       add_action( 'elementor/theme/register_locations', '  fictioneer_elementor_register_locations' );
       add_action( 'wp_enqueue_scripts', 'fictioneer_elementor_override_styles', 9999 );
     }
