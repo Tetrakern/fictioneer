@@ -1743,6 +1743,39 @@ add_action( 'admin_post_fictioneer_connection_delete_patreon_tiers', 'fictioneer
 // =============================================================================
 
 /**
+ * Copies mu-plugin from theme to wp-content/mu-plugins
+ *
+ * @since 5.20.2
+ *
+ * @param string $plugin  File name of the plugin to copy.
+ *
+ * @return string True on success or false on failure.
+ */
+
+function fictioneer_copy_mu_plugin( $plugin ) {
+  // Make sure directory exists
+  fictioneer_initialize_mu_plugins();
+
+  // Setup
+  $source = get_template_directory() . '/mu-plugins/';
+  $source_path = $source . $plugin;
+  $destination_path = WPMU_PLUGIN_DIR . "/$plugin";
+
+  // Source?
+  if ( ! is_dir( $source ) ) {
+    return false;
+  }
+
+  // File?
+  if ( ! $plugin || ! file_exists( $source_path ) ) {
+    return false;
+  }
+
+  // Copy file
+  return copy( $source_path, $destination_path );
+}
+
+/**
  * Adds mu-plugin
  *
  * @since 5.20.1
@@ -1759,7 +1792,6 @@ function fictioneer_enable_mu_plugin() {
   $source = get_template_directory() . '/mu-plugins/';
   $plugin = sanitize_text_field( $_GET['mu_plugin'] ?? 0 );
   $source_path = $source . $plugin;
-  $destination_path = WPMU_PLUGIN_DIR . "/$plugin";
 
   // Source?
   if ( ! is_dir( $source ) ) {
@@ -1772,7 +1804,7 @@ function fictioneer_enable_mu_plugin() {
   }
 
   // Copy file
-  if ( copy( $source_path, $destination_path ) ) {
+  if ( fictioneer_copy_mu_plugin( $plugin ) ) {
     $result = array( 'success' => 'fictioneer-mu-plugin-copy-success' );
   } else {
     $result = array( 'failure' => 'fictioneer-mu-plugin-copy-failure' );
