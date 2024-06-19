@@ -201,7 +201,11 @@ function fictioneer_check_for_updates() {
 
 function fictioneer_admin_update_notice() {
   // Guard
-  if ( ! current_user_can( 'install_themes' ) || ! fictioneer_check_for_updates() ) {
+  if (
+    ! current_user_can( 'install_themes' ) ||
+    ( $_GET['action'] ?? 0 ) === 'upload-theme' ||
+    ! fictioneer_check_for_updates()
+  ) {
     return;
   }
 
