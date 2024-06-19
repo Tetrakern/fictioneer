@@ -416,12 +416,17 @@ body[class*="fictioneer_page_"] {
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 10px 20px;
 
         .button {
           font-size: 12px;
           line-height: 1.5;
           min-height: auto;
+        }
+
+        > div:last-child {
+          flex: 1 1 auto;
+          text-align: right;
         }
       }
     }
