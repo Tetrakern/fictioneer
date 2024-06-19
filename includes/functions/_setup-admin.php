@@ -768,6 +768,7 @@ function fcntr_admin( $key, $escape = false ) {
   // Define default translations
   if ( $strings === null ) {
     $strings = array(
+      'Super Admin' => _x( 'Super Admin', 'Role translation', 'fictioneer' ),
       'Administrator' => _x( 'Administrator', 'Role translation', 'fictioneer' ),
       'Editor' => _x( 'Editor', 'Role translation', 'fictioneer' ),
       'Moderator' => _x( 'Moderator', 'Role translation', 'fictioneer' ),
@@ -775,6 +776,10 @@ function fcntr_admin( $key, $escape = false ) {
       'Contributor' => _x( 'Contributor', 'Role translation', 'fictioneer' ),
       'Subscriber' => _x( 'Subscriber', 'Role translation', 'fictioneer' ),
       'Translator' => _x( 'Translator', 'Role translation', 'fictioneer' ),
+      'Developer' => _x( 'Developer', 'Role translation', 'fictioneer' ),
+      'Member' => _x( 'Member', 'Role translation', 'fictioneer' ),
+      'Supporter' => _x( 'Supporter', 'Role translation', 'fictioneer' ),
+      'Tester' => _x( 'Tester', 'Role translation', 'fictioneer' ),
       'fcn_shortcodes' => _x( 'Shortcodes', 'Capability translation', 'fictioneer' ),
       'fcn_select_page_template' => _x( 'Select Page Templates', 'Capability translation', 'fictioneer' ),
       'fcn_custom_page_css' => _x( 'Custom Page CSS', 'Capability translation', 'fictioneer' ),
