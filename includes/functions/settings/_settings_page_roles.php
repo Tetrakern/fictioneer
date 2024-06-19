@@ -250,7 +250,7 @@ $current_role = $roles[ $current_role_slug ];
           ' class="fictioneer-settings__subnav-tab active"' : ' class="fictioneer-settings__subnav-tab"';
         $link = add_query_arg( 'fictioneer-subnav', $key, $current_url );
 
-        echo '<a href="' . $link . '" ' . $class . '>' . fcntr_admin( $role['name'] ) . '</a>';
+        echo '<a href="' . $link . '" ' . $class . '>' . ( fcntr_admin( $role['name'] ) ?: $role['name'] ) . '</a>';
       }
     ?>
     <button type="button" class="" data-fcn-dialog-target="add-role-dialog"><span class="dashicons dashicons-plus"></span></button>
