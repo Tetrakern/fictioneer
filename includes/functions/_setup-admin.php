@@ -976,3 +976,79 @@ function fictioneer_append_meta_fields( $post_type, $meta_key, $meta_value ) {
   }
 }
 
+// =============================================================================
+// MU-PLUGINS
+// =============================================================================
+
+/**
+ * Initializes the mu-plugins directory in /wp-content
+ *
+ * @since 5.20.1
+ */
+
+function fictioneer_initialize_mu_plugins() {
+  // Make sure directory exists
+  if ( ! is_dir( WPMU_PLUGIN_DIR ) ) {
+    mkdir( WPMU_PLUGIN_DIR, 0755, true );
+  }
+}
+
+/**
+ * Returns data about theme's MU-Plugins
+ *
+ * @since 5.20.1
+ *
+ * @return array Array of plugin data.
+ */
+
+function fictioneer_get_mu_plugin_data() {
+  // Initialize if necessary
+  fictioneer_initialize_mu_plugins();
+
+  // Setup
+  $mu_plugins = get_mu_plugins();
+  $data = array(
+    'fictioneer_fast_requests' => array(
+      'key' => 'fictioneer_fast_requests',
+      'filename' => 'fictioneer_001_fast_requests.php',
+      'name' => _x( 'Fictioneer Fast Requests', 'Theme mu-plugin.', 'fictioneer' ),
+      'description' => _x( 'Disables plugins for selected actions to accelerate dynamic requests, such as AJAX comments. If you have many plugins installed, this can significantly reduce loading times.', 'Theme mu-plugin.', 'fictioneer' ),
+      'version' => '1.1.0',
+      'update' => false,
+      'active' => false
+    ),
+    'fictioneer_elementor_control' => array(
+      'key' => 'fictioneer_elementor_control',
+      'filename' => 'fictioneer_002_elementor_control.php',
+      'name' => _x( 'Fictioneer Elementor Control', 'Theme mu-plugin.', 'fictioneer' ),
+      'description' => _x( 'Disables the Elementor plugin on all pages except those with a Canvas page template. Since Elementor consumes a lot of server resources, limiting it to actual use cases is sensible. However, this makes the plugin unavailable anywhere else on the frontend.', 'Theme mu-plugin.', 'fictioneer' ),
+      'version' => '1.0.0',
+      'update' => false,
+      'active' => false
+    )
+  );
+
+  // Active?
+  foreach ( $mu_plugins as $plugin_data ) {
+    if ( $plugin_data['Name'] === 'Fictioneer Fast Requests' ) {
+      $data['fictioneer_fast_requests']['active'] = true;
+
+      // Check version
+      if ( version_compare( $data['fictioneer_fast_requests']['version'], $plugin_data['Version'], '>' ) ) {
+        $data['fictioneer_fast_requests']['update'] = true;
+      }
+    }
+
+    if ( $plugin_data['Name'] === 'Fictioneer Elementor Control' ) {
+      $data['fictioneer_elementor_control']['active'] = true;
+
+      // Check version
+      if ( version_compare( $data['fictioneer_elementor_control']['version'], $plugin_data['Version'], '>' ) ) {
+        $data['fictioneer_elementor_control']['update'] = true;
+      }
+    }
+  }
+
+  // Return
+  return $data;
+}

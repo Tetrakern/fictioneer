@@ -523,7 +523,9 @@ Technically just another plugin, but one that will make your site significantly 
 
 ### Recommended: Must-Use Plugins
 
-[Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be copied into the **wp-content/mu-plugins** directory (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme directory, you will find an mu-plugins subdirectory with must-use plugins ready to be copied over.
+[Must-Use Plugins](https://wordpress.org/documentation/article/must-use-plugins/) are not installed but have to be copied into the **wp-content/mu-plugins** directory (does not exist by default). They are always loaded, in alphabetical order, and before any other plugin or theme. This behavior can be exploited to boost performance. When you look into the Fictioneer theme directory, you will find an mu-plugins subdirectory with plugin files ready to be copied over.
+
+**Since 5.20.2,** you can add and remove the theme’s mu-plugins quickly under **Fictioneer > Plugins**. It will also show you whether an update is available, but it won’t install it automatically in case you customized the file. Check occasionally.
 
 If problems arise, you can just delete the plugin files.
 
