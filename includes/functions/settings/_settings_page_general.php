@@ -940,7 +940,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_disable_emojis',
-                    __( 'Disable WordPress Emojis', 'fictioneer' ),
+                    __( 'Disable WordPress emojis', 'fictioneer' ),
                     __( 'Removes superfluous CSS and JavaScript.', 'fictioneer' )
                   );
                 ?>

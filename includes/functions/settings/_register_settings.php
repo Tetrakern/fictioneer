@@ -1098,7 +1098,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_randomize_oauth_usernames' => __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
       'fictioneer_rewrite_chapter_permalinks' => __( 'Rewrite chapter permalinks to include story ', 'fictioneer' ),
       'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' ),
-      'fictioneer_disable_emojis' => __( 'Disable WordPress Emojis', 'fictioneer' )
+      'fictioneer_disable_emojis' => __( 'Disable WordPress emojis', 'fictioneer' )
     );
   }
 
