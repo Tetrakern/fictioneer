@@ -226,7 +226,7 @@ get_header();
     'template' => 'author.php',
     'breadcrumbs' => array(
       [fcntr( 'frontpage' ), get_home_url()],
-      [__( 'Author', 'fictioneer' ), null],
+      [__( 'Author', 'fictioneer' ), $current_url],
       [$author->display_name, null]
     )
   );
