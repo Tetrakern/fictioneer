@@ -1806,6 +1806,14 @@ function fictioneer_enable_mu_plugin() {
   // Copy file
   if ( fictioneer_copy_mu_plugin( $plugin ) ) {
     $result = array( 'success' => 'fictioneer-mu-plugin-copy-success' );
+
+    // Log
+    fictioneer_log(
+      sprintf(
+        __( 'Enabled mu-plugin: %s', 'fictioneer' ),
+        $plugin
+      )
+    );
   } else {
     $result = array( 'failure' => 'fictioneer-mu-plugin-copy-failure' );
   }
@@ -1842,6 +1850,14 @@ function fictioneer_disable_mu_plugin() {
   // Delete file
   if ( unlink( $plugin_path ) ) {
     $result = array( 'success' => 'fictioneer-mu-plugin-delete-success' );
+
+    // Log
+    fictioneer_log(
+      sprintf(
+        __( 'Disabled mu-plugin: %s', 'fictioneer' ),
+        $plugin
+      )
+    );
   } else {
     $result = array( 'failure' => 'fictioneer-mu-plugin-delete-failure' );
   }
