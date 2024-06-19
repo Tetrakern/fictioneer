@@ -1468,3 +1468,64 @@ function fictioneer_fast_ajax() {
 if ( isset( $_REQUEST['fcn_fast_ajax'] ) || isset( $_REQUEST['fcn_fast_comment_ajax'] ) ) {
   add_action( 'init', 'fictioneer_fast_ajax', 99999 );
 }
+
+// =============================================================================
+// REMOVE EMOJIS
+// =============================================================================
+
+/**
+ * Removes the default WordPress emojis
+ *
+ * @since 5.20.2
+ */
+
+function fictioneer_disable_emojis() {
+  remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+  remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+  remove_action( 'wp_print_styles', 'print_emoji_styles' );
+  remove_action( 'admin_print_styles', 'print_emoji_styles' );
+  remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+  remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+  remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+  add_filter( 'tiny_mce_plugins', 'fictioneer_disable_tiny_mce_emojis' );
+  add_filter( 'wp_resource_hints', 'fictioneer_remove_emoji_resource_hint', 10, 2 );
+}
+
+if ( get_option( 'fictioneer_disable_emojis' ) ) {
+  add_action( 'init', 'fictioneer_disable_emojis' );
+}
+
+/**
+ * Removes the TinyMCE emoji plugin
+ *
+ * @since 5.20.2
+ * @link https://developer.wordpress.org/reference/hooks/tiny_mce_plugins/
+ *
+ * @param array $plugins  An array of default TinyMCE plugins.
+ *
+ * @return array Updated array of plugins.
+ */
+
+function fictioneer_disable_tiny_mce_emojis( $plugins ) {
+  return array_diff( $plugins, ['wpemoji'] );
+}
+
+/**
+ * Removes emoji CDN hostname from DNS prefetching hints
+ *
+ * @since 5.20.2
+ * @link https://developer.wordpress.org/reference/hooks/wp_resource_hints/
+ *
+ * @param array  $urls           Array of resources and their attributes, or URLs to print for resource hints.
+ * @param string $relation_type  The relation type the URLs are printed for.
+ *
+ * @return array Updated array of resource hints.
+ */
+
+function fictioneer_remove_emoji_resource_hint( $urls, $relation_type ) {
+  if ( $relation_type === 'dns-prefetch' ) {
+    $urls = array_diff( $urls, [ apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' ) ] );
+  }
+
+  return $urls;
+}

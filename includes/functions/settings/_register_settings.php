@@ -635,6 +635,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_disable_emojis' => array(
+      'name' => 'fictioneer_disable_emojis',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1091,7 +1097,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_enable_static_partials' => __( 'Enable caching of partials', 'fictioneer' ),
       'fictioneer_randomize_oauth_usernames' => __( 'Randomize OAuth 2.0 usernames', 'fictioneer' ),
       'fictioneer_rewrite_chapter_permalinks' => __( 'Rewrite chapter permalinks to include story ', 'fictioneer' ),
-      'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' )
+      'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' ),
+      'fictioneer_disable_emojis' => __( 'Disable WordPress Emojis', 'fictioneer' )
     );
   }
 

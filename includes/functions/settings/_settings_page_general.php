@@ -939,6 +939,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_emojis',
+                    __( 'Disable WordPress Emojis', 'fictioneer' ),
+                    __( 'Removes superfluous CSS and JavaScript.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_reduce_admin_bar',
                     __( 'Reduce admin bar items', 'fictioneer' ),
                     __( 'Less menu items, links, and icons in the admin bar.', 'fictioneer' )
