@@ -12,21 +12,26 @@
   padding-left: 0 !important;
 
   .notice {
+    --this-top-offset: 48px;
     position: absolute !important;
-    top: 10px;
-    left: 0;
+    top: calc(10px + var(--this-top-offset, 0));
+    left: 20px;
     right: 20px;
     margin: 0;
     box-shadow: 0 3px 4px 1px rgb(0 0 0 / 35%);
 
+    @include bp(601px) {
+      --this-top-offset: 0px;
+    }
+
     + .notice {
-      top: 60px;
+      top: calc(60px + var(--this-top-offset, 0));
 
       + .notice {
-        top: 110px;
+        top: calc(110px + var(--this-top-offset, 0));
 
         + .notice {
-          top: 160px;
+          top: calc(160px + var(--this-top-offset, 0));
         }
       }
     }
