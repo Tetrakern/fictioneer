@@ -710,7 +710,7 @@ You can increase or reduce the expiration time with the `FICTIONEER_PATREON_EXPI
 
 There are two ways to customize the theme. The obvious one is the Customizer of WordPress under **Appearance > Customize**. Here you can upload a header image and logo, set a site title, change the color scheme, and modify the layout to some extend. The interface and live preview make this straightforward. If the color options are too demanding (and they are), you may want to stick to the hue, saturation, and lightness sliders. Also consult the many guides about WordPress customization.
 
-The second way is to directly modify the templates, styles, and scripts. This is indefinitely more powerful but requires some developer skills — and you can easily break your site. The theme’s files can be modified under **Appearance > Theme File Editor**, although you should never actually do this. Always create a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) because any code changes you make, regardless of quality, will be overwritten again when you update the theme.
+The second way is to directly modify the templates, styles, and scripts. This is indefinitely more powerful but requires some developer skills — and you can easily break your site. The theme’s files can be modified under **Appearance > Theme File Editor**, although you should never actually do this. Always create a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/) because any code changes you make, regardless of quality, will be overwritten again when you update the theme. You can find a pre-made base child theme [here](https://github.com/Tetrakern/fictioneer-child-theme).
 
 ### Demo Layout
 
