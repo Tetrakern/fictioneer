@@ -502,13 +502,13 @@ define( 'FICTIONEER_OPTIONS', array(
       'name' => 'fictioneer_enable_chapter_appending',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
+      'default' => 1
     ),
     'fictioneer_limit_chapter_stories_by_author' => array(
       'name' => 'fictioneer_limit_chapter_stories_by_author',
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
-      'default' => 0
+      'default' => 1
     ),
     'fictioneer_disable_all_widgets' => array(
       'name' => 'fictioneer_disable_all_widgets',
