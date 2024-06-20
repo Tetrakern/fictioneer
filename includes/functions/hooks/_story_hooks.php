@@ -560,6 +560,7 @@ function fictioneer_story_chapters( $args ) {
 
           $chapter_groups[ $group_key ]['data'][] = array(
             'id' => $chapter_id,
+            'story_id' => $story_id,
             'status' => $post->post_status,
             'link' => in_array( $post->post_status, $allowed_permalinks ) ? get_permalink() : '',
             'timestamp' => get_the_time( 'c' ),
@@ -653,8 +654,10 @@ function fictioneer_story_chapters( $args ) {
 
                   <?php
                     if ( ! $hide_icons ) {
-                      // Text icon overrides normal icon
-                      if ( $chapter['text_icon'] ) {
+                      // Icon hierarchy: password > text > normal
+                      if ( $chapter['password'] ) {
+                        $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
+                      } elseif ( $chapter['text_icon'] ) {
                         $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$chapter['text_icon']}</span>";
                       } else {
                         $icon = $chapter['icon'] ?: FICTIONEER_DEFAULT_CHAPTER_ICON;

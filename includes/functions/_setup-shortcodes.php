@@ -1086,8 +1086,10 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           <li class="chapter-group__list-item <?php echo $extra_classes; ?>" data-post-id="<?php echo $chapter_id; ?>">
             <?php
               if ( ! $hide_icons ) {
-                // Text icon overrides normal icon
-                if ( $text_icon ) {
+                // Icon hierarchy: password > text > normal
+                if ( $has_password ) {
+                  $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
+                } elseif ( $text_icon ) {
                   $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$text_icon}</span>";
                 } else {
                   $icon = $icon ?: FICTIONEER_DEFAULT_CHAPTER_ICON;
