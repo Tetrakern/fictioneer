@@ -1116,15 +1116,16 @@ function fictioneer_shortcode_chapter_list( $attr ) {
 
             <?php
               // Chapter subrow
-              $chapter_data = [];
-              $chapter_data['id'] = $chapter_id;
-              $chapter_data['warning'] = $warning;
-              $chapter_data['password'] = $has_password;
-              $chapter_data['timestamp'] = get_the_time( 'c' );
-              $chapter_data['list_date'] = get_the_date( '' );
-              $chapter_data['words'] = fictioneer_get_word_count( $chapter_id );
-
-              echo fictioneer_get_list_chapter_meta_row( $chapter_data );
+              echo fictioneer_get_list_chapter_meta_row(
+                array(
+                  'id' => $chapter_id,
+                  'warning' => $warning,
+                  'password' => $has_password,
+                  'timestamp' => get_the_time( 'c' ),
+                  'list_date' => get_the_date( '' ),
+                  'words' => fictioneer_get_word_count( $chapter_id ),
+                )
+              );
             ?>
 
             <?php if ( $can_checkmarks && ! empty( $chapter_story_id ) && get_post_status( $chapter_story_id ) === 'publish' ) : ?>
