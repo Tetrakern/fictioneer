@@ -171,7 +171,7 @@ Filters the default chapter formatting settings. The passed array is empty becau
 ---
 
 ### `apply_filters( 'fictioneer_filter_chapter_icon', $icon_html, $chapter_id, $story_id )`
-Filters the HTML of the chapter icon before it is rendered.
+Filters the HTML of the chapter icon before it is rendered. The display hierarchy is password icon > scheduled icon > text icon > chapter icon.
 
 **Parameters:**
 * $icon_html (string) – HTML for the chapter icon.

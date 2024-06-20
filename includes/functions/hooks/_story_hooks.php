@@ -654,9 +654,11 @@ function fictioneer_story_chapters( $args ) {
 
                   <?php
                     if ( ! $hide_icons ) {
-                      // Icon hierarchy: password > text > normal
+                      // Icon hierarchy: password > scheduled > text > normal
                       if ( $chapter['password'] ) {
                         $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
+                      } elseif ( $chapter['status'] === 'future' ) {
+                        $icon = '<i class="fa-solid fa-calendar-days chapter-group__list-item-icon"></i>';
                       } elseif ( $chapter['text_icon'] ) {
                         $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$chapter['text_icon']}</span>";
                       } else {

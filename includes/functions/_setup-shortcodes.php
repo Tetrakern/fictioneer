@@ -1086,9 +1086,11 @@ function fictioneer_shortcode_chapter_list( $attr ) {
           <li class="chapter-group__list-item <?php echo $extra_classes; ?>" data-post-id="<?php echo $chapter_id; ?>">
             <?php
               if ( ! $hide_icons ) {
-                // Icon hierarchy: password > text > normal
+                // Icon hierarchy: password > scheduled > text > normal
                 if ( $has_password ) {
                   $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
+                } elseif ( get_post_status( $chapter_id ) === 'future' ) {
+                  $icon = '<i class="fa-solid fa-calendar-days chapter-group__list-item-icon"></i>';
                 } elseif ( $text_icon ) {
                   $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$text_icon}</span>";
                 } else {
