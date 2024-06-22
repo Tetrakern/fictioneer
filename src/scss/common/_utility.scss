@@ -150,6 +150,10 @@ body:not(.is-editor):not(.is-admin) {
   white-space: nowrap;
 }
 
+.no-indent {
+  text-indent: 0 !important;
+}
+
 .full-width {
   flex-basis: 100% !important;
   width: 100% !important;
