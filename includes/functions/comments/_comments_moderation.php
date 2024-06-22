@@ -746,5 +746,3 @@ if ( ! get_option( 'fictioneer_disable_comment_callback' ) && get_option( 'ficti
   add_filter( 'manage_edit-comments_columns', 'fictioneer_add_comments_report_column' );
   add_action( 'manage_comments_custom_column', 'fictioneer_add_comments_report_column_content', 10, 2 );
 }
-
-?>

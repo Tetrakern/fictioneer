@@ -285,5 +285,3 @@ function fictioneer_comment_form_args( $defaults = [], $post_id = null ) {
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
   add_filter( 'comment_form_defaults', 'fictioneer_comment_form_args' );
 }
-
-?>

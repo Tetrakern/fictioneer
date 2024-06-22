@@ -299,5 +299,3 @@ function fictioneer_rest_get_story_comments( WP_REST_Request $request ) {
   // Return buffer
   return rest_ensure_response( array( 'data' => $data, 'success' => true ) );
 }
-
-?>

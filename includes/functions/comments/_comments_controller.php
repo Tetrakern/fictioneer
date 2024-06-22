@@ -552,5 +552,3 @@ function fictioneer_comment_edit( $comment_ID, $data ) {
 if ( ! get_option( 'fictioneer_disable_comment_form' ) ) {
   add_action( 'edit_comment', 'fictioneer_comment_edit', 20, 2 );
 }
-
-?>

@@ -656,5 +656,3 @@ function fictioneer_ajax_delete_my_comment() {
 if ( ! get_option( 'fictioneer_disable_comment_callback' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_delete_my_comment', 'fictioneer_ajax_delete_my_comment' );
 }
-
-?>
