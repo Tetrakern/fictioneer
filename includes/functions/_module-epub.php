@@ -1179,6 +1179,15 @@ function fictioneer_generate_epub() {
 add_action( 'template_redirect', 'fictioneer_generate_epub', 10 );
 
 // =============================================================================
+// AJAX REQUESTS
+// > Return early if no AJAX functions are required.
+// =============================================================================
+
+if ( ! wp_doing_ajax() ) {
+  return;
+}
+
+// =============================================================================
 // AJAX - CHECK IF READY TO DOWNLOAD
 // =============================================================================
 

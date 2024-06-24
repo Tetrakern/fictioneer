@@ -45,6 +45,73 @@ if ( ! function_exists( 'fictioneer_load_follows' ) ) {
 }
 
 // =============================================================================
+// QUERY CHAPTERS OF FOLLOWED STORIES
+// =============================================================================
+
+if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
+  /**
+   * Query chapters of followed stories
+   *
+   * @since 4.3.0
+   *
+   * @param array        $story_ids   IDs of the followed stories.
+   * @param string|false $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
+   * @param int          $count       Optional. Maximum number of chapters to be returned. Default 20.
+   *
+   * @return array Collection of chapters.
+   */
+
+  function fictioneer_query_followed_chapters( $story_ids, $after_date = false, $count = 20 ) {
+    // Setup
+    $query_args = array (
+      'post_type' => 'fcn_chapter',
+      'post_status' => 'publish',
+      'meta_query' => array(
+        array(
+          'key' => 'fictioneer_chapter_story',
+          'value' => $story_ids,
+          'compare' => 'IN',
+        )
+      ),
+      'numberposts' => $count,
+      'orderby' => 'date',
+      'order' => 'DESC',
+      'update_post_meta_cache' => true,
+      'update_post_term_cache' => false, // Improve performance
+      'no_found_rows' => true // Improve performance
+    );
+
+    if ( $after_date ) {
+      $query_args['date_query'] = array( 'after' => $after_date );
+    }
+
+    // Query
+    $all_chapters = get_posts( $query_args );
+
+    // Filter out hidden chapters (faster than meta query, highly unlikely to eliminate all)
+    $chapters = array_filter( $all_chapters, function ( $candidate ) {
+      // Chapter hidden?
+      $chapter_hidden = get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true );
+
+      // Only keep if not hidden
+      return empty( $chapter_hidden ) || $chapter_hidden === '0';
+    });
+
+    // Return final results
+    return $chapters;
+  }
+}
+
+// =============================================================================
+// AJAX REQUESTS
+// > Return early if no AJAX functions are required.
+// =============================================================================
+
+if ( ! wp_doing_ajax() ) {
+  return;
+}
+
+// =============================================================================
 // TOGGLE FOLLOW - AJAX
 // =============================================================================
 
@@ -203,64 +270,6 @@ function fictioneer_ajax_mark_follows_read() {
 
 if ( get_option( 'fictioneer_enable_follows' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_mark_follows_read', 'fictioneer_ajax_mark_follows_read' );
-}
-
-// =============================================================================
-// QUERY CHAPTERS OF FOLLOWED STORIES
-// =============================================================================
-
-if ( ! function_exists( 'fictioneer_query_followed_chapters' ) ) {
-  /**
-   * Query chapters of followed stories
-   *
-   * @since 4.3.0
-   *
-   * @param array        $story_ids   IDs of the followed stories.
-   * @param string|false $after_date  Optional. Only return chapters after this date, e.g. wp_date( 'c', $timestamp ).
-   * @param int          $count       Optional. Maximum number of chapters to be returned. Default 20.
-   *
-   * @return array Collection of chapters.
-   */
-
-  function fictioneer_query_followed_chapters( $story_ids, $after_date = false, $count = 20 ) {
-    // Setup
-    $query_args = array (
-      'post_type' => 'fcn_chapter',
-      'post_status' => 'publish',
-      'meta_query' => array(
-        array(
-          'key' => 'fictioneer_chapter_story',
-          'value' => $story_ids,
-          'compare' => 'IN',
-        )
-      ),
-      'numberposts' => $count,
-      'orderby' => 'date',
-      'order' => 'DESC',
-      'update_post_meta_cache' => true,
-      'update_post_term_cache' => false, // Improve performance
-      'no_found_rows' => true // Improve performance
-    );
-
-    if ( $after_date ) {
-      $query_args['date_query'] = array( 'after' => $after_date );
-    }
-
-    // Query
-    $all_chapters = get_posts( $query_args );
-
-    // Filter out hidden chapters (faster than meta query, highly unlikely to eliminate all)
-    $chapters = array_filter( $all_chapters, function ( $candidate ) {
-      // Chapter hidden?
-      $chapter_hidden = get_post_meta( $candidate->ID, 'fictioneer_chapter_hidden', true );
-
-      // Only keep if not hidden
-      return empty( $chapter_hidden ) || $chapter_hidden === '0';
-    });
-
-    // Return final results
-    return $chapters;
-  }
 }
 
 // =============================================================================

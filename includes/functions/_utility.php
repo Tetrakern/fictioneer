@@ -1692,49 +1692,6 @@ function fictioneer_show_auth_content() {
 }
 
 // =============================================================================
-// AJAX AUTHENTICATION
-// =============================================================================
-
-/**
- * Send user authentication status via AJAX
- *
- * @since 5.7.0
- */
-
-function fictioneer_ajax_get_auth() {
-  // Enabled?
-  if ( ! get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-    wp_send_json_error(
-      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
-      403
-    );
-  }
-
-  // Setup
-  $user = wp_get_current_user();
-  $nonce = wp_create_nonce( 'fictioneer_nonce' );
-  $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
-
-  // Response
-  wp_send_json_success(
-    array(
-      'loggedIn' => is_user_logged_in(),
-      'isAdmin' => fictioneer_is_admin( $user->ID ),
-      'isModerator' => fictioneer_is_moderator( $user->ID ),
-      'isAuthor' => fictioneer_is_author( $user->ID ),
-      'isEditor' => fictioneer_is_editor( $user->ID ),
-      'nonce' => $nonce,
-      'nonceHtml' => $nonce_html
-    )
-  );
-}
-
-if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
-  add_action( 'wp_ajax_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
-  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
-}
-
-// =============================================================================
 // FICTIONEER TRANSLATIONS
 // =============================================================================
 
@@ -3162,4 +3119,57 @@ function fictioneer_get_random_username( $unique = true ) {
 
   // Return username
   return $username;
+}
+
+// =============================================================================
+// AJAX REQUESTS
+// > Return early if no AJAX functions are required.
+// =============================================================================
+
+if ( ! wp_doing_ajax() ) {
+  return;
+}
+
+
+// =============================================================================
+// AJAX AUTHENTICATION
+// =============================================================================
+
+/**
+ * Send user authentication status via AJAX
+ *
+ * @since 5.7.0
+ */
+
+function fictioneer_ajax_get_auth() {
+  // Enabled?
+  if ( ! get_option( 'fictioneer_enable_ajax_authentication' ) ) {
+    wp_send_json_error(
+      array( 'error' => __( 'Not allowed.', 'fictioneer' ) ),
+      403
+    );
+  }
+
+  // Setup
+  $user = wp_get_current_user();
+  $nonce = wp_create_nonce( 'fictioneer_nonce' );
+  $nonce_html = '<input id="fictioneer-ajax-nonce" name="fictioneer-ajax-nonce" type="hidden" value="' . $nonce . '">';
+
+  // Response
+  wp_send_json_success(
+    array(
+      'loggedIn' => is_user_logged_in(),
+      'isAdmin' => fictioneer_is_admin( $user->ID ),
+      'isModerator' => fictioneer_is_moderator( $user->ID ),
+      'isAuthor' => fictioneer_is_author( $user->ID ),
+      'isEditor' => fictioneer_is_editor( $user->ID ),
+      'nonce' => $nonce,
+      'nonceHtml' => $nonce_html
+    )
+  );
+}
+
+if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
+  add_action( 'wp_ajax_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
+  add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
 }
