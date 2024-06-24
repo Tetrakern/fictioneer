@@ -314,9 +314,9 @@ function fictioneer_comment_post( $comment_id, $comment_approved, $commentdata )
 
   // If user opted for email notifications
   if ( filter_var( $_POST['fictioneer-comment-notification-toggle'] ?? 0, FILTER_VALIDATE_BOOLEAN ) ) {
-    add_comment_meta( $comment_id, 'fictioneer_send_notifications', $notification_validator );
+    update_comment_meta( $comment_id, 'fictioneer_send_notifications', $notification_validator );
     // Reset code to stop notifications (sufficiently unique for this purpose)
-    add_comment_meta( $comment_id, 'fictioneer_notifications_reset', md5( wp_generate_password() ) );
+    update_comment_meta( $comment_id, 'fictioneer_notifications_reset', md5( wp_generate_password() ) );
   }
 
   // Anything related to comment parent (if any)...

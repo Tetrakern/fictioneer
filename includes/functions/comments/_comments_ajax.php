@@ -384,12 +384,9 @@ function fictioneer_ajax_submit_comment() {
     fictioneer_update_user_meta( wp_get_current_user(), 'fictioneer_comment_reply_validator', $notification_validator );
   }
 
-  // Mark for email notifications if set
-  if ( $notification ) {
-    add_comment_meta( $comment->comment_ID, 'fictioneer_send_notifications', $notification_validator );
-    // Reset code to stop notifications (sufficiently unique for this purpose)
-    add_comment_meta( $comment->comment_ID, 'fictioneer_notifications_reset', md5( wp_generate_password() ) );
-  }
+  /*
+    Marking for notifications happens in fictioneer_comment_post()
+  */
 
   // WordPress' comment cookie hook from wp-comments-post.php
   do_action( 'set_comment_cookies', $comment, wp_get_current_user(), $cookie_consent );
