@@ -224,6 +224,7 @@ if ( get_option( 'fictioneer_enable_ajax_comments' ) ) {
  * Creates and sends a new comment via AJAX
  *
  * @since 5.0.0
+ * @since 5.20.3 - Use form field names as keys.
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_error/
  * @link https://developer.wordpress.org/reference/functions/wp_send_json_success/
  */
@@ -257,30 +258,20 @@ function fictioneer_ajax_submit_comment() {
   }
 
   // Validations
-  if (
-    ! isset( $_POST['post_id'] ) ||
-    intval( $_POST['post_id'] ) < 1 ||
-    ! isset( $_POST['content'] ) ||
-    ! isset( $_POST['private_comment'] ) ||
-    ! isset( $_POST['notification'] ) ||
-    ! isset( $_POST['cookie_consent'] ) ||
-    ! isset( $_POST['privacy_consent'] ) ||
-    ! isset( $_POST['unfiltered_html'] ) ||
-    ! isset( $_POST['depth'] )
-  ) {
+  if ( intval( $_POST['comment_post_ID'] ?? 0 ) < 1 || ! isset( $_POST['content'] ) ) {
     wp_send_json_error( array( 'error' => __( 'Comment did not pass validation.', 'fictioneer' ) ) );
   }
 
   // Setup
   $user = wp_get_current_user();
-  $post_id = absint( $_POST['post_id'] );
+  $post_id = absint( $_POST['comment_post_ID'] );
   $post = get_post( $post_id ); // Called later anyway; no performance loss
-  $private_comment = filter_var( $_POST['private_comment'], FILTER_VALIDATE_BOOLEAN );
-  $notification = filter_var( $_POST['notification'], FILTER_VALIDATE_BOOLEAN );
-  $privacy_consent = filter_var( $_POST['privacy_consent'], FILTER_VALIDATE_BOOLEAN );
-  $cookie_consent = filter_var( $_POST['cookie_consent'], FILTER_VALIDATE_BOOLEAN );
-  $unfiltered_html = sanitize_text_field( $_POST['unfiltered_html'] );
-  $depth = max( intval( $_POST['depth'] ), 1 );
+  $private_comment = filter_var( $_POST['fictioneer-private-comment-toggle'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $notification = filter_var( $_POST['fictioneer-comment-notification-toggle'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $privacy_consent = filter_var( $_POST['fictioneer-privacy-policy-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $cookie_consent = filter_var( $_POST['wp-comment-cookies-consent'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  $unfiltered_html = sanitize_text_field( $_POST['_wp_unfiltered_html_comment_disabled'] ?? '' );
+  $depth = max( intval( $_POST['depth'] ?? 1 ), 1 );
   $commentcode = false;
 
   // Check privacy consent early (not checked later for AJAX posts)
@@ -325,8 +316,8 @@ function fictioneer_ajax_submit_comment() {
     $comment_data['author'] = sanitize_text_field( $_POST['author'] );
   }
 
-  if ( isset( $_POST['parent_id'] ) && intval( $_POST['parent_id'] ) > 0 ) {
-    $comment_data['comment_parent'] = absint( $_POST['parent_id'] );
+  if ( intval( $_POST['comment_parent'] ?? 0 ) > 0 ) {
+    $comment_data['comment_parent'] = absint( $_POST['comment_parent'] );
   }
 
   // Check against disallow list (Settings > Discussion) if not admin

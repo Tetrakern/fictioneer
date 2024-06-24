@@ -348,6 +348,7 @@ _$('.comment-section')?.addEventListener('keydown', event => {
  * Bind AJAX request to comment form submit and override default behavior.
  *
  * @since 5.0.0
+ * @since 5.20.3 - Use the FormData interface.
  */
 
 function fcn_bindAJAXCommentSubmit() {
@@ -368,17 +369,15 @@ function fcn_bindAJAXCommentSubmit() {
 
     // Get comment form input
     const form = e.currentTarget;
+    const formData = new FormData(form);
+    const formDataObj = Object.fromEntries(formData.entries());
     const button = form.querySelector('[name="submit"]');
     const content = _$(fictioneer_comments.form_selector ?? '#comment');
     const author = form.querySelector('[name="author"]');
     const email = form.querySelector('[name="email"]');
-    const cookie_consent = form.querySelector('[name="wp-comment-cookies-consent"]');
     const privacy_consent = form.querySelector('[name="fictioneer-privacy-policy-consent"]');
-    const jsValidator = form.querySelector('[name="fictioneer_comment_validator"]');
-    const parentId = form.querySelector('[name="comment_parent"]')?.value;
+    const parentId = formDataObj['comment_parent'] ?? 0;
     const parent = _$$$(`comment-${parentId}`);
-    const private_comment = form.querySelector('[name="fictioneer-private-comment-toggle"]');
-    const notification = form.querySelector('[name="fictioneer-comment-notification-toggle"]');
     const order = form.closest('.fictioneer-comments')?.dataset.order ?? 'desc';
 
     let emailValidation = true;
@@ -413,24 +412,16 @@ function fcn_bindAJAXCommentSubmit() {
 
     // Payload
     const payload = {
-      'action': 'fictioneer_ajax_submit_comment',
-      'post_id': _$$$('comment_post_ID').value,
-      'content': content.value,
-      'private_comment': private_comment?.checked ?? 0,
-      'notification': notification?.checked ?? 0,
-      'cookie_consent': cookie_consent?.checked ?? 0,
-      'privacy_consent': privacy_consent?.checked ?? 0,
-      'unfiltered_html': _$$$('_wp_unfiltered_html_comment_disabled')?.value ?? '',
-      'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
-      'fictioneer_comment_validator': jsValidator?.value ?? 0,
-      'fcn_fast_comment_ajax': 1
-    };
-
-    // Optional payload
-    if (parentId) {
-      payload['parent_id'] = parentId;
+      ...{
+        'action': 'fictioneer_ajax_submit_comment',
+        'content': content.value,
+        'depth': parent ? parseInt(parent.dataset.depth) + 1 : 1,
+        'fcn_fast_comment_ajax': 1
+      },
+      ...formDataObj
     }
 
+    // Optional payload
     if (email?.value) {
       payload['email'] = email?.value;
     }
