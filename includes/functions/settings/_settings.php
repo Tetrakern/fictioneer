@@ -23,13 +23,6 @@ if ( wp_doing_ajax() ) {
  */
 
 function fictioneer_add_admin_menu() {
-  $fictioneer_plugins = array_filter(
-    get_option( 'active_plugins' ) ?: [],
-    function( $plugin ) {
-      return strpos( $plugin, 'fictioneer' ) !== false;
-    }
-  );
-
   add_menu_page(
     __( 'Fictioneer Settings', 'fictioneer' ),
     __( 'Fictioneer', 'fictioneer' ),
