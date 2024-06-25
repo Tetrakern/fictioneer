@@ -546,128 +546,6 @@ if ( ! function_exists( 'fictioneer_convert_taxonomies' ) ) {
 }
 
 // =============================================================================
-// AJAX: GET STORY CHAPTER GROUP OPTIONS
-// =============================================================================
-
-/**
- * AJAX: Get chapter group options for story
- *
- * @since 5.7.4
- */
-
-function fictioneer_ajax_get_chapter_groups() {
-  // Validate
-  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_nonce' );
-  $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
-
-  if ( ! is_admin() || ! wp_doing_ajax() ) {
-    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  if ( ! $user || ! current_user_can( 'edit_fcn_stories' ) ) {
-    wp_send_json_error( array( 'error' => __( 'User did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  if ( ! $story_id ) {
-    wp_send_json_error( array( 'error' => __( 'Story ID did not pass validation.', 'fictioneer' ) ) );
-  }
-
-  // Setup
-  global $wpdb;
-
-  $story = fictioneer_get_story_data( $story_id, false );
-  $groups = [];
-
-  // Query groups
-  if ( $story && ! empty( $story['chapter_ids'] ) ) {
-    $post_ids_format = implode( ', ', array_fill( 0, count( $story['chapter_ids'] ), '%d' ) );
-
-    $sql = $wpdb->prepare(
-      "SELECT post_id, meta_value
-      FROM $wpdb->postmeta
-      WHERE meta_key = 'fictioneer_chapter_group'
-      AND meta_value != ''
-      AND post_id IN ($post_ids_format)",
-      $story['chapter_ids']
-    );
-
-    $results = $wpdb->get_results( $sql );
-
-    foreach ( $results as $result ) {
-      if ( $result->meta_value ) {
-        $groups[] = $result->meta_value;
-      }
-    }
-
-    $groups = array_unique( $groups );
-  }
-
-  // Prepare HTML
-  $html = '';
-
-  if ( ! empty( $groups ) ) {
-    foreach ( $groups as $group ) {
-      $html .= "<option value='{$group}'></option>";
-    }
-  }
-
-  // Send
-  if ( empty( $html ) ) {
-    wp_send_json_error( array( 'failure' => __( 'No groups found.', 'fictioneer' ) ) );
-  } else {
-    wp_send_json_success( array( 'html' => $html ) );
-  }
-}
-add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
-
-// =============================================================================
-// AJAX: RESET THEME COLORS
-// =============================================================================
-
-/**
- * AJAX: Reset custom theme colors
- *
- * @since 5.12.0
- */
-
-function fictioneer_ajax_reset_theme_colors() {
-  // Validate
-  check_ajax_referer( 'fictioneer-reset-colors', 'fictioneer_nonce' );
-
-  if ( ! current_user_can( 'edit_theme_options' ) ) {
-    wp_send_json_error( array( 'failure' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
-  }
-
-  // Setup
-  $mods = get_theme_mods();
-  $theme = get_option( 'stylesheet' );
-  $json_path = get_template_directory() . '/includes/functions/colors.json';
-  $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
-
-  // Abort if...
-  if ( ! is_array( $fictioneer_colors ) || empty( $fictioneer_colors ) ) {
-    wp_send_json_error( array( 'failure' => __( 'Error: Colors not found.', 'fictioneer' ) ) );
-  }
-
-  // Unset colors to reset them to default
-  foreach ( array_keys( $fictioneer_colors ) as $mod ) {
-    unset( $mods[ $mod ] );
-  }
-
-  // Save to database
-  update_option( "theme_mods_{$theme}", $mods );
-
-  // Refresh custom files
-  fictioneer_build_customize_css();
-  fictioneer_build_customize_css( 'preview' );
-  fictioneer_build_dynamic_scripts();
-
-  // Finish
-  wp_send_json_success( array( 'success' => true ) );
-}
-add_action( 'wp_ajax_fictioneer_ajax_reset_theme_colors', 'fictioneer_ajax_reset_theme_colors' );
-
-// =============================================================================
 // THEME DEACTIVATION
 // =============================================================================
 
@@ -1052,3 +930,134 @@ function fictioneer_get_mu_plugin_data() {
   // Return
   return $data;
 }
+
+// =============================================================================
+// AJAX REQUESTS
+// > Return early if no AJAX functions are required.
+// =============================================================================
+
+if ( ! wp_doing_ajax() ) {
+  return;
+}
+
+// =============================================================================
+// AJAX: GET STORY CHAPTER GROUP OPTIONS
+// =============================================================================
+
+/**
+ * AJAX: Get chapter group options for story
+ *
+ * @since 5.7.4
+ */
+
+function fictioneer_ajax_get_chapter_groups() {
+  // Validate
+  $user = fictioneer_get_validated_ajax_user( 'nonce', 'fictioneer_nonce' );
+  $story_id = isset( $_GET['story_id'] ) ? fictioneer_validate_id( $_GET['story_id'], 'fcn_story' ) : null;
+
+  if ( ! is_admin() || ! wp_doing_ajax() ) {
+    wp_send_json_error( array( 'error' => __( 'Request did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  if ( ! $user || ! current_user_can( 'edit_fcn_stories' ) ) {
+    wp_send_json_error( array( 'error' => __( 'User did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  if ( ! $story_id ) {
+    wp_send_json_error( array( 'error' => __( 'Story ID did not pass validation.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  global $wpdb;
+
+  $story = fictioneer_get_story_data( $story_id, false );
+  $groups = [];
+
+  // Query groups
+  if ( $story && ! empty( $story['chapter_ids'] ) ) {
+    $post_ids_format = implode( ', ', array_fill( 0, count( $story['chapter_ids'] ), '%d' ) );
+
+    $sql = $wpdb->prepare(
+      "SELECT post_id, meta_value
+      FROM $wpdb->postmeta
+      WHERE meta_key = 'fictioneer_chapter_group'
+      AND meta_value != ''
+      AND post_id IN ($post_ids_format)",
+      $story['chapter_ids']
+    );
+
+    $results = $wpdb->get_results( $sql );
+
+    foreach ( $results as $result ) {
+      if ( $result->meta_value ) {
+        $groups[] = $result->meta_value;
+      }
+    }
+
+    $groups = array_unique( $groups );
+  }
+
+  // Prepare HTML
+  $html = '';
+
+  if ( ! empty( $groups ) ) {
+    foreach ( $groups as $group ) {
+      $html .= "<option value='{$group}'></option>";
+    }
+  }
+
+  // Send
+  if ( empty( $html ) ) {
+    wp_send_json_error( array( 'failure' => __( 'No groups found.', 'fictioneer' ) ) );
+  } else {
+    wp_send_json_success( array( 'html' => $html ) );
+  }
+}
+add_action( 'wp_ajax_fictioneer_ajax_get_chapter_groups', 'fictioneer_ajax_get_chapter_groups' );
+
+// =============================================================================
+// AJAX: RESET THEME COLORS
+// =============================================================================
+
+/**
+ * AJAX: Reset custom theme colors
+ *
+ * @since 5.12.0
+ */
+
+function fictioneer_ajax_reset_theme_colors() {
+  // Validate
+  check_ajax_referer( 'fictioneer-reset-colors', 'fictioneer_nonce' );
+
+  if ( ! current_user_can( 'edit_theme_options' ) ) {
+    wp_send_json_error( array( 'failure' => __( 'Error: Insufficient permissions.', 'fictioneer' ) ) );
+  }
+
+  // Setup
+  $mods = get_theme_mods();
+  $theme = get_option( 'stylesheet' );
+  $json_path = get_template_directory() . '/includes/functions/colors.json';
+  $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
+
+  // Abort if...
+  if ( ! is_array( $fictioneer_colors ) || empty( $fictioneer_colors ) ) {
+    wp_send_json_error( array( 'failure' => __( 'Error: Colors not found.', 'fictioneer' ) ) );
+  }
+
+  // Unset colors to reset them to default
+  foreach ( array_keys( $fictioneer_colors ) as $mod ) {
+    unset( $mods[ $mod ] );
+  }
+
+  // Save to database
+  update_option( "theme_mods_{$theme}", $mods );
+
+  // Refresh custom files
+  fictioneer_build_customize_css();
+  fictioneer_build_customize_css( 'preview' );
+  fictioneer_build_dynamic_scripts();
+
+  // Finish
+  wp_send_json_success( array( 'success' => true ) );
+}
+add_action( 'wp_ajax_fictioneer_ajax_reset_theme_colors', 'fictioneer_ajax_reset_theme_colors' );

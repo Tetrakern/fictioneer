@@ -665,7 +665,9 @@ if ( is_admin() ) {
    * Process AJAX form submits.
    */
 
-  require_once __DIR__ . '/includes/functions/_module-forms.php';
+  if ( wp_doing_ajax() ) {
+    require_once __DIR__ . '/includes/functions/_module-forms.php';
+  }
 
   /**
    * Communicate with the Discord API.
