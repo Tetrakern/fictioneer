@@ -191,7 +191,9 @@ $pag_args = array(
                 <?php if ( post_password_required() ) : ?>
                   <div class="card__content _small _article cell-desc truncate _5-5"><span><?php echo $obfuscation; ?></span></div>
                 <?php else : ?>
-                  <div class="card__content _small _article cell-desc truncate _5-5"><span><?php the_excerpt(); ?></span></div>
+                  <div class="card__content _small _article cell-desc truncate _5-5"><span><?php
+                    echo wp_strip_all_tags( fictioneer_get_excerpt() );
+                  ?></span></div>
                 <?php endif; ?>
 
                 <?php if ( $categories || $tags || $genres || $fandoms || $characters ) : ?>
