@@ -628,18 +628,10 @@ if ( get_option( 'fictioneer_enable_storygraph_api' ) ) {
 }
 
 /**
- * Add search (only in search context).
+ * Add search.
  */
 
-add_action(
-  'pre_get_posts',
-  function ( $query ) {
-    if ( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
-      require_once __DIR__ . '/includes/functions/_module-search.php';
-    }
-  },
-  1
-);
+require_once __DIR__ . '/includes/functions/_module-search.php';
 
 /**
  * Generate SEO schema graphs.
