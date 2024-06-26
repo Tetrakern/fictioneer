@@ -106,8 +106,9 @@ function fcn_getCommentSection(post_id = null, page = null, order = null, scroll
       temp.remove();
 
       // Append stored content (in case of pagination)
-      if (!response.data.disabled) {
-        commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment');
+      commentTextarea = _$(fictioneer_comments.form_selector ?? '#comment'); // Yes, query again!
+
+      if (commentTextarea && !response.data.disabled) {
         commentTextarea.value = commentText;
 
         // Append stack contents (if any)
