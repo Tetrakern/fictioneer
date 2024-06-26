@@ -18,7 +18,7 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video, button {
   margin: 0;
   padding: 0;
-  border: 0;
+  border-width: 0; // Updated from generic border for better compatibility with WP block styles
 }
 
 /* HTML5 display-role reset for older browsers */
