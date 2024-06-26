@@ -132,8 +132,8 @@ function fictioneer_check_for_updates() {
 
   // Only call API every n seconds, otherwise check database
   if (
-    ! $is_updates_page &&
-    current_time( 'timestamp', true ) < $last_check_timestamp + FICTIONEER_UPDATE_CHECK_TIMEOUT
+    ( ! $is_updates_page && current_time( 'timestamp', true ) < $last_check_timestamp + FICTIONEER_UPDATE_CHECK_TIMEOUT ) ||
+    ( $_GET['action'] ?? 0 ) === 'do-plugin-upgrade'
   ) {
     if ( ! $remote_version ) {
       return false;
