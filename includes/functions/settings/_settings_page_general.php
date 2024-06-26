@@ -240,6 +240,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_disable_default_formatting_indent',
+                    __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
+                    __( 'This can still be overwritten by the user.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_appending',
                     __( 'Append new chapters to story', 'fictioneer' ),
                     __( 'Only once when the chapter is first saved.', 'fictioneer' )

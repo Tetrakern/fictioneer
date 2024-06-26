@@ -480,7 +480,7 @@ function fictioneer_root_attributes() {
       // 'letter-spacing' => 0,
       // 'line-height' => 1.7,
       // 'paragraph-spacing' => 1.5,
-      // 'indent' => true,
+      'indent' => get_option( 'fictioneer_disable_default_formatting_indent', 0 ) ? false : true,
       // 'show-sensitive-content' => true,
       // 'show-chapter-notes' => true,
       // 'justify' => false,
