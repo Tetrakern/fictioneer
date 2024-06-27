@@ -956,6 +956,10 @@ function fictioneer_build_customize_css( $context = null ) {
     $css .= fictioneer_get_customizer_css_snippet( 'header-style-wide' );
   }
 
+  if ( $header_style === 'text_center' ) {
+    $css .= fictioneer_get_customizer_css_snippet( 'header-style-text-center' );
+  }
+
   // --- Page styles -----------------------------------------------------------
 
   if ( $page_style === 'polygon-mask-image-battered-ringbook' || $page_style === 'polygon-battered' ) {

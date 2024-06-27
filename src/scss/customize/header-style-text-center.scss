@@ -1,0 +1,29 @@
+.text-center-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: var(--header-height);
+
+  &__content {
+    text-align: center;
+    margin: 1rem 0 2rem; // Put a bit higher so it does not appear to "fall off"
+    max-width: var(--site-width);
+
+    &:not(._no-text-shadow) {
+      text-shadow: var(--site-title-text-shadow);
+    }
+  }
+
+  &__title {
+    color: var(--site-title-heading-color);
+    font: 900 var(--site-title-font-size)/1.3 var(--ff-site-title);
+    letter-spacing: 0;
+  }
+
+  &__tagline {
+    color: var(--site-title-tagline-color);
+    font: 500 var(--site-title-tagline-font-size)/1.3 var(--ff-site-title);
+    letter-spacing: 0;
+  }
+}

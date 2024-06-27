@@ -1430,6 +1430,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'overlay' => _x( 'Overlay (Image)', 'Customizer header style option.', 'fictioneer' ),
     'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
     'wide' => _x( 'Wide', 'Customizer header style option.', 'fictioneer' ),
+    'text_center' => _x( 'Text (Center)', 'Customizer header style option.', 'fictioneer' ),
     'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
   );
 
