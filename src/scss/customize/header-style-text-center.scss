@@ -4,11 +4,11 @@
   align-items: center;
   justify-content: center;
   height: var(--header-height);
+  max-width: var(--site-width);
 
   &__content {
     text-align: center;
     margin: 1rem 0 2rem; // Put a bit higher so it does not appear to "fall off"
-    max-width: var(--site-width);
 
     &:not(._no-text-shadow) {
       text-shadow: var(--site-title-text-shadow);
