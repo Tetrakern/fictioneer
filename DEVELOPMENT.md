@@ -238,7 +238,7 @@ Fictioneer customizes WordPress by using as many standard action and filter hook
 | `show_user_profile` | `fictioneer_custom_profile_fields`
 | `switch_theme` | `fictioneer_theme_deactivation`
 | `template_redirect` | `fictioneer_disable_date_archives`, `fictioneer_generate_epub`, `fictioneer_handle_oauth`, `fictioneer_logout`, `fictioneer_disable_attachment_pages`, `fictioneer_gate_unpublished_content`, `fictioneer_serve_sitemap`, `fictioneer_redirect_story`
-| `transition_post_status` | `fictioneer_log_story_chapter_status_changes`
+| `transition_post_status` | `fictioneer_log_story_chapter_status_changes`, `fictioneer_chapter_future_to_publish`
 | `trashed_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`, `fictioneer_remove_chapter_from_story`
 | `untrash_post` | `fictioneer_refresh_post_caches`, `fictioneer_track_chapter_and_story_updates`, `fictioneer_update_modified_date_on_story_for_chapter`, `fictioneer_purge_transients`
 | `update_option_*` | `fictioneer_update_option_disable_extended_chapter_list_meta_queries`, `fictioneer_update_option_disable_extended_story_list_meta_queries`
