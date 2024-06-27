@@ -1278,7 +1278,7 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
 
     // Remember when chapter list has been last updated
     update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
-    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
 
     // Log changes
     fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );

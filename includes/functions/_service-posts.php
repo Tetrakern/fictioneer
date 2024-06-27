@@ -372,7 +372,7 @@ function fictioneer_chapter_future_to_publish( $new_status, $old_status, $post )
   $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
 
   if ( $story_id ) {
-    update_post_meta( $story_id, 'fictioneer_chapters_added', $post->post_date );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', $post->post_date_gmt );
   }
 }
 add_action( 'transition_post_status', 'fictioneer_chapter_future_to_publish', 10, 3 );
