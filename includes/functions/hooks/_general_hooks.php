@@ -412,8 +412,7 @@ function fictioneer_text_center_header( $args ) {
 
       // Render everything via action
       do_action( 'fictioneer_text_center_header', $args );
-    ?>
-    </header>
+    ?></header>
     <?php // <--- End HTML
   }
 }
