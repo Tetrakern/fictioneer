@@ -312,7 +312,7 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   $chapters = fictioneer_unset_by_value( $chapter_id, $chapters );
 
   update_post_meta( $story_id, 'fictioneer_story_chapters', $chapters );
-  update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+  update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
 
   // Log change
   fictioneer_log_story_chapter_changes( $story_id, $chapters, $previous );
