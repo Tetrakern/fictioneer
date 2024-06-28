@@ -1079,11 +1079,15 @@ if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
     $content = get_post_meta( $post_id ?? get_the_ID(), $field, true );
 
     // Apply default filter functions from the_content (but nothing else)
+    $content = do_blocks( $content );
     $content = wptexturize( $content );
     $content = convert_chars( $content );
     $content = wpautop( $content );
     $content = shortcode_unautop( $content );
     $content = prepend_attachment( $content );
+    $content = wp_replace_insecure_home_url( $content );
+    $content = wp_filter_content_tags( $content );
+    $content = convert_smilies( $content );
 
     // Return formatted/filtered content
     return $content;
