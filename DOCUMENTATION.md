@@ -1174,7 +1174,9 @@ This location can be confusing. The page background is actually a separate eleme
 **Hints:**
 
 * The `nav_bar` location also overwrites the `nav_menu` location.
-* Trying to overwrite the default navigation is generally a poor life choice, but you do you.
+* Overwriting the navigation is possible but generally a poor life choice.
+* Elementor disables several WordPress block styles when applied to a page...
+* ... which can affect other elements, such as the Post Content header variant.
 * Use the `padding-[top|right|bottom|left]` CSS classes to apply theme page padding.
 * Use the `bg-[50|100|200|...|800|900|950]` CSS classes to force theme background colors.
 * Use the `fg-[100|200|...|800|900|950]` CSS classes to force theme text colors.
