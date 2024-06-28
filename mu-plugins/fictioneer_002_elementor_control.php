@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Fictioneer Elementor Control
  * Description: Disables Elementor on all pages except for the Canvas templates.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Tetrakern
  * Author URI: https://github.com/Tetrakern
  * License: GNU General Public License v3.0 or later
@@ -49,6 +49,7 @@ function fictioneer_mu_002_get_post_id() {
  * Add filter to remove Elementor if not on a Canvas page template
  *
  * @since 1.0.0
+ * @since 1.0.1 - Allow Elementor in Customizer.
  */
 
 function fictioneer_elementor_control() {
