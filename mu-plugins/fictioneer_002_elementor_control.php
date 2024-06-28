@@ -56,7 +56,8 @@ function fictioneer_elementor_control() {
   if (
     is_admin() ||
     wp_doing_ajax() ||
-    strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false
+    strpos( $_SERVER['REQUEST_URI'], 'elementor' ) !== false ||
+    strpos( $_SERVER['REQUEST_URI'], 'customize_changeset' ) !== false
   ) {
     return;
   }
