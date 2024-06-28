@@ -1487,7 +1487,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'priority' => 10,
       'section' => 'layout',
       'label' => __( 'Post Content Header ID', 'fictioneer' ),
-      'description' => __( 'Only used by the Post Content header style. Enter the ID of the post or page you want to render as header.', 'fictioneer' ),
+      'description' => __( 'Only used by the Post Content header style. Enter the ID of the post or page you want to render as header. Can impact performance.', 'fictioneer' ),
       'input_attrs' => array(
         'style' => 'width: 80px',
         'min' => 0
