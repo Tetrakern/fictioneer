@@ -419,6 +419,60 @@ function fictioneer_text_center_header( $args ) {
 add_action( 'fictioneer_site', 'fictioneer_text_center_header', 20 );
 
 // =============================================================================
+// OUTPUT POST CONTENT HEADER
+// =============================================================================
+
+/**
+ * Outputs the HTML for the post content header
+ *
+ * @since 5.21.0
+ *
+ * @param int|null       $args['post_id']           Optional. Current post ID.
+ * @param int|null       $args['story_id']          Optional. Current story ID (if chapter).
+ * @param string|boolean $args['header_image_url']  URL of the filtered header image or false.
+ * @param array          $args['header_args']       Arguments passed to the header.php partial.
+ */
+
+function fictioneer_post_content_header( $args ) {
+  // Return early if...
+  if ( ( $args['header_args']['blank'] ?? 0 ) ) {
+    return;
+  }
+
+  // Setup
+  $post_id = get_theme_mod( 'header_post_content_id', 0 );
+  $theme_mod = get_theme_mod( 'header_style', 'default' );
+
+  // Abort if...
+  if ( $theme_mod !== 'post_content' || ! $post_id || ( $args['header_args']['no_header'] ?? 0 ) ) {
+    return;
+  }
+
+  // Get post
+  global $post;
+
+  $original_post = $post;
+  $post = get_post( $post_id );
+
+  if ( ! $post ) {
+    $post = $original_post;
+    return;
+  }
+
+  // Render Elementor or theme template
+  if ( ! function_exists( 'elementor_theme_do_location' ) || ! elementor_theme_do_location( 'header' ) ) {
+    setup_postdata( $post );
+    $content = apply_filters( 'get_the_content', $post->post_content );
+    $content = apply_filters( 'the_content', $content );
+    wp_reset_postdata();
+    $post = $original_post;
+
+    echo '<header class="post-content-header content-section hide-on-fullscreen">' . $content . '</header>';
+  }
+}
+add_action( 'fictioneer_site', 'fictioneer_post_content_header', 20 );
+
+// =============================================================================
 // OUTPUT HEADER BACKGROUND
 // =============================================================================
 

@@ -376,6 +376,18 @@
       "oF" : 1,
       "pg" : 0
     },
+    "\/css\/customize\/header-style-text-center.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/customize\/header-style-text-center-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/css\/customize\/header-style-top-split.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -3507,6 +3519,21 @@
       "ma" : 0,
       "oA" : 0,
       "oAP" : "\/css\/customize\/header-image-style-grunge-frame-a-small.css",
+      "oF" : 2,
+      "oS" : 3,
+      "pg" : 0,
+      "sct" : 0
+    },
+    "\/src\/scss\/customize\/header-style-post-content.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/css\/customize\/header-style-post-content.css",
       "oF" : 2,
       "oS" : 3,
       "pg" : 0,
