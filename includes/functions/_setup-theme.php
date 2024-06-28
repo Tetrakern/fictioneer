@@ -1824,7 +1824,7 @@ function fictioneer_elementor_override_styles() {
 
   // Setup
   $kit_id = get_option( 'elementor_active_kit' );
-  $css = ".elementor-kit-{$kit_id} {
+  $css = "body.elementor-kit-{$kit_id} {
     --e-global-color-primary: var(--primary-500);
     --e-global-color-secondary: var(--fg-300);
     --e-global-color-text: var(--fg-500);
