@@ -207,7 +207,7 @@ function fictioneer_settings_checkbox_updated( $option, $old_value, $value ) {
   if ( ! $purged ) {
     $cache_purge_options = ['fictioneer_hide_chapter_icons', 'fictioneer_enable_chapter_groups',
       'fictioneer_collapse_groups_by_default', 'fictioneer_disable_chapter_collapsing',
-      'fictioneer_count_characters_as_words'];
+      'fictioneer_count_characters_as_words', 'fictioneer_override_chapter_status_icons'];
 
     if ( in_array( $option, $cache_purge_options ) ) {
       fictioneer_purge_theme_caches();
