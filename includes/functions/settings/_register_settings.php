@@ -647,6 +647,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_override_chapter_status_icons' => array(
+      'name' => 'fictioneer_override_chapter_status_icons',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -1105,7 +1111,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_rewrite_chapter_permalinks' => __( 'Rewrite chapter permalinks to include story ', 'fictioneer' ),
       'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' ),
       'fictioneer_disable_emojis' => __( 'Disable WordPress emojis', 'fictioneer' ),
-      'fictioneer_disable_default_formatting_indent' => __( 'Disable default indentation of chapter paragraphs', 'fictioneer' )
+      'fictioneer_disable_default_formatting_indent' => __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
+      'fictioneer_override_chapter_status_icons' => __( 'Override chapter status icons', 'fictioneer' )
     );
   }
 

@@ -1344,11 +1344,12 @@ if ( ! function_exists( 'fictioneer_get_list_chapter_meta_row' ) ) {
     // Setup
     $output = [];
     $has_grid_view = ! empty( $args['grid'] );
+    $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
     $hide_icons = get_option( 'fictioneer_hide_chapter_icons' ) ||
       get_post_meta( $data['story_id'] ?? 0, 'fictioneer_story_hide_chapter_icons', true );
 
     // Password
-    if ( $hide_icons && ! empty( $data['password'] ) ) {
+    if ( ! empty( $data['password'] ) && ( $hide_icons || $prefer_chapter_icon ) ) {
       $output['protected'] = '<i class="fa-solid fa-lock chapter-group__list-item-protected list-view"></i>';
     }
 

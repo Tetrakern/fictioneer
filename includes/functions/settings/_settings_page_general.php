@@ -210,9 +210,19 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_override_chapter_status_icons',
+                    __( 'Override chapter status icons', 'fictioneer' ),
+                    __( 'Always renders the chapter icons instead of locks/etc.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_groups',
                     __( 'Enable chapter groups', 'fictioneer' ),
-                    __( 'Display chapters in groups on story pages (if set).', 'fictioneer' )
+                    __( 'Renders chapters in groups on story pages (if set).', 'fictioneer' )
                   );
                 ?>
               </div>

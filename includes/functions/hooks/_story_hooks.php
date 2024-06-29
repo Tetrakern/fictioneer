@@ -510,6 +510,7 @@ function fictioneer_story_chapters( $args ) {
   // Setup
   $story_id = $args['story_id'];
   $story = $args['story_data'];
+  $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_post_meta( $story_id, 'fictioneer_story_hide_chapter_icons', true ) ||
   get_option( 'fictioneer_hide_chapter_icons' );
   $enable_groups = get_option( 'fictioneer_enable_chapter_groups' ) &&
@@ -655,9 +656,9 @@ function fictioneer_story_chapters( $args ) {
                   <?php
                     if ( ! $hide_icons ) {
                       // Icon hierarchy: password > scheduled > text > normal
-                      if ( $chapter['password'] ) {
+                      if ( ! $prefer_chapter_icon && $chapter['password'] ) {
                         $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
-                      } elseif ( $chapter['status'] === 'future' ) {
+                      } elseif ( ! $prefer_chapter_icon && $chapter['status'] === 'future' ) {
                         $icon = '<i class="fa-solid fa-calendar-days chapter-group__list-item-icon"></i>';
                       } elseif ( $chapter['text_icon'] ) {
                         $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$chapter['text_icon']}</span>";
