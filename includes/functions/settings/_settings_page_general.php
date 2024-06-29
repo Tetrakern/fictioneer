@@ -262,7 +262,7 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_appending',
                     __( 'Append new chapters to story', 'fictioneer' ),
-                    __( 'Only once when the chapter is first saved.', 'fictioneer' )
+                    __( 'Whenever you change the chapter story and save.', 'fictioneer' )
                   );
                 ?>
               </div>
