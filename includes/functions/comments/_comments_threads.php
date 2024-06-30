@@ -568,7 +568,14 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
     <?php echo $open; ?>
 
       <div class="fictioneer-comment__header">
-        <?php echo ( $avatar = get_avatar( $comment->user_id , $args['avatar_size'] ) ) && $args['avatar_size'] != 0 ? $avatar : ''; ?>
+        <?php
+          $id_or_email = $comment->user_id ?: $comment->comment_author_email;
+          $avatar = get_avatar( $id_or_email, $args['avatar_size'] );
+
+          if ( $avatar && $args['avatar_size'] != 0 ) {
+            echo $avatar;
+          }
+        ?>
         <div class="fictioneer-comment__meta">
           <div class="fictioneer-comment__author truncate _1-1"><?php
             if ( fictioneer_is_author( $comment->user_id ) ) {
