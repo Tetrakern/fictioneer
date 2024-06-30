@@ -1868,3 +1868,15 @@ function fictioneer_disable_mu_plugin() {
   exit;
 }
 add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_plugin' );
+
+// =============================================================================
+// THEME SETUP ACTIONS
+// =============================================================================
+
+function fictioneer_after_install_setup() {
+  // Setup
+  $dark_mode = filter_var( $_POST['fictioneer_dark_mode_as_default'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+
+  wp_die($_POST['fictioneer_dark_mode_as_default']);
+}
+add_action( 'admin_post_fictioneer_after_install_setup', 'fictioneer_after_install_setup' );
