@@ -848,21 +848,6 @@ if ( is_customize_preview() ) {
 }
 
 // =============================================================================
-// ENQUEUE OVERRIDE STYLESHEETS
-// =============================================================================
-
-/**
- * Enqueues an "override" stylesheet that supersedes all others
- *
- * @since 2.0.0
- */
-
-function fictioneer_style_footer_queue() {
-  wp_enqueue_style( 'override', get_template_directory_uri() . '/css/override.css' );
-}
-add_action( 'get_footer', 'fictioneer_style_footer_queue' );
-
-// =============================================================================
 // FONT AWESOME
 // =============================================================================
 
