@@ -593,3 +593,31 @@ function fictioneer_settings_toggle( $option ) {
   </label>
   <?php // <--- End HTML
 }
+
+/**
+ * Renders a card for the after-install setup
+ *
+ * @since 5.21.0
+ *
+ * @param string $option   The name of the setting option.
+ * @param string $title    The card title
+ * @param string $content  The card content.
+ */
+
+function fictioneer_settings_setup_card( $option, $title, $content ) {
+  // Start HTML ---> ?>
+  <div class="fictioneer-card">
+    <div class="fictioneer-card__wrapper">
+      <div class="fictioneer-card__content">
+        <div class="fictioneer-card__row">
+          <p><strong><?php echo $title; ?></strong></p>
+          <p><?php echo $content; ?></p>
+        </div>
+        <div class="fictioneer-card__row">
+          <?php fictioneer_settings_toggle( $option ); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php // <--- End HTML
+}
