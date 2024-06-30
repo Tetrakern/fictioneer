@@ -579,9 +579,9 @@ if ( ! function_exists( 'fictioneer_theme_comment' ) ) {
         <div class="fictioneer-comment__meta">
           <div class="fictioneer-comment__author truncate _1-1"><?php
             if ( fictioneer_is_author( $comment->user_id ) ) {
-              ?><a href="<?php echo get_author_posts_url( $comment->user_id ); ?>"><?php echo $comment->comment_author; ?></a><?php
+              echo '<a href="' . get_author_posts_url( $comment->user_id ) . '">' . $comment->comment_author . '</a>';
             } else {
-              ?><span><?php echo $comment_author; ?></span><?php
+              echo "<span>{$comment_author}</span>";
             }
 
             echo $badge;
