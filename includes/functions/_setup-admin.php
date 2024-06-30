@@ -23,6 +23,30 @@ require_once __DIR__ . '/_setup-meta-fields.php';
 require_once __DIR__ . '/users/_admin-profile.php';
 
 // =============================================================================
+// FIRST INSTALL
+// =============================================================================
+
+/**
+ * Redirects to setup menu page after installation
+ *
+ * @since 5.20.3
+ */
+
+function fictioneer_first_install() {
+  $theme_info = fictioneer_get_theme_info();
+
+  if ( is_admin() && isset( $_GET['activated'] ) && $GLOBALS['pagenow'] === 'themes.php' ) {
+    $theme_info = fictioneer_get_theme_info();
+
+    if ( ! ( $theme_info['setup'] ?? 0 ) ) {
+      wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_setup' ) );
+      exit;
+    }
+  }
+}
+add_action( 'after_setup_theme', 'fictioneer_first_install' );
+
+// =============================================================================
 // ENQUEUE ADMIN STYLESHEETS
 // =============================================================================
 

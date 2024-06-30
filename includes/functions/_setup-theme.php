@@ -153,6 +153,7 @@ function fictioneer_get_theme_info() {
       'last_update_nag' => current_time( 'mysql', 1 ),
       'last_update_notes' => '',
       'last_version_download_url' => '',
+      'setup' => 0,
       'version' => FICTIONEER_VERSION
     );
 
@@ -167,6 +168,7 @@ function fictioneer_get_theme_info() {
       'last_update_nag' => '',
       'last_update_notes' => '',
       'last_version_download_url' => '',
+      'setup' => 0,
       'version' => FICTIONEER_VERSION
     ),
     $info

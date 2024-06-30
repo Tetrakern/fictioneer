@@ -23,6 +23,8 @@ if ( wp_doing_ajax() ) {
  */
 
 function fictioneer_add_admin_menu() {
+  $theme_info = fictioneer_get_theme_info();
+
   add_menu_page(
     __( 'Fictioneer Settings', 'fictioneer' ),
     __( 'Fictioneer', 'fictioneer' ),
@@ -122,6 +124,17 @@ function fictioneer_add_admin_menu() {
     'fictioneer_logs',
     'fictioneer_settings_logs'
   );
+
+  if ( ! ( $theme_info['setup'] ?? 0 ) ) {
+    $setup_hook = add_submenu_page(
+      'fictioneer',
+      __( 'Setup', 'fictioneer' ),
+      __( 'Setup', 'fictioneer' ),
+      'manage_options',
+      'fictioneer_setup',
+      'fictioneer_settings_setup'
+    );
+  }
 
   add_action( 'admin_init', 'fictioneer_register_settings' );
 
@@ -371,6 +384,16 @@ function fictioneer_settings_logs() {
   get_template_part( 'includes/functions/settings/_settings_page_logs' );
 }
 
+/**
+ * Callback for setup settings page
+ *
+ * @since 5.20.3
+ */
+
+function fictioneer_settings_setup() {
+  get_template_part( 'includes/functions/settings/_settings_page_setup' );
+}
+
 // =============================================================================
 // SETTINGS CONTENT HELPERS
 // =============================================================================
@@ -553,4 +576,20 @@ function fictioneer_settings_page_assignment( $option, $label ) {
   );
 
   echo '<p class="fictioneer-sub-label">' . $label . '</p>';
+}
+
+/**
+ * Renders a label-wrapped setting toggle checkbox
+ *
+ * @since 5.21.0
+ *
+ * @param string $option  The name of the setting option.
+ */
+
+function fictioneer_settings_toggle( $option ) {
+  // Start HTML ---> ?>
+  <label class="checkbox-toggle" for="<?php echo $option; ?>">
+    <input type="checkbox" id="<?php echo $option; ?>" name="<?php echo $option; ?>" value="1" autocomplete="off" <?php echo checked( 1, get_option( $option ), false ); ?>>
+  </label>
+  <?php // <--- End HTML
 }

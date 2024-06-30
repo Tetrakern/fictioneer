@@ -395,6 +395,25 @@ body[class*="fictioneer_page_"] {
     @include bp(480px) {
       gap: 32px;
     }
+
+    &--setup {
+      max-width: 768px;
+
+      h1 {
+        font-size: 48px;
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .dashicons {
+        font-size: 1.25em;
+        height: 1em;
+        width: auto;
+      }
+    }
   }
 
   // =============================================================================
@@ -706,6 +725,44 @@ body[class*="fictioneer_page_"] {
 
       &:hover {
         background: var(--checkbox-toggle-background-color-hover);
+      }
+    }
+  }
+
+  .checkbox-toggle {
+    display: inline-flex;
+    border-radius: 3px;
+    width: 54px;
+
+    input {
+      appearance: none;
+      display: block;
+      background: var(--input-background-color) !important;
+      padding: 2px !important;
+      height: 29px;
+      width: 100%;
+
+      &::before {
+        content: none !important;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        background: rgb(0 0 0 / 20%);
+        background: #fff;
+        border-radius: 2px;
+        height: 100%;
+        width: 50%;
+        box-shadow: 0 1px 4px 1px rgb(0 0 0 / 8%);
+      }
+    }
+
+    input:checked {
+      background: var(--input-checkbox-background-color-checked) !important;
+
+      &::after {
+        margin-left: 50%;
       }
     }
   }
