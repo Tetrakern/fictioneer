@@ -410,6 +410,7 @@ body[class*="fictioneer_page_"] {
 
       .dashicons {
         font-size: 1.25em;
+        vertical-align: text-bottom;
         height: 1em;
         width: auto;
       }
@@ -474,6 +475,11 @@ body[class*="fictioneer_page_"] {
 
       &:not(:last-child) {
         margin-bottom: 12px;
+      }
+
+      &-heading {
+        font-weight: 700;
+        font-size: 15px;
       }
 
       &--inline-input {
@@ -732,14 +738,14 @@ body[class*="fictioneer_page_"] {
   .checkbox-toggle {
     display: inline-flex;
     border-radius: 3px;
-    width: 54px;
+    width: 46px;
 
     input {
       appearance: none;
       display: block;
       background: var(--input-background-color) !important;
       padding: 2px !important;
-      height: 29px;
+      height: 25px;
       width: 100%;
 
       &::before {

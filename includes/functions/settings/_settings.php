@@ -610,7 +610,7 @@ function fictioneer_settings_setup_card( $option, $title, $content ) {
     <div class="fictioneer-card__wrapper">
       <div class="fictioneer-card__content">
         <div class="fictioneer-card__row">
-          <p><strong><?php echo $title; ?></strong></p>
+          <p class="fictioneer-card__row-heading"><?php echo $title; ?></p>
           <p><?php echo $content; ?></p>
         </div>
         <div class="fictioneer-card__row">
