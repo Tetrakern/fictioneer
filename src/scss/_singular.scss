@@ -77,7 +77,6 @@
   &__letter {
     display: grid;
     place-content: center;
-    font-size: var(--fs-l);
     font-size: get_clamp(16, 24, 375, 768);
     font-weight: 900;
     line-height: 1;
