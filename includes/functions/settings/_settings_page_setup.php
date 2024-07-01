@@ -21,9 +21,13 @@
 
       <div><?php
         printf(
-          '<p>Welcome and thank you for using Fictioneer!</p><p>Please make sure to read the installation guide thoroughly. If any issues arise, refer to the <a href="%1$s" target="_blank" rel="noopener">documentation</a> and <a href="%1$s" target="_blank" rel="noopener">FAQ</a> first. If you are new to WordPress, consider looking up some guides, as this theme is not the most beginner-friendly. For further questions or commissions, feel free to join the Discord.</p><p>The following steps will help you select some base options for an easier start, but you can skip this screen if you want. You can find all these options and much more in the Fictioneer menu and the Customizer under Appearance.</p>',
+          '<p>Welcome and thank you for using Fictioneer!</p><p>Please make sure to read the <a href="%1$s" target="_blank" rel="noopener">installation guide</a> thoroughly. If any issues arise, refer to the <a href="%2$s" target="_blank" rel="noopener">documentation</a> and <a href="%3$s" target="_blank" rel="noopener">FAQ</a> first. If you are new to WordPress, consider looking up some guides, as this theme is not the most beginner-friendly. For further questions or commissions, feel free to join the <a href="%4$s" target="_blank" rel="noopener">Discord</a>.</p><p>The following steps will help you select some base options for an easier start, but you can skip this screen if you want. You can find all these options and much more in the <a href="%5$s" target="_blank" rel="noopener">Fictioneer settings</a> and the <a href="%6$s" target="_blank" rel="noopener">Customizer</a>.</p>',
+          'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md',
           'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md',
-          'https://github.com/Tetrakern/fictioneer/blob/main/FAQ.md'
+          'https://github.com/Tetrakern/fictioneer/blob/main/FAQ.md',
+          'https://discord.gg/tVfDB7EbaP',
+          esc_url( admin_url( 'admin.php?page=fictioneer' ) ),
+          esc_url( admin_url( 'customize.php' ) )
         );
       ?>
 
@@ -55,11 +59,35 @@
           __( 'Paragraphs in chapters have a first-line indentation by default to guide the reading eye. However, you may find this unaesthetic and prefer to disable it. Note that readers can still enable indentation through the chapter formatting modal.', 'fictioneer' )
         );
 
-        // fictioneer_settings_setup_card(
-        //   '',
-        //   __( '', 'fictioneer' ),
-        //   __( '', 'fictioneer' )
-        // );
+        fictioneer_settings_setup_card(
+          'fictioneer_hide_large_card_chapter_list',
+          __( 'Hide chapter list on large story cards?', 'fictioneer' ),
+          __( 'Story cards pack a lot of information into a compact space to assist with browsing, providing everything at a glance. However, displaying the first (or latest if set) three chapters on the cards might make them appear too cluttered for your liking.', 'fictioneer' )
+        );
+
+        fictioneer_settings_setup_card(
+          'fictioneer_count_characters_as_words',
+          __( 'Count characters instead of words?', 'fictioneer' ),
+          __( 'Counting words does not work well for logographic writing systems, so you may prefer to count characters instead. You can further refine this count by applying a multiplier in the theme settings.', 'fictioneer' )
+        );
+
+        fictioneer_settings_setup_card(
+          '',
+          __( '', 'fictioneer' ),
+          __( '', 'fictioneer' )
+        );
+
+        fictioneer_settings_setup_card(
+          '',
+          __( '', 'fictioneer' ),
+          __( '', 'fictioneer' )
+        );
+
+        fictioneer_settings_setup_card(
+          '',
+          __( '', 'fictioneer' ),
+          __( '', 'fictioneer' )
+        );
 
       ?>
 
@@ -71,11 +99,27 @@
         <div class="fictioneer-card__wrapper">
           <div class="fictioneer-card__content">
             <div class="fictioneer-card__row">
-              <p><span class="dashicons dashicons-lightbulb"></span> <strong><?php _e( 'Use child theme for customization.', 'fictioneer' ); ?></strong></p>
+              <p><span class="dashicons dashicons-lightbulb"></span> <strong><?php _e( 'Use a child theme for customization.', 'fictioneer' ); ?></strong></p>
               <p><?php
                 printf(
                   __( 'Child themes allow you to overwrite any part of the parent theme without actually modifying it. Otherwise, any changes you make would be removed once you update the theme. While creating a child theme is not difficult, it does require a bit of technical skill. You can start with the prepared <a href="%s" target="_blank" rel="noopener">base child theme</a>.', 'fictioneer' ),
                   'https://github.com/Tetrakern/fictioneer-child-theme'
+                );
+              ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fictioneer-card">
+        <div class="fictioneer-card__wrapper">
+          <div class="fictioneer-card__content">
+            <div class="fictioneer-card__row">
+              <p><span class="dashicons dashicons-lightbulb"></span> <strong><?php _e( 'Use constants for additional customization.', 'fictioneer' ); ?></strong></p>
+              <p><?php
+                printf(
+                  __( 'Fictioneer offers even more options beyond what is accessible in the settings! However, tampering with some of these options can break the theme or cause unexpected behavior. This is why they are only defined as PHP constants. You can change them in a child theme as described in the <a href="%s" target="_blank" rel="noopener">installation guide</a>.', 'fictioneer' ),
+                  'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#constants'
                 );
               ?></p>
             </div>
