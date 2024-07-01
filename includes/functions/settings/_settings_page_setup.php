@@ -72,75 +72,63 @@
         );
 
         fictioneer_settings_setup_card(
-          '',
+          'fictioneer_enable_lightbox',
           __( 'Enable theme lightbox for images?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          __( 'With this feature enabled, clicking on images in the page content will open a window overlay popup. This blocks some content and dims and disables the background to present the image more prominently.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
+          'fictioneer_enable_bookmarks',
           __( 'Enable bookmarks for chapter paragraphs?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          __( 'With this feature enabled, readers can click on chapter paragraphs to set a bookmark, which is stored in the local browser. Logged-in users will also benefit from bookmark synchronization across browsers and devices, though an account is not necessary for basic functionality.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
+          'fictioneer_enable_follows',
           __( 'Enable logged-in users to follow stories?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          __( 'With this feature enabled, logged-in users can "follow" a story to receive on-site update notifications and track the story in their bookshelf (if set up). This feature is more useful if you host many ongoing stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
+          'fictioneer_enable_reminders',
           __( 'Enable logged-in users to set reminders for stories?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          __( 'With this feature enabled, logged-in users can set reminders for stories to keep track of them for a later date in their bookshelf (if set up). This feature is more useful if you host many stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( 'Enable logged-in users to track read chapters/stories with checkmarks?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_enable_checkmarks',
+          __( 'Enable logged-in users to check-mark chapters/stories?', 'fictioneer' ),
+          __( 'With this feature enabled, logged-in users can mark chapters and stories as "read" and keep track of them in their bookshelf (if set up). This feature is more useful if you host many stories. Otherwise, you may want to save server resources by keeping it disabled.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( 'Enable suggestions in comments for chapters?', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_enable_suggestions',
+          __( 'Enable suggestion tools for chapters?', 'fictioneer' ),
+          __( 'With this feature enabled, readers can leave color-coded suggestions for improvements in the comments. To do so, they can simply click on a paragraph or highlight some text, then click the button to open the suggestion modal, make changes, and append the result to the comment form.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_do_not_save_comment_ip',
+          __( 'Prevent saving of IP address for commenters?', 'fictioneer' ),
+          __( 'Saving IP addresses when visitors leave comments can conflict with GDPR and other data privacy laws, depending on how the IP addresses are used and associated with other data. Given the sensitivity of this topic, it is generally better to avoid saving IP addresses. They are not reliable anyway.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_consent_wrappers',
+          __( 'Add consent wrappers to third-party embeds?', 'fictioneer' ),
+          __( 'Embedding external content, such as YouTube videos, automatically loads scripts from the source, which can violate data privacy laws by including tracking, advertising, analytics, and more. Consent wrappers quarantine an embed until it is deliberately clicked, informing the visitor about the third-party consent requirements.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_cookie_banner',
+          __( 'Enable cookie banner?', 'fictioneer' ),
+          __( 'Cookie banners are often necessary to comply with data privacy laws and meet visitor expectations; it is better to be safe than sorry, even if the theme does not require one in its base configuration. Developers can also use the <code>fictioneer_get_consent()</code> function to comply with regulations.', 'fictioneer' )
         );
 
         fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
-        );
-
-        fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
-        );
-
-        fictioneer_settings_setup_card(
-          '',
-          __( '', 'fictioneer' ),
-          __( '', 'fictioneer' )
+          'fictioneer_rewrite_chapter_permalinks',
+          __( 'Rewrite chapter permalinks to include story?', 'fictioneer' ),
+          __( 'Stories and chapters are actually separate posts that are only associated, not hierarchically linked. Therefore, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the permalink. However, chapter slugs must still be globally unique, with numbers appended in case of conflicts (e.g. <code>.../story/story-slug/chapter-slug-1</code> instead of <code>.../chapter/chapter-slug-1</code>).', 'fictioneer' )
         );
 
       ?>
@@ -192,6 +180,17 @@
                   'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#demo-layout'
                 );
               ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fictioneer-card">
+        <div class="fictioneer-card__wrapper">
+          <div class="fictioneer-card__content">
+            <div class="fictioneer-card__row">
+              <p class="fictioneer-card__row-heading"><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Set up page assignments.', 'fictioneer' ); ?></p>
+              <p><?php ?></p>
             </div>
           </div>
         </div>
