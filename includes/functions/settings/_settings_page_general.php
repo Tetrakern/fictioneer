@@ -299,7 +299,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_hide_large_card_chapter_list',
-                    __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
+                    __( 'Hide chapter list on large story cards', 'fictioneer' ),
                     __( 'Less informative but also less cluttered.', 'fictioneer' )
                   );
                 ?>
