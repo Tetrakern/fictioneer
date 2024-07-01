@@ -408,6 +408,11 @@ if ( ! defined( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN' ) ) {
   define( 'FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN', true );
 }
 
+// Boolean: Whether to show the latest instead of the first chapters on story cards
+if ( ! defined( 'FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS' ) ) {
+  define( 'FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS', false );
+}
+
 // =============================================================================
 // GLOBAL
 // =============================================================================
