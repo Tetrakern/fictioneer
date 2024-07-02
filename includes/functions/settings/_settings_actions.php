@@ -1873,6 +1873,12 @@ add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_pl
 // THEME SETUP ACTIONS
 // =============================================================================
 
+/**
+ * Saves the after-install setup form and redirects to settings page
+ *
+ * @since 5.21.0
+ */
+
 function fictioneer_after_install_setup() {
   // Setup
   $booleans = array(
@@ -1886,6 +1892,8 @@ function fictioneer_after_install_setup() {
 
   $dark_mode = filter_var( $_POST['fictioneer_dark_mode_as_default'] ?? 0, FILTER_VALIDATE_BOOLEAN );
 
-  wp_die($_POST['fictioneer_dark_mode_as_default']);
+  // Redirect to general theme settings
+  wp_safe_redirect( admin_url( 'admin.php?page=fictioneer' ) );
+  exit;
 }
 add_action( 'admin_post_fictioneer_after_install_setup', 'fictioneer_after_install_setup' );

@@ -125,16 +125,14 @@ function fictioneer_add_admin_menu() {
     'fictioneer_settings_logs'
   );
 
-  if ( ! ( $theme_info['setup'] ?? 0 ) ) {
-    $setup_hook = add_submenu_page(
-      'fictioneer',
-      __( 'Setup', 'fictioneer' ),
-      __( 'Setup', 'fictioneer' ),
-      'manage_options',
-      'fictioneer_setup',
-      'fictioneer_settings_setup'
-    );
-  }
+  $setup_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Setup', 'fictioneer' ),
+    __( 'Setup', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_setup',
+    'fictioneer_settings_setup'
+  );
 
   add_action( 'admin_init', 'fictioneer_register_settings' );
 

@@ -29,16 +29,17 @@ require_once __DIR__ . '/users/_admin-profile.php';
 /**
  * Redirects to setup menu page after installation
  *
- * @since 5.20.3
+ * @since 5.21.0
  */
 
 function fictioneer_first_install() {
-  $theme_info = fictioneer_get_theme_info();
-
   if ( is_admin() && isset( $_GET['activated'] ) && $GLOBALS['pagenow'] === 'themes.php' ) {
     $theme_info = fictioneer_get_theme_info();
 
     if ( ! ( $theme_info['setup'] ?? 0 ) ) {
+      $theme_info['setup'] = 1;
+      // update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
+
       wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_setup' ) );
       exit;
     }

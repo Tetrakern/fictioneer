@@ -185,17 +185,6 @@
         </div>
       </div>
 
-      <div class="fictioneer-card">
-        <div class="fictioneer-card__wrapper">
-          <div class="fictioneer-card__content">
-            <div class="fictioneer-card__row">
-              <p class="fictioneer-card__row-heading"><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Set up page assignments.', 'fictioneer' ); ?></p>
-              <p><?php ?></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </form>
   </div>
 
