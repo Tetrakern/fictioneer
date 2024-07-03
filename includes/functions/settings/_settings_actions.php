@@ -1876,6 +1876,8 @@ add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_pl
 /**
  * Saves the after-install setup form and redirects to settings page
  *
+ * Note: Might be extended in the future to include more than general options.
+ *
  * @since 5.21.0
  */
 
