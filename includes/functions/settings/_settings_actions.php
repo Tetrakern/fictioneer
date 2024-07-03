@@ -1882,6 +1882,9 @@ add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_pl
  */
 
 function fictioneer_after_install_setup() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_after_install_setup' );
+
   // Setup
   $booleans = array(
     'fictioneer_dark_mode_as_default', 'fictioneer_show_authors', 'fictioneer_enable_chapter_groups',

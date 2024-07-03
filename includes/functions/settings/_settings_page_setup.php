@@ -35,6 +35,8 @@
 
       <?php
 
+        wp_nonce_field( 'fictioneer_after_install_setup', 'fictioneer_nonce', false );
+
         fictioneer_settings_setup_card(
           'fictioneer_dark_mode_as_default',
           __( 'Enable dark mode by default?', 'fictioneer' ),
