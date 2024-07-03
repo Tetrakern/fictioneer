@@ -1890,7 +1890,14 @@ function fictioneer_after_install_setup() {
     'fictioneer_cookie_banner', 'fictioneer_rewrite_chapter_permalinks'
   );
 
-  $dark_mode = filter_var( $_POST['fictioneer_dark_mode_as_default'] ?? 0, FILTER_VALIDATE_BOOLEAN );
+  // Update options
+  foreach ( $booleans as $option ) {
+    update_option(
+      $option,
+      filter_var( $_POST[ $option ] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+      'yes'
+    );
+  }
 
   // Redirect to general theme settings
   wp_safe_redirect( admin_url( 'admin.php?page=fictioneer' ) );

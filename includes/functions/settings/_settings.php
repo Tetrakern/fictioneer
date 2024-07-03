@@ -587,6 +587,7 @@ function fictioneer_settings_page_assignment( $option, $label ) {
 function fictioneer_settings_toggle( $option ) {
   // Start HTML ---> ?>
   <label class="checkbox-toggle" for="<?php echo $option; ?>">
+    <input type="hidden" name="<?php echo $option; ?>" value="0">
     <input type="checkbox" id="<?php echo $option; ?>" name="<?php echo $option; ?>" value="1" autocomplete="off" <?php echo checked( 1, get_option( $option ), false ); ?>>
   </label>
   <?php // <--- End HTML

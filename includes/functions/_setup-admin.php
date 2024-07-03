@@ -38,7 +38,7 @@ function fictioneer_first_install() {
 
     if ( ! ( $theme_info['setup'] ?? 0 ) ) {
       $theme_info['setup'] = 1;
-      // update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
+      update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
 
       wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_setup' ) );
       exit;
