@@ -828,29 +828,6 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_patreon_badges',
-                    __( 'Enable Patreon badges', 'fictioneer' ),
-                    sprintf(
-                      __( 'Show supporter badge for the <a href="%s">linked Patreon client</a>. This only works for the owner of the linked client. You cannot add campaigns for individual authors.', 'fictioneer' ),
-                      '?page=fictioneer_connections'
-                    )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row fictioneer-card__row--checkbox-inset">
-                <?php
-                  fictioneer_settings_text_input(
-                    'fictioneer_patreon_label',
-                    __( 'Patreon badge label', 'fictioneer' ),
-                    _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' )
-                    );
-                  ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_comment_notifications',
                     __( 'Enable comment reply notifications', 'fictioneer' ),
                     __( 'Notify commenters about replies via email (if provided).', 'fictioneer' )

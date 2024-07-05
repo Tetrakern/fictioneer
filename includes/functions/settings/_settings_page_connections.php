@@ -189,6 +189,25 @@ $patreon_tiers = is_array( $patreon_tiers ) ? $patreon_tiers : [];
                 ?>
               </div>
 
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_text_input(
+                    'fictioneer_patreon_label',
+                    __( 'Patreon comment badge label', 'fictioneer' ),
+                    _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_patreon_badges',
+                    __( 'Enable Patreon comment badges', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
               <hr>
 
               <div class="fictioneer-card__row">
