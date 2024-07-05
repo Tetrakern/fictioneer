@@ -21,7 +21,7 @@
 
       <div><?php
         printf(
-          '<p>Welcome and thank you for using Fictioneer!</p><p>Please make sure to read the <a href="%1$s" target="_blank" rel="noopener">installation guide</a> thoroughly. If any issues arise, refer to the <a href="%2$s" target="_blank" rel="noopener">documentation</a> and <a href="%3$s" target="_blank" rel="noopener">FAQ</a> first. If you are new to WordPress, consider looking up some guides, as this theme is not the most beginner-friendly. For further questions or commissions, feel free to join the <a href="%4$s" target="_blank" rel="noopener">Discord</a>.</p><p>The following steps will help you select some base options for an easier start, but you can skip this screen if you want. You can find all these options and much more in the <a href="%5$s" target="_blank" rel="noopener">theme settings</a> and the <a href="%6$s" target="_blank" rel="noopener">Customizer</a>.</p>',
+          '<p>Welcome and thank you for using Fictioneer!</p><p>Please make sure to read the <a href="%1$s" target="_blank" rel="noopener">installation guide</a> thoroughly. If any issues arise, refer to the <a href="%2$s" target="_blank" rel="noopener">documentation</a> and <a href="%3$s" target="_blank" rel="noopener">FAQ</a> first. If you are new to WordPress, consider looking up some guides, as this theme is not the most beginner-friendly. For further questions or commissions, feel free to join the <a href="%4$s" target="_blank" rel="noopener">Discord</a>.</p><p>The following steps will help you select some basic options for an easier start, but you can skip this screen if you want. You can find all these options and much more in the <a href="%5$s" target="_blank" rel="noopener">theme settings</a> and the <a href="%6$s" target="_blank" rel="noopener">Customizer</a>.</p>',
           'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md',
           'https://github.com/Tetrakern/fictioneer/blob/main/DOCUMENTATION.md',
           'https://github.com/Tetrakern/fictioneer/blob/main/FAQ.md',
@@ -133,6 +133,12 @@
           __( 'Stories and chapters are actually separate posts that are only associated, not hierarchically linked. Therefore, the permalink of a chapter does not include the story by default. Enabling this setting adds an alias to include the story in the permalink. However, chapter slugs must still be globally unique, with numbers appended in case of conflicts (e.g. <code>.../story/story-slug/chapter-slug-1</code> instead of <code>.../chapter/chapter-slug-1</code>).', 'fictioneer' )
         );
 
+        fictioneer_settings_setup_card(
+          'fictioneer_enable_all_blocks',
+          __( 'Enable all Gutenberg blocks?', 'fictioneer' ),
+          __( 'Many blocks in the editor are disabled by default due to compatibility concerns. The theme is not built for full-site editing, and layout blocks — such as Row, Stack, and Group, along with widgets and content items — may lack styling or not work as expected.', 'fictioneer' )
+        );
+
       ?>
 
       <div class="fictioneer-actions"><?php submit_button( __( 'Submit', 'fictioneer' ) ); ?></div>
@@ -178,7 +184,7 @@
               <p class="fictioneer-card__row-heading"><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Set up a static page with shortcodes as the home page.', 'fictioneer' ); ?></p>
               <p><?php
                 printf(
-                  __( 'By default, newly installed WordPress sites display the blog index as the "home" page. You can change this by going to Settings > Reading and selecting a static home and blog page instead, which you need to create first. If you want to replicate the demo site layout, the process is explained in the <a href="%s" target="_blank" rel="noopener">installation guide</a>.', 'fictioneer' ),
+                  __( 'By default, newly installed WordPress sites display the blog index as the "home" page. You can change this by going to <strong>Settings > Reading</strong> and selecting a static home and blog page instead, which you need to create first. If you want to replicate the demo site layout, the process is explained in the <a href="%s" target="_blank" rel="noopener">installation guide</a>.', 'fictioneer' ),
                   'https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#demo-layout'
                 );
               ?></p>
