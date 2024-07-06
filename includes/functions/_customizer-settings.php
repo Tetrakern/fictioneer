@@ -1428,6 +1428,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
     'default' => _x( 'Default (Image)', 'Customizer header style option.', 'fictioneer' ),
     'split' => _x( 'Split (Image)', 'Customizer header style option.', 'fictioneer' ),
     'overlay' => _x( 'Overlay (Image)', 'Customizer header style option.', 'fictioneer' ),
+    'text_center' => _x( 'Text (Center)', 'Customizer header style option.', 'fictioneer' ),
+    'post_content' => _x( 'Post Content (ID)', 'Customizer header style option.', 'fictioneer' ),
     'top' => _x( 'Top', 'Customizer header style option.', 'fictioneer' ),
     'wide' => _x( 'Wide', 'Customizer header style option.', 'fictioneer' ),
     'none' => _x( 'None', 'Customizer header style option.', 'fictioneer' )
@@ -1464,6 +1466,31 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
         'label' => __( 'Show title text shadow', 'fictioneer' ),
         'section' => 'layout',
         'settings' => 'title_text_shadow'
+      )
+    )
+  );
+
+  // Post content header iD
+  $manager->add_setting(
+    'header_post_content_id',
+    array(
+      'capability' => 'edit_theme_options',
+      'sanitize_callback' => 'absint',
+      'default' => ''
+    )
+  );
+
+  $manager->add_control(
+    'header_post_content_id',
+    array(
+      'type' => 'number',
+      'priority' => 10,
+      'section' => 'layout',
+      'label' => __( 'Post Content Header ID', 'fictioneer' ),
+      'description' => __( 'Only used by the Post Content header style. Enter the ID of the post or page you want to render as header. Can impact performance.', 'fictioneer' ),
+      'input_attrs' => array(
+        'style' => 'width: 80px',
+        'min' => 0
       )
     )
   );

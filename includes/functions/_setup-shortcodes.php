@@ -944,6 +944,7 @@ function fictioneer_shortcode_chapter_list( $attr ) {
   $group = empty( $attr['group'] ) ? false : strtolower( trim( $attr['group'] ) );
   $heading = empty( $attr['heading'] ) ? false : $attr['heading'];
   $story_id = fictioneer_validate_id( $attr['story_id'] ?? -1, 'fcn_story' );
+  $prefer_chapter_icon = get_option( 'fictioneer_override_chapter_status_icons' );
   $hide_icons = get_option( 'fictioneer_hide_chapter_icons' );
   $can_checkmarks = get_option( 'fictioneer_enable_checkmarks' ) && ( is_user_logged_in() || get_option( 'fictioneer_enable_ajax_authentication' ) );
   $classes = wp_strip_all_tags( $attr['class'] ?? '' );
@@ -1087,9 +1088,9 @@ function fictioneer_shortcode_chapter_list( $attr ) {
             <?php
               if ( ! $hide_icons ) {
                 // Icon hierarchy: password > scheduled > text > normal
-                if ( $has_password ) {
+                if ( ! $prefer_chapter_icon && $has_password ) {
                   $icon = '<i class="fa-solid fa-lock chapter-group__list-item-icon"></i>';
-                } elseif ( get_post_status( $chapter_id ) === 'future' ) {
+                } elseif ( ! $prefer_chapter_icon && get_post_status( $chapter_id ) === 'future' ) {
                   $icon = '<i class="fa-solid fa-calendar-days chapter-group__list-item-icon"></i>';
                 } elseif ( $text_icon ) {
                   $icon = "<span class='chapter-group__list-item-icon _text text-icon'>{$text_icon}</span>";

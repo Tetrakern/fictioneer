@@ -312,7 +312,7 @@ function fictioneer_remove_chapter_from_story( $chapter_id ) {
   $chapters = fictioneer_unset_by_value( $chapter_id, $chapters );
 
   update_post_meta( $story_id, 'fictioneer_story_chapters', $chapters );
-  update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+  update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
 
   // Log change
   fictioneer_log_story_chapter_changes( $story_id, $chapters, $previous );
@@ -351,6 +351,31 @@ function fictioneer_chapter_to_draft( $post ) {
 }
 add_action( 'publish_to_draft', 'fictioneer_chapter_to_draft' );
 add_action( 'private_to_draft', 'fictioneer_chapter_to_draft' );
+
+/**
+ * Perform updates when a chapter goes from future to publish
+ *
+ * @since 5.21.0
+ *
+ * @param string  $new_status  New post status.
+ * @param string  $old_status  Old post status.
+ * @param WP_Post $post        Post object.
+ */
+
+function fictioneer_chapter_future_to_publish( $new_status, $old_status, $post ) {
+  // Validate transition...
+  if ( $post->post_type !== 'fcn_chapter' || $old_status !== 'future' || $new_status !== 'publish' ) {
+    return;
+  }
+
+  // Update fictioneer_chapters_added field of story (if any)
+  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
+
+  if ( $story_id ) {
+    update_post_meta( $story_id, 'fictioneer_chapters_added', $post->post_date_gmt );
+  }
+}
+add_action( 'transition_post_status', 'fictioneer_chapter_future_to_publish', 10, 3 );
 
 // =============================================================================
 // POST PASSWORD EXPIRATION

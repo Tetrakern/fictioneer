@@ -210,9 +210,19 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_override_chapter_status_icons',
+                    __( 'Override chapter status icons', 'fictioneer' ),
+                    __( 'Always renders the chapter icons instead of locks/etc.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_groups',
                     __( 'Enable chapter groups', 'fictioneer' ),
-                    __( 'Display chapters in groups on story pages (if set).', 'fictioneer' )
+                    __( 'Renders chapters in groups on story pages (if set).', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -252,7 +262,7 @@
                   fictioneer_settings_label_checkbox(
                     'fictioneer_enable_chapter_appending',
                     __( 'Append new chapters to story', 'fictioneer' ),
-                    __( 'Only once when the chapter is first saved.', 'fictioneer' )
+                    __( 'Whenever you change the chapter story and save.', 'fictioneer' )
                   );
                 ?>
               </div>
@@ -289,7 +299,7 @@
                 <?php
                   fictioneer_settings_label_checkbox(
                     'fictioneer_hide_large_card_chapter_list',
-                    __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
+                    __( 'Hide chapter list on large story cards', 'fictioneer' ),
                     __( 'Less informative but also less cluttered.', 'fictioneer' )
                   );
                 ?>
@@ -813,29 +823,6 @@
                     __( 'Assign custom badges (but users can disable them).', 'fictioneer' )
                   );
                 ?>
-              </div>
-
-              <div class="fictioneer-card__row">
-                <?php
-                  fictioneer_settings_label_checkbox(
-                    'fictioneer_enable_patreon_badges',
-                    __( 'Enable Patreon badges', 'fictioneer' ),
-                    sprintf(
-                      __( 'Show supporter badge for the <a href="%s">linked Patreon client</a>. This only works for the owner of the linked client. You cannot add campaigns for individual authors.', 'fictioneer' ),
-                      '?page=fictioneer_connections'
-                    )
-                  );
-                ?>
-              </div>
-
-              <div class="fictioneer-card__row fictioneer-card__row--checkbox-inset">
-                <?php
-                  fictioneer_settings_text_input(
-                    'fictioneer_patreon_label',
-                    __( 'Patreon badge label', 'fictioneer' ),
-                    _x( 'Patron', 'Default Patreon supporter badge label.', 'fictioneer' )
-                    );
-                  ?>
               </div>
 
               <div class="fictioneer-card__row">

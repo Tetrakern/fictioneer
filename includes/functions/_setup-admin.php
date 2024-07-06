@@ -23,6 +23,31 @@ require_once __DIR__ . '/_setup-meta-fields.php';
 require_once __DIR__ . '/users/_admin-profile.php';
 
 // =============================================================================
+// FIRST INSTALL
+// =============================================================================
+
+/**
+ * Redirects to setup menu page after installation
+ *
+ * @since 5.21.0
+ */
+
+function fictioneer_first_install() {
+  if ( is_admin() && isset( $_GET['activated'] ) && $GLOBALS['pagenow'] === 'themes.php' ) {
+    $theme_info = fictioneer_get_theme_info();
+
+    if ( ! ( $theme_info['setup'] ?? 0 ) ) {
+      $theme_info['setup'] = 1;
+      update_option( 'fictioneer_theme_info', $theme_info, 'yes' );
+
+      wp_safe_redirect( admin_url( 'admin.php?page=fictioneer_setup' ) );
+      exit;
+    }
+  }
+}
+add_action( 'after_setup_theme', 'fictioneer_first_install' );
+
+// =============================================================================
 // ENQUEUE ADMIN STYLESHEETS
 // =============================================================================
 
@@ -900,7 +925,7 @@ function fictioneer_get_mu_plugin_data() {
       'filename' => 'fictioneer_002_elementor_control.php',
       'name' => _x( 'Fictioneer Elementor Control', 'Theme mu-plugin.', 'fictioneer' ),
       'description' => _x( 'Disables the Elementor plugin on all pages except those with a Canvas page template. Since Elementor consumes a lot of server resources, limiting it to actual use cases is sensible. However, this makes the plugin unavailable anywhere else on the frontend.', 'Theme mu-plugin.', 'fictioneer' ),
-      'version' => '1.0.0',
+      'version' => '1.0.1',
       'update' => false,
       'active' => false
     )

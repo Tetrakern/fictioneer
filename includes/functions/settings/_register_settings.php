@@ -212,7 +212,7 @@ define( 'FICTIONEER_OPTIONS', array(
     ),
     'fictioneer_enable_patreon_badges' => array(
       'name' => 'fictioneer_enable_patreon_badges',
-      'group' => 'fictioneer-settings-general-group',
+      'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
     ),
@@ -647,6 +647,12 @@ define( 'FICTIONEER_OPTIONS', array(
       'group' => 'fictioneer-settings-general-group',
       'sanitize_callback' => 'fictioneer_sanitize_checkbox',
       'default' => 0
+    ),
+    'fictioneer_override_chapter_status_icons' => array(
+      'name' => 'fictioneer_override_chapter_status_icons',
+      'group' => 'fictioneer-settings-general-group',
+      'sanitize_callback' => 'fictioneer_sanitize_checkbox',
+      'default' => 0
     )
   ),
   'integers' => array(
@@ -785,7 +791,7 @@ define( 'FICTIONEER_OPTIONS', array(
     ),
     'fictioneer_patreon_label' => array(
       'name' => 'fictioneer_patreon_label',
-      'group' => 'fictioneer-settings-general-group',
+      'group' => 'fictioneer-settings-connections-group',
       'sanitize_callback' => 'sanitize_text_field'
     ),
     'fictioneer_comments_notice' => array(
@@ -985,7 +991,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_comment_bbcodes' => __( 'Disable comment BBCodes', 'fictioneer' ),
       'fictioneer_enable_ajax_comment_moderation' => __( 'Enable AJAX comment moderation', 'fictioneer' ),
       'fictioneer_enable_custom_badges' => __( 'Enable custom badges', 'fictioneer' ),
-      'fictioneer_enable_patreon_badges' => __( 'Enable Patreon badges', 'fictioneer' ),
+      'fictioneer_enable_patreon_badges' => __( 'Enable Patreon comment badges', 'fictioneer' ),
       'fictioneer_enable_private_commenting' => __( 'Enable private commenting', 'fictioneer' ),
       'fictioneer_enable_comment_notifications' => __( 'Enable comment reply notifications', 'fictioneer' ),
       'fictioneer_enable_comment_reporting' => __( 'Enable comment reporting', 'fictioneer' ),
@@ -1105,7 +1111,8 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_rewrite_chapter_permalinks' => __( 'Rewrite chapter permalinks to include story ', 'fictioneer' ),
       'fictioneer_enable_xmlrpc' => __( 'Enable XML-RPC', 'fictioneer' ),
       'fictioneer_disable_emojis' => __( 'Disable WordPress emojis', 'fictioneer' ),
-      'fictioneer_disable_default_formatting_indent' => __( 'Disable default indentation of chapter paragraphs', 'fictioneer' )
+      'fictioneer_disable_default_formatting_indent' => __( 'Disable default indentation of chapter paragraphs', 'fictioneer' ),
+      'fictioneer_override_chapter_status_icons' => __( 'Override chapter status icons', 'fictioneer' )
     );
   }
 

@@ -123,6 +123,15 @@ function fictioneer_add_admin_menu() {
     'fictioneer_settings_logs'
   );
 
+  $setup_hook = add_submenu_page(
+    'fictioneer',
+    __( 'Setup', 'fictioneer' ),
+    __( 'Setup', 'fictioneer' ),
+    'manage_options',
+    'fictioneer_setup',
+    'fictioneer_settings_setup'
+  );
+
   add_action( 'admin_init', 'fictioneer_register_settings' );
 
   // Add screen options
@@ -371,6 +380,16 @@ function fictioneer_settings_logs() {
   get_template_part( 'includes/functions/settings/_settings_page_logs' );
 }
 
+/**
+ * Callback for setup settings page
+ *
+ * @since 5.20.3
+ */
+
+function fictioneer_settings_setup() {
+  get_template_part( 'includes/functions/settings/_settings_page_setup' );
+}
+
 // =============================================================================
 // SETTINGS CONTENT HELPERS
 // =============================================================================
@@ -553,4 +572,49 @@ function fictioneer_settings_page_assignment( $option, $label ) {
   );
 
   echo '<p class="fictioneer-sub-label">' . $label . '</p>';
+}
+
+/**
+ * Renders a label-wrapped setting toggle checkbox
+ *
+ * @since 5.21.0
+ *
+ * @param string $option  The name of the setting option.
+ */
+
+function fictioneer_settings_toggle( $option ) {
+  // Start HTML ---> ?>
+  <label class="checkbox-toggle" for="<?php echo $option; ?>">
+    <input type="hidden" name="<?php echo $option; ?>" value="0">
+    <input type="checkbox" id="<?php echo $option; ?>" name="<?php echo $option; ?>" value="1" autocomplete="off" <?php echo checked( 1, get_option( $option ), false ); ?>>
+  </label>
+  <?php // <--- End HTML
+}
+
+/**
+ * Renders a card for the after-install setup
+ *
+ * @since 5.21.0
+ *
+ * @param string $option   The name of the setting option.
+ * @param string $title    The card title
+ * @param string $content  The card content.
+ */
+
+function fictioneer_settings_setup_card( $option, $title, $content ) {
+  // Start HTML ---> ?>
+  <div class="fictioneer-card">
+    <div class="fictioneer-card__wrapper">
+      <div class="fictioneer-card__content">
+        <div class="fictioneer-card__row">
+          <p class="fictioneer-card__row-heading"><?php echo $title; ?></p>
+          <p><?php echo $content; ?></p>
+        </div>
+        <div class="fictioneer-card__row">
+          <?php fictioneer_settings_toggle( $option ); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php // <--- End HTML
 }

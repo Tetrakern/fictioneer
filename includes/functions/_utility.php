@@ -1079,11 +1079,15 @@ if ( ! function_exists( 'fictioneer_get_content_field' ) ) {
     $content = get_post_meta( $post_id ?? get_the_ID(), $field, true );
 
     // Apply default filter functions from the_content (but nothing else)
+    $content = do_blocks( $content );
     $content = wptexturize( $content );
     $content = convert_chars( $content );
     $content = wpautop( $content );
     $content = shortcode_unautop( $content );
     $content = prepend_attachment( $content );
+    $content = wp_replace_insecure_home_url( $content );
+    $content = wp_filter_content_tags( $content );
+    $content = convert_smilies( $content );
 
     // Return formatted/filtered content
     return $content;
@@ -1277,8 +1281,8 @@ function fictioneer_append_chapter_to_story( $post_id, $story_id, $force = false
     update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
 
     // Remember when chapter list has been last updated
-    update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
-    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
+    update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
 
     // Log changes
     fictioneer_log_story_chapter_changes( $story_id, $story_chapters, $previous_chapters );

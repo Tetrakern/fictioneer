@@ -2409,11 +2409,11 @@ function fictioneer_save_story_metaboxes( $post_id ) {
 
     // Remember when chapters have been changed
     if ( $previous_chapter_ids !== $chapter_ids ) {
-      update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
+      update_post_meta( $post_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
     }
 
     if ( count( $previous_chapter_ids ) < count( $chapter_ids ) ) {
-      update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+      update_post_meta( $post_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
     }
 
     // Log changes

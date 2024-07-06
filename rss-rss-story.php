@@ -84,12 +84,12 @@ do_action( 'rss_tag_pre', 'rss2' );
     <?php endif; ?>
 
     <?php if ( has_site_icon() ) : ?>
-      <webfeeds:icon><?php echo get_site_icon_url(); ?></webfeeds:icon>
+      <webfeeds:icon><?php echo esc_url( get_site_icon_url() ); ?></webfeeds:icon>
     <?php endif; ?>
 
     <?php if ( get_option( 'site_icon', false ) ) : ?>
       <image>
-        <url><?php echo get_site_icon_url( 32 ); ?></url>
+        <url><?php echo esc_url( get_site_icon_url( 32 ) ); ?></url>
         <title><?php echo $title; ?></title>
         <link><?php bloginfo_rss( 'url' ); ?></link>
         <width>32</width>

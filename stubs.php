@@ -67,3 +67,13 @@ function wp_admin_notice( string $message, array $args = array() ) {}
  */
 
 function elementor_theme_do_location( $location ) {}
+
+/**
+ * Replaces insecure HTTP URLs to the site in the given content, if configured to do so.
+ *
+ * @param string $content  Content to replace URLs in.
+ *
+ * @return string Filtered content.
+ */
+
+function wp_replace_insecure_home_url( $content ) {}

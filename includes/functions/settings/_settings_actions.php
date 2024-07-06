@@ -1600,8 +1600,8 @@ function fictioneer_tools_append_chapters() {
       update_post_meta( $story_id, 'fictioneer_story_chapters', $story_chapters );
 
       // Remember when chapter list has been last updated
-      update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql' ) );
-      update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql' ) );
+      update_post_meta( $story_id, 'fictioneer_chapters_modified', current_time( 'mysql', true ) );
+      update_post_meta( $story_id, 'fictioneer_chapters_added', current_time( 'mysql', true ) );
 
       // Clear meta caches to ensure they get refreshed
       delete_post_meta( $story_id, 'fictioneer_story_data_collection' );
@@ -1868,3 +1868,44 @@ function fictioneer_disable_mu_plugin() {
   exit;
 }
 add_action( 'admin_post_fictioneer_disable_mu_plugin', 'fictioneer_disable_mu_plugin' );
+
+// =============================================================================
+// THEME SETUP ACTIONS
+// =============================================================================
+
+/**
+ * Saves the after-install setup form and redirects to settings page
+ *
+ * Note: Might be extended in the future to include more than general options.
+ *
+ * @since 5.21.0
+ */
+
+function fictioneer_after_install_setup() {
+  // Verify request
+  fictioneer_verify_admin_action( 'fictioneer_after_install_setup' );
+
+  // Setup
+  $booleans = array(
+    'fictioneer_dark_mode_as_default', 'fictioneer_show_authors', 'fictioneer_enable_chapter_groups',
+    'fictioneer_disable_default_formatting_indent', 'fictioneer_hide_large_card_chapter_list',
+    'fictioneer_count_characters_as_words', 'fictioneer_enable_lightbox', 'fictioneer_enable_bookmarks',
+    'fictioneer_enable_follows', 'fictioneer_enable_reminders', 'fictioneer_enable_checkmarks',
+    'fictioneer_enable_suggestions', 'fictioneer_do_not_save_comment_ip', 'fictioneer_consent_wrappers',
+    'fictioneer_cookie_banner', 'fictioneer_rewrite_chapter_permalinks'
+  );
+
+  // Update options
+  foreach ( $booleans as $option ) {
+    update_option(
+      $option,
+      filter_var( $_POST[ $option ] ?? 0, FILTER_VALIDATE_BOOLEAN ),
+      'yes'
+    );
+  }
+
+  // Redirect to general theme settings
+  wp_safe_redirect( admin_url( 'admin.php?page=fictioneer' ) );
+  exit;
+}
+add_action( 'admin_post_fictioneer_after_install_setup', 'fictioneer_after_install_setup' );

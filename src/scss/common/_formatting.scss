@@ -9,7 +9,7 @@
  * Relative (em) font-size to allow scaling with custom formatting.
  */
 
-article {
+:where(article, .content-section) {
   h1 {
     font-size: get_relative_clamp(1.5, 2.25, 320, $full-width, 'vw', 'em');
   }

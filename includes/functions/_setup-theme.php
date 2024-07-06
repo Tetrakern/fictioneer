@@ -153,6 +153,7 @@ function fictioneer_get_theme_info() {
       'last_update_nag' => current_time( 'mysql', 1 ),
       'last_update_notes' => '',
       'last_version_download_url' => '',
+      'setup' => 0,
       'version' => FICTIONEER_VERSION
     );
 
@@ -167,6 +168,7 @@ function fictioneer_get_theme_info() {
       'last_update_nag' => '',
       'last_update_notes' => '',
       'last_version_download_url' => '',
+      'setup' => 0,
       'version' => FICTIONEER_VERSION
     ),
     $info
@@ -846,21 +848,6 @@ function fictioneer_output_customize_preview_css() {
 if ( is_customize_preview() ) {
   add_action( 'wp_enqueue_scripts', 'fictioneer_output_customize_preview_css', 9999 );
 }
-
-// =============================================================================
-// ENQUEUE OVERRIDE STYLESHEETS
-// =============================================================================
-
-/**
- * Enqueues an "override" stylesheet that supersedes all others
- *
- * @since 2.0.0
- */
-
-function fictioneer_style_footer_queue() {
-  wp_enqueue_style( 'override', get_template_directory_uri() . '/css/override.css' );
-}
-add_action( 'get_footer', 'fictioneer_style_footer_queue' );
 
 // =============================================================================
 // FONT AWESOME
@@ -1824,7 +1811,7 @@ function fictioneer_elementor_override_styles() {
 
   // Setup
   $kit_id = get_option( 'elementor_active_kit' );
-  $css = ".elementor-kit-{$kit_id} {
+  $css = "body.elementor-kit-{$kit_id} {
     --e-global-color-primary: var(--primary-500);
     --e-global-color-secondary: var(--fg-300);
     --e-global-color-text: var(--fg-500);

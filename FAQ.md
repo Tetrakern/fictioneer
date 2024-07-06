@@ -68,10 +68,6 @@ After activating the feature, you need to flush the permalinks. You can do this 
 
 Nobody can stop you from doing that, but it is wrong. Stories do not have the same capabilities as chapters and the theme does not understand the concept. There will be no formatting options, bookmarks, text-to-speech, suggestions, comments, and so forth. SEO data and API responses may also be messed up. If you can live with that, go ahead.
 
-### Q: Why do chapter permalinks not include the story?
-
-Because. And it is really difficult.
-
 ### Q: Can I use the theme for Japanese, Korean, Chinese, and other writing systems?
 
 Apparently, even though this was never considered during development. WordPress is multi-lingual by default and the theme can be translated, which can be done with certain plugins too. You can change the word count script to count characters instead, with an optional multiplier for approximation. You will most likely need to add a [custom font](https://github.com/Tetrakern/fictioneer/blob/main/INSTALLATION.md#custom-fonts), though.

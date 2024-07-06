@@ -1118,6 +1118,20 @@ Fires right between the comments list and heading in the `fictioneer_story_comme
 
 ---
 
+### `do_action( 'fictioneer_text_center_header', $args )`
+Fires right after opening the `<header>` container for the "Text (Centered)" header style.
+
+**$args:**
+* $post_id (int|null) – Current post ID. Unsafe.
+* $story_id (int|null) – Current story ID. Unsafe.
+* $header_image_url (string|boolean) – URL of the filtered header image or false.
+* $header_args (array) – Arguments passed to the header.php partial.
+
+**Hooked Actions:**
+* `function( $args )` – Anonymous function to output the header content. Priority 10.
+
+---
+
 ### `do_action( 'fictioneer_toggled_follow', $story_id, $force )`
 Fires after a Follow has been successfully toggled and right before the JSON response is sent.
 

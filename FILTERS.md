@@ -1382,6 +1382,8 @@ Filters the arguments passed to the `partials/_card-story` template part in the 
 * $order (string) – Current query order argument. Default 'desc'.
 * $orderby (string) – Current query orderby argument. Default 'modified'.
 * $ago (int|string) – Current date query argument part. Default 0.
+* $show_latest (boolean|null) – Whether to show the latest chapters. Default `false`.
+* $hide_author (boolean|null) – Whether to hide the author. Default `false`.
 
 **$args:**
 * $current_page (int) – Current page if paginated or `1`.
