@@ -23,8 +23,6 @@ if ( wp_doing_ajax() ) {
  */
 
 function fictioneer_add_admin_menu() {
-  $theme_info = fictioneer_get_theme_info();
-
   add_menu_page(
     __( 'Fictioneer Settings', 'fictioneer' ),
     __( 'Fictioneer', 'fictioneer' ),
