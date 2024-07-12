@@ -254,14 +254,21 @@ function fictioneer_remove_custom_fields_meta_boxes( $post_type, $context ) {
 add_action( 'do_meta_boxes', 'fictioneer_remove_custom_fields_meta_boxes', 1, 2 );
 
 /**
- * Removes 'custom-fields' support for posts and pages
+ * Removes 'custom-fields' support for all posts
+ *
+ * Note: Disable this if you need the feature support.
  *
  * @since 5.8.0
+ * @since 5.21.1 - Added all post types.
  */
 
 function fictioneer_remove_custom_fields_supports() {
   remove_post_type_support( 'post', 'custom-fields' );
   remove_post_type_support( 'page', 'custom-fields' );
+  remove_post_type_support( 'fcn_story', 'custom-fields' );
+  remove_post_type_support( 'fcn_chapter', 'custom-fields' );
+  remove_post_type_support( 'fcn_collection', 'custom-fields' );
+  remove_post_type_support( 'fcn_recommendation', 'custom-fields' );
 }
 add_action( 'init', 'fictioneer_remove_custom_fields_supports' );
 
