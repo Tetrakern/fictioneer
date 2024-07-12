@@ -251,7 +251,10 @@ add_action( 'fictioneer_after_update', 'fictioneer_purge_caches_after_update' );
 function fictioneer_remove_custom_fields_meta_boxes( $post_type, $context ) {
   remove_meta_box( 'postcustom', $post_type, $context );
 }
-add_action( 'do_meta_boxes', 'fictioneer_remove_custom_fields_meta_boxes', 1, 2 );
+
+if ( ! get_option( 'fictioneer_enable_custom_fields' ) ) {
+  add_action( 'do_meta_boxes', 'fictioneer_remove_custom_fields_meta_boxes', 1, 2 );
+}
 
 /**
  * Removes 'custom-fields' support for all posts
@@ -270,7 +273,10 @@ function fictioneer_remove_custom_fields_supports() {
   remove_post_type_support( 'fcn_collection', 'custom-fields' );
   remove_post_type_support( 'fcn_recommendation', 'custom-fields' );
 }
-add_action( 'init', 'fictioneer_remove_custom_fields_supports' );
+
+if ( ! get_option( 'fictioneer_enable_custom_fields' ) ) {
+  add_action( 'init', 'fictioneer_remove_custom_fields_supports' );
+}
 
 /**
  * Makes theme meta fields protected

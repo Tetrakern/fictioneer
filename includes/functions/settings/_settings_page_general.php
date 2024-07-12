@@ -1214,6 +1214,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_enable_custom_fields',
+                    __( 'Enable custom fields', 'fictioneer' ),
+                    __( 'Show custom fields form on post edit screen.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_purge_all_caches',
                     __( 'Purge all caches on content updates', 'fictioneer' ),
                     __( 'Inefficient but makes sure everything is up-to-date.', 'fictioneer' )
