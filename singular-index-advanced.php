@@ -42,10 +42,10 @@ if ( $stories->have_posts() ) {
 
     // Relevant data
     $title = trim( fictioneer_get_safe_title( $story_id, 'story_index' ) );
-    $first_char = strtolower( mb_substr( $title, 0, 1, 'UTF-8' ) );
+    $first_char = mb_strtolower( mb_substr( $title, 0, 1, 'UTF-8' ), 'UTF-8' );
 
     // Normalize for numbers and other non-alphabetical characters
-    if ( is_numeric( $first_char ) ) {
+    if ( ! preg_match( '/\p{L}/u', $first_char ) ) {
       $first_char = '#'; // Group under '#'
     }
 
