@@ -376,6 +376,24 @@ if ( get_option( 'fictioneer_enable_theme_rss' ) ) {
   add_theme_support( 'automatic-feed-links' );
 }
 
+/**
+ * Ensures RSS excerpts are valid in XML
+ *
+ * @since 5.21.1
+ *
+ * @param string $excerpt  The current post excerpt for the RSS feed.
+ *
+ * @return string The modified excerpt for the RSS feed.
+ */
+
+function fictioneer_filter_rss_excerpt( $excerpt ) {
+  $excerpt = wp_strip_all_tags( $excerpt );
+  $excerpt = esc_html( $excerpt );
+
+  return $excerpt;
+}
+add_filter( 'the_excerpt_rss', 'fictioneer_filter_rss_excerpt' );
+
 // =============================================================================
 // OUTPUT RSS
 // =============================================================================

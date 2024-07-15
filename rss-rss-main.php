@@ -89,7 +89,7 @@ do_action( 'rss_tag_pre', 'rss2' );
   <channel>
 
     <title><?php echo $title; ?></title>
-    <description><?php echo $description; ?></description>
+    <description><![CDATA[<?php echo $description; ?>]]></description>
     <language><?php echo bloginfo_rss( 'language' ); ?></language>
     <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
     <link><?php bloginfo_rss( 'url' ); ?></link>
