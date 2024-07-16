@@ -133,6 +133,51 @@ td.fictioneer_patreon_lock_amount {
   margin-bottom: 6px;
 }
 
+.customize-control .fictioneer-customize-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__range[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1 1 auto;
+    background: #dcdcde;
+    padding: 0;
+    border-radius: 3px;
+    height: 10px;
+    outline: none;
+
+    // Needs to be separate
+    &::-webkit-slider-thumb {
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #3582c4;
+      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+    }
+
+    // Needs to be separate
+    &::-moz-range-thumb {
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #3582c4;
+      border: none;
+      border-radius: 3px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__number[type=number] {
+    flex: 0 0 64px;
+    width: 64px;
+  }
+}
+
 // =============================================================================
 // FICTIONEER METABOXES
 // =============================================================================

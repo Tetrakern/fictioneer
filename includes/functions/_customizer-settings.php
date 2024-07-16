@@ -42,14 +42,10 @@ add_action( 'customize_save_after', 'fictioneer_watch_for_customizer_updates' );
 /**
  * Check for WP_Customizer_Control existence before adding custom control because
  * WP_Customize_Control is loaded on customizer page only.
- *
- * @author Sean Stopnik
- * @author Per Soderlind
- * @see _wp_customize_include()
  */
 
 if ( class_exists( 'WP_Customize_Control' ) ) {
-  require_once( __DIR__ . '/class-customizer-range-value-control/class-customizer-range-value-control.php' );
+  require_once( get_template_directory() . '/includes/classes/class-customize-range-control.php' );
 }
 
 // =============================================================================
@@ -174,21 +170,20 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'hue_offset_light',
       array(
-        'type' => 'range-value',
+        'type' => 'fictioneer-range',
         'priority' => 10,
         'section' => 'light_mode_colors',
         'settings' => 'hue_offset_light',
         'label' => __( 'Hue Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the hue rotate in degrees, tinting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => 0,
           'max' => 360,
-          'step' => 1,
-          'suffix' => ' °'
+          'step' => 1
         )
       )
     )
@@ -205,7 +200,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'saturation_offset_light',
       array(
@@ -214,7 +209,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'saturation_offset_light',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -235,7 +230,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'lightness_offset_light',
       array(
@@ -244,7 +239,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'lightness_offset_light',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -265,7 +260,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'font_saturation_offset_light',
       array(
@@ -274,7 +269,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'font_saturation_offset_light',
         'label' => __( 'Font Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -295,7 +290,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'font_lightness_offset_light',
       array(
@@ -304,7 +299,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
         'section' => 'light_mode_colors',
         'settings' => 'font_lightness_offset_light',
         'label' => __( 'Font Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds a fractional offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -40,
           'max' => 40,
@@ -594,7 +589,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'hue_offset',
       array(
@@ -603,12 +598,11 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'hue_offset',
         'label' => __( 'Hue Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the hue rotate, tinting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => 0,
           'max' => 360,
-          'step' => 1,
-          'suffix' => ' °'
+          'step' => 1
         )
       )
     )
@@ -625,7 +619,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'saturation_offset',
       array(
@@ -634,7 +628,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'saturation_offset',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -655,7 +649,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'lightness_offset',
       array(
@@ -664,7 +658,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'lightness_offset',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -685,7 +679,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'font_saturation_offset',
       array(
@@ -694,7 +688,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'font_saturation_offset',
         'label' => __( 'Font Saturation Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the font saturation multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -100,
           'max' => 100,
@@ -715,7 +709,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'font_lightness_offset',
       array(
@@ -724,7 +718,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
         'section' => 'dark_mode_colors',
         'settings' => 'font_lightness_offset',
         'label' => __( 'Font Lightness Offset', 'fictioneer' ),
-        'description' => __( 'Adds an offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Adds an offset to the font lightness multiplier, affecting the whole site. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -40,
           'max' => 40,
@@ -2180,7 +2174,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_cover_width_mod',
       array(
@@ -2189,12 +2183,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_cover_width_mod',
         'label' => __( 'Card Cover Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Multiplier for the card cover width. Default 1.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => 0,
           'max' => 5,
-          'step' => 0.05,
-          'suffix' => ' x'
+          'step' => 0.05
         )
       )
     )
@@ -2211,7 +2204,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_grid_row_gap_mod',
       array(
@@ -2220,12 +2213,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_grid_row_gap_mod',
         'label' => __( 'Card Row Gap Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the grid row gap. Default 1.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Multiplier for the grid row gap. Default 1.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => 0,
           'max' => 10,
-          'step' => 0.05,
-          'suffix' => ' x'
+          'step' => 0.05
         )
       )
     )
@@ -2242,7 +2234,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_grid_column_gap_mod',
       array(
@@ -2251,12 +2243,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_grid_column_gap_mod',
         'label' => __( 'Card Column Gap Multiplier', 'fictioneer' ),
-        'description' => __( 'Multiplier for the grid column gap. Default 1.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Multiplier for the grid column gap. Default 1.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => 0,
           'max' => 10,
-          'step' => 0.05,
-          'suffix' => ' x'
+          'step' => 0.05
         )
       )
     )
@@ -2273,7 +2264,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_font_size_min_mod',
       array(
@@ -2282,12 +2273,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_font_size_min_mod',
         'label' => __( 'Card Font Size Minimum Offset', 'fictioneer' ),
-        'description' => __( 'Modifies the lower end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Modifies the lower end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -4,
           'max' => 4,
-          'step' => 0.1,
-          'suffix' => 'px'
+          'step' => 0.1
         )
       )
     )
@@ -2304,7 +2294,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_font_size_grow_mod',
       array(
@@ -2313,12 +2303,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_font_size_grow_mod',
         'label' => __( 'Card Font Size Grow Offset', 'fictioneer' ),
-        'description' => __( 'Modifies the calculation of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Modifies the calculation of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -4,
           'max' => 4,
-          'step' => 0.1,
-          'suffix' => 'px'
+          'step' => 0.1
         )
       )
     )
@@ -2335,7 +2324,7 @@ function fictioneer_add_card_customizer_settings( $manager ) {
   );
 
   $manager->add_control(
-    new Customizer_Range_Value_Control(
+    new Fictioneer_Customize_Range_Control(
       $manager,
       'card_font_size_max_mod',
       array(
@@ -2344,12 +2333,11 @@ function fictioneer_add_card_customizer_settings( $manager ) {
         'section' => 'cards',
         'settings' => 'card_font_size_max_mod',
         'label' => __( 'Card Font Size Maximum Offset', 'fictioneer' ),
-        'description' => __( 'Modifies the upper end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ),
+        'description' => '<small>' . __( 'Modifies the upper end of the dynamic card font sizes in fractions of pixels. Default 0.', 'fictioneer' ) . '</small>',
         'input_attrs' => array(
           'min' => -4,
           'max' => 4,
-          'step' => 0.1,
-          'suffix' => 'px'
+          'step' => 0.1
         )
       )
     )
