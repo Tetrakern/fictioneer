@@ -26,6 +26,7 @@
     max-height: calc(var(--header-height) - 2rem);
     width: fit-content;
     object-fit: contain;
+    pointer-events: none; // Prevents drag and Edge image function nonsense
   }
 
   &__title {
