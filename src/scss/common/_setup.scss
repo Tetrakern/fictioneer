@@ -72,14 +72,14 @@ article {
   contain: layout style; // Improve performance
 }
 
+:root a:where(:not(.wp-element-button)):is(a) {
+  text-decoration: none; // WP bullshit
+}
+
 a {
   cursor: pointer;
   color: var(--layout-link-color);
   text-decoration: none;
-
-  &:where(:not(.wp-element-button)):is(a) {
-    text-decoration: none; // WP bullshit
-  }
 
   &:hover {
     color: var(--layout-link-color-hover);
