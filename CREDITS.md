@@ -155,12 +155,6 @@ The following list credits all third-party resources used in the Fictioneer them
   License: [MIT](https://opensource.org/licenses/MIT)<br>
   Source: https://github.com/SimonWaldherr/ColorConverter.php
 
-* **WordPress customizer range value control**<br>
-  Copyright: soderlind<br>
-  Licenses: [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html),
-  [MIT](https://opensource.org/licenses/MIT)<br>
-  Source: https://github.com/soderlind/class-customizer-range-value-control
-
 * **Change image markup in post content**<br>
   Copyright: Sunyatasattva, jer0dh<br>
   License: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)<br>
