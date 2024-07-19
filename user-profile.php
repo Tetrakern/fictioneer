@@ -15,7 +15,7 @@
 // Only for logged-in users...
 if ( ! is_user_logged_in() && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
   wp_safe_redirect( home_url() );
-  exit();
+  exit;
 }
 
 // If public caching is active, redirect to dashboard profile
@@ -24,13 +24,13 @@ if (
   get_option( 'fictioneer_enable_public_cache_compatibility' )
 ) {
   wp_safe_redirect( get_edit_profile_url( 0 ) );
-  exit();
+  exit;
 }
 
 // Redundant safeguard
 if ( ! is_user_logged_in() ) {
   wp_safe_redirect( home_url() );
-  exit();
+  exit;
 }
 
 // Setup

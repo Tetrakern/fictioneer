@@ -12,10 +12,10 @@
  */
 
 
-// Only for logged-in users...
+// Only for logged-in users and not compatible with public caching...
 if ( ! is_user_logged_in() || get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
   wp_safe_redirect( home_url() );
-  exit();
+  exit;
 }
 
 // Setup

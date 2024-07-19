@@ -12,6 +12,12 @@
  */
 
 
+// Only for logged-in users...
+if ( ! is_user_logged_in() && ! get_option( 'fictioneer_enable_public_cache_compatibility' ) ) {
+  wp_safe_redirect( home_url() );
+  exit;
+}
+
 // Setup
 $current_tab = sanitize_key( $_GET['tab'] ?? '' );
 $order = fictioneer_sanitize_query_var( $_GET['order'] ?? 0, ['desc', 'asc'], 'desc' );

@@ -16,7 +16,7 @@
 // Return home if bookmarks are disabled
 if ( ! get_option( 'fictioneer_enable_bookmarks' ) ) {
   wp_redirect( home_url() );
-  exit();
+  exit;
 }
 
 // Header
