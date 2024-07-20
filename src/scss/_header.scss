@@ -25,6 +25,7 @@
     height: var(--header-logo-height);
     max-height: calc(var(--header-height) - 2rem);
     width: fit-content;
+    max-width: 99vw;
     object-fit: contain;
     pointer-events: none; // Prevents drag and Edge image function nonsense
   }
