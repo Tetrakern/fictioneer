@@ -2367,7 +2367,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
       fictioneer_sanitize_editor( $_POST['fictioneer_story_short_description'] );
 
     if ( empty( $fields['fictioneer_story_short_description'] ) ) {
-      $fields['fictioneer_story_short_description'] = __( 'No description provided yet.', 'fictioneer' );
+      $fields['fictioneer_story_short_description'] = '';
     }
   }
 
@@ -4049,7 +4049,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
     $fields['fictioneer_collection_description'] = fictioneer_sanitize_editor( $_POST['fictioneer_collection_description'] );
 
     if ( empty( $fields['fictioneer_collection_description'] ) ) {
-      $fields['fictioneer_collection_description'] = __( 'No description provided yet.', 'fictioneer' );
+      $fields['fictioneer_collection_description'] = '';
     }
   }
 
