@@ -9,12 +9,15 @@ if ( ! function_exists( 'fictioneer_get_excerpt' ) ) {
    * Returns the excerpt with theme adjustments
    *
    * @since 5.0.0
+   * @since 5.21.2 - Add optional $post parameter.
+   *
+   * @param int|WP_Post $post  Optional. Post ID or WP_Post object. Default is global $post.
    *
    * @return string The customized excerpt.
    */
 
-  function fictioneer_get_excerpt() {
-    $excerpt = get_the_excerpt();
+  function fictioneer_get_excerpt( $post = null ) {
+    $excerpt = get_the_excerpt( $post );
     $excerpt = trim( preg_replace( '/\s+/', ' ', $excerpt ) );
 
     // Return result
