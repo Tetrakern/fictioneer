@@ -28,7 +28,7 @@ $chapter_count = count( $chapter_ids );
 $excerpt = fictioneer_first_paragraph_as_excerpt(
   fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
 );
-$excerpt = empty( $excerpt ) ? __( 'No description provided yet.', 'fictioneer' ) : $excerpt;
+$excerpt = empty( $excerpt ) ? fictioneer_get_excerpt( $post_id ) : $excerpt;
 $tags = false;
 $card_classes = [];
 
@@ -129,7 +129,7 @@ $thumbnail_args = array(
               fictioneer_get_author_node()
             )
           ),
-          $excerpt
+          $excerpt ?: __( 'No description provided yet.', 'fictioneer' )
         );
       ?>
 

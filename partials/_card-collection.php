@@ -20,7 +20,10 @@ defined( 'ABSPATH' ) OR exit;
 $post_id = $post->ID;
 $list_title = trim( get_post_meta( $post_id, 'fictioneer_collection_list_title', true ) );
 $title = empty( $list_title ) ? fictioneer_get_safe_title( $post_id, 'card-collection' ) : $list_title;
-$description = fictioneer_get_content_field( 'fictioneer_collection_description', $post_id );
+$excerpt = fictioneer_first_paragraph_as_excerpt(
+  fictioneer_get_content_field( 'fictioneer_collection_description', $post_id )
+);
+$excerpt = empty( $excerpt ) ? fictioneer_get_excerpt( $post_id ) : $excerpt;
 $statistics = fictioneer_get_collection_statistics( $post_id );
 $items = get_post_meta( $post_id, 'fictioneer_collection_items', true );
 $items = empty( $items ) ? [] : $items;
@@ -65,11 +68,6 @@ if ( ! empty( $items ) ) {
   );
 
   $items = $items->posts;
-}
-
-// Last rescue for empty description
-if ( empty( $description ) ) {
-  $description = __( 'No description provided yet.', 'fictioneer' );
 }
 
 // Extra classes
@@ -131,7 +129,7 @@ $thumbnail_args = array(
         printf(
           '<div class="card__content cell-desc"><div class="truncate %1$s"><span>%2$s</span></div></div>',
           count( $items ) > 2 ? '_cq-4-3' : '_4-4',
-          fictioneer_truncate( $description, 512 )
+          fictioneer_truncate( $excerpt ?: __( 'No description provided yet.', 'fictioneer' ), 512 )
         );
       ?>
 
