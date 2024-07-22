@@ -33,6 +33,13 @@ if ( ! is_user_logged_in() ) {
   exit;
 }
 
+// Try to prevent caching of the page
+if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+  define( 'DONOTCACHEPAGE', true );
+}
+
+do_action( 'litespeed_control_set_nocache', 'nocache due to user-specific page.' );
+
 // Setup
 $post_id = get_the_ID();
 $current_user = wp_get_current_user();

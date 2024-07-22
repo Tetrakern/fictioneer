@@ -18,6 +18,13 @@ if ( ! is_user_logged_in() || get_option( 'fictioneer_enable_public_cache_compat
   exit;
 }
 
+// Try to prevent caching of the page
+if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+  define( 'DONOTCACHEPAGE', true );
+}
+
+do_action( 'litespeed_control_set_nocache', 'nocache due to user-specific page.' );
+
 // Setup
 $user = wp_get_current_user();
 $current_tab = sanitize_key( $_GET['tab'] ?? '' );
