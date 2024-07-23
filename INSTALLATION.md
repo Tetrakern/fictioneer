@@ -159,7 +159,7 @@ There is not much to consider aside from the [data privacy](https://wordpress.co
 
 ![Upload Theme Screen](repo/assets/appearance_upload_theme.jpg?raw=true)
 
-After you have set up your WordPress site, you can install the theme. Since Fictioneer is not available in the official theme library, you need to do this manually. Either by uploading the *unpacked* theme folder into the `/wp-content/themes/` directory via FTP or by uploading the `.zip` file in the admin panel under **Appearance > Themes > Add New > Upload Theme**.
+After you have set up your WordPress site, you can install the theme. Since Fictioneer is not available in the official theme library, you need to do this manually. Either by uploading the *unpacked* theme files into the `/wp-content/themes/fictioneer` directory via FTP or by uploading the `.zip` file in the admin panel under **Appearance > Themes > Add New > Upload Theme**.
 
 When you are done, activate the theme under **Appearance > Themes**. If you want to use a [child theme](https://developer.wordpress.org/themes/advanced-topics/child-themes/), which is installed the same way, activate that instead (you need both the main and the child theme). Head to the newly added Fictioneer menu page in the admin sidebar afterwards. Here you need to [configure](#How-to-configure-the-fictioneer-theme) the theme. You may also want to [customize](#How-to-customize-the-fictioneer-theme) the look.
 
