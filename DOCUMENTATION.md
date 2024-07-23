@@ -183,6 +183,17 @@ The demo story page uses some [custom page CSS](#extra-meta-fields) to change th
 * [Story Comments](#story-comments-shortcode)
 * [Story Data](#story-data-shortcode)
 
+## Menus
+
+The theme has two menu locations: Navigation and Footer Menu. You can create and assign menus under **Appearance > Menu**; they do not exist by default. For detailed instructions, refer to the [WordPress Codex Menu User Guide](https://codex.wordpress.org/WordPress_Menu_User_Guide). Note that the mobile menu will unfold nested menus, while the mobile navigation bar will display only the top-level items, depending on the mobile style you have chosen. The footer menu is not configured for nested items. Too many top-level items may look bad or break the layout.
+
+**Optional CSS classes:**
+* `not-in-mobile-menu` - Prevents menu items from showing up in the mobile menu.
+* `static-menu-item` - Makes the menu item unclickable; good for submenu headers.
+* `only-admins|-editors|-moderators|-authors` - Restricts the menu item to certain roles.
+* `hide-if-logged-in` - Hides the menu item if the user is logged in.
+* `hide-if-logged-out` - Hides the menu item if the user is logged out.
+
 ## Stories
 
 Stories are added under **Stories > Add New**. Required fields are the short description, status, and age rating. You should be thorough with the setup, especially the taxonomies if you have more than a few stories on your site, because they can be searched for. Just avoid adding excessive lists of tags. Also note that stories are not supposed to be used like chapters, for example as oneshot, because they lack all chapter features, including comments.
@@ -479,7 +490,7 @@ You can also apply additional classes to single words or phrases. Switch to the 
 | `show-below-400` | Only show element below viewport widths of less than 400px.
 | `show-below-375` | Only show element below viewport widths of less than 375px.
 | `hide-if-logged-in` | Hides element if the user is logged in.
-| `hide-if-logged-out` | Hides element if the user is not logged in.
+| `hide-if-logged-out` | Hides element if the user is logged out.
 | `no-theme-spacing` | Removes the top and bottom spacing applied by the theme.
 | `padding-[top\|right\|bottom\|left]` | Applies directional theme page padding.
 | `bg-[50\|100\|200\|...\|800\|900\|950]` | Forces the respective theme background color.
