@@ -417,9 +417,9 @@ Pages work the same as always in WordPress, just with some additional fields and
 | Story ID | String | ID of a story post. Only used by the "Story Page/Mirror" page templates.
 | Show story header | Check | Renders the story header for the given story ID. "Story Page" template only.
 
-### Customize Stories Template
+### Customize Stories Template Query
 
-You may want to only list selected stories, for example those belonging to a certain category. There is not convenient meta field to achieve this, because there are too many possible parameters. But you can customize the output with the [fictioneer_filter_stories_query_args](FILTERS.md#apply_filters-fictioneer_filter_stories_query_args-query_args-post_id-) filter in a child theme. Make sure the name of your filter function is unique.
+You may want to only list selected stories, for example those belonging to a certain category. While there isn’t a convenient meta field for this due to the numerous possible parameters, you can customize the output using the [fictioneer_filter_stories_query_args](FILTERS.md#apply_filters-fictioneer_filter_stories_query_args-query_args-post_id-) filter in a child theme. Ensure that the name of your filter function is unique, or else.
 
 ```php
 /**
