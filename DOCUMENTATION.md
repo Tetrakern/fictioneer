@@ -417,6 +417,41 @@ Pages work the same as always in WordPress, just with some additional fields and
 | Story ID | String | ID of a story post. Only used by the "Story Page/Mirror" page templates.
 | Show story header | Check | Renders the story header for the given story ID. "Story Page" template only.
 
+### Customize Stories Template
+
+You may want to only list selected stories, for example those belonging to a certain category. There is not convenient meta field to achieve this, because there are too many possible parameters. But you can customize the output with the [fictioneer_filter_stories_query_args](FILTERS.md#apply_filters-fictioneer_filter_stories_query_args-query_args-post_id-) filter in a child theme. Make sure the name of your filter function is unique.
+
+```php
+/**
+ * Modifies the Stories template query
+ *
+ * @since x.x.x
+ * @link https://developer.wordpress.org/reference/classes/wp_query/
+ *
+ * @param array $query_args  Query arguments.
+ * @param int   $post_id     Post ID of the page.
+ *
+ * @return array Modified query arguments
+ */
+
+function child_query_stories_by_category( $query_args, $post_id ) {
+  // Use the post ID found in the editor URL to target specific pages
+  if ( $post_id == 35 ) {
+    // Add your desired query parameter
+    $query_args['category_name'] = 'some-category-slug';
+  }
+
+  // Optional: Add conditions for other post IDs
+  // if ( $post_id == 40 ) {
+  //   $query_args['tag'] = 'stuff';
+  // }
+
+  // Continue filter
+  return $query_args;
+}
+add_filter( 'fictioneer_filter_stories_query_args', 'child_query_stories_by_category', 10, 2 );
+```
+
 ## Shared Options
 
 These fields and options are available in most post types, which does not mean they make sense everywhere. Some require certain feature to be enabled and set up, such as the Patreon integration.
