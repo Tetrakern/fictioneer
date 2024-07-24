@@ -1235,6 +1235,7 @@ Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The
 
 **$args:**
 * $type (string) – Either `'default'`, `'simple'`, `'single'`, and `'compact'`.
+* $single (boolean) – Whether to show only one chapter item. Default `false`.
 * $count (int) – Maximum number of posts. Default `-1`.
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $order (string) – Order argument. Default `'DESC'`.

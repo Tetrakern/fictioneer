@@ -1080,6 +1080,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
 * **type:** Either `default`, `simple`, `single`, or `compact`. The other variants are smaller with less data.
+* **single:** Whether to show only one chapter item (included in type `single`). Default `false`.
 * **author:** Only show updates of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.

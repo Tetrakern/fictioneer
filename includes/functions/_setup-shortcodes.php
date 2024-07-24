@@ -613,6 +613,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
  * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', 'single', and 'compact'.
+ * @param string|null $attr['single']              Optional. Whether to show only one chapter item. Default false.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -640,6 +641,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
 function fictioneer_shortcode_latest_story_updates( $attr ) {
   // Defaults
   $args = fictioneer_get_default_shortcode_args( $attr, 4 );
+  $args['single'] = filter_var( $attr['single'] ?? 0, FILTER_VALIDATE_BOOLEAN );
 
   // Type
   $type = sanitize_text_field( $attr['type'] ?? 'default' );

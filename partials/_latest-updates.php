@@ -13,6 +13,7 @@
  * @since 4.3.0
  *
  * @internal $args['type']              Type argument passed from shortcode. Default 'default'.
+ * @internal $args['single']            Whether to show only one chapter item. Default false.
  * @internal $args['count']             Number of posts provided by the shortcode.
  * @internal $args['author']            Author provided by the shortcode.
  * @internal $args['order']             Order of posts. Default 'DESC'.
@@ -184,8 +185,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             }
 
             $chapter_list[] = $chapter_post;
+            $max = ( $args['single'] || $args['type'] === 'single' ) ? 0 : 1;
 
-            if ( count( $chapter_list ) > ( $args['type'] === 'single' ? 0 : 1 ) ) {
+            if ( count( $chapter_list ) > $max ) {
               break; // Max one or two
             }
           }
