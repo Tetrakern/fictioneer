@@ -24,7 +24,6 @@
  * @internal $args['ignore_protected']  Whether to ignore protected posts. Default false.
  * @internal $args['taxonomies']        Array of taxonomy arrays. Default empty.
  * @internal $args['relation']          Relationship between taxonomies.
- * @internal $args['simple']            Whether to show the simple variant.
  * @internal $args['vertical']          Whether to show the vertical variant.
  * @internal $args['seamless']          Whether to render the image seamless. Default false (Customizer).
  * @internal $args['aspect_ratio']      Aspect ratio for the image. Only with vertical.
@@ -150,7 +149,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             $card_classes[] = '_password';
           }
 
-          if ( $args['simple'] ) {
+          if ( in_array( $args['type'], ['simple', 'single'] ) ) {
             $card_classes[] = '_no-footer';
           }
 
@@ -186,8 +185,8 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
 
             $chapter_list[] = $chapter_post;
 
-            if ( count( $chapter_list ) > 1 ) {
-              break; // Max two
+            if ( count( $chapter_list ) > ( $args['type'] === 'single' ? 0 : 1 ) ) {
+              break; // Max one or two
             }
           }
 
@@ -325,7 +324,9 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 <?php endforeach; ?>
               </ol>
 
-              <?php if ( ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! $args['simple'] ) : ?>
+              <?php if (
+                ! get_option( 'fictioneer_hide_taxonomies_on_story_cards' ) && ! in_array( $args['type'], ['simple', 'single'] )
+              ) : ?>
                 <div class="card__tag-list _small _scrolling cell-tax">
                   <div class="card__h-scroll">
                     <?php
@@ -366,7 +367,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                 </div>
               <?php endif; ?>
 
-              <?php if ( ! $args['simple'] ) : ?>
+              <?php if ( ! in_array( $args['type'], ['simple', 'single'] ) ) : ?>
                 <div class="card__footer cell-footer _small">
 
                   <div class="card__footer-box _left text-overflow-ellipsis"><?php

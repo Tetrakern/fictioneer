@@ -612,7 +612,7 @@ add_shortcode( 'fictioneer_story_cards', 'fictioneer_shortcode_latest_stories' )
  *
  * @param string|null $attr['count']               Optional. Maximum number of items. Default 4.
  * @param string|null $attr['author']              Optional. Limit posts to a specific author.
- * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', and 'compact'.
+ * @param string|null $attr['type']                Optional. Choose between 'default', 'simple', 'single', and 'compact'.
  * @param string|null $attr['post_ids']            Optional. Limit posts to specific post IDs.
  * @param string|null $attr['ignore_protected']    Optional. Whether to ignore protected posts. Default false.
  * @param string|null $attr['exclude_tag_ids']     Optional. Exclude posts with these tags.
@@ -663,7 +663,6 @@ function fictioneer_shortcode_latest_story_updates( $attr ) {
       get_template_part( 'partials/_latest-updates-compact', null, $args );
       break;
     default:
-      $args['simple'] = $type == 'simple';
       get_template_part( 'partials/_latest-updates', null, $args );
   }
 

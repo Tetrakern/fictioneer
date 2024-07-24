@@ -1234,7 +1234,7 @@ Filters the WP_Query arguments in the `fictioneer_latest_updates` shortcode. The
 * $no_found_rows (boolean) – `true`
 
 **$args:**
-* $simple (boolean|null) – Whether to render the simple variant. Default `false`.
+* $type (string) – Either `'default'`, `'simple'`, `'single'`, and `'compact'`.
 * $count (int) – Maximum number of posts. Default `-1`.
 * $author (boolean|string) – Limit posts to a specific author. Default `false`.
 * $order (string) – Order argument. Default `'DESC'`.
