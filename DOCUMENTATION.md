@@ -1079,7 +1079,7 @@ Renders a multi-column grid of small cards, showing the latest four stories orde
 Renders a multi-column grid of small cards, showing the latest four updated stories ordered by date of the last chapter change, descending.
 
 * **count:** Limit updates to any positive number, although you should keep it reasonable. Default `4`.
-* **type:** Either `default`, `simple`, or `compact`. The other variants are smaller with less data.
+* **type:** Either `default`, `simple`, `single`, or `compact`. The other variants are smaller with less data.
 * **author:** Only show updates of a specific author. Make sure to use the url-safe nice_name.
 * **order:** Either `desc` (descending) or `asc` (ascending). Default `desc`.
 * **post_ids:** Comma-separated list of post IDs, if you want to pick from a curated pool.
@@ -1123,9 +1123,14 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 [fictioneer_latest_updates type="compact" vertical="1" seamless="1"]
 ```
 
+```
+[fictioneer_latest_updates type="single" date="0"]
+```
+
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_3.png?raw=true)
 ![Latest Updates](repo/assets/shortcode_example_latest_updates_2.png?raw=true)
+![Latest Updates](repo/assets/shortcode_example_latest_updates_4.png?raw=true)
 
 ### Search Form
 
