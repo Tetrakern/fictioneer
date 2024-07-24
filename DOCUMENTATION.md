@@ -1125,7 +1125,7 @@ Renders a multi-column grid of small cards, showing the latest four updated stor
 ```
 
 ```
-[fictioneer_latest_updates type="single" date="0"]
+[fictioneer_latest_updates type="simple" single="1" date="0"]
 ```
 
 ![Latest Updates](repo/assets/shortcode_example_latest_updates.jpg?raw=true)
