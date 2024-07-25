@@ -1926,7 +1926,7 @@ function fictioneer_render_story_meta_metabox( $post ) {
   $output['fictioneer_story_no_tags'] = fictioneer_get_metabox_checkbox(
     $post,
     'fictioneer_story_no_tags',
-    __( 'Hide tags on story page', 'fictioneer' )
+    __( 'Hide taxonomies on story page', 'fictioneer' )
   );
 
   if ( ! get_option( 'fictioneer_hide_chapter_icons' ) ) {
