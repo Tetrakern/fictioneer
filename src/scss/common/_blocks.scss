@@ -657,6 +657,10 @@ figure.wp-block-pullquote {
     margin: 0;
     transition: background-color var(--transition-duration);
   }
+
+  a:first-child:last-child {
+    border-radius: var(--layout-border-radius-small);
+  }
 }
 
 // =============================================================================
