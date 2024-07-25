@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fictioneer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-16 23:52+0000\n"
+"POT-Creation-Date: 2024-07-25 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "%s chapters have been appended."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1642
+#: includes/functions/_helpers-templates.php:1645
 #, php-format
 msgid "%s Comment"
 msgid_plural "%s Comments"
@@ -54,13 +54,13 @@ msgid "%s connection successfully unset."
 msgstr ""
 
 #: partials/_showcase.php:129 partials/_card-story.php:71
-#: partials/_card-chapter.php:79 includes/functions/_helpers-templates.php:600
-#: includes/functions/_helpers-templates.php:640
+#: partials/_card-chapter.php:79 includes/functions/_helpers-templates.php:603
+#: includes/functions/_helpers-templates.php:643
 #, php-format
 msgid "%s Cover"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:394
+#: includes/functions/_helpers-templates.php:397
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
@@ -82,23 +82,23 @@ msgstr ""
 msgid "%s Feed"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:395
-#: includes/functions/_helpers-templates.php:409
+#: includes/functions/_helpers-templates.php:398
+#: includes/functions/_helpers-templates.php:412
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:410
-#: includes/functions/_helpers-templates.php:421
+#: includes/functions/_helpers-templates.php:413
+#: includes/functions/_helpers-templates.php:424
 #, php-format
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:727
+#: includes/functions/_helpers-templates.php:730
 #, php-format
 msgid "%s Placeholder Image"
 msgstr ""
@@ -118,31 +118,31 @@ msgstr ""
 
 #: partials/_card-recommendation.php:75 partials/_card-recommendation.php:102
 #: partials/_card-story.php:115 partials/_card-page.php:42
-#: partials/_card-page.php:69 partials/_card-collection.php:94
-#: partials/_card-collection.php:124 partials/_card-post.php:43
+#: partials/_card-page.php:69 partials/_card-collection.php:92
+#: partials/_card-collection.php:122 partials/_card-post.php:43
 #: partials/_card-post.php:70 partials/_card-chapter.php:141
 #: partials/_card-chapter.php:151
 #, php-format
 msgid "%s Thumbnail"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:400
+#: includes/functions/_helpers-templates.php:403
 #, php-format
 msgid "%s d"
 msgid_plural "%s d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:401
-#: includes/functions/_helpers-templates.php:415
+#: includes/functions/_helpers-templates.php:404
+#: includes/functions/_helpers-templates.php:418
 #, php-format
 msgid "%s h"
 msgid_plural "%s h"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/functions/_helpers-templates.php:416
-#: includes/functions/_helpers-templates.php:423
+#: includes/functions/_helpers-templates.php:419
+#: includes/functions/_helpers-templates.php:426
 #, php-format
 msgid "%s m"
 msgid_plural "%s m"
@@ -180,7 +180,7 @@ msgstr ""
 msgid "<b>Patreon:</b> Data expired. Log in with Patreon again to refresh."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1360
+#: includes/functions/_helpers-templates.php:1363
 #, php-format
 msgid "<b>Warning:</b> %s"
 msgstr ""
@@ -521,7 +521,7 @@ msgctxt "@mention in comment replies."
 msgid "@%s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:281
+#: includes/functions/_helpers-templates.php:284
 #, php-format
 msgctxt "[Date] — [Time] if post title is missing."
 msgid "%1$s — %2$s"
@@ -1816,8 +1816,8 @@ msgid "Bookmarks successfully cleared."
 msgstr ""
 
 #. Name of the template
-#: singular-bookshelf.php:2 singular-bookshelf.php:100
-#: singular-bookshelf-ajax.php:84 includes/functions/_utility.php:1729
+#: singular-bookshelf.php:2 singular-bookshelf.php:107
+#: singular-bookshelf-ajax.php:97 includes/functions/_utility.php:1729
 msgid "Bookshelf"
 msgstr ""
 
@@ -1834,7 +1834,7 @@ msgstr ""
 msgid "Bookshelf page assignment"
 msgstr ""
 
-#: singular-bookshelf.php:132
+#: singular-bookshelf.php:139
 #, php-format
 msgctxt "Bookshelf tab name pattern: {Tab} ({Count})"
 msgid "%s (%s)"
@@ -2596,7 +2596,7 @@ msgctxt "Caption for moderator badge label"
 msgid "Mod"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:575
+#: includes/functions/_helpers-templates.php:578
 msgctxt "Caption of the _read_ ribbon."
 msgid "Read"
 msgstr ""
@@ -2812,7 +2812,7 @@ msgctxt "Chapter card/list title meta field label."
 msgid "Card/List Title"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1142
+#: includes/functions/_setup-shortcodes.php:1143
 #: includes/functions/hooks/_story_hooks.php:719
 #, php-format
 msgid "Chapter checkmark for %s."
@@ -3028,8 +3028,8 @@ msgstr ""
 #. Name of the template
 #: chapters.php:2 chapters.php:107 author.php:53 author.php:141
 #: partials/_card-story.php:218 partials/_latest-stories.php:266
-#: partials/_latest-stories-compact.php:280 partials/_card-collection.php:202
-#: partials/_latest-updates.php:378 partials/_collection-statistics.php:39
+#: partials/_latest-stories-compact.php:280 partials/_card-collection.php:200
+#: partials/_latest-updates.php:381 partials/_collection-statistics.php:39
 #: includes/functions/_setup-types-and-terms.php:185
 #: includes/functions/settings/_settings_page_epubs.php:82
 #: includes/functions/hooks/_mobile_menu_hooks.php:320
@@ -3227,7 +3227,7 @@ msgstr ""
 msgid "Collection Capabilities"
 msgstr ""
 
-#: partials/_card-collection.php:108
+#: partials/_card-collection.php:106
 msgctxt "Collection card label."
 msgid "Collection"
 msgstr ""
@@ -3562,7 +3562,7 @@ msgstr ""
 
 #: author.php:149 partials/_card-story.php:240 partials/_card-story.php:241
 #: partials/_card-page.php:94 partials/_article-cards.php:262
-#: partials/_card-collection.php:218 partials/_collection-statistics.php:47
+#: partials/_card-collection.php:216 partials/_collection-statistics.php:47
 #: partials/_card-post.php:117 partials/_latest-chapters.php:292
 #: partials/_card-chapter.php:256 partials/account/_data.php:119
 #: includes/functions/settings/_settings_page_general.php:723
@@ -3680,7 +3680,7 @@ msgctxt "Contact form."
 msgid "Message field empty."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1195
+#: includes/functions/_setup-shortcodes.php:1196
 #: includes/functions/_module-forms.php:57
 msgctxt "Contact form."
 msgid "Nameless Form"
@@ -3763,7 +3763,7 @@ msgstr ""
 msgid "Cover images (chapters and stories)"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:572
+#: includes/functions/_helpers-templates.php:575
 #, php-format
 msgid "Cover of %s"
 msgstr ""
@@ -4827,8 +4827,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1553
-#: includes/functions/_helpers-templates.php:2182
+#: includes/functions/_helpers-templates.php:1556
+#: includes/functions/_helpers-templates.php:2185
 #: includes/functions/settings/_settings_page_connections.php:30
 #: includes/functions/hooks/_mobile_menu_hooks.php:399
 msgid "Discord"
@@ -5038,11 +5038,11 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1014
+#: includes/functions/_helpers-templates.php:1017
 msgid "Download eBook"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1007
+#: includes/functions/_helpers-templates.php:1010
 msgid "Download ePUB"
 msgstr ""
 
@@ -5055,7 +5055,7 @@ msgstr ""
 msgid "Duplicate Tags &rarr; Genres"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1015
+#: includes/functions/_helpers-templates.php:1018
 msgid "eBook"
 msgstr ""
 
@@ -5447,7 +5447,7 @@ msgstr ""
 msgid "Enlarge images in floating container on click."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1168
+#: includes/functions/_helpers-templates.php:1171
 #: includes/functions/hooks/_chapter_hooks.php:345
 msgid "Enter fullscreen"
 msgstr ""
@@ -5460,7 +5460,7 @@ msgstr ""
 msgid "Enter the new name for the role."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1008
+#: includes/functions/_helpers-templates.php:1011
 msgid "ePUB"
 msgstr ""
 
@@ -5576,7 +5576,7 @@ msgctxt "Excluded Advanced search summary."
 msgid "%sExcluded Tags:"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1175
+#: includes/functions/_helpers-templates.php:1178
 #: includes/functions/hooks/_chapter_hooks.php:346
 msgid "Exit fullscreen"
 msgstr ""
@@ -5695,7 +5695,7 @@ msgstr ""
 msgid "Fictioneer Sidebar"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:475
+#: includes/functions/_helpers-templates.php:478
 #, php-format
 msgctxt "Fictioneer theme major version notice."
 msgid "Fictioneer %s"
@@ -5750,7 +5750,7 @@ msgstr ""
 msgid "Fingerprint"
 msgstr ""
 
-#: singular-bookshelf.php:61 singular-bookshelf-ajax.php:46
+#: singular-bookshelf.php:68 singular-bookshelf-ajax.php:59
 msgid "Finished"
 msgstr ""
 
@@ -5793,29 +5793,29 @@ msgctxt "Follow a story."
 msgid "Follow"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:936
-#: includes/functions/_helpers-templates.php:938
-#: includes/functions/_helpers-templates.php:1103
-#: includes/functions/_helpers-templates.php:1103
+#: includes/functions/_helpers-templates.php:939
+#: includes/functions/_helpers-templates.php:941
+#: includes/functions/_helpers-templates.php:1106
+#: includes/functions/_helpers-templates.php:1106
 msgid "Follow on Feedly"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:944
-#: includes/functions/_helpers-templates.php:946
-#: includes/functions/_helpers-templates.php:1106
-#: includes/functions/_helpers-templates.php:1106
+#: includes/functions/_helpers-templates.php:947
+#: includes/functions/_helpers-templates.php:949
+#: includes/functions/_helpers-templates.php:1109
+#: includes/functions/_helpers-templates.php:1109
 msgid "Follow on Inoreader"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:918
+#: includes/functions/_helpers-templates.php:921
 msgid "Follow on Ko-Fi"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:908
+#: includes/functions/_helpers-templates.php:911
 msgid "Follow on Patreon"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:927
+#: includes/functions/_helpers-templates.php:930
 msgid "Follow on SubscribeStar"
 msgstr ""
 
@@ -6058,7 +6058,7 @@ msgstr ""
 msgid "Global unlock gate pledge threshold in cents"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2184
+#: includes/functions/_helpers-templates.php:2187
 #: includes/functions/settings/_settings_page_connections.php:126
 msgid "Google"
 msgstr ""
@@ -6207,10 +6207,6 @@ msgstr ""
 msgid "Hide tags on pages"
 msgstr ""
 
-#: includes/functions/_setup-meta-fields.php:1929
-msgid "Hide tags on story page"
-msgstr ""
-
 #: includes/functions/settings/_register_settings.php:971
 #: includes/functions/settings/_settings_page_general.php:362
 msgid "Hide taxonomies on chapter cards"
@@ -6234,6 +6230,10 @@ msgstr ""
 #: includes/functions/settings/_register_settings.php:970
 #: includes/functions/settings/_settings_page_general.php:353
 msgid "Hide taxonomies on story cards"
+msgstr ""
+
+#: includes/functions/_setup-meta-fields.php:1929
+msgid "Hide taxonomies on story page"
 msgstr ""
 
 #: includes/functions/_setup-meta-fields.php:1923
@@ -6607,7 +6607,7 @@ msgstr ""
 
 #: partials/_card-story.php:231 partials/_latest-stories.php:276
 #: partials/_latest-stories-compact.php:290 partials/_article-cards.php:254
-#: partials/_card-collection.php:213 partials/_latest-updates.php:386
+#: partials/_card-collection.php:211 partials/_latest-updates.php:389
 #: partials/_latest-chapters.php:283 partials/_card-chapter.php:247
 msgid "Last Updated"
 msgstr ""
@@ -6958,11 +6958,11 @@ msgstr ""
 msgid "Locks down the site with a maintenance notice."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1047
+#: includes/functions/_helpers-templates.php:1050
 msgid "Log in to Follow"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1030
+#: includes/functions/_helpers-templates.php:1033
 msgid "Log in to set Reminders"
 msgstr ""
 
@@ -7016,13 +7016,13 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:393
+#: includes/functions/_helpers-templates.php:396
 #, php-format
 msgctxt "Long reading time statistics: [d] days, [h] hours."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:408
+#: includes/functions/_helpers-templates.php:411
 #, php-format
 msgctxt "Long reading time statistics: [h] hours, [m] minutes."
 msgid "%1$s, %2$s"
@@ -7158,7 +7158,7 @@ msgstr ""
 msgid "Maximum site width in pixels, should not be less than 896. Default 960."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1268
+#: includes/functions/_setup-shortcodes.php:1269
 msgid "Message sent!"
 msgstr ""
 
@@ -7531,7 +7531,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1483
+#: partials/_loop.php:40 includes/functions/_setup-shortcodes.php:1484
 msgid "No (more) posts found."
 msgstr ""
 
@@ -7551,7 +7551,7 @@ msgstr ""
 msgid "No chapters found."
 msgstr ""
 
-#: author.php:62 includes/functions/_setup-shortcodes.php:906
+#: author.php:62 includes/functions/_setup-shortcodes.php:907
 #: includes/functions/hooks/_story_hooks.php:735
 msgid "No chapters published yet."
 msgstr ""
@@ -7568,10 +7568,8 @@ msgstr ""
 msgid "No collections found."
 msgstr ""
 
-#: partials/_card-story.php:31 partials/_card-collection.php:72
+#: partials/_card-story.php:132 partials/_card-collection.php:132
 #: partials/_card-chapter.php:178
-#: includes/functions/_setup-meta-fields.php:2370
-#: includes/functions/_setup-meta-fields.php:4052
 #: includes/functions/_setup-meta-fields.php:4256
 msgid "No description provided yet."
 msgstr ""
@@ -7658,7 +7656,7 @@ msgstr ""
 #: partials/_latest-stories.php:250
 #: partials/_latest-recommendations-compact.php:235
 #: partials/_latest-stories-compact.php:265
-#: partials/_latest-recommendations.php:252 partials/_latest-updates.php:362
+#: partials/_latest-recommendations.php:252 partials/_latest-updates.php:365
 msgid "No taxonomies specified yet."
 msgstr ""
 
@@ -7708,7 +7706,7 @@ msgstr ""
 #: partials/_latest-recommendations-compact.php:250
 #: partials/_latest-stories-compact.php:331
 #: partials/_latest-recommendations.php:269 partials/_article-cards.php:288
-#: partials/_latest-updates.php:423 partials/_latest-updates-compact.php:337
+#: partials/_latest-updates.php:426 partials/_latest-updates-compact.php:338
 #: partials/_latest-posts.php:137 partials/_latest-chapters.php:332
 msgid "Nothing to show."
 msgstr ""
@@ -7807,7 +7805,7 @@ msgstr ""
 #: partials/_latest-chapters-compact.php:182
 #: partials/_latest-recommendations-compact.php:155
 #: partials/_latest-stories-compact.php:180
-#: partials/_latest-updates-compact.php:224
+#: partials/_latest-updates-compact.php:225
 msgid "Open info box"
 msgstr ""
 
@@ -8047,7 +8045,7 @@ msgstr ""
 msgid "Past Year"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2185
+#: includes/functions/_helpers-templates.php:2188
 #: includes/functions/settings/_settings_page_connections.php:153
 #: includes/functions/hooks/_chapter_hooks.php:528
 msgid "Patreon"
@@ -8277,7 +8275,7 @@ msgstr ""
 msgid "Please enter search parameters."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1255
+#: includes/functions/_setup-shortcodes.php:1256
 msgid "Please enter your message."
 msgstr ""
 
@@ -8542,9 +8540,9 @@ msgstr ""
 #: partials/_card-story.php:228 partials/_latest-stories.php:280
 #: partials/_story-footer.php:42 partials/_latest-stories-compact.php:294
 #: partials/_card-page.php:90 partials/_article-cards.php:258
-#: partials/_card-collection.php:209 partials/_card-post.php:114
+#: partials/_card-collection.php:207 partials/_card-post.php:114
 #: partials/_latest-chapters.php:287 partials/_card-chapter.php:244
-#: includes/functions/_helpers-templates.php:1613
+#: includes/functions/_helpers-templates.php:1616
 msgid "Published"
 msgstr ""
 
@@ -9170,7 +9168,7 @@ msgstr ""
 msgid "Roles"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:355
+#: includes/functions/_helpers-templates.php:358
 #, php-format
 msgctxt "Safe title prefix."
 msgid "Draft: %s"
@@ -9228,7 +9226,7 @@ msgstr ""
 msgid "Scroll to top"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1197
+#: includes/functions/_helpers-templates.php:1200
 #: includes/functions/hooks/_chapter_hooks.php:273
 msgid "Scroll to top of the chapter"
 msgstr ""
@@ -9376,7 +9374,7 @@ msgstr ""
 msgid "Select which tiers ignore the password."
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1268
+#: includes/functions/_setup-shortcodes.php:1269
 msgid "Sending…"
 msgstr ""
 
@@ -9669,7 +9667,7 @@ msgstr ""
 msgid "Setup"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1090
+#: includes/functions/_helpers-templates.php:1093
 msgid "Share"
 msgstr ""
 
@@ -9678,13 +9676,13 @@ msgctxt "Share modal heading."
 msgid "Share"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:399
+#: includes/functions/_helpers-templates.php:402
 #, php-format
 msgctxt "Shortened reading time statistics: [d] d, [h] h."
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:414
+#: includes/functions/_helpers-templates.php:417
 #, php-format
 msgctxt "Shortened reading time statistics: [h] h, [m] m."
 msgid "%1$s, %2$s"
@@ -9855,8 +9853,8 @@ msgstr ""
 
 #: partials/_latest-stories.php:204
 #: partials/_latest-recommendations-compact.php:185
-#: partials/_latest-stories-compact.php:216 partials/_latest-updates.php:265
-#: partials/_latest-updates-compact.php:260
+#: partials/_latest-stories-compact.php:216 partials/_latest-updates.php:266
+#: partials/_latest-updates-compact.php:261
 #, php-format
 msgctxt "Small card: by {Author} —."
 msgid "by %s —"
@@ -9968,7 +9966,7 @@ msgctxt "State of checkbox option in logs."
 msgid "Unchecked"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1689
+#: includes/functions/_helpers-templates.php:1692
 #: includes/functions/comments/_comments_moderation.php:183
 #: includes/functions/comments/_comments_moderation.php:481
 msgid "Sticky"
@@ -9994,7 +9992,7 @@ msgstr ""
 #. Name of the template
 #: single-fcn_story.php:121 single-fcn_collection.php:145 stories.php:2
 #: stories.php:114 author.php:38 author.php:137 single-fcn_chapter.php:245
-#: partials/_card-collection.php:199 partials/_collection-statistics.php:35
+#: partials/_card-collection.php:197 partials/_collection-statistics.php:35
 #: includes/functions/_setup-types-and-terms.php:116
 #: includes/functions/hooks/_general_hooks.php:604
 #: includes/functions/hooks/_story_hooks.php:33
@@ -10121,7 +10119,7 @@ msgctxt "Story changelog chapter removed."
 msgid "#%s unprivated: %s."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2040
+#: includes/functions/_helpers-templates.php:2043
 msgctxt "Story changelog initialized."
 msgid "Initialized."
 msgstr ""
@@ -10278,7 +10276,7 @@ msgctxt "Story redirect link meta field label."
 msgid "Redirect Link (Beware!)"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1099
+#: includes/functions/_helpers-templates.php:1102
 msgid "Story RSS Feed"
 msgstr ""
 
@@ -10360,7 +10358,7 @@ msgstr ""
 msgid "Subitem short date format"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:1196
+#: includes/functions/_setup-shortcodes.php:1197
 #: includes/functions/settings/_settings_page_setup.php:144
 msgid "Submit"
 msgstr ""
@@ -10876,11 +10874,11 @@ msgstr ""
 msgid "This will disable the comment toolbar as well."
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:794
+#: includes/functions/_helpers-templates.php:797
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:830
+#: includes/functions/_helpers-templates.php:833
 #, php-format
 msgctxt "Thumbnail link title"
 msgid "Link to %s"
@@ -10912,8 +10910,8 @@ msgstr ""
 msgid "Toggle between list and grid view"
 msgstr ""
 
-#: includes/functions/_setup-shortcodes.php:900
-#: includes/functions/_setup-shortcodes.php:1029
+#: includes/functions/_setup-shortcodes.php:901
+#: includes/functions/_setup-shortcodes.php:1030
 #: includes/functions/hooks/_story_hooks.php:601
 #, php-format
 msgid "Toggle chapter group: %s"
@@ -10977,7 +10975,7 @@ msgstr ""
 
 #: partials/_card-story.php:223 partials/_latest-stories.php:271
 #: partials/_story-footer.php:45 partials/_latest-stories-compact.php:285
-#: partials/_card-collection.php:205 partials/_latest-updates.php:382
+#: partials/_card-collection.php:203 partials/_latest-updates.php:385
 msgid "Total Words"
 msgstr ""
 
@@ -10998,7 +10996,7 @@ msgctxt "TTS modal heading."
 msgid "TTS Settings"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:2183
+#: includes/functions/_helpers-templates.php:2186
 #: includes/functions/settings/_settings_page_connections.php:99
 msgid "Twitch"
 msgstr ""
@@ -11502,7 +11500,7 @@ msgid "User ID"
 msgstr ""
 
 #. Name of the template
-#: user-profile.php:2 user-profile.php:40 partials/_icon-menu.php:47
+#: user-profile.php:2 user-profile.php:47 partials/_icon-menu.php:47
 msgid "User Profile"
 msgstr ""
 
@@ -11668,8 +11666,8 @@ msgctxt "Word count caption in statistics."
 msgid "Words"
 msgstr ""
 
-#: includes/functions/_helpers-templates.php:1388
-#: includes/functions/_helpers-templates.php:1396
+#: includes/functions/_helpers-templates.php:1391
+#: includes/functions/_helpers-templates.php:1399
 #, php-format
 msgctxt "Word count in chapter list."
 msgid "%s Words"
@@ -11732,7 +11730,7 @@ msgstr ""
 msgid "You are not allowed to upload files of this type."
 msgstr ""
 
-#: singular-bookshelf.php:38 includes/functions/users/_follows.php:356
+#: singular-bookshelf.php:45 includes/functions/users/_follows.php:356
 #: includes/functions/users/_follows.php:418
 msgid "You are not following any stories."
 msgstr ""
@@ -11864,11 +11862,11 @@ msgstr ""
 msgid "You have no published pages yet."
 msgstr ""
 
-#: singular-bookshelf.php:64 includes/functions/users/_checkmarks.php:263
+#: singular-bookshelf.php:71 includes/functions/users/_checkmarks.php:263
 msgid "You have not marked any stories as finished."
 msgstr ""
 
-#: singular-bookshelf.php:51 includes/functions/users/_reminders.php:190
+#: singular-bookshelf.php:58 includes/functions/users/_reminders.php:190
 msgid "You have not marked any stories to be read later."
 msgstr ""
 
