@@ -190,6 +190,63 @@ fcn_ajaxPost(
 });
 ```
 
+## Story Meta Fields
+
+These are the protected meta fields used specifically for the **fcn_story** post type. Some field values are verbatim due to legacy reasons (the theme previously used the ACF plugin), so they rely on the `fcntr()` translation helper. Falsy values are not stored; instead, the meta field gets deleted from the database to save rows.
+
+| META KEY | TYPE | PURPOSE
+| --- | :---: | ---
+| fictioneer_story_short_description | string | Short description used on cards.
+| fictioneer_story_chapters | array | Array of associated chapter IDs (stringified).
+| fictioneer_story_custom_pages | array | Array of associated custom page IDs (stringified).
+| fictioneer_story_global_note | string | Content of the global story note displayed in all associated chapters.
+| fictioneer_story_password_note | string | Content of the note shown if the story is password protected.
+| fictioneer_story_ebook_upload_one | int | Attachment ID of the uploaded ebook (if any).
+| fictioneer_story_epub_preface | string | Content for the generated ePUB preface section.
+| fictioneer_story_epub_afterword | string | Content for the generated ePUB afterword section.
+| fictioneer_story_epub_custom_css | string | Custom CSS injected into the generated ePUB.
+| fictioneer_story_status | string | Either Ongoing, Completed, Oneshot, Hiatus, or Canceled due to legacy reasons.
+| fictioneer_story_rating | string | Either Everyone, Teen, Mature, or Adult due to legacy reasons.
+| fictioneer_story_copyright_notice | string | Small copyright notice on the story page.
+| fictioneer_story_topwebfiction_link | string | Link to the story on [www.topwebfiction.com](https://www.topwebfiction.com/).
+| fictioneer_story_redirect_link | string | Redirect link away from the story page (use with care).
+| fictioneer_story_co_authors | array | Array of author IDs.
+| fictioneer_story_sticky | boolean | Whether the story is sticky in (most) lists.
+| fictioneer_story_hidden | boolean | Whether the story is unlisted but still reachable with the link.
+| fictioneer_story_no_thumbnail | boolean | Whether to hide the thumbnail (cover) on the story page.
+| fictioneer_story_no_tags | boolean | Whether to hide all taxonomies on the story page.
+| fictioneer_story_no_epub | boolean | Whether to disable the ePUB generation and download.
+| fictioneer_story_disable_collapse | boolean | Whether to disable the collapsing of long chapter lists.
+| fictioneer_story_hide_chapter_icons | boolean | Whether to hide the chapter icons.
+| fictioneer_story_disable_groups | boolean | Whether to disable the grouping of chapters.
+| fictioneer_story_css | string | Custom CSS injected into the story page and all chapter pages.
+
+## Chapter Meta Fields
+
+These are the protected meta fields used specifically for the **fcn_chapter** post type. Some field values are verbatim due to legacy reasons (the theme previously used the ACF plugin), so they rely on the `fcntr()` translation helper. Falsy values are not stored; instead, the meta field gets deleted from the database to save rows.
+
+| META KEY | TYPE | PURPOSE
+| --- | :---: | ---
+| fictioneer_chapter_story | int | ID of the story the chapter belongs to.
+| fictioneer_chapter_list_title | string | Alternative title for lists with little space.
+| fictioneer_chapter_group | string | Chapter group name (case-sensitive).
+| fictioneer_chapter_foreword | string | Content of the chapter foreword.
+| fictioneer_chapter_afterword | string | Content of the chapter afterword.
+| fictioneer_chapter_password_note | string | Content of the note shown if the story is password protected.
+| fictioneer_chapter_icon | string | Font Awesome icon class string.
+| fictioneer_chapter_text_icon | string | Text string in place of an icon.
+| fictioneer_chapter_short_title | string | Shorter variant title. Not used by default, intended for child themes.
+| fictioneer_chapter_prefix | string | Prefix for titles in chapter lists.
+| fictioneer_chapter_co_authors | array | Array of author IDs.
+| fictioneer_chapter_rating | string | Either Everyone, Teen, Mature, or Adult due to legacy reasons.
+| fictioneer_chapter_warning | string | Short warning shown in chapter lists.
+| fictioneer_chapter_warning_notes | string | Content for warning note in chapters.
+| fictioneer_chapter_hidden | boolean | Whether the chapter is unlisted but still reachable with the link.
+| fictioneer_chapter_no_chapter | boolean | Whether the chapter should not count as chapter.
+| fictioneer_chapter_hide_title | boolean | Whether to hide the title at the top of the chapter.
+| fictioneer_chapter_hide_support_links | boolean | Whether to hide the support links at the bottom of the chapter.
+| fictioneer_chapter_disable_partial_caching | boolean | Whether to disable partial caching for the chapter.
+
 ## Hooked Actions & Filters
 
 Fictioneer customizes WordPress by using as many standard action and filter hooks as possible, keeping the theme compatible with plugins adhering to the same principles. However, the theme was not initially built for a public release and despite great efforts to refactor the code, some conflicts are unavoidable. Please make sure to also look at the theme’s custom [action hooks](ACTIONS.md) and [filter hooks](FILTERS.md). Following is a list of (not) all theme actions and filters hooked to WordPress in a not particularly easy to read at fashion. Some of them are conditional.
