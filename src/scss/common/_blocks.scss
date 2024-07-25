@@ -608,9 +608,18 @@ figure.wp-block-pullquote {
   font-size: var(--fs-dxs);
   line-height: 1;
   text-shadow: none;
-  border-radius: var(--layout-border-radius-small);
-  overflow: hidden;
   width: fit-content;
+
+  &[data-wp-interactive] {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .wp-block-file__embed {
+      flex: 1 1 100%;
+      margin-bottom: 1rem;
+    }
+  }
 
   &:focus-within {
     a:focus-visible {
@@ -627,9 +636,10 @@ figure.wp-block-pullquote {
   a {
     color: var(--button-file-block-color);
     padding: .5rem .5rem .45rem;
+    border-radius: 0 var(--layout-border-radius-small) var(--layout-border-radius-small) 0;
     transition: background-color var(--transition-duration);
 
-    &:first-child {
+    &:first-of-type {
       font-family: var(--ff-mono);
       background: var(--button-file-block-background);
       letter-spacing: get_relative_clamp(-0.07, 0, 320, 480);
@@ -642,7 +652,7 @@ figure.wp-block-pullquote {
     font-size: 87.5%;
     font-weight: var(--button-font-weight);
     text-transform: uppercase;
-    border-radius: 0;
+    border-radius: var(--layout-border-radius-small) 0 0 var(--layout-border-radius-small);
     padding: .575rem .5rem .375rem;
     margin: 0;
     transition: background-color var(--transition-duration);
