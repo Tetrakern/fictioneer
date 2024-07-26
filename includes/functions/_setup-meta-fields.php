@@ -2378,7 +2378,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $chapter_ids = $_POST['fictioneer_story_chapters'];
     $chapter_ids = is_array( $chapter_ids ) ? $chapter_ids : [ $chapter_ids ];
     $chapter_ids = array_map( 'intval', $chapter_ids );
-    $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; });
+    $chapter_ids = array_filter( $chapter_ids, function( $value ) { return $value > 0; } );
     $chapter_ids = array_unique( $chapter_ids );
 
     if ( empty( $chapter_ids ) ) {
@@ -2428,7 +2428,7 @@ function fictioneer_save_story_metaboxes( $post_id ) {
     $page_ids = $_POST['fictioneer_story_custom_pages'];
     $page_ids = is_array( $page_ids ) ? $page_ids : [ $page_ids ];
     $page_ids = array_map( 'intval', $page_ids );
-    $page_ids = array_filter( $page_ids, function( $value ) { return $value > 0; });
+    $page_ids = array_filter( $page_ids, function( $value ) { return $value > 0; } );
 
     if ( empty( $page_ids ) || FICTIONEER_MAX_CUSTOM_PAGES_PER_STORY < 1 ) {
       $fields['fictioneer_story_custom_pages'] = []; // Ensure empty meta is removed
@@ -3809,7 +3809,7 @@ function fictioneer_save_post_metaboxes( $post_id ) {
     $item_ids = $_POST['fictioneer_post_featured'];
     $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
     $item_ids = array_map( 'intval', $item_ids );
-    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; });
+    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
     $item_ids = array_unique( $item_ids );
 
     if ( empty( $item_ids ) ) {
@@ -4058,7 +4058,7 @@ function fictioneer_save_collection_metaboxes( $post_id ) {
     $item_ids = $_POST['fictioneer_collection_items'];
     $item_ids = is_array( $item_ids ) ? $item_ids : [ $item_ids ];
     $item_ids = array_map( 'intval', $item_ids );
-    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; });
+    $item_ids = array_filter( $item_ids, function( $value ) { return $value > 0; } );
     $item_ids = array_unique( $item_ids );
 
     $forbidden = array_unique(
