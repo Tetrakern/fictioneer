@@ -57,27 +57,16 @@ body:not(.is-editor):not(.is-admin) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-columns-min, 308px), 1fr));
   gap:
-    calc(var(--grid-columns-row-gap, max(3cqw, 1.5rem)) * var(--grid-columns-row-gap-multiplier, 1))
-    calc(var(--grid-columns-col-gap, max(3cqw, 1.5rem)) * var(--grid-columns-col-gap-multiplier, 1));
+    calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1))
+    calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));
   contain: style layout;
-
-  // Fallback
-  @supports not (width: 1cqw) {
-    gap:
-      calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1))
-      calc(var(--grid-columns-col-gap, 1.5rem) * var(--grid-columns-col-gap-multiplier, 1));
-  }
 
   &._collapse-on-mobile {
     @media only screen and (max-width: 767px) {
       display: block;
 
       > :not(:last-child) {
-        margin-bottom: calc(var(--grid-columns-row-gap, max(3cqw, 1.5rem)) * var(--grid-columns-row-gap-multiplier, 1));
-
-        @supports not (width: 1cqw) {
-          margin-bottom: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1));
-        }
+        margin-bottom: calc(var(--grid-columns-row-gap, 1.5rem) * var(--grid-columns-row-gap-multiplier, 1));
       }
     }
   }
