@@ -220,6 +220,10 @@ These are the protected meta fields used specifically for the **fcn_story** post
 | fictioneer_story_hide_chapter_icons | boolean | Whether to hide the chapter icons.
 | fictioneer_story_disable_groups | boolean | Whether to disable the grouping of chapters.
 | fictioneer_story_css | string | Custom CSS injected into the story page and all chapter pages.
+| fictioneer_chapters_modified | datetime | Datetime (GMT) of when the chapter list was last modified.
+| fictioneer_chapters_added | datetime | Datetime (GMT) of the last time a chapter was added to the chapter list.
+| fictioneer_story_data_collection | array | Array of prepared story data (database cache).
+| fictioneer_story_chapter_index_html | array | Array of the chapter index HTML with timestamp (database cache).
 
 ## Chapter Meta Fields
 
