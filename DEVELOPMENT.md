@@ -164,10 +164,10 @@ fcn_ajaxGet(
   null, // Optional AJAX URL
   {} // Optional headers
 )
-.then((response) => {
+.then(response => {
   // Check response.success
 })
-.catch((error) => {
+.catch(error => {
   // Check error
 });
 ```
@@ -182,10 +182,10 @@ fcn_ajaxPost(
   null, // Optional AJAX URL
   {} // Optional headers
 )
-.then((response) => {
+.then(response => {
   // Check response.success
 })
-.catch((error) => {
+.catch(error => {
   // Check error
 });
 ```
