@@ -185,12 +185,14 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
             }
 
             $chapter_list[] = $chapter_post;
-            $max = ( $args['single'] || $args['type'] === 'single' ) ? 0 : 1;
 
-            if ( count( $chapter_list ) > $max ) {
+            if ( count( $chapter_list ) > 1 ) {
               break; // Max one or two
             }
           }
+
+          // Slice chapter list down
+          $chapter_list = array_slice( $chapter_list, 0, ( $args['single'] || $args['type'] === 'single' ) ? 1 : 2 );
 
           // No viable chapters
           if ( count( $chapter_list ) < 1 ) {
