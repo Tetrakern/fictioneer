@@ -95,7 +95,7 @@ sup[data-fn] {
     max-width: min(calc(45vw - 2 * var(--layout-spacing-horizontal-small)), 50%);
   }
 
-  img {
+  &:where(:not(.is-style-rounded)) img {
     border-radius: 2px;
   }
 }
