@@ -276,27 +276,20 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                   $footer_items = [];
 
                   if ( $story['status'] !== 'Oneshot' || $story['chapter_count'] > 1 ) {
-                    $footer_items['chapters'] = '<i class="card-footer-icon fa-solid fa-list" title="' .
-                      esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'];
+                    $footer_items['chapters'] = '<span class="card__footer-chapters"><i class="card-footer-icon fa-solid fa-list" title="' . esc_attr__( 'Chapters', 'fictioneer' ) . '"></i> ' . $story['chapter_count'] . '</span>';
                   }
 
                   if ( $story['word_count'] > 2000 || $story['status'] === 'Oneshot' ) {
-                    $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-                      esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'];
+                    $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"></i> ' . $story['word_count_short'] . '</span>';
                   }
 
-                  if ( $args['orderby'] == 'modified' ) {
-                    $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-                      esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
-                      get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post );
+                  if ( $args['orderby'] === 'modified' ) {
+                    $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
                   } else {
-                    $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-                      esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' .
-                      get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post );
+                    $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_STORIES_FOOTER_DATE, $post ) . '</span>';
                   }
 
-                  $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' .
-                    fcntr( $story['status'] );
+                  $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
                   // Filter footer items
                   $footer_items = apply_filters(

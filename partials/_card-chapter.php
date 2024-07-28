@@ -234,26 +234,20 @@ $thumbnail_args = array(
           $words = fictioneer_get_word_count( $post_id );
 
           if ( $words ) {
-            $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-              esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-              fictioneer_shorten_number( $words );
+            $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( $words ) . '</span>';
           }
 
           if ( ( $args['orderby'] ?? 0 ) === 'date' ) {
-            $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-              esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
+            $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE ) . '</span>';
           } else {
-            $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-              esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE );
+            $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) .'"></i> ' . get_the_modified_date( FICTIONEER_CARD_CHAPTER_FOOTER_DATE ) . '</span>';
           }
 
           if ( get_option( 'fictioneer_show_authors' ) && ! $hide_author ) {
-            $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' .
-              fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' );
+            $footer_items['author'] = '<span class="card__footer-author"><i class="card-footer-icon fa-solid fa-circle-user cq-hide-below-640"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ), 'cq-hide-below-640' ) . '</span>';
           }
 
-          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
+          $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
 
           // Filter footer items
           $footer_items = apply_filters( 'fictioneer_filter_chapter_card_footer', $footer_items, $post, $story_data, $args );

@@ -471,15 +471,15 @@
 
     &-box {
       background-color: var(--card-footer-bg-color);
+
+      &:not(._right) > span:not(:first-child) {
+        margin-left: 1.1em;
+      }
     }
 
     .card-footer-icon {
       color: var(--card-footer-icon-color, var(--fg-900));
       margin-right: .3em;
-
-      &:not(:first-child) {
-        margin-left: 1.1em;
-      }
     }
 
     .rating-letter-label {

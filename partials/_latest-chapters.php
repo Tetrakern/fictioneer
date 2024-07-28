@@ -273,27 +273,19 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     $footer_items = [];
 
                     if ( $words > 0 ) {
-                      $footer_items['words'] = '<i class="card-footer-icon fa-solid fa-font" title="' .
-                        esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' .
-                        fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) );
+                      $footer_items['words'] = '<span class="card__footer-words"><i class="card-footer-icon fa-solid fa-font" title="' . esc_attr__( 'Words', 'fictioneer' ) . '"></i> ' . fictioneer_shorten_number( fictioneer_get_word_count( $post_id ) ) . '</span>';
                     }
 
-                    if ( $args['orderby'] == 'modified' ) {
-                      $footer_items['modified_date'] = '<i class="card-footer-icon fa-regular fa-clock" title="' .
-                        esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' .
-                        get_the_modified_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post );
+                    if ( $args['orderby'] === 'modified' ) {
+                      $footer_items['modified_date'] = '<span class="card__footer-modified-date"><i class="card-footer-icon fa-regular fa-clock" title="' . esc_attr__( 'Last Updated', 'fictioneer' ) . '"></i> ' . get_the_modified_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
                     } else {
-                      $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-                        esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' .
-                        get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post );
+                      $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"></i> ' . get_the_date( FICTIONEER_LATEST_CHAPTERS_FOOTER_DATE, $post ) . '</span>';
                     }
 
-                    $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-                      esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number();
+                    $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number() . '</span>';
 
                     if ( $story ) {
-                      $footer_items['status'] = '<i class="card-footer-icon ' . $story['icon'] . '"></i> ' .
-                        fcntr( $story['status'] );
+                      $footer_items['status'] = '<span class="card__footer-status"><i class="card-footer-icon ' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
                     }
 
                     // Filter footer items

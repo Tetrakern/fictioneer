@@ -106,15 +106,12 @@ $thumbnail_args = array(
           $footer_items = [];
 
           if ( get_option( 'fictioneer_show_authors' ) ) {
-            $footer_items['author'] = '<i class="card-footer-icon fa-solid fa-circle-user"></i> ' .
-              fictioneer_get_author_node( get_the_author_meta( 'ID' ) );
+            $footer_items['author'] = '<span class="card__footer-author"><i class="card-footer-icon fa-solid fa-circle-user"></i> ' . fictioneer_get_author_node( get_the_author_meta( 'ID' ) ) . '</span>';
           }
 
-          $footer_items['publish_date'] = '<i class="card-footer-icon fa-solid fa-clock" title="' .
-            esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_POST_FOOTER_DATE );
+          $footer_items['publish_date'] = '<span class="card__footer-publish-date"><i class="card-footer-icon fa-solid fa-clock" title="' . esc_attr__( 'Published', 'fictioneer' ) .'"></i> ' . get_the_date( FICTIONEER_CARD_POST_FOOTER_DATE ) . '</span>';
 
-          $footer_items['comments'] = '<i class="card-footer-icon fa-solid fa-message" title="' .
-            esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post );
+          $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
 
           // Filter footer items
           $footer_items = apply_filters( 'fictioneer_filter_post_card_footer', $footer_items, $post, $args );
