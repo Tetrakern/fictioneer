@@ -325,3 +325,58 @@ function child_remove_scheduled_chapter() {
 }
 add_action( 'wp', 'child_remove_scheduled_chapter', 11 ); // The action is added late, so you need to be even later
 ```
+
+## Modify or remove items from card footers
+
+While you can easily hide card footer items with CSS (e.g. `.card__footer-status {display: none;}`), removing them is the better choice performance-wise. However, if you want to reorder them, change the icons, or add new ones altogether, filters have got you covered. Do not forget to clear the theme caches afterwards.
+
+**References**
+* Filter: [fictioneer_filter_shortcode_latest_updates_card_footer](FILTERS.md#apply_filters-fictioneer_filter_shortcode_latest_updates_card_footer-footer_items-post-story-args-)
+* Filter: [fictioneer_filter_shortcode_latest_stories_card_footer](FILTERS.md#apply_filters-fictioneer_filter_shortcode_latest_stories_card_footer-footer_items-post-story-args-)
+* Filter: [fictioneer_filter_shortcode_latest_chapters_card_footer](FILTERS.md#apply_filters-fictioneer_filter_shortcode_latest_chapters_card_footer-footer_items-post-story-args-)
+* Filter: [fictioneer_filter_shortcode_article_card_footer](FILTERS.md#apply_filters-fictioneer_filter_shortcode_article_card_footer-footer_items-posts-)
+* Filter: [fictioneer_filter_story_card_footer](FILTERS.md#apply_filters-fictioneer_filter_story_card_footer-footer_items-post-story-args-)
+* Filter: [fictioneer_filter_post_card_footer](FILTERS.md#apply_filters-fictioneer_filter_post_card_footer-footer_items-post-args-)
+* Filter: [fictioneer_filter_page_card_footer](FILTERS.md#apply_filters-fictioneer_filter_page_card_footer-footer_items-post-args-)
+* Filter: [fictioneer_filter_collection_card_footer](FILTERS.md#apply_filters-fictioneer_filter_collection_card_footer-footer_items-post-args-items-)
+* Filter: [fictioneer_filter_chapter_card_footer](FILTERS.md#apply_filters-fictioneer_filter_chapter_card_footer-footer_items-post-story-args-)
+
+```php
+/**
+ * Removes modified date from all Latest Updates shortcode
+ *
+ * @since x.x.x
+ *
+ * @param array $footer_items  HTML of the card footer items.
+ *
+ * @return array Updated HTML of the card footer items.
+ */
+
+function child_remove_modified_date_from_latest_updates( $footer_items ) {
+  // Remove item
+  unset( $footer_items['modified_date'] );
+
+  // Continue filter
+  return $footer_items;
+}
+add_filter( 'fictioneer_filter_shortcode_latest_updates_card_footer', 'child_remove_modified_date_from_latest_updates' );
+
+/**
+ * Adds footer item to large story cards
+ *
+ * @since x.x.x
+ *
+ * @param array $footer_items  HTML of the card footer items.
+ *
+ * @return array Updated HTML of the card footer items.
+ */
+
+function child_add_item_to_story_card_footers( $footer_items ) {
+  // Append item
+  $footer_items['star'] = '<span class="card__footer-star"><i class="card-footer-icon fa-solid fa-star" title="Star"></i> Star</span>';
+
+  // Continue filter
+  return $footer_items;
+}
+add_filter( 'fictioneer_filter_story_card_footer', 'child_add_item_to_story_card_footers' );
+```
