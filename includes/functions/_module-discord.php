@@ -212,7 +212,7 @@ function fictioneer_post_story_to_discord( $post_id ) {
   }
 
   // Already triggered once?
-  if ( ! empty( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) ) {
+  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) {
     return;
   }
 
@@ -308,7 +308,7 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
   }
 
   // Already triggered once?
-  if ( ! empty( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) ) {
+  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) {
     return;
   }
 
