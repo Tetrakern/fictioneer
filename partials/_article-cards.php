@@ -257,7 +257,7 @@ $pag_args = array(
                     $footer_items['comments'] = '<span class="card__footer-comments"><i class="card-footer-icon fa-solid fa-message" title="' . esc_attr__( 'Comments', 'fictioneer' ) . '"></i> ' . get_comments_number( $post ) . '</span>';
 
                     // Filter footer items
-                    $footer_items = apply_filters( 'fictioneer_filter_article_card_footer', $footer_items, $post );
+                    $footer_items = apply_filters( 'fictioneer_filter_shortcode_article_card_footer', $footer_items, $post );
 
                     // Implode and render footer items
                     echo implode( ' ', $footer_items );

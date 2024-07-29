@@ -70,7 +70,7 @@ Filters the array of allowed orderby arguments for WP_Query.
 
 ---
 
-### `apply_filters( 'fictioneer_filter_article_card_footer', $footer_items, $posts )`
+### `apply_filters( 'fictioneer_filter_shortcode_article_card_footer', $footer_items, $posts )`
 Filters the intermediate output array in the `_article-cards.php` partial before it is imploded and rendered. Contains statistics with icons such as the author, publishing or modified date, and comments.
 
 **$footer_items:**
