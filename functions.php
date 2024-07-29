@@ -278,11 +278,6 @@ if ( ! defined( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT' ) ) {
   define( 'FICTIONEER_QUERY_ID_ARRAY_LIMIT', 100 );
 }
 
-// Integer: After how many seconds after saving is a post considered "old"
-if ( ! defined( 'FICTIONEER_OLD_POST_THRESHOLD' ) ) {
-  define( 'FICTIONEER_OLD_POST_THRESHOLD', 30 );
-}
-
 // Integer: Time until a user's Patreon data expires in seconds
 if ( ! defined( 'FICTIONEER_PATREON_EXPIRATION_TIME' ) ) {
   define( 'FICTIONEER_PATREON_EXPIRATION_TIME', WEEK_IN_SECONDS );
@@ -646,6 +641,12 @@ if ( get_option( 'fictioneer_enable_seo' ) && ! fictioneer_seo_plugin_active() )
   require_once __DIR__ . '/includes/functions/_module-schemas.php';
 }
 
+/**
+ * Communicate with the Discord API.
+ */
+
+require_once __DIR__ . '/includes/functions/_module-discord.php';
+
 // =============================================================================
 // ADMIN ONLY
 // =============================================================================
@@ -665,12 +666,6 @@ if ( is_admin() ) {
   if ( wp_doing_ajax() ) {
     require_once __DIR__ . '/includes/functions/_module-forms.php';
   }
-
-  /**
-   * Communicate with the Discord API.
-   */
-
-  require_once __DIR__ . '/includes/functions/_module-discord.php';
 
 }
 

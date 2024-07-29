@@ -178,50 +178,34 @@ if ( get_option( 'fictioneer_discord_channel_comments_webhook' ) ) {
 }
 
 // =============================================================================
-// POST NEW STORY TO DISCORD
+// POST PUBLISHED STORY TO DISCORD
 // =============================================================================
 
 /**
- * Sends a notification to Discord when a new story is first published
+ * Sends a notification to Discord when a story is first published
  *
  * @since 5.6.0
+ * @since 5.21.2 - Refactored.
  *
- * @param string $post_id  The post ID.
+ * @param string  $new_status  New post status.
+ * @param string  $new_status  Old post status.
+ * @param WP_Post $post        Post object.
  */
 
-function fictioneer_post_story_to_discord( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
-    return;
-  }
-
-  // Setup
-  $post = get_post( $post_id );
-
-  // Published chapter?
-  if ( $post->post_type !== 'fcn_story' || $post->post_status !== 'publish' ) {
-    return;
-  }
-
-  // Older than n (30) seconds? The $update param is unreliable with block editor.
-  $publishing_time = get_post_time( 'U', true, $post_id );
-  $current_time = current_time( 'timestamp', true );
-
-  if ( $current_time - $publishing_time > FICTIONEER_OLD_POST_THRESHOLD ) {
+function fictioneer_post_story_to_discord( $new_status, $old_status, $post ) {
+  // Only if story going from non-publish status to publish
+  if ( $post->post_type !== 'fcn_story' || $new_status !== 'publish' || $old_status === 'publish' ) {
     return;
   }
 
   // Already triggered once?
-  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) {
+  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
     return;
   }
 
-  // Remove story webhook to prevent miss-fire
-  remove_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
-
   // Data
   $title = html_entity_decode( get_the_title( $post ) );
-  $url = get_permalink( $post_id );
+  $url = get_permalink( $post->ID );
 
   // Message
   $message = array(
@@ -234,7 +218,7 @@ function fictioneer_post_story_to_discord( $post_id ) {
       array(
         'title' => $title,
         'description' => html_entity_decode( get_the_excerpt( $post ) ),
-        'url' => get_permalink( $post_id ),
+        'url' => get_permalink( $post->ID ),
         'color' => FICTIONEER_DISCORD_EMBED_COLOR,
         'author' => array(
           'name' => get_the_author_meta( 'display_name', $post->post_author ),
@@ -270,50 +254,34 @@ function fictioneer_post_story_to_discord( $post_id ) {
 }
 
 if ( get_option( 'fictioneer_discord_channel_stories_webhook' ) ) {
-  add_action( 'save_post', 'fictioneer_post_story_to_discord', 99 );
+  add_action( 'transition_post_status', 'fictioneer_post_story_to_discord', 99, 3 );
 }
 
 // =============================================================================
-// POST NEW CHAPTER TO DISCORD
+// POST PUBLISHED CHAPTER TO DISCORD
 // =============================================================================
 
 /**
- * Sends a notification to Discord when a new chapter is first published
+ * Sends a notification to Discord when a chapter is first published
  *
  * @since 5.6.0
+ * @since 5.21.2 - Refactored.
  *
- * @param string $post_id  The post ID.
+ * @param string  $new_status  New post status.
+ * @param string  $new_status  Old post status.
+ * @param WP_Post $post        Post object.
  */
 
-function fictioneer_post_chapter_to_discord( $post_id ) {
-  // Prevent multi-fire
-  if ( fictioneer_multi_save_guard( $post_id ) ) {
-    return;
-  }
-
-  // Setup
-  $post = get_post( $post_id );
-
-  // Published chapter?
-  if ( $post->post_type !== 'fcn_chapter' || $post->post_status !== 'publish' ) {
-    return;
-  }
-
-  // Older than n (30) seconds? The $update param is unreliable with block editor.
-  $publishing_time = get_post_time( 'U', true, $post_id );
-  $current_time = current_time( 'timestamp', true );
-
-  if ( $current_time - $publishing_time > FICTIONEER_OLD_POST_THRESHOLD ) {
+function fictioneer_post_chapter_to_discord( $new_status, $old_status, $post ) {
+  // Only if chapter going from non-publish status to publish
+  if ( $post->post_type !== 'fcn_chapter' || $new_status !== 'publish' || $old_status === 'publish' ) {
     return;
   }
 
   // Already triggered once?
-  if ( get_post_meta( $post_id, 'fictioneer_discord_post_trigger', true ) ) {
+  if ( get_post_meta( $post->ID, 'fictioneer_discord_post_trigger', true ) ) {
     return;
   }
-
-  // Remove story webhook to prevent miss-fire
-  remove_action( 'save_post', 'fictioneer_post_story_to_discord', 99 );
 
   // Message
   $message = array(
@@ -322,7 +290,7 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
       array(
         'title' => html_entity_decode( get_the_title( $post ) ),
         'description' => html_entity_decode( get_the_excerpt( $post ) ),
-        'url' => get_permalink( $post_id ),
+        'url' => get_permalink( $post->ID ),
         'color' => FICTIONEER_DISCORD_EMBED_COLOR,
         'author' => array(
           'name' => get_the_author_meta( 'display_name', $post->post_author ),
@@ -334,7 +302,7 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
   );
 
   // Story?
-  $story_id = get_post_meta( $post_id, 'fictioneer_chapter_story', true );
+  $story_id = get_post_meta( $post->ID, 'fictioneer_chapter_story', true );
   $story_status = get_post_status( $story_id );
   $story_title = get_the_title( $story_id );
   $story_url = get_permalink( $story_id );
@@ -383,7 +351,7 @@ function fictioneer_post_chapter_to_discord( $post_id ) {
 }
 
 if ( get_option( 'fictioneer_discord_channel_chapters_webhook' ) ) {
-  add_action( 'save_post', 'fictioneer_post_chapter_to_discord', 99 );
+  add_action( 'transition_post_status', 'fictioneer_post_chapter_to_discord', 99, 3 );
 }
 
 // =============================================================================
