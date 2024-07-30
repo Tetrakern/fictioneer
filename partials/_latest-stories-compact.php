@@ -220,7 +220,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
                     $short_description = fictioneer_first_paragraph_as_excerpt(
                       fictioneer_get_content_field( 'fictioneer_story_short_description', $post_id )
                     );
-                    echo strlen( $short_description ) < 230 ? get_the_excerpt() : $short_description;
+                    echo mb_strlen( $short_description, 'UTF-8' ) < 30 ? get_the_excerpt() : $short_description;
                   ?></span>
                 </div>
               </div>
