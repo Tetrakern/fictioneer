@@ -3180,3 +3180,32 @@ if ( get_option( 'fictioneer_enable_ajax_authentication' ) ) {
   add_action( 'wp_ajax_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
   add_action( 'wp_ajax_nopriv_fictioneer_ajax_get_auth', 'fictioneer_ajax_get_auth' );
 }
+
+// =============================================================================
+// STRING LENGTH
+// =============================================================================
+
+if ( ! function_exists( 'mb_strlen' ) ) {
+  /**
+   * Fallback function for mb_strlen
+   *
+   * @param string $string    The string to being measured.
+   * @param string $encoding  The character encoding. Default UTF-8.
+   *
+   * @return int The number of characters in the string.
+   */
+
+  function mb_strlen( $string, $encoding = 'UTF-8' ) {
+    if ( $encoding !== 'UTF-8' ) {
+      return strlen( $string );
+    }
+
+    $converted_string = iconv( $encoding, 'UTF-16', $string );
+
+    if ( $converted_string === false ) {
+      return strlen( $string );
+    } else {
+      return strlen( $converted_string ) / 2; // Each character is 2 bytes in UTF-16
+    }
+  }
+}

@@ -98,13 +98,7 @@ function fictioneer_characters_as_word_count( $post_id ) {
   $content = strip_tags( $content );
 
   // Count
-  $word_count = 0;
-
-  if ( function_exists( 'mb_strlen' ) ) {
-    $word_count = mb_strlen( $content, 'UTF-8' );
-  } else {
-    $word_count = strlen( $content );
-  }
+  $word_count = mb_strlen( $content, 'UTF-8' );
 
   // Remember
   update_post_meta( $post_id, '_word_count', $word_count );
