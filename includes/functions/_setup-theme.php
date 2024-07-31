@@ -1839,7 +1839,7 @@ add_action(
   'wp',
   function() {
     if ( fictioneer_is_plugin_active( 'elementor/elementor.php' ) ) {
-      add_action( 'elementor/theme/register_locations', '  fictioneer_elementor_register_locations' );
+      add_action( 'elementor/theme/register_locations', 'fictioneer_elementor_register_locations' );
       add_action( 'wp_enqueue_scripts', 'fictioneer_elementor_override_styles', 9999 );
     }
   }
