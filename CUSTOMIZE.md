@@ -383,7 +383,7 @@ add_filter( 'fictioneer_filter_story_card_footer', 'child_add_item_to_story_card
 
 ## Display taxonomies on chapter pages
 
-Chapters normally do not display taxonomies, because why bother if the story is already tagged to kingdom come? Do you really need half a page of tags? Seriously? Anyway, if you want to display taxonomies on chapter pages as well, you can hook them in with some custom HTML.
+Chapters normally do not display taxonomies, because why bother if the story is already tagged to kingdom come? Do you really need half a page of tags? Anyway, if you want to display taxonomies on chapter pages as well, you can hook them in with some custom HTML.
 
 **References**
 * Action: [fictioneer_chapter_before_header](ACTIONS.md#do_action-fictioneer_chapter_before_header-args-)
