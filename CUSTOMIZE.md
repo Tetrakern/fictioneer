@@ -380,3 +380,75 @@ function child_add_item_to_story_card_footers( $footer_items ) {
 }
 add_filter( 'fictioneer_filter_story_card_footer', 'child_add_item_to_story_card_footers' );
 ```
+
+## Display taxonomies on chapter pages
+
+Chapters normally do not display taxonomies, because why bother if the story is already tagged to kingdom come? Do you really need half a page of tags? Seriously? Anyway, if you want to display taxonomies on chapter pages as well, you can hook them in with some custom HTML.
+
+**References**
+* Action: [fictioneer_chapter_before_header](ACTIONS.md#do_action-fictioneer_chapter_before_header-args-)
+* Action: [fictioneer_chapter_after_content](ACTIONS.md#do_action-fictioneer_chapter_after_content-args-)
+* Template: [single-fcn_chapter.php](https://github.com/Tetrakern/fictioneer/blob/main/single-fcn_chapter.php)
+* Include: [_chapter_hooks.php](https://github.com/Tetrakern/fictioneer/blob/main/includes/functions/hooks/_chapter_hooks.php)
+
+```php
+/**
+ * Renders taxonomies on chapter page
+ *
+ * @since x.x.x
+ *
+ * @param array $args  Arguments passed to the action.
+ */
+
+function child_display_chapter_taxonomies( $args ) {
+  // Get desired taxonomies
+  $fandoms = wp_get_post_terms( $args['chapter_id'], 'fcn_fandom' );
+  $characters = wp_get_post_terms( $args['chapter_id'], 'fcn_character' );
+  // Genres, tags, etc.
+
+  // Store the links to output here
+  $output = [];
+
+  // Fandoms
+  if ( ! is_wp_error( $fandoms ) && ! empty( $fandoms ) ) {
+    $output = array_merge(
+      $output,
+      array_map(
+        function( $term ) {
+          return "<a class='tag-pill _taxonomy-fandom' href='" . get_term_link( $term ) . "'>{$term->name}</a>";
+        },
+        $fandoms
+      )
+    );
+  }
+
+  // Characters
+  if ( ! is_wp_error( $characters ) && ! empty( $characters ) ) {
+    $output = array_merge(
+      $output,
+      array_map(
+        function( $term ) {
+          return "<a class='tag-pill _taxonomy-character' href='" . get_term_link( $term ) . "'>{$term->name}</a>";
+        },
+        $characters
+      )
+    );
+  }
+
+  // Genres, tags, etc.
+
+  // Render (you may need some top/bottom margins)
+  if ( ! empty( $output ) ) {
+    echo '<div class="tag-group">' . implode( '', $output ) . '</div>';
+  }
+}
+
+// Add above the chapter header and any info boxes
+add_action( 'fictioneer_chapter_before_header', 'child_display_chapter_taxonomies', 3 );
+
+// ... or add it above the top action row
+add_action( 'fictioneer_chapter_before_header', 'child_display_chapter_taxonomies', 1 );
+
+// ... or at the bottom for whatever reason
+add_action( 'fictioneer_chapter_after_content', 'child_display_chapter_taxonomies', 5 );
+```
