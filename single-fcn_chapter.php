@@ -134,20 +134,8 @@ get_header(
 
       <article id="ch-<?php echo $post_id; ?>" data-author-id="<?php echo get_the_author_meta( 'ID' ); ?>" class="chapter__article padding-left padding-right <?php echo $password_required ? '_password' : ''; ?>" data-age-rating="<?php echo strtolower( $age_rating ); ?>">
 
-        <div class="chapter__actions chapter__actions--top" data-nosnippet>
-          <div class="chapter__actions-container chapter__actions-left"><?php
-            do_action( 'fictioneer_chapter_actions_top_left', $hook_args, 'top' );
-          ?></div>
-          <div class="chapter__actions-container chapter__actions-center"><?php
-            do_action( 'fictioneer_chapter_actions_top_center', $hook_args, 'top' );
-          ?></div>
-          <div class="chapter__actions-container chapter__actions-right"><?php
-            do_action( 'fictioneer_chapter_actions_top_right', $hook_args, 'top' );
-          ?></div>
-        </div>
-
         <?php
-          // Before chapter article header (includes foreword and warnings)
+          // Before chapter article header; includes the actions row, foreword, and warnings
           do_action( 'fictioneer_chapter_before_header', $hook_args );
 
           // Render article header
@@ -187,21 +175,9 @@ get_header(
         ?></section>
 
         <?php
-          // After chapter content; includes the afterword and support box
+          // After chapter content; includes the footer, afterword, and support box
           do_action( 'fictioneer_chapter_after_content', $hook_args );
         ?>
-
-        <footer class="chapter__footer chapter__actions chapter__actions--bottom padding-bottom chapter-end" data-nosnippet>
-          <div class="chapter__actions-container chapter__actions-left"><?php
-            do_action( 'fictioneer_chapter_actions_bottom_left', $hook_args, 'bottom' );
-          ?></div>
-          <div class="chapter__actions-container chapter__actions-center"><?php
-            do_action( 'fictioneer_chapter_actions_bottom_center', $hook_args, 'bottom' );
-          ?></div>
-          <div class="chapter__actions-container chapter__actions-right"><?php
-            do_action( 'fictioneer_chapter_actions_bottom_right', $hook_args, 'bottom' );
-          ?></div>
-        </footer>
 
       </article>
 

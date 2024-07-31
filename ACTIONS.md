@@ -392,6 +392,7 @@ Fires right after the content section in the `single-fcn_chapter.php` template, 
 **Hooked Actions:**
 * `fictioneer_chapter_afterword( $args )` – Chapter afterword. Priority 10.
 * `fictioneer_chapter_support_links( $args )` – Support links set for the chapter/story/author. Priority 20.
+* `fictioneer_chapter_footer( $args )` – Chapter footer. Priority 99.
 
 ---
 
@@ -435,6 +436,7 @@ Fires between the top actions sections and chapter header (title and authors) in
 * $next_index (int|boolean) – Index of next chapter or false if outside bounds.
 
 **Hooked Actions:**
+* `fictioneer_chapter_top_actions( $args )` – Chapter top action row. Priority 1.
 * `fictioneer_chapter_global_note( $args )` – Story-wide note if provided. Priority 5.
 * `fictioneer_chapter_foreword( $args )` – Chapter foreword if provided. Priority 10.
 * `fictioneer_chapter_warnings( $args )` – Chapter warnings if provided. Priority 20.

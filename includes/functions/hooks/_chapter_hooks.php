@@ -84,6 +84,60 @@ function fictioneer_chapters_list( $args ) {
 add_action( 'fictioneer_chapters_after_content', 'fictioneer_chapters_list', 30 );
 
 // =============================================================================
+// CHAPTER ACTIONS
+// =============================================================================
+
+/**
+ * Outputs the HTML for the chapter top actions
+ *
+ * @since 5.21.2
+ *
+ * @param array $args  Hook args passed-through.
+ */
+
+function fictioneer_chapter_top_actions( $args ) {
+  // Start HTML ---> ?>
+  <div class="chapter__actions chapter__actions--top" data-nosnippet>
+    <div class="chapter__actions-container chapter__actions-left"><?php
+      do_action( 'fictioneer_chapter_actions_top_left', $args, 'top' );
+    ?></div>
+    <div class="chapter__actions-container chapter__actions-center"><?php
+      do_action( 'fictioneer_chapter_actions_top_center', $args, 'top' );
+    ?></div>
+    <div class="chapter__actions-container chapter__actions-right"><?php
+      do_action( 'fictioneer_chapter_actions_top_right', $args, 'top' );
+    ?></div>
+  </div>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_chapter_before_header', 'fictioneer_chapter_top_actions', 1 );
+
+/**
+ * Outputs the HTML for the chapter footer
+ *
+ * @since 5.21.2
+ *
+ * @param array $args  Hook args passed-through.
+ */
+
+function fictioneer_chapter_footer( $args ) {
+  // Start HTML ---> ?>
+  <footer class="chapter__footer chapter__actions chapter__actions--bottom padding-bottom chapter-end" data-nosnippet>
+    <div class="chapter__actions-container chapter__actions-left"><?php
+      do_action( 'fictioneer_chapter_actions_bottom_left', $args, 'bottom' );
+    ?></div>
+    <div class="chapter__actions-container chapter__actions-center"><?php
+      do_action( 'fictioneer_chapter_actions_bottom_center', $args, 'bottom' );
+    ?></div>
+    <div class="chapter__actions-container chapter__actions-right"><?php
+      do_action( 'fictioneer_chapter_actions_bottom_right', $args, 'bottom' );
+    ?></div>
+  </footer>
+  <?php // <--- End HTML
+}
+add_action( 'fictioneer_chapter_after_content', 'fictioneer_chapter_footer', 99 );
+
+// =============================================================================
 // CHAPTER GLOBAL NOTE
 // =============================================================================
 
