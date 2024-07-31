@@ -11,7 +11,7 @@
 
 :where(article, .content-section) {
   h1 {
-    font-size: get_relative_clamp(1.5, 2.25, 320, $full-width, 'vw', 'em');
+    font-size: get_relative_clamp(1.5, 2.125, 320, $full-width, 'vw', 'em');
   }
 
   h2 {
