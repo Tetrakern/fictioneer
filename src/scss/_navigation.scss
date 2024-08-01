@@ -205,10 +205,6 @@
       &.menu-item-has-children {
         @include bp(desktop) {
           border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
-
-          &:hover {
-            background: var(--navigation-submenu-background);
-          }
         }
       }
     }
