@@ -5,6 +5,8 @@
   <a href="LICENSE.md"><img alt="License: GPL v3" src="https://img.shields.io/badge/license-GPL%20v3-blue?style=flat" /></a>
   <a href="https://wordpress.org/download/"><img alt="WordPress 6.1+" src="https://img.shields.io/badge/WordPress-%3E%3D6.1-blue?style=flat" /></a>
   <a href="https://www.php.net/"><img alt="PHP: 7.4+" src="https://img.shields.io/badge/php-%3E%3D7.4-blue?logoColor=white&style=flat" /></a>
+  <a href="https://github.com/sponsors/Tetrakern"><img alt="Sponsor me" src="https://img.shields.io/github/sponsors/tetrakern
+  " /></a>
   <a href="https://ko-fi.com/tetrakern"><img alt="Support me on Ko-fi" src="https://img.shields.io/badge/-Ko--fi-FF5E5B?logo=kofi&logoColor=white&style=flat&labelColor=434B57" /></a>
 </p>
 
@@ -19,7 +21,7 @@ Fictioneer was originally developed for a closed group of authors and not intend
 
 The theme is intended for individuals and small collectives.
 
-Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Patreon](https://www.patreon.com/tetrakern) or [Ko-fi](https://ko-fi.com/tetrakern).
+Fictioneer is open source and completely free. However, maintaining and developing a theme of these proportions takes a considerable amount of time and effort. So if you enjoy Fictioneer and have the capacity, please consider supporting me on [Patreon](https://www.patreon.com/tetrakern), [Ko-fi](https://ko-fi.com/tetrakern), or [GitHub Sponsors](https://github.com/sponsors/Tetrakern).
 
 ## Key Features
 
