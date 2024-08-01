@@ -56,19 +56,14 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
  * Helper to add color theme option
  *
  * @since 5.12.0
- * @global array $fictioneer_colors  Default colors read from JSON file.
+ * @since 5.21.2 - Improved with theme colors helper function.
  *
  * @param WP_Customize_Manager $manager  The customizer instance.
  * @param array                $args     Arguments for the setting and controls.
  */
 
 function fictioneer_add_color_theme_option( $manager, $args ) {
-  global $fictioneer_colors;
-
-  if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
-    $fictioneer_colors = fictioneer_get_theme_colors_array();
-  }
-
+  $fictioneer_colors = fictioneer_get_theme_colors_array();
   $default = $args['default'] ?? $fictioneer_colors[ $args['setting'] ]['hex'] ?? '';
 
   $manager->add_setting(

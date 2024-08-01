@@ -594,7 +594,7 @@ function fictioneer_get_customizer_css_snippet( $snippet, $filter = null ) {
  * Helper to get theme color mod with default fallback
  *
  * @since 5.12.0
- * @global array $fictioneer_colors  Default colors read from JSON file.
+ * @since 5.21.2 - Refactored with theme colors helper function.
  *
  * @param string $mod           The requested theme color.
  * @param string|null $default  Optional. Default color code.
@@ -603,12 +603,7 @@ function fictioneer_get_customizer_css_snippet( $snippet, $filter = null ) {
  */
 
 function fictioneer_get_theme_color( $mod, $default = null ) {
-  global $fictioneer_colors;
-
-  if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
-    $fictioneer_colors = fictioneer_get_theme_colors_array();
-  }
-
+  $fictioneer_colors = fictioneer_get_theme_colors_array();
   $default = $default ?? $fictioneer_colors[ $mod ]['hex'] ?? '#ff6347'; // Tomato
 
   return get_theme_mod( $mod, $default );

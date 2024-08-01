@@ -1980,6 +1980,13 @@ add_filter( 'elementor/fonts/additional_fonts', 'fictioneer_elementor_add_additi
  */
 
 function fictioneer_get_theme_colors_array() {
+  static $fictioneer_colors = null;
+
+  if ( $fictioneer_colors !== null ) {
+    return $fictioneer_colors;
+  }
+
+  // Setup
   $parent_colors = [];
   $child_colors = [];
 
@@ -2007,6 +2014,9 @@ function fictioneer_get_theme_colors_array() {
     }
   }
 
+  // Update static cache
+  $fictioneer_colors = array_merge($parent_colors, $child_colors);
+
   // Merge and return colors, child overriding parent
-  return array_merge($parent_colors, $child_colors);
+  return $fictioneer_colors;
 }
