@@ -308,6 +308,16 @@
               <div class="fictioneer-card__row">
                 <?php
                   fictioneer_settings_label_checkbox(
+                    'fictioneer_show_story_cards_latest_chapters',
+                    __( 'Show latest chapter on large story cards', 'fictioneer' ),
+                    __( 'Instead of the first three to avoid spoilers.', 'fictioneer' )
+                  );
+                ?>
+              </div>
+
+              <div class="fictioneer-card__row">
+                <?php
+                  fictioneer_settings_label_checkbox(
                     'fictioneer_count_characters_as_words',
                     __( 'Count characters instead of words', 'fictioneer' ),
                     __( 'For logographic writing systems. Use the word count multiplier to better approximate the number.', 'fictioneer' )

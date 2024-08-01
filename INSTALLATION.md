@@ -1517,5 +1517,5 @@ define( 'CONSTANT_NAME', value );
 | FICTIONEER_ENABLE_STORY_CHANGELOG | boolean | Whether changes to the story chapter list should be logged. Default `true`.
 | FICTIONEER_DEFER_SCRIPTS | boolean | Whether to defer scripts or load them in the footer. Default `true`.
 | FICTIONEER_ENABLE_ASYNC_ONLOAD_PATTERN | boolean | Whether the [onload pattern](https://www.filamentgroup.com/lab/load-css-simpler/) for asynchronous CSS loading is used. Default `true`.
-| FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS | boolean | Whether to show the latest instead of the first chapters on story cards.
+| FICTIONEER_SHOW_LATEST_CHAPTERS_ON_STORY_CARDS | boolean | Whether to show the latest instead of the first chapters on story cards. Default `false`.
 | FICTIONEER_EXAMPLE_CHAPTER_ICONS | array | Collection of example Font Awesome icon class strings.
