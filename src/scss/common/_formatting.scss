@@ -7,31 +7,32 @@
 
 /*
  * Relative (em) font-size to allow scaling with custom formatting.
+ * Reversed declaration order to make higher headings stronger.
  */
 
 :where(article, .content-section) {
-  h1 {
-    font-size: get_relative_clamp(1.5, 2.125, 320, $full-width, 'vw', 'em');
+  :is(h6, .h6) {
+    font-size: var(--fs-s);
   }
 
-  h2 {
-    font-size: get_relative_clamp(1.35, 1.75, 320, $full-width, 'vw', 'em');
-  }
-
-  h3 {
-    font-size: get_relative_clamp(1.2, 1.4, 320, $full-width, 'vw', 'em');
-  }
-
-  h4 {
-    font-size: get_relative_clamp(1.1, 1.2, 320, $full-width, 'vw', 'em');
-  }
-
-  h5 {
+  :is(h5, .h6) {
     font-size: get_relative_clamp(1.05, 1.125, 320, $full-width, 'vw', 'em');
   }
 
-  h6 {
-    font-size: var(--fs-s);
+  :is(h4, .h4) {
+    font-size: get_relative_clamp(1.1, 1.2, 320, $full-width, 'vw', 'em');
+  }
+
+  :is(h3, .h3) {
+    font-size: get_relative_clamp(1.2, 1.4, 320, $full-width, 'vw', 'em');
+  }
+
+  :is(h2, .h2) {
+    font-size: get_relative_clamp(1.35, 1.55, 320, $full-width, 'vw', 'em');
+  }
+
+  :is(h1, .h1) {
+    font-size: get_relative_clamp(1.5, 1.75, 320, $full-width, 'vw', 'em');
   }
 
   :is(h1, h2, h3, h4, h5, h6) {
