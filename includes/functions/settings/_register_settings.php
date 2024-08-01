@@ -1060,7 +1060,7 @@ function fictioneer_get_option_label( $option ) {
       'fictioneer_disable_extended_chapter_list_meta_queries' => __( 'Disable extended chapter list meta queries', 'fictioneer' ),
       'fictioneer_count_characters_as_words' => __( 'Count characters instead of words', 'fictioneer' ),
       'fictioneer_show_protected_excerpt' => __( 'Show excerpt on password-protected posts', 'fictioneer' ),
-      'fictioneer_hide_large_card_chapter_list' => __( 'Hide latest chapter list on large story cards', 'fictioneer' ),
+      'fictioneer_hide_large_card_chapter_list' => __( 'Hide chapter list on large story cards', 'fictioneer' ),
       'fictioneer_enable_patreon_locks' => __( 'Enable Patreon content gate', 'fictioneer' ),
       'fictioneer_hide_password_form_with_patreon' => __( 'Hide password form on Patreon-gated posts', 'fictioneer' ),
       'fictioneer_user_profile_page' => __( 'Account page assignment', 'fictioneer' ),
