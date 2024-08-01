@@ -362,8 +362,13 @@
 }
 
 .user-is-tabbing {
-  .main-navigation {
+  :is(.main-navigation, .icon-menu) {
     :is(.menu-item, .page_item) {
+      :is(a, label, button):focus-visible {
+        color: var(--navigation-color-hover);
+        background: var(--navigation-item-background-hover);
+      }
+
       &:focus-within {
         background: var(--navigation-item-background-hover);
 

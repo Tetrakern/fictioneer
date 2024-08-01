@@ -81,32 +81,6 @@
   }
 }
 
-.user-is-tabbing {
-  .icon-menu._in-navigation {
-    &__item {
-      &:focus-visible {
-        color: var(--navigation-color-hover);
-        background: var(--navigation-item-background-hover);
-      }
-    }
-
-    &__menu {
-      &:focus-within {
-        > :first-child {
-          background: var(--navigation-submenu-background);
-        }
-
-        > .sub-menu {
-          pointer-events: initial;
-          opacity: 1;
-          content-visibility: visible;
-          transform: scale(1);
-        }
-      }
-    }
-  }
-}
-
 .mobile-menu {
   .icon-menu {
     .sub-menu {
