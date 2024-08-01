@@ -109,7 +109,7 @@ remove_filter( 'posts_where', 'fictioneer_exclude_protected_posts' );
       <article id="post-<?php the_ID(); ?>" class="post">
 
       <header class="post__header">
-        <h2 class="post__title"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
+        <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
         <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items( array( 'no_cat' => true ) ); ?></div>
       </header>
 

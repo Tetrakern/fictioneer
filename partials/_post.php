@@ -37,7 +37,7 @@ if (
 <article id="post-<?php echo $post_id; ?>" class="post <?php if ( ! $nested ) echo 'padding-left padding-right'; ?>">
 
   <header class="post__header">
-    <h2 class="post__title"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
+    <h2 class="post__title h1"><a href="<?php the_permalink(); ?>"><?php echo $title; ?></a></h2>
     <div class="post__meta layout-links"><?php echo fictioneer_get_post_meta_items(); ?></div>
   </header>
 
