@@ -1,5 +1,8 @@
 .icon-menu {
   display: flex;
+  color: var(--navigation-color);
+  font-size: var(--navigation-font-size);
+  font-weight: var(--font-weight-navigation);
 
   .menu-item {
     :is(a, label, button):not(._no-menu-item-style) {

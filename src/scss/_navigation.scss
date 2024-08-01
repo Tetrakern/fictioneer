@@ -102,7 +102,7 @@
   top: calc(-0.1px - var(--nav-observer-offset, 0px)); // -0.1px to prevent hairline gaps
   z-index: 1000;
   color: var(--navigation-color);
-  font-size: get_clamp(14, 16, 375, 768);
+  font-size: var(--navigation-font-size);
   font-weight: var(--font-weight-navigation);
   padding: 0;
   margin: 12px 0;
