@@ -606,12 +606,7 @@ function fictioneer_get_theme_color( $mod, $default = null ) {
   global $fictioneer_colors;
 
   if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
-    $json_path = get_template_directory() . '/includes/functions/colors.json';
-    $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
-
-    if ( ! is_array( $fictioneer_colors ) ) {
-      $fictioneer_colors = [];
-    }
+    $fictioneer_colors = fictioneer_get_theme_colors_array();
   }
 
   $default = $default ?? $fictioneer_colors[ $mod ]['hex'] ?? '#ff6347'; // Tomato

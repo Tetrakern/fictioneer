@@ -1964,3 +1964,49 @@ function fictioneer_elementor_add_additional_fonts( $fonts ) {
   return $fonts;
 }
 add_filter( 'elementor/fonts/additional_fonts', 'fictioneer_elementor_add_additional_fonts' );
+
+// =============================================================================
+// GET COLORS JSON
+// =============================================================================
+
+/**
+ * Returns associative array of theme colors
+ *
+ * Notes: Considers both parent and child theme.
+ *
+ * @since 5.21.2
+ *
+ * @return array Associative array of theme colors.
+ */
+
+function fictioneer_get_theme_colors_array() {
+  $parent_colors = [];
+  $child_colors = [];
+
+  // Get parent theme colors
+  $parent_colors_file = get_template_directory() . '/includes/colors.json';
+
+  if ( file_exists( $parent_colors_file ) ) {
+    $parent_colors_content = file_get_contents( $parent_colors_file );
+    $parent_colors = json_decode( $parent_colors_content, true );
+
+    if ( ! is_array( $parent_colors ) ) {
+      $parent_colors = [];
+    }
+  }
+
+  // Get child theme colors
+  $child_colors_file = get_stylesheet_directory() . '/includes/colors.json';
+
+  if ( file_exists( $child_colors_file ) ) {
+    $child_colors_content = file_get_contents( $child_colors_file );
+    $child_colors = json_decode( $child_colors_content, true );
+
+    if ( ! is_array( $child_colors ) ) {
+      $child_colors = [];
+    }
+  }
+
+  // Merge and return colors, child overriding parent
+  return array_merge($parent_colors, $child_colors);
+}

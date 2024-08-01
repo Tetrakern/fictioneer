@@ -66,18 +66,7 @@ function fictioneer_add_color_theme_option( $manager, $args ) {
   global $fictioneer_colors;
 
   if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
-    $parent_colors = @json_decode( file_get_contents( get_template_directory() . '/includes/colors.json' ), true );
-    $child_colors = @json_decode( file_get_contents( get_stylesheet_directory() . '/includes/colors.json' ), true );
-
-    if ( ! is_array( $parent_colors ) ) {
-      $parent_colors = [];
-    }
-
-    if ( ! is_array( $child_colors ) ) {
-      $child_colors = [];
-    }
-
-    $fictioneer_colors = array_merge( $parent_colors, $child_colors );
+    $fictioneer_colors = fictioneer_get_theme_colors_array();
   }
 
   $default = $args['default'] ?? $fictioneer_colors[ $args['setting'] ]['hex'] ?? '';
@@ -94,7 +83,8 @@ function fictioneer_add_color_theme_option( $manager, $args ) {
   $control_args = array(
     'label' => $args['label'],
     'section' => $args['section'],
-    'settings' => $args['setting']
+    'settings' => $args['setting'],
+    'priority' => $args['priority'] ?? 10
   );
 
   if ( $args['description'] ?? 0 ) {
@@ -181,7 +171,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'hue_offset_light',
       array(
         'type' => 'fictioneer-range',
-        'priority' => 10,
+        'priority' => 1,
         'section' => 'light_mode_colors',
         'settings' => 'hue_offset_light',
         'label' => __( 'Hue Offset', 'fictioneer' ),
@@ -211,7 +201,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'saturation_offset_light',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 2,
         'section' => 'light_mode_colors',
         'settings' => 'saturation_offset_light',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
@@ -241,7 +231,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'lightness_offset_light',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 3,
         'section' => 'light_mode_colors',
         'settings' => 'lightness_offset_light',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
@@ -271,7 +261,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'font_saturation_offset_light',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 4,
         'section' => 'light_mode_colors',
         'settings' => 'font_saturation_offset_light',
         'label' => __( 'Font Saturation Offset', 'fictioneer' ),
@@ -301,7 +291,7 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
       'font_lightness_offset_light',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 5,
         'section' => 'light_mode_colors',
         'settings' => 'font_lightness_offset_light',
         'label' => __( 'Font Lightness Offset', 'fictioneer' ),
@@ -321,7 +311,8 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     array(
       'section' => 'light_mode_colors',
       'setting' => 'light_header_title_color',
-      'label' => __( 'Light Header Title', 'fictioneer' )
+      'label' => __( 'Light Header Title', 'fictioneer' ),
+      'priority' => 6
     )
   );
 
@@ -331,7 +322,8 @@ function fictioneer_add_light_mode_customizer_settings( $manager ) {
     array(
       'section' => 'light_mode_colors',
       'setting' => 'light_header_tagline_color',
-      'label' => __( 'Light Header Tagline', 'fictioneer' )
+      'label' => __( 'Light Header Tagline', 'fictioneer' ),
+      'priority' => 7
     )
   );
 
@@ -600,7 +592,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'hue_offset',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 1,
         'section' => 'dark_mode_colors',
         'settings' => 'hue_offset',
         'label' => __( 'Hue Offset', 'fictioneer' ),
@@ -630,7 +622,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'saturation_offset',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 2,
         'section' => 'dark_mode_colors',
         'settings' => 'saturation_offset',
         'label' => __( 'Saturation Offset', 'fictioneer' ),
@@ -660,7 +652,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'lightness_offset',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 3,
         'section' => 'dark_mode_colors',
         'settings' => 'lightness_offset',
         'label' => __( 'Lightness Offset', 'fictioneer' ),
@@ -690,7 +682,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'font_saturation_offset',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 4,
         'section' => 'dark_mode_colors',
         'settings' => 'font_saturation_offset',
         'label' => __( 'Font Saturation Offset', 'fictioneer' ),
@@ -720,7 +712,7 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
       'font_lightness_offset',
       array(
         'type' => 'range-value',
-        'priority' => 10,
+        'priority' => 5,
         'section' => 'dark_mode_colors',
         'settings' => 'font_lightness_offset',
         'label' => __( 'Font Lightness Offset', 'fictioneer' ),
@@ -740,7 +732,8 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'section' => 'dark_mode_colors',
       'setting' => 'dark_header_title_color',
-      'label' => __( 'Dark Header Title', 'fictioneer' )
+      'label' => __( 'Dark Header Title', 'fictioneer' ),
+      'priority' => 6
     )
   );
 
@@ -750,7 +743,8 @@ function fictioneer_add_dark_mode_customizer_settings( $manager ) {
     array(
       'section' => 'dark_mode_colors',
       'setting' => 'dark_header_tagline_color',
-      'label' => __( 'Dark Header Tagline', 'fictioneer' )
+      'label' => __( 'Dark Header Tagline', 'fictioneer' ),
+      'priority' => 7
     )
   );
 

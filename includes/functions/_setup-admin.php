@@ -1061,8 +1061,7 @@ function fictioneer_ajax_reset_theme_colors() {
   // Setup
   $mods = get_theme_mods();
   $theme = get_option( 'stylesheet' );
-  $json_path = get_template_directory() . '/includes/functions/colors.json';
-  $fictioneer_colors = json_decode( file_get_contents( $json_path ), true );
+  $fictioneer_colors = fictioneer_get_theme_colors_array();
 
   // Abort if...
   if ( ! is_array( $fictioneer_colors ) || empty( $fictioneer_colors ) ) {
