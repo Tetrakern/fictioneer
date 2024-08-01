@@ -269,6 +269,7 @@
     z-index: 1;
     display: none;
     content-visibility: hidden;
+    background: var(--navigation-submenu-background);
     border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
     min-width: MAX(152px, 100%);
     box-shadow: var(--navigation-submenu-box-shadow);
@@ -281,10 +282,12 @@
     }
 
     .menu-item {
-      background: var(--navigation-submenu-background);
-
       &:last-child {
         border-radius: 0 0 var(--layout-border-radius-small) var(--layout-border-radius-small);
+      }
+
+      &.menu-item-has-children:first-child {
+        border-radius: var(--layout-border-radius-small) var(--layout-border-radius-small) 0 0;
       }
 
       &.menu-item-has-children {
