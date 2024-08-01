@@ -66,12 +66,18 @@ function fictioneer_add_color_theme_option( $manager, $args ) {
   global $fictioneer_colors;
 
   if ( empty( $fictioneer_colors ) && ! is_array( $fictioneer_colors ) ) {
-    $json_path = get_template_directory() . '/includes/functions/colors.json';
-    $fictioneer_colors = @json_decode( file_get_contents( $json_path ), true );
+    $parent_colors = @json_decode( file_get_contents( get_template_directory() . '/includes/colors.json' ), true );
+    $child_colors = @json_decode( file_get_contents( get_stylesheet_directory() . '/includes/colors.json' ), true );
 
-    if ( ! is_array( $fictioneer_colors ) ) {
-      $fictioneer_colors = [];
+    if ( ! is_array( $parent_colors ) ) {
+      $parent_colors = [];
     }
+
+    if ( ! is_array( $child_colors ) ) {
+      $child_colors = [];
+    }
+
+    $fictioneer_colors = array_merge( $parent_colors, $child_colors );
   }
 
   $default = $args['default'] ?? $fictioneer_colors[ $args['setting'] ]['hex'] ?? '';
