@@ -68,40 +68,36 @@
   }
 }
 
-.main-navigation {
-  .icon-menu {
-    display: none;
-    content-visibility: hidden;
+.icon-menu._in-navigation {
+  display: none;
+  content-visibility: hidden;
 
-    @include bp(desktop) {
-      display: flex;
-      content-visibility: visible;
-    }
+  @include bp(desktop) {
+    display: flex;
+    content-visibility: visible;
   }
 }
 
 .user-is-tabbing {
-  .main-navigation {
-    .icon-menu {
-      &__item {
-        &:focus-visible {
-          color: var(--navigation-color-hover);
-          background: var(--navigation-item-background-hover);
-        }
+  .icon-menu._in-navigation {
+    &__item {
+      &:focus-visible {
+        color: var(--navigation-color-hover);
+        background: var(--navigation-item-background-hover);
       }
+    }
 
-      &__menu {
-        &:focus-within {
-          > :first-child {
-            background: var(--navigation-submenu-background);
-          }
+    &__menu {
+      &:focus-within {
+        > :first-child {
+          background: var(--navigation-submenu-background);
+        }
 
-          > .sub-menu {
-            pointer-events: initial;
-            opacity: 1;
-            content-visibility: visible;
-            transform: scale(1);
-          }
+        > .sub-menu {
+          pointer-events: initial;
+          opacity: 1;
+          content-visibility: visible;
+          transform: scale(1);
         }
       }
     }

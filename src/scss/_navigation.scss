@@ -209,7 +209,9 @@
       }
     }
   }
+}
 
+:is(.main-navigation, .icon-menu) {
   .menu-item {
     position: relative;
     height: fit-content;

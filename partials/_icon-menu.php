@@ -28,7 +28,7 @@ if ( ! empty( $profile_page_id ) && $profile_page_id > 0 ) {
 
 ?>
 
-<div class="icon-menu" data-nosnippet>
+<div class="icon-menu <?php echo '_' . ( $args['location'] ?? 'location-missing' ); ?>" data-nosnippet>
   <?php if ( fictioneer_show_login() ) : ?>
     <div class="menu-item menu-item-icon subscriber-login hide-if-logged-in">
       <label
