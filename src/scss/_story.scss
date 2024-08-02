@@ -157,12 +157,12 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 
     &._float-right {
       float: right;
-      margin: 0 0 get_clamp(10, 48, 375, 768) get_clamp(24, 48, 375, 768);
+      margin: 0 0 get_clamp(10, 32, 375, 768) get_clamp(24, 32, 375, 768);
     }
 
     &._float-left {
       float: left;
-      margin: 0 get_clamp(24, 48, 375, 768) get_clamp(10, 48, 375, 768) 0;
+      margin: 0 get_clamp(24, 32, 375, 768) get_clamp(10, 32, 375, 768) 0;
     }
 
     &-ribbon {
