@@ -36,7 +36,7 @@ $show_log = $story['chapter_count'] > 0 && FICTIONEER_ENABLE_STORY_CHANGELOG && 
 $meta_output = [];
 
 // Status
-$meta_output['status'] = '<span class="story__meta-item story__status"><i class="' . $story['icon'] . '"></i> ' . $story['status'] . '</span>';
+$meta_output['status'] = '<span class="story__meta-item story__status"><i class="' . $story['icon'] . '"></i> ' . fcntr( $story['status'] ) . '</span>';
 
 // Date
 $meta_output['date'] = '<span class="story__meta-item story__date _published" title="' . esc_attr__( 'Published', 'fictioneer' ) . '"><i class="fa-solid fa-clock"></i> <span class="hide-below-480">' . get_the_time( get_option( 'date_format' ), $post ) . '</span><span class="show-below-480">' . get_the_time( FICTIONEER_STORY_FOOTER_B480_DATE, $post ) . '</span></span>';
@@ -45,7 +45,7 @@ $meta_output['date'] = '<span class="story__meta-item story__date _published" ti
 $meta_output['words'] = '<span class="story__meta-item story__words" title="' . esc_attr__( 'Total Words', 'fictioneer' ) . '"><i class="fa-solid fa-font"></i> ' . $story['word_count_short'] . '</span>';
 
 // Rating
-$meta_output['rating'] = '<span class="story__meta-item story__rating" title="' . esc_attr__( 'Rating', 'fictioneer' ) . '"><i class="fa-solid fa-exclamation-circle"></i> ' . $story['rating'] . '</span>';
+$meta_output['rating'] = '<span class="story__meta-item story__rating" title="' . esc_attr__( 'Rating', 'fictioneer' ) . '"><i class="fa-solid fa-exclamation-circle"></i> ' . fcntr( $story['rating'] ) . '</span>';
 
 // Checkmark
 if ( $story['chapter_count'] > 0 ) {
