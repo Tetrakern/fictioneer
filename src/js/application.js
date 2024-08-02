@@ -1683,7 +1683,10 @@ class FCN_KeywordInput {
   }
 
   encode(text) {
-    return encodeURIComponent(text.toLowerCase()).replace(/'/g, '%27');
+    const textEncoder = new TextEncoder();
+    const encodedText = textEncoder.encode(text.toLowerCase());
+
+    return btoa(String.fromCharCode.apply(null, encodedText));
   }
 
   filterSuggestions() {
@@ -1703,7 +1706,10 @@ class FCN_KeywordInput {
         if (suggestion.includes(value) && this.keywords.indexOf(suggestion) < 0) {
           element.hidden = false; // Show
           count++; // Count of suggestions
-          if (match == '' && suggestion.startsWith(value)) match = suggestion; // Tab suggestion
+
+          if (match == '' && suggestion.startsWith(value)) {
+            match = suggestion; // Tab suggestion
+          }
         } else {
           element.hidden = true; // Hide
         }

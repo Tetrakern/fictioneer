@@ -90,12 +90,12 @@ if ( $show_advanced ) {
   $allow_list = [];
 
   foreach ( $all_terms as $term ) {
-    $allow_list[ rawurlencode( strtolower( $term->name ) ) ] = $term->term_id;
+    $allow_list[ base64_encode( mb_strtolower( $term->name, 'UTF-8' ) ) ] = $term->term_id;
   }
 
   if ( ! $skip_author_keywords ) {
     foreach ( $all_authors as $author ) {
-      $author_key = rawurlencode( strtolower( $author->display_name ) );
+      $author_key = base64_encode( mb_strtolower( $author->display_name, 'UTF-8' ) );
 
       $allow_list[ $author_key . '_' . $author->ID ] = $author->ID;
     }
