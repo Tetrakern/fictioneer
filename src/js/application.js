@@ -1825,7 +1825,7 @@ class FCN_KeywordInput {
         }
 
         // Empty?
-        this.block.classList.toggle('_empty', event.currentTarget.value === '');
+        this.block.classList.toggle('_empty', event.currentTarget.value === '' && this.collection.value === '');
 
         // Filter suggestions
         this.filterSuggestions();
