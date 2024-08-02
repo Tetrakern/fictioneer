@@ -1660,6 +1660,8 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
 
   $story_cover_positions = array(
     'top-left-overflow' => _x( 'Top-Left Overflow (Default)', 'Customizer story cover position option.', 'fictioneer' ),
+    'float-top-left' => _x( 'Floating Top-Left', 'Customizer story cover position option.', 'fictioneer' ),
+    'float-top-right' => _x( 'Floating Top-Right', 'Customizer story cover position option.', 'fictioneer' ),
     'float-left' => _x( 'Floating Left', 'Customizer story cover position option.', 'fictioneer' ),
     'float-right' => _x( 'Floating Right', 'Customizer story cover position option.', 'fictioneer' ),
     'hide' => _x( 'Hide', 'Customizer story cover position option.', 'fictioneer' )

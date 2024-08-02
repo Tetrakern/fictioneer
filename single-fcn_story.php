@@ -74,7 +74,7 @@ get_header(
         }
 
         if (
-          ! in_array( $cover_position, ['top-left-overflow', 'hide'] ) &&
+          in_array( $cover_position, ['float-left', 'float-right'] ) &&
           has_post_thumbnail( $story_id ) &&
           ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true )
         ) {

@@ -129,12 +129,49 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
     }
 
     &._no-thumbnail {
-      margin-top: var(--page-inset-top);
-      margin-bottom: 1.75rem;
-
       .story__taxonomies {
         margin-bottom: 1.5rem;
       }
+    }
+
+    &:is(._no-thumbnail, ._float-top-left, ._float-top-right) {
+      display: block;
+      margin-top: var(--page-inset-top);
+      margin-bottom: 1.75rem;
+    }
+
+    &:is(._float-top-left, ._float-top-right) {
+      .story__taxonomies {
+        margin-top: .5rem;
+      }
+
+      &:not(._no-thumbnail) .story__taxonomies-space {
+        height: 1.5rem;
+      }
+
+      .story__identity {
+        display: inline;
+      }
+    }
+
+    &:is(._float-top-left, ._float-top-right) .story__thumbnail {
+      --this-img-height: auto;
+      --this-img-width: #{get_clamp(56, 200, 320, 768)};
+
+      &-image {
+        max-width: var(--this-img-width);
+        max-height: 300px;
+      }
+    }
+
+    &._float-top-left .story__thumbnail {
+      float: left;
+      margin: 0 get_clamp(20, 32, 375, 768) get_clamp(10, 32, 375, 768) 0;
+    }
+
+    &._float-top-right .story__thumbnail {
+      float: right;
+      margin: 0 0 get_clamp(10, 32, 375, 768) get_clamp(20, 32, 375, 768);
     }
   }
 
