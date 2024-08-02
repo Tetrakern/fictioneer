@@ -166,12 +166,12 @@ body:not(.logged-in) .story__actions :first-child:nth-last-child(3) {
 
     &._float-top-left .story__thumbnail {
       float: left;
-      margin: 0 get_clamp(20, 32, 375, 768) get_clamp(10, 32, 375, 768) 0;
+      margin: 0 get_clamp(20, 32, 375, 768) get_clamp(10, 24, 375, 768) 0;
     }
 
     &._float-top-right .story__thumbnail {
       float: right;
-      margin: 0 0 get_clamp(10, 32, 375, 768) get_clamp(20, 32, 375, 768);
+      margin: 0 0 get_clamp(10, 24, 375, 768) get_clamp(20, 32, 375, 768);
     }
   }
 
