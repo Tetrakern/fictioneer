@@ -29,9 +29,11 @@ if ( function_exists( 'elementor_theme_do_location' ) && elementor_theme_do_loca
 $story = $args['story_data'];
 $story_id = $args['story_id'];
 $post = get_post( $story_id );
+
 $thumbnail_shown = has_post_thumbnail( $story_id ) &&
   ! get_post_meta( $story_id, 'fictioneer_story_no_thumbnail', true ) &&
   get_theme_mod( 'story_cover_position', 'top-left-overflow' ) === 'top-left-overflow';
+
 $tax_shown = ! get_option( 'fictioneer_hide_taxonomies_on_pages' ) &&
   $story['has_taxonomies'] &&
   ! get_post_meta( $story_id, 'fictioneer_story_no_tags', true );
