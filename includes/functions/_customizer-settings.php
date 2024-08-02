@@ -1675,8 +1675,7 @@ function fictioneer_add_layout_customizer_settings( $manager ) {
       'section' => 'layout',
       'label' => __( 'Story Page Cover Position', 'fictioneer' ),
       'description' => __( 'Choose where to display the cover.', 'fictioneer' ),
-      'choices' =>
-      apply_filters( 'fictioneer_filter_customizer_story_cover_position', $story_cover_positions )
+      'choices' => apply_filters( 'fictioneer_filter_customizer_story_cover_position', $story_cover_positions )
     )
   );
 
