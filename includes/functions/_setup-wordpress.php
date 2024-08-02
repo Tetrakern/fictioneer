@@ -1547,3 +1547,11 @@ function fictioneer_remove_emoji_resource_hint( $urls, $relation_type ) {
 
   return $urls;
 }
+
+// =============================================================================
+// REMOVE UNNECESSARY & PERFORMANCE-WASTING FILTERS
+// =============================================================================
+
+remove_filter( 'the_title', 'capital_P_dangit', 11 );
+remove_filter( 'the_content', 'capital_P_dangit', 11 );
+remove_filter( 'comment_text', 'capital_P_dangit', 31 );
